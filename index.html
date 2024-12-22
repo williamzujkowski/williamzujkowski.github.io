@@ -1,469 +1,103 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 
 <head>
+    <!-- Meta Tags for SEO and Responsive Design -->
     <meta charset="UTF-8">
-    <title>William Zujkowski's Personal Website</title>
-    <meta name="description"
-        content="Welcome to the personal website of William Zujkowski, showcasing homelab projects, professional interests, memberships, curated links, blog posts, and ways to connect.">
-    <meta name="keywords"
-        content="Homelab, Proxmox VE, ARM Devices, Networking, Automation, William Zujkowski, Personal Website, Blog">
+    <meta name="description" content="William Zujkowski - IT Engineer, Security Enthusiast, and Homelab Tinkerer.">
+    <meta name="keywords" content="William Zujkowski, Software Engineer, Security, Homelab, Projects, Blog">
     <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "William Zujkowski",
-      "url": "https://grenlan.com",
-      "sameAs": [
-        "https://github.com/williamzujkowski",
-        "https://www.linkedin.com/in/williamzujkowski/",
-        "https://steamcommunity.com/id/grenlan/"
-      ],
-      "jobTitle": "Security Engineer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Your Organization Name"
-      },
-      "alumniOf": "null",
-      "description": "William Zujkowski is passionate about building and managing homelab projects, large datasets, security, and automation."
-    }
-    </script>
-
-    <!-- Pico CSS -->
-    <link rel="stylesheet" href="pico.indigo.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Title -->
+    <title>William Zujkowski - Software Engineer and Security Enthusiast</title>
 
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-    <!-- Smooth Scrolling -->
+    <!-- Pico CSS (Indigo Color Scheme) -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="pico.indigo.css">
+
+    <!-- Additional Custom Styles -->
     <style>
-        html {
-            scroll-behavior: smooth;
+        /* Add any additional custom styles here */
+        #secret-message,
+        #secret-code {
+            display: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .hero img {
+            border-radius: 50%;
+            max-width: 150px;
+        }
+
+        .link-category ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .link-category li::before {
+            content: "• ";
+            color: var(--pico-primary);
+        }
+
+        /* Secret content styling */
+        #secret-code {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--pico-contrast-background);
+            border-radius: var(--pico-border-radius);
+            margin: 2rem 0;
+        }
+
+        #secret-code img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--pico-border-radius);
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Skip Navigation Link for Accessibility -->
-    <a href="#main-content" class="skip-link">Skip to content</a>
-
     <!-- Header -->
     <header>
-        <div class="container">
-            <h1>William Zujkowski</h1>
-            <nav aria-label="Main Navigation">
-                <ul>
-                    <li><a href="#homelab">Homelab</a></li>
-                    <li><a href="#passions">Passions</a></li>
-                    <li><a href="#interests">Interests</a></li>
-                    <li><a href="#memberships">Memberships</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#links">Links</a></li>
-                    <li><a href="#connect">Connect</a></li>
-                </ul>
-            </nav>
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
-        </div>
+        <nav>
+            <ul>
+                <li><button id="theme-toggle">🌙</button></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Main Content -->
-    <main id="main-content" class="container">
-        <!-- Introduction Section -->
-        <section>
-            <header>
-                <h1>Welcome to My Personal Website</h1>
-            </header>
-            <article>
-                <p>Hello! I'm William Zujkowski, an IT engineer with a passion for technology, gaming, and
-                    exploration.</p>
-            </article>
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="simpson_profile.png" alt="Profile Picture" loading="lazy">
+            <h1>Hi, I'm William!</h1>
+            <p>Computer Engineer, Security Enthusiast, and Homelab Tinkerer.</p>
         </section>
 
-        <!-- Blog Section -->
-        <section id="blog">
+        <!-- About Me Section -->
+        <section id="about">
             <header>
-                <h2>Blog Posts</h2>
-            </header>
-
-            <!-- Blog Post 1 -->
-            <article>
-                <details>
-                    <summary>Homelab Adventures: Scaling with Proxmox and ARM Devices</summary>
-                    <time datetime="2024-09-14">September 14, 2024</time>
-                    <p>Over the past year, my homelab has evolved from a simple setup to a robust environment that
-                        mirrors enterprise-level infrastructure. I've been leveraging <a
-                            href="https://www.proxmox.com/en/" target="_blank" rel="noopener noreferrer">Proxmox VE</a>
-                        to orchestrate a fleet of servers and devices, and it's been an incredible journey.</p>
-
-                    <p><strong>The Backbone: Dell R910</strong></p>
-                    <p>At the core of my homelab is a Dell R910 server, boasting 256GB of RAM and 48 threads. This
-                        powerhouse serves as the primary node in my Proxmox cluster. Its processing capability allows me
-                        to run multiple virtual machines (VMs) and containers without breaking a sweat.</p>
-
-                    <p><strong>Expanding the Cluster</strong></p>
-                    <p>To achieve high availability (HA) and establish a quorum, I've added two more Proxmox nodes.
-                        These additional hosts ensure that if one node goes down, the others can take over seamlessly.
-                        Setting up the cluster involved configuring shared storage, networking, and synchronization
-                        between nodes. The process was educational and significantly improved the resilience of my
-                        services.</p>
-
-                    <p><strong>Networking with Ubiquiti</strong></p>
-                    <p>My network infrastructure is powered by Ubiquiti equipment, including a firewall, router, switch,
-                        and Wi-Fi 7 access points. The Ubiquiti ecosystem offers excellent performance and granular
-                        control over network configurations. With the Unifi Controller, I can monitor traffic, set up
-                        VLANs, and manage devices from a single interface.</p>
-
-                    <p><strong>Embracing ARM Architecture</strong></p>
-                    <p>In addition to x86 servers, I've incorporated ARM-based single-board computers (SBCs) into my
-                        homelab:</p>
-                    <ul>
-                        <li><a href="https://shop.zimaboard.com/products/zimablade-single-board-server-for-cyber-native"
-                                target="_blank" rel="noopener noreferrer">Zimablades</a>: These compact yet powerful
-                            SBCs are perfect for lightweight services and edge computing tasks.</li>
-                        <li><strong>Raspberry Pi 5</strong>: The latest iteration offers improved performance, making it
-                            suitable for a variety of applications.</li>
-                        <li><strong>Other ARM-based SBCs</strong>: Running Debian 12, these devices are prepped for
-                            automated rollout using Ansible and Docker.</li>
-                    </ul>
-
-                    <p>Integrating ARM devices allows me to experiment with energy-efficient computing and distributed
-                        workloads. They are particularly useful for hosting DNS servers, lightweight web services, and
-                        IoT applications.</p>
-
-                    <p><strong>Automation and Management</strong></p>
-                    <p>To manage this diverse environment, I've implemented automation tools:</p>
-                    <ul>
-                        <li><strong>Ansible</strong>: Automates the configuration and deployment of services across all
-                            devices.</li>
-                        <li><strong>Docker</strong>: Containerizes applications for consistent deployment.</li>
-                        <li><strong>Proxmox Backup Server</strong>: Ensures regular backups of VMs and containers.</li>
-                    </ul>
-
-                    <p><strong>Challenges and Learnings</strong></p>
-                    <p>Setting up a homelab of this scale wasn't without challenges. Network configuration, storage
-                        management, and compatibility issues required troubleshooting and research. However, overcoming
-                        these hurdles has been rewarding and has deepened my understanding of system administration and
-                        networking.</p>
-
-                    <p><strong>Future Plans</strong></p>
-                    <p>I'm planning to explore Kubernetes for container orchestration and to further enhance the HA
-                        capabilities of my homelab. Additionally, integrating monitoring tools like Prometheus and
-                        Grafana is on the horizon to gain better insights into system performance.</p>
-
-                    <p>If you're considering building or expanding your own homelab, I highly recommend diving in. It's
-                        a fantastic way to learn, experiment, and have full control over your computing environment.
-                        Feel free to reach out if you have questions or want to share your own experiences!</p>
-                </details>
-            </article>
-
-            <!-- Blog Post 2 -->
-            <article>
-                <details>
-                    <summary>Debugging, Pizza, and Cyber Defense</summary>
-                    <time datetime="2024-08-08">August 8, 2024</time>
-                    <p>Debugging is the final raid boss of coding—except this boss is an ex-NSA cryptographer who wields
-                        <em>NullPointerExceptions</em> and <em>Segmentation Faults</em> like they're going out of style.
-                        But fear not! Just as a zero-day exploit can turn the tide in cyber defense, the right
-                        strategy—and the right fuel—can help you conquer any code beast. Enter: pizza.
-                    </p>
-
-                    <p>We've all reached that point where every line of code feels like a riddle wrapped in an enigma,
-                        served with a side of sarcasm from the compiler. That's when you know it's time to consult the
-                        <a href="https://grenlan.com/pizza.html" target="_blank" rel="noopener noreferrer">Pizza
-                            Calculator for IT Engineers</a>. Why waste brainpower estimating pepperoni quantities when
-                        you could be figuring out why your containers are mysteriously crashing?
-                    </p>
-
-                    <p>Whether you're a fan of <strong>Quantum Blockchain Pizza</strong> (each slice is simultaneously
-                        delicious and nonexistent) or prefer the scalability of <strong>Auto-Scaling Cloud
-                            Pizza</strong> (infinite slices, unpredictable billing), we've got your cravings covered.
-                    </p>
-
-                    <p><strong>Pro Tip</strong>: After four hours of debugging, your code might still be throwing
-                        errors, but your hunger levels will have scaled exponentially. That's why we recommend upgrading
-                        to the <strong>Pizza Elite+ plan</strong>. Think of it as horizontal scaling for your appetite.
-                    </p>
-
-                    <p>Also, a quick note to the team: The <strong>Wi-Fi Pineapple Pizza</strong> has been officially
-                        banned from the office. For the uninitiated, a Wi-Fi Pineapple is a device used in penetration
-                        testing to perform network audits—but in our culinary context, the pineapple chunks kept
-                        hijacking toppings from neighboring slices. It's like a man-in-the-middle attack but for your
-                        pizza!</p>
-
-                    <p>So next time debugging feels like a distributed denial-of-service attack on your sanity, grab a
-                        slice, fire up the <a href="https://grenlan.com/pizza.html" target="_blank"
-                            rel="noopener noreferrer">Pizza Calculator</a>, and keep coding. And remember, if all else
-                        fails, there's always more pizza. 🍕</p>
-                </details>
-            </article>
-
-            <!-- Blog Post 3 -->
-            <article>
-                <details>
-                    <summary>The Origin of Grenlan</summary>
-                    <time datetime="2024-07-12">July 12, 2024</time>
-                    <p>Back in the summer of '99, I was diving headfirst into <a href="https://www.everquest.com/home"
-                            target="_blank" rel="noopener noreferrer">EverQuest</a>, one of the pioneering MMORPGs that
-                        defined a generation of online gaming. This was the era of dial-up connections, where the
-                        symphony of modem noises was the soundtrack to our digital adventures. EverQuest opened up the
-                        expansive world of Norrath, a place where thousands could quest, battle mythical creatures, and
-                        forge friendships.</p>
-
-                    <p>Choosing a character class was no trivial matter, and I found myself drawn to the Bard. Bards in
-                        EverQuest were the ultimate multi-taskers—musical maestros who could boost allies, debuff foes,
-                        and traverse the land with unmatched speed. They were the Swiss Army knife of classes, bringing
-                        versatility and charm to any party.</p>
-
-                    <p>But I hit a snag: what to name my half-elf bard? Inspiration struck when I recalled the Caesar
-                        cipher—a simple yet classic encryption technique where each letter in the plaintext is shifted a
-                        certain number of places down or up the alphabet. I took the letters of my own name, applied a
-                        few shifts, jumbled them around, and out came "Grenlan." It was unique, had a nice ring to it,
-                        and perfectly suited my bard's adventures in Norrath. You can still check out my old <a
-                            href="https://ap.tritonguild.net/character.php?char=grenlan" target="_blank"
-                            rel="noopener noreferrer">character profile</a>.</p>
-
-                    <p>Since then, "Grenlan" has become more than just a gaming alias—it's an extension of my digital
-                        identity. From epic raids in <a href="https://worldofwarcraft.com/" target="_blank"
-                            rel="noopener noreferrer">World of Warcraft</a> to tabletop campaigns in <a
-                            href="https://dnd.wizards.com/" target="_blank" rel="noopener noreferrer">Dungeons and
-                            Dragons</a>, Grenlan has been there, embodying the spirit of adventure and camaraderie.</p>
-
-                    <p>One of the highlights of my gaming journey has been my time with the high-end raiding guild <a
-                            href="https://www.tritonguild.net/" target="_blank" rel="noopener noreferrer">Triton</a>.
-                        Occasionally, nostalgia calls, and I log back into EverQuest to join raids, reconnect with old
-                        friends, and relive those epic battles. There's something magical about coordinating with a team
-                        to overcome challenges, especially when everyone's on a shaky dial-up connection!</p>
-
-                    <p>Creating "Grenlan" taught me that sometimes the best ideas come from blending different
-                        passions—in this case, cryptography and gaming. It's a reminder of how far I've come since those
-                        early days and how certain experiences leave a lasting imprint. If you've got a gaming alias or
-                        a story behind your online persona, feel free to share it. I'd love to hear your tales!</p>
-                </details>
-            </article>
-
-            <!-- Blog Post 4 -->
-            <article>
-                <details>
-                    <summary>The Power of Python: Simplifying Complex Tasks</summary>
-                    <time datetime="2024-06-15">June 15, 2024</time>
-                    <p>Python has always been my go-to language for automating tasks and developing quick prototypes.
-                        Its simplicity and readability make it an excellent choice for both beginners and seasoned
-                        developers.</p>
-                    <p>Recently, I worked on a project that required parsing large XML files and extracting specific
-                        data points. Here's a snippet of the code I used:</p>
-                    <pre><code class="language-python">
-import xml.etree.ElementTree as ET
-
-def parse_xml(file_path):
-    """
-    Parses an XML file and extracts data from 'DataPoint' elements.
-
-    Args:
-        file_path (str): The path to the XML file.
-
-    Returns:
-        list: A list containing the extracted data.
-    """
-    try:
-        # Load and parse the XML file
-        tree = ET.parse(file_path)
-        root = tree.getroot()
-        data = []
-
-        # Iterate through all 'DataPoint' elements
-        for element in root.findall('.//DataPoint'):
-            data.append(element.text)
-
-        return data
-
-    except ET.ParseError as e:
-        print(f"Error parsing XML file: {e}")
-        return []
-    except FileNotFoundError:
-        print("The specified XML file was not found.")
-        return []
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        return []
-
-# Usage example
-if __name__ == "__main__":
-    xml_data = parse_xml("data.xml")
-    if xml_data:
-        print("Data extracted successfully:")
-        for item in xml_data:
-            print(item)
-    else:
-        print("No data extracted.")
-                    </code></pre>
-                    <p>In this code, I implemented graceful error handling to catch and report any parsing errors or
-                        unexpected exceptions. This ensures that the program doesn't crash and provides meaningful
-                        feedback to the user.</p>
-                    <p>Adding thorough comments and error handling not only makes the code more robust but also easier
-                        to maintain and understand. Always remember to handle exceptions that might occur during file
-                        operations or data processing.</p>
-                </details>
-            </article>
-
-            <!-- Blog Post 5 -->
-            <article>
-                <details>
-                    <summary>Embracing the Command Line: Bash Scripts That Make Life Easier</summary>
-                    <time datetime="2024-05-10">May 10, 2024</time>
-                    <p>The command line is often seen as a relic from the past, but for me, it's an indispensable tool.
-                        There's something empowering about typing commands and seeing immediate results, especially when
-                        dealing with repetitive tasks.</p>
-
-                    <p>One of my favorite bash scripts automates the backup of important files. Here's a simplified
-                        version:</p>
-
-                    <pre><code class="language-bash">
-#!/bin/bash
-
-# backup.sh - Backs up important files to a specified directory
-
-SOURCE_DIR="$HOME/Documents"
-BACKUP_DIR="$HOME/Backups/$(date +%Y-%m-%d)"
-
-# Create backup directory if it doesn't exist
-mkdir -p "$BACKUP_DIR"
-
-# Copy files while preserving attributes
-cp -a "$SOURCE_DIR/." "$BACKUP_DIR"
-
-# Check if the copy was successful
-if [ $? -eq 0 ]; then
-    echo "Backup completed successfully."
-else
-    echo "Backup failed."
-fi
-                    </code></pre>
-
-                    <p>This script creates a dated backup of my Documents folder. It includes error handling to check if
-                        the copy operation was successful. Simple scripts like this can save time and ensure that
-                        important data is preserved.</p>
-
-                    <p>If you're new to the command line, I encourage you to explore. Start with basic commands, and
-                        before you know it, you'll be scripting your own solutions!</p>
-                </details>
-            </article>
-
-            <!-- Blog Post 6 -->
-            <article>
-                <details>
-                    <summary>Homelab Adventures: Building a Proxmox Cluster and automating with Ansible</summary>
-                    <time datetime="2024-04-01">April 1, 2024</time>
-                    <p>As my interest in homelabs grew, I decided to take on a new challenge: building a Proxmox cluster
-                        using a mix of x86 and ARM-based devices. The goal was to create a scalable, energy-efficient
-                        setup that could handle various services and workloads.</p>
-
-                    <p><strong>Setting Up the Cluster</strong></p>
-                    <p>I started by installing Proxmox VE on two additional hosts to achieve a three-node cluster for
-                        quorum and high availability (HA). The nodes communicate over a dedicated network, ensuring
-                        minimal latency and improved performance.</p>
-
-                    <p><strong>Integrating ARM Devices</strong></p>
-                    <p>To complement the x86 servers, I incorporated ARM-based single-board computers:</p>
-                    <ul>
-                        <li><a href="https://shop.zimaboard.com/products/zimablade-single-board-server-for-cyber-native"
-                                target="_blank" rel="noopener noreferrer">Zimablades</a>: Ideal for lightweight
-                            container workloads and testing environments.</li>
-                        <li><strong>Raspberry Pi 5</strong>: Used for hosting IoT services and as a monitoring node.
-                        </li>
-                    </ul>
-
-                    <p>These devices run Debian 12 and are configured for automated deployment using Ansible. While
-                        Proxmox doesn't natively support ARM architecture for virtualization, the ARM devices are
-                        integrated into the network and managed alongside the Proxmox cluster.</p>
-
-                    <p><strong>Network Infrastructure</strong></p>
-                    <p>The homelab network is powered by Ubiquiti equipment:</p>
-                    <ul>
-                        <li><strong>Firewall and Router</strong>: Secure and manage network traffic.</li>
-                        <li><strong>Switch</strong>: Provides connectivity between all devices with VLAN support.</li>
-                        <li><strong>Wi-Fi 7 Access Points</strong>: Offer high-speed wireless connectivity throughout
-                            the house.</li>
-                    </ul>
-
-                    <p>The Unifi Controller allows centralized management of all network components, making it easier to
-                        implement network policies and monitor performance.</p>
-
-                    <p><strong>Automated Rollout</strong></p>
-                    <p>Automation is key to managing a homelab efficiently. Using Ansible, I can:</p>
-                    <ul>
-                        <li>Provision new servers and devices.</li>
-                        <li>Deploy updates and patches.</li>
-                        <li>Configure services consistently across all nodes.</li>
-                    </ul>
-
-                    <p>Docker is used extensively for containerization, enabling me to run applications in isolated
-                        environments regardless of the underlying hardware.</p>
-
-                    <p><strong>Benefits and Insights</strong></p>
-                    <p>This project taught me a lot about mixed architecture environments, networking, and automation.
-                        The combination of Proxmox and ARM devices provides a flexible platform for experimentation and
-                        learning.</p>
-
-                    <p>If you're interested in homelabs or considering building a cluster, don't hesitate to dive in.
-                        There's a wealth of knowledge to gain, and the community is always willing to help.</p>
-                </details>
-            </article>
-
-        </section>
-
-        <!-- Personal Passions Section -->
-        <section id="passions">
-            <header>
-                <h2>Personal Passions</h2>
+                <h2>About Me</h2>
             </header>
             <article>
-                <p>Here are some of my personal interests and passions:</p>
-                <ul>
-                    <li>Adventures with my wife and 1-year-old son</li>
-                    <li>Playing video games on <a href="https://steamcommunity.com/id/grenlan/" target="_blank"
-                            rel="noopener noreferrer">Steam</a></li>
-                    <li>Enjoying <a href="https://www.youtube.com/watch?v=kj0GDeS4A1c" target="_blank"
-                            rel="noopener noreferrer">board games</a> and <a
-                            href="https://www.youtube.com/watch?v=MaiUUitZbns" target="_blank"
-                            rel="noopener noreferrer">card games</a></li>
-                    <li><a href="https://www.goodreads.com/review/list/52529234-william-zujkowski?shelf=read"
-                            target="_blank" rel="noopener noreferrer">Reading</a></li>
-                </ul>
-            </article>
-        </section>
-
-        <!-- Professional Interests Section -->
-        <section id="interests">
-            <header>
-                <h2>Professional Interests</h2>
-            </header>
-            <article>
-                <p>I am passionate about the following professional fields:</p>
-                <ul>
-                    <li><a href="https://github.com/greatscottgadgets/hackrf" target="_blank"
-                            rel="noopener noreferrer">Software-defined Radio</a> - HackRF platform for SDR enthusiasts
-                    </li>
-                    <li><a href="https://supercomputing.org/" target="_blank"
-                            rel="noopener noreferrer">Supercomputing</a> - High-performance computing resources</li>
-                    <li><a href="https://www.kaggle.com/williamzujkowski" target="_blank"
-                            rel="noopener noreferrer">Analyzing Large Datasets</a> - Data science projects on Kaggle
-                    </li>
-                    <li><a href="https://huggingface.co/Chaosagent" target="_blank" rel="noopener noreferrer">Exploring
-                            AI</a> - AI models and tools on Hugging Face</li>
-                    <li><a href="https://info.cern.ch/hypertext/WWW/TheProject.html" target="_blank"
-                            rel="noopener noreferrer">The FIRST website</a> - The WorldWideWeb (W3) is a wide-area
-                        hypermedia information retrieval initiative aiming to give universal access to a large universe
-                        of documents.</li>
-                </ul>
+                <p>I'm a passionate Computer engineer with a keen interest in security and infrastructure automation.
+                    When I'm not coding, you can find me tinkering with my homelab or exploring the latest tech trends.
+                </p>
+                <p>Fun fact: It makes me happy that <a href="http://info.cern.ch/hypertext/WWW/TheProject.html"
+                        target="_blank" rel="noopener noreferrer">The FIRST website</a> is still online!</p>
             </article>
         </section>
 
@@ -491,103 +125,217 @@ fi
             </article>
         </section>
 
+        <!-- Blog Section -->
+        <section id="blog">
+            <header>
+                <h2>Blog Posts</h2>
+            </header>
+
+            <!-- Blog Post 1 -->
+            <article>
+                <details>
+                    <summary>Homelab Adventures: Scaling with Proxmox and ARM Devices</summary>
+                    <time datetime="2024-09-14">September 14, 2024</time>
+                    <p>Hey there, fellow tech enthusiasts! Today, I'm excited to share my journey of scaling up my
+                        homelab using Proxmox and some nifty ARM devices. Buckle up; it's been a wild ride!</p>
+                    <h3>Why Scale Up?</h3>
+                    <p>So, my projects were getting a bit... ambitious. Running multiple services on a single machine
+                        was like trying to juggle flaming torches—exciting but risky. I needed more horsepower without
+                        burning a hole in my pocket or my electricity bill.</p>
+                    <h3>Enter Proxmox and ARM Devices</h3>
+                    <p>I stumbled upon <a href="https://www.proxmox.com/en/" target="_blank"
+                            rel="noopener noreferrer">Proxmox</a>, an open-source virtualization platform that's as cool
+                        as it sounds. Pair that with some <a
+                            href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/" target="_blank"
+                            rel="noopener noreferrer">Raspberry Pi 4</a> units, and voila! I had a scalable,
+                        energy-efficient setup.</p>
+                    <h3>The Setup</h3>
+                    <p>Setting up Proxmox on ARM devices wasn't straightforward. It felt like teaching a cat to
+                        fetch—not impossible but definitely challenging. Thankfully, the community came to the rescue.
+                        Shoutout to the awesome folks on the <a href="https://forum.proxmox.com/" target="_blank"
+                            rel="noopener noreferrer">Proxmox forums</a>!</p>
+                    <h3>Challenges and How I Overcame Them</h3>
+                    <ul>
+                        <li><strong>Networking Woes:</strong> Configuring the network across multiple devices was like
+                            untangling earphones. I used VLANs to segment traffic, which helped keep things organized.
+                        </li>
+                        <li><strong>Storage Constraints:</strong> SD cards are great until they're not. I added external
+                            SSDs for faster and more reliable storage.</li>
+                        <li><strong>Compatibility Issues:</strong> Some software just doesn't play nice with ARM
+                            architecture. I had to find alternatives or compile from source.</li>
+                    </ul>
+                    <h3>Was It Worth It?</h3>
+                    <p>Absolutely! My homelab is now a powerhouse, and I didn't have to sell a kidney to fund it. Plus,
+                        I learned a ton along the way.</p>
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://pimylifeup.com/raspberry-pi-proxmox/" target="_blank"
+                                rel="noopener noreferrer">Installing Proxmox on Raspberry Pi</a></li>
+                        <li><a href="https://www.reddit.com/r/homelab/" target="_blank"
+                                rel="noopener noreferrer">r/homelab on Reddit</a> - For all your homelab inspiration and
+                            troubleshooting needs.</li>
+                    </ul>
+                    <h3>Final Thoughts</h3>
+                    <p>If you're considering scaling your homelab, give Proxmox and ARM devices a shot. It's like
+                        building your own mini data center at home—just with fewer security guards and more pets
+                        wandering around.</p>
+                </details>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article>
+                <details>
+                    <summary>Securing Container Deployments with Ansible</summary>
+                    <time datetime="2024-10-20">October 20, 2024</time>
+                    <p>Greetings, code wranglers! Ever deployed a container and thought, "Did I lock all the doors?"
+                        Well, I've been there, and today I'm sharing how I use Ansible to secure my container
+                        deployments without losing my sanity.</p>
+                    <h3>The Problem with Manual Deployment</h3>
+                    <p>Manual deployment is like doing laundry by hand—not efficient and prone to mistakes. Plus, in the
+                        security world, one small slip can lead to big headaches.</p>
+                    <h3>Why Ansible?</h3>
+                    <p><a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible</a> is like
+                        the Swiss Army knife of automation tools. It's simple, agentless, and powerful. With Ansible, I
+                        can automate deployments and ensure security configurations are consistent across all
+                        containers.</p>
+                    <h3>My Playbook to Success</h3>
+                    <p>I crafted Ansible playbooks that handle everything from spinning up containers to applying
+                        security hardening. Here's a snippet of what my playbook includes:</p>
+                    <pre><code>- name: Deploy Secure Container
+  hosts: servers
+  tasks:
+    - name: Pull latest Docker image
+      docker_image:
+        name: my_secure_app
+        source: pull
+    - name: Run container with security options
+      docker_container:
+        name: secure_app
+        image: my_secure_app
+        security_opts:
+          - no-new-privileges
+        read_only: yes
+</code></pre>
+                    <h3>Security Best Practices Implemented</h3>
+                    <ul>
+                        <li><strong>Least Privilege:</strong> Containers run with minimal privileges, reducing the
+                            attack surface.</li>
+                        <li><strong>Immutable Containers:</strong> Setting containers to read-only mode to prevent
+                            unauthorized changes.</li>
+                        <li><strong>Regular Updates:</strong> Automating updates to ensure all containers have the
+                            latest security patches.</li>
+                    </ul>
+                    <h3>Useful Resources</h3>
+                    <ul>
+                        <li><a href="https://docs.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible
+                                Documentation</a> - The go-to resource for all things Ansible.</li>
+                        <li><a href="https://docs.docker.com/engine/security/" target="_blank"
+                                rel="noopener noreferrer">Docker Security</a> - Best practices for securing Docker
+                            containers.</li>
+                        <li><a href="https://www.cisecurity.org/benchmark/docker/" target="_blank"
+                                rel="noopener noreferrer">CIS Docker Benchmarks</a> - Guidelines for securing Docker
+                            environments.</li>
+                    </ul>
+                    <h3>Wrapping Up</h3>
+                    <p>Automating with Ansible has been a game-changer. Not only do I save time, but I also sleep better
+                        knowing my deployments are secure. If you haven't tried it yet, what are you waiting for? Give
+                        it a whirl!</p>
+                </details>
+            </article>
+
+        </section>
+
         <!-- Curated Links Section -->
         <section id="links">
             <header>
                 <h2>Curated Links</h2>
             </header>
 
-            <details>
-                <summary>Science and Exploration</summary>
+            <!-- Science and Exploration -->
+            <div class="link-category">
+                <h3>🚀 Science and Exploration</h3>
                 <ul>
+                    <li><a href="https://apod.nasa.gov/apod/" target="_blank" rel="noopener noreferrer">NASA Astronomy
+                            Picture of the Day</a> - Daily astronomical images and explanations.</li>
+                    <li><a href="https://phys.org/" target="_blank" rel="noopener noreferrer">Phys.org</a> - Latest news
+                        on science and technology.</li>
                     <li><a href="https://www.centauri-dreams.org/" target="_blank" rel="noopener noreferrer">Centauri
-                            Dreams</a> - Paul Gilster's blog on deep space exploration and interstellar travel
-                        possibilities.</li>
+                            Dreams</a> - Deep space exploration and interstellar travel possibilities.</li>
                     <li><a href="https://tauzero.aero/" target="_blank" rel="noopener noreferrer">The Tau Zero
-                            Foundation</a> - Explores the science behind interstellar travel and advances in space
-                        exploration.</li>
+                            Foundation</a> - Science behind interstellar travel.</li>
+                    <li><a href="https://mars.nasa.gov/" target="_blank" rel="noopener noreferrer">NASA Mars
+                            Exploration</a> - Updates on Mars missions and discoveries.</li>
                 </ul>
-            </details>
+            </div>
 
-            <details>
-                <summary>Games and Entertainment</summary>
+            <!-- Games and Entertainment -->
+            <div class="link-category">
+                <h3>🎮 Games and Entertainment</h3>
                 <ul>
                     <li><a href="https://loderunnerwebgame.com/LodeRunner/" target="_blank"
-                            rel="noopener noreferrer">LodeRunner</a> - An HTML5 remake of LodeRunner.</li>
+                            rel="noopener noreferrer">LodeRunner</a> - HTML5 remake of LodeRunner.</li>
                     <li><a href="https://www.decisionproblem.com/paperclips/" target="_blank"
                             rel="noopener noreferrer">Paperclip AI Game</a> - A game about making paperclips.</li>
                     <li><a href="https://zombo.com/" target="_blank" rel="noopener noreferrer">Zombo.com</a> - Endless
                         possibilities await.</li>
-                    <li><a href="https://www.bbc.co.uk/programmes/articles/1KfYb5qlvYqjgq2wDPSB96n/the-hitchhiker-s-guide-to-the-galaxy-game-30th-anniversary-edition"
-                            target="_blank" rel="noopener noreferrer">The Hitchhiker's Guide to the Galaxy Game</a> - A
-                        classic text adventure game.</li>
-                    <li><a href="https://classicreload.com/" target="_blank" rel="noopener noreferrer">ClassicReload</a>
-                        - Play classic DOS games online.</li>
+                    <li><a href="https://www.speedrun.com/" target="_blank" rel="noopener noreferrer">Speedrun.com</a> -
+                        Community for game speedrunning.</li>
                 </ul>
-            </details>
+            </div>
 
-            <details>
-                <summary>Learning Resources</summary>
+            <!-- Learning Resources -->
+            <div class="link-category">
+                <h3>📚 Learning Resources</h3>
                 <ul>
+                    <li><a href="https://www.edx.org/" target="_blank" rel="noopener noreferrer">edX</a> - Free online
+                        courses from top universities.</li>
+                    <li><a href="https://projecteuler.net/" target="_blank" rel="noopener noreferrer">Project Euler</a>
+                        - Challenging mathematical problems.</li>
                     <li><a href="https://learnxinyminutes.com/" target="_blank" rel="noopener noreferrer">Learn X in Y
                             Minutes</a> - Quick programming language tutorials.</li>
-                    <li><a href="https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/" target="_blank"
-                            rel="noopener noreferrer">Set Up Your Own LTE Network</a> - DIY LTE network tutorial.</li>
                     <li><a href="https://www.freecodecamp.org/" target="_blank"
                             rel="noopener noreferrer">FreeCodeCamp</a> - Learn to code with free online courses.</li>
-                    <li><a href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer">Coursera</a> -
-                        Access courses from top universities and organizations.</li>
                     <li><a href="https://www.khanacademy.org/" target="_blank" rel="noopener noreferrer">Khan
-                            Academy</a> - Free educational resources on various subjects.</li>
+                            Academy</a> - Free educational resources for all ages.</li>
+                    <li><a href="https://ocw.mit.edu/" target="_blank" rel="noopener noreferrer">MIT OpenCourseWare</a>
+                        - Free lecture notes, exams, and videos from MIT.</li>
                 </ul>
-            </details>
+            </div>
 
-            <details>
-                <summary>Interesting and Novel Websites</summary>
+            <!-- Interesting and Novel Websites -->
+            <div class="link-category">
+                <h3>🌐 Interesting and Novel Websites</h3>
                 <ul>
+                    <li><a href="https://theuselessweb.com/" target="_blank" rel="noopener noreferrer">The Useless
+                            Web</a> - Discover random useless websites.</li>
+                    <li><a href="https://pointerpointer.com/" target="_blank" rel="noopener noreferrer">Pointer
+                            Pointer</a> - A fun website that points at your cursor.</li>
                     <li><a href="https://www.kleinbottle.com/" target="_blank" rel="noopener noreferrer">Acme
                             Kleinbottles</a> - Purchase a mathematical curiosity.</li>
                     <li><a href="https://radio.garden/listen" target="_blank" rel="noopener noreferrer">Radio Garden</a>
-                        - Listen to live radio stations worldwide by rotating a virtual globe.</li>
-                    <li><a href="https://www.submarinecablemap.com/" target="_blank" rel="noopener noreferrer">Submarine
-                            Cable Map</a> - An interactive map of the global undersea cables that power the internet.
-                    </li>
-                    <li><a href="https://publicdomainreview.org/" target="_blank" rel="noopener noreferrer">The Public
-                            Domain Review</a> - Explores and curates art, literature, and ideas that are now in the
-                        public domain.</li>
-                    <li><a href="https://www.infiniteconversation.com/" target="_blank" rel="noopener noreferrer">The
-                            Infinite Conversation</a> - An AI-generated, never-ending conversation between Werner Herzog
-                        and Slavoj Žižek.</li>
-                    <li><a href="https://www.thewebsiteisdown.com" target="_blank" rel="noopener noreferrer">The Website
-                            is Down</a> - Hilarious IT videos.</li>
-                    <li><a href="https://archive.org/web/" target="_blank" rel="noopener noreferrer">Wayback Machine</a>
-                        - Explore archived versions of websites over time.</li>
-                    <li><a href="https://strangeloopcanon.com/" target="_blank" rel="noopener noreferrer">Strange
-                            Loops</a> - Deep dives into complex topics.</li>
-                </ul>
-            </details>
+                        - Listen to live radio stations worldwide.</li>
 
-            <details>
-                <summary>Tech and Projects</summary>
-                <ul>
-                    <li><a href="https://www.rtl-sdr.com/" target="_blank" rel="noopener noreferrer">RTL-SDR</a> - A
-                        blog about Software Defined Radio and in-depth tutorials.</li>
-                    <li><a href="https://www.gnuradio.org/" target="_blank" rel="noopener noreferrer">GNU Radio</a> - An
-                        open-source toolkit for building software radios.</li>
-                    <li><a href="https://www.top500.org/" target="_blank" rel="noopener noreferrer">TOP500</a> - The
-                        list of the world's fastest supercomputers.</li>
-                    <li><a href="https://archive.ics.uci.edu/ml/index.php" target="_blank" rel="noopener noreferrer">UCI
-                            Machine Learning Repository</a> - A collection of machine learning datasets.</li>
-                    <li><a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer">TensorFlow</a> -
-                        An end-to-end open-source machine learning platform.</li>
-                    <li><a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer">PyTorch</a> - An
-                        open-source machine learning library for Python.</li>
-                    <li><a href="https://openai.com/" target="_blank" rel="noopener noreferrer">OpenAI</a> - Advancing
-                        AI for the benefit of humanity.</li>
-                    <li><a href="https://github.com/trending" target="_blank" rel="noopener noreferrer">GitHub
-                            Trending</a> - Discover what's trending in the open-source community.</li>
+                    <li><a href="https://www.hackthemenu.com/" target="_blank" rel="noopener noreferrer">Hack The
+                            Menu</a> - Discover secret menu items at your favorite restaurants.</li>
                 </ul>
-            </details>
+            </div>
+
+            <!-- Tech and Projects -->
+            <div class="link-category">
+                <h3>💻 Tech and Projects</h3>
+                <ul>
+                    <li><a href="https://hackaday.com/" target="_blank" rel="noopener noreferrer">Hackaday</a> -
+                        Hardware and software hacks.</li>
+                    <li><a href="https://www.rtl-sdr.com/" target="_blank" rel="noopener noreferrer">RTL-SDR</a> -
+                        Software Defined Radio tutorials.</li>
+                    <li><a href="https://github.com/trending" target="_blank" rel="noopener noreferrer">GitHub
+                            Trending</a> - Trending open-source projects.</li>
+                    <li><a href="https://www.producthunt.com/" target="_blank" rel="noopener noreferrer">Product
+                            Hunt</a> - Discover the latest tech products.</li>
+                    <li><a href="https://alternativeto.net/" target="_blank" rel="noopener noreferrer">AlternativeTo</a>
+                        - Find alternatives to software you already know.</li>
+                </ul>
+            </div>
         </section>
 
         <!-- Connect with Me Section -->
@@ -626,23 +374,31 @@ fi
             <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank"
                 rel="noopener noreferrer">LinkedIn</a> |
             <a href="https://steamcommunity.com/id/grenlan/" target="_blank" rel="noopener noreferrer">Steam</a>
+            <!-- Hidden message -->
+            <span id="secret-message">You found the secret! 🕵️‍♂️</span>
         </small>
     </footer>
 
-    <!-- JavaScript for Theme Toggle -->
+    <!-- JavaScript for Theme Toggle and Easter Eggs -->
     <script>
+        // Theme Toggle
         const toggleButton = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
-        // Check for saved user preference, if any, on load of the website
-        if (localStorage.getItem('theme') === 'dark') {
-            htmlElement.setAttribute('data-theme', 'dark');
-            toggleButton.textContent = '☀️';
+        // Get stored theme from localStorage, else match system theme
+        const storedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        if (storedTheme) {
+            htmlElement.setAttribute('data-theme', storedTheme);
         } else {
-            htmlElement.setAttribute('data-theme', 'light');
-            toggleButton.textContent = '🌙';
+            htmlElement.setAttribute('data-theme', systemTheme);
         }
 
+        // Update toggle button icon
+        toggleButton.textContent = htmlElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+
+        // Function to toggle the theme
         toggleButton.addEventListener('click', () => {
             if (htmlElement.getAttribute('data-theme') === 'light') {
                 htmlElement.setAttribute('data-theme', 'dark');
@@ -654,7 +410,91 @@ fi
                 localStorage.setItem('theme', 'light');
             }
         });
+
+        // Konami Code Easter Egg
+        (function () {
+            const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+            let index = 0;
+            document.addEventListener('keydown', function (e) {
+                if (e.keyCode === konamiCode[index]) {
+                    index++;
+                    if (index === konamiCode.length) {
+                        alert('You unlocked the secret mode!');
+                        // Add your secret mode code here
+                        index = 0;
+                    }
+                } else {
+                    index = 0;
+                }
+            });
+        })();
+
+        // Reveal the secret message when the footer is clicked
+        document.querySelector('footer').addEventListener('click', function () {
+            const message = document.getElementById('secret-message');
+            if (message.style.display === 'none') {
+                message.style.display = 'inline';
+            } else {
+                message.style.display = 'none';
+            }
+        });
+
+        // Secret Code Easter Egg: Type "open sesame" to reveal a hidden message
+        (function () {
+            let input = '';
+            const secretCode = 'opensesame';
+            document.addEventListener('keypress', function (e) {
+                input += e.key.toLowerCase();
+                if (input.includes(secretCode)) {
+                    const secret = document.getElementById('secret-code');
+                    secret.style.display = 'block';
+                    alert('🔓 Secret content unlocked!');
+                    input = '';
+                }
+                if (input.length > secretCode.length) {
+                    input = input.substr(input.length - secretCode.length);
+                }
+            });
+        })();
+
+        // ASCII Art in Console
+        console.log("%c\n" +
+            "  __        __   _                            _          _   _ \n" +
+            "  \\ \\      / /__| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |\n" +
+            "   \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\  | __| |\n" +
+            "    \\ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_|_|\n" +
+            "     \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/   \\__(_)\n" +
+            "\nHello there, console explorer! Keep up the curiosity!\n",
+            "color: green; font-family: monospace;"
+        );
     </script>
+
+    <!-- Hidden Secret Content -->
+    <div id="secret-code">
+        <h2>🔒 Secret Unlocked!</h2>
+        <p>Congratulations on finding this hidden message. You're a true explorer!</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/H62G3m_MHQk?si=4I_FANAsYBOx9Q8Z"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+    </div>
+
+    <!-- Funny Code Comments -->
+
+    <!-- 
+        TODO: Implement AI to write my code while I play video games.
+        Note to self: Remember to turn it off before it becomes self-aware.
+    -->
+
+    <!-- 
+        Easter Egg: Type "open sesame" anywhere on the site to unlock a hidden message!
+    -->
+
+    <!-- 
+        Q: How many programmers does it take to change a light bulb?
+        A: None. It's a hardware problem.
+    -->
+
 </body>
 
 </html>
