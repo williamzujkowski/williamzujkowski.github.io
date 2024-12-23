@@ -2,267 +2,364 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-        content="William's personal website - sharing hobbies, blog posts, interesting links, and a gallery.">
-    <meta name="keywords"
-        content="William, hobbies, blog, gallery, GitHub, LinkedIn, gaming, cybersecurity, AI, cloud services">
+    <!-- Meta Tags for SEO and Responsive Design -->
+    <meta charset="UTF-8">
+    <meta name="description" content="William Zujkowski - IT Engineer, Security Enthusiast, and Homelab Tinkerer.">
+    <meta name="keywords" content="William Zujkowski, Software Engineer, Security, Homelab, Projects, Blog">
     <meta name="author" content="William Zujkowski">
-    <meta property="og:title" content="William Zujkowski's Personal Website">
-    <meta property="og:description" content="Sharing hobbies, blog posts, interesting links, and whatever I'm into.">
-    <meta property="og:image" content="assets/william.png">
-    <meta property="og:url" content="https://grenlan.com">
-    <meta name="twitter:card" content="assets/william.png">
-    <title>William Zujkowski's Personal Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts: Noto Sans -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap">
+    <!-- Title -->
+    <title>William Zujkowski - Software Engineer and Security Enthusiast</title>
 
-    <!-- Pico CSS -->
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Pico CSS (Indigo Color Scheme) -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="pico.indigo.css">
+
+    <!-- Additional Custom Styles -->
+    <style>
+        /* Add any additional custom styles here */
+        #secret-message,
+        #secret-code {
+            display: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .hero img {
+            border-radius: 50%;
+            max-width: 150px;
+        }
+
+        .link-category ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .link-category li::before {
+            content: "• ";
+            color: var(--pico-primary);
+        }
+
+        /* Secret content styling */
+        #secret-code {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--pico-contrast-background);
+            border-radius: var(--pico-border-radius);
+            margin: 2rem 0;
+        }
+
+        #secret-code img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--pico-border-radius);
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><button id="theme-toggle">🌙</button></li>
+            </ul>
+        </nav>
+    </header>
 
     <!-- Main Content -->
     <main class="container">
-        <!-- Header & Navigation -->
-        <nav>
-            <ul>
-                <li><a href="index.html" aria-current="page">Home</a></li>
-                <li><a href="pizza.html">Pizza Calculator</a></li>
-            </ul>
-        </nav>
-        <header>
-            <hgroup>
-                <h1>William Zujkowski</h1>
-                <p>Proud Father, Life-long Gamer, and Passionate Technologist</p>
-                <blockquote>I find flaws and make them defect.</blockquote>
-            </hgroup>
 
-        </header>
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="simpson_profile.png" alt="Profile Picture" loading="lazy">
+            <h1>Hi, I'm William!</h1>
+            <p>Computer Engineer, Security Enthusiast, and Homelab Tinkerer.</p>
+        </section>
 
-        <!-- Blog Section with Accordions -->
-        <section>
+        <!-- About Me Section -->
+        <section id="about">
             <header>
-                <h2>Blog</h2>
+                <h2>About Me</h2>
             </header>
-
             <article>
-                <details>
-                    <summary>Debugging, Pizza, and Cyber Defense</summary>
-                    <time datetime="2024-09-08">September 8, 2024</time>
-                    <p>Debugging is like the final raid boss of coding. Except the boss is an ex-NSA cryptographer, and
-                        instead of health points, they hit you with <em>NullPointerException</em> after <em>Segmentation
-                            Fault</em>. But don't worry, just like a zero-day exploit in <strong>Hooligram</strong>'s
-                        messaging service, debugging can be tackled with the right strategy—or in our case, the right
-                        fuel:
-                        pizza.</p>
-
-                    <p>If you've ever hit that point where every line of code starts to feel like the punchline of a
-                        cosmic
-                        joke, it's time to check out the <a href="https://grenlan.com/pizza.html">Pizza Calculator for
-                            IT
-                            Engineers</a>. Why guess how much pizza you need when you could be focusing on figuring out
-                        why
-                        your containers are crashing? Whether you’re into <strong>Quantum Blockchain Pizza</strong>
-                        (where
-                        each slice is simultaneously valuable and worthless) or <strong>Auto-Scaling Cloud
-                            Pizza</strong>
-                        (where you have infinite slices, but still no clue what you’ll be billed for), we’ve got you
-                        covered.</p>
-
-                    <p><strong>Pro Tip</strong>: After four hours of debugging, your code may still not work, but your
-                        hunger will scale exponentially. That’s why we suggest upgrading to the <strong>Pizza Elite+
-                            plan</strong>. It’s like horizontal scaling for your stomach.</p>
-
-                    <p>Also, memo to the team: <strong>Wi-Fi Pineapple Pizza</strong> has been officially banned from
-                        the
-                        office. Why? Because the pineapple keeps hijacking toppings from everyone else. It’s like a
-                        man-in-the-middle attack, but for your pizza.</p>
-
-                    <p>So, next time debugging feels like a distributed denial of service on your brain, grab a slice,
-                        fire
-                        up the <a href="https://grenlan.com/pizza.html">Pizza Calculator</a>, and keep on coding. Just
-                        remember, if all else fails, it’s always the intern’s fault. 🍕</p>
-                </details>
-            </article>
-
-            <article>
-                <details>
-                    <summary>The Origin of Grenlan</summary>
-                    <time datetime="2024-08-12">August 12, 2024</time>
-                    <p>In the summer of '99, I was just getting into <a
-                            href="https://www.everquest.com/home">EverQuest</a>,
-                        one
-                        of the pioneering massively multiplayer online role-playing games (MMORPGs). It was an era when
-                        dial-up
-                        internet was the standard, and the sound of a modem connecting was the prelude to countless
-                        adventures.
-                        EverQuest offered an expansive, immersive world called Norrath, where thousands of players could
-                        interact, embark on quests, and battle mythical creatures.</p>
-                    <p>Choosing a character class was a pivotal decision in EverQuest, and I was drawn to the Bard.
-                        Bards
-                        were
-                        versatile adventurers known for their musical prowess, able to play enchanting songs that could
-                        boost
-                        allies' abilities, debuff enemies, and even travel faster across the vast landscapes. They were
-                        the
-                        jack-of-all-trades, bringing a unique blend of support and combat skills to any group.</p>
-                    <p>Needing a name for my new half-elf bard, I faced the typical writer's block. That's when I
-                        remembered
-                        the
-                        Caesar cipher—a classic cryptographic technique where each letter in the plaintext is shifted a
-                        certain
-                        number of places down or up the alphabet. Picking numbers at random, I jumbled the letters of my
-                        name
-                        and created 'Grenlan'. It was unique, easy to remember, and perfectly suited for my bard's
-                        adventures in
-                        EverQuest. Check out my <a
-                            href="https://ap.tritonguild.net/character.php?char=grenlan">character
-                            profile</a>.</p>
-                    <p>Since then, Grenlan has been my unique identifier in many MMOs and games, from <a
-                            href="https://worldofwarcraft.com/">World of Warcraft</a> to <a
-                            href="https://dnd.wizards.com/">Dungeons and Dragons</a>. It's a name that carries the
-                        spirit of
-                        adventure and camaraderie.</p>
-                    <p>One highlight of my EverQuest journey is my high-end raiding guild, <a
-                            href="https://www.tritonguild.net/">Triton</a>. Sometimes, nostalgia hits, and I log in to
-                        join
-                        the
-                        raids, reconnecting with old friends and reliving epic battles. Those were the days of long,
-                        strategic
-                        encounters and the thrill of downing a tough boss after many attempts, all while hoping the
-                        connection
-                        wouldn't drop!</p>
-                </details>
+                <p>I'm a passionate Computer engineer with a keen interest in security and infrastructure automation.
+                    When I'm not coding, you can find me tinkering with my homelab or exploring the latest tech trends.
+                </p>
+                <p>Fun fact: It makes me happy that <a href="http://info.cern.ch/hypertext/WWW/TheProject.html"
+                        target="_blank" rel="noopener noreferrer">The FIRST website</a> is still online!</p>
             </article>
         </section>
 
-        <!-- Personal Passions Section -->
-        <section>
-            <header>
-                <h2>Personal Passions</h2>
-            </header>
-            <article>
-                <p>Here are some of my personal interests and passions:</p>
-                <ul>
-                    <li>Adventures with my wife and 1-year-old son</li>
-                    <li>Playing video games on <a href="https://steamcommunity.com/id/grenlan/"
-                            target="_blank">Steam</a></li>
-                    <li>Enjoying <a href="https://www.youtube.com/watch?v=kj0GDeS4A1c" target="_blank">board games</a>
-                        and <a href="https://www.youtube.com/watch?v=MaiUUitZbns" target="_blank">card games</a></li>
-                    <li><a href="https://www.goodreads.com/review/list/52529234-william-zujkowski?shelf=read"
-                            target="_blank">Reading</a></li>
-                </ul>
-            </article>
-        </section>
-
-        <!-- Professional Interests Section -->
-        <section>
-            <header>
-                <h2>Professional Interests</h2>
-            </header>
-            <article>
-                <p>I am passionate about the following professional fields:</p>
-                <ul>
-                    <li><a href="https://github.com/greatscottgadgets/hackrf" target="_blank">Software defined Radio</a>
-                        - HackRF platform for SDR enthusiasts</li>
-                    <li><a href="https://supercomputing.org/" target="_blank">Supercomputing</a> - High-performance
-                        computing resources</li>
-                    <li><a href="https://www.kaggle.com/williamzujkowski" target="_blank">Analyzing Large Datasets</a> -
-                        Data science projects on Kaggle</li>
-                    <li><a href="https://huggingface.co/Chaosagent" target="_blank">Exploring AI</a> - AI models and
-                        tools on Hugging Face</li>
-                    <li><a href="https://info.cern.ch/hypertext/WWW/TheProject.html" target="_blank">The FIRST website - The WorldWideWeb
-                            (W3) is a wide-area hypermedia information retrieval initiative aiming to give universal
-                            access to a large universe of documents.</a> -
-                </ul>
-            </article>
-        </section>
-
-        <!-- Professional Memberships -->
-        <section>
+        <!-- Professional Memberships Section -->
+        <section id="memberships">
             <header>
                 <h2>Professional Memberships</h2>
             </header>
             <article>
                 <p>I am a member of the following professional organizations:</p>
                 <ul>
-                    <li><a href="hhttps://owasp.org/" target="_blank">OWASP</a>
-                        The Open Worldwide Application Security Project (OWASP) is a nonprofit foundation that works to
-                        improve the security of software.
-                    <li><a href="https://iacr.org/" target="_blank">International Association for Cryptologic
-                            Research (IACR)</a> - Ha non-profit scientific organization whose purpose is to further
-                        research in
-                        cryptology and related fields. </li>
-                    <li><a href="https://www.acm.org/special-interest-groups/sigs/sighpc" target="_blank">ACM SIGHPC</a>
-                        -
-                        Special Interest Group on High Performance Computing</li>
-                    <li><a href="https://www.usenix.org/" target="_blank">USENIX</a> - Since 1975, USENIX has brought
-                        together the community of engineers, researchers, and practitioners working on the cutting edge
-                        of the computing world.</li>
+                    <li><a href="https://owasp.org/" target="_blank" rel="noopener noreferrer">OWASP</a> - The Open
+                        Worldwide Application Security Project is a nonprofit foundation that works to improve the
+                        security of software.</li>
+                    <li><a href="https://iacr.org/" target="_blank" rel="noopener noreferrer">International Association
+                            for Cryptologic Research (IACR)</a> - A non-profit scientific organization whose purpose is
+                        to further research in cryptology and related fields.</li>
+                    <li><a href="https://www.acm.org/special-interest-groups/sigs/sighpc" target="_blank"
+                            rel="noopener noreferrer">ACM SIGHPC</a> - Special Interest Group on High Performance
+                        Computing</li>
+                    <li><a href="https://www.usenix.org/" target="_blank" rel="noopener noreferrer">USENIX</a> - Since
+                        1975, USENIX has brought together the community of engineers, researchers, and practitioners
+                        working on the cutting edge of the computing world.</li>
                 </ul>
             </article>
         </section>
 
+        <!-- Blog Section -->
+        <section id="blog">
+            <header>
+                <h2>Blog Posts</h2>
+            </header>
+
+            <!-- Blog Post 1 -->
+            <article>
+                <details>
+                    <summary>Homelab Adventures: Scaling with Proxmox and ARM Devices</summary>
+                    <time datetime="2024-09-14">September 14, 2024</time>
+                    <p>Hey there, fellow tech enthusiasts! Today, I'm excited to share my journey of scaling up my
+                        homelab using Proxmox and some nifty ARM devices. Buckle up; it's been a wild ride!</p>
+                    <h3>Why Scale Up?</h3>
+                    <p>So, my projects were getting a bit... ambitious. Running multiple services on a single machine
+                        was like trying to juggle flaming torches—exciting but risky. I needed more horsepower without
+                        burning a hole in my pocket or my electricity bill.</p>
+                    <h3>Enter Proxmox and ARM Devices</h3>
+                    <p>I stumbled upon <a href="https://www.proxmox.com/en/" target="_blank"
+                            rel="noopener noreferrer">Proxmox</a>, an open-source virtualization platform that's as cool
+                        as it sounds. Pair that with some <a
+                            href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/" target="_blank"
+                            rel="noopener noreferrer">Raspberry Pi 4</a> units, and voila! I had a scalable,
+                        energy-efficient setup.</p>
+                    <h3>The Setup</h3>
+                    <p>Setting up Proxmox on ARM devices wasn't straightforward. It felt like teaching a cat to
+                        fetch—not impossible but definitely challenging. Thankfully, the community came to the rescue.
+                        Shoutout to the awesome folks on the <a href="https://forum.proxmox.com/" target="_blank"
+                            rel="noopener noreferrer">Proxmox forums</a>!</p>
+                    <h3>Challenges and How I Overcame Them</h3>
+                    <ul>
+                        <li><strong>Networking Woes:</strong> Configuring the network across multiple devices was like
+                            untangling earphones. I used VLANs to segment traffic, which helped keep things organized.
+                        </li>
+                        <li><strong>Storage Constraints:</strong> SD cards are great until they're not. I added external
+                            SSDs for faster and more reliable storage.</li>
+                        <li><strong>Compatibility Issues:</strong> Some software just doesn't play nice with ARM
+                            architecture. I had to find alternatives or compile from source.</li>
+                    </ul>
+                    <h3>Was It Worth It?</h3>
+                    <p>Absolutely! My homelab is now a powerhouse, and I didn't have to sell a kidney to fund it. Plus,
+                        I learned a ton along the way.</p>
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://pimylifeup.com/raspberry-pi-proxmox/" target="_blank"
+                                rel="noopener noreferrer">Installing Proxmox on Raspberry Pi</a></li>
+                        <li><a href="https://www.reddit.com/r/homelab/" target="_blank"
+                                rel="noopener noreferrer">r/homelab on Reddit</a> - For all your homelab inspiration and
+                            troubleshooting needs.</li>
+                    </ul>
+                    <h3>Final Thoughts</h3>
+                    <p>If you're considering scaling your homelab, give Proxmox and ARM devices a shot. It's like
+                        building your own mini data center at home—just with fewer security guards and more pets
+                        wandering around.</p>
+                </details>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article>
+                <details>
+                    <summary>Securing Container Deployments with Ansible</summary>
+                    <time datetime="2024-10-20">October 20, 2024</time>
+                    <p>Greetings, code wranglers! Ever deployed a container and thought, "Did I lock all the doors?"
+                        Well, I've been there, and today I'm sharing how I use Ansible to secure my container
+                        deployments without losing my sanity.</p>
+                    <h3>The Problem with Manual Deployment</h3>
+                    <p>Manual deployment is like doing laundry by hand—not efficient and prone to mistakes. Plus, in the
+                        security world, one small slip can lead to big headaches.</p>
+                    <h3>Why Ansible?</h3>
+                    <p><a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible</a> is like
+                        the Swiss Army knife of automation tools. It's simple, agentless, and powerful. With Ansible, I
+                        can automate deployments and ensure security configurations are consistent across all
+                        containers.</p>
+                    <h3>My Playbook to Success</h3>
+                    <p>I crafted Ansible playbooks that handle everything from spinning up containers to applying
+                        security hardening. Here's a snippet of what my playbook includes:</p>
+                    <pre><code>- name: Deploy Secure Container
+  hosts: servers
+  tasks:
+    - name: Pull latest Docker image
+      docker_image:
+        name: my_secure_app
+        source: pull
+    - name: Run container with security options
+      docker_container:
+        name: secure_app
+        image: my_secure_app
+        security_opts:
+          - no-new-privileges
+        read_only: yes
+</code></pre>
+                    <h3>Security Best Practices Implemented</h3>
+                    <ul>
+                        <li><strong>Least Privilege:</strong> Containers run with minimal privileges, reducing the
+                            attack surface.</li>
+                        <li><strong>Immutable Containers:</strong> Setting containers to read-only mode to prevent
+                            unauthorized changes.</li>
+                        <li><strong>Regular Updates:</strong> Automating updates to ensure all containers have the
+                            latest security patches.</li>
+                    </ul>
+                    <h3>Useful Resources</h3>
+                    <ul>
+                        <li><a href="https://docs.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible
+                                Documentation</a> - The go-to resource for all things Ansible.</li>
+                        <li><a href="https://docs.docker.com/engine/security/" target="_blank"
+                                rel="noopener noreferrer">Docker Security</a> - Best practices for securing Docker
+                            containers.</li>
+                        <li><a href="https://www.cisecurity.org/benchmark/docker/" target="_blank"
+                                rel="noopener noreferrer">CIS Docker Benchmarks</a> - Guidelines for securing Docker
+                            environments.</li>
+                    </ul>
+                    <h3>Wrapping Up</h3>
+                    <p>Automating with Ansible has been a game-changer. Not only do I save time, but I also sleep better
+                        knowing my deployments are secure. If you haven't tried it yet, what are you waiting for? Give
+                        it a whirl!</p>
+                </details>
+            </article>
+
+        </section>
+
         <!-- Curated Links Section -->
-        <section>
+        <section id="links">
             <header>
                 <h2>Curated Links</h2>
             </header>
 
-            <details>
-                <summary>Resources and Interesting Reads</summary>
+            <!-- Science and Exploration -->
+            <div class="link-category">
+                <h3>🚀 Science and Exploration</h3>
                 <ul>
-                    <li><a href="https://www.centauri-dreams.org/" target="_blank">Centauri Dreams</a> - Paul Gilster's
-                        blog on deep space exploration and interstellar travel possibilities.</li>
-                    <li><a href="https://loderunnerwebgame.com/LodeRunner/" target="_blank">Lode LodeRunner</a> - A
-                        HTML5 remake of LodeRunner.</li>
-                    <li><a href="https://www.decisionproblem.com/paperclips/" target="_blank">Paperclip AI Game</a> - A
-                        game about making paperclips.</li>
-                    <li><a href="https://learnxinyminutes.com/" target="_blank">Learn X in Y Minutes</a> - Quick
-                        programming language tutorials.</li>
-                    <li><a href="https://www.kleinbottle.com/" target="_blank">Acme Kleinbottles</a> - Purchase a
-                        mathematical curiosity.</li>
-                    <li><a href="https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/" target="_blank">Set Up
-                            Your Own LTE Network</a> - DIY LTE network tutorial.</li>
-                    <li><a href="https://publicdomainreview.org/" target="_blank">The Public Domain Review</a> -
-                        Explores and curates art, literature, and ideas that are now in the public domain.</li>
-                    <li><a href="https://radio.garden/listen" target="_blank">Radio Garden</a> - Listen to live radio
-                        stations worldwide by rotating a virtual globe.</li>
-                    <li><a href="https://www.submarinecablemap.com/" target="_blank">Submarine Cable Map</a> - An
-                        interactive map of the global undersea cables that power the internet.</li>
-                    <li><a href="https://tauzero.aero/" target="_blank">The Tau Zero Foundation</a> - Explores the
-                        science behind interstellar travel and advances in space exploration.</li>
-                    <li><a href="https://www.thewebsiteisdown.com" target="_blank">The Website is Down</a> - Hilarious
-                        IT videos.</li>
-                    <li><a href="https://zombo.com/" target="_blank">Zombo.com</a> - Endless possibilities await.</li>
+                    <li><a href="https://apod.nasa.gov/apod/" target="_blank" rel="noopener noreferrer">NASA Astronomy
+                            Picture of the Day</a> - Daily astronomical images and explanations.</li>
+                    <li><a href="https://phys.org/" target="_blank" rel="noopener noreferrer">Phys.org</a> - Latest news
+                        on science and technology.</li>
+                    <li><a href="https://www.centauri-dreams.org/" target="_blank" rel="noopener noreferrer">Centauri
+                            Dreams</a> - Deep space exploration and interstellar travel possibilities.</li>
+                    <li><a href="https://tauzero.aero/" target="_blank" rel="noopener noreferrer">The Tau Zero
+                            Foundation</a> - Science behind interstellar travel.</li>
+                    <li><a href="https://mars.nasa.gov/" target="_blank" rel="noopener noreferrer">NASA Mars
+                            Exploration</a> - Updates on Mars missions and discoveries.</li>
                 </ul>
-            </details>
+            </div>
+
+            <!-- Games and Entertainment -->
+            <div class="link-category">
+                <h3>🎮 Games and Entertainment</h3>
+                <ul>
+                    <li><a href="https://loderunnerwebgame.com/LodeRunner/" target="_blank"
+                            rel="noopener noreferrer">LodeRunner</a> - HTML5 remake of LodeRunner.</li>
+                    <li><a href="https://www.decisionproblem.com/paperclips/" target="_blank"
+                            rel="noopener noreferrer">Paperclip AI Game</a> - A game about making paperclips.</li>
+                    <li><a href="https://zombo.com/" target="_blank" rel="noopener noreferrer">Zombo.com</a> - Endless
+                        possibilities await.</li>
+                    <li><a href="https://www.speedrun.com/" target="_blank" rel="noopener noreferrer">Speedrun.com</a> -
+                        Community for game speedrunning.</li>
+                </ul>
+            </div>
+
+            <!-- Learning Resources -->
+            <div class="link-category">
+                <h3>📚 Learning Resources</h3>
+                <ul>
+                    <li><a href="https://www.edx.org/" target="_blank" rel="noopener noreferrer">edX</a> - Free online
+                        courses from top universities.</li>
+                    <li><a href="https://projecteuler.net/" target="_blank" rel="noopener noreferrer">Project Euler</a>
+                        - Challenging mathematical problems.</li>
+                    <li><a href="https://learnxinyminutes.com/" target="_blank" rel="noopener noreferrer">Learn X in Y
+                            Minutes</a> - Quick programming language tutorials.</li>
+                    <li><a href="https://www.freecodecamp.org/" target="_blank"
+                            rel="noopener noreferrer">FreeCodeCamp</a> - Learn to code with free online courses.</li>
+                    <li><a href="https://www.khanacademy.org/" target="_blank" rel="noopener noreferrer">Khan
+                            Academy</a> - Free educational resources for all ages.</li>
+                    <li><a href="https://ocw.mit.edu/" target="_blank" rel="noopener noreferrer">MIT OpenCourseWare</a>
+                        - Free lecture notes, exams, and videos from MIT.</li>
+                </ul>
+            </div>
+
+            <!-- Interesting and Novel Websites -->
+            <div class="link-category">
+                <h3>🌐 Interesting and Novel Websites</h3>
+                <ul>
+                    <li><a href="https://theuselessweb.com/" target="_blank" rel="noopener noreferrer">The Useless
+                            Web</a> - Discover random useless websites.</li>
+                    <li><a href="https://pointerpointer.com/" target="_blank" rel="noopener noreferrer">Pointer
+                            Pointer</a> - A fun website that points at your cursor.</li>
+                    <li><a href="https://www.kleinbottle.com/" target="_blank" rel="noopener noreferrer">Acme
+                            Kleinbottles</a> - Purchase a mathematical curiosity.</li>
+                    <li><a href="https://radio.garden/listen" target="_blank" rel="noopener noreferrer">Radio Garden</a>
+                        - Listen to live radio stations worldwide.</li>
+
+                    <li><a href="https://www.hackthemenu.com/" target="_blank" rel="noopener noreferrer">Hack The
+                            Menu</a> - Discover secret menu items at your favorite restaurants.</li>
+                </ul>
+            </div>
+
+            <!-- Tech and Projects -->
+            <div class="link-category">
+                <h3>💻 Tech and Projects</h3>
+                <ul>
+                    <li><a href="https://hackaday.com/" target="_blank" rel="noopener noreferrer">Hackaday</a> -
+                        Hardware and software hacks.</li>
+                    <li><a href="https://www.rtl-sdr.com/" target="_blank" rel="noopener noreferrer">RTL-SDR</a> -
+                        Software Defined Radio tutorials.</li>
+                    <li><a href="https://github.com/trending" target="_blank" rel="noopener noreferrer">GitHub
+                            Trending</a> - Trending open-source projects.</li>
+                    <li><a href="https://www.producthunt.com/" target="_blank" rel="noopener noreferrer">Product
+                            Hunt</a> - Discover the latest tech products.</li>
+                    <li><a href="https://alternativeto.net/" target="_blank" rel="noopener noreferrer">AlternativeTo</a>
+                        - Find alternatives to software you already know.</li>
+                </ul>
+            </div>
         </section>
 
         <!-- Connect with Me Section -->
-        <section>
+        <section id="connect">
             <header>
                 <h2>Connect with Me</h2>
             </header>
             <article>
                 <p>Feel free to reach out or follow me on the following platforms:</p>
                 <div>
-                    <a href="https://github.com/williamzujkowski" target="_blank" aria-label="GitHub">
+                    <a href="https://github.com/williamzujkowski" target="_blank" aria-label="GitHub"
+                        rel="noopener noreferrer">
                         <img src="https://www.vectorlogo.zone/logos/github/github-tile.svg" height="50px" width="50px"
-                            alt="GitHub" loading="lazy">
+                            alt="GitHub Logo" loading="lazy">
                     </a>
-                    <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank" aria-label="LinkedIn"
+                        rel="noopener noreferrer">
                         <img src="https://www.vectorlogo.zone/logos/linkedin/linkedin-tile.svg" height="50px"
-                            width="50px" alt="LinkedIn" loading="lazy">
+                            width="50px" alt="LinkedIn Logo" loading="lazy">
                     </a>
-                    <a href="https://steamcommunity.com/id/grenlan/" target="_blank" aria-label="Steam">
+                    <a href="https://steamcommunity.com/id/grenlan/" target="_blank" aria-label="Steam"
+                        rel="noopener noreferrer">
                         <img src="https://www.vectorlogo.zone/logos/steampowered/steampowered-icon.svg" height="50px"
-                            width="50px" alt="Steam" loading="lazy">
+                            width="50px" alt="Steam Logo" loading="lazy">
                     </a>
                 </div>
             </article>
@@ -273,11 +370,130 @@
     <footer>
         <small>
             © 2024 William Zujkowski. Built with Pico CSS.
-            <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
-            <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |
-            <a href="https://steamcommunity.com/id/grenlan/" target="_blank">Steam</a>
+            <a href="https://github.com/williamzujkowski" target="_blank" rel="noopener noreferrer">GitHub</a> |
+            <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank"
+                rel="noopener noreferrer">LinkedIn</a> |
+            <a href="https://steamcommunity.com/id/grenlan/" target="_blank" rel="noopener noreferrer">Steam</a>
+            <!-- Hidden message -->
+            <span id="secret-message">You found the secret! 🕵️‍♂️</span>
         </small>
     </footer>
+
+    <!-- JavaScript for Theme Toggle and Easter Eggs -->
+    <script>
+        // Theme Toggle
+        const toggleButton = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Get stored theme from localStorage, else match system theme
+        const storedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        if (storedTheme) {
+            htmlElement.setAttribute('data-theme', storedTheme);
+        } else {
+            htmlElement.setAttribute('data-theme', systemTheme);
+        }
+
+        // Update toggle button icon
+        toggleButton.textContent = htmlElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+
+        // Function to toggle the theme
+        toggleButton.addEventListener('click', () => {
+            if (htmlElement.getAttribute('data-theme') === 'light') {
+                htmlElement.setAttribute('data-theme', 'dark');
+                toggleButton.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.setAttribute('data-theme', 'light');
+                toggleButton.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Konami Code Easter Egg
+        (function () {
+            const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+            let index = 0;
+            document.addEventListener('keydown', function (e) {
+                if (e.keyCode === konamiCode[index]) {
+                    index++;
+                    if (index === konamiCode.length) {
+                        alert('You unlocked the secret mode!');
+                        // Add your secret mode code here
+                        index = 0;
+                    }
+                } else {
+                    index = 0;
+                }
+            });
+        })();
+
+        // Reveal the secret message when the footer is clicked
+        document.querySelector('footer').addEventListener('click', function () {
+            const message = document.getElementById('secret-message');
+            if (message.style.display === 'none') {
+                message.style.display = 'inline';
+            } else {
+                message.style.display = 'none';
+            }
+        });
+
+        // Secret Code Easter Egg: Type "open sesame" to reveal a hidden message
+        (function () {
+            let input = '';
+            const secretCode = 'opensesame';
+            document.addEventListener('keypress', function (e) {
+                input += e.key.toLowerCase();
+                if (input.includes(secretCode)) {
+                    const secret = document.getElementById('secret-code');
+                    secret.style.display = 'block';
+                    alert('🔓 Secret content unlocked!');
+                    input = '';
+                }
+                if (input.length > secretCode.length) {
+                    input = input.substr(input.length - secretCode.length);
+                }
+            });
+        })();
+
+        // ASCII Art in Console
+        console.log("%c\n" +
+            "  __        __   _                            _          _   _ \n" +
+            "  \\ \\      / /__| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |\n" +
+            "   \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\  | __| |\n" +
+            "    \\ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_|_|\n" +
+            "     \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/   \\__(_)\n" +
+            "\nHello there, console explorer! Keep up the curiosity!\n",
+            "color: green; font-family: monospace;"
+        );
+    </script>
+
+    <!-- Hidden Secret Content -->
+    <div id="secret-code">
+        <h2>🔒 Secret Unlocked!</h2>
+        <p>Congratulations on finding this hidden message. You're a true explorer!</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/H62G3m_MHQk?si=4I_FANAsYBOx9Q8Z"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+    </div>
+
+    <!-- Funny Code Comments -->
+
+    <!-- 
+        TODO: Implement AI to write my code while I play video games.
+        Note to self: Remember to turn it off before it becomes self-aware.
+    -->
+
+    <!-- 
+        Easter Egg: Type "open sesame" anywhere on the site to unlock a hidden message!
+    -->
+
+    <!-- 
+        Q: How many programmers does it take to change a light bulb?
+        A: None. It's a hardware problem.
+    -->
 
 </body>
 

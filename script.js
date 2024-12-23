@@ -4,6 +4,7 @@ function calculatePizzas() {
     const attendeesInput = document.getElementById('attendees');
     const pizzaTypeInput = document.getElementById('pizzaType');
     const hoursDebuggingInput = document.getElementById('hoursDebugging');
+    const slicesPerPersonInput = document.getElementById('slicesPerPerson');
     const resultDiv = document.getElementById('result');
     const emailPromptSection = document.getElementById('emailPromptSection');
     const progressBar = document.getElementById('progressBar');
@@ -13,6 +14,8 @@ function calculatePizzas() {
     progressBar.style.width = '0%';
     progressLabel.innerHTML = '';
     calculationCompleted = false;
+    resultDiv.innerHTML = '';
+    emailPromptSection.style.display = 'none';
 
     const loadingSteps = [
         "Analyzing hunger coefficients based on debugging hours...",
@@ -38,7 +41,7 @@ function calculatePizzas() {
             stepIndex++;
 
             if (percentage === 75) {
-                setTimeout(updateProgress, 1500); // Delay longer when stuck at 75%
+                setTimeout(updateProgress, 1500); // Delay longer when "stuck" at 75%
             } else {
                 setTimeout(updateProgress, 500); // Normal delay between steps
             }
@@ -53,16 +56,19 @@ function calculatePizzas() {
 
     function completeCalculation() {
         const hoursDebugging = parseInt(hoursDebuggingInput.value);
-        const hungerCoefficient = hoursDebugging * 2;
+        const slicesPerPerson = parseInt(slicesPerPersonInput.value);
+        const debuggingExtraSlices = hoursDebugging * 2; // Each hour of debugging adds 2 slices to the total
+        const attendees = parseInt(attendeesInput.value);
 
-        let attendees = parseInt(attendeesInput.value);
-        let totalSlicesNeeded = attendees * hungerCoefficient;
+        // Total slices needed considering slices per person plus debugging overhead
+        const totalSlicesNeeded = (attendees * slicesPerPerson) + debuggingExtraSlices;
+
         let pizzasRequired;
-
-        const pizzaType = pizzaTypeInput.value;
-        const slicesPerPizza = 8;
         let sliceEquivalency = 1;
+        const pizzaType = pizzaTypeInput.value;
+        const slicesPerPizza = 8; // Base slices in a standard pizza
 
+        // Switch on pizza type
         switch (pizzaType) {
             case "1": // NY Pizza
                 sliceEquivalency = 1;
@@ -77,18 +83,21 @@ function calculatePizzas() {
                 sliceEquivalency = 0.75; // Less filling slices
                 break;
             case "100": // Blockchain Pizza
-                sliceEquivalency = Math.random() > 0.5 ? 0.1 : 2; // Random worth: either almost nothing or a lot
+                // Random worth: either almost nothing or a lot
+                sliceEquivalency = Math.random() > 0.5 ? 0.1 : 2;
                 break;
             case "3": // Hot Pockets
                 pizzasRequired = attendees * hoursDebugging;
                 resultDiv.innerHTML = `<blockquote><p>You need <strong>${pizzasRequired}</strong> Hot Pocket(s) to feed <strong>${attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours of debugging. Hot Pockets: like server downtime—unexpected and regrettable. 🥵</p></blockquote>`;
                 calculationCompleted = true;
+                checkEnterpriseEmail(pizzasRequired);
                 return;
             case "cloud": // Cloud Pizza
                 resultDiv.innerHTML = `<blockquote><p>Cloud Pizza can feed any number of attendees for any duration. Like the cloud, it auto-scales to feed everyone, but the charges will be just as unpredictable! ☁️🍕</p></blockquote>`;
                 calculationCompleted = true;
+                // Possibly show enterprise if we consider infinite pizzas? Not doing so by default
                 return;
-            case "pineapple": // WiFi Pineapple Pizza
+            case "pineapple": // (Not in select but left in code for Easter egg possibility)
                 resultDiv.innerHTML = `<blockquote><p>WiFi Pineapple Pizza is highly divisive! Loved by some for its tangy, tropical flavor, but beware—it might just capture all your taste buds without you even realizing it. 🍍📡🍕</p></blockquote>`;
                 calculationCompleted = true;
                 return;
@@ -100,6 +109,7 @@ function calculatePizzas() {
         if (pizzaType === "100") {
             resultDiv.innerHTML = `<blockquote><p>You need <strong>${pizzasRequired}</strong> Blockchain Pizza(s) for <strong>${attendees}</strong> attendees. The value of each slice fluctuates wildly—one slice might change the world, while the next one could just crash your appetite. 🍕💸💥</p></blockquote>`;
             calculationCompleted = true;
+            checkEnterpriseEmail(pizzasRequired);
             return;
         }
 
@@ -107,8 +117,26 @@ function calculatePizzas() {
 
         resultDiv.innerHTML = `<blockquote><p>You need <strong>${pizzasRequired}</strong> pizza(s) for <strong>${attendees}</strong> attendees, adjusted for <strong>${hoursDebugging} hours</strong> of debugging. Using <strong>${pizzaTypeInput.options[pizzaTypeInput.selectedIndex].text}</strong>.</p><p>${humorMessage}</p></blockquote>`;
 
-        window.calculationResult = `Pizza Calculation Report\n\nNumber of Attendees: ${attendees}\nSelected Pizza Style: ${pizzaTypeInput.options[pizzaTypeInput.selectedIndex].text}\nSlices Per Pizza: ${adjustedSlicesPerPizza}\nTotal Pizzas Required: ${pizzasRequired}\nHours Debugging: ${hoursDebugging}\n\n${humorMessage}`;
+        // Build a text report for "Download Report" function
+        window.calculationResult = `Pizza Calculation Report\n\n` +
+            `Number of Attendees: ${attendees}\n` +
+            `Selected Pizza Style: ${pizzaTypeInput.options[pizzaTypeInput.selectedIndex].text}\n` +
+            `Slices Per Person: ${slicesPerPerson}\n` +
+            `Hours Debugging: ${hoursDebugging}\n` +
+            `Total Pizzas Required: ${pizzasRequired}\n\n` +
+            `${humorMessage}`;
+
         calculationCompleted = true;
+        checkEnterpriseEmail(pizzasRequired);
+    }
+}
+
+function checkEnterpriseEmail(pizzasRequired) {
+    const emailPromptSection = document.getElementById('emailPromptSection');
+    if (pizzasRequired >= 42) {
+        emailPromptSection.style.display = 'block';
+    } else {
+        emailPromptSection.style.display = 'none';
     }
 }
 
@@ -136,7 +164,6 @@ function downloadReport() {
     URL.revokeObjectURL(url);
 }
 
-// Add humor based on pizza count
 function getHumorMessage(pizzasRequired) {
     if (pizzasRequired >= 42) {
         return "You've reached Pied Piper-level scaling! Contact our Enterprise Pizza Sales Team for multi-cluster pizza solutions, featuring pizza load balancing, distributed slices, and fault-tolerant toppings! 🍕📞";
@@ -153,4 +180,15 @@ function getHumorMessage(pizzasRequired) {
     } else {
         return "Minimal pizza order detected. For proper disaster recovery, consider at least doubling your order to avoid slice shortages during critical phases of debugging. 📦🍕";
     }
+}
+
+function submitEmail() {
+    const email = document.getElementById('emailInput').value;
+    if (email.trim() === "") {
+        showToast("Please enter a valid email!");
+        return;
+    }
+    // In a real scenario, you'd send this to a server via AJAX or fetch()
+    console.log(`Enterprise pizza inquiry from: ${email}`);
+    showToast("Thanks! Our Enterprise Pizza Sales Team will contact you soon.");
 }

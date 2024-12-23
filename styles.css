@@ -1,0 +1,77 @@
+/* styles.css */
+
+/* Theme Toggle Button Styles */
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: auto;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.2);
+}
+
+/* Blog Section Styles */
+#blog .blog-post {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+#blog .blog-post h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+#blog .blog-post a {
+    text-decoration: none;
+    color: var(--pico-primary);
+    transition: color var(--pico-transition);
+}
+
+#blog .blog-post a:hover,
+#blog .blog-post a:focus {
+    color: var(--pico-primary-hover);
+    text-decoration: underline;
+}
+
+#blog .blog-post p {
+    margin-bottom: 0.5rem;
+    color: var(--pico-color);
+}
+
+#blog .blog-post a:last-of-type {
+    font-weight: bold;
+}
+
+/* Responsive Blog Posts */
+@media (min-width: 768px) {
+    #blog .blog-post {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* Additional Styles for Better Readability */
+body {
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+}
+
+p {
+    font-size: 1rem;
+}
+
+/* Adjust image sizes if necessary */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--pico-border-radius);
+}
