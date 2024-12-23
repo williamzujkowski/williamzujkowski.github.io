@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Coffee Calculator for Caffeinated Engineers">
+    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor">
+    <meta name="author" content="William Zujkowski">
+    <title>Coffee Calculator for IT Engineers</title>
+
+    <!-- Mizu.js and Matcha CSS -->
+    <script src="https://mizu.sh/client.js" defer></script>
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+
+    <style>
+        #progressContainer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        #progressBar {
+            height: 20px;
+            width: 0;
+            background-color: brown;
+            transition: width 0.5s ease-in-out;
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 17px;
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        #downloadCoffeeLink {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <nav>
+            <ul style="display: flex; gap: 1rem; list-style: none;">
+                <li><a href="index.html" data-mz-tooltip="Return Home!">Home</a></li>
+                <li><a href="pizza.html" data-mz-tooltip="Pizza Calculator!">Pizza Calculator</a></li>
+                <li><a href="coffee.html" aria-current="page" data-mz-tooltip="Refuel with coffee!">Coffee
+                        Calculator</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1>Coffee Calculator for IT Engineers</h1>
+            <p>Determine how many cups (or pots!) of coffee your bleary-eyed coders need to survive those 2 AM
+                deployments!</p>
+        </header>
+
+        <section>
+            <form id="coffeeForm" onsubmit="return false;">
+                <fieldset>
+                    <legend>Enter Your Coffee Details:</legend>
+
+                    <div>
+                        <label for="javaAttendees">Number of Devs:</label>
+                        <input type="number" id="javaAttendees" min="1" value="3" required>
+                    </div>
+
+                    <div>
+                        <label for="coffeeStrength">Coffee Strength:</label>
+                        <select id="coffeeStrength" required>
+                            <option value="1">Mild</option>
+                            <option value="2">Regular</option>
+                            <option value="3">Strong</option>
+                            <option value="5">Espresso Shots Only</option>
+                            <option value="10">Triple Espresso Shots (Danger!)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="hoursCoding">Hours of Coding:</label>
+                        <input type="number" id="hoursCoding" min="0" max="24" value="4" required>
+                    </div>
+
+                    <div>
+                        <label for="timesBuildFailed">Times the Build Failed:</label>
+                        <input type="number" id="timesBuildFailed" min="0" value="2" required>
+                    </div>
+
+                    <button type="button" onclick="calculateCoffee()">Calculate</button>
+                    <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
+                    <button type="button" onclick="shareCoffeeReport()">Share</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <section id="coffeeProgressSection">
+            <div id="progressContainer">
+                <div id="progressBar"></div>
+            </div>
+            <p id="progressLabel"></p>
+        </section>
+
+        <section id="coffeeResultSection">
+            <div id="coffeeResult" role="alert" aria-live="polite"></div>
+        </section>
+
+        <!-- Hidden anchor approach for repeated downloads -->
+        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt">Download Coffee Report</a>
+
+        <footer>
+            <small>
+                © 2024 William Zujkowski. Fueled by Matcha CSS + mizu.js.
+                <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
+                <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |
+                <a href="https://steamcommunity.com/id/grenlan/" target="_blank">Steam</a>
+            </small>
+        </footer>
+        <div id="toast" class="toast">Toast message here</div>
+    </main>
+
+    <!-- Coffee Calculator Logic -->
+    <script src="coffee_calc.js"></script>
+</body>
+
+</html>
