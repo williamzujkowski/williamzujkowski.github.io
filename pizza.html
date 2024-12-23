@@ -9,17 +9,14 @@
     <meta name="author" content="William Zujkowski">
     <title>Pizza Calculator for IT Engineers</title>
 
-    <!-- Google Fonts: Noto Sans -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap">
-
-    <!-- Pico CSS -->
-    <link rel="stylesheet" href="pico.indigo.css">
+    <!-- Mizu.js and Matcha CSS -->
+    <script src="https://mizu.sh/client.js" defer></script>
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
     <style>
-        /* Additional styling for progress bar */
         #progressContainer {
             width: 100%;
-            background-color: #f3f3f3;
+            background-color: rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             overflow: hidden;
             margin-top: 1rem;
@@ -28,7 +25,7 @@
         #progressBar {
             height: 20px;
             width: 0;
-            background-color: #007bff;
+            background-color: green;
             transition: width 0.5s ease-in-out;
         }
 
@@ -41,7 +38,7 @@
             border-radius: 5px;
             padding: 16px;
             position: fixed;
-            z-index: 1;
+            z-index: 9999;
             left: 50%;
             bottom: 30px;
             transform: translateX(-50%);
@@ -76,78 +73,71 @@
                 opacity: 0;
             }
         }
+
+        /* Link to trigger download after multiple calculations */
+        #downloadLink {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <main class="container">
         <nav>
-            <ul>
-                <li><a href="index.html" aria-current="page">Home</a></li>
-                <li><a href="pizza.html">Pizza Calculator</a></li>
+            <ul style="display: flex; gap: 1rem; list-style: none;">
+                <li><a href="index.html" data-mz-tooltip="Return Home!">Home</a></li>
+                <li><a href="pizza.html" aria-current="page" data-mz-tooltip="Pizza Calculator!">Pizza Calculator</a>
+                </li>
+                <li><a href="coffee.html" data-mz-tooltip="Grab some caffeine?">Coffee Calculator</a></li>
             </ul>
         </nav>
+
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
             <p>Calculate how much pizza your hungry engineers need after hours of debugging!</p>
         </header>
 
         <section>
-            <!-- 
-                 If you prefer to move form handling into script.js, you can remove 
-                 onsubmit="return false;" and attach a submit event listener in script.js.
-            -->
-            <form id="pizzaForm" onsubmit="return false;" aria-label="Pizza calculation form">
+            <form id="pizzaForm" onsubmit="return false;">
                 <fieldset>
                     <legend>Enter Your Details:</legend>
 
-                    <div class="form-group" aria-label="Number of attendees input group">
+                    <div>
                         <label for="attendees">Number of Attendees:</label>
-                        <input type="number" id="attendees" name="attendees" min="1" value="5" required
-                            aria-required="true" aria-describedby="attendeesHelp">
-                        <small id="attendeesHelp">Enter the number of people attending your pizza party.</small>
+                        <input type="number" id="attendees" name="attendees" min="1" value="5" required>
                     </div>
 
-                    <div class="form-group" aria-label="Pizza style selection group">
+                    <div>
                         <label for="pizzaType">Select Pizza Style:</label>
-                        <select id="pizzaType" name="pizzaType" aria-required="true">
-                            <option value="1" title="NY Pizza: 8 slices per pizza">NY Pizza (Default)</option>
-                            <option value="0.5" title="Detroit Pizza: Thicker crust, 4 slices per pizza">Detroit Pizza
-                                (Thicker and fewer!)</option>
-                            <option value="0.6" title="Chicago Pizza: Deep-dish, 5 slices per pizza">Chicago Pizza
-                                (Deep-dish for the win!)</option>
-                            <option value="2" title="California Pizza Kitchen Pizza: Lighter, 16 slices per pizza">
-                                California Pizza Kitchen Pizza (Light but trendy!)</option>
-                            <option value="3" title="Hot Pockets: 1 per hour of debugging">Hot Pockets (Quick and
-                                regrettable!)</option>
-                            <option value="100" title="Blockchain Pizza: 100 slices, random worth">Blockchain Pizza
-                                (Random slice worth!)</option>
-                            <option value="cloud" title="Cloud Pizza: Auto-scales">Cloud Pizza (Infinite slices,
-                                infinite charges!)</option>
+                        <select id="pizzaType" name="pizzaType" required>
+                            <option value="1">NY Pizza (Default)</option>
+                            <option value="0.5">Detroit Pizza</option>
+                            <option value="0.6">Chicago Pizza</option>
+                            <option value="2">California Pizza Kitchen</option>
+                            <option value="3">Hot Pockets</option>
+                            <option value="100">Blockchain Pizza</option>
+                            <option value="cloud">Cloud Pizza</option>
                         </select>
                     </div>
 
-                    <div class="form-group" aria-label="Slices per person input group">
+                    <div>
                         <label for="slicesPerPerson">Average Slices per Person:</label>
                         <input type="number" id="slicesPerPerson" name="slicesPerPerson" min="1" max="8" value="3"
-                            required aria-required="true">
-                        <small>Adjust if your attendees are light or heavy eaters! (Max 8 slices per person)</small>
+                            required>
                     </div>
 
-                    <div class="form-group" aria-label="Hours spent debugging input group">
+                    <div>
                         <label for="hoursDebugging">Hours Spent Debugging:</label>
                         <input type="number" id="hoursDebugging" name="hoursDebugging" min="0" max="10" value="2"
                             required>
-                        <small>Enter how many hours of debugging your team has endured today (0 to 10).</small>
                     </div>
 
-                    <button type="button" onclick="calculatePizzas()" aria-live="assertive">Calculate</button>
-                    <button type="button" onclick="downloadReport()" aria-live="assertive">Download Report</button>
+                    <button type="button" onclick="calculatePizzas()">Calculate</button>
+                    <button type="button" onclick="downloadReport()">Download Report</button>
                 </fieldset>
             </form>
         </section>
 
-        <!-- Progress Bar Section -->
         <section id="progressSection">
             <div id="progressContainer">
                 <div id="progressBar"></div>
@@ -161,15 +151,17 @@
 
         <section id="emailPromptSection" style="display:none;">
             <p>If you're ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team can
-                contact you to discuss your large-scale pizza deployment needs:</p>
-            <input type="email" id="emailInput" placeholder="Enter your email" aria-label="Email for pizza sales">
+                contact you:</p>
+            <input type="email" id="emailInput" placeholder="Enter your email">
             <button type="button" onclick="submitEmail()">Submit Email</button>
         </section>
 
-        <!-- Footer -->
+        <!-- Hidden anchor approach to force user-initiated download each time -->
+        <a id="downloadLink" href="#" download="Pizza_Calculation_Report.txt">Download Pizza Report</a>
+
         <footer>
             <small>
-                © 2024 William Zujkowski. Built with Pico CSS.
+                © 2024 William Zujkowski. Powered by Matcha CSS + mizu.js.
                 <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
                 <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |
                 <a href="https://steamcommunity.com/id/grenlan/" target="_blank">Steam</a>
@@ -177,8 +169,9 @@
         </footer>
         <div id="toast" class="toast">Toast message here</div>
     </main>
-    <script src="script.js"></script>
 
+    <!-- Pizza Calculator Logic -->
+    <script src="pizza_calc.js"></script>
 </body>
 
 </html>
