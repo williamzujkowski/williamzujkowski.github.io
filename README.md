@@ -1,6 +1,3 @@
-Below is a sample **README.md** you can place in your GitHub repository for this website. Feel free to modify any sections to better fit your needs:
-
-```markdown
 # William Zujkowski's Personal Website
 
 Welcome to the official repository of **William Zujkowski’s Personal Website**! This is a modern, lightweight static site featuring:
