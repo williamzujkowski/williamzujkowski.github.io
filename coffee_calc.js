@@ -1,5 +1,6 @@
+// coffee_calc.js
+
 (function () {
-    // Check if this page actually has the coffee form to avoid console errors on other pages
     if (!document.getElementById('coffeeForm')) {
         return;
     }
@@ -144,7 +145,7 @@
     };
 
     window.downloadCoffeeReport = function () {
-        if (!coffeeCalculationCompleted || !coffeeReport) {
+        if (!coffeeCalculationCompleted) {
             showToast("Please perform a coffee calculation first!");
             return;
         }
@@ -167,7 +168,7 @@
     };
 
     window.shareCoffeeReport = function () {
-        if (!coffeeCalculationCompleted || !coffeeReport) {
+        if (!coffeeCalculationCompleted) {
             showToast("No coffee report to share!");
             return;
         }

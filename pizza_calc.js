@@ -1,13 +1,13 @@
+// pizza_calc.js
+
 (function () {
-    // Check if this page actually has the pizza form to avoid console errors on other pages
     if (!document.getElementById('pizzaForm')) {
-        return; // do nothing if elements don't exist
+        return;
     }
 
     let calculationCompleted = false;
-    let pizzaReport = ""; // store the result
+    let pizzaReport = "";
 
-    // On page load, restore prior inputs from localStorage
     function loadPizzaDefaults() {
         const storedAttendees = localStorage.getItem('pizzaAttendees');
         const storedSlicesPerPerson = localStorage.getItem('pizzaSlicesPerPerson');
@@ -23,7 +23,6 @@
 
     // FUN: Generate AI Toppings
     window.generateAIToppings = function () {
-        // comedic random set of toppings
         const toppingOptions = [
             "Pepperoni++",
             "BBQ Marshmallows",
@@ -37,7 +36,6 @@
             "Elon’s Space Spice"
         ];
 
-        // pick 3 random
         let selected = [];
         for (let i = 0; i < 3; i++) {
             const randIndex = Math.floor(Math.random() * toppingOptions.length);
@@ -46,7 +44,6 @@
         return selected;
     };
 
-    // Insert additional buttons into the form
     const formFieldset = document.querySelector('#pizzaForm fieldset');
     if (formFieldset) {
         const aiBtn = document.createElement('button');
@@ -83,7 +80,6 @@
     }
 
     window.calculatePizzas = function () {
-        // Reset on each new calculation
         calculationCompleted = false;
         pizzaReport = "";
 
@@ -97,13 +93,11 @@
         const progressBar = document.getElementById('progressBar');
         const progressLabel = document.getElementById('progressLabel');
 
-        // Save user inputs in local storage
         localStorage.setItem('pizzaAttendees', attendeesInput.value);
         localStorage.setItem('pizzaType', pizzaTypeInput.value);
         localStorage.setItem('pizzaSlicesPerPerson', slicesPerPersonInput.value);
         localStorage.setItem('pizzaHoursDebugging', hoursDebuggingInput.value);
 
-        // Clear old results
         resultDiv.innerHTML = '';
         emailPromptSection.style.display = 'none';
         progressBar.style.width = '0%';
@@ -130,7 +124,6 @@
                 progressBar.style.width = `${percentage}%`;
                 progressLabel.textContent = loadingSteps[stepIndex];
                 stepIndex++;
-
                 if (percentage === 75) {
                     setTimeout(updateProgress, 1500);
                 } else {
@@ -155,7 +148,7 @@
             let pizzasRequired;
             let sliceEquivalency = 1;
             const pizzaType = pizzaTypeInput.value;
-            const slicesPerPizza = 8; // baseline
+            const slicesPerPizza = 8;
 
             switch (pizzaType) {
                 case "1": // NY
@@ -177,12 +170,12 @@
                 case "100": // Blockchain
                     sliceEquivalency = Math.random() > 0.5 ? 0.1 : 2;
                     break;
-                case "cloud": // Cloud Pizza
+                case "cloud":
                     finalizeResult(Infinity, pizzaType, slicesPerPerson, hoursDebugging, attendees, "Cloud pizza infinite cost!");
                     return;
                 case "pineapple":
-                    resultDiv.innerHTML = `<blockquote>WiFi Pineapple Pizza is an acquired taste. 
-                        It's capturing your taste buds even as we speak. 🍍📡🍕</blockquote>`;
+                    resultDiv.innerHTML = `<blockquote>WiFi Pineapple Pizza is an acquired taste.
+                    It's capturing your taste buds even as we speak. 🍍📡🍕</blockquote>`;
                     calculationCompleted = true;
                     return;
             }
@@ -205,22 +198,20 @@
                 displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Hot Pocket(s) 
                     to feed <strong>${attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours 
                     of debugging. ${humor}</blockquote>`;
-            }
-            else if (pizzaType === "cloud") {
+            } else if (pizzaType === "cloud") {
                 displayMessage = `<blockquote>Cloud Pizza can feed any number of attendees, 
                     but watch out for that infinite billing! ☁️🍕</blockquote>`;
-            }
-            else if (pizzaType === "100") {
+            } else if (pizzaType === "100") {
                 displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Blockchain Pizza(s) 
                     for <strong>${attendees}</strong> devs. ${humor} 🍕💸</blockquote>`;
-            }
-            else if (pizzaType === "pineapple") {
+            } else if (pizzaType === "pineapple") {
                 return;
-            }
-            else {
+            } else {
                 displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> pizza(s) for 
                     <strong>${attendees}</strong> attendees, factoring in <strong>${hoursDebugging} hours</strong>. 
-                    Using <strong>${document.getElementById('pizzaType').options[document.getElementById('pizzaType').selectedIndex].text}</strong> style.<br><br>
+                    Using <strong>${document.getElementById('pizzaType').options[
+                        document.getElementById('pizzaType').selectedIndex
+                    ].text}</strong> style.<br><br>
                     ${humor}</blockquote>`;
             }
 
@@ -231,7 +222,9 @@
             let constructedReport =
                 `Pizza Calculation Report\n\n` +
                 `Number of Attendees: ${attendees}\n` +
-                `Selected Pizza Style: ${document.getElementById('pizzaType').options[document.getElementById('pizzaType').selectedIndex].text}\n` +
+                `Selected Pizza Style: ${document.getElementById('pizzaType').options[
+                    document.getElementById('pizzaType').selectedIndex
+                ].text}\n` +
                 `Slices Per Person: ${slicesPerPerson}\n` +
                 `Hours Debugging: ${hoursDebugging}\n` +
                 `Total Pizzas Required: ${pizzasRequired}\n\n` +
@@ -314,5 +307,4 @@
         console.log(`Enterprise pizza inquiry from: ${email}`);
         showToast("Thanks! Our Enterprise Pizza Sales Team will contact you soon.");
     };
-
 })();
