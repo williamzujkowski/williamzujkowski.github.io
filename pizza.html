@@ -3,15 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pizza Calculator for IT Engineers">
     <meta name="keywords" content="Pizza, Calculator, IT Engineers, Tech Humor, Fun Tool">
     <meta name="author" content="William Zujkowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Pizza Calculator for IT Engineers</title>
 
     <!-- Mizu.js and Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+
+    <!-- nav_gen.js & footer_gen.js -->
+    <script src="nav_gen.js" defer></script>
+    <script src="footer_gen.js" defer></script>
 
     <style>
         #progressContainer {
@@ -74,24 +79,17 @@
             }
         }
 
-        /* Link to trigger download after multiple calculations */
         #downloadLink {
             display: none;
         }
     </style>
 </head>
 
-<body>
-    <main class="container">
-        <nav>
-            <ul style="display: flex; gap: 1rem; list-style: none;">
-                <li><a href="index.html" data-mz-tooltip="Return Home!">Home</a></li>
-                <li><a href="pizza.html" aria-current="page" data-mz-tooltip="Pizza Calculator!">Pizza Calculator</a>
-                </li>
-                <li><a href="coffee.html" data-mz-tooltip="Grab some caffeine?">Coffee Calculator</a></li>
-            </ul>
-        </nav>
+<body lang="en">
+    <!-- Dynamic nav placeholder -->
+    <div id="dynamic-nav"></div>
 
+    <main class="container">
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
             <p>Calculate how much pizza your hungry engineers need after hours of debugging!</p>
@@ -104,12 +102,12 @@
 
                     <div>
                         <label for="attendees">Number of Attendees:</label>
-                        <input type="number" id="attendees" name="attendees" min="1" value="5" required>
+                        <input type="number" id="attendees" name="attendees" value="5">
                     </div>
 
                     <div>
                         <label for="pizzaType">Select Pizza Style:</label>
-                        <select id="pizzaType" name="pizzaType" required>
+                        <select id="pizzaType" name="pizzaType">
                             <option value="1">NY Pizza (Default)</option>
                             <option value="0.5">Detroit Pizza</option>
                             <option value="0.6">Chicago Pizza</option>
@@ -122,14 +120,12 @@
 
                     <div>
                         <label for="slicesPerPerson">Average Slices per Person:</label>
-                        <input type="number" id="slicesPerPerson" name="slicesPerPerson" min="1" max="8" value="3"
-                            required>
+                        <input type="number" id="slicesPerPerson" name="slicesPerPerson" value="3">
                     </div>
 
                     <div>
                         <label for="hoursDebugging">Hours Spent Debugging:</label>
-                        <input type="number" id="hoursDebugging" name="hoursDebugging" min="0" max="10" value="2"
-                            required>
+                        <input type="number" id="hoursDebugging" name="hoursDebugging" value="2">
                     </div>
 
                     <button type="button" onclick="calculatePizzas()">Calculate</button>
@@ -156,21 +152,12 @@
             <button type="button" onclick="submitEmail()">Submit Email</button>
         </section>
 
-        <!-- Hidden anchor approach to force user-initiated download each time -->
         <a id="downloadLink" href="#" download="Pizza_Calculation_Report.txt">Download Pizza Report</a>
-
-        <footer>
-            <small>
-                © 2024 William Zujkowski. Powered by Matcha CSS + mizu.js.
-                <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
-                <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |
-                <a href="https://steamcommunity.com/id/grenlan/" target="_blank">Steam</a>
-            </small>
-        </footer>
-        <div id="toast" class="toast">Toast message here</div>
     </main>
 
-    <!-- Pizza Calculator Logic -->
+    <!-- Dynamic footer placeholder -->
+    <div id="dynamic-footer"></div>
+
     <script src="pizza_calc.js"></script>
 </body>
 

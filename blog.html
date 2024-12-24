@@ -7,11 +7,16 @@
     <meta name="keywords" content="Blog, William Zujkowski, Tech, Pizza, Coffee, Homelab, Docker, Podman">
     <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Blog Archives - William Zujkowski</title>
 
     <!-- Mizu.js and Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+
+    <!-- nav_gen.js & footer_gen.js for dynamic nav/footer -->
+    <script src="nav_gen.js" defer></script>
+    <script src="footer_gen.js" defer></script>
 
     <style>
         main {
@@ -58,86 +63,117 @@
         article:last-of-type {
             border-bottom: none;
         }
+
+        .search-container {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-container label {
+            font-weight: bold;
+        }
+
+        .search-container input {
+            width: 250px;
+            max-width: 100%;
+        }
     </style>
 </head>
 
-<body>
-    <!-- Use mizu for the entire page so we can parse the blog data -->
+<body lang="en">
+    <!-- Dynamic nav placeholder -->
+    <div id="dynamic-nav"></div>
+
     <main class="container" *mizu>
-
-        <nav>
-            <ul style="display:flex;gap:1rem;list-style:none;">
-                <li><a href="index.html" data-mz-tooltip="Return Home!">Home</a></li>
-                <li><a href="pizza.html" data-mz-tooltip="Pizza Calculator!">Pizza Calculator</a></li>
-                <li><a href="coffee.html" data-mz-tooltip="Coffee Calculator!">Coffee Calculator</a></li>
-                <li><a href="blog.html" data-mz-tooltip="All Blog Posts" aria-current="page">Blog</a></li>
-            </ul>
-        </nav>
-
         <header>
             <h1>All Blog Posts</h1>
             <p>Welcome to the archives! Expand each post for more details.</p>
         </header>
 
-        <!-- We'll load the table of contents referencing h2+ from #blog-archive -->
+        <div class="search-container">
+            <label for="blogSearch">Search Posts:</label>
+            <input type="text" id="blogSearch" placeholder="Type keywords...">
+            <button type="button" onclick="filterBlogPosts()">Filter</button>
+            <button type="button" onclick="resetBlogFilter()">Reset</button>
+        </div>
+
         <nav *toc="'#blog-archive'" [h2+]></nav>
-
-        <!-- We'll fetch the blog_data.md, parse the posts, and display them. -->
-        <div %http="'blog_data.md'" %response="renderBlogPosts($response)"></div>
-
+        <div %http="'blog_data.html'" %response="renderBlogPostsHTML($response)"></div>
         <section id="blog-archive"></section>
     </main>
 
-    <script>
-        async function renderBlogPosts(resp) {
-            const mdData = await resp.text();
+    <!-- Dynamic footer placeholder -->
+    <div id="dynamic-footer"></div>
 
-            function parseFrontMatter(chunk) {
-                const lines = chunk.trim().split('\n');
-                let meta = { title: '', date: '', slug: '' };
-                let contentStart = 0;
-                for (let i = 0; i < lines.length; i++) {
-                    const line = lines[i].trim();
-                    if (!line) {
-                        contentStart = i + 1;
-                        break;
-                    }
-                    if (line.startsWith('title:')) {
-                        meta.title = line.replace('title:', '').trim().replace(/^"|"$/g, '');
-                    } else if (line.startsWith('date:')) {
-                        meta.date = line.replace('date:', '').trim().replace(/^"|"$/g, '');
-                    } else if (line.startsWith('slug:')) {
-                        meta.slug = line.replace('slug:', '').trim().replace(/^"|"$/g, '');
-                    }
-                }
-                const contentLines = lines.slice(contentStart).join('\n');
-                return { ...meta, content: contentLines };
+    <script>
+        let allArticles = [];
+
+        async function renderBlogPostsHTML(resp) {
+            const textData = await resp.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(textData, 'text/html');
+            allArticles = Array.from(doc.querySelectorAll('article'));
+
+            if (!allArticles.length) {
+                console.error('No posts found in blog_data.html');
+                return;
             }
 
-            const rawPosts = mdData.split(/^---.*$/gm).filter(p => p.trim());
-            let posts = rawPosts.map(parseFrontMatter);
+            // Sort by date descending
+            allArticles.sort((a, b) => {
+                const dateA = new Date(a.getAttribute('data-date'));
+                const dateB = new Date(b.getAttribute('data-date'));
+                return dateB - dateA;
+            });
 
-            // sort by date descending
-            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            renderArticles(allArticles);
+        }
 
+        function renderArticles(articles) {
             const archiveSection = document.getElementById('blog-archive');
             archiveSection.innerHTML = '';
 
-            posts.forEach(post => {
-                // We'll build a chunk of HTML with *markdown, then insert it
-                const articleHtml = `
-            <article>
-              <div class="blog-title">${post.title}</div>
-              <div class="blog-date">${post.date}</div>
-              <details id="${post.slug}">
-                <summary>${post.title}</summary>
-                <div *markdown="this.dataset.md" data-md="${post.content.trim()}"></div>
-              </details>
-            </article>
-          `;
-                archiveSection.insertAdjacentHTML('beforeend', articleHtml);
+            articles.forEach(article => {
+                const dateAttr = article.getAttribute('data-date');
+                const slug = article.getAttribute('data-slug') || '';
+                const titleEl = article.querySelector('h2');
+                const postTitle = titleEl ? titleEl.textContent.trim() : '(Untitled)';
+                const articleContent = article.innerHTML;
+
+                const detailsHtml = `
+                <article id="${slug}">
+                    <div class="blog-title">${postTitle}</div>
+                    <div class="blog-date">${dateAttr}</div>
+                    <details>
+                        <summary>${postTitle}</summary>
+                        <div>${articleContent}</div>
+                    </details>
+                </article>
+            `;
+                archiveSection.insertAdjacentHTML('beforeend', detailsHtml);
             });
         }
+
+        window.filterBlogPosts = function () {
+            const searchValue = document.getElementById('blogSearch').value.toLowerCase().trim();
+            if (!searchValue) {
+                renderArticles(allArticles);
+                return;
+            }
+            const filtered = allArticles.filter(article => {
+                const text = article.textContent.toLowerCase();
+                return text.includes(searchValue);
+            });
+            renderArticles(filtered);
+        };
+
+        window.resetBlogFilter = function () {
+            document.getElementById('blogSearch').value = '';
+            renderArticles(allArticles);
+        };
     </script>
 </body>
 
