@@ -756,12 +756,7 @@ window.resetBlogFilter = function () {
 // Friendly console greeting with updated ASCII referencing grenlan.com
 console.log(
     "%c\n" +
-    "   ____                                _            \n" +
-    "  / ___| _ __   ___  _ __   __ _  __ _| |_ ___  _ __ \n" +
-    "  \\___ \\| '_ \\ / _ \\| '_ \\ / _` |/ _` | __/ _ \\| '__|\n" +
-    "   ___) | |_) | (_) | | | | (_| | (_| | || (_) | |   \n" +
-    "  |____/| .__/ \\___/|_| |_|\\__,_|\\__,_|\\__\\___/|_|   \n" +
-    "        |_|  grenlan.com is loading...               \n" +
+    " grenlan.com is loading...               \n" +
     "\nHello there, console explorer! Keep up the curiosity!\n",
     "color: green; font-family: monospace;"
 );
