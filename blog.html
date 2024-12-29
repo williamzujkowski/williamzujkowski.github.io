@@ -10,13 +10,12 @@
 
     <title>Blog Archives - William Zujkowski</title>
 
-    <!-- Mizu.js and Matcha CSS -->
+    <!-- Mizu.js & Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- nav_gen.js & footer_gen.js for dynamic nav/footer -->
-    <script src="nav_gen.js" defer></script>
-    <script src="footer_gen.js" defer></script>
+    <!-- Single consolidated script -->
+    <script src="main.js" defer></script>
 
     <style>
         main {
@@ -84,7 +83,7 @@
 </head>
 
 <body lang="en">
-    <!-- Dynamic nav placeholder -->
+    <!-- Dynamic nav container -->
     <div id="dynamic-nav"></div>
 
     <main class="container" *mizu>
@@ -100,81 +99,16 @@
             <button type="button" onclick="resetBlogFilter()">Reset</button>
         </div>
 
+        <!-- We'll load the table of contents referencing h2+ from #blog-archive -->
         <nav *toc="'#blog-archive'" [h2+]></nav>
+
+        <!-- We'll fetch the blog_data.html, parse, reorder, and display them. -->
         <div %http="'blog_data.html'" %response="renderBlogPostsHTML($response)"></div>
         <section id="blog-archive"></section>
     </main>
 
-    <!-- Dynamic footer placeholder -->
+    <!-- Dynamic footer container -->
     <div id="dynamic-footer"></div>
-
-    <script>
-        let allArticles = [];
-
-        async function renderBlogPostsHTML(resp) {
-            const textData = await resp.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(textData, 'text/html');
-            allArticles = Array.from(doc.querySelectorAll('article'));
-
-            if (!allArticles.length) {
-                console.error('No posts found in blog_data.html');
-                return;
-            }
-
-            // Sort by date descending
-            allArticles.sort((a, b) => {
-                const dateA = new Date(a.getAttribute('data-date'));
-                const dateB = new Date(b.getAttribute('data-date'));
-                return dateB - dateA;
-            });
-
-            renderArticles(allArticles);
-        }
-
-        function renderArticles(articles) {
-            const archiveSection = document.getElementById('blog-archive');
-            archiveSection.innerHTML = '';
-
-            articles.forEach(article => {
-                const dateAttr = article.getAttribute('data-date');
-                const slug = article.getAttribute('data-slug') || '';
-                const titleEl = article.querySelector('h2');
-                const postTitle = titleEl ? titleEl.textContent.trim() : '(Untitled)';
-                const articleContent = article.innerHTML;
-
-                const detailsHtml = `
-                <article id="${slug}">
-                    <div class="blog-title">${postTitle}</div>
-                    <div class="blog-date">${dateAttr}</div>
-                    <details>
-                        <summary>${postTitle}</summary>
-                        <div>${articleContent}</div>
-                    </details>
-                </article>
-            `;
-                archiveSection.insertAdjacentHTML('beforeend', detailsHtml);
-            });
-        }
-
-        window.filterBlogPosts = function () {
-            const searchValue = document.getElementById('blogSearch').value.toLowerCase().trim();
-            if (!searchValue) {
-                renderArticles(allArticles);
-                return;
-            }
-            const filtered = allArticles.filter(article => {
-                const text = article.textContent.toLowerCase();
-                return text.includes(searchValue);
-            });
-            renderArticles(filtered);
-        };
-
-        window.resetBlogFilter = function () {
-            document.getElementById('blogSearch').value = '';
-            renderArticles(allArticles);
-        };
-    </script>
 </body>
 
 </html>

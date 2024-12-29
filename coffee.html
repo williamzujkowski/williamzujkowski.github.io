@@ -10,13 +10,12 @@
 
     <title>Coffee Calculator for IT Engineers</title>
 
-    <!-- Mizu.js and Matcha CSS -->
+    <!-- Mizu.js & Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- nav_gen.js & footer_gen.js for dynamic nav/footer -->
-    <script src="nav_gen.js" defer></script>
-    <script src="footer_gen.js" defer></script>
+    <!-- Single consolidated script -->
+    <script src="main.js" defer></script>
 
     <style>
         #progressContainer {
@@ -86,14 +85,13 @@
 </head>
 
 <body lang="en">
-    <!-- Dynamic nav placeholder -->
+    <!-- Dynamic nav container -->
     <div id="dynamic-nav"></div>
 
     <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
-            <p>Determine how many cups (or pots!) of coffee your bleary-eyed coders need to survive those 2 AM
-                deployments!</p>
+            <p>Determine how many cups (or pots!) of coffee your bleary-eyed coders need for those 2 AM deployments!</p>
         </header>
 
         <section>
@@ -145,15 +143,12 @@
             <div id="coffeeResult" role="alert" aria-live="polite"></div>
         </section>
 
+        <!-- Hidden anchor for repeated downloads -->
         <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt">Download Coffee Report</a>
-
     </main>
 
-    <!-- Dynamic footer placeholder -->
+    <!-- Dynamic footer container -->
     <div id="dynamic-footer"></div>
-
-    <!-- Coffee Calculator Logic -->
-    <script src="coffee_calc.js"></script>
 </body>
 
 </html>

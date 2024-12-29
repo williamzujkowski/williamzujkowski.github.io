@@ -11,15 +11,14 @@
     <title>William Zujkowski - Software Engineer and Security Enthusiast</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-    <!-- Mizu.js and Matcha CSS -->
+    <!-- Mizu.js & Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- Dynamic Nav & Footer Scripts -->
-    <script src="nav_gen.js" defer></script>
-    <script src="footer_gen.js" defer></script>
+    <!-- Single consolidated script -->
+    <script src="main.js" defer></script>
 
-    <!-- Additional Styles -->
+    <!-- Additional Custom Styles -->
     <style>
         .hero {
             text-align: center;
@@ -65,27 +64,15 @@
             list-style: disc;
             padding-left: 1.25rem;
         }
-
-        .sr-only {
-            position: absolute !important;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
     </style>
 </head>
 
 <body lang="en">
-    <!-- Dynamic nav placeholder -->
+    <!-- Dynamic nav container -->
     <div id="dynamic-nav"></div>
-
     <main class="container" *mizu>
         <!-- Hero Section -->
-        <section class="hero" aria-label="Hero section">
+        <section class="hero">
             <img src="simpson_profile.png" alt="William's Profile Picture">
             <h1>Hi, I'm William!</h1>
             <p>Computer Engineer, Security Enthusiast, and Homelab Tinkerer.</p>
@@ -102,8 +89,7 @@
                 Fun fact: It makes me happy that
                 <a href="http://info.cern.ch/hypertext/WWW/TheProject.html" target="_blank" rel="noopener noreferrer">
                     The FIRST website
-                </a>
-                is still online!
+                </a> is still online!
             </p>
         </section>
 
@@ -123,104 +109,25 @@
         <!-- Blog Section -->
         <section id="blog">
             <h2>Blog Posts</h2>
+            <!-- We'll fetch blog_data.html, parse it, then place the newest post here -->
             <div %http="'blog_data.html'" %response="renderIndexBlogHTML($response)"></div>
             <div id="latest-post"></div>
             <div id="older-posts"></div>
         </section>
-
-        <!-- Curated Links Section -->
-        <section id="links">
-            <details>
-                <summary>Curated Links</summary>
-                <!-- ... your existing link categories ... -->
-            </details>
-        </section>
-
-        <!-- Connect -->
-        <section id="connect">
-            <h2>Connect with Me</h2>
-            <p>Feel free to reach out or follow me on these platforms:</p>
-            <div>
-                <a href="https://github.com/williamzujkowski" target="_blank" rel="noopener noreferrer">
-                    <img src="https://www.vectorlogo.zone/logos/github/github-tile.svg" height="50" width="50"
-                        alt="GitHub Logo">
-                </a>
-                <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://www.vectorlogo.zone/logos/linkedin/linkedin-tile.svg" height="50" width="50"
-                        alt="LinkedIn Logo">
-                </a>
-                <a href="https://steamcommunity.com/id/grenlan/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://www.vectorlogo.zone/logos/steampowered/steampowered-icon.svg" height="50"
-                        width="50" alt="Steam Logo">
-                </a>
-            </div>
-        </section>
     </main>
 
-    <!-- Dynamic footer placeholder -->
+    <!-- Dynamic footer container -->
     <div id="dynamic-footer"></div>
 
-    <!-- Main Script -->
-    <script>
-        async function renderIndexBlogHTML(resp) {
-            const textData = await resp.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(textData, 'text/html');
-            const articles = Array.from(doc.querySelectorAll('article'));
-
-            if (!articles.length) {
-                console.error("No posts found in blog_data.html");
-                return;
-            }
-
-            // Sort descending by data-date
-            articles.sort((a, b) => {
-                const dateA = new Date(a.getAttribute('data-date'));
-                const dateB = new Date(b.getAttribute('data-date'));
-                return dateB - dateA;
-            });
-
-            const newest = articles[0];
-            const older = articles.slice(1);
-
-            const latestEl = document.getElementById('latest-post');
-            const olderEl = document.getElementById('older-posts');
-
-            // Insert the newest post
-            latestEl.innerHTML = newest.outerHTML;
-
-            // Build older post list
-            if (older.length) {
-                let html = '<h4>Older Posts:</h4><ul>';
-                older.forEach(article => {
-                    const dateAttr = article.getAttribute('data-date');
-                    const slug = article.getAttribute('data-slug') || '';
-                    const h2 = article.querySelector('h2');
-                    const titleText = h2 ? h2.textContent.trim() : '(Untitled Post)';
-                    html += `
-                    <li>
-                        <strong>${dateAttr}</strong> -
-                        <a href="blog.html#${slug}">${titleText}</a>
-                    </li>
-                `;
-                });
-                html += '</ul>';
-                olderEl.innerHTML = html;
-            }
-        }
-
-        // Konami, secret toggles, etc...
-        // ... (same code from the prior example) ...
-    </script>
-
-    <!-- Hidden container for 'opensesame' secret -->
-    <div id="secret-code" style="display: none;">
+    <!-- Hidden secret code container -->
+    <div id="secret-code" style="display:none;">
         <h2>🔒 Secret Unlocked!</h2>
         <p>Congratulations on finding this hidden message. You're a true explorer!</p>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/H62G3m_MHQk" title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
     </div>
 </body>
 
