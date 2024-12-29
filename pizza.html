@@ -10,13 +10,12 @@
 
     <title>Pizza Calculator for IT Engineers</title>
 
-    <!-- Mizu.js and Matcha CSS -->
+    <!-- Mizu.js & Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- nav_gen.js & footer_gen.js -->
-    <script src="nav_gen.js" defer></script>
-    <script src="footer_gen.js" defer></script>
+    <!-- Single consolidated script -->
+    <script src="main.js" defer></script>
 
     <style>
         #progressContainer {
@@ -86,7 +85,7 @@
 </head>
 
 <body lang="en">
-    <!-- Dynamic nav placeholder -->
+    <!-- Dynamic nav container -->
     <div id="dynamic-nav"></div>
 
     <main class="container">
@@ -155,10 +154,8 @@
         <a id="downloadLink" href="#" download="Pizza_Calculation_Report.txt">Download Pizza Report</a>
     </main>
 
-    <!-- Dynamic footer placeholder -->
+    <!-- Dynamic footer container -->
     <div id="dynamic-footer"></div>
-
-    <script src="pizza_calc.js"></script>
 </body>
 
 </html>
