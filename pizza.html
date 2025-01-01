@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-scheme="auto">
 
 <head>
     <meta charset="UTF-8">
@@ -10,102 +10,33 @@
 
     <title>Pizza Calculator for IT Engineers</title>
 
-    <!-- Mizu.js & Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- Single consolidated script -->
     <script src="main.js" defer></script>
-
-    <style>
-        #progressContainer {
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-
-        #progressBar {
-            height: 20px;
-            width: 0;
-            background-color: green;
-            transition: width 0.5s ease-in-out;
-        }
-
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            padding: 16px;
-            position: fixed;
-            z-index: 9999;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 17px;
-        }
-
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-
-        #downloadLink {
-            display: none;
-        }
-    </style>
 </head>
 
 <body lang="en">
-    <!-- Dynamic nav container -->
-    <div id="dynamic-nav"></div>
-
-    <main class="container">
+    <nav *mizu>
+        <div id="dynamic-nav"></div>
+    </nav>
+    <div id="darkModeToggleContainer"></div>
+    <main class="container" *mizu>
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
             <p>Calculate how much pizza your hungry engineers need after hours of debugging!</p>
         </header>
 
         <section>
-            <form id="pizzaForm" onsubmit="return false;">
-                <fieldset>
-                    <legend>Enter Your Details:</legend>
+            <form id="pizzaForm" onsubmit="return false;" class="p-1">
+                <fieldset class="p-1">
+                    <legend><b>Enter Your Details:</b></legend>
 
-                    <div>
-                        <label for="attendees">Number of Attendees:</label>
+                    <label for="attendees">Number of Attendees:
                         <input type="number" id="attendees" name="attendees" value="5">
-                    </div>
+                    </label>
 
-                    <div>
-                        <label for="pizzaType">Select Pizza Style:</label>
+                    <label for="pizzaType">Select Pizza Style:
                         <select id="pizzaType" name="pizzaType">
                             <option value="1">NY Pizza (Default)</option>
                             <option value="0.5">Detroit Pizza</option>
@@ -115,47 +46,46 @@
                             <option value="100">Blockchain Pizza</option>
                             <option value="cloud">Cloud Pizza</option>
                         </select>
-                    </div>
+                    </label>
 
-                    <div>
-                        <label for="slicesPerPerson">Average Slices per Person:</label>
+                    <label for="slicesPerPerson">Average Slices per Person:
                         <input type="number" id="slicesPerPerson" name="slicesPerPerson" value="3">
-                    </div>
+                    </label>
 
-                    <div>
-                        <label for="hoursDebugging">Hours Spent Debugging:</label>
+                    <label for="hoursDebugging">Hours Spent Debugging:
                         <input type="number" id="hoursDebugging" name="hoursDebugging" value="2">
+                    </label>
+                    <div class="mt-1">
+                        <button class="mr-0.5" type="button" onclick="calculatePizzas()">Calculate</button>
+                        <button class="mr-0.5" type="button" onclick="downloadReport()">Download Report</button>
                     </div>
-
-                    <button type="button" onclick="calculatePizzas()">Calculate</button>
-                    <button type="button" onclick="downloadReport()">Download Report</button>
                 </fieldset>
             </form>
         </section>
 
-        <section id="progressSection">
-            <div id="progressContainer">
-                <div id="progressBar"></div>
-            </div>
-            <p id="progressLabel"></p>
+        <section id="progressSection" class="mt-2">
+            <progress id="progressBar" class="block width-100" value="0" max="100"></progress>
+            <p id="progressLabel" class="mt-0.5"></p>
         </section>
 
         <section id="resultSection">
             <div id="result" role="alert" aria-live="polite"></div>
         </section>
 
-        <section id="emailPromptSection" style="display:none;">
+        <section id="emailPromptSection" class="mt-2" hidden>
             <p>If you're ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team can
                 contact you:</p>
-            <input type="email" id="emailInput" placeholder="Enter your email">
+            <label for="emailInput">
+                <input type="email" id="emailInput" placeholder="Enter your email">
+            </label>
             <button type="button" onclick="submitEmail()">Submit Email</button>
         </section>
-
-        <a id="downloadLink" href="#" download="Pizza_Calculation_Report.txt">Download Pizza Report</a>
     </main>
 
-    <!-- Dynamic footer container -->
-    <div id="dynamic-footer"></div>
+    <footer *mizu>
+        <div id="dynamic-footer"></div>
+    </footer>
+    <div id="toast" role="alert" aria-live="assertive"></div>
 </body>
 
 </html>

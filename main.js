@@ -16,17 +16,17 @@
         nav.setAttribute('aria-label', 'Main navigation');
 
         const ul = document.createElement('ul');
-        ul.style.display = 'flex';
-        ul.style.gap = '1rem';
-        ul.style.listStyle = 'none';
+        ul.classList.add('block', 'lg:flex', 'flex-wrap', 'gap-0.5');
 
         pages.forEach(({ href, label }) => {
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = href;
             a.textContent = label;
+            a.classList.add('p-0.5', 'px-1');
             if (href === currentPage) {
                 a.setAttribute('aria-current', 'page');
+                a.classList.add('active');
             }
             li.appendChild(a);
             ul.appendChild(li);
@@ -39,7 +39,7 @@
     function createFooter() {
         const footer = document.createElement('footer');
         footer.innerHTML = `
-        <small>
+        <small class="p-1">
          © 2024 William Zujkowski. Powered by 
          <a href="https://mizu.sh" target="_blank" rel="noopener noreferrer">mizu.js</a> & 
          <a href="https://matcha.mizu.sh" target="_blank" rel="noopener noreferrer">matcha.css</a>
@@ -66,6 +66,20 @@
         if (footerContainer) {
             footerContainer.appendChild(createFooter());
         }
+
+        // 1c) Dark Mode Toggle
+        const darkModeToggleContainer = document.getElementById('darkModeToggleContainer');
+        if (darkModeToggleContainer) {
+            darkModeToggleContainer.appendChild(createDarkModeToggle());
+        }
+
+        // Check for stored preference or system preference
+        const storedColorScheme = localStorage.getItem('colorScheme');
+        if (storedColorScheme) {
+            document.documentElement.setAttribute('data-color-scheme', storedColorScheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-color-scheme', 'dark');
+        }
     });
 })();
 
@@ -81,11 +95,11 @@
     let calculationCompleted = false;
     let pizzaReport = "";
 
-    function loadPizzaDefaults() {
-        const storedAttendees = localStorage.getItem('pizzaAttendees');
-        const storedSlicesPerPerson = localStorage.getItem('pizzaSlicesPerPerson');
-        const storedHoursDebugging = localStorage.getItem('pizzaHoursDebugging');
-        const storedPizzaType = localStorage.getItem('pizzaType');
+    async function loadPizzaDefaults() {
+        const storedAttendees = await localStorage.getItem('pizzaAttendees');
+        const storedSlicesPerPerson = await localStorage.getItem('pizzaSlicesPerPerson');
+        const storedHoursDebugging = await localStorage.getItem('pizzaHoursDebugging');
+        const storedPizzaType = await localStorage.getItem('pizzaType');
 
         if (storedAttendees) document.getElementById('attendees').value = storedAttendees;
         if (storedSlicesPerPerson) document.getElementById('slicesPerPerson').value = storedSlicesPerPerson;
@@ -124,7 +138,7 @@
         const aiBtn = document.createElement('button');
         aiBtn.type = 'button';
         aiBtn.textContent = 'Generate AI Toppings';
-        aiBtn.classList.add('ai-toppings-button');
+        aiBtn.classList.add('ai-toppings-button', 'p-0.5', 'mr-0.5'); //Added Matcha CSS classes
         aiBtn.addEventListener('click', function () {
             const resultArea = document.getElementById('result');
             const aiToppings = generateAIToppings();
@@ -136,7 +150,7 @@
         const copyBtn = document.createElement('button');
         copyBtn.type = 'button';
         copyBtn.textContent = 'Copy Report to Clipboard';
-        copyBtn.classList.add('copy-report-button');
+        copyBtn.classList.add('copy-report-button', 'p-0.5', 'mr-0.5'); //Added Matcha CSS classes
         copyBtn.addEventListener('click', function () {
             if (!calculationCompleted || !pizzaReport) {
                 showToast("No pizza report to copy!");
@@ -174,8 +188,10 @@
         localStorage.setItem('pizzaHoursDebugging', hoursDebuggingInput.value);
 
         resultDiv.innerHTML = '';
-        if (emailPromptSection) emailPromptSection.style.display = 'none';
-        if (progressBar) progressBar.style.width = '0%';
+        if (emailPromptSection) emailPromptSection.hidden = true;
+        if (progressBar) {
+            progressBar.value = 0;
+        };
         if (progressLabel) progressLabel.textContent = '';
 
         const loadingSteps = [
@@ -191,20 +207,13 @@
         let stepIndex = 0;
         function updateProgress() {
             if (stepIndex < loadingSteps.length) {
-                let percentage = (stepIndex + 1) * 15;
-                if (percentage > 75 && percentage < 100) {
-                    percentage = 75;
-                }
-                if (progressBar) progressBar.style.width = `${percentage}%`;
+                let percentage = (stepIndex + 1) * (100 / loadingSteps.length);
+                if (progressBar) progressBar.value = percentage;
                 if (progressLabel) progressLabel.textContent = loadingSteps[stepIndex];
                 stepIndex++;
-                if (percentage === 75) {
-                    setTimeout(updateProgress, 1500);
-                } else {
-                    setTimeout(updateProgress, 500);
-                }
+                setTimeout(updateProgress, 500);
             } else {
-                if (progressBar) progressBar.style.width = '110%';
+                if (progressBar) progressBar.value = 100;
                 if (progressLabel) progressLabel.textContent = "Pizza deployment exceeded expectations. You're 110% ready to eat! 🍕🎉";
                 completeCalculation();
             }
@@ -273,21 +282,21 @@
         let displayMessage = "";
 
         if (pizzaType === "3") {
-            displayMessage = `<blockquote>You need <strong><span class="math-inline">\{pizzasRequired\}</strong\> Hot Pocket\(s\) 
-to feed <strong\></span>{attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours 
+            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Hot Pocket(s) 
+                 to feed <strong>${attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours 
                  of debugging. ${humor}</blockquote>`;
         } else if (pizzaType === "cloud") {
             displayMessage = `<blockquote>Cloud Pizza can feed any number of attendees, 
                  but watch out for that infinite billing! ☁️🍕</blockquote>`;
         } else if (pizzaType === "100") {
-            displayMessage = `<blockquote>You need <strong><span class="math-inline">\{pizzasRequired\}</strong\> Blockchain Pizza\(s\) 
-for <strong\></span>{attendees}</strong> devs. ${humor} 🍕💸</blockquote>`;
+            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Blockchain Pizza(s) 
+                 for <strong>${attendees}</strong> devs. ${humor} 🍕💸</blockquote>`;
         } else if (pizzaType === "pineapple") {
             return;
         } else {
-            displayMessage = `<blockquote>You need <strong><span class="math-inline">\{pizzasRequired\}</strong\> pizza\(s\) for 
-<strong\></span>{attendees}</strong> attendees, factoring in <strong><span class="math-inline">\{hoursDebugging\} hours</strong\>\. 
-Using <strong\></span>{document.getElementById('pizzaType').options[
+            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> pizza(s) for 
+                 <strong>${attendees}</strong> attendees, factoring in <strong>${hoursDebugging} hours</strong>. 
+                 Using <strong>${document.getElementById('pizzaType').options[
                     document.getElementById('pizzaType').selectedIndex
                 ].text}</strong> style.<br><br>
                  ${humor}</blockquote>`;
@@ -320,9 +329,9 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
         const emailPromptSection = document.getElementById('emailPromptSection');
         if (emailPromptSection) {
             if (pizzasRequired >= 42) {
-                emailPromptSection.style.display = 'block';
+                emailPromptSection.hidden = false;
             } else {
-                emailPromptSection.style.display = 'none';
+                emailPromptSection.hidden = true;
             }
         }
     }
@@ -358,9 +367,9 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
         const toast = document.getElementById('toast');
         if (!toast) return;
         toast.textContent = message;
-        toast.className = "toast show";
+        toast.classList.add('show');
         setTimeout(() => {
-            toast.className = toast.className.replace("show", "");
+            toast.classList.remove('show');
         }, 3000);
     };
 
@@ -372,10 +381,13 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
         const blob = new Blob([pizzaReport], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
 
-        const downloadLink = document.getElementById('downloadLink');
-        if (!downloadLink) return;
+        const downloadLink = document.createElement('a');
         downloadLink.href = url;
+        downloadLink.download = 'Pizza_Calculation_Report.txt';
+        document.body.appendChild(downloadLink);
         downloadLink.click();
+        document.body.removeChild(downloadLink);
+
         URL.revokeObjectURL(url);
     };
 
@@ -388,8 +400,27 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
             showToast("Please enter a valid email!");
             return;
         }
+
+        // Basic email validation using a regular expression
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showToast("Invalid email format!");
+            return;
+        }
+
+        // Simulate sending the email (replace with actual logic if you have a backend)
         console.log(`Enterprise pizza inquiry from: ${email}`);
+
+        // Provide feedback to the user
         showToast("Thanks! Our Enterprise Pizza Sales Team will contact you soon.");
+
+        // Optional: Clear the email input field
+        emailInput.value = '';
+
+        // Optional: Hide the email prompt section again
+        const emailPromptSection = document.getElementById('emailPromptSection');
+        if (emailPromptSection) {
+            emailPromptSection.hidden = true;
+        }
     };
 })();
 
@@ -405,11 +436,11 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
     let coffeeCalculationCompleted = false;
     let coffeeReport = "";
 
-    function loadCoffeeDefaults() {
-        const storedDevs = localStorage.getItem('coffeeDevs');
-        const storedStrength = localStorage.getItem('coffeeStrength');
-        const storedHours = localStorage.getItem('coffeeHours');
-        const storedFails = localStorage.getItem('coffeeFails');
+    async function loadCoffeeDefaults() {
+        const storedDevs = await localStorage.getItem('coffeeDevs');
+        const storedStrength = await localStorage.getItem('coffeeStrength');
+        const storedHours = await localStorage.getItem('coffeeHours');
+        const storedFails = await localStorage.getItem('coffeeFails');
 
         if (storedDevs) document.getElementById('javaAttendees').value = storedDevs;
         if (storedStrength) document.getElementById('coffeeStrength').value = storedStrength;
@@ -437,7 +468,7 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
         localStorage.setItem('coffeeFails', timesBuildFailedInput.value);
 
         if (coffeeResultDiv) coffeeResultDiv.innerHTML = '';
-        if (progressBar) progressBar.style.width = '0%';
+        if (progressBar) progressBar.value = 0;
         if (progressLabel) progressLabel.textContent = '';
 
         const coffeeSteps = [
@@ -454,11 +485,8 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
 
         function updateProgress() {
             if (stepIndex < coffeeSteps.length) {
-                let percentage = (stepIndex + 1) * 15;
-                if (percentage > 75 && percentage < 100) {
-                    percentage = 75;
-                }
-                if (progressBar) progressBar.style.width = `${percentage}%`;
+                let percentage = (stepIndex + 1) * (100 / coffeeSteps.length);
+                if (progressBar) progressBar.value = percentage;
                 if (progressLabel) progressLabel.textContent = coffeeSteps[stepIndex];
                 stepIndex++;
                 if (percentage === 75) {
@@ -467,7 +495,7 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
                     setTimeout(updateProgress, 500);
                 }
             } else {
-                if (progressBar) progressBar.style.width = '110%';
+                if (progressBar) progressBar.value = 100;
                 if (progressLabel) progressLabel.textContent = "Coffee is brewed to perfection. ☕🎉";
                 finalizeCoffeeCalc();
             }
@@ -549,10 +577,13 @@ Using <strong\></span>{document.getElementById('pizzaType').options[
         const blob = new Blob([coffeeReport], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
 
-        const downloadCoffeeLink = document.getElementById('downloadCoffeeLink');
-        if (!downloadCoffeeLink) return;
+        const downloadCoffeeLink = document.createElement('a');
+        downloadCoffeeLink.id = 'downloadCoffeeLink';
         downloadCoffeeLink.href = url;
+        downloadCoffeeLink.download = 'Coffee_Calculation_Report.txt';
+        document.body.appendChild(downloadCoffeeLink);
         downloadCoffeeLink.click();
+        document.body.removeChild(downloadCoffeeLink);
         URL.revokeObjectURL(url);
     };
 
@@ -599,7 +630,7 @@ window.renderIndexBlogHTML = async function (resp) {
     latestEl.innerHTML = newest.outerHTML;
 
     if (older.length && olderEl) {
-        let html = '<h4>Older Posts:</h4><ul>';
+        let html = '<h4 class="mt-2">Older Posts:</h4><ul>';
         older.forEach(article => {
             const dateAttr = article.getAttribute('data-date');
             const slug = article.getAttribute('data-slug') || '';
@@ -655,9 +686,9 @@ window.renderArticles = function (articles) {
          <article id="${slug}">
              <div class="blog-title">${postTitle}</div>
              <div class="blog-date">${dateAttr}</div>
-             <details>
-                 <summary>${postTitle}</summary>
-                 <div>${articleContent}</div>
+             <details class="mt-1">
+                 <summary class="p-0.5"><b>${postTitle}</b></summary>
+                 <div class="p-1">${articleContent}</div>
              </details>
          </article>
      `;
@@ -666,20 +697,24 @@ window.renderArticles = function (articles) {
 };
 
 // Simple text filter for blog.html
+let debounceTimer;
 window.filterBlogPosts = function () {
     const searchInput = document.getElementById('blogSearch');
     if (!searchInput) return;
     const searchValue = searchInput.value.toLowerCase().trim();
 
-    if (!searchValue) {
-        renderArticles(window.allArticles);
-        return;
-    }
-    const filtered = window.allArticles.filter(article => {
-        const text = article.textContent.toLowerCase();
-        return text.includes(searchValue);
-    });
-    renderArticles(filtered);
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        if (!searchValue) {
+            renderArticles(window.allArticles);
+            return;
+        }
+        const filtered = window.allArticles.filter(article => {
+            const text = article.textContent.toLowerCase();
+            return text.includes(searchValue);
+        });
+        renderArticles(filtered);
+    }, 250); // 250ms debounce time
 };
 
 window.resetBlogFilter = function () {
@@ -761,13 +796,10 @@ function createDarkModeToggle() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ... (your existing code for nav and footer)
-
-    // 1c) Dark Mode Toggle
-    const darkModeToggleContainer = document.createElement('div');
-    darkModeToggleContainer.id = 'darkModeToggleContainer';
-    document.body.appendChild(darkModeToggleContainer);
-    darkModeToggleContainer.appendChild(createDarkModeToggle());
+    const darkModeToggleContainer = document.getElementById('darkModeToggleContainer');
+    if (darkModeToggleContainer) {
+        darkModeToggleContainer.appendChild(createDarkModeToggle());
+    }
 
     // Check for stored preference or system preference
     const storedColorScheme = localStorage.getItem('colorScheme');
