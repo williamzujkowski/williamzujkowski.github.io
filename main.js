@@ -3,6 +3,9 @@
 /********************************************/
 /* 1) Dynamic Navigation Generation         */
 /********************************************/
+/********************************************/
+/* 1) Dynamic Navigation Generation         */
+/********************************************/
 (function () {
     const pages = [
         { href: 'index.html', label: 'Home' },
@@ -31,6 +34,11 @@
             li.appendChild(a);
             ul.appendChild(li);
         });
+
+        // Add dark mode toggle to nav
+        const darkModeToggleLi = document.createElement('li');
+        darkModeToggleLi.appendChild(createDarkModeToggle());
+        ul.appendChild(darkModeToggleLi);
 
         nav.appendChild(ul);
         return nav;
@@ -785,20 +793,24 @@ console.log(
 function createDarkModeToggle() {
     const toggleButton = document.createElement('button');
     toggleButton.id = 'darkModeToggle';
+    toggleButton.classList.add('p-0.5', 'px-1');
     toggleButton.textContent = 'Toggle Dark Mode';
     toggleButton.addEventListener('click', () => {
         const currentMode = document.documentElement.getAttribute('data-color-scheme');
         const newMode = currentMode === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-color-scheme', newMode);
-        localStorage.setItem('colorScheme', newMode); // Store preference
+        localStorage.setItem('colorScheme', newMode);
     });
     return toggleButton;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const darkModeToggleContainer = document.getElementById('darkModeToggleContainer');
-    if (darkModeToggleContainer) {
-        darkModeToggleContainer.appendChild(createDarkModeToggle());
+    // 1a) Generate Nav
+    const navContainer = document.querySelector('nav[\\*mizu] > div#dynamic-nav');
+    if (navContainer) {
+        const path = window.location.pathname;
+        const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+        navContainer.appendChild(createNav(currentPage));
     }
 
     // Check for stored preference or system preference
