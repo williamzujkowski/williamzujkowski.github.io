@@ -10,196 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>William Zujkowski - Cybersecurity Engineer & AI/ML Enthusiast</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
     <script src="https://mizu.sh/client.js" defer></script>
 
     <script src="main.js" defer></script>
-
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-            background-color: #e0f2f7;
-        }
-
-        .hero img {
-            border-radius: 50%;
-            max-width: 175px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .hero img:hover {
-            transform: scale(1.1);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: #22457a;
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-top: 2rem;
-            color: #22457a;
-        }
-
-        p {
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        a {
-            color: #0077cc;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Blog Section */
-        #blog #latest-post {
-            margin-bottom: 2rem;
-            border: 1px solid #ddd;
-            padding: 1.5rem;
-            border-radius: 8px;
-            background-color: #f8f8f8;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        #blog #older-posts {
-            margin-top: 2rem;
-        }
-
-        #blog #older-posts ul {
-            list-style: disc;
-            padding-left: 2rem;
-        }
-
-        #blog h3 {
-            margin-top: 0;
-            color: #22457a;
-        }
-
-        #blog p {
-            margin-bottom: 0.8rem;
-        }
-
-        #blog article {
-            margin-bottom: 2rem;
-        }
-
-        /* Skills Section */
-        #skills ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        #skills li {
-            background-color: #e0f2f7;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        /* Projects Section */
-        #projects .project {
-            border: 1px solid #ddd;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            background-color: #f8f8f8;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        #projects .project h4 {
-            margin-top: 0;
-            color: #22457a;
-        }
-
-        .project-links a {
-            margin-right: 1rem;
-            font-weight: 600;
-        }
-
-        /* Interests Section */
-        #interests ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 2rem;
-        }
-
-        #interests li {
-            background-color: #e0f2f7;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        /* Secret Code Section */
-        #secret-code {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        #secret-code h2 {
-            color: #22457a;
-        }
-
-        #secret-code p {
-            margin-bottom: 1rem;
-        }
-
-        #secret-code iframe {
-            width: 100%;
-            max-width: 560px;
-            height: 315px;
-            border: none;
-        }
-    </style>
 </head>
 
 <body lang="en">
     <nav *mizu>
         <div id="dynamic-nav"></div>
     </nav>
-
+        <div id="darkModeToggleContainer"></div>
     <main class="container" *mizu>
         <section id="hero" class="hero">
-            <img src="assets/images/simpson_profile.png" alt="William's Profile Picture" width="175" height="175">
+            <img src="simpson_profile.png" alt="William's Profile Picture" width="175" height="175">
             <h1>Hi, I'm William Zujkowski</h1>
             <p>Cybersecurity Engineer | Ethical Hacker | AI/ML & Data Enthusiast</p>
         </section>
@@ -223,7 +50,7 @@
 
         <section id="skills">
             <h2>Skills & Expertise</h2>
-            <ul>
+            <ul class="block wrap">
                 <li><b>Cybersecurity:</b> Penetration Testing, Vulnerability Research, Incident Response, Security
                     Auditing, Threat Modeling, Digital Forensics, Reverse Engineering</li>
                 <li><b>Cloud Security:</b> AWS, GCP, Azure Security Services, Cloud Security Architecture, IAM,
@@ -243,7 +70,7 @@
 
         <section id="interests">
             <h2>Professional Interests</h2>
-            <ul>
+            <ul class="block wrap">
                 <li><b>Artificial Intelligence (AI) and Machine Learning (ML):</b> Exploring the application of AI/ML in
                     cybersecurity for advanced threat detection, automation, and predictive analysis.</li>
                 <li><b>Cloud Security:</b> Researching and implementing security best practices for cloud environments
@@ -267,7 +94,7 @@
 
         <section id="projects">
             <h2>Highlighted Projects</h2>
-            <div class="project">
+            <div class="project block">
                 <h4>Automated Vulnerability Scanner</h4>
                 <p>Developed a Python-based tool that automates vulnerability scanning of web applications using a
                     combination of open-source tools and custom scripts. It performs comprehensive scans, identifies
@@ -278,7 +105,7 @@
                     <a href="#" target="_blank" rel="noopener noreferrer">Project Demo</a>
                 </p>
             </div>
-            <div class="project">
+            <div class="project block">
                 <h4>Machine Learning-Based Intrusion Detection System</h4>
                 <p>Built a machine learning model using Python and scikit-learn that detects network intrusions by
                     analyzing network traffic patterns. The model was trained on a labeled dataset of network traffic
@@ -288,7 +115,7 @@
                     <a href="#" target="_blank" rel="noopener noreferrer">Research Paper</a>
                 </p>
             </div>
-            <div class="project">
+            <div class="project block">
                 <h4>Homelab Security Monitoring Setup</h4>
                 <p>Configured a comprehensive security monitoring system for my homelab using open-source tools like ELK
                     Stack (Elasticsearch, Logstash, Kibana), Suricata, and Zeek. This setup allows for real-time
