@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-scheme="auto">
 
 <head>
     <meta charset="UTF-8">
@@ -10,102 +10,33 @@
 
     <title>Coffee Calculator for IT Engineers</title>
 
-    <!-- Mizu.js & Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- Single consolidated script -->
     <script src="main.js" defer></script>
-
-    <style>
-        #progressContainer {
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-
-        #progressBar {
-            height: 20px;
-            width: 0;
-            background-color: brown;
-            transition: width 0.5s ease-in-out;
-        }
-
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            padding: 16px;
-            position: fixed;
-            z-index: 9999;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 17px;
-        }
-
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-
-        #downloadCoffeeLink {
-            display: none;
-        }
-    </style>
 </head>
 
 <body lang="en">
-    <!-- Dynamic nav container -->
-    <div id="dynamic-nav"></div>
-
-    <main class="container">
+    <nav *mizu>
+        <div id="dynamic-nav"></div>
+    </nav>
+    <div id="darkModeToggleContainer"></div>
+    <main class="container" *mizu>
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
             <p>Determine how many cups (or pots!) of coffee your bleary-eyed coders need for those 2 AM deployments!</p>
         </header>
 
         <section>
-            <form id="coffeeForm" onsubmit="return false;">
-                <fieldset>
-                    <legend>Enter Your Coffee Details:</legend>
+            <form id="coffeeForm" onsubmit="return false;" class="p-1">
+                <fieldset class="p-1">
+                    <legend><b>Enter Your Coffee Details:</b></legend>
 
-                    <div>
-                        <label for="javaAttendees">Number of Devs:</label>
+                    <label for="javaAttendees">Number of Devs:
                         <input type="number" id="javaAttendees" value="3">
-                    </div>
+                    </label>
 
-                    <div>
-                        <label for="coffeeStrength">Coffee Strength:</label>
+                    <label for="coffeeStrength">Coffee Strength:
                         <select id="coffeeStrength">
                             <option value="1">Mild</option>
                             <option value="2">Regular</option>
@@ -113,42 +44,40 @@
                             <option value="5">Espresso Shots Only</option>
                             <option value="10">Triple Espresso Shots (Danger!)</option>
                         </select>
-                    </div>
+                    </label>
 
-                    <div>
-                        <label for="hoursCoding">Hours of Coding:</label>
+                    <label for="hoursCoding">Hours of Coding:
                         <input type="number" id="hoursCoding" value="4">
-                    </div>
+                    </label>
 
-                    <div>
-                        <label for="timesBuildFailed">Times the Build Failed:</label>
+                    <label for="timesBuildFailed">Times the Build Failed:
                         <input type="number" id="timesBuildFailed" value="2">
+                    </label>
+                    <div class="mt-1">
+                        <button class="mr-0.5" type="button" onclick="calculateCoffee()">Calculate</button>
+                        <button class="mr-0.5" type="button" onclick="downloadCoffeeReport()">Download Report</button>
+                        <button type="button" onclick="shareCoffeeReport()">Share</button>
                     </div>
-
-                    <button type="button" onclick="calculateCoffee()">Calculate</button>
-                    <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
-                    <button type="button" onclick="shareCoffeeReport()">Share</button>
                 </fieldset>
             </form>
         </section>
 
-        <section id="coffeeProgressSection">
-            <div id="progressContainer">
-                <div id="progressBar"></div>
-            </div>
-            <p id="progressLabel"></p>
+        <section id="coffeeProgressSection" class="mt-2">
+            <progress id="progressBar" class="block width-100" value="0" max="100"></progress>
+            <p id="progressLabel" class="mt-0.5"></p>
         </section>
 
         <section id="coffeeResultSection">
             <div id="coffeeResult" role="alert" aria-live="polite"></div>
         </section>
 
-        <!-- Hidden anchor for repeated downloads -->
-        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt">Download Coffee Report</a>
+        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee Report</a>
     </main>
 
-    <!-- Dynamic footer container -->
-    <div id="dynamic-footer"></div>
+    <footer *mizu>
+        <div id="dynamic-footer"></div>
+    </footer>
+    <div id="toast" role="alert" aria-live="assertive"></div>
 </body>
 
 </html>

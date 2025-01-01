@@ -1,114 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-scheme="auto">
 
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="All Blog Posts - William Zujkowski">
-    <meta name="keywords" content="Blog, William Zujkowski, Tech, Pizza, Coffee, Homelab, Docker, Podman">
+    <meta name="keywords"
+        content="Blog, William Zujkowski, Tech, Cybersecurity, AI, ML, Homelab, Cloud, Security, Coding">
     <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Blog Archives - William Zujkowski</title>
 
-    <!-- Mizu.js & Matcha CSS -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- Single consolidated script -->
     <script src="main.js" defer></script>
-
-    <style>
-        main {
-            margin-top: 1rem;
-        }
-
-        nav[toc] ul {
-            list-style: none;
-            padding-left: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-
-        nav[toc] ul li {
-            margin: 0.25rem 0;
-        }
-
-        nav[toc] a {
-            text-decoration: none;
-            color: blue;
-        }
-
-        nav[toc] a:hover {
-            text-decoration: underline;
-        }
-
-        .blog-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .blog-date {
-            font-style: italic;
-            color: gray;
-            margin-bottom: 1rem;
-        }
-
-        article {
-            margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            padding-bottom: 1rem;
-        }
-
-        article:last-of-type {
-            border-bottom: none;
-        }
-
-        .search-container {
-            margin-bottom: 1rem;
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .search-container label {
-            font-weight: bold;
-        }
-
-        .search-container input {
-            width: 250px;
-            max-width: 100%;
-        }
-    </style>
 </head>
 
 <body lang="en">
-    <!-- Dynamic nav container -->
-    <div id="dynamic-nav"></div>
-
+    <nav *mizu>
+        <div id="dynamic-nav"></div>
+    </nav>
+    <div id="darkModeToggleContainer"></div>
     <main class="container" *mizu>
         <header>
             <h1>All Blog Posts</h1>
             <p>Welcome to the archives! Expand each post for more details.</p>
         </header>
 
-        <div class="search-container">
-            <label for="blogSearch">Search Posts:</label>
-            <input type="text" id="blogSearch" placeholder="Type keywords...">
-            <button type="button" onclick="filterBlogPosts()">Filter</button>
-            <button type="button" onclick="resetBlogFilter()">Reset</button>
+        <div class="search-container flex wrap gap-0.5">
+            <label for="blogSearch"><b>Search Posts:</b></label>
+            <input type="text" id="blogSearch" placeholder="Type keywords..." class="flex-grow-1 bd-muted p-0.5">
+            <button type="button" class="bg-accent p-0.5 bd-accent" onclick="filterBlogPosts()">Filter</button>
+            <button type="button" class="bg-accent p-0.5 bd-accent" onclick="resetBlogFilter()">Reset</button>
         </div>
 
-        <!-- We'll load the table of contents referencing h2+ from #blog-archive -->
-        <nav *toc="'#blog-archive'" [h2+]></nav>
+        <nav *toc="'#blog-archive'" h2></nav>
 
-        <!-- We'll fetch the blog_data.html, parse, reorder, and display them. -->
         <div %http="'blog_data.html'" %response="renderBlogPostsHTML($response)"></div>
         <section id="blog-archive"></section>
     </main>
 
-    <!-- Dynamic footer container -->
-    <div id="dynamic-footer"></div>
+    <footer *mizu>
+        <div id="dynamic-footer"></div>
+    </footer>
 </body>
 
 </html>
