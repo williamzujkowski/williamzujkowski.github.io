@@ -40,21 +40,21 @@
         const footer = document.createElement('footer');
         footer.innerHTML = `
         <small>
-          © 2024 William Zujkowski. Powered by 
-          <a href="https://mizu.sh" target="_blank" rel="noopener noreferrer">mizu.js</a> & 
-          <a href="https://matcha.mizu.sh" target="_blank" rel="noopener noreferrer">matcha.css</a>
-          <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
-          <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |
-          <a href="https://steamcommunity.com/id/grenlan/" target="_blank">Steam</a>
-
+         © 2024 William Zujkowski. Powered by 
+         <a href="https://mizu.sh" target="_blank" rel="noopener noreferrer">mizu.js</a> & 
+         <a href="https://matcha.mizu.sh" target="_blank" rel="noopener noreferrer">matcha.css</a>
+         <br>
+         <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
+         <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |
+         <a href="https://steamcommunity.com/id/grenlan/" target="_blank">Steam</a>
         </small>
-      `;
+     `;
         return footer;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
         // 1a) Generate Nav
-        const navContainer = document.getElementById('dynamic-nav');
+        const navContainer = document.querySelector('nav[\\*mizu] > div#dynamic-nav');
         if (navContainer) {
             const path = window.location.pathname;
             const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
@@ -62,7 +62,7 @@
         }
 
         // 1b) Generate Footer
-        const footerContainer = document.getElementById('dynamic-footer');
+        const footerContainer = document.querySelector('footer[\\*mizu] > div#dynamic-footer');
         if (footerContainer) {
             footerContainer.appendChild(createFooter());
         }
@@ -70,7 +70,7 @@
 })();
 
 /********************************************/
-/* 2) Pizza Calculator Logic                */
+/* 2) Pizza Calculator Logic               */
 /********************************************/
 (function () {
     // Only run if #pizzaForm is present
@@ -124,20 +124,20 @@
         const aiBtn = document.createElement('button');
         aiBtn.type = 'button';
         aiBtn.textContent = 'Generate AI Toppings';
-        aiBtn.style.marginLeft = '1rem';
-        aiBtn.onclick = function () {
+        aiBtn.classList.add('ai-toppings-button');
+        aiBtn.addEventListener('click', function () {
             const resultArea = document.getElementById('result');
             const aiToppings = generateAIToppings();
             const msg = `<p><strong>AI Toppings Suggestion:</strong> ${aiToppings.join(', ')}</p>`;
             resultArea.insertAdjacentHTML('beforeend', msg);
-        };
+        });
         formFieldset.appendChild(aiBtn);
 
         const copyBtn = document.createElement('button');
         copyBtn.type = 'button';
         copyBtn.textContent = 'Copy Report to Clipboard';
-        copyBtn.style.marginLeft = '1rem';
-        copyBtn.onclick = function () {
+        copyBtn.classList.add('copy-report-button');
+        copyBtn.addEventListener('click', function () {
             if (!calculationCompleted || !pizzaReport) {
                 showToast("No pizza report to copy!");
                 return;
@@ -149,7 +149,7 @@
                 .catch(() => {
                     showToast("Failed to copy to clipboard!");
                 });
-        };
+        });
         formFieldset.appendChild(copyBtn);
     })();
 
@@ -249,7 +249,7 @@
                     return;
                 case "pineapple":
                     resultDiv.innerHTML = `<blockquote>WiFi Pineapple Pizza is an acquired taste.
-              It's capturing your taste buds even as we speak. 🍍📡🍕</blockquote>`;
+                 It's capturing your taste buds even as we speak. 🍍📡🍕</blockquote>`;
                     calculationCompleted = true;
                     return;
             }
@@ -273,24 +273,24 @@
         let displayMessage = "";
 
         if (pizzaType === "3") {
-            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Hot Pocket(s) 
-            to feed <strong>${attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours 
-            of debugging. ${humor}</blockquote>`;
+            displayMessage = `<blockquote>You need <strong><span class="math-inline">\{pizzasRequired\}</strong\> Hot Pocket\(s\) 
+to feed <strong\></span>{attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours 
+                 of debugging. ${humor}</blockquote>`;
         } else if (pizzaType === "cloud") {
-            displayMessage = `<blockquote>Cloud Pizza can feed any number of attendees, 
-            but watch out for that infinite billing! ☁️🍕</blockquote>`;
+            displayMessage = `<blockquote>Cloud Pizza can feed any number of attendees, 
+                 but watch out for that infinite billing! ☁️🍕</blockquote>`;
         } else if (pizzaType === "100") {
-            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Blockchain Pizza(s) 
-            for <strong>${attendees}</strong> devs. ${humor} 🍕💸</blockquote>`;
+            displayMessage = `<blockquote>You need <strong><span class="math-inline">\{pizzasRequired\}</strong\> Blockchain Pizza\(s\) 
+for <strong\></span>{attendees}</strong> devs. ${humor} 🍕💸</blockquote>`;
         } else if (pizzaType === "pineapple") {
             return;
         } else {
-            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> pizza(s) for 
-            <strong>${attendees}</strong> attendees, factoring in <strong>${hoursDebugging} hours</strong>. 
-            Using <strong>${document.getElementById('pizzaType').options[
+            displayMessage = `<blockquote>You need <strong><span class="math-inline">\{pizzasRequired\}</strong\> pizza\(s\) for 
+<strong\></span>{attendees}</strong> attendees, factoring in <strong><span class="math-inline">\{hoursDebugging\} hours</strong\>\. 
+Using <strong\></span>{document.getElementById('pizzaType').options[
                     document.getElementById('pizzaType').selectedIndex
                 ].text}</strong> style.<br><br>
-            ${humor}</blockquote>`;
+                 ${humor}</blockquote>`;
         }
 
         resultDiv.innerHTML = displayMessage;
@@ -534,11 +534,11 @@
             humor = "No coffee needed? Are you sure you're real engineers?";
         }
 
-        return `<blockquote>You need approximately <strong>${totalCups}</strong> cup(s) of coffee 
-               to sustain <strong>${devs}</strong> dev(s) for <strong>${hours}</strong> hour(s). 
-               Coffee strength factor: <strong>${strength}</strong>, 
-               plus <strong>${fails * 2}</strong> extra cups for <strong>${fails}</strong> build failures.<br><br>
-               ${humor}</blockquote>`;
+        return `<blockquote>You need approximately <strong>${totalCups}</strong> cup(s) of coffee 
+                 to sustain <strong>${devs}</strong> dev(s) for <strong>${hours}</strong> hour(s). 
+                 Coffee strength factor: <strong>${strength}</strong>, 
+                 plus <strong>${fails * 2}</strong> extra cups for <strong>${fails}</strong> build failures.<br><br>
+                 ${humor}</blockquote>`;
     };
 
     window.downloadCoffeeReport = function () {
@@ -606,11 +606,11 @@ window.renderIndexBlogHTML = async function (resp) {
             const h2 = article.querySelector('h2');
             const titleText = h2 ? h2.textContent.trim() : '(Untitled Post)';
             html += `
-          <li>
-            <strong>${dateAttr}</strong> -
-            <a href="blog.html#${slug}">${titleText}</a>
-          </li>
-        `;
+             <li>
+                 <strong>${dateAttr}</strong> -
+                 <a href="blog.html#${slug}">${titleText}</a>
+             </li>
+         `;
         });
         html += '</ul>';
         olderEl.innerHTML = html;
@@ -652,15 +652,15 @@ window.renderArticles = function (articles) {
         const articleContent = article.innerHTML;
 
         const detailsHtml = `
-        <article id="${slug}">
-          <div class="blog-title">${postTitle}</div>
-          <div class="blog-date">${dateAttr}</div>
-          <details>
-            <summary>${postTitle}</summary>
-            <div>${articleContent}</div>
-          </details>
-        </article>
-      `;
+         <article id="${slug}">
+             <div class="blog-title">${postTitle}</div>
+             <div class="blog-date">${dateAttr}</div>
+             <details>
+                 <summary>${postTitle}</summary>
+                 <div>${articleContent}</div>
+             </details>
+         </article>
+     `;
         archiveSection.insertAdjacentHTML('beforeend', detailsHtml);
     });
 };
@@ -703,30 +703,15 @@ window.resetBlogFilter = function () {
         if (e.keyCode === konamiCode[index]) {
             index++;
             if (index === konamiCode.length) {
+                const secretCodeDiv = document.getElementById('secret-code');
+                if (secretCodeDiv) {
+                    secretCodeDiv.style.display = 'block';
+                }
                 alert('You unlocked the secret mode!');
                 index = 0;
             }
         } else {
             index = 0;
-        }
-    });
-})();
-
-(function () {
-    // Click on footer toggles the secret message
-    document.addEventListener('click', function (e) {
-        const footerEl = document.getElementById('dynamic-footer');
-        if (!footerEl) return;
-        // Only toggle if the click is inside the dynamic-footer area
-        if (footerEl.contains(e.target)) {
-            const message = document.getElementById('secret-message');
-            if (message) {
-                if (message.style.display === 'none') {
-                    message.style.display = 'inline';
-                } else {
-                    message.style.display = 'none';
-                }
-            }
         }
     });
 })();
@@ -740,7 +725,6 @@ window.resetBlogFilter = function () {
         if (input.includes(secretCode)) {
             const secret = document.getElementById('secret-code');
             if (secret) {
-                secret.classList.add('fade-in');
                 secret.style.display = 'block';
                 alert('🔓 Secret content unlocked!');
             }
@@ -755,7 +739,7 @@ window.resetBlogFilter = function () {
 // Friendly console greeting with updated ASCII referencing grenlan.com
 console.log(
     "%c\n" +
-    " grenlan.com is loading...               \n" +
+    " grenlan.com is loading...                \n" +
     "\nHello there, console explorer! Keep up the curiosity!\n",
     "color: green; font-family: monospace;"
 );
