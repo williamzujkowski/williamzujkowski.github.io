@@ -743,3 +743,37 @@ console.log(
     "\nHello there, console explorer! Keep up the curiosity!\n",
     "color: green; font-family: monospace;"
 );
+
+/********************************************/
+/* 6) Dark Mode Toggle                       */
+/********************************************/
+function createDarkModeToggle() {
+    const toggleButton = document.createElement('button');
+    toggleButton.id = 'darkModeToggle';
+    toggleButton.textContent = 'Toggle Dark Mode';
+    toggleButton.addEventListener('click', () => {
+        const currentMode = document.documentElement.getAttribute('data-color-scheme');
+        const newMode = currentMode === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-color-scheme', newMode);
+        localStorage.setItem('colorScheme', newMode); // Store preference
+    });
+    return toggleButton;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (your existing code for nav and footer)
+
+    // 1c) Dark Mode Toggle
+    const darkModeToggleContainer = document.createElement('div');
+    darkModeToggleContainer.id = 'darkModeToggleContainer';
+    document.body.appendChild(darkModeToggleContainer);
+    darkModeToggleContainer.appendChild(createDarkModeToggle());
+
+    // Check for stored preference or system preference
+    const storedColorScheme = localStorage.getItem('colorScheme');
+    if (storedColorScheme) {
+        document.documentElement.setAttribute('data-color-scheme', storedColorScheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-color-scheme', 'dark');
+    }
+});
