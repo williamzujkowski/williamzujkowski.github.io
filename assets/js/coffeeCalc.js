@@ -1,7 +1,6 @@
-// coffeeCalc.js
+// assets/js/coffeeCalc.js
 
 export function initCoffeeCalculator() {
-    // Only run if #coffeeForm is present
     if (!document.getElementById('coffeeForm')) {
         return;
     }

@@ -1,13 +1,9 @@
-// navFooter.js
+// assets/js/navFooter.js
 
 export function initNavFooter() {
-    // Initialize after DOM loads. 
-    // This function is invoked by main.js on DOMContentLoaded.
-
     // Build Navigation
     const navContainer = document.querySelector('#nav-container #dynamic-nav');
     if (navContainer) {
-        // Insert your existing nav creation logic here, or just do a quick test:
         navContainer.appendChild(createNav());
     }
 
@@ -17,7 +13,7 @@ export function initNavFooter() {
         footerContainer.appendChild(createFooter());
     }
 
-    // Check for stored color preference
+    // Color Scheme
     const storedColorScheme = localStorage.getItem('colorScheme');
     if (storedColorScheme) {
         document.documentElement.setAttribute('data-color-scheme', storedColorScheme);
@@ -71,8 +67,8 @@ function createFooter() {
     footer.innerHTML = `
         <small class="p-1">
          © 2024 William Zujkowski. Powered by 
-         <a href="https://mizu.sh" target="_blank" rel="noopener noreferrer">mizu.js</a> & 
-         <a href="https://matcha.mizu.sh" target="_blank" rel="noopener noreferrer">matcha.css</a>
+         <a href="assets/mizu/client.js" target="_blank" rel="noopener noreferrer">mizu.js</a> & 
+         <a href="assets/mizu/matcha.css" target="_blank" rel="noopener noreferrer">matcha.css</a>
          <br>
          <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
          <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |

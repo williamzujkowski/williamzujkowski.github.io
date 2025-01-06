@@ -1,7 +1,6 @@
-// pizzaCalc.js
+// assets/js/pizzaCalc.js
 
 export function initPizzaCalculator() {
-    // Only run if #pizzaForm is present
     if (!document.getElementById('pizzaForm')) {
         return;
     }
@@ -43,7 +42,6 @@ export function initPizzaCalculator() {
         return selected;
     }
 
-    // Insert additional buttons (AI Toppings, Copy to Clipboard)
     (function initPizzaButtons() {
         const formFieldset = document.querySelector('#pizzaForm fieldset');
         if (!formFieldset) return;
@@ -98,7 +96,7 @@ export function initPizzaCalculator() {
         localStorage.setItem('pizzaSlicesPerPerson', slicesPerPersonInput.value);
         localStorage.setItem('pizzaHoursDebugging', hoursDebuggingInput.value);
 
-        resultDiv.innerHTML = '';
+        if (resultDiv) resultDiv.innerHTML = '';
         if (progressBar) progressBar.value = 0;
         if (progressLabel) progressLabel.textContent = '';
 
