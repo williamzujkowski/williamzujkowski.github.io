@@ -1,4 +1,4 @@
-// blogLogic.js
+// assets/js/blogLogic.js
 
 export function initBlogLogic() {
 

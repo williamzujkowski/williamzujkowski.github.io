@@ -11,10 +11,10 @@
 
     <title>Blog Archives - William Zujkowski</title>
 
-    <script src="https://mizu.sh/client.js" defer></script>
-    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-
-    <script type="module" src="main.js"></script>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/mizu/matcha.css">
+    <script src="assets/mizu/client.js" defer></script>
+    <script type="module" src="assets/js/main.js"></script>
 </head>
 
 <body lang="en">
@@ -22,6 +22,7 @@
         <div id="dynamic-nav"></div>
     </nav>
 
+    <!-- *mizu if we want Mizu to parse %http -->
     <main class="container" *mizu>
         <header>
             <h1>All Blog Posts</h1>
@@ -35,7 +36,6 @@
             <button type="button" class="bg-accent p-0.5 bd-accent" onclick="resetBlogFilter()">Reset</button>
         </div>
 
-        <!-- Mizu for loading the blog_data.html -->
         <div %http="'blog_data.html'" %response="renderBlogPostsHTML($response)"></div>
         <section id="blog-archive"></section>
     </main>

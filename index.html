@@ -10,27 +10,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>William Zujkowski - Home</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
-    <!-- Matcha CSS -->
-    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-    <!-- Mizu.js (for blog_data.html fetch) -->
-    <script src="https://mizu.sh/client.js" defer></script>
-
+    <!-- Local matcha.css -->
+    <link rel="stylesheet" href="assets/mizu/matcha.css">
+    <!-- Local Mizu client.js -->
+    <script src="assets/mizu/client.js" defer></script>
     <!-- Our aggregator module -->
-    <script type="module" src="main.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
 </head>
 
 <body lang="en">
 
-    <!-- Nav with ID instead of *mizu -->
+    <!-- Nav container with ID-based approach -->
     <nav id="nav-container">
         <div id="dynamic-nav"></div>
     </nav>
 
+    <!-- We keep *mizu if we want Mizu to parse %http or other attributes. 
+         However, if you only do the blog listing in the main? Then add *mizu if using Mizu's directives. -->
     <main class="container" *mizu>
         <section class="hero">
-            <img src="assets/images/simpson_profile.png" alt="William's Profile Picture" width="175" height="220">
+            <img src="assets/images/simpson_profile.png" alt="William's Profile Picture" width="175" height="175">
             <h1>Welcome to My Personal Website</h1>
             <p>
                 I’m William Zujkowski—cybersecurity engineer, ethical hacker, and AI/ML enthusiast.
@@ -45,24 +46,23 @@
                 Check out my newest articles and security topics below. For the full list and details,
                 visit the <a href="blog.html">Blog Page</a>.
             </p>
-            <!-- Mizu.js for blog listing -->
+            <!-- Mizu fetching blog_data.html, calling renderIndexBlogHTML -->
             <div %http="'blog_data.html'" %response="renderIndexBlogHTML($response)"></div>
             <div id="older-posts"></div>
         </section>
     </main>
 
-    <!-- Footer with ID instead of *mizu -->
     <footer id="footer-container">
         <div id="dynamic-footer"></div>
     </footer>
 
-    <!-- Secret code area (still optionally using Mizu if you want, or just plain HTML) -->
+    <!-- Secret code area -->
     <div id="secret-code" style="display:none;">
         <h2>🔒 Secret Unlocked!</h2>
         <p>Congratulations on finding this hidden message. You're a true explorer!</p>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/H62G3m_MHQk" title="YouTube video player"
             frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
-                   gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                       gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
         </iframe>
     </div>
 </body>
