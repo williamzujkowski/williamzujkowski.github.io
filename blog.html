@@ -14,11 +14,11 @@
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <script src="main.js" defer></script>
+    <script type="module" src="main.js"></script>
 </head>
 
 <body lang="en">
-    <nav *mizu>
+    <nav id="nav-container">
         <div id="dynamic-nav"></div>
     </nav>
 
@@ -35,13 +35,12 @@
             <button type="button" class="bg-accent p-0.5 bd-accent" onclick="resetBlogFilter()">Reset</button>
         </div>
 
-        <nav *toc="'#blog-archive'" h2></nav>
-
+        <!-- Mizu for loading the blog_data.html -->
         <div %http="'blog_data.html'" %response="renderBlogPostsHTML($response)"></div>
         <section id="blog-archive"></section>
     </main>
 
-    <footer *mizu>
+    <footer id="footer-container">
         <div id="dynamic-footer"></div>
     </footer>
 </body>

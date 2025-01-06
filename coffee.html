@@ -13,15 +13,15 @@
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <script src="main.js" defer></script>
+    <script type="module" src="main.js"></script>
 </head>
 
 <body lang="en">
-    <nav *mizu>
+    <nav id="nav-container">
         <div id="dynamic-nav"></div>
     </nav>
 
-    <main class="container" *mizu>
+    <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
             <p>Determine how many cups (or pots!) of coffee your bleary-eyed coders need for those 2 AM deployments!</p>
@@ -74,7 +74,7 @@
         <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee Report</a>
     </main>
 
-    <footer *mizu>
+    <footer id="footer-container">
         <div id="dynamic-footer"></div>
     </footer>
     <div id="toast" role="alert" aria-live="assertive"></div>
