@@ -30,6 +30,8 @@ export function initBlogLogic() {
             const slug = article.getAttribute('data-slug') || '';
             const h2 = article.querySelector('h2');
             const titleText = h2 ? h2.textContent.trim() : '(Untitled Post)';
+
+            // Link to blog.html#slug so that we can auto-expand
             html += `
                 <li>
                     <strong>${dateAttr}</strong> -
@@ -86,7 +88,27 @@ export function initBlogLogic() {
             `;
             archiveSection.insertAdjacentHTML('beforeend', detailsHtml);
         });
+
+        // After rendering, auto-expand if there's a #slug in the URL
+        autoExpandPostFromHash();
     };
+
+    function autoExpandPostFromHash() {
+        if (!window.location.hash) return;
+        const slug = window.location.hash.slice(1); // remove "#"
+        if (!slug) return;
+
+        const articleEl = document.getElementById(slug);
+        if (!articleEl) return;
+
+        // Find the <details> inside that article and open it
+        const details = articleEl.querySelector('details');
+        if (details) {
+            details.open = true;
+            // Optional: scroll it into view
+            articleEl.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 
     // Simple text filter for blog.html
     let debounceTimer;
@@ -118,4 +140,8 @@ export function initBlogLogic() {
             renderArticles(window.allArticles);
         }
     };
+
+    // If the user changes the hash after the page loads,
+    // we can re-check to expand the right post
+    window.addEventListener('hashchange', autoExpandPostFromHash);
 }
