@@ -1,0 +1,13 @@
+2025-01-04 02:13:49,554 - INFO - Starting to combine files in directory: .
+2025-01-04 02:13:49,554 - INFO - Skipping file: .git
+2025-01-04 02:13:49,556 - INFO - Successfully read README.md
+2025-01-04 02:13:49,556 - INFO - Skipping file: assets
+2025-01-04 02:13:49,556 - INFO - Successfully read blog.html
+2025-01-04 02:13:49,557 - INFO - Successfully read blog_data.html
+2025-01-04 02:13:49,557 - INFO - Successfully read coffee.html
+2025-01-04 02:13:49,557 - INFO - Skipping file: combine_local_files.py
+2025-01-04 02:13:49,557 - INFO - Skipping file: file_combiner.log
+2025-01-04 02:13:49,557 - INFO - Successfully read index.html
+2025-01-04 02:13:49,557 - INFO - Successfully read main.js
+2025-01-04 02:13:49,557 - INFO - Successfully read pizza.html
+2025-01-04 02:13:49,558 - INFO - Successfully wrote combined content to combine_local_files_output.txt
