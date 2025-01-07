@@ -12,24 +12,22 @@
     <title>William Zujkowski - Home</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
-    <!-- Local matcha.css -->
+    <!-- Local matcha.css and Mizu client.js -->
     <link rel="stylesheet" href="assets/mizu/matcha.css">
-    <!-- Local Mizu client.js -->
     <script src="assets/mizu/client.js" defer></script>
     <!-- Our aggregator module -->
-    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/main.js" defer></script>
 </head>
 
-<body lang="en">
+<!-- We put *mizu on the BODY so Mizu sees all %http attributes on the page -->
 
-    <!-- Nav container with ID-based approach -->
+<body lang="en" *mizu>
+
     <nav id="nav-container">
         <div id="dynamic-nav"></div>
     </nav>
 
-    <!-- We keep *mizu if we want Mizu to parse %http or other attributes. 
-         However, if you only do the blog listing in the main? Then add *mizu if using Mizu's directives. -->
-    <main class="container" *mizu>
+    <main class="container">
         <section class="hero">
             <img src="assets/images/simpson_profile.png" alt="William's Profile Picture" width="175" height="175">
             <h1>Welcome to My Personal Website</h1>

@@ -14,16 +14,17 @@
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/mizu/matcha.css">
     <script src="assets/mizu/client.js" defer></script>
-    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/main.js" defer></script>
 </head>
 
-<body lang="en">
+<!-- *mizu on body so Mizu definitely sees %http -->
+
+<body lang="en" data-color-scheme="auto" *mizu>
     <nav id="nav-container">
         <div id="dynamic-nav"></div>
     </nav>
 
-    <!-- *mizu if we want Mizu to parse %http -->
-    <main class="container" *mizu>
+    <main class="container">
         <header>
             <h1>All Blog Posts</h1>
             <p>Welcome to the archives! Expand each post for more details.</p>
@@ -36,6 +37,7 @@
             <button type="button" class="bg-accent p-0.5 bd-accent" onclick="resetBlogFilter()">Reset</button>
         </div>
 
+        <!-- Mizu usage -->
         <div %http="'blog_data.html'" %response="renderBlogPostsHTML($response)"></div>
         <section id="blog-archive"></section>
     </main>

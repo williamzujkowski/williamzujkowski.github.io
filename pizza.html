@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-color-scheme="auto">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Pizza Calculator for IT Engineers">
@@ -12,10 +13,12 @@
 
     <link rel="stylesheet" href="assets/mizu/matcha.css">
     <script src="assets/mizu/client.js" defer></script>
-    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/main.js" defer></script>
 </head>
 
-<body lang="en">
+<!-- *mizu on body for consistency, though pizza doesn't need %http either. -->
+
+<body lang="en" data-color-scheme="auto" *mizu>
     <nav id="nav-container">
         <div id="dynamic-nav"></div>
     </nav>
@@ -88,4 +91,5 @@
 
     <div id="toast" role="alert" aria-live="assertive"></div>
 </body>
+
 </html>
