@@ -13,10 +13,12 @@
 
     <link rel="stylesheet" href="assets/mizu/matcha.css">
     <script src="assets/mizu/client.js" defer></script>
-    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/main.js" defer></script>
 </head>
 
-<body lang="en">
+<!-- *mizu on body even though coffee page doesn't have %http, consistency is fine -->
+
+<body lang="en" data-color-scheme="auto" *mizu>
     <nav id="nav-container">
         <div id="dynamic-nav"></div>
     </nav>
