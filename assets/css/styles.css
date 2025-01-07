@@ -1,6 +1,7 @@
 /* assets/css/styles.css */
 
 /* Reset / Base Styles */
+/* Reset / Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -34,10 +35,20 @@ select:focus {
     outline-offset: 2px;
 }
 
+/* Link Colors (same in dark + light) */
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 /* Navigation + Footer */
 nav,
 footer {
-    background-color: #f4f4f4;
+    background-color: #eee;
     padding: 1rem;
 }
 
@@ -65,6 +76,15 @@ footer small a {
     color: #0066cc;
 }
 
+footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+footer small a {
+    margin: 0 0.25rem;
+}
+
 /* Container */
 .container {
     padding: 1rem;
@@ -73,7 +93,11 @@ footer small a {
 }
 
 /* Hero Section with Hackery Image + Flex Layout */
+/* Hero Section with Hackery Image + Flex Layout */
 .hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -82,7 +106,14 @@ footer small a {
 
 .hero img {
     max-width: 220px;
+    max-width: 220px;
     border-radius: 0.25rem;
+    flex-shrink: 0;
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 240px;
     flex-shrink: 0;
 }
 
@@ -93,8 +124,7 @@ footer small a {
 
 /* Blog Summary / Lists */
 #blog-posts-summary {
-    margin-top: 2rem;
-    /* Increased spacing */
+    margin-top: 1.5rem;
 }
 
 #blog-posts-summary ul {
@@ -103,72 +133,7 @@ footer small a {
 }
 
 #blog-archive article {
-    margin-bottom: 1.5rem;
-}
-
-/* Blog Card Layout */
-.blog-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-.blog-card h2 {
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-}
-
-.blog-card p {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-}
-
-.blog-card a {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #0066cc;
-    color: #ffffff;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.blog-card a:hover {
-    background-color: #005bb5;
-}
-
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.pagination button {
-    padding: 0.5rem 1rem;
-    background-color: #0066cc;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.pagination button:hover {
-    background-color: #005bb5;
-}
-
-.pagination button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+    margin-bottom: 1rem;
 }
 
 /* Fieldsets, Labels, Inputs */
@@ -180,6 +145,7 @@ fieldset {
 
 legend {
     font-weight: bold;
+    margin-bottom: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
@@ -193,19 +159,6 @@ select,
 button {
     margin-left: 0.25rem;
     margin-bottom: 0.75rem;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    background-color: #0066cc;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #005bb5;
 }
 
 /* Progress Bars */
@@ -215,7 +168,7 @@ progress {
     margin-bottom: 0.5rem;
 }
 
-/* Toast for Small Notifications */
+/* Toast for small notifications */
 #toast {
     position: fixed;
     bottom: 1rem;
@@ -233,24 +186,8 @@ progress {
     display: block;
 }
 
-/* Responsive Design Improvements */
-@media (max-width: 768px) {
-    .hero {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero img {
-        max-width: 150px;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/* Additional Enhancements */
-body {
-    transition: background-color 0.3s, color 0.3s;
+/* Dark Mode Adjustments */
+[data-color-scheme="dark"] {
+    background-color: #121212;
+    color: #ccc;
 }
