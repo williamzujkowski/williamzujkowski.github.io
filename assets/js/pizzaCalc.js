@@ -42,6 +42,7 @@ export function initPizzaCalculator() {
         return selected;
     }
 
+    // Add extra buttons to form
     (function initPizzaButtons() {
         const formFieldset = document.querySelector('#pizzaForm fieldset');
         if (!formFieldset) return;
@@ -49,7 +50,7 @@ export function initPizzaCalculator() {
         const aiBtn = document.createElement('button');
         aiBtn.type = 'button';
         aiBtn.textContent = 'Generate AI Toppings';
-        aiBtn.classList.add('ai-toppings-button', 'p-0.5', 'mr-0.5');
+        aiBtn.style.marginRight = '0.5rem';
         aiBtn.addEventListener('click', function () {
             const resultArea = document.getElementById('result');
             const aiToppings = generateAIToppings();
@@ -61,7 +62,6 @@ export function initPizzaCalculator() {
         const copyBtn = document.createElement('button');
         copyBtn.type = 'button';
         copyBtn.textContent = 'Copy Report to Clipboard';
-        copyBtn.classList.add('copy-report-button', 'p-0.5', 'mr-0.5');
         copyBtn.addEventListener('click', function () {
             if (!calculationCompleted || !pizzaReport) {
                 showToast("No pizza report to copy!");
@@ -304,7 +304,6 @@ export function initPizzaCalculator() {
             showToast("Please enter a valid email!");
             return;
         }
-
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             showToast("Invalid email format!");
             return;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-color-scheme="auto">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -11,16 +11,13 @@
     <title>Coffee Calculator for IT Engineers</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="assets/mizu/matcha.css">
-    <script src="assets/mizu/client.js" defer></script>
-    <script type="module" src="assets/js/main.js" defer></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script type="module" src="assets/js/main.js"></script>
 </head>
 
-<!-- *mizu on body even though coffee page doesn't have %http, consistency is fine -->
-
-<body lang="en" data-color-scheme="auto" *mizu>
+<body>
     <nav id="nav-container">
-        <div id="dynamic-nav"></div>
+        <ul id="dynamic-nav"></ul>
     </nav>
 
     <main class="container">
@@ -33,8 +30,8 @@
         </header>
 
         <section>
-            <form id="coffeeForm" onsubmit="return false;" class="p-1">
-                <fieldset class="p-1">
+            <form id="coffeeForm" onsubmit="return false;">
+                <fieldset>
                     <legend><b>Enter Your Coffee Details:</b></legend>
 
                     <label for="javaAttendees">Number of Devs:
@@ -58,18 +55,18 @@
                     <label for="timesBuildFailed">Times the Build Failed:
                         <input type="number" id="timesBuildFailed" value="2">
                     </label>
-                    <div class="mt-1">
-                        <button class="mr-0.5" type="button" onclick="calculateCoffee()">Calculate</button>
-                        <button class="mr-0.5" type="button" onclick="downloadCoffeeReport()">Download Report</button>
+                    <div>
+                        <button type="button" onclick="calculateCoffee()">Calculate</button>
+                        <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
                         <button type="button" onclick="shareCoffeeReport()">Share</button>
                     </div>
                 </fieldset>
             </form>
         </section>
 
-        <section id="coffeeProgressSection" class="mt-2">
-            <progress id="progressBar" class="block width-100" value="0" max="100"></progress>
-            <p id="progressLabel" class="mt-0.5"></p>
+        <section id="coffeeProgressSection">
+            <progress id="progressBar" value="0" max="100"></progress>
+            <p id="progressLabel"></p>
         </section>
 
         <section id="coffeeResultSection">
@@ -79,9 +76,10 @@
         <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee Report</a>
     </main>
 
-    <footer id="footer-container">
+    <footer>
         <div id="dynamic-footer"></div>
     </footer>
+
     <div id="toast" role="alert" aria-live="assertive"></div>
 </body>
 

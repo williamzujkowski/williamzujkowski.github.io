@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-color-scheme="auto">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -11,18 +11,14 @@
     <title>Pizza Calculator for IT Engineers</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="assets/mizu/matcha.css">
-    <script src="assets/mizu/client.js" defer></script>
-    <script type="module" src="assets/js/main.js" defer></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script type="module" src="assets/js/main.js"></script>
 </head>
 
-<!-- *mizu on body for consistency, though pizza doesn't need %http either. -->
-
-<body lang="en" data-color-scheme="auto" *mizu>
+<body>
     <nav id="nav-container">
-        <div id="dynamic-nav"></div>
+        <ul id="dynamic-nav"></ul>
     </nav>
-    <div id="darkModeToggleContainer"></div>
 
     <main class="container">
         <header>
@@ -31,8 +27,8 @@
         </header>
 
         <section>
-            <form id="pizzaForm" onsubmit="return false;" class="p-1">
-                <fieldset class="p-1">
+            <form id="pizzaForm" onsubmit="return false;">
+                <fieldset>
                     <legend><b>Enter Your Details:</b></legend>
 
                     <label for="attendees">Number of Attendees:
@@ -58,24 +54,24 @@
                     <label for="hoursDebugging">Hours Spent Debugging:
                         <input type="number" id="hoursDebugging" name="hoursDebugging" value="2">
                     </label>
-                    <div class="mt-1">
-                        <button class="mr-0.5" type="button" onclick="calculatePizzas()">Calculate</button>
-                        <button class="mr-0.5" type="button" onclick="downloadReport()">Download Report</button>
+                    <div>
+                        <button type="button" onclick="calculatePizzas()">Calculate</button>
+                        <button type="button" onclick="downloadReport()">Download Report</button>
                     </div>
                 </fieldset>
             </form>
         </section>
 
-        <section id="progressSection" class="mt-2">
-            <progress id="progressBar" class="block width-100" value="0" max="100"></progress>
-            <p id="progressLabel" class="mt-0.5"></p>
+        <section id="progressSection">
+            <progress id="progressBar" value="0" max="100"></progress>
+            <p id="progressLabel"></p>
         </section>
 
         <section id="resultSection">
             <div id="result" role="alert" aria-live="polite"></div>
         </section>
 
-        <section id="emailPromptSection" class="mt-2" hidden>
+        <section id="emailPromptSection" hidden>
             <p>If you're ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team can
                 contact you:</p>
             <label for="emailInput">
@@ -85,7 +81,7 @@
         </section>
     </main>
 
-    <footer id="footer-container">
+    <footer>
         <div id="dynamic-footer"></div>
     </footer>
 

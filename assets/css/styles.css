@@ -1,0 +1,138 @@
+/* assets/css/styles.css */
+
+/* Resets / Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Navigation */
+nav {
+    background-color: #eee;
+    padding: 1rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+}
+
+nav a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Container / Layout */
+.container {
+    padding: 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.hero {
+    margin-bottom: 1.5rem;
+}
+
+.hero img {
+    float: left;
+    margin-right: 1rem;
+    border-radius: 0.25rem;
+}
+
+/* Sections, forms, etc. */
+section {
+    margin-bottom: 1.5rem;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
+
+legend {
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input,
+select,
+button {
+    margin-left: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Footer */
+footer {
+    background-color: #eee;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+footer small a {
+    margin: 0 0.25rem;
+    color: #333;
+}
+
+/* For blog listing, details, etc. */
+.details-container summary {
+    cursor: pointer;
+}
+
+#blog-archive details {
+    margin-bottom: 0.75rem;
+}
+
+/* Simple Toast for small notifications */
+#toast {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    display: none;
+}
+
+#toast.show {
+    display: block;
+}
+
+/* Dark Mode Toggle classes (optional) */
+[data-color-scheme="dark"] {
+    background-color: #111;
+    color: #eee;
+}
+
+[data-color-scheme="dark"] nav {
+    background-color: #222;
+}
+
+[data-color-scheme="dark"] footer {
+    background-color: #222;
+}
+
+[data-color-scheme="dark"] a {
+    color: #ccc;
+}
