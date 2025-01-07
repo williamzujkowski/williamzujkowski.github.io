@@ -1,6 +1,6 @@
 /* assets/css/styles.css */
 
-/* Resets / Base */
+/* Reset / Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -15,8 +15,19 @@ body {
     line-height: 1.5;
 }
 
-/* Navigation */
-nav {
+/* Link Colors (same in dark + light) */
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation + Footer */
+nav,
+footer {
     background-color: #eee;
     padding: 1rem;
 }
@@ -27,38 +38,61 @@ nav ul {
     gap: 1rem;
 }
 
-nav a {
-    text-decoration: none;
-    color: #333;
-}
-
 nav a.active {
     font-weight: bold;
     text-decoration: underline;
 }
 
-/* Container / Layout */
+footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+footer small a {
+    margin: 0 0.25rem;
+}
+
+/* Container */
 .container {
     padding: 1rem;
     max-width: 960px;
     margin: 0 auto;
 }
 
+/* Hero Section with Hackery Image + Flex Layout */
 .hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-bottom: 1.5rem;
 }
 
 .hero img {
-    float: left;
-    margin-right: 1rem;
+    max-width: 220px;
     border-radius: 0.25rem;
+    flex-shrink: 0;
 }
 
-/* Sections, forms, etc. */
-section {
-    margin-bottom: 1.5rem;
+.hero-content {
+    flex: 1;
+    min-width: 240px;
 }
 
+/* Blog Summary / Lists */
+#blog-posts-summary {
+    margin-top: 1.5rem;
+}
+
+#blog-posts-summary ul {
+    list-style: disc;
+    margin-left: 1.25rem;
+}
+
+#blog-archive article {
+    margin-bottom: 1rem;
+}
+
+/* Fieldsets, Labels, Inputs */
 fieldset {
     border: 1px solid #ccc;
     padding: 1rem;
@@ -66,6 +100,7 @@ fieldset {
 
 legend {
     font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
 label {
@@ -80,29 +115,14 @@ button {
     margin-bottom: 0.75rem;
 }
 
-/* Footer */
-footer {
-    background-color: #eee;
-    padding: 1rem;
-    text-align: center;
-    margin-top: 2rem;
+/* Progress Bars */
+progress {
+    width: 100%;
+    height: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-footer small a {
-    margin: 0 0.25rem;
-    color: #333;
-}
-
-/* For blog listing, details, etc. */
-.details-container summary {
-    cursor: pointer;
-}
-
-#blog-archive details {
-    margin-bottom: 0.75rem;
-}
-
-/* Simple Toast for small notifications */
+/* Toast for small notifications */
 #toast {
     position: fixed;
     bottom: 1rem;
@@ -119,20 +139,8 @@ footer small a {
     display: block;
 }
 
-/* Dark Mode Toggle classes (optional) */
+/* Dark Mode Adjustments */
 [data-color-scheme="dark"] {
-    background-color: #111;
-    color: #eee;
-}
-
-[data-color-scheme="dark"] nav {
-    background-color: #222;
-}
-
-[data-color-scheme="dark"] footer {
-    background-color: #222;
-}
-
-[data-color-scheme="dark"] a {
+    background-color: #121212;
     color: #ccc;
 }
