@@ -35,7 +35,7 @@ select:focus {
     outline-offset: 2px;
 }
 
-/* Link Colors (same in dark + light) */
+/* Link Colors (unchanged in both modes) */
 a {
     color: #0066cc;
     text-decoration: none;
@@ -45,10 +45,17 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Focus States for Accessibility */
+a:focus,
+button:focus {
+    outline: 3px solid #ffcc00;
+    outline-offset: 2px;
+}
+
 /* Navigation + Footer */
 nav,
 footer {
-    background-color: #eee;
+    background-color: #f4f4f4;
     padding: 1rem;
 }
 
@@ -83,6 +90,7 @@ footer {
 
 footer small a {
     margin: 0 0.25rem;
+    color: #0066cc;
 }
 
 /* Container */
@@ -159,6 +167,19 @@ select,
 button {
     margin-left: 0.25rem;
     margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #0066cc;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005bb5;
 }
 
 /* Progress Bars */
@@ -168,7 +189,7 @@ progress {
     margin-bottom: 0.5rem;
 }
 
-/* Toast for small notifications */
+/* Toast for Small Notifications */
 #toast {
     position: fixed;
     bottom: 1rem;
@@ -186,8 +207,19 @@ progress {
     display: block;
 }
 
-/* Dark Mode Adjustments */
-[data-color-scheme="dark"] {
-    background-color: #121212;
-    color: #ccc;
+/* Responsive Design Improvements */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero img {
+        max-width: 150px;
+    }
+}
+
+/* Additional Enhancements */
+body {
+    transition: background-color 0.3s, color 0.3s;
 }
