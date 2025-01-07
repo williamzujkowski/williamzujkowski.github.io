@@ -6,7 +6,6 @@ Welcome to the official repository of **William Zujkowski’s Personal Website**
 - A **Pizza Calculator** and a **Coffee Calculator** (both integrated with localStorage)
 - A **Blog** section loaded from `blog_data.html`, with Mizu.js for fetching and rendering
 - **Secret toggles** (Konami code, etc.)
-- **Matcha CSS** and **Mizu.js** (client.js) are now locally stored in `assets/mizu/`
 
 ## Folder Structure
 ```
@@ -24,9 +23,6 @@ Welcome to the official repository of **William Zujkowski’s Personal Website**
 │   │   ├── navFooter.js
 │   │   ├── pizzaCalc.js
 │   │   └── secretToggles.js
-│   └── mizu
-│       ├── client.js
-│       └── matcha.css
 ├── blog_data.html
 ├── blog.html
 ├── coffee.html
