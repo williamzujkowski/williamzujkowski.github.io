@@ -123,11 +123,9 @@ export function initCoffeeCalculator() {
         } else if (totalCups > 20) {
             humor = "You might want to assign a dedicated coffee pourer. That’s a lot of cups!";
         } else if (totalCups > 10) {
-            humor = "A decent coffee cluster. Ensure your brew pipeline has no single points of failure!";
+            humor = "You have a decent coffee setup. Ensure your brew pipeline has no single points of failure!";
         } else if (totalCups > 5) {
             humor = "Enough coffee to keep the devs awake—at least until the next all-nighter!";
-        } else if (totalCups > 1) {
-            humor = "Modest coffee needs. Make sure the pot doesn’t run dry mid-deploy!";
         } else if (totalCups === 1) {
             humor = "One lonely cup? Must be a slow coding day or everyone else left the building!";
         } else {

@@ -9,13 +9,13 @@
 
 html,
 body {
-    font-family: sans-serif;
-    background-color: #fafafa;
-    color: #333;
-    line-height: 1.5;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    line-height: 1.6;
 }
 
-/* Link Colors (same in dark + light) */
+/* Link Colors (unchanged in both modes) */
 a {
     color: #0066cc;
     text-decoration: none;
@@ -25,10 +25,17 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Focus States for Accessibility */
+a:focus,
+button:focus {
+    outline: 3px solid #ffcc00;
+    outline-offset: 2px;
+}
+
 /* Navigation + Footer */
 nav,
 footer {
-    background-color: #eee;
+    background-color: #f4f4f4;
     padding: 1rem;
 }
 
@@ -40,7 +47,10 @@ nav ul {
 
 nav a.active {
     font-weight: bold;
-    text-decoration: underline;
+    background-color: #dddddd;
+    /* Slight highlight for the active link */
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
 }
 
 footer {
@@ -50,6 +60,7 @@ footer {
 
 footer small a {
     margin: 0 0.25rem;
+    color: #0066cc;
 }
 
 /* Container */
@@ -96,6 +107,7 @@ footer small a {
 fieldset {
     border: 1px solid #ccc;
     padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 legend {
@@ -113,6 +125,19 @@ select,
 button {
     margin-left: 0.25rem;
     margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #0066cc;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005bb5;
 }
 
 /* Progress Bars */
@@ -122,25 +147,37 @@ progress {
     margin-bottom: 0.5rem;
 }
 
-/* Toast for small notifications */
+/* Toast for Small Notifications */
 #toast {
     position: fixed;
     bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    background: #333;
-    color: #fff;
+    background: #333333;
+    color: #ffffff;
     padding: 0.75rem 1rem;
     border-radius: 4px;
     display: none;
+    z-index: 1000;
 }
 
 #toast.show {
     display: block;
 }
 
-/* Dark Mode Adjustments */
-[data-color-scheme="dark"] {
-    background-color: #121212;
-    color: #ccc;
+/* Responsive Design Improvements */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero img {
+        max-width: 150px;
+    }
+}
+
+/* Additional Enhancements */
+body {
+    transition: background-color 0.3s, color 0.3s;
 }
