@@ -182,138 +182,138 @@ export function initPizzaCalculator() {
             finalizeResult(pizzasRequired, pizzaType, slicesPerPerson, hoursDebugging, attendees,
                 getHumorMessage(pizzasRequired));
         }
-    };
 
-    function finalizeResult(pizzasRequired, pizzaType, slicesPerPerson, hoursDebugging, attendees, humor) {
-        const resultDiv = document.getElementById('result');
-        calculationCompleted = true;
-        let displayMessage = "";
+        function finalizeResult(pizzasRequired, pizzaType, slicesPerPerson, hoursDebugging, attendees, humor) {
+            const resultDiv = document.getElementById('result');
+            calculationCompleted = true;
+            let displayMessage = "";
 
-        if (pizzaType === "3") {
-            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Hot Pocket(s)
-                to feed <strong>${attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours
-                of debugging. ${humor}</blockquote>`;
-        } else if (pizzaType === "cloud") {
-            displayMessage = `<blockquote>Cloud Pizza can feed any number of attendees,
-                but watch out for that infinite billing! ☁️🍕</blockquote>`;
-        } else if (pizzaType === "100") {
-            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Blockchain Pizza(s)
-                for <strong>${attendees}</strong> devs. ${humor} 🍕💸</blockquote>`;
-        } else {
-            const styleText = document.getElementById('pizzaType').options[
-                document.getElementById('pizzaType').selectedIndex
-            ].text;
-            displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> pizza(s) for
-                <strong>${attendees}</strong> attendees, factoring in <strong>${hoursDebugging} hours</strong>.
-                Using <strong>${styleText}</strong> style.<br><br>${humor}</blockquote>`;
+            if (pizzaType === "3") {
+                displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Hot Pocket(s)
+                    to feed <strong>${attendees}</strong> attendees for <strong>${hoursDebugging}</strong> hours
+                    of debugging. ${humor}</blockquote>`;
+            } else if (pizzaType === "cloud") {
+                displayMessage = `<blockquote>Cloud Pizza can feed any number of attendees,
+                    but watch out for that infinite billing! ☁️🍕</blockquote>`;
+            } else if (pizzaType === "100") {
+                displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> Blockchain Pizza(s)
+                    for <strong>${attendees}</strong> devs. ${humor} 🍕💸</blockquote>`;
+            } else {
+                const styleText = document.getElementById('pizzaType').options[
+                    document.getElementById('pizzaType').selectedIndex
+                ].text;
+                displayMessage = `<blockquote>You need <strong>${pizzasRequired}</strong> pizza(s) for
+                    <strong>${attendees}</strong> attendees, factoring in <strong>${hoursDebugging} hours</strong>.
+                    Using <strong>${styleText}</strong> style.<br><br>${humor}</blockquote>`;
+            }
+
+            if (resultDiv) resultDiv.innerHTML = displayMessage;
+            checkEnterpriseEmail(pizzasRequired);
+
+            let constructedReport =
+                `Pizza Calculation Report\n\n` +
+                `Number of Attendees: ${attendees}\n` +
+                `Selected Pizza Style: ${document.getElementById('pizzaType').options[
+                    document.getElementById('pizzaType').selectedIndex
+                ].text}\n` +
+                `Slices Per Person: ${slicesPerPerson}\n` +
+                `Hours Debugging: ${hoursDebugging}\n` +
+                `Total Pizzas Required: ${pizzasRequired}\n\n` +
+                humor;
+
+            pizzaReport = constructedReport;
+            const preElement = document.createElement('pre');
+            preElement.textContent = constructedReport;
+            if (resultDiv) resultDiv.appendChild(preElement);
+
+            performFunnyTests("Pizza");
         }
 
-        if (resultDiv) resultDiv.innerHTML = displayMessage;
-        checkEnterpriseEmail(pizzasRequired);
+        function checkEnterpriseEmail(pizzasRequired) {
+            const emailPromptSection = document.getElementById('emailPromptSection');
+            if (!emailPromptSection) return;
+            if (pizzasRequired >= 42) {
+                emailPromptSection.hidden = false;
+            } else {
+                emailPromptSection.hidden = true;
+            }
+        }
 
-        let constructedReport =
-            `Pizza Calculation Report\n\n` +
-            `Number of Attendees: ${attendees}\n` +
-            `Selected Pizza Style: ${document.getElementById('pizzaType').options[
-                document.getElementById('pizzaType').selectedIndex
-            ].text}\n` +
-            `Slices Per Person: ${slicesPerPerson}\n` +
-            `Hours Debugging: ${hoursDebugging}\n` +
-            `Total Pizzas Required: ${pizzasRequired}\n\n` +
-            humor;
+        function getHumorMessage(pizzasRequired) {
+            if (pizzasRequired >= 42) {
+                return "You've reached Pied Piper-level scaling. Time for enterprise pizza solutions with distributed toppings and fault-tolerant sauces! 🍕📞";
+            } else if (pizzasRequired > 20) {
+                return "Caution: Pizza overload detected! Prepare for mass consumption. 🍕🛠️";
+            } else if (pizzasRequired > 10) {
+                return "That's a hefty pizza cluster! Consider horizontal slice-scaling strategies. ☁️🍕";
+            } else if (pizzasRequired > 5) {
+                return "A respectable order! Watch for pizza logs to avoid any food comas. 📊🍕";
+            } else if (pizzasRequired > 3) {
+                return "A moderate batch. Don’t forget to allow burst capacity for last-minute slice demands. 🍕🔄";
+            } else if (pizzasRequired === 1) {
+                return "A single pizza? That’s like running production on a Raspberry Pi—hope it's enough! 🎛️🍕";
+            } else {
+                return "Minimal pizza order. For redundancy, might want to double the slices. 📦🍕";
+            }
+        }
 
-        pizzaReport = constructedReport;
-        const preElement = document.createElement('pre');
-        preElement.textContent = constructedReport;
-        if (resultDiv) resultDiv.appendChild(preElement);
+        window.performFunnyTests = function (calculatorName) {
+            console.log(`\n--- ${calculatorName} Additional Testing Suite Initiated ---`);
+            console.log("[Load Test] Simulating thousands of hungry devs hitting the server for pizza calculations...");
+            console.log("[Unit Test] Checking if slices per person is not negative or infinite... Looks good so far!");
+            console.log("[UX Test] Asking random dev if they prefer pineapple on pizza. 50% meltdown rate detected!");
+            console.log("[Security Test] Attempting to inject 'DROP TABLE Pizza' into debug hours field. Denied!");
+            console.log("[All Tests Passed] The Pizza Calculator is stable...ish.\n");
+        };
 
-        performFunnyTests("Pizza");
+        window.showToast = function (message) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        };
+
+        window.downloadReport = function () {
+            if (!calculationCompleted || !pizzaReport) {
+                showToast("Please perform a calculation first!");
+                return;
+            }
+            const blob = new Blob([pizzaReport], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'Pizza_Calculation_Report.txt';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            URL.revokeObjectURL(url);
+        };
+
+        window.submitEmail = function () {
+            const emailInput = document.getElementById('emailInput');
+            if (!emailInput) return;
+
+            const email = emailInput.value.trim();
+            if (!email) {
+                showToast("Please enter a valid email!");
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast("Invalid email format!");
+                return;
+            }
+
+            console.log(`Enterprise pizza inquiry from: ${email}`);
+            showToast("Thanks! Our Enterprise Pizza Sales Team will contact you soon.");
+
+            emailInput.value = '';
+            const emailPromptSection = document.getElementById('emailPromptSection');
+            if (emailPromptSection) emailPromptSection.hidden = true;
+        };
     }
-
-    function checkEnterpriseEmail(pizzasRequired) {
-        const emailPromptSection = document.getElementById('emailPromptSection');
-        if (!emailPromptSection) return;
-        if (pizzasRequired >= 42) {
-            emailPromptSection.hidden = false;
-        } else {
-            emailPromptSection.hidden = true;
-        }
-    }
-
-    function getHumorMessage(pizzasRequired) {
-        if (pizzasRequired >= 42) {
-            return "You've reached Pied Piper-level scaling. Time for enterprise pizza solutions with distributed toppings and fault-tolerant sauces! 🍕📞";
-        } else if (pizzasRequired > 20) {
-            return "Caution: Pizza overload detected! Prepare for mass consumption. 🍕🛠️";
-        } else if (pizzasRequired > 10) {
-            return "That's a hefty pizza cluster! Consider horizontal slice-scaling strategies. ☁️🍕";
-        } else if (pizzasRequired > 5) {
-            return "A respectable order! Watch for pizza logs to avoid any food comas. 📊🍕";
-        } else if (pizzasRequired > 3) {
-            return "A moderate batch. Don’t forget to allow burst capacity for last-minute slice demands. 🍕🔄";
-        } else if (pizzasRequired === 1) {
-            return "A single pizza? That’s like running production on a Raspberry Pi—hope it's enough! 🎛️🍕";
-        } else {
-            return "Minimal pizza order. For redundancy, might want to double the slices. 📦🍕";
-        }
-    }
-
-    window.performFunnyTests = function (calculatorName) {
-        console.log(`\n--- ${calculatorName} Additional Testing Suite Initiated ---`);
-        console.log("[Load Test] Simulating thousands of hungry devs hitting the server for pizza calculations...");
-        console.log("[Unit Test] Checking if slices per person is not negative or infinite... Looks good so far!");
-        console.log("[UX Test] Asking random dev if they prefer pineapple on pizza. 50% meltdown rate detected!");
-        console.log("[Security Test] Attempting to inject 'DROP TABLE Pizza' into debug hours field. Denied!");
-        console.log("[All Tests Passed] The Pizza Calculator is stable...ish.\n");
-    };
-
-    window.showToast = function (message) {
-        const toast = document.getElementById('toast');
-        if (!toast) return;
-        toast.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    };
-
-    window.downloadReport = function () {
-        if (!calculationCompleted || !pizzaReport) {
-            showToast("Please perform a calculation first!");
-            return;
-        }
-        const blob = new Blob([pizzaReport], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-
-        const downloadLink = document.createElement('a');
-        downloadLink.href = url;
-        downloadLink.download = 'Pizza_Calculation_Report.txt';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-
-        URL.revokeObjectURL(url);
-    };
-
-    window.submitEmail = function () {
-        const emailInput = document.getElementById('emailInput');
-        if (!emailInput) return;
-
-        const email = emailInput.value.trim();
-        if (!email) {
-            showToast("Please enter a valid email!");
-            return;
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showToast("Invalid email format!");
-            return;
-        }
-
-        console.log(`Enterprise pizza inquiry from: ${email}`);
-        showToast("Thanks! Our Enterprise Pizza Sales Team will contact you soon.");
-
-        emailInput.value = '';
-        const emailPromptSection = document.getElementById('emailPromptSection');
-        if (emailPromptSection) emailPromptSection.hidden = true;
-    };
 }

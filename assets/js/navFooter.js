@@ -12,14 +12,6 @@ export function initNavFooter() {
     if (footerDiv) {
         footerDiv.innerHTML = createFooterContent();
     }
-
-    // Color Scheme
-    const storedColorScheme = localStorage.getItem('colorScheme');
-    if (storedColorScheme) {
-        document.documentElement.setAttribute('data-color-scheme', storedColorScheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-color-scheme', 'dark');
-    }
 }
 
 function createNavLinks(navUL) {
@@ -37,25 +29,13 @@ function createNavLinks(navUL) {
         const a = document.createElement('a');
         a.href = page.href;
         a.textContent = page.label;
+
         if (page.href === currentPage) {
             a.classList.add('active');
         }
         li.appendChild(a);
         navUL.appendChild(li);
     });
-
-    // Dark mode toggle
-    const liToggle = document.createElement('li');
-    const toggleBtn = document.createElement('button');
-    toggleBtn.textContent = 'Toggle Dark Mode';
-    toggleBtn.addEventListener('click', () => {
-        const currentMode = document.documentElement.getAttribute('data-color-scheme');
-        const newMode = currentMode === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-color-scheme', newMode);
-        localStorage.setItem('colorScheme', newMode);
-    });
-    liToggle.appendChild(toggleBtn);
-    navUL.appendChild(liToggle);
 }
 
 function createFooterContent() {
@@ -63,9 +43,9 @@ function createFooterContent() {
       <small>
         © 2024 William Zujkowski. All rights reserved.
         <br>
-        <a href="https://github.com/williamzujkowski" target="_blank">GitHub</a> |
-        <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank">LinkedIn</a> |
-        <a href="https://steamcommunity.com/id/grenlan/" target="_blank">Steam</a>
+        <a href="https://github.com/williamzujkowski" target="_blank" rel="noopener noreferrer">GitHub</a> |
+        <a href="https://www.linkedin.com/in/williamzujkowski/" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+        <a href="https://steamcommunity.com/id/grenlan/" target="_blank" rel="noopener noreferrer">Steam</a>
       </small>
     `;
 }
