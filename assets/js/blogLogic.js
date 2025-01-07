@@ -1,28 +1,40 @@
 // assets/js/blogLogic.js
 
 export function initBlogLogic() {
+    // Decide if we are on index.html or blog.html
+    const path = window.location.pathname.split('/').pop() || 'index.html';
 
-    window.renderIndexBlogHTML = async function (resp) {
+    if (path === 'index.html') {
+        // We'll fetch blog_data and render a short summary
+        fetchRecentBlogPosts();
+    } else if (path === 'blog.html') {
+        // We'll fetch blog_data and render all posts
+        fetchAllBlogPosts();
+    }
+}
+
+// For index page
+async function fetchRecentBlogPosts() {
+    try {
+        const resp = await fetch('blog_data.html');
+        if (!resp.ok) throw new Error('Failed to fetch blog_data.html');
         const textData = await resp.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(textData, 'text/html');
         const articles = Array.from(doc.querySelectorAll('article'));
-
         if (!articles.length) {
             console.error("No posts found in blog_data.html");
             return;
         }
-
         // Sort descending by data-date
         articles.sort((a, b) => {
             const dateA = new Date(a.getAttribute('data-date'));
             const dateB = new Date(b.getAttribute('data-date'));
             return dateB - dateA;
         });
-
-        // On the homepage, we only show a bulleted list
-        const olderEl = document.getElementById('older-posts');
-        if (!olderEl) return;
+        // We just display all of them as a list
+        const blogListDiv = document.getElementById('recent-blog-list');
+        if (!blogListDiv) return;
 
         let html = '<ul>';
         articles.forEach(article => {
@@ -30,118 +42,118 @@ export function initBlogLogic() {
             const slug = article.getAttribute('data-slug') || '';
             const h2 = article.querySelector('h2');
             const titleText = h2 ? h2.textContent.trim() : '(Untitled Post)';
-
-            // Link to blog.html#slug so that we can auto-expand
             html += `
-                <li>
-                    <strong>${dateAttr}</strong> -
-                    <a href="blog.html#${slug}">${titleText}</a>
-                </li>
-            `;
+          <li>
+            <strong>${dateAttr}</strong> -
+            <a href="blog.html#${slug}">${titleText}</a>
+          </li>
+        `;
         });
         html += '</ul>';
-        olderEl.innerHTML = html;
-    };
+        blogListDiv.innerHTML = html;
 
-    window.renderBlogPostsHTML = async function (resp) {
+    } catch (err) {
+        console.error("Error fetching recent blog posts:", err);
+    }
+}
+
+// For blog page
+async function fetchAllBlogPosts() {
+    try {
+        const resp = await fetch('blog_data.html');
+        if (!resp.ok) throw new Error('Failed to fetch blog_data.html');
         const textData = await resp.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(textData, 'text/html');
         window.allArticles = Array.from(doc.querySelectorAll('article'));
-
         if (!window.allArticles.length) {
-            console.error('No posts found in blog_data.html');
+            console.error("No posts found in blog_data.html");
             return;
         }
-
         // Sort by data-date descending
         window.allArticles.sort((a, b) => {
             const dateA = new Date(a.getAttribute('data-date'));
             const dateB = new Date(b.getAttribute('data-date'));
             return dateB - dateA;
         });
-
         renderArticles(window.allArticles);
-    };
 
-    window.renderArticles = function (articles) {
-        const archiveSection = document.getElementById('blog-archive');
-        if (!archiveSection) return;
-        archiveSection.innerHTML = '';
-
-        articles.forEach(article => {
-            const dateAttr = article.getAttribute('data-date');
-            const slug = article.getAttribute('data-slug') || '';
-            const titleEl = article.querySelector('h2');
-            const postTitle = titleEl ? titleEl.textContent.trim() : '(Untitled)';
-            const articleContent = article.innerHTML;
-
-            const detailsHtml = `
-             <article id="${slug}">
-                 <div class="blog-title">${postTitle}</div>
-                 <div class="blog-date">${dateAttr}</div>
-                 <details class="mt-1">
-                     <summary class="p-0.5"><b>${postTitle}</b></summary>
-                     <div class="p-1">${articleContent}</div>
-                 </details>
-             </article>
-            `;
-            archiveSection.insertAdjacentHTML('beforeend', detailsHtml);
-        });
-
-        // After rendering, auto-expand if there's a #slug in the URL
-        autoExpandPostFromHash();
-    };
-
-    function autoExpandPostFromHash() {
-        if (!window.location.hash) return;
-        const slug = window.location.hash.slice(1); // remove "#"
-        if (!slug) return;
-
-        const articleEl = document.getElementById(slug);
-        if (!articleEl) return;
-
-        // Find the <details> inside that article and open it
-        const details = articleEl.querySelector('details');
-        if (details) {
-            details.open = true;
-            // Optional: scroll it into view
-            articleEl.scrollIntoView({ behavior: 'smooth' });
-        }
+    } catch (err) {
+        console.error("Error fetching blog data:", err);
     }
+}
 
-    // Simple text filter for blog.html
-    let debounceTimer;
-    window.filterBlogPosts = function () {
-        const searchInput = document.getElementById('blogSearch');
-        if (!searchInput) return;
-        const searchValue = searchInput.value.toLowerCase().trim();
+function renderArticles(articles) {
+    const archiveSection = document.getElementById('blog-archive');
+    if (!archiveSection) return;
+    archiveSection.innerHTML = '';
 
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            if (!searchValue) {
-                renderArticles(window.allArticles);
-                return;
-            }
-            const filtered = window.allArticles.filter(article => {
-                const text = article.textContent.toLowerCase();
-                return text.includes(searchValue);
-            });
-            renderArticles(filtered);
-        }, 250);
-    };
+    articles.forEach(article => {
+        const dateAttr = article.getAttribute('data-date');
+        const slug = article.getAttribute('data-slug') || '';
+        const titleEl = article.querySelector('h2');
+        const postTitle = titleEl ? titleEl.textContent.trim() : '(Untitled)';
+        const articleContent = article.innerHTML;
 
-    window.resetBlogFilter = function () {
-        const searchInput = document.getElementById('blogSearch');
-        if (searchInput) {
-            searchInput.value = '';
-        }
-        if (window.allArticles) {
-            renderArticles(window.allArticles);
-        }
-    };
+        const detailsHtml = `
+        <article id="${slug}">
+          <div><strong>${postTitle}</strong> <span>(${dateAttr})</span></div>
+          <details style="margin: 0.5rem 0;">
+            <summary>Read More</summary>
+            <div>${articleContent}</div>
+          </details>
+        </article>
+      `;
+        archiveSection.insertAdjacentHTML('beforeend', detailsHtml);
+    });
 
-    // If the user changes the hash after the page loads,
-    // we can re-check to expand the right post
+    // Auto-expand if there's a hash
+    autoExpandPostFromHash();
+    // Listen for hash changes
     window.addEventListener('hashchange', autoExpandPostFromHash);
 }
+
+function autoExpandPostFromHash() {
+    if (!window.location.hash) return;
+    const slug = window.location.hash.slice(1);
+    if (!slug) return;
+    const articleEl = document.getElementById(slug);
+    if (!articleEl) return;
+
+    const details = articleEl.querySelector('details');
+    if (details) {
+        details.open = true;
+        articleEl.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Simple filter
+let debounceTimer;
+window.filterBlogPosts = function () {
+    const searchInput = document.getElementById('blogSearch');
+    if (!searchInput || !window.allArticles) return;
+
+    const searchValue = searchInput.value.toLowerCase().trim();
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        if (!searchValue) {
+            renderArticles(window.allArticles);
+            return;
+        }
+        const filtered = window.allArticles.filter(article => {
+            const text = article.textContent.toLowerCase();
+            return text.includes(searchValue);
+        });
+        renderArticles(filtered);
+    }, 250);
+};
+
+window.resetBlogFilter = function () {
+    const searchInput = document.getElementById('blogSearch');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+    if (window.allArticles) {
+        renderArticles(window.allArticles);
+    }
+};

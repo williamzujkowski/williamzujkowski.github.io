@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-color-scheme="auto">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,18 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Blog Archives - William Zujkowski</title>
-
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/mizu/matcha.css">
-    <script src="assets/mizu/client.js" defer></script>
-    <script type="module" src="assets/js/main.js" defer></script>
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script type="module" src="assets/js/main.js"></script>
 </head>
 
-<!-- *mizu on body so Mizu definitely sees %http -->
-
-<body lang="en" data-color-scheme="auto" *mizu>
+<body>
     <nav id="nav-container">
-        <div id="dynamic-nav"></div>
+        <ul id="dynamic-nav"></ul>
     </nav>
 
     <main class="container">
@@ -30,19 +27,18 @@
             <p>Welcome to the archives! Expand each post for more details.</p>
         </header>
 
-        <div class="search-container flex wrap gap-0.5">
+        <div class="search-container" style="margin-bottom: 1rem;">
             <label for="blogSearch"><b>Search Posts:</b></label>
-            <input type="text" id="blogSearch" placeholder="Type keywords..." class="flex-grow-1 bd-muted p-0.5">
-            <button type="button" class="bg-accent p-0.5 bd-accent" onclick="filterBlogPosts()">Filter</button>
-            <button type="button" class="bg-accent p-0.5 bd-accent" onclick="resetBlogFilter()">Reset</button>
+            <input type="text" id="blogSearch" placeholder="Type keywords...">
+            <button type="button" onclick="filterBlogPosts()">Filter</button>
+            <button type="button" onclick="resetBlogFilter()">Reset</button>
         </div>
 
-        <!-- Mizu usage -->
-        <div %http="'blog_data.html'" %response="renderBlogPostsHTML($response)"></div>
+        <!-- We will fetch blog_data.html in blogLogic.js, then display them here -->
         <section id="blog-archive"></section>
     </main>
 
-    <footer id="footer-container">
+    <footer>
         <div id="dynamic-footer"></div>
     </footer>
 </body>
