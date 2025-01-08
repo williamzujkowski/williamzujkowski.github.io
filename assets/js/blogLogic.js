@@ -7,10 +7,16 @@ export function initBlogLogic() {
         // Fetch and render recent blog posts
         fetchRecentBlogPosts();
     } else if (path === 'blog.html') {
-        // Fetch and render all blog posts
+        // Fetch and render all blog posts with pagination
         fetchAllBlogPosts();
     }
 }
+
+// Pagination Variables
+let currentPage = 1;
+const postsPerPage = 5;
+let totalPages = 1;
+let allArticles = [];
 
 // Fetch recent blog posts for the index page
 async function fetchRecentBlogPosts() {
@@ -36,7 +42,7 @@ async function fetchRecentBlogPosts() {
         if (!blogListDiv) return;
 
         let html = '<ul>';
-        articles.forEach(article => {
+        articles.slice(0, 5).forEach(article => { // Show latest 5 posts
             const dateAttr = article.getAttribute('data-date');
             const slug = article.getAttribute('data-slug') || '';
             const h2 = article.querySelector('h2');
@@ -55,7 +61,7 @@ async function fetchRecentBlogPosts() {
     }
 }
 
-// Fetch all blog posts for the blog page
+// Fetch all blog posts for the blog page with pagination
 async function fetchAllBlogPosts() {
     try {
         const resp = await fetch('blog_data.html');
@@ -63,29 +69,36 @@ async function fetchAllBlogPosts() {
         const textData = await resp.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(textData, 'text/html');
-        window.allArticles = Array.from(doc.querySelectorAll('article'));
-        if (!window.allArticles.length) {
+        allArticles = Array.from(doc.querySelectorAll('article'));
+        if (!allArticles.length) {
             console.error("No posts found in blog_data.html");
             return;
         }
         // Sort by date descending
-        window.allArticles.sort((a, b) => {
+        allArticles.sort((a, b) => {
             const dateA = new Date(a.getAttribute('data-date'));
             const dateB = new Date(b.getAttribute('data-date'));
             return dateB - dateA;
         });
-        renderArticles(window.allArticles);
+        totalPages = Math.ceil(allArticles.length / postsPerPage);
+        renderArticles();
+        updatePaginationButtons();
     } catch (err) {
         console.error("Error fetching blog data:", err);
     }
 }
 
-function renderArticles(articles) {
+function renderArticles(filteredArticles = null) {
     const archiveSection = document.getElementById('blog-archive');
     if (!archiveSection) return;
     archiveSection.innerHTML = '';
 
-    articles.forEach(article => {
+    const articlesToRender = filteredArticles || allArticles;
+    const start = (currentPage - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const paginatedArticles = articlesToRender.slice(start, end);
+
+    paginatedArticles.forEach(article => {
         const dateAttr = article.getAttribute('data-date');
         const slug = article.getAttribute('data-slug') || '';
         const titleEl = article.querySelector('h2');
@@ -93,9 +106,10 @@ function renderArticles(articles) {
         const articleContent = article.innerHTML;
 
         const detailsHtml = `
-        <article id="${slug}">
-          <div><strong>${postTitle}</strong> <span>(${dateAttr})</span></div>
-          <details style="margin: 0.5rem 0;">
+        <article id="${slug}" class="blog-card">
+          <h2>${postTitle}</h2>
+          <p><em>${dateAttr}</em></p>
+          <details>
             <summary>Read More</summary>
             <div>${articleContent}</div>
           </details>
@@ -103,43 +117,68 @@ function renderArticles(articles) {
       `;
         archiveSection.insertAdjacentHTML('beforeend', detailsHtml);
     });
-
-    autoExpandPostFromHash();
-    window.addEventListener('hashchange', autoExpandPostFromHash);
 }
 
-function autoExpandPostFromHash() {
-    if (!window.location.hash) return;
-    const slug = window.location.hash.slice(1);
-    if (!slug) return;
-    const articleEl = document.getElementById(slug);
-    if (!articleEl) return;
+function updatePaginationButtons(filtered = false) {
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
 
-    const details = articleEl.querySelector('details');
-    if (details) {
-        details.open = true;
-        articleEl.scrollIntoView({ behavior: 'smooth' });
+    if (!prevBtn || !nextBtn) return;
+
+    if (currentPage <= 1) {
+        prevBtn.disabled = true;
+    } else {
+        prevBtn.disabled = false;
+    }
+
+    if (currentPage >= totalPages) {
+        nextBtn.disabled = true;
+    } else {
+        nextBtn.disabled = false;
     }
 }
+
+window.prevPage = function () {
+    if (currentPage > 1) {
+        currentPage--;
+        renderArticles();
+        updatePaginationButtons();
+        window.scrollTo(0, 0);
+    }
+};
+
+window.nextPage = function () {
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderArticles();
+        updatePaginationButtons();
+        window.scrollTo(0, 0);
+    }
+};
 
 // Filter logic
 let debounceTimer;
 window.filterBlogPosts = function () {
     const searchInput = document.getElementById('blogSearch');
-    if (!searchInput || !window.allArticles) return;
+    if (!searchInput || !allArticles.length) return;
 
     const searchValue = searchInput.value.toLowerCase().trim();
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
         if (!searchValue) {
-            renderArticles(window.allArticles);
+            currentPage = 1;
+            renderArticles();
+            updatePaginationButtons();
             return;
         }
-        const filtered = window.allArticles.filter(article => {
+        const filtered = allArticles.filter(article => {
             const text = article.textContent.toLowerCase();
             return text.includes(searchValue);
         });
+        currentPage = 1;
         renderArticles(filtered);
+        totalPages = Math.ceil(filtered.length / postsPerPage);
+        updatePaginationButtons();
     }, 250);
 };
 
@@ -148,7 +187,10 @@ window.resetBlogFilter = function () {
     if (searchInput) {
         searchInput.value = '';
     }
-    if (window.allArticles) {
-        renderArticles(window.allArticles);
+    if (allArticles.length) {
+        currentPage = 1;
+        renderArticles();
+        totalPages = Math.ceil(allArticles.length / postsPerPage);
+        updatePaginationButtons();
     }
 };
