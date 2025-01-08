@@ -16,18 +16,34 @@
 
         <div style="margin-bottom: 1rem;">
             <label for="blogSearch"><b>Search Posts:</b></label>
-            <input type="text" id="blogSearch" placeholder="Type keywords...">
+            <input type="text" id="blogSearch" placeholder="Type keywords..." onkeypress="handleKeyPress(event)">
             <button type="button" onclick="filterBlogPosts()">Filter</button>
             <button type="button" onclick="resetBlogFilter()">Reset</button>
         </div>
 
         <section id="blog-archive"></section>
+
+        <section class="pagination">
+            <button id="prevPage" onclick="prevPage()" disabled>Previous</button>
+            <button id="nextPage" onclick="nextPage()" disabled>Next</button>
+        </section>
     </main>
 
-    <footer role="contentinfo" id="dynamic-footer"></footer>
+    <footer>
+        <div id="dynamic-footer"></div>
+    </footer>
 
-    <!-- Main script -->
-    <script src="js/main.js"></script>
+    <div id="toast" role="alert" aria-live="assertive"></div>
+
+    <script>
+        // Handle Enter key for filter button
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                filterBlogPosts();
+            }
+        }
+    </script>
 </body>
 
 </html>
