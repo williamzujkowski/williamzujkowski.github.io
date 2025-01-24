@@ -2,72 +2,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Calculator - William Zujkowski</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <nav id="nav-container">
-        <ul id="dynamic-nav"></ul>
-    </nav>
+    <header>
+        <nav id="dynamic-nav"></nav> </header>
+        
+        <main>
+            <section>
+                <h1>Coffee Calculator</h1>
+                <form id="coffeeForm">
+                    <label for="attendees">Number of Attendees:</label>
+                    <input type="number" id="attendees" name="attendees" min="1" required>
 
-    <main class="container">
-        <header>
-            <h1>Coffee Calculator for IT Engineers</h1>
-            <p>
-                I built this quick tool to figure out how many cups (or pots) of coffee my team needs during those
-                late-night coding sessions. I hope you find it as helpful (and amusing) as I do!
-            </p>
-        </header>
+                    <label for="coffeeStrength">Coffee Strength:</label>
+                    <select id="coffeeStrength" name="coffeeStrength">
+                        <option value="light">Light</option>
+                        <option value="medium">Medium</option>
+                        <option value="strong">Strong</option>
+                    </select>
 
-    <main role="main">
-        <section aria-labelledby="coffee-heading">
-            <h1 id="coffee-heading">Coffee Calculator</h1>
+                    <label for="hoursCoding">Hours Coding:</label>
+                    <input type="number" id="hoursCoding" name="hoursCoding" min="0" required>
 
-            <!-- 
-        Coffee Calculator Form 
-        This form calculates how much coffee is needed based on:
-        - Number of attendees
-        - Preferred coffee strength
-        - Coding hours
-        - Build failures (a humorous variable to indicate frustration level)
-      -->
-            <form id="coffeeForm">
-                <label for="attendees">Number of Attendees:</label>
-                <input type="number" id="attendees" name="attendees" min="1" required aria-required="true" />
+                    <label for="buildFailures">Build Failures:</label>
+                    <input type="number" id="buildFailures" name="buildFailures" min="0" required>
 
-                <label for="coffeeStrength">Coffee Strength:</label>
-                <select id="coffeeStrength" name="coffeeStrength" aria-required="true">
-                    <option value="light">Light</option>
-                    <option value="medium">Medium</option>
-                    <option value="strong">Strong</option>
-                </select>
+                    <button type="button" onclick="calculateCoffee()">Calculate</button>
+                </form>
 
-                <label for="hoursCoding">Hours Coding:</label>
-                <input type="number" id="hoursCoding" name="hoursCoding" min="0" required aria-required="true" />
+                <div id="result"></div>
+            </section>
+        </main>
 
-                <label for="buildFailures">Build Failures:</label>
-                <input type="number" id="buildFailures" name="buildFailures" min="0" required aria-required="true" />
+        <footer id="dynamic-footer"></footer>
 
-                <button type="button" onclick="calculateCoffee()" aria-label="Calculate coffee needs">
-                    Calculate
-                </button>
-            </form>
-
-            <!-- Result display -->
-            <div id="result" aria-live="polite"></div>
-        </section>
-
-        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee
-            Report</a>
-    </main>
-
-    <footer role="contentinfo" id="dynamic-footer"></footer>
-
-    <!-- Main script -->
-    <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
 </body>
 
-</html>
+</html> 
