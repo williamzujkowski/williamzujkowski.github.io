@@ -3,85 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Coffee Calculator for Caffeinated Engineers">
-    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor">
-    <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Coffee Calculator for IT Engineers</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script type="module" src="assets/js/main.js"></script>
+    <title>Coffee Calculator - William Zujkowski</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <nav id="nav-container">
-        <ul id="dynamic-nav"></ul>
-    </nav>
+    <header>
+        <nav id="dynamic-nav"></nav> </header>
+        
+        <main>
+            <section>
+                <h1>Coffee Calculator</h1>
+                <form id="coffeeForm">
+                    <label for="attendees">Number of Attendees:</label>
+                    <input type="number" id="attendees" name="attendees" min="1" required>
 
-    <main class="container">
-        <header>
-            <h1>Coffee Calculator for IT Engineers</h1>
-            <p>
-                I built this quick tool to figure out how many cups (or pots) of coffee my team needs during those
-                late-night coding sessions. I hope you find it as helpful (and amusing) as I do!
-            </p>
-        </header>
+                    <label for="coffeeStrength">Coffee Strength:</label>
+                    <select id="coffeeStrength" name="coffeeStrength">
+                        <option value="light">Light</option>
+                        <option value="medium">Medium</option>
+                        <option value="strong">Strong</option>
+                    </select>
 
-        <section>
-            <form id="coffeeForm" onsubmit="return false;">
-                <fieldset>
-                    <legend><b>Enter Your Coffee Details:</b></legend>
+                    <label for="hoursCoding">Hours Coding:</label>
+                    <input type="number" id="hoursCoding" name="hoursCoding" min="0" required>
 
-                    <label for="javaAttendees">Number of Devs:
-                        <input type="number" id="javaAttendees" value="3">
-                    </label>
+                    <label for="buildFailures">Build Failures:</label>
+                    <input type="number" id="buildFailures" name="buildFailures" min="0" required>
 
-                    <label for="coffeeStrength">Coffee Strength:
-                        <select id="coffeeStrength">
-                            <option value="1">Mild</option>
-                            <option value="2">Regular</option>
-                            <option value="3">Strong</option>
-                            <option value="5">Espresso Shots Only</option>
-                            <option value="10">Triple Espresso Shots (Danger!)</option>
-                        </select>
-                    </label>
+                    <button type="button" onclick="calculateCoffee()">Calculate</button>
+                </form>
 
-                    <label for="hoursCoding">Hours of Coding:
-                        <input type="number" id="hoursCoding" value="4">
-                    </label>
+                <div id="result"></div>
+            </section>
+        </main>
 
-                    <label for="timesBuildFailed">Times the Build Failed:
-                        <input type="number" id="timesBuildFailed" value="2">
-                    </label>
-                    <div>
-                        <button type="button" onclick="calculateCoffee()">Calculate</button>
-                        <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
-                        <button type="button" onclick="shareCoffeeReport()">Share</button>
-                    </div>
-                </fieldset>
-            </form>
-        </section>
+        <footer id="dynamic-footer"></footer>
 
-        <section id="coffeeProgressSection">
-            <progress id="progressBar" value="0" max="100"></progress>
-            <p id="progressLabel"></p>
-        </section>
-
-        <section id="coffeeResultSection">
-            <div id="coffeeResult" role="alert" aria-live="polite"></div>
-        </section>
-
-        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee
-            Report</a>
-    </main>
-
-    <footer>
-        <div id="dynamic-footer"></div>
-    </footer>
-
-    <div id="toast" role="alert" aria-live="assertive"></div>
+        <script src="js/main.js"></script>
 </body>
 
-</html>
+</html> 
