@@ -2,45 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="All Blog Posts - William Zujkowski">
-    <meta name="keywords"
-        content="Blog, William Zujkowski, Tech, Cybersecurity, AI, ML, Homelab, Cloud, Security, Coding">
-    <meta name="author" content="William Zujkowski">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Blog Archives - William Zujkowski</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script type="module" src="assets/js/main.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Blog - William Zujkowski</title>
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
-    <nav id="nav-container">
-        <ul id="dynamic-nav"></ul>
-    </nav>
+    <!-- Header -->
+    <header role="banner">
+        <nav role="navigation" aria-label="Main Navigation" id="dynamic-nav"></nav>
+    </header>
 
-    <main class="container">
-        <header>
-            <h1>All Blog Posts</h1>
-            <p>Welcome to the archives! Expand each post for more details.</p>
-        </header>
+    <main role="main">
+        <section aria-labelledby="blog-heading">
+            <h1 id="blog-heading">My Blog</h1>
+            <p>
+                Welcome to my blog! I love diving into topics like AI, cybersecurity, and general software development.
+                Below, you can search posts or simply browse through my latest thinking.
+            </p>
 
-        <div class="search-container" style="margin-bottom: 1rem;">
-            <label for="blogSearch"><b>Search Posts:</b></label>
-            <input type="text" id="blogSearch" placeholder="Type keywords...">
-            <button type="button" onclick="filterBlogPosts()">Filter</button>
-            <button type="button" onclick="resetBlogFilter()">Reset</button>
-        </div>
+            <!-- Blog Search -->
+            <div class="blog-search">
+                <label for="searchInput" class="visually-hidden">Search blog posts</label>
+                <input type="text" id="searchInput" placeholder="Search blog posts..." oninput="filterBlogPosts()"
+                    aria-label="Search blog posts" />
+                <button type="button" onclick="resetBlogFilter()">Reset</button>
+            </div>
 
-        <!-- We will fetch blog_data.html in blogLogic.js, then display them here -->
-        <section id="blog-archive"></section>
+            <!-- Dynamic Blog List -->
+            <div id="blogListDiv"></div>
+
+            <!-- Pagination Controls -->
+            <div id="pagination">
+                <button id="prevPage" onclick="prevPage()">Previous</button>
+                <button id="nextPage" onclick="nextPage()">Next</button>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <div id="dynamic-footer"></div>
-    </footer>
+    <footer role="contentinfo" id="dynamic-footer"></footer>
+
+    <!-- Main script -->
+    <script src="js/main.js"></script>
 </body>
 
 </html>
