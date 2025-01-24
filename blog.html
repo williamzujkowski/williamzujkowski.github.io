@@ -9,10 +9,24 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header role="banner">
-        <nav role="navigation" aria-label="Main Navigation" id="dynamic-nav"></nav>
-    </header>
+    <!-- Disclaimer for blog content -->
+    <p style="font-size:0.9rem; padding:0.5rem; background-color:#f8f8f8; border:1px solid #ccc;">
+        <strong>Disclaimer:</strong> All posts and opinions on this blog are my own and do not necessarily reflect
+        the
+        views of my employer or the U.S. Government. This blog is for informational purposes only and does not
+        provide
+        legal or professional advice.
+    </p>
+
+    <nav id="nav-container">
+        <ul id="dynamic-nav"></ul>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h1>All Blog Posts</h1>
+            <p>Welcome! Browse through my cybersecurity insights, AI experiments, and homelab adventures below.</p>
+        </header>
 
         <div style="margin-bottom: 1rem;">
             <label for="blogSearch"><b>Search Posts:</b></label>
@@ -21,6 +35,7 @@
             <button type="button" onclick="resetBlogFilter()">Reset</button>
         </div>
 
+        <!-- Blog posts will be dynamically loaded into the section below -->
         <section id="blog-archive"></section>
 
         <section class="pagination">
@@ -36,7 +51,7 @@
     <div id="toast" role="alert" aria-live="assertive"></div>
 
     <script>
-        // Handle Enter key for filter button
+        // Handle Enter key for search
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();

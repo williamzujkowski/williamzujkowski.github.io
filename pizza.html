@@ -9,10 +9,18 @@
 </head>
 
 <body>
-    <!-- Header with ARIA role -->
-    <header role="banner">
-        <nav role="navigation" aria-label="Main Navigation" id="dynamic-nav"></nav>
-    </header>
+    <nav id="nav-container">
+        <ul id="dynamic-nav"></ul>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h1>Pizza Calculator for IT Engineers</h1>
+            <p>
+                I built this pizza calculator to answer that eternal question: “How many pies do we need after a
+                grueling debug session?” Let’s save precious brainpower and let this page do the math!
+            </p>
+        </header>
 
     <main role="main">
         <section aria-labelledby="pizza-heading">
@@ -48,9 +56,25 @@
                     Calculate
                 </button>
             </form>
+        </section>
 
-            <!-- Result display -->
-            <div id="result" aria-live="polite"></div>
+        <section id="progressSection">
+            <progress id="progressBar" value="0" max="100"></progress>
+            <p id="progressLabel"></p>
+        </section>
+
+        <section id="resultSection">
+            <div id="result" role="alert" aria-live="polite"></div>
+        </section>
+
+        <section id="emailPromptSection" hidden>
+            <p>If you’re ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team
+                can
+                contact you:</p>
+            <label for="emailInput">
+                <input type="email" id="emailInput" placeholder="Enter your email">
+            </label>
+            <button type="button" onclick="submitEmail()">Submit Email</button>
         </section>
     </main>
 

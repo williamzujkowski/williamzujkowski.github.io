@@ -9,10 +9,18 @@
 </head>
 
 <body>
-    <!-- Header with ARIA role -->
-    <header role="banner">
-        <nav role="navigation" aria-label="Main Navigation" id="dynamic-nav"></nav>
-    </header>
+    <nav id="nav-container">
+        <ul id="dynamic-nav"></ul>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h1>Coffee Calculator for IT Engineers</h1>
+            <p>
+                I built this quick tool to figure out how many cups (or pots) of coffee my team needs during those
+                late-night coding sessions. I hope you find it as helpful (and amusing) as I do!
+            </p>
+        </header>
 
     <main role="main">
         <section aria-labelledby="coffee-heading">
@@ -51,6 +59,9 @@
             <!-- Result display -->
             <div id="result" aria-live="polite"></div>
         </section>
+
+        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee
+            Report</a>
     </main>
 
     <footer role="contentinfo" id="dynamic-footer"></footer>
