@@ -2,85 +2,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Calculator - William Zujkowski</title>
-    <link rel="stylesheet" href="css/main.css" />
+    < link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <nav id="nav-container">
-        <ul id="dynamic-nav"></ul>
-    </nav>
-
-    <main class="container">
-        <header>
-            <h1>Pizza Calculator for IT Engineers</h1>
-            <p>
-                I built this pizza calculator to answer that eternal question: “How many pies do we need after a
-                grueling debug session?” Let’s save precious brainpower and let this page do the math!
-            </p>
-        </header>
-
-    <main role="main">
-        <section aria-labelledby="pizza-heading">
-            <h1 id="pizza-heading">Pizza Calculator</h1>
-
-            <!-- 
-        Pizza Calculator Form 
-        This form calculates how many pizzas to order based on:
-        - Number of attendees
-        - Slices per person
-        - Hours spent debugging
-        - Pizza type preference
-      -->
+    <header>
+        <nav id="dynamic-nav"></nav>
+    </header>
+    php
+    <main>
+        <section>
+            <h1>Pizza Calculator</h1>
             <form id="pizzaForm">
                 <label for="attendees">Number of Attendees:</label>
-                <input type="number" id="attendees" name="attendees" min="1" required aria-required="true" />
+                <input type="number" id="attendees" name="attendees" min="1" required>
 
                 <label for="slicesPerPerson">Slices per Person:</label>
-                <input type="number" id="slicesPerPerson" name="slicesPerPerson" min="1" required
-                    aria-required="true" />
+                <input type="number" id="slicesPerPerson" name="slicesPerPerson" min="1" required>
 
                 <label for="hoursDebugging">Hours Debugging:</label>
-                <input type="number" id="hoursDebugging" name="hoursDebugging" min="0" required aria-required="true" />
+                <input type="number" id="hoursDebugging" name="hoursDebugging" min="0" required>
 
                 <label for="pizzaType">Pizza Type:</label>
-                <select id="pizzaType" name="pizzaType" aria-required="true">
+                <select id="pizzaType" name="pizzaType">
                     <option value="standard">Standard</option>
                     <option value="gourmet">Gourmet</option>
                     <option value="enterprise">Enterprise</option>
                 </select>
 
-                <button type="button" onclick="calculatePizzas()" aria-label="Calculate pizza order">
-                    Calculate
-                </button>
+                <button type="button" onclick="calculatePizzas()">Calculate</button>
             </form>
-        </section>
 
-        <section id="progressSection">
-            <progress id="progressBar" value="0" max="100"></progress>
-            <p id="progressLabel"></p>
-        </section>
-
-        <section id="resultSection">
-            <div id="result" role="alert" aria-live="polite"></div>
-        </section>
-
-        <section id="emailPromptSection" hidden>
-            <p>If you’re ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team
-                can
-                contact you:</p>
-            <label for="emailInput">
-                <input type="email" id="emailInput" placeholder="Enter your email">
-            </label>
-            <button type="button" onclick="submitEmail()">Submit Email</button>
+            <div id="result"></div>
         </section>
     </main>
 
-    <footer role="contentinfo" id="dynamic-footer"></footer>
+    <footer id="dynamic-footer"></footer>
 
-    <!-- Main script -->
     <script src="js/main.js"></script>
 </body>
 

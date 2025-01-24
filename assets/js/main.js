@@ -1,22 +1,26 @@
-// assets/js/main.js
-
-import { initNavFooter } from './navFooter.js';
-import { initPizzaCalculator } from './pizzaCalc.js';
-import { initCoffeeCalculator } from './coffeeCalc.js';
-import { initBlogLogic } from './blogLogic.js';
-import { initSecretToggles } from './secretToggles.js';
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", function () {
   initNavFooter();
   initPizzaCalculator();
   initCoffeeCalculator();
   initBlogLogic();
   initSecretToggles();
-
-  console.log(
-    "%c\n" +
-    " grenlan.com is loading...                \n" +
-    "\nHello there, console explorer! Keep up the curiosity!\n",
-    "color: green; font-family: monospace;"
-  );
 });
+
+function initNavFooter() {
+  const nav = document.getElementById("dynamic-nav");
+  const footer = document.getElementById("dynamic-footer");
+
+  nav.innerHTML = `
+  <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pizza.html">Pizza Calculator</a></li>
+      <li><a href="coffee.html">Coffee Calculator</a></li>
+      <li><a href="blog.html">Blog</a></li>
+  </ul>
+  `;
+
+  footer.innerHTML = `
+  <p>&copy; 2025 William Zujkowski</p>
+  `;
+}
