@@ -1,18 +1,13 @@
-# My Personal Website (grenlan.com)
+# William Zujkowski's Personal Website
 
-Welcome to the repository of **my personal website**! I built this site to showcase my work as a software engineer,
-share articles on technology, and experiment with fun interactive tools.
+Welcome to the official repository of **William Zujkowski’s Personal Website** (grenlan.com)! This is a modern, lightweight static site featuring:
 
-Key features of my static site include:
-- **Dynamic Navigation** and **Footer** generation (via `navFooter.js`)
-- **Pizza Calculator** and **Coffee Calculator** (with localStorage integration)
-- A **Blog** section that loads content from `blog_data.html` (using a small fetch/render library)
+- **Dynamic Navigation** and **Dynamic Footer** generation via `navFooter.js`
+- A **Pizza Calculator** and a **Coffee Calculator** (both integrated with localStorage)
+- A **Blog** section loaded from `blog_data.html`, with Mizu.js for fetching and rendering
 - **Secret toggles** (Konami code, etc.)
 
-I maintain this repository with an eye toward accessibility, performance, and modern web standards.
-
 ## Folder Structure
-
 ```
 .
 ├── about.html
@@ -31,15 +26,7 @@ I maintain this repository with an eye toward accessibility, performance, and mo
 ├── blog_data.html
 ├── blog.html
 ├── coffee.html
-├── css
-│   └── main.css
 ├── index.html
 ├── pizza.html
 └── README.md
-```
-
-> **Note:** `blog_data.html` is where I keep my blog post content, but you can skip editing or viewing it per the
-instructions.
-
-Feel free to open an issue if you spot bugs or have suggestions on how I can improve the site further!
 ```
