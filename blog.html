@@ -3,70 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="All Blog Posts - William Zujkowski">
-    <meta name="keywords"
-        content="Blog, William Zujkowski, Tech, Cybersecurity, AI, ML, Homelab, Cloud, Security, Coding">
-    <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Blog Archives - William Zujkowski</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script type="module" src="assets/js/main.js"></script>
+    <title>Blog - William Zujkowski</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <!-- Disclaimer for blog content -->
-    <p style="font-size:0.9rem; padding:0.5rem; background-color:#f8f8f8; border:1px solid #ccc;">
-        <strong>Disclaimer:</strong> All posts and opinions on this blog are my own and do not necessarily reflect
-        the
-        views of my employer or the U.S. Government. This blog is for informational purposes only and does not
-        provide
-        legal or professional advice.
-    </p>
+    <header>
+        <nav id="dynamic-nav"></nav>
+    </header>
 
-    <nav id="nav-container">
-        <ul id="dynamic-nav"></ul>
-    </nav>
+    <main>
+        <section>
+            <h1>Blog</h1>
+            <input type="text" id="searchInput" placeholder="Search blog posts..." oninput="filterBlogPosts()">
+            <button onclick="resetBlogFilter()">Reset</button>
 
-    <main class="container">
-        <header>
-            <h1>All Blog Posts</h1>
-            <p>Welcome! Browse through my cybersecurity insights, AI experiments, and homelab adventures below.</p>
-        </header>
-
-        <div style="margin-bottom: 1rem;">
-            <label for="blogSearch"><b>Search Posts:</b></label>
-            <input type="text" id="blogSearch" placeholder="Type keywords..." onkeypress="handleKeyPress(event)">
-            <button type="button" onclick="filterBlogPosts()">Filter</button>
-            <button type="button" onclick="resetBlogFilter()">Reset</button>
-        </div>
-
-        <!-- Blog posts will be dynamically loaded into the section below -->
-        <section id="blog-archive"></section>
-
-        <section class="pagination">
-            <button id="prevPage" onclick="prevPage()" disabled>Previous</button>
-            <button id="nextPage" onclick="nextPage()" disabled>Next</button>
+            <div id="blogListDiv"></div>
+            <div id="pagination">
+                <button id="prevPage" onclick="prevPage()">Previous</button>
+                <button id="nextPage" onclick="nextPage()">Next</button>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <div id="dynamic-footer"></div>
-    </footer>
+    <footer id="dynamic-footer"></footer>
 
-    <div id="toast" role="alert" aria-live="assertive"></div>
-
-    <script>
-        // Handle Enter key for search
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                filterBlogPosts();
-            }
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
