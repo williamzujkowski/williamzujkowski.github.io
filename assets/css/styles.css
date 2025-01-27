@@ -1,4 +1,10 @@
-/* Basic Reset / Box Sizing */
+/* Reset / Box Sizing */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
 *,
 *::before,
 *::after {
@@ -35,7 +41,7 @@ ol {
     margin-bottom: 1rem;
 }
 
-/* Container for consistent spacing */
+/* Container */
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -43,6 +49,10 @@ ol {
 }
 
 /* Navigation */
+nav {
+    width: 100%;
+}
+
 nav ul {
     list-style: none;
     display: flex;
@@ -51,7 +61,6 @@ nav ul {
     justify-content: center;
     background-color: #282c34;
     padding: 0.75rem;
-    margin-bottom: 1rem;
 }
 
 nav ul li a {
@@ -123,7 +132,7 @@ footer p {
 }
 
 /* Blog Archive Articles */
-#blog-archive article {
+#blog-archive .blog-article-wrapper {
     background-color: #fafafa;
     border: 1px solid #ddd;
     margin-bottom: 2rem;
@@ -131,7 +140,6 @@ footer p {
     border-radius: 5px;
 }
 
-/* Article header / excerpt / full text */
 .blog-article-header {
     border-bottom: 1px solid #ccc;
     margin-bottom: 0.75rem;
@@ -159,13 +167,12 @@ footer p {
 
 .blog-full-text {
     display: none;
-    /* hidden by default, toggled with JS */
     margin-top: 1rem;
     border-top: 1px dashed #ccc;
     padding-top: 1rem;
 }
 
-/* Within articles: images, tables */
+/* Images / Tables in blog articles */
 #blog-archive article img {
     max-width: 100%;
     height: auto;
@@ -200,7 +207,6 @@ select {
     margin-bottom: 1rem;
     width: 100%;
     max-width: 300px;
-    /* limit width */
 }
 
 button {
@@ -217,7 +223,7 @@ button:hover {
     background: #333;
 }
 
-/* Progress Bar Sections */
+/* Progress Bars */
 progress {
     display: block;
     width: 100%;
@@ -276,7 +282,7 @@ progress {
         padding: 0.4rem;
     }
 
-    #blog-archive article {
+    #blog-archive .blog-article-wrapper {
         margin-bottom: 1.5rem;
     }
 

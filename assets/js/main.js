@@ -1,13 +1,14 @@
 /*****************************************************
  * main.js - Consolidated Script for grenlan.com
  *
- * Includes:
- *  1) Navigation & Footer injection
- *  2) Konami Code Easter Egg
- *  3) Blog Logic (with Table of Contents, partial excerpt)
- *  4) Pizza Calculator
- *  5) Coffee Calculator
- *  6) UI Enhancements: Active nav link highlight, Back-to-top button
+ * Changelog / Features:
+ *  - Navigation & Footer injection
+ *  - Konami Code Easter Egg
+ *  - Blog Logic (Table of Contents, partial excerpt, short snippet on index)
+ *  - Pizza Calculator
+ *  - Coffee Calculator
+ *  - Active nav link highlight
+ *  - Floating 'Back to Top' button
  *****************************************************/
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
       buildTableOfContents();
     });
   }
-  // If there's a "recent-blog-list" (on index), load & show only recent
+
+  // If there's a "recent-blog-list" on index.html
   if (document.querySelector('#recent-blog-list')) {
     loadRecentPosts();
   }
@@ -61,7 +63,7 @@ function buildFooter() {
   footerContainer.innerHTML = `<p>&copy; ${currentYear} William Zujkowski. All rights reserved.</p>`;
 }
 
-/* Highlight the nav link of the current page */
+/* Highlight the nav link for the current page */
 function handleActiveNavLink() {
   const currentPage = window.location.pathname.split('/').pop(); // e.g. 'blog.html'
   const navContainer = document.getElementById('dynamic-nav');
@@ -97,9 +99,8 @@ function activateKonamiCode() {
 /* ============== BLOG LOGIC ============== */
 
 /**
- * 1) We fetch blog_data.html
- * 2) For each <article>, we insert only a short excerpt in the main container
- * 3) We add a "Show more" button to toggle the full text
+ * Load all articles from blog_data.html
+ * Then show a short excerpt by default, with "Show More" toggling
  */
 async function loadBlogPosts() {
   try {
@@ -116,39 +117,39 @@ async function loadBlogPosts() {
       const cloned = article.cloneNode(true);
       const articleSlug = cloned.getAttribute('data-slug') || '';
 
-      // Create wrapper for controlling excerpt/full text
       const wrapper = document.createElement('div');
       wrapper.classList.add('blog-article-wrapper');
+      wrapper.id = articleSlug; // for direct anchor link
 
-      // Let's build a short excerpt from the first ~80 words
+      // Full text & excerpt logic
       const fullText = cloned.innerHTML.trim();
       const textOnly = cloned.textContent.trim();
-      const words = textOnly.split(/\s+/); // split on whitespace
+      const words = textOnly.split(/\s+/);
       const excerptWords = words.slice(0, 80).join(' ');
       const excerpt = excerptWords + (words.length > 80 ? '...' : '');
 
-      // We'll have a "header" section for title
+      // Build the header
       const headerDiv = document.createElement('div');
       headerDiv.classList.add('blog-article-header');
-      const h2El = cloned.querySelector('h2') ? cloned.querySelector('h2').cloneNode(true) : document.createElement('h2');
-      headerDiv.appendChild(h2El);
+      const h2 = cloned.querySelector('h2') ? cloned.querySelector('h2').cloneNode(true) : document.createElement('h2');
+      headerDiv.appendChild(h2);
 
-      // excerpt div
-      const excerptDiv = document.createElement('p');
-      excerptDiv.classList.add('blog-excerpt');
-      excerptDiv.textContent = excerpt;
+      // Excerpt paragraph
+      const excerptP = document.createElement('p');
+      excerptP.classList.add('blog-excerpt');
+      excerptP.textContent = excerpt;
 
-      // "Show More" button
+      // Show More button
       const showMoreBtn = document.createElement('button');
       showMoreBtn.textContent = 'Show More';
       showMoreBtn.classList.add('show-more-button');
 
-      // full-text container
+      // Full text div
       const fullTextDiv = document.createElement('div');
       fullTextDiv.classList.add('blog-full-text');
-      fullTextDiv.innerHTML = fullText;
+      fullTextDiv.innerHTML = fullText; // entire article content
 
-      // toggling logic
+      // Toggle logic
       let expanded = false;
       showMoreBtn.addEventListener('click', () => {
         expanded = !expanded;
@@ -161,15 +162,11 @@ async function loadBlogPosts() {
         }
       });
 
-      // Build the final structure
       wrapper.appendChild(headerDiv);
-      wrapper.appendChild(excerptDiv);
+      wrapper.appendChild(excerptP);
       if (words.length > 80) wrapper.appendChild(showMoreBtn);
       wrapper.appendChild(fullTextDiv);
 
-      // anchor link for direct jump from table of contents
-      // we add an ID to the wrapper so #slug can scroll to it
-      wrapper.id = articleSlug;
       archiveContainer.appendChild(wrapper);
     });
   } catch (err) {
@@ -178,14 +175,13 @@ async function loadBlogPosts() {
 }
 
 /**
- * Build a table of contents from the #blog-archive articles
+ * Build a table of contents linking to each article's ID
  */
 function buildTableOfContents() {
   const tocList = document.getElementById('toc-list');
   if (!tocList) return;
 
   const articleWrappers = document.querySelectorAll('#blog-archive .blog-article-wrapper');
-  // for each wrapper, find the h2 text
   articleWrappers.forEach(wrapper => {
     const slug = wrapper.id;
     const h2 = wrapper.querySelector('h2');
@@ -202,7 +198,7 @@ function buildTableOfContents() {
 }
 
 /**
- * For the homepage only: load & show the 3 most recent posts (just the titles and short snippet).
+ * Home page: load 3 most recent blog posts, showing a short snippet + date + link
  */
 async function loadRecentPosts() {
   try {
@@ -213,26 +209,35 @@ async function loadRecentPosts() {
     tempContainer.innerHTML = data;
 
     let articles = Array.from(tempContainer.querySelectorAll('article'));
+    // Sort by data-date, descending
     articles.sort((a, b) => {
       const dateA = new Date(a.getAttribute('data-date'));
       const dateB = new Date(b.getAttribute('data-date'));
       return dateB - dateA;
     });
 
+    // Top 3
     const latestThree = articles.slice(0, 3);
     const recentList = document.getElementById('recent-blog-list');
 
     latestThree.forEach(article => {
-      const title = article.querySelector('h2') ? article.querySelector('h2').innerText : 'No Title';
-      const date = article.querySelector('p strong')?.innerText || '';
       const slug = article.getAttribute('data-slug');
-      const snippet = document.createElement('div');
-      snippet.innerHTML = `
+      const titleEl = article.querySelector('h2');
+      const title = titleEl ? titleEl.innerText : 'No Title';
+      const dateAttr = article.getAttribute('data-date') || '';
+      const textOnly = article.textContent.trim();
+      const words = textOnly.split(/\s+/);
+      const snippetWords = words.slice(0, 30).join(' ');
+      const shortSnippet = snippetWords + (words.length > 30 ? '...' : '');
+
+      const containerDiv = document.createElement('div');
+      containerDiv.innerHTML = `
         <h3>${title}</h3>
-        <p><em>${date}</em></p>
+        <p><em>${dateAttr}</em></p>
+        <p>${shortSnippet}</p>
         <p><a href="blog.html#${slug}">Read more...</a></p>
       `;
-      recentList.appendChild(snippet);
+      recentList.appendChild(containerDiv);
     });
   } catch (err) {
     console.error('Error fetching recent blog posts:', err);
@@ -257,14 +262,14 @@ function resetBlogFilter() {
   });
 }
 
-/* ============== PIZZA CALCULATOR ============== */
-export function calculatePizzas() {
+/* ============== PIZZA CALCULATOR (Global) ============== */
+window.calculatePizzas = function () {
   const attendees = parseInt(document.getElementById('attendees').value, 10) || 0;
   const pizzaType = document.getElementById('pizzaType').value;
   const slicesPerPerson = parseInt(document.getElementById('slicesPerPerson').value, 10) || 1;
   const hoursDebugging = parseInt(document.getElementById('hoursDebugging').value, 10) || 0;
 
-  let typeMultiplier;
+  let typeMultiplier = 1;
   if (pizzaType === 'cloud') {
     typeMultiplier = 0.8;
   } else {
@@ -280,7 +285,7 @@ export function calculatePizzas() {
   animateProgressBar('progressBar', 'progressLabel', () => {
     displayPizzaResult(totalPizzas);
   });
-}
+};
 
 function displayPizzaResult(totalPizzas) {
   const resultDiv = document.getElementById('result');
@@ -300,16 +305,16 @@ function displayPizzaResult(totalPizzas) {
   }
 }
 
-export function submitEmail() {
+window.submitEmail = function () {
   const emailInput = document.getElementById('emailInput');
   if (!emailInput.value) {
     showToast('Please enter a valid email for enterprise pizza inquiries!');
     return;
   }
   showToast(`Thanks, ${emailInput.value}! We’ll reach out about your massive pizza order soon.`);
-}
+};
 
-export function downloadReport() {
+window.downloadReport = function () {
   const resultText = document.getElementById('result')?.innerText || 'No result yet.';
   const blob = new Blob([`Pizza Calculation Report\n\n${resultText}`], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
@@ -320,10 +325,10 @@ export function downloadReport() {
   document.body.appendChild(hiddenLink);
   hiddenLink.click();
   document.body.removeChild(hiddenLink);
-}
+};
 
-/* ============== COFFEE CALCULATOR ============== */
-export function calculateCoffee() {
+/* ============== COFFEE CALCULATOR (Global) ============== */
+window.calculateCoffee = function () {
   const devCount = parseInt(document.getElementById('javaAttendees').value, 10) || 0;
   const strength = parseInt(document.getElementById('coffeeStrength').value, 10) || 1;
   const hours = parseInt(document.getElementById('hoursCoding').value, 10) || 0;
@@ -336,7 +341,7 @@ export function calculateCoffee() {
   animateProgressBar('progressBar', 'progressLabel', () => {
     displayCoffeeResult(totalCups);
   });
-}
+};
 
 function displayCoffeeResult(totalCups) {
   const coffeeResult = document.getElementById('coffeeResult');
@@ -354,7 +359,7 @@ function displayCoffeeResult(totalCups) {
   coffeeResult.innerHTML = msg;
 }
 
-export function downloadCoffeeReport() {
+window.downloadCoffeeReport = function () {
   const resultText = document.getElementById('coffeeResult')?.innerText || 'No coffee calculation yet.';
   const blob = new Blob([`Coffee Calculation Report\n\n${resultText}`], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
@@ -366,11 +371,11 @@ export function downloadCoffeeReport() {
   downloadLink.click();
   downloadLink.hidden = true;
   URL.revokeObjectURL(url);
-}
+};
 
-export function shareCoffeeReport() {
+window.shareCoffeeReport = function () {
   showToast('Sharing coffee calc is not yet implemented, but thanks for your enthusiasm!');
-}
+};
 
 /* ============== HELPER FUNCTIONS ============== */
 function animateProgressBar(progressId, labelId, onComplete) {
@@ -413,7 +418,6 @@ function setupBackToTop() {
   const backToTopBtn = document.getElementById('back-to-top');
   if (!backToTopBtn) return;
 
-  // Show/hide button on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
       backToTopBtn.style.display = 'block';
@@ -423,6 +427,7 @@ function setupBackToTop() {
   });
 }
 
-export function scrollToTop() {
+// Make the scrollToTop function globally accessible:
+window.scrollToTop = function () {
   window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+};
