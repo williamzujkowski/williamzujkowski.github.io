@@ -7,10 +7,8 @@
     <meta name="keywords" content="Pizza, Calculator, IT Engineers, Tech Humor, Fun Tool">
     <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Pizza Calculator for IT Engineers</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" href="assets/css/styles.css">
     <script type="module" src="assets/js/main.js"></script>
 </head>
@@ -23,7 +21,8 @@
     <main class="container">
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
-            <p>Calculate how much pizza your hungry engineers need after hours of debugging!</p>
+            <p>Let’s admit it: sometimes the only thing keeping us going during a vicious debugging session is pizza.
+                Estimate how many pies you’ll need!</p>
         </header>
 
         <section>
@@ -54,6 +53,7 @@
                     <label for="hoursDebugging">Hours Spent Debugging:
                         <input type="number" id="hoursDebugging" name="hoursDebugging" value="2">
                     </label>
+
                     <div>
                         <button type="button" onclick="calculatePizzas()">Calculate</button>
                         <button type="button" onclick="downloadReport()">Download Report</button>
@@ -72,8 +72,9 @@
         </section>
 
         <section id="emailPromptSection" hidden>
-            <p>If you're ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team can
-                contact you:</p>
+            <p>If the calculator says you need 42 or more pizzas (the "Enterprise" tier?), just drop your email and I’ll
+                have
+                my “Enterprise Pizza Team” contact you!</p>
             <label for="emailInput">
                 <input type="email" id="emailInput" placeholder="Enter your email">
             </label>
