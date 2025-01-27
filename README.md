@@ -3,7 +3,7 @@
 
 # William Zujkowski’s Personal Website
 
-Welcome to the repository for my personal website, [grenlan.com](https://grenlan.com)! I built it to showcase my
+Welcome to the repository for my personal website! I built it to showcase my
 professional background as a cybersecurity engineer, share blog posts, and provide some fun tools like a pizza
 calculator and a coffee calculator. This is a modern, lightweight static site that uses JavaScript to dynamically load
 navigation, footers, and blog content.
