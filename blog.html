@@ -8,10 +8,8 @@
         content="Blog, William Zujkowski, Tech, Cybersecurity, AI, ML, Homelab, Cloud, Security, Coding">
     <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Blog Archives - William Zujkowski</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" href="assets/css/styles.css">
     <script type="module" src="assets/js/main.js"></script>
 </head>
@@ -24,23 +22,35 @@
     <main class="container">
         <header>
             <h1>All Blog Posts</h1>
-            <p>Welcome to the archives! Expand each post for more details.</p>
+            <p>Hi there! Here’s a complete collection of my blog posts, from security insights to HPC quirks. Scroll
+                down or use the search below to find exactly what you’re looking for.</p>
         </header>
 
-        <div class="search-container" style="margin-bottom: 1rem;">
+        <div class="search-container">
             <label for="blogSearch"><b>Search Posts:</b></label>
             <input type="text" id="blogSearch" placeholder="Type keywords...">
             <button type="button" onclick="filterBlogPosts()">Filter</button>
             <button type="button" onclick="resetBlogFilter()">Reset</button>
         </div>
 
-        <!-- We will fetch blog_data.html in blogLogic.js, then display them here -->
+        <!-- Dynamically generated Table of Contents container -->
+        <section id="table-of-contents">
+            <h2>Table of Contents</h2>
+            <ul id="toc-list">
+                <!-- JavaScript will populate with blog post titles & links -->
+            </ul>
+        </section>
+
+        <!-- Blog posts are fetched from blog_data.html and displayed here -->
         <section id="blog-archive"></section>
     </main>
 
     <footer>
         <div id="dynamic-footer"></div>
     </footer>
+
+    <!-- Floating Back to Top Button -->
+    <button id="back-to-top" onclick="scrollToTop()">Top</button>
 </body>
 
 </html>

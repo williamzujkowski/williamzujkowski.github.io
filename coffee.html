@@ -7,10 +7,8 @@
     <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor">
     <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Coffee Calculator for IT Engineers</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" href="assets/css/styles.css">
     <script type="module" src="assets/js/main.js"></script>
 </head>
@@ -19,14 +17,11 @@
     <nav id="nav-container">
         <ul id="dynamic-nav"></ul>
     </nav>
-
     <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
-            <p>
-                Determine how many cups (or pots!) of coffee your bleary-eyed coders need
-                for those 2 AM deployments!
-            </p>
+            <p>I love coffee almost as much as I love debugging code. Use this calculator to figure out how many cups
+                (or entire pots) your coding crew might need.</p>
         </header>
 
         <section>
@@ -44,7 +39,7 @@
                             <option value="2">Regular</option>
                             <option value="3">Strong</option>
                             <option value="5">Espresso Shots Only</option>
-                            <option value="10">Triple Espresso Shots (Danger!)</option>
+                            <option value="10">Triple Espresso Shots (Brace Yourself!)</option>
                         </select>
                     </label>
 
@@ -55,6 +50,7 @@
                     <label for="timesBuildFailed">Times the Build Failed:
                         <input type="number" id="timesBuildFailed" value="2">
                     </label>
+
                     <div>
                         <button type="button" onclick="calculateCoffee()">Calculate</button>
                         <button type="button" onclick="downloadCoffeeReport()">Download Report</button>

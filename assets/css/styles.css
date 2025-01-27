@@ -1,138 +1,287 @@
-/* assets/css/styles.css */
-
-/* Resets / Base */
-* {
+/* Basic Reset / Box Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-html,
+/* Body & Typography */
 body {
     font-family: sans-serif;
-    background-color: #fafafa;
+    background: #fefefe;
     color: #333;
-    line-height: 1.5;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+ul,
+ol {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Container for consistent spacing */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
 }
 
 /* Navigation */
-nav {
-    background-color: #eee;
-    padding: 1rem;
-}
-
 nav ul {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
+    justify-content: center;
+    background-color: #282c34;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
 }
 
-nav a {
+nav ul li a {
+    color: #ffffff;
     text-decoration: none;
-    color: #333;
+    padding: 0.5rem;
 }
 
-nav a.active {
-    font-weight: bold;
+nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Container / Layout */
-.container {
-    padding: 1rem;
-    max-width: 960px;
-    margin: 0 auto;
+/* Highlight active page link */
+nav ul li a.active {
+    background-color: #444;
+    border-radius: 4px;
 }
 
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    background: #eaeaea;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+/* Hero Section (on index.html) */
 .hero {
-    margin-bottom: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .hero img {
-    float: left;
-    margin-right: 1rem;
-    border-radius: 0.25rem;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1rem auto;
 }
 
-/* Sections, forms, etc. */
-section {
-    margin-bottom: 1.5rem;
+/* Search Container on blog.html */
+.search-container {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
 }
 
-fieldset {
-    border: 1px solid #ccc;
+/* Table of Contents in blog.html */
+#table-of-contents {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
     padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
 }
 
-legend {
-    font-weight: bold;
+#table-of-contents h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
 }
 
+#table-of-contents ul {
+    list-style: disc;
+    margin-left: 1.2rem;
+}
+
+/* Blog Archive Articles */
+#blog-archive article {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+/* Article header / excerpt / full text */
+.blog-article-header {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 0.75rem;
+}
+
+.blog-article-header h2 {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+    padding-bottom: 0.4rem;
+}
+
+.blog-excerpt {
+    margin-bottom: 1rem;
+}
+
+.show-more-button {
+    background-color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.show-more-button:hover {
+    background-color: #0056b3;
+}
+
+.blog-full-text {
+    display: none;
+    /* hidden by default, toggled with JS */
+    margin-top: 1rem;
+    border-top: 1px dashed #ccc;
+    padding-top: 1rem;
+}
+
+/* Within articles: images, tables */
+#blog-archive article img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+}
+
+#blog-archive table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+#blog-archive th,
+#blog-archive td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+/* Form Elements */
 label {
     display: block;
     margin-bottom: 0.5rem;
 }
 
-input,
-select,
+input[type="number"],
+input[type="text"],
+input[type="email"],
+select {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 300px;
+    /* limit width */
+}
+
 button {
-    margin-left: 0.25rem;
-    margin-bottom: 0.75rem;
-}
-
-/* Footer */
-footer {
-    background-color: #eee;
-    padding: 1rem;
-    text-align: center;
-    margin-top: 2rem;
-}
-
-footer small a {
-    margin: 0 0.25rem;
-    color: #333;
-}
-
-/* For blog listing, details, etc. */
-.details-container summary {
     cursor: pointer;
+    background: #555;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
 }
 
-#blog-archive details {
-    margin-bottom: 0.75rem;
+button:hover {
+    background: #333;
 }
 
-/* Simple Toast for small notifications */
+/* Progress Bar Sections */
+progress {
+    display: block;
+    width: 100%;
+    height: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Toast notification (for ephemeral messages) */
 #toast {
     position: fixed;
-    bottom: 1rem;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     background: #333;
     color: #fff;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 4px;
     display: none;
+    z-index: 9999;
 }
 
-#toast.show {
-    display: block;
+/* Floating 'Back to Top' Button */
+#back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    z-index: 1000;
 }
 
-/* Dark Mode Toggle classes (optional) */
-[data-color-scheme="dark"] {
-    background-color: #111;
-    color: #eee;
+#back-to-top:hover {
+    background-color: #555;
 }
 
-[data-color-scheme="dark"] nav {
-    background-color: #222;
-}
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    body {
+        font-size: 0.95rem;
+    }
 
-[data-color-scheme="dark"] footer {
-    background-color: #222;
-}
+    .container {
+        padding: 0.75rem;
+    }
 
-[data-color-scheme="dark"] a {
-    color: #ccc;
+    nav ul {
+        gap: 0.5rem;
+    }
+
+    nav ul li a {
+        padding: 0.4rem;
+    }
+
+    #blog-archive article {
+        margin-bottom: 1.5rem;
+    }
+
+    #back-to-top {
+        bottom: 60px;
+        right: 10px;
+    }
 }
