@@ -1,12 +1,11 @@
 /*****************************************************
  * main.js - Consolidated Script for grenlan.com
  *
- * Changelog / Features:
- *  - Navigation & Footer injection
+ * Features:
+ *  - Navigation & Footer injection (nav spans full width)
  *  - Konami Code Easter Egg
- *  - Blog Logic (Table of Contents, partial excerpt, short snippet on index)
- *  - Pizza Calculator
- *  - Coffee Calculator
+ *  - Blog Logic (TOC, short excerpt, partial snippet on index)
+ *  - Pizza Calculator & Coffee Calculator with progress animations
  *  - Active nav link highlight
  *  - Floating 'Back to Top' button
  *****************************************************/
@@ -15,14 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
   buildNavigation();
   buildFooter();
 
-  // If on the blog page
+  // Blog page check
   if (document.querySelector('#blog-archive')) {
     loadBlogPosts().then(() => {
       buildTableOfContents();
     });
   }
 
-  // If there's a "recent-blog-list" on index.html
+  // Index page: load recent posts
   if (document.querySelector('#recent-blog-list')) {
     loadRecentPosts();
   }
@@ -63,9 +62,8 @@ function buildFooter() {
   footerContainer.innerHTML = `<p>&copy; ${currentYear} William Zujkowski. All rights reserved.</p>`;
 }
 
-/* Highlight the nav link for the current page */
 function handleActiveNavLink() {
-  const currentPage = window.location.pathname.split('/').pop(); // e.g. 'blog.html'
+  const currentPage = window.location.pathname.split('/').pop(); // e.g. 'index.html', 'blog.html'
   const navContainer = document.getElementById('dynamic-nav');
   if (!navContainer) return;
 
@@ -97,16 +95,10 @@ function activateKonamiCode() {
 }
 
 /* ============== BLOG LOGIC ============== */
-
-/**
- * Load all articles from blog_data.html
- * Then show a short excerpt by default, with "Show More" toggling
- */
 async function loadBlogPosts() {
   try {
     const response = await fetch('blog_data.html');
     const data = await response.text();
-
     const tempContainer = document.createElement('div');
     tempContainer.innerHTML = data;
 
@@ -119,16 +111,16 @@ async function loadBlogPosts() {
 
       const wrapper = document.createElement('div');
       wrapper.classList.add('blog-article-wrapper');
-      wrapper.id = articleSlug; // for direct anchor link
+      wrapper.id = articleSlug; // anchor ID
 
-      // Full text & excerpt logic
+      // Excerpt logic
       const fullText = cloned.innerHTML.trim();
       const textOnly = cloned.textContent.trim();
       const words = textOnly.split(/\s+/);
       const excerptWords = words.slice(0, 80).join(' ');
       const excerpt = excerptWords + (words.length > 80 ? '...' : '');
 
-      // Build the header
+      // Title
       const headerDiv = document.createElement('div');
       headerDiv.classList.add('blog-article-header');
       const h2 = cloned.querySelector('h2') ? cloned.querySelector('h2').cloneNode(true) : document.createElement('h2');
@@ -147,9 +139,9 @@ async function loadBlogPosts() {
       // Full text div
       const fullTextDiv = document.createElement('div');
       fullTextDiv.classList.add('blog-full-text');
-      fullTextDiv.innerHTML = fullText; // entire article content
+      fullTextDiv.innerHTML = fullText;
 
-      // Toggle logic
+      // Toggling
       let expanded = false;
       showMoreBtn.addEventListener('click', () => {
         expanded = !expanded;
@@ -164,7 +156,9 @@ async function loadBlogPosts() {
 
       wrapper.appendChild(headerDiv);
       wrapper.appendChild(excerptP);
-      if (words.length > 80) wrapper.appendChild(showMoreBtn);
+      if (words.length > 80) {
+        wrapper.appendChild(showMoreBtn);
+      }
       wrapper.appendChild(fullTextDiv);
 
       archiveContainer.appendChild(wrapper);
@@ -174,9 +168,6 @@ async function loadBlogPosts() {
   }
 }
 
-/**
- * Build a table of contents linking to each article's ID
- */
 function buildTableOfContents() {
   const tocList = document.getElementById('toc-list');
   if (!tocList) return;
@@ -197,9 +188,6 @@ function buildTableOfContents() {
   });
 }
 
-/**
- * Home page: load 3 most recent blog posts, showing a short snippet + date + link
- */
 async function loadRecentPosts() {
   try {
     const response = await fetch('blog_data.html');
@@ -209,19 +197,18 @@ async function loadRecentPosts() {
     tempContainer.innerHTML = data;
 
     let articles = Array.from(tempContainer.querySelectorAll('article'));
-    // Sort by data-date, descending
+    // sort by data-date descending
     articles.sort((a, b) => {
       const dateA = new Date(a.getAttribute('data-date'));
       const dateB = new Date(b.getAttribute('data-date'));
       return dateB - dateA;
     });
 
-    // Top 3
     const latestThree = articles.slice(0, 3);
     const recentList = document.getElementById('recent-blog-list');
 
     latestThree.forEach(article => {
-      const slug = article.getAttribute('data-slug');
+      const slug = article.getAttribute('data-slug') || '';
       const titleEl = article.querySelector('h2');
       const title = titleEl ? titleEl.innerText : 'No Title';
       const dateAttr = article.getAttribute('data-date') || '';
@@ -244,7 +231,7 @@ async function loadRecentPosts() {
   }
 }
 
-function filterBlogPosts() {
+window.filterBlogPosts = function () {
   const searchInput = document.getElementById('blogSearch').value.toLowerCase().trim();
   const allArticles = document.querySelectorAll('#blog-archive .blog-article-wrapper');
 
@@ -252,17 +239,17 @@ function filterBlogPosts() {
     const textContent = wrapper.textContent.toLowerCase();
     wrapper.style.display = (textContent.indexOf(searchInput) > -1) ? 'block' : 'none';
   });
-}
+};
 
-function resetBlogFilter() {
+window.resetBlogFilter = function () {
   document.getElementById('blogSearch').value = '';
   const allArticles = document.querySelectorAll('#blog-archive .blog-article-wrapper');
   allArticles.forEach(wrapper => {
     wrapper.style.display = 'block';
   });
-}
+};
 
-/* ============== PIZZA CALCULATOR (Global) ============== */
+/* ============== PIZZA CALCULATOR ============== */
 window.calculatePizzas = function () {
   const attendees = parseInt(document.getElementById('attendees').value, 10) || 0;
   const pizzaType = document.getElementById('pizzaType').value;
@@ -327,7 +314,7 @@ window.downloadReport = function () {
   document.body.removeChild(hiddenLink);
 };
 
-/* ============== COFFEE CALCULATOR (Global) ============== */
+/* ============== COFFEE CALCULATOR ============== */
 window.calculateCoffee = function () {
   const devCount = parseInt(document.getElementById('javaAttendees').value, 10) || 0;
   const strength = parseInt(document.getElementById('coffeeStrength').value, 10) || 1;
@@ -427,7 +414,6 @@ function setupBackToTop() {
   });
 }
 
-// Make the scrollToTop function globally accessible:
 window.scrollToTop = function () {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
