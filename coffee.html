@@ -2,39 +2,109 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Coffee Calculator for Caffeinated Engineers">
-    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor">
-    <meta name="author" content="William Zujkowski">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="description" content="Coffee Calculator for Caffeinated Engineers" />
+    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor" />
+    <meta name="author" content="William Zujkowski" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coffee Calculator for IT Engineers</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script type="module" src="assets/js/main.js"></script>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        form {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input,
+        select,
+        button {
+            padding: 0.5rem;
+            font-size: 1rem;
+            max-width: 300px;
+        }
+
+        progress {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        footer {
+            background: #f0f0f0;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 
 <body>
-    <nav id="nav-container">
-        <ul id="dynamic-nav"></ul>
+    <!-- Static navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="coffee.html">Coffee Calculator</a></li>
+            <li><a href="pizza.html">Pizza Calculator</a></li>
+        </ul>
     </nav>
 
     <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
-            <p>I love coffee almost as much as I love debugging code. Use this calculator to figure out how many cups
-                (or entire pots) your coding crew might need.</p>
+            <p>
+                I love coffee almost as much as I love debugging code. Use this calculator to figure out how many cups
+                (or entire pots)
+                your coding crew might need.
+            </p>
         </header>
 
         <section>
             <form id="coffeeForm" onsubmit="return false;">
                 <fieldset>
-                    <legend><b>Enter Your Coffee Details:</b></legend>
+                    <legend><strong>Enter Your Coffee Details:</strong></legend>
 
-                    <label for="javaAttendees">Number of Devs:
-                        <input type="number" id="javaAttendees" value="3">
+                    <label for="javaAttendees">
+                        Number of Devs:
+                        <input type="number" id="javaAttendees" value="3" />
                     </label>
 
-                    <label for="coffeeStrength">Coffee Strength:
+                    <label for="coffeeStrength">
+                        Coffee Strength:
                         <select id="coffeeStrength">
                             <option value="1">Mild</option>
                             <option value="2">Regular</option>
@@ -44,12 +114,14 @@
                         </select>
                     </label>
 
-                    <label for="hoursCoding">Hours of Coding:
-                        <input type="number" id="hoursCoding" value="4">
+                    <label for="hoursCoding">
+                        Hours of Coding:
+                        <input type="number" id="hoursCoding" value="4" />
                     </label>
 
-                    <label for="timesBuildFailed">Times the Build Failed:
-                        <input type="number" id="timesBuildFailed" value="2">
+                    <label for="timesBuildFailed">
+                        Times the Build Failed:
+                        <input type="number" id="timesBuildFailed" value="2" />
                     </label>
 
                     <div>
@@ -69,15 +141,40 @@
         <section id="coffeeResultSection">
             <div id="coffeeResult" role="alert" aria-live="polite"></div>
         </section>
-
-        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee Report</a>
     </main>
 
     <footer>
-        <div id="dynamic-footer"></div>
+        <p>&copy; 2024 William Zujkowski. All rights reserved.</p>
     </footer>
 
-    <div id="toast" role="alert" aria-live="assertive"></div>
+    <!-- Minimal inline JavaScript for coffee calculation -->
+    <script>
+        function calculateCoffee() {
+            const devs = Number(document.getElementById("javaAttendees").value);
+            const strength = Number(document.getElementById("coffeeStrength").value);
+            const hours = Number(document.getElementById("hoursCoding").value);
+            const fails = Number(document.getElementById("timesBuildFailed").value);
+            const total = devs * (hours + fails) * strength;
+            document.getElementById("coffeeResult").textContent =
+                "Estimated coffee required: " + total + " cups.";
+            document.getElementById("progressBar").value = Math.min(total, 100);
+            document.getElementById("progressLabel").textContent =
+                total + "% (for fun)";
+        }
+        function downloadCoffeeReport() {
+            const result = document.getElementById("coffeeResult").textContent;
+            const report = "Coffee Calculator Report:\n" + result;
+            const blob = new Blob([report], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Coffee_Calculation_Report.txt";
+            a.click();
+        }
+        function shareCoffeeReport() {
+            alert("Sharing functionality coming soon!");
+        }
+    </script>
 </body>
 
 </html>
