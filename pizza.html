@@ -10,6 +10,7 @@
     <title>Pizza Calculator for IT Engineers</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
     <style>
+        /* Minimal, responsive CSS */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -87,16 +88,16 @@
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
             <p>
-                Let’s admit it: sometimes the only thing keeping us going during a vicious debugging session is pizza.
-                Estimate how many pies you’ll need!
+                Let’s be honest: sometimes pizza is the only debugging partner you need.
+                Enter your hunger metrics below and discover how many pies it will take to keep your code—and your
+                stomach—in check.
             </p>
         </header>
 
         <section>
             <form id="pizzaForm" onsubmit="return false;">
                 <fieldset>
-                    <legend><strong>Enter Your Details:</strong></legend>
-
+                    <legend><strong>Enter Your Hunger Metrics:</strong></legend>
                     <label for="attendees">
                         Number of Attendees:
                         <input type="number" id="attendees" name="attendees" value="5" />
@@ -105,13 +106,14 @@
                     <label for="pizzaType">
                         Select Pizza Style:
                         <select id="pizzaType" name="pizzaType">
+                            <!-- Multiplier values: higher means more filling (fewer pizzas required) -->
                             <option value="1">NY Pizza (Default)</option>
-                            <option value="0.5">Detroit Pizza</option>
-                            <option value="0.6">Chicago Pizza</option>
-                            <option value="2">California Pizza Kitchen</option>
-                            <option value="3">Hot Pockets</option>
-                            <option value="100">Blockchain Pizza</option>
-                            <option value="cloud">Cloud Pizza</option>
+                            <option value="1.2">Detroit Pizza (Thicker and heartier)</option>
+                            <option value="1.3">Chicago Pizza (Deep dish delight)</option>
+                            <option value="0.8">California Pizza Kitchen (Light &amp; trendy)</option>
+                            <option value="0.5">Hot Pockets (Quick and questionable)</option>
+                            <option value="2">Blockchain Pizza (Premium, rare, and expensive)</option>
+                            <option value="cloud">Cloud Pizza (Virtual calories—good luck filling up!)</option>
                         </select>
                     </label>
 
@@ -134,7 +136,8 @@
         </section>
 
         <section id="progressSection">
-            <progress id="progressBar" value="0" max="100"></progress>
+            <!-- Set max to 150 so that values above 100% can be shown -->
+            <progress id="progressBar" value="0" max="150"></progress>
             <p id="progressLabel"></p>
         </section>
 
@@ -144,9 +147,8 @@
 
         <section id="emailPromptSection" hidden>
             <p>
-                If the calculator says you need 42 or more pizzas (the "Enterprise" tier?), just drop your email and
-                I’ll have my
-                “Enterprise Pizza Team” contact you!
+                If the calculator suggests you need 42 or more pizzas (Enterprise Tier Alert),
+                drop your email and our “Enterprise Pizza Team” will contact you faster than a server reboot.
             </p>
             <label for="emailInput">
                 <input type="email" id="emailInput" placeholder="Enter your email" />
@@ -159,27 +161,88 @@
         <p>&copy; 2024 William Zujkowski. All rights reserved.</p>
     </footer>
 
-    <!-- Minimal inline JavaScript for pizza calculation -->
     <script>
         function calculatePizzas() {
             const attendees = Number(document.getElementById("attendees").value);
-            const pizzaType = document.getElementById("pizzaType").value;
             const slicesPerPerson = Number(document.getElementById("slicesPerPerson").value);
             const hoursDebug = Number(document.getElementById("hoursDebugging").value);
-            let multiplier = parseFloat(pizzaType);
-            if (pizzaType === "cloud") multiplier = 1; // fallback multiplier
-            const totalSlices = attendees * slicesPerPerson + hoursDebug * 2;
-            let pizzas = totalSlices / (8 * multiplier);
-            pizzas = Math.ceil(pizzas);
-            document.getElementById("result").textContent = "Estimated pizzas needed: " + pizzas;
-            document.getElementById("progressBar").value = Math.min(pizzas * 2, 100);
-            document.getElementById("progressLabel").textContent = pizzas * 2 + "% (for fun)";
-            if (pizzas >= 42) {
-                document.getElementById("emailPromptSection").hidden = false;
+            const pizzaType = document.getElementById("pizzaType").value;
+            let multiplier;
+            if (pizzaType === "cloud") {
+                multiplier = 0.2; // Cloud Pizza virtually doesn't fill you up.
             } else {
-                document.getElementById("emailPromptSection").hidden = true;
+                multiplier = parseFloat(pizzaType);
             }
+            // Each attendee consumes a base number of slices plus 2 extra slices per debugging hour.
+            const totalSlices = attendees * slicesPerPerson + hoursDebug * 2;
+            const pizzas = Math.ceil(totalSlices / (8 * multiplier));
+
+            // Compute progress: scale by 5 per pizza, cap at 99%
+            let computedProgress = Math.min(pizzas * 5, 99);
+            // Then overclock to a random final value between 110 and 142.
+            let finalProgress = Math.floor(Math.random() * (142 - 110 + 1)) + 110;
+
+            const progressBar = document.getElementById("progressBar");
+            progressBar.value = 0;
+            progressBar.max = 150;
+            const progressLabel = document.getElementById("progressLabel");
+            const messages = [
+                "Accessing the pizza repository...",
+                "Running slice optimization algorithms...",
+                "Encrypting cheese layers...",
+                "Bypassing gluten firewalls...",
+                "Verifying topping integrity...",
+                "Finalizing pizza payload..."
+            ];
+            progressLabel.textContent = messages[0];
+
+            let progress = 0;
+            let increments = 20;
+            let step = computedProgress / increments;
+            let messageIndex = 0;
+
+            let interval = setInterval(() => {
+                progress += step;
+                if (progress > computedProgress) progress = computedProgress;
+                progressBar.value = progress;
+                if (progressBar.value >= (messageIndex + 1) * (computedProgress / messages.length)) {
+                    messageIndex++;
+                    if (messageIndex < messages.length) {
+                        progressLabel.textContent = messages[messageIndex];
+                    }
+                }
+                if (progress >= computedProgress) {
+                    clearInterval(interval);
+                    // Pause briefly at 99% then jump to the "overclocked" final progress.
+                    setTimeout(() => {
+                        progressBar.value = finalProgress;
+                        let finalMessage = "";
+                        if (pizzas < 3) {
+                            finalMessage = "Minimal pizza alert: Your devs might be too busy being brilliant to even eat.";
+                        } else if (pizzas < 6) {
+                            finalMessage = "Standard slice: Enough pizza to keep your bug fixes hot and your code compiling.";
+                        } else if (pizzas < 12) {
+                            finalMessage = "Warning: High pizza consumption detected—grease might short-circuit your peripherals!";
+                        } else if (pizzas < 20) {
+                            finalMessage = "Alert: Pizza overload! Your team may need to refactor their diets along with their code.";
+                        } else {
+                            finalMessage = "Critical Error: Too many pizzas! Your system is under a heavy cheesy DDoS—code compilation aborted!";
+                        }
+                        if (multiplier > 1.2) {
+                            finalMessage += " These pies are loaded—full-stack pizzas that leave no byte unchewed.";
+                        }
+                        progressLabel.textContent = finalMessage;
+                        document.getElementById("result").textContent = "Estimated pizzas needed: " + pizzas;
+                        if (pizzas >= 42) {
+                            document.getElementById("emailPromptSection").hidden = false;
+                        } else {
+                            document.getElementById("emailPromptSection").hidden = true;
+                        }
+                    }, 500);
+                }
+            }, 150);
         }
+
         function downloadReport() {
             const result = document.getElementById("result").textContent;
             const report = "Pizza Calculator Report:\n" + result;
@@ -190,6 +253,7 @@
             a.download = "Pizza_Calculation_Report.txt";
             a.click();
         }
+
         function submitEmail() {
             const email = document.getElementById("emailInput").value;
             alert("Email submitted: " + email);

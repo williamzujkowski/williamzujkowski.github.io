@@ -10,6 +10,7 @@
     <title>Coffee Calculator for IT Engineers</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
     <style>
+        /* Minimal, responsive CSS */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -87,16 +88,16 @@
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
             <p>
-                I love coffee almost as much as I love debugging code. Use this calculator to figure out how many cups
-                (or entire pots)
-                your coding crew might need.
+                Welcome to the caffeine corner—because in IT, coffee is the true compiler of code.
+                Enter your metrics below to determine how many cups are required to keep your servers (and sanity)
+                running.
             </p>
         </header>
 
         <section>
             <form id="coffeeForm" onsubmit="return false;">
                 <fieldset>
-                    <legend><strong>Enter Your Coffee Details:</strong></legend>
+                    <legend><strong>Enter Your Caffeine Metrics:</strong></legend>
 
                     <label for="javaAttendees">
                         Number of Devs:
@@ -106,11 +107,12 @@
                     <label for="coffeeStrength">
                         Coffee Strength:
                         <select id="coffeeStrength">
-                            <option value="1">Mild</option>
-                            <option value="2">Regular</option>
-                            <option value="3">Strong</option>
-                            <option value="5">Espresso Shots Only</option>
-                            <option value="10">Triple Espresso Shots (Brace Yourself!)</option>
+                            <!-- Higher value means stronger coffee, requiring fewer cups -->
+                            <option value="1">Mild (just a whisper of caffeine)</option>
+                            <option value="2">Regular (the standard wake-up call)</option>
+                            <option value="3">Strong (for nights that never end)</option>
+                            <option value="5">Espresso Shots Only (code by lightning)</option>
+                            <option value="10">Triple Espresso Shots (brace for hyperdrive)</option>
                         </select>
                     </label>
 
@@ -134,7 +136,8 @@
         </section>
 
         <section id="coffeeProgressSection">
-            <progress id="progressBar" value="0" max="100"></progress>
+            <!-- Set max to 150 so that values above 100% display -->
+            <progress id="progressBar" value="0" max="150"></progress>
             <p id="progressLabel"></p>
         </section>
 
@@ -147,20 +150,80 @@
         <p>&copy; 2024 William Zujkowski. All rights reserved.</p>
     </footer>
 
-    <!-- Minimal inline JavaScript for coffee calculation -->
     <script>
         function calculateCoffee() {
+            // Calculate required cups:
+            // cups = (number of devs) × (hours coding + 1.5×build fails) / coffee strength
             const devs = Number(document.getElementById("javaAttendees").value);
-            const strength = Number(document.getElementById("coffeeStrength").value);
             const hours = Number(document.getElementById("hoursCoding").value);
             const fails = Number(document.getElementById("timesBuildFailed").value);
-            const total = devs * (hours + fails) * strength;
-            document.getElementById("coffeeResult").textContent =
-                "Estimated coffee required: " + total + " cups.";
-            document.getElementById("progressBar").value = Math.min(total, 100);
-            document.getElementById("progressLabel").textContent =
-                total + "% (for fun)";
+            const strength = Number(document.getElementById("coffeeStrength").value);
+            let cups = devs * (hours + fails * 1.5) / strength;
+            cups = Math.ceil(cups);
+
+            // Compute progress: scale so that 10 cups ~ 100%, but we hang at 99%
+            let computedProgress = Math.min(cups * 10, 99);
+            // Then "overclock" the progress to a random final value between 110 and 142.
+            let finalProgress = Math.floor(Math.random() * (142 - 110 + 1)) + 110;
+
+            const progressBar = document.getElementById("progressBar");
+            progressBar.value = 0;
+            progressBar.max = 150; // Allow progress values above 100%
+            const progressLabel = document.getElementById("progressLabel");
+
+            // Witty progress messages (caffeine and code themed)
+            const messages = [
+                "Initializing caffeine protocol...",
+                "Compiling coffee beans into binary...",
+                "Decrypting secret bean caches...",
+                "Buffering caffeinated packets...",
+                "Executing anti-bug espresso routine...",
+                "Finalizing brew parameters..."
+            ];
+            progressLabel.textContent = messages[0];
+
+            let progress = 0;
+            let increments = 20;
+            let step = computedProgress / increments;
+            let messageIndex = 0;
+
+            let interval = setInterval(() => {
+                progress += step;
+                if (progress > computedProgress) progress = computedProgress;
+                progressBar.value = progress;
+                if (progressBar.value >= (messageIndex + 1) * (computedProgress / messages.length)) {
+                    messageIndex++;
+                    if (messageIndex < messages.length) {
+                        progressLabel.textContent = messages[messageIndex];
+                    }
+                }
+                if (progress >= computedProgress) {
+                    clearInterval(interval);
+                    // Pause briefly at 99%
+                    setTimeout(() => {
+                        progressBar.value = finalProgress;
+                        // Determine final message based on the number of cups required.
+                        let finalMessage = "";
+                        if (cups < 5) {
+                            finalMessage = "Minimal brew required. Your code flows like optimized JavaScript—smooth and efficient.";
+                        } else if (cups < 10) {
+                            finalMessage = "Moderate brew: Your devs are caffeinated enough to squash bugs without triggering a reboot crisis.";
+                        } else if (cups < 20) {
+                            finalMessage = "High caffeine alert! Your team is in overclock mode—expect jittery commits and spaghetti code.";
+                        } else {
+                            finalMessage = "System overload: Too many cups! Your developers are drowning in decaf despair—time to upgrade your coffee protocol!";
+                        }
+                        if (strength >= 5) {
+                            finalMessage += " With espresso-level strength, you're running on pure high-octane CPU fuel!";
+                        }
+                        progressLabel.textContent = finalMessage;
+                        document.getElementById("coffeeResult").textContent =
+                            "Estimated coffee required: " + cups + " cup" + (cups === 1 ? "" : "s") + ".";
+                    }, 500);
+                }
+            }, 150);
         }
+
         function downloadCoffeeReport() {
             const result = document.getElementById("coffeeResult").textContent;
             const report = "Coffee Calculator Report:\n" + result;
@@ -171,8 +234,9 @@
             a.download = "Coffee_Calculation_Report.txt";
             a.click();
         }
+
         function shareCoffeeReport() {
-            alert("Sharing functionality coming soon!");
+            alert("Sharing is caring—coffee report sharing coming soon!");
         }
     </script>
 </body>
