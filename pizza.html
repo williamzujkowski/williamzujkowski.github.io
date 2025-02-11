@@ -2,39 +2,108 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Pizza Calculator for IT Engineers">
-    <meta name="keywords" content="Pizza, Calculator, IT Engineers, Tech Humor, Fun Tool">
-    <meta name="author" content="William Zujkowski">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="description" content="Pizza Calculator for IT Engineers" />
+    <meta name="keywords" content="Pizza, Calculator, IT Engineers, Tech Humor, Fun Tool" />
+    <meta name="author" content="William Zujkowski" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pizza Calculator for IT Engineers</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script type="module" src="assets/js/main.js"></script>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        form {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input,
+        select,
+        button {
+            padding: 0.5rem;
+            font-size: 1rem;
+            max-width: 300px;
+        }
+
+        progress {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        footer {
+            background: #f0f0f0;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 
 <body>
-    <nav id="nav-container">
-        <ul id="dynamic-nav"></ul>
+    <!-- Static navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="coffee.html">Coffee Calculator</a></li>
+            <li><a href="pizza.html">Pizza Calculator</a></li>
+        </ul>
     </nav>
 
     <main class="container">
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
-            <p>Let’s admit it: sometimes the only thing keeping us going during a vicious debugging session is pizza.
-                Estimate how many pies you’ll need!</p>
+            <p>
+                Let’s admit it: sometimes the only thing keeping us going during a vicious debugging session is pizza.
+                Estimate how many pies you’ll need!
+            </p>
         </header>
 
         <section>
             <form id="pizzaForm" onsubmit="return false;">
                 <fieldset>
-                    <legend><b>Enter Your Details:</b></legend>
+                    <legend><strong>Enter Your Details:</strong></legend>
 
-                    <label for="attendees">Number of Attendees:
-                        <input type="number" id="attendees" name="attendees" value="5">
+                    <label for="attendees">
+                        Number of Attendees:
+                        <input type="number" id="attendees" name="attendees" value="5" />
                     </label>
 
-                    <label for="pizzaType">Select Pizza Style:
+                    <label for="pizzaType">
+                        Select Pizza Style:
                         <select id="pizzaType" name="pizzaType">
                             <option value="1">NY Pizza (Default)</option>
                             <option value="0.5">Detroit Pizza</option>
@@ -46,12 +115,14 @@
                         </select>
                     </label>
 
-                    <label for="slicesPerPerson">Average Slices per Person:
-                        <input type="number" id="slicesPerPerson" name="slicesPerPerson" value="3">
+                    <label for="slicesPerPerson">
+                        Average Slices per Person:
+                        <input type="number" id="slicesPerPerson" name="slicesPerPerson" value="3" />
                     </label>
 
-                    <label for="hoursDebugging">Hours Spent Debugging:
-                        <input type="number" id="hoursDebugging" name="hoursDebugging" value="2">
+                    <label for="hoursDebugging">
+                        Hours Spent Debugging:
+                        <input type="number" id="hoursDebugging" name="hoursDebugging" value="2" />
                     </label>
 
                     <div>
@@ -72,20 +143,58 @@
         </section>
 
         <section id="emailPromptSection" hidden>
-            <p>If the calculator says you need 42 or more pizzas (the "Enterprise" tier?), just drop your email and I’ll
-                have my “Enterprise Pizza Team” contact you!</p>
+            <p>
+                If the calculator says you need 42 or more pizzas (the "Enterprise" tier?), just drop your email and
+                I’ll have my
+                “Enterprise Pizza Team” contact you!
+            </p>
             <label for="emailInput">
-                <input type="email" id="emailInput" placeholder="Enter your email">
+                <input type="email" id="emailInput" placeholder="Enter your email" />
             </label>
             <button type="button" onclick="submitEmail()">Submit Email</button>
         </section>
     </main>
 
     <footer>
-        <div id="dynamic-footer"></div>
+        <p>&copy; 2024 William Zujkowski. All rights reserved.</p>
     </footer>
 
-    <div id="toast" role="alert" aria-live="assertive"></div>
+    <!-- Minimal inline JavaScript for pizza calculation -->
+    <script>
+        function calculatePizzas() {
+            const attendees = Number(document.getElementById("attendees").value);
+            const pizzaType = document.getElementById("pizzaType").value;
+            const slicesPerPerson = Number(document.getElementById("slicesPerPerson").value);
+            const hoursDebug = Number(document.getElementById("hoursDebugging").value);
+            let multiplier = parseFloat(pizzaType);
+            if (pizzaType === "cloud") multiplier = 1; // fallback multiplier
+            const totalSlices = attendees * slicesPerPerson + hoursDebug * 2;
+            let pizzas = totalSlices / (8 * multiplier);
+            pizzas = Math.ceil(pizzas);
+            document.getElementById("result").textContent = "Estimated pizzas needed: " + pizzas;
+            document.getElementById("progressBar").value = Math.min(pizzas * 2, 100);
+            document.getElementById("progressLabel").textContent = pizzas * 2 + "% (for fun)";
+            if (pizzas >= 42) {
+                document.getElementById("emailPromptSection").hidden = false;
+            } else {
+                document.getElementById("emailPromptSection").hidden = true;
+            }
+        }
+        function downloadReport() {
+            const result = document.getElementById("result").textContent;
+            const report = "Pizza Calculator Report:\n" + result;
+            const blob = new Blob([report], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Pizza_Calculation_Report.txt";
+            a.click();
+        }
+        function submitEmail() {
+            const email = document.getElementById("emailInput").value;
+            alert("Email submitted: " + email);
+        }
+    </script>
 </body>
 
 </html>
