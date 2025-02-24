@@ -1,35 +1,30 @@
-### README.md
-
 # William Zujkowski’s Personal Website
 
-Welcome to the repository for my personal website! This refactored version now uses semantic HTML with a minimal inline CSS style and only a few inline JavaScript functions where absolutely necessary (for interactive tools). The site is now fully static and works well on mobile and desktop without relying on external CSS or JS files.
+Welcome to the repository for my personal website! This refactored version uses semantic HTML with a minimal, responsive CSS style (powered by OKLCH–based colors) and modular JavaScript. Core site functions (navigation, footer, Konami code, back-to-top, etc.) are in `assets/js/main.js` while the interactive Coffee and Pizza calculators are in `assets/js/coffee_calc.js` and `assets/js/pizza_calc.js` respectively.
 
 ## Key Features
 
-- **Static, Semantic Layout**  
-  Every page uses HTML5 semantic elements (like `<header>`, `<nav>`, `<main>`, `<article>`, and `<footer>`) so that content is clear and accessible.
+- **Modular JavaScript:**  
+  Core site logic is in `assets/js/main.js` and the calculators have their own modules.
+  
+- **Modern OKLCH Colors:**  
+  The CSS uses OKLCH color values for a perceptually uniform color palette across the site.
+  
+- **Consistent, Responsive Design:**  
+  All pages use the shared stylesheet (`assets/css/styles.css`).
 
-- **Clean and Responsive Design**  
-  A minimal inline CSS style block ensures a responsive, modern layout on mobile and desktop.
+- **Interactive Calculators:**  
+  Both calculators feature humorous progress animations that mimic your old site’s behavior (progress bar hangs at 89% and then jumps to 110%), along with detailed reports and witty messages.
 
-- **Fun, Interactive Calculators**  
-  The Coffee and Pizza calculators work with very simple inline JavaScript.
+- **Easter Egg:**  
+  Enter the Konami code (↑ ↑ ↓ ↓ ← → ← → B A) on any page to reveal a secret!
 
-- **Blog Section**  
-  Blog posts are now written as static `<article>` elements for maximum accessibility and ease of reading.
+## How It Works
 
-## File Structure
+- **Core Logic:**  
+  `main.js` handles navigation, footer injection, the Konami code Easter egg, and the back-to-top button.
 
-```
-.
-├── about.html
-├── blog.html
-├── blog_data.html
-├── coffee.html
-├── index.html
-├── pizza.html
-└── README.md
-```
+- **Calculators:**  
+  `coffee_calc.js` and `pizza_calc.js` contain the interactive logic. They use a progress update function that calculates a computed percentage for each step; if the computed percentage is above 89% (but not the final step), it is forced to 89%, then after a delay the final step jumps the progress bar to 110%.
 
-**Thanks for checking out my website’s source code.**
-
+Enjoy exploring, coding, and indulging in some pizza and coffee!
