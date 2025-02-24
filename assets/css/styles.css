@@ -1,8 +1,28 @@
+/* Define OKLCH–based custom properties */
+:root {
+    --color-bg: oklch(0.98 0.005 240);
+    /* Near-white background */
+    --color-text: oklch(0.15 0.03 240);
+    /* Dark text */
+    --nav-bg: oklch(0.22 0.04 240);
+    /* Dark navigation background */
+    --nav-text: oklch(0.95 0.01 300);
+    /* Light navigation text */
+    --footer-bg: oklch(0.90 0.02 30);
+    /* Light footer background */
+    --footer-text: oklch(0.15 0.03 240);
+    /* Footer text */
+    --accent: oklch(0.60 0.15 120);
+    /* Accent color for buttons, etc. */
+}
+
 /* Reset / Box Sizing */
 html,
 body {
     margin: 0;
     padding: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
 }
 
 *,
@@ -13,14 +33,7 @@ body {
     padding: 0;
 }
 
-/* Body & Typography */
-body {
-    font-family: sans-serif;
-    background: #fefefe;
-    color: #333;
-    line-height: 1.6;
-}
-
+/* Typography */
 h1,
 h2,
 h3,
@@ -52,9 +65,7 @@ ol {
 nav {
     display: block;
     width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #282c34;
+    background-color: var(--nav-bg);
 }
 
 nav ul {
@@ -68,7 +79,7 @@ nav ul {
 }
 
 nav ul li a {
-    color: #ffffff;
+    color: var(--nav-text);
     text-decoration: none;
     padding: 0.5rem;
 }
@@ -77,9 +88,8 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Highlight active page link */
 nav ul li a.active {
-    background-color: #444;
+    background-color: oklch(0.20 0.05 240);
     border-radius: 4px;
 }
 
@@ -88,11 +98,12 @@ footer {
     text-align: center;
     margin-top: 2rem;
     padding: 1rem 0;
-    background: #eaeaea;
+    background: var(--footer-bg);
 }
 
 footer p {
     margin: 0.5rem 0;
+    color: var(--footer-text);
 }
 
 /* Hero Section (on index.html) */
@@ -107,7 +118,7 @@ footer p {
     margin: 0 auto 1rem auto;
 }
 
-/* Search Container on blog.html */
+/* Search Container (for blog) */
 .search-container {
     margin-bottom: 1rem;
     display: flex;
@@ -116,10 +127,10 @@ footer p {
     align-items: center;
 }
 
-/* Table of Contents in blog.html */
+/* Table of Contents (for blog) */
 #table-of-contents {
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
+    background-color: oklch(0.96 0.02 30);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1rem;
     margin-bottom: 2rem;
     border-radius: 5px;
@@ -137,22 +148,22 @@ footer p {
 
 /* Blog Archive Articles */
 #blog-archive .blog-article-wrapper {
-    background-color: #fafafa;
-    border: 1px solid #ddd;
+    background-color: oklch(0.98 0.01 30);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
     padding: 1rem;
     border-radius: 5px;
 }
 
 .blog-article-header {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     margin-bottom: 0.75rem;
 }
 
 .blog-article-header h2 {
     margin-top: 0.5rem;
     font-size: 1.2rem;
-    color: #333;
+    color: var(--color-text);
     padding-bottom: 0.4rem;
 }
 
@@ -161,18 +172,18 @@ footer p {
 }
 
 .show-more-button {
-    background-color: #007bff;
+    background-color: var(--accent);
     margin-bottom: 1rem;
 }
 
 .show-more-button:hover {
-    background-color: #0056b3;
+    background: oklch(0.60 0.15 120 / 0.8);
 }
 
 .blog-full-text {
     display: none;
     margin-top: 1rem;
-    border-top: 1px dashed #ccc;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
     padding-top: 1rem;
 }
 
@@ -192,7 +203,7 @@ footer p {
 
 #blog-archive th,
 #blog-archive td {
-    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0.5rem;
     text-align: left;
 }
@@ -215,7 +226,7 @@ select {
 
 button {
     cursor: pointer;
-    background: #555;
+    background: var(--accent);
     color: #fff;
     border: none;
     padding: 0.6rem 1rem;
@@ -224,7 +235,7 @@ button {
 }
 
 button:hover {
-    background: #333;
+    background: oklch(0.60 0.15 120 / 0.8);
 }
 
 /* Progress Bars */
@@ -236,28 +247,28 @@ progress {
     margin-bottom: 0.5rem;
 }
 
-/* Toast notification (for ephemeral messages) */
+/* Toast Notification */
 #toast {
     position: fixed;
     bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    background: #333;
-    color: #fff;
+    background: var(--nav-bg);
+    color: var(--nav-text);
     padding: 1rem 1.5rem;
     border-radius: 4px;
     display: none;
     z-index: 9999;
 }
 
-/* Floating 'Back to Top' Button */
+/* Back to Top Button */
 #back-to-top {
     display: none;
     position: fixed;
     bottom: 80px;
     right: 20px;
-    background-color: #333;
-    color: #fff;
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
     padding: 0.7rem 1rem;
     border-radius: 4px;
     font-size: 0.9rem;
@@ -265,7 +276,18 @@ progress {
 }
 
 #back-to-top:hover {
-    background-color: #555;
+    background-color: oklch(0.22 0.04 240 / 0.8);
+}
+
+/* Secret Code Section */
+#secret-code {
+    display: none;
+    padding: 1rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    background: oklch(0.96 0.02 30);
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 /* Mobile Responsiveness */

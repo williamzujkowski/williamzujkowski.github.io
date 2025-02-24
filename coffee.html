@@ -2,88 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Coffee Calculator for Caffeinated Engineers" />
-    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor" />
-    <meta name="author" content="William Zujkowski" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Coffee Calculator for IT Engineers">
+    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor">
+    <meta name="author" content="William Zujkowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Calculator for IT Engineers</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
-    <style>
-        /* Minimal, responsive CSS */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            gap: 1rem;
-            background: #f0f0f0;
-            margin: 0;
-            padding: 1rem;
-            justify-content: center;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        form {
-            display: grid;
-            gap: 0.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        input,
-        select,
-        button {
-            padding: 0.5rem;
-            font-size: 1rem;
-            max-width: 300px;
-        }
-
-        progress {
-            width: 100%;
-            max-width: 300px;
-        }
-
-        footer {
-            background: #f0f0f0;
-            text-align: center;
-            padding: 1rem;
-            font-size: 0.9rem;
-        }
-    </style>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
-    <!-- Static navigation -->
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="coffee.html">Coffee Calculator</a></li>
-            <li><a href="pizza.html">Pizza Calculator</a></li>
-        </ul>
-    </nav>
-
+    <div id="dynamic-nav"></div>
     <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
@@ -93,21 +23,17 @@
                 running.
             </p>
         </header>
-
         <section>
             <form id="coffeeForm" onsubmit="return false;">
                 <fieldset>
                     <legend><strong>Enter Your Caffeine Metrics:</strong></legend>
-
                     <label for="javaAttendees">
                         Number of Devs:
-                        <input type="number" id="javaAttendees" value="3" />
+                        <input type="number" id="javaAttendees" value="3">
                     </label>
-
                     <label for="coffeeStrength">
                         Coffee Strength:
                         <select id="coffeeStrength">
-                            <!-- Higher value means stronger coffee, requiring fewer cups -->
                             <option value="1">Mild (just a whisper of caffeine)</option>
                             <option value="2">Regular (the standard wake-up call)</option>
                             <option value="3">Strong (for nights that never end)</option>
@@ -115,17 +41,14 @@
                             <option value="10">Triple Espresso Shots (brace for hyperdrive)</option>
                         </select>
                     </label>
-
                     <label for="hoursCoding">
                         Hours of Coding:
-                        <input type="number" id="hoursCoding" value="4" />
+                        <input type="number" id="hoursCoding" value="4">
                     </label>
-
                     <label for="timesBuildFailed">
                         Times the Build Failed:
-                        <input type="number" id="timesBuildFailed" value="2" />
+                        <input type="number" id="timesBuildFailed" value="2">
                     </label>
-
                     <div>
                         <button type="button" onclick="calculateCoffee()">Calculate</button>
                         <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
@@ -134,111 +57,25 @@
                 </fieldset>
             </form>
         </section>
-
         <section id="coffeeProgressSection">
-            <!-- Set max to 150 so that values above 100% display -->
             <progress id="progressBar" value="0" max="150"></progress>
             <p id="progressLabel"></p>
         </section>
-
         <section id="coffeeResultSection">
             <div id="coffeeResult" role="alert" aria-live="polite"></div>
         </section>
     </main>
-
-    <footer>
-        <p>&copy; 2024 William Zujkowski. All rights reserved.</p>
-    </footer>
-
-    <script>
-        function calculateCoffee() {
-            // Calculate required cups:
-            // cups = (number of devs) × (hours coding + 1.5×build fails) / coffee strength
-            const devs = Number(document.getElementById("javaAttendees").value);
-            const hours = Number(document.getElementById("hoursCoding").value);
-            const fails = Number(document.getElementById("timesBuildFailed").value);
-            const strength = Number(document.getElementById("coffeeStrength").value);
-            let cups = devs * (hours + fails * 1.5) / strength;
-            cups = Math.ceil(cups);
-
-            // Compute progress: scale so that 10 cups ~ 100%, but we hang at 99%
-            let computedProgress = Math.min(cups * 10, 99);
-            // Then "overclock" the progress to a random final value between 110 and 142.
-            let finalProgress = Math.floor(Math.random() * (142 - 110 + 1)) + 110;
-
-            const progressBar = document.getElementById("progressBar");
-            progressBar.value = 0;
-            progressBar.max = 150; // Allow progress values above 100%
-            const progressLabel = document.getElementById("progressLabel");
-
-            // Witty progress messages (caffeine and code themed)
-            const messages = [
-                "Initializing caffeine protocol...",
-                "Compiling coffee beans into binary...",
-                "Decrypting secret bean caches...",
-                "Buffering caffeinated packets...",
-                "Executing anti-bug espresso routine...",
-                "Finalizing brew parameters..."
-            ];
-            progressLabel.textContent = messages[0];
-
-            let progress = 0;
-            let increments = 20;
-            let step = computedProgress / increments;
-            let messageIndex = 0;
-
-            let interval = setInterval(() => {
-                progress += step;
-                if (progress > computedProgress) progress = computedProgress;
-                progressBar.value = progress;
-                if (progressBar.value >= (messageIndex + 1) * (computedProgress / messages.length)) {
-                    messageIndex++;
-                    if (messageIndex < messages.length) {
-                        progressLabel.textContent = messages[messageIndex];
-                    }
-                }
-                if (progress >= computedProgress) {
-                    clearInterval(interval);
-                    // Pause briefly at 99%
-                    setTimeout(() => {
-                        progressBar.value = finalProgress;
-                        // Determine final message based on the number of cups required.
-                        let finalMessage = "";
-                        if (cups < 5) {
-                            finalMessage = "Minimal brew required. Your code flows like optimized JavaScript—smooth and efficient.";
-                        } else if (cups < 10) {
-                            finalMessage = "Moderate brew: Your devs are caffeinated enough to squash bugs without triggering a reboot crisis.";
-                        } else if (cups < 20) {
-                            finalMessage = "High caffeine alert! Your team is in overclock mode—expect jittery commits and spaghetti code.";
-                        } else {
-                            finalMessage = "System overload: Too many cups! Your developers are drowning in decaf despair—time to upgrade your coffee protocol!";
-                        }
-                        if (strength >= 5) {
-                            finalMessage += " With espresso-level strength, you're running on pure high-octane CPU fuel!";
-                        }
-                        progressLabel.textContent = finalMessage;
-                        document.getElementById("coffeeResult").textContent =
-                            "Estimated coffee required: " + cups + " cup" + (cups === 1 ? "" : "s") + ".";
-                    }, 500);
-                }
-            }, 150);
-        }
-
-        function downloadCoffeeReport() {
-            const result = document.getElementById("coffeeResult").textContent;
-            const report = "Coffee Calculator Report:\n" + result;
-            const blob = new Blob([report], { type: "text/plain" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "Coffee_Calculation_Report.txt";
-            a.click();
-        }
-
-        function shareCoffeeReport() {
-            alert("Sharing is caring—coffee report sharing coming soon!");
-        }
-    </script>
+    <div id="dynamic-footer"></div>
+    <div id="toast"></div>
+    <!-- Secret Code (hidden by default) -->
+    <div id="secret-code" style="display: none;">
+        <h2>🔒 Secret Unlocked!</h2>
+        <p>Thanks for peeking behind the curtain! You found my hidden Easter egg.</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/H62G3m_MHQk" title="YouTube video player"
+            frameborder="0" allowfullscreen></iframe>
+    </div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/coffee_calc.js"></script>
 </body>
 
 </html>
