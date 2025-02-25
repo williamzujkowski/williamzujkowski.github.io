@@ -12,6 +12,9 @@ module.exports = function(eleventyConfig) {
   // Copy assets directory to the output
   eleventyConfig.addPassthroughCopy("src/assets");
   
+  // Copy .nojekyll file to the output
+  eleventyConfig.addPassthroughCopy(".nojekyll");
+  
   // Date formatting filter
   eleventyConfig.addFilter("formatDate", (dateObj, format = "LLL d, yyyy") => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat(format);

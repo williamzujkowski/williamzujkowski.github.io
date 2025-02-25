@@ -29,7 +29,16 @@ jobs:
           NODE_ENV: production
         
       - name: Create .nojekyll file
-        run: touch _site/.nojekyll
+        run: |
+          touch .nojekyll
+          touch _site/.nojekyll
+          
+      - name: Debug directory contents
+        run: |
+          echo "Root directory contents:"
+          ls -la
+          echo "Build directory contents:"
+          ls -la _site
         
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
@@ -37,3 +46,5 @@ jobs:
           folder: _site
           branch: gh-pages
           clean: true
+          clean-exclude: |
+            .nojekyll
