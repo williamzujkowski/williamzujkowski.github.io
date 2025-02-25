@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "🔍 Running QA checks for your 11ty website..."
 
