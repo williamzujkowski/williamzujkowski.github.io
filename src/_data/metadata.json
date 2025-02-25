@@ -1,0 +1,14 @@
+{
+  "title": "Personal Website",
+  "url": "https://example.com",
+  "description": "My personal website and blog",
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "social": {
+    "twitter": "https://twitter.com/yourusername",
+    "github": "https://github.com/yourusername",
+    "linkedin": "https://linkedin.com/in/yourusername"
+  }
+}
