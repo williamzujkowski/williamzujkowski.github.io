@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>William Zujkowski</title>
+  <subtitle>Personal website and blog of William Zujkowski, featuring articles on web development, programming, and technology</subtitle>
+  <link href="https://williamzujkowski.github.io/feed.xml" rel="self"/>
+  <link href="https://williamzujkowski.github.io"/>
+  <updated>2024-05-15T00:00:00Z</updated>
+  <id>https://williamzujkowski.github.io</id>
+  <author>
+    <name>William Zujkowski</name>
+    <email>william@example.com</email>
+  </author>
+  
+  <entry>
+    <title>Essential Productivity Tools for Developers</title>
+    <link href="https://williamzujkowski.github.io/blog/productivity-tools/"/>
+    <updated>2024-05-15T00:00:00Z</updated>
+    <id>https://williamzujkowski.github.io/blog/productivity-tools/</id>
+    <content type="html">&lt;h1&gt;Essential Productivity Tools for Developers&lt;/h1&gt;
+&lt;p&gt;As developers, we&#39;re always looking for ways to optimize our workflow and become more productive. The right tools can make a significant difference in how efficiently we work. Here&#39;s a curated list of productivity tools that I&#39;ve found invaluable in my development journey.&lt;/p&gt;
+&lt;h2&gt;Code Editors and IDEs&lt;/h2&gt;
+&lt;h3&gt;Visual Studio Code&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;VS Code&lt;/a&gt; has become the go-to editor for many developers, and for good reason. Its extensive extension ecosystem, integrated terminal, and Git support make it a powerful development environment.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Must-have extensions:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ESLint for code linting&lt;/li&gt;
+&lt;li&gt;Prettier for code formatting&lt;/li&gt;
+&lt;li&gt;GitLens for enhanced Git capabilities&lt;/li&gt;
+&lt;li&gt;Live Server for quick local development&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;JetBrains IDEs&lt;/h3&gt;
+&lt;p&gt;For language-specific development, JetBrains offers specialized IDEs like WebStorm (JavaScript), PyCharm (Python), and IntelliJ IDEA (Java). These provide deep language integration and advanced refactoring tools.&lt;/p&gt;
+&lt;h2&gt;Terminal Enhancements&lt;/h2&gt;
+&lt;h3&gt;Oh My Zsh&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://ohmyz.sh/&quot;&gt;Oh My Zsh&lt;/a&gt; transforms your terminal experience with themes, plugins, and helpful aliases. It makes navigating the command line more intuitive and visually appealing.&lt;/p&gt;
+&lt;h3&gt;Fig&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://fig.io/&quot;&gt;Fig&lt;/a&gt; adds autocomplete to your terminal, suggesting commands, options, and even file paths as you type.&lt;/p&gt;
+&lt;h2&gt;Project Management&lt;/h2&gt;
+&lt;h3&gt;Notion&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.notion.so/&quot;&gt;Notion&lt;/a&gt; serves as an all-in-one workspace for notes, tasks, wikis, and databases. Its flexibility makes it perfect for both personal projects and team collaboration.&lt;/p&gt;
+&lt;h3&gt;Todoist&lt;/h3&gt;
+&lt;p&gt;For straightforward task management, &lt;a href=&quot;https://todoist.com/&quot;&gt;Todoist&lt;/a&gt; offers a clean interface with powerful organization features like projects, labels, and priorities.&lt;/p&gt;
+&lt;h2&gt;Communication and Collaboration&lt;/h2&gt;
+&lt;h3&gt;Slack&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://slack.com/&quot;&gt;Slack&lt;/a&gt; has become the standard for team communication, with features like channels, threads, and integrations with development tools.&lt;/p&gt;
+&lt;h3&gt;Loom&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.loom.com/&quot;&gt;Loom&lt;/a&gt; allows you to quickly record and share video messages, which can be more effective than written explanations for complex topics.&lt;/p&gt;
+&lt;h2&gt;Time Management&lt;/h2&gt;
+&lt;h3&gt;Pomodoro Technique Tools&lt;/h3&gt;
+&lt;p&gt;The Pomodoro Technique (working in focused 25-minute intervals with short breaks) can boost productivity. Apps like &lt;a href=&quot;https://www.focustodo.cn/&quot;&gt;Focus To-Do&lt;/a&gt; combine task management with a Pomodoro timer.&lt;/p&gt;
+&lt;h3&gt;RescueTime&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.rescuetime.com/&quot;&gt;RescueTime&lt;/a&gt; tracks how you spend your time on your computer and provides insights to help you become more productive.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Finding the right productivity tools is a personal journey, and what works for one developer might not work for another. Experiment with different tools to discover which ones complement your workflow and help you become more efficient.&lt;/p&gt;
+&lt;p&gt;What productivity tools do you find essential? Share your favorites in the comments!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Modern CSS Techniques Every Developer Should Know</title>
+    <link href="https://williamzujkowski.github.io/blog/modern-css-techniques/"/>
+    <updated>2024-05-10T00:00:00Z</updated>
+    <id>https://williamzujkowski.github.io/blog/modern-css-techniques/</id>
+    <content type="html">&lt;h1&gt;Modern CSS Techniques Every Developer Should Know&lt;/h1&gt;
+&lt;p&gt;CSS has evolved significantly in recent years, introducing powerful features that make complex layouts and effects easier to implement. Let&#39;s explore some modern CSS techniques that can level up your web development skills.&lt;/p&gt;
+&lt;h2&gt;CSS Grid Layout&lt;/h2&gt;
+&lt;p&gt;CSS Grid has revolutionized how we approach page layouts. It provides a two-dimensional grid-based layout system that makes it easy to create complex designs.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This simple code creates a responsive grid where items automatically flow into columns that are at least 250px wide.&lt;/p&gt;
+&lt;h2&gt;CSS Custom Properties (Variables)&lt;/h2&gt;
+&lt;p&gt;CSS variables allow you to define reusable values that can be referenced throughout your stylesheet:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;:root {
+  --primary-color: #3182ce;
+  --secondary-color: #718096;
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.button.secondary {
+  background-color: var(--secondary-color);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This makes theme customization and maintenance much easier.&lt;/p&gt;
+&lt;h2&gt;Container Queries&lt;/h2&gt;
+&lt;p&gt;While media queries are based on the viewport size, container queries allow you to style elements based on their parent container&#39;s size:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card {
+    display: flex;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is particularly useful for component-based design systems.&lt;/p&gt;
+&lt;h2&gt;Logical Properties&lt;/h2&gt;
+&lt;p&gt;Logical properties make it easier to handle different writing modes and internationalization:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;.box {
+  margin-block-start: 1rem;
+  margin-inline-end: 2rem;
+  padding-inline: 1rem;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Instead of using direction-specific properties like &lt;code&gt;margin-top&lt;/code&gt; or &lt;code&gt;padding-left&lt;/code&gt;, logical properties adapt to the text direction.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;These modern CSS techniques can significantly improve your development workflow and the quality of your projects. By embracing these features, you&#39;ll write more maintainable, flexible, and powerful stylesheets.&lt;/p&gt;
+&lt;p&gt;In future posts, we&#39;ll dive deeper into each of these techniques with practical examples and use cases.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Getting Started with 11ty</title>
+    <link href="https://williamzujkowski.github.io/blog/getting-started-with-11ty/"/>
+    <updated>2024-05-01T00:00:00Z</updated>
+    <id>https://williamzujkowski.github.io/blog/getting-started-with-11ty/</id>
+    <content type="html">&lt;h1&gt;Getting Started with 11ty&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.11ty.dev/&quot;&gt;Eleventy (11ty)&lt;/a&gt; is a simple static site generator that transforms a directory of templates into HTML. Unlike other JavaScript frameworks, Eleventy works with your project&#39;s existing directory structure.&lt;/p&gt;
+&lt;h2&gt;Why Choose 11ty?&lt;/h2&gt;
+&lt;p&gt;There are several reasons why 11ty has become a popular choice for developers:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Zero client-side JavaScript requirements&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flexible templating options&lt;/strong&gt; (supports multiple languages)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fast build times&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Simple and intuitive API&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Great documentation and community support&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Basic Setup&lt;/h2&gt;
+&lt;p&gt;Let&#39;s walk through setting up a basic 11ty project:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# Create a new directory for your project
+mkdir my-11ty-site
+cd my-11ty-site
+
+# Initialize a new npm project
+npm init -y
+
+# Install 11ty
+npm install @11ty/eleventy --save-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Creating Your First Page&lt;/h2&gt;
+&lt;p&gt;Create an &lt;code&gt;index.md&lt;/code&gt; file in your project root:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-markdown&quot;&gt;---
+title: My First 11ty Site
+---
+
+# Getting Started with 11ty
+
+Welcome to my website built with 11ty!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Running the Development Server&lt;/h2&gt;
+&lt;p&gt;Add the following scripts to your &lt;code&gt;package.json&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;&amp;quot;scripts&amp;quot;: {
+  &amp;quot;start&amp;quot;: &amp;quot;eleventy --serve&amp;quot;,
+  &amp;quot;build&amp;quot;: &amp;quot;eleventy&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you can run:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;npm start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will start a local development server, usually at &lt;code&gt;http://localhost:8080&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Next Steps&lt;/h2&gt;
+&lt;p&gt;From here, you can:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create more pages&lt;/li&gt;
+&lt;li&gt;Add layouts and includes&lt;/li&gt;
+&lt;li&gt;Configure collections&lt;/li&gt;
+&lt;li&gt;Customize your build process&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;11ty&#39;s flexibility makes it suitable for a wide range of projects, from simple blogs to complex documentation sites.&lt;/p&gt;
+&lt;p&gt;Stay tuned for more tutorials on advanced 11ty features!&lt;/p&gt;
+</content>
+  </entry>
+</feed>

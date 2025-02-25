@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Exploring the latest CSS features and techniques that can enhance your web development workflow.">
+  <title>Modern CSS Techniques Every Developer Should Know | William Zujkowski</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.ico">
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Modern CSS Techniques Every Developer Should Know | William Zujkowski">
+  <meta property="og:description" content="Exploring the latest CSS features and techniques that can enhance your web development workflow.">
+  <meta property="og:url" content="https://williamzujkowski.github.io/blog/modern-css-techniques/">
+  <meta property="og:type" content="website">
+</head>
+<body>
+  <header>
+  <div class="container">
+    <div class="site-branding">
+      <a href="/" class="site-title">William Zujkowski</a>
+      <p class="site-tagline">Software Engineer &amp; Web Developer</p>
+    </div>
+    
+    <nav class="site-navigation">
+      <ul>
+        
+          <li>
+            <a href="/">Home</a>
+          </li>
+        
+          <li>
+            <a href="/blog/">Blog</a>
+          </li>
+        
+          <li>
+            <a href="/resume/">Resume</a>
+          </li>
+        
+          <li>
+            <a href="/about/">About</a>
+          </li>
+        
+          <li>
+            <a href="/links/">Links</a>
+          </li>
+        
+      </ul>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-toggle-icon light">☀️</span>
+        <span class="theme-toggle-icon dark">🌙</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+  
+  <main>
+    
+<article class="blog-post">
+  <div class="container">
+    <header class="post-header">
+      <h1>Modern CSS Techniques Every Developer Should Know</h1>
+      
+      <div class="post-meta">
+        <time datetime="2024-05-10">May 10, 2024</time>
+        
+        
+          <div class="post-tags">
+            
+              <a href="/blog/tag/design/" class="post-tag">design</a>
+            
+              <a href="/blog/tag/css/" class="post-tag">css</a>
+            
+              <a href="/blog/tag/frontend/" class="post-tag">frontend</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    <div class="post-content">
+      <h1>Modern CSS Techniques Every Developer Should Know</h1>
+<p>CSS has evolved significantly in recent years, introducing powerful features that make complex layouts and effects easier to implement. Let's explore some modern CSS techniques that can level up your web development skills.</p>
+<h2>CSS Grid Layout</h2>
+<p>CSS Grid has revolutionized how we approach page layouts. It provides a two-dimensional grid-based layout system that makes it easy to create complex designs.</p>
+<pre><code class="language-css">.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+</code></pre>
+<p>This simple code creates a responsive grid where items automatically flow into columns that are at least 250px wide.</p>
+<h2>CSS Custom Properties (Variables)</h2>
+<p>CSS variables allow you to define reusable values that can be referenced throughout your stylesheet:</p>
+<pre><code class="language-css">:root {
+  --primary-color: #3182ce;
+  --secondary-color: #718096;
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.button.secondary {
+  background-color: var(--secondary-color);
+}
+</code></pre>
+<p>This makes theme customization and maintenance much easier.</p>
+<h2>Container Queries</h2>
+<p>While media queries are based on the viewport size, container queries allow you to style elements based on their parent container's size:</p>
+<pre><code class="language-css">.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card {
+    display: flex;
+  }
+}
+</code></pre>
+<p>This is particularly useful for component-based design systems.</p>
+<h2>Logical Properties</h2>
+<p>Logical properties make it easier to handle different writing modes and internationalization:</p>
+<pre><code class="language-css">.box {
+  margin-block-start: 1rem;
+  margin-inline-end: 2rem;
+  padding-inline: 1rem;
+}
+</code></pre>
+<p>Instead of using direction-specific properties like <code>margin-top</code> or <code>padding-left</code>, logical properties adapt to the text direction.</p>
+<h2>Conclusion</h2>
+<p>These modern CSS techniques can significantly improve your development workflow and the quality of your projects. By embracing these features, you'll write more maintainable, flexible, and powerful stylesheets.</p>
+<p>In future posts, we'll dive deeper into each of these techniques with practical examples and use cases.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-share">
+        <h3>Share this post</h3>
+        <div class="share-buttons">
+          <a href="https://twitter.com/intent/tweet?text=Modern%20CSS%20Techniques%20Every%20Developer%20Should%20Know&url=https://williamzujkowski.github.io%2Fblog%2Fmodern-css-techniques%2F" target="_blank" rel="noopener noreferrer" class="share-button twitter">
+            Twitter
+          </a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://williamzujkowski.github.io%2Fblog%2Fmodern-css-techniques%2F" target="_blank" rel="noopener noreferrer" class="share-button linkedin">
+            LinkedIn
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://williamzujkowski.github.io%2Fblog%2Fmodern-css-techniques%2F" target="_blank" rel="noopener noreferrer" class="share-button facebook">
+            Facebook
+          </a>
+        </div>
+      </div>
+      
+      <div class="post-navigation">
+        
+        <div class="post-nav-links">
+          
+            <a href="/blog/getting-started-with-11ty/" class="post-nav-prev">
+              <span class="post-nav-label">Previous</span>
+              <span class="post-nav-title">Getting Started with 11ty</span>
+            </a>
+          
+          
+          
+            <a href="/blog/productivity-tools/" class="post-nav-next">
+              <span class="post-nav-label">Next</span>
+              <span class="post-nav-title">Essential Productivity Tools for Developers</span>
+            </a>
+          
+        </div>
+      </div>
+    </footer>
+  </div>
+</article>
+
+  </main>
+  
+  <footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="copyright">
+        <p>&copy; 2025 William Zujkowski. All rights reserved.</p>
+      </div>
+      
+      <div class="social-links">
+        
+          <a href="https://github.com/williamzujkowski" target="_blank" rel="noopener noreferrer">GitHub</a>
+        
+        
+        
+          <a href="https://twitter.com/williamzujkowski" target="_blank" rel="noopener noreferrer">Twitter</a>
+        
+        
+        
+          <a href="https://linkedin.com/in/williamzujkowski" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        
+        
+        
+          <a href="https://mastodon.social/@williamzujkowski" target="_blank" rel="noopener noreferrer">Mastodon</a>
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+  <!-- Scripts -->
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
