@@ -26,6 +26,7 @@
   "homepage": "https://github.com/williamzujkowski/williamzujkowski.github.io#readme",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
     "js-yaml": "^4.1.0",
     "luxon": "^3.4.4"
   }

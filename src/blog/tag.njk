@@ -1,0 +1,28 @@
+---
+layout: layouts/default.njk
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - posts
+    - tagList
+  addAllPagesToCollections: true
+permalink: /blog/tag/{{ tag | slug }}/
+eleventyComputed:
+  title: "Posts tagged with '{{ tag }}'"
+  description: "All posts from the blog tagged with '{{ tag }}'"
+---
+
+<div class="container">
+  <header class="page-header">
+    <h1>Posts tagged with "{{ tag }}"</h1>
+    <p><a href="/blog/" class="back-link">← Back to all posts</a></p>
+  </header>
+
+  <section class="blog-posts">
+    {% set postslist = collections[tag] | reverse %}
+    {% include "partials/post-list.njk" %}
+  </section>
+</div>

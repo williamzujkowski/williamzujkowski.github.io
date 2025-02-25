@@ -2,6 +2,11 @@
 layout: layouts/default.njk
 title: Blog
 description: Thoughts, tutorials, and insights on web development, design, and technology.
+pagination:
+  data: collections.posts
+  size: 5
+  alias: posts
+  reverse: true
 ---
 
 <div class="container">
@@ -13,57 +18,63 @@ description: Thoughts, tutorials, and insights on web development, design, and t
   <section class="blog-categories">
     <h2 class="visually-hidden">Categories</h2>
     <ul class="category-list">
-      <li><a href="/blog/category/development/">Development</a></li>
-      <li><a href="/blog/category/design/">Design</a></li>
-      <li><a href="/blog/category/tools/">Tools & Resources</a></li>
-      <li><a href="/blog/category/thoughts/">Thoughts</a></li>
+      {% set tags = collections.posts | getAllTags | filterTagList %}
+      {% for tag in tags %}
+        <li><a href="/blog/tag/{{ tag | slug }}/">{{ tag }}</a></li>
+      {% endfor %}
     </ul>
   </section>
 
   <section class="blog-posts">
     <h2 class="visually-hidden">Recent Posts</h2>
     
-    <div class="posts-empty">
-      <p>No posts yet. Check back soon for new content!</p>
+    {% if posts.length > 0 %}
+      {% set postslist = posts %}
+      {% include "partials/post-list.njk" %}
       
-      <div class="placeholder-posts">
-        <div class="placeholder-post">
-          <div class="placeholder-title"></div>
-          <div class="placeholder-meta"></div>
-          <div class="placeholder-excerpt"></div>
-        </div>
-        <div class="placeholder-post">
-          <div class="placeholder-title"></div>
-          <div class="placeholder-meta"></div>
-          <div class="placeholder-excerpt"></div>
+      {% if pagination.pages.length > 1 %}
+        <nav class="pagination" aria-label="Pagination">
+          <ul>
+            {% if pagination.href.previous %}
+              <li><a href="{{ pagination.href.previous }}" class="pagination-previous">Previous</a></li>
+            {% else %}
+              <li><span class="pagination-previous pagination-disabled">Previous</span></li>
+            {% endif %}
+            
+            {% for pageEntry in pagination.pages %}
+              <li>
+                <a href="{{ pagination.hrefs[ loop.index0 ] }}"
+                  {% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page" class="pagination-current"{% endif %}>
+                  {{ loop.index }}
+                </a>
+              </li>
+            {% endfor %}
+            
+            {% if pagination.href.next %}
+              <li><a href="{{ pagination.href.next }}" class="pagination-next">Next</a></li>
+            {% else %}
+              <li><span class="pagination-next pagination-disabled">Next</span></li>
+            {% endif %}
+          </ul>
+        </nav>
+      {% endif %}
+    {% else %}
+      <div class="posts-empty">
+        <p>No posts yet. Check back soon for new content!</p>
+        
+        <div class="placeholder-posts">
+          <div class="placeholder-post">
+            <div class="placeholder-title"></div>
+            <div class="placeholder-meta"></div>
+            <div class="placeholder-excerpt"></div>
+          </div>
+          <div class="placeholder-post">
+            <div class="placeholder-title"></div>
+            <div class="placeholder-meta"></div>
+            <div class="placeholder-excerpt"></div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- 
-    {%- for post in collections.posts | reverse -%}
-      <article class="post-card">
-        <h3 class="post-title">
-          <a href="{{ post.url }}">{{ post.data.title }}</a>
-        </h3>
-        <div class="post-meta">
-          <time datetime="{{ post.date | dateToISO }}">{{ post.date | formatDate }}</time>
-          {% if post.data.tags %}
-            <span class="post-tags">
-              {% for tag in post.data.tags %}
-                {% if tag != "posts" %}
-                  <a href="/blog/tag/{{ tag | slug }}/" class="post-tag">{{ tag }}</a>
-                {% endif %}
-              {% endfor %}
-            </span>
-          {% endif %}
-        </div>
-        {% if post.data.description %}
-          <p class="post-excerpt">{{ post.data.description }}</p>
-        {% endif %}
-        <a href="{{ post.url }}" class="read-more">Read more</a>
-      </article>
-    {%- endfor -%}
-    -->
+    {% endif %}
   </section>
 </div>

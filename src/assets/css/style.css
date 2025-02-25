@@ -232,6 +232,273 @@ main {
   border-radius: 0.25rem;
 }
 
+/* Blog post list */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.post-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--muted-color);
+  font-size: 0.875rem;
+}
+
+.post-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.post-tag {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background-color: #edf2f7;
+  border-radius: 1rem;
+  color: var(--text-color);
+  font-size: 0.75rem;
+  transition: background-color 0.2s ease;
+}
+
+.post-tag:hover {
+  background-color: #e2e8f0;
+  text-decoration: none;
+}
+
+.post-excerpt {
+  margin-bottom: 1rem;
+}
+
+.read-more {
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+.read-more::after {
+  content: "→";
+  margin-left: 0.25rem;
+  transition: transform 0.2s ease;
+}
+
+.read-more:hover::after {
+  transform: translateX(3px);
+}
+
+/* Blog post page */
+.blog-post {
+  margin-bottom: 3rem;
+}
+
+.post-header {
+  margin-bottom: 2rem;
+}
+
+.post-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.post-content {
+  max-width: var(--content-width);
+  margin: 0 auto 3rem;
+}
+
+.post-content h1, 
+.post-content h2, 
+.post-content h3, 
+.post-content h4, 
+.post-content h5, 
+.post-content h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.post-content p, 
+.post-content ul, 
+.post-content ol {
+  margin-bottom: 1.5rem;
+}
+
+.post-content ul, 
+.post-content ol {
+  padding-left: 1.5rem;
+}
+
+.post-content pre {
+  background-color: #f7fafc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.post-content code {
+  font-family: var(--mono-font);
+  font-size: 0.9em;
+  background-color: #f7fafc;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+}
+
+.post-content pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+.post-content blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.post-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.post-share {
+  margin-bottom: 2rem;
+}
+
+.post-share h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.share-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.share-button.twitter {
+  background-color: #1DA1F2;
+}
+
+.share-button.linkedin {
+  background-color: #0077B5;
+}
+
+.share-button.facebook {
+  background-color: #4267B2;
+}
+
+.share-button:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.post-navigation {
+  margin-top: 2rem;
+}
+
+.post-nav-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-nav-prev,
+.post-nav-next {
+  display: flex;
+  flex-direction: column;
+  max-width: 45%;
+}
+
+.post-nav-label {
+  font-size: 0.875rem;
+  color: var(--muted-color);
+  margin-bottom: 0.25rem;
+}
+
+.post-nav-title {
+  font-weight: 500;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 3rem;
+}
+
+.pagination ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 0.5rem;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  background-color: #f7fafc;
+  text-decoration: none;
+}
+
+.pagination-current {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.pagination-disabled {
+  color: var(--muted-color);
+  cursor: not-allowed;
+}
+
+/* Back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
 /* Resume page */
 .resume-actions {
   margin-top: 1rem;
