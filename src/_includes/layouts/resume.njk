@@ -1,0 +1,163 @@
+---
+layout: layouts/default.njk
+---
+
+<div class="container resume-container">
+  <header class="page-header">
+    <h1>{{ title }}</h1>
+    <div class="resume-actions">
+      <a href="/assets/files/william-zujkowski-resume.pdf" class="button" download>Download PDF</a>
+      <a href="mailto:{{ resume.basics.email }}?subject=Resume%20Inquiry" class="button button-secondary">Contact Me</a>
+    </div>
+  </header>
+
+  <section class="resume-section">
+    <h2>Professional Summary</h2>
+    <p>{{ resume.basics.summary }}</p>
+  </section>
+
+  <section class="resume-section">
+    <h2>Experience</h2>
+    
+    {% for job in resume.work %}
+      <div class="resume-item">
+        <div class="resume-item-header">
+          <h3>{{ job.position }}</h3>
+          <p class="resume-item-company">
+            {% if job.website %}
+              <a href="{{ job.website }}" target="_blank" rel="noopener noreferrer">{{ job.company }}</a>
+            {% else %}
+              {{ job.company }}
+            {% endif %}
+          </p>
+          <p class="resume-item-period">
+            {{ job.startDate | formatDate('MMM yyyy') }} - 
+            {% if job.endDate == "Present" %}
+              Present
+            {% else %}
+              {{ job.endDate | formatDate('MMM yyyy') }}
+            {% endif %}
+          </p>
+        </div>
+        <ul class="resume-item-details">
+          {% for highlight in job.highlights %}
+            <li>{{ highlight }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </section>
+
+  <section class="resume-section">
+    <h2>Skills</h2>
+    
+    <div class="skills-grid">
+      {% for skillCategory in resume.skills %}
+        <div class="skills-category">
+          <h3>{{ skillCategory.category }}</h3>
+          <ul>
+            {% for skill in skillCategory.items %}
+              <li>{{ skill.name }}{% if skill.level %} <span class="skill-level skill-level-{{ skill.level | lower }}">{{ skill.level }}</span>{% endif %}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>Projects</h2>
+    
+    <div class="projects-list">
+      {% for project in resume.projects %}
+        <div class="project-item">
+          <h3>
+            {% if project.url %}
+              <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer">{{ project.name }}</a>
+            {% else %}
+              {{ project.name }}
+            {% endif %}
+          </h3>
+          <p>{{ project.description }}</p>
+          {% if project.highlights %}
+            <ul class="project-highlights">
+              {% for highlight in project.highlights %}
+                <li>{{ highlight }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>Education</h2>
+    
+    {% for edu in resume.education %}
+      <div class="resume-item">
+        <div class="resume-item-header">
+          <h3>{{ edu.studyType }} in {{ edu.area }}</h3>
+          <p class="resume-item-company">{{ edu.institution }}</p>
+          <p class="resume-item-period">
+            {{ edu.startDate | formatDate('yyyy') }} - {{ edu.endDate | formatDate('yyyy') }}
+          </p>
+        </div>
+        {% if edu.honors %}
+          <p>{{ edu.honors }}</p>
+        {% endif %}
+        {% if edu.courses %}
+          <div class="education-courses">
+            <h4>Relevant Coursework</h4>
+            <ul class="courses-list">
+              {% for course in edu.courses %}
+                <li>{{ course }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </section>
+
+  <section class="resume-section">
+    <h2>Certifications</h2>
+    <ul class="certifications-list">
+      {% for cert in resume.certifications %}
+        <li>
+          {% if cert.url %}
+            <a href="{{ cert.url }}" target="_blank" rel="noopener noreferrer">{{ cert.name }}</a>
+          {% else %}
+            {{ cert.name }}
+          {% endif %}
+          <span class="cert-date">{{ cert.date | formatDate('MMM yyyy') }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="resume-section">
+    <h2>Languages</h2>
+    <ul class="languages-list">
+      {% for lang in resume.languages %}
+        <li>{{ lang.language }} <span class="language-fluency">({{ lang.fluency }})</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="resume-section">
+    <h2>Interests</h2>
+    <ul class="interests-list">
+      {% for interest in resume.interests %}
+        <li>
+          <strong>{{ interest.name }}</strong>
+          {% if interest.keywords %}
+            <span class="interest-keywords">
+              {{ interest.keywords | join(", ") }}
+            </span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>

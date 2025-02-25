@@ -500,28 +500,59 @@ main {
 }
 
 /* Resume page */
+.resume-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .resume-actions {
   margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .resume-section {
   margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+.resume-section:last-child {
+  border-bottom: none;
 }
 
 .resume-item {
   margin-bottom: 1.5rem;
 }
 
+.resume-item:last-child {
+  margin-bottom: 0;
+}
+
 .resume-item-header {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .resume-item-header h3 {
+  margin-top: 0;
   margin-bottom: 0.25rem;
+  color: var(--primary-color);
 }
 
 .resume-item-company {
   font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.resume-item-company a {
+  color: var(--text-color);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--muted-color);
+}
+
+.resume-item-company a:hover {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
 }
 
 .resume-item-period {
@@ -530,8 +561,17 @@ main {
 }
 
 .resume-item-details {
-  list-style-position: inside;
-  margin-left: 1rem;
+  list-style-type: circle;
+  padding-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.resume-item-details li {
+  margin-bottom: 0.5rem;
+}
+
+.resume-item-details li:last-child {
+  margin-bottom: 0;
 }
 
 .skills-grid {
@@ -543,16 +583,175 @@ main {
 .skills-category h3 {
   margin-top: 0;
   margin-bottom: 0.75rem;
+  color: var(--primary-color);
 }
 
 .skills-category ul {
-  list-style-position: inside;
-  margin-left: 1rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.skills-category li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-level {
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 1rem;
+  background-color: #edf2f7;
+  color: var(--text-color);
+}
+
+.skill-level-expert {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.skill-level-advanced {
+  background-color: #e9d8fd;
+  color: #553c9a;
+}
+
+.skill-level-intermediate {
+  background-color: #bee3f8;
+  color: #2a4365;
+}
+
+.skill-level-basic {
+  background-color: #fed7d7;
+  color: #822727;
+}
+
+.projects-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.project-item {
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: #f7fafc;
+}
+
+.project-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--accent-color);
+}
+
+.project-item p {
+  margin-bottom: 1rem;
+}
+
+.project-highlights {
+  padding-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.project-highlights li {
+  margin-bottom: 0.5rem;
+}
+
+.project-highlights li:last-child {
+  margin-bottom: 0;
+}
+
+.education-courses {
+  margin-top: 1rem;
+}
+
+.education-courses h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.courses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem 1.5rem;
+  padding-left: 1.5rem;
+  margin-bottom: 0;
 }
 
 .certifications-list {
-  list-style-position: inside;
-  margin-left: 1rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.certifications-list li {
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #f7fafc;
+  border-radius: 0.25rem;
+}
+
+.cert-date {
+  color: var(--muted-color);
+  font-size: 0.875rem;
+}
+
+.languages-list, .interests-list {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.languages-list li, .interests-list li {
+  padding: 0.5rem 1rem;
+  background-color: #f7fafc;
+  border-radius: 0.25rem;
+}
+
+.language-fluency {
+  color: var(--muted-color);
+  font-size: 0.875rem;
+}
+
+.interest-keywords {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--muted-color);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .resume-actions {
+    flex-direction: column;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .courses-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .certifications-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .cert-date {
+    margin-top: 0.25rem;
+  }
+  
+  .languages-list, .interests-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 /* Links page */
