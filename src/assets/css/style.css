@@ -9,6 +9,26 @@
   --border-color: #e2e8f0;
   --container-width: 1200px;
   --content-width: 800px;
+  
+  /* Card and UI element backgrounds */
+  --card-bg: #f7fafc;
+  --code-bg: #f7fafc;
+  --hover-bg: #edf2f7;
+}
+
+[data-theme="dark"] {
+  --primary-color: #90cdf4;
+  --secondary-color: #a0aec0;
+  --accent-color: #4299e1;
+  --background-color: #1a202c;
+  --text-color: #f7fafc;
+  --muted-color: #a0aec0;
+  --border-color: #2d3748;
+  
+  /* Card and UI element backgrounds */
+  --card-bg: #2d3748;
+  --code-bg: #2d3748;
+  --hover-bg: #4a5568;
 }
 
 * {
@@ -179,7 +199,7 @@ main {
 .category-list a {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background-color: #edf2f7;
+  background-color: var(--hover-bg);
   border-radius: 1rem;
   color: var(--text-color);
   font-size: 0.875rem;
@@ -187,7 +207,7 @@ main {
 }
 
 .category-list a:hover {
-  background-color: #e2e8f0;
+  background-color: var(--border-color);
   text-decoration: none;
 }
 
@@ -205,14 +225,14 @@ main {
 }
 
 .placeholder-post {
-  background-color: #f7fafc;
+  background-color: var(--card-bg);
   border-radius: 0.5rem;
   padding: 1.5rem;
 }
 
 .placeholder-title {
   height: 1.5rem;
-  background-color: #e2e8f0;
+  background-color: var(--border-color);
   width: 70%;
   margin-bottom: 0.75rem;
   border-radius: 0.25rem;
@@ -220,7 +240,7 @@ main {
 
 .placeholder-meta {
   height: 1rem;
-  background-color: #e2e8f0;
+  background-color: var(--border-color);
   width: 40%;
   margin-bottom: 1rem;
   border-radius: 0.25rem;
@@ -228,7 +248,7 @@ main {
 
 .placeholder-excerpt {
   height: 3rem;
-  background-color: #e2e8f0;
+  background-color: var(--border-color);
   border-radius: 0.25rem;
 }
 
@@ -275,7 +295,7 @@ main {
 .post-tag {
   display: inline-block;
   padding: 0.125rem 0.5rem;
-  background-color: #edf2f7;
+  background-color: var(--hover-bg);
   border-radius: 1rem;
   color: var(--text-color);
   font-size: 0.75rem;
@@ -283,7 +303,7 @@ main {
 }
 
 .post-tag:hover {
-  background-color: #e2e8f0;
+  background-color: var(--border-color);
   text-decoration: none;
 }
 
@@ -347,7 +367,7 @@ main {
 }
 
 .post-content pre {
-  background-color: #f7fafc;
+  background-color: var(--code-bg);
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;
@@ -357,7 +377,7 @@ main {
 .post-content code {
   font-family: var(--mono-font);
   font-size: 0.9em;
-  background-color: #f7fafc;
+  background-color: var(--code-bg);
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
 }
@@ -636,7 +656,7 @@ main {
   padding: 1.5rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
-  background-color: #f7fafc;
+  background-color: var(--card-bg);
 }
 
 .project-item h3 {
@@ -691,7 +711,7 @@ main {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background-color: #f7fafc;
+  background-color: var(--card-bg);
   border-radius: 0.25rem;
 }
 
@@ -710,7 +730,7 @@ main {
 
 .languages-list li, .interests-list li {
   padding: 0.5rem 1rem;
-  background-color: #f7fafc;
+  background-color: var(--card-bg);
   border-radius: 0.25rem;
 }
 
@@ -840,6 +860,53 @@ footer {
   gap: 1rem;
 }
 
+/* Theme toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-left: 1rem;
+  background-color: var(--hover-bg);
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--border-color);
+}
+
+.theme-toggle-icon {
+  font-size: 1.25rem;
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.theme-toggle-icon.light {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.theme-toggle-icon.dark {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-theme="dark"] .theme-toggle-icon.light {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-theme="dark"] .theme-toggle-icon.dark {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   header .container {
@@ -850,6 +917,9 @@ footer {
   .site-navigation {
     margin-top: 1rem;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .site-navigation ul {
