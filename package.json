@@ -4,28 +4,13 @@
   "description": "The personal website of William Zujkowski",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/williamzujkowski/williamzujkowski.github.io.git"
-  },
-  "author": "William Zujkowski",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io/issues"
-  },
-  "homepage": "https://github.com/williamzujkowski/williamzujkowski.github.io#readme"
-}
-{
-  "name": "personal-website",
-  "version": "1.0.0",
-  "description": "Personal website built with 11ty",
-  "main": "index.js",
-  "scripts": {
-    "start": "eleventy --serve",
-    "build": "eleventy",
-    "clean": "rm -rf _site"
   },
   "keywords": [
     "11ty",
@@ -33,9 +18,15 @@
     "personal",
     "website"
   ],
-  "author": "",
+  "author": "William Zujkowski",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io/issues"
+  },
+  "homepage": "https://github.com/williamzujkowski/williamzujkowski.github.io#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1"
+    "@11ty/eleventy": "^2.0.1",
+    "js-yaml": "^4.1.0",
+    "luxon": "^3.4.4"
   }
 }
