@@ -1,0 +1,27 @@
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="copyright">
+        <p>&copy; {% year %} {{ site.title }}. All rights reserved.</p>
+      </div>
+      
+      <div class="social-links">
+        {% if site.social.github %}
+          <a href="{{ site.social.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        {% endif %}
+        
+        {% if site.social.twitter %}
+          <a href="{{ site.social.twitter }}" target="_blank" rel="noopener noreferrer">Twitter</a>
+        {% endif %}
+        
+        {% if site.social.linkedin %}
+          <a href="{{ site.social.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        {% endif %}
+        
+        {% if site.social.mastodon %}
+          <a href="{{ site.social.mastodon }}" target="_blank" rel="noopener noreferrer">Mastodon</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>

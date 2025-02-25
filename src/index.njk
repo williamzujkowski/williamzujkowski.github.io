@@ -1,14 +1,20 @@
 ---
-layout: layouts/base.njk
+layout: layouts/default.njk
 title: Home
 ---
 
 <section class="hero">
-  <h1>Welcome to My Personal Website</h1>
-  <p>This is a showcase of my work, thoughts, and experiences.</p>
+  <div class="container">
+    <h1>{{ site.title }}</h1>
+    <p class="lead">{{ site.tagline }}</p>
+    <p>{{ site.description }}</p>
+  </div>
 </section>
 
 <section class="recent-posts">
-  <h2>Recent Blog Posts</h2>
-  <!-- Blog posts will be listed here -->
+  <div class="container">
+    <h2>Recent Blog Posts</h2>
+    <!-- Blog posts will be listed here -->
+    <p>Check back soon for new content!</p>
+  </div>
 </section>

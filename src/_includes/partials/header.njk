@@ -1,0 +1,18 @@
+<header>
+  <div class="container">
+    <div class="site-branding">
+      <a href="/" class="site-title">{{ site.title }}</a>
+      <p class="site-tagline">{{ site.tagline }}</p>
+    </div>
+    
+    <nav class="site-navigation">
+      <ul>
+        {% for item in site.navigation %}
+          <li{% if page.url == item.url %} class="active"{% endif %}>
+            <a href="{{ item.url }}">{{ item.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -9,6 +9,19 @@ language: en
 email: william@example.com
 location: New York, NY
 
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Blog
+    url: /blog/
+  - title: Resume
+    url: /resume/
+  - title: About
+    url: /about/
+  - title: Links
+    url: /links/
+
 # Social links
 social:
   github: https://github.com/williamzujkowski
