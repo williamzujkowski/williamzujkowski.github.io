@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>William Zujkowski</title>
   <subtitle>Personal website and blog of William Zujkowski, featuring articles on web development, programming, and technology</subtitle>
-  <link href="https://williamzujkowski.github.io/feed.xml" rel="self"/>
-  <link href="https://williamzujkowski.github.io"/>
+  <link href="https://williamzujkowski.github.io//feed.xml" rel="self"/>
+  <link href="https://williamzujkowski.github.io/"/>
   <updated>2024-05-15T00:00:00Z</updated>
-  <id>https://williamzujkowski.github.io</id>
+  <id>https://williamzujkowski.github.io/</id>
   <author>
     <name>William Zujkowski</name>
     <email>william@example.com</email>
@@ -13,9 +13,9 @@
   
   <entry>
     <title>Essential Productivity Tools for Developers</title>
-    <link href="https://williamzujkowski.github.io/blog/productivity-tools/"/>
+    <link href="https://williamzujkowski.github.io//blog/productivity-tools/"/>
     <updated>2024-05-15T00:00:00Z</updated>
-    <id>https://williamzujkowski.github.io/blog/productivity-tools/</id>
+    <id>https://williamzujkowski.github.io//blog/productivity-tools/</id>
     <content type="html">&lt;h1&gt;Essential Productivity Tools for Developers&lt;/h1&gt;
 &lt;p&gt;As developers, we&#39;re always looking for ways to optimize our workflow and become more productive. The right tools can make a significant difference in how efficiently we work. Here&#39;s a curated list of productivity tools that I&#39;ve found invaluable in my development journey.&lt;/p&gt;
 &lt;h2&gt;Code Editors and IDEs&lt;/h2&gt;
@@ -58,9 +58,9 @@
   
   <entry>
     <title>Modern CSS Techniques Every Developer Should Know</title>
-    <link href="https://williamzujkowski.github.io/blog/modern-css-techniques/"/>
+    <link href="https://williamzujkowski.github.io//blog/modern-css-techniques/"/>
     <updated>2024-05-10T00:00:00Z</updated>
-    <id>https://williamzujkowski.github.io/blog/modern-css-techniques/</id>
+    <id>https://williamzujkowski.github.io//blog/modern-css-techniques/</id>
     <content type="html">&lt;h1&gt;Modern CSS Techniques Every Developer Should Know&lt;/h1&gt;
 &lt;p&gt;CSS has evolved significantly in recent years, introducing powerful features that make complex layouts and effects easier to implement. Let&#39;s explore some modern CSS techniques that can level up your web development skills.&lt;/p&gt;
 &lt;h2&gt;CSS Grid Layout&lt;/h2&gt;
@@ -119,9 +119,9 @@
   
   <entry>
     <title>Getting Started with 11ty</title>
-    <link href="https://williamzujkowski.github.io/blog/getting-started-with-11ty/"/>
+    <link href="https://williamzujkowski.github.io//blog/getting-started-with-11ty/"/>
     <updated>2024-05-01T00:00:00Z</updated>
-    <id>https://williamzujkowski.github.io/blog/getting-started-with-11ty/</id>
+    <id>https://williamzujkowski.github.io//blog/getting-started-with-11ty/</id>
     <content type="html">&lt;h1&gt;Getting Started with 11ty&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.11ty.dev/&quot;&gt;Eleventy (11ty)&lt;/a&gt; is a simple static site generator that transforms a directory of templates into HTML. Unlike other JavaScript frameworks, Eleventy works with your project&#39;s existing directory structure.&lt;/p&gt;
 &lt;h2&gt;Why Choose 11ty?&lt;/h2&gt;
