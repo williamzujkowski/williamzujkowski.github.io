@@ -1,19 +1,27 @@
-# Personal Website
+# William Zujkowski's Personal Website
 
-A personal website built with [11ty](https://www.11ty.dev/).
+A modern, minimalist personal website built with [11ty](https://www.11ty.dev/) and deployed to GitHub Pages.
 
 ## Features
 
-- Blog
-- Resume
-- About page
-- Links page
+- **Blog** - Share thoughts and tutorials on web development and technology
+- **Resume** - Professional experience and skills
+- **About** - Personal information and background
+- **Links** - Curated collection of useful resources
+
+## Technology Stack
+
+- **Static Site Generator**: [11ty (Eleventy)](https://www.11ty.dev/)
+- **Templating**: Nunjucks
+- **Styling**: Custom CSS with OKLCH color space
+- **Deployment**: GitHub Actions to GitHub Pages
+- **Version Control**: Git
 
 ## Development
 
 ### Prerequisites
 
-- Node.js (v14 or newer)
+- Node.js (v18 or newer)
 - npm
 
 ### Setup
@@ -34,6 +42,14 @@ npm start
 ```
 
 This will start a local server at `http://localhost:8080`.
+
+### Quality Assurance
+
+Run the QA script to check for issues:
+
+```bash
+./qa.sh
+```
 
 ### Build
 
@@ -63,7 +79,12 @@ The built site will be in the `_site` directory.
   /about              # About page
   /links              # Links page
 .eleventy.js          # 11ty configuration
+.github/workflows     # GitHub Actions CI/CD configuration
 ```
+
+## Deployment
+
+The site is automatically deployed to GitHub Pages when changes are pushed to the main branch.
 
 ## License
 

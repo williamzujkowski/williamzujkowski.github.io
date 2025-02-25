@@ -1,7 +1,7 @@
 # Site metadata
 title: William Zujkowski
-tagline: Developer, Writer, Creator
-description: Personal website and blog of William Zujkowski
+tagline: Software Engineer & Web Developer
+description: Personal website and blog of William Zujkowski, featuring articles on web development, programming, and technology
 baseUrl: https://williamzujkowski.github.io
 language: en
 
@@ -59,3 +59,8 @@ theme:
     colors:
       background: oklch(0.2 0 0)     # Dark gray
       text: oklch(0.9 0 0)           # Light gray
+
+# SEO settings
+seo:
+  defaultImage: "/assets/images/social-share.jpg"
+  twitterUsername: "@williamzujkowski"
