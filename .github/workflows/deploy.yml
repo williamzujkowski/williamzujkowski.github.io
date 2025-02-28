@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Update dependencies to latest
+        run: npm update
+
       - name: Validate Markdown front-matter
         run: npx markdownlint '**/*.md' --ignore node_modules/**
 
