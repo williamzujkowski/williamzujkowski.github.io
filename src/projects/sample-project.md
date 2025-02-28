@@ -5,6 +5,7 @@ date: 2023-01-01
 tags: ["sample", "project"]
 author: "William Zujkowski"
 draft: false
+featured: true
 ---
 
 # Sample Project
