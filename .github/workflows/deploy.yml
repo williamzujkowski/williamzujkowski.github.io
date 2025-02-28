@@ -29,3 +29,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "Deployment failed!"
