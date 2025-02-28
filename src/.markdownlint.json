@@ -9,5 +9,8 @@
   "no-inline-html": true,
   "blanks-around-lists": true,
   "blanks-around-headings": true,
-  "no-duplicate-heading": true
+  "no-duplicate-heading": true,
+  "ignore": [
+    "node_modules/**"
+  ]
 }
