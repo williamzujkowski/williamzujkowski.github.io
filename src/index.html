@@ -8,12 +8,23 @@ title: Home
 <p class="f4">Check out my latest blog posts and projects!</p>
 
 <h3 class="f3">Today's Historical Fact:</h3>
-<p id="daily-fact" class="f4"></p>
+<p id="daily-fact" class="f4">Loading...</p>
 
 <script>
-    fetch('/api/daily-fact')
-        .then(response => response.text())
+    const factElement = document.getElementById('daily-fact');
+
+    fetch('http://numbersapi.com/random/date')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
         .then(fact => {
-            document.getElementById('daily-fact').innerText = fact;
+            factElement.innerText = fact;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            factElement.innerText = 'Could not fetch a historical fact at this time. Please try again later.';
         });
 </script>
