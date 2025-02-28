@@ -1,4 +1,6 @@
 .aider*
+.gitconfig
+
 # Dependencies
 node_modules/
 
