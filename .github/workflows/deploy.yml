@@ -21,6 +21,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Validate Markdown front-matter
+        run: npx markdownlint '**/*.md'
+
+      - name: Check for broken links
+        run: npx lychee --quiet --exit-code
+
+      - name: Check image optimization
+        run: npx eleventy-img --quiet
+
       - name: Build the site
         run: npm run build
 
