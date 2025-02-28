@@ -12,13 +12,13 @@
     "@11ty/eleventy": "^2.0.0",
     "markdownlint-cli": "^0.30.0",
     "rimraf": "^4.0.0",
-    "glob": "^9.0.0",
+    "glob": "^11.0.0",
     "lru-cache": "^7.0.0",
-    "@11ty/eleventy-img": "^0.12.1"
+    "@11ty/eleventy-img": "^6.0.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/your-repo.git"
+    "url": "git+github.com:williamzujkowski/williamzujkowski.github.io.git"
   },
   "license": "MIT"
 }
