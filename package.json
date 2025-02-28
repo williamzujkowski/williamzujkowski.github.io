@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "eleventy --serve",
-    "build": "eleventy"
+    "build": "eleventy",
+    "lint": "markdownlint '**/*.md'"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.0"
+    "@11ty/eleventy": "^1.0.0",
+    "markdownlint-cli": "^0.30.0"
   }
 }
