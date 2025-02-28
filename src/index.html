@@ -6,3 +6,14 @@ title: Home
 <h2>Welcome to My Personal Website</h2>
 <p>This is a simple site built with Eleventy, showcasing my projects, blog, and interests.</p>
 <p>Check out my latest blog posts and projects!</p>
+
+<h3>Today's Historical Fact:</h3>
+<p id="daily-fact"></p>
+
+<script>
+    fetch('/api/daily-fact')
+        .then(response => response.text())
+        .then(fact => {
+            document.getElementById('daily-fact').innerText = fact;
+        });
+</script>
