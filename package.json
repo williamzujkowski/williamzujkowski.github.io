@@ -14,7 +14,7 @@
     "rimraf": "^4.0.0",
     "glob": "^9.0.0",
     "lru-cache": "^7.0.0",
-    "eleventy-img": "^0.12.0"
+    "@11ty/eleventy-img": "^0.12.0"
   },
   "repository": {
     "type": "git",
