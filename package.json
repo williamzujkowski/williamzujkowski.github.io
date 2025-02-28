@@ -1,18 +1,13 @@
 {
-  "name": "williamzujkowski.github.io",
+  "name": "eleventy-project",
   "version": "1.0.0",
-  "description": "William Zujkowski's personal website",
+  "description": "A simple Eleventy static site generator project.",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "eleventy --serve",
+    "build": "eleventy"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/williamzujkowski/williamzujkowski.github.io.git"
-  },
-  "author": "William Zujkowski",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io/issues"
-  },
-  "homepage": "https://github.com/williamzujkowski/williamzujkowski.github.io#readme"
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.0"
+  }
 }

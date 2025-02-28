@@ -1,0 +1,7 @@
+
+This will serve the site at `http://localhost:8080`.
+
+## Build
+
+To build the site for production, run:
+
