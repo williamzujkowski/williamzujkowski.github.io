@@ -9,7 +9,7 @@
 ## Content and Layout Implementation
 - [x] Build reusable templates for main navigation and page layouts
 - [x] Set up content directories (`/blog`, `/projects`, `/fun-links`, `/about`)
-- [ ] Configure Markdown front-matter standards
+- [x] Configure Markdown front-matter standards
 - [ ] Populate Home page with bio, photo, featured content, and latest blog posts
 - [ ] Integrate NumbersAPI for dynamic daily historical facts
 
