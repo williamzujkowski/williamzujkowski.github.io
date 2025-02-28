@@ -1,17 +1,2 @@
 
 This will generate the static files in the `/public` directory.
-
-## Project Structure
-
-- `/src`
-  - `/blog`
-    - `index.html`
-  - `/about`
-    - `index.html`
-  - `/projects`
-    - `index.html`
-  - `/fun-links`
-    - `index.html`
-  - `_includes`
-  - `_data`
-- `/public`
