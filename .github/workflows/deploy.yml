@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Validate Markdown front-matter
-        run: npx markdownlint '**/*.md'
+        run: npx markdownlint '**/*.md' --ignore node_modules/**
 
       - name: Check for broken links
         run: npx lychee --quiet --exit-code
