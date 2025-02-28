@@ -3,6 +3,17 @@ layout: layout.njk
 title: Home
 ---
 
-<h2>Welcome to My Personal Website</h2>
-<p>This is a simple site built with Eleventy, showcasing my projects, blog, and interests.</p>
-<p>Check out my latest blog posts and projects!</p>
+<h2 class="f2">Welcome to My Personal Website</h2>
+<p class="f4">This is a simple site built with Eleventy, showcasing my projects, blog, and interests.</p>
+<p class="f4">Check out my latest blog posts and projects!</p>
+
+<h3 class="f3">Today's Historical Fact:</h3>
+<p id="daily-fact" class="f4"></p>
+
+<script>
+    fetch('/api/daily-fact')
+        .then(response => response.text())
+        .then(fact => {
+            document.getElementById('daily-fact').innerText = fact;
+        });
+</script>
