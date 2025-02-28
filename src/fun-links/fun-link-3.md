@@ -7,5 +7,6 @@ author: "William Zujkowski"
 draft: false
 ---
 
-**Technology Articles**  
+# Technology Articles
+
 [TechCrunch](https://techcrunch.com) - Latest news and articles on technology and startups.

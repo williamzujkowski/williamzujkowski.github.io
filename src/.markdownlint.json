@@ -1,0 +1,13 @@
+{
+  "default": true,
+  "line-length": {
+    "line_length": 80,
+    "code_blocks": false
+  },
+  "fenced-code-language": true,
+  "first-line-heading": true,
+  "no-inline-html": true,
+  "blanks-around-lists": true,
+  "blanks-around-headings": true,
+  "no-duplicate-heading": true
+}

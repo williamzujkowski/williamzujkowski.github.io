@@ -7,5 +7,6 @@ author: "William Zujkowski"
 draft: false
 ---
 
-**Coding Challenges**  
+# Coding Challenges
+
 [LeetCode](https://leetcode.com) - A platform for practicing coding problems and preparing for technical interviews.

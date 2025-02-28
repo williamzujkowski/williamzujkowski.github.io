@@ -7,5 +7,6 @@ author: "William Zujkowski"
 draft: false
 ---
 
-**Web Development Resource**  
+# Web Development Resource
+
 [MDN Web Docs](https://developer.mozilla.org) - Comprehensive documentation and tutorials for web technologies.
