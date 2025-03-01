@@ -1,7 +1,7 @@
 ---
 title: "Fun Link 1"
 description: "A great resource for learning about web development."
-date: 2023-01-01
+date: 2025-03-01
 tags: ["web development", "learning"]
 author: "William Zujkowski"
 draft: false
