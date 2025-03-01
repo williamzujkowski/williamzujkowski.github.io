@@ -9,16 +9,16 @@
     "lint": "markdownlint '**/*.md' --ignore node_modules/**"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
-    "markdownlint-cli": "^0.44.0",
-    "rimraf": "^4.0.1",
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^6.0.1",
     "glob": "^11.0.1",
-    "lru-cache": "^7.0.1",
-    "@11ty/eleventy-img": "^0.12.1"
+    "lru-cache": "^11.0.2",
+    "markdownlint-cli": "^0.44.0",
+    "rimraf": "^4.0.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/your-repo.git"
+    "url": "git+https://github.com/williamzujkowski/williamzujkowski.github.io.git"
   },
   "license": "MIT"
 }
