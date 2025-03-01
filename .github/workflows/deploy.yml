@@ -25,7 +25,7 @@ jobs:
         run: npm update
 
       - name: Check image optimization
-        run: npx eleventy-img --quiet
+        run: npx @11ty/eleventy-img --quiet
 
       - name: Build the site
         run: npm run build
