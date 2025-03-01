@@ -10,12 +10,11 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
-    "markdownlint-cli": "^0.44.0",
-    "rimraf": "^6.0.1",
+    "@11ty/eleventy-img": "^6.0.1",
     "glob": "^11.0.1",
     "lru-cache": "^11.0.2",
-    "@11ty/eleventy-img": "^6.0.1",
-    "hyperlink": "^1.0.0"
+    "markdownlint-cli": "^0.44.0",
+    "rimraf": "^6.0.1"
   },
   "repository": {
     "type": "git",

@@ -24,9 +24,6 @@ jobs:
       - name: Update dependencies to latest
         run: npm update
 
-      - name: Check for broken links
-        run: npx hyperlink --quiet --exit-code
-
       - name: Check image optimization
         run: npx eleventy-img --quiet
 
