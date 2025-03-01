@@ -9,13 +9,13 @@
     "lint": "markdownlint '**/*.md' --ignore node_modules/**"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0",
-    "@11ty/eleventy-img": "^6.0.1",
-    "glob": "^11.0.1",
-    "lru-cache": "^11.0.2",
-    "lychee": "^0.2.7",
-    "markdownlint-cli": "^0.44.0",
-    "rimraf": "^6.0.1"
+    "@11ty/eleventy": "^2.0.0",
+    "markdownlint-cli": "^0.30.0",
+    "rimraf": "^4.0.0",
+    "glob": "^9.0.0",
+    "lru-cache": "^7.0.0",
+    "@11ty/eleventy-img": "^0.12.0",
+    "lychee": "^1.0.0"
   },
   "repository": {
     "type": "git",
