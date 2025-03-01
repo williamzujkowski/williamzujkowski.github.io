@@ -11,7 +11,15 @@
 </head>
 <body>
     <header>
-        <h1>{{ title }}</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/fun-links">Fun Links</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         {{ content | safe }}
