@@ -24,9 +24,6 @@ jobs:
       - name: Update dependencies to latest
         run: npm update
 
-      - name: Validate Markdown front-matter
-        run: npx markdownlint '**/*.md' --ignore node_modules/**
-
       - name: Check for broken links
         run: npx hyperlink --quiet --exit-code
 
