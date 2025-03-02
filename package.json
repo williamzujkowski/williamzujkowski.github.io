@@ -1,0 +1,19 @@
+{
+  "name": "williamzujkowski.github.io",
+  "version": "1.0.0",
+  "main": ".eleventy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamzujkowski/williamzujkowski.github.io.git"
+  },
+  "author": "William Zujkowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io/issues"
+  },
+  "homepage": "https://github.com/williamzujkowski/williamzujkowski.github.io#readme",
+  "description": ""
+}
