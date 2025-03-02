@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Coffee Calculator for Caffeinated Engineers">
+    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Cybersecurity">
+    <meta name="author" content="William Zujkowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Calculator - William Zujkowski</title>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script type="module" src="assets/js/main.js"></script>
+    <!-- Additional calculator JS can be added here -->
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+    <div id="nav-placeholder"></div>
+
+    <main class="container">
+        <header>
+            <h1>Coffee Calculator for IT Engineers</h1>
+            <p>Determine how many cups of coffee your team needs during those intense coding sessions.</p>
+        </header>
+
+        <section>
+            <form id="coffeeForm" onsubmit="return false;">
+                <fieldset>
+                    <legend><strong>Enter Coffee Details:</strong></legend>
+                    <label for="javaAttendees">Number of Devs:
+                        <input type="number" id="javaAttendees" value="3">
+                    </label>
+                    <label for="coffeeStrength">Coffee Strength:
+                        <select id="coffeeStrength">
+                            <option value="1">Mild</option>
+                            <option value="2">Regular</option>
+                            <option value="3">Strong</option>
+                            <option value="5">Espresso Shots Only</option>
+                            <option value="10">Triple Espresso Shots (Danger!)</option>
+                        </select>
+                    </label>
+                    <label for="hoursCoding">Hours of Coding:
+                        <input type="number" id="hoursCoding" value="4">
+                    </label>
+                    <label for="timesBuildFailed">Times Build Failed:
+                        <input type="number" id="timesBuildFailed" value="2">
+                    </label>
+                    <div>
+                        <button type="button" onclick="calculateCoffee()">Calculate</button>
+                        <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
+                        <button type="button" onclick="shareCoffeeReport()">Share</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+
+        <section id="coffeeProgressSection">
+            <progress id="progressBar" value="0" max="100"></progress>
+            <p id="progressLabel"></p>
+        </section>
+
+        <section id="coffeeResultSection">
+            <div id="coffeeResult" role="alert" aria-live="polite"></div>
+        </section>
+
+        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee Report</a>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast" role="alert" aria-live="assertive"></div>
+</body>
+
+</html>
