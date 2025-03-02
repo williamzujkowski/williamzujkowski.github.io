@@ -1,0 +1,55 @@
+{
+    "categories": [
+        {
+            "name": "Tech",
+            "items": [
+                {
+                    "title": "The Pragmatic Engineer",
+                    "url": "https://newsletter.pragmaticengineer.com/",
+                    "description": "In-depth articles about engineering and tech leadership",
+                    "date": "2025-02-15"
+                },
+                {
+                    "title": "CSS Tricks",
+                    "url": "https://css-tricks.com/",
+                    "description": "Tips, tricks, and techniques on using CSS",
+                    "date": "2025-01-22"
+                }
+            ]
+        },
+        {
+            "name": "Design",
+            "items": [
+                {
+                    "title": "Smashing Magazine",
+                    "url": "https://www.smashingmagazine.com/",
+                    "description": "Professional resources for web designers and developers",
+                    "date": "2025-02-28"
+                },
+                {
+                    "title": "Figma Blog",
+                    "url": "https://www.figma.com/blog/",
+                    "description": "Updates and insights from the Figma team",
+                    "date": "2025-01-10"
+                }
+            ]
+        },
+        {
+            "name": "Interesting Reads",
+            "items": [
+                {
+                    "title": "Wait But Why",
+                    "url": "https://waitbutwhy.com/",
+                    "description": "Long-form posts on various fascinating topics",
+                    "date": "2025-02-01"
+                },
+                {
+                    "title": "Brain Pickings",
+                    "url": "https://www.brainpickings.org/",
+                    "description": "Insightful reflections on life, art, science, and philosophy",
+                    "date": "2025-01-15"
+                }
+            ]
+        }
+    ]
+}

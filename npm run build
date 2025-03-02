@@ -1,9 +1,0 @@
-
-This will generate the static files in the `/public` directory.
-
-## Testing
-
-### Accessibility Testing
-
-To run accessibility checks, ensure you have `pa11y` installed globally:
-

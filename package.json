@@ -1,30 +1,30 @@
 {
-  "name": "william-zujkowski-website",
-  "version": "1.0.0",
-  "description": "Personal website for William Zujkowski",
-  "main": "index.js",
-  "scripts": {
-    "watch:sass": "sass src/static/scss:public/static/css --watch",
-    "build:sass": "sass src/static/scss:public/static/css",
-    "build:sass:prod": "sass src/static/scss:public/static/css --style compressed",
-    "watch:eleventy": "eleventy --serve",
-    "build:eleventy": "ELEVENTY_ENV=development eleventy",
-    "build:eleventy:prod": "ELEVENTY_ENV=production eleventy",
-    "start": "npm run watch:eleventy & npm run watch:sass",
-    "build": "npm run build:eleventy & npm run build:sass",
-    "build:prod": "npm run build:eleventy:prod & npm run build:sass:prod"
-  },
-  "keywords": [],
-  "author": "William Zujkowski",
-  "dependencies": {
-    "@11ty/eleventy": "^3.0.0",
-    "@11ty/eleventy-img": "^3.1.8",
-    "node-fetch": "^2.6.9",
-    "sass": "^1.72.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/williamzujkowski/williamzujkowski.github.io.git"
-  },
-  "license": "MIT"
+    "name": "my-personal-website",
+    "version": "1.0.0",
+    "description": "My personal website built with 11ty",
+    "main": ".eleventy.js",
+    "scripts": {
+        "start": "eleventy --serve",
+        "build": "eleventy",
+        "debug": "DEBUG=* eleventy",
+        "clean": "rimraf _site"
+    },
+    "keywords": [
+        "11ty",
+        "eleventy",
+        "personal-website",
+        "blog"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "devDependencies": {
+        "@11ty/eleventy": "^3.0.0",
+        "@11ty/eleventy-navigation": "^0.3.5",
+        "@11ty/eleventy-plugin-rss": "^1.2.0",
+        "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+        "luxon": "^3.5.0",
+        "markdown-it": "^14.1.0",
+        "markdown-it-anchor": "^9.2.0",
+        "rimraf": "^6.0.1"
+    }
 }

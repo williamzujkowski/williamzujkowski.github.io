@@ -1,0 +1,77 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p>
+          &copy; {{ site.copyrightYear or "2025" }} {{ site.author or "Your
+          Name" }}. All rights reserved.
+        </p>
+      </div>
+
+      <div class="footer-social">
+        {% if site.social.github %}
+        <a
+          href="{{ site.social.github }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <i class="fab fa-github"></i>
+        </a>
+        {% endif %} {% if site.social.twitter %}
+        <a
+          href="{{ site.social.twitter }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Twitter"
+        >
+          <i class="fab fa-twitter"></i>
+        </a>
+        {% endif %} {% if site.social.linkedin %}
+        <a
+          href="{{ site.social.linkedin }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+        {% endif %} {% if site.social.instagram %}
+        <a
+          href="{{ site.social.instagram }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/projects/">Portfolio</a></li>
+        <li><a href="/links/">Links</a></li>
+      </ul>
+    </div>
+
+    <div class="built-with">
+      <p>
+        Built with
+        <a
+          href="https://www.11ty.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >11ty</a
+        >
+        and hosted on
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+          >GitHub Pages</a
+        >
+      </p>
+    </div>
+  </div>
+</footer>

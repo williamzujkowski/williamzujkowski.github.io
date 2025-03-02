@@ -1,8 +1,0 @@
-[user]
-	name = William Zujkowski
-	email = williamzujkowski@gmail.com
-	signingkey = CCBA25F6E626EC9C70A895212B1A6D370DE1D7FF
-[commit]
-	gpgsign = true
-[gpg]
-	program = gpg

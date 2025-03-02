@@ -1,2 +1,6 @@
+# Allow all crawlers
 User-agent: *
-Disallow: /drafts/
+Allow: /
+
+# Sitemap location
+Sitemap: {{ site.url }}/sitemap.xml

@@ -1,0 +1,37 @@
+{% set latestPost = collections.posts | getLatestPost %} {% if latestPost %}
+<section class="latest-post">
+  <div class="container">
+    <h2 class="section-title">Latest Post</h2>
+
+    <div class="post-card featured">
+      <div class="post-content">
+        <div class="post-meta">
+          <time datetime="{{ latestPost.date | htmlDateString }}"
+            >{{ latestPost.date | readableDate }}</time
+          >
+
+          {% if latestPost.data.tags %}
+          <div class="post-tags">
+            {% for tag in latestPost.data.tags %} {% if tag != "post" %}
+            <span class="tag">{{ tag }}</span>
+            {% endif %} {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <h3 class="post-title">
+          <a href="{{ latestPost.url }}">{{ latestPost.data.title }}</a>
+        </h3>
+
+        {% if latestPost.data.description %}
+        <p class="post-excerpt">{{ latestPost.data.description }}</p>
+        {% endif %}
+
+        <a href="{{ latestPost.url }}" class="read-more"
+          >Read More <i class="fas fa-arrow-right"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
