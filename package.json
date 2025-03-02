@@ -1,19 +1,18 @@
 {
-  "name": "williamzujkowski.github.io",
+  "name": "personal-website",
   "version": "1.0.0",
-  "main": ".eleventy.js",
+  "description": "My personal website built with 11ty",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "eleventy",
+    "deploy": "gh-pages -d dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/williamzujkowski/williamzujkowski.github.io.git"
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.0",
+    "@11ty/eleventy-navigation": "^1.0.0",
+    "gh-pages": "^4.0.0"
   },
-  "author": "William Zujkowski",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io/issues"
-  },
-  "homepage": "https://github.com/williamzujkowski/williamzujkowski.github.io#readme",
-  "description": ""
+  "devDependencies": {},
+  "author": "Your Name",
+  "license": "MIT"
 }
