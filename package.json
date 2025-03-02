@@ -8,11 +8,11 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@11ty/eleventy": "^2.0.0",
-    "@11ty/eleventy-navigation": "^1.0.0",
-    "gh-pages": "^4.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "gh-pages": "^6.3.0"
   },
   "devDependencies": {},
-  "author": "Your Name",
+  "author": "William Zujkowski",
   "license": "MIT"
 }
