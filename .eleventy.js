@@ -1,8 +1,4 @@
-const eleventyImg = require("@11ty/eleventy-img");
-
 module.exports = function(eleventyConfig) {
-    eleventyConfig.addPlugin(eleventyImg);
-    
     // Create collections for blog posts, projects, and fun links
     eleventyConfig.addCollection("blog", function(collectionApi) {
         return collectionApi.getFilteredByGlob("src/blog/*.md");
@@ -24,13 +20,6 @@ module.exports = function(eleventyConfig) {
     // Add passthrough copy for static files
     eleventyConfig.addPassthroughCopy("src/images");
     
-    // Prevents nunjucks from breaking with CSS files
-    eleventyConfig.setTemplateFormats([
-        "md", 
-        "njk", 
-        "html"
-    ]);
-
     // Return configuration object
     return {
         dir: {

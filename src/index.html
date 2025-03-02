@@ -10,26 +10,26 @@ description: "Welcome to my personal website showcasing my projects and blog."
 
 <h3 class="f3">Featured Blog Posts:</h3>
 <ul>
-    {% for post in collections.blog %}
+{% for post in collections.blog %}
     {% if post.data.featured %}
-    <li>
-        <a href="{{ post.url }}">{{ post.data.title }}</a>
-        <p>{{ post.data.description }}</p>
-    </li>
+        <li>
+            <a href="{{ post.url }}">{{ post.data.title }}</a>
+            <p>{{ post.data.description }}</p>
+        </li>
     {% endif %}
-    {% endfor %}
+{% endfor %}
 </ul>
 
 <h3 class="f3">Featured Projects:</h3>
 <ul>
-    {% for project in collections.projects %}
+{% for project in collections.projects %}
     {% if project.data.featured %}
-    <li>
-        <a href="{{ project.url }}">{{ project.data.title }}</a>
-        <p>{{ project.data.description }}</p>
-    </li>
+        <li>
+            <a href="{{ project.url }}">{{ project.data.title }}</a>
+            <p>{{ project.data.description }}</p>
+        </li>
     {% endif %}
-    {% endfor %}
+{% endfor %}
 </ul>
 
 <h3 class="f3">Today's Historical Fact:</h3>
