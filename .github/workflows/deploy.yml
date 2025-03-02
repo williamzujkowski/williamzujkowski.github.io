@@ -31,4 +31,6 @@ jobs:
           git config --global user.name "William Zujkowski"
 
       - name: Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run deploy
