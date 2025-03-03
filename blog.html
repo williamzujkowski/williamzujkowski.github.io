@@ -11,6 +11,40 @@
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/style.css">
     <script type="module" src="assets/js/main.js"></script>
+    <style>
+        /* Additional blog page styles for pagination and read-more functionality */
+        .article-preview {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .article-full {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .read-more-btn {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .pagination .active {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,66 +57,152 @@
             <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
         </header>
 
-        <section id="blog-posts">
-            <!-- Blog Post 1 -->
-            <article data-date="2024-12-13"
-                data-slug="ai-the-new-frontier-in-cybersecurity-opportunities-and-ethical-dilemmas">
-                <h2>AI: The New Frontier in Cybersecurity - Opportunities and Ethical Dilemmas</h2>
-                <p><strong>Date:</strong> 2024-12-13</p>
-                <p>
-                    Artificial intelligence (AI) is rapidly transforming cybersecurity by enhancing threat detection and
-                    response. This post examines both its immense potential and the ethical dilemmas it introduces.
-                </p>
-                <h3>Key Areas of Impact</h3>
-                <p>From anomaly detection to malware analysis, AI serves as a force multiplier in defense.</p>
-                <h3>Ethical Considerations</h3>
-                <p>Issues like bias, transparency, and privacy require careful navigation as AI becomes ubiquitous.</p>
-                <p><a href="#!" class="read-more">Read More</a></p>
-            </article>
+        <section id="blogPostsContainer">
+            <!-- Dynamic blog posts will be inserted here -->
+        </section>
 
-            <!-- Blog Post 2 -->
-            <article data-date="2024-10-19"
-                data-slug="the-pizza-calculator-a-developers-best-friend-during-crunch-time">
-                <h2>The Pizza Calculator: A Developer's Best Friend During Crunch Time</h2>
-                <p><strong>Date:</strong> 2024-10-19</p>
-                <p>
-                    When deadlines and hunger collide, the Pizza Calculator saves the day by determining just how much
-                    pizza is needed.
-                </p>
-                <h3>Why It Matters</h3>
-                <p>Boosting morale, sustaining energy, and removing decision fatigue are just a few benefits.</p>
-                <p><a href="#!" class="read-more">Read More</a></p>
-            </article>
-
-            <!-- Blog Post 3 -->
-            <article data-date="2024-09-16"
-                data-slug="preparing-for-the-quantum-leap-a-guide-to-quantum-resistant-cryptography">
-                <h2>Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography</h2>
-                <p><strong>Date:</strong> 2024-09-16</p>
-                <p>
-                    As quantum computing advances, our current cryptographic methods are at risk. Learn how to prepare
-                    for a quantum-resistant future.
-                </p>
-                <p><a href="#!" class="read-more">Read More</a></p>
-            </article>
-
-            <!-- Blog Post 4 -->
-            <article data-date="2024-09-02"
-                data-slug="mastering-prompt-engineering-unlocking-the-full-potential-of-llms">
-                <h2>Mastering Prompt Engineering: Unlocking the Full Potential of LLMs</h2>
-                <p><strong>Date:</strong> 2024-09-02</p>
-                <p>
-                    Discover techniques to craft clear, specific prompts that help large language models deliver optimal
-                    responses.
-                </p>
-                <p><a href="#!" class="read-more">Read More</a></p>
-            </article>
-
-            <!-- Additional posts can be added here following the same structure -->
+        <section id="paginationControls" class="pagination">
+            <!-- Pagination controls will be inserted here -->
         </section>
     </main>
 
     <div id="footer-placeholder"></div>
+
+    <script>
+        // Blog page enhancements: dynamic loading, pagination, and "Read More" toggling
+
+        const articlesPerPage = 3;
+        let allArticles = [];
+        let currentPage = 1;
+
+        // Utility function to extract a truncated version of the article content (first 200 characters)
+        function getTruncatedContent(htmlContent, limit = 200) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            const text = tempDiv.textContent || tempDiv.innerText || "";
+            return text.length > limit ? text.substring(0, limit) + "..." : text;
+        }
+
+        // Render articles for the current page
+        function renderArticles() {
+            const container = document.getElementById("blogPostsContainer");
+            container.innerHTML = "";
+            const start = (currentPage - 1) * articlesPerPage;
+            const end = start + articlesPerPage;
+            const articlesToShow = allArticles.slice(start, end);
+
+            articlesToShow.forEach((article, idx) => {
+                const articleDiv = document.createElement("div");
+                articleDiv.className = "article-preview";
+                articleDiv.innerHTML = `
+          <h2>${article.title}</h2>
+          <p><strong>Date:</strong> ${article.date}</p>
+          <p>${getTruncatedContent(article.content)}</p>
+          <div class="article-full">${article.content}</div>
+          <p><span class="read-more-btn" data-index="${start + idx}">Read More</span></p>
+        `;
+                container.appendChild(articleDiv);
+            });
+            renderPagination();
+        }
+
+        // Render pagination controls
+        function renderPagination() {
+            const paginationDiv = document.getElementById("paginationControls");
+            paginationDiv.innerHTML = "";
+            const totalPages = Math.ceil(allArticles.length / articlesPerPage);
+            if (totalPages <= 1) return;
+
+            const prevBtn = document.createElement("button");
+            prevBtn.innerText = "Previous";
+            prevBtn.disabled = (currentPage === 1);
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderArticles();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+            paginationDiv.appendChild(prevBtn);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement("button");
+                pageBtn.innerText = i;
+                if (i === currentPage) pageBtn.classList.add("active");
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    renderArticles();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                paginationDiv.appendChild(pageBtn);
+            }
+
+            const nextBtn = document.createElement("button");
+            nextBtn.innerText = "Next";
+            nextBtn.disabled = (currentPage === totalPages);
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderArticles();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+            paginationDiv.appendChild(nextBtn);
+        }
+
+        // Toggle the full article content on "Read More"/"Show Less" click
+        function toggleReadMore(index) {
+            const container = document.getElementById("blogPostsContainer");
+            const previews = container.querySelectorAll(".article-preview");
+            const preview = previews[index % articlesPerPage];
+            if (preview) {
+                const fullContent = preview.querySelector(".article-full");
+                const readMoreBtn = preview.querySelector(".read-more-btn");
+                if (fullContent.style.display === "block") {
+                    fullContent.style.display = "none";
+                    readMoreBtn.innerText = "Read More";
+                } else {
+                    fullContent.style.display = "block";
+                    readMoreBtn.innerText = "Show Less";
+                }
+            }
+        }
+
+        // Load blog data from blog_data.html and sort articles by date (newest first)
+        function loadBlogData() {
+            fetch("blog_data.html")
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, "text/html");
+                    const articleNodes = Array.from(doc.querySelectorAll("article"));
+                    allArticles = articleNodes.map(article => {
+                        const titleEl = article.querySelector("h2");
+                        const title = titleEl ? titleEl.innerText : "Untitled";
+                        const date = article.getAttribute("data-date") || "";
+                        const content = article.innerHTML;
+                        const slug = article.getAttribute("data-slug") || "";
+                        return { title, date, content, slug };
+                    });
+                    allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    renderArticles();
+                })
+                .catch(error => {
+                    console.error("Error loading blog data:", error);
+                    document.getElementById("blogPostsContainer").innerText = "Error loading blog posts. Please try again later.";
+                });
+        }
+
+        // Event delegation for "Read More" buttons
+        document.getElementById("blogPostsContainer").addEventListener("click", function (e) {
+            if (e.target && e.target.classList.contains("read-more-btn")) {
+                const index = parseInt(e.target.getAttribute("data-index"));
+                toggleReadMore(index);
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", loadBlogData);
+    </script>
 </body>
 
 </html>
