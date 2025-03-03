@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Calculator for IT Engineers</title>
 
-    <!-- Mizu.js and Matcha CSS -->
-    <script src="https://mizu.sh/client.js" defer></script>
-    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script type="module" src="assets/js/main.js"></script>
 
     <!-- Dynamic nav and footer loaders -->
-    <script src="nav_gen.js" defer></script>
-    <script src="footer_gen.js" defer></script>
+    <script src="assets/js/nav_gen.js" defer></script>
+    <script src="assets/js/footer_gen.js" defer></script>
+
 
     <style>
         /* Brutalist light theme */
@@ -129,8 +129,9 @@
 </head>
 
 <body lang="en">
-    <!-- Dynamic navigation -->
-    <div id="dynamic-nav"></div>
+    <!-- Dynamic header and navigation -->
+    <div id="header-placeholder"></div>
+    <div id="nav-placeholder"></div>
 
     <main class="container">
         <header>
@@ -461,6 +462,7 @@
             }
         })();
     </script>
+    <div id="footer-placeholder"></div>
 </body>
 
 </html>
