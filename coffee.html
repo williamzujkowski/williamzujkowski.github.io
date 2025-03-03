@@ -4,35 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Coffee Calculator for Caffeinated Engineers">
-    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Cybersecurity">
+    <meta name="keywords" content="Coffee, Calculator, IT Engineers, Tech Humor">
     <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Calculator - William Zujkowski</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script type="module" src="assets/js/main.js"></script>
-    <!-- Additional calculator JS can be added here -->
+    <title>Coffee Calculator for IT Engineers</title>
+
+    <!-- Mizu.js and Matcha CSS (for a nod to retro aesthetics) -->
+    <script src="https://mizu.sh/client.js" defer></script>
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+
+    <!-- Dynamic nav and footer -->
+    <script src="nav_gen.js" defer></script>
+    <script src="footer_gen.js" defer></script>
+
+    <style>
+        /* Keep it brutalist but with a touch of elegance */
+        body {
+            font-family: system-ui, sans-serif;
+            background: #fff;
+            padding: 1rem;
+            color: #000;
+        }
+
+        main.container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        fieldset {
+            border: 2px solid #000;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 0.5rem;
+        }
+
+        label {
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        input,
+        select,
+        button {
+            padding: 0.5rem;
+            margin-top: 0.3rem;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+
+        #progressContainer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        #progressBar {
+            height: 20px;
+            width: 0;
+            background-color: brown;
+            transition: width 0.5s ease-in-out;
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 17px;
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        /* Hide the download link element */
+        #downloadCoffeeLink {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="header-placeholder"></div>
-    <div id="nav-placeholder"></div>
+    <!-- Dynamic navigation -->
+    <div id="dynamic-nav"></div>
 
     <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
-            <p>Determine how many cups of coffee your team needs during those intense coding sessions. Sit tight while
-                we optimize your caffeine matrix!</p>
+            <p>Calculate how many cups (or pots) of coffee your bleary-eyed coders need to survive those 2 AM
+                deployments!</p>
         </header>
 
         <section>
             <form id="coffeeForm" onsubmit="return false;">
                 <fieldset>
-                    <legend><strong>Enter Coffee Details:</strong></legend>
-                    <label for="javaAttendees">Number of Devs:
+                    <legend>Enter Your Coffee Details:</legend>
+                    <div>
+                        <label for="javaAttendees">Number of Devs:</label>
                         <input type="number" id="javaAttendees" value="3">
-                    </label>
-                    <label for="coffeeStrength">Coffee Strength:
+                    </div>
+                    <div>
+                        <label for="coffeeStrength">Coffee Strength:</label>
                         <select id="coffeeStrength">
                             <option value="1">Mild</option>
                             <option value="2">Regular</option>
@@ -40,24 +155,26 @@
                             <option value="5">Espresso Shots Only</option>
                             <option value="10">Triple Espresso Shots (Danger!)</option>
                         </select>
-                    </label>
-                    <label for="hoursCoding">Hours of Coding:
-                        <input type="number" id="hoursCoding" value="4">
-                    </label>
-                    <label for="timesBuildFailed">Times Build Failed:
-                        <input type="number" id="timesBuildFailed" value="2">
-                    </label>
-                    <div>
-                        <button type="button" onclick="calculateCoffee()">Calculate</button>
-                        <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
-                        <button type="button" onclick="shareCoffeeReport()">Share</button>
                     </div>
+                    <div>
+                        <label for="hoursCoding">Hours of Coding:</label>
+                        <input type="number" id="hoursCoding" value="4">
+                    </div>
+                    <div>
+                        <label for="timesBuildFailed">Times Build Failed:</label>
+                        <input type="number" id="timesBuildFailed" value="2">
+                    </div>
+                    <button type="button" onclick="calculateCoffee()">Calculate</button>
+                    <button type="button" onclick="downloadCoffeeReport()">Download Report</button>
+                    <button type="button" onclick="shareCoffeeReport()">Share</button>
                 </fieldset>
             </form>
         </section>
 
         <section id="coffeeProgressSection">
-            <progress id="progressBar" value="0" max="100"></progress>
+            <div id="progressContainer">
+                <div id="progressBar"></div>
+            </div>
             <p id="progressLabel"></p>
         </section>
 
@@ -65,11 +182,171 @@
             <div id="coffeeResult" role="alert" aria-live="polite"></div>
         </section>
 
-        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt" hidden>Download Coffee Report</a>
+        <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt">Download Coffee Report</a>
     </main>
 
-    <div id="footer-placeholder"></div>
-    <div id="toast" role="alert" aria-live="assertive"></div>
+    <!-- Dynamic footer -->
+    <div id="dynamic-footer"></div>
+    <div id="toast"></div>
+
+    <!-- Inline Coffee Calculator Logic -->
+    <script>
+        (function () {
+            if (!document.getElementById('coffeeForm')) return;
+            let coffeeCalculationCompleted = false;
+            let coffeeReport = "";
+
+            function loadCoffeeDefaults() {
+                const storedDevs = localStorage.getItem('coffeeDevs');
+                const storedStrength = localStorage.getItem('coffeeStrength');
+                const storedHours = localStorage.getItem('coffeeHours');
+                const storedFails = localStorage.getItem('coffeeFails');
+                if (storedDevs) document.getElementById('javaAttendees').value = storedDevs;
+                if (storedStrength) document.getElementById('coffeeStrength').value = storedStrength;
+                if (storedHours) document.getElementById('hoursCoding').value = storedHours;
+                if (storedFails) document.getElementById('timesBuildFailed').value = storedFails;
+            }
+            loadCoffeeDefaults();
+
+            window.calculateCoffee = function () {
+                coffeeCalculationCompleted = false;
+                coffeeReport = "";
+                const javaAttendeesInput = document.getElementById('javaAttendees');
+                const coffeeStrengthInput = document.getElementById('coffeeStrength');
+                const hoursCodingInput = document.getElementById('hoursCoding');
+                const timesBuildFailedInput = document.getElementById('timesBuildFailed');
+                const coffeeResultDiv = document.getElementById('coffeeResult');
+                const progressBar = document.getElementById('progressBar');
+                const progressLabel = document.getElementById('progressLabel');
+
+                localStorage.setItem('coffeeDevs', javaAttendeesInput.value);
+                localStorage.setItem('coffeeStrength', coffeeStrengthInput.value);
+                localStorage.setItem('coffeeHours', hoursCodingInput.value);
+                localStorage.setItem('coffeeFails', timesBuildFailedInput.value);
+
+                coffeeResultDiv.innerHTML = '';
+                progressBar.style.width = '0%';
+                progressLabel.textContent = '';
+
+                const coffeeSteps = [
+                    "Measuring caffeine tolerance thresholds...",
+                    "Compiling brew instructions...",
+                    "Checking for spare filters...",
+                    "Negotiating with the coffee daemon...",
+                    "Heating water to just the right temp...",
+                    "Pouring liquid code fuel...",
+                    "Finalizing coffee distribution..."
+                ];
+                let stepIndex = 0;
+                function updateProgress() {
+                    if (stepIndex < coffeeSteps.length) {
+                        let percentage = (stepIndex + 1) * 15;
+                        if (percentage > 75 && percentage < 100) percentage = 75;
+                        progressBar.style.width = percentage + '%';
+                        progressLabel.textContent = coffeeSteps[stepIndex];
+                        stepIndex++;
+                        if (percentage === 75) {
+                            setTimeout(updateProgress, 1500);
+                        } else {
+                            setTimeout(updateProgress, 500);
+                        }
+                    } else {
+                        progressBar.style.width = '110%';
+                        progressLabel.textContent = "Coffee is brewed to perfection. ☕🎉";
+                        finalizeCoffeeCalc();
+                    }
+                }
+                updateProgress();
+
+                function finalizeCoffeeCalc() {
+                    const devs = parseInt(javaAttendeesInput.value, 10);
+                    const strength = parseInt(coffeeStrengthInput.value, 10);
+                    const hours = parseInt(hoursCodingInput.value, 10);
+                    const fails = parseInt(timesBuildFailedInput.value, 10);
+                    const baseCups = (devs * hours) / strength;
+                    const additionalCupsForFails = fails * 2;
+                    const totalCups = Math.ceil(baseCups + additionalCupsForFails);
+                    const displayedMessage = getCoffeeMessage(totalCups, devs, strength, hours, fails);
+                    coffeeResultDiv.innerHTML = displayedMessage;
+                    coffeeCalculationCompleted = true;
+                    coffeeReport =
+                        `Coffee Calculation Report\n\n` +
+                        `Number of Devs: ${devs}\n` +
+                        `Coffee Strength Factor: ${strength}\n` +
+                        `Hours of Coding: ${hours}\n` +
+                        `Times Build Failed: ${fails}\n` +
+                        `Total Cups Recommended: ${totalCups}\n\n` +
+                        `Stay caffeinated and code on!`;
+                    const preElement = document.createElement('pre');
+                    preElement.textContent = coffeeReport;
+                    coffeeResultDiv.appendChild(preElement);
+                    performFunnyCoffeeTests();
+                }
+            };
+
+            window.performFunnyCoffeeTests = function () {
+                console.log("\n--- Coffee Additional Testing Suite Initiated ---");
+                console.log("[Load Test] Simulating 2 AM brew rush...");
+                console.log("[Unit Test] Verifying caffeine units are within safe bounds...");
+                console.log("[UX Test] Observing devs sprinting to the coffee machine...");
+                console.log("[Security Test] Ensuring no rogue decaf infiltrated the system...");
+                console.log("[All Tests Passed] Coffee Calculator is live and blazing!\n");
+            };
+
+            window.getCoffeeMessage = function (totalCups, devs, strength, hours, fails) {
+                let humor;
+                if (totalCups > 100) {
+                    humor = "Warning: This much coffee could launch a startup into orbit!";
+                } else if (totalCups > 40) {
+                    humor = "Prepare your industrial espresso machine; that's a serious brew load!";
+                } else if (totalCups > 20) {
+                    humor = "You might need a dedicated barista on-call!";
+                } else if (totalCups > 10) {
+                    humor = "A robust caffeine cluster—optimally balanced for code and chaos!";
+                } else if (totalCups > 5) {
+                    humor = "A decent pot to keep the code flowing!";
+                } else if (totalCups > 1) {
+                    humor = "Minimal caffeine input—hope your code compiles on that alone!";
+                } else if (totalCups === 1) {
+                    humor = "A single cup? Are you sure everyone is still coding?";
+                } else {
+                    humor = "Zero coffee detected! Reality check: even robots need fuel.";
+                }
+                return `<blockquote>You need approximately <strong>${totalCups}</strong> cup(s) of coffee for <strong>${devs}</strong> dev(s) coding for <strong>${hours}</strong> hour(s), with extra cups for <strong>${fails}</strong> build failures.<br><br>${humor}</blockquote>`;
+            };
+
+            window.downloadCoffeeReport = function () {
+                if (!coffeeCalculationCompleted) {
+                    showToast("Please perform a coffee calculation first!");
+                    return;
+                }
+                const blob = new Blob([coffeeReport], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const downloadCoffeeLink = document.getElementById('downloadCoffeeLink');
+                downloadCoffeeLink.href = url;
+                downloadCoffeeLink.click();
+                URL.revokeObjectURL(url);
+            };
+
+            window.showToast = function (message) {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.className = "toast show";
+                setTimeout(() => {
+                    toast.className = toast.className.replace("show", "");
+                }, 3000);
+            };
+
+            window.shareCoffeeReport = function () {
+                if (!coffeeCalculationCompleted) {
+                    showToast("No coffee report to share!");
+                    return;
+                }
+                console.log("Shared coffee report:\n" + coffeeReport);
+                showToast("Coffee report shared with your team!");
+            };
+        })();
+    </script>
 </body>
 
 </html>
