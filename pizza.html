@@ -13,12 +13,12 @@
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- Dynamic nav and footer -->
+    <!-- Dynamic nav and footer loaders -->
     <script src="nav_gen.js" defer></script>
     <script src="footer_gen.js" defer></script>
 
     <style>
-        /* Brutalist yet clean styling */
+        /* Brutalist light theme */
         body {
             font-family: system-ui, sans-serif;
             background: #fff;
@@ -68,10 +68,11 @@
             margin-top: 1rem;
         }
 
+        /* Light accent color for pizza progress bar */
         #progressBar {
             height: 20px;
             width: 0;
-            background-color: green;
+            background-color: #FFE082;
             transition: width 0.5s ease-in-out;
         }
 
@@ -239,12 +240,8 @@
                         return;
                     }
                     navigator.clipboard.writeText(pizzaReport)
-                        .then(() => {
-                            showToast("Pizza report copied to clipboard!");
-                        })
-                        .catch(() => {
-                            showToast("Failed to copy to clipboard!");
-                        });
+                        .then(() => { showToast("Pizza report copied to clipboard!"); })
+                        .catch(() => { showToast("Failed to copy to clipboard!"); });
                 };
                 formFieldset.appendChild(copyBtn);
             }
@@ -402,30 +399,24 @@
             };
 
             window.performFunnyTests = function (calculatorName) {
-                console.log(`\n--- ${calculatorName} Additional Testing Suite Initiated ---`);
-                console.log("[Load Test] Simulating a surge of dev hunger across multiple time zones...");
-                console.log("[Unit Test] Verifying that slices per person is positive and non-zero...");
-                console.log("[UX Test] Ensuring that pizza notifications cause spontaneous code sprints...");
-                console.log("[Security Test] Injecting 'DROP TABLE Pizzas' into the system... Access denied!");
+                console.log(`\n--- ${calculatorName} Testing Suite ---`);
+                console.log("[Load Test] Simulating hungry devs across time zones...");
+                console.log("[Unit Test] Slices per person verified...");
+                console.log("[UX Test] Pizza notifications causing spontaneous code sprints...");
+                console.log("[Security Test] 'DROP TABLE Pizzas' injection denied!");
                 console.log("[All Tests Passed] Pizza Calculator is humorously accurate.\n");
             };
 
             window.checkEnterpriseEmail = function (pizzasRequired) {
                 const emailPromptSection = document.getElementById('emailPromptSection');
-                if (pizzasRequired >= 42) {
-                    emailPromptSection.style.display = 'block';
-                } else {
-                    emailPromptSection.style.display = 'none';
-                }
+                emailPromptSection.style.display = pizzasRequired >= 42 ? 'block' : 'none';
             };
 
             window.showToast = function (message) {
                 const toast = document.getElementById('toast');
                 toast.textContent = message;
                 toast.className = "toast show";
-                setTimeout(() => {
-                    toast.className = toast.className.replace("show", "");
-                }, 3000);
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
             };
 
             window.downloadReport = function () {
