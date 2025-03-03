@@ -9,16 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Calculator for IT Engineers</title>
 
-    <!-- Mizu.js and Matcha CSS (for a nod to retro aesthetics) -->
+    <!-- Mizu.js and Matcha CSS (for retro aesthetics) -->
     <script src="https://mizu.sh/client.js" defer></script>
     <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
 
-    <!-- Dynamic nav and footer -->
+    <!-- Dynamic nav and footer loaders -->
     <script src="nav_gen.js" defer></script>
     <script src="footer_gen.js" defer></script>
 
     <style>
-        /* Keep it brutalist but with a touch of elegance */
+        /* Brutalist light theme */
         body {
             font-family: system-ui, sans-serif;
             background: #fff;
@@ -68,10 +68,11 @@
             margin-top: 1rem;
         }
 
+        /* Light accent color for coffee progress bar */
         #progressBar {
             height: 20px;
             width: 0;
-            background-color: brown;
+            background-color: #FFCC80;
             transition: width 0.5s ease-in-out;
         }
 
@@ -120,7 +121,7 @@
             }
         }
 
-        /* Hide the download link element */
+        /* Hide download link */
         #downloadCoffeeLink {
             display: none;
         }
@@ -229,13 +230,13 @@
                 progressLabel.textContent = '';
 
                 const coffeeSteps = [
-                    "Measuring caffeine tolerance thresholds...",
+                    "Measuring caffeine thresholds...",
                     "Compiling brew instructions...",
-                    "Checking for spare filters...",
+                    "Checking spare filters...",
                     "Negotiating with the coffee daemon...",
-                    "Heating water to just the right temp...",
+                    "Heating water to optimal temp...",
                     "Pouring liquid code fuel...",
-                    "Finalizing coffee distribution..."
+                    "Finalizing distribution..."
                 ];
                 let stepIndex = 0;
                 function updateProgress() {
@@ -252,7 +253,7 @@
                         }
                     } else {
                         progressBar.style.width = '110%';
-                        progressLabel.textContent = "Coffee is brewed to perfection. ☕🎉";
+                        progressLabel.textContent = "Coffee brewed to perfection. ☕🎉";
                         finalizeCoffeeCalc();
                     }
                 }
@@ -272,8 +273,8 @@
                     coffeeReport =
                         `Coffee Calculation Report\n\n` +
                         `Number of Devs: ${devs}\n` +
-                        `Coffee Strength Factor: ${strength}\n` +
-                        `Hours of Coding: ${hours}\n` +
+                        `Coffee Strength: ${strength}\n` +
+                        `Hours Coding: ${hours}\n` +
                         `Times Build Failed: ${fails}\n` +
                         `Total Cups Recommended: ${totalCups}\n\n` +
                         `Stay caffeinated and code on!`;
@@ -285,12 +286,12 @@
             };
 
             window.performFunnyCoffeeTests = function () {
-                console.log("\n--- Coffee Additional Testing Suite Initiated ---");
+                console.log("\n--- Coffee Testing Suite ---");
                 console.log("[Load Test] Simulating 2 AM brew rush...");
-                console.log("[Unit Test] Verifying caffeine units are within safe bounds...");
-                console.log("[UX Test] Observing devs sprinting to the coffee machine...");
-                console.log("[Security Test] Ensuring no rogue decaf infiltrated the system...");
-                console.log("[All Tests Passed] Coffee Calculator is live and blazing!\n");
+                console.log("[Unit Test] Caffeine levels verified...");
+                console.log("[UX Test] Devs sprinting to coffee machine...");
+                console.log("[Security Test] No rogue decaf found!");
+                console.log("[All Tests Passed] Coffee Calculator is blazing!\n");
             };
 
             window.getCoffeeMessage = function (totalCups, devs, strength, hours, fails) {
@@ -310,7 +311,7 @@
                 } else if (totalCups === 1) {
                     humor = "A single cup? Are you sure everyone is still coding?";
                 } else {
-                    humor = "Zero coffee detected! Reality check: even robots need fuel.";
+                    humor = "Zero coffee detected! Even robots need fuel.";
                 }
                 return `<blockquote>You need approximately <strong>${totalCups}</strong> cup(s) of coffee for <strong>${devs}</strong> dev(s) coding for <strong>${hours}</strong> hour(s), with extra cups for <strong>${fails}</strong> build failures.<br><br>${humor}</blockquote>`;
             };
@@ -332,9 +333,7 @@
                 const toast = document.getElementById('toast');
                 toast.textContent = message;
                 toast.className = "toast show";
-                setTimeout(() => {
-                    toast.className = toast.className.replace("show", "");
-                }, 3000);
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
             };
 
             window.shareCoffeeReport = function () {
