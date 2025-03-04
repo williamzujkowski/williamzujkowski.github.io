@@ -1,26 +1,34 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const navContainer = document.getElementById("dynamic-nav");
+    if (!navContainer) {
+        console.error("No element with id 'dynamic-nav' found.");
+        return;
+    }
+
     fetch("/includes/nav.html")
         .then(response => response.text())
         .then(html => {
-            document.getElementById("dynamic-nav").innerHTML = html;
+            navContainer.innerHTML = html;
 
             // Add event listener for the hamburger toggle
-            const navToggle = document.getElementById("dynamic-nav").querySelector(".nav-toggle");
+            const navToggle = navContainer.querySelector(".nav-toggle");
             if (navToggle) {
                 navToggle.addEventListener("click", function () {
                     const siteNav = this.closest(".site-nav");
                     siteNav.classList.toggle("active");
                     const expanded = siteNav.classList.contains("active");
-                    this.setAttribute("aria-expanded", expanded);
+                    this.setAttribute("aria-expanded", expanded ? "true" : "false");
                 });
+            } else {
+                console.error("No nav-toggle button found.");
             }
 
             // Close mobile menu when a link is clicked
-            const navLinks = document.querySelectorAll(".nav-menu a");
+            const navLinks = navContainer.querySelectorAll(".nav-menu a");
             navLinks.forEach(link => {
                 link.addEventListener("click", function () {
                     const siteNav = this.closest(".site-nav");
-                    if (siteNav.classList.contains("active")) {
+                    if (siteNav && siteNav.classList.contains("active")) {
                         siteNav.classList.remove("active");
                         const toggle = siteNav.querySelector(".nav-toggle");
                         if (toggle) toggle.setAttribute("aria-expanded", "false");
