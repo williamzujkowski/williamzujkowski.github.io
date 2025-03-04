@@ -1,154 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Understanding Context Windows in Large Language Models</title>
-  <link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Context Windows in Large Language Models</title>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="module" src="../assets/js/main.js"></script>
 </head>
+
 <body>
-  <div id="header-placeholder"></div>
-  <div id="nav-placeholder"></div>
-  <main class="container">
-    <article>
-      <article data-date="2024-07-12" data-slug="understanding-context-windows-in-llms">
-<h2>Understanding Context Windows in Large Language Models</h2>
-<p><strong>Date:</strong> 2024-07-15</p>
-<p>
-        Large Language Models (LLMs) have taken the world by storm, demonstrating impressive capabilities in
-        understanding and generating human-like text. However, one crucial aspect that often goes under the radar is
-        the concept of the <strong>context window</strong>. This article will delve into what context windows are,
-        why they matter, and how they compare across some of the most prominent LLMs available today.
-    </p>
-<h3 id="main-point-1">What is a Context Window?</h3>
-<p>
-        In simple terms, a context window refers to the amount of text the LLM can "remember" and consider when
-        generating a response. Think of it as the model's short-term memory. This "memory" is measured in
-        <strong>tokens</strong>, which are the basic units of text that the model processes. A token can be a word,
-        part of a word, or even just a punctuation mark.
-    </p>
-<p>
-        When you interact with an LLM, your input, along with the conversation history (if any), is fed into the
-        context window. The model then uses this information to generate a relevant and coherent response. The larger
-        the context window, the more information the model can retain, leading to potentially more accurate and
-        contextually appropriate outputs. For a more technical deep dive, you can refer to the original Transformer
-        paper: <a href="https://arxiv.org/abs/1706.03762" rel="noopener noreferrer" target="_blank">"Attention is
-            All You Need"</a>.
-    </p>
-<h3 id="main-point-2">Why Do Context Windows Matter?</h3>
-<p>
-        The size of the context window has a direct impact on the performance and usability of an LLM. Here's why:
-    </p>
-<ul>
-<li><strong>Coherence and Consistency:</strong> A larger context window allows the model to maintain coherence
-            and consistency over longer conversations or documents. It can better track the flow of the
-            discussion, remember previous interactions, and avoid contradictions.</li>
-<li><strong>Complex Tasks:</strong> For tasks that require understanding and synthesizing information from
-            lengthy texts, such as summarizing a book or answering questions about a complex document, a larger
-            context window is essential.</li>
-<li><strong>Personalization:</strong> A larger context allows for better personalization, as the model can
-            remember user preferences, past interactions, and other relevant details to tailor its responses more
-            effectively.</li>
-<li><strong>Reduced Repetition:</strong> With a limited context window, models might repeat themselves or
-            forget earlier parts of the conversation, leading to a less engaging and less helpful user experience.
-        </li>
-</ul>
-<h3 id="main-point-3">Comparison of Context Windows in Major LLMs</h3>
-<p>
-        Here's a comparison table showcasing the context window sizes (in tokens) of some of the leading LLMs as of
-        July 15th, 2024. Please note that these numbers might change as models are continuously updated and improved:
-    </p>
-<table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Provider</th>
-<th>Context Window (Tokens)</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://openai.com/chatgpt" rel="noopener noreferrer" target="_blank">GPT-4o</a></td>
-<td>OpenAI</td>
-<td>128,000</td>
-<td>Standard model in ChatGPT.</td>
-</tr>
-<tr>
-<td><a href="https://gemini.google.com/" rel="noopener noreferrer" target="_blank">Gemini 1.5
-                        Pro</a></td>
-<td>Google</td>
-<td>1,000,000</td>
-<td>Currently available through waitlist in the AI Studio.</td>
-</tr>
-<tr>
-<td><a href="https://www.anthropic.com/news/claude-3-family" rel="noopener noreferrer" target="_blank">Claude 3 Opus</a></td>
-<td>Anthropic</td>
-<td>200,000</td>
-<td>Anthropic's most intelligent model</td>
-</tr>
-<tr>
-<td><a href="https://www.anthropic.com/news/claude-3-family" rel="noopener noreferrer" target="_blank">Claude 3 Sonnet</a></td>
-<td>Anthropic</td>
-<td>200,000</td>
-<td>Anthropic's model offering a balance between intelligence and speed.</td>
-</tr>
-<tr>
-<td><a href="https://www.anthropic.com/news/claude-3-family" rel="noopener noreferrer" target="_blank">Claude 3 Haiku</a></td>
-<td>Anthropic</td>
-<td>200,000</td>
-<td>Anthropic's fastest, most compact model.</td>
-</tr>
-<tr>
-<td><a href="https://mistral.ai/news/mixtral-of-experts/" rel="noopener noreferrer" target="_blank">Mixtral
-                        8x7B</a></td>
-<td>Mistral AI</td>
-<td>32,000</td>
-<td>Open-source model using a Mixture of Experts architecture.</td>
-</tr>
-<tr>
-<td><a href="https://huggingface.co/meta-llama/Llama-3-70b-Instruct" rel="noopener noreferrer" target="_blank">Llama-3-70b-Instruct</a></td>
-<td>Meta</td>
-<td>8,000</td>
-<td>Open-source model that requires fine-tuning for best results.</td>
-</tr>
-</tbody>
-</table>
-<p>
-<b>Updates on the models as of July 15th, 2024:</b><br/>
-<b>Gemini 1.5 Pro:</b> Gemini 1.5 Pro is available for public testing via a waitlist in the AI Studio with a 1
-        million token context window.
-        <br/>
-<b>Claude 3:</b> On March 4, 2024, Anthropic released the Claude 3 model family. This includes Claude 3 Opus,
-        Claude 3 Sonnet, and Claude 3 Haiku. The models have a standard context window of 200K tokens.
-        <br/>
-<b>Llama 3:</b> On April 18, 2024, Meta released the Llama 3 model family. The Llama-3-70b-Instruct model has a
-        context window of 8,000 tokens.
-        <br/>
-<b>Mixtral 8x7B:</b> On December 8, 2023, Mistral AI released Mixtral 8x7B. It has a context window of 32,000
-        tokens.
-        <br/>
-<b>GPT-4o:</b> On May 13, 2024, OpenAI released their new flagship model: GPT-4o. It has a context window of
-        128,000 tokens.
-    </p>
-<h3 id="main-point-4">The Future of Context Windows</h3>
-<p>
-        Research on expanding context windows is ongoing and rapidly evolving. We can expect to see even larger
-        context windows in the near future, which will unlock new possibilities for LLMs. Techniques like model
-        architecture improvements, retrieval augmentation, and memory mechanisms are being explored to push the
-        boundaries of what's possible.
-    </p>
-<h3 id="conclusion">Conclusion</h3>
-<p>
-        Context windows are a fundamental aspect of LLMs that significantly impact their performance and capabilities.
-        As models continue to evolve, we can anticipate larger context windows and more sophisticated ways of
-        managing and utilizing context, paving the way for even more powerful and versatile AI systems. Understanding
-        context windows is key to appreciating the strengths and limitations of current LLMs and envisioning the
-        future of this rapidly advancing field.
-    </p>
-</article>
-    </article>
-  </main>
-  <div id="footer-placeholder"></div>
+    <div id="header-placeholder"></div>
+    <div id="nav-placeholder"></div>
+    <main class="container">
+        <article>
+            <article data-date="2024-07-12" data-slug="understanding-context-windows-in-llms">
+                <h2>Understanding Context Windows in Large Language Models</h2>
+                <p><strong>Date:</strong> 2024-07-15</p>
+                <p>
+                    Large Language Models (LLMs) have taken the world by storm, demonstrating impressive capabilities in
+                    understanding and generating human-like text. However, one crucial aspect that often goes under the
+                    radar is
+                    the concept of the <strong>context window</strong>. This article will delve into what context
+                    windows are,
+                    why they matter, and how they compare across some of the most prominent LLMs available today.
+                </p>
+                <h3 id="main-point-1">What is a Context Window?</h3>
+                <p>
+                    In simple terms, a context window refers to the amount of text the LLM can "remember" and consider
+                    when
+                    generating a response. Think of it as the model's short-term memory. This "memory" is measured in
+                    <strong>tokens</strong>, which are the basic units of text that the model processes. A token can be
+                    a word,
+                    part of a word, or even just a punctuation mark.
+                </p>
+                <p>
+                    When you interact with an LLM, your input, along with the conversation history (if any), is fed into
+                    the
+                    context window. The model then uses this information to generate a relevant and coherent response.
+                    The larger
+                    the context window, the more information the model can retain, leading to potentially more accurate
+                    and
+                    contextually appropriate outputs. For a more technical deep dive, you can refer to the original
+                    Transformer
+                    paper: <a href="https://arxiv.org/abs/1706.03762" rel="noopener noreferrer"
+                        target="_blank">"Attention is
+                        All You Need"</a>.
+                </p>
+                <h3 id="main-point-2">Why Do Context Windows Matter?</h3>
+                <p>
+                    The size of the context window has a direct impact on the performance and usability of an LLM.
+                    Here's why:
+                </p>
+                <ul>
+                    <li><strong>Coherence and Consistency:</strong> A larger context window allows the model to maintain
+                        coherence
+                        and consistency over longer conversations or documents. It can better track the flow of the
+                        discussion, remember previous interactions, and avoid contradictions.</li>
+                    <li><strong>Complex Tasks:</strong> For tasks that require understanding and synthesizing
+                        information from
+                        lengthy texts, such as summarizing a book or answering questions about a complex document, a
+                        larger
+                        context window is essential.</li>
+                    <li><strong>Personalization:</strong> A larger context allows for better personalization, as the
+                        model can
+                        remember user preferences, past interactions, and other relevant details to tailor its responses
+                        more
+                        effectively.</li>
+                    <li><strong>Reduced Repetition:</strong> With a limited context window, models might repeat
+                        themselves or
+                        forget earlier parts of the conversation, leading to a less engaging and less helpful user
+                        experience.
+                    </li>
+                </ul>
+                <h3 id="main-point-3">Comparison of Context Windows in Major LLMs</h3>
+                <p>
+                    Here's a comparison table showcasing the context window sizes (in tokens) of some of the leading
+                    LLMs as of
+                    July 15th, 2024. Please note that these numbers might change as models are continuously updated and
+                    improved:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Provider</th>
+                            <th>Context Window (Tokens)</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://openai.com/chatgpt" rel="noopener noreferrer"
+                                    target="_blank">GPT-4o</a></td>
+                            <td>OpenAI</td>
+                            <td>128,000</td>
+                            <td>Standard model in ChatGPT.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://gemini.google.com/" rel="noopener noreferrer" target="_blank">Gemini
+                                    1.5
+                                    Pro</a></td>
+                            <td>Google</td>
+                            <td>1,000,000</td>
+                            <td>Currently available through waitlist in the AI Studio.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.anthropic.com/news/claude-3-family" rel="noopener noreferrer"
+                                    target="_blank">Claude 3 Opus</a></td>
+                            <td>Anthropic</td>
+                            <td>200,000</td>
+                            <td>Anthropic's most intelligent model</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.anthropic.com/news/claude-3-family" rel="noopener noreferrer"
+                                    target="_blank">Claude 3 Sonnet</a></td>
+                            <td>Anthropic</td>
+                            <td>200,000</td>
+                            <td>Anthropic's model offering a balance between intelligence and speed.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.anthropic.com/news/claude-3-family" rel="noopener noreferrer"
+                                    target="_blank">Claude 3 Haiku</a></td>
+                            <td>Anthropic</td>
+                            <td>200,000</td>
+                            <td>Anthropic's fastest, most compact model.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://mistral.ai/news/mixtral-of-experts/" rel="noopener noreferrer"
+                                    target="_blank">Mixtral
+                                    8x7B</a></td>
+                            <td>Mistral AI</td>
+                            <td>32,000</td>
+                            <td>Open-source model using a Mixture of Experts architecture.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://huggingface.co/meta-llama/Llama-3-70b-Instruct"
+                                    rel="noopener noreferrer" target="_blank">Llama-3-70b-Instruct</a></td>
+                            <td>Meta</td>
+                            <td>8,000</td>
+                            <td>Open-source model that requires fine-tuning for best results.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <b>Updates on the models as of July 15th, 2024:</b><br />
+                    <b>Gemini 1.5 Pro:</b> Gemini 1.5 Pro is available for public testing via a waitlist in the AI
+                    Studio with a 1
+                    million token context window.
+                    <br />
+                    <b>Claude 3:</b> On March 4, 2024, Anthropic released the Claude 3 model family. This includes
+                    Claude 3 Opus,
+                    Claude 3 Sonnet, and Claude 3 Haiku. The models have a standard context window of 200K tokens.
+                    <br />
+                    <b>Llama 3:</b> On April 18, 2024, Meta released the Llama 3 model family. The Llama-3-70b-Instruct
+                    model has a
+                    context window of 8,000 tokens.
+                    <br />
+                    <b>Mixtral 8x7B:</b> On December 8, 2023, Mistral AI released Mixtral 8x7B. It has a context window
+                    of 32,000
+                    tokens.
+                    <br />
+                    <b>GPT-4o:</b> On May 13, 2024, OpenAI released their new flagship model: GPT-4o. It has a context
+                    window of
+                    128,000 tokens.
+                </p>
+                <h3 id="main-point-4">The Future of Context Windows</h3>
+                <p>
+                    Research on expanding context windows is ongoing and rapidly evolving. We can expect to see even
+                    larger
+                    context windows in the near future, which will unlock new possibilities for LLMs. Techniques like
+                    model
+                    architecture improvements, retrieval augmentation, and memory mechanisms are being explored to push
+                    the
+                    boundaries of what's possible.
+                </p>
+                <h3 id="conclusion">Conclusion</h3>
+                <p>
+                    Context windows are a fundamental aspect of LLMs that significantly impact their performance and
+                    capabilities.
+                    As models continue to evolve, we can anticipate larger context windows and more sophisticated ways
+                    of
+                    managing and utilizing context, paving the way for even more powerful and versatile AI systems.
+                    Understanding
+                    context windows is key to appreciating the strengths and limitations of current LLMs and envisioning
+                    the
+                    future of this rapidly advancing field.
+                </p>
+            </article>
+        </article>
+    </main>
+    <div id="footer-placeholder"></div>
 </body>
+
 </html>
