@@ -1,197 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="All Blog Posts - William Zujkowski">
-    <meta name="keywords" content="Blog, William Zujkowski, Cybersecurity, AI, ML">
-    <meta name="author" content="William Zujkowski">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>Blog Archives - William Zujkowski</title>
-    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="module" src="../assets/js/main.js"></script>
-    <style>
-        /* Additional blog page styles for pagination and read-more functionality */
-        .article-preview {
-            margin-bottom: 2rem;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        .article-full {
-            display: none;
-            margin-top: 1rem;
-        }
-        .read-more-btn {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-        }
-        .pagination {
-            text-align: center;
-            margin-top: 2rem;
-        }
-        .pagination button {
-            margin: 0 5px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-        }
-        .pagination .active {
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="description" content="All Blog Posts - William Zujkowski">
+  <meta name="keywords" content="Blog, William Zujkowski, Cybersecurity, AI, ML">
+  <meta name="author" content="William Zujkowski">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Blog Archives - William Zujkowski</title>
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script type="module" src="../assets/js/main.js"></script>
+  <style>
+    /* Additional blog page styles for pagination and read-more functionality */
+    .article-preview {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+
+    .article-full {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .read-more-btn {
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .pagination button {
+      margin: 0 5px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .pagination .active {
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="header-placeholder"></div>
-    <div id="nav-placeholder"></div>
+  <div id="header-placeholder"></div>
+  <div id="nav-placeholder"></div>
 
-    <main class="container">
-        <header>
-            <h1>All Blog Posts</h1>
-            <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
-        </header>
+  <main class="container">
+    <header>
+      <h1>All Blog Posts</h1>
+      <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
+    </header>
 
-        <section id="blogPostsContainer">
-            <!-- Dynamic blog posts will be inserted here -->
-        </section>
+    <section id="blogPostsContainer">
+      <!-- Dynamic blog posts will be inserted here -->
+    </section>
 
-        <section id="paginationControls" class="pagination">
-            <!-- Pagination controls will be inserted here -->
-        </section>
-    </main>
+    <section id="paginationControls" class="pagination">
+      <!-- Pagination controls will be inserted here -->
+    </section>
+  </main>
 
-    <div id="footer-placeholder"></div>
-    <script>
-      const articlesPerPage = 3;
-      let allArticles = [];
-      let currentPage = 1;
+  <div id="footer-placeholder"></div>
+  <script>
+    const articlesPerPage = 3;
+    let allArticles = [];
+    let currentPage = 1;
 
-      function getTruncatedContent(htmlContent, limit = 200) {
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = htmlContent;
-          const text = tempDiv.textContent || tempDiv.innerText || "";
-          return text.length > limit ? text.substring(0, limit) + "..." : text;
-      }
+    function getTruncatedContent(htmlContent, limit = 200) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
+      const text = tempDiv.textContent || tempDiv.innerText || "";
+      return text.length > limit ? text.substring(0, limit) + "..." : text;
+    }
 
-      function renderArticles() {
-          const container = document.getElementById("blogPostsContainer");
-          container.innerHTML = "";
-          const start = (currentPage - 1) * articlesPerPage;
-          const end = start + articlesPerPage;
-          const articlesToShow = allArticles.slice(start, end);
+    function renderArticles() {
+      const container = document.getElementById("blogPostsContainer");
+      container.innerHTML = "";
+      const start = (currentPage - 1) * articlesPerPage;
+      const end = start + articlesPerPage;
+      const articlesToShow = allArticles.slice(start, end);
 
-          articlesToShow.forEach((article, idx) => {
-              const articleDiv = document.createElement("div");
-              articleDiv.className = "article-preview";
-              // Link now points to the individual file (slug.html)
-              const postLink = article.slug ? (article.slug + ".html") : "#";
-              articleDiv.innerHTML = `
+      articlesToShow.forEach((article, idx) => {
+        const articleDiv = document.createElement("div");
+        articleDiv.className = "article-preview";
+        // Link now points to the individual file (slug.html)
+        const postLink = article.slug ? (article.slug + ".html") : "#";
+        articleDiv.innerHTML = `
           <h2><a href="${postLink}">${article.title}</a></h2>
           <p><strong>Date:</strong> ${article.date}</p>
           <p>${getTruncatedContent(article.content)}</p>
           <div class="article-full">${article.content}</div>
           <p><span class="read-more-btn" data-index="${start + idx}">Read More</span></p>
         `;
-              container.appendChild(articleDiv);
-          });
-          renderPagination();
-      }
-
-      function renderPagination() {
-          const paginationDiv = document.getElementById("paginationControls");
-          paginationDiv.innerHTML = "";
-          const totalPages = Math.ceil(allArticles.length / articlesPerPage);
-          if (totalPages <= 1) return;
-
-          const prevBtn = document.createElement("button");
-          prevBtn.innerText = "Previous";
-          prevBtn.disabled = (currentPage === 1);
-          prevBtn.onclick = () => {
-              if (currentPage > 1) {
-                  currentPage--;
-                  renderArticles();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-          };
-          paginationDiv.appendChild(prevBtn);
-
-          for (let i = 1; i <= totalPages; i++) {
-              const pageBtn = document.createElement("button");
-              pageBtn.innerText = i;
-              if (i === currentPage) pageBtn.classList.add("active");
-              pageBtn.onclick = () => {
-                  currentPage = i;
-                  renderArticles();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-              };
-              paginationDiv.appendChild(pageBtn);
-          }
-
-          const nextBtn = document.createElement("button");
-          nextBtn.innerText = "Next";
-          nextBtn.disabled = (currentPage === totalPages);
-          nextBtn.onclick = () => {
-              if (currentPage < totalPages) {
-                  currentPage++;
-                  renderArticles();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-          };
-          paginationDiv.appendChild(nextBtn);
-      }
-
-      function toggleReadMore(index) {
-          const container = document.getElementById("blogPostsContainer");
-          const previews = container.querySelectorAll(".article-preview");
-          const preview = previews[index % articlesPerPage];
-          if (preview) {
-              const fullContent = preview.querySelector(".article-full");
-              const readMoreBtn = preview.querySelector(".read-more-btn");
-              if (fullContent.style.display === "block") {
-                  fullContent.style.display = "none";
-                  readMoreBtn.innerText = "Read More";
-              } else {
-                  fullContent.style.display = "block";
-                  readMoreBtn.innerText = "Show Less";
-              }
-          }
-      }
-
-      function loadBlogData() {
-          fetch("../blog_data.html")
-              .then(response => response.text())
-              .then(data => {
-                  const parser = new DOMParser();
-                  const doc = parser.parseFromString(data, "text/html");
-                  const articleNodes = Array.from(doc.querySelectorAll("article"));
-                  allArticles = articleNodes.map(article => {
-                      const titleEl = article.querySelector("h2");
-                      const title = titleEl ? titleEl.innerText : "Untitled";
-                      const date = article.getAttribute("data-date") || "";
-                      const content = article.innerHTML;
-                      const slug = article.getAttribute("data-slug") || "";
-                      return { title, date, content, slug };
-                  });
-                  allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
-                  renderArticles();
-              })
-              .catch(error => {
-                  console.error("Error loading blog data:", error);
-                  document.getElementById("blogPostsContainer").innerText = "Error loading blog posts. Please try again later.";
-              });
-      }
-
-      document.getElementById("blogPostsContainer").addEventListener("click", function (e) {
-          if (e.target && e.target.classList.contains("read-more-btn")) {
-              const index = parseInt(e.target.getAttribute("data-index"));
-              toggleReadMore(index);
-          }
+        container.appendChild(articleDiv);
       });
+      renderPagination();
+    }
 
-      document.addEventListener("DOMContentLoaded", loadBlogData);
-    </script>
+    function renderPagination() {
+      const paginationDiv = document.getElementById("paginationControls");
+      paginationDiv.innerHTML = "";
+      const totalPages = Math.ceil(allArticles.length / articlesPerPage);
+      if (totalPages <= 1) return;
+
+      const prevBtn = document.createElement("button");
+      prevBtn.innerText = "Previous";
+      prevBtn.disabled = (currentPage === 1);
+      prevBtn.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderArticles();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+      paginationDiv.appendChild(prevBtn);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.innerText = i;
+        if (i === currentPage) pageBtn.classList.add("active");
+        pageBtn.onclick = () => {
+          currentPage = i;
+          renderArticles();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        paginationDiv.appendChild(pageBtn);
+      }
+
+      const nextBtn = document.createElement("button");
+      nextBtn.innerText = "Next";
+      nextBtn.disabled = (currentPage === totalPages);
+      nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderArticles();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+      paginationDiv.appendChild(nextBtn);
+    }
+
+    function toggleReadMore(index) {
+      const container = document.getElementById("blogPostsContainer");
+      const previews = container.querySelectorAll(".article-preview");
+      const preview = previews[index % articlesPerPage];
+      if (preview) {
+        const fullContent = preview.querySelector(".article-full");
+        const readMoreBtn = preview.querySelector(".read-more-btn");
+        if (fullContent.style.display === "block") {
+          fullContent.style.display = "none";
+          readMoreBtn.innerText = "Read More";
+        } else {
+          fullContent.style.display = "block";
+          readMoreBtn.innerText = "Show Less";
+        }
+      }
+    }
+
+    function loadBlogData() {
+      fetch("../blog_data.html")
+        .then(response => response.text())
+        .then(data => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data, "text/html");
+          const articleNodes = Array.from(doc.querySelectorAll("article"));
+          allArticles = articleNodes.map(article => {
+            const titleEl = article.querySelector("h2");
+            const title = titleEl ? titleEl.innerText : "Untitled";
+            const date = article.getAttribute("data-date") || "";
+            const content = article.innerHTML;
+            const slug = article.getAttribute("data-slug") || "";
+            return { title, date, content, slug };
+          });
+          allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+          renderArticles();
+        })
+        .catch(error => {
+          console.error("Error loading blog data:", error);
+          document.getElementById("blogPostsContainer").innerText = "Error loading blog posts. Please try again later.";
+        });
+    }
+
+    document.getElementById("blogPostsContainer").addEventListener("click", function (e) {
+      if (e.target && e.target.classList.contains("read-more-btn")) {
+        const index = parseInt(e.target.getAttribute("data-index"));
+        toggleReadMore(index);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", loadBlogData);
+  </script>
 </body>
+
 </html>
