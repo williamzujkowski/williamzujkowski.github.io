@@ -17,27 +17,20 @@ function loadComponent(url, elementId) {
 }
 
 function loadRecentBlogPosts() {
-  fetch("blog_data.html")
-    .then(response => response.text())
+  // Load recent posts from blog_list.json rather than blog_data.html
+  fetch("blog_list.json")
+    .then(response => response.json())
     .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, "text/html");
-      let articles = Array.from(doc.querySelectorAll("article"));
-      // Sort articles by date (newest first)
-      articles.sort((a, b) => new Date(b.getAttribute("data-date")) - new Date(a.getAttribute("data-date")));
-      const recent = articles.slice(0, 3);
+      // Sort by date (newest first) and slice first 3 posts
+      data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const recent = data.slice(0, 3);
       const listDiv = document.getElementById("recent-blog-list");
       if (listDiv) {
-        recent.forEach(article => {
-          const titleElement = article.querySelector("h2");
-          if (!titleElement) return;
-          const title = titleElement.innerText;
-          const date = article.getAttribute("data-date");
-          const slug = article.getAttribute("data-slug") || "";
+        recent.forEach(post => {
           const link = document.createElement("a");
-          // Link to the blog page with the corresponding slug
-          link.href = "blog.html#" + slug;
-          link.innerText = `${title} (${date})`;
+          // Link to the individual blog post file (under /blog/)
+          link.href = "blog/" + post.slug + ".html";
+          link.innerText = `${post.title} (${post.date})`;
           const p = document.createElement("p");
           p.appendChild(link);
           listDiv.appendChild(p);

@@ -2,78 +2,146 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="All Blog Posts - William Zujkowski">
-    <meta name="keywords" content="Blog, William Zujkowski, Cybersecurity, AI, ML">
-    <meta name="author" content="William Zujkowski">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>Blog Archives - William Zujkowski</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script type="module" src="assets/js/main.js"></script>
-    <style>
-        /* Additional blog page styles for pagination and read-more functionality */
-        .article-preview {
-            margin-bottom: 2rem;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
+  <meta charset="UTF-8">
+  <meta name="description" content="All Blog Posts - William Zujkowski">
+  <meta name="keywords" content="Blog, William Zujkowski, Cybersecurity, AI, ML">
+  <meta name="author" content="William Zujkowski">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Blog - William Zujkowski</title>
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script type="module" src="assets/js/main.js"></script>
+  <style>
+    /* Styles for blog archive page */
+    .article-preview {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
 
-        .article-full {
-            display: none;
-            margin-top: 1rem;
-        }
+    .pagination {
+      text-align: center;
+      margin-top: 2rem;
+    }
 
-        .read-more-btn {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-        }
+    .pagination button {
+      margin: 0 5px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
 
-        .pagination {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .pagination button {
-            margin: 0 5px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-        }
-
-        .pagination .active {
-            font-weight: bold;
-        }
-    </style>
+    .pagination .active {
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
-    <div id="header-placeholder"></div>
-    <div id="nav-placeholder"></div>
+  <div id="header-placeholder"></div>
+  <div id="nav-placeholder"></div>
 
-    <main class="container">
-        <header>
-            <h1>All Blog Posts</h1>
-            <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
-        </header>
+  <main class="container">
+    <header>
+      <h1>All Blog Posts</h1>
+      <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
+    </header>
+    <section id="blogPostsContainer">
+      <!-- Blog posts will be loaded here -->
+    </section>
+    <section id="paginationControls" class="pagination"></section>
+  </main>
 
-        <section id="blogPostsContainer">
-            <!-- Dynamic blog posts will be inserted here -->
-        </section>
+  <div id="footer-placeholder"></div>
+  <script>
+    const articlesPerPage = 3;
+    let allPosts = [];
+    let currentPage = 1;
 
-        <section id="paginationControls" class="pagination">
-            <!-- Pagination controls will be inserted here -->
-        </section>
-    </main>
+    function renderPosts() {
+      const container = document.getElementById("blogPostsContainer");
+      container.innerHTML = "";
+      const start = (currentPage - 1) * articlesPerPage;
+      const end = start + articlesPerPage;
+      const postsToShow = allPosts.slice(start, end);
 
-    <div id="footer-placeholder"></div>
-    <script>
-        // Blog page JavaScript (unchanged)
-    </script>
+      postsToShow.forEach(post => {
+        const postDiv = document.createElement("div");
+        postDiv.className = "article-preview";
+        // Each post file is located at blog/<slug>.html
+        postDiv.innerHTML = `
+           <h2><a href="blog/${post.slug}.html">${post.title}</a></h2>
+           <p><strong>Date:</strong> ${post.date}</p>
+         `;
+        container.appendChild(postDiv);
+      });
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const paginationDiv = document.getElementById("paginationControls");
+      paginationDiv.innerHTML = "";
+      const totalPages = Math.ceil(allPosts.length / articlesPerPage);
+      if (totalPages <= 1) return;
+
+      const prevBtn = document.createElement("button");
+      prevBtn.innerText = "Previous";
+      prevBtn.disabled = (currentPage === 1);
+      prevBtn.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPosts();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+      paginationDiv.appendChild(prevBtn);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = i;
+        if (i === currentPage) btn.classList.add("active");
+        btn.onclick = () => {
+          currentPage = i;
+          renderPosts();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        paginationDiv.appendChild(btn);
+      }
+
+      const nextBtn = document.createElement("button");
+      nextBtn.innerText = "Next";
+      nextBtn.disabled = (currentPage === totalPages);
+      nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderPosts();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+      paginationDiv.appendChild(nextBtn);
+    }
+
+    function loadBlogPosts() {
+      // Fetch the list of blog posts from blog_list.json
+      fetch("blog_list.json")
+        .then(response => response.json())
+        .then(data => {
+          // Data is expected to be an array of objects: { title, date, slug }
+          data.sort((a, b) => new Date(b.date) - new Date(a.date));
+          allPosts = data;
+          renderPosts();
+        })
+        .catch(error => {
+          console.error("Error loading blog posts:", error);
+          document.getElementById("blogPostsContainer").innerText = "Error loading blog posts.";
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadBlogPosts);
+  </script>
 </body>
 
 </html>
