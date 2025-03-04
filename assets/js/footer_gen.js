@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("includes/footer.html")
+    fetch("/includes/footer.html")
         .then(response => response.text())
         .then(html => {
             document.getElementById("dynamic-footer").innerHTML = html;
