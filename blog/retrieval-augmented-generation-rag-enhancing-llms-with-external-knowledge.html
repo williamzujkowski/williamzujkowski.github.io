@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div id="nav-placeholder"></div>
+  <main class="container">
+    <article>
+      <article data-date="2024-07-20" data-slug="retrieval-augmented-generation-rag-enhancing-llms-with-external-knowledge">
+<h2>Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge</h2>
+<p><strong>Date:</strong> 2024-07-20</p>
+<p>
+        Large Language Models (LLMs) have demonstrated remarkable abilities in generating human-quality text, answering
+        questions, and performing various other language-related tasks. However, even the most advanced LLMs have
+        limitations, particularly when it comes to their reliance on a fixed context window and the knowledge they
+        acquired during training. This is where Retrieval Augmented Generation (RAG) comes in. RAG is a powerful
+        technique that enhances LLMs by allowing them to access and incorporate information from external knowledge
+        sources, effectively extending their knowledge and reasoning capabilities beyond their built-in limitations.
+    </p>
+<h3 id="main-point-1">The Limitations of Standard LLMs</h3>
+<p>
+        Traditional LLMs, even those with large context windows, are fundamentally limited by two factors:
+    </p>
+<ul>
+<li><strong>Fixed Context Window:</strong> As discussed in our previous article about context windows, LLMs can
+            only process a limited amount of text at a time. This means they might not be able to consider all
+            relevant information when generating a response, especially for complex queries that require a broader
+            understanding.</li>
+<li><strong>Static Knowledge:</strong> LLMs are trained on a massive dataset, but this knowledge is fixed at
+            the time of training. They are unaware of events that occurred after their training cutoff, and their
+            knowledge can become outdated. Additionally, they may lack specialized or domain-specific knowledge that
+            was not well-represented in their training data.</li>
+</ul>
+<h3 id="main-point-2">What is Retrieval Augmented Generation (RAG)?</h3>
+<p>
+        Retrieval Augmented Generation (RAG) is a framework that combines the strengths of pre-trained LLMs with the
+        ability to retrieve information from external knowledge sources. In essence, RAG adds a "research" step to the
+        LLM's generation process. Instead of relying solely on its internal knowledge, a RAG-enabled LLM can:
+    </p>
+<ol>
+<li><strong>Retrieve:</strong> When given a query, the RAG model first uses a retriever component to search
+            through an external knowledge source (e.g., a database of documents, a knowledge base, or even the
+            internet) and identify relevant information.</li>
+<li><strong>Augment:</strong> The retrieved information is then combined with the original query and fed into
+            the LLM's context window.</li>
+<li><strong>Generate:</strong> The LLM uses this augmented context, which now includes both the original query
+            and the retrieved information, to generate a more informed and accurate response.</li>
+</ol>
+<img alt="A representative instance of the RAG process applied to question answering. It mainly consists of 3 steps. 1) Indexing. Documents are split into chunks, encoded into vectors, and stored in a vector database. 2) Retrieval. Retrieve the Top k chunks most relevant to the question based on semantic similarity. 3) Generation. Input the original question and the retrieved chunks together into LLM to generate the final answer." src="https://arxiv.org/html/2312.10997v5/extracted/2312.10997v5/images/RAG_case.png" style="width: 100%; max-width: 800px; margin: 1rem auto;"/>
+<p style="text-align: center; font-size: smaller;">Diagram of the RAG process</p>
+<h3 id="main-point-3">Components of a RAG System</h3>
+<p>
+        A typical RAG system consists of the following key components:
+    </p>
+<ul>
+<li><strong>The Retriever:</strong> This component is responsible for searching the external knowledge source
+            and retrieving relevant documents or passages. Common retrieval methods include:
+            <ul>
+<li><strong>Dense Passage Retrieval (DPR):</strong> Uses neural networks to encode queries and
+                    passages into dense vector representations and retrieves passages based on vector similarity.
+                    (See: <a href="https://arxiv.org/abs/2004.04906" rel="noopener noreferrer" target="_blank">Dense
+                        Passage Retrieval for Open-Domain Question Answering</a>)</li>
+<li><strong>TF-IDF or BM25:</strong> Traditional information retrieval techniques based on keyword
+                    matching and term frequency.</li>
+</ul>
+</li>
+<li><strong>The Generator (LLM):</strong> This is the core language model that generates the final response.
+            It can be any powerful LLM, such as GPT-4, Gemini, or Claude.</li>
+<li><strong>The External Knowledge Source:</strong> This is the database or collection of documents that the
+            retriever searches. It can be:
+            <ul>
+<li><strong>A curated knowledge base:</strong> Such as Wikipedia, a domain-specific database, or an
+                    enterprise knowledge repository.</li>
+<li><strong>A collection of documents:</strong> Like news articles, scientific papers, or internal
+                    company documents.</li>
+<li><strong>The web:</strong> Using a search engine to retrieve information from the entire internet.
+                </li>
+</ul>
+</li>
+</ul>
+<h3 id="main-point-4">Benefits of Using RAG</h3>
+<p>
+        RAG offers several significant advantages over standard LLMs:
+    </p>
+<ul>
+<li><strong>Access to Up-to-Date Information:</strong> By retrieving information from external sources, RAG
+            models can provide answers based on the most current knowledge, overcoming the limitation of static
+            training data.</li>
+<li><strong>Domain-Specific Knowledge:</strong> RAG can be tailored to specific domains by using specialized
+            knowledge sources, allowing the LLM to answer questions that require deep expertise in a particular
+            field.</li>
+<li><strong>Reduced Hallucinations:</strong> By grounding the LLM's response in retrieved evidence, RAG can
+            help reduce the likelihood of the model generating false or misleading information (hallucinations).
+        </li>
+<li><strong>Increased Transparency and Trust:</strong> RAG systems can provide citations or links to the
+            retrieved documents, allowing users to verify the source of the information and increasing trust in the
+            model's output.</li>
+<li><strong>Extending Context:</strong> RAG effectively extends the LLM's context by allowing it to consider
+            information beyond its fixed context window.</li>
+</ul>
+<h3 id="main-point-5">Use Cases of RAG</h3>
+<p>
+        RAG has a wide range of applications across various domains, including:
+    </p>
+<ul>
+<li><strong>Question Answering:</strong> RAG excels at answering complex questions that require accessing and
+            synthesizing information from multiple sources.</li>
+<li><strong>Customer Support:</strong> RAG-powered chatbots can provide more accurate and helpful responses by
+            retrieving information from company documentation, FAQs, and other relevant resources.</li>
+<li><strong>Research and Discovery:</strong> RAG can assist researchers in finding relevant papers,
+            synthesizing information, and generating new hypotheses.</li>
+<li><strong>Content Creation:</strong> RAG can help writers create more informative and well-researched
+            content by providing them with relevant facts, figures, and background information.</li>
+<li><strong>Code Generation:</strong> By retrieving relevant code snippets and documentation, RAG can assist
+            developers in writing code more efficiently. (See: <a href="https://arxiv.org/abs/2206.12839" rel="noopener noreferrer" target="_blank">"Improving Code Generation by Training with Natural
+                Language Explanations"</a>)</li>
+</ul>
+<h3 id="main-point-6">Challenges and Future Directions</h3>
+<p>
+        While RAG offers significant benefits, there are still challenges to address:
+    </p>
+<ul>
+<li><strong>Retrieval Accuracy:</strong> The performance of a RAG system is heavily dependent on the accuracy
+            of the retriever. Retrieving irrelevant or inaccurate information can mislead the LLM and lead to poor
+            responses.</li>
+<li><strong>Computational Cost:</strong> RAG can be computationally expensive, especially when using large
+            knowledge sources or complex retrieval models.</li>
+<li><strong>Integration Complexity:</strong> Integrating the retriever and the generator seamlessly can be
+            technically challenging.</li>
+<li><strong>Bias and Fairness:</strong> Biases present in the external knowledge source or the training data
+            of the LLM can be amplified by RAG systems.</li>
+</ul>
+<p>
+        Future research in RAG is focused on:
+    </p>
+<ul>
+<li>Improving retrieval methods to ensure higher accuracy and efficiency.</li>
+<li>Developing more sophisticated ways of integrating retrieved information into the LLM's generation
+            process.</li>
+<li>Exploring new architectures and training methods for RAG models.</li>
+<li>Addressing ethical concerns related to bias, fairness, and transparency.</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>
+        Retrieval Augmented Generation (RAG) represents a significant step forward in the evolution of Large Language
+        Models. By combining the power of pre-trained LLMs with the ability to access and incorporate external
+        knowledge, RAG overcomes many of the limitations of traditional LLMs and opens up new possibilities for
+        creating more intelligent, informed, and reliable AI systems. As research in this area continues to advance,
+        we can expect RAG to play an increasingly important role in a wide range of applications, from question
+        answering and customer support to scientific discovery and content creation.
+    </p>
+</article>
+    </article>
+  </main>
+  <div id="footer-placeholder"></div>
+</body>
+</html>
