@@ -1,17 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
-/* Reset styles */
+/* Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Base styling */
 body {
     font-family: 'Open Sans', system-ui, sans-serif;
     line-height: 1.6;
-    color: #000;
-    background: #fff;
+    background: #111;
+    /* deep dark background */
+    color: #eee;
+    /* light text */
     padding: 1rem;
 }
 
@@ -19,19 +22,21 @@ body {
 .site-header {
     text-align: center;
     margin-bottom: 1rem;
+    padding: 1rem;
+    border-bottom: 3px solid #444;
 }
 
 /* Navigation */
 .site-nav {
     position: relative;
-    background: #f8f8f8;
-    border-bottom: 1px solid #ccc;
+    background: #222;
+    border-bottom: 3px solid #444;
 }
 
 /* Off-canvas nav defaults (mobile) */
 .nav-toggle {
     display: none;
-    /* will be shown on mobile */
+    /* shown on mobile below 768px */
 }
 
 .nav-panel {
@@ -41,19 +46,28 @@ body {
     width: 75%;
     max-width: 300px;
     height: 100%;
-    background: #f8f8f8;
-    border-right: 1px solid #ccc;
+    background: #222;
+    border-right: 3px solid #444;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     padding-top: 2rem;
     z-index: 1000;
 }
 
-.nav-panel.active {
+.site-nav.active .nav-panel {
     transform: translateX(0);
 }
 
-/* Nav menu styling (mobile default: vertical) */
+/* When nav is active, reposition the hamburger icon so it doesn’t overlap the menu items */
+.site-nav.active .nav-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1100;
+    color: #0af;
+}
+
+/* Navigation menu (mobile default: vertical) */
 .nav-menu {
     list-style: none;
     display: flex;
@@ -64,12 +78,18 @@ body {
 }
 
 .site-nav a {
-    text-decoration: underline;
-    color: blue;
+    text-decoration: none;
+    color: #0af;
+    /* bright cyan accent */
+    font-weight: 600;
+    padding: 0.5rem;
+    border: 2px solid transparent;
+    transition: border 0.2s ease, color 0.2s ease;
 }
 
 .site-nav a:hover {
-    color: darkblue;
+    color: #0cf;
+    border-bottom: 2px solid #0cf;
 }
 
 /* Mobile styles */
@@ -78,21 +98,22 @@ body {
         display: block;
         background: transparent;
         border: none;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         cursor: pointer;
         padding: 0.5rem;
         position: relative;
         z-index: 1100;
+        color: #0af;
     }
 }
 
-/* Desktop styles: show nav inline, remove off-canvas behavior */
+/* Desktop styles: show nav inline, disable off-canvas */
 @media (min-width: 769px) {
     .nav-toggle {
         display: none;
     }
 
-    /* Override nav-panel to be part of the flow */
+    /* Override off-canvas styles so the panel is in flow */
     .nav-panel {
         position: static;
         width: auto;
@@ -109,36 +130,44 @@ body {
     .nav-menu {
         flex-direction: row;
         justify-content: center;
-        gap: 1rem;
+        gap: 2rem;
         padding: 0;
     }
 }
 
-/* Container for main content */
+/* Main content container */
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 2rem auto;
     padding: 1rem;
+    background: #1a1a1a;
+    border: 2px solid #444;
+    border-radius: 4px;
 }
 
 /* Footer */
 .site-footer {
     text-align: center;
-    border-top: 1px solid #ccc;
-    padding-top: 0.5rem;
+    border-top: 3px solid #444;
+    padding-top: 1rem;
     font-size: 0.9rem;
     margin-top: 2rem;
 }
 
-/* Headings & paragraphs */
+/* Headings */
 h1,
 h2,
 h3 {
     margin-bottom: 0.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
+/* Paragraphs */
 p {
     margin-bottom: 1rem;
+    color: #ccc;
 }
 
 /* Lists */
@@ -150,7 +179,7 @@ ul {
 /* Articles */
 article {
     margin-bottom: 2rem;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #444;
     padding-bottom: 1rem;
 }
 
@@ -164,13 +193,14 @@ table {
 table,
 th,
 td {
-    border: 1px solid #ccc;
+    border: 2px solid #444;
 }
 
 th,
 td {
     padding: 0.5rem;
     text-align: left;
+    color: #eee;
 }
 
 /* Responsive adjustments for small screens */
