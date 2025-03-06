@@ -13,121 +13,14 @@
     <script type="module" src="/assets/js/main.js"></script>
     <script src="/assets/js/nav_gen.js" defer></script>
     <script src="/assets/js/footer_gen.js" defer></script>
-
     <style>
-        /* Brutalist light theme */
-        body {
-            font-family: system-ui, sans-serif;
-            background: #fff;
-            padding: 1rem;
-            color: #000;
-        }
-
-        main.container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        fieldset {
-            border: 2px solid #000;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        legend {
-            font-weight: bold;
-            padding: 0 0.5rem;
-        }
-
-        label {
-            display: block;
-            margin: 0.5rem 0;
-        }
-
-        input,
-        select,
-        button {
-            padding: 0.5rem;
-            margin-top: 0.3rem;
-            font-size: 1rem;
-        }
-
-        button {
-            margin-right: 0.5rem;
-            cursor: pointer;
-        }
-
-        #progressContainer {
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-
-        /* Light accent color for pizza progress bar */
-        #progressBar {
-            height: 20px;
-            width: 0;
-            background-color: #FFE082;
-            transition: width 0.5s ease-in-out;
-        }
-
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            padding: 16px;
-            position: fixed;
-            z-index: 9999;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 17px;
-        }
-
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-
-        /* Hide download link */
-        #downloadLink {
-            display: none;
-        }
+        /* Additional pizza calculator styles can be added here */
     </style>
 </head>
 
 <body lang="en">
     <div id="dynamic-nav"></div>
-    <main class="container">S
+    <main class="container">
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
             <p>Calculate how much pizza your hungry engineers need after hours of debugging!</p>
