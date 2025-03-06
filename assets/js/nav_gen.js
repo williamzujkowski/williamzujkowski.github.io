@@ -9,32 +9,28 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.text())
         .then(html => {
             navContainer.innerHTML = html;
-
-            // Attach event listener to the hamburger toggle button.
             const navToggle = navContainer.querySelector(".nav-toggle");
-            if (navToggle) {
+            const navPanel = navContainer.querySelector(".nav-panel");
+
+            if (navToggle && navPanel) {
+                // Toggle off-canvas panel on click
                 navToggle.addEventListener("click", function () {
-                    const siteNav = this.closest(".site-nav");
-                    siteNav.classList.toggle("active");
-                    const expanded = siteNav.classList.contains("active");
+                    navPanel.classList.toggle("active");
+                    const expanded = navPanel.classList.contains("active");
                     this.setAttribute("aria-expanded", expanded ? "true" : "false");
                 });
-            } else {
-                console.error("No .nav-toggle button found within dynamic-nav.");
-            }
 
-            // Close the mobile menu when any nav link is clicked.
-            const navLinks = navContainer.querySelectorAll(".nav-menu a");
-            navLinks.forEach(link => {
-                link.addEventListener("click", function () {
-                    const siteNav = this.closest(".site-nav");
-                    if (siteNav && siteNav.classList.contains("active")) {
-                        siteNav.classList.remove("active");
-                        const toggle = siteNav.querySelector(".nav-toggle");
-                        if (toggle) toggle.setAttribute("aria-expanded", "false");
-                    }
+                // Close panel when any nav link is clicked
+                const navLinks = navPanel.querySelectorAll(".nav-menu a");
+                navLinks.forEach(link => {
+                    link.addEventListener("click", function () {
+                        navPanel.classList.remove("active");
+                        navToggle.setAttribute("aria-expanded", "false");
+                    });
                 });
-            });
+            } else {
+                console.error("Required nav elements not found.");
+            }
         })
         .catch(err => console.error("Error loading nav:", err));
 });
