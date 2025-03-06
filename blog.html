@@ -13,36 +13,12 @@
   <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/assets/css/style.css">
   <script type="module" src="/assets/js/main.js"></script>
-  <style>
-    /* Styles for the blog archive page */
-    .article-preview {
-      margin-bottom: 2rem;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      background-color: #f9f9f9;
-      border-radius: 4px;
-    }
-
-    .pagination {
-      text-align: center;
-      margin-top: 2rem;
-    }
-
-    .pagination button {
-      margin: 0 5px;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
-
-    .pagination .active {
-      font-weight: bold;
-    }
-  </style>
 </head>
 
 <body>
   <div id="header-placeholder"></div>
-  <div id="nav-placeholder"></div>
+  <div id="dynamic-nav"></div>
+  <div id="footer-placeholder"></div>
 
   <main class="container">
     <header>
@@ -50,12 +26,11 @@
       <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
     </header>
     <section id="blogPostsContainer">
-      <!-- Blog posts will be loaded here -->
+      <!-- Blog posts will be loaded here from blog_list.json -->
     </section>
     <section id="paginationControls" class="pagination"></section>
   </main>
 
-  <div id="footer-placeholder"></div>
   <script>
     const articlesPerPage = 3;
     let allPosts = [];
@@ -71,7 +46,6 @@
       postsToShow.forEach(post => {
         const postDiv = document.createElement("div");
         postDiv.className = "article-preview";
-        // Each post file is located at /blog/{slug}.html
         postDiv.innerHTML = `
            <h2><a href="/blog/${post.slug}.html">${post.title}</a></h2>
            <p><strong>Date:</strong> ${post.date}</p>
@@ -125,11 +99,9 @@
     }
 
     function loadBlogPosts() {
-      // Fetch blog post metadata from /blog_list.json using an absolute path
       fetch("/blog_list.json")
         .then(response => response.json())
         .then(data => {
-          // Sort by date (newest first)
           data.sort((a, b) => new Date(b.date) - new Date(a.date));
           allPosts = data;
           renderPosts();
