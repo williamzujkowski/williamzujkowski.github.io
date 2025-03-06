@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(html => {
             navContainer.innerHTML = html;
 
-            // Add event listener for the hamburger toggle
+            // Attach event listener to the hamburger toggle button.
             const navToggle = navContainer.querySelector(".nav-toggle");
             if (navToggle) {
                 navToggle.addEventListener("click", function () {
@@ -20,10 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     this.setAttribute("aria-expanded", expanded ? "true" : "false");
                 });
             } else {
-                console.error("No nav-toggle button found.");
+                console.error("No .nav-toggle button found within dynamic-nav.");
             }
 
-            // Close mobile menu when a link is clicked
+            // Close the mobile menu when any nav link is clicked.
             const navLinks = navContainer.querySelectorAll(".nav-menu a");
             navLinks.forEach(link => {
                 link.addEventListener("click", function () {

@@ -68,7 +68,7 @@ body {
         display: flex;
     }
 
-    /* Optional: adjust spacing for mobile links */
+    /* Adjust spacing for mobile links */
     .nav-menu li {
         margin: 0.5rem 0;
     }
