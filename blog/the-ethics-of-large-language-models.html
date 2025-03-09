@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script type="module" src="../assets/js/main.js"></script>
-</head>
-<body>
-  <div id="header-placeholder"></div>
-  <div id="nav-placeholder"></div>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   {title}
+  </title>
+  <link href="../assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
+  <link href="../assets/css/style.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/htmx.org@1.9.2">
+  </script>
+ </head>
+ <body>
+  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load">
+  </header>
+  <nav hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load">
+  </nav>
   <main class="container">
-        <article>
-            <article data-date="2024-08-05" data-slug="the-ethics-of-large-language-models">
-                <h2>The Ethics of Large Language Models</h2>
-                <p><strong>Date:</strong> 2024-08-05</p>
-                <p>
-                    Large Language Models (LLMs) are rapidly transforming the way we interact with technology and
+   <article>
+    <article data-date="2024-08-05" data-slug="the-ethics-of-large-language-models">
+     <h2>
+      The Ethics of Large Language Models
+     </h2>
+     <p>
+      <strong>
+       Date:
+      </strong>
+      2024-08-05
+     </p>
+     <p>
+      Large Language Models (LLMs) are rapidly transforming the way we interact with technology and
                     information.
                     They hold immense potential for good, but they also raise significant ethical concerns that need
                     careful
@@ -26,208 +38,351 @@
                     bias, misinformation, job displacement, and other potential harms. In this post, we will delve into
                     the ethical
                     landscape of LLMs, exploring the challenges and discussing potential solutions.
-                </p>
-                <h3 id="main-point-1">Bias in LLMs: A Reflection of Societal Prejudices</h3>
-                <p>
-                    LLMs are trained on massive datasets of text and code scraped from the internet and other sources.
+     </p>
+     <h3 id="main-point-1">
+      Bias in LLMs: A Reflection of Societal Prejudices
+     </h3>
+     <p>
+      LLMs are trained on massive datasets of text and code scraped from the internet and other sources.
                     While these
                     datasets are vast, they are not neutral. They reflect the biases, stereotypes, and prejudices that
                     exist in our
                     society. As a result, LLMs can inadvertently learn and perpetuate these biases in their outputs.
-                </p>
-                <p>
-                    Examples of bias in LLMs include:
-                </p>
-                <ul>
-                    <li><strong>Gender bias:</strong> LLMs may associate certain professions or characteristics more
+     </p>
+     <p>
+      Examples of bias in LLMs include:
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Gender bias:
+       </strong>
+       LLMs may associate certain professions or characteristics more
                         strongly with
                         one gender than another. For instance, a model might be more likely to generate text that
                         portrays doctors
-                        as male and nurses as female. A study by <a
-                            href="https://proceedings.neurips.cc/paper_files/paper/2016/hash/a486cd07e4ac3d270571622f4f316ec5-Abstract.html"
-                            rel="noopener noreferrer" target="_blank">Bolukbasi et al. (2016)</a> demonstrated how word
+                        as male and nurses as female. A study by
+       <a href="https://proceedings.neurips.cc/paper_files/paper/2016/hash/a486cd07e4ac3d270571622f4f316ec5-Abstract.html" rel="noopener noreferrer" target="_blank">
+        Bolukbasi et al. (2016)
+       </a>
+       demonstrated how word
                         embeddings,
-                        a key component of many NLP models, can exhibit strong gender stereotypes.</li>
-                    <li><strong>Racial bias:</strong> LLMs may perpetuate harmful stereotypes or make unfair assumptions
+                        a key component of many NLP models, can exhibit strong gender stereotypes.
+      </li>
+      <li>
+       <strong>
+        Racial bias:
+       </strong>
+       LLMs may perpetuate harmful stereotypes or make unfair assumptions
                         about
                         individuals based on their race or ethnicity. Researchers have found that some LLMs are more
                         likely to
-                        associate negative words with certain racial groups. For example, a <a
-                            href="https://arxiv.org/abs/2101.05783" rel="noopener noreferrer" target="_blank">study on
+                        associate negative words with certain racial groups. For example, a
+       <a href="https://arxiv.org/abs/2101.05783" rel="noopener noreferrer" target="_blank">
+        study on
                             racial bias
-                            in hate speech detection</a> showed that models often misclassify tweets by African
+                            in hate speech detection
+       </a>
+       showed that models often misclassify tweets by African
                         Americans as
-                        offensive.</li>
-                    <li><strong>Religious bias:</strong> LLMs may exhibit biases against certain religious groups,
+                        offensive.
+      </li>
+      <li>
+       <strong>
+        Religious bias:
+       </strong>
+       LLMs may exhibit biases against certain religious groups,
                         reflecting
                         prejudices present in the training data. For example, a model might generate text that unfairly
                         portrays a
-                        particular religion in a negative light. <a href="https://arxiv.org/abs/2101.05783"
-                            rel="noopener noreferrer" target="_blank">Persistent Anti-Muslim Bias in Large Language
-                            Models</a> discusses biases
-                        against Muslims in LLMs.</li>
-                </ul>
-                <p>
-                    These biases can have real-world consequences, leading to unfair or discriminatory outcomes in areas
+                        particular religion in a negative light.
+       <a href="https://arxiv.org/abs/2101.05783" rel="noopener noreferrer" target="_blank">
+        Persistent Anti-Muslim Bias in Large Language
+                            Models
+       </a>
+       discusses biases
+                        against Muslims in LLMs.
+      </li>
+     </ul>
+     <p>
+      These biases can have real-world consequences, leading to unfair or discriminatory outcomes in areas
                     such as
                     hiring, loan applications, and even criminal justice.
-                </p>
-                <p>
-                    For a deeper understanding of bias in AI, you can refer to the work of organizations like the <a
-                        href="https://www.ai-now.org/" rel="noopener noreferrer" target="_blank">AI Now Institute</a>
-                    and the <a href="https://www.aclu.org/news/privacy-technology/fighting-bias-in-algorithms"
-                        rel="noopener noreferrer" target="_blank">ACLU</a>.
-                </p>
-                <h3 id="main-point-2">Misinformation and Manipulation: The Spread of Falsehoods</h3>
-                <p>
-                    LLMs are capable of generating highly convincing yet entirely fabricated text. This ability raises
+     </p>
+     <p>
+      For a deeper understanding of bias in AI, you can refer to the work of organizations like the
+      <a href="https://www.ai-now.org/" rel="noopener noreferrer" target="_blank">
+       AI Now Institute
+      </a>
+      and the
+      <a href="https://www.aclu.org/news/privacy-technology/fighting-bias-in-algorithms" rel="noopener noreferrer" target="_blank">
+       ACLU
+      </a>
+      .
+     </p>
+     <h3 id="main-point-2">
+      Misinformation and Manipulation: The Spread of Falsehoods
+     </h3>
+     <p>
+      LLMs are capable of generating highly convincing yet entirely fabricated text. This ability raises
                     serious
                     concerns about the potential for LLMs to be used to create and spread misinformation, propaganda,
                     and fake news.
                     Malicious actors could use LLMs to:
-                </p>
-                <ul>
-                    <li>Generate fake news articles or social media posts that are difficult to distinguish from real
+     </p>
+     <ul>
+      <li>
+       Generate fake news articles or social media posts that are difficult to distinguish from real
                         ones. For
-                        example, the <a href="https://www.bbc.com/news/technology-49446729" rel="noopener noreferrer"
-                            target="_blank">"too dangerous to release" version of OpenAI's GPT-2</a>
-                        demonstrated the ability to generate highly coherent and believable fake news stories.</li>
-                    <li>Create realistic but fabricated reviews or testimonials to manipulate public opinion.</li>
-                    <li>Impersonate individuals or organizations to spread false information or engage in phishing
-                        attacks.</li>
-                    <li>Generate deepfakes - realistic but fabricated audio or video content - to damage reputations or
+                        example, the
+       <a href="https://www.bbc.com/news/technology-49446729" rel="noopener noreferrer" target="_blank">
+        "too dangerous to release" version of OpenAI's GPT-2
+       </a>
+       demonstrated the ability to generate highly coherent and believable fake news stories.
+      </li>
+      <li>
+       Create realistic but fabricated reviews or testimonials to manipulate public opinion.
+      </li>
+      <li>
+       Impersonate individuals or organizations to spread false information or engage in phishing
+                        attacks.
+      </li>
+      <li>
+       Generate deepfakes - realistic but fabricated audio or video content - to damage reputations or
                         spread
                         disinformation. The rise of deepfakes has raised concerns about their potential to erode trust
                         in media and
-                        institutions. Organizations like <a href="https://www.witness.org/" rel="noopener noreferrer"
-                            target="_blank">WITNESS</a> are working to address the challenges posed by deepfakes.</li>
-                </ul>
-                <p>
-                    The ease with which LLMs can generate convincing but false content poses a significant threat to the
+                        institutions. Organizations like
+       <a href="https://www.witness.org/" rel="noopener noreferrer" target="_blank">
+        WITNESS
+       </a>
+       are working to address the challenges posed by deepfakes.
+      </li>
+     </ul>
+     <p>
+      The ease with which LLMs can generate convincing but false content poses a significant threat to the
                     integrity
                     of information and the trustworthiness of online sources.
-                </p>
-                <h3 id="main-point-3">Job Displacement: The Automation of Cognitive Labor</h3>
-                <p>
-                    As LLMs become more sophisticated, they are increasingly capable of performing tasks that were
+     </p>
+     <h3 id="main-point-3">
+      Job Displacement: The Automation of Cognitive Labor
+     </h3>
+     <p>
+      As LLMs become more sophisticated, they are increasingly capable of performing tasks that were
                     previously
                     thought to require human intelligence and creativity. This raises concerns about the potential for
                     LLMs to
                     displace workers in a variety of fields, including:
-                </p>
-                <ul>
-                    <li><strong>Content creation:</strong> LLMs can generate articles, blog posts, marketing copy, and
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Content creation:
+       </strong>
+       LLMs can generate articles, blog posts, marketing copy, and
                         other forms
-                        of written content, potentially displacing human writers and journalists.</li>
-                    <li><strong>Customer service:</strong> LLM-powered chatbots can handle a wide range of customer
+                        of written content, potentially displacing human writers and journalists.
+      </li>
+      <li>
+       <strong>
+        Customer service:
+       </strong>
+       LLM-powered chatbots can handle a wide range of customer
                         inquiries,
-                        potentially reducing the need for human customer service representatives.</li>
-                    <li><strong>Translation:</strong> LLMs can perform high-quality language translation, potentially
+                        potentially reducing the need for human customer service representatives.
+      </li>
+      <li>
+       <strong>
+        Translation:
+       </strong>
+       LLMs can perform high-quality language translation, potentially
                         impacting the
-                        demand for human translators.</li>
-                    <li><strong>Programming:</strong> LLMs can generate code, potentially automating some aspects of
+                        demand for human translators.
+      </li>
+      <li>
+       <strong>
+        Programming:
+       </strong>
+       LLMs can generate code, potentially automating some aspects of
                         software
-                        development.</li>
-                </ul>
-                <p>
-                    While some argue that LLMs will create new jobs and augment human capabilities, the potential for
+                        development.
+      </li>
+     </ul>
+     <p>
+      While some argue that LLMs will create new jobs and augment human capabilities, the potential for
                     significant
                     job displacement cannot be ignored. It is important to consider the societal implications of this
                     shift and
                     explore ways to mitigate its negative impacts, such as retraining programs and policies that support
                     a just
-                    transition. A <a
-                        href="https://www.oecd.org/en/publications/artificial-intelligence-and-labour-market-matching_2b440821-en.html"
-                        rel="noopener noreferrer" target="_blank">report by the OECD</a> discusses the potential impact
+                    transition. A
+      <a href="https://www.oecd.org/en/publications/artificial-intelligence-and-labour-market-matching_2b440821-en.html" rel="noopener noreferrer" target="_blank">
+       report by the OECD
+      </a>
+      discusses the potential impact
                     of AI on the labor market.
-                </p>
-                <h3 id="main-point-4">Privacy and Security: The Risks of Data Misuse</h3>
-                <p>
-                    LLMs raise several privacy and security concerns:
-                </p>
-                <ul>
-                    <li><strong>Data Privacy:</strong> LLMs are often trained on massive datasets that may contain
+     </p>
+     <h3 id="main-point-4">
+      Privacy and Security: The Risks of Data Misuse
+     </h3>
+     <p>
+      LLMs raise several privacy and security concerns:
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Data Privacy:
+       </strong>
+       LLMs are often trained on massive datasets that may contain
                         personal or
                         sensitive information. There is a risk that this information could be inadvertently revealed or
-                        misused. <a href="https://arxiv.org/abs/2012.07805" rel="noopener noreferrer"
-                            target="_blank">Research has shown</a>
-                        that it is possible to extract training data from language models under certain conditions.</li>
-                    <li><strong>Security Vulnerabilities:</strong> LLMs can be vulnerable to adversarial attacks, where
+                        misused.
+       <a href="https://arxiv.org/abs/2012.07805" rel="noopener noreferrer" target="_blank">
+        Research has shown
+       </a>
+       that it is possible to extract training data from language models under certain conditions.
+      </li>
+      <li>
+       <strong>
+        Security Vulnerabilities:
+       </strong>
+       LLMs can be vulnerable to adversarial attacks, where
                         malicious
                         actors manipulate the model's inputs to elicit undesirable outputs or extract sensitive
-                        information.</li>
-                    <li><strong>Surveillance and Control:</strong> LLMs could potentially be used for mass surveillance
+                        information.
+      </li>
+      <li>
+       <strong>
+        Surveillance and Control:
+       </strong>
+       LLMs could potentially be used for mass surveillance
                         or to
-                        manipulate and control individuals' behavior.</li>
-                </ul>
-                <p>
-                    It is crucial to develop robust security measures and privacy safeguards to protect against these
+                        manipulate and control individuals' behavior.
+      </li>
+     </ul>
+     <p>
+      It is crucial to develop robust security measures and privacy safeguards to protect against these
                     risks.
-                </p>
-                <h3 id="main-point-5">Responsibility and Accountability: Who is Liable?</h3>
-                <p>
-                    Determining responsibility and accountability for the actions of LLMs is a complex ethical and legal
+     </p>
+     <h3 id="main-point-5">
+      Responsibility and Accountability: Who is Liable?
+     </h3>
+     <p>
+      Determining responsibility and accountability for the actions of LLMs is a complex ethical and legal
                     challenge.
                     If an LLM generates harmful or misleading content, who is responsible? The developers of the model?
                     The users
                     who deploy it? The individuals who provide the input prompts?
-                </p>
-                <p>
-                    Establishing clear lines of responsibility and accountability is essential to ensure that LLMs are
+     </p>
+     <p>
+      Establishing clear lines of responsibility and accountability is essential to ensure that LLMs are
                     used
                     ethically and that appropriate measures are taken to address any harm they may cause. This may
                     involve a
                     combination of technical solutions, regulatory frameworks, and industry best practices.
-                </p>
-                <h3 id="main-point-6">Addressing the Ethical Challenges: Potential Solutions</h3>
-                <p>
-                    Addressing the ethical challenges of LLMs requires a multi-faceted approach involving researchers,
+     </p>
+     <h3 id="main-point-6">
+      Addressing the Ethical Challenges: Potential Solutions
+     </h3>
+     <p>
+      Addressing the ethical challenges of LLMs requires a multi-faceted approach involving researchers,
                     developers,
                     policymakers, and the broader public. Some potential solutions include:
-                </p>
-                <ul>
-                    <li><strong>Bias Detection and Mitigation:</strong> Developing techniques to identify and mitigate
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Bias Detection and Mitigation:
+       </strong>
+       Developing techniques to identify and mitigate
                         biases in
                         LLMs, such as auditing training data, using fairness-aware algorithms, and incorporating diverse
-                        perspectives in the development process. Organizations like the <a
-                            href="https://dataresponsibly.github.io/" rel="noopener noreferrer" target="_blank">Data
-                            &amp; Society Research Institute</a> are working on methods
-                        for auditing and mitigating algorithmic bias.</li>
-                    <li><strong>Misinformation Detection and Prevention:</strong> Creating tools and techniques to
+                        perspectives in the development process. Organizations like the
+       <a href="https://dataresponsibly.github.io/" rel="noopener noreferrer" target="_blank">
+        Data
+                            &amp; Society Research Institute
+       </a>
+       are working on methods
+                        for auditing and mitigating algorithmic bias.
+      </li>
+      <li>
+       <strong>
+        Misinformation Detection and Prevention:
+       </strong>
+       Creating tools and techniques to
                         detect
                         LLM-generated fake news and prevent its spread, such as watermarking or provenance tracking.
                         Projects like
-                        the <a href="https://www.disinfo.eu/" rel="noopener noreferrer" target="_blank">EU
-                            DisinfoLab</a> are
-                        focused on combating disinformation.</li>
-                    <li><strong>Transparency and Explainability:</strong> Making LLMs more transparent and explainable,
+                        the
+       <a href="https://www.disinfo.eu/" rel="noopener noreferrer" target="_blank">
+        EU
+                            DisinfoLab
+       </a>
+       are
+                        focused on combating disinformation.
+      </li>
+      <li>
+       <strong>
+        Transparency and Explainability:
+       </strong>
+       Making LLMs more transparent and explainable,
                         so that
-                        users can understand how they work and why they produce certain outputs.</li>
-                    <li><strong>Robustness and Security:</strong> Developing methods to make LLMs more robust against
+                        users can understand how they work and why they produce certain outputs.
+      </li>
+      <li>
+       <strong>
+        Robustness and Security:
+       </strong>
+       Developing methods to make LLMs more robust against
                         adversarial
-                        attacks and to protect sensitive data.</li>
-                    <li><strong>Regulation and Governance:</strong> Establishing appropriate regulations and governance
+                        attacks and to protect sensitive data.
+      </li>
+      <li>
+       <strong>
+        Regulation and Governance:
+       </strong>
+       Establishing appropriate regulations and governance
                         frameworks
-                        to ensure that LLMs are developed and used responsibly. The <a
-                            href="https://www.whitehouse.gov/briefing-room/statements-releases/2023/07/21/fact-sheet-biden-harris-administration-secures-voluntary-commitments-from-leading-artificial-intelligence-companies-to-manage-the-risks-posed-by-ai/"
-                            rel="noopener noreferrer" target="_blank">White House has secured voluntary commitments</a>
-                        from leading
-                        AI companies to manage the risks posed by AI.</li>
-                    <li><strong>Public Education and Awareness:</strong> Raising public awareness about the capabilities
+                        to ensure that LLMs are developed and used responsibly. The
+       <a href="https://www.whitehouse.gov/briefing-room/statements-releases/2023/07/21/fact-sheet-biden-harris-administration-secures-voluntary-commitments-from-leading-artificial-intelligence-companies-to-manage-the-risks-posed-by-ai/" rel="noopener noreferrer" target="_blank">
+        White House has secured voluntary commitments
+       </a>
+       from leading
+                        AI companies to manage the risks posed by AI.
+      </li>
+      <li>
+       <strong>
+        Public Education and Awareness:
+       </strong>
+       Raising public awareness about the capabilities
                         and
-                        limitations of LLMs, as well as the potential ethical risks.</li>
-                    <li><strong>Ethical Guidelines and Best Practices:</strong> Developing ethical guidelines and best
+                        limitations of LLMs, as well as the potential ethical risks.
+      </li>
+      <li>
+       <strong>
+        Ethical Guidelines and Best Practices:
+       </strong>
+       Developing ethical guidelines and best
                         practices
-                        for the development and deployment of LLMs, such as those proposed by the <a
-                            href="https://openai.com/charter" rel="noopener noreferrer" target="_blank">OpenAI
-                            Charter</a> and
-                        the <a href="https://www.partnershiponai.org/" rel="noopener noreferrer"
-                            target="_blank">Partnership on
-                            AI</a>.</li>
-                </ul>
-                <h3 id="conclusion">Conclusion</h3>
-                <p>
-                    The ethical considerations surrounding Large Language Models are complex and multifaceted. As these
+                        for the development and deployment of LLMs, such as those proposed by the
+       <a href="https://openai.com/charter" rel="noopener noreferrer" target="_blank">
+        OpenAI
+                            Charter
+       </a>
+       and
+                        the
+       <a href="https://www.partnershiponai.org/" rel="noopener noreferrer" target="_blank">
+        Partnership on
+                            AI
+       </a>
+       .
+      </li>
+     </ul>
+     <h3 id="conclusion">
+      Conclusion
+     </h3>
+     <p>
+      The ethical considerations surrounding Large Language Models are complex and multifaceted. As these
                     powerful AI
                     systems become increasingly integrated into our lives, it is crucial to engage in a thoughtful and
                     ongoing
@@ -239,38 +394,66 @@
                     researchers, developers, policymakers, and the public to ensure that LLMs are used responsibly and
                     ethically for
                     the betterment of humanity.
-                </p>
-                <p>
-                    <b>Further Reading:</b>
-                </p>
-                <ul>
-                    <li><a href="https://arxiv.org/abs/2112.04359" rel="noopener noreferrer" target="_blank">"Ethical
-                            and social risks of harm from Language Models"</a> - Nature</li>
-                    <li><a href="https://proceedings.mlr.press/v80/bender18a/bender18a.pdf" rel="noopener noreferrer"
-                            target="_blank">"On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"</a>
-                        -
-                        Bender et al.</li>
-                    <li><a href="https://sitn.hms.harvard.edu/flash/2020/racial-discrimination-in-face-recognition-technology/"
-                            rel="noopener noreferrer" target="_blank">"Racial Discrimination in Face Recognition
-                            Technology"</a> -
-                        Science in the News, Harvard University</li>
-                    <li><a href="https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence"
-                            rel="noopener noreferrer" target="_blank">"Four Principles of Explainable Artificial
-                            Intelligence"</a> - NIST</li>
-                </ul>
-                <p>
-                    <b>Get Involved:</b>
-                <ul>
-                    <li>Support organizations working on AI ethics and responsible AI development.</li>
-                    <li>Participate in discussions and forums about the ethical implications of LLMs.</li>
-                    <li>Advocate for policies and regulations that promote the responsible use of AI.</li>
-                    <li>Stay informed about the latest developments in AI ethics and research.</li>
-                </ul>
-                </p>
-            </article>
-        </article>
-    </main>
-    <div id="footer-placeholder"></div>
-</body>
-
+     </p>
+     <p>
+      <b>
+       Further Reading:
+      </b>
+     </p>
+     <ul>
+      <li>
+       <a href="https://arxiv.org/abs/2112.04359" rel="noopener noreferrer" target="_blank">
+        "Ethical
+                            and social risks of harm from Language Models"
+       </a>
+       - Nature
+      </li>
+      <li>
+       <a href="https://proceedings.mlr.press/v80/bender18a/bender18a.pdf" rel="noopener noreferrer" target="_blank">
+        "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"
+       </a>
+       -
+                        Bender et al.
+      </li>
+      <li>
+       <a href="https://sitn.hms.harvard.edu/flash/2020/racial-discrimination-in-face-recognition-technology/" rel="noopener noreferrer" target="_blank">
+        "Racial Discrimination in Face Recognition
+                            Technology"
+       </a>
+       -
+                        Science in the News, Harvard University
+      </li>
+      <li>
+       <a href="https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence" rel="noopener noreferrer" target="_blank">
+        "Four Principles of Explainable Artificial
+                            Intelligence"
+       </a>
+       - NIST
+      </li>
+     </ul>
+     <p>
+      <b>
+       Get Involved:
+      </b>
+      <ul>
+       <li>
+        Support organizations working on AI ethics and responsible AI development.
+       </li>
+       <li>
+        Participate in discussions and forums about the ethical implications of LLMs.
+       </li>
+       <li>
+        Advocate for policies and regulations that promote the responsible use of AI.
+       </li>
+       <li>
+        Stay informed about the latest developments in AI ethics and research.
+       </li>
+      </ul>
+     </p>
+    </article>
+   </article>
+  </main>
+  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
+  </footer>
+ </body>
 </html>
