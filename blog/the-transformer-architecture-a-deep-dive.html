@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   {title}
-  </title>
-  <link href="../assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
-  <link href="../assets/css/style.css" rel="stylesheet"/>
-  <script src="https://unpkg.com/htmx.org@1.9.2">
-  </script>
- </head>
- <body>
-  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load">
-  </header>
-  <nav hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load">
-  </nav>
-  <main class="container">
-   <article>
-    <article data-date="2024-07-12" data-slug="the-transformer-architecture-a-deep-dive">
-     <h2>
-      The Transformer Architecture: A Deep Dive
-     </h2>
-     <p>
-      <strong>
-       Date:
-      </strong>
-      2024-07-12
-     </p>
-     <p>
-      The advent of the Transformer architecture in the seminal paper
-      <a href="https://arxiv.org/abs/1706.03762">
-       "Attention is All You Need"
-      </a>
-      marked a paradigm shift
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+        {title}
+    </title>
+    <link href="../assets/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <script src="https://unpkg.com/htmx.org@1.9.2">
+    </script>
+</head>
+
+<body>
+    <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load">
+    </header>
+    <nav hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load">
+    </nav>
+    <main class="container">
+        <article>
+            <article data-date="2024-07-12" data-slug="the-transformer-architecture-a-deep-dive">
+                <h2>
+                    The Transformer Architecture: A Deep Dive
+                </h2>
+                <p>
+                    <strong>
+                        Date:
+                    </strong>
+                    2024-07-12
+                </p>
+                <p>
+                    The advent of the Transformer architecture in the seminal paper
+                    <a href="https://arxiv.org/abs/1706.03762">
+                        "Attention is All You Need"
+                    </a>
+                    marked a paradigm shift
                     in the
                     field of Natural Language Processing (NLP). This revolutionary architecture, with its innovative
                     self-attention
@@ -42,121 +44,121 @@
                     applications like ChatGPT, Gemini, and others. In this post, we'll take a deep dive into the inner
                     workings of
                     the Transformer and explore how self-attention enables LLMs to process context so effectively.
-     </p>
-     <h3 id="main-point-1">
-      The Limitations of Recurrent and Convolutional Models
-     </h3>
-     <p>
-      Before the Transformer, Recurrent Neural Networks (RNNs), particularly LSTMs and GRUs, were the
+                </p>
+                <h3 id="main-point-1">
+                    The Limitations of Recurrent and Convolutional Models
+                </h3>
+                <p>
+                    Before the Transformer, Recurrent Neural Networks (RNNs), particularly LSTMs and GRUs, were the
                     dominant
                     approach for NLP tasks. RNNs process text sequentially, word by word, maintaining a hidden state
                     that
                     encapsulates information from the preceding words. While effective, RNNs suffer from limitations:
-     </p>
-     <ul>
-      <li>
-       <strong>
-        Sequential Processing Bottleneck:
-       </strong>
-       RNNs are inherently sequential, making them
+                </p>
+                <ul>
+                    <li>
+                        <strong>
+                            Sequential Processing Bottleneck:
+                        </strong>
+                        RNNs are inherently sequential, making them
                         slow to
                         train and difficult to parallelize, especially for long sequences.
-      </li>
-      <li>
-       <strong>
-        Vanishing and Exploding Gradients:
-       </strong>
-       During training, RNNs can suffer from
+                    </li>
+                    <li>
+                        <strong>
+                            Vanishing and Exploding Gradients:
+                        </strong>
+                        During training, RNNs can suffer from
                         vanishing or
                         exploding gradients, making it hard to learn long-range dependencies.
-      </li>
-      <li>
-       <strong>
-        Limited Contextual Understanding:
-       </strong>
-       Although LSTMs and GRUs were designed to
+                    </li>
+                    <li>
+                        <strong>
+                            Limited Contextual Understanding:
+                        </strong>
+                        Although LSTMs and GRUs were designed to
                         address the
                         vanishing gradient problem, they still struggle to capture long-range dependencies effectively.
-      </li>
-     </ul>
-     <p>
-      Convolutional Neural Networks (CNNs) were also explored for NLP tasks. While CNNs are
+                    </li>
+                </ul>
+                <p>
+                    Convolutional Neural Networks (CNNs) were also explored for NLP tasks. While CNNs are
                     parallelizable, they
                     have a limited receptive field, meaning they can only capture local context within a fixed window
                     size.
-     </p>
-     <h3 id="main-point-2">
-      Enter the Transformer: A New Paradigm
-     </h3>
-     <p>
-      The Transformer architecture, introduced by Vaswani et al. in 2017, revolutionized NLP by dispensing
+                </p>
+                <h3 id="main-point-2">
+                    Enter the Transformer: A New Paradigm
+                </h3>
+                <p>
+                    The Transformer architecture, introduced by Vaswani et al. in 2017, revolutionized NLP by dispensing
                     with
                     recurrence and convolutions entirely. Instead, it relies solely on a novel mechanism called
-      <strong>
-       self-attention
-      </strong>
-      , which allows the model to weigh the importance of different words
+                    <strong>
+                        self-attention
+                    </strong>
+                    , which allows the model to weigh the importance of different words
                     in the input
                     sequence when processing each word.
-     </p>
-     <h3 id="main-point-3">
-      Self-Attention: The Core of the Transformer
-     </h3>
-     <p>
-      Self-attention is the key innovation that enables the Transformer to capture relationships between
+                </p>
+                <h3 id="main-point-3">
+                    Self-Attention: The Core of the Transformer
+                </h3>
+                <p>
+                    Self-attention is the key innovation that enables the Transformer to capture relationships between
                     words in a
                     sequence, regardless of their distance from each other. Here's how it works:
-     </p>
-     <ol>
-      <li>
-       <strong>
-        Query, Key, and Value Vectors:
-       </strong>
-       For each word in the input sequence, the
+                </p>
+                <ol>
+                    <li>
+                        <strong>
+                            Query, Key, and Value Vectors:
+                        </strong>
+                        For each word in the input sequence, the
                         Transformer
                         creates three vectors: a
-       <strong>
-        query
-       </strong>
-       vector, a
-       <strong>
-        key
-       </strong>
-       vector, and a
-       <strong>
-        value
-       </strong>
-       vector. These vectors are learned during training and are essentially
+                        <strong>
+                            query
+                        </strong>
+                        vector, a
+                        <strong>
+                            key
+                        </strong>
+                        vector, and a
+                        <strong>
+                            value
+                        </strong>
+                        vector. These vectors are learned during training and are essentially
                         different
                         representations of the same word.
-      </li>
-      <li>
-       <strong>
-        Calculating Attention Scores:
-       </strong>
-       To compute the attention score for a specific
+                    </li>
+                    <li>
+                        <strong>
+                            Calculating Attention Scores:
+                        </strong>
+                        To compute the attention score for a specific
                         word, the
                         Transformer takes the dot product of the query vector of that word with the key vectors of all
                         the words
                         in the sequence. This dot product measures the similarity or relevance between the word and
                         every other
                         word.
-      </li>
-      <li>
-       <strong>
-        Softmax for Weights:
-       </strong>
-       The attention scores are then passed through a softmax
+                    </li>
+                    <li>
+                        <strong>
+                            Softmax for Weights:
+                        </strong>
+                        The attention scores are then passed through a softmax
                         function,
                         which normalizes them into a probability distribution. These normalized scores represent the
                         attention
                         weights, indicating how much each word should be "attended to" when processing the current word.
-      </li>
-      <li>
-       <strong>
-        Weighted Sum of Value Vectors:
-       </strong>
-       Finally, the Transformer computes a weighted sum
+                    </li>
+                    <li>
+                        <strong>
+                            Weighted Sum of Value Vectors:
+                        </strong>
+                        Finally, the Transformer computes a weighted sum
                         of the
                         value vectors, where the weights are the attention weights obtained in the previous step. This
                         weighted
@@ -165,89 +167,93 @@
                         representation of the word, incorporating information from all other words in the sequence,
                         weighted by
                         their relevance.
-      </li>
-     </ol>
-     <p>
-      This process is repeated for every word in the input sequence, allowing the Transformer to capture
+                    </li>
+                </ol>
+                <p>
+                    This process is repeated for every word in the input sequence, allowing the Transformer to capture
                     complex
                     relationships and dependencies between words, regardless of their position.
-     </p>
-     <p>
-      The following illustration from the original paper helps to visualize this:
-     </p>
-     <img alt="Scaled Dot-Product Attention" src="https://arxiv.org/html/1706.03762v7/extracted/1706.03762v7/Figures/ModalNet-19.png" style="width: 100%; max-width: 700px; margin: 1rem auto;"/>
-     <p style="text-align: center; font-size: smaller;">
-      Scaled Dot-Product Attention
-     </p>
-     <img alt="Multi-Head Attention" src="https://arxiv.org/html/1706.03762v7/extracted/1706.03762v7/Figures/ModalNet-20.png" style="width: 100%; max-width: 700px; margin: 1rem auto;"/>
-     <p style="text-align: center; font-size: smaller;">
-      Multi-Head Attention
-     </p>
-     <h3 id="main-point-4">
-      Multi-Head Attention: Enhancing Representational Power
-     </h3>
-     <p>
-      To further enhance the model's ability to capture different types of relationships, the Transformer
+                </p>
+                <p>
+                    The following illustration from the original paper helps to visualize this:
+                </p>
+                <img alt="Scaled Dot-Product Attention"
+                    src="https://arxiv.org/html/1706.03762v7/extracted/1706.03762v7/Figures/ModalNet-19.png"
+                    style="width: 100%; max-width: 700px; margin: 1rem auto;" />
+                <p style="text-align: center; font-size: smaller;">
+                    Scaled Dot-Product Attention
+                </p>
+                <img alt="Multi-Head Attention"
+                    src="https://arxiv.org/html/1706.03762v7/extracted/1706.03762v7/Figures/ModalNet-20.png"
+                    style="width: 100%; max-width: 700px; margin: 1rem auto;" />
+                <p style="text-align: center; font-size: smaller;">
+                    Multi-Head Attention
+                </p>
+                <h3 id="main-point-4">
+                    Multi-Head Attention: Enhancing Representational Power
+                </h3>
+                <p>
+                    To further enhance the model's ability to capture different types of relationships, the Transformer
                     uses
-      <strong>
-       multi-head attention
-      </strong>
-      . Instead of performing self-attention just once, the input is
+                    <strong>
+                        multi-head attention
+                    </strong>
+                    . Instead of performing self-attention just once, the input is
                     passed
                     through multiple self-attention "heads" in parallel. Each head learns to attend to different aspects
                     of the
                     input, allowing the model to capture a richer set of dependencies. The outputs of the different
                     heads are then
                     concatenated and linearly transformed to produce the final output.
-     </p>
-     <h3 id="main-point-5">
-      Positional Encoding: Keeping Track of Order
-     </h3>
-     <p>
-      Since the Transformer doesn't process words sequentially, it needs a way to incorporate information
+                </p>
+                <h3 id="main-point-5">
+                    Positional Encoding: Keeping Track of Order
+                </h3>
+                <p>
+                    Since the Transformer doesn't process words sequentially, it needs a way to incorporate information
                     about the
                     position of each word in the sequence. This is achieved through
-      <strong>
-       positional
+                    <strong>
+                        positional
                         encodings
-      </strong>
-      , which
+                    </strong>
+                    , which
                     are added to the word embeddings before they are fed into the model. Positional encodings are
                     vectors that
                     encode the position of each word in the sequence, allowing the model to distinguish between words
                     that appear
                     in different positions.
-     </p>
-     <h3 id="main-point-6">
-      The Transformer Encoder and Decoder
-     </h3>
-     <p>
-      The original Transformer architecture consists of an
-      <strong>
-       encoder
-      </strong>
-      and a
-      <strong>
-       decoder
-      </strong>
-      ,
+                </p>
+                <h3 id="main-point-6">
+                    The Transformer Encoder and Decoder
+                </h3>
+                <p>
+                    The original Transformer architecture consists of an
+                    <strong>
+                        encoder
+                    </strong>
+                    and a
+                    <strong>
+                        decoder
+                    </strong>
+                    ,
                     each composed of a stack of identical layers.
-     </p>
-     <ul>
-      <li>
-       <strong>
-        Encoder:
-       </strong>
-       The encoder is responsible for processing the input sequence and
+                </p>
+                <ul>
+                    <li>
+                        <strong>
+                            Encoder:
+                        </strong>
+                        The encoder is responsible for processing the input sequence and
                         generating a
                         contextualized representation of it. Each encoder layer consists of a multi-head self-attention
                         mechanism followed by a position-wise feed-forward network.
-      </li>
-      <li>
-       <strong>
-        Decoder:
-       </strong>
-       The decoder generates the output sequence one word at a time, based on
+                    </li>
+                    <li>
+                        <strong>
+                            Decoder:
+                        </strong>
+                        The decoder generates the output sequence one word at a time, based on
                         the
                         encoded representation of the input and the previously generated words. Each decoder layer has
                         two
@@ -256,58 +262,60 @@
                         to the previously generated words in the output sequence. It also has a position-wise
                         feed-forward
                         network.
-      </li>
-     </ul>
-     <img alt="The Transformer - model architecture" src="https://arxiv.org/html/1706.03762v7/extracted/1706.03762v7/Figures/ModalNet-21.png" style="width: 100%; max-width: 700px; margin: 1rem auto;"/>
-     <p style="text-align: center; font-size: smaller;">
-      The Transformer - model architecture
-     </p>
-     <h3 id="main-point-7">
-      How Self-Attention Enables Context Processing in LLMs
-     </h3>
-     <p>
-      The self-attention mechanism is the key to the Transformer's ability to process context effectively.
+                    </li>
+                </ul>
+                <img alt="The Transformer - model architecture"
+                    src="https://arxiv.org/html/1706.03762v7/extracted/1706.03762v7/Figures/ModalNet-21.png"
+                    style="width: 100%; max-width: 700px; margin: 1rem auto;" />
+                <p style="text-align: center; font-size: smaller;">
+                    The Transformer - model architecture
+                </p>
+                <h3 id="main-point-7">
+                    How Self-Attention Enables Context Processing in LLMs
+                </h3>
+                <p>
+                    The self-attention mechanism is the key to the Transformer's ability to process context effectively.
                     By
                     allowing each word to attend to every other word in the sequence, the model can capture long-range
                     dependencies and understand the relationships between words, regardless of their distance from each
                     other.
                     This is crucial for many NLP tasks, such as:
-     </p>
-     <ul>
-      <li>
-       <strong>
-        Machine Translation:
-       </strong>
-       Understanding the relationships between words in different
+                </p>
+                <ul>
+                    <li>
+                        <strong>
+                            Machine Translation:
+                        </strong>
+                        Understanding the relationships between words in different
                         languages is essential for accurate translation.
-      </li>
-      <li>
-       <strong>
-        Text Summarization:
-       </strong>
-       Identifying the most important sentences and phrases in a
+                    </li>
+                    <li>
+                        <strong>
+                            Text Summarization:
+                        </strong>
+                        Identifying the most important sentences and phrases in a
                         document
                         requires understanding the overall context.
-      </li>
-      <li>
-       <strong>
-        Question Answering:
-       </strong>
-       Answering questions often requires understanding the
+                    </li>
+                    <li>
+                        <strong>
+                            Question Answering:
+                        </strong>
+                        Answering questions often requires understanding the
                         relationships
                         between the question and different parts of the context.
-      </li>
-      <li>
-       <strong>
-        Sentiment Analysis:
-       </strong>
-       Determining the sentiment of a text often depends on
+                    </li>
+                    <li>
+                        <strong>
+                            Sentiment Analysis:
+                        </strong>
+                        Determining the sentiment of a text often depends on
                         understanding
                         the subtle nuances and relationships between words.
-      </li>
-     </ul>
-     <p>
-      In LLMs, the Transformer architecture, often just the decoder part, is scaled up to an enormous
+                    </li>
+                </ul>
+                <p>
+                    In LLMs, the Transformer architecture, often just the decoder part, is scaled up to an enormous
                     size, with
                     billions or even trillions of parameters. These models are pre-trained on massive amounts of text
                     data,
@@ -316,12 +324,12 @@
                     crucial role in this pre-training process, enabling the model to learn contextualized word
                     representations
                     that capture the meaning and relationships of words in a wide range of contexts.
-     </p>
-     <h3 id="conclusion">
-      Conclusion
-     </h3>
-     <p>
-      The Transformer architecture, with its innovative self-attention mechanism, has revolutionized the
+                </p>
+                <h3 id="conclusion">
+                    Conclusion
+                </h3>
+                <p>
+                    The Transformer architecture, with its innovative self-attention mechanism, has revolutionized the
                     field of
                     NLP and paved the way for the development of powerful LLMs. By allowing each word to attend to every
                     other
@@ -331,11 +339,12 @@
                     research continues to advance, we can expect even more sophisticated attention mechanisms and
                     architectures to
                     emerge, further pushing the boundaries of what's possible with AI and language.
-     </p>
-    </article>
-   </article>
-  </main>
-  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
-  </footer>
- </body>
+                </p>
+            </article>
+        </article>
+    </main>
+    <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
+    </footer>
+</body>
+
 </html>
