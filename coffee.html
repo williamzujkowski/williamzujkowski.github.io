@@ -5,11 +5,8 @@
     <meta charset="UTF-8">
     <meta name="description" content="Welcome to William Zujkowski's Personal Website">
     <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
-    <meta name="author" content="William Zujkowski">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
+    <!-- No Google Fonts; using system fonts -->
     <title>Coffee Calculator - William Zujkowski</title>
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -18,8 +15,7 @@
 </head>
 
 <body>
-    <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
-    <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
+    <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
     <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>

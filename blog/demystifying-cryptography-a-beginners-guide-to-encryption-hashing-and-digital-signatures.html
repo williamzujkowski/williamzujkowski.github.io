@@ -1,200 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script type="module" src="../assets/js/main.js"></script>
-</head>
-
-<body>
-  <div id="header-placeholder"></div>
-  <div id="nav-placeholder"></div>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   {title}
+  </title>
+  <link href="../assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
+  <link href="../assets/css/style.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/htmx.org@1.9.2">
+  </script>
+ </head>
+ <body>
+  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load">
+  </header>
+  <nav hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load">
+  </nav>
   <main class="container">
-    <article>
-      <article data-date="2024-04-08"
-        data-slug="demystifying-cryptography-a-beginners-guide-to-encryption-hashing-and-digital-signatures">
-        <h2>Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures</h2>
-        <p><strong>Date:</strong> 2024-04-08</p>
-        <p>
-          In today's digital world, where sensitive information is constantly being transmitted and stored online,
+   <article>
+    <article data-date="2024-04-08" data-slug="demystifying-cryptography-a-beginners-guide-to-encryption-hashing-and-digital-signatures">
+     <h2>
+      Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures
+     </h2>
+     <p>
+      <strong>
+       Date:
+      </strong>
+      2024-04-08
+     </p>
+     <p>
+      In today's digital world, where sensitive information is constantly being transmitted and stored online,
           cryptography plays a crucial role in maintaining security and privacy. Cryptography, the art and science of
           secure communication, provides the tools and techniques necessary to protect data from unauthorized access and
           tampering. This post will provide a beginner-friendly introduction to the fundamental concepts of
           cryptography,
           exploring different types of encryption, hashing algorithms, and digital signatures.
-        </p>
-        <h3 id="main-point-1">Encryption: Keeping Secrets Secret</h3>
-        <p>
-          Encryption is the process of transforming plaintext (readable data) into ciphertext (unreadable data) using an
+     </p>
+     <h3 id="main-point-1">
+      Encryption: Keeping Secrets Secret
+     </h3>
+     <p>
+      Encryption is the process of transforming plaintext (readable data) into ciphertext (unreadable data) using an
           algorithm and a secret key. Only individuals possessing the correct key can decrypt the ciphertext back into
           its
           original plaintext form. There are two primary types of encryption:
-        </p>
-        <ul>
-          <li><strong>Symmetric Encryption:</strong>
-            <ul>
-              <li><strong>Definition:</strong> Symmetric encryption uses the <em>same</em> secret key for both
-                encryption and decryption. Think of it like a shared secret code between two parties.</li>
-              <li><strong>How it works:</strong> The sender encrypts the plaintext using the shared secret key and
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Symmetric Encryption:
+       </strong>
+       <ul>
+        <li>
+         <strong>
+          Definition:
+         </strong>
+         Symmetric encryption uses the
+         <em>
+          same
+         </em>
+         secret key for both
+                encryption and decryption. Think of it like a shared secret code between two parties.
+        </li>
+        <li>
+         <strong>
+          How it works:
+         </strong>
+         The sender encrypts the plaintext using the shared secret key and
                 sends the ciphertext to the receiver. The receiver then uses the same secret key to decrypt the
-                ciphertext and retrieve the original plaintext.</li>
-              <li><strong>Advantages:</strong> Symmetric encryption is generally faster and more efficient than
-                asymmetric encryption, making it suitable for encrypting large amounts of data.</li>
-              <li><strong>Disadvantages:</strong> The key distribution problem is a major challenge. Securely sharing
-                the secret key between parties can be difficult.</li>
-              <li><strong>Examples:</strong>
-                <ul>
-                  <li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" rel="noopener noreferrer"
-                      target="_blank">Advanced Encryption Standard (AES)</a></li>
-                  <li><a href="https://en.wikipedia.org/wiki/Data_Encryption_Standard" rel="noopener noreferrer"
-                      target="_blank">Data Encryption Standard (DES)</a> - (Note: DES is now
-                    considered outdated and insecure for most applications)</li>
-                  <li><a href="https://en.wikipedia.org/wiki/Twofish" rel="noopener noreferrer"
-                      target="_blank">Twofish</a></li>
-                  <li><a href="https://en.wikipedia.org/wiki/Serpent_(cipher)" rel="noopener noreferrer"
-                      target="_blank">Serpent</a></li>
-                </ul>
-              </li>
-            </ul>
+                ciphertext and retrieve the original plaintext.
+        </li>
+        <li>
+         <strong>
+          Advantages:
+         </strong>
+         Symmetric encryption is generally faster and more efficient than
+                asymmetric encryption, making it suitable for encrypting large amounts of data.
+        </li>
+        <li>
+         <strong>
+          Disadvantages:
+         </strong>
+         The key distribution problem is a major challenge. Securely sharing
+                the secret key between parties can be difficult.
+        </li>
+        <li>
+         <strong>
+          Examples:
+         </strong>
+         <ul>
+          <li>
+           <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" rel="noopener noreferrer" target="_blank">
+            Advanced Encryption Standard (AES)
+           </a>
           </li>
-          <li><strong>Asymmetric Encryption (Public-Key Cryptography):</strong>
-            <ul>
-              <li><strong>Definition:</strong> Asymmetric encryption uses <em>two</em> different keys: a
-                <strong>public key</strong> for encryption and a <strong>private key</strong> for decryption. The
+          <li>
+           <a href="https://en.wikipedia.org/wiki/Data_Encryption_Standard" rel="noopener noreferrer" target="_blank">
+            Data Encryption Standard (DES)
+           </a>
+           - (Note: DES is now
+                    considered outdated and insecure for most applications)
+          </li>
+          <li>
+           <a href="https://en.wikipedia.org/wiki/Twofish" rel="noopener noreferrer" target="_blank">
+            Twofish
+           </a>
+          </li>
+          <li>
+           <a href="https://en.wikipedia.org/wiki/Serpent_(cipher)" rel="noopener noreferrer" target="_blank">
+            Serpent
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Asymmetric Encryption (Public-Key Cryptography):
+       </strong>
+       <ul>
+        <li>
+         <strong>
+          Definition:
+         </strong>
+         Asymmetric encryption uses
+         <em>
+          two
+         </em>
+         different keys: a
+         <strong>
+          public key
+         </strong>
+         for encryption and a
+         <strong>
+          private key
+         </strong>
+         for decryption. The
                 public key can be freely distributed, while the private key must be kept secret.
-              </li>
-              <li><strong>How it works:</strong> The sender encrypts the plaintext using the receiver's public key.
-                Only the receiver, who possesses the corresponding private key, can decrypt the ciphertext.</li>
-              <li><strong>Advantages:</strong> Solves the key distribution problem of symmetric encryption. Public
-                keys can be shared openly without compromising security. Enables digital signatures.</li>
-              <li><strong>Disadvantages:</strong> Generally slower and less efficient than symmetric encryption.</li>
-              <li><strong>Examples:</strong>
-                <ul>
-                  <li><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)" rel="noopener noreferrer"
-                      target="_blank">RSA (Rivest-Shamir-Adleman)</a></li>
-                  <li><a href="https://en.wikipedia.org/wiki/Elliptic-curve_cryptography" rel="noopener noreferrer"
-                      target="_blank">Elliptic Curve Cryptography (ECC)</a></li>
-                  <li><a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange"
-                      rel="noopener noreferrer" target="_blank">Diffie-Hellman Key Exchange</a></li>
-                </ul>
-              </li>
-            </ul>
+        </li>
+        <li>
+         <strong>
+          How it works:
+         </strong>
+         The sender encrypts the plaintext using the receiver's public key.
+                Only the receiver, who possesses the corresponding private key, can decrypt the ciphertext.
+        </li>
+        <li>
+         <strong>
+          Advantages:
+         </strong>
+         Solves the key distribution problem of symmetric encryption. Public
+                keys can be shared openly without compromising security. Enables digital signatures.
+        </li>
+        <li>
+         <strong>
+          Disadvantages:
+         </strong>
+         Generally slower and less efficient than symmetric encryption.
+        </li>
+        <li>
+         <strong>
+          Examples:
+         </strong>
+         <ul>
+          <li>
+           <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)" rel="noopener noreferrer" target="_blank">
+            RSA (Rivest-Shamir-Adleman)
+           </a>
           </li>
-        </ul>
-        <h3 id="main-point-2">Hashing Algorithms: Ensuring Data Integrity</h3>
-        <p>
-          Hashing algorithms are one-way functions that take an input (of any size) and produce a fixed-size output,
+          <li>
+           <a href="https://en.wikipedia.org/wiki/Elliptic-curve_cryptography" rel="noopener noreferrer" target="_blank">
+            Elliptic Curve Cryptography (ECC)
+           </a>
+          </li>
+          <li>
+           <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange" rel="noopener noreferrer" target="_blank">
+            Diffie-Hellman Key Exchange
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <h3 id="main-point-2">
+      Hashing Algorithms: Ensuring Data Integrity
+     </h3>
+     <p>
+      Hashing algorithms are one-way functions that take an input (of any size) and produce a fixed-size output,
           called a hash or message digest. Hashes are used to verify data integrity and are essential for digital
           signatures, password storage, and other security applications.
-        </p>
-        <ul>
-          <li><strong>Key Properties of Hashing Algorithms:</strong>
-            <ul>
-              <li><strong>Deterministic:</strong> The same input will always produce the same hash output.</li>
-              <li><strong>One-way:</strong> It is computationally infeasible to reverse the process and derive the
-                original input from the hash.</li>
-              <li><strong>Collision-resistant:</strong> It is extremely difficult to find two different inputs that
-                produce the same hash output (a collision).</li>
-              <li><strong>Avalanche Effect:</strong> A small change in the input should result in a significant change
-                in the hash output.</li>
-            </ul>
-          </li>
-          <li><strong>Common Hashing Algorithms:</strong>
-            <ul>
-              <li><a href="https://en.wikipedia.org/wiki/SHA-2" rel="noopener noreferrer" target="_blank">SHA-2
-                  (Secure Hash Algorithm 2)</a> - A family of hash functions that includes SHA-256 and SHA-512.
-              </li>
-              <li><a href="https://en.wikipedia.org/wiki/SHA-3" rel="noopener noreferrer" target="_blank">SHA-3
-                  (Secure Hash Algorithm 3)</a> - The latest member of the Secure Hash Algorithm family.</li>
-              <li><a href="https://en.wikipedia.org/wiki/MD5" rel="noopener noreferrer" target="_blank">MD5 (Message
-                  Digest 5)</a> - (Note: MD5 is now considered cryptographically broken and should not be used for
-                security-critical applications due to collision vulnerabilities).</li>
-            </ul>
-          </li>
-          <li><strong>Applications of Hashing:</strong>
-            <ul>
-              <li><strong>Password Storage:</strong> Instead of storing passwords in plaintext, websites often store a
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Key Properties of Hashing Algorithms:
+       </strong>
+       <ul>
+        <li>
+         <strong>
+          Deterministic:
+         </strong>
+         The same input will always produce the same hash output.
+        </li>
+        <li>
+         <strong>
+          One-way:
+         </strong>
+         It is computationally infeasible to reverse the process and derive the
+                original input from the hash.
+        </li>
+        <li>
+         <strong>
+          Collision-resistant:
+         </strong>
+         It is extremely difficult to find two different inputs that
+                produce the same hash output (a collision).
+        </li>
+        <li>
+         <strong>
+          Avalanche Effect:
+         </strong>
+         A small change in the input should result in a significant change
+                in the hash output.
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Common Hashing Algorithms:
+       </strong>
+       <ul>
+        <li>
+         <a href="https://en.wikipedia.org/wiki/SHA-2" rel="noopener noreferrer" target="_blank">
+          SHA-2
+                  (Secure Hash Algorithm 2)
+         </a>
+         - A family of hash functions that includes SHA-256 and SHA-512.
+        </li>
+        <li>
+         <a href="https://en.wikipedia.org/wiki/SHA-3" rel="noopener noreferrer" target="_blank">
+          SHA-3
+                  (Secure Hash Algorithm 3)
+         </a>
+         - The latest member of the Secure Hash Algorithm family.
+        </li>
+        <li>
+         <a href="https://en.wikipedia.org/wiki/MD5" rel="noopener noreferrer" target="_blank">
+          MD5 (Message
+                  Digest 5)
+         </a>
+         - (Note: MD5 is now considered cryptographically broken and should not be used for
+                security-critical applications due to collision vulnerabilities).
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Applications of Hashing:
+       </strong>
+       <ul>
+        <li>
+         <strong>
+          Password Storage:
+         </strong>
+         Instead of storing passwords in plaintext, websites often store a
                 hash of the password. This way, even if the database is compromised, the actual passwords are not
-                revealed.</li>
-              <li><strong>Data Integrity Verification:</strong> Hashing can be used to verify that a file or message
+                revealed.
+        </li>
+        <li>
+         <strong>
+          Data Integrity Verification:
+         </strong>
+         Hashing can be used to verify that a file or message
                 has not been tampered with during transmission or storage. By comparing the hash of the received
-                data with the original hash, any changes can be detected.</li>
-              <li><strong>Digital Signatures:</strong> Hashing is a crucial component of digital signatures, as we'll
-                see in the next section.</li>
-            </ul>
-          </li>
-        </ul>
-        <h3 id="main-point-3">Digital Signatures: Authenticity and Non-Repudiation</h3>
-        <p>
-          Digital signatures are a cryptographic technique used to verify the authenticity and integrity of digital
+                data with the original hash, any changes can be detected.
+        </li>
+        <li>
+         <strong>
+          Digital Signatures:
+         </strong>
+         Hashing is a crucial component of digital signatures, as we'll
+                see in the next section.
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <h3 id="main-point-3">
+      Digital Signatures: Authenticity and Non-Repudiation
+     </h3>
+     <p>
+      Digital signatures are a cryptographic technique used to verify the authenticity and integrity of digital
           documents or messages. They provide a way to ensure that a message originated from a specific sender and that
           it
           has not been altered in transit. They also offer non-repudiation, meaning the sender cannot deny having signed
           the message.
-        </p>
-        <ul>
-          <li><strong>How Digital Signatures Work:</strong>
-            <ol>
-              <li>The sender generates a hash of the document or message they want to sign.</li>
-              <li>The sender then encrypts the hash using their private key. This encrypted hash is the digital
-                signature.</li>
-              <li>The sender attaches the digital signature to the original document or message.</li>
-              <li>The receiver uses the sender's public key to decrypt the digital signature, retrieving the original
-                hash.</li>
-              <li>The receiver then generates their own hash of the received document or message.</li>
-              <li>The receiver compares the two hashes. If they match, it verifies that the message is authentic and
-                has not been tampered with.</li>
-            </ol>
-          </li>
-          <li><strong>Benefits of Digital Signatures:</strong>
-            <ul>
-              <li><strong>Authentication:</strong> Verifies the identity of the sender.</li>
-              <li><strong>Integrity:</strong> Ensures that the message has not been altered.</li>
-              <li><strong>Non-repudiation:</strong> Prevents the sender from denying they signed the message.</li>
-            </ul>
-          </li>
-          <li><strong>Common Digital Signature Algorithms:</strong>
-            <ul>
-              <li><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Signing_messages" rel="noopener noreferrer"
-                  target="_blank">RSA</a></li>
-              <li><a href="https://en.wikipedia.org/wiki/Digital_Signature_Algorithm" rel="noopener noreferrer"
-                  target="_blank">DSA (Digital Signature Algorithm)</a></li>
-              <li><a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm"
-                  rel="noopener noreferrer" target="_blank">ECDSA (Elliptic Curve Digital Signature Algorithm)</a></li>
-            </ul>
-          </li>
-        </ul>
-        <h3 id="conclusion">Conclusion</h3>
-        <p>
-          Cryptography is a fundamental pillar of modern cybersecurity, providing the tools to secure our data,
+     </p>
+     <ul>
+      <li>
+       <strong>
+        How Digital Signatures Work:
+       </strong>
+       <ol>
+        <li>
+         The sender generates a hash of the document or message they want to sign.
+        </li>
+        <li>
+         The sender then encrypts the hash using their private key. This encrypted hash is the digital
+                signature.
+        </li>
+        <li>
+         The sender attaches the digital signature to the original document or message.
+        </li>
+        <li>
+         The receiver uses the sender's public key to decrypt the digital signature, retrieving the original
+                hash.
+        </li>
+        <li>
+         The receiver then generates their own hash of the received document or message.
+        </li>
+        <li>
+         The receiver compares the two hashes. If they match, it verifies that the message is authentic and
+                has not been tampered with.
+        </li>
+       </ol>
+      </li>
+      <li>
+       <strong>
+        Benefits of Digital Signatures:
+       </strong>
+       <ul>
+        <li>
+         <strong>
+          Authentication:
+         </strong>
+         Verifies the identity of the sender.
+        </li>
+        <li>
+         <strong>
+          Integrity:
+         </strong>
+         Ensures that the message has not been altered.
+        </li>
+        <li>
+         <strong>
+          Non-repudiation:
+         </strong>
+         Prevents the sender from denying they signed the message.
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Common Digital Signature Algorithms:
+       </strong>
+       <ul>
+        <li>
+         <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Signing_messages" rel="noopener noreferrer" target="_blank">
+          RSA
+         </a>
+        </li>
+        <li>
+         <a href="https://en.wikipedia.org/wiki/Digital_Signature_Algorithm" rel="noopener noreferrer" target="_blank">
+          DSA (Digital Signature Algorithm)
+         </a>
+        </li>
+        <li>
+         <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm" rel="noopener noreferrer" target="_blank">
+          ECDSA (Elliptic Curve Digital Signature Algorithm)
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <h3 id="conclusion">
+      Conclusion
+     </h3>
+     <p>
+      Cryptography is a fundamental pillar of modern cybersecurity, providing the tools to secure our data,
           communications, and online interactions. Understanding the basics of encryption, hashing, and digital
           signatures
           is essential for anyone navigating the digital landscape. As technology continues to evolve, cryptography will
           play an increasingly vital role in protecting our privacy and ensuring a secure digital future. By grasping
           these fundamental concepts, you'll be better equipped to understand the security measures that underpin our
           online world and make informed decisions about protecting your own digital assets.
-        </p>
-        <p>
-          <b>Further Reading:</b>
-        <ul>
-          <li><a href="https://www.khanacademy.org/computing/computer-science/cryptography" rel="noopener noreferrer"
-              target="_blank">Cryptography</a> - Khan Academy</li>
-          <li><a href="https://www.crypto101.io/" rel="noopener noreferrer" target="_blank">Crypto 101</a></li>
-          <li><a href="https://www.coursera.org/learn/crypto" rel="noopener noreferrer" target="_blank">Cryptography
-              I</a>
-            - Coursera</li>
-          <li><a href="https://www.udacity.com/course/applied-cryptography--cs387" rel="noopener noreferrer"
-              target="_blank">Applied Cryptography</a> - Udacity</li>
-        </ul>
-        </p>
-      </article>
+     </p>
+     <p>
+      <b>
+       Further Reading:
+      </b>
+      <ul>
+       <li>
+        <a href="https://www.khanacademy.org/computing/computer-science/cryptography" rel="noopener noreferrer" target="_blank">
+         Cryptography
+        </a>
+        - Khan Academy
+       </li>
+       <li>
+        <a href="https://www.crypto101.io/" rel="noopener noreferrer" target="_blank">
+         Crypto 101
+        </a>
+       </li>
+       <li>
+        <a href="https://www.coursera.org/learn/crypto" rel="noopener noreferrer" target="_blank">
+         Cryptography
+              I
+        </a>
+        - Coursera
+       </li>
+       <li>
+        <a href="https://www.udacity.com/course/applied-cryptography--cs387" rel="noopener noreferrer" target="_blank">
+         Applied Cryptography
+        </a>
+        - Udacity
+       </li>
+      </ul>
+     </p>
     </article>
+   </article>
   </main>
-  <div id="footer-placeholder"></div>
-</body>
-
+  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
+  </footer>
+ </body>
 </html>

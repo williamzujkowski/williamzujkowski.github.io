@@ -1,171 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script type="module" src="../assets/js/main.js"></script>
-</head>
-<body>
-  <div id="header-placeholder"></div>
-  <div id="nav-placeholder"></div>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   {title}
+  </title>
+  <link href="../assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
+  <link href="../assets/css/style.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/htmx.org@1.9.2">
+  </script>
+ </head>
+ <body>
+  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load">
+  </header>
+  <nav hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load">
+  </nav>
   <main class="container">
-        <article>
-            <article data-date="2024-09-02"
-                data-slug="mastering-prompt-engineering-unlocking-the-full-potential-of-llms">
-                <h2>Mastering Prompt Engineering: Unlocking the Full Potential of LLMs</h2>
-                <p><strong>Date:</strong> 2024-09-02</p>
-                <p>
-                    Large Language Models (LLMs) are incredibly powerful tools, capable of generating human-quality
+   <article>
+    <article data-date="2024-09-02" data-slug="mastering-prompt-engineering-unlocking-the-full-potential-of-llms">
+     <h2>
+      Mastering Prompt Engineering: Unlocking the Full Potential of LLMs
+     </h2>
+     <p>
+      <strong>
+       Date:
+      </strong>
+      2024-09-02
+     </p>
+     <p>
+      Large Language Models (LLMs) are incredibly powerful tools, capable of generating human-quality
                     text,
                     translating languages, writing different kinds of creative content, and answering your questions in
                     an
                     informative way. However, getting the most out of these models requires a skill known as
-                    <strong>prompt
-                        engineering</strong>. Crafting effective prompts is the key to unlocking the full potential of
+      <strong>
+       prompt
+                        engineering
+      </strong>
+      . Crafting effective prompts is the key to unlocking the full potential of
                     LLMs,
                     especially when working within the constraints of limited context windows. This post will provide
                     you with
                     practical tips and techniques to become a prompt engineering pro.
-                </p>
-                <h3 id="main-point-1">Understanding the Importance of Prompt Engineering</h3>
-                <p>
-                    Think of an LLM as a highly advanced autocomplete system. It predicts the next word in a sequence
+     </p>
+     <h3 id="main-point-1">
+      Understanding the Importance of Prompt Engineering
+     </h3>
+     <p>
+      Think of an LLM as a highly advanced autocomplete system. It predicts the next word in a sequence
                     based on the
                     input it receives - your prompt. A well-crafted prompt acts as a guide, steering the model towards
                     the desired
                     output. Conversely, a poorly formulated prompt can lead to irrelevant, nonsensical, or even
                     misleading
                     responses.
-                </p>
-                <p>
-                    Prompt engineering is particularly crucial when dealing with limited context windows. Since the
+     </p>
+     <p>
+      Prompt engineering is particularly crucial when dealing with limited context windows. Since the
                     model can only
                     "remember" a certain amount of text, every word in your prompt counts. A concise and well-structured
                     prompt can
                     make all the difference in maximizing the information conveyed within that limited space.
-                </p>
-                <h3 id="main-point-2">Fundamental Prompting Techniques</h3>
-                <p>
-                    Let's start with some fundamental techniques that form the building blocks of effective prompt
+     </p>
+     <h3 id="main-point-2">
+      Fundamental Prompting Techniques
+     </h3>
+     <p>
+      Let's start with some fundamental techniques that form the building blocks of effective prompt
                     engineering:
-                </p>
-                <ul>
-                    <li><strong>Be Clear and Specific:</strong> Vague or ambiguous prompts will likely yield vague or
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Be Clear and Specific:
+       </strong>
+       Vague or ambiguous prompts will likely yield vague or
                         ambiguous
                         results. Clearly state your desired output format, style, and any specific requirements.
-                        <ul>
-                            <li><strong>Instead of:</strong> "Tell me about cats."</li>
-                            <li><strong>Try:</strong> "Write a short poem about the playful nature of cats, using a
+       <ul>
+        <li>
+         <strong>
+          Instead of:
+         </strong>
+         "Tell me about cats."
+        </li>
+        <li>
+         <strong>
+          Try:
+         </strong>
+         "Write a short poem about the playful nature of cats, using a
                                 rhyming scheme
-                                of AABB."</li>
-                        </ul>
-                    </li>
-                    <li><strong>Provide Context:</strong> Give the LLM the necessary background information to
+                                of AABB."
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Provide Context:
+       </strong>
+       Give the LLM the necessary background information to
                         understand your
                         request. This is especially important when dealing with limited context windows.
-                        <ul>
-                            <li><strong>Instead of:</strong> "What's the capital of France?" (if the model hasn't been
+       <ul>
+        <li>
+         <strong>
+          Instead of:
+         </strong>
+         "What's the capital of France?" (if the model hasn't been
                                 previously
-                                discussing France)</li>
-                            <li><strong>Try:</strong> "We are discussing European geography. What's the capital of
-                                France?"</li>
-                        </ul>
-                    </li>
-                    <li><strong>Use Examples (Few-Shot Prompting):</strong> Show the LLM what you want by providing a
+                                discussing France)
+        </li>
+        <li>
+         <strong>
+          Try:
+         </strong>
+         "We are discussing European geography. What's the capital of
+                                France?"
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Use Examples (Few-Shot Prompting):
+       </strong>
+       Show the LLM what you want by providing a
                         few examples
                         of the desired output format or style.
-                        <ul>
-                            <li><strong>Example:</strong> "Translate the following English sentences into French in a
+       <ul>
+        <li>
+         <strong>
+          Example:
+         </strong>
+         "Translate the following English sentences into French in a
                                 formal
                                 tone:\n\nEnglish: Hello, how are you?\nFrench: Bonjour, comment allez-vous ?\n\nEnglish:
                                 Thank you
                                 for your help.\nFrench: Merci pour votre aide.\n\nEnglish: What is your name?\nFrench:"
-                            </li>
-                        </ul>
-                    </li>
-                    <li><strong>Specify the Role or Persona:</strong> Instruct the LLM to adopt a specific persona or
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Specify the Role or Persona:
+       </strong>
+       Instruct the LLM to adopt a specific persona or
                         role to
                         influence the style and tone of its response.
-                        <ul>
-                            <li><strong>Example:</strong> "You are a world-renowned chef. Describe your signature dish."
-                            </li>
-                        </ul>
-                    </li>
-                    <li><strong>Break Down Complex Tasks:</strong> Decompose complex tasks into smaller, more manageable
+       <ul>
+        <li>
+         <strong>
+          Example:
+         </strong>
+         "You are a world-renowned chef. Describe your signature dish."
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Break Down Complex Tasks:
+       </strong>
+       Decompose complex tasks into smaller, more manageable
                         steps. This
                         is particularly helpful when working with limited context windows.
-                        <ul>
-                            <li><strong>Instead of:</strong> "Write a summary of World War II."</li>
-                            <li><strong>Try:</strong> "First, list the main causes of World War II. Then, describe the
+       <ul>
+        <li>
+         <strong>
+          Instead of:
+         </strong>
+         "Write a summary of World War II."
+        </li>
+        <li>
+         <strong>
+          Try:
+         </strong>
+         "First, list the main causes of World War II. Then, describe the
                                 major events
-                                of the war in chronological order. Finally, summarize the consequences of the war."</li>
-                        </ul>
-                    </li>
-                    <li><strong>Use Keywords and Phrases:</strong> Incorporate relevant keywords and phrases to guide
+                                of the war in chronological order. Finally, summarize the consequences of the war."
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Use Keywords and Phrases:
+       </strong>
+       Incorporate relevant keywords and phrases to guide
                         the model
-                        towards the desired topic or domain.</li>
-                </ul>
-                <h3 id="main-point-3">Advanced Prompting Techniques for Limited Context Windows</h3>
-                <p>
-                    When working with limited context windows, these advanced techniques can help you maximize the
+                        towards the desired topic or domain.
+      </li>
+     </ul>
+     <h3 id="main-point-3">
+      Advanced Prompting Techniques for Limited Context Windows
+     </h3>
+     <p>
+      When working with limited context windows, these advanced techniques can help you maximize the
                     information
                     conveyed and elicit the best possible responses:
-                </p>
-                <ul>
-                    <li><strong>Iterative Prompting:</strong> Refine your prompt based on the LLM's initial responses.
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Iterative Prompting:
+       </strong>
+       Refine your prompt based on the LLM's initial responses.
                         This allows
-                        you to progressively guide the model towards the desired output, even with limited context.</li>
-                    <li><strong>Chain-of-Thought Prompting:</strong> Encourage the LLM to explain its reasoning
+                        you to progressively guide the model towards the desired output, even with limited context.
+      </li>
+      <li>
+       <strong>
+        Chain-of-Thought Prompting:
+       </strong>
+       Encourage the LLM to explain its reasoning
                         step-by-step. This
                         can improve the accuracy and transparency of the model's responses, especially for complex
-                        tasks. (See: <a href="https://arxiv.org/abs/2201.11903" rel="noopener noreferrer"
-                            target="_blank">"Chain-of-Thought
-                            Prompting Elicits Reasoning in Large Language Models"</a>)
-                        <ul>
-                            <li><strong>Example:</strong> "Explain step-by-step how to solve this math problem: What is
+                        tasks. (See:
+       <a href="https://arxiv.org/abs/2201.11903" rel="noopener noreferrer" target="_blank">
+        "Chain-of-Thought
+                            Prompting Elicits Reasoning in Large Language Models"
+       </a>
+       )
+       <ul>
+        <li>
+         <strong>
+          Example:
+         </strong>
+         "Explain step-by-step how to solve this math problem: What is
                                 the area of
-                                a triangle with a base of 10 cm and a height of 5 cm?"</li>
-                        </ul>
-                    </li>
-                    <li><strong>Summarization:</strong> If you need to provide a large amount of context, first use the
+                                a triangle with a base of 10 cm and a height of 5 cm?"
+        </li>
+       </ul>
+      </li>
+      <li>
+       <strong>
+        Summarization:
+       </strong>
+       If you need to provide a large amount of context, first use the
                         LLM to
-                        summarize the information into a more concise form that fits within the context window.</li>
-                    <li><strong>Retrieval Augmented Generation (RAG):</strong> As discussed in a previous blog post, RAG
+                        summarize the information into a more concise form that fits within the context window.
+      </li>
+      <li>
+       <strong>
+        Retrieval Augmented Generation (RAG):
+       </strong>
+       As discussed in a previous blog post, RAG
                         allows LLMs
                         to access external knowledge sources, effectively extending their context beyond the fixed
                         window size. When
                         applicable, leverage RAG to provide the model with relevant information that might not fit
                         within the
-                        context window. (See our blog post on <a
-                            href="blog.html#retrieval-augmented-generation-rag-enhancing-llms-with-external-knowledge">Retrieval
-                            Augmented Generation (RAG)</a> for more details.)</li>
-                </ul>
-                <h3 id="main-point-4">Experimentation and Refinement</h3>
-                <p>
-                    Prompt engineering is an iterative process. Don't be afraid to experiment with different prompting
+                        context window. (See our blog post on
+       <a href="blog.html#retrieval-augmented-generation-rag-enhancing-llms-with-external-knowledge">
+        Retrieval
+                            Augmented Generation (RAG)
+       </a>
+       for more details.)
+      </li>
+     </ul>
+     <h3 id="main-point-4">
+      Experimentation and Refinement
+     </h3>
+     <p>
+      Prompt engineering is an iterative process. Don't be afraid to experiment with different prompting
                     techniques,
                     phrasing, and formats. Analyze the LLM's responses and refine your prompts accordingly. Keep in mind
                     that
                     different LLMs may respond differently to the same prompt, so you may need to adjust your approach
                     depending on
                     the specific model you are using.
-                </p>
-                <ul>
-                    <li><strong>Keep a Prompt Library:</strong> Document your successful prompts for future use and
-                        adaptation.</li>
-                    <li><strong>Test and Compare:</strong> Try different variations of the same prompt and compare the
+     </p>
+     <ul>
+      <li>
+       <strong>
+        Keep a Prompt Library:
+       </strong>
+       Document your successful prompts for future use and
+                        adaptation.
+      </li>
+      <li>
+       <strong>
+        Test and Compare:
+       </strong>
+       Try different variations of the same prompt and compare the
                         results to
-                        identify the most effective approach.</li>
-                    <li><strong>Analyze Failures:</strong> When a prompt doesn't produce the desired output, try to
+                        identify the most effective approach.
+      </li>
+      <li>
+       <strong>
+        Analyze Failures:
+       </strong>
+       When a prompt doesn't produce the desired output, try to
                         understand why.
-                        This can provide valuable insights for improving your prompting strategies.</li>
-                </ul>
-                <h3 id="conclusion">Conclusion</h3>
-                <p>
-                    Mastering prompt engineering is a valuable skill in the age of LLMs. By crafting clear, specific,
+                        This can provide valuable insights for improving your prompting strategies.
+      </li>
+     </ul>
+     <h3 id="conclusion">
+      Conclusion
+     </h3>
+     <p>
+      Mastering prompt engineering is a valuable skill in the age of LLMs. By crafting clear, specific,
                     and
                     well-structured prompts, you can guide these powerful models to generate the desired outputs, even
                     when working
@@ -173,21 +305,31 @@
                     approach,
                     and unlock the full potential of LLMs to enhance your productivity, creativity, and problem-solving
                     abilities.
-                </p>
-                <p>
-                    <b>Further Reading:</b>
-                <ul>
-                    <li><a href="https://www.promptingguide.ai/" rel="noopener noreferrer" target="_blank">Prompt
+     </p>
+     <p>
+      <b>
+       Further Reading:
+      </b>
+      <ul>
+       <li>
+        <a href="https://www.promptingguide.ai/" rel="noopener noreferrer" target="_blank">
+         Prompt
                             Engineering
-                            Guide</a></li>
-                    <li><a href="https://learnprompting.org/" rel="noopener noreferrer" target="_blank">Learn
-                            Prompting</a></li>
-                </ul>
-                </p>
-            </article>
-        </article>
-    </main>
-    <div id="footer-placeholder"></div>
-</body>
-
+                            Guide
+        </a>
+       </li>
+       <li>
+        <a href="https://learnprompting.org/" rel="noopener noreferrer" target="_blank">
+         Learn
+                            Prompting
+        </a>
+       </li>
+      </ul>
+     </p>
+    </article>
+   </article>
+  </main>
+  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
+  </footer>
+ </body>
 </html>
