@@ -38,16 +38,15 @@ body {
     color: #666;
 }
 
-/* Navigation styling */
-.site-nav {
+/* Desktop Navigation styling */
+.nav-desktop {
     background: #fafaf3;
     border-bottom: 1px solid #ddd;
     margin-bottom: 2rem;
-    position: relative;
     padding: 0.5rem 1rem;
 }
 
-.nav-menu {
+.nav-desktop .nav-menu {
     list-style: none;
     display: flex;
     flex-direction: row;
@@ -57,51 +56,52 @@ body {
     margin: 0;
 }
 
-.nav-menu a {
+.nav-desktop .nav-menu a {
     text-decoration: none;
     color: #007acc;
     font-weight: 600;
 }
 
-.nav-menu a:hover {
+.nav-desktop .nav-menu a:hover {
     text-decoration: underline;
 }
 
-/* Mobile navigation enhancements */
-.nav-toggle {
+/* Mobile Navigation styling */
+.nav-mobile {
     display: none;
+    /* Hide by default on desktop */
 }
 
+.nav-mobile .nav-menu-mobile {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0.75rem 0;
+}
+
+.nav-mobile .nav-menu-mobile a {
+    text-decoration: none;
+    color: #007acc;
+    font-weight: 600;
+}
+
+/* Fixed mobile nav: stick it to the bottom */
 @media (max-width: 768px) {
-    .nav-menu {
-        flex-direction: column;
+    .nav-desktop {
         display: none;
-        gap: 1rem;
-        padding: 1rem;
+    }
+
+    .nav-mobile {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         background: #fafaf3;
         border-top: 1px solid #ddd;
-    }
-
-    .nav-menu.active {
-        display: block;
-    }
-
-    .nav-toggle {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: #007acc;
-        cursor: pointer;
-        position: absolute;
-        top: 0.5rem;
-        right: 1rem;
-    }
-}
-
-@media (min-width: 769px) {
-    .nav-toggle {
-        display: none;
+        z-index: 1000;
     }
 }
 
@@ -200,8 +200,8 @@ button:hover {
         padding: 1rem;
     }
 
-    .nav-menu {
-        flex-direction: column;
-        gap: 1rem;
+    /* In mobile, the nav-mobile is fixed at bottom; ensure body padding accounts for it */
+    body {
+        padding-bottom: 4rem;
     }
 }

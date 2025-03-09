@@ -1,9 +1,5 @@
-<nav class="site-nav" id="site-nav">
-  <!-- Hamburger toggle for mobile -->
-  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-    <span class="hamburger-icon">&#9776;</span>
-  </button>
-  <!-- Navigation menu -->
+<!-- Desktop Navigation: Visible on screens wider than 768px -->
+<nav class="nav-desktop">
   <ul class="nav-menu">
     <li><a href="/index.html">Home</a></li>
     <li><a href="/about.html">About</a></li>
@@ -12,21 +8,16 @@
     <li><a href="/pizza.html">Pizza Calculator</a></li>
     <li><a href="/links.html">Links</a></li>
   </ul>
-  <script>
-    (function () {
-      // Since this script is inline within the swapped content,
-      // it will run after the nav fragment is loaded.
-      var navToggle = document.querySelector(".nav-toggle");
-      var navMenu = document.querySelector(".nav-menu");
-      if (navToggle && navMenu) {
-        navToggle.addEventListener("click", function () {
-          var expanded = navToggle.getAttribute("aria-expanded") === "true";
-          navToggle.setAttribute("aria-expanded", (!expanded).toString());
-          navMenu.classList.toggle("active");
-        });
-      } else {
-        console.error("Navigation toggle or menu element not found.");
-      }
-    })();
-  </script>
+</nav>
+
+<!-- Mobile Navigation: Visible on screens 768px and below -->
+<nav class="nav-mobile">
+  <ul class="nav-menu-mobile">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/coffee.html">Coffee</a></li>
+    <li><a href="/pizza.html">Pizza</a></li>
+    <li><a href="/links.html">Links</a></li>
+  </ul>
 </nav>
