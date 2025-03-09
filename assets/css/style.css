@@ -1,5 +1,7 @@
-/* Import a beautiful serif font for comfortable reading */
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+/* Use a modern Helvetica-inspired sans-serif stack */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
 /* Global Reset */
 * {
@@ -8,9 +10,8 @@
     box-sizing: border-box;
 }
 
-/* Base styling for an ebook-like experience */
+/* Base styling for an ebook-like reading experience */
 body {
-    font-family: 'Libre Baskerville', Georgia, serif;
     font-size: 1.2rem;
     line-height: 1.8;
     color: #333;
