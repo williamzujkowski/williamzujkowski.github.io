@@ -2,31 +2,29 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Welcome to William Zujkowski's Personal Website">
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
-  <meta name="author" content="William Zujkowski">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <title>Coffee Calculator - William Zujkowski</title>
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="description" content="Welcome to William Zujkowski's Personal Website">
+    <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
+    <meta name="author" content="William Zujkowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <title>Coffee Calculator - William Zujkowski</title>
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Include htmx -->
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 
 <body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
-
+    <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
+    <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
     <main class="container">
         <header>
             <h1>Coffee Calculator for IT Engineers</h1>
-            <p>Calculate how many cups (or pots) of coffee your bleary-eyed coders need to survive those 2 AM
-                deployments!</p>
+            <p>Find out how many cups of coffee are needed to fuel your coding sessions.</p>
         </header>
-
         <section>
             <form id="coffeeForm" onsubmit="return false;">
                 <fieldset>
@@ -59,32 +57,24 @@
                 </fieldset>
             </form>
         </section>
-
         <section id="coffeeProgressSection">
             <div id="progressContainer">
                 <div id="progressBar"></div>
             </div>
             <p id="progressLabel"></p>
         </section>
-
         <section id="coffeeResultSection">
             <div id="coffeeResult" role="alert" aria-live="polite"></div>
         </section>
-
         <a id="downloadCoffeeLink" href="#" download="Coffee_Calculation_Report.txt">Download Coffee Report</a>
     </main>
-
-    <!-- Dynamic footer -->
-    <div id="footer-placeholder"></div>
+    <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
     <div id="toast"></div>
-
-    <!-- Inline Coffee Calculator Logic -->
     <script>
         (function () {
             if (!document.getElementById('coffeeForm')) return;
             let coffeeCalculationCompleted = false;
             let coffeeReport = "";
-
             function loadCoffeeDefaults() {
                 const storedDevs = localStorage.getItem('coffeeDevs');
                 const storedStrength = localStorage.getItem('coffeeStrength');
@@ -96,7 +86,6 @@
                 if (storedFails) document.getElementById('timesBuildFailed').value = storedFails;
             }
             loadCoffeeDefaults();
-
             window.calculateCoffee = function () {
                 coffeeCalculationCompleted = false;
                 coffeeReport = "";
@@ -107,16 +96,13 @@
                 const coffeeResultDiv = document.getElementById('coffeeResult');
                 const progressBar = document.getElementById('progressBar');
                 const progressLabel = document.getElementById('progressLabel');
-
                 localStorage.setItem('coffeeDevs', javaAttendeesInput.value);
                 localStorage.setItem('coffeeStrength', coffeeStrengthInput.value);
                 localStorage.setItem('coffeeHours', hoursCodingInput.value);
                 localStorage.setItem('coffeeFails', timesBuildFailedInput.value);
-
                 coffeeResultDiv.innerHTML = '';
                 progressBar.style.width = '0%';
                 progressLabel.textContent = '';
-
                 const coffeeSteps = [
                     "Measuring caffeine thresholds...",
                     "Compiling brew instructions...",
@@ -146,7 +132,6 @@
                     }
                 }
                 updateProgress();
-
                 function finalizeCoffeeCalc() {
                     const devs = parseInt(javaAttendeesInput.value, 10);
                     const strength = parseInt(coffeeStrengthInput.value, 10);
@@ -172,7 +157,6 @@
                     performFunnyCoffeeTests();
                 }
             };
-
             window.performFunnyCoffeeTests = function () {
                 console.log("\n--- Coffee Testing Suite ---");
                 console.log("[Load Test] Simulating 2 AM brew rush...");
@@ -181,7 +165,6 @@
                 console.log("[Security Test] No rogue decaf found!");
                 console.log("[All Tests Passed] Coffee Calculator is blazing!\n");
             };
-
             window.getCoffeeMessage = function (totalCups, devs, strength, hours, fails) {
                 let humor;
                 if (totalCups > 100) {
@@ -203,7 +186,6 @@
                 }
                 return `<blockquote>You need approximately <strong>${totalCups}</strong> cup(s) of coffee for <strong>${devs}</strong> dev(s) coding for <strong>${hours}</strong> hour(s), with extra cups for <strong>${fails}</strong> build failures.<br><br>${humor}</blockquote>`;
             };
-
             window.downloadCoffeeReport = function () {
                 if (!coffeeCalculationCompleted) {
                     showToast("Please perform a coffee calculation first!");
@@ -216,14 +198,12 @@
                 downloadCoffeeLink.click();
                 URL.revokeObjectURL(url);
             };
-
             window.showToast = function (message) {
                 const toast = document.getElementById('toast');
                 toast.textContent = message;
                 toast.className = "toast show";
                 setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
             };
-
             window.shareCoffeeReport = function () {
                 if (!coffeeCalculationCompleted) {
                     showToast("No coffee report to share!");
@@ -234,7 +214,6 @@
             };
         })();
     </script>
-
 </body>
 
 </html>

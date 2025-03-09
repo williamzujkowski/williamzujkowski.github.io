@@ -8,6 +8,7 @@ BLOG_DIR = "blog"
 # Output JSON file path (at the repository root)
 OUTPUT_JSON = "blog_list.json"
 
+
 def extract_metadata_from_file(filepath):
     """
     Parse an HTML file and extract blog post metadata.
@@ -18,11 +19,11 @@ def extract_metadata_from_file(filepath):
     """
     with open(filepath, "r", encoding="utf-8") as f:
         soup = BeautifulSoup(f, "html.parser")
-    
+
     # Try to get title from the <title> tag first
     title_tag = soup.find("title")
     title = title_tag.get_text(strip=True) if title_tag else ""
-    
+
     # Look for the main article element inside the <main> or <article> container.
     # We assume that the individual blog post's content is wrapped in an inner <article> element.
     article = soup.find("article")
@@ -46,16 +47,13 @@ def extract_metadata_from_file(filepath):
         # If no inner article found, fallback to empty strings.
         data_date = ""
         data_slug = ""
-    
+
     # Use the filename (without extension) as fallback slug if none was found.
     filename_slug = os.path.splitext(os.path.basename(filepath))[0]
     slug = data_slug if data_slug else filename_slug
-    
-    return {
-        "title": title,
-        "date": data_date,
-        "slug": slug
-    }
+
+    return {"title": title, "date": data_date, "slug": slug}
+
 
 def generate_blog_list():
     blog_posts = []
@@ -69,15 +67,16 @@ def generate_blog_list():
                 blog_posts.append(metadata)
             else:
                 print(f"Warning: Skipping {filename} due to missing title or date.")
-    
+
     # Sort the posts by date descending (newest first)
     # Note: This sorting assumes dates in a standard format (e.g. YYYY-MM-DD)
     blog_posts.sort(key=lambda post: post["date"], reverse=True)
-    
+
     # Write out the JSON file
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(blog_posts, f, indent=2)
     print(f"Generated {OUTPUT_JSON} with {len(blog_posts)} posts.")
+
 
 if __name__ == "__main__":
     generate_blog_list()

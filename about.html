@@ -1,106 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Welcome to William Zujkowski's Personal Website">
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
-  <meta name="author" content="William Zujkowski">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <title>About - William Zujkowski</title>
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
-</head>
-
-<body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
-
-  <main class="container">
-    <section id="about">
-      <h1>About Me</h1>
-      <p>
-        Hello! I'm <strong>William Zujkowski</strong>, a dedicated <strong>cybersecurity engineer</strong> with over 15
-        years of IT experience in vulnerability management, DevSecOps, and cloud security. I thrive at the intersection
-        of ethical hacking, advanced threat detection, and High-Performance Computing (HPC) solutions.
-      </p>
-      <p>
-        My background spans corporate, government, and research environments — from securing HPC clusters used for
-        groundbreaking molecular dynamics at the National Institutes of Health to supporting the cloud.gov security
-        platform at GSA. I specialize in building and guiding cross-functional security teams, maintaining compliance
-        under tight deadlines, and ensuring systems remain resilient to emerging threats.
-      </p>
-      <p>
-        Beyond my day-to-day work, I’m passionate about <strong>AI/ML</strong> for security automation, exploring
-        <strong>homelab</strong> setups to stay on the cutting edge, and sharing knowledge through blog posts and
-        mentorship. If you’re curious about DevSecOps best practices, HPC infrastructure, or how machine learning can
-        transform threat intelligence, feel free to reach out.
-      </p>
-    </section>
-
-    <section id="skills">
-      <h2>Skills & Expertise</h2>
-      <ul>
-        <li><strong>Cybersecurity:</strong> Penetration Testing, Vulnerability Research, Incident Response, Security
-          Auditing, Threat Modeling, Digital Forensics, Reverse Engineering</li>
-        <li><strong>Cloud Security:</strong> AWS, GCP, Azure, Cloud Security Architecture, IAM, Serverless Security</li>
-        <li><strong>Programming & Scripting:</strong> Python, JavaScript, Bash, Go</li>
-        <li><strong>DevSecOps:</strong> CI/CD Pipelines, Infrastructure as Code (Terraform, CloudFormation), Container
-          Security</li>
-        <li><strong>AI/ML:</strong> Machine Learning for Cybersecurity, Deep Learning, Anomaly Detection, NLP</li>
-        <li><strong>Data Science:</strong> Data Analysis, Statistical Modeling, Data Visualization</li>
-        <li><strong>Operating Systems:</strong> Linux, Windows Server</li>
-        <li><strong>Networking:</strong> TCP/IP, Firewalls, VPNs, Network Security Monitoring</li>
-        <li><strong>Security Tools:</strong> Nmap, Metasploit, Burp Suite, Wireshark, SIEM, IDS/IPS</li>
-      </ul>
-    </section>
-
-    <section id="interests">
-      <h2>Professional Interests</h2>
-      <ul>
-        <li><strong>AI/ML in Cybersecurity:</strong> Advanced threat detection and security automation.</li>
-        <li><strong>Cloud Security:</strong> Implementing best practices across AWS, Azure, and GCP.</li>
-        <li><strong>IoT Security:</strong> Securing connected devices and networks.</li>
-        <li><strong>Data Privacy:</strong> Advocating for robust data protection and compliance.</li>
-        <li><strong>Cryptography:</strong> Exploring advanced cryptographic techniques and post-quantum solutions.</li>
-        <li><strong>Security Automation:</strong> Developing tools to streamline incident response and vulnerability
-          management.</li>
-        <li><strong>OSINT:</strong> Leveraging open-source intelligence for threat analysis.</li>
-        <li><strong>Blockchain Security:</strong> Investigating secure applications of blockchain technology.</li>
-        <li><strong>Cybersecurity Education:</strong> Mentoring and knowledge sharing in the cybersecurity community.
-        </li>
-      </ul>
-    </section>
-
-    <section id="memberships">
-      <h2>Professional Memberships</h2>
-      <ul>
-        <li>
-          <a href="https://owasp.org/" target="_blank" rel="noopener noreferrer"><strong>OWASP</strong></a>
-          <p>Member &mdash; A nonprofit foundation dedicated to improving software security.</p>
-        </li>
-        <li>
-          <a href="https://iacr.org/" target="_blank" rel="noopener noreferrer"><strong>IACR</strong></a>
-          <p>Member &mdash; International Association for Cryptologic Research.</p>
-        </li>
-        <li>
-          <a href="https://www.usenix.org/" target="_blank" rel="noopener noreferrer"><strong>USENIX</strong></a>
-          <p>Member &mdash; A community of engineers and system administrators since 1975.</p>
-        </li>
-        <li>
-          <a href="https://www.acm.org/special-interest-groups/sigs/sighpc" target="_blank"
-            rel="noopener noreferrer"><strong>ACM SIGHPC</strong></a>
-          <p>Member &mdash; Special Interest Group on High Performance Computing (since Apr 2023).</p>
-        </li>
-      </ul>
-    </section>
-  </main>
-
-  <div id="footer-placeholder"></div>
-</body>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Welcome to William Zujkowski's Personal Website">
+    <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
+    <meta name="author" content="William Zujkowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>About - William Zujkowski</title>
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Include htmx -->
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+  </head>
+  <body>
+    <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
+    <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
+    <main class="container">
+      <section id="about">
+        <h1>About Me</h1>
+        <p>
+          Hello! I'm <strong>William Zujkowski</strong>, a dedicated cybersecurity engineer with over 15 years of experience in vulnerability management, DevSecOps, and cloud security. My journey spans corporate, government, and research environments, and I’m passionate about exploring the evolving world of technology.
+        </p>
+        <p>
+          Whether it's securing critical infrastructures or mentoring the next generation of tech enthusiasts, my mission is to blend robust security with innovative technology.
+        </p>
+      </section>
+      <section id="skills">
+        <h2>Skills & Expertise</h2>
+        <ul>
+          <li><strong>Cybersecurity:</strong> Penetration Testing, Vulnerability Research, Incident Response, Security Auditing, Threat Modeling, Digital Forensics, Reverse Engineering</li>
+          <li><strong>Cloud Security:</strong> AWS, GCP, Azure, Cloud Security Architecture, IAM, Serverless Security</li>
+          <li><strong>Programming & Scripting:</strong> Python, JavaScript, Bash, Go</li>
+          <li><strong>DevSecOps:</strong> CI/CD Pipelines, Infrastructure as Code, Container Security</li>
+          <li><strong>AI/ML:</strong> Machine Learning for Cybersecurity, Deep Learning, Anomaly Detection, NLP</li>
+          <li><strong>Data Science:</strong> Data Analysis, Statistical Modeling, Data Visualization</li>
+          <li><strong>Operating Systems:</strong> Linux, Windows Server</li>
+          <li><strong>Networking:</strong> TCP/IP, Firewalls, VPNs, Network Security Monitoring</li>
+          <li><strong>Security Tools:</strong> Nmap, Metasploit, Burp Suite, Wireshark, SIEM, IDS/IPS</li>
+        </ul>
+      </section>
+      <section id="interests">
+        <h2>Professional Interests</h2>
+        <ul>
+          <li><strong>AI/ML in Cybersecurity:</strong> Advanced threat detection and security automation.</li>
+          <li><strong>Cloud Security:</strong> Best practices across AWS, Azure, and GCP.</li>
+          <li><strong>IoT Security:</strong> Securing connected devices and networks.</li>
+          <li><strong>Data Privacy:</strong> Robust data protection and regulatory compliance.</li>
+          <li><strong>Cryptography:</strong> Exploring advanced techniques and post-quantum solutions.</li>
+          <li><strong>Security Automation:</strong> Streamlining incident response and vulnerability management.</li>
+          <li><strong>Cybersecurity Education:</strong> Mentoring and knowledge sharing within the community.</li>
+        </ul>
+      </section>
+      <section id="memberships">
+        <h2>Professional Memberships</h2>
+        <ul>
+          <li>
+            <a href="https://owasp.org/" target="_blank" rel="noopener noreferrer"><strong>OWASP</strong></a>
+            <p>Member — A nonprofit foundation dedicated to improving software security.</p>
+          </li>
+          <li>
+            <a href="https://iacr.org/" target="_blank" rel="noopener noreferrer"><strong>IACR</strong></a>
+            <p>Member — International Association for Cryptologic Research.</p>
+          </li>
+          <li>
+            <a href="https://www.usenix.org/" target="_blank" rel="noopener noreferrer"><strong>USENIX</strong></a>
+            <p>Member — A community of engineers and system administrators since 1975.</p>
+          </li>
+          <li>
+            <a href="https://www.acm.org/special-interest-groups/sigs/sighpc" target="_blank" rel="noopener noreferrer"><strong>ACM SIGHPC</strong></a>
+            <p>Member — Special Interest Group on High Performance Computing (since Apr 2023).</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
+  </body>
 </html>

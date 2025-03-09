@@ -2,25 +2,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Welcome to William Zujkowski's Personal Website">
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
-  <meta name="author" content="William Zujkowski">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="description" content="Welcome to William Zujkowski's Personal Website" />
+  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators" />
+  <meta name="author" content="William Zujkowski" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
   <title>Blog - William Zujkowski</title>
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
+  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <!-- Include htmx -->
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 
 <body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
-
-
+  <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
+  <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
   <main class="container">
     <header>
       <h1>All Blog Posts</h1>
@@ -31,7 +30,7 @@
     </section>
     <section id="paginationControls" class="pagination"></section>
   </main>
-  <div id="footer-placeholder"></div>
+  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
   <script>
     const articlesPerPage = 3;
     let allPosts = [];
@@ -45,12 +44,12 @@
       const postsToShow = allPosts.slice(start, end);
 
       postsToShow.forEach(post => {
-        const postDiv = document.createElement("div");
+        const postDiv = document.createElement("article");
         postDiv.className = "article-preview";
         postDiv.innerHTML = `
-           <h2><a href="/blog/${post.slug}.html">${post.title}</a></h2>
-           <p><strong>Date:</strong> ${post.date}</p>
-         `;
+            <h2><a href="/blog/${post.slug}.html">${post.title}</a></h2>
+            <p><strong>Date:</strong> ${post.date}</p>
+          `;
         container.appendChild(postDiv);
       });
       renderPagination();

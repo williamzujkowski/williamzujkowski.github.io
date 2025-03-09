@@ -10,14 +10,13 @@
   <title>Curated Links - William Zujkowski</title>
   <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
+  <!-- Include htmx -->
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 
 <body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
-
+  <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
+  <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
   <main class="container">
     <h1>Curated Links</h1>
     <p>Explore some of my favorite resources and websites:</p>
@@ -27,7 +26,7 @@
       <li><a href="https://www.owasp.org" target="_blank" rel="noopener">OWASP</a></li>
     </ul>
   </main>
-  <div id="footer-placeholder"></div>
+  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
 </body>
 
 </html>

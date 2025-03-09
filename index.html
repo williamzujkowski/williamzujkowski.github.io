@@ -8,37 +8,38 @@
   <meta name="author" content="William Zujkowski">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
   <title>William Zujkowski - Home</title>
   <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
+  <!-- Include htmx -->
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 
 <body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
-
-
+  <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
+  <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
   <main class="container">
     <section class="hero">
       <h1>Welcome to My Personal Website</h1>
       <p>
         I’m William Zujkowski—cybersecurity engineer, ethical hacker, and AI/ML enthusiast.
-        Dive into my blog, explore interactive calculators, or learn more on the <a href="/about.html">About</a> page!
+        Explore my blog, interactive calculators, and learn more on the <a href="/about.html">About</a> page.
       </p>
     </section>
     <section id="blog-posts-summary">
       <h2>Recent Blog Posts</h2>
       <p>
-        Check out my newest insights on cybersecurity, AI, and more. For the full archive, visit the <a
+        Check out my latest insights on cybersecurity, AI, and technology. For the full archive, visit the <a
           href="/blog.html">Blog</a> page.
       </p>
-      <div id="recent-blog-list"></div>
+      <section id="recent-blog-list">
+        <!-- Optionally, use htmx to load recent posts -->
+      </section>
     </section>
   </main>
-  <div id="footer-placeholder"></div>
+  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
 </body>
 
 </html>
