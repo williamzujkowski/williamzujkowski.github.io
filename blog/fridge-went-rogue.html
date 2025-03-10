@@ -1,183 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   William Zujkowski - The Day My Fridge Went Rogue: IoT Security Wake-Up Call
-  </title>
- </head>
- <body>
-  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load">
-  </header>
-  <nav hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load">
-  </nav>
-  <div hx-get="nav.html" hx-trigger="load" id="nav">
-  </div>
-  <main>
-   <h1>
-    The Day My Fridge Went Rogue: IoT Security Wake-Up Call
-   </h1>
-   <p>
-    <em>
-     2025-01-28 | fridge-went-rogue
-    </em>
-   </p>
-   <p>
-    I knew something was off when my smart fridge started **beeping at 3 AM** for no apparent reason. Was it plotting against me? In a world where our refrigerators, toasters, and even coffee makers are online, it&rsquo;s not as far-fetched as it sounds. Today&rsquo;s quick insight: how an innocent kitchen appliance might join a cybercrime botnet, and why we need to take IoT (Internet of Things) security seriously &ndash; with a smile, of course. Let&rsquo;s face it, the idea of a rogue fridge is equal parts hilarious and horrifying.
-   </p>
-   <h2>
-    When Appliances Attack (Sort of)
-   </h2>
-   <p>
-    Back in 2014, a security firm discovered that over 100,000 smart appliances &ndash; including at least one fridge &ndash; were hijacked to send out spam emails (
-    <a href="https://www.theatlantic.com/technology/archive/2014/01/fridge-hack-spam/357141/#:~:text=A%20security%20firm%20has%20discovered,Thanks%20a%20lot%2C%20evil%C2%A0refrigerator">
-     One of These Fridges Might Be Spamming You Right Now - The Atlantic
-    </a>
-    ). Yes, you read that right: **fridges sending spam**. &ldquo;Thanks a lot, evil refrigerator,&rdquo; as one news article quipped. It sounds like a joke, but it happened. Fast forward to today, and the number of IoT devices has exploded. We&rsquo;re talking smart TVs, security cameras, thermostats, light bulbs &ndash; and yes, the fancy Wi-Fi enabled fridge that texted you about the milk running low might also be contacting a hacker in some far-flung corner of the world.
-   </p>
-   <p>
-    (
-    <a href="https://commons.wikimedia.org/wiki/File:LG_Smart_Refrigerator_at_CES_2011.jpg">
-     File:LG Smart Refrigerator at CES 2011.jpg - Wikimedia Commons
-    </a>
-    ) A modern smart refrigerator with a built-in touchscreen lets you manage groceries... and potentially introduces new ways for hackers to sneak into your network. The fundamental issue is that many IoT gadgets are built for convenience, not security. They often come with
-    <em>
-     default passwords
-    </em>
-    like &ldquo;admin&rdquo; (because changing the factory password on your smart toaster isn&rsquo;t the first thing on your mind during setup). Many IoT devices also don&rsquo;t get regular security updates &ndash; it&rsquo;s not like your fridge nags you to install the latest patch the way your phone does. This means vulnerabilities can linger unaddressed.
-   </p>
-   <p>
-    Another challenge is sheer scale. There are already billions of these smart devices online. By 2025, estimates suggest over 75&nbsp;billion IoT devices will be in use (
-    <a href="https://www.nccoe.nist.gov/iot#:~:text=Appliances%20from%20refrigerators%20to%20sensor,2025%2C%20according%20to%20IHS%20Markit">
-     Internet of Things (IoT) | NCCoE
-    </a>
-    ). That&rsquo;s about 75 billion potential targets if they aren&rsquo;t secured. It&rsquo;s as if each smart bulb and thermostat is a little computer (because they basically are), and each one could be a doorway into your home network if left unguarded.
-   </p>
-   <h2>
-    Why IoT Devices Are Easy Targets
-   </h2>
-   <p>
-    You might be thinking, &ldquo;Who on earth would want to hack my fridge? Are they after my secret soup recipe?&rdquo; Not exactly &ndash; hackers often don&rsquo;t care what the device is, only that they can control it. Here&rsquo;s why IoT gadgets are low-hanging fruit for attackers:
-   </p>
-   <ul>
-    <li>
-     <strong>
-      Weak or Default Credentials:
-     </strong>
-     Many IoT products come with default login credentials (like
-     <code>
-      admin/admin
-     </code>
-     ). If you don&rsquo;t change them, hackers can literally just log in. It&rsquo;s the digital equivalent of leaving the keys under the doormat.
-    </li>
-    <li>
-     <strong>
-      Lack of Updates:
-     </strong>
-     Traditional computers and phones get frequent security updates. Your smart fridge? Not so much. If a vulnerability is discovered, some manufacturers won&rsquo;t bother issuing a fix, especially for older models.
-    </li>
-    <li>
-     <strong>
-      Invisible to Users:
-     </strong>
-     If your laptop gets malware, you&rsquo;d notice weird behavior. But if your security camera or fridge gets recruited into a botnet, you probably won&rsquo;t see any difference. These devices don&rsquo;t have screens to scream &ldquo;I&rsquo;m hacked!&rdquo;
-    </li>
-    <li>
-     <strong>
-      Network Access:
-     </strong>
-     Once an IoT device in your home is compromised, it can serve as a foothold to attack other devices on your network. That smart light isn&rsquo;t just a light; if hacked, it&rsquo;s a gateway to your PCs, phones, etc.
-    </li>
-   </ul>
-   <p>
-    In one famous case, hackers breached a casino&rsquo;s high-roller database through&hellip; a smart fish tank thermometer. Yes, really. They found a weak IoT device (the aquarium thermometer), used it to get into the network, then pivoted to the database with all the juicy info. It&rsquo;s a James Bond heist meets &ldquo;Finding Nemo.&rdquo;
-   </p>
-   <h2>
-    Protecting Your Home from Rebel Appliances
-   </h2>
-   <p>
-    Now for the good news: you don&rsquo;t have to banish all smart devices from your life. There are simple steps to dramatically improve IoT security:
-   </p>
-   <ul>
-    <li>
-     <strong>
-      Change Default Passwords:
-     </strong>
-     The moment you set up a new smart device, change its default password to something strong and unique. Your fridge doesn&rsquo;t need a 32-character passphrase, but anything is better than &ldquo;12345&rdquo;. (And please don&rsquo;t use &ldquo;password&rdquo; as the password!)
-    </li>
-    <li>
-     <strong>
-      Keep Firmware Updated:
-     </strong>
-     Once in a blue moon, check if your gadget&rsquo;s app or website offers firmware updates. If so, install them. Think of it as giving your device a vaccine against known bugs.
-    </li>
-    <li>
-     <strong>
-      Use a Guest Network:
-     </strong>
-     If your router supports it, put IoT devices on a separate Wi-Fi network isolated from your main devices. That way, if your smart speaker goes rogue, it can&rsquo;t directly poke your work laptop or NAS drive.
-    </li>
-    <li>
-     <strong>
-      Disable Unused Features:
-     </strong>
-     If your smart fridge can tweet or your toaster can stream Spotify (why?), disable features you don&rsquo;t use. Less functionality means fewer avenues for attack.
-    </li>
-    <li>
-     <strong>
-      Monitor Unusual Activity:
-     </strong>
-     Keep an eye on network devices. Some routers show you traffic usage per device &ndash; if your fridge is suddenly consuming gigabytes of data at 2 AM, you might have a problem (unless it&rsquo;s downloading recipes...really aggressively).
-    </li>
-   </ul>
-   <p>
-    Most of these steps are set-and-forget. And they go a long way. Changing the default password on an IoT gadget is like changing the locks when you move into a new house &ndash; basic but crucial. Segregating IoT devices on a guest network is a bit more advanced, but it&rsquo;s increasingly easy with modern mesh routers that come with app controls.
-   </p>
-   <h2>
-    Conclusion
-   </h2>
-   <p>
-    The story of the &ldquo;rogue fridge&rdquo; is a tongue-in-cheek way to highlight a serious point: as our homes get smarter, so must our approach to security. You don&rsquo;t need to panic-unplug every device, but a few savvy habits will keep the cyber gremlins out. After all, we want our fridges and other smart appliances to serve us ice cream or coffee &ndash; not serve as henchmen in a hacker&rsquo;s grand scheme. So go ahead, enjoy the convenience of IoT, but remember to give your gadgets a little security TLC. Future-you (and maybe your sleep schedule) will thank you when your fridge sticks to chilling lettuce instead of chilling with hacker buddies online.
-   </p>
-   <h2>
-    Further Reading
-   </h2>
-   <ul>
-    <li>
-     <a href="https://www.theatlantic.com/technology/archive/2014/01/fridge-hack-spam/357141/">
-      &ldquo;One of These Fridges Might Be Spamming You Right Now&rdquo; &ndash; The Atlantic (
-      <a href="https://www.theatlantic.com/technology/archive/2014/01/fridge-hack-spam/357141/#:~:text=A%20security%20firm%20has%20discovered,Thanks%20a%20lot%2C%20evil%C2%A0refrigerator">
-       One of These Fridges Might Be Spamming You Right Now - The Atlantic
-      </a>
-      )
-     </a>
-    </li>
-    <li>
-     <a href="https://www.nccoe.nist.gov/iot">
-      NIST NCCoE on IoT Security (
-      <a href="https://www.nccoe.nist.gov/iot#:~:text=Appliances%20from%20refrigerators%20to%20sensor,2025%2C%20according%20to%20IHS%20Markit">
-       Internet of Things (IoT) | NCCoE
-      </a>
-      )
-     </a>
-    </li>
-    <li>
-     <a href="https://www.theguardian.com/technology/2014/jan/17/fridges-hacked-send-spam-internet-of-things">
-      Guardian Article: &ldquo;Hacked by your fridge? When the Internet of Things bites back&rdquo;
-     </a>
-    </li>
-    <li>
-     <a href="https://www.proofpoint.com/us/threat-insight/post/Proofpoint-Uncovers-IoT-Cyberattack">
-      Proofpoint Report on the First IoT Cyberattack (2014)
-     </a>
-    </li>
-   </ul>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>William Zujkowski - The Day My Fridge Went Rogue: IoT Security Wake-Up Call</title>
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+  <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
+  <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
+  <main class="container">
+    
+
+<main>
+<h1>The Day My Fridge Went Rogue: IoT Security Wake-Up Call</h1>
+<p><em>2025-01-28 | fridge-went-rogue</em></p>
+<p>I knew something was off when my smart fridge started <strong>beeping at 3 AM</strong> for no apparent reason. Was it plotting against me? In a world where our refrigerators, toasters, and even coffee makers are online, it’s not as far-fetched as it sounds. Today’s quick insight: how an innocent kitchen appliance might join a cybercrime botnet, and why we need to take IoT (Internet of Things) security seriously – with a smile, of course. Let’s face it, the idea of a rogue fridge is equal parts hilarious and horrifying.</p>
+<h2>When Appliances Attack (Sort of)</h2>
+<p>Back in 2014, a security firm discovered that over 100,000 smart appliances – including at least one fridge – were hijacked to send out spam emails (<a href="https://www.theatlantic.com/technology/archive/2014/01/fridge-hack-spam/357141/#:~:text=A%20security%20firm%20has%20discovered,Thanks%20a%20lot%2C%20evil%C2%A0refrigerator">One of These Fridges Might Be Spamming You Right Now - The Atlantic</a>). Yes, you read that right: <strong>fridges sending spam</strong>. “Thanks a lot, evil refrigerator,” as one news article quipped. It sounds like a joke, but it happened. Fast forward to today, and the number of IoT devices has exploded. We’re talking smart TVs, security cameras, thermostats, light bulbs – and yes, the fancy Wi-Fi enabled fridge that texted you about the milk running low might also be contacting a hacker in some far-flung corner of the world.</p>
+<p> (<a href="https://commons.wikimedia.org/wiki/File:LG_Smart_Refrigerator_at_CES_2011.jpg">File:LG Smart Refrigerator at CES 2011.jpg - Wikimedia Commons</a>) A modern smart refrigerator with a built-in touchscreen lets you manage groceries... and potentially introduces new ways for hackers to sneak into your network. The fundamental issue is that many IoT gadgets are built for convenience, not security. They often come with <em>default passwords</em> like “admin” (because changing the factory password on your smart toaster isn’t the first thing on your mind during setup). Many IoT devices also don’t get regular security updates – it’s not like your fridge nags you to install the latest patch the way your phone does. This means vulnerabilities can linger unaddressed.</p>
+<p>Another challenge is sheer scale. There are already billions of these smart devices online. By 2025, estimates suggest over 75 billion IoT devices will be in use (<a href="https://www.nccoe.nist.gov/iot#:~:text=Appliances%20from%20refrigerators%20to%20sensor,2025%2C%20according%20to%20IHS%20Markit">Internet of Things (IoT) | NCCoE</a>). That’s about 75 billion potential targets if they aren’t secured. It’s as if each smart bulb and thermostat is a little computer (because they basically are), and each one could be a doorway into your home network if left unguarded.</p>
+<h2>Why IoT Devices Are Easy Targets</h2>
+<p>You might be thinking, “Who on earth would want to hack my fridge? Are they after my secret soup recipe?” Not exactly – hackers often don’t care what the device is, only that they can control it. Here’s why IoT gadgets are low-hanging fruit for attackers:</p>
+<ul>
+<li><strong>Weak or Default Credentials:</strong> Many IoT products come with default login credentials (like <code>admin/admin</code>). If you don’t change them, hackers can literally just log in. It’s the digital equivalent of leaving the keys under the doormat.</li>
+<li><strong>Lack of Updates:</strong> Traditional computers and phones get frequent security updates. Your smart fridge? Not so much. If a vulnerability is discovered, some manufacturers won’t bother issuing a fix, especially for older models.</li>
+<li><strong>Invisible to Users:</strong> If your laptop gets malware, you’d notice weird behavior. But if your security camera or fridge gets recruited into a botnet, you probably won’t see any difference. These devices don’t have screens to scream “I’m hacked!”</li>
+<li><strong>Network Access:</strong> Once an IoT device in your home is compromised, it can serve as a foothold to attack other devices on your network. That smart light isn’t just a light; if hacked, it’s a gateway to your PCs, phones, etc.</li>
+</ul>
+<p>In one famous case, hackers breached a casino’s high-roller database through… a smart fish tank thermometer. Yes, really. They found a weak IoT device (the aquarium thermometer), used it to get into the network, then pivoted to the database with all the juicy info. It’s a James Bond heist meets “Finding Nemo.”</p>
+<h2>Protecting Your Home from Rebel Appliances</h2>
+<p>Now for the good news: you don’t have to banish all smart devices from your life. There are simple steps to dramatically improve IoT security:</p>
+<ul>
+<li><strong>Change Default Passwords:</strong> The moment you set up a new smart device, change its default password to something strong and unique. Your fridge doesn’t need a 32-character passphrase, but anything is better than “12345”. (And please don’t use “password” as the password!)</li>
+<li><strong>Keep Firmware Updated:</strong> Once in a blue moon, check if your gadget’s app or website offers firmware updates. If so, install them. Think of it as giving your device a vaccine against known bugs.</li>
+<li><strong>Use a Guest Network:</strong> If your router supports it, put IoT devices on a separate Wi-Fi network isolated from your main devices. That way, if your smart speaker goes rogue, it can’t directly poke your work laptop or NAS drive.</li>
+<li><strong>Disable Unused Features:</strong> If your smart fridge can tweet or your toaster can stream Spotify (why?), disable features you don’t use. Less functionality means fewer avenues for attack.</li>
+<li><strong>Monitor Unusual Activity:</strong> Keep an eye on network devices. Some routers show you traffic usage per device – if your fridge is suddenly consuming gigabytes of data at 2 AM, you might have a problem (unless it’s downloading recipes...really aggressively).</li>
+</ul>
+<p>Most of these steps are set-and-forget. And they go a long way. Changing the default password on an IoT gadget is like changing the locks when you move into a new house – basic but crucial. Segregating IoT devices on a guest network is a bit more advanced, but it’s increasingly easy with modern mesh routers that come with app controls.</p>
+<h2>Conclusion</h2>
+<p>The story of the “rogue fridge” is a tongue-in-cheek way to highlight a serious point: as our homes get smarter, so must our approach to security. You don’t need to panic-unplug every device, but a few savvy habits will keep the cyber gremlins out. After all, we want our fridges and other smart appliances to serve us ice cream or coffee – not serve as henchmen in a hacker’s grand scheme. So go ahead, enjoy the convenience of IoT, but remember to give your gadgets a little security TLC. Future-you (and maybe your sleep schedule) will thank you when your fridge sticks to chilling lettuce instead of chilling with hacker buddies online.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://www.theatlantic.com/technology/archive/2014/01/fridge-hack-spam/357141/">“One of These Fridges Might Be Spamming You Right Now” – The Atlantic (<a href="https://www.theatlantic.com/technology/archive/2014/01/fridge-hack-spam/357141/#:~:text=A%20security%20firm%20has%20discovered,Thanks%20a%20lot%2C%20evil%C2%A0refrigerator">One of These Fridges Might Be Spamming You Right Now - The Atlantic</a>)</a></li>
+<li><a href="https://www.nccoe.nist.gov/iot">NIST NCCoE on IoT Security (<a href="https://www.nccoe.nist.gov/iot#:~:text=Appliances%20from%20refrigerators%20to%20sensor,2025%2C%20according%20to%20IHS%20Markit">Internet of Things (IoT) | NCCoE</a>)</a></li>
+<li><a href="https://www.theguardian.com/technology/2014/jan/17/fridges-hacked-send-spam-internet-of-things">Guardian Article: “Hacked by your fridge? When the Internet of Things bites back”</a></li>
+<li><a href="https://www.proofpoint.com/us/threat-insight/post/Proofpoint-Uncovers-IoT-Cyberattack">Proofpoint Report on the First IoT Cyberattack (2014)</a></li>
+</ul>
+</main>
+
+
   </main>
-  <div hx-get="footer.html" hx-trigger="load" id="footer">
-  </div>
-  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
-  </footer>
- </body>
+  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
+</body>
 </html>
-<!-- Post 3 -->
