@@ -1,43 +1,40 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Welcome to William Zujkowski's Personal Website">
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
-  <meta name="author" content="William Zujkowski">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- No Google Fonts; using system fonts -->
-  <title>William Zujkowski - Home</title>
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <!-- Include htmx -->
-  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+<meta charset="utf-8"/>
+<meta content="Welcome to William Zujkowski's Personal Website" name="description"/>
+<meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords"/>
+<meta content="William Zujkowski" name="author"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- No Google Fonts; using system fonts -->
+<title>William Zujkowski - Home</title>
+<link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<!-- Include htmx -->
+<script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-
-<body>
-  <!-- Load Navigation (both desktop and mobile) -->
-  <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
-  <main class="container">
-    <section class="hero">
-      <h1>Welcome to My Personal Website</h1>
-      <p>
+<body><header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
+<!-- Load Navigation (both desktop and mobile) -->
+<div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
+<main class="container">
+<section class="hero">
+<h1>Welcome to My Personal Website</h1>
+<p>
         I’m William Zujkowski—cybersecurity engineer, ethical hacker, and AI/ML enthusiast.
         Explore my blog, interactive calculators, and learn more on the <a href="/about.html">About</a> page.
       </p>
-    </section>
-    <section id="blog-posts-summary">
-      <h2>Recent Blog Posts</h2>
-      <p>
-        Check out my latest insights on cybersecurity, AI, and technology. For the full archive, visit the <a
-          href="/blog.html">Blog</a> page.
+</section>
+<section id="blog-posts-summary">
+<h2>Recent Blog Posts</h2>
+<p>
+        Check out my latest insights on cybersecurity, AI, and technology. For the full archive, visit the <a href="/blog.html">Blog</a> page.
       </p>
-      <section id="recent-blog-list">
-        <!-- Optionally, use htmx to load recent posts -->
-      </section>
-    </section>
-  </main>
-  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
+<section id="recent-blog-list">
+<!-- Optionally, use htmx to load recent posts -->
+</section>
+</section>
+</main>
+<footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
 </body>
-
 </html>

@@ -1,92 +1,81 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="About - William Zujkowski, Cybersecurity Engineer & Tech Enthusiast" />
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, About, Personal, Professional" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About - William Zujkowski</title>
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="/assets/css/style.css" />
-  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+<meta charset="utf-8"/>
+<meta content="About - William Zujkowski, Cybersecurity Engineer &amp; Tech Enthusiast" name="description"/>
+<meta content="William Zujkowski, Cybersecurity, About, Personal, Professional" name="keywords"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About - William Zujkowski</title>
+<link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-
-<body>
-  <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
-  <main class="container">
-    <section id="about">
-      <h1>About Me</h1>
-      <p>Hello! I'm <strong>William Zujkowski</strong>, a cybersecurity engineer with over 15 years of experience in
+<body><header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
+<div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
+<main class="container">
+<section id="about">
+<h1>About Me</h1>
+<p>Hello! I'm <strong>William Zujkowski</strong>, a cybersecurity engineer with over 15 years of experience in
         vulnerability management, DevSecOps, and cloud security. I love solving complex challenges and sharing my
         passion for technology. Whether I’m working on advanced security projects or mentoring the next generation of
         tech enthusiasts, I always try to mix rigor with a touch of humor and a personal flair.</p>
-    </section>
-
-    <section id="skills">
-      <h2>Skills &amp; Expertise</h2>
-      <ul>
-        <li><strong>Cybersecurity:</strong> Penetration Testing, Vulnerability Research, Incident Response, Security
+</section>
+<section id="skills">
+<h2>Skills &amp; Expertise</h2>
+<ul>
+<li><strong>Cybersecurity:</strong> Penetration Testing, Vulnerability Research, Incident Response, Security
           Auditing, Threat Modeling, Digital Forensics, Reverse Engineering</li>
-        <li><strong>Cloud Security:</strong> AWS, GCP, Azure, Cloud Security Architecture, IAM, Serverless Security</li>
-        <li><strong>Programming &amp; Scripting:</strong> Python, JavaScript, Bash, Go</li>
-        <li><strong>DevSecOps:</strong> CI/CD Pipelines, Infrastructure as Code, Container Security</li>
-        <li><strong>AI/ML:</strong> Machine Learning for Cybersecurity, Deep Learning, Anomaly Detection, NLP</li>
-        <li><strong>Data Science:</strong> Data Analysis, Statistical Modeling, Data Visualization</li>
-        <li><strong>Operating Systems:</strong> Linux, Windows Server</li>
-        <li><strong>Networking:</strong> TCP/IP, Firewalls, VPNs, Network Security Monitoring</li>
-        <li><strong>Security Tools:</strong> Nmap, Metasploit, Burp Suite, Wireshark, SIEM, IDS/IPS</li>
-      </ul>
-    </section>
-
-    <article id="personal-passions">
-      <header>
-        <h2>Personal Passions</h2>
-      </header>
-      <p>When I'm off the clock, I believe in living life to the fullest. My personal passions keep me grounded and
+<li><strong>Cloud Security:</strong> AWS, GCP, Azure, Cloud Security Architecture, IAM, Serverless Security</li>
+<li><strong>Programming &amp; Scripting:</strong> Python, JavaScript, Bash, Go</li>
+<li><strong>DevSecOps:</strong> CI/CD Pipelines, Infrastructure as Code, Container Security</li>
+<li><strong>AI/ML:</strong> Machine Learning for Cybersecurity, Deep Learning, Anomaly Detection, NLP</li>
+<li><strong>Data Science:</strong> Data Analysis, Statistical Modeling, Data Visualization</li>
+<li><strong>Operating Systems:</strong> Linux, Windows Server</li>
+<li><strong>Networking:</strong> TCP/IP, Firewalls, VPNs, Network Security Monitoring</li>
+<li><strong>Security Tools:</strong> Nmap, Metasploit, Burp Suite, Wireshark, SIEM, IDS/IPS</li>
+</ul>
+</section>
+<article id="personal-passions">
+<header>
+<h2>Personal Passions</h2>
+</header>
+<p>When I'm off the clock, I believe in living life to the fullest. My personal passions keep me grounded and
         inspired:</p>
-      <ul>
-        <li>Embarking on adventures with my wife and our energetic 1-year-old son.</li>
-        <li>Playing video games on <a href="https://steamcommunity.com/id/grenlan/" target="_blank"
-            rel="noopener noreferrer">Steam</a>—nothing beats a good co-op session.</li>
-        <li>Enjoying board games (<a href="https://www.youtube.com/watch?v=kj0GDeS4A1c" target="_blank"
-            rel="noopener noreferrer">see it in action</a>) and card games (<a
-            href="https://www.youtube.com/watch?v=MaiUUitZbns" target="_blank" rel="noopener noreferrer">watch a
+<ul>
+<li>Embarking on adventures with my wife and our energetic 1-year-old son.</li>
+<li>Playing video games on <a href="https://steamcommunity.com/id/grenlan/" rel="noopener noreferrer" target="_blank">Steam</a>—nothing beats a good co-op session.</li>
+<li>Enjoying board games (<a href="https://www.youtube.com/watch?v=kj0GDeS4A1c" rel="noopener noreferrer" target="_blank">see it in action</a>) and card games (<a href="https://www.youtube.com/watch?v=MaiUUitZbns" rel="noopener noreferrer" target="_blank">watch a
             demo</a>) with friends and family.</li>
-        <li>Diving into books and sharing reviews on <a
-            href="https://www.goodreads.com/review/list/52529234-william-zujkowski?shelf=read" target="_blank"
-            rel="noopener noreferrer">Goodreads</a>.</li>
-      </ul>
-    </article>
-
-    <article id="professional-interests">
-      <header>
-        <h2>Professional Interests</h2>
-      </header>
-      <p>My work is driven by curiosity and a relentless pursuit of innovation. Here are some of the professional areas
+<li>Diving into books and sharing reviews on <a href="https://www.goodreads.com/review/list/52529234-william-zujkowski?shelf=read" rel="noopener noreferrer" target="_blank">Goodreads</a>.</li>
+</ul>
+</article>
+<article id="professional-interests">
+<header>
+<h2>Professional Interests</h2>
+</header>
+<p>My work is driven by curiosity and a relentless pursuit of innovation. Here are some of the professional areas
         that spark my enthusiasm:</p>
-      <ul>
-        <li><a href="https://github.com/greatscottgadgets/hackrf" target="_blank" rel="noopener noreferrer">Tinkering
+<ul>
+<li><a href="https://github.com/greatscottgadgets/hackrf" rel="noopener noreferrer" target="_blank">Tinkering
             with Hardware</a> – I love exploring HackRF, an open-source platform for software-defined radio (SDR)
           enthusiasts.</li>
-        <li><a href="https://supercomputing.org/" target="_blank" rel="noopener noreferrer">Supercomputing</a> – I stay
+<li><a href="https://supercomputing.org/" rel="noopener noreferrer" target="_blank">Supercomputing</a> – I stay
           up-to-date with high-performance computing (HPC) trends and breakthroughs from the supercomputing community.
         </li>
-        <li><a href="https://github.com/taubyte/tau" target="_blank" rel="noopener noreferrer">Cloud Computing</a> – I'm
+<li><a href="https://github.com/taubyte/tau" rel="noopener noreferrer" target="_blank">Cloud Computing</a> – I'm
           fascinated by Tau, an innovative platform for building decentralized applications in the cloud.</li>
-        <li><a href="https://en.wikipedia.org/wiki/Computer_security" target="_blank"
-            rel="noopener noreferrer">Cybersecurity</a> – From penetration testing to incident response, I’m always
+<li><a href="https://en.wikipedia.org/wiki/Computer_security" rel="noopener noreferrer" target="_blank">Cybersecurity</a> – From penetration testing to incident response, I’m always
           learning about new ways to protect information systems.</li>
-        <li><a href="https://www.kaggle.com/williamzujkowski" target="_blank" rel="noopener noreferrer">Analyzing Large
+<li><a href="https://www.kaggle.com/williamzujkowski" rel="noopener noreferrer" target="_blank">Analyzing Large
             Datasets</a> – I enjoy working on data science projects and exploring datasets on Kaggle.</li>
-        <li><a href="https://huggingface.co/Chaosagent" target="_blank" rel="noopener noreferrer">Exploring AI</a> – I
+<li><a href="https://huggingface.co/Chaosagent" rel="noopener noreferrer" target="_blank">Exploring AI</a> – I
           explore cutting-edge AI models and tools on Hugging Face to stay ahead of the curve.</li>
-        <li><a href="https://www.youtube.com/watch?v=G8SdsQjdHnM" target="_blank" rel="noopener noreferrer">Organizing
+<li><a href="https://www.youtube.com/watch?v=G8SdsQjdHnM" rel="noopener noreferrer" target="_blank">Organizing
             Chaos</a> – I’m always on the lookout for new ideas on managing complexity in projects and systems.</li>
-      </ul>
-    </article>
-  </main>
-  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
+</ul>
+</article>
+</main>
+<footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
 </body>
-
 </html>

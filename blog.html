@@ -1,34 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Welcome to William Zujkowski's Personal Website" />
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators" />
-  <meta name="author" content="William Zujkowski" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- No Google Fonts; using system fonts -->
-  <title>Blog - William Zujkowski</title>
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="/assets/css/style.css" />
-  <!-- Include htmx -->
-  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+<meta charset="utf-8"/>
+<meta content="Welcome to William Zujkowski's Personal Website" name="description"/>
+<meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords"/>
+<meta content="William Zujkowski" name="author"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- No Google Fonts; using system fonts -->
+<title>Blog - William Zujkowski</title>
+<link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/assets/css/style.css" rel="stylesheet"/>
+<!-- Include htmx -->
+<script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-
-<body>
-  <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
-  <main class="container">
-    <header>
-      <h1>All Blog Posts</h1>
-      <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
-    </header>
-    <section id="blogPostsContainer">
-      <!-- Blog posts will be loaded here from blog_list.json -->
-    </section>
-    <section id="paginationControls" class="pagination"></section>
-  </main>
-  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
-  <script>
+<body><header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
+<div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
+<main class="container">
+<header>
+<h1>All Blog Posts</h1>
+<p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
+</header>
+<section id="blogPostsContainer">
+<!-- Blog posts will be loaded here from blog_list.json -->
+</section>
+<section class="pagination" id="paginationControls"></section>
+</main>
+<footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
+<script>
     const articlesPerPage = 3;
     let allPosts = [];
     let currentPage = 1;
@@ -112,5 +111,4 @@
     document.addEventListener("DOMContentLoaded", loadBlogPosts);
   </script>
 </body>
-
 </html>
