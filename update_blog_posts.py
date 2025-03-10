@@ -27,7 +27,7 @@ TEMPLATE = """<!DOCTYPE html>
   <title>{title}</title>
   <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="../assets/css/style.css" />
-  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
 <body>
   {header}
@@ -40,8 +40,9 @@ TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-# Regexes for markdown conversions
+# Regex to convert markdown hyperlinks [text](url) to HTML links.
 MD_LINK_REGEX = re.compile(r"\[([^\]]+)\]\(([^\)]+)\)")
+# Regexes to convert markdown bold syntax (**text** and __text__) to HTML <strong> tags.
 BOLD_REGEX = re.compile(r"\*\*([^*]+)\*\*")
 UNDERLINE_BOLD_REGEX = re.compile(r"__([^_]+)__")
 
@@ -67,7 +68,7 @@ def slugify(text):
 
 
 def validate_date(date_str):
-    """Return date_str if it's in YYYY-MM-DD format; otherwise, return 'unknown'."""
+    """Return date_str if it's in YYYY-MM-DD format; otherwise return 'unknown'."""
     try:
         datetime.strptime(date_str, "%Y-%m-%d")
         return date_str
@@ -77,14 +78,14 @@ def validate_date(date_str):
 
 def extract_metadata(soup):
     """
-    Extract the title, date, and slug from the BeautifulSoup object.
+    Extract title, date, and slug from the BeautifulSoup object.
     Fallbacks:
       - If the <title> tag is missing or equals "{title}", use the first <h2> in the inner article.
-      - Clean up the title (collapse whitespace).
-      - For date and slug, first look for an <em> in the first <p>.
+      - Collapse extra whitespace in the title.
+      - For date and slug, first check for an <em> in the first <p>.
       - If not found, try inner article attributes.
       - As a fallback for date, search for any <p> containing "Date:".
-      - If slug is missing or "unknown", generate one from the title.
+      - If slug is missing or equals "unknown", generate one from the title.
     """
     # Extract title
     title = ""
@@ -100,7 +101,7 @@ def extract_metadata(soup):
     if not title:
         title = "Untitled"
 
-    # Extract date and slug from first <em> within first <p>
+    # Extract date and slug from first <em> in the first <p>
     date = "unknown"
     slug = ""
     first_p = soup.find("p")
@@ -112,7 +113,7 @@ def extract_metadata(soup):
             if len(parts) >= 2:
                 date = validate_date(parts[0])
                 slug = parts[1]
-    # If still missing, check inner article attributes
+    # Try inner article attributes if needed
     inner_article = soup.find("article")
     if inner_article:
         if inner_article.has_attr("data-date"):
@@ -120,7 +121,7 @@ def extract_metadata(soup):
         if inner_article.has_attr("data-slug"):
             slug = inner_article["data-slug"]
 
-    # Fallback: search for any <p> containing "Date:"
+    # Fallback: search for any <p> containing "Date:" if date is still unknown
     if date == "unknown":
         for p in soup.find_all("p"):
             text = p.get_text()
@@ -130,7 +131,7 @@ def extract_metadata(soup):
                 if date != "unknown":
                     break
 
-    # If slug is still missing or equals "unknown", generate one from title
+    # If slug is missing or equals "unknown", generate one from the title
     if not slug or slug == "unknown":
         slug = slugify(title)
 
@@ -153,9 +154,10 @@ def process_merged_file():
     Process the merged HTML file (if it exists):
       - Split it into individual posts.
       - Convert markdown hyperlinks and bold markdown to HTML.
-      - Remove any vestigial header, nav, footer, or duplicate elements (any element with an hx-get attribute).
+      - Remove all existing <header>, <nav>, and <footer> elements from the original content.
+      - Remove any scripts referencing old assets.
       - Extract metadata (title, date, slug) and rebuild the content using the template.
-      - Ensure that the <title> tag in the new page matches the final title.
+      - Ensure the <title> tag and output filename match the final title/slug.
       - Save the post as BLOG_DIR/slug.html.
     """
     if not os.path.exists(MERGED_FILE):
@@ -174,25 +176,26 @@ def process_merged_file():
         if not post.startswith("<!DOCTYPE html>"):
             post = "<!DOCTYPE html>\n" + post
 
-        # Convert markdown links and bold syntax
+        # Convert markdown links and bold syntax to HTML
         post = convert_markdown_links(post)
         post = convert_markdown_bold(post)
 
         soup = BeautifulSoup(post, "html.parser")
 
-        # Remove vestigial elements by removing any element with an hx-get attribute
-        for tag in soup.find_all(attrs={"hx-get": True}):
-            tag.decompose()
+        # Remove all existing header, nav, footer elements from the body
+        if soup.body:
+            for tag in soup.body.find_all(["header", "nav", "footer"]):
+                tag.decompose()
 
-        # Remove any old scripts referencing main.js
+        # Remove any scripts referencing old assets (e.g., main.js)
         for script in soup.find_all("script", src=True):
             if "main.js" in script["src"]:
                 script.decompose()
 
-        # Extract metadata from the current soup
+        # Extract metadata
         title, date, slug = extract_metadata(soup)
 
-        # Ensure the <title> tag in the head matches the determined title.
+        # Ensure the <title> tag in the head matches the final title.
         if soup.title:
             soup.title.string = title
         else:
@@ -203,22 +206,33 @@ def process_merged_file():
             if not soup.head:
                 soup.html.insert(0, head)
 
-        # Extract the main content – use the inner <article> if available;
-        # otherwise, use the entire body after removing any extraneous header/nav/footer.
+        # Extract main content – prefer inner <article> if available.
         content_section = ""
         inner_article = soup.find("article")
         if inner_article:
+            # Remove any nested header, nav, footer from inner_article
+            for tag in inner_article.find_all(["header", "nav", "footer"]):
+                tag.decompose()
             content_section = inner_article.decode_contents()
         else:
-            # As fallback, remove any header, nav, footer from body and use the rest.
-            for tag in soup.find_all(["header", "nav", "footer"]):
-                tag.decompose()
-            content_section = soup.body.decode_contents()
+            if soup.body:
+                # Remove any stray header, nav, footer from body
+                for tag in soup.body.find_all(["header", "nav", "footer"]):
+                    tag.decompose()
+                content_section = soup.body.decode_contents()
+            else:
+                content_section = ""
+
+        # Additional cleanup: remove any footer tags from content_section
+        content_soup = BeautifulSoup(content_section, "html.parser")
+        for tag in content_soup.find_all("footer"):
+            tag.decompose()
+        content_section = content_soup.decode_contents()
 
         # Build new full HTML using our template
         full_html = build_template(title, content_section)
 
-        # Write the new HTML to a file named using the slug (ensuring consistency)
+        # Write the new HTML to a file using the slug as filename
         output_filename = os.path.join(BLOG_DIR, slug + ".html")
         with open(output_filename, "w", encoding="utf-8") as out_f:
             out_f.write(full_html)
@@ -230,8 +244,8 @@ def process_merged_file():
 def update_blog_list():
     """
     Scan all .html files in BLOG_DIR and update BLOG_LIST_JSON.
-    Deduplicate entries by slug and sort them by date (descending).
-    Create a backup of the existing BLOG_LIST_JSON before writing.
+    Deduplicate entries based on slug and sort them by date (descending).
+    Create a backup of BLOG_LIST_JSON before writing.
     """
     blog_entries = []
     for filename in os.listdir(BLOG_DIR):
@@ -243,13 +257,13 @@ def update_blog_list():
             title, date, slug = extract_metadata(soup)
             blog_entries.append({"title": title, "date": date, "slug": slug})
 
-    # Deduplicate entries by slug (latest occurrence wins)
+    # Deduplicate by slug (latest occurrence wins)
     unique_entries = {}
     for entry in blog_entries:
         unique_entries[entry["slug"]] = entry
     final_entries = list(unique_entries.values())
 
-    # Sort entries by date descending (if date valid; else treat as very old)
+    # Sort by date descending (if date valid; else treat as very old)
     def sort_key(entry):
         try:
             return datetime.strptime(entry["date"], "%Y-%m-%d")
@@ -258,7 +272,7 @@ def update_blog_list():
 
     final_entries.sort(key=sort_key, reverse=True)
 
-    # Backup the current blog_list.json if it exists
+    # Backup current BLOG_LIST_JSON if it exists
     if os.path.exists(BLOG_LIST_JSON):
         shutil.copy(BLOG_LIST_JSON, BLOG_LIST_JSON + ".bak")
         print(f"Backup created: {BLOG_LIST_JSON}.bak")
