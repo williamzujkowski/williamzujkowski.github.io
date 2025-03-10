@@ -1,202 +1,262 @@
 /* Use a modern Helvetica-inspired sans-serif stack */
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  
-  /* Global Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Base styling: white background for entire site */
-  body {
-    font-size: 1.3rem;
-    line-height: 1.8;
-    color: #333;
-    background: #ffffff; /* White background */
-    padding: 1rem;
-  }
-  
-  /* Header styling */
-  .site-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .site-header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .site-header p {
-    font-size: 1.4rem;
-    color: #666;
-  }
-  
-  /* Desktop Navigation styling */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base styling: white background for entire site */
+body {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #333;
+  background: #ffffff;
+  /* White background */
+  padding: 1rem;
+}
+
+/* Header styling */
+.site-header {
+  text-align: center;
+  margin-bottom: 0rem;
+  padding: 1rem 0;
+  border-bottom: .5px solid #ddd;
+}
+
+.site-header h1 {
+  font-size: 4.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.site-header p {
+  font-size: 1.4rem;
+  color: #666;
+}
+
+/* Desktop Navigation styling */
+.nav-desktop {
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.nav-desktop .nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-desktop .nav-menu a {
+  text-decoration: none;
+  color: #007acc;
+  font-weight: 600;
+  font-size: 1.8rem;
+  /* Increased text size for nav */
+}
+
+.nav-desktop .nav-menu a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Navigation styling */
+.nav-mobile {
+  display: none;
+  /* Hide on desktop */
+}
+
+.nav-mobile .nav-menu-mobile {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0.75rem 0;
+}
+
+.nav-mobile .nav-menu-mobile a {
+  text-decoration: none;
+  color: #007acc;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Fixed mobile nav: stick it to the bottom on small screens */
+@media (max-width: 768px) {
   .nav-desktop {
-    background: #ffffff;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1rem;
-    padding: 1rem;
+    display: none;
   }
-  
-  .nav-desktop .nav-menu {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 2rem;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .nav-desktop .nav-menu a {
-    text-decoration: none;
-    color: #007acc;
-    font-weight: 600;
-    font-size: 1.3rem; /* Increased text size for nav */
-  }
-  
-  .nav-desktop .nav-menu a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Mobile Navigation styling */
+
   .nav-mobile {
-    display: none; /* Hide on desktop */
-  }
-  
-  .nav-mobile .nav-menu-mobile {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin: 0;
-    padding: 0.75rem 0;
-  }
-  
-  .nav-mobile .nav-menu-mobile a {
-    text-decoration: none;
-    color: #007acc;
-    font-weight: 600;
-    font-size: 1.2rem;
-  }
-  
-  /* Fixed mobile nav: stick it to the bottom on small screens */
-  @media (max-width: 768px) {
-    .nav-desktop {
-      display: none;
-    }
-    .nav-mobile {
-      display: block;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #ffffff;
-      border-top: 1px solid #ddd;
-      z-index: 1000;
-    }
-  }
-  
-  /* Fluid content layout: use more of the screen on desktop */
-  .container {
-    max-width: 1200px;  /* Increased max width */
-    width: 90%;         /* Use 90% of viewport width */
-    margin: 0 auto;
-    padding: 2rem;
-    background: #ffffff; /* White background */
-    /* Removed box shadow and border radius for a flat look */
-  }
-  
-  /* Headings within content */
-  h1, h2, h3 {
-    margin-bottom: 1rem;
-    color: #222;
-    font-weight: 700;
-  }
-  
-  /* Paragraphs */
-  p {
-    margin-bottom: 1.5rem;
-    color: #444;
-  }
-  
-  /* Links */
-  a {
-    color: #007acc;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Footer styling */
-  .site-footer {
-    text-align: center;
-    margin-top: 2rem;
-    padding: 1rem 0;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
     border-top: 1px solid #ddd;
-    font-size: 1rem;
-    color: #666;
+    z-index: 1000;
   }
+}
+
+/* Fluid content layout: use more of the screen on desktop */
+.container {
+  max-width: 1200px;
+  /* Increased max width */
+  width: 90%;
+  /* Use 90% of viewport width */
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  /* White background */
+  /* Removed box shadow and border radius for a flat look */
+}
+
+/* Headings within content */
+h1,
+h2,
+h3 {
+  margin-bottom: 1rem;
+  color: #222;
+  font-weight: 700;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+/* Links */
+a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Footer styling */
+.site-footer {
   
-  /* Article styling for blog posts */
-  article {
-    margin-bottom: 2rem;
-  }
-  
-  article h2 {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* Lists */
-  ul {
-    margin-left: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Form elements for calculators */
-  input, select, button {
-    font-size: 1rem;
+  /* Subtle light-gray background */
+  border-top: 1px solid #ddd;
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1rem;
+  /* color: #666; */
+}
+
+/* Footer content alignment */
+.footer-content {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Icon link spacing and alignment */
+.footer-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.footer-icon:last-of-type {
+  margin-right: 0;
+}
+
+.footer-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Footer images themselves */
+.footer-img {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+
+.footer-text p {
+  margin: 0;
+}
+
+/* Article styling for blog posts */
+article {
+  margin-bottom: 2rem;
+}
+
+article h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Lists */
+ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Form elements for calculators */
+input,
+select,
+button {
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+button {
+  background: #007acc;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+  margin-right: 0.5rem;
+}
+
+button:hover {
+  background: #005ea6;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  body {
     padding: 0.5rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ccc;
-    border-radius: 3px;
   }
-  
-  button {
-    background: #007acc;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 0.7rem 1rem;
-    margin-right: 0.5rem;
+
+  .container {
+    padding: 1rem;
+    width: 95%;
   }
-  
-  button:hover {
-    background: #005ea6;
+
+  /* Ensure fixed mobile nav doesn't overlay content */
+  body {
+    padding-bottom: 4rem;
   }
-  
-  /* Responsive adjustments for smaller screens */
-  @media (max-width: 600px) {
-    body {
-      padding: 0.5rem;
-    }
-    .container {
-      padding: 1rem;
-      width: 95%;
-    }
-    /* Ensure fixed mobile nav doesn't overlay content */
-    body {
-      padding-bottom: 4rem;
-    }
-  }
-  
+}

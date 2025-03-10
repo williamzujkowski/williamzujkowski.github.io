@@ -1,71 +1,74 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="Welcome to William Zujkowski's Personal Website" name="description"/>
-<meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<!-- No Google Fonts; using system fonts -->
-<title>Coffee Calculator - William Zujkowski</title>
-<link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link href="/assets/css/style.css" rel="stylesheet"/>
-<!-- Include htmx -->
-<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <meta charset="utf-8" />
+    <meta content="Welcome to William Zujkowski's Personal Website" name="description" />
+    <meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <!-- No Google Fonts; using system fonts -->
+    <title>Coffee Calculator - William Zujkowski</title>
+    <link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+    <!-- Include htmx -->
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-<body><header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
-<div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
-<main class="container">
-<header>
-<h1>Coffee Calculator for IT Engineers</h1>
-<p>Find out how many cups of coffee are needed to fuel your coding sessions.</p>
-</header>
-<section>
-<form id="coffeeForm" onsubmit="return false;">
-<fieldset>
-<legend>Enter Your Coffee Details:</legend>
-<div>
-<label for="javaAttendees">Number of Devs:</label>
-<input id="javaAttendees" type="number" value="3"/>
-</div>
-<div>
-<label for="coffeeStrength">Coffee Strength:</label>
-<select id="coffeeStrength">
-<option value="1">Mild</option>
-<option value="2">Regular</option>
-<option value="3">Strong</option>
-<option value="5">Espresso Shots Only</option>
-<option value="10">Triple Espresso Shots (Danger!)</option>
-</select>
-</div>
-<div>
-<label for="hoursCoding">Hours of Coding:</label>
-<input id="hoursCoding" type="number" value="4"/>
-</div>
-<div>
-<label for="timesBuildFailed">Times Build Failed:</label>
-<input id="timesBuildFailed" type="number" value="2"/>
-</div>
-<button onclick="calculateCoffee()" type="button">Calculate</button>
-<button onclick="downloadCoffeeReport()" type="button">Download Report</button>
-<button onclick="shareCoffeeReport()" type="button">Share</button>
-</fieldset>
-</form>
-</section>
-<section id="coffeeProgressSection">
-<div id="progressContainer">
-<div id="progressBar"></div>
-</div>
-<p id="progressLabel"></p>
-</section>
-<section id="coffeeResultSection">
-<div aria-live="polite" id="coffeeResult" role="alert"></div>
-</section>
-<a download="Coffee_Calculation_Report.txt" href="#" id="downloadCoffeeLink">Download Coffee Report</a>
-</main>
-<footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
-<div id="toast"></div>
-<script>
+
+<body>
+    <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
+    <div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
+    <main class="container">
+        <header>
+            <h1>Coffee Calculator for IT Engineers</h1>
+            <p>Find out how many cups of coffee are needed to fuel your coding sessions.</p>
+        </header>
+        <section>
+            <form id="coffeeForm" onsubmit="return false;">
+                <fieldset>
+                    <legend>Enter Your Coffee Details:</legend>
+                    <div>
+                        <label for="javaAttendees">Number of Devs:</label>
+                        <input id="javaAttendees" type="number" value="3" />
+                    </div>
+                    <div>
+                        <label for="coffeeStrength">Coffee Strength:</label>
+                        <select id="coffeeStrength">
+                            <option value="1">Mild</option>
+                            <option value="2">Regular</option>
+                            <option value="3">Strong</option>
+                            <option value="5">Espresso Shots Only</option>
+                            <option value="10">Triple Espresso Shots (Danger!)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="hoursCoding">Hours of Coding:</label>
+                        <input id="hoursCoding" type="number" value="4" />
+                    </div>
+                    <div>
+                        <label for="timesBuildFailed">Times Build Failed:</label>
+                        <input id="timesBuildFailed" type="number" value="2" />
+                    </div>
+                    <button onclick="calculateCoffee()" type="button">Calculate</button>
+                    <button onclick="downloadCoffeeReport()" type="button">Download Report</button>
+                    <button onclick="shareCoffeeReport()" type="button">Share</button>
+                </fieldset>
+            </form>
+        </section>
+        <section id="coffeeProgressSection">
+            <div id="progressContainer">
+                <div id="progressBar"></div>
+            </div>
+            <p id="progressLabel"></p>
+        </section>
+        <section id="coffeeResultSection">
+            <div aria-live="polite" id="coffeeResult" role="alert"></div>
+        </section>
+
+    </main>
+    <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
+    <div id="toast"></div>
+    <script>
         (function () {
             if (!document.getElementById('coffeeForm')) return;
             let coffeeCalculationCompleted = false;
@@ -210,4 +213,5 @@
         })();
     </script>
 </body>
+
 </html>
