@@ -1,170 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   William Zujkowski - AI vs. AI: Cybersecurity at the Battlefront of Automated Warfare
-  </title>
- </head>
- <body>
-  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load">
-  </header>
-  <nav hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load">
-  </nav>
-  <div hx-get="nav.html" hx-trigger="load" id="nav">
-  </div>
-  <main>
-   <h1>
-    AI vs. AI: Cybersecurity at the Battlefront of Automated Warfare
-   </h1>
-   <p>
-    <em>
-     2025-02-14 | ai-vs-ai-cyberwar
-    </em>
-   </p>
-   <p>
-    In one corner: an AI system churning out phishing emails and polymorphic malware like a diabolical Energizer Bunny. In the other corner: an AI guardian angel scanning network traffic and patching vulnerabilities at machine speed. Welcome to the new cage match in cybersecurity &ndash; AI vs. AI. It sounds like sci-fi, but it&rsquo;s increasingly real. This in-depth guide explores how artificial intelligence is being wielded by both attackers and defenders in the cyber arena. Expect a few chuckles (robo-rumble, anyone?) balanced with insights into cutting-edge research and real-world developments.
-   </p>
-   <h2>
-    When Hackers Have AI on Their Side
-   </h2>
-   <p>
-    Cybercriminals have never been shy about using the latest tech, and AI is no exception. Why manually write malware or scam emails when a clever AI can do it for you? Generative AI tools can produce highly convincing phishing messages, complete with perfect grammar and a tone mimicking your CEO &ndash; no more awkward Nigerian prince vibes. In fact, security researchers have found evidence of malware scripts that appear to be written with AI assistance, with telltale signs like well-structured code and even commented explanations in plain language (
-    <a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html#:~:text=,designed%20websites%20offering%20fake">
-     HP Wolf Security Uncovers Evidence of Attackers Using AI to Generate Malware    | HP&reg; Official Site
-    </a>
-    ). (Imagine a helpful AI co-pilot unknowingly aiding a hacker &ndash; talk about playing for the wrong team!)
-   </p>
-   <p>
-    On the darker side of the web, there are actually custom AI models tailored for bad behavior. Meet **WormGPT** &ndash; an underground AI based on a GPT-J model that ignores all the nice safety rules (
-    <a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=WormGPT%20is%20an%20AI%20tool,created%20by%20EleutherAI%20in%202021">
-     The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web
-    </a>
-    ). It&rsquo;s been reportedly used to boost phishing attacks, especially business email compromise scams (
-    <a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=According%20to%20SlashNext%2C%20one%20of,BEC%29%20attacks">
-     The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web
-    </a>
-    ). There&rsquo;s also &ldquo;FraudGPT&rdquo; and other ominously named bots for hire (
-    <a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=FraudGPT%20and%20DarkBard">
-     The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web
-    </a>
-    ). These malicious AIs can help criminals craft malware, create fake websites, or even generate bogus legal documents, all without a human writer&rsquo;s block. As one former hacker noted, there&rsquo;s a bustling trade in &ldquo;jailbreaks&rdquo; for mainstream AI like ChatGPT to make them do nefarious things (
-    <a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=Daniel%20Kelley%2C%20a%20former%20black,%E2%80%9D">
-     The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web
-    </a>
-    ). It&rsquo;s an AI arms bazaar down there.
-   </p>
-   <p>
-    The result? The barrier to entry for launching sophisticated cyberattacks is getting lower. An attacker with modest skills can leverage an AI to do the heavy lifting &ndash; writing code, finding vulnerabilities, or generating personalized scam content &ndash; tasks that used to require more expertise. It&rsquo;s like giving a rookie villain a veteran sidekick. Security firm HP even highlighted how generative AI is accelerating attacks and &ldquo;lowering the bar for cybercriminals to infect endpoints&rdquo; (
-    <a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html#:~:text=language%20function%20names%20and%20variables,for%20cybercriminals%20to%20infect%20endpoints">
-     HP Wolf Security Uncovers Evidence of Attackers Using AI to Generate Malware    | HP&reg; Official Site
-    </a>
-    ). In other words, script kiddies (amateur hackers) just got a promotion courtesy of AI.
-   </p>
-   <h2>
-    Rise of the Machine Defenders
-   </h2>
-   <p>
-    Thankfully, AI isn&rsquo;t only working for the bad guys. The cybersecurity defense side has its own arsenal of intelligent tools. Modern security systems use machine learning to detect anomalies &ndash; for example, an AI can learn what normal network traffic looks like and then yell &ldquo;Intruder alert!&rdquo; when something deviates too much. Unlike humans, an AI analyst doesn&rsquo;t get tired; it can sift through millions of log entries to spot a needle-in-haystack sign of intrusion (though we promise not to replace Tier-1 analysts with Terminators just yet).
-   </p>
-   <p>
-    One of the most exciting developments is using AI to find and fix vulnerabilities automatically. In 2024, DARPA held the
-    <a href="https://www.aicyberchallenge.com/">
-     AI Cyber Challenge (AIxCC)
-    </a>
-    , where teams competed to build AI systems that could scan code for bugs and patch them on the fly (
-    <a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=The%20Semifinal%20Competition%20of%20the,drew%20more%20than%2012%2C500%20visits">
-     DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity
-    </a>
-    ) (
-    <a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">
-     DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity
-    </a>
-    ). The results were promising: AI &ldquo;Cyber Reasoning Systems&rdquo; discovered and fixed security flaws in critical open-source software, impressing even the competition organizers (
-    <a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">
-     DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity
-    </a>
-    ). As the program manager put it, AI proved capable not only of identifying vulnerabilities but also patching them &ndash; something we weren&rsquo;t sure was feasible at this level until we saw it happen (
-    <a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">
-     DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity
-    </a>
-    ). It&rsquo;s as if the software started healing itself with the help of AI medics.
-   </p>
-   <p>
-    Companies like Microsoft and Google are also deploying AI in their security products. From intelligent endpoint protection that can recognize ransomware behavior in real time, to email filters that use AI to determine &ldquo;hmm, Bob normally never emails spreadsheets with 10MB of random data, this might be malicious,&rdquo; the defender AIs are leveling up. One could imagine future corporate networks where an AI monitor autonomously isolates a compromised device the moment it starts acting fishy, possibly before any damage is done. It&rsquo;s not perfect &ndash; attackers constantly tweak tactics to evade AI detection &ndash; but it&rsquo;s a game of leapfrog, and AI gives defenders some supercharged legs.
-   </p>
-   <h2>
-    Keeping Humans in the Loop
-   </h2>
-   <p>
-    Will cybersecurity just become bots battling bots while we humans watch from the sidelines munching popcorn? Unlikely (at least for the next decade). Human expertise is still critical. AI can handle speed and scale, but it lacks judgment and context in many cases. For example, an AI might flag an unusual data transfer as an attack when it&rsquo;s actually just Dave from accounting backing up files &ndash; a human analyst might recognize that context and avoid pulling the fire alarm.
-   </p>
-   <p>
-    The ideal scenario is
-    <strong>
-     AI + Human partnership
-    </strong>
-    . Let the AI do the grunt work of scanning, correlating events, and even neutralizing obvious threats, while humans focus on strategy, creative thinking, and the nuanced decisions. Think of it like a self-driving car with a vigilant driver ready to take over when the unexpected happens. In cybersecurity, having a person in the loop can prevent AI misfires &ndash; like automatically shutting down the CEO&rsquo;s laptop during a board meeting due to a false positive (talk about an awkward explanation).
-   </p>
-   <p>
-    That said, as attacks get more automated, defenders might increasingly rely on autonomous response. It raises interesting questions: if an AI on your network detects an AI-driven attack from an adversary, should it fight back autonomously? At what point do we worry about friendly fire or collateral damage? These are topics of active discussion in cyber policy circles. For now, most organizations err on the side of caution, using AI as an assistant, not a fully independent cyber guard (no Skynet scenarios, thank you).
-   </p>
-   <h2>
-    Conclusion
-   </h2>
-   <p>
-    The battlefield of cybersecurity is evolving into a high-speed, automated clash of intelligences. On one side, criminals are increasingly empowered by AI that can craft convincing lures and even write malware. On the other, defenders deploy AI to detect threats faster and respond in milliseconds. It&rsquo;s an arms race where algorithms and models are the new weapons and shields. While it might sound like something out of a futuristic thriller, it&rsquo;s reassuring to remember that there are still brilliant human minds guiding these AIs on the good side (and, unfortunately, on the bad side too).
-   </p>
-   <p>
-    As we move forward, the key will be maintaining a balance &ndash; leveraging the strengths of AI without relinquishing all control. The hope is that &ldquo;good AI&rdquo; will outpace &ldquo;bad AI,&rdquo; or at least keep it in check, much like antivirus software counters viruses. Meanwhile, the rest of us can indulge in the mental image of two opposing AIs playing an infinite game of whack-a-mole in cyberspace. In this battle of wits and bytes, staying informed and adaptable is our best strategy. Grab some popcorn (and maybe update your firewall rules) &ndash; the show is just getting started.
-   </p>
-   <h2>
-    Further Reading
-   </h2>
-   <ul>
-    <li>
-     <a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html">
-      HP Wolf Security Report on AI-Generated Malware (
-      <a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html#:~:text=,designed%20websites%20offering%20fake">
-       HP Wolf Security Uncovers Evidence of Attackers Using AI to Generate Malware    | HP&reg; Official Site
-      </a>
-      )
-     </a>
-    </li>
-    <li>
-     <a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity">
-      DARPA AI Cyber Challenge Results (
-      <a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">
-       DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity
-      </a>
-      )
-     </a>
-    </li>
-    <li>
-     <a href="https://infosecurity-magazine.com/news/wormgpt-cybercrime-gptj-dark-web/">
-      Infosecurity Magazine on WormGPT and FraudGPT (
-      <a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=According%20to%20SlashNext%2C%20one%20of,BEC%29%20attacks">
-       The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web
-      </a>
-      ) (
-      <a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=FraudGPT%20and%20DarkBard">
-       The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web
-      </a>
-      )
-     </a>
-    </li>
-    <li>
-     <a href="https://www.ncsc.gov.uk/blog-post/the-near-term-impact-of-ai-on-the-cyber-threat">
-      UK NCSC Blog: Near-term Impact of AI on Cyber Threats
-     </a>
-    </li>
-   </ul>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>William Zujkowski - AI vs. AI: Cybersecurity at the Battlefront of Automated Warfare</title>
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+  <header hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></header>
+  <nav hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></nav>
+  <main class="container">
+    
+
+<main>
+<h1>AI vs. AI: Cybersecurity at the Battlefront of Automated Warfare</h1>
+<p><em>2025-02-14 | ai-vs-ai-cyberwar</em></p>
+<p>In one corner: an AI system churning out phishing emails and polymorphic malware like a diabolical Energizer Bunny. In the other corner: an AI guardian angel scanning network traffic and patching vulnerabilities at machine speed. Welcome to the new cage match in cybersecurity – AI vs. AI. It sounds like sci-fi, but it’s increasingly real. This in-depth guide explores how artificial intelligence is being wielded by both attackers and defenders in the cyber arena. Expect a few chuckles (robo-rumble, anyone?) balanced with insights into cutting-edge research and real-world developments.</p>
+<h2>When Hackers Have AI on Their Side</h2>
+<p>Cybercriminals have never been shy about using the latest tech, and AI is no exception. Why manually write malware or scam emails when a clever AI can do it for you? Generative AI tools can produce highly convincing phishing messages, complete with perfect grammar and a tone mimicking your CEO – no more awkward Nigerian prince vibes. In fact, security researchers have found evidence of malware scripts that appear to be written with AI assistance, with telltale signs like well-structured code and even commented explanations in plain language (<a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html#:~:text=,designed%20websites%20offering%20fake">HP Wolf Security Uncovers Evidence of Attackers Using AI to Generate Malware    | HP® Official Site</a>). (Imagine a helpful AI co-pilot unknowingly aiding a hacker – talk about playing for the wrong team!)</p>
+<p>On the darker side of the web, there are actually custom AI models tailored for bad behavior. Meet <strong>WormGPT</strong> – an underground AI based on a GPT-J model that ignores all the nice safety rules (<a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=WormGPT%20is%20an%20AI%20tool,created%20by%20EleutherAI%20in%202021">The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web</a>). It’s been reportedly used to boost phishing attacks, especially business email compromise scams (<a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=According%20to%20SlashNext%2C%20one%20of,BEC%29%20attacks">The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web</a>). There’s also “FraudGPT” and other ominously named bots for hire (<a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=FraudGPT%20and%20DarkBard">The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web</a>). These malicious AIs can help criminals craft malware, create fake websites, or even generate bogus legal documents, all without a human writer’s block. As one former hacker noted, there’s a bustling trade in “jailbreaks” for mainstream AI like ChatGPT to make them do nefarious things (<a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=Daniel%20Kelley%2C%20a%20former%20black,%E2%80%9D">The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web</a>). It’s an AI arms bazaar down there.</p>
+<p>The result? The barrier to entry for launching sophisticated cyberattacks is getting lower. An attacker with modest skills can leverage an AI to do the heavy lifting – writing code, finding vulnerabilities, or generating personalized scam content – tasks that used to require more expertise. It’s like giving a rookie villain a veteran sidekick. Security firm HP even highlighted how generative AI is accelerating attacks and “lowering the bar for cybercriminals to infect endpoints” (<a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html#:~:text=language%20function%20names%20and%20variables,for%20cybercriminals%20to%20infect%20endpoints">HP Wolf Security Uncovers Evidence of Attackers Using AI to Generate Malware    | HP® Official Site</a>). In other words, script kiddies (amateur hackers) just got a promotion courtesy of AI.</p>
+<h2>Rise of the Machine Defenders</h2>
+<p>Thankfully, AI isn’t only working for the bad guys. The cybersecurity defense side has its own arsenal of intelligent tools. Modern security systems use machine learning to detect anomalies – for example, an AI can learn what normal network traffic looks like and then yell “Intruder alert!” when something deviates too much. Unlike humans, an AI analyst doesn’t get tired; it can sift through millions of log entries to spot a needle-in-haystack sign of intrusion (though we promise not to replace Tier-1 analysts with Terminators just yet).</p>
+<p>One of the most exciting developments is using AI to find and fix vulnerabilities automatically. In 2024, DARPA held the <a href="https://www.aicyberchallenge.com/">AI Cyber Challenge (AIxCC)</a>, where teams competed to build AI systems that could scan code for bugs and patch them on the fly (<a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=The%20Semifinal%20Competition%20of%20the,drew%20more%20than%2012%2C500%20visits">DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity</a>) (<a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity</a>). The results were promising: AI “Cyber Reasoning Systems” discovered and fixed security flaws in critical open-source software, impressing even the competition organizers (<a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity</a>). As the program manager put it, AI proved capable not only of identifying vulnerabilities but also patching them – something we weren’t sure was feasible at this level until we saw it happen (<a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity</a>). It’s as if the software started healing itself with the help of AI medics.</p>
+<p>Companies like Microsoft and Google are also deploying AI in their security products. From intelligent endpoint protection that can recognize ransomware behavior in real time, to email filters that use AI to determine “hmm, Bob normally never emails spreadsheets with 10MB of random data, this might be malicious,” the defender AIs are leveling up. One could imagine future corporate networks where an AI monitor autonomously isolates a compromised device the moment it starts acting fishy, possibly before any damage is done. It’s not perfect – attackers constantly tweak tactics to evade AI detection – but it’s a game of leapfrog, and AI gives defenders some supercharged legs.</p>
+<h2>Keeping Humans in the Loop</h2>
+<p>Will cybersecurity just become bots battling bots while we humans watch from the sidelines munching popcorn? Unlikely (at least for the next decade). Human expertise is still critical. AI can handle speed and scale, but it lacks judgment and context in many cases. For example, an AI might flag an unusual data transfer as an attack when it’s actually just Dave from accounting backing up files – a human analyst might recognize that context and avoid pulling the fire alarm.</p>
+<p>The ideal scenario is <strong>AI + Human partnership</strong>. Let the AI do the grunt work of scanning, correlating events, and even neutralizing obvious threats, while humans focus on strategy, creative thinking, and the nuanced decisions. Think of it like a self-driving car with a vigilant driver ready to take over when the unexpected happens. In cybersecurity, having a person in the loop can prevent AI misfires – like automatically shutting down the CEO’s laptop during a board meeting due to a false positive (talk about an awkward explanation).</p>
+<p>That said, as attacks get more automated, defenders might increasingly rely on autonomous response. It raises interesting questions: if an AI on your network detects an AI-driven attack from an adversary, should it fight back autonomously? At what point do we worry about friendly fire or collateral damage? These are topics of active discussion in cyber policy circles. For now, most organizations err on the side of caution, using AI as an assistant, not a fully independent cyber guard (no Skynet scenarios, thank you).</p>
+<h2>Conclusion</h2>
+<p>The battlefield of cybersecurity is evolving into a high-speed, automated clash of intelligences. On one side, criminals are increasingly empowered by AI that can craft convincing lures and even write malware. On the other, defenders deploy AI to detect threats faster and respond in milliseconds. It’s an arms race where algorithms and models are the new weapons and shields. While it might sound like something out of a futuristic thriller, it’s reassuring to remember that there are still brilliant human minds guiding these AIs on the good side (and, unfortunately, on the bad side too).</p>
+<p>As we move forward, the key will be maintaining a balance – leveraging the strengths of AI without relinquishing all control. The hope is that “good AI” will outpace “bad AI,” or at least keep it in check, much like antivirus software counters viruses. Meanwhile, the rest of us can indulge in the mental image of two opposing AIs playing an infinite game of whack-a-mole in cyberspace. In this battle of wits and bytes, staying informed and adaptable is our best strategy. Grab some popcorn (and maybe update your firewall rules) – the show is just getting started.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html">HP Wolf Security Report on AI-Generated Malware (<a href="https://www.hp.com/us-en/newsroom/press-releases/2024/ai-generate-malware.html#:~:text=,designed%20websites%20offering%20fake">HP Wolf Security Uncovers Evidence of Attackers Using AI to Generate Malware    | HP® Official Site</a>)</a></li>
+<li><a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity">DARPA AI Cyber Challenge Results (<a href="https://www.darpa.mil/news/2024/ai-cyber-challenge-cybersecurity#:~:text=%E2%80%9CIn%20true%20DARPA%20fashion%2C%20we,is%20nothing%20short%20of%20remarkable">DARPA AI Cyber Challenge Proves Promise of AI-Driven Cybersecurity</a>)</a></li>
+<li><a href="https://infosecurity-magazine.com/news/wormgpt-cybercrime-gptj-dark-web/">Infosecurity Magazine on WormGPT and FraudGPT (<a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=According%20to%20SlashNext%2C%20one%20of,BEC%29%20attacks">The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web</a>) (<a href="https://www.infosecurityeurope.com/en-gb/blog/threat-vectors/generative-ai-dark-web-bots.html#:~:text=FraudGPT%20and%20DarkBard">The Dark Side of Generative AI: Five Malicious LLMs Found on the Dark Web</a>)</a></li>
+<li><a href="https://www.ncsc.gov.uk/blog-post/the-near-term-impact-of-ai-on-the-cyber-threat">UK NCSC Blog: Near-term Impact of AI on Cyber Threats</a></li>
+</ul>
+</main>
+
+
   </main>
-  <div hx-get="footer.html" hx-trigger="load" id="footer">
-  </div>
-  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
-  </footer>
- </body>
+  <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
+</body>
 </html>
-<!-- Post 4 -->
