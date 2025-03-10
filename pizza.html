@@ -1,78 +1,81 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="Welcome to William Zujkowski's Personal Website" name="description"/>
-<meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<!-- No Google Fonts; using system fonts -->
-<title>Pizza Calculator - William Zujkowski</title>
-<link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link href="/assets/css/style.css" rel="stylesheet"/>
-<!-- Include htmx -->
-<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <meta charset="utf-8" />
+  <meta content="Welcome to William Zujkowski's Personal Website" name="description" />
+  <meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <!-- No Google Fonts; using system fonts -->
+  <title>Pizza Calculator - William Zujkowski</title>
+  <link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <!-- Include htmx -->
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-<body><header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
-<div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
-<main class="container">
-<header>
-<h1>Pizza Calculator for IT Engineers</h1>
-<p>Calculate how much pizza your team needs after hours of debugging.</p>
-</header>
-<section>
-<form id="pizzaForm" onsubmit="return false;">
-<fieldset>
-<legend>Enter Your Details:</legend>
-<div>
-<label for="attendees">Number of Attendees:</label>
-<input id="attendees" name="attendees" type="number" value="5"/>
-</div>
-<div>
-<label for="pizzaType">Select Pizza Style:</label>
-<select id="pizzaType" name="pizzaType">
-<option value="1">NY Pizza (Default)</option>
-<option value="0.5">Detroit Pizza</option>
-<option value="0.6">Chicago Pizza</option>
-<option value="2">California Pizza Kitchen</option>
-<option value="3">Hot Pockets</option>
-<option value="100">Blockchain Pizza</option>
-<option value="cloud">Cloud Pizza</option>
-</select>
-</div>
-<div>
-<label for="slicesPerPerson">Average Slices per Person:</label>
-<input id="slicesPerPerson" name="slicesPerPerson" type="number" value="3"/>
-</div>
-<div>
-<label for="hoursDebugging">Hours Spent Debugging:</label>
-<input id="hoursDebugging" name="hoursDebugging" type="number" value="2"/>
-</div>
-<button onclick="calculatePizzas()" type="button">Calculate</button>
-<button onclick="downloadReport()" type="button">Download Report</button>
-</fieldset>
-</form>
-</section>
-<section id="progressSection">
-<div id="progressContainer">
-<div id="progressBar"></div>
-</div>
-<p id="progressLabel"></p>
-</section>
-<section id="resultSection">
-<div aria-live="polite" id="result" role="alert"></div>
-</section>
-<section id="emailPromptSection" style="display:none;">
-<p>If you're ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team can contact
+
+<body>
+  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
+  <div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
+  <main class="container">
+    <header>
+      <h1>Pizza Calculator for IT Engineers</h1>
+      <p>Calculate how much pizza your team needs after hours of debugging.</p>
+    </header>
+    <section>
+      <form id="pizzaForm" onsubmit="return false;">
+        <fieldset>
+          <legend>Enter Your Details:</legend>
+          <div>
+            <label for="attendees">Number of Attendees:</label>
+            <input id="attendees" name="attendees" type="number" value="5" />
+          </div>
+          <div>
+            <label for="pizzaType">Select Pizza Style:</label>
+            <select id="pizzaType" name="pizzaType">
+              <option value="1">NY Pizza (Default)</option>
+              <option value="0.5">Detroit Pizza</option>
+              <option value="0.6">Chicago Pizza</option>
+              <option value="2">California Pizza Kitchen</option>
+              <option value="3">Hot Pockets</option>
+              <option value="100">Blockchain Pizza</option>
+              <option value="cloud">Cloud Pizza</option>
+            </select>
+          </div>
+          <div>
+            <label for="slicesPerPerson">Average Slices per Person:</label>
+            <input id="slicesPerPerson" name="slicesPerPerson" type="number" value="3" />
+          </div>
+          <div>
+            <label for="hoursDebugging">Hours Spent Debugging:</label>
+            <input id="hoursDebugging" name="hoursDebugging" type="number" value="2" />
+          </div>
+          <button onclick="calculatePizzas()" type="button">Calculate</button>
+          <button onclick="downloadReport()" type="button">Download Report</button>
+        </fieldset>
+      </form>
+    </section>
+    <section id="progressSection">
+      <div id="progressContainer">
+        <div id="progressBar"></div>
+      </div>
+      <p id="progressLabel"></p>
+    </section>
+    <section id="resultSection">
+      <div aria-live="polite" id="result" role="alert"></div>
+    </section>
+    <section id="emailPromptSection" style="display:none;">
+      <p>If you're ordering 42 pizzas or more, please provide your email so our Enterprise Pizza Sales Team can contact
         you:</p>
-<input id="emailInput" placeholder="Enter your email" type="email"/>
-<button onclick="submitEmail()" type="button">Submit Email</button>
-</section>
-<a download="Pizza_Calculation_Report.txt" href="#" id="downloadLink">Download Pizza Report</a>
-</main>
-<footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
-<div id="toast"></div>
-<script>
+      <input id="emailInput" placeholder="Enter your email" type="email" />
+      <button onclick="submitEmail()" type="button">Submit Email</button>
+    </section>
+
+  </main>
+  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
+  <div id="toast"></div>
+  <script>
     (function () {
       if (!document.getElementById('pizzaForm')) return;
       let calculationCompleted = false;
@@ -321,4 +324,5 @@
     })();
   </script>
 </body>
+
 </html>
