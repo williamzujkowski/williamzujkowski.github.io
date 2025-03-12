@@ -1,155 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script type="module" src="../assets/js/main.js"></script>
+  <title>The Pizza Calculator: A Developer's Best Friend During Crunch Time</title>
+  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <link rel="stylesheet" href="/assets/css/custom.css">
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
+
 <body>
-  <div id="header-placeholder"></div>
-  <div id="nav-placeholder"></div>
+  <div hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></div>
+  <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
   <main class="container">
-        <article>
-            <article data-date="2024-10-19"
-                data-slug="the-pizza-calculator-a-developers-best-friend-during-crunch-time">
-                <h2>The Pizza Calculator: A Developer's Best Friend During Crunch Time</h2>
-                <p><strong>Date:</strong> 2024-10-19</p>
-                <p>
-                    Picture this: it's 2 AM. Your team is huddled around a glowing monitor, fueled by caffeine and the
-                    sheer will to
-                    ship a critical update. The air is thick with the scent of stale coffee and the quiet hum of servers
-                    working
-                    overtime. Suddenly, a low growl echoes through the room - not from the servers, but from your
-                    developers'
-                    stomachs. In the heat of battle against relentless bugs, the team forgot one crucial element:
-                    sustenance. This,
-                    my friends, is where the <strong>Pizza Calculator</strong> comes to the rescue.
-                </p>
-                <h3 id="main-point-1">Beyond the Code: Why Developers Need a Pizza Calculator</h3>
-                <p>
-                    Let's be honest, developers are notorious for neglecting their basic needs during crunch time. Food
-                    often
-                    becomes an afterthought when battling cryptic error messages and looming deadlines. However, a
-                    well-fed team is
-                    a productive team. The Pizza Calculator isn't just about ordering pizza; it's about recognizing that
-                    even the
-                    most dedicated developers need proper fuel to perform at their best.
-                </p>
-                <p>
-                    Here's why a Pizza Calculator is more than just a fun tool:
-                </p>
-                <ul>
-                    <li><strong>Boosts Morale:</strong> Knowing that a delicious pizza is on the way can significantly
-                        boost team
-                        morale during stressful situations. It's a small gesture that shows you care about their
-                        well-being.</li>
-                    <li><strong>Sustains Energy:</strong> Debugging marathons require sustained mental energy. Pizza,
-                        with its
-                        combination of carbs, protein, and fats, provides the fuel needed to power through those
-                        late-night
-                        coding sessions.</li>
-                    <li><strong>Eliminates Decision Fatigue:</strong> Deciding what to order, how much to order, and
-                        from where can
-                        be surprisingly taxing when you're already mentally drained. The Pizza Calculator removes this
-                        burden,
-                        allowing developers to focus on the task at hand.</li>
-                    <li><strong>Fosters Teamwork:</strong> Sharing a pizza is a communal experience. It's a chance for
-                        the team to
-                        take a break, connect on a human level, and recharge together.</li>
-                </ul>
-                <h3 id="main-point-2">Decoding the Pizza Calculator: More Than Just Toppings and Crust</h3>
-                <p>
-                    The Pizza Calculator on our website is designed with developers in mind. It's not just about
-                    entering the
-                    number of people and hitting "calculate." It takes into account the nuances of a developer's
-                    workflow and
-                    appetite:
-                </p>
-                <ul>
-                    <li><strong>Team Size:</strong> Naturally, the more developers you have, the more pizza you'll need.
-                    </li>
-                    <li><strong>Debugging Hours:</strong> A two-hour debugging session is vastly different from an
-                        all-nighter.
-                        The calculator adjusts the pizza quantity based on the estimated duration of the coding
-                        marathon.</li>
-                    <li><strong>Pizza Style:</strong> We all have our preferences. NY, Chicago, Detroit - the calculator
-                        considers
-                        the style and its associated slice size to ensure accurate estimations. We even have a fun
-                        "Infinite Slices"
-                        mode for those extra hungry developers.</li>
-                    <li><strong>Extras:</strong> Leftovers for breakfast? Dietary restrictions? The calculator allows
-                        for these
-                        considerations.</li>
-                </ul>
-                <p>
-                    But it's not just about the inputs. The Pizza Calculator also offers some unique features tailored
-                    for
-                    developers:
-                </p>
-                <ul>
-                    <li><strong>Humorous Loading Messages:</strong> While the calculation is running, developers are
-                        entertained
-                        with funny, tech-themed loading messages, adding a touch of levity to the process.</li>
-                    <li><strong>Downloadable Report:</strong> The calculator generates a detailed report that can be
-                        downloaded and
-                        shared, making it easy to justify the pizza expense to management (or just keep a record for
-                        future
-                        debugging sessions).</li>
-                    <li><strong>Local Storage:</strong> The calculator remembers your preferences, so you don't have to
-                        enter the
-                        same information every time.</li>
-                    <li><strong>Enterprise Mode:</strong> For those truly epic debugging sessions, the calculator can
-                        even handle
-                        enterprise orders. Please provide your email so our Enterprise Pizza Sales Team can contact you.
-                    </li>
-                </ul>
-                <h3 id="main-point-3">The Future of Pizza-Fueled Development</h3>
-                <p>
-                    I envision a future where the Pizza Calculator is seamlessly integrated into the developer's
-                    workflow. Imagine:
-                </p>
-                <ul>
-                    <li><strong>Slack/Jira Integration:</strong> A simple slash command in Slack could trigger the Pizza
-                        Calculator, automatically factoring in the number of participants in a specific channel or the
-                        estimated
-                        time for a particular Jira ticket.</li>
-                    <li><strong>AI-Powered Predictions:</strong> By analyzing past orders and correlating them with
-                        project
-                        milestones, the calculator could learn to predict when a pizza boost will be needed most.</li>
-                    <li><strong>Automated Ordering:</strong> Partnering with pizza delivery services, the calculator
-                        could
-                        potentially automate the entire ordering process, from calculation to delivery, with just a few
-                        clicks.
-                    </li>
-                </ul>
-                <h3 id="conclusion">Conclusion</h3>
-                <p>
-                    The Pizza Calculator is more than just a fun gimmick; it's a testament to the importance of
-                    developer
-                    well-being and a tool that can genuinely improve team morale and productivity during crunch time.
-                    So, the next
-                    time your team is facing a daunting debugging session, remember the Pizza Calculator. It's a small
-                    slice of
-                    happiness that can make a big difference. Try it out and let us know what you think! After all, a
-                    well-fed
-                    developer is a happy (and productive) developer.
-                </p>
-                <p>
-                    <b>Further Reading</b>
-                <ul>
-                    <li><a href="https://www.pizzahut.com/" rel="noopener noreferrer" target="_blank">Pizza Hut</a></li>
-                    <li><a href="https://www.dominos.com/" rel="noopener noreferrer" target="_blank">Domino's</a></li>
-                    <li><a href="https://www.papajohns.com/" rel="noopener noreferrer" target="_blank">Papa John's</a>
-                    </li>
-                </ul>
-                </p>
-            </article>
-        </article>
-    </main>
-    <div id="footer-placeholder"></div>
+
+    <h2>The Pizza Calculator: A Developer's Best Friend During Crunch Time</h2>
+    <p><strong>Date:</strong> 2024-10-19</p>
+    <p>
+      Picture this: it's 2 AM. Your team is huddled around a glowing monitor, fueled by caffeine and the
+      sheer will to
+      ship a critical update. The air is thick with the scent of stale coffee and the quiet hum of servers
+      working
+      overtime. Suddenly, a low growl echoes through the room - not from the servers, but from your
+      developers'
+      stomachs. In the heat of battle against relentless bugs, the team forgot one crucial element:
+      sustenance. This,
+      my friends, is where the <strong>Pizza Calculator</strong> comes to the rescue.
+    </p>
+    <h3 id="main-point-1">Beyond the Code: Why Developers Need a Pizza Calculator</h3>
+    <p>
+      Let's be honest, developers are notorious for neglecting their basic needs during crunch time. Food
+      often
+      becomes an afterthought when battling cryptic error messages and looming deadlines. However, a
+      well-fed team is
+      a productive team. The Pizza Calculator isn't just about ordering pizza; it's about recognizing that
+      even the
+      most dedicated developers need proper fuel to perform at their best.
+    </p>
+    <p>
+      Here's why a Pizza Calculator is more than just a fun tool:
+    </p>
+    <ul>
+      <li><strong>Boosts Morale:</strong> Knowing that a delicious pizza is on the way can significantly
+        boost team
+        morale during stressful situations. It's a small gesture that shows you care about their
+        well-being.</li>
+      <li><strong>Sustains Energy:</strong> Debugging marathons require sustained mental energy. Pizza,
+        with its
+        combination of carbs, protein, and fats, provides the fuel needed to power through those
+        late-night
+        coding sessions.</li>
+      <li><strong>Eliminates Decision Fatigue:</strong> Deciding what to order, how much to order, and
+        from where can
+        be surprisingly taxing when you're already mentally drained. The Pizza Calculator removes this
+        burden,
+        allowing developers to focus on the task at hand.</li>
+      <li><strong>Fosters Teamwork:</strong> Sharing a pizza is a communal experience. It's a chance for
+        the team to
+        take a break, connect on a human level, and recharge together.</li>
+    </ul>
+    <h3 id="main-point-2">Decoding the Pizza Calculator: More Than Just Toppings and Crust</h3>
+    <p>
+      The Pizza Calculator on our website is designed with developers in mind. It's not just about
+      entering the
+      number of people and hitting "calculate." It takes into account the nuances of a developer's
+      workflow and
+      appetite:
+    </p>
+    <ul>
+      <li><strong>Team Size:</strong> Naturally, the more developers you have, the more pizza you'll need.
+      </li>
+      <li><strong>Debugging Hours:</strong> A two-hour debugging session is vastly different from an
+        all-nighter.
+        The calculator adjusts the pizza quantity based on the estimated duration of the coding
+        marathon.</li>
+      <li><strong>Pizza Style:</strong> We all have our preferences. NY, Chicago, Detroit - the calculator
+        considers
+        the style and its associated slice size to ensure accurate estimations. We even have a fun
+        "Infinite Slices"
+        mode for those extra hungry developers.</li>
+      <li><strong>Extras:</strong> Leftovers for breakfast? Dietary restrictions? The calculator allows
+        for these
+        considerations.</li>
+    </ul>
+    <p>
+      But it's not just about the inputs. The Pizza Calculator also offers some unique features tailored
+      for
+      developers:
+    </p>
+    <ul>
+      <li><strong>Humorous Loading Messages:</strong> While the calculation is running, developers are
+        entertained
+        with funny, tech-themed loading messages, adding a touch of levity to the process.</li>
+      <li><strong>Downloadable Report:</strong> The calculator generates a detailed report that can be
+        downloaded and
+        shared, making it easy to justify the pizza expense to management (or just keep a record for
+        future
+        debugging sessions).</li>
+      <li><strong>Local Storage:</strong> The calculator remembers your preferences, so you don't have to
+        enter the
+        same information every time.</li>
+      <li><strong>Enterprise Mode:</strong> For those truly epic debugging sessions, the calculator can
+        even handle
+        enterprise orders. Please provide your email so our Enterprise Pizza Sales Team can contact you.
+      </li>
+    </ul>
+    <h3 id="main-point-3">The Future of Pizza-Fueled Development</h3>
+    <p>
+      I envision a future where the Pizza Calculator is seamlessly integrated into the developer's
+      workflow. Imagine:
+    </p>
+    <ul>
+      <li><strong>Slack/Jira Integration:</strong> A simple slash command in Slack could trigger the Pizza
+        Calculator, automatically factoring in the number of participants in a specific channel or the
+        estimated
+        time for a particular Jira ticket.</li>
+      <li><strong>AI-Powered Predictions:</strong> By analyzing past orders and correlating them with
+        project
+        milestones, the calculator could learn to predict when a pizza boost will be needed most.</li>
+      <li><strong>Automated Ordering:</strong> Partnering with pizza delivery services, the calculator
+        could
+        potentially automate the entire ordering process, from calculation to delivery, with just a few
+        clicks.
+      </li>
+    </ul>
+    <h3 id="conclusion">Conclusion</h3>
+    <p>
+      The Pizza Calculator is more than just a fun gimmick; it's a testament to the importance of
+      developer
+      well-being and a tool that can genuinely improve team morale and productivity during crunch time.
+      So, the next
+      time your team is facing a daunting debugging session, remember the Pizza Calculator. It's a small
+      slice of
+      happiness that can make a big difference. Try it out and let us know what you think! After all, a
+      well-fed
+      developer is a happy (and productive) developer.
+    </p>
+    <p>
+      <b>Further Reading</b>
+    <ul>
+      <li><a href="https://www.pizzahut.com/" rel="noopener noreferrer" target="_blank">Pizza Hut</a></li>
+      <li><a href="https://www.dominos.com/" rel="noopener noreferrer" target="_blank">Domino's</a></li>
+      <li><a href="https://www.papajohns.com/" rel="noopener noreferrer" target="_blank">Papa John's</a>
+      </li>
+    </ul>
+    </p>
+
+  </main>
+  <div hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></div>
 </body>
 
 </html>

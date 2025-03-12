@@ -2,23 +2,20 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Welcome to William Zujkowski's Personal Website">
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
-  <meta name="author" content="William Zujkowski">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <title>Pizza Calculator - William Zujkowski</title>
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="description" content="Pizza Calculator - William Zujkowski">
+    <meta name="keywords" content="William Zujkowski, Pizza Calculator, IT Engineers">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Calculator - William Zujkowski</title>
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 
 <body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
+    <div hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></div>
+    <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
     <main class="container">
         <header>
             <h1>Pizza Calculator for IT Engineers</h1>
@@ -80,11 +77,9 @@
         <a id="downloadLink" href="#" download="Pizza_Calculation_Report.txt">Download Pizza Report</a>
     </main>
 
-    <!-- Dynamic footer -->
-    <div id="footer-placeholder"></div>
+    <div hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></div>
     <div id="toast"></div>
 
-    <!-- Inline Pizza Calculator Logic -->
     <script>
         (function () {
             if (!document.getElementById('pizzaForm')) return;
@@ -102,7 +97,7 @@
             }
             loadPizzaDefaults();
 
-            // Add "Generate AI Toppings" and "Copy Report" buttons
+            // Add AI Toppings and Copy Report buttons dynamically
             const formFieldset = document.querySelector('#pizzaForm fieldset');
             if (formFieldset) {
                 const aiBtn = document.createElement('button');
@@ -348,7 +343,6 @@
             }
         })();
     </script>
-
 </body>
 
 </html>

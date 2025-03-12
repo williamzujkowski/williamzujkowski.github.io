@@ -3,22 +3,19 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Welcome to William Zujkowski's Personal Website">
-  <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
-  <meta name="author" content="William Zujkowski">
+  <meta name="description" content="About William Zujkowski - Cybersecurity Engineer & Tech Enthusiast">
+  <meta name="keywords" content="William Zujkowski, About, Cybersecurity">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <title>About - William Zujkowski</title>
   <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <link rel="stylesheet" href="/assets/css/custom.css">
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 
 <body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
+  <div hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></div>
+  <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
 
   <main class="container">
     <section id="about">
@@ -33,12 +30,6 @@
         groundbreaking molecular dynamics at the National Institutes of Health to supporting the cloud.gov security
         platform at GSA. I specialize in building and guiding cross-functional security teams, maintaining compliance
         under tight deadlines, and ensuring systems remain resilient to emerging threats.
-      </p>
-      <p>
-        Beyond my day-to-day work, I’m passionate about <strong>AI/ML</strong> for security automation, exploring
-        <strong>homelab</strong> setups to stay on the cutting edge, and sharing knowledge through blog posts and
-        mentorship. If you’re curious about DevSecOps best practices, HPC infrastructure, or how machine learning can
-        transform threat intelligence, feel free to reach out.
       </p>
     </section>
 
@@ -81,26 +72,26 @@
       <ul>
         <li>
           <a href="https://owasp.org/" target="_blank" rel="noopener noreferrer"><strong>OWASP</strong></a>
-          <p>Member &mdash; A nonprofit foundation dedicated to improving software security.</p>
+          <p>Member — A nonprofit foundation dedicated to improving software security.</p>
         </li>
         <li>
           <a href="https://iacr.org/" target="_blank" rel="noopener noreferrer"><strong>IACR</strong></a>
-          <p>Member &mdash; International Association for Cryptologic Research.</p>
+          <p>Member — International Association for Cryptologic Research.</p>
         </li>
         <li>
           <a href="https://www.usenix.org/" target="_blank" rel="noopener noreferrer"><strong>USENIX</strong></a>
-          <p>Member &mdash; A community of engineers and system administrators since 1975.</p>
+          <p>Member — A community of engineers and system administrators since 1975.</p>
         </li>
         <li>
           <a href="https://www.acm.org/special-interest-groups/sigs/sighpc" target="_blank"
             rel="noopener noreferrer"><strong>ACM SIGHPC</strong></a>
-          <p>Member &mdash; Special Interest Group on High Performance Computing (since Apr 2023).</p>
+          <p>Member — Special Interest Group on High Performance Computing.</p>
         </li>
       </ul>
     </section>
   </main>
 
-  <div id="footer-placeholder"></div>
+  <div hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></div>
 </body>
 
 </html>

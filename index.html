@@ -7,19 +7,20 @@
   <meta name="keywords" content="William Zujkowski, Cybersecurity, Blog, Calculators">
   <meta name="author" content="William Zujkowski">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <title>William Zujkowski - Home</title>
   <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script type="module" src="/assets/js/main.js"></script>
-  <script src="/assets/js/nav_gen.js" defer></script>
+  <!-- Pico CSS for clean, responsive, auto light/dark mode -->
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <!-- Minimal custom CSS -->
+  <link rel="stylesheet" href="/assets/css/custom.css">
+  <!-- HTMX for dynamic includes -->
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 
 <body>
-  <div id="header-placeholder"></div>
-  <div id="dynamic-nav"></div>
-
+  <!-- Dynamic header, nav, and footer via HTMX -->
+  <div hx-get="/includes/header.html" hx-trigger="load" hx-swap="outerHTML"></div>
+  <div hx-get="/includes/nav.html" hx-trigger="load" hx-swap="outerHTML"></div>
 
   <main class="container">
     <section class="hero">
@@ -38,7 +39,8 @@
       <div id="recent-blog-list"></div>
     </section>
   </main>
-  <div id="footer-placeholder"></div>
+
+  <div hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></div>
 </body>
 
 </html>

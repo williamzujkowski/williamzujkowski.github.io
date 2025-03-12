@@ -1,0 +1,30 @@
+/* Minimal custom CSS overrides */
+.toast {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--color-contrast);
+    color: var(--color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: none;
+    z-index: 1000;
+}
+
+.toast.show {
+    display: block;
+}
+
+#progressContainer {
+    background: #eee;
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+#progressBar {
+    background: var(--accent);
+    height: 1rem;
+    transition: width 0.5s ease;
+}
