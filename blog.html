@@ -1,51 +1,54 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="Welcome to William Zujkowski's Personal Website" name="description"/>
-<meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords"/>
-<meta content="William Zujkowski" name="author"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<!-- No Google Fonts; using system fonts -->
-<title>Blog - William Zujkowski</title>
-<link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link href="/assets/css/style.css" rel="stylesheet"/>
-<!-- Include htmx -->
-<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <meta charset="utf-8" />
+  <meta content="Welcome to William Zujkowski's Personal Website" name="description" />
+  <meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords" />
+  <meta content="William Zujkowski" name="author" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Blog - William Zujkowski</title>
+  <link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-<body><header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
-<div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
-<main class="container">
-<header>
-<h1>All Blog Posts</h1>
-<p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
-</header>
-<section id="blogPostsContainer">
-<!-- Blog posts will be loaded here from blog_list.json -->
-</section>
-<section class="pagination" id="paginationControls"></section>
-</main>
-<footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
-<script>
+
+<body>
+  <header hx-get="/includes/header.html" hx-swap="outerHTML" hx-trigger="load"></header>
+  <div hx-get="/includes/nav.html" hx-swap="outerHTML" hx-trigger="load"></div>
+  <main class="container">
+    <header>
+      <h1>All Blog Posts</h1>
+      <p>Explore my thoughts on cybersecurity, AI, and the evolving tech landscape.</p>
+      <input type="text" id="searchInput" placeholder="Search blog posts..."
+        style="padding:0.5rem; width: 100%; margin-bottom:1rem;" onkeyup="searchPosts()">
+    </header>
+    <section id="blogPostsContainer">
+      <!-- Blog posts will be loaded here from blog_list.json -->
+    </section>
+    <section class="pagination" id="paginationControls"></section>
+  </main>
+  <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
+  <script>
     const articlesPerPage = 3;
     let allPosts = [];
     let currentPage = 1;
+    let filteredPosts = [];
 
     function renderPosts() {
       const container = document.getElementById("blogPostsContainer");
       container.innerHTML = "";
+      const posts = filteredPosts.length ? filteredPosts : allPosts;
       const start = (currentPage - 1) * articlesPerPage;
       const end = start + articlesPerPage;
-      const postsToShow = allPosts.slice(start, end);
-
+      const postsToShow = posts.slice(start, end);
       postsToShow.forEach(post => {
         const postDiv = document.createElement("article");
         postDiv.className = "article-preview";
         postDiv.innerHTML = `
-            <h2><a href="/blog/${post.slug}.html">${post.title}</a></h2>
-            <p><strong>Date:</strong> ${post.date}</p>
-          `;
+          <h2><a href="/blog/${post.slug}.html">${post.title}</a></h2>
+          <p><strong>Date:</strong> ${post.date}</p>
+        `;
         container.appendChild(postDiv);
       });
       renderPagination();
@@ -54,9 +57,9 @@
     function renderPagination() {
       const paginationDiv = document.getElementById("paginationControls");
       paginationDiv.innerHTML = "";
-      const totalPages = Math.ceil(allPosts.length / articlesPerPage);
+      const posts = filteredPosts.length ? filteredPosts : allPosts;
+      const totalPages = Math.ceil(posts.length / articlesPerPage);
       if (totalPages <= 1) return;
-
       const prevBtn = document.createElement("button");
       prevBtn.innerText = "Previous";
       prevBtn.disabled = (currentPage === 1);
@@ -68,7 +71,6 @@
         }
       };
       paginationDiv.appendChild(prevBtn);
-
       for (let i = 1; i <= totalPages; i++) {
         const btn = document.createElement("button");
         btn.innerText = i;
@@ -80,7 +82,6 @@
         };
         paginationDiv.appendChild(btn);
       }
-
       const nextBtn = document.createElement("button");
       nextBtn.innerText = "Next";
       nextBtn.disabled = (currentPage === totalPages);
@@ -100,6 +101,7 @@
         .then(data => {
           data.sort((a, b) => new Date(b.date) - new Date(a.date));
           allPosts = data;
+          filteredPosts = [];
           renderPosts();
         })
         .catch(error => {
@@ -108,7 +110,15 @@
         });
     }
 
+    function searchPosts() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      filteredPosts = allPosts.filter(post => post.title.toLowerCase().includes(query));
+      currentPage = 1;
+      renderPosts();
+    }
+
     document.addEventListener("DOMContentLoaded", loadBlogPosts);
   </script>
 </body>
+
 </html>

@@ -345,8 +345,15 @@
                </article>
           </article>
      </main>
-     <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load">
-     </footer>
-</body>
-
-</html>
+     <footer hx-get="/includes/footer.html" hx-trigger="load" hx-swap="outerHTML"></footer>
+     <script>
+       function scrollToTop() {
+         window.scrollTo({ top: 0, behavior: 'smooth' });
+       }
+       window.addEventListener('scroll', function () {
+         const btn = document.getElementById('backToTop');
+         btn.style.display = (window.pageYOffset > 300) ? 'block' : 'none';
+       });
+     </script>
+   </body>
+   </html>

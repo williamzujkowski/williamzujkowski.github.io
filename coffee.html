@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -7,11 +6,9 @@
     <meta content="Welcome to William Zujkowski's Personal Website" name="description" />
     <meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <!-- No Google Fonts; using system fonts -->
     <title>Coffee Calculator - William Zujkowski</title>
     <link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon" />
     <link href="/assets/css/style.css" rel="stylesheet" />
-    <!-- Include htmx -->
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
 
@@ -64,7 +61,6 @@
         <section id="coffeeResultSection">
             <div aria-live="polite" id="coffeeResult" role="alert"></div>
         </section>
-
     </main>
     <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
     <div id="toast"></div>
