@@ -1,6 +1,27 @@
-/* Use a modern Helvetica-inspired sans-serif stack */
+/* Oklch-based Color Palette & Base Styles */
+:root {
+  /* Light theme variables using Oklch color functions */
+  --background-color: oklch(0.98 0.02 260);
+  /* nearly white background */
+  --text-color: oklch(0.15 0.01 260);
+  /* dark text */
+  --header-border-color: oklch(0.90 0.01 260);
+  --nav-link-color: oklch(0.25 0.06 230);
+  --nav-link-hover-color: oklch(0.25 0.06 210);
+  --footer-border-color: oklch(0.90 0.01 260);
+  --button-bg: oklch(0.25 0.06 230);
+  --button-hover-bg: oklch(0.25 0.06 210);
+  --transition-speed: 0.3s;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  background: var(--background-color);
+  padding: 1rem;
+  transition: background var(--transition-speed), color var(--transition-speed);
 }
 
 /* Global Reset */
@@ -10,22 +31,13 @@ body {
   box-sizing: border-box;
 }
 
-/* Base styling: white background for entire site */
-body {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  color: #333;
-  background: #ffffff;
-  /* White background */
-  padding: 1rem;
-}
-
-/* Header styling */
+/* Header Styling */
 .site-header {
   text-align: center;
-  margin-bottom: 0rem;
+  margin-bottom: 0;
   padding: 1rem 0;
-  border-bottom: .5px solid #ddd;
+  border-bottom: 0.5px solid var(--header-border-color);
+  position: relative;
 }
 
 .site-header h1 {
@@ -35,13 +47,32 @@ body {
 
 .site-header p {
   font-size: 1.4rem;
-  color: #666;
+  color: var(--text-color);
 }
 
-/* Desktop Navigation styling */
+/* Dark Mode Toggle Button styles (if used elsewhere) */
+#themeToggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: 1px solid var(--nav-link-color);
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background var(--transition-speed), color var(--transition-speed);
+}
+
+#themeToggle:hover {
+  background: var(--nav-link-hover-color);
+  color: #fff;
+}
+
+/* Desktop Navigation */
 .nav-desktop {
-  background: #ffffff;
-  border-bottom: 1px solid #ddd;
+  background: var(--background-color);
+  border-bottom: 1px solid var(--header-border-color);
   margin-bottom: 1rem;
   padding: 1rem;
 }
@@ -58,20 +89,20 @@ body {
 
 .nav-desktop .nav-menu a {
   text-decoration: none;
-  color: #007acc;
+  color: var(--nav-link-color);
   font-weight: 600;
   font-size: 1.8rem;
-  /* Increased text size for nav */
+  transition: color var(--transition-speed);
 }
 
 .nav-desktop .nav-menu a:hover {
   text-decoration: underline;
+  color: var(--nav-link-hover-color);
 }
 
-/* Mobile Navigation styling */
+/* Mobile Navigation */
 .nav-mobile {
   display: none;
-  /* Hide on desktop */
 }
 
 .nav-mobile .nav-menu-mobile {
@@ -85,12 +116,12 @@ body {
 
 .nav-mobile .nav-menu-mobile a {
   text-decoration: none;
-  color: #007acc;
+  color: var(--nav-link-color);
   font-weight: 600;
   font-size: 1.2rem;
 }
 
-/* Fixed mobile nav: stick it to the bottom on small screens */
+/* Fixed Mobile Navigation (Small Screens) */
 @media (max-width: 768px) {
   .nav-desktop {
     display: none;
@@ -102,66 +133,76 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #ffffff;
-    border-top: 1px solid #ddd;
+    background: var(--background-color);
+    border-top: 1px solid var(--header-border-color);
     z-index: 1000;
   }
 }
 
-/* Fluid content layout: use more of the screen on desktop */
+/* Container */
 .container {
   max-width: 1200px;
-  /* Increased max width */
   width: 90%;
-  /* Use 90% of viewport width */
   margin: 0 auto;
   padding: 2rem;
-  background: #ffffff;
-  /* White background */
-  /* Removed box shadow and border radius for a flat look */
+  background: var(--background-color);
 }
 
-/* Headings within content */
+/* Headings & Paragraphs */
 h1,
 h2,
 h3 {
   margin-bottom: 1rem;
-  color: #222;
+  color: var(--text-color);
   font-weight: 700;
 }
 
-/* Paragraphs */
 p {
   margin-bottom: 1.5rem;
-  color: #444;
+  color: var(--text-color);
 }
 
-/* Links */
+/* Updated Hyperlink Styles */
 a {
-  color: #007acc;
+  color: #0000EE;
+  /* Standard blue for links */
   text-decoration: none;
+  transition: color var(--transition-speed);
 }
 
-a:hover {
+a:visited {
+  color: #551A8B;
+  /* Standard purple for visited links */
+}
+
+a:hover,
+a:focus {
   text-decoration: underline;
+  color: #551A8B;
 }
 
-/* Footer styling */
+/* Dark Mode Overrides for Links */
+body.dark-mode a {
+  color: #8ab4f8;
+  /* Lighter blue for dark backgrounds */
+}
+
+body.dark-mode a:visited {
+  color: #c58af9;
+}
+
+body.dark-mode a:hover,
+body.dark-mode a:focus {
+  color: #c58af9;
+}
+
+/* Footer Styling */
 .site-footer {
-  
-  /* Subtle light-gray background */
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--footer-border-color);
   padding: 1.5rem 0;
   margin-top: 2rem;
   text-align: center;
   font-size: 1rem;
-  /* color: #666; */
-}
-
-/* Footer content alignment */
-.footer-content {
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .footer-container {
@@ -174,32 +215,22 @@ a:hover {
   gap: 2rem;
 }
 
-/* Icon link spacing and alignment */
 .footer-icon {
   display: inline-block;
   transition: transform 0.2s ease;
-}
-
-.footer-icon:last-of-type {
-  margin-right: 0;
 }
 
 .footer-icon:hover {
   transform: scale(1.1);
 }
 
-/* Footer images themselves */
 .footer-img {
   width: 40px;
   height: 40px;
   vertical-align: middle;
 }
 
-.footer-text p {
-  margin: 0;
-}
-
-/* Article styling for blog posts */
+/* Article Styling */
 article {
   margin-bottom: 2rem;
 }
@@ -209,13 +240,12 @@ article h2 {
   margin-bottom: 1rem;
 }
 
-/* Lists */
 ul {
   margin-left: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-/* Form elements for calculators */
+/* Form Elements & Buttons */
 input,
 select,
 button {
@@ -226,25 +256,21 @@ button {
   border-radius: 3px;
 }
 
-.social-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
 button {
-  background: #007acc;
+  background: var(--button-bg);
   color: #fff;
   border: none;
   cursor: pointer;
   padding: 0.7rem 1rem;
   margin-right: 0.5rem;
+  transition: background var(--transition-speed);
 }
 
 button:hover {
-  background: #005ea6;
+  background: var(--button-hover-bg);
 }
 
-/* Responsive adjustments for smaller screens */
+/* Responsive Adjustments */
 @media (max-width: 600px) {
   body {
     padding: 0.5rem;
@@ -255,8 +281,56 @@ button:hover {
     width: 95%;
   }
 
-  /* Ensure fixed mobile nav doesn't overlay content */
   body {
     padding-bottom: 4rem;
   }
+}
+
+/* Back to Top Button */
+#backToTop {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: none;
+  transition: background var(--transition-speed);
+  z-index: 1001;
+}
+
+#backToTop:hover {
+  background: var(--button-hover-bg);
+}
+
+/* Dark Mode Overrides */
+/* Use system detection as default */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: oklch(0.15 0.02 260);
+    /* dark background */
+    --text-color: oklch(0.95 0.005 260);
+    /* light text */
+    --header-border-color: oklch(0.2 0.02 260);
+    --nav-link-color: oklch(0.85 0.01 260);
+    --nav-link-hover-color: oklch(0.9 0.01 260);
+    --footer-border-color: oklch(0.2 0.02 260);
+    /* Dark mode buttons are now darker */
+    --button-bg: oklch(0.1 0.01 260);
+    --button-hover-bg: oklch(0.08 0.01 260);
+  }
+}
+
+body.dark-mode {
+  --background-color: oklch(0.15 0.02 260);
+  --text-color: oklch(0.95 0.005 260);
+  --header-border-color: oklch(0.2 0.02 260);
+  --nav-link-color: oklch(0.85 0.01 260);
+  --nav-link-hover-color: oklch(0.9 0.01 260);
+  --footer-border-color: oklch(0.2 0.02 260);
+  --button-bg: oklch(0.1 0.01 260);
+  --button-hover-bg: oklch(0.08 0.01 260);
 }

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -7,11 +6,9 @@
   <meta content="Welcome to William Zujkowski's Personal Website" name="description" />
   <meta content="William Zujkowski, Cybersecurity, Blog, Calculators" name="keywords" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <!-- No Google Fonts; using system fonts -->
   <title>Pizza Calculator - William Zujkowski</title>
   <link href="/assets/images/favicon.ico" rel="icon" type="image/x-icon" />
   <link href="/assets/css/style.css" rel="stylesheet" />
-  <!-- Include htmx -->
   <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
 
@@ -71,7 +68,6 @@
       <input id="emailInput" placeholder="Enter your email" type="email" />
       <button onclick="submitEmail()" type="button">Submit Email</button>
     </section>
-
   </main>
   <footer hx-get="/includes/footer.html" hx-swap="outerHTML" hx-trigger="load"></footer>
   <div id="toast"></div>
@@ -199,26 +195,26 @@
           const pizzaType = pizzaTypeInput.value;
           const slicesPerPizza = 8;
           switch (pizzaType) {
-            case "1": // NY
+            case "1":
               sliceEquivalency = 1;
               break;
-            case "0.5": // Detroit
+            case "0.5":
               sliceEquivalency = 1.5;
               break;
-            case "0.6": // Chicago
+            case "0.6":
               sliceEquivalency = 1.7;
               break;
-            case "2": // California
+            case "2":
               sliceEquivalency = 0.75;
               break;
-            case "3": // Hot Pockets
+            case "3":
               pizzasRequired = attendees * hoursDebugging;
               finalizeResult(pizzasRequired, pizzaType, slicesPerPerson, hoursDebugging, attendees, "Hot Pockets: Quick and questionable!");
               return;
-            case "100": // Blockchain
+            case "100":
               sliceEquivalency = Math.random() > 0.5 ? 0.1 : 2;
               break;
-            case "cloud": // Cloud Pizza
+            case "cloud":
               finalizeResult(Infinity, pizzaType, slicesPerPerson, hoursDebugging, attendees, "Cloud pizza: Infinite topping complexity!");
               return;
             case "pineapple":
@@ -304,23 +300,6 @@
         console.log(`Enterprise pizza inquiry from: ${email}`);
         showToast("Thanks! Our Enterprise Pizza Sales Team will contact you soon.");
       };
-      function getHumorMessage(pizzasRequired) {
-        if (pizzasRequired >= 42) {
-          return "You've reached Pied Piper-level scaling. Time for enterprise pizza solutions with distributed toppings and fault-tolerant sauces! 🍕📞";
-        } else if (pizzasRequired > 20) {
-          return "Caution: Pizza overload detected! Prepare for mass consumption. 🍕🛠️";
-        } else if (pizzasRequired > 10) {
-          return "That's a hefty pizza cluster! Consider horizontal slice-scaling strategies. ☁️🍕";
-        } else if (pizzasRequired > 5) {
-          return "A respectable order! Watch for pizza logs to avoid any food comas. 📊🍕";
-        } else if (pizzasRequired > 3) {
-          return "A moderate batch. Don’t forget to allow burst capacity for last-minute slice demands. 🍕🔄";
-        } else if (pizzasRequired === 1) {
-          return "A single pizza? That’s like running production on a Raspberry Pi—hope it's enough! 🎛️🍕";
-        } else {
-          return "Minimal pizza order. For redundancy, might want to double the slices. 📦🍕";
-        }
-      }
     })();
   </script>
 </body>
