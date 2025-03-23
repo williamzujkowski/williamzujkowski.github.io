@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on William Zujkowski&#39;s Personal Website</title>
+    <link>http://localhost:1313/page/</link>
+    <description>Recent content in Pages on William Zujkowski&#39;s Personal Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 22 Mar 2025 00:38:24 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/page/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>http://localhost:1313/page/test/</link>
+      <pubDate>Sat, 22 Mar 2025 00:38:05 -0400</pubDate>
+      <guid>http://localhost:1313/page/test/</guid>
+      <description>Hello!</description>
+    </item>
+  </channel>
+</rss>
