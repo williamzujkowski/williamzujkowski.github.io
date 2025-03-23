@@ -6,7 +6,7 @@
     <description>Recent content in Posts on William Zujkowski&#39;s Personal Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Mar 2025 00:23:21 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 23 Mar 2025 01:04:04 -0400</lastBuildDate>
     <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Responsible AI Development: Establishing Ethical Guardrails</title>
@@ -14,6 +14,13 @@
       <pubDate>Tue, 18 Mar 2025 11:00:00 -0400</pubDate>
       <guid>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</guid>
       <description>Responsible AI Development: Establishing Ethical Guardrails As AI systems—especially autonomous agents—transition from research prototypes to everyday tools, it is essential to embed ethics, transparency, and accountability into their design. Responsible AI development is critical for ensuring these technologies enhance human life without compromising societal values.&#xA;The Imperative for Ethical AI With the rapid rise of autonomous agents, concerns about bias, transparency, and accountability become more pressing. Microsoft’s Sarah Bird reminds us that while generative AI offers transformative potential, “core pieces are still missing” from a truly responsible system.</description>
+    </item>
+    <item>
+      <title>Zero-Trust Architecture: Implementation Strategies Beyond the Buzzword</title>
+      <link>http://localhost:1313/post/zero-trust_architecture_implementation_strategies_beyond_the_buzzword/</link>
+      <pubDate>Mon, 03 Mar 2025 11:00:00 -0400</pubDate>
+      <guid>http://localhost:1313/post/zero-trust_architecture_implementation_strategies_beyond_the_buzzword/</guid>
+      <description>Zero-Trust Architecture: Implementation Strategies Beyond the Buzzword In today’s rapidly evolving threat landscape, the traditional perimeter-based security model is no longer sufficient. Zero trust shifts the security paradigm by assuming no implicit trust—even for internal network traffic. In this post, we explore practical strategies for implementing a zero-trust model in modern organizations.&#xA;The Concept of Zero Trust Zero trust is built on the principle of &amp;ldquo;never trust, always verify.&amp;rdquo; Every request—from any user or device—must be authenticated and authorized before granting access.</description>
     </item>
     <item>
       <title>The Evolution of Developer Experience (DevEx): How AI is Transforming Coding Workflows</title>
