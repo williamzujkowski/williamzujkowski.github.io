@@ -3,16 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-03-23T00:07:30-04:00</lastmod>
+    <lastmod>2025-03-23T00:23:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2025-03-23T00:07:30-04:00</lastmod>
+    <lastmod>2025-03-23T00:23:21-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</loc>
+    <lastmod>2025-03-23T00:23:21-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/the-evolution-of-developer-experience_how-ai-is-transforming-coding-workflows/</loc>
     <lastmod>2025-03-23T00:07:05-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/the-rise-of-ai-agents/</loc>
-    <lastmod>2025-03-23T00:07:18-04:00</lastmod>
+    <lastmod>2025-03-23T00:23:05-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/ai-the-new-frontier-in-cybersecurity-opportunities-and-ethical-dilemmas/</loc>
     <lastmod>2025-03-22T23:34:57-04:00</lastmod>
@@ -55,9 +58,6 @@
   </url><url>
     <loc>http://localhost:1313/post/writing-secure-code-a-developers-guide-to-thwarting-security-exploits/</loc>
     <lastmod>2025-03-22T23:34:57-04:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</loc>
-    <lastmod>2025-03-23T00:07:30-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>

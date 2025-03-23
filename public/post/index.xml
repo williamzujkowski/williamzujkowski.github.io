@@ -6,8 +6,15 @@
     <description>Recent content in Posts on William Zujkowski&#39;s Personal Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Mar 2025 00:07:30 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 23 Mar 2025 00:23:21 -0400</lastBuildDate>
     <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Responsible AI Development: Establishing Ethical Guardrails</title>
+      <link>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</link>
+      <pubDate>Tue, 18 Mar 2025 11:00:00 -0400</pubDate>
+      <guid>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</guid>
+      <description>Responsible AI Development: Establishing Ethical Guardrails As AI systems—especially autonomous agents—transition from research prototypes to everyday tools, it is essential to embed ethics, transparency, and accountability into their design. Responsible AI development is critical for ensuring these technologies enhance human life without compromising societal values.&#xA;The Imperative for Ethical AI With the rapid rise of autonomous agents, concerns about bias, transparency, and accountability become more pressing. Microsoft’s Sarah Bird reminds us that while generative AI offers transformative potential, “core pieces are still missing” from a truly responsible system.</description>
+    </item>
     <item>
       <title>The Evolution of Developer Experience (DevEx): How AI is Transforming Coding Workflows</title>
       <link>http://localhost:1313/post/the-evolution-of-developer-experience_how-ai-is-transforming-coding-workflows/</link>
@@ -119,13 +126,6 @@
       <pubDate>Thu, 14 Mar 2024 00:35:21 -0400</pubDate>
       <guid>http://localhost:1313/post/writing-secure-code-a-developers-guide-to-thwarting-security-exploits/</guid>
       <description>Writing Secure Code a Developers Guide to Thwarting Security Exploits In today&amp;rsquo;s interconnected world, software security is no longer an afterthought but a fundamental requirement. As developers, we have a responsibility to write code that is not only functional but also resilient against potential security exploits. This post will delve into essential secure coding practices that every developer should adopt to build more robust and secure applications, reducing the risk of vulnerabilities that attackers could exploit.</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</guid>
-      <description>title = &amp;ldquo;Responsible AI Development: Establishing Ethical Guardrails&amp;rdquo; date = &amp;ldquo;2025-03-18T11:00:00-04:00&amp;rdquo; draft = false +++&#xA;Responsible AI Development: Establishing Ethical Guardrails As AI systems—especially autonomous agents—transition from research prototypes to everyday tools, it is essential to embed ethics, transparency, and accountability into their design. Responsible AI development is critical for ensuring these technologies enhance human life without compromising societal values.&#xA;The Imperative for Ethical AI With the rapid rise of autonomous agents, concerns about bias, transparency, and accountability become more pressing.</description>
     </item>
   </channel>
 </rss>
