@@ -37,6 +37,3 @@ lastmod = true
     ID = ""
 
 
-[caches]
-  [caches.images]
-    dir = ':cacheDir/images'
