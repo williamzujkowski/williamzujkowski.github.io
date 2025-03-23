@@ -36,3 +36,7 @@ lastmod = true
   [services.googleAnalytics]
     ID = ""
 
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
