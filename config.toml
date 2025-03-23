@@ -10,6 +10,7 @@ lastmod = true
   author = "William Zujkowski"
   description = "Forget cybersecurity audits—my son red teams my sanity daily, finding new techniques to evade his vegetables and new exploits in our bedtime routine."
   github = "williamzujkowski"
+  linkedin = "williamzujkowski"
   url = "https://williamzujkowski.github.io"
   keywords = "blog, personal, Hugo, github-style"
   rss = true
@@ -17,23 +18,12 @@ lastmod = true
   favicon = "/images/header-icon.png"
   avatar = "/images/avatar.png"
   headerIcon = "/images/header-icon.png"
-  location = ""
-  enableGitalk = true
+  location = "USA"
+  userStatusEmoji = "😀"
+  enableGitalk = false
+  enableSearch = false
   custom_css = ["css/custom.css"]
   custom_js = ["js/custom.js"]
-
-  [params.gitalk]
-    clientID = "Your client ID"
-    clientSecret = "Your client secret"
-    repo = "repo"
-    owner = "yourusername"
-    admin = "yourusername"
-    id = "location.pathname"
-    labels = "gitalk"
-    perPage = 15
-    pagerDirection = "last"
-    createIssueManually = true
-    distractionFreeMode = false
 
 [[params.links]]
   title = "Website"
