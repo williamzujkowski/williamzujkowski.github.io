@@ -5,6 +5,9 @@ on:
     branches:
       - master  # or 'main', depending on your repository
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest

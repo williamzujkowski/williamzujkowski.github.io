@@ -36,3 +36,4 @@ lastmod = true
   [services.googleAnalytics]
     ID = ""
 
+publishDir = "docs"
