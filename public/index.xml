@@ -6,8 +6,22 @@
     <description>Recent content on William Zujkowski&#39;s Personal Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Mar 2025 23:34:57 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 23 Mar 2025 00:07:30 -0400</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Evolution of Developer Experience (DevEx): How AI is Transforming Coding Workflows</title>
+      <link>http://localhost:1313/post/the-evolution-of-developer-experience_how-ai-is-transforming-coding-workflows/</link>
+      <pubDate>Sat, 22 Feb 2025 12:00:00 -0400</pubDate>
+      <guid>http://localhost:1313/post/the-evolution-of-developer-experience_how-ai-is-transforming-coding-workflows/</guid>
+      <description>The Evolution of Developer Experience (DevEx): How AI is Transforming Coding Workflows The software development landscape is undergoing a radical transformation. AI-powered coding assistants are not only making code writing more efficient but are also fundamentally reshaping the developer experience (DevEx).&#xA;Shifting Paradigms in Software Development Traditional development involved manually writing and debugging code. Today, tools like GitHub Copilot and Tabnine are automating repetitive tasks, allowing developers to focus on creative problem-solving.</description>
+    </item>
+    <item>
+      <title>The Rise of AI Agents: Beyond Chatbots to Autonomous Task Completion</title>
+      <link>http://localhost:1313/post/the-rise-of-ai-agents/</link>
+      <pubDate>Sun, 19 Jan 2025 10:00:00 -0400</pubDate>
+      <guid>http://localhost:1313/post/the-rise-of-ai-agents/</guid>
+      <description>The Rise of AI Agents: Beyond Chatbots to Autonomous Task Completion Recent advances in artificial intelligence have paved the way for a new generation of systems—autonomous AI agents. Unlike traditional chatbots, these agents aren’t just conversational; they can plan, retrieve real-time data, and execute complex multi-step tasks across applications.&#xA;Limitations of Traditional Chatbots Conventional chatbots powered by large language models (LLMs) excel at generating human-like text but have two key limitations:</description>
+    </item>
     <item>
       <title>Ai the New Frontier in Cybersecurity Opportunities and Ethical Dilemmas</title>
       <link>http://localhost:1313/post/ai-the-new-frontier-in-cybersecurity-opportunities-and-ethical-dilemmas/</link>
@@ -105,6 +119,13 @@
       <pubDate>Thu, 14 Mar 2024 00:35:21 -0400</pubDate>
       <guid>http://localhost:1313/post/writing-secure-code-a-developers-guide-to-thwarting-security-exploits/</guid>
       <description>Writing Secure Code a Developers Guide to Thwarting Security Exploits In today&amp;rsquo;s interconnected world, software security is no longer an afterthought but a fundamental requirement. As developers, we have a responsibility to write code that is not only functional but also resilient against potential security exploits. This post will delve into essential secure coding practices that every developer should adopt to build more robust and secure applications, reducing the risk of vulnerabilities that attackers could exploit.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/responsible-ai-development-establishing-ethical-guardrails/</guid>
+      <description>title = &amp;ldquo;Responsible AI Development: Establishing Ethical Guardrails&amp;rdquo; date = &amp;ldquo;2025-03-18T11:00:00-04:00&amp;rdquo; draft = false +++&#xA;Responsible AI Development: Establishing Ethical Guardrails As AI systems—especially autonomous agents—transition from research prototypes to everyday tools, it is essential to embed ethics, transparency, and accountability into their design. Responsible AI development is critical for ensuring these technologies enhance human life without compromising societal values.&#xA;The Imperative for Ethical AI With the rapid rise of autonomous agents, concerns about bias, transparency, and accountability become more pressing.</description>
     </item>
   </channel>
 </rss>
