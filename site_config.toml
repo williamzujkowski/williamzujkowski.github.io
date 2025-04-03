@@ -1,0 +1,55 @@
+[site]
+title = "William Zujkowski"
+description = "Personal website and technology blog"
+base_url = "https://williamzujkowski.github.io"
+author = "William Zujkowski"
+email = "william@example.com"  # Replace with your actual email
+theme = "dark"  # Can be "light" or "dark"
+
+[navigation]
+items = [
+    { name = "Home", path = "home", icon = "🏠" },
+    { name = "Links", path = "links", icon = "🔗" },
+    { name = "Blog", path = "blog", icon = "📝" },
+    { name = "Contact", path = "contact", icon = "✉️" }
+]
+
+[blog]
+post_dir = "content/posts"
+posts_per_page = 5
+show_dates = true
+date_format = "%B %d, %Y"
+
+[links]
+groups = [
+    { name = "Social", icon = "👥" },
+    { name = "Projects", icon = "💻" },
+    { name = "Resources", icon = "📚" }
+]
+
+items = [
+    { name = "GitHub", url = "https://github.com/williamzujkowski", group = "Social", icon = "GitHub" },
+    { name = "LinkedIn", url = "https://linkedin.com/in/williamzujkowski", group = "Social", icon = "LinkedIn" },
+    { name = "Twitter", url = "https://twitter.com/williamzujkowski", group = "Social", icon = "Twitter" },
+    { name = "Project 1", url = "https://github.com/williamzujkowski/project1", group = "Projects", description = "A sample project" },
+    { name = "Project 2", url = "https://github.com/williamzujkowski/project2", group = "Projects", description = "Another sample project" },
+    { name = "Python Documentation", url = "https://docs.python.org", group = "Resources", description = "Official Python documentation" },
+    { name = "Textual Documentation", url = "https://textual.textualize.io", group = "Resources", description = "Textual TUI framework documentation" }
+]
+
+[environments.development]
+debug = true
+log_level = "DEBUG"
+assets_dir = "assets"
+build_dir = "build"
+serve_port = 8000
+watching = true
+open_browser = true
+
+[environments.production]
+debug = false
+log_level = "INFO"
+assets_dir = "assets"
+build_dir = "build"
+minify = true
+compression = true

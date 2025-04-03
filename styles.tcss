@@ -1,0 +1,539 @@
+/* Futuristic Theme - Neo-Cyberpunk */
+
+/* Color palette variables */
+$neon-blue: #0ff;
+$neon-purple: #b967ff;
+$neon-pink: #fe53bb;
+$dark-blue: #0a192f;
+$darker-blue: #061121;
+$midnight: #020c1b;
+$slate: #8892b0;
+$light-slate: #ccd6f6;
+$terminal-green: #64ffda;
+
+/* Global styles with cyberpunk aesthetics */
+* {
+    box-sizing: border-box;
+    transition: background 200ms, color 200ms, border 200ms;
+}
+
+ScrollableContainer {
+    height: 100%;
+    overflow: auto;
+}
+
+Body {
+    background: $midnight;
+    color: $light-slate;
+    border: outer $neon-blue;
+}
+
+/* Header and Footer with futuristic styling */
+Header {
+    height: 3;
+    background: $dark-blue;
+    color: $neon-blue;
+    border-bottom: heavy $neon-purple;
+    padding: 0 2;
+    text-style: bold;
+}
+
+Footer {
+    background: $dark-blue;
+    color: $neon-blue;
+    padding: 0 1;
+    height: 1;
+    border-top: heavy $neon-purple;
+}
+
+/* Enhanced Navigation sidebar with cyberpunk elements */
+#navigation-sidebar {
+    width: 20%;
+    min-width: 20;
+    max-width: 30;
+    height: 100%;
+    background: $darker-blue;
+    border-right: heavy $neon-blue;
+    padding: 1;
+}
+
+.nav-title {
+    margin-bottom: 1;
+    text-align: center;
+    height: 2;
+    background: $dark-blue;
+    color: $neon-blue;
+    border: tall $neon-purple;
+    padding: 0 1;
+    text-style: bold;
+}
+
+.nav-item {
+    margin-bottom: 1;
+    background: $dark-blue;
+    color: $light-slate;
+    height: 3;
+    border: tall $neon-blue;
+    padding: 0 1;
+}
+
+.nav-item:hover {
+    background: $midnight;
+    border-left: wide $neon-pink;
+    color: $neon-blue;
+    text-style: bold;
+}
+
+.nav-item-active {
+    border-left: wide $neon-pink;
+    background: $dark-blue;
+    color: $neon-purple;
+    text-style: bold;
+}
+
+/* Main container with improved layout */
+#main-container {
+    width: 100%;
+    height: 100%;
+    layout: horizontal;
+}
+
+/* Enhanced Page containers with futuristic design */
+.page-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 1 2;
+}
+
+.page-title {
+    text-align: center;
+    text-style: bold;
+    color: $neon-purple;
+    background: $dark-blue;
+    border-bottom: wide $neon-blue;
+    padding: 1;
+    margin-bottom: 1;
+    width: 100%;
+}
+
+.page-content {
+    padding: 1;
+}
+
+/* Terminal-inspired elements */
+.terminal-box {
+    background: $midnight;
+    border: none;
+    border-radius: 6px;
+    padding: 0;
+    margin: 1 0;
+    min-height: 18;
+    max-width: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 15px $neon-blue;
+}
+
+/* Terminal header with controls */
+.terminal-header-container {
+    background: $darker-blue;
+    padding: 0.5 1;
+    display: grid;
+    grid-size: 2;
+    grid-columns: 9fr 1fr;
+    border-bottom: heavy $neon-blue;
+}
+
+.terminal-controls {
+    text-align: right;
+    padding-right: 0.5;
+}
+
+.terminal-control {
+    display: inline-block;
+    width: 0.8;
+    height: 0.8;
+    border-radius: 50%;
+    margin-left: 0.3;
+}
+
+.terminal-control.red {
+    background: #ff5f56;
+}
+
+.terminal-control.yellow {
+    background: #ffbd2e;
+}
+
+.terminal-control.green {
+    background: #27c93f;
+}
+
+/* Terminal content sections */
+.terminal-section {
+    padding: 0.5 1;
+    margin: 0.5 0;
+}
+
+.terminal-text {
+    color: $terminal-green;
+    margin: 0 0 0 0;
+    padding-bottom: 0;
+    overflow-wrap: break-word;
+    text-align: left;
+    height: auto;
+}
+
+.terminal-label {
+    color: $neon-blue;
+    margin: 0.2 0;
+    padding: 0;
+    text-style: bold;
+    display: inline-block;
+    width: 25%;
+}
+
+.terminal-value {
+    color: $terminal-green;
+    margin: 0 0 0.3 0;
+    padding: 0 0 0 1;
+    display: inline-block;
+    width: 75%;
+}
+
+.terminal-divider {
+    height: 0.1;
+    background: $neon-purple;
+    margin: 0.5 1;
+    opacity: 0.5;
+}
+
+.terminal-header {
+    color: $neon-blue;
+    text-style: bold;
+    text-align: center;
+    margin: 0;
+}
+
+.terminal-subheader {
+    color: $neon-purple;
+    text-style: bold;
+    margin: 0.5 0;
+    text-align: center;
+}
+
+.terminal-paper-title {
+    color: $terminal-green;
+    text-style: bold;
+    margin: 0.3 0;
+    padding: 0.3 0;
+    text-align: center;
+}
+
+.terminal-paper-details {
+    color: $slate;
+    margin: 0.1 0;
+    padding: 0;
+    font-size: 90%;
+}
+
+.terminal-paper-link {
+    margin: 0.5 0 0 0;
+    text-align: center;
+}
+
+.terminal-link {
+    color: $neon-pink;
+    text-style: underline;
+    background: $darker-blue;
+    padding: 0.2 0.5;
+    border-radius: 3px;
+}
+
+.terminal-link:hover {
+    color: $neon-blue;
+    background: $dark-blue;
+    box-shadow: 0 0 5px $neon-blue;
+}
+
+/* For blog page, use horizontal layout */
+.blog .page-content {
+    layout: horizontal;
+    width: 100%;
+    height: 100%;
+}
+
+/* Home page with cyberpunk aesthetics */
+.home-welcome {
+    text-align: center;
+    margin-bottom: 1;
+    background: $dark-blue;
+    color: $neon-blue;
+    padding: 1;
+    border: heavy $neon-purple;
+}
+
+.home-intro {
+    margin-bottom: 1;
+    padding: 1 2;
+    border: tall $neon-blue;
+    border-left: wide $neon-pink;
+    background: $darker-blue;
+}
+
+/* Enhanced Links page with neon aesthetic */
+.link-group {
+    margin-bottom: 1;
+    padding: 1;
+    border: tall $neon-blue;
+    border-left: wide $neon-pink;
+    background: $darker-blue;
+    min-height: 5;
+}
+
+.link-group-title {
+    color: $neon-purple;
+    text-style: bold;
+    margin-bottom: 1;
+    border-bottom: wide $neon-blue;
+}
+
+.link-item {
+    padding: 0 1;
+    margin: 0 0 1 0;
+    height: 3;
+    border: tall $neon-blue;
+    background: $dark-blue;
+    color: $light-slate;
+}
+
+.link-item:hover {
+    background: $midnight;
+    border-left: wide $neon-pink;
+    color: $neon-blue;
+}
+
+.link-description {
+    color: $slate;
+    margin-top: 0;
+    margin-left: 2;
+    padding: 0 1;
+    height: 1;
+}
+
+/* Blog page with futuristic styling */
+.blog-sidebar {
+    width: 25%;
+    min-width: 20;
+    background: $darker-blue;
+    height: 100%;
+    border-right: heavy $neon-blue;
+    padding: 1;
+    margin-right: 1;
+}
+
+.blog-sidebar-title {
+    text-align: center;
+    background: $dark-blue;
+    color: $neon-purple;
+    padding: 1;
+    margin-bottom: 1;
+    border: tall $neon-blue;
+    text-style: bold;
+}
+
+.blog-post-list {
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.blog-post-item {
+    padding: 0 1;
+    margin: 0 0 1 0;
+    height: 3;
+    border: tall $neon-blue;
+    background: $dark-blue;
+    color: $light-slate;
+}
+
+.blog-post-item:hover {
+    background: $midnight;
+    border-left: wide $neon-pink;
+    color: $neon-blue;
+    text-style: bold;
+}
+
+.blog-post-item.active {
+    background: $midnight;
+    border-left: wide $neon-pink;
+    color: $neon-purple;
+    text-style: bold;
+}
+
+.blog-post-date {
+    color: $slate;
+    margin-left: 1;
+}
+
+.blog-content-container {
+    width: 75%;
+    padding: 0 1;
+    margin: 0;
+    background: $dark-blue;
+    overflow: auto;
+}
+
+/* Blog post title in content area */
+.blog-content-container .blog-post-title {
+    text-align: center;
+    background: $darker-blue;
+    color: $neon-purple;
+    padding: 1;
+    margin-bottom: 1;
+    border: tall $neon-blue;
+    text-style: bold;
+}
+
+/* Digital scan line effect for sections */
+.scanline {
+    border-top: solid $neon-blue;
+    border-bottom: solid $neon-blue;
+}
+
+/* MarkdownViewer customizations with better reading experience */
+.markdown-body {
+    padding: 1 2;
+    background: $dark-blue;
+    border: tall $neon-blue;
+}
+
+/* Markdown heading styles */
+.markdown-body-h1 {
+    border-bottom: tall $neon-purple;
+    text-style: bold;
+    color: $neon-blue;
+}
+
+.markdown-body-h2 {
+    border-bottom: tall $neon-purple;
+    text-style: bold;
+    color: $neon-purple;
+}
+
+.markdown-body-h3 {
+    color: $neon-pink;
+    text-style: bold;
+}
+
+.markdown-code {
+    background: $midnight;
+    color: $terminal-green;
+    border: tall $neon-blue;
+}
+
+.markdown-blockquote {
+    border-left: wide $neon-purple;
+    color: $slate;
+    background: $darker-blue;
+    padding: 0 1;
+}
+
+.markdown-link {
+    text-style: underline;
+    color: $neon-blue;
+}
+
+/* Animated elements */
+.pulse {
+    opacity: 1;
+    color: $neon-blue;
+}
+
+/* Terminal cursor animation */
+@keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+.terminal-cursor {
+    color: $neon-purple;
+    animation: blink 1.2s infinite;
+    font-weight: bold;
+}
+
+/* Placeholder pages with cyberpunk design */
+.placeholder-container {
+    text-align: center;
+    background: $darker-blue;
+    border: heavy $neon-blue;
+    padding: 2;
+    margin: 2 4;
+    height: 100%;
+}
+
+.placeholder-heading {
+    color: $neon-purple;
+    text-style: bold;
+}
+
+.placeholder-text {
+    color: $slate;
+}
+
+/* Image styling */
+.image-container {
+    background: $darker-blue;
+    border: tall $neon-blue;
+    padding: 1;
+    margin: 1 0;
+    text-align: center;
+}
+
+.image-caption {
+    color: $slate;
+    text-align: center;
+    padding-top: 1;
+}
+
+/* Grid layout for image galleries */
+.image-grid {
+    layout: grid;
+    grid-size: 3 2;
+    grid-gutter: 1 1;
+    grid-columns: 1fr 1fr 1fr;
+    grid-rows: auto;
+    padding: 1;
+}
+
+.image-grid-item {
+    background: $darker-blue;
+    border: tall $neon-blue;
+    height: 10;
+    text-align: center;
+}
+
+/* Buttons with neon glow */
+.neon-button {
+    background: $dark-blue;
+    color: $neon-blue;
+    border: tall $neon-blue;
+    text-align: center;
+    padding: 1 2;
+    margin: 1;
+    text-style: bold;
+}
+
+.neon-button:hover {
+    background: $midnight;
+    color: $neon-pink;
+    border: tall $neon-pink;
+}
+
+/* Responsive adjustments - For future implementation */
