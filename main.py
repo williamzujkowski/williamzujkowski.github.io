@@ -47,6 +47,7 @@ class WebsiteApp(App):
         Binding("h", "show_page('home')", "Home"),
         Binding("l", "show_page('links')", "Links"),
         Binding("b", "show_page('blog')", "Blog"),
+        Binding("c", "show_page('contact')", "Contact"),
     ]
 
     def __init__(self, config_path: str = "site_config.toml", *args, **kwargs):
@@ -103,7 +104,20 @@ class WebsiteApp(App):
             self.pages["home"] = HomePage(self.config)
             self.pages["links"] = LinksPage(self.config)
             self.pages["blog"] = BlogPage(self.config)
-            self.pages["placeholder"] = PlaceholderPage("Placeholder", self.config)
+            self.pages["contact"] = PlaceholderPage("Contact", self.config)
+            
+            # Add any other placeholder pages defined in the navigation
+            nav_items = self.config.get("navigation", {}).get("items", [])
+            for item in nav_items:
+                path = item.get("path", "")
+                name = item.get("name", "")
+                
+                # Skip pages we've already defined
+                if path in self.pages:
+                    continue
+                    
+                # Create a placeholder page
+                self.pages[path] = PlaceholderPage(name, self.config)
             
             # Add all pages to the container
             for page_id, page in self.pages.items():

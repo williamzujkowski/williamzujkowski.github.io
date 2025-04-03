@@ -78,13 +78,10 @@ class StaticSiteBuilder:
             "description", "Personal website and blog"
         )
 
-        # Add favicon with correct path
+        # Add favicon with absolute path
         favicon = soup.new_tag("link")
         favicon["rel"] = "icon"
-        if active_page.startswith("blog/"):
-            favicon["href"] = "../assets/favicon.ico"
-        else:
-            favicon["href"] = "assets/favicon.ico"
+        favicon["href"] = "/assets/favicon.ico"
         favicon["type"] = "image/x-icon"
         head.append(favicon)
 
@@ -132,15 +129,12 @@ class StaticSiteBuilder:
             li = soup.new_tag("li")
             a = soup.new_tag("a")
             
-            # Use absolute paths from root with correct relative paths
+            # Use absolute paths from root
             if active_page.startswith("blog/"):
-                # If we're in a blog post page, navigate up one level for non-blog pages
-                if path != "blog":
-                    a["href"] = f"../{path}.html"
-                else:
-                    a["href"] = f"../blog.html"  # Special case for blog link
+                # If we're in a blog post page, use absolute paths with preceding slash
+                a["href"] = f"/{path}.html"
             else:
-                a["href"] = f"{path}.html"
+                a["href"] = f"/{path}.html"
 
             # Mark active page
             if path == active_page:
@@ -171,13 +165,9 @@ class StaticSiteBuilder:
 
     def _generate_base_template(self, page_name):
         """Generate a base HTML template for a page."""
-        # Adjust CSS and JavaScript paths for blog posts
-        if page_name.startswith("blog/"):
-            css_path = "../styles.css"
-            js_path = "../script.js"
-        else:
-            css_path = "styles.css"
-            js_path = "script.js"
+        # Use absolute paths for CSS and JavaScript
+        css_path = "/styles.css"
+        js_path = "/script.js"
             
         html = f"""<!DOCTYPE html>
         <html lang="en">
@@ -518,9 +508,9 @@ class StaticSiteBuilder:
                 li = soup.new_tag("li")
                 li["class"] = "blog-post-item"
 
-                # Create link to post page
+                # Create link to post page with absolute path
                 a = soup.new_tag("a")
-                a["href"] = f"blog/{post['slug']}.html"
+                a["href"] = f"/blog/{post['slug']}.html"
                 a["onclick"] = f"loadBlogPost('{post['slug']}'); return false;"
 
                 # Add post title and date
@@ -559,6 +549,7 @@ class StaticSiteBuilder:
                     const contentElement = document.getElementById('blog-post-content');
                     if (contentElement) {{
                         // Only try to load posts if we have the content element
+                        // Use absolute path reference, but pass just the slug to the function
                         loadBlogPost('{posts[0]['slug']}');
                     }}
                 }});
@@ -585,12 +576,12 @@ class StaticSiteBuilder:
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="../styles.css">
-            <script src="../script.js" defer></script>
+            <link rel="stylesheet" href="/styles.css">
+            <script src="/script.js" defer></script>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>{title} - William Zujkowski</title>
             <meta name="description" content="Personal website and technology blog">
-            <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+            <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
         </head>
         <body class="blog-post-page">
             <header class="site-header">
@@ -598,10 +589,10 @@ class StaticSiteBuilder:
             </header>
             <nav class="site-nav">
                 <ul>
-                    <li><a href="../home.html">🏠 Home</a></li>
-                    <li><a href="../links.html">🔗 Links</a></li>
-                    <li><a href="../blog.html">📝 Blog</a></li>
-                    <li><a href="../contact.html">✉️ Contact</a></li>
+                    <li><a href="/home.html">🏠 Home</a></li>
+                    <li><a href="/links.html">🔗 Links</a></li>
+                    <li><a href="/blog.html">📝 Blog</a></li>
+                    <li><a href="/contact.html">✉️ Contact</a></li>
                 </ul>
             </nav>
             <main class="site-content">
@@ -656,11 +647,11 @@ class StaticSiteBuilder:
         content.append(html_soup)
         main_content.append(content)
 
-        # Add back link
+        # Add back link with absolute path
         back_link = soup.new_tag("p")
         back_link["class"] = "back-link"
         a = soup.new_tag("a")
-        a["href"] = "../blog.html"
+        a["href"] = "/blog.html"
         a.string = "← Back to Blog"
         back_link.append(a)
         main_content.append(back_link)
@@ -779,43 +770,27 @@ class StaticSiteBuilder:
     def _generate_css(self):
         """Generate CSS for the static site."""
         css = """
-        /* Enhanced Global styles with improved color schemes */
+        /* Futuristic Cyberpunk Theme */
         :root {
-            --primary-color: #2c3e50;
-            --primary-light: #3498db;
-            --primary-dark: #1a2634;
-            --accent-color: #e74c3c;
-            --accent-light: #f39c12;
-            --surface-color: #ecf0f1;
-            --surface-dark: #bdc3c7;
-            --text-color: #333;
-            --text-muted: #7f8c8d;
-            --panel-color: #f5f5f5;
-            --panel-dark: #dcdcdc;
-            --code-bg: #2d2d2d;
-            --code-color: #f8f8f2;
+            --primary-color: #0a192f;     /* dark blue */
+            --primary-light: #0ff;        /* neon blue */
+            --primary-dark: #020c1b;      /* midnight */
+            --accent-color: #b967ff;      /* neon purple */
+            --accent-light: #fe53bb;      /* neon pink */
+            --surface-color: #061121;     /* darker blue */
+            --surface-dark: #020c1b;      /* midnight */
+            --text-color: #ccd6f6;        /* light slate */
+            --text-muted: #8892b0;        /* slate */
+            --panel-color: #0a192f;       /* dark blue */
+            --panel-dark: #020c1b;        /* midnight */
+            --code-bg: #020c1b;           /* midnight */
+            --code-color: #64ffda;        /* terminal green */
             --border-radius: 4px;
-            --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 2px 8px rgba(11, 255, 255, 0.2);
+            --terminal-green: #64ffda;    /* terminal green */
         }
         
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary-color: #1a2634;
-                --primary-light: #2980b9;
-                --primary-dark: #0d1218;
-                --accent-color: #e74c3c;
-                --accent-light: #f39c12;
-                --surface-color: #2c3e50;
-                --surface-dark: #34495e;
-                --text-color: #ecf0f1;
-                --text-muted: #bdc3c7;
-                --panel-color: #34495e;
-                --panel-dark: #2c3e50;
-                --code-bg: #1e1e1e;
-                --code-color: #f8f8f2;
-                --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            }
-        }
+        /* We're always using our cyberpunk theme, no media query needed */
         
         * {
             box-sizing: border-box;
@@ -823,57 +798,120 @@ class StaticSiteBuilder:
         }
         
         body {
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             line-height: 1.7;
             margin: 0;
             padding: 0;
             color: var(--text-color);
             background-color: var(--surface-color);
+            border: 1px solid var(--primary-light);
         }
         
         a {
             color: var(--primary-light);
             text-decoration: none;
             transition: all 0.2s ease-in-out;
-            border-bottom: 1px dotted transparent;
+            border-bottom: 1px solid var(--primary-light);
+            padding: 0 0.1rem;
         }
         
         a:hover {
             color: var(--accent-color);
-            border-bottom: 1px dotted var(--accent-color);
+            border-bottom: 1px solid var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-light);
         }
         
-        /* Enhanced Header and Footer */
+        /* Futuristic Header and Footer */
         .site-header {
             background-color: var(--primary-dark);
-            color: white;
+            color: var(--primary-light);
             padding: 1.5rem 2rem;
             text-align: center;
             border-bottom: 4px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
+            box-shadow: 0 0 15px var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         .site-header h1 {
             margin: 0;
             font-weight: 700;
+            text-shadow: 0 0 10px var(--primary-light);
             letter-spacing: 1px;
         }
         
         .site-footer {
             background-color: var(--primary-dark);
-            color: white;
+            color: var(--primary-light);
             padding: 1.2rem;
             text-align: center;
             border-top: 4px solid var(--accent-color);
             margin-top: 3rem;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
         
-        /* Enhanced Navigation */
+        /* Terminal-inspired elements */
+        .terminal-box {
+            background-color: var(--panel-dark);
+            border: 1px solid var(--primary-light);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+        
+        .terminal-text {
+            color: var(--terminal-green);
+            font-family: 'Fira Code', monospace;
+            line-height: 1.5;
+            margin: 0.5rem 0;
+        }
+        
+        .terminal-prompt {
+            padding-left: 1rem;
+            border-left: 2px solid var(--primary-light);
+        }
+        
+        /* Digital scan line effect */
+        .scanline {
+            position: relative;
+            overflow: hidden;
+            padding: 0.5rem 0;
+        }
+        
+        .scanline:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-light);
+            opacity: 0.5;
+            animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+        
+        /* Animated elements */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        /* Cyberpunk Navigation */
         .site-nav {
             background-color: var(--primary-color);
             border-bottom: 3px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
+            box-shadow: 0 0 10px var(--accent-light);
         }
         
         .site-nav ul {
@@ -893,32 +931,54 @@ class StaticSiteBuilder:
         .site-nav a {
             display: block;
             padding: 1rem 1.5rem;
-            color: white;
+            color: var(--text-color);
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.2s ease-in-out;
-            border-bottom: none;
+            transition: all 0.3s ease-in-out;
             border-bottom: 3px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
             margin-bottom: -3px;
         }
         
         .site-nav a:hover {
-            background-color: var(--primary-light);
-            color: white;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
             text-decoration: none;
             border-bottom: 3px solid var(--accent-light);
+            text-shadow: 0 0 5px var(--primary-light);
+        }
+        
+        .site-nav a:before {
+            content: "";
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary-light);
+            transition: width 0.3s ease;
+        }
+        
+        .site-nav a:hover:before {
+            width: 100%;
         }
         
         .site-nav a.active {
             background-color: var(--primary-dark);
-            color: white;
+            color: var(--accent-color);
             border-bottom: 3px solid var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
         }
         
-        /* Enhanced Main content */
+        /* Cyberpunk Main content */
         .site-content {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
             padding: 2rem;
             background-color: var(--surface-color);
             box-shadow: var(--box-shadow);
@@ -935,24 +995,62 @@ class StaticSiteBuilder:
             margin-bottom: 2rem;
             font-size: 2rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--accent-color);
+            position: relative;
         }
         
-        /* Enhanced Home page */
+        .page-title:after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background-color: var(--primary-light);
+            box-shadow: 0 0 10px var(--primary-light);
+        }
+        
+        /* Cyberpunk Home page */
         .home-welcome {
             text-align: center;
             background-color: var(--primary-dark);
-            color: white;
+            color: var(--primary-light);
             padding: 2rem;
             border-radius: var(--border-radius);
             margin-bottom: 2rem;
-            border: none;
-            box-shadow: var(--box-shadow);
+            border: 1px solid var(--primary-light);
+            box-shadow: 0 0 15px var(--primary-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .home-welcome:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+            animation: glow 2s linear infinite;
+        }
+        
+        @keyframes glow {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
         }
         
         .home-welcome h3 {
             margin-top: 0;
             font-size: 1.8rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            text-shadow: 0 0 10px var(--primary-light);
         }
         
         .home-intro {
@@ -961,22 +1059,52 @@ class StaticSiteBuilder:
             border-radius: var(--border-radius);
             margin-bottom: 2rem;
             border-left: 4px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--accent-light);
+            position: relative;
+            
+            /* Add cyberpunk-style after element */
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 50px;
+                height: 50px;
+                border-right: 2px solid var(--accent-color);
+                border-bottom: 2px solid var(--accent-color);
+                opacity: 0.7;
+            }
         }
         
-        /* Enhanced Links page */
+        /* Futuristic Links page */
         .link-group {
             background-color: var(--panel-color);
             padding: 1.8rem;
             border-radius: var(--border-radius);
             margin-bottom: 2rem;
             border-left: 4px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
-            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 0 15px rgba(185, 103, 255, 0.2);
+            transition: transform 0.3s ease-in-out;
+            border: 1px solid var(--accent-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-group:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(11, 255, 255, 0.05) 50%, transparent 100%);
+            pointer-events: none;
         }
         
         .link-group:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(185, 103, 255, 0.3);
         }
         
         .link-group-title {
@@ -986,6 +1114,9 @@ class StaticSiteBuilder:
             margin-top: 0;
             font-size: 1.6rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px var(--accent-color);
         }
         
         .link-list {
@@ -1000,14 +1131,35 @@ class StaticSiteBuilder:
             background-color: var(--surface-color);
             border-radius: var(--border-radius);
             border-left: 4px solid var(--primary-light);
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+            position: relative;
+            border: 1px solid transparent;
         }
         
         .link-item:hover {
-            background-color: var(--surface-dark);
+            background-color: var(--primary-dark);
             border-left-color: var(--accent-color);
-            transform: translateX(3px);
+            transform: translateX(5px);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 10px var(--primary-light);
+        }
+        
+        .link-item:before {
+            content: "";
+            position: absolute;
+            left: -4px;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--primary-light);
+            opacity: 0.7;
+            transition: background-color 0.3s ease-in-out;
+        }
+        
+        .link-item:hover:before {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
         }
         
         .link-description {
@@ -1015,18 +1167,38 @@ class StaticSiteBuilder:
             margin: 0.5rem 0 0 1.5rem;
             font-size: 0.9rem;
             font-style: italic;
+            border-left: 2px solid var(--accent-light);
+            padding-left: 0.5rem;
+            font-style: italic;
         }
         
-        /* Enhanced Blog page */
+        /* Cyberpunk Blog page */
         .blog-page-layout {
             display: grid;
             grid-template-columns: 1fr 3fr;
             gap: 2rem;
+            position: relative;
+        }
+        
+        .blog-page-layout:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            height: 100%;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--primary-light), transparent);
+            opacity: 0.5;
+            pointer-events: none;
         }
         
         @media (max-width: 768px) {
             .blog-page-layout {
                 grid-template-columns: 1fr;
+            }
+            
+            .blog-page-layout:before {
+                display: none;
             }
         }
         
@@ -1035,8 +1207,22 @@ class StaticSiteBuilder:
             padding: 1.8rem;
             border-radius: var(--border-radius);
             border-left: 4px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
+            box-shadow: 0 0 15px rgba(185, 103, 255, 0.2);
             height: fit-content;
+            border: 1px solid var(--accent-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-list:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(11, 255, 255, 0.05) 50%, transparent 100%);
+            pointer-events: none;
         }
         
         .blog-post-list {
@@ -1051,18 +1237,43 @@ class StaticSiteBuilder:
             background-color: var(--surface-color);
             border-radius: var(--border-radius);
             border-left: 4px solid var(--primary-light);
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+            position: relative;
+            border: 1px solid transparent;
         }
         
         .blog-post-item:hover {
-            background-color: var(--surface-dark);
+            background-color: var(--primary-dark);
             border-left-color: var(--accent-color);
-            transform: translateX(3px);
+            transform: translateX(5px);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 10px var(--primary-light);
+        }
+        
+        .blog-post-item:before {
+            content: "";
+            position: absolute;
+            left: -4px;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--primary-light);
+            opacity: 0.7;
+            transition: background-color 0.3s ease-in-out;
+        }
+        
+        .blog-post-item:hover:before {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
         }
         
         .blog-post-title {
             font-weight: 600;
+            color: var(--primary-light);
+            text-shadow: 0 0 5px var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .blog-post-date {
@@ -1070,6 +1281,8 @@ class StaticSiteBuilder:
             font-size: 0.85rem;
             margin-top: 0.3rem;
             display: inline-block;
+            font-style: italic;
+            letter-spacing: 1px;
         }
         
         .blog-post-content {
@@ -1077,13 +1290,42 @@ class StaticSiteBuilder:
             padding: 2rem;
             border-radius: var(--border-radius);
             border-left: 4px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
+            box-shadow: 0 0 15px rgba(185, 103, 255, 0.2);
+            border: 1px solid var(--accent-light);
+            position: relative;
+            overflow: hidden;
         }
         
-        /* Enhanced Markdown content */
+        .blog-post-content:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid var(--primary-light);
+            border-right: 2px solid var(--primary-light);
+            opacity: 0.7;
+        }
+        
+        .blog-post-content:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            border-bottom: 2px solid var(--accent-color);
+            border-left: 2px solid var(--accent-color);
+            opacity: 0.7;
+        }
+        
+        /* Cyberpunk Markdown content */
         .markdown-body {
             line-height: 1.7;
             margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace, sans-serif;
+            letter-spacing: 0.3px;
         }
         
         .markdown-body h1,
@@ -1097,6 +1339,20 @@ class StaticSiteBuilder:
             color: var(--accent-color);
             border-bottom: 1px solid var(--accent-light);
             padding-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .markdown-body h1 {
+            color: var(--primary-light);
+            text-shadow: 0 0 10px var(--primary-light);
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        .markdown-body h2 {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
         }
         
         .markdown-body p {
@@ -1104,16 +1360,35 @@ class StaticSiteBuilder:
         }
         
         .markdown-body a {
-            color: var(--accent-color);
+            color: var(--primary-light);
             text-decoration: none;
-            border-bottom: 1px solid var(--accent-color);
-            padding-bottom: 1px;
-            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--primary-light);
+            padding: 0 3px 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
         
         .markdown-body a:hover {
-            color: var(--primary-dark);
-            border-color: var(--primary-dark);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .markdown-body a:before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(11, 255, 255, 0.1);
+            transition: height 0.3s ease;
+            z-index: -1;
+        }
+        
+        .markdown-body a:hover:before {
+            height: 100%;
         }
         
         .markdown-body ul, .markdown-body ol {
@@ -1127,9 +1402,12 @@ class StaticSiteBuilder:
         
         .markdown-body code {
             background-color: var(--code-bg);
+            color: var(--terminal-green);
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
-            font-family: monospace;
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            text-shadow: 0 0 2px var(--terminal-green);
         }
         
         .markdown-body pre {
@@ -1138,6 +1416,24 @@ class StaticSiteBuilder:
             border-radius: var(--border-radius);
             overflow-x: auto;
             margin: 1.5rem 0;
+            border: 1px solid var(--primary-light);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .markdown-body pre:before {
+            content: "</> code";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background-color: var(--primary-dark);
+            color: var(--terminal-green);
+            padding: 0 8px;
+            font-size: 0.8rem;
+            border-radius: 3px;
+            border: 1px solid var(--terminal-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .markdown-body img {
@@ -1145,21 +1441,187 @@ class StaticSiteBuilder:
             height: auto;
             border-radius: var(--border-radius);
             margin: 1.5rem 0;
+            border: 1px solid var(--primary-light);
+            box-shadow: 0 0 15px rgba(11, 255, 255, 0.3);
+            opacity: 0.9;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .markdown-body img:hover {
+            opacity: 1;
+            transform: scale(1.01);
+        }
+        
+        /* Image captions */
+        .image-container {
+            margin: 2rem 0;
+            text-align: center;
+            background-color: var(--panel-dark);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--primary-light);
+            box-shadow: 0 0 10px rgba(11, 255, 255, 0.2);
+        }
+        
+        .image-caption {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
         }
         
         .markdown-body blockquote {
             margin: 1.5rem 0;
-            padding: 0.5rem 1.5rem;
+            padding: 1rem 1.5rem;
             border-left: 4px solid var(--accent-light);
-            background-color: var(--surface-dark);
+            background-color: var(--panel-dark);
             color: var(--text-muted);
             font-style: italic;
+            position: relative;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            box-shadow: 0 0 10px rgba(185, 103, 255, 0.1);
+        }
+        
+        .markdown-body blockquote:before {
+            content: "\\201C";
+            position: absolute;
+            top: 0;
+            left: 0.5rem;
+            font-size: 2rem;
+            color: var(--accent-color);
+            opacity: 0.5;
+            line-height: 1;
+        }
+        
+        /* Terminal-inspired elements with animations */
+        .terminal-box {
+            background-color: var(--panel-dark);
+            border: 1px solid var(--primary-light);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terminal-box:before {
+            content: attr(data-terminal-name);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 0 8px;
+            font-size: 0.8rem;
+            border-radius: 3px;
+            border: 1px solid var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .terminal-box:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-light);
+            opacity: 0.3;
+            animation: terminalScan 4s linear infinite;
+        }
+        
+        @keyframes terminalScan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+        
+        .terminal-text {
+            color: var(--terminal-green);
+            font-family: 'Fira Code', monospace;
+            line-height: 1.5;
+            margin: 0.5rem 0;
+            overflow: hidden;
+            border-right: 0.15em solid var(--terminal-green);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            animation-fill-mode: both;
+            width: fit-content;
+        }
+        
+        .terminal-text.delay-1 {
+            animation-delay: 0.5s;
+        }
+        
+        .terminal-text.delay-2 {
+            animation-delay: 2s;
+        }
+        
+        .terminal-text.delay-3 {
+            animation-delay: 3.5s;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--terminal-green) }
+        }
+        
+        .terminal-prompt {
+            padding-left: 1rem;
+            border-left: 2px solid var(--primary-light);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .terminal-prompt:before {
+            content: ">";
+            color: var(--primary-light);
+            margin-right: 8px;
+            display: inline-block;
+        }
+        
+        .terminal-user-info {
+            position: absolute;
+            top: -32px;
+            right: 10px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .terminal-user-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .terminal-user-info .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--terminal-green);
+            display: inline-block;
+            animation: pulse 1.5s infinite;
         }
         
         .markdown-body table {
             width: 100%;
             margin: 1.5rem 0;
             border-collapse: collapse;
+            border: 1px solid var(--primary-light);
+            box-shadow: 0 0 15px rgba(11, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            overflow: hidden;
         }
         
         .markdown-body table th,
@@ -1170,8 +1632,25 @@ class StaticSiteBuilder:
         }
         
         .markdown-body table th {
-            background-color: var(--primary-light);
-            color: white;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 0 5px var(--primary-light);
+        }
+        
+        .markdown-body table tr {
+            background-color: var(--surface-color);
+            transition: background-color 0.3s ease;
+        }
+        
+        .markdown-body table tr:nth-child(even) {
+            background-color: var(--panel-dark);
+        }
+        
+        .markdown-body table tr:hover {
+            background-color: var(--panel-dark);
         }
         
         .markdown-body ul,
@@ -1276,8 +1755,75 @@ class StaticSiteBuilder:
         js = """
         // JavaScript functionality for the static site
         
+        // Terminal animation and user info functionality
+        async function setupTerminalElements() {
+            // Find all terminal boxes
+            const terminalBoxes = document.querySelectorAll('.terminal-box');
+            
+            if (terminalBoxes.length === 0) return;
+            
+            // Try to get user IP information
+            let userInfo = {
+                ip: "127.0.0.1",
+                city: "localhost",
+                country: "local",
+                browser: navigator.userAgent.split(' ')[0]
+            };
+            
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                if (response.ok) {
+                    const data = await response.json();
+                    userInfo.ip = data.ip;
+                    
+                    // Try to get location data
+                    try {
+                        const geoResponse = await fetch(`https://ipapi.co/${data.ip}/json/`);
+                        if (geoResponse.ok) {
+                            const geoData = await geoResponse.json();
+                            userInfo.city = geoData.city || "Unknown";
+                            userInfo.country = geoData.country_name || "Unknown";
+                        }
+                    } catch (e) {
+                        console.log('Geo location fetch failed:', e);
+                    }
+                }
+            } catch (e) {
+                console.log('IP fetch failed:', e);
+            }
+            
+            // Process each terminal box
+            terminalBoxes.forEach((box, index) => {
+                // Set unique terminal name
+                box.setAttribute('data-terminal-name', `$ terminal-${index + 1}`);
+                
+                // Add user info to the terminal
+                const userInfoDiv = document.createElement('div');
+                userInfoDiv.className = 'terminal-user-info';
+                userInfoDiv.innerHTML = `
+                    <span><div class="pulse-dot"></div>CONNECTED</span>
+                    <span>IP: ${userInfo.ip}</span>
+                    <span>LOC: ${userInfo.city}, ${userInfo.country}</span>
+                    <span>TIME: ${new Date().toLocaleTimeString()}</span>
+                `;
+                box.appendChild(userInfoDiv);
+                
+                // Add animation classes to text elements
+                const textElements = box.querySelectorAll('.terminal-text');
+                textElements.forEach((el, idx) => {
+                    // Add sequential animation delay classes
+                    if (idx === 0) el.classList.add('delay-1');
+                    else if (idx === 1) el.classList.add('delay-2');
+                    else el.classList.add('delay-3');
+                });
+            });
+        }
+        
         // Function to ensure all navigation links work correctly
         document.addEventListener('DOMContentLoaded', function() {
+            // Setup terminal elements with user information
+            setupTerminalElements();
+            
             // Fix navigation links on blog and blog post pages
             const isBlogPage = window.location.pathname.endsWith('/blog.html');
             const isBlogPostPage = window.location.pathname.includes('/blog/');
@@ -1302,30 +1848,17 @@ class StaticSiteBuilder:
         
         // Function to load blog post content via Ajax
         function loadBlogPost(slug) {
-            // Determine the correct path for fetching blog posts
-            const inBlogDir = window.location.pathname.includes('/blog/');
-            // If we're already in the blog directory, we don't need to add 'blog/'
-            // Otherwise, we need to fetch from 'blog/'
-            const basePath = inBlogDir ? '' : 'blog/';
+            // Always use absolute paths with root
+            const basePath = '/blog/';
             
             // Update URL without full navigation
             if (history.pushState) {
-                // If we're already in a blog post, just change the slug part
-                if (inBlogDir) {
-                    const newUrl = window.location.pathname.replace(/[^/]*$/, slug + '.html');
-                    window.history.pushState({path: newUrl}, '', newUrl);
-                } else {
-                    // Create URL correctly based on the current path structure
-                    // Make sure we don't get blog/blog/slug.html
-                    const pathBase = window.location.pathname.includes('/blog.html') 
-                        ? window.location.pathname.replace('blog.html', '')
-                        : window.location.pathname.replace(/\\/[^\\/]*$/, '/');
-                    const newUrl = window.location.origin + pathBase + 'blog/' + slug + '.html';
-                    window.history.pushState({path: newUrl}, '', newUrl);
-                }
+                // Always use absolute path from root
+                const newUrl = basePath + slug + '.html';
+                window.history.pushState({path: newUrl}, '', newUrl);
             }
             
-            // Fetch the post content with the correct path
+            // Fetch the post content with the correct absolute path
             fetch(basePath + slug + '.html')
                 .then(response => response.text())
                 .then(html => {
@@ -1361,7 +1894,7 @@ class StaticSiteBuilder:
             const path = window.location.pathname;
             
             // Check if we're on a blog post page
-            const blogPostMatch = path.match(/\\/blog\\/([\\w\\-]+)\\.html$/);
+            const blogPostMatch = path.match(/^\\/blog\\/([\\w\\-]+)\\.html$/);
             if (blogPostMatch) {
                 // We're on a specific post, load it
                 loadBlogPost(blogPostMatch[1]);
@@ -1369,7 +1902,7 @@ class StaticSiteBuilder:
             }
             
             // If we navigated away from a blog post, reload the page
-            if (path.endsWith('/blog.html')) {
+            if (path === '/blog.html') {
                 window.location.reload();
             }
         };

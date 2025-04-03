@@ -11,7 +11,7 @@ items = [
     { name = "Home", path = "home", icon = "🏠" },
     { name = "Links", path = "links", icon = "🔗" },
     { name = "Blog", path = "blog", icon = "📝" },
-    { name = "Contact", path = "placeholder", icon = "✉️" }
+    { name = "Contact", path = "contact", icon = "✉️" }
 ]
 
 [blog]
