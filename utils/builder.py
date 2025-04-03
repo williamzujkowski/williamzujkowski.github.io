@@ -1503,7 +1503,25 @@ class StaticSiteBuilder:
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: var(--border-radius);
             position: relative;
-            overflow: hidden;
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-light) var(--panel-dark);
+        }
+        
+        .terminal-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .terminal-box::-webkit-scrollbar-track {
+            background: var(--panel-dark);
+        }
+        
+        .terminal-box::-webkit-scrollbar-thumb {
+            background-color: var(--primary-light);
+            border-radius: 6px;
+            border: 2px solid var(--panel-dark);
         }
         
         .terminal-box:before {
@@ -1549,6 +1567,7 @@ class StaticSiteBuilder:
             animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
             animation-fill-mode: both;
             width: fit-content;
+            max-width: 100%;
         }
         
         .terminal-text.delay-1 {
@@ -1561,6 +1580,58 @@ class StaticSiteBuilder:
         
         .terminal-text.delay-3 {
             animation-delay: 3.5s;
+        }
+        
+        .terminal-text.delay-4 {
+            animation-delay: 5s;
+        }
+        
+        .terminal-expanded-info {
+            margin-top: 8px;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--primary-light);
+            border-radius: 4px;
+        }
+        
+        .terminal-expanded-info span {
+            font-family: 'Fira Code', monospace;
+            color: var(--terminal-green);
+            border: none;
+            background: none;
+            padding: 2px 4px;
+        }
+        
+        /* Terminal command line styling */
+        .terminal-cmd-line {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            border-top: 1px dotted rgba(0, 255, 255, 0.3);
+            padding-top: 10px;
+        }
+        
+        .cmd-prompt {
+            color: var(--primary-light);
+            font-weight: bold;
+            margin-right: 8px;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .cmd-input {
+            background: transparent;
+            border: none;
+            color: var(--terminal-green);
+            font-family: 'Fira Code', monospace;
+            flex: 1;
+            outline: none;
+            caret-color: var(--terminal-green);
+            caret-shape: block;
+        }
+        
+        .cmd-input::placeholder {
+            color: rgba(100, 255, 218, 0.5);
+            font-style: italic;
         }
         
         @keyframes typing {
@@ -1589,20 +1660,31 @@ class StaticSiteBuilder:
         }
         
         .terminal-user-info {
-            position: absolute;
-            top: -32px;
-            right: 10px;
+            position: sticky;
+            top: 0;
+            right: 0;
+            left: 0;
             color: var(--text-muted);
             font-size: 0.8rem;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
+            padding: 5px 0 10px 0;
             gap: 10px;
+            background-color: var(--panel-dark);
+            border-bottom: 1px solid var(--primary-light);
+            margin-bottom: 10px;
+            z-index: 10;
         }
         
         .terminal-user-info span {
             display: flex;
             align-items: center;
             gap: 5px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 3px 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
         }
         
         .terminal-user-info .pulse-dot {
@@ -1612,6 +1694,11 @@ class StaticSiteBuilder:
             background: var(--terminal-green);
             display: inline-block;
             animation: pulse 1.5s infinite;
+        }
+        
+        .terminal-content {
+            position: relative;
+            padding-top: 5px;
         }
         
         .markdown-body table {
@@ -1762,27 +1849,50 @@ class StaticSiteBuilder:
             
             if (terminalBoxes.length === 0) return;
             
+            // Generate terminal-specific data based on browser info
+            const browser = navigator.userAgent;
+            const platform = navigator.platform;
+            const language = navigator.language;
+            const screenRes = `${window.screen.width}x${window.screen.height}`;
+            const memoryInfo = navigator.deviceMemory ? `${navigator.deviceMemory}GB` : 'Unknown';
+            const cores = navigator.hardwareConcurrency || 'Unknown';
+            
             // Try to get user IP information
             let userInfo = {
                 ip: "127.0.0.1",
                 city: "localhost",
                 country: "local",
-                browser: navigator.userAgent.split(' ')[0]
+                region: "local",
+                postal: "00000",
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                browser: browser.split(' ')[0],
+                cores: cores,
+                memory: memoryInfo,
+                platform: platform,
+                screen: screenRes
             };
             
             try {
+                // Use ipify for IP detection
                 const response = await fetch('https://api.ipify.org?format=json');
                 if (response.ok) {
                     const data = await response.json();
                     userInfo.ip = data.ip;
                     
-                    // Try to get location data
+                    // Try to get location data from ipapi
                     try {
                         const geoResponse = await fetch(`https://ipapi.co/${data.ip}/json/`);
                         if (geoResponse.ok) {
                             const geoData = await geoResponse.json();
                             userInfo.city = geoData.city || "Unknown";
+                            userInfo.region = geoData.region || "Unknown";
                             userInfo.country = geoData.country_name || "Unknown";
+                            userInfo.postal = geoData.postal || "Unknown";
+                            userInfo.timezone = geoData.timezone || userInfo.timezone;
+                            userInfo.latitude = geoData.latitude || "Unknown";
+                            userInfo.longitude = geoData.longitude || "Unknown";
+                            userInfo.asn = geoData.asn || "Unknown";
+                            userInfo.org = geoData.org || "Unknown";
                         }
                     } catch (e) {
                         console.log('Geo location fetch failed:', e);
@@ -1794,8 +1904,19 @@ class StaticSiteBuilder:
             
             // Process each terminal box
             terminalBoxes.forEach((box, index) => {
+                // Create terminal content wrapper
+                const contentWrapper = document.createElement('div');
+                contentWrapper.className = 'terminal-content';
+                
+                // Move existing content to the wrapper
+                while (box.firstChild) {
+                    contentWrapper.appendChild(box.firstChild);
+                }
+                
                 // Set unique terminal name
-                box.setAttribute('data-terminal-name', `$ terminal-${index + 1}`);
+                const termId = index + 1;
+                const termName = box.id ? box.id : `terminal-${termId}`;
+                box.setAttribute('data-terminal-name', `$ ${termName}`);
                 
                 // Add user info to the terminal
                 const userInfoDiv = document.createElement('div');
@@ -1806,16 +1927,118 @@ class StaticSiteBuilder:
                     <span>LOC: ${userInfo.city}, ${userInfo.country}</span>
                     <span>TIME: ${new Date().toLocaleTimeString()}</span>
                 `;
+                
+                // Add a "more info" button that expands with additional details
+                const moreInfoButton = document.createElement('span');
+                moreInfoButton.innerHTML = 'ℹ️ SYSTEM';
+                moreInfoButton.style.cursor = 'pointer';
+                moreInfoButton.style.fontWeight = 'bold';
+                moreInfoButton.onclick = function() {
+                    // Add or remove expanded info
+                    const existingInfo = box.querySelector('.terminal-expanded-info');
+                    if (existingInfo) {
+                        existingInfo.remove();
+                    } else {
+                        const expandedInfo = document.createElement('div');
+                        expandedInfo.className = 'terminal-expanded-info';
+                        expandedInfo.innerHTML = `
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px;">
+                                <span>CPU: ${userInfo.cores} cores</span>
+                                <span>MEM: ${userInfo.memory}</span>
+                                <span>OS: ${userInfo.platform}</span>
+                                <span>RES: ${userInfo.screen}</span>
+                                <span>ASN: ${userInfo.asn || 'Unknown'}</span>
+                                <span>TZ: ${userInfo.timezone}</span>
+                                <span>LAT: ${userInfo.latitude || 'Unknown'}</span>
+                                <span>LONG: ${userInfo.longitude || 'Unknown'}</span>
+                            </div>
+                        `;
+                        userInfoDiv.appendChild(expandedInfo);
+                    }
+                };
+                userInfoDiv.appendChild(moreInfoButton);
+                
+                // Add to the box
                 box.appendChild(userInfoDiv);
+                box.appendChild(contentWrapper);
                 
                 // Add animation classes to text elements
-                const textElements = box.querySelectorAll('.terminal-text');
+                const textElements = contentWrapper.querySelectorAll('.terminal-text');
                 textElements.forEach((el, idx) => {
                     // Add sequential animation delay classes
                     if (idx === 0) el.classList.add('delay-1');
                     else if (idx === 1) el.classList.add('delay-2');
-                    else el.classList.add('delay-3');
+                    else if (idx === 2) el.classList.add('delay-3');
+                    else el.classList.add('delay-4');
                 });
+                
+                // Add command line prompt at the bottom
+                const cmdLine = document.createElement('div');
+                cmdLine.className = 'terminal-cmd-line';
+                
+                // Create prompt
+                const cmdPrompt = document.createElement('span');
+                cmdPrompt.className = 'cmd-prompt';
+                cmdPrompt.textContent = '> ';
+                
+                // Create input
+                const cmdInput = document.createElement('input');
+                cmdInput.type = 'text';
+                cmdInput.className = 'cmd-input';
+                cmdInput.placeholder = 'type help for commands...';
+                
+                // Add elements
+                cmdLine.appendChild(cmdPrompt);
+                cmdLine.appendChild(cmdInput);
+                contentWrapper.appendChild(cmdLine);
+                
+                // Handle command input
+                cmdInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        const command = this.value.trim().toLowerCase();
+                        this.value = '';
+                        
+                        // Create response element
+                        const responseEl = document.createElement('p');
+                        responseEl.className = 'terminal-prompt terminal-text';
+                        
+                        // Process command
+                        if (command === 'help') {
+                            responseEl.textContent = 'Available commands: help, clear, ip, about, system';
+                        } else if (command === 'clear') {
+                            // Remove all text elements except for the command line
+                            const textEls = contentWrapper.querySelectorAll('.terminal-text');
+                            textEls.forEach(el => el.remove());
+                            return; // Skip adding response
+                        } else if (command === 'ip') {
+                            responseEl.textContent = `Your IP address is: ${userInfo.ip}`;
+                        } else if (command === 'about') {
+                            responseEl.textContent = 'Terminal v1.0 - Cyberpunk Edition';
+                        } else if (command === 'system') {
+                            responseEl.textContent = `OS: ${userInfo.platform} | CPU: ${userInfo.cores} cores | Screen: ${userInfo.screen}`;
+                        } else if (command === '') {
+                            responseEl.textContent = ''; // Empty response for empty command
+                        } else {
+                            responseEl.textContent = `Command not found: ${command}`;
+                        }
+                        
+                        // Insert before command line
+                        contentWrapper.insertBefore(responseEl, cmdLine);
+                        
+                        // Scroll to bottom
+                        box.scrollTop = box.scrollHeight;
+                    }
+                });
+                
+                // Add auto-scroll functionality
+                setTimeout(() => {
+                    box.scrollTop = box.scrollHeight;
+                    
+                    // Focus the input in the main terminal if it exists
+                    if (box.id === 'main-terminal') {
+                        cmdInput.focus();
+                    }
+                }, 500);
             });
         }
         
