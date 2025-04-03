@@ -10,6 +10,10 @@ class BasePage(Container):
         super().__init__(*args, **kwargs)
         self.config = config
         self.title = title or self.__class__.__name__.replace("Page", "")
+        
+    def on_mount(self):
+        """Called when the widget is mounted."""
+        pass
 
     def compose_title(self) -> Static:
         """Create the page title widget."""

@@ -104,6 +104,13 @@ Footer {
     padding: 1;
 }
 
+/* For blog page, use horizontal layout */
+.blog .page-content {
+    layout: horizontal;
+    width: 100%;
+    height: 100%;
+}
+
 /* Home page with improved aesthetics */
 .home-welcome {
     text-align: center;
@@ -112,7 +119,7 @@ Footer {
     color: $text;
     padding: 1;
     border: heavy $accent;
-    border-radius: 1;
+    /* border-radius not supported in Textual CSS */
 }
 
 .home-intro {
@@ -159,16 +166,34 @@ Footer {
     margin-left: 2;
     padding: 0 1;
     height: 1;
-    font-size: 0.8;
+    /* font-size not supported in Textual CSS */
 }
 
 /* Blog page with enhanced styling */
-.blog-list {
-    margin-bottom: 1;
+/* Blog sidebar layout */
+.blog-sidebar {
+    width: 25%;
+    min-width: 20;
+    background: $surface-darken-2;
+    height: 100%;
+    border-right: heavy $primary-lighten-1;
     padding: 1;
+    margin-right: 1;
+}
+
+.blog-sidebar-title {
+    text-align: center;
+    background: $primary-darken-1;
+    color: $text;
+    padding: 1;
+    margin-bottom: 1;
     border: tall $primary-lighten-1;
     border-left: wide $accent;
-    background: $surface-darken-1;
+}
+
+.blog-post-list {
+    overflow-y: auto;
+    max-height: 100%;
 }
 
 .blog-post-item {
@@ -185,19 +210,35 @@ Footer {
     text-style: bold;
 }
 
+.blog-post-item.active {
+    background: $accent-darken-2;
+    border-left: wide $accent;
+    text-style: bold;
+}
+
 .blog-post-date {
     color: $text-muted;
     margin-left: 1;
-    font-size: 0.8;
+    /* font-size not supported in Textual CSS */
 }
 
-.blog-post-content {
-    padding: 1 2;
-    margin: 1 0;
+.blog-content-container {
+    width: 75%;
+    padding: 0 1;
+    margin: 0;
+    background: $surface;
+    overflow: auto;
+}
+
+/* Blog post title in content area */
+.blog-content-container .blog-post-title {
+    text-align: center;
+    background: $primary-darken-1;
+    color: $text;
+    padding: 1;
+    margin-bottom: 1;
     border: tall $primary-lighten-1;
     border-left: wide $accent;
-    background: $surface-darken-1;
-    overflow: auto;
 }
 
 /* MarkdownViewer customizations with better reading experience */
@@ -207,12 +248,18 @@ Footer {
     border: tall $primary-lighten-1;
 }
 
-.markdown-body h1, .markdown-body h2 {
+/* Markdown heading styles */
+.markdown-body-h1 {
     border-bottom: tall $accent-lighten-3;
     text-style: bold;
 }
 
-.markdown-body code {
+.markdown-body-h2 {
+    border-bottom: tall $accent-lighten-3;
+    text-style: bold;
+}
+
+.markdown-code {
     background: $surface-darken-2;
     color: $accent-lighten-2;
 }
@@ -222,7 +269,7 @@ Footer {
     text-align: center;
     background: $surface-darken-1;
     border: heavy $primary-lighten-1;
-    border-radius: 1;
+    /* border-radius not supported in Textual CSS */
     padding: 2;
     margin: 2 4;
     height: 100%;

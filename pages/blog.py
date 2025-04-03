@@ -142,20 +142,80 @@ Happy blogging!
     def compose_content(self):
         """Create the blog page content."""
         with Container(classes="page-content") as container:
-            # Simple display of the first blog post for now
-            if self.posts:
-                post = self.posts[0]  # Get the first post
-                # Display a title
-                yield Static(f"[b]{post.title}[/b]", classes="blog-list")
+            # Create a sidebar with blog post list
+            with Container(classes="blog-sidebar"):
+                yield Static("[b]Blog Posts[/b]", classes="blog-sidebar-title")
                 
-                # Display the content
-                md_viewer = MarkdownViewer(post.content, classes="markdown-body")
-                yield md_viewer
-            else:
-                # No posts found
-                yield Static(
+                # Create a list of blog posts
+                with Container(classes="blog-post-list"):
+                    for i, post in enumerate(self.posts):
+                        post_item = Static(
+                            f"{post.title}",
+                            classes="blog-post-item"
+                        )
+                        # Store post index for click handling
+                        post_item.data = i
+                        
+                        # Add click handler to show post
+                        def make_handler(post_idx):
+                            def handler():
+                                self.show_post(post_idx)
+                            return handler
+                        
+                        post_item.on_click = make_handler(i)
+                        yield post_item
+            
+            # Display the content container (will be filled when a post is selected)
+            self.content_container = Container(classes="blog-content-container")
+            yield self.content_container
+        
+        return container
+        
+    def on_mount(self):
+        """Called when the widget is mounted."""
+        super().on_mount()
+        # Show the first post initially if available
+        if self.posts:
+            self.show_post(0)
+        else:
+            # No posts found
+            self.content_container.mount(
+                Static(
                     "No blog posts found. Create some markdown files in the content/posts directory.",
                     classes="home-intro"
                 )
+            )
         
-        return container
+    def show_post(self, post_idx: int):
+        """Show the selected blog post."""
+        if not self.posts or post_idx >= len(self.posts):
+            return
+            
+        post = self.posts[post_idx]
+        
+        # Clear current content
+        self.content_container.remove_children()
+        
+        # Add post title
+        title = Static(f"[b]{post.title}[/b]", classes="blog-post-title")
+        self.content_container.mount(title)
+        
+        # Add post date if available
+        if post.date:
+            date_format = self.config.get("blog", {}).get("date_format", "%B %d, %Y")
+            date = Static(
+                f"Published on {post.date.strftime(date_format)}",
+                classes="blog-post-date"
+            )
+            self.content_container.mount(date)
+        
+        # Add post content as Markdown
+        md_viewer = MarkdownViewer(post.content, classes="markdown-body")
+        self.content_container.mount(md_viewer)
+        
+        # Update highlight in sidebar
+        for child in self.query(".blog-post-item"):
+            if isinstance(child, Static) and child.data == post_idx:
+                child.add_class("active")
+            else:
+                child.remove_class("active")
