@@ -54,14 +54,14 @@ title: Home
 </div>
 
 <script>
-// Simple API handlers with no animations or typing effects
+// Simple one-time data loading
 document.addEventListener('DOMContentLoaded', function() {
-  // Display current time
+  // Display static time
   const now = new Date();
   document.getElementById('current-time').textContent = 
     `${now.toLocaleTimeString()} | ${now.toLocaleDateString()}`;
   
-  // Get user IP from ipify
+  // Get user IP from ipify (one-time fetch)
   fetch('https://api.ipify.org?format=json')
     .then(response => response.json())
     .then(data => {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('user-ip').textContent = "Unable to detect";
     });
   
-  // Get latest AI research from arXiv
+  // Get latest AI research from arXiv (one-time fetch)
   const query = "cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.NE";
   fetch(`https://export.arxiv.org/api/query?search_query=${query}&sortBy=submittedDate&sortOrder=descending&max_results=3`)
     .then(response => response.text())
