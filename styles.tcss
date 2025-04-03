@@ -1,0 +1,232 @@
+/* Global styles with enhanced aesthetics */
+* {
+    box-sizing: border-box;
+    transition: background 200ms;
+}
+
+ScrollableContainer {
+    height: 100%;
+    overflow: auto;
+}
+
+Body {
+    background: $surface;
+}
+
+/* Header and Footer with improved styling */
+Header {
+    height: 3;
+    background: $primary-darken-1;
+    color: $text;
+    border-bottom: heavy $accent;
+    padding: 0 2;
+}
+
+Footer {
+    background: $primary-darken-1;
+    color: $text;
+    padding: 0 1;
+    height: 1;
+    border-top: heavy $accent;
+}
+
+/* Enhanced Navigation sidebar */
+#navigation-sidebar {
+    width: 20%;
+    min-width: 20;
+    max-width: 30;
+    height: 100%;
+    background: $surface-darken-2;
+    border-right: heavy $primary-lighten-1;
+    padding: 1;
+}
+
+.nav-title {
+    margin-bottom: 1;
+    text-align: center;
+    height: 2;
+    background: $primary-darken-1;
+    color: $text;
+    border: tall $primary-lighten-1;
+    border-left: wide $accent;
+    padding: 0 1;
+}
+
+.nav-item {
+    margin-bottom: 1;
+    background: $surface;
+    color: $text;
+    height: 3;
+    border: tall $primary;
+    border-left: wide $primary-darken-1;
+    padding: 0 1;
+}
+
+.nav-item:hover {
+    background: $primary-background;
+    border-left: wide $accent;
+    text-style: bold;
+}
+
+.nav-item-active {
+    border-left: wide $accent;
+    background: $accent-darken-2;
+    text-style: bold;
+}
+
+/* Main container with improved layout */
+#main-container {
+    width: 100%;
+    height: 100%;
+    layout: horizontal;
+}
+
+/* Enhanced Page containers */
+.page-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 1 2;
+}
+
+.page-title {
+    text-align: center;
+    text-style: bold italic;
+    color: $accent;
+    background: $primary-darken-1;
+    border-bottom: wide $accent;
+    padding: 1;
+    margin-bottom: 1;
+    width: 100%;
+}
+
+.page-content {
+    padding: 1;
+}
+
+/* Home page with improved aesthetics */
+.home-welcome {
+    text-align: center;
+    margin-bottom: 1;
+    background: $primary-darken-1;
+    color: $text;
+    padding: 1;
+    border: heavy $accent;
+    border-radius: 1;
+}
+
+.home-intro {
+    margin-bottom: 1;
+    padding: 1 2;
+    border: tall $primary-lighten-1;
+    border-left: wide $accent;
+    background: $surface-darken-1;
+}
+
+/* Enhanced Links page */
+.link-group {
+    margin-bottom: 1;
+    padding: 1;
+    border: tall $primary-lighten-2;
+    border-left: wide $accent;
+    background: $surface-darken-1;
+    min-height: 5;
+}
+
+.link-group-title {
+    color: $accent;
+    text-style: bold italic;
+    margin-bottom: 1;
+    border-bottom: wide $accent-lighten-2;
+}
+
+.link-item {
+    padding: 0 1;
+    margin: 0 0 1 0;
+    height: 3;
+    border: tall $primary-lighten-1;
+    background: $surface;
+}
+
+.link-item:hover {
+    background: $primary-background;
+    border-left: wide $accent;
+}
+
+.link-description {
+    color: $text-muted;
+    margin-top: 0;
+    margin-left: 2;
+    padding: 0 1;
+    height: 1;
+    font-size: 0.8;
+}
+
+/* Blog page with enhanced styling */
+.blog-list {
+    margin-bottom: 1;
+    padding: 1;
+    border: tall $primary-lighten-1;
+    border-left: wide $accent;
+    background: $surface-darken-1;
+}
+
+.blog-post-item {
+    padding: 0 1;
+    margin: 0 0 1 0;
+    height: 3;
+    border: tall $primary-lighten-1;
+    background: $surface;
+}
+
+.blog-post-item:hover {
+    background: $primary-background;
+    border-left: wide $accent;
+    text-style: bold;
+}
+
+.blog-post-date {
+    color: $text-muted;
+    margin-left: 1;
+    font-size: 0.8;
+}
+
+.blog-post-content {
+    padding: 1 2;
+    margin: 1 0;
+    border: tall $primary-lighten-1;
+    border-left: wide $accent;
+    background: $surface-darken-1;
+    overflow: auto;
+}
+
+/* MarkdownViewer customizations with better reading experience */
+.markdown-body {
+    padding: 1 2;
+    background: $surface;
+    border: tall $primary-lighten-1;
+}
+
+.markdown-body h1, .markdown-body h2 {
+    border-bottom: tall $accent-lighten-3;
+    text-style: bold;
+}
+
+.markdown-body code {
+    background: $surface-darken-2;
+    color: $accent-lighten-2;
+}
+
+/* Placeholder pages with improved design */
+.placeholder-container {
+    text-align: center;
+    background: $surface-darken-1;
+    border: heavy $primary-lighten-1;
+    border-radius: 1;
+    padding: 2;
+    margin: 2 4;
+    height: 100%;
+}
+
+/* Responsive adjustments - For future implementation
+   Implemented in JavaScript for now */
