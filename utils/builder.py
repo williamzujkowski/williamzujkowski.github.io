@@ -196,81 +196,62 @@ class StaticSiteBuilder:
         return soup, main_content
 
     def _generate_home_page(self):
-        """Generate the home page."""
+        """Generate the home page using markdown content."""
         soup, main_content = self._generate_base_template("home")
-
-        # Add page title
-        title = soup.new_tag("h2")
-        title["class"] = "page-title"
-        title.string = "Home"
-        main_content.append(title)
-
-        # Add welcome message
-        welcome = soup.new_tag("div")
-        welcome["class"] = "home-welcome"
-        welcome_title = soup.new_tag("h3")
-        site_title = self.config["site"].get("title", "William Zujkowski")
-        welcome_title.string = f"Welcome to {site_title}'s Website"
-        welcome.append(welcome_title)
-        main_content.append(welcome)
-
-        # Add introduction
-        intro = soup.new_tag("div")
-        intro["class"] = "home-intro"
-        intro_content = soup.new_tag("p")
-        intro_content.string = """This is a personal website built with Python and Textual, 
-        showcasing a modern terminal-inspired design that works great as both a TUI and a static website."""
-        intro.append(intro_content)
-
-        features = soup.new_tag("div")
-        features_title = soup.new_tag("h4")
-        features_title.string = "Features:"
-        features.append(features_title)
-
-        feature_list = soup.new_tag("ul")
-        for feature in [
-            "Blog posts with Markdown support",
-            "Links to various resources and profiles",
-            "Clean, responsive web design",
-            "Terminal-friendly interface when run as a TUI",
-        ]:
-            li = soup.new_tag("li")
-            li.string = feature
-            feature_list.append(li)
-
-        features.append(feature_list)
-        intro.append(features)
-        main_content.append(intro)
-
-        # Add about section
-        about = soup.new_tag("div")
-        about["class"] = "home-intro"
-        about_title = soup.new_tag("h3")
-        about_title.string = "About the Developer"
-        about.append(about_title)
-
-        about_content = soup.new_tag("p")
-        about_content.string = """I am a software developer with a passion for Python, 
-        web technologies, and terminal-based user interfaces."""
-        about.append(about_content)
-
-        interests = soup.new_tag("p")
-        interests.string = "My interests include:"
-        about.append(interests)
-
-        interest_list = soup.new_tag("ul")
-        for interest in [
-            "Python development",
-            "Terminal user interfaces",
-            "Web technologies",
-            "Open source software",
-        ]:
-            li = soup.new_tag("li")
-            li.string = interest
-            interest_list.append(li)
-
-        about.append(interest_list)
-        main_content.append(about)
+        
+        # Use markdown content from the content directory
+        md_path = Path("content/pages/home/index.md")
+        
+        # Process markdown content
+        try:
+            with open(md_path, "r", encoding="utf-8") as f:
+                md_content = f.read()
+                
+            # Handle frontmatter if present
+            title = "Home"
+            if md_content.startswith("---"):
+                parts = md_content.split("---", 2)
+                if len(parts) >= 3:
+                    frontmatter = parts[1].strip()
+                    content = parts[2].strip()
+                    
+                    # Extract title from frontmatter if present
+                    for line in frontmatter.split("\n"):
+                        if ":" in line:
+                            key, value = line.split(":", 1)
+                            key = key.strip().lower()
+                            value = value.strip().strip('"').strip("'")
+                            
+                            if key == "title":
+                                title = value
+            else:
+                content = md_content
+            
+            # Add page title
+            title_el = soup.new_tag("h2")
+            title_el["class"] = "page-title"
+            title_el.string = title
+            main_content.append(title_el)
+            
+            # Add markdown content
+            content_div = soup.new_tag("div")
+            content_div["class"] = "markdown-body"
+            
+            # Convert markdown to HTML
+            html_content = markdown.markdown(
+                content,
+                extensions=["extra", "codehilite", "nl2br"],
+            )
+            content_div.append(BeautifulSoup(html_content, "html.parser"))
+            main_content.append(content_div)
+            
+        except Exception as e:
+            logger.error(f"Error processing markdown for home page: {e}")
+            # Fallback to static content
+            error_msg = soup.new_tag("div")
+            error_msg["class"] = "error-message"
+            error_msg.string = f"Error loading home page content: {e}"
+            main_content.append(error_msg)
 
         # Write the file
         with open(self.build_dir / "home.html", "w", encoding="utf-8") as f:
@@ -279,83 +260,129 @@ class StaticSiteBuilder:
         logger.info("Generated home page")
 
     def _generate_links_page(self):
-        """Generate the links page."""
+        """Generate the links page using markdown content."""
         soup, main_content = self._generate_base_template("links")
-
-        # Add page title
-        title = soup.new_tag("h2")
-        title["class"] = "page-title"
-        title.string = "Links"
-        main_content.append(title)
-
-        # Add introduction
-        intro = soup.new_tag("div")
-        intro["class"] = "home-intro"
-        intro_content = soup.new_tag("p")
-        intro_content.string = """Below are links to various resources, social profiles, and projects.
-        Links are organized by category for easier navigation."""
-        intro.append(intro_content)
-        main_content.append(intro)
-
-        # Get link configuration
-        links_config = self.config.get("links", {})
-        groups = links_config.get("groups", [])
-        links = links_config.get("items", [])
-
-        # Organize links by group
-        grouped_links = {}
-        for link in links:
-            group = link.get("group", "Uncategorized")
-            if group not in grouped_links:
-                grouped_links[group] = []
-            grouped_links[group].append(link)
-
-        # Display link groups
-        for group in groups:
-            group_name = group.get("name", "Uncategorized")
-            group_icon = group.get("icon", "")
-
-            if group_name not in grouped_links:
-                continue
-
-            group_container = soup.new_tag("div")
-            group_container["class"] = "link-group"
-
-            group_title = soup.new_tag("h3")
-            group_title["class"] = "link-group-title"
-            group_title.string = f"{group_icon} {group_name}"
-            group_container.append(group_title)
-
-            # Add links for this group
-            link_list = soup.new_tag("ul")
-            link_list["class"] = "link-list"
-
-            for link in grouped_links[group_name]:
-                link_name = link.get("name", "")
-                link_url = link.get("url", "#")
-                link_icon = link.get("icon", "")
-                link_desc = link.get("description", "")
-
-                li = soup.new_tag("li")
-                li["class"] = "link-item"
-
-                a = soup.new_tag("a")
-                a["href"] = link_url
-                a["target"] = "_blank"
-                a["rel"] = "noopener noreferrer"
-                a.string = f"{link_icon} {link_name}" if link_icon else link_name
-                li.append(a)
-
-                if link_desc:
-                    desc = soup.new_tag("p")
-                    desc["class"] = "link-description"
-                    desc.string = link_desc
-                    li.append(desc)
-
-                link_list.append(li)
-
-            group_container.append(link_list)
-            main_content.append(group_container)
+        
+        # Use markdown content from the content directory
+        md_path = Path("content/pages/links/index.md")
+        
+        # Process markdown content
+        try:
+            with open(md_path, "r", encoding="utf-8") as f:
+                md_content = f.read()
+                
+            # Handle frontmatter if present
+            title = "Links"
+            if md_content.startswith("---"):
+                parts = md_content.split("---", 2)
+                if len(parts) >= 3:
+                    frontmatter = parts[1].strip()
+                    content = parts[2].strip()
+                    
+                    # Extract title from frontmatter if present
+                    for line in frontmatter.split("\n"):
+                        if ":" in line:
+                            key, value = line.split(":", 1)
+                            key = key.strip().lower()
+                            value = value.strip().strip('"').strip("'")
+                            
+                            if key == "title":
+                                title = value
+            else:
+                content = md_content
+            
+            # Add page title
+            title_el = soup.new_tag("h2")
+            title_el["class"] = "page-title"
+            title_el.string = title
+            main_content.append(title_el)
+            
+            # Add markdown content
+            content_div = soup.new_tag("div")
+            content_div["class"] = "markdown-body"
+            
+            # Convert markdown to HTML
+            html_content = markdown.markdown(
+                content,
+                extensions=["extra", "codehilite", "nl2br"],
+            )
+            
+            # Enhance the links by adding target="_blank" and rel="noopener noreferrer"
+            parsed_html = BeautifulSoup(html_content, "html.parser")
+            for a in parsed_html.select('a'):
+                a['target'] = '_blank'
+                a['rel'] = 'noopener noreferrer'
+            
+            content_div.append(parsed_html)
+            main_content.append(content_div)
+            
+        except Exception as e:
+            logger.error(f"Error processing markdown for links page: {e}")
+            # Fallback to link configuration
+            error_msg = soup.new_tag("div")
+            error_msg["class"] = "error-message"
+            error_msg.string = f"Error loading links page content: {e}"
+            main_content.append(error_msg)
+            
+            # Get link configuration and build the page from config as fallback
+            links_config = self.config.get("links", {})
+            groups = links_config.get("groups", [])
+            links = links_config.get("items", [])
+            
+            # Organize links by group
+            grouped_links = {}
+            for link in links:
+                group = link.get("group", "Uncategorized")
+                if group not in grouped_links:
+                    grouped_links[group] = []
+                grouped_links[group].append(link)
+                
+            # Display link groups
+            for group in groups:
+                group_name = group.get("name", "Uncategorized")
+                group_icon = group.get("icon", "")
+                
+                if group_name not in grouped_links:
+                    continue
+                    
+                group_container = soup.new_tag("div")
+                group_container["class"] = "link-group"
+                
+                group_title = soup.new_tag("h3")
+                group_title["class"] = "link-group-title"
+                group_title.string = f"{group_icon} {group_name}" if group_icon else group_name
+                group_container.append(group_title)
+                
+                # Add links for this group
+                link_list = soup.new_tag("ul")
+                link_list["class"] = "link-list"
+                
+                for link in grouped_links[group_name]:
+                    link_name = link.get("name", "")
+                    link_url = link.get("url", "#")
+                    link_icon = link.get("icon", "")
+                    link_desc = link.get("description", "")
+                    
+                    li = soup.new_tag("li")
+                    li["class"] = "link-item"
+                    
+                    a = soup.new_tag("a")
+                    a["href"] = link_url
+                    a["target"] = "_blank"
+                    a["rel"] = "noopener noreferrer"
+                    a.string = f"{link_icon} {link_name}" if link_icon else link_name
+                    li.append(a)
+                    
+                    if link_desc:
+                        desc = soup.new_tag("p")
+                        desc["class"] = "link-description"
+                        desc.string = link_desc
+                        li.append(desc)
+                        
+                    link_list.append(li)
+                    
+                group_container.append(link_list)
+                main_content.append(group_container)
 
         # Write the file
         with open(self.build_dir / "links.html", "w", encoding="utf-8") as f:
@@ -571,10 +598,10 @@ class StaticSiteBuilder:
             </header>
             <nav class="site-nav">
                 <ul>
-                    <li><a href="javascript:void(0)" onclick="window.location.href='../home.html'">🏠 Home</a></li>
-                    <li><a href="javascript:void(0)" onclick="window.location.href='../links.html'">🔗 Links</a></li>
-                    <li><a href="javascript:void(0)" onclick="window.location.href='../blog.html'">📝 Blog</a></li>
-                    <li><a href="javascript:void(0)" onclick="window.location.href='../placeholder.html'">✉️ Contact</a></li>
+                    <li><a href="../home.html">🏠 Home</a></li>
+                    <li><a href="../links.html">🔗 Links</a></li>
+                    <li><a href="../blog.html">📝 Blog</a></li>
+                    <li><a href="../contact.html">✉️ Contact</a></li>
                 </ul>
             </nav>
             <main class="site-content">
@@ -614,9 +641,19 @@ class StaticSiteBuilder:
         # Convert markdown to HTML
         html_content = markdown.markdown(
             post["content"],
-            extensions=["extra", "codehilite", "nl2br"],
+            extensions=["extra", "codehilite"],  # Remove nl2br to prevent unwanted <br/> tags
         )
-        content.append(BeautifulSoup(html_content, "html.parser"))
+        
+        # Parse the HTML content
+        html_soup = BeautifulSoup(html_content, "html.parser")
+        
+        # Fix links to ensure they open in a new tab with proper security attributes
+        for a_tag in html_soup.find_all('a'):
+            if a_tag.get('href') and (a_tag['href'].startswith('http://') or a_tag['href'].startswith('https://')):
+                a_tag['target'] = '_blank'
+                a_tag['rel'] = 'noopener noreferrer'
+        
+        content.append(html_soup)
         main_content.append(content)
 
         # Add back link
@@ -639,7 +676,7 @@ class StaticSiteBuilder:
         logger.debug(f"Generated blog post page: {post['slug']}.html")
 
     def _generate_placeholder_pages(self):
-        """Generate placeholder pages for future content."""
+        """Generate placeholder pages for future content using markdown content if available."""
         # Get navigation items that might need placeholder pages
         nav_items = self.config.get("navigation", {}).get("items", [])
         for item in nav_items:
@@ -650,38 +687,94 @@ class StaticSiteBuilder:
             if path in ["home", "links", "blog"]:
                 continue
                 
-            # Generate a placeholder page
+            # Generate a page based on markdown content if available
             soup, main_content = self._generate_base_template(path)
             
-            # Add page title
-            title = soup.new_tag("h2")
-            title["class"] = "page-title"
-            title.string = name
-            main_content.append(title)
+            # Check if markdown content exists for this page
+            md_path = Path(f"content/pages/{path}/index.md")
             
-            # Add placeholder content
-            placeholder = soup.new_tag("div")
-            placeholder["class"] = "placeholder-container"
-            
-            heading = soup.new_tag("h3")
-            heading.string = f"This page ({name}) is under construction"
-            placeholder.append(heading)
-            
-            text = soup.new_tag("p")
-            text.string = "This is a placeholder for future content. Check back later for updates!"
-            placeholder.append(text)
-            
-            tech_note = soup.new_tag("p")
-            tech_note.string = f"To add content to this page, create a new module in the 'pages' directory for {path}."
-            placeholder.append(tech_note)
-            
-            main_content.append(placeholder)
+            if md_path.exists():
+                # Process markdown content
+                try:
+                    with open(md_path, "r", encoding="utf-8") as f:
+                        md_content = f.read()
+                        
+                    # Handle frontmatter if present
+                    title = name
+                    if md_content.startswith("---"):
+                        parts = md_content.split("---", 2)
+                        if len(parts) >= 3:
+                            frontmatter = parts[1].strip()
+                            content = parts[2].strip()
+                            
+                            # Extract title from frontmatter if present
+                            for line in frontmatter.split("\n"):
+                                if ":" in line:
+                                    key, value = line.split(":", 1)
+                                    key = key.strip().lower()
+                                    value = value.strip().strip('"').strip("'")
+                                    
+                                    if key == "title":
+                                        title = value
+                    else:
+                        content = md_content
+                    
+                    # Add page title
+                    title_el = soup.new_tag("h2")
+                    title_el["class"] = "page-title"
+                    title_el.string = title
+                    main_content.append(title_el)
+                    
+                    # Add markdown content
+                    content_div = soup.new_tag("div")
+                    content_div["class"] = "markdown-body"
+                    
+                    # Convert markdown to HTML
+                    html_content = markdown.markdown(
+                        content,
+                        extensions=["extra", "codehilite", "nl2br"],
+                    )
+                    content_div.append(BeautifulSoup(html_content, "html.parser"))
+                    main_content.append(content_div)
+                    
+                except Exception as e:
+                    logger.error(f"Error processing markdown for {path} page: {e}")
+                    # Fallback to placeholder content
+                    self._add_placeholder_content(main_content, name, path)
+            else:
+                # No markdown content, use placeholder
+                title = soup.new_tag("h2")
+                title["class"] = "page-title"
+                title.string = name
+                main_content.append(title)
+                
+                self._add_placeholder_content(main_content, name, path)
             
             # Write the file
             with open(self.build_dir / f"{path}.html", "w", encoding="utf-8") as f:
                 f.write(str(soup.prettify()))
                 
-            logger.info(f"Generated placeholder page: {path}.html")
+            logger.info(f"Generated page: {path}.html")
+    
+    def _add_placeholder_content(self, main_content, name, path):
+        """Add placeholder content to the main content container."""
+        soup = BeautifulSoup("", "html.parser")
+        placeholder = soup.new_tag("div")
+        placeholder["class"] = "placeholder-container"
+        
+        heading = soup.new_tag("h3")
+        heading.string = f"This page ({name}) is under construction"
+        placeholder.append(heading)
+        
+        text = soup.new_tag("p")
+        text.string = "This is a placeholder for future content. Check back later for updates!"
+        placeholder.append(text)
+        
+        tech_note = soup.new_tag("p")
+        tech_note.string = f"To add content to this page, create a markdown file at 'content/pages/{path}/index.md'."
+        placeholder.append(tech_note)
+        
+        main_content.append(placeholder)
 
     def _generate_css(self):
         """Generate CSS for the static site."""
@@ -990,6 +1083,7 @@ class StaticSiteBuilder:
         /* Enhanced Markdown content */
         .markdown-body {
             line-height: 1.7;
+            margin-bottom: 2rem;
         }
         
         .markdown-body h1,
@@ -1007,6 +1101,77 @@ class StaticSiteBuilder:
         
         .markdown-body p {
             margin-bottom: 1.2rem;
+        }
+        
+        .markdown-body a {
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 1px;
+            transition: all 0.2s ease;
+        }
+        
+        .markdown-body a:hover {
+            color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .markdown-body ul, .markdown-body ol {
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .markdown-body li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .markdown-body code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .markdown-body pre {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+        
+        .markdown-body blockquote {
+            margin: 1.5rem 0;
+            padding: 0.5rem 1.5rem;
+            border-left: 4px solid var(--accent-light);
+            background-color: var(--surface-dark);
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        .markdown-body table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: collapse;
+        }
+        
+        .markdown-body table th,
+        .markdown-body table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--primary-light);
+        }
+        
+        .markdown-body table th {
+            background-color: var(--primary-light);
+            color: white;
         }
         
         .markdown-body ul,
