@@ -128,9 +128,9 @@ Footer {
     border-radius: 6px;
     padding: 0;
     margin: 1 0;
-    min-height: 18;
+    height: auto;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 0 15px $neon-blue;
 }
 
@@ -461,24 +461,7 @@ Footer {
     color: $neon-blue;
 }
 
-/* Terminal cursor animation */
-@keyframes blink {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-@keyframes pulse {
-    0% { opacity: 0.4; }
-    50% { opacity: 1; }
-    100% { opacity: 0.4; }
-}
-
-.terminal-cursor {
-    color: $neon-purple;
-    animation: blink 1.2s infinite;
-    font-weight: bold;
-}
+/* Remove cursor animations */
 
 /* Placeholder pages with cyberpunk design */
 .placeholder-container {
