@@ -128,9 +128,9 @@ Footer {
     border-radius: 6px;
     padding: 0;
     margin: 1 0;
-    min-height: 18;
+    height: auto;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 0 15px $neon-blue;
 }
 
@@ -225,21 +225,33 @@ Footer {
 .terminal-paper-title {
     color: $terminal-green;
     text-style: bold;
-    margin: 0.3 0;
-    padding: 0.3 0;
-    text-align: center;
+    margin: 0.2 0;
+    padding: 0.1 0;
+    font-size: 90%;
 }
 
 .terminal-paper-details {
     color: $slate;
     margin: 0.1 0;
     padding: 0;
-    font-size: 90%;
+    font-size: 80%;
 }
 
 .terminal-paper-link {
-    margin: 0.5 0 0 0;
-    text-align: center;
+    margin: 0.1 0 0.2 0;
+    text-align: left;
+}
+
+.paper-item {
+    margin: 0.3 0;
+    padding: 0.1 0;
+}
+
+.terminal-mini-divider {
+    height: 0.1;
+    background: $dark-blue;
+    margin: 0.2 2;
+    opacity: 0.3;
 }
 
 .terminal-link {
@@ -449,24 +461,7 @@ Footer {
     color: $neon-blue;
 }
 
-/* Terminal cursor animation */
-@keyframes blink {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-@keyframes pulse {
-    0% { opacity: 0.4; }
-    50% { opacity: 1; }
-    100% { opacity: 0.4; }
-}
-
-.terminal-cursor {
-    color: $neon-purple;
-    animation: blink 1.2s infinite;
-    font-weight: bold;
-}
+/* Remove cursor animations */
 
 /* Placeholder pages with cyberpunk design */
 .placeholder-container {

@@ -2,8 +2,6 @@
 title: Home
 ---
 
-# Welcome to the Digital Frontier
-
 <div class="terminal-box" id="main-terminal">
 <div class="terminal-header-container">
   <p class="terminal-text terminal-header">NEURAL COMMAND CENTER</p>
@@ -26,22 +24,44 @@ title: Home
 
 <div class="terminal-section">
   <p class="terminal-text terminal-subheader">LATEST AI RESEARCH</p>
-  <p class="terminal-paper-title" id="paper-title">-</p>
-  <p class="terminal-paper-details" id="paper-authors">-</p>
-  <p class="terminal-paper-details" id="paper-date">-</p>
-  <p class="terminal-paper-link"><a id="paper-link" href="#" class="terminal-link">-</a></p>
+  <div id="papers-container">
+    <div class="paper-item">
+      <p class="terminal-paper-title" id="paper-title-1">-</p>
+      <p class="terminal-paper-details" id="paper-authors-1">-</p>
+      <p class="terminal-paper-details" id="paper-date-1">-</p>
+      <p class="terminal-paper-link"><a id="paper-link-1" href="#" class="terminal-link">-</a></p>
+    </div>
+    
+    <div class="terminal-mini-divider"></div>
+    
+    <div class="paper-item">
+      <p class="terminal-paper-title" id="paper-title-2">-</p>
+      <p class="terminal-paper-details" id="paper-authors-2">-</p>
+      <p class="terminal-paper-details" id="paper-date-2">-</p>
+      <p class="terminal-paper-link"><a id="paper-link-2" href="#" class="terminal-link">-</a></p>
+    </div>
+    
+    <div class="terminal-mini-divider"></div>
+    
+    <div class="paper-item">
+      <p class="terminal-paper-title" id="paper-title-3">-</p>
+      <p class="terminal-paper-details" id="paper-authors-3">-</p>
+      <p class="terminal-paper-details" id="paper-date-3">-</p>
+      <p class="terminal-paper-link"><a id="paper-link-3" href="#" class="terminal-link">-</a></p>
+    </div>
+  </div>
 </div>
 </div>
 
 <script>
-// Simple API handlers with no animations or typing effects
+// Simple one-time data loading
 document.addEventListener('DOMContentLoaded', function() {
-  // Display current time
+  // Display static time
   const now = new Date();
   document.getElementById('current-time').textContent = 
     `${now.toLocaleTimeString()} | ${now.toLocaleDateString()}`;
   
-  // Get user IP from ipify
+  // Get user IP from ipify (one-time fetch)
   fetch('https://api.ipify.org?format=json')
     .then(response => response.json())
     .then(data => {
@@ -51,39 +71,45 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('user-ip').textContent = "Unable to detect";
     });
   
-  // Get latest AI research from arXiv
+  // Get latest AI research from arXiv (one-time fetch)
   const query = "cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.NE";
-  fetch(`https://export.arxiv.org/api/query?search_query=${query}&sortBy=submittedDate&sortOrder=descending&max_results=1`)
+  fetch(`https://export.arxiv.org/api/query?search_query=${query}&sortBy=submittedDate&sortOrder=descending&max_results=3`)
     .then(response => response.text())
     .then(data => {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(data, "text/xml");
       
-      const entry = xmlDoc.getElementsByTagName('entry')[0];
-      const title = entry.getElementsByTagName('title')[0].textContent.trim();
-      const authors = Array.from(entry.getElementsByTagName('author'))
-        .map(author => author.getElementsByTagName('name')[0].textContent)
-        .join(', ');
-      const published = new Date(entry.getElementsByTagName('published')[0].textContent);
-      const link = entry.getElementsByTagName('id')[0].textContent;
+      // Process all entries (up to 3)
+      const entries = xmlDoc.getElementsByTagName('entry');
       
-      // Format and display data
-      document.getElementById('paper-title').textContent = 
-        title.length > 60 ? title.substring(0, 57) + '...' : title;
-      
-      const authorCount = authors.split(',').length;
-      document.getElementById('paper-authors').textContent = 
-        `Authors: ${authors.split(',').slice(0,2).join(',')}${authorCount > 2 ? ' + more' : ''}`;
-      
-      document.getElementById('paper-date').textContent = 
-        `Published: ${published.toLocaleDateString()}`;
-      
-      const paperLink = document.getElementById('paper-link');
-      paperLink.href = link;
-      paperLink.textContent = "View on arXiv";
+      for (let i = 0; i < Math.min(entries.length, 3); i++) {
+        const entry = entries[i];
+        const title = entry.getElementsByTagName('title')[0].textContent.trim();
+        const authors = Array.from(entry.getElementsByTagName('author'))
+          .map(author => author.getElementsByTagName('name')[0].textContent)
+          .join(', ');
+        const published = new Date(entry.getElementsByTagName('published')[0].textContent);
+        const link = entry.getElementsByTagName('id')[0].textContent;
+        
+        // Format and display data for this paper
+        const titleEl = document.getElementById(`paper-title-${i+1}`);
+        const authorsEl = document.getElementById(`paper-authors-${i+1}`);
+        const dateEl = document.getElementById(`paper-date-${i+1}`);
+        const linkEl = document.getElementById(`paper-link-${i+1}`);
+        
+        titleEl.textContent = title.length > 50 ? title.substring(0, 47) + '...' : title;
+        
+        const authorCount = authors.split(',').length;
+        authorsEl.textContent = `${authors.split(',').slice(0,1).join(',')}${authorCount > 1 ? ' et al.' : ''}`;
+        
+        dateEl.textContent = `${published.toLocaleDateString()}`;
+        
+        linkEl.href = link;
+        linkEl.textContent = "View on arXiv";
+      }
     })
     .catch(() => {
-      document.getElementById('paper-title').textContent = "Unable to fetch paper";
+      document.getElementById('paper-title-1').textContent = "Unable to fetch papers";
     });
 });
 </script>
