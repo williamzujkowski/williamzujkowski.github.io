@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Personal Website",
+    "description": "My personal website and tech blog built with 11ty",
+    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+    "primaryLanguage": {
+      "name": "JavaScript",
+      "color": "#f1e05a"
+    },
+    "languages": {
+      "nodes": [
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a"
+        }
+      ]
+    },
+    "stargazerCount": 0,
+    "forkCount": 0,
+    "updatedAt": "2025-04-04T04:33:09.597Z"
+  }
+]

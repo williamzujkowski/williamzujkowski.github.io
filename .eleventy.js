@@ -64,6 +64,17 @@ module.exports = function(eleventyConfig) {
       return null;
     }
   });
+  
+  // Load GitHub pinned repositories if available
+  eleventyConfig.addGlobalData("github_pins", () => {
+    try {
+      const pins = require("./_data/github-pins.json");
+      return pins;
+    } catch (e) {
+      console.warn("GitHub pins data not found. Run build-github-pins.js to generate it.");
+      return null;
+    }
+  });
 
   // Create collection for all posts
   eleventyConfig.addCollection("posts", function(collectionApi) {

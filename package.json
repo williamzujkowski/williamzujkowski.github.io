@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npm run build:css && npm run build:arxiv && eleventy",
+    "build": "npm run build:css && npm run build:arxiv && npm run build:github && eleventy",
     "build:css": "postcss src/css/styles.css -o _site/css/styles.css",
     "build:arxiv": "node build-arxiv-feed.js",
+    "build:github": "node build-github-pins.js",
     "watch:css": "postcss src/css/styles.css -o _site/css/styles.css --watch",
     "serve": "npm run watch:css & eleventy --serve",
     "dev": "npm run serve",

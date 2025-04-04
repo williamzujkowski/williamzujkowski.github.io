@@ -474,6 +474,49 @@
   @apply text-text-light/80 dark:text-text-dark/80 leading-tight;
 }
 
+/* GitHub Pinned Repositories */
+.github-pins {
+  @apply max-w-3xl mx-auto mb-8;
+}
+
+.github-pins-grid {
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.repo-card {
+  @apply p-4 rounded border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark transition-all duration-200;
+  @apply hover:border-primary-light dark:hover:border-primary-dark;
+}
+
+.repo-card-header {
+  @apply flex items-center mb-2;
+}
+
+.repo-card-name {
+  @apply text-lg font-bold text-primary-light dark:text-primary-dark hover:underline;
+}
+
+.repo-card-description {
+  @apply text-sm text-text-light/80 dark:text-text-dark/80 mb-3 min-h-[3rem];
+}
+
+.repo-card-footer {
+  @apply flex flex-wrap items-center gap-3 text-xs text-text-light/70 dark:text-text-dark/70 pt-2 border-t border-border-light/50 dark:border-border-dark/50;
+}
+
+.repo-language {
+  @apply flex items-center gap-1;
+}
+
+.language-dot {
+  @apply w-2 h-2 rounded-full inline-block;
+}
+
+.repo-stats {
+  @apply flex items-center gap-3;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .site-header {

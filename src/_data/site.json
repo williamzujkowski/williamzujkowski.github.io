@@ -18,6 +18,7 @@
     "terminal_prompt": "william@dev: ~/profile",
     "show_recent_posts": true,
     "recent_posts_count": 3,
+    "show_github_pins": true,
     "show_arxiv_papers": true,
     "skills": [
       "Cloud Architecture & DevOps",

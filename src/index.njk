@@ -53,6 +53,10 @@ eleventyNavigation:
   {% include "terminal.njk" %}
   {% endif %}
   
+  {% if site.homepage.show_github_pins and github_pins %}
+    {% include "github-pins.njk" %}
+  {% endif %}
+
   {% if site.homepage.show_recent_posts %}
   <div class="recent-posts">
     <h2>Recent Blog Posts</h2>
