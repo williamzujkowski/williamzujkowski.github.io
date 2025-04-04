@@ -10,7 +10,15 @@
   </time>
   
   <div class="post-excerpt">
-    <p>{{ post.data.description or post.templateContent | striptags | truncate(200) }}</p>
+    <p>
+      {% if post.data.description %}
+        {{ post.data.description }}
+      {% elif post.templateContent %}
+        {{ post.templateContent | striptags | truncate(200) }}
+      {% else %}
+        No description available
+      {% endif %}
+    </p>
   </div>
   
   <a href="{{ post.url }}" class="read-more">

@@ -21,7 +21,13 @@ eleventyExcludeFromCollections: true
     <link href="{{ absolutePostUrl }}"/>
     <updated>{{ post.data.date | dateToRfc3339 }}</updated>
     <id>{{ absolutePostUrl }}</id>
-    <content type="html">{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</content>
+    <content type="html">
+      {% if post.templateContent %}
+        {{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}
+      {% else %}
+        <p>No content available</p>
+      {% endif %}
+    </content>
   </entry>
   {%- endfor %}
 </feed>
