@@ -49,10 +49,17 @@ async function fetchPinnedRepos() {
     console.log('Fetching pinned repositories from GitHub...');
     
     // Try to use GitHub token from environment variable if available
-    const token = process.env.GITHUB_TOKEN || '';
+    // GitHub Actions automatically provides GITHUB_TOKEN
+    const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
     const headers = token 
       ? { 'Authorization': `Bearer ${token}` }
       : {};
+      
+    if (token) {
+      console.log('Using GitHub token for authentication');
+    } else {
+      console.log('No GitHub token found, requests may be rate limited');
+    }
     
     const response = await fetch('https://api.github.com/graphql', {
       method: 'POST',

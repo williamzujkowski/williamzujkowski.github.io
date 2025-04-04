@@ -24,12 +24,14 @@ jobs:
       - name: Prepare for build
         run: |
           mkdir -p src/_includes
-          cp _layouts/base.njk src/_includes/
-          cp _layouts/post.njk src/_includes/
+          cp _layouts/*.njk src/_includes/
+          cp _includes/*.njk src/_includes/
           touch .nojekyll
 
       - name: Build site
         run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
