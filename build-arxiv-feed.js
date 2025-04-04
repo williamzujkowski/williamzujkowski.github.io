@@ -3,10 +3,15 @@
 // filters those from the last 30 days, then queries Semantic Scholar for citation counts.
 // Finally, it sorts the papers by citation count (popularity) and writes the top few to a JSON file.
 
-const fetch = require('node-fetch');
-const xml2js = require('xml2js');
-const fs = require('fs');
-const path = require('path');
+import fetch from 'node-fetch';
+import { Parser } from 'xml2js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get current file directory with ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Define the query URL to target the cs.AI, cs.LG, and cs.CR categories.
 const queryUrl = 'http://export.arxiv.org/api/query?search_query=(cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CR)&start=0&max_results=50&sortBy=submittedDate&sortOrder=descending';
@@ -23,7 +28,7 @@ async function fetchArxivData() {
     }
     const xml = await res.text();
     // Parse the XML using xml2js
-    const parser = new xml2js.Parser();
+    const parser = new Parser();
     const result = await parser.parseStringPromise(xml);
     return result;
   } catch (error) {
