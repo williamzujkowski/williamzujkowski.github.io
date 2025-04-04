@@ -1,0 +1,24 @@
+<div class="terminal-box">
+  <div class="terminal-header">{{ header | default('user@system: ~/terminal') }}</div>
+  <div class="terminal-content">
+    {% for item in commands %}
+      <div class="command-line">
+        <span class="prompt">$</span>
+        <span class="command">{{ item.command }}</span>
+      </div>
+      <div class="response">
+        {% if item.type === 'text' %}
+          <p>{{ item.response }}</p>
+        {% elif item.type === 'list' %}
+          <ul>
+            {% for li in item.response %}
+              <li>{{ li | safe }}</li>
+            {% endfor %}
+          </ul>
+        {% elif item.type === 'html' %}
+          {{ item.response | safe }}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

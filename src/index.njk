@@ -7,63 +7,54 @@ eleventyNavigation:
   order: 1
 ---
 <div class="home-content">
-  <header class="home-header">
-    <h1>{{ site.homepage.welcome_heading }}</h1>
-    <p>{{ site.homepage.welcome_subtitle }}</p>
-  </header>
-
-  
+  {% include "page-header.njk" with {
+    class_name: "home-header",
+    title: site.homepage.welcome_heading,
+    subtitle: site.homepage.welcome_subtitle
+  } %}
   {% if site.homepage.show_terminal %}
-  <div class="terminal-box">
-    <div class="terminal-header">{{ site.homepage.terminal_prompt }}</div>
-    <div class="terminal-content">
-      <div class="command-line">
-        <span class="prompt">$</span>
-        <span class="command">whoami</span>
-      </div>
-      <div class="response">
-        <p>I'm a software engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.</p>
-      </div>
-      
-      <div class="command-line">
-        <span class="prompt">$</span>
-        <span class="command">skills --list</span>
-      </div>
-      <div class="response">
-        <ul>
-          {% for skill in site.homepage.skills %}
-          <li>{{ skill }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      
-      <div class="command-line">
-        <span class="prompt">$</span>
-        <span class="command">cat interests.txt</span>
-      </div>
-      <div class="response">
-        <p>{{ site.homepage.interests }}</p>
-      </div>
-      
-      <div class="command-line">
-        <span class="prompt">$</span>
-        <span class="command">ls projects/</span>
-      </div>
-      <div class="response">
-        <div class="file-listing">
-          {% for link in site.links %}
-            {% if link.group == "Projects" %}
-            <div class="file">
-              <span class="file-name"><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></span>
-              <span class="file-desc">{{ link.description }}</span>
-            </div>
-            {% endif %}
-          {% endfor %}
+  {% set skillsList = [] %}
+  {% for skill in site.homepage.skills %}
+    {% set skillsList = (skillsList.push(skill), skillsList) %}
+  {% endfor %}
+  
+  {% set projectsHtml %}
+    <div class="file-listing">
+      {% for link in site.links %}
+        {% if link.group == "Projects" %}
+        <div class="file">
+          <span class="file-name"><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></span>
+          <span class="file-desc">{{ link.description }}</span>
         </div>
-      </div>
+        {% endif %}
+      {% endfor %}
     </div>
-  </div>
-
+  {% endset %}
+  
+  {% set homeCommands = [
+    {
+      command: 'whoami',
+      type: 'text',
+      response: 'I\'m a software engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.'
+    },
+    {
+      command: 'skills --list',
+      type: 'list',
+      response: site.homepage.skills
+    },
+    {
+      command: 'cat interests.txt',
+      type: 'text',
+      response: site.homepage.interests
+    },
+    {
+      command: 'ls projects/',
+      type: 'html',
+      response: projectsHtml
+    }
+  ] %}
+  
+  {% include "terminal.njk" with {header: site.homepage.terminal_prompt, commands: homeCommands} %}
   {% endif %}
   
   {% if site.homepage.show_recent_posts %}
@@ -72,14 +63,7 @@ eleventyNavigation:
     <ul class="post-list">
       {%- for post in collections.posts | reverse -%}
         {% if loop.index <= site.homepage.recent_posts_count %}
-          <li class="post-item">
-            <h3 class="post-title"><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
-            <time class="post-date" datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
-            <div class="post-excerpt">
-              <p>{{ post.data.description or post.templateContent | striptags | truncate(150) }}</p>
-            </div>
-            <a href="{{ post.url }}" class="read-more">Read more &rarr;</a>
-          </li>
+          {% include "post-list-item.njk" %}
         {% endif %}
       {%- endfor -%}
     </ul>

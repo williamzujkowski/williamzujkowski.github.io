@@ -6,7 +6,10 @@ eleventyNavigation:
   key: Links
   order: 2
 ---
-<h1>Links</h1>
+{% include "page-header.njk" with {
+  title: "Links",
+  subtitle: "A collection of interesting resources and projects"
+} %}
 
 <div class="links-groups">
   {% for group in site.linkGroups %}

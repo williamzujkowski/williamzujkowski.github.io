@@ -6,29 +6,26 @@ eleventyNavigation:
   key: Blog
   order: 3
 ---
-<div class="blog-header">
-  <h1>Blog</h1>
-  <p>Thoughts, insights, and explorations in tech.</p>
-  
-  <div class="search-container">
-    <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
-    <div class="search-results">
-      Showing <span id="search-results-count">{{ collections.posts | length }}</span> posts
-    </div>
+{% set searchWidget %}
+<div class="search-container">
+  <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+  <div class="search-results">
+    Showing <span id="search-results-count">{{ collections.posts | length }}</span> posts
   </div>
 </div>
+{% endset %}
+
+{% include "page-header.njk" with {
+  class_name: "blog-header",
+  title: "Blog",
+  subtitle: "Thoughts, insights, and explorations in tech.",
+  content: searchWidget
+} %}
 
 <div class="blog-posts">
   <ul class="post-list">
     {%- for post in collections.posts | reverse -%}
-      <li class="post-item searchable">
-        <h2 class="post-title"><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
-        <time class="post-date" datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
-        <div class="post-excerpt">
-          <p>{{ post.data.description or post.templateContent | striptags | truncate(200) }}</p>
-        </div>
-        <a href="{{ post.url }}" class="read-more">Read more &rarr;</a>
-      </li>
+      {% include "post-list-item.njk" %}
     {%- endfor -%}
   </ul>
 </div>

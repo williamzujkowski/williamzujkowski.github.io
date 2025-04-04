@@ -1,0 +1,5 @@
+<header class="{{ class_name | default('page-header') }}">
+  <h1>{{ title }}</h1>
+  {% if subtitle %}<p>{{ subtitle }}</p>{% endif %}
+  {% if content %}{{ content | safe }}{% endif %}
+</header>
