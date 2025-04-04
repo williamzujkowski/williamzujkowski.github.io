@@ -7,7 +7,7 @@ tags: posts
 
 # Welcome to My Blog
 
-This is a placeholder blog post. You can add more posts by adding markdown files to the `content/posts` directory.
+This is a placeholder blog post. You can add more posts by adding markdown files to the `src/posts` directory.
 
 ## Markdown Support
 
