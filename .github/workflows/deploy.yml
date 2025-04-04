@@ -26,10 +26,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '16'
           cache: 'npm'
           cache-dependency-path: '**/package.json'
 
+      - name: Check Node.js and npm versions
+        run: |
+          node -v
+          npm -v
+      
       - name: Install dependencies
         run: npm ci || npm install
 
@@ -53,9 +58,14 @@ jobs:
       - name: Build CSS
         run: |
           mkdir -p _site/css
-          npx postcss src/css/styles.css -o _site/css/styles.css
-          # Fallback - copy the original CSS file just in case PostCSS fails
-          cp src/css/styles.css _site/css/styles.original.css
+          # Try to process with PostCSS
+          if ! npx postcss --config postcss.config.cjs src/css/styles.css -o _site/css/styles.css; then
+            echo "PostCSS failed, using fallback CSS files"
+            cp src/css/styles.css _site/css/styles.css
+            cp src/css/basic.css _site/css/basic.css
+            # Create a link to basic.css in the head
+            echo '<link rel="stylesheet" href="/css/basic.css">' > _site/css/fallback.html
+          fi
 
       - name: Debug output directory
         run: ls -la _site
