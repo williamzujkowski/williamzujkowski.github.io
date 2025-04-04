@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./_includes/**/*.{njk,md,js}",
     "./_layouts/**/*.{njk,md,js}",
     "./src/**/*.{njk,md,js}",
+    "./src/_includes/**/*.{njk,md,js}",
     "./*.{njk,md,js}"
   ],
   darkMode: 'media', // or 'class' for manual toggle control
