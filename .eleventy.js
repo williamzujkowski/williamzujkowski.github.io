@@ -11,10 +11,10 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(pluginRss);
   
-  // Pass through copy for assets
+  // Copy files
   eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy("src/css");
-  eleventyConfig.addPassthroughCopy("src/js");
+  eleventyConfig.addPassthroughCopy({ "src/js": "js" });
+  eleventyConfig.addPassthroughCopy({ "src/css/*.!(css)": "css" });
   
   // Date formatting
   eleventyConfig.addFilter("readableDate", dateObj => {
