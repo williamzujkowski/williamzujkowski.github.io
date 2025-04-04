@@ -4,14 +4,28 @@
   "url": "https://williamzujkowski.github.io",
   "author": "William Zujkowski",
   "email": "william@example.com",
-  "theme": "light",
+  "theme": "system",
+  "seo": {
+    "keywords": "software engineering, web development, cloud architecture, cybersecurity, AI, machine learning",
+    "og_image": "/assets/images/og-image.jpg",
+    "twitter_handle": "@williamzujkowski",
+    "google_analytics_id": ""
+  },
   "homepage": {
     "welcome_heading": "Welcome",
     "welcome_subtitle": "Software Engineer & Technology Enthusiast",
     "show_terminal": true,
     "terminal_prompt": "william@dev: ~/profile",
     "show_recent_posts": true,
-    "recent_posts_count": 3
+    "recent_posts_count": 3,
+    "skills": [
+      "Cloud Architecture & DevOps",
+      "Cybersecurity & Threat Analysis",
+      "Machine Learning & AI Development",
+      "Full Stack Development",
+      "System Design & Architecture"
+    ],
+    "interests": "When not coding, I enjoy exploring emerging technologies, contributing to open-source projects, and writing about tech trends. I'm particularly interested in the intersection of AI ethics, privacy, and security."
   },
   "social_media": [
     {

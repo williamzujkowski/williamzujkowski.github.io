@@ -166,6 +166,22 @@
     @apply mb-10;
   }
   
+  .file-listing {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+  }
+  
+  .file {
+    @apply p-2 border border-border-light dark:border-border-dark rounded;
+  }
+  
+  .file-name {
+    @apply font-mono block mb-1 text-primary-light dark:text-primary-dark;
+  }
+  
+  .file-desc {
+    @apply text-sm text-muted-light dark:text-muted-dark;
+  }
+  
   .recent-posts {
     @apply mt-16;
   }
@@ -180,6 +196,28 @@
   
   .social-btn {
     @apply inline-flex items-center gap-2 py-2 px-4 bg-light-light dark:bg-light-dark border border-border-light dark:border-border-dark rounded-md text-primary-light dark:text-primary-dark font-bold hover:border-primary-light dark:hover:border-primary-dark transition-colors duration-200;
+  }
+  
+  /* Accessibility features */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-4 focus:bg-white focus:text-black focus:outline-none;
+  }
+  
+  .scroll-top-btn {
+    @apply fixed bottom-6 right-6 w-10 h-10 rounded-full bg-primary-light dark:bg-primary-dark text-white flex items-center justify-center shadow-classic dark:shadow-classic-dark cursor-pointer z-30;
+  }
+  
+  /* Search */
+  .search-container {
+    @apply my-6 w-full;
+  }
+  
+  #search-input {
+    @apply w-full p-2 rounded border border-border-light dark:border-border-dark bg-white dark:bg-light-dark text-text-light dark:text-text-dark;
+  }
+  
+  .search-results {
+    @apply text-sm text-muted-light dark:text-muted-dark mt-2;
   }
   
   .view-all-posts {
@@ -228,6 +266,14 @@
   }
 
   /* Blog Page */
+  .blog-header {
+    @apply mb-10;
+  }
+  
+  .blog-header p {
+    @apply text-muted-light dark:text-muted-dark mb-4;
+  }
+  
   .post-list {
     @apply list-none p-0;
   }

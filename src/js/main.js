@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (terminalBox) {
     simulateClientInfo();
   }
+  
+  // Initialize search function
+  initSearch();
+  
+  // Add scroll to top button
+  addScrollToTopButton();
+  
+  // Add keyboard navigation for accessibility
+  addKeyboardNavigation();
 });
 
 // Simulate client information display
@@ -101,4 +110,84 @@ function simulatePing() {
   
   // Update every 3-8 seconds
   setInterval(updatePing, Math.floor(Math.random() * 5000) + 3000);
+}
+
+// Initialize search functionality
+function initSearch() {
+  const searchInput = document.getElementById('search-input');
+  if (!searchInput) return;
+  
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const searchableElements = document.querySelectorAll('.searchable');
+    
+    searchableElements.forEach(element => {
+      const text = element.textContent.toLowerCase();
+      if (text.includes(query) || query === '') {
+        element.style.display = '';
+      } else {
+        element.style.display = 'none';
+      }
+    });
+    
+    // Update count of visible items
+    const visibleCount = document.querySelectorAll('.searchable:not([style="display: none;"])').length;
+    const resultCount = document.getElementById('search-results-count');
+    if (resultCount) {
+      resultCount.textContent = visibleCount;
+    }
+  });
+}
+
+// Add scroll to top button
+function addScrollToTopButton() {
+  // Create the button
+  const button = document.createElement('button');
+  button.innerHTML = '&uarr;';
+  button.className = 'scroll-top-btn';
+  button.setAttribute('aria-label', 'Scroll to top');
+  button.style.display = 'none';
+  document.body.appendChild(button);
+  
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      button.style.display = 'block';
+    } else {
+      button.style.display = 'none';
+    }
+  });
+  
+  // Scroll to top when clicked
+  button.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+// Add keyboard navigation for accessibility
+function addKeyboardNavigation() {
+  // Skip to content link
+  const skipLink = document.createElement('a');
+  skipLink.href = '#main-content';
+  skipLink.className = 'skip-link';
+  skipLink.textContent = 'Skip to content';
+  document.body.prepend(skipLink);
+  
+  // Add tabindex to main elements
+  const mainContent = document.querySelector('main');
+  if (mainContent) {
+    mainContent.id = 'main-content';
+    mainContent.setAttribute('tabindex', '-1');
+  }
+  
+  // Add aria attributes to navigation
+  const navItems = document.querySelectorAll('nav a');
+  navItems.forEach(item => {
+    if (window.location.pathname === item.getAttribute('href')) {
+      item.setAttribute('aria-current', 'page');
+    }
+  });
 }

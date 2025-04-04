@@ -38,11 +38,9 @@ eleventyNavigation:
       </div>
       <div class="response">
         <ul>
-          <li>Cloud Architecture & DevOps</li>
-          <li>Cybersecurity & Threat Analysis</li>
-          <li>Machine Learning & AI Development</li>
-          <li>Full Stack Development</li>
-          <li>System Design & Architecture</li>
+          {% for skill in site.homepage.skills %}
+          <li>{{ skill }}</li>
+          {% endfor %}
         </ul>
       </div>
       
@@ -51,7 +49,24 @@ eleventyNavigation:
         <span class="command">cat interests.txt</span>
       </div>
       <div class="response">
-        <p>When not coding, I enjoy exploring emerging technologies, contributing to open-source projects, and writing about tech trends. I'm particularly interested in the intersection of AI ethics, privacy, and security.</p>
+        <p>{{ site.homepage.interests }}</p>
+      </div>
+      
+      <div class="command-line">
+        <span class="prompt">$</span>
+        <span class="command">ls projects/</span>
+      </div>
+      <div class="response">
+        <div class="file-listing">
+          {% for link in site.links %}
+            {% if link.group == "Projects" %}
+            <div class="file">
+              <span class="file-name"><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></span>
+              <span class="file-desc">{{ link.description }}</span>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
