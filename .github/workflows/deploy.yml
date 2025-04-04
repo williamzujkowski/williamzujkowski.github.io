@@ -23,24 +23,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.11"
-          cache: pip
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        run: npm install
 
-      - name: Build static site
-        run: python main.py --build --env production
+      - name: Build CSS
+        run: npx postcss src/css/styles.css -o _site/css/styles.css
+
+      - name: Build site
+        run: npx @11ty/eleventy
 
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build
+          path: ./_site
 
   deploy:
     environment:
