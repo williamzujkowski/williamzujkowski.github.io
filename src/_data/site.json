@@ -12,9 +12,11 @@
     { "name": "Contact", "url": "/contact/", "icon": "" }
   ],
   "linkGroups": [
-    { "name": "Social", "icon": "" },
-    { "name": "Projects", "icon": "" },
-    { "name": "Resources", "icon": "" }
+    { "name": "Social", "icon": "🔗" },
+    { "name": "Projects", "icon": "💻" },
+    { "name": "Technology & Innovation", "icon": "🚀" },
+    { "name": "Art, Culture & Exploration", "icon": "🎨" },
+    { "name": "Fun & Curiosities", "icon": "🎮" }
   ],
   "links": [
     { "name": "GitHub", "url": "https://github.com/williamzujkowski", "group": "Social", "icon": "GitHub" },
@@ -22,8 +24,39 @@
     { "name": "Twitter", "url": "https://twitter.com/williamzujkowski", "group": "Social", "icon": "Twitter" },
     { "name": "Project 1", "url": "https://github.com/williamzujkowski/project1", "group": "Projects", "description": "A sample project" },
     { "name": "Project 2", "url": "https://github.com/williamzujkowski/project2", "group": "Projects", "description": "Another sample project" },
-    { "name": "Python Documentation", "url": "https://docs.python.org", "group": "Resources", "description": "Official Python documentation" },
-    { "name": "Textual Documentation", "url": "https://textual.textualize.io", "group": "Resources", "description": "Textual TUI framework documentation" }
+    
+    { "name": "Learn X in Y Minutes", "url": "https://learnxinyminutes.com/", "group": "Technology & Innovation", "description": "Quick programming language tutorials" },
+    { "name": "Set Up Your Own LTE Network", "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/", "group": "Technology & Innovation", "description": "DIY guide to building your very own LTE network" },
+    { "name": "International Space Elevator Consortium", "url": "https://www.isec.org/", "group": "Technology & Innovation", "description": "Promotes the development of a space elevator to revolutionize space travel" },
+    { "name": "Orion's Arm Universe Project", "url": "https://www.orionsarm.com/", "group": "Technology & Innovation", "description": "A collaborative project imagining a future with advanced technologies and AI" },
+    { "name": "DustinBrett.com", "url": "https://dustinbrett.com/", "group": "Technology & Innovation", "description": "Insightful commentary on technology and digital culture" },
+    { "name": "Parallel Lives", "url": "https://janwillemtulp.github.io/parallel-lives/", "group": "Technology & Innovation", "description": "A creative exploration of alternate realities in digital art" },
+    { "name": "Simone Computer", "url": "https://simone.computer/", "group": "Technology & Innovation", "description": "A cutting-edge platform merging art and technology" },
+    { "name": "Departure Mono", "url": "https://departuremono.com/", "group": "Technology & Innovation", "description": "A minimalist design and tech blog challenging conventional thinking" },
+    { "name": "Stippler", "url": "https://stippler.wolfandreas.com/", "group": "Technology & Innovation", "description": "Showcases visually striking digital artwork and creative tech projects" },
+    
+    { "name": "Centauri Dreams", "url": "https://www.centauri-dreams.org/", "group": "Art, Culture & Exploration", "description": "Paul Gilster's blog on deep space exploration and interstellar travel" },
+    { "name": "Center for PostNatural History", "url": "https://postnatural.org/", "group": "Art, Culture & Exploration", "description": "A museum dedicated to organisms altered by humans, blending biology and technology" },
+    { "name": "Museum of Obsolete Media", "url": "https://obsoletemedia.org/", "group": "Art, Culture & Exploration", "description": "An online museum showcasing and preserving obsolete audio, video, and data formats" },
+    { "name": "The Public Domain Review", "url": "https://publicdomainreview.org/", "group": "Art, Culture & Exploration", "description": "Explores and curates art, literature, and ideas that are now in the public domain" },
+    { "name": "Radio Garden", "url": "https://radio.garden/listen", "group": "Art, Culture & Exploration", "description": "Listen to live radio stations worldwide by rotating a virtual globe" },
+    { "name": "Submarine Cable Map", "url": "https://www.submarinecablemap.com/", "group": "Art, Culture & Exploration", "description": "An interactive map of the global undersea cables that power the internet" },
+    { "name": "The Tau Zero Foundation", "url": "https://tauzero.aero/", "group": "Art, Culture & Exploration", "description": "Explores the science behind interstellar travel and advances in space exploration" },
+    { "name": "Falling Falling", "url": "https://www.fallingfalling.com/", "group": "Art, Culture & Exploration", "description": "An immersive interactive experience of cascading colors and shapes" },
+    { "name": "Floor796", "url": "https://floor796.com/", "group": "Art, Culture & Exploration", "description": "A creative hub blending design, art, and experimental projects" },
+    { "name": "YYYYYYY", "url": "https://www.yyyyyyy.info/", "group": "Art, Culture & Exploration", "description": "A minimalist experimental site exploring abstract ideas" },
+    { "name": "National Film Registry", "url": "https://www.loc.gov/programs/national-film-preservation-board/film-registry/watch-films-on-the-national-film-registry/", "group": "Art, Culture & Exploration", "description": "Watch films preserved for their cultural, historical, or aesthetic significance" },
+    
+    { "name": "International Association of Exorcists", "url": "https://www.aieinternational.org/", "group": "Fun & Curiosities", "description": "A humorous global organization supporting Catholic exorcists" },
+    { "name": "Paperclip AI Game", "url": "https://www.decisionproblem.com/paperclips/", "group": "Fun & Curiosities", "description": "A quirky game about the art of making paperclips" },
+    { "name": "The Kid Should See This", "url": "https://thekidshouldseethis.com/", "group": "Fun & Curiosities", "description": "Curated educational videos for curious minds" },
+    { "name": "The Website is Down", "url": "https://www.thewebsiteisdown.com", "group": "Fun & Curiosities", "description": "A collection of hilarious IT videos" },
+    { "name": "Zombo.com", "url": "https://zombo.com/", "group": "Fun & Curiosities", "description": "A surreal, humorous portal promising endless possibilities" },
+    { "name": "Nested", "url": "https://orteil.dashnet.org/nested", "group": "Fun & Curiosities", "description": "A mesmerizing interactive experience exploring infinite recursion" },
+    { "name": "Stimulation Clicker", "url": "https://neal.fun/stimulation-clicker/", "group": "Fun & Curiosities", "description": "A playful clicker game that tests your patience and curiosity" },
+    { "name": "MementoMovi", "url": "https://mementomovi.wackyneighbor.com/", "group": "Fun & Curiosities", "description": "A quirky site combining art and memory in unexpected ways" },
+    { "name": "QuirkZone", "url": "https://quirkzone.org/", "group": "Fun & Curiosities", "description": "A collection of offbeat curiosities and unexpected internet gems" },
+    { "name": "Funky Fossils", "url": "https://funkyfossils.com/", "group": "Fun & Curiosities", "description": "A whimsical journey through bizarre prehistoric discoveries" }
   ],
   "blog": {
     "postsPerPage": 5,
