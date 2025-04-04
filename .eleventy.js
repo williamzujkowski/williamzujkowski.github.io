@@ -101,11 +101,11 @@ export default function(eleventyConfig) {
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
     dir: {
-      input: ".",
-      includes: "_includes",
-      layouts: "_layouts",
-      data: "_data",
-      output: "_site"
+      input: "src",
+      output: "_site",
+      includes: "../_includes",
+      layouts: "../_layouts",
+      data: "../_data"
     }
   };
 };

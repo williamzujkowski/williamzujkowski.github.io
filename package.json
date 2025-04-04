@@ -5,13 +5,18 @@
   "main": "index.js",
   "type": "module",
   "homepage": "https://williamzujkowski.github.io",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=8"
+  },
   "scripts": {
-    "build": "npm run build:arxiv && npm run build:github && eleventy --config=.eleventy.simple.cjs && npm run build:css",
+    "build": "npm run build:data && eleventy --config=.eleventy.simple.cjs && npm run build:css",
     "build:css": "postcss src/css/styles.css -o _site/css/styles.css",
+    "build:data": "npm run build:arxiv && npm run build:github",
     "build:arxiv": "node build-arxiv-feed.js",
     "build:github": "node build-github-pins.js",
     "watch:css": "postcss src/css/styles.css -o _site/css/styles.css --watch",
-    "serve": "npm run watch:css & eleventy --config=.eleventy.simple.cjs --serve",
+    "serve": "npm run build:data && npm run watch:css & eleventy --config=.eleventy.simple.cjs --serve",
     "dev": "npm run serve",
     "debug": "DEBUG=* eleventy --config=.eleventy.simple.cjs"
   },

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const terminalBox = document.querySelector('.terminal-box');
   if (terminalBox) {
     simulateClientInfo();
+    animateTerminalCommands();
   }
   
   // Initialize search function
@@ -22,6 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Add keyboard navigation for accessibility
   addKeyboardNavigation();
+  
+  // Add parallax effect to cards on mouse move
+  addCardParallaxEffect();
+  
+  // Add scroll reveal animations
+  addScrollRevealAnimations();
 });
 
 // Simulate client information display
@@ -189,5 +196,106 @@ function addKeyboardNavigation() {
     if (window.location.pathname === item.getAttribute('href')) {
       item.setAttribute('aria-current', 'page');
     }
+  });
+}
+
+// Animate terminal commands with typewriter effect
+function animateTerminalCommands() {
+  // Get all command elements
+  const commands = document.querySelectorAll('.command');
+  
+  // Apply typewriter effect to each command
+  commands.forEach((command, index) => {
+    const text = command.textContent;
+    const delay = index * 1500; // Stagger the animations
+    
+    // Clear the text content
+    command.textContent = '';
+    
+    // Set up the animation with setTimeout
+    setTimeout(() => {
+      let i = 0;
+      const typeSpeed = 50; // ms per character
+      
+      function typeWriter() {
+        if (i < text.length) {
+          command.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, Math.random() * 100 + typeSpeed);
+        }
+      }
+      
+      typeWriter();
+    }, delay);
+  });
+}
+
+// Add parallax effect to cards on mouse move
+function addCardParallaxEffect() {
+  const cards = document.querySelectorAll('.repo-card, .post-item');
+  
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      // Get position of mouse in card
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left; // x position within the card
+      const y = e.clientY - rect.top; // y position within the card
+      
+      // Calculate rotation based on mouse position
+      // The multiplier affects the intensity of the effect
+      const multiplier = 10;
+      const rotateY = ((x / rect.width) - 0.5) * multiplier;
+      const rotateX = ((y / rect.height) - 0.5) * -multiplier;
+      
+      // Apply the transform
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+      
+      // Add a soft highlight effect where the mouse is
+      const highlight = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15), rgba(255,255,255,0) 100px)`;
+      card.style.backgroundImage = highlight;
+    });
+    
+    // Reset transforms when mouse leaves
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.backgroundImage = '';
+      // Add a smooth transition back to normal
+      card.style.transition = 'transform 0.5s ease-out, background-image 0.5s ease-out';
+      
+      // Remove the transition property after the animation completes
+      setTimeout(() => {
+        card.style.transition = '';
+      }, 500);
+    });
+  });
+}
+
+// Add scroll reveal animations
+function addScrollRevealAnimations() {
+  const elementsToAnimate = document.querySelectorAll('.post-item, .repo-card, .terminal-box, h2, .github-pins, .recent-posts');
+  
+  // Create an Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      // If the element is in the viewport
+      if (entry.isIntersecting) {
+        // Add a class to fade it in
+        entry.target.classList.add('revealed');
+        // Unobserve the element after it's been revealed
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null, // Use the viewport as the root
+    threshold: 0.1, // Trigger when at least 10% of the element is visible
+    rootMargin: '0px 0px -50px 0px' // Trigger a bit before the element enters the viewport
+  });
+  
+  // Add a base class for the initial state and observe each element
+  elementsToAnimate.forEach((element, index) => {
+    // Add a staggered delay based on index
+    element.style.transitionDelay = `${index * 0.1}s`;
+    element.classList.add('scroll-reveal');
+    observer.observe(element);
   });
 }
