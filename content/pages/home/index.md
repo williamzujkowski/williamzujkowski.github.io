@@ -161,24 +161,30 @@ title: Home
       </div>
 
       <div class="host-info-section">
-        <div class="host-info-item animated-border">
-          <div class="host-info-key"><i class="info-icon">📡</i> IP ADDRESS</div>
-          <div class="host-info-data"><span id="user-ip">Detecting...</span></div>
-        </div>
-        
-        <div class="host-info-item animated-border">
-          <div class="host-info-key"><i class="info-icon">🕒</i> LOCAL TIME</div>
-          <div class="host-info-data"><span id="current-time">Loading...</span></div>
-        </div>
-        
-        <div class="host-info-item animated-border">
-          <div class="host-info-key"><i class="info-icon">📍</i> LOCATION</div>
-          <div class="host-info-data"><span id="user-location">Detecting...</span></div>
-        </div>
-        
-        <div class="host-info-item animated-border">
-          <div class="host-info-key"><i class="info-icon">💻</i> SYSTEM</div>
-          <div class="host-info-data"><span id="user-browser">Analyzing...</span></div>
+        <div class="host-info-grid">
+          <div class="grid-item animated-border">
+            <div class="grid-item-icon">📡</div>
+            <div class="grid-item-label">IP ADDRESS</div>
+            <div class="grid-item-value"><span id="user-ip">Detecting...</span></div>
+          </div>
+          
+          <div class="grid-item animated-border">
+            <div class="grid-item-icon">🕒</div>
+            <div class="grid-item-label">LOCAL TIME</div>
+            <div class="grid-item-value"><span id="current-time">Loading...</span></div>
+          </div>
+          
+          <div class="grid-item animated-border">
+            <div class="grid-item-icon">📍</div>
+            <div class="grid-item-label">LOCATION</div>
+            <div class="grid-item-value"><span id="user-location">Detecting...</span></div>
+          </div>
+          
+          <div class="grid-item animated-border">
+            <div class="grid-item-icon">💻</div>
+            <div class="grid-item-label">SYSTEM</div>
+            <div class="grid-item-value"><span id="user-browser">Analyzing...</span></div>
+          </div>
         </div>
       </div>
       

@@ -497,17 +497,26 @@ Footer {
     border-bottom: solid $neon-blue;
 }
 
-.host-info-item {
+/* Grid layout for host info */
+.host-info-grid {
     display: grid;
     grid-size: 2;
     grid-columns: 1fr 1fr;
-    padding: 1;
-    margin: 0 0 1 0;
-    border-left: solid $neon-pink;
-    border-bottom: thin $neon-blue;
+    grid-gutter: 1 1;
+    padding: 0.5;
+}
+
+.grid-item {
     background: $darker-blue;
+    border: solid $dark-blue;
+    border-left: solid $neon-pink;
+    padding: 1;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .animated-border::before {
@@ -527,23 +536,26 @@ Footer {
     100% { background-position: 0 0; }
 }
 
-.info-icon {
-    margin-right: 1;
+.grid-item-icon {
+    font-size: 150%;
+    margin-bottom: 0.5;
+    color: $neon-purple;
 }
 
-.host-info-key {
+.grid-item-label {
     color: $neon-blue;
-    padding: 0;
+    font-size: 80%;
     text-style: bold;
-    text-align: left;
-    padding-right: 1;
-    border-right: thin $neon-blue;
+    margin-bottom: 0.5;
+    width: 100%;
+    border-bottom: thin $dark-blue;
+    padding-bottom: 0.5;
 }
 
-.host-info-data {
+.grid-item-value {
     color: $terminal-green;
-    padding-left: 1;
-    text-align: right;
+    text-style: bold;
+    margin-top: 0.5;
 }
 
 /* Time update animation */
