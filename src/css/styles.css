@@ -453,6 +453,27 @@
   }
 }
 
+/* arXiv Papers styles */
+.arxiv-papers {
+  @apply max-w-3xl mx-auto;
+}
+
+.arxiv-papers .papers-list {
+  @apply divide-y divide-border-light dark:divide-border-dark;
+}
+
+.arxiv-papers .paper-item {
+  @apply transition-all duration-200 hover:bg-background-light/80 dark:hover:bg-background-dark/80;
+}
+
+.arxiv-papers .paper-meta {
+  @apply flex flex-wrap gap-2 text-xs;
+}
+
+.arxiv-papers .paper-summary {
+  @apply text-text-light/80 dark:text-text-dark/80 leading-tight;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .site-header {

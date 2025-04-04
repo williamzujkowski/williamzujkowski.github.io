@@ -1,3 +1,0 @@
-This is a placeholder for a cloud network image.
-In a real implementation, this would be replaced with an actual image file.
-For the purpose of this example, imagine an interconnected cloud system with data nodes flowing between servers in a digital landscape.

@@ -16,6 +16,10 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/css/*.!(css)": "css" });
   eleventyConfig.addPassthroughCopy(".nojekyll");
+  eleventyConfig.addPassthroughCopy("site.webmanifest");
+  eleventyConfig.addPassthroughCopy("favicon.ico");
+  eleventyConfig.addPassthroughCopy("icon.svg");
+  eleventyConfig.addPassthroughCopy("apple-touch-icon.png");
   
   // Date formatting
   eleventyConfig.addFilter("readableDate", dateObj => {
@@ -25,6 +29,11 @@ module.exports = function(eleventyConfig) {
   // Date for sitemap
   eleventyConfig.addFilter("isoDate", dateObj => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toISO();
+  });
+  
+  // Generic date formatter
+  eleventyConfig.addFilter("date", (dateObj, format) => {
+    return DateTime.fromISO(dateObj).toFormat(format);
   });
 
   // Add a shortcode for current year
@@ -43,6 +52,17 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addGlobalData("site", () => {
     const config = require("./src/_data/site.json");
     return config;
+  });
+  
+  // Load ArXiv feed data if available
+  eleventyConfig.addGlobalData("arxiv_feed", () => {
+    try {
+      const feed = require("./_data/arxiv-feed.json");
+      return feed;
+    } catch (e) {
+      console.warn("ArXiv feed data not found. Run build-arxiv-feed.js to generate it.");
+      return null;
+    }
   });
 
   // Create collection for all posts

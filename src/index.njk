@@ -7,11 +7,7 @@ eleventyNavigation:
   order: 1
 ---
 <div class="home-content">
-  {% include "page-header.njk" with {
-    class_name: "home-header",
-    title: site.homepage.welcome_heading,
-    subtitle: site.homepage.welcome_subtitle
-  } %}
+  {% include "page-header.njk" %}
   {% if site.homepage.show_terminal %}
   {% set skillsList = [] %}
   {% for skill in site.homepage.skills %}
@@ -54,7 +50,7 @@ eleventyNavigation:
     }
   ] %}
   
-  {% include "terminal.njk" with {header: site.homepage.terminal_prompt, commands: homeCommands} %}
+  {% include "terminal.njk" %}
   {% endif %}
   
   {% if site.homepage.show_recent_posts %}
@@ -71,5 +67,9 @@ eleventyNavigation:
       <a href="/blog/" class="social-btn">View all posts <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/></svg></a>
     </div>
   </div>
+  {% endif %}
+  
+  {% if site.homepage.show_arxiv_papers and arxiv_feed %}
+    {% include "arxiv-papers.njk" %}
   {% endif %}
 </div>

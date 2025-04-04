@@ -18,6 +18,7 @@
     "terminal_prompt": "william@dev: ~/profile",
     "show_recent_posts": true,
     "recent_posts_count": 3,
+    "show_arxiv_papers": true,
     "skills": [
       "Cloud Architecture & DevOps",
       "Cybersecurity & Threat Analysis",
@@ -82,8 +83,8 @@
     { "name": "GitHub", "url": "https://github.com/williamzujkowski", "group": "Social", "icon": "GitHub" },
     { "name": "LinkedIn", "url": "https://linkedin.com/in/williamzujkowski", "group": "Social", "icon": "LinkedIn" },
     { "name": "Twitter", "url": "https://twitter.com/williamzujkowski", "group": "Social", "icon": "Twitter" },
-    { "name": "Project 1", "url": "https://github.com/williamzujkowski/project1", "group": "Projects", "description": "A sample project" },
-    { "name": "Project 2", "url": "https://github.com/williamzujkowski/project2", "group": "Projects", "description": "Another sample project" },
+    { "name": "Personal Website", "url": "https://github.com/williamzujkowski/williamzujkowski.github.io", "group": "Projects", "description": "My personal website and tech blog built with 11ty" },
+    { "name": "ArXiv Feed Generator", "url": "https://github.com/williamzujkowski/arxiv-feed-generator", "group": "Projects", "description": "Tool to fetch and display latest research papers from arXiv" },
     
     { "name": "Learn X in Y Minutes", "url": "https://learnxinyminutes.com/", "group": "Technology & Innovation", "description": "Quick programming language tutorials" },
     { "name": "Set Up Your Own LTE Network", "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/", "group": "Technology & Innovation", "description": "DIY guide to building your very own LTE network" },

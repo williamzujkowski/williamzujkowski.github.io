@@ -6,7 +6,7 @@ eleventyNavigation:
   key: Contact
   order: 4
 ---
-{% include "page-header.njk" with {title: "Contact"} %}
+{% include "page-header.njk" %}
 
 {% set contactHtml %}
 <p>You can reach me through the following channels:</p>
@@ -31,4 +31,4 @@ eleventyNavigation:
   }
 ] %}
 
-{% include "terminal.njk" with {header: 'user@system: ~/contact', commands: contactCommands} %}
+{% include "terminal.njk" %}

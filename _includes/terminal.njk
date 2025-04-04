@@ -1,24 +1,34 @@
 <div class="terminal-box">
-  <div class="terminal-header">{{ header | default('user@system: ~/terminal') }}</div>
+  <div class="terminal-header">{{ site.homepage.terminal_prompt }}</div>
   <div class="terminal-content">
-    {% for item in commands %}
+    {% if homeCommands %}
+      {% for cmd in homeCommands %}
+        <div class="command-line">
+          <span class="prompt">$</span>
+          <span class="command">{{ cmd.command }}</span>
+        </div>
+        <div class="response">
+          {% if cmd.type == 'text' %}
+            <p>{{ cmd.response }}</p>
+          {% elif cmd.type == 'list' %}
+            <ul>
+              {% for item in cmd.response %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          {% elif cmd.type == 'html' %}
+            {{ cmd.response | safe }}
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
       <div class="command-line">
         <span class="prompt">$</span>
-        <span class="command">{{ item.command }}</span>
+        <span class="command">echo "Terminal ready"</span>
       </div>
       <div class="response">
-        {% if item.type === 'text' %}
-          <p>{{ item.response }}</p>
-        {% elif item.type === 'list' %}
-          <ul>
-            {% for li in item.response %}
-              <li>{{ li | safe }}</li>
-            {% endfor %}
-          </ul>
-        {% elif item.type === 'html' %}
-          {{ item.response | safe }}
-        {% endif %}
+        <p>Terminal ready</p>
       </div>
-    {% endfor %}
+    {% endif %}
   </div>
 </div>

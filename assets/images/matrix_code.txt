@@ -1,3 +1,0 @@
-This is a placeholder for a Matrix-style code visualization.
-In a real implementation, this would be replaced with an actual image file.
-For the purpose of this example, imagine cascading neon green code symbols on a black background in the style of The Matrix.

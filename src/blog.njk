@@ -15,12 +15,9 @@ eleventyNavigation:
 </div>
 {% endset %}
 
-{% include "page-header.njk" with {
-  class_name: "blog-header",
-  title: "Blog",
-  subtitle: "Thoughts, insights, and explorations in tech.",
-  content: searchWidget
-} %}
+{% include "page-header.njk" %}
+{% if subtitle %}<p>{{ subtitle }}</p>{% endif %}
+{% if searchWidget %}{{ searchWidget | safe }}{% endif %}
 
 <div class="blog-posts">
   <ul class="post-list">

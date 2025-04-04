@@ -1,3 +1,0 @@
-This is a placeholder for an AI brain visualization image.
-In a real implementation, this would be replaced with an actual image file.
-For the purpose of this example, imagine a digital brain with neural connections highlighted in neon blue and purple.
