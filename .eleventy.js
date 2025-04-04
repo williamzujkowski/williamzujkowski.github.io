@@ -15,6 +15,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/css/*.!(css)": "css" });
+  eleventyConfig.addPassthroughCopy(".nojekyll");
   
   // Date formatting
   eleventyConfig.addFilter("readableDate", dateObj => {
