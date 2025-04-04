@@ -1,7 +1,7 @@
 ---
 title: Welcome to My Blog
 date: 2023-01-01
-layout: post.njk
+layout: _layouts/post.njk
 tags: posts
 ---
 

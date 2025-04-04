@@ -1,7 +1,7 @@
 ---
 title: "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security"
 date: 2024-05-03
-layout: post.njk
+layout: _layouts/post.njk
 tags: posts
 ---
 

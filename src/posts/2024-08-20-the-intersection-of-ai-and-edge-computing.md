@@ -1,7 +1,7 @@
 ---
 title: "The Intersection of AI and Edge Computing: A Powerful Convergence"
 date: 2024-08-20
-layout: post.njk
+layout: _layouts/post.njk
 tags: posts
 ---
 

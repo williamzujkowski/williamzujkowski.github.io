@@ -12,6 +12,14 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(pluginRss);
+
+  // Debug plugin to help with layouts
+  eleventyConfig.addPlugin(function(eleventyConfig) {
+    eleventyConfig.addFilter('debugLayoutPath', function(value) {
+      console.log('Debug layout path:', value);
+      return value;
+    });
+  });
   
   // Copy files
   eleventyConfig.addPassthroughCopy("assets");

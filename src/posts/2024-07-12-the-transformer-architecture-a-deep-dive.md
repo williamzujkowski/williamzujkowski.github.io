@@ -1,7 +1,7 @@
 ---
 title: "The Transformer Architecture: A Deep Dive"
 date: 2024-07-12
-layout: post.njk
+layout: _layouts/post.njk
 tags: posts
 ---
 

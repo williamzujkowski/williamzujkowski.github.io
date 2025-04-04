@@ -1,7 +1,7 @@
 ---
 title: "Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community"
 date: 2024-06-09
-layout: post.njk
+layout: _layouts/post.njk
 tags: posts
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception"
 date: 2024-05-17
-layout: post.njk
+layout: _layouts/post.njk
 tags: posts
 ---
 
