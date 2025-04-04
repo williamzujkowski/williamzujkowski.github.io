@@ -294,7 +294,7 @@
 
   /* Home Page - Hero section with animated elements */
   .home-header {
-    @apply mb-16 pb-8 relative;
+    @apply mb-6 pb-4 relative;
   }
   
   .home-header::after {
@@ -322,7 +322,7 @@
   }
   
   .home-content {
-    @apply mb-16 animate-fade-in delay-200;
+    @apply mb-8 animate-fade-in delay-200;
   }
   
   @keyframes fadeInUp {
@@ -349,23 +349,23 @@
   }
   
   .terminal-box {
-    @apply mb-10;
+    @apply mb-5;
   }
   
   .file-listing {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-2;
+    @apply grid grid-cols-1 md:grid-cols-2 gap-1;
   }
   
   .file {
-    @apply p-1.5 border border-border-light dark:border-border-dark rounded;
+    @apply p-1 border border-border-light/50 dark:border-border-dark/50 rounded bg-light-light/30 dark:bg-light-dark/30;
   }
   
   .file-name {
-    @apply font-mono block mb-0.5 text-primary-light dark:text-primary-dark text-sm;
+    @apply font-mono block mb-0 text-primary-light dark:text-primary-dark text-xs;
   }
   
   .file-desc {
-    @apply text-xs text-muted-light dark:text-muted-dark leading-tight;
+    @apply text-xs text-muted-light dark:text-muted-dark leading-none;
   }
   
   .recent-posts {
@@ -549,9 +549,9 @@
     @apply bg-primary-light dark:bg-primary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
   }
 
-  /* Terminal Box (modern hacker style with compact spacing) */
+  /* Terminal Box (extremely compact spacing) */
   .terminal-box {
-    @apply bg-terminal-bg text-terminal-text p-4 font-mono rounded-lg mb-6 
+    @apply bg-terminal-bg text-terminal-text p-3 font-mono rounded-lg mb-4 
     shadow-terminal overflow-hidden border border-gray-800;
     @apply backdrop-blur-sm relative z-10 transition-all duration-300;
   }
@@ -570,17 +570,17 @@
   }
 
   .terminal-header {
-    @apply text-sm text-gray-400 mb-2 border-b border-gray-700 pb-1 flex items-center;
+    @apply text-xs text-gray-400 mb-1 border-b border-gray-700 pb-0.5 flex items-center;
   }
   
   .terminal-header::before {
     content: "";
-    @apply inline-block w-2.5 h-2.5 bg-red-500 rounded-full mr-1.5;
-    box-shadow: 20px 0 0 #f6c000, 10px 0 0 #59c203;
+    @apply inline-block w-2 h-2 bg-red-500 rounded-full mr-1;
+    box-shadow: 16px 0 0 #f6c000, 8px 0 0 #59c203;
   }
 
   .command-line {
-    @apply flex mb-1.5 items-center opacity-0;
+    @apply flex mb-0.5 items-center opacity-0;
     animation: fadeIn 0.5s forwards;
   }
   
@@ -606,34 +606,34 @@
   }
 
   .prompt {
-    @apply text-terminal-prompt mr-2 flex items-center;
+    @apply text-terminal-prompt mr-1.5 flex items-center text-sm;
   }
   
   .cursor {
-    @apply inline-block ml-1 animate-terminal-cursor;
+    @apply inline-block ml-0.5 animate-terminal-cursor;
   }
 
   .command {
-    @apply text-terminal-command;
+    @apply text-terminal-command text-sm;
   }
 
   .response {
-    @apply pl-5 mb-3 text-gray-300 opacity-0 text-sm leading-tight;
+    @apply pl-4 mb-1.5 text-gray-300 opacity-0 text-xs leading-tight;
     animation: fadeIn 0.7s forwards;
     animation-delay: 0.2s;
   }
   
-  /* Make lists inside the terminal more compact */
+  /* Ultra-compact lists inside the terminal */
   .response ul {
-    @apply my-1 pl-4;
+    @apply my-0.5 pl-3;
   }
   
   .response li {
-    @apply mb-0.5;
+    @apply mb-0.5 leading-snug;
   }
   
   .response p {
-    @apply my-1;
+    @apply my-0.5 leading-snug;
   }
   
   .command-line:nth-child(2) + .response {
@@ -652,13 +652,14 @@
     animation-delay: 4.6s;
   }
   
-  /* Specifically handle file listing in a more compact grid */
+  /* Super compact file listing in terminal */
   .response .file-listing {
-    @apply grid gap-2;
+    @apply grid gap-1;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
   
   .response .file {
-    @apply p-1.5 text-xs;
+    @apply p-1 text-xs border-0 bg-gray-800/50;
   }
 
   /* Info Boxes */
