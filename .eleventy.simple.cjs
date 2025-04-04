@@ -16,6 +16,26 @@ module.exports = function(eleventyConfig) {
     console.log('DEBUG:', value);
     return value;
   });
+  
+  // Date filters
+  eleventyConfig.addFilter("isoDate", function(date) {
+    return new Date(date).toISOString();
+  });
+  
+  eleventyConfig.addFilter("readableDate", function(date) {
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  });
+  
+  // Text manipulation filters
+  eleventyConfig.addFilter("striptags", function(value) {
+    // Simple HTML tag stripper
+    return value.replace(/<[^>]*>/g, '');
+  });
 
   return {
     dir: {
