@@ -1,19 +1,14 @@
 module.exports = function(eleventyConfig) {
   // Copy assets
   eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy({ "src/js": "js" });
-  eleventyConfig.addPassthroughCopy({ "src/css/*.!(css)": "css" });
+  eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("site.webmanifest");
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("icon.svg");
   eleventyConfig.addPassthroughCopy("apple-touch-icon.png");
+  eleventyConfig.addPassthroughCopy("android-chrome-192x192.png");
+  eleventyConfig.addPassthroughCopy("android-chrome-512x512.png");
   
-  // Layout aliases
-  eleventyConfig.addLayoutAlias('base', '_layouts/base.njk');
-  eleventyConfig.addLayoutAlias('base.njk', '_layouts/base.njk');
-  eleventyConfig.addLayoutAlias('post', '_layouts/post.njk');
-  eleventyConfig.addLayoutAlias('post.njk', '_layouts/post.njk');
-
   // Debug filter
   eleventyConfig.addFilter('log', function(value) {
     console.log('DEBUG:', value);
@@ -21,16 +16,11 @@ module.exports = function(eleventyConfig) {
   });
 
   return {
-    templateFormats: ["md", "njk", "html"],
-    markdownTemplateEngine: "njk",
-    htmlTemplateEngine: "njk",
-    dataTemplateEngine: "njk",
     dir: {
-      input: ".",
+      input: "src",
+      output: "_site",
       includes: "_includes",
-      layouts: "_layouts",
-      data: "_data",
-      output: "_site"
+      layouts: "_includes"
     }
   };
 };
