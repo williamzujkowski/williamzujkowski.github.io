@@ -1123,7 +1123,7 @@
 }
 
 .hidden {
-  @apply hidden;
+  display: none;
 }
 
 .contact-terminal-section {
