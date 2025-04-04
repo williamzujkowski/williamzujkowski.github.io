@@ -32,11 +32,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Create output directory
+        run: mkdir -p _site/css
+
       - name: Build CSS
         run: npx postcss src/css/styles.css -o _site/css/styles.css
 
       - name: Build site
         run: npx @11ty/eleventy
+
+      - name: Debug output directory
+        run: ls -la _site
 
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@v3
