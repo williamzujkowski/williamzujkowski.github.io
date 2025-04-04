@@ -353,19 +353,19 @@
   }
   
   .file-listing {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+    @apply grid grid-cols-1 md:grid-cols-2 gap-2;
   }
   
   .file {
-    @apply p-2 border border-border-light dark:border-border-dark rounded;
+    @apply p-1.5 border border-border-light dark:border-border-dark rounded;
   }
   
   .file-name {
-    @apply font-mono block mb-1 text-primary-light dark:text-primary-dark;
+    @apply font-mono block mb-0.5 text-primary-light dark:text-primary-dark text-sm;
   }
   
   .file-desc {
-    @apply text-sm text-muted-light dark:text-muted-dark;
+    @apply text-xs text-muted-light dark:text-muted-dark leading-tight;
   }
   
   .recent-posts {
@@ -549,9 +549,9 @@
     @apply bg-primary-light dark:bg-primary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
   }
 
-  /* Terminal Box (modern hacker style) */
+  /* Terminal Box (modern hacker style with compact spacing) */
   .terminal-box {
-    @apply bg-terminal-bg text-terminal-text p-6 font-mono rounded-lg mb-8 
+    @apply bg-terminal-bg text-terminal-text p-4 font-mono rounded-lg mb-6 
     shadow-terminal overflow-hidden border border-gray-800;
     @apply backdrop-blur-sm relative z-10 transition-all duration-300;
   }
@@ -570,17 +570,17 @@
   }
 
   .terminal-header {
-    @apply text-sm text-gray-400 mb-4 border-b border-gray-700 pb-2 flex items-center;
+    @apply text-sm text-gray-400 mb-2 border-b border-gray-700 pb-1 flex items-center;
   }
   
   .terminal-header::before {
     content: "";
-    @apply inline-block w-3 h-3 bg-red-500 rounded-full mr-1.5;
-    box-shadow: 24px 0 0 #f6c000, 12px 0 0 #59c203;
+    @apply inline-block w-2.5 h-2.5 bg-red-500 rounded-full mr-1.5;
+    box-shadow: 20px 0 0 #f6c000, 10px 0 0 #59c203;
   }
 
   .command-line {
-    @apply flex mb-3 items-center opacity-0;
+    @apply flex mb-1.5 items-center opacity-0;
     animation: fadeIn 0.5s forwards;
   }
   
@@ -618,9 +618,22 @@
   }
 
   .response {
-    @apply pl-6 mb-6 text-gray-300 opacity-0;
+    @apply pl-5 mb-3 text-gray-300 opacity-0 text-sm leading-tight;
     animation: fadeIn 0.7s forwards;
     animation-delay: 0.2s;
+  }
+  
+  /* Make lists inside the terminal more compact */
+  .response ul {
+    @apply my-1 pl-4;
+  }
+  
+  .response li {
+    @apply mb-0.5;
+  }
+  
+  .response p {
+    @apply my-1;
   }
   
   .command-line:nth-child(2) + .response {
@@ -637,6 +650,15 @@
   
   .command-line:nth-child(8) + .response {
     animation-delay: 4.6s;
+  }
+  
+  /* Specifically handle file listing in a more compact grid */
+  .response .file-listing {
+    @apply grid gap-2;
+  }
+  
+  .response .file {
+    @apply p-1.5 text-xs;
   }
 
   /* Info Boxes */
