@@ -1,91 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light dark">
-  <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="keywords" content="{{ site.seo.keywords }}">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:title" content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta property="og:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
-  <meta property="og:image" content="{{ site.url }}{{ site.seo.og_image }}">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="twitter:title" content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta property="twitter:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
-  <meta property="twitter:image" content="{{ site.url }}{{ site.seo.og_image }}">
-  <meta name="twitter:creator" content="{{ site.seo.twitter_handle }}">
-  
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Georgia&display=swap" rel="stylesheet">
-  
-  <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
-  {% if site.seo.google_analytics_id and site.seo.google_analytics_id != "" %}
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.seo.google_analytics_id }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '{{ site.seo.google_analytics_id }}');
-  </script>
-  {% endif %}
+  {% include "meta.njk" %}
 </head>
 <body>
   <div class="site-wrapper">
-    <header class="site-header">
-      <div class="site-title">
-        <a href="/">{{ site.title }}</a>
-      </div>
-      <div class="header-right">
-        <nav class="site-nav">
-          <ul>
-            {% for item in site.navigation %}
-            <li><a href="{{ item.url }}" class="nav-item">{{ item.icon }} {{ item.name }}</a></li>
-            {% endfor %}
-          </ul>
-        </nav>
-        <div class="header-social">
-          {% for social in site.social_media %}
-            {% if social.enabled and social.display_in_header %}
-              <a href="{{ social.url }}" class="header-social-link" aria-label="{{ social.name }}">{{ social.icon | safe }}</a>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </header>
+    {% include "header.njk" %}
 
     <main class="content">
       {{ content | safe }}
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-content">
-        &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
-      </div>
-      
-      <div class="footer-social">
-        {% for social in site.social_media %}
-          {% if social.enabled and social.display_in_footer %}
-            <a href="{{ social.url }}" class="footer-social-link">{{ social.icon | safe }}</a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </footer>
+    {% include "footer.njk" %}
   </div>
 
   <script src="/js/main.js"></script>
