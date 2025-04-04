@@ -121,40 +121,39 @@ Footer {
     padding: 1;
 }
 
-/* Terminal-inspired elements */
-.terminal-box {
+/* Host Info Box */
+.host-info-box {
     background: $midnight;
-    border: none;
-    border-radius: 6px;
-    padding: 0;
+    padding: 0 0 1 0;
     margin: 1 0;
-    height: auto;
     max-width: 100%;
     overflow: visible;
-    box-shadow: 0 0 15px $neon-blue;
+    border: outer $neon-blue;
 }
 
-/* Terminal header with controls */
-.terminal-header-container {
+/* Host Info header with controls */
+.host-info-header {
     background: $darker-blue;
-    padding: 0.5 1;
-    display: grid;
-    grid-size: 2;
-    grid-columns: 9fr 1fr;
+    padding: 1;
     border-bottom: heavy $neon-blue;
+}
+
+.host-info-title {
+    color: $neon-blue;
+    text-style: bold;
+    text-align: center;
+    margin: 0;
 }
 
 .terminal-controls {
     text-align: right;
-    padding-right: 0.5;
+    padding: 1;
 }
 
 .terminal-control {
-    display: inline-block;
-    width: 0.8;
-    height: 0.8;
-    border-radius: 50%;
-    margin-left: 0.3;
+    width: 1;
+    height: 1;
+    margin-left: 1;
 }
 
 .terminal-control.red {
@@ -169,103 +168,119 @@ Footer {
     background: #27c93f;
 }
 
-/* Terminal content sections */
-.terminal-section {
-    padding: 0.5 1;
-    margin: 0.5 0;
+/* Host info content */
+.host-info-section {
+    padding: 1;
+    margin: 1 0;
+    layout: grid;
+    grid-size: 2;
+    grid-columns: 1fr 1fr;
+    grid-rows: auto;
+    grid-gutter: 1 1;
 }
 
-.terminal-text {
-    color: $terminal-green;
-    margin: 0 0 0 0;
-    padding-bottom: 0;
-    overflow-wrap: break-word;
-    text-align: left;
-    height: auto;
+.host-info-item {
+    background: $darker-blue;
+    padding: 1;
+    border-left: wide $neon-purple;
 }
 
-.terminal-label {
+.host-info-label {
     color: $neon-blue;
-    margin: 0.2 0;
+    margin: 0 0 1 0;
     padding: 0;
     text-style: bold;
-    display: inline-block;
-    width: 25%;
 }
 
-.terminal-value {
+.host-info-value {
     color: $terminal-green;
-    margin: 0 0 0.3 0;
-    padding: 0 0 0 1;
-    display: inline-block;
-    width: 75%;
-}
-
-.terminal-divider {
-    height: 0.1;
-    background: $neon-purple;
-    margin: 0.5 1;
-    opacity: 0.5;
-}
-
-.terminal-header {
-    color: $neon-blue;
-    text-style: bold;
-    text-align: center;
     margin: 0;
+    padding: 0;
 }
 
-.terminal-subheader {
+/* ArXiv Papers Section */
+.arxiv-container {
+    background: $midnight;
+    border: outer $neon-purple;
+    padding: 1;
+    margin: 2 0;
+    max-width: 100%;
+}
+
+.arxiv-header {
     color: $neon-purple;
     text-style: bold;
-    margin: 0.5 0;
     text-align: center;
+    margin: 1 0;
+    padding-bottom: 1;
+    border-bottom: heavy $neon-blue;
 }
 
-.terminal-paper-title {
+.arxiv-papers {
+    layout: grid;
+    grid-size: 3;
+    grid-columns: 1fr 1fr 1fr;
+    grid-gutter: 1 1;
+}
+
+.arxiv-paper {
+    background: $darker-blue;
+    padding: 1;
+    border-left: wide $neon-pink;
+    min-height: 10;
+}
+
+.arxiv-paper-title {
     color: $terminal-green;
     text-style: bold;
-    margin: 0.2 0;
-    padding: 0.1 0;
-    font-size: 90%;
-}
-
-.terminal-paper-details {
-    color: $slate;
-    margin: 0.1 0;
+    margin: 0 0 1 0;
     padding: 0;
-    font-size: 80%;
 }
 
-.terminal-paper-link {
-    margin: 0.1 0 0.2 0;
-    text-align: left;
+.arxiv-paper-meta {
+    margin: 1 0;
+    padding: 1 0;
+    border-top: solid $dark-blue;
+    border-bottom: solid $dark-blue;
 }
 
-.paper-item {
-    margin: 0.3 0;
-    padding: 0.1 0;
+.arxiv-paper-authors {
+    color: $slate;
+    margin: 0;
+    padding: 0;
 }
 
-.terminal-mini-divider {
-    height: 0.1;
-    background: $dark-blue;
-    margin: 0.2 2;
-    opacity: 0.3;
+.arxiv-paper-date {
+    color: $slate;
+    margin: 0;
+    padding: 0;
 }
 
-.terminal-link {
+.arxiv-paper-abstract {
+    color: $light-slate;
+    margin: 1 0;
+    padding: 0;
+    max-height: 6;
+    overflow-y: auto;
+}
+
+.arxiv-paper-link-container {
+    text-align: center;
+    margin-top: 1;
+}
+
+.arxiv-paper-link {
     color: $neon-pink;
     text-style: underline;
-    background: $darker-blue;
-    padding: 0.2 0.5;
-    border-radius: 3px;
+    background: $dark-blue;
+    padding: 1;
+    border: solid $dark-blue;
 }
 
-.terminal-link:hover {
+.arxiv-paper-link:hover {
     color: $neon-blue;
-    background: $dark-blue;
-    box-shadow: 0 0 5px $neon-blue;
+    background: $darker-blue;
+    border: solid $neon-blue;
 }
 
 /* For blog page, use horizontal layout */
@@ -460,8 +475,6 @@ Footer {
     opacity: 1;
     color: $neon-blue;
 }
-
-/* Remove cursor animations */
 
 /* Placeholder pages with cyberpunk design */
 .placeholder-container {
