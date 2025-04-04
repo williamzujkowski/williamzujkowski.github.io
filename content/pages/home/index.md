@@ -20,7 +20,7 @@ title: Home
         <h2 class="section-title">CURRENT PROJECTS</h2>
       </div>
       <div class="projects-grid">
-        <div class="project-item fade-in-element">
+        <div class="project-item">
           <div class="project-icon">🧠</div>
           <div class="project-content">
             <h3 class="project-title">Neural Network Research</h3>
@@ -33,7 +33,7 @@ title: Home
           </div>
         </div>
         
-        <div class="project-item fade-in-element" style="animation-delay: 0.2s;">
+        <div class="project-item">
           <div class="project-icon">🔐</div>
           <div class="project-content">
             <h3 class="project-title">Cloud Security Framework</h3>
@@ -46,7 +46,7 @@ title: Home
           </div>
         </div>
         
-        <div class="project-item fade-in-element" style="animation-delay: 0.4s;">
+        <div class="project-item">
           <div class="project-icon">🔒</div>
           <div class="project-content">
             <h3 class="project-title">Advanced Encryption</h3>
@@ -70,7 +70,7 @@ title: Home
         <h2 class="section-title">SKILLS & EXPERTISE</h2>
       </div>
       <div class="skills-container">
-        <div class="skill-category fade-in-element">
+        <div class="skill-category">
           <h3 class="skill-category-name">Languages</h3>
           <div class="skill-items">
             <span class="skill-tag">Python</span>
@@ -82,12 +82,12 @@ title: Home
           <div class="skill-meter">
             <div class="meter-label">Proficiency</div>
             <div class="meter-bar">
-              <div class="meter-fill" style="width: 90%;"></div>
+              <div class="meter-fill" style="width: 18;"></div>
             </div>
           </div>
         </div>
         
-        <div class="skill-category fade-in-element" style="animation-delay: 0.2s;">
+        <div class="skill-category">
           <h3 class="skill-category-name">Platforms</h3>
           <div class="skill-items">
             <span class="skill-tag">AWS</span>
@@ -99,12 +99,12 @@ title: Home
           <div class="skill-meter">
             <div class="meter-label">Proficiency</div>
             <div class="meter-bar">
-              <div class="meter-fill" style="width: 85%;"></div>
+              <div class="meter-fill" style="width: 17;"></div>
             </div>
           </div>
         </div>
         
-        <div class="skill-category fade-in-element" style="animation-delay: 0.4s;">
+        <div class="skill-category">
           <h3 class="skill-category-name">Security</h3>
           <div class="skill-items">
             <span class="skill-tag">Penetration Testing</span>
@@ -115,12 +115,12 @@ title: Home
           <div class="skill-meter">
             <div class="meter-label">Proficiency</div>
             <div class="meter-bar">
-              <div class="meter-fill" style="width: 95%;"></div>
+              <div class="meter-fill" style="width: 19;"></div>
             </div>
           </div>
         </div>
         
-        <div class="skill-category fade-in-element" style="animation-delay: 0.6s;">
+        <div class="skill-category">
           <h3 class="skill-category-name">AI/ML</h3>
           <div class="skill-items">
             <span class="skill-tag">Deep Learning</span>
@@ -132,7 +132,7 @@ title: Home
           <div class="skill-meter">
             <div class="meter-label">Proficiency</div>
             <div class="meter-bar">
-              <div class="meter-fill" style="width: 88%;"></div>
+              <div class="meter-fill" style="width: 17.5;"></div>
             </div>
           </div>
         </div>
@@ -162,25 +162,25 @@ title: Home
 
       <div class="host-info-section">
         <div class="host-info-grid">
-          <div class="grid-item animated-border">
+          <div class="grid-item">
             <div class="grid-item-icon">📡</div>
             <div class="grid-item-label">IP ADDRESS</div>
             <div class="grid-item-value"><span id="user-ip">Detecting...</span></div>
           </div>
           
-          <div class="grid-item animated-border">
+          <div class="grid-item">
             <div class="grid-item-icon">🕒</div>
             <div class="grid-item-label">LOCAL TIME</div>
             <div class="grid-item-value"><span id="current-time">Loading...</span></div>
           </div>
           
-          <div class="grid-item animated-border">
+          <div class="grid-item">
             <div class="grid-item-icon">📍</div>
             <div class="grid-item-label">LOCATION</div>
             <div class="grid-item-value"><span id="user-location">Detecting...</span></div>
           </div>
           
-          <div class="grid-item animated-border">
+          <div class="grid-item">
             <div class="grid-item-icon">💻</div>
             <div class="grid-item-label">SYSTEM</div>
             <div class="grid-item-value"><span id="user-browser">Analyzing...</span></div>
@@ -429,15 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const readMoreBtn = document.createElement('span');
     readMoreBtn.className = 'read-more-toggle';
     readMoreBtn.textContent = 'Read more';
-    readMoreBtn.addEventListener('click', function() {
-      if (abstractText.classList.contains('expanded')) {
-        abstractText.classList.remove('expanded');
-        readMoreBtn.textContent = 'Read more';
-      } else {
-        abstractText.classList.add('expanded');
-        readMoreBtn.textContent = 'Show less';
-      }
-    });
+    // Remove click handler due to TUI limitations in static site
     
     abstractWrapper.appendChild(abstractIcon);
     abstractWrapper.appendChild(abstractText);
