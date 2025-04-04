@@ -40,7 +40,11 @@
               {% endif %}
             </div>
             <div class="ml-auto text-xs opacity-75">
-              Updated {{ repo.updatedAt | date('LLL d, yyyy') }}
+              {% if repo.updatedAt %}
+                Updated {{ repo.updatedAt | date('LLL d, yyyy') }}
+              {% else %}
+                Recently updated
+              {% endif %}
             </div>
           </div>
         </div>

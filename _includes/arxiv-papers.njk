@@ -14,7 +14,13 @@
               </h3>
               <div class="paper-meta text-sm text-text-light dark:text-text-dark opacity-75 mb-2">
                 <span class="category-label font-bold">{{ paper.categoryLabel }}</span> • 
-                <span class="published-date">{{ paper.published | date('LLL d, yyyy') }}</span> • 
+                <span class="published-date">
+                  {% if paper.published %}
+                    {{ paper.published | date('LLL d, yyyy') }}
+                  {% else %}
+                    Recent
+                  {% endif %}
+                </span> • 
                 <span class="authors">{{ paper.authors | join(', ') }}</span>
               </div>
               <p class="paper-summary text-sm">{{ paper.summary | truncate(200) }}</p>
