@@ -139,11 +139,39 @@
   }
 
   .home-header h1 {
-    @apply text-4xl border-0 pb-0;
+    @apply text-4xl border-0 pb-0 mb-2;
   }
 
   .home-header p {
     @apply text-xl text-muted-light dark:text-muted-dark italic;
+  }
+  
+  .home-content {
+    @apply mb-12;
+  }
+  
+  .terminal-box {
+    @apply mb-10;
+  }
+  
+  .recent-posts {
+    @apply mt-16;
+  }
+  
+  .recent-posts h2 {
+    @apply mb-6;
+  }
+  
+  .social-links {
+    @apply flex flex-wrap gap-4 mt-4 mb-8;
+  }
+  
+  .social-btn {
+    @apply inline-flex items-center gap-2 py-2 px-4 bg-light-light dark:bg-light-dark border border-border-light dark:border-border-dark rounded-md text-primary-light dark:text-primary-dark font-bold hover:border-primary-light dark:hover:border-primary-dark transition-colors duration-200;
+  }
+  
+  .view-all-posts {
+    @apply mt-8 text-center;
   }
 
   /* Links Page */
