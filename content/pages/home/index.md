@@ -161,29 +161,39 @@ title: Home
       </div>
 
       <div class="host-info-section">
-        <div class="host-info-grid">
-          <div class="grid-item animated-border">
-            <div class="grid-item-icon">📡</div>
-            <div class="grid-item-label">IP ADDRESS</div>
-            <div class="grid-item-value"><span id="user-ip">Detecting...</span></div>
+        <div class="info-row animated-border">
+          <div class="info-item">
+            <div class="info-icon">📡</div>
+            <div class="info-content">
+              <div class="info-label">IP ADDRESS</div>
+              <div class="info-value"><span id="user-ip">Detecting...</span></div>
+            </div>
           </div>
           
-          <div class="grid-item animated-border">
-            <div class="grid-item-icon">🕒</div>
-            <div class="grid-item-label">LOCAL TIME</div>
-            <div class="grid-item-value"><span id="current-time">Loading...</span></div>
+          <div class="info-item">
+            <div class="info-icon">🕒</div>
+            <div class="info-content">
+              <div class="info-label">LOCAL TIME</div>
+              <div class="info-value"><span id="current-time">Loading...</span></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="info-row animated-border">
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div class="info-content">
+              <div class="info-label">LOCATION</div>
+              <div class="info-value"><span id="user-location">Detecting...</span></div>
+            </div>
           </div>
           
-          <div class="grid-item animated-border">
-            <div class="grid-item-icon">📍</div>
-            <div class="grid-item-label">LOCATION</div>
-            <div class="grid-item-value"><span id="user-location">Detecting...</span></div>
-          </div>
-          
-          <div class="grid-item animated-border">
-            <div class="grid-item-icon">💻</div>
-            <div class="grid-item-label">SYSTEM</div>
-            <div class="grid-item-value"><span id="user-browser">Analyzing...</span></div>
+          <div class="info-item">
+            <div class="info-icon">💻</div>
+            <div class="info-content">
+              <div class="info-label">SYSTEM</div>
+              <div class="info-value"><span id="user-browser">Analyzing...</span></div>
+            </div>
           </div>
         </div>
       </div>

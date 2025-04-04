@@ -497,26 +497,25 @@ Footer {
     border-bottom: solid $neon-blue;
 }
 
-/* Grid layout for host info */
-.host-info-grid {
-    display: grid;
-    grid-size: 2;
-    grid-columns: 1fr 1fr;
-    grid-gutter: 1 1;
-    padding: 0.5;
-}
-
-.grid-item {
+/* Horizontal layout for host info */
+.info-row {
     background: $darker-blue;
     border: solid $dark-blue;
     border-left: solid $neon-pink;
     padding: 1;
+    margin-bottom: 1;
     position: relative;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
+    width: 48%;
 }
 
 .animated-border::before {
@@ -536,26 +535,32 @@ Footer {
     100% { background-position: 0 0; }
 }
 
-.grid-item-icon {
+.info-icon {
     font-size: 150%;
-    margin-bottom: 0.5;
     color: $neon-purple;
+    margin-right: 1;
+    min-width: 2;
+    text-align: center;
 }
 
-.grid-item-label {
+.info-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.info-label {
     color: $neon-blue;
     font-size: 80%;
     text-style: bold;
-    margin-bottom: 0.5;
-    width: 100%;
     border-bottom: thin $dark-blue;
     padding-bottom: 0.5;
+    margin-bottom: 0.5;
 }
 
-.grid-item-value {
+.info-value {
     color: $terminal-green;
     text-style: bold;
-    margin-top: 0.5;
 }
 
 /* Time update animation */
