@@ -1,4 +1,9 @@
+// Import the RSS plugin
+const pluginRss = require("@11ty/eleventy-plugin-rss");
+
 module.exports = function(eleventyConfig) {
+  // Add RSS plugin
+  eleventyConfig.addPlugin(pluginRss);
   // Copy assets
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("src/js");
@@ -36,6 +41,11 @@ module.exports = function(eleventyConfig) {
     // Simple HTML tag stripper
     return value.replace(/<[^>]*>/g, '');
   });
+  
+  // RSS filters from the plugin
+  eleventyConfig.addFilter("dateToRfc3339", pluginRss.dateToRfc3339);
+  eleventyConfig.addFilter("dateToRfc822", pluginRss.dateToRfc822);
+  eleventyConfig.addFilter("htmlToAbsoluteUrls", pluginRss.htmlToAbsoluteUrls);
 
   return {
     dir: {
