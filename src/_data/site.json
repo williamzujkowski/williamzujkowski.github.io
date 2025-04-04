@@ -1,0 +1,33 @@
+{
+  "title": "William Zujkowski",
+  "description": "Personal website and technology blog",
+  "url": "https://williamzujkowski.github.io",
+  "author": "William Zujkowski",
+  "email": "william@example.com",
+  "theme": "dark",
+  "navigation": [
+    { "name": "Home", "url": "/", "icon": "🏠" },
+    { "name": "Links", "url": "/links/", "icon": "🔗" },
+    { "name": "Blog", "url": "/blog/", "icon": "📝" },
+    { "name": "Contact", "url": "/contact/", "icon": "✉️" }
+  ],
+  "linkGroups": [
+    { "name": "Social", "icon": "👥" },
+    { "name": "Projects", "icon": "💻" },
+    { "name": "Resources", "icon": "📚" }
+  ],
+  "links": [
+    { "name": "GitHub", "url": "https://github.com/williamzujkowski", "group": "Social", "icon": "GitHub" },
+    { "name": "LinkedIn", "url": "https://linkedin.com/in/williamzujkowski", "group": "Social", "icon": "LinkedIn" },
+    { "name": "Twitter", "url": "https://twitter.com/williamzujkowski", "group": "Social", "icon": "Twitter" },
+    { "name": "Project 1", "url": "https://github.com/williamzujkowski/project1", "group": "Projects", "description": "A sample project" },
+    { "name": "Project 2", "url": "https://github.com/williamzujkowski/project2", "group": "Projects", "description": "Another sample project" },
+    { "name": "Python Documentation", "url": "https://docs.python.org", "group": "Resources", "description": "Official Python documentation" },
+    { "name": "Textual Documentation", "url": "https://textual.textualize.io", "group": "Resources", "description": "Textual TUI framework documentation" }
+  ],
+  "blog": {
+    "postsPerPage": 5,
+    "showDates": true,
+    "dateFormat": "%B %d, %Y"
+  }
+}

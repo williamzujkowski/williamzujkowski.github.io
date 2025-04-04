@@ -1,0 +1,67 @@
+---
+layout: base.njk
+title: Home
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+<div class="home-content">
+  <header class="home-header">
+    <h1>William Zujkowski</h1>
+    <p>Software Engineer & Technology Enthusiast</p>
+  </header>
+
+  <div class="terminal-box">
+    <div class="terminal-header">user@system: ~/profile</div>
+    <div class="terminal-content">
+      <div class="command-line">
+        <span class="prompt">$</span>
+        <span class="command">whoami</span>
+      </div>
+      <div class="response">
+        <p>I'm a software engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.</p>
+      </div>
+      
+      <div class="command-line">
+        <span class="prompt">$</span>
+        <span class="command">skills --list</span>
+      </div>
+      <div class="response">
+        <ul>
+          <li>Cloud Architecture & DevOps</li>
+          <li>Cybersecurity & Threat Analysis</li>
+          <li>Machine Learning & AI Development</li>
+          <li>Full Stack Development</li>
+          <li>System Design & Architecture</li>
+        </ul>
+      </div>
+      
+      <div class="command-line">
+        <span class="prompt">$</span>
+        <span class="command">cat interests.txt</span>
+      </div>
+      <div class="response">
+        <p>When not coding, I enjoy exploring emerging technologies, contributing to open-source projects, and writing about tech trends. I'm particularly interested in the intersection of AI ethics, privacy, and security.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="recent-posts">
+    <h2>Recent Blog Posts</h2>
+    <ul class="post-list">
+      {%- for post in collections.posts | reverse -%}
+        {% if loop.index <= 3 %}
+          <li class="post-item">
+            <h3 class="post-title"><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+            <time class="post-date" datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+            <div class="post-excerpt">
+              <p>{{ post.data.description or post.templateContent | striptags | truncate(150) }}</p>
+            </div>
+            <a href="{{ post.url }}" class="read-more">Read more &rarr;</a>
+          </li>
+        {% endif %}
+      {%- endfor -%}
+    </ul>
+    <p><a href="/blog/">View all posts &rarr;</a></p>
+  </div>
+</div>

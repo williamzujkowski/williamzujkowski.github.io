@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-{{ site.theme }}">
+  <div class="site-wrapper">
+    <header class="site-header">
+      <div class="site-title">
+        <a href="/">{{ site.title }}</a>
+      </div>
+      <nav class="site-nav">
+        <ul>
+          {% for item in site.navigation %}
+          <li><a href="{{ item.url }}" class="nav-item">{{ item.icon }} {{ item.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content">
+      {{ content | safe }}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/src/js/main.js"></script>
+</body>
+</html>

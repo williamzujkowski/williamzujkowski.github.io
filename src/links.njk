@@ -1,0 +1,32 @@
+---
+layout: base.njk
+title: Links
+permalink: /links/
+eleventyNavigation:
+  key: Links
+  order: 2
+---
+<h1>Links</h1>
+
+<div class="links-groups">
+  {% for group in site.linkGroups %}
+    <div class="links-group">
+      <div class="links-group-header">
+        <span class="links-group-icon">{{ group.icon }}</span>
+        <h2>{{ group.name }}</h2>
+      </div>
+      <ul class="links-list">
+        {% for link in site.links %}
+          {% if link.group === group.name %}
+            <li class="link-item">
+              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="link-title">{{ link.name }}</a>
+              {% if link.description %}
+                <span class="link-description">{{ link.description }}</span>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>

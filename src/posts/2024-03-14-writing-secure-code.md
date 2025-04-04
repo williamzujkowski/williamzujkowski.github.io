@@ -1,0 +1,66 @@
+---
+title: "Writing Secure Code: A Developer's Guide to Thwarting Security Exploits"
+date: 2024-03-14
+layout: post.njk
+tags: posts
+---
+
+# Writing Secure Code: A Developer's Guide to Thwarting Security Exploits
+
+I still remember that sinking feeling when we discovered a glaring SQL injection vulnerability in an internal
+application. It reminded me of a door left unlocked overnight. Writing secure code, I've realized, is an
+ever-present discipline—an approach that must be ingrained from the very first line typed.
+
+## The Importance of Secure Coding: Why It Matters
+
+Vulnerable software doesn't just risk data loss; it undermines user trust, triggers potential legal trouble, and
+can bring entire services to a standstill. We owe it to our users and ourselves to treat security as part of the
+craft, not an afterthought.
+
+## Principle of Least Privilege: Limiting Access to Minimize Damage
+
+Only give your code the permissions it truly needs. A function that merely reads from a file shouldn't also
+write or delete. It's an easy concept to grasp, but in the rush to just make things work, it's often overlooked.
+
+## Input Validation: The First Line of Defense
+
+So many attacks—SQL injection, XSS, command injection—stem from unvalidated input. If you let user data flow
+unfiltered into your queries or system calls, you're rolling out a red carpet for attackers. Validate
+everything: data type, length, format—like a rigorous doorman at a swanky club.
+
+## Output Encoding: Preventing Cross-Site Scripting (XSS)
+
+Even if your app is innocent, the user input might not be. Encoding user-provided text before sending it to the
+browser ensures that "script" tags stay as harmless text, never executed code.
+
+## Secure Handling of Sensitive Data: Protecting Confidential Information
+
+I never want to see passwords stored in plain text. Encryption in transit (HTTPS) is mandatory. Passwords, if
+you must store them, go through salted hashing (Argon2, bcrypt). Minimizing data exposure becomes second nature
+once you witness the aftermath of a data breach.
+
+## Regular Security Testing: Identifying and Addressing Vulnerabilities
+
+Testing often reveals cracks you never knew existed. Static analysis can unearth flawed logic, dynamic analysis
+catches vulnerabilities in a running system, and penetration testing simulates real attackers. It's humbling,
+but necessary, to see your app from the vantage point of a cunning adversary.
+
+## Staying Up-to-Date: Patching and Dependency Management
+
+Libraries, frameworks, and even entire operating systems release security patches regularly. Outdated
+dependencies can be your undoing. I've learned to treat patch notes like urgent memos—neglect them at your
+peril.
+
+## Conclusion
+
+Secure coding is a continuous, evolving discipline. Each new day may surface fresh vulnerabilities or cunning
+exploits. By weaving principles like input validation, output encoding, least privilege, and robust testing into
+our development cycles, we fortify our systems against known threats. And with an eye on the horizon for new
+challenges, we ensure our applications can stand tall, delivering functionality without trading away safety.
+
+### Further Reading:
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [SANS Top 25 Software Errors](https://www.sans.org/top25-software-errors/)
+- [OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
+- [.NET Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html)
+- [Common Weakness Enumeration (CWE)](https://cwe.mitre.org/)
