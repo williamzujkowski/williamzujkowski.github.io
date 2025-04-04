@@ -1,11 +1,17 @@
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
-const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
-const pluginRss = require("@11ty/eleventy-plugin-rss");
-const { DateTime } = require("luxon");
-const markdownIt = require("markdown-it");
-const markdownItAnchor = require("markdown-it-anchor");
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
+import pluginRss from "@11ty/eleventy-plugin-rss";
+import { DateTime } from "luxon";
+import markdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-module.exports = function(eleventyConfig) {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
@@ -50,17 +56,21 @@ module.exports = function(eleventyConfig) {
   
   // Load site configuration as global data
   eleventyConfig.addGlobalData("site", () => {
-    const config = require("./src/_data/site.json");
-    return config;
+    const configPath = path.join(__dirname, 'src', '_data', 'site.json');
+    return JSON.parse(fs.readFileSync(configPath, 'utf8'));
   });
   
   // Load ArXiv feed data if available
   eleventyConfig.addGlobalData("arxiv_feed", () => {
     try {
-      const feed = require("./_data/arxiv-feed.json");
-      return feed;
-    } catch (e) {
+      const feedPath = path.join(__dirname, '_data', 'arxiv-feed.json');
+      if (fs.existsSync(feedPath)) {
+        return JSON.parse(fs.readFileSync(feedPath, 'utf8'));
+      }
       console.warn("ArXiv feed data not found. Run build-arxiv-feed.js to generate it.");
+      return null;
+    } catch (e) {
+      console.warn("Error loading ArXiv feed:", e);
       return null;
     }
   });
@@ -68,10 +78,14 @@ module.exports = function(eleventyConfig) {
   // Load GitHub pinned repositories if available
   eleventyConfig.addGlobalData("github_pins", () => {
     try {
-      const pins = require("./_data/github-pins.json");
-      return pins;
-    } catch (e) {
+      const pinsPath = path.join(__dirname, '_data', 'github-pins.json');
+      if (fs.existsSync(pinsPath)) {
+        return JSON.parse(fs.readFileSync(pinsPath, 'utf8'));
+      }
       console.warn("GitHub pins data not found. Run build-github-pins.js to generate it.");
+      return null;
+    } catch (e) {
+      console.warn("Error loading GitHub pins:", e);
       return null;
     }
   });
