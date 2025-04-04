@@ -6,7 +6,7 @@
   "type": "module",
   "homepage": "https://williamzujkowski.github.io",
   "scripts": {
-    "build": "npm run build:css && npm run build:arxiv && npm run build:github && eleventy --config=.eleventy.simple.cjs",
+    "build": "npm run build:arxiv && npm run build:github && eleventy --config=.eleventy.simple.cjs && npm run build:css",
     "build:css": "postcss src/css/styles.css -o _site/css/styles.css",
     "build:arxiv": "node build-arxiv-feed.js",
     "build:github": "node build-github-pins.js",
