@@ -259,20 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // System information collection (non-blocking)
   setTimeout(() => {
-    // Get user IP without blocking page load
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('user-ip').textContent = data.ip || "Unknown";
-        // Simulate ping measurement
-        simulatePingMeasurement();
-      })
-      .catch(() => {
-        document.getElementById('user-ip').textContent = "Unable to detect";
-        document.getElementById('ping-value').textContent = "N/A";
-      });
-      
-    // Simulate ping measurement
+    // Define ping measurement function first
     const simulatePingMeasurement = () => {
       // Simulate a ping time between 40ms and 150ms
       const pingStart = performance.now();
@@ -292,6 +279,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 1200); // Simulated delay for ping measurement
     };
+  
+    // Get user IP without blocking page load
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('user-ip').textContent = data.ip || "Unknown";
+        // Simulate ping measurement
+        simulatePingMeasurement();
+      })
+      .catch(() => {
+        document.getElementById('user-ip').textContent = "Unable to detect";
+        document.getElementById('ping-value').textContent = "N/A";
+      });
       
     // Enhanced browser and system detection
     const getBrowserInfo = () => {
