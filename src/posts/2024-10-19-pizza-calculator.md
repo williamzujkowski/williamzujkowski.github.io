@@ -5,7 +5,7 @@ layout: post.njk
 tags: posts
 ---
 
-# The Pizza Calculator: A Developer's Best Friend During Crunch Time
+
 
 It was nearly 2 AM when I felt the dull ache of hunger stirring in my stomach, an echo of too many hours spent
 chasing down elusive bugs. The monitors glowed, painting our exhausted faces in blue light. Someone whispered,

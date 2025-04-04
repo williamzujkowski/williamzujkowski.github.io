@@ -5,7 +5,7 @@ layout: post.njk
 tags: posts
 ---
 
-# Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography
+
 
 Even as we celebrate the breakthroughs of tomorrow's quantum computing, a chill runs down my spine when I recall that our cherished encryption methods could unravel before these potent machines. The equations that once took classical computers eons to solve may fold under quantum might like paper in a storm. This looming threat has cast the spotlight on **quantum-resistant cryptography**, ensuring we step into the quantum era with our data still protected.
 

@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-# Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security
-
 The shift to microservices and containers felt like stepping into a new world, brimming with potential. But with every Docker container whirring away, a quiet voice kept asking, "Are we secure?" The cloud-native approach offers agility but demands a fresh, proactive attitude toward security—one that acknowledges the ephemeral, ever-evolving nature of these architectures.
 
 ## Understanding the Cloud-Native Paradigm Shift

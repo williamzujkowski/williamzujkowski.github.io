@@ -5,7 +5,7 @@ layout: post.njk
 tags: posts
 ---
 
-# The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception
+
 
 The first time I watched a convincing deepfake, I felt a jolt of disquiet. It was someone's face—perfectly superimposed—speaking words they had never uttered. A technology once relegated to science fiction had become frighteningly real, poised to undermine our trust in video and audio evidence.
 

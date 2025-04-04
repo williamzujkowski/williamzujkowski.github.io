@@ -5,7 +5,7 @@ layout: post.njk
 tags: posts
 ---
 
-# Understanding Context Windows in Large Language Models
+
 
 I used to think a language model simply "knew" how to answer questions. But behind that neat facade stands an important limitation: the **context window**. It determines how much text the model can consider at once, like the memory span of a friend who can only recall part of a conversation before it fades.
 

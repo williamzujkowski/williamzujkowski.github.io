@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-# Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures
-
 Cryptography always felt like magic to me—incantations of math that keep secrets locked away. Over time, I learned it's not just for secret agents and mathematicians; it's a cornerstone that secures online banking, private chats, and all manner of modern data exchange.
 
 ## Encryption: Keeping Secrets Secret

@@ -1,3 +1,22 @@
+// Show page loader
+const pageLoader = document.createElement('div');
+pageLoader.className = 'page-loader';
+pageLoader.innerHTML = `
+  <div class="loader-spinner"></div>
+  <div class="loader-text">Loading...</div>
+`;
+document.body.appendChild(pageLoader);
+
+// Hide loader when page is fully loaded
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    pageLoader.classList.add('page-loader-hidden');
+    setTimeout(() => {
+      pageLoader.remove();
+    }, 500);
+  }, 300);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   // Add cursor blink effect to terminal prompts
   const prompts = document.querySelectorAll('.prompt');
@@ -29,6 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Add scroll reveal animations
   addScrollRevealAnimations();
+  
+  // Initialize theme toggle
+  initThemeToggle();
+  
+  // Add progressive image loading
+  addProgressiveImageLoading();
 });
 
 // Simulate client information display
@@ -197,6 +222,79 @@ function addKeyboardNavigation() {
       item.setAttribute('aria-current', 'page');
     }
   });
+  
+  // Add keyboard support for theme toggle
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleTheme();
+      }
+    });
+  }
+}
+
+// Initialize and handle theme toggle
+function initThemeToggle() {
+  // Create theme toggle button
+  const themeToggle = document.createElement('button');
+  themeToggle.className = 'theme-toggle';
+  themeToggle.setAttribute('aria-label', 'Toggle dark/light mode');
+  themeToggle.setAttribute('title', 'Toggle dark/light mode');
+  themeToggle.setAttribute('type', 'button');
+  themeToggle.setAttribute('tabindex', '0');
+  themeToggle.innerHTML = `
+    <span class="theme-toggle-icon">
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </span>
+  `;
+  
+  // Add click event listener to toggle theme
+  themeToggle.addEventListener('click', toggleTheme);
+  
+  // Add to the header
+  const headerSocial = document.querySelector('.header-social');
+  if (headerSocial) {
+    headerSocial.insertBefore(themeToggle, headerSocial.firstChild);
+  }
+  
+  // Set initial theme based on user preference or system setting
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+  }
+}
+
+// Toggle between light and dark themes
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  
+  // Announce theme change to screen readers
+  const announcement = document.createElement('div');
+  announcement.setAttribute('aria-live', 'polite');
+  announcement.classList.add('sr-only');
+  announcement.textContent = `Theme switched to ${isDark ? 'dark' : 'light'} mode`;
+  document.body.appendChild(announcement);
+  
+  // Remove announcement after it's been read
+  setTimeout(() => {
+    document.body.removeChild(announcement);
+  }, 3000);
 }
 
 // Animate terminal commands with typewriter effect
@@ -298,4 +396,75 @@ function addScrollRevealAnimations() {
     element.classList.add('scroll-reveal');
     observer.observe(element);
   });
+}
+
+// Progressive image loading
+function addProgressiveImageLoading() {
+  // Get all images that are not inline SVGs (they don't need lazy loading)
+  const images = document.querySelectorAll('img:not([src^="data:image/svg"])');
+  
+  // Create an IntersectionObserver
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        
+        // Only process images with data-src attribute
+        const dataSrc = img.getAttribute('data-src');
+        if (dataSrc) {
+          // Create a new image to preload
+          const newImg = new Image();
+          
+          // When the image is loaded, replace the src and remove the blur effect
+          newImg.onload = function() {
+            img.src = dataSrc;
+            img.classList.add('img-loaded');
+            img.removeAttribute('data-src');
+          };
+          
+          // Start loading the image
+          newImg.src = dataSrc;
+          
+          // Stop observing the image
+          observer.unobserve(img);
+        }
+      }
+    });
+  }, {
+    rootMargin: '50px 0px', // Load images a bit before they enter the viewport
+    threshold: 0.1
+  });
+  
+  // Observe all selected images
+  images.forEach(img => {
+    // Skip images that are already loaded
+    if (!img.complete || img.naturalHeight === 0) {
+      const currentSrc = img.getAttribute('src');
+      
+      // If the image has a src but no data-src, set it
+      if (currentSrc && !img.hasAttribute('data-src')) {
+        img.setAttribute('data-src', currentSrc);
+        
+        // Set a low-res placeholder or blur-up placeholder
+        img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150"%3E%3Crect width="300" height="150" fill="%23cccccc"%3E%3C/rect%3E%3C/svg%3E';
+        
+        // Add a loading class for blur effect
+        img.classList.add('img-loading');
+        
+        // Observe the image
+        imageObserver.observe(img);
+      }
+    }
+  });
+  
+  // Process images that have already been loaded
+  document.addEventListener('load', function() {
+    const loadedImages = document.querySelectorAll('img.img-loading');
+    loadedImages.forEach(img => {
+      if (img.complete && img.naturalHeight !== 0) {
+        img.classList.remove('img-loading');
+        img.classList.add('img-loaded');
+      }
+    });
+  }, true);
 }

@@ -5,7 +5,7 @@ layout: post.njk
 tags: posts
 ---
 
-# Mastering Prompt Engineering: Unlocking the Full Potential of LLMs
+
 
 I remember my first attempts at coaxing a Large Language Model into the answers I needed—it felt like teaching a child with an unlimited vocabulary but no context, an experience both exhilarating and maddening. Prompt engineering, I've come to realize, is as much an art as it is a science, especially under tight context-window constraints.
 

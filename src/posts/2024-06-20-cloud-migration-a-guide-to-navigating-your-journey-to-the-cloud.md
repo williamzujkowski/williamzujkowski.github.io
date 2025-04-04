@@ -5,7 +5,7 @@ layout: post.njk
 tags: posts
 ---
 
-# Cloud Migration: A Guide to Navigating Your Journey to the Cloud
+
 
 I recall standing in a server room—warm air blowing from countless machines—wondering if physical servers were still our best bet. The swirl of cables felt like an anchor holding us back from the agility we craved. That's when the concept of cloud migration stole my attention. It's not just about shifting data; it's about embracing the future of how we build, scale, and dream.
 

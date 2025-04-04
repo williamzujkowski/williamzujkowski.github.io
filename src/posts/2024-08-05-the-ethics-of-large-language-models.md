@@ -5,7 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-# The Ethics of Large Language Models
 
 Whenever I talk to a Large Language Model, there's a moment of awe—like stepping into a vast library filled with the echoes of thousands of authors. But lurking among these endless pages is the issue of ethics, which hums in the background like an unresolved chord. LLMs can produce wondrous essays and harmful content alike, and it's our responsibility to shepherd them responsibly.
 

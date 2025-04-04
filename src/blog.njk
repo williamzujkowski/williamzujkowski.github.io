@@ -6,23 +6,224 @@ eleventyNavigation:
   key: Blog
   order: 3
 ---
-{% set searchWidget %}
+{% include "page-header.njk" %}
+
+<div class="blog-header">
+  <p>Thoughts, insights, and explorations in technology, software development, and innovation.</p>
+</div>
+
 <div class="search-container">
-  <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
-  <div class="search-results">
-    Showing <span id="search-results-count">{{ collections.posts | length }}</span> posts
+  <div class="search-input-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="search-icon">
+      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+    </svg>
+    <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+    <button id="clear-search" class="clear-search" aria-label="Clear search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="search-meta">
+    <div class="search-results">
+      Showing <span id="search-results-count">{{ collections.posts | length }}</span> posts
+    </div>
+    
+    <div class="search-tags">
+      <span class="search-tags-label">Popular tags:</span>
+      <div class="tags-list">
+        <button class="tag-btn" data-tag="security">security</button>
+        <button class="tag-btn" data-tag="ai">ai</button>
+        <button class="tag-btn" data-tag="cloud">cloud</button>
+        <button class="tag-btn" data-tag="llm">llm</button>
+        <button class="tag-btn" data-tag="programming">programming</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="no-results-message" class="no-results-message hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm-2.715 5.933a.5.5 0 0 1-.183-.683A4.498 4.498 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
+    </svg>
+    <p>No posts found matching your search.</p>
+    <button id="reset-search" class="reset-search-btn">Reset Search</button>
   </div>
 </div>
-{% endset %}
-
-{% include "page-header.njk" %}
-{% if subtitle %}<p>{{ subtitle }}</p>{% endif %}
-{% if searchWidget %}{{ searchWidget | safe }}{% endif %}
 
 <div class="blog-posts">
   <ul class="post-list">
     {%- for post in collections.posts | reverse -%}
-      {% include "post-list-item.njk" %}
+      <li class="post-item searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
+        <article>
+          <h3 class="post-title">
+            <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+          </h3>
+          
+          {% if post.data.date %}
+            <time class="post-date" datetime="{{ post.data.date | isoDate }}">
+              {{ post.data.date | readableDate }}
+            </time>
+          {% endif %}
+          
+          {% if post.data.tags %}
+            <div class="post-tags">
+              {% for tag in post.data.tags %}
+                {% if tag != "posts" %}
+                  <span class="post-tag">{{ tag }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+          
+          {% if post.data.description %}
+            <p class="post-excerpt">{{ post.data.description }}</p>
+          {% elif post.templateContent %}
+            <p class="post-excerpt">{{ post.templateContent | striptags | truncate(150) }}</p>
+          {% endif %}
+          
+          <a href="{{ post.url | url }}" class="read-more">
+            Read more
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+          </a>
+        </article>
+      </li>
     {%- endfor -%}
   </ul>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('search-input');
+    const clearButton = document.getElementById('clear-search');
+    const resetButton = document.getElementById('reset-search');
+    const noResultsMessage = document.getElementById('no-results-message');
+    const resultCount = document.getElementById('search-results-count');
+    const searchableElements = document.querySelectorAll('.searchable');
+    const tagButtons = document.querySelectorAll('.tag-btn');
+    
+    // Enhanced search function that checks title, content, and tags
+    function performSearch(query) {
+      query = query.toLowerCase().trim();
+      let visibleCount = 0;
+      
+      searchableElements.forEach(element => {
+        const title = element.querySelector('.post-title').textContent.toLowerCase();
+        const content = element.querySelector('.post-excerpt')?.textContent.toLowerCase() || '';
+        const tags = element.dataset.tags?.toLowerCase() || '';
+        
+        // Search in title, content, and tags
+        if (title.includes(query) || content.includes(query) || tags.includes(query) || query === '') {
+          element.style.display = '';
+          visibleCount++;
+          
+          // Highlight matching text if there's a query
+          if (query !== '') {
+            highlightText(element, query);
+          } else {
+            removeHighlights(element);
+          }
+        } else {
+          element.style.display = 'none';
+        }
+      });
+      
+      // Update count and show/hide no results message
+      resultCount.textContent = visibleCount;
+      if (visibleCount === 0 && query !== '') {
+        noResultsMessage.classList.remove('hidden');
+      } else {
+        noResultsMessage.classList.add('hidden');
+      }
+      
+      // Show/hide clear button
+      if (query === '') {
+        clearButton.classList.remove('active');
+      } else {
+        clearButton.classList.add('active');
+      }
+    }
+    
+    // Highlight matching text
+    function highlightText(element, query) {
+      // First remove any existing highlights
+      removeHighlights(element);
+      
+      // Only highlight in the excerpt to avoid changing the title
+      const excerpt = element.querySelector('.post-excerpt');
+      if (!excerpt) return;
+      
+      const content = excerpt.textContent;
+      const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+      excerpt.innerHTML = content.replace(regex, '<mark>$1</mark>');
+    }
+    
+    // Remove highlights
+    function removeHighlights(element) {
+      const excerpt = element.querySelector('.post-excerpt');
+      if (!excerpt) return;
+      
+      const markedContent = excerpt.innerHTML;
+      if (markedContent.includes('<mark>')) {
+        const content = excerpt.textContent;
+        excerpt.innerHTML = content;
+      }
+    }
+    
+    // Escape regex special characters
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+    
+    // Search input event
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        performSearch(this.value);
+      });
+      
+      // Add focus animation
+      searchInput.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+      });
+      
+      searchInput.addEventListener('blur', function() {
+        this.parentElement.classList.remove('focused');
+      });
+    }
+    
+    // Clear search button
+    if (clearButton) {
+      clearButton.addEventListener('click', function() {
+        searchInput.value = '';
+        performSearch('');
+        searchInput.focus();
+      });
+    }
+    
+    // Reset search button in no results message
+    if (resetButton) {
+      resetButton.addEventListener('click', function() {
+        searchInput.value = '';
+        performSearch('');
+        searchInput.focus();
+      });
+    }
+    
+    // Tag buttons
+    if (tagButtons) {
+      tagButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const tag = this.dataset.tag;
+          searchInput.value = tag;
+          performSearch(tag);
+          
+          // Add selected class to the clicked tag
+          tagButtons.forEach(btn => btn.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+    }
+  });
+</script>

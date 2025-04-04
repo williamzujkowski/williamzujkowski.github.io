@@ -5,7 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-# Welcome to My Blog
 
 This is a placeholder blog post. You can add more posts by adding markdown files to the `src/posts` directory.
 

@@ -5,7 +5,7 @@ layout: post.njk
 tags: posts
 ---
 
-# The Transformer Architecture: A Deep Dive
+
 
 There's a famous paper titled *"Attention is All You Need"*, and in many ways, it reframed how I see modern language models. Gone were the days of wrestling with RNNs or LSTMs for every nuance. The Transformer arrived with its self-attention mechanism, a method so elegant and revolutionary that it reshaped our entire approach to NLP.
 
