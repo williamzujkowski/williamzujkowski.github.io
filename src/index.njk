@@ -12,13 +12,6 @@ eleventyNavigation:
     <p>{{ site.homepage.welcome_subtitle }}</p>
   </header>
 
-  <div class="social-links">
-    {% for social in site.social_media %}
-      {% if social.enabled and social.display_on_home %}
-        <a href="{{ social.url }}" class="social-btn">{{ social.icon | safe }} {{ social.name }}</a>
-      {% endif %}
-    {% endfor %}
-  </div>
   
   {% if site.homepage.show_terminal %}
   <div class="terminal-box">
