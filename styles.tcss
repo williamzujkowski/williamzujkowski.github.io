@@ -212,37 +212,37 @@ Footer {
 .host-info-section {
     padding: 1;
     margin: 1;
-    layout: grid;
-    grid-size: 2;
-    grid-columns: 1fr 1fr;
-    grid-rows: auto;
-    grid-gutter: 1 1;
+    background: $midnight;
+    border: solid $neon-blue;
 }
 
 .host-info-item {
-    background: $midnight;
+    display: grid;
+    grid-size: 2;
+    grid-columns: 1fr 2fr;
     padding: 1;
+    margin: 0.5;
     border-left: solid $neon-pink;
-    border-bottom: solid $neon-blue;
-    border-right: solid $neon-blue;
+    border-bottom: thin $neon-blue;
+    background: $darker-blue;
 }
 
 .info-icon {
     margin-right: 1;
 }
 
-.host-info-label {
+.host-info-key {
     color: $neon-blue;
-    margin: 0 0 1 0;
     padding: 0;
     text-style: bold;
-    border-bottom: thin $neon-blue;
+    text-align: right;
+    padding-right: 1;
+    border-right: thin $neon-blue;
 }
 
-.host-info-value {
+.host-info-data {
     color: $terminal-green;
-    margin: 1 0 0 0;
-    padding: 0;
+    padding-left: 1;
 }
 
 /* Time update animation */

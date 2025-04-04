@@ -20,23 +20,23 @@ title: Home
 
   <div class="host-info-section">
     <div class="host-info-item">
-      <p class="host-info-label"><i class="info-icon">📡</i> IP ADDRESS</p>
-      <p class="host-info-value"><span id="user-ip">Detecting...</span></p>
+      <div class="host-info-key"><i class="info-icon">📡</i> IP ADDRESS:</div>
+      <div class="host-info-data"><span id="user-ip">Detecting...</span></div>
     </div>
     
     <div class="host-info-item">
-      <p class="host-info-label"><i class="info-icon">🕒</i> LOCAL TIME</p>
-      <p class="host-info-value"><span id="current-time">Loading...</span></p>
+      <div class="host-info-key"><i class="info-icon">🕒</i> LOCAL TIME:</div>
+      <div class="host-info-data"><span id="current-time">Loading...</span></div>
     </div>
     
     <div class="host-info-item">
-      <p class="host-info-label"><i class="info-icon">📍</i> REGION</p>
-      <p class="host-info-value"><span id="user-location">Detecting...</span></p>
+      <div class="host-info-key"><i class="info-icon">📍</i> REGION:</div>
+      <div class="host-info-data"><span id="user-location">Detecting...</span></div>
     </div>
     
     <div class="host-info-item">
-      <p class="host-info-label"><i class="info-icon">💻</i> ENVIRONMENT</p>
-      <p class="host-info-value"><span id="user-browser">Analyzing...</span></p>
+      <div class="host-info-key"><i class="info-icon">💻</i> ENVIRONMENT:</div>
+      <div class="host-info-data"><span id="user-browser">Analyzing...</span></div>
     </div>
   </div>
 </div>
