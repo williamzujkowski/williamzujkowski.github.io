@@ -549,39 +549,19 @@
     @apply bg-primary-light dark:bg-primary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
   }
 
-  /* Terminal Box (ultra-compact spacing based on screenshot) */
+  /* Terminal Box (elegant compact design) */
   .terminal-box {
-    @apply bg-terminal-bg text-terminal-text py-2 px-3 font-mono rounded-lg mb-4 
-    shadow-terminal overflow-hidden border border-gray-800;
+    @apply bg-terminal-bg text-terminal-text py-3 px-4 font-mono rounded-lg mb-6 
+    shadow-terminal overflow-hidden border border-gray-700;
     @apply backdrop-blur-sm relative z-10 transition-all duration-300;
-    line-height: 1.1;
+    line-height: 1.2;
   }
   
-  /* Additional classes for super-tight terminal */
-  .compact-terminal {
-    @apply py-1 px-2;
-  }
-  
-  .terminal-paragraph {
-    @apply m-0 p-0 leading-snug;
-  }
-  
-  .terminal-list {
-    @apply m-0 p-0 space-y-0;
-  }
-  
-  .terminal-list-item {
-    @apply m-0 p-0 leading-none;
-  }
-  
-  .terminal-html {
-    @apply m-0 p-0 leading-none;
-  }
-  
+  /* Terminal glow effect */
   .terminal-box::before {
     content: "";
     @apply absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 via-purple-500/10 to-pink-500/20 
-    rounded-lg blur opacity-50 z-0;
+    rounded-lg blur opacity-60 z-0;
     animation: terminalGlow 8s linear infinite;
   }
   
@@ -591,27 +571,40 @@
     100% { background-position: 0% 50%; }
   }
 
+  /* Terminal header with traffic light buttons */
   .terminal-header {
-    @apply text-xs text-gray-400 mb-0.5 border-b border-gray-700 pb-0.5 flex items-center;
+    @apply text-xs text-gray-400 mb-2 border-b border-gray-700 pb-1 flex items-center justify-between;
   }
   
   .terminal-header::before {
     content: "";
-    @apply inline-block w-2 h-2 bg-red-500 rounded-full mr-1;
-    box-shadow: 16px 0 0 #f6c000, 8px 0 0 #59c203;
+    @apply inline-block w-2.5 h-2.5 bg-red-500 rounded-full mr-1.5;
+    box-shadow: 20px 0 0 #f6c000, 10px 0 0 #59c203;
   }
 
+  /* Terminal content with reduced spacing */
   .terminal-content {
-    @apply flex flex-col gap-0;
-    line-height: 1;
-  }
-
-  .command-line {
-    @apply flex items-center my-0 pt-1 pb-0 opacity-0;
-    animation: fadeIn 0.5s forwards;
-    margin-bottom: -4px; /* Force negative margin to reduce space */
+    @apply flex flex-col;
+    line-height: 1.15;
   }
   
+  /* Hover highlight effect for command lines */
+  .command-line:hover {
+    @apply bg-gray-800/40;
+  }
+  
+  .response:hover {
+    @apply bg-gray-800/20;
+  }
+
+  /* Command line formatting */
+  .command-line {
+    @apply flex items-center opacity-0 my-0;
+    animation: fadeIn 0.5s forwards;
+    padding: 1px 0;
+  }
+  
+  /* Staggered animation delays */
   .command-line:nth-child(2) {
     animation-delay: 0.3s;
   }
@@ -629,43 +622,34 @@
   }
   
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
+    from { opacity: 0; transform: translateY(3px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* Prompt styling */
   .prompt {
-    @apply text-terminal-prompt mr-1.5 flex items-center text-sm;
+    @apply text-terminal-prompt mr-2 flex items-center text-sm font-bold;
   }
   
+  /* Blinking cursor */
   .cursor {
-    @apply inline-block ml-0.5 animate-terminal-cursor;
+    @apply inline-block ml-1 animate-terminal-cursor;
   }
 
+  /* Command text */
   .command {
-    @apply text-terminal-command text-sm;
+    @apply text-terminal-command text-sm font-medium;
   }
 
+  /* Response styling */
   .response {
-    @apply pl-4 mt-0 mb-0 text-gray-300 opacity-0 text-xs;
+    @apply pl-5 text-gray-300 opacity-0 text-xs;
     animation: fadeIn 0.7s forwards;
     animation-delay: 0.2s;
-    line-height: 1;
-    margin-top: -8px; /* Negative margin to pull up response */
+    margin: 0 0 4px 0;
   }
   
-  /* Ultra-compact lists inside the terminal */
-  .response ul {
-    @apply my-0 py-0 pl-3 flex flex-col gap-0;
-  }
-  
-  .response li {
-    @apply my-0 py-0 leading-tight;
-  }
-  
-  .response p {
-    @apply my-0 py-0 leading-tight;
-  }
-  
+  /* Response animation delays */
   .command-line:nth-child(2) + .response {
     animation-delay: 0.8s;
   }
@@ -682,14 +666,48 @@
     animation-delay: 4.6s;
   }
   
-  /* Super compact file listing in terminal */
+  /* Terminal paragraph styling */
+  .terminal-paragraph {
+    @apply m-0 mb-1 leading-snug;
+  }
+  
+  /* Terminal list styling */
+  .terminal-list {
+    @apply m-0 mb-1 pl-3 space-y-0;
+  }
+  
+  .terminal-list-item {
+    @apply py-0.5 leading-tight;
+    position: relative;
+  }
+  
+  .terminal-list-item::before {
+    content: "•";
+    @apply text-terminal-prompt absolute -left-3;
+  }
+  
+  /* Terminal HTML content */
+  .terminal-html {
+    @apply m-0 leading-tight;
+  }
+  
+  /* File listing in terminal */
   .response .file-listing {
-    @apply grid gap-0.5 my-0 py-0;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    @apply grid gap-1.5 mt-1;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
   
   .response .file {
-    @apply p-px text-xs border-0 bg-gray-800/30;
+    @apply p-1.5 text-xs border border-gray-700/50 rounded bg-gray-800/40;
+    @apply transition-all duration-300 hover:border-blue-500/30 hover:bg-gray-800/60;
+  }
+  
+  .response .file-name {
+    @apply font-mono text-blue-400 font-medium block mb-0.5;
+  }
+  
+  .response .file-desc {
+    @apply text-[10px] text-gray-400 leading-tight block;
   }
 
   /* Info Boxes */
@@ -956,11 +974,20 @@
   }
   
   .terminal-box {
-    @apply p-4;
+    @apply p-3;
+    line-height: 1.1;
   }
   
   .terminal-header::before {
     @apply w-2 h-2;
     box-shadow: 16px 0 0 #f6c000, 8px 0 0 #59c203;
+  }
+  
+  .terminal-list {
+    @apply pl-2;
+  }
+  
+  .response .file-listing {
+    grid-template-columns: 1fr;
   }
 }
