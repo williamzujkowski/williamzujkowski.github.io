@@ -8,6 +8,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("android-chrome-192x192.png");
   eleventyConfig.addPassthroughCopy("android-chrome-512x512.png");
+  eleventyConfig.addPassthroughCopy(".nojekyll");
   
   // Debug filter
   eleventyConfig.addFilter('log', function(value) {

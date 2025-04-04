@@ -4,6 +4,7 @@
   "description": "William Zujkowski's personal website",
   "main": "index.js",
   "type": "module",
+  "homepage": "https://williamzujkowski.github.io",
   "scripts": {
     "build": "npm run build:css && npm run build:arxiv && npm run build:github && eleventy --config=.eleventy.simple.cjs",
     "build:css": "postcss src/css/styles.css -o _site/css/styles.css",
