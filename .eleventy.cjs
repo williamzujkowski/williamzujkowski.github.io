@@ -13,12 +13,19 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(pluginRss);
 
-  // Debug plugin to help with layouts
+  // Debug and add layout aliases
   eleventyConfig.addPlugin(function(eleventyConfig) {
+    // Add debug filter
     eleventyConfig.addFilter('debugLayoutPath', function(value) {
       console.log('Debug layout path:', value);
       return value;
     });
+    
+    // Add layout aliases
+    eleventyConfig.addLayoutAlias('base', '_layouts/base.njk');
+    eleventyConfig.addLayoutAlias('base.njk', '_layouts/base.njk');
+    eleventyConfig.addLayoutAlias('post', '_layouts/post.njk');
+    eleventyConfig.addLayoutAlias('post.njk', '_layouts/post.njk');
   });
   
   // Copy files

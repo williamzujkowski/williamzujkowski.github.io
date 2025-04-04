@@ -1,7 +1,7 @@
 ---
 title: "Your Blog Post Title Here"
 date: 2024-01-01
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

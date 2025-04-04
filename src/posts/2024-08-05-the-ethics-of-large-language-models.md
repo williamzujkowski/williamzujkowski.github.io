@@ -1,7 +1,7 @@
 ---
 title: "The Ethics of Large Language Models"
 date: 2024-08-05
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

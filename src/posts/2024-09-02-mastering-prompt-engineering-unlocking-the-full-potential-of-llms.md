@@ -1,7 +1,7 @@
 ---
 title: "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs"
 date: 2024-09-02
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

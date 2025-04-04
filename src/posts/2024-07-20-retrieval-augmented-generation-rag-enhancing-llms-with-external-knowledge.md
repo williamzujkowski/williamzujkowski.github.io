@@ -1,7 +1,7 @@
 ---
 title: "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge"
 date: 2024-07-20
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

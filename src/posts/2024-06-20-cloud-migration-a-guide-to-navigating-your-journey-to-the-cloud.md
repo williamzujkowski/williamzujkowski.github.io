@@ -1,7 +1,7 @@
 ---
 title: "Cloud Migration: A Guide to Navigating Your Journey to the Cloud"
 date: 2024-06-20
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

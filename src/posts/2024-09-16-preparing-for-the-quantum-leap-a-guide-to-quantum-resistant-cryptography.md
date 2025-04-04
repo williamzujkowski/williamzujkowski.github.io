@@ -1,7 +1,7 @@
 ---
 title: "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography"
 date: 2024-09-16
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

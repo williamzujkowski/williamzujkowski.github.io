@@ -1,7 +1,7 @@
 ---
 title: "Understanding Context Windows in Large Language Models"
 date: 2024-07-15
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas"
 date: 2024-12-13
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

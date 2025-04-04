@@ -1,7 +1,7 @@
 ---
 title: "The Pizza Calculator: A Developer's Best Friend During Crunch Time"
 date: 2024-10-19
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 

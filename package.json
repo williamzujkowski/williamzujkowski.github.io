@@ -5,14 +5,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npm run build:css && npm run build:arxiv && npm run build:github && eleventy --config=.eleventy.cjs",
+    "build": "npm run build:css && npm run build:arxiv && npm run build:github && eleventy --config=.eleventy.simple.cjs",
     "build:css": "postcss src/css/styles.css -o _site/css/styles.css",
     "build:arxiv": "node build-arxiv-feed.js",
     "build:github": "node build-github-pins.js",
     "watch:css": "postcss src/css/styles.css -o _site/css/styles.css --watch",
-    "serve": "npm run watch:css & eleventy --config=.eleventy.cjs --serve",
+    "serve": "npm run watch:css & eleventy --config=.eleventy.simple.cjs --serve",
     "dev": "npm run serve",
-    "debug": "DEBUG=* eleventy --config=.eleventy.cjs"
+    "debug": "DEBUG=* eleventy --config=.eleventy.simple.cjs"
   },
   "keywords": [],
   "author": "William Zujkowski",

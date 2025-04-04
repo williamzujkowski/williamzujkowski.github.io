@@ -1,7 +1,7 @@
 ---
 title: "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures"
 date: 2024-04-08
-layout: _layouts/post.njk
+layout: post.njk
 tags: posts
 ---
 
