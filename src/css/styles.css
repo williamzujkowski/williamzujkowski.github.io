@@ -10,27 +10,27 @@
   }
 
   body {
-    @apply bg-background text-text font-serif;
+    @apply bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-bold mb-4 text-primary;
+    @apply font-serif font-bold mb-4 text-primary-light dark:text-primary-dark;
   }
 
   h1 {
-    @apply text-3xl border-b-2 border-secondary pb-2 mb-6;
+    @apply text-3xl border-b-2 border-secondary-light dark:border-secondary-dark pb-2 mb-6;
   }
 
   h2 {
-    @apply text-2xl border-b border-border pb-1 mt-6 mb-4;
+    @apply text-2xl border-b border-border-light dark:border-border-dark pb-1 mt-6 mb-4;
   }
 
   h3 {
-    @apply text-xl mt-4 text-secondary;
+    @apply text-xl mt-4 text-secondary-light dark:text-secondary-dark;
   }
 
   a {
-    @apply text-secondary hover:underline font-bold;
+    @apply text-secondary-light dark:text-secondary-dark hover:underline font-bold;
   }
 
   p, ul, ol {
@@ -50,11 +50,11 @@
   }
 
   code {
-    @apply font-mono bg-light px-1 py-0.5 text-sm border border-border rounded;
+    @apply font-mono bg-light-light dark:bg-light-dark px-1 py-0.5 text-sm border border-border-light dark:border-border-dark rounded;
   }
 
   pre {
-    @apply bg-light p-4 rounded overflow-x-auto mb-4 border border-border shadow-classic;
+    @apply bg-light-light dark:bg-light-dark p-4 rounded overflow-x-auto mb-4 border border-border-light dark:border-border-dark shadow-classic dark:shadow-classic-dark;
   }
 
   pre code {
@@ -62,15 +62,15 @@
   }
 
   blockquote {
-    @apply border-l-4 border-primary p-2 pl-4 my-4 bg-light italic;
+    @apply border-l-4 border-primary-light dark:border-primary-dark p-2 pl-4 my-4 bg-light-light dark:bg-light-dark italic;
   }
 
   hr {
-    @apply my-6 border-t border-border;
+    @apply my-6 border-t border-border-light dark:border-border-dark;
   }
 
   img {
-    @apply max-w-full h-auto my-4 border border-border p-1 bg-white shadow-classic;
+    @apply max-w-full h-auto my-4 border border-border-light dark:border-border-dark p-1 bg-white dark:bg-light-dark shadow-classic dark:shadow-classic-dark;
   }
 
   table {
@@ -78,15 +78,15 @@
   }
 
   table th {
-    @apply bg-primary text-white p-2 text-left;
+    @apply bg-primary-light dark:bg-primary-dark text-white p-2 text-left;
   }
 
   table td {
-    @apply border border-border p-2;
+    @apply border border-border-light dark:border-border-dark p-2;
   }
 
   table tr:nth-child(even) {
-    @apply bg-light;
+    @apply bg-light-light dark:bg-light-dark;
   }
 }
 
@@ -99,20 +99,20 @@
 
   /* Header */
   .site-header {
-    @apply border-b-2 border-primary pb-4 mb-8;
+    @apply border-b-2 border-primary-light dark:border-primary-dark pb-4 mb-8;
   }
 
   .site-title {
-    @apply text-3xl font-bold text-primary mb-4;
+    @apply text-3xl font-bold text-primary-light dark:text-primary-dark mb-4;
   }
 
   .site-title a {
-    @apply text-primary no-underline hover:text-secondary;
+    @apply text-primary-light dark:text-primary-dark no-underline hover:text-secondary-light dark:hover:text-secondary-dark;
   }
 
   /* Navigation */
   .site-nav ul {
-    @apply flex flex-wrap list-none p-0 m-0 gap-6 border-t border-border pt-2;
+    @apply flex flex-wrap list-none p-0 m-0 gap-6 border-t border-border-light dark:border-border-dark pt-2;
   }
 
   .site-nav li {
@@ -120,7 +120,7 @@
   }
 
   .nav-item {
-    @apply font-bold text-primary hover:text-secondary no-underline;
+    @apply font-bold text-primary-light dark:text-primary-dark hover:text-secondary-light dark:hover:text-secondary-dark no-underline;
   }
 
   /* Content */
@@ -130,12 +130,12 @@
 
   /* Footer */
   .site-footer {
-    @apply mt-12 pt-4 border-t border-primary text-center text-muted text-sm;
+    @apply mt-12 pt-4 border-t border-primary-light dark:border-primary-dark text-center text-muted-light dark:text-muted-dark text-sm;
   }
 
   /* Home Page */
   .home-header {
-    @apply mb-12 pb-4 border-b border-border;
+    @apply mb-12 pb-4 border-b border-border-light dark:border-border-dark;
   }
 
   .home-header h1 {
@@ -143,7 +143,7 @@
   }
 
   .home-header p {
-    @apply text-xl text-muted italic;
+    @apply text-xl text-muted-light dark:text-muted-dark italic;
   }
 
   /* Links Page */
@@ -156,7 +156,7 @@
   }
 
   .links-group-header {
-    @apply border-b border-primary mb-4 pb-1 flex items-center;
+    @apply border-b border-primary-light dark:border-primary-dark mb-4 pb-1 flex items-center;
   }
 
   .links-group-header h2 {
@@ -164,7 +164,7 @@
   }
 
   .links-group-icon {
-    @apply mr-2 text-2xl text-primary;
+    @apply mr-2 text-2xl text-primary-light dark:text-primary-dark;
   }
 
   .links-list {
@@ -172,19 +172,19 @@
   }
 
   .link-item {
-    @apply mb-4 p-3 border border-border rounded bg-light;
+    @apply mb-4 p-3 border border-border-light dark:border-border-dark rounded bg-light-light dark:bg-light-dark;
   }
 
   .link-item:hover {
-    @apply border-primary bg-white shadow-classic;
+    @apply border-primary-light dark:border-primary-dark bg-white dark:bg-background-dark shadow-classic dark:shadow-classic-dark;
   }
 
   .link-title {
-    @apply font-bold block text-primary;
+    @apply font-bold block text-primary-light dark:text-primary-dark;
   }
 
   .link-description {
-    @apply text-muted text-sm mt-1 block;
+    @apply text-muted-light dark:text-muted-dark text-sm mt-1 block;
   }
 
   /* Blog Page */
@@ -193,7 +193,7 @@
   }
 
   .post-item {
-    @apply mb-8 pb-4 border-b border-border;
+    @apply mb-8 pb-4 border-b border-border-light dark:border-border-dark;
   }
 
   .post-item:last-child {
@@ -205,11 +205,11 @@
   }
 
   .post-title a {
-    @apply text-primary hover:text-secondary;
+    @apply text-primary-light dark:text-primary-dark hover:text-secondary-light dark:hover:text-secondary-dark;
   }
 
   .post-date {
-    @apply block text-muted text-sm mb-2 italic;
+    @apply block text-muted-light dark:text-muted-dark text-sm mb-2 italic;
   }
 
   .post-excerpt {
@@ -217,16 +217,16 @@
   }
 
   .read-more {
-    @apply inline-block py-1 px-3 border border-secondary rounded text-sm bg-white text-secondary font-bold;
+    @apply inline-block py-1 px-3 border border-secondary-light dark:border-secondary-dark rounded text-sm bg-white dark:bg-light-dark text-secondary-light dark:text-secondary-dark font-bold;
   }
 
   .read-more:hover {
-    @apply bg-secondary text-white no-underline shadow-classic;
+    @apply bg-secondary-light dark:bg-secondary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
   }
 
   /* Single Post */
   .post-header {
-    @apply mb-8 pb-4 border-b-2 border-secondary;
+    @apply mb-8 pb-4 border-b-2 border-secondary-light dark:border-secondary-dark;
   }
 
   .post-content {
@@ -234,20 +234,20 @@
   }
 
   .post-footer {
-    @apply pt-4 border-t border-primary;
+    @apply pt-4 border-t border-primary-light dark:border-primary-dark;
   }
 
   .back-link {
-    @apply inline-block py-1 px-3 border border-primary rounded bg-white text-primary font-bold;
+    @apply inline-block py-1 px-3 border border-primary-light dark:border-primary-dark rounded bg-white dark:bg-light-dark text-primary-light dark:text-primary-dark font-bold;
   }
 
   .back-link:hover {
-    @apply bg-primary text-white no-underline shadow-classic;
+    @apply bg-primary-light dark:bg-primary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
   }
 
   /* Terminal Box (styled more like a classic computer/console) */
   .terminal-box {
-    @apply bg-black text-green-500 p-4 font-mono border-2 border-gray-700 rounded mb-6 shadow-classic overflow-hidden;
+    @apply bg-black text-green-500 p-4 font-mono border-2 border-gray-700 rounded mb-6 shadow-classic dark:shadow-classic-dark overflow-hidden;
   }
 
   .terminal-header {
@@ -276,11 +276,11 @@
   }
 
   .info-item {
-    @apply bg-light border border-border rounded p-2 flex flex-col;
+    @apply bg-light-light dark:bg-light-dark border border-border-light dark:border-border-dark rounded p-2 flex flex-col;
   }
 
   .info-label {
-    @apply text-xs text-muted mb-1 font-bold;
+    @apply text-xs text-muted-light dark:text-muted-dark mb-1 font-bold;
   }
 
   .info-value {
@@ -293,15 +293,15 @@
   }
 
   .classic-table th {
-    @apply bg-primary text-white p-2 text-left border border-primary;
+    @apply bg-primary-light dark:bg-primary-dark text-white p-2 text-left border border-primary-light dark:border-primary-dark;
   }
 
   .classic-table td {
-    @apply border border-border p-2;
+    @apply border border-border-light dark:border-border-dark p-2;
   }
 
   .classic-table tr:nth-child(even) {
-    @apply bg-light;
+    @apply bg-light-light dark:bg-light-dark;
   }
 }
 
@@ -333,5 +333,24 @@
   
   img {
     @apply max-w-full shadow-none;
+  }
+}
+
+/* Color scheme preference */
+@media (prefers-color-scheme: dark) {
+  .theme-toggle-icon .sun {
+    @apply hidden;
+  }
+  .theme-toggle-icon .moon {
+    @apply block;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .theme-toggle-icon .sun {
+    @apply block;
+  }
+  .theme-toggle-icon .moon {
+    @apply hidden;
   }
 }
