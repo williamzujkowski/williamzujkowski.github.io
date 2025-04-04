@@ -21,9 +21,21 @@
                     Recent
                   {% endif %}
                 </span> • 
-                <span class="authors">{{ paper.authors | join(', ') }}</span>
+                <span class="authors">
+                  {% if paper.authors and paper.authors.length > 0 %}
+                    {{ paper.authors | join(', ') }}
+                  {% else %}
+                    Unknown authors
+                  {% endif %}
+                </span>
               </div>
-              <p class="paper-summary text-sm">{{ paper.summary | truncate(200) }}</p>
+              <p class="paper-summary text-sm">
+                {% if paper.summary %}
+                  {{ paper.summary | truncate(200) }}
+                {% else %}
+                  No summary available
+                {% endif %}
+              </p>
             </div>
           {% endfor %}
         </div>
