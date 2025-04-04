@@ -4,17 +4,17 @@
   "url": "https://williamzujkowski.github.io",
   "author": "William Zujkowski",
   "email": "william@example.com",
-  "theme": "dark",
+  "theme": "light",
   "navigation": [
-    { "name": "Home", "url": "/", "icon": "🏠" },
-    { "name": "Links", "url": "/links/", "icon": "🔗" },
-    { "name": "Blog", "url": "/blog/", "icon": "📝" },
-    { "name": "Contact", "url": "/contact/", "icon": "✉️" }
+    { "name": "Home", "url": "/", "icon": "" },
+    { "name": "Links", "url": "/links/", "icon": "" },
+    { "name": "Blog", "url": "/blog/", "icon": "" },
+    { "name": "Contact", "url": "/contact/", "icon": "" }
   ],
   "linkGroups": [
-    { "name": "Social", "icon": "👥" },
-    { "name": "Projects", "icon": "💻" },
-    { "name": "Resources", "icon": "📚" }
+    { "name": "Social", "icon": "" },
+    { "name": "Projects", "icon": "" },
+    { "name": "Resources", "icon": "" }
   ],
   "links": [
     { "name": "GitHub", "url": "https://github.com/williamzujkowski", "group": "Social", "icon": "GitHub" },
