@@ -6,15 +6,23 @@ eleventyNavigation:
   key: Contact
   order: 4
 ---
-{% include "page-header.njk" with {
-  title: "Contact"
-} %}
+{% include "page-header.njk" with {title: "Contact"} %}
+
+{% set contactHtml %}
+<p>You can reach me through the following channels:</p>
+<ul>
+  <li>Email: <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+  <li>GitHub: <a href="https://github.com/williamzujkowski" target="_blank">williamzujkowski</a></li>
+  <li>LinkedIn: <a href="https://linkedin.com/in/williamzujkowski" target="_blank">williamzujkowski</a></li>
+  <li>Twitter: <a href="https://twitter.com/williamzujkowski" target="_blank">@williamzujkowski</a></li>
+</ul>
+{% endset %}
 
 {% set contactCommands = [
   {
     command: 'contact --methods',
     type: 'html',
-    response: '<p>You can reach me through the following channels:</p><ul><li>Email: <a href="mailto:' + site.email + '">' + site.email + '</a></li><li>GitHub: <a href="https://github.com/williamzujkowski" target="_blank">williamzujkowski</a></li><li>LinkedIn: <a href="https://linkedin.com/in/williamzujkowski" target="_blank">williamzujkowski</a></li><li>Twitter: <a href="https://twitter.com/williamzujkowski" target="_blank">@williamzujkowski</a></li></ul>'
+    response: contactHtml
   },
   {
     command: 'echo "I\'ll respond to all inquiries within 48 hours."',
