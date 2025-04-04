@@ -132,6 +132,18 @@
   .site-footer {
     @apply mt-12 pt-4 border-t border-primary-light dark:border-primary-dark text-center text-muted-light dark:text-muted-dark text-sm;
   }
+  
+  .footer-content {
+    @apply mb-3;
+  }
+  
+  .footer-social {
+    @apply flex justify-center gap-4 mt-3;
+  }
+  
+  .footer-social-link {
+    @apply inline-flex p-2 text-muted-light dark:text-muted-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors duration-200;
+  }
 
   /* Home Page */
   .home-header {

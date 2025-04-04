@@ -34,6 +34,14 @@
       <div class="footer-content">
         &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
       </div>
+      
+      <div class="footer-social">
+        {% for social in site.social_media %}
+          {% if social.enabled and social.display_in_footer %}
+            <a href="{{ social.url }}" class="footer-social-link">{{ social.icon | safe }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
     </footer>
   </div>
 
