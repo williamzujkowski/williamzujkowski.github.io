@@ -549,11 +549,33 @@
     @apply bg-primary-light dark:bg-primary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
   }
 
-  /* Terminal Box (extremely compact spacing) */
+  /* Terminal Box (ultra-compact spacing based on screenshot) */
   .terminal-box {
-    @apply bg-terminal-bg text-terminal-text p-3 font-mono rounded-lg mb-4 
+    @apply bg-terminal-bg text-terminal-text py-2 px-3 font-mono rounded-lg mb-4 
     shadow-terminal overflow-hidden border border-gray-800;
     @apply backdrop-blur-sm relative z-10 transition-all duration-300;
+    line-height: 1.1;
+  }
+  
+  /* Additional classes for super-tight terminal */
+  .compact-terminal {
+    @apply py-1 px-2;
+  }
+  
+  .terminal-paragraph {
+    @apply m-0 p-0 leading-snug;
+  }
+  
+  .terminal-list {
+    @apply m-0 p-0 space-y-0;
+  }
+  
+  .terminal-list-item {
+    @apply m-0 p-0 leading-none;
+  }
+  
+  .terminal-html {
+    @apply m-0 p-0 leading-none;
   }
   
   .terminal-box::before {
@@ -570,7 +592,7 @@
   }
 
   .terminal-header {
-    @apply text-xs text-gray-400 mb-1 border-b border-gray-700 pb-0.5 flex items-center;
+    @apply text-xs text-gray-400 mb-0.5 border-b border-gray-700 pb-0.5 flex items-center;
   }
   
   .terminal-header::before {
@@ -579,9 +601,15 @@
     box-shadow: 16px 0 0 #f6c000, 8px 0 0 #59c203;
   }
 
+  .terminal-content {
+    @apply flex flex-col gap-0;
+    line-height: 1;
+  }
+
   .command-line {
-    @apply flex mb-0.5 items-center opacity-0;
+    @apply flex items-center my-0 pt-1 pb-0 opacity-0;
     animation: fadeIn 0.5s forwards;
+    margin-bottom: -4px; /* Force negative margin to reduce space */
   }
   
   .command-line:nth-child(2) {
@@ -618,22 +646,24 @@
   }
 
   .response {
-    @apply pl-4 mb-1.5 text-gray-300 opacity-0 text-xs leading-tight;
+    @apply pl-4 mt-0 mb-0 text-gray-300 opacity-0 text-xs;
     animation: fadeIn 0.7s forwards;
     animation-delay: 0.2s;
+    line-height: 1;
+    margin-top: -8px; /* Negative margin to pull up response */
   }
   
   /* Ultra-compact lists inside the terminal */
   .response ul {
-    @apply my-0.5 pl-3;
+    @apply my-0 py-0 pl-3 flex flex-col gap-0;
   }
   
   .response li {
-    @apply mb-0.5 leading-snug;
+    @apply my-0 py-0 leading-tight;
   }
   
   .response p {
-    @apply my-0.5 leading-snug;
+    @apply my-0 py-0 leading-tight;
   }
   
   .command-line:nth-child(2) + .response {
@@ -654,12 +684,12 @@
   
   /* Super compact file listing in terminal */
   .response .file-listing {
-    @apply grid gap-1;
+    @apply grid gap-0.5 my-0 py-0;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
   
   .response .file {
-    @apply p-1 text-xs border-0 bg-gray-800/50;
+    @apply p-px text-xs border-0 bg-gray-800/30;
   }
 
   /* Info Boxes */

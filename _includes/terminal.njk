@@ -1,4 +1,4 @@
-<div class="terminal-box">
+<div class="terminal-box compact-terminal">
   <div class="terminal-header">{{ site.homepage.terminal_prompt }}</div>
   <div class="terminal-content">
     {% if homeCommands %}
@@ -9,15 +9,15 @@
         </div>
         <div class="response">
           {% if cmd.type == 'text' %}
-            <p>{{ cmd.response }}</p>
+            <p class="terminal-paragraph">{{ cmd.response }}</p>
           {% elif cmd.type == 'list' %}
-            <ul>
+            <ul class="terminal-list">
               {% for item in cmd.response %}
-                <li>{{ item }}</li>
+                <li class="terminal-list-item">{{ item }}</li>
               {% endfor %}
             </ul>
           {% elif cmd.type == 'html' %}
-            {{ cmd.response | safe }}
+            <div class="terminal-html">{{ cmd.response | safe }}</div>
           {% endif %}
         </div>
       {% endfor %}
