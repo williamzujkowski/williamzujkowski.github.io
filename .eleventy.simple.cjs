@@ -46,6 +46,20 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("dateToRfc3339", pluginRss.dateToRfc3339);
   eleventyConfig.addFilter("dateToRfc822", pluginRss.dateToRfc822);
   eleventyConfig.addFilter("htmlToAbsoluteUrls", pluginRss.htmlToAbsoluteUrls);
+  
+  // Add shortcode for current year
+  eleventyConfig.addShortcode("year", () => new Date().getFullYear());
+  
+  // Add collection utilities
+  eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {
+    if( !collection || !collection.length ) {
+      return new Date();
+    }
+    
+    return new Date(Math.max(...collection.map(item => {
+      return item.date ? item.date.getTime() : 0;
+    })));
+  });
 
   return {
     dir: {
