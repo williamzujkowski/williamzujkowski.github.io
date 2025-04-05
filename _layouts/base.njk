@@ -4,14 +4,54 @@
   {% include "meta.njk" %}
 </head>
 <body>
-  <div class="site-wrapper">
-    {% include "header.njk" %}
+  <header class="gh-header">
+    <div class="gh-header-inner">
+      <div class="gh-nav">
+        <a href="/" class="gh-nav-item {% if page.url == '/' %}active{% endif %}">
+          <span>Home</span>
+        </a>
+        <a href="/blog/" class="gh-nav-item {% if page.url == '/blog/' %}active{% endif %}">
+          <span>Blog</span>
+        </a>
+        <a href="/links/" class="gh-nav-item {% if page.url == '/links/' %}active{% endif %}">
+          <span>Links</span>
+        </a>
+        <a href="/contact/" class="gh-nav-item {% if page.url == '/contact/' %}active{% endif %}">
+          <span>Contact</span>
+        </a>
+      </div>
+      
+      <div class="gh-nav">
+        {% for social in site.social_media %}
+          {% if social.enabled and social.display_in_header %}
+            <a href="{{ social.url }}" class="gh-nav-item" aria-label="{{ social.name }}">
+              {{ social.icon | safe }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </header>
 
-    <main class="content">
+  <div class="site-container">
+    <main>
       {{ content | safe }}
     </main>
 
-    {% include "footer.njk" %}
+    <footer class="gh-footer">
+      <div class="gh-footer-inner">
+        <div class="gh-footer-links">
+          <a href="/">Home</a>
+          <a href="/blog/">Blog</a>
+          <a href="/links/">Links</a>
+          <a href="/contact/">Contact</a>
+          <a href="/feed.xml">RSS</a>
+        </div>
+        <div class="gh-copyright">
+          &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
+        </div>
+      </div>
+    </footer>
   </div>
 
   <script src="/js/main.js"></script>

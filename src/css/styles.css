@@ -3,82 +3,46 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 /* Custom base styles */
 @layer base {
-  :root {
-    /* RGB values for gradient borders and effects */
-    --primary-rgb: 255, 248, 36; /* #FFF824 in RGB */
-    --secondary-rgb: 243, 243, 243; /* #F3F3F3 in RGB */
-    --accent-rgb: 187, 134, 252; /* #BB86FC in RGB */
-    
-    /* Typography scale */
-    --font-size-xs: clamp(0.7rem, 0.7vw, 0.8rem);
-    --font-size-sm: clamp(0.8rem, 0.8vw, 0.9rem);
-    --font-size-base: clamp(1rem, 1vw, 1.1rem);
-    --font-size-lg: clamp(1.2rem, 1.5vw, 1.5rem);
-    --font-size-xl: clamp(1.5rem, 2vw, 2rem);
-    --font-size-2xl: clamp(2rem, 3vw, 3rem);
-    --font-size-3xl: clamp(2.5rem, 4vw, 4rem);
-    --font-size-4xl: clamp(3rem, 5vw, 5rem);
-    
-    /* Spacing scale */
-    --space-xs: clamp(0.5rem, 0.5vw, 0.75rem);
-    --space-sm: clamp(0.75rem, 0.75vw, 1rem);
-    --space-md: clamp(1rem, 1vw, 1.5rem);
-    --space-lg: clamp(1.5rem, 1.5vw, 2rem);
-    --space-xl: clamp(2rem, 2vw, 3rem);
-    --space-2xl: clamp(3rem, 3vw, 4rem);
-  }
-
   html {
     @apply scroll-smooth;
-    font-size: 16px;
-    letter-spacing: -0.02em;
   }
 
   body {
     @apply bg-background text-text font-sans;
-    @apply transition-colors duration-300;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    line-height: 1.5;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-black uppercase tracking-tight text-secondary;
-    @apply mb-6;
-    line-height: 1.1;
+    @apply font-sans font-semibold text-text mb-4;
+    line-height: 1.25;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl mb-8;
-    font-size: var(--font-size-4xl);
+    @apply text-2xl;
   }
 
   h2 {
-    @apply text-2xl md:text-3xl lg:text-4xl mt-10 mb-6;
-    font-size: var(--font-size-2xl);
+    @apply text-xl border-b border-border pb-1 mt-6 mb-4;
   }
 
   h3 {
-    @apply text-xl md:text-2xl mt-8 font-bold;
-    font-size: var(--font-size-xl);
+    @apply text-lg mt-4;
   }
 
   a {
-    @apply text-text font-medium relative inline-block;
-    @apply transition-all duration-300 ease-in-out;
+    @apply text-accent;
     text-decoration: none;
   }
   
   a:hover {
-    @apply text-primary;
+    @apply text-accent-hover;
+    text-decoration: underline;
   }
   
   p, ul, ol {
-    @apply mb-6 leading-relaxed;
-    font-size: var(--font-size-base);
+    @apply mb-4;
   }
 
   ul, ol {
@@ -86,12 +50,7 @@
   }
 
   ul {
-    @apply list-none;
-  }
-
-  ul li::before {
-    content: "→";
-    @apply text-primary mr-2;
+    @apply list-disc;
   }
 
   ol {
@@ -99,13 +58,11 @@
   }
 
   code {
-    @apply font-mono bg-light px-1.5 py-0.5 text-sm border-2 border-border rounded;
-    @apply text-white transition-colors duration-300;
+    @apply font-mono text-sm px-1.5 py-0.5 bg-surface border border-border rounded-github;
   }
 
   pre {
-    @apply bg-light p-4 rounded-lg overflow-x-auto mb-4 border border-border shadow-card;
-    @apply transition-all duration-300;
+    @apply bg-surface p-4 rounded-github overflow-x-auto mb-4 border border-border;
   }
 
   pre code {
@@ -113,47 +70,41 @@
   }
 
   blockquote {
-    @apply border-l-4 border-primary p-3 pl-6 my-6 bg-light/30 rounded-r-lg italic;
-    @apply shadow-sm transition-all duration-300;
+    @apply border-l-4 border-border p-3 pl-4 my-4 bg-surface rounded-r-github text-text-secondary;
   }
 
   hr {
-    @apply my-8 border-t border-border;
+    @apply my-6 border-t border-border;
   }
 
   img {
-    @apply max-w-full h-auto my-6 rounded-lg shadow-card;
-    @apply transition-all duration-300 hover:shadow-card-hover;
+    @apply max-w-full h-auto rounded-github;
   }
 
   table {
-    @apply w-full border-collapse mb-6 rounded-lg overflow-hidden shadow-sm;
+    @apply w-full border-collapse mb-4 text-left;
   }
 
   table th {
-    @apply bg-primary text-white p-3 text-left;
+    @apply bg-surface p-2 border-b border-border font-medium;
   }
 
   table td {
-    @apply border border-border p-3 transition-colors duration-300;
+    @apply p-2 border-b border-border;
   }
 
-  table tr:nth-child(even) {
-    @apply bg-light/50;
-  }
-  
   /* Smooth scrollbar for Firefox */
   @supports (scrollbar-color: auto) {
     * {
-      scrollbar-color: rgb(180 180 180 / 0.5) transparent;
+      scrollbar-color: rgba(175, 184, 193, 0.2) transparent;
       scrollbar-width: thin;
     }
   }
   
   /* Smooth scrollbar for Webkit */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
   
   ::-webkit-scrollbar-track {
@@ -161,396 +112,247 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
+    @apply bg-secondary/20 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary/40;
   }
   
   ::selection {
-    @apply bg-secondary/30;
+    @apply bg-accent/10;
   }
 }
 
 /* Component styles */
 @layer components {
   /* Layout */
-  .site-wrapper {
-    @apply max-w-4xl mx-auto px-4 py-6;
+  .site-container {
+    @apply max-w-[1012px] mx-auto px-4 py-6;
   }
 
-  /* Header - Minimal bold style */
-  .site-header {
-    @apply py-6 mb-14 flex flex-wrap justify-between items-center;
-    @apply sticky top-0 z-50 bg-background;
-    @apply transition-all duration-300;
-    @apply border-b border-text/10;
+  /* GitHub-style header */
+  .gh-header {
+    @apply bg-background border-b border-border flex items-center py-4 px-4 sticky top-0 z-50;
   }
 
-  .site-title {
-    @apply text-2xl lg:text-3xl font-display font-black uppercase tracking-tight;
-    @apply text-text;
-    @apply transition-all duration-300 ease-in-out;
-    letter-spacing: -0.05em;
+  .gh-header-inner {
+    @apply max-w-[1012px] w-full mx-auto flex items-center justify-between;
   }
 
-  .site-title a {
-    @apply text-text no-underline;
-    @apply relative;
-    @apply hover:text-primary;
-    @apply transition-all duration-300;
-  }
-  
-  .site-title a::after {
-    content: "";
-    @apply absolute -bottom-1 left-0 w-0 h-[3px] bg-primary;
-    @apply transition-all duration-300 ease-in-out;
-  }
-  
-  .site-title a:hover::after {
-    @apply w-full;
-  }
-  
-  .header-right {
-    @apply flex items-center gap-8;
-    @apply transition-all duration-300;
-  }
-  
-  .header-social {
-    @apply flex gap-4 ml-8;
-  }
-  
-  .header-social-link {
-    @apply text-text uppercase text-sm font-bold;
-    @apply transition-all duration-300;
-    @apply relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
-    after:bg-primary after:transition-all after:duration-300;
-  }
-  
-  .header-social-link:hover {
-    @apply text-primary;
-  }
-  
-  .header-social-link:hover::after {
-    @apply w-full;
+  .gh-nav {
+    @apply flex items-center gap-4;
   }
 
-  /* Navigation - minimal uppercase style */
-  .site-nav ul {
-    @apply flex flex-wrap list-none p-0 m-0 gap-6 md:gap-8;
+  .gh-nav-item {
+    @apply px-2 py-1 text-sm font-medium text-text hover:text-accent rounded-md hover:bg-surface transition-colors duration-200;
   }
 
-  .site-nav li {
-    @apply list-none;
-  }
-  
-  .site-nav li::before {
-    content: none;
+  .gh-nav-item.active {
+    @apply font-semibold;
   }
 
-  .nav-item {
-    @apply font-display font-bold uppercase text-sm tracking-wide text-text;
-    @apply transition-all duration-300 relative;
-    @apply after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] 
-    after:bg-primary after:transition-all after:duration-300;
-  }
-  
-  .nav-item:hover {
-    @apply text-primary;
-    @apply after:w-full;
-  }
-  
-  /* Active nav styles */
-  .nav-item[aria-current="page"] {
-    @apply text-primary font-black;
-    @apply after:w-full bg-light/30 px-5;
-    @apply border-b-2 border-primary;
+  .gh-profile-header {
+    @apply mt-4 flex flex-col md:flex-row gap-6;
   }
 
-  /* Content */
-  .content {
-    @apply py-4;
+  .gh-avatar-container {
+    @apply flex-shrink-0;
   }
 
-  /* Footer - minimal bold style */
-  .site-footer {
-    @apply mt-32 pt-12 pb-8 text-text text-sm relative;
-    @apply border-t border-text/10;
-  }
-  
-  .view-all-posts {
-    @apply mt-20 text-center;
-  }
-  
-  .social-btn {
-    @apply inline-block py-3 px-5 bg-primary text-secondary font-bold uppercase tracking-wide;
-    @apply transition-all duration-300 transform hover:scale-105;
-    letter-spacing: 0.05em;
-  }
-  
-  .footer-content {
-    @apply mb-4 text-base;
-  }
-  
-  .footer-content a {
-    @apply font-medium;
-  }
-  
-  .footer-social {
-    @apply flex justify-center gap-6 mt-4 mb-2;
-  }
-  
-  .footer-social-link {
-    @apply inline-flex items-center justify-center w-10 h-10 text-muted 
-    hover:text-primary transition-all duration-300;
-    @apply hover:scale-125 hover:rotate-6;
-    @apply relative;
-  }
-  
-  .footer-social-link::before {
-    content: "";
-    @apply absolute inset-0 rounded-full opacity-0 transition-opacity duration-300;
-    background: radial-gradient(circle at center, 
-      rgba(var(--primary-rgb), 0.15) 0%, 
-      rgba(var(--primary-rgb), 0) 70%
-    );
-  }
-  
-  .footer-social-link:hover::before {
-    @apply opacity-100;
+  .gh-avatar {
+    @apply w-[296px] h-[296px] rounded-github border border-border;
   }
 
-  /* Post list styles */
-  .post-list {
-    @apply list-none p-0 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16;
+  .gh-profile-content {
+    @apply flex-grow min-w-0;
   }
 
-  .post-item {
-    @apply mb-0 pb-4 border-t-2 border-primary;
-    @apply relative overflow-hidden;
-  }
-  
-  .post-item:hover .post-title a {
-    @apply text-primary;
-  }
-
-  .post-title {
-    @apply mt-4 mb-3;
-  }
-
-  .post-title a {
-    @apply font-display text-xl md:text-2xl font-black uppercase text-text;
-    @apply transition-all duration-300;
-    @apply after:content-none;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  .post-date {
-    @apply block text-muted text-xs mb-4 font-bold uppercase tracking-widest;
-    letter-spacing: 0.1em;
-  }
-  
-  .post-date::before {
-    content: "—";
-    @apply mr-2 text-primary;
-  }
-
-  .post-excerpt {
-    @apply mb-6 leading-relaxed text-text/70;
-  }
-
-  .read-more {
-    @apply inline-block py-2 px-0 text-sm font-bold uppercase tracking-wide;
-    @apply text-primary relative;
-    @apply transition-all duration-300;
-    @apply after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] 
-    after:bg-primary after:transition-all after:duration-300;
-    letter-spacing: 0.05em;
-  }
-  
-  .read-more svg {
-    @apply ml-1 transition-transform duration-300;
-  }
-
-  .read-more:hover {
-    @apply no-underline;
-  }
-  
-  .read-more:hover svg {
-    @apply translate-x-1;
-  }
-
-  /* Home page layout */
-  .home-sections {
-    @apply grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16;
-  }
-
-  .about-section {
-    @apply lg:col-span-2;
-  }
-
-  .about-section h2 {
-    @apply text-2xl font-black uppercase text-secondary mb-6;
-    letter-spacing: -0.02em;
-  }
-
-  .about-bio {
-    @apply text-lg text-text/90 mb-8;
-    line-height: 1.6;
-  }
-
-  .about-section h3 {
-    @apply text-xl font-bold text-secondary mt-8 mb-4;
-  }
-
-  .skills-list {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-3 mb-8;
-  }
-
-  .skill-item {
-    @apply flex items-center text-text/90 text-base;
-    @apply p-3 border-l-2 border-primary;
-    @apply bg-light/30 rounded-r;
-    @apply transition-all duration-300;
-  }
-
-  .skill-item:hover {
-    @apply border-l-4 bg-light;
-    @apply transform -translate-x-1;
-  }
-
-  .skill-item::before {
-    content: none;
-  }
-
-  .interests-section {
-    @apply mb-8;
-  }
-
-  .content-sidebar {
-    @apply lg:col-span-1;
-  }
-
-  /* Page Header - Similar to blog post header */
-  .page-header {
-    @apply mb-12 pb-4 border-b-2 border-secondary;
-  }
-
-  .page-title {
-    @apply text-4xl lg:text-5xl font-black uppercase text-secondary mb-4;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-  }
-
-  .page-subtitle {
-    @apply text-lg text-text/70 font-medium;
-    line-height: 1.4;
-  }
-
-  /* Main Content */
-  .main-content {
-    @apply max-w-4xl mx-auto;
-  }
-
-  /* Recent posts section */
-  .recent-posts {
-    @apply mt-16;
-  }
-
-  .recent-posts h2 {
-    @apply mb-6;
-  }
-
-  .view-all-posts {
-    @apply mt-8 text-center;
-  }
-
-  /* Scroll reveal animations */
-  .scroll-reveal {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Page loader */
-  .page-loader {
-    @apply fixed inset-0 z-50 flex flex-col items-center justify-center;
-    @apply bg-background;
-    @apply transition-opacity duration-500;
-  }
-
-  .page-loader-hidden {
-    @apply opacity-0 pointer-events-none;
-  }
-
-  .loader-spinner {
-    @apply w-12 h-12 mb-4 relative;
-  }
-
-  .loader-spinner:before,
-  .loader-spinner:after {
-    content: "";
-    @apply absolute top-0 left-0 w-full h-full rounded-full;
-    animation: pulse 1.8s linear infinite;
-  }
-
-  .loader-spinner:before {
-    @apply bg-primary/80;
-    animation-delay: 0s;
-  }
-
-  .loader-spinner:after {
-    @apply bg-secondary/80;
-    animation-delay: -0.9s;
-  }
-
-  .loader-text {
-    @apply text-text font-medium;
-  }
-
-  @keyframes pulse {
-    0% {
-      transform: scale(0);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
-
-  /* Misc utility classes */
-  .hidden {
-    display: none;
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .site-header {
-    @apply flex-col items-center;
-  }
-  
-  .site-title {
+  .gh-profile-header-info {
     @apply mb-4;
   }
-  
-  .header-right {
-    @apply w-full flex-col items-center gap-2 mt-4;
+
+  .gh-name {
+    @apply text-2xl font-semibold mb-1;
   }
-  
-  .site-nav {
-    @apply w-full;
+
+  .gh-username {
+    @apply text-xl text-text-secondary font-normal mb-4;
   }
-  
-  .site-nav ul {
-    @apply justify-center;
+
+  .gh-bio {
+    @apply text-base mb-4;
   }
-  
-  .header-social {
-    @apply ml-0 mt-2 justify-center;
+
+  .gh-btn {
+    @apply inline-flex items-center px-3 py-[5px] text-sm font-medium border border-border rounded-github bg-surface hover:bg-gray-light transition-colors;
+  }
+
+  .gh-btn-primary {
+    @apply bg-primary text-white border-primary hover:bg-primary-hover;
+  }
+
+  .gh-btn svg {
+    @apply mr-1.5;
+  }
+
+  .gh-profile-stats {
+    @apply flex items-center gap-3 text-sm text-text-secondary mb-4;
+  }
+
+  .gh-stat {
+    @apply flex items-center;
+  }
+
+  .gh-stat-icon {
+    @apply mr-1;
+  }
+
+  .gh-stat-count {
+    @apply font-semibold text-text;
+  }
+
+  .gh-stat-label {
+    @apply ml-1;
+  }
+
+  /* Repository cards */
+  .gh-pinned-repos {
+    @apply mt-6;
+  }
+
+  .gh-section-header {
+    @apply mb-2 pb-2 border-b border-border flex justify-between items-center;
+  }
+
+  .gh-section-title {
+    @apply text-base font-semibold inline-flex items-center;
+  }
+
+  .gh-repos-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 mb-6;
+  }
+
+  .gh-repo-card {
+    @apply p-4 border border-border rounded-github bg-white transition-shadow hover:shadow-card;
+  }
+
+  .gh-repo-name {
+    @apply flex items-center text-base font-semibold text-accent mb-1;
+  }
+
+  .gh-repo-description {
+    @apply text-sm text-text-secondary mb-4 overflow-hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .gh-repo-meta {
+    @apply flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary;
+  }
+
+  .gh-repo-language {
+    @apply flex items-center;
+  }
+
+  .gh-language-color {
+    @apply w-2.5 h-2.5 rounded-full mr-1;
+  }
+
+  /* Blog post list */
+  .gh-post-list {
+    @apply border border-border rounded-github overflow-hidden;
+  }
+
+  .gh-post-item {
+    @apply p-4 border-b border-border last:border-b-0 hover:bg-surface transition-colors;
+  }
+
+  .gh-post-title {
+    @apply text-base font-semibold text-accent mb-1;
+  }
+
+  .gh-post-date {
+    @apply text-xs text-text-secondary mb-2;
+  }
+
+  .gh-post-excerpt {
+    @apply text-sm text-text-secondary;
+  }
+
+  /* Footer */
+  .gh-footer {
+    @apply mt-16 pt-6 pb-12 border-t border-border;
+  }
+
+  .gh-footer-inner {
+    @apply max-w-[1012px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4;
+  }
+
+  .gh-footer-links {
+    @apply flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary;
+  }
+
+  .gh-copyright {
+    @apply text-xs text-text-secondary;
+  }
+
+  /* GitHub-style badge */
+  .gh-badge {
+    @apply inline-flex items-center px-1.5 py-0.5 text-xs font-medium rounded-full;
+  }
+
+  .gh-badge-primary {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .gh-badge-accent {
+    @apply bg-accent/10 text-accent;
+  }
+
+  .gh-badge-secondary {
+    @apply bg-secondary/10 text-secondary;
+  }
+
+  /* Skills display */
+  .gh-skills-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6;
+  }
+
+  .gh-skill-item {
+    @apply flex items-center gap-2 p-2 rounded-github bg-surface text-sm text-text-secondary;
+  }
+
+  /* Contribution calendar */
+  .gh-contributions {
+    @apply mb-8 border border-border rounded-github p-4;
+  }
+
+  .gh-contributions-title {
+    @apply text-base font-medium mb-4;
+  }
+
+  .gh-calendar {
+    @apply overflow-hidden;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .gh-profile-header {
+      @apply flex-col;
+    }
+    
+    .gh-avatar {
+      @apply w-[150px] h-[150px] mx-auto;
+    }
+    
+    .gh-username {
+      @apply text-center;
+    }
+    
+    .gh-profile-stats {
+      @apply justify-center;
+    }
   }
 }

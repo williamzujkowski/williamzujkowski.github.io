@@ -1,30 +1,21 @@
-<li class="post-item searchable">
-  <h2 class="post-title"><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+<li class="gh-post-item searchable">
+  <a href="{{ post.url }}" class="gh-post-title">{{ post.data.title }}</a>
   
-  <time class="post-date">
+  <div class="gh-post-date">
     {% if post.data.date %}
       {{ post.data.date | readableDate }}
     {% else %}
       Unknown Date
     {% endif %}
-  </time>
-  
-  <div class="post-excerpt">
-    <p>
-      {% if post.data.description %}
-        {{ post.data.description }}
-      {% elif post.templateContent %}
-        {{ post.templateContent | striptags | truncate(200) }}
-      {% else %}
-        No description available
-      {% endif %}
-    </p>
   </div>
   
-  <a href="{{ post.url }}" class="read-more">
-    Read more
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-    </svg>
-  </a>
+  <div class="gh-post-excerpt">
+    {% if post.data.description %}
+      {{ post.data.description }}
+    {% elif post.templateContent %}
+      {{ post.templateContent | striptags | truncate(150) }}
+    {% else %}
+      No description available
+    {% endif %}
+  </div>
 </li>
