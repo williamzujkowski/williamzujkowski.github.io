@@ -80,7 +80,7 @@
   "links": [
     { "name": "GitHub", "url": "https://github.com/williamzujkowski", "group": "Social", "icon": "GitHub" },
     { "name": "LinkedIn", "url": "https://linkedin.com/in/williamzujkowski", "group": "Social", "icon": "LinkedIn" },
-    { "name": "Twitter", "url": "https://twitter.com/williamzujkowski", "group": "Social", "icon": "Twitter" },
+    { "name": "Bluesky", "url": "https://bsky.app/profile/williamzujkowski.bsky.social", "group": "Social", "icon": "Bluesky" },
     { "name": "Personal Website", "url": "https://github.com/williamzujkowski/williamzujkowski.github.io", "group": "Projects", "description": "My personal website and tech blog built with 11ty" },
     { "name": "ArXiv Feed Generator", "url": "https://github.com/williamzujkowski/arxiv-feed-generator", "group": "Projects", "description": "Tool to fetch and display latest research papers from arXiv" },
     

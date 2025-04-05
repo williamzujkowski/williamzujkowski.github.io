@@ -10,14 +10,7 @@
           <a
             href="{{ item.url }}"
             class="nav-item"
-            {%
-            if
-            page.url=""
-            ="item.url"
-            %}aria-current="page"
-            {%
-            endif
-            %}
+            {% if page.url == item.url %}aria-current="page"{% endif %}
             >{{ item.icon | safe }} {{ item.name }}</a
           >
         </li>

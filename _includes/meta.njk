@@ -5,19 +5,13 @@
   <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
   <meta name="keywords" content="{{ site.seo.keywords }}">
   
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph / Social Meta -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:title" content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
   <meta property="og:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
   <meta property="og:image" content="{{ site.url }}{{ site.seo.og_image }}">
-
-  <!-- Social Meta -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="twitter:title" content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta property="twitter:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
-  <meta property="twitter:image" content="{{ site.url }}{{ site.seo.og_image }}">
+  <meta property="og:card" content="summary_large_image">
   
   <link rel="stylesheet" href="/css/styles.css?v=1.0.1">
   <!-- Fallback styles in case Tailwind fails -->
