@@ -7,62 +7,62 @@ module.exports = {
     "./src/_includes/**/*.{njk,md,js}",
     "./*.{njk,md,js}"
   ],
-  darkMode: 'media', // or 'class' for manual toggle control
+  darkMode: 'class', // Changed to 'class' for better manual toggle control
   theme: {
     extend: {
       colors: {
         'primary': {
-          light: '#0055a4', // Slightly brighter blue
-          dark: '#5c9ce6',  // Brighter bluish for dark mode
+          light: '#2563eb', // Modern royal blue
+          dark: '#60a5fa',  // Bright blue for dark mode
         },
         'secondary': {
-          light: '#d63031', // Modern red
-          dark: '#ff7675',  // Softer red for dark mode
+          light: '#e11d48', // Vibrant red
+          dark: '#fb7185',  // Soft coral for dark mode
         },
         'accent': {
-          light: '#00b894', // Modern teal
-          dark: '#55efc4',  // Bright teal for dark mode
+          light: '#0891b2', // Teal
+          dark: '#22d3ee',  // Bright cyan for dark mode
         },
         'background': {
           light: '#ffffff',
-          dark: '#121212',  // Deep dark background for dark mode
+          dark: '#0f172a',  // Deep slate blue for dark mode
         },
         'text': {
-          light: '#2d3436', // Slightly softer black
-          dark: '#f5f5f5',  // Off-white for dark mode
+          light: '#1e293b', // Slate blue
+          dark: '#f1f5f9',  // Slate white for dark mode
         },
         'muted': {
-          light: '#636e72', // Slate gray
-          dark: '#b2bec3',  // Lighter slate for dark mode
+          light: '#64748b', // Slate gray
+          dark: '#94a3b8',  // Lighter slate for dark mode
         },
         'light': {
-          light: '#f8f9fa', // Almost white
-          dark: '#2d3436',  // Dark gray for dark mode
+          light: '#f8fafc', // Lightest slate
+          dark: '#1e293b',  // Dark slate for dark mode
         },
         'border': {
-          light: '#dfe6e9', // Soft border color
-          dark: '#4d5656',  // Medium gray for dark mode
+          light: '#e2e8f0', // Soft slate border
+          dark: '#334155',  // Medium slate for dark mode
         },
         'terminal': {
-          bg: '#151515',    // Almost black terminal background
-          text: '#00ff9d',  // Bright green for terminal text
-          prompt: '#5ce1e6', // Bright teal for the prompt
-          command: '#ffffff', // White for commands
+          bg: '#0f172a',    // Dark slate terminal background
+          text: '#4ade80',  // Green for terminal text
+          prompt: '#38bdf8', // Sky blue for the prompt
+          command: '#f1f5f9', // Slate white for commands
         },
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        'sans': ['Outfit', 'system-ui', '-apple-system', 'sans-serif'],
         'serif': ['Georgia', 'Times New Roman', 'serif'],
         'mono': ['JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-        'display': ['Poppins', 'system-ui', 'sans-serif'],
+        'display': ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'classic': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'classic-dark': '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
-        'card': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        'card-dark': '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15)',
-        'card-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        'terminal': '0 0 10px rgba(92, 225, 230, 0.15), 0 0 20px rgba(92, 225, 230, 0.1)',
+        'classic': '0 4px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'classic-dark': '0 4px 10px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
+        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+        'card-dark': '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.15)',
+        'card-hover': '0 25px 35px -5px rgba(0, 0, 0, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.08)',
+        'terminal': '0 0 15px rgba(56, 189, 248, 0.15), 0 0 30px rgba(56, 189, 248, 0.1)',
       },
       animation: {
         'terminal-cursor': 'blink 1s step-end infinite',
