@@ -11,38 +11,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': {
-          light: '#FFF824', // Yellow accent
-          dark: '#FFF824',  // Same yellow for dark mode
-        },
-        'secondary': {
-          light: '#151515', // Almost black
-          dark: '#F3F3F3',  // Light gray for dark mode
-        },
-        'accent': {
-          light: '#6200EA', // Purple accent
-          dark: '#BB86FC',  // Light purple for dark mode
-        },
-        'background': {
-          light: '#F3F3F3', // Light gray
-          dark: '#151515',  // Almost black for dark mode 
-        },
-        'text': {
-          light: '#151515', // Almost black
-          dark: '#FFFFFF',  // Pure white for better contrast in dark mode
-        },
-        'muted': {
-          light: '#666666', // Medium gray
-          dark: '#BBBBBB',  // Lighter gray for better dark mode contrast
-        },
-        'light': {
-          light: '#FFFFFF', // White
-          dark: '#242424',  // Dark gray for dark mode
-        },
-        'border': {
-          light: '#DDDDDD', // Light border
-          dark: '#333333',  // Dark border for dark mode
-        },
+        'primary': '#FFF824', // Yellow accent
+        'secondary': '#F3F3F3', // Light gray
+        'accent': '#BB86FC', // Light purple
+        'background': '#151515', // Almost black
+        'text': '#FFFFFF', // Pure white
+        'muted': '#BBBBBB', // Lighter gray
+        'light': '#242424', // Dark gray
+        'border': '#333333', // Dark border
       },
       fontFamily: {
         'sans': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
@@ -51,10 +27,8 @@ module.exports = {
         'display': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
       },
       boxShadow: {
-        'classic': '0 4px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'classic-dark': '0 4px 10px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
-        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
-        'card-dark': '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.15)',
+        'classic': '0 4px 10px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
+        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.15)',
         'card-hover': '0 25px 35px -5px rgba(0, 0, 0, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.08)',
       },
       animation: {

@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add scroll reveal animations
   addScrollRevealAnimations();
 
-  // Initialize theme toggle
-  initThemeToggle();
+  // Always use dark mode
+  forceDarkMode();
 
   // Add progressive image loading
   addProgressiveImageLoading();
@@ -132,94 +132,11 @@ function addKeyboardNavigation() {
   }
 }
 
-// Initialize and handle theme toggle
-function initThemeToggle() {
-  // Find the theme toggle button
-  const themeToggle = document.getElementById('theme-toggle');
-  if (!themeToggle) return;
-  
-  // Make sure the theme toggle is accessible and visible
-  if (!themeToggle.getAttribute('aria-label')) {
-    themeToggle.setAttribute('aria-label', 'Toggle dark mode');
-    themeToggle.setAttribute('role', 'button');
-    themeToggle.setAttribute('tabindex', '0');
-  }
-  
-  // Add click event listener to toggle theme
-  themeToggle.addEventListener('click', toggleTheme);
-  
-  // Add keyboard support
-  themeToggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleTheme();
-    }
-  });
-
-  // Set initial theme based on user preference
-  const savedTheme = localStorage.getItem('theme');
-  
-  // Check for saved user preference
-  if (savedTheme) {
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    updateThemeText(savedTheme === 'dark');
-  } else {
-    // If no saved preference, check system preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      updateThemeText(true);
-    }
-  }
-  
-  // Update media query change listener
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!localStorage.getItem('theme')) {
-      document.documentElement.classList.toggle('dark', e.matches);
-      updateThemeText(e.matches);
-    }
-  });
-}
-
-// Update theme toggle text
-function updateThemeText(isDark) {
-  const themeToggle = document.getElementById('theme-toggle');
-  if (!themeToggle) return;
-  
-  // Keep the text "MODE" with an updated icon based on current theme
-  const iconContainer = themeToggle.querySelector('.theme-toggle-icon');
-  if (iconContainer) {
-    // Icons already exist, just ensure visibility
-    const sunIcon = iconContainer.querySelector('.sun-icon');
-    const moonIcon = iconContainer.querySelector('.moon-icon');
-    
-    if (sunIcon && moonIcon) {
-      sunIcon.style.display = isDark ? 'none' : 'block';
-      moonIcon.style.display = isDark ? 'block' : 'none';
-    }
-  }
-}
-
-// Toggle between light and dark themes
-function toggleTheme() {
-  const isDark = document.documentElement.classList.toggle('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  
-  // Update the theme toggle text
-  updateThemeText(isDark);
-
-  // Announce theme change to screen readers
-  const announcement = document.createElement('div');
-  announcement.setAttribute('aria-live', 'polite');
-  announcement.classList.add('sr-only');
-  announcement.textContent = `Theme switched to ${isDark ? 'dark' : 'light'} mode`;
-  document.body.appendChild(announcement);
-
-  // Remove announcement after it's been read
-  setTimeout(() => {
-    document.body.removeChild(announcement);
-  }, 3000);
+// Force dark mode
+function forceDarkMode() {
+  // Always use dark mode
+  document.documentElement.classList.add('dark');
+  localStorage.setItem('theme', 'dark');
 }
 
 
