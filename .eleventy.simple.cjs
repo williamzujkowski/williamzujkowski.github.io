@@ -42,6 +42,11 @@ module.exports = function(eleventyConfig) {
     return value.replace(/<[^>]*>/g, '');
   });
   
+  // JSON filter
+  eleventyConfig.addFilter("json", function(value) {
+    return JSON.stringify(value);
+  });
+  
   // RSS filters from the plugin
   eleventyConfig.addFilter("dateToRfc3339", pluginRss.dateToRfc3339);
   eleventyConfig.addFilter("dateToRfc822", pluginRss.dateToRfc822);
