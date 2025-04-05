@@ -4,7 +4,7 @@
     {% if homeCommands %}
       {% for cmd in homeCommands %}
         <div class="command-line">
-          <span class="prompt">$</span>
+          <span class="prompt">❯</span>
           <span class="command">{{ cmd.command }}</span>
         </div>
         <div class="response">
@@ -23,7 +23,7 @@
       {% endfor %}
     {% else %}
       <div class="command-line">
-        <span class="prompt">$</span>
+        <span class="prompt">❯</span>
         <span class="command">echo "Terminal ready"</span>
       </div>
       <div class="response">

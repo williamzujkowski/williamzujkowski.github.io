@@ -44,10 +44,10 @@ module.exports = {
           dark: '#334155',  // Medium slate for dark mode
         },
         'terminal': {
-          bg: '#0f172a',    // Dark slate terminal background
-          text: '#4ade80',  // Green for terminal text
-          prompt: '#38bdf8', // Sky blue for the prompt
-          command: '#f1f5f9', // Slate white for commands
+          bg: '#0e1016',    // Sleek dark terminal background
+          text: '#a0aec0',  // Light slate terminal text (for responses)
+          prompt: '#2563eb', // Royal blue for the prompt
+          command: '#f8fafc', // Bright white for commands
         },
       },
       fontFamily: {

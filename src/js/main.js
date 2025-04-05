@@ -293,7 +293,7 @@ function animateTerminalCommands() {
   // Apply typewriter effect to each command
   commands.forEach((command, index) => {
     const text = command.textContent;
-    const delay = index * 1500; // Stagger the animations
+    const delay = index * 1000; // Stagger the animations with shorter delay
 
     // Clear the text content
     command.textContent = '';
@@ -301,13 +301,14 @@ function animateTerminalCommands() {
     // Set up the animation with setTimeout
     setTimeout(() => {
       let i = 0;
-      const typeSpeed = 50; // ms per character
+      const typeSpeed = 30; // Faster typing (ms per character)
 
       function typeWriter() {
         if (i < text.length) {
           command.textContent += text.charAt(i);
           i++;
-          setTimeout(typeWriter, Math.random() * 100 + typeSpeed);
+          // More consistent typing with slight randomness
+          setTimeout(typeWriter, Math.random() * 20 + typeSpeed);
         }
       }
 
