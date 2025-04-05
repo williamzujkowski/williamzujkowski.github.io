@@ -29,11 +29,11 @@ module.exports = {
         },
         'text': {
           light: '#151515', // Almost black
-          dark: '#F3F3F3',  // Light gray for dark mode
+          dark: '#FFFFFF',  // Pure white for better contrast in dark mode
         },
         'muted': {
           light: '#666666', // Medium gray
-          dark: '#AAAAAA',  // Light medium gray for dark mode
+          dark: '#BBBBBB',  // Lighter gray for better dark mode contrast
         },
         'light': {
           light: '#FFFFFF', // White
@@ -47,7 +47,7 @@ module.exports = {
           bg: '#151515',    // Black terminal background
           text: '#F3F3F3',  // Light gray terminal text
           prompt: '#FFF824', // Yellow for the prompt
-          command: '#F3F3F3', // Light gray for commands
+          command: '#FFFFFF', // Pure white for commands for better readability
         },
       },
       fontFamily: {

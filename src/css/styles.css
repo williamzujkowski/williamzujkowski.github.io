@@ -50,7 +50,7 @@
   
   /* Dark mode styling */
   .dark body {
-    background-image: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -107,9 +107,9 @@
   }
 
   code {
-    @apply font-mono bg-light-light dark:bg-light-dark px-1.5 py-0.5 text-sm border border-border-light 
+    @apply font-mono bg-light-light dark:bg-light-dark px-1.5 py-0.5 text-sm border-2 border-border-light 
     dark:border-border-dark rounded;
-    @apply transition-colors duration-300;
+    @apply text-secondary-light dark:text-white transition-colors duration-300;
   }
 
   pre {
@@ -271,7 +271,8 @@
   /* Active nav styles */
   .nav-item[aria-current="page"] {
     @apply text-primary-light dark:text-primary-light font-black;
-    @apply after:w-full;
+    @apply after:w-full bg-light-light/50 dark:bg-light-dark/30 px-5;
+    @apply border-b-2 border-primary-light dark:border-primary-light;
   }
 
   /* Content */
@@ -652,7 +653,7 @@
   }
 
   .post-item {
-    @apply mb-0 pb-4 border-t-2 border-primary-light;
+    @apply mb-0 pb-4 border-t-2 border-primary-light dark:border-primary-light;
     @apply transition-all duration-300;
     @apply relative overflow-hidden;
   }
