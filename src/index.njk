@@ -140,7 +140,7 @@ eleventyNavigation:
     {% if loop.index <= 3 %}
       <div class="gh-post-item">
         <a href="{{ post.url }}" class="gh-post-title">{{ post.data.title }}</a>
-        <div class="gh-post-date">{{ post.date | date(site.blog.dateFormat) }}</div>
+        <div class="gh-post-date">{{ post.date | readableDate }}</div>
         <div class="gh-post-excerpt">
           {% if post.data.description %}
             {{ post.data.description }}

@@ -16,7 +16,7 @@
                 <span class="category-label font-bold">{{ paper.categoryLabel }}</span> • 
                 <span class="published-date">
                   {% if paper.published %}
-                    {{ paper.published | date('LLL d, yyyy') }}
+                    {{ paper.published | readableDate }}
                   {% else %}
                     Recent
                   {% endif %}

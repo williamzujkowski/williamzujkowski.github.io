@@ -41,7 +41,7 @@
             </div>
             <div class="ml-auto text-xs opacity-75">
               {% if repo.updatedAt %}
-                Updated {{ repo.updatedAt | date('LLL d, yyyy') }}
+                Updated {{ repo.updatedAt | readableDate }}
               {% else %}
                 Recently updated
               {% endif %}
