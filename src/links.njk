@@ -6,7 +6,13 @@ eleventyNavigation:
   key: Links
   order: 2
 ---
-<div class="links-groups">
+<div class="main-content">
+  <header class="page-header">
+    <h1 class="page-title">Links</h1>
+    <p class="page-subtitle">Useful resources and interesting websites I've collected.</p>
+  </header>
+  
+  <div class="links-groups">
   {% for group in site.linkGroups %}
     <div class="links-group">
       <div class="links-group-header">
@@ -27,4 +33,5 @@ eleventyNavigation:
       </ul>
     </div>
   {% endfor %}
+  </div>
 </div>

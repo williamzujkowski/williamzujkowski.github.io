@@ -447,7 +447,7 @@
   /* Search */
   /* Enhanced Search */
   .search-container {
-    @apply my-8 w-full mb-12;
+    @apply my-8 w-full mb-8;
   }
   
   .search-input-wrapper {
@@ -600,7 +600,7 @@
   }
 
   .links-group-header {
-    @apply border-b border-primary-light dark:border-primary-dark mb-4 pb-1 flex items-center;
+    @apply border-b border-primary mb-4 pb-1 flex items-center;
   }
 
   .links-group-header h2 {
@@ -608,7 +608,7 @@
   }
 
   .links-group-icon {
-    @apply mr-2 text-2xl text-primary-light dark:text-primary-dark;
+    @apply mr-2 text-2xl text-primary;
   }
 
   .links-list {
@@ -616,28 +616,24 @@
   }
 
   .link-item {
-    @apply mb-4 p-3 border border-border-light dark:border-border-dark rounded bg-light-light dark:bg-light-dark;
+    @apply mb-4 p-3 border border-border rounded bg-light;
   }
 
   .link-item:hover {
-    @apply border-primary-light dark:border-primary-dark bg-white dark:bg-background-dark shadow-classic dark:shadow-classic-dark;
+    @apply border-primary bg-background shadow-classic;
   }
 
   .link-title {
-    @apply font-bold block text-primary-light dark:text-primary-dark;
+    @apply font-bold block text-primary;
   }
 
   .link-description {
-    @apply text-muted-light dark:text-muted-dark text-sm mt-1 block;
+    @apply text-muted text-sm mt-1 block;
   }
 
   /* Blog Page - Minimal bold posts */
-  .blog-header {
-    @apply mb-24;
-  }
-  
-  .blog-header p {
-    @apply text-text-light/70 dark:text-text-dark/70 mb-8 text-lg max-w-2xl;
+  .blog-posts {
+    @apply mb-16;
   }
   
   .post-list {
@@ -645,13 +641,13 @@
   }
 
   .post-item {
-    @apply mb-0 pb-4 border-t-2 border-primary-light dark:border-primary-light;
+    @apply mb-0 pb-4 border-t-2 border-primary;
     @apply transition-all duration-300;
     @apply relative overflow-hidden;
   }
   
   .post-item:hover .post-title a {
-    @apply text-primary-light dark:text-primary-light;
+    @apply text-primary;
   }
 
   .post-title {
@@ -659,7 +655,7 @@
   }
 
   .post-title a {
-    @apply font-display text-xl md:text-2xl font-black uppercase text-text-light dark:text-text-dark;
+    @apply font-display text-xl md:text-2xl font-black uppercase text-text;
     @apply transition-all duration-300;
     @apply after:content-none;
     letter-spacing: -0.02em;
@@ -667,25 +663,25 @@
   }
 
   .post-date {
-    @apply block text-muted-light dark:text-muted-dark text-xs mb-4 font-bold uppercase tracking-widest;
+    @apply block text-muted text-xs mb-4 font-bold uppercase tracking-widest;
     letter-spacing: 0.1em;
   }
   
   .post-date::before {
     content: "—";
-    @apply mr-2 text-primary-light;
+    @apply mr-2 text-primary;
   }
 
   .post-excerpt {
-    @apply mb-6 leading-relaxed text-text-light/70 dark:text-text-dark/70;
+    @apply mb-6 leading-relaxed text-text/70;
   }
 
   .read-more {
     @apply inline-block py-2 px-0 text-sm font-bold uppercase tracking-wide;
-    @apply text-primary-light dark:text-primary-light relative;
+    @apply text-primary relative;
     @apply transition-all duration-300;
     @apply after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] 
-    after:bg-primary-light dark:after:bg-primary-light after:transition-all after:duration-300;
+    after:bg-primary after:transition-all after:duration-300;
     letter-spacing: 0.05em;
   }
   
@@ -707,7 +703,7 @@
 
   /* Single Post */
   .post-header {
-    @apply mb-8 pb-4 border-b-2 border-secondary-light dark:border-secondary-dark;
+    @apply mb-8 pb-4 border-b-2 border-secondary;
   }
 
   .post-content {
@@ -715,15 +711,15 @@
   }
 
   .post-footer {
-    @apply pt-4 border-t border-primary-light dark:border-primary-dark;
+    @apply pt-4 border-t border-primary;
   }
 
   .back-link {
-    @apply inline-block py-1 px-3 border border-primary-light dark:border-primary-dark rounded bg-white dark:bg-light-dark text-primary-light dark:text-primary-dark font-bold;
+    @apply inline-block py-1 px-3 border border-primary rounded bg-light text-primary font-bold;
   }
 
   .back-link:hover {
-    @apply bg-primary-light dark:bg-primary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
+    @apply bg-primary text-white no-underline shadow-classic;
   }
 
 
@@ -845,74 +841,63 @@
   }
 }
 
-/* About Me Section */
-.about-me-section {
-  @apply mb-24 relative;
+/* Main Content */
+.main-content {
+  @apply max-w-4xl mx-auto;
 }
 
-.about-me-header {
-  @apply mb-12;
+/* Page Header - Similar to blog post header */
+.page-header {
+  @apply mb-12 pb-4 border-b-2 border-secondary;
 }
 
-.about-me-header h1 {
-  @apply text-5xl md:text-6xl font-black uppercase text-text-light dark:text-text-dark mb-6;
-  @apply relative inline-block;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
+.page-title {
+  @apply text-4xl lg:text-5xl font-black uppercase text-secondary mb-4;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
-.about-me-header h1::after {
-  content: "";
-  @apply absolute -bottom-2 left-0 w-full h-2 bg-primary-light dark:bg-primary-light;
-  @apply transition-all duration-500 ease-in-out;
-  transform-origin: left;
-  animation: revealUnderline 1.2s 0.5s forwards;
-}
-
-.about-me-header .subtitle {
-  @apply text-xl lg:text-2xl text-text-light/70 dark:text-text-dark/70 font-medium;
-  @apply max-w-2xl;
+.page-subtitle {
+  @apply text-lg text-text/70 font-medium;
   line-height: 1.4;
 }
 
-.about-content {
-  @apply grid grid-cols-1 lg:grid-cols-3 gap-12;
+/* Home page layout */
+.home-sections {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16;
 }
 
-.about-text {
+.about-section {
   @apply lg:col-span-2;
 }
 
-.about-text h2 {
-  @apply text-3xl font-black uppercase text-text-light dark:text-text-dark mb-6;
-  @apply relative;
-  letter-spacing: -0.03em;
+.about-section h2 {
+  @apply text-2xl font-black uppercase text-secondary mb-6;
+  letter-spacing: -0.02em;
 }
 
 .about-bio {
-  @apply text-lg text-text-light/90 dark:text-text-dark/90 mb-8;
+  @apply text-lg text-text/90 mb-8;
   line-height: 1.6;
 }
 
-.about-text h3 {
-  @apply text-xl font-bold text-text-light dark:text-text-dark mt-8 mb-4;
-  @apply relative;
+.about-section h3 {
+  @apply text-xl font-bold text-secondary mt-8 mb-4;
 }
 
 .skills-list {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-3;
-  @apply mb-8;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-3 mb-8;
 }
 
 .skill-item {
-  @apply flex items-center text-text-light/90 dark:text-text-dark/90 text-base;
-  @apply p-3 border-l-2 border-primary-light dark:border-primary-dark;
-  @apply bg-light-light/50 dark:bg-light-dark/30 rounded-r;
+  @apply flex items-center text-text/90 text-base;
+  @apply p-3 border-l-2 border-primary;
+  @apply bg-light/30 rounded-r;
   @apply transition-all duration-300;
 }
 
 .skill-item:hover {
-  @apply border-l-4 bg-light-light dark:bg-light-dark;
+  @apply border-l-4 bg-light;
   @apply transform -translate-x-1;
 }
 
@@ -920,28 +905,36 @@
   content: none;
 }
 
-.about-links {
+.interests-section {
+  @apply mb-8;
+}
+
+.content-sidebar {
   @apply lg:col-span-1;
 }
 
-.about-links h3 {
-  @apply text-xl font-bold text-text-light dark:text-text-dark mb-6;
+.connect-section {
+  @apply mb-8;
 }
 
-.about-links .social-links {
-  @apply flex flex-col gap-4;
+.connect-section h3 {
+  @apply text-xl font-bold text-secondary mb-4;
 }
 
-.about-links .social-link {
-  @apply flex items-center gap-3 p-3 rounded-md text-text-light dark:text-text-dark;
-  @apply bg-light-light dark:bg-light-dark border border-border-light/50 dark:border-border-dark/50;
+.social-links {
+  @apply flex flex-col gap-3;
+}
+
+.social-link {
+  @apply flex items-center gap-3 p-3 rounded-md text-text;
+  @apply bg-light/50 border border-border/50;
   @apply transition-all duration-300;
-  @apply hover:border-primary-light dark:hover:border-primary-dark;
+  @apply hover:border-primary;
   @apply hover:translate-x-1;
 }
 
-.about-links .social-link svg {
-  @apply w-5 h-5 text-primary-light dark:text-primary-dark;
+.social-link svg {
+  @apply w-5 h-5 text-primary;
 }
 
 
