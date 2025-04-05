@@ -57,17 +57,17 @@ eleventyNavigation:
   {%- for post in collections.posts | reverse -%}
     <li class="gh-post-item searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
       <div class="gh-post-image">
-        {% if "ai" in post.data.tags %}
+        {% if post.data.tags and "ai" in post.data.tags %}
           <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration">
-        {% elif "security" in post.data.tags %}
+        {% elif post.data.tags and "security" in post.data.tags %}
           <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration">
-        {% elif "cloud" in post.data.tags %}
+        {% elif post.data.tags and "cloud" in post.data.tags %}
           <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration">
         {% elif post.data.title and "Pizza" in post.data.title %}
           <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration">
-        {% elif "transformer" in post.data.tags %}
+        {% elif post.data.tags and "transformer" in post.data.tags %}
           <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration">
-        {% elif "ethics" in post.data.tags %}
+        {% elif post.data.tags and "ethics" in post.data.tags %}
           <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration">
         {% else %}
           <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration">

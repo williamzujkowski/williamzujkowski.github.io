@@ -14,17 +14,17 @@ layout: base.njk
   <article class="mb-12">
     <!-- Featured image -->
     <div class="mb-8 rounded-github overflow-hidden shadow-card">
-      {% if "ai" in tags %}
+      {% if tags and "ai" in tags %}
         <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration" class="w-full h-[300px] object-cover">
-      {% elif "security" in tags %}
+      {% elif tags and "security" in tags %}
         <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration" class="w-full h-[300px] object-cover">
-      {% elif "cloud" in tags %}
+      {% elif tags and "cloud" in tags %}
         <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration" class="w-full h-[300px] object-cover">
       {% elif title and "Pizza" in title %}
         <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration" class="w-full h-[300px] object-cover">
-      {% elif "transformer" in tags %}
+      {% elif tags and "transformer" in tags %}
         <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration" class="w-full h-[300px] object-cover">
-      {% elif "ethics" in tags %}
+      {% elif tags and "ethics" in tags %}
         <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration" class="w-full h-[300px] object-cover">
       {% else %}
         <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration" class="w-full h-[300px] object-cover">
