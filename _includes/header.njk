@@ -18,15 +18,15 @@
       </ul>
     </nav>
     <div class="header-social">
-      {% for social in site.social_media %} {% if social.enabled and
-      social.display_in_header %}
-      <a
-        href="{{ social.url }}"
-        class="header-social-link"
-        aria-label="{{ social.name }}"
-        >{{ social.icon | safe }}</a
-      >
-      {% endif %} {% endfor %}
+      {% for social in site.social_media %}
+        {% if social.enabled and social.display_in_header %}
+          <a
+            href="{{ social.url }}"
+            class="header-social-link"
+            aria-label="{{ social.name }}"
+          >{{ social.icon | safe }}</a>
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </header>
