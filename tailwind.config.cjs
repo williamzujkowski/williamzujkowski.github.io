@@ -7,54 +7,54 @@ module.exports = {
     "./src/_includes/**/*.{njk,md,js}",
     "./*.{njk,md,js}"
   ],
-  darkMode: 'class', // Changed to 'class' for better manual toggle control
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         'primary': {
-          light: '#2563eb', // Modern royal blue
-          dark: '#60a5fa',  // Bright blue for dark mode
+          light: '#FFF824', // Yellow accent
+          dark: '#FFF824',  // Same yellow for dark mode
         },
         'secondary': {
-          light: '#e11d48', // Vibrant red
-          dark: '#fb7185',  // Soft coral for dark mode
+          light: '#151515', // Almost black
+          dark: '#F3F3F3',  // Light gray for dark mode
         },
         'accent': {
-          light: '#0891b2', // Teal
-          dark: '#22d3ee',  // Bright cyan for dark mode
+          light: '#6200EA', // Purple accent
+          dark: '#BB86FC',  // Light purple for dark mode
         },
         'background': {
-          light: '#ffffff',
-          dark: '#0f172a',  // Deep slate blue for dark mode
+          light: '#F3F3F3', // Light gray
+          dark: '#151515',  // Almost black for dark mode 
         },
         'text': {
-          light: '#1e293b', // Slate blue
-          dark: '#f1f5f9',  // Slate white for dark mode
+          light: '#151515', // Almost black
+          dark: '#F3F3F3',  // Light gray for dark mode
         },
         'muted': {
-          light: '#64748b', // Slate gray
-          dark: '#94a3b8',  // Lighter slate for dark mode
+          light: '#666666', // Medium gray
+          dark: '#AAAAAA',  // Light medium gray for dark mode
         },
         'light': {
-          light: '#f8fafc', // Lightest slate
-          dark: '#1e293b',  // Dark slate for dark mode
+          light: '#FFFFFF', // White
+          dark: '#242424',  // Dark gray for dark mode
         },
         'border': {
-          light: '#e2e8f0', // Soft slate border
-          dark: '#334155',  // Medium slate for dark mode
+          light: '#DDDDDD', // Light border
+          dark: '#333333',  // Dark border for dark mode
         },
         'terminal': {
-          bg: '#0e1016',    // Sleek dark terminal background
-          text: '#a0aec0',  // Light slate terminal text (for responses)
-          prompt: '#2563eb', // Royal blue for the prompt
-          command: '#f8fafc', // Bright white for commands
+          bg: '#151515',    // Black terminal background
+          text: '#F3F3F3',  // Light gray terminal text
+          prompt: '#FFF824', // Yellow for the prompt
+          command: '#F3F3F3', // Light gray for commands
         },
       },
       fontFamily: {
-        'sans': ['Outfit', 'system-ui', '-apple-system', 'sans-serif'],
+        'sans': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
         'serif': ['Georgia', 'Times New Roman', 'serif'],
-        'mono': ['JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-        'display': ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'IBM Plex Mono', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        'display': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
       },
       boxShadow: {
         'classic': '0 4px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
