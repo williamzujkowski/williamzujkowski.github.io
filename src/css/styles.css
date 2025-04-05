@@ -407,9 +407,6 @@
     animation-delay: 0.2s;
   }
   
-  .terminal-box {
-    @apply mb-5;
-  }
   
   .file-listing {
     @apply grid grid-cols-1 md:grid-cols-2 gap-1;
@@ -449,7 +446,7 @@
   }
   
   .scroll-top-btn {
-    @apply fixed bottom-6 right-6 w-10 h-10 rounded-full bg-primary-light dark:bg-primary-dark text-white flex items-center justify-center shadow-classic dark:shadow-classic-dark cursor-pointer z-30;
+    @apply fixed bottom-6 right-6 w-10 h-10 rounded-full bg-primary-light dark:bg-primary-dark text-white flex items-center justify-center shadow-classic dark:shadow-classic-dark z-30;
   }
   
   /* Search */
@@ -734,170 +731,6 @@
     @apply bg-primary-light dark:bg-primary-dark text-white no-underline shadow-classic dark:shadow-classic-dark;
   }
 
-  /* Terminal Box (high-contrast modern design) */
-  .terminal-box {
-    @apply bg-secondary-light text-text-dark py-7 px-7 font-mono mb-16 
-    overflow-hidden border border-secondary-light;
-    @apply relative z-10 transition-all duration-300;
-    line-height: 1.4;
-  }
-  
-  .dark .terminal-box {
-    @apply bg-secondary-dark text-text-light border-secondary-dark;
-  }
-
-  /* Terminal header with minimal design */
-  .terminal-header {
-    @apply text-xs uppercase font-sans font-bold mb-5 flex items-center justify-between;
-    @apply tracking-widest text-primary-light;
-    letter-spacing: 0.1em;
-  }
-
-  /* Terminal content with modern spacing */
-  .terminal-content {
-    @apply flex flex-col gap-4;
-    line-height: 1.5;
-  }
-
-  /* Command line formatting */
-  .command-line {
-    @apply flex items-center opacity-0 my-0;
-    animation: fadeIn 0.5s forwards;
-    padding: 0;
-  }
-  
-  /* Staggered animation delays */
-  .command-line:nth-child(2) {
-    animation-delay: 0.3s;
-  }
-  
-  .command-line:nth-child(4) {
-    animation-delay: 1.5s;
-  }
-  
-  .command-line:nth-child(6) {
-    animation-delay: 2.8s;
-  }
-  
-  .command-line:nth-child(8) {
-    animation-delay: 4.1s;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(3px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Prompt styling */
-  .prompt {
-    @apply text-primary-light mr-3 flex items-center text-base font-bold;
-  }
-  
-  /* Blinking cursor */
-  .cursor {
-    @apply inline-block ml-1 h-4 w-[2px] bg-primary-light;
-    animation: blink 1s step-end infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  /* Command text */
-  .command {
-    @apply text-white text-base font-medium;
-    letter-spacing: 0.01em;
-  }
-  
-  .dark .command {
-    @apply text-text-light;
-  }
-
-  /* Response styling */
-  .response {
-    @apply pl-8 opacity-0 text-base;
-    animation: fadeIn 0.7s forwards;
-    animation-delay: 0.2s;
-    margin: 0 0 10px 0;
-    line-height: 1.6;
-    @apply text-text-dark/80;
-  }
-  
-  .dark .response {
-    @apply text-text-light/80;
-  }
-  
-  /* Response animation delays */
-  .command-line:nth-child(2) + .response {
-    animation-delay: 0.8s;
-  }
-  
-  .command-line:nth-child(4) + .response {
-    animation-delay: 2s;
-  }
-  
-  .command-line:nth-child(6) + .response {
-    animation-delay: 3.3s;
-  }
-  
-  .command-line:nth-child(8) + .response {
-    animation-delay: 4.6s;
-  }
-  
-  /* Terminal paragraph styling */
-  .terminal-paragraph {
-    @apply m-0 text-base;
-    line-height: 1.6;
-  }
-  
-  /* Terminal list styling */
-  .terminal-list {
-    @apply m-0 pl-5 space-y-2;
-  }
-  
-  .terminal-list-item {
-    @apply py-0.5 text-base;
-    position: relative;
-    line-height: 1.6;
-  }
-  
-  .terminal-list-item::before {
-    content: "—";
-    @apply text-primary-light absolute -left-5;
-  }
-  
-  /* Terminal HTML content */
-  .terminal-html {
-    @apply m-0;
-    line-height: 1.6;
-  }
-  
-  /* File listing in terminal */
-  .response .file-listing {
-    @apply grid gap-4 mt-4;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-  
-  .response .file {
-    @apply p-4 text-sm border-t-2 border-primary-light;
-    @apply transition-all duration-300;
-    @apply hover:bg-text-dark/10;
-    @apply cursor-pointer;
-  }
-  
-  .dark .response .file {
-    @apply hover:bg-text-light/10;
-  }
-  
-  .response .file-name {
-    @apply font-mono text-primary-light block mb-2 font-bold uppercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .response .file-desc {
-    @apply text-sm text-text-dark/80 dark:text-text-light/80 leading-normal block;
-  }
 
   /* Info Boxes */
   .info-grid {
@@ -1012,13 +845,108 @@
     @apply text-black;
   }
   
-  .terminal-box {
-    @apply border border-gray-300 bg-white text-black;
-  }
-  
   img {
     @apply max-w-full shadow-none;
   }
+}
+
+/* About Me Section */
+.about-me-section {
+  @apply mb-24 relative;
+}
+
+.about-me-header {
+  @apply mb-12;
+}
+
+.about-me-header h1 {
+  @apply text-5xl md:text-6xl font-black uppercase text-text-light dark:text-text-dark mb-6;
+  @apply relative inline-block;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+
+.about-me-header h1::after {
+  content: "";
+  @apply absolute -bottom-2 left-0 w-full h-2 bg-primary-light dark:bg-primary-light;
+  @apply transition-all duration-500 ease-in-out;
+  transform-origin: left;
+  animation: revealUnderline 1.2s 0.5s forwards;
+}
+
+.about-me-header .subtitle {
+  @apply text-xl lg:text-2xl text-text-light/70 dark:text-text-dark/70 font-medium;
+  @apply max-w-2xl;
+  line-height: 1.4;
+}
+
+.about-content {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-12;
+}
+
+.about-text {
+  @apply lg:col-span-2;
+}
+
+.about-text h2 {
+  @apply text-3xl font-black uppercase text-text-light dark:text-text-dark mb-6;
+  @apply relative;
+  letter-spacing: -0.03em;
+}
+
+.about-bio {
+  @apply text-lg text-text-light/90 dark:text-text-dark/90 mb-8;
+  line-height: 1.6;
+}
+
+.about-text h3 {
+  @apply text-xl font-bold text-text-light dark:text-text-dark mt-8 mb-4;
+  @apply relative;
+}
+
+.skills-list {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-3;
+  @apply mb-8;
+}
+
+.skill-item {
+  @apply flex items-center text-text-light/90 dark:text-text-dark/90 text-base;
+  @apply p-3 border-l-2 border-primary-light dark:border-primary-dark;
+  @apply bg-light-light/50 dark:bg-light-dark/30 rounded-r;
+  @apply transition-all duration-300;
+}
+
+.skill-item:hover {
+  @apply border-l-4 bg-light-light dark:bg-light-dark;
+  @apply transform -translate-x-1;
+}
+
+.skill-item::before {
+  content: none;
+}
+
+.about-links {
+  @apply lg:col-span-1;
+}
+
+.about-links h3 {
+  @apply text-xl font-bold text-text-light dark:text-text-dark mb-6;
+}
+
+.about-links .social-links {
+  @apply flex flex-col gap-4;
+}
+
+.about-links .social-link {
+  @apply flex items-center gap-3 p-3 rounded-md text-text-light dark:text-text-dark;
+  @apply bg-light-light dark:bg-light-dark border border-border-light/50 dark:border-border-dark/50;
+  @apply transition-all duration-300;
+  @apply hover:border-primary-light dark:hover:border-primary-dark;
+  @apply hover:translate-x-1;
+}
+
+.about-links .social-link svg {
+  @apply w-5 h-5 text-primary-light dark:text-primary-dark;
 }
 
 /* Theme toggle - Minimal style */
@@ -1184,13 +1112,6 @@
   display: none;
 }
 
-.contact-terminal-section {
-  @apply mt-16 mb-12;
-}
-
-.terminal-intro {
-  @apply text-muted-light dark:text-muted-dark mb-4;
-}
 
 /* arXiv Papers styles - Minimal bold style */
 .arxiv-papers {
@@ -1347,23 +1268,5 @@
   
   .home-header p {
     @apply text-lg;
-  }
-  
-  .terminal-box {
-    @apply p-2;
-    line-height: 1.05;
-  }
-  
-  .terminal-header::before {
-    @apply w-2 h-2;
-    box-shadow: 16px 0 0 #f6c000, 8px 0 0 #59c203;
-  }
-  
-  .terminal-list {
-    @apply pl-2;
-  }
-  
-  .response .file-listing {
-    grid-template-columns: 1fr;
   }
 }

@@ -1,0 +1,37 @@
+<section class="about-me-section">
+  <div class="about-me-header">
+    <h1>{{ site.homepage.welcome_heading }}</h1>
+    <p class="subtitle">{{ site.homepage.welcome_subtitle }}</p>
+  </div>
+  
+  <div class="about-content">
+    <div class="about-text">
+      <h2>About Me</h2>
+      <p class="about-bio">I'm a software engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.</p>
+      
+      <h3>Skills & Expertise</h3>
+      <ul class="skills-list">
+        {% for skill in site.homepage.skills %}
+          <li class="skill-item">{{ skill }}</li>
+        {% endfor %}
+      </ul>
+      
+      <h3>Interests</h3>
+      <p>{{ site.homepage.interests }}</p>
+    </div>
+    
+    <div class="about-links">
+      <h3>Connect With Me</h3>
+      <div class="social-links">
+        {% for social in site.social_media %}
+          {% if social.enabled %}
+            <a href="{{ social.url }}" class="social-link" target="_blank" aria-label="{{ social.name }}">
+              {{ social.icon | safe }}
+              <span>{{ social.name }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

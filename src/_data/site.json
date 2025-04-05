@@ -14,8 +14,6 @@
   "homepage": {
     "welcome_heading": "Welcome",
     "welcome_subtitle": "Software Engineer & Technology Enthusiast",
-    "show_terminal": true,
-    "terminal_prompt": "william@dev: ~/profile",
     "show_recent_posts": true,
     "recent_posts_count": 3,
     "show_github_pins": true,

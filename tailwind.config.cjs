@@ -43,12 +43,6 @@ module.exports = {
           light: '#DDDDDD', // Light border
           dark: '#333333',  // Dark border for dark mode
         },
-        'terminal': {
-          bg: '#151515',    // Black terminal background
-          text: '#F3F3F3',  // Light gray terminal text
-          prompt: '#FFF824', // Yellow for the prompt
-          command: '#FFFFFF', // Pure white for commands for better readability
-        },
       },
       fontFamily: {
         'sans': ['Inter', 'Helvetica', 'Arial', 'sans-serif'],
@@ -62,18 +56,12 @@ module.exports = {
         'card': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
         'card-dark': '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.15)',
         'card-hover': '0 25px 35px -5px rgba(0, 0, 0, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.08)',
-        'terminal': '0 0 15px rgba(56, 189, 248, 0.15), 0 0 30px rgba(56, 189, 248, 0.1)',
       },
       animation: {
-        'terminal-cursor': 'blink 1s step-end infinite',
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
-        blink: {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0 },
-        },
         fadeIn: {
           '0%': { opacity: 0, transform: 'translateY(10px)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },

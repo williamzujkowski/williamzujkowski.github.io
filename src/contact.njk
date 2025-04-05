@@ -74,36 +74,6 @@ eleventyNavigation:
   </div>
 </div>
 
-<div class="contact-terminal-section">
-  <h3>Terminal Access</h3>
-  <p class="terminal-intro">For CLI enthusiasts, here's how to connect with me via terminal:</p>
-  
-  {% set contactHtml %}
-  <p>You can reach me through the following channels:</p>
-  <ul>
-    <li>Email: <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-    <li>GitHub: <a href="https://github.com/williamzujkowski" target="_blank">williamzujkowski</a></li>
-    <li>LinkedIn: <a href="https://linkedin.com/in/williamzujkowski" target="_blank">williamzujkowski</a></li>
-    <li>Twitter: <a href="https://twitter.com/williamzujkowski" target="_blank">@williamzujkowski</a></li>
-  </ul>
-  {% endset %}
-
-  {% set contactCommands = [
-    {
-      command: 'contact --methods',
-      type: 'html',
-      response: contactHtml
-    },
-    {
-      command: 'echo "I\'ll respond to all inquiries within 48 hours."',
-      type: 'text',
-      response: 'I\'ll respond to all inquiries within 48 hours.'
-    }
-  ] %}
-
-  {% include "terminal.njk" %}
-</div>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form');

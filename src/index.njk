@@ -7,51 +7,7 @@ eleventyNavigation:
   order: 1
 ---
 <div class="home-content">
-  {% include "page-header.njk" %}
-  {% if site.homepage.show_terminal %}
-  {% set skillsList = [] %}
-  {% for skill in site.homepage.skills %}
-    {% set skillsList = (skillsList.push(skill), skillsList) %}
-  {% endfor %}
-  
-  {% set projectsHtml %}
-    <div class="file-listing">
-      {% for link in site.links %}
-        {% if link.group == "Projects" %}
-        <div class="file">
-          <span class="file-name"><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></span>
-          <span class="file-desc">{{ link.description }}</span>
-        </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endset %}
-  
-  {% set homeCommands = [
-    {
-      command: 'whoami',
-      type: 'text',
-      response: 'I\'m a software engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.'
-    },
-    {
-      command: 'skills --list',
-      type: 'list',
-      response: site.homepage.skills
-    },
-    {
-      command: 'cat interests.txt',
-      type: 'text',
-      response: site.homepage.interests
-    },
-    {
-      command: 'ls projects/',
-      type: 'html',
-      response: projectsHtml
-    }
-  ] %}
-  
-  {% include "terminal.njk" %}
-  {% endif %}
+  {% include "about-me.njk" %}
   
   {% if site.homepage.show_github_pins and github_pins %}
     {% include "github-pins.njk" %}
