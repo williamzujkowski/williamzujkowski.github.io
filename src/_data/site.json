@@ -8,7 +8,6 @@
   "seo": {
     "keywords": "software engineering, web development, cloud architecture, cybersecurity, AI, machine learning",
     "og_image": "/assets/images/og-image.jpg",
-    "twitter_handle": "@williamzujkowski",
     "google_analytics_id": ""
   },
   "homepage": {
@@ -56,9 +55,9 @@
       "display_in_footer": true
     },
     {
-      "name": "Twitter",
-      "url": "https://twitter.com/williamzujkowski",
-      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z\"/></svg>",
+      "name": "Bluesky",
+      "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M8.001 1.226a9.3 9.3 0 0 0-4.22 1.03L8 5.478l4.22-3.221a9.303 9.303 0 0 0-4.219-1.031zM2.37 3.277a11.727 11.727 0 0 0-1.358 1.865 6.407 6.407 0 0 0-.748 2.295c.103.034 4.633 1.555 7.736 1.555 3.103 0 7.633-1.521 7.736-1.555a6.407 6.407 0 0 0-.748-2.295 11.747 11.747 0 0 0-1.358-1.865L8.925 6.76a1.33 1.33 0 0 1-1.851 0L2.37 3.277zm-.655 5.592A11.05 11.05 0 0 0 8 11.999c2.27 0 4.4-.548 6.286-1.523-.159.86-.477 1.646-.935 2.311a11.765 11.765 0 0 1-2.876 3.123A6.32 6.32 0 0 1 8 14.708a6.318 6.318 0 0 1-2.476-1.309 11.764 11.764 0 0 1-2.875-3.123 5.755 5.755 0 0 1-.935-3.407z\"/></svg>",
       "enabled": true,
       "display_on_home": false,
       "display_in_header": true,
