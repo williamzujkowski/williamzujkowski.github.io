@@ -913,31 +913,6 @@
   @apply lg:col-span-1;
 }
 
-.connect-section {
-  @apply mb-8;
-}
-
-.connect-section h3 {
-  @apply text-xl font-bold text-secondary mb-4;
-}
-
-.social-links {
-  @apply flex flex-col gap-3;
-}
-
-.social-link {
-  @apply flex items-center gap-3 p-3 rounded-md text-text;
-  @apply bg-light/50 border border-border/50;
-  @apply transition-all duration-300;
-  @apply hover:border-primary;
-  @apply hover:translate-x-1;
-}
-
-.social-link svg {
-  @apply w-5 h-5 text-primary;
-}
-
-
 /* Contact page styles */
 .contact-section {
   @apply grid grid-cols-1 md:grid-cols-2 gap-8 my-12;
@@ -955,20 +930,20 @@
 
 .social-contact-link {
   @apply flex items-center gap-3 p-3 rounded-md transition-all duration-300;
-  @apply bg-light-light dark:bg-light-dark border border-border-light/50 dark:border-border-dark/50;
-  @apply hover:border-primary-light dark:hover:border-primary-dark;
+  @apply bg-light border border-border/50;
+  @apply hover:border-primary;
   @apply hover:translate-x-1;
   @apply after:content-none;
 }
 
 .social-contact-link svg {
-  @apply w-5 h-5 text-primary-light dark:text-primary-dark;
+  @apply w-5 h-5 text-primary;
 }
 
 .contact-form-container {
-  @apply p-6 rounded-lg shadow-card dark:shadow-card-dark;
-  @apply border border-border-light dark:border-border-dark;
-  @apply bg-background-light dark:bg-background-dark;
+  @apply p-6 rounded-lg shadow-card;
+  @apply border border-border;
+  @apply bg-background;
 }
 
 .contact-form {

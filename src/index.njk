@@ -31,20 +31,6 @@ eleventyNavigation:
     </div>
     
     <div class="content-sidebar">
-      <div class="connect-section">
-        <h3>Connect With Me</h3>
-        <div class="social-links">
-          {% for social in site.social_media %}
-            {% if social.enabled %}
-              <a href="{{ social.url }}" class="social-link" target="_blank" aria-label="{{ social.name }}">
-                {{ social.icon | safe }}
-                <span>{{ social.name }}</span>
-              </a>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-      
       {% if site.homepage.show_github_pins and github_pins %}
         {% include "github-pins.njk" %}
       {% endif %}
