@@ -680,10 +680,10 @@
 
   /* Terminal Box (elegant compact design) */
   .terminal-box {
-    @apply bg-terminal-bg text-terminal-text py-3 px-4 font-mono rounded-lg mb-6 
+    @apply bg-terminal-bg text-terminal-text py-2 px-3 font-mono rounded-lg mb-6 
     shadow-terminal overflow-hidden border border-gray-700;
     @apply backdrop-blur-sm relative z-10 transition-all duration-300;
-    line-height: 1.2;
+    line-height: 1.1;
   }
   
   /* Terminal glow effect */
@@ -713,8 +713,8 @@
 
   /* Terminal content with reduced spacing */
   .terminal-content {
-    @apply flex flex-col;
-    line-height: 1.15;
+    @apply flex flex-col gap-0;
+    line-height: 1.1;
   }
   
   /* Hover highlight effect for command lines */
@@ -730,7 +730,7 @@
   .command-line {
     @apply flex items-center opacity-0 my-0;
     animation: fadeIn 0.5s forwards;
-    padding: 1px 0;
+    padding: 0;
   }
   
   /* Staggered animation delays */
@@ -772,10 +772,11 @@
 
   /* Response styling */
   .response {
-    @apply pl-5 text-gray-300 opacity-0 text-xs;
+    @apply pl-5 text-gray-300 opacity-0 text-sm;
     animation: fadeIn 0.7s forwards;
     animation-delay: 0.2s;
-    margin: 0 0 4px 0;
+    margin: 0;
+    line-height: 1.2;
   }
   
   /* Response animation delays */
@@ -797,17 +798,19 @@
   
   /* Terminal paragraph styling */
   .terminal-paragraph {
-    @apply m-0 mb-1 leading-snug;
+    @apply m-0 leading-none text-sm;
+    line-height: 1.2;
   }
   
   /* Terminal list styling */
   .terminal-list {
-    @apply m-0 mb-1 pl-3 space-y-0;
+    @apply m-0 pl-3 space-y-0;
   }
   
   .terminal-list-item {
-    @apply py-0.5 leading-tight;
+    @apply py-0 leading-none text-sm;
     position: relative;
+    line-height: 1.2;
   }
   
   .terminal-list-item::before {
@@ -1313,8 +1316,8 @@
   }
   
   .terminal-box {
-    @apply p-3;
-    line-height: 1.1;
+    @apply p-2;
+    line-height: 1.05;
   }
   
   .terminal-header::before {
