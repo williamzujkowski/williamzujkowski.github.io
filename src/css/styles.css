@@ -5,30 +5,50 @@
 
 /* Custom base styles */
 @layer base {
+  /* Form elements with improved contrast */
+  input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, select {
+    @apply bg-gray-light border border-border rounded-github p-2 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent;
+  }
+  
+  ::placeholder {
+    @apply text-text-secondary opacity-70;
+  }
+  
   html {
     @apply scroll-smooth;
+    font-size: 16px;
+  }
+
+  @media (max-width: 640px) {
+    html {
+      font-size: 15px;
+    }
   }
 
   body {
     @apply bg-background text-text font-sans;
-    line-height: 1.5;
+    line-height: 1.7;
+    font-size: 1.0625rem;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-semibold text-text mb-4;
-    line-height: 1.25;
+    @apply font-sans font-semibold text-white mb-5;
+    line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   h1 {
-    @apply text-2xl;
+    @apply text-3xl md:text-4xl;
+    letter-spacing: -0.01em;
   }
 
   h2 {
-    @apply text-xl border-b border-border pb-1 mt-6 mb-4;
+    @apply text-2xl md:text-3xl border-b border-border pb-2 pt-2 mt-10 mb-6;
+    letter-spacing: -0.01em;
   }
 
   h3 {
-    @apply text-lg mt-4;
+    @apply text-xl md:text-2xl mt-8 mb-4;
   }
 
   a {
@@ -58,11 +78,11 @@
   }
 
   code {
-    @apply font-mono text-sm px-1.5 py-0.5 bg-surface border border-border rounded-github;
+    @apply font-mono text-sm px-1.5 py-0.5 bg-gray-light border border-border rounded-github text-text;
   }
 
   pre {
-    @apply bg-surface p-4 rounded-github overflow-x-auto mb-4 border border-border;
+    @apply bg-gray-light p-4 rounded-github overflow-x-auto mb-4 border border-border;
   }
 
   pre code {
@@ -70,7 +90,7 @@
   }
 
   blockquote {
-    @apply border-l-4 border-border p-3 pl-4 my-4 bg-surface rounded-r-github text-text-secondary;
+    @apply border-l-4 border-accent p-3 pl-4 my-4 bg-gray-light rounded-r-github text-text;
   }
 
   hr {
@@ -124,36 +144,131 @@
   }
 }
 
+/* Custom utilities for better contrast */
+.high-contrast {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.accent-text {
+  color: #a5d6ff !important;
+  font-weight: 500;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Page loader */
+.page-loader {
+  @apply fixed inset-0 bg-background bg-opacity-80 z-[100] flex flex-col items-center justify-center transition-opacity duration-500;
+  backdrop-filter: blur(5px);
+}
+
+.page-loader-hidden {
+  @apply opacity-0 pointer-events-none;
+}
+
+.loader-spinner {
+  @apply w-10 h-10 border-4 border-border rounded-full;
+  border-top-color: theme('colors.accent');
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  @apply mt-4 text-text-secondary text-sm font-medium;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  @apply fixed top-0 left-0 -translate-y-full bg-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0;
+}
+
+/* Scroll to top button */
+.scroll-top-btn {
+  @apply fixed right-6 bottom-6 bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border opacity-0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+}
+
+.scroll-top-btn:hover {
+  @apply bg-accent-hover;
+  transform: translateY(0);
+}
+
+.scroll-top-btn:focus {
+  @apply outline-none ring-2 ring-accent ring-opacity-50;
+}
+
+.scroll-top-btn.visible {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+
 /* Component styles */
 @layer components {
   /* Layout */
   .site-container {
-    @apply max-w-[1012px] mx-auto px-4 py-6;
+    @apply max-w-[1200px] mx-auto px-5 py-8;
   }
 
   /* GitHub-style header */
   .gh-header {
-    @apply bg-background border-b border-border flex items-center py-4 px-4 sticky top-0 z-50;
+    @apply bg-surface border-b border-border flex items-center py-4 px-4 sticky top-0 z-50 backdrop-blur-sm;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   .gh-header-inner {
-    @apply max-w-[1012px] w-full mx-auto flex items-center justify-between;
+    @apply max-w-[1200px] w-full mx-auto flex items-center justify-between;
   }
 
   .gh-nav {
-    @apply flex items-center gap-4;
+    @apply flex items-center gap-6;
   }
 
   .gh-nav-item {
-    @apply px-2 py-1 text-sm font-medium text-text hover:text-accent rounded-md hover:bg-surface transition-colors duration-200;
+    @apply px-3 py-2 text-sm font-medium text-text hover:text-white rounded-github hover:bg-gray-light transition-all duration-300 relative overflow-hidden;
+  }
+  
+  /* Animated underline effect */
+  .gh-nav-item::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 content-[''];
+  }
+  
+  .gh-nav-item:hover::after {
+    @apply w-full;
   }
 
   .gh-nav-item.active {
-    @apply font-semibold;
+    @apply font-semibold text-accent border border-border bg-gray-light;
+  }
+  
+  /* Focus styles for accessibility */
+  .gh-nav-item:focus-visible {
+    @apply outline-none ring-2 ring-accent ring-opacity-50;
   }
 
   .gh-profile-header {
-    @apply mt-4 flex flex-col md:flex-row gap-6;
+    @apply mt-8 mb-12 flex flex-col md:flex-row gap-10;
   }
 
   .gh-avatar-container {
@@ -185,11 +300,11 @@
   }
 
   .gh-btn {
-    @apply inline-flex items-center px-3 py-[5px] text-sm font-medium border border-border rounded-github bg-surface hover:bg-gray-light transition-colors;
+    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-github bg-gray-light hover:bg-border transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50 text-white;
   }
 
   .gh-btn-primary {
-    @apply bg-primary text-white border-primary hover:bg-primary-hover;
+    @apply bg-primary text-white border-primary hover:bg-primary-hover shadow-sm;
   }
 
   .gh-btn svg {
@@ -234,7 +349,15 @@
   }
 
   .gh-repo-card {
-    @apply p-4 border border-border rounded-github bg-white transition-shadow hover:shadow-card;
+    @apply p-6 border border-border rounded-github bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 relative overflow-hidden;
+  }
+  
+  .gh-repo-card::before {
+    @apply absolute top-0 left-0 w-full h-0.5 bg-accent transform scale-x-0 transition-transform duration-300 ease-out content-[''];
+  }
+  
+  .gh-repo-card:hover::before {
+    @apply scale-x-100;
   }
 
   .gh-repo-name {
@@ -242,7 +365,7 @@
   }
 
   .gh-repo-description {
-    @apply text-sm text-text-secondary mb-4 overflow-hidden;
+    @apply text-sm text-text mb-4 overflow-hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -262,40 +385,56 @@
 
   /* Blog post list */
   .gh-post-list {
-    @apply border border-border rounded-github overflow-hidden;
+    @apply border border-border rounded-github overflow-hidden bg-surface shadow-card;
   }
 
   .gh-post-item {
-    @apply p-4 border-b border-border last:border-b-0 hover:bg-surface transition-colors;
+    @apply p-6 border-b border-border last:border-b-0 hover:bg-gray-light transition-all duration-300 transform hover:translate-x-1;
   }
 
   .gh-post-title {
-    @apply text-base font-semibold text-accent mb-1;
+    @apply text-lg font-semibold text-accent mb-2 hover:underline;
   }
 
   .gh-post-date {
-    @apply text-xs text-text-secondary mb-2;
+    @apply text-sm text-text-secondary mb-3;
   }
 
   .gh-post-excerpt {
-    @apply text-sm text-text-secondary;
+    @apply text-base text-text leading-relaxed;
   }
 
   /* Footer */
   .gh-footer {
-    @apply mt-16 pt-6 pb-12 border-t border-border;
+    @apply mt-24 pt-8 pb-12 border-t border-border bg-surface;
   }
 
   .gh-footer-inner {
-    @apply max-w-[1012px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4;
+    @apply max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6 px-5;
   }
 
   .gh-footer-links {
-    @apply flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary;
+    @apply flex flex-wrap gap-x-6 gap-y-3 text-sm text-text-secondary;
+  }
+  
+  .gh-footer-links a {
+    @apply transition-colors duration-300 hover:text-accent relative;
+  }
+  
+  .gh-footer-links a::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 content-[''];
+  }
+  
+  .gh-footer-links a:hover::after {
+    @apply w-full;
   }
 
   .gh-copyright {
-    @apply text-xs text-text-secondary;
+    @apply text-sm text-text-secondary flex items-center;
+  }
+  
+  .gh-copyright a {
+    @apply ml-1 text-accent hover:underline;
   }
 
   /* GitHub-style badge */
@@ -308,7 +447,7 @@
   }
 
   .gh-badge-accent {
-    @apply bg-accent/10 text-accent;
+    @apply bg-accent/20 text-accent;
   }
 
   .gh-badge-secondary {
@@ -344,7 +483,7 @@
     }
     
     .gh-avatar {
-      @apply w-[150px] h-[150px] mx-auto;
+      @apply w-[180px] h-[180px] mx-auto;
     }
     
     .gh-username {
@@ -353,6 +492,26 @@
     
     .gh-profile-stats {
       @apply justify-center;
+    }
+    
+    .gh-nav {
+      @apply gap-2;
+    }
+    
+    .gh-nav-item {
+      @apply px-2 py-1.5;
+    }
+    
+    .gh-header-inner {
+      @apply px-2;
+    }
+    
+    .site-container {
+      @apply px-4 py-6;
+    }
+    
+    .gh-repos-grid {
+      @apply grid-cols-1;
     }
   }
 }

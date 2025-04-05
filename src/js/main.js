@@ -32,7 +32,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Force dark mode
   forceDarkMode();
+  
+  // Add animations to page elements
+  addPageAnimations();
 });
+
+// Add staggered animations to page elements
+function addPageAnimations() {
+  // Elements to animate on page load
+  const elementsToAnimate = [
+    '.gh-profile-header',
+    '.gh-pinned-repos h2',
+    '.gh-repo-card',
+    '.gh-section-header',
+    '.gh-post-item'
+  ];
+  
+  // Apply animations with staggered delay
+  elementsToAnimate.forEach((selector, index) => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.animation = `fadeIn 0.6s ease-out forwards, slideUp 0.6s ease-out forwards`;
+      el.style.animationDelay = `${0.1 + (index * 0.1) + (i * 0.05)}s`;
+    });
+  });
+}
 
 // Initialize search functionality
 function initSearch() {
@@ -65,19 +90,27 @@ function initSearch() {
 function addScrollToTopButton() {
   // Create the button
   const button = document.createElement('button');
-  button.innerHTML = '&uarr;';
+  button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+    <path d="M3.22 9.78c-.293-.293-.293-.767 0-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78c-.293.293-.767.293-1.06 0z"></path>
+  </svg>`;
   button.className = 'scroll-top-btn';
   button.setAttribute('aria-label', 'Scroll to top');
-  button.style.display = 'none';
   document.body.appendChild(button);
 
-  // Show/hide button based on scroll position
+  // Show/hide button based on scroll position with throttling
+  let scrollTimeout;
   window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      button.style.display = 'block';
-    } else {
-      button.style.display = 'none';
+    if (scrollTimeout) {
+      window.cancelAnimationFrame(scrollTimeout);
     }
+
+    scrollTimeout = window.requestAnimationFrame(() => {
+      if (window.pageYOffset > 300) {
+        button.classList.add('visible');
+      } else {
+        button.classList.remove('visible');
+      }
+    });
   });
 
   // Scroll to top when clicked
@@ -114,7 +147,11 @@ function addKeyboardNavigation() {
   });
 }
 
-// Force dark mode (not needed for GitHub style)
+// Force dark mode for GitHub style
 function forceDarkMode() {
-  // We're using GitHub's light mode by default
+  document.documentElement.classList.add('dark');
+  document.body.classList.add('dark-mode');
+  
+  // Store preference in localStorage
+  localStorage.setItem('theme', 'dark');
 }

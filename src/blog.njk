@@ -6,11 +6,17 @@ eleventyNavigation:
   key: Blog
   order: 3
 ---
+<div class="relative mb-8 rounded-github overflow-hidden">
+  <img src="/assets/images/github-style/tech-background.svg" alt="Technology background" class="w-full h-32 object-cover">
+  <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+    <h1 class="text-white text-2xl font-bold flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="currentColor" class="mr-2"><path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path></svg>
+      Blog Posts
+    </h1>
+  </div>
+</div>
+
 <div class="gh-section-header">
-  <h1 class="gh-section-title text-xl">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-2"><path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path></svg>
-    Blog Posts
-  </h1>
   <div class="flex items-center gap-2">
     <div class="relative">
       <input type="text" id="search-input" placeholder="Search posts..." class="py-1.5 px-3 pr-8 bg-surface border border-border rounded-github text-sm" aria-label="Search posts">
@@ -51,6 +57,9 @@ eleventyNavigation:
 <ul class="gh-post-list">
   {%- for post in collections.posts | reverse -%}
     <li class="gh-post-item searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
+      <div class="mb-4">
+        <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration" class="w-full rounded-github">
+      </div>
       <a href="{{ post.url | url }}" class="gh-post-title">{{ post.data.title }}</a>
       
       <div class="flex gap-x-3 gap-y-1 flex-wrap items-center mb-2">

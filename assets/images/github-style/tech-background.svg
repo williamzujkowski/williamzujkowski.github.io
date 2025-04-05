@@ -1,0 +1,53 @@
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="300" fill="#f6f8fa" rx="6" ry="6"/>
+  
+  <!-- Network connections -->
+  <g stroke="#d0d7de" stroke-width="1" opacity="0.5">
+    <path d="M50,50 L200,100" />
+    <path d="M200,100 L350,50" />
+    <path d="M350,50 L450,150" />
+    <path d="M450,150 L350,250" />
+    <path d="M350,250 L200,200" />
+    <path d="M200,200 L50,250" />
+    <path d="M50,250 L50,50" />
+    <path d="M50,50 L450,150" />
+    <path d="M200,100 L350,250" />
+    <path d="M350,50 L50,250" />
+    <path d="M450,150 L200,200" />
+  </g>
+  
+  <!-- Nodes -->
+  <g fill="#0969da">
+    <circle cx="50" cy="50" r="8" />
+    <circle cx="200" cy="100" r="8" />
+    <circle cx="350" cy="50" r="8" />
+    <circle cx="450" cy="150" r="8" />
+    <circle cx="350" cy="250" r="8" />
+    <circle cx="200" cy="200" r="8" />
+    <circle cx="50" cy="250" r="8" />
+  </g>
+  
+  <!-- Small dots -->
+  <g fill="#2da44e" opacity="0.7">
+    <circle cx="100" cy="75" r="4" />
+    <circle cx="275" cy="75" r="4" />
+    <circle cx="400" cy="100" r="4" />
+    <circle cx="400" cy="200" r="4" />
+    <circle cx="275" cy="225" r="4" />
+    <circle cx="100" cy="225" r="4" />
+    <circle cx="125" cy="150" r="4" />
+    <circle cx="250" cy="150" r="4" />
+    <circle cx="375" cy="150" r="4" />
+  </g>
+  
+  <!-- Code symbols -->
+  <g fill="#24292f" font-family="monospace" font-size="12">
+    <text x="45" y="45">{}</text>
+    <text x="195" y="95">[]</text>
+    <text x="345" y="45">()</text>
+    <text x="445" y="145">;</text>
+    <text x="345" y="245">&lt;&gt;</text>
+    <text x="195" y="195">/</text>
+    <text x="45" y="245">#</text>
+  </g>
+</svg>

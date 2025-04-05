@@ -7,35 +7,34 @@ module.exports = {
     "./src/_includes/**/*.{njk,md,js}",
     "./*.{njk,md,js}"
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        // GitHub-inspired color scheme
-        'primary': '#2da44e', // GitHub Green
-        'primary-hover': '#2c974b',
-        'secondary': '#6e7781', // GitHub secondary text
-        'accent': '#0969da', // GitHub blue
-        'accent-hover': '#0860C7',
-        'background': '#ffffff', // White
-        'surface': '#f6f8fa', // GitHub light gray background
-        'border': '#d0d7de', // GitHub border color
-        'text': '#24292f', // GitHub text color
-        'text-secondary': '#57606a', // GitHub secondary text
-        'gray-light': '#eaeef2', 
-        'danger': '#cf222e', // GitHub red
-        'warning': '#bf8700', // GitHub yellow
-        'muted': '#6e7781', // Muted text
+        // GitHub-inspired dark mode color scheme with enhanced contrast
+        'primary': '#2ea043', // GitHub Green (dark) - brightened
+        'primary-hover': '#3fb950',
+        'secondary': '#a3aab3', // Secondary text - brightened for better contrast
+        'accent': '#79c0ff', // GitHub blue (dark) - brightened
+        'accent-hover': '#a5d6ff',
+        'background': '#0d1117', // GitHub dark background
+        'surface': '#161b22', // GitHub dark surface
+        'border': '#30363d', // GitHub dark border
+        'text': '#e6edf3', // Text color - brightened for better contrast
+        'text-secondary': '#a3aab3', // Secondary text - brightened
+        'gray-light': '#21262d', 
+        'danger': '#ff7b72', // GitHub red (dark) - brightened
+        'warning': '#f0b83e', // GitHub yellow (dark) - brightened
+        'muted': '#a3aab3', // Muted text - brightened
       },
       fontFamily: {
         'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji'],
         'mono': ['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'],
       },
       boxShadow: {
-        'card': '0 1px 0 rgba(27, 31, 36, 0.04), 0 1px 3px rgba(27, 31, 36, 0.12)',
-        'dropdown': '0 8px 24px rgba(140, 149, 159, 0.2)',
-        'btn': '0 1px 0 rgba(27, 31, 36, 0.04)',
-        'btn-primary': '0 1px 0 rgba(27, 31, 36, 0.1)',
+        'card': '0 0 0 1px #30363d',
+        'dropdown': '0 8px 24px rgba(1, 4, 9, 0.3)',
+        'btn': '0 0 transparent',
+        'btn-primary': '0 0 transparent',
       },
       borderRadius: {
         'github': '6px',
@@ -44,19 +43,56 @@ module.exports = {
         DEFAULT: {
           css: {
             maxWidth: '65ch',
+            color: '#e6edf3', // Brightened for better contrast
             a: {
-              color: '#0969da',
+              color: '#79c0ff', // Brightened for better contrast
               textDecoration: 'none',
               '&:hover': {
                 textDecoration: 'underline',
               },
             },
+            strong: {
+              color: '#ffffff', // White for maximum contrast
+              fontWeight: '600',
+            },
+            h1: {
+              color: '#ffffff', // White for maximum contrast
+              fontWeight: '600',
+            },
+            h2: {
+              color: '#ffffff', // White for maximum contrast
+              fontWeight: '600',
+            },
+            h3: {
+              color: '#ffffff', // White for maximum contrast
+              fontWeight: '600',
+            },
+            h4: {
+              color: '#ffffff', // White for maximum contrast
+              fontWeight: '600',
+            },
             code: {
-              color: '#24292f',
-              backgroundColor: '#f6f8fa',
+              color: '#e6edf3', // Brightened for better contrast
+              backgroundColor: '#21262d', // Slightly lighter for better contrast
               borderRadius: '6px',
               padding: '0.2em 0.4em',
-              border: '1px solid #d0d7de',
+              border: '1px solid #30363d',
+            },
+            blockquote: {
+              color: '#a3aab3', // Brightened for better contrast
+              borderLeftColor: '#30363d',
+            },
+            pre: {
+              backgroundColor: '#21262d', // Slightly lighter for better contrast
+            },
+            thead: {
+              color: '#ffffff', // White for maximum contrast
+            },
+            'ol > li::before': {
+              color: '#a3aab3', // Brightened for better contrast
+            },
+            'ul > li::before': {
+              backgroundColor: '#a3aab3', // Brightened for better contrast
             },
           },
         },

@@ -1,0 +1,249 @@
+<svg width="720" height="112" xmlns="http://www.w3.org/2000/svg">
+  <!-- GitHub-style contribution graph -->
+  <g>
+    <!-- January -->
+    <g transform="translate(16, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <g transform="translate(31, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <!-- February -->
+    <g transform="translate(46, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <g transform="translate(61, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#40c463"/>
+    </g>
+    <!-- March -->
+    <g transform="translate(76, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <g transform="translate(91, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <!-- April -->
+    <g transform="translate(106, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <g transform="translate(121, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <!-- May -->
+    <g transform="translate(136, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <g transform="translate(151, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#40c463"/>
+    </g>
+    <!-- June -->
+    <g transform="translate(166, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#216e39"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#40c463"/>
+    </g>
+    <g transform="translate(181, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <!-- July -->
+    <g transform="translate(196, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#216e39"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#40c463"/>
+    </g>
+    <g transform="translate(211, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <!-- August -->
+    <g transform="translate(226, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <g transform="translate(241, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#ebedf0"/>
+    </g>
+    <!-- September -->
+    <g transform="translate(256, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <g transform="translate(271, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <!-- October -->
+    <g transform="translate(286, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <g transform="translate(301, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#ebedf0"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <!-- November -->
+    <g transform="translate(316, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <g transform="translate(331, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#9be9a8"/>
+    </g>
+    <!-- December -->
+    <g transform="translate(346, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#216e39"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#30a14e"/>
+    </g>
+    <g transform="translate(361, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#216e39"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#216e39"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#40c463"/>
+    </g>
+    <g transform="translate(376, 20)">
+      <rect class="day" width="11" height="11" x="0" y="0" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="13" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="26" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="39" fill="#30a14e"/>
+      <rect class="day" width="11" height="11" x="0" y="52" fill="#9be9a8"/>
+      <rect class="day" width="11" height="11" x="0" y="65" fill="#40c463"/>
+      <rect class="day" width="11" height="11" x="0" y="78" fill="#40c463"/>
+    </g>
+  </g>
+  <!-- Month labels -->
+  <text x="16" y="10" class="month" font-family="sans-serif" font-size="10" fill="#767676">Jan</text>
+  <text x="76" y="10" class="month" font-family="sans-serif" font-size="10" fill="#767676">Mar</text>
+  <text x="136" y="10" class="month" font-family="sans-serif" font-size="10" fill="#767676">May</text>
+  <text x="196" y="10" class="month" font-family="sans-serif" font-size="10" fill="#767676">Jul</text>
+  <text x="256" y="10" class="month" font-family="sans-serif" font-size="10" fill="#767676">Sep</text>
+  <text x="316" y="10" class="month" font-family="sans-serif" font-size="10" fill="#767676">Nov</text>
+</svg>
