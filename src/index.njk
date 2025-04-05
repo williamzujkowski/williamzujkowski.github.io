@@ -143,35 +143,65 @@ eleventyNavigation:
 {% endif %}
 
 <div class="gh-section-header">
-  <h2 class="gh-section-title">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-2"><path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path></svg>
+  <h2 class="gh-section-title text-white flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor" class="mr-2"><path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path></svg>
     Recent Blog Posts
   </h2>
   <a href="/blog/" class="gh-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-1.5">
+      <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
+      <path d="M9 11.75a.75.75 0 01-.75.75h-.5a.75.75 0 010-1.5h.5a.75.75 0 01.75.75zM9 8a.75.75 0 01-.75.75h-.5a.75.75 0 010-1.5h.5A.75.75 0 019 8zM8.25 5.75a.75.75 0 00-.5 1.5h.5a.75.75 0 000-1.5h-.5z"></path>
+    </svg>
     <span>View all</span>
   </a>
 </div>
 
-<div class="gh-post-list">
+<ul class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
   {%- for post in collections.posts | reverse -%}
     {% if loop.index <= 3 %}
-      <div class="gh-post-item">
-        <div class="mb-4">
-          <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration" class="w-full rounded-github">
+      <li class="gh-post-item">
+        <div class="gh-post-image">
+          <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration">
         </div>
-        <a href="{{ post.url }}" class="gh-post-title">{{ post.data.title }}</a>
-        <div class="gh-post-date">{{ post.date | readableDate }}</div>
-        <div class="gh-post-excerpt">
-          {% if post.data.description %}
-            {{ post.data.description }}
-          {% else %}
-            {{ post.templateContent | striptags | truncate(150) }}
+        <div class="gh-post-content">
+          <a href="{{ post.url }}" class="gh-post-title">{{ post.data.title }}</a>
+          
+          <div class="gh-post-date">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+              <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
+            </svg>
+            {{ post.date | readableDate }}
+          </div>
+          
+          <div class="gh-post-excerpt">
+            {% if post.data.description %}
+              {{ post.data.description }}
+            {% else %}
+              {{ post.templateContent | striptags | truncate(120) }}
+            {% endif %}
+          </div>
+          
+          {% if post.data.tags %}
+            <div class="gh-post-tags">
+              {% for tag in post.data.tags %}
+                {% if tag != "posts" %}
+                  <span class="gh-badge gh-badge-accent">{{ tag }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
           {% endif %}
+          
+          <a href="{{ post.url }}" class="gh-read-more">
+            Read more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+              <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+            </svg>
+          </a>
         </div>
-      </div>
+      </li>
     {% endif %}
   {%- endfor -%}
-</div>
+</ul>
 
 {% if site.homepage.show_arxiv_papers and arxiv_feed %}
 <div class="mt-8">

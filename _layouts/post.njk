@@ -1,9 +1,9 @@
 ---
 layout: base.njk
 ---
-<div class="max-w-2xl mx-auto">
-  <div class="mb-4">
-    <a href="/blog/" class="inline-flex items-center text-sm text-accent hover:underline">
+<div class="max-w-3xl mx-auto">
+  <div class="mb-6">
+    <a href="/blog/" class="inline-flex items-center text-accent hover:underline hover:text-accent-hover transition-colors duration-200">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-1">
         <path d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path>
       </svg>
@@ -11,55 +11,99 @@ layout: base.njk
     </a>
   </div>
 
-  <article class="border border-border rounded-github overflow-hidden">
-    <div class="p-4 border-b border-border bg-surface">
-      <h1 class="text-2xl font-semibold mt-0 mb-2">{{ title }}</h1>
-      
-      <div class="flex items-center gap-2 text-text-secondary mb-2">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-          <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
-        </svg>
-        <time datetime="{{ page.date | isoDate }}">
-          {% if page.date %}
-            {{ page.date | readableDate }}
-          {% else %}
-            Unknown Date
-          {% endif %}
-        </time>
-      </div>
-      
-      {% if tags %}
-        <div class="flex flex-wrap gap-1">
-          {% for tag in tags %}
-            {% if tag != "posts" %}
-              <span class="gh-badge gh-badge-accent">{{ tag }}</span>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
+  <article class="mb-12">
+    <!-- Featured image -->
+    <div class="mb-8 rounded-github overflow-hidden shadow-card">
+      <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration" class="w-full h-[300px] object-cover">
     </div>
 
-    <div class="p-6 bg-surface">
-      <div class="mb-6">
-        <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration" class="w-full rounded-github">
+    <!-- Post header -->
+    <header class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-semibold mt-0 mb-4 text-white">{{ title }}</h1>
+      
+      <div class="flex flex-wrap gap-4 items-center mb-6">
+        <div class="flex items-center gap-2 text-text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="text-accent">
+            <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
+          </svg>
+          <time datetime="{{ page.date | isoDate }}" class="text-base">
+            {% if page.date %}
+              {{ page.date | readableDate }}
+            {% else %}
+              Unknown Date
+            {% endif %}
+          </time>
+        </div>
+        
+        {% if tags %}
+          <div class="flex flex-wrap gap-1">
+            {% for tag in tags %}
+              {% if tag != "posts" %}
+                <span class="gh-badge gh-badge-accent">{{ tag }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
-      <div class="prose max-w-none">
-        {{ content | safe }}
+
+      <!-- Optional: Table of contents -->
+      <div class="border border-border rounded-github p-4 bg-gray-light mb-8">
+        <h2 class="text-lg font-semibold mb-3 text-white">In this article</h2>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-2 text-accent">
+              <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+            </svg>
+            <a href="#introduction" class="text-accent hover:underline">Introduction</a>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-2 text-accent">
+              <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+            </svg>
+            <a href="#key-points" class="text-accent hover:underline">Key Points</a>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-2 text-accent">
+              <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+            </svg>
+            <a href="#conclusion" class="text-accent hover:underline">Conclusion</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Post content -->
+    <div class="prose max-w-none bg-gray-light p-8 rounded-github border border-border">
+      {{ content | safe }}
+    </div>
+
+    <!-- Author bio -->
+    <div class="mt-12 bg-gray-light p-6 rounded-github border border-border flex gap-4 items-center">
+      <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+        <img src="/assets/images/github-style/profile-avatar.svg" alt="Author" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-1">{{ site.author }}</h3>
+        <p class="text-text-secondary">{{ site.description }}</p>
       </div>
     </div>
   </article>
   
-  <div class="mt-8 flex justify-between">
-    <a href="/blog/" class="gh-btn flex items-center">
+  <!-- Post navigation -->
+  <div class="mt-8 flex flex-col sm:flex-row justify-between gap-4">
+    <a href="/blog/" class="gh-btn flex items-center justify-center sm:justify-start">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-2">
         <path d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path>
       </svg>
       Back to all posts
     </a>
     
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 justify-center sm:justify-end">
       <a href="https://twitter.com/intent/tweet?text={{ title | urlencode }}&url={{ site.url }}{{ page.url | urlencode }}" 
         target="_blank" rel="noopener noreferrer" class="gh-btn" aria-label="Share on Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="mr-2">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+        </svg>
         Share
       </a>
     </div>

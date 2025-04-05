@@ -385,23 +385,59 @@
 
   /* Blog post list */
   .gh-post-list {
-    @apply border border-border rounded-github overflow-hidden bg-surface shadow-card;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
   }
 
   .gh-post-item {
-    @apply p-6 border-b border-border last:border-b-0 hover:bg-gray-light transition-all duration-300 transform hover:translate-x-1;
+    @apply border border-border rounded-github overflow-hidden bg-gray-light shadow-card transition-all duration-300 hover:-translate-y-1 flex flex-col;
+  }
+
+  .gh-post-image {
+    @apply h-40 overflow-hidden relative;
+  }
+
+  .gh-post-image img {
+    @apply w-full h-full object-cover transition-transform duration-500;
+  }
+
+  .gh-post-item:hover .gh-post-image img {
+    @apply transform scale-105;
+  }
+
+  .gh-post-content {
+    @apply p-5 flex-grow flex flex-col;
   }
 
   .gh-post-title {
-    @apply text-lg font-semibold text-accent mb-2 hover:underline;
+    @apply text-lg font-semibold text-white mb-2 hover:text-accent transition-colors duration-200;
   }
 
   .gh-post-date {
-    @apply text-sm text-text-secondary mb-3;
+    @apply text-sm text-text-secondary mb-3 flex items-center;
+  }
+  
+  .gh-post-date svg {
+    @apply mr-1.5 text-accent;
   }
 
   .gh-post-excerpt {
-    @apply text-base text-text leading-relaxed;
+    @apply text-base text-text leading-relaxed mb-4;
+  }
+  
+  .gh-post-tags {
+    @apply mt-auto pt-2 flex flex-wrap gap-1;
+  }
+  
+  .gh-read-more {
+    @apply mt-4 text-sm text-accent font-medium hover:underline inline-flex items-center;
+  }
+  
+  .gh-read-more svg {
+    @apply ml-1 transition-transform duration-200;
+  }
+  
+  .gh-post-item:hover .gh-read-more svg {
+    @apply transform translate-x-1;
   }
 
   /* Footer */
@@ -452,6 +488,23 @@
 
   .gh-badge-secondary {
     @apply bg-secondary/10 text-secondary;
+  }
+  
+  /* Blog tag filters */
+  .tags-filter {
+    @apply mb-8;
+  }
+  
+  .tag-btn {
+    @apply px-3 py-1.5 rounded-full text-sm font-medium bg-gray-light text-text-secondary border border-border transition-all duration-200;
+  }
+  
+  .tag-btn:hover {
+    @apply bg-border text-white;
+  }
+  
+  .tag-btn.selected {
+    @apply bg-accent text-white border-accent shadow-sm;
   }
 
   /* Skills display */

@@ -7,35 +7,35 @@ eleventyNavigation:
   order: 3
 ---
 <div class="relative mb-8 rounded-github overflow-hidden">
-  <img src="/assets/images/github-style/tech-background.svg" alt="Technology background" class="w-full h-32 object-cover">
-  <div class="absolute inset-0 flex items-center justify-center bg-black/30">
-    <h1 class="text-white text-2xl font-bold flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="currentColor" class="mr-2"><path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path></svg>
-      Blog Posts
-    </h1>
-  </div>
-</div>
-
-<div class="gh-section-header">
-  <div class="flex items-center gap-2">
-    <div class="relative">
-      <input type="text" id="search-input" placeholder="Search posts..." class="py-1.5 px-3 pr-8 bg-surface border border-border rounded-github text-sm" aria-label="Search posts">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="absolute right-2 top-2 text-text-secondary" fill="currentColor">
-        <path d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>
-      </svg>
-    </div>
-    <div class="flex items-center gap-1 text-sm text-text-secondary">
-      <span id="search-results-count">{{ collections.posts | length }}</span> posts
+  <img src="/assets/images/github-style/tech-background.svg" alt="Technology background" class="w-full h-40 object-cover">
+  <div class="absolute inset-0 flex items-center justify-center bg-black/50">
+    <div class="text-center">
+      <h1 class="text-white text-3xl font-bold mb-2">Blog Posts</h1>
+      <p class="text-white/80 max-w-xl mx-auto px-4">Thoughts, insights, and explorations in technology, software development, and innovation.</p>
     </div>
   </div>
 </div>
 
-<p class="text-text-secondary mb-6">Thoughts, insights, and explorations in technology, software development, and innovation.</p>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+  <div class="relative w-full md:w-64">
+    <input type="text" id="search-input" placeholder="Search posts..." class="w-full py-2 px-4 pr-10 bg-gray-light border border-border rounded-github text-white focus:ring-2 focus:ring-accent focus:outline-none" aria-label="Search posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="absolute right-3 top-3 text-text-secondary" fill="currentColor">
+      <path d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>
+    </svg>
+  </div>
+  
+  <div class="flex items-center gap-1 text-sm text-text-secondary">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-1">
+      <path d="M2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"/>
+    </svg>
+    <span id="search-results-count">{{ collections.posts | length }}</span> posts
+  </div>
+</div>
 
-<div class="tags-filter mb-6 border-b border-border pb-4">
-  <div class="text-sm font-medium mb-2">Filter by topics:</div>
+<div class="tags-filter mb-8">
+  <div class="text-white text-lg font-medium mb-3">Filter by topics</div>
   <div class="flex flex-wrap gap-2">
-    <button class="tag-btn selected" data-tag="">All</button>
+    <button class="tag-btn selected" data-tag="">All Topics</button>
     <button class="tag-btn" data-tag="security">Security</button>
     <button class="tag-btn" data-tag="ai">AI</button>
     <button class="tag-btn" data-tag="cloud">Cloud</button>
@@ -44,33 +44,43 @@ eleventyNavigation:
   </div>
 </div>
 
-<div id="no-results-message" class="gh-post-list hidden">
-  <div class="gh-post-item flex flex-col items-center py-12">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16" class="text-text-secondary mb-4">
-      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm-2.715 5.933a.5.5 0 0 1-.183-.683A4.498 4.498 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
-    </svg>
-    <p class="text-text-secondary mb-4 text-center">No posts found matching your search.</p>
-    <button id="reset-search" class="gh-btn">Reset Search</button>
-  </div>
+<div id="no-results-message" class="hidden max-w-md mx-auto text-center bg-gray-light p-8 rounded-github border border-border">
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16" class="text-text-secondary mx-auto mb-4 opacity-70">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm-2.715 5.933a.5.5 0 0 1-.183-.683A4.498 4.498 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
+  </svg>
+  <p class="text-white text-lg font-medium mb-2">No posts found</p>
+  <p class="text-text-secondary mb-6">No posts matching your search criteria were found. Try different keywords or clear the search.</p>
+  <button id="reset-search" class="gh-btn">Reset Search</button>
 </div>
 
 <ul class="gh-post-list">
   {%- for post in collections.posts | reverse -%}
     <li class="gh-post-item searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
-      <div class="mb-4">
-        <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration" class="w-full rounded-github">
+      <div class="gh-post-image">
+        <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration">
       </div>
-      <a href="{{ post.url | url }}" class="gh-post-title">{{ post.data.title }}</a>
-      
-      <div class="flex gap-x-3 gap-y-1 flex-wrap items-center mb-2">
+      <div class="gh-post-content">
+        <a href="{{ post.url | url }}" class="gh-post-title">{{ post.data.title }}</a>
+        
         {% if post.data.date %}
-          <div class="gh-post-date text-text-secondary">
+          <div class="gh-post-date">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+              <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
+            </svg>
             {{ post.data.date | readableDate }}
           </div>
         {% endif %}
         
+        <div class="gh-post-excerpt">
+          {% if post.data.description %}
+            {{ post.data.description }}
+          {% elif post.templateContent %}
+            {{ post.templateContent | striptags | truncate(120) }}
+          {% endif %}
+        </div>
+        
         {% if post.data.tags %}
-          <div class="flex flex-wrap gap-1">
+          <div class="gh-post-tags">
             {% for tag in post.data.tags %}
               {% if tag != "posts" %}
                 <span class="gh-badge gh-badge-accent">{{ tag }}</span>
@@ -78,14 +88,13 @@ eleventyNavigation:
             {% endfor %}
           </div>
         {% endif %}
-      </div>
-      
-      <div class="gh-post-excerpt">
-        {% if post.data.description %}
-          {{ post.data.description }}
-        {% elif post.templateContent %}
-          {{ post.templateContent | striptags | truncate(150) }}
-        {% endif %}
+        
+        <a href="{{ post.url | url }}" class="gh-read-more">
+          Read more
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+            <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+          </svg>
+        </a>
       </div>
     </li>
   {%- endfor -%}
@@ -99,40 +108,77 @@ eleventyNavigation:
     const resultCount = document.getElementById('search-results-count');
     const searchableElements = document.querySelectorAll('.searchable');
     const tagButtons = document.querySelectorAll('.tag-btn');
+    const postList = document.querySelector('.gh-post-list');
+    
+    // Add animation classes to posts for staggered entrance
+    searchableElements.forEach((element, index) => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(20px)';
+      element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      
+      // Stagger the animations
+      setTimeout(() => {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }, 100 + (index * 50));
+    });
     
     // Enhanced search function that checks title, content, and tags
     function performSearch(query) {
       query = query.toLowerCase().trim();
       let visibleCount = 0;
       
-      searchableElements.forEach(element => {
-        const title = element.querySelector('.gh-post-title').textContent.toLowerCase();
-        const content = element.querySelector('.gh-post-excerpt')?.textContent.toLowerCase() || '';
-        const tags = element.dataset.tags?.toLowerCase() || '';
-        
-        // Search in title, content, and tags
-        if (title.includes(query) || content.includes(query) || tags.includes(query) || query === '') {
-          element.style.display = '';
-          visibleCount++;
-          
-          // Highlight matching text if there's a query
-          if (query !== '') {
-            highlightText(element, query);
-          } else {
-            removeHighlights(element);
-          }
-        } else {
-          element.style.display = 'none';
-        }
-      });
+      // Add a minimal delay to allow for nice transition
+      postList.style.opacity = '0.7';
       
-      // Update count and show/hide no results message
-      resultCount.textContent = visibleCount;
-      if (visibleCount === 0 && query !== '') {
-        noResultsMessage.classList.remove('hidden');
-      } else {
-        noResultsMessage.classList.add('hidden');
-      }
+      setTimeout(() => {
+        searchableElements.forEach(element => {
+          const title = element.querySelector('.gh-post-title').textContent.toLowerCase();
+          const content = element.querySelector('.gh-post-excerpt')?.textContent.toLowerCase() || '';
+          const tags = element.dataset.tags?.toLowerCase() || '';
+          
+          // Search in title, content, and tags
+          if (title.includes(query) || content.includes(query) || tags.includes(query) || query === '') {
+            element.style.display = '';
+            visibleCount++;
+            
+            // Highlight matching text if there's a query
+            if (query !== '') {
+              highlightText(element, query);
+            } else {
+              removeHighlights(element);
+            }
+            
+            // Add a fade-in animation
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+              element.style.opacity = '1';
+              element.style.transform = 'translateY(0)';
+            }, 50);
+            
+          } else {
+            element.style.display = 'none';
+          }
+        });
+        
+        // Update count and show/hide no results message
+        resultCount.textContent = visibleCount;
+        if (visibleCount === 0 && query !== '') {
+          noResultsMessage.classList.remove('hidden');
+          noResultsMessage.style.opacity = '0';
+          setTimeout(() => {
+            noResultsMessage.style.opacity = '1';
+            noResultsMessage.style.transition = 'opacity 0.5s ease';
+          }, 50);
+        } else {
+          noResultsMessage.classList.add('hidden');
+        }
+        
+        postList.style.opacity = '1';
+        postList.style.transition = 'opacity 0.3s ease';
+      }, 200);
     }
     
     // Highlight matching text
@@ -146,7 +192,7 @@ eleventyNavigation:
       
       const content = excerpt.textContent;
       const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
-      excerpt.innerHTML = content.replace(regex, '<mark>$1</mark>');
+      excerpt.innerHTML = content.replace(regex, '<mark class="bg-accent/20 text-white px-1 rounded">$1</mark>');
     }
     
     // Remove highlights
@@ -155,7 +201,7 @@ eleventyNavigation:
       if (!excerpt) return;
       
       const markedContent = excerpt.innerHTML;
-      if (markedContent.includes('<mark>')) {
+      if (markedContent.includes('<mark')) {
         const content = excerpt.textContent;
         excerpt.innerHTML = content;
       }
@@ -166,19 +212,23 @@ eleventyNavigation:
       return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
     
-    // Search input event
+    // Search input event with debounce
+    let debounceTimeout;
     if (searchInput) {
       searchInput.addEventListener('input', function() {
-        performSearch(this.value);
-        
-        // Reset tag buttons
-        tagButtons.forEach(btn => {
-          if (btn.dataset.tag === '') {
-            btn.classList.add('selected');
-          } else {
-            btn.classList.remove('selected');
-          }
-        });
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => {
+          performSearch(this.value);
+          
+          // Reset tag buttons
+          tagButtons.forEach(btn => {
+            if (btn.dataset.tag === '') {
+              btn.classList.add('selected');
+            } else {
+              btn.classList.remove('selected');
+            }
+          });
+        }, 300); // 300ms debounce
       });
     }
     
@@ -196,6 +246,9 @@ eleventyNavigation:
             btn.classList.remove('selected');
           }
         });
+        
+        // Focus on search input
+        searchInput.focus();
       });
     }
     
@@ -204,6 +257,10 @@ eleventyNavigation:
       tagButtons.forEach(button => {
         button.addEventListener('click', function() {
           const tag = this.dataset.tag;
+          
+          // Add a nice pulse animation to the clicked tag
+          this.classList.add('animate-pulse');
+          setTimeout(() => this.classList.remove('animate-pulse'), 300);
           
           // Update search input and perform search
           if (tag === '') {
