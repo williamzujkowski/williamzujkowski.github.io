@@ -642,7 +642,6 @@
 
   .post-item {
     @apply mb-0 pb-4 border-t-2 border-primary;
-    @apply transition-all duration-300;
     @apply relative overflow-hidden;
   }
   

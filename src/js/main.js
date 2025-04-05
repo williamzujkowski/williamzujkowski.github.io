@@ -182,7 +182,7 @@ function addCardParallaxEffect() {
 
 // Add scroll reveal animations
 function addScrollRevealAnimations() {
-  const elementsToAnimate = document.querySelectorAll('.post-item, .repo-card, .about-me-section, .skill-item, h2, .github-pins, .recent-posts');
+  const elementsToAnimate = document.querySelectorAll('.repo-card, .about-me-section, .skill-item, h2, .github-pins');
 
   // Create an Intersection Observer
   const observer = new IntersectionObserver((entries) => {
