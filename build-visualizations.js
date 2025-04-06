@@ -78,36 +78,56 @@ function generateHeatmapData(posts) {
   const cells = [[], [], [], [], []];
   
   // Calculate positions and intensities
-  currentDate = new Date(startDate);
-  const dayMilliseconds = 24 * 60 * 60 * 1000;
-  const totalDays = Math.ceil((endDate - startDate) / dayMilliseconds);
+  // Create a reference date for the first Sunday before or on the start date
+  // This ensures weeks align properly in the grid
+  const referenceDate = new Date(startDate);
+  // Move back to the previous Sunday (or stay on Sunday if today is Sunday)
+  const startDay = referenceDate.getDay(); // 0 = Sunday, 6 = Saturday
+  if (startDay !== 0) {
+    referenceDate.setDate(referenceDate.getDate() - startDay);
+  }
   
-  for (let i = 0; i < totalDays; i++) {
-    const date = new Date(startDate.getTime() + i * dayMilliseconds);
-    const dateStr = date.toISOString().split('T')[0];
-    
-    // Calculate position in the grid
-    const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
-    const adjustedDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Make Monday=0, Sunday=6
-    const weekOffset = Math.floor(i / 7);
-    
-    // Get count and determine intensity (0-4)
-    const count = dateCounts[dateStr] || 0;
-    let intensity = 0;
-    if (count > 0) {
-      if (count <= maxCount * 0.25) intensity = 1;
-      else if (count <= maxCount * 0.5) intensity = 2;
-      else if (count <= maxCount * 0.75) intensity = 3;
-      else intensity = 4;
+  const dayMilliseconds = 24 * 60 * 60 * 1000;
+  const totalDays = Math.ceil((endDate - referenceDate) / dayMilliseconds);
+  
+  // Calculate how many weeks we need
+  const totalWeeks = Math.ceil(totalDays / 7);
+  
+  // Generate cells for each week and day
+  for (let week = 0; week < totalWeeks; week++) {
+    for (let day = 0; day < 7; day++) {
+      const date = new Date(referenceDate);
+      date.setDate(date.getDate() + (week * 7) + day);
+      
+      // Skip dates outside our actual range
+      if (date < startDate || date > endDate) {
+        continue;
+      }
+      
+      const dateStr = date.toISOString().split('T')[0];
+      
+      // Get count and determine intensity (0-4)
+      const count = dateCounts[dateStr] || 0;
+      let intensity = 0;
+      if (count > 0) {
+        if (count <= maxCount * 0.25) intensity = 1;
+        else if (count <= maxCount * 0.5) intensity = 2;
+        else if (count <= maxCount * 0.75) intensity = 3;
+        else intensity = 4;
+      }
+      
+      // Calculate position in the grid
+      // Monday=0, Sunday=6
+      const adjustedDay = (day + 1) % 7; // Shift so Monday is 0
+      
+      // Add to the appropriate intensity group
+      cells[intensity].push({
+        date: dateStr,
+        count,
+        x: week * 14,
+        y: adjustedDay * 14
+      });
     }
-    
-    // Add to the appropriate intensity group
-    cells[intensity].push({
-      date: dateStr,
-      count,
-      x: weekOffset * 14,
-      y: adjustedDay * 14
-    });
   }
   
   return {
