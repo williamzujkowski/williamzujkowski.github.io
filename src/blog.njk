@@ -124,17 +124,17 @@ eleventyNavigation:
       <div class="p-5 flex-grow flex flex-col">
         <a href="{{ post.url | url }}" class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ post.data.title }}</a>
         
-        <div class="flex items-center gap-4 text-sm text-text-secondary mb-3">
-          <div class="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 text-accent opacity-80">
+        <div class="flex items-center flex-wrap sm:flex-nowrap text-sm text-text-secondary mb-3">
+          <div class="flex items-center mr-4 whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 text-accent opacity-80 flex-shrink-0">
               <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
             </svg>
             {{ post.data.date | readableDate }}
           </div>
           
           {% set wordCount = post.templateContent | striptags | wordcount %}
-          <div title="{{ wordCount }} words">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 inline text-accent opacity-80">
+          <div title="{{ wordCount }} words" class="flex items-center whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 text-accent opacity-80 flex-shrink-0">
               <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm9.28-1.72a.75.75 0 00-1.06-1.06L6.25 8.69l-.97-.97a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3-3z"></path>
             </svg>
             {% set readingTime = (wordCount / 200) | round %}
