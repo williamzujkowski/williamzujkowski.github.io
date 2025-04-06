@@ -104,6 +104,32 @@ module.exports = function(eleventyConfig) {
     });
   });
   
+  eleventyConfig.addFilter("date", function(date, format) {
+    const d = new Date(date);
+    
+    // Handle different format strings
+    if (format === 'yyyy') {
+      return d.getFullYear().toString();
+    } else if (format === 'MM') {
+      return (d.getMonth() + 1).toString().padStart(2, '0');
+    } else if (format === 'dd') {
+      return d.getDate().toString().padStart(2, '0');
+    } else if (format === 'MM-dd') {
+      return `${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
+    } else if (format === 'MMM') {
+      return d.toLocaleDateString('en-US', { month: 'short' });
+    } else if (format === 'MMM d, yyyy') {
+      return d.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
+    }
+    
+    // Default: return ISO string
+    return d.toISOString();
+  });
+  
   // Text manipulation filters
   eleventyConfig.addFilter("striptags", function(value) {
     // Simple HTML tag stripper
