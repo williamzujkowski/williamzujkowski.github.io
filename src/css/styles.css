@@ -953,31 +953,33 @@ h4:hover .header-anchor {
     @apply overflow-hidden;
   }
 
-  /* Mobile responsiveness */
+  /* =========================== */
+  /* MOBILE STYLES - COMPLETE OVERRIDE */
+  /* =========================== */
   @media (max-width: 768px) {
     /* Global adjustments for mobile */
     body {
-      @apply text-base;
+      @apply text-lg;
     }
     
     h1 {
-      @apply text-2xl mb-3;
+      @apply text-3xl mb-4;
     }
     
     h2 {
-      @apply text-xl mb-4 font-semibold;
+      @apply text-2xl mb-5 font-semibold;
     }
     
     h3 {
-      @apply text-lg mb-3 font-medium;
+      @apply text-xl mb-4 font-medium;
     }
     
     p {
-      @apply text-base leading-relaxed;
+      @apply text-lg leading-relaxed;
     }
     
     .site-container {
-      @apply px-5 py-5;
+      @apply px-6 py-6;
     }
     
     /* Header adjustments */
