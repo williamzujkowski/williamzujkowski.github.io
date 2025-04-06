@@ -1,0 +1,159 @@
+[
+  {
+    "month": "Dec 2024",
+    "posts": [
+      {
+        "title": "AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas",
+        "url": "/posts/2024-12-13-ai-the-new-frontier-in-cybersecurity-opportunities-and-ethical-dilemmas/",
+        "date": "2024-12-13T00:00:00.000Z",
+        "formattedDate": "Dec 12, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Oct 2024",
+    "posts": [
+      {
+        "title": "The Pizza Calculator: A Developer's Best Friend During Crunch Time",
+        "url": "/posts/2024-10-19-pizza-calculator/",
+        "date": "2024-10-19T00:00:00.000Z",
+        "formattedDate": "Oct 18, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Sep 2024",
+    "posts": [
+      {
+        "title": "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography",
+        "url": "/posts/2024-09-16-preparing-for-the-quantum-leap-a-guide-to-quantum-resistant-cryptography/",
+        "date": "2024-09-16T00:00:00.000Z",
+        "formattedDate": "Sep 15, 2024"
+      },
+      {
+        "title": "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs",
+        "url": "/posts/2024-09-02-mastering-prompt-engineering-unlocking-the-full-potential-of-llms/",
+        "date": "2024-09-02T00:00:00.000Z",
+        "formattedDate": "Sep 1, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Aug 2024",
+    "posts": [
+      {
+        "title": "The Intersection of AI and Edge Computing: A Powerful Convergence",
+        "url": "/posts/2024-08-20-the-intersection-of-ai-and-edge-computing/",
+        "date": "2024-08-20T00:00:00.000Z",
+        "formattedDate": "Aug 19, 2024"
+      },
+      {
+        "title": "The Ethics of Large Language Models",
+        "url": "/posts/2024-08-05-the-ethics-of-large-language-models/",
+        "date": "2024-08-05T00:00:00.000Z",
+        "formattedDate": "Aug 4, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Jul 2024",
+    "posts": [
+      {
+        "title": "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge",
+        "url": "/posts/2024-07-20-retrieval-augmented-generation-rag-enhancing-llms-with-external-knowledge/",
+        "date": "2024-07-20T00:00:00.000Z",
+        "formattedDate": "Jul 19, 2024"
+      },
+      {
+        "title": "Understanding Context Windows in Large Language Models",
+        "url": "/posts/2024-07-15-understanding-context-windows-in-llms/",
+        "date": "2024-07-15T00:00:00.000Z",
+        "formattedDate": "Jul 14, 2024"
+      },
+      {
+        "title": "The Transformer Architecture: A Deep Dive",
+        "url": "/posts/2024-07-12-the-transformer-architecture-a-deep-dive/",
+        "date": "2024-07-12T00:00:00.000Z",
+        "formattedDate": "Jul 11, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Jun 2024",
+    "posts": [
+      {
+        "title": "Cloud Migration: A Guide to Navigating Your Journey to the Cloud",
+        "url": "/posts/2024-06-20-cloud-migration-a-guide-to-navigating-your-journey-to-the-cloud/",
+        "date": "2024-06-20T00:00:00.000Z",
+        "formattedDate": "Jun 19, 2024"
+      },
+      {
+        "title": "Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community",
+        "url": "/posts/2024-06-09-open-source-vs-proprietary-llms-a-battle-of-accessibility-customization-and-community/",
+        "date": "2024-06-09T00:00:00.000Z",
+        "formattedDate": "Jun 8, 2024"
+      }
+    ]
+  },
+  {
+    "month": "May 2024",
+    "posts": [
+      {
+        "title": "The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception",
+        "url": "/posts/2024-05-17-the-deepfake-dilemma-navigating-the-threat-of-ai-generated-deception/",
+        "date": "2024-05-17T00:00:00.000Z",
+        "formattedDate": "May 16, 2024"
+      },
+      {
+        "title": "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security",
+        "url": "/posts/2024-05-03-securing-the-cloud-native-frontier-a-guide-to-cloud-native-security/",
+        "date": "2024-05-03T00:00:00.000Z",
+        "formattedDate": "May 2, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Apr 2024",
+    "posts": [
+      {
+        "title": "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures",
+        "url": "/posts/2024-04-08-demystifying-cryptography-a-beginners-guide-to-encryption-hashing-and-digital-signatures/",
+        "date": "2024-04-08T00:00:00.000Z",
+        "formattedDate": "Apr 7, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Mar 2024",
+    "posts": [
+      {
+        "title": "Writing Secure Code: A Developer's Guide to Thwarting Security Exploits",
+        "url": "/posts/2024-03-14-writing-secure-code-a-developers-guide-to-thwarting-security-exploits/",
+        "date": "2024-03-14T00:00:00.000Z",
+        "formattedDate": "Mar 13, 2024"
+      }
+    ]
+  },
+  {
+    "month": "Dec 2023",
+    "posts": [
+      {
+        "title": "Your Blog Post Title Here",
+        "url": "/posts/blog-post-template/",
+        "date": "2024-01-01T00:00:00.000Z",
+        "formattedDate": "Dec 31, 2023"
+      }
+    ]
+  },
+  {
+    "month": "Dec 2022",
+    "posts": [
+      {
+        "title": "Welcome to My Blog",
+        "url": "/posts/welcome/",
+        "date": "2023-01-01T00:00:00.000Z",
+        "formattedDate": "Dec 31, 2022"
+      }
+    ]
+  }
+]

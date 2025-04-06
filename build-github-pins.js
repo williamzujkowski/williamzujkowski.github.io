@@ -90,7 +90,45 @@ async function fetchPinnedRepos() {
 }
 
 async function main() {
-  // Fetch pinned repositories
+  // Check if site.json exists and has pinned repositories
+  const siteJsonPath = path.join(__dirname, 'src', '_data', 'site.json');
+  let configPinnedRepos = [];
+  
+  try {
+    if (fs.existsSync(siteJsonPath)) {
+      const siteConfig = JSON.parse(fs.readFileSync(siteJsonPath, 'utf8'));
+      if (siteConfig.homepage && 
+          siteConfig.homepage.pinned_repositories && 
+          Array.isArray(siteConfig.homepage.pinned_repositories) &&
+          siteConfig.homepage.pinned_repositories.length > 0) {
+        
+        console.log(`Using ${siteConfig.homepage.pinned_repositories.length} repositories from site configuration`);
+        configPinnedRepos = siteConfig.homepage.pinned_repositories;
+      }
+    }
+  } catch (error) {
+    console.error('Error reading site configuration:', error);
+  }
+  
+  // If we have repos from config, use those
+  if (configPinnedRepos.length > 0) {
+    // Define the output path
+    const outputDir = path.join(__dirname, '_data');
+    const outputFile = path.join(outputDir, 'github-pins.json');
+
+    // Ensure the _data directory exists
+    if (!fs.existsSync(outputDir)){
+      fs.mkdirSync(outputDir);
+    }
+
+    // Write the JSON file
+    fs.writeFileSync(outputFile, JSON.stringify(configPinnedRepos, null, 2));
+    console.log(`Successfully wrote ${configPinnedRepos.length} pinned repositories from configuration to ${outputFile}`);
+    return;
+  }
+  
+  // Otherwise fall back to GitHub API
+  console.log('No repositories found in configuration, falling back to GitHub API...');
   const pinnedRepos = await fetchPinnedRepos();
   
   if (pinnedRepos.length === 0) {
@@ -124,7 +162,7 @@ async function main() {
 
   // Write the JSON file
   fs.writeFileSync(outputFile, JSON.stringify(pinnedRepos, null, 2));
-  console.log(`Successfully wrote ${pinnedRepos.length} pinned repositories to ${outputFile}`);
+  console.log(`Successfully wrote ${pinnedRepos.length} pinned repositories from GitHub API to ${outputFile}`);
 }
 
 main();

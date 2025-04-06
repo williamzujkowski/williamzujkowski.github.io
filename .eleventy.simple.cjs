@@ -278,6 +278,36 @@ module.exports = function(eleventyConfig) {
     })));
   });
 
+  // Add cached visualization data
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    
+    // Path to cached data files
+    const heatmapPath = path.join(__dirname, '_data/cache/heatmap.json');
+    const activityPath = path.join(__dirname, '_data/cache/activity.json');
+    
+    // Add cache data to global data if files exist
+    if (fs.existsSync(heatmapPath)) {
+      const heatmapData = JSON.parse(fs.readFileSync(heatmapPath, 'utf8'));
+      eleventyConfig.addGlobalData('heatmapData', () => heatmapData);
+      console.log('Loaded cached heatmap data with', 
+        heatmapData.cells ? 
+          heatmapData.cells.reduce((acc, group) => acc + group.length, 0) + ' cells' : 
+          'no cells data',
+        'and', heatmapData.totalContributions, 'total contributions');
+    }
+    
+    if (fs.existsSync(activityPath)) {
+      const activityData = JSON.parse(fs.readFileSync(activityPath, 'utf8'));
+      eleventyConfig.addGlobalData('activityData', () => activityData);
+      console.log('Loaded cached activity data with', 
+        activityData.length, 'month groups');
+    }
+  } catch (error) {
+    console.warn('Error loading cached visualization data:', error.message);
+  }
+
   return {
     dir: {
       input: "src",
