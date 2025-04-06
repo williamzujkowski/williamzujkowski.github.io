@@ -27,14 +27,14 @@ eleventyNavigation:
     <h2 class="text-xl font-medium mt-0 mb-0">GitHub Repositories</h2>
   </div>
   
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-3">
     {% for repo in site.homepage.pinned_repositories %}
-      <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col p-3">
+      <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col p-4">
         <div class="flex items-start">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" class="mt-1 mr-2 flex-shrink-0 text-accent" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
           <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent text-sm truncate">{{ repo.name }}</a>
         </div>
-        <p class="text-text-secondary text-xs mt-2 mb-2 line-clamp-2">{{ repo.description }}</p>
+        <p class="text-text-secondary text-xs mt-2 mb-2 line-clamp-3">{{ repo.description }}</p>
         <div class="flex flex-wrap gap-2 text-xs text-text-secondary mt-auto">
           {% if repo.language %}
           <div class="flex items-center">
@@ -65,13 +65,13 @@ eleventyNavigation:
       <h2 class="text-xl font-medium mt-0 mb-0">{{ group.name }}</h2>
     </div>
     
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-3">
       {% for link in site.links %}
         {% if link.group === group.name %}
-          <div class="border border-border rounded-github overflow-hidden bg-gray-light p-3 hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
-            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent text-sm mb-1 truncate">{{ link.name }}</a>
+          <div class="border border-border rounded-github overflow-hidden bg-gray-light p-4 hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent text-sm mb-2 truncate">{{ link.name }}</a>
             {% if link.description %}
-              <p class="text-text-secondary text-xs m-0 flex-grow line-clamp-2">{{ link.description }}</p>
+              <p class="text-text-secondary text-xs m-0 flex-grow line-clamp-3">{{ link.description }}</p>
             {% endif %}
           </div>
         {% endif %}
