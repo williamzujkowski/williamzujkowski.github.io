@@ -59,13 +59,14 @@
   <script src="/js/main.js"></script>
   <script src="/js/site-enhancements.js"></script>
   <script src="/js/search.js"></script>
+  <script src="/js/heatmap.js"></script>
   
   <!-- Force static visualizations to be displayed -->
   <script>
     // Insert static visualizations directly
     window.addEventListener('load', function() {
       // Replace heatmap loading indicator with static SVG
-      const heatmapContainer = document.getElementById('contributions-heatmap');
+      const heatmapContainer = document.getElementById('contribution-heatmap');
       if (heatmapContainer) {
         heatmapContainer.innerHTML = `
           <!-- Static heatmap with sample data -->

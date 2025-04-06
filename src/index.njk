@@ -6,159 +6,330 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
-<div class="gh-profile-header">
-  <div class="gh-avatar-container">
-    <img src="/assets/images/github-style/profile-avatar.png" alt="{{ site.title }}" class="gh-avatar">
-    
-    <div class="gh-profile-stats mt-4">
-      <div class="gh-stat">
-        <svg aria-hidden="true" class="gh-stat-icon" height="16" viewBox="0 0 16 16" version="1.1" width="16">
-          <path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path>
-        </svg>
-        <span class="gh-stat-count">15</span>
-        <span class="gh-stat-label">followers</span>
-      </div>
-      <span>·</span>
-      <div class="gh-stat">
-        <span class="gh-stat-count">32</span>
-        <span class="gh-stat-label">following</span>
-      </div>
-      <span>·</span>
-      <div class="gh-stat">
-        <svg aria-hidden="true" class="gh-stat-icon" height="16" viewBox="0 0 16 16" version="1.1" width="16">
-          <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
-        </svg>
-        <span class="gh-stat-count">18</span>
-      </div>
-    </div>
-    
-    <div class="mt-8 w-full md:w-[296px] max-w-full md:max-w-[296px] mx-auto md:mx-0 break-words">
-      <h3 class="text-xl md:text-lg text-center md:text-left font-medium">{{ site.homepage.about_me_title }}</h3>
-      <p class="text-base md:text-sm text-center md:text-left leading-relaxed">{{ site.homepage.about_me_content }}</p>
-    </div>
-  </div>
-  
-  <div class="gh-profile-content">
-    <div class="gh-profile-header-info">
-      <h1 class="gh-name">{{ site.title }}</h1>
-      <div class="gh-username text-text-secondary">{{ site.homepage.welcome_subtitle }}</div>
-      <p class="gh-bio">{{ site.description }}</p>
+<!-- Desktop Layout -->
+<div class="hidden md:block">
+  <div class="gh-profile-header">
+    <div class="gh-avatar-container">
+      <img src="/assets/images/github-style/profile-avatar.png" alt="{{ site.title }}" class="gh-avatar">
       
-      <!-- Buttons removed -->
-    </div>
-    
-    <div>
-      <h2 class="text-center md:text-left relative pb-2 mb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-0.5 after:bg-accent/50">Featured Projects</h2>
-      <div class="gh-featured-projects mb-6 flex flex-col md:flex-row gap-4">
-        <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
-          <div class="gh-project-header flex items-center gap-2 mb-2">
-            <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-            </div>
-            <span class="font-medium text-sm md:text-base">Cloud Security Framework</span>
-          </div>
-          <p class="gh-project-description text-base md:text-sm text-text mb-3 flex-grow">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
-          <div class="gh-project-tags flex flex-wrap gap-2">
-            <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">AWS</span>
-            <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">Security</span>
-            <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">DevSecOps</span>
-          </div>
+      <div class="gh-profile-stats mt-4">
+        <div class="gh-stat">
+          <svg aria-hidden="true" class="gh-stat-icon" height="16" viewBox="0 0 16 16" version="1.1" width="16">
+            <path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path>
+          </svg>
+          <span class="gh-stat-count">15</span>
+          <span class="gh-stat-label">followers</span>
         </div>
-        
-        <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
-          <div class="gh-project-header flex items-center gap-2 mb-2">
-            <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-            </div>
-            <span class="font-medium text-sm md:text-base">RAG-Powered Knowledge Base</span>
-          </div>
-          <p class="gh-project-description text-base md:text-sm text-text mb-3 flex-grow">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
-          <div class="gh-project-tags flex flex-wrap gap-2">
-            <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">AI</span>
-            <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">NLP</span>
-            <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">Vector DB</span>
-          </div>
+        <span>·</span>
+        <div class="gh-stat">
+          <span class="gh-stat-count">32</span>
+          <span class="gh-stat-label">following</span>
+        </div>
+        <span>·</span>
+        <div class="gh-stat">
+          <svg aria-hidden="true" class="gh-stat-icon" height="16" viewBox="0 0 16 16" version="1.1" width="16">
+            <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
+          </svg>
+          <span class="gh-stat-count">18</span>
         </div>
       </div>
       
-      <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Current Reading</h3>
-      <div class="gh-reading-section mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface">
-          <div class="gh-reading-icon w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-              <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
-            </svg>
-          </div>
-          <div class="flex-grow">
-            <div class="gh-reading-title text-white font-medium mb-1">Designing Data-Intensive Applications</div>
-            <div class="gh-reading-author text-sm text-text-secondary mb-3">Martin Kleppmann</div>
-            <div class="gh-reading-progress w-full mt-1">
-              <div class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1">
-                <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 75%"></div>
+      <div class="mt-8 w-full md:w-[296px] max-w-full md:max-w-[296px] mx-auto md:mx-0 break-words">
+        <h3 class="text-xl md:text-lg text-center md:text-left font-medium">{{ site.homepage.about_me_title }}</h3>
+        <p class="text-base md:text-sm text-center md:text-left leading-relaxed">{{ site.homepage.about_me_content }}</p>
+      </div>
+    </div>
+    
+    <div class="gh-profile-content">
+      <div class="gh-profile-header-info">
+        <h1 class="gh-name">{{ site.title }}</h1>
+        <div class="gh-username text-text-secondary">{{ site.homepage.welcome_subtitle }}</div>
+        <p class="gh-bio">{{ site.description }}</p>
+      </div>
+      
+      <div>
+        <h2 class="text-center md:text-left relative pb-2 mb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-0.5 after:bg-accent/50">Featured Projects</h2>
+        <div class="gh-featured-projects mb-6 flex flex-col md:flex-row gap-4">
+          <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
+            <div class="gh-project-header flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
               </div>
-              <div class="gh-progress-text text-xs text-text-secondary">75% complete</div>
+              <span class="font-medium text-sm md:text-base">Cloud Security Framework</span>
+            </div>
+            <p class="gh-project-description text-base md:text-sm text-text mb-3 flex-grow">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
+            <div class="gh-project-tags flex flex-wrap gap-2">
+              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">AWS</span>
+              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">Security</span>
+              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">DevSecOps</span>
             </div>
           </div>
-        </div>
-        
-        <div class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface">
-          <div class="gh-reading-icon w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-              <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
-            </svg>
-          </div>
-          <div class="flex-grow">
-            <div class="gh-reading-title text-white font-medium mb-1">Building Machine Learning Powered Applications</div>
-            <div class="gh-reading-author text-sm text-text-secondary mb-3">Emmanuel Ameisen</div>
-            <div class="gh-reading-progress w-full mt-1">
-              <div class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1">
-                <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 45%"></div>
+          
+          <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
+            <div class="gh-project-header flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
               </div>
-              <div class="gh-progress-text text-xs text-text-secondary">45% complete</div>
+              <span class="font-medium text-sm md:text-base">RAG-Powered Knowledge Base</span>
+            </div>
+            <p class="gh-project-description text-base md:text-sm text-text mb-3 flex-grow">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
+            <div class="gh-project-tags flex flex-wrap gap-2">
+              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">AI</span>
+              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">NLP</span>
+              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">Vector DB</span>
             </div>
           </div>
         </div>
-      </div>
-      
-      <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Learning</h3>
-      <div class="gh-learning-timeline mb-6 pl-4 border-l border-border space-y-6">
-        <div class="gh-timeline-item relative flex items-start">
-          <div class="gh-timeline-icon absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
-              <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-            </svg>
+        
+        <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Current Reading</h3>
+        <div class="gh-reading-section mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface">
+            <div class="gh-reading-icon w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <div class="gh-reading-title text-white font-medium mb-1">Designing Data-Intensive Applications</div>
+              <div class="gh-reading-author text-sm text-text-secondary mb-3">Martin Kleppmann</div>
+              <div class="gh-reading-progress w-full mt-1">
+                <div class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1">
+                  <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 75%"></div>
+                </div>
+                <div class="gh-progress-text text-xs text-text-secondary">75% complete</div>
+              </div>
+            </div>
           </div>
-          <div class="gh-timeline-content pl-2">
-            <div class="gh-timeline-date text-xs text-text-secondary mb-1">November 2024</div>
-            <div class="gh-timeline-title text-white font-medium mb-1">Large Language Model Fine-Tuning</div>
-            <p class="gh-timeline-description text-sm text-text mb-2">Completed advanced course on fine-tuning large language models for domain-specific applications using LoRA and QLoRA techniques.</p>
+          
+          <div class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface">
+            <div class="gh-reading-icon w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <div class="gh-reading-title text-white font-medium mb-1">Building Machine Learning Powered Applications</div>
+              <div class="gh-reading-author text-sm text-text-secondary mb-3">Emmanuel Ameisen</div>
+              <div class="gh-reading-progress w-full mt-1">
+                <div class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1">
+                  <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 45%"></div>
+                </div>
+                <div class="gh-progress-text text-xs text-text-secondary">45% complete</div>
+              </div>
+            </div>
           </div>
         </div>
         
-        <div class="gh-timeline-item relative flex items-start">
-          <div class="gh-timeline-icon absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
-              <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-            </svg>
+        <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Learning</h3>
+        <div class="gh-learning-timeline mb-6 pl-4 border-l border-border space-y-6">
+          <div class="gh-timeline-item relative flex items-start">
+            <div class="gh-timeline-icon absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
+                <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+              </svg>
+            </div>
+            <div class="gh-timeline-content pl-2">
+              <div class="gh-timeline-date text-xs text-text-secondary mb-1">November 2024</div>
+              <div class="gh-timeline-title text-white font-medium mb-1">Large Language Model Fine-Tuning</div>
+              <p class="gh-timeline-description text-sm text-text mb-2">Completed advanced course on fine-tuning large language models for domain-specific applications using LoRA and QLoRA techniques.</p>
+            </div>
           </div>
-          <div class="gh-timeline-content pl-2">
-            <div class="gh-timeline-date text-xs text-text-secondary mb-1">October 2024</div>
-            <div class="gh-timeline-title text-white font-medium mb-1">Zero-Knowledge Proof Implementation</div>
-            <p class="gh-timeline-description text-sm text-text mb-2">Built a practical implementation of ZK-SNARKs for privacy-preserving authentication in web applications.</p>
+          
+          <div class="gh-timeline-item relative flex items-start">
+            <div class="gh-timeline-icon absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
+                <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+              </svg>
+            </div>
+            <div class="gh-timeline-content pl-2">
+              <div class="gh-timeline-date text-xs text-text-secondary mb-1">October 2024</div>
+              <div class="gh-timeline-title text-white font-medium mb-1">Zero-Knowledge Proof Implementation</div>
+              <p class="gh-timeline-description text-sm text-text mb-2">Built a practical implementation of ZK-SNARKs for privacy-preserving authentication in web applications.</p>
+            </div>
           </div>
         </div>
+        
+        <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Interests</h3>
+        <p class="text-text text-base md:text-sm leading-relaxed px-1 md:px-0">{{ site.homepage.interests }}</p>
       </div>
-      
-      <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Interests</h3>
-      <p class="text-text text-xs md:text-sm leading-relaxed px-1 md:px-0">{{ site.homepage.interests }}</p>
-
     </div>
   </div>
 </div>
 
-<!-- Pinned repositories moved to /links/ page -->
+<!-- Mobile Layout - Completely different -->
+<div class="md:hidden">
+  <!-- Mobile Header -->
+  <div class="mobile-profile-header text-center mb-8">
+    <img src="/assets/images/github-style/profile-avatar.png" alt="{{ site.title }}" class="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-accent">
+    
+    <h1 class="text-2xl font-bold mb-1">{{ site.title }}</h1>
+    <div class="text-lg text-text-secondary mb-4">{{ site.homepage.welcome_subtitle }}</div>
+    
+    <!-- Mobile stats in a row -->
+    <div class="flex justify-center gap-6 py-3 px-4 bg-surface rounded-lg mb-6">
+      <div class="text-center">
+        <div class="text-xl font-bold">15</div>
+        <div class="text-xs text-text-secondary">followers</div>
+      </div>
+      <div class="text-center">
+        <div class="text-xl font-bold">32</div>
+        <div class="text-xs text-text-secondary">following</div>
+      </div>
+      <div class="text-center">
+        <div class="text-xl font-bold">18</div>
+        <div class="text-xs text-text-secondary">⭐</div>
+      </div>
+    </div>
+    
+    <!-- About section -->
+    <div class="bg-surface p-5 rounded-lg mb-8">
+      <h2 class="text-xl font-semibold mb-3">{{ site.homepage.about_me_title }}</h2>
+      <p class="text-base">{{ site.homepage.about_me_content }}</p>
+    </div>
+  </div>
+  
+  <!-- Featured Projects Section -->
+  <div class="mb-8">
+    <h2 class="text-xl font-bold mb-4 text-center">Featured Projects</h2>
+    
+    <!-- Project 1 -->
+    <div class="bg-surface rounded-lg p-5 mb-4 border-l-4 border-accent">
+      <h3 class="text-lg font-medium flex items-center mb-3">
+        <svg class="w-5 h-5 mr-2 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
+        </svg>
+        Cloud Security Framework
+      </h3>
+      <p class="text-base mb-4">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-accent/20 text-accent text-sm px-3 py-1.5 rounded-md font-medium">AWS</span>
+        <span class="bg-accent/20 text-accent text-sm px-3 py-1.5 rounded-md font-medium">Security</span>
+        <span class="bg-accent/20 text-accent text-sm px-3 py-1.5 rounded-md font-medium">DevSecOps</span>
+      </div>
+    </div>
+    
+    <!-- Project 2 -->
+    <div class="bg-surface rounded-lg p-5 border-l-4 border-accent">
+      <h3 class="text-lg font-medium flex items-center mb-3">
+        <svg class="w-5 h-5 mr-2 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
+        </svg>
+        RAG-Powered Knowledge Base
+      </h3>
+      <p class="text-base mb-4">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-accent/20 text-accent text-sm px-3 py-1.5 rounded-md font-medium">AI</span>
+        <span class="bg-accent/20 text-accent text-sm px-3 py-1.5 rounded-md font-medium">NLP</span>
+        <span class="bg-accent/20 text-accent text-sm px-3 py-1.5 rounded-md font-medium">Vector DB</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Current Reading Section -->
+  <div class="mb-8">
+    <h2 class="text-xl font-bold mb-4 text-center">Current Reading</h2>
+    
+    <!-- Book 1 -->
+    <div class="bg-surface rounded-lg p-5 mb-4 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary"></div>
+      <div class="flex items-center mb-2">
+        <svg class="w-5 h-5 mr-2 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
+        </svg>
+        <span class="text-lg font-medium">Designing Data-Intensive Applications</span>
+      </div>
+      <div class="text-base text-text-secondary mb-3">by Martin Kleppmann</div>
+      <div class="w-full bg-gray-light rounded-full h-2 mb-1">
+        <div class="bg-accent h-full rounded-full" style="width: 75%"></div>
+      </div>
+      <div class="text-right text-sm text-text-secondary">75% complete</div>
+    </div>
+    
+    <!-- Book 2 -->
+    <div class="bg-surface rounded-lg p-5 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary"></div>
+      <div class="flex items-center mb-2">
+        <svg class="w-5 h-5 mr-2 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
+        </svg>
+        <span class="text-lg font-medium">Building ML Powered Applications</span>
+      </div>
+      <div class="text-base text-text-secondary mb-3">by Emmanuel Ameisen</div>
+      <div class="w-full bg-gray-light rounded-full h-2 mb-1">
+        <div class="bg-accent h-full rounded-full" style="width: 45%"></div>
+      </div>
+      <div class="text-right text-sm text-text-secondary">45% complete</div>
+    </div>
+  </div>
+  
+  <!-- Latest Learning Section -->
+  <div class="mb-8">
+    <h2 class="text-xl font-bold mb-4 text-center">Latest Learning</h2>
+    
+    <!-- Learning Item 1 -->
+    <div class="bg-surface rounded-lg p-5 mb-4">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-lg font-medium">LLM Fine-Tuning</span>
+        <span class="text-xs bg-accent/30 text-accent px-2 py-1 rounded">Nov 2024</span>
+      </div>
+      <p class="text-base mb-0">Completed advanced course on fine-tuning large language models for domain-specific applications using LoRA and QLoRA techniques.</p>
+    </div>
+    
+    <!-- Learning Item 2 -->
+    <div class="bg-surface rounded-lg p-5">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-lg font-medium">ZK-Proofs</span>
+        <span class="text-xs bg-accent/30 text-accent px-2 py-1 rounded">Oct 2024</span>
+      </div>
+      <p class="text-base mb-0">Built a practical implementation of ZK-SNARKs for privacy-preserving authentication in web applications.</p>
+    </div>
+  </div>
+  
+  <!-- Interests Section -->
+  <div class="mb-8">
+    <h2 class="text-xl font-bold mb-4 text-center">Interests</h2>
+    <div class="bg-surface rounded-lg p-5">
+      <p class="text-base mb-0">{{ site.homepage.interests }}</p>
+    </div>
+  </div>
+</div>
+
+{% if site.homepage.show_contribution_heatmap %}
+<div class="gh-section-header">
+  <h2 class="gh-section-title text-white flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor" class="mr-2">
+      <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25V2.75zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25H1.75zM3.5 6.25a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75zm.75 2.25a.75.75 0 0 0 0 1.5h4a.75.75 0 0 0 0-1.5h-4z"></path>
+    </svg>
+    Contribution Activity
+  </h2>
+</div>
+
+<div class="mt-4 mb-8">
+  <!-- Contribution heatmap visualization will be injected here -->
+  <div id="contribution-heatmap" class="gh-heatmap-container">
+    <div class="flex items-center justify-center py-8 text-text-secondary">
+      <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>Loading contribution data...</span>
+    </div>
+  </div>
+  
+  <script>
+    // Inject contribution data for the heatmap
+    const contributionHeatmap = {
+      contributions: [
+        {% for post in collections.posts %}
+          { date: "{{ post.date | date('YYYY-MM-DD') }}", count: 1 }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+    };
+  </script>
+</div>
+{% endif %}
 
 {% if site.homepage.show_activity_timeline %}
 <div class="gh-section-header">
