@@ -18,7 +18,11 @@
     "watch:css": "postcss src/css/styles.css -o _site/css/styles.css --watch",
     "serve": "npm run build:data && npm run watch:css & eleventy --config=.eleventy.simple.cjs --serve",
     "dev": "npm run serve",
-    "debug": "DEBUG=* eleventy --config=.eleventy.simple.cjs"
+    "debug": "DEBUG=* eleventy --config=.eleventy.simple.cjs",
+    "lint": "eslint \"src/**/*.js\"",
+    "lint:fix": "eslint \"src/**/*.js\" --fix",
+    "format": "prettier --write \"src/**/*.{js,json,css,md,njk}\"",
+    "build:prod": "ELEVENTY_ENV=production npm run build"
   },
   "keywords": [],
   "author": "William Zujkowski",
@@ -31,12 +35,14 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "autoprefixer": "^10.4.17",
     "cssnano": "^6.0.4",
+    "eslint": "^9.24.0",
     "luxon": "^3.4.4",
     "markdown-it": "^14.0.0",
     "markdown-it-anchor": "^8.6.7",
     "node-fetch": "^3.3.2",
     "postcss": "^8.4.35",
     "postcss-cli": "^11.0.1",
+    "prettier": "^3.5.3",
     "tailwindcss": "^3.4.1",
     "xml2js": "^0.6.2"
   }

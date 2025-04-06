@@ -1,7 +1,12 @@
 ---
 layout: base.njk
 title: Blog
-permalink: /blog/
+pagination:
+  data: collections.posts
+  size: 6
+  reverse: true
+  alias: posts
+permalink: "/blog/{% if pagination.pageNumber > 0 %}page-{{ pagination.pageNumber + 1 }}/{% endif %}"
 eleventyNavigation:
   key: Blog
   order: 3
@@ -30,6 +35,9 @@ eleventyNavigation:
       <path d="M2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"/>
     </svg>
     <span id="search-results-count">{{ collections.posts | length }}</span> posts
+    {% if pagination.pages.length > 1 %}
+    <span class="ml-2 text-text-secondary">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+    {% endif %}
   </div>
 </div>
 
@@ -55,7 +63,7 @@ eleventyNavigation:
 </div>
 
 <ul class="gh-post-list">
-  {%- for post in collections.posts | reverse -%}
+  {%- for post in posts -%}
     <li class="gh-post-item searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
       <div class="gh-post-image">
         {% if post.data.tags and "ai" in post.data.tags %}
@@ -114,6 +122,47 @@ eleventyNavigation:
     </li>
   {%- endfor -%}
 </ul>
+
+{% if pagination.pages.length > 1 %}
+<nav aria-label="Blog pagination" class="flex justify-center mt-12 mb-8">
+  <ul class="inline-flex items-center gap-2">
+    {% if pagination.href.previous %}
+    <li>
+      <a href="{{ pagination.href.previous }}" class="gh-btn flex items-center" aria-label="Previous page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-1">
+          <path d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path>
+        </svg>
+        Previous
+      </a>
+    </li>
+    {% endif %}
+
+    {% for pageUrl in pagination.hrefs %}
+      {% set pageNumber = loop.index %}
+      <li{% if page.url == pageUrl %} aria-current="page"{% endif %}>
+        <a 
+          href="{{ pageUrl }}" 
+          class="flex items-center justify-center w-8 h-8 rounded-github {% if page.url == pageUrl %}bg-accent text-white{% else %}bg-gray-light text-text-secondary hover:bg-gray-button hover:text-white{% endif %} border border-border"
+          {% if page.url == pageUrl %}aria-current="page"{% endif %}
+        >
+          {{ pageNumber }}
+        </a>
+      </li>
+    {% endfor %}
+
+    {% if pagination.href.next %}
+    <li>
+      <a href="{{ pagination.href.next }}" class="gh-btn flex items-center" aria-label="Next page">
+        Next
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="ml-1">
+          <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+        </svg>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

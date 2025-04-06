@@ -177,7 +177,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Page loader */
+/* Page loader and transitions */
 .page-loader {
   @apply fixed inset-0 bg-background bg-opacity-80 z-[100] flex flex-col items-center justify-center transition-opacity duration-500;
   backdrop-filter: blur(5px);
@@ -198,30 +198,67 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* Skip link for accessibility */
-.skip-link {
-  @apply fixed top-0 left-0 -translate-y-full bg-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0;
+/* Page transitions */
+.page-transition-enter {
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
-/* Scroll to top button */
-.scroll-top-btn {
-  @apply fixed right-6 bottom-6 bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border opacity-0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.page-transition-exit {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Lazy loaded images */
+img {
+  transition: opacity 0.5s ease-in-out;
+}
+
+img[data-src] {
+  opacity: 0;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  @apply fixed top-0 left-0 -translate-y-full bg-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0 font-medium rounded-br-github;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Back to top button */
+.back-to-top-btn {
+  @apply fixed right-6 bottom-6 bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
   transform: translateY(10px);
 }
 
-.scroll-top-btn:hover {
+.back-to-top-btn:hover {
   @apply bg-accent-hover;
-  transform: translateY(0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.scroll-top-btn:focus {
+.back-to-top-btn:focus {
   @apply outline-none ring-2 ring-accent ring-opacity-50;
 }
 
-.scroll-top-btn.visible {
+.back-to-top-btn.visible {
   opacity: 0.9;
   transform: translateY(0);
+  visibility: visible;
+}
+
+.back-to-top-btn.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* Header anchor links */

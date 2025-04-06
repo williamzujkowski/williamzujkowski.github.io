@@ -44,6 +44,13 @@ layout: base.njk
           </time>
         </div>
         
+        <div class="flex items-center gap-2 text-text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="text-accent">
+            <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm7-3.25v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.751.751 0 017 8.25v-3.5a.75.75 0 011.5 0z"></path>
+          </svg>
+          <span id="reading-time" class="text-base">{{ content | readingTime }} min read</span>
+        </div>
+        
         {% if tags %}
           <div class="flex flex-wrap gap-1">
             {% for tag in tags %}
@@ -110,4 +117,52 @@ layout: base.njk
       </a>
     </div>
   </div>
+  
+  <!-- Related posts -->
+  {% set relatedPosts = collections.posts | getRelatedPosts(page) %}
+  {% if relatedPosts.length > 0 %}
+  <div class="mt-12">
+    <h2 class="text-xl font-semibold mb-6 text-white">Related Articles</h2>
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for relatedPost in relatedPosts %}
+      <li class="gh-post-item">
+        <div class="gh-post-image">
+          {% if relatedPost.data.tags and "ai" in relatedPost.data.tags %}
+            {% image "blog/ai-blog.jpg", "AI blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% elif relatedPost.data.tags and "security" in relatedPost.data.tags %}
+            {% image "blog/security-blog.jpg", "Security blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% elif relatedPost.data.tags and "cloud" in relatedPost.data.tags %}
+            {% image "blog/cloud-blog.jpg", "Cloud computing blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% elif relatedPost.data.title and "Pizza" in relatedPost.data.title %}
+            {% image "blog/pizza-blog.jpg", "Developer pizza blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% elif relatedPost.data.tags and "transformer" in relatedPost.data.tags %}
+            {% image "blog/transformer-blog.jpg", "Transformer architecture blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% elif relatedPost.data.tags and "ethics" in relatedPost.data.tags %}
+            {% image "blog/ethics-blog.jpg", "AI ethics blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% else %}
+            {% image "github-style/blog-placeholder.jpg", "Blog post illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% endif %}
+        </div>
+        <div class="gh-post-content">
+          <a href="{{ relatedPost.url }}" class="gh-post-title">{{ relatedPost.data.title }}</a>
+          
+          <div class="gh-post-date">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+              <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
+            </svg>
+            {{ relatedPost.date | readableDate }}
+          </div>
+          
+          <a href="{{ relatedPost.url }}" class="gh-read-more">
+            Read more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+              <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+            </svg>
+          </a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 </div>

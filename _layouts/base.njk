@@ -4,6 +4,7 @@
   {% include "meta.njk" %}
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <header class="gh-header">
     <div class="gh-header-inner">
       <div class="gh-nav">
@@ -28,7 +29,7 @@
   </header>
 
   <div class="site-container">
-    <main>
+    <main id="main-content">
       {{ content | safe }}
     </main>
 
@@ -48,7 +49,16 @@
     </footer>
   </div>
 
+  <!-- Back to top button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+      <path d="M8.53 4.22a.75.75 0 00-1.06 0l-4.25 4.25a.75.75 0 001.06 1.06L8 5.81l3.72 3.72a.75.75 0 101.06-1.06L8.53 4.22z"></path>
+    </svg>
+  </button>
+
   <script src="/js/main.js"></script>
   <script src="/js/heatmap.js"></script>
+  <script src="/js/site-enhancements.js"></script>
+  <script src="/js/search.js"></script>
 </body>
 </html>

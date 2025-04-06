@@ -182,6 +182,65 @@ module.exports = function(eleventyConfig) {
     return headings;
   });
   
+  // Reading time estimation
+  eleventyConfig.addFilter("readingTime", (content) => {
+    if (!content) return "";
+    
+    const contentText = content.replace(/<[^>]*>/g, '');
+    const wordCount = contentText.split(/\s+/).length;
+    const readingTime = Math.ceil(wordCount / 200); // 200 words per minute
+    
+    return readingTime;
+  });
+  
+  // Get related posts based on tags
+  eleventyConfig.addFilter("getRelatedPosts", (collection, currentPost, limit = 3) => {
+    // Safety checks
+    if (!collection || !currentPost) return [];
+    if (!currentPost.data || !currentPost.data.tags) return [];
+    
+    const currentTags = Array.isArray(currentPost.data.tags) 
+      ? currentPost.data.tags.filter(tag => tag !== 'posts') 
+      : [];
+      
+    // If no meaningful tags, return empty array
+    if (currentTags.length === 0) return [];
+    
+    // Create an array of posts that share tags with the current post
+    const relatedPosts = collection
+      .filter(post => {
+        // Safety checks
+        if (!post || !post.data) return false;
+        
+        // Don't include the current post
+        if (post.url === currentPost.url) return false;
+        
+        // Check if it has tags
+        if (!post.data.tags || !Array.isArray(post.data.tags)) return false;
+        
+        // Check if any tags match (excluding the 'posts' tag)
+        const postTags = post.data.tags.filter(tag => tag !== 'posts');
+        
+        return currentTags.some(tag => postTags.includes(tag));
+      })
+      .sort((a, b) => {
+        // Count matching tags
+        const aTags = a.data.tags.filter(tag => 
+          tag !== 'posts' && currentTags.includes(tag)
+        ).length;
+        
+        const bTags = b.data.tags.filter(tag => 
+          tag !== 'posts' && currentTags.includes(tag)
+        ).length;
+        
+        // Sort by number of matching tags (descending)
+        return bTags - aTags;
+      })
+      .slice(0, limit);
+    
+    return relatedPosts;
+  });
+  
   // Add collection utilities
   eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {
     if( !collection || !collection.length ) {
