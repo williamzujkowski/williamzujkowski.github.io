@@ -5,7 +5,6 @@
   "author": "William Zujkowski",
   "email": "william@example.com",
   "theme": "system",
-  "show_contact_page": false,
   "seo": {
     "keywords": "software engineering, web development, cloud architecture, cybersecurity, AI, machine learning",
     "og_image": "/assets/images/og-image.jpg",
@@ -133,8 +132,7 @@
   "navigation": [
     { "name": "Home", "url": "/", "icon": "" },
     { "name": "Links", "url": "/links/", "icon": "" },
-    { "name": "Blog", "url": "/blog/", "icon": "" },
-    { "name": "Contact", "url": "/contact/", "icon": "" }
+    { "name": "Blog", "url": "/blog/", "icon": "" }
   ],
   "linkGroups": [
     { "name": "Social", "icon": "🔗" },
