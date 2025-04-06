@@ -708,16 +708,20 @@ h4:hover .header-anchor {
   }
   
   .breadcrumbs-list {
-    @apply flex flex-wrap items-center text-sm;
+    @apply flex flex-wrap items-center text-sm whitespace-nowrap overflow-x-auto pb-1;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .breadcrumbs-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
   }
   
   .breadcrumbs-item {
-    @apply flex items-center text-text-secondary;
+    @apply inline-flex items-center text-text-secondary;
   }
   
-  .breadcrumbs-item:not(:last-child)::after {
-    content: "›";
-    @apply mx-2 text-text-secondary font-medium;
+  .breadcrumbs-separator {
+    @apply mx-2 text-text-secondary font-medium inline-block;
   }
   
   .breadcrumbs-link {
