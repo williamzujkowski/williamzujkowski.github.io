@@ -213,8 +213,15 @@ function sortPostsByDate(posts) {
 
 // Initialize the heatmap and activity feed when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded, initializing GitHub-style visualizations');
+  
   // Check if postsData is available (will be injected by template)
-  if (typeof postsData === 'undefined' || !Array.isArray(postsData)) return;
+  if (typeof postsData === 'undefined' || !Array.isArray(postsData)) {
+    console.error('postsData is not defined or not an array. Visualization cannot continue.');
+    return;
+  }
+  
+  console.log(`Found ${postsData.length} posts to visualize`);
   
   // Sort posts by date (newest first)
   const sortedPosts = sortPostsByDate(postsData);
@@ -222,35 +229,59 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize heatmap
   const contributionsContainer = document.getElementById('contributions-heatmap');
   if (contributionsContainer) {
+    console.log('Found contributions container, generating heatmap');
     const dates = parsePostDates(sortedPosts);
-    const heatmapSvg = generateContributionHeatmap(dates);
+    console.log(`Processing ${dates.length} post dates for heatmap`);
     
-    // Insert the heatmap into the container
-    contributionsContainer.innerHTML = heatmapSvg;
-    
-    // Add legend
-    const legend = document.createElement('div');
-    legend.className = 'flex items-center justify-end gap-2 mt-2 text-xs text-text-secondary';
-    legend.innerHTML = `
-      <span>Less</span>
-      <div class="flex">
-        <div class="w-3 h-3 bg-[#161b22] border border-border"></div>
-        <div class="w-3 h-3 bg-[#0e4429]"></div>
-        <div class="w-3 h-3 bg-[#006d32]"></div>
-        <div class="w-3 h-3 bg-[#26a641]"></div>
-        <div class="w-3 h-3 bg-[#39d353]"></div>
-      </div>
-      <span>More</span>
-      <span class="ml-2">Writing activity</span>
-    `;
-    
-    contributionsContainer.appendChild(legend);
+    try {
+      const heatmapSvg = generateContributionHeatmap(dates);
+      
+      // Insert the heatmap into the container
+      contributionsContainer.innerHTML = heatmapSvg;
+      console.log('Heatmap SVG inserted into container');
+      
+      // Add legend
+      const legend = document.createElement('div');
+      legend.className = 'flex items-center justify-end gap-2 mt-2 text-xs text-text-secondary';
+      legend.innerHTML = `
+        <span>Less</span>
+        <div class="flex">
+          <div class="w-3 h-3 bg-[#161b22] border border-border"></div>
+          <div class="w-3 h-3 bg-[#0e4429]"></div>
+          <div class="w-3 h-3 bg-[#006d32]"></div>
+          <div class="w-3 h-3 bg-[#26a641]"></div>
+          <div class="w-3 h-3 bg-[#39d353]"></div>
+        </div>
+        <span>More</span>
+        <span class="ml-2">Writing activity</span>
+      `;
+      
+      contributionsContainer.appendChild(legend);
+      console.log('Legend added to heatmap');
+    } catch (error) {
+      console.error('Error generating heatmap:', error);
+      contributionsContainer.innerHTML = `<div class="p-4 text-red-500">Error generating contribution graph: ${error.message}</div>`;
+    }
+  } else {
+    console.error('Could not find contributions-heatmap container');
   }
   
   // Initialize activity feed
   const activityFeedContainer = document.getElementById('activity-feed');
   if (activityFeedContainer) {
-    const activityFeedHTML = generateActivityFeed(sortedPosts);
-    activityFeedContainer.innerHTML = activityFeedHTML;
+    console.log('Found activity feed container, generating feed');
+    
+    try {
+      const activityFeedHTML = generateActivityFeed(sortedPosts);
+      activityFeedContainer.innerHTML = activityFeedHTML;
+      console.log('Activity feed HTML inserted into container');
+    } catch (error) {
+      console.error('Error generating activity feed:', error);
+      activityFeedContainer.innerHTML = `<div class="p-4 text-red-500">Error generating activity feed: ${error.message}</div>`;
+    }
+  } else {
+    console.error('Could not find activity-feed container');
   }
+  
+  console.log('GitHub-style visualizations initialization complete');
 });
