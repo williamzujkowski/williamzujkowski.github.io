@@ -582,13 +582,147 @@ h4:hover .header-anchor {
     @apply text-white font-medium;
   }
 
-  /* Skills display */
-  .gh-skills-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6;
+  /* Featured Projects */
+  .gh-featured-projects {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
   }
 
-  .gh-skill-item {
-    @apply flex items-center gap-2 p-2 rounded-github bg-surface text-sm text-text-secondary;
+  .gh-project-card {
+    @apply p-5 border border-border rounded-github bg-surface transition-all duration-300 hover:shadow-card hover:border-accent/30;
+  }
+
+  .gh-project-header {
+    @apply flex items-center gap-2 text-base font-medium text-white mb-3;
+  }
+
+  .gh-project-description {
+    @apply text-sm text-text mb-4;
+  }
+
+  .gh-project-tags {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .gh-project-tags .gh-badge {
+    @apply bg-accent/10 text-accent px-2 py-0.5;
+  }
+  
+  /* Reading section */
+  .gh-reading-section {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+  }
+  
+  .gh-reading-card {
+    @apply flex items-start gap-3 p-4 border border-border rounded-github bg-surface hover:border-accent/30 transition-all duration-300;
+  }
+  
+  .gh-reading-icon {
+    @apply w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0;
+  }
+  
+  .gh-reading-title {
+    @apply text-white font-medium mb-1;
+  }
+  
+  .gh-reading-author {
+    @apply text-sm text-text-secondary mb-3;
+  }
+  
+  .gh-reading-progress {
+    @apply w-full mt-1;
+  }
+  
+  .gh-progress-bar {
+    @apply h-1.5 bg-border rounded-full overflow-hidden mb-1;
+  }
+  
+  .gh-progress-fill {
+    @apply h-full bg-accent rounded-full;
+  }
+  
+  .gh-progress-text {
+    @apply text-xs text-text-secondary;
+  }
+  
+  /* Learning timeline */
+  .gh-learning-timeline {
+    @apply pl-4 border-l border-border space-y-6;
+  }
+  
+  .gh-timeline-item {
+    @apply relative flex items-start;
+  }
+  
+  .gh-timeline-icon {
+    @apply absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent;
+  }
+  
+  .gh-timeline-content {
+    @apply pl-2;
+  }
+  
+  .gh-timeline-date {
+    @apply text-xs text-text-secondary mb-1;
+  }
+  
+  .gh-timeline-title {
+    @apply text-white font-medium mb-1;
+  }
+  
+  .gh-timeline-description {
+    @apply text-sm text-text mb-2;
+  }
+  
+  /* GitHub activity feed */
+  .gh-activity-feed {
+    @apply border border-border rounded-github bg-surface p-4 mb-6;
+  }
+  
+  .gh-activity-month:not(:last-child) {
+    @apply mb-6;
+  }
+  
+  .gh-activity-month-header {
+    @apply flex items-center gap-2 text-white font-medium mb-3 pb-2 border-b border-border;
+  }
+  
+  .gh-activity-list {
+    @apply space-y-4 pl-0;
+    list-style: none;
+  }
+  
+  .gh-activity-item {
+    @apply flex items-start gap-3 relative;
+  }
+  
+  .gh-activity-item::before {
+    content: '';
+    @apply absolute top-8 bottom-0 left-[7px] w-[2px] bg-border;
+    z-index: 0;
+  }
+  
+  .gh-activity-item:last-child::before {
+    @apply hidden;
+  }
+  
+  .gh-activity-icon {
+    @apply w-4 h-4 rounded-full bg-accent/20 p-3 flex items-center justify-center text-accent flex-shrink-0 z-10;
+  }
+  
+  .gh-activity-content {
+    @apply flex-grow pt-1;
+  }
+  
+  .gh-activity-title {
+    @apply text-white mb-1;
+  }
+  
+  .gh-activity-link {
+    @apply text-accent hover:text-accent-hover hover:underline;
+  }
+  
+  .gh-activity-date {
+    @apply text-xs text-text-secondary;
   }
 
   /* Contribution calendar */
