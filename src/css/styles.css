@@ -334,24 +334,7 @@ h4:hover .header-anchor {
   @apply opacity-100;
 }
 
-/* Social media icons */
-.social-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-  position: relative;
-}
-
-.social-disabled::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-}
+/* Social media icons - fully hidden when disabled */
 
 /* Toggle functionality */
 .header-social,

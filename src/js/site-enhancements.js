@@ -144,37 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Initialize social media toggles functionality
-function setupSocialMediaToggles() {
-  const socialLinks = document.querySelectorAll('.header-social a, .footer-social a');
-  
-  socialLinks.forEach(link => {
-    // Get enabled state from data attribute
-    const isEnabled = link.getAttribute('data-social-enabled') === 'true';
-    
-    if (isEnabled) {
-      link.addEventListener('click', function(e) {
-        // Normal behavior for enabled links
-      });
-    } else {
-      // For disabled links, show tooltip/message
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Could show a tooltip or notification here
-        console.info(`${link.getAttribute('aria-label')} icon is currently disabled`);
-      });
-    }
-    
-    // Update appearance based on enabled/disabled state
-    if (!isEnabled) {
-      link.classList.add('social-disabled');
-      link.setAttribute('tabindex', '-1'); // Remove from tab order for accessibility
-    }
-  });
-}
-
-// Call the social media toggling setup
-setupSocialMediaToggles();
+// Since disabled social media icons are now completely hidden in the template,
+// we no longer need the JavaScript toggle functionality here
 
 // Add page entrance animation after navigation
 window.addEventListener('pageshow', (event) => {

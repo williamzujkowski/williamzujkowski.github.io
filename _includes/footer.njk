@@ -5,13 +5,12 @@
   
   <div class="footer-social">
     {% for social in site.social_media %}
-      {% if social.display_in_footer %}
+      {% if social.display_in_footer and social.enabled %}
         <a 
           href="{{ social.url }}" 
-          class="footer-social-link{% if not social.enabled %} social-disabled{% endif %}" 
+          class="footer-social-link" 
           aria-label="{{ social.name }}"
-          title="{{ social.name }}{% if not social.enabled %} (disabled){% endif %}"
-          data-social-enabled="{{ social.enabled }}"
+          title="{{ social.name }}"
         >{{ social.icon | safe }}</a>
       {% endif %}
     {% endfor %}
