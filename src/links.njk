@@ -27,7 +27,7 @@ eleventyNavigation:
     <h2 class="text-xl font-medium mt-0 mb-0">GitHub Repositories</h2>
   </div>
   
-  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-3">
+  <div class="links-grid gap-3">
     {% for repo in site.homepage.pinned_repositories %}
       <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col p-4">
         <div class="flex items-start">
@@ -65,7 +65,7 @@ eleventyNavigation:
       <h2 class="text-xl font-medium mt-0 mb-0">{{ group.name }}</h2>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-3">
+    <div class="links-grid gap-3">
       {% for link in site.links %}
         {% if link.group === group.name %}
           <div class="border border-border rounded-github overflow-hidden bg-gray-light p-4 hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">

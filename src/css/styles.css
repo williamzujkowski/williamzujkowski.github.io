@@ -378,6 +378,24 @@ h4:hover .header-anchor {
       padding-right: 2rem;
     }
   }
+  
+  /* Links page grid enforcer */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  @media (min-width: 640px) {
+    .links-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .links-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
 }
 
 /* Add group hover and focus utilities */
