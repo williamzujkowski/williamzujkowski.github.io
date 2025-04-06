@@ -349,7 +349,7 @@ h4:hover .header-anchor {
   }
 
   .gh-btn {
-    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-github bg-gray-light hover:bg-border transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50 text-white;
+    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-github bg-gray-light hover:bg-gray-light transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50 text-white;
   }
 
   .gh-btn-primary {
@@ -450,7 +450,7 @@ h4:hover .header-anchor {
   }
   
   .gh-search-input:focus {
-    @apply border-accent bg-gray-dark;
+    @apply border-accent bg-gray-light;
   }
   
   .gh-search-icon {
@@ -491,7 +491,7 @@ h4:hover .header-anchor {
   }
   
   .tag-btn {
-    @apply px-3.5 py-2 rounded-github text-sm bg-gray-light text-text-secondary border border-border transition-all duration-200 hover:bg-gray-button hover:text-white;
+    @apply px-3.5 py-2 rounded-github text-sm bg-gray-light text-text-secondary border border-border transition-all duration-200 hover:bg-gray-light hover:text-white;
   }
   
   .tag-btn.selected {
@@ -546,7 +546,7 @@ h4:hover .header-anchor {
   }
   
   .gh-post-tags-overlay .gh-badge {
-    @apply bg-gray-dark/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30;
+    @apply bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30;
   }
   
   .gh-post-content {
@@ -611,7 +611,7 @@ h4:hover .header-anchor {
   }
   
   .gh-page-button {
-    @apply px-3 py-1.5 flex items-center gap-1.5 bg-surface text-text-secondary hover:bg-border hover:text-white transition-colors duration-200 rounded-github font-medium text-sm;
+    @apply px-3 py-1.5 flex items-center gap-1.5 bg-surface text-text-secondary hover:bg-gray-light hover:text-white transition-colors duration-200 rounded-github font-medium text-sm;
   }
   
   .gh-page-button.disabled {
@@ -623,7 +623,7 @@ h4:hover .header-anchor {
   }
   
   .gh-page-number {
-    @apply flex items-center justify-center w-8 h-8 rounded-github bg-surface text-text-secondary hover:bg-border hover:text-white transition-colors duration-200 text-sm;
+    @apply flex items-center justify-center w-8 h-8 rounded-github bg-surface text-text-secondary hover:bg-gray-light hover:text-white transition-colors duration-200 text-sm;
   }
   
   .gh-page-number.active {

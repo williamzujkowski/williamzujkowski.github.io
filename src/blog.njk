@@ -53,7 +53,7 @@ eleventyNavigation:
           <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
           <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
         </svg>
-        <span>Latest: {{ collections.posts | last | date }}</span>
+        <span>Latest post: {{ (collections.posts | last).date | readableDate }}</span>
       </div>
     </div>
   </div>
@@ -136,7 +136,8 @@ eleventyNavigation:
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
                 <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm9.28-1.72a.75.75 0 00-1.06-1.06L6.25 8.69l-.97-.97a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3-3z"></path>
               </svg>
-              {% set readingTime = (wordCount / 200) | round | max(1) %}
+              {% set readingTime = (wordCount / 200) | round %}
+              {% if readingTime < 1 %}{% set readingTime = 1 %}{% endif %}
               {{ readingTime }} min read
             </div>
           </div>
