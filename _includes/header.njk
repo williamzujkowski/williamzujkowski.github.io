@@ -6,14 +6,16 @@
     <nav class="site-nav">
       <ul>
         {% for item in site.navigation %}
-        <li>
-          <a
-            href="{{ item.url }}"
-            class="nav-item"
-            {% if page.url == item.url %}aria-current="page"{% endif %}
-            >{{ item.icon | safe }} {{ item.name }}</a
-          >
-        </li>
+          {% if item.name != "Contact" or site.show_contact_page %}
+          <li>
+            <a
+              href="{{ item.url }}"
+              class="nav-item"
+              {% if page.url == item.url %}aria-current="page"{% endif %}
+              >{{ item.icon | safe }} {{ item.name }}</a
+            >
+          </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </nav>
