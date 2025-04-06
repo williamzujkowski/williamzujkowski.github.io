@@ -18,7 +18,7 @@
     "show_recent_posts": true,
     "recent_posts_count": 3,
     "show_activity_timeline": false,
-    "show_contribution_heatmap": true,
+    "show_contribution_heatmap": false,
     "show_github_pins": true,
     "show_arxiv_papers": true,
     "pinned_repositories": [
