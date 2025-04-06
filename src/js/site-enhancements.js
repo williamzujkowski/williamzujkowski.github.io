@@ -4,6 +4,7 @@
  * - Image lazy loading
  * - Reading time estimation
  * - Animated page transitions
+ * - Tailwind utility features
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -109,6 +110,37 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Add entrance animation when page loads
   document.body.classList.add('page-transition-enter');
+  
+  // Add tooltip functionality using Tailwind classes
+  document.querySelectorAll('[data-tooltip]').forEach(element => {
+    // Create tooltip element
+    const tooltip = document.createElement('div');
+    tooltip.className = 'absolute z-50 p-2 bg-gray-light text-text text-xs rounded-github border border-border shadow-md opacity-0 transition-opacity duration-200 pointer-events-none -translate-y-full -mt-1 left-1/2 -translate-x-1/2';
+    tooltip.textContent = element.getAttribute('data-tooltip');
+    element.classList.add('relative');
+    
+    // Add tooltip to DOM
+    element.appendChild(tooltip);
+    
+    // Show tooltip on hover
+    element.addEventListener('mouseenter', () => {
+      tooltip.classList.remove('opacity-0');
+      tooltip.classList.add('opacity-100');
+    });
+    
+    // Hide tooltip when not hovering
+    element.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('opacity-100');
+      tooltip.classList.add('opacity-0');
+    });
+  });
+  
+  // Add focus-visible improvements for keyboard navigation
+  document.querySelectorAll('a, button, input, select, textarea').forEach(element => {
+    if (!element.classList.contains('focus-handled')) {
+      element.classList.add('focus:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-accent', 'focus-visible:ring-offset-1', 'focus-visible:ring-offset-background', 'focus-handled');
+    }
+  });
 });
 
 // Add page entrance animation after navigation

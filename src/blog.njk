@@ -88,7 +88,7 @@ eleventyNavigation:
   <button id="reset-search" class="gh-btn">Reset Search</button>
 </div>
 
-<div class="gh-post-grid">
+<div class="gh-post-grid lg:grid-cols-3 gap-6 transition-all ease-in-out duration-300">
   {%- for post in posts -%}
     <div class="gh-post-card searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
       <div class="gh-post-image">

@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 ---
-<div class="max-w-3xl mx-auto">
+<div class="max-w-3xl mx-auto px-4 md:px-0">
   <div class="mb-6">
     {% breadcrumbs page %}
   </div>
@@ -82,7 +82,7 @@ layout: base.njk
     </header>
 
     <!-- Post content -->
-    <div class="prose max-w-none bg-gray-light p-8 rounded-github border border-border">
+    <div class="prose-custom bg-gray-light p-8 rounded-github border border-border">
       {{ content | safe }}
     </div>
 
