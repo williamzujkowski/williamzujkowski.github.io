@@ -169,6 +169,7 @@ eleventyNavigation:
 
 <!-- Pinned repositories moved to /links/ page -->
 
+{% if site.homepage.show_activity_timeline %}
 <div class="gh-section-header">
   <h2 class="gh-section-title text-white flex items-center">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor" class="mr-2">
@@ -337,6 +338,16 @@ eleventyNavigation:
     </div>
   {% endif %}
 </div>
+{% else %}
+<div class="text-center mt-8 mb-8">
+  <a href="/blog/" class="gh-btn inline-flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-1.5">
+      <path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path>
+    </svg>
+    View all blog posts
+  </a>
+</div>
+{% endif %}
 
 {% if site.homepage.show_arxiv_papers and arxiv_feed %}
 <div class="mt-8">
