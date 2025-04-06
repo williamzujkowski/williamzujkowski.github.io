@@ -72,6 +72,7 @@ eleventyNavigation:
 
   <!-- Other Links -->
   {% for group in site.linkGroups %}
+    {% if group.name != "Social" %}
     <div class="border border-border rounded-github overflow-hidden">
       <div class="flex items-center p-3 bg-surface border-b border-border">
         <span class="text-lg mr-2">{{ group.icon }}</span>
@@ -91,5 +92,6 @@ eleventyNavigation:
         {% endfor %}
       </div>
     </div>
+    {% endif %}
   {% endfor %}
 </div>
