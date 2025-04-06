@@ -21,47 +21,34 @@ eleventyNavigation:
 
 <!-- GitHub Repositories Section -->
 {% if site.homepage.pinned_repositories %}
-<div id="repositories" class="mb-10">
-  <div class="flex items-center mb-4">
+<div id="repositories" class="mb-6">
+  <div class="flex items-center mb-3">
     <span class="text-lg mr-2">📌</span>
     <h2 class="text-xl font-medium mt-0 mb-0">GitHub Repositories</h2>
   </div>
   
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
     {% for repo in site.homepage.pinned_repositories %}
-      <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full">
-        <div class="p-4">
-          <div class="flex items-start mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="mt-1 mr-2 flex-shrink-0 text-accent" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-            <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent text-base">{{ repo.name }}</a>
+      <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col p-3">
+        <div class="flex items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" class="mt-1 mr-2 flex-shrink-0 text-accent" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+          <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent text-sm truncate">{{ repo.name }}</a>
+        </div>
+        <p class="text-text-secondary text-xs mt-2 mb-2 line-clamp-2">{{ repo.description }}</p>
+        <div class="flex flex-wrap gap-2 text-xs text-text-secondary mt-auto">
+          {% if repo.language %}
+          <div class="flex items-center">
+            <span class="inline-block w-2 h-2 rounded-full mr-1" style="background-color: {{ repo.language_color }}"></span>
+            <span>{{ repo.language }}</span>
           </div>
-          <p class="text-text-secondary text-sm mb-3 line-clamp-3">{{ repo.description }}</p>
-          <div class="flex flex-wrap gap-3 text-xs text-text-secondary mt-auto">
-            {% if repo.language %}
-            <div class="flex items-center">
-              <span class="inline-block w-2.5 h-2.5 rounded-full mr-1" style="background-color: {{ repo.language_color }}"></span>
-              <span>{{ repo.language }}</span>
-            </div>
-            {% endif %}
-            
-            {% if repo.stars > 0 %}
-            <div class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" class="mr-1" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
-              {{ repo.stars }}
-            </div>
-            {% endif %}
-            
-            {% if repo.forks > 0 %}
-            <div class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" class="mr-1" fill="currentColor"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z"></path></svg>
-              {{ repo.forks }}
-            </div>
-            {% endif %}
-            
-            {% if repo.updated %}
-            <div>Updated {{ repo.updated }}</div>
-            {% endif %}
+          {% endif %}
+          
+          {% if repo.stars > 0 %}
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="10" height="10" class="mr-1" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+            {{ repo.stars }}
           </div>
+          {% endif %}
         </div>
       </div>
     {% endfor %}
@@ -72,28 +59,20 @@ eleventyNavigation:
 <!-- Link Groups -->
 {% for group in site.linkGroups %}
   {% if group.name != "Social" %}
-  <div class="mb-10">
-    <div class="flex items-center mb-4">
+  <div class="mb-6">
+    <div class="flex items-center mb-3">
       <span class="text-lg mr-2">{{ group.icon }}</span>
       <h2 class="text-xl font-medium mt-0 mb-0">{{ group.name }}</h2>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
       {% for link in site.links %}
         {% if link.group === group.name %}
-          <div class="border border-border rounded-github overflow-hidden bg-gray-light p-4 hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
-            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent text-base mb-2">{{ link.name }}</a>
+          <div class="border border-border rounded-github overflow-hidden bg-gray-light p-3 hover:shadow-md transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent text-sm mb-1 truncate">{{ link.name }}</a>
             {% if link.description %}
-              <p class="text-text-secondary text-sm m-0 flex-grow">{{ link.description }}</p>
+              <p class="text-text-secondary text-xs m-0 flex-grow line-clamp-2">{{ link.description }}</p>
             {% endif %}
-            <div class="text-xs text-text-secondary mt-3">
-              <span class="inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" class="mr-1 text-accent" fill="currentColor">
-                  <path d="M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.249V6.231c0-.532.242-1.035.657-1.367l5.25-4.2h-.001ZM2.5 6.465V13.25a.25.25 0 0 0 .25.25h3.5V8.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 .75.75v5.25h3.5a.25.25 0 0 0 .25-.25V6.465l-5.25-4.2a.25.25 0 0 0-.312 0l-5.25 4.2Z"></path>
-                </svg>
-                <span>{{ link.group }}</span>
-              </span>
-            </div>
           </div>
         {% endif %}
       {% endfor %}
