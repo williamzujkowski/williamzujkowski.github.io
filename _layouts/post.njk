@@ -55,30 +55,23 @@ layout: base.njk
         {% endif %}
       </div>
 
-      <!-- Optional: Table of contents -->
+      <!-- Dynamic Table of contents -->
+      {% set headings = content | extractHeadings %}
+      {% if headings.length > 0 %}
       <div class="border border-border rounded-github p-4 bg-gray-light mb-8">
         <h2 class="text-lg font-semibold mb-3 text-white">In this article</h2>
         <ul class="space-y-2">
-          <li class="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-2 text-accent">
+          {% for heading in headings %}
+          <li class="flex items-center {% if heading.level == '3' %}ml-4{% endif %}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-2 text-accent flex-shrink-0">
               <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
             </svg>
-            <a href="#introduction" class="text-accent hover:underline">Introduction</a>
+            <a href="#{{ heading.id }}" class="text-accent hover:underline">{{ heading.text }}</a>
           </li>
-          <li class="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-2 text-accent">
-              <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
-            </svg>
-            <a href="#key-points" class="text-accent hover:underline">Key Points</a>
-          </li>
-          <li class="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-2 text-accent">
-              <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
-            </svg>
-            <a href="#conclusion" class="text-accent hover:underline">Conclusion</a>
-          </li>
+          {% endfor %}
         </ul>
       </div>
+      {% endif %}
     </header>
 
     <!-- Post content -->

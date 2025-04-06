@@ -224,6 +224,18 @@
   transform: translateY(0);
 }
 
+/* Header anchor links */
+.header-anchor {
+  @apply text-accent opacity-0 ml-2 hover:opacity-100 transition-opacity duration-200;
+  text-decoration: none !important;
+}
+
+h2:hover .header-anchor,
+h3:hover .header-anchor,
+h4:hover .header-anchor {
+  @apply opacity-100;
+}
+
 /* Component styles */
 @layer components {
   /* Layout */
@@ -509,7 +521,7 @@
   
   /* Breadcrumbs */
   .breadcrumbs {
-    @apply py-2 mb-6;
+    @apply py-3 mb-6 bg-gray-light rounded-github border border-border px-4;
   }
   
   .breadcrumbs-list {
@@ -517,12 +529,12 @@
   }
   
   .breadcrumbs-item {
-    @apply flex items-center;
+    @apply flex items-center text-text-secondary;
   }
   
   .breadcrumbs-item:not(:last-child)::after {
-    content: "/";
-    @apply mx-2 text-text-secondary;
+    content: "›";
+    @apply mx-2 text-text-secondary font-medium;
   }
   
   .breadcrumbs-link {
@@ -530,7 +542,7 @@
   }
   
   .breadcrumbs-item.current {
-    @apply text-white;
+    @apply text-white font-medium;
   }
 
   /* Skills display */

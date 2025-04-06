@@ -2,6 +2,8 @@
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginNavigation = require("@11ty/eleventy-navigation");
 const Image = require("@11ty/eleventy-img");
+const markdownIt = require("markdown-it");
+const markdownItAnchor = require("markdown-it-anchor");
 
 // Image shortcode function
 async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900, 1200], formats = ["webp", "jpeg"]) {
@@ -50,6 +52,23 @@ async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900
 }
 
 module.exports = function(eleventyConfig) {
+  // Configure Markdown with anchors
+  const markdownLibrary = markdownIt({
+    html: true,
+    breaks: true,
+    linkify: true
+  }).use(markdownItAnchor, {
+    permalink: markdownItAnchor.permalink.ariaHidden({
+      placement: 'after',
+      class: 'header-anchor',
+      symbol: '#',
+      level: [1, 2, 3, 4]
+    }),
+    slugify: s => s.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '')
+  });
+  
+  eleventyConfig.setLibrary("md", markdownLibrary);
+  
   // Add plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginNavigation);
@@ -137,6 +156,30 @@ module.exports = function(eleventyConfig) {
     
     breadcrumbs += '</ol></nav>';
     return breadcrumbs;
+  });
+  
+  // Extract headings from content for TOC
+  eleventyConfig.addFilter("extractHeadings", (content) => {
+    if (!content) return [];
+    
+    const headings = [];
+    const regex = /<h([2-3])[^>]*id="([^"]*)"[^>]*>(.*?)<\/h\1>/g;
+    let match;
+    
+    while ((match = regex.exec(content)) !== null) {
+      const level = match[1];
+      const id = match[2];
+      // Remove any HTML tags and get plain text
+      const text = match[3].replace(/<[^>]*>/g, '');
+      
+      headings.push({
+        level,
+        id,
+        text
+      });
+    }
+    
+    return headings;
   });
   
   // Add collection utilities
