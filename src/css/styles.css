@@ -366,7 +366,7 @@ h4:hover .header-anchor {
   }
 
   .gh-avatar-container {
-    @apply flex-shrink-0;
+    @apply flex-shrink-0 flex flex-col items-center md:items-start;
   }
 
   .gh-avatar {
@@ -374,7 +374,7 @@ h4:hover .header-anchor {
   }
 
   .gh-profile-content {
-    @apply flex-grow min-w-0;
+    @apply flex-grow min-w-0 mt-6 md:mt-0;
   }
 
   .gh-profile-header-info {
@@ -959,16 +959,52 @@ h4:hover .header-anchor {
       @apply flex-col;
     }
 
+    .gh-avatar-container {
+      @apply w-full items-center mx-auto max-w-sm;
+    }
+
     .gh-avatar {
       @apply w-[180px] h-[180px] mx-auto;
+    }
+
+    .gh-profile-content {
+      @apply w-full px-2;
+    }
+
+    .gh-profile-header-info {
+      @apply text-center;
+    }
+
+    .gh-name {
+      @apply text-center;
     }
 
     .gh-username {
       @apply text-center;
     }
 
+    .gh-bio {
+      @apply text-center;
+    }
+
     .gh-profile-stats {
       @apply justify-center;
+    }
+
+    .gh-featured-projects {
+      @apply flex-col;
+    }
+
+    .gh-project-card {
+      @apply w-full mb-4 mx-auto max-w-md;
+    }
+    
+    .gh-timeline-item {
+      @apply pl-2;
+    }
+    
+    .gh-reading-section {
+      @apply grid-cols-1;
     }
 
     .gh-nav {
