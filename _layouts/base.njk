@@ -61,38 +61,26 @@
   <script src="/js/site-enhancements.js"></script>
   <script src="/js/search.js"></script>
   
-  <!-- Load heatmap script after page content to ensure postsData is defined -->
+  <!-- Temporarily disable dynamic visualizations until we fix the issues
   <script src="/js/heatmap.js" defer></script>
+  -->
   
-  <!-- Debug script to check if visualizations load properly -->
+  <!-- Force static content to be displayed -->
   <script>
-    // Check if heatmap and activity feed are loading properly
+    // Force static visualization content to display
     window.addEventListener('load', function() {
-      console.log('Window loaded, checking visualization status');
-      
-      setTimeout(function() {
-        // Check contribution heatmap
-        const heatmap = document.getElementById('contributions-heatmap');
-        if (heatmap && heatmap.querySelector('.contribution-graph')) {
-          console.log('Contribution heatmap successfully rendered');
-        } else {
-          console.error('Contribution heatmap not rendered properly');
-          if (heatmap) {
-            console.log('Heatmap container HTML:', heatmap.innerHTML);
+      // Remove any loading indicators in the heatmap and activity feed
+      const containers = ['contributions-heatmap', 'activity-feed'];
+      containers.forEach(id => {
+        const container = document.getElementById(id);
+        if (container) {
+          // Remove loading indicators
+          const loadingIndicator = container.querySelector('.animate-pulse');
+          if (loadingIndicator) {
+            loadingIndicator.remove();
           }
         }
-        
-        // Check activity feed
-        const feed = document.getElementById('activity-feed');
-        if (feed && feed.querySelector('.gh-activity-feed')) {
-          console.log('Activity feed successfully rendered');
-        } else {
-          console.error('Activity feed not rendered properly');
-          if (feed) {
-            console.log('Activity feed container HTML:', feed.innerHTML);
-          }
-        }
-      }, 2000); // Check after 2 seconds to give scripts time to run
+      });
     });
   </script>
 </body>
