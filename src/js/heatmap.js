@@ -203,25 +203,92 @@ function generateActivityFeed(posts) {
 
 // Function to parse dates from Eleventy collection
 function parsePostDates(posts) {
-  return posts.map(post => new Date(post.date));
+  console.log('Parsing dates from posts:', posts);
+  return posts.map(post => {
+    try {
+      const date = new Date(post.date);
+      // Check if date is valid
+      if (isNaN(date.getTime())) {
+        console.error('Invalid date for post:', post);
+        return null;
+      }
+      console.log(`Successfully parsed date: ${post.date} -> ${date.toISOString()}`);
+      return date;
+    } catch (error) {
+      console.error('Error parsing date for post:', post, error);
+      return null;
+    }
+  }).filter(date => date !== null);
 }
 
 // Helper to sort posts by date (newest first)
 function sortPostsByDate(posts) {
-  return [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+  console.log('Sorting posts by date, count:', posts.length);
+  try {
+    return [...posts].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      
+      if (isNaN(dateA.getTime())) {
+        console.error('Invalid date A:', a.date, a);
+        return 1; // Move invalid dates to the end
+      }
+      
+      if (isNaN(dateB.getTime())) {
+        console.error('Invalid date B:', b.date, b);
+        return -1; // Move invalid dates to the end
+      }
+      
+      return dateB - dateA;
+    });
+  } catch (error) {
+    console.error('Error sorting posts by date:', error);
+    return posts;
+  }
 }
 
 // Initialize the heatmap and activity feed when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, initializing GitHub-style visualizations');
   
-  // Check if postsData is available (will be injected by template)
-  if (typeof postsData === 'undefined' || !Array.isArray(postsData)) {
-    console.error('postsData is not defined or not an array. Visualization cannot continue.');
-    return;
-  }
+  // Debug window object and postsData availability
+  console.log('Window object keys:', Object.keys(window));
   
-  console.log(`Found ${postsData.length} posts to visualize`);
+  try {
+    // Check if postsData is available (will be injected by template)
+    if (typeof postsData === 'undefined') {
+      console.error('postsData is undefined. Checking window.postsData...');
+      if (typeof window.postsData !== 'undefined') {
+        console.log('Found postsData on window object');
+        window.postsData = window.postsData;
+      } else {
+        console.error('postsData is not available on window object either. Visualization cannot continue.');
+        // Add error message to the containers
+        const containers = ['contributions-heatmap', 'activity-feed'];
+        containers.forEach(id => {
+          const container = document.getElementById(id);
+          if (container) {
+            container.innerHTML = `
+              <div class="p-4 text-red-500">
+                Error: Blog post data not available. Please check the console for more details.
+              </div>
+            `;
+          }
+        });
+        return;
+      }
+    }
+    
+    if (!Array.isArray(postsData)) {
+      console.error('postsData is not an array:', postsData);
+      return;
+    }
+    
+    console.log(`Found ${postsData.length} posts to visualize`);
+    console.log('Sample post data:', postsData.length > 0 ? postsData[0] : 'No posts available');
+  } catch (error) {
+    console.error('Error initializing visualization:', error);
+  }
   
   // Sort posts by date (newest first)
   const sortedPosts = sortPostsByDate(postsData);

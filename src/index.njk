@@ -184,7 +184,7 @@ eleventyNavigation:
       <!-- Template script to pass blog post data to JavaScript -->
       <script>
         // Pass post dates to the client-side script
-        const postsData = [
+        window.postsData = [
           {% for post in collections.posts %}
           {
             title: {{ post.data.title | json }},
@@ -193,6 +193,9 @@ eleventyNavigation:
           }{% if not loop.last %},{% endif %}
           {% endfor %}
         ];
+        
+        // Debug the data being passed
+        console.log('Blog posts data loaded:', window.postsData);
       </script>
     </div>
   </div>
