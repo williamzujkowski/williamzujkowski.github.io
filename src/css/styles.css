@@ -955,58 +955,32 @@ h4:hover .header-anchor {
 
   /* Mobile responsiveness */
   @media (max-width: 768px) {
-    .gh-profile-header {
-      @apply flex-col;
-    }
-
-    .gh-avatar-container {
-      @apply w-full items-center mx-auto max-w-sm;
-    }
-
-    .gh-avatar {
-      @apply w-[180px] h-[180px] mx-auto;
-    }
-
-    .gh-profile-content {
-      @apply w-full px-2;
-    }
-
-    .gh-profile-header-info {
-      @apply text-center;
-    }
-
-    .gh-name {
-      @apply text-center;
-    }
-
-    .gh-username {
-      @apply text-center;
-    }
-
-    .gh-bio {
-      @apply text-center;
-    }
-
-    .gh-profile-stats {
-      @apply justify-center;
-    }
-
-    .gh-featured-projects {
-      @apply flex-col;
-    }
-
-    .gh-project-card {
-      @apply w-full mb-4 mx-auto max-w-md;
+    /* Global adjustments for mobile */
+    body {
+      @apply text-base;
     }
     
-    .gh-timeline-item {
-      @apply pl-2;
+    h1 {
+      @apply text-xl;
     }
     
-    .gh-reading-section {
-      @apply grid-cols-1;
+    h2 {
+      @apply text-lg mb-3;
     }
-
+    
+    h3 {
+      @apply text-base mb-2;
+    }
+    
+    .site-container {
+      @apply px-4 py-4;
+    }
+    
+    /* Header adjustments */
+    .gh-header-inner {
+      @apply px-2;
+    }
+    
     .gh-nav {
       @apply gap-2;
     }
@@ -1014,17 +988,181 @@ h4:hover .header-anchor {
     .gh-nav-item {
       @apply px-2 py-1.5;
     }
-
-    .gh-header-inner {
-      @apply px-2;
+    
+    /* Profile section */
+    .gh-profile-header {
+      @apply flex-col mt-4 mb-6 gap-6;
     }
 
-    .site-container {
-      @apply px-4 py-6;
+    .gh-avatar-container {
+      @apply w-full items-center mx-auto max-w-sm px-4;
     }
 
+    .gh-avatar {
+      @apply w-[140px] h-[140px] mx-auto shadow-lg;
+    }
+    
+    .gh-profile-stats {
+      @apply justify-center text-xs gap-2 my-3;
+    }
+    
+    .gh-profile-content {
+      @apply w-full px-2;
+    }
+
+    .gh-profile-header-info {
+      @apply text-center mb-6;
+    }
+
+    .gh-name {
+      @apply text-center text-xl;
+    }
+
+    .gh-username {
+      @apply text-center text-base;
+    }
+
+    .gh-bio {
+      @apply text-center text-sm max-w-md mx-auto;
+    }
+    
+    /* Projects section */
+    .gh-featured-projects {
+      @apply flex-col gap-3 my-4;
+    }
+
+    .gh-project-card {
+      @apply w-full mb-2 mx-auto;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .gh-project-description {
+      @apply text-sm leading-relaxed;
+    }
+    
+    .gh-project-tags {
+      @apply mt-2;
+    }
+    
+    /* Reading section */
+    .gh-reading-section {
+      @apply grid-cols-1 gap-3 my-4;
+    }
+    
+    .gh-reading-card {
+      @apply p-3;
+    }
+    
+    .gh-reading-title {
+      @apply text-sm;
+    }
+    
+    .gh-reading-author {
+      @apply text-xs;
+    }
+    
+    /* Timeline */
+    .gh-learning-timeline {
+      @apply pl-3 space-y-4 my-4;
+    }
+    
+    .gh-timeline-item {
+      @apply pl-2;
+    }
+    
+    .gh-timeline-icon {
+      @apply -left-7 p-1;
+    }
+    
+    .gh-timeline-content {
+      @apply pl-1;
+    }
+    
+    .gh-timeline-title {
+      @apply text-sm;
+    }
+    
+    .gh-timeline-description {
+      @apply text-xs leading-relaxed;
+    }
+    
+    /* Interests */
+    h3 + p {
+      @apply text-xs leading-relaxed px-1;
+    }
+    
+    /* Other grid layouts */
     .gh-repos-grid {
-      @apply grid-cols-1;
+      @apply grid-cols-1 gap-3;
+    }
+    
+    /* Activity feed */
+    .gh-activity-feed {
+      @apply p-3;
+    }
+    
+    .gh-activity-month-header {
+      @apply text-sm;
+    }
+    
+    .gh-activity-title {
+      @apply text-sm;
+    }
+    
+    .gh-activity-date {
+      @apply text-[10px];
+    }
+    
+    .gh-activity-icon {
+      @apply p-2;
+    }
+    
+    /* Mobile-specific enhancements */
+    .gh-section-header {
+      @apply flex-col items-center mb-4;
+    }
+    
+    .gh-section-title {
+      @apply mb-2 text-center;
+    }
+    
+    .gh-post-grid {
+      @apply grid-cols-1 gap-4;
+    }
+    
+    .gh-post-image {
+      @apply h-auto max-h-40;
+    }
+    
+    .gh-post-content {
+      @apply p-3;
+    }
+    
+    .gh-post-title {
+      @apply text-base;
+    }
+    
+    /* Improved tap targets */
+    button, 
+    a.gh-btn, 
+    .gh-nav-item,
+    .gh-post-card,
+    .tag-btn,
+    .gh-page-number {
+      @apply min-h-[44px] flex items-center justify-center;
+    }
+    
+    /* Add breathing room */
+    section, 
+    .gh-section {
+      @apply mb-8;
+    }
+    
+    /* Improved form elements for mobile */
+    input, 
+    textarea, 
+    select {
+      @apply text-base p-3 min-h-[44px];
     }
   }
 }

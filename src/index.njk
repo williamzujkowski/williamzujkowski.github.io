@@ -32,9 +32,9 @@ eleventyNavigation:
       </div>
     </div>
     
-    <div class="mt-4 w-full md:w-[296px] max-w-[296px] mx-auto md:mx-0 break-words">
-      <h3 class="text-lg text-center md:text-left">{{ site.homepage.about_me_title }}</h3>
-      <p class="text-sm text-center md:text-left">{{ site.homepage.about_me_content }}</p>
+    <div class="mt-4 w-full md:w-[296px] max-w-full md:max-w-[296px] mx-auto md:mx-0 break-words">
+      <h3 class="text-base md:text-lg text-center md:text-left font-medium">{{ site.homepage.about_me_title }}</h3>
+      <p class="text-xs md:text-sm text-center md:text-left leading-relaxed">{{ site.homepage.about_me_content }}</p>
     </div>
   </div>
   
@@ -48,36 +48,40 @@ eleventyNavigation:
     </div>
     
     <div>
-      <h2 class="text-center md:text-left">Featured Projects</h2>
+      <h2 class="text-center md:text-left relative pb-2 mb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-0.5 after:bg-accent/50">Featured Projects</h2>
       <div class="gh-featured-projects mb-6 flex flex-col md:flex-row gap-4">
-        <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1">
+        <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
           <div class="gh-project-header flex items-center gap-2 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-            <span class="font-medium">Cloud Security Framework</span>
+            <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+            </div>
+            <span class="font-medium text-sm md:text-base">Cloud Security Framework</span>
           </div>
-          <p class="gh-project-description text-sm text-text mb-3">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
-          <div class="gh-project-tags flex flex-wrap gap-2">
-            <span class="gh-badge bg-accent/10 text-accent text-xs px-2 py-0.5 rounded-full">AWS</span>
-            <span class="gh-badge bg-accent/10 text-accent text-xs px-2 py-0.5 rounded-full">Security</span>
-            <span class="gh-badge bg-accent/10 text-accent text-xs px-2 py-0.5 rounded-full">DevSecOps</span>
+          <p class="gh-project-description text-xs md:text-sm text-text mb-3 flex-grow">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
+          <div class="gh-project-tags flex flex-wrap gap-1.5">
+            <span class="gh-badge bg-accent/10 text-accent text-[10px] md:text-xs px-2 py-0.5 rounded-full">AWS</span>
+            <span class="gh-badge bg-accent/10 text-accent text-[10px] md:text-xs px-2 py-0.5 rounded-full">Security</span>
+            <span class="gh-badge bg-accent/10 text-accent text-[10px] md:text-xs px-2 py-0.5 rounded-full">DevSecOps</span>
           </div>
         </div>
         
-        <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1">
+        <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
           <div class="gh-project-header flex items-center gap-2 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-            <span class="font-medium">RAG-Powered Knowledge Base</span>
+            <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+            </div>
+            <span class="font-medium text-sm md:text-base">RAG-Powered Knowledge Base</span>
           </div>
-          <p class="gh-project-description text-sm text-text mb-3">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
-          <div class="gh-project-tags flex flex-wrap gap-2">
-            <span class="gh-badge bg-accent/10 text-accent text-xs px-2 py-0.5 rounded-full">AI</span>
-            <span class="gh-badge bg-accent/10 text-accent text-xs px-2 py-0.5 rounded-full">NLP</span>
-            <span class="gh-badge bg-accent/10 text-accent text-xs px-2 py-0.5 rounded-full">Vector DB</span>
+          <p class="gh-project-description text-xs md:text-sm text-text mb-3 flex-grow">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
+          <div class="gh-project-tags flex flex-wrap gap-1.5">
+            <span class="gh-badge bg-accent/10 text-accent text-[10px] md:text-xs px-2 py-0.5 rounded-full">AI</span>
+            <span class="gh-badge bg-accent/10 text-accent text-[10px] md:text-xs px-2 py-0.5 rounded-full">NLP</span>
+            <span class="gh-badge bg-accent/10 text-accent text-[10px] md:text-xs px-2 py-0.5 rounded-full">Vector DB</span>
           </div>
         </div>
       </div>
       
-      <h3 class="text-center md:text-left">Current Reading</h3>
+      <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Current Reading</h3>
       <div class="gh-reading-section mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface">
           <div class="gh-reading-icon w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0">
@@ -116,7 +120,7 @@ eleventyNavigation:
         </div>
       </div>
       
-      <h3 class="text-center md:text-left">Latest Learning</h3>
+      <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Learning</h3>
       <div class="gh-learning-timeline mb-6 pl-4 border-l border-border space-y-6">
         <div class="gh-timeline-item relative flex items-start">
           <div class="gh-timeline-icon absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent">
@@ -147,8 +151,8 @@ eleventyNavigation:
         </div>
       </div>
       
-      <h3 class="text-center md:text-left">Interests</h3>
-      <p class="text-text text-sm leading-relaxed">{{ site.homepage.interests }}</p>
+      <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Interests</h3>
+      <p class="text-text text-xs md:text-sm leading-relaxed px-1 md:px-0">{{ site.homepage.interests }}</p>
 
     </div>
   </div>
