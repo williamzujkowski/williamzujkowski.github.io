@@ -3,6 +3,9 @@ title: "Your Blog Post Title Here"
 date: 2024-01-01
 layout: post.njk
 tags: posts
+eleventyNavigation:
+  key: "Your Blog Post Title Here"
+  parent: Blog
 ---
 
 # Your Blog Post Title Here

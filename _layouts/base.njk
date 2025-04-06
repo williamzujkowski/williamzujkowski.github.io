@@ -7,18 +7,12 @@
   <header class="gh-header">
     <div class="gh-header-inner">
       <div class="gh-nav">
-        <a href="/" class="gh-nav-item {% if page.url == '/' %}active{% endif %}">
-          <span>Home</span>
-        </a>
-        <a href="/blog/" class="gh-nav-item {% if page.url == '/blog/' %}active{% endif %}">
-          <span>Blog</span>
-        </a>
-        <a href="/links/" class="gh-nav-item {% if page.url == '/links/' %}active{% endif %}">
-          <span>Links</span>
-        </a>
-        <a href="/contact/" class="gh-nav-item {% if page.url == '/contact/' %}active{% endif %}">
-          <span>Contact</span>
-        </a>
+        {%- set navPages = collections.all | eleventyNavigation -%}
+        {%- for entry in navPages %}
+          <a href="{{ entry.url | url }}" class="gh-nav-item {% if page.url == entry.url %}active{% endif %}">
+            <span>{{ entry.title }}</span>
+          </a>
+        {%- endfor %}
       </div>
       
       <div class="gh-nav">

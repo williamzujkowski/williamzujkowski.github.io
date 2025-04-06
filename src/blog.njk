@@ -6,8 +6,9 @@ eleventyNavigation:
   key: Blog
   order: 3
 ---
+{% breadcrumbs page %}
 <div class="relative mb-8 rounded-github overflow-hidden">
-  <img src="/assets/images/blog/tech-header.jpg" alt="Technology background" class="w-full h-40 object-cover">
+  {% image "blog/tech-header.jpg", "Technology background", "100vw", [800, 1200, 1600], ["webp", "jpeg"] %}
   <div class="absolute inset-0 flex items-center justify-center bg-black/50">
     <div class="text-center">
       <h1 class="text-white text-3xl font-bold mb-2">Blog Posts</h1>
@@ -58,19 +59,19 @@ eleventyNavigation:
     <li class="gh-post-item searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
       <div class="gh-post-image">
         {% if post.data.tags and "ai" in post.data.tags %}
-          <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration">
+          {% image "blog/ai-blog.jpg", "AI blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         {% elif post.data.tags and "security" in post.data.tags %}
-          <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration">
+          {% image "blog/security-blog.jpg", "Security blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         {% elif post.data.tags and "cloud" in post.data.tags %}
-          <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration">
+          {% image "blog/cloud-blog.jpg", "Cloud computing blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         {% elif post.data.title and "Pizza" in post.data.title %}
-          <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration">
+          {% image "blog/pizza-blog.jpg", "Developer pizza blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         {% elif post.data.tags and "transformer" in post.data.tags %}
-          <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration">
+          {% image "blog/transformer-blog.jpg", "Transformer architecture blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         {% elif post.data.tags and "ethics" in post.data.tags %}
-          <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration">
+          {% image "blog/ethics-blog.jpg", "AI ethics blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         {% else %}
-          <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration">
+          {% image "github-style/blog-placeholder.jpg", "Blog post illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         {% endif %}
       </div>
       <div class="gh-post-content">

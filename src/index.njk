@@ -8,7 +8,7 @@ eleventyNavigation:
 ---
 <div class="gh-profile-header">
   <div class="gh-avatar-container">
-    <img src="/assets/images/github-style/profile-avatar.svg" alt="{{ site.title }}" class="gh-avatar">
+    <img src="/assets/images/github-style/profile-avatar.png" alt="{{ site.title }}" class="gh-avatar">
     
     <div class="gh-profile-stats mt-4">
       <div class="gh-stat">
@@ -69,16 +69,30 @@ eleventyNavigation:
       <h3>Interests</h3>
       <p>{{ site.homepage.interests }}</p>
 
-      <h3 class="mt-6">Contributions</h3>
-      <div class="border border-border rounded-github overflow-hidden p-2 bg-surface">
-        <img src="/assets/images/github-style/contribution-graph.svg" alt="Contribution graph" class="w-full">
-        <div class="mt-2 text-xs text-text-secondary flex items-center justify-end">
-          <span class="mr-1">Contribution activity</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-            <path d="M8 16.5a.5.5 0 0 1-.5-.5v-1.5h-2A2.5 2.5 0 0 1 3 12V8.5H1.5a.5.5 0 0 1 0-1H3V4a2.5 2.5 0 0 1 2.5-2.5h4A2.5 2.5 0 0 1 12 4v3.5h1.5a.5.5 0 0 1 0 1H12V12a2.5 2.5 0 0 1-2.5 2.5h-2V16a.5.5 0 0 1-.5.5Zm-2-4h4a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 10 2.5H6A1.5 1.5 0 0 0 4.5 4v7A1.5 1.5 0 0 0 6 12.5Z"></path>
-          </svg>
+      <h3 class="mt-6">Writing Contributions</h3>
+      <div class="border border-border rounded-github overflow-hidden p-4 bg-surface">
+        <div id="contributions-heatmap" class="w-full">
+          <!-- Heatmap will be generated here by JavaScript -->
+          <div class="animate-pulse flex items-center justify-center py-8">
+            <div class="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin mr-2"></div>
+            <span class="text-sm text-text-secondary">Loading contribution graph...</span>
+          </div>
         </div>
       </div>
+      
+      <!-- Template script to pass blog post data to JavaScript -->
+      <script>
+        // Pass post dates to the client-side script
+        const postsData = [
+          {% for post in collections.posts %}
+          {
+            title: {{ post.data.title | json }},
+            date: {{ post.date | json }},
+            url: {{ post.url | json }}
+          }{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ];
+      </script>
     </div>
   </div>
 </div>
@@ -162,19 +176,19 @@ eleventyNavigation:
       <li class="gh-post-item">
         <div class="gh-post-image">
           {% if post.data.tags and "ai" in post.data.tags %}
-            <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration">
+            {% image "blog/ai-blog.jpg", "AI blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
           {% elif post.data.tags and "security" in post.data.tags %}
-            <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration">
+            {% image "blog/security-blog.jpg", "Security blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
           {% elif post.data.tags and "cloud" in post.data.tags %}
-            <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration">
+            {% image "blog/cloud-blog.jpg", "Cloud computing blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
           {% elif post.data.title and "Pizza" in post.data.title %}
-            <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration">
+            {% image "blog/pizza-blog.jpg", "Developer pizza blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
           {% elif post.data.tags and "transformer" in post.data.tags %}
-            <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration">
+            {% image "blog/transformer-blog.jpg", "Transformer architecture blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
           {% elif post.data.tags and "ethics" in post.data.tags %}
-            <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration">
+            {% image "blog/ethics-blog.jpg", "AI ethics blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
           {% else %}
-            <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration">
+            {% image "github-style/blog-placeholder.jpg", "Blog post illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
           {% endif %}
         </div>
         <div class="gh-post-content">

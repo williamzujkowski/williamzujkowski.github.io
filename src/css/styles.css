@@ -276,7 +276,7 @@
   }
 
   .gh-avatar {
-    @apply w-[296px] h-[296px] rounded-github border border-border;
+    @apply w-[296px] h-[296px] rounded-github border-2 border-border object-cover shadow-md;
   }
 
   .gh-profile-content {
@@ -505,6 +505,32 @@
   
   .tag-btn.selected {
     @apply bg-accent text-white border-accent shadow-sm;
+  }
+  
+  /* Breadcrumbs */
+  .breadcrumbs {
+    @apply py-2 mb-6;
+  }
+  
+  .breadcrumbs-list {
+    @apply flex flex-wrap items-center text-sm;
+  }
+  
+  .breadcrumbs-item {
+    @apply flex items-center;
+  }
+  
+  .breadcrumbs-item:not(:last-child)::after {
+    content: "/";
+    @apply mx-2 text-text-secondary;
+  }
+  
+  .breadcrumbs-link {
+    @apply text-accent hover:text-accent-hover hover:underline transition-colors;
+  }
+  
+  .breadcrumbs-item.current {
+    @apply text-white;
   }
 
   /* Skills display */

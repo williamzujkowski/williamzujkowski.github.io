@@ -3,31 +3,26 @@ layout: base.njk
 ---
 <div class="max-w-3xl mx-auto">
   <div class="mb-6">
-    <a href="/blog/" class="inline-flex items-center text-accent hover:underline hover:text-accent-hover transition-colors duration-200">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-1">
-        <path d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path>
-      </svg>
-      Back to all posts
-    </a>
+    {% breadcrumbs page %}
   </div>
 
   <article class="mb-12">
     <!-- Featured image -->
     <div class="mb-8 rounded-github overflow-hidden shadow-card">
       {% if tags and "ai" in tags %}
-        <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration" class="w-full h-[300px] object-cover">
+        {% image "blog/ai-blog.jpg", "AI blog illustration", "100vw", [800, 1200, 1600] %}
       {% elif tags and "security" in tags %}
-        <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration" class="w-full h-[300px] object-cover">
+        {% image "blog/security-blog.jpg", "Security blog illustration", "100vw", [800, 1200, 1600] %}
       {% elif tags and "cloud" in tags %}
-        <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration" class="w-full h-[300px] object-cover">
+        {% image "blog/cloud-blog.jpg", "Cloud computing blog illustration", "100vw", [800, 1200, 1600] %}
       {% elif title and "Pizza" in title %}
-        <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration" class="w-full h-[300px] object-cover">
+        {% image "blog/pizza-blog.jpg", "Developer pizza blog illustration", "100vw", [800, 1200, 1600] %}
       {% elif tags and "transformer" in tags %}
-        <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration" class="w-full h-[300px] object-cover">
+        {% image "blog/transformer-blog.jpg", "Transformer architecture blog illustration", "100vw", [800, 1200, 1600] %}
       {% elif tags and "ethics" in tags %}
-        <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration" class="w-full h-[300px] object-cover">
+        {% image "blog/ethics-blog.jpg", "AI ethics blog illustration", "100vw", [800, 1200, 1600] %}
       {% else %}
-        <img src="/assets/images/github-style/blog-placeholder.svg" alt="Blog post illustration" class="w-full h-[300px] object-cover">
+        {% image "github-style/blog-placeholder.jpg", "Blog post illustration", "100vw", [800, 1200, 1600] %}
       {% endif %}
     </div>
 
@@ -93,8 +88,8 @@ layout: base.njk
 
     <!-- Author bio -->
     <div class="mt-12 bg-gray-light p-6 rounded-github border border-border flex gap-4 items-center">
-      <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
-        <img src="/assets/images/github-style/profile-avatar.svg" alt="Author" class="w-full h-full object-cover">
+      <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2 border-border shadow-md">
+        <img src="/assets/images/github-style/profile-avatar.png" alt="Author" class="w-full h-full object-cover">
       </div>
       <div>
         <h3 class="text-lg font-semibold text-white mb-1">{{ site.author }}</h3>

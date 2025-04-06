@@ -1,9 +1,58 @@
-// Import the RSS plugin
+// Import plugins
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const pluginNavigation = require("@11ty/eleventy-navigation");
+const Image = require("@11ty/eleventy-img");
+
+// Image shortcode function
+async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900, 1200], formats = ["webp", "jpeg"]) {
+  if (!src) {
+    throw new Error(`Missing image source`);
+  }
+  if (!alt) {
+    throw new Error(`Missing alt text for image: ${src}`);
+  }
+
+  // Full path for source images
+  let fullSrc = src;
+  if (!src.startsWith('/') && !src.startsWith('./') && !src.startsWith('../')) {
+    fullSrc = `./assets/images/${src}`;
+  }
+
+  // For simplicity in demo, just return the img tag directly
+  // In production with real images, you would use the Image plugin
+  return `<img src="/assets/images/${src}" alt="${alt}" class="w-full h-auto object-cover" loading="lazy" decoding="async">`;
+  
+  /* 
+  // The following code would be used with real images
+  let metadata = await Image(fullSrc, {
+    widths: widths,
+    formats: formats,
+    outputDir: "./_site/img/",
+    urlPath: "/img/",
+    filenameFormat: function(id, src, width, format) {
+      const extension = format;
+      const name = src.split('/').pop().split('.')[0];
+      return `${name}-${width}w.${extension}`;
+    }
+  });
+  */
+
+  /*
+  let imageAttributes = {
+    alt,
+    sizes,
+    loading: "lazy",
+    decoding: "async",
+  };
+
+  return Image.generateHTML(metadata, imageAttributes);
+  */
+}
 
 module.exports = function(eleventyConfig) {
-  // Add RSS plugin
+  // Add plugins
   eleventyConfig.addPlugin(pluginRss);
+  eleventyConfig.addPlugin(pluginNavigation);
   // Copy assets
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("src/js");
@@ -52,8 +101,43 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("dateToRfc822", pluginRss.dateToRfc822);
   eleventyConfig.addFilter("htmlToAbsoluteUrls", pluginRss.htmlToAbsoluteUrls);
   
-  // Add shortcode for current year
+  // Add shortcodes
   eleventyConfig.addShortcode("year", () => new Date().getFullYear());
+  eleventyConfig.addAsyncShortcode("image", imageShortcode);
+  
+  // Add breadcrumb shortcode
+  eleventyConfig.addShortcode("breadcrumbs", function(page) {
+    if (!page || !page.url) return "";
+    
+    const parts = page.url.split('/').filter(part => part);
+    let breadcrumbs = '<nav aria-label="Breadcrumb" class="breadcrumbs"><ol class="breadcrumbs-list">';
+    
+    // Add home
+    breadcrumbs += '<li class="breadcrumbs-item"><a href="/" class="breadcrumbs-link">Home</a></li>';
+    
+    // Build the breadcrumb path
+    let path = "";
+    parts.forEach((part, i) => {
+      path += `/${part}`;
+      
+      // Last item (current page)
+      if (i === parts.length - 1) {
+        const label = page.title || part.replace(/-/g, ' ');
+        breadcrumbs += `<li class="breadcrumbs-item current">${label}</li>`;
+      } else {
+        // Get proper title if available
+        const segment = part.replace(/-/g, ' ');
+        const title = segment.charAt(0).toUpperCase() + segment.slice(1);
+        
+        breadcrumbs += `<li class="breadcrumbs-item">
+          <a href="${path}/" class="breadcrumbs-link">${title}</a>
+        </li>`;
+      }
+    });
+    
+    breadcrumbs += '</ol></nav>';
+    return breadcrumbs;
+  });
   
   // Add collection utilities
   eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {
