@@ -13,6 +13,8 @@
   "homepage": {
     "welcome_heading": "Welcome",
     "welcome_subtitle": "Software Engineer & Technology Enthusiast",
+    "about_me_title": "About Me",
+    "about_me_content": "I'm a software engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.",
     "show_recent_posts": true,
     "recent_posts_count": 3,
     "show_github_pins": true,
