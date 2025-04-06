@@ -2,6 +2,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0d1117">
+  <!-- Force dark class for Tailwind's dark mode -->
+  <script>
+    document.documentElement.classList.add('dark');
+  </script>
   <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
   <meta name="keywords" content="{{ site.seo.keywords }}">

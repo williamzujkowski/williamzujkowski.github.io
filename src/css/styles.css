@@ -354,6 +354,51 @@ h4:hover .header-anchor {
   transform: translateY(-2px);
 }
 
+/* Custom container with Container Queries support */
+@layer utilities {
+  .container-custom {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 1200px;
+  }
+
+  @screen sm {
+    .container-custom {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @screen lg {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+/* Add group hover and focus utilities */
+@layer utilities {
+  .group-hover-scale {
+    @apply transition-transform duration-300;
+  }
+  
+  .group:hover .group-hover-scale {
+    @apply scale-105;
+  }
+
+  .group-hover-translate-up {
+    @apply transition-transform duration-300;
+  }
+  
+  .group:hover .group-hover-translate-up {
+    @apply -translate-y-1;
+  }
+}
+
 /* Component styles */
 @layer components {
 
