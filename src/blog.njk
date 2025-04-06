@@ -88,73 +88,73 @@ eleventyNavigation:
   <button id="reset-search" class="gh-btn">Reset Search</button>
 </div>
 
-<div class="gh-post-grid lg:grid-cols-3 gap-6 transition-all ease-in-out duration-300">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-custom mt-8">
   {%- for post in posts -%}
-    <div class="gh-post-card searchable" data-tags="{{ post.data.tags | join(',') | lower }}">
-      <div class="gh-post-image">
+    <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full" data-tags="{{ post.data.tags | join(',') | lower }}">
+      <!-- Post image with consistent ratio -->
+      <div class="relative h-0 pb-[56.25%] overflow-hidden">
         {% if post.data.tags and "ai" in post.data.tags %}
-          {% image "blog/ai-blog.jpg", "AI blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration" class="absolute inset-0 w-full h-full object-cover">
         {% elif post.data.tags and "security" in post.data.tags %}
-          {% image "blog/security-blog.jpg", "Security blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration" class="absolute inset-0 w-full h-full object-cover">
         {% elif post.data.tags and "cloud" in post.data.tags %}
-          {% image "blog/cloud-blog.jpg", "Cloud computing blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration" class="absolute inset-0 w-full h-full object-cover">
         {% elif post.data.title and "Pizza" in post.data.title %}
-          {% image "blog/pizza-blog.jpg", "Developer pizza blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration" class="absolute inset-0 w-full h-full object-cover">
         {% elif post.data.tags and "transformer" in post.data.tags %}
-          {% image "blog/transformer-blog.jpg", "Transformer architecture blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration" class="absolute inset-0 w-full h-full object-cover">
         {% elif post.data.tags and "ethics" in post.data.tags %}
-          {% image "blog/ethics-blog.jpg", "AI ethics blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration" class="absolute inset-0 w-full h-full object-cover">
         {% else %}
-          {% image "github-style/blog-placeholder.jpg", "Blog post illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          <img src="/assets/images/github-style/blog-placeholder.jpg" alt="Blog post illustration" class="absolute inset-0 w-full h-full object-cover">
         {% endif %}
         
         {% if post.data.tags %}
-          <div class="gh-post-tags-overlay">
+          <div class="absolute top-2 right-2 flex flex-wrap gap-1 justify-end">
             {% for tag in post.data.tags %}
               {% if tag != "posts" %}
-                <span class="gh-badge">{{ tag }}</span>
+                <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30">{{ tag }}</span>
               {% endif %}
             {% endfor %}
           </div>
         {% endif %}
       </div>
       
-      <div class="gh-post-content">
-        <a href="{{ post.url | url }}" class="gh-post-title">{{ post.data.title }}</a>
+      <!-- Post content -->
+      <div class="p-5 flex-grow flex flex-col">
+        <a href="{{ post.url | url }}" class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ post.data.title }}</a>
         
-        {% if post.data.date %}
-          <div class="gh-post-meta">
-            <div class="gh-post-date">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
-                <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
-              </svg>
-              {{ post.data.date | readableDate }}
-            </div>
-            
-            {% set wordCount = post.templateContent | striptags | wordcount %}
-            <div class="gh-post-reading-time" title="{{ wordCount }} words">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
-                <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm9.28-1.72a.75.75 0 00-1.06-1.06L6.25 8.69l-.97-.97a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3-3z"></path>
-              </svg>
-              {% set readingTime = (wordCount / 200) | round %}
-              {% if readingTime < 1 %}{% set readingTime = 1 %}{% endif %}
-              {{ readingTime }} min read
-            </div>
+        <div class="flex items-center gap-4 text-sm text-text-secondary mb-3">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 text-accent opacity-80">
+              <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
+            </svg>
+            {{ post.data.date | readableDate }}
           </div>
-        {% endif %}
+          
+          {% set wordCount = post.templateContent | striptags | wordcount %}
+          <div title="{{ wordCount }} words">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 inline text-accent opacity-80">
+              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm9.28-1.72a.75.75 0 00-1.06-1.06L6.25 8.69l-.97-.97a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3-3z"></path>
+            </svg>
+            {% set readingTime = (wordCount / 200) | round %}
+            {% if readingTime < 1 %}{% set readingTime = 1 %}{% endif %}
+            {{ readingTime }} min read
+          </div>
+        </div>
         
-        <div class="gh-post-excerpt">
+        <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
           {% if post.data.description %}
             {{ post.data.description }}
           {% elif post.templateContent %}
-            {{ post.templateContent | striptags | truncate(120) }}
+            {{ post.templateContent | striptags | truncate(160) }}
           {% endif %}
         </div>
         
-        <div class="gh-post-footer">
-          <a href="{{ post.url | url }}" class="gh-read-more">
+        <div class="mt-auto pt-3 border-t border-border flex justify-between items-center">
+          <a href="{{ post.url | url }}" class="text-sm text-accent font-medium hover:underline inline-flex items-center group">
             Read article
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="ml-1 transition-transform duration-200 group-hover:translate-x-1">
               <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
             </svg>
           </a>
