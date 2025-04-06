@@ -334,6 +334,43 @@ h4:hover .header-anchor {
   @apply opacity-100;
 }
 
+/* Social media icons */
+.social-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  position: relative;
+}
+
+.social-disabled::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+/* Toggle functionality */
+.header-social,
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-social a,
+.footer-social a {
+  transition: all 0.2s ease-in-out;
+}
+
+.header-social a:hover:not(.social-disabled),
+.footer-social a:hover:not(.social-disabled) {
+  transform: translateY(-2px);
+}
+
 /* Component styles */
 @layer components {
 

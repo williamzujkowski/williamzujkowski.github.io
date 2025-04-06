@@ -6,15 +6,15 @@
   "email": "william@example.com",
   "theme": "system",
   "seo": {
-    "keywords": "software engineering, web development, cloud architecture, cybersecurity, AI, machine learning",
+    "keywords": "IT engineering, web development, cloud architecture, cybersecurity, AI, machine learning",
     "og_image": "/assets/images/og-image.jpg",
     "google_analytics_id": ""
   },
   "homepage": {
     "welcome_heading": "Welcome",
-    "welcome_subtitle": "Software Engineer & Technology Enthusiast",
+    "welcome_subtitle": "IT Engineer & Technology Enthusiast",
     "about_me_title": "About Me",
-    "about_me_content": "I'm a software engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.",
+    "about_me_content": "I'm an IT engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.",
     "show_recent_posts": true,
     "recent_posts_count": 3,
     "show_activity_timeline": false,
@@ -124,7 +124,7 @@
       "name": "Bluesky",
       "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
       "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M8.001 1.226a9.3 9.3 0 0 0-4.22 1.03L8 5.478l4.22-3.221a9.303 9.303 0 0 0-4.219-1.031zM2.37 3.277a11.727 11.727 0 0 0-1.358 1.865 6.407 6.407 0 0 0-.748 2.295c.103.034 4.633 1.555 7.736 1.555 3.103 0 7.633-1.521 7.736-1.555a6.407 6.407 0 0 0-.748-2.295 11.747 11.747 0 0 0-1.358-1.865L8.925 6.76a1.33 1.33 0 0 1-1.851 0L2.37 3.277zm-.655 5.592A11.05 11.05 0 0 0 8 11.999c2.27 0 4.4-.548 6.286-1.523-.159.86-.477 1.646-.935 2.311a11.765 11.765 0 0 1-2.876 3.123A6.32 6.32 0 0 1 8 14.708a6.318 6.318 0 0 1-2.476-1.309 11.764 11.764 0 0 1-2.875-3.123 5.755 5.755 0 0 1-.935-3.407z\"/></svg>",
-      "enabled": true,
+      "enabled": false,
       "display_on_home": false,
       "display_in_header": true,
       "display_in_footer": false

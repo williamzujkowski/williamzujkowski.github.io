@@ -19,11 +19,13 @@
     </nav>
     <div class="header-social">
       {% for social in site.social_media %}
-        {% if social.enabled and social.display_in_header %}
+        {% if social.display_in_header %}
           <a
             href="{{ social.url }}"
-            class="header-social-link"
+            class="header-social-link{% if not social.enabled %} social-disabled{% endif %}"
             aria-label="{{ social.name }}"
+            title="{{ social.name }}{% if not social.enabled %} (disabled){% endif %}"
+            data-social-enabled="{{ social.enabled }}"
           >{{ social.icon | safe }}</a>
         {% endif %}
       {% endfor %}

@@ -65,7 +65,7 @@ The homepage is highly customizable through the `homepage` section in `site.json
 ```json
 "homepage": {
   "welcome_heading": "Welcome",
-  "welcome_subtitle": "Software Engineer & Technology Enthusiast",
+  "welcome_subtitle": "IT Engineer & Technology Enthusiast",
   "about_me_title": "About Me",
   "about_me_content": "Your bio text here...",
   "show_recent_posts": true,
