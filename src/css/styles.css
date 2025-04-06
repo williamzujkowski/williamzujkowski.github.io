@@ -961,19 +961,23 @@ h4:hover .header-anchor {
     }
     
     h1 {
-      @apply text-xl;
+      @apply text-2xl mb-3;
     }
     
     h2 {
-      @apply text-lg mb-3;
+      @apply text-xl mb-4 font-semibold;
     }
     
     h3 {
-      @apply text-base mb-2;
+      @apply text-lg mb-3 font-medium;
+    }
+    
+    p {
+      @apply text-base leading-relaxed;
     }
     
     .site-container {
-      @apply px-4 py-4;
+      @apply px-5 py-5;
     }
     
     /* Header adjustments */
@@ -989,106 +993,164 @@ h4:hover .header-anchor {
       @apply px-2 py-1.5;
     }
     
-    /* Profile section */
+    /* Single-column vertical layout */
     .gh-profile-header {
-      @apply flex-col mt-4 mb-6 gap-6;
+      @apply flex-col mt-6 mb-8 gap-8;
     }
 
     .gh-avatar-container {
-      @apply w-full items-center mx-auto max-w-sm px-4;
+      @apply w-full items-center mx-auto px-0;
     }
 
     .gh-avatar {
-      @apply w-[140px] h-[140px] mx-auto shadow-lg;
+      @apply w-[180px] h-[180px] mx-auto shadow-lg;
     }
     
     .gh-profile-stats {
-      @apply justify-center text-xs gap-2 my-3;
+      @apply justify-center text-base gap-3 my-4;
+    }
+    
+    .gh-stat-count {
+      @apply text-lg font-bold;
+    }
+    
+    .gh-stat-label {
+      @apply text-base;
     }
     
     .gh-profile-content {
-      @apply w-full px-2;
+      @apply w-full px-0;
     }
 
     .gh-profile-header-info {
-      @apply text-center mb-6;
+      @apply text-center mb-8;
     }
 
     .gh-name {
-      @apply text-center text-xl;
+      @apply text-center text-2xl mb-2;
     }
 
     .gh-username {
-      @apply text-center text-base;
+      @apply text-center text-xl;
     }
 
     .gh-bio {
-      @apply text-center text-sm max-w-md mx-auto;
+      @apply text-center text-base mt-4 w-full mx-auto;
+    }
+    
+    /* About me section */
+    .gh-profile-header .w-full.md\:w-\[296px\] {
+      @apply max-w-full;
+    }
+    
+    .gh-profile-header .w-full.md\:w-\[296px\] h3 {
+      @apply text-xl;
+    }
+    
+    .gh-profile-header .w-full.md\:w-\[296px\] p {
+      @apply text-base leading-relaxed;
     }
     
     /* Projects section */
     .gh-featured-projects {
-      @apply flex-col gap-3 my-4;
+      @apply flex-col gap-6 my-6;
     }
 
     .gh-project-card {
-      @apply w-full mb-2 mx-auto;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      @apply w-full mb-0 mx-auto rounded-lg p-5;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gh-project-header {
+      @apply mb-3;
+    }
+    
+    .gh-project-header span {
+      @apply text-lg;
+    }
+    
+    .gh-project-header .w-6 {
+      @apply w-8 h-8;
+    }
+    
+    .gh-project-header .w-6 svg {
+      @apply w-4 h-4;
     }
     
     .gh-project-description {
-      @apply text-sm leading-relaxed;
+      @apply text-base leading-relaxed;
     }
     
     .gh-project-tags {
-      @apply mt-2;
+      @apply mt-4 gap-2;
+    }
+    
+    .gh-badge {
+      @apply text-sm px-3 py-1;
     }
     
     /* Reading section */
     .gh-reading-section {
-      @apply grid-cols-1 gap-3 my-4;
+      @apply grid-cols-1 gap-5 my-6;
     }
     
     .gh-reading-card {
-      @apply p-3;
+      @apply p-5 rounded-lg;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gh-reading-icon {
+      @apply w-12 h-12;
+    }
+    
+    .gh-reading-icon svg {
+      @apply w-6 h-6;
     }
     
     .gh-reading-title {
-      @apply text-sm;
+      @apply text-lg mb-2;
     }
     
     .gh-reading-author {
-      @apply text-xs;
+      @apply text-base;
     }
     
     /* Timeline */
     .gh-learning-timeline {
-      @apply pl-3 space-y-4 my-4;
+      @apply pl-6 space-y-8 my-8 border-l-2;
     }
     
     .gh-timeline-item {
-      @apply pl-2;
+      @apply pl-4;
     }
     
     .gh-timeline-icon {
-      @apply -left-7 p-1;
+      @apply -left-10 p-2.5 border-[3px];
+    }
+    
+    .gh-timeline-icon svg {
+      @apply w-5 h-5;
     }
     
     .gh-timeline-content {
-      @apply pl-1;
+      @apply pl-0;
+    }
+    
+    .gh-timeline-date {
+      @apply text-base mb-2;
     }
     
     .gh-timeline-title {
-      @apply text-sm;
+      @apply text-lg font-medium mb-2;
     }
     
     .gh-timeline-description {
-      @apply text-xs leading-relaxed;
+      @apply text-base leading-relaxed;
     }
     
     /* Interests */
     h3 + p {
-      @apply text-xs leading-relaxed px-1;
+      @apply text-base leading-relaxed px-0 mb-8;
     }
     
     /* Other grid layouts */
@@ -1098,23 +1160,62 @@ h4:hover .header-anchor {
     
     /* Activity feed */
     .gh-activity-feed {
-      @apply p-3;
+      @apply p-5 rounded-lg;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gh-activity-month {
+      @apply mb-8;
     }
     
     .gh-activity-month-header {
-      @apply text-sm;
+      @apply text-lg pb-3 mb-4;
+    }
+    
+    .gh-activity-month-header svg {
+      @apply w-5 h-5;
+    }
+    
+    .gh-activity-list {
+      @apply space-y-6;
+    }
+    
+    .gh-activity-item {
+      @apply gap-4;
+    }
+    
+    .gh-activity-item::before {
+      @apply w-[3px];
     }
     
     .gh-activity-title {
-      @apply text-sm;
+      @apply text-base mb-2;
+    }
+    
+    .gh-activity-link {
+      @apply font-medium;
     }
     
     .gh-activity-date {
-      @apply text-[10px];
+      @apply text-sm;
     }
     
     .gh-activity-icon {
-      @apply p-2;
+      @apply p-3 w-10 h-10;
+    }
+    
+    .gh-activity-icon svg {
+      @apply w-4 h-4;
+    }
+    
+    /* Section titles with decorative line */
+    h2, h3 {
+      @apply relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-[3px] after:rounded-full after:bg-accent/40;
+    }
+    
+    /* Add spacing between content blocks */
+    .gh-profile-content > div > * {
+      @apply mb-8;
     }
     
     /* Mobile-specific enhancements */
