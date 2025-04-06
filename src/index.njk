@@ -238,7 +238,7 @@ eleventyNavigation:
 </div>
 
 <div id="activity-feed" class="mt-4">
-  {% if site.homepage.use_cached_visualizations and activityData %}
+  {% if activityData %}
     <!-- Activity feed from cached data -->
     <div class="gh-activity-feed">
       {% for monthGroup in activityData %}

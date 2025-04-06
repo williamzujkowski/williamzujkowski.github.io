@@ -41,106 +41,6 @@ function formatDate(date, format) {
   return formatters[format] ? formatters[format]() : d.toISOString();
 }
 
-// Generate contribution heatmap data
-function generateHeatmapData(posts) {
-  // Get all post dates as ISO strings
-  const postDates = posts.map(post => {
-    const date = new Date(post.date);
-    return date.toISOString().split('T')[0]; // YYYY-MM-DD format
-  });
-  
-  // Count posts per date
-  const dateCounts = {};
-  postDates.forEach(date => {
-    dateCounts[date] = (dateCounts[date] || 0) + 1;
-  });
-  
-  // Calculate date range (1 year back from today)
-  const endDate = new Date();
-  const startDate = new Date();
-  startDate.setFullYear(endDate.getFullYear() - 1);
-  
-  // Fill in all dates in the range
-  let currentDate = new Date(startDate);
-  while (currentDate <= endDate) {
-    const dateStr = currentDate.toISOString().split('T')[0];
-    if (!dateCounts[dateStr]) {
-      dateCounts[dateStr] = 0;
-    }
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-  
-  // Determine maximum contribution count for color intensity scaling
-  const counts = Object.values(dateCounts);
-  const maxCount = Math.max(...counts, 1); // Ensure non-zero
-  
-  // Generate cells data grouped by intensity levels (0-4)
-  const cells = [[], [], [], [], []];
-  
-  // Calculate positions and intensities
-  // Create a reference date for the first Sunday before or on the start date
-  // This ensures weeks align properly in the grid
-  const referenceDate = new Date(startDate);
-  // Move back to the previous Sunday (or stay on Sunday if today is Sunday)
-  const startDay = referenceDate.getDay(); // 0 = Sunday, 6 = Saturday
-  if (startDay !== 0) {
-    referenceDate.setDate(referenceDate.getDate() - startDay);
-  }
-  
-  const dayMilliseconds = 24 * 60 * 60 * 1000;
-  const totalDays = Math.ceil((endDate - referenceDate) / dayMilliseconds);
-  
-  // Calculate how many weeks we need
-  const totalWeeks = Math.ceil(totalDays / 7);
-  
-  // Generate cells for each week and day
-  for (let week = 0; week < totalWeeks; week++) {
-    for (let day = 0; day < 7; day++) {
-      const date = new Date(referenceDate);
-      date.setDate(date.getDate() + (week * 7) + day);
-      
-      // Skip dates outside our actual range
-      if (date < startDate || date > endDate) {
-        continue;
-      }
-      
-      const dateStr = date.toISOString().split('T')[0];
-      
-      // Get count and determine intensity (0-4)
-      const count = dateCounts[dateStr] || 0;
-      let intensity = 0;
-      if (count > 0) {
-        if (count <= maxCount * 0.25) intensity = 1;
-        else if (count <= maxCount * 0.5) intensity = 2;
-        else if (count <= maxCount * 0.75) intensity = 3;
-        else intensity = 4;
-      }
-      
-      // Calculate position in the grid
-      // Monday=0, Sunday=6
-      const adjustedDay = (day + 1) % 7; // Shift so Monday is 0
-      
-      // Add to the appropriate intensity group
-      cells[intensity].push({
-        date: dateStr,
-        count,
-        x: week * 14,
-        y: adjustedDay * 14
-      });
-    }
-  }
-  
-  return {
-    dateRange: {
-      start: startDate.toISOString(),
-      end: endDate.toISOString()
-    },
-    cells,
-    totalContributions: postDates.length,
-    maxCountPerDay: maxCount
-  };
-}
-
 // Generate activity timeline data
 function generateActivityData(posts) {
   // Group posts by month-year
@@ -209,14 +109,6 @@ try {
   console.log('Generating visualization data...');
   const posts = getAllPosts();
   console.log(`Found ${posts.length} blog posts`);
-  
-  // Generate and save heatmap data
-  const heatmapData = generateHeatmapData(posts);
-  fs.writeFileSync(
-    path.join(OUTPUT_DIR, 'heatmap.json'),
-    JSON.stringify(heatmapData, null, 2)
-  );
-  console.log(`Saved heatmap data for ${heatmapData.totalContributions} contributions`);
   
   // Generate and save activity data
   const activityData = generateActivityData(posts);

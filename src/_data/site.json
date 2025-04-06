@@ -17,7 +17,6 @@
     "recent_posts_count": 3,
     "show_github_pins": true,
     "show_arxiv_papers": true,
-    "use_cached_visualizations": true,
     "pinned_repositories": [
       {
         "name": "Cloud Security Framework",
