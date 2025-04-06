@@ -44,20 +44,7 @@ eleventyNavigation:
       <div class="gh-username text-text-secondary">{{ site.homepage.welcome_subtitle }}</div>
       <p class="gh-bio">{{ site.description }}</p>
       
-      <div class="flex gap-2 flex-wrap">
-        <a href="mailto:{{ site.email }}" class="gh-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5C0 2.784.784 2 1.75 2zM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 9.397a.75.75 0 01-.76 0L1.5 5.809v6.442zm13-8.181v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.88l6.5-3.81z"></path></svg>
-          Contact me
-        </a>
-        <a href="/blog/" class="gh-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path></svg>
-          Blog posts
-        </a>
-        <a href="/links/#repositories" class="gh-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-          Repositories
-        </a>
-      </div>
+      <!-- Buttons removed -->
     </div>
     
     <div>
@@ -339,14 +326,7 @@ eleventyNavigation:
   {% endif %}
 </div>
 {% else %}
-<div class="text-center mt-8 mb-8">
-  <a href="/blog/" class="gh-btn inline-flex items-center">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="mr-1.5">
-      <path d="M0 1.75A.75.75 0 01.75 1h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 1.75zm0 5A.75.75 0 01.75 6h14.5a.75.75 0 010 1.5H.75A.75.75 0 010 6.75zm0 5A.75.75 0 01.75 11h14.5a.75.75 0 010 1.5H.75a.75.75 0 01-.75-.75z"></path>
-    </svg>
-    View all blog posts
-  </a>
-</div>
+<!-- "View all blog posts" button removed -->
 {% endif %}
 
 {% if site.homepage.show_arxiv_papers and arxiv_feed %}
