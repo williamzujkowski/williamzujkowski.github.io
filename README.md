@@ -8,6 +8,7 @@ This is my personal website and blog, built with [11ty](https://www.11ty.dev/), 
 - Blog with markdown support and tag filtering
 - Configurable homepage with customizable sections
 - Links page with categorized resources in a grid layout
+- Rich link previews with metadata and screenshots using Microlink
 - GitHub repository pinning and showcase
 - arXiv research papers feed showing latest AI/ML and cybersecurity papers
 - Social media integration
@@ -225,6 +226,32 @@ The site uses Tailwind CSS for styling. Main CSS files:
 ## Deployment
 
 The site is configured for GitHub Pages deployment. When you push to the repository, GitHub Actions will automatically build and deploy the site.
+
+## Microlink Integration
+
+The site uses Microlink's open source tools to enhance link previews:
+
+- During the build process, `build-link-previews.js` generates screenshots and extracts metadata for all external links
+- This data is stored as JSON and used by the frontend to display rich link previews
+- The validation script `validate-links.js` can be run periodically to check link health
+- In case pre-generated data is unavailable, the site falls back to using the Microlink API in real-time
+
+To generate or update link previews:
+
+```
+npm run build:links
+```
+
+To validate links and check for broken URLs:
+
+```
+npm run validate:links
+```
+
+The tooling uses:
+- `metascraper` for metadata extraction
+- `puppeteer` and `@browserless/goto` for screenshot generation
+- Microlink's API as a fallback for real-time preview generation
 
 ## License
 
