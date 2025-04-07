@@ -1,5 +1,27 @@
 # Recent Updates
 
+## April 7, 2025 - Build Reliability and Dependency Updates
+
+1. **GitHub Actions Build Fixes**
+   - Added missing filters and shortcodes to root `.eleventy.simple.cjs` file
+   - Updated GitHub Actions workflow to use correct script paths
+   - Created a dedicated fallback data script to ensure valid data is available
+   - Made build process more robust with better error handling
+   - Fixed dependencies for Node.js 18 compatibility
+
+2. **Dependency Updates**
+   - Updated dependencies to address security vulnerabilities
+   - Downgraded got to v13.0.0 for Node.js 18 compatibility
+   - Downgraded puppeteer to v19.11.1 for better compatibility
+   - Updated markdown-it to v13.0.2 for compatibility
+   - Kept xml2js at v0.6.2 for stability
+
+3. **Build Process Improvements**
+   - Enhanced data generation with graceful fallbacks
+   - Fixed link previews script to handle invalid data
+   - Updated build scripts to continue even if data fetching fails
+   - Optimized CI builds by skipping heavy operations
+
 ## April 6, 2025 - Folder Structure Reorganization and Path Consistency
 
 1. **Fixed Configuration Paths**
