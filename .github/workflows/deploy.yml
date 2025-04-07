@@ -49,9 +49,11 @@ jobs:
         run: |
           mkdir -p _data
           echo "Fetching ArXiv data..."
-          node build-arxiv-feed.js || echo "ArXiv data fetch failed. Will use fallback data."
+          node scripts/build-arxiv-feed.js || echo "ArXiv data fetch failed. Will use fallback data."
           echo "Fetching GitHub pins..."
-          node build-github-pins.js || echo "GitHub pins fetch failed. Will use fallback data."
+          node scripts/build-github-pins.js || echo "GitHub pins fetch failed. Will use fallback data."
+          echo "Generating visualization data..."
+          node scripts/build-visualizations.js || echo "Visualization data generation failed. Will use fallback data."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -62,7 +64,7 @@ jobs:
         run: |
           mkdir -p _site/css
           # Try to process with PostCSS
-          NODE_OPTIONS=--openssl-legacy-provider npx postcss --config postcss.config.cjs src/css/styles.css -o _site/css/styles.css
+          NODE_OPTIONS=--openssl-legacy-provider npx postcss --config=config/postcss.config.cjs src/css/styles.css -o _site/css/styles.css
           if [ $? -ne 0 ]; then
             echo "PostCSS failed, using fallback CSS files"
             cp src/css/styles.css _site/css/styles.css
