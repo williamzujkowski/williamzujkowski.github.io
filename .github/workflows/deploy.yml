@@ -36,7 +36,10 @@ jobs:
           npm -v
       
       - name: Install dependencies
-        run: npm ci || npm install
+        run: |
+          # Remove lock file and install with fresh dependencies
+          rm -f package-lock.json
+          npm install
 
       - name: Prepare build environment
         run: |
@@ -48,14 +51,23 @@ jobs:
       - name: Generate data files
         run: |
           mkdir -p _data
+          
+          # Create fallback data files
+          echo '[]' > _data/arxiv-feed.json
+          echo '[]' > _data/github-pins.json
+          echo '{"data":[]}' > _data/contribution-heatmap.json
+          echo '{}' > _data/link-previews.json
+          
+          # Try to generate real data (but don't fail build if they fail)
           echo "Fetching ArXiv data..."
-          node scripts/build-arxiv-feed.js || echo "ArXiv data fetch failed. Will use fallback data."
+          node scripts/build-arxiv-feed.js || echo "ArXiv data fetch failed. Using fallback data."
           echo "Fetching GitHub pins..."
-          node scripts/build-github-pins.js || echo "GitHub pins fetch failed. Will use fallback data."
+          node scripts/build-github-pins.js || echo "GitHub pins fetch failed. Using fallback data."
           echo "Generating visualization data..."
-          node scripts/build-visualizations.js || echo "Visualization data generation failed. Will use fallback data."
+          node scripts/build-visualizations.js || echo "Visualization data generation failed. Using fallback data."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USE_FALLBACK_DATA: "true"
 
       - name: Build site
         run: npx @11ty/eleventy --config=.eleventy.simple.cjs
