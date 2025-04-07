@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build:css` - Build CSS with PostCSS only
 - `npm run debug` - Run 11ty with debug output
 - `npm run process:posts` - Process blog posts from new_posts/ directory
-- This site uses Eleventy 3.0 - make sure all code is compatible with this version
+- This site uses Eleventy 3.0 and Tailwind CSS 3.4.1 - make sure all code is compatible with these versions
+- Requires Node.js 20+ and npm 10+
 - Changes to eleventy config should reference `config/.eleventy.simple.cjs`
 
 ## Directory Structure

@@ -49,6 +49,24 @@ module.exports = function(eleventyConfig) {
   // Add Eleventy 3.0+ compatible shortcodes
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
+  // HTML to Absolute URLs for RSS feeds
+  eleventyConfig.addNunjucksAsyncFilter("htmlToAbsoluteUrls", function(html, base, callback) {
+    if(!html) {
+      callback(null, "");
+      return;
+    }
+    
+    try {
+      const baseUrl = new URL(base);
+      // Simple replacement for links and images
+      let result = html.replace(/(href|src)="(?!http|mailto|#|\/\/)(.*?)"/g, `$1="${baseUrl.origin}/$2"`);
+      callback(null, result);
+    } catch(e) {
+      console.error("Error converting HTML to absolute URLs:", e);
+      callback(null, html);
+    }
+  });
+  
   // Add breadcrumb shortcode
   eleventyConfig.addShortcode("breadcrumbs", function(page) {
     if (!page || !page.url) return "";

@@ -10,6 +10,9 @@ module.exports = {
   darkMode: 'class', // Enable dark mode variant
   theme: {
     extend: {
+      borderRadius: {
+        'github': '6px',
+      },
       colors: {
         // GitHub-inspired dark mode color scheme with enhanced contrast
         'primary': '#2ea043', // GitHub Green (dark) - brightened
@@ -38,9 +41,6 @@ module.exports = {
         'btn-primary': '0 0 transparent',
         'md': '0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
         'lg': '0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-      },
-      borderRadius: {
-        'github': '6px',
       },
       typography: {
         DEFAULT: {

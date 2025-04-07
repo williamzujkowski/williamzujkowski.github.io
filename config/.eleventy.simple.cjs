@@ -144,7 +144,24 @@ module.exports = function(eleventyConfig) {
   // RSS filters from the plugin
   eleventyConfig.addFilter("dateToRfc3339", rssPlugin.dateToRfc3339);
   eleventyConfig.addFilter("dateToRfc822", rssPlugin.dateToRfc822);
-  eleventyConfig.addFilter("htmlToAbsoluteUrls", rssPlugin.htmlToAbsoluteUrls);
+  
+  // HTML to Absolute URLs for RSS feeds
+  eleventyConfig.addNunjucksAsyncFilter("htmlToAbsoluteUrls", function(html, base, callback) {
+    if(!html) {
+      callback(null, "");
+      return;
+    }
+    
+    try {
+      const baseUrl = new URL(base);
+      // Simple replacement for links and images
+      let result = html.replace(/(href|src)="(?!http|mailto|#|\/\/)(.*?)"/g, `$1="${baseUrl.origin}/$2"`);
+      callback(null, result);
+    } catch(e) {
+      console.error("Error converting HTML to absolute URLs:", e);
+      callback(null, html);
+    }
+  });
   
   // Add shortcodes
   eleventyConfig.addShortcode("year", () => new Date().getFullYear());
