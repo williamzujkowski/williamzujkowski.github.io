@@ -1,125 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Troubleshooting</title>
-    <style>
-        /* Basic styles for troubleshooting */
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            color: #FFF824;
-            background-color: #151515;
-            padding: 20px;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-        
-        .troubleshoot-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            border-top: 2px solid #FFF824;
-        }
-        
-        code {
-            background-color: #f5f5f5;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: monospace;
-        }
-        
-        button {
-            background-color: #FFF824;
-            color: #151515;
-            border: none;
-            padding: 10px 15px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Troubleshooting CSS Issues</h1>
-        
-        <div class="troubleshoot-item">
-            <h2>Step 1: Clear Browser Cache</h2>
-            <p>GitHub Pages heavily caches content. Try the following:</p>
-            <ul>
-                <li>Press Ctrl+F5 (or Cmd+Shift+R on Mac) to force a hard refresh</li>
-                <li>Clear your browser's cache manually through browser settings</li>
-                <li>Try opening the site in an incognito/private window</li>
-            </ul>
-        </div>
-        
-        <div class="troubleshoot-item">
-            <h2>Step 2: Check CSS Loading</h2>
-            <p>Open your browser's Developer Tools (F12) and check:</p>
-            <ul>
-                <li>Network tab: Is styles.css loading correctly?</li>
-                <li>Look for any 404 errors or failed resource loads</li>
-                <li>Check if the CSS file size matches what's expected</li>
-            </ul>
-        </div>
-        
-        <div class="troubleshoot-item">
-            <h2>Step 3: Force CSS Update</h2>
-            <p>You can force GitHub Pages to update your CSS by:</p>
-            <ul>
-                <li>Adding a version query parameter to your CSS in the HTML</li>
-                <li>Example: <code>&lt;link rel="stylesheet" href="/css/styles.css?v=1"></code></li>
-                <li>Update the version number each time you make changes</li>
-            </ul>
-        </div>
-        
-        <div class="troubleshoot-item">
-            <h2>Step 4: Test CSS Colors</h2>
-            <p>This text should use the default text color.</p>
-            <p style="color: #FFF824;">This text should be yellow (#FFF824).</p>
-            <p style="color: #151515;">This text should be dark gray (#151515).</p>
-            <div style="background-color: #151515; color: #F3F3F3; padding: 10px;">
-                This should be light text on a dark background.
-            </div>
-        </div>
-        
-        <button id="check-styles">Check CSS Loading</button>
-        <div id="result"></div>
+---
+layout: base.njk
+title: Troubleshooting & Development Tools
+---
+
+<h1 class="text-2xl font-bold mb-4 mt-8">Troubleshooting & Development Tools</h1>
+
+<div class="grid grid-cols-1 gap-8">
+  <div class="bg-gray-light p-6 rounded-github border border-border">
+    <h2 class="text-xl font-semibold mb-4 text-white">URL Validator</h2>
+    <p class="mb-4">Validate all the external links on the site using Microlink API.</p>
+    <div class="flex flex-col">
+      <button id="validate-urls" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200 w-fit">
+        Validate URLs
+      </button>
+      <div id="validation-results" class="mt-4"></div>
     </div>
+  </div>
+  
+  <div class="bg-gray-light p-6 rounded-github border border-border">
+    <h2 class="text-xl font-semibold mb-4 text-white">Microlink Test</h2>
+    <p class="mb-4">Test the Microlink API on a specific URL:</p>
+    <div class="flex flex-col gap-4">
+      <input type="text" id="microlink-test-url" placeholder="Enter URL to test" class="px-4 py-2 bg-surface border border-border rounded-github text-white w-full">
+      <div class="flex gap-2">
+        <button id="test-metadata" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200">
+          Get Metadata
+        </button>
+        <button id="test-screenshot" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200">
+          Get Screenshot
+        </button>
+      </div>
+      <div id="microlink-test-results" class="mt-4"></div>
+    </div>
+  </div>
+  
+  <div class="bg-gray-light p-6 rounded-github border border-border">
+    <h2 class="text-xl font-semibold mb-4 text-white">Resource Diagnostics</h2>
+    <p class="mb-4">Check if CSS and JS files are loading correctly:</p>
+    <button id="check-styles" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200 w-fit">
+      Check Resources
+    </button>
+    <div id="result" class="mt-4"></div>
+  </div>
+</div>
+
+<script src="/js/url-validator.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Resource checker
+    document.getElementById('check-styles').addEventListener('click', function() {
+      const resultDiv = document.getElementById('result');
+      
+      // Get all stylesheets
+      const sheets = document.styleSheets;
+      let output = '<div class="bg-surface p-4 rounded-github"><h3 class="text-lg font-medium mb-2 text-white">Loaded Stylesheets:</h3><ul class="pl-4 list-disc mb-4">';
+      
+      // Loop through stylesheets
+      for (let i = 0; i < sheets.length; i++) {
+        try {
+          const sheet = sheets[i];
+          output += `<li class="mb-1 text-text">${sheet.href || 'Inline styles'} (${sheet.cssRules ? sheet.cssRules.length : 'unknown'} rules)</li>`;
+        } catch (e) {
+          output += `<li class="mb-1 text-red-400">Error accessing stylesheet: ${e.message}</li>`;
+        }
+      }
+      
+      output += '</ul>';
+      
+      // Get all scripts
+      const scripts = document.scripts;
+      output += '<h3 class="text-lg font-medium mb-2 text-white">Loaded Scripts:</h3><ul class="pl-4 list-disc">';
+      
+      // Loop through scripts
+      for (let i = 0; i < scripts.length; i++) {
+        const script = scripts[i];
+        if (script.src) {
+          output += `<li class="mb-1 text-text">${script.src}</li>`;
+        }
+      }
+      
+      output += '</ul></div>';
+      resultDiv.innerHTML = output;
+    });
     
-    <script>
-        // Script to check if CSS files are loading
-        document.getElementById('check-styles').addEventListener('click', function() {
-            const resultDiv = document.getElementById('result');
-            
-            // Get all stylesheets
-            const sheets = document.styleSheets;
-            let output = '<h3>Loaded Stylesheets:</h3><ul>';
-            
-            // Loop through stylesheets
-            for (let i = 0; i < sheets.length; i++) {
-                try {
-                    const sheet = sheets[i];
-                    output += `<li>${sheet.href || 'Inline styles'} (${sheet.cssRules ? sheet.cssRules.length : 'unknown'} rules)</li>`;
-                } catch (e) {
-                    output += `<li>Error accessing stylesheet: ${e.message}</li>`;
-                }
-            }
-            
-            output += '</ul>';
-            resultDiv.innerHTML = output;
-        });
-    </script>
-</body>
-</html>
+    // Microlink test
+    const testUrlInput = document.getElementById('microlink-test-url');
+    const testMetadataBtn = document.getElementById('test-metadata');
+    const testScreenshotBtn = document.getElementById('test-screenshot');
+    const testResults = document.getElementById('microlink-test-results');
+    
+    async function fetchMicrolinkData(url, options = {}) {
+      try {
+        const queryParams = new URLSearchParams(options).toString();
+        const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}${queryParams ? '&' + queryParams : ''}`;
+        
+        const response = await fetch(apiUrl);
+        return await response.json();
+      } catch (error) {
+        return { status: 'error', message: error.message };
+      }
+    }
+    
+    testMetadataBtn?.addEventListener('click', async () => {
+      const url = testUrlInput.value.trim();
+      if (!url) {
+        testResults.innerHTML = '<div class="p-4 bg-red-500/20 text-white rounded-github">Please enter a URL</div>';
+        return;
+      }
+      
+      testResults.innerHTML = '<div class="p-4 bg-surface rounded-github">Loading metadata...</div>';
+      
+      const data = await fetchMicrolinkData(url);
+      
+      if (data.status === 'success') {
+        let resultHtml = '<div class="bg-surface p-4 rounded-github">';
+        resultHtml += `<h3 class="text-lg text-white font-medium mb-2">Metadata for ${url}</h3>`;
+        
+        // Title and description
+        if (data.data.title) {
+          resultHtml += `<div class="mb-3"><strong class="text-accent">Title:</strong> <span class="text-white">${data.data.title}</span></div>`;
+        }
+        
+        if (data.data.description) {
+          resultHtml += `<div class="mb-3"><strong class="text-accent">Description:</strong> <span class="text-white">${data.data.description}</span></div>`;
+        }
+        
+        // Image if available
+        if (data.data.image && data.data.image.url) {
+          resultHtml += `<div class="mb-3">
+            <strong class="text-accent">Image:</strong><br>
+            <img src="${data.data.image.url}" alt="Preview image" class="mt-2 max-w-full h-auto rounded-github max-h-40 object-cover">
+          </div>`;
+        }
+        
+        // Logo if available
+        if (data.data.logo && data.data.logo.url) {
+          resultHtml += `<div class="mb-3">
+            <strong class="text-accent">Logo:</strong><br>
+            <img src="${data.data.logo.url}" alt="Logo" class="mt-2 max-h-10 object-contain rounded-github">
+          </div>`;
+        }
+        
+        // Publisher and author
+        if (data.data.publisher) {
+          resultHtml += `<div class="mb-3"><strong class="text-accent">Publisher:</strong> <span class="text-white">${data.data.publisher}</span></div>`;
+        }
+        
+        if (data.data.author) {
+          resultHtml += `<div class="mb-3"><strong class="text-accent">Author:</strong> <span class="text-white">${data.data.author}</span></div>`;
+        }
+        
+        resultHtml += '</div>';
+        testResults.innerHTML = resultHtml;
+      } else {
+        testResults.innerHTML = `<div class="p-4 bg-red-500/20 text-white rounded-github">
+          <strong>Error:</strong> ${data.message || 'Failed to fetch metadata'}
+        </div>`;
+      }
+    });
+    
+    testScreenshotBtn?.addEventListener('click', async () => {
+      const url = testUrlInput.value.trim();
+      if (!url) {
+        testResults.innerHTML = '<div class="p-4 bg-red-500/20 text-white rounded-github">Please enter a URL</div>';
+        return;
+      }
+      
+      testResults.innerHTML = '<div class="p-4 bg-surface rounded-github">Taking screenshot...</div>';
+      
+      const data = await fetchMicrolinkData(url, { screenshot: true });
+      
+      if (data.status === 'success' && data.data.screenshot) {
+        testResults.innerHTML = `
+          <div class="bg-surface p-4 rounded-github">
+            <h3 class="text-lg text-white font-medium mb-2">Screenshot for ${url}</h3>
+            <img src="${data.data.screenshot.url}" alt="Screenshot" class="w-full h-auto rounded-github border border-border">
+            <div class="mt-2 text-xs text-text-secondary">
+              Size: ${data.data.screenshot.width}x${data.data.screenshot.height}, 
+              Type: ${data.data.screenshot.type}, 
+              File size: ${Math.round(data.data.screenshot.size / 1024)}KB
+            </div>
+          </div>
+        `;
+      } else {
+        testResults.innerHTML = `<div class="p-4 bg-red-500/20 text-white rounded-github">
+          <strong>Error:</strong> ${data.message || 'Failed to take screenshot'}
+        </div>`;
+      }
+    });
+  });
+</script>
