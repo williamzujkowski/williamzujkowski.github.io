@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#1e1e2e"/>
+  
+  <!-- Background pattern - colorful dots -->
+  <g opacity="0.3">
+    <circle cx="100" cy="80" r="20" fill="#e86671"/>
+    <circle cx="200" cy="60" r="15" fill="#e5c07b"/>
+    <circle cx="300" cy="90" r="25" fill="#2ea043"/>
+    <circle cx="400" cy="70" r="18" fill="#79c0ff"/>
+    <circle cx="500" cy="85" r="22" fill="#c678dd"/>
+    <circle cx="600" cy="65" r="17" fill="#56b6c2"/>
+    <circle cx="700" cy="75" r="19" fill="#be5046"/>
+    
+    <circle cx="150" cy="350" r="20" fill="#e86671"/>
+    <circle cx="250" cy="370" r="15" fill="#e5c07b"/>
+    <circle cx="350" cy="340" r="25" fill="#2ea043"/>
+    <circle cx="450" cy="360" r="18" fill="#79c0ff"/>
+    <circle cx="550" cy="345" r="22" fill="#c678dd"/>
+    <circle cx="650" cy="365" r="17" fill="#56b6c2"/>
+    <circle cx="750" cy="355" r="19" fill="#be5046"/>
+  </g>
+  
+  <!-- Main display area -->
+  <rect x="150" y="120" width="500" height="200" rx="10" fill="#3b4150"/>
+  
+  <!-- Video player -->
+  <g transform="translate(400, 220)">
+    <rect x="-200" y="-80" width="400" height="160" fill="#1e1e2e"/>
+    
+    <!-- Video content placeholder -->
+    <g>
+      <!-- Planet Earth -->
+      <circle cx="-80" cy="0" r="50" fill="#1d4ed8"/>
+      <path d="M-120,-20 Q-100,-30 -80,-20 Q-60,-35 -40,-20" stroke="#2ea043" stroke-width="4" fill="none"/>
+      <path d="M-120,10 Q-90,0 -70,20 Q-50,10 -40,20" stroke="#2ea043" stroke-width="4" fill="none"/>
+      
+      <!-- Microscope -->
+      <g transform="translate(70, 0)">
+        <path d="M-10,-40 L10,-40 L5,-10 L-5,-10 Z" fill="#a3aab3"/>
+        <rect x="-15" y="-50" width="30" height="10" fill="#a3aab3"/>
+        <rect x="-3" y="-10" width="6" height="30" fill="#a3aab3"/>
+        <rect x="-15" y="20" width="30" height="10" fill="#a3aab3"/>
+      </g>
+      
+      <!-- Test tube -->
+      <g transform="translate(120, 0)">
+        <path d="M-10,-40 L10,-40 L15,20 L-15,20 Z" fill="#79c0ff" opacity="0.5"/>
+        <path d="M-10,-40 L10,-40 L15,20 L-15,20 Z" fill="none" stroke="#a3aab3" stroke-width="2"/>
+        <rect x="-12" y="-50" width="24" height="10" fill="#a3aab3"/>
+        <path d="M-8,0 L8,0 L6,15 L-6,15 Z" fill="#c678dd" opacity="0.7"/>
+      </g>
+    </g>
+    
+    <!-- Video player controls -->
+    <g transform="translate(0, 70)">
+      <rect x="-200" y="-10" width="400" height="20" fill="#3b4150"/>
+      <circle cx="-180" cy="0" r="8" fill="#a3aab3"/>
+      <polygon points="-178,-5 -178,5 -172,0" fill="#1e1e2e"/>
+      
+      <!-- Progress bar -->
+      <rect x="-160" y="-3" width="300" height="6" rx="3" fill="#1e1e2e"/>
+      <rect x="-160" y="-3" width="120" height="6" rx="3" fill="#79c0ff"/>
+      
+      <!-- Volume control -->
+      <path d="M150,0 L160,0 L165,5 L165,-5 L160,0" fill="#a3aab3"/>
+      <path d="M170,-5 C175,-3 175,3 170,5" stroke="#a3aab3" stroke-width="1" fill="none"/>
+      <path d="M175,-8 C183,-4 183,4 175,8" stroke="#a3aab3" stroke-width="1" fill="none"/>
+    </g>
+  </g>
+  
+  <!-- Playful characters -->
+  <g>
+    <!-- Kid figure 1 -->
+    <g transform="translate(120, 200)">
+      <circle cx="0" cy="-30" r="20" fill="#e5c07b"/>
+      <circle cx="-7" cy="-35" r="3" fill="#1e1e2e"/>
+      <circle cx="7" cy="-35" r="3" fill="#1e1e2e"/>
+      <path d="M-5,-25 C0,-20 5,-20 10,-25" stroke="#1e1e2e" stroke-width="2" fill="none"/>
+      <rect x="-15" y="-10" width="30" height="40" rx="5" fill="#79c0ff"/>
+      <rect x="-20" y="30" width="10" height="20" fill="#3b4150"/>
+      <rect x="10" y="30" width="10" height="20" fill="#3b4150"/>
+    </g>
+    
+    <!-- Kid figure 2 -->
+    <g transform="translate(680, 200)">
+      <circle cx="0" cy="-30" r="20" fill="#e86671"/>
+      <circle cx="-7" cy="-35" r="3" fill="#1e1e2e"/>
+      <circle cx="7" cy="-35" r="3" fill="#1e1e2e"/>
+      <path d="M-8,-25 C0,-18 8,-25 8,-25" stroke="#1e1e2e" stroke-width="2" fill="none"/>
+      <rect x="-15" y="-10" width="30" height="40" rx="5" fill="#2ea043"/>
+      <rect x="-20" y="30" width="10" height="20" fill="#3b4150"/>
+      <rect x="10" y="30" width="10" height="20" fill="#3b4150"/>
+    </g>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="370" text-anchor="middle" font-family="Arial" font-size="40" font-weight="bold" fill="white">The Kid Should See This</text>
+  <text x="400" y="410" text-anchor="middle" font-family="Arial" font-size="22" fill="#79c0ff">Educational videos for curious minds</text>
+</svg>

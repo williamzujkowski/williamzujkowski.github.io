@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#1e1e2e"/>
+  <g fill="#79c0ff" transform="translate(100,100) scale(0.5)">
+    <path d="M142.538 33.338c-23.546-11.774-51.752-11.774-75.296 0l-22.584 11.292c-23.544 11.772-38.498 35.736-38.498 61.9v22.584c0 26.164 14.954 50.126 38.496 61.898l22.586 11.292c23.544 11.774 51.75 11.774 75.296 0l22.584-11.292c23.544-11.772 38.498-35.734 38.498-61.898v-22.584c0-26.164-14.954-50.128-38.498-61.9l-22.584-11.292z"/>
+  </g>
+  <text x="400" y="280" text-anchor="middle" font-family="Arial" font-size="40" font-weight="bold" fill="white">Learn X in Y Minutes</text>
+  <text x="400" y="320" text-anchor="middle" font-family="Arial" font-size="22" fill="#79c0ff">Quick programming language tutorials</text>
+
+  <!-- Programming Language Symbols -->
+  <g transform="translate(445, 100)">
+    <text font-family="monospace" font-size="40" fill="#e86671">{}</text>
+  </g>
+  <g transform="translate(500, 100)">
+    <text font-family="monospace" font-size="40" fill="#98c379">def</text>
+  </g>
+  <g transform="translate(555, 100)">
+    <text font-family="monospace" font-size="40" fill="#61afef">()</text>
+  </g>
+  <g transform="translate(600, 100)">
+    <text font-family="monospace" font-size="40" fill="#e5c07b">;</text>
+  </g>
+  <g transform="translate(445, 150)">
+    <text font-family="monospace" font-size="40" fill="#c678dd">&lt;&gt;</text>
+  </g>
+  <g transform="translate(500, 150)">
+    <text font-family="monospace" font-size="40" fill="#56b6c2">$_</text>
+  </g>
+  <g transform="translate(555, 150)">
+    <text font-family="monospace" font-size="40" fill="#be5046">#</text>
+  </g>
+  <g transform="translate(600, 150)">
+    <text font-family="monospace" font-size="40" fill="#98c379">-&gt;</text>
+  </g>
+</svg>
