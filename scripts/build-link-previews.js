@@ -38,7 +38,7 @@ const metascraperWithRules = metascraper([
 // Set screenshot dimensions
 const VIEWPORT = { width: 1200, height: 675, deviceScaleFactor: 1 };
 const SCREENSHOT_QUALITY = 80;
-const OUTPUT_DIR = path.join(__dirname, '_data');
+const OUTPUT_DIR = path.join(__dirname, '..', '_data');
 const MAX_CONCURRENT = 3; // Maximum concurrent operations to avoid overloading
 
 /**
@@ -149,7 +149,7 @@ async function main() {
     await fs.mkdir(path.join(OUTPUT_DIR, 'screenshots'), { recursive: true });
     
     // Read site configuration with links
-    const siteJsonPath = path.join(__dirname, 'src', '_data', 'site.json');
+    const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
     const siteJson = JSON.parse(await fs.readFile(siteJsonPath, 'utf-8'));
     
     // Extract all links to process
@@ -318,7 +318,7 @@ async function main() {
     await fs.writeFile(outputPath, JSON.stringify(finalLinkData, null, 2));
     
     // Ensure screenshots directory is copied to assets
-    const assetsScreenshotsDir = path.join(__dirname, 'assets', 'data', 'screenshots');
+    const assetsScreenshotsDir = path.join(__dirname, '..', 'assets', 'data', 'screenshots');
     await fs.mkdir(assetsScreenshotsDir, { recursive: true });
     
     // Copy all screenshots to assets directory

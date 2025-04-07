@@ -147,7 +147,7 @@ async function main() {
   const papers = categorizedPapers.map(transformEntry);
 
   // Define the output path
-  const outputDir = path.join(__dirname, '_data');
+  const outputDir = path.join(__dirname, '..', '_data');
   const outputFile = path.join(outputDir, 'arxiv-feed.json');
 
   // Ensure the _data directory exists

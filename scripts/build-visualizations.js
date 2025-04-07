@@ -11,9 +11,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Source directory for blog posts
-const POSTS_DIR = path.join(__dirname, 'src', 'posts');
+const POSTS_DIR = path.join(__dirname, '..', 'src', 'posts');
 // Output file for heatmap data
-const OUTPUT_FILE = path.join(__dirname, '_data', 'contribution-heatmap.json');
+const OUTPUT_FILE = path.join(__dirname, '..', '_data', 'contribution-heatmap.json');
 
 /**
  * Extract date from filename that follows the pattern YYYY-MM-DD-title.md

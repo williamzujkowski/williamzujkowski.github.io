@@ -91,7 +91,7 @@ async function fetchPinnedRepos() {
 
 async function main() {
   // Check if site.json exists and has pinned repositories
-  const siteJsonPath = path.join(__dirname, 'src', '_data', 'site.json');
+  const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
   let configPinnedRepos = [];
   
   try {
@@ -113,7 +113,7 @@ async function main() {
   // If we have repos from config, use those
   if (configPinnedRepos.length > 0) {
     // Define the output path
-    const outputDir = path.join(__dirname, '_data');
+    const outputDir = path.join(__dirname, '..', '_data');
     const outputFile = path.join(outputDir, 'github-pins.json');
 
     // Ensure the _data directory exists
@@ -152,7 +152,7 @@ async function main() {
   }
 
   // Define the output path
-  const outputDir = path.join(__dirname, '_data');
+  const outputDir = path.join(__dirname, '..', '_data');
   const outputFile = path.join(outputDir, 'github-pins.json');
 
   // Ensure the _data directory exists

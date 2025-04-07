@@ -7,7 +7,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import got from 'got';
 
 // Set up __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -23,15 +22,22 @@ async function validateUrl(url) {
   try {
     console.log(`Validating ${url}...`);
     // Just check if the URL is accessible, don't download full content
-    const response = await got.head(url, {
-      timeout: 10000, // 10 second timeout
-      followRedirect: true
+    // Using fetch method directly to avoid API compatibility issues with got
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    const response = await fetch(url, {
+      method: 'HEAD',
+      redirect: 'follow',
+      signal: controller.signal
     });
+    
+    clearTimeout(timeoutId);
     
     return {
       url,
       status: 'valid',
-      statusCode: response.statusCode,
+      statusCode: response.status,
       validatedAt: new Date().toISOString()
     };
   } catch (error) {
@@ -39,7 +45,7 @@ async function validateUrl(url) {
     return {
       url,
       status: 'invalid',
-      statusCode: error.response?.statusCode || 'unknown',
+      statusCode: 'unknown',
       message: error.message,
       validatedAt: new Date().toISOString()
     };

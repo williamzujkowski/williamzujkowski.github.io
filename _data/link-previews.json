@@ -3,8 +3,8 @@
     "id": "github",
     "url": "https://github.com/williamzujkowski",
     "name": "GitHub",
-    "type": "social",
-    "group": null,
+    "type": "link",
+    "group": "Social",
     "metadata": {
       "author": null,
       "date": null,
@@ -17,28 +17,28 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/github.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "linkedin",
     "url": "https://linkedin.com/in/williamzujkowski",
     "name": "LinkedIn",
-    "type": "social",
-    "group": null,
+    "type": "link",
+    "group": "Social",
     "metadata": {
       "url": "https://linkedin.com/in/williamzujkowski",
       "status": "error",
       "message": "Response code 404 (Not Found)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "bluesky",
     "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
     "name": "Bluesky",
-    "type": "social",
-    "group": null,
+    "type": "link",
+    "group": "Social",
     "metadata": {
       "author": null,
       "date": null,
@@ -51,7 +51,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/bluesky.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "personal-website",
@@ -63,7 +63,7 @@
       "author": "williamzujkowski",
       "date": null,
       "description": "Contribute to williamzujkowski/williamzujkowski.github.io development by creating an account on GitHub.",
-      "image": "https://opengraph.githubassets.com/120727a596ca4e2202510ccebe8d314c03e17171f1317081498fee95e2a3eb5e/williamzujkowski/williamzujkowski.github.io",
+      "image": "https://opengraph.githubassets.com/70c36c3e92b05250945cfd102358cb61f448d0c4551ae97769a01c14f351ac23/williamzujkowski/williamzujkowski.github.io",
       "logo": null,
       "publisher": "GitHub",
       "title": "GitHub - williamzujkowski/williamzujkowski.github.io",
@@ -71,21 +71,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/personal-website.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
-  },
-  {
-    "id": "arxiv-feed-generator",
-    "url": "https://github.com/williamzujkowski/arxiv-feed-generator",
-    "name": "ArXiv Feed Generator",
-    "type": "link",
-    "group": "Projects",
-    "metadata": {
-      "url": "https://github.com/williamzujkowski/arxiv-feed-generator",
-      "status": "error",
-      "message": "Response code 404 (Not Found)"
-    },
-    "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "learn-x-in-y-minutes",
@@ -105,7 +91,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/learn-x-in-y-minutes.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "set-up-your-own-lte-network",
@@ -125,7 +111,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/set-up-your-own-lte-network.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "international-space-elevator-consortium",
@@ -145,7 +131,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/international-space-elevator-consortium.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "orion's-arm-universe-project",
@@ -165,7 +151,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/orion's-arm-universe-project.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "dustinbrett.com",
@@ -185,7 +171,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/dustinbrett.com.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "parallel-lives",
@@ -205,7 +191,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/parallel-lives.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "simone-computer",
@@ -225,7 +211,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/simone-computer.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "departure-mono",
@@ -245,7 +231,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/departure-mono.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "stippler",
@@ -265,7 +251,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/stippler.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "centauri-dreams",
@@ -285,7 +271,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/centauri-dreams.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "center-for-postnatural-history",
@@ -305,7 +291,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/center-for-postnatural-history.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "museum-of-obsolete-media",
@@ -325,7 +311,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/museum-of-obsolete-media.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "the-public-domain-review",
@@ -345,7 +331,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/the-public-domain-review.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "radio-garden",
@@ -365,7 +351,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/radio-garden.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "submarine-cable-map",
@@ -385,7 +371,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/submarine-cable-map.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:46:45.481Z"
   },
   {
     "id": "the-tau-zero-foundation",
@@ -405,7 +391,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/the-tau-zero-foundation.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "falling-falling",
@@ -425,7 +411,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/falling-falling.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "floor796",
@@ -445,7 +431,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/floor796.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "yyyyyyy",
@@ -465,7 +451,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/yyyyyyy.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "national-film-registry",
@@ -485,7 +471,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/national-film-registry.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "international-association-of-exorcists",
@@ -505,7 +491,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/international-association-of-exorcists.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "paperclip-ai-game",
@@ -525,7 +511,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/paperclip-ai-game.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "the-kid-should-see-this",
@@ -539,7 +525,7 @@
       "message": "Response code 403 (Forbidden)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "the-website-is-down",
@@ -559,7 +545,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/the-website-is-down.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "zombo.com",
@@ -579,7 +565,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/zombo.com.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "nested",
@@ -599,7 +585,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/nested.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:47:16.006Z"
   },
   {
     "id": "stimulation-clicker",
@@ -613,7 +599,7 @@
       "message": "Response code 403 (Forbidden)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "mementomovi",
@@ -633,35 +619,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/mementomovi.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
-  },
-  {
-    "id": "quirkzone",
-    "url": "https://quirkzone.org/",
-    "name": "QuirkZone",
-    "type": "link",
-    "group": "Fun & Curiosities",
-    "metadata": {
-      "url": "https://quirkzone.org/",
-      "status": "error",
-      "message": "getaddrinfo ENOTFOUND quirkzone.org"
-    },
-    "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
-  },
-  {
-    "id": "funky-fossils",
-    "url": "https://funkyfossils.com/",
-    "name": "Funky Fossils",
-    "type": "link",
-    "group": "Fun & Curiosities",
-    "metadata": {
-      "url": "https://funkyfossils.com/",
-      "status": "error",
-      "message": "getaddrinfo EAI_AGAIN funkyfossils.com"
-    },
-    "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "cloud-security-framework",
@@ -675,7 +633,7 @@
       "message": "Response code 404 (Not Found)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "rag-powered-knowledge-base",
@@ -689,7 +647,7 @@
       "message": "Response code 404 (Not Found)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "edge-ml-toolkit",
@@ -703,7 +661,7 @@
       "message": "Response code 404 (Not Found)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "williamzujkowski.github.io",
@@ -715,7 +673,7 @@
       "author": "williamzujkowski",
       "date": null,
       "description": "Contribute to williamzujkowski/williamzujkowski.github.io development by creating an account on GitHub.",
-      "image": "https://opengraph.githubassets.com/120727a596ca4e2202510ccebe8d314c03e17171f1317081498fee95e2a3eb5e/williamzujkowski/williamzujkowski.github.io",
+      "image": "https://opengraph.githubassets.com/70c36c3e92b05250945cfd102358cb61f448d0c4551ae97769a01c14f351ac23/williamzujkowski/williamzujkowski.github.io",
       "logo": null,
       "publisher": "GitHub",
       "title": "GitHub - williamzujkowski/williamzujkowski.github.io",
@@ -723,7 +681,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/williamzujkowski.github.io.jpg",
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:53:44.186Z"
   },
   {
     "id": "quantum-resistant-crypto-demo",
@@ -737,7 +695,7 @@
       "message": "Response code 404 (Not Found)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   },
   {
     "id": "secure-devops-pipeline",
@@ -751,6 +709,6 @@
       "message": "Response code 404 (Not Found)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-07T02:08:38.110Z"
+    "last_checked": "2025-04-07T03:51:02.236Z"
   }
 ]

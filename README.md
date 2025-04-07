@@ -13,6 +13,16 @@ This is my personal website and blog, built with [11ty](https://www.11ty.dev/), 
 - arXiv research papers feed showing latest AI/ML and cybersecurity papers
 - Social media integration
 - RSS feed
+- Automated blog post processing and publishing workflow
+- Link validation and management tools
+
+## Documentation
+
+To learn how to work with this site, check out these documents:
+
+- [MAINTENANCE.md](MAINTENANCE.md) - Complete guide to maintaining and updating the website
+- [BLOG-WORKFLOW.md](BLOG-WORKFLOW.md) - Instructions for creating and publishing blog posts
+- [CLAUDE.md](CLAUDE.md) - Guidelines for AI assistance with this codebase
 
 ## Development
 
@@ -21,7 +31,7 @@ To work on this site locally:
 1. Clone the repository
 2. Install dependencies: `npm install`
 3. Start the development server: `npm run dev`
-4. Visit `http://localhost:8080` in your browser
+4. Visit `http://localhost:8082` in your browser
 
 ## Build
 
@@ -166,7 +176,31 @@ Blog settings are managed in the `blog` section:
 
 ### Blog Posts
 
-Blog posts are markdown files stored in the `src/posts` directory. Each post should include front matter at the top:
+#### Option 1: Automated Blog Post Processing
+
+The recommended way to add blog posts is using our automated processing system:
+
+1. Create a file in the `new_posts/` directory using either:
+   - A `.txt` file with the title on the first line
+   - A `.md` file with an H1 header or front matter for the title
+
+2. Run the processing script:
+   ```bash
+   npm run process:posts
+   ```
+
+3. The script will:
+   - Format the post with proper frontmatter
+   - Schedule it appropriately (10-14 days after the most recent post)
+   - Add appropriate tags based on content analysis
+   - Suggest relevant images
+   - Place the final post in `src/posts/`
+
+For detailed instructions, see [BLOG-WORKFLOW.md](BLOG-WORKFLOW.md).
+
+#### Option 2: Manual Blog Post Creation
+
+You can also manually create posts as markdown files in the `src/posts` directory. Each post should include front matter at the top:
 
 ```markdown
 ---
@@ -240,23 +274,26 @@ The site uses Microlink's open source tools to enhance link previews:
 
 ### Link Preview Generation
 
-Initial setup (generates previews for all links):
+The site includes a comprehensive link management system that handles:
+- Generating metadata for links (title, description, author, etc.)
+- Creating screenshots of linked websites
+- Validating link health
+- Managing incremental updates to minimize processing time
 
-```
+Available commands:
+
+```bash
+# Initial setup (generates previews for all links)
 npm run process:links:initial
-```
 
-Regular updates (automatically included in the build process):
-
-```
+# Regular updates (automatically included in the build process)
 npm run build:links
-```
 
-Link health validation:
-
-```
+# Link health validation
 npm run validate:links
 ```
+
+For detailed instructions on link management, see [MAINTENANCE.md](MAINTENANCE.md).
 
 ### How Link Preview Generation Works
 
