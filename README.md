@@ -73,6 +73,7 @@ The homepage is highly customizable through the `homepage` section in `site.json
   "recent_posts_count": 3,
   "show_activity_timeline": false,
   "show_github_pins": true,
+  "show_github_repos_on_links": false,
   "show_arxiv_papers": true,
   "pinned_repositories": [ ... ],
   "skills": [ ... ],
@@ -83,7 +84,8 @@ The homepage is highly customizable through the `homepage` section in `site.json
 Toggle features on/off by changing the boolean values:
 - `show_recent_posts`: Display recent blog posts
 - `show_activity_timeline`: Show the blog post activity timeline
-- `show_github_pins`: Display pinned GitHub repositories
+- `show_github_pins`: Display pinned GitHub repositories on homepage
+- `show_github_repos_on_links`: Display GitHub repositories on links page
 - `show_arxiv_papers`: Show the arXiv papers section
 
 ### Navigation

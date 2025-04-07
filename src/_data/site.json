@@ -20,6 +20,7 @@
     "show_activity_timeline": false,
     "show_contribution_heatmap": false,
     "show_github_pins": true,
+    "show_github_repos_on_links": false,
     "show_arxiv_papers": true,
     "pinned_repositories": [
       {
