@@ -83,8 +83,8 @@ jobs:
             cp config/tailwind.config.cjs ./tailwind.config.cjs
           fi
           
-          # Process with PostCSS
-          npx postcss --config=config/postcss.config.cjs src/css/styles.css -o _site/css/styles.css
+          # Process with PostCSS using Tailwind v3
+          USE_TAILWIND_V3=true npx postcss --config=config/postcss.config.cjs src/css/styles.css -o _site/css/styles.css
           
           # Copy basic CSS as a fallback just in case
           cp src/css/basic.css _site/css/basic.css
