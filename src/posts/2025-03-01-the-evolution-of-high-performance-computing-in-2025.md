@@ -1,5 +1,5 @@
 ---
-title: "Summary"
+title: "The Evolution of High-Performance Computing in 2025"
 date: 2025-03-01
 layout: post.njk
 tags: posts, ai, cloud, devops, programming, architecture

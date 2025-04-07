@@ -1,17 +1,19 @@
 [
   {
-    "id": "http://arxiv.org/abs/2504.02827v1",
-    "title": "On Vanishing Variance in Transformer Length Generalization",
-    "summary": "It is a widely known issue that Transformers, when trained on shorter\nsequences, fail to generalize robustly to longer ones at test time. This raises\nthe question of whether Transformer models are real reasoning engines, despite\ntheir impressive abilities in mathematical problem solving and code synthesis.\nIn this paper, we offer a vanishing variance perspective on this issue. To the\nbest of our knowledge, we are the first to demonstrate that even for today's\nfrontier models, a longer sequence length results in a decrease in variance in\nthe output of the multi-head attention modules. On the argmax retrieval and\ndictionary lookup tasks, our experiments show that applying layer normalization\nafter the attention outputs leads to significantly better length\ngeneralization. Our analyses attribute this improvement to a reduction-though\nnot a complete elimination-of the distribution shift caused by vanishing\nvariance.",
-    "published": "2025-04-03T17:59:56Z",
-    "updated": "2025-04-03T17:59:56Z",
+    "id": "http://arxiv.org/abs/2504.03635v1",
+    "title": "Do Larger Language Models Imply Better Reasoning? A Pretraining Scaling\n  Law for Reasoning",
+    "summary": "Large Language Models (LLMs) have demonstrated remarkable capabilities across\na wide range of tasks requiring complex reasoning. However, the effects of\nscaling on their reasoning abilities remain insufficiently understood. In this\npaper, we introduce a synthetic multihop reasoning environment designed to\nclosely replicate the structure and distribution of real-world large-scale\nknowledge graphs. Our reasoning task involves completing missing edges in the\ngraph, which requires advanced multi-hop reasoning and mimics real-world\nreasoning scenarios. To evaluate this, we pretrain language models (LMs) from\nscratch solely on triples from the incomplete graph and assess their ability to\ninfer the missing edges. Interestingly, we observe that overparameterization\ncan impair reasoning performance due to excessive memorization. We investigate\ndifferent factors that affect this U-shaped loss curve, including graph\nstructure, model size, and training steps. To predict the optimal model size\nfor a specific knowledge graph, we find an empirical scaling that linearly maps\nthe knowledge graph search entropy to the optimal model size. This work\nprovides new insights into the relationship between scaling and reasoning in\nLLMs, shedding light on possible ways to optimize their performance for\nreasoning tasks.",
+    "published": "2025-04-04T17:57:22Z",
+    "updated": "2025-04-04T17:57:22Z",
     "authors": [
-      "Ruining Li",
-      "Gabrijel Boduljak",
-      " Jensen",
-      " Zhou"
+      "Xinyi Wang",
+      "Shawn Tan",
+      "Mingyu Jin",
+      "William Yang Wang",
+      "Rameswar Panda",
+      "Yikang Shen"
     ],
-    "link": "http://arxiv.org/abs/2504.02827v1",
+    "link": "http://arxiv.org/abs/2504.03635v1",
     "categoryLabel": "AI/ML"
   }
 ]
