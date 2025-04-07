@@ -24,6 +24,42 @@ To learn how to work with this site, check out these documents:
 - [BLOG-WORKFLOW.md](BLOG-WORKFLOW.md) - Instructions for creating and publishing blog posts
 - [CLAUDE.md](CLAUDE.md) - Guidelines for AI assistance with this codebase
 
+## Project Structure
+
+```
+williamzujkowski.github.io/
+├── _data/               # Global data files
+├── _includes/           # Include templates
+├── _layouts/            # Layout templates
+├── _site/               # Build output directory
+├── assets/              # Static assets
+│   ├── data/            # Data assets (screenshots, etc.)
+│   ├── icons/           # Site icons
+│   └── images/          # Site images
+├── config/              # Configuration files
+│   ├── .eleventy.cjs
+│   ├── .eleventy.simple.cjs
+│   ├── postcss.config.cjs
+│   └── tailwind.config.cjs
+├── new_posts/           # Directory for new blog posts
+│   └── processed/       # Processed posts archive
+├── scripts/             # Build scripts
+│   ├── build-arxiv-feed.js
+│   ├── build-github-pins.js
+│   ├── build-link-previews.js
+│   └── build-visualizations.js
+├── src/                 # Source files
+│   ├── _data/           # Site configuration data
+│   ├── _includes/       # Template includes
+│   ├── _layouts/        # Template layouts
+│   ├── css/             # Stylesheets
+│   ├── js/              # JavaScript files
+│   └── posts/           # Blog posts
+└── tools/               # Utility tools
+    ├── process-new-posts.js
+    └── validation/      # Validation tools
+```
+
 ## Development
 
 To work on this site locally:

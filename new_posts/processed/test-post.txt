@@ -1,0 +1,3 @@
+Test Post Title
+
+This is a test post to verify the post processing script is working correctly. This post should be processed by the tools/process-new-posts.js script.

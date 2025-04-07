@@ -67,14 +67,14 @@ module.exports = function(eleventyConfig) {
   
   // Load site configuration as global data
   eleventyConfig.addGlobalData("site", () => {
-    const configPath = path.join(__dirname, 'src', '_data', 'site.json');
+    const configPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
     return JSON.parse(fs.readFileSync(configPath, 'utf8'));
   });
   
   // Load ArXiv feed data if available
   eleventyConfig.addGlobalData("arxiv_feed", () => {
     try {
-      const feedPath = path.join(__dirname, '_data', 'arxiv-feed.json');
+      const feedPath = path.join(__dirname, '..', '_data', 'arxiv-feed.json');
       if (fs.existsSync(feedPath)) {
         return JSON.parse(fs.readFileSync(feedPath, 'utf8'));
       }
@@ -89,7 +89,7 @@ module.exports = function(eleventyConfig) {
   // Load GitHub pinned repositories if available
   eleventyConfig.addGlobalData("github_pins", () => {
     try {
-      const pinsPath = path.join(__dirname, '_data', 'github-pins.json');
+      const pinsPath = path.join(__dirname, '..', '_data', 'github-pins.json');
       if (fs.existsSync(pinsPath)) {
         return JSON.parse(fs.readFileSync(pinsPath, 'utf8'));
       }
@@ -112,11 +112,11 @@ module.exports = function(eleventyConfig) {
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
     dir: {
-      input: ".",
+      input: "src",
+      output: "_site",
       includes: "_includes",
       layouts: "_layouts",
-      data: "_data",
-      output: "_site"
+      data: "_data"
     }
   };
 };
