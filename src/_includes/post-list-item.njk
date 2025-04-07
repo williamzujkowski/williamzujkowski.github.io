@@ -1,0 +1,21 @@
+<li class="gh-post-item searchable">
+  <a href="{{ post.url }}" class="gh-post-title">{{ post.data.title }}</a>
+  
+  <div class="gh-post-date">
+    {% if post.data.date %}
+      {{ post.data.date | readableDate }}
+    {% else %}
+      Unknown Date
+    {% endif %}
+  </div>
+  
+  <div class="gh-post-excerpt">
+    {% if post.data.description %}
+      {{ post.data.description }}
+    {% elif post.templateContent %}
+      {{ post.templateContent | striptags | truncate(150) }}
+    {% else %}
+      No description available
+    {% endif %}
+  </div>
+</li>

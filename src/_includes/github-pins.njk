@@ -1,0 +1,59 @@
+<section class="github-pins">
+  <h2 class="text-2xl font-bold mb-4 text-primary-light dark:text-primary-dark">Pinned Repositories</h2>
+  {% if github_pins and github_pins.length > 0 %}
+    <div class="github-pins-grid">
+      {% for repo in github_pins %}
+        <div class="repo-card">
+          <div class="repo-card-header">
+            <a href="{{ repo.url }}" target="_blank" class="repo-card-name">{{ repo.name }}</a>
+          </div>
+          <div class="repo-card-description">
+            {% if repo.description %}
+              {{ repo.description }}
+            {% else %}
+              <em>No description provided</em>
+            {% endif %}
+          </div>
+          <div class="repo-card-footer">
+            {% if repo.primaryLanguage %}
+              <div class="repo-language">
+                <span class="language-dot" style="background-color: {{ repo.primaryLanguage.color }}"></span>
+                <span>{{ repo.primaryLanguage.name }}</span>
+              </div>
+            {% endif %}
+            <div class="repo-stats">
+              {% if repo.stargazerCount > 0 %}
+                <span title="{{ repo.stargazerCount }} stars">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="inline-block mr-1">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                  {{ repo.stargazerCount }}
+                </span>
+              {% endif %}
+              {% if repo.forkCount > 0 %}
+                <span title="{{ repo.forkCount }} forks">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="inline-block mr-1">
+                    <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zM8 12.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/>
+                  </svg>
+                  {{ repo.forkCount }}
+                </span>
+              {% endif %}
+            </div>
+            <div class="ml-auto text-xs opacity-75">
+              {% if repo.updatedAt %}
+                Updated {{ repo.updatedAt | readableDate }}
+              {% else %}
+                Recently updated
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-center p-4 border border-border-light dark:border-border-dark rounded">
+      <p>No pinned repositories found.</p>
+      <p class="text-sm mt-2">Pin repositories on your GitHub profile to display them here.</p>
+    </div>
+  {% endif %}
+</section>
