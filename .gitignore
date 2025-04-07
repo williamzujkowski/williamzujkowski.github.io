@@ -4,6 +4,10 @@ _site/
 # package-lock.json is now required for npm ci
 .DS_Store
 
+# Keep link preview data but ignore temp working files
+_data/temp/
+_data/link-validation-results.json
+
 # Legacy Textual files
 __pycache__/
 *.py[cod]

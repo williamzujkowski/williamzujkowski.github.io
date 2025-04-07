@@ -148,7 +148,6 @@
     { "name": "LinkedIn", "url": "https://linkedin.com/in/williamzujkowski", "group": "Social", "icon": "LinkedIn" },
     { "name": "Bluesky", "url": "https://bsky.app/profile/williamzujkowski.bsky.social", "group": "Social", "icon": "Bluesky" },
     { "name": "Personal Website", "url": "https://github.com/williamzujkowski/williamzujkowski.github.io", "group": "Projects", "description": "My personal website and tech blog built with 11ty" },
-    { "name": "ArXiv Feed Generator", "url": "https://github.com/williamzujkowski/arxiv-feed-generator", "group": "Projects", "description": "Tool to fetch and display latest research papers from arXiv" },
     
     { "name": "Learn X in Y Minutes", "url": "https://learnxinyminutes.com/", "group": "Technology & Innovation", "description": "Quick programming language tutorials" },
     { "name": "Set Up Your Own LTE Network", "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/", "group": "Technology & Innovation", "description": "DIY guide to building your very own LTE network" },
@@ -179,9 +178,8 @@
     { "name": "Zombo.com", "url": "https://zombo.com/", "group": "Fun & Curiosities", "description": "A surreal, humorous portal promising endless possibilities" },
     { "name": "Nested", "url": "https://orteil.dashnet.org/nested", "group": "Fun & Curiosities", "description": "A mesmerizing interactive experience exploring infinite recursion" },
     { "name": "Stimulation Clicker", "url": "https://neal.fun/stimulation-clicker/", "group": "Fun & Curiosities", "description": "A playful clicker game that tests your patience and curiosity" },
-    { "name": "MementoMovi", "url": "https://mementomovi.wackyneighbor.com/", "group": "Fun & Curiosities", "description": "A quirky site combining art and memory in unexpected ways" },
-    { "name": "QuirkZone", "url": "https://quirkzone.org/", "group": "Fun & Curiosities", "description": "A collection of offbeat curiosities and unexpected internet gems" },
-    { "name": "Funky Fossils", "url": "https://funkyfossils.com/", "group": "Fun & Curiosities", "description": "A whimsical journey through bizarre prehistoric discoveries" }
+    { "name": "MementoMovi", "url": "https://mementomovi.wackyneighbor.com/", "group": "Fun & Curiosities", "description": "A quirky site combining art and memory in unexpected ways" }
+ 
   ],
   "blog": {
     "postsPerPage": 5,
