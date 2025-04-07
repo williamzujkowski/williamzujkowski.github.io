@@ -183,10 +183,13 @@ async function main() {
     
     try {
       const existingData = await fs.readFile(outputPath, 'utf-8');
-      existingLinks = JSON.parse(existingData);
+      const parsedData = JSON.parse(existingData);
+      // Ensure the data is an array
+      existingLinks = Array.isArray(parsedData) ? parsedData : [];
       console.log(`Found existing data for ${existingLinks.length} links`);
     } catch (error) {
       console.log('No existing link data found, will process all links');
+      existingLinks = [];
     }
     
     // Determine which links to process

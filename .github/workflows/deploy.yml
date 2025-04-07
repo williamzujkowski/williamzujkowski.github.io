@@ -52,11 +52,9 @@ jobs:
         run: |
           mkdir -p _data
           
-          # Create fallback data files
-          echo '[]' > _data/arxiv-feed.json
-          echo '[]' > _data/github-pins.json
-          echo '{"data":[]}' > _data/contribution-heatmap.json
-          echo '{}' > _data/link-previews.json
+          # First create fallback data files to ensure we have valid JSON
+          echo "Creating fallback data files..."
+          node scripts/create-fallback-data.js
           
           # Try to generate real data (but don't fail build if they fail)
           echo "Fetching ArXiv data..."
@@ -65,9 +63,13 @@ jobs:
           node scripts/build-github-pins.js || echo "GitHub pins fetch failed. Using fallback data."
           echo "Generating visualization data..."
           node scripts/build-visualizations.js || echo "Visualization data generation failed. Using fallback data."
+          
+          # Skip link previews in GitHub Actions as they're heavy and error-prone
+          echo "Skipping link previews generation in CI environment"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USE_FALLBACK_DATA: "true"
+          CI: "true"
 
       - name: Build site
         run: npx @11ty/eleventy --config=.eleventy.simple.cjs

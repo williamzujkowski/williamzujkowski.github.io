@@ -12,7 +12,7 @@
   "scripts": {
     "build": "npm run build:data && eleventy --config=config/.eleventy.simple.cjs && npm run build:css",
     "build:css": "postcss src/css/styles.css -o _site/css/styles.css --config=config/postcss.config.cjs",
-    "build:data": "npm run build:arxiv && npm run build:github && npm run build:viz && npm run build:links",
+    "build:data": "node scripts/create-fallback-data.js && npm run build:arxiv && npm run build:github && npm run build:viz && (npm run build:links || true)",
     "build:arxiv": "node scripts/build-arxiv-feed.js",
     "build:github": "node scripts/build-github-pins.js",
     "build:viz": "node scripts/build-visualizations.js",
