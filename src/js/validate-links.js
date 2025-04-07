@@ -4,9 +4,14 @@
  * Run with: npm run validate:links
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const got = require('got');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import got from 'got';
+
+// Set up __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Constants
 const LINKS_DATA_PATH = path.join(__dirname, '..', '..', '_data', 'link-previews.json');

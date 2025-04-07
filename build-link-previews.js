@@ -3,21 +3,37 @@
  * It runs during the build process to create a JSON file that can be used for link previews
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const metascraper = require('metascraper')([
-  require('metascraper-author')(),
-  require('metascraper-date')(),
-  require('metascraper-description')(),
-  require('metascraper-image')(),
-  require('metascraper-logo')(),
-  require('metascraper-publisher')(),
-  require('metascraper-title')(),
-  require('metascraper-url')()
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import metascraperAuthor from 'metascraper-author';
+import metascraperDate from 'metascraper-date';
+import metascraperDescription from 'metascraper-description';
+import metascraperImage from 'metascraper-image';
+import metascraperLogo from 'metascraper-logo';
+import metascraperPublisher from 'metascraper-publisher';
+import metascraperTitle from 'metascraper-title';
+import metascraperUrl from 'metascraper-url';
+import metascraper from 'metascraper';
+import got from 'got';
+import puppeteer from 'puppeteer';
+import goto from '@browserless/goto';
+
+// Set up __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Initialize metascraper with rules
+const metascraperWithRules = metascraper([
+  metascraperAuthor(),
+  metascraperDate(),
+  metascraperDescription(),
+  metascraperImage(),
+  metascraperLogo(),
+  metascraperPublisher(),
+  metascraperTitle(),
+  metascraperUrl()
 ]);
-const got = require('got');
-const puppeteer = require('puppeteer');
-const goto = require('@browserless/goto');
 
 // Set screenshot dimensions
 const VIEWPORT = { width: 1200, height: 675, deviceScaleFactor: 1 };
@@ -32,7 +48,7 @@ async function getMetadata(url) {
   try {
     console.log(`Fetching metadata for ${url}...`);
     const { body: html, url: finalUrl } = await got(url);
-    const metadata = await metascraper({ html, url: finalUrl });
+    const metadata = await metascraperWithRules({ html, url: finalUrl });
     return { ...metadata, status: 'success' };
   } catch (error) {
     console.error(`Error fetching metadata for ${url}:`, error.message);
@@ -125,6 +141,9 @@ async function processInChunks(items, processFn, chunkSize = MAX_CONCURRENT) {
  * Main function to process all links
  */
 async function main() {
+  // Check for command line arguments
+  const args = process.argv.slice(2);
+  const forceInitialRun = args.includes('--initial');
   try {
     // Create output directory if it doesn't exist
     await fs.mkdir(path.join(OUTPUT_DIR, 'screenshots'), { recursive: true });
@@ -158,8 +177,70 @@ async function main() {
     
     console.log(`Found ${allLinks.length} links to process`);
     
-    // Process metadata for all links
-    const metadataResults = await processInChunks(allLinks, async (link) => {
+    // Check if we already have processed links data
+    let existingLinks = [];
+    const outputPath = path.join(OUTPUT_DIR, 'link-previews.json');
+    
+    try {
+      const existingData = await fs.readFile(outputPath, 'utf-8');
+      existingLinks = JSON.parse(existingData);
+      console.log(`Found existing data for ${existingLinks.length} links`);
+    } catch (error) {
+      console.log('No existing link data found, will process all links');
+    }
+    
+    // Determine which links to process
+    const isInitialRun = existingLinks.length === 0 || forceInitialRun;
+    let linksToProcess;
+    
+    if (isInitialRun) {
+      // Process all links on initial run
+      linksToProcess = allLinks;
+      console.log('Initial run - processing all links');
+    } else {
+      // Create a map for quick lookup of link IDs in all links
+      const allLinksMap = new Map(allLinks.map(link => [link.id, link]));
+      
+      // Create a map of existing links
+      const existingLinksMap = new Map(existingLinks.map(link => [link.id, link]));
+      
+      // Find new links that don't exist in our data
+      const newLinks = allLinks.filter(link => !existingLinksMap.has(link.id));
+      console.log(`Found ${newLinks.length} new links to process`);
+      
+      // Find the 10 oldest links by last_checked date
+      const oldestLinks = [...existingLinks]
+        .filter(link => allLinksMap.has(link.id)) // Only consider links that still exist
+        .sort((a, b) => {
+          // Sort by last_checked date
+          const dateA = a.last_checked ? new Date(a.last_checked) : new Date(0);
+          const dateB = b.last_checked ? new Date(b.last_checked) : new Date(0);
+          return dateA - dateB;
+        })
+        .slice(0, 10)
+        .map(link => {
+          // Map to current link data
+          const currentLink = allLinksMap.get(link.id);
+          return {
+            ...currentLink,
+            previousData: link
+          };
+        });
+      
+      console.log(`Refreshing data for ${oldestLinks.length} oldest links`);
+      
+      // Combine new links and oldest links
+      linksToProcess = [...newLinks, ...oldestLinks];
+      console.log(`Total links to process: ${linksToProcess.length}`);
+    }
+    
+    if (linksToProcess.length === 0) {
+      console.log('No links to process at this time');
+      return;
+    }
+    
+    // Process metadata for selected links
+    const metadataResults = await processInChunks(linksToProcess, async (link) => {
       const metadata = await getMetadata(link.url);
       return { ...link, metadata };
     });
@@ -190,39 +271,70 @@ async function main() {
           url: link.url,
           name: link.name,
           type: link.type,
-          group: link.group,
-          metadata: null,
-          screenshot: null,
-          last_checked: new Date().toISOString()
+          group: link.group || (link.previousData ? link.previousData.group : null),
+          metadata: link.previousData ? link.previousData.metadata : null,
+          screenshot: link.previousData ? link.previousData.screenshot : null,
+          last_checked: link.previousData ? link.previousData.last_checked : new Date().toISOString()
         };
       }
       
       if (link.metadata) {
         processedLinks[link.id].metadata = link.metadata;
+        processedLinks[link.id].last_checked = new Date().toISOString();
       }
       
       if (link.screenshot) {
         processedLinks[link.id].screenshot = link.screenshot;
+        processedLinks[link.id].last_checked = new Date().toISOString();
       }
     }
     
+    // Final link data by combining existing and newly processed links
+    let finalLinkData;
+    
+    if (isInitialRun) {
+      // Use all processed links for initial run
+      finalLinkData = Object.values(processedLinks);
+    } else {
+      // Create a map of newly processed links
+      const processedLinksMap = new Map(Object.entries(processedLinks));
+      
+      // Update existing links with new data
+      const updatedExistingLinks = existingLinks.map(link => {
+        if (processedLinksMap.has(link.id)) {
+          return processedLinksMap.get(link.id);
+        }
+        return link;
+      });
+      
+      // Add any new links that don't exist in updated list
+      const updatedLinkIds = new Set(updatedExistingLinks.map(link => link.id));
+      const additionalNewLinks = Object.values(processedLinks).filter(link => !updatedLinkIds.has(link.id));
+      
+      finalLinkData = [...updatedExistingLinks, ...additionalNewLinks];
+    }
+    
     // Save the results to a JSON file
-    const outputPath = path.join(OUTPUT_DIR, 'link-previews.json');
-    await fs.writeFile(outputPath, JSON.stringify(Object.values(processedLinks), null, 2));
+    await fs.writeFile(outputPath, JSON.stringify(finalLinkData, null, 2));
     
     // Ensure screenshots directory is copied to assets
     const assetsScreenshotsDir = path.join(__dirname, 'assets', 'data', 'screenshots');
     await fs.mkdir(assetsScreenshotsDir, { recursive: true });
     
     // Copy all screenshots to assets directory
-    const screenshotFiles = await fs.readdir(path.join(OUTPUT_DIR, 'screenshots'));
-    for (const file of screenshotFiles) {
-      const sourcePath = path.join(OUTPUT_DIR, 'screenshots', file);
-      const destPath = path.join(assetsScreenshotsDir, file);
-      await fs.copyFile(sourcePath, destPath);
+    try {
+      const screenshotFiles = await fs.readdir(path.join(OUTPUT_DIR, 'screenshots'));
+      for (const file of screenshotFiles) {
+        const sourcePath = path.join(OUTPUT_DIR, 'screenshots', file);
+        const destPath = path.join(assetsScreenshotsDir, file);
+        await fs.copyFile(sourcePath, destPath);
+      }
+    } catch (error) {
+      console.error('Error copying screenshots:', error.message);
     }
     
     console.log(`Successfully processed ${Object.keys(processedLinks).length} links!`);
+    console.log(`Total links in data: ${finalLinkData.length}`);
     console.log(`Results saved to ${outputPath}`);
     
   } catch (error) {

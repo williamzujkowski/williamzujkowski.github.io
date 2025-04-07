@@ -233,22 +233,41 @@ The site is configured for GitHub Pages deployment. When you push to the reposit
 
 The site uses Microlink's open source tools to enhance link previews:
 
-- During the build process, `build-link-previews.js` generates screenshots and extracts metadata for all external links
+- During the build process, `build-link-previews.js` generates screenshots and extracts metadata for external links
+- The script is designed to process new links and update the 10 oldest links on each build
 - This data is stored as JSON and used by the frontend to display rich link previews
-- The validation script `validate-links.js` can be run periodically to check link health
 - In case pre-generated data is unavailable, the site falls back to using the Microlink API in real-time
 
-To generate or update link previews:
+### Link Preview Generation
+
+Initial setup (generates previews for all links):
+
+```
+npm run process:links:initial
+```
+
+Regular updates (automatically included in the build process):
 
 ```
 npm run build:links
 ```
 
-To validate links and check for broken URLs:
+Link health validation:
 
 ```
 npm run validate:links
 ```
+
+### How Link Preview Generation Works
+
+1. **Initial Run**: When you first run `process:links:initial`, the script processes all links and generates metadata and screenshots.
+
+2. **Incremental Updates**: During normal builds with `build:links`, the script:
+   - Processes any new links that have been added
+   - Updates the 10 oldest links (based on their last check date)
+   - Preserves existing data for all other links
+
+3. **Validation**: The `validate:links` command checks if links are still accessible without regenerating previews.
 
 The tooling uses:
 - `metascraper` for metadata extraction
