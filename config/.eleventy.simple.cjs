@@ -1,6 +1,6 @@
 // Import plugins
-const pluginRss = require("@11ty/eleventy-plugin-rss");
-const pluginNavigation = require("@11ty/eleventy-navigation");
+const rssPlugin = require("@11ty/eleventy-plugin-rss");
+const navigationPlugin = require("@11ty/eleventy-navigation");
 const Image = require("@11ty/eleventy-img");
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
@@ -70,8 +70,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.setLibrary("md", markdownLibrary);
   
   // Add plugins
-  eleventyConfig.addPlugin(pluginRss);
-  eleventyConfig.addPlugin(pluginNavigation);
+  eleventyConfig.addPlugin(rssPlugin);
+  eleventyConfig.addPlugin(navigationPlugin);
   // Copy assets
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("src/js");
@@ -142,9 +142,9 @@ module.exports = function(eleventyConfig) {
   });
   
   // RSS filters from the plugin
-  eleventyConfig.addFilter("dateToRfc3339", pluginRss.dateToRfc3339);
-  eleventyConfig.addFilter("dateToRfc822", pluginRss.dateToRfc822);
-  eleventyConfig.addFilter("htmlToAbsoluteUrls", pluginRss.htmlToAbsoluteUrls);
+  eleventyConfig.addFilter("dateToRfc3339", rssPlugin.dateToRfc3339);
+  eleventyConfig.addFilter("dateToRfc822", rssPlugin.dateToRfc822);
+  eleventyConfig.addFilter("htmlToAbsoluteUrls", rssPlugin.htmlToAbsoluteUrls);
   
   // Add shortcodes
   eleventyConfig.addShortcode("year", () => new Date().getFullYear());

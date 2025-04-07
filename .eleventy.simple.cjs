@@ -46,8 +46,8 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.setLibrary("md", markdownLibrary);
   
-  // Add shortcodes
-  eleventyConfig.addShortcode("year", () => new Date().getFullYear());
+  // Add Eleventy 3.0+ compatible shortcodes
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
   // Add breadcrumb shortcode
   eleventyConfig.addShortcode("breadcrumbs", function(page) {
