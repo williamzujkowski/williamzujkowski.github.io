@@ -113,8 +113,15 @@ module.exports = function(eleventyConfig) {
       throw new Error(`Missing alt text for image: ${src}`);
     }
     
+    // Ensure correct path structure
+    let imgSrc = src;
+    // If it's a relative path that could be from a blog post
+    if (!src.startsWith('/') && !src.startsWith('./') && !src.startsWith('../')) {
+      imgSrc = `/assets/images/${src}`;
+    }
+    
     // Simple image tag for GitHub Actions build
-    return `<img src="${src}" alt="${alt}" class="w-full h-auto object-cover" loading="lazy" decoding="async">`;
+    return `<img src="${imgSrc}" alt="${alt}" class="w-full h-auto object-cover" loading="lazy" decoding="async">`;
   });
   
   // Reading time estimation

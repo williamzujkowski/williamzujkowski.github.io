@@ -20,9 +20,13 @@ async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900
     fullSrc = `./assets/images/${src}`;
   }
 
-  // For simplicity in demo, just return the img tag directly
-  // In production with real images, you would use the Image plugin
-  return `<img src="/assets/images/${src}" alt="${alt}" class="w-full h-auto object-cover" loading="lazy" decoding="async">`;
+  // Ensure correct path structure
+  let imgSrc = src;
+  // If it's a relative path that could be from a blog post
+  if (!src.startsWith('/') && !src.startsWith('./') && !src.startsWith('../')) {
+    imgSrc = `/assets/images/${src}`;
+  }
+  return `<img src="${imgSrc}" alt="${alt}" class="w-full h-auto object-cover" loading="lazy" decoding="async">`;
   
   /* 
   // The following code would be used with real images
