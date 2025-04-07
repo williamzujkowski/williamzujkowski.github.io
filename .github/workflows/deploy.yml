@@ -63,8 +63,16 @@ jobs:
       - name: Build CSS
         run: |
           mkdir -p _site/css
+          
+          # Copy Tailwind config to root if needed
+          if [ ! -f "tailwind.config.cjs" ]; then
+            cp config/tailwind.config.cjs ./tailwind.config.cjs
+          fi
+          
           # Try to process with PostCSS
           NODE_OPTIONS=--openssl-legacy-provider npx postcss --config=config/postcss.config.cjs src/css/styles.css -o _site/css/styles.css
+          
+          # If PostCSS fails, use fallback CSS files
           if [ $? -ne 0 ]; then
             echo "PostCSS failed, using fallback CSS files"
             cp src/css/styles.css _site/css/styles.css

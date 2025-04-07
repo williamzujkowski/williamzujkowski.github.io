@@ -10,6 +10,42 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "assets/icons/android-chrome-512x512.png": "android-chrome-512x512.png" });
   eleventyConfig.addPassthroughCopy(".nojekyll");
   
+  // Import required modules
+  const pluginRss = require("@11ty/eleventy-plugin-rss");
+  const pluginNavigation = require("@11ty/eleventy-navigation");
+  const markdownIt = require("markdown-it");
+  const markdownItAnchor = require("markdown-it-anchor");
+  const { DateTime } = require("luxon");
+  
+  // Add plugins
+  eleventyConfig.addPlugin(pluginRss);
+  eleventyConfig.addPlugin(pluginNavigation);
+  
+  // Add date filters
+  eleventyConfig.addFilter("readableDate", dateObj => {
+    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("LLLL dd, yyyy");
+  });
+  
+  eleventyConfig.addFilter("isoDate", dateObj => {
+    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toISO();
+  });
+  
+  eleventyConfig.addFilter("date", (dateObj, format) => {
+    if (typeof dateObj === 'string') {
+      dateObj = new Date(dateObj);
+    }
+    return DateTime.fromJSDate(dateObj).toFormat(format || "LLLL dd, yyyy");
+  });
+  
+  // Configure Markdown with anchors
+  const markdownLibrary = markdownIt({
+    html: true,
+    breaks: true,
+    linkify: true
+  }).use(markdownItAnchor);
+  
+  eleventyConfig.setLibrary("md", markdownLibrary);
+  
   // Add shortcodes
   eleventyConfig.addShortcode("year", () => new Date().getFullYear());
   
