@@ -6,7 +6,7 @@
 /* Apply typography plugin to blog posts */
 @layer base {
   .prose-custom {
-    @apply prose prose-invert prose-lg max-w-none;
+    @apply prose prose-invert prose-lg max-w-none w-full;
   }
   
   /* Use prefers-reduced-motion for animations */
@@ -421,7 +421,7 @@ h4:hover .header-anchor {
 
   /* Layout */
   .site-container {
-    @apply max-w-[1200px] mx-auto px-5 py-8;
+    @apply w-full mx-auto px-5 py-8;
   }
 
   /* GitHub-style header */
