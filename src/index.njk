@@ -80,29 +80,30 @@ eleventyNavigation:
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {% if current_reading and current_reading.length > 0 %}
             {% for paper in current_reading %}
-              <a href="{{ paper.link }}" target="_blank" class="block h-full">
-                <div class="bg-surface rounded-github border border-border p-4 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary"></div>
+              <a href="{{ paper.link }}" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-github">
+                <div class="bg-surface rounded-github border border-border p-4 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
                   <div class="mb-2 flex-grow">
-                    <div class="text-lg font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
+                    <div class="text-lg font-medium text-white transition-colors duration-200 group-hover:text-accent">{{ paper.title }}</div>
                   </div>
-                  <div class="flex flex-wrap items-center gap-2 mb-3">
+                  <div class="flex flex-wrap items-center gap-2 mb-3 pointer-events-none">
                     <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">{{ paper.categoryLabel }}</span>
                     <div class="text-sm text-text-secondary">{{ paper.firstAuthor }}</div>
                     {% if paper.formattedDate %}
                       <div class="text-xs text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
                     {% endif %}
                   </div>
-                  <div class="text-xs text-text line-clamp-2 mb-3">
+                  <div class="text-xs text-text line-clamp-2 mb-3 pointer-events-none">
                     {% if paper.summary %}
                       {{ paper.summary | truncate(150) }}
                     {% endif %}
                   </div>
-                  <div class="w-full bg-gray-light rounded-full h-1.5 mb-1">
+                  <div class="w-full bg-gray-light rounded-full h-1.5 mb-1 pointer-events-none">
                     <div class="bg-accent h-full rounded-full" style="width: {{ paper.progress }}%"></div>
                   </div>
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center pointer-events-none">
                     <div class="text-xs text-text-secondary">{{ paper.progress }}% complete</div>
+                    <div class="text-xs text-accent font-medium">Read on arXiv</div>
                   </div>
                 </div>
               </a>
@@ -221,28 +222,28 @@ eleventyNavigation:
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% if current_reading and current_reading.length > 0 %}
         {% for paper in current_reading %}
-          <a href="{{ paper.link }}" target="_blank" class="block h-full">
-            <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
-              <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+          <a href="{{ paper.link }}" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg">
+            <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+              <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
               <div class="mb-2 flex-grow">
-                <div class="text-xl font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
+                <div class="text-xl font-medium text-white transition-colors duration-200">{{ paper.title }}</div>
               </div>
-              <div class="flex flex-wrap items-center gap-2 mb-4">
+              <div class="flex flex-wrap items-center gap-2 mb-4 pointer-events-none">
                 <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
                 <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
                 {% if paper.formattedDate %}
                   <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
                 {% endif %}
               </div>
-              <p class="text-sm text-text mb-4 line-clamp-3">
+              <p class="text-sm text-text mb-4 line-clamp-3 pointer-events-none">
                 {% if paper.summary %}
                   {{ paper.summary | truncate(150) }}
                 {% endif %}
               </p>
-              <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+              <div class="w-full bg-gray-light rounded-full h-3 mb-2 pointer-events-none">
                 <div class="bg-accent h-full rounded-full" style="width: {{ paper.progress }}%"></div>
               </div>
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center pointer-events-none">
                 <div class="text-sm text-text-secondary">{{ paper.progress }}% complete</div>
                 <div class="text-sm text-accent font-medium flex items-center">
                   Read on arXiv
@@ -259,11 +260,11 @@ eleventyNavigation:
         {% if arxiv_feed and current_reading.length < 2 %}
           {% for paper in arxiv_feed %}
             {% if loop.index <= 2 - current_reading.length %}
-              <a href="{{ paper.link }}" target="_blank" class="block h-full">
-                <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
-                  <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+              <a href="{{ paper.link }}" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg">
+                <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+                  <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
                   <div class="mb-2 flex-grow">
-                    <div class="text-xl font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
+                    <div class="text-xl font-medium text-white transition-colors duration-200">{{ paper.title }}</div>
                   </div>
                   <div class="flex flex-wrap items-center gap-2 mb-4">
                     <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
@@ -298,10 +299,10 @@ eleventyNavigation:
         {% for paper in arxiv_feed %}
           {% if loop.index <= 2 %}
             <a href="{{ paper.link }}" target="_blank" class="block h-full">
-              <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+              <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
                 <div class="mb-2 flex-grow">
-                  <div class="text-xl font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
+                  <div class="text-xl font-medium text-white transition-colors duration-200">{{ paper.title }}</div>
                 </div>
                 <div class="flex flex-wrap items-center gap-2 mb-4">
                   <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
