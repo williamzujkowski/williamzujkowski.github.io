@@ -29,17 +29,87 @@ async function getReadingListFromConfig() {
   }
 }
 
+// Format ISBN to be valid for API requests
+function formatIsbn(isbn) {
+  // Remove any hyphens or spaces
+  let cleanIsbn = isbn.replace(/[-\s]/g, '');
+  
+  // Handle special case for ISBNs that might be missing leading zeros
+  if (/^\d{9}[\dX]$/.test(cleanIsbn)) {
+    // Already valid ISBN-10
+    return cleanIsbn;
+  } else if (/^\d{13}$/.test(cleanIsbn)) {
+    // Already valid ISBN-13
+    return cleanIsbn;
+  } else if (/^\d{8}[\dX]$/.test(cleanIsbn)) {
+    // Likely a 10-digit ISBN missing a leading zero
+    console.log(`Adding leading zero to ISBN: ${cleanIsbn}`);
+    return '0' + cleanIsbn;
+  } else if (/^\d{12}$/.test(cleanIsbn)) {
+    // Likely a 13-digit ISBN missing a leading zero
+    console.log(`Adding leading zero to ISBN: ${cleanIsbn}`);
+    return '0' + cleanIsbn;
+  } else {
+    console.warn(`Warning: ISBN "${isbn}" is not in a standard format, using as-is`);
+    return cleanIsbn;
+  }
+}
+
 // Fetch book data from Open Library API
 async function fetchBookData(isbn) {
   try {
-    const response = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`);
+    // Format the ISBN
+    const formattedIsbn = formatIsbn(isbn);
+    
+    // Try to fetch the book data
+    const response = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${formattedIsbn}&format=json&jscmd=data`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     
     const data = await response.json();
-    return data[`ISBN:${isbn}`];
+    const bookData = data[`ISBN:${formattedIsbn}`];
+    
+    // If book data was found, return it
+    if (bookData) {
+      return bookData;
+    }
+    
+    console.log(`Book not found with ISBN ${formattedIsbn}, trying alternative lookups...`);
+    
+    // If no data found, try alternative approaches
+    const alternativeLookups = [];
+    
+    // For 9-digit ISBN, try adding 'X' as the check digit
+    if (/^\d{9}$/.test(formattedIsbn)) {
+      alternativeLookups.push(formattedIsbn + 'X');
+    }
+    
+    // For possible ISBN-10 with missing leading zero
+    if (formattedIsbn.length === 9) {
+      alternativeLookups.push('0' + formattedIsbn);
+    }
+    
+    // If ISBN is 9 digits with X, it might be missing leading zero
+    if (/^\d{8}X$/.test(formattedIsbn)) {
+      alternativeLookups.push('0' + formattedIsbn);
+    }
+    
+    // Try all alternative ISBNs
+    for (const altIsbn of alternativeLookups) {
+      console.log(`Trying alternative ISBN: ${altIsbn}`);
+      const altResponse = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${altIsbn}&format=json&jscmd=data`);
+      if (altResponse.ok) {
+        const altData = await altResponse.json();
+        if (altData[`ISBN:${altIsbn}`]) {
+          console.log(`Found book data with alternative ISBN: ${altIsbn}`);
+          return altData[`ISBN:${altIsbn}`];
+        }
+      }
+    }
+    
+    return bookData;
   } catch (error) {
     console.error(`Error fetching book data for ISBN ${isbn}:`, error);
     return null;
