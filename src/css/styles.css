@@ -799,11 +799,12 @@ h4:hover .header-anchor {
 
   /* Footer */
   .gh-footer {
-    @apply mt-24 pt-8 pb-12 border-t border-border bg-surface;
+    @apply mt-24 border-t border-border bg-surface backdrop-blur-sm;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3);
   }
 
   .gh-footer-inner {
-    @apply max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6 px-5;
+    @apply max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4 py-4;
   }
 
   .gh-footer-links {
@@ -1079,6 +1080,15 @@ h4:hover .header-anchor {
     
     .site-container {
       @apply px-6 py-6;
+    }
+    
+    /* Footer adjustments for mobile */
+    .gh-footer-inner {
+      @apply py-3 px-4;
+    }
+    
+    .gh-footer-links, .gh-copyright {
+      @apply text-xs;
     }
     
     /* Header adjustments */

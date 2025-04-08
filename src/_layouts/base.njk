@@ -32,21 +32,21 @@
     <main id="main-content">
       {{ content | safe }}
     </main>
-
-    <footer class="gh-footer">
-      <div class="gh-footer-inner">
-        <div class="gh-footer-links">
-          <a href="/">Home</a>
-          <a href="/blog/">Blog</a>
-          <a href="/links/">Links</a>
-          <a href="/feed.xml">RSS</a>
-        </div>
-        <div class="gh-copyright">
-          &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
-        </div>
-      </div>
-    </footer>
   </div>
+  
+  <footer class="gh-footer">
+    <div class="gh-footer-inner">
+      <div class="gh-footer-links">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/links/">Links</a>
+        <a href="/feed.xml">RSS</a>
+      </div>
+      <div class="gh-copyright">
+        &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
+      </div>
+    </div>
+  </footer>
 
   <!-- Back to top button -->
   <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
