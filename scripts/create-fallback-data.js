@@ -36,6 +36,26 @@ async function main() {
     await fs.writeFile(path.join(dataDir, 'link-previews.json'), JSON.stringify(linksData, null, 2));
     console.log('Created fallback link-previews.json');
 
+    // Create empty current-reading.json
+    const currentReadingData = [
+      {
+        "title": "Designing Data-Intensive Applications",
+        "firstAuthor": "Martin Kleppmann",
+        "categoryLabel": "Research",
+        "progress": 75,
+        "link": "https://arxiv.org/abs/2001.00001"
+      },
+      {
+        "title": "Building ML Powered Applications",
+        "firstAuthor": "Emmanuel Ameisen",
+        "categoryLabel": "AI",
+        "progress": 45,
+        "link": "https://arxiv.org/abs/2001.00002"
+      }
+    ];
+    await fs.writeFile(path.join(dataDir, 'current-reading.json'), JSON.stringify(currentReadingData, null, 2));
+    console.log('Created fallback current-reading.json');
+
     console.log('All fallback data files created successfully');
   } catch (error) {
     console.error('Error creating fallback data:', error);

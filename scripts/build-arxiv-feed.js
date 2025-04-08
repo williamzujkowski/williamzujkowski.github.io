@@ -13,11 +13,16 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the query URL to target the cs.AI, cs.LG, and cs.CR categories.
-const queryUrl = 'http://export.arxiv.org/api/query?search_query=(cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CR)&start=0&max_results=50&sortBy=submittedDate&sortOrder=descending';
+// Define the query URL to target security, quantum computing, cryptography, and AI papers.
+// cs.CR: Cryptography and Security
+// cs.AI: Artificial Intelligence
+// quant-ph: Quantum Physics
+// cs.LG: Machine Learning
+// cs.CY: Computers and Society (includes security aspects)
+const queryUrl = 'http://export.arxiv.org/api/query?search_query=(cat:cs.CR+OR+cat:cs.AI+OR+cat:quant-ph+OR+cat:cs.LG+OR+cat:cs.CY)&start=0&max_results=100&sortBy=submittedDate&sortOrder=descending';
 
 // Number of top papers to include for each category.
-const TOP_PER_CATEGORY = 1;
+const TOP_PER_CATEGORY = 2;
 
 async function fetchArxivData() {
   try {
@@ -40,7 +45,7 @@ async function fetchArxivData() {
 function filterAndCategorize(feed) {
   if (!feed.feed || !feed.feed.entry) {
     console.error('No entries found in the feed.');
-    return { ai_ml: [], cybersecurity: [] };
+    return { ai: [], security: [], quantum: [], other: [] };
   }
   
   // Sort all entries by published date (most recent first)
@@ -48,28 +53,50 @@ function filterAndCategorize(feed) {
   allEntries.sort((a, b) => new Date(b.published[0]) - new Date(a.published[0]));
   
   // Categorize papers by their primary category
-  const ai_ml = [];
-  const cybersecurity = [];
+  const ai = [];
+  const security = [];
+  const quantum = [];
+  const other = [];
   
   for (const entry of allEntries) {
-    // Look at the primary category (first category)
-    const primaryCategory = entry.category[0].$.term;
+    // Get all categories for the paper
+    const categories = entry.category.map(cat => cat.$.term);
+    const primaryCategory = categories[0];
     
-    if (primaryCategory === 'cs.CR') {
-      cybersecurity.push(entry);
-    } else if (primaryCategory === 'cs.AI' || primaryCategory === 'cs.LG') {
-      ai_ml.push(entry);
+    // Check if title or abstract contains keywords related to our topics
+    const title = entry.title[0].toLowerCase();
+    const summary = entry.summary[0].toLowerCase();
+    const content = title + " " + summary;
+    
+    // Define keywords for each category
+    const securityKeywords = ["security", "cryptography", "privacy", "encryption", "cyber", "hacking", "vulnerabilities", "attack"];
+    const quantumKeywords = ["quantum", "qubit", "quantum computing", "quantum cryptography", "quantum key", "quantum algorithm"];
+    const aiKeywords = ["artificial intelligence", "machine learning", "neural network", "deep learning", "generative", "large language model", "llm"];
+    
+    // Check primary category first, then fall back to keyword search
+    if (primaryCategory === 'cs.CR' || primaryCategory === 'cs.CY' || securityKeywords.some(kw => content.includes(kw))) {
+      security.push(entry);
+    } else if (primaryCategory === 'quant-ph' || quantumKeywords.some(kw => content.includes(kw))) {
+      quantum.push(entry);
+    } else if (primaryCategory === 'cs.AI' || primaryCategory === 'cs.LG' || aiKeywords.some(kw => content.includes(kw))) {
+      ai.push(entry);
+    } else {
+      other.push(entry);
     }
     
     // Break once we have enough papers in each category
-    if (ai_ml.length >= TOP_PER_CATEGORY && cybersecurity.length >= TOP_PER_CATEGORY) {
+    if (ai.length >= TOP_PER_CATEGORY && 
+        security.length >= TOP_PER_CATEGORY && 
+        quantum.length >= TOP_PER_CATEGORY) {
       break;
     }
   }
   
   return {
-    ai_ml: ai_ml.slice(0, TOP_PER_CATEGORY),
-    cybersecurity: cybersecurity.slice(0, TOP_PER_CATEGORY)
+    ai: ai.slice(0, TOP_PER_CATEGORY),
+    security: security.slice(0, TOP_PER_CATEGORY),
+    quantum: quantum.slice(0, TOP_PER_CATEGORY),
+    other: other.slice(0, TOP_PER_CATEGORY)
   };
 }
 
@@ -104,27 +131,53 @@ async function getCitationCount(arxivUrl) {
 }
 
 // Add category label to each paper
-function labelPapers(aimlPapers, cyberPapers) {
-  for (const paper of aimlPapers) {
-    paper.categoryLabel = "AI/ML";
+function labelPapers(aiPapers, securityPapers, quantumPapers, otherPapers) {
+  for (const paper of aiPapers) {
+    paper.categoryLabel = "AI";
   }
   
-  for (const paper of cyberPapers) {
-    paper.categoryLabel = "Cybersecurity";
+  for (const paper of securityPapers) {
+    paper.categoryLabel = "Security";
   }
   
-  return [...aimlPapers, ...cyberPapers];
+  for (const paper of quantumPapers) {
+    paper.categoryLabel = "Quantum";
+  }
+  
+  for (const paper of otherPapers) {
+    paper.categoryLabel = "Research";
+  }
+  
+  return [...aiPapers, ...securityPapers, ...quantumPapers, ...otherPapers];
 }
 
 // Transform a paper entry into a simpler object.
 function transformEntry(entry) {
+  // Get the first author for display
+  const firstAuthor = entry.author && entry.author.length > 0 
+    ? entry.author[0].name[0] 
+    : "Unknown Author";
+    
+  // Get all authors
+  const allAuthors = entry.author.map(a => a.name[0]);
+  
+  // Format date nicely
+  const publishedDate = new Date(entry.published[0]);
+  const formattedDate = publishedDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+  
   return {
     id: entry.id[0],
     title: entry.title[0].trim(),
     summary: entry.summary[0].trim(),
     published: entry.published[0],
+    formattedDate: formattedDate,
     updated: entry.updated[0],
-    authors: entry.author.map(a => a.name[0]),
+    firstAuthor: firstAuthor,
+    authors: allAuthors, 
     link: entry.id[0],
     categoryLabel: entry.categoryLabel || "Research Paper"
   };
@@ -133,18 +186,23 @@ function transformEntry(entry) {
 async function main() {
   // Fetch and parse the arXiv feed
   const feed = await fetchArxivData();
-  const { ai_ml, cybersecurity } = filterAndCategorize(feed);
+  const { ai, security, quantum, other } = filterAndCategorize(feed);
   
-  if (ai_ml.length === 0 && cybersecurity.length === 0) {
-    console.log('No papers found.');
+  if (ai.length === 0 && security.length === 0 && quantum.length === 0) {
+    console.log('No relevant papers found.');
     return;
   }
   
   // Add category labels to the papers
-  const categorizedPapers = labelPapers(ai_ml, cybersecurity);
+  const categorizedPapers = labelPapers(ai, security, quantum, other);
   
   // Transform papers to simpler objects
   const papers = categorizedPapers.map(transformEntry);
+
+  // Add reading progress (random between 10% and 90%)
+  papers.forEach(paper => {
+    paper.progress = Math.floor(Math.random() * 81) + 10; // 10% to 90%
+  });
 
   // Define the output path
   const outputDir = path.join(__dirname, '..', '_data');
@@ -157,7 +215,13 @@ async function main() {
 
   // Write the JSON file
   fs.writeFileSync(outputFile, JSON.stringify(papers, null, 2));
-  console.log(`Successfully wrote ${papers.length} papers to ${outputFile} (${ai_ml.length} AI/ML, ${cybersecurity.length} Cybersecurity)`);
+  console.log(`Successfully wrote ${papers.length} papers to ${outputFile} (${ai.length} AI, ${security.length} Security, ${quantum.length} Quantum)`);
+  
+  // Create a separate file for current reading section
+  const currentReadingPapers = papers.slice(0, 2); // Take top 2 papers for current reading
+  const currentReadingFile = path.join(outputDir, 'current-reading.json');
+  fs.writeFileSync(currentReadingFile, JSON.stringify(currentReadingPapers, null, 2));
+  console.log(`Successfully wrote ${currentReadingPapers.length} papers to ${currentReadingFile} for current reading section`);
 }
 
 main();
