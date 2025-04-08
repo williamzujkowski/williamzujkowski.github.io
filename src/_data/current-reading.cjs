@@ -1,4 +1,4 @@
-// src/_data/current-reading.js
+// src/_data/current-reading.cjs
 // This file loads current-reading.json data for use in templates
 
 const fs = require('fs');
