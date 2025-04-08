@@ -29,50 +29,52 @@ eleventyNavigation:
   
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-custom">
     {% for repo in site.homepage.pinned_repositories %}
-      <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full link-card">
-        <!-- Repository header with icon -->
-        <div class="relative h-0 pb-[56.25%] overflow-hidden bg-surface link-header">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-          </div>
-          
-          {% if repo.language %}
-          <div class="absolute top-2 right-2">
-            <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30 flex items-center">
-              <span class="inline-block w-2 h-2 rounded-full mr-1.5" style="background-color: {{ repo.language_color }}"></span>
-              {{ repo.language }}
-            </span>
-          </div>
-          {% endif %}
-        </div>
-
-        <!-- Repository content -->
-        <div class="p-5 flex-grow flex flex-col">
-          <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" data-url="{{ repo.url }}" class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ repo.name }}</a>
-          
-          <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
-            {{ repo.description }}
-          </div>
-          
-          <div class="link-metadata"></div>
-          
-          <div class="mt-auto pt-3 border-t border-border flex justify-between items-center">
-            {% if repo.stars > 0 %}
-            <div class="flex items-center text-text-secondary">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" class="mr-1.5 text-accent opacity-80" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
-              {{ repo.stars }}
+      <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" class="block h-full" data-url="{{ repo.url }}">
+        <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full link-card">
+          <!-- Repository header with icon -->
+          <div class="relative h-0 pb-[56.25%] overflow-hidden bg-surface link-header">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+            </div>
+            
+            {% if repo.language %}
+            <div class="absolute top-2 right-2 pointer-events-none">
+              <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30 flex items-center">
+                <span class="inline-block w-2 h-2 rounded-full mr-1.5" style="background-color: {{ repo.language_color }}"></span>
+                {{ repo.language }}
+              </span>
             </div>
             {% endif %}
+          </div>
+
+          <!-- Repository content -->
+          <div class="p-5 flex-grow flex flex-col">
+            <div class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ repo.name }}</div>
             
-            <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" class="text-sm text-accent font-medium hover:underline inline-flex items-center group external-preview" data-url="{{ repo.url }}">
-              View repo
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="ml-1 transition-transform duration-200 group-hover:translate-x-1">
-                <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
-              </svg>
-            </a>
+            <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
+              {{ repo.description }}
+            </div>
+            
+            <div class="link-metadata"></div>
+            
+            <div class="mt-auto pt-3 border-t border-border flex justify-between items-center">
+              {% if repo.stars > 0 %}
+              <div class="flex items-center text-text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" class="mr-1.5 text-accent opacity-80" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
+                {{ repo.stars }}
+              </div>
+              {% endif %}
+              
+              <div class="text-sm text-accent font-medium inline-flex items-center group">
+                View repo
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="ml-1 transition-transform duration-200 group-hover:translate-x-1">
+                  <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     {% endfor %}
   </div>
 </div>
@@ -90,22 +92,58 @@ eleventyNavigation:
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-custom">
       {% for link in site.links %}
         {% if link.group === group.name %}
-          <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full link-card">
-            <!-- Link header with icon or image -->
-            <div class="relative h-0 pb-[56.25%] overflow-hidden bg-surface link-header">
-              {% if group.name == "Technology & Innovation" %}
-                {% if link.name == "Learn X in Y Minutes" %}
-                  <img src="/assets/images/links/technology/learn-x-in-y.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "Set Up Your Own LTE Network" %}
-                  <img src="/assets/images/links/technology/lte-network.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "International Space Elevator Consortium" %}
-                  <img src="/assets/images/links/technology/space-elevator.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "Orion's Arm Universe Project" %}
-                  <img src="/assets/images/links/technology/orions-arm.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "DustinBrett.com" %}
-                  <img src="/assets/images/links/technology/digital-culture.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "Parallel Lives" %}
-                  <img src="/assets/images/links/technology/parallel-lives.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+          <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="block h-full" data-url="{{ link.url }}">
+            <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full link-card">
+              <!-- Link header with icon or image -->
+              <div class="relative h-0 pb-[56.25%] overflow-hidden bg-surface link-header">
+                {% if group.name == "Technology & Innovation" %}
+                  {% if link.name == "Learn X in Y Minutes" %}
+                    <img src="/assets/images/links/technology/learn-x-in-y.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "Set Up Your Own LTE Network" %}
+                    <img src="/assets/images/links/technology/lte-network.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "International Space Elevator Consortium" %}
+                    <img src="/assets/images/links/technology/space-elevator.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "Orion's Arm Universe Project" %}
+                    <img src="/assets/images/links/technology/orions-arm.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "DustinBrett.com" %}
+                    <img src="/assets/images/links/technology/digital-culture.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "Parallel Lives" %}
+                    <img src="/assets/images/links/technology/parallel-lives.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% else %}
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
+                        <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                      </svg>
+                    </div>
+                  {% endif %}
+                {% elif group.name == "Art, Culture & Exploration" %}
+                  {% if link.name == "Centauri Dreams" %}
+                    <img src="/assets/images/links/art-culture/centauri-dreams.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "Center for PostNatural History" %}
+                    <img src="/assets/images/links/art-culture/postnatural-history.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "Museum of Obsolete Media" %}
+                    <img src="/assets/images/links/art-culture/obsolete-media.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% else %}
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
+                        <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                      </svg>
+                    </div>
+                  {% endif %}
+                {% elif group.name == "Fun & Curiosities" %}
+                  {% if link.name == "Paperclip AI Game" %}
+                    <img src="/assets/images/links/fun/paperclip-ai.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "The Kid Should See This" %}
+                    <img src="/assets/images/links/fun/kid-should-see-this.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% elif link.name == "The Website is Down" %}
+                    <img src="/assets/images/links/fun/website-is-down.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
+                  {% else %}
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
+                        <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                      </svg>
+                    </div>
+                  {% endif %}
                 {% else %}
                   <div class="absolute inset-0 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
@@ -113,69 +151,35 @@ eleventyNavigation:
                     </svg>
                   </div>
                 {% endif %}
-              {% elif group.name == "Art, Culture & Exploration" %}
-                {% if link.name == "Centauri Dreams" %}
-                  <img src="/assets/images/links/art-culture/centauri-dreams.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "Center for PostNatural History" %}
-                  <img src="/assets/images/links/art-culture/postnatural-history.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "Museum of Obsolete Media" %}
-                  <img src="/assets/images/links/art-culture/obsolete-media.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% else %}
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
-                      <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                    </svg>
-                  </div>
-                {% endif %}
-              {% elif group.name == "Fun & Curiosities" %}
-                {% if link.name == "Paperclip AI Game" %}
-                  <img src="/assets/images/links/fun/paperclip-ai.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "The Kid Should See This" %}
-                  <img src="/assets/images/links/fun/kid-should-see-this.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% elif link.name == "The Website is Down" %}
-                  <img src="/assets/images/links/fun/website-is-down.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                {% else %}
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
-                      <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                    </svg>
-                  </div>
-                {% endif %}
-              {% else %}
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
-                    <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                  </svg>
+                
+                <div class="absolute top-2 right-2 pointer-events-none">
+                  <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30">{{ group.name }}</span>
                 </div>
-              {% endif %}
-              
-              <div class="absolute top-2 right-2">
-                <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30">{{ group.name }}</span>
               </div>
-            </div>
 
-            <!-- Link content -->
-            <div class="p-5 flex-grow flex flex-col">
-              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" data-url="{{ link.url }}" class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ link.name }}</a>
-              
-              {% if link.description %}
-                <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
-                  {{ link.description }}
+              <!-- Link content -->
+              <div class="p-5 flex-grow flex flex-col">
+                <div class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ link.name }}</div>
+                
+                {% if link.description %}
+                  <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
+                    {{ link.description }}
+                  </div>
+                {% endif %}
+                
+                <div class="link-metadata"></div>
+                
+                <div class="mt-auto pt-3 border-t border-border flex justify-between items-center">
+                  <div class="text-sm text-accent font-medium inline-flex items-center group">
+                    Visit link
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="ml-1 transition-transform duration-200 group-hover:translate-x-1">
+                      <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                    </svg>
+                  </div>
                 </div>
-              {% endif %}
-              
-              <div class="link-metadata"></div>
-              
-              <div class="mt-auto pt-3 border-t border-border flex justify-between items-center">
-                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="text-sm text-accent font-medium hover:underline inline-flex items-center group external-preview" data-url="{{ link.url }}">
-                  Visit link
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="ml-1 transition-transform duration-200 group-hover:translate-x-1">
-                    <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
-                  </svg>
-                </a>
               </div>
             </div>
-          </div>
+          </a>
         {% endif %}
       {% endfor %}
     </div>
