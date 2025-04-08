@@ -29,58 +29,6 @@ eleventyNavigation:
         <div class="bg-gray-light p-2 rounded-github border border-border shadow-sm overflow-hidden">
           <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=williamzujkowski&layout=compact&theme=github_dark&hide_border=true&card_width=250&hide_title=true&langs_count=6" alt="Top Languages" class="w-full transform hover:scale-[1.01] transition-transform duration-300" />
         </div>
-        
-        <!-- Current Reading Section -->
-        <h3 class="text-center text-base font-medium text-white mt-6">Current Reading</h3>
-        <div class="mt-2 space-y-3">
-          {% if current_reading %}
-            {% for paper in current_reading %}
-              <div class="bg-gray-light p-3 rounded-github border border-border shadow-sm transition-transform duration-300 hover:shadow-md hover:-translate-y-0.5">
-                <div class="flex items-start">
-                  <div class="gh-reading-icon w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0 mr-3 mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
-                      <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
-                    </svg>
-                  </div>
-                  <div class="flex-grow">
-                    <a href="{{ paper.link }}" target="_blank" class="gh-reading-title text-white text-sm font-medium mb-1 hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
-                    <div class="flex items-center">
-                      <span class="gh-badge text-xs bg-accent/20 text-accent mr-2 px-1.5 py-0.5 rounded-sm">{{ paper.categoryLabel }}</span>
-                      <div class="gh-reading-author text-xs text-text-secondary">{{ paper.firstAuthor }}</div>
-                    </div>
-                    <div class="gh-reading-progress w-full mt-2">
-                      <div class="gh-progress-bar h-1 bg-border rounded-full overflow-hidden mb-1">
-                        <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: {{ paper.progress }}%"></div>
-                      </div>
-                      <div class="gh-progress-text text-xs text-text-secondary text-right">{{ paper.progress }}% complete</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          {% else %}
-            <div class="bg-gray-light p-3 rounded-github border border-border shadow-sm">
-              <div class="gh-reading-title text-white text-sm font-medium mb-1">Designing Data-Intensive Applications</div>
-              <div class="gh-reading-author text-xs text-text-secondary mb-2">Martin Kleppmann</div>
-              <div class="gh-reading-progress w-full mt-1">
-                <div class="gh-progress-bar h-1 bg-border rounded-full overflow-hidden mb-1">
-                  <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 75%"></div>
-                </div>
-                <div class="gh-progress-text text-xs text-text-secondary text-right">75% complete</div>
-              </div>
-            </div>
-            <div class="bg-gray-light p-3 rounded-github border border-border shadow-sm">
-              <div class="gh-reading-title text-white text-sm font-medium mb-1">Building ML Powered Applications</div>
-              <div class="gh-reading-author text-xs text-text-secondary mb-2">Emmanuel Ameisen</div>
-              <div class="gh-reading-progress w-full mt-1">
-                <div class="gh-progress-bar h-1 bg-border rounded-full overflow-hidden mb-1">
-                  <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 45%"></div>
-                </div>
-                <div class="gh-progress-text text-xs text-text-secondary text-right">45% complete</div>
-              </div>
-            </div>
-          {% endif %}
-        </div>
       </div>
     </div>
     
@@ -265,52 +213,182 @@ eleventyNavigation:
   
   <!-- Current Reading Section -->
   <div class="mb-10">
-    <h2 class="text-2xl font-bold mb-6 text-center">Current Reading</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center">Current Research Papers</h2>
     
-    {% if current_reading %}
-      {% for paper in current_reading %}
-        <div class="bg-surface rounded-lg p-6 mb-6 relative overflow-hidden">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% if current_reading and current_reading.length > 0 %}
+        {% for paper in current_reading %}
+          <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+            <div class="mb-2 flex-grow">
+              <a href="{{ paper.link }}" target="_blank" class="text-xl font-medium hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+              <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
+              <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
+              {% if paper.formattedDate %}
+                <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
+              {% endif %}
+            </div>
+            <p class="text-sm text-text mb-4 line-clamp-3">
+              {% if paper.summary %}
+                {{ paper.summary | truncate(150) }}
+              {% endif %}
+            </p>
+            <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+              <div class="bg-accent h-full rounded-full" style="width: {{ paper.progress }}%"></div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="text-sm text-text-secondary">{{ paper.progress }}% complete</div>
+              <a href="{{ paper.link }}" target="_blank" class="text-sm text-accent hover:underline flex items-center">
+                Read on arXiv
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
+                  <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+        
+        <!-- If we have arxiv_feed but not enough items in current_reading, add more from arxiv_feed -->
+        {% if arxiv_feed and current_reading.length < 4 %}
+          {% for paper in arxiv_feed %}
+            {% if loop.index <= 4 - current_reading.length %}
+              <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+                <div class="mb-2 flex-grow">
+                  <a href="{{ paper.link }}" target="_blank" class="text-xl font-medium hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 mb-4">
+                  <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
+                  <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
+                  {% if paper.formattedDate %}
+                    <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
+                  {% endif %}
+                </div>
+                <p class="text-sm text-text mb-4 line-clamp-3">
+                  {% if paper.summary %}
+                    {{ paper.summary | truncate(150) }}
+                  {% endif %}
+                </p>
+                <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+                  <div class="bg-accent h-full rounded-full" style="width: {% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}%"></div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="text-sm text-text-secondary">{% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}% complete</div>
+                  <a href="{{ paper.link }}" target="_blank" class="text-sm text-accent hover:underline flex items-center">
+                    Read on arXiv
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
+                      <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% elif arxiv_feed and arxiv_feed.length > 0 %}
+        {% for paper in arxiv_feed %}
+          {% if loop.index <= 4 %}
+            <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+              <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+              <div class="mb-2 flex-grow">
+                <a href="{{ paper.link }}" target="_blank" class="text-xl font-medium hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 mb-4">
+                <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
+                <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
+                {% if paper.formattedDate %}
+                  <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
+                {% endif %}
+              </div>
+              <p class="text-sm text-text mb-4 line-clamp-3">
+                {% if paper.summary %}
+                  {{ paper.summary | truncate(150) }}
+                {% endif %}
+              </p>
+              <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+                <div class="bg-accent h-full rounded-full" style="width: {% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}%"></div>
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-text-secondary">{% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}% complete</div>
+                <a href="{{ paper.link }}" target="_blank" class="text-sm text-accent hover:underline flex items-center">
+                  Read on arXiv
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
+                    <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <!-- Fallback content if no papers are available -->
+        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
           <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-          <div class="mb-2">
-            <a href="{{ paper.link }}" target="_blank" class="text-xl font-medium hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
+          <div class="mb-3">
+            <span class="text-xl font-medium">Quantum-Safe Cryptography: Post-Quantum Approaches</span>
           </div>
           <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
-            <div class="text-lg text-text-secondary">by {{ paper.firstAuthor }}</div>
+            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">Security</span>
+            <div class="text-base text-text-secondary">R. Avanzi et al.</div>
           </div>
+          <p class="text-sm text-text mb-4">Explores the standardization of cryptographic schemes that provide security against both quantum and classical computers.</p>
           <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-            <div class="bg-accent h-full rounded-full" style="width: {{ paper.progress }}%"></div>
+            <div class="bg-accent h-full rounded-full" style="width: 65%"></div>
           </div>
-          <div class="text-right text-base text-text-secondary">{{ paper.progress }}% complete</div>
+          <div class="text-right text-base text-text-secondary">65% complete</div>
         </div>
-      {% endfor %}
-    {% else %}
-      <!-- Book 1 -->
-      <div class="bg-surface rounded-lg p-6 mb-6 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-        <div class="mb-3">
-          <span class="text-xl font-medium">Designing Data-Intensive Applications</span>
+        
+        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+          <div class="mb-3">
+            <span class="text-xl font-medium">LLMs at the Edge: Efficient Fine-Tuning Methods</span>
+          </div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">AI</span>
+            <div class="text-base text-text-secondary">Chen et al.</div>
+          </div>
+          <p class="text-sm text-text mb-4">Analysis of methods for deploying and fine-tuning large language models on resource-constrained edge devices.</p>
+          <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+            <div class="bg-accent h-full rounded-full" style="width: 42%"></div>
+          </div>
+          <div class="text-right text-base text-text-secondary">42% complete</div>
         </div>
-        <div class="text-lg text-text-secondary mb-4">by Martin Kleppmann</div>
-        <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-          <div class="bg-accent h-full rounded-full" style="width: 75%"></div>
+        
+        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+          <div class="mb-3">
+            <span class="text-xl font-medium">Error Correction in Quantum Computing</span>
+          </div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">Quantum</span>
+            <div class="text-base text-text-secondary">Zhang et al.</div>
+          </div>
+          <p class="text-sm text-text mb-4">Recent advancements in practical quantum error correction techniques and their implications for fault-tolerant quantum computing.</p>
+          <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+            <div class="bg-accent h-full rounded-full" style="width: 80%"></div>
+          </div>
+          <div class="text-right text-base text-text-secondary">80% complete</div>
         </div>
-        <div class="text-right text-base text-text-secondary">75% complete</div>
-      </div>
-      
-      <!-- Book 2 -->
-      <div class="bg-surface rounded-lg p-6 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-        <div class="mb-3">
-          <span class="text-xl font-medium">Building ML Powered Applications</span>
+        
+        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+          <div class="mb-3">
+            <span class="text-xl font-medium">Zero-Knowledge Proofs for Blockchain Privacy</span>
+          </div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">Security</span>
+            <div class="text-base text-text-secondary">Johnson et al.</div>
+          </div>
+          <p class="text-sm text-text mb-4">Examines the application of zero-knowledge proofs to enhance privacy in blockchain transactions while maintaining verification capabilities.</p>
+          <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+            <div class="bg-accent h-full rounded-full" style="width: 55%"></div>
+          </div>
+          <div class="text-right text-base text-text-secondary">55% complete</div>
         </div>
-        <div class="text-lg text-text-secondary mb-4">by Emmanuel Ameisen</div>
-        <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-          <div class="bg-accent h-full rounded-full" style="width: 45%"></div>
-        </div>
-        <div class="text-right text-base text-text-secondary">45% complete</div>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
   
   <!-- Latest Learning Section -->

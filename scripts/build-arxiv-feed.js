@@ -217,8 +217,21 @@ async function main() {
   fs.writeFileSync(outputFile, JSON.stringify(papers, null, 2));
   console.log(`Successfully wrote ${papers.length} papers to ${outputFile} (${ai.length} AI, ${security.length} Security, ${quantum.length} Quantum)`);
   
-  // Create a separate file for current reading section
-  const currentReadingPapers = papers.slice(0, 2); // Take top 2 papers for current reading
+  // Create a separate file for current reading section - take the top papers from each category
+  const currentReadingPapers = [];
+  // Take the first paper from each category to ensure diversity
+  if (ai.length > 0) currentReadingPapers.push(papers.find(p => p.categoryLabel === "AI"));
+  if (security.length > 0) currentReadingPapers.push(papers.find(p => p.categoryLabel === "Security"));
+  if (quantum.length > 0) currentReadingPapers.push(papers.find(p => p.categoryLabel === "Quantum"));
+  if (other.length > 0 && currentReadingPapers.length < 4) currentReadingPapers.push(papers.find(p => p.categoryLabel === "Research"));
+  
+  // If we still don't have at least 4 papers, add more from the remaining papers
+  while (currentReadingPapers.length < 4 && papers.length > currentReadingPapers.length) {
+    const nextPaper = papers.find(p => !currentReadingPapers.includes(p));
+    if (nextPaper) currentReadingPapers.push(nextPaper);
+    else break;
+  }
+  
   const currentReadingFile = path.join(outputDir, 'current-reading.json');
   fs.writeFileSync(currentReadingFile, JSON.stringify(currentReadingPapers, null, 2));
   console.log(`Successfully wrote ${currentReadingPapers.length} papers to ${currentReadingFile} for current reading section`);
