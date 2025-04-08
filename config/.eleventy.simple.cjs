@@ -342,8 +342,18 @@ module.exports = function(eleventyConfig) {
       eleventyConfig.addGlobalData('current_reading', () => currentReadingData);
       console.log('Loaded current reading data with', currentReadingData.length, 'papers');
     }
+    
+    // Path to books data file
+    const booksPath = path.join(__dirname, '..', '_data', 'books.json');
+    
+    // Add books data to global data if file exists
+    if (fs.existsSync(booksPath)) {
+      const booksData = JSON.parse(fs.readFileSync(booksPath, 'utf8'));
+      eleventyConfig.addGlobalData('books', () => booksData);
+      console.log('Loaded books data with', booksData.length, 'books');
+    }
   } catch (error) {
-    console.warn('Error loading arXiv data:', error.message);
+    console.warn('Error loading external data:', error.message);
   }
 
   return {

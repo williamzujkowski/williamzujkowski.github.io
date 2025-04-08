@@ -56,6 +56,34 @@ async function main() {
     await fs.writeFile(path.join(dataDir, 'current-reading.json'), JSON.stringify(currentReadingData, null, 2));
     console.log('Created fallback current-reading.json');
 
+    // Create fallback books.json
+    const booksData = [
+      {
+        "title": "Designing Data-Intensive Applications",
+        "author": "Martin Kleppmann",
+        "isbn": "9781449373320",
+        "progress": 75,
+        "cover_url": "https://covers.openlibrary.org/b/isbn/9781449373320-M.jpg",
+        "description": "Data-intensive applications are a challenge to build and maintain. Learn how to use these systems effectively with this practical guide to the best design patterns and principles.",
+        "publish_date": "2017",
+        "page_count": 616,
+        "subjects": ["Distributed systems", "Database design", "Software architecture", "Web development", "Big data"]
+      },
+      {
+        "title": "Building Machine Learning Powered Applications",
+        "author": "Emmanuel Ameisen",
+        "isbn": "9781492045113",
+        "progress": 45,
+        "cover_url": "https://covers.openlibrary.org/b/isbn/9781492045113-M.jpg",
+        "description": "Learn the skills necessary to design, build, and deploy applications powered by machine learning (ML). Through the course of this hands-on book, you'll build an example ML-driven application from initial idea to deployed product.",
+        "publish_date": "2020",
+        "page_count": 260,
+        "subjects": ["Machine Learning", "Python", "Data Science", "Software Development", "Artificial Intelligence"]
+      }
+    ];
+    await fs.writeFile(path.join(dataDir, 'books.json'), JSON.stringify(booksData, null, 2));
+    console.log('Created fallback books.json');
+
     console.log('All fallback data files created successfully');
   } catch (error) {
     console.error('Error creating fallback data:', error);

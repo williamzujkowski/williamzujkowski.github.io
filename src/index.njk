@@ -74,43 +74,7 @@ eleventyNavigation:
         </div>
         
         <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Current Reading</h3>
-        <div class="gh-reading-section mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface">
-            <div class="gh-reading-icon w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
-              </svg>
-            </div>
-            <div class="flex-grow">
-              <div class="gh-reading-title text-white font-medium mb-1">Designing Data-Intensive Applications</div>
-              <div class="gh-reading-author text-sm text-text-secondary mb-3">Martin Kleppmann</div>
-              <div class="gh-reading-progress w-full mt-1">
-                <div class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1">
-                  <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 75%"></div>
-                </div>
-                <div class="gh-progress-text text-xs text-text-secondary">75% complete</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface">
-            <div class="gh-reading-icon w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                <path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"></path>
-              </svg>
-            </div>
-            <div class="flex-grow">
-              <div class="gh-reading-title text-white font-medium mb-1">Building Machine Learning Powered Applications</div>
-              <div class="gh-reading-author text-sm text-text-secondary mb-3">Emmanuel Ameisen</div>
-              <div class="gh-reading-progress w-full mt-1">
-                <div class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1">
-                  <div class="gh-progress-fill h-full bg-accent rounded-full" style="width: 45%"></div>
-                </div>
-                <div class="gh-progress-text text-xs text-text-secondary">45% complete</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% include "books-section.njk" %}
         
         <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Learning</h3>
         <div class="gh-learning-timeline mb-6 pl-4 border-l border-border space-y-6">
