@@ -321,6 +321,31 @@ module.exports = function(eleventyConfig) {
     console.warn('Error loading cached activity data:', error.message);
   }
 
+  // Add arXiv data
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    
+    // Path to arXiv data files
+    const arxivPath = path.join(__dirname, '..', '_data', 'arxiv-feed.json');
+    const currentReadingPath = path.join(__dirname, '..', '_data', 'current-reading.json');
+    
+    // Add arXiv data to global data if files exist
+    if (fs.existsSync(arxivPath)) {
+      const arxivData = JSON.parse(fs.readFileSync(arxivPath, 'utf8'));
+      eleventyConfig.addGlobalData('arxiv_feed', () => arxivData);
+      console.log('Loaded arXiv data with', arxivData.length, 'papers');
+    }
+    
+    if (fs.existsSync(currentReadingPath)) {
+      const currentReadingData = JSON.parse(fs.readFileSync(currentReadingPath, 'utf8'));
+      eleventyConfig.addGlobalData('current_reading', () => currentReadingData);
+      console.log('Loaded current reading data with', currentReadingData.length, 'papers');
+    }
+  } catch (error) {
+    console.warn('Error loading arXiv data:', error.message);
+  }
+
   return {
     dir: {
       input: "src",
