@@ -76,7 +76,41 @@ eleventyNavigation:
         <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Current Reading</h3>
         {% include "books-section.njk" %}
         
-        <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Learning</h3>
+        <h3 class="text-center md:text-left relative pb-2 mb-3 mt-8 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Research Papers</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {% if current_reading and current_reading.length > 0 %}
+            {% for paper in current_reading %}
+              <a href="{{ paper.link }}" target="_blank" class="block h-full">
+                <div class="bg-surface rounded-github border border-border p-4 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary"></div>
+                  <div class="mb-2 flex-grow">
+                    <div class="text-lg font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">{{ paper.categoryLabel }}</span>
+                    <div class="text-sm text-text-secondary">{{ paper.firstAuthor }}</div>
+                    {% if paper.formattedDate %}
+                      <div class="text-xs text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
+                    {% endif %}
+                  </div>
+                  <div class="text-xs text-text line-clamp-2 mb-3">
+                    {% if paper.summary %}
+                      {{ paper.summary | truncate(150) }}
+                    {% endif %}
+                  </div>
+                  <div class="w-full bg-gray-light rounded-full h-1.5 mb-1">
+                    <div class="bg-accent h-full rounded-full" style="width: {{ paper.progress }}%"></div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <div class="text-xs text-text-secondary">{{ paper.progress }}% complete</div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          {% endif %}
+        </div>
+        
+        <h3 class="text-center md:text-left relative pb-2 mb-3 mt-8 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Learning</h3>
         <div class="gh-learning-timeline mb-6 pl-4 border-l border-border space-y-6">
           <div class="gh-timeline-item relative flex items-start">
             <div class="gh-timeline-icon absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent">
@@ -187,46 +221,87 @@ eleventyNavigation:
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% if current_reading and current_reading.length > 0 %}
         {% for paper in current_reading %}
-          <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
-            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-            <div class="mb-2 flex-grow">
-              <a href="{{ paper.link }}" target="_blank" class="text-xl font-medium hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
+          <a href="{{ paper.link }}" target="_blank" class="block h-full">
+            <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+              <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+              <div class="mb-2 flex-grow">
+                <div class="text-xl font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 mb-4">
+                <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
+                <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
+                {% if paper.formattedDate %}
+                  <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
+                {% endif %}
+              </div>
+              <p class="text-sm text-text mb-4 line-clamp-3">
+                {% if paper.summary %}
+                  {{ paper.summary | truncate(150) }}
+                {% endif %}
+              </p>
+              <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+                <div class="bg-accent h-full rounded-full" style="width: {{ paper.progress }}%"></div>
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-text-secondary">{{ paper.progress }}% complete</div>
+                <div class="text-sm text-accent font-medium flex items-center">
+                  Read on arXiv
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
+                    <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div class="flex flex-wrap items-center gap-2 mb-4">
-              <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
-              <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
-              {% if paper.formattedDate %}
-                <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
-              {% endif %}
-            </div>
-            <p class="text-sm text-text mb-4 line-clamp-3">
-              {% if paper.summary %}
-                {{ paper.summary | truncate(150) }}
-              {% endif %}
-            </p>
-            <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-              <div class="bg-accent h-full rounded-full" style="width: {{ paper.progress }}%"></div>
-            </div>
-            <div class="flex justify-between items-center">
-              <div class="text-sm text-text-secondary">{{ paper.progress }}% complete</div>
-              <a href="{{ paper.link }}" target="_blank" class="text-sm text-accent hover:underline flex items-center">
-                Read on arXiv
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
-                  <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
+          </a>
         {% endfor %}
         
         <!-- If we have arxiv_feed but not enough items in current_reading, add more from arxiv_feed -->
         {% if arxiv_feed and current_reading.length < 2 %}
           {% for paper in arxiv_feed %}
             {% if loop.index <= 2 - current_reading.length %}
+              <a href="{{ paper.link }}" target="_blank" class="block h-full">
+                <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+                  <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+                  <div class="mb-2 flex-grow">
+                    <div class="text-xl font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2 mb-4">
+                    <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
+                    <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
+                    {% if paper.formattedDate %}
+                      <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
+                    {% endif %}
+                  </div>
+                  <p class="text-sm text-text mb-4 line-clamp-3">
+                    {% if paper.summary %}
+                      {{ paper.summary | truncate(150) }}
+                    {% endif %}
+                  </p>
+                  <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+                    <div class="bg-accent h-full rounded-full" style="width: {% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}%"></div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <div class="text-sm text-text-secondary">{% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}% complete</div>
+                    <div class="text-sm text-accent font-medium flex items-center">
+                      Read on arXiv
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
+                        <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% elif arxiv_feed and arxiv_feed.length > 0 %}
+        {% for paper in arxiv_feed %}
+          {% if loop.index <= 2 %}
+            <a href="{{ paper.link }}" target="_blank" class="block h-full">
               <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
                 <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
                 <div class="mb-2 flex-grow">
-                  <a href="{{ paper.link }}" target="_blank" class="text-xl font-medium hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
+                  <div class="text-xl font-medium text-white hover:text-accent transition-colors duration-200">{{ paper.title }}</div>
                 </div>
                 <div class="flex flex-wrap items-center gap-2 mb-4">
                   <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
@@ -245,85 +320,70 @@ eleventyNavigation:
                 </div>
                 <div class="flex justify-between items-center">
                   <div class="text-sm text-text-secondary">{% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}% complete</div>
-                  <a href="{{ paper.link }}" target="_blank" class="text-sm text-accent hover:underline flex items-center">
+                  <div class="text-sm text-accent font-medium flex items-center">
                     Read on arXiv
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
                       <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
                     </svg>
-                  </a>
+                  </div>
                 </div>
               </div>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      {% elif arxiv_feed and arxiv_feed.length > 0 %}
-        {% for paper in arxiv_feed %}
-          {% if loop.index <= 2 %}
-            <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
-              <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-              <div class="mb-2 flex-grow">
-                <a href="{{ paper.link }}" target="_blank" class="text-xl font-medium hover:text-accent transition-colors duration-200">{{ paper.title }}</a>
-              </div>
-              <div class="flex flex-wrap items-center gap-2 mb-4">
-                <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">{{ paper.categoryLabel }}</span>
-                <div class="text-base text-text-secondary">{{ paper.firstAuthor }}</div>
-                {% if paper.formattedDate %}
-                  <div class="text-sm text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
-                {% endif %}
-              </div>
-              <p class="text-sm text-text mb-4 line-clamp-3">
-                {% if paper.summary %}
-                  {{ paper.summary | truncate(150) }}
-                {% endif %}
-              </p>
-              <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-                <div class="bg-accent h-full rounded-full" style="width: {% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}%"></div>
-              </div>
-              <div class="flex justify-between items-center">
-                <div class="text-sm text-text-secondary">{% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}% complete</div>
-                <a href="{{ paper.link }}" target="_blank" class="text-sm text-accent hover:underline flex items-center">
-                  Read on arXiv
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
-                    <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
+            </a>
           {% endif %}
         {% endfor %}
       {% else %}
         <!-- Fallback content if no papers are available -->
-        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
-          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-          <div class="mb-3">
-            <span class="text-xl font-medium">Quantum-Safe Cryptography: Post-Quantum Approaches</span>
+        <a href="https://arxiv.org/abs/2403.17003" target="_blank" class="block h-full">
+          <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border hover:-translate-y-1 transition-transform duration-300 hover:shadow-lg">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+            <div class="mb-3">
+              <div class="text-xl font-medium text-white">Quantum-Safe Cryptography: Post-Quantum Approaches</div>
+            </div>
+            <div class="flex items-center gap-2 mb-4">
+              <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">Security</span>
+              <div class="text-base text-text-secondary">R. Avanzi et al.</div>
+            </div>
+            <p class="text-sm text-text mb-4">Explores the standardization of cryptographic schemes that provide security against both quantum and classical computers.</p>
+            <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+              <div class="bg-accent h-full rounded-full" style="width: 65%"></div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="text-sm text-text-secondary">65% complete</div>
+              <div class="text-sm text-accent font-medium flex items-center">
+                Read on arXiv
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
+                  <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                </svg>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">Security</span>
-            <div class="text-base text-text-secondary">R. Avanzi et al.</div>
-          </div>
-          <p class="text-sm text-text mb-4">Explores the standardization of cryptographic schemes that provide security against both quantum and classical computers.</p>
-          <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-            <div class="bg-accent h-full rounded-full" style="width: 65%"></div>
-          </div>
-          <div class="text-right text-base text-text-secondary">65% complete</div>
-        </div>
+        </a>
         
-        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
-          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-          <div class="mb-3">
-            <span class="text-xl font-medium">LLMs at the Edge: Efficient Fine-Tuning Methods</span>
+        <a href="https://arxiv.org/abs/2404.01373" target="_blank" class="block h-full">
+          <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border hover:-translate-y-1 transition-transform duration-300 hover:shadow-lg">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
+            <div class="mb-3">
+              <div class="text-xl font-medium text-white">LLMs at the Edge: Efficient Fine-Tuning Methods</div>
+            </div>
+            <div class="flex items-center gap-2 mb-4">
+              <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">AI</span>
+              <div class="text-base text-text-secondary">Chen et al.</div>
+            </div>
+            <p class="text-sm text-text mb-4">Analysis of methods for deploying and fine-tuning large language models on resource-constrained edge devices.</p>
+            <div class="w-full bg-gray-light rounded-full h-3 mb-2">
+              <div class="bg-accent h-full rounded-full" style="width: 42%"></div>
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="text-sm text-text-secondary">42% complete</div>
+              <div class="text-sm text-accent font-medium flex items-center">
+                Read on arXiv
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="ml-1">
+                  <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
+                </svg>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">AI</span>
-            <div class="text-base text-text-secondary">Chen et al.</div>
-          </div>
-          <p class="text-sm text-text mb-4">Analysis of methods for deploying and fine-tuning large language models on resource-constrained edge devices.</p>
-          <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-            <div class="bg-accent h-full rounded-full" style="width: 42%"></div>
-          </div>
-          <div class="text-right text-base text-text-secondary">42% complete</div>
-        </div>
+        </a>
       {% endif %}
     </div>
   </div>
