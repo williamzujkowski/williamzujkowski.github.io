@@ -177,8 +177,13 @@ eleventyNavigation:
   
   <!-- Current Reading Section -->
   <div class="mb-10">
-    <h2 class="text-2xl font-bold mb-6 text-center">Current Research Papers</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center">Current Reading</h2>
     
+    <!-- Books Section -->
+    {% include "books-section.njk" %}
+    
+    <!-- Research Papers Section -->
+    <h3 class="text-2xl font-bold mb-6 mt-10 text-center">Research Papers</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% if current_reading and current_reading.length > 0 %}
         {% for paper in current_reading %}
@@ -215,9 +220,9 @@ eleventyNavigation:
         {% endfor %}
         
         <!-- If we have arxiv_feed but not enough items in current_reading, add more from arxiv_feed -->
-        {% if arxiv_feed and current_reading.length < 4 %}
+        {% if arxiv_feed and current_reading.length < 2 %}
           {% for paper in arxiv_feed %}
-            {% if loop.index <= 4 - current_reading.length %}
+            {% if loop.index <= 2 - current_reading.length %}
               <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
                 <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
                 <div class="mb-2 flex-grow">
@@ -253,7 +258,7 @@ eleventyNavigation:
         {% endif %}
       {% elif arxiv_feed and arxiv_feed.length > 0 %}
         {% for paper in arxiv_feed %}
-          {% if loop.index <= 4 %}
+          {% if loop.index <= 2 %}
             <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
               <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
               <div class="mb-2 flex-grow">
@@ -318,38 +323,6 @@ eleventyNavigation:
             <div class="bg-accent h-full rounded-full" style="width: 42%"></div>
           </div>
           <div class="text-right text-base text-text-secondary">42% complete</div>
-        </div>
-        
-        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
-          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-          <div class="mb-3">
-            <span class="text-xl font-medium">Error Correction in Quantum Computing</span>
-          </div>
-          <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">Quantum</span>
-            <div class="text-base text-text-secondary">Zhang et al.</div>
-          </div>
-          <p class="text-sm text-text mb-4">Recent advancements in practical quantum error correction techniques and their implications for fault-tolerant quantum computing.</p>
-          <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-            <div class="bg-accent h-full rounded-full" style="width: 80%"></div>
-          </div>
-          <div class="text-right text-base text-text-secondary">80% complete</div>
-        </div>
-        
-        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col border border-border">
-          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary"></div>
-          <div class="mb-3">
-            <span class="text-xl font-medium">Zero-Knowledge Proofs for Blockchain Privacy</span>
-          </div>
-          <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block px-2 py-0.5 bg-accent/20 text-accent rounded-sm text-sm">Security</span>
-            <div class="text-base text-text-secondary">Johnson et al.</div>
-          </div>
-          <p class="text-sm text-text mb-4">Examines the application of zero-knowledge proofs to enhance privacy in blockchain transactions while maintaining verification capabilities.</p>
-          <div class="w-full bg-gray-light rounded-full h-3 mb-2">
-            <div class="bg-accent h-full rounded-full" style="width: 55%"></div>
-          </div>
-          <div class="text-right text-base text-text-secondary">55% complete</div>
         </div>
       {% endif %}
     </div>
