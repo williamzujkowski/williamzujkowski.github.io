@@ -17,19 +17,19 @@ In the ever-evolving landscape of technology, quantum computing stands out as a 
 
 ### Google's Willow Processor
 
-In December 2024, Google Quantum AI unveiled the Willow processor, a 105-qubit superconducting quantum computing chip. This processor achieved below-threshold quantum error correction, a significant milestone that enhances the reliability of quantum computations. Willow completed a Random Circuit Sampling benchmark task in five minutes—a task that would take today's fastest supercomputers an astronomical 10 septillion years. This leap underscores the accelerating pace of quantum advancements and their potential to tackle problems previously deemed unsolvable. citeturn0search14
+In December 2024, Google Quantum AI unveiled the Willow processor, a 105-qubit superconducting quantum computing chip. This processor achieved below-threshold quantum error correction, a significant milestone that enhances the reliability of quantum computations. Willow completed a Random Circuit Sampling benchmark task in five minutes—a task that would take today's fastest supercomputers an astronomical 10 septillion years. This leap underscores the accelerating pace of quantum advancements and their potential to tackle problems previously deemed unsolvable.
 
 ### AWS's Ocelot Chip
 
-Hot on the heels of Google's announcement, AWS and Caltech introduced the Ocelot chip in February 2025. Utilizing "cat qubits," this innovation reduces quantum computing errors by up to 90%, making error correction more efficient and scalable. Such developments are crucial in transitioning quantum computing from experimental to practical applications, paving the way for broader adoption across various sectors. citeturn0search17
+Hot on the heels of Google's announcement, AWS and Caltech introduced the Ocelot chip in February 2025. Utilizing "cat qubits," this innovation reduces quantum computing errors by up to 90%, making error correction more efficient and scalable. Such developments are crucial in transitioning quantum computing from experimental to practical applications, paving the way for broader adoption across various sectors.
 
 ## Implications for Cybersecurity: The Quantum Threat
 
-While quantum computing holds immense promise, it also poses significant threats, particularly to cybersecurity. Current encryption methods, such as RSA and ECC, rely on the computational difficulty of certain mathematical problems—a defense that quantum computers could potentially dismantle. The advent of quantum capabilities necessitates the development of post-quantum cryptography to safeguard sensitive information against future quantum attacks. citeturn0search9
+While quantum computing holds immense promise, it also poses significant threats, particularly to cybersecurity. Current encryption methods, such as RSA and ECC, rely on the computational difficulty of certain mathematical problems—a defense that quantum computers could potentially dismantle. The advent of quantum capabilities necessitates the development of post-quantum cryptography to safeguard sensitive information against future quantum attacks.
 
 ## Quantum and AI: A Symbiotic Relationship
 
-The intersection of quantum computing and artificial intelligence (AI) is a burgeoning field with the potential to amplify the capabilities of both technologies. Quantum algorithms can process vast datasets more efficiently, enhancing machine learning models and enabling more sophisticated AI applications. Conversely, AI can assist in optimizing quantum operations, creating a mutually beneficial synergy that could drive innovation across multiple domains. citeturn0search2
+The intersection of quantum computing and artificial intelligence (AI) is a burgeoning field with the potential to amplify the capabilities of both technologies. Quantum algorithms can process vast datasets more efficiently, enhancing machine learning models and enabling more sophisticated AI applications. Conversely, AI can assist in optimizing quantum operations, creating a mutually beneficial synergy that could drive innovation across multiple domains.
 
 ## Navigating the Quantum Landscape: Challenges and Considerations
 
