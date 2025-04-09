@@ -9,6 +9,8 @@
  * - Merges configuration in a predictable way
  * - Provides special handling for sections like homepage and links
  * - Handles errors gracefully with fallbacks
+ * - Supports OKLCH color theming for easy palette adjustments
+ * - Processes theme configuration from theme.json for CSS variables
  * 
  * See README.md in this directory for usage documentation.
  */
@@ -188,8 +190,34 @@ function processLinksDirectory(dirPath) {
 // Main configuration path
 const configDir = path.join(__dirname, 'config');
 
+/**
+ * Process theme configuration
+ * 
+ * Load and process the theme configuration for use with CSS variables
+ * 
+ * @returns {Object} Processed theme configuration
+ */
+function processThemeConfig() {
+  try {
+    const themePath = path.join(configDir, 'theme.json');
+    if (fs.existsSync(themePath)) {
+      return readJsonFile(themePath);
+    }
+    return null;
+  } catch (error) {
+    console.error('Error processing theme configuration:', error.message);
+    return null;
+  }
+}
+
 // Build the site configuration
 const siteConfig = mergeConfigDirectory(configDir);
+
+// Add theme configuration
+const themeConfig = processThemeConfig();
+if (themeConfig) {
+  siteConfig.theme = themeConfig;
+}
 
 /**
  * Site configuration export function

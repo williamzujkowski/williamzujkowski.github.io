@@ -1,0 +1,149 @@
+/**
+ * theme.css - OKLCH Color Theme System with CSS Variables
+ *
+ * This file provides CSS variables for the theme, allowing easy
+ * customization of colors across the entire website.
+ */
+
+@layer base {
+  :root {
+    /* Primary color scale */
+    --color-primary: oklch(0.56 0.15 145);
+    --color-primary-50: oklch(0.92 0.05 145);
+    --color-primary-100: oklch(0.87 0.06 145);
+    --color-primary-200: oklch(0.82 0.08 145);
+    --color-primary-300: oklch(0.76 0.10 145);
+    --color-primary-400: oklch(0.66 0.12 145);
+    --color-primary-500: oklch(0.56 0.15 145);
+    --color-primary-600: oklch(0.46 0.13 145);
+    --color-primary-700: oklch(0.36 0.11 145);
+    --color-primary-800: oklch(0.26 0.09 145);
+    --color-primary-900: oklch(0.16 0.07 145);
+    --color-primary-950: oklch(0.11 0.04 145);
+    
+    /* Accent color scale */
+    --color-accent: oklch(0.70 0.15 230);
+    --color-accent-50: oklch(0.95 0.05 230);
+    --color-accent-100: oklch(0.92 0.07 230);
+    --color-accent-200: oklch(0.87 0.09 230);
+    --color-accent-300: oklch(0.82 0.11 230);
+    --color-accent-400: oklch(0.76 0.13 230);
+    --color-accent-500: oklch(0.70 0.15 230);
+    --color-accent-600: oklch(0.60 0.13 230);
+    --color-accent-700: oklch(0.50 0.11 230);
+    --color-accent-800: oklch(0.40 0.09 230);
+    --color-accent-900: oklch(0.30 0.07 230);
+    --color-accent-950: oklch(0.20 0.05 230);
+    
+    /* UI Colors */
+    --color-background: oklch(0.16 0.02 250);
+    --color-surface: oklch(0.20 0.02 250);
+    --color-border: oklch(0.30 0.02 250);
+    --color-gray-light: oklch(0.25 0.02 250);
+    
+    /* Text Colors */
+    --color-text: oklch(0.93 0.02 250);
+    --color-text-secondary: oklch(0.75 0.03 250);
+    --color-muted: oklch(0.65 0.02 250);
+    
+    /* Alert/Status colors */
+    --color-success: oklch(0.56 0.15 145);
+    --color-warning: oklch(0.75 0.15 80);
+    --color-danger: oklch(0.65 0.15 25);
+    --color-info: oklch(0.70 0.15 230);
+    
+    /* Shadows */
+    --shadow-card: 0 0 0 1px var(--color-border);
+    --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    
+    /* Borders */
+    --border-radius: 6px;
+    --border-width: 1px;
+    
+    /* Animation */
+    --transition: 0.3s ease;
+    --hover-transform: -translate-y-1;
+  }
+
+  /* Override focus ring colors */
+  *:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* CSS Variable-based utility classes */
+@layer utilities {
+  .bg-theme-primary { background-color: var(--color-primary); }
+  .bg-theme-primary-50 { background-color: var(--color-primary-50); }
+  .bg-theme-primary-100 { background-color: var(--color-primary-100); }
+  .bg-theme-primary-200 { background-color: var(--color-primary-200); }
+  .bg-theme-primary-300 { background-color: var(--color-primary-300); }
+  .bg-theme-primary-400 { background-color: var(--color-primary-400); }
+  .bg-theme-primary-500 { background-color: var(--color-primary-500); }
+  .bg-theme-primary-600 { background-color: var(--color-primary-600); }
+  .bg-theme-primary-700 { background-color: var(--color-primary-700); }
+  .bg-theme-primary-800 { background-color: var(--color-primary-800); }
+  .bg-theme-primary-900 { background-color: var(--color-primary-900); }
+  .bg-theme-primary-950 { background-color: var(--color-primary-950); }
+
+  .bg-theme-accent { background-color: var(--color-accent); }
+  .bg-theme-accent-50 { background-color: var(--color-accent-50); }
+  .bg-theme-accent-100 { background-color: var(--color-accent-100); }
+  .bg-theme-accent-200 { background-color: var(--color-accent-200); }
+  .bg-theme-accent-300 { background-color: var(--color-accent-300); }
+  .bg-theme-accent-400 { background-color: var(--color-accent-400); }
+  .bg-theme-accent-500 { background-color: var(--color-accent-500); }
+  .bg-theme-accent-600 { background-color: var(--color-accent-600); }
+  .bg-theme-accent-700 { background-color: var(--color-accent-700); }
+  .bg-theme-accent-800 { background-color: var(--color-accent-800); }
+  .bg-theme-accent-900 { background-color: var(--color-accent-900); }
+  .bg-theme-accent-950 { background-color: var(--color-accent-950); }
+
+  .bg-theme-background { background-color: var(--color-background); }
+  .bg-theme-surface { background-color: var(--color-surface); }
+  .bg-theme-border { background-color: var(--color-border); }
+  .bg-theme-gray-light { background-color: var(--color-gray-light); }
+
+  .text-theme-primary { color: var(--color-primary); }
+  .text-theme-accent { color: var(--color-accent); }
+  .text-theme-background { color: var(--color-background); }
+  .text-theme-surface { color: var(--color-surface); }
+  .text-theme-border { color: var(--color-border); }
+  .text-theme-text { color: var(--color-text); }
+  .text-theme-text-secondary { color: var(--color-text-secondary); }
+  .text-theme-muted { color: var(--color-muted); }
+
+  .border-theme-primary { border-color: var(--color-primary); }
+  .border-theme-accent { border-color: var(--color-accent); }
+  .border-theme-border { border-color: var(--color-border); }
+
+  .shadow-theme-card { box-shadow: var(--shadow-card); }
+  .shadow-theme-elevated { box-shadow: var(--shadow-elevated); }
+
+  .rounded-theme { border-radius: var(--border-radius); }
+  .border-theme-width { border-width: var(--border-width); }
+
+  .transition-theme { transition: var(--transition); }
+  .hover-theme-transform:hover { transform: var(--hover-transform); }
+
+  /* Alert colors */
+  .bg-theme-success { background-color: var(--color-success); }
+  .bg-theme-warning { background-color: var(--color-warning); }
+  .bg-theme-danger { background-color: var(--color-danger); }
+  .bg-theme-info { background-color: var(--color-info); }
+
+  .text-theme-success { color: var(--color-success); }
+  .text-theme-warning { color: var(--color-warning); }
+  .text-theme-danger { color: var(--color-danger); }
+  .text-theme-info { color: var(--color-info); }
+
+  /* For use with opacity modifiers */
+  .bg-theme-primary-10 { background-color: color-mix(in oklch, var(--color-primary), transparent 90%); }
+  .bg-theme-primary-20 { background-color: color-mix(in oklch, var(--color-primary), transparent 80%); }
+  .bg-theme-primary-30 { background-color: color-mix(in oklch, var(--color-primary), transparent 70%); }
+
+  .bg-theme-accent-10 { background-color: color-mix(in oklch, var(--color-accent), transparent 90%); }
+  .bg-theme-accent-20 { background-color: color-mix(in oklch, var(--color-accent), transparent 80%); }
+  .bg-theme-accent-30 { background-color: color-mix(in oklch, var(--color-accent), transparent 70%); }
+}

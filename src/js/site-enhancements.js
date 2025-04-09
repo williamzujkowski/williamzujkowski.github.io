@@ -1,42 +1,91 @@
 /**
- * Site enhancement functionality
+ * site-enhancements.js - Additional UI enhancing functionality
+ *
+ * Features:
  * - Back to top button
  * - Image lazy loading
  * - Reading time estimation
  * - Animated page transitions
- * - Tailwind utility features
- * - Social media toggling
+ * - Tooltip functionality
+ * - Focus management for accessibility
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Back to top button functionality
-  const backToTopButton = document.getElementById('back-to-top');
-  
-  if (backToTopButton) {
-    // Initially hide the button
-    backToTopButton.classList.add('hidden');
-    
-    // Show/hide the button based on scroll position
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopButton.classList.remove('hidden');
-        backToTopButton.classList.add('visible');
-      } else {
-        backToTopButton.classList.remove('visible');
-        backToTopButton.classList.add('hidden');
-      }
-    });
-    
-    // Scroll to top when clicked
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
+  // Implement back to top button
+  initScrollToTopButton();
   
   // Image lazy loading with IntersectionObserver
+  initLazyLoading();
+  
+  // Calculate and display reading time for blog posts
+  calculateReadingTime();
+  
+  // Add smooth page transitions
+  initPageTransitions();
+  
+  // Add tooltip functionality
+  initTooltips();
+  
+  // Add accessibility focus improvements
+  enhanceAccessibility();
+  
+  // Add entrance animation when page loads
+  document.body.classList.add('page-transition-enter');
+});
+
+/**
+ * Initialize back-to-top button functionality
+ */
+function initScrollToTopButton() {
+  // First try to find an existing button in the DOM
+  let button = document.getElementById('back-to-top');
+  
+  // If no button exists, create it
+  if (!button) {
+    button = document.createElement('button');
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+      <path d="M3.22 9.78c-.293-.293-.293-.767 0-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78c-.293.293-.767.293-1.06 0z"></path>
+    </svg>`;
+    button.className = 'scroll-top-btn';
+    button.id = 'back-to-top';
+    button.setAttribute('aria-label', 'Scroll to top');
+    document.body.appendChild(button);
+  }
+
+  // Initially hide the button
+  button.classList.add('hidden');
+  
+  // Show/hide button based on scroll position with throttling
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+      window.cancelAnimationFrame(scrollTimeout);
+    }
+
+    scrollTimeout = window.requestAnimationFrame(() => {
+      if (window.pageYOffset > 300) {
+        button.classList.remove('hidden');
+        button.classList.add('visible');
+      } else {
+        button.classList.remove('visible');
+        button.classList.add('hidden');
+      }
+    });
+  });
+  
+  // Scroll to top when clicked
+  button.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+/**
+ * Initialize lazy loading for images
+ */
+function initLazyLoading() {
   if ('IntersectionObserver' in window) {
     const lazyImageObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -76,8 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
-  // Calculate and display reading time for blog posts
+}
+
+/**
+ * Calculate and display reading time for blog posts
+ */
+function calculateReadingTime() {
   const articleContent = document.querySelector('.prose');
   const readingTimeElement = document.getElementById('reading-time');
   
@@ -89,8 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
     readingTimeElement.textContent = `${readingTime} min read`;
     readingTimeElement.classList.remove('hidden');
   }
-  
-  // Smooth page transitions
+}
+
+/**
+ * Add smooth page transitions for internal links
+ */
+function initPageTransitions() {
   document.querySelectorAll('a[href^="/"]:not([href^="#"]):not([target="_blank"])').forEach(link => {
     link.addEventListener('click', e => {
       // Only process internal links
@@ -108,11 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
-  // Add entrance animation when page loads
-  document.body.classList.add('page-transition-enter');
-  
-  // Add tooltip functionality using Tailwind classes
+}
+
+/**
+ * Initialize tooltips for elements with data-tooltip attribute
+ */
+function initTooltips() {
   document.querySelectorAll('[data-tooltip]').forEach(element => {
     // Create tooltip element
     const tooltip = document.createElement('div');
@@ -135,17 +193,25 @@ document.addEventListener('DOMContentLoaded', () => {
       tooltip.classList.add('opacity-0');
     });
   });
-  
-  // Add focus-visible improvements for keyboard navigation
+}
+
+/**
+ * Enhance accessibility with better focus states
+ */
+function enhanceAccessibility() {
   document.querySelectorAll('a, button, input, select, textarea').forEach(element => {
     if (!element.classList.contains('focus-handled')) {
-      element.classList.add('focus:outline-none', 'focus-visible:ring-2', 'focus-visible:ring-accent', 'focus-visible:ring-offset-1', 'focus-visible:ring-offset-background', 'focus-handled');
+      element.classList.add(
+        'focus:outline-none', 
+        'focus-visible:ring-2', 
+        'focus-visible:ring-accent', 
+        'focus-visible:ring-offset-1', 
+        'focus-visible:ring-offset-background', 
+        'focus-handled'
+      );
     }
   });
-});
-
-// Since disabled social media icons are now completely hidden in the template,
-// we no longer need the JavaScript toggle functionality here
+}
 
 // Add page entrance animation after navigation
 window.addEventListener('pageshow', (event) => {

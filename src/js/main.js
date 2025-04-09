@@ -1,3 +1,8 @@
+/**
+ * main.js - Primary JavaScript functionality
+ * Core website initialization and features
+ */
+
 // Show page loader
 const pageLoader = document.createElement('div');
 pageLoader.className = 'page-loader';
@@ -18,15 +23,6 @@ window.addEventListener('load', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize search function if it exists
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) {
-    initSearch();
-  }
-
-  // Add scroll to top button
-  addScrollToTopButton();
-
   // Add keyboard navigation for accessibility
   addKeyboardNavigation();
 
@@ -55,69 +51,6 @@ function addPageAnimations() {
       el.style.opacity = '0';
       el.style.animation = `fadeIn 0.6s ease-out forwards, slideUp 0.6s ease-out forwards`;
       el.style.animationDelay = `${0.1 + (index * 0.1) + (i * 0.05)}s`;
-    });
-  });
-}
-
-// Initialize search functionality
-function initSearch() {
-  const searchInput = document.getElementById('search-input');
-  if (!searchInput) return;
-
-  searchInput.addEventListener('input', function () {
-    const query = this.value.toLowerCase();
-    const searchableElements = document.querySelectorAll('.searchable');
-
-    searchableElements.forEach(element => {
-      const text = element.textContent.toLowerCase();
-      if (text.includes(query) || query === '') {
-        element.style.display = '';
-      } else {
-        element.style.display = 'none';
-      }
-    });
-
-    // Update count of visible items
-    const visibleCount = document.querySelectorAll('.searchable:not([style="display: none;"])').length;
-    const resultCount = document.getElementById('search-results-count');
-    if (resultCount) {
-      resultCount.textContent = visibleCount;
-    }
-  });
-}
-
-// Add scroll to top button
-function addScrollToTopButton() {
-  // Create the button
-  const button = document.createElement('button');
-  button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-    <path d="M3.22 9.78c-.293-.293-.293-.767 0-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78c-.293.293-.767.293-1.06 0z"></path>
-  </svg>`;
-  button.className = 'scroll-top-btn';
-  button.setAttribute('aria-label', 'Scroll to top');
-  document.body.appendChild(button);
-
-  // Show/hide button based on scroll position with throttling
-  let scrollTimeout;
-  window.addEventListener('scroll', () => {
-    if (scrollTimeout) {
-      window.cancelAnimationFrame(scrollTimeout);
-    }
-
-    scrollTimeout = window.requestAnimationFrame(() => {
-      if (window.pageYOffset > 300) {
-        button.classList.add('visible');
-      } else {
-        button.classList.remove('visible');
-      }
-    });
-  });
-
-  // Scroll to top when clicked
-  button.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
     });
   });
 }
