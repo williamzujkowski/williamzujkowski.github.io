@@ -47,7 +47,29 @@ const MAX_CONCURRENT = 3; // Maximum concurrent operations to avoid overloading
 async function getMetadata(url) {
   try {
     console.log(`Fetching metadata for ${url}...`);
-    const { body: html, url: finalUrl } = await got(url);
+    
+    // Skip known problematic sites that block scraping
+    if (url.includes('linkedin.com') || 
+        url.includes('thekidshouldseethis.com') || 
+        url.includes('neal.fun')) {
+      return { url, status: 'error', message: 'Site blocks scraping' };
+    }
+    
+    const options = {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      },
+      timeout: { request: 15000 }
+    };
+    
+    const response = await got(url, options);
+    const html = response.body;
+    const finalUrl = response.url;
+    
     const metadata = await metascraperWithRules({ html, url: finalUrl });
     return { ...metadata, status: 'success' };
   } catch (error) {
@@ -65,17 +87,36 @@ async function takeScreenshot(url, outputPath) {
     console.log(`Taking screenshot of ${url}...`);
     browser = await puppeteer.launch({
       headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: [
+        '--no-sandbox', 
+        '--disable-setuid-sandbox',
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins,site-per-process',
+        '--disable-site-isolation-trials'
+      ]
     });
     
     const page = await browser.newPage();
     await page.setViewport(VIEWPORT);
     
+    // Set a realistic user agent
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36');
+    
+    // Set additional headers to appear more like a real browser
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    });
+    
     // Use browserless/goto for better navigation handling
     await goto(page, url, {
       timeout: 30000,
       waitUntil: 'networkidle2',
-      adblock: true
+      adblock: true,
+      headers: {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8'
+      }
     });
     
     // Ensure the page is fully loaded
@@ -118,11 +159,15 @@ async function processInChunks(items, processFn, chunkSize = MAX_CONCURRENT) {
     console.log(`Processing chunk ${i / chunkSize + 1} (${chunk.length} items)...`);
     
     const chunkResults = await Promise.all(
-      chunk.map(item => processFn(item).catch(err => ({ 
-        url: item.url, 
-        status: 'error',
-        message: err.message 
-      })))
+      chunk.map(item => processFn(item).catch(err => {
+        // Log the detailed error for debugging
+        console.error(`Error processing ${item.url}:`, err);
+        return { 
+          url: item.url, 
+          status: 'error',
+          message: err.message 
+        };
+      }))
     );
     
     results.push(...chunkResults);
@@ -313,10 +358,24 @@ async function main() {
       return { ...link, metadata };
     });
     
-    // Process screenshots for all successful metadata
+    // Process screenshots for all links, even ones with metadata errors
+    // This allows us to at least get a screenshot even if metadata fails
     const screenshotResults = await processInChunks(
-      metadataResults.filter(item => item.metadata?.status === 'success'),
+      metadataResults,
       async (link) => {
+        // Skip known problematic sites that block both metadata and screenshots
+        if (link.url.includes('linkedin.com') || 
+            link.url.includes('thekidshouldseethis.com') || 
+            link.url.includes('neal.fun') || 
+            (link.metadata?.status === 'error' && 
+             (link.metadata.message.includes('403') || 
+              link.metadata.message.includes('999') || 
+              link.metadata.message.includes('forbidden') ||
+              link.metadata.message.includes('blocks scraping')))) {
+          console.log(`Skipping screenshot for blocked site: ${link.url}`);
+          return link;  // Return link without attempting screenshot
+        }
+        
         const screenshotPath = path.join(OUTPUT_DIR, 'screenshots', `${link.id}.jpg`);
         const screenshotResult = await takeScreenshot(link.url, screenshotPath);
         
