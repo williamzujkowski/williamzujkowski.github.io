@@ -99,7 +99,7 @@ function guessTagsFromContent(content) {
 }
 
 function enhanceMarkdown(title, content) {
-  // Basic frontmatter template
+  // Basic frontmatter template - note space-separated tags
   let enhancedContent = `---
 title: "${title}"
 date: {{POST_DATE}}
@@ -151,7 +151,7 @@ async function processPost(filename) {
     const sourceFilePath = path.join(SOURCE_DIR, filename);
     const content = await fs.readFile(sourceFilePath, 'utf-8');
     
-    let title, body;
+    let title, body, existingTags = null;
     const isMarkdown = filename.endsWith('.md');
     
     if (isMarkdown) {
@@ -160,6 +160,18 @@ async function processPost(filename) {
       if (frontMatterMatch) {
         const frontMatter = frontMatterMatch[1];
         const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/);
+        
+        // Extract tags if they exist in frontmatter
+        const tagsMatch = frontMatter.match(/tags:\s*(.+?)(\n|$)/);
+        if (tagsMatch) {
+          // Convert any comma-separated tags into space-separated format
+          existingTags = tagsMatch[1].trim().split(/[\s,]+/).filter(Boolean);
+          // Make sure 'posts' tag is always included
+          if (!existingTags.includes('posts')) {
+            existingTags.unshift('posts');
+          }
+        }
+        
         if (titleMatch) {
           title = titleMatch[1].trim();
           body = frontMatterMatch[2].trim();
@@ -215,8 +227,8 @@ async function processPost(filename) {
     // Create slug from title
     const slug = slugify(title);
     
-    // Guess tags based on content
-    const tags = guessTagsFromContent(content);
+    // Use existing tags if available, otherwise guess tags based on content
+    const tags = existingTags || guessTagsFromContent(content);
     
     // Suggest an image based on content
     const image = suggestImage(title, content);
@@ -225,7 +237,7 @@ async function processPost(filename) {
     let enhancedContent = enhanceMarkdown(title, body);
     
     // Replace placeholders
-    enhancedContent = enhancedContent.replace('{{POST_TAGS}}', tags.join(', '));
+    enhancedContent = enhancedContent.replace('{{POST_TAGS}}', tags.join(' '));
     enhancedContent = enhancedContent.replace('{{IMAGE_FILENAME}}', image.filename);
     enhancedContent = enhancedContent.replace('{{IMAGE_ALT}}', image.alt);
     
@@ -264,9 +276,34 @@ async function main() {
     
     // Process each file
     for (const [index, file] of filesToProcess.entries()) {
-      // Calculate the date for this post (spaced out from previous)
-      currentDate = getNextPostDate(currentDate, DAYS_BETWEEN_POSTS + Math.floor(Math.random() * 5));
-      const postDate = formatDate(currentDate);
+      // Check if content has a date specified in frontmatter
+      const sourceFilePath = path.join(SOURCE_DIR, file);
+      const content = await fs.readFile(sourceFilePath, 'utf-8');
+      
+      let postDate;
+      
+      // Look for date in frontmatter
+      const frontMatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+      if (frontMatterMatch) {
+        const frontMatter = frontMatterMatch[1];
+        const dateMatch = frontMatter.match(/date:\s*(\d{4}-\d{2}-\d{2})/);
+        
+        if (dateMatch && dateMatch[1]) {
+          // Use existing date from frontmatter
+          postDate = dateMatch[1];
+          console.log(`Using date from frontmatter: ${postDate}`);
+        } else {
+          // Calculate the date for this post (spaced out from previous)
+          currentDate = getNextPostDate(currentDate, DAYS_BETWEEN_POSTS + Math.floor(Math.random() * 5));
+          postDate = formatDate(currentDate);
+          console.log(`Generating new date: ${postDate}`);
+        }
+      } else {
+        // No frontmatter, generate date
+        currentDate = getNextPostDate(currentDate, DAYS_BETWEEN_POSTS + Math.floor(Math.random() * 5));
+        postDate = formatDate(currentDate);
+        console.log(`Generating new date: ${postDate}`);
+      }
       
       console.log(`Processing "${file}" with date ${postDate}...`);
       
