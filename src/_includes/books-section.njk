@@ -49,7 +49,7 @@
     
     {# First display Dungeon Crawler Carl and Building Machine Learning Powered Applications #}
     {% for book in books %}
-      {% if book.title.includes('Dungeon Crawler Carl') or book.title.includes('Building Machine Learning Powered Applications') %}
+      {% if book.title.indexOf('Dungeon Crawler Carl') >= 0 or book.title.indexOf('Building Machine Learning Powered Applications') >= 0 %}
         {{ renderBookCard(book) }}
         {% set displayedBooks = (displayedBooks.push(book.isbn), displayedBooks) %}
       {% endif %}
@@ -57,7 +57,7 @@
     
     {# Then display any remaining books #}
     {% for book in books %}
-      {% if not displayedBooks | includes(book.isbn) %}
+      {% if displayedBooks.indexOf(book.isbn) === -1 %}
         {{ renderBookCard(book) }}
       {% endif %}
     {% endfor %}
