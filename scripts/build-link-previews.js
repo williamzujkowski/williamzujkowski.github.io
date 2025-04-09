@@ -39,7 +39,7 @@ const metascraperWithRules = metascraper([
 const VIEWPORT = { width: 1200, height: 675, deviceScaleFactor: 1 };
 const SCREENSHOT_QUALITY = 80;
 const OUTPUT_DIR = path.join(__dirname, '..', '_data');
-const MAX_CONCURRENT = 3; // Maximum concurrent operations to avoid overloading
+const MAX_CONCURRENT = 2; // Maximum concurrent operations to avoid overloading
 
 /**
  * Extract metadata from a URL using metascraper
@@ -51,7 +51,10 @@ async function getMetadata(url) {
     // Skip known problematic sites that block scraping
     if (url.includes('linkedin.com') || 
         url.includes('thekidshouldseethis.com') || 
-        url.includes('neal.fun')) {
+        url.includes('neal.fun') ||
+        url.includes('planetminecraft.com') ||
+        url.includes('be-mag.com') ||
+        url.includes('kickscondor.com')) {
       return { url, status: 'error', message: 'Site blocks scraping' };
     }
     
@@ -216,8 +219,36 @@ async function main() {
         for (const file of linksDir.filter(f => f.endsWith('.json') && f !== 'groups.json')) {
           const filePath = path.join(linksPath, file);
           const linkData = JSON.parse(await fs.readFile(filePath, 'utf-8'));
+          
+          // Handle both formats: 'items' (old) and 'links' (new)
           if (linkData.items && Array.isArray(linkData.items)) {
             links.push(...linkData.items);
+          } else if (linkData.links && Array.isArray(linkData.links)) {
+            // Add group information based on filename
+            const groupName = path.basename(file, '.json');
+            const groupNameMapped = {
+              'art_culture': 'Art, Culture & Exploration',
+              'fun': 'Fun & Curiosities',
+              'technology': 'Technology & Innovation',
+              'social_links': 'Social',
+              'projects': 'Projects',
+              'retrocomputing': 'Retrocomputing',
+              'misc': 'Miscellaneous',
+              'people': 'People',
+              'creative': 'Creative',
+              'artists': 'Artists', 
+              'blogs': 'Blogs',
+              'rollerblading': 'Rollerblading',
+              'music': 'Music', 
+              'gaming': 'Gaming'
+            };
+            
+            const formattedLinks = linkData.links.map(link => ({
+              ...link,
+              group: groupNameMapped[groupName] || groupName.charAt(0).toUpperCase() + groupName.slice(1)
+            }));
+            
+            links.push(...formattedLinks);
           }
         }
         console.log(`Loaded ${links.length} links from modular config directory`);
@@ -366,7 +397,10 @@ async function main() {
         // Skip known problematic sites that block both metadata and screenshots
         if (link.url.includes('linkedin.com') || 
             link.url.includes('thekidshouldseethis.com') || 
-            link.url.includes('neal.fun') || 
+            link.url.includes('neal.fun') ||
+            link.url.includes('planetminecraft.com') ||
+            link.url.includes('be-mag.com') ||
+            link.url.includes('kickscondor.com') ||
             (link.metadata?.status === 'error' && 
              (link.metadata.message.includes('403') || 
               link.metadata.message.includes('999') || 
