@@ -8,8 +8,13 @@
  * node tools/generate-theme.js --name "GitHub Dark" --primary-hue 145 --primary-chroma 0.15 --accent-hue 230
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -78,36 +83,47 @@ if (!fs.existsSync(themeDir)) {
 }
 
 // Write the theme file
-fs.writeFileSync(
-  themePath,
-  JSON.stringify(defaultTheme, null, 2),
-  'utf-8'
-);
-
-console.log(`Theme generated and saved to ${themePath}`);
-
-// Print theme preview
-console.log('\nTheme Preview:');
-console.log('=============');
-console.log(`Name: ${defaultTheme.name}`);
-console.log(`Primary: oklch(${defaultTheme.colors.primaryLightness} ${defaultTheme.colors.primaryChroma} ${defaultTheme.colors.primaryHue})`);
-console.log(`Accent: oklch(${defaultTheme.colors.accentLightness} ${defaultTheme.colors.accentChroma} ${defaultTheme.colors.accentHue})`);
-console.log(`Background: ${defaultTheme.colors.backgroundColor}`);
-console.log(`Surface: ${defaultTheme.colors.surfaceColor}`);
-console.log(`Border: ${defaultTheme.colors.borderColor}`);
-console.log(`Text: ${defaultTheme.colors.textColor}`);
-console.log(`Text Secondary: ${defaultTheme.colors.textSecondaryColor}`);
-console.log('=============\n');
-
-// Example commands to generate other themes
-console.log('Example commands for other themes:');
-console.log('--------------------------------');
-console.log('# Blue theme');
-console.log('node tools/generate-theme.js --name "Ocean Blue" --primary-hue 220 --primary-chroma 0.15 --accent-hue 280');
-console.log('');
-console.log('# Purple theme');
-console.log('node tools/generate-theme.js --name "Deep Purple" --primary-hue 270 --primary-chroma 0.15 --accent-hue 330');
-console.log('');
-console.log('# Amber theme');
-console.log('node tools/generate-theme.js --name "Amber Glow" --primary-hue 60 --primary-chroma 0.13 --accent-hue 30');
-console.log('');
+try {
+  // Ensure the directory exists
+  if (!fs.existsSync(path.dirname(themePath))) {
+    fs.mkdirSync(path.dirname(themePath), { recursive: true });
+  }
+  
+  // Write the file
+  fs.writeFileSync(
+    themePath,
+    JSON.stringify(defaultTheme, null, 2),
+    'utf-8'
+  );
+  
+  console.log(`Theme generated and saved to ${themePath}`);
+  
+  // Print theme preview
+  console.log('\nTheme Preview:');
+  console.log('=============');
+  console.log(`Name: ${defaultTheme.name}`);
+  console.log(`Primary: oklch(${defaultTheme.colors.primaryLightness} ${defaultTheme.colors.primaryChroma} ${defaultTheme.colors.primaryHue})`);
+  console.log(`Accent: oklch(${defaultTheme.colors.accentLightness} ${defaultTheme.colors.accentChroma} ${defaultTheme.colors.accentHue})`);
+  console.log(`Background: ${defaultTheme.colors.backgroundColor}`);
+  console.log(`Surface: ${defaultTheme.colors.surfaceColor}`);
+  console.log(`Border: ${defaultTheme.colors.borderColor}`);
+  console.log(`Text: ${defaultTheme.colors.textColor}`);
+  console.log(`Text Secondary: ${defaultTheme.colors.textSecondaryColor}`);
+  console.log('=============\n');
+  
+  // Example commands to generate other themes
+  console.log('Example commands for other themes:');
+  console.log('--------------------------------');
+  console.log('# Blue theme');
+  console.log('node tools/generate-theme.js --name "Ocean Blue" --primary-hue 220 --primary-chroma 0.15 --accent-hue 280');
+  console.log('');
+  console.log('# Purple theme');
+  console.log('node tools/generate-theme.js --name "Deep Purple" --primary-hue 270 --primary-chroma 0.15 --accent-hue 330');
+  console.log('');
+  console.log('# Amber theme');
+  console.log('node tools/generate-theme.js --name "Amber Glow" --primary-hue 60 --primary-chroma 0.13 --accent-hue 30');
+  console.log('');
+} catch (error) {
+  console.error('Error generating theme:', error.message);
+  process.exit(1);
+}
