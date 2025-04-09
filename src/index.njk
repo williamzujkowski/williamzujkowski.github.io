@@ -71,6 +71,7 @@ eleventyNavigation:
           {% endfor %}
         </div>
         
+        {% if site.homepage.show_featured_projects !== false %}
         <h2 class="text-center md:text-left relative pb-2 mb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Featured Projects</h2>
         <div class="gh-featured-projects mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <a href="https://github.com/williamzujkowski/cloud-security-framework" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-github">
@@ -103,6 +104,7 @@ eleventyNavigation:
             </div>
           </a>
         </div>
+        {% endif %}
         
         <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Current Reading</h3>
         {% include "books-section.njk" %}
@@ -223,6 +225,7 @@ eleventyNavigation:
           {% endif %}
         </div>
         
+        {% if site.homepage.show_latest_learning !== false %}
         <h3 class="text-center md:text-left relative pb-2 mb-3 mt-8 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Learning</h3>
         <div class="gh-learning-timeline mb-6 pl-4 border-l border-border space-y-6">
           <div class="gh-timeline-item relative flex items-start">
@@ -253,6 +256,7 @@ eleventyNavigation:
             </div>
           </div>
         </div>
+        {% endif %}
         
         <!-- Interests moved above -->
       </div>
@@ -324,6 +328,7 @@ eleventyNavigation:
     </div>
   </div>
   
+  {% if site.homepage.show_featured_projects !== false %}
   <!-- Featured Projects Section -->
   <div class="mb-10">
     <h2 class="text-2xl font-bold mb-6 text-center">Featured Projects</h2>
@@ -362,6 +367,7 @@ eleventyNavigation:
       </a>
     </div>
   </div>
+  {% endif %}
   
   <!-- Current Reading Section -->
   <div class="mb-10">
@@ -542,6 +548,7 @@ eleventyNavigation:
     </div>
   </div>
   
+  {% if site.homepage.show_latest_learning !== false %}
   <!-- Latest Learning Section -->
   <div class="mb-10">
     <h2 class="text-2xl font-bold mb-6 text-center">Latest Learning</h2>
@@ -564,6 +571,7 @@ eleventyNavigation:
       <p class="text-lg leading-relaxed mb-0">Built a practical implementation of ZK-SNARKs for privacy-preserving authentication in web applications.</p>
     </div>
   </div>
+  {% endif %}
   
   <!-- Interests moved to About Me section -->
 </div>

@@ -3,6 +3,8 @@
   "recent_posts_count": 3,
   "show_activity_timeline": false,
   "show_contribution_heatmap": false,
+  "show_featured_projects": false,
+  "show_latest_learning": false,
   "show_github_pins": true,
   "show_github_repos_on_links": false,
   "show_arxiv_papers": true
