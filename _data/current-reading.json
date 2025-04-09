@@ -16,7 +16,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.05305v1",
     "categoryLabel": "AI",
-    "progress": 86
+    "progress": 23
   },
   {
     "id": "http://arxiv.org/abs/2504.05273v1",
@@ -38,15 +38,15 @@
     ],
     "link": "http://arxiv.org/abs/2504.05273v1",
     "categoryLabel": "Security",
-    "progress": 14
+    "progress": 56
   },
   {
-    "id": "http://arxiv.org/abs/2504.05289v1",
+    "id": "http://arxiv.org/abs/2504.05289v2",
     "title": "Direct Measurement of the Singlet Lifetime and Photoexcitation Behavior\n  of the Boron Vacancy Center in Hexagonal Boron Nitride",
     "summary": "Optically active electronic spin defects in van der Waals (vdW) materials\nprovide a promising platform for quantum sensing, as they can enable shorter\nstandoff distances compared to defects in diamond, leading to sensitivity\nadvantages. Perhaps the most studied defect in a vdW material is the negatively\ncharged boron vacancy center ($V^{-}_{B}$) in hexagonal boron nitride (hBN).\nHowever, many of the $V^{-}_{B}$ electronic and spin transition rates and\nbranching ratios are not fully known. Here, we use time-resolved\nphotoluminescence (PL) measurements with a nanosecond rise-time 515 nm laser to\ndetermine directly the singlet state lifetime of a $V^{-}_{B}$ ensemble in\nneutron-irradiated, sub-micron-size flakes of hBN. We perform this measurement\non 16 different hBN flakes at room temperature and obtain an average lifetime\nof 15(3) ns. Additionally, we probe the PL dynamics of thermal and optically\npolarized electronic spin distributions of the $V^{-}_{B}$ ensemble in a single\nsub-micron hBN flake, and fit our results to a 9-level model to extract the\nelectronic transition rates. Lastly, we present PL measurements that\npotentially indicate optically-induced conversion of $V^{-}_{B}$ to another\nelectronic state, or possibly the neutral charge state (V$^{0}_{B}$), in\nneutron-irradiated hBN flakes of size $>$ 1 $\\mu$m.",
     "published": "2025-04-07T17:42:43Z",
     "formattedDate": "Apr 7, 2025",
-    "updated": "2025-04-07T17:42:43Z",
+    "updated": "2025-04-08T12:23:03Z",
     "firstAuthor": "Richard A. Escalante",
     "authors": [
       "Richard A. Escalante",
@@ -58,13 +58,13 @@
       "Cecilia Campos",
       "Edwin Coronel",
       "Klaus Krambrock",
-      "Alexander S. Leal",
+      "Alexandre S. Leal",
       "Paras N. Prasad",
       "Ronald L. Walsworth"
     ],
-    "link": "http://arxiv.org/abs/2504.05289v1",
+    "link": "http://arxiv.org/abs/2504.05289v2",
     "categoryLabel": "Quantum",
-    "progress": 75
+    "progress": 58
   },
   {
     "id": "http://arxiv.org/abs/2504.05274v1",
@@ -79,6 +79,6 @@
     ],
     "link": "http://arxiv.org/abs/2504.05274v1",
     "categoryLabel": "Research",
-    "progress": 30
+    "progress": 60
   }
 ]

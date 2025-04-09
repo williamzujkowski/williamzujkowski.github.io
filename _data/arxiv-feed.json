@@ -1,19 +1,159 @@
 [
   {
-    "id": "http://arxiv.org/abs/2504.03635v1",
-    "title": "Do Larger Language Models Imply Better Reasoning? A Pretraining Scaling\n  Law for Reasoning",
-    "summary": "Large Language Models (LLMs) have demonstrated remarkable capabilities across\na wide range of tasks requiring complex reasoning. However, the effects of\nscaling on their reasoning abilities remain insufficiently understood. In this\npaper, we introduce a synthetic multihop reasoning environment designed to\nclosely replicate the structure and distribution of real-world large-scale\nknowledge graphs. Our reasoning task involves completing missing edges in the\ngraph, which requires advanced multi-hop reasoning and mimics real-world\nreasoning scenarios. To evaluate this, we pretrain language models (LMs) from\nscratch solely on triples from the incomplete graph and assess their ability to\ninfer the missing edges. Interestingly, we observe that overparameterization\ncan impair reasoning performance due to excessive memorization. We investigate\ndifferent factors that affect this U-shaped loss curve, including graph\nstructure, model size, and training steps. To predict the optimal model size\nfor a specific knowledge graph, we find an empirical scaling that linearly maps\nthe knowledge graph search entropy to the optimal model size. This work\nprovides new insights into the relationship between scaling and reasoning in\nLLMs, shedding light on possible ways to optimize their performance for\nreasoning tasks.",
-    "published": "2025-04-04T17:57:22Z",
-    "updated": "2025-04-04T17:57:22Z",
+    "id": "http://arxiv.org/abs/2504.05305v1",
+    "title": "URECA: Unique Region Caption Anything",
+    "summary": "Region-level captioning aims to generate natural language descriptions for\nspecific image regions while highlighting their distinguishing features.\nHowever, existing methods struggle to produce unique captions across\nmulti-granularity, limiting their real-world applicability. To address the need\nfor detailed region-level understanding, we introduce URECA dataset, a\nlarge-scale dataset tailored for multi-granularity region captioning. Unlike\nprior datasets that focus primarily on salient objects, URECA dataset ensures a\nunique and consistent mapping between regions and captions by incorporating a\ndiverse set of objects, parts, and background elements. Central to this is a\nstage-wise data curation pipeline, where each stage incrementally refines\nregion selection and caption generation. By leveraging Multimodal Large\nLanguage Models (MLLMs) at each stage, our pipeline produces distinctive and\ncontextually grounded captions with improved accuracy and semantic diversity.\nBuilding upon this dataset, we present URECA, a novel captioning model designed\nto effectively encode multi-granularity regions. URECA maintains essential\nspatial properties such as position and shape through simple yet impactful\nmodifications to existing MLLMs, enabling fine-grained and semantically rich\nregion descriptions. Our approach introduces dynamic mask modeling and a\nhigh-resolution mask encoder to enhance caption uniqueness. Experiments show\nthat URECA achieves state-of-the-art performance on URECA dataset and\ngeneralizes well to existing region-level captioning benchmarks.",
+    "published": "2025-04-07T17:59:44Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-07T17:59:44Z",
+    "firstAuthor": "Sangbeom Lim",
     "authors": [
-      "Xinyi Wang",
-      "Shawn Tan",
-      "Mingyu Jin",
-      "William Yang Wang",
-      "Rameswar Panda",
-      "Yikang Shen"
+      "Sangbeom Lim",
+      "Junwan Kim",
+      "Heeji Yoon",
+      "Jaewoo Jung",
+      "Seungryong Kim"
     ],
-    "link": "http://arxiv.org/abs/2504.03635v1",
-    "categoryLabel": "AI/ML"
+    "link": "http://arxiv.org/abs/2504.05305v1",
+    "categoryLabel": "AI",
+    "progress": 23
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.05304v1",
+    "title": "Gaussian Mixture Flow Matching Models",
+    "summary": "Diffusion models approximate the denoising distribution as a Gaussian and\npredict its mean, whereas flow matching models reparameterize the Gaussian mean\nas flow velocity. However, they underperform in few-step sampling due to\ndiscretization error and tend to produce over-saturated colors under\nclassifier-free guidance (CFG). To address these limitations, we propose a\nnovel Gaussian mixture flow matching (GMFlow) model: instead of predicting the\nmean, GMFlow predicts dynamic Gaussian mixture (GM) parameters to capture a\nmulti-modal flow velocity distribution, which can be learned with a KL\ndivergence loss. We demonstrate that GMFlow generalizes previous diffusion and\nflow matching models where a single Gaussian is learned with an $L_2$ denoising\nloss. For inference, we derive GM-SDE/ODE solvers that leverage analytic\ndenoising distributions and velocity fields for precise few-step sampling.\nFurthermore, we introduce a novel probabilistic guidance scheme that mitigates\nthe over-saturation issues of CFG and improves image generation quality.\nExtensive experiments demonstrate that GMFlow consistently outperforms flow\nmatching baselines in generation quality, achieving a Precision of 0.942 with\nonly 6 sampling steps on ImageNet 256$\\times$256.",
+    "published": "2025-04-07T17:59:42Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-07T17:59:42Z",
+    "firstAuthor": "Hansheng Chen",
+    "authors": [
+      "Hansheng Chen",
+      "Kai Zhang",
+      "Hao Tan",
+      "Zexiang Xu",
+      "Fujun Luan",
+      "Leonidas Guibas",
+      "Gordon Wetzstein",
+      "Sai Bi"
+    ],
+    "link": "http://arxiv.org/abs/2504.05304v1",
+    "categoryLabel": "AI",
+    "progress": 23
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.05273v1",
+    "title": "What We Do Not Know: GPT Use in Business and Management",
+    "summary": "This systematic review examines peer-reviewed studies on application of GPT\nin business management, revealing significant knowledge gaps. Despite\nidentifying interesting research directions such as best practices,\nbenchmarking, performance comparisons, social impacts, our analysis yields only\n42 relevant studies for the 22 months since its release. There are so few\nstudies looking at a particular sector or subfield that management researchers,\nbusiness consultants, policymakers, and journalists do not yet have enough\ninformation to make well-founded statements on how GPT is being used in\nbusinesses. The primary contribution of this paper is a call to action for\nfurther research. We provide a description of current research and identify\nknowledge gaps on the use of GPT in business. We cover the management subfields\nof finance, marketing, human resources, strategy, operations, production, and\nanalytics, excluding retail and sales. We discuss gaps in knowledge of GPT\npotential consequences on employment, productivity, environmental costs,\noppression, and small businesses. We propose how management consultants and the\nmedia can help fill those gaps. We call for practical work on business control\nsystems as they relate to existing and foreseeable AI-related business\nchallenges. This work may be of interest to managers, to management\nresearchers, and to people working on AI in society.",
+    "published": "2025-04-07T17:11:53Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-07T17:11:53Z",
+    "firstAuthor": "Tammy Mackenzie",
+    "authors": [
+      "Tammy Mackenzie",
+      "Branislav Radeljic",
+      "Leslie Salgado",
+      "Animesh Paul",
+      "Rubaina Khan",
+      "Aizhan Tursunbayeva",
+      "Natalie Perez",
+      "Sreyoshi Bhaduri"
+    ],
+    "link": "http://arxiv.org/abs/2504.05273v1",
+    "categoryLabel": "Security",
+    "progress": 56
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.05259v1",
+    "title": "How to evaluate control measures for LLM agents? A trajectory from today\n  to superintelligence",
+    "summary": "As LLM agents grow more capable of causing harm autonomously, AI developers\nwill rely on increasingly sophisticated control measures to prevent possibly\nmisaligned agents from causing harm. AI developers could demonstrate that their\ncontrol measures are sufficient by running control evaluations: testing\nexercises in which a red team produces agents that try to subvert control\nmeasures. To ensure control evaluations accurately capture misalignment risks,\nthe affordances granted to this red team should be adapted to the capability\nprofiles of the agents to be deployed under control measures.\n  In this paper we propose a systematic framework for adapting affordances of\nred teams to advancing AI capabilities. Rather than assuming that agents will\nalways execute the best attack strategies known to humans, we demonstrate how\nknowledge of an agents's actual capability profile can inform proportional\ncontrol evaluations, resulting in more practical and cost-effective control\nmeasures. We illustrate our framework by considering a sequence of five\nfictional models (M1-M5) with progressively advanced capabilities, defining\nfive distinct AI control levels (ACLs). For each ACL, we provide example rules\nfor control evaluation, control measures, and safety cases that could be\nappropriate. Finally, we show why constructing a compelling AI control safety\ncase for superintelligent LLM agents will require research breakthroughs,\nhighlighting that we might eventually need alternative approaches to mitigating\nmisalignment risk.",
+    "published": "2025-04-07T16:52:52Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-07T16:52:52Z",
+    "firstAuthor": "Tomek Korbak",
+    "authors": [
+      "Tomek Korbak",
+      "Mikita Balesni",
+      "Buck Shlegeris",
+      "Geoffrey Irving"
+    ],
+    "link": "http://arxiv.org/abs/2504.05259v1",
+    "categoryLabel": "Security",
+    "progress": 31
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.05289v2",
+    "title": "Direct Measurement of the Singlet Lifetime and Photoexcitation Behavior\n  of the Boron Vacancy Center in Hexagonal Boron Nitride",
+    "summary": "Optically active electronic spin defects in van der Waals (vdW) materials\nprovide a promising platform for quantum sensing, as they can enable shorter\nstandoff distances compared to defects in diamond, leading to sensitivity\nadvantages. Perhaps the most studied defect in a vdW material is the negatively\ncharged boron vacancy center ($V^{-}_{B}$) in hexagonal boron nitride (hBN).\nHowever, many of the $V^{-}_{B}$ electronic and spin transition rates and\nbranching ratios are not fully known. Here, we use time-resolved\nphotoluminescence (PL) measurements with a nanosecond rise-time 515 nm laser to\ndetermine directly the singlet state lifetime of a $V^{-}_{B}$ ensemble in\nneutron-irradiated, sub-micron-size flakes of hBN. We perform this measurement\non 16 different hBN flakes at room temperature and obtain an average lifetime\nof 15(3) ns. Additionally, we probe the PL dynamics of thermal and optically\npolarized electronic spin distributions of the $V^{-}_{B}$ ensemble in a single\nsub-micron hBN flake, and fit our results to a 9-level model to extract the\nelectronic transition rates. Lastly, we present PL measurements that\npotentially indicate optically-induced conversion of $V^{-}_{B}$ to another\nelectronic state, or possibly the neutral charge state (V$^{0}_{B}$), in\nneutron-irradiated hBN flakes of size $>$ 1 $\\mu$m.",
+    "published": "2025-04-07T17:42:43Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-08T12:23:03Z",
+    "firstAuthor": "Richard A. Escalante",
+    "authors": [
+      "Richard A. Escalante",
+      "Andrew J. Beling",
+      "Niko Reed",
+      "Justin Welter",
+      "John Blanchard",
+      "Daniel G. Ang",
+      "Cecilia Campos",
+      "Edwin Coronel",
+      "Klaus Krambrock",
+      "Alexandre S. Leal",
+      "Paras N. Prasad",
+      "Ronald L. Walsworth"
+    ],
+    "link": "http://arxiv.org/abs/2504.05289v2",
+    "categoryLabel": "Quantum",
+    "progress": 58
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.05242v1",
+    "title": "Spectral correlations of dynamical Resonance Fluorescence",
+    "summary": "Frequency-filtered photon correlations have been proven to be extremely\nuseful in grasping how the detection process alters photon statistics.\nHarnessing the spectral correlations also permits refinement of the emission\nand unraveling of previously hidden strong correlations in a plethora of\nquantum-optical systems under continuous-wave excitation. In this work, we\ninvestigate such correlations for time-dependent excitation and develop a\nmethodology to compute efficiently time-integrated correlations, which are at\nthe heart of the photon-counting theory, and subsequently apply it to analyze\nthe photon emission of pulsed systems. By combining this formalism with the\nsensor method -- which facilitates frequency-resolved correlations -- we\ndemonstrate how spectral filtering enhances single-photon purity and suppresses\nmulti-photon noise in time-bin-encoded quantum states. Specifically, filtering\nthe central spectral peak of a dynamically driven two-level system boosts\ntemporal coherence and improves the fidelity of time-bin entanglement\npreparation, even under conditions favoring multi-photon emission. These\nresults establish spectral filtering as a critical tool for tailoring photon\nstatistics in pulsed quantum light sources.",
+    "published": "2025-04-07T16:27:13Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-07T16:27:13Z",
+    "firstAuthor": "Santiago Bermúdez Feijóo",
+    "authors": [
+      "Santiago Bermúdez Feijóo",
+      "Eduardo Zubizarreta Casalengua",
+      "Kai Müller",
+      "Klaus D. Jöns"
+    ],
+    "link": "http://arxiv.org/abs/2504.05242v1",
+    "categoryLabel": "Quantum",
+    "progress": 86
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.05274v1",
+    "title": "Aggregating time-series and image data: functors and double functors",
+    "summary": "Aggregation of time-series or image data over subsets of the domain is a\nfundamental task in data science. We show that many known aggregation\noperations can be interpreted as (double) functors on appropriate (double)\ncategories. Such functorial aggregations are amenable to parallel\nimplementation via straightforward extensions of Blelloch's parallel scan\nalgorithm. In addition to providing a unified viewpoint on existing operations,\nit allows us to propose new aggregation operations for time-series and image\ndata.",
+    "published": "2025-04-07T17:12:20Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-07T17:12:20Z",
+    "firstAuthor": "Joscha Diehl",
+    "authors": [
+      "Joscha Diehl"
+    ],
+    "link": "http://arxiv.org/abs/2504.05274v1",
+    "categoryLabel": "Research",
+    "progress": 60
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.05271v1",
+    "title": "AnomalousNet: A Hybrid Approach with Attention U-Nets and Change Point\n  Detection for Accurate Characterization of Anomalous Diffusion in Video Data",
+    "summary": "Anomalous diffusion occurs in a wide range of systems, including protein\ntransport within cells, animal movement in complex habitats, pollutant\ndispersion in groundwater, and nanoparticle motion in synthetic materials.\nAccurately estimating the anomalous diffusion exponent and the diffusion\ncoefficient from the particle trajectories is essential to distinguish between\nsub-diffusive, super-diffusive, or normal diffusion regimes. These estimates\nprovide a deeper insight into the underlying dynamics of the system,\nfacilitating the identification of particle behaviors and the detection of\nchanges in diffusion states. However, analyzing short and noisy video data,\nwhich often yield incomplete and heterogeneous trajectories, poses a\nsignificant challenge for traditional statistical approaches. We introduce a\ndata-driven method that integrates particle tracking, an attention\n  U-Net architecture, and a change-point detection algorithm to address these\nissues. This approach not only infers the anomalous diffusion parameters with\nhigh accuracy but also identifies temporal transitions between different\nstates, even in the presence of noise and limited temporal resolution. Our\nmethodology demonstrated strong performance in the 2nd Anomalous Diffusion\n(AnDi) Challenge benchmark within the top submissions for video tasks.",
+    "published": "2025-04-07T17:08:17Z",
+    "formattedDate": "Apr 7, 2025",
+    "updated": "2025-04-07T17:08:17Z",
+    "firstAuthor": "Yusef Ahsini",
+    "authors": [
+      "Yusef Ahsini",
+      "Marc Escoto",
+      "J. Alberto Conejero"
+    ],
+    "link": "http://arxiv.org/abs/2504.05271v1",
+    "categoryLabel": "Research",
+    "progress": 67
   }
 ]
