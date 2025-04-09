@@ -84,8 +84,14 @@ node tools/generate-theme.js --name "Ocean Blue" --primary-hue 220 --primary-chr
 - `--background-color` - Complete OKLCH color for background
 - `--surface-color` - Complete OKLCH color for surface elements
 - `--border-color` - Complete OKLCH color for borders
+- `--gray-light-color` - Complete OKLCH color for lighter gray elements
 - `--text-color` - Complete OKLCH color for text
 - `--text-secondary-color` - Complete OKLCH color for secondary text
+- `--muted-color` - Complete OKLCH color for muted text
+- `--success-color` - Complete OKLCH color for success states
+- `--warning-color` - Complete OKLCH color for warning states
+- `--danger-color` - Complete OKLCH color for error/danger states
+- `--info-color` - Complete OKLCH color for information states
 
 ## Using Theme Colors in Templates
 

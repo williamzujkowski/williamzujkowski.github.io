@@ -45,8 +45,14 @@ const defaultTheme = {
     backgroundColor: params['background-color'] || "oklch(0.16 0.02 250)",
     surfaceColor: params['surface-color'] || "oklch(0.20 0.02 250)",
     borderColor: params['border-color'] || "oklch(0.30 0.02 250)",
+    grayLightColor: params['gray-light-color'] || "oklch(0.25 0.02 250)",
     textColor: params['text-color'] || "oklch(0.93 0.02 250)",
-    textSecondaryColor: params['text-secondary-color'] || "oklch(0.75 0.03 250)"
+    textSecondaryColor: params['text-secondary-color'] || "oklch(0.75 0.03 250)",
+    mutedColor: params['muted-color'] || "oklch(0.65 0.02 250)",
+    successColor: params['success-color'] || "oklch(0.56 0.15 145)",
+    warningColor: params['warning-color'] || "oklch(0.75 0.15 80)",
+    dangerColor: params['danger-color'] || "oklch(0.65 0.15 25)",
+    infoColor: params['info-color'] || "oklch(0.70 0.15 230)"
   },
   shadows: {
     card: params['shadow-card'] || "0 0 0 1px oklch(0.30 0.02 250)",
