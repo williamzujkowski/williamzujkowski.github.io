@@ -2,6 +2,9 @@
   "blog": {
     "postsPerPage": 5,
     "showDates": true,
-    "dateFormat": "%B %d, %Y"
-  }
+    "dateFormat": "%B %d, %Y",
+    "showCategories": true
+  },
+  "postsPerPage": 5,
+  "showCategories": true
 }

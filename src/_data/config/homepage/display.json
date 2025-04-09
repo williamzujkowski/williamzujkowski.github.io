@@ -7,5 +7,7 @@
   "show_latest_learning": false,
   "show_github_pins": true,
   "show_github_repos_on_links": false,
-  "show_arxiv_papers": true
+  "show_arxiv_papers": true,
+  "showGithubStats": true,
+  "showRepositories": true
 }

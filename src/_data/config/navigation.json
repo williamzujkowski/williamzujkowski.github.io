@@ -1,7 +1,33 @@
 {
   "navigation": [
-    { "name": "Home", "url": "/", "icon": "" },
-    { "name": "Links", "url": "/links/", "icon": "" },
-    { "name": "Blog", "url": "/blog/", "icon": "" }
+    {
+      "name": "Home",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Links",
+      "url": "/links/",
+      "icon": ""
+    },
+    {
+      "name": "Blog",
+      "url": "/blog/",
+      "icon": ""
+    }
+  ],
+  "mainNavigation": [
+    {
+      "text": "Home",
+      "url": "/"
+    },
+    {
+      "text": "Links",
+      "url": "/links/"
+    },
+    {
+      "text": "Blog",
+      "url": "/blog/"
+    }
   ]
 }
