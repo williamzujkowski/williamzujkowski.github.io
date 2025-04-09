@@ -148,32 +148,97 @@ async function main() {
     // Create output directory if it doesn't exist
     await fs.mkdir(path.join(OUTPUT_DIR, 'screenshots'), { recursive: true });
     
-    // Read site configuration with links
-    const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
-    const siteJson = JSON.parse(await fs.readFile(siteJsonPath, 'utf-8'));
+    // Read site configuration with links (try modular config first)
+    let socialMedia = [];
+    let links = [];
+    let pinnedRepositories = [];
+    
+    try {
+      // Try reading from modular config first
+      const socialMediaPath = path.join(__dirname, '..', 'src', '_data', 'config', 'social', 'social_media.json');
+      if (await fs.access(socialMediaPath).then(() => true).catch(() => false)) {
+        const socialData = JSON.parse(await fs.readFile(socialMediaPath, 'utf-8'));
+        socialMedia = socialData.social_media || [];
+        console.log(`Loaded ${socialMedia.length} social media links from modular config`);
+      }
+      
+      // Try reading links from modular config
+      const linksPath = path.join(__dirname, '..', 'src', '_data', 'config', 'links');
+      if (await fs.access(linksPath).then(() => true).catch(() => false)) {
+        // Check for links directory with multiple files
+        const linksDir = await fs.readdir(linksPath);
+        
+        for (const file of linksDir.filter(f => f.endsWith('.json') && f !== 'groups.json')) {
+          const filePath = path.join(linksPath, file);
+          const linkData = JSON.parse(await fs.readFile(filePath, 'utf-8'));
+          if (linkData.items && Array.isArray(linkData.items)) {
+            links.push(...linkData.items);
+          }
+        }
+        console.log(`Loaded ${links.length} links from modular config directory`);
+      }
+      
+      // Try reading repositories from modular config
+      const reposPath = path.join(__dirname, '..', 'src', '_data', 'config', 'homepage', 'repositories.json');
+      if (await fs.access(reposPath).then(() => true).catch(() => false)) {
+        const repoData = JSON.parse(await fs.readFile(reposPath, 'utf-8'));
+        pinnedRepositories = repoData.featured_repositories || [];
+        console.log(`Loaded ${pinnedRepositories.length} repositories from modular config`);
+      }
+    } catch (error) {
+      console.warn('Error loading from modular config:', error.message);
+    }
+    
+    // If any sections are empty, try loading from legacy site.json as fallback
+    if (socialMedia.length === 0 || links.length === 0 || pinnedRepositories.length === 0) {
+      try {
+        const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
+        if (await fs.access(siteJsonPath).then(() => true).catch(() => false)) {
+          console.log('Falling back to legacy site.json');
+          const siteJson = JSON.parse(await fs.readFile(siteJsonPath, 'utf-8'));
+          
+          if (socialMedia.length === 0 && siteJson.social_media) {
+            socialMedia = siteJson.social_media;
+            console.log(`Loaded ${socialMedia.length} social media links from legacy config`);
+          }
+          
+          if (links.length === 0 && siteJson.links) {
+            links = siteJson.links;
+            console.log(`Loaded ${links.length} links from legacy config`);
+          }
+          
+          if (pinnedRepositories.length === 0 && siteJson.homepage && siteJson.homepage.pinned_repositories) {
+            pinnedRepositories = siteJson.homepage.pinned_repositories;
+            console.log(`Loaded ${pinnedRepositories.length} repositories from legacy config`);
+          }
+        }
+      } catch (error) {
+        console.warn('Error loading from legacy config:', error.message);
+      }
+    }
     
     // Extract all links to process
     const allLinks = [
-      ...siteJson.social_media.map(social => ({ 
+      ...socialMedia.map(social => ({ 
         type: 'social',
         id: social.name.toLowerCase().replace(/\s+/g, '-'),
         url: social.url,
         name: social.name
       })),
-      ...siteJson.links.map(link => ({ 
+      ...links.map(link => ({ 
         type: 'link',
         id: link.name.toLowerCase().replace(/\s+/g, '-'),
         url: link.url,
         name: link.name,
         group: link.group
       })),
-      ...siteJson.homepage.pinned_repositories.map(repo => ({
+      ...pinnedRepositories.map(repo => ({
         type: 'repository',
         id: repo.name.toLowerCase().replace(/\s+/g, '-'),
         url: repo.url,
         name: repo.name
       }))
-    ].filter(link => link.url.startsWith('http')); // Only process external links
+    ].filter(link => link.url && link.url.startsWith('http')); // Only process external links with valid URLs
     
     console.log(`Found ${allLinks.length} links to process`);
     

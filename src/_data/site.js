@@ -1,6 +1,16 @@
 /**
  * site.js - Unified site configuration
- * This file merges all the modular configuration files from the config directory
+ * 
+ * This module handles loading and merging all modular configuration files from
+ * the config directory into a single site configuration object for use in templates.
+ * 
+ * Key features:
+ * - Loads JSON files from a structured directory hierarchy
+ * - Merges configuration in a predictable way
+ * - Provides special handling for sections like homepage and links
+ * - Handles errors gracefully with fallbacks
+ * 
+ * See README.md in this directory for usage documentation.
  */
 
 import fs from 'fs';
@@ -11,7 +21,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to read and parse JSON files
+/**
+ * Reads and parses a JSON file
+ * 
+ * @param {string} filePath - Path to the JSON file
+ * @returns {Object} Parsed JSON data or empty object on error
+ */
 function readJsonFile(filePath) {
   try {
     const data = fs.readFileSync(filePath, 'utf8');
@@ -22,7 +37,12 @@ function readJsonFile(filePath) {
   }
 }
 
-// Function to merge all JSON files in a directory
+/**
+ * Merges all JSON files in a directory into a single object
+ * 
+ * @param {string} dirPath - Path to the directory
+ * @returns {Object} Combined data from all JSON files
+ */
 function mergeJsonFilesInDirectory(dirPath) {
   try {
     if (!fs.existsSync(dirPath)) {
@@ -48,7 +68,13 @@ function mergeJsonFilesInDirectory(dirPath) {
   }
 }
 
-// Function to recursively merge all JSON files in a directory structure
+/**
+ * Recursively merges all JSON files in a directory structure
+ * 
+ * @param {string} dirPath - Path to the root directory
+ * @param {string} prefix - Optional prefix for nested properties
+ * @returns {Object} Combined configuration object
+ */
 function mergeConfigDirectory(dirPath, prefix = '') {
   try {
     if (!fs.existsSync(dirPath)) {
@@ -101,7 +127,13 @@ function mergeConfigDirectory(dirPath, prefix = '') {
   }
 }
 
-// Special handling for homepage directory
+/**
+ * Special handling for homepage directory
+ * Combines all homepage configuration files into a single 'homepage' object
+ * 
+ * @param {string} dirPath - Path to the homepage directory
+ * @returns {Object} Object with 'homepage' key containing merged homepage data
+ */
 function mergeHomepageDirectory(dirPath) {
   try {
     let homepage = {};
@@ -120,7 +152,13 @@ function mergeHomepageDirectory(dirPath) {
   }
 }
 
-// Special handling for links directory - combine all items from different link types
+/**
+ * Special handling for links directory
+ * Combines link groups and all link items from different categories
+ * 
+ * @param {string} dirPath - Path to the links directory
+ * @returns {Object} Object with 'links' array and 'linkGroups' properties
+ */
 function processLinksDirectory(dirPath) {
   try {
     // Read linkGroups first
@@ -153,7 +191,15 @@ const configDir = path.join(__dirname, 'config');
 // Build the site configuration
 const siteConfig = mergeConfigDirectory(configDir);
 
-// Export the configuration
+/**
+ * Site configuration export function
+ * 
+ * This function returns the complete site configuration object
+ * for use in Eleventy templates. The object structure mirrors 
+ * the directory structure, with special handling for certain sections.
+ * 
+ * @returns {Object} Complete site configuration
+ */
 export default function() {
   return siteConfig;
 };

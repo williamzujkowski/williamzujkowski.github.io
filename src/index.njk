@@ -77,6 +77,7 @@ eleventyNavigation:
         {% include "books-section.njk" %}
         
         <h3 class="text-center md:text-left relative pb-2 mb-3 mt-8 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Research Papers</h3>
+        <!-- Debug: {{ current_reading | json }} -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {% if current_reading and current_reading.length > 0 %}
             {% for paper in current_reading %}
@@ -108,6 +109,86 @@ eleventyNavigation:
                 </div>
               </a>
             {% endfor %}
+          {% elif site.homepage.show_arxiv_papers and arxiv_feed and arxiv_feed.length > 0 %}
+            <!-- Fallback to arxiv_feed if current_reading is empty -->
+            {% for paper in arxiv_feed %}
+              {% if loop.index <= 2 %}
+                <a href="{{ paper.link }}" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-github">
+                  <div class="bg-surface rounded-github border border-border p-4 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
+                    <div class="mb-2 flex-grow">
+                      <div class="text-lg font-medium text-white transition-colors duration-200 group-hover:text-accent">{{ paper.title }}</div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2 mb-3 pointer-events-none">
+                      <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">{{ paper.categoryLabel }}</span>
+                      <div class="text-sm text-text-secondary">{{ paper.firstAuthor }}</div>
+                      {% if paper.formattedDate %}
+                        <div class="text-xs text-text-secondary opacity-75">{{ paper.formattedDate }}</div>
+                      {% endif %}
+                    </div>
+                    <div class="text-xs text-text line-clamp-2 mb-3 pointer-events-none">
+                      {% if paper.summary %}
+                        {{ paper.summary | truncate(150) }}
+                      {% endif %}
+                    </div>
+                    <div class="w-full bg-gray-light rounded-full h-1.5 mb-1 pointer-events-none">
+                      <div class="bg-accent h-full rounded-full" style="width: {% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}%"></div>
+                    </div>
+                    <div class="flex justify-between items-center pointer-events-none">
+                      <div class="text-xs text-text-secondary">{% if paper.progress %}{{ paper.progress }}{% else %}30{% endif %}% complete</div>
+                      <div class="text-xs text-accent font-medium">Read on arXiv</div>
+                    </div>
+                  </div>
+                </a>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <!-- Fallback content if no papers are available -->
+            <a href="https://arxiv.org/abs/2403.17003" target="_blank" class="block h-full">
+              <div class="bg-surface rounded-github border border-border p-4 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
+                <div class="mb-2 flex-grow">
+                  <div class="text-lg font-medium text-white">Quantum-Safe Cryptography: Post-Quantum Approaches</div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 mb-3 pointer-events-none">
+                  <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">Security</span>
+                  <div class="text-sm text-text-secondary">R. Avanzi et al.</div>
+                </div>
+                <div class="text-xs text-text line-clamp-2 mb-3 pointer-events-none">
+                  Explores the standardization of cryptographic schemes that provide security against both quantum and classical computers.
+                </div>
+                <div class="w-full bg-gray-light rounded-full h-1.5 mb-1 pointer-events-none">
+                  <div class="bg-accent h-full rounded-full" style="width: 65%"></div>
+                </div>
+                <div class="flex justify-between items-center pointer-events-none">
+                  <div class="text-xs text-text-secondary">65% complete</div>
+                  <div class="text-xs text-accent font-medium">Read on arXiv</div>
+                </div>
+              </div>
+            </a>
+            
+            <a href="https://arxiv.org/abs/2404.01373" target="_blank" class="block h-full">
+              <div class="bg-surface rounded-github border border-border p-4 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
+                <div class="mb-2 flex-grow">
+                  <div class="text-lg font-medium text-white">LLMs at the Edge: Efficient Fine-Tuning Methods</div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 mb-3 pointer-events-none">
+                  <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">AI</span>
+                  <div class="text-sm text-text-secondary">Chen et al.</div>
+                </div>
+                <div class="text-xs text-text line-clamp-2 mb-3 pointer-events-none">
+                  Analysis of methods for deploying and fine-tuning large language models on resource-constrained edge devices.
+                </div>
+                <div class="w-full bg-gray-light rounded-full h-1.5 mb-1 pointer-events-none">
+                  <div class="bg-accent h-full rounded-full" style="width: 42%"></div>
+                </div>
+                <div class="flex justify-between items-center pointer-events-none">
+                  <div class="text-xs text-text-secondary">42% complete</div>
+                  <div class="text-xs text-accent font-medium">Read on arXiv</div>
+                </div>
+              </div>
+            </a>
           {% endif %}
         </div>
         

@@ -16,7 +16,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.05305v1",
     "categoryLabel": "AI",
-    "progress": 23
+    "progress": 57
   },
   {
     "id": "http://arxiv.org/abs/2504.05273v1",
@@ -38,7 +38,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.05273v1",
     "categoryLabel": "Security",
-    "progress": 56
+    "progress": 89
   },
   {
     "id": "http://arxiv.org/abs/2504.05289v2",
@@ -64,7 +64,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.05289v2",
     "categoryLabel": "Quantum",
-    "progress": 58
+    "progress": 54
   },
   {
     "id": "http://arxiv.org/abs/2504.05274v1",
@@ -79,6 +79,6 @@
     ],
     "link": "http://arxiv.org/abs/2504.05274v1",
     "categoryLabel": "Research",
-    "progress": 60
+    "progress": 11
   }
 ]

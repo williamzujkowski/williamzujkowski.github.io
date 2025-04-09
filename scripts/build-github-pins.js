@@ -90,24 +90,40 @@ async function fetchPinnedRepos() {
 }
 
 async function main() {
-  // Check if site.json exists and has pinned repositories
-  const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
+  // First try to read from the modular configuration
+  const reposJsonPath = path.join(__dirname, '..', 'src', '_data', 'config', 'homepage', 'repositories.json');
   let configPinnedRepos = [];
   
   try {
-    if (fs.existsSync(siteJsonPath)) {
-      const siteConfig = JSON.parse(fs.readFileSync(siteJsonPath, 'utf8'));
-      if (siteConfig.homepage && 
-          siteConfig.homepage.pinned_repositories && 
-          Array.isArray(siteConfig.homepage.pinned_repositories) &&
-          siteConfig.homepage.pinned_repositories.length > 0) {
+    // Try modular config first
+    if (fs.existsSync(reposJsonPath)) {
+      const reposConfig = JSON.parse(fs.readFileSync(reposJsonPath, 'utf8'));
+      if (reposConfig.featured_repositories && 
+          Array.isArray(reposConfig.featured_repositories) &&
+          reposConfig.featured_repositories.length > 0) {
         
-        console.log(`Using ${siteConfig.homepage.pinned_repositories.length} repositories from site configuration`);
-        configPinnedRepos = siteConfig.homepage.pinned_repositories;
+        console.log(`Using ${reposConfig.featured_repositories.length} repositories from modular configuration`);
+        configPinnedRepos = reposConfig.featured_repositories;
+      }
+    }
+    
+    // Fallback to legacy site.json if needed
+    if (configPinnedRepos.length === 0) {
+      const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
+      if (fs.existsSync(siteJsonPath)) {
+        const siteConfig = JSON.parse(fs.readFileSync(siteJsonPath, 'utf8'));
+        if (siteConfig.homepage && 
+            siteConfig.homepage.pinned_repositories && 
+            Array.isArray(siteConfig.homepage.pinned_repositories) &&
+            siteConfig.homepage.pinned_repositories.length > 0) {
+          
+          console.log(`Using ${siteConfig.homepage.pinned_repositories.length} repositories from legacy site configuration`);
+          configPinnedRepos = siteConfig.homepage.pinned_repositories;
+        }
       }
     }
   } catch (error) {
-    console.error('Error reading site configuration:', error);
+    console.error('Error reading configuration:', error);
   }
   
   // If we have repos from config, use those

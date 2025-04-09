@@ -10,21 +10,39 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read the site.json file to get books from reading_list
+// Read the reading list from the modular configuration
 async function getReadingListFromConfig() {
   try {
-    const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
-    const siteJsonContent = await fs.promises.readFile(siteJsonPath, 'utf8');
-    const siteData = JSON.parse(siteJsonContent);
+    // Check for homepage/reading.json first (new modular configuration)
+    const readingJsonPath = path.join(__dirname, '..', 'src', '_data', 'config', 'homepage', 'reading.json');
     
-    if (siteData.homepage && Array.isArray(siteData.homepage.reading_list)) {
-      return siteData.homepage.reading_list;
-    } else {
-      console.log('No reading list found in site.json');
-      return [];
+    if (fs.existsSync(readingJsonPath)) {
+      const readingJsonContent = await fs.promises.readFile(readingJsonPath, 'utf8');
+      const readingData = JSON.parse(readingJsonContent);
+      
+      if (Array.isArray(readingData.reading_list)) {
+        console.log(`Found reading list in modular config with ${readingData.reading_list.length} books`);
+        return readingData.reading_list;
+      }
     }
+    
+    // Fallback to old site.json if needed
+    const siteJsonPath = path.join(__dirname, '..', 'src', '_data', 'site.json');
+    
+    if (fs.existsSync(siteJsonPath)) {
+      const siteJsonContent = await fs.promises.readFile(siteJsonPath, 'utf8');
+      const siteData = JSON.parse(siteJsonContent);
+      
+      if (siteData.homepage && Array.isArray(siteData.homepage.reading_list)) {
+        console.log('Found reading list in legacy site.json');
+        return siteData.homepage.reading_list;
+      }
+    }
+    
+    console.log('No reading list found in configuration files');
+    return [];
   } catch (error) {
-    console.error('Error reading site.json:', error);
+    console.error('Error reading configuration:', error);
     return [];
   }
 }

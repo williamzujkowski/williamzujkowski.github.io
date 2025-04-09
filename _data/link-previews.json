@@ -17,7 +17,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/github.jpg",
-    "last_checked": "2025-04-09T02:11:05.764Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "linkedin",
@@ -31,7 +31,7 @@
       "message": "Response code 999 (Request denied)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "bluesky",
@@ -51,207 +51,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/bluesky.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "personal-website",
-    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
-    "name": "Personal Website",
-    "type": "link",
-    "group": "Projects",
-    "metadata": {
-      "author": "williamzujkowski",
-      "date": null,
-      "description": "Contribute to williamzujkowski/williamzujkowski.github.io development by creating an account on GitHub.",
-      "image": "https://opengraph.githubassets.com/16c0b97889448fa09ad2299ffecca0290c4e61d832fcd2fc691dcc3e582a6bea/williamzujkowski/williamzujkowski.github.io",
-      "logo": null,
-      "publisher": "GitHub",
-      "title": "GitHub - williamzujkowski/williamzujkowski.github.io",
-      "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/personal-website.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "learn-x-in-y-minutes",
-    "url": "https://learnxinyminutes.com/",
-    "name": "Learn X in Y Minutes",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": null,
-      "date": null,
-      "description": null,
-      "image": null,
-      "logo": null,
-      "publisher": null,
-      "title": "Learn X in Y Minutes: Scenic Programming Language Tours",
-      "url": "https://learnxinyminutes.com/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/learn-x-in-y-minutes.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "set-up-your-own-lte-network",
-    "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/",
-    "name": "Set Up Your Own LTE Network",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": "Sukchan Lee",
-      "date": "2025-04-06T08:02:21.000Z",
-      "description": "This post is the perfect starting point for learning to build your own LTE network. View this lession as a guided introduction – including the installation, configuration, and best practices that will ease your learning.",
-      "image": null,
-      "logo": null,
-      "publisher": "Open5GS",
-      "title": "Your First LTE",
-      "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/set-up-your-own-lte-network.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "international-space-elevator-consortium",
-    "url": "https://www.isec.org/",
-    "name": "International Space Elevator Consortium",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": "Home",
-      "date": "2023-07-01T16:00:00.000Z",
-      "description": "International Space Elevator Consortium (ISEC) is composed of individuals and organizations from around the world who share a vision of humanity in space.",
-      "image": "http://static1.squarespace.com/static/5e35af40fb280744e1b16f7b/t/644b263bb2552820ab1b0964/1682646587148/isec-logo.png?format=1500w",
-      "logo": null,
-      "publisher": "International Space Elevator Consortium",
-      "title": "International Space Elevator Consortium",
-      "url": "https://www.isec.org/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/international-space-elevator-consortium.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "orion's-arm-universe-project",
-    "url": "https://www.orionsarm.com/",
-    "name": "Orion's Arm Universe Project",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": null,
-      "date": null,
-      "description": null,
-      "image": "https://www.orionsarm.com/images/oa_2018/logo.png",
-      "logo": null,
-      "publisher": null,
-      "title": "Welcome to the Orion’s Arm Universe Project",
-      "url": "https://www.orionsarm.com/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/orion's-arm-universe-project.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "dustinbrett.com",
-    "url": "https://dustinbrett.com/",
-    "name": "DustinBrett.com",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": null,
-      "date": null,
-      "description": "Desktop environment in the browser",
-      "image": "https://dustinbrett.com/screenshot.png",
-      "logo": null,
-      "publisher": null,
-      "title": "daedalOS",
-      "url": "https://dustinbrett.com/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/dustinbrett.com.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "parallel-lives",
-    "url": "https://janwillemtulp.github.io/parallel-lives/",
-    "name": "Parallel Lives",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": null,
-      "date": null,
-      "description": null,
-      "image": null,
-      "logo": null,
-      "publisher": null,
-      "title": null,
-      "url": "https://janwillemtulp.github.io/parallel-lives/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/parallel-lives.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "simone-computer",
-    "url": "https://simone.computer/",
-    "name": "Simone Computer",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": null,
-      "date": null,
-      "description": "Simone Marzulli’s personal website, feel free to click your favourite buttons!",
-      "image": "https://repository-images.githubusercontent.com/13191631/03057880-b9ff-11e9-9c2f-d158cf8d03b8",
-      "logo": null,
-      "publisher": "Simone's Computer",
-      "title": "simone.computer",
-      "url": "https://simone.computer/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/simone-computer.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "departure-mono",
-    "url": "https://departuremono.com/",
-    "name": "Departure Mono",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": null,
-      "date": null,
-      "description": "A monospaced pixel font with a lo-fi, techy vibe.",
-      "image": "https://departuremono.com/assets/departure-og.png",
-      "logo": null,
-      "publisher": "Departure Mono",
-      "title": "Departure Mono",
-      "url": "https://departuremono.com/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/departure-mono.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
-  },
-  {
-    "id": "stippler",
-    "url": "https://stippler.wolfandreas.com/",
-    "name": "Stippler",
-    "type": "link",
-    "group": "Technology & Innovation",
-    "metadata": {
-      "author": null,
-      "date": null,
-      "description": "Weighted Voronoi Stippling. It stipples.",
-      "image": "https://stippler.wolfandreas.com/screenshot.png",
-      "logo": null,
-      "publisher": null,
-      "title": "Stippler",
-      "url": "https://stippler.wolfandreas.com/",
-      "status": "success"
-    },
-    "screenshot": "/assets/data/screenshots/stippler.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "centauri-dreams",
@@ -271,7 +71,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/centauri-dreams.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "center-for-postnatural-history",
@@ -291,7 +91,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/center-for-postnatural-history.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "museum-of-obsolete-media",
@@ -311,7 +111,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/museum-of-obsolete-media.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "the-public-domain-review",
@@ -331,7 +131,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/the-public-domain-review.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "radio-garden",
@@ -351,7 +151,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/radio-garden.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "submarine-cable-map",
@@ -371,7 +171,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/submarine-cable-map.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "the-tau-zero-foundation",
@@ -391,7 +191,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/the-tau-zero-foundation.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "falling-falling",
@@ -411,7 +211,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/falling-falling.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "floor796",
@@ -431,7 +231,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/floor796.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "yyyyyyy",
@@ -451,7 +251,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/yyyyyyy.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "national-film-registry",
@@ -471,7 +271,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/national-film-registry.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "international-association-of-exorcists",
@@ -491,7 +291,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/international-association-of-exorcists.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "paperclip-ai-game",
@@ -511,7 +311,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/paperclip-ai-game.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "the-kid-should-see-this",
@@ -525,7 +325,7 @@
       "message": "Response code 403 (Forbidden)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "the-website-is-down",
@@ -545,7 +345,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/the-website-is-down.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "zombo.com",
@@ -565,7 +365,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/zombo.com.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "nested",
@@ -585,7 +385,7 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/nested.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "stimulation-clicker",
@@ -599,7 +399,7 @@
       "message": "Response code 403 (Forbidden)"
     },
     "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
     "id": "mementomovi",
@@ -619,96 +419,206 @@
       "status": "success"
     },
     "screenshot": "/assets/data/screenshots/mementomovi.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
-    "id": "cloud-security-framework",
-    "url": "https://github.com/williamzujkowski/cloud-security-framework",
-    "name": "Cloud Security Framework",
-    "type": "repository",
-    "group": null,
-    "metadata": {
-      "url": "https://github.com/williamzujkowski/cloud-security-framework",
-      "status": "error",
-      "message": "Response code 404 (Not Found)"
-    },
-    "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
-  },
-  {
-    "id": "rag-powered-knowledge-base",
-    "url": "https://github.com/williamzujkowski/rag-knowledge-base",
-    "name": "RAG-Powered Knowledge Base",
-    "type": "repository",
-    "group": null,
-    "metadata": {
-      "url": "https://github.com/williamzujkowski/rag-knowledge-base",
-      "status": "error",
-      "message": "Response code 404 (Not Found)"
-    },
-    "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
-  },
-  {
-    "id": "edge-ml-toolkit",
-    "url": "https://github.com/williamzujkowski/edge-ml-toolkit",
-    "name": "Edge ML Toolkit",
-    "type": "repository",
-    "group": null,
-    "metadata": {
-      "url": "https://github.com/williamzujkowski/edge-ml-toolkit",
-      "status": "error",
-      "message": "Response code 404 (Not Found)"
-    },
-    "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
-  },
-  {
-    "id": "williamzujkowski.github.io",
+    "id": "personal-website",
     "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
-    "name": "williamzujkowski.github.io",
-    "type": "repository",
-    "group": null,
+    "name": "Personal Website",
+    "type": "link",
+    "group": "Projects",
     "metadata": {
       "author": "williamzujkowski",
       "date": null,
       "description": "Contribute to williamzujkowski/williamzujkowski.github.io development by creating an account on GitHub.",
-      "image": "https://opengraph.githubassets.com/16c0b97889448fa09ad2299ffecca0290c4e61d832fcd2fc691dcc3e582a6bea/williamzujkowski/williamzujkowski.github.io",
+      "image": "https://opengraph.githubassets.com/664dbdb0191c8ff645fed624275539d1036b927337f49494a2d0be87c9f5499f/williamzujkowski/williamzujkowski.github.io",
       "logo": null,
       "publisher": "GitHub",
       "title": "GitHub - williamzujkowski/williamzujkowski.github.io",
       "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
       "status": "success"
     },
-    "screenshot": "/assets/data/screenshots/williamzujkowski.github.io.jpg",
-    "last_checked": "2025-04-09T02:11:05.765Z"
+    "screenshot": "/assets/data/screenshots/personal-website.jpg",
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
-    "id": "quantum-resistant-crypto-demo",
-    "url": "https://github.com/williamzujkowski/quantum-resistant-crypto-demo",
-    "name": "Quantum-Resistant Crypto Demo",
-    "type": "repository",
-    "group": null,
+    "id": "learn-x-in-y-minutes",
+    "url": "https://learnxinyminutes.com/",
+    "name": "Learn X in Y Minutes",
+    "type": "link",
+    "group": "Technology & Innovation",
     "metadata": {
-      "url": "https://github.com/williamzujkowski/quantum-resistant-crypto-demo",
-      "status": "error",
-      "message": "Response code 404 (Not Found)"
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": null,
+      "logo": null,
+      "publisher": null,
+      "title": "Learn X in Y Minutes: Scenic Programming Language Tours",
+      "url": "https://learnxinyminutes.com/",
+      "status": "success"
     },
-    "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
+    "screenshot": "/assets/data/screenshots/learn-x-in-y-minutes.jpg",
+    "last_checked": "2025-04-09T03:11:27.730Z"
   },
   {
-    "id": "secure-devops-pipeline",
-    "url": "https://github.com/williamzujkowski/secure-devops-pipeline",
-    "name": "Secure DevOps Pipeline",
-    "type": "repository",
-    "group": null,
+    "id": "set-up-your-own-lte-network",
+    "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/",
+    "name": "Set Up Your Own LTE Network",
+    "type": "link",
+    "group": "Technology & Innovation",
     "metadata": {
-      "url": "https://github.com/williamzujkowski/secure-devops-pipeline",
-      "status": "error",
-      "message": "Response code 404 (Not Found)"
+      "author": "Sukchan Lee",
+      "date": "2025-04-06T08:02:21.000Z",
+      "description": "This post is the perfect starting point for learning to build your own LTE network. View this lession as a guided introduction – including the installation, configuration, and best practices that will ease your learning.",
+      "image": null,
+      "logo": null,
+      "publisher": "Open5GS",
+      "title": "Your First LTE",
+      "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/",
+      "status": "success"
     },
-    "screenshot": null,
-    "last_checked": "2025-04-09T02:11:05.764Z"
+    "screenshot": "/assets/data/screenshots/set-up-your-own-lte-network.jpg",
+    "last_checked": "2025-04-09T03:11:27.730Z"
+  },
+  {
+    "id": "international-space-elevator-consortium",
+    "url": "https://www.isec.org/",
+    "name": "International Space Elevator Consortium",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "author": "Home",
+      "date": "2023-07-01T16:00:00.000Z",
+      "description": "International Space Elevator Consortium (ISEC) is composed of individuals and organizations from around the world who share a vision of humanity in space.",
+      "image": "http://static1.squarespace.com/static/5e35af40fb280744e1b16f7b/t/644b263bb2552820ab1b0964/1682646587148/isec-logo.png?format=1500w",
+      "logo": null,
+      "publisher": "International Space Elevator Consortium",
+      "title": "International Space Elevator Consortium",
+      "url": "https://www.isec.org/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/international-space-elevator-consortium.jpg",
+    "last_checked": "2025-04-09T03:11:27.730Z"
+  },
+  {
+    "id": "orion's-arm-universe-project",
+    "url": "https://www.orionsarm.com/",
+    "name": "Orion's Arm Universe Project",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://www.orionsarm.com/images/oa_2018/logo.png",
+      "logo": null,
+      "publisher": null,
+      "title": "Welcome to the Orion’s Arm Universe Project",
+      "url": "https://www.orionsarm.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/orion's-arm-universe-project.jpg",
+    "last_checked": "2025-04-09T03:11:27.730Z"
+  },
+  {
+    "id": "dustinbrett.com",
+    "url": "https://dustinbrett.com/",
+    "name": "DustinBrett.com",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Desktop environment in the browser",
+      "image": "https://dustinbrett.com/screenshot.png",
+      "logo": null,
+      "publisher": null,
+      "title": "daedalOS",
+      "url": "https://dustinbrett.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/dustinbrett.com.jpg",
+    "last_checked": "2025-04-09T03:11:27.730Z"
+  },
+  {
+    "id": "parallel-lives",
+    "url": "https://janwillemtulp.github.io/parallel-lives/",
+    "name": "Parallel Lives",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": null,
+      "logo": null,
+      "publisher": null,
+      "title": null,
+      "url": "https://janwillemtulp.github.io/parallel-lives/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/parallel-lives.jpg",
+    "last_checked": "2025-04-09T03:11:27.730Z"
+  },
+  {
+    "id": "simone-computer",
+    "url": "https://simone.computer/",
+    "name": "Simone Computer",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Simone Marzulli’s personal website, feel free to click your favourite buttons!",
+      "image": "https://repository-images.githubusercontent.com/13191631/03057880-b9ff-11e9-9c2f-d158cf8d03b8",
+      "logo": null,
+      "publisher": "Simone's Computer",
+      "title": "simone.computer",
+      "url": "https://simone.computer/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/simone-computer.jpg",
+    "last_checked": "2025-04-09T03:11:27.731Z"
+  },
+  {
+    "id": "departure-mono",
+    "url": "https://departuremono.com/",
+    "name": "Departure Mono",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "A monospaced pixel font with a lo-fi, techy vibe.",
+      "image": "https://departuremono.com/assets/departure-og.png",
+      "logo": null,
+      "publisher": "Departure Mono",
+      "title": "Departure Mono",
+      "url": "https://departuremono.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/departure-mono.jpg",
+    "last_checked": "2025-04-09T03:11:27.731Z"
+  },
+  {
+    "id": "stippler",
+    "url": "https://stippler.wolfandreas.com/",
+    "name": "Stippler",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Weighted Voronoi Stippling. It stipples.",
+      "image": "https://stippler.wolfandreas.com/screenshot.png",
+      "logo": null,
+      "publisher": null,
+      "title": "Stippler",
+      "url": "https://stippler.wolfandreas.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/stippler.jpg",
+    "last_checked": "2025-04-09T03:11:27.731Z"
   }
 ]
