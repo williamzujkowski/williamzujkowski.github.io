@@ -56,10 +56,8 @@ async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900
 }
 
 module.exports = function(eleventyConfig) {
-  // Include future-dated posts in collections
-  eleventyConfig.addCollection("posts", function(collectionApi) {
-    return collectionApi.getFilteredByTag("posts");
-  });
+  // Use default date-based filtering behavior for collections
+  // Posts with dates in the future (after 2025-04-09) won't appear until their publication date
   // Configure Markdown with anchors
   const markdownLibrary = markdownIt({
     html: true,
