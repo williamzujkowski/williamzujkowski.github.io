@@ -12,22 +12,28 @@ eleventyNavigation:
     <div class="gh-avatar-container">
       <img src="/assets/images/github-style/profile-avatar.png" alt="{{ site.title }}" class="gh-avatar">
       
-      <div class="mt-6 flex flex-col space-y-2 w-full md:w-[296px] max-w-full md:max-w-[296px] mx-auto md:mx-0">
-        <h3 class="text-xl md:text-lg text-center md:text-left font-medium">{{ site.homepage.about_me_title }}</h3>
-        <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-          <p class="text-base md:text-sm text-center md:text-left leading-relaxed mb-0">{{ site.homepage.about_me_content }}</p>
+      <div class="flex flex-col space-y-4 w-full md:w-[296px] max-w-full md:max-w-[296px] mx-auto md:mx-0">
+        <div>
+          <h3 class="text-xl md:text-lg text-center md:text-left font-medium mb-2">{{ site.homepage.about_me_title }}</h3>
+          <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+            <p class="text-base md:text-sm text-center md:text-left leading-relaxed mb-0">{{ site.homepage.about_me_content }}</p>
+          </div>
         </div>
         
-        <h3 class="text-xl md:text-lg text-center md:text-left font-medium mt-3">Interests</h3>
-        <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-          <p class="text-base md:text-sm text-center md:text-left leading-relaxed mb-0">{{ site.homepage.interests }}</p>
+        <div>
+          <h3 class="text-xl md:text-lg text-center md:text-left font-medium mb-2">Interests</h3>
+          <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+            <p class="text-base md:text-sm text-center md:text-left leading-relaxed mb-0">{{ site.homepage.interests }}</p>
+          </div>
         </div>
       </div>
       
-      <div class="mt-6 flex flex-col space-y-2 w-full md:w-[296px] max-w-full md:max-w-[296px] mx-auto md:mx-0">
-        <h3 class="text-xl md:text-lg text-center md:text-left font-medium">GitHub Activity</h3>
-        <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden github-stats-container">
-          <img src="https://github-readme-stats.vercel.app/api?username=williamzujkowski&show_icons=true&theme=github_dark&hide_border=true&count_private=true&card_width=220&hide_title=true&hide_rank=true&include_all_commits=false&show_owner=true&cache_seconds=86400&text_bold=false" alt="GitHub Stats" class="hover:opacity-95 transition-all duration-300" />
+      <div class="flex flex-col space-y-4 w-full md:w-[296px] max-w-full md:max-w-[296px] mx-auto md:mx-0 mt-4">
+        <div>
+          <h3 class="text-xl md:text-lg text-center md:text-left font-medium mb-2">GitHub Activity</h3>
+          <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+            <img src="https://github-readme-stats.vercel.app/api?username=williamzujkowski&show_icons=true&theme=github_dark&hide_border=true&count_private=true&card_width=220&hide_title=true&hide_rank=true&include_all_commits=false&show_owner=true&cache_seconds=86400&text_bold=false" alt="GitHub Stats" class="hover:opacity-95 transition-all duration-300" />
+          </div>
         </div>
       </div>
     </div>
@@ -291,10 +297,10 @@ eleventyNavigation:
     </div>
     
     <!-- GitHub Stats -->
-    <div class="flex flex-col space-y-3 mb-10">
-      <h2 class="text-center text-lg font-medium text-white">GitHub Activity</h2>
-      <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden github-stats-container">
-        <img src="https://github-readme-stats.vercel.app/api?username=williamzujkowski&show_icons=true&theme=github_dark&hide_border=true&count_private=true&card_width=220&hide_title=true&hide_rank=true&include_all_commits=false&show_owner=true&cache_seconds=86400&text_bold=false" alt="GitHub Stats" class="hover:opacity-95 transition-all duration-300" />
+    <div class="mb-10">
+      <h3 class="text-2xl font-semibold mb-4 text-center">GitHub Activity</h3>
+      <div class="bg-surface p-6 rounded-github border border-border transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+        <img src="https://github-readme-stats.vercel.app/api?username=williamzujkowski&show_icons=true&theme=github_dark&hide_border=true&count_private=true&card_width=220&hide_title=true&hide_rank=true&include_all_commits=false&show_owner=true&cache_seconds=86400&text_bold=false" alt="GitHub Stats" class="hover:opacity-95 transition-all duration-300 mx-auto" />
       </div>
     </div>
   </div>
