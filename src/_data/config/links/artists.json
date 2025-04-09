@@ -1,0 +1,76 @@
+{
+  "title": "Artists",
+  "description": "Digital creators and talented artists",
+  "links": [
+    {
+      "name": "Emilio",
+      "url": "http://emilio.jp",
+      "description": "Absolute GIF madlad"
+    },
+    {
+      "name": "Zack Rosebrugh",
+      "url": "https://zackrosebrugh.com",
+      "description": ""
+    },
+    {
+      "name": "Beeple",
+      "url": "https://www.beeple-crap.com",
+      "description": "I liked him more before he did NFTs"
+    },
+    {
+      "name": "Vinnie Neuberg",
+      "url": "https://vinnieneuberg.com",
+      "description": ""
+    },
+    {
+      "name": "Whacko Chacko",
+      "url": "https://www.whackochacko.com",
+      "description": ""
+    },
+    {
+      "name": "James Gilleard",
+      "url": "https://www.behance.net/jamesgilleard",
+      "description": "I love this guy's illustrations"
+    },
+    {
+      "name": "Steph Davidson",
+      "url": "http://stephdavidson.com",
+      "description": ""
+    },
+    {
+      "name": "Max Bittker",
+      "url": "https://maxbittker.com",
+      "description": ""
+    },
+    {
+      "name": "Peter Burr",
+      "url": "http://www.peterburr.org",
+      "description": ""
+    },
+    {
+      "name": "Substack",
+      "url": "https://substack.net",
+      "description": ""
+    },
+    {
+      "name": "Bill Wurtz",
+      "url": "https://billwurtz.com",
+      "description": "Wish this guy was my history teacher"
+    },
+    {
+      "name": "Nick Briz",
+      "url": "http://nickbriz.com",
+      "description": "Has made lots of interesting videos and essays about net.art"
+    },
+    {
+      "name": "6VCR",
+      "url": "https://6vcr.com",
+      "description": "Fantastic pixel art artist"
+    },
+    {
+      "name": "Ryou Ikeda",
+      "url": "https://ikeryou.jp",
+      "description": "Ryou Ikeda's creative coding archive"
+    }
+  ]
+}

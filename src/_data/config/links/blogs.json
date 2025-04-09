@@ -1,0 +1,276 @@
+{
+  "title": "Blogs",
+  "description": "Interesting blogs and personal writings",
+  "links": [
+    {
+      "name": "0ut3r Space",
+      "url": "http://0ut3r.space/",
+      "description": ""
+    },
+    {
+      "name": "Adam Elkus",
+      "url": "https://aelkus.github.io/",
+      "description": ""
+    },
+    {
+      "name": "Henrique Dias",
+      "url": "https://hacdias.com/articles/",
+      "description": "Articles - Henrique Dias"
+    },
+    {
+      "name": "Austin Z. Henley",
+      "url": "https://austinhenley.com/blog.html",
+      "description": "Austin Z. Henley's Blog"
+    },
+    {
+      "name": "Bartosz Ciechanowski",
+      "url": "https://ciechanow.ski/",
+      "description": ""
+    },
+    {
+      "name": "Be-Mag",
+      "url": "https://be-mag.com",
+      "description": ""
+    },
+    {
+      "name": "Brad Woods",
+      "url": "https://garden.bradwoods.io",
+      "description": "Brad Woods Digital Garden"
+    },
+    {
+      "name": "Cian.blog",
+      "url": "https://cian.blog",
+      "description": ""
+    },
+    {
+      "name": "Flipper Blog",
+      "url": "https://blog.flipper.net/",
+      "description": ""
+    },
+    {
+      "name": "Gossip's Web",
+      "url": "https://gossipsweb.net",
+      "description": ""
+    },
+    {
+      "name": "Giacomo Miceli",
+      "url": "https://jamez.it",
+      "description": "G̶i̶a̶c̶o̶m̶o̶ ̶M̶i̶c̶e̶l̶i̶"
+    },
+    {
+      "name": "Ian Bicking",
+      "url": "https://ianbicking.org/",
+      "description": "Ian Bicking: a blog"
+    },
+    {
+      "name": "Jordan Mechner",
+      "url": "https://www.jordanmechner.com/",
+      "description": ""
+    },
+    {
+      "name": "Josh Comeau",
+      "url": "https://www.joshwcomeau.com/",
+      "description": "Josh Comeau's blog"
+    },
+    {
+      "name": "Julia Evans",
+      "url": "http://jvns.ca/",
+      "description": ""
+    },
+    {
+      "name": "Kicks Condor",
+      "url": "https://www.kickscondor.com",
+      "description": ""
+    },
+    {
+      "name": "Lazy Reading",
+      "url": "https://cyber.dabamos.de/blog/",
+      "description": "Lazy Reading | The Cyber Vanguard"
+    },
+    {
+      "name": "Leaded Solder",
+      "url": "https://www.leadedsolder.com/",
+      "description": ""
+    },
+    {
+      "name": "Lindsey Bieda",
+      "url": "https://rarlindseysmash.com/",
+      "description": ""
+    },
+    {
+      "name": "N O D E",
+      "url": "https://N-O-D-E.net",
+      "description": ""
+    },
+    {
+      "name": "Nadim Kobeissi",
+      "url": "https://nadim.computer",
+      "description": ""
+    },
+    {
+      "name": "Open Wireless Link",
+      "url": "https://owlink.org/",
+      "description": ""
+    },
+    {
+      "name": "Parimal Satyal",
+      "url": "https://neustadt.fr/",
+      "description": "Parimal Satyal - Neustadt.fr"
+    },
+    {
+      "name": "Rach Smith",
+      "url": "https://rachsmith.com/",
+      "description": "Rach Smith's digital garden"
+    },
+    {
+      "name": "Rafał Pastuszak",
+      "url": "https://sonnet.io/",
+      "description": ""
+    },
+    {
+      "name": "Riccardo Mori",
+      "url": "https://morrick.me",
+      "description": ""
+    },
+    {
+      "name": "Serg Hospodarets",
+      "url": "https://hospodarets.com",
+      "description": "Serg Hospodarets Blog"
+    },
+    {
+      "name": "Sidebar",
+      "url": "https://sidebar.io",
+      "description": ""
+    },
+    {
+      "name": "Simon Willison",
+      "url": "http://simonwillison.net/",
+      "description": "Simon Willison's Weblog"
+    },
+    {
+      "name": "Steve Klabnik",
+      "url": "https://steveklabnik.com/",
+      "description": ""
+    },
+    {
+      "name": "The Hacker Blog",
+      "url": "https://thehackerblog.com/",
+      "description": ""
+    },
+    {
+      "name": "Tom 7 Radar",
+      "url": "http://radar.spacebar.org/",
+      "description": ""
+    },
+    {
+      "name": "Two-Bit History",
+      "url": "https://twobithistory.org/",
+      "description": ""
+    },
+    {
+      "name": "Vladimir Klepov",
+      "url": "https://thoughtspile.github.io/",
+      "description": "Vladimir Klepov as a Coder"
+    },
+    {
+      "name": "Waxy.org",
+      "url": "https://waxy.org/",
+      "description": ""
+    },
+    {
+      "name": "Webbed Briefs",
+      "url": "https://briefs.video/",
+      "description": ""
+    },
+    {
+      "name": "Xe Iaso",
+      "url": "https://xeiaso.net/",
+      "description": "Xe Iaso's blog"
+    },
+    {
+      "name": "Zach Holman",
+      "url": "http://zachholman.com/",
+      "description": ""
+    },
+    {
+      "name": "Zhenghao",
+      "url": "https://zhenghao.io",
+      "description": "Zhenghao's blog"
+    },
+    {
+      "name": "Bertrand Fan",
+      "url": "https://bert.org/",
+      "description": ""
+    },
+    {
+      "name": "evilsocket",
+      "url": "https://www.evilsocket.net/",
+      "description": ""
+    },
+    {
+      "name": "cmpxchg8b",
+      "url": "https://cmpxchg8b.com/",
+      "description": ""
+    },
+    {
+      "name": "sdomi",
+      "url": "https://sdomi.pl/weblog/",
+      "description": ""
+    },
+    {
+      "name": "i.webthings.hub",
+      "url": "https://iwebthings.joejenett.com/",
+      "description": ""
+    },
+    {
+      "name": "Internet Escape",
+      "url": "https://www.are.na/tg-z/internet-escape",
+      "description": ""
+    },
+    {
+      "name": "Julia's Drawings",
+      "url": "https://drawings.jvns.ca/",
+      "description": ""
+    },
+    {
+      "name": "jwz",
+      "url": "https://www.jwz.org/blog/",
+      "description": ""
+    },
+    {
+      "name": "kottke.org",
+      "url": "http://kottke.org/",
+      "description": ""
+    },
+    {
+      "name": "localghost",
+      "url": "https://localghost.dev/",
+      "description": ""
+    },
+    {
+      "name": "mango.pdf.zone",
+      "url": "https://mango.pdf.zone/",
+      "description": ""
+    },
+    {
+      "name": "memalign",
+      "url": "https://memalign.github.io/index.html",
+      "description": ""
+    },
+    {
+      "name": "Nathan Wentworth",
+      "url": "https://nathanwentworth.co",
+      "description": "nathan wentworth ✨ - posts"
+    },
+    {
+      "name": "Rachel Binx",
+      "url": "https://blog.rachelbinx.com/",
+      "description": "rachel binx ⤇ blog"
+    },
+    {
+      "name": "Surma",
+      "url": "https://surma.dev/",
+      "description": "surma.dev"
+    }
+  ]
+}

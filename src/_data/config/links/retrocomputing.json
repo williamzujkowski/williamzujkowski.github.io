@@ -1,0 +1,81 @@
+{
+  "title": "Retrocomputing",
+  "description": "Vintage computing, old hardware, and digital archeology",
+  "links": [
+    {
+      "name": "The Centre for Computing History",
+      "url": "https://www.computinghistory.org.uk/",
+      "description": "British computer museum with a large collection of vintage computers"
+    },
+    {
+      "name": "SIMH",
+      "url": "http://simh.trailing-edge.com/",
+      "description": "Computer History Simulation Project - emulators for classic systems"
+    },
+    {
+      "name": "Internet Archive's Software Collection",
+      "url": "https://archive.org/details/software",
+      "description": "Huge library of vintage software you can run in your browser"
+    },
+    {
+      "name": "Classic Computing",
+      "url": "http://www.classic-computing.org/",
+      "description": "Dedicated to the preservation of classic computing devices"
+    },
+    {
+      "name": "Got Papers?",
+      "url": "https://gotpapers.scene.org/",
+      "description": "Archive of computer scene papers and text files"
+    },
+    {
+      "name": "OS/2 Museum",
+      "url": "http://www.os2museum.com/wp/",
+      "description": "History of OS/2 and other operating systems"
+    },
+    {
+      "name": "PCjs Machines",
+      "url": "https://www.pcjs.org/",
+      "description": "A collection of PC emulators written in JavaScript"
+    },
+    {
+      "name": "MAME",
+      "url": "https://www.mamedev.org/",
+      "description": "Multiple Arcade Machine Emulator - preserves gaming history"
+    },
+    {
+      "name": "Viva64",
+      "url": "https://www.viva64.com/en/b/0908/",
+      "description": "Old C compilers archive"
+    },
+    {
+      "name": "The Digital Antiquarian",
+      "url": "https://www.filfre.net/",
+      "description": "History of digital games and digital storytelling"
+    },
+    {
+      "name": "BBS: The Documentary",
+      "url": "http://www.bbsdocumentary.com/",
+      "description": "Jason Scott's documentary about the BBS era"
+    },
+    {
+      "name": "The Obsolete Computer Museum",
+      "url": "http://oldcomputers.net/",
+      "description": "Information about older computers"
+    },
+    {
+      "name": "GUIdebook",
+      "url": "https://guidebookgallery.org/",
+      "description": "Graphical User Interface gallery"
+    },
+    {
+      "name": "Emaculation",
+      "url": "https://www.emaculation.com/",
+      "description": "Mac emulation and virtualization community"
+    },
+    {
+      "name": "Winworld",
+      "url": "https://winworldpc.com/",
+      "description": "Archive of abandonware operating systems and applications"
+    }
+  ]
+}

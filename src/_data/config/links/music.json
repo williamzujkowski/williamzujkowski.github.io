@@ -1,0 +1,61 @@
+{
+  "title": "Music",
+  "description": "Music resources, bands, and audio experiences",
+  "links": [
+    {
+      "name": "Plaza.one",
+      "url": "https://plaza.one",
+      "description": ""
+    },
+    {
+      "name": "Radio Garden",
+      "url": "https://radio.garden",
+      "description": ""
+    },
+    {
+      "name": "Radiooooo",
+      "url": "https://radiooooo.com",
+      "description": "Go back in time and listen to radio songs from all over the world"
+    },
+    {
+      "name": "Boards of Canada",
+      "url": "https://bleep.com/artist/78-boards-of-canada",
+      "description": "This should be a religion more than a music band"
+    },
+    {
+      "name": "Com Truise",
+      "url": "http://comtruise.com",
+      "description": "Son of Boards of Canada and Tom Cruise's Wayfarer"
+    },
+    {
+      "name": "100% Electronica",
+      "url": "https://www.100percentelectronica.com",
+      "description": ""
+    },
+    {
+      "name": "VHS Head",
+      "url": "https://www.vhshead.com",
+      "description": "Let's see how far we can push electronic music"
+    },
+    {
+      "name": "Pogo Music",
+      "url": "https://www.youtube.com/c/PogoMusic",
+      "description": "Note: he's a controversial person, I do not agree with any of Nick's current ideologies"
+    },
+    {
+      "name": "Datassette",
+      "url": "http://datassette.net",
+      "description": ""
+    },
+    {
+      "name": "Perturbator",
+      "url": "http://www.perturbator.com",
+      "description": "They told him he could be anything in life, so he became a synth"
+    },
+    {
+      "name": "EELF",
+      "url": "https://lbry.tv/@EELF:7",
+      "description": "Better known as EELF on YouTube. A collection of nostalgic video with deep house music in background"
+    }
+  ]
+}

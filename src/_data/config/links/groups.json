@@ -4,6 +4,15 @@
     { "name": "Projects", "icon": "💻" },
     { "name": "Technology & Innovation", "icon": "🚀" },
     { "name": "Art, Culture & Exploration", "icon": "🎨" },
-    { "name": "Fun & Curiosities", "icon": "🎮" }
+    { "name": "Fun & Curiosities", "icon": "🎮" },
+    { "name": "People", "icon": "👨‍💻" },
+    { "name": "Creative", "icon": "🎭" },
+    { "name": "Artists", "icon": "🎨" },
+    { "name": "Blogs", "icon": "📝" },
+    { "name": "Rollerblading", "icon": "🛼" },
+    { "name": "Music", "icon": "🎵" },
+    { "name": "Gaming", "icon": "🎮" },
+    { "name": "Retrocomputing", "icon": "💾" },
+    { "name": "Miscellaneous", "icon": "🔍" }
   ]
 }

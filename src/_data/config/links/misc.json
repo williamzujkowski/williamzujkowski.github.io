@@ -1,0 +1,106 @@
+{
+  "title": "Miscellaneous",
+  "description": "Interesting websites that don't fit into other categories",
+  "links": [
+    {
+      "name": "Bureau of Meteorology",
+      "url": "http://www.bom.gov.au/",
+      "description": "Australian weather service"
+    },
+    {
+      "name": "The Eye",
+      "url": "https://the-eye.eu/",
+      "description": "Non-profit archival website dedicated to preserving digital content"
+    },
+    {
+      "name": "Lingscars",
+      "url": "https://www.lingscars.com/",
+      "description": "The most chaotic car leasing website in the world"
+    },
+    {
+      "name": "Space Weather",
+      "url": "https://www.spaceweather.com/",
+      "description": "News and information about solar activity"
+    },
+    {
+      "name": "Uncanny Valley",
+      "url": "https://uncannyvalley.jp/en",
+      "description": "Tokyo-based creative lab pushing the boundaries of digital art"
+    },
+    {
+      "name": "NWS Ocean Prediction Center",
+      "url": "https://ocean.weather.gov/",
+      "description": "Marine forecasts, warnings, and meteorological analyses"
+    },
+    {
+      "name": "Million Dollar Homepage",
+      "url": "http://www.milliondollarhomepage.com/",
+      "description": "Historical internet artifact from 2005"
+    },
+    {
+      "name": "Internet Map",
+      "url": "https://internet-map.net/",
+      "description": "Visual representation of websites as a galaxy"
+    },
+    {
+      "name": "Stripe Press",
+      "url": "https://press.stripe.com/",
+      "description": "Books about economic, technological, and scientific advancement"
+    },
+    {
+      "name": "Superliminal",
+      "url": "https://superliminal.com/",
+      "description": "Scott Kim's puzzles and ambigrams"
+    },
+    {
+      "name": "Pirate Weather",
+      "url": "https://pirateweather.net/",
+      "description": "Free weather API alternative to Dark Sky"
+    },
+    {
+      "name": "Crash Course",
+      "url": "https://thecrashcourse.com/",
+      "description": "Educational YouTube channel covering various topics"
+    },
+    {
+      "name": "List of Physical Visualizations",
+      "url": "http://dataphys.org/list/",
+      "description": "Gallery of physical visualizations and related artifacts"
+    },
+    {
+      "name": "US Census Bureau",
+      "url": "https://www.census.gov/",
+      "description": "Data about the U.S. people and economy"
+    },
+    {
+      "name": "Numbeo",
+      "url": "https://www.numbeo.com/cost-of-living/",
+      "description": "Database of user-contributed data about cities and countries"
+    },
+    {
+      "name": "Worldometer",
+      "url": "https://www.worldometers.info/",
+      "description": "Real-time world statistics"
+    },
+    {
+      "name": "Global Biodiversity Information Facility",
+      "url": "https://www.gbif.org/",
+      "description": "Free and open access to biodiversity data"
+    },
+    {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/",
+      "description": "Free, editable map of the world"
+    },
+    {
+      "name": "Quora",
+      "url": "https://www.quora.com/",
+      "description": "Question-and-answer website"
+    },
+    {
+      "name": "Zooniverse",
+      "url": "https://www.zooniverse.org/",
+      "description": "Platform for people-powered research"
+    }
+  ]
+}
