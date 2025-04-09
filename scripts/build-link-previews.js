@@ -386,7 +386,8 @@ async function main() {
     await fs.writeFile(outputPath, JSON.stringify(finalLinkData, null, 2));
     
     // Ensure screenshots directory is copied to assets
-    const assetsScreenshotsDir = path.join(__dirname, '..', 'assets', 'data', 'screenshots');
+    const assetsDataDir = path.join(__dirname, '..', 'assets', 'data');
+    const assetsScreenshotsDir = path.join(assetsDataDir, 'screenshots');
     await fs.mkdir(assetsScreenshotsDir, { recursive: true });
     
     // Copy all screenshots to assets directory
@@ -397,8 +398,14 @@ async function main() {
         const destPath = path.join(assetsScreenshotsDir, file);
         await fs.copyFile(sourcePath, destPath);
       }
+      
+      // Also copy the link-previews.json file to assets/data directory
+      const linkPreviewsSource = outputPath;
+      const linkPreviewsDest = path.join(assetsDataDir, 'link-previews.json');
+      await fs.copyFile(linkPreviewsSource, linkPreviewsDest);
+      console.log(`Copied link previews JSON to ${linkPreviewsDest}`);
     } catch (error) {
-      console.error('Error copying screenshots:', error.message);
+      console.error('Error copying files to assets directory:', error.message);
     }
     
     console.log(`Successfully processed ${Object.keys(processedLinks).length} links!`);
