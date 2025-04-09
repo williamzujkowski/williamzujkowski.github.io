@@ -78,7 +78,15 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(navigationPlugin);
   // Copy assets
   eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy("src/js");
+  
+  // Only copy JS files in development mode
+  if (process.env.NODE_ENV !== "production") {
+    eleventyConfig.addPassthroughCopy("src/js");
+  } else {
+    // In production, we'll use minified bundle from build process
+    eleventyConfig.addPassthroughCopy({ "_site/js/bundle.min.js": "js/bundle.min.js" });
+  }
+  
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy({ "config/site.webmanifest": "site.webmanifest" });
   eleventyConfig.addPassthroughCopy({ "assets/icons/favicon.ico": "favicon.ico" });

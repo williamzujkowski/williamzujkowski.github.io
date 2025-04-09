@@ -27,13 +27,30 @@
   <meta name="twitter:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
   <meta name="twitter:image" content="{{ site.url }}{% if featured_image %}{{ featured_image }}{% else %}{{ site.seo.og_image }}{% endif %}">
   
-  <link rel="stylesheet" href="/css/styles.css?v=1.0.3">
-  <!-- Fallback styles in case Tailwind fails -->
-  <link rel="stylesheet" href="/css/basic.css?v=1.0.1">
+  <!-- Critical CSS for above-the-fold content -->
+  <style>
+    body{background-color:oklch(0.16 0.02 250);color:oklch(0.93 0.02 250)}
+    .gh-header{position:sticky;top:0;z-index:50;background-color:oklch(0.20 0.02 250);border-bottom:1px solid oklch(0.30 0.02 250);backdrop-filter:blur(4px)}
+    .gh-avatar{width:296px;height:296px;border-radius:6px;border:2px solid oklch(0.30 0.02 250)}
+    @media(max-width:768px){.gh-avatar{width:180px;height:180px}}
+    .page-loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background-color:oklch(0.16 0.02 250);z-index:100}
+  </style>
+
+  <!-- Preload critical fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   
+  <!-- Non-critical CSS with async loading -->
+  <link rel="stylesheet" href="/css/styles.css?v=1.0.4" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/basic.css?v=1.0.1" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/css/styles.css?v=1.0.4">
+    <link rel="stylesheet" href="/css/basic.css?v=1.0.1">
+  </noscript>
+
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -41,8 +58,9 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }} Feed" href="{{ site.url }}/feed.xml">
   
-  <!-- Resource preloading -->
+  <!-- Preload critical resources -->
   <link rel="preload" href="/js/site-enhancements.js" as="script">
+  <link rel="preload" href="/assets/images/github-style/profile-avatar.png" as="image">
   
   {% if layout == 'post.njk' %}
   <!-- JSON-LD structured data for blog post -->

@@ -34,7 +34,12 @@
     "lint": "eslint \"src/**/*.js\"",
     "lint:fix": "eslint \"src/**/*.js\" --fix",
     "format": "prettier --write \"src/**/*.{js,json,css,md,njk}\"",
-    "build:prod": "ELEVENTY_ENV=production npm run build"
+    "build:prod": "NODE_ENV=production npm run build",
+    "optimize": "npm run optimize:css && npm run optimize:js && npm run optimize:images",
+    "optimize:css": "NODE_ENV=production npm run build:css",
+    "optimize:js": "terser src/js/*.js -o _site/js/bundle.min.js --compress --mangle",
+    "optimize:images": "npm install sharp && node scripts/optimize-images.js",
+    "analyze": "lighthouse https://williamzujkowski.github.io/ --output=json --output-path=./lighthouse-report.json --view"
   },
   "keywords": [],
   "author": "William Zujkowski",
@@ -55,6 +60,7 @@
     "eslint": "^9.24.0",
     "got": "^14.4.7",
     "gray-matter": "^4.0.3",
+    "lighthouse": "^11.6.0",
     "luxon": "^3.4.4",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
@@ -72,7 +78,9 @@
     "postcss-cli": "^11.0.1",
     "prettier": "^3.5.3",
     "puppeteer": "^24.6.0",
+    "sharp": "^0.33.4",
     "tailwindcss": "^3.4.1",
+    "terser": "^5.30.0",
     "xml2js": "^0.6.2"
   },
   "dependencies": {
