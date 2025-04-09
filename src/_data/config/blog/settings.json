@@ -1,0 +1,7 @@
+{
+  "blog": {
+    "postsPerPage": 5,
+    "showDates": true,
+    "dateFormat": "%B %d, %Y"
+  }
+}

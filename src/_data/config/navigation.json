@@ -1,0 +1,7 @@
+{
+  "navigation": [
+    { "name": "Home", "url": "/", "icon": "" },
+    { "name": "Links", "url": "/links/", "icon": "" },
+    { "name": "Blog", "url": "/blog/", "icon": "" }
+  ]
+}

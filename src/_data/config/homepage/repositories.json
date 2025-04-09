@@ -1,0 +1,64 @@
+{
+  "pinned_repositories": [
+    {
+      "name": "Cloud Security Framework",
+      "description": "A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.",
+      "url": "https://github.com/williamzujkowski/cloud-security-framework",
+      "language": "TypeScript",
+      "language_color": "#2b7489",
+      "stars": 38,
+      "forks": 12,
+      "updated": "last week"
+    },
+    {
+      "name": "RAG-Powered Knowledge Base",
+      "description": "An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.",
+      "url": "https://github.com/williamzujkowski/rag-knowledge-base",
+      "language": "Python",
+      "language_color": "#3572A5",
+      "stars": 24,
+      "forks": 8,
+      "updated": "2 weeks ago"
+    },
+    {
+      "name": "Edge ML Toolkit",
+      "description": "Tools and libraries for deploying machine learning models to edge devices with minimal resource requirements.",
+      "url": "https://github.com/williamzujkowski/edge-ml-toolkit",
+      "language": "Rust",
+      "language_color": "#dea584",
+      "stars": 17,
+      "forks": 5,
+      "updated": "last month"
+    },
+    {
+      "name": "williamzujkowski.github.io",
+      "description": "Personal website and technology blog built with 11ty static site generator.",
+      "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+      "language": "JavaScript",
+      "language_color": "#f1e05a",
+      "stars": 7,
+      "forks": 2,
+      "updated": "2 days ago"
+    },
+    {
+      "name": "Quantum-Resistant Crypto Demo",
+      "description": "Educational demos and examples of quantum-resistant cryptographic algorithms for post-quantum security.",
+      "url": "https://github.com/williamzujkowski/quantum-resistant-crypto-demo",
+      "language": "Go",
+      "language_color": "#00ADD8",
+      "stars": 22,
+      "forks": 7,
+      "updated": "2 months ago"
+    },
+    {
+      "name": "Secure DevOps Pipeline",
+      "description": "Reference implementation of a secure CI/CD pipeline with built-in security scanning, testing, and compliance checks.",
+      "url": "https://github.com/williamzujkowski/secure-devops-pipeline",
+      "language": "YAML",
+      "language_color": "#cb171e",
+      "stars": 15,
+      "forks": 4,
+      "updated": "3 months ago"
+    }
+  ]
+}

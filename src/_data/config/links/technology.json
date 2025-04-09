@@ -1,0 +1,13 @@
+{
+  "items": [
+    { "name": "Learn X in Y Minutes", "url": "https://learnxinyminutes.com/", "group": "Technology & Innovation", "description": "Quick programming language tutorials" },
+    { "name": "Set Up Your Own LTE Network", "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/", "group": "Technology & Innovation", "description": "DIY guide to building your very own LTE network" },
+    { "name": "International Space Elevator Consortium", "url": "https://www.isec.org/", "group": "Technology & Innovation", "description": "Promotes the development of a space elevator to revolutionize space travel" },
+    { "name": "Orion's Arm Universe Project", "url": "https://www.orionsarm.com/", "group": "Technology & Innovation", "description": "A collaborative project imagining a future with advanced technologies and AI" },
+    { "name": "DustinBrett.com", "url": "https://dustinbrett.com/", "group": "Technology & Innovation", "description": "Insightful commentary on technology and digital culture" },
+    { "name": "Parallel Lives", "url": "https://janwillemtulp.github.io/parallel-lives/", "group": "Technology & Innovation", "description": "A creative exploration of alternate realities in digital art" },
+    { "name": "Simone Computer", "url": "https://simone.computer/", "group": "Technology & Innovation", "description": "A cutting-edge platform merging art and technology" },
+    { "name": "Departure Mono", "url": "https://departuremono.com/", "group": "Technology & Innovation", "description": "A minimalist design and tech blog challenging conventional thinking" },
+    { "name": "Stippler", "url": "https://stippler.wolfandreas.com/", "group": "Technology & Innovation", "description": "Showcases visually striking digital artwork and creative tech projects" }
+  ]
+}

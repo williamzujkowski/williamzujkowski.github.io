@@ -1,0 +1,7 @@
+{
+  "items": [
+    { "name": "GitHub", "url": "https://github.com/williamzujkowski", "group": "Social", "icon": "GitHub" },
+    { "name": "LinkedIn", "url": "https://linkedin.com/in/williamzujkowski", "group": "Social", "icon": "LinkedIn" },
+    { "name": "Bluesky", "url": "https://bsky.app/profile/williamzujkowski.bsky.social", "group": "Social", "icon": "Bluesky" }
+  ]
+}

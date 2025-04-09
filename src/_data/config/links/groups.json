@@ -1,0 +1,9 @@
+{
+  "linkGroups": [
+    { "name": "Social", "icon": "🔗" },
+    { "name": "Projects", "icon": "💻" },
+    { "name": "Technology & Innovation", "icon": "🚀" },
+    { "name": "Art, Culture & Exploration", "icon": "🎨" },
+    { "name": "Fun & Curiosities", "icon": "🎮" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "welcome_heading": "Welcome",
+  "welcome_subtitle": "IT Engineer & Technology Enthusiast",
+  "about_me_title": "About Me",
+  "about_me_content": "I'm an IT engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.",
+  "interests": "When not coding, I enjoy exploring emerging technologies, contributing to open-source projects, and writing about tech trends. I'm particularly interested in the intersection of AI ethics, privacy, and security.",
+  "skills": [
+    "Cloud Architecture & DevOps",
+    "Cybersecurity & Threat Analysis",
+    "Machine Learning & AI Development",
+    "Full Stack Development",
+    "System Design & Architecture"
+  ]
+}

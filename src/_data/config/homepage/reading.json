@@ -1,0 +1,28 @@
+{
+  "reading_list": [
+    {
+      "title": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "isbn": "9781449373320",
+      "progress": 75
+    },
+    {
+      "title": "Building Machine Learning Powered Applications",
+      "author": "Emmanuel Ameisen",
+      "isbn": "9781492045113",
+      "progress": 45
+    },
+    {
+      "title": "Dungeon Crawler Carl",
+      "author": "Matt Dinniman",
+      "isbn": "059382024X",
+      "progress": 62
+    },
+    {
+      "title": "The Psychoanalysis of R'lyeh",
+      "author": "Anonymous",
+      "isbn": "1329970136",
+      "progress": 28
+    }
+  ]
+}

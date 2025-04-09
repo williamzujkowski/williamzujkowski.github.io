@@ -1,0 +1,13 @@
+{
+  "title": "William Zujkowski",
+  "description": "Personal website and technology blog",
+  "url": "https://williamzujkowski.github.io",
+  "author": "William Zujkowski",
+  "email": "william@example.com",
+  "theme": "system",
+  "seo": {
+    "keywords": "IT engineering, web development, cloud architecture, cybersecurity, AI, machine learning",
+    "og_image": "/assets/images/og-image.jpg",
+    "google_analytics_id": ""
+  }
+}
