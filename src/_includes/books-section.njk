@@ -57,7 +57,7 @@
     
     {# Then display any remaining books #}
     {% for book in books %}
-      {% if not displayedBooks.includes(book.isbn) %}
+      {% if not displayedBooks | includes(book.isbn) %}
         {{ renderBookCard(book) }}
       {% endif %}
     {% endfor %}
