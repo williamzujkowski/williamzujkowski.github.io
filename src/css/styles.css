@@ -192,11 +192,39 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0;
+  overflow: hidden;
+  line-height: 0; /* Eliminate any extra space */
+  position: relative; /* For absolute positioning */
+  width: 100%;
 }
 
 .github-stats-container img {
-  max-width: 100%;
-  display: inline-block;
+  max-width: none; /* Allow image to overflow container */
+  width: 115%; /* Make image wider than container */
+  display: block;
+  position: relative;
+  right: -15px; /* Push image right to align numbers */
+  margin-left: auto;
+  transform-origin: right center;
+  object-position: right center; /* Ensure image is positioned from right */
+}
+
+/* Fix spacing in GitHub stats layout */
+@media (min-width: 768px) {
+  .github-stats-container img {
+    width: 120%; /* Slightly wider on desktop */
+    right: -20px; /* Push further right on desktop */
+  }
+}
+
+/* Mobile GitHub stats adjustments */
+@media (max-width: 767px) {
+  .github-stats-container img {
+    width: 118%;
+    right: -18px;
+  }
 }
 
 /* Custom animations */
