@@ -1,10 +1,29 @@
 # Website Documentation
 
-This directory contains technical documentation for William Zujkowski's personal website.
+This directory contains comprehensive documentation for William Zujkowski's personal website. It is organized into several sections for easier navigation.
+
+## Documentation Structure
+
+- **Guides**: Step-by-step instructions for common tasks
+- **Reference**: Detailed reference material and specifications
+- **Development**: Information for developers contributing to the site
 
 ## Guides
 
+- [Blog Workflow](./guides/BLOG-WORKFLOW.md): Step-by-step process for creating and publishing blog posts
+- [Blog Post Templates](./guides/BLOG-POST-README.md): Templates and examples for blog posts
 - [Theme System](./guides/THEME-SYSTEM.md): Comprehensive documentation on the OKLCH-based theme system
+
+## Reference
+
+- [Maintenance Guide](./reference/MAINTENANCE.md): Complete guide to maintaining and updating the website
+- [Changelog](./reference/CHANGELOG.md): History of changes to the website
+- [Update History](./reference/UPDATES.md): Detailed update logs
+
+## Development
+
+- [Claude AI Guidelines](./development/CLAUDE.md): Guidelines for AI assistance with this codebase
+- [Contributing](./development/CONTRIBUTING.md): Guidelines for contributing to the project
 
 ## Project Organization
 

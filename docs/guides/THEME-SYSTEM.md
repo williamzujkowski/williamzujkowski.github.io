@@ -1,5 +1,7 @@
 # Theme System Documentation
 
+> This document is part of the [website documentation](../README.md).
+
 This document explains the theme system implementation and usage for William Zujkowski's personal website.
 
 ## Overview
@@ -169,3 +171,7 @@ Planned enhancements:
 - Theme preview tool
 - Dark/light mode variants of each theme
 - Auto-generation of additional color variants
+
+---
+
+[Back to Documentation Home](../index.md) | [Guides](./)

@@ -18,11 +18,29 @@ This is my personal website and blog, built with [11ty](https://www.11ty.dev/), 
 
 ## Documentation
 
-To learn how to work with this site, check out these documents:
+All documentation has been consolidated in the `docs/` directory for better organization:
 
-- [MAINTENANCE.md](MAINTENANCE.md) - Complete guide to maintaining and updating the website
-- [BLOG-WORKFLOW.md](BLOG-WORKFLOW.md) - Instructions for creating and publishing blog posts
-- [CLAUDE.md](CLAUDE.md) - Guidelines for AI assistance with this codebase
+### Guides
+- [Blog Workflow](docs/guides/BLOG-WORKFLOW.md) - Instructions for creating and publishing blog posts
+- [Blog Post Templates](docs/guides/BLOG-POST-README.md) - Templates and examples for blog posts
+- [Theme System](docs/guides/THEME-SYSTEM.md) - Guide to the site's OKLCH-based theming system
+
+### Reference
+- [Maintenance Guide](docs/reference/MAINTENANCE.md) - Complete guide to maintaining and updating the website
+- [Changelog](docs/reference/CHANGELOG.md) - History of changes to the website
+- [Update History](docs/reference/UPDATES.md) - Detailed update logs
+
+### Development
+- [Claude AI Guidelines](docs/development/CLAUDE.md) - Guidelines for AI assistance with this codebase
+- [Contributing](docs/development/CONTRIBUTING.md) - Guidelines for contributing to the project
+
+#### Using Claude AI
+
+This project is configured to work with Claude.ai/code assistance. When using Claude with this repository:
+
+1. Claude will automatically reference the guidelines in the `CLAUDE.md` file
+2. This provides Claude with important context about build commands, directory structure, and coding standards
+3. For best results, point Claude to the documentation files in the `/docs` directory
 
 ## Project Structure
 

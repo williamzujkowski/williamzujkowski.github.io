@@ -1,5 +1,7 @@
 # Theme Customization Guide
 
+> This document is part of the [website documentation](./README.md).
+
 This document explains how to customize the site's appearance using the OKLCH color theme system.
 
 ## Overview
@@ -176,3 +178,7 @@ Used for highlights, secondary buttons, and decorative elements.
 - [OKLCH Color Picker](https://oklch.com/)
 - [Perceptually uniform color spaces](https://programmingdesignsystems.com/color/perceptually-uniform-color-spaces/)
 - [A Guide to OKLCH Color](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl)
+
+---
+
+[Back to Documentation Home](./index.md) | [Guides](./guides/)
