@@ -177,6 +177,32 @@ function processLinksDirectory(dirPath) {
       
       if (data.items && Array.isArray(data.items)) {
         allLinks = [...allLinks, ...data.items];
+      } else if (data.links && Array.isArray(data.links)) {
+        // Add group information to each link based on the file name
+        const groupName = path.basename(entry.name, '.json');
+        const groupNameMapped = {
+          'art_culture': 'Art, Culture & Exploration',
+          'fun': 'Fun & Curiosities',
+          'technology': 'Technology & Innovation',
+          'social_links': 'Social',
+          'projects': 'Projects',
+          'retrocomputing': 'Retrocomputing',
+          'misc': 'Miscellaneous',
+          'people': 'People',
+          'creative': 'Creative',
+          'artists': 'Artists', 
+          'blogs': 'Blogs',
+          'rollerblading': 'Rollerblading',
+          'music': 'Music', 
+          'gaming': 'Gaming'
+        };
+        
+        const transformedLinks = data.links.map(link => ({
+          ...link,
+          group: groupNameMapped[groupName] || groupName.charAt(0).toUpperCase() + groupName.slice(1)
+        }));
+        
+        allLinks = [...allLinks, ...transformedLinks];
       }
     }
     
