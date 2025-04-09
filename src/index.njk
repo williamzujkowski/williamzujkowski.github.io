@@ -40,37 +40,37 @@ eleventyNavigation:
       </div>
       
       <div>
-        <h2 class="text-center md:text-left relative pb-2 mb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-0.5 after:bg-accent/50">Featured Projects</h2>
-        <div class="gh-featured-projects mb-6 flex flex-col md:flex-row gap-4">
-          <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
-            <div class="gh-project-header flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+        <h2 class="text-center md:text-left relative pb-2 mb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Featured Projects</h2>
+        <div class="gh-featured-projects mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="https://github.com/williamzujkowski/cloud-security-framework" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-github">
+            <div class="gh-project-card bg-surface border border-border rounded-github p-4 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
+              <div class="mb-2 flex-grow">
+                <div class="text-lg font-medium text-white transition-colors duration-200">Cloud Security Framework</div>
               </div>
-              <span class="font-medium text-sm md:text-base">Cloud Security Framework</span>
+              <p class="gh-project-description text-xs text-text mb-3 pointer-events-none line-clamp-2">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
+              <div class="gh-project-tags flex flex-wrap gap-2 pointer-events-none">
+                <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">AWS</span>
+                <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">Security</span>
+                <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">DevSecOps</span>
+              </div>
             </div>
-            <p class="gh-project-description text-base md:text-sm text-text mb-3 flex-grow">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
-            <div class="gh-project-tags flex flex-wrap gap-2">
-              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">AWS</span>
-              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">Security</span>
-              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">DevSecOps</span>
-            </div>
-          </div>
+          </a>
           
-          <div class="gh-project-card border border-border rounded-github p-4 bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 flex flex-col h-full">
-            <div class="gh-project-header flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="text-accent"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+          <a href="https://github.com/williamzujkowski/rag-knowledge-base" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-github">
+            <div class="gh-project-card bg-surface border border-border rounded-github p-4 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
+              <div class="mb-2 flex-grow">
+                <div class="text-lg font-medium text-white transition-colors duration-200">RAG-Powered Knowledge Base</div>
               </div>
-              <span class="font-medium text-sm md:text-base">RAG-Powered Knowledge Base</span>
+              <p class="gh-project-description text-xs text-text mb-3 pointer-events-none line-clamp-2">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
+              <div class="gh-project-tags flex flex-wrap gap-2 pointer-events-none">
+                <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">AI</span>
+                <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">NLP</span>
+                <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded text-xs">Vector DB</span>
+              </div>
             </div>
-            <p class="gh-project-description text-base md:text-sm text-text mb-3 flex-grow">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
-            <div class="gh-project-tags flex flex-wrap gap-2">
-              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">AI</span>
-              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">NLP</span>
-              <span class="gh-badge bg-accent/20 text-accent text-sm md:text-xs px-3 py-1.5 md:py-0.5 rounded-md md:rounded-full font-medium">Vector DB</span>
-            </div>
-          </div>
+          </a>
         </div>
         
         <h3 class="text-center md:text-left relative pb-2 mb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Current Reading</h3>
@@ -183,30 +183,38 @@ eleventyNavigation:
   <div class="mb-10">
     <h2 class="text-2xl font-bold mb-6 text-center">Featured Projects</h2>
     
-    <!-- Project 1 -->
-    <div class="bg-surface rounded-lg p-6 mb-6 border-l-4 border-accent">
-      <h3 class="text-xl font-medium mb-4">
-        Cloud Security Framework
-      </h3>
-      <p class="text-lg mb-5 leading-relaxed">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
-      <div class="flex flex-wrap gap-3">
-        <span class="bg-accent/20 text-accent text-base px-4 py-2 rounded-md font-medium">AWS</span>
-        <span class="bg-accent/20 text-accent text-base px-4 py-2 rounded-md font-medium">Security</span>
-        <span class="bg-accent/20 text-accent text-base px-4 py-2 rounded-md font-medium">DevSecOps</span>
-      </div>
-    </div>
-    
-    <!-- Project 2 -->
-    <div class="bg-surface rounded-lg p-6 border-l-4 border-accent">
-      <h3 class="text-xl font-medium mb-4">
-        RAG-Powered Knowledge Base
-      </h3>
-      <p class="text-lg mb-5 leading-relaxed">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
-      <div class="flex flex-wrap gap-3">
-        <span class="bg-accent/20 text-accent text-base px-4 py-2 rounded-md font-medium">AI</span>
-        <span class="bg-accent/20 text-accent text-base px-4 py-2 rounded-md font-medium">NLP</span>
-        <span class="bg-accent/20 text-accent text-base px-4 py-2 rounded-md font-medium">Vector DB</span>
-      </div>
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Project 1 -->
+      <a href="https://github.com/williamzujkowski/cloud-security-framework" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg">
+        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
+          <div class="mb-2 flex-grow">
+            <div class="text-xl font-medium text-white transition-colors duration-200">Cloud Security Framework</div>
+          </div>
+          <p class="text-sm text-text mb-4 line-clamp-3 pointer-events-none">A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.</p>
+          <div class="flex flex-wrap gap-2 pointer-events-none">
+            <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded-sm text-sm">AWS</span>
+            <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded-sm text-sm">Security</span>
+            <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded-sm text-sm">DevSecOps</span>
+          </div>
+        </div>
+      </a>
+      
+      <!-- Project 2 -->
+      <a href="https://github.com/williamzujkowski/rag-knowledge-base" target="_blank" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg">
+        <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
+          <div class="mb-2 flex-grow">
+            <div class="text-xl font-medium text-white transition-colors duration-200">RAG-Powered Knowledge Base</div>
+          </div>
+          <p class="text-sm text-text mb-4 line-clamp-3 pointer-events-none">An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.</p>
+          <div class="flex flex-wrap gap-2 pointer-events-none">
+            <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded-sm text-sm">AI</span>
+            <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded-sm text-sm">NLP</span>
+            <span class="inline-block px-2 py-0.5 bg-accent/10 text-accent rounded-sm text-sm">Vector DB</span>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
   
