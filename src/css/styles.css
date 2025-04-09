@@ -186,6 +186,19 @@
   font-weight: 500;
 }
 
+/* GitHub stats alignment */
+.github-stats-container {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.github-stats-container img {
+  max-width: 100%;
+  display: inline-block;
+}
+
 /* Custom animations */
 @keyframes fadeIn {
   from {
