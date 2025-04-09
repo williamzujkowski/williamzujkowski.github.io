@@ -2,7 +2,7 @@
 title: "The Evolution of High-Performance Computing in 2025: Key Trends and Innovations"
 date: 2025-03-31
 layout: post.njk
-tags: posts, ai, cloud, devops, programming
+tags: posts ai cloud devops programming
 ---
 
 ![The Evolution of High-Performance Computing in 2025: Key Trends and Innovations](/assets/images/blog/ai-blog.jpg)

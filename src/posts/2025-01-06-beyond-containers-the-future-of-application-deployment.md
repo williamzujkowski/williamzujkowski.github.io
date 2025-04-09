@@ -2,7 +2,7 @@
 title: "Beyond Containers: The Future of Application Deployment"
 date: 2025-01-06
 layout: post.njk
-tags: posts, cloud, devops, architecture
+tags: posts cloud devops architecture
 ---
 
 ![Cloud-native application deployment technologies](/assets/images/blog/cloud-blog.jpg)

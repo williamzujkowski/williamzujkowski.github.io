@@ -2,7 +2,7 @@
 title: "Enhancing Embodied AI: Teaching Agents to Seek Clarification Using Multimodal Large Language Models"
 date: 2025-04-14
 layout: post.njk
-tags: posts, security, ai, devops, programming, architecture
+tags: posts security ai devops programming architecture
 ---
 
 ![Enhancing Embodied AI: Teaching Agents to Seek Clarification Using Multimodal Large Language Models](/assets/images/blog/ai-blog.jpg)
