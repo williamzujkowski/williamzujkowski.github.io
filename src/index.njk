@@ -64,7 +64,7 @@ eleventyNavigation:
                       {% endfor %}
                     {% endif %}
                   </div>
-                  <div class="text-xs text-text-secondary">{{ post.date | date("MMM DD, YYYY") }}</div>
+                  <div class="text-xs text-text-secondary">{{ post.date | date("MMM d, yyyy") }}</div>
                 </div>
               </div>
             </a>
@@ -307,7 +307,7 @@ eleventyNavigation:
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent to-primary pointer-events-none"></div>
             <div class="mb-3">
               <div class="text-xl font-medium text-white transition-colors duration-200 hover:text-accent">{{ post.data.title }}</div>
-              <div class="text-sm text-text-secondary mt-1">{{ post.date | date("MMM DD, YYYY") }}</div>
+              <div class="text-sm text-text-secondary mt-1">{{ post.date | date("MMM d, yyyy") }}</div>
             </div>
             <p class="text-sm text-text mb-4 line-clamp-3">
               {% set postContent = post.templateContent | striptags %}
