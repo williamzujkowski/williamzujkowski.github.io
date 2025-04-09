@@ -57,7 +57,9 @@ async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900
 
 module.exports = function(eleventyConfig) {
   // Include future-dated posts in collections
-  eleventyConfig.setFutureDates(true);
+  eleventyConfig.addCollection("posts", function(collectionApi) {
+    return collectionApi.getFilteredByTag("posts");
+  });
   // Configure Markdown with anchors
   const markdownLibrary = markdownIt({
     html: true,
