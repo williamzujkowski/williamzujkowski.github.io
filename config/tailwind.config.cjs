@@ -65,28 +65,17 @@ module.exports = {
         'text-secondary': 'oklch(0.75 0.03 250)', // Secondary text
         'muted': 'oklch(0.65 0.02 250)', // Muted text
         
-        // Legacy HEX colors for backward compatibility
-        'primary-hex': '#2ea043', // GitHub Green (dark) - brightened
-        'primary-hover': '#3fb950',
-        'secondary': '#a3aab3', // Secondary text - brightened for better contrast
-        'accent-hex': '#79c0ff', // GitHub blue (dark) - brightened
-        'accent-hover': '#a5d6ff',
-        'background-hex': '#0d1117', // GitHub dark background
-        'surface-hex': '#161b22', // GitHub dark surface
-        'border-hex': '#30363d', // GitHub dark border
-        'text-hex': '#e6edf3', // Text color - brightened for better contrast
-        'text-secondary-hex': '#a3aab3', // Secondary text - brightened
-        'gray-light-hex': '#21262d', 
-        'danger-hex': '#ff7b72', // GitHub red (dark) - brightened
-        'warning-hex': '#f0b83e', // GitHub yellow (dark) - brightened
-        'muted-hex': '#a3aab3', // Muted text - brightened
+        // Legacy hover variants (will be migrated to theme variables)
+        'primary-hover': 'oklch(0.62 0.16 145)', // Brighter primary for hover states
+        'accent-hover': 'oklch(0.76 0.13 230)', // Brighter accent for hover states
+        'secondary': 'oklch(0.75 0.03 250)' // Secondary text (same as text-secondary)
       },
       fontFamily: {
         'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji'],
         'mono': ['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'],
       },
       boxShadow: {
-        'card': '0 0 0 1px #30363d',
+        'card': '0 0 0 1px var(--color-border)',
         'dropdown': '0 8px 24px rgba(1, 4, 9, 0.3)',
         'btn': '0 0 transparent',
         'btn-primary': '0 0 transparent',
@@ -227,8 +216,19 @@ module.exports = {
         '.hover\\:bg-theme-accent:hover': { backgroundColor: 'var(--color-accent)' },
         '.hover\\:text-theme-primary:hover': { color: 'var(--color-primary)' },
         '.hover\\:text-theme-accent:hover': { color: 'var(--color-accent)' },
+        '.hover\\:text-accent-hover:hover': { color: 'oklch(0.76 0.13 230)' }, /* For legacy compatibility */
+        '.hover\\:text-theme-success:hover': { color: 'var(--color-success)' },
+        '.hover\\:text-theme-warning:hover': { color: 'var(--color-warning)' },
+        '.hover\\:text-theme-danger:hover': { color: 'var(--color-danger)' },
+        '.hover\\:text-theme-info:hover': { color: 'var(--color-info)' },
         '.hover\\:border-theme-primary:hover': { borderColor: 'var(--color-primary)' },
         '.hover\\:border-theme-accent:hover': { borderColor: 'var(--color-accent)' },
+        '.hover\\:border-theme-success:hover': { borderColor: 'var(--color-success)' },
+        '.hover\\:border-theme-warning:hover': { borderColor: 'var(--color-warning)' },
+        '.hover\\:border-theme-danger:hover': { borderColor: 'var(--color-danger)' },
+        '.hover\\:border-theme-info:hover': { borderColor: 'var(--color-info)' },
+        '.ring-theme-accent': { '--tw-ring-color': 'var(--color-accent)' },
+        '.border-theme-accent': { borderColor: 'var(--color-accent)' },
       }
       addUtilities(newUtilities)
     }

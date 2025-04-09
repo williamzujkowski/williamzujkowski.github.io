@@ -2,6 +2,11 @@
 <html lang="en" class="dark">
 <head>
   {% include "meta.njk" %}
+  
+  <!-- Make site configuration available to JavaScript -->
+  <script>
+    window.siteConfig = {{ site | dump | safe }};
+  </script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -41,6 +46,11 @@
         <a href="/blog/">Blog</a>
         <a href="/links/">Links</a>
         <a href="/feed.xml">RSS</a>
+        <button id="theme-toggle" class="text-accent hover:text-accent-hover transition-colors duration-200" aria-label="Toggle theme" title="Theme settings (coming soon)">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm0 15a7 7 0 0 1 0-14 7 7 0 0 1 0 14ZM8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"></path>
+          </svg>
+        </button>
       </div>
       <div class="gh-copyright">
         &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
@@ -61,6 +71,7 @@
   <script src="/js/search.js"></script>
   <script src="/js/heatmap.js"></script>
   <script src="/js/microlink-integration.js"></script>
+  <script type="module" src="/js/theme-switcher.js"></script>
   
   <!-- Force static visualizations to be displayed -->
   <script>

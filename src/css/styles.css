@@ -3,6 +3,74 @@
 @tailwind components;
 @tailwind utilities;
 
+/* OKLCH theme CSS variables */
+@layer base {
+  :root {
+    /* Primary color scale */
+    --color-primary: oklch(0.56 0.15 145);
+    --color-primary-50: oklch(0.92 0.05 145);
+    --color-primary-100: oklch(0.87 0.06 145);
+    --color-primary-200: oklch(0.82 0.08 145);
+    --color-primary-300: oklch(0.76 0.10 145);
+    --color-primary-400: oklch(0.66 0.12 145);
+    --color-primary-500: oklch(0.56 0.15 145);
+    --color-primary-600: oklch(0.46 0.13 145);
+    --color-primary-700: oklch(0.36 0.11 145);
+    --color-primary-800: oklch(0.26 0.09 145);
+    --color-primary-900: oklch(0.16 0.07 145);
+    --color-primary-950: oklch(0.11 0.04 145);
+    
+    /* Accent color scale */
+    --color-accent: oklch(0.70 0.15 230);
+    --color-accent-50: oklch(0.95 0.05 230);
+    --color-accent-100: oklch(0.92 0.07 230);
+    --color-accent-200: oklch(0.87 0.09 230);
+    --color-accent-300: oklch(0.82 0.11 230);
+    --color-accent-400: oklch(0.76 0.13 230);
+    --color-accent-500: oklch(0.70 0.15 230);
+    --color-accent-600: oklch(0.60 0.13 230);
+    --color-accent-700: oklch(0.50 0.11 230);
+    --color-accent-800: oklch(0.40 0.09 230);
+    --color-accent-900: oklch(0.30 0.07 230);
+    --color-accent-950: oklch(0.20 0.05 230);
+    
+    /* UI Colors */
+    --color-background: oklch(0.16 0.02 250);
+    --color-surface: oklch(0.20 0.02 250);
+    --color-border: oklch(0.30 0.02 250);
+    --color-gray-light: oklch(0.25 0.02 250);
+    
+    /* Text Colors */
+    --color-text: oklch(0.93 0.02 250);
+    --color-text-secondary: oklch(0.75 0.03 250);
+    --color-muted: oklch(0.65 0.02 250);
+    
+    /* Alert/Status colors */
+    --color-success: oklch(0.56 0.15 145);
+    --color-warning: oklch(0.75 0.15 80);
+    --color-danger: oklch(0.65 0.15 25);
+    --color-info: oklch(0.70 0.15 230);
+    
+    /* Shadows */
+    --shadow-card: 0 0 0 1px var(--color-border);
+    --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    
+    /* Borders */
+    --border-radius: 6px;
+    --border-width: 1px;
+    
+    /* Animation */
+    --transition: 0.3s ease;
+    --hover-transform: -translate-y-1;
+  }
+  
+  /* Override focus ring colors */
+  *:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
 /* Apply typography plugin to blog posts */
 @layer base {
   .prose-custom {
@@ -30,7 +98,7 @@
   input[type="search"],
   textarea,
   select {
-    @apply bg-gray-light border border-border rounded-github p-2 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent;
+    @apply bg-gray-light border border-border rounded-github p-2 text-white focus:outline-none focus:ring-2 ring-theme-accent border-theme-accent focus:border-theme-accent;
   }
 
   ::placeholder {
@@ -80,12 +148,12 @@
   }
 
   a {
-    @apply text-accent;
+    @apply text-theme-accent;
     text-decoration: none;
   }
 
   a:hover {
-    @apply text-accent-hover;
+    @apply hover:text-accent-hover;
     text-decoration: underline;
   }
 
@@ -121,7 +189,7 @@
   }
 
   blockquote {
-    @apply border-l-4 border-accent p-3 pl-4 my-4 bg-gray-light rounded-r-github text-text;
+    @apply border-l-4 border-theme-accent p-3 pl-4 my-4 bg-gray-light rounded-r-github text-text;
   }
 
   hr {
@@ -163,15 +231,15 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-secondary/20 rounded-full;
+    @apply bg-gray-light rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-secondary/40;
+    @apply bg-gray-light;
   }
 
   ::selection {
-    @apply bg-accent/10;
+    @apply bg-theme-accent-10;
   }
 }
 
@@ -287,7 +355,7 @@
 
 .loader-spinner {
   @apply w-10 h-10 border-4 border-border rounded-full;
-  border-top-color: theme('colors.accent');
+  border-top-color: var(--color-accent);
   animation: spin 1s linear infinite;
 }
 
@@ -330,13 +398,13 @@ img.loaded {
 
 /* Skip link for accessibility */
 .skip-link {
-  @apply fixed top-0 left-0 -translate-y-full bg-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0 font-medium rounded-br-github;
+  @apply fixed top-0 left-0 -translate-y-full bg-theme-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0 font-medium rounded-br-github;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Back to top button */
 .back-to-top-btn {
-  @apply fixed right-6 bottom-6 bg-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border;
+  @apply fixed right-6 bottom-6 bg-theme-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
@@ -344,13 +412,13 @@ img.loaded {
 }
 
 .back-to-top-btn:hover {
-  @apply bg-accent-hover;
+  @apply hover:bg-accent-hover;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .back-to-top-btn:focus {
-  @apply outline-none ring-2 ring-accent ring-opacity-50;
+  @apply outline-none ring-2 ring-theme-accent opacity-90;
 }
 
 .back-to-top-btn.visible {
@@ -366,7 +434,7 @@ img.loaded {
 
 /* Header anchor links */
 .header-anchor {
-  @apply text-accent opacity-0 ml-2 hover:opacity-100 transition-opacity duration-200;
+  @apply text-theme-accent opacity-0 ml-2 hover:opacity-100 transition-opacity duration-200;
   text-decoration: none !important;
 }
 
@@ -486,7 +554,7 @@ h4:hover .header-anchor {
 
   /* Animated underline effect */
   .gh-nav-item::after {
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 content-[''];
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-theme-accent transition-all duration-300 content-[''];
   }
 
   .gh-nav-item:hover::after {
@@ -494,12 +562,12 @@ h4:hover .header-anchor {
   }
 
   .gh-nav-item.active {
-    @apply font-semibold text-accent border border-border bg-gray-light;
+    @apply font-semibold text-theme-accent border border-border bg-gray-light;
   }
 
   /* Focus styles for accessibility */
   .gh-nav-item:focus-visible {
-    @apply outline-none ring-2 ring-accent ring-opacity-50;
+    @apply outline-none ring-2 ring-theme-accent opacity-90;
   }
 
   .gh-profile-header {
@@ -535,7 +603,7 @@ h4:hover .header-anchor {
   }
 
   .gh-btn {
-    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-github bg-gray-light hover:bg-gray-light transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50 text-white;
+    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-github bg-gray-light hover:bg-gray-light transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 ring-theme-accent opacity-90 text-white;
   }
 
   .gh-btn-primary {
@@ -588,7 +656,7 @@ h4:hover .header-anchor {
   }
 
   .gh-repo-card::before {
-    @apply absolute top-0 left-0 w-full h-0.5 bg-accent transform scale-x-0 transition-transform duration-300 ease-out content-[''];
+    @apply absolute top-0 left-0 w-full h-0.5 bg-theme-accent transform scale-x-0 transition-transform duration-300 ease-out content-[''];
   }
 
   .gh-repo-card:hover::before {
@@ -596,7 +664,7 @@ h4:hover .header-anchor {
   }
 
   .gh-repo-name {
-    @apply flex items-center text-base font-semibold text-accent mb-1;
+    @apply flex items-center text-base font-semibold text-theme-accent mb-1;
   }
 
   .gh-repo-description {
@@ -632,11 +700,11 @@ h4:hover .header-anchor {
   }
 
   .gh-search-input {
-    @apply w-full py-2.5 pl-4 pr-10 bg-gray-light border border-border rounded-github text-white focus:ring-2 focus:ring-accent focus:outline-none shadow-inner transition-all duration-300;
+    @apply w-full py-2.5 pl-4 pr-10 bg-gray-light border border-border rounded-github text-white focus:ring-2 ring-theme-accent focus:outline-none shadow-inner transition-all duration-300;
   }
 
   .gh-search-input:focus {
-    @apply border-accent bg-gray-light;
+    @apply border-theme-accent bg-gray-light;
   }
 
   .gh-search-icon {
@@ -669,7 +737,7 @@ h4:hover .header-anchor {
   }
 
   .gh-filter-clear {
-    @apply text-xs text-accent hover:text-accent-hover transition-colors duration-200 flex items-center;
+    @apply text-xs text-theme-accent hover:text-accent-hover transition-colors duration-200 flex items-center;
   }
 
   .gh-tag-buttons {
@@ -681,7 +749,7 @@ h4:hover .header-anchor {
   }
 
   .tag-btn.selected {
-    @apply bg-accent text-white border-accent shadow-sm;
+    @apply bg-theme-accent text-white border-theme-accent shadow-sm;
   }
 
   .pulse-animation {
@@ -748,7 +816,7 @@ h4:hover .header-anchor {
   }
 
   .gh-post-tags-overlay .gh-badge {
-    @apply bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30;
+    @apply bg-surface text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border;
   }
 
   .gh-post-content {
@@ -782,7 +850,7 @@ h4:hover .header-anchor {
   }
 
   .gh-read-more {
-    @apply text-sm text-accent font-medium hover:underline inline-flex items-center gap-1;
+    @apply text-sm text-theme-accent font-medium hover:underline inline-flex items-center gap-1;
   }
 
   .gh-read-more svg {
@@ -836,7 +904,7 @@ h4:hover .header-anchor {
 
   /* Search highlight */
   .gh-search-highlight {
-    @apply bg-accent/20 text-white px-1 rounded font-medium;
+    @apply bg-theme-accent-20 text-white px-1 rounded font-medium;
   }
 
   /* Footer */
@@ -854,11 +922,11 @@ h4:hover .header-anchor {
   }
 
   .gh-footer-links a {
-    @apply transition-colors duration-300 hover:text-accent relative;
+    @apply transition-colors duration-300 hover:text-theme-accent relative;
   }
 
   .gh-footer-links a::after {
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 content-[''];
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-theme-accent transition-all duration-300 content-[''];
   }
 
   .gh-footer-links a:hover::after {
@@ -870,7 +938,7 @@ h4:hover .header-anchor {
   }
 
   .gh-copyright a {
-    @apply ml-1 text-accent hover:underline;
+    @apply ml-1 text-theme-accent hover:underline;
   }
 
   /* GitHub-style badge */
@@ -879,15 +947,15 @@ h4:hover .header-anchor {
   }
 
   .gh-badge-primary {
-    @apply bg-primary/10 text-primary;
+    @apply bg-theme-primary-10 text-primary;
   }
 
   .gh-badge-accent {
-    @apply bg-accent/20 text-accent;
+    @apply bg-theme-accent-20 text-theme-accent;
   }
 
   .gh-badge-secondary {
-    @apply bg-secondary/10 text-secondary;
+    @apply bg-gray-light text-secondary;
   }
 
   /* Blog tag filters */
@@ -904,7 +972,7 @@ h4:hover .header-anchor {
   }
 
   .tag-btn.selected {
-    @apply bg-accent text-white border-accent shadow-sm;
+    @apply bg-theme-accent text-white border-theme-accent shadow-sm;
   }
 
   /* Breadcrumbs */
@@ -932,7 +1000,7 @@ h4:hover .header-anchor {
   }
 
   .breadcrumbs-link {
-    @apply text-accent hover:text-accent-hover hover:underline transition-colors;
+    @apply text-theme-accent hover:text-accent-hover hover:underline transition-colors;
   }
 
   .breadcrumbs-item.current {
@@ -945,7 +1013,7 @@ h4:hover .header-anchor {
   }
 
   .gh-project-card {
-    @apply p-5 border border-border rounded-github bg-surface transition-all duration-300 hover:shadow-card hover:border-accent/30;
+    @apply p-5 border border-border rounded-github bg-surface transition-all duration-300 hover:shadow-card hover:border-theme-accent;
   }
 
   .gh-project-header {
@@ -961,7 +1029,7 @@ h4:hover .header-anchor {
   }
 
   .gh-project-tags .gh-badge {
-    @apply bg-accent/10 text-accent px-2 py-0.5;
+    @apply bg-theme-accent-10 text-theme-accent px-2 py-0.5;
   }
 
   /* Reading section */
@@ -970,11 +1038,11 @@ h4:hover .header-anchor {
   }
 
   .gh-reading-card {
-    @apply flex items-start gap-3 p-4 border border-border rounded-github bg-surface hover:border-accent/30 transition-all duration-300;
+    @apply flex items-start gap-3 p-4 border border-border rounded-github bg-surface hover:border-theme-accent transition-all duration-300;
   }
 
   .gh-reading-icon {
-    @apply w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center text-accent flex-shrink-0;
+    @apply w-10 h-10 bg-theme-accent-10 rounded-full flex items-center justify-center text-theme-accent flex-shrink-0;
   }
 
   .gh-reading-title {
@@ -994,7 +1062,7 @@ h4:hover .header-anchor {
   }
 
   .gh-progress-fill {
-    @apply h-full bg-accent rounded-full;
+    @apply h-full bg-theme-accent rounded-full;
   }
 
   .gh-progress-text {
@@ -1063,7 +1131,7 @@ h4:hover .header-anchor {
   }
 
   .gh-activity-icon {
-    @apply w-4 h-4 rounded-full bg-accent/20 p-3 flex items-center justify-center text-accent flex-shrink-0 z-10;
+    @apply w-4 h-4 rounded-full bg-theme-accent-20 p-3 flex items-center justify-center text-theme-accent flex-shrink-0 z-10;
   }
 
   .gh-activity-content {
@@ -1075,7 +1143,7 @@ h4:hover .header-anchor {
   }
 
   .gh-activity-link {
-    @apply text-accent hover:text-accent-hover hover:underline;
+    @apply text-theme-accent hover:text-accent-hover hover:underline;
   }
 
   .gh-activity-date {
@@ -1363,7 +1431,7 @@ h4:hover .header-anchor {
     
     /* Section titles with decorative line */
     h2, h3 {
-      @apply relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-[3px] after:rounded-full after:bg-accent/40;
+      @apply relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-[3px] after:rounded-full after:bg-theme-accent-30;
     }
     
     /* Add spacing between content blocks */

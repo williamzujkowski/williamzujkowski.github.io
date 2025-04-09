@@ -1,84 +1,71 @@
 [
   {
-    "id": "http://arxiv.org/abs/2504.05305v1",
-    "title": "URECA: Unique Region Caption Anything",
-    "summary": "Region-level captioning aims to generate natural language descriptions for\nspecific image regions while highlighting their distinguishing features.\nHowever, existing methods struggle to produce unique captions across\nmulti-granularity, limiting their real-world applicability. To address the need\nfor detailed region-level understanding, we introduce URECA dataset, a\nlarge-scale dataset tailored for multi-granularity region captioning. Unlike\nprior datasets that focus primarily on salient objects, URECA dataset ensures a\nunique and consistent mapping between regions and captions by incorporating a\ndiverse set of objects, parts, and background elements. Central to this is a\nstage-wise data curation pipeline, where each stage incrementally refines\nregion selection and caption generation. By leveraging Multimodal Large\nLanguage Models (MLLMs) at each stage, our pipeline produces distinctive and\ncontextually grounded captions with improved accuracy and semantic diversity.\nBuilding upon this dataset, we present URECA, a novel captioning model designed\nto effectively encode multi-granularity regions. URECA maintains essential\nspatial properties such as position and shape through simple yet impactful\nmodifications to existing MLLMs, enabling fine-grained and semantically rich\nregion descriptions. Our approach introduces dynamic mask modeling and a\nhigh-resolution mask encoder to enhance caption uniqueness. Experiments show\nthat URECA achieves state-of-the-art performance on URECA dataset and\ngeneralizes well to existing region-level captioning benchmarks.",
-    "published": "2025-04-07T17:59:44Z",
-    "formattedDate": "Apr 7, 2025",
-    "updated": "2025-04-07T17:59:44Z",
-    "firstAuthor": "Sangbeom Lim",
+    "id": "http://arxiv.org/abs/2504.06265v1",
+    "title": "GOLLuM: Gaussian Process Optimized LLMs -- Reframing LLM Finetuning\n  through Bayesian Optimization",
+    "summary": "Large Language Models (LLMs) can encode complex relationships in their latent\nspaces, yet harnessing them for optimization under uncertainty remains\nchallenging. We address this gap with a novel architecture that reframes LLM\nfinetuning as Gaussian process (GP) marginal likelihood optimization via deep\nkernel methods. We introduce LLM-based deep kernels, jointly optimized with GPs\nto preserve the benefits of both - LLMs to provide a rich and flexible input\nspace for Bayesian optimization and - GPs to model this space with predictive\nuncertainty for more efficient sampling. Applied to Buchwald-Hartwig reaction\noptimization, our method nearly doubles the discovery rate of high-performing\nreactions compared to static LLM embeddings (from 24% to 43% coverage of the\ntop 5% reactions in just 50 optimization iterations). We also observe a 14%\nimprovement over domain-specific representations without requiring specialized\nfeatures. Extensive empirical evaluation across 19 benchmarks - ranging from\ngeneral chemistry to reaction and molecular property optimization -\ndemonstrates our method's robustness, generality, and consistent improvements\nacross: (1) tasks, (2) LLM architectures (encoder, decoder, encoder-decoder),\n(3) pretraining domains (chemistry-related or general-purpose) and (4)\nhyperparameter settings (tuned once on a single dataset). Finally, we explain\nthese improvements: joint LLM-GP optimization through marginal likelihood\nimplicitly performs contrastive learning, aligning representations to produce\n(1) better-structured embedding spaces, (2) improved uncertainty calibration,\nand (3) more efficient sampling - without requiring any external loss. This\nwork provides both practical advances in sample-efficient optimization and\ninsights into what makes effective Bayesian optimization.",
+    "published": "2025-04-08T17:59:57Z",
+    "formattedDate": "Apr 8, 2025",
+    "updated": "2025-04-08T17:59:57Z",
+    "firstAuthor": "Bojana Ranković",
     "authors": [
-      "Sangbeom Lim",
-      "Junwan Kim",
-      "Heeji Yoon",
-      "Jaewoo Jung",
-      "Seungryong Kim"
+      "Bojana Ranković",
+      "Philippe Schwaller"
     ],
-    "link": "http://arxiv.org/abs/2504.05305v1",
+    "link": "http://arxiv.org/abs/2504.06265v1",
     "categoryLabel": "AI",
-    "progress": 57
+    "progress": 58
   },
   {
-    "id": "http://arxiv.org/abs/2504.05273v1",
-    "title": "What We Do Not Know: GPT Use in Business and Management",
-    "summary": "This systematic review examines peer-reviewed studies on application of GPT\nin business management, revealing significant knowledge gaps. Despite\nidentifying interesting research directions such as best practices,\nbenchmarking, performance comparisons, social impacts, our analysis yields only\n42 relevant studies for the 22 months since its release. There are so few\nstudies looking at a particular sector or subfield that management researchers,\nbusiness consultants, policymakers, and journalists do not yet have enough\ninformation to make well-founded statements on how GPT is being used in\nbusinesses. The primary contribution of this paper is a call to action for\nfurther research. We provide a description of current research and identify\nknowledge gaps on the use of GPT in business. We cover the management subfields\nof finance, marketing, human resources, strategy, operations, production, and\nanalytics, excluding retail and sales. We discuss gaps in knowledge of GPT\npotential consequences on employment, productivity, environmental costs,\noppression, and small businesses. We propose how management consultants and the\nmedia can help fill those gaps. We call for practical work on business control\nsystems as they relate to existing and foreseeable AI-related business\nchallenges. This work may be of interest to managers, to management\nresearchers, and to people working on AI in society.",
-    "published": "2025-04-07T17:11:53Z",
-    "formattedDate": "Apr 7, 2025",
-    "updated": "2025-04-07T17:11:53Z",
-    "firstAuthor": "Tammy Mackenzie",
+    "id": "http://arxiv.org/abs/2504.06241v1",
+    "title": "A Case for Network-wide Orchestration of Host-based Intrusion Detection\n  and Response",
+    "summary": "Recent cyber incidents and the push for zero trust security underscore the\nnecessity of monitoring host-level events. However, current host-level\nintrusion detection systems (IDS) lack the ability to correlate alerts and\ncoordinate a network-wide response in real time. Motivated by advances in\nsystem-level extensions free of rebooting and network-wide orchestration of\nhost actions, we propose using a central IDS orchestrator to remotely program\nthe logic of each host IDS and collect the alerts generated in real time. In\nthis paper, we make arguments for such a system concept and provide a high\nlevel design of the main system components. Furthermore, we have developed a\nsystem prototype and evaluated it using two experimental scenarios rooted from\nreal-world attacks. The evaluation results show that the host-based IDS\norchestration system is able to defend against the attacks effectively.",
+    "published": "2025-04-08T17:41:04Z",
+    "formattedDate": "Apr 8, 2025",
+    "updated": "2025-04-08T17:41:04Z",
+    "firstAuthor": "Mark Timmons",
     "authors": [
-      "Tammy Mackenzie",
-      "Branislav Radeljic",
-      "Leslie Salgado",
-      "Animesh Paul",
-      "Rubaina Khan",
-      "Aizhan Tursunbayeva",
-      "Natalie Perez",
-      "Sreyoshi Bhaduri"
+      "Mark Timmons",
+      "Daniel Lukaszewski",
+      "Geoffrey Xie"
     ],
-    "link": "http://arxiv.org/abs/2504.05273v1",
+    "link": "http://arxiv.org/abs/2504.06241v1",
     "categoryLabel": "Security",
+    "progress": 53
+  },
+  {
+    "id": "http://arxiv.org/abs/2504.06267v1",
+    "title": "Prethermalization of light and matter in cavity-coupled Rydberg arrays",
+    "summary": "We explore the dynamics of two-dimensional Rydberg atom arrays coupled to a\nsingle-mode optical cavity, employing nonequilibrium diagrammatic techniques to\ncapture nonlinearities and fluctuations beyond mean-field theory. We discover a\nnovel prethermalization regime driven by the interplay between short-range\nRydberg interactions and long-range photon-mediated interactions. In this\nregime, matter and light equilibrate at distinct - and in some cases opposite -\neffective temperatures, resembling the original concept of prethermalization\nfrom particle physics. Our results establish strongly correlated AMO platforms\nas tools to investigate fundamental questions in statistical mechanics,\nincluding quantum thermalization in higher-dimensional systems.",
+    "published": "2025-04-08T17:59:59Z",
+    "formattedDate": "Apr 8, 2025",
+    "updated": "2025-04-08T17:59:59Z",
+    "firstAuthor": "Aleksandr N. Mikheev",
+    "authors": [
+      "Aleksandr N. Mikheev",
+      "Hossein Hosseinabadi",
+      "Jamir Marino"
+    ],
+    "link": "http://arxiv.org/abs/2504.06267v1",
+    "categoryLabel": "Quantum",
     "progress": 89
   },
   {
-    "id": "http://arxiv.org/abs/2504.05289v2",
-    "title": "Direct Measurement of the Singlet Lifetime and Photoexcitation Behavior\n  of the Boron Vacancy Center in Hexagonal Boron Nitride",
-    "summary": "Optically active electronic spin defects in van der Waals (vdW) materials\nprovide a promising platform for quantum sensing, as they can enable shorter\nstandoff distances compared to defects in diamond, leading to sensitivity\nadvantages. Perhaps the most studied defect in a vdW material is the negatively\ncharged boron vacancy center ($V^{-}_{B}$) in hexagonal boron nitride (hBN).\nHowever, many of the $V^{-}_{B}$ electronic and spin transition rates and\nbranching ratios are not fully known. Here, we use time-resolved\nphotoluminescence (PL) measurements with a nanosecond rise-time 515 nm laser to\ndetermine directly the singlet state lifetime of a $V^{-}_{B}$ ensemble in\nneutron-irradiated, sub-micron-size flakes of hBN. We perform this measurement\non 16 different hBN flakes at room temperature and obtain an average lifetime\nof 15(3) ns. Additionally, we probe the PL dynamics of thermal and optically\npolarized electronic spin distributions of the $V^{-}_{B}$ ensemble in a single\nsub-micron hBN flake, and fit our results to a 9-level model to extract the\nelectronic transition rates. Lastly, we present PL measurements that\npotentially indicate optically-induced conversion of $V^{-}_{B}$ to another\nelectronic state, or possibly the neutral charge state (V$^{0}_{B}$), in\nneutron-irradiated hBN flakes of size $>$ 1 $\\mu$m.",
-    "published": "2025-04-07T17:42:43Z",
-    "formattedDate": "Apr 7, 2025",
-    "updated": "2025-04-08T12:23:03Z",
-    "firstAuthor": "Richard A. Escalante",
+    "id": "http://arxiv.org/abs/2504.06218v1",
+    "title": "Role of mechanical effects on the excitation spectra of\n  microwave-dressed Rydberg states in a cold atomic cloud",
+    "summary": "We explore the excitation spectra of cold 87Rb atoms to the 55D_3/2 Rydberg\nstate in the presence of microwave (MW) radiation as a function of MW\nfrequency. The spectra reveal several features around the\ntransition-frequencies between adjacent Rydberg states. We argue that some of\nthese features are indicative of variations in the Rydberg excitation\nprobability while others result from the removal of atoms from the cold cloud\nas a consequence of a MW induced strong dipole-dipole inter-atomic force. Our\nclaim is supported by experimental observations and theoretical modeling.",
+    "published": "2025-04-08T17:06:05Z",
+    "formattedDate": "Apr 8, 2025",
+    "updated": "2025-04-08T17:06:05Z",
+    "firstAuthor": "H. Failache",
     "authors": [
-      "Richard A. Escalante",
-      "Andrew J. Beling",
-      "Niko Reed",
-      "Justin Welter",
-      "John Blanchard",
-      "Daniel G. Ang",
-      "Cecilia Campos",
-      "Edwin Coronel",
-      "Klaus Krambrock",
-      "Alexandre S. Leal",
-      "Paras N. Prasad",
-      "Ronald L. Walsworth"
+      "H. Failache",
+      "J. A. Muniz",
+      "L. Velazco",
+      "D. Talento",
+      "A. Lezama"
     ],
-    "link": "http://arxiv.org/abs/2504.05289v2",
-    "categoryLabel": "Quantum",
-    "progress": 54
-  },
-  {
-    "id": "http://arxiv.org/abs/2504.05274v1",
-    "title": "Aggregating time-series and image data: functors and double functors",
-    "summary": "Aggregation of time-series or image data over subsets of the domain is a\nfundamental task in data science. We show that many known aggregation\noperations can be interpreted as (double) functors on appropriate (double)\ncategories. Such functorial aggregations are amenable to parallel\nimplementation via straightforward extensions of Blelloch's parallel scan\nalgorithm. In addition to providing a unified viewpoint on existing operations,\nit allows us to propose new aggregation operations for time-series and image\ndata.",
-    "published": "2025-04-07T17:12:20Z",
-    "formattedDate": "Apr 7, 2025",
-    "updated": "2025-04-07T17:12:20Z",
-    "firstAuthor": "Joscha Diehl",
-    "authors": [
-      "Joscha Diehl"
-    ],
-    "link": "http://arxiv.org/abs/2504.05274v1",
+    "link": "http://arxiv.org/abs/2504.06218v1",
     "categoryLabel": "Research",
-    "progress": 11
+    "progress": 61
   }
 ]
