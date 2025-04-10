@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![Cloud-native application deployment technologies](/assets/images/blog/cloud-blog.jpg)
-
 Container technology transformed application deployment over the past decade, bringing unprecedented standardization and portability to software delivery. As we look ahead, emerging paradigms are poised to once again revolutionize how we think about deployment. This exploration examines what lies beyond containers and how organizations should prepare for the next evolution.
 
 ## The Container Revolution: Where We Are Today

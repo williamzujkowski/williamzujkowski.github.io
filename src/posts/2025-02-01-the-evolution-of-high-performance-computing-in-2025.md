@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![High-Performance Computing infrastructure with advanced cooling systems](/assets/images/blog/tech-header.jpg)
-
 High-Performance Computing (HPC) has long been the backbone of complex computational tasks, from climate modeling to genomic sequencing. As we navigate through 2025, several pivotal trends are reshaping the HPC landscape, making it more accessible, efficient, and powerful.
 
 ## AI Integration: A Symbiotic Relationship

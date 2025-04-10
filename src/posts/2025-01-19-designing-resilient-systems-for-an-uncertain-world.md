@@ -6,8 +6,6 @@ tags: posts
 
 ---
 
-![Designing Resilient Systems for an Uncertain World](/assets/images/blog/ai-blog.jpg)
-
 The last few years have taught us a powerful lesson: unexpected disruptions are not just possible but inevitable. From global pandemics to supply chain breakdowns, infrastructure failures to climate events, organizations face an increasingly uncertain operating environment. In this context, system resilience isn't a luxury—it's a necessity.
 
 Defining Resilience: Beyond Simple Redundancy

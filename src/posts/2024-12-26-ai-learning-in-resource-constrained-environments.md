@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![Edge AI devices running machine learning models with limited resources](/assets/images/blog/ai-blog.jpg)
-
 In the rapidly evolving landscape of artificial intelligence, one challenge remains persistently difficult: how do we implement sophisticated AI models in environments with limited computational resources? From IoT devices to remote sensors and legacy systems, the demand for "edge AI" continues to grow.
 
 ## The Standard Approach and Its Limitations

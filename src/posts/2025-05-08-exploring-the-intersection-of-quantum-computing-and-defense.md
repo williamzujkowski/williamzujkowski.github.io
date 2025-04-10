@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![Exploring the Intersection of Quantum Computing and Defense](/assets/images/blog/ai-blog.jpg)
-
 ![Quantum Computing and Defense](/assets/images/blog/quantum-computing-defense.jpg)
 
 The advent of quantum computing heralds a transformative era in computational capabilities, with profound implications for various sectors, notably defense. Understanding the potential threats and opportunities that quantum technologies present is crucial for developing robust defense strategies.

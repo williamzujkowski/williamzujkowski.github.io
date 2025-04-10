@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![The Evolution of High-Performance Computing in 2025: Key Trends and Innovations](/assets/images/blog/ai-blog.jpg)
-
 # The Evolution of High-Performance Computing in 2025: Key Trends and Innovations
 
 High-Performance Computing (HPC) has long been the backbone of complex computational tasks, from climate modeling to genomic sequencing. As we navigate through 2025, several pivotal trends are reshaping the HPC landscape, making it more accessible, efficient, and powerful.

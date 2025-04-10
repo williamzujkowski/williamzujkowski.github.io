@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![Summary](/assets/images/blog/ai-blog.jpg)
-
 Quantum computing is rapidly advancing, with significant breakthroughs like Google's Willow processor and AWS's Ocelot chip. These innovations promise to revolutionize industries by solving complex problems beyond the reach of classical computers. However, they also pose challenges, particularly in cybersecurity, as current encryption methods may become obsolete. The integration of quantum computing with AI offers exciting possibilities, but it requires careful navigation to balance innovation with security.
 
 # Quantum Computing's Leap Forward: Navigating the New Frontier

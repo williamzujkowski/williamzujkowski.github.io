@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![Quantum computing hardware with intricate cooling systems](/assets/images/blog/transformer-blog.jpg)
-
 Quantum computing stands at the precipice of a technological revolution, with recent breakthroughs pushing the boundaries of what's computationally possible. As traditional computing approaches physical limitations, quantum systems offer an alternative paradigm that harnesses quantum mechanical phenomena to process information in fundamentally new ways.
 
 ## Quantum Supremacy: From Theory to Reality

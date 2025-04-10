@@ -5,8 +5,6 @@ layout: post.njk
 tags: posts
 ---
 
-![Enhancing Embodied AI: Teaching Agents to Seek Clarification Using Multimodal Large Language Models](/assets/images/blog/ai-blog.jpg)
-
 # Enhancing Embodied AI: Teaching Agents to Seek Clarification Using Multimodal Large Language Models
 
 ## Summary
