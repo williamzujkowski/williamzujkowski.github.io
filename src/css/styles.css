@@ -887,12 +887,21 @@ h4:hover .header-anchor {
   }
 
   .gh-post-card {
-    @apply border border-border rounded-github overflow-hidden bg-gray-light shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col;
+    @apply border border-border rounded-github overflow-hidden bg-gray-light transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col relative;
   }
   
   /* Add light theme card styling */
   .light .gh-post-card {
     @apply bg-surface border-border;
+  }
+  
+  /* Fix hover issue by setting the same bg color on hover */
+  .gh-post-card:hover {
+    @apply bg-gray-light;
+  }
+  
+  .light .gh-post-card:hover {
+    @apply bg-surface;
   }
 
   .gh-post-image {
