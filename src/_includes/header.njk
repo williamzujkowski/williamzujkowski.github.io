@@ -1,33 +1,36 @@
-<header class="site-header">
-  <div class="site-title">
-    <a href="/">{{ site.title }}</a>
-  </div>
-  <div class="header-right">
-    <nav class="site-nav">
-      <ul>
-        {% for item in site.navigation %}
-          <li>
+<header class="gh-header">
+  <div class="gh-header-inner">
+    <div class="site-title">
+      <a href="/" class="flex items-center gap-2 text-white font-semibold hover:text-theme-accent transition-colors duration-300">
+        <span class="text-theme-accent">{{ site.title }}</span>
+      </a>
+    </div>
+    <div class="flex items-center gap-4">
+      <nav class="gh-nav">
+        <ul class="flex items-center gap-1 md:gap-2">
+          {% for item in site.navigation %}
+            <li>
+              <a
+                href="{{ item.url }}"
+                class="gh-nav-item {% if page.url == item.url %}active{% endif %}"
+                {% if page.url == item.url %}aria-current="page"{% endif %}
+              >{{ item.icon | safe }} <span class="hidden md:inline-block">{{ item.name }}</span></a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <div class="header-social flex items-center gap-3">
+        {% for social in site.social_media %}
+          {% if social.display_in_header and social.enabled %}
             <a
-              href="{{ item.url }}"
-              class="nav-item"
-              {% if page.url == item.url %}aria-current="page"{% endif %}
-              >{{ item.icon | safe }} {{ item.name }}</a
-            >
-          </li>
+              href="{{ social.url }}"
+              class="text-text-secondary hover:text-theme-accent transition-colors duration-300"
+              aria-label="{{ social.name }}"
+              title="{{ social.name }}"
+            >{{ social.icon | safe }}</a>
+          {% endif %}
         {% endfor %}
-      </ul>
-    </nav>
-    <div class="header-social">
-      {% for social in site.social_media %}
-        {% if social.display_in_header and social.enabled %}
-          <a
-            href="{{ social.url }}"
-            class="header-social-link"
-            aria-label="{{ social.name }}"
-            title="{{ social.name }}"
-          >{{ social.icon | safe }}</a>
-        {% endif %}
-      {% endfor %}
+      </div>
     </div>
   </div>
 </header>
