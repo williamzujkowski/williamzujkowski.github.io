@@ -56,10 +56,7 @@ async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900
 }
 
 module.exports = function(eleventyConfig) {
-  // Override the default date-based filtering to include all posts
-  eleventyConfig.addCollection("posts", function(collectionApi) {
-    return collectionApi.getFilteredByTag("posts");
-  });
+  // Using default Eleventy date-based filtering (posts with dates in the future will not be displayed)
   // Configure Markdown with anchors
   const markdownLibrary = markdownIt({
     html: true,
