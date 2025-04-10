@@ -33,8 +33,8 @@
         
         <!-- Theme toggle button -->
         <button id="theme-toggle" aria-label="Toggle dark/light mode" class="text-text-secondary hover:text-theme-accent transition-colors duration-300 focus:outline-none">
-          <!-- Sun icon (light mode) -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 light-icon" style="display: var(--light-icon-display)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Sun icon (light mode) - visible in dark mode -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -45,8 +45,8 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
-          <!-- Moon icon (dark mode) -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 dark-icon" style="display: var(--dark-icon-display)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Moon icon (dark mode) - visible in light mode -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 moon-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </button>
@@ -59,11 +59,25 @@
   document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('theme-toggle');
     const rootElement = document.documentElement;
+    const sunIcon = document.querySelector('.sun-icon');
+    const moonIcon = document.querySelector('.moon-icon');
+    
+    // Function to update icon visibility
+    function updateIcons(isLight) {
+      if (isLight) {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      } else {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      }
+    }
     
     // Check for saved theme in localStorage
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
       rootElement.classList.add('light');
+      updateIcons(true);
     }
     
     // Toggle between light and dark themes
@@ -72,10 +86,12 @@
         // Switch to dark theme
         rootElement.classList.remove('light');
         localStorage.setItem('theme', 'dark');
+        updateIcons(false);
       } else {
         // Switch to light theme
         rootElement.classList.add('light');
         localStorage.setItem('theme', 'light');
+        updateIcons(true);
       }
     });
     
@@ -85,6 +101,7 @@
       if (!prefersDark) {
         rootElement.classList.add('light');
         localStorage.setItem('theme', 'light');
+        updateIcons(true);
       }
     }
   });

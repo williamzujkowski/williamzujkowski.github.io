@@ -889,6 +889,11 @@ h4:hover .header-anchor {
   .gh-post-card {
     @apply border border-border rounded-github overflow-hidden bg-gray-light shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col;
   }
+  
+  /* Add light theme card styling */
+  .light .gh-post-card {
+    @apply bg-surface border-border;
+  }
 
   .gh-post-image {
     @apply h-44 overflow-hidden relative;
