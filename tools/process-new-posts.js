@@ -312,7 +312,30 @@ async function main() {
       if (!processed) continue;
       
       // Add the date to the content
-      const finalContent = processed.content.replace('{{POST_DATE}}', postDate);
+      let finalContent = processed.content.replace('{{POST_DATE}}', postDate);
+      
+      // Clean up any citation artifacts
+      const citationPatterns = [
+        { pattern: /\s+citeturn\w+/g, name: "citeturn marker" },
+        { pattern: /\s+\[\d+\]/g, name: "numeric reference" },
+        { pattern: /\s+\(citation\s*\d*\)/gi, name: "citation placeholder" },
+        { pattern: /\s+\[citation\s*needed\]/gi, name: "citation needed" },
+        { pattern: /\s+\[ref\]/gi, name: "ref marker" }
+      ];
+      
+      for (const { pattern, name } of citationPatterns) {
+        if (pattern.test(finalContent)) {
+          pattern.lastIndex = 0;
+          const matches = finalContent.match(pattern) || [];
+          if (matches.length > 0) {
+            finalContent = finalContent.replace(pattern, '');
+            console.log(`  - Removed ${matches.length} ${name}(s) from post`);
+          }
+        }
+      }
+      
+      // Fix cases where multiple spaces might have been created
+      finalContent = finalContent.replace(/\s{2,}/g, ' ');
       
       // Create the target filename
       const targetFilename = `${postDate}-${processed.slug}.md`;
