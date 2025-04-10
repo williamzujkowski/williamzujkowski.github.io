@@ -5,8 +5,9 @@
 
 /* OKLCH theme CSS variables */
 @layer base {
+  /* Dark theme (default) */
   :root {
-    /* Primary color scale */
+    /* Primary color scale - GitHub green-like */
     --color-primary: oklch(0.56 0.15 145);
     --color-primary-50: oklch(0.92 0.05 145);
     --color-primary-100: oklch(0.87 0.06 145);
@@ -20,7 +21,7 @@
     --color-primary-900: oklch(0.16 0.07 145);
     --color-primary-950: oklch(0.11 0.04 145);
     
-    /* Accent color scale */
+    /* Accent color scale - GitHub blue-like */
     --color-accent: oklch(0.70 0.15 230);
     --color-accent-50: oklch(0.95 0.05 230);
     --color-accent-100: oklch(0.92 0.07 230);
@@ -34,13 +35,13 @@
     --color-accent-900: oklch(0.30 0.07 230);
     --color-accent-950: oklch(0.20 0.05 230);
     
-    /* UI Colors */
+    /* UI Colors - Dark theme */
     --color-background: oklch(0.16 0.02 250);
     --color-surface: oklch(0.20 0.02 250);
     --color-border: oklch(0.30 0.02 250);
     --color-gray-light: oklch(0.25 0.02 250);
     
-    /* Text Colors */
+    /* Text Colors - Dark theme */
     --color-text: oklch(0.93 0.02 250);
     --color-text-secondary: oklch(0.75 0.03 250);
     --color-muted: oklch(0.65 0.02 250);
@@ -51,7 +52,7 @@
     --color-danger: oklch(0.65 0.15 25);
     --color-info: oklch(0.70 0.15 230);
     
-    /* Shadows */
+    /* Shadows - Dark theme */
     --shadow-card: 0 0 0 1px var(--color-border);
     --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     
@@ -62,12 +63,102 @@
     /* Animation */
     --transition: 0.3s ease;
     --hover-transform: -translate-y-1;
+    
+    /* Theme icon display */
+    --light-icon-display: none;
+    --dark-icon-display: block;
+  }
+  
+  /* Light theme */
+  :root.light {
+    /* Primary color scale - Keep similar green but adjusted for light theme */
+    --color-primary: oklch(0.50 0.15 145);
+    --color-primary-50: oklch(0.98 0.02 145);
+    --color-primary-100: oklch(0.94 0.03 145);
+    --color-primary-200: oklch(0.88 0.05 145);
+    --color-primary-300: oklch(0.80 0.08 145);
+    --color-primary-400: oklch(0.70 0.11 145);
+    --color-primary-500: oklch(0.50 0.15 145);
+    --color-primary-600: oklch(0.40 0.14 145);
+    --color-primary-700: oklch(0.35 0.13 145);
+    --color-primary-800: oklch(0.30 0.12 145);
+    --color-primary-900: oklch(0.25 0.10 145);
+    --color-primary-950: oklch(0.20 0.09 145);
+    
+    /* Accent color scale - Keep similar blue but adjusted for light theme */
+    --color-accent: oklch(0.55 0.16 230);
+    --color-accent-50: oklch(0.98 0.02 230);
+    --color-accent-100: oklch(0.94 0.04 230);
+    --color-accent-200: oklch(0.88 0.07 230);
+    --color-accent-300: oklch(0.80 0.10 230);
+    --color-accent-400: oklch(0.65 0.13 230);
+    --color-accent-500: oklch(0.55 0.16 230);
+    --color-accent-600: oklch(0.45 0.15 230);
+    --color-accent-700: oklch(0.40 0.14 230);
+    --color-accent-800: oklch(0.35 0.13 230);
+    --color-accent-900: oklch(0.30 0.11 230);
+    --color-accent-950: oklch(0.25 0.10 230);
+    
+    /* UI Colors - Light theme */
+    --color-background: oklch(0.98 0.01 250);
+    --color-surface: oklch(0.95 0.01 250);
+    --color-border: oklch(0.85 0.01 250);
+    --color-gray-light: oklch(0.90 0.01 250);
+    
+    /* Text Colors - Light theme */
+    --color-text: oklch(0.20 0.02 250);
+    --color-text-secondary: oklch(0.35 0.02 250);
+    --color-muted: oklch(0.50 0.02 250);
+    
+    /* Alert/Status colors - adjusted for light theme */
+    --color-success: oklch(0.50 0.15 145);
+    --color-warning: oklch(0.70 0.15 80);
+    --color-danger: oklch(0.60 0.15 25);
+    --color-info: oklch(0.55 0.16 230);
+    
+    /* Shadows - Light theme */
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px var(--color-border);
+    --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    
+    /* Theme icon display */
+    --light-icon-display: block;
+    --dark-icon-display: none;
   }
   
   /* Override focus ring colors */
   *:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
+  }
+  
+  /* Add transition effect for light/dark mode toggle */
+  body, 
+  .gh-header, 
+  .gh-footer, 
+  .gh-post-card, 
+  .gh-blog-controls, 
+  .tags-filter, 
+  .gh-section-header, 
+  .gh-post-grid, 
+  .gh-post-card,
+  .gh-post-image,
+  .gh-post-content,
+  .gh-post-title,
+  .gh-post-meta,
+  .gh-post-excerpt,
+  .gh-post-footer,
+  .gh-read-more,
+  .gh-pagination,
+  .gh-profile-header,
+  .gh-avatar,
+  .gh-name,
+  .gh-username,
+  .gh-bio,
+  .gh-btn,
+  .gh-tag-buttons,
+  .tag-btn,
+  a, button, input, select, textarea {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 }
 

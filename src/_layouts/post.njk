@@ -186,6 +186,7 @@ layout: base.njk
           overflow: auto;
           padding: 1rem;
           margin: 1rem 0;
+          transition: all 0.3s ease;
         }
         
         /* Style for code lines */
@@ -205,6 +206,27 @@ layout: base.njk
           text-align: right;
           color: rgba(139, 148, 158, 0.5);
           user-select: none;
+        }
+        
+        /* Light theme code block overrides */
+        .light pre {
+          background-color: oklch(0.95 0.01 250);
+          color: oklch(0.25 0.02 250);
+        }
+        
+        .light pre code {
+          color: oklch(0.25 0.02 250);
+        }
+        
+        .light .code-line::before {
+          color: rgba(20, 30, 40, 0.3);
+        }
+        
+        /* Light theme syntax header with language and copy button */
+        .light pre + div {
+          background-color: oklch(0.90 0.01 250);
+          border-color: oklch(0.85 0.01 250);
+          color: oklch(0.30 0.02 250);
         }
         
         /* Syntax highlighting - GitHub dark theme compatible */
@@ -251,6 +273,52 @@ layout: base.njk
         .hljs-addition,
         .hljs-section {
           color: #7ee787;
+        }
+        
+        /* Light theme syntax highlighting overrides */
+        .light .hljs-comment,
+        .light .hljs-quote {
+          color: #6e7781;
+          font-style: italic;
+        }
+        
+        .light .hljs-keyword,
+        .light .hljs-selector-tag {
+          color: #cf222e;
+        }
+        
+        .light .hljs-string,
+        .light .hljs-template-string,
+        .light .hljs-attr {
+          color: #0a3069;
+        }
+        
+        .light .hljs-title,
+        .light .hljs-function {
+          color: #6639ba;
+        }
+        
+        .light .hljs-variable,
+        .light .hljs-attr,
+        .light .hljs-tag,
+        .light .hljs-regexp,
+        .light .hljs-literal,
+        .light .hljs-symbol,
+        .light .hljs-bullet,
+        .light .hljs-built_in,
+        .light .hljs-builtin-name,
+        .light .hljs-meta {
+          color: #0550ae;
+        }
+        
+        .light .hljs-number,
+        .light .hljs-deletion {
+          color: #24292f;
+        }
+        
+        .light .hljs-addition,
+        .light .hljs-section {
+          color: #0550ae;
         }
       </style>
     </div>
