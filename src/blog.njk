@@ -11,12 +11,45 @@ eleventyNavigation:
   order: 3
 ---
 {% breadcrumbs page %}
-<div class="relative mb-8 rounded-github overflow-hidden">
-  {% image "blog/tech-header.jpg", "Technology background", "100vw", [800, 1200, 1600], ["webp", "jpeg"] %}
-  <div class="absolute inset-0 flex items-center justify-center bg-black/50">
-    <div class="text-center">
-      <h1 class="text-white text-3xl font-bold mb-2">Blog Posts</h1>
-      <p class="text-white/80 max-w-xl mx-auto px-4">Thoughts, insights, and explorations in technology, software development, and innovation.</p>
+<div class="relative mb-8 bg-gray-light border border-border rounded-github overflow-hidden">
+  <div class="flex flex-col md:flex-row items-center p-8 gap-6">
+    <div class="flex-1 text-center md:text-left">
+      <h1 class="text-white text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-theme-accent to-accent bg-clip-text text-transparent">Blog Posts</h1>
+      <p class="text-text-secondary max-w-xl">Thoughts, insights, and explorations in technology, software development, and innovation.</p>
+      
+      <div class="flex flex-wrap gap-3 mt-6 justify-center md:justify-start">
+        <div class="flex items-center bg-surface px-3 py-1.5 rounded-full border border-border">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="text-theme-accent mr-2">
+            <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
+          </svg>
+          <span class="text-white text-sm">{{ collections.posts | length }} Posts</span>
+        </div>
+        
+        <div class="flex items-center bg-surface px-3 py-1.5 rounded-full border border-border">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="text-theme-accent mr-2">
+            <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
+          </svg>
+          <span class="text-white text-sm">Last updated: {{ (collections.posts | last).date | readableDate }}</span>
+        </div>
+        
+        <div class="flex items-center bg-surface px-3 py-1.5 rounded-full border border-border">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="text-theme-accent mr-2">
+            <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
+            <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+          </svg>
+          <span class="text-white text-sm">{{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="w-full md:w-auto flex-shrink-0">
+      <div class="relative w-full max-w-xs mx-auto">
+        <svg viewBox="0 0 128 128" class="w-32 h-32 md:w-40 md:h-40 text-theme-accent mx-auto opacity-90">
+          <path fill="currentColor" d="M116 3H12a8.91 8.91 0 0 0-9 8.8v104.42a8.91 8.91 0 0 0 9 8.78h104a8.93 8.93 0 0 0 9-8.81V11.77A8.93 8.93 0 0 0 116 3zM39.11 107H21.05V49.42h18.06zm-9-65.4a10.5 10.5 0 1 1 10.49-10.5 10.5 10.5 0 0 1-10.54 10.48zM107 107H88.91V78.73c0-6.75-.12-15.44-9.41-15.44s-10.87 7.36-10.87 15V107H50.53V49.42h17.36v8h.24c2.42-4.58 8.32-9.41 17.13-9.41C103.6 48 107 59.59 107 75z"></path>
+        </svg>
+        
+        <div class="w-24 h-24 md:w-32 md:h-32 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-surface/30 backdrop-blur-sm -z-10"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -87,32 +120,32 @@ eleventyNavigation:
   <button id="reset-search" class="gh-btn">Reset Search</button>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-custom mt-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
   {%- for post in posts -%}
-    <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full" data-tags="{{ post.data.tags | join(',') | lower }}">
+    <div class="gh-post-card searchable h-full" data-tags="{{ post.data.tags | join(',') | lower }}">
       <!-- Post image with consistent ratio -->
-      <div class="relative h-0 pb-[56.25%] overflow-hidden">
+      <div class="gh-post-image">
         {% if post.data.tags and "ai" in post.data.tags %}
-          <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration" class="absolute inset-0 w-full h-full object-cover">
+          <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration" class="w-full h-full object-cover">
         {% elif post.data.tags and "security" in post.data.tags %}
-          <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration" class="absolute inset-0 w-full h-full object-cover">
+          <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration" class="w-full h-full object-cover">
         {% elif post.data.tags and "cloud" in post.data.tags %}
-          <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration" class="absolute inset-0 w-full h-full object-cover">
+          <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration" class="w-full h-full object-cover">
         {% elif post.data.title and "Pizza" in post.data.title %}
-          <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration" class="absolute inset-0 w-full h-full object-cover">
+          <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration" class="w-full h-full object-cover">
         {% elif post.data.tags and "transformer" in post.data.tags %}
-          <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration" class="absolute inset-0 w-full h-full object-cover">
+          <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration" class="w-full h-full object-cover">
         {% elif post.data.tags and "ethics" in post.data.tags %}
-          <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration" class="absolute inset-0 w-full h-full object-cover">
+          <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration" class="w-full h-full object-cover">
         {% else %}
-          <img src="/assets/images/github-style/blog-placeholder.jpg" alt="Blog post illustration" class="absolute inset-0 w-full h-full object-cover">
+          <img src="/assets/images/github-style/blog-placeholder.jpg" alt="Blog post illustration" class="w-full h-full object-cover">
         {% endif %}
         
         {% if post.data.tags %}
-          <div class="absolute top-2 right-2 flex flex-wrap gap-1 justify-end">
+          <div class="gh-post-tags-overlay">
             {% for tag in post.data.tags %}
               {% if tag != "posts" %}
-                <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30">{{ tag }}</span>
+                <span class="gh-badge">{{ tag }}</span>
               {% endif %}
             {% endfor %}
           </div>
@@ -120,29 +153,29 @@ eleventyNavigation:
       </div>
       
       <!-- Post content -->
-      <div class="p-5 flex-grow flex flex-col">
-        <a href="{{ post.url | url }}" class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ post.data.title }}</a>
+      <div class="gh-post-content">
+        <a href="{{ post.url | url }}" class="gh-post-title">{{ post.data.title }}</a>
         
-        <div class="flex items-center flex-wrap sm:flex-nowrap text-sm text-text-secondary mb-3">
-          <div class="flex items-center mr-4 whitespace-nowrap">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 text-accent opacity-80 flex-shrink-0">
+        <div class="gh-post-meta">
+          <div class="gh-post-date">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
               <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
             </svg>
-            {{ post.data.date | readableDate }}
+            <span>{{ post.data.date | readableDate }}</span>
           </div>
           
           {% set wordCount = post.templateContent | striptags | wordcount %}
-          <div title="{{ wordCount }} words" class="flex items-center whitespace-nowrap">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5 text-accent opacity-80 flex-shrink-0">
+          <div class="gh-post-reading-time" title="{{ wordCount }} words">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
               <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm9.28-1.72a.75.75 0 00-1.06-1.06L6.25 8.69l-.97-.97a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.06 0l3-3z"></path>
             </svg>
             {% set readingTime = (wordCount / 200) | round %}
             {% if readingTime < 1 %}{% set readingTime = 1 %}{% endif %}
-            {{ readingTime }} min read
+            <span>{{ readingTime }} min read</span>
           </div>
         </div>
         
-        <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
+        <div class="gh-post-excerpt">
           {% if post.data.description %}
             {{ post.data.description }}
           {% elif post.templateContent %}
@@ -150,13 +183,25 @@ eleventyNavigation:
           {% endif %}
         </div>
         
-        <div class="mt-auto pt-3 border-t border-border flex justify-between items-center">
-          <a href="{{ post.url | url }}" class="text-sm text-accent font-medium hover:underline inline-flex items-center group">
+        <div class="gh-post-footer">
+          <a href="{{ post.url | url }}" class="gh-read-more">
             Read article
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="ml-1 transition-transform duration-200 group-hover:translate-x-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
               <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path>
             </svg>
           </a>
+          
+          <!-- Additional tags for desktop/tablet view -->
+          <div class="hidden sm:flex flex-wrap gap-1.5">
+            {% for tag in post.data.tags %}
+              {% if tag != "posts" and loop.index <= 2 %}
+                <span class="text-xs py-1 px-2 bg-surface rounded-full text-text-secondary">{{ tag }}</span>
+              {% endif %}
+            {% endfor %}
+            {% if post.data.tags and (post.data.tags | length - 1) > 2 %}
+              <span class="text-xs py-1 px-2 bg-surface rounded-full text-text-secondary">+{{ post.data.tags | length - 3 }}</span>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
