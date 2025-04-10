@@ -28,54 +28,80 @@ eleventyNavigation:
         </div>
         
         <div>
-          <h3 class="text-xl md:text-lg text-center md:text-left font-medium mb-2">GitHub Activity</h3>
-          <div class="bg-surface rounded-github border border-border p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-            <div class="flex flex-col space-y-3">
-              <!-- Contributions -->
-              <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="#3fb950" class="mr-2 flex-shrink-0">
-                  <path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path>
-                </svg>
-                <div class="flex-grow">
-                  <div class="text-xs text-text-secondary">Contributions</div>
-                  <div class="text-sm font-medium text-white">500+ commits in the last year</div>
-                </div>
+          <h3 class="text-xl md:text-lg text-center md:text-left font-medium mb-2">Programming Joke</h3>
+          <div class="bg-surface rounded-github border border-border p-5 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg min-h-[140px] flex flex-col" id="joke-container">
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              <div class="flex-grow">
+                <div class="text-sm font-medium text-white mb-2" id="joke-setup"></div>
+                <div class="text-sm text-text-secondary italic" id="joke-delivery"></div>
+                <div class="text-sm text-white" id="joke-single"></div>
               </div>
-              
-              <!-- Repositories -->
-              <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="#58a6ff" class="mr-2 flex-shrink-0">
-                  <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
+            </div>
+            <div class="mt-auto pt-3 flex justify-between items-center">
+              <span class="text-xs text-text-secondary">Via JokeAPI</span>
+              <button id="new-joke-btn" class="text-xs text-accent hover:underline flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                <div class="flex-grow">
-                  <div class="text-xs text-text-secondary">Repositories</div>
-                  <div class="text-sm font-medium text-white">20+ public projects</div>
-                </div>
-              </div>
-              
-              <!-- Contributions Graph -->
-              <div class="mt-1 pt-2 border-t border-border/50">
-                <div class="flex justify-between mb-1">
-                  <span class="text-xs text-text-secondary">Contribution Activity</span>
-                </div>
-                <div class="flex space-x-1 h-3">
-                  <div class="w-1/5 bg-theme-accent-10 rounded-sm"></div>
-                  <div class="w-1/5 bg-theme-accent-20 rounded-sm"></div>
-                  <div class="w-1/5 bg-theme-accent-30 rounded-sm"></div>
-                  <div class="w-1/5 bg-theme-accent-40 rounded-sm"></div>
-                  <div class="w-1/5 bg-theme-accent-50 rounded-sm"></div>
-                </div>
-              </div>
-              
-              <!-- GitHub Link -->
-              <a href="https://github.com/williamzujkowski" target="_blank" rel="noopener noreferrer" class="text-center text-xs text-accent hover:underline mt-1 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="mr-1">
-                  <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                </svg>
-                View GitHub Profile
-              </a>
+                New Joke
+              </button>
             </div>
           </div>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const jokeSetup = document.getElementById('joke-setup');
+              const jokeDelivery = document.getElementById('joke-delivery');
+              const jokeSingle = document.getElementById('joke-single');
+              const jokeContainer = document.getElementById('joke-container');
+              const newJokeBtn = document.getElementById('new-joke-btn');
+              
+              // Function to show loading state
+              function showLoading() {
+                jokeSetup.textContent = 'Loading...';
+                jokeDelivery.textContent = '';
+                jokeSingle.textContent = '';
+                jokeContainer.classList.add('opacity-50');
+              }
+              
+              // Function to fetch a new joke
+              function fetchJoke() {
+                showLoading();
+                
+                fetch('https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit')
+                  .then(response => response.json())
+                  .then(data => {
+                    jokeContainer.classList.remove('opacity-50');
+                    
+                    if (data.type === 'twopart') {
+                      jokeSetup.textContent = data.setup;
+                      jokeDelivery.textContent = data.delivery;
+                      jokeSingle.textContent = '';
+                    } else {
+                      jokeSetup.textContent = '';
+                      jokeDelivery.textContent = '';
+                      jokeSingle.textContent = data.joke;
+                    }
+                  })
+                  .catch(error => {
+                    jokeContainer.classList.remove('opacity-50');
+                    jokeSetup.textContent = 'Error loading joke';
+                    jokeDelivery.textContent = '';
+                    jokeSingle.textContent = 'Please try again';
+                    console.error('Error fetching joke:', error);
+                  });
+              }
+              
+              // Initial joke fetch
+              fetchJoke();
+              
+              // Event listener for new joke button
+              newJokeBtn.addEventListener('click', fetchJoke);
+            });
+          </script>
         </div>
       </div>
     </div>
@@ -338,56 +364,82 @@ eleventyNavigation:
       </div>
     </div>
     
-    <!-- GitHub Stats -->
+    <!-- Programming Joke Section -->
     <div class="mb-10">
-      <h3 class="text-2xl font-semibold mb-4 text-center">GitHub Activity</h3>
-      <div class="bg-surface p-6 rounded-github border border-border transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-        <div class="flex flex-col space-y-4 max-w-md mx-auto">
-          <!-- Contributions -->
-          <div class="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#3fb950" class="mr-3 flex-shrink-0">
-              <path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path>
-            </svg>
-            <div class="flex-grow">
-              <div class="text-sm text-text-secondary">Contributions</div>
-              <div class="text-base font-medium text-white">500+ commits in the last year</div>
-            </div>
+      <h3 class="text-2xl font-semibold mb-4 text-center">Programming Joke</h3>
+      <div class="bg-surface p-6 rounded-github border border-border transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg min-h-[140px] flex flex-col" id="mobile-joke-container">
+        <div class="flex items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+          <div class="flex-grow">
+            <div class="text-lg font-medium text-white mb-2" id="mobile-joke-setup"></div>
+            <div class="text-lg text-text-secondary italic" id="mobile-joke-delivery"></div>
+            <div class="text-lg text-white" id="mobile-joke-single"></div>
           </div>
-          
-          <!-- Repositories -->
-          <div class="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#58a6ff" class="mr-3 flex-shrink-0">
-              <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
+        </div>
+        <div class="mt-auto pt-3 flex justify-between items-center">
+          <span class="text-sm text-text-secondary">Via JokeAPI</span>
+          <button id="mobile-new-joke-btn" class="text-sm text-accent hover:underline flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            <div class="flex-grow">
-              <div class="text-sm text-text-secondary">Repositories</div>
-              <div class="text-base font-medium text-white">20+ public projects</div>
-            </div>
-          </div>
-          
-          <!-- Contributions Graph -->
-          <div class="mt-1 pt-3 border-t border-border/50">
-            <div class="flex justify-between mb-2">
-              <span class="text-sm text-text-secondary">Contribution Activity</span>
-            </div>
-            <div class="flex space-x-1 h-4">
-              <div class="w-1/5 bg-theme-accent-10 rounded"></div>
-              <div class="w-1/5 bg-theme-accent-20 rounded"></div>
-              <div class="w-1/5 bg-theme-accent-30 rounded"></div>
-              <div class="w-1/5 bg-theme-accent-40 rounded"></div>
-              <div class="w-1/5 bg-theme-accent-50 rounded"></div>
-            </div>
-          </div>
-          
-          <!-- GitHub Link -->
-          <a href="https://github.com/williamzujkowski" target="_blank" rel="noopener noreferrer" class="text-center text-sm text-accent hover:underline mt-2 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="mr-1.5">
-              <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-            </svg>
-            View GitHub Profile
-          </a>
+            New Joke
+          </button>
         </div>
       </div>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const mobileJokeSetup = document.getElementById('mobile-joke-setup');
+          const mobileJokeDelivery = document.getElementById('mobile-joke-delivery');
+          const mobileJokeSingle = document.getElementById('mobile-joke-single');
+          const mobileJokeContainer = document.getElementById('mobile-joke-container');
+          const mobileNewJokeBtn = document.getElementById('mobile-new-joke-btn');
+          
+          // Function to show loading state
+          function showMobileLoading() {
+            mobileJokeSetup.textContent = 'Loading...';
+            mobileJokeDelivery.textContent = '';
+            mobileJokeSingle.textContent = '';
+            mobileJokeContainer.classList.add('opacity-50');
+          }
+          
+          // Function to fetch a new joke
+          function fetchMobileJoke() {
+            showMobileLoading();
+            
+            fetch('https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit')
+              .then(response => response.json())
+              .then(data => {
+                mobileJokeContainer.classList.remove('opacity-50');
+                
+                if (data.type === 'twopart') {
+                  mobileJokeSetup.textContent = data.setup;
+                  mobileJokeDelivery.textContent = data.delivery;
+                  mobileJokeSingle.textContent = '';
+                } else {
+                  mobileJokeSetup.textContent = '';
+                  mobileJokeDelivery.textContent = '';
+                  mobileJokeSingle.textContent = data.joke;
+                }
+              })
+              .catch(error => {
+                mobileJokeContainer.classList.remove('opacity-50');
+                mobileJokeSetup.textContent = 'Error loading joke';
+                mobileJokeDelivery.textContent = '';
+                mobileJokeSingle.textContent = 'Please try again';
+                console.error('Error fetching joke:', error);
+              });
+          }
+          
+          // Initial joke fetch
+          fetchMobileJoke();
+          
+          // Event listener for new joke button
+          mobileNewJokeBtn.addEventListener('click', fetchMobileJoke);
+        });
+      </script>
     </div>
   </div>
   
