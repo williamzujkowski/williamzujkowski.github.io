@@ -2,7 +2,7 @@
 title: "Beyond Containers: The Future of Application Deployment"
 date: 2025-01-06
 layout: post.njk
-tags: posts cloud devops architecture
+tags: posts
 ---
 
 ![Cloud-native application deployment technologies](/assets/images/blog/cloud-blog.jpg)
@@ -19,14 +19,14 @@ Containers have become the default deployment mechanism for modern applications,
 - Extensive monitoring and security tooling
 
 ```
-┌────────────────────────────────────────────────────────────┐
-│               Container Ecosystem Evolution                 │
+┌───────────────────────────────────────────────────────────┐
+│               Container Ecosystem Evolution               │
 ├────────────┬────────────────────┬─────────────────────────┤
 │ 2013-2015  │ 2016-2019          │ 2020-Present            │
 ├────────────┼────────────────────┼─────────────────────────┤
 │ Docker     │ Kubernetes         │ Service Meshes          │
 │ emergence  │ orchestration      │ GitOps workflows        │
-│            │ Container registries│ Operator patterns       │
+│            │ Container registries│ Operator patterns      │
 │            │ Basic security     │ FinOps for containers   │
 └────────────┴────────────────────┴─────────────────────────┘
 ```

@@ -13,15 +13,15 @@
     ],
     "link": "http://arxiv.org/abs/2504.06265v1",
     "categoryLabel": "AI",
-    "progress": 53
+    "progress": 58
   },
   {
-    "id": "http://arxiv.org/abs/2504.06261v1",
+    "id": "http://arxiv.org/abs/2504.06261v2",
     "title": "Hogwild! Inference: Parallel LLM Generation via Concurrent Attention",
     "summary": "Large Language Models (LLMs) have demonstrated the ability to tackle\nincreasingly complex tasks through advanced reasoning, long-form content\ngeneration, and tool use. Solving these tasks often involves long\ninference-time computations. In human problem solving, a common strategy to\nexpedite work is collaboration: by dividing the problem into sub-tasks,\nexploring different strategies concurrently, etc. Recent research has shown\nthat LLMs can also operate in parallel by implementing explicit cooperation\nframeworks, such as voting mechanisms or the explicit creation of independent\nsub-tasks that can be executed in parallel. However, each of these frameworks\nmay not be suitable for all types of tasks, which can hinder their\napplicability. In this work, we propose a different design approach: we run LLM\n\"workers\" in parallel , allowing them to synchronize via a concurrently-updated\nattention cache and prompt these workers to decide how best to collaborate. Our\napproach allows the instances to come up with their own collaboration strategy\nfor the problem at hand, all the while \"seeing\" each other's partial progress\nin the concurrent cache. We implement this approach via Hogwild! Inference: a\nparallel LLM inference engine where multiple instances of the same LLM run in\nparallel with the same attention cache, with \"instant\" access to each other's\ngenerated tokens. Hogwild! inference takes advantage of Rotary Position\nEmbeddings (RoPE) to avoid recomputation while improving parallel hardware\nutilization. We find that modern reasoning-capable LLMs can perform inference\nwith shared Key-Value cache out of the box, without additional fine-tuning.",
     "published": "2025-04-08T17:59:41Z",
     "formattedDate": "Apr 8, 2025",
-    "updated": "2025-04-08T17:59:41Z",
+    "updated": "2025-04-09T17:56:08Z",
     "firstAuthor": "Gleb Rodionov",
     "authors": [
       "Gleb Rodionov",
@@ -33,9 +33,9 @@
       "Denis Kuznedelev",
       "Dan Alistarh"
     ],
-    "link": "http://arxiv.org/abs/2504.06261v1",
+    "link": "http://arxiv.org/abs/2504.06261v2",
     "categoryLabel": "AI",
-    "progress": 38
+    "progress": 22
   },
   {
     "id": "http://arxiv.org/abs/2504.06241v1",
@@ -52,7 +52,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.06241v1",
     "categoryLabel": "Security",
-    "progress": 83
+    "progress": 13
   },
   {
     "id": "http://arxiv.org/abs/2504.06211v1",
@@ -73,7 +73,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.06211v1",
     "categoryLabel": "Security",
-    "progress": 53
+    "progress": 73
   },
   {
     "id": "http://arxiv.org/abs/2504.06267v1",
@@ -90,7 +90,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.06267v1",
     "categoryLabel": "Quantum",
-    "progress": 37
+    "progress": 38
   },
   {
     "id": "http://arxiv.org/abs/2504.06262v1",
@@ -109,7 +109,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.06262v1",
     "categoryLabel": "Quantum",
-    "progress": 26
+    "progress": 73
   },
   {
     "id": "http://arxiv.org/abs/2504.06218v1",
@@ -128,6 +128,6 @@
     ],
     "link": "http://arxiv.org/abs/2504.06218v1",
     "categoryLabel": "Research",
-    "progress": 31
+    "progress": 33
   }
 ]

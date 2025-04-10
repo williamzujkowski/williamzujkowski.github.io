@@ -2,7 +2,7 @@
 title: "The Evolution of High-Performance Computing in 2025"
 date: 2025-02-01
 layout: post.njk
-tags: posts ai cloud architecture
+tags: posts
 ---
 
 ![High-Performance Computing infrastructure with advanced cooling systems](/assets/images/blog/tech-header.jpg)

@@ -2,7 +2,7 @@
 title: "The Quantum Leap: Breakthroughs and Innovations"
 date: 2025-02-15
 layout: post.njk
-tags: posts ai architecture security
+tags: posts
 ---
 
 ![Quantum computing hardware with intricate cooling systems](/assets/images/blog/transformer-blog.jpg)

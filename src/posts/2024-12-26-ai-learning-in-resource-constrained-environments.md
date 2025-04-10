@@ -2,7 +2,7 @@
 title: "AI Learning in Resource-Constrained Environments"
 date: 2024-12-26
 layout: post.njk
-tags: posts, ai, architecture
+tags: posts
 ---
 
 ![Edge AI devices running machine learning models with limited resources](/assets/images/blog/ai-blog.jpg)

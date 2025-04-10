@@ -2,7 +2,7 @@
 title: "Exploring the Intersection of Quantum Computing and Defense"
 date: 2025-05-08
 layout: post.njk
-tags: posts security ai programming
+tags: posts
 ---
 
 ![Exploring the Intersection of Quantum Computing and Defense](/assets/images/blog/ai-blog.jpg)

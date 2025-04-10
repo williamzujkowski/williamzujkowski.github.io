@@ -531,7 +531,7 @@ h4:hover .header-anchor {
 
   /* Layout */
   .site-container {
-    @apply w-full mx-auto px-5 py-8;
+    @apply w-full mx-auto px-5 py-4;
   }
 
   /* GitHub-style header */

@@ -2,7 +2,8 @@
 title: "Designing Resilient Systems for an Uncertain World"
 date: 2025-01-19
 layout: post.njk
-tags: posts ai devops programming architecture
+tags: posts
+
 ---
 
 ![Designing Resilient Systems for an Uncertain World](/assets/images/blog/ai-blog.jpg)

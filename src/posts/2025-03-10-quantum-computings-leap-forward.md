@@ -2,7 +2,7 @@
 title: "Quantum Computing's Leap Forward: Navigating the New Frontier"
 date: 2025-03-10
 layout: post.njk
-tags: ["posts", "security", "ai", "cloud", "devops", "programming", "architecture"]
+tags: posts
 ---
 
 ![Summary](/assets/images/blog/ai-blog.jpg)
