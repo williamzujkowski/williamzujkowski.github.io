@@ -21,7 +21,27 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginNavigation);
   
-  // Using default Eleventy date-based filtering (posts with dates in the future will not be displayed)
+  // Add a custom collection for posts that explicitly filters out future-dated posts
+  eleventyConfig.addCollection("posts", function(collectionApi) {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0); // Set to beginning of day for consistent comparison
+    console.log(`Current date for filtering: ${now.toISOString()}`);
+    
+    // Get all posts and filter out future posts
+    return collectionApi.getFilteredByGlob("./src/posts/*.md")
+      .filter(item => {
+        // Get post date and normalize to beginning of day
+        const postDate = new Date(item.date);
+        postDate.setHours(0, 0, 0, 0);
+        
+        // Debug output
+        console.log(`Post: ${item.data.title}, Date: ${postDate.toISOString()}, Include: ${postDate <= now}`);
+        
+        // Only include if post date is today or earlier
+        return postDate <= now;
+      })
+      .sort((a, b) => b.date - a.date); // Sort by date descending
+  });
   
   // Add date filters
   eleventyConfig.addFilter("readableDate", dateObj => {

@@ -116,7 +116,7 @@ eleventyNavigation:
       <div>
         <h2 class="text-center md:text-left relative pb-2 mb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-12 after:h-0.5 after:bg-accent/30">Latest Blog Posts</h2>
         <div class="gh-featured-projects mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {% set latestPosts = collections.posts | reverse %}
+          {% set latestPosts = collections.posts %}
           {% for post in latestPosts.slice(0, 2) %}
             <a href="{{ post.url }}" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-github">
               <div class="gh-project-card bg-surface border border-border rounded-github p-4 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
@@ -448,7 +448,7 @@ eleventyNavigation:
     <h2 class="text-2xl font-bold mb-6 text-center">Latest Blog Posts</h2>
     
     <div class="grid grid-cols-1 gap-6">
-      {% set latestPosts = collections.posts | reverse %}
+      {% set latestPosts = collections.posts %}
       {% for post in latestPosts.slice(0, 2) %}
         <a href="{{ post.url }}" class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg">
           <div class="bg-surface rounded-lg p-6 relative overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-border">

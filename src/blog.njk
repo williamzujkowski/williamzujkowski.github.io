@@ -4,7 +4,6 @@ title: Blog
 pagination:
   data: collections.posts
   size: 6
-  reverse: true
   alias: posts
 permalink: "/blog/{% if pagination.pageNumber > 0 %}page-{{ pagination.pageNumber + 1 }}/{% endif %}"
 eleventyNavigation:
