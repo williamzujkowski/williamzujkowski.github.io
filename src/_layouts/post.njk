@@ -9,8 +9,12 @@ layout: base.njk
   <article class="mb-12">
     <!-- Featured image -->
     <div class="mb-8 rounded-github overflow-hidden shadow-card w-full">
-      {% set blogImg = blogImage(page) %}
-      {% image blogImg.path, blogImg.alt, "100vw", [800, 1200, 1600] %}
+      {% if blogImage %}
+        {% set blogImg = blogImage(page) %}
+        {% image blogImg.path, blogImg.alt, "100vw", [800, 1200, 1600] %}
+      {% else %}
+        <img src="/assets/images/github-style/blog-placeholder.jpg" alt="Blog post illustration" class="w-full h-full object-cover">
+      {% endif %}
     </div>
 
     <!-- Post header -->
@@ -203,8 +207,12 @@ layout: base.njk
       {% for relatedPost in relatedPosts %}
       <li class="gh-post-item">
         <div class="gh-post-image">
-          {% set blogImg = blogImage(relatedPost) %}
-          {% image blogImg.path, blogImg.alt, "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% if blogImage %}
+            {% set blogImg = blogImage(relatedPost) %}
+            {% image blogImg.path, blogImg.alt, "(min-width: 768px) 33vw, 100vw", [400, 600] %}
+          {% else %}
+            <img src="/assets/images/github-style/blog-placeholder.jpg" alt="Blog post illustration" class="w-full h-full object-cover">
+          {% endif %}
         </div>
         <div class="gh-post-content">
           <a href="{{ relatedPost.url }}" class="gh-post-title">{{ relatedPost.data.title }}</a>
