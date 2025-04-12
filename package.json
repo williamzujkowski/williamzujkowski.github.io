@@ -32,6 +32,8 @@
     "extract:components:dry": "node tools/extract-components.js --dry-run",
     "process:links:initial": "node scripts/build-link-previews.js --initial",
     "process:posts": "node tools/process-new-posts.js",
+    "process:posts:enhanced": "node tools/enhanced-post-processor.js -i",
+    "process:posts:batch": "node tools/enhanced-post-processor.js -b",
     "generate:theme": "node tools/generate-theme.js",
     "watch:css": "postcss src/css/styles.css -o _site/css/styles.css --watch --config=config/postcss.config.cjs",
     "serve": "npm run build:data && npm run watch:css & eleventy --config=config/.eleventy.simple.cjs --serve",

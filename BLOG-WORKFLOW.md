@@ -102,21 +102,42 @@ While the conversion script handles basic formatting, you can enhance your draft
 
 ### Step 4: Run the Conversion Process
 
-Run the post processing script:
+You can choose between two processing options:
+
+#### Standard Processor (Legacy)
 
 ```bash
-node tools/process-new-posts.js
+npm run process:posts
 ```
 
-This script will:
-- Extract the title from the first line
-- Generate appropriate frontmatter
-- Set publication dates (spaced 10-14 days apart from the most recent post)
-- Create slugs from titles
-- Suggest relevant tags based on content
-- Add appropriate feature images
-- Convert to proper Markdown format
+#### Enhanced Interactive Processor (Recommended)
+
+The enhanced processor offers more features and better control:
+
+```bash
+npm run process:posts:enhanced
+```
+
+Or run in batch mode (processes all posts without confirmation):
+
+```bash
+npm run process:posts:batch
+```
+
+The enhanced processor will:
+- Extract title and content intelligently from various formats
+- Generate comprehensive frontmatter with SEO metadata
+- Set publication dates with smart spacing between posts
+- Create SEO-friendly slugs from titles
+- Suggest relevant tags based on comprehensive content analysis
+- Select appropriate featured images using the image mapping system
+- Auto-generate descriptions from content
+- Clean up citation artifacts and formatting
+- Convert to proper Markdown format with standardized templates
 - Move processed files to `new_posts/processed/`
+- Provide interactive confirmation before writing files
+
+You'll be guided through the process with clear prompts and previews of changes.
 
 ### Step 5: Review and Customize
 
