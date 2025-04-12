@@ -112,13 +112,21 @@ module.exports = function(eleventyConfig) {
         const label = page.title || part.replace(/-/g, ' ');
         breadcrumbs += `<span class="breadcrumbs-item current">${label}</span>`;
       } else {
-        // Get proper title if available
-        const segment = part.replace(/-/g, ' ');
-        const title = segment.charAt(0).toUpperCase() + segment.slice(1);
-        
-        breadcrumbs += `<span class="breadcrumbs-item">
-          <a href="${path}/" class="breadcrumbs-link">${title}</a>
-        </span>`;
+        // Handle special cases
+        if (part === "posts") {
+          // For blog posts, link to the blog page instead of /posts/
+          breadcrumbs += `<span class="breadcrumbs-item">
+            <a href="/blog/" class="breadcrumbs-link">Blog</a>
+          </span>`;
+        } else {
+          // Get proper title if available
+          const segment = part.replace(/-/g, ' ');
+          const title = segment.charAt(0).toUpperCase() + segment.slice(1);
+          
+          breadcrumbs += `<span class="breadcrumbs-item">
+            <a href="${path}/" class="breadcrumbs-link">${title}</a>
+          </span>`;
+        }
       }
     });
     
@@ -227,6 +235,86 @@ module.exports = function(eleventyConfig) {
       .slice(0, limit);
     
     return relatedPosts;
+  });
+  
+  // Add a shortcode for getting the appropriate blog image based on post content
+  eleventyConfig.addShortcode("blogImage", function(post) {
+    // Default image
+    let imageKey = "default";
+    
+    // Try to read blog_images data from global data
+    let blogImages = {};
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const blogImagesPath = path.join(__dirname, 'src', '_data', 'config', 'blog', 'images.json');
+      
+      if (fs.existsSync(blogImagesPath)) {
+        blogImages = JSON.parse(fs.readFileSync(blogImagesPath, 'utf8'));
+      } else {
+        console.warn('Blog images mapping file not found at', blogImagesPath);
+      }
+    } catch (error) {
+      console.warn('Error loading blog images mapping:', error.message);
+      // Return default image if we can't load the mapping
+      return {
+        path: "github-style/blog-placeholder.jpg",
+        alt: "Blog post illustration"
+      };
+    }
+    
+    // If image is explicitly set in frontmatter, use that
+    if (post.data && post.data.image) {
+      return {
+        path: post.data.image,
+        alt: post.data.image_alt || "Blog post illustration"
+      };
+    }
+    
+    // Check tags first
+    if (post.data && post.data.tags && Array.isArray(post.data.tags)) {
+      for (const tag of post.data.tags) {
+        const lowercaseTag = tag.toLowerCase();
+        if (blogImages.image_mapping && blogImages.image_mapping[lowercaseTag]) {
+          imageKey = lowercaseTag;
+          break;
+        }
+      }
+    }
+    
+    // If we still have the default, try to infer from title and content
+    if (imageKey === "default" && post.data && post.data.title) {
+      const titleLower = post.data.title.toLowerCase();
+      
+      // Check for pizza in title as a special case
+      if (titleLower.includes("pizza") && blogImages.image_mapping && blogImages.image_mapping["pizza"]) {
+        return blogImages.image_mapping["pizza"];
+      }
+      
+      // Check each keyword mapping to find a match
+      if (blogImages.keyword_mapping) {
+        for (const [key, keywords] of Object.entries(blogImages.keyword_mapping)) {
+          for (const keyword of keywords) {
+            if (titleLower.includes(keyword.toLowerCase())) {
+              imageKey = key;
+              break;
+            }
+          }
+          if (imageKey !== "default") break;
+        }
+      }
+    }
+    
+    // Return the appropriate image or default if not found
+    if (blogImages.image_mapping && blogImages.image_mapping[imageKey]) {
+      return blogImages.image_mapping[imageKey];
+    }
+    
+    // Fallback to hardcoded default if nothing is available
+    return {
+      path: "github-style/blog-placeholder.jpg",
+      alt: "Blog post illustration"
+    };
   });
   
   // Site structure
