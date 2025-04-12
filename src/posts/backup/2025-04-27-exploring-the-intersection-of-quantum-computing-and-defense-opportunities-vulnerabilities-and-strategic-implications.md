@@ -3,8 +3,9 @@ title: >-
   Quantum Computing and Defense: Opportunities, Vulnerabilities, and Strategic
   Implications
 description: >-
-  The convergence of quantum computing and defense technologies represents one of 
-  the most consequential technological developments of the 21st century.
+  !Quantum computer with defense symbolism The convergence of quantum computing
+  and defense technologies represents one of the most consequential
+  technological...
 date: 2025-04-27T00:00:00.000Z
 layout: post.njk
 tags:
