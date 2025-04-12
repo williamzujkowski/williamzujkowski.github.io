@@ -247,10 +247,27 @@ The system supports these image categories:
 
 #### Adding New Image Categories
 
-To add new categories, edit:
-- `src/_data/config/blog/images.json`
-- Add entries to both `image_mapping` and `keyword_mapping` sections
-- Run `npm run build:blog-images` to download sample images
+You can add new image categories in two ways:
+
+##### Option 1: Automatic (Recommended)
+1. Add tags to your blog posts
+2. Run `npm run build:blog-images`
+3. The system will automatically:
+   - Extract all unique tags from your posts
+   - Find appropriate images for each tag
+   - Download images from free image sources
+   - Update the configuration file
+
+##### Option 2: Manual Configuration
+1. Edit `src/_data/config/blog/images.json`
+2. Add entries to both `image_mapping` and `keyword_mapping` sections
+3. Run `npm run build:blog-images` to download sample images
+
+The enhanced image downloader supports:
+- Unsplash images (even without API key)
+- Pixabay images (with API key)
+- Pexels images (with API key)
+- Custom predefined image URLs
 
 ### Tags
 
