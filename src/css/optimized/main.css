@@ -1,0 +1,23 @@
+/*
+ * Main CSS File
+ * 
+ * This file imports all modular CSS components in the correct order.
+ * Edit the individual files to make specific changes rather than this file.
+ */
+
+/* Import theme variables first */
+@import 'theme.css';
+
+/* Import base styles */
+@import 'base.css';
+
+/* Import component styles */
+@import 'components.css';
+
+/* Import utility classes */
+@import 'utilities.css';
+
+/* Import mobile styles last */
+@import 'mobile.css';
+
+/* Syntax highlighting is in components.css */

@@ -1,0 +1,189 @@
+/* 
+ * Utility Classes
+ * 
+ * Single-purpose utility classes that can be composed to build
+ * complex UI patterns. Follows the principle of doing one thing well.
+ */
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Page loader and transitions */
+.page-loader {
+  @apply fixed inset-0 bg-background bg-opacity-80 z-[100] flex flex-col items-center justify-center transition-opacity duration-500;
+  backdrop-filter: blur(5px);
+}
+
+.page-loader-hidden {
+  @apply opacity-0 pointer-events-none;
+}
+
+.loader-spinner {
+  @apply w-10 h-10 border-4 border-border rounded-full;
+  border-top-color: var(--color-accent);
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  @apply mt-4 text-text-secondary text-sm font-medium;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Page transitions */
+.page-transition-enter {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.page-transition-exit {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Lazy loaded images */
+img {
+  transition: opacity 0.5s ease-in-out;
+}
+
+img[data-src] {
+  opacity: 0;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* GitHub stats alignment */
+.github-stats-container {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0;
+  overflow: hidden;
+  line-height: 0; /* Eliminate any extra space */
+  position: relative; /* For absolute positioning */
+  width: 100%;
+  background-color: #0d1117; /* Match GitHub dark theme */
+}
+
+.github-stats-container img {
+  max-width: none; /* Allow image to overflow container */
+  width: 110%; /* Make image wider than container */
+  display: block;
+  position: relative;
+  right: -8px; /* Push image right to align numbers */
+  margin-left: auto;
+  transform-origin: right center;
+  object-position: right center; /* Ensure image is positioned from right */
+}
+
+/* Fix spacing in GitHub stats layout */
+@media (min-width: 768px) {
+  .github-stats-container img {
+    width: 112%; /* Slightly wider on desktop */
+    right: -10px; /* Push further right on desktop */
+  }
+}
+
+/* Mobile GitHub stats adjustments */
+@media (max-width: 767px) {
+  .github-stats-container img {
+    width: 110%;
+    right: -8px;
+  }
+}
+
+/* Custom utilities for better contrast */
+.high-contrast {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.accent-text {
+  color: #a5d6ff !important;
+  font-weight: 500;
+}
+
+/* Custom grid gap classes */
+@layer utilities {
+  .gap-custom {
+    gap: 0.75rem;
+  }
+  
+  @media (min-width: 640px) {
+    .gap-custom {
+      gap: 1rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .gap-custom {
+      gap: 1.25rem;
+    }
+  }
+
+  /* Add group hover and focus utilities */
+  .group-hover-scale {
+    @apply transition-transform duration-300;
+  }
+  
+  .group:hover .group-hover-scale {
+    @apply scale-105;
+  }
+
+  .group-hover-translate-up {
+    @apply transition-transform duration-300;
+  }
+  
+  .group:hover .group-hover-translate-up {
+    @apply -translate-y-1;
+  }
+}

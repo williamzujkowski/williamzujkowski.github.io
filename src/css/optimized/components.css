@@ -1,0 +1,810 @@
+/* 
+ * Component Styles
+ * 
+ * Reusable UI components that make up the site's interface.
+ * Organized by component type for better maintainability.
+ */
+
+/* Add transition effect for light/dark mode toggle */
+body, 
+.gh-header, 
+.gh-footer, 
+.gh-post-card, 
+.gh-blog-controls, 
+.tags-filter, 
+.gh-section-header, 
+.gh-post-grid, 
+.gh-post-card,
+.gh-post-image,
+.gh-post-content,
+.gh-post-title,
+.gh-post-meta,
+.gh-post-excerpt,
+.gh-post-footer,
+.gh-read-more,
+.gh-pagination,
+.gh-profile-header,
+.gh-avatar,
+.gh-name,
+.gh-username,
+.gh-bio,
+.gh-btn,
+.gh-tag-buttons,
+.tag-btn,
+a, button, input, select, textarea {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* =================== */
+/* Layout Components   */
+/* =================== */
+@layer components {
+  /* Main container */
+  .site-container {
+    @apply w-full mx-auto px-5 py-4;
+  }
+
+  /* Custom container with Container Queries support */
+  .container-custom {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 1200px;
+  }
+
+  @screen sm {
+    .container-custom {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @screen lg {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+/* =================== */
+/* Header Components   */
+/* =================== */
+@layer components {
+  /* GitHub-style header */
+  .gh-header {
+    @apply bg-surface border-b border-border flex items-center py-4 px-4 sticky top-0 z-50 backdrop-blur-sm;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .gh-header-inner {
+    @apply max-w-[1200px] w-full mx-auto flex items-center justify-between;
+  }
+
+  .gh-nav {
+    @apply flex items-center gap-6;
+  }
+
+  .gh-nav-item {
+    @apply px-3 py-2 text-sm font-medium text-text hover:text-white rounded-github hover:bg-gray-light transition-all duration-300 relative overflow-hidden;
+  }
+
+  /* Animated underline effect */
+  .gh-nav-item::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-theme-accent transition-all duration-300 content-[''];
+  }
+
+  .gh-nav-item:hover::after {
+    @apply w-full;
+  }
+
+  .gh-nav-item.active {
+    @apply font-semibold text-theme-accent border border-border bg-gray-light;
+  }
+
+  /* Focus styles for accessibility */
+  .gh-nav-item:focus-visible {
+    @apply outline-none ring-2 ring-theme-accent opacity-90;
+  }
+}
+
+/* =================== */
+/* Profile Components  */
+/* =================== */
+@layer components {
+  .gh-profile-header {
+    @apply mt-8 mb-12 flex flex-col md:flex-row gap-10;
+  }
+
+  .gh-avatar-container {
+    @apply flex-shrink-0 flex flex-col items-center md:items-start;
+  }
+
+  .gh-avatar {
+    @apply w-[296px] h-[296px] rounded-github border-2 border-border object-cover shadow-md;
+  }
+
+  .gh-profile-content {
+    @apply flex-grow min-w-0 mt-6 md:mt-0;
+  }
+
+  .gh-profile-header-info {
+    @apply mb-4;
+  }
+
+  .gh-name {
+    @apply text-2xl font-semibold mb-1;
+  }
+
+  .gh-username {
+    @apply text-xl text-text-secondary font-normal mb-4;
+  }
+
+  .gh-bio {
+    @apply text-base mb-4;
+  }
+
+  .gh-profile-stats {
+    @apply flex items-center gap-3 text-sm text-text-secondary mb-4;
+  }
+
+  .gh-stat {
+    @apply flex items-center;
+  }
+
+  .gh-stat-icon {
+    @apply mr-1;
+  }
+
+  .gh-stat-count {
+    @apply font-semibold text-text;
+  }
+
+  .gh-stat-label {
+    @apply ml-1;
+  }
+}
+
+/* =================== */
+/* Button Components   */
+/* =================== */
+@layer components {
+  .gh-btn {
+    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-github bg-gray-light hover:bg-gray-light transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 ring-theme-accent opacity-90 text-white;
+  }
+
+  .gh-btn-primary {
+    @apply bg-primary text-white border-primary hover:bg-primary-hover shadow-sm;
+  }
+
+  .gh-btn svg {
+    @apply mr-1.5;
+  }
+  
+  /* GitHub-style badge */
+  .gh-badge {
+    @apply inline-flex items-center px-1.5 py-0.5 text-xs font-medium rounded-full;
+  }
+
+  .gh-badge-primary {
+    @apply bg-theme-primary-10 text-primary;
+  }
+
+  .gh-badge-accent {
+    @apply bg-theme-accent-20 text-theme-accent;
+  }
+
+  .gh-badge-secondary {
+    @apply bg-gray-light text-secondary;
+  }
+}
+
+/* =================== */
+/* Repository Cards    */
+/* =================== */
+@layer components {
+  .gh-pinned-repos {
+    @apply mt-6;
+  }
+
+  .gh-section-header {
+    @apply mb-2 pb-2 border-b border-border flex justify-between items-center;
+  }
+
+  .gh-section-title {
+    @apply text-base font-semibold inline-flex items-center;
+  }
+
+  .gh-repos-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 mb-6;
+  }
+
+  .gh-repo-card {
+    @apply p-6 border border-border rounded-github bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 relative overflow-hidden;
+  }
+
+  .gh-repo-card::before {
+    @apply absolute top-0 left-0 w-full h-0.5 bg-theme-accent transform scale-x-0 transition-transform duration-300 ease-out content-[''];
+  }
+
+  .gh-repo-card:hover::before {
+    @apply scale-x-100;
+  }
+
+  .gh-repo-name {
+    @apply flex items-center text-base font-semibold text-theme-accent mb-1;
+  }
+
+  .gh-repo-description {
+    @apply text-sm text-text mb-4 overflow-hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .gh-repo-meta {
+    @apply flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary;
+  }
+
+  .gh-repo-language {
+    @apply flex items-center;
+  }
+
+  .gh-language-color {
+    @apply w-2.5 h-2.5 rounded-full mr-1;
+  }
+}
+
+/* =================== */
+/* Blog Post Cards     */
+/* =================== */
+@layer components {
+  /* Consolidated blog card styles from both files */
+  .gh-post-card {
+    @apply border border-border rounded-github overflow-hidden bg-gray-light transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col relative;
+  }
+  
+  /* Add light theme card styling */
+  .light .gh-post-card {
+    @apply bg-surface border-border;
+  }
+  
+  /* Fix hover issue by setting the same bg color on hover */
+  .gh-post-card:hover {
+    @apply bg-gray-light;
+    border-color: var(--color-accent);
+  }
+  
+  .light .gh-post-card:hover {
+    @apply bg-surface;
+  }
+
+  .gh-post-image {
+    @apply h-44 overflow-hidden relative;
+  }
+
+  .gh-post-image img {
+    @apply w-full h-full object-cover transition-transform duration-500;
+  }
+
+  .gh-post-card:hover .gh-post-image img {
+    @apply transform scale-105;
+  }
+
+  .gh-post-tags-overlay {
+    @apply absolute top-3 right-3 flex flex-wrap gap-1.5 justify-end max-w-[70%];
+  }
+
+  .gh-post-tags-overlay .gh-badge {
+    @apply bg-surface text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border;
+  }
+
+  .gh-post-content {
+    @apply p-5 flex-grow flex flex-col;
+  }
+
+  .gh-post-title {
+    @apply text-lg font-semibold text-white mb-2.5 hover:text-accent transition-colors duration-200 line-clamp-2;
+  }
+
+  .gh-post-meta {
+    @apply flex justify-between items-center text-sm text-text-secondary mb-3 flex-wrap gap-2;
+  }
+
+  .gh-post-date,
+  .gh-post-reading-time {
+    @apply flex items-center;
+  }
+
+  .gh-post-date svg,
+  .gh-post-reading-time svg {
+    @apply mr-1.5 text-accent opacity-80;
+  }
+
+  .gh-post-excerpt {
+    @apply text-base text-text leading-relaxed mb-4 line-clamp-3;
+  }
+
+  .gh-post-footer {
+    @apply mt-auto pt-3 border-t border-border flex justify-between items-center;
+  }
+
+  .gh-read-more {
+    @apply text-sm text-theme-accent font-medium hover:underline inline-flex items-center gap-1;
+  }
+
+  .gh-read-more svg {
+    @apply ml-1 transition-transform duration-200;
+  }
+
+  .gh-post-card:hover .gh-read-more svg {
+    @apply transform translate-x-1;
+  }
+}
+
+/* =================== */
+/* Blog Controls       */
+/* =================== */
+@layer components {
+  /* Blog controls and search */
+  .gh-blog-controls {
+    @apply border border-border rounded-github overflow-hidden bg-surface shadow-md mb-8;
+  }
+
+  .gh-control-panel {
+    @apply p-4 flex flex-col md:flex-row gap-4 justify-between items-start md:items-center;
+  }
+
+  .gh-search-container {
+    @apply relative w-full md:w-80;
+  }
+
+  .gh-search-input {
+    @apply w-full py-2.5 pl-4 pr-10 bg-gray-light border border-border rounded-github text-white focus:ring-2 ring-theme-accent focus:outline-none shadow-inner transition-all duration-300;
+  }
+
+  .gh-search-input:focus {
+    @apply border-theme-accent bg-gray-light;
+  }
+
+  .gh-search-icon {
+    @apply absolute right-3 top-3 text-text-secondary;
+  }
+
+  .gh-blog-stats {
+    @apply flex flex-wrap items-center gap-4 text-sm text-text-secondary;
+  }
+
+  .gh-stat {
+    @apply flex items-center gap-2;
+  }
+
+  .gh-stat svg {
+    @apply text-accent opacity-80;
+  }
+  
+  /* Search highlight */
+  .gh-search-highlight {
+    @apply bg-theme-accent-20 text-white px-1 rounded font-medium;
+  }
+}
+
+/* =================== */
+/* Tag Filtering       */
+/* =================== */
+@layer components {
+  /* Tag filtering */
+  .tags-filter {
+    @apply border border-border rounded-github overflow-hidden bg-surface shadow-md p-4 mb-8;
+  }
+
+  .gh-filter-header {
+    @apply flex justify-between items-center mb-3 pb-2 border-b border-border;
+  }
+
+  .gh-filter-title {
+    @apply flex items-center gap-2 text-white font-medium;
+  }
+
+  .gh-filter-clear {
+    @apply text-xs text-theme-accent hover:text-accent-hover transition-colors duration-200 flex items-center;
+  }
+
+  .gh-tag-buttons {
+    @apply flex flex-wrap gap-2.5;
+  }
+
+  .tag-btn {
+    @apply px-3.5 py-2 rounded-github text-sm bg-gray-light text-text-secondary border border-border transition-all duration-200 hover:bg-gray-light hover:text-white;
+  }
+
+  .tag-btn.selected {
+    @apply bg-theme-accent text-white border-theme-accent shadow-sm;
+  }
+  
+  .pulse-animation {
+    animation: tag-pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  @keyframes tag-pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* =================== */
+/* Blog Grid & Pagination */
+/* =================== */
+@layer components {
+  /* Blog post grid */
+  .gh-post-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300;
+  }
+
+  .gh-post-grid.searching {
+    @apply opacity-60;
+  }
+
+  .gh-post-grid.reset-animation {
+    animation: reset-grid 0.5s ease;
+  }
+
+  @keyframes reset-grid {
+    0% {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Pagination styles */
+  .gh-pagination-container {
+    @apply mt-12 mb-8;
+  }
+
+  .gh-pagination-header {
+    @apply flex items-center justify-center gap-2 mb-5 text-text-secondary;
+  }
+
+  .gh-pagination-header svg {
+    @apply text-accent opacity-80;
+  }
+
+  .gh-pagination {
+    @apply flex justify-center;
+  }
+
+  .gh-pagination-nav {
+    @apply inline-flex items-center gap-2 p-1 bg-gray-light rounded-github border border-border;
+  }
+
+  .gh-page-button {
+    @apply px-3 py-1.5 flex items-center gap-1.5 bg-surface text-text-secondary hover:bg-gray-light hover:text-white transition-colors duration-200 rounded-github font-medium text-sm;
+  }
+
+  .gh-page-button.disabled {
+    @apply opacity-50 cursor-not-allowed hover:bg-surface hover:text-text-secondary;
+  }
+
+  .gh-pagination-pages {
+    @apply flex items-center gap-1;
+  }
+
+  .gh-page-number {
+    @apply flex items-center justify-center w-8 h-8 rounded-github bg-surface text-text-secondary hover:bg-gray-light hover:text-white transition-colors duration-200 text-sm;
+  }
+
+  .gh-page-number.active {
+    @apply bg-accent text-white;
+  }
+}
+
+/* =================== */
+/* Footer Components   */
+/* =================== */
+@layer components {
+  /* Footer */
+  .gh-footer {
+    @apply mt-24 border-t border-border bg-surface backdrop-blur-sm;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .gh-footer-inner {
+    @apply max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4 py-4;
+  }
+
+  .gh-footer-links {
+    @apply flex flex-wrap gap-x-6 gap-y-3 text-sm text-text-secondary;
+  }
+
+  .gh-footer-links a {
+    @apply transition-colors duration-300 hover:text-theme-accent relative;
+  }
+
+  .gh-footer-links a::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-theme-accent transition-all duration-300 content-[''];
+  }
+
+  .gh-footer-links a:hover::after {
+    @apply w-full;
+  }
+
+  .gh-copyright {
+    @apply text-sm text-text-secondary flex items-center;
+  }
+
+  .gh-copyright a {
+    @apply ml-1 text-theme-accent hover:underline;
+  }
+
+  /* Social media icons */
+  .header-social,
+  .footer-social {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .header-social a,
+  .footer-social a {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .header-social a:hover:not(.social-disabled),
+  .footer-social a:hover:not(.social-disabled) {
+    transform: translateY(-2px);
+  }
+}
+
+/* =================== */
+/* Blog Post Styles    */
+/* =================== */
+@layer components {
+  /* Blog Post Styles (Single Post) */
+  .prose-custom {
+    @apply prose prose-invert max-w-none prose-headings:text-white prose-p:text-text prose-a:text-accent prose-strong:text-white prose-code:text-accent-200 prose-pre:bg-surface prose-blockquote:border-accent-600 prose-blockquote:text-text-secondary prose-ul:text-text prose-ol:text-text;
+  }
+
+  .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom h4 {
+    @apply scroll-mt-16;
+  }
+
+  .prose-custom h2 {
+    @apply text-2xl font-semibold border-b border-border pb-2 mt-8 mb-4;
+  }
+
+  .prose-custom h3 {
+    @apply text-xl font-medium mt-6 mb-3;
+  }
+
+  .prose-custom a {
+    @apply transition-colors duration-200 hover:text-accent-400 no-underline border-b border-accent/30 hover:border-accent-400;
+  }
+
+  .prose-custom ul {
+    @apply list-disc pl-5 my-4;
+  }
+
+  .prose-custom ol {
+    @apply list-decimal pl-5 my-4;
+  }
+
+  .prose-custom pre {
+    @apply my-6 rounded-github overflow-x-auto text-[0.85em];
+  }
+
+  .prose-custom blockquote {
+    @apply italic bg-surface/50 p-4 rounded-github my-6 border-l-4 border-accent;
+  }
+}
+
+/* =================== */
+/* Code Block Styling  */
+/* =================== */
+@layer components {
+  /* Inline code styling with better contrast */
+  .prose-custom code:not(pre code) {
+    @apply px-1.5 py-0.5 rounded text-[0.9em] font-mono;
+    background-color: rgba(110, 118, 129, 0.2);
+    color: #e6edf3;
+    border: 1px solid rgba(110, 118, 129, 0.3);
+  }
+
+  /* Light theme inline code */
+  .light .prose-custom code:not(pre code) {
+    background-color: rgba(175, 184, 193, 0.2);
+    color: #24292f;
+    border: 1px solid rgba(175, 184, 193, 0.3);
+  }
+
+  /* Enhanced code blocks styling */
+  .prose-custom pre {
+    @apply p-0 my-6 bg-[#0e1117] rounded-github overflow-hidden border border-border;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .prose-custom pre code {
+    @apply block p-0 overflow-auto text-[0.9em] bg-transparent text-gray-200;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    tab-size: 2;
+  }
+
+  /* Code container with line numbers */
+  .code-line {
+    position: relative;
+    padding-left: 3.5rem;
+    min-height: 1.5em;
+    padding-right: 1rem;
+    border-left: 3px solid transparent;
+  }
+
+  /* Highlight active line on hover */
+  .code-line:hover {
+    background-color: rgba(115, 138, 148, 0.1);
+    border-left-color: rgba(var(--color-accent-rgb), 0.4);
+  }
+
+  .code-line::before {
+    content: attr(data-line-number);
+    position: absolute;
+    left: 0;
+    padding: 0 0.7rem;
+    width: 3rem;
+    text-align: right;
+    color: rgba(139, 148, 158, 0.6);
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: 0.8em;
+    user-select: none;
+    border-right: 1px solid rgba(139, 148, 158, 0.2);
+  }
+
+  /* Code block header with language and copy button */
+  .code-header {
+    @apply flex items-center justify-between bg-[#171b22] px-4 py-2 text-xs text-[#8b949e] border-b border-border;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  .copy-button {
+    @apply flex items-center justify-center py-1 px-2 rounded-md bg-surface hover:bg-gray-light transition-colors duration-200 text-text-secondary hover:text-white;
+  }
+
+  /* Code block custom scrollbar */
+  pre::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  pre::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+  }
+
+  pre::-webkit-scrollbar-thumb {
+    background-color: rgba(139, 148, 158, 0.3);
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
+  pre::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(139, 148, 158, 0.5);
+  }
+}
+
+/* =================== */
+/* Other Components    */
+/* =================== */
+@layer components {
+  /* Breadcrumbs */
+  .breadcrumbs {
+    @apply py-3 mb-6 bg-gray-light rounded-github border border-border px-4;
+  }
+
+  .breadcrumbs-list {
+    @apply flex flex-wrap items-center text-sm whitespace-nowrap overflow-x-auto pb-1;
+    scrollbar-width: none;
+  }
+
+  .breadcrumbs-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .breadcrumbs-item {
+    @apply inline-flex items-center text-text-secondary;
+  }
+
+  .breadcrumbs-separator {
+    @apply mx-2 text-text-secondary font-medium inline-block;
+  }
+
+  .breadcrumbs-link {
+    @apply text-theme-accent hover:text-accent-hover hover:underline transition-colors;
+  }
+
+  .breadcrumbs-item.current {
+    @apply text-white font-medium;
+  }
+  
+  /* Table of Contents */
+  .toc {
+    @apply border border-border rounded-github p-4 bg-gray-light mb-8 sticky top-20;
+  }
+
+  .toc-title {
+    @apply text-lg font-semibold mb-3 text-white;
+  }
+
+  .toc-list {
+    @apply space-y-2 text-text list-none pl-0;
+  }
+
+  .toc-item {
+    @apply flex items-center;
+  }
+
+  .toc-item.level-3 {
+    @apply ml-4;
+  }
+
+  .toc-link {
+    @apply text-accent hover:text-accent-400 transition-colors duration-200 no-underline;
+  }
+  
+  /* Skip link for accessibility */
+  .skip-link {
+    @apply fixed top-0 left-0 -translate-y-full bg-theme-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0 font-medium rounded-br-github;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Back to top button */
+  .back-to-top-btn {
+    @apply fixed right-6 bottom-6 bg-theme-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    transform: translateY(10px);
+  }
+
+  .back-to-top-btn:hover {
+    @apply hover:bg-accent-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .back-to-top-btn:focus {
+    @apply outline-none ring-2 ring-theme-accent opacity-90;
+  }
+
+  .back-to-top-btn.visible {
+    opacity: 0.9;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .back-to-top-btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Header anchor links */
+  .header-anchor {
+    @apply text-theme-accent opacity-0 ml-2 hover:opacity-100 transition-opacity duration-200;
+    text-decoration: none !important;
+  }
+
+  h2:hover .header-anchor,
+  h3:hover .header-anchor,
+  h4:hover .header-anchor {
+    @apply opacity-100;
+  }
+}
