@@ -5,7 +5,7 @@
  * to make it easy to create and modify themes.
  * 
  * Usage:
- * node tools/generate-theme.js --name "GitHub Dark" --primary-hue 145 --primary-chroma 0.15 --accent-hue 230
+ * node scripts/styling/generate-theme.js --name "GitHub Dark" --primary-hue 145 --primary-chroma 0.15 --accent-hue 230
  */
 
 import fs from 'fs';

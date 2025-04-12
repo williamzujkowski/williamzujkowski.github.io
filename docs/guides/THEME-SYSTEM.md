@@ -130,7 +130,11 @@ The theme variables are available in Tailwind utility classes:
 Use the theme generator tool:
 
 ```bash
-node tools/generate-theme.js --name "Ocean Blue" --primary-hue 220 --primary-chroma 0.15 --accent-hue 280
+# Using npm script
+npm run generate:theme -- --name "Ocean Blue" --primary-hue 220 --primary-chroma 0.15 --accent-hue 280
+
+# Or directly with node
+node scripts/styling/generate-theme.js --name "Ocean Blue" --primary-hue 220 --primary-chroma 0.15 --accent-hue 280
 ```
 
 Or manually create a theme file by copying and modifying the existing one.

@@ -60,13 +60,22 @@ williamzujkowski.github.io/
 │   ├── .eleventy.simple.cjs
 │   ├── postcss.config.cjs
 │   └── tailwind.config.cjs
+├── docs/                # Documentation
+│   ├── development/     # Development guides
+│   ├── guides/          # User guides
+│   └── reference/       # Reference documentation
 ├── new_posts/           # Directory for new blog posts
 │   └── processed/       # Processed posts archive
-├── scripts/             # Build scripts
-│   ├── build-arxiv-feed.js
-│   ├── build-github-pins.js
-│   ├── build-link-previews.js
-│   └── build-visualizations.js
+├── scripts/             # Scripts and utilities
+│   ├── bin/             # CLI utilities and entry points
+│   ├── build/           # Build scripts for data generation
+│   ├── content/         # Content management tools
+│   │   ├── blog/        # Blog post management
+│   │   └── links/       # Link management
+│   ├── screenshots/     # Screenshot generation tools
+│   ├── styling/         # Styling tools
+│   ├── utils/           # Utility scripts
+│   └── validation/      # Validation tools
 ├── src/                 # Source files
 │   ├── _data/           # Site configuration data
 │   ├── _includes/       # Template includes
@@ -74,10 +83,9 @@ williamzujkowski.github.io/
 │   ├── css/             # Stylesheets
 │   ├── js/              # JavaScript files
 │   └── posts/           # Blog posts
-└── tools/               # Utility tools
-    ├── process-new-posts.js
-    └── validation/      # Validation tools
 ```
+
+For a detailed overview of the scripts organization, see [Scripts Documentation](docs/development/SCRIPTS.md).
 
 ## Development
 
@@ -85,15 +93,58 @@ To work on this site locally:
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
+3. Start the development server:
+   ```bash
+   # Using npm script
+   npm run dev
+   
+   # Or using the CLI utility
+   ./scripts/bin/dev.sh serve
+   ```
 4. Visit `http://localhost:8082` in your browser
+
+Other development commands:
+
+```bash
+# Watch CSS files for changes
+./scripts/bin/dev.sh css
+
+# Run with debug output
+./scripts/bin/dev.sh debug
+
+# Lint JavaScript files
+./scripts/bin/dev.sh lint
+
+# Format files with Prettier
+./scripts/bin/dev.sh format
+```
 
 ## Build
 
 To build the site for production:
 
-```
+```bash
+# Using npm script
 npm run build
+
+# Or using the CLI utility
+./scripts/bin/build.sh all
+```
+
+Other build commands:
+
+```bash
+# Build only data files
+./scripts/bin/build.sh data
+
+# Build only CSS
+./scripts/bin/build.sh css
+
+# Build site without rebuilding data
+./scripts/bin/build.sh site
+
+# Production build with optimizations
+./scripts/bin/build.sh production
 ```
 
 The built site will be in the `_site` directory.
@@ -241,7 +292,11 @@ The recommended way to add blog posts is using our automated processing system:
 
 2. Run the processing script:
    ```bash
+   # Using npm script
    npm run process:posts
+   
+   # Or using the CLI utility
+   ./scripts/bin/content.sh blog:process
    ```
 
 3. The script will:
@@ -251,7 +306,7 @@ The recommended way to add blog posts is using our automated processing system:
    - Suggest relevant images
    - Place the final post in `src/posts/`
 
-For detailed instructions, see [BLOG-WORKFLOW.md](BLOG-WORKFLOW.md).
+For detailed instructions, see [BLOG-WORKFLOW.md](docs/guides/BLOG-WORKFLOW.md).
 
 #### Option 2: Manual Blog Post Creation
 
@@ -349,9 +404,19 @@ npm run build:links
 
 # Link health validation
 npm run validate:links
+
+# Check for missing link previews
+npm run check:links
+# Or using the CLI utility
+./scripts/bin/content.sh links:check
+
+# Generate website screenshots
+npm run screenshots
+# Or using the CLI utility
+./scripts/bin/content.sh screenshots
 ```
 
-For detailed instructions on link management, see [MAINTENANCE.md](MAINTENANCE.md).
+For detailed instructions on link management, see [MAINTENANCE.md](docs/reference/MAINTENANCE.md).
 
 ### How Link Preview Generation Works
 

@@ -71,7 +71,14 @@ While the conversion script handles basic formatting, you can enhance your draft
 Run the post processing script:
 
 ```bash
-node tools/process-new-posts.js
+# Using npm script
+npm run process:posts
+
+# Or using the CLI utility
+./scripts/bin/content.sh blog:process
+
+# Or directly with node
+node scripts/content/blog/process-new-posts.js
 ```
 
 This script will:

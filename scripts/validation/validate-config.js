@@ -7,7 +7,7 @@
  * they conform to expected formats and contain required properties.
  * 
  * Usage:
- * node tools/validation/validate-config.js [--fix]
+ * node scripts/validation/validate-config.js [--fix]
  * 
  * Options:
  * --fix  Attempt to fix common issues automatically

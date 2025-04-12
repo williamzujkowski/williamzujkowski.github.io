@@ -18,7 +18,7 @@ The website uses screenshots of linked websites as background images for link ca
 
 ## Screenshot Generation Script
 
-The repository includes a script (`tools/generate-test-screenshots.js`) to manually generate screenshots for specific websites. This is useful for:
+The repository includes a script (`scripts/screenshots/generate-test-screenshots.js`) to manually generate screenshots for specific websites. This is useful for:
 
 - Testing the screenshot functionality
 - Generating screenshots for important links
@@ -30,7 +30,10 @@ To generate screenshots:
 
 ```bash
 # From the project root
-node tools/generate-test-screenshots.js
+node scripts/screenshots/generate-test-screenshots.js
+
+# Or using the CLI utility
+npm run screenshots:test
 ```
 
 This will:
@@ -40,7 +43,7 @@ This will:
 
 ### Configuring the Script
 
-To change which websites are captured, edit the `LINKS_TO_CAPTURE` array in `tools/generate-test-screenshots.js`:
+To change which websites are captured, edit the `LINKS_TO_CAPTURE` array in `scripts/screenshots/generate-test-screenshots.js`:
 
 ```javascript
 const LINKS_TO_CAPTURE = [
@@ -52,7 +55,7 @@ const LINKS_TO_CAPTURE = [
 
 ## Automated Screenshot Generation
 
-In addition to the manual script, the site's build process includes a more comprehensive screenshot generation script (`scripts/build-link-previews.js`) that:
+In addition to the manual script, the site's build process includes a more comprehensive screenshot generation script (`scripts/build/build-link-previews.js`) that:
 
 1. Reads all links from the site configuration
 2. Fetches metadata for each link
@@ -63,6 +66,16 @@ This script runs during the full build process, but due to its resource-intensiv
 - It processes links in batches
 - It prioritizes new links and those with the oldest screenshots
 - It can be limited by GitHub Actions timeout constraints
+
+The screenshot generation can also be run independently using the CLI utility:
+
+```bash
+# Generate screenshots for all links
+npm run screenshots:all
+
+# Update existing screenshots
+npm run screenshots:update
+```
 
 ## Troubleshooting
 
@@ -82,13 +95,15 @@ If screenshots are not appearing on the links page:
 
 4. **Generate test screenshots**: Use the script to generate new screenshots
    ```bash
-   node tools/generate-test-screenshots.js
+   npm run screenshots:test
+   # Or directly with node
+   node scripts/screenshots/generate-test-screenshots.js
    ```
 
 5. **Verify with test page**: Open the verification page to check if screenshots load
    ```bash
    # After starting a development server
-   open http://localhost:8000/tools/verify-screenshots.html
+   open http://localhost:8000/scripts/screenshots/verify-screenshots.html
    ```
 
 ## Screenshot Quality
@@ -107,7 +122,7 @@ These settings provide a balance between quality and file size, suitable for web
 
 To add screenshots for specific links:
 
-1. Edit `tools/generate-test-screenshots.js`
+1. Edit `scripts/screenshots/generate-test-screenshots.js`
 2. Add entries to the `LINKS_TO_CAPTURE` array
 3. Run the script
 4. Commit the generated screenshots and updated JSON file
@@ -116,16 +131,16 @@ To add screenshots for specific links:
 
 To generate screenshots for all links in batches:
 
-1. Use the `tools/generate-screenshots-batch.js` script which processes links in small batches:
+1. Use the `scripts/screenshots/generate-screenshots-batch.js` script which processes links in small batches:
    ```bash
    # Process links starting at index 0, taking 20 links
-   node tools/generate-screenshots-batch.js 0 20
+   node scripts/screenshots/generate-screenshots-batch.js 0 20
    ```
 
 2. Or use the helper shell script to process all links in sequential batches:
    ```bash
    # Run the batch processing script
-   ./tools/run-screenshot-batches.sh
+   ./scripts/screenshots/run-screenshot-batches.sh
    ```
 
 The batch processing tools will:
@@ -134,22 +149,26 @@ The batch processing tools will:
 - Save progress after each batch in case the process is interrupted
 - Provide a summary of successful and failed screenshots
 
-### Option 3: Use the Fast Screenshot Generator (Recommended)
+### Option 3: Use the Screenshot CLI (Recommended)
 
-For the fastest and most efficient screenshot generation, use the optimized screenshot generator:
+For the fastest and most efficient screenshot generation, use the screenshot CLI utility:
 
 ```bash
 # Show help and options
-./tools/fast-screenshots.sh
+./scripts/screenshots/screenshots.sh
 
 # Generate screenshots for all links without screenshots
-./tools/fast-screenshots.sh all
+./scripts/screenshots/screenshots.sh all
+# Or with npm script
+npm run screenshots:all
 
 # Update all existing screenshots
-./tools/fast-screenshots.sh update
+./scripts/screenshots/screenshots.sh update
+# Or with npm script
+npm run screenshots:update
 
 # Process specific batch of links
-./tools/fast-screenshots.sh batch 50 10
+./scripts/screenshots/screenshots.sh batch 50 10
 ```
 
 The fast screenshot generator includes many optimizations:

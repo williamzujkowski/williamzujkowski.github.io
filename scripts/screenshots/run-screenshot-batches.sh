@@ -2,7 +2,7 @@
 # Script to run screenshot generation in batches
 
 # Navigate to project root
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 # Total number of links (this is an estimate, the actual count may vary)
 TOTAL_LINKS=200
@@ -16,7 +16,7 @@ do
   echo "------------------------------------------------"
   echo "Processing batch starting at index $i (size $BATCH_SIZE)"
   echo "------------------------------------------------"
-  node tools/generate-screenshots-batch.js $i $BATCH_SIZE
+  node scripts/screenshots/generate-screenshots-batch.js $i $BATCH_SIZE
   
   # Wait a few seconds between batches
   echo "Waiting 5 seconds before starting next batch..."

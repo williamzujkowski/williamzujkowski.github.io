@@ -7,7 +7,7 @@
  * into separate files in a components directory, making the codebase more maintainable.
  * 
  * Usage:
- * node tools/extract-components.js [--dry-run]
+ * node scripts/styling/extract-components.js [--dry-run]
  * 
  * Options:
  * --dry-run  Show what would be extracted without making changes

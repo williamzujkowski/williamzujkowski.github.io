@@ -1,7 +1,7 @@
 #!/bin/bash
 # Run the optimized screenshot generator with common options
 
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 # Colors for better output
 GREEN='\033[0;32m'
@@ -13,7 +13,7 @@ NC='\033[0m' # No Color
 function show_help {
   echo -e "${BLUE}Fast Screenshot Generator${NC}"
   echo "============================="
-  echo "Usage: ./tools/fast-screenshots.sh [option]"
+  echo "Usage: ./scripts/screenshots/screenshots.sh [option]"
   echo ""
   echo "Options:"
   echo "  all       - Generate screenshots for all links without screenshots"
@@ -23,9 +23,9 @@ function show_help {
   echo "  help      - Show this help message"
   echo ""
   echo "Examples:"
-  echo "  ./tools/fast-screenshots.sh all"
-  echo "  ./tools/fast-screenshots.sh batch 50 10"
-  echo "  ./tools/fast-screenshots.sh update"
+  echo "  ./scripts/screenshots/screenshots.sh all"
+  echo "  ./scripts/screenshots/screenshots.sh batch 50 10"
+  echo "  ./scripts/screenshots/screenshots.sh update"
 }
 
 # Check for parameter
@@ -38,27 +38,27 @@ fi
 case "$1" in
   "all")
     echo -e "${GREEN}Generating screenshots for all links without screenshots${NC}"
-    node tools/fast-screenshot-generator.js 0 1000 
+    node scripts/screenshots/generate-screenshots.js 0 1000 
     ;;
     
   "update")
     echo -e "${GREEN}Updating all existing screenshots${NC}"
-    node tools/fast-screenshot-generator.js 0 1000 --update-all --force-refresh
+    node scripts/screenshots/generate-screenshots.js 0 1000 --update-all --force-refresh
     ;;
     
   "batch")
     if [ $# -lt 3 ]; then
       echo -e "${YELLOW}Missing parameters for batch processing${NC}"
-      echo "Usage: ./tools/fast-screenshots.sh batch START_INDEX COUNT"
+      echo "Usage: ./scripts/screenshots/screenshots.sh batch START_INDEX COUNT"
       exit 1
     fi
     echo -e "${GREEN}Processing batch starting at index $2 with count $3${NC}"
-    node tools/fast-screenshot-generator.js $2 $3
+    node scripts/screenshots/generate-screenshots.js $2 $3
     ;;
     
   "missing")
     echo -e "${GREEN}Generating screenshots for links without them${NC}"
-    node tools/fast-screenshot-generator.js 0 1000
+    node scripts/screenshots/generate-screenshots.js 0 1000
     ;;
     
   "help")
