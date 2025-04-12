@@ -129,18 +129,62 @@ This script will:
 
 ## Post Features
 
-### Images
+### Featured Images
 
-The conversion process automatically suggests images based on content keywords. Available images include:
+Each blog post includes a featured image at the top. The system automatically selects an appropriate image based on the post tags, title keywords, or explicitly defined image in the frontmatter.
 
-- `ai-blog.jpg` - For AI/ML topics
-- `cloud-blog.jpg` - For cloud/infrastructure topics
-- `ethics-blog.jpg` - For ethics/policy topics
-- `security-blog.jpg` - For security/privacy topics
-- `transformer-blog.jpg` - For transformer/LLM topics
-- `tech-header.jpg` - Default technology header
+#### Automatic Image Selection
 
-To use a custom image, just replace the suggested image in the frontmatter.
+The system will attempt to find the most relevant image in this order:
+
+1. If the post has `image` defined in its frontmatter, it will use that specific image
+2. If the post has tags that match known image categories, it will use the corresponding image
+3. If the post title contains specific keywords, it will map to the appropriate category
+4. If no match is found, it will use the default blog image
+
+#### Specifying Custom Images
+
+To specify a custom image for a post, add the following to your frontmatter:
+
+```yaml
+---
+title: My Blog Post
+image: blog/custom/my-image.jpg 
+image_alt: Description of my custom image
+---
+```
+
+The image path should be relative to the `assets/images/` directory.
+
+#### Available Image Categories
+
+The system supports the following image categories:
+
+- `ai`: Artificial Intelligence
+- `security`: Cybersecurity
+- `cloud`: Cloud Computing
+- `ethics`: AI Ethics
+- `transformer`: Transformer Architecture
+- `pizza`: Pizza Calculator
+- `cryptography`: Encryption and Cryptography
+- `quantum`: Quantum Computing
+- `edge`: Edge Computing
+- `hpc`: High-Performance Computing
+- `rag`: Retrieval Augmented Generation
+- `prompt`: Prompt Engineering
+- `containers`: Container Technologies
+- `resilience`: System Resilience
+- `llm`: Large Language Models
+
+#### Adding New Image Categories
+
+To add new image categories, edit the file at `src/_data/config/blog/images.json`. Add new entries to both the `image_mapping` and `keyword_mapping` sections.
+
+Then download the corresponding images by running:
+
+```bash
+npm run build:blog-images
+```
 
 ### Tags
 

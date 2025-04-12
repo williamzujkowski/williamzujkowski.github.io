@@ -9,21 +9,8 @@ layout: base.njk
   <article class="mb-12">
     <!-- Featured image -->
     <div class="mb-8 rounded-github overflow-hidden shadow-card w-full">
-      {% if tags and "ai" in tags %}
-        {% image "blog/ai-blog.jpg", "AI blog illustration", "100vw", [800, 1200, 1600] %}
-      {% elif tags and "security" in tags %}
-        {% image "blog/security-blog.jpg", "Security blog illustration", "100vw", [800, 1200, 1600] %}
-      {% elif tags and "cloud" in tags %}
-        {% image "blog/cloud-blog.jpg", "Cloud computing blog illustration", "100vw", [800, 1200, 1600] %}
-      {% elif title and "Pizza" in title %}
-        {% image "blog/pizza-blog.jpg", "Developer pizza blog illustration", "100vw", [800, 1200, 1600] %}
-      {% elif tags and "transformer" in tags %}
-        {% image "blog/transformer-blog.jpg", "Transformer architecture blog illustration", "100vw", [800, 1200, 1600] %}
-      {% elif tags and "ethics" in tags %}
-        {% image "blog/ethics-blog.jpg", "AI ethics blog illustration", "100vw", [800, 1200, 1600] %}
-      {% else %}
-        {% image "github-style/blog-placeholder.jpg", "Blog post illustration", "100vw", [800, 1200, 1600] %}
-      {% endif %}
+      {% set blogImg = blogImage(page) %}
+      {% image blogImg.path, blogImg.alt, "100vw", [800, 1200, 1600] %}
     </div>
 
     <!-- Post header -->
@@ -216,21 +203,8 @@ layout: base.njk
       {% for relatedPost in relatedPosts %}
       <li class="gh-post-item">
         <div class="gh-post-image">
-          {% if relatedPost.data.tags and "ai" in relatedPost.data.tags %}
-            {% image "blog/ai-blog.jpg", "AI blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
-          {% elif relatedPost.data.tags and "security" in relatedPost.data.tags %}
-            {% image "blog/security-blog.jpg", "Security blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
-          {% elif relatedPost.data.tags and "cloud" in relatedPost.data.tags %}
-            {% image "blog/cloud-blog.jpg", "Cloud computing blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
-          {% elif relatedPost.data.title and "Pizza" in relatedPost.data.title %}
-            {% image "blog/pizza-blog.jpg", "Developer pizza blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
-          {% elif relatedPost.data.tags and "transformer" in relatedPost.data.tags %}
-            {% image "blog/transformer-blog.jpg", "Transformer architecture blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
-          {% elif relatedPost.data.tags and "ethics" in relatedPost.data.tags %}
-            {% image "blog/ethics-blog.jpg", "AI ethics blog illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
-          {% else %}
-            {% image "github-style/blog-placeholder.jpg", "Blog post illustration", "(min-width: 768px) 33vw, 100vw", [400, 600] %}
-          {% endif %}
+          {% set blogImg = blogImage(relatedPost) %}
+          {% image blogImg.path, blogImg.alt, "(min-width: 768px) 33vw, 100vw", [400, 600] %}
         </div>
         <div class="gh-post-content">
           <a href="{{ relatedPost.url }}" class="gh-post-title">{{ relatedPost.data.title }}</a>

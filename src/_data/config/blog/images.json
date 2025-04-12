@@ -1,0 +1,85 @@
+{
+  "image_mapping": {
+    "ai": {
+      "path": "blog/ai-blog.jpg",
+      "alt": "AI illustration with neural networks and connections"
+    },
+    "security": {
+      "path": "blog/security-blog.jpg",
+      "alt": "Cybersecurity lock and shield illustration"
+    },
+    "cloud": {
+      "path": "blog/cloud-blog.jpg",
+      "alt": "Cloud computing infrastructure illustration"
+    },
+    "ethics": {
+      "path": "blog/ethics-blog.jpg",
+      "alt": "AI ethics balance scale illustration"
+    },
+    "transformer": {
+      "path": "blog/transformer-blog.jpg",
+      "alt": "Transformer architecture neural network illustration"
+    },
+    "pizza": {
+      "path": "blog/pizza-blog.jpg", 
+      "alt": "Developer pizza calculator illustration"
+    },
+    "cryptography": {
+      "path": "blog/topics/cryptography.jpg",
+      "alt": "Encryption and cryptography key illustration"
+    },
+    "quantum": {
+      "path": "blog/topics/quantum.jpg",
+      "alt": "Quantum computing illustration with qubits and superposition"
+    },
+    "edge": {
+      "path": "blog/topics/edge-computing.jpg",
+      "alt": "Edge computing architecture with IoT devices"
+    },
+    "hpc": {
+      "path": "blog/topics/hpc.jpg",
+      "alt": "High-performance computing supercomputer illustration"
+    },
+    "rag": {
+      "path": "blog/topics/rag.jpg",
+      "alt": "Retrieval Augmented Generation architecture illustration"
+    },
+    "prompt": {
+      "path": "blog/topics/prompt-engineering.jpg",
+      "alt": "Prompt engineering and LLM interaction illustration"
+    },
+    "containers": {
+      "path": "blog/topics/containers.jpg",
+      "alt": "Container technology and orchestration illustration"
+    },
+    "resilience": {
+      "path": "blog/topics/resilience.jpg",
+      "alt": "System resilience and fault tolerance illustration"
+    },
+    "llm": {
+      "path": "blog/topics/llm.jpg",
+      "alt": "Large Language Model illustration with text processing"
+    },
+    "default": {
+      "path": "github-style/blog-placeholder.jpg",
+      "alt": "Default blog post illustration"
+    }
+  },
+  "keyword_mapping": {
+    "security": ["secure", "security", "exploit", "vulnerability", "cybersecurity", "cyber"],
+    "cryptography": ["cryptography", "encryption", "hash", "signature", "cipher", "quantum-resistant"],
+    "cloud": ["cloud", "aws", "azure", "gcp", "serverless", "iaas", "paas", "saas"],
+    "ai": ["ai", "artificial intelligence", "machine learning", "ml", "deep learning", "neural", "model"],
+    "ethics": ["ethics", "ethical", "bias", "fairness", "responsible ai"],
+    "transformer": ["transformer", "attention", "encoder", "decoder"],
+    "pizza": ["pizza", "calculator"],
+    "quantum": ["quantum", "qubit", "superposition", "entanglement"],
+    "edge": ["edge computing", "edge", "iot", "real-time", "device"],
+    "hpc": ["high-performance computing", "hpc", "supercomputing", "compute", "cluster"],
+    "rag": ["retrieval augmented generation", "rag", "retrieval", "vector"],
+    "prompt": ["prompt engineering", "prompt", "instruction"],
+    "containers": ["container", "docker", "kubernetes", "k8s", "orchestration", "pod"],
+    "resilience": ["resilient", "resilience", "fault tolerance", "chaos", "reliability"],
+    "llm": ["llm", "language model", "gpt", "claude", "gemini", "large language model"]
+  }
+}

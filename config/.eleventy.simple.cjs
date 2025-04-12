@@ -389,9 +389,68 @@ module.exports = function(eleventyConfig) {
       eleventyConfig.addGlobalData('books', () => booksData);
       console.log('Loaded books data with', booksData.length, 'books');
     }
+    
+    // Path to blog images mapping file
+    const blogImagesPath = path.join(__dirname, '..', 'src', '_data', 'config', 'blog', 'images.json');
+    
+    // Add blog images mapping to global data if file exists
+    if (fs.existsSync(blogImagesPath)) {
+      const blogImagesData = JSON.parse(fs.readFileSync(blogImagesPath, 'utf8'));
+      eleventyConfig.addGlobalData('blog_images', () => blogImagesData);
+      console.log('Loaded blog images mapping data');
+    }
   } catch (error) {
     console.warn('Error loading external data:', error.message);
   }
+  
+  // Add a shortcode for getting the appropriate blog image based on post content
+  eleventyConfig.addShortcode("blogImage", function(post) {
+    // Default image
+    let imageKey = "default";
+    const blogImages = this.ctx.blog_images || { image_mapping: {}, keyword_mapping: {} };
+    
+    // If image is explicitly set in frontmatter, use that
+    if (post.data && post.data.image) {
+      return {
+        path: post.data.image,
+        alt: post.data.image_alt || "Blog post illustration"
+      };
+    }
+    
+    // Check tags first
+    if (post.data && post.data.tags && Array.isArray(post.data.tags)) {
+      for (const tag of post.data.tags) {
+        const lowercaseTag = tag.toLowerCase();
+        if (blogImages.image_mapping[lowercaseTag]) {
+          imageKey = lowercaseTag;
+          break;
+        }
+      }
+    }
+    
+    // If we still have the default, try to infer from title and content
+    if (imageKey === "default" && post.data && post.data.title) {
+      const titleLower = post.data.title.toLowerCase();
+      
+      // Check for pizza in title as a special case
+      if (titleLower.includes("pizza")) {
+        return blogImages.image_mapping["pizza"] || blogImages.image_mapping["default"];
+      }
+      
+      // Check each keyword mapping to find a match
+      for (const [key, keywords] of Object.entries(blogImages.keyword_mapping)) {
+        for (const keyword of keywords) {
+          if (titleLower.includes(keyword.toLowerCase())) {
+            imageKey = key;
+            break;
+          }
+        }
+        if (imageKey !== "default") break;
+      }
+    }
+    
+    return blogImages.image_mapping[imageKey] || blogImages.image_mapping["default"];
+  });
 
   return {
     dir: {

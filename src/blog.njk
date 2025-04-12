@@ -125,21 +125,8 @@ eleventyNavigation:
     <div class="gh-post-card searchable h-full" data-tags="{{ post.data.tags | join(',') | lower }}">
       <!-- Post image with consistent ratio -->
       <div class="gh-post-image">
-        {% if post.data.tags and "ai" in post.data.tags %}
-          <img src="/assets/images/blog/ai-blog.jpg" alt="AI blog illustration" class="w-full h-full object-cover">
-        {% elif post.data.tags and "security" in post.data.tags %}
-          <img src="/assets/images/blog/security-blog.jpg" alt="Security blog illustration" class="w-full h-full object-cover">
-        {% elif post.data.tags and "cloud" in post.data.tags %}
-          <img src="/assets/images/blog/cloud-blog.jpg" alt="Cloud computing blog illustration" class="w-full h-full object-cover">
-        {% elif post.data.title and "Pizza" in post.data.title %}
-          <img src="/assets/images/blog/pizza-blog.jpg" alt="Developer pizza blog illustration" class="w-full h-full object-cover">
-        {% elif post.data.tags and "transformer" in post.data.tags %}
-          <img src="/assets/images/blog/transformer-blog.jpg" alt="Transformer architecture blog illustration" class="w-full h-full object-cover">
-        {% elif post.data.tags and "ethics" in post.data.tags %}
-          <img src="/assets/images/blog/ethics-blog.jpg" alt="AI ethics blog illustration" class="w-full h-full object-cover">
-        {% else %}
-          <img src="/assets/images/github-style/blog-placeholder.jpg" alt="Blog post illustration" class="w-full h-full object-cover">
-        {% endif %}
+        {% set blogImg = blogImage(post) %}
+        <img src="/assets/images/{{ blogImg.path }}" alt="{{ blogImg.alt }}" class="w-full h-full object-cover">
         
         {% if post.data.tags %}
           <div class="gh-post-tags-overlay">
