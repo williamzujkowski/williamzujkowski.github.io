@@ -333,11 +333,27 @@ async function main() {
       existingLinks = [];
     }
     
+    // Check if we're processing specific links from an environment variable
+    let specificLinksToProcess = null;
+    if (process.env.LINK_PREVIEW_INPUT) {
+      try {
+        const specificLinksData = await fs.readFile(process.env.LINK_PREVIEW_INPUT, 'utf-8');
+        specificLinksToProcess = JSON.parse(specificLinksData);
+        console.log(`Using ${specificLinksToProcess.length} links from input file`);
+      } catch (error) {
+        console.error('Error reading input file:', error.message);
+      }
+    }
+    
     // Determine which links to process
-    const isInitialRun = existingLinks.length === 0 || forceInitialRun;
+    const isInitialRun = existingLinks.length === 0 || forceInitialRun || process.env.LINK_PREVIEW_FORCE === 'true';
     let linksToProcess;
     
-    if (isInitialRun) {
+    // If we have specific links to process, use those
+    if (specificLinksToProcess) {
+      linksToProcess = specificLinksToProcess;
+      console.log(`Processing ${linksToProcess.length} specified links`);
+    } else if (isInitialRun) {
       // Process all links on initial run
       linksToProcess = allLinks;
       console.log('Initial run - processing all links');
@@ -352,7 +368,7 @@ async function main() {
       const newLinks = allLinks.filter(link => !existingLinksMap.has(link.id));
       console.log(`Found ${newLinks.length} new links to process`);
       
-      // Find the 10 oldest links by last_checked date
+      // Find the 20 oldest links by last_checked date (increased from 10)
       const oldestLinks = [...existingLinks]
         .filter(link => allLinksMap.has(link.id)) // Only consider links that still exist
         .sort((a, b) => {
@@ -361,7 +377,7 @@ async function main() {
           const dateB = b.last_checked ? new Date(b.last_checked) : new Date(0);
           return dateA - dateB;
         })
-        .slice(0, 10)
+        .slice(0, 20)
         .map(link => {
           // Map to current link data
           const currentLink = allLinksMap.get(link.id);

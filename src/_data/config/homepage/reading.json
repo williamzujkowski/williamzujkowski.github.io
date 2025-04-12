@@ -1,6 +1,12 @@
 {
   "reading_list": [
     {
+      "title": "Dungeon Crawler Carl",
+      "author": "Matt Dinniman",
+      "isbn": "059382024X",
+      "progress": 62
+    },
+    {
       "title": "Designing Data-Intensive Applications",
       "author": "Martin Kleppmann",
       "isbn": "9781449373320",
@@ -11,12 +17,6 @@
       "author": "Emmanuel Ameisen",
       "isbn": "9781492045113",
       "progress": 45
-    },
-    {
-      "title": "Dungeon Crawler Carl",
-      "author": "Matt Dinniman",
-      "isbn": "059382024X",
-      "progress": 62
     },
     {
       "title": "The Psychoanalysis of R'lyeh",

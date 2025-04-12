@@ -14,14 +14,16 @@ We've created a streamlined process for adding new blog posts to the website wit
 - **Code Formatting**: Preserves code blocks with proper syntax highlighting
 - **ASCII Diagrams**: Supports ASCII art diagrams for technical illustrations
 - **Markdown Enhancement**: Improves formatting with proper headers, lists, and links
+- **Content Guidelines**: Provides detailed guidance for creating engaging technical content
 
 ## How It Works
 
 1. **Write Content**: Create `.txt` or `.md` files in the `new_posts/` directory with your content
-2. **Run the Processor**: Use `npm run process:posts` to transform all new posts
-3. **Posts Are Enhanced**: Posts get converted to proper markdown with all necessary frontmatter
-4. **Automatic Scheduling**: Dates are assigned sequentially from the most recent post
-5. **Original Files Preserved**: Processed source files move to `new_posts/processed/`
+2. **Follow Guidelines**: Use `Prompts/blog-guidelines.md` for content structure best practices
+3. **Run the Processor**: Use `npm run process:posts` to transform all new posts
+4. **Posts Are Enhanced**: Posts get converted to proper markdown with all necessary frontmatter
+5. **Automatic Scheduling**: Dates are assigned sequentially from the most recent post
+6. **Original Files Preserved**: Processed source files move to `new_posts/processed/`
 
 ## Directory Structure
 
@@ -29,11 +31,14 @@ We've created a streamlined process for adding new blog posts to the website wit
 /
 ├── new_posts/               # Where you place raw posts
 │   └── processed/           # Where processed raw posts are stored
+├── Prompts/
+│   ├── blogpost.prompt      # Complete prompt for generating blog posts
+│   └── blog-guidelines.md   # Content guidelines for creating effective posts
 ├── src/
 │   └── posts/               # Where the final formatted posts go
 ├── tools/
 │   └── process-new-posts.js # The processing script
-└── BLOG-WORKFLOW.md         # Detailed instructions
+└── BLOG-WORKFLOW.md         # Detailed workflow instructions
 ```
 
 ## Sample Posts Created
@@ -53,6 +58,18 @@ Each post includes:
 - Improved bullet points and lists
 - Reference links
 
+## Content Guidelines
+
+For detailed content guidelines, see `Prompts/blog-guidelines.md`. Key recommendations include:
+
+- Target a reading time of 6-9 minutes (minimum 1,400 words, ideally 1,400-2,100 words)
+- Include a header image and relevant images throughout
+- Use analogies and real-world examples to simplify complex concepts
+- Structure content with clear headings and logical organization
+- Provide code examples with proper syntax highlighting
+- Include trade-offs and limitations when presenting technologies
+- End with a clear summary and further reading suggestions
+
 ## Getting Started
 
 See `BLOG-WORKFLOW.md` for detailed instructions on how to use this system to create and manage blog posts.
@@ -68,6 +85,16 @@ Then build the site to see your changes:
 ```bash
 npm run build
 ```
+
+## Using the Blog Post Prompt
+
+The file `Prompts/blogpost.prompt` contains a comprehensive prompt for generating high-quality blog posts. This prompt can be used with AI assistants to help create structured content that follows our guidelines. It includes instructions for:
+
+- Topic selection and audience targeting
+- Content structure and formatting
+- Visual enhancements and image selection
+- Code integration and examples
+- Citations and reference formatting
 
 ## Customization
 

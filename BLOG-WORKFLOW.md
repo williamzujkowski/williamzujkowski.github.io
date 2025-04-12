@@ -53,7 +53,43 @@ title: Understanding Quantum Computing
 Quantum computing represents a fundamental shift in how we process information...
 ```
 
-### Step 2: Format Your Content (Optional)
+### Step 2: Content Guidelines
+
+Follow these guidelines to create effective blog posts:
+
+#### Audience
+- Target technology enthusiasts while making content accessible to beginners
+- Start with a concise summary that introduces key concepts
+
+#### Topic Selection
+- Check existing posts to avoid duplicating topics
+- Define a clear objective (educate, tutorial, analyze developments)
+
+#### Content Development
+- Include insights from recent developments and personal experiences
+- Enhance with relevant code samples, diagrams, or images
+- Link to reputable sources for further reading
+- For security topics, include CVSS scores and mitigation strategies
+
+#### Formatting
+- Use clear headings, subheadings, bullet points, and numbered lists
+- Structure content for a reading time of 6-9 minutes (minimum 1,400 words, ideally 1,400-2,100 words)
+- Use analogies and real-world examples to simplify complex concepts
+- Maintain a conversational tone to engage readers
+
+#### Visual Elements
+- Include a header image at the top of the post
+- Add relevant images throughout (approximately one per major section)
+- Source images only from copyright-free websites like:
+  - Unsplash, Pexels, Pixabay, Wikimedia Commons, NASA Image Gallery
+- Provide alt text for all images for accessibility
+
+#### Conclusion
+- Summarize main points and reinforce critical insights
+- Include a call to action for readers
+- Suggest related resources, repositories, or further reading
+
+### Step 3: Format Your Content (Optional)
 
 While the conversion script handles basic formatting, you can enhance your drafts:
 
@@ -64,7 +100,7 @@ While the conversion script handles basic formatting, you can enhance your draft
 - Use `backticks` for inline code
 - Use ```language for code blocks
 
-### Step 3: Run the Conversion Process
+### Step 4: Run the Conversion Process
 
 Run the post processing script:
 
@@ -82,7 +118,7 @@ This script will:
 - Convert to proper Markdown format
 - Move processed files to `new_posts/processed/`
 
-### Step 4: Review and Customize
+### Step 5: Review and Customize
 
 1. Check the generated files in `src/posts/`
 2. Make any manual adjustments needed:
@@ -167,3 +203,5 @@ To add new images to use with blog posts:
 - Use images to break up text and illustrate concepts
 - Keep paragraphs short for better readability
 - Tag posts accurately for better categorization
+- Discuss trade-offs and limitations when presenting technologies
+- Provide links to related articles or documentation at the end

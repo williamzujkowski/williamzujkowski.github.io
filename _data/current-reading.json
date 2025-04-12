@@ -1,71 +1,81 @@
 [
   {
-    "id": "http://arxiv.org/abs/2504.06265v1",
-    "title": "GOLLuM: Gaussian Process Optimized LLMs -- Reframing LLM Finetuning\n  through Bayesian Optimization",
-    "summary": "Large Language Models (LLMs) can encode complex relationships in their latent\nspaces, yet harnessing them for optimization under uncertainty remains\nchallenging. We address this gap with a novel architecture that reframes LLM\nfinetuning as Gaussian process (GP) marginal likelihood optimization via deep\nkernel methods. We introduce LLM-based deep kernels, jointly optimized with GPs\nto preserve the benefits of both - LLMs to provide a rich and flexible input\nspace for Bayesian optimization and - GPs to model this space with predictive\nuncertainty for more efficient sampling. Applied to Buchwald-Hartwig reaction\noptimization, our method nearly doubles the discovery rate of high-performing\nreactions compared to static LLM embeddings (from 24% to 43% coverage of the\ntop 5% reactions in just 50 optimization iterations). We also observe a 14%\nimprovement over domain-specific representations without requiring specialized\nfeatures. Extensive empirical evaluation across 19 benchmarks - ranging from\ngeneral chemistry to reaction and molecular property optimization -\ndemonstrates our method's robustness, generality, and consistent improvements\nacross: (1) tasks, (2) LLM architectures (encoder, decoder, encoder-decoder),\n(3) pretraining domains (chemistry-related or general-purpose) and (4)\nhyperparameter settings (tuned once on a single dataset). Finally, we explain\nthese improvements: joint LLM-GP optimization through marginal likelihood\nimplicitly performs contrastive learning, aligning representations to produce\n(1) better-structured embedding spaces, (2) improved uncertainty calibration,\nand (3) more efficient sampling - without requiring any external loss. This\nwork provides both practical advances in sample-efficient optimization and\ninsights into what makes effective Bayesian optimization.",
-    "published": "2025-04-08T17:59:57Z",
-    "formattedDate": "Apr 8, 2025",
-    "updated": "2025-04-08T17:59:57Z",
-    "firstAuthor": "Bojana Ranković",
+    "id": "http://arxiv.org/abs/2504.07097v1",
+    "title": "Sculpting Subspaces: Constrained Full Fine-Tuning in LLMs for Continual\n  Learning",
+    "summary": "Continual learning in large language models (LLMs) is prone to catastrophic\nforgetting, where adapting to new tasks significantly degrades performance on\npreviously learned ones. Existing methods typically rely on low-rank,\nparameter-efficient updates that limit the model's expressivity and introduce\nadditional parameters per task, leading to scalability issues. To address these\nlimitations, we propose a novel continual full fine-tuning approach leveraging\nadaptive singular value decomposition (SVD). Our method dynamically identifies\ntask-specific low-rank parameter subspaces and constrains updates to be\northogonal to critical directions associated with prior tasks, thus effectively\nminimizing interference without additional parameter overhead or storing\nprevious task gradients. We evaluate our approach extensively on standard\ncontinual learning benchmarks using both encoder-decoder (T5-Large) and\ndecoder-only (LLaMA-2 7B) models, spanning diverse tasks including\nclassification, generation, and reasoning. Empirically, our method achieves\nstate-of-the-art results, up to 7% higher average accuracy than recent\nbaselines like O-LoRA, and notably maintains the model's general linguistic\ncapabilities, instruction-following accuracy, and safety throughout the\ncontinual learning process by reducing forgetting to near-negligible levels.\nOur adaptive SVD framework effectively balances model plasticity and knowledge\nretention, providing a practical, theoretically grounded, and computationally\nscalable solution for continual learning scenarios in large language models.",
+    "published": "2025-04-09T17:59:42Z",
+    "formattedDate": "Apr 9, 2025",
+    "updated": "2025-04-09T17:59:42Z",
+    "firstAuthor": "Nikhil Shivakumar Nayak",
     "authors": [
-      "Bojana Ranković",
-      "Philippe Schwaller"
+      "Nikhil Shivakumar Nayak",
+      "Krishnateja Killamsetty",
+      "Ligong Han",
+      "Abhishek Bhandwaldar",
+      "Prateek Chanda",
+      "Kai Xu",
+      "Hao Wang",
+      "Aldo Pareja",
+      "Oleg Silkin",
+      "Mustafa Eyceoz",
+      "Akash Srivastava"
     ],
-    "link": "http://arxiv.org/abs/2504.06265v1",
+    "link": "http://arxiv.org/abs/2504.07097v1",
     "categoryLabel": "AI",
-    "progress": 84
+    "progress": 88
   },
   {
-    "id": "http://arxiv.org/abs/2504.06241v1",
-    "title": "A Case for Network-wide Orchestration of Host-based Intrusion Detection\n  and Response",
-    "summary": "Recent cyber incidents and the push for zero trust security underscore the\nnecessity of monitoring host-level events. However, current host-level\nintrusion detection systems (IDS) lack the ability to correlate alerts and\ncoordinate a network-wide response in real time. Motivated by advances in\nsystem-level extensions free of rebooting and network-wide orchestration of\nhost actions, we propose using a central IDS orchestrator to remotely program\nthe logic of each host IDS and collect the alerts generated in real time. In\nthis paper, we make arguments for such a system concept and provide a high\nlevel design of the main system components. Furthermore, we have developed a\nsystem prototype and evaluated it using two experimental scenarios rooted from\nreal-world attacks. The evaluation results show that the host-based IDS\norchestration system is able to defend against the attacks effectively.",
-    "published": "2025-04-08T17:41:04Z",
-    "formattedDate": "Apr 8, 2025",
-    "updated": "2025-04-08T17:41:04Z",
-    "firstAuthor": "Mark Timmons",
+    "id": "http://arxiv.org/abs/2504.07048v1",
+    "title": "Context Switching for Secure Multi-programming of Near-Term Quantum\n  Computers",
+    "summary": "Multi-programming quantum computers improve device utilization and\nthroughput. However, crosstalk from concurrent two-qubit CNOT gates poses\nsecurity risks, compromising the fidelity and output of co-running victim\nprograms. We design Zero Knowledge Tampering Attacks (ZKTAs), using which\nattackers can exploit crosstalk without knowledge of the hardware error\nprofile. ZKTAs can alter victim program outputs in 40% of cases on commercial\nsystems.\n  We identify that ZKTAs succeed because the attacker's program consistently\nruns with the same victim program in a fixed context. To mitigate this, we\npropose QONTEXTS: a context-switching technique that defends against ZKTAs by\nrunning programs across multiple contexts, each handling only a subset of\ntrials. QONTEXTS uses multi-programming with frequent context switching while\nidentifying a unique set of programs for each context. This helps limit only a\nfraction of execution to ZKTAs. We enhance QONTEXTS with attack detection\ncapabilities that compare the distributions from different contexts against\neach other to identify noisy contexts executed with ZKTAs. Our evaluations on\nreal IBMQ systems show that QONTEXTS increases program resilience by three\norders of magnitude and fidelity by 1.33$\\times$ on average. Moreover, QONTEXTS\nimproves throughput by 2$\\times$, advancing security in multi-programmed\nenvironments.",
+    "published": "2025-04-09T17:05:16Z",
+    "formattedDate": "Apr 9, 2025",
+    "updated": "2025-04-09T17:05:16Z",
+    "firstAuthor": "Avinash Kumar",
     "authors": [
-      "Mark Timmons",
-      "Daniel Lukaszewski",
-      "Geoffrey Xie"
+      "Avinash Kumar",
+      "Meng Wang",
+      "Chenxu Liu",
+      "Ang Li",
+      "Prashant J. Nair",
+      "Poulami Das"
     ],
-    "link": "http://arxiv.org/abs/2504.06241v1",
+    "link": "http://arxiv.org/abs/2504.07048v1",
     "categoryLabel": "Security",
-    "progress": 18
+    "progress": 83
   },
   {
-    "id": "http://arxiv.org/abs/2504.06267v1",
-    "title": "Prethermalization of light and matter in cavity-coupled Rydberg arrays",
-    "summary": "We explore the dynamics of two-dimensional Rydberg atom arrays coupled to a\nsingle-mode optical cavity, employing nonequilibrium diagrammatic techniques to\ncapture nonlinearities and fluctuations beyond mean-field theory. We discover a\nnovel prethermalization regime driven by the interplay between short-range\nRydberg interactions and long-range photon-mediated interactions. In this\nregime, matter and light equilibrate at distinct - and in some cases opposite -\neffective temperatures, resembling the original concept of prethermalization\nfrom particle physics. Our results establish strongly correlated AMO platforms\nas tools to investigate fundamental questions in statistical mechanics,\nincluding quantum thermalization in higher-dimensional systems.",
-    "published": "2025-04-08T17:59:59Z",
-    "formattedDate": "Apr 8, 2025",
-    "updated": "2025-04-08T17:59:59Z",
-    "firstAuthor": "Aleksandr N. Mikheev",
+    "id": "http://arxiv.org/abs/2504.07094v1",
+    "title": "Computing Canonical Averages with Quantum and Classical Optimizers:\n  Thermodynamic Reweighting for QUBO Models of Physical Systems",
+    "summary": "We present a general method to compute canonical averages for physical models\nsampled via quantum or classical quadratic unconstrained binary optimization\n(QUBO). First, we introduce a histogram reweighting scheme applicable to\nQUBO-based sampling constrained to specific intervals of an order parameter,\ne.g., physical energy. Next, we demonstrate that the scheme can accurately\nrecover the density of states, which in turn allows for calculating expectation\nvalues in the conjugate ensemble, e.g., at a fixed temperature. The method can\nthus be used to advance the state-of-the-art characterization of physical\nsystems that admit a QUBO-based representation and that are otherwise\nintractable with real-space sampling methods. A case in point are space-filling\nmelts of lattice ring polymers, recently mapped in QUBO form, for which our\nmethod reveals that the ring catenation probability is non-monotonic with the\nbending rigidity.",
+    "published": "2025-04-09T17:59:32Z",
+    "formattedDate": "Apr 9, 2025",
+    "updated": "2025-04-09T17:59:32Z",
+    "firstAuthor": "Francesco Slongo",
     "authors": [
-      "Aleksandr N. Mikheev",
-      "Hossein Hosseinabadi",
-      "Jamir Marino"
+      "Francesco Slongo",
+      "Cristian Micheletti"
     ],
-    "link": "http://arxiv.org/abs/2504.06267v1",
+    "link": "http://arxiv.org/abs/2504.07094v1",
     "categoryLabel": "Quantum",
-    "progress": 37
+    "progress": 33
   },
   {
-    "id": "http://arxiv.org/abs/2504.06218v1",
-    "title": "Role of mechanical effects on the excitation spectra of\n  microwave-dressed Rydberg states in a cold atomic cloud",
-    "summary": "We explore the excitation spectra of cold 87Rb atoms to the 55D_3/2 Rydberg\nstate in the presence of microwave (MW) radiation as a function of MW\nfrequency. The spectra reveal several features around the\ntransition-frequencies between adjacent Rydberg states. We argue that some of\nthese features are indicative of variations in the Rydberg excitation\nprobability while others result from the removal of atoms from the cold cloud\nas a consequence of a MW induced strong dipole-dipole inter-atomic force. Our\nclaim is supported by experimental observations and theoretical modeling.",
-    "published": "2025-04-08T17:06:05Z",
-    "formattedDate": "Apr 8, 2025",
-    "updated": "2025-04-08T17:06:05Z",
-    "firstAuthor": "H. Failache",
+    "id": "http://arxiv.org/abs/2504.07092v1",
+    "title": "Are We Done with Object-Centric Learning?",
+    "summary": "Object-centric learning (OCL) seeks to learn representations that only encode\nan object, isolated from other objects or background cues in a scene. This\napproach underpins various aims, including out-of-distribution (OOD)\ngeneralization, sample-efficient composition, and modeling of structured\nenvironments. Most research has focused on developing unsupervised mechanisms\nthat separate objects into discrete slots in the representation space,\nevaluated using unsupervised object discovery. However, with recent\nsample-efficient segmentation models, we can separate objects in the pixel\nspace and encode them independently. This achieves remarkable zero-shot\nperformance on OOD object discovery benchmarks, is scalable to foundation\nmodels, and can handle a variable number of slots out-of-the-box. Hence, the\ngoal of OCL methods to obtain object-centric representations has been largely\nachieved. Despite this progress, a key question remains: How does the ability\nto separate objects within a scene contribute to broader OCL objectives, such\nas OOD generalization? We address this by investigating the OOD generalization\nchallenge caused by spurious background cues through the lens of OCL. We\npropose a novel, training-free probe called $\\textbf{Object-Centric\nClassification with Applied Masks (OCCAM)}$, demonstrating that\nsegmentation-based encoding of individual objects significantly outperforms\nslot-based OCL methods. However, challenges in real-world applications remain.\nWe provide the toolbox for the OCL community to use scalable object-centric\nrepresentations, and focus on practical applications and fundamental questions,\nsuch as understanding object perception in human cognition. Our code is\navailable $\\href{https://github.com/AlexanderRubinstein/OCCAM}{here}$.",
+    "published": "2025-04-09T17:59:05Z",
+    "formattedDate": "Apr 9, 2025",
+    "updated": "2025-04-09T17:59:05Z",
+    "firstAuthor": "Alexander Rubinstein",
     "authors": [
-      "H. Failache",
-      "J. A. Muniz",
-      "L. Velazco",
-      "D. Talento",
-      "A. Lezama"
+      "Alexander Rubinstein",
+      "Ameya Prabhu",
+      "Matthias Bethge",
+      "Seong Joon Oh"
     ],
-    "link": "http://arxiv.org/abs/2504.06218v1",
+    "link": "http://arxiv.org/abs/2504.07092v1",
     "categoryLabel": "Research",
-    "progress": 77
+    "progress": 65
   }
 ]

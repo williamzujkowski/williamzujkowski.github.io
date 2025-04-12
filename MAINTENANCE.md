@@ -168,13 +168,29 @@ This will:
 
 ### Refreshing Link Previews
 
-To refresh all link previews:
+The site has tools to check and update link previews:
 
 ```bash
+# Check status of all link previews and identify issues
+npm run check:links
+
+# Update links with missing screenshots or metadata errors
+npm run update:links:missing
+
+# Update the 20 oldest links (based on last check date)
+npm run update:links:oldest
+
+# Update specific links by name or URL (e.g., github and youtube)
+npm run update:links github youtube
+
+# Force update all link previews (use sparingly)
+npm run update:links:all
+
+# Initial setup (for first run or complete refresh)
 npm run process:links:initial
 ```
 
-For normal operation (updating just the oldest links):
+For normal build operations (updating just a few oldest links):
 
 ```bash
 npm run build:links
@@ -327,9 +343,16 @@ For manual deployment:
 |--------|---------|
 | `npm run dev` | Start development server |
 | `npm run build` | Build entire site |
-| `npm run build:links` | Generate link previews |
-| `npm run validate:links` | Check links for validity |
 | `npm run process:posts` | Process new blog posts |
+| **Link Management** | |
+| `npm run check:links` | Check link preview status and issues |
+| `npm run update:links` | Update link previews |
+| `npm run update:links:missing` | Update links with missing data |
+| `npm run update:links:oldest` | Update oldest links |
+| `npm run update:links:all` | Force update all link previews |
+| `npm run validate:links` | Check links for validity |
+| **Data Generation** | |
+| `npm run build:links` | Generate link previews (routine update) |
 | `npm run build:arxiv` | Fetch arXiv paper data |
 | `npm run build:github` | Fetch GitHub repository data |
 | `npm run build:viz` | Generate visualization data |
