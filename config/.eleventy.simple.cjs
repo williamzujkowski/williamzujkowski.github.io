@@ -223,13 +223,21 @@ module.exports = function(eleventyConfig) {
         const label = page.title || part.replace(/-/g, ' ');
         breadcrumbs += `<span class="breadcrumbs-item current">${label}</span>`;
       } else {
-        // Get proper title if available
-        const segment = part.replace(/-/g, ' ');
-        const title = segment.charAt(0).toUpperCase() + segment.slice(1);
-        
-        breadcrumbs += `<span class="breadcrumbs-item">
-          <a href="${path}/" class="breadcrumbs-link">${title}</a>
-        </span>`;
+        // Handle special cases
+        if (part === "posts") {
+          // For blog posts, link to the blog page instead of /posts/
+          breadcrumbs += `<span class="breadcrumbs-item">
+            <a href="/blog/" class="breadcrumbs-link">Blog</a>
+          </span>`;
+        } else {
+          // Get proper title if available
+          const segment = part.replace(/-/g, ' ');
+          const title = segment.charAt(0).toUpperCase() + segment.slice(1);
+          
+          breadcrumbs += `<span class="breadcrumbs-item">
+            <a href="${path}/" class="breadcrumbs-link">${title}</a>
+          </span>`;
+        }
       }
     });
     
