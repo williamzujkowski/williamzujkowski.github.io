@@ -133,3 +133,34 @@ The batch processing tools will:
 - Process links in small batches to avoid memory issues
 - Save progress after each batch in case the process is interrupted
 - Provide a summary of successful and failed screenshots
+
+### Option 3: Use the Fast Screenshot Generator (Recommended)
+
+For the fastest and most efficient screenshot generation, use the optimized screenshot generator:
+
+```bash
+# Show help and options
+./tools/fast-screenshots.sh
+
+# Generate screenshots for all links without screenshots
+./tools/fast-screenshots.sh all
+
+# Update all existing screenshots
+./tools/fast-screenshots.sh update
+
+# Process specific batch of links
+./tools/fast-screenshots.sh batch 50 10
+```
+
+The fast screenshot generator includes many optimizations:
+
+- **Parallel Processing**: Captures multiple screenshots simultaneously
+- **Caching**: Reuses screenshots to avoid redoing work
+- **Resource Blocking**: Blocks unnecessary fonts, media, and websockets
+- **Optimized Browser Settings**: Reduces memory usage and improves performance
+- **Adaptive Concurrency**: Uses available CPU cores efficiently
+- **Faster Page Loading**: Uses 'domcontentloaded' event instead of waiting for all resources
+
+Performance comparison:
+- Standard script: ~5-10 seconds per screenshot
+- Fast generator: ~1-3 seconds per screenshot with concurrent processing
