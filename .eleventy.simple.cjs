@@ -242,26 +242,58 @@ module.exports = function(eleventyConfig) {
     // Default image
     let imageKey = "default";
     
-    // Try to read blog_images data from global data
-    let blogImages = {};
-    try {
-      const fs = require('fs');
-      const path = require('path');
-      const blogImagesPath = path.join(__dirname, 'src', '_data', 'config', 'blog', 'images.json');
-      
-      if (fs.existsSync(blogImagesPath)) {
-        blogImages = JSON.parse(fs.readFileSync(blogImagesPath, 'utf8'));
-      } else {
-        console.warn('Blog images mapping file not found at', blogImagesPath);
+    // For the fallback config, use a hardcoded default mapping
+    // This ensures the build works even without access to the images.json file
+    let blogImages = {
+      "image_mapping": {
+        "ai": {
+          "path": "blog/ai-blog.jpg",
+          "alt": "AI illustration with neural networks and connections"
+        },
+        "security": {
+          "path": "blog/security-blog.jpg",
+          "alt": "Cybersecurity lock and shield illustration"
+        },
+        "cloud": {
+          "path": "blog/cloud-blog.jpg",
+          "alt": "Cloud computing infrastructure illustration"
+        },
+        "ethics": {
+          "path": "blog/ethics-blog.jpg",
+          "alt": "AI ethics balance scale illustration"
+        },
+        "transformer": {
+          "path": "blog/transformer-blog.jpg",
+          "alt": "Transformer architecture neural network illustration"
+        },
+        "pizza": {
+          "path": "blog/pizza-blog.jpg", 
+          "alt": "Developer pizza calculator illustration"
+        },
+        "quantum": {
+          "path": "blog/topics/quantum.jpg",
+          "alt": "Quantum computing illustration with qubits and superposition"
+        },
+        "llm": {
+          "path": "blog/topics/llm.jpg",
+          "alt": "Large Language Model illustration with text processing"
+        },
+        "default": {
+          "path": "github-style/blog-placeholder.jpg",
+          "alt": "Default blog post illustration"
+        }
+      },
+      "keyword_mapping": {
+        "security": ["secure", "security", "exploit", "vulnerability", "cybersecurity", "cyber"],
+        "ai": ["ai", "artificial intelligence", "machine learning", "ml", "deep learning", "neural", "model"],
+        "cloud": ["cloud", "aws", "azure", "gcp", "serverless", "iaas", "paas", "saas"],
+        "ethics": ["ethics", "ethical", "bias", "fairness", "responsible ai"],
+        "transformer": ["transformer", "attention", "encoder", "decoder"],
+        "pizza": ["pizza", "calculator"],
+        "quantum": ["quantum", "qubit", "superposition", "entanglement"],
+        "llm": ["llm", "language model", "gpt", "claude", "gemini", "large language model"]
       }
-    } catch (error) {
-      console.warn('Error loading blog images mapping:', error.message);
-      // Return default image if we can't load the mapping
-      return {
-        path: "github-style/blog-placeholder.jpg",
-        alt: "Blog post illustration"
-      };
-    }
+    };
     
     // If image is explicitly set in frontmatter, use that
     if (post.data && post.data.image) {
