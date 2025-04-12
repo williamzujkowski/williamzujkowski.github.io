@@ -1,106 +1,132 @@
-# Blog Post Automation System
+# Blog Post Quick Reference Guide
 
-We've created a streamlined process for adding new blog posts to the website with proper formatting, standardized metadata, and automatic scheduling.
+## 📝 Quick Start
 
-## Features
+1. **Create draft** in `new_posts/` directory (markdown or text)
+2. **Process post** with `npm run process:posts:enhanced`
+3. **Review output** in `src/posts/` directory
+4. **Build site** with `npm run build`
 
-- **Automated Conversion**: Transforms raw text or markdown files into properly formatted blog posts
-- **Supports Multiple Formats**: 
-  - Text files (.txt) with title on first line
-  - Markdown files (.md) with H1 header, front matter, or filename as title
-- **Intelligent Date Spacing**: Schedules posts 10-14 days apart from each other
-- **Automated Tagging**: Suggests relevant tags based on content analysis
-- **Image Selection**: Recommends appropriate feature images for each post
-- **Code Formatting**: Preserves code blocks with proper syntax highlighting
-- **ASCII Diagrams**: Supports ASCII art diagrams for technical illustrations
-- **Markdown Enhancement**: Improves formatting with proper headers, lists, and links
-- **Content Guidelines**: Provides detailed guidance for creating engaging technical content
+## 🛠 Post Processing Options
 
-## How It Works
+| Command | Description |
+|---------|-------------|
+| `npm run process:posts:enhanced` | Interactive processing with guidance (recommended) |
+| `npm run process:posts:batch` | Process all posts automatically |
+| `npm run process:posts` | Legacy processor (basic features) |
 
-1. **Write Content**: Create `.txt` or `.md` files in the `new_posts/` directory with your content
-2. **Follow Guidelines**: Use `Prompts/blog-guidelines.md` for content structure best practices
-3. **Run the Processor**: Use `npm run process:posts` to transform all new posts
-4. **Posts Are Enhanced**: Posts get converted to proper markdown with all necessary frontmatter
-5. **Automatic Scheduling**: Dates are assigned sequentially from the most recent post
-6. **Original Files Preserved**: Processed source files move to `new_posts/processed/`
+## 📋 Frontmatter Template
 
-## Directory Structure
-
-```
-/
-├── new_posts/               # Where you place raw posts
-│   └── processed/           # Where processed raw posts are stored
-├── Prompts/
-│   ├── blogpost.prompt      # Complete prompt for generating blog posts
-│   └── blog-guidelines.md   # Content guidelines for creating effective posts
-├── src/
-│   └── posts/               # Where the final formatted posts go
-├── tools/
-│   └── process-new-posts.js # The processing script
-└── BLOG-WORKFLOW.md         # Detailed workflow instructions
+```yaml
+---
+title: "Post Title"
+date: 2025-01-15
+layout: post.njk
+tags: 
+  - posts
+  - category1
+  - category2
+description: "SEO-friendly description of the post content"
+image: blog/topics/image-name.jpg
+image_alt: "Description of the featured image"
+---
 ```
 
-## Sample Posts Created
+## 📊 Content Guidelines
 
-The system has successfully processed these posts:
+- **Length**: 6-9 minute read (1,400-2,100 words)
+- **Format**: Clear headings, short paragraphs, code examples
+- **Images**: At least one per major section (from free sources)
+- **Structure**: Intro → Main content → Conclusion → Resources
 
-1. `2024-12-26-ai-learning-in-resource-constrained-environments.md` (13 days after previous post)
-2. `2025-01-06-beyond-containers-the-future-of-application-deployment.md` (11 days after previous post)
-3. `2025-01-19-designing-resilient-systems-for-an-uncertain-world.md` (13 days after previous post)
+## 🏷 Common Tags
 
-Each post includes:
-- Proper frontmatter (title, date, layout, tags)
-- Appropriate header image
-- Enhanced formatting with proper header hierarchy
-- Code blocks with syntax highlighting
-- ASCII diagrams for technical concepts
-- Improved bullet points and lists
-- Reference links
+- `posts` (automatic)
+- `security`, `ai`, `cloud`, `devops`
+- `programming`, `architecture`
+- `quantum`, `cryptography`, `edge`
+- `hpc`, `rag`, `prompt`, `containers`
+- `resilience`, `llm`, `ethics`
 
-## Content Guidelines
+## 🖼 Image Categories
 
-For detailed content guidelines, see `Prompts/blog-guidelines.md`. Key recommendations include:
+| Category | Topic | File Path |
+|----------|-------|-----------|
+| ai | Artificial Intelligence | blog/ai-blog.jpg |
+| security | Cybersecurity | blog/security-blog.jpg |
+| cloud | Cloud Computing | blog/cloud-blog.jpg |
+| ethics | AI Ethics | blog/ethics-blog.jpg |
+| transformer | Transformer Architecture | blog/transformer-blog.jpg |
+| quantum | Quantum Computing | blog/topics/quantum.jpg |
+| cryptography | Encryption & Cryptography | blog/topics/cryptography.jpg |
+| llm | Large Language Models | blog/topics/llm.jpg |
 
-- Target a reading time of 6-9 minutes (minimum 1,400 words, ideally 1,400-2,100 words)
-- Include a header image and relevant images throughout
-- Use analogies and real-world examples to simplify complex concepts
-- Structure content with clear headings and logical organization
-- Provide code examples with proper syntax highlighting
-- Include trade-offs and limitations when presenting technologies
-- End with a clear summary and further reading suggestions
+*Update all image categories with: `npm run build:blog-images`*
 
-## Getting Started
+## 📚 Markdown Cheatsheet
 
-See `BLOG-WORKFLOW.md` for detailed instructions on how to use this system to create and manage blog posts.
+```markdown
+# Heading 1
+## Heading 2
+### Heading 3
 
-Run this command to process new posts:
+**Bold text**
+*Italic text*
 
-```bash
-npm run process:posts
+- Bullet point
+- Another point
+  - Sub-point
+
+1. Numbered item
+2. Another item
+
+[Link text](https://example.com)
+
+![Alt text](image-path.jpg)
+
+`inline code`
+
+```javascript
+// Code block
+function example() {
+  return "Hello";
+}
 ```
 
-Then build the site to see your changes:
+> Blockquote text
 
-```bash
-npm run build
+| Column 1 | Column 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
 ```
 
-## Using the Blog Post Prompt
+## 🔎 For Details
 
-The file `Prompts/blogpost.prompt` contains a comprehensive prompt for generating high-quality blog posts. This prompt can be used with AI assistants to help create structured content that follows our guidelines. It includes instructions for:
+See the comprehensive [BLOG-WORKFLOW.md](BLOG-WORKFLOW.md) for full documentation and instructions.
+
+## 🧠 Using AI Assistance
+
+The file `Prompts/blogpost.prompt` contains a comprehensive prompt for generating high-quality blog posts with AI assistants. It helps create structured content that follows our guidelines, including:
 
 - Topic selection and audience targeting
 - Content structure and formatting
 - Visual enhancements and image selection
 - Code integration and examples
-- Citations and reference formatting
+- Research suggestions for latest developments
 
-## Customization
+## 📁 Directory Structure
 
-The system can be customized by editing the `tools/process-new-posts.js` script:
-
-- Change the date spacing between posts
-- Add more tags to detect
-- Add new image mappings for different topics
-- Modify the enhancement logic for different formatting needs
+```
+/
+├── new_posts/               # Place draft posts here
+│   └── processed/           # Processed drafts move here
+├── Prompts/
+│   ├── blogpost.prompt      # AI prompt for generating posts
+│   └── post-template.md     # Standard post template
+├── src/
+│   └── posts/               # Final formatted posts
+├── tools/
+│   ├── process-new-posts.js # Legacy processor
+│   └── enhanced-post-processor.js # New interactive processor
+└── BLOG-WORKFLOW.md         # Complete workflow documentation
+```
