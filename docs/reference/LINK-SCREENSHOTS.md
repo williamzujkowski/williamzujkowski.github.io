@@ -103,9 +103,33 @@ These settings provide a balance between quality and file size, suitable for web
 
 ## Adding New Screenshots
 
+### Option 1: Manually Add Specific Screenshots
+
 To add screenshots for specific links:
 
 1. Edit `tools/generate-test-screenshots.js`
 2. Add entries to the `LINKS_TO_CAPTURE` array
 3. Run the script
 4. Commit the generated screenshots and updated JSON file
+
+### Option 2: Generate All Screenshots
+
+To generate screenshots for all links in batches:
+
+1. Use the `tools/generate-screenshots-batch.js` script which processes links in small batches:
+   ```bash
+   # Process links starting at index 0, taking 20 links
+   node tools/generate-screenshots-batch.js 0 20
+   ```
+
+2. Or use the helper shell script to process all links in sequential batches:
+   ```bash
+   # Run the batch processing script
+   ./tools/run-screenshot-batches.sh
+   ```
+
+The batch processing tools will:
+- Skip domains known to block screenshots
+- Process links in small batches to avoid memory issues
+- Save progress after each batch in case the process is interrupted
+- Provide a summary of successful and failed screenshots
