@@ -125,8 +125,12 @@ eleventyNavigation:
     <div class="gh-post-card searchable h-full" data-tags="{{ post.data.tags | join(',') | lower }}">
       <!-- Post image with consistent ratio -->
       <div class="gh-post-image">
-        {% set blogImg = blogImage(post) %}
-        <img src="/assets/images/{{ blogImg.path }}" alt="{{ blogImg.alt }}" class="w-full h-full object-cover">
+        {% if blogImage %}
+          {% set blogImg = blogImage(post) %}
+          <img src="/assets/images/{{ blogImg.path }}" alt="{{ blogImg.alt }}" class="w-full h-full object-cover">
+        {% else %}
+          <img src="/assets/images/github-style/blog-placeholder.jpg" alt="Blog post illustration" class="w-full h-full object-cover">
+        {% endif %}
         
         {% if post.data.tags %}
           <div class="gh-post-tags-overlay">
