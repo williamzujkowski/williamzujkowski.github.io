@@ -33,6 +33,7 @@ All documentation has been consolidated in the `docs/` directory for better orga
 ### Development
 - [Claude AI Guidelines](docs/development/CLAUDE.md) - Guidelines for AI assistance with this codebase
 - [Contributing](docs/development/CONTRIBUTING.md) - Guidelines for contributing to the project
+- [Link Screenshots](docs/reference/LINK-SCREENSHOTS.md) - How website screenshots for links are generated and used
 
 #### Using Claude AI
 
@@ -322,9 +323,12 @@ The site is configured for GitHub Pages deployment. When you push to the reposit
 The site uses Microlink's open source tools to enhance link previews:
 
 - During the build process, `build-link-previews.js` generates screenshots and extracts metadata for external links
-- The script is designed to process new links and update the 10 oldest links on each build
+- The script is designed to process new links and update the 20 oldest links on each build
 - This data is stored as JSON and used by the frontend to display rich link previews
 - In case pre-generated data is unavailable, the site falls back to using the Microlink API in real-time
+- You can also use `tools/generate-test-screenshots.js` to manually generate screenshots for testing
+
+For detailed information about how website screenshots work, see [Link Screenshots](docs/reference/LINK-SCREENSHOTS.md)
 
 ### Link Preview Generation
 
