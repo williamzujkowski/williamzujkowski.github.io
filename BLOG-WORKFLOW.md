@@ -163,7 +163,23 @@ After processing:
    - Add or refine code examples
    - Enhance visual elements or formatting
 
-### 7. Publishing
+### 7. Standardizing Frontmatter
+
+To ensure all blog posts have consistent frontmatter, you can use the standardization tool:
+
+```bash
+npm run standardize:frontmatter
+```
+
+This tool will:
+- Add missing descriptions (generated from the first paragraph)
+- Standardize tags format and ensure 'posts' tag is included
+- Automatically select the best image based on content and tags
+- Create backups of all processed files in `src/posts/backup/`
+
+Running this tool periodically helps maintain consistency across all blog posts.
+
+### 8. Publishing
 
 After processing, posts will be automatically included in the site build:
 
