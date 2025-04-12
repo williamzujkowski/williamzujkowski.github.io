@@ -12,6 +12,7 @@
   "scripts": {
     "build": "npm run build:data && eleventy --config=config/.eleventy.simple.cjs && npm run build:css",
     "build:css": "postcss src/css/styles.css -o _site/css/styles.css --config=config/postcss.config.cjs",
+    "build:optimized-css": "npm run optimize:css && postcss src/css/optimized/main.css -o _site/css/optimized/main.css --config=config/postcss.config.cjs",
     "build:data": "node scripts/create-fallback-data.js && npm run build:arxiv && npm run build:github && npm run build:viz && npm run build:books && (npm run build:links || true) && (npm run build:blog-images || true)",
     "build:arxiv": "node scripts/build-arxiv-feed.js",
     "build:github": "node scripts/build-github-pins.js",
@@ -36,6 +37,7 @@
     "process:posts:batch": "node tools/enhanced-post-processor.js -b",
     "standardize:frontmatter": "node tools/standardize-frontmatter.js",
     "generate:theme": "node tools/generate-theme.js",
+    "optimize:css": "node tools/optimize-css.js",
     "watch:css": "postcss src/css/styles.css -o _site/css/styles.css --watch --config=config/postcss.config.cjs",
     "serve": "npm run build:data && npm run watch:css & eleventy --config=config/.eleventy.simple.cjs --serve",
     "dev": "npm run serve",
@@ -45,7 +47,6 @@
     "format": "prettier --write \"src/**/*.{js,json,css,md,njk}\"",
     "build:prod": "NODE_ENV=production npm run build",
     "optimize": "npm run optimize:css && npm run optimize:js && npm run optimize:images",
-    "optimize:css": "NODE_ENV=production npm run build:css",
     "optimize:js": "terser src/js/*.js -o _site/js/bundle.min.js --compress --mangle",
     "optimize:images": "npm install sharp && node scripts/optimize-images.js",
     "analyze": "lighthouse https://williamzujkowski.github.io/ --output=json --output-path=./lighthouse-report.json --view"
@@ -70,7 +71,7 @@
     "glob": "^11.0.1",
     "got": "^14.4.7",
     "gray-matter": "^4.0.3",
-    "lighthouse": "^11.6.0",
+    "lighthouse": "^12.5.1",
     "luxon": "^3.4.4",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
