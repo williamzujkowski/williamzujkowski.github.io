@@ -54,15 +54,15 @@ jobs:
           
           # First create fallback data files to ensure we have valid JSON
           echo "Creating fallback data files..."
-          node scripts/create-fallback-data.js
+          node scripts/build/create-fallback-data.js
           
           # Try to generate real data (but don't fail build if they fail)
           echo "Fetching ArXiv data..."
-          node scripts/build-arxiv-feed.js || echo "ArXiv data fetch failed. Using fallback data."
+          node scripts/build/build-arxiv-feed.js || echo "ArXiv data fetch failed. Using fallback data."
           echo "Fetching GitHub pins..."
-          node scripts/build-github-pins.js || echo "GitHub pins fetch failed. Using fallback data."
+          node scripts/build/build-github-pins.js || echo "GitHub pins fetch failed. Using fallback data."
           echo "Generating visualization data..."
-          node scripts/build-visualizations.js || echo "Visualization data generation failed. Using fallback data."
+          node scripts/build/build-visualizations.js || echo "Visualization data generation failed. Using fallback data."
           
           # Skip link previews in GitHub Actions as they're heavy and error-prone
           echo "Skipping link previews generation in CI environment"
