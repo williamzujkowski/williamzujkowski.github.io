@@ -15,24 +15,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.07965v1",
     "categoryLabel": "AI",
-    "progress": 76
-  },
-  {
-    "id": "http://arxiv.org/abs/2504.07964v1",
-    "title": "C3PO: Critical-Layer, Core-Expert, Collaborative Pathway Optimization\n  for Test-Time Expert Re-Mixing",
-    "summary": "Mixture-of-Experts (MoE) Large Language Models (LLMs) suffer from severely\nsub-optimal expert pathways-our study reveals that naive expert selection\nlearned from pretraining leaves a surprising 10-20% accuracy gap for\nimprovement. Motivated by this observation, we develop a novel class of\ntest-time optimization methods to re-weight or \"re-mixing\" the experts in\ndifferent layers jointly for each test sample. Since the test sample's ground\ntruth is unknown, we propose to optimize a surrogate objective defined by the\nsample's \"successful neighbors\" from a reference set of samples. We introduce\nthree surrogates and algorithms based on mode-finding, kernel regression, and\nthe average loss of similar reference samples/tasks. To reduce the cost of\noptimizing whole pathways, we apply our algorithms merely to the core experts'\nmixing weights in critical layers, which enjoy similar performance but save\nsignificant computation. This leads to \"Critical-Layer, Core-Expert,\nCollaborative Pathway Optimization (C3PO)\". We apply C3PO to two recent MoE\nLLMs and examine it on six widely-used benchmarks. It consistently improves the\nbase model by 7-15% in accuracy and outperforms widely used test-time learning\nbaselines, e.g., in-context learning and prompt/prefix tuning, by a large\nmargin. Moreover, C3PO enables MoE LLMs with 1-3B active parameters to\noutperform LLMs of 7-9B parameters, hence improving MoE's advantages on\nefficiency. Our thorough ablation study further sheds novel insights on\nachieving test-time improvement on MoE.",
-    "published": "2025-04-10T17:59:56Z",
-    "formattedDate": "Apr 10, 2025",
-    "updated": "2025-04-10T17:59:56Z",
-    "firstAuthor": "Zhongyang Li",
-    "authors": [
-      "Zhongyang Li",
-      "Ziyue Li",
-      "Tianyi Zhou"
-    ],
-    "link": "http://arxiv.org/abs/2504.07964v1",
-    "categoryLabel": "AI",
-    "progress": 19
+    "progress": 89
   },
   {
     "id": "http://arxiv.org/abs/2504.07945v1",
@@ -50,23 +33,7 @@
     ],
     "link": "http://arxiv.org/abs/2504.07945v1",
     "categoryLabel": "Security",
-    "progress": 70
-  },
-  {
-    "id": "http://arxiv.org/abs/2504.07938v1",
-    "title": "Development of a Quantum-Resistant File Transfer System with Blockchain\n  Audit Trail",
-    "summary": "This paper presents a condensed system architecture for a file transfer\nsolution that leverages post quantum cryptography and blockchain to secure data\nagainst quantum threats. The architecture integrates NIST standardized\nalgorithms CRYSTALS Kyber for encryption and CRYSTALS Dilithium for digital\nsignatures with an immutable blockchain ledger to provide an auditable,\ndecentralized storage mechanism. The system is modular, comprising a Sender\nmodule for secure encryption and signing, a central User Storage module for\ndecryption, reencryption, and blockchain logging, and a Requestor module for\nauthenticated data access. We include detailed pseudocode, analyze security\nrisks, and offer performance insights to demonstrate the system's robustness,\nscalability, and transparency.",
-    "published": "2025-04-10T17:51:14Z",
-    "formattedDate": "Apr 10, 2025",
-    "updated": "2025-04-10T17:51:14Z",
-    "firstAuthor": "Ernesto Sola-Thomas",
-    "authors": [
-      "Ernesto Sola-Thomas",
-      "Masudul H Imtiaz"
-    ],
-    "link": "http://arxiv.org/abs/2504.07938v1",
-    "categoryLabel": "Security",
-    "progress": 25
+    "progress": 58
   },
   {
     "id": "http://arxiv.org/abs/2504.07950v1",
@@ -93,22 +60,23 @@
     ],
     "link": "http://arxiv.org/abs/2504.07950v1",
     "categoryLabel": "Quantum",
-    "progress": 15
+    "progress": 62
   },
   {
-    "id": "http://arxiv.org/abs/2504.07941v1",
-    "title": "Quantum error correction via multi-particle discrete-time quantum walk",
-    "summary": "We propose a scheme of quantum error correction that employs a multi-particle\nquantum walk defined on nested squares, each hosting a single particle. In this\nmodel, each particle moves within its own distinct square through iterations of\nthree discrete-time steps. First, a particle updates its two-level internal\n{\\it coin} state. Next, it either moves to an adjacent vertex or stays put,\ndepending on the outcome. Finally, it interacts with another particle if these\nparticles arrive at the nearest-neighbor vertices of the two adjacent squares,\nacquiring a phase factor of $-1$. Because a single particle represents a\nthree-qubit state through its position and coin state, Shor's nine-qubit code\nis implemented using only three particles, with two additional particles for\nsyndrome measurement. Furthermore, by exploiting gauge symmetry, our scheme\nachieves redundant encoding, error correction, and arbitrary operations on the\nencoded information using only nearest-neighbor interactions.",
-    "published": "2025-04-10T17:51:39Z",
+    "id": "http://arxiv.org/abs/2504.07964v1",
+    "title": "C3PO: Critical-Layer, Core-Expert, Collaborative Pathway Optimization\n  for Test-Time Expert Re-Mixing",
+    "summary": "Mixture-of-Experts (MoE) Large Language Models (LLMs) suffer from severely\nsub-optimal expert pathways-our study reveals that naive expert selection\nlearned from pretraining leaves a surprising 10-20% accuracy gap for\nimprovement. Motivated by this observation, we develop a novel class of\ntest-time optimization methods to re-weight or \"re-mixing\" the experts in\ndifferent layers jointly for each test sample. Since the test sample's ground\ntruth is unknown, we propose to optimize a surrogate objective defined by the\nsample's \"successful neighbors\" from a reference set of samples. We introduce\nthree surrogates and algorithms based on mode-finding, kernel regression, and\nthe average loss of similar reference samples/tasks. To reduce the cost of\noptimizing whole pathways, we apply our algorithms merely to the core experts'\nmixing weights in critical layers, which enjoy similar performance but save\nsignificant computation. This leads to \"Critical-Layer, Core-Expert,\nCollaborative Pathway Optimization (C3PO)\". We apply C3PO to two recent MoE\nLLMs and examine it on six widely-used benchmarks. It consistently improves the\nbase model by 7-15% in accuracy and outperforms widely used test-time learning\nbaselines, e.g., in-context learning and prompt/prefix tuning, by a large\nmargin. Moreover, C3PO enables MoE LLMs with 1-3B active parameters to\noutperform LLMs of 7-9B parameters, hence improving MoE's advantages on\nefficiency. Our thorough ablation study further sheds novel insights on\nachieving test-time improvement on MoE.",
+    "published": "2025-04-10T17:59:56Z",
     "formattedDate": "Apr 10, 2025",
-    "updated": "2025-04-10T17:51:39Z",
-    "firstAuthor": "Ryo Asaka",
+    "updated": "2025-04-10T17:59:56Z",
+    "firstAuthor": "Zhongyang Li",
     "authors": [
-      "Ryo Asaka",
-      "Ryusei Minamikawa"
+      "Zhongyang Li",
+      "Ziyue Li",
+      "Tianyi Zhou"
     ],
-    "link": "http://arxiv.org/abs/2504.07941v1",
-    "categoryLabel": "Quantum",
-    "progress": 68
+    "link": "http://arxiv.org/abs/2504.07964v1",
+    "categoryLabel": "AI",
+    "progress": 54
   }
 ]
