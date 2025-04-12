@@ -243,25 +243,246 @@
   @apply rounded-github my-6 mx-auto;
 }
 
+/* Inline code styling with better contrast */
 .prose-custom code:not(pre code) {
-  @apply bg-surface px-1.5 py-0.5 rounded text-[0.9em] font-mono;
+  @apply px-1.5 py-0.5 rounded text-[0.9em] font-mono;
+  background-color: rgba(110, 118, 129, 0.2);
+  color: #e6edf3;
+  border: 1px solid rgba(110, 118, 129, 0.3);
 }
 
-/* Code block line numbers */
+/* Light theme inline code */
+.light .prose-custom code:not(pre code) {
+  background-color: rgba(175, 184, 193, 0.2);
+  color: #24292f;
+  border: 1px solid rgba(175, 184, 193, 0.3);
+}
+
+/* Enhanced code blocks styling */
+.prose-custom pre {
+  @apply p-0 my-6 bg-[#0e1117] rounded-github overflow-hidden border border-border;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.prose-custom pre code {
+  @apply block p-0 overflow-auto text-[0.9em] bg-transparent text-gray-200;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  tab-size: 2;
+}
+
+/* Code container with line numbers */
 .code-line {
   position: relative;
-  padding-left: 2rem;
+  padding-left: 3.5rem;
+  min-height: 1.5em;
+  padding-right: 1rem;
+  border-left: 3px solid transparent;
+}
+
+/* Highlight active line on hover */
+.code-line:hover {
+  background-color: rgba(115, 138, 148, 0.1);
+  border-left-color: rgba(var(--color-accent-rgb), 0.4);
 }
 
 .code-line::before {
   content: attr(data-line-number);
   position: absolute;
   left: 0;
-  color: rgba(139, 148, 158, 0.5);
+  padding: 0 0.7rem;
+  width: 3rem;
   text-align: right;
-  width: 1.5rem;
-  padding-right: 0.5rem;
+  color: rgba(139, 148, 158, 0.6);
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 0.8em;
   user-select: none;
+  border-right: 1px solid rgba(139, 148, 158, 0.2);
+}
+
+/* Code block header with language and copy button */
+.code-header {
+  @apply flex items-center justify-between bg-[#171b22] px-4 py-2 text-xs text-[#8b949e] border-b border-border;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.copy-button {
+  @apply flex items-center justify-center py-1 px-2 rounded-md bg-surface hover:bg-gray-light transition-colors duration-200 text-text-secondary hover:text-white;
+}
+
+/* Code block custom scrollbar */
+pre::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+pre::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background-color: rgba(139, 148, 158, 0.3);
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(139, 148, 158, 0.5);
+}
+
+/* Syntax highlighting - GitHub dark theme compatible */
+.hljs-comment,
+.hljs-quote {
+  color: #8b949e;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #ff7b72; 
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-template-string {
+  color: #a5d6ff;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.hljs-variable,
+.hljs-literal,
+.hljs-tag,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-meta {
+  color: #79c0ff;
+}
+
+.hljs-number,
+.hljs-deletion {
+  color: #f97583;
+}
+
+.hljs-addition,
+.hljs-section {
+  color: #7ee787;
+}
+
+.hljs-attribute,
+.hljs-name {
+  color: #d2a8ff;
+}
+
+.hljs-property {
+  color: #79c0ff;
+}
+
+.hljs-type {
+  color: #ffab70;
+}
+
+/* Light theme syntax highlighting and code block overrides */
+.light .prose-custom pre {
+  @apply bg-[#f6f8fa] border-gray-200;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.light .prose-custom pre code {
+  @apply text-gray-800;
+}
+
+.light .code-header {
+  @apply bg-[#f0f2f5] text-gray-600 border-gray-200;
+}
+
+.light .code-line::before {
+  @apply text-gray-500 bg-[#eaecef]/40 border-r-gray-200;
+}
+
+.light .code-line:hover {
+  @apply bg-[#eaecef]/60;
+  border-left-color: rgba(var(--color-accent-rgb), 0.3);
+}
+
+.light .copy-button {
+  @apply bg-[#eff1f3] hover:bg-[#dfe2e6] text-gray-600 hover:text-gray-900;
+}
+
+.light pre::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.light pre::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.light pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Light theme syntax highlighting */
+.light .hljs-comment,
+.light .hljs-quote {
+  color: #6a737d;
+}
+
+.light .hljs-keyword,
+.light .hljs-selector-tag {
+  color: #d73a49;
+}
+
+.light .hljs-string,
+.light .hljs-attr,
+.light .hljs-template-string {
+  color: #032f62;
+}
+
+.light .hljs-title,
+.light .hljs-title.class_,
+.light .hljs-title.function_ {
+  color: #6f42c1;
+}
+
+.light .hljs-variable,
+.light .hljs-literal,
+.light .hljs-tag,
+.light .hljs-regexp,
+.light .hljs-symbol,
+.light .hljs-bullet,
+.light .hljs-built_in,
+.light .hljs-meta {
+  color: #005cc5;
+}
+
+.light .hljs-number,
+.light .hljs-deletion {
+  color: #e36209;
+}
+
+.light .hljs-addition,
+.light .hljs-section {
+  color: #22863a;
+}
+
+.light .hljs-attribute,
+.light .hljs-name {
+  color: #6f42c1;
+}
+
+.light .hljs-property {
+  color: #005cc5;
+}
+
+.light .hljs-type {
+  color: #d73a49;
 }
 
 /* Table of Contents */
