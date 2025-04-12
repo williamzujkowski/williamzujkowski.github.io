@@ -1,81 +1,82 @@
 [
   {
-    "id": "http://arxiv.org/abs/2504.07097v1",
-    "title": "Sculpting Subspaces: Constrained Full Fine-Tuning in LLMs for Continual\n  Learning",
-    "summary": "Continual learning in large language models (LLMs) is prone to catastrophic\nforgetting, where adapting to new tasks significantly degrades performance on\npreviously learned ones. Existing methods typically rely on low-rank,\nparameter-efficient updates that limit the model's expressivity and introduce\nadditional parameters per task, leading to scalability issues. To address these\nlimitations, we propose a novel continual full fine-tuning approach leveraging\nadaptive singular value decomposition (SVD). Our method dynamically identifies\ntask-specific low-rank parameter subspaces and constrains updates to be\northogonal to critical directions associated with prior tasks, thus effectively\nminimizing interference without additional parameter overhead or storing\nprevious task gradients. We evaluate our approach extensively on standard\ncontinual learning benchmarks using both encoder-decoder (T5-Large) and\ndecoder-only (LLaMA-2 7B) models, spanning diverse tasks including\nclassification, generation, and reasoning. Empirically, our method achieves\nstate-of-the-art results, up to 7% higher average accuracy than recent\nbaselines like O-LoRA, and notably maintains the model's general linguistic\ncapabilities, instruction-following accuracy, and safety throughout the\ncontinual learning process by reducing forgetting to near-negligible levels.\nOur adaptive SVD framework effectively balances model plasticity and knowledge\nretention, providing a practical, theoretically grounded, and computationally\nscalable solution for continual learning scenarios in large language models.",
-    "published": "2025-04-09T17:59:42Z",
-    "formattedDate": "Apr 9, 2025",
-    "updated": "2025-04-09T17:59:42Z",
-    "firstAuthor": "Nikhil Shivakumar Nayak",
+    "id": "http://arxiv.org/abs/2504.07965v1",
+    "title": "Cat, Rat, Meow: On the Alignment of Language Model and Human\n  Term-Similarity Judgments",
+    "summary": "Small and mid-sized generative language models have gained increasing\nattention. Their size and availability make them amenable to being analyzed at\na behavioral as well as a representational level, allowing investigations of\nhow these levels interact. We evaluate 32 publicly available language models\nfor their representational and behavioral alignment with human similarity\njudgments on a word triplet task. This provides a novel evaluation setting to\nprobe semantic associations in language beyond common pairwise comparisons. We\nfind that (1) even the representations of small language models can achieve\nhuman-level alignment, (2) instruction-tuned model variants can exhibit\nsubstantially increased agreement, (3) the pattern of alignment across layers\nis highly model dependent, and (4) alignment based on models' behavioral\nresponses is highly dependent on model size, matching their representational\nalignment only for the largest evaluated models.",
+    "published": "2025-04-10T17:59:57Z",
+    "formattedDate": "Apr 10, 2025",
+    "updated": "2025-04-10T17:59:57Z",
+    "firstAuthor": "Lorenz Linhardt",
     "authors": [
-      "Nikhil Shivakumar Nayak",
-      "Krishnateja Killamsetty",
-      "Ligong Han",
-      "Abhishek Bhandwaldar",
-      "Prateek Chanda",
-      "Kai Xu",
-      "Hao Wang",
-      "Aldo Pareja",
-      "Oleg Silkin",
-      "Mustafa Eyceoz",
-      "Akash Srivastava"
+      "Lorenz Linhardt",
+      "Tom Neuhäuser",
+      "Lenka Tětková",
+      "Oliver Eberle"
     ],
-    "link": "http://arxiv.org/abs/2504.07097v1",
+    "link": "http://arxiv.org/abs/2504.07965v1",
     "categoryLabel": "AI",
-    "progress": 88
+    "progress": 19
   },
   {
-    "id": "http://arxiv.org/abs/2504.07048v1",
-    "title": "Context Switching for Secure Multi-programming of Near-Term Quantum\n  Computers",
-    "summary": "Multi-programming quantum computers improve device utilization and\nthroughput. However, crosstalk from concurrent two-qubit CNOT gates poses\nsecurity risks, compromising the fidelity and output of co-running victim\nprograms. We design Zero Knowledge Tampering Attacks (ZKTAs), using which\nattackers can exploit crosstalk without knowledge of the hardware error\nprofile. ZKTAs can alter victim program outputs in 40% of cases on commercial\nsystems.\n  We identify that ZKTAs succeed because the attacker's program consistently\nruns with the same victim program in a fixed context. To mitigate this, we\npropose QONTEXTS: a context-switching technique that defends against ZKTAs by\nrunning programs across multiple contexts, each handling only a subset of\ntrials. QONTEXTS uses multi-programming with frequent context switching while\nidentifying a unique set of programs for each context. This helps limit only a\nfraction of execution to ZKTAs. We enhance QONTEXTS with attack detection\ncapabilities that compare the distributions from different contexts against\neach other to identify noisy contexts executed with ZKTAs. Our evaluations on\nreal IBMQ systems show that QONTEXTS increases program resilience by three\norders of magnitude and fidelity by 1.33$\\times$ on average. Moreover, QONTEXTS\nimproves throughput by 2$\\times$, advancing security in multi-programmed\nenvironments.",
-    "published": "2025-04-09T17:05:16Z",
-    "formattedDate": "Apr 9, 2025",
-    "updated": "2025-04-09T17:05:16Z",
-    "firstAuthor": "Avinash Kumar",
+    "id": "http://arxiv.org/abs/2504.07945v1",
+    "title": "GenEAva: Generating Cartoon Avatars with Fine-Grained Facial Expressions\n  from Realistic Diffusion-based Faces",
+    "summary": "Cartoon avatars have been widely used in various applications, including\nsocial media, online tutoring, and gaming. However, existing cartoon avatar\ndatasets and generation methods struggle to present highly expressive avatars\nwith fine-grained facial expressions and are often inspired from real-world\nidentities, raising privacy concerns. To address these challenges, we propose a\nnovel framework, GenEAva, for generating high-quality cartoon avatars with\nfine-grained facial expressions. Our approach fine-tunes a state-of-the-art\ntext-to-image diffusion model to synthesize highly detailed and expressive\nfacial expressions. We then incorporate a stylization model that transforms\nthese realistic faces into cartoon avatars while preserving both identity and\nexpression. Leveraging this framework, we introduce the first expressive\ncartoon avatar dataset, GenEAva 1.0, specifically designed to capture 135\nfine-grained facial expressions, featuring 13,230 expressive cartoon avatars\nwith a balanced distribution across genders, racial groups, and age ranges. We\ndemonstrate that our fine-tuned model generates more expressive faces than the\nstate-of-the-art text-to-image diffusion model SDXL. We also verify that the\ncartoon avatars generated by our framework do not include memorized identities\nfrom fine-tuning data. The proposed framework and dataset provide a diverse and\nexpressive benchmark for future research in cartoon avatar generation.",
+    "published": "2025-04-10T17:54:02Z",
+    "formattedDate": "Apr 10, 2025",
+    "updated": "2025-04-10T17:54:02Z",
+    "firstAuthor": "Hao Yu",
     "authors": [
-      "Avinash Kumar",
-      "Meng Wang",
-      "Chenxu Liu",
-      "Ang Li",
-      "Prashant J. Nair",
-      "Poulami Das"
+      "Hao Yu",
+      "Rupayan Mallick",
+      "Margrit Betke",
+      "Sarah Adel Bargal"
     ],
-    "link": "http://arxiv.org/abs/2504.07048v1",
+    "link": "http://arxiv.org/abs/2504.07945v1",
     "categoryLabel": "Security",
-    "progress": 83
+    "progress": 51
   },
   {
-    "id": "http://arxiv.org/abs/2504.07094v1",
-    "title": "Computing Canonical Averages with Quantum and Classical Optimizers:\n  Thermodynamic Reweighting for QUBO Models of Physical Systems",
-    "summary": "We present a general method to compute canonical averages for physical models\nsampled via quantum or classical quadratic unconstrained binary optimization\n(QUBO). First, we introduce a histogram reweighting scheme applicable to\nQUBO-based sampling constrained to specific intervals of an order parameter,\ne.g., physical energy. Next, we demonstrate that the scheme can accurately\nrecover the density of states, which in turn allows for calculating expectation\nvalues in the conjugate ensemble, e.g., at a fixed temperature. The method can\nthus be used to advance the state-of-the-art characterization of physical\nsystems that admit a QUBO-based representation and that are otherwise\nintractable with real-space sampling methods. A case in point are space-filling\nmelts of lattice ring polymers, recently mapped in QUBO form, for which our\nmethod reveals that the ring catenation probability is non-monotonic with the\nbending rigidity.",
-    "published": "2025-04-09T17:59:32Z",
-    "formattedDate": "Apr 9, 2025",
-    "updated": "2025-04-09T17:59:32Z",
-    "firstAuthor": "Francesco Slongo",
+    "id": "http://arxiv.org/abs/2504.07950v1",
+    "title": "Localized quasiparticles in a fluxonium with quasi-two-dimensional\n  amorphous kinetic inductors",
+    "summary": "Disordered superconducting materials with high kinetic inductance are an\nimportant resource to generate nonlinearity in quantum circuits and create\nhigh-impedance environments. In thin films fabricated from these materials, the\ncombination of disorder and the low effective dimensionality leads to increased\norder parameter fluctuations and enhanced kinetic inductance values. Among the\nchallenges of harnessing these compounds in coherent devices are their\nproximity to the superconductor-insulator phase transition, the presence of\nbroken Cooper pairs, and the two-level systems located in the disordered\nstructure. In this work, we fabricate tungsten silicide wires from\nquasi-two-dimensional films with one spatial dimension smaller than the\nsuperconducting coherence length and embed them into microwave resonators and\nfluxonium qubits, where the kinetic inductance provides the inductive part of\nthe circuits. We study the dependence of loss on the frequency, disorder, and\ngeometry of the device, and find that the loss increases with the level of\ndisorder and is dominated by the localized quasiparticles trapped in the\nspatial variations of the superconducting gap.",
+    "published": "2025-04-10T17:56:04Z",
+    "formattedDate": "Apr 10, 2025",
+    "updated": "2025-04-10T17:56:04Z",
+    "firstAuthor": "Trevyn F. Q. Larson",
     "authors": [
-      "Francesco Slongo",
-      "Cristian Micheletti"
+      "Trevyn F. Q. Larson",
+      "Sarah Garcia Jones",
+      "Tamás Kalmár",
+      "Pablo Aramburu Sanchez",
+      "Sai Pavan Chitta",
+      "Varun Verma",
+      "Kristen Genter",
+      "Katarina Cicak",
+      "Sae Woo Nam",
+      "Gergő Fülöp",
+      "Jens Koch",
+      "Ray W. Simmonds",
+      "András Gyenis"
     ],
-    "link": "http://arxiv.org/abs/2504.07094v1",
+    "link": "http://arxiv.org/abs/2504.07950v1",
     "categoryLabel": "Quantum",
-    "progress": 33
+    "progress": 30
   },
   {
-    "id": "http://arxiv.org/abs/2504.07092v1",
-    "title": "Are We Done with Object-Centric Learning?",
-    "summary": "Object-centric learning (OCL) seeks to learn representations that only encode\nan object, isolated from other objects or background cues in a scene. This\napproach underpins various aims, including out-of-distribution (OOD)\ngeneralization, sample-efficient composition, and modeling of structured\nenvironments. Most research has focused on developing unsupervised mechanisms\nthat separate objects into discrete slots in the representation space,\nevaluated using unsupervised object discovery. However, with recent\nsample-efficient segmentation models, we can separate objects in the pixel\nspace and encode them independently. This achieves remarkable zero-shot\nperformance on OOD object discovery benchmarks, is scalable to foundation\nmodels, and can handle a variable number of slots out-of-the-box. Hence, the\ngoal of OCL methods to obtain object-centric representations has been largely\nachieved. Despite this progress, a key question remains: How does the ability\nto separate objects within a scene contribute to broader OCL objectives, such\nas OOD generalization? We address this by investigating the OOD generalization\nchallenge caused by spurious background cues through the lens of OCL. We\npropose a novel, training-free probe called $\\textbf{Object-Centric\nClassification with Applied Masks (OCCAM)}$, demonstrating that\nsegmentation-based encoding of individual objects significantly outperforms\nslot-based OCL methods. However, challenges in real-world applications remain.\nWe provide the toolbox for the OCL community to use scalable object-centric\nrepresentations, and focus on practical applications and fundamental questions,\nsuch as understanding object perception in human cognition. Our code is\navailable $\\href{https://github.com/AlexanderRubinstein/OCCAM}{here}$.",
-    "published": "2025-04-09T17:59:05Z",
-    "formattedDate": "Apr 9, 2025",
-    "updated": "2025-04-09T17:59:05Z",
-    "firstAuthor": "Alexander Rubinstein",
+    "id": "http://arxiv.org/abs/2504.07964v1",
+    "title": "C3PO: Critical-Layer, Core-Expert, Collaborative Pathway Optimization\n  for Test-Time Expert Re-Mixing",
+    "summary": "Mixture-of-Experts (MoE) Large Language Models (LLMs) suffer from severely\nsub-optimal expert pathways-our study reveals that naive expert selection\nlearned from pretraining leaves a surprising 10-20% accuracy gap for\nimprovement. Motivated by this observation, we develop a novel class of\ntest-time optimization methods to re-weight or \"re-mixing\" the experts in\ndifferent layers jointly for each test sample. Since the test sample's ground\ntruth is unknown, we propose to optimize a surrogate objective defined by the\nsample's \"successful neighbors\" from a reference set of samples. We introduce\nthree surrogates and algorithms based on mode-finding, kernel regression, and\nthe average loss of similar reference samples/tasks. To reduce the cost of\noptimizing whole pathways, we apply our algorithms merely to the core experts'\nmixing weights in critical layers, which enjoy similar performance but save\nsignificant computation. This leads to \"Critical-Layer, Core-Expert,\nCollaborative Pathway Optimization (C3PO)\". We apply C3PO to two recent MoE\nLLMs and examine it on six widely-used benchmarks. It consistently improves the\nbase model by 7-15% in accuracy and outperforms widely used test-time learning\nbaselines, e.g., in-context learning and prompt/prefix tuning, by a large\nmargin. Moreover, C3PO enables MoE LLMs with 1-3B active parameters to\noutperform LLMs of 7-9B parameters, hence improving MoE's advantages on\nefficiency. Our thorough ablation study further sheds novel insights on\nachieving test-time improvement on MoE.",
+    "published": "2025-04-10T17:59:56Z",
+    "formattedDate": "Apr 10, 2025",
+    "updated": "2025-04-10T17:59:56Z",
+    "firstAuthor": "Zhongyang Li",
     "authors": [
-      "Alexander Rubinstein",
-      "Ameya Prabhu",
-      "Matthias Bethge",
-      "Seong Joon Oh"
+      "Zhongyang Li",
+      "Ziyue Li",
+      "Tianyi Zhou"
     ],
-    "link": "http://arxiv.org/abs/2504.07092v1",
-    "categoryLabel": "Research",
-    "progress": 65
+    "link": "http://arxiv.org/abs/2504.07964v1",
+    "categoryLabel": "AI",
+    "progress": 51
   }
 ]

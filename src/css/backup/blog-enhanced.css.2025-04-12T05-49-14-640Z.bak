@@ -1,0 +1,608 @@
+/* Enhanced Blog Styling */
+/* This file contains additional styles for the blog list and post pages */
+
+/* Blog Post Card Styles */
+.gh-post-card {
+  @apply bg-gray-light border border-border rounded-github transition-transform duration-300 ease-out overflow-hidden flex flex-col h-full;
+}
+
+.gh-post-card:hover {
+  @apply shadow-lg transform -translate-y-1;
+  border-color: var(--color-accent-500);
+}
+
+.gh-post-image {
+  @apply relative h-0 pb-[56.25%] overflow-hidden;
+}
+
+.gh-post-image img {
+  @apply absolute inset-0 w-full h-full object-cover transition-transform duration-500;
+}
+
+.gh-post-card:hover .gh-post-image img {
+  transform: scale(1.05);
+}
+
+.gh-post-tags-overlay {
+  @apply absolute bottom-3 left-3 flex flex-wrap gap-1.5;
+}
+
+.gh-badge {
+  @apply text-xs py-1 px-2 bg-surface/90 rounded-full text-white backdrop-blur-sm shadow-sm border border-border/30;
+}
+
+.gh-badge-accent {
+  @apply bg-accent/20 text-accent border-accent/30;
+}
+
+.gh-post-content {
+  @apply p-5 flex-grow flex flex-col;
+}
+
+.gh-post-title {
+  @apply text-xl font-semibold text-white mb-3 line-clamp-2 hover:text-accent transition-colors duration-200;
+}
+
+.gh-post-meta {
+  @apply flex flex-wrap gap-4 text-text-secondary mb-3 text-sm;
+}
+
+.gh-post-date, .gh-post-reading-time {
+  @apply flex items-center gap-1.5;
+}
+
+.gh-post-excerpt {
+  @apply text-text mb-4 line-clamp-3;
+}
+
+.gh-post-footer {
+  @apply mt-auto pt-3 border-t border-border flex justify-between items-center;
+}
+
+.gh-read-more {
+  @apply text-accent text-sm font-medium flex items-center gap-1 hover:text-accent-400 transition-colors duration-200;
+}
+
+/* Blog Controls & Search */
+.gh-blog-controls {
+  @apply mb-8;
+}
+
+.gh-control-panel {
+  @apply bg-gray-light p-4 rounded-github border border-border flex flex-col sm:flex-row gap-4 justify-between;
+}
+
+.gh-search-container {
+  @apply relative flex-grow max-w-md;
+}
+
+.gh-search-input {
+  @apply w-full bg-surface border border-border rounded-github py-2 pl-4 pr-10 text-white placeholder-text-secondary focus:outline-none focus:ring-1 focus:ring-accent;
+}
+
+.gh-search-icon {
+  @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary pointer-events-none;
+}
+
+.gh-blog-stats {
+  @apply flex flex-wrap gap-4 items-center text-sm text-text-secondary;
+}
+
+.gh-stat {
+  @apply flex items-center gap-1.5;
+}
+
+/* Tag Filtering */
+.tags-filter {
+  @apply bg-gray-light rounded-github border border-border p-4;
+}
+
+.gh-filter-header {
+  @apply flex justify-between items-center mb-4;
+}
+
+.gh-filter-title {
+  @apply flex items-center gap-2 text-white font-medium;
+}
+
+.gh-filter-clear {
+  @apply text-sm text-accent hover:text-accent-400 transition-colors duration-200;
+}
+
+.gh-tag-buttons {
+  @apply flex flex-wrap gap-2;
+}
+
+.tag-btn {
+  @apply py-1.5 px-3 bg-surface rounded-full text-text-secondary border border-border text-sm transition-all duration-200;
+}
+
+.tag-btn:hover {
+  @apply bg-surface-hover text-white;
+}
+
+.tag-btn.selected {
+  @apply bg-accent text-white border-accent;
+}
+
+.tag-btn.pulse-animation {
+  animation: pulse 0.5s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb), 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(var(--color-accent-rgb), 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb), 0);
+  }
+}
+
+/* Pagination */
+.gh-pagination-container {
+  @apply mt-8 bg-gray-light rounded-github border border-border p-4;
+}
+
+.gh-pagination-header {
+  @apply flex items-center gap-2 text-text-secondary mb-4;
+}
+
+.gh-pagination {
+  @apply flex justify-center;
+}
+
+.gh-pagination-nav {
+  @apply flex items-center gap-2;
+}
+
+.gh-page-button {
+  @apply flex items-center gap-1.5 py-1.5 px-3 bg-surface rounded-github text-text-secondary border border-border text-sm hover:bg-surface-hover hover:text-white transition-colors duration-200;
+}
+
+.gh-page-button.disabled {
+  @apply opacity-50 cursor-not-allowed hover:bg-surface hover:text-text-secondary;
+}
+
+.gh-pagination-pages {
+  @apply flex gap-2;
+}
+
+.gh-page-number {
+  @apply flex items-center justify-center w-8 h-8 rounded-full bg-surface text-text-secondary border border-border text-sm hover:bg-surface-hover hover:text-white transition-colors duration-200;
+}
+
+.gh-page-number.active {
+  @apply bg-accent text-white border-accent;
+}
+
+/* No Results Message */
+#no-results-message {
+  @apply transition-opacity duration-300;
+}
+
+.gh-search-highlight {
+  @apply bg-accent/30 text-white px-1 py-0.5 rounded;
+}
+
+/* Blog Post Styles (Single Post) */
+.prose-custom {
+  @apply prose prose-invert max-w-none prose-headings:text-white prose-p:text-text prose-a:text-accent prose-strong:text-white prose-code:text-accent-200 prose-pre:bg-surface prose-blockquote:border-accent-600 prose-blockquote:text-text-secondary prose-ul:text-text prose-ol:text-text;
+}
+
+.prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom h4 {
+  @apply scroll-mt-16;
+}
+
+.prose-custom h2 {
+  @apply text-2xl font-semibold border-b border-border pb-2 mt-8 mb-4;
+}
+
+.prose-custom h3 {
+  @apply text-xl font-medium mt-6 mb-3;
+}
+
+.prose-custom a {
+  @apply transition-colors duration-200 hover:text-accent-400 no-underline border-b border-accent/30 hover:border-accent-400;
+}
+
+.prose-custom ul {
+  @apply list-disc pl-5 my-4;
+}
+
+.prose-custom ol {
+  @apply list-decimal pl-5 my-4;
+}
+
+.prose-custom pre {
+  @apply my-6 rounded-github overflow-x-auto text-[0.85em];
+}
+
+.prose-custom blockquote {
+  @apply italic bg-surface/50 p-4 rounded-github my-6 border-l-4 border-accent;
+}
+
+.prose-custom table {
+  @apply border-collapse w-full my-6;
+}
+
+.prose-custom table th {
+  @apply bg-surface text-white font-semibold p-2 text-left border border-border;
+}
+
+.prose-custom table td {
+  @apply p-2 border border-border;
+}
+
+.prose-custom img {
+  @apply rounded-github my-6 mx-auto;
+}
+
+/* Inline code styling with better contrast */
+.prose-custom code:not(pre code) {
+  @apply px-1.5 py-0.5 rounded text-[0.9em] font-mono;
+  background-color: rgba(110, 118, 129, 0.2);
+  color: #e6edf3;
+  border: 1px solid rgba(110, 118, 129, 0.3);
+}
+
+/* Light theme inline code */
+.light .prose-custom code:not(pre code) {
+  background-color: rgba(175, 184, 193, 0.2);
+  color: #24292f;
+  border: 1px solid rgba(175, 184, 193, 0.3);
+}
+
+/* Enhanced code blocks styling */
+.prose-custom pre {
+  @apply p-0 my-6 bg-[#0e1117] rounded-github overflow-hidden border border-border;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.prose-custom pre code {
+  @apply block p-0 overflow-auto text-[0.9em] bg-transparent text-gray-200;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  tab-size: 2;
+}
+
+/* Code container with line numbers */
+.code-line {
+  position: relative;
+  padding-left: 3.5rem;
+  min-height: 1.5em;
+  padding-right: 1rem;
+  border-left: 3px solid transparent;
+}
+
+/* Highlight active line on hover */
+.code-line:hover {
+  background-color: rgba(115, 138, 148, 0.1);
+  border-left-color: rgba(var(--color-accent-rgb), 0.4);
+}
+
+.code-line::before {
+  content: attr(data-line-number);
+  position: absolute;
+  left: 0;
+  padding: 0 0.7rem;
+  width: 3rem;
+  text-align: right;
+  color: rgba(139, 148, 158, 0.6);
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 0.8em;
+  user-select: none;
+  border-right: 1px solid rgba(139, 148, 158, 0.2);
+}
+
+/* Code block header with language and copy button */
+.code-header {
+  @apply flex items-center justify-between bg-[#171b22] px-4 py-2 text-xs text-[#8b949e] border-b border-border;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.copy-button {
+  @apply flex items-center justify-center py-1 px-2 rounded-md bg-surface hover:bg-gray-light transition-colors duration-200 text-text-secondary hover:text-white;
+}
+
+/* Code block custom scrollbar */
+pre::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+pre::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background-color: rgba(139, 148, 158, 0.3);
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(139, 148, 158, 0.5);
+}
+
+/* Syntax highlighting - GitHub dark theme compatible */
+.hljs-comment,
+.hljs-quote {
+  color: #8b949e;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #ff7b72; 
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-template-string {
+  color: #a5d6ff;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.hljs-variable,
+.hljs-literal,
+.hljs-tag,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-meta {
+  color: #79c0ff;
+}
+
+.hljs-number,
+.hljs-deletion {
+  color: #f97583;
+}
+
+.hljs-addition,
+.hljs-section {
+  color: #7ee787;
+}
+
+.hljs-attribute,
+.hljs-name {
+  color: #d2a8ff;
+}
+
+.hljs-property {
+  color: #79c0ff;
+}
+
+.hljs-type {
+  color: #ffab70;
+}
+
+/* Light theme syntax highlighting and code block overrides */
+.light .prose-custom pre {
+  @apply bg-[#f6f8fa] border-gray-200;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.light .prose-custom pre code {
+  @apply text-gray-800;
+}
+
+.light .code-header {
+  @apply bg-[#f0f2f5] text-gray-600 border-gray-200;
+}
+
+.light .code-line::before {
+  @apply text-gray-500 bg-[#eaecef]/40 border-r-gray-200;
+}
+
+.light .code-line:hover {
+  @apply bg-[#eaecef]/60;
+  border-left-color: rgba(var(--color-accent-rgb), 0.3);
+}
+
+.light .copy-button {
+  @apply bg-[#eff1f3] hover:bg-[#dfe2e6] text-gray-600 hover:text-gray-900;
+}
+
+.light pre::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.light pre::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.light pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Light theme syntax highlighting */
+.light .hljs-comment,
+.light .hljs-quote {
+  color: #6a737d;
+}
+
+.light .hljs-keyword,
+.light .hljs-selector-tag {
+  color: #d73a49;
+}
+
+.light .hljs-string,
+.light .hljs-attr,
+.light .hljs-template-string {
+  color: #032f62;
+}
+
+.light .hljs-title,
+.light .hljs-title.class_,
+.light .hljs-title.function_ {
+  color: #6f42c1;
+}
+
+.light .hljs-variable,
+.light .hljs-literal,
+.light .hljs-tag,
+.light .hljs-regexp,
+.light .hljs-symbol,
+.light .hljs-bullet,
+.light .hljs-built_in,
+.light .hljs-meta {
+  color: #005cc5;
+}
+
+.light .hljs-number,
+.light .hljs-deletion {
+  color: #e36209;
+}
+
+.light .hljs-addition,
+.light .hljs-section {
+  color: #22863a;
+}
+
+.light .hljs-attribute,
+.light .hljs-name {
+  color: #6f42c1;
+}
+
+.light .hljs-property {
+  color: #005cc5;
+}
+
+.light .hljs-type {
+  color: #d73a49;
+}
+
+/* Table of Contents */
+.toc {
+  @apply border border-border rounded-github p-4 bg-gray-light mb-8 sticky top-20;
+}
+
+.toc-title {
+  @apply text-lg font-semibold mb-3 text-white;
+}
+
+.toc-list {
+  @apply space-y-2 text-text list-none pl-0;
+}
+
+.toc-item {
+  @apply flex items-center;
+}
+
+.toc-item.level-3 {
+  @apply ml-4;
+}
+
+.toc-link {
+  @apply text-accent hover:text-accent-400 transition-colors duration-200 no-underline;
+}
+
+/* Related Posts */
+.gh-post-item {
+  @apply bg-gray-light border border-border rounded-github overflow-hidden flex flex-col h-full transition-all duration-300;
+}
+
+.gh-post-item:hover {
+  @apply shadow-lg transform -translate-y-1;
+  border-color: var(--color-accent-500);
+}
+
+.gh-post-item .gh-post-image {
+  @apply h-40;
+}
+
+.gh-post-item .gh-post-image img {
+  @apply object-cover h-full w-full;
+}
+
+.gh-post-item .gh-post-content {
+  @apply p-4 flex flex-col flex-grow;
+}
+
+.gh-post-item .gh-post-title {
+  @apply text-base font-medium line-clamp-2 mb-2;
+}
+
+.gh-post-item .gh-post-date {
+  @apply text-xs text-text-secondary mb-3;
+}
+
+/* Animation for search results */
+.gh-post-grid.searching, .gh-post-grid.reset-animation {
+  transition: opacity 0.3s ease;
+  opacity: 0.7;
+}
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 640px) {
+  .gh-post-meta {
+    @apply flex-col gap-2;
+  }
+  
+  .gh-tag-buttons {
+    @apply overflow-x-auto pb-2 flex-nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .gh-tag-buttons::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .tag-btn {
+    @apply whitespace-nowrap;
+  }
+  
+  .prose-custom h2 {
+    @apply text-xl;
+  }
+  
+  .prose-custom h3 {
+    @apply text-lg;
+  }
+  
+  .gh-post-item .gh-post-image {
+    @apply h-32;
+  }
+}
+
+/* Print styles */
+@media print {
+  .gh-post-card, .gh-post-item, .prose-custom pre, .prose-custom blockquote {
+    @apply border border-gray-300 !important;
+    box-shadow: none !important;
+  }
+  
+  .prose-custom a {
+    @apply text-black border-black/30 !important;
+  }
+  
+  .gh-post-title, .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+    @apply text-black !important;
+  }
+  
+  .prose-custom p, .prose-custom li, .gh-post-excerpt {
+    @apply text-gray-800 !important;
+  }
+  
+  .gh-post-meta, .gh-post-date, .gh-post-reading-time {
+    @apply text-gray-600 !important;
+  }
+  
+  .gh-pagination-container, .gh-blog-controls, .toc, .gh-post-tags-overlay {
+    @apply hidden !important;
+  }
+}

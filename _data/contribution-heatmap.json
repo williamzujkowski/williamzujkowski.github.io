@@ -36,11 +36,6 @@
       "intensity": 1
     },
     {
-      "date": "2024-07-15",
-      "count": 1,
-      "intensity": 1
-    },
-    {
       "date": "2024-07-20",
       "count": 1,
       "intensity": 1
@@ -51,22 +46,12 @@
       "intensity": 1
     },
     {
-      "date": "2024-08-20",
-      "count": 1,
-      "intensity": 1
-    },
-    {
       "date": "2024-09-02",
       "count": 1,
       "intensity": 1
     },
     {
       "date": "2024-09-16",
-      "count": 1,
-      "intensity": 1
-    },
-    {
-      "date": "2024-10-19",
       "count": 1,
       "intensity": 1
     },
@@ -101,11 +86,6 @@
       "intensity": 1
     },
     {
-      "date": "2025-03-01",
-      "count": 1,
-      "intensity": 1
-    },
-    {
       "date": "2025-03-10",
       "count": 1,
       "intensity": 1
@@ -126,7 +106,22 @@
       "intensity": 1
     },
     {
-      "date": "2025-05-08",
+      "date": "2025-05-07",
+      "count": 1,
+      "intensity": 1
+    },
+    {
+      "date": "2025-05-17",
+      "count": 1,
+      "intensity": 1
+    },
+    {
+      "date": "2025-05-28",
+      "count": 1,
+      "intensity": 1
+    },
+    {
+      "date": "2025-06-11",
       "count": 1,
       "intensity": 1
     }

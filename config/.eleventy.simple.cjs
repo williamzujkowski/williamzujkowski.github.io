@@ -398,6 +398,18 @@ module.exports = function(eleventyConfig) {
       const blogImagesData = JSON.parse(fs.readFileSync(blogImagesPath, 'utf8'));
       eleventyConfig.addGlobalData('blog_images', () => blogImagesData);
       console.log('Loaded blog images mapping data');
+    } else {
+      // Fallback to empty mapping if the file doesn't exist
+      console.warn('Blog images mapping file not found, using empty fallback');
+      eleventyConfig.addGlobalData('blog_images', () => ({
+        image_mapping: {
+          default: {
+            path: "github-style/blog-placeholder.jpg",
+            alt: "Default blog post illustration"
+          }
+        },
+        keyword_mapping: {}
+      }));
     }
   } catch (error) {
     console.warn('Error loading external data:', error.message);
