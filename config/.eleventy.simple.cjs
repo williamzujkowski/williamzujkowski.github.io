@@ -174,6 +174,43 @@ module.exports = function(eleventyConfig) {
     return value.replace(/<[^>]*>/g, '');
   });
   
+  // Link preview filters
+  eleventyConfig.addFilter("getPreviewByUrl", function(previewsArray, url) {
+    if (!previewsArray || !Array.isArray(previewsArray)) return null;
+    return previewsArray.find(p => p.url === url);
+  });
+  
+  eleventyConfig.addFilter("formatDate", function(dateString) {
+    if (!dateString) return '';
+    try {
+      const date = new Date(dateString);
+      // If invalid date, return empty string
+      if (isNaN(date.getTime())) return '';
+      
+      const now = new Date();
+      const diffInDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+      
+      if (diffInDays < 1) {
+        return 'Today';
+      } else if (diffInDays === 1) {
+        return 'Yesterday';
+      } else if (diffInDays < 7) {
+        return `${diffInDays} days ago`;
+      } else if (diffInDays < 30) {
+        const weeks = Math.floor(diffInDays / 7);
+        return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+      } else {
+        return date.toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric',
+          year: 'numeric'
+        });
+      }
+    } catch (error) {
+      return '';
+    }
+  });
+  
   // JSON filter
   eleventyConfig.addFilter("json", function(value) {
     return JSON.stringify(value);

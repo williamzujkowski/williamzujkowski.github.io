@@ -236,7 +236,10 @@ function buildSiteConfiguration() {
     
     // Process link previews
     try {
-      const linkPreviewsPath = path.join(rootDir, '_data', 'link-previews.json');
+      // Define the rootDir properly for this context
+      const dataRootDir = path.resolve(__dirname, '..', '..');
+      const linkPreviewsPath = path.join(dataRootDir, '_data', 'link-previews.json');
+      
       if (fs.existsSync(linkPreviewsPath)) {
         const linkPreviewsData = fs.readFileSync(linkPreviewsPath, 'utf8');
         config.linkPreviews = JSON.parse(linkPreviewsData);
