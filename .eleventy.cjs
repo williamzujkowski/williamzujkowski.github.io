@@ -18,12 +18,94 @@ async function imageShortcode(src, alt, sizes = "100vw", widths = [300, 600, 900
     throw new Error(`Missing alt text for image: ${src}`);
   }
 
-  // Full path for source images
-  let fullSrc = src;
-  if (!src.startsWith('/') && !src.startsWith('./') && !src.startsWith('../')) {
-    fullSrc = `./assets/images/${src}`;
+  // Try to use enhanced image shortcode if metadata exists
+  try {
+    const metadataFile = path.join(__dirname, 'assets', 'data', 'image-metadata.json');
+    
+    if (fs.existsSync(metadataFile)) {
+      const imageMetadata = JSON.parse(fs.readFileSync(metadataFile, 'utf8'));
+      
+      // Normalize src path
+      let normalizedSrc = src;
+      if (!src.startsWith('/') && !src.startsWith('./') && !src.startsWith('../')) {
+        normalizedSrc = `assets/images/${src}`;
+      } else if (src.startsWith('/')) {
+        normalizedSrc = src.substring(1);
+      }
+      
+      // Get relative path from assets/images
+      const relativePath = normalizedSrc.replace(/^assets\/images\//, '');
+      
+      // Check if we have metadata for this image
+      if (imageMetadata[relativePath]) {
+        const outputs = imageMetadata[relativePath].outputs;
+        
+        // Group by format
+        const byFormat = {};
+        for (const output of outputs) {
+          if (!byFormat[output.format]) {
+            byFormat[output.format] = [];
+          }
+          byFormat[output.format].push(output);
+        }
+        
+        // Get webp srcset if available
+        let webpSrcset = '';
+        if (byFormat.webp) {
+          webpSrcset = byFormat.webp
+            .sort((a, b) => a.size - b.size)
+            .map(output => `/assets/images/${output.path} ${output.size}w`)
+            .join(', ');
+        }
+        
+        // Get fallback format srcset (jpeg/png)
+        const fallbackFormat = byFormat.jpeg ? 'jpeg' : Object.keys(byFormat)[0];
+        let fallbackSrcset = '';
+        let fallbackSrc = '';
+        
+        if (byFormat[fallbackFormat]) {
+          fallbackSrcset = byFormat[fallbackFormat]
+            .sort((a, b) => a.size - b.size)
+            .map(output => `/assets/images/${output.path} ${output.size}w`)
+            .join(', ');
+          
+          // Use smallest size as fallback src
+          fallbackSrc = `/assets/images/${byFormat[fallbackFormat]
+            .sort((a, b) => a.size - b.size)[0].path}`;
+        } else {
+          // Use original as fallback
+          fallbackSrc = normalizedSrc.startsWith('/') ? normalizedSrc : `/${normalizedSrc}`;
+        }
+        
+        // Width and height for aspect ratio
+        const width = imageMetadata[relativePath].original.width;
+        const height = imageMetadata[relativePath].original.height;
+        
+        // Build HTML
+        let html = '<picture>\n';
+        
+        // Add webp source if available
+        if (webpSrcset) {
+          html += `  <source type="image/webp" srcset="${webpSrcset}" sizes="${sizes}">\n`;
+        }
+        
+        // Add fallback source if available and different from webp
+        if (fallbackSrcset && fallbackFormat !== 'webp') {
+          html += `  <source type="image/${fallbackFormat}" srcset="${fallbackSrcset}" sizes="${sizes}">\n`;
+        }
+        
+        // Add img tag with fallback
+        html += `  <img src="${fallbackSrc}" alt="${alt}" class="w-full h-auto object-cover" loading="lazy" decoding="async" width="${width}" height="${height}">\n`;
+        html += '</picture>';
+        
+        return html;
+      }
+    }
+  } catch (error) {
+    console.warn('Error using enhanced image shortcode:', error.message);
   }
 
+  // Fallback to simple image tag
   // Ensure correct path structure
   let imgSrc = src;
   // If it's a relative path that could be from a blog post
