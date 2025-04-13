@@ -103,8 +103,6 @@ function addOptimizedAnimations() {
     // Elements to animate on page load
     const elementsToAnimate = [
       '.gh-profile-header',
-      '.gh-pinned-repos h2',
-      '.gh-repo-card',
       '.gh-section-header',
       '.gh-post-item'
     ];
@@ -133,8 +131,6 @@ function animateElement(el, index = 0) {
 function animateFallback() {
   const elementsToAnimate = [
     '.gh-profile-header',
-    '.gh-pinned-repos h2',
-    '.gh-repo-card',
     '.gh-section-header',
     '.gh-post-item'
   ];

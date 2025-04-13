@@ -17,7 +17,6 @@ async function main() {
     // Create empty fallback files
     const files = [
       { name: 'arxiv-feed.json', content: [] },
-      { name: 'github-pins.json', content: [] },
       { name: 'contribution-heatmap.json', content: { data: [] } },
       { name: 'link-previews.json', content: [] },
       { name: 'current-reading.json', content: [
