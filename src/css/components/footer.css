@@ -1,0 +1,91 @@
+/* Footer Component Styles */
+
+.gh-footer {
+  margin-top: 6rem;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.gh-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .gh-footer-inner {
+    flex-direction: row;
+  }
+}
+
+.gh-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.gh-footer-links a {
+  color: var(--color-text-secondary);
+  transition: color 0.3s;
+  position: relative;
+}
+
+.gh-footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: all 0.3s;
+}
+
+.gh-footer-links a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.gh-footer-links a:hover::after {
+  width: 100%;
+}
+
+.gh-copyright {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.gh-copyright a {
+  margin-left: 0.25rem;
+  color: var(--color-accent);
+}
+
+.gh-copyright a:hover {
+  text-decoration: underline;
+}
+
+/* Footer social icons */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-social a {
+  transition: all 0.2s ease-in-out;
+}
+
+.footer-social a:hover:not(.social-disabled) {
+  transform: translateY(-2px);
+}

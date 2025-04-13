@@ -195,7 +195,7 @@ src/css/
       └── utilities.css
 ```
 
-### Simplified Organization (Proposed)
+### Simplified Organization (Implemented)
 ```
 src/css/
   ├── base/
@@ -205,11 +205,12 @@ src/css/
   ├── components/
   │   ├── header.css         # Header component
   │   ├── footer.css         # Footer component
-  │   ├── post.css           # Post component
-  │   └── ...                # Other components
+  │   ├── buttons.css        # Button components
+  │   └── post.css           # Post component
   ├── utils/
   │   ├── variables.css      # CSS variables
-  │   └── mixins.css         # CSS mixins
+  │   ├── mixins.css         # CSS utility classes
+  │   └── animations.css     # Animation definitions
   └── main.css               # Imports all styles
 ```
 

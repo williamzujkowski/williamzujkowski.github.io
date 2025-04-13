@@ -16,5 +16,8 @@ module.exports = {
         reduceIdents: false // Preserve custom animations
       }]
     })
-  ]
+  ],
+  // Add input and output paths
+  input: './src/css/main.css',
+  output: './_site/css/styles.css'
 }

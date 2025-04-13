@@ -1,0 +1,90 @@
+/* Header Component Styles */
+
+.gh-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.gh-header-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gh-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.gh-nav-item {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  border-radius: 6px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.gh-nav-item:hover {
+  color: var(--color-text);
+  background-color: var(--color-gray-light);
+}
+
+/* Animated underline effect */
+.gh-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: all 0.3s;
+}
+
+.gh-nav-item:hover::after {
+  width: 100%;
+}
+
+.gh-nav-item.active {
+  font-weight: 600;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-gray-light);
+}
+
+/* Focus styles for accessibility */
+.gh-nav-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent);
+  opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gh-header-inner {
+    padding: 0 0.5rem;
+  }
+  
+  .gh-nav {
+    gap: 0.5rem;
+  }
+  
+  .gh-nav-item {
+    padding: 0.375rem 0.5rem;
+  }
+}
