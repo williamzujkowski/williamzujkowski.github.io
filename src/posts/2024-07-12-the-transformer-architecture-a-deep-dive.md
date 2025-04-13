@@ -7,6 +7,9 @@ date: 2024-07-12T00:00:00.000Z
 layout: post.njk
 tags:
   - posts
+  - ai
+  - llm
+  - machine-learning
 image: blog/transformer-blog.jpg
 image_alt: Transformer architecture neural network illustration
 ---

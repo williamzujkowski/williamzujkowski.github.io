@@ -7,6 +7,9 @@ date: 2024-06-20T00:00:00.000Z
 layout: post.njk
 tags:
   - posts
+  - cloud
+  - devops
+  - infrastructure
 image: blog/cloud-blog.jpg
 image_alt: Cloud computing infrastructure illustration
 ---

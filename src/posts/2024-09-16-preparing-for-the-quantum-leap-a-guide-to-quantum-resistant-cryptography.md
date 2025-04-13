@@ -8,6 +8,9 @@ date: 2024-09-16T00:00:00.000Z
 layout: post.njk
 tags:
   - posts
+  - security
+  - cryptography
+  - quantum-computing
 image: blog/topics/cryptography.jpg
 image_alt: Encryption and cryptography key illustration
 ---

@@ -7,6 +7,9 @@ date: 2024-08-05T00:00:00.000Z
 layout: post.njk
 tags:
   - posts
+  - ai
+  - llm
+  - ethics
 image: blog/ai-blog.jpg
 image_alt: AI illustration with neural networks and connections
 ---

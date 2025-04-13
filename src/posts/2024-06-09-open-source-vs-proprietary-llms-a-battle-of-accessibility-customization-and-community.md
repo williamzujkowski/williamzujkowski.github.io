@@ -9,6 +9,9 @@ date: 2024-06-09T00:00:00.000Z
 layout: post.njk
 tags:
   - posts
+  - ai
+  - llm
+  - opensource
 image: blog/topics/llm.jpg
 image_alt: Large Language Model illustration with text processing
 ---

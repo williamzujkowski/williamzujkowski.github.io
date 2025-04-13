@@ -9,6 +9,8 @@ date: 2024-04-08T00:00:00.000Z
 layout: post.njk
 tags:
   - posts
+  - security
+  - cryptography
 image: blog/topics/cryptography.jpg
 image_alt: Encryption and cryptography key illustration
 ---
