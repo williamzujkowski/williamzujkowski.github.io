@@ -29,7 +29,7 @@ eleventyNavigation:
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="text-theme-accent mr-2">
             <path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-9V3.75a.25.25 0 01.25-.25zm-2 3h10.5v7.75a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V6.5z"></path>
           </svg>
-          <span class="text-white text-sm">Last updated: {{ (collections.posts | last).date | readableDate }}</span>
+          <span class="text-white text-sm">Last updated: {{ (collections.posts | first).date | readableDate }}</span>
         </div>
         
         <div class="flex items-center bg-surface px-3 py-1.5 rounded-full border border-border">
@@ -85,7 +85,7 @@ eleventyNavigation:
           <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
           <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
         </svg>
-        <span>Latest post: {{ (collections.posts | last).date | readableDate }}</span>
+        <span>Latest post: {{ (collections.posts | first).date | readableDate }}</span>
       </div>
     </div>
   </div>

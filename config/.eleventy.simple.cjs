@@ -63,7 +63,7 @@ module.exports = function(eleventyConfig) {
     console.log(`Current date for filtering: ${now.toISOString()}`);
     
     // Get all posts and filter out future posts
-    return collectionApi.getFilteredByGlob("./src/posts/*.md")
+    const filteredPosts = collectionApi.getFilteredByGlob("./src/posts/*.md")
       .filter(item => {
         // Get post date and normalize to beginning of day
         const postDate = new Date(item.date);
@@ -76,6 +76,11 @@ module.exports = function(eleventyConfig) {
         return postDate <= now;
       })
       .sort((a, b) => b.date - a.date); // Sort by date descending
+      
+    console.log(`Filtered posts collection has ${filteredPosts.length} posts`);
+    console.log(`Latest post: ${filteredPosts.length > 0 ? filteredPosts[0].data.title : 'none'} (${filteredPosts.length > 0 ? filteredPosts[0].date.toISOString() : 'none'})`);
+    
+    return filteredPosts;
   });
   // Configure Markdown with anchors
   const markdownLibrary = markdownIt({
