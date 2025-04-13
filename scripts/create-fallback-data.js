@@ -20,7 +20,6 @@ async function main() {
     const files = [
       { name: 'arxiv-feed.json', content: [] },
       { name: 'contribution-heatmap.json', content: { data: [] } },
-      { name: 'link-previews.json', content: [] },
       { name: 'current-reading.json', content: [
         {
           "title": "Designing Data-Intensive Applications",
@@ -74,27 +73,23 @@ async function main() {
       ]}
     ];
 
-    // Write files to both locations (only non-link-previews to _data)
+    // Write files to both locations
     for (const file of files) {
-      // Write all files to assets/data
+      // Write all files to both directories for consistency
       fs.writeFileSync(
         path.join(publicDataDir, file.name), 
         JSON.stringify(file.content, null, 2)
       );
       
-      // Only write non-link-previews files to _data
-      if (!file.name.startsWith('link-previews')) {
-        fs.writeFileSync(
-          path.join(internalDataDir, file.name), 
-          JSON.stringify(file.content, null, 2)
-        );
-      }
+      fs.writeFileSync(
+        path.join(internalDataDir, file.name), 
+        JSON.stringify(file.content, null, 2)
+      );
       
-      console.log(`Created fallback ${file.name} ${file.name.startsWith('link-previews') ? '(in assets/data only)' : '(in both directories)'}`);
+      console.log(`Created fallback ${file.name} (in both directories)`);
     }
 
     console.log('All fallback data files created successfully');
-    console.log('Note: Link preview files are only created in assets/data now, not in _data');
   } catch (error) {
     console.error('Error creating fallback data:', error);
     process.exit(1);

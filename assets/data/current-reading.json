@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Designing Data-Intensive Applications",
+    "firstAuthor": "Martin Kleppmann",
+    "categoryLabel": "Research",
+    "progress": 75,
+    "link": "https://arxiv.org/abs/2001.00001"
+  },
+  {
+    "title": "Building ML Powered Applications",
+    "firstAuthor": "Emmanuel Ameisen",
+    "categoryLabel": "AI",
+    "progress": 45,
+    "link": "https://arxiv.org/abs/2001.00002"
+  }
+]
