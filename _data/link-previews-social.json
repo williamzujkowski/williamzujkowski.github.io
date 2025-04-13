@@ -1,0 +1,56 @@
+[
+  {
+    "id": "github",
+    "url": "https://github.com/williamzujkowski",
+    "name": "GitHub",
+    "type": "social",
+    "group": null,
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "williamzujkowski has 8 repositories available. Follow their code on GitHub.",
+      "image": "https://avatars.githubusercontent.com/u/14303249?v=4?s=400",
+      "logo": null,
+      "publisher": "GitHub",
+      "title": "williamzujkowski - Overview",
+      "url": "https://github.com/williamzujkowski",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/github.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "linkedin",
+    "url": "https://linkedin.com/in/williamzujkowski",
+    "name": "LinkedIn",
+    "type": "social",
+    "group": null,
+    "metadata": {
+      "url": "https://linkedin.com/in/williamzujkowski",
+      "status": "error",
+      "message": "Site blocks scraping"
+    },
+    "screenshot": null,
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "bluesky",
+    "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
+    "name": "Bluesky",
+    "type": "social",
+    "group": null,
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": null,
+      "logo": null,
+      "publisher": "Bluesky Social",
+      "title": "Bluesky",
+      "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/bluesky.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  }
+]

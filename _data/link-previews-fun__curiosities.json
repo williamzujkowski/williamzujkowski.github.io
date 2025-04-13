@@ -1,0 +1,130 @@
+[
+  {
+    "id": "international-association-of-exorcists",
+    "url": "https://www.aieinternational.org/",
+    "name": "International Association of Exorcists",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "author": null,
+      "date": "2022-05-19T12:12:41.000Z",
+      "description": null,
+      "image": "https://www.aieinternational.org/wp-content/uploads/2021/04/associazione-internazionale-esorcisti-aie-hp.jpg",
+      "logo": null,
+      "publisher": "International Association of Exorcists - A.I.E.",
+      "title": "Home - International Association of Exorcists - A.I.E.",
+      "url": "https://www.aieinternational.org/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/international-association-of-exorcists.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "paperclip-ai-game",
+    "url": "https://www.decisionproblem.com/paperclips/",
+    "name": "Paperclip AI Game",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://www.decisionproblem.com/paperclips/title.png",
+      "logo": null,
+      "publisher": null,
+      "title": null,
+      "url": "https://www.decisionproblem.com/paperclips/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/paperclip-ai-game.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "the-kid-should-see-this",
+    "url": "https://thekidshouldseethis.com/",
+    "name": "The Kid Should See This",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "url": "https://thekidshouldseethis.com/",
+      "status": "error",
+      "message": "Site blocks scraping"
+    },
+    "screenshot": null,
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "the-website-is-down",
+    "url": "https://www.thewebsiteisdown.com",
+    "name": "The Website is Down",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://www.thewebsiteisdown.com/images/thewebsiteisdown_header.jpg",
+      "logo": null,
+      "publisher": null,
+      "title": "The Website Is Down",
+      "url": "https://www.thewebsiteisdown.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/the-website-is-down.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "zombo.com",
+    "url": "https://zombo.com/",
+    "name": "Zombo.com",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://zombo.com/images/zombocom.png",
+      "logo": null,
+      "publisher": null,
+      "title": "ZOMBO",
+      "url": "https://zombo.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/zombo.com.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "stimulation-clicker",
+    "url": "https://neal.fun/stimulation-clicker/",
+    "name": "Stimulation Clicker",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "url": "https://neal.fun/stimulation-clicker/",
+      "status": "error",
+      "message": "Site blocks scraping"
+    },
+    "screenshot": null,
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "mementomovi",
+    "url": "https://mementomovi.wackyneighbor.com/",
+    "name": "MementoMovi",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Where are you in the movie?",
+      "image": "https://where.wackyneighbor.com/api/frame/",
+      "logo": null,
+      "publisher": null,
+      "title": "Memento Movi",
+      "url": "https://mementomovi.wackyneighbor.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/mementomovi.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  }
+]

@@ -1,0 +1,562 @@
+[
+  {
+    "id": "tim-holman",
+    "url": "https://tholman.com",
+    "name": "Tim Holman",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Personal site of Frontend Engineer Tim Holman",
+      "image": null,
+      "logo": null,
+      "publisher": "Engineer & Maker",
+      "title": "Tim Holman - Engineer & Maker",
+      "url": "https://tholman.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/tim-holman.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "tom-murphy-vii",
+    "url": "http://tom7.org",
+    "name": "Tom Murphy VII",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Tom 7’s serious web page for graduate school. (But it has fun stuff nonetheless.)",
+      "image": "http://tom7.org/antennae.gif",
+      "logo": null,
+      "publisher": null,
+      "title": "Tom Murphy 7’s Invincible Web Page",
+      "url": "http://tom7.org/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/tom-murphy-vii.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "xxiivv",
+    "url": "https://xxiivv.com",
+    "name": "XXIIVV",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "A ghost enters the Library.",
+      "image": "https://xxiivv.com/media/vectors/hundredrabbits.svg",
+      "logo": null,
+      "publisher": "xxiivv logo A continuous wave line drawing transitioning from a sine wave, to a square wave, and finally into a sawtooth wave.",
+      "title": "Echorridoors",
+      "url": "https://xxiivv.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/xxiivv.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "john",
+    "url": "https://dataswamp.org/~john",
+    "name": "John",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "concept engineering for the year 00",
+      "image": "https://dataswamp.org/~john/assets/images/index/site.png",
+      "logo": null,
+      "publisher": null,
+      "title": "John D. Duncan III’s Homepage",
+      "url": "https://dataswamp.org/~john/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/john.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "paul-neave",
+    "url": "https://neave.com",
+    "name": "Paul Neave",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "Neave Interactive",
+      "date": null,
+      "description": "Apps from Neave Interactive, including Zoom Earth, Webcam Toy, Strobe Illusion, Bouncy Balls and more.",
+      "image": "https://neave.com/assets/images/icon-320.png",
+      "logo": null,
+      "publisher": "Neave Interactive",
+      "title": "Neave Interactive",
+      "url": "https://neave.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/paul-neave.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "ciro-santilli",
+    "url": "https://cirosantilli.com",
+    "name": "Ciro Santilli",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg",
+      "logo": null,
+      "publisher": "Ciro Santilli",
+      "title": "Ciro Santilli’s Homepage",
+      "url": "https://cirosantilli.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/ciro-santilli.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "braulio-barahona",
+    "url": "https://brauliobarahona.com",
+    "name": "Braulio Barahona",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "Braulio Barahona",
+      "date": null,
+      "description": "Welcome to my website, please take a look",
+      "image": "https://brauliobarahona.com/resources/img/share.jpg",
+      "logo": null,
+      "publisher": "Braulio Barahona",
+      "title": "Welcome",
+      "url": "https://brauliobarahona.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/braulio-barahona.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "martin-kleppe",
+    "url": "https://aem1k.com",
+    "name": "Martin Kleppe",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Pure JavaScript Hacks and Creative Coding. Created by Martin Kleppe aka @aemkei.",
+      "image": "https://aem1k.com/preview.png",
+      "logo": null,
+      "publisher": "# # ## # # ## # # ## # # # #\n# # # # ##\n# # # # # #\n# # # # # #",
+      "title": "aem1k - JS Hacks & Creativity",
+      "url": "https://aem1k.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/martin-kleppe.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "stefano-rodighiero",
+    "url": "https://stefanorodighiero.net",
+    "name": "Stefano Rodighiero",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "Stefano Rodighiero",
+      "date": "2024-10-18T16:00:00.000Z",
+      "description": null,
+      "image": null,
+      "logo": null,
+      "publisher": "stefanorodighiero.net",
+      "title": "Stefano Rodighiero’s Homepage",
+      "url": "https://stefanorodighiero.net/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/stefano-rodighiero.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "expensive-toys",
+    "url": "https://www.expensive.toys",
+    "name": "Expensive Toys",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Building user interfaces for fun.",
+      "image": null,
+      "logo": null,
+      "publisher": null,
+      "title": "Artur Bień",
+      "url": "https://www.expensive.toys/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/expensive-toys.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "paolo-galeone",
+    "url": "https://pgaleone.eu",
+    "name": "Paolo Galeone",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "Paolo Galeone",
+      "date": null,
+      "description": "Let the machines learn",
+      "image": "https://pgaleone.eu/images/me.jpeg",
+      "logo": null,
+      "publisher": "P. Galeone's blog",
+      "title": "P. Galeone’s blog",
+      "url": "https://pgaleone.eu/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/paolo-galeone.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "ben-cox",
+    "url": "https://benjojo.co.uk",
+    "name": "Ben Cox",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Software Developer - Benjojo / Ben Cartwright Cox",
+      "image": null,
+      "logo": null,
+      "publisher": "Ben Cartwright-Cox",
+      "title": "Benjojo - Ben Cartwright-Cox",
+      "url": "https://benjojo.co.uk/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/ben-cox.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "samuel-reed",
+    "url": "https://www.strml.net",
+    "name": "Samuel Reed",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": null,
+      "logo": null,
+      "publisher": null,
+      "title": "STRML: Projects and Work",
+      "url": "https://www.strml.net/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/samuel-reed.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "ertdfgcvb",
+    "url": "https://ertdfgcvb.xyz",
+    "name": "ertdfgcvb",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Studio for design and code.",
+      "image": "https://ertdfgcvb.xyz/ico/icon_512.png",
+      "logo": null,
+      "publisher": null,
+      "title": "ertdfgcvb",
+      "url": "https://ertdfgcvb.xyz/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/ertdfgcvb.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "wwwtxt",
+    "url": "https://wwwtxt.org/about",
+    "name": "wwwtxt",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Background In 1995, commercialization, a swelling population, and the multimedia revolution began to shape Web 1.0 and the modern Internet. 1980–94 represent the final years of a much smaller, non-commercial, and text-dominated Internet. The users of this era were not only programmers, physicists, and university residents—they were also tinkerers, early-adopters, whiz kids, and nerds. Their conversations and documents—valiantly preserved by digital archivists—are fractured across numerous services, increasingly offline-only, and incredibly voluminous (100GB+). WWWTXT digs deep and resurrects the voices of these digital pioneers as unedited, compelling, and insightful 140-character excerpts. Who are you? And why do this? I’m Kyra Ocean—an electronic artist, researcher, and media archaeologist—you can learn more about me at my website. I launched WWWTXT in 2012 and it will always be an ongoing endeavor. There are several reasons I curate these texts, notably: to shed light on a moment of great importance experienced by so few to revisit a place that I knew well in my youth with an analytical mind to draw parallels between the (online) society of the past and today to trace and document the origins of net culture What are your sources? Primary sources include: discussion groups on Usenet, BBS-based FidoNet, and the initial online services (CompuServe, GEnie, Prodigy, AOL); both public and private text files; early hypertexts of Gopher/WWW; and abandoned personal documents. Some messages modified for length—original poster’s intent is always preserved. Icons ©95–01 The Iconfactory",
+      "image": "https://data.wwwtxt.org/wwwtxtos/img/WWWTXT.png",
+      "logo": null,
+      "publisher": "WWWTXT: Revisit the Early Internet (1980-94)",
+      "title": "Real conversations from the early net, hand-selected by Kyra Ocean",
+      "url": "https://wwwtxt.org/about",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/wwwtxt.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "elliott",
+    "url": "https://elliott.computer",
+    "name": "Elliott",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://d2w9rnfcy7mm78.cloudfront.net/35466743/original_21631fd7ac79711af326640b18bf93f2.png",
+      "logo": null,
+      "publisher": "elliott.computer",
+      "title": "Monday, March 24, 2025 16:45 on the plane from Athens to Amsterdam - elliott.computer",
+      "url": "https://elliott.computer/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/elliott.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "jacob-hall",
+    "url": "https://jacobhall.net",
+    "name": "Jacob Hall",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "Jacob Hall",
+      "date": "2022-08-03T10:24:00.000Z",
+      "description": null,
+      "image": "https://jacobhall.net/images/toothbrush_profile_small.jpg",
+      "logo": null,
+      "publisher": null,
+      "title": "Jacob Hall",
+      "url": "https://jacobhall.net/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/jacob-hall.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "broken-mind",
+    "url": "https://brkmnd.com",
+    "name": "Broken Mind",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "An online terminal with a blog behind",
+      "image": "https://brkmnd.com/icons/og/og-term-full.jpg",
+      "logo": null,
+      "publisher": "Brkmnd.Com",
+      "title": "Terminus Online Terminal",
+      "url": "https://brkmnd.com/Index",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/broken-mind.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "justus",
+    "url": "https://www.justus.ws",
+    "name": "Justus",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": "2025-01-04T17:00:00.000Z",
+      "description": "Home, home on the web, where the links and the hypertexts play",
+      "image": "https://www.justus.ws/images/dadi-avatar.png",
+      "logo": null,
+      "publisher": "justusgrunow",
+      "title": "justus.ws",
+      "url": "https://justus.ws/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/justus.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "novov",
+    "url": "https://novov.me",
+    "name": "Novov",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "novov",
+      "date": null,
+      "description": "I’m a developer and artist from Aotearoa (or New Zealand) who goes by he/him. I enjoy diving into rabbit holes and manipulating computers in unexpected ways, and dabbling in illustration, heraldry, and graphic design.",
+      "image": "https://novov.me/images/index/hero.png",
+      "logo": null,
+      "publisher": null,
+      "title": "novov",
+      "url": "https://novov.me/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/novov.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "superinternet",
+    "url": "http://superinternet.cc",
+    "name": "Superinternet",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://superinternet.cc/ciaociao3.gif",
+      "logo": null,
+      "publisher": null,
+      "title": "superinterneto",
+      "url": "https://superinternet.cc/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/superinternet.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "giacinto-carlucci",
+    "url": "https://www.giacintocarlucci.it",
+    "name": "Giacinto Carlucci",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "Giacinto Carlucci",
+      "date": null,
+      "description": "Giacinto Carlucci Personal Website",
+      "image": "https://www.giacintocarlucci.it/static/icons/webring-gold.svg",
+      "logo": null,
+      "publisher": "Home",
+      "title": "Giacinto Carlucci - Home",
+      "url": "https://www.giacintocarlucci.it/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/giacinto-carlucci.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "ian-langworth",
+    "url": "https://langworth.com",
+    "name": "Ian Langworth",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Play “The Archive,” a game by Ian Langworth",
+      "image": "https://langworth.com/assets/banner.jpg",
+      "logo": null,
+      "publisher": "Ian Langworth ☠",
+      "title": "Ian Langworth ☠",
+      "url": "https://langworth.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/ian-langworth.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "nil",
+    "url": "https://nilfm.cc",
+    "name": "Nil",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": "2025-04-08T00:00:00.000Z",
+      "description": "lair of iris aka nilix: software artisan, cybernetic witch",
+      "image": "https://nilfm.cc/img/nilfm_blackHole_128.png",
+      "logo": null,
+      "publisher": null,
+      "title": "nilFM — home",
+      "url": "https://nilfm.cc/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/nil.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "matthew-rayfield",
+    "url": "https://matthewrayfield.com",
+    "name": "Matthew Rayfield",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": "2023-01-01T17:00:00.000Z",
+      "description": null,
+      "image": "https://matthewrayfield.com/images/2021/Untitled-1.gif",
+      "logo": null,
+      "publisher": null,
+      "title": "matthew rayfield world",
+      "url": "https://matthewrayfield.com/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/matthew-rayfield.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "dimden",
+    "url": "https://dimden.dev",
+    "name": "Dimden",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": "dimden",
+      "date": null,
+      "description": "My website and blog.",
+      "image": "https://lune.dimden.dev/3c3441f37d.png",
+      "logo": null,
+      "publisher": null,
+      "title": "dimden’s hotel",
+      "url": "https://dimden.dev/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/dimden.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "alien-head",
+    "url": "https://alienheadshitkid.neocities.org",
+    "name": "Alien Head",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": null,
+      "image": "https://alienheadshitkid.neocities.org/assets/index/ufoico.gif",
+      "logo": null,
+      "publisher": null,
+      "title": "Alien Head Shit Kid",
+      "url": "https://alienheadshitkid.neocities.org/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/alien-head.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  },
+  {
+    "id": "daniel-murray",
+    "url": "https://loom.cafe",
+    "name": "Daniel Murray",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "author": null,
+      "date": null,
+      "description": "Art, Video Games and other works by Irish digital artist Daniel Murray",
+      "image": "https://loom.cafe/images/favicon/og-image.jpg",
+      "logo": null,
+      "publisher": null,
+      "title": "Loom Cafe - Daniel Murray",
+      "url": "https://loom.cafe/",
+      "status": "success"
+    },
+    "screenshot": "/assets/data/screenshots/daniel-murray.jpg",
+    "last_checked": "2025-04-13T02:55:51.814Z"
+  }
+]

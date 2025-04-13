@@ -12,9 +12,12 @@ The website uses screenshots of linked websites as background images for link ca
 
 2. **Storage**: Screenshots are stored as JPEG images in the `/assets/data/screenshots/` directory, with filenames based on the link's ID (a simplified version of the link name).
 
-3. **Metadata**: References to these screenshots are stored in the `link-previews.json` file, which contains metadata about each link, including the screenshot path.
+3. **Metadata**: References to these screenshots are stored in categorized link preview files:
+   - `link-previews-{category}.json` files contain metadata about links in specific categories
+   - `link-previews-index.json` contains an index of all categories with counts and filenames
+   - `link-previews.json` (legacy format) contains all link metadata for backward compatibility
 
-4. **Display**: The frontend JavaScript (`microlink-integration.js`) reads this metadata and displays the screenshots as background images for the link cards.
+4. **Display**: The frontend JavaScript (`microlink-integration.js`) reads this metadata and displays the screenshots as background images for the link cards. The script intelligently loads only the necessary category data, improving performance.
 
 ## Screenshot Generation Script
 
@@ -77,13 +80,52 @@ npm run screenshots:all
 npm run screenshots:update
 ```
 
+## Categorized Link Preview System
+
+The website uses a categorized link preview system that offers several advantages:
+
+### How It Works
+
+The system organizes link preview data into separate files by category:
+
+1. **Category Files**: Each category has its own JSON file (e.g., `link-previews-technology_innovation.json`)
+2. **Index File**: A small index file (`link-previews-index.json`) lists all categories with their counts and filenames
+3. **Legacy Format**: For backward compatibility, all data is also consolidated in `link-previews.json`
+
+### Advantages
+
+- **Reduced Initial Payload**: Only loads the most commonly used categories immediately
+- **On-Demand Loading**: Loads additional categories only when needed
+- **Improved Troubleshooting**: Easier to identify and fix issues with specific categories
+- **Better Performance**: Smaller, more focused files are processed faster by the browser
+- **Enhanced Maintainability**: Changes to one category don't require rebuilding all link preview data
+
+### Rebuilding the Link Preview System
+
+If you need to recreate all categorized link preview files from the existing screenshots:
+
+```bash
+# Run the rebuild script
+./scripts/rebuild-link-previews.sh
+```
+
+This script will:
+1. Remove old link preview data
+2. Rebuild the link previews with the new categorized system
+3. Copy screenshots to the assets directory
+4. Run the build process to update the site
+
 ## Troubleshooting
 
 If screenshots are not appearing on the links page:
 
-1. **Check the JSON file**: Ensure `link-previews.json` contains valid screenshot paths
+1. **Check the category JSON files**: Ensure the category files contain valid screenshot paths
    ```bash
-   grep "screenshot" assets/data/link-previews.json | head
+   # Check the index file
+   cat assets/data/link-previews-index.json
+   
+   # Check a specific category file
+   grep "screenshot" assets/data/link-previews-technology_innovation.json | head
    ```
 
 2. **Verify screenshot files**: Make sure the screenshot files actually exist
@@ -100,7 +142,12 @@ If screenshots are not appearing on the links page:
    node scripts/screenshots/generate-test-screenshots.js
    ```
 
-5. **Verify with test page**: Open the verification page to check if screenshots load
+5. **Rebuild the link preview system**: Use the rebuild script to recreate the categorized files
+   ```bash
+   ./scripts/rebuild-link-previews.sh
+   ```
+
+6. **Verify with test page**: Open the verification page to check if screenshots load
    ```bash
    # After starting a development server
    open http://localhost:8000/scripts/screenshots/verify-screenshots.html

@@ -1,0 +1,72 @@
+[
+  {
+    "category": "social",
+    "count": 3,
+    "file": "link-previews-social.json"
+  },
+  {
+    "category": "art_culture__exploration",
+    "count": 11,
+    "file": "link-previews-art_culture__exploration.json"
+  },
+  {
+    "category": "artists",
+    "count": 14,
+    "file": "link-previews-artists.json"
+  },
+  {
+    "category": "blogs",
+    "count": 54,
+    "file": "link-previews-blogs.json"
+  },
+  {
+    "category": "creative",
+    "count": 27,
+    "file": "link-previews-creative.json"
+  },
+  {
+    "category": "fun__curiosities",
+    "count": 7,
+    "file": "link-previews-fun__curiosities.json"
+  },
+  {
+    "category": "gaming",
+    "count": 10,
+    "file": "link-previews-gaming.json"
+  },
+  {
+    "category": "miscellaneous",
+    "count": 20,
+    "file": "link-previews-miscellaneous.json"
+  },
+  {
+    "category": "music",
+    "count": 10,
+    "file": "link-previews-music.json"
+  },
+  {
+    "category": "people",
+    "count": 28,
+    "file": "link-previews-people.json"
+  },
+  {
+    "category": "projects",
+    "count": 1,
+    "file": "link-previews-projects.json"
+  },
+  {
+    "category": "retrocomputing",
+    "count": 15,
+    "file": "link-previews-retrocomputing.json"
+  },
+  {
+    "category": "rollerblading",
+    "count": 8,
+    "file": "link-previews-rollerblading.json"
+  },
+  {
+    "category": "technology__innovation",
+    "count": 9,
+    "file": "link-previews-technology__innovation.json"
+  }
+]
