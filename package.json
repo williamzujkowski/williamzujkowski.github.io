@@ -19,6 +19,7 @@
     "dev": "npm run serve",
     "debug": "DEBUG=* eleventy --config=.eleventy.cjs",
     "process:posts": "node scripts/content/create-post.js",
+    "process:posts:enhanced": "node scripts/blog/enhance-post-processor.js",
     "lint": "eslint \"src/**/*.js\"",
     "lint:fix": "eslint \"src/**/*.js\" --fix",
     "format": "prettier --write \"src/**/*.{js,json,css,md,njk}\"",
