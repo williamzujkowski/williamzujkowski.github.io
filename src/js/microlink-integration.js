@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to fetch categorized link preview data
   async function loadLinkPreviewData() {
     try {
+      console.log('Starting to load link preview data');
       // First, try to load the index file which contains category information
       const indexResponse = await fetch('/assets/data/link-previews-index.json');
       
@@ -21,14 +22,29 @@ document.addEventListener('DOMContentLoaded', () => {
         // We have categorized data
         linkPreviewIndex = await indexResponse.json();
         categoriesLoaded = true;
-        console.log(`Loaded link preview index with ${linkPreviewIndex.length} categories`);
+        console.log(`Loaded link preview index with ${linkPreviewIndex.length} categories`, linkPreviewIndex);
         
         // Pre-load the most common categories for faster initial rendering
         // This limits the initial payload size while still getting most links quickly
-        const commonCategories = ['technology_innovation', 'art_culture_exploration', 'fun_curiosities', 'social'];
+        const categoryMap = {
+          'technology_innovation': ['technology_innovation', 'technology'],
+          'art_culture__exploration': ['art_culture__exploration', 'art_culture'],
+          'fun__curiosities': ['fun__curiosities', 'fun'],
+          'social': ['social', 'social_links']
+        };
+        
+        // Try both the original and normalized variations of category names for compatibility
+        const commonCategories = [
+          ...categoryMap.technology_innovation,
+          ...categoryMap.art_culture__exploration, 
+          ...categoryMap.fun__curiosities,
+          ...categoryMap.social
+        ];
         
         await Promise.all(commonCategories.map(async (category) => {
-          const categoryFile = linkPreviewIndex.find(c => c.category === category)?.file;
+          const categoryFile = linkPreviewIndex.find(c => 
+            c.category === category || 
+            c.file === `link-previews-${category}.json`)?.file;
           if (categoryFile) {
             await loadCategoryData(category);
           }
@@ -41,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fall back to the legacy single file approach
         const response = await fetch('/assets/data/link-previews.json');
         if (response.ok) {
+          console.log('Loaded single file link preview data');
           linkPreviewDataCache['all'] = await response.json();
           dataLoaded = true;
           return true;
@@ -62,11 +79,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     try {
-      const response = await fetch(`/assets/data/link-previews-${category}.json`);
+      console.log(`Loading category data for ${category}`);
+      
+      // Try to find the category file in the index first
+      let categoryFile = linkPreviewIndex?.find(c => 
+        c.category === category || 
+        c.file === `link-previews-${category}.json`)?.file;
+      
+      // If not found in index but we have a category name, try the standard naming pattern
+      if (!categoryFile) {
+        categoryFile = `link-previews-${category}.json`;
+      }
+      
+      const response = await fetch(`/assets/data/${categoryFile}`);
       if (response.ok) {
         const data = await response.json();
         linkPreviewDataCache[category] = data;
+        console.log(`Successfully loaded ${data.length} items for category ${category}`);
         return data;
+      } else {
+        // If that fails, try alternate formats (with and without underscores)
+        let alternateCategory;
+        if (category.includes('_')) {
+          // Try without underscores and with spaces
+          alternateCategory = category.replace(/_/g, ' ');
+        } else if (category.includes(' ')) {
+          // Try with underscores instead of spaces
+          alternateCategory = category.replace(/ /g, '_').toLowerCase();
+        }
+        
+        if (alternateCategory) {
+          const alternateResponse = await fetch(`/assets/data/link-previews-${alternateCategory}.json`);
+          if (alternateResponse.ok) {
+            const data = await alternateResponse.json();
+            linkPreviewDataCache[category] = data; // Cache using original key
+            console.log(`Successfully loaded ${data.length} items for alternate category ${alternateCategory}`);
+            return data;
+          }
+        }
+        
+        console.error(`Failed to load category data for ${category}:`, response.status);
       }
     } catch (error) {
       console.error(`Error loading category data for ${category}:`, error);
@@ -77,20 +129,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to get pre-generated data for a URL
   async function getPreviewData(url) {
-    if (!dataLoaded) return null;
+    console.log(`Looking for preview data for URL: ${url}`);
+    if (!dataLoaded) {
+      console.log('Data not loaded yet');
+      return null;
+    }
+    
+    // Normalize the URL for comparison
+    const normalizedUrl = url.replace(/\/$/, ''); // Remove trailing slash
+    
+    // URL matcher function that handles common variations
+    const urlMatcher = (itemUrl, searchUrl) => {
+      if (!itemUrl) return false;
+      
+      // Direct match
+      if (itemUrl === searchUrl) return true;
+      
+      // Match with/without trailing slash
+      if (itemUrl.replace(/\/$/, '') === searchUrl.replace(/\/$/, '')) return true;
+      
+      // Match with/without protocol (http vs https)
+      if (itemUrl.replace(/^https?:\/\//, '') === searchUrl.replace(/^https?:\/\//, '')) return true;
+      
+      // Match with normalized www. prefix
+      if (itemUrl.replace(/^https?:\/\/(www\.)?/, '') === searchUrl.replace(/^https?:\/\/(www\.)?/, '')) return true;
+      
+      return false;
+    };
     
     // If we're using the categorized approach
     if (categoriesLoaded) {
       // Search in already loaded categories first
       for (const category of Object.keys(linkPreviewDataCache)) {
         const data = linkPreviewDataCache[category];
-        const match = data.find(item => 
-          item.url === url || 
-          url.replace(/\/$/, '') === item.url || 
-          url === item.url.replace(/\/$/, '')
-        );
+        const match = data.find(item => urlMatcher(item.url, url));
         
-        if (match) return match;
+        if (match) {
+          console.log(`Found match in category ${category}:`, match);
+          return match;
+        }
       }
       
       // If not found in loaded categories, we need to check other categories
@@ -102,35 +179,60 @@ document.addEventListener('DOMContentLoaded', () => {
           // Load this category and check it
           const categoryData = await loadCategoryData(indexItem.category);
           if (categoryData) {
-            const match = categoryData.find(item => 
-              item.url === url || 
-              url.replace(/\/$/, '') === item.url || 
-              url === item.url.replace(/\/$/, '')
-            );
+            const match = categoryData.find(item => urlMatcher(item.url, url));
             
-            if (match) return match;
+            if (match) {
+              console.log(`Found match in newly loaded category ${indexItem.category}:`, match);
+              return match;
+            }
           }
         }
       }
       
+      // If still not found, try loading the combined file as a last resort
+      if (!linkPreviewDataCache['all']) {
+        try {
+          const response = await fetch('/assets/data/link-previews.json');
+          if (response.ok) {
+            const data = await response.json();
+            linkPreviewDataCache['all'] = data;
+            const match = data.find(item => urlMatcher(item.url, url));
+            
+            if (match) {
+              console.log(`Found match in combined file:`, match);
+              return match;
+            }
+          }
+        } catch (error) {
+          console.error('Error loading combined link previews file:', error);
+        }
+      }
+      
+      console.log(`No match found for URL: ${url}`);
       return null;
     } else {
       // Legacy single file approach
-      return linkPreviewDataCache['all']?.find(item => 
-        item.url === url || 
-        url.replace(/\/$/, '') === item.url || 
-        url === item.url.replace(/\/$/, '')
-      );
+      const match = linkPreviewDataCache['all']?.find(item => urlMatcher(item.url, url));
+      
+      if (match) {
+        console.log(`Found match in single file:`, match);
+      } else {
+        console.log(`No match found in single file for URL: ${url}`);
+      }
+      
+      return match;
     }
   }
 
   // Fallback: Function to fetch metadata for a specific URL
   async function fetchMicrolinkMetadata(url) {
     try {
+      console.log(`Fetching remote metadata for ${url}`);
       const response = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`);
       const data = await response.json();
       
       if (data.status === 'success') {
+        console.log(`Successfully fetched remote metadata for ${url}`);
         return data.data;
       } else {
         console.error('Error fetching data for', url, data);
@@ -144,12 +246,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // The main function to enhance link cards using pre-generated data
   async function enhanceLinkCards() {
+    console.log('Starting to enhance link cards');
+    
     // Load pre-generated data first
     const dataLoadedSuccess = await loadLinkPreviewData();
+    console.log('Link preview data loaded successfully:', dataLoadedSuccess);
     
     // Get all link cards from the links page
     const linkCards = document.querySelectorAll('.link-card');
-    if (!linkCards.length) return;
+    console.log(`Found ${linkCards.length} link cards to enhance`);
+    
+    if (!linkCards.length) {
+      console.log('No link cards found on page');
+      return;
+    }
     
     // Add style for link metadata and loading state
     const style = document.createElement('style');
@@ -232,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.add('microlink-loading');
         
         try {
+          console.log(`Processing card for URL: ${linkUrl}`);
           // Try to get pre-generated data - this is now async
           const previewData = await getPreviewData(linkUrl);
           
@@ -264,6 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (!dataLoadedSuccess) {
             // Fall back to API if data couldn't be loaded
             try {
+              console.log(`Falling back to API for ${linkUrl}`);
               // Fetch metadata and screenshot in parallel
               const [metadata, screenshotResponse] = await Promise.all([
                 fetchMicrolinkMetadata(linkUrl),
@@ -304,6 +416,9 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (previewData && previewData.metadata?.status === 'error') {
             // Mark card with error if metadata fetch previously failed
             card.classList.add('microlink-card-error');
+            console.log(`Card marked with error for ${linkUrl} due to metadata error`);
+          } else {
+            console.log(`No preview data found for ${linkUrl}`);
           }
         } catch (error) {
           console.error('Error processing card for', linkUrl, error);
@@ -336,7 +451,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Run the enhancement on specific pages
-  if (window.location.pathname.includes('/links/')) {
+  if (window.location.pathname.includes('/links')) {
+    console.log('On links page, enhancing link cards');
     enhanceLinkCards();
   }
 });

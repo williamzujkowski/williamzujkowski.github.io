@@ -18,18 +18,22 @@ if [ ! -d "scripts" ] || [ ! -d "src" ]; then
   exit 1
 fi
 
-# Remove old link previews data
+# Remove old link previews data and ensure clean state
 echo "Removing old link previews data..."
-rm -f _data/link-previews.json
-rm -f assets/data/link-previews.json
-rm -f _site/assets/data/link-previews.json
+rm -f _data/link-previews*.json
+rm -f assets/data/link-previews*.json
+rm -f _site/assets/data/link-previews*.json
 
 # Rebuild link previews
 echo "Rebuilding link previews with new categorized system..."
-npm run build:links
+LINK_PREVIEW_FORCE=true npm run build:links
 
 # Create assets directory if it doesn't exist
 mkdir -p assets/data
+
+# Copy link preview files to assets directory
+echo "Copying link preview files to assets directory..."
+cp _data/link-previews*.json assets/data/
 
 # Copy screenshots to assets directory if they exist
 if [ -d "_data/screenshots" ]; then

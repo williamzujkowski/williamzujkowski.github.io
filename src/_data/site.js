@@ -9,10 +9,6 @@
  * - Merges configuration in a predictable way
  * - Provides special handling for sections like homepage and links
  * - Handles errors gracefully with fallbacks
- * - Supports OKLCH color theming for easy palette adjustments
- * - Processes theme configuration from theme.json for CSS variables
- * 
- * See README.md in this directory for usage documentation.
  */
 
 import fs from 'fs';
@@ -40,220 +36,228 @@ function readJsonFile(filePath) {
 }
 
 /**
- * Merges all JSON files in a directory into a single object
+ * Process link groups from configuration
  * 
- * @param {string} dirPath - Path to the directory
- * @returns {Object} Combined data from all JSON files
+ * @returns {Array} Array of link groups
  */
-function mergeJsonFilesInDirectory(dirPath) {
+function processLinkGroups() {
   try {
-    if (!fs.existsSync(dirPath)) {
-      console.warn(`Directory ${dirPath} does not exist`);
-      return {};
-    }
-
-    const files = fs.readdirSync(dirPath);
-    return files.reduce((result, file) => {
-      const filePath = path.join(dirPath, file);
-      const stats = fs.statSync(filePath);
-      
-      if (stats.isFile() && file.endsWith('.json')) {
-        const data = readJsonFile(filePath);
-        return { ...result, ...data };
+    // Check for modular config first
+    const groupsPath = path.join(__dirname, 'config', 'links', 'groups.json');
+    if (fs.existsSync(groupsPath)) {
+      const groupsData = readJsonFile(groupsPath);
+      if (groupsData.linkGroups && Array.isArray(groupsData.linkGroups)) {
+        return groupsData.linkGroups;
       }
-      
-      return result;
-    }, {});
+    }
+    
+    // Fall back to site.json.backup
+    const siteJsonPath = path.join(__dirname, 'site.json.backup');
+    if (fs.existsSync(siteJsonPath)) {
+      const siteData = readJsonFile(siteJsonPath);
+      if (siteData.linkGroups && Array.isArray(siteData.linkGroups)) {
+        return siteData.linkGroups;
+      }
+    }
+    
+    // Return empty array as last resort
+    return [];
   } catch (error) {
-    console.error(`Error merging files in ${dirPath}:`, error.message);
-    return {};
+    console.error('Error processing link groups:', error.message);
+    return [];
   }
 }
 
 /**
- * Recursively merges all JSON files in a directory structure
+ * Process links from modular configuration
  * 
- * @param {string} dirPath - Path to the root directory
- * @param {string} prefix - Optional prefix for nested properties
- * @returns {Object} Combined configuration object
+ * @returns {Array} Array of links
  */
-function mergeConfigDirectory(dirPath, prefix = '') {
+function processLinks() {
   try {
-    if (!fs.existsSync(dirPath)) {
-      console.warn(`Directory ${dirPath} does not exist`);
-      return {};
-    }
-
-    let result = {};
-    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    const links = [];
+    const groupNameMapped = {
+      'art_culture': 'Art, Culture & Exploration',
+      'fun': 'Fun & Curiosities',
+      'technology': 'Technology & Innovation',
+      'social_links': 'Social',
+      'projects': 'Projects',
+      'retrocomputing': 'Retrocomputing',
+      'misc': 'Miscellaneous',
+      'people': 'People',
+      'creative': 'Creative',
+      'artists': 'Artists', 
+      'blogs': 'Blogs',
+      'rollerblading': 'Rollerblading',
+      'music': 'Music', 
+      'gaming': 'Gaming'
+    };
     
-    // First process files
-    for (const entry of entries.filter(entry => entry.isFile() && entry.name.endsWith('.json'))) {
-      const filePath = path.join(dirPath, entry.name);
-      const key = prefix ? `${prefix}.${path.basename(entry.name, '.json')}` : path.basename(entry.name, '.json');
-      const data = readJsonFile(filePath);
+    // Check for modular config first
+    const linksPath = path.join(__dirname, 'config', 'links');
+    if (fs.existsSync(linksPath)) {
+      const linksDir = fs.readdirSync(linksPath);
       
-      // Handle special case for files with a single key that matches their directory
-      if (Object.keys(data).length === 1 && Object.keys(data)[0] === path.basename(dirPath)) {
-        result = { ...result, ...data };
-      } else {
-        result = { ...result, ...data };
+      for (const file of linksDir.filter(f => f.endsWith('.json') && f !== 'groups.json')) {
+        const filePath = path.join(linksPath, file);
+        const linkData = readJsonFile(filePath);
+        
+        // Get group name from filename
+        const groupKey = path.basename(file, '.json');
+        const groupName = groupNameMapped[groupKey] || groupKey.charAt(0).toUpperCase() + groupKey.slice(1);
+        
+        // Handle both formats: 'items' (old) and 'links' (new)
+        if (linkData.items && Array.isArray(linkData.items)) {
+          // Make sure all items have correct group
+          const processedItems = linkData.items.map(item => ({
+            ...item,
+            group: item.group || groupName
+          }));
+          links.push(...processedItems);
+        } else if (linkData.links && Array.isArray(linkData.links)) {
+          // Add group information to each link
+          const processedLinks = linkData.links.map(link => ({
+            ...link,
+            group: link.group || groupName
+          }));
+          links.push(...processedLinks);
+        }
+      }
+      
+      if (links.length > 0) {
+        console.log(`Loaded ${links.length} links from modular configuration`);
+        return links;
       }
     }
     
-    // Then process directories
-    for (const entry of entries.filter(entry => entry.isDirectory())) {
-      const subDirPath = path.join(dirPath, entry.name);
-      const key = prefix ? `${prefix}.${entry.name}` : entry.name;
+    // Fall back to site.json.backup
+    const siteJsonPath = path.join(__dirname, 'site.json.backup');
+    if (fs.existsSync(siteJsonPath)) {
+      const siteData = readJsonFile(siteJsonPath);
+      if (siteData.links && Array.isArray(siteData.links)) {
+        console.log(`Loaded ${siteData.links.length} links from site.json.backup`);
+        return siteData.links;
+      }
+    }
+    
+    // Return empty array as last resort
+    console.warn('No links found in configuration files');
+    return [];
+  } catch (error) {
+    console.error('Error processing links:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Load configuration from files and build complete site config
+ */
+function buildSiteConfiguration() {
+  try {
+    let config = {};
+    
+    // Try to load modular configuration
+    const configDirPath = path.join(__dirname, 'config');
+    if (fs.existsSync(configDirPath)) {
+      // Load theme.json
+      const themePath = path.join(configDirPath, 'theme.json');
+      if (fs.existsSync(themePath)) {
+        config.theme = readJsonFile(themePath);
+      }
       
-      // Special case for links directory - combine all link items
-      if (entry.name === 'links') {
-        const linksData = processLinksDirectory(subDirPath);
-        result = { ...result, ...linksData };
-      } else {
-        // For homepage, we want to keep the structure flat but with prefixed keys
-        if (entry.name === 'homepage') {
-          const homepageData = mergeHomepageDirectory(subDirPath);
-          result = { ...result, ...homepageData };
-        } else {
-          const subDirData = mergeConfigDirectory(subDirPath, key);
-          result = { ...result, ...subDirData };
+      // Load meta.json
+      const metaPath = path.join(configDirPath, 'meta.json');
+      if (fs.existsSync(metaPath)) {
+        Object.assign(config, readJsonFile(metaPath));
+      }
+      
+      // Load navigation.json
+      const navPath = path.join(configDirPath, 'navigation.json');
+      if (fs.existsSync(navPath)) {
+        const navData = readJsonFile(navPath);
+        if (navData.navigation) {
+          config.navigation = navData.navigation;
+        }
+      }
+      
+      // Try to load homepage configuration
+      const homepagePath = path.join(configDirPath, 'homepage');
+      if (fs.existsSync(homepagePath)) {
+        config.homepage = {};
+        
+        // Load each homepage config file
+        const homepageFiles = fs.readdirSync(homepagePath)
+          .filter(file => file.endsWith('.json'));
+        
+        for (const file of homepageFiles) {
+          const filePath = path.join(homepagePath, file);
+          const fileData = readJsonFile(filePath);
+          Object.assign(config.homepage, fileData);
         }
       }
     }
     
-    return result;
-  } catch (error) {
-    console.error(`Error processing directory ${dirPath}:`, error.message);
-    return {};
-  }
-}
-
-/**
- * Special handling for homepage directory
- * Combines all homepage configuration files into a single 'homepage' object
- * 
- * @param {string} dirPath - Path to the homepage directory
- * @returns {Object} Object with 'homepage' key containing merged homepage data
- */
-function mergeHomepageDirectory(dirPath) {
-  try {
-    let homepage = {};
-    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
-    
-    for (const entry of entries.filter(entry => entry.isFile() && entry.name.endsWith('.json'))) {
-      const filePath = path.join(dirPath, entry.name);
-      const data = readJsonFile(filePath);
-      homepage = { ...homepage, ...data };
-    }
-    
-    return { homepage };
-  } catch (error) {
-    console.error(`Error processing homepage directory:`, error.message);
-    return { homepage: {} };
-  }
-}
-
-/**
- * Special handling for links directory
- * Combines link groups and all link items from different categories
- * 
- * @param {string} dirPath - Path to the links directory
- * @returns {Object} Object with 'links' array and 'linkGroups' properties
- */
-function processLinksDirectory(dirPath) {
-  try {
-    // Read linkGroups first
-    const groupsFile = path.join(dirPath, 'groups.json');
-    const groups = fs.existsSync(groupsFile) ? readJsonFile(groupsFile) : { linkGroups: [] };
-    
-    // Collect all link items
-    let allLinks = [];
-    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
-    
-    for (const entry of entries.filter(entry => entry.isFile() && entry.name.endsWith('.json') && entry.name !== 'groups.json')) {
-      const filePath = path.join(dirPath, entry.name);
-      const data = readJsonFile(filePath);
+    // Fall back to site.json.backup for missing sections
+    const siteJsonPath = path.join(__dirname, 'site.json.backup');
+    if (fs.existsSync(siteJsonPath)) {
+      const siteData = readJsonFile(siteJsonPath);
       
-      if (data.items && Array.isArray(data.items)) {
-        allLinks = [...allLinks, ...data.items];
-      } else if (data.links && Array.isArray(data.links)) {
-        // Add group information to each link based on the file name
-        const groupName = path.basename(entry.name, '.json');
-        const groupNameMapped = {
-          'art_culture': 'Art, Culture & Exploration',
-          'fun': 'Fun & Curiosities',
-          'technology': 'Technology & Innovation',
-          'social_links': 'Social',
-          'projects': 'Projects',
-          'retrocomputing': 'Retrocomputing',
-          'misc': 'Miscellaneous',
-          'people': 'People',
-          'creative': 'Creative',
-          'artists': 'Artists', 
-          'blogs': 'Blogs',
-          'rollerblading': 'Rollerblading',
-          'music': 'Music', 
-          'gaming': 'Gaming'
-        };
-        
-        const transformedLinks = data.links.map(link => ({
-          ...link,
-          group: groupNameMapped[groupName] || groupName.charAt(0).toUpperCase() + groupName.slice(1)
-        }));
-        
-        allLinks = [...allLinks, ...transformedLinks];
+      // Use backup values for any missing fields
+      if (!config.title) config.title = siteData.title;
+      if (!config.description) config.description = siteData.description;
+      if (!config.url) config.url = siteData.url;
+      if (!config.author) config.author = siteData.author;
+      if (!config.email) config.email = siteData.email;
+      if (!config.theme) config.theme = siteData.theme;
+      if (!config.seo) config.seo = siteData.seo;
+      if (!config.navigation) config.navigation = siteData.navigation;
+      
+      // Copy homepage settings if missing
+      if (!config.homepage && siteData.homepage) {
+        config.homepage = siteData.homepage;
+      } else if (config.homepage && siteData.homepage) {
+        // Fill in any missing homepage settings
+        for (const key in siteData.homepage) {
+          if (!config.homepage[key]) {
+            config.homepage[key] = siteData.homepage[key];
+          }
+        }
+      }
+      
+      // Copy blog settings if missing
+      if (!config.blog && siteData.blog) {
+        config.blog = siteData.blog;
       }
     }
     
-    return { links: allLinks, ...groups };
+    // Process link groups and links using specialized functions
+    config.linkGroups = processLinkGroups();
+    config.links = processLinks();
+    
+    return config;
   } catch (error) {
-    console.error(`Error processing links directory:`, error.message);
-    return { links: [], linkGroups: [] };
-  }
-}
-
-// Main configuration path
-const configDir = path.join(__dirname, 'config');
-
-/**
- * Process theme configuration
- * 
- * Load and process the theme configuration for use with CSS variables
- * 
- * @returns {Object} Processed theme configuration
- */
-function processThemeConfig() {
-  try {
-    const themePath = path.join(configDir, 'theme.json');
-    if (fs.existsSync(themePath)) {
-      return readJsonFile(themePath);
-    }
-    return null;
-  } catch (error) {
-    console.error('Error processing theme configuration:', error.message);
-    return null;
+    console.error('Error building site configuration:', error.message);
+    
+    // Return minimal configuration as fallback
+    return {
+      title: "William Zujkowski",
+      description: "Personal website and technology blog",
+      url: "https://williamzujkowski.github.io",
+      linkGroups: [],
+      links: []
+    };
   }
 }
 
 // Build the site configuration
-const siteConfig = mergeConfigDirectory(configDir);
-
-// Add theme configuration
-const themeConfig = processThemeConfig();
-if (themeConfig) {
-  siteConfig.theme = themeConfig;
-}
+const siteConfig = buildSiteConfiguration();
+console.log(`Site config built with ${siteConfig.linkGroups?.length || 0} link groups and ${siteConfig.links?.length || 0} links`);
 
 /**
  * Site configuration export function
- * 
- * This function returns the complete site configuration object
- * for use in Eleventy templates. The object structure mirrors 
- * the directory structure, with special handling for certain sections.
  * 
  * @returns {Object} Complete site configuration
  */
 export default function() {
   return siteConfig;
-};
+}
