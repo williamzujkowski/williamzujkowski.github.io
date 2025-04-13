@@ -17,57 +17,62 @@ eleventyNavigation:
   </div>
 </div>
 
-<p class="text-text-secondary mb-6">Useful resources and interesting websites I've collected.</p>
+<p class="text-text-secondary mb-4">Useful resources and interesting websites I've collected.</p>
 
+<!-- Quick Jump Navigation -->
+<div class="mb-6 sticky top-0 z-10 pt-4 pb-4 bg-background border-b border-border">
+  <div class="links-filter mb-2">
+    <input type="text" id="link-filter" placeholder="Search links..." 
+      class="w-full md:w-72 px-3 py-2 bg-gray-light border border-border rounded-github 
+      focus:outline-none focus:ring-2 focus:ring-accent text-text placeholder-text-secondary">
+  </div>
+  
+  <div class="links-jump flex flex-wrap gap-2 text-text-secondary">
+    <span class="text-text-secondary text-sm py-1">Jump to: </span>
+    {% for group in site.linkGroups %}
+      <a href="#{{ group.name | slugify }}" class="tag-pill">
+        <span class="mr-1">{{ group.icon }}</span>{{ group.name }}
+      </a>
+    {% endfor %}
+  </div>
+</div>
 
 <!-- GitHub Repositories Section -->
 {% if site.homepage.show_github_repos_on_links and site.homepage.pinned_repositories %}
-<div id="repositories" class="mb-6">
-  <div class="flex items-center mb-3">
+<div id="repositories" class="link-section mb-10">
+  <div class="flex items-center mb-4">
     <span class="text-lg mr-2">📌</span>
-    <h2 class="text-xl font-medium mt-0 mb-0">GitHub Repositories</h2>
+    <h2 id="github-repositories" class="text-xl font-medium mt-0 mb-0">GitHub Repositories</h2>
   </div>
   
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-custom">
+  <div class="link-list divide-y divide-border/30 bg-gray-light rounded-github overflow-hidden">
     {% for repo in site.homepage.pinned_repositories %}
-      <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" class="block h-full" data-url="{{ repo.url }}">
-        <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full link-card">
-          <!-- Repository header with icon -->
-          <div class="relative h-0 pb-[56.25%] overflow-hidden bg-surface link-header">
-            <div class="absolute inset-0 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-            </div>
-            
+      <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" 
+         class="flex items-center px-4 py-3 hover:bg-gray-light/80 transition-colors link-item">
+        <div class="flex-1">
+          <div class="flex items-center">
+            <span class="font-medium text-white">{{ repo.name }}</span>
             {% if repo.language %}
-            <div class="absolute top-2 right-2 pointer-events-none">
-              <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30 flex items-center">
+              <span class="ml-3 inline-flex items-center text-xs text-text-secondary">
                 <span class="inline-block w-2 h-2 rounded-full mr-1.5" style="background-color: {{ repo.language_color }}"></span>
                 {{ repo.language }}
               </span>
-            </div>
+            {% endif %}
+            {% if repo.stars > 0 %}
+              <span class="ml-3 inline-flex items-center text-xs text-text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" class="mr-1 text-accent" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
+                {{ repo.stars }}
+              </span>
             {% endif %}
           </div>
-
-          <!-- Repository content -->
-          <div class="p-5 flex-grow flex flex-col">
-            <div class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ repo.name }}</div>
-            
-            <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
-              {{ repo.description }}
-            </div>
-            
-            <div class="link-metadata"></div>
-            
-            <div class="mt-auto pt-3 border-t border-border">
-              {% if repo.stars > 0 %}
-              <div class="flex items-center text-text-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" class="mr-1.5 text-accent opacity-80" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
-                {{ repo.stars }}
-              </div>
-              {% endif %}
-              <!-- Repo link text removed as entire card is clickable -->
-            </div>
-          </div>
+          {% if repo.description %}
+            <p class="text-sm text-text-secondary mt-1">{{ repo.description }}</p>
+          {% endif %}
+        </div>
+        <div class="text-accent">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m-3.75 0h-4.5m0 0v4.5" />
+          </svg>
         </div>
       </a>
     {% endfor %}
@@ -76,103 +81,195 @@ eleventyNavigation:
 {% endif %}
 
 <!-- Link Groups -->
-{% for group in site.linkGroups %}
-  {% if group.name != "Social" %}
-  <div class="mb-6">
-    <div class="flex items-center mb-3">
-      <span class="text-lg mr-2">{{ group.icon }}</span>
-      <h2 class="text-xl font-medium mt-0 mb-0">{{ group.name }}</h2>
-    </div>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-custom">
-      {% for link in site.links %}
-        {% if link.group === group.name %}
-          <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="block h-full" data-url="{{ link.url }}">
-            <div class="border border-border rounded-github overflow-hidden bg-gray-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col searchable h-full link-card">
-              <!-- Link header with icon or image -->
-              <div class="relative h-0 pb-[56.25%] overflow-hidden bg-surface link-header">
-                {% if group.name == "Technology & Innovation" %}
-                  {% if link.name == "Learn X in Y Minutes" %}
-                    <img src="/assets/images/links/technology/learn-x-in-y.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "Set Up Your Own LTE Network" %}
-                    <img src="/assets/images/links/technology/lte-network.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "International Space Elevator Consortium" %}
-                    <img src="/assets/images/links/technology/space-elevator.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "Orion's Arm Universe Project" %}
-                    <img src="/assets/images/links/technology/orions-arm.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "DustinBrett.com" %}
-                    <img src="/assets/images/links/technology/digital-culture.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "Parallel Lives" %}
-                    <img src="/assets/images/links/technology/parallel-lives.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% else %}
-                    <div class="absolute inset-0 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
-                        <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                      </svg>
-                    </div>
+<div class="links-content">
+  {% for group in site.linkGroups %}
+    {% if group.name != "Social" %}
+      {% set groupLinks = site.links | filter("group", group.name) %}
+      {% if groupLinks.length > 0 %}
+        <div id="{{ group.name | slugify }}" class="link-section mb-10">
+          <div class="flex items-center mb-4 group-header">
+            <span class="text-lg mr-2">{{ group.icon }}</span>
+            <h2 class="text-xl font-medium mt-0 mb-0">{{ group.name }}</h2>
+            <span class="ml-2 text-sm text-text-secondary">({{ groupLinks.length }})</span>
+          </div>
+          
+          <div class="link-list divide-y divide-border/30 bg-gray-light rounded-github overflow-hidden">
+            {% for link in groupLinks %}
+              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" 
+                class="flex items-center px-4 py-3 hover:bg-gray-light/80 transition-colors link-item"
+                data-url="{{ link.url }}">
+                <div class="flex-1">
+                  <div class="font-medium text-white">{{ link.name }}</div>
+                  {% if link.description %}
+                    <p class="text-sm text-text-secondary mt-1">{{ link.description }}</p>
                   {% endif %}
-                {% elif group.name == "Art, Culture & Exploration" %}
-                  {% if link.name == "Centauri Dreams" %}
-                    <img src="/assets/images/links/art-culture/centauri-dreams.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "Center for PostNatural History" %}
-                    <img src="/assets/images/links/art-culture/postnatural-history.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "Museum of Obsolete Media" %}
-                    <img src="/assets/images/links/art-culture/obsolete-media.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% else %}
-                    <div class="absolute inset-0 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
-                        <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                      </svg>
-                    </div>
-                  {% endif %}
-                {% elif group.name == "Fun & Curiosities" %}
-                  {% if link.name == "Paperclip AI Game" %}
-                    <img src="/assets/images/links/fun/paperclip-ai.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "The Kid Should See This" %}
-                    <img src="/assets/images/links/fun/kid-should-see-this.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% elif link.name == "The Website is Down" %}
-                    <img src="/assets/images/links/fun/website-is-down.svg" alt="{{ link.name }}" class="absolute inset-0 w-full h-full object-cover">
-                  {% else %}
-                    <div class="absolute inset-0 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
-                        <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                      </svg>
-                    </div>
-                  {% endif %}
-                {% else %}
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="48" height="48" class="text-accent/40" fill="currentColor">
-                      <path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                    </svg>
-                  </div>
-                {% endif %}
-                
-                <div class="absolute top-2 right-2 pointer-events-none">
-                  <span class="bg-surface/90 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border/30">{{ group.name }}</span>
                 </div>
-              </div>
+                <div class="text-accent">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m-3.75 0h-4.5m0 0v4.5" />
+                  </svg>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
 
-              <!-- Link content -->
-              <div class="p-5 flex-grow flex flex-col">
-                <div class="text-lg font-semibold text-white mb-3 hover:text-accent transition-colors duration-200 line-clamp-2">{{ link.name }}</div>
-                
-                {% if link.description %}
-                  <div class="text-base text-text leading-relaxed mb-4 line-clamp-3">
-                    {{ link.description }}
-                  </div>
-                {% endif %}
-                
-                <div class="link-metadata"></div>
-                
-                <div class="mt-auto pt-3 border-t border-border">
-                  <!-- Link text removed as entire card is clickable -->
-                </div>
-              </div>
-            </div>
-          </a>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
-{% endfor %}
+<!-- Back to Top Button -->
+<button id="back-to-top" 
+  class="fixed bottom-6 right-6 rounded-full bg-accent/80 hover:bg-accent p-3 text-white shadow-lg opacity-0 transition-opacity duration-300 invisible">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+  </svg>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Filter functionality
+    const filterInput = document.getElementById('link-filter');
+    const linkItems = document.querySelectorAll('.link-item');
+    const linkSections = document.querySelectorAll('.link-section');
+    
+    if (filterInput) {
+      filterInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        // Show/hide link items based on search term
+        linkItems.forEach(item => {
+          const linkName = item.querySelector('.font-medium').textContent.toLowerCase();
+          const linkDesc = item.querySelector('p')?.textContent.toLowerCase() || '';
+          
+          if (linkName.includes(searchTerm) || linkDesc.includes(searchTerm)) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+        
+        // Show/hide sections based on if they have any visible links
+        linkSections.forEach(section => {
+          const visibleLinks = section.querySelectorAll('.link-item:not(.hidden)');
+          if (visibleLinks.length === 0) {
+            section.classList.add('hidden');
+          } else {
+            section.classList.remove('hidden');
+          }
+        });
+      });
+    }
+    
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (backToTopButton) {
+      // Show/hide button based on scroll position
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          backToTopButton.classList.remove('opacity-0', 'invisible');
+        } else {
+          backToTopButton.classList.add('opacity-0');
+          setTimeout(() => {
+            if (window.scrollY <= 500) {
+              backToTopButton.classList.add('invisible');
+            }
+          }, 300);
+        }
+      });
+      
+      // Scroll to top when clicked
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('.links-jump a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // Account for sticky header
+          const stickyHeaderHeight = document.querySelector('.links-filter').offsetHeight + 20;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - stickyHeaderHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Update URL without scrolling
+          history.pushState(null, null, `#${targetId}`);
+        }
+      });
+    });
+    
+    // Check for hash on page load
+    if (window.location.hash) {
+      setTimeout(() => {
+        const targetId = window.location.hash.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // Account for sticky header
+          const stickyHeaderHeight = document.querySelector('.links-filter').offsetHeight + 20;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - stickyHeaderHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+    }
+  });
+</script>
+
+<style>
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 9999px;
+    background-color: var(--color-gray-light);
+    color: var(--color-text);
+    transition: all 0.2s;
+    border: 1px solid var(--color-border);
+  }
+  
+  .tag-pill:hover {
+    background-color: var(--color-accent);
+    color: white;
+  }
+
+  /* For keyboard accessibility */
+  .tag-pill:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  
+  /* Animation for the search results */
+  .link-item {
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  
+  .link-item.hidden {
+    display: none;
+  }
+  
+  /* Highlight the current section */
+  .group-header:target {
+    background-color: var(--color-accent-100);
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+  }
+</style>
