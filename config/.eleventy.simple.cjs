@@ -328,20 +328,6 @@ module.exports = function(eleventyConfig) {
     return relatedPosts;
   });
   
-  // Filter for getting links by group
-  eleventyConfig.addFilter("filter", function(array, key, value) {
-    if (!array || !Array.isArray(array)) return [];
-    
-    return array.filter(item => {
-      if (!item || typeof item !== 'object' || !item.hasOwnProperty(key)) return false;
-      return item[key] === value;
-    }).sort((a, b) => {
-      if (a.name && b.name) {
-        return a.name.localeCompare(b.name);
-      }
-      return 0;
-    });
-  });
   
   // Add collection utilities
   eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {

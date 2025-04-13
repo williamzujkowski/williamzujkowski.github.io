@@ -84,7 +84,14 @@ eleventyNavigation:
 <div class="links-content">
   {% for group in site.linkGroups %}
     {% if group.name != "Social" %}
-      {% set groupLinks = site.links | filter("group", group.name) %}
+      <!-- Get links for this group -->
+      {% set groupLinks = [] %}
+      {% for link in site.links %}
+        {% if link.group === group.name %}
+          {% set groupLinks = (groupLinks.push(link), groupLinks) %}
+        {% endif %}
+      {% endfor %}
+      
       {% if groupLinks.length > 0 %}
         <div id="{{ group.name | slugify }}" class="link-section mb-10">
           <div class="flex items-center mb-4 group-header">
@@ -94,7 +101,7 @@ eleventyNavigation:
           </div>
           
           <div class="link-list divide-y divide-border/30 bg-gray-light rounded-github overflow-hidden">
-            {% for link in groupLinks %}
+            {% for link in groupLinks | sort(false, false, 'name') %}
               <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" 
                 class="flex items-center px-4 py-3 hover:bg-gray-light/80 transition-colors link-item"
                 data-url="{{ link.url }}">
