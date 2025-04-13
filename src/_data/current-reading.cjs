@@ -13,7 +13,16 @@ module.exports = function() {
     if (fs.existsSync(dataPath)) {
       // Read and parse the JSON file
       const fileContents = fs.readFileSync(dataPath, 'utf8');
-      return JSON.parse(fileContents);
+      // Check if the content is not empty and parse it
+      if (fileContents && fileContents.trim() !== '') {
+        const data = JSON.parse(fileContents);
+        // Debug output
+        console.log('Loaded current reading data:', JSON.stringify(data));
+        return data;
+      } else {
+        console.warn('Warning: current-reading.json is empty. Using empty array instead.');
+        return [];
+      }
     } else {
       console.warn('Warning: current-reading.json not found. Using empty array instead.');
       return [];

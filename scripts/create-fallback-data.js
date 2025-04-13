@@ -22,18 +22,53 @@ async function main() {
       { name: 'link-previews.json', content: [] },
       { name: 'current-reading.json', content: [
         {
-          "title": "Fallback Reading Item",
-          "firstAuthor": "Author Name",
+          "title": "Designing Data-Intensive Applications",
+          "firstAuthor": "Martin Kleppmann",
           "categoryLabel": "Research",
-          "progress": 50
+          "progress": 75,
+          "link": "https://arxiv.org/abs/2001.00001"
+        },
+        {
+          "title": "Building ML Powered Applications",
+          "firstAuthor": "Emmanuel Ameisen",
+          "categoryLabel": "AI",
+          "progress": 45,
+          "link": "https://arxiv.org/abs/2001.00002"
         }
       ]},
       { name: 'books.json', content: [
         {
-          "title": "Fallback Book",
-          "author": "Author Name",
-          "isbn": "1234567890",
-          "progress": 50
+          "title": "Dungeon Crawler Carl",
+          "author": "Matt Dinniman",
+          "isbn": "059382024X",
+          "progress": 62,
+          "cover_url": null,
+          "description": null,
+          "publish_date": "2024",
+          "page_count": null,
+          "subjects": ["series:dungeon_crawler_carl", "Fantasy"]
+        },
+        {
+          "title": "Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems",
+          "author": "Martin Kleppmann",
+          "isbn": "9781449373320",
+          "progress": 75,
+          "cover_url": "https://covers.openlibrary.org/b/id/8434671-M.jpg",
+          "description": null,
+          "publish_date": "Apr 02, 2017",
+          "page_count": 624,
+          "subjects": ["Development", "Database management", "Databases"]
+        },
+        {
+          "title": "Building Machine Learning Powered Applications",
+          "author": "Emmanuel Ameisen",
+          "isbn": "9781492045113", 
+          "progress": 45,
+          "cover_url": null,
+          "description": null,
+          "publish_date": "2020",
+          "page_count": 260,
+          "subjects": ["Science"]
         }
       ]}
     ];

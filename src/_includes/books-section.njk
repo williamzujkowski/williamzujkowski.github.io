@@ -45,11 +45,14 @@
 
 <div class="gh-reading-section mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
   {% if books and books.length > 0 %}
+    {# Debug output - comment out in production #}
+    {# {{ books | dump }} #}
+    
     {% set displayedBooks = [] %}
     
-    {# First display Dungeon Crawler Carl and Building Machine Learning Powered Applications #}
+    {# First display specific books if they exist #}
     {% for book in books %}
-      {% if book.title.indexOf('Dungeon Crawler Carl') >= 0 or book.title.indexOf('Building Machine Learning Powered Applications') >= 0 %}
+      {% if (book.title.indexOf('Dungeon Crawler Carl') >= 0 or book.title.indexOf('Designing Data-Intensive Applications') >= 0 or book.title.indexOf('Building Machine Learning Powered Applications') >= 0 or book.title.indexOf('Building ML Powered Applications') >= 0) %}
         {{ renderBookCard(book) }}
         {% set displayedBooks = (displayedBooks.push(book.isbn), displayedBooks) %}
       {% endif %}
