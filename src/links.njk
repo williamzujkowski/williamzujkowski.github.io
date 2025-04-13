@@ -111,22 +111,8 @@ eleventyNavigation:
                     <p class="text-sm text-text-secondary mt-1">{{ link.description }}</p>
                   {% endif %}
                   
-                  {# Fetch metadata from link preview data if available #}
-                  {% set preview = site.linkPreviews | getPreviewByUrl(link.url) %}
-                  {% if preview and preview.metadata and preview.metadata.status === 'success' %}
-                    <div class="metadata-preview mt-2 text-xs text-text-secondary">
-                      {% if preview.metadata.publisher %}
-                        <span class="inline-block mr-3">
-                          <span class="opacity-70">Source:</span> {{ preview.metadata.publisher }}
-                        </span>
-                      {% endif %}
-                      {% if preview.metadata.date %}
-                        <span class="inline-block">
-                          <span class="opacity-70">Updated:</span> {{ preview.metadata.date | formatDate }}
-                        </span>
-                      {% endif %}
-                    </div>
-                  {% endif %}
+                  {# Note: Link preview metadata is temporarily disabled in the GitHub Actions build.
+                     Run the local build with npm run build:link-previews and npm run build to see full metadata. #}
                 </div>
                 <div class="text-accent">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
