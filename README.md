@@ -8,7 +8,7 @@ This is my personal website and blog, built with [11ty](https://www.11ty.dev/), 
 - Blog with markdown support and tag filtering
 - Configurable homepage with customizable sections
 - Links page with categorized resources in a grid layout
-- Rich link previews with metadata and screenshots using Microlink
+- Rich link previews with metadata using metascraper
 - GitHub repository pinning and showcase
 - arXiv research papers feed showing latest AI/ML and cybersecurity papers
 - Social media integration
@@ -33,7 +33,7 @@ All documentation has been consolidated in the `docs/` directory for better orga
 ### Development
 - [Claude AI Guidelines](docs/development/CLAUDE.md) - Guidelines for AI assistance with this codebase
 - [Contributing](docs/development/CONTRIBUTING.md) - Guidelines for contributing to the project
-- [Link Screenshots](docs/reference/LINK-SCREENSHOTS.md) - How website screenshots for links are generated and used
+- [Link Previews](docs/development/LINK-PREVIEWS.md) - How link previews are generated and managed
 
 #### Using Claude AI
 
@@ -373,66 +373,51 @@ The site uses Tailwind CSS for styling. Main CSS files:
 
 The site is configured for GitHub Pages deployment. When you push to the repository, GitHub Actions will automatically build and deploy the site.
 
-## Microlink Integration
+## Link Preview System
 
-The site uses Microlink's open source tools to enhance link previews:
+The site features a link preview system that enhances the links page with rich metadata:
 
-- During the build process, `build-link-previews.js` generates screenshots and extracts metadata for external links
-- The script is designed to process new links and update the 20 oldest links on each build
-- This data is stored as JSON and used by the frontend to display rich link previews
-- In case pre-generated data is unavailable, the site falls back to using the Microlink API in real-time
-- You can also use `tools/generate-test-screenshots.js` to manually generate screenshots for testing
+- During the build process, `link-preview-generator.js` extracts metadata for external links
+- The data includes page titles, descriptions, author information, and publication dates
+- This data is stored as JSON and used by the templates to display rich link previews
+- The system is designed to be lightweight and efficient, without requiring screenshots
 
-For detailed information about how website screenshots work, see [Link Screenshots](docs/reference/LINK-SCREENSHOTS.md)
+For detailed information about the link preview system, see [Link Previews](docs/development/LINK-PREVIEWS.md)
 
 ### Link Preview Generation
 
-The site includes a comprehensive link management system that handles:
+The site includes a metadata-based link management system that handles:
 - Generating metadata for links (title, description, author, etc.)
-- Creating screenshots of linked websites
 - Validating link health
-- Managing incremental updates to minimize processing time
+- Organizing links by category
 
 Available commands:
 
 ```bash
-# Initial setup (generates previews for all links)
-npm run process:links:initial
+# Generate or update link previews
+npm run build:link-previews
 
-# Regular updates (automatically included in the build process)
-npm run build:links
-
-# Link health validation
-npm run validate:links
-
-# Check for missing link previews
-npm run check:links
-# Or using the CLI utility
-./scripts/bin/content.sh links:check
-
-# Generate website screenshots
-npm run screenshots
-# Or using the CLI utility
-./scripts/bin/content.sh screenshots
+# Or using the shell script directly
+./scripts/rebuild-link-previews.sh
 ```
 
 For detailed instructions on link management, see [MAINTENANCE.md](docs/reference/MAINTENANCE.md).
 
 ### How Link Preview Generation Works
 
-1. **Initial Run**: When you first run `process:links:initial`, the script processes all links and generates metadata and screenshots.
+1. **Metadata Extraction**: The system uses `metascraper` to extract rich metadata from each link URL.
 
-2. **Incremental Updates**: During normal builds with `build:links`, the script:
-   - Processes any new links that have been added
-   - Updates the 10 oldest links (based on their last check date)
-   - Preserves existing data for all other links
+2. **Data Storage**: The extracted metadata is stored in JSON files:
+   - `_data/link-previews.json` - Master file with all link previews
+   - `assets/data/link-previews.json` - Copy for the built site
+   - `assets/data/link-previews-{category}.json` - Category-specific preview files
 
-3. **Validation**: The `validate:links` command checks if links are still accessible without regenerating previews.
+3. **Integration**: The data is integrated into the site configuration during build and used in the templates to display rich link information.
 
 The tooling uses:
 - `metascraper` for metadata extraction
-- `puppeteer` and `@browserless/goto` for screenshot generation
-- Microlink's API as a fallback for real-time preview generation
+- Various metascraper plugins for specific types of metadata (author, date, description, etc.)
+- The `got` library for HTTP requests
 
 ## License
 

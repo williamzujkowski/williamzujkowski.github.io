@@ -234,6 +234,22 @@ function buildSiteConfiguration() {
     config.linkGroups = processLinkGroups();
     config.links = processLinks();
     
+    // Process link previews
+    try {
+      const linkPreviewsPath = path.join(rootDir, '_data', 'link-previews.json');
+      if (fs.existsSync(linkPreviewsPath)) {
+        const linkPreviewsData = fs.readFileSync(linkPreviewsPath, 'utf8');
+        config.linkPreviews = JSON.parse(linkPreviewsData);
+        console.log(`Loaded ${config.linkPreviews.length} link previews`);
+      } else {
+        console.log('No link previews data found');
+        config.linkPreviews = [];
+      }
+    } catch (error) {
+      console.error('Error loading link previews:', error.message);
+      config.linkPreviews = [];
+    }
+    
     return config;
   } catch (error) {
     console.error('Error building site configuration:', error.message);

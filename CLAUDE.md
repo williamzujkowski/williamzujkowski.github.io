@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` - Full build (data, eleventy, CSS)
 - `npm run dev` or `npm run serve` - Start dev server
 - `npm run build:css` - Build CSS with PostCSS only
+- `npm run build:link-previews` - Generate link preview metadata
 - `npm run debug` - Run 11ty with debug output
 - `npm run process:posts` - Process blog posts from new_posts/ directory
 - This site uses Eleventy 3.0 and Tailwind CSS 3.4.1 - make sure all code is compatible with these versions
