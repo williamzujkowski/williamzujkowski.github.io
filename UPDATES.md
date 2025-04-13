@@ -1,5 +1,23 @@
 # Recent Updates
 
+## April 13, 2025 - Codebase Cleanup and Performance Improvements
+
+1. **Removed All Vestigial Link Preview Content and Code**
+   - Eliminated unused screenshot files and directories (~400 files)
+   - Removed screenshot generation scripts and utilities
+   - Removed validate-links.js validation script
+   - Removed empty microlink-integration.js file
+   - Simplified build process by removing link preview generation
+   - Reduced repository size significantly
+   - Updated create-fallback-data.js to stop generating link preview files
+
+2. **Enhanced Blog Post Topic Diversity**
+   - Updated blogpost.prompt to ensure topic diversity
+   - Added topic diversity analysis template
+   - Implemented checks to prevent topic repetition
+   - Added metadata guidelines for unique titles
+   - Required different topics from recent posts
+
 ## April 7, 2025 - Build Reliability and Dependency Updates
 
 1. **GitHub Actions Build Fixes**
