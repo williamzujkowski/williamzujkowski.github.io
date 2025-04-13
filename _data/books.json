@@ -24,8 +24,6 @@
     "page_count": 624,
     "subjects": [
       "Development",
-      "Web site development",
-      "Application software",
       "Database management",
       "Databases"
     ]
@@ -42,16 +40,5 @@
     "subjects": [
       "Science"
     ]
-  },
-  {
-    "title": "Psychoanalysis of R'Lyeh",
-    "author": "August Moldenhauer",
-    "isbn": "1329970136",
-    "progress": 28,
-    "cover_url": null,
-    "description": null,
-    "publish_date": "2012",
-    "page_count": null,
-    "subjects": []
   }
 ]

@@ -124,13 +124,9 @@ export function filterLinks(links, options = {}) {
  * Save link metadata to JSON file
  */
 export async function saveLinkMetadata(metadata, metadataPath = DEFAULT_CONFIG.metadataFile) {
+  // Write directly to assets/data only - no longer copying to _data
   await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2));
-  
-  // Also copy to _data directory if it exists
-  const dataDir = path.join(__dirname, '..', '..', '_data');
-  if (await fs.access(dataDir).then(() => true).catch(() => false)) {
-    await fs.copyFile(metadataPath, path.join(dataDir, 'link-previews.json'));
-  }
+  console.log(`Link metadata saved to ${metadataPath}`);
 }
 
 /**
