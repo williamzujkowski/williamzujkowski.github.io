@@ -9,7 +9,7 @@ eleventyExcludeFromCollections: true
   <subtitle>{{ site.description }}</subtitle>
   <link href="{{ site.url }}/feed.xml" rel="self" />
   <link href="{{ site.url }}" />
-  <updated>{{ collections.posts | getNewestCollectionItemDate | date("iso") }}</updated>
+  <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
   <id>{{ site.url }}</id>
   <author>
     <name>{{ site.author }}</name>
@@ -20,7 +20,7 @@ eleventyExcludeFromCollections: true
   <entry>
     <title>{{ post.data.title }}</title>
     <link href="{{ absolutePostUrl }}" />
-    <updated>{{ post.date | date('yyyy-MM-dd') }}T00:00:00Z</updated>
+    <updated>{{ post.date | dateToRfc3339 }}</updated>
     <id>{{ absolutePostUrl }}</id>
     <content type="html">
       {% if post.templateContent %} {{ post.templateContent |
