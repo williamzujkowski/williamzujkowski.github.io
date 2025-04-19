@@ -408,14 +408,7 @@ eleventyNavigation:
         <a
           href="{{ pageUrl }}"
           class="gh-page-number {% if page.url == pageUrl %}active{% endif %}"
-          {%
-          if
-          page.url=""
-          ="pageUrl"
-          %}aria-current="page"
-          {%
-          endif
-          %}
+          {% if page.url == pageUrl %}aria-current="page"{% endif %}
         >
           {{ pageNumber }}
         </a>
