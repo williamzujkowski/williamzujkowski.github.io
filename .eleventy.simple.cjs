@@ -407,6 +407,33 @@ module.exports = function (eleventyConfig) {
     };
   });
 
+  // Load social media data
+  const fs = require("fs");
+  const path = require("path");
+  const socialMediaPath = path.resolve(
+    __dirname,
+    "src",
+    "_data",
+    "config",
+    "social",
+    "social_media.json"
+  );
+  try {
+    if (fs.existsSync(socialMediaPath)) {
+      const socialMediaData = JSON.parse(fs.readFileSync(socialMediaPath, "utf8"));
+      eleventyConfig.addGlobalData("social_media", socialMediaData.social_media || []);
+      console.log(
+        `Loaded ${socialMediaData.social_media?.length || 0} social media links`
+      );
+    } else {
+      console.log("Social media configuration not found");
+      eleventyConfig.addGlobalData("social_media", []);
+    }
+  } catch (error) {
+    console.error("Error loading social media configuration:", error);
+    eleventyConfig.addGlobalData("social_media", []);
+  }
+
   // Site structure
   return {
     dir: {

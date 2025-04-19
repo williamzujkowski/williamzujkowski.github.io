@@ -52,7 +52,9 @@ export default [
   {
     input: "src/js/main.js",
     output: {
-      file: "_site/js/main.bundle.js",
+      dir: "_site/js",
+      entryFileNames: "[name].bundle.js",
+      chunkFileNames: "chunks/[name]-[hash].js",
       format: "es",
       sourcemap: !isProduction,
     },
@@ -63,7 +65,9 @@ export default [
   {
     input: "src/js/blog-search.js",
     output: {
-      file: "_site/js/blog.bundle.js",
+      dir: "_site/js/blog",
+      entryFileNames: "blog.bundle.js",
+      chunkFileNames: "../chunks/[name]-[hash].js",
       format: "es",
       sourcemap: !isProduction,
     },
@@ -74,7 +78,9 @@ export default [
   {
     input: "src/js/search.js",
     output: {
-      file: "_site/js/search.bundle.js",
+      dir: "_site/js/search",
+      entryFileNames: "search.bundle.js",
+      chunkFileNames: "../chunks/[name]-[hash].js",
       format: "es",
       sourcemap: !isProduction,
     },
@@ -85,7 +91,9 @@ export default [
   {
     input: "src/js/components/theme-toggle.js",
     output: {
-      file: "_site/js/components/theme-toggle.bundle.js",
+      dir: "_site/js/components",
+      entryFileNames: "theme-toggle.bundle.js",
+      chunkFileNames: "../chunks/[name]-[hash].js",
       format: "es",
       sourcemap: !isProduction,
     },
@@ -96,7 +104,9 @@ export default [
   {
     input: "src/js/components/code-highlight.js",
     output: {
-      file: "_site/js/components/code-highlight.bundle.js",
+      dir: "_site/js/components",
+      entryFileNames: "code-highlight.bundle.js",
+      chunkFileNames: "../chunks/[name]-[hash].js",
       format: "es",
       sourcemap: !isProduction,
     },
@@ -107,7 +117,9 @@ export default [
   {
     input: "src/js/theme-utils.js",
     output: {
-      file: "_site/js/utils.bundle.js",
+      dir: "_site/js/utils",
+      entryFileNames: "utils.bundle.js",
+      chunkFileNames: "../chunks/[name]-[hash].js",
       format: "es",
       sourcemap: !isProduction,
     },
