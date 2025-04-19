@@ -1,0 +1,183 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0d1117" />
+<!-- Theme initialization script -->
+<script src="/js/utils/theme-init.js"></script>
+<title>
+  {% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}
+</title>
+<meta
+  name="description"
+  content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}"
+/>
+<meta name="keywords" content="{{ site.seo.keywords }}" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+
+<!-- Open Graph / Social Media Meta Tags -->
+<meta
+  property="og:type"
+  content="{% if layout == 'post.njk' %}article{% else %}website{% endif %}"
+/>
+<meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+<meta
+  property="og:title"
+  content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}"
+/>
+<meta
+  property="og:description"
+  content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}"
+/>
+<meta
+  property="og:image"
+  content="{{ site.url }}{% if featured_image %}{{ featured_image }}{% else %}{{ site.seo.og_image }}{% endif %}"
+/>
+<meta property="og:card" content="summary_large_image" />
+
+<!-- Twitter Card Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta
+  name="twitter:title"
+  content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}"
+/>
+<meta
+  name="twitter:description"
+  content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}"
+/>
+<meta
+  name="twitter:image"
+  content="{{ site.url }}{% if featured_image %}{{ featured_image }}{% else %}{{ site.seo.og_image }}{% endif %}"
+/>
+
+<!-- Critical CSS for above-the-fold content -->
+<style>
+  body {
+    background-color: oklch(0.16 0.02 250);
+    color: oklch(0.93 0.02 250);
+  }
+  .gh-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: oklch(0.2 0.02 250);
+    border-bottom: 1px solid oklch(0.3 0.02 250);
+    backdrop-filter: blur(4px);
+  }
+  .gh-avatar {
+    width: 296px;
+    height: 296px;
+    border-radius: 6px;
+    border: 2px solid oklch(0.3 0.02 250);
+  }
+  @media (max-width: 768px) {
+    .gh-avatar {
+      width: 180px;
+      height: 180px;
+    }
+  }
+  .page-loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: oklch(0.16 0.02 250);
+    z-index: 100;
+  }
+</style>
+
+<!-- Preload critical fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+  media="print"
+  onload="this.media='all'"
+/>
+
+<!-- Non-critical CSS with async loading -->
+<link
+  rel="stylesheet"
+  href="/css/styles.css?v=1.0.0"
+  media="print"
+  onload="this.media='all'"
+/>
+<noscript>
+  <link rel="stylesheet" href="/css/styles.css?v=1.0.0" />
+</noscript>
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  title="{{ site.title }} Feed"
+  href="{{ site.url }}/feed.xml"
+/>
+
+<!-- Preload critical resources -->
+<link rel="preload" href="/js/site-enhancements.js" as="script" />
+<link rel="preload" href="/assets/images/github-style/profile-avatar.png" as="image" />
+
+{% if layout == 'post.njk' %}
+<!-- JSON-LD structured data for blog post -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ title }}",
+    "description": "{% if description %}{{ description }}{% else %}{{ content | striptags | truncate(150) }}{% endif %}",
+    "image": "{{ site.url }}{% if featured_image %}{{ featured_image }}{% else %}{{ site.seo.og_image }}{% endif %}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ site.author }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}/icon.svg"
+      }
+    },
+    "datePublished": "{{ page.date | isoDate }}",
+    "dateModified": "{{ page.date | isoDate }}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ site.url }}{{ page.url }}"
+    }
+  }
+</script>
+{% else %}
+<!-- JSON-LD structured data for website -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ site.title }}",
+    "description": "{{ site.description }}",
+    "url": "{{ site.url }}"
+  }
+</script>
+{% endif %} {% if site.seo.google_analytics_id and site.seo.google_analytics_id != "" %}
+<!-- Google Analytics is initialized via analytics.js -->
+<script>
+  // Store analytics ID for later initialization
+  window.analyticsId = "{{ site.seo.google_analytics_id }}";
+</script>
+{% endif %}

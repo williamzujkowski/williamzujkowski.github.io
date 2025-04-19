@@ -56,54 +56,5 @@
   </div>
 </header>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const rootElement = document.documentElement;
-    const sunIcon = document.querySelector('.sun-icon');
-    const moonIcon = document.querySelector('.moon-icon');
-
-    // Function to update icon visibility
-    function updateIcons(isLight) {
-      if (isLight) {
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-      } else {
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-      }
-    }
-
-    // Check for saved theme in localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      rootElement.classList.add('light');
-      updateIcons(true);
-    }
-
-    // Toggle between light and dark themes
-    themeToggle.addEventListener('click', function() {
-      if (rootElement.classList.contains('light')) {
-        // Switch to dark theme
-        rootElement.classList.remove('light');
-        localStorage.setItem('theme', 'dark');
-        updateIcons(false);
-      } else {
-        // Switch to light theme
-        rootElement.classList.add('light');
-        localStorage.setItem('theme', 'light');
-        updateIcons(true);
-      }
-    });
-
-    // Match system preference if no saved preference
-    if (!savedTheme) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (!prefersDark) {
-        rootElement.classList.add('light');
-        localStorage.setItem('theme', 'light');
-        updateIcons(true);
-      }
-    }
-  });
-</script>
+<!-- Theme toggle functionality is handled by theme-toggle.js -->
+<!-- The inline script in the original header.njk has been moved to theme-toggle.js -->

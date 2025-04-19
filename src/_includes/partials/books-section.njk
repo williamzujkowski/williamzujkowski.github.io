@@ -1,0 +1,233 @@
+{% macro renderBookCard(book) %}
+<a
+  href="https://openlibrary.org/isbn/{{ book.isbn }}"
+  target="_blank"
+  class="block h-full"
+>
+  <div
+    class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg h-full"
+  >
+    {% if book.cover_url %}
+    <div class="gh-reading-cover w-20 flex-shrink-0 rounded overflow-hidden">
+      <img
+        src="{{ book.cover_url }}"
+        alt="Cover for {{ book.title }}"
+        class="w-full h-auto"
+      />
+    </div>
+    {% else %}
+    <div
+      class="gh-reading-icon w-14 h-20 bg-accent/10 rounded flex items-center justify-center text-accent flex-shrink-0"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        width="24"
+        height="24"
+        fill="currentColor"
+      >
+        <path
+          d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"
+        ></path>
+      </svg>
+    </div>
+    {% endif %}
+
+    <div class="flex-grow">
+      <div
+        class="gh-reading-title text-white font-medium mb-1 hover:text-accent transition-colors duration-200"
+      >
+        {{ book.title }}
+      </div>
+      <div class="gh-reading-author text-sm text-text-secondary mb-2">
+        {{ book.author }}
+      </div>
+
+      {% if book.subjects and book.subjects.length > 0 %}
+      <div class="flex flex-wrap gap-1 mb-2">
+        {% for subject in book.subjects %} {% if loop.index <= 3 %}
+        <span class="text-xs px-1.5 py-0.5 bg-accent/10 text-accent rounded"
+          >{{ subject }}</span
+        >
+        {% endif %} {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="gh-reading-progress w-full mt-1">
+        <div class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1">
+          <div
+            class="gh-progress-fill h-full bg-accent rounded-full"
+            style="width: {{ book.progress }}%"
+          ></div>
+        </div>
+        <div class="flex justify-between items-center mt-0.5">
+          <div class="gh-progress-text text-xs text-text-secondary">
+            {{ book.progress }}% complete
+          </div>
+          {% if book.page_count %}
+          <div class="text-xs text-text-secondary">{{ book.page_count }} pages</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+{% endmacro %}
+
+<div class="gh-reading-section mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+  {% if books and books.length > 0 %} {# Debug output - comment out in production #} {#
+  {{ books | dump }} #} {% set displayedBooks = [] %} {# First display specific books if
+  they exist #} {% for book in books %} {% if (book.title.indexOf('Dungeon Crawler
+  Carl') >= 0 or book.title.indexOf('Designing Data-Intensive Applications') >= 0 or
+  book.title.indexOf('Building Machine Learning Powered Applications') >= 0 or
+  book.title.indexOf('Building ML Powered Applications') >= 0) %} {{
+  renderBookCard(book) }} {% set displayedBooks = (displayedBooks.push(book.isbn),
+  displayedBooks) %} {% endif %} {% endfor %} {# Then display any remaining books #} {%
+  for book in books %} {% if displayedBooks.indexOf(book.isbn) === -1 %} {{
+  renderBookCard(book) }} {% endif %} {% endfor %} {% else %} {% if
+  site.homepage.reading_list and site.homepage.reading_list.length > 0 %} {% for book in
+  site.homepage.reading_list %}
+  <a
+    href="https://openlibrary.org/isbn/{{ book.isbn }}"
+    target="_blank"
+    class="block h-full"
+  >
+    <div
+      class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface hover:-translate-y-1 transition-transform duration-300 hover:shadow-lg"
+    >
+      <div
+        class="gh-reading-icon w-14 h-20 bg-accent/10 rounded flex items-center justify-center text-accent flex-shrink-0"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          width="24"
+          height="24"
+          fill="currentColor"
+        >
+          <path
+            d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"
+          ></path>
+        </svg>
+      </div>
+      <div class="flex-grow">
+        <div
+          class="gh-reading-title text-white font-medium mb-1 hover:text-accent transition-colors duration-200"
+        >
+          {{ book.title }}
+        </div>
+        <div class="gh-reading-author text-sm text-text-secondary mb-3">
+          {{ book.author }}
+        </div>
+        <div class="gh-reading-progress w-full mt-1">
+          <div
+            class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1"
+          >
+            <div
+              class="gh-progress-fill h-full bg-accent rounded-full"
+              style="width: {{ book.progress }}%"
+            ></div>
+          </div>
+          <div class="gh-progress-text text-xs text-text-secondary">
+            {{ book.progress }}% complete
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  {% endfor %} {% else %}
+  <a
+    href="https://openlibrary.org/isbn/9781492045113"
+    target="_blank"
+    class="block h-full"
+  >
+    <div
+      class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface hover:-translate-y-1 transition-transform duration-300 hover:shadow-lg"
+    >
+      <div
+        class="gh-reading-icon w-14 h-20 bg-accent/10 rounded flex items-center justify-center text-accent flex-shrink-0"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          width="24"
+          height="24"
+          fill="currentColor"
+        >
+          <path
+            d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"
+          ></path>
+        </svg>
+      </div>
+      <div class="flex-grow">
+        <div
+          class="gh-reading-title text-white font-medium mb-1 hover:text-accent transition-colors duration-200"
+        >
+          Building Machine Learning Powered Applications
+        </div>
+        <div class="gh-reading-author text-sm text-text-secondary mb-3">
+          Emmanuel Ameisen
+        </div>
+        <div class="gh-reading-progress w-full mt-1">
+          <div
+            class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1"
+          >
+            <div
+              class="gh-progress-fill h-full bg-accent rounded-full"
+              style="width: 45%"
+            ></div>
+          </div>
+          <div class="gh-progress-text text-xs text-text-secondary">45% complete</div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <a
+    href="https://openlibrary.org/isbn/059382024X"
+    target="_blank"
+    class="block h-full"
+  >
+    <div
+      class="gh-reading-card flex items-start gap-3 p-4 border border-border rounded-github bg-surface hover:-translate-y-1 transition-transform duration-300 hover:shadow-lg"
+    >
+      <div
+        class="gh-reading-icon w-14 h-20 bg-accent/10 rounded flex items-center justify-center text-accent flex-shrink-0"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          width="24"
+          height="24"
+          fill="currentColor"
+        >
+          <path
+            d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"
+          ></path>
+        </svg>
+      </div>
+      <div class="flex-grow">
+        <div
+          class="gh-reading-title text-white font-medium mb-1 hover:text-accent transition-colors duration-200"
+        >
+          Dungeon Crawler Carl
+        </div>
+        <div class="gh-reading-author text-sm text-text-secondary mb-3">
+          Matt Dinniman
+        </div>
+        <div class="gh-reading-progress w-full mt-1">
+          <div
+            class="gh-progress-bar h-1.5 bg-border rounded-full overflow-hidden mb-1"
+          >
+            <div
+              class="gh-progress-fill h-full bg-accent rounded-full"
+              style="width: 62%"
+            ></div>
+          </div>
+          <div class="gh-progress-text text-xs text-text-secondary">62% complete</div>
+        </div>
+      </div>
+    </div>
+  </a>
+  {% endif %} {% endif %}
+</div>

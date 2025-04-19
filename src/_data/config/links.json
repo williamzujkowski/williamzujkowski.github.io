@@ -1,0 +1,1188 @@
+{
+  "categories": {
+    "technology": {
+      "name": "Technology & Innovation",
+      "icon": "🚀",
+      "items": [
+        {
+          "name": "Learn X in Y Minutes",
+          "url": "https://learnxinyminutes.com/",
+          "description": "Quick programming language tutorials"
+        },
+        {
+          "name": "Set Up Your Own LTE Network",
+          "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/",
+          "description": "DIY guide to building your very own LTE network"
+        },
+        {
+          "name": "International Space Elevator Consortium",
+          "url": "https://www.isec.org/",
+          "description": "Promotes the development of a space elevator to revolutionize space travel"
+        },
+        {
+          "name": "Orion's Arm Universe Project",
+          "url": "https://www.orionsarm.com/",
+          "description": "A collaborative project imagining a future with advanced technologies and AI"
+        },
+        {
+          "name": "DustinBrett.com",
+          "url": "https://dustinbrett.com/",
+          "description": "Insightful commentary on technology and digital culture"
+        },
+        {
+          "name": "Parallel Lives",
+          "url": "https://janwillemtulp.github.io/parallel-lives/",
+          "description": "A creative exploration of alternate realities in digital art"
+        },
+        {
+          "name": "Simone Computer",
+          "url": "https://simone.computer/",
+          "description": "A cutting-edge platform merging art and technology"
+        },
+        {
+          "name": "Departure Mono",
+          "url": "https://departuremono.com/",
+          "description": "A minimalist design and tech blog challenging conventional thinking"
+        },
+        {
+          "name": "Stippler",
+          "url": "https://stippler.wolfandreas.com/",
+          "description": "Showcases visually striking digital artwork and creative tech projects"
+        }
+      ]
+    },
+    "art_culture": {
+      "name": "Art, Culture & Exploration",
+      "icon": "🎨",
+      "items": [
+        {
+          "name": "Centauri Dreams",
+          "url": "https://www.centauri-dreams.org/",
+          "description": "Paul Gilster's blog on deep space exploration and interstellar travel"
+        },
+        {
+          "name": "Center for PostNatural History",
+          "url": "https://postnatural.org/",
+          "description": "A museum dedicated to organisms altered by humans, blending biology and technology"
+        },
+        {
+          "name": "Museum of Obsolete Media",
+          "url": "https://obsoletemedia.org/",
+          "description": "An online museum showcasing and preserving obsolete audio, video, and data formats"
+        },
+        {
+          "name": "The Public Domain Review",
+          "url": "https://publicdomainreview.org/",
+          "description": "Explores and curates art, literature, and ideas that are now in the public domain"
+        },
+        {
+          "name": "Radio Garden",
+          "url": "https://radio.garden/listen",
+          "description": "Listen to live radio stations worldwide by rotating a virtual globe"
+        },
+        {
+          "name": "Submarine Cable Map",
+          "url": "https://www.submarinecablemap.com/",
+          "description": "An interactive map of the global undersea cables that power the internet"
+        },
+        {
+          "name": "The Tau Zero Foundation",
+          "url": "https://tauzero.aero/",
+          "description": "Explores the science behind interstellar travel and advances in space exploration"
+        },
+        {
+          "name": "Falling Falling",
+          "url": "https://www.fallingfalling.com/",
+          "description": "An immersive interactive experience of cascading colors and shapes"
+        },
+        {
+          "name": "Floor796",
+          "url": "https://floor796.com/",
+          "description": "A creative hub blending design, art, and experimental projects"
+        },
+        {
+          "name": "YYYYYYY",
+          "url": "https://www.yyyyyyy.info/",
+          "description": "A minimalist experimental site exploring abstract ideas"
+        },
+        {
+          "name": "National Film Registry",
+          "url": "https://www.loc.gov/programs/national-film-preservation-board/film-registry/watch-films-on-the-national-film-registry/",
+          "description": "Watch films preserved for their cultural, historical, or aesthetic significance"
+        }
+      ]
+    },
+    "fun": {
+      "name": "Fun & Curiosities",
+      "icon": "🎮",
+      "items": [
+        {
+          "name": "International Association of Exorcists",
+          "url": "https://www.aieinternational.org/",
+          "description": "A humorous global organization supporting Catholic exorcists"
+        },
+        {
+          "name": "Paperclip AI Game",
+          "url": "https://www.decisionproblem.com/paperclips/",
+          "description": "A quirky game about the art of making paperclips"
+        },
+        {
+          "name": "The Kid Should See This",
+          "url": "https://thekidshouldseethis.com/",
+          "description": "Curated educational videos for curious minds"
+        },
+        {
+          "name": "The Website is Down",
+          "url": "https://www.thewebsiteisdown.com",
+          "description": "A collection of hilarious IT videos"
+        },
+        {
+          "name": "Zombo.com",
+          "url": "https://zombo.com/",
+          "description": "A surreal, humorous portal promising endless possibilities"
+        },
+        {
+          "name": "Nested",
+          "url": "https://orteil.dashnet.org/nested",
+          "description": "A mesmerizing interactive experience exploring infinite recursion"
+        },
+        {
+          "name": "Stimulation Clicker",
+          "url": "https://neal.fun/stimulation-clicker/",
+          "description": "A playful clicker game that tests your patience and curiosity"
+        },
+        {
+          "name": "MementoMovi",
+          "url": "https://mementomovi.wackyneighbor.com/",
+          "description": "A quirky site combining art and memory in unexpected ways"
+        }
+      ]
+    },
+    "social": {
+      "name": "Social",
+      "icon": "🔗",
+      "items": [
+        {
+          "name": "GitHub",
+          "url": "https://github.com/williamzujkowski",
+          "icon": "GitHub"
+        },
+        {
+          "name": "LinkedIn",
+          "url": "https://linkedin.com/in/williamzujkowski",
+          "icon": "LinkedIn"
+        },
+        {
+          "name": "Bluesky",
+          "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
+          "icon": "Bluesky"
+        }
+      ]
+    },
+    "projects": {
+      "name": "Projects",
+      "icon": "💻",
+      "items": [
+        {
+          "name": "Personal Website",
+          "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+          "description": "My personal website and tech blog built with 11ty"
+        }
+      ]
+    },
+    "artists": {
+      "name": "Artists",
+      "icon": "🎨",
+      "items": [
+        {
+          "name": "Emilio",
+          "url": "http://emilio.jp",
+          "description": "Absolute GIF madlad"
+        },
+        {
+          "name": "Zack Rosebrugh",
+          "url": "https://zackrosebrugh.com",
+          "description": ""
+        },
+        {
+          "name": "Beeple",
+          "url": "https://www.beeple-crap.com",
+          "description": "I liked him more before he did NFTs"
+        },
+        {
+          "name": "Vinnie Neuberg",
+          "url": "https://vinnieneuberg.com",
+          "description": ""
+        },
+        {
+          "name": "Whacko Chacko",
+          "url": "https://www.whackochacko.com",
+          "description": ""
+        },
+        {
+          "name": "James Gilleard",
+          "url": "https://www.behance.net/jamesgilleard",
+          "description": "I love this guy's illustrations"
+        },
+        {
+          "name": "Steph Davidson",
+          "url": "http://stephdavidson.com",
+          "description": ""
+        },
+        {
+          "name": "Max Bittker",
+          "url": "https://maxbittker.com",
+          "description": ""
+        },
+        {
+          "name": "Peter Burr",
+          "url": "http://www.peterburr.org",
+          "description": ""
+        },
+        {
+          "name": "Substack",
+          "url": "https://substack.net",
+          "description": ""
+        },
+        {
+          "name": "Bill Wurtz",
+          "url": "https://billwurtz.com",
+          "description": "Wish this guy was my history teacher"
+        },
+        {
+          "name": "Nick Briz",
+          "url": "http://nickbriz.com",
+          "description": "Has made lots of interesting videos and essays about net.art"
+        },
+        {
+          "name": "6VCR",
+          "url": "https://6vcr.com",
+          "description": "Fantastic pixel art artist"
+        },
+        {
+          "name": "Ryou Ikeda",
+          "url": "https://ikeryou.jp",
+          "description": "Ryou Ikeda's creative coding archive"
+        }
+      ]
+    },
+    "blogs": {
+      "name": "Blogs",
+      "icon": "📝",
+      "items": [
+        {
+          "name": "0ut3r Space",
+          "url": "http://0ut3r.space/",
+          "description": ""
+        },
+        {
+          "name": "Adam Elkus",
+          "url": "https://aelkus.github.io/",
+          "description": ""
+        },
+        {
+          "name": "Henrique Dias",
+          "url": "https://hacdias.com/articles/",
+          "description": "Articles - Henrique Dias"
+        },
+        {
+          "name": "Austin Z. Henley",
+          "url": "https://austinhenley.com/blog.html",
+          "description": "Austin Z. Henley's Blog"
+        },
+        {
+          "name": "Bartosz Ciechanowski",
+          "url": "https://ciechanow.ski/",
+          "description": ""
+        },
+        {
+          "name": "Be-Mag",
+          "url": "https://be-mag.com",
+          "description": ""
+        },
+        {
+          "name": "Brad Woods",
+          "url": "https://garden.bradwoods.io",
+          "description": "Brad Woods Digital Garden"
+        },
+        {
+          "name": "Cian.blog",
+          "url": "https://cian.blog",
+          "description": ""
+        },
+        {
+          "name": "Flipper Blog",
+          "url": "https://blog.flipper.net/",
+          "description": ""
+        },
+        {
+          "name": "Gossip's Web",
+          "url": "https://gossipsweb.net",
+          "description": ""
+        },
+        {
+          "name": "Giacomo Miceli",
+          "url": "https://jamez.it",
+          "description": "G̶i̶a̶c̶o̶m̶o̶ ̶M̶i̶c̶e̶l̶i̶"
+        },
+        {
+          "name": "Ian Bicking",
+          "url": "https://ianbicking.org/",
+          "description": "Ian Bicking: a blog"
+        },
+        {
+          "name": "Jordan Mechner",
+          "url": "https://www.jordanmechner.com/",
+          "description": ""
+        },
+        {
+          "name": "Josh Comeau",
+          "url": "https://www.joshwcomeau.com/",
+          "description": "Josh Comeau's blog"
+        },
+        {
+          "name": "Julia Evans",
+          "url": "http://jvns.ca/",
+          "description": ""
+        },
+        {
+          "name": "Kicks Condor",
+          "url": "https://www.kickscondor.com",
+          "description": ""
+        },
+        {
+          "name": "Lazy Reading",
+          "url": "https://cyber.dabamos.de/blog/",
+          "description": "Lazy Reading | The Cyber Vanguard"
+        },
+        {
+          "name": "Leaded Solder",
+          "url": "https://www.leadedsolder.com/",
+          "description": ""
+        },
+        {
+          "name": "Lindsey Bieda",
+          "url": "https://rarlindseysmash.com/",
+          "description": ""
+        },
+        {
+          "name": "N O D E",
+          "url": "https://N-O-D-E.net",
+          "description": ""
+        },
+        {
+          "name": "Nadim Kobeissi",
+          "url": "https://nadim.computer",
+          "description": ""
+        },
+        {
+          "name": "Open Wireless Link",
+          "url": "https://owlink.org/",
+          "description": ""
+        },
+        {
+          "name": "Parimal Satyal",
+          "url": "https://neustadt.fr/",
+          "description": "Parimal Satyal - Neustadt.fr"
+        },
+        {
+          "name": "Rach Smith",
+          "url": "https://rachsmith.com/",
+          "description": "Rach Smith's digital garden"
+        },
+        {
+          "name": "Rafał Pastuszak",
+          "url": "https://sonnet.io/",
+          "description": ""
+        },
+        {
+          "name": "Riccardo Mori",
+          "url": "https://morrick.me",
+          "description": ""
+        },
+        {
+          "name": "Serg Hospodarets",
+          "url": "https://hospodarets.com",
+          "description": "Serg Hospodarets Blog"
+        },
+        {
+          "name": "Sidebar",
+          "url": "https://sidebar.io",
+          "description": ""
+        },
+        {
+          "name": "Simon Willison",
+          "url": "http://simonwillison.net/",
+          "description": "Simon Willison's Weblog"
+        },
+        {
+          "name": "Steve Klabnik",
+          "url": "https://steveklabnik.com/",
+          "description": ""
+        },
+        {
+          "name": "The Hacker Blog",
+          "url": "https://thehackerblog.com/",
+          "description": ""
+        },
+        {
+          "name": "Tom 7 Radar",
+          "url": "http://radar.spacebar.org/",
+          "description": ""
+        },
+        {
+          "name": "Two-Bit History",
+          "url": "https://twobithistory.org/",
+          "description": ""
+        },
+        {
+          "name": "Vladimir Klepov",
+          "url": "https://thoughtspile.github.io/",
+          "description": "Vladimir Klepov as a Coder"
+        },
+        {
+          "name": "Waxy.org",
+          "url": "https://waxy.org/",
+          "description": ""
+        },
+        {
+          "name": "Webbed Briefs",
+          "url": "https://briefs.video/",
+          "description": ""
+        },
+        {
+          "name": "Xe Iaso",
+          "url": "https://xeiaso.net/",
+          "description": "Xe Iaso's blog"
+        },
+        {
+          "name": "Zach Holman",
+          "url": "http://zachholman.com/",
+          "description": ""
+        },
+        {
+          "name": "Zhenghao",
+          "url": "https://zhenghao.io",
+          "description": "Zhenghao's blog"
+        },
+        {
+          "name": "Bertrand Fan",
+          "url": "https://bert.org/",
+          "description": ""
+        },
+        {
+          "name": "evilsocket",
+          "url": "https://www.evilsocket.net/",
+          "description": ""
+        },
+        {
+          "name": "cmpxchg8b",
+          "url": "https://cmpxchg8b.com/",
+          "description": ""
+        },
+        {
+          "name": "sdomi",
+          "url": "https://sdomi.pl/weblog/",
+          "description": ""
+        },
+        {
+          "name": "i.webthings.hub",
+          "url": "https://iwebthings.joejenett.com/",
+          "description": ""
+        },
+        {
+          "name": "Internet Escape",
+          "url": "https://www.are.na/tg-z/internet-escape",
+          "description": ""
+        },
+        {
+          "name": "Julia's Drawings",
+          "url": "https://drawings.jvns.ca/",
+          "description": ""
+        },
+        {
+          "name": "jwz",
+          "url": "https://www.jwz.org/blog/",
+          "description": ""
+        },
+        {
+          "name": "kottke.org",
+          "url": "http://kottke.org/",
+          "description": ""
+        },
+        {
+          "name": "localghost",
+          "url": "https://localghost.dev/",
+          "description": ""
+        },
+        {
+          "name": "mango.pdf.zone",
+          "url": "https://mango.pdf.zone/",
+          "description": ""
+        },
+        {
+          "name": "memalign",
+          "url": "https://memalign.github.io/index.html",
+          "description": ""
+        },
+        {
+          "name": "Nathan Wentworth",
+          "url": "https://nathanwentworth.co",
+          "description": "nathan wentworth ✨ - posts"
+        },
+        {
+          "name": "Rachel Binx",
+          "url": "https://blog.rachelbinx.com/",
+          "description": "rachel binx ⤇ blog"
+        },
+        {
+          "name": "Surma",
+          "url": "https://surma.dev/",
+          "description": "surma.dev"
+        }
+      ]
+    },
+    "creative": {
+      "name": "Creative",
+      "icon": "🎭",
+      "items": [
+        {
+          "name": "User Inyerface",
+          "url": "https://userinyerface.com",
+          "description": ""
+        },
+        {
+          "name": "Windows 93",
+          "url": "https://www.windows93.net",
+          "description": "One of the weirdest sites on the net"
+        },
+        {
+          "name": "Bootstrap 386",
+          "url": "https://github.com/kristopolous/BOOTSTRA.386",
+          "description": "One of the greatest bootstrap templates ever made!"
+        },
+        {
+          "name": "Jodi",
+          "url": "http://wwwwwwwww.jodi.org",
+          "description": "I really don't know what this is"
+        },
+        {
+          "name": "Hypertext Markup Language",
+          "url": "https://www.youtube.com/watch?v=oAm1EU_pu80",
+          "description": ""
+        },
+        {
+          "name": "The Evolution of Trust",
+          "url": "https://ncase.me/trust",
+          "description": ""
+        },
+        {
+          "name": "Bruno Simon",
+          "url": "https://bruno-simon.com",
+          "description": "Just a ridiculously good portfolio website"
+        },
+        {
+          "name": "Nested",
+          "url": "https://orteil.dashnet.org/nested",
+          "description": ""
+        },
+        {
+          "name": "WebSDR",
+          "url": "http://websdr.ewi.utwente.nl:8901",
+          "description": ""
+        },
+        {
+          "name": "TV-B-Gone",
+          "url": "https://www.tvbgone.com",
+          "description": ""
+        },
+        {
+          "name": "Language Squad",
+          "url": "https://www.languagesquad.com",
+          "description": "A game where you have to guess the language spoken by a person"
+        },
+        {
+          "name": "Pointer Pointer",
+          "url": "https://pointerpointer.com",
+          "description": ""
+        },
+        {
+          "name": "My 90s TV",
+          "url": "https://www.my90stv.com",
+          "description": "Go back in time and watch old TV programs"
+        },
+        {
+          "name": "Taste Atlas",
+          "url": "https://www.tasteatlas.com",
+          "description": "A huge map with typical dishes and food recipes from around the world"
+        },
+        {
+          "name": "GUI Gallery",
+          "url": "https://gui.neocities.org",
+          "description": "A collection of movie computer interfaces"
+        },
+        {
+          "name": "Neal.fun",
+          "url": "https://neal.fun",
+          "description": "A collection of very creative projects and stats"
+        },
+        {
+          "name": "Nicolas Sassoon",
+          "url": "https://www.nicolassassoon.com",
+          "description": "Great artist full of trippy patterns and designs"
+        },
+        {
+          "name": "X20XX",
+          "url": "https://x20xx.com",
+          "description": "Something beyond my understanding"
+        },
+        {
+          "name": "YYYYYYY",
+          "url": "https://www.yyyyyyy.info",
+          "description": "It might be too much even for someone like you!"
+        },
+        {
+          "name": "Do Not Touch",
+          "url": "http://donottouch.org",
+          "description": "One of the most creative music videos ever"
+        },
+        {
+          "name": "Zoom Quilt",
+          "url": "https://zoomquilt.org",
+          "description": "An endless zoom-in artwork"
+        },
+        {
+          "name": "Super Pixel Quest",
+          "url": "http://superpixelquest.com",
+          "description": ""
+        },
+        {
+          "name": "Sight",
+          "url": "https://sight.nyc",
+          "description": "Great creative project with interesting designs, music and clothing"
+        },
+        {
+          "name": "Small Seasons Guide",
+          "url": "https://smallseasons.guide",
+          "description": "A small guide to seasons throughout the year"
+        },
+        {
+          "name": "Labyrinth",
+          "url": "https://labyr.in",
+          "description": ""
+        },
+        {
+          "name": "S-N-D",
+          "url": "https://s-n-d.si",
+          "description": "Doomscrolling through various apocalyptic scenarios"
+        },
+        {
+          "name": "Krypt",
+          "url": "https://kry.pt",
+          "description": "I love his projects and web creations"
+        },
+        {
+          "name": "i-land online",
+          "url": "https://i-land.online",
+          "description": "A hand-drawn point and click exploration website"
+        }
+      ]
+    },
+    "gaming": {
+      "name": "Gaming",
+      "icon": "🎮",
+      "items": [
+        {
+          "name": "The Powder Toy",
+          "url": "https://powdertoy.co.uk",
+          "description": "You can do lots of things with this!"
+        },
+        {
+          "name": "Ian MacLarty",
+          "url": "https://ianmaclarty.com/",
+          "description": "A crazy and creative gamedev, play his games when you're stoned"
+        },
+        {
+          "name": "Broken Reality",
+          "url": "https://store.steampowered.com/app/757480/Broken_Reality",
+          "description": "The ultimate vaporwave game"
+        },
+        {
+          "name": "Memory of a Broken Dimension",
+          "url": "https://xra.itch.io/memory-of-a-broken-dimension",
+          "description": ""
+        },
+        {
+          "name": "ArmagetronAD",
+          "url": "https://sourceforge.net/projects/armagetronad",
+          "description": "I can still hear the buzzing of the lightcycles on the battlefield before going to bed"
+        },
+        {
+          "name": "DEFCON",
+          "url": "https://www.introversion.co.uk/defcon/",
+          "description": "It's funny because we all die"
+        },
+        {
+          "name": "BR9732",
+          "url": "https://br9732.quentinlengele.com",
+          "description": "Recreation of Blade Runner Deckard's room"
+        },
+        {
+          "name": "Asciicker",
+          "url": "https://asciicker.com",
+          "description": "Amazing ASCII styled game"
+        },
+        {
+          "name": "Harry Potter Minecraft",
+          "url": "https://www.planetminecraft.com/project/harry-potter-adventure-map-3347878",
+          "description": "Harry Potter RPG game created in Minecraft (yes I love Minecraft)"
+        },
+        {
+          "name": "Flash Game History",
+          "url": "https://www.flashgamehistory.com",
+          "description": ""
+        }
+      ]
+    },
+    "misc": {
+      "name": "Miscellaneous",
+      "icon": "🔍",
+      "items": [
+        {
+          "name": "Bureau of Meteorology",
+          "url": "http://www.bom.gov.au/",
+          "description": "Australian weather service"
+        },
+        {
+          "name": "The Eye",
+          "url": "https://the-eye.eu/",
+          "description": "Non-profit archival website dedicated to preserving digital content"
+        },
+        {
+          "name": "Lingscars",
+          "url": "https://www.lingscars.com/",
+          "description": "The most chaotic car leasing website in the world"
+        },
+        {
+          "name": "Space Weather",
+          "url": "https://www.spaceweather.com/",
+          "description": "News and information about solar activity"
+        },
+        {
+          "name": "Uncanny Valley",
+          "url": "https://uncannyvalley.jp/en",
+          "description": "Tokyo-based creative lab pushing the boundaries of digital art"
+        },
+        {
+          "name": "NWS Ocean Prediction Center",
+          "url": "https://ocean.weather.gov/",
+          "description": "Marine forecasts, warnings, and meteorological analyses"
+        },
+        {
+          "name": "Million Dollar Homepage",
+          "url": "http://www.milliondollarhomepage.com/",
+          "description": "Historical internet artifact from 2005"
+        },
+        {
+          "name": "Internet Map",
+          "url": "https://internet-map.net/",
+          "description": "Visual representation of websites as a galaxy"
+        },
+        {
+          "name": "Stripe Press",
+          "url": "https://press.stripe.com/",
+          "description": "Books about economic, technological, and scientific advancement"
+        },
+        {
+          "name": "Superliminal",
+          "url": "https://superliminal.com/",
+          "description": "Scott Kim's puzzles and ambigrams"
+        },
+        {
+          "name": "Pirate Weather",
+          "url": "https://pirateweather.net/",
+          "description": "Free weather API alternative to Dark Sky"
+        },
+        {
+          "name": "Crash Course",
+          "url": "https://thecrashcourse.com/",
+          "description": "Educational YouTube channel covering various topics"
+        },
+        {
+          "name": "List of Physical Visualizations",
+          "url": "http://dataphys.org/list/",
+          "description": "Gallery of physical visualizations and related artifacts"
+        },
+        {
+          "name": "US Census Bureau",
+          "url": "https://www.census.gov/",
+          "description": "Data about the U.S. people and economy"
+        },
+        {
+          "name": "Numbeo",
+          "url": "https://www.numbeo.com/cost-of-living/",
+          "description": "Database of user-contributed data about cities and countries"
+        },
+        {
+          "name": "Worldometer",
+          "url": "https://www.worldometers.info/",
+          "description": "Real-time world statistics"
+        },
+        {
+          "name": "Global Biodiversity Information Facility",
+          "url": "https://www.gbif.org/",
+          "description": "Free and open access to biodiversity data"
+        },
+        {
+          "name": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/",
+          "description": "Free, editable map of the world"
+        },
+        {
+          "name": "Quora",
+          "url": "https://www.quora.com/",
+          "description": "Question-and-answer website"
+        },
+        {
+          "name": "Zooniverse",
+          "url": "https://www.zooniverse.org/",
+          "description": "Platform for people-powered research"
+        }
+      ]
+    },
+    "music": {
+      "name": "Music",
+      "icon": "🎵",
+      "items": [
+        {
+          "name": "Plaza.one",
+          "url": "https://plaza.one",
+          "description": ""
+        },
+        {
+          "name": "Radio Garden",
+          "url": "https://radio.garden",
+          "description": ""
+        },
+        {
+          "name": "Radiooooo",
+          "url": "https://radiooooo.com",
+          "description": "Go back in time and listen to radio songs from all over the world"
+        },
+        {
+          "name": "Boards of Canada",
+          "url": "https://bleep.com/artist/78-boards-of-canada",
+          "description": "This should be a religion more than a music band"
+        },
+        {
+          "name": "Com Truise",
+          "url": "http://comtruise.com",
+          "description": "Son of Boards of Canada and Tom Cruise's Wayfarer"
+        },
+        {
+          "name": "100% Electronica",
+          "url": "https://www.100percentelectronica.com",
+          "description": ""
+        },
+        {
+          "name": "VHS Head",
+          "url": "https://www.vhshead.com",
+          "description": "Let's see how far we can push electronic music"
+        },
+        {
+          "name": "Pogo Music",
+          "url": "https://www.youtube.com/c/PogoMusic",
+          "description": "Note: he's a controversial person, I do not agree with any of Nick's current ideologies"
+        },
+        {
+          "name": "Datassette",
+          "url": "http://datassette.net",
+          "description": ""
+        },
+        {
+          "name": "Perturbator",
+          "url": "http://www.perturbator.com",
+          "description": "They told him he could be anything in life, so he became a synth"
+        },
+        {
+          "name": "EELF",
+          "url": "https://lbry.tv/@EELF:7",
+          "description": "Better known as EELF on YouTube. A collection of nostalgic video with deep house music in background"
+        }
+      ]
+    },
+    "people": {
+      "name": "People",
+      "icon": "👨‍💻",
+      "items": [
+        {
+          "name": "Tim Holman",
+          "url": "https://tholman.com",
+          "description": ""
+        },
+        {
+          "name": "Tom Murphy VII",
+          "url": "http://tom7.org",
+          "description": ""
+        },
+        {
+          "name": "XXIIVV",
+          "url": "https://xxiivv.com",
+          "description": ""
+        },
+        {
+          "name": "John",
+          "url": "https://dataswamp.org/~john",
+          "description": "This guy inspired me to make a personal website"
+        },
+        {
+          "name": "Paul Neave",
+          "url": "https://neave.com",
+          "description": "Spent way too much time on this website"
+        },
+        {
+          "name": "Ciro Santilli",
+          "url": "https://cirosantilli.com",
+          "description": ""
+        },
+        {
+          "name": "Braulio Barahona",
+          "url": "https://brauliobarahona.com",
+          "description": "Great friend and awesome skater!"
+        },
+        {
+          "name": "Martin Kleppe",
+          "url": "https://aem1k.com",
+          "description": "Absolute JavaScript madlad"
+        },
+        {
+          "name": "Stefano Rodighiero",
+          "url": "https://stefanorodighiero.net",
+          "description": "This guy wrote the first programming book I've ever read"
+        },
+        {
+          "name": "Expensive Toys",
+          "url": "https://www.expensive.toys",
+          "description": "He created a set of UI components used in this website <3"
+        },
+        {
+          "name": "Paolo Galeone",
+          "url": "https://pgaleone.eu",
+          "description": "He created an Italian nerdy social network many years ago, nowadays he makes AIs that one day will take over the world"
+        },
+        {
+          "name": "Ben Cox",
+          "url": "https://benjojo.co.uk",
+          "description": "A very cool personal website"
+        },
+        {
+          "name": "Samuel Reed",
+          "url": "https://www.strml.net",
+          "description": "Just visit this website and see the magic for yourself!"
+        },
+        {
+          "name": "ertdfgcvb",
+          "url": "https://ertdfgcvb.xyz",
+          "description": ""
+        },
+        {
+          "name": "wwwtxt",
+          "url": "https://wwwtxt.org/about",
+          "description": ""
+        },
+        {
+          "name": "Elliott",
+          "url": "https://elliott.computer",
+          "description": "The guy who created special.fish ;-)"
+        },
+        {
+          "name": "Jacob Hall",
+          "url": "https://jacobhall.net",
+          "description": "A guy with some interesting projects and links"
+        },
+        {
+          "name": "Broken Mind",
+          "url": "https://brkmnd.com",
+          "description": "Interesting website with an embedded CLI to navigate it"
+        },
+        {
+          "name": "Justus",
+          "url": "https://www.justus.ws",
+          "description": "Personal website of Justus, he writes interesting articles and he has some interesting hobbies"
+        },
+        {
+          "name": "Novov",
+          "url": "https://novov.me",
+          "description": "Great personal website, full of stuff related to his interests and hobbies"
+        },
+        {
+          "name": "Superinternet",
+          "url": "http://superinternet.cc",
+          "description": ""
+        },
+        {
+          "name": "Giacinto Carlucci",
+          "url": "https://www.giacintocarlucci.it",
+          "description": "Personal homepage of Giacinto Carlucci, I really like his minimal website layout!"
+        },
+        {
+          "name": "Ian Langworth",
+          "url": "https://langworth.com",
+          "description": "One of the best CLI portfolio websites I've seen in a while"
+        },
+        {
+          "name": "Nil",
+          "url": "https://nilfm.cc",
+          "description": ""
+        },
+        {
+          "name": "Matthew Rayfield",
+          "url": "https://matthewrayfield.com",
+          "description": "When I grow up I'd like to be like him"
+        },
+        {
+          "name": "Dimden",
+          "url": "https://dimden.dev",
+          "description": "Beautiful personal website full of interesting stuff"
+        },
+        {
+          "name": "Alien Head",
+          "url": "https://alienheadshitkid.neocities.org",
+          "description": "A fab website"
+        },
+        {
+          "name": "Daniel Murray",
+          "url": "https://loom.cafe",
+          "description": "Gorgeous personal website from Irish artist Daniel Murray"
+        }
+      ]
+    },
+    "retrocomputing": {
+      "name": "Retrocomputing",
+      "icon": "💾",
+      "items": [
+        {
+          "name": "The Centre for Computing History",
+          "url": "https://www.computinghistory.org.uk/",
+          "description": "British computer museum with a large collection of vintage computers"
+        },
+        {
+          "name": "SIMH",
+          "url": "http://simh.trailing-edge.com/",
+          "description": "Computer History Simulation Project - emulators for classic systems"
+        },
+        {
+          "name": "Internet Archive's Software Collection",
+          "url": "https://archive.org/details/software",
+          "description": "Huge library of vintage software you can run in your browser"
+        },
+        {
+          "name": "Classic Computing",
+          "url": "http://www.classic-computing.org/",
+          "description": "Dedicated to the preservation of classic computing devices"
+        },
+        {
+          "name": "Got Papers?",
+          "url": "https://gotpapers.scene.org/",
+          "description": "Archive of computer scene papers and text files"
+        },
+        {
+          "name": "OS/2 Museum",
+          "url": "http://www.os2museum.com/wp/",
+          "description": "History of OS/2 and other operating systems"
+        },
+        {
+          "name": "PCjs Machines",
+          "url": "https://www.pcjs.org/",
+          "description": "A collection of PC emulators written in JavaScript"
+        },
+        {
+          "name": "MAME",
+          "url": "https://www.mamedev.org/",
+          "description": "Multiple Arcade Machine Emulator - preserves gaming history"
+        },
+        {
+          "name": "Viva64",
+          "url": "https://www.viva64.com/en/b/0908/",
+          "description": "Old C compilers archive"
+        },
+        {
+          "name": "The Digital Antiquarian",
+          "url": "https://www.filfre.net/",
+          "description": "History of digital games and digital storytelling"
+        },
+        {
+          "name": "BBS: The Documentary",
+          "url": "http://www.bbsdocumentary.com/",
+          "description": "Jason Scott's documentary about the BBS era"
+        },
+        {
+          "name": "The Obsolete Computer Museum",
+          "url": "http://oldcomputers.net/",
+          "description": "Information about older computers"
+        },
+        {
+          "name": "GUIdebook",
+          "url": "https://guidebookgallery.org/",
+          "description": "Graphical User Interface gallery"
+        },
+        {
+          "name": "Emaculation",
+          "url": "https://www.emaculation.com/",
+          "description": "Mac emulation and virtualization community"
+        },
+        {
+          "name": "Winworld",
+          "url": "https://winworldpc.com/",
+          "description": "Archive of abandonware operating systems and applications"
+        }
+      ]
+    },
+    "rollerblading": {
+      "name": "Rollerblading",
+      "icon": "🛼",
+      "items": [
+        {
+          "name": "Mushroom Blading",
+          "url": "https://mushroomblading.com",
+          "description": "Great bunch of blading lads with great inline-skating culture on their back!"
+        },
+        {
+          "name": "Wizard Skating",
+          "url": "https://www.youtube.com/channel/UCiwUpLaBVzm7fktnvN3r-VA",
+          "description": "YT channel of Wizard Skating project made by Leon Basin, has lots of amazing videos"
+        },
+        {
+          "name": "The Great Blading Bubble",
+          "url": "https://toldandretold1.medium.com/the-great-blading-bubble-how-toxic-masculinity-inflated-and-burst-aggressive-inline-4313e4930714",
+          "description": "Interesting article about the downfall of rollerblading in the 90s"
+        },
+        {
+          "name": "BREEZE by Nils Jansons",
+          "url": "https://www.youtube.com/watch?v=fPyh7pX-TiA",
+          "description": "Really inspiring video with great shots in south of Italy"
+        },
+        {
+          "name": "Powerslide Next 125",
+          "url": "https://www.youtube.com/watch?v=f1-cIEmWUrc",
+          "description": "Spot for the Powerslide Next 125, great music and perfect editing"
+        },
+        {
+          "name": "Nick Lomax",
+          "url": "https://www.youtube.com/channel/UCTu40b6bDC8xnpwvC_buzag",
+          "description": "YT channel of Nick Lomax, very talented aggr. skater"
+        },
+        {
+          "name": "THEM skates",
+          "url": "https://www.youtube.com/user/bladingcup",
+          "description": "THEM skates youtube channel ••••"
+        },
+        {
+          "name": "Ottonovo",
+          "url": "http://ottonovo.com",
+          "description": "Fantastic project by the talented blader ROBBIE PITTS"
+        }
+      ]
+    }
+  }
+}
