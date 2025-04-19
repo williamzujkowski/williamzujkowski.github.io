@@ -7,6 +7,7 @@ This document outlines the process for creating and publishing new blog posts on
 ## Overview
 
 The blog workflow uses a two-stage process:
+
 1. Draft posts in simple text or markdown format in the `new_posts/` directory
 2. Process them automatically with the conversion script to create properly formatted posts
 
@@ -19,6 +20,7 @@ This approach makes it easy to focus on content first, then handle formatting an
 You can use either of these formats:
 
 #### Option A: Simple Text Format (.txt)
+
 1. Create a new `.txt` file in the `new_posts/` directory
 2. Use a simple format:
    - First line: Post title
@@ -26,6 +28,7 @@ You can use either of these formats:
    - Remaining lines: Post content
 
 Example:
+
 ```
 Understanding Quantum Computing
 
@@ -33,6 +36,7 @@ Quantum computing represents a fundamental shift in how we process information..
 ```
 
 #### Option B: Markdown Format (.md)
+
 1. Create a new `.md` file in the `new_posts/` directory
 2. Use any of these formats:
    - Use an H1 header (`# Title`) for the title
@@ -40,6 +44,7 @@ Quantum computing represents a fundamental shift in how we process information..
    - Or the script will use the filename as the title
 
 Example with H1:
+
 ```markdown
 # Understanding Quantum Computing
 
@@ -47,6 +52,7 @@ Quantum computing represents a fundamental shift in how we process information..
 ```
 
 Example with front matter:
+
 ```markdown
 ---
 title: Understanding Quantum Computing
@@ -62,7 +68,7 @@ While the conversion script handles basic formatting, you can enhance your draft
 - Use standard Markdown formatting in your content
 - Use # for main title (added automatically)
 - Use ## for section headings
-- Use * or - for bullet points
+- Use \* or - for bullet points
 - Use `backticks` for inline code
 - Use ```language for code blocks
 
@@ -82,6 +88,7 @@ node scripts/content/blog/process-new-posts.js
 ```
 
 This script will:
+
 - Extract the title from the first line
 - Generate appropriate frontmatter
 - Set publication dates (spaced 10-14 days apart from the most recent post)

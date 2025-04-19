@@ -3,12 +3,21 @@ title: Designing Resilient Systems for an Uncertain World
 description: >-
   The last few years have taught us a powerful lesson: unexpected disruptions
   are not just possible but inevitable
-date: 2025-01-19T00:00:00.000Z
+date: "2025-01-19T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
-image: blog/ai-blog.jpg
-image_alt: AI illustration with neural networks and connections
+  - architecture
+  - devops
+  - cloud
+  - best-practices
+  - resilience
+eleventyNavigation:
+  key: resilient-systems
+  title: Designing Resilient Systems
+  parent: blog
+image: blog/topics/resilience.jpg
+image_alt: Resilient system architecture illustration
 ---
 
 The last few years have taught us a powerful lesson: unexpected disruptions are not just possible but inevitable. From global pandemics to supply chain breakdowns, infrastructure failures to climate events, organizations face an increasingly uncertain operating environment. In this context, system resilience isn't a luxury—it's a necessity.
@@ -28,25 +37,25 @@ This multifaceted view of resilience acknowledges that we can't predict every po
 Principles for Resilient System Design
 
 1. Embrace Constraints
-Paradoxically, constraints often foster resilience. When resources are limited, designs tend toward simplicity, which typically improves reliability. Consider how the Apollo 13 mission's constraints led to ingenious solutions that brought the astronauts home safely. Design with constraints in mind, even when resources seem abundant.
+   Paradoxically, constraints often foster resilience. When resources are limited, designs tend toward simplicity, which typically improves reliability. Consider how the Apollo 13 mission's constraints led to ingenious solutions that brought the astronauts home safely. Design with constraints in mind, even when resources seem abundant.
 
 2. Decouple Components
-Tightly coupled systems propagate failures rapidly. When one component can bring down the entire system, resilience suffers. Design loosely coupled architectures where components interact through well-defined interfaces, allowing parts to fail independently without cascading effects.
+   Tightly coupled systems propagate failures rapidly. When one component can bring down the entire system, resilience suffers. Design loosely coupled architectures where components interact through well-defined interfaces, allowing parts to fail independently without cascading effects.
 
 3. Implement Circuit Breakers
-Named after their electrical counterparts, circuit breakers automatically halt operations when conditions might cause damage. In software systems, this means detecting problematic patterns (like repeated timeouts) and pausing operations before they cause wider harm. Netflix's Hystrix library popularized this pattern in microservices architectures.
+   Named after their electrical counterparts, circuit breakers automatically halt operations when conditions might cause damage. In software systems, this means detecting problematic patterns (like repeated timeouts) and pausing operations before they cause wider harm. Netflix's Hystrix library popularized this pattern in microservices architectures.
 
 4. Create Graceful Degradation Paths
-Resilient systems don't just work perfectly or fail completely—they degrade gracefully. Design systems to offer reduced functionality during partial failures rather than collapsing entirely. Consider how modern websites might display cached content when backend services are unavailable.
+   Resilient systems don't just work perfectly or fail completely—they degrade gracefully. Design systems to offer reduced functionality during partial failures rather than collapsing entirely. Consider how modern websites might display cached content when backend services are unavailable.
 
 5. Build Observability In
-You can't respond to what you can't see. Effective monitoring, logging, and tracing aren't afterthoughts but core system features. Design observability from the ground up, ensuring teams can quickly identify, diagnose, and address emerging issues.
+   You can't respond to what you can't see. Effective monitoring, logging, and tracing aren't afterthoughts but core system features. Design observability from the ground up, ensuring teams can quickly identify, diagnose, and address emerging issues.
 
 6. Conduct Chaos Engineering
-Pioneered by Netflix's Chaos Monkey, chaos engineering deliberately introduces failures into systems to test resilience. These controlled experiments reveal weaknesses before they manifest in real emergencies, building confidence in recovery mechanisms.
+   Pioneered by Netflix's Chaos Monkey, chaos engineering deliberately introduces failures into systems to test resilience. These controlled experiments reveal weaknesses before they manifest in real emergencies, building confidence in recovery mechanisms.
 
 7. Design for Antifragility
-Beyond mere robustness, antifragile systems actually improve under stress. While difficult to achieve fully, certain design patterns approach this ideal. For example, machine learning systems that continuously incorporate new failure data can become more effective at preventing similar future failures.
+   Beyond mere robustness, antifragile systems actually improve under stress. While difficult to achieve fully, certain design patterns approach this ideal. For example, machine learning systems that continuously incorporate new failure data can become more effective at preventing similar future failures.
 
 Real-World Applications
 
@@ -62,19 +71,19 @@ Recent disruptions have highlighted the fragility of just-in-time supply chains.
 Implementing Resilience: Practical Steps
 
 1. Map Dependencies
-Understand system relationships comprehensively, including external dependencies often overlooked in traditional architecture diagrams.
+   Understand system relationships comprehensively, including external dependencies often overlooked in traditional architecture diagrams.
 
 2. Identify Critical Paths
-Determine which functions must remain operational even during severe disruptions, focusing resilience investments where they matter most.
+   Determine which functions must remain operational even during severe disruptions, focusing resilience investments where they matter most.
 
 3. Quantify Resilience Goals
-Establish specific, measurable objectives for recovery time, acceptable performance degradation, and failure containment.
+   Establish specific, measurable objectives for recovery time, acceptable performance degradation, and failure containment.
 
 4. Test Regularly
-Conduct frequent resilience drills spanning technical failures, personnel unavailability, and third-party disruptions.
+   Conduct frequent resilience drills spanning technical failures, personnel unavailability, and third-party disruptions.
 
 5. Learn and Adapt
-Create formal processes to incorporate lessons from both real incidents and simulated failures, continuously strengthening system resilience.
+   Create formal processes to incorporate lessons from both real incidents and simulated failures, continuously strengthening system resilience.
 
 The Economics of Resilience
 

@@ -1,7 +1,10 @@
 <header class="gh-header">
   <div class="gh-header-inner">
     <div class="site-title">
-      <a href="/" class="flex items-center gap-2 text-white font-semibold hover:text-theme-accent transition-colors duration-300">
+      <a
+        href="/"
+        class="flex items-center gap-2 text-white font-semibold hover:text-theme-accent transition-colors duration-300"
+      >
         <span class="text-theme-accent">{{ site.title }}</span>
       </a>
     </div>
@@ -9,34 +12,56 @@
       <nav class="gh-nav">
         <ul class="flex items-center gap-1 md:gap-2">
           {% for item in site.navigation %}
-            <li>
-              <a
-                href="{{ item.url }}"
-                class="gh-nav-item {% if page.url == item.url %}active{% endif %}"
-                {% if page.url == item.url %}aria-current="page"{% endif %}
-              >{{ item.icon | safe }} <span class="hidden md:inline-block">{{ item.name }}</span></a>
-            </li>
+          <li>
+            <a
+              href="{{ item.url }}"
+              class="gh-nav-item {% if page.url == item.url %}active{% endif %}"
+              {%
+              if
+              page.url=""
+              ="item.url"
+              %}aria-current="page"
+              {%
+              endif
+              %}
+              >{{ item.icon | safe }}
+              <span class="hidden md:inline-block">{{ item.name }}</span></a
+            >
+          </li>
           {% endfor %}
         </ul>
       </nav>
 
       <div class="header-social flex items-center gap-3">
-        {% for social in site.social_media %}
-          {% if social.display_in_header and social.enabled %}
-            <a
-              href="{{ social.url }}"
-              class="text-text-secondary hover:text-theme-accent transition-colors duration-300"
-              aria-label="{{ social.name }}"
-              title="{{ social.name }}"
-            >{{ social.icon | safe }}</a>
-          {% endif %}
-        {% endfor %}
+        {% for social in site.social_media %} {% if social.display_in_header and
+        social.enabled %}
+        <a
+          href="{{ social.url }}"
+          class="text-text-secondary hover:text-theme-accent transition-colors duration-300"
+          aria-label="{{ social.name }}"
+          title="{{ social.name }}"
+          >{{ social.icon | safe }}</a
+        >
+        {% endif %} {% endfor %}
       </div>
 
       <!-- Theme toggle button -->
-      <button id="theme-toggle" aria-label="Toggle dark/light mode" class="ml-3 inline-flex items-center justify-center w-9 h-9 rounded-full bg-theme-accent text-white hover:bg-accent-400 transition-colors duration-300 focus:outline-none shadow-md border border-white/10">
+      <button
+        id="theme-toggle"
+        aria-label="Toggle dark/light mode"
+        class="ml-3 inline-flex items-center justify-center w-9 h-9 rounded-full bg-theme-accent text-white hover:bg-accent-400 transition-colors duration-300 focus:outline-none shadow-md border border-white/10"
+      >
         <!-- Sun icon (light mode) - visible in dark mode -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 sun-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
           <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -48,7 +73,16 @@
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
         <!-- Moon icon (dark mode) - visible in light mode -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 moon-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 moon-icon hidden"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
@@ -57,51 +91,51 @@
 </header>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
+  document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById("theme-toggle");
     const rootElement = document.documentElement;
-    const sunIcon = document.querySelector('.sun-icon');
-    const moonIcon = document.querySelector('.moon-icon');
+    const sunIcon = document.querySelector(".sun-icon");
+    const moonIcon = document.querySelector(".moon-icon");
 
     // Function to update icon visibility
     function updateIcons(isLight) {
       if (isLight) {
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
+        sunIcon.classList.add("hidden");
+        moonIcon.classList.remove("hidden");
       } else {
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
+        sunIcon.classList.remove("hidden");
+        moonIcon.classList.add("hidden");
       }
     }
 
     // Check for saved theme in localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      rootElement.classList.add('light');
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      rootElement.classList.add("light");
       updateIcons(true);
     }
 
     // Toggle between light and dark themes
-    themeToggle.addEventListener('click', function() {
-      if (rootElement.classList.contains('light')) {
+    themeToggle.addEventListener("click", function () {
+      if (rootElement.classList.contains("light")) {
         // Switch to dark theme
-        rootElement.classList.remove('light');
-        localStorage.setItem('theme', 'dark');
+        rootElement.classList.remove("light");
+        localStorage.setItem("theme", "dark");
         updateIcons(false);
       } else {
         // Switch to light theme
-        rootElement.classList.add('light');
-        localStorage.setItem('theme', 'light');
+        rootElement.classList.add("light");
+        localStorage.setItem("theme", "light");
         updateIcons(true);
       }
     });
 
     // Match system preference if no saved preference
     if (!savedTheme) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       if (!prefersDark) {
-        rootElement.classList.add('light');
-        localStorage.setItem('theme', 'light');
+        rootElement.classList.add("light");
+        localStorage.setItem("theme", "light");
         updateIcons(true);
       }
     }

@@ -2,10 +2,36 @@
   "tabWidth": 2,
   "useTabs": false,
   "semi": true,
-  "singleQuote": true,
+  "singleQuote": false,
   "trailingComma": "es5",
   "bracketSpacing": true,
-  "arrowParens": "avoid",
-  "printWidth": 100,
-  "endOfLine": "lf"
+  "arrowParens": "always",
+  "printWidth": 88,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": ["*.njk", "*.html"],
+      "options": {
+        "parser": "html"
+      }
+    },
+    {
+      "files": ["*.css"],
+      "options": {
+        "parser": "css"
+      }
+    },
+    {
+      "files": ["*.json"],
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": ["*.md"],
+      "options": {
+        "parser": "markdown"
+      }
+    }
+  ]
 }

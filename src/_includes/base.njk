@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  {% include "meta.njk" %}
-</head>
-<body>
-  <div class="site-wrapper">
-    {% include "header.njk" %}
+  <head>
+    {% include "partials/meta.njk" %}
+  </head>
+  <body>
+    <div class="site-wrapper">
+      {% include "partials/header.njk" %}
 
-    <main class="content">
-      {{ content | safe }}
-    </main>
+      <main class="content">{{ content | safe }}</main>
 
-    {% include "footer.njk" %}
-  </div>
+      {% include "partials/footer.njk" %}
+    </div>
 
-  <script src="/js/main.js"></script>
-</body>
+    <script src="/js/main.js"></script>
+  </body>
 </html>

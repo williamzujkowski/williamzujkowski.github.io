@@ -1,0 +1,18 @@
+{# Macro for section heading #} {% macro sectionHeading(text, icon='', id='') %}
+<h2 {% if id %}id="{{ id }}" {% endif %} class="gh-section-header">
+  {% if icon %}
+  <span class="section-icon">{{ icon | safe }}</span>
+  {% endif %}
+  <span>{{ text }}</span>
+</h2>
+{% endmacro %} {# Macro for subsection heading #} {% macro subsectionHeading(text,
+icon='', id='') %}
+<h3 {% if id %}id="{{ id }}" {% endif %} class="gh-subsection-header">
+  {% if icon %}
+  <span class="section-icon">{{ icon | safe }}</span>
+  {% endif %}
+  <span>{{ text }}</span>
+</h3>
+{% endmacro %} {# Macro for page title #} {% macro pageTitle(text) %}
+<h1 class="gh-page-title">{{ text }}</h1>
+{% endmacro %}

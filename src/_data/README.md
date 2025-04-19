@@ -52,6 +52,7 @@ The `site.js` file uses ES modules to read and combine all configuration files i
 ### Examples
 
 #### Adding a new featured repository:
+
 Edit `config/homepage/repositories.json`:
 
 ```json
@@ -63,14 +64,16 @@ Edit `config/homepage/repositories.json`:
       "url": "https://github.com/username/project",
       "language": "JavaScript",
       "stars": 25
-    },
+    }
     // Other existing repositories...
   ]
 }
 ```
 
 #### Adding a new link group:
+
 1. First add the group definition in `config/links/groups.json`:
+
 ```json
 {
   "linkGroups": [
@@ -79,13 +82,14 @@ Edit `config/homepage/repositories.json`:
       "title": "My New Link Category",
       "description": "Cool new resources",
       "icon": "icon-name"
-    },
+    }
     // Other existing groups...
   ]
 }
 ```
 
 2. Then create a new file `config/links/new_group.json`:
+
 ```json
 {
   "items": [

@@ -1,5 +1,5 @@
 ---
-title: 'Beyond Containers: The Future of Application Deployment'
+title: "Beyond Containers: The Future of Application Deployment"
 description: >-
   Container technology transformed application deployment over the past decade,
   bringing unprecedented standardization and portability to software delivery
@@ -47,27 +47,30 @@ Yet despite these advances, challenges persist:
 Several emerging paradigms are addressing these limitations:
 
 ### WebAssembly (Wasm)
+
 Originally designed for browser-based applications, WebAssembly is being repurposed for server-side deployments. Wasm modules are more lightweight than containers, offering near-native performance with stronger security isolation. Initiatives like Istio's Ambient Mesh and the Spin project demonstrate how Wasm can replace sidecar containers, dramatically reducing resource overhead while maintaining flexibility.
 
 ```javascript
 // Example: Spin WebAssembly component in JavaScript
 import { HandleRequest } from "@fermyon/spin-sdk";
 
-export const handleRequest = async function(request) {
+export const handleRequest = async function (request) {
   return {
     status: 200,
     headers: { "content-type": "text/plain" },
-    body: "Hello from WebAssembly!"
-  }
-}
+    body: "Hello from WebAssembly!",
+  };
+};
 ```
 
 ### Unikernels
+
 Unikernels compile application code with only the necessary operating system components into a specialized, single-purpose machine image. The result is dramatically smaller and more secure than traditional containers, with boot times measured in milliseconds rather than seconds. Projects like MirageOS and NanoVMs demonstrate significant performance improvements while reducing the attack surface.
 
 ![Comparison of VM vs Container vs Unikernel architecture](/assets/images/blog/tech-header.jpg)
 
 ### eBPF (Extended Berkeley Packet Filter)
+
 eBPF enables programs to run directly in the Linux kernel with safety guarantees. This technology is transforming networking, security, and observability by eliminating the need for agents and sidecars. Projects like Cilium leverage eBPF to deliver container networking with better performance and security than traditional approaches.
 
 ```
@@ -87,6 +90,7 @@ eBPF enables programs to run directly in the Linux kernel with safety guarantees
 ```
 
 ### Serverless Containers
+
 Cloud providers are blending the best of serverless and container paradigms. AWS Fargate, Google Cloud Run, and Azure Container Instances let developers use familiar container formats while abstracting away infrastructure concerns. These services scale to zero, bill with sub-second precision, and eliminate most operational overhead.
 
 ## Implications for the Enterprise
@@ -106,12 +110,12 @@ These emerging technologies will impact organizations in several ways:
 ### Comparative Analysis: Resource Requirements
 
 | Technology | Memory Footprint | Startup Time | Security Isolation | Development Complexity |
-|------------|------------------|--------------|-------------------|------------------------|
-| VMs        | GBs              | Minutes      | Strong            | Medium                 |
-| Containers | MBs              | Seconds      | Medium            | Low-Medium             |
-| Unikernels | KBs              | Milliseconds | Strong            | Medium-High            |
-| Wasm       | KBs              | Milliseconds | Very Strong       | Medium                 |
-| eBPF       | KBs              | Nanoseconds  | Kernel Level      | High                   |
+| ---------- | ---------------- | ------------ | ------------------ | ---------------------- |
+| VMs        | GBs              | Minutes      | Strong             | Medium                 |
+| Containers | MBs              | Seconds      | Medium             | Low-Medium             |
+| Unikernels | KBs              | Milliseconds | Strong             | Medium-High            |
+| Wasm       | KBs              | Milliseconds | Very Strong        | Medium                 |
+| eBPF       | KBs              | Nanoseconds  | Kernel Level       | High                   |
 
 ## Preparing for the Next Wave
 
@@ -129,7 +133,7 @@ def evaluate_deployment_tech(workload_characteristics):
     if workload_characteristics["security_critical"] and workload_characteristics["resource_constrained"]:
         return "Unikernel"
     elif workload_characteristics["browser_compatibility_required"]:
-        return "WebAssembly"  
+        return "WebAssembly"
     elif workload_characteristics["network_intensive"] and workload_characteristics["performance_critical"]:
         return "eBPF"
     elif workload_characteristics["variable_load"] and workload_characteristics["cost_sensitive"]:
@@ -143,6 +147,7 @@ def evaluate_deployment_tech(workload_characteristics):
 While containers will remain important for years to come, forward-thinking organizations are already exploring what lies beyond. The future of application deployment will likely be more heterogeneous, with technologies chosen based on workload characteristics rather than organizational standards. By embracing these emerging paradigms, teams can achieve better performance, security, and resource utilization—staying ahead in the ever-evolving technology landscape.
 
 ### Further Reading:
+
 - [WebAssembly for Cloud Native](https://www.fermyon.com/blog/webassembly-for-cloud-native)
 - [eBPF - The Future of Networking & Security](https://cilium.io/blog/2020/11/10/ebpf-future-of-networking/)
 - [Unikernels: Rise of the Virtual Library Operating System](https://queue.acm.org/detail.cfm?id=2566628)

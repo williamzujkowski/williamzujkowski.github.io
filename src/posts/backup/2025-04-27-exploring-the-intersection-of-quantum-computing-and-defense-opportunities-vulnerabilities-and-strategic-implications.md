@@ -65,11 +65,11 @@ def classical_pattern_detection(data, patterns):
 def quantum_pattern_detection(data, patterns):
     # Encode data and patterns into quantum superposition
     quantum_state = encode_quantum_state(data, patterns)
-    
+
     # Apply Grover's algorithm to find matches
     # This achieves O(sqrt(n*m)) complexity
     matches = apply_grovers_algorithm(quantum_state, matching_oracle)
-    
+
     return decode_results(matches)
 ```
 
@@ -129,7 +129,7 @@ function generateQuantumResistantKeypair() {
 function generateHybridKeypair() {
   const classicKeys = generateClassicKeypair();
   const quantumResistantKeys = generateQuantumResistantKeypair();
-  
+
   return {
     publicKey: { classic: classicKeys.publicKey, quantum: quantumResistantKeys.publicKey },
     privateKey: { classic: classicKeys.privateKey, quantum: quantumResistantKeys.privateKey }
@@ -280,4 +280,4 @@ For those interested in exploring defense applications of quantum technologies f
 - [Quantum Technology Monitor](https://www.mckinsey.com/industries/advanced-electronics/our-insights/the-quantum-technology-monitor) - McKinsey's tracking of quantum technology developments and investments
 - [QuTech Academy](https://qutech.nl/academy/) - Educational resources on quantum technology fundamentals
 
-*This post explores recent research and developments at the intersection of quantum computing and defense technologies, highlighting both opportunities and security challenges in this rapidly evolving field.*
+_This post explores recent research and developments at the intersection of quantum computing and defense technologies, highlighting both opportunities and security challenges in this rapidly evolving field._

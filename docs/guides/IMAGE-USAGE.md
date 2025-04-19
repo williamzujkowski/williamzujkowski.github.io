@@ -63,6 +63,7 @@ To optimize a specific image:
 ### What Gets Optimized
 
 The optimizer creates:
+
 - Multiple sizes of each image (320px, 640px, 768px, 1024px, 1280px)
 - WebP versions for modern browsers
 - JPEG versions for fallback support
@@ -78,6 +79,7 @@ The built-in `image` shortcode automatically uses optimized versions when availa
 ```
 
 Parameters:
+
 1. **src**: Path to the image (relative to the assets/images directory)
 2. **alt**: Alternative text for the image (required for accessibility)
 3. **sizes**: How the image appears at different viewport sizes (default: "100vw")
@@ -113,9 +115,37 @@ The shortcode generates:
 
 ```html
 <picture>
-  <source type="image/webp" srcset="/assets/images/optimized/blog/example-xs.webp 320w, /assets/images/optimized/blog/example-sm.webp 640w, /assets/images/optimized/blog/example-md.webp 768w, /assets/images/optimized/blog/example-lg.webp 1024w, /assets/images/optimized/blog/example-xl.webp 1280w" sizes="100vw">
-  <source type="image/jpeg" srcset="/assets/images/optimized/blog/example-xs.jpeg 320w, /assets/images/optimized/blog/example-sm.jpeg 640w, /assets/images/optimized/blog/example-md.jpeg 768w, /assets/images/optimized/blog/example-lg.jpeg 1024w, /assets/images/optimized/blog/example-xl.jpeg 1280w" sizes="100vw">
-  <img src="/assets/images/optimized/blog/example-xs.jpeg" alt="Example image" class="w-full h-auto object-cover" loading="lazy" decoding="async" width="1600" height="900">
+  <source
+    type="image/webp"
+    srcset="
+      /assets/images/optimized/blog/example-xs.webp  320w,
+      /assets/images/optimized/blog/example-sm.webp  640w,
+      /assets/images/optimized/blog/example-md.webp  768w,
+      /assets/images/optimized/blog/example-lg.webp 1024w,
+      /assets/images/optimized/blog/example-xl.webp 1280w
+    "
+    sizes="100vw"
+  />
+  <source
+    type="image/jpeg"
+    srcset="
+      /assets/images/optimized/blog/example-xs.jpeg  320w,
+      /assets/images/optimized/blog/example-sm.jpeg  640w,
+      /assets/images/optimized/blog/example-md.jpeg  768w,
+      /assets/images/optimized/blog/example-lg.jpeg 1024w,
+      /assets/images/optimized/blog/example-xl.jpeg 1280w
+    "
+    sizes="100vw"
+  />
+  <img
+    src="/assets/images/optimized/blog/example-xs.jpeg"
+    alt="Example image"
+    class="w-full h-auto object-cover"
+    loading="lazy"
+    decoding="async"
+    width="1600"
+    height="900"
+  />
 </picture>
 ```
 
@@ -138,12 +168,12 @@ The shortcode generates:
 
 ### Recommended Image Dimensions
 
-| Usage | Dimensions | Aspect Ratio |
-|-------|------------|--------------|
-| Blog header | 1600×900px | 16:9 |
-| General content | 1200×675px | 16:9 |
-| Topic icon | 512×512px | 1:1 |
-| Thumbnail | 400×225px | 16:9 |
+| Usage           | Dimensions | Aspect Ratio |
+| --------------- | ---------- | ------------ |
+| Blog header     | 1600×900px | 16:9         |
+| General content | 1200×675px | 16:9         |
+| Topic icon      | 512×512px  | 1:1          |
+| Thumbnail       | 400×225px  | 16:9         |
 
 ## Further Resources
 

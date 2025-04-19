@@ -5,6 +5,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. When using Claude with this codebase, it will automatically reference this file for important contextual information.
 
 ## Build Commands
+
 - `npm run build` - Full build (data, eleventy, CSS)
 - `npm run dev` or `npm run serve` - Start dev server
 - `npm run build:css` - Build CSS with PostCSS only
@@ -15,6 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Changes to eleventy config should reference `config/.eleventy.simple.cjs`
 
 ## Directory Structure
+
 - `src/` - Source files (templates, posts, CSS, JS)
 - `_site/` - Build output directory
 - `assets/` - Static assets (images, icons, data)
@@ -24,12 +26,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `new_posts/` - Directory for new blog posts to be processed
 
 ## Configuration Files
+
 - Main Eleventy config: `config/.eleventy.simple.cjs`
 - Fallback Eleventy config (GitHub Actions): `.eleventy.simple.cjs`
 - PostCSS config: `config/postcss.config.cjs`
 - Tailwind config: `config/tailwind.config.cjs`
 
 ## Coding Style
+
 - Use kebab-case for filenames (e.g., `my-component.njk`)
 - Follow YYYY-MM-DD-title-with-hyphens.md naming for blog posts
 - Include frontmatter with title, date, layout, tags in markdown files
@@ -41,13 +45,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Always provide alt text for images and accessibility attributes
 
 ## Useful Resources
+
 - Eleventy documentation: https://www.11ty.dev/
 - Free image sources (use with proper attribution):
   - Pixabay: https://pixabay.com/
   - Unsplash: https://unsplash.com/
   - Pexels: https://www.pexels.com/
   - Wikimedia Commons: https://commons.wikimedia.org/wiki/Main_Page
-  
+
 ---
 
 [Back to Documentation Home](../index.md) | [Development Docs](./)

@@ -18,10 +18,12 @@ The theme system uses OKLCH colors for perceptually uniform color palettes that 
 The theme system consists of these key components:
 
 1. **Configuration Files**:
+
    - `src/_data/config/theme.json`: Central theme configuration
    - `src/css/styles.css`: CSS variables and Tailwind integration
 
 2. **JavaScript Utilities**:
+
    - `src/js/theme-utils.js`: Core functions for OKLCH colors
    - `src/js/theme-switcher.js`: Theme initialization and switching
 
@@ -42,11 +44,11 @@ A theme is defined in JSON with properties for colors, shadows, borders, and ani
     "primaryHue": 145,
     "primaryChroma": 0.15,
     "primaryLightness": 0.56,
-    
+
     "accentHue": 230,
     "accentChroma": 0.15,
-    "accentLightness": 0.70,
-    
+    "accentLightness": 0.7,
+
     "backgroundColor": "oklch(0.16 0.02 250)",
     "surfaceColor": "oklch(0.20 0.02 250)",
     "borderColor": "oklch(0.30 0.02 250)",
@@ -54,7 +56,7 @@ A theme is defined in JSON with properties for colors, shadows, borders, and ani
     "textColor": "oklch(0.93 0.02 250)",
     "textSecondaryColor": "oklch(0.75 0.03 250)",
     "mutedColor": "oklch(0.65 0.02 250)",
-    
+
     "successColor": "oklch(0.56 0.15 145)",
     "warningColor": "oklch(0.75 0.15 80)",
     "dangerColor": "oklch(0.65 0.15 25)",
@@ -86,6 +88,7 @@ OKLCH is a perceptual color space with three components:
 Example: `oklch(0.56 0.15 145)` is a medium green
 
 Benefits over hex/RGB:
+
 - Better perceptual uniformity
 - Improved contrast for accessibility
 - More intuitive color manipulation
@@ -101,11 +104,11 @@ The theme is implemented in CSS through custom properties:
   --color-primary: oklch(0.56 0.15 145);
   --color-primary-50: oklch(0.92 0.05 145);
   /* ...other color variables... */
-  
+
   /* UI colors */
   --color-background: oklch(0.16 0.02 250);
   --color-text: oklch(0.93 0.02 250);
-  
+
   /* Other design tokens */
   --shadow-card: 0 0 0 1px var(--color-border);
   --border-radius: 6px;
@@ -151,10 +154,10 @@ const variables = generateThemeVariables(themeConfig);
 const color = generateOklchColor(220, 0.15, 0.7);
 
 // Modify colors
-const lighterColor = lighten('oklch(0.5 0.2 180)', 0.1);
-const darkerColor = darken('oklch(0.5 0.2 180)', 0.1);
-const moreSaturated = saturate('oklch(0.5 0.2 180)', 0.05);
-const lessSaturated = desaturate('oklch(0.5 0.2 180)', 0.05);
+const lighterColor = lighten("oklch(0.5 0.2 180)", 0.1);
+const darkerColor = darken("oklch(0.5 0.2 180)", 0.1);
+const moreSaturated = saturate("oklch(0.5 0.2 180)", 0.05);
+const lessSaturated = desaturate("oklch(0.5 0.2 180)", 0.05);
 ```
 
 ## Extending the Theme System

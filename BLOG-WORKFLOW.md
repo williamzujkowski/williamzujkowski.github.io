@@ -22,11 +22,13 @@ Create a new file in the `new_posts/` directory using either format:
 #### Option A: Markdown Format (Recommended)
 
 Create a `.md` file with:
+
 - Optional frontmatter for metadata
 - H1 heading for the title
 - Markdown-formatted content
 
 **Example with frontmatter:**
+
 ```markdown
 ---
 title: "Understanding Quantum Computing"
@@ -39,6 +41,7 @@ Quantum computing represents a fundamental shift in how we process information..
 ```
 
 **Example with just H1 title:**
+
 ```markdown
 # Understanding Quantum Computing
 
@@ -48,6 +51,7 @@ Quantum computing represents a fundamental shift in how we process information..
 #### Option B: Simple Text Format
 
 Create a `.txt` file with:
+
 - First line: Post title
 - Second line: Blank
 - Remaining lines: Content
@@ -83,12 +87,14 @@ function example() {
 ### 3. Follow Content Guidelines
 
 #### Length & Structure
+
 - Write posts with a 6-9 minute reading time (1,400-2,100 words)
 - Use clear headings and subheadings to organize content
 - Include an introduction, main sections, and conclusion
 - Keep paragraphs short (3-4 sentences) for better readability
 
 #### Content Quality
+
 - Start with a concise summary that introduces key concepts
 - Include insights from recent developments (especially arXiv papers)
 - Add relevant code samples or diagrams where appropriate
@@ -98,6 +104,7 @@ function example() {
 - Include a call to action and suggested resources at the end
 
 #### Media
+
 - Include at least one relevant image per major section
 - Add meaningful alt text to all images for accessibility
 - Only use images from copyright-free sources:
@@ -117,6 +124,7 @@ npm run process:posts:enhanced
 ```
 
 This provides a guided, interactive experience:
+
 - You'll see a list of drafts available for processing
 - Choose to process a single post or all drafts
 - Preview the generated frontmatter before committing
@@ -172,6 +180,7 @@ npm run standardize:frontmatter
 ```
 
 This tool will:
+
 - Add missing descriptions (generated from the first paragraph)
 - Standardize tags format and ensure 'posts' tag is included
 - Automatically select the best image based on content and tags
@@ -204,7 +213,7 @@ Each post has these configurable settings in the frontmatter:
 title: "Post Title"
 date: 2025-01-15
 layout: post.njk
-tags: 
+tags:
   - posts
   - category1
   - category2
@@ -232,7 +241,7 @@ To specify a custom image:
 ```yaml
 ---
 title: My Blog Post
-image: blog/custom/my-image.jpg 
+image: blog/custom/my-image.jpg
 image_alt: Description of my custom image
 ---
 ```
@@ -243,29 +252,30 @@ Paths should be relative to the `assets/images/` directory.
 
 The system supports these image categories:
 
-| Category | Topic | File Path |
-|----------|-------|-----------|
-| ai | Artificial Intelligence | blog/ai-blog.jpg |
-| security | Cybersecurity | blog/security-blog.jpg |
-| cloud | Cloud Computing | blog/cloud-blog.jpg |
-| ethics | AI Ethics | blog/ethics-blog.jpg |
-| transformer | Transformer Architecture | blog/transformer-blog.jpg |
-| pizza | Pizza Calculator | blog/pizza-blog.jpg |
-| cryptography | Encryption & Cryptography | blog/topics/cryptography.jpg |
-| quantum | Quantum Computing | blog/topics/quantum.jpg |
-| edge | Edge Computing | blog/topics/edge-computing.jpg |
-| hpc | High-Performance Computing | blog/topics/hpc.jpg |
-| rag | Retrieval Augmented Generation | blog/topics/rag.jpg |
-| prompt | Prompt Engineering | blog/topics/prompt-engineering.jpg |
-| containers | Container Technologies | blog/topics/containers.jpg |
-| resilience | System Resilience | blog/topics/resilience.jpg |
-| llm | Large Language Models | blog/topics/llm.jpg |
+| Category     | Topic                          | File Path                          |
+| ------------ | ------------------------------ | ---------------------------------- |
+| ai           | Artificial Intelligence        | blog/ai-blog.jpg                   |
+| security     | Cybersecurity                  | blog/security-blog.jpg             |
+| cloud        | Cloud Computing                | blog/cloud-blog.jpg                |
+| ethics       | AI Ethics                      | blog/ethics-blog.jpg               |
+| transformer  | Transformer Architecture       | blog/transformer-blog.jpg          |
+| pizza        | Pizza Calculator               | blog/pizza-blog.jpg                |
+| cryptography | Encryption & Cryptography      | blog/topics/cryptography.jpg       |
+| quantum      | Quantum Computing              | blog/topics/quantum.jpg            |
+| edge         | Edge Computing                 | blog/topics/edge-computing.jpg     |
+| hpc          | High-Performance Computing     | blog/topics/hpc.jpg                |
+| rag          | Retrieval Augmented Generation | blog/topics/rag.jpg                |
+| prompt       | Prompt Engineering             | blog/topics/prompt-engineering.jpg |
+| containers   | Container Technologies         | blog/topics/containers.jpg         |
+| resilience   | System Resilience              | blog/topics/resilience.jpg         |
+| llm          | Large Language Models          | blog/topics/llm.jpg                |
 
 #### Adding New Image Categories
 
 You can add new image categories in two ways:
 
 ##### Option 1: Automatic (Recommended)
+
 1. Add tags to your blog posts
 2. Run `npm run build:blog-images`
 3. The system will automatically:
@@ -275,11 +285,13 @@ You can add new image categories in two ways:
    - Update the configuration file
 
 ##### Option 2: Manual Configuration
+
 1. Edit `src/_data/config/blog/images.json`
 2. Add entries to both `image_mapping` and `keyword_mapping` sections
 3. Run `npm run build:blog-images` to download sample images
 
 The enhanced image downloader supports:
+
 - Unsplash images (even without API key)
 - Pixabay images (with API key)
 - Pexels images (with API key)
@@ -299,7 +311,7 @@ Common tags include:
 - `quantum`
 - `cryptography`
 - `edge`
-- `hpc` 
+- `hpc`
 - `rag`
 - `prompt`
 - `containers`
@@ -312,24 +324,28 @@ Use 3-5 relevant tags per post for better categorization.
 ## Tips for Great Blog Posts
 
 ### Content Strategy
+
 - **Research First** - Read recent papers and established sources before writing
 - **Unique Angle** - Offer perspectives not found elsewhere
 - **Practical Value** - Include actionable takeaways readers can implement
 - **Progressive Disclosure** - Start simple, then delve into complexity
 
 ### Enhancing Readability
+
 - Use the "inverted pyramid" - most important information first
 - Break up text with headings, lists, and visual elements
 - Include code examples for technical concepts
 - Add comparative tables for technology comparisons
 
 ### Technical Best Practices
+
 - Include performance benchmarks where relevant
 - Discuss trade-offs and limitations of approaches
 - Provide complete code examples when possible
 - Link to documentation and further resources
 
 ### SEO Optimization
+
 - Use descriptive, keyword-rich titles
 - Write meta descriptions that encourage clicks
 - Include relevant keywords naturally in headings
@@ -346,6 +362,7 @@ Use 3-5 relevant tags per post for better categorization.
 ## Further Help
 
 For more assistance:
+
 - Check the [official Markdown guide](https://www.markdownguide.org/)
 - Review [11ty documentation](https://www.11ty.dev/docs/) for template questions
 - Visit [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/) for advanced formatting

@@ -1,5 +1,10 @@
 {
   "items": [
-    { "name": "Personal Website", "url": "https://github.com/williamzujkowski/williamzujkowski.github.io", "group": "Projects", "description": "My personal website and tech blog built with 11ty" }
+    {
+      "name": "Personal Website",
+      "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+      "group": "Projects",
+      "description": "My personal website and tech blog built with 11ty"
+    }
   ]
 }

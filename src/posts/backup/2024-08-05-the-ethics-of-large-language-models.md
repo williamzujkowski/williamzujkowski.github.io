@@ -11,7 +11,6 @@ image: blog/ai-blog.jpg
 image_alt: AI illustration with neural networks and connections
 ---
 
-
 Whenever I talk to a Large Language Model, there's a moment of awe—like stepping into a vast library filled with the echoes of thousands of authors. But lurking among these endless pages is the issue of ethics, which hums in the background like an unresolved chord. LLMs can produce wondrous essays and harmful content alike, and it's our responsibility to shepherd them responsibly.
 
 ## Bias in LLMs: A Reflection of Societal Prejudices
@@ -58,12 +57,14 @@ Standing at the crossroads of unstoppable progress and moral uncertainty, we can
 The ethics of LLMs shape not just tomorrow's technology but tomorrow's society. We stand as stewards of these advanced systems, capable of so much good, yet vulnerable to misuse. By acknowledging biases, reining in misinformation, respecting privacy, and grounding ourselves in empathy, we can direct LLMs toward a future that uplifts rather than divides. Technology, after all, is a reflection of its creators—may we create with care.
 
 ### Further Reading:
+
 - ["Ethical and social risks of harm from Language Models"](https://arxiv.org/abs/2112.04359) - Nature
 - ["On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"](https://proceedings.mlr.press/v80/bender18a/bender18a.pdf) - Bender et al.
 - ["Racial Discrimination in Face Recognition Technology"](https://sitn.hms.harvard.edu/flash/2020/racial-discrimination-in-face-recognition-technology/) - Science in the News, Harvard University
 - ["Four Principles of Explainable Artificial Intelligence"](https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence) - NIST
 
 ### Get Involved:
+
 - Support organizations working on AI ethics and responsible AI development.
 - Participate in discussions and forums about the ethical implications of LLMs.
 - Advocate for policies and regulations that promote the responsible use of AI.

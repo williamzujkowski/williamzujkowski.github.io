@@ -46,7 +46,7 @@
 
 /* Animated underline effect */
 .gh-nav-item::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -79,11 +79,11 @@
   .gh-header-inner {
     padding: 0 0.5rem;
   }
-  
+
   .gh-nav {
     gap: 0.5rem;
   }
-  
+
   .gh-nav-item {
     padding: 0.375rem 0.5rem;
   }

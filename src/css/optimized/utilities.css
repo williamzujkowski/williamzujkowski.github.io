@@ -1,6 +1,6 @@
-/* 
+/*
  * Utility Classes
- * 
+ *
  * Single-purpose utility classes that can be composed to build
  * complex UI patterns. Follows the principle of doing one thing well.
  */
@@ -157,13 +157,13 @@ img.loaded {
   .gap-custom {
     gap: 0.75rem;
   }
-  
+
   @media (min-width: 640px) {
     .gap-custom {
       gap: 1rem;
     }
   }
-  
+
   @media (min-width: 768px) {
     .gap-custom {
       gap: 1.25rem;
@@ -174,7 +174,7 @@ img.loaded {
   .group-hover-scale {
     @apply transition-transform duration-300;
   }
-  
+
   .group:hover .group-hover-scale {
     @apply scale-105;
   }
@@ -182,7 +182,7 @@ img.loaded {
   .group-hover-translate-up {
     @apply transition-transform duration-300;
   }
-  
+
   .group:hover .group-hover-translate-up {
     @apply -translate-y-1;
   }

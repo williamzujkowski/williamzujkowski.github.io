@@ -1,10 +1,10 @@
 ---
-title: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
+title: "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography"
 description: >-
   Even as we celebrate the breakthroughs of tomorrow's quantum computing, a
   chill runs down my spine when I recall that our cherished encryption methods
   could ...
-date: 2024-09-16T00:00:00.000Z
+date: "2024-09-16T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
@@ -13,9 +13,11 @@ tags:
   - quantum-computing
 image: blog/topics/cryptography.jpg
 image_alt: Encryption and cryptography key illustration
+eleventyNavigation:
+  key: preparing-for-the-quantum-leap-a-guide-to-quantum-resistant-cryptography
+  title: "Preparing for the Quantum Leap: A Guide ..."
+  parent: blog
 ---
-
-
 
 Even as we celebrate the breakthroughs of tomorrow's quantum computing, a chill runs down my spine when I recall that our cherished encryption methods could unravel before these potent machines. The equations that once took classical computers eons to solve may fold under quantum might like paper in a storm. This looming threat has cast the spotlight on **quantum-resistant cryptography**, ensuring we step into the quantum era with our data still protected.
 
@@ -54,6 +56,7 @@ Embracing quantum-safe algorithms is like planning for a storm that isn't here y
 The quantum age looms—simultaneously bright with promise and shadowed by risk. While these new computers unravel scientific mysteries, they also threaten the cryptographic guardrails of our digital world. In forging post-quantum solutions, we stand at a pivot point: will we be caught unprepared, or will we greet quantum computing with robust defenses in place? By staying agile, informed, and collaborative, we ensure that whatever wonders tomorrow brings, our secrets remain ours, locked away from those who'd misuse them.
 
 ### Further Reading:
+
 - [Getting Ready for Post-Quantum Cryptography](https://csrc.nist.gov/pubs/ir/8413/final) - NIST
 - [Quantum-Safe Cryptography](https://www.etsi.org/technologies/quantum-safe-cryptography) - ETSI
 - [Post-Quantum Cryptography](https://www.enisa.europa.eu/topics/cryptography/post-quantum-cryptography) - ENISA

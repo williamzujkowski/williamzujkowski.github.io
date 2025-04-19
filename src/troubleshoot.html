@@ -10,34 +10,51 @@ title: Troubleshooting & Development Tools
     <h2 class="text-xl font-semibold mb-4 text-white">URL Validator</h2>
     <p class="mb-4">Validate all the external links on the site using Microlink API.</p>
     <div class="flex flex-col">
-      <button id="validate-urls" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200 w-fit">
+      <button
+        id="validate-urls"
+        class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200 w-fit"
+      >
         Validate URLs
       </button>
       <div id="validation-results" class="mt-4"></div>
     </div>
   </div>
-  
+
   <div class="bg-gray-light p-6 rounded-github border border-border">
     <h2 class="text-xl font-semibold mb-4 text-white">Microlink Test</h2>
     <p class="mb-4">Test the Microlink API on a specific URL:</p>
     <div class="flex flex-col gap-4">
-      <input type="text" id="microlink-test-url" placeholder="Enter URL to test" class="px-4 py-2 bg-surface border border-border rounded-github text-white w-full">
+      <input
+        type="text"
+        id="microlink-test-url"
+        placeholder="Enter URL to test"
+        class="px-4 py-2 bg-surface border border-border rounded-github text-white w-full"
+      />
       <div class="flex gap-2">
-        <button id="test-metadata" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200">
+        <button
+          id="test-metadata"
+          class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200"
+        >
           Get Metadata
         </button>
-        <button id="test-screenshot" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200">
+        <button
+          id="test-screenshot"
+          class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200"
+        >
           Get Screenshot
         </button>
       </div>
       <div id="microlink-test-results" class="mt-4"></div>
     </div>
   </div>
-  
+
   <div class="bg-gray-light p-6 rounded-github border border-border">
     <h2 class="text-xl font-semibold mb-4 text-white">Resource Diagnostics</h2>
     <p class="mb-4">Check if CSS and JS files are loading correctly:</p>
-    <button id="check-styles" class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200 w-fit">
+    <button
+      id="check-styles"
+      class="px-4 py-2 bg-accent text-white rounded-github hover:bg-accent-hover transition-colors duration-200 w-fit"
+    >
       Check Resources
     </button>
     <div id="result" class="mt-4"></div>
@@ -46,31 +63,33 @@ title: Troubleshooting & Development Tools
 
 <script src="/js/url-validator.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     // Resource checker
-    document.getElementById('check-styles').addEventListener('click', function() {
-      const resultDiv = document.getElementById('result');
-      
+    document.getElementById("check-styles").addEventListener("click", function () {
+      const resultDiv = document.getElementById("result");
+
       // Get all stylesheets
       const sheets = document.styleSheets;
-      let output = '<div class="bg-surface p-4 rounded-github"><h3 class="text-lg font-medium mb-2 text-white">Loaded Stylesheets:</h3><ul class="pl-4 list-disc mb-4">';
-      
+      let output =
+        '<div class="bg-surface p-4 rounded-github"><h3 class="text-lg font-medium mb-2 text-white">Loaded Stylesheets:</h3><ul class="pl-4 list-disc mb-4">';
+
       // Loop through stylesheets
       for (let i = 0; i < sheets.length; i++) {
         try {
           const sheet = sheets[i];
-          output += `<li class="mb-1 text-text">${sheet.href || 'Inline styles'} (${sheet.cssRules ? sheet.cssRules.length : 'unknown'} rules)</li>`;
+          output += `<li class="mb-1 text-text">${sheet.href || "Inline styles"} (${sheet.cssRules ? sheet.cssRules.length : "unknown"} rules)</li>`;
         } catch (e) {
           output += `<li class="mb-1 text-red-400">Error accessing stylesheet: ${e.message}</li>`;
         }
       }
-      
-      output += '</ul>';
-      
+
+      output += "</ul>";
+
       // Get all scripts
       const scripts = document.scripts;
-      output += '<h3 class="text-lg font-medium mb-2 text-white">Loaded Scripts:</h3><ul class="pl-4 list-disc">';
-      
+      output +=
+        '<h3 class="text-lg font-medium mb-2 text-white">Loaded Scripts:</h3><ul class="pl-4 list-disc">';
+
       // Loop through scripts
       for (let i = 0; i < scripts.length; i++) {
         const script = scripts[i];
@@ -78,53 +97,55 @@ title: Troubleshooting & Development Tools
           output += `<li class="mb-1 text-text">${script.src}</li>`;
         }
       }
-      
-      output += '</ul></div>';
+
+      output += "</ul></div>";
       resultDiv.innerHTML = output;
     });
-    
+
     // Microlink test
-    const testUrlInput = document.getElementById('microlink-test-url');
-    const testMetadataBtn = document.getElementById('test-metadata');
-    const testScreenshotBtn = document.getElementById('test-screenshot');
-    const testResults = document.getElementById('microlink-test-results');
-    
+    const testUrlInput = document.getElementById("microlink-test-url");
+    const testMetadataBtn = document.getElementById("test-metadata");
+    const testScreenshotBtn = document.getElementById("test-screenshot");
+    const testResults = document.getElementById("microlink-test-results");
+
     async function fetchMicrolinkData(url, options = {}) {
       try {
         const queryParams = new URLSearchParams(options).toString();
-        const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}${queryParams ? '&' + queryParams : ''}`;
-        
+        const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}${queryParams ? "&" + queryParams : ""}`;
+
         const response = await fetch(apiUrl);
         return await response.json();
       } catch (error) {
-        return { status: 'error', message: error.message };
+        return { status: "error", message: error.message };
       }
     }
-    
-    testMetadataBtn?.addEventListener('click', async () => {
+
+    testMetadataBtn?.addEventListener("click", async () => {
       const url = testUrlInput.value.trim();
       if (!url) {
-        testResults.innerHTML = '<div class="p-4 bg-red-500/20 text-white rounded-github">Please enter a URL</div>';
+        testResults.innerHTML =
+          '<div class="p-4 bg-red-500/20 text-white rounded-github">Please enter a URL</div>';
         return;
       }
-      
-      testResults.innerHTML = '<div class="p-4 bg-surface rounded-github">Loading metadata...</div>';
-      
+
+      testResults.innerHTML =
+        '<div class="p-4 bg-surface rounded-github">Loading metadata...</div>';
+
       const data = await fetchMicrolinkData(url);
-      
-      if (data.status === 'success') {
+
+      if (data.status === "success") {
         let resultHtml = '<div class="bg-surface p-4 rounded-github">';
         resultHtml += `<h3 class="text-lg text-white font-medium mb-2">Metadata for ${url}</h3>`;
-        
+
         // Title and description
         if (data.data.title) {
           resultHtml += `<div class="mb-3"><strong class="text-accent">Title:</strong> <span class="text-white">${data.data.title}</span></div>`;
         }
-        
+
         if (data.data.description) {
           resultHtml += `<div class="mb-3"><strong class="text-accent">Description:</strong> <span class="text-white">${data.data.description}</span></div>`;
         }
-        
+
         // Image if available
         if (data.data.image && data.data.image.url) {
           resultHtml += `<div class="mb-3">
@@ -132,7 +153,7 @@ title: Troubleshooting & Development Tools
             <img src="${data.data.image.url}" alt="Preview image" class="mt-2 max-w-full h-auto rounded-github max-h-40 object-cover">
           </div>`;
         }
-        
+
         // Logo if available
         if (data.data.logo && data.data.logo.url) {
           resultHtml += `<div class="mb-3">
@@ -140,37 +161,39 @@ title: Troubleshooting & Development Tools
             <img src="${data.data.logo.url}" alt="Logo" class="mt-2 max-h-10 object-contain rounded-github">
           </div>`;
         }
-        
+
         // Publisher and author
         if (data.data.publisher) {
           resultHtml += `<div class="mb-3"><strong class="text-accent">Publisher:</strong> <span class="text-white">${data.data.publisher}</span></div>`;
         }
-        
+
         if (data.data.author) {
           resultHtml += `<div class="mb-3"><strong class="text-accent">Author:</strong> <span class="text-white">${data.data.author}</span></div>`;
         }
-        
-        resultHtml += '</div>';
+
+        resultHtml += "</div>";
         testResults.innerHTML = resultHtml;
       } else {
         testResults.innerHTML = `<div class="p-4 bg-red-500/20 text-white rounded-github">
-          <strong>Error:</strong> ${data.message || 'Failed to fetch metadata'}
+          <strong>Error:</strong> ${data.message || "Failed to fetch metadata"}
         </div>`;
       }
     });
-    
-    testScreenshotBtn?.addEventListener('click', async () => {
+
+    testScreenshotBtn?.addEventListener("click", async () => {
       const url = testUrlInput.value.trim();
       if (!url) {
-        testResults.innerHTML = '<div class="p-4 bg-red-500/20 text-white rounded-github">Please enter a URL</div>';
+        testResults.innerHTML =
+          '<div class="p-4 bg-red-500/20 text-white rounded-github">Please enter a URL</div>';
         return;
       }
-      
-      testResults.innerHTML = '<div class="p-4 bg-surface rounded-github">Taking screenshot...</div>';
-      
+
+      testResults.innerHTML =
+        '<div class="p-4 bg-surface rounded-github">Taking screenshot...</div>';
+
       const data = await fetchMicrolinkData(url, { screenshot: true });
-      
-      if (data.status === 'success' && data.data.screenshot) {
+
+      if (data.status === "success" && data.data.screenshot) {
         testResults.innerHTML = `
           <div class="bg-surface p-4 rounded-github">
             <h3 class="text-lg text-white font-medium mb-2">Screenshot for ${url}</h3>
@@ -184,7 +207,7 @@ title: Troubleshooting & Development Tools
         `;
       } else {
         testResults.innerHTML = `<div class="p-4 bg-red-500/20 text-white rounded-github">
-          <strong>Error:</strong> ${data.message || 'Failed to take screenshot'}
+          <strong>Error:</strong> ${data.message || "Failed to take screenshot"}
         </div>`;
       }
     });

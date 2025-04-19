@@ -1,6 +1,6 @@
-/* 
+/*
  * Mobile Styles
- * 
+ *
  * Responsive overrides for mobile devices.
  * Organized by component type for easier maintenance.
  */
@@ -11,27 +11,27 @@
   body {
     @apply text-lg;
   }
-  
+
   h1 {
     @apply text-3xl mb-4;
   }
-  
+
   h2 {
     @apply text-2xl mb-5 font-semibold;
   }
-  
+
   h3 {
     @apply text-xl mb-4 font-medium;
   }
-  
+
   p {
     @apply text-lg leading-relaxed;
   }
-  
+
   .site-container {
     @apply px-6 py-6;
   }
-  
+
   /* Layout - single-column vertical layout */
   .gh-profile-header {
     @apply flex-col mt-6 mb-8 gap-8;
@@ -44,19 +44,19 @@
   .gh-avatar {
     @apply w-[180px] h-[180px] mx-auto shadow-lg;
   }
-  
+
   .gh-profile-stats {
     @apply justify-center text-base gap-3 my-4;
   }
-  
+
   .gh-stat-count {
     @apply text-lg font-bold;
   }
-  
+
   .gh-stat-label {
     @apply text-base;
   }
-  
+
   .gh-profile-content {
     @apply w-full px-0;
   }
@@ -76,12 +76,12 @@
   .gh-bio {
     @apply text-center text-base mt-4 w-full mx-auto;
   }
-  
+
   /* Header and Nav */
   .gh-header-inner {
     @apply px-2;
   }
-  
+
   .gh-nav {
     @apply gap-2;
   }
@@ -89,80 +89,81 @@
   .gh-nav-item {
     @apply px-2 py-1.5;
   }
-  
+
   /* Footer */
   .gh-footer-inner {
     @apply py-3 px-4;
   }
-  
-  .gh-footer-links, .gh-copyright {
+
+  .gh-footer-links,
+  .gh-copyright {
     @apply text-xs;
   }
-  
+
   /* Blog post grid */
   .gh-post-grid {
     @apply grid-cols-1 gap-4;
   }
-  
+
   .gh-post-image {
     @apply h-auto max-h-40;
   }
-  
+
   .gh-post-content {
     @apply p-3;
   }
-  
+
   .gh-post-title {
     @apply text-base;
   }
-  
+
   /* Form elements */
-  button, 
-  a.gh-btn, 
+  button,
+  a.gh-btn,
   .gh-nav-item,
   .gh-post-card,
   .tag-btn,
   .gh-page-number {
     @apply min-h-[44px] flex items-center justify-center;
   }
-  
-  input, 
-  textarea, 
+
+  input,
+  textarea,
   select {
     @apply text-base p-3 min-h-[44px];
   }
-  
+
   /* Blog meta on mobile */
   .gh-post-meta {
     @apply flex-col gap-2;
   }
-  
+
   /* Scrollable tag buttons on mobile */
   .gh-tag-buttons {
     @apply overflow-x-auto pb-2 flex-nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  
+
   .gh-tag-buttons::-webkit-scrollbar {
     display: none;
   }
-  
+
   .tag-btn {
     @apply whitespace-nowrap;
   }
-  
+
   /* Section headers */
   .gh-section-header {
     @apply flex-col items-center mb-4;
   }
-  
+
   .gh-section-title {
     @apply mb-2 text-center;
   }
-  
+
   /* Section spacing */
-  section, 
+  section,
   .gh-section {
     @apply mb-8;
   }

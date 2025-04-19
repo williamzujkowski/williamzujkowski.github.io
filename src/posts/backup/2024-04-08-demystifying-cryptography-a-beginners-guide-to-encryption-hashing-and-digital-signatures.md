@@ -42,6 +42,7 @@ The best analogy I have is: If hashing is the fingerprint, the digital signature
 At its core, cryptography is about trust. It's the web of secrets, hashes, and signatures that underpins our daily digital routines—ensuring privacy, verifying authenticity, and keeping modern communications from unraveling into chaos. Understanding these foundations empowers us to navigate the internet with confidence, forging a safer, more secure online realm for everyone.
 
 ### Further Reading:
+
 - [Cryptography](https://www.khanacademy.org/computing/computer-science/cryptography) - Khan Academy
 - [Crypto 101](https://www.crypto101.io/)
 - [Cryptography I](https://www.coursera.org/learn/crypto) - Coursera

@@ -20,12 +20,14 @@ This document provides detailed instructions for maintaining and updating the we
 To work on the website, you need to have Node.js installed (version 18 or higher).
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/williamzujkowski/williamzujkowski.github.io.git
    cd williamzujkowski.github.io
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -41,11 +43,13 @@ To work on the website, you need to have Node.js installed (version 18 or higher
 ### General Website Updates
 
 1. **Update all dependencies:**
+
    ```bash
    npm update
    ```
 
 2. **Run security audit:**
+
    ```bash
    npm audit fix
    ```
@@ -79,6 +83,7 @@ We have a streamlined process for adding new blog posts:
    - Remaining lines: Post content
 
 Example:
+
 ```
 Understanding Quantum Computing
 
@@ -94,6 +99,7 @@ Quantum computing represents a fundamental shift in how we process information..
    - Or the filename will be used as the title
 
 Example with H1:
+
 ```markdown
 # Understanding Quantum Computing
 
@@ -103,11 +109,13 @@ Quantum computing represents a fundamental shift in how we process information..
 ### Processing and Publishing Posts
 
 1. **Run the post processor:**
+
    ```bash
    npm run process:posts
    ```
-   
+
    This will:
+
    - Extract the title and content
    - Add proper frontmatter
    - Assign publication dates (10-14 days apart)
@@ -119,6 +127,7 @@ Quantum computing represents a fundamental shift in how we process information..
    Check the output files in `src/posts/` and make any needed adjustments.
 
 3. **Build the site to preview your changes:**
+
    ```bash
    npm run build
    npm run dev
@@ -139,12 +148,13 @@ Links are stored in `src/_data/site.json` and can be displayed on the links page
 
 1. Edit `src/_data/site.json`
 2. Add your link to the appropriate section:
+
    ```json
    "links": [
-     { 
+     {
        "name": "Example Link",
        "url": "https://example.com",
-       "group": "Technology & Innovation", 
+       "group": "Technology & Innovation",
        "description": "Brief description of the link"
      }
    ]
@@ -164,6 +174,7 @@ npm run validate:links
 ```
 
 This will:
+
 - Check if all links are accessible
 - Update link preview data with validation results
 - Generate a report of any broken links
@@ -190,6 +201,7 @@ To update repository information:
 
 1. Edit `src/_data/site.json`
 2. Update the repository information:
+
    ```json
    "pinned_repositories": [
      {
@@ -247,12 +259,14 @@ To update the configuration:
 The website uses a multi-step build process:
 
 1. **Data Generation:**
+
    - `npm run build:arxiv` - Fetches and processes arXiv papers
    - `npm run build:github` - Fetches and processes GitHub repository data
    - `npm run build:viz` - Generates visualization data like contribution heatmaps
    - `npm run build:links` - Processes link previews
 
 2. **Site Generation:**
+
    - Eleventy builds the HTML pages from templates
    - PostCSS processes the CSS files
 
@@ -266,6 +280,7 @@ The site is automatically deployed to GitHub Pages when changes are pushed to th
 For manual deployment:
 
 1. Build the site:
+
    ```bash
    npm run build
    ```
@@ -282,6 +297,7 @@ For manual deployment:
 ### Common Issues and Solutions
 
 1. **Link preview generation fails:**
+
    - Check your internet connection
    - Verify the link is accessible
    - Check if the site blocks automated access
@@ -291,6 +307,7 @@ For manual deployment:
      ```
 
 2. **Post processing issues:**
+
    - Verify file format is correct
    - Check for proper line breaks
    - Ensure there's an H1 header or proper frontmatter in markdown files
@@ -325,17 +342,17 @@ For manual deployment:
 
 ### Key Scripts Reference
 
-| Script | Purpose |
-|--------|---------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build entire site |
-| `npm run build:links` | Generate link previews |
-| `npm run validate:links` | Check links for validity |
-| `npm run process:posts` | Process new blog posts |
-| `npm run build:arxiv` | Fetch arXiv paper data |
-| `npm run build:github` | Fetch GitHub repository data |
-| `npm run build:viz` | Generate visualization data |
-| `npm run build:css` | Build CSS files |
+| Script                   | Purpose                      |
+| ------------------------ | ---------------------------- |
+| `npm run dev`            | Start development server     |
+| `npm run build`          | Build entire site            |
+| `npm run build:links`    | Generate link previews       |
+| `npm run validate:links` | Check links for validity     |
+| `npm run process:posts`  | Process new blog posts       |
+| `npm run build:arxiv`    | Fetch arXiv paper data       |
+| `npm run build:github`   | Fetch GitHub repository data |
+| `npm run build:viz`      | Generate visualization data  |
+| `npm run build:css`      | Build CSS files              |
 
 ---
 

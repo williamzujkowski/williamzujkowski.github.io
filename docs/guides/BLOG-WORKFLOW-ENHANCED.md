@@ -10,6 +10,7 @@ The enhanced workflow uses templates to generate consistent, well-structured blo
 
 1. **Choose a template type**
    The system currently supports these template types:
+
    - `base` - General technology post
    - `cybersecurity` - Security-focused content
    - `ai-ml` - Artificial intelligence and machine learning
@@ -19,26 +20,30 @@ The enhanced workflow uses templates to generate consistent, well-structured blo
 
 2. **Create a new post draft**
    Create a `.md` or `.txt` file in the `new_posts/` directory. The simplest approach is to use a `.txt` file with:
+
    - The title on the first line
    - The content in the rest of the file
 
    Example `new_posts/my-new-ai-post.txt`:
+
    ```
    Understanding Large Language Models and Their Applications
-   
+
    In this post, we'll explore how large language models work and their practical applications in various industries.
-   
+
    Modern language models like GPT-4, Claude, and others have demonstrated remarkable capabilities...
    ```
 
 3. **Process the post**
    Run the enhanced post processor:
+
    ```bash
    npm run process:posts:enhanced
    ```
 
 4. **Review and edit**
    The processor will:
+
    - Detect the most appropriate template based on content
    - Add suitable tags based on content analysis
    - Schedule the post with an appropriate future date
@@ -60,6 +65,7 @@ You can also manually create posts with custom frontmatter:
 1. Create a new markdown file in `src/posts/` with the naming format: `YYYY-MM-DD-post-title.md`
 
 2. Add the required frontmatter:
+
    ```markdown
    ---
    title: Your Post Title
@@ -71,7 +77,7 @@ You can also manually create posts with custom frontmatter:
    image: /assets/images/blog/your-image.jpg
    layout: post.njk
    ---
-   
+
    Your post content here...
    ```
 
@@ -80,11 +86,13 @@ You can also manually create posts with custom frontmatter:
 ### Topic-Specific Images
 
 The system includes pre-configured topic images located in:
+
 ```
 assets/images/blog/topics/
 ```
 
 These images are organized by topic:
+
 - `ai-ml.jpg` - Artificial intelligence/machine learning
 - `cloud-computing.jpg` - Cloud technologies
 - `cybersecurity.jpg` - Security topics
@@ -95,6 +103,7 @@ These images are organized by topic:
 ### Using Images in Posts
 
 Images are referenced in the frontmatter:
+
 ```yaml
 image: /assets/images/blog/topics/cybersecurity.jpg
 ```
@@ -104,6 +113,7 @@ For custom images, place them in `assets/images/blog/` and reference accordingly
 ### Image Best Practices
 
 1. **Size and Dimensions**
+
    - Blog header images: 1600x900px (16:9 ratio)
    - Keep file sizes under 250KB for performance
    - Use JPG format for photographs
@@ -122,6 +132,7 @@ For custom images, place them in `assets/images/blog/` and reference accordingly
 Tags help categorize content and improve discoverability. The template system automatically suggests tags based on content analysis.
 
 Common tags include:
+
 - `cybersecurity`
 - `artificial-intelligence`
 - `machine-learning`
@@ -133,6 +144,7 @@ Common tags include:
 - `blockchain`
 
 Best practices:
+
 - Use 3-5 tags per post
 - Include one primary topic tag
 - Add more specific subtopic tags
@@ -142,14 +154,16 @@ Best practices:
 
 1. **Preview your post**
    Run the development server to preview:
+
    ```bash
    npm run dev
    ```
-   
+
    Visit `http://localhost:8082/blog/` to see your post.
 
 2. **Commit and push**
    Once satisfied with your post:
+
    ```bash
    git add src/posts/your-new-post.md
    git commit -m "Add new blog post on [topic]"
@@ -174,9 +188,9 @@ Best practices:
 
 ## Command Reference
 
-| Command | Description |
-|---------|-------------|
+| Command                          | Description                                         |
+| -------------------------------- | --------------------------------------------------- |
 | `npm run process:posts:enhanced` | Process new posts with the enhanced template system |
-| `npm run process:posts` | Process posts with the original processor (legacy) |
-| `npm run dev` | Start the development server to preview posts |
-| `npm run build` | Build the site including all posts |
+| `npm run process:posts`          | Process posts with the original processor (legacy)  |
+| `npm run dev`                    | Start the development server to preview posts       |
+| `npm run build`                  | Build the site including all posts                  |

@@ -121,7 +121,7 @@ Theme variables are defined in `utils/variables.css` with two sets of values:
 /* Light theme */
 :root.light {
   --color-background: oklch(0.98 0.01 250);
-  --color-text: oklch(0.20 0.02 250);
+  --color-text: oklch(0.2 0.02 250);
   /* etc. */
 }
 ```

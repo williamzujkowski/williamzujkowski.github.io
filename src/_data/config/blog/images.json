@@ -182,16 +182,7 @@
       "cipher",
       "quantum-resistant"
     ],
-    "cloud": [
-      "cloud",
-      "aws",
-      "azure",
-      "gcp",
-      "serverless",
-      "iaas",
-      "paas",
-      "saas"
-    ],
+    "cloud": ["cloud", "aws", "azure", "gcp", "serverless", "iaas", "paas", "saas"],
     "ai": [
       "ai",
       "artificial intelligence",
@@ -201,36 +192,11 @@
       "neural",
       "model"
     ],
-    "ethics": [
-      "ethics",
-      "ethical",
-      "bias",
-      "fairness",
-      "responsible ai"
-    ],
-    "transformer": [
-      "transformer",
-      "attention",
-      "encoder",
-      "decoder"
-    ],
-    "pizza": [
-      "pizza",
-      "calculator"
-    ],
-    "quantum": [
-      "quantum",
-      "qubit",
-      "superposition",
-      "entanglement"
-    ],
-    "edge": [
-      "edge computing",
-      "edge",
-      "iot",
-      "real-time",
-      "device"
-    ],
+    "ethics": ["ethics", "ethical", "bias", "fairness", "responsible ai"],
+    "transformer": ["transformer", "attention", "encoder", "decoder"],
+    "pizza": ["pizza", "calculator"],
+    "quantum": ["quantum", "qubit", "superposition", "entanglement"],
+    "edge": ["edge computing", "edge", "iot", "real-time", "device"],
     "hpc": [
       "high-performance computing",
       "hpc",
@@ -238,25 +204,9 @@
       "compute",
       "cluster"
     ],
-    "rag": [
-      "retrieval augmented generation",
-      "rag",
-      "retrieval",
-      "vector"
-    ],
-    "prompt": [
-      "prompt engineering",
-      "prompt",
-      "instruction"
-    ],
-    "containers": [
-      "container",
-      "docker",
-      "kubernetes",
-      "k8s",
-      "orchestration",
-      "pod"
-    ],
+    "rag": ["retrieval augmented generation", "rag", "retrieval", "vector"],
+    "prompt": ["prompt engineering", "prompt", "instruction"],
+    "containers": ["container", "docker", "kubernetes", "k8s", "orchestration", "pod"],
     "resilience": [
       "resilient",
       "resilience",
@@ -264,29 +214,12 @@
       "chaos",
       "reliability"
     ],
-    "llm": [
-      "llm",
-      "language model",
-      "gpt",
-      "claude",
-      "gemini",
-      "large language model"
-    ],
-    "programming": [
-      "programming"
-    ],
-    "cybersecurity": [
-      "cybersecurity"
-    ],
-    "deepfake": [
-      "deepfake"
-    ],
-    "machine-learning": [
-      "machine-learning"
-    ],
-    "opensource": [
-      "opensource"
-    ],
+    "llm": ["llm", "language model", "gpt", "claude", "gemini", "large language model"],
+    "programming": ["programming"],
+    "cybersecurity": ["cybersecurity"],
+    "deepfake": ["deepfake"],
+    "machine-learning": ["machine-learning"],
+    "opensource": ["opensource"],
     "posts-ai-devops-programming-architecture": [
       "posts ai devops programming architecture"
     ],
@@ -305,47 +238,19 @@
     "posts-quantum-computing-cryptography-ai-quantum-algorithms-quantum-supremacy": [
       "posts quantum-computing cryptography ai quantum-algorithms quantum-supremacy"
     ],
-    "devops": [
-      "devops"
-    ],
-    "robotics": [
-      "robotics"
-    ],
-    "database": [
-      "database"
-    ],
-    "architecture": [
-      "architecture"
-    ],
-    "quantum-computing": [
-      "quantum-computing"
-    ],
-    "national-security": [
-      "national-security"
-    ],
-    "embodied-ai": [
-      "embodied-ai"
-    ],
-    "multimodal-llm": [
-      "multimodal-llm"
-    ],
-    "reinforcement-learning": [
-      "reinforcement-learning"
-    ],
-    "computational-science": [
-      "computational-science"
-    ],
-    "exascale": [
-      "exascale"
-    ],
-    "sustainability": [
-      "sustainability"
-    ],
-    "quantum-algorithms": [
-      "quantum-algorithms"
-    ],
-    "quantum-supremacy": [
-      "quantum-supremacy"
-    ]
+    "devops": ["devops"],
+    "robotics": ["robotics"],
+    "database": ["database"],
+    "architecture": ["architecture"],
+    "quantum-computing": ["quantum-computing"],
+    "national-security": ["national-security"],
+    "embodied-ai": ["embodied-ai"],
+    "multimodal-llm": ["multimodal-llm"],
+    "reinforcement-learning": ["reinforcement-learning"],
+    "computational-science": ["computational-science"],
+    "exascale": ["exascale"],
+    "sustainability": ["sustainability"],
+    "quantum-algorithms": ["quantum-algorithms"],
+    "quantum-supremacy": ["quantum-supremacy"]
   }
 }

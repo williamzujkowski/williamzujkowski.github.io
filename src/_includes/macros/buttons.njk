@@ -1,0 +1,27 @@
+{# Macro for primary button #} {% macro primaryButton(text, url, icon='',
+additionalClasses='') %}
+<a href="{{ url }}" class="gh-btn {{ additionalClasses }}">
+  {% if icon %}
+  <span class="btn-icon">{{ icon | safe }}</span>
+  {% endif %}
+  <span>{{ text }}</span>
+</a>
+{% endmacro %} {# Macro for secondary button #} {% macro secondaryButton(text, url,
+icon='', additionalClasses='') %}
+<a href="{{ url }}" class="gh-btn-secondary {{ additionalClasses }}">
+  {% if icon %}
+  <span class="btn-icon">{{ icon | safe }}</span>
+  {% endif %}
+  <span>{{ text }}</span>
+</a>
+{% endmacro %} {# Macro for icon button #} {% macro iconButton(icon, url, label,
+additionalClasses='') %}
+<a
+  href="{{ url }}"
+  class="gh-icon-btn {{ additionalClasses }}"
+  aria-label="{{ label }}"
+  title="{{ label }}"
+>
+  {{ icon | safe }}
+</a>
+{% endmacro %}

@@ -1,5 +1,5 @@
 ---
-title: 'The Quantum Leap: Breakthroughs and Innovations'
+title: "The Quantum Leap: Breakthroughs and Innovations"
 description: >-
   Quantum computing stands at the precipice of a technological revolution, with
   recent breakthroughs pushing the boundaries of what's computationally possible
@@ -47,11 +47,11 @@ class SurfaceCode {
     this.distance = distance; // Code distance determines error correction capability
     this.physicalQubits = distance * distance;
     this.logicalQubits = 1; // A single logical qubit encoded across many physical qubits
-    
+
     // Initialize syndrome measurements
     this.syndromes = Array(this.physicalQubits).fill(0);
   }
-  
+
   // Detect errors through syndrome measurements
   measureSyndromes() {
     // In real implementation, this would contain quantum circuit operations
@@ -60,7 +60,7 @@ class SurfaceCode {
     }
     return this.syndromes;
   }
-  
+
   // Correct detected errors
   correctErrors() {
     const syndromes = this.measureSyndromes();

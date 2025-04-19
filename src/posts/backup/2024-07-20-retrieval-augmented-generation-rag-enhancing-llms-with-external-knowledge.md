@@ -1,5 +1,5 @@
 ---
-title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
+title: "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge"
 description: >-
   There's a moment in every conversation with a Large Language Model when you
   realize the model has already "learned" all it can from its training data
@@ -10,8 +10,6 @@ tags:
 image: blog/topics/edge-computing.jpg
 image_alt: Edge computing architecture with IoT devices
 ---
-
-
 
 There's a moment in every conversation with a Large Language Model when you realize the model has already "learned" all it can from its training data. But what if it could step outside its own mind, consult new documents, and return with freshly found answers? Enter **Retrieval Augmented Generation (RAG)**—a technique that feels like giving an AI the power to read a library on demand.
 

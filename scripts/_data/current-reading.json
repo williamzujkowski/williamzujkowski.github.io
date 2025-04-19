@@ -7,12 +7,7 @@
     "formattedDate": "Apr 10, 2025",
     "updated": "2025-04-10T17:59:57Z",
     "firstAuthor": "Lorenz Linhardt",
-    "authors": [
-      "Lorenz Linhardt",
-      "Tom Neuhäuser",
-      "Lenka Tětková",
-      "Oliver Eberle"
-    ],
+    "authors": ["Lorenz Linhardt", "Tom Neuhäuser", "Lenka Tětková", "Oliver Eberle"],
     "link": "http://arxiv.org/abs/2504.07965v1",
     "categoryLabel": "AI",
     "progress": 89
@@ -25,12 +20,7 @@
     "formattedDate": "Apr 10, 2025",
     "updated": "2025-04-10T17:54:02Z",
     "firstAuthor": "Hao Yu",
-    "authors": [
-      "Hao Yu",
-      "Rupayan Mallick",
-      "Margrit Betke",
-      "Sarah Adel Bargal"
-    ],
+    "authors": ["Hao Yu", "Rupayan Mallick", "Margrit Betke", "Sarah Adel Bargal"],
     "link": "http://arxiv.org/abs/2504.07945v1",
     "categoryLabel": "Security",
     "progress": 58
@@ -70,11 +60,7 @@
     "formattedDate": "Apr 10, 2025",
     "updated": "2025-04-10T17:59:56Z",
     "firstAuthor": "Zhongyang Li",
-    "authors": [
-      "Zhongyang Li",
-      "Ziyue Li",
-      "Tianyi Zhou"
-    ],
+    "authors": ["Zhongyang Li", "Ziyue Li", "Tianyi Zhou"],
     "link": "http://arxiv.org/abs/2504.07964v1",
     "categoryLabel": "AI",
     "progress": 54

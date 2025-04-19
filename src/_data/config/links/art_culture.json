@@ -1,15 +1,70 @@
 {
   "items": [
-    { "name": "Centauri Dreams", "url": "https://www.centauri-dreams.org/", "group": "Art, Culture & Exploration", "description": "Paul Gilster's blog on deep space exploration and interstellar travel" },
-    { "name": "Center for PostNatural History", "url": "https://postnatural.org/", "group": "Art, Culture & Exploration", "description": "A museum dedicated to organisms altered by humans, blending biology and technology" },
-    { "name": "Museum of Obsolete Media", "url": "https://obsoletemedia.org/", "group": "Art, Culture & Exploration", "description": "An online museum showcasing and preserving obsolete audio, video, and data formats" },
-    { "name": "The Public Domain Review", "url": "https://publicdomainreview.org/", "group": "Art, Culture & Exploration", "description": "Explores and curates art, literature, and ideas that are now in the public domain" },
-    { "name": "Radio Garden", "url": "https://radio.garden/listen", "group": "Art, Culture & Exploration", "description": "Listen to live radio stations worldwide by rotating a virtual globe" },
-    { "name": "Submarine Cable Map", "url": "https://www.submarinecablemap.com/", "group": "Art, Culture & Exploration", "description": "An interactive map of the global undersea cables that power the internet" },
-    { "name": "The Tau Zero Foundation", "url": "https://tauzero.aero/", "group": "Art, Culture & Exploration", "description": "Explores the science behind interstellar travel and advances in space exploration" },
-    { "name": "Falling Falling", "url": "https://www.fallingfalling.com/", "group": "Art, Culture & Exploration", "description": "An immersive interactive experience of cascading colors and shapes" },
-    { "name": "Floor796", "url": "https://floor796.com/", "group": "Art, Culture & Exploration", "description": "A creative hub blending design, art, and experimental projects" },
-    { "name": "YYYYYYY", "url": "https://www.yyyyyyy.info/", "group": "Art, Culture & Exploration", "description": "A minimalist experimental site exploring abstract ideas" },
-    { "name": "National Film Registry", "url": "https://www.loc.gov/programs/national-film-preservation-board/film-registry/watch-films-on-the-national-film-registry/", "group": "Art, Culture & Exploration", "description": "Watch films preserved for their cultural, historical, or aesthetic significance" }
+    {
+      "name": "Centauri Dreams",
+      "url": "https://www.centauri-dreams.org/",
+      "group": "Art, Culture & Exploration",
+      "description": "Paul Gilster's blog on deep space exploration and interstellar travel"
+    },
+    {
+      "name": "Center for PostNatural History",
+      "url": "https://postnatural.org/",
+      "group": "Art, Culture & Exploration",
+      "description": "A museum dedicated to organisms altered by humans, blending biology and technology"
+    },
+    {
+      "name": "Museum of Obsolete Media",
+      "url": "https://obsoletemedia.org/",
+      "group": "Art, Culture & Exploration",
+      "description": "An online museum showcasing and preserving obsolete audio, video, and data formats"
+    },
+    {
+      "name": "The Public Domain Review",
+      "url": "https://publicdomainreview.org/",
+      "group": "Art, Culture & Exploration",
+      "description": "Explores and curates art, literature, and ideas that are now in the public domain"
+    },
+    {
+      "name": "Radio Garden",
+      "url": "https://radio.garden/listen",
+      "group": "Art, Culture & Exploration",
+      "description": "Listen to live radio stations worldwide by rotating a virtual globe"
+    },
+    {
+      "name": "Submarine Cable Map",
+      "url": "https://www.submarinecablemap.com/",
+      "group": "Art, Culture & Exploration",
+      "description": "An interactive map of the global undersea cables that power the internet"
+    },
+    {
+      "name": "The Tau Zero Foundation",
+      "url": "https://tauzero.aero/",
+      "group": "Art, Culture & Exploration",
+      "description": "Explores the science behind interstellar travel and advances in space exploration"
+    },
+    {
+      "name": "Falling Falling",
+      "url": "https://www.fallingfalling.com/",
+      "group": "Art, Culture & Exploration",
+      "description": "An immersive interactive experience of cascading colors and shapes"
+    },
+    {
+      "name": "Floor796",
+      "url": "https://floor796.com/",
+      "group": "Art, Culture & Exploration",
+      "description": "A creative hub blending design, art, and experimental projects"
+    },
+    {
+      "name": "YYYYYYY",
+      "url": "https://www.yyyyyyy.info/",
+      "group": "Art, Culture & Exploration",
+      "description": "A minimalist experimental site exploring abstract ideas"
+    },
+    {
+      "name": "National Film Registry",
+      "url": "https://www.loc.gov/programs/national-film-preservation-board/film-registry/watch-films-on-the-national-film-registry/",
+      "group": "Art, Culture & Exploration",
+      "description": "Watch films preserved for their cultural, historical, or aesthetic significance"
+    }
   ]
 }

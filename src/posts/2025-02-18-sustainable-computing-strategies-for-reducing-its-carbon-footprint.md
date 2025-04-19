@@ -1,6 +1,6 @@
 ---
 title: "Sustainable Computing: Strategies for Reducing IT's Carbon Footprint"
-date: 2025-02-18
+date: "2025-02-18T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
@@ -8,12 +8,19 @@ tags:
   - cloud
   - devops
   - architecture
-description: "An exploration of practical strategies for implementing sustainable computing practices, from data center optimization to software efficiency, that organizations can adopt to reduce their IT carbon footprint."
+description: >-
+  An exploration of practical strategies for implementing sustainable computing
+  practices, from data center optimization to software efficiency, that
+  organizations can adopt to reduce their IT carbon footprint.
 image: blog/topics/sustainability.jpg
-image_alt: "Green data center concept with plants growing around server racks"
+image_alt: Green data center concept with plants growing around server racks
+eleventyNavigation:
+  key: sustainable-computing-strategies-for-reducing-its-carbon-footprint
+  title: "Sustainable Computing: Strategies for Re..."
+  parent: blog
 ---
 
-![Green data center concept with plants growing around server racks](/assets/images/blog/topics/sustainability.jpg)
+{% image "blog/topics/sustainability.jpg", "Green data center concept with plants growing around server racks", "100vw" %}
 
 As digital transformation accelerates across industries, the environmental impact of our computing infrastructure grows increasingly significant. Data centers alone account for approximately 1% of global electricity consumption, with this figure projected to rise substantially as artificial intelligence and other computationally intensive technologies become more widespread.
 
@@ -53,6 +60,7 @@ Data centers represent the most energy-intensive component of modern computing i
 Modern data center design prioritizes energy efficiency through several key approaches:
 
 1. **Advanced cooling systems**: Traditional air cooling is being supplemented or replaced by more efficient methods:
+
    - Direct liquid cooling (DLC) reduces energy consumption by 40-60% compared to air cooling
    - Immersion cooling, where servers are submerged in non-conductive fluid, can achieve even greater efficiency gains
    - Free cooling uses outside air when ambient conditions permit, significantly reducing cooling energy requirements
@@ -67,26 +75,26 @@ Modern data center design prioritizes energy efficiency through several key appr
 def optimize_data_center_power(servers, workload, power_threshold):
     # Sort servers by efficiency (performance per watt)
     servers.sort(key=lambda s: s.performance / s.power_consumption, reverse=True)
-    
+
     active_servers = []
     total_power = 0
     workload_assigned = 0
-    
+
     # Activate most efficient servers first until workload is covered
     for server in servers:
         if workload_assigned >= workload:
             break
-            
+
         # Check if adding this server would exceed power threshold
         if total_power + server.power_consumption <= power_threshold:
             active_servers.append(server)
             total_power += server.power_consumption
             workload_assigned += server.capacity
-            
+
     # Apply power capping if necessary
     if total_power > power_threshold:
         apply_power_capping(active_servers, power_threshold)
-        
+
     return active_servers, total_power, workload_assigned
 ```
 
@@ -95,11 +103,13 @@ def optimize_data_center_power(servers, workload, power_threshold):
 Leading cloud providers and data center operators are making significant investments in renewable energy:
 
 1. **Direct renewable sourcing**:
+
    - On-site solar, wind, or hydroelectric generation
    - Power purchase agreements (PPAs) with renewable energy providers
    - Investment in renewable energy credits (RECs)
 
 2. **24/7 carbon-free energy (CFE)**:
+
    - Moving beyond annual renewable matching to hourly matching of energy consumption with carbon-free sources
    - Using energy storage systems to balance intermittent renewable generation
    - Distributing workloads geographically based on renewable energy availability
@@ -154,7 +164,7 @@ resource "aws_appautoscaling_scheduled_action" "scale_up" {
   resource_id        = aws_appautoscaling_target.ecs_target.resource_id
   scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
   schedule           = "cron(0 8 ? * MON-FRI *)" // 8 AM weekdays
-  
+
   scalable_target_action {
     min_capacity = 5
     max_capacity = 10
@@ -168,7 +178,7 @@ resource "aws_appautoscaling_scheduled_action" "scale_down" {
   resource_id        = aws_appautoscaling_target.ecs_target.resource_id
   scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
   schedule           = "cron(0 18 ? * * *)" // 6 PM every day
-  
+
   scalable_target_action {
     min_capacity = 1
     max_capacity = 2
@@ -235,8 +245,8 @@ With artificial intelligence becoming increasingly central to computing, optimiz
    - Quantization: Reducing numerical precision of model weights
    - Pruning: Removing unnecessary connections in neural networks
    - Knowledge distillation: Training smaller models to mimic larger ones
-   
 2. **Hardware-software co-design**:
+
    - Developing specialized AI accelerators optimized for energy efficiency
    - Tailoring models to specific hardware capabilities
 
@@ -249,11 +259,13 @@ With artificial intelligence becoming increasingly central to computing, optimiz
 Addressing electronic waste is essential for comprehensive computing sustainability:
 
 1. **Extending hardware lifecycles**:
+
    - Designing for durability, repairability, and upgradeability
    - Implementing proper maintenance and timely upgrades
    - Virtualization to extend the utility of existing hardware
 
 2. **Responsible decommissioning**:
+
    - Secure data wiping and hardware refurbishment
    - Component harvesting for repair or recycling
    - Proper recycling through certified e-waste processors
@@ -301,6 +313,7 @@ Microsoft has committed to becoming carbon negative by 2030 and removing all his
 4. **Green software engineering**: Developing and promoting practices for sustainable software development
 
 The results are notable:
+
 - 60% improvement in data center PUE over the past decade
 - Development of 24/7 carbon-free energy matching capabilities
 - Creation of open tools for measuring software carbon intensity
@@ -310,6 +323,7 @@ The results are notable:
 Sustainable computing is no longer optional but essential for organizations concerned with environmental impact, regulatory compliance, and operational efficiency. By implementing the strategies outlined in this article, IT leaders can significantly reduce their carbon footprint while potentially decreasing costs and improving resilience.
 
 Key takeaways include:
+
 - Data center efficiency and renewable energy integration form the foundation of sustainable computing
 - Cloud computing offers inherent sustainability advantages when properly optimized
 - Software efficiency is equally important but often overlooked

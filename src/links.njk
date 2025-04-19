@@ -6,33 +6,51 @@ eleventyNavigation:
   key: Links
   order: 2
 ---
+
 {% breadcrumbs page %}
 <div class="relative mb-8 rounded-github overflow-hidden">
-  {% image "blog/tech-header.jpg", "Technology background", "100vw", [800, 1200, 1600] %}
+  {% image "blog/tech-header.jpg", "Technology background", "100vw", [800, 1200, 1600]
+  %}
   <div class="absolute inset-0 flex items-center justify-center bg-black/30">
     <h1 class="text-white text-2xl font-bold flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="currentColor" class="mr-2"><path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        width="24"
+        height="24"
+        fill="currentColor"
+        class="mr-2"
+      >
+        <path
+          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"
+        ></path>
+      </svg>
       Links
     </h1>
   </div>
 </div>
 
-<p class="text-text-secondary mb-4">Useful resources and interesting websites I've collected.</p>
+<p class="text-text-secondary mb-4">
+  Useful resources and interesting websites I've collected.
+</p>
 
 <!-- Quick Jump Navigation -->
 <div class="mb-6 sticky top-0 z-10 pt-4 pb-4 bg-background border-b border-border">
   <div class="links-filter mb-2">
-    <input type="text" id="link-filter" placeholder="Search links..." 
-      class="w-full md:w-72 px-3 py-2 bg-gray-light border border-border rounded-github 
-      focus:outline-none focus:ring-2 focus:ring-accent text-text placeholder-text-secondary">
+    <input
+      type="text"
+      id="link-filter"
+      placeholder="Search links..."
+      class="w-full md:w-72 px-3 py-2 bg-gray-light border border-border rounded-github focus:outline-none focus:ring-2 focus:ring-accent text-text placeholder-text-secondary"
+    />
   </div>
-  
+
   <div class="links-jump flex flex-wrap gap-2 text-text-secondary">
     <span class="text-text-secondary text-sm py-1">Jump to: </span>
-    {% for group in site.linkGroups %}
-      <a href="#{{ group.name | slugify }}" class="tag-pill">
-        <span class="mr-1">{{ group.icon }}</span>{{ group.name }}
-      </a>
+    {% for categoryKey, category in links.categories %}
+    <a href="#{{ categoryKey }}" class="tag-pill">
+      <span class="mr-1">{{ category.icon }}</span>{{ category.name }}
+    </a>
     {% endfor %}
   </div>
 </div>
@@ -42,200 +60,259 @@ eleventyNavigation:
 <div id="repositories" class="link-section mb-10">
   <div class="flex items-center mb-4">
     <span class="text-lg mr-2">📌</span>
-    <h2 id="github-repositories" class="text-xl font-medium mt-0 mb-0">GitHub Repositories</h2>
+    <h2 id="github-repositories" class="text-xl font-medium mt-0 mb-0">
+      GitHub Repositories
+    </h2>
   </div>
-  
-  <div class="link-list divide-y divide-border/30 bg-gray-light rounded-github overflow-hidden">
+
+  <div
+    class="link-list divide-y divide-border/30 bg-gray-light rounded-github overflow-hidden"
+  >
     {% for repo in site.homepage.pinned_repositories %}
-      <a href="{{ repo.url }}" target="_blank" rel="noopener noreferrer" 
-         class="flex items-center px-4 py-3 hover:bg-gray-light/80 transition-colors link-item">
-        <div class="flex-1">
-          <div class="flex items-center">
-            <span class="font-medium text-white">{{ repo.name }}</span>
-            {% if repo.language %}
-              <span class="ml-3 inline-flex items-center text-xs text-text-secondary">
-                <span class="inline-block w-2 h-2 rounded-full mr-1.5" style="background-color: {{ repo.language_color }}"></span>
-                {{ repo.language }}
-              </span>
-            {% endif %}
-            {% if repo.stars > 0 %}
-              <span class="ml-3 inline-flex items-center text-xs text-text-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" class="mr-1 text-accent" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
-                {{ repo.stars }}
-              </span>
-            {% endif %}
-          </div>
-          {% if repo.description %}
-            <p class="text-sm text-text-secondary mt-1">{{ repo.description }}</p>
+    <a
+      href="{{ repo.url }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center px-4 py-3 hover:bg-gray-light/80 transition-colors link-item"
+    >
+      <div class="flex-1">
+        <div class="flex items-center">
+          <span class="font-medium text-white">{{ repo.name }}</span>
+          {% if repo.language %}
+          <span class="ml-3 inline-flex items-center text-xs text-text-secondary">
+            <span
+              class="inline-block w-2 h-2 rounded-full mr-1.5"
+              style="background-color: {{ repo.language_color }}"
+            ></span>
+            {{ repo.language }}
+          </span>
+          {% endif %} {% if repo.stars > 0 %}
+          <span class="ml-3 inline-flex items-center text-xs text-text-secondary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              width="12"
+              height="12"
+              class="mr-1 text-accent"
+              fill="currentColor"
+            >
+              <path
+                d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"
+              ></path>
+            </svg>
+            {{ repo.stars }}
+          </span>
           {% endif %}
         </div>
-        <div class="text-accent">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m-3.75 0h-4.5m0 0v4.5" />
-          </svg>
-        </div>
-      </a>
+        {% if repo.description %}
+        <p class="text-sm text-text-secondary mt-1">{{ repo.description }}</p>
+        {% endif %}
+      </div>
+      <div class="text-accent">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m-3.75 0h-4.5m0 0v4.5"
+          />
+        </svg>
+      </div>
+    </a>
     {% endfor %}
   </div>
 </div>
 {% endif %}
 
-<!-- Link Groups -->
+<!-- Link Categories -->
 <div class="links-content">
-  {% for group in site.linkGroups %}
-    {% if group.name != "Social" %}
-      <!-- Get links for this group -->
-      {% set groupLinks = [] %}
-      {% for link in site.links %}
-        {% if link.group === group.name %}
-          {% set groupLinks = (groupLinks.push(link), groupLinks) %}
-        {% endif %}
-      {% endfor %}
-      
-      {% if groupLinks.length > 0 %}
-        <div id="{{ group.name | slugify }}" class="link-section mb-10">
-          <div class="flex items-center mb-4 group-header">
-            <span class="text-lg mr-2">{{ group.icon }}</span>
-            <h2 class="text-xl font-medium mt-0 mb-0">{{ group.name }}</h2>
-            <span class="ml-2 text-sm text-text-secondary">({{ groupLinks.length }})</span>
-          </div>
-          
-          <div class="link-list divide-y divide-border/30 bg-gray-light rounded-github overflow-hidden">
-            {% for link in groupLinks | sort(false, false, 'name') %}
-              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" 
-                class="flex items-center px-4 py-3 hover:bg-gray-light/80 transition-colors link-item"
-                data-url="{{ link.url }}">
-                <div class="flex-1">
-                  <div class="font-medium text-white">{{ link.name }}</div>
-                  {% if link.description %}
-                    <p class="text-sm text-text-secondary mt-1">{{ link.description }}</p>
-                  {% endif %}
-                  
-                  {# Note: Link preview metadata is temporarily disabled in the GitHub Actions build.
-                     Run the local build with npm run build:link-previews and npm run build to see full metadata. #}
-                </div>
-                <div class="text-accent">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m-3.75 0h-4.5m0 0v4.5" />
-                  </svg>
-                </div>
-              </a>
-            {% endfor %}
-          </div>
+  {% for categoryKey, category in links.categories %} {% if categoryKey != "social" %}
+  <div id="{{ categoryKey }}" class="link-section mb-10">
+    <div class="flex items-center mb-4 group-header">
+      <span class="text-lg mr-2">{{ category.icon }}</span>
+      <h2 class="text-xl font-medium mt-0 mb-0">{{ category.name }}</h2>
+      <span class="ml-2 text-sm text-text-secondary"
+        >({{ category.items.length }})</span
+      >
+    </div>
+
+    <div
+      class="link-list divide-y divide-border/30 bg-gray-light rounded-github overflow-hidden"
+    >
+      {% for link in category.items | sort(false, false, 'name') %}
+      <a
+        href="{{ link.url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center px-4 py-3 hover:bg-gray-light/80 transition-colors link-item"
+        data-url="{{ link.url }}"
+      >
+        <div class="flex-1">
+          <div class="font-medium text-white">{{ link.name }}</div>
+          {% if link.description %}
+          <p class="text-sm text-text-secondary mt-1">{{ link.description }}</p>
+          {% endif %} {# Note: Link preview metadata is temporarily disabled in the
+          GitHub Actions build. Run the local build with npm run build:link-previews and
+          npm run build to see full metadata. #}
         </div>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+        <div class="text-accent">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m-3.75 0h-4.5m0 0v4.5"
+            />
+          </svg>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %} {% endfor %}
 </div>
 
 <!-- Back to Top Button -->
-<button id="back-to-top" 
-  class="fixed bottom-6 right-6 rounded-full bg-accent/80 hover:bg-accent p-3 text-white shadow-lg opacity-0 transition-opacity duration-300 invisible">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+<button
+  id="back-to-top"
+  class="fixed bottom-6 right-6 rounded-full bg-accent/80 hover:bg-accent p-3 text-white shadow-lg opacity-0 transition-opacity duration-300 invisible"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="currentColor"
+    class="w-5 h-5"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M4.5 15.75l7.5-7.5 7.5 7.5"
+    />
   </svg>
 </button>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     // Filter functionality
-    const filterInput = document.getElementById('link-filter');
-    const linkItems = document.querySelectorAll('.link-item');
-    const linkSections = document.querySelectorAll('.link-section');
-    
+    const filterInput = document.getElementById("link-filter");
+    const linkItems = document.querySelectorAll(".link-item");
+    const linkSections = document.querySelectorAll(".link-section");
+
     if (filterInput) {
-      filterInput.addEventListener('input', (e) => {
+      filterInput.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
-        
+
         // Show/hide link items based on search term
-        linkItems.forEach(item => {
-          const linkName = item.querySelector('.font-medium').textContent.toLowerCase();
-          const linkDesc = item.querySelector('p')?.textContent.toLowerCase() || '';
-          
+        linkItems.forEach((item) => {
+          const linkName = item.querySelector(".font-medium").textContent.toLowerCase();
+          const linkDesc = item.querySelector("p")?.textContent.toLowerCase() || "";
+
           if (linkName.includes(searchTerm) || linkDesc.includes(searchTerm)) {
-            item.classList.remove('hidden');
+            item.classList.remove("hidden");
           } else {
-            item.classList.add('hidden');
+            item.classList.add("hidden");
           }
         });
-        
+
         // Show/hide sections based on if they have any visible links
-        linkSections.forEach(section => {
-          const visibleLinks = section.querySelectorAll('.link-item:not(.hidden)');
+        linkSections.forEach((section) => {
+          const visibleLinks = section.querySelectorAll(".link-item:not(.hidden)");
           if (visibleLinks.length === 0) {
-            section.classList.add('hidden');
+            section.classList.add("hidden");
           } else {
-            section.classList.remove('hidden');
+            section.classList.remove("hidden");
           }
         });
       });
     }
-    
+
     // Back to top button
-    const backToTopButton = document.getElementById('back-to-top');
-    
+    const backToTopButton = document.getElementById("back-to-top");
+
     if (backToTopButton) {
       // Show/hide button based on scroll position
-      window.addEventListener('scroll', () => {
+      window.addEventListener("scroll", () => {
         if (window.scrollY > 500) {
-          backToTopButton.classList.remove('opacity-0', 'invisible');
+          backToTopButton.classList.remove("opacity-0", "invisible");
         } else {
-          backToTopButton.classList.add('opacity-0');
+          backToTopButton.classList.add("opacity-0");
           setTimeout(() => {
             if (window.scrollY <= 500) {
-              backToTopButton.classList.add('invisible');
+              backToTopButton.classList.add("invisible");
             }
           }, 300);
         }
       });
-      
+
       // Scroll to top when clicked
-      backToTopButton.addEventListener('click', () => {
+      backToTopButton.addEventListener("click", () => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth'
+          behavior: "smooth",
         });
       });
     }
-    
+
     // Smooth scrolling for anchor links
-    document.querySelectorAll('.links-jump a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    document.querySelectorAll('.links-jump a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
         e.preventDefault();
-        
-        const targetId = this.getAttribute('href').substring(1);
+
+        const targetId = this.getAttribute("href").substring(1);
         const targetElement = document.getElementById(targetId);
-        
+
         if (targetElement) {
           // Account for sticky header
-          const stickyHeaderHeight = document.querySelector('.links-filter').offsetHeight + 20;
-          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - stickyHeaderHeight;
-          
+          const stickyHeaderHeight =
+            document.querySelector(".links-filter").offsetHeight + 20;
+          const targetPosition =
+            targetElement.getBoundingClientRect().top +
+            window.scrollY -
+            stickyHeaderHeight;
+
           window.scrollTo({
             top: targetPosition,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
-          
+
           // Update URL without scrolling
           history.pushState(null, null, `#${targetId}`);
         }
       });
     });
-    
+
     // Check for hash on page load
     if (window.location.hash) {
       setTimeout(() => {
         const targetId = window.location.hash.substring(1);
         const targetElement = document.getElementById(targetId);
-        
+
         if (targetElement) {
           // Account for sticky header
-          const stickyHeaderHeight = document.querySelector('.links-filter').offsetHeight + 20;
-          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - stickyHeaderHeight;
-          
+          const stickyHeaderHeight =
+            document.querySelector(".links-filter").offsetHeight + 20;
+          const targetPosition =
+            targetElement.getBoundingClientRect().top +
+            window.scrollY -
+            stickyHeaderHeight;
+
           window.scrollTo({
             top: targetPosition,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }
       }, 300);
@@ -255,7 +332,7 @@ eleventyNavigation:
     transition: all 0.2s;
     border: 1px solid var(--color-border);
   }
-  
+
   .tag-pill:hover {
     background-color: var(--color-accent);
     color: white;
@@ -266,16 +343,18 @@ eleventyNavigation:
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
-  
+
   /* Animation for the search results */
   .link-item {
-    transition: opacity 0.3s, transform 0.3s;
+    transition:
+      opacity 0.3s,
+      transform 0.3s;
   }
-  
+
   .link-item.hidden {
     display: none;
   }
-  
+
   /* Highlight the current section */
   .group-header:target {
     background-color: var(--color-accent-100);

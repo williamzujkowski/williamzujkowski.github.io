@@ -14,19 +14,25 @@ Welcome to the documentation for [William Zujkowski's personal website](https://
 The documentation is organized into the following sections:
 
 ### [Guides](./guides/)
+
 Step-by-step instructions for common tasks:
+
 - Creating and publishing blog posts
 - Working with themes
 - Using templates
 
 ### [Reference](./reference/)
+
 Detailed technical information:
+
 - Maintenance procedures
 - Changelog and version history
 - Configuration reference
 
 ### [Development](./development/)
+
 Information for developers:
+
 - Contributing guidelines
 - AI assistance guidelines
 - Code standards

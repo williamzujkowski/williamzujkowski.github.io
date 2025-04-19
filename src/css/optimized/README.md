@@ -16,7 +16,7 @@ This directory contains the optimized CSS structure for the website. The CSS has
 Instead of importing the old CSS files, import the main.css file which will import all the necessary components:
 
 ```html
-<link rel="stylesheet" href="/css/optimized/main.css">
+<link rel="stylesheet" href="/css/optimized/main.css" />
 ```
 
 ## Benefits

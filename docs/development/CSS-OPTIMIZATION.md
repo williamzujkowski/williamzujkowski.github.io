@@ -5,6 +5,7 @@ This document outlines the CSS optimization strategy implemented in this project
 ## The Problem
 
 Over time, our CSS had grown complex with:
+
 - Multiple CSS files with overlapping styles
 - Redundant style declarations across files
 - Inconsistent organization of components
@@ -14,6 +15,7 @@ Over time, our CSS had grown complex with:
 ## The Solution
 
 We've implemented a modular CSS architecture that:
+
 1. Separates concerns by function
 2. Reduces duplication
 3. Improves maintainability
@@ -25,31 +27,37 @@ We've implemented a modular CSS architecture that:
 The optimized CSS is now organized into these modular files:
 
 ### 1. `theme.css`
+
 - Contains all color and design token variables
 - Centralizes dark and light theme definitions
 - Uses OKLCH color format for better perceptual uniformity
 
 ### 2. `base.css`
+
 - Contains foundational styles and typography
 - Includes reset styles and element defaults
 - Contains Tailwind directives (@tailwind base, components, utilities)
 
 ### 3. `components.css`
+
 - Organized by component type (header, buttons, cards, etc.)
 - Each component section is clearly commented
 - Components follow consistent naming conventions
 
 ### 4. `utilities.css`
+
 - Contains single-purpose utility classes
 - Includes animations and transitions
 - Contains custom utility extensions
 
 ### 5. `mobile.css`
+
 - Contains only mobile-specific overrides
 - Organized by component type for easier reference
 - Reduces specificity conflicts with desktop styles
 
 ### 6. `main.css`
+
 - Imports all the modular files in the correct order
 - Acts as the single entry point for the stylesheet
 
@@ -72,6 +80,7 @@ npm run optimize:css
 ```
 
 This will:
+
 1. Create backups of the original CSS files
 2. Generate the optimized CSS structure in `src/css/optimized/`
 3. Create documentation and statistics
@@ -91,13 +100,13 @@ This will run the optimizer and then process the CSS with PostCSS for production
 To switch your templates to use the optimized CSS, update your include paths from:
 
 ```html
-<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/styles.css" />
 ```
 
 To:
 
 ```html
-<link rel="stylesheet" href="/css/optimized/main.css">
+<link rel="stylesheet" href="/css/optimized/main.css" />
 ```
 
 ## Maintenance Guidelines
@@ -113,6 +122,7 @@ When editing CSS:
 ## Performance Impact
 
 The optimization typically results in:
+
 - 15-20% reduction in total CSS size
 - Improved browser rendering performance
 - Better cache utilization
@@ -121,6 +131,7 @@ The optimization typically results in:
 ## Future Improvements
 
 Potential next steps for further optimization:
+
 - Create component-specific CSS files for more granular loading
 - Implement critical CSS extraction for above-the-fold content
 - Add automated CSS testing for theme consistency

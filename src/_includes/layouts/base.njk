@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    {% include "partials/meta.njk" %}
+
+    <!-- Site configuration is handled in site-config.js -->
+    <script>
+      // Make site data available for initialization
+      window.SITE_DATA = {{ site | dump | safe }};
+    </script>
+
+    <!-- No additional CSS needed - all styles are in main.css -->
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    {% include "partials/header.njk" %}
+
+    <div class="site-container">
+      <main id="main-content">{{ content | safe }}</main>
+    </div>
+
+    {% include "partials/footer.njk" %}
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        width="16"
+        height="16"
+        fill="currentColor"
+      >
+        <path
+          d="M8.53 4.22a.75.75 0 00-1.06 0l-4.25 4.25a.75.75 0 001.06 1.06L8 5.81l3.72 3.72a.75.75 0 101.06-1.06L8.53 4.22z"
+        ></path>
+      </svg>
+    </button>
+
+    <!-- Main scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/site-enhancements.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/heatmap.js"></script>
+    <script type="module" src="/js/theme-switcher.js"></script>
+
+    <!-- Static visualizations are handled by static-fallbacks.js -->
+  </body>
+</html>

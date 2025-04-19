@@ -1,6 +1,6 @@
 /**
  * CSS Optimization Tool
- * 
+ *
  * This script analyzes and optimizes CSS files by:
  * 1. Consolidating redundant styles between files
  * 2. Organizing styles into logical groupings (base, components, utilities)
@@ -8,19 +8,19 @@
  * 4. Improving theme variable organization
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths to CSS files
-const STYLES_CSS_PATH = path.resolve(__dirname, '../src/css/styles.css');
-const BASIC_CSS_PATH = path.resolve(__dirname, '../src/css/basic.css');
-const BLOG_ENHANCED_CSS_PATH = path.resolve(__dirname, '../src/css/blog-enhanced.css');
-const OPTIMIZED_CSS_DIR = path.resolve(__dirname, '../src/css/optimized');
+const STYLES_CSS_PATH = path.resolve(__dirname, "../src/css/styles.css");
+const BASIC_CSS_PATH = path.resolve(__dirname, "../src/css/basic.css");
+const BLOG_ENHANCED_CSS_PATH = path.resolve(__dirname, "../src/css/blog-enhanced.css");
+const OPTIMIZED_CSS_DIR = path.resolve(__dirname, "../src/css/optimized");
 
 // Ensure the optimized directory exists
 if (!fs.existsSync(OPTIMIZED_CSS_DIR)) {
@@ -28,18 +28,18 @@ if (!fs.existsSync(OPTIMIZED_CSS_DIR)) {
 }
 
 // Create backup directory
-const BACKUP_DIR = path.resolve(__dirname, '../src/css/backup');
+const BACKUP_DIR = path.resolve(__dirname, "../src/css/backup");
 if (!fs.existsSync(BACKUP_DIR)) {
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
 }
 
 // Backup original files
 function createBackups() {
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  
-  console.log('Creating backups of original CSS files...');
-  
-  [STYLES_CSS_PATH, BASIC_CSS_PATH, BLOG_ENHANCED_CSS_PATH].forEach(filePath => {
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+
+  console.log("Creating backups of original CSS files...");
+
+  [STYLES_CSS_PATH, BASIC_CSS_PATH, BLOG_ENHANCED_CSS_PATH].forEach((filePath) => {
     if (fs.existsSync(filePath)) {
       const fileName = path.basename(filePath);
       const backupPath = path.join(BACKUP_DIR, `${fileName}.${timestamp}.bak`);
@@ -51,64 +51,69 @@ function createBackups() {
 
 // Read CSS files
 function readCssFiles() {
-  console.log('Reading CSS files...');
-  
+  console.log("Reading CSS files...");
+
   const files = {
-    styles: fs.existsSync(STYLES_CSS_PATH) ? fs.readFileSync(STYLES_CSS_PATH, 'utf8') : '',
-    basic: fs.existsSync(BASIC_CSS_PATH) ? fs.readFileSync(BASIC_CSS_PATH, 'utf8') : '',
-    blogEnhanced: fs.existsSync(BLOG_ENHANCED_CSS_PATH) ? fs.readFileSync(BLOG_ENHANCED_CSS_PATH, 'utf8') : ''
+    styles: fs.existsSync(STYLES_CSS_PATH)
+      ? fs.readFileSync(STYLES_CSS_PATH, "utf8")
+      : "",
+    basic: fs.existsSync(BASIC_CSS_PATH) ? fs.readFileSync(BASIC_CSS_PATH, "utf8") : "",
+    blogEnhanced: fs.existsSync(BLOG_ENHANCED_CSS_PATH)
+      ? fs.readFileSync(BLOG_ENHANCED_CSS_PATH, "utf8")
+      : "",
   };
-  
+
   return files;
 }
 
 // Create the optimized structure
 async function createOptimizedStructure(cssFiles) {
-  console.log('Creating optimized CSS structure...');
-  
+  console.log("Creating optimized CSS structure...");
+
   // 1. Extract theme variables from styles.css
   const themeVariables = extractThemeVariables(cssFiles.styles);
-  
+
   // 2. Create base.css with foundational styles
   const baseStyles = createBaseStyles(cssFiles.styles, cssFiles.basic);
-  
+
   // 3. Create components.css with component styles
   const componentStyles = createComponentStyles(cssFiles.styles, cssFiles.blogEnhanced);
-  
+
   // 4. Create utilities.css with utility classes
   const utilityStyles = createUtilityStyles(cssFiles.styles);
-  
+
   // 5. Create mobile.css with mobile-specific styles
   const mobileStyles = createMobileStyles(cssFiles.styles, cssFiles.blogEnhanced);
-  
+
   // 6. Create main.css that imports all the pieces
   const mainCss = createMainCss();
-  
+
   // Save all files
   await Promise.all([
-    saveOptimizedCss('theme.css', themeVariables),
-    saveOptimizedCss('base.css', baseStyles),
-    saveOptimizedCss('components.css', componentStyles),
-    saveOptimizedCss('utilities.css', utilityStyles),
-    saveOptimizedCss('mobile.css', mobileStyles),
-    saveOptimizedCss('main.css', mainCss)
+    saveOptimizedCss("theme.css", themeVariables),
+    saveOptimizedCss("base.css", baseStyles),
+    saveOptimizedCss("components.css", componentStyles),
+    saveOptimizedCss("utilities.css", utilityStyles),
+    saveOptimizedCss("mobile.css", mobileStyles),
+    saveOptimizedCss("main.css", mainCss),
   ]);
 }
 
 // Extract theme variables into their own file
 function extractThemeVariables(stylesCss) {
-  console.log('Extracting theme variables...');
-  
+  console.log("Extracting theme variables...");
+
   // Extract root variables from styles.css
-  const rootVariableRegex = /@layer base\s*{\s*:root\s*{[^}]*}\s*:root\.light\s*{[^}]*}\s*}/s;
-  
+  const rootVariableRegex =
+    /@layer base\s*{\s*:root\s*{[^}]*}\s*:root\.light\s*{[^}]*}\s*}/s;
+
   const match = stylesCss.match(rootVariableRegex);
-  let themeVariables = match ? match[0] : '';
-  
+  let themeVariables = match ? match[0] : "";
+
   // Enhance with better comments and organization
-  themeVariables = `/* 
+  themeVariables = `/*
  * Theme Variables
- * 
+ *
  * This file contains all color and design token variables
  * used throughout the site. Variables follow the OKLCH color
  * model for better perceptual uniformity.
@@ -121,12 +126,12 @@ ${themeVariables}`;
 
 // Create base.css with foundational styles
 function createBaseStyles(stylesCss, basicCss) {
-  console.log('Creating base styles...');
-  
+  console.log("Creating base styles...");
+
   // Extract base styles from styles.css (typography, html, body, headings, etc.)
-  let baseStyles = `/* 
+  let baseStyles = `/*
  * Base Styles
- * 
+ *
  * Core typographic and element styles that form the foundation
  * of the site's design system.
  */
@@ -141,7 +146,7 @@ function createBaseStyles(stylesCss, basicCss) {
   .prose-custom {
     @apply prose prose-invert prose-lg max-w-none w-full;
   }
-  
+
   /* Use prefers-reduced-motion for animations */
   @media (prefers-reduced-motion) {
     *, ::before, ::after {
@@ -258,7 +263,7 @@ function createBaseStyles(stylesCss, basicCss) {
   table td {
     @apply p-2 border-b border-border;
   }
-  
+
   /* Form elements with improved contrast */
   input[type="text"],
   input[type="email"],
@@ -272,14 +277,14 @@ function createBaseStyles(stylesCss, basicCss) {
   ::placeholder {
     @apply text-text-secondary opacity-70;
   }
-  
+
   /* Scroll behavior */
   @media (max-width: 640px) {
     html {
       font-size: 15px;
     }
   }
-  
+
   /* Smooth scrollbar for Firefox */
   @supports (scrollbar-color: auto) {
     * {
@@ -316,24 +321,24 @@ function createBaseStyles(stylesCss, basicCss) {
 
 // Create components.css with component styles
 function createComponentStyles(stylesCss, blogEnhancedCss) {
-  console.log('Creating component styles...');
-  
-  let componentStyles = `/* 
+  console.log("Creating component styles...");
+
+  let componentStyles = `/*
  * Component Styles
- * 
+ *
  * Reusable UI components that make up the site's interface.
  * Organized by component type for better maintainability.
  */
 
 /* Add transition effect for light/dark mode toggle */
-body, 
-.gh-header, 
-.gh-footer, 
-.gh-post-card, 
-.gh-blog-controls, 
-.tags-filter, 
-.gh-section-header, 
-.gh-post-grid, 
+body,
+.gh-header,
+.gh-footer,
+.gh-post-card,
+.gh-blog-controls,
+.tags-filter,
+.gh-section-header,
+.gh-post-grid,
 .gh-post-card,
 .gh-post-image,
 .gh-post-content,
@@ -502,7 +507,7 @@ a, button, input, select, textarea {
   .gh-btn svg {
     @apply mr-1.5;
   }
-  
+
   /* GitHub-style badge */
   .gh-badge {
     @apply inline-flex items-center px-1.5 py-0.5 text-xs font-medium rounded-full;
@@ -585,18 +590,18 @@ a, button, input, select, textarea {
   .gh-post-card {
     @apply border border-border rounded-github overflow-hidden bg-gray-light transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col relative;
   }
-  
+
   /* Add light theme card styling */
   .light .gh-post-card {
     @apply bg-surface border-border;
   }
-  
+
   /* Fix hover issue by setting the same bg color on hover */
   .gh-post-card:hover {
     @apply bg-gray-light;
     border-color: var(--color-accent);
   }
-  
+
   .light .gh-post-card:hover {
     @apply bg-surface;
   }
@@ -704,7 +709,7 @@ a, button, input, select, textarea {
   .gh-stat svg {
     @apply text-accent opacity-80;
   }
-  
+
   /* Search highlight */
   .gh-search-highlight {
     @apply bg-theme-accent-20 text-white px-1 rounded font-medium;
@@ -743,7 +748,7 @@ a, button, input, select, textarea {
   .tag-btn.selected {
     @apply bg-theme-accent text-white border-theme-accent shadow-sm;
   }
-  
+
   .pulse-animation {
     animation: tag-pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1);
   }
@@ -787,7 +792,7 @@ a, button, input, select, textarea {
       opacity: 1;
     }
   }
-  
+
   /* Pagination styles */
   .gh-pagination-container {
     @apply mt-12 mb-8;
@@ -1054,7 +1059,7 @@ a, button, input, select, textarea {
   .breadcrumbs-item.current {
     @apply text-white font-medium;
   }
-  
+
   /* Table of Contents */
   .toc {
     @apply border border-border rounded-github p-4 bg-gray-light mb-8 sticky top-20;
@@ -1079,7 +1084,7 @@ a, button, input, select, textarea {
   .toc-link {
     @apply text-accent hover:text-accent-400 transition-colors duration-200 no-underline;
   }
-  
+
   /* Skip link for accessibility */
   .skip-link {
     @apply fixed top-0 left-0 -translate-y-full bg-theme-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0 font-medium rounded-br-github;
@@ -1134,11 +1139,11 @@ a, button, input, select, textarea {
 
 // Create utilities.css with utility classes
 function createUtilityStyles(stylesCss) {
-  console.log('Creating utility styles...');
-  
-  let utilityStyles = `/* 
+  console.log("Creating utility styles...");
+
+  let utilityStyles = `/*
  * Utility Classes
- * 
+ *
  * Single-purpose utility classes that can be composed to build
  * complex UI patterns. Follows the principle of doing one thing well.
  */
@@ -1295,13 +1300,13 @@ img.loaded {
   .gap-custom {
     gap: 0.75rem;
   }
-  
+
   @media (min-width: 640px) {
     .gap-custom {
       gap: 1rem;
     }
   }
-  
+
   @media (min-width: 768px) {
     .gap-custom {
       gap: 1.25rem;
@@ -1312,7 +1317,7 @@ img.loaded {
   .group-hover-scale {
     @apply transition-transform duration-300;
   }
-  
+
   .group:hover .group-hover-scale {
     @apply scale-105;
   }
@@ -1320,7 +1325,7 @@ img.loaded {
   .group-hover-translate-up {
     @apply transition-transform duration-300;
   }
-  
+
   .group:hover .group-hover-translate-up {
     @apply -translate-y-1;
   }
@@ -1331,11 +1336,11 @@ img.loaded {
 
 // Create mobile.css with mobile-specific styles
 function createMobileStyles(stylesCss, blogEnhancedCss) {
-  console.log('Creating mobile styles...');
-  
-  let mobileStyles = `/* 
+  console.log("Creating mobile styles...");
+
+  let mobileStyles = `/*
  * Mobile Styles
- * 
+ *
  * Responsive overrides for mobile devices.
  * Organized by component type for easier maintenance.
  */
@@ -1346,27 +1351,27 @@ function createMobileStyles(stylesCss, blogEnhancedCss) {
   body {
     @apply text-lg;
   }
-  
+
   h1 {
     @apply text-3xl mb-4;
   }
-  
+
   h2 {
     @apply text-2xl mb-5 font-semibold;
   }
-  
+
   h3 {
     @apply text-xl mb-4 font-medium;
   }
-  
+
   p {
     @apply text-lg leading-relaxed;
   }
-  
+
   .site-container {
     @apply px-6 py-6;
   }
-  
+
   /* Layout - single-column vertical layout */
   .gh-profile-header {
     @apply flex-col mt-6 mb-8 gap-8;
@@ -1379,19 +1384,19 @@ function createMobileStyles(stylesCss, blogEnhancedCss) {
   .gh-avatar {
     @apply w-[180px] h-[180px] mx-auto shadow-lg;
   }
-  
+
   .gh-profile-stats {
     @apply justify-center text-base gap-3 my-4;
   }
-  
+
   .gh-stat-count {
     @apply text-lg font-bold;
   }
-  
+
   .gh-stat-label {
     @apply text-base;
   }
-  
+
   .gh-profile-content {
     @apply w-full px-0;
   }
@@ -1411,12 +1416,12 @@ function createMobileStyles(stylesCss, blogEnhancedCss) {
   .gh-bio {
     @apply text-center text-base mt-4 w-full mx-auto;
   }
-  
+
   /* Header and Nav */
   .gh-header-inner {
     @apply px-2;
   }
-  
+
   .gh-nav {
     @apply gap-2;
   }
@@ -1424,80 +1429,80 @@ function createMobileStyles(stylesCss, blogEnhancedCss) {
   .gh-nav-item {
     @apply px-2 py-1.5;
   }
-  
+
   /* Footer */
   .gh-footer-inner {
     @apply py-3 px-4;
   }
-  
+
   .gh-footer-links, .gh-copyright {
     @apply text-xs;
   }
-  
+
   /* Blog post grid */
   .gh-post-grid {
     @apply grid-cols-1 gap-4;
   }
-  
+
   .gh-post-image {
     @apply h-auto max-h-40;
   }
-  
+
   .gh-post-content {
     @apply p-3;
   }
-  
+
   .gh-post-title {
     @apply text-base;
   }
-  
+
   /* Form elements */
-  button, 
-  a.gh-btn, 
+  button,
+  a.gh-btn,
   .gh-nav-item,
   .gh-post-card,
   .tag-btn,
   .gh-page-number {
     @apply min-h-[44px] flex items-center justify-center;
   }
-  
-  input, 
-  textarea, 
+
+  input,
+  textarea,
   select {
     @apply text-base p-3 min-h-[44px];
   }
-  
+
   /* Blog meta on mobile */
   .gh-post-meta {
     @apply flex-col gap-2;
   }
-  
+
   /* Scrollable tag buttons on mobile */
   .gh-tag-buttons {
     @apply overflow-x-auto pb-2 flex-nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  
+
   .gh-tag-buttons::-webkit-scrollbar {
     display: none;
   }
-  
+
   .tag-btn {
     @apply whitespace-nowrap;
   }
-  
+
   /* Section headers */
   .gh-section-header {
     @apply flex-col items-center mb-4;
   }
-  
+
   .gh-section-title {
     @apply mb-2 text-center;
   }
-  
+
   /* Section spacing */
-  section, 
+  section,
   .gh-section {
     @apply mb-8;
   }
@@ -1508,11 +1513,11 @@ function createMobileStyles(stylesCss, blogEnhancedCss) {
 
 // Create main.css that imports all the pieces
 function createMainCss() {
-  console.log('Creating main CSS file...');
-  
+  console.log("Creating main CSS file...");
+
   return `/*
  * Main CSS File
- * 
+ *
  * This file imports all modular CSS components in the correct order.
  * Edit the individual files to make specific changes rather than this file.
  */
@@ -1538,7 +1543,7 @@ function createMainCss() {
 // Format and save optimized CSS
 async function saveOptimizedCss(filename, content) {
   const filePath = path.join(OPTIMIZED_CSS_DIR, filename);
-  
+
   try {
     fs.writeFileSync(filePath, content);
     console.log(`✓ Saved ${filename}`);
@@ -1549,8 +1554,8 @@ async function saveOptimizedCss(filename, content) {
 
 // Create a README file explaining the optimized structure
 function createReadme() {
-  console.log('Creating README for optimized CSS...');
-  
+  console.log("Creating README for optimized CSS...");
+
   const readmeContent = `# Optimized CSS Structure
 
 This directory contains the optimized CSS structure for the website. The CSS has been modularized for better maintenance and performance.
@@ -1584,22 +1589,22 @@ Instead of importing the old CSS files, import the main.css file which will impo
 The original CSS files are still available in the parent directory for reference. Once the optimized structure is working correctly, the legacy files can be removed.
 `;
 
-  const readmePath = path.join(OPTIMIZED_CSS_DIR, 'README.md');
+  const readmePath = path.join(OPTIMIZED_CSS_DIR, "README.md");
   fs.writeFileSync(readmePath, readmeContent);
-  console.log('✓ Created README.md with documentation');
+  console.log("✓ Created README.md with documentation");
 }
 
 // Create example 11ty template to demonstrate usage
 function createExampleTemplate() {
-  console.log('Creating example template for usage...');
-  
+  console.log("Creating example template for usage...");
+
   const exampleContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Optimized CSS Example</title>
-  
+
   <!-- Replace the old CSS imports with this single import -->
   <link rel="stylesheet" href="/css/optimized/main.css">
 </head>
@@ -1609,89 +1614,92 @@ function createExampleTemplate() {
 </html>
 `;
 
-  const examplePath = path.join(OPTIMIZED_CSS_DIR, 'example-usage.html');
+  const examplePath = path.join(OPTIMIZED_CSS_DIR, "example-usage.html");
   fs.writeFileSync(examplePath, exampleContent);
-  console.log('✓ Created example-usage.html with documentation');
+  console.log("✓ Created example-usage.html with documentation");
 }
 
 // Generate statistics for the optimization
 function generateStats(originalFiles, optimizedFiles) {
-  console.log('Generating optimization statistics...');
-  
+  console.log("Generating optimization statistics...");
+
   // Calculate sizes
-  const originalSize = Object.values(originalFiles).reduce((sum, content) => sum + Buffer.byteLength(content, 'utf8'), 0);
-  
+  const originalSize = Object.values(originalFiles).reduce(
+    (sum, content) => sum + Buffer.byteLength(content, "utf8"),
+    0
+  );
+
   let optimizedSize = 0;
   for (const file of optimizedFiles) {
     if (fs.existsSync(file)) {
       optimizedSize += fs.statSync(file).size;
     }
   }
-  
+
   // Calculate reduction
-  const reduction = 1 - (optimizedSize / originalSize);
+  const reduction = 1 - optimizedSize / originalSize;
   const reductionPercent = (reduction * 100).toFixed(2);
-  
+
   // Create stats object
   const stats = {
     original: {
       files: Object.keys(originalFiles).length,
-      size: (originalSize / 1024).toFixed(2) + ' KB'
+      size: (originalSize / 1024).toFixed(2) + " KB",
     },
     optimized: {
       files: optimizedFiles.length,
-      size: (optimizedSize / 1024).toFixed(2) + ' KB'
+      size: (optimizedSize / 1024).toFixed(2) + " KB",
     },
-    reduction: reductionPercent + '%'
+    reduction: reductionPercent + "%",
   };
-  
+
   // Write stats to file
-  const statsPath = path.join(OPTIMIZED_CSS_DIR, 'optimization-stats.json');
+  const statsPath = path.join(OPTIMIZED_CSS_DIR, "optimization-stats.json");
   fs.writeFileSync(statsPath, JSON.stringify(stats, null, 2));
-  
+
   return stats;
 }
 
 // Main function to run the optimization
 async function optimizeCSS() {
-  console.log('Starting CSS optimization...');
-  
+  console.log("Starting CSS optimization...");
+
   // 1. Create backups of original files
   createBackups();
-  
+
   // 2. Read CSS files
   const cssFiles = readCssFiles();
-  
+
   // 3. Create optimized structure
   await createOptimizedStructure(cssFiles);
-  
+
   // 4. Create README and example template
   createReadme();
   createExampleTemplate();
-  
+
   // 5. Generate statistics
   const optimizedFiles = [
-    path.join(OPTIMIZED_CSS_DIR, 'main.css'),
-    path.join(OPTIMIZED_CSS_DIR, 'theme.css'),
-    path.join(OPTIMIZED_CSS_DIR, 'base.css'),
-    path.join(OPTIMIZED_CSS_DIR, 'components.css'),
-    path.join(OPTIMIZED_CSS_DIR, 'utilities.css'),
-    path.join(OPTIMIZED_CSS_DIR, 'mobile.css')
+    path.join(OPTIMIZED_CSS_DIR, "main.css"),
+    path.join(OPTIMIZED_CSS_DIR, "theme.css"),
+    path.join(OPTIMIZED_CSS_DIR, "base.css"),
+    path.join(OPTIMIZED_CSS_DIR, "components.css"),
+    path.join(OPTIMIZED_CSS_DIR, "utilities.css"),
+    path.join(OPTIMIZED_CSS_DIR, "mobile.css"),
   ];
-  
+
   const stats = generateStats(cssFiles, optimizedFiles);
-  
-  console.log('\nCSS Optimization Complete!');
-  console.log('---------------------------');
+
+  console.log("\nCSS Optimization Complete!");
+  console.log("---------------------------");
   console.log(`Original: ${stats.original.files} files (${stats.original.size})`);
   console.log(`Optimized: ${stats.optimized.files} files (${stats.optimized.size})`);
   console.log(`Reduction: ${stats.reduction}`);
   console.log(`\nOptimized files are available in: ${OPTIMIZED_CSS_DIR}`);
-  console.log('Review the README.md file for usage instructions.');
+  console.log("Review the README.md file for usage instructions.");
 }
 
 // Run the optimization
-optimizeCSS().catch(error => {
-  console.error('Error during CSS optimization:', error);
+optimizeCSS().catch((error) => {
+  console.error("Error during CSS optimization:", error);
   process.exit(1);
 });

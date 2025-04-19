@@ -13,8 +13,6 @@ image: blog/topics/llm.jpg
 image_alt: Large Language Model illustration with text processing
 ---
 
-
-
 In a sunlit conference room, I once overheard two developers fiercely debate the merits of open-source vs. proprietary Large Language Models (LLMs). It echoed a longstanding conversation in software: do we champion the communal freedom of open projects, or the polished guardrails of closed systems? Both paths offer distinct advantages, but which to choose depends on your unique journey.
 
 ## Accessibility: Democratizing AI vs. Controlled Access
@@ -36,6 +34,7 @@ Open-source thrives on the collective heartbeat—forums brimming with questions
 Whether you leap into open-source or stay with the tried-and-true safety net of a proprietary system depends on your appetite for experimentation, budget constraints, and how vital customization is. It's a kaleidoscope of possibilities. My own path has wavered between both, gleaning lessons from the freewheeling spirit of collaboration and the polished reliability of closed solutions. Whichever route you choose, the key is to match your goals with the model's strengths, forging an alliance that propels your vision forward.
 
 ### Further Reading:
+
 - [Open Source Licenses](https://opensource.org/licenses/)
 - [The open-source language model revolution](https://www.technologyreview.com/2023/05/04/1072679/large-language-models-open-source-extended-version/) - MIT Technology Review
 - [Open-Source vs. Proprietary: Which Large Language Model Is Right for You?](https://venturebeat.com/ai/the-enterprise-verdict-on-ai-models-why-open-source-will-win/) - VentureBeat

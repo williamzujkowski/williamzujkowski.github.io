@@ -17,11 +17,11 @@ Example link definition:
 ```json
 {
   "items": [
-    { 
-      "name": "Learn X in Y Minutes", 
-      "url": "https://learnxinyminutes.com/", 
-      "group": "Technology & Innovation", 
-      "description": "Quick programming language tutorials" 
+    {
+      "name": "Learn X in Y Minutes",
+      "url": "https://learnxinyminutes.com/",
+      "group": "Technology & Innovation",
+      "description": "Quick programming language tutorials"
     }
   ]
 }

@@ -6,7 +6,7 @@ description: >-
   !Embodied AI robot instructor asking for clarification The intersection of
   robotics and large language models has ushered in a new era of embodied AI
   systems...
-date: 2025-04-14T00:00:00.000Z
+date: "2025-04-14T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
@@ -17,9 +17,14 @@ tags:
   - reinforcement-learning
 image: blog/ai-blog.jpg
 image_alt: AI illustration with neural networks and connections
+eleventyNavigation:
+  key: >-
+    enhancing-embodied-ai-teaching-agents-to-seek-clarification-using-multimodal-large-language-models
+  title: Enhancing Embodied AI Teaching Agents to...
+  parent: blog
 ---
 
-![Embodied AI robot instructor asking for clarification](/assets/images/blog/ai-blog.jpg)
+{% image "blog/ai-blog.jpg", "Embodied AI robot instructor asking for clarification", "100vw" %}
 
 The intersection of robotics and large language models has ushered in a new era of embodied AI systems capable of navigating real-world environments and interacting with humans. However, these systems often struggle with a fundamental aspect of human communication: recognizing when instructions are ambiguous and seeking appropriate clarification. A recent breakthrough paper published on arXiv, "Grounding Multimodal LLMs to Embodied Agents that Ask for Help with Reinforcement Learning," introduces a novel approach that enables robots to identify ambiguity in human instructions and ask relevant clarifying questions before acting.
 
@@ -53,6 +58,7 @@ Their method involves:
 1. **Initial fine-tuning**: Starting with a multimodal LLM (capable of processing both visual and text inputs), the researchers fine-tune the model on a small set of human-annotated examples demonstrating appropriate question-asking behavior.
 
 2. **Reward model development**: The team creates an automatic evaluation framework that uses LLMs to assess:
+
    - **Question relevance**: Does the question address the actual ambiguity?
    - **Question conciseness**: Is the question direct and to the point?
    - **Action correctness**: After receiving clarification, does the agent perform the correct action?
@@ -66,34 +72,34 @@ This approach offers substantial advantages over traditional methods:
 function train_clarification_agent(initial_model, training_environments):
     reward_model = initialize_reward_llm()
     policy = initialize_policy(initial_model)
-    
+
     for episode in training_episodes:
         env = sample_environment(training_environments)
         instruction = generate_ambiguous_instruction(env)
-        
+
         # Agent generates question or decides to act
         question = policy.generate_question(instruction, env.observation)
-        
+
         if question != "NO_QUESTION":
             clarification = generate_answer_to_question(question, env)
             action = policy.select_action(instruction, clarification, env.observation)
         else:
             action = policy.select_action(instruction, env.observation)
-        
+
         # LLM evaluates the agent's performance
         question_relevance = reward_model.evaluate_question_relevance(
             instruction, env.observation, question)
         question_conciseness = reward_model.evaluate_question_conciseness(question)
         action_correctness = reward_model.evaluate_action(
             instruction, env.observation, action)
-        
+
         # Combined reward signal
         reward = compute_weighted_reward(
             question_relevance, question_conciseness, action_correctness)
-        
+
         # Update policy using reinforcement learning
         policy.update(reward)
-    
+
     return policy
 ```
 
@@ -164,4 +170,4 @@ The research demonstrates that by combining multimodal large language models wit
 - [Stanford University's Embodied AI Workshop Materials](https://embodied-ai.org/)
 - [Project Habitat for Embodied AI Research](https://aihabitat.org/)
 
-*This post explores findings from recent research in embodied AI and multimodal large language models, highlighting how reinforcement learning can enable more natural human-robot interactions through appropriate clarification-seeking behavior.*
+_This post explores findings from recent research in embodied AI and multimodal large language models, highlighting how reinforcement learning can enable more natural human-robot interactions through appropriate clarification-seeking behavior._

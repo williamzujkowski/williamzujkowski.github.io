@@ -3,9 +3,9 @@ title: >-
   Quantum Computing and Defense: Opportunities, Vulnerabilities, and Strategic
   Implications
 description: >-
-  The convergence of quantum computing and defense technologies represents one of 
-  the most consequential technological developments of the 21st century.
-date: 2025-04-27T00:00:00.000Z
+  The convergence of quantum computing and defense technologies represents one
+  of  the most consequential technological developments of the 21st century.
+date: "2025-04-27T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
@@ -15,9 +15,14 @@ tags:
   - national-security
 image: blog/topics/quantum-computing.jpg
 image_alt: quantum-computing illustration
+eleventyNavigation:
+  key: >-
+    quantum-computing-and-defense-opportunities-vulnerabilities-and-strategic-implications
+  title: "Quantum Computing and Defense: Opportuni..."
+  parent: blog
 ---
 
-![Quantum computer with defense symbolism](/assets/images/blog/security-blog.jpg)
+{% image "blog/security-blog.jpg", "Quantum computer with defense symbolism", "100vw" %}
 
 The convergence of quantum computing and defense technologies represents one of the most consequential technological developments of the 21st century. As quantum computing transitions from theoretical exploration to practical implementation, it brings both unprecedented opportunities and complex security challenges to national defense infrastructures worldwide. Recent research published on arXiv and specialized defense journals points to a rapidly evolving landscape where quantum advantages could reshape military capabilities while simultaneously creating new vulnerabilities in existing security frameworks.
 
@@ -64,11 +69,11 @@ def classical_pattern_detection(data, patterns):
 def quantum_pattern_detection(data, patterns):
     # Encode data and patterns into quantum superposition
     quantum_state = encode_quantum_state(data, patterns)
-    
+
     # Apply Grover's algorithm to find matches
     # This achieves O(sqrt(n*m)) complexity
     matches = apply_grovers_algorithm(quantum_state, matching_oracle)
-    
+
     return decode_results(matches)
 ```
 
@@ -128,7 +133,7 @@ function generateQuantumResistantKeypair() {
 function generateHybridKeypair() {
   const classicKeys = generateClassicKeypair();
   const quantumResistantKeys = generateQuantumResistantKeypair();
-  
+
   return {
     publicKey: { classic: classicKeys.publicKey, quantum: quantumResistantKeys.publicKey },
     privateKey: { classic: classicKeys.privateKey, quantum: quantumResistantKeys.privateKey }
@@ -279,4 +284,4 @@ For those interested in exploring defense applications of quantum technologies f
 - [Quantum Technology Monitor](https://www.mckinsey.com/industries/advanced-electronics/our-insights/the-quantum-technology-monitor) - McKinsey's tracking of quantum technology developments and investments
 - [QuTech Academy](https://qutech.nl/academy/) - Educational resources on quantum technology fundamentals
 
-*This post explores recent research and developments at the intersection of quantum computing and defense technologies, highlighting both opportunities and security challenges in this rapidly evolving field.*
+_This post explores recent research and developments at the intersection of quantum computing and defense technologies, highlighting both opportunities and security challenges in this rapidly evolving field._

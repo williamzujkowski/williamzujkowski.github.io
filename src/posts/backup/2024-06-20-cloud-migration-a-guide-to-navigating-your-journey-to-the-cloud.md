@@ -1,5 +1,5 @@
 ---
-title: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
+title: "Cloud Migration: A Guide to Navigating Your Journey to the Cloud"
 description: >-
   I recall standing in a server room—warm air blowing from countless
   machines—wondering if physical servers were still our best bet
@@ -10,8 +10,6 @@ tags:
 image: blog/cloud-blog.jpg
 image_alt: Cloud computing infrastructure illustration
 ---
-
-
 
 I recall standing in a server room—warm air blowing from countless machines—wondering if physical servers were still our best bet. The swirl of cables felt like an anchor holding us back from the agility we craved. That's when the concept of cloud migration stole my attention. It's not just about shifting data; it's about embracing the future of how we build, scale, and dream.
 
@@ -57,6 +55,7 @@ Humans can be the secret sauce or the sticking point in any migration. We found 
 The journey to the cloud can be transformative, turning the mundane act of migrating servers into a renaissance for how an organization handles data, developers, and innovation. Yes, there are snags and complexities, but with a holistic strategy, a steady hand, and a willingness to adapt, cloud migration becomes more than a technical shift—it becomes a blueprint for a modern, flexible future.
 
 ### Further Reading
+
 - [What is cloud migration?](https://cloud.google.com/learn/what-is-cloud-migration) - Google Cloud
 - [Best Practices for Planning, Executing, and Monitoring AWS Cloud Migrations](https://d1.awsstatic.com/Migration/migrating-to-aws-ebook.pdf) - AWS
 - [Top Cloud Migration Best Practices](https://azure.microsoft.com/en-us/resources/cloud-migration-best-practices/) - Microsoft Azure

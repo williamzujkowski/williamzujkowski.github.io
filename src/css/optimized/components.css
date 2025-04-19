@@ -1,19 +1,19 @@
-/* 
+/*
  * Component Styles
- * 
+ *
  * Reusable UI components that make up the site's interface.
  * Organized by component type for better maintainability.
  */
 
 /* Add transition effect for light/dark mode toggle */
-body, 
-.gh-header, 
-.gh-footer, 
-.gh-post-card, 
-.gh-blog-controls, 
-.tags-filter, 
-.gh-section-header, 
-.gh-post-grid, 
+body,
+.gh-header,
+.gh-footer,
+.gh-post-card,
+.gh-blog-controls,
+.tags-filter,
+.gh-section-header,
+.gh-post-grid,
 .gh-post-card,
 .gh-post-image,
 .gh-post-content,
@@ -31,8 +31,16 @@ body,
 .gh-btn,
 .gh-tag-buttons,
 .tag-btn,
-a, button, input, select, textarea {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+a,
+button,
+input,
+select,
+textarea {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* =================== */
@@ -182,7 +190,7 @@ a, button, input, select, textarea {
   .gh-btn svg {
     @apply mr-1.5;
   }
-  
+
   /* GitHub-style badge */
   .gh-badge {
     @apply inline-flex items-center px-1.5 py-0.5 text-xs font-medium rounded-full;
@@ -265,18 +273,18 @@ a, button, input, select, textarea {
   .gh-post-card {
     @apply border border-border rounded-github overflow-hidden bg-gray-light transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col relative;
   }
-  
+
   /* Add light theme card styling */
   .light .gh-post-card {
     @apply bg-surface border-border;
   }
-  
+
   /* Fix hover issue by setting the same bg color on hover */
   .gh-post-card:hover {
     @apply bg-gray-light;
     border-color: var(--color-accent);
   }
-  
+
   .light .gh-post-card:hover {
     @apply bg-surface;
   }
@@ -384,7 +392,7 @@ a, button, input, select, textarea {
   .gh-stat svg {
     @apply text-accent opacity-80;
   }
-  
+
   /* Search highlight */
   .gh-search-highlight {
     @apply bg-theme-accent-20 text-white px-1 rounded font-medium;
@@ -423,13 +431,14 @@ a, button, input, select, textarea {
   .tag-btn.selected {
     @apply bg-theme-accent text-white border-theme-accent shadow-sm;
   }
-  
+
   .pulse-animation {
     animation: tag-pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1);
   }
 
   @keyframes tag-pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
@@ -467,7 +476,7 @@ a, button, input, select, textarea {
       opacity: 1;
     }
   }
-  
+
   /* Pagination styles */
   .gh-pagination-container {
     @apply mt-12 mb-8;
@@ -576,7 +585,10 @@ a, button, input, select, textarea {
     @apply prose prose-invert max-w-none prose-headings:text-white prose-p:text-text prose-a:text-accent prose-strong:text-white prose-code:text-accent-200 prose-pre:bg-surface prose-blockquote:border-accent-600 prose-blockquote:text-text-secondary prose-ul:text-text prose-ol:text-text;
   }
 
-  .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom h4 {
+  .prose-custom h1,
+  .prose-custom h2,
+  .prose-custom h3,
+  .prose-custom h4 {
     @apply scroll-mt-16;
   }
 
@@ -636,7 +648,9 @@ a, button, input, select, textarea {
 
   .prose-custom pre code {
     @apply block p-0 overflow-auto text-[0.9em] bg-transparent text-gray-200;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-family:
+      ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+      monospace;
     tab-size: 2;
   }
 
@@ -672,7 +686,9 @@ a, button, input, select, textarea {
   /* Code block header with language and copy button */
   .code-header {
     @apply flex items-center justify-between bg-[#171b22] px-4 py-2 text-xs text-[#8b949e] border-b border-border;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-family:
+      ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+      monospace;
   }
 
   .copy-button {
@@ -734,7 +750,7 @@ a, button, input, select, textarea {
   .breadcrumbs-item.current {
     @apply text-white font-medium;
   }
-  
+
   /* Table of Contents */
   .toc {
     @apply border border-border rounded-github p-4 bg-gray-light mb-8 sticky top-20;
@@ -759,7 +775,7 @@ a, button, input, select, textarea {
   .toc-link {
     @apply text-accent hover:text-accent-400 transition-colors duration-200 no-underline;
   }
-  
+
   /* Skip link for accessibility */
   .skip-link {
     @apply fixed top-0 left-0 -translate-y-full bg-theme-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0 font-medium rounded-br-github;
@@ -771,7 +787,10 @@ a, button, input, select, textarea {
     @apply fixed right-6 bottom-6 bg-theme-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      visibility 0.3s;
     transform: translateY(10px);
   }
 

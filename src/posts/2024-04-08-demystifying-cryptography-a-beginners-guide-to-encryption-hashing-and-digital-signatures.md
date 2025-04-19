@@ -5,7 +5,7 @@ title: >-
 description: >-
   Cryptography always felt like magic to me—incantations of math that keep
   secrets locked away
-date: 2024-04-08T00:00:00.000Z
+date: "2024-04-08T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
@@ -13,6 +13,11 @@ tags:
   - cryptography
 image: blog/topics/cryptography.jpg
 image_alt: Encryption and cryptography key illustration
+eleventyNavigation:
+  key: >-
+    demystifying-cryptography-a-beginners-guide-to-encryption-hashing-and-digital-signatures
+  title: "Demystifying Cryptography: A Beginner's ..."
+  parent: blog
 ---
 
 Cryptography always felt like magic to me—incantations of math that keep secrets locked away. Over time, I learned it's not just for secret agents and mathematicians; it's a cornerstone that secures online banking, private chats, and all manner of modern data exchange.
@@ -44,6 +49,7 @@ The best analogy I have is: If hashing is the fingerprint, the digital signature
 At its core, cryptography is about trust. It's the web of secrets, hashes, and signatures that underpins our daily digital routines—ensuring privacy, verifying authenticity, and keeping modern communications from unraveling into chaos. Understanding these foundations empowers us to navigate the internet with confidence, forging a safer, more secure online realm for everyone.
 
 ### Further Reading:
+
 - [Cryptography](https://www.khanacademy.org/computing/computer-science/cryptography) - Khan Academy
 - [Crypto 101](https://www.crypto101.io/)
 - [Cryptography I](https://www.coursera.org/learn/crypto) - Coursera

@@ -1,87 +1,109 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-<head>
-  {% include "meta.njk" %}
-  
-  <!-- Make site configuration available to JavaScript -->
-  <script>
-    window.siteConfig = {{ site | dump | safe }};
-  </script>
-  
-  <!-- No additional CSS needed - all styles are in main.css -->
-</head>
-<body>
-  <a href="#main-content" class="skip-link">Skip to content</a>
-  <header class="gh-header">
-    <div class="gh-header-inner">
-      <div class="gh-nav">
-        {%- set navPages = collections.all | eleventyNavigation -%}
-        {%- for entry in navPages %}
-          <a href="{{ entry.url | url }}" class="gh-nav-item {% if page.url == entry.url %}active{% endif %}">
+  <head>
+    {% include "meta.njk" %}
+
+    <!-- Make site configuration available to JavaScript -->
+    <script>
+      window.siteConfig = {{ site | dump | safe }};
+    </script>
+
+    <!-- No additional CSS needed - all styles are in main.css -->
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <header class="gh-header">
+      <div class="gh-header-inner">
+        <div class="gh-nav">
+          {%- set navPages = collections.all | eleventyNavigation -%} {%- for entry in
+          navPages %}
+          <a
+            href="{{ entry.url | url }}"
+            class="gh-nav-item {% if page.url == entry.url %}active{% endif %}"
+          >
             <span>{{ entry.title }}</span>
           </a>
-        {%- endfor %}
+          {%- endfor %}
+        </div>
+
+        <div class="gh-nav">
+          {% for social in site.social_media %} {% if social.enabled and
+          social.display_in_header %}
+          <a href="{{ social.url }}" class="gh-nav-item" aria-label="{{ social.name }}">
+            {{ social.icon | safe }}
+          </a>
+          {% endif %} {% endfor %}
+        </div>
       </div>
-      
-      <div class="gh-nav">
-        {% for social in site.social_media %}
-          {% if social.enabled and social.display_in_header %}
-            <a href="{{ social.url }}" class="gh-nav-item" aria-label="{{ social.name }}">
-              {{ social.icon | safe }}
-            </a>
-          {% endif %}
-        {% endfor %}
-      </div>
+    </header>
+
+    <div class="site-container">
+      <main id="main-content">{{ content | safe }}</main>
     </div>
-  </header>
 
-  <div class="site-container">
-    <main id="main-content">
-      {{ content | safe }}
-    </main>
-  </div>
-  
-  <footer class="gh-footer">
-    <div class="gh-footer-inner">
-      <div class="gh-footer-links">
-        <a href="/">Home</a>
-        <a href="/blog/">Blog</a>
-        <a href="/links/">Links</a>
-        <a href="/feed.xml">RSS</a>
-        <button id="theme-toggle" class="text-accent hover:text-accent-hover transition-colors duration-200" aria-label="Toggle theme" title="Theme settings (coming soon)">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm0 15a7 7 0 0 1 0-14 7 7 0 0 1 0 14ZM8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"></path>
-          </svg>
-        </button>
+    <footer class="gh-footer">
+      <div class="gh-footer-inner">
+        <div class="gh-footer-links">
+          <a href="/">Home</a>
+          <a href="/blog/">Blog</a>
+          <a href="/links/">Links</a>
+          <a href="/feed.xml">RSS</a>
+          <button
+            id="theme-toggle"
+            class="text-accent hover:text-accent-hover transition-colors duration-200"
+            aria-label="Toggle theme"
+            title="Theme settings (coming soon)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              width="16"
+              height="16"
+              fill="currentColor"
+            >
+              <path
+                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm0 15a7 7 0 0 1 0-14 7 7 0 0 1 0 14ZM8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div class="gh-copyright">
+          &copy; {% year %} {{ site.author }} | Built with
+          <a href="https://www.11ty.dev/">11ty</a>
+        </div>
       </div>
-      <div class="gh-copyright">
-        &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Back to top button -->
-  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-      <path d="M8.53 4.22a.75.75 0 00-1.06 0l-4.25 4.25a.75.75 0 001.06 1.06L8 5.81l3.72 3.72a.75.75 0 101.06-1.06L8.53 4.22z"></path>
-    </svg>
-  </button>
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        width="16"
+        height="16"
+        fill="currentColor"
+      >
+        <path
+          d="M8.53 4.22a.75.75 0 00-1.06 0l-4.25 4.25a.75.75 0 001.06 1.06L8 5.81l3.72 3.72a.75.75 0 101.06-1.06L8.53 4.22z"
+        ></path>
+      </svg>
+    </button>
 
-  <!-- Main scripts -->
-  <script src="/js/main.js"></script>
-  <script src="/js/site-enhancements.js"></script>
-  <script src="/js/search.js"></script>
-  <script src="/js/heatmap.js"></script>
-  <script type="module" src="/js/theme-switcher.js"></script>
-  
-  <!-- Force static visualizations to be displayed -->
-  <script>
-    // Insert static visualizations directly
-    window.addEventListener('load', function() {
-      // Replace heatmap loading indicator with static SVG
-      const heatmapContainer = document.getElementById('contribution-heatmap');
-      if (heatmapContainer) {
-        heatmapContainer.innerHTML = `
+    <!-- Main scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/site-enhancements.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/heatmap.js"></script>
+    <script type="module" src="/js/theme-switcher.js"></script>
+
+    <!-- Force static visualizations to be displayed -->
+    <script>
+      // Insert static visualizations directly
+      window.addEventListener("load", function () {
+        // Replace heatmap loading indicator with static SVG
+        const heatmapContainer = document.getElementById("contribution-heatmap");
+        if (heatmapContainer) {
+          heatmapContainer.innerHTML = `
           <!-- Static heatmap with sample data -->
           <svg width="100%" height="140" viewBox="0 0 850 150" class="contribution-graph" xmlns="http://www.w3.org/2000/svg">
             <!-- Day labels -->
@@ -90,7 +112,7 @@
               <text x="10" y="54" font-size="9" fill="#8b949e" text-anchor="middle">Wed</text>
               <text x="10" y="82" font-size="9" fill="#8b949e" text-anchor="middle">Fri</text>
             </g>
-            
+
             <!-- Month labels -->
             <g transform="translate(30, 10)">
               <text x="0" y="0" font-size="10" fill="#8b949e">Jan</text>
@@ -106,7 +128,7 @@
               <text x="700" y="0" font-size="10" fill="#8b949e">Nov</text>
               <text x="770" y="0" font-size="10" fill="#8b949e">Dec</text>
             </g>
-            
+
             <!-- Sample activity pattern -->
             <g transform="translate(30, 20)">
               <!-- Create boxes for each day of the year -->
@@ -120,7 +142,7 @@
               <!-- Additional cells would be added here for a complete visualization -->
             </g>
           </svg>
-          
+
           <!-- Legend -->
           <div class="flex items-center justify-end gap-2 mt-2 text-xs text-text-secondary">
             <span>Less</span>
@@ -135,12 +157,12 @@
             <span class="ml-2">Writing activity</span>
           </div>
         `;
-      }
-      
-      // Replace activity feed loading indicator with static HTML
-      const activityFeedContainer = document.getElementById('activity-feed');
-      if (activityFeedContainer) {
-        activityFeedContainer.innerHTML = `
+        }
+
+        // Replace activity feed loading indicator with static HTML
+        const activityFeedContainer = document.getElementById("activity-feed");
+        if (activityFeedContainer) {
+          activityFeedContainer.innerHTML = `
           <!-- Static activity feed -->
           <div class="gh-activity-feed">
             <!-- December 2024 Activity -->
@@ -151,7 +173,7 @@
                 </svg>
                 <span>Dec 2024</span>
               </div>
-              
+
               <ul class="gh-activity-list">
                 <li class="gh-activity-item">
                   <div class="gh-activity-icon">
@@ -168,7 +190,7 @@
                 </li>
               </ul>
             </div>
-            
+
             <!-- October 2024 Activity -->
             <div class="gh-activity-month">
               <div class="gh-activity-month-header">
@@ -177,7 +199,7 @@
                 </svg>
                 <span>Oct 2024</span>
               </div>
-              
+
               <ul class="gh-activity-list">
                 <li class="gh-activity-item">
                   <div class="gh-activity-icon">
@@ -194,7 +216,7 @@
                 </li>
               </ul>
             </div>
-            
+
             <!-- View more link -->
             <div class="text-center mt-6">
               <a href="/blog/" class="gh-btn inline-flex items-center">
@@ -207,8 +229,8 @@
             </div>
           </div>
         `;
-      }
-    });
-  </script>
-</body>
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -19,6 +19,7 @@ In the rapidly evolving landscape of artificial intelligence, one challenge rema
 Traditional deep learning models require substantial computational power, memory, and energy. Consider a standard convolutional neural network for image classification—these typically demand gigabytes of memory and substantial processing capability. This creates a fundamental mismatch between state-of-the-art AI and the constraints of edge devices.
 
 Common constraints include:
+
 - Limited processing power (often measured in MHz rather than GHz)
 - Restricted memory (kilobytes instead of gigabytes)
 - Battery dependency and power constraints
@@ -43,28 +44,31 @@ Common constraints include:
 ## Innovative Techniques for Resource-Constrained Learning
 
 ### Model Compression and Quantization
+
 One of the most effective approaches involves compressing pre-trained models. Quantization reduces precision—for instance, converting 32-bit floating-point weights to 8-bit integers—often with minimal accuracy loss. Pruning removes redundant connections in neural networks, dramatically reducing model size. Together, these techniques can shrink models by 10-15x with accuracy drops of less than 5%.
 
 ```javascript
 // Example: Model quantization in TensorFlow Lite
-const model = await tf.loadGraphModel('model/model.json');
+const model = await tf.loadGraphModel("model/model.json");
 
 // Convert to TensorFlow Lite format with 8-bit quantization
 const tfliteModel = await converter.convert({
   quantization: {
-    float16: false,    // No float16 quantization
-    int8: true,        // Enable int8 quantization
-    uint8: false       // No uint8 quantization
-  }
+    float16: false, // No float16 quantization
+    int8: true, // Enable int8 quantization
+    uint8: false, // No uint8 quantization
+  },
 });
 ```
 
 ### Knowledge Distillation
+
 Knowledge distillation transfers learning from a large "teacher" model to a smaller "student" model. The student model learns not just from ground truth labels but from the probabilistic outputs of the teacher. This approach often outperforms training small models from scratch, providing a clever way to balance size and performance.
 
 ![Knowledge Distillation Process](/assets/images/blog/tech-header.jpg)
 
 ### Federated Learning
+
 Rather than centralizing data for training, federated learning distributes the process across devices. Each device trains using local data, sharing only model updates rather than raw data. This preserves privacy and reduces bandwidth requirements—critical for deployment in sensitive domains like healthcare or financial services.
 
 ```
@@ -88,11 +92,13 @@ Rather than centralizing data for training, federated learning distributes the p
 ```
 
 ### Neuromorphic Computing
+
 Drawing inspiration from biological neural systems, neuromorphic computing offers tremendous efficiency gains. These specialized hardware architectures mirror the brain's structure, using spiking neural networks (SNNs) that activate only when input reaches a threshold. This event-driven approach dramatically reduces power consumption compared to traditional deep learning.
 
 ## Real-World Applications and Success Stories
 
 ### TinyML on Microcontrollers
+
 The TensorFlow Lite Micro framework enables neural networks to run on microcontrollers with as little as 20 KB of memory. Applications range from keyword spotting in smart devices to anomaly detection in industrial equipment.
 
 ```python
@@ -107,18 +113,20 @@ interpreter.allocate_tensors()
 def process_audio_chunk(audio_chunk):
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
-    
+
     interpreter.set_tensor(input_details[0]['index'], audio_chunk)
     interpreter.invoke()
-    
+
     # Get predictions
     return interpreter.get_tensor(output_details[0]['index'])
 ```
 
 ### Smart Camera Systems
+
 Companies like Xnor.ai (acquired by Apple) demonstrated AI-powered object detection running on simple solar-powered devices without batteries, using less than 1mW of power—orders of magnitude more efficient than conventional approaches.
 
 ### Medical Wearables
+
 Continuous health monitoring through wearable devices now incorporates on-device AI for detecting irregular heartbeats, sleep apnea, and even early signs of infections—all without sending sensitive data to the cloud.
 
 ## Future Directions
@@ -155,6 +163,7 @@ As our world becomes increasingly connected with billions of edge devices, the a
 The future of AI isn't just about building more powerful models but making them smarter and more efficient—doing more with less. This approach not only expands AI's reach but also makes it more sustainable and accessible to all.
 
 ### Further Resources:
+
 - [TensorFlow Lite for Microcontrollers](https://www.tensorflow.org/lite/microcontrollers)
 - [Embedded Machine Learning Design](https://www.edgeimpulse.com/)
 - [TinyML: Machine Learning with TensorFlow Lite](https://www.oreilly.com/library/view/tinyml/9781492052036/) by Pete Warden & Daniel Situnayake

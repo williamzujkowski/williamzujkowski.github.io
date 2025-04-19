@@ -48,7 +48,7 @@ The website is built with the following technologies:
 The site uses a modular configuration system:
 
 - Main Eleventy config: `config/.eleventy.simple.cjs`
-- PostCSS config: `config/postcss.config.cjs` 
+- PostCSS config: `config/postcss.config.cjs`
 - Tailwind config: `config/tailwind.config.cjs`
 - Site config: `src/_data/config/` (modular JSON files)
 

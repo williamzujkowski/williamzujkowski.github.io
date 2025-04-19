@@ -15,25 +15,32 @@ This is my personal website and blog, built with [11ty](https://www.11ty.dev/), 
 - RSS feed
 - Automated blog post processing and publishing workflow
 - Link validation and management tools
+- Optimized build system with incremental builds and parallel processing
+- Smart data management with caching and payload optimization
+- Responsive image optimization and delivery
 
 ## Documentation
 
 All documentation has been consolidated in the `docs/` directory for better organization:
 
 ### Guides
+
 - [Blog Workflow](docs/guides/BLOG-WORKFLOW.md) - Instructions for creating and publishing blog posts
 - [Blog Post Templates](docs/guides/BLOG-POST-README.md) - Templates and examples for blog posts
 - [Theme System](docs/guides/THEME-SYSTEM.md) - Guide to the site's OKLCH-based theming system
 
 ### Reference
+
 - [Maintenance Guide](docs/reference/MAINTENANCE.md) - Complete guide to maintaining and updating the website
 - [Changelog](docs/reference/CHANGELOG.md) - History of changes to the website
 - [Update History](docs/reference/UPDATES.md) - Detailed update logs
 
 ### Development
+
 - [Claude AI Guidelines](docs/development/CLAUDE.md) - Guidelines for AI assistance with this codebase
 - [Contributing](docs/development/CONTRIBUTING.md) - Guidelines for contributing to the project
 - [Link Previews](docs/development/LINK-PREVIEWS.md) - How link previews are generated and managed
+- [Data Management](docs/guides/DATA-MANAGEMENT.md) - Smart data management system documentation
 
 #### Using Claude AI
 
@@ -94,13 +101,15 @@ To work on this site locally:
 1. Clone the repository
 2. Install dependencies: `npm install`
 3. Start the development server:
+
    ```bash
    # Using npm script
    npm run dev
-   
+
    # Or using the CLI utility
    ./scripts/bin/dev.sh serve
    ```
+
 4. Visit `http://localhost:8082` in your browser
 
 Other development commands:
@@ -124,8 +133,11 @@ Other development commands:
 To build the site for production:
 
 ```bash
-# Using npm script
+# Using npm script (standard build)
 npm run build
+
+# Using optimized build system
+npm run build:optimized
 
 # Or using the CLI utility
 ./scripts/bin/build.sh all
@@ -144,10 +156,35 @@ Other build commands:
 ./scripts/bin/build.sh site
 
 # Production build with optimizations
-./scripts/bin/build.sh production
+npm run build:prod
+
+# Debug build with detailed output
+npm run build:optimized:debug
+
+# Force rebuild everything (ignore cache)
+npm run build:optimized:force
+
+# Optimize data files only
+npm run optimize:data
 ```
 
 The built site will be in the `_site` directory.
+
+### Optimized Build System
+
+The site includes an advanced build system with:
+
+1. **Parallel Processing** - Runs multiple build tasks simultaneously where possible
+2. **Incremental Builds** - Only rebuilds what has changed to improve performance
+3. **Smart Caching** - Reduces redundant operations using intelligent cache management
+4. **Comprehensive Monitoring** - Provides detailed timing and progress feedback
+
+For development with the optimized build system:
+
+```bash
+# Start dev server with optimized builds
+npm run dev:optimized
+```
 
 ## Site Configuration
 
@@ -198,6 +235,7 @@ The homepage is highly customizable through the `homepage` section in `site.json
 ```
 
 Toggle features on/off by changing the boolean values:
+
 - `show_recent_posts`: Display recent blog posts
 - `show_activity_timeline`: Show the blog post activity timeline
 - `show_github_pins`: Display pinned GitHub repositories on homepage
@@ -238,6 +276,7 @@ Social media profiles are configured in the `social_media` array:
 ```
 
 For each social profile, you can control:
+
 - `enabled`: Whether the profile is active
 - `display_on_home`: Show on homepage
 - `display_in_header`: Show in site header
@@ -254,11 +293,11 @@ The links page is organized by categories defined in `linkGroups` and populated 
   // Additional categories...
 ],
 "links": [
-  { 
-    "name": "GitHub", 
-    "url": "https://github.com/yourusername", 
-    "group": "Social", 
-    "icon": "GitHub" 
+  {
+    "name": "GitHub",
+    "url": "https://github.com/yourusername",
+    "group": "Social",
+    "icon": "GitHub"
   },
   // Additional links...
 ]
@@ -287,14 +326,16 @@ Blog settings are managed in the `blog` section:
 The recommended way to add blog posts is using our automated processing system:
 
 1. Create a file in the `new_posts/` directory using either:
+
    - A `.txt` file with the title on the first line
    - A `.md` file with an H1 header or front matter for the title
 
 2. Run the processing script:
+
    ```bash
    # Using npm script
    npm run process:posts
-   
+
    # Or using the CLI utility
    ./scripts/bin/content.sh blog:process
    ```
@@ -317,7 +358,7 @@ You can also manually create posts as markdown files in the `src/posts` director
 title: Your Post Title
 date: 2024-07-15
 description: A brief description of your post
-tags: ['tag1', 'tag2']
+tags: ["tag1", "tag2"]
 image: /assets/images/blog/your-post-image.jpg
 ---
 
@@ -325,10 +366,12 @@ Your post content here...
 ```
 
 Required front matter:
+
 - `title`: The post title
 - `date`: Publication date (YYYY-MM-DD format)
 
 Optional front matter:
+
 - `description`: Brief summary of the post
 - `tags`: Array of relevant tags
 - `image`: Featured image path
@@ -336,6 +379,7 @@ Optional front matter:
 ### Adding Images
 
 Store images in the `assets/images` directory:
+
 - Blog post images: `assets/images/blog/`
 - General site images: `assets/images/`
 
@@ -366,6 +410,7 @@ npm run build:arxiv
 ## Styling
 
 The site uses Tailwind CSS for styling. Main CSS files:
+
 - `src/css/styles.css`: Main stylesheet
 - `tailwind.config.cjs`: Tailwind configuration
 
@@ -387,6 +432,7 @@ For detailed information about the link preview system, see [Link Previews](docs
 ### Link Preview Generation
 
 The site includes a metadata-based link management system that handles:
+
 - Generating metadata for links (title, description, author, etc.)
 - Validating link health
 - Organizing links by category
@@ -408,6 +454,7 @@ For detailed instructions on link management, see [MAINTENANCE.md](docs/referenc
 1. **Metadata Extraction**: The system uses `metascraper` to extract rich metadata from each link URL.
 
 2. **Data Storage**: The extracted metadata is stored in JSON files:
+
    - `_data/link-previews.json` - Master file with all link previews
    - `assets/data/link-previews.json` - Copy for the built site
    - `assets/data/link-previews-{category}.json` - Category-specific preview files
@@ -415,6 +462,7 @@ For detailed instructions on link management, see [MAINTENANCE.md](docs/referenc
 3. **Integration**: The data is integrated into the site configuration during build and used in the templates to display rich link information.
 
 The tooling uses:
+
 - `metascraper` for metadata extraction
 - Various metascraper plugins for specific types of metadata (author, date, description, etc.)
 - The `got` library for HTTP requests

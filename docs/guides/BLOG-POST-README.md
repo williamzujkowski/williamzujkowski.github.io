@@ -5,7 +5,7 @@ We've created a streamlined process for adding new blog posts to the website wit
 ## Features
 
 - **Automated Conversion**: Transforms raw text or markdown files into properly formatted blog posts
-- **Supports Multiple Formats**: 
+- **Supports Multiple Formats**:
   - Text files (.txt) with title on first line
   - Markdown files (.md) with H1 header, front matter, or filename as title
 - **Intelligent Date Spacing**: Schedules posts 10-14 days apart from each other
@@ -45,6 +45,7 @@ The system has successfully processed these posts:
 3. `2025-01-19-designing-resilient-systems-for-an-uncertain-world.md` (13 days after previous post)
 
 Each post includes:
+
 - Proper frontmatter (title, date, layout, tags)
 - Appropriate header image
 - Enhanced formatting with proper header hierarchy

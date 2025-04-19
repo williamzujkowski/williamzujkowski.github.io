@@ -24,11 +24,11 @@ The theme is defined in the file: `/src/_data/config/theme.json`
     "primaryHue": 145,
     "primaryChroma": 0.15,
     "primaryLightness": 0.56,
-    
+
     "accentHue": 230,
     "accentChroma": 0.15,
-    "accentLightness": 0.70,
-    
+    "accentLightness": 0.7,
+
     "backgroundColor": "oklch(0.16 0.02 250)",
     "surfaceColor": "oklch(0.20 0.02 250)",
     "borderColor": "oklch(0.30 0.02 250)",
@@ -62,7 +62,7 @@ OKLCH is a perceptually uniform color space that represents colors with three va
 
 - More perceptually uniform than RGB or HSL
 - Better for creating accessible color palettes
-- More predictable when creating color scales 
+- More predictable when creating color scales
 - Consistent across different displays
 
 ## Creating Themes Using the Generator
@@ -104,7 +104,7 @@ The theme colors are available as CSS variables and utility classes:
 ```css
 :root {
   --color-primary: oklch(0.56 0.15 145);
-  --color-accent: oklch(0.70 0.15 230);
+  --color-accent: oklch(0.7 0.15 230);
   --color-background: oklch(0.16 0.02 250);
   /* and many more... */
 }
@@ -114,7 +114,9 @@ The theme colors are available as CSS variables and utility classes:
 
 ```html
 <div class="bg-primary text-white">Primary background with white text</div>
-<div class="bg-accent-100 text-accent-900">Light accent background with dark accent text</div>
+<div class="bg-accent-100 text-accent-900">
+  Light accent background with dark accent text
+</div>
 <div class="border-accent hover:border-primary">Border that changes on hover</div>
 ```
 

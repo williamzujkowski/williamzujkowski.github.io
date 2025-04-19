@@ -1,0 +1,1595 @@
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* OKLCH theme CSS variables */
+@layer base {
+  /* Dark theme (default) */
+  :root {
+    /* Primary color scale - GitHub green-like */
+    --color-primary: oklch(0.56 0.15 145);
+    --color-primary-50: oklch(0.92 0.05 145);
+    --color-primary-100: oklch(0.87 0.06 145);
+    --color-primary-200: oklch(0.82 0.08 145);
+    --color-primary-300: oklch(0.76 0.10 145);
+    --color-primary-400: oklch(0.66 0.12 145);
+    --color-primary-500: oklch(0.56 0.15 145);
+    --color-primary-600: oklch(0.46 0.13 145);
+    --color-primary-700: oklch(0.36 0.11 145);
+    --color-primary-800: oklch(0.26 0.09 145);
+    --color-primary-900: oklch(0.16 0.07 145);
+    --color-primary-950: oklch(0.11 0.04 145);
+
+    /* Accent color scale - GitHub blue-like */
+    --color-accent: oklch(0.70 0.15 230);
+    --color-accent-50: oklch(0.95 0.05 230);
+    --color-accent-100: oklch(0.92 0.07 230);
+    --color-accent-200: oklch(0.87 0.09 230);
+    --color-accent-300: oklch(0.82 0.11 230);
+    --color-accent-400: oklch(0.76 0.13 230);
+    --color-accent-500: oklch(0.70 0.15 230);
+    --color-accent-600: oklch(0.60 0.13 230);
+    --color-accent-700: oklch(0.50 0.11 230);
+    --color-accent-800: oklch(0.40 0.09 230);
+    --color-accent-900: oklch(0.30 0.07 230);
+    --color-accent-950: oklch(0.20 0.05 230);
+
+    /* UI Colors - Dark theme */
+    --color-background: oklch(0.16 0.02 250);
+    --color-surface: oklch(0.20 0.02 250);
+    --color-border: oklch(0.30 0.02 250);
+    --color-gray-light: oklch(0.25 0.02 250);
+
+    /* Text Colors - Dark theme */
+    --color-text: oklch(0.93 0.02 250);
+    --color-text-secondary: oklch(0.75 0.03 250);
+    --color-muted: oklch(0.65 0.02 250);
+
+    /* Alert/Status colors */
+    --color-success: oklch(0.56 0.15 145);
+    --color-warning: oklch(0.75 0.15 80);
+    --color-danger: oklch(0.65 0.15 25);
+    --color-info: oklch(0.70 0.15 230);
+
+    /* Shadows - Dark theme */
+    --shadow-card: 0 0 0 1px var(--color-border);
+    --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+
+    /* Borders */
+    --border-radius: 6px;
+    --border-width: 1px;
+
+    /* Animation */
+    --transition: 0.3s ease;
+    --hover-transform: -translate-y-1;
+
+    /* Theme icon display */
+    --light-icon-display: none;
+    --dark-icon-display: block;
+  }
+
+  /* Light theme */
+  :root.light {
+    /* Primary color scale - Keep similar green but adjusted for light theme */
+    --color-primary: oklch(0.50 0.15 145);
+    --color-primary-50: oklch(0.98 0.02 145);
+    --color-primary-100: oklch(0.94 0.03 145);
+    --color-primary-200: oklch(0.88 0.05 145);
+    --color-primary-300: oklch(0.80 0.08 145);
+    --color-primary-400: oklch(0.70 0.11 145);
+    --color-primary-500: oklch(0.50 0.15 145);
+    --color-primary-600: oklch(0.40 0.14 145);
+    --color-primary-700: oklch(0.35 0.13 145);
+    --color-primary-800: oklch(0.30 0.12 145);
+    --color-primary-900: oklch(0.25 0.10 145);
+    --color-primary-950: oklch(0.20 0.09 145);
+
+    /* Accent color scale - Keep similar blue but adjusted for light theme */
+    --color-accent: oklch(0.55 0.16 230);
+    --color-accent-50: oklch(0.98 0.02 230);
+    --color-accent-100: oklch(0.94 0.04 230);
+    --color-accent-200: oklch(0.88 0.07 230);
+    --color-accent-300: oklch(0.80 0.10 230);
+    --color-accent-400: oklch(0.65 0.13 230);
+    --color-accent-500: oklch(0.55 0.16 230);
+    --color-accent-600: oklch(0.45 0.15 230);
+    --color-accent-700: oklch(0.40 0.14 230);
+    --color-accent-800: oklch(0.35 0.13 230);
+    --color-accent-900: oklch(0.30 0.11 230);
+    --color-accent-950: oklch(0.25 0.10 230);
+
+    /* UI Colors - Light theme */
+    --color-background: oklch(0.98 0.01 250);
+    --color-surface: oklch(0.95 0.01 250);
+    --color-border: oklch(0.85 0.01 250);
+    --color-gray-light: oklch(0.90 0.01 250);
+
+    /* Text Colors - Light theme */
+    --color-text: oklch(0.20 0.02 250);
+    --color-text-secondary: oklch(0.35 0.02 250);
+    --color-muted: oklch(0.50 0.02 250);
+
+    /* Alert/Status colors - adjusted for light theme */
+    --color-success: oklch(0.50 0.15 145);
+    --color-warning: oklch(0.70 0.15 80);
+    --color-danger: oklch(0.60 0.15 25);
+    --color-info: oklch(0.55 0.16 230);
+
+    /* Shadows - Light theme */
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px var(--color-border);
+    --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+
+    /* Theme icon display */
+    --light-icon-display: block;
+    --dark-icon-display: none;
+  }
+
+  /* Override focus ring colors */
+  *:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Add transition effect for light/dark mode toggle */
+  body,
+  .gh-header,
+  .gh-footer,
+  .gh-post-card,
+  .gh-blog-controls,
+  .tags-filter,
+  .gh-section-header,
+  .gh-post-grid,
+  .gh-post-card,
+  .gh-post-image,
+  .gh-post-content,
+  .gh-post-title,
+  .gh-post-meta,
+  .gh-post-excerpt,
+  .gh-post-footer,
+  .gh-read-more,
+  .gh-pagination,
+  .gh-profile-header,
+  .gh-avatar,
+  .gh-name,
+  .gh-username,
+  .gh-bio,
+  .gh-btn,
+  .gh-tag-buttons,
+  .tag-btn,
+  a, button, input, select, textarea {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+}
+
+/* Apply typography plugin to blog posts */
+@layer base {
+  .prose-custom {
+    @apply prose prose-invert prose-lg max-w-none w-full;
+  }
+
+  /* Use prefers-reduced-motion for animations */
+  @media (prefers-reduced-motion) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Custom base styles */
+@layer base {
+
+  /* Form elements with improved contrast */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  select {
+    @apply bg-gray-light border border-border rounded-github p-2 text-white focus:outline-none focus:ring-2 ring-theme-accent border-theme-accent focus:border-theme-accent;
+  }
+
+  ::placeholder {
+    @apply text-text-secondary opacity-70;
+  }
+
+  html {
+    @apply scroll-smooth;
+    font-size: 16px;
+  }
+
+  @media (max-width: 640px) {
+    html {
+      font-size: 15px;
+    }
+  }
+
+  body {
+    @apply bg-background text-text font-sans;
+    line-height: 1.7;
+    font-size: 1.0625rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-semibold text-white mb-5;
+    line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl;
+    letter-spacing: -0.01em;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl border-b border-border pb-2 pt-2 mt-10 mb-6;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl mt-8 mb-4;
+  }
+
+  a {
+    @apply text-theme-accent;
+    text-decoration: none;
+  }
+
+  a:hover {
+    @apply hover:text-accent-hover;
+    text-decoration: underline;
+  }
+
+  p,
+  ul,
+  ol {
+    @apply mb-4;
+  }
+
+  ul,
+  ol {
+    @apply pl-6;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  code {
+    @apply font-mono text-sm px-1.5 py-0.5 bg-gray-light border border-border rounded-github text-text;
+  }
+
+  pre {
+    @apply bg-gray-light p-4 rounded-github overflow-x-auto mb-4 border border-border;
+  }
+
+  pre code {
+    @apply bg-transparent p-0 border-0;
+  }
+
+  blockquote {
+    @apply border-l-4 border-theme-accent p-3 pl-4 my-4 bg-gray-light rounded-r-github text-text;
+  }
+
+  hr {
+    @apply my-6 border-t border-border;
+  }
+
+  img {
+    @apply max-w-full h-auto rounded-github;
+  }
+
+  table {
+    @apply w-full border-collapse mb-4 text-left;
+  }
+
+  table th {
+    @apply bg-surface p-2 border-b border-border font-medium;
+  }
+
+  table td {
+    @apply p-2 border-b border-border;
+  }
+
+  /* Smooth scrollbar for Firefox */
+  @supports (scrollbar-color: auto) {
+    * {
+      scrollbar-color: rgba(175, 184, 193, 0.2) transparent;
+      scrollbar-width: thin;
+    }
+  }
+
+  /* Smooth scrollbar for Webkit */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-light rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-light;
+  }
+
+  ::selection {
+    @apply bg-theme-accent-10;
+  }
+}
+
+/* Custom utilities for better contrast */
+.high-contrast {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.accent-text {
+  color: #a5d6ff !important;
+  font-weight: 500;
+}
+
+/* GitHub stats alignment */
+.github-stats-container {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0;
+  overflow: hidden;
+  line-height: 0; /* Eliminate any extra space */
+  position: relative; /* For absolute positioning */
+  width: 100%;
+  background-color: #0d1117; /* Match GitHub dark theme */
+}
+
+.github-stats-container img {
+  max-width: none; /* Allow image to overflow container */
+  width: 110%; /* Make image wider than container */
+  display: block;
+  position: relative;
+  right: -8px; /* Push image right to align numbers */
+  margin-left: auto;
+  transform-origin: right center;
+  object-position: right center; /* Ensure image is positioned from right */
+}
+
+/* Fix spacing in GitHub stats layout */
+@media (min-width: 768px) {
+  .github-stats-container img {
+    width: 112%; /* Slightly wider on desktop */
+    right: -10px; /* Push further right on desktop */
+  }
+}
+
+/* Mobile GitHub stats adjustments */
+@media (max-width: 767px) {
+  .github-stats-container img {
+    width: 110%;
+    right: -8px;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Page loader and transitions */
+.page-loader {
+  @apply fixed inset-0 bg-background bg-opacity-80 z-[100] flex flex-col items-center justify-center transition-opacity duration-500;
+  backdrop-filter: blur(5px);
+}
+
+.page-loader-hidden {
+  @apply opacity-0 pointer-events-none;
+}
+
+.loader-spinner {
+  @apply w-10 h-10 border-4 border-border rounded-full;
+  border-top-color: var(--color-accent);
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  @apply mt-4 text-text-secondary text-sm font-medium;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Page transitions */
+.page-transition-enter {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.page-transition-exit {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Lazy loaded images */
+img {
+  transition: opacity 0.5s ease-in-out;
+}
+
+img[data-src] {
+  opacity: 0;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  @apply fixed top-0 left-0 -translate-y-full bg-theme-accent text-white px-4 py-2 z-[60] transition-transform duration-200 focus:translate-y-0 font-medium rounded-br-github;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Back to top button */
+.back-to-top-btn {
+  @apply fixed right-6 bottom-6 bg-theme-accent text-white w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-md z-50 border border-border;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  transform: translateY(10px);
+}
+
+.back-to-top-btn:hover {
+  @apply hover:bg-accent-hover;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-to-top-btn:focus {
+  @apply outline-none ring-2 ring-theme-accent opacity-90;
+}
+
+.back-to-top-btn.visible {
+  opacity: 0.9;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.back-to-top-btn.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Header anchor links */
+.header-anchor {
+  @apply text-theme-accent opacity-0 ml-2 hover:opacity-100 transition-opacity duration-200;
+  text-decoration: none !important;
+}
+
+h2:hover .header-anchor,
+h3:hover .header-anchor,
+h4:hover .header-anchor {
+  @apply opacity-100;
+}
+
+/* Social media icons - fully hidden when disabled */
+
+/* Toggle functionality */
+.header-social,
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-social a,
+.footer-social a {
+  transition: all 0.2s ease-in-out;
+}
+
+.header-social a:hover:not(.social-disabled),
+.footer-social a:hover:not(.social-disabled) {
+  transform: translateY(-2px);
+}
+
+/* Custom container with Container Queries support */
+@layer utilities {
+  .container-custom {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 1200px;
+  }
+
+  @screen sm {
+    .container-custom {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @screen lg {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* Custom grid gap classes */
+  .gap-custom {
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .gap-custom {
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .gap-custom {
+      gap: 1.25rem;
+    }
+  }
+}
+
+/* Add group hover and focus utilities */
+@layer utilities {
+  .group-hover-scale {
+    @apply transition-transform duration-300;
+  }
+
+  .group:hover .group-hover-scale {
+    @apply scale-105;
+  }
+
+  .group-hover-translate-up {
+    @apply transition-transform duration-300;
+  }
+
+  .group:hover .group-hover-translate-up {
+    @apply -translate-y-1;
+  }
+}
+
+/* Component styles */
+@layer components {
+
+  /* Layout */
+  .site-container {
+    @apply w-full mx-auto px-5 py-4;
+  }
+
+  /* GitHub-style header */
+  .gh-header {
+    @apply bg-surface border-b border-border flex items-center py-4 px-4 sticky top-0 z-50 backdrop-blur-sm;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .gh-header-inner {
+    @apply max-w-[1200px] w-full mx-auto flex items-center justify-between;
+  }
+
+  .gh-nav {
+    @apply flex items-center gap-6;
+  }
+
+  .gh-nav-item {
+    @apply px-3 py-2 text-sm font-medium text-text hover:text-white rounded-github hover:bg-gray-light transition-all duration-300 relative overflow-hidden;
+  }
+
+  /* Animated underline effect */
+  .gh-nav-item::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-theme-accent transition-all duration-300 content-[''];
+  }
+
+  .gh-nav-item:hover::after {
+    @apply w-full;
+  }
+
+  .gh-nav-item.active {
+    @apply font-semibold text-theme-accent border border-border bg-gray-light;
+  }
+
+  /* Focus styles for accessibility */
+  .gh-nav-item:focus-visible {
+    @apply outline-none ring-2 ring-theme-accent opacity-90;
+  }
+
+  .gh-profile-header {
+    @apply mt-8 mb-12 flex flex-col md:flex-row gap-10;
+  }
+
+  .gh-avatar-container {
+    @apply flex-shrink-0 flex flex-col items-center md:items-start;
+  }
+
+  .gh-avatar {
+    @apply w-[296px] h-[296px] rounded-github border-2 border-border object-cover shadow-md;
+  }
+
+  .gh-profile-content {
+    @apply flex-grow min-w-0 mt-6 md:mt-0;
+  }
+
+  .gh-profile-header-info {
+    @apply mb-4;
+  }
+
+  .gh-name {
+    @apply text-2xl font-semibold mb-1;
+  }
+
+  .gh-username {
+    @apply text-xl text-text-secondary font-normal mb-4;
+  }
+
+  .gh-bio {
+    @apply text-base mb-4;
+  }
+
+  .gh-btn {
+    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-github bg-gray-light hover:bg-gray-light transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 ring-theme-accent opacity-90 text-white;
+  }
+
+  .gh-btn-primary {
+    @apply bg-primary text-white border-primary hover:bg-primary-hover shadow-sm;
+  }
+
+  .gh-btn svg {
+    @apply mr-1.5;
+  }
+
+  .gh-profile-stats {
+    @apply flex items-center gap-3 text-sm text-text-secondary mb-4;
+  }
+
+  .gh-stat {
+    @apply flex items-center;
+  }
+
+  .gh-stat-icon {
+    @apply mr-1;
+  }
+
+  .gh-stat-count {
+    @apply font-semibold text-text;
+  }
+
+  .gh-stat-label {
+    @apply ml-1;
+  }
+
+  /* Repository cards */
+  .gh-pinned-repos {
+    @apply mt-6;
+  }
+
+  .gh-section-header {
+    @apply mb-2 pb-2 border-b border-border flex justify-between items-center;
+  }
+
+  .gh-section-title {
+    @apply text-base font-semibold inline-flex items-center;
+  }
+
+  .gh-repos-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 mb-6;
+  }
+
+  .gh-repo-card {
+    @apply p-6 border border-border rounded-github bg-gray-light transition-all duration-300 hover:shadow-card hover:-translate-y-1 relative overflow-hidden;
+  }
+
+  .gh-repo-card::before {
+    @apply absolute top-0 left-0 w-full h-0.5 bg-theme-accent transform scale-x-0 transition-transform duration-300 ease-out content-[''];
+  }
+
+  .gh-repo-card:hover::before {
+    @apply scale-x-100;
+  }
+
+  .gh-repo-name {
+    @apply flex items-center text-base font-semibold text-theme-accent mb-1;
+  }
+
+  .gh-repo-description {
+    @apply text-sm text-text mb-4 overflow-hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .gh-repo-meta {
+    @apply flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary;
+  }
+
+  .gh-repo-language {
+    @apply flex items-center;
+  }
+
+  .gh-language-color {
+    @apply w-2.5 h-2.5 rounded-full mr-1;
+  }
+
+  /* Blog controls and search */
+  .gh-blog-controls {
+    @apply border border-border rounded-github overflow-hidden bg-surface shadow-md;
+  }
+
+  .gh-control-panel {
+    @apply p-4 flex flex-col md:flex-row gap-4 justify-between items-start md:items-center;
+  }
+
+  .gh-search-container {
+    @apply relative w-full md:w-80;
+  }
+
+  .gh-search-input {
+    @apply w-full py-2.5 pl-4 pr-10 bg-gray-light border border-border rounded-github text-white focus:ring-2 ring-theme-accent focus:outline-none shadow-inner transition-all duration-300;
+  }
+
+  .gh-search-input:focus {
+    @apply border-theme-accent bg-gray-light;
+  }
+
+  .gh-search-icon {
+    @apply absolute right-3 top-3 text-text-secondary;
+  }
+
+  .gh-blog-stats {
+    @apply flex flex-wrap items-center gap-4 text-sm text-text-secondary;
+  }
+
+  .gh-stat {
+    @apply flex items-center gap-2;
+  }
+
+  .gh-stat svg {
+    @apply text-accent opacity-80;
+  }
+
+  /* Tag filtering */
+  .tags-filter {
+    @apply border border-border rounded-github overflow-hidden bg-surface shadow-md p-4;
+  }
+
+  .gh-filter-header {
+    @apply flex justify-between items-center mb-3 pb-2 border-b border-border;
+  }
+
+  .gh-filter-title {
+    @apply flex items-center gap-2 text-white font-medium;
+  }
+
+  .gh-filter-clear {
+    @apply text-xs text-theme-accent hover:text-accent-hover transition-colors duration-200 flex items-center;
+  }
+
+  .gh-tag-buttons {
+    @apply flex flex-wrap gap-2.5;
+  }
+
+  .tag-btn {
+    @apply px-3.5 py-2 rounded-github text-sm bg-gray-light text-text-secondary border border-border transition-all duration-200 hover:bg-gray-light hover:text-white;
+  }
+
+  .tag-btn.selected {
+    @apply bg-theme-accent text-white border-theme-accent shadow-sm;
+  }
+
+  .pulse-animation {
+    animation: tag-pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  @keyframes tag-pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+  }
+
+  /* Blog post grid */
+  .gh-post-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300;
+  }
+
+  .gh-post-grid.searching {
+    @apply opacity-60;
+  }
+
+  .gh-post-grid.reset-animation {
+    animation: reset-grid 0.5s ease;
+  }
+
+  @keyframes reset-grid {
+    0% {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .gh-post-card {
+    @apply border border-border rounded-github overflow-hidden bg-gray-light transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col relative;
+  }
+
+  /* Add light theme card styling */
+  .light .gh-post-card {
+    @apply bg-surface border-border;
+  }
+
+  /* Fix hover issue by setting the same bg color on hover */
+  .gh-post-card:hover {
+    @apply bg-gray-light;
+  }
+
+  .light .gh-post-card:hover {
+    @apply bg-surface;
+  }
+
+  .gh-post-image {
+    @apply h-44 overflow-hidden relative;
+  }
+
+  .gh-post-image img {
+    @apply w-full h-full object-cover transition-transform duration-500;
+  }
+
+  .gh-post-card:hover .gh-post-image img {
+    @apply transform scale-105;
+  }
+
+  .gh-post-tags-overlay {
+    @apply absolute top-3 right-3 flex flex-wrap gap-1.5 justify-end max-w-[70%];
+  }
+
+  .gh-post-tags-overlay .gh-badge {
+    @apply bg-surface text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm border border-border;
+  }
+
+  .gh-post-content {
+    @apply p-5 flex-grow flex flex-col;
+  }
+
+  .gh-post-title {
+    @apply text-lg font-semibold text-white mb-2.5 hover:text-accent transition-colors duration-200 line-clamp-2;
+  }
+
+  .gh-post-meta {
+    @apply flex justify-between items-center text-sm text-text-secondary mb-3 flex-wrap gap-2;
+  }
+
+  .gh-post-date,
+  .gh-post-reading-time {
+    @apply flex items-center;
+  }
+
+  .gh-post-date svg,
+  .gh-post-reading-time svg {
+    @apply mr-1.5 text-accent opacity-80;
+  }
+
+  .gh-post-excerpt {
+    @apply text-base text-text leading-relaxed mb-4 line-clamp-3;
+  }
+
+  .gh-post-footer {
+    @apply mt-auto pt-3 border-t border-border flex justify-between items-center;
+  }
+
+  .gh-read-more {
+    @apply text-sm text-theme-accent font-medium hover:underline inline-flex items-center gap-1;
+  }
+
+  .gh-read-more svg {
+    @apply ml-1 transition-transform duration-200;
+  }
+
+  .gh-post-card:hover .gh-read-more svg {
+    @apply transform translate-x-1;
+  }
+
+  /* Pagination styles */
+  .gh-pagination-container {
+    @apply mt-12 mb-8;
+  }
+
+  .gh-pagination-header {
+    @apply flex items-center justify-center gap-2 mb-5 text-text-secondary;
+  }
+
+  .gh-pagination-header svg {
+    @apply text-accent opacity-80;
+  }
+
+  .gh-pagination {
+    @apply flex justify-center;
+  }
+
+  .gh-pagination-nav {
+    @apply inline-flex items-center gap-2 p-1 bg-gray-light rounded-github border border-border;
+  }
+
+  .gh-page-button {
+    @apply px-3 py-1.5 flex items-center gap-1.5 bg-surface text-text-secondary hover:bg-gray-light hover:text-white transition-colors duration-200 rounded-github font-medium text-sm;
+  }
+
+  .gh-page-button.disabled {
+    @apply opacity-50 cursor-not-allowed hover:bg-surface hover:text-text-secondary;
+  }
+
+  .gh-pagination-pages {
+    @apply flex items-center gap-1;
+  }
+
+  .gh-page-number {
+    @apply flex items-center justify-center w-8 h-8 rounded-github bg-surface text-text-secondary hover:bg-gray-light hover:text-white transition-colors duration-200 text-sm;
+  }
+
+  .gh-page-number.active {
+    @apply bg-accent text-white;
+  }
+
+  /* Search highlight */
+  .gh-search-highlight {
+    @apply bg-theme-accent-20 text-white px-1 rounded font-medium;
+  }
+
+  /* Footer */
+  .gh-footer {
+    @apply mt-24 border-t border-border bg-surface backdrop-blur-sm;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .gh-footer-inner {
+    @apply max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4 py-4;
+  }
+
+  .gh-footer-links {
+    @apply flex flex-wrap gap-x-6 gap-y-3 text-sm text-text-secondary;
+  }
+
+  .gh-footer-links a {
+    @apply transition-colors duration-300 hover:text-theme-accent relative;
+  }
+
+  .gh-footer-links a::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-theme-accent transition-all duration-300 content-[''];
+  }
+
+  .gh-footer-links a:hover::after {
+    @apply w-full;
+  }
+
+  .gh-copyright {
+    @apply text-sm text-text-secondary flex items-center;
+  }
+
+  .gh-copyright a {
+    @apply ml-1 text-theme-accent hover:underline;
+  }
+
+  /* GitHub-style badge */
+  .gh-badge {
+    @apply inline-flex items-center px-1.5 py-0.5 text-xs font-medium rounded-full;
+  }
+
+  .gh-badge-primary {
+    @apply bg-theme-primary-10 text-primary;
+  }
+
+  .gh-badge-accent {
+    @apply bg-theme-accent-20 text-theme-accent;
+  }
+
+  .gh-badge-secondary {
+    @apply bg-gray-light text-secondary;
+  }
+
+  /* Blog tag filters */
+  .tags-filter {
+    @apply mb-8;
+  }
+
+  .tag-btn {
+    @apply px-3 py-1.5 rounded-full text-sm font-medium bg-gray-light text-text-secondary border border-border transition-all duration-200;
+  }
+
+  .tag-btn:hover {
+    @apply bg-border text-white;
+  }
+
+  .tag-btn.selected {
+    @apply bg-theme-accent text-white border-theme-accent shadow-sm;
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs {
+    @apply py-3 mb-6 bg-gray-light rounded-github border border-border px-4;
+  }
+
+  .breadcrumbs-list {
+    @apply flex flex-wrap items-center text-sm whitespace-nowrap overflow-x-auto pb-1;
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .breadcrumbs-list::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Edge */
+  }
+
+  .breadcrumbs-item {
+    @apply inline-flex items-center text-text-secondary;
+  }
+
+  .breadcrumbs-separator {
+    @apply mx-2 text-text-secondary font-medium inline-block;
+  }
+
+  .breadcrumbs-link {
+    @apply text-theme-accent hover:text-accent-hover hover:underline transition-colors;
+  }
+
+  .breadcrumbs-item.current {
+    @apply text-white font-medium;
+  }
+
+  /* Featured Projects */
+  .gh-featured-projects {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+  }
+
+  .gh-project-card {
+    @apply p-5 border border-border rounded-github bg-surface transition-all duration-300 hover:shadow-card hover:border-theme-accent;
+  }
+
+  .gh-project-header {
+    @apply flex items-center gap-2 text-base font-medium text-white mb-3;
+  }
+
+  .gh-project-description {
+    @apply text-sm text-text mb-4;
+  }
+
+  .gh-project-tags {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .gh-project-tags .gh-badge {
+    @apply bg-theme-accent-10 text-theme-accent px-2 py-0.5;
+  }
+
+  /* Reading section */
+  .gh-reading-section {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+  }
+
+  .gh-reading-card {
+    @apply flex items-start gap-3 p-4 border border-border rounded-github bg-surface hover:border-theme-accent transition-all duration-300;
+  }
+
+  .gh-reading-icon {
+    @apply w-10 h-10 bg-theme-accent-10 rounded-full flex items-center justify-center text-theme-accent flex-shrink-0;
+  }
+
+  .gh-reading-title {
+    @apply text-white font-medium mb-1;
+  }
+
+  .gh-reading-author {
+    @apply text-sm text-text-secondary mb-3;
+  }
+
+  .gh-reading-progress {
+    @apply w-full mt-1;
+  }
+
+  .gh-progress-bar {
+    @apply h-1.5 bg-border rounded-full overflow-hidden mb-1;
+  }
+
+  .gh-progress-fill {
+    @apply h-full bg-theme-accent rounded-full;
+  }
+
+  .gh-progress-text {
+    @apply text-xs text-text-secondary;
+  }
+
+  /* Learning timeline */
+  .gh-learning-timeline {
+    @apply pl-4 border-l border-border space-y-6;
+  }
+
+  .gh-timeline-item {
+    @apply relative flex items-start;
+  }
+
+  .gh-timeline-icon {
+    @apply absolute -left-8 bg-gray-light border-2 border-border rounded-full p-1.5 text-accent;
+  }
+
+  .gh-timeline-content {
+    @apply pl-2;
+  }
+
+  .gh-timeline-date {
+    @apply text-xs text-text-secondary mb-1;
+  }
+
+  .gh-timeline-title {
+    @apply text-white font-medium mb-1;
+  }
+
+  .gh-timeline-description {
+    @apply text-sm text-text mb-2;
+  }
+
+  /* GitHub activity feed */
+  .gh-activity-feed {
+    @apply border border-border rounded-github bg-surface p-4 mb-6;
+  }
+
+  .gh-activity-month:not(:last-child) {
+    @apply mb-6;
+  }
+
+  .gh-activity-month-header {
+    @apply flex items-center gap-2 text-white font-medium mb-3 pb-2 border-b border-border;
+  }
+
+  .gh-activity-list {
+    @apply space-y-4 pl-0;
+    list-style: none;
+  }
+
+  .gh-activity-item {
+    @apply flex items-start gap-3 relative;
+  }
+
+  .gh-activity-item::before {
+    content: '';
+    @apply absolute top-8 bottom-0 left-[7px] w-[2px] bg-border;
+    z-index: 0;
+  }
+
+  .gh-activity-item:last-child::before {
+    @apply hidden;
+  }
+
+  .gh-activity-icon {
+    @apply w-4 h-4 rounded-full bg-theme-accent-20 p-3 flex items-center justify-center text-theme-accent flex-shrink-0 z-10;
+  }
+
+  .gh-activity-content {
+    @apply flex-grow pt-1;
+  }
+
+  .gh-activity-title {
+    @apply text-white mb-1;
+  }
+
+  .gh-activity-link {
+    @apply text-theme-accent hover:text-accent-hover hover:underline;
+  }
+
+  .gh-activity-date {
+    @apply text-xs text-text-secondary;
+  }
+
+  /* Contribution calendar */
+  .gh-contributions {
+    @apply mb-8 border border-border rounded-github p-4;
+  }
+
+  .gh-contributions-title {
+    @apply text-base font-medium mb-4;
+  }
+
+  .gh-calendar {
+    @apply overflow-hidden;
+  }
+
+  /* =========================== */
+  /* MOBILE STYLES - COMPLETE OVERRIDE */
+  /* =========================== */
+  @media (max-width: 768px) {
+    /* Global adjustments for mobile */
+    body {
+      @apply text-lg;
+    }
+
+    h1 {
+      @apply text-3xl mb-4;
+    }
+
+    h2 {
+      @apply text-2xl mb-5 font-semibold;
+    }
+
+    h3 {
+      @apply text-xl mb-4 font-medium;
+    }
+
+    p {
+      @apply text-lg leading-relaxed;
+    }
+
+    .site-container {
+      @apply px-6 py-6;
+    }
+
+    /* Footer adjustments for mobile */
+    .gh-footer-inner {
+      @apply py-3 px-4;
+    }
+
+    .gh-footer-links, .gh-copyright {
+      @apply text-xs;
+    }
+
+    /* Header adjustments */
+    .gh-header-inner {
+      @apply px-2;
+    }
+
+    .gh-nav {
+      @apply gap-2;
+    }
+
+    .gh-nav-item {
+      @apply px-2 py-1.5;
+    }
+
+    /* Single-column vertical layout */
+    .gh-profile-header {
+      @apply flex-col mt-6 mb-8 gap-8;
+    }
+
+    .gh-avatar-container {
+      @apply w-full items-center mx-auto px-0;
+    }
+
+    .gh-avatar {
+      @apply w-[180px] h-[180px] mx-auto shadow-lg;
+    }
+
+    .gh-profile-stats {
+      @apply justify-center text-base gap-3 my-4;
+    }
+
+    .gh-stat-count {
+      @apply text-lg font-bold;
+    }
+
+    .gh-stat-label {
+      @apply text-base;
+    }
+
+    .gh-profile-content {
+      @apply w-full px-0;
+    }
+
+    .gh-profile-header-info {
+      @apply text-center mb-8;
+    }
+
+    .gh-name {
+      @apply text-center text-2xl mb-2;
+    }
+
+    .gh-username {
+      @apply text-center text-xl;
+    }
+
+    .gh-bio {
+      @apply text-center text-base mt-4 w-full mx-auto;
+    }
+
+    /* About me section */
+    .gh-profile-header .w-full.md\:w-\[296px\] {
+      @apply max-w-full;
+    }
+
+    .gh-profile-header .w-full.md\:w-\[296px\] h3 {
+      @apply text-xl;
+    }
+
+    .gh-profile-header .w-full.md\:w-\[296px\] p {
+      @apply text-base leading-relaxed;
+    }
+
+    /* Projects section */
+    .gh-featured-projects {
+      @apply flex-col gap-6 my-6;
+    }
+
+    .gh-project-card {
+      @apply w-full mb-0 mx-auto rounded-lg p-5;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .gh-project-header {
+      @apply mb-3;
+    }
+
+    .gh-project-header span {
+      @apply text-lg;
+    }
+
+    .gh-project-header .w-6 {
+      @apply w-8 h-8;
+    }
+
+    .gh-project-header .w-6 svg {
+      @apply w-4 h-4;
+    }
+
+    .gh-project-description {
+      @apply text-base leading-relaxed;
+    }
+
+    .gh-project-tags {
+      @apply mt-4 gap-2;
+    }
+
+    .gh-badge {
+      @apply text-sm px-3 py-1;
+    }
+
+    /* Reading section */
+    .gh-reading-section {
+      @apply grid-cols-1 gap-5 my-6;
+    }
+
+    .gh-reading-card {
+      @apply p-5 rounded-lg;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .gh-reading-icon {
+      @apply w-12 h-12;
+    }
+
+    .gh-reading-icon svg {
+      @apply w-6 h-6;
+    }
+
+    .gh-reading-title {
+      @apply text-lg mb-2;
+    }
+
+    .gh-reading-author {
+      @apply text-base;
+    }
+
+    /* Timeline */
+    .gh-learning-timeline {
+      @apply pl-6 space-y-8 my-8 border-l-2;
+    }
+
+    .gh-timeline-item {
+      @apply pl-4;
+    }
+
+    .gh-timeline-icon {
+      @apply -left-10 p-2.5 border-[3px];
+    }
+
+    .gh-timeline-icon svg {
+      @apply w-5 h-5;
+    }
+
+    .gh-timeline-content {
+      @apply pl-0;
+    }
+
+    .gh-timeline-date {
+      @apply text-base mb-2;
+    }
+
+    .gh-timeline-title {
+      @apply text-lg font-medium mb-2;
+    }
+
+    .gh-timeline-description {
+      @apply text-base leading-relaxed;
+    }
+
+    /* Interests */
+    h3 + p {
+      @apply text-base leading-relaxed px-0 mb-8;
+    }
+
+    /* Other grid layouts */
+    .gh-repos-grid {
+      @apply grid-cols-1 gap-3;
+    }
+
+    /* Activity feed */
+    .gh-activity-feed {
+      @apply p-5 rounded-lg;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .gh-activity-month {
+      @apply mb-8;
+    }
+
+    .gh-activity-month-header {
+      @apply text-lg pb-3 mb-4;
+    }
+
+    .gh-activity-month-header svg {
+      @apply w-5 h-5;
+    }
+
+    .gh-activity-list {
+      @apply space-y-6;
+    }
+
+    .gh-activity-item {
+      @apply gap-4;
+    }
+
+    .gh-activity-item::before {
+      @apply w-[3px];
+    }
+
+    .gh-activity-title {
+      @apply text-base mb-2;
+    }
+
+    .gh-activity-link {
+      @apply font-medium;
+    }
+
+    .gh-activity-date {
+      @apply text-sm;
+    }
+
+    .gh-activity-icon {
+      @apply p-3 w-10 h-10;
+    }
+
+    .gh-activity-icon svg {
+      @apply w-4 h-4;
+    }
+
+    /* Section titles with decorative line */
+    h2, h3 {
+      @apply relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-[3px] after:rounded-full after:bg-theme-accent-30;
+    }
+
+    /* Add spacing between content blocks */
+    .gh-profile-content > div > * {
+      @apply mb-8;
+    }
+
+    /* Mobile-specific enhancements */
+    .gh-section-header {
+      @apply flex-col items-center mb-4;
+    }
+
+    .gh-section-title {
+      @apply mb-2 text-center;
+    }
+
+    .gh-post-grid {
+      @apply grid-cols-1 gap-4;
+    }
+
+    .gh-post-image {
+      @apply h-auto max-h-40;
+    }
+
+    .gh-post-content {
+      @apply p-3;
+    }
+
+    .gh-post-title {
+      @apply text-base;
+    }
+
+    /* Improved tap targets */
+    button,
+    a.gh-btn,
+    .gh-nav-item,
+    .gh-post-card,
+    .tag-btn,
+    .gh-page-number {
+      @apply min-h-[44px] flex items-center justify-center;
+    }
+
+    /* Add breathing room */
+    section,
+    .gh-section {
+      @apply mb-8;
+    }
+
+    /* Improved form elements for mobile */
+    input,
+    textarea,
+    select {
+      @apply text-base p-3 min-h-[44px];
+    }
+  }
+}

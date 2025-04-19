@@ -8,10 +8,7 @@
     "description": null,
     "publish_date": "2024",
     "page_count": null,
-    "subjects": [
-      "series:dungeon_crawler_carl",
-      "Fantasy"
-    ]
+    "subjects": ["series:dungeon_crawler_carl", "Fantasy"]
   },
   {
     "title": "Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems",
@@ -24,6 +21,8 @@
     "page_count": 624,
     "subjects": [
       "Development",
+      "Web site development",
+      "Application software",
       "Database management",
       "Databases"
     ]
@@ -37,8 +36,17 @@
     "description": null,
     "publish_date": "2020",
     "page_count": 260,
-    "subjects": [
-      "Science"
-    ]
+    "subjects": ["Science"]
+  },
+  {
+    "title": "Psychoanalysis of R'Lyeh",
+    "author": "August Moldenhauer",
+    "isbn": "1329970136",
+    "progress": 28,
+    "cover_url": null,
+    "description": null,
+    "publish_date": "2012",
+    "page_count": null,
+    "subjects": []
   }
 ]

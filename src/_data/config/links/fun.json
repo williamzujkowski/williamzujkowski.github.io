@@ -1,12 +1,52 @@
 {
   "items": [
-    { "name": "International Association of Exorcists", "url": "https://www.aieinternational.org/", "group": "Fun & Curiosities", "description": "A humorous global organization supporting Catholic exorcists" },
-    { "name": "Paperclip AI Game", "url": "https://www.decisionproblem.com/paperclips/", "group": "Fun & Curiosities", "description": "A quirky game about the art of making paperclips" },
-    { "name": "The Kid Should See This", "url": "https://thekidshouldseethis.com/", "group": "Fun & Curiosities", "description": "Curated educational videos for curious minds" },
-    { "name": "The Website is Down", "url": "https://www.thewebsiteisdown.com", "group": "Fun & Curiosities", "description": "A collection of hilarious IT videos" },
-    { "name": "Zombo.com", "url": "https://zombo.com/", "group": "Fun & Curiosities", "description": "A surreal, humorous portal promising endless possibilities" },
-    { "name": "Nested", "url": "https://orteil.dashnet.org/nested", "group": "Fun & Curiosities", "description": "A mesmerizing interactive experience exploring infinite recursion" },
-    { "name": "Stimulation Clicker", "url": "https://neal.fun/stimulation-clicker/", "group": "Fun & Curiosities", "description": "A playful clicker game that tests your patience and curiosity" },
-    { "name": "MementoMovi", "url": "https://mementomovi.wackyneighbor.com/", "group": "Fun & Curiosities", "description": "A quirky site combining art and memory in unexpected ways" }
+    {
+      "name": "International Association of Exorcists",
+      "url": "https://www.aieinternational.org/",
+      "group": "Fun & Curiosities",
+      "description": "A humorous global organization supporting Catholic exorcists"
+    },
+    {
+      "name": "Paperclip AI Game",
+      "url": "https://www.decisionproblem.com/paperclips/",
+      "group": "Fun & Curiosities",
+      "description": "A quirky game about the art of making paperclips"
+    },
+    {
+      "name": "The Kid Should See This",
+      "url": "https://thekidshouldseethis.com/",
+      "group": "Fun & Curiosities",
+      "description": "Curated educational videos for curious minds"
+    },
+    {
+      "name": "The Website is Down",
+      "url": "https://www.thewebsiteisdown.com",
+      "group": "Fun & Curiosities",
+      "description": "A collection of hilarious IT videos"
+    },
+    {
+      "name": "Zombo.com",
+      "url": "https://zombo.com/",
+      "group": "Fun & Curiosities",
+      "description": "A surreal, humorous portal promising endless possibilities"
+    },
+    {
+      "name": "Nested",
+      "url": "https://orteil.dashnet.org/nested",
+      "group": "Fun & Curiosities",
+      "description": "A mesmerizing interactive experience exploring infinite recursion"
+    },
+    {
+      "name": "Stimulation Clicker",
+      "url": "https://neal.fun/stimulation-clicker/",
+      "group": "Fun & Curiosities",
+      "description": "A playful clicker game that tests your patience and curiosity"
+    },
+    {
+      "name": "MementoMovi",
+      "url": "https://mementomovi.wackyneighbor.com/",
+      "group": "Fun & Curiosities",
+      "description": "A quirky site combining art and memory in unexpected ways"
+    }
   ]
 }

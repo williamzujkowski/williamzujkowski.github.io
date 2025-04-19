@@ -6,48 +6,60 @@
 @tailwind utilities;
 
 /* Base Styles */
-@import 'base/reset.css';
-@import 'base/typography.css';
-@import 'base/layout.css';
+@import "base/reset.css";
+@import "base/typography.css";
+@import "base/layout.css";
 
 /* Utilities */
-@import 'utils/variables.css';
-@import 'utils/mixins.css';
-@import 'utils/animations.css';
+@import "utils/variables.css";
+@import "utils/mixins.css";
+@import "utils/animations.css";
 
 /* Components */
-@import 'components/header.css';
-@import 'components/footer.css';
-@import 'components/buttons.css';
-@import 'components/post.css';
+@import "components/header.css";
+@import "components/footer.css";
+@import "components/buttons.css";
+@import "components/post.css";
 
 /* Page-specific styles can be added here */
 
 /* Print styles */
 @media print {
-  .gh-post-card, .gh-post-item, .prose-custom pre, .prose-custom blockquote {
+  .gh-post-card,
+  .gh-post-item,
+  .prose-custom pre,
+  .prose-custom blockquote {
     border: 1px solid #d1d5da !important;
     box-shadow: none !important;
   }
-  
+
   .prose-custom a {
     color: #000000 !important;
     border-bottom-color: rgba(0, 0, 0, 0.3) !important;
   }
-  
-  .gh-post-title, .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+
+  .gh-post-title,
+  .prose-custom h1,
+  .prose-custom h2,
+  .prose-custom h3 {
     color: #000000 !important;
   }
-  
-  .prose-custom p, .prose-custom li, .gh-post-excerpt {
+
+  .prose-custom p,
+  .prose-custom li,
+  .gh-post-excerpt {
     color: #24292e !important;
   }
-  
-  .gh-post-meta, .gh-post-date, .gh-post-reading-time {
+
+  .gh-post-meta,
+  .gh-post-date,
+  .gh-post-reading-time {
     color: #6a737d !important;
   }
-  
-  .gh-pagination-container, .gh-blog-controls, .gh-post-tags-overlay {
+
+  .gh-pagination-container,
+  .gh-blog-controls,
+  .gh-post-tags-overlay {
     display: none !important;
   }
 }

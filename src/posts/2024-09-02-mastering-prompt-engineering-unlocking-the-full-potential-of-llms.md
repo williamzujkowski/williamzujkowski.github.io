@@ -1,18 +1,20 @@
 ---
-title: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs'
+title: "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs"
 description: >-
   I remember my first attempts at coaxing a Large Language Model into the
   answers I needed—it felt like teaching a child with an unlimited vocabulary
   but no co...
-date: 2024-09-02T00:00:00.000Z
+date: "2024-09-02T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
 image: blog/topics/prompt-engineering.jpg
 image_alt: Prompt engineering and LLM interaction illustration
+eleventyNavigation:
+  key: mastering-prompt-engineering-unlocking-the-full-potential-of-llms
+  title: "Mastering Prompt Engineering: Unlocking ..."
+  parent: blog
 ---
-
-
 
 I remember my first attempts at coaxing a Large Language Model into the answers I needed—it felt like teaching a child with an unlimited vocabulary but no context, an experience both exhilarating and maddening. Prompt engineering, I've come to realize, is as much an art as it is a science, especially under tight context-window constraints.
 
@@ -55,5 +57,6 @@ Prompt engineering is iterative. I've sent the same question in a hundred forms,
 Ultimately, prompt engineering feels like an extended conversation with a quick but occasionally oblivious friend. Patience, clarity, and creativity shape the best dialogues. Whether you're polishing marketing copy or crafting code, guiding the LLM with well-honed prompts ensures you unearth the gold hidden beneath the model's mountainous training data. In this interplay, we glimpse a future where human curiosity and AI adaptability form a beautiful dance, each step more elegant than the last.
 
 ### Further Reading:
+
 - [Prompt Engineering Guide](https://www.promptingguide.ai/)
 - [Learn Prompting](https://learnprompting.org/)

@@ -8,10 +8,7 @@
     "description": null,
     "publish_date": "2024",
     "page_count": null,
-    "subjects": [
-      "series:dungeon_crawler_carl",
-      "Fantasy"
-    ]
+    "subjects": ["series:dungeon_crawler_carl", "Fantasy"]
   },
   {
     "title": "Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems",
@@ -39,9 +36,7 @@
     "description": null,
     "publish_date": "2020",
     "page_count": 260,
-    "subjects": [
-      "Science"
-    ]
+    "subjects": ["Science"]
   },
   {
     "title": "Psychoanalysis of R'Lyeh",

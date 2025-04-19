@@ -9,11 +9,11 @@
 
 ## 🛠 Post Processing Options
 
-| Command | Description |
-|---------|-------------|
+| Command                          | Description                                        |
+| -------------------------------- | -------------------------------------------------- |
 | `npm run process:posts:enhanced` | Interactive processing with guidance (recommended) |
-| `npm run process:posts:batch` | Process all posts automatically |
-| `npm run process:posts` | Legacy processor (basic features) |
+| `npm run process:posts:batch`    | Process all posts automatically                    |
+| `npm run process:posts`          | Legacy processor (basic features)                  |
 
 ## 📋 Frontmatter Template
 
@@ -22,7 +22,7 @@
 title: "Post Title"
 date: 2025-01-15
 layout: post.njk
-tags: 
+tags:
   - posts
   - category1
   - category2
@@ -50,28 +50,30 @@ image_alt: "Description of the featured image"
 
 ## 🖼 Image Categories
 
-| Category | Topic | File Path |
-|----------|-------|-----------|
-| ai | Artificial Intelligence | blog/ai-blog.jpg |
-| security | Cybersecurity | blog/security-blog.jpg |
-| cloud | Cloud Computing | blog/cloud-blog.jpg |
-| ethics | AI Ethics | blog/ethics-blog.jpg |
-| transformer | Transformer Architecture | blog/transformer-blog.jpg |
-| quantum | Quantum Computing | blog/topics/quantum.jpg |
+| Category     | Topic                     | File Path                    |
+| ------------ | ------------------------- | ---------------------------- |
+| ai           | Artificial Intelligence   | blog/ai-blog.jpg             |
+| security     | Cybersecurity             | blog/security-blog.jpg       |
+| cloud        | Cloud Computing           | blog/cloud-blog.jpg          |
+| ethics       | AI Ethics                 | blog/ethics-blog.jpg         |
+| transformer  | Transformer Architecture  | blog/transformer-blog.jpg    |
+| quantum      | Quantum Computing         | blog/topics/quantum.jpg      |
 | cryptography | Encryption & Cryptography | blog/topics/cryptography.jpg |
-| llm | Large Language Models | blog/topics/llm.jpg |
+| llm          | Large Language Models     | blog/topics/llm.jpg          |
 
-*Update all image categories with: `npm run build:blog-images`*
+_Update all image categories with: `npm run build:blog-images`_
 
 ## 📚 Markdown Cheatsheet
 
-```markdown
+````markdown
 # Heading 1
+
 ## Heading 2
+
 ### Heading 3
 
 **Bold text**
-*Italic text*
+_Italic text_
 
 - Bullet point
 - Another point
@@ -92,12 +94,14 @@ function example() {
   return "Hello";
 }
 ```
+````
 
 > Blockquote text
 
 | Column 1 | Column 2 |
-|----------|----------|
+| -------- | -------- |
 | Cell 1   | Cell 2   |
+
 ```
 
 ## 🔎 For Details
@@ -117,16 +121,20 @@ The file `Prompts/blogpost.prompt` contains a comprehensive prompt for generatin
 ## 📁 Directory Structure
 
 ```
+
 /
-├── new_posts/               # Place draft posts here
-│   └── processed/           # Processed drafts move here
+├── new_posts/ # Place draft posts here
+│ └── processed/ # Processed drafts move here
 ├── Prompts/
-│   ├── blogpost.prompt      # AI prompt for generating posts
-│   └── post-template.md     # Standard post template
+│ ├── blogpost.prompt # AI prompt for generating posts
+│ └── post-template.md # Standard post template
 ├── src/
-│   └── posts/               # Final formatted posts
+│ └── posts/ # Final formatted posts
 ├── tools/
-│   ├── process-new-posts.js # Legacy processor
-│   └── enhanced-post-processor.js # New interactive processor
-└── BLOG-WORKFLOW.md         # Complete workflow documentation
+│ ├── process-new-posts.js # Legacy processor
+│ └── enhanced-post-processor.js # New interactive processor
+└── BLOG-WORKFLOW.md # Complete workflow documentation
+
+```
+
 ```

@@ -1,9 +1,9 @@
 ---
-title: 'The Transformer Architecture: A Deep Dive'
+title: "The Transformer Architecture: A Deep Dive"
 description: >-
   There's a famous paper titled "Attention is All You Need", and in many ways,
   it reframed how I see modern language models
-date: 2024-07-12T00:00:00.000Z
+date: "2024-07-12T00:00:00.000Z"
 layout: post.njk
 tags:
   - posts
@@ -12,11 +12,13 @@ tags:
   - machine-learning
 image: blog/transformer-blog.jpg
 image_alt: Transformer architecture neural network illustration
+eleventyNavigation:
+  key: the-transformer-architecture-a-deep-dive
+  title: "The Transformer Architecture: A Deep Div..."
+  parent: blog
 ---
 
-
-
-There's a famous paper titled *"Attention is All You Need"*, and in many ways, it reframed how I see modern language models. Gone were the days of wrestling with RNNs or LSTMs for every nuance. The Transformer arrived with its self-attention mechanism, a method so elegant and revolutionary that it reshaped our entire approach to NLP.
+There's a famous paper titled _"Attention is All You Need"_, and in many ways, it reframed how I see modern language models. Gone were the days of wrestling with RNNs or LSTMs for every nuance. The Transformer arrived with its self-attention mechanism, a method so elegant and revolutionary that it reshaped our entire approach to NLP.
 
 ## The Limitations of Recurrent and Convolutional Models
 

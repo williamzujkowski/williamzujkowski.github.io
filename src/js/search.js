@@ -1,39 +1,42 @@
 /**
  * search.js - Client-side search functionality for blog posts
- * 
+ *
  * Implements real-time search with highlighting and animations
  * for improved user experience.
  */
 
 // Initialize search functionality when DOM is ready
-document.addEventListener('DOMContentLoaded', initSearch);
+document.addEventListener("DOMContentLoaded", initSearch);
 
 /**
  * Initialize search functionality
  */
 function initSearch() {
-  const searchInput = document.getElementById('search-input');
-  const searchCountElement = document.getElementById('search-results-count');
-  const searchableElements = document.querySelectorAll('.searchable');
-  const noResultsMessage = document.getElementById('no-results-message');
-  const resetButton = document.getElementById('reset-search');
-  
+  const searchInput = document.getElementById("search-input");
+  const searchCountElement = document.getElementById("search-results-count");
+  const searchableElements = document.querySelectorAll(".searchable");
+  const noResultsMessage = document.getElementById("no-results-message");
+  const resetButton = document.getElementById("reset-search");
+
   // Exit if no search input or searchable elements
   if (!searchInput || !searchableElements.length) return;
-  
+
   // Extract and prepare post data from DOM for search
   const postsData = extractPostData(searchableElements);
-  
+
   // Set up event listeners
-  searchInput.addEventListener('input', debounce(function() {
-    performSearch(this.value, postsData, searchCountElement, noResultsMessage);
-  }, 300));
-  
+  searchInput.addEventListener(
+    "input",
+    debounce(function () {
+      performSearch(this.value, postsData, searchCountElement, noResultsMessage);
+    }, 300)
+  );
+
   // Reset search if there's a reset button
   if (resetButton) {
-    resetButton.addEventListener('click', function() {
-      searchInput.value = '';
-      performSearch('', postsData, searchCountElement, noResultsMessage);
+    resetButton.addEventListener("click", function () {
+      searchInput.value = "";
+      performSearch("", postsData, searchCountElement, noResultsMessage);
       searchInput.focus();
     });
   }
@@ -46,22 +49,22 @@ function initSearch() {
  */
 function extractPostData(elements) {
   const data = [];
-  
-  elements.forEach(element => {
-    const title = element.querySelector('.gh-post-title')?.textContent || '';
-    const excerpt = element.querySelector('.gh-post-excerpt')?.textContent || '';
-    const tags = element.dataset.tags || '';
-    const url = element.querySelector('.gh-post-title')?.getAttribute('href') || '';
-    
+
+  elements.forEach((element) => {
+    const title = element.querySelector(".gh-post-title")?.textContent || "";
+    const excerpt = element.querySelector(".gh-post-excerpt")?.textContent || "";
+    const tags = element.dataset.tags || "";
+    const url = element.querySelector(".gh-post-title")?.getAttribute("href") || "";
+
     data.push({
       element,
       title: title.toLowerCase(),
       excerpt: excerpt.toLowerCase(),
       tags: tags.toLowerCase(),
-      url
+      url,
     });
   });
-  
+
   return data;
 }
 
@@ -75,38 +78,38 @@ function extractPostData(elements) {
 function performSearch(query, postsData, countElement, noResultsElement) {
   query = query.toLowerCase().trim();
   let visibleCount = 0;
-  
+
   // Add searching class for potential loading indicator
   if (countElement) {
-    countElement.parentElement.classList.add('searching');
+    countElement.parentElement.classList.add("searching");
   }
-  
+
   // Process each post
-  postsData.forEach(post => {
+  postsData.forEach((post) => {
     const matchesTitle = post.title.includes(query);
     const matchesExcerpt = post.excerpt.includes(query);
     const matchesTags = post.tags.includes(query);
-    const isMatch = query === '' || matchesTitle || matchesExcerpt || matchesTags;
-    
+    const isMatch = query === "" || matchesTitle || matchesExcerpt || matchesTags;
+
     if (isMatch) {
-      post.element.style.display = '';
+      post.element.style.display = "";
       applyFadeIn(post.element);
       visibleCount++;
-      
+
       // Highlight matching text if there's a query
-      if (query !== '') {
+      if (query !== "") {
         highlightMatches(post, query);
       } else {
         removeHighlights(post);
       }
     } else {
-      post.element.style.display = 'none';
+      post.element.style.display = "none";
     }
   });
-  
+
   // Update results count
   updateResultsCount(countElement, visibleCount);
-  
+
   // Show/hide no results message
   toggleNoResultsMessage(noResultsElement, visibleCount, query);
 }
@@ -118,9 +121,9 @@ function performSearch(query, postsData, countElement, noResultsElement) {
  */
 function updateResultsCount(countElement, count) {
   if (!countElement) return;
-  
+
   countElement.textContent = count;
-  countElement.parentElement.classList.remove('searching');
+  countElement.parentElement.classList.remove("searching");
 }
 
 /**
@@ -131,15 +134,15 @@ function updateResultsCount(countElement, count) {
  */
 function toggleNoResultsMessage(messageElement, resultsCount, query) {
   if (!messageElement) return;
-  
-  if (resultsCount === 0 && query !== '') {
-    messageElement.classList.remove('hidden');
-    messageElement.style.opacity = '0';
+
+  if (resultsCount === 0 && query !== "") {
+    messageElement.classList.remove("hidden");
+    messageElement.style.opacity = "0";
     setTimeout(() => {
-      messageElement.style.opacity = '1';
+      messageElement.style.opacity = "1";
     }, 10);
   } else {
-    messageElement.classList.add('hidden');
+    messageElement.classList.add("hidden");
   }
 }
 
@@ -149,13 +152,13 @@ function toggleNoResultsMessage(messageElement, resultsCount, query) {
  * @param {string} query - Search query
  */
 function highlightMatches(post, query) {
-  const excerptElement = post.element.querySelector('.gh-post-excerpt');
+  const excerptElement = post.element.querySelector(".gh-post-excerpt");
   if (!excerptElement) return;
-  
+
   const excerptText = excerptElement.textContent;
-  const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+  const regex = new RegExp(`(${escapeRegExp(query)})`, "gi");
   excerptElement.innerHTML = excerptText.replace(
-    regex, 
+    regex,
     '<mark class="bg-accent/20 text-white px-1 rounded">$1</mark>'
   );
 }
@@ -165,10 +168,10 @@ function highlightMatches(post, query) {
  * @param {Object} post - Post data object
  */
 function removeHighlights(post) {
-  const excerptElement = post.element.querySelector('.gh-post-excerpt');
+  const excerptElement = post.element.querySelector(".gh-post-excerpt");
   if (!excerptElement) return;
-  
-  if (excerptElement.innerHTML.includes('<mark')) {
+
+  if (excerptElement.innerHTML.includes("<mark")) {
     excerptElement.textContent = excerptElement.textContent;
   }
 }
@@ -178,13 +181,13 @@ function removeHighlights(post) {
  * @param {Element} element - DOM element to animate
  */
 function applyFadeIn(element) {
-  element.style.opacity = '0';
-  element.style.transform = 'translateY(10px)';
-  
+  element.style.opacity = "0";
+  element.style.transform = "translateY(10px)";
+
   setTimeout(() => {
-    element.style.opacity = '1';
-    element.style.transform = 'translateY(0)';
-    element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    element.style.opacity = "1";
+    element.style.transform = "translateY(0)";
+    element.style.transition = "opacity 0.3s ease, transform 0.3s ease";
   }, 10);
 }
 
@@ -194,7 +197,7 @@ function applyFadeIn(element) {
  * @returns {string} Escaped string
  */
 function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 /**
@@ -205,7 +208,7 @@ function escapeRegExp(string) {
  */
 function debounce(func, wait) {
   let timeout;
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(this, args), wait);
   };

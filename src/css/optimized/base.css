@@ -1,6 +1,6 @@
-/* 
+/*
  * Base Styles
- * 
+ *
  * Core typographic and element styles that form the foundation
  * of the site's design system.
  */
@@ -15,10 +15,12 @@
   .prose-custom {
     @apply prose prose-invert prose-lg max-w-none w-full;
   }
-  
+
   /* Use prefers-reduced-motion for animations */
   @media (prefers-reduced-motion) {
-    *, ::before, ::after {
+    *,
+    ::before,
+    ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -81,11 +83,14 @@
     text-decoration: underline;
   }
 
-  p, ul, ol {
+  p,
+  ul,
+  ol {
     @apply mb-4;
   }
 
-  ul, ol {
+  ul,
+  ol {
     @apply pl-6;
   }
 
@@ -132,7 +137,7 @@
   table td {
     @apply p-2 border-b border-border;
   }
-  
+
   /* Form elements with improved contrast */
   input[type="text"],
   input[type="email"],
@@ -146,14 +151,14 @@
   ::placeholder {
     @apply text-text-secondary opacity-70;
   }
-  
+
   /* Scroll behavior */
   @media (max-width: 640px) {
     html {
       font-size: 15px;
     }
   }
-  
+
   /* Smooth scrollbar for Firefox */
   @supports (scrollbar-color: auto) {
     * {
