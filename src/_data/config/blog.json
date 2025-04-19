@@ -1,0 +1,282 @@
+{
+  "settings": {
+    "blog": {
+      "postsPerPage": 5,
+      "showDates": true,
+      "dateFormat": "%B %d, %Y",
+      "showCategories": true
+    },
+    "postsPerPage": 5,
+    "showCategories": true
+  },
+  "images": {
+    "image_mapping": {
+      "ai": {
+        "path": "blog/ai-blog.jpg",
+        "alt": "AI illustration with neural networks and connections"
+      },
+      "security": {
+        "path": "blog/security-blog.jpg",
+        "alt": "Cybersecurity lock and shield illustration"
+      },
+      "cloud": {
+        "path": "blog/cloud-blog.jpg",
+        "alt": "Cloud computing infrastructure illustration"
+      },
+      "ethics": {
+        "path": "blog/ethics-blog.jpg",
+        "alt": "AI ethics balance scale illustration"
+      },
+      "transformer": {
+        "path": "blog/transformer-blog.jpg",
+        "alt": "Transformer architecture neural network illustration"
+      },
+      "pizza": {
+        "path": "blog/pizza-blog.jpg",
+        "alt": "Developer pizza calculator illustration"
+      },
+      "cryptography": {
+        "path": "blog/topics/cryptography.jpg",
+        "alt": "Encryption and cryptography key illustration"
+      },
+      "quantum": {
+        "path": "blog/topics/quantum.jpg",
+        "alt": "Quantum computing illustration with qubits and superposition"
+      },
+      "edge": {
+        "path": "blog/topics/edge-computing.jpg",
+        "alt": "Edge computing architecture with IoT devices"
+      },
+      "hpc": {
+        "path": "blog/topics/hpc.jpg",
+        "alt": "High-performance computing supercomputer illustration"
+      },
+      "rag": {
+        "path": "blog/topics/rag.jpg",
+        "alt": "Retrieval Augmented Generation architecture illustration"
+      },
+      "prompt": {
+        "path": "blog/topics/prompt-engineering.jpg",
+        "alt": "Prompt engineering and LLM interaction illustration"
+      },
+      "containers": {
+        "path": "blog/topics/containers.jpg",
+        "alt": "Container technology and orchestration illustration"
+      },
+      "resilience": {
+        "path": "blog/topics/resilience.jpg",
+        "alt": "System resilience and fault tolerance illustration"
+      },
+      "llm": {
+        "path": "blog/topics/llm.jpg",
+        "alt": "Large Language Model illustration with text processing"
+      },
+      "default": {
+        "path": "github-style/blog-placeholder.jpg",
+        "alt": "Default blog post illustration"
+      },
+      "programming": {
+        "path": "blog/topics/programming.jpg",
+        "alt": "programming illustration"
+      },
+      "cybersecurity": {
+        "path": "blog/topics/cybersecurity.jpg",
+        "alt": "cybersecurity illustration"
+      },
+      "deepfake": {
+        "path": "blog/topics/deepfake.jpg",
+        "alt": "deepfake illustration"
+      },
+      "machine-learning": {
+        "path": "blog/topics/machine-learning.jpg",
+        "alt": "machine-learning illustration"
+      },
+      "opensource": {
+        "path": "blog/topics/opensource.jpg",
+        "alt": "opensource illustration"
+      },
+      "posts-ai-devops-programming-architecture": {
+        "path": "blog/topics/posts-ai-devops-programming-architecture.jpg",
+        "alt": "posts ai devops programming architecture illustration"
+      },
+      "posts-security-ai-cloud-devops-programming-architecture": {
+        "path": "blog/topics/posts-security-ai-cloud-devops-programming-architecture.jpg",
+        "alt": "posts security ai cloud devops programming architecture illustration"
+      },
+      "posts-quantum-computing-cybersecurity-cryptography-national-security": {
+        "path": "blog/topics/posts-quantum-computing-cybersecurity-cryptography-national-security.jpg",
+        "alt": "posts quantum-computing cybersecurity cryptography national-security illustration"
+      },
+      "posts-ai-robotics-embodied-ai-multimodal-llm-reinforcement-learning": {
+        "path": "blog/topics/posts-ai-robotics-embodied-ai-multimodal-llm-reinforcement-learning.jpg",
+        "alt": "posts ai robotics embodied-ai multimodal-llm reinforcement-learning illustration"
+      },
+      "posts-computational-science-hpc-ai-quantum-computing-exascale-sustainability": {
+        "path": "blog/topics/posts-computational-science-hpc-ai-quantum-computing-exascale-sustainability.jpg",
+        "alt": "posts computational-science hpc ai quantum-computing exascale sustainability illustration"
+      },
+      "posts-quantum-computing-cryptography-ai-quantum-algorithms-quantum-supremacy": {
+        "path": "blog/topics/posts-quantum-computing-cryptography-ai-quantum-algorithms-quantum-supremacy.jpg",
+        "alt": "posts quantum-computing cryptography ai quantum-algorithms quantum-supremacy illustration"
+      },
+      "devops": {
+        "path": "blog/topics/devops.jpg",
+        "alt": "devops illustration"
+      },
+      "robotics": {
+        "path": "blog/topics/robotics.jpg",
+        "alt": "robotics illustration"
+      },
+      "database": {
+        "path": "blog/topics/database.jpg",
+        "alt": "database illustration"
+      },
+      "architecture": {
+        "path": "blog/topics/architecture.jpg",
+        "alt": "architecture illustration"
+      },
+      "quantum-computing": {
+        "path": "blog/topics/quantum-computing.jpg",
+        "alt": "quantum-computing illustration"
+      },
+      "national-security": {
+        "path": "blog/topics/national-security.jpg",
+        "alt": "national-security illustration"
+      },
+      "embodied-ai": {
+        "path": "blog/topics/embodied-ai.jpg",
+        "alt": "embodied-ai illustration"
+      },
+      "multimodal-llm": {
+        "path": "blog/topics/multimodal-llm.jpg",
+        "alt": "multimodal-llm illustration"
+      },
+      "reinforcement-learning": {
+        "path": "blog/topics/reinforcement-learning.jpg",
+        "alt": "reinforcement-learning illustration"
+      },
+      "computational-science": {
+        "path": "blog/topics/computational-science.jpg",
+        "alt": "computational-science illustration"
+      },
+      "exascale": {
+        "path": "blog/topics/exascale.jpg",
+        "alt": "exascale illustration"
+      },
+      "sustainability": {
+        "path": "blog/topics/sustainability.jpg",
+        "alt": "sustainability illustration"
+      },
+      "quantum-algorithms": {
+        "path": "blog/topics/quantum-algorithms.jpg",
+        "alt": "quantum-algorithms illustration"
+      },
+      "quantum-supremacy": {
+        "path": "blog/topics/quantum-supremacy.jpg",
+        "alt": "quantum-supremacy illustration"
+      }
+    },
+    "keyword_mapping": {
+      "security": [
+        "secure",
+        "security",
+        "exploit",
+        "vulnerability",
+        "cybersecurity",
+        "cyber"
+      ],
+      "cryptography": [
+        "cryptography",
+        "encryption",
+        "hash",
+        "signature",
+        "cipher",
+        "quantum-resistant"
+      ],
+      "cloud": ["cloud", "aws", "azure", "gcp", "serverless", "iaas", "paas", "saas"],
+      "ai": [
+        "ai",
+        "artificial intelligence",
+        "machine learning",
+        "ml",
+        "deep learning",
+        "neural",
+        "model"
+      ],
+      "ethics": ["ethics", "ethical", "bias", "fairness", "responsible ai"],
+      "transformer": ["transformer", "attention", "encoder", "decoder"],
+      "pizza": ["pizza", "calculator"],
+      "quantum": ["quantum", "qubit", "superposition", "entanglement"],
+      "edge": ["edge computing", "edge", "iot", "real-time", "device"],
+      "hpc": [
+        "high-performance computing",
+        "hpc",
+        "supercomputing",
+        "compute",
+        "cluster"
+      ],
+      "rag": ["retrieval augmented generation", "rag", "retrieval", "vector"],
+      "prompt": ["prompt engineering", "prompt", "instruction"],
+      "containers": [
+        "container",
+        "docker",
+        "kubernetes",
+        "k8s",
+        "orchestration",
+        "pod"
+      ],
+      "resilience": [
+        "resilient",
+        "resilience",
+        "fault tolerance",
+        "chaos",
+        "reliability"
+      ],
+      "llm": [
+        "llm",
+        "language model",
+        "gpt",
+        "claude",
+        "gemini",
+        "large language model"
+      ],
+      "programming": ["programming"],
+      "cybersecurity": ["cybersecurity"],
+      "deepfake": ["deepfake"],
+      "machine-learning": ["machine-learning"],
+      "opensource": ["opensource"],
+      "posts-ai-devops-programming-architecture": [
+        "posts ai devops programming architecture"
+      ],
+      "posts-security-ai-cloud-devops-programming-architecture": [
+        "posts security ai cloud devops programming architecture"
+      ],
+      "posts-quantum-computing-cybersecurity-cryptography-national-security": [
+        "posts quantum-computing cybersecurity cryptography national-security"
+      ],
+      "posts-ai-robotics-embodied-ai-multimodal-llm-reinforcement-learning": [
+        "posts ai robotics embodied-ai multimodal-llm reinforcement-learning"
+      ],
+      "posts-computational-science-hpc-ai-quantum-computing-exascale-sustainability": [
+        "posts computational-science hpc ai quantum-computing exascale sustainability"
+      ],
+      "posts-quantum-computing-cryptography-ai-quantum-algorithms-quantum-supremacy": [
+        "posts quantum-computing cryptography ai quantum-algorithms quantum-supremacy"
+      ],
+      "devops": ["devops"],
+      "robotics": ["robotics"],
+      "database": ["database"],
+      "architecture": ["architecture"],
+      "quantum-computing": ["quantum-computing"],
+      "national-security": ["national-security"],
+      "embodied-ai": ["embodied-ai"],
+      "multimodal-llm": ["multimodal-llm"],
+      "reinforcement-learning": ["reinforcement-learning"],
+      "computational-science": ["computational-science"],
+      "exascale": ["exascale"],
+      "sustainability": ["sustainability"],
+      "quantum-algorithms": ["quantum-algorithms"],
+      "quantum-supremacy": ["quantum-supremacy"]
+    }
+  }
+}

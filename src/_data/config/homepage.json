@@ -1,0 +1,123 @@
+{
+  "profile": {
+    "welcome_heading": "Welcome",
+    "welcome_subtitle": "IT Engineer & Technology Enthusiast",
+    "about_me_title": "About Me",
+    "about_me_content": "I'm an IT engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. With experience across the full development lifecycle, I build robust, scalable solutions that solve complex problems.",
+    "interests": "When not coding, I enjoy exploring emerging technologies, contributing to open-source projects, and writing about tech trends. I'm particularly interested in the intersection of AI ethics, privacy, and security.",
+    "skills": [
+      "Cloud Architecture & DevOps",
+      "Cybersecurity & Threat Analysis",
+      "Machine Learning & AI Development",
+      "Full Stack Development",
+      "System Design & Architecture"
+    ],
+    "heading": "About Me",
+    "content": "I'm an IT engineer specializing in cloud architecture, cybersecurity, and AI/ML applications. When not coding, I enjoy exploring emerging technologies and writing about tech trends."
+  },
+  "display": {
+    "show_recent_posts": true,
+    "recent_posts_count": 3,
+    "show_activity_timeline": false,
+    "show_contribution_heatmap": false,
+    "show_featured_projects": false,
+    "show_latest_learning": false,
+    "show_github_pins": true,
+    "show_github_repos_on_links": false,
+    "show_arxiv_papers": true,
+    "showGithubStats": true,
+    "showRepositories": true
+  },
+  "reading": {
+    "reading_list": [
+      {
+        "title": "Dungeon Crawler Carl",
+        "author": "Matt Dinniman",
+        "isbn": "059382024X",
+        "progress": 62
+      },
+      {
+        "title": "Designing Data-Intensive Applications",
+        "author": "Martin Kleppmann",
+        "isbn": "9781449373320",
+        "progress": 75
+      },
+      {
+        "title": "Building Machine Learning Powered Applications",
+        "author": "Emmanuel Ameisen",
+        "isbn": "9781492045113",
+        "progress": 45
+      },
+      {
+        "title": "The Psychoanalysis of R'lyeh",
+        "author": "Anonymous",
+        "isbn": "1329970136",
+        "progress": 28
+      }
+    ]
+  },
+  "repositories": {
+    "pinned_repositories": [
+      {
+        "name": "Cloud Security Framework",
+        "description": "A comprehensive security architecture for cloud-native applications with zero-trust principles and automated compliance monitoring.",
+        "url": "https://github.com/williamzujkowski/cloud-security-framework",
+        "language": "TypeScript",
+        "language_color": "#2b7489",
+        "stars": 38,
+        "forks": 12,
+        "updated": "last week"
+      },
+      {
+        "name": "RAG-Powered Knowledge Base",
+        "description": "An intelligent documentation system that uses Retrieval Augmented Generation to provide context-aware responses to technical questions.",
+        "url": "https://github.com/williamzujkowski/rag-knowledge-base",
+        "language": "Python",
+        "language_color": "#3572A5",
+        "stars": 24,
+        "forks": 8,
+        "updated": "2 weeks ago"
+      },
+      {
+        "name": "Edge ML Toolkit",
+        "description": "Tools and libraries for deploying machine learning models to edge devices with minimal resource requirements.",
+        "url": "https://github.com/williamzujkowski/edge-ml-toolkit",
+        "language": "Rust",
+        "language_color": "#dea584",
+        "stars": 17,
+        "forks": 5,
+        "updated": "last month"
+      },
+      {
+        "name": "williamzujkowski.github.io",
+        "description": "Personal website and technology blog built with 11ty static site generator.",
+        "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+        "language": "JavaScript",
+        "language_color": "#f1e05a",
+        "stars": 7,
+        "forks": 2,
+        "updated": "2 days ago"
+      },
+      {
+        "name": "Quantum-Resistant Crypto Demo",
+        "description": "Educational demos and examples of quantum-resistant cryptographic algorithms for post-quantum security.",
+        "url": "https://github.com/williamzujkowski/quantum-resistant-crypto-demo",
+        "language": "Go",
+        "language_color": "#00ADD8",
+        "stars": 22,
+        "forks": 7,
+        "updated": "2 months ago"
+      },
+      {
+        "name": "Secure DevOps Pipeline",
+        "description": "Reference implementation of a secure CI/CD pipeline with built-in security scanning, testing, and compliance checks.",
+        "url": "https://github.com/williamzujkowski/secure-devops-pipeline",
+        "language": "YAML",
+        "language_color": "#cb171e",
+        "stars": 15,
+        "forks": 4,
+        "updated": "3 months ago"
+      }
+    ]
+  }
+}
