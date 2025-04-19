@@ -6,7 +6,7 @@
  * performance while providing core functionality.
  *
  * Enhanced in Phase 4 with performance monitoring, lazy loading,
- * and optimization for the modern build system.
+ * hardware acceleration for animations, and resource hints.
  *
  * @module main
  */
@@ -23,6 +23,7 @@ const PERFORMANCE_METRICS = {
 // Import core components only - others will be lazy loaded
 import { initThemeToggle } from "./components/theme-toggle.js";
 import { initSiteConfig } from "./utils/site-config.js";
+import { initResourceHints } from "./utils/resource-hints.js";
 
 /**
  * Records performance timing for a specific operation
@@ -160,6 +161,9 @@ function init() {
  * @returns {void}
  */
 function initHighPriority() {
+  // Set up resource hints for performance optimization
+  trackPerformance("resourceHints", initResourceHints);
+
   // Initialize site configuration if available
   if (window.SITE_DATA) {
     trackPerformance("siteConfig", () => initSiteConfig(window.SITE_DATA));
@@ -377,6 +381,7 @@ function setupResponsiveLayout() {
  *
  * Initializes components and effects that respond to page scrolling,
  * such as the back-to-top button and scroll animations.
+ * Enhanced with performance optimizations in Phase 4
  *
  * @returns {void}
  */
@@ -384,25 +389,75 @@ function setupScrollEffects() {
   // Back to top button functionality
   const backToTopBtn = document.getElementById("back-to-top");
   if (backToTopBtn) {
-    // Show/hide button based on scroll position
-    window.addEventListener("scroll", () => {
-      // Show button when scrolled down
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.add("visible");
-        backToTopBtn.classList.remove("hidden");
-      } else {
-        // Hide button when near top
-        backToTopBtn.classList.remove("visible");
-        backToTopBtn.classList.add("hidden");
-      }
-    });
+    // Add hardware acceleration class for smoother animations
+    backToTopBtn.classList.add("gpu-accelerated");
+
+    // Use passive event listener for better scroll performance
+    let scrollTimeout;
+    let isVisible = false;
+    let lastScrollY = window.scrollY;
+
+    // Use throttled scroll event to improve performance
+    window.addEventListener(
+      "scroll",
+      () => {
+        // Skip if we're still in timeout period
+        if (scrollTimeout) return;
+
+        // Create a timeout to limit executions
+        scrollTimeout = setTimeout(() => {
+          // Get current scroll position
+          const currentScrollY = window.scrollY;
+
+          // Only update if we've scrolled a significant amount or crossed the threshold
+          const shouldBeVisible = currentScrollY > 300;
+          if (
+            shouldBeVisible !== isVisible ||
+            Math.abs(currentScrollY - lastScrollY) > 50
+          ) {
+            // Update button visibility using requestAnimationFrame for smoother rendering
+            requestAnimationFrame(() => {
+              if (shouldBeVisible) {
+                backToTopBtn.classList.add("visible");
+                backToTopBtn.classList.remove("hidden");
+              } else {
+                backToTopBtn.classList.remove("visible");
+                backToTopBtn.classList.add("hidden");
+              }
+              isVisible = shouldBeVisible;
+              lastScrollY = currentScrollY;
+            });
+          }
+
+          // Clear the timeout
+          scrollTimeout = null;
+        }, 100); // 100ms throttle
+      },
+      { passive: true }
+    ); // Passive event improves scroll performance
 
     // Scroll to top when clicked with smooth behavior
     backToTopBtn.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      // Check if scrollTo behavior is supported
+      if ("scrollBehavior" in document.documentElement.style) {
+        // Use native smooth scrolling
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      } else {
+        // Fallback for browsers without smooth scrolling
+        const scrollToTop = () => {
+          const currentPosition = window.scrollY;
+          if (currentPosition > 0) {
+            // Use requestAnimationFrame for smoother animation
+            requestAnimationFrame(scrollToTop);
+            // Scroll by a percentage of the remaining distance
+            window.scrollTo(0, currentPosition - currentPosition / 8);
+          }
+        };
+        scrollToTop();
+      }
     });
   }
 }
@@ -458,24 +513,50 @@ function setupAnimations() {
 
 /**
  * Animates a specific element with fade and slide effects
+ * Enhanced with hardware acceleration in Phase 4
  *
  * @param {Element} el - Element to animate
  * @param {number} index - Optional index for staggered animations
  * @returns {void}
  */
 function animateElement(el, index = 0) {
-  // Set initial invisible state
+  // Prepare element for animation with hardware acceleration
   el.style.opacity = "0";
 
-  // Apply animations with CSS
-  el.style.animation = `fadeIn 0.6s ease-out forwards, slideUp 0.6s ease-out forwards`;
+  // Add hardware acceleration classes
+  el.classList.add("gpu-accelerated");
+  el.classList.add("animate-slide-up");
 
-  // Stagger animation timing based on index
-  el.style.animationDelay = `${0.05 + index * 0.05}s`;
+  // Clear any previous animation
+  el.style.animation = "none";
+
+  // Force browser to acknowledge the change before setting new animation
+  void el.offsetWidth; // This triggers a reflow
+
+  // Use requestAnimationFrame for smoother animation start
+  requestAnimationFrame(() => {
+    // Stagger animation timing based on index
+    el.style.animationDelay = `${0.05 + index * 0.05}s`;
+
+    // Cleanup: Remove hardware acceleration class when animation completes
+    // This prevents memory issues from having too many accelerated elements
+    el.addEventListener(
+      "animationend",
+      () => {
+        // Keep the element visible but remove unnecessary acceleration hints
+        if (el.classList.contains("gpu-accelerated")) {
+          // Only modify will-change to prevent layout shifts
+          el.style.willChange = "auto";
+        }
+      },
+      { once: true }
+    );
+  });
 }
 
 /**
  * Animates all elements (fallback for older browsers)
+ * Enhanced with hardware acceleration in Phase 4
  *
  * @returns {void}
  */
@@ -488,16 +569,43 @@ function animateAllElements() {
     ".gh-post-card",
   ];
 
-  // Apply animations to all elements
+  // Group animations to minimize layout thrashing
+  const allElements = [];
+
+  // Collect all elements first
   elementsToAnimate.forEach((selector) => {
     const elements = document.querySelectorAll(selector);
-    elements.forEach((el, i) => {
-      // Set initial invisible state
-      el.style.opacity = "0";
+    elements.forEach((el) => allElements.push(el));
+  });
 
-      // Apply animations with staggered timing
-      el.style.animation = `fadeIn 0.5s ease-out forwards, slideUp 0.5s ease-out forwards`;
+  // Batch read operations
+  allElements.forEach((el) => {
+    // Initial setup - read operations
+    el.style.opacity = "0";
+    el.getBoundingClientRect(); // Force a reflow once to get current position
+  });
+
+  // Use requestAnimationFrame for the next visual update
+  requestAnimationFrame(() => {
+    // Batch write operations
+    allElements.forEach((el, i) => {
+      // Add hardware acceleration classes
+      el.classList.add("gpu-accelerated");
+      el.classList.add("animate-slide-up");
+
+      // Stagger animation timing
       el.style.animationDelay = `${0.05 + i * 0.05}s`;
+
+      // Clean up acceleration hints after animation completes
+      el.addEventListener(
+        "animationend",
+        () => {
+          if (el.classList.contains("gpu-accelerated")) {
+            el.style.willChange = "auto";
+          }
+        },
+        { once: true }
+      );
     });
   });
 }
