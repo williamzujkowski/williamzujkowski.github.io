@@ -112,6 +112,67 @@ eleventyNavigation:
       </div>
     </div>
 
+    <!-- Inline script to ensure joke loading -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Import the joke generator module with a fallback
+        import('/js/components/joke-generator.bundle.js')
+          .then(module => {
+            console.log('Loaded joke generator module');
+            if (typeof module.initJokeGenerator === 'function') {
+              module.initJokeGenerator();
+            }
+          })
+          .catch(error => {
+            console.error('Failed to load joke module:', error);
+
+            // Fallback jokes
+            const fallbackJokes = [
+              {
+                type: "twopart",
+                setup: "Why do programmers prefer dark mode?",
+                delivery: "Because light attracts bugs!"
+              },
+              {
+                type: "single",
+                joke: "There are 10 types of people in this world: those who understand binary and those who don't."
+              }
+            ];
+
+            // Display a random fallback joke
+            const joke = fallbackJokes[Math.floor(Math.random() * fallbackJokes.length)];
+            const jokeSetup = document.getElementById('joke-setup');
+            const jokeDelivery = document.getElementById('joke-delivery');
+            const jokeSingle = document.getElementById('joke-single');
+
+            if (joke.type === 'twopart') {
+              if (jokeSetup) jokeSetup.textContent = joke.setup;
+              if (jokeDelivery) jokeDelivery.textContent = joke.delivery;
+              if (jokeSingle) jokeSingle.textContent = '';
+            } else {
+              if (jokeSetup) jokeSetup.textContent = '';
+              if (jokeDelivery) jokeDelivery.textContent = '';
+              if (jokeSingle) jokeSingle.textContent = joke.joke;
+            }
+
+            // Also try for mobile
+            const mobileJokeSetup = document.getElementById('mobile-joke-setup');
+            const mobileJokeDelivery = document.getElementById('mobile-joke-delivery');
+            const mobileJokeSingle = document.getElementById('mobile-joke-single');
+
+            if (joke.type === 'twopart') {
+              if (mobileJokeSetup) mobileJokeSetup.textContent = joke.setup;
+              if (mobileJokeDelivery) mobileJokeDelivery.textContent = joke.delivery;
+              if (mobileJokeSingle) mobileJokeSingle.textContent = '';
+            } else {
+              if (mobileJokeSetup) mobileJokeSetup.textContent = '';
+              if (mobileJokeDelivery) mobileJokeDelivery.textContent = '';
+              if (mobileJokeSingle) mobileJokeSingle.textContent = joke.joke;
+            }
+          });
+      });
+    </script>
+
     <div class="gh-profile-content">
       <div class="gh-profile-header-info">
         <h1 class="gh-name">{{ site.title }}</h1>
@@ -696,6 +757,36 @@ eleventyNavigation:
       <!-- Mobile joke functionality is handled by joke-generator.js -->
     </div>
   </div>
+
+  <!-- Additional script for mobile joke functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set a direct fallback joke if the container is empty after 2 seconds
+      setTimeout(function() {
+        const mobileJokeSetup = document.getElementById('mobile-joke-setup');
+        const mobileJokeDelivery = document.getElementById('mobile-joke-delivery');
+        const mobileJokeSingle = document.getElementById('mobile-joke-single');
+
+        // Check if the joke containers are empty
+        const isEmpty = (!mobileJokeSetup || !mobileJokeSetup.textContent) &&
+                        (!mobileJokeDelivery || !mobileJokeDelivery.textContent) &&
+                        (!mobileJokeSingle || !mobileJokeSingle.textContent);
+
+        if (isEmpty) {
+          console.log("Applying emergency mobile joke fallback");
+          // Use a fallback joke
+          const fallbackJoke = {
+            type: "twopart",
+            setup: "Why do programmers prefer dark mode?",
+            delivery: "Because light attracts bugs!"
+          };
+
+          if (mobileJokeSetup) mobileJokeSetup.textContent = fallbackJoke.setup;
+          if (mobileJokeDelivery) mobileJokeDelivery.textContent = fallbackJoke.delivery;
+        }
+      }, 2000);
+    });
+  </script>
 
   <!-- Latest Blog Posts Section -->
   <div class="mb-10">
