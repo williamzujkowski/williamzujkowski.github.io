@@ -3,6 +3,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy({
+    "src/css/prism-theme-dark.css": "css/prism-theme-dark.css",
+  });
   eleventyConfig.addPassthroughCopy({ "assets/icons/favicon.ico": "favicon.ico" });
   eleventyConfig.addPassthroughCopy({ "assets/icons/icon.svg": "icon.svg" });
   eleventyConfig.addPassthroughCopy({
@@ -18,6 +21,7 @@ module.exports = function (eleventyConfig) {
 
   // Import required modules
   const pluginRss = require("@11ty/eleventy-plugin-rss");
+  const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
   const pluginNavigation = require("@11ty/eleventy-navigation");
   const markdownIt = require("markdown-it");
   const markdownItAnchor = require("markdown-it-anchor");
@@ -26,6 +30,7 @@ module.exports = function (eleventyConfig) {
   // Add plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginNavigation);
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   // Add a manual filter for collections.getNewestCollectionItemDate
   eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {

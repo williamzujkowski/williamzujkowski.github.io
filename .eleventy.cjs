@@ -3,6 +3,7 @@
 // Import plugins
 const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const navigationPlugin = require("@11ty/eleventy-navigation");
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Image = require("@11ty/eleventy-img");
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
@@ -185,11 +186,15 @@ module.exports = function (eleventyConfig) {
   // Add plugins
   eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(navigationPlugin);
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   // ---------- ASSET HANDLING ----------
 
   // Copy assets
   eleventyConfig.addPassthroughCopy("assets");
+  eleventyConfig.addPassthroughCopy({
+    "src/css/prism-theme-dark.css": "css/prism-theme-dark.css",
+  });
 
   // JS handling (development vs production)
   if (process.env.NODE_ENV !== "production") {

@@ -36,7 +36,7 @@ Zero Trust is not merely a technology solution but a strategic approach to secur
 
 3. **Assume Breach**: Minimize blast radius and segment access. Verify end-to-end encryption, use analytics to improve threat detection, and apply the principle of least privilege.
 
-```
+```ascii
 ┌───────────────────────────────────────────────────────┐
 │               Zero Trust Security Model                │
 ├───────────────────────────────────────────────────────┤
