@@ -9,25 +9,24 @@ eleventyExcludeFromCollections: true
   <subtitle>{{ site.description }}</subtitle>
   <link href="{{ site.url }}/feed.xml" rel="self" />
   <link href="{{ site.url }}" />
-  <updated
-    >{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated
-  >
+  <updated>{{ "now" | date("iso") }}</updated>
   <id>{{ site.url }}</id>
   <author>
     <name>{{ site.author }}</name>
     <email>{{ site.email }}</email>
   </author>
-  {%- for post in collections.posts | reverse %} {% set absolutePostUrl %}{{ site.url
-  }}{{ post.url }}{% endset %}
+  {%- for post in collections.posts | reverse %} 
+  {% set absolutePostUrl %}{{ site.url }}{{ post.url }}{% endset %}
   <entry>
     <title>{{ post.data.title }}</title>
     <link href="{{ absolutePostUrl }}" />
-    <updated>{{ post.data.date | dateToRfc3339 }}</updated>
+    <updated>{{ post.date | date('yyyy-MM-dd') }}T00:00:00Z</updated>
     <id>{{ absolutePostUrl }}</id>
     <content type="html">
-      {% if post.templateContent %} {{ post.templateContent |
-      htmlToAbsoluteUrls(absolutePostUrl) }} {% else %}
-      <p>No content available</p>
+      {% if post.templateContent %} 
+        {{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }} 
+      {% else %}
+        <p>No content available</p>
       {% endif %}
     </content>
   </entry>
