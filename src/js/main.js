@@ -4,18 +4,96 @@
  * This module serves as the main entry point for the application's JavaScript.
  * It initializes all components in a prioritized manner to optimize page load
  * performance while providing core functionality.
- * 
+ *
+ * Enhanced in Phase 4 with performance monitoring, lazy loading,
+ * and optimization for the modern build system.
+ *
  * @module main
  */
 
-// Import components
-import { initSearch } from "./components/search.js";
+// Initialize performance metrics
+const PERFORMANCE_METRICS = {
+  init: performance.now(),
+  marks: {},
+  measures: {},
+  components: {},
+  errors: [],
+};
+
+// Import core components only - others will be lazy loaded
 import { initThemeToggle } from "./components/theme-toggle.js";
-import { initCodeHighlight } from "./components/code-highlight.js";
-import { initStaticFallbacks } from "./components/static-fallbacks.js";
-import { initGoogleAnalytics } from "./utils/analytics.js";
-import { initJokeGenerator } from "./components/joke-generator.js";
 import { initSiteConfig } from "./utils/site-config.js";
+
+/**
+ * Records performance timing for a specific operation
+ *
+ * @param {string} name - The name of the operation to measure
+ * @param {Function} fn - The function to execute and measure
+ * @returns {*} The result of the function execution
+ */
+function trackPerformance(name, fn) {
+  try {
+    // Mark the start time
+    const markName = `${name}-start`;
+    performance.mark(markName);
+    PERFORMANCE_METRICS.marks[markName] = performance.now();
+
+    // Execute the function
+    const result = fn();
+
+    // Mark the end time
+    const endMarkName = `${name}-end`;
+    performance.mark(endMarkName);
+    PERFORMANCE_METRICS.marks[endMarkName] = performance.now();
+
+    // Measure the duration
+    performance.measure(name, markName, endMarkName);
+
+    // Store the duration in our metrics object
+    const duration = performance.now() - PERFORMANCE_METRICS.marks[markName];
+    PERFORMANCE_METRICS.components[name] = duration;
+
+    // Log for debugging in development
+    if (process.env.NODE_ENV !== "production") {
+      console.debug(`⚡ ${name}: ${duration.toFixed(2)}ms`);
+    }
+
+    return result;
+  } catch (error) {
+    // Log performance measurement errors
+    PERFORMANCE_METRICS.errors.push({
+      component: name,
+      error: error.message,
+      time: performance.now(),
+    });
+
+    // Rethrow to ensure original error handling still applies
+    throw error;
+  }
+}
+
+/**
+ * Reports performance metrics to the console or analytics
+ */
+function reportPerformance() {
+  // Calculate total initialization time
+  const totalTime = performance.now() - PERFORMANCE_METRICS.init;
+  PERFORMANCE_METRICS.total = totalTime;
+
+  // Report to analytics in production
+  if (process.env.NODE_ENV === "production" && window.gtag) {
+    gtag("event", "performance", {
+      event_category: "timing",
+      event_label: "initialization",
+      value: Math.round(totalTime),
+    });
+  }
+
+  // Log in development or when debug is enabled
+  if (process.env.NODE_ENV !== "production" || localStorage.getItem("debug")) {
+    console.debug("📊 Performance Metrics:", PERFORMANCE_METRICS);
+  }
+}
 
 /**
  * Initialize the application when the DOM is ready
@@ -28,110 +106,188 @@ if (document.readyState === "loading") {
 
 /**
  * Main initialization function
- * 
+ *
  * This function orchestrates the initialization of all components in a prioritized manner:
  * 1. High-priority components (critical for page functionality)
  * 2. Medium-priority components (enhance the user experience)
  * 3. Low-priority components (can be delayed until the browser is idle)
- * 
+ *
  * @returns {void}
  */
 function init() {
+  // Mark initialization start
+  performance.mark("init-start");
+
   // Create and show page loader
   showPageLoader();
 
   // Initialize critical components immediately
-  initHighPriority();
+  trackPerformance("highPriority", initHighPriority);
 
   // Schedule lower priority initializations for better performance
   requestAnimationFrame(() => {
     // Initialize medium priority components in the next animation frame
-    initMediumPriority();
+    trackPerformance("mediumPriority", initMediumPriority);
 
     // Schedule non-critical components for when browser is idle
-    requestIdleCallback(initLowPriority);
+    requestIdleCallback(() => {
+      trackPerformance("lowPriority", initLowPriority);
+
+      // Report performance after all components are initialized
+      reportPerformance();
+    });
   });
 
   // Hide loader when everything is fully loaded
-  window.addEventListener("load", hidePageLoader);
+  window.addEventListener("load", () => {
+    hidePageLoader();
+
+    // Register service worker for caching if supported
+    registerServiceWorker();
+  });
+
+  // Mark initialization complete
+  performance.mark("init-end");
+  performance.measure("total-init", "init-start", "init-end");
 }
 
 /**
  * Initialize high priority components
- * 
+ *
  * These components are critical for page functionality and user experience,
  * so they run immediately during page load.
- * 
+ *
  * @returns {void}
  */
 function initHighPriority() {
   // Initialize site configuration if available
   if (window.SITE_DATA) {
-    initSiteConfig(window.SITE_DATA);
+    trackPerformance("siteConfig", () => initSiteConfig(window.SITE_DATA));
   }
 
   // Set up accessibility features
-  setupAccessibility();
+  trackPerformance("accessibility", setupAccessibility);
 
   // Initialize theme system (dark/light mode)
-  initThemeToggle();
+  trackPerformance("themeToggle", initThemeToggle);
 
-  // Initialize analytics if configured
+  // Initialize analytics if configured (using dynamic import for performance)
   if (window.analyticsId) {
-    initGoogleAnalytics(window.analyticsId);
+    import("./utils/analytics.js")
+      .then((module) => {
+        trackPerformance("analytics", () =>
+          module.initGoogleAnalytics(window.analyticsId)
+        );
+      })
+      .catch((error) => {
+        console.error("Failed to load analytics:", error);
+        PERFORMANCE_METRICS.errors.push({
+          component: "analytics",
+          error: error.message,
+          time: performance.now(),
+        });
+      });
   }
 }
 
 /**
  * Initialize medium priority components
- * 
+ *
  * These components enhance the page but aren't critical for initial rendering.
  * They run after high priority items but before page is fully loaded.
- * 
+ *
  * @returns {void}
  */
 function initMediumPriority() {
   // Initialize page layout components
-  setupResponsiveLayout();
+  trackPerformance("responsiveLayout", setupResponsiveLayout);
 
   // Initialize scroll-based components (back to top button, etc.)
-  setupScrollEffects();
+  trackPerformance("scrollEffects", setupScrollEffects);
 
-  // Initialize joke generator (content enhancement)
-  initJokeGenerator();
+  // Initialize joke generator (content enhancement) - using dynamic import
+  if (document.querySelector("#joke-container")) {
+    import("./components/joke-generator.js")
+      .then((module) => {
+        trackPerformance("jokeGenerator", module.initJokeGenerator);
+      })
+      .catch((error) => {
+        console.error("Failed to load joke generator:", error);
+      });
+  }
 }
 
 /**
  * Initialize low priority components
- * 
+ *
  * These components are non-critical and can wait until the browser is idle.
  * They run when browser has spare capacity.
- * 
+ *
  * @returns {void}
  */
 function initLowPriority() {
-  // Initialize search functionality
-  initSearch();
+  // Initialize search functionality (only if search input exists)
+  if (document.querySelector("#search-input")) {
+    import("./components/search.js")
+      .then((module) => {
+        trackPerformance("search", module.initSearch);
+      })
+      .catch((error) => {
+        console.error("Failed to load search:", error);
+      });
+  }
 
   // Add entrance animations
-  setupAnimations();
+  trackPerformance("animations", setupAnimations);
 
   // Set up event delegation for common interactions
-  setupEventDelegation();
+  trackPerformance("eventDelegation", setupEventDelegation);
 
   // Initialize code highlighting for blog posts
-  initCodeHighlight();
+  if (document.querySelector("pre code")) {
+    import("./components/code-highlight.js")
+      .then((module) => {
+        trackPerformance("codeHighlight", module.initCodeHighlight);
+      })
+      .catch((error) => {
+        console.error("Failed to load code highlighter:", error);
+      });
+  }
 
   // Initialize static fallbacks for dynamic content
-  initStaticFallbacks();
+  import("./components/static-fallbacks.js")
+    .then((module) => {
+      trackPerformance("staticFallbacks", module.initStaticFallbacks);
+    })
+    .catch((error) => {
+      console.error("Failed to load static fallbacks:", error);
+    });
+}
+
+/**
+ * Register the service worker for caching and offline support
+ */
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => {
+          console.log("Service Worker registered with scope:", registration.scope);
+        })
+        .catch((error) => {
+          console.error("Service Worker registration failed:", error);
+        });
+    });
+  }
 }
 
 /**
  * Shows the page loader during initialization
- * 
+ *
  * Creates a loading indicator and appends it to the document body
  * if it doesn't already exist.
- * 
+ *
  * @returns {void}
  */
 function showPageLoader() {
@@ -152,7 +308,7 @@ function showPageLoader() {
 
 /**
  * Hides the page loader with a transition effect
- * 
+ *
  * @returns {void}
  */
 function hidePageLoader() {
@@ -160,7 +316,7 @@ function hidePageLoader() {
   if (pageLoader) {
     // Add class for fade-out transition
     pageLoader.classList.add("page-loader-hidden");
-    
+
     // Remove from DOM after transition completes
     setTimeout(() => {
       pageLoader.remove();
@@ -170,10 +326,10 @@ function hidePageLoader() {
 
 /**
  * Sets up accessibility features
- * 
+ *
  * This includes skip links, proper ARIA attributes, and other
  * enhancements for screen readers and keyboard navigation.
- * 
+ *
  * @returns {void}
  */
 function setupAccessibility() {
@@ -204,10 +360,10 @@ function setupAccessibility() {
 
 /**
  * Sets up responsive layout adjustments
- * 
+ *
  * Handles any dynamic layout changes based on viewport size
  * or device capabilities.
- * 
+ *
  * @returns {void}
  */
 function setupResponsiveLayout() {
@@ -218,10 +374,10 @@ function setupResponsiveLayout() {
 
 /**
  * Sets up scroll-based effects
- * 
+ *
  * Initializes components and effects that respond to page scrolling,
  * such as the back-to-top button and scroll animations.
- * 
+ *
  * @returns {void}
  */
 function setupScrollEffects() {
@@ -253,10 +409,10 @@ function setupScrollEffects() {
 
 /**
  * Sets up animations for visible elements
- * 
+ *
  * Uses IntersectionObserver to trigger animations when elements
  * enter the viewport, with a fallback for older browsers.
- * 
+ *
  * @returns {void}
  */
 function setupAnimations() {
@@ -276,7 +432,7 @@ function setupAnimations() {
       },
       {
         rootMargin: "50px", // Start animation slightly before element enters viewport
-        threshold: 0.1,     // Trigger when at least 10% of element is visible
+        threshold: 0.1, // Trigger when at least 10% of element is visible
       }
     );
 
@@ -302,7 +458,7 @@ function setupAnimations() {
 
 /**
  * Animates a specific element with fade and slide effects
- * 
+ *
  * @param {Element} el - Element to animate
  * @param {number} index - Optional index for staggered animations
  * @returns {void}
@@ -310,17 +466,17 @@ function setupAnimations() {
 function animateElement(el, index = 0) {
   // Set initial invisible state
   el.style.opacity = "0";
-  
+
   // Apply animations with CSS
   el.style.animation = `fadeIn 0.6s ease-out forwards, slideUp 0.6s ease-out forwards`;
-  
+
   // Stagger animation timing based on index
   el.style.animationDelay = `${0.05 + index * 0.05}s`;
 }
 
 /**
  * Animates all elements (fallback for older browsers)
- * 
+ *
  * @returns {void}
  */
 function animateAllElements() {
@@ -338,7 +494,7 @@ function animateAllElements() {
     elements.forEach((el, i) => {
       // Set initial invisible state
       el.style.opacity = "0";
-      
+
       // Apply animations with staggered timing
       el.style.animation = `fadeIn 0.5s ease-out forwards, slideUp 0.5s ease-out forwards`;
       el.style.animationDelay = `${0.05 + i * 0.05}s`;
@@ -348,10 +504,10 @@ function animateAllElements() {
 
 /**
  * Sets up event delegation for common interactions
- * 
+ *
  * Uses event bubbling to efficiently handle events on multiple elements
  * without attaching individual event listeners.
- * 
+ *
  * @returns {void}
  */
 function setupEventDelegation() {
@@ -366,17 +522,17 @@ function setupEventDelegation() {
         window.location.href = postLink;
       }
     }
-    
+
     // Additional delegated event handlers can be added here
   });
 }
 
 /**
  * Polyfill for requestIdleCallback
- * 
+ *
  * Provides a fallback implementation for browsers that don't support
  * the requestIdleCallback API.
- * 
+ *
  * @type {Function}
  */
 const requestIdleCallback =
