@@ -93,6 +93,8 @@ function processLinks() {
       gaming: "Gaming",
     };
 
+    console.log("Starting to process links");
+
     // Check for modular config first
     const linksPath = path.join(__dirname, "config", "links");
     if (fs.existsSync(linksPath)) {
@@ -200,6 +202,19 @@ function buildSiteConfiguration() {
           Object.assign(config.homepage, fileData);
         }
       }
+
+      // Load social media configuration
+      const socialPath = path.join(configDirPath, "social");
+      if (fs.existsSync(socialPath)) {
+        const socialMediaPath = path.join(socialPath, "social_media.json");
+        if (fs.existsSync(socialMediaPath)) {
+          const socialData = readJsonFile(socialMediaPath);
+          if (socialData.social_media && Array.isArray(socialData.social_media)) {
+            config.social_media = socialData.social_media;
+            console.log(`Loaded ${config.social_media.length} social media links`);
+          }
+        }
+      }
     }
 
     // Fall back to site.json.backup for missing sections
@@ -232,6 +247,14 @@ function buildSiteConfiguration() {
       // Copy blog settings if missing
       if (!config.blog && siteData.blog) {
         config.blog = siteData.blog;
+      }
+
+      // Copy social media settings if missing
+      if (!config.social_media && siteData.social_media) {
+        config.social_media = siteData.social_media;
+        console.log(
+          `Loaded ${config.social_media.length} social media links from backup`
+        );
       }
     }
 
@@ -269,6 +292,7 @@ function buildSiteConfiguration() {
       url: "https://williamzujkowski.github.io",
       linkGroups: [],
       links: [],
+      social_media: [],
     };
   }
 }
@@ -276,7 +300,7 @@ function buildSiteConfiguration() {
 // Build the site configuration
 const siteConfig = buildSiteConfiguration();
 console.log(
-  `Site config built with ${siteConfig.linkGroups?.length || 0} link groups and ${siteConfig.links?.length || 0} links`
+  `Site config built with ${siteConfig.linkGroups?.length || 0} link groups, ${siteConfig.links?.length || 0} links, and ${siteConfig.social_media?.length || 0} social media links`
 );
 
 /**
