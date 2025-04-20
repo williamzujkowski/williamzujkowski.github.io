@@ -295,14 +295,36 @@ async function findLatestCriticalCVE() {
     // Get current date
     const now = new Date();
     
-    // Format date 30 days ago as YYYY-MM-DD for NVD API
-    const thirtyDaysAgo = new Date(now);
-    thirtyDaysAgo.setDate(now.getDate() - 30);
-    const pubStartDate = format(thirtyDaysAgo, 'yyyy-MM-dd');
+    // Get max vulnerability age from config or default to 30 days
+    const maxVulnerabilityAgeDays = parseInt(process.env.MAX_VULNERABILITY_AGE_DAYS || '30', 10);
+    
+    // Format date N days ago as YYYY-MM-DD for NVD API
+    const startDate = new Date(now);
+    startDate.setDate(now.getDate() - maxVulnerabilityAgeDays);
+    const pubStartDate = format(startDate, 'yyyy-MM-dd');
+    
+    // Set up headers with API key if available
+    const headers = {
+      'User-Agent': 'William Zujkowski Blog Vulnerability Analyzer'
+    };
+    
+    // Add NVD API key if available
+    if (process.env.NVD_API_KEY) {
+      console.log("Using NVD API key for higher rate limits");
+      headers['apiKey'] = process.env.NVD_API_KEY;
+    }
+    
+    // Get max vulnerability age from config or default to 30 days
+    const maxVulnerabilityAgeDays = parseInt(process.env.MAX_VULNERABILITY_AGE_DAYS || '30', 10);
+    
+    // Get minimum CVSS score from config or default to 9.0 (Critical)
+    const minCvssScore = parseFloat(process.env.MIN_CVSS_SCORE || '9.0');
+    
+    console.log(`Searching for vulnerabilities from the last ${maxVulnerabilityAgeDays} days with CVSS score >= ${minCvssScore}`);
     
     // Fetch data from NVD API with filters:
-    // - Published in the last 30 days
-    // - CVSS v3 score >= 9.0 (Critical severity)
+    // - Published in the configured time period
+    // - CVSS v3 score >= configured minimum (default: Critical severity)
     // - Sort by publishDate descending to get newest first
     const response = await axios.get('https://services.nvd.nist.gov/rest/json/cves/2.0', {
       params: {
@@ -310,9 +332,7 @@ async function findLatestCriticalCVE() {
         cvssV3Severity: 'CRITICAL',
         resultsPerPage: 5
       },
-      headers: {
-        'User-Agent': 'William Zujkowski Blog Vulnerability Analyzer'
-      }
+      headers
     });
     
     // Check if we have results
@@ -325,16 +345,14 @@ async function findLatestCriticalCVE() {
     }
     
     // If no critical vulnerabilities found, try with high severity
-    console.log("No critical vulnerabilities found in the last 30 days. Trying high severity...");
+    console.log("No critical vulnerabilities found. Trying with high severity...");
     const highSeverityResponse = await axios.get('https://services.nvd.nist.gov/rest/json/cves/2.0', {
       params: {
         pubStartDate,
         cvssV3Severity: 'HIGH',
         resultsPerPage: 5
       },
-      headers: {
-        'User-Agent': 'William Zujkowski Blog Vulnerability Analyzer'
-      }
+      headers
     });
     
     if (highSeverityResponse.data && 
