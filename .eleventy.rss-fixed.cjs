@@ -188,11 +188,15 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(navigationPlugin);
   eleventyConfig.addPlugin(syntaxHighlight);
 
-  // Add a transform to fix the RSS feed
+  // Add a custom transformer to fix the feed.xml output
   eleventyConfig.addTransform("fixRssFeed", function (content, outputPath) {
     if (outputPath && outputPath.endsWith("/feed.xml")) {
-      console.log("Fixing RSS feed author tag format...");
-      return content.replace(/<n>([^<]+)<\/n>/g, "<name>$1</name>");
+      console.log("Applying RSS feed fixes...");
+
+      // Fix the author tag from <n> to <name>
+      content = content.replace(/<n>([^<]+)<\/n>/g, "<name>$1</name>");
+
+      return content;
     }
     return content;
   });

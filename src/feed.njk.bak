@@ -9,17 +9,14 @@ eleventyExcludeFromCollections: true
   <subtitle>{{ site.description }}</subtitle>
   <link href="{{ site.url }}/feed.xml" rel="self" />
   <link href="{{ site.url }}" />
-  <updated
-    >{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339
-    }}</updated
-  >
+  <updated>{{ collections.posts  < /dev/null |  getNewestCollectionItemDate | dateToRfc3339 }}</updated>
   <id>{{ site.url }}</id>
   <author>
     <name>{{ site.author }}</name>
     <email>{{ site.email }}</email>
   </author>
-  {%- for post in collections.posts | reverse %} {% set absolutePostUrl %}{{
-  site.url }}{{ post.url }}{% endset %}
+  {%- for post in collections.posts | reverse %} {% set absolutePostUrl %}{{ site.url
+  }}{{ post.url }}{% endset %}
   <entry>
     <title>{{ post.data.title }}</title>
     <link href="{{ absolutePostUrl }}" />

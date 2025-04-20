@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JokeAPI Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #joke-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        #joke-setup {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #joke-delivery {
+            font-style: italic;
+            color: #555;
+        }
+        #joke-single {
+            margin-bottom: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            overflow: auto;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JokeAPI Test</h1>
+    <p>This is a simple test to check if JokeAPI is working properly and how the response is structured.</p>
+
+    <div id="joke-container">
+        <div id="joke-setup"></div>
+        <div id="joke-delivery"></div>
+        <div id="joke-single"></div>
+    </div>
+
+    <button id="fetch-joke">Fetch Joke</button>
+    <button id="fetch-fallback">Use Fallback</button>
+
+    <h2>API Response</h2>
+    <pre id="api-response">No response yet...</pre>
+
+    <script>
+        const jokeSetup = document.getElementById("joke-setup");
+        const jokeDelivery = document.getElementById("joke-delivery");
+        const jokeSingle = document.getElementById("joke-single");
+        const apiResponse = document.getElementById("api-response");
+        const fetchButton = document.getElementById("fetch-joke");
+        const fallbackButton = document.getElementById("fetch-fallback");
+
+        // Fallback jokes
+        const fallbackJokes = [
+            {
+                type: "twopart",
+                setup: "Why do programmers prefer dark mode?",
+                delivery: "Because light attracts bugs!"
+            },
+            {
+                type: "twopart",
+                setup: "Why do Java developers wear glasses?",
+                delivery: "Because they can't C#!"
+            },
+            {
+                type: "single",
+                joke: "There are 10 types of people in this world: those who understand binary and those who don't."
+            }
+        ];
+
+        function displayJoke(joke) {
+            if (joke.type === "twopart") {
+                jokeSetup.textContent = joke.setup;
+                jokeDelivery.textContent = joke.delivery;
+                jokeSingle.textContent = "";
+            } else {
+                jokeSetup.textContent = "";
+                jokeDelivery.textContent = "";
+                jokeSingle.textContent = joke.joke;
+            }
+        }
+
+        function fetchJoke() {
+            jokeSetup.textContent = "Loading...";
+            jokeDelivery.textContent = "";
+            jokeSingle.textContent = "";
+            apiResponse.textContent = "Fetching...";
+
+            fetch("https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("API response was not ok: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Display the joke
+                    displayJoke(data);
+
+                    // Show the response
+                    apiResponse.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    jokeSetup.textContent = "Error: " + error.message;
+                    apiResponse.textContent = "Error: " + error.message;
+                    console.error("Error fetching joke:", error);
+                });
+        }
+
+        function useFallback() {
+            const randomIndex = Math.floor(Math.random() * fallbackJokes.length);
+            const joke = fallbackJokes[randomIndex];
+
+            displayJoke(joke);
+            apiResponse.textContent = "Using fallback joke:\n" + JSON.stringify(joke, null, 2);
+        }
+
+        // Add event listeners
+        fetchButton.addEventListener("click", fetchJoke);
+        fallbackButton.addEventListener("click", useFallback);
+
+        // Initial joke fetch
+        fetchJoke();
+    </script>
+</body>
+</html>
