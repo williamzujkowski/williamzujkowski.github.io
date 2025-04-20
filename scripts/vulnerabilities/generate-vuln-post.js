@@ -100,14 +100,67 @@ async function getVulnerabilityData(cveId) {
     if (mitreData) {
       console.log(`Successfully fetched MITRE data for ${cveId}`);
 
-      // Convert MITRE data to a format similar to NVD
-      const description =
-        mitreData.containers?.cna?.descriptions?.find((d) => d.lang === "en")?.value ||
-        "";
+      // Convert processed MITRE data to a format similar to NVD
+      const description = mitreData.description || "";
+      
+      // Build metrics if available in MITRE data
+      let metrics = {};
+      if (mitreData.metrics && mitreData.metrics.length > 0) {
+        const mitreMetric = mitreData.metrics[0]; // Use the first metric
+        metrics = {
+          cvssMetricV31: [{
+            cvssData: {
+              baseScore: mitreMetric.baseScore,
+              baseSeverity: mitreMetric.baseSeverity,
+              vectorString: mitreMetric.vectorString
+            }
+          }]
+        };
+      }
+      
+      // Build weaknesses from problem types
+      const weaknesses = mitreData.problemTypes.length > 0 ? [
+        {
+          description: mitreData.problemTypes.map(pt => ({
+            lang: "en",
+            value: pt
+          }))
+        }
+      ] : [];
+      
+      // Build configurations from product data
+      const configurations = [];
+      if (mitreData.vendorData && mitreData.vendorData.products.length > 0) {
+        const cpeMatches = [];
+        mitreData.vendorData.products.forEach(product => {
+          if (product.versions && product.versions.length > 0) {
+            product.versions.forEach(ver => {
+              const cpe = `cpe:2.3:a:${mitreData.vendorData.vendor}:${product.name}:${ver.version}:*:*:*:*:*:*:*`;
+              cpeMatches.push({
+                criteria: cpe,
+                criteriaSpecificaton: `${product.name} ${ver.version}`
+              });
+            });
+          } else {
+            // Add product without version info
+            const cpe = `cpe:2.3:a:${mitreData.vendorData.vendor}:${product.name}:*:*:*:*:*:*:*:*`;
+            cpeMatches.push({
+              criteria: cpe,
+              criteriaSpecificaton: product.name
+            });
+          }
+        });
+        
+        if (cpeMatches.length > 0) {
+          configurations.push({
+            nodes: [{ cpeMatch: cpeMatches }]
+          });
+        }
+      }
 
-      // Build a basic NVD-like structure with the information from MITRE
+      // Build a NVD-like structure with the processed MITRE data
       return {
-        id: mitreData.cveMetadata?.cveId,
+        id: mitreData.cveId,
         descriptions: [
           {
             lang: "en",
@@ -115,10 +168,12 @@ async function getVulnerabilityData(cveId) {
           },
         ],
         vulnStatus: "Modified",
-        references:
-          mitreData.containers?.cna?.references?.map((ref) => ({ url: ref.url })) || [],
-        metrics: {}, // No metrics available from MITRE
-        weaknesses: [], // No weaknesses available from MITRE
+        references: mitreData.references.map(ref => ({ url: ref.url })) || [],
+        metrics: metrics,
+        weaknesses: weaknesses,
+        configurations: configurations,
+        published: mitreData.datePublished,
+        lastModified: mitreData.dateUpdated
       };
     }
 
@@ -171,7 +226,38 @@ async function getMitreCveData(cveId) {
     });
 
     if (response.data && response.data.cveMetadata) {
-      return response.data;
+      const data = response.data;
+      
+      // Process and enrich the data
+      const processed = {
+        raw: data,
+        cveId: data.cveMetadata?.cveId,
+        state: data.cveMetadata?.state,
+        assigner: data.cveMetadata?.assignerShortName,
+        datePublished: data.cveMetadata?.datePublished,
+        dateUpdated: data.cveMetadata?.dateUpdated,
+        description: data.containers?.cna?.descriptions?.find(d => d.lang === 'en')?.value || '',
+        
+        // Extract affected products and versions
+        affected: data.containers?.cna?.affected || [],
+        
+        // Get references
+        references: data.containers?.cna?.references || [],
+        
+        // Get problem types (CWEs)
+        problemTypes: extractProblemTypes(data),
+        
+        // Get metrics if available
+        metrics: extractMetrics(data),
+        
+        // Get vendor information
+        vendorData: {
+          vendor: data.containers?.cna?.affected?.[0]?.vendor || 'Unknown',
+          products: extractProducts(data)
+        }
+      };
+      
+      return processed;
     } else {
       console.log(`No data found in MITRE API for ${cveId}`);
       return null;
@@ -180,6 +266,82 @@ async function getMitreCveData(cveId) {
     console.error("Error fetching data from MITRE API:", error.message);
     return null;
   }
+}
+
+// Helper function to extract problem types (CWEs) from MITRE data
+function extractProblemTypes(data) {
+  if (!data.containers?.cna?.problemTypes) {
+    return [];
+  }
+  
+  const problemTypes = [];
+  
+  data.containers.cna.problemTypes.forEach(pt => {
+    if (pt.descriptions) {
+      pt.descriptions.forEach(desc => {
+        if (desc.description) {
+          problemTypes.push(desc.description);
+        }
+      });
+    }
+  });
+  
+  return problemTypes;
+}
+
+// Helper function to extract metrics from MITRE data
+function extractMetrics(data) {
+  if (!data.containers?.cna?.metrics) {
+    return null;
+  }
+  
+  const metrics = [];
+  
+  data.containers.cna.metrics.forEach(metric => {
+    if (metric.cvssV3_1 || metric.cvssV3_0) {
+      metrics.push({
+        type: metric.cvssV3_1 ? 'CVSS v3.1' : 'CVSS v3.0',
+        baseScore: metric.cvssV3_1?.baseScore || metric.cvssV3_0?.baseScore,
+        baseSeverity: metric.cvssV3_1?.baseSeverity || metric.cvssV3_0?.baseSeverity,
+        vectorString: metric.cvssV3_1?.vectorString || metric.cvssV3_0?.vectorString,
+      });
+    }
+  });
+  
+  return metrics.length > 0 ? metrics : null;
+}
+
+// Helper function to extract product information
+function extractProducts(data) {
+  if (!data.containers?.cna?.affected) {
+    return [];
+  }
+  
+  const products = [];
+  
+  data.containers.cna.affected.forEach(affected => {
+    if (affected.product) {
+      const product = {
+        name: affected.product,
+        versions: []
+      };
+      
+      if (affected.versions) {
+        affected.versions.forEach(version => {
+          product.versions.push({
+            version: version.version,
+            status: version.status || 'affected',
+            lessThan: version.lessThan || null,
+            versionType: version.versionType || 'unknown'
+          });
+        });
+      }
+      
+      products.push(product);
+    }
+  });
+  
+  return products;
 }
 
 // Function to get exploit information from Exploit-DB
@@ -661,22 +823,54 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData) {
   console.log(`Using minimal data creation for ${cveId}`);
 
   // Extract whatever information we can from MITRE data
-  let description =
-    fallbackVulnData.descriptions.find((d) => d.lang === "en")?.value || "";
+  let description = fallbackVulnData.descriptions.find((d) => d.lang === "en")?.value || "";
   let references = [];
+  let cvssScore = "Unknown";
+  let cvssVector = "Unknown";
+  let severityRating = "Unknown";
+  let cweId = "Unknown";
+  let affectedSoftware = "Unknown";
+  let affectedVersions = "Unknown";
+  let vulnName = cveId;
 
   if (mitreCveData) {
-    // Override description with MITRE data if available
-    const mitreDescription = mitreCveData.containers?.cna?.descriptions?.find(
-      (d) => d.lang === "en"
-    )?.value;
-    if (mitreDescription) {
-      description = mitreDescription;
+    // Use MITRE data to populate as many fields as possible
+    description = mitreCveData.description || description;
+    references = mitreCveData.references?.map(ref => ref.url) || [];
+    
+    // Use MITRE metrics if available
+    if (mitreCveData.metrics && mitreCveData.metrics.length > 0) {
+      const metric = mitreCveData.metrics[0];
+      cvssScore = metric.baseScore || "Unknown";
+      cvssVector = metric.vectorString || "Unknown";
+      severityRating = metric.baseSeverity || "Unknown";
     }
-
-    // Get references from MITRE if available
-    if (mitreCveData.containers?.cna?.references) {
-      references = mitreCveData.containers.cna.references.map((ref) => ref.url);
+    
+    // Use MITRE problem types for CWE
+    if (mitreCveData.problemTypes && mitreCveData.problemTypes.length > 0) {
+      cweId = mitreCveData.problemTypes[0] || "Unknown";
+    }
+    
+    // Use MITRE product information
+    if (mitreCveData.vendorData && mitreCveData.vendorData.products.length > 0) {
+      const products = mitreCveData.vendorData.products.map(p => p.name);
+      affectedSoftware = products.join(", ") || "Unknown";
+      
+      // Try to get version information
+      const allVersions = [];
+      mitreCveData.vendorData.products.forEach(p => {
+        if (p.versions && p.versions.length > 0) {
+          const versions = p.versions.map(v => `${p.name} ${v.version}`);
+          allVersions.push(...versions);
+        }
+      });
+      
+      affectedVersions = allVersions.join(", ") || "Unknown";
+      
+      // Use the first product as the vulnerability name if available
+      if (products.length > 0) {
+        vulnName = `${cveId} (${products[0]})`;
+      }
     }
   }
 
@@ -686,23 +880,25 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData) {
   // Set default values for minimal data
   return {
     CVE_ID: cveId,
-    VULN_NAME: cveId,
-    CVSS_SCORE: "Unknown",
-    CVSS_VECTOR: "Unknown",
-    SEVERITY_RATING: "Unknown",
-    AFFECTED_SOFTWARE: "Unknown",
-    AFFECTED_VERSIONS: "Unknown",
+    VULN_NAME: vulnName,
+    CVSS_SCORE: cvssScore,
+    CVSS_VECTOR: cvssVector,
+    SEVERITY_RATING: severityRating,
+    AFFECTED_SOFTWARE: affectedSoftware,
+    AFFECTED_VERSIONS: affectedVersions,
     VULN_SUMMARY: description,
     TECHNICAL_DETAILS: description,
     POC_INFO: "No public POC information available.",
-    IMPACT_ANALYSIS:
-      "Impact analysis could not be determined due to limited information.",
+    IMPACT_ANALYSIS: 
+      cvssScore !== "Unknown" 
+        ? `This vulnerability has a CVSS score of ${cvssScore} (${severityRating}), indicating significant impact potential.`
+        : "Impact analysis could not be determined due to limited information.",
     MITIGATION_GUIDANCE:
-      "Follow standard security practices. Monitor vendor advisories for patches and updates.",
+      "Follow standard security practices. Update affected software to the latest versions when available. Monitor vendor advisories for patches and workarounds.",
     REFERENCE_URLS: references.join("\n") || "No references available.",
     IS_KEV: isKev,
     EXPLOIT_STATUS: "Unknown",
-    CWE_ID: "Unknown",
+    CWE_ID: cweId,
     THREAT_ACTORS: "No known threat actor associations at this time.",
     AWS_IMPACT:
       "Impact on AWS services could not be determined due to limited information.",
