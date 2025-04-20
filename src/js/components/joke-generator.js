@@ -4,7 +4,10 @@
  * Enhanced with debug logging and more robust fallback mechanism
  */
 
-import { $ } from "../utils/dom.js";
+// Use a more robust selector for compatibility
+function $(selector) {
+  return document.querySelector(selector);
+}
 
 export function initJokeGenerator() {
   // Add debug message to verify component is being loaded

@@ -769,41 +769,69 @@ eleventyNavigation:
     </div>
   </div>
 
-  <!-- Additional script for mobile joke functionality -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Set a direct fallback joke if the container is empty after 2 seconds
-      setTimeout(function() {
-        const mobileJokeSetup = document.getElementById('mobile-joke-setup');
-        const mobileJokeDelivery = document.getElementById('mobile-joke-delivery');
-        const mobileJokeSingle = document.getElementById('mobile-joke-single');
+  <!-- Direct joke module loading for mobile -->
+  <script type="module">
+    // Try direct module import for faster joke loading
+    document.addEventListener('DOMContentLoaded', async function() {
+      try {
+        // First attempt with absolute path
+        const jokeModule = await import('/js/components/joke-generator.js');
+        console.log("Mobile joke module loaded successfully via direct import");
 
-        // Check if the joke containers are empty
-        const isEmpty = (!mobileJokeSetup || !mobileJokeSetup.textContent) &&
-                        (!mobileJokeDelivery || !mobileJokeDelivery.textContent) &&
-                        (!mobileJokeSingle || !mobileJokeSingle.textContent);
-
-        if (isEmpty) {
-          console.log("Applying emergency mobile joke fallback");
-          // Use a fallback joke
-          const fallbackJoke = {
-            type: "twopart",
-            setup: "Why do programmers prefer dark mode?",
-            delivery: "Because light attracts bugs!"
-          };
-
-          if (mobileJokeSetup) mobileJokeSetup.textContent = fallbackJoke.setup;
-          if (mobileJokeDelivery) mobileJokeDelivery.textContent = fallbackJoke.delivery;
+        if (typeof jokeModule.initJokeGenerator === 'function') {
+          jokeModule.initJokeGenerator();
+        } else {
+          throw new Error("initJokeGenerator function not found");
         }
-      }, 2000);
+      } catch (error) {
+        console.warn("Direct module import failed for joke generator:", error);
+
+        // Fallback to relative path
+        try {
+          const fallbackModule = await import('/js/components/joke-generator.bundle.js');
+          console.log("Mobile joke module loaded from bundle");
+
+          if (typeof fallbackModule.initJokeGenerator === 'function') {
+            fallbackModule.initJokeGenerator();
+          }
+        } catch (fallbackError) {
+          console.error("All module import attempts failed:", fallbackError);
+
+          // Last resort fallback
+          setTimeout(function() {
+            console.log("Using emergency fallback joke");
+            const mobileJokeSetup = document.getElementById('mobile-joke-setup');
+            const mobileJokeDelivery = document.getElementById('mobile-joke-delivery');
+
+            if (mobileJokeSetup && !mobileJokeSetup.textContent) {
+              mobileJokeSetup.textContent = "Why do programmers prefer dark mode?";
+              if (mobileJokeDelivery) {
+                mobileJokeDelivery.textContent = "Because light attracts bugs!";
+              }
+
+              // Set up click handler for new joke button manually
+              const mobileNewJokeBtn = document.getElementById('mobile-new-joke-btn');
+              if (mobileNewJokeBtn) {
+                mobileNewJokeBtn.addEventListener('click', function() {
+                  if (window.fetchJokeRefresh) {
+                    window.fetchJokeRefresh();
+                  }
+                });
+              }
+            }
+          }, 1000);
+        }
+      }
     });
 
-    // Refresh joke on page reload for mobile
+    // Always try to refresh joke on page reload
     window.addEventListener('pageshow', function(event) {
-      // Try to call fetchJoke if it's available
-      if (window.fetchJokeRefresh) {
-        window.fetchJokeRefresh();
-      }
+      setTimeout(function() {
+        if (window.fetchJokeRefresh) {
+          console.log("Refreshing joke on pageshow event");
+          window.fetchJokeRefresh();
+        }
+      }, 500); // Short delay to ensure everything is loaded
     });
   </script>
 

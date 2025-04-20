@@ -210,13 +210,34 @@ function initMediumPriority() {
   trackPerformance("scrollEffects", setupScrollEffects);
 
   // Initialize joke generator (content enhancement) - using dynamic import
-  if (document.querySelector("#joke-container")) {
-    import("./components/joke-generator.js")
+  if (
+    document.querySelector("#joke-container") ||
+    document.querySelector("#mobile-joke-container")
+  ) {
+    // Use an absolute module specifier to ensure consistent loading
+    import("/js/components/joke-generator.js")
       .then((module) => {
-        trackPerformance("jokeGenerator", module.initJokeGenerator);
+        console.log("Successfully loaded joke generator module");
+        if (typeof module.initJokeGenerator === "function") {
+          trackPerformance("jokeGenerator", module.initJokeGenerator);
+        } else {
+          console.error("initJokeGenerator function not found in module");
+        }
       })
       .catch((error) => {
         console.error("Failed to load joke generator:", error);
+
+        // Attempt to load using another path if the first one fails
+        import("./components/joke-generator.js")
+          .then((module) => {
+            console.log("Successfully loaded joke generator from alternate path");
+            if (typeof module.initJokeGenerator === "function") {
+              trackPerformance("jokeGenerator", module.initJokeGenerator);
+            }
+          })
+          .catch((fallbackError) => {
+            console.error("All attempts to load joke generator failed:", fallbackError);
+          });
       });
   }
 }
