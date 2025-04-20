@@ -4,6 +4,13 @@ _site/
 # package-lock.json is now required for npm ci
 .DS_Store
 
+# Environment variables and secrets
+.env
+**/.env
+**/env/
+.env.*
+!.env.sample
+
 # Keep link preview data but ignore temp working files
 _data/temp/
 _data/link-validation-results.json
