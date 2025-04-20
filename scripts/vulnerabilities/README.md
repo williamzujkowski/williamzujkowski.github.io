@@ -9,6 +9,13 @@ This directory contains tools to automatically generate vulnerability analysis b
   - OpenAI GPT-4 Turbo
   - Google Gemini 2.0 Flash
   - Anthropic Claude 3 Opus
+- Integration with multiple security data sources:
+  - National Vulnerability Database (NVD)
+  - MITRE CVE Program
+  - CISA Known Exploited Vulnerabilities (KEV) catalog
+  - SANS Internet Storm Center
+  - Exploit-DB
+  - AlienVault OTX (threat intelligence)
 - Focus on cloud-relevant security issues
 - Include threat actor information when available
 - Maintain a regular posting schedule (maximum once daily, minimum weekly rollup)
@@ -29,9 +36,15 @@ This directory contains tools to automatically generate vulnerability analysis b
    cp .env.sample .env
    ```
 
-3. Edit `.env` and add your OpenAI API key.
+3. Edit `.env` and add your preferred LLM provider API key and any optional security data source API keys. See [DATA_SOURCES.md](./DATA_SOURCES.md) and [API_KEYS.md](./API_KEYS.md) for details.
 
-4. (Optional) Set up the daily cron job:
+4. Test your data source configuration:
+
+   ```
+   npm run test:sources
+   ```
+
+5. (Optional) Set up the daily cron job:
    ```
    ./setup-cron.sh
    ```
@@ -68,25 +81,41 @@ node schedule-posts.js
 
 Or automatically via the installed cron job, which runs daily and determines whether a new post should be generated based on the configured frequency.
 
-### Testing LLM Providers
+### Testing Integrations
+
+#### LLM Provider Testing
 
 To test your LLM provider configuration:
 
 ```
 # Test OpenAI configuration
-npm run test-openai
+npm run test:openai
 
 # Test Gemini configuration
-npm run test-gemini
+npm run test:gemini
 
 # Test Claude configuration
-npm run test-claude
+npm run test:claude
 
 # Test all providers
-npm run test-models
+npm run test:llm
 ```
 
 These tests will send a simple prompt to the specified LLM provider(s) and display the response, allowing you to verify your API keys and compare the output quality between providers.
+
+#### Data Source Testing
+
+To test your data source integrations:
+
+```
+# Test with default CVE
+npm run test:sources
+
+# Test with specific CVE
+npm run test:sources -- --cve CVE-2023-46604
+```
+
+This will check each configured data source and display the information retrieved, helping you verify API keys and connectivity.
 
 You can also run the test workflow in GitHub Actions to verify your API key setup in the repository secrets.
 
