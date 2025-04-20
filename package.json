@@ -66,7 +66,8 @@
     "test:openai": "cd scripts/vulnerabilities && node test-models.js --provider openai",
     "test:gemini": "cd scripts/vulnerabilities && node test-models.js --provider gemini",
     "test:claude": "cd scripts/vulnerabilities && node test-models.js --provider claude",
-    "test:llm": "cd scripts/vulnerabilities && node test-models.js --provider all"
+    "test:llm": "cd scripts/vulnerabilities && node test-models.js --provider all",
+    "test:sources": "cd scripts/vulnerabilities && node test-data-sources.js"
   },
   "keywords": [],
   "author": "William Zujkowski",
@@ -97,6 +98,7 @@
     "jsdom": "^24.0.0",
     "lighthouse": "^12.5.1",
     "luxon": "^3.4.4",
+    "lru-cache": "^10.2.0",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "metascraper": "^5.46.11",
@@ -117,6 +119,7 @@
     "postcss-cli": "^11.0.1",
     "prettier": "^3.5.3",
     "puppeteer": "^24.6.0",
+    "rimraf": "^5.0.5",
     "rollup": "^4.40.0",
     "rollup-plugin-visualizer": "^5.12.0",
     "sharp": "^0.33.4",
