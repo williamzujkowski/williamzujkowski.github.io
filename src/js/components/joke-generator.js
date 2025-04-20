@@ -144,17 +144,10 @@ export function initJokeGenerator() {
   function fetchJoke() {
     console.log("Fetching joke at:", new Date().toISOString());
 
-    // Immediate fallback to ensure something shows up quickly
-    const quickFallbackJoke = getRandomFallbackJoke();
-
     // Show loading on desktop view if elements exist
     if (jokeSetup) showLoading();
     // Show loading on mobile view if elements exist
     if (mobileJokeSetup) showMobileLoading();
-
-    // Display fallback joke immediately to ensure something shows up
-    displayDesktopJoke(quickFallbackJoke);
-    displayMobileJoke(quickFallbackJoke);
 
     // Try the API to get a dynamic joke (will replace fallback if successful)
     const controller = new AbortController();
@@ -182,7 +175,10 @@ export function initJokeGenerator() {
       .catch((error) => {
         console.warn("API error, using fallback joke:", error.message);
 
-        // We already displayed a fallback joke immediately, so no need to do it again
+        // Use fallback joke if API fails
+        const fallbackJoke = getRandomFallbackJoke();
+        displayDesktopJoke(fallbackJoke);
+        displayMobileJoke(fallbackJoke);
       });
   }
 
@@ -223,4 +219,7 @@ if (typeof window !== "undefined") {
   setTimeout(() => {
     initJokeGenerator();
   }, 1000);
+
+  // Expose fetchJoke to window for page refresh
+  window.fetchJokeRefresh = fetchJoke;
 }

@@ -114,6 +114,7 @@ eleventyNavigation:
 
     <!-- Inline script to ensure joke loading -->
     <script>
+      // Fetch new joke on page load
       document.addEventListener('DOMContentLoaded', function() {
         // Import the joke generator module with a fallback
         import('/js/components/joke-generator.bundle.js')
@@ -170,6 +171,16 @@ eleventyNavigation:
               if (mobileJokeSingle) mobileJokeSingle.textContent = joke.joke;
             }
           });
+      });
+
+      // Refresh the joke when page is refreshed
+      window.addEventListener('pageshow', function(event) {
+        if (event.persisted) { // Page is loaded from cache
+          // Try to call fetchJoke if it's available
+          if (window.fetchJokeRefresh) {
+            window.fetchJokeRefresh();
+          }
+        }
       });
     </script>
 
@@ -785,6 +796,14 @@ eleventyNavigation:
           if (mobileJokeDelivery) mobileJokeDelivery.textContent = fallbackJoke.delivery;
         }
       }, 2000);
+    });
+
+    // Refresh joke on page reload for mobile
+    window.addEventListener('pageshow', function(event) {
+      // Try to call fetchJoke if it's available
+      if (window.fetchJokeRefresh) {
+        window.fetchJokeRefresh();
+      }
     });
   </script>
 
