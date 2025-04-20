@@ -148,22 +148,9 @@ export function initJokeGenerator() {
     jokeContainer.classList.remove("opacity-50");
     jokeContainer.classList.remove("pulse-animation");
 
-    // Add a brief fade-in effect
-    jokeContainer.classList.add("fade-in");
-    setTimeout(() => {
-      jokeContainer.classList.remove("fade-in");
-    }, 500);
-
     if (joke.type === "twopart") {
       jokeSetup.textContent = joke.setup;
-      // Slight delay for delivery for two-part jokes
-      setTimeout(() => {
-        jokeDelivery.textContent = joke.delivery;
-        jokeDelivery.classList.add("fade-in");
-        setTimeout(() => {
-          jokeDelivery.classList.remove("fade-in");
-        }, 500);
-      }, 800);
+      jokeDelivery.textContent = joke.delivery;
       jokeSingle.textContent = "";
     } else {
       jokeSetup.textContent = "";
@@ -172,9 +159,9 @@ export function initJokeGenerator() {
     }
 
     // Update the category display if available
-    const categorySpan = document.querySelector("#joke-container .text-text-secondary");
+    const categorySpan = document.querySelector("#joke-category");
     if (categorySpan && joke.category) {
-      categorySpan.textContent = joke.category;
+      categorySpan.textContent = joke.category + " Jokes";
     }
   }
 
@@ -186,22 +173,9 @@ export function initJokeGenerator() {
     mobileJokeContainer.classList.remove("opacity-50");
     mobileJokeContainer.classList.remove("pulse-animation");
 
-    // Add a brief fade-in effect
-    mobileJokeContainer.classList.add("fade-in");
-    setTimeout(() => {
-      mobileJokeContainer.classList.remove("fade-in");
-    }, 500);
-
     if (joke.type === "twopart") {
       mobileJokeSetup.textContent = joke.setup;
-      // Slight delay for delivery for two-part jokes
-      setTimeout(() => {
-        mobileJokeDelivery.textContent = joke.delivery;
-        mobileJokeDelivery.classList.add("fade-in");
-        setTimeout(() => {
-          mobileJokeDelivery.classList.remove("fade-in");
-        }, 500);
-      }, 800);
+      mobileJokeDelivery.textContent = joke.delivery;
       mobileJokeSingle.textContent = "";
     } else {
       mobileJokeSetup.textContent = "";
@@ -210,11 +184,9 @@ export function initJokeGenerator() {
     }
 
     // Update the category display if available
-    const categorySpan = document.querySelector(
-      "#mobile-joke-container .text-text-secondary"
-    );
+    const categorySpan = document.querySelector("#mobile-joke-category");
     if (categorySpan && joke.category) {
-      categorySpan.textContent = joke.category;
+      categorySpan.textContent = joke.category + " Jokes";
     }
   }
 
@@ -261,6 +233,10 @@ export function initJokeGenerator() {
 
   // Function to fetch a new joke
   function fetchJoke() {
+    // Make this function globally available for page refreshes
+    if (typeof window !== "undefined") {
+      window.fetchJokeRefresh = fetchJoke;
+    }
     console.log("Fetching joke at:", new Date().toISOString());
 
     // Show loading on desktop view if elements exist
@@ -385,6 +361,5 @@ if (typeof window !== "undefined") {
     initJokeGenerator();
   }, 1000);
 
-  // Expose fetchJoke to window for page refresh
-  window.fetchJokeRefresh = fetchJoke;
+  // We already exposed fetchJoke in the function definition
 }
