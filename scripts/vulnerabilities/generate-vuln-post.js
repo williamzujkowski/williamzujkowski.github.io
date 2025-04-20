@@ -807,6 +807,7 @@ function saveBlogPost(content, cveId, inputData) {
 
   // Add frontmatter
   const frontmatter = `---
+layout: post.njk
 title: "Vulnerability Analysis: ${cveId}"
 date: ${date}
 description: "${description}"
