@@ -1,0 +1,21 @@
+{
+  "name": "vulnerability-post-generator",
+  "version": "1.0.0",
+  "description": "Tools to generate vulnerability analysis blog posts",
+  "main": "schedule-posts.js",
+  "scripts": {
+    "generate": "node generate-vuln-post.js",
+    "schedule": "node schedule-posts.js",
+    "test-openai": "node test-models.js --provider openai",
+    "test-gemini": "node test-models.js --provider gemini",
+    "test-claude": "node test-models.js --provider claude",
+    "test-models": "node test-models.js --provider all"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.2.0",
+    "axios": "^1.6.2",
+    "commander": "^11.1.0",
+    "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1"
+  }
+}

@@ -59,7 +59,13 @@
     "verify:build": "node scripts/build/verify-build-config.js",
     "standardize:frontmatter": "node scripts/standardize-frontmatter.js",
     "convert:images": "node scripts/convert-image-tags.js",
-    "build:ci": "npm run build:data && eleventy --config=.eleventy.simple.cjs"
+    "build:ci": "npm run build:data && eleventy --config=.eleventy.simple.cjs",
+    "generate:vuln": "cd scripts/vulnerabilities && node generate-vuln-post.js",
+    "schedule:vuln": "cd scripts/vulnerabilities && node schedule-posts.js",
+    "test:openai": "cd scripts/vulnerabilities && node test-models.js --provider openai",
+    "test:gemini": "cd scripts/vulnerabilities && node test-models.js --provider gemini",
+    "test:claude": "cd scripts/vulnerabilities && node test-models.js --provider claude",
+    "test:llm": "cd scripts/vulnerabilities && node test-models.js --provider all"
   },
   "keywords": [],
   "author": "William Zujkowski",
@@ -118,4 +124,3 @@
     "terser": "^5.30.0",
     "xml2js": "^0.6.2"
   }
-}

@@ -1,0 +1,82 @@
+name: Test LLM Providers
+
+on:
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: 'Which LLM provider to test'
+        required: true
+        type: choice
+        options:
+          - all
+          - openai
+          - gemini
+          - claude
+        default: 'all'
+
+jobs:
+  test-llm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd scripts/vulnerabilities
+          npm install
+
+      - name: Test OpenAI
+        if: ${{ github.event.inputs.provider == 'all' || github.event.inputs.provider == 'openai' }}
+        run: npm run test:openai
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Test Gemini
+        if: ${{ github.event.inputs.provider == 'all' || github.event.inputs.provider == 'gemini' }}
+        run: npm run test:gemini
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+
+      - name: Test Claude
+        if: ${{ github.event.inputs.provider == 'all' || github.event.inputs.provider == 'claude' }}
+        run: npm run test:claude
+        env:
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+
+      - name: Check LLM providers status
+        run: |
+          echo "## LLM Providers Test Results" >> $GITHUB_STEP_SUMMARY
+
+          if [[ "${{ github.event.inputs.provider }}" == "all" || "${{ github.event.inputs.provider }}" == "openai" ]]; then
+            if [[ -n "${{ secrets.OPENAI_API_KEY }}" ]]; then
+              echo "- OpenAI: ✓ API key configured" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- OpenAI: ✗ API key missing" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
+          if [[ "${{ github.event.inputs.provider }}" == "all" || "${{ github.event.inputs.provider }}" == "gemini" ]]; then
+            if [[ -n "${{ secrets.GOOGLE_API_KEY }}" ]]; then
+              echo "- Gemini (gemini-2.0-flash): ✓ API key configured" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- Gemini: ✗ API key missing" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
+          if [[ "${{ github.event.inputs.provider }}" == "all" || "${{ github.event.inputs.provider }}" == "claude" ]]; then
+            if [[ -n "${{ secrets.CLAUDE_API_KEY }}" ]]; then
+              echo "- Claude: ✓ API key configured" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- Claude: ✗ API key missing" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "See job logs for full test results and sample outputs." >> $GITHUB_STEP_SUMMARY
