@@ -1,0 +1,35 @@
+---
+permalink: feed.xml
+eleventyExcludeFromCollections: true
+metadata:
+  title: William Zujkowski's Blog
+  subtitle: Articles about software engineering, web development, and technology
+  language: en
+  url: https://williamzujkowski.github.io
+  author:
+    name: William Zujkowski
+    email: william@example.com
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ metadata.title }}</title>
+  <subtitle>{{ metadata.subtitle }}</subtitle>
+  <link href="{{ metadata.url }}{{ permalink }}" rel="self"/>
+  <link href="{{ metadata.url }}/"/>
+  <updated>{{ collections.posts | getNewestCollectionItemDate | isoDate }}</updated>
+  <id>{{ metadata.url }}/</id>
+  <author>
+    <name>{{ metadata.author.name }}</name>
+    <email>{{ metadata.author.email }}</email>
+  </author>
+  {%- for post in collections.posts | reverse %}
+  {% set absolutePostUrl %}{{ metadata.url }}{{ post.url }}{% endset %}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="{{ absolutePostUrl }}"/>
+    <updated>{{ post.date | isoDate }}</updated>
+    <id>{{ absolutePostUrl }}</id>
+    <content type="html">{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</content>
+  </entry>
+  {%- endfor %}
+</feed>

@@ -22,6 +22,7 @@ module.exports = function (eleventyConfig) {
   // Import required modules
   const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
   const pluginNavigation = require("@11ty/eleventy-navigation");
+  const pluginRss = require("@11ty/eleventy-plugin-rss");
   const markdownIt = require("markdown-it");
   const markdownItAnchor = require("markdown-it-anchor");
   const { DateTime } = require("luxon");
@@ -29,6 +30,7 @@ module.exports = function (eleventyConfig) {
   // Add plugins
   eleventyConfig.addPlugin(pluginNavigation);
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(pluginRss);
 
   // Add a manual filter for collections.getNewestCollectionItemDate
   eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {

@@ -3,6 +3,7 @@
 // Import plugins
 const navigationPlugin = require("@11ty/eleventy-navigation");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 const Image = require("@11ty/eleventy-img");
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
@@ -185,6 +186,7 @@ module.exports = function (eleventyConfig) {
   // Add plugins
   eleventyConfig.addPlugin(navigationPlugin);
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(pluginRss);
 
   // ---------- ASSET HANDLING ----------
 
