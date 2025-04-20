@@ -4,7 +4,7 @@ This document outlines the new weekly blog post schedule for williamzujkowski.gi
 
 ## Schedule Overview
 
-- **Publish Day**: Saturday
+- **Publish Day**: Monday
 - **Frequency**: Weekly (minimum)
 - **Publication Time**: 8:00 AM EST
 
@@ -13,12 +13,12 @@ This document outlines the new weekly blog post schedule for williamzujkowski.gi
 | Publish Date | Title                                               | Status    | Topic Focus         | Author  |
 | ------------ | --------------------------------------------------- | --------- | ------------------- | ------- |
 | 2025-04-19   | Biomimetic Robotics: Bridging Nature and Technology | Published | Robotics            | William |
-| 2025-04-26   | Neuromorphic Computing: Brain-Inspired Architecture | Planned   | Hardware            | William |
-| 2025-05-03   | Blockchain Beyond Cryptocurrency                    | Planned   | Distributed Systems | William |
-| 2025-05-10   | Digital Twins in Modern Manufacturing               | Planned   | Industry 4.0        | William |
-| 2025-05-17   | Extended Reality (XR) in Professional Training      | Planned   | Immersive Tech      | William |
-| 2025-05-24   | Advancing Responsible AI Governance                 | Planned   | Ethics              | William |
-| 2025-05-31   | Space-Based Computing: Orbital Data Centers         | Planned   | Infrastructure      | William |
+| 2025-04-22   | Neuromorphic Computing: Brain-Inspired Architecture | Planned   | Hardware            | William |
+| 2025-04-29   | Blockchain Beyond Cryptocurrency                    | Planned   | Distributed Systems | William |
+| 2025-05-06   | Digital Twins in Modern Manufacturing               | Planned   | Industry 4.0        | William |
+| 2025-05-13   | Extended Reality (XR) in Professional Training      | Planned   | Immersive Tech      | William |
+| 2025-05-20   | Advancing Responsible AI Governance                 | Planned   | Ethics              | William |
+| 2025-05-27   | Space-Based Computing: Orbital Data Centers         | Planned   | Infrastructure      | William |
 
 ## Content Pipeline Ideas
 
