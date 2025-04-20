@@ -118,7 +118,7 @@ export function initJokeGenerator() {
     },
   ];
 
-  // Function to show loading state - desktop
+  // Function to show loading state - desktop (simplified, minimal animation)
   function showLoading() {
     if (!jokeSetup) return;
 
@@ -126,10 +126,9 @@ export function initJokeGenerator() {
     jokeDelivery.textContent = "";
     jokeSingle.textContent = "";
     jokeContainer.classList.add("opacity-50");
-    jokeContainer.classList.add("pulse-animation");
   }
 
-  // Function to show loading state - mobile
+  // Function to show loading state - mobile (simplified, minimal animation)
   function showMobileLoading() {
     if (!mobileJokeSetup) return;
 
@@ -137,17 +136,16 @@ export function initJokeGenerator() {
     mobileJokeDelivery.textContent = "";
     mobileJokeSingle.textContent = "";
     mobileJokeContainer.classList.add("opacity-50");
-    mobileJokeContainer.classList.add("pulse-animation");
   }
 
-  // Function to display a joke - desktop
+  // Function to display a joke - desktop (simplified, no animations)
   function displayDesktopJoke(joke) {
     if (!jokeContainer) return;
 
     console.log("Displaying desktop joke:", joke);
     jokeContainer.classList.remove("opacity-50");
-    jokeContainer.classList.remove("pulse-animation");
 
+    // Direct display without animations or staggered timing
     if (joke.type === "twopart") {
       jokeSetup.textContent = joke.setup;
       jokeDelivery.textContent = joke.delivery;
@@ -165,14 +163,14 @@ export function initJokeGenerator() {
     }
   }
 
-  // Function to display a joke - mobile
+  // Function to display a joke - mobile (simplified, no animations)
   function displayMobileJoke(joke) {
     if (!mobileJokeContainer) return;
 
     console.log("Displaying mobile joke:", joke);
     mobileJokeContainer.classList.remove("opacity-50");
-    mobileJokeContainer.classList.remove("pulse-animation");
 
+    // Direct display without animations or staggered timing
     if (joke.type === "twopart") {
       mobileJokeSetup.textContent = joke.setup;
       mobileJokeDelivery.textContent = joke.delivery;
