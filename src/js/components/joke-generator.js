@@ -174,7 +174,7 @@ export function initJokeGenerator() {
     // Update the category display if available
     const categorySpan = document.querySelector("#joke-container .text-text-secondary");
     if (categorySpan && joke.category) {
-      categorySpan.textContent = joke.category + " Jokes";
+      categorySpan.textContent = joke.category;
     }
   }
 
@@ -214,7 +214,7 @@ export function initJokeGenerator() {
       "#mobile-joke-container .text-text-secondary"
     );
     if (categorySpan && joke.category) {
-      categorySpan.textContent = joke.category + " Jokes";
+      categorySpan.textContent = joke.category;
     }
   }
 
