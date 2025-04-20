@@ -1,7 +1,6 @@
 // Simplified and consolidated Eleventy configuration
 
 // Import plugins
-const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const navigationPlugin = require("@11ty/eleventy-navigation");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Image = require("@11ty/eleventy-img");
@@ -184,18 +183,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary("md", markdownLibrary);
 
   // Add plugins
-  eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(navigationPlugin);
   eleventyConfig.addPlugin(syntaxHighlight);
-
-  // Add a transform to fix the RSS feed
-  eleventyConfig.addTransform("fixRssFeed", function (content, outputPath) {
-    if (outputPath && outputPath.endsWith("/feed.xml")) {
-      console.log("Fixing RSS feed author tag format...");
-      return content.replace(/<n>([^<]+)<\/n>/g, "<name>$1</name>");
-    }
-    return content;
-  });
 
   // ---------- ASSET HANDLING ----------
 
@@ -326,34 +315,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("json", function (value) {
     return JSON.stringify(value);
   });
-
-  // RSS filters from the plugin
-  eleventyConfig.addFilter("dateToRfc3339", rssPlugin.dateToRfc3339);
-  eleventyConfig.addFilter("dateToRfc822", rssPlugin.dateToRfc822);
-
-  // HTML to Absolute URLs for RSS feeds
-  eleventyConfig.addNunjucksAsyncFilter(
-    "htmlToAbsoluteUrls",
-    function (html, base, callback) {
-      if (!html) {
-        callback(null, "");
-        return;
-      }
-
-      try {
-        const baseUrl = new URL(base);
-        // Simple replacement for links and images
-        let result = html.replace(
-          /(href|src)="(?!http|mailto|#|\/\/)(.*?)"/g,
-          `$1="${baseUrl.origin}/$2"`
-        );
-        callback(null, result);
-      } catch (e) {
-        console.error("Error converting HTML to absolute URLs:", e);
-        callback(null, html);
-      }
-    }
-  );
 
   // Post utility filters
 

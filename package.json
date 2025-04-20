@@ -10,7 +10,7 @@
     "npm": ">=10"
   },
   "scripts": {
-    "build": "npm run build:data && eleventy --config=.eleventy.cjs && npm run build:css && npm run build:js && node scripts/fix-rss.cjs",
+    "build": "npm run build:data && eleventy --config=.eleventy.cjs && npm run build:css && npm run build:js",
     "build:css": "postcss src/css/main.css -o _site/css/styles.css --config=config/postcss.config.cjs",
     "build:data": "node scripts/build/create-core-data.js",
     "build:link-previews": "node scripts/content/link-preview-generator.js",
@@ -117,7 +117,5 @@
     "terser": "^5.30.0",
     "xml2js": "^0.6.2"
   },
-  "dependencies": {
-    "@11ty/eleventy-plugin-rss": "^2.0.3"
-  }
+  "dependencies": {}
 }
