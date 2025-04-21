@@ -1,15 +1,17 @@
 ---
 permalink: feed.xml
 eleventyExcludeFromCollections: true
-metadata:
-  title: William Zujkowski's Blog
-  subtitle: Articles about software engineering, web development, and technology
-  language: en
-  url: https://williamzujkowski.github.io
-  author:
-    name: William Zujkowski
-    email: william@example.com
 ---
+{%- set metadata = {
+  title: site.title + "'s Blog",
+  subtitle: site.description,
+  language: "en",
+  url: site.url,
+  author: {
+    name: site.author,
+    email: site.email
+  }
+} -%}
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{{ metadata.title }}</title>
