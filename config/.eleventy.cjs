@@ -8,6 +8,21 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = function (eleventyConfig) {
+  // Add filters to separate vulnerability posts from regular posts
+  eleventyConfig.addFilter("filterVulnerabilityPosts", function (posts) {
+    if (!posts) return [];
+    return posts.filter(
+      (post) => post.fileSlug && post.fileSlug.includes("vulnerability-analysis")
+    );
+  });
+
+  eleventyConfig.addFilter("filterOutVulnerabilityPosts", function (posts) {
+    if (!posts) return [];
+    return posts.filter(
+      (post) => !post.fileSlug || !post.fileSlug.includes("vulnerability-analysis")
+    );
+  });
+
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);

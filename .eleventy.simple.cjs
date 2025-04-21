@@ -1,5 +1,20 @@
 module.exports = function (eleventyConfig) {
   // Just a simple passthrough config for GitHub Actions
+
+  // Add filters to separate vulnerability posts from regular posts
+  eleventyConfig.addFilter("filterVulnerabilityPosts", function (posts) {
+    if (!posts) return [];
+    return posts.filter(
+      (post) => post.fileSlug && post.fileSlug.includes("vulnerability-analysis")
+    );
+  });
+
+  eleventyConfig.addFilter("filterOutVulnerabilityPosts", function (posts) {
+    if (!posts) return [];
+    return posts.filter(
+      (post) => !post.fileSlug || !post.fileSlug.includes("vulnerability-analysis")
+    );
+  });
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/css");

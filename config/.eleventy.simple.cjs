@@ -4,6 +4,7 @@ const navigationPlugin = require("@11ty/eleventy-navigation");
 const Image = require("@11ty/eleventy-img");
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
+const path = require("path");
 
 // Image shortcode function
 async function imageShortcode(
@@ -127,6 +128,21 @@ async function imageShortcode(
 }
 
 module.exports = function (eleventyConfig) {
+  // Add filters to separate vulnerability posts from regular posts
+  eleventyConfig.addFilter("filterVulnerabilityPosts", function (posts) {
+    if (!posts) return [];
+    return posts.filter(
+      (post) => post.fileSlug && post.fileSlug.includes("vulnerability-analysis")
+    );
+  });
+
+  eleventyConfig.addFilter("filterOutVulnerabilityPosts", function (posts) {
+    if (!posts) return [];
+    return posts.filter(
+      (post) => !post.fileSlug || !post.fileSlug.includes("vulnerability-analysis")
+    );
+  });
+
   // Add a custom collection for posts that explicitly filters out future-dated posts
   eleventyConfig.addCollection("posts", function (collectionApi) {
     const now = new Date();
