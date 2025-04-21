@@ -20,12 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultCount = document.getElementById("search-results-count");
   const searchableElements = document.querySelectorAll(".searchable");
   const tagButtons = document.querySelectorAll(".gh-tag-buttons .tag-btn");
-  const postTypeButtons = document.querySelectorAll(".gh-post-type-buttons .tag-btn");
+  // No post type buttons in this version
   const postGrid = document.querySelector(".grid");
 
   // State variables
   let selectedTag = "";
-  let selectedPostType = "all";
 
   // Initialize security measures
   if (searchInput) {
@@ -164,7 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ? excerptElement.textContent.toLowerCase()
             : "";
           const tags = element.dataset.tags ? element.dataset.tags.toLowerCase() : "";
-          const postType = element.dataset.postType || "blog";
 
           // Check if matches all filters
           const matchesSearch =
@@ -174,10 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
             query === "";
 
           const matchesTag = selectedTag === "" || tags.includes(selectedTag);
-          const matchesPostType =
-            selectedPostType === "all" || postType === selectedPostType;
 
-          if (matchesSearch && matchesTag && matchesPostType) {
+          if (matchesSearch && matchesTag) {
             element.style.display = "";
             visibleCount++;
 
@@ -406,20 +402,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
-      // Reset post type buttons
-      if (postTypeButtons) {
-        postTypeButtons.forEach((btn) => {
-          if (btn.dataset.postType === "all") {
-            btn.classList.add("selected");
-          } else {
-            btn.classList.remove("selected");
-          }
-        });
-      }
-
       // Reset state variables
       selectedTag = "";
-      selectedPostType = "all";
 
       // Add a subtle animation to the grid
       if (postGrid) {
@@ -513,27 +497,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Post type buttons
-  if (postTypeButtons && postTypeButtons.length > 0) {
-    postTypeButtons.forEach((button) => {
-      button.addEventListener("click", function (e) {
-        e.preventDefault(); // Prevent default button behavior
-
-        // Get post type value safely
-        const postType = this.dataset.postType || "all";
-        selectedPostType = postType;
-
-        // Add a pulse animation to the clicked button
-        this.classList.add("pulse-animation");
-        setTimeout(() => this.classList.remove("pulse-animation"), 500);
-
-        // Update selected class on buttons
-        postTypeButtons.forEach((btn) => btn.classList.remove("selected"));
-        this.classList.add("selected");
-
-        // Perform search based on current state
-        performSearch(searchInput ? searchInput.value : "");
-      });
-    });
-  }
+  // No post type buttons in this version
 });

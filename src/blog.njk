@@ -241,12 +241,6 @@ eleventyNavigation:
     </div>
     <button class="gh-filter-clear" id="clear-filters">Clear filters</button>
   </div>
-  <div class="gh-post-type-buttons mb-4">
-    <button class="tag-btn selected" data-post-type="all">All Posts</button>
-    <button class="tag-btn" data-post-type="blog">Blog Articles</button>
-    <button class="tag-btn" data-post-type="vulnerability">Vulnerability Reports</button>
-  </div>
-
   <div class="gh-tag-buttons">
     <button class="tag-btn selected" data-tag="">All Topics</button>
     <button class="tag-btn" data-tag="security">Security</button>
@@ -254,7 +248,6 @@ eleventyNavigation:
     <button class="tag-btn" data-tag="cloud">Cloud</button>
     <button class="tag-btn" data-tag="llm">LLM</button>
     <button class="tag-btn" data-tag="programming">Programming</button>
-    <button class="tag-btn" data-tag="cve">CVE</button>
   </div>
 </div>
 
@@ -285,9 +278,9 @@ eleventyNavigation:
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
   {%- for post in posts -%}
   <div
-    class="gh-post-card searchable h-full{% if post.fileSlug and post.fileSlug.includes('vulnerability-analysis') %} vulnerability-post{% else %} blog-post{% endif %}"
+    class="gh-post-card searchable h-full"
     data-tags="{{ post.data.tags | join(',') | lower }}"
-    data-post-type="{% if post.fileSlug and post.fileSlug.includes('vulnerability-analysis') %}vulnerability{% else %}blog{% endif %}"
+    data-type="{{ post.data.tags | join(',') | lower }}"
   >
     <!-- Post image with consistent ratio -->
     <div class="gh-post-image">
