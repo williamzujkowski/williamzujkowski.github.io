@@ -126,6 +126,15 @@ async function imageShortcode(
 }
 
 module.exports = function (eleventyConfig) {
+  // Add filters to separate vulnerability posts from regular posts
+  eleventyConfig.addFilter("filterVulnerabilityPosts", function (posts) {
+    return posts.filter((post) => post.fileSlug.includes("vulnerability-analysis"));
+  });
+
+  eleventyConfig.addFilter("filterOutVulnerabilityPosts", function (posts) {
+    return posts.filter((post) => !post.fileSlug.includes("vulnerability-analysis"));
+  });
+
   // Add a custom collection for posts that explicitly filters out future-dated posts
   eleventyConfig.addCollection("posts", function (collectionApi) {
     const now = new Date();
