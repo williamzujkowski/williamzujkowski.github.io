@@ -171,7 +171,11 @@ document.addEventListener("DOMContentLoaded", () => {
             tags.includes(query) ||
             query === "";
 
-          const matchesTag = selectedTag === "" || tags.includes(selectedTag);
+          // Special handling for "blog" tag to exclude vulnerability posts
+          const matchesTag =
+            selectedTag === "" ||
+            (selectedTag === "blog" && !tags.includes("vulnerability")) ||
+            (selectedTag !== "blog" && tags.includes(selectedTag));
 
           if (matchesSearch && matchesTag) {
             element.style.display = "";
