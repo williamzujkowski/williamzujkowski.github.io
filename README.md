@@ -190,11 +190,41 @@ npm run dev:optimized
 
 ## Site Configuration
 
-The majority of site configuration is managed through JSON files in the `src/_data` directory.
+The site configuration is now managed through a modular approach using multiple JSON files in the `src/_data/config/` directory rather than a single `site.json` file. This makes configuration more maintainable and organized.
 
-### Main Configuration (site.json)
+### Modular Configuration Structure
 
-The `site.json` file contains the primary configuration for the website:
+The configuration is broken down into these key directories:
+
+```
+src/_data/config/
+├── meta.json            # Site metadata (title, description, URL, etc.)
+├── theme.json           # Theme configuration
+├── navigation.json      # Navigation menu items
+├── blog.json            # Main blog settings
+├── blog/                # Detailed blog configuration
+│   ├── images.json      # Blog image settings
+│   └── settings.json    # Additional blog settings
+├── homepage.json        # Main homepage settings
+├── homepage/            # Detailed homepage configuration
+│   ├── about.json       # About section content
+│   ├── display.json     # Display options for homepage sections
+│   ├── reading.json     # Reading section settings
+│   └── repositories.json # GitHub repository settings
+├── links.json           # Main links page settings
+├── links/               # Category-specific links
+│   ├── groups.json      # Link group definitions
+│   ├── technology.json  # Technology links
+│   ├── art_culture.json # Art & culture links
+│   ├── social_links.json # Social media links
+│   └── ...              # Other link categories
+└── social/
+    └── social_media.json # Social media profiles
+```
+
+### Core Site Configuration
+
+The base site metadata is in `src/_data/config/meta.json`:
 
 ```json
 {
@@ -202,122 +232,160 @@ The `site.json` file contains the primary configuration for the website:
   "description": "Personal website and technology blog",
   "url": "https://yourdomain.com",
   "author": "Your Name",
-  "email": "your.email@example.com",
-  "theme": "system",
-  "seo": { ... },
-  "homepage": { ... },
-  "social_media": [ ... ],
-  "navigation": [ ... ],
-  "linkGroups": [ ... ],
-  "links": [ ... ],
-  "blog": { ... }
+  "email": "your.email@example.com"
+}
+```
+
+### Theme Configuration
+
+Theme settings are in `src/_data/config/theme.json`:
+
+```json
+{
+  "name": "default",
+  "mode": "system",
+  "colors": {
+    "primary": "...",
+    "secondary": "...",
+    "accent": "..."
+  }
 }
 ```
 
 ### Homepage Configuration
 
-The homepage is highly customizable through the `homepage` section in `site.json`:
+Homepage settings are split between the main `homepage.json` file and files in the `homepage/` directory:
 
-```json
-"homepage": {
-  "welcome_heading": "Welcome",
-  "welcome_subtitle": "IT Engineer & Technology Enthusiast",
-  "about_me_title": "About Me",
-  "about_me_content": "Your bio text here...",
-  "show_recent_posts": true,
-  "recent_posts_count": 3,
-  "show_activity_timeline": false,
-  "show_github_pins": true,
-  "show_github_repos_on_links": false,
-  "show_arxiv_papers": true,
-  "pinned_repositories": [ ... ],
-  "skills": [ ... ],
-  "interests": "Your interests text here..."
-}
-```
+1. **Main Settings** (`homepage.json`):
 
-Toggle features on/off by changing the boolean values:
+   ```json
+   {
+     "welcome_heading": "Welcome",
+     "welcome_subtitle": "IT Engineer & Technology Enthusiast"
+   }
+   ```
 
-- `show_recent_posts`: Display recent blog posts
-- `show_activity_timeline`: Show the blog post activity timeline
-- `show_github_pins`: Display pinned GitHub repositories on homepage
-- `show_github_repos_on_links`: Display GitHub repositories on links page
-- `show_arxiv_papers`: Show the arXiv papers section
+2. **Display Options** (`homepage/display.json`):
+
+   ```json
+   {
+     "show_recent_posts": true,
+     "recent_posts_count": 3,
+     "show_activity_timeline": false,
+     "show_github_pins": true,
+     "show_github_repos_on_links": false,
+     "show_arxiv_papers": true
+   }
+   ```
+
+3. **About Section** (`homepage/about.json`):
+
+   ```json
+   {
+     "about_me_title": "About Me",
+     "about_me_content": "Your bio text here...",
+     "skills": ["JavaScript", "Python", "Cloud"],
+     "interests": "Your interests text here..."
+   }
+   ```
+
+4. **GitHub Repositories** (`homepage/repositories.json`):
+   ```json
+   {
+     "pinned_repositories": [
+       {
+         "name": "repo-name",
+         "description": "Repository description",
+         "url": "https://github.com/yourusername/repo-name"
+       }
+     ]
+   }
+   ```
 
 ### Navigation
 
-Site navigation is configured in the `navigation` array:
+Site navigation is configured in `src/_data/config/navigation.json`:
 
 ```json
-"navigation": [
-  { "name": "Home", "url": "/", "icon": "" },
-  { "name": "Links", "url": "/links/", "icon": "" },
-  { "name": "Blog", "url": "/blog/", "icon": "" }
-]
+{
+  "navigation": [
+    { "name": "Home", "url": "/", "icon": "" },
+    { "name": "Links", "url": "/links/", "icon": "" },
+    { "name": "Blog", "url": "/blog/", "icon": "" }
+  ]
+}
 ```
-
-Add, remove, or modify navigation items by editing this array.
 
 ### Social Media Links
 
-Social media profiles are configured in the `social_media` array:
+Social media profiles are configured in `src/_data/config/social/social_media.json`:
 
 ```json
-"social_media": [
-  {
-    "name": "GitHub",
-    "url": "https://github.com/yourusername",
-    "icon": "<svg>...</svg>",
-    "enabled": true,
-    "display_on_home": false,
-    "display_in_header": true,
-    "display_in_footer": true
-  },
-  // Additional social profiles...
-]
+{
+  "social_media": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/yourusername",
+      "icon": "<svg>...</svg>",
+      "enabled": true,
+      "display_on_home": false,
+      "display_in_header": true,
+      "display_in_footer": true
+    }
+  ]
+}
 ```
-
-For each social profile, you can control:
-
-- `enabled`: Whether the profile is active
-- `display_on_home`: Show on homepage
-- `display_in_header`: Show in site header
-- `display_in_footer`: Show in site footer
 
 ### Links Page
 
-The links page is organized by categories defined in `linkGroups` and populated from the `links` array:
+The links page configuration is split into multiple files:
 
-```json
-"linkGroups": [
-  { "name": "Social", "icon": "🔗" },
-  { "name": "Projects", "icon": "💻" },
-  // Additional categories...
-],
-"links": [
-  {
-    "name": "GitHub",
-    "url": "https://github.com/yourusername",
-    "group": "Social",
-    "icon": "GitHub"
-  },
-  // Additional links...
-]
-```
+1. **Link Groups** (`links/groups.json`):
 
-Each link must have a `group` that corresponds to one of the defined `linkGroups`.
+   ```json
+   {
+     "linkGroups": [
+       { "name": "Social", "icon": "🔗" },
+       { "name": "Projects", "icon": "💻" }
+     ]
+   }
+   ```
+
+2. **Category-Specific Links** (e.g., `links/technology.json`):
+   ```json
+   {
+     "links": [
+       {
+         "name": "Site Name",
+         "url": "https://example.com",
+         "group": "Technology",
+         "icon": "Icon"
+       }
+     ]
+   }
+   ```
 
 ### Blog Configuration
 
-Blog settings are managed in the `blog` section:
+Blog settings are in `src/_data/config/blog.json` and the `blog/` directory:
 
-```json
-"blog": {
-  "postsPerPage": 5,
-  "showDates": true,
-  "dateFormat": "%B %d, %Y"
-}
-```
+1. **Main Blog Settings** (`blog.json`):
+
+   ```json
+   {
+     "postsPerPage": 5,
+     "showDates": true,
+     "dateFormat": "%B %d, %Y"
+   }
+   ```
+
+2. **Additional Settings** (`blog/settings.json`, `blog/images.json`):
+   ```json
+   {
+     "featured_posts": ["post-slug-1", "post-slug-2"],
+     "default_image": "/assets/images/blog/default.jpg"
+   }
+   ```
 
 ## Content Management
 
