@@ -11,7 +11,7 @@
     build-link-previews.js         # Generate link preview metadata
     build-visualizations.js        # Generate visualization data
     create-fallback-data.js        # Create fallback data files
-    
+
   /content/                        # Content management tools
     /blog/                         # Blog post management
       process-new-posts.js         # Process new blog posts
@@ -19,31 +19,31 @@
       fix-citations.js             # Fix citations in posts
       remove-header-images.js      # Remove header images from posts
       standardize-frontmatter.js   # Standardize frontmatter in posts
-    
+
     /links/                        # Link management
       check-missing-previews.js    # Check for missing link previews
       force-update-link-previews.js # Force update links previews
-    
+
   /screenshots/                    # Screenshot generation tools
     generate-screenshots.js        # Main screenshot generator (fast version)
     index.js                       # Entry point that exports helper functions
     utils.js                       # Common utilities for screenshot generation
     screenshots.sh                 # Main CLI utility for screenshots
     verify-screenshots.html        # Test page for screenshots
-    
+
   /validation/                     # Validation tools
     validate-config.js             # Validate site configuration
     validate-links.js              # Validate links
-    
+
   /styling/                        # Styling tools
     optimize-css.js                # Optimize CSS
     extract-components.js          # Extract components from templates
     generate-theme.js              # Generate theme files
-    
+
   /utils/                          # Utility scripts
     optimize-images.js             # Optimize images
     download-blog-images.js        # Download blog images
-    
+
   /bin/                            # CLI utilities and entry points
     build.sh                       # Main build script
     dev.sh                         # Development utilities

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       provider:
-        description: 'Which LLM provider to test'
+        description: "Which LLM provider to test"
         required: true
         type: choice
         options:
@@ -12,41 +12,49 @@ on:
           - openai
           - gemini
           - claude
-        default: 'all'
+        default: "all"
 
 jobs:
   test-llm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: |
           npm ci
-          cd scripts/vulnerabilities
+          cd tools/vuln-blog
           npm install
 
       - name: Test OpenAI
         if: ${{ github.event.inputs.provider == 'all' || github.event.inputs.provider == 'openai' }}
-        run: npm run test:openai
+        run: |
+          cd tools/vuln-blog
+          node test-models.js --provider openai
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Test Gemini
         if: ${{ github.event.inputs.provider == 'all' || github.event.inputs.provider == 'gemini' }}
-        run: npm run test:gemini
+        run: |
+          cd tools/vuln-blog
+          node test-models.js --provider gemini
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
       - name: Test Claude
         if: ${{ github.event.inputs.provider == 'all' || github.event.inputs.provider == 'claude' }}
-        run: npm run test:claude
+        run: |
+          cd tools/vuln-blog
+          node test-models.js --provider claude
         env:
           CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
 
