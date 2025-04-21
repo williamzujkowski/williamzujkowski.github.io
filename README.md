@@ -14,6 +14,7 @@ This is my personal website and blog, built with [11ty](https://www.11ty.dev/), 
 - Social media integration
 - RSS feed
 - Automated blog post processing and publishing workflow
+- Vulnerability blog post generator with multi-LLM support (OpenAI, Google Gemini, Claude)
 - Link validation and management tools
 - Optimized build system with incremental builds and parallel processing
 - Smart data management with caching and payload optimization
@@ -28,6 +29,7 @@ All documentation has been consolidated in the `docs/` directory for better orga
 - [Blog Workflow](docs/guides/BLOG-WORKFLOW.md) - Instructions for creating and publishing blog posts
 - [Blog Post Templates](docs/guides/BLOG-POST-README.md) - Templates and examples for blog posts
 - [Theme System](docs/guides/THEME-SYSTEM.md) - Guide to the site's OKLCH-based theming system
+- [Vulnerability Blog Generator](README-VULN-BLOG-MIGRATION.md) - Guide to the vulnerability blog post generator
 
 ### Reference
 
