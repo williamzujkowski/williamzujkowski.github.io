@@ -129,12 +129,16 @@ module.exports = function (eleventyConfig) {
   // Add filters to separate vulnerability posts from regular posts
   eleventyConfig.addFilter("filterVulnerabilityPosts", function (posts) {
     if (!posts) return [];
-    return posts.filter((post) => post.fileSlug && post.fileSlug.includes("vulnerability-analysis"));
+    return posts.filter(
+      (post) => post.fileSlug && post.fileSlug.includes("vulnerability-analysis")
+    );
   });
 
   eleventyConfig.addFilter("filterOutVulnerabilityPosts", function (posts) {
     if (!posts) return [];
-    return posts.filter((post) => !post.fileSlug || !post.fileSlug.includes("vulnerability-analysis"));
+    return posts.filter(
+      (post) => !post.fileSlug || !post.fileSlug.includes("vulnerability-analysis")
+    );
   });
 
   // Add a custom collection for posts that explicitly filters out future-dated posts

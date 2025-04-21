@@ -19,8 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const noResultsMessage = document.getElementById("no-results-message");
   const resultCount = document.getElementById("search-results-count");
   const searchableElements = document.querySelectorAll(".searchable");
-  const tagButtons = document.querySelectorAll(".tag-btn");
+  const tagButtons = document.querySelectorAll(".gh-tag-buttons .tag-btn");
+  const postTypeButtons = document.querySelectorAll(".gh-post-type-buttons .tag-btn");
   const postGrid = document.querySelector(".grid");
+
+  // State variables
+  let selectedTag = "";
+  let selectedPostType = "all";
 
   // Initialize security measures
   if (searchInput) {
@@ -159,14 +164,20 @@ document.addEventListener("DOMContentLoaded", () => {
             ? excerptElement.textContent.toLowerCase()
             : "";
           const tags = element.dataset.tags ? element.dataset.tags.toLowerCase() : "";
+          const postType = element.dataset.postType || "blog";
 
-          // Search in title, content, and tags
-          if (
+          // Check if matches all filters
+          const matchesSearch =
             title.includes(query) ||
             content.includes(query) ||
             tags.includes(query) ||
-            query === ""
-          ) {
+            query === "";
+
+          const matchesTag = selectedTag === "" || tags.includes(selectedTag);
+          const matchesPostType =
+            selectedPostType === "all" || postType === selectedPostType;
+
+          if (matchesSearch && matchesTag && matchesPostType) {
             element.style.display = "";
             visibleCount++;
 
@@ -395,6 +406,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
+      // Reset post type buttons
+      if (postTypeButtons) {
+        postTypeButtons.forEach((btn) => {
+          if (btn.dataset.postType === "all") {
+            btn.classList.add("selected");
+          } else {
+            btn.classList.remove("selected");
+          }
+        });
+      }
+
+      // Reset state variables
+      selectedTag = "";
+      selectedPostType = "all";
+
       // Add a subtle animation to the grid
       if (postGrid) {
         postGrid.classList.add("reset-animation");
@@ -471,29 +497,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Get tag value safely
         const tag = this.dataset.tag || "";
+        selectedTag = tag;
 
         // Add a pulse animation to the clicked tag
         this.classList.add("pulse-animation");
         setTimeout(() => this.classList.remove("pulse-animation"), 500);
 
-        // Update search input and perform search with sanitization
-        if (searchInput) {
-          if (tag === "") {
-            searchInput.value = "";
-            performSearch("");
-          } else {
-            // Sanitize the tag value before using it
-            const sanitizedTag = sanitizeSearchQuery(tag);
-            searchInput.value = sanitizedTag;
-            performSearch(sanitizedTag);
-          }
-        }
+        // Update selected class on buttons
+        tagButtons.forEach((btn) => btn.classList.remove("selected"));
+        this.classList.add("selected");
 
-        // Add selected class to the clicked tag
-        if (tagButtons) {
-          tagButtons.forEach((btn) => btn.classList.remove("selected"));
-          this.classList.add("selected");
-        }
+        // Perform search based on current state
+        performSearch(searchInput ? searchInput.value : "");
+      });
+    });
+  }
+
+  // Post type buttons
+  if (postTypeButtons && postTypeButtons.length > 0) {
+    postTypeButtons.forEach((button) => {
+      button.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent default button behavior
+
+        // Get post type value safely
+        const postType = this.dataset.postType || "all";
+        selectedPostType = postType;
+
+        // Add a pulse animation to the clicked button
+        this.classList.add("pulse-animation");
+        setTimeout(() => this.classList.remove("pulse-animation"), 500);
+
+        // Update selected class on buttons
+        postTypeButtons.forEach((btn) => btn.classList.remove("selected"));
+        this.classList.add("selected");
+
+        // Perform search based on current state
+        performSearch(searchInput ? searchInput.value : "");
       });
     });
   }

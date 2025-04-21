@@ -2,7 +2,7 @@
 layout: base.njk
 title: Blog
 pagination:
-  data: collections.posts | filterOutVulnerabilityPosts
+  data: collections.posts
   size: 6
   alias: posts
 permalink: "/blog/{% if pagination.pageNumber > 0 %}page-{{ pagination.pageNumber + 1 }}/{% endif %}"
@@ -24,7 +24,7 @@ eleventyNavigation:
       </h1>
       <p class="text-text-secondary max-w-xl">
         Thoughts, insights, and explorations in technology, software development, and
-        innovation. For security vulnerability analyses, check out the <a href="/vulnerability-analysis/" class="text-accent hover:underline">Vulnerability Analysis</a> section.
+        innovation. Filter by post type below to view regular content or vulnerability analyses.
       </p>
 
       <div class="flex flex-wrap gap-3 mt-6 justify-center md:justify-start">
@@ -43,7 +43,43 @@ eleventyNavigation:
               d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"
             ></path>
           </svg>
-          <span class="text-white text-sm">{{ (collections.posts | filterOutVulnerabilityPosts).length }} Posts</span>
+          <span class="text-white text-sm">{{ collections.posts.length }} Total Posts</span>
+        </div>
+
+        <div
+          class="flex items-center bg-surface px-3 py-1.5 rounded-full border border-border"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="text-theme-accent mr-2"
+          >
+            <path
+              d="M8 16a2 2 0 001.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 008 16z M8 1.5A3.5 3.5 0 004.5 5v2.947c0 .346-.102.683-.294.97l-1.703 2.556a.018.018 0 00-.003.01l.001.006c0 .002.002.004.004.006a.017.017 0 00.006.004l.007.001h10.964l.007-.001a.016.016 0 00.006-.004.016.016 0 00.004-.006l.001-.007a.017.017 0 00-.003-.01l-1.703-2.554a1.75 1.75 0 01-.294-.97V5A3.5 3.5 0 008 1.5"
+            ></path>
+          </svg>
+          <span class="text-white text-sm">{{ (collections.posts | filterVulnerabilityPosts).length }} Vulnerability Reports</span>
+        </div>
+
+        <div
+          class="flex items-center bg-surface px-3 py-1.5 rounded-full border border-border"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="text-theme-accent mr-2"
+          >
+            <path
+              d="M15.5 3.54v4.815a.5.5 0 01-.792.41L12.624 7.33v1.945a.5.5 0 01-.792.41L9.749 8.25C9.603 10.425 7.741 12 5.5 12c-2.314 0-4.21-1.91-4.238-4.25a.5.5 0 01.137-.352.5.5 0 01.345-.147h.006c.163 0 .332.037.487.112a.5.5 0 01.237.334c.063.175.13.338.218.485.09.15.198.29.334.41.135.12.292.215.466.28.173.064.363.096.569.096.54 0 1.022-.235 1.352-.61.331-.375.522-.889.522-1.446 0-.157-.03-.317-.088-.465a1.78 1.78 0 00-.24-.396 1.7 1.7 0 00-.361-.318 1.568 1.568 0 00-.45-.214 1.58 1.58 0 00-1.022.076 1.678 1.678 0 00-.783.783 1.579 1.579 0 00-.147.548.502.502 0 01-.219.396c-.14.1-.325.13-.503.08a.484.484 0 01-.294-.258A4.087 4.087 0 012 6c0-1.74.9-3.33 2.33-4.19a4.05 4.05 0 014.622.7l2.066-1.23a.5.5 0 01.792.41v1.945l2.083-1.235a.5.5 0 01.607.095.5.5 0 01.11.504c-.02.06-.03.124-.03.186z"
+            ></path>
+          </svg>
+          <span class="text-white text-sm">{{ (collections.posts | filterOutVulnerabilityPosts).length }} Blog Articles</span>
         </div>
 
         <div
@@ -205,6 +241,12 @@ eleventyNavigation:
     </div>
     <button class="gh-filter-clear" id="clear-filters">Clear filters</button>
   </div>
+  <div class="gh-post-type-buttons mb-4">
+    <button class="tag-btn selected" data-post-type="all">All Posts</button>
+    <button class="tag-btn" data-post-type="blog">Blog Articles</button>
+    <button class="tag-btn" data-post-type="vulnerability">Vulnerability Reports</button>
+  </div>
+
   <div class="gh-tag-buttons">
     <button class="tag-btn selected" data-tag="">All Topics</button>
     <button class="tag-btn" data-tag="security">Security</button>
@@ -212,6 +254,7 @@ eleventyNavigation:
     <button class="tag-btn" data-tag="cloud">Cloud</button>
     <button class="tag-btn" data-tag="llm">LLM</button>
     <button class="tag-btn" data-tag="programming">Programming</button>
+    <button class="tag-btn" data-tag="cve">CVE</button>
   </div>
 </div>
 
@@ -242,8 +285,9 @@ eleventyNavigation:
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
   {%- for post in posts -%}
   <div
-    class="gh-post-card searchable h-full"
+    class="gh-post-card searchable h-full{% if post.fileSlug and post.fileSlug.includes('vulnerability-analysis') %} vulnerability-post{% else %} blog-post{% endif %}"
     data-tags="{{ post.data.tags | join(',') | lower }}"
+    data-post-type="{% if post.fileSlug and post.fileSlug.includes('vulnerability-analysis') %}vulnerability{% else %}blog{% endif %}"
   >
     <!-- Post image with consistent ratio -->
     <div class="gh-post-image">
