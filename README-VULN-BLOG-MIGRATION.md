@@ -80,9 +80,57 @@ Before the migration, comprehensive backups were created:
 
 These backups can be used to restore the original files if needed.
 
+## Testing
+
+The integration includes several test suites:
+
+### Integration Tests
+
+Located in `tests/integration/vuln-blog-integration.test.js`, these tests verify:
+
+- The submodule structure and presence of required files
+- Package.json scripts are correctly configured
+- GitHub Actions workflows include submodule checkout
+- The OUTPUT_DIR environment variable is properly set
+
+Run these tests with:
+
+```bash
+npm test -- tests/integration/vuln-blog-integration.test.js
+```
+
+### End-to-End Tests
+
+Located in `tests/e2e/vuln-generator-e2e.test.js`, these tests:
+
+- Create a mock environment with test API keys
+- Run the generator with mock APIs
+- Verify a post is correctly generated with all required elements
+
+Run these tests with:
+
+```bash
+npm test -- tests/e2e/vuln-generator-e2e.test.js
+```
+
+### Mocking Support
+
+The submodule includes a mock implementation in `tools/vuln-blog/mocks/` that:
+
+- Provides mock responses for all external APIs
+- Can be activated by setting `MOCK_APIS=true`
+- Enables testing without actual API keys
+
+You can run a mock generation with:
+
+```bash
+cd tools/vuln-blog
+npm run test:mock
+```
+
 ## Future Considerations
 
-- Add automated tests for the integration
 - Consider integrating with continuous deployment
 - Add more documentation on how to use the vulnerability blog generator
 - Add a contributor guide for the vulnerability blog generator
+- Enhance mocking capabilities for more robust testing
