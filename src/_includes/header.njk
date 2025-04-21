@@ -16,14 +16,7 @@
             <a
               href="{{ item.url }}"
               class="gh-nav-item {% if page.url == item.url %}active{% endif %}"
-              {%
-              if
-              page.url=""
-              ="item.url"
-              %}aria-current="page"
-              {%
-              endif
-              %}
+              {% if page.url == item.url %}aria-current="page"{% endif %}
               >{{ item.icon | safe }}
               <span class="hidden md:inline-block">{{ item.name }}</span></a
             >
