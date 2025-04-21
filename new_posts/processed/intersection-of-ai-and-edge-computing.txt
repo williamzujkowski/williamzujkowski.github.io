@@ -21,7 +21,7 @@ By positioning compute resources physically closer to data sources, edge computi
 Edge computing manifests in various forms across the technology stack:
 
 - **Device-level edge:** Computing resources integrated directly into endpoint devices like cameras, sensors, or industrial equipment, enabling on-device processing
-  
+
 - **Local edge:** Small-scale compute infrastructure deployed in proximity to multiple devices, such as gateway servers in factories or retail environments
 
 - **Regional edge:** More substantial compute resources positioned at network aggregation points like telecom towers or local data facilities

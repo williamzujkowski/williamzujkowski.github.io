@@ -31,23 +31,23 @@ In a Zero Trust model, identity becomes the primary security boundary. For devel
 // Example of continuous validation middleware in Express.js
 const validateSession = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
-  
+
   if (!token) {
     return res.status(401).send({ message: 'Authentication required' });
   }
-  
+
   try {
     // Validate the token with every request
     const decoded = await verifyToken(token);
-    
+
     // Check if user's security context has changed
     const securityContext = await getCurrentSecurityContext(decoded.userId);
-    
+
     // Check if token was issued before any security policy changes
     if (decoded.iat < securityContext.lastPolicyChange) {
       return res.status(401).send({ message: 'Security policy updated, re-authentication required' });
     }
-    
+
     // Append the validated user to the request
     req.user = decoded;
     next();
@@ -109,16 +109,16 @@ Zero Trust requires ongoing verification rather than point-in-time access decisi
 def check_for_anomalous_behavior(user_id, action, resource):
     # Get user's historical behavior pattern
     user_pattern = get_user_behavior_pattern(user_id)
-    
+
     # Check if current action deviates from typical behavior
     risk_score = calculate_risk_score(user_pattern, action, resource)
-    
+
     if risk_score > RISK_THRESHOLD:
         # Step-up authentication or block action
         require_additional_verification(user_id)
         log_security_event(user_id, action, resource, risk_score)
         return False
-    
+
     # Update user's behavior pattern with this action
     update_behavior_pattern(user_id, action, resource)
     return True

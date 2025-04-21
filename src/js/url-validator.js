@@ -1,11 +1,11 @@
 /**
  * url-validator.js - Utility for checking link health
- * 
+ *
  * This module provides a development tool to scan and validate all external links
  * on a page to ensure they're working correctly. It identifies broken links and
  * provides a report of their status. This tool is primarily for development use
  * and is not intended for production deployments.
- * 
+ *
  * @module url-validator
  */
 
@@ -19,15 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const validationResultsContainer = document.getElementById("validation-results");
 
   // Set up the click handler for the validation button
-  urlValidatorButton.addEventListener("click", () => validateUrls(validationResultsContainer));
+  urlValidatorButton.addEventListener("click", () =>
+    validateUrls(validationResultsContainer)
+  );
 });
 
 /**
  * Validates all external URLs found on the current page
- * 
+ *
  * Collects all unique external links from the page, tests them using the
  * Microlink API, and displays a report of the results.
- * 
+ *
  * @param {HTMLElement} resultsContainer - The element where results will be displayed
  * @returns {Promise<void>} A promise that resolves when validation is complete
  */
@@ -49,12 +51,12 @@ async function validateUrls(resultsContainer) {
 
 /**
  * Collects all external links from the current page
- * 
+ *
  * @returns {string[]} Array of unique external URLs
  */
 function collectExternalLinks() {
   const linkElements = document.querySelectorAll("a[href]");
-  
+
   return Array.from(linkElements)
     .map((link) => link.href)
     .filter((href) => href.startsWith("http")) // Only external links
@@ -63,13 +65,17 @@ function collectExternalLinks() {
 
 /**
  * Processes links with limited concurrency to avoid rate limiting
- * 
+ *
  * @param {string[]} links - Array of URLs to validate
  * @param {HTMLElement} resultsContainer - Element to update with progress
  * @param {number} [concurrencyLimit=3] - Maximum number of concurrent requests
  * @returns {Promise<Object[]>} Array of validation results
  */
-async function processLinksWithConcurrency(links, resultsContainer, concurrencyLimit = 3) {
+async function processLinksWithConcurrency(
+  links,
+  resultsContainer,
+  concurrencyLimit = 3
+) {
   // Split links into chunks for controlled concurrency
   const chunks = [];
   for (let i = 0; i < links.length; i += concurrencyLimit) {
@@ -83,7 +89,7 @@ async function processLinksWithConcurrency(links, resultsContainer, concurrencyL
   for (const chunk of chunks) {
     // Update progress indicator
     showProgressIndicator(
-      resultsContainer, 
+      resultsContainer,
       `Validating URLs: ${results.length} of ${links.length} complete...`
     );
 
@@ -100,7 +106,7 @@ async function processLinksWithConcurrency(links, resultsContainer, concurrencyL
 
 /**
  * Checks if a URL is valid using the Microlink API
- * 
+ *
  * @param {string} url - The URL to validate
  * @returns {Promise<Object>} Object containing validation results
  */
@@ -128,7 +134,7 @@ async function checkUrl(url) {
 
 /**
  * Shows a progress indicator in the results container
- * 
+ *
  * @param {HTMLElement} container - Container element for the indicator
  * @param {string} message - Message to display
  */
@@ -138,7 +144,7 @@ function showProgressIndicator(container, message) {
 
 /**
  * Displays formatted validation results
- * 
+ *
  * @param {HTMLElement} container - Container to display results in
  * @param {Object[]} results - Array of validation result objects
  */
@@ -149,7 +155,7 @@ function displayResults(container, results) {
 
   // Filter invalid URLs for the report
   const invalidUrls = results.filter((r) => r.status !== "valid");
-  
+
   // Generate report HTML
   const resultHtml = `
     <div class="p-4 bg-surface rounded-github mb-4">
@@ -168,16 +174,18 @@ function displayResults(container, results) {
         <div class="max-h-60 overflow-y-auto border border-border rounded-github p-2 bg-gray-light">
           <ul class="pl-4 list-disc">
             ${
-              invalidUrls.length > 0 
-                ? invalidUrls.map(
-                    (r) => `<li class="mb-2 text-sm">
+              invalidUrls.length > 0
+                ? invalidUrls
+                    .map(
+                      (r) => `<li class="mb-2 text-sm">
                                <span class="text-red-400">${r.url}</span>
                                <div class="text-text-secondary text-xs">
                                  Status: ${r.statusCode || "unknown"},
                                  Error: ${r.message || "No specific error"}
                                </div>
                              </li>`
-                  ).join("")
+                    )
+                    .join("")
                 : "<li>No invalid URLs found!</li>"
             }
           </ul>

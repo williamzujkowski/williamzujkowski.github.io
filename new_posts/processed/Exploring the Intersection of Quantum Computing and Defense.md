@@ -1,5 +1,4 @@
 ---
-
 title: "Exploring the Intersection of Quantum Computing and Defense"
 
 date: 2025-04-08
@@ -7,7 +6,6 @@ date: 2025-04-08
 layout: post.njk
 
 tags: posts, quantum-computing, defense, cybersecurity
-
 ---
 
 ![Quantum Computing and Defense](/assets/images/blog/quantum-computing-defense.jpg)
@@ -54,4 +52,4 @@ The intersection of quantum computing and defense presents a dual-edged sword of
 
 - "Randomized Reversible Gate-Based Obfuscation for Secured Compilation of Quantum Circuit" by Subrata Das and Swaroop Ghosh. citeturn0academia2
 
---- 
+---

@@ -34,7 +34,7 @@ jobs:
         run: |
           node -v
           npm -v
-      
+
       - name: Install dependencies
         run: |
           # Remove lock file and install with fresh dependencies
@@ -51,12 +51,12 @@ jobs:
       - name: Generate data files
         run: |
           mkdir -p _data
-          
+
           # First create fallback data files to ensure we have valid JSON
           echo "Creating fallback data files..."
           # Try the new path first, fall back to the old path if it fails
           node scripts/build/create-fallback-data.js || node scripts/create-fallback-data.js || echo "Creating minimal fallback data..."
-          
+
           # If previous commands failed, create minimal JSON files directly
           if [ ! -f "_data/arxiv-feed.json" ]; then
             echo "Creating minimal fallback data files directly..."
@@ -67,20 +67,20 @@ jobs:
             echo '[{"title":"Fallback Reading","firstAuthor":"Author","categoryLabel":"Research","progress":50}]' > _data/current-reading.json
             echo '[{"title":"Fallback Book","author":"Author","isbn":"0000000000","progress":50}]' > _data/books.json
           fi
-          
+
           # Try to generate real data (but don't fail build if they fail)
           echo "Fetching ArXiv data..."
           node scripts/build/build-arxiv-feed.js || node scripts/build-arxiv-feed.js || echo "ArXiv data fetch failed. Using fallback data."
-          
+
           echo "Fetching GitHub pins..."
           node scripts/build/build-github-pins.js || node scripts/build-github-pins.js || echo "GitHub pins fetch failed. Using fallback data."
-          
+
           echo "Generating visualization data..."
           node scripts/build/build-visualizations.js || node scripts/build-visualizations.js || echo "Visualization data generation failed. Using fallback data."
-          
+
           # Skip link previews in GitHub Actions as they're heavy and error-prone
           echo "Skipping link previews generation in CI environment"
-          
+
           # List data files to confirm they exist
           echo "Checking data files..."
           ls -la _data/
@@ -95,15 +95,15 @@ jobs:
       - name: Build CSS
         run: |
           mkdir -p _site/css
-          
+
           # Copy Tailwind config to root if needed
           if [ ! -f "tailwind.config.cjs" ]; then
             cp config/tailwind.config.cjs ./tailwind.config.cjs
           fi
-          
+
           # Process with PostCSS using Tailwind 3.4.1
           npx postcss --config=config/postcss.config.cjs src/css/styles.css -o _site/css/styles.css
-          
+
           # Copy basic CSS as a fallback just in case
           cp src/css/basic.css _site/css/basic.css
 

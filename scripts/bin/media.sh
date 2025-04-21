@@ -33,14 +33,14 @@ function optimize_specific_image() {
     echo "Usage: ./media.sh optimize-image <path-to-image>"
     exit 1
   fi
-  
+
   IMAGE_PATH="$1"
-  
+
   if [ ! -f "$IMAGE_PATH" ]; then
     echo "Error: Image file not found: $IMAGE_PATH"
     exit 1
   fi
-  
+
   echo "Optimizing specific image: $IMAGE_PATH"
   node -e "
     import('$PROJECT_ROOT/scripts/content/media/optimize-images.js')

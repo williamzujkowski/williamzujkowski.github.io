@@ -9,10 +9,10 @@
   <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
   <meta name="keywords" content="{{ site.seo.keywords }}">
-  
+
   <!-- Canonical URL -->
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-  
+
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:type" content="{% if layout == 'post.njk' %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
@@ -20,30 +20,30 @@
   <meta property="og:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
   <meta property="og:image" content="{{ site.url }}{% if featured_image %}{{ featured_image }}{% else %}{{ site.seo.og_image }}{% endif %}">
   <meta property="og:card" content="summary_large_image">
-  
+
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
   <meta name="twitter:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
   <meta name="twitter:image" content="{{ site.url }}{% if featured_image %}{{ featured_image }}{% else %}{{ site.seo.og_image }}{% endif %}">
-  
+
   <link rel="stylesheet" href="/css/styles.css?v=1.0.1">
   <!-- Fallback styles in case Tailwind fails -->
   <link rel="stylesheet" href="/css/basic.css?v=1.0.1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
+
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }} Feed" href="{{ site.url }}/feed.xml">
-  
+
   <!-- Resource preloading -->
   <link rel="preload" href="/js/site-enhancements.js" as="script">
-  
+
   {% if layout == 'post.njk' %}
   <!-- JSON-LD structured data for blog post -->
   <script type="application/ld+json">
@@ -85,7 +85,7 @@
     }
   </script>
   {% endif %}
-  
+
   {% if site.seo.google_analytics_id and site.seo.google_analytics_id != "" %}
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.seo.google_analytics_id }}"></script>

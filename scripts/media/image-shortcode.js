@@ -119,13 +119,13 @@ function responsiveImage(src, alt, sizes = "100vw", options = {}) {
     }
 
     // Add img tag with fallback
-    html += `  <img 
-    src="${fallbackSrc}" 
-    alt="${alt}" 
-    class="${classList.join(" ")}" 
-    loading="${options.loading || "lazy"}" 
-    decoding="${options.decoding || "async"}" 
-    width="${width}" 
+    html += `  <img
+    src="${fallbackSrc}"
+    alt="${alt}"
+    class="${classList.join(" ")}"
+    loading="${options.loading || "lazy"}"
+    decoding="${options.decoding || "async"}"
+    width="${width}"
     height="${height}"`;
 
     // Add additional attributes

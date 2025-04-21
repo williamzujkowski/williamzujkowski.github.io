@@ -41,42 +41,42 @@ case "$1" in
         echo -e "${GREEN}Processing new blog posts...${NC}"
         npm run process:posts
         ;;
-        
+
     "blog:enhanced")
         echo -e "${GREEN}Running enhanced blog post processing (interactive)...${NC}"
         npm run process:posts:enhanced
         ;;
-        
+
     "blog:batch")
         echo -e "${GREEN}Processing blog posts in batch mode...${NC}"
         npm run process:posts:batch
         ;;
-        
+
     "blog:fix")
         echo -e "${GREEN}Fixing blog post formatting issues...${NC}"
         npm run standardize:frontmatter
         ;;
-        
+
     "links:check")
         echo -e "${GREEN}Checking for missing link previews...${NC}"
         npm run check:links
         ;;
-        
+
     "links:update")
         echo -e "${GREEN}Updating link previews...${NC}"
         npm run update:links
         ;;
-        
+
     "links:update-all")
         echo -e "${GREEN}Force updating all link previews...${NC}"
         npm run update:links:all
         ;;
-        
+
     "screenshots")
         echo -e "${GREEN}Generating screenshots for links...${NC}"
         npm run screenshots
         ;;
-        
+
     "help" | *)
         show_help
         ;;

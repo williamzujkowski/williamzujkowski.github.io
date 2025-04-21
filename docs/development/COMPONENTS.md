@@ -43,6 +43,7 @@ Components are divided into several categories based on their purpose:
 **Purpose**: Manages theme switching between light and dark modes.
 
 **API**:
+
 ```javascript
 import { initThemeToggle } from "./components/theme-toggle.js";
 
@@ -51,19 +52,23 @@ initThemeToggle();
 ```
 
 **Features**:
+
 - Toggles between light and dark themes
 - Persists user preferences in local storage
 - Respects system color scheme preferences
 - Updates theme-related UI elements
 
 **Dependencies**:
+
 - `utils/storage.js` for local storage operations
 
 **DOM Requirements**:
+
 - Requires a `#theme-toggle` button in the DOM
 - Applies theme classes to the root HTML element
 
 **Usage Example**:
+
 ```html
 <button id="theme-toggle" aria-label="Toggle theme">
   <!-- SVG icon here -->
@@ -81,6 +86,7 @@ initThemeToggle();
 **Purpose**: Enhances code blocks with syntax highlighting, line numbers, and copy functionality.
 
 **API**:
+
 ```javascript
 import { initCodeHighlight } from "./components/code-highlight.js";
 
@@ -89,19 +95,23 @@ initCodeHighlight();
 ```
 
 **Features**:
+
 - Adds language identification to code blocks
 - Inserts line numbers for better readability
 - Provides copy-to-clipboard functionality
 - Improves styling and accessibility
 
 **Dependencies**:
+
 - `utils/dom.js` for DOM manipulation utilities
 
 **DOM Requirements**:
+
 - Targets `<pre><code>` elements for enhancement
 - Language detection via `language-*` classes
 
 **Usage Example**:
+
 ```html
 <pre><code class="language-javascript">
 function example() {
@@ -117,6 +127,7 @@ function example() {
 **Purpose**: Provides full-text search functionality for the website.
 
 **API**:
+
 ```javascript
 import { initSearch } from "./components/search.js";
 
@@ -125,23 +136,27 @@ initSearch();
 ```
 
 **Features**:
+
 - Indexes content for fast searching
 - Provides real-time search results
 - Supports keyboard navigation
 - Highlights search terms in results
 
 **Dependencies**:
+
 - `utils/dom.js` for DOM manipulation
 - `utils/storage.js` for caching search index
 
 **DOM Requirements**:
+
 - Requires a search input with `#search-input` ID
 - Requires a results container with `#search-results` ID
 
 **Usage Example**:
+
 ```html
 <div class="search-container">
-  <input type="text" id="search-input" placeholder="Search...">
+  <input type="text" id="search-input" placeholder="Search..." />
   <div id="search-results"></div>
 </div>
 ```
@@ -153,6 +168,7 @@ initSearch();
 **Purpose**: Provides fallback content when dynamic content cannot be loaded.
 
 **API**:
+
 ```javascript
 import { initStaticFallbacks } from "./components/static-fallbacks.js";
 
@@ -161,22 +177,28 @@ initStaticFallbacks();
 ```
 
 **Features**:
+
 - Detects failed content loading
 - Substitutes static backup content
 - Provides graceful degradation
 - Logs errors for diagnostics
 
 **Dependencies**:
+
 - `utils/dom.js` for DOM manipulation
 
 **DOM Requirements**:
+
 - Looks for elements with `data-fallback` attributes
 
 **Usage Example**:
+
 ```html
-<div class="dynamic-content" 
-     data-source="/api/content" 
-     data-fallback="Static fallback content">
+<div
+  class="dynamic-content"
+  data-source="/api/content"
+  data-fallback="Static fallback content"
+>
   Loading...
 </div>
 ```
@@ -188,6 +210,7 @@ initStaticFallbacks();
 **Purpose**: Adds a fun element to the site with programming jokes.
 
 **API**:
+
 ```javascript
 import { initJokeGenerator } from "./components/joke-generator.js";
 
@@ -196,19 +219,23 @@ initJokeGenerator();
 ```
 
 **Features**:
+
 - Displays random programming jokes
 - Allows users to request new jokes
 - Stores previously seen jokes to avoid repetition
 
 **Dependencies**:
+
 - `utils/dom.js` for DOM manipulation
 - `utils/storage.js` for tracking seen jokes
 
 **DOM Requirements**:
+
 - Requires a container with `#joke-container` ID
 - Requires a button with `#new-joke-button` ID
 
 **Usage Example**:
+
 ```html
 <div class="joke-section">
   <div id="joke-container">
@@ -222,12 +249,14 @@ initJokeGenerator();
 
 Beyond the core components, several utility components provide common functionality:
 
-1. **URL Validator** (`url-validator.js`): 
+1. **URL Validator** (`url-validator.js`):
+
    - Validates external URLs for broken links
    - Provides a diagnostic report
    - Used primarily in development
 
 2. **Analytics** (`utils/analytics.js`):
+
    - Tracks page views and user interactions
    - Respects user privacy settings
    - Supports multiple analytics platforms
@@ -247,14 +276,17 @@ Components interact through several patterns:
 4. **Indirect Interactions**: Components can affect the same DOM elements independently
 
 Example of event-based communication:
+
 ```javascript
 // Component A dispatches an event
-document.dispatchEvent(new CustomEvent('theme-changed', { 
-  detail: { theme: 'dark' } 
-}));
+document.dispatchEvent(
+  new CustomEvent("theme-changed", {
+    detail: { theme: "dark" },
+  })
+);
 
 // Component B listens for the event
-document.addEventListener('theme-changed', (event) => {
+document.addEventListener("theme-changed", (event) => {
   const { theme } = event.detail;
   // Handle theme change
 });
@@ -270,9 +302,9 @@ To add a new component:
 ```javascript
 /**
  * my-component.js - Description of component functionality
- * 
+ *
  * This component provides [description of functionality].
- * 
+ *
  * @module components/my-component
  */
 
@@ -280,20 +312,20 @@ import { $, $$ } from "../utils/dom.js";
 
 /**
  * Initializes the component functionality
- * 
+ *
  * @param {Object} options - Optional configuration options
  * @returns {void}
  */
 export function initMyComponent(options = {}) {
   // Component initialization
-  const container = $('#my-component');
+  const container = $("#my-component");
   if (!container) return;
-  
+
   // Setup event listeners
-  container.addEventListener('click', handleClick);
-  
+  container.addEventListener("click", handleClick);
+
   // Initialize state
-  
+
   // Component-specific functions
   function handleClick(event) {
     // Handle click event

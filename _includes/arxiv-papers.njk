@@ -13,14 +13,14 @@
                 </a>
               </h3>
               <div class="paper-meta text-sm text-text-light dark:text-text-dark opacity-75 mb-2">
-                <span class="category-label font-bold">{{ paper.categoryLabel }}</span> • 
+                <span class="category-label font-bold">{{ paper.categoryLabel }}</span> •
                 <span class="published-date">
                   {% if paper.published %}
                     {{ paper.published | readableDate }}
                   {% else %}
                     Recent
                   {% endif %}
-                </span> • 
+                </span> •
                 <span class="authors">
                   {% if paper.authors and paper.authors.length > 0 %}
                     {{ paper.authors | join(', ') }}

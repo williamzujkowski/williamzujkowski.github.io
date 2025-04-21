@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
   <rect width="800" height="450" fill="#1e1e2e"/>
-  
+
   <!-- Abstract parallel reality visualization -->
   <g opacity="0.8">
     <!-- Primary reality flow -->
     <path d="M100,225 C200,175 350,175 450,225 S650,275 750,225" stroke="#2ea043" stroke-width="4" fill="none"/>
-    
+
     <!-- Parallel reality flows -->
     <path d="M100,175 C200,125 350,125 450,175 S650,225 750,175" stroke="#79c0ff" stroke-width="3" fill="none" opacity="0.7"/>
     <path d="M100,275 C200,225 350,225 450,275 S650,325 750,275" stroke="#e5c07b" stroke-width="3" fill="none" opacity="0.7"/>
     <path d="M100,125 C200,75 350,75 450,125 S650,175 750,125" stroke="#c678dd" stroke-width="2" fill="none" opacity="0.5"/>
     <path d="M100,325 C200,275 350,275 450,325 S650,375 750,325" stroke="#e86671" stroke-width="2" fill="none" opacity="0.5"/>
   </g>
-  
+
   <!-- Connections between realities -->
   <g stroke="#a3aab3" stroke-width="1" stroke-dasharray="5,5" opacity="0.6">
     <line x1="200" y1="175" x2="200" y2="225"/>
@@ -22,7 +22,7 @@
     <line x1="500" y1="125" x2="500" y2="325"/>
     <line x1="600" y1="175" x2="600" y2="225"/>
   </g>
-  
+
   <!-- Junction nodes -->
   <g fill="#a3aab3">
     <circle cx="200" cy="175" r="6"/>
@@ -42,25 +42,25 @@
     <circle cx="600" cy="175" r="6"/>
     <circle cx="600" cy="225" r="6"/>
   </g>
-  
+
   <!-- Key divergence points -->
   <g>
     <circle cx="300" cy="175" r="12" fill="#79c0ff"/>
     <circle cx="400" cy="225" r="12" fill="#2ea043"/>
     <circle cx="500" cy="275" r="12" fill="#e5c07b"/>
   </g>
-  
+
   <!-- Decision tree branches -->
   <g stroke="#56b6c2" stroke-width="1.5" opacity="0.7">
     <path d="M250,150 L280,175 L250,200" fill="none"/>
     <path d="M350,200 L380,225 L350,250" fill="none"/>
     <path d="M450,250 L480,275 L450,300" fill="none"/>
   </g>
-  
+
   <!-- Title -->
   <text x="400" y="50" text-anchor="middle" font-family="Arial" font-size="40" font-weight="bold" fill="white">Parallel Lives</text>
   <text x="400" y="90" text-anchor="middle" font-family="Arial" font-size="22" fill="#79c0ff">Exploring alternate realities</text>
-  
+
   <!-- Bottom labels -->
   <g font-family="Arial" font-size="14" fill="#a3aab3" text-anchor="middle">
     <text x="200" y="400">DIVERGENCE</text>

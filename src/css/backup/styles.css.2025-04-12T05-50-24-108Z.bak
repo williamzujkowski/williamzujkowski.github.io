@@ -20,7 +20,7 @@
     --color-primary-800: oklch(0.26 0.09 145);
     --color-primary-900: oklch(0.16 0.07 145);
     --color-primary-950: oklch(0.11 0.04 145);
-    
+
     /* Accent color scale - GitHub blue-like */
     --color-accent: oklch(0.70 0.15 230);
     --color-accent-50: oklch(0.95 0.05 230);
@@ -34,41 +34,41 @@
     --color-accent-800: oklch(0.40 0.09 230);
     --color-accent-900: oklch(0.30 0.07 230);
     --color-accent-950: oklch(0.20 0.05 230);
-    
+
     /* UI Colors - Dark theme */
     --color-background: oklch(0.16 0.02 250);
     --color-surface: oklch(0.20 0.02 250);
     --color-border: oklch(0.30 0.02 250);
     --color-gray-light: oklch(0.25 0.02 250);
-    
+
     /* Text Colors - Dark theme */
     --color-text: oklch(0.93 0.02 250);
     --color-text-secondary: oklch(0.75 0.03 250);
     --color-muted: oklch(0.65 0.02 250);
-    
+
     /* Alert/Status colors */
     --color-success: oklch(0.56 0.15 145);
     --color-warning: oklch(0.75 0.15 80);
     --color-danger: oklch(0.65 0.15 25);
     --color-info: oklch(0.70 0.15 230);
-    
+
     /* Shadows - Dark theme */
     --shadow-card: 0 0 0 1px var(--color-border);
     --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    
+
     /* Borders */
     --border-radius: 6px;
     --border-width: 1px;
-    
+
     /* Animation */
     --transition: 0.3s ease;
     --hover-transform: -translate-y-1;
-    
+
     /* Theme icon display */
     --light-icon-display: none;
     --dark-icon-display: block;
   }
-  
+
   /* Light theme */
   :root.light {
     /* Primary color scale - Keep similar green but adjusted for light theme */
@@ -84,7 +84,7 @@
     --color-primary-800: oklch(0.30 0.12 145);
     --color-primary-900: oklch(0.25 0.10 145);
     --color-primary-950: oklch(0.20 0.09 145);
-    
+
     /* Accent color scale - Keep similar blue but adjusted for light theme */
     --color-accent: oklch(0.55 0.16 230);
     --color-accent-50: oklch(0.98 0.02 230);
@@ -98,48 +98,48 @@
     --color-accent-800: oklch(0.35 0.13 230);
     --color-accent-900: oklch(0.30 0.11 230);
     --color-accent-950: oklch(0.25 0.10 230);
-    
+
     /* UI Colors - Light theme */
     --color-background: oklch(0.98 0.01 250);
     --color-surface: oklch(0.95 0.01 250);
     --color-border: oklch(0.85 0.01 250);
     --color-gray-light: oklch(0.90 0.01 250);
-    
+
     /* Text Colors - Light theme */
     --color-text: oklch(0.20 0.02 250);
     --color-text-secondary: oklch(0.35 0.02 250);
     --color-muted: oklch(0.50 0.02 250);
-    
+
     /* Alert/Status colors - adjusted for light theme */
     --color-success: oklch(0.50 0.15 145);
     --color-warning: oklch(0.70 0.15 80);
     --color-danger: oklch(0.60 0.15 25);
     --color-info: oklch(0.55 0.16 230);
-    
+
     /* Shadows - Light theme */
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px var(--color-border);
     --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-    
+
     /* Theme icon display */
     --light-icon-display: block;
     --dark-icon-display: none;
   }
-  
+
   /* Override focus ring colors */
   *:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
-  
+
   /* Add transition effect for light/dark mode toggle */
-  body, 
-  .gh-header, 
-  .gh-footer, 
-  .gh-post-card, 
-  .gh-blog-controls, 
-  .tags-filter, 
-  .gh-section-header, 
-  .gh-post-grid, 
+  body,
+  .gh-header,
+  .gh-footer,
+  .gh-post-card,
+  .gh-blog-controls,
+  .tags-filter,
+  .gh-section-header,
+  .gh-post-grid,
   .gh-post-card,
   .gh-post-image,
   .gh-post-content,
@@ -167,7 +167,7 @@
   .prose-custom {
     @apply prose prose-invert prose-lg max-w-none w-full;
   }
-  
+
   /* Use prefers-reduced-motion for animations */
   @media (prefers-reduced-motion) {
     *, ::before, ::after {
@@ -579,18 +579,18 @@ h4:hover .header-anchor {
       padding-right: 2rem;
     }
   }
-  
+
   /* Custom grid gap classes */
   .gap-custom {
     gap: 0.75rem;
   }
-  
+
   @media (min-width: 640px) {
     .gap-custom {
       gap: 1rem;
     }
   }
-  
+
   @media (min-width: 768px) {
     .gap-custom {
       gap: 1.25rem;
@@ -603,7 +603,7 @@ h4:hover .header-anchor {
   .group-hover-scale {
     @apply transition-transform duration-300;
   }
-  
+
   .group:hover .group-hover-scale {
     @apply scale-105;
   }
@@ -611,7 +611,7 @@ h4:hover .header-anchor {
   .group-hover-translate-up {
     @apply transition-transform duration-300;
   }
-  
+
   .group:hover .group-hover-translate-up {
     @apply -translate-y-1;
   }
@@ -889,17 +889,17 @@ h4:hover .header-anchor {
   .gh-post-card {
     @apply border border-border rounded-github overflow-hidden bg-gray-light transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg flex flex-col relative;
   }
-  
+
   /* Add light theme card styling */
   .light .gh-post-card {
     @apply bg-surface border-border;
   }
-  
+
   /* Fix hover issue by setting the same bg color on hover */
   .gh-post-card:hover {
     @apply bg-gray-light;
   }
-  
+
   .light .gh-post-card:hover {
     @apply bg-surface;
   }
@@ -1276,41 +1276,41 @@ h4:hover .header-anchor {
     body {
       @apply text-lg;
     }
-    
+
     h1 {
       @apply text-3xl mb-4;
     }
-    
+
     h2 {
       @apply text-2xl mb-5 font-semibold;
     }
-    
+
     h3 {
       @apply text-xl mb-4 font-medium;
     }
-    
+
     p {
       @apply text-lg leading-relaxed;
     }
-    
+
     .site-container {
       @apply px-6 py-6;
     }
-    
+
     /* Footer adjustments for mobile */
     .gh-footer-inner {
       @apply py-3 px-4;
     }
-    
+
     .gh-footer-links, .gh-copyright {
       @apply text-xs;
     }
-    
+
     /* Header adjustments */
     .gh-header-inner {
       @apply px-2;
     }
-    
+
     .gh-nav {
       @apply gap-2;
     }
@@ -1318,7 +1318,7 @@ h4:hover .header-anchor {
     .gh-nav-item {
       @apply px-2 py-1.5;
     }
-    
+
     /* Single-column vertical layout */
     .gh-profile-header {
       @apply flex-col mt-6 mb-8 gap-8;
@@ -1331,19 +1331,19 @@ h4:hover .header-anchor {
     .gh-avatar {
       @apply w-[180px] h-[180px] mx-auto shadow-lg;
     }
-    
+
     .gh-profile-stats {
       @apply justify-center text-base gap-3 my-4;
     }
-    
+
     .gh-stat-count {
       @apply text-lg font-bold;
     }
-    
+
     .gh-stat-label {
       @apply text-base;
     }
-    
+
     .gh-profile-content {
       @apply w-full px-0;
     }
@@ -1363,20 +1363,20 @@ h4:hover .header-anchor {
     .gh-bio {
       @apply text-center text-base mt-4 w-full mx-auto;
     }
-    
+
     /* About me section */
     .gh-profile-header .w-full.md\:w-\[296px\] {
       @apply max-w-full;
     }
-    
+
     .gh-profile-header .w-full.md\:w-\[296px\] h3 {
       @apply text-xl;
     }
-    
+
     .gh-profile-header .w-full.md\:w-\[296px\] p {
       @apply text-base leading-relaxed;
     }
-    
+
     /* Projects section */
     .gh-featured-projects {
       @apply flex-col gap-6 my-6;
@@ -1386,208 +1386,208 @@ h4:hover .header-anchor {
       @apply w-full mb-0 mx-auto rounded-lg p-5;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-    
+
     .gh-project-header {
       @apply mb-3;
     }
-    
+
     .gh-project-header span {
       @apply text-lg;
     }
-    
+
     .gh-project-header .w-6 {
       @apply w-8 h-8;
     }
-    
+
     .gh-project-header .w-6 svg {
       @apply w-4 h-4;
     }
-    
+
     .gh-project-description {
       @apply text-base leading-relaxed;
     }
-    
+
     .gh-project-tags {
       @apply mt-4 gap-2;
     }
-    
+
     .gh-badge {
       @apply text-sm px-3 py-1;
     }
-    
+
     /* Reading section */
     .gh-reading-section {
       @apply grid-cols-1 gap-5 my-6;
     }
-    
+
     .gh-reading-card {
       @apply p-5 rounded-lg;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-    
+
     .gh-reading-icon {
       @apply w-12 h-12;
     }
-    
+
     .gh-reading-icon svg {
       @apply w-6 h-6;
     }
-    
+
     .gh-reading-title {
       @apply text-lg mb-2;
     }
-    
+
     .gh-reading-author {
       @apply text-base;
     }
-    
+
     /* Timeline */
     .gh-learning-timeline {
       @apply pl-6 space-y-8 my-8 border-l-2;
     }
-    
+
     .gh-timeline-item {
       @apply pl-4;
     }
-    
+
     .gh-timeline-icon {
       @apply -left-10 p-2.5 border-[3px];
     }
-    
+
     .gh-timeline-icon svg {
       @apply w-5 h-5;
     }
-    
+
     .gh-timeline-content {
       @apply pl-0;
     }
-    
+
     .gh-timeline-date {
       @apply text-base mb-2;
     }
-    
+
     .gh-timeline-title {
       @apply text-lg font-medium mb-2;
     }
-    
+
     .gh-timeline-description {
       @apply text-base leading-relaxed;
     }
-    
+
     /* Interests */
     h3 + p {
       @apply text-base leading-relaxed px-0 mb-8;
     }
-    
+
     /* Other grid layouts */
     .gh-repos-grid {
       @apply grid-cols-1 gap-3;
     }
-    
+
     /* Activity feed */
     .gh-activity-feed {
       @apply p-5 rounded-lg;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-    
+
     .gh-activity-month {
       @apply mb-8;
     }
-    
+
     .gh-activity-month-header {
       @apply text-lg pb-3 mb-4;
     }
-    
+
     .gh-activity-month-header svg {
       @apply w-5 h-5;
     }
-    
+
     .gh-activity-list {
       @apply space-y-6;
     }
-    
+
     .gh-activity-item {
       @apply gap-4;
     }
-    
+
     .gh-activity-item::before {
       @apply w-[3px];
     }
-    
+
     .gh-activity-title {
       @apply text-base mb-2;
     }
-    
+
     .gh-activity-link {
       @apply font-medium;
     }
-    
+
     .gh-activity-date {
       @apply text-sm;
     }
-    
+
     .gh-activity-icon {
       @apply p-3 w-10 h-10;
     }
-    
+
     .gh-activity-icon svg {
       @apply w-4 h-4;
     }
-    
+
     /* Section titles with decorative line */
     h2, h3 {
       @apply relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:mx-auto md:after:mx-0 after:w-16 after:h-[3px] after:rounded-full after:bg-theme-accent-30;
     }
-    
+
     /* Add spacing between content blocks */
     .gh-profile-content > div > * {
       @apply mb-8;
     }
-    
+
     /* Mobile-specific enhancements */
     .gh-section-header {
       @apply flex-col items-center mb-4;
     }
-    
+
     .gh-section-title {
       @apply mb-2 text-center;
     }
-    
+
     .gh-post-grid {
       @apply grid-cols-1 gap-4;
     }
-    
+
     .gh-post-image {
       @apply h-auto max-h-40;
     }
-    
+
     .gh-post-content {
       @apply p-3;
     }
-    
+
     .gh-post-title {
       @apply text-base;
     }
-    
+
     /* Improved tap targets */
-    button, 
-    a.gh-btn, 
+    button,
+    a.gh-btn,
     .gh-nav-item,
     .gh-post-card,
     .tag-btn,
     .gh-page-number {
       @apply min-h-[44px] flex items-center justify-center;
     }
-    
+
     /* Add breathing room */
-    section, 
+    section,
     .gh-section {
       @apply mb-8;
     }
-    
+
     /* Improved form elements for mobile */
-    input, 
-    textarea, 
+    input,
+    textarea,
     select {
       @apply text-base p-3 min-h-[44px];
     }

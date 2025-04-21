@@ -15,7 +15,7 @@
           </a>
         {%- endfor %}
       </div>
-      
+
       <div class="gh-nav">
         {% for social in site.social_media %}
           {% if social.enabled and social.display_in_header %}
@@ -61,7 +61,7 @@
   <script src="/js/search.js"></script>
   <script src="/js/heatmap.js"></script>
   <script src="/js/microlink-integration.js"></script>
-  
+
   <!-- Force static visualizations to be displayed -->
   <script>
     // Insert static visualizations directly
@@ -78,7 +78,7 @@
               <text x="10" y="54" font-size="9" fill="#8b949e" text-anchor="middle">Wed</text>
               <text x="10" y="82" font-size="9" fill="#8b949e" text-anchor="middle">Fri</text>
             </g>
-            
+
             <!-- Month labels -->
             <g transform="translate(30, 10)">
               <text x="0" y="0" font-size="10" fill="#8b949e">Jan</text>
@@ -94,7 +94,7 @@
               <text x="700" y="0" font-size="10" fill="#8b949e">Nov</text>
               <text x="770" y="0" font-size="10" fill="#8b949e">Dec</text>
             </g>
-            
+
             <!-- Sample activity pattern -->
             <g transform="translate(30, 20)">
               <!-- Create boxes for each day of the year -->
@@ -108,7 +108,7 @@
               <!-- Additional cells would be added here for a complete visualization -->
             </g>
           </svg>
-          
+
           <!-- Legend -->
           <div class="flex items-center justify-end gap-2 mt-2 text-xs text-text-secondary">
             <span>Less</span>
@@ -124,7 +124,7 @@
           </div>
         `;
       }
-      
+
       // Replace activity feed loading indicator with static HTML
       const activityFeedContainer = document.getElementById('activity-feed');
       if (activityFeedContainer) {
@@ -139,7 +139,7 @@
                 </svg>
                 <span>Dec 2024</span>
               </div>
-              
+
               <ul class="gh-activity-list">
                 <li class="gh-activity-item">
                   <div class="gh-activity-icon">
@@ -156,7 +156,7 @@
                 </li>
               </ul>
             </div>
-            
+
             <!-- October 2024 Activity -->
             <div class="gh-activity-month">
               <div class="gh-activity-month-header">
@@ -165,7 +165,7 @@
                 </svg>
                 <span>Oct 2024</span>
               </div>
-              
+
               <ul class="gh-activity-list">
                 <li class="gh-activity-item">
                   <div class="gh-activity-icon">
@@ -182,7 +182,7 @@
                 </li>
               </ul>
             </div>
-            
+
             <!-- View more link -->
             <div class="text-center mt-6">
               <a href="/blog/" class="gh-btn inline-flex items-center">

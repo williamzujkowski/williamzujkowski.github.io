@@ -15,7 +15,7 @@ const dotenv = require("dotenv");
 const { program } = require("commander");
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: process.env.ENV_FILE || ".env.test" });
 
 program
   .option("--cve <cve-id>", "Test with a specific CVE (default: CVE-2023-50164)")
@@ -265,6 +265,159 @@ async function testSansIsc(cveId) {
   }
 }
 
+// Test CERT Coordination Center (CERT/CC)
+async function testCertCcData(cveId) {
+  if (process.env.CERT_CC_ENABLED !== "true") {
+    console.log("CERT/CC is disabled in .env file");
+    return null;
+  }
+
+  console.log(`Checking CERT/CC for information on ${cveId}...`);
+
+  try {
+    const response = await axios.get("https://www.kb.cert.org/vuls/atomfeed/", {
+      timeout: 10000,
+    });
+
+    // Check if the CVE ID is mentioned in the feed
+    if (response.data.includes(cveId)) {
+      return {
+        message: `Found reference to ${cveId} in CERT/CC feed`,
+        url: "https://www.kb.cert.org/vuls/atomfeed/",
+      };
+    }
+
+    // Return info about recent entries in the feed
+    return {
+      message: `${cveId} not found in CERT/CC feed, but feed is available`,
+      url: "https://www.kb.cert.org/vuls/atomfeed/",
+    };
+  } catch (error) {
+    console.error("Error fetching from CERT/CC:", error.message);
+    return null;
+  }
+}
+
+// Test Zero Day Initiative (ZDI)
+async function testZdiData(cveId) {
+  if (process.env.ZDI_ENABLED !== "true") {
+    console.log("Zero Day Initiative is disabled in .env file");
+    return null;
+  }
+
+  console.log(`Checking Zero Day Initiative for information on ${cveId}...`);
+
+  // Get the current year
+  const currentYear = new Date().getFullYear();
+  let allEntries = [];
+
+  // Try current year feed
+  try {
+    const response = await axios.get(
+      `https://www.zerodayinitiative.com/rss/published/${currentYear}`,
+      { timeout: 10000 }
+    );
+
+    // Parse the XML using a simple approach for testing
+    const content = response.data;
+    const regex = new RegExp(`${cveId}`, "i");
+
+    // Check if CVE is mentioned anywhere in the feed
+    if (regex.test(content)) {
+      return {
+        message: `Found reference to ${cveId} in ZDI feed for year ${currentYear}`,
+        feedYear: currentYear,
+        url: `https://www.zerodayinitiative.com/rss/published/${currentYear}`,
+      };
+    }
+
+    // Try previous year as well
+    const prevYearResponse = await axios.get(
+      `https://www.zerodayinitiative.com/rss/published/${currentYear - 1}`,
+      { timeout: 10000 }
+    );
+
+    if (regex.test(prevYearResponse.data)) {
+      return {
+        message: `Found reference to ${cveId} in ZDI feed for year ${currentYear - 1}`,
+        feedYear: currentYear - 1,
+        url: `https://www.zerodayinitiative.com/rss/published/${currentYear - 1}`,
+      };
+    }
+
+    // Try base feed as last resort
+    const baseResponse = await axios.get(
+      "https://www.zerodayinitiative.com/rss/published/",
+      { timeout: 10000 }
+    );
+
+    if (regex.test(baseResponse.data)) {
+      return {
+        message: `Found reference to ${cveId} in ZDI base feed`,
+        url: "https://www.zerodayinitiative.com/rss/published/",
+      };
+    }
+
+    return {
+      message: `No information found in ZDI feeds for ${cveId}`,
+      checkedYears: [currentYear, currentYear - 1],
+      checkedBase: true,
+    };
+  } catch (error) {
+    console.error("Error fetching from ZDI:", error.message);
+    return null;
+  }
+}
+
+// Test VulDB (Vulnerability Database)
+async function testVulDbData(cveId) {
+  if (process.env.VULDB_ENABLED !== "true") {
+    console.log("VulDB is disabled in .env file");
+    return null;
+  }
+
+  console.log(`Checking VulDB for information on ${cveId}...`);
+
+  try {
+    // Fetch the VulDB RSS feed for recent vulnerabilities
+    const response = await axios.get("https://vuldb.com/?rss.recent", {
+      timeout: 10000,
+    });
+
+    // Check if the CVE ID is mentioned in the feed
+    if (response.data.includes(cveId)) {
+      return {
+        message: `Found reference to ${cveId} in VulDB feed`,
+        url: "https://vuldb.com/?rss.recent",
+      };
+    }
+
+    // Extract some sample entries to show feed is working
+    const itemMatch = response.data.match(/<item>([\s\S]*?)<\/item>/g);
+    if (itemMatch && itemMatch.length > 0) {
+      // Extract titles of the first 3 items
+      const titles = itemMatch.slice(0, 3).map((item) => {
+        const titleMatch = item.match(/<title>(.*?)<\/title>/);
+        return titleMatch ? titleMatch[1] : "Unknown title";
+      });
+
+      return {
+        message: `${cveId} not found in VulDB feed, but feed is available`,
+        sampleEntries: titles,
+        url: "https://vuldb.com/?rss.recent",
+      };
+    }
+
+    return {
+      message: `No information found in VulDB feed for ${cveId}`,
+      url: "https://vuldb.com/?rss.recent",
+    };
+  } catch (error) {
+    console.error("Error fetching from VulDB:", error.message);
+    return null;
+  }
+}
+
 // Main function to run all tests
 async function main() {
   console.log(`Running tests for ${cveId}...\n`);
@@ -272,8 +425,11 @@ async function main() {
   await runTest("NVD API", testNvdApi);
   await runTest("MITRE API", testMitreApi);
   await runTest("CISA KEV", testCisaKev);
+  await runTest("ZDI (Zero Day Initiative)", testZdiData);
   await runTest("Exploit-DB", testExploitDb);
   await runTest("SANS ISC", testSansIsc);
+  await runTest("CERT/CC", testCertCcData);
+  await runTest("VulDB", testVulDbData);
   await runTest("AlienVault OTX", testAlienVaultOtx);
 
   console.log("\nAll tests completed!");

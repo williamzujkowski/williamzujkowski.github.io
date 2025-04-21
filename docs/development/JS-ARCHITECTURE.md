@@ -53,17 +53,20 @@ Components are organized in a modular fashion, with each component responsible f
 The initialization process is divided into three priority levels to optimize performance:
 
 ### 1. High Priority (Immediate Execution)
+
 - **Theme System**: Prevents flash of unstyled content
 - **Accessibility Features**: Skip links and ARIA attributes
 - **Analytics**: Start tracking early
 - **Site Configuration**: Global settings
 
 ### 2. Medium Priority (Next Animation Frame)
+
 - **Responsive Layout**: Viewport adjustments
 - **Scroll Effects**: Back-to-top button
 - **Joke Generator**: Content enhancement
 
 ### 3. Low Priority (Browser Idle Time)
+
 - **Search**: Full-text search functionality
 - **Code Highlighting**: Syntax highlighting for code blocks
 - **Animations**: Visual enhancements
@@ -93,21 +96,25 @@ Data flows through the application in the following ways:
 ## Key Components
 
 ### Theme System (`theme-toggle.js`)
+
 - Manages theme switching between light and dark modes
 - Persists user preferences
 - Responds to system preference changes
 
 ### Code Highlighting (`code-highlight.js`)
+
 - Enhances code blocks with syntax highlighting
 - Adds language detection and copy button
 - Implements line numbering
 
 ### Search (`search.js`)
+
 - Provides full-text search functionality
 - Filters blog posts and content based on user queries
 - Updates results in real-time
 
 ### URL Validator (`url-validator.js`)
+
 - Development tool to check for broken links
 - Validates external URLs
 - Generates a report of invalid links

@@ -22,11 +22,13 @@ This document provides detailed guidelines for creating effective blog posts for
 ## Content Development
 
 ### Structure
+
 - Reading time: 6-9 minutes (minimum 1,400 words, ideally 1,400-2,100 words)
 - Use clear hierarchical headings (H1 for title, H2 for sections, H3 for subsections)
 - Organize with bullet points and numbered lists where appropriate
 
 ### Content Elements
+
 - **Recent Developments**: Incorporate insights from recent advancements
 - **Code Samples**: Include relevant code with proper formatting
 - **Diagrams/Images**: Use visuals to explain complex concepts
@@ -38,12 +40,15 @@ This document provides detailed guidelines for creating effective blog posts for
 ## Visual Guidelines
 
 ### Image Requirements
+
 - Include a header image at the top of the post
 - Add relevant images throughout (approximately one per major section)
 - Ensure all visuals have descriptive alt text for accessibility
 
 ### Image Sources
+
 Use images ONLY from these copyright-free websites:
+
 - Unsplash (https://unsplash.com/)
 - Pexels (https://www.pexels.com/)
 - Pixabay (https://pixabay.com/)
@@ -56,6 +61,7 @@ Use images ONLY from these copyright-free websites:
 - Rawpixel (https://www.rawpixel.com/)
 
 For each image, provide:
+
 - Direct URL to the specific image
 - Proper attribution if required by the source
 - Descriptive alt text for accessibility
@@ -70,6 +76,7 @@ For each image, provide:
 ## Formatting Reference
 
 ### Code Blocks
+
 ````markdown
 ```javascript
 function example() {
@@ -79,13 +86,16 @@ function example() {
 ````
 
 ### Images
+
 ```markdown
 ![Alt text describing the image](/assets/images/blog/image-name.jpg)
 ```
 
 ### Lists
+
 ```markdown
 ## Main Points
+
 - First point
 - Second point
   - Sub-point
@@ -98,6 +108,7 @@ function example() {
 ```
 
 ### Links
+
 ```markdown
 [Descriptive link text](https://example.com)
 ```

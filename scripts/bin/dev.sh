@@ -40,37 +40,37 @@ case "$1" in
         echo -e "${GREEN}Starting development server...${NC}"
         npm run serve
         ;;
-        
+
     "css")
         echo -e "${GREEN}Watching CSS files for changes...${NC}"
         npm run watch:css
         ;;
-        
+
     "debug")
         echo -e "${GREEN}Running with debug output...${NC}"
         npm run debug
         ;;
-        
+
     "lint")
         echo -e "${GREEN}Linting JavaScript files...${NC}"
         npm run lint
         ;;
-        
+
     "lint:fix")
         echo -e "${GREEN}Linting and fixing JavaScript files...${NC}"
         npm run lint:fix
         ;;
-        
+
     "format")
         echo -e "${GREEN}Formatting files with Prettier...${NC}"
         npm run format
         ;;
-        
+
     "test")
         echo -e "${GREEN}Running tests...${NC}"
         echo -e "${YELLOW}No tests defined. Add tests in package.json.${NC}"
         ;;
-        
+
     "help" | *)
         show_help
         ;;

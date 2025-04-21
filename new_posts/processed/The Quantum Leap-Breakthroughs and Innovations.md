@@ -48,4 +48,4 @@ For those interested in exploring quantum computing further, consider delving in
 
 - **Microsoft Quantum Development Kit:** A set of tools to write quantum algorithms and simulate quantum computers. [Microsoft Quantum Development Kit](https://www.microsoft.com/en-us/quantum/development-kit)
 
-These platforms offer hands-on experience and insights into the fascinating world of quantum computing, providing a solid foundation for both newcomers and seasoned enthusiasts. 
+These platforms offer hands-on experience and insights into the fascinating world of quantum computing, providing a solid foundation for both newcomers and seasoned enthusiasts.

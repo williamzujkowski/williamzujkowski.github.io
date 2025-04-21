@@ -1,0 +1,269 @@
+name: Generate Vulnerability Blog Posts
+
+on:
+  # Manual trigger with inputs
+  workflow_dispatch:
+    inputs:
+      cve:
+        description: 'CVE ID to analyze (leave empty for latest)'
+        required: false
+        type: string
+      provider:
+        description: 'LLM provider to use (leave empty for all)'
+        required: false
+        type: choice
+        options:
+          - all
+          - openai
+          - gemini
+          - claude
+        default: 'all'
+
+  # Automated daily run at 06:00 UTC
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  # Test data sources and connectivity first
+  test-services:
+    name: Test Data Sources and LLM Connectivity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'scripts/vulnerabilities/package-lock.json'
+
+      - name: Install Dependencies
+        run: |
+          cd scripts/vulnerabilities
+          npm ci
+
+      - name: Test Data Sources
+        run: |
+          cd scripts/vulnerabilities
+          node test-data-sources.js
+        env:
+          # Feature toggles
+          MITRE_API_ENABLED: true
+          ZDI_ENABLED: true
+          CERT_CC_ENABLED: true
+          VULDB_ENABLED: true
+          SANS_ISC_ENABLED: true
+          EXPLOIT_DB_ENABLED: true
+          CISA_KEV_ENABLED: true
+          ALIENVAULT_OTX_ENABLED: ${{ secrets.ALIENVAULT_OTX_API_KEY != '' }}
+
+          # API Keys
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          ALIENVAULT_OTX_API_KEY: ${{ secrets.ALIENVAULT_OTX_API_KEY }}
+          VULDB_USER_AGENT: ${{ secrets.VULDB_USER_AGENT || 'William Zujkowski Blog Vulnerability Analyzer' }}
+          MITRE_USER_AGENT: ${{ secrets.MITRE_USER_AGENT || 'William Zujkowski Blog Vulnerability Analyzer' }}
+
+      - name: Test LLM Provider Connectivity
+        run: |
+          cd scripts/vulnerabilities
+          node test-models.js --provider all
+        env:
+          # LLM API Keys
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+
+  # Update vulnerability index (RAG)
+  update-index:
+    name: Update Vulnerability Index
+    runs-on: ubuntu-latest
+    needs: test-services
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'scripts/vulnerabilities/package-lock.json'
+
+      - name: Install Dependencies
+        run: |
+          cd scripts/vulnerabilities
+          npm ci
+
+      - name: Update Vulnerability Index
+        run: |
+          cd scripts/vulnerabilities
+          node scripts/update-index.js
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+
+      - name: Upload Index Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vuln-index
+          path: scripts/vulnerabilities/data/index.json
+          retention-days: 7
+
+  # Generate blog posts with matrix strategy
+  generate-posts:
+    name: Generate Posts with ${{ matrix.provider }}
+    runs-on: ubuntu-latest
+    needs: update-index
+    strategy:
+      matrix:
+        provider: ${{ (github.event.inputs.provider == 'all' || github.event.inputs.provider == '') && fromJSON('["openai", "gemini", "claude"]') || fromJSON(format('["{0}"]', github.event.inputs.provider)) }}
+      # Allow other providers to continue if one fails
+      fail-fast: false
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'scripts/vulnerabilities/package-lock.json'
+
+      - name: Install Dependencies
+        run: |
+          cd scripts/vulnerabilities
+          npm ci
+
+      - name: Download Index Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vuln-index
+          path: scripts/vulnerabilities/data/
+
+      - name: Generate Blog Post
+        id: generate
+        run: |
+          cd scripts/vulnerabilities
+
+          # Set CVE parameter based on input or use latest
+          if [ -n "${{ github.event.inputs.cve }}" ]; then
+            CVE_PARAM="--cve ${{ github.event.inputs.cve }}"
+          else
+            CVE_PARAM="--latest"
+          fi
+
+          # Mask sensitive values in logs
+          echo "::add-mask::${{ secrets.OPENAI_API_KEY }}"
+          echo "::add-mask::${{ secrets.GOOGLE_API_KEY }}"
+          echo "::add-mask::${{ secrets.CLAUDE_API_KEY }}"
+          echo "::add-mask::${{ secrets.NVD_API_KEY }}"
+          echo "::add-mask::${{ secrets.ALIENVAULT_OTX_API_KEY }}"
+
+          # Log token usage metrics
+          echo "Starting blog generation with ${{ matrix.provider }}..."
+          OUTPUT=$(node generate-vuln-post.js $CVE_PARAM)
+
+          # Extract CVE ID from output for post comparison
+          echo "$OUTPUT" | grep -o "CVE-[0-9]\{4\}-[0-9]\{4,\}" | head -1 > cve_id.txt
+          echo "CVE ID: $(cat cve_id.txt)"
+
+          # Log token usage
+          TOKENS=$(echo "$OUTPUT" | grep -o "Token usage.*")
+          echo "TOKEN_USAGE=$(echo $TOKENS)" >> $GITHUB_OUTPUT
+        env:
+          # LLM Configuration
+          LLM_PROVIDER: ${{ matrix.provider }}
+          USE_EFFICIENT_MODEL: ${{ secrets.USE_EFFICIENT_MODEL || 'true' }}
+
+          # LLM API Keys
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+
+          # Data Source API Keys
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          ALIENVAULT_OTX_API_KEY: ${{ secrets.ALIENVAULT_OTX_API_KEY }}
+
+          # User Agents
+          VULDB_USER_AGENT: ${{ secrets.VULDB_USER_AGENT || 'William Zujkowski Blog Vulnerability Analyzer' }}
+          MITRE_USER_AGENT: ${{ secrets.MITRE_USER_AGENT || 'William Zujkowski Blog Vulnerability Analyzer' }}
+
+          # Data Source Feature Toggles
+          MITRE_API_ENABLED: ${{ secrets.MITRE_API_ENABLED || 'true' }}
+          ZDI_ENABLED: ${{ secrets.ZDI_ENABLED || 'true' }}
+          CERT_CC_ENABLED: ${{ secrets.CERT_CC_ENABLED || 'true' }}
+          VULDB_ENABLED: ${{ secrets.VULDB_ENABLED || 'true' }}
+          SANS_ISC_ENABLED: ${{ secrets.SANS_ISC_ENABLED || 'true' }}
+          EXPLOIT_DB_ENABLED: ${{ secrets.EXPLOIT_DB_ENABLED || 'true' }}
+          CISA_KEV_ENABLED: ${{ secrets.CISA_KEV_ENABLED || 'true' }}
+          ALIENVAULT_OTX_ENABLED: ${{ secrets.ALIENVAULT_OTX_API_KEY != '' }}
+
+          # RAG Settings
+          RAG_ENABLED: ${{ secrets.RAG_ENABLED || 'true' }}
+
+      - name: Upload Generated Post
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-post-${{ matrix.provider }}
+          path: src/posts/*vulnerability-analysis*.md
+          retention-days: 7
+
+  # Compare generated posts
+  compare-and-select:
+    name: Compare and Select Best Post
+    runs-on: ubuntu-latest
+    needs: generate-posts
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.provider == 'all' || github.event.inputs.provider == ''
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Download All Posts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-posts/
+
+      - name: Compare Posts and Select Best
+        run: |
+          echo "Comparing posts from different providers..."
+          # Add script to compare quality, length, detail level, etc.
+          # For now, just list what we've generated
+          ls -la all-posts/blog-post-*/
+
+          # In a real implementation, we would:
+          # 1. Parse the posts
+          # 2. Run quality metrics (readability, detail level, etc.)
+          # 3. Select the best post or combine elements from multiple posts
+          # 4. Copy the selected post to the src/posts directory
+
+  # Notification of completion
+  notify:
+    name: Send Notification
+    runs-on: ubuntu-latest
+    needs: [generate-posts, compare-and-select]
+    # Run even if compare step is skipped
+    if: always()
+    steps:
+      - name: Prepare Notification
+        id: prepare
+        run: |
+          if [ "${{ contains(needs.*.result, 'failure') }}" = "true" ]; then
+            echo "status=⚠️ Some steps failed in vulnerability blog generation" >> $GITHUB_OUTPUT
+          else
+            echo "status=✅ Vulnerability blog posts generated successfully" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Notification
+        # In a real implementation, you would:
+        # - Send an email notification
+        # - Post to Slack or Teams
+        # - Create a GitHub issue for failures
+        run: echo "${{ steps.prepare.outputs.status }}"

@@ -57,8 +57,7 @@ async function generateWithOpenAI(prompt, options = {}) {
         messages: [
           {
             role: "system",
-            content:
-              "You are a cybersecurity expert specializing in vulnerability analysis.",
+            content: "Security expert analyzing vulnerabilities.",
           },
           {
             role: "user",
@@ -75,6 +74,20 @@ async function generateWithOpenAI(prompt, options = {}) {
         },
       }
     );
+
+    // Record token usage
+    if (response.data.usage) {
+      console.log(
+        `Token usage - Input: ${response.data.usage.prompt_tokens}, Output: ${response.data.usage.completion_tokens}`
+      );
+
+      // Export token usage statistics
+      global.tokenUsage = global.tokenUsage || {};
+      global.tokenUsage.input = response.data.usage.prompt_tokens;
+      global.tokenUsage.output = response.data.usage.completion_tokens;
+      global.tokenUsage.provider = "openai";
+      global.tokenUsage.model = model;
+    }
 
     return response.data.choices[0].message.content;
   } catch (error) {
@@ -119,9 +132,8 @@ async function generateWithGemini(prompt, options = {}) {
       maxOutputTokens: options.maxOutputTokens || 8192,
     };
 
-    // Generate content
-    const systemPrompt =
-      "You are a cybersecurity expert specializing in vulnerability analysis.";
+    // Generate content - use a more concise system prompt
+    const systemPrompt = "Security expert analyzing vulnerabilities.";
     const fullPrompt = `${systemPrompt}\n\n${prompt}`;
 
     const result = await geminiModel.generateContent({
@@ -129,7 +141,24 @@ async function generateWithGemini(prompt, options = {}) {
       generationConfig,
     });
 
-    return result.response.text();
+    // Estimate token usage for Gemini (no direct token count available in API response)
+    const responseText = result.response.text();
+    const estimatedInputTokens = Math.ceil(fullPrompt.length / 4); // Rough estimate - 1 token ≈ 4 chars
+    const estimatedOutputTokens = Math.ceil(responseText.length / 4);
+
+    console.log(
+      `Token usage (estimated) - Input: ~${estimatedInputTokens}, Output: ~${estimatedOutputTokens}`
+    );
+
+    // Export token usage statistics
+    global.tokenUsage = global.tokenUsage || {};
+    global.tokenUsage.input = estimatedInputTokens;
+    global.tokenUsage.output = estimatedOutputTokens;
+    global.tokenUsage.provider = "gemini";
+    global.tokenUsage.model = model;
+    global.tokenUsage.estimated = true;
+
+    return responseText;
   } catch (error) {
     console.error("Error generating content with Gemini:", error.message);
     throw error;
@@ -161,8 +190,7 @@ async function generateWithClaude(prompt, options = {}) {
       "https://api.anthropic.com/v1/messages",
       {
         model: model,
-        system:
-          "You are a cybersecurity expert specializing in vulnerability analysis.",
+        system: "Security expert analyzing vulnerabilities.",
         messages: [
           {
             role: "user",
@@ -180,6 +208,20 @@ async function generateWithClaude(prompt, options = {}) {
         },
       }
     );
+
+    // Record token usage
+    if (response.data.usage) {
+      console.log(
+        `Token usage - Input: ${response.data.usage.input_tokens}, Output: ${response.data.usage.output_tokens}`
+      );
+
+      // Export token usage statistics
+      global.tokenUsage = global.tokenUsage || {};
+      global.tokenUsage.input = response.data.usage.input_tokens;
+      global.tokenUsage.output = response.data.usage.output_tokens;
+      global.tokenUsage.provider = "claude";
+      global.tokenUsage.model = model;
+    }
 
     return response.data.content[0].text;
   } catch (error) {

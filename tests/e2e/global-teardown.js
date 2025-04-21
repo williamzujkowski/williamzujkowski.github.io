@@ -10,15 +10,15 @@
 async function globalTeardown(testConfig) {
   // Only kill the server if we started it
   if (global.__SERVER_PROCESS && !global.__SERVER_ALREADY_RUNNING) {
-    console.log('Shutting down development server...');
-    
+    console.log("Shutting down development server...");
+
     // Kill the server process
-    if (process.platform === 'win32') {
+    if (process.platform === "win32") {
       // Windows requires a different approach to kill the process tree
-      const { exec } = require('child_process');
+      const { exec } = require("child_process");
       exec(`taskkill /pid ${global.__SERVER_PROCESS.pid} /T /F`, (error) => {
         if (error) {
-          console.error('Failed to kill server process:', error);
+          console.error("Failed to kill server process:", error);
         }
       });
     } else {
@@ -26,11 +26,11 @@ async function globalTeardown(testConfig) {
       try {
         process.kill(-global.__SERVER_PROCESS.pid);
       } catch (error) {
-        console.error('Failed to kill server process:', error);
+        console.error("Failed to kill server process:", error);
       }
     }
-    
-    console.log('Development server shut down');
+
+    console.log("Development server shut down");
   }
 }
 

@@ -42,31 +42,31 @@ case "$1" in
     echo -e "${GREEN}Building everything (data, site, CSS)...${NC}"
     npm run build
     ;;
-    
+
   "data")
     echo -e "${GREEN}Building data files...${NC}"
     npm run build:data
     ;;
-    
+
   "site")
     echo -e "${GREEN}Building site...${NC}"
     npx @11ty/eleventy --config=config/.eleventy.simple.cjs
     ;;
-    
+
   "css")
     echo -e "${GREEN}Building CSS...${NC}"
     npm run build:css
     ;;
-    
+
   "dev")
     echo -e "${GREEN}Starting development server...${NC}"
     npm run dev
     ;;
-    
+
   "help")
     show_help
     ;;
-    
+
   *)
     echo -e "${RED}Unknown option: $1${NC}"
     show_help

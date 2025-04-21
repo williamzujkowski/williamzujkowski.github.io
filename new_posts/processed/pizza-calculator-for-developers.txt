@@ -78,28 +78,28 @@ function calculatePizzaOrder(team, duration, intensity) {
   // Base calculation
   const slicesPerPerson = 2.8;
   const slicesPerPizza = 8;
-  
+
   // Calculate total slices needed
   let totalSlicesNeeded = team.count * slicesPerPerson;
-  
+
   // Apply duration modifier
   if (duration > 3) {
     totalSlicesNeeded *= (1 + (duration - 3) * 0.3);
   }
-  
+
   // Apply intensity factor
   totalSlicesNeeded *= intensity;
-  
+
   // Calculate pizzas needed and round up
   const pizzasNeeded = Math.ceil(totalSlicesNeeded / slicesPerPizza);
-  
+
   // Calculate variety distribution based on team preferences
   const varietyDistribution = calculateVarietyDistribution(team.preferences, pizzasNeeded);
-  
+
   // Generate delivery schedule for sessions > 5 hours
-  const deliverySchedule = duration > 5 ? 
+  const deliverySchedule = duration > 5 ?
     generateDeliverySchedule(pizzasNeeded, duration) : null;
-  
+
   return {
     pizzaCount: pizzasNeeded,
     varieties: varietyDistribution,
@@ -240,7 +240,7 @@ Looking ahead, several emerging trends suggest the future evolution of pizza pro
 As developer performance tracking becomes more sophisticated, nutrition optimization is likely to become more personalized:
 
 - **Cognitive Performance Correlation:** Systems linking measured development metrics (commit frequency, code quality, bug introduction rates) with nutrition timing and content
-  
+
 - **Personalized Nutrition Profiles:** Individual developer nutrition recommendations based on performance pattern analysis and personal metrics
 
 - **Productivity Cycle Alignment:** Customized delivery timing based on identified team and individual productive periods

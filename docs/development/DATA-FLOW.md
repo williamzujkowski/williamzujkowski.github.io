@@ -93,6 +93,7 @@ At runtime, client-side JavaScript interacts with data in the following ways:
 ### Core Data Structures
 
 1. **Site Configuration**:
+
    ```javascript
    {
      title: "Site Title",
@@ -107,6 +108,7 @@ At runtime, client-side JavaScript interacts with data in the following ways:
    ```
 
 2. **Blog Post**:
+
    ```javascript
    {
      title: "Post Title",
@@ -175,6 +177,7 @@ src/_data/config/
 ```
 
 This pattern:
+
 1. Reduces the number of API calls at build time
 2. Simplifies imports in JavaScript
 3. Improves maintenance by grouping related data

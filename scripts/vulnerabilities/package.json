@@ -9,7 +9,11 @@
     "test-openai": "node test-models.js --provider openai",
     "test-gemini": "node test-models.js --provider gemini",
     "test-claude": "node test-models.js --provider claude",
-    "test-models": "node test-models.js --provider all"
+    "test-models": "node test-models.js --provider all",
+    "test:sources": "node test-data-sources.js",
+    "test:sources:cve": "node test-data-sources.js --cve",
+    "test:vuldb": "node test-vuldb.js",
+    "test:vuldb:cve": "node test-vuldb.js --cve"
   },
   "dependencies": {
     "@google/generative-ai": "^0.2.0",

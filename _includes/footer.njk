@@ -2,20 +2,20 @@
   <div class="footer-content">
     &copy; {% year %} {{ site.author }} | Built with <a href="https://www.11ty.dev/">11ty</a> | <a href="/feed.xml">RSS</a>
   </div>
-  
+
   <div class="footer-social">
     {% for social in site.social_media %}
       {% if social.display_in_footer and social.enabled %}
-        <a 
-          href="{{ social.url }}" 
-          class="footer-social-link" 
+        <a
+          href="{{ social.url }}"
+          class="footer-social-link"
           aria-label="{{ social.name }}"
           title="{{ social.name }}"
         >{{ social.icon | safe }}</a>
       {% endif %}
     {% endfor %}
   </div>
-  
+
   <div class="text-xs mt-4 opacity-70">
     Designed with ❤️ using TailwindCSS
   </div>

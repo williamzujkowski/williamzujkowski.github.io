@@ -25,8 +25,15 @@ const dotenv = require("dotenv");
 const { format } = require("date-fns");
 const { parseString } = require("xml2js");
 
+// Track token usage for logging and cost monitoring
+let tokenUsage = {
+  input: 0,
+  output: 0,
+  provider: null,
+};
+
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: process.env.ENV_FILE || ".env.test" });
 
 // Check for required API keys based on provider
 const LLM_PROVIDER = process.env.LLM_PROVIDER || "openai";
@@ -51,13 +58,28 @@ program
   .option("--cve <cve-id>", "Generate a post for a specific CVE")
   .option("--latest", "Generate a post for the latest critical vulnerability")
   .option("--weekly", "Generate a weekly roll-up of critical vulnerabilities")
+  .option("--provider <provider>", "LLM provider to use (openai, gemini, claude)")
+  .option("--no-rag", "Disable Retrieval-Augmented Generation")
   .parse(process.argv);
 
 const options = program.opts();
 
 // Function to read the prompt template
 function readPromptTemplate() {
-  const promptPath = path.join(__dirname, "../../Prompts/threat-blog-post.prompt");
+  // Use the RAG-enabled prompt template if relevant vulnerabilities are available
+  const promptName =
+    options.rag !== false ? "threat-blog-post-rag.prompt" : "threat-blog-post.prompt";
+  const promptPath = path.join(__dirname, "../../Prompts", promptName);
+
+  // Fall back to standard prompt if RAG prompt doesn't exist
+  if (!fs.existsSync(promptPath) && promptName === "threat-blog-post-rag.prompt") {
+    console.log(
+      "RAG-enabled prompt template not found, falling back to standard template"
+    );
+    return readPromptTemplate();
+  }
+
+  console.log(`Using prompt template: ${promptName}`);
   return fs.readFileSync(promptPath, "utf8");
 }
 
@@ -100,60 +122,180 @@ async function getVulnerabilityData(cveId) {
     if (mitreData) {
       console.log(`Successfully fetched MITRE data for ${cveId}`);
 
-      // Convert processed MITRE data to a format similar to NVD
+      // Extract the description from MITRE data
       const description = mitreData.description || "";
-      
-      // Build metrics if available in MITRE data
+
+      // Build metrics based on primary metric if available
       let metrics = {};
-      if (mitreData.metrics && mitreData.metrics.length > 0) {
-        const mitreMetric = mitreData.metrics[0]; // Use the first metric
-        metrics = {
-          cvssMetricV31: [{
-            cvssData: {
-              baseScore: mitreMetric.baseScore,
-              baseSeverity: mitreMetric.baseSeverity,
-              vectorString: mitreMetric.vectorString
-            }
-          }]
-        };
-      }
-      
-      // Build weaknesses from problem types
-      const weaknesses = mitreData.problemTypes.length > 0 ? [
-        {
-          description: mitreData.problemTypes.map(pt => ({
-            lang: "en",
-            value: pt
-          }))
+      if (mitreData.primaryMetric) {
+        const metricType = mitreData.primaryMetric.type;
+
+        if (metricType === "CVSS v3.1") {
+          metrics = {
+            cvssMetricV31: [
+              {
+                cvssData: {
+                  baseScore: mitreData.primaryMetric.baseScore,
+                  baseSeverity: mitreData.primaryMetric.baseSeverity,
+                  vectorString: mitreData.primaryMetric.vectorString,
+                  attackVector: mitreData.primaryMetric.attackVector,
+                  attackComplexity: mitreData.primaryMetric.attackComplexity,
+                  privilegesRequired: mitreData.primaryMetric.privilegesRequired,
+                  userInteraction: mitreData.primaryMetric.userInteraction,
+                  scope: mitreData.primaryMetric.scope,
+                  confidentialityImpact: mitreData.primaryMetric.confidentialityImpact,
+                  integrityImpact: mitreData.primaryMetric.integrityImpact,
+                  availabilityImpact: mitreData.primaryMetric.availabilityImpact,
+                  exploitabilityScore: mitreData.primaryMetric.exploitabilityScore,
+                  impactScore: mitreData.primaryMetric.impactScore,
+                },
+              },
+            ],
+          };
+        } else if (metricType === "CVSS v3.0") {
+          metrics = {
+            cvssMetricV30: [
+              {
+                cvssData: {
+                  baseScore: mitreData.primaryMetric.baseScore,
+                  baseSeverity: mitreData.primaryMetric.baseSeverity,
+                  vectorString: mitreData.primaryMetric.vectorString,
+                  attackVector: mitreData.primaryMetric.attackVector,
+                  attackComplexity: mitreData.primaryMetric.attackComplexity,
+                  privilegesRequired: mitreData.primaryMetric.privilegesRequired,
+                  userInteraction: mitreData.primaryMetric.userInteraction,
+                  scope: mitreData.primaryMetric.scope,
+                  confidentialityImpact: mitreData.primaryMetric.confidentialityImpact,
+                  integrityImpact: mitreData.primaryMetric.integrityImpact,
+                  availabilityImpact: mitreData.primaryMetric.availabilityImpact,
+                  exploitabilityScore: mitreData.primaryMetric.exploitabilityScore,
+                  impactScore: mitreData.primaryMetric.impactScore,
+                },
+              },
+            ],
+          };
+        } else if (metricType === "CVSS v2.0") {
+          metrics = {
+            cvssMetricV2: [
+              {
+                cvssData: {
+                  baseScore: mitreData.primaryMetric.baseScore,
+                  vectorString: mitreData.primaryMetric.vectorString,
+                  exploitabilityScore: mitreData.primaryMetric.exploitabilityScore,
+                  impactScore: mitreData.primaryMetric.impactScore,
+                },
+                baseSeverity: mitreData.primaryMetric.baseSeverity,
+              },
+            ],
+          };
         }
-      ] : [];
-      
-      // Build configurations from product data
-      const configurations = [];
-      if (mitreData.vendorData && mitreData.vendorData.products.length > 0) {
-        const cpeMatches = [];
-        mitreData.vendorData.products.forEach(product => {
-          if (product.versions && product.versions.length > 0) {
-            product.versions.forEach(ver => {
-              const cpe = `cpe:2.3:a:${mitreData.vendorData.vendor}:${product.name}:${ver.version}:*:*:*:*:*:*:*`;
-              cpeMatches.push({
-                criteria: cpe,
-                criteriaSpecificaton: `${product.name} ${ver.version}`
-              });
-            });
-          } else {
-            // Add product without version info
-            const cpe = `cpe:2.3:a:${mitreData.vendorData.vendor}:${product.name}:*:*:*:*:*:*:*:*`;
-            cpeMatches.push({
-              criteria: cpe,
-              criteriaSpecificaton: product.name
+      }
+
+      // Build weaknesses from problem types with CWE IDs
+      const weaknesses = [];
+      if (mitreData.problemTypes && mitreData.problemTypes.length > 0) {
+        // Group problem types by CWE ID to avoid duplicates
+        const cweDescriptions = new Map();
+
+        mitreData.problemTypes.forEach((pt) => {
+          const cweId = pt.cweId || "UNKNOWN";
+          if (!cweDescriptions.has(cweId)) {
+            cweDescriptions.set(cweId, []);
+          }
+
+          if (pt.description) {
+            cweDescriptions.get(cweId).push({
+              lang: pt.lang || "en",
+              value: pt.description,
             });
           }
         });
-        
+
+        // Convert the map to the NVD format
+        cweDescriptions.forEach((descriptions, cweId) => {
+          if (descriptions.length > 0) {
+            weaknesses.push({
+              source: "MITRE",
+              type: cweId !== "UNKNOWN" ? "Primary" : "Secondary",
+              description: descriptions,
+            });
+          }
+        });
+      }
+
+      // Build configurations from product data with better version information
+      const configurations = [];
+      if (mitreData.vendorData && mitreData.vendorData.products.length > 0) {
+        const cpeMatches = [];
+
+        mitreData.vendorData.products.forEach((product) => {
+          const vendor = product.vendor || mitreData.vendorData.vendor || "unknown";
+
+          if (product.versions && product.versions.length > 0) {
+            product.versions.forEach((ver) => {
+              // Build a detailed CPE string with version information
+              let criteria = null;
+              let criteriaSpecification = null;
+
+              if (ver.rangeDescription) {
+                // Handle version ranges in a more standardized way
+                if (ver.version) {
+                  // Specific version
+                  criteria = `cpe:2.3:a:${vendor}:${product.name}:${ver.version}:*:*:*:*:*:*:*`;
+                  criteriaSpecification = `${product.name} ${ver.version}`;
+                } else if (ver.lessThan) {
+                  // Version less than
+                  criteria = `cpe:2.3:a:${vendor}:${product.name}:*:*:*:*:*:*:*:*`;
+                  criteriaSpecification = `${product.name} < ${ver.lessThan}`;
+                } else {
+                  // Complex version range - use the description
+                  criteria = `cpe:2.3:a:${vendor}:${product.name}:*:*:*:*:*:*:*:*`;
+                  criteriaSpecification = `${product.name} ${ver.rangeDescription}`;
+                }
+              } else if (ver.version) {
+                // Just use the version directly if no range description
+                criteria = `cpe:2.3:a:${vendor}:${product.name}:${ver.version}:*:*:*:*:*:*:*`;
+                criteriaSpecification = `${product.name} ${ver.version}`;
+              } else {
+                // Generic product entry with no specific version
+                criteria = `cpe:2.3:a:${vendor}:${product.name}:*:*:*:*:*:*:*:*`;
+                criteriaSpecification = product.name;
+              }
+
+              if (criteria) {
+                cpeMatches.push({
+                  criteria: criteria,
+                  criteriaSpecificaton: criteriaSpecification,
+                  vulnerable: ver.status === "affected" || ver.status === "unknown",
+                });
+              }
+            });
+          } else {
+            // Add product without version info
+            const criteria = `cpe:2.3:a:${vendor}:${product.name}:*:*:*:*:*:*:*:*`;
+            cpeMatches.push({
+              criteria: criteria,
+              criteriaSpecificaton: product.name,
+              vulnerable: true,
+            });
+          }
+
+          // Add platform information if available
+          if (product.platforms && product.platforms.length > 0) {
+            product.platforms.forEach((platform) => {
+              const criteria = `cpe:2.3:o:${platform}:*:*:*:*:*:*:*:*`;
+              cpeMatches.push({
+                criteria: criteria,
+                criteriaSpecificaton: `${product.name} on ${platform}`,
+                vulnerable: true,
+              });
+            });
+          }
+        });
+
         if (cpeMatches.length > 0) {
           configurations.push({
-            nodes: [{ cpeMatch: cpeMatches }]
+            nodes: [{ cpeMatch: cpeMatches }],
           });
         }
       }
@@ -167,13 +309,27 @@ async function getVulnerabilityData(cveId) {
             value: description,
           },
         ],
-        vulnStatus: "Modified",
-        references: mitreData.references.map(ref => ({ url: ref.url })) || [],
+        vulnStatus: mitreData.state || "Modified",
+        references:
+          mitreData.references.map((ref) => ({
+            url: ref.url,
+            source: ref.source || "MITRE",
+            tags: ref.tags || [],
+          })) || [],
         metrics: metrics,
         weaknesses: weaknesses,
         configurations: configurations,
         published: mitreData.datePublished,
-        lastModified: mitreData.dateUpdated
+        lastModified: mitreData.dateUpdated,
+        // Add recommendations if available
+        recommendations: mitreData.recommendations
+          ? [
+              {
+                lang: "en",
+                value: mitreData.recommendations,
+              },
+            ]
+          : [],
       };
     }
 
@@ -218,16 +374,96 @@ async function getMitreCveData(cveId) {
     const headers = {
       "User-Agent":
         process.env.MITRE_USER_AGENT || "William Zujkowski Blog Vulnerability Analyzer",
+      Accept: "application/json",
     };
 
-    // MITRE API endpoint for specific CVE
+    // MITRE API endpoint for specific CVE with timeout
     const response = await axios.get(`https://cveawg.mitre.org/api/cve/${cveId}`, {
       headers,
+      timeout: 10000, // 10 second timeout to prevent hanging
     });
 
     if (response.data && response.data.cveMetadata) {
       const data = response.data;
-      
+
+      // Get primary English description or combine multiple if available
+      let description = "";
+      const englishDescriptions =
+        data.containers?.cna?.descriptions?.filter((d) => d.lang === "en") || [];
+
+      if (englishDescriptions.length > 0) {
+        // Use the first description as primary
+        description = englishDescriptions[0].value || "";
+
+        // If there are additional descriptions, append them
+        if (englishDescriptions.length > 1) {
+          const additionalDescriptions = englishDescriptions
+            .slice(1)
+            .map((d) => d.value)
+            .filter(Boolean);
+          if (additionalDescriptions.length > 0) {
+            description +=
+              "\n\nAdditional information:\n" + additionalDescriptions.join("\n\n");
+          }
+        }
+      }
+
+      // Extract problem types (CWE IDs and descriptions)
+      const problemTypes = extractProblemTypes(data);
+
+      // Find the primary CWE ID if available
+      let primaryCweId = null;
+      if (problemTypes.length > 0) {
+        // Look for the first problem type with a CWE ID
+        const withCweId = problemTypes.find((pt) => pt.cweId);
+        if (withCweId) {
+          primaryCweId = withCweId.cweId;
+        }
+      }
+
+      // Get metrics and determine primary CVSS score
+      const metrics = extractMetrics(data);
+      let primaryMetric = null;
+
+      if (metrics && metrics.length > 0) {
+        // Prefer CVSS v3.1, then v3.0, then v2.0
+        primaryMetric =
+          metrics.find((m) => m.type === "CVSS v3.1") ||
+          metrics.find((m) => m.type === "CVSS v3.0") ||
+          metrics.find((m) => m.type === "CVSS v2.0");
+      }
+
+      // Extract vendor and product information
+      const products = extractProducts(data);
+
+      // Determine primary vendor and product names
+      let primaryVendor = "Unknown";
+      let primaryProduct = "";
+
+      if (data.containers?.cna?.affected && data.containers.cna.affected.length > 0) {
+        const firstAffected = data.containers.cna.affected[0];
+        primaryVendor = firstAffected.vendor || "Unknown";
+        primaryProduct = firstAffected.product || "";
+      }
+
+      // Format affected version ranges for display
+      let affectedVersions = [];
+      if (products && products.length > 0) {
+        products.forEach((product) => {
+          if (product.versions && product.versions.length > 0) {
+            product.versions.forEach((version) => {
+              if (version.rangeDescription) {
+                affectedVersions.push(`${product.name} ${version.rangeDescription}`);
+              } else if (version.version) {
+                affectedVersions.push(`${product.name} ${version.version}`);
+              }
+            });
+          } else {
+            affectedVersions.push(`${product.name} (version unknown)`);
+          }
+        });
+      }
+
       // Process and enrich the data
       const processed = {
         raw: data,
@@ -236,27 +472,33 @@ async function getMitreCveData(cveId) {
         assigner: data.cveMetadata?.assignerShortName,
         datePublished: data.cveMetadata?.datePublished,
         dateUpdated: data.cveMetadata?.dateUpdated,
-        description: data.containers?.cna?.descriptions?.find(d => d.lang === 'en')?.value || '',
-        
-        // Extract affected products and versions
+        description: description,
+
+        // Extracted information with better structure
         affected: data.containers?.cna?.affected || [],
-        
-        // Get references
         references: data.containers?.cna?.references || [],
-        
-        // Get problem types (CWEs)
-        problemTypes: extractProblemTypes(data),
-        
-        // Get metrics if available
-        metrics: extractMetrics(data),
-        
-        // Get vendor information
+        problemTypes: problemTypes,
+        primaryCweId: primaryCweId,
+        metrics: metrics,
+        primaryMetric: primaryMetric,
+
+        // Vendor and product information
         vendorData: {
-          vendor: data.containers?.cna?.affected?.[0]?.vendor || 'Unknown',
-          products: extractProducts(data)
-        }
+          vendor: primaryVendor,
+          products: products,
+        },
+
+        // Formatted information for display
+        formattedAffectedVersions: affectedVersions.join(", "),
+        formattedCvssScore: primaryMetric ? primaryMetric.baseScore : "Unknown",
+        formattedSeverity: primaryMetric ? primaryMetric.baseSeverity : "Unknown",
+        formattedCvssVector: primaryMetric ? primaryMetric.vectorString : "Unknown",
+
+        // Extract any recommendations if available
+        recommendations:
+          data.containers?.cna?.solutions?.map((s) => s.value).join("\n") || null,
       };
-      
+
       return processed;
     } else {
       console.log(`No data found in MITRE API for ${cveId}`);
@@ -273,19 +515,28 @@ function extractProblemTypes(data) {
   if (!data.containers?.cna?.problemTypes) {
     return [];
   }
-  
+
   const problemTypes = [];
-  
-  data.containers.cna.problemTypes.forEach(pt => {
+
+  data.containers.cna.problemTypes.forEach((pt) => {
     if (pt.descriptions) {
-      pt.descriptions.forEach(desc => {
+      pt.descriptions.forEach((desc) => {
         if (desc.description) {
-          problemTypes.push(desc.description);
+          // Add CWE ID pattern detection (e.g., CWE-79, CWE-89)
+          const cwePattern = /CWE-\d+/i;
+          const match = desc.description.match(cwePattern);
+          const cweId = match ? match[0] : null;
+
+          problemTypes.push({
+            description: desc.description,
+            cweId: cweId,
+            lang: desc.lang || "en",
+          });
         }
       });
     }
   });
-  
+
   return problemTypes;
 }
 
@@ -294,53 +545,130 @@ function extractMetrics(data) {
   if (!data.containers?.cna?.metrics) {
     return null;
   }
-  
+
   const metrics = [];
-  
-  data.containers.cna.metrics.forEach(metric => {
+
+  data.containers.cna.metrics.forEach((metric) => {
     if (metric.cvssV3_1 || metric.cvssV3_0) {
+      const cvssData = metric.cvssV3_1 || metric.cvssV3_0;
       metrics.push({
-        type: metric.cvssV3_1 ? 'CVSS v3.1' : 'CVSS v3.0',
-        baseScore: metric.cvssV3_1?.baseScore || metric.cvssV3_0?.baseScore,
-        baseSeverity: metric.cvssV3_1?.baseSeverity || metric.cvssV3_0?.baseSeverity,
-        vectorString: metric.cvssV3_1?.vectorString || metric.cvssV3_0?.vectorString,
+        type: metric.cvssV3_1 ? "CVSS v3.1" : "CVSS v3.0",
+        baseScore: cvssData?.baseScore,
+        baseSeverity: cvssData?.baseSeverity,
+        vectorString: cvssData?.vectorString,
+        exploitabilityScore: cvssData?.exploitabilityScore,
+        impactScore: cvssData?.impactScore,
+        attackVector: cvssData?.attackVector,
+        attackComplexity: cvssData?.attackComplexity,
+        privilegesRequired: cvssData?.privilegesRequired,
+        userInteraction: cvssData?.userInteraction,
+        scope: cvssData?.scope,
+        confidentialityImpact: cvssData?.confidentialityImpact,
+        integrityImpact: cvssData?.integrityImpact,
+        availabilityImpact: cvssData?.availabilityImpact,
+      });
+    } else if (metric.cvssV2_0) {
+      // Also capture CVSS v2 data if available
+      const cvssData = metric.cvssV2_0;
+      metrics.push({
+        type: "CVSS v2.0",
+        baseScore: cvssData?.baseScore,
+        baseSeverity: getSeverityFromV2Score(cvssData?.baseScore),
+        vectorString: cvssData?.vectorString,
+        exploitabilityScore: cvssData?.exploitabilityScore,
+        impactScore: cvssData?.impactScore,
       });
     }
   });
-  
+
   return metrics.length > 0 ? metrics : null;
 }
 
-// Helper function to extract product information
+// Helper function to determine severity rating from CVSS v2 score
+function getSeverityFromV2Score(score) {
+  if (!score) return "Unknown";
+  const numScore = parseFloat(score);
+
+  if (numScore >= 9.0) return "Critical";
+  if (numScore >= 7.0) return "High";
+  if (numScore >= 4.0) return "Medium";
+  if (numScore >= 0.1) return "Low";
+  return "None";
+}
+
+// Helper function to extract product information with enhanced version handling
 function extractProducts(data) {
   if (!data.containers?.cna?.affected) {
     return [];
   }
-  
+
   const products = [];
-  
-  data.containers.cna.affected.forEach(affected => {
+
+  data.containers.cna.affected.forEach((affected) => {
     if (affected.product) {
       const product = {
         name: affected.product,
-        versions: []
+        vendor: affected.vendor || "Unknown",
+        versions: [],
+        defaultStatus: affected.defaultStatus || "affected",
       };
-      
+
+      // Extract detailed version information
       if (affected.versions) {
-        affected.versions.forEach(version => {
-          product.versions.push({
+        affected.versions.forEach((version) => {
+          // Handle version ranges more comprehensively
+          const versionInfo = {
             version: version.version,
-            status: version.status || 'affected',
+            status: version.status || product.defaultStatus,
             lessThan: version.lessThan || null,
-            versionType: version.versionType || 'unknown'
-          });
+            versionType: version.versionType || "unknown",
+          };
+
+          // Add version range information if available
+          if (version.lessThan) {
+            versionInfo.rangeDescription = `< ${version.lessThan}`;
+          } else if (version.version) {
+            versionInfo.rangeDescription = `= ${version.version}`;
+          }
+
+          // Add additional version details if available
+          if (version.versionStartIncluding) {
+            versionInfo.versionStartIncluding = version.versionStartIncluding;
+            versionInfo.rangeDescription = `>= ${version.versionStartIncluding}`;
+
+            if (version.versionEndExcluding) {
+              versionInfo.versionEndExcluding = version.versionEndExcluding;
+              versionInfo.rangeDescription += ` and < ${version.versionEndExcluding}`;
+            } else if (version.versionEndIncluding) {
+              versionInfo.versionEndIncluding = version.versionEndIncluding;
+              versionInfo.rangeDescription += ` and <= ${version.versionEndIncluding}`;
+            }
+          } else if (version.versionStartExcluding) {
+            versionInfo.versionStartExcluding = version.versionStartExcluding;
+            versionInfo.rangeDescription = `> ${version.versionStartExcluding}`;
+
+            if (version.versionEndExcluding) {
+              versionInfo.versionEndExcluding = version.versionEndExcluding;
+              versionInfo.rangeDescription += ` and < ${version.versionEndExcluding}`;
+            } else if (version.versionEndIncluding) {
+              versionInfo.versionEndIncluding = version.versionEndIncluding;
+              versionInfo.rangeDescription += ` and <= ${version.versionEndIncluding}`;
+            }
+          }
+
+          product.versions.push(versionInfo);
         });
       }
-      
+
+      // Add platform information if available
+      if (affected.platforms && affected.platforms.length > 0) {
+        product.platforms = affected.platforms;
+      }
+
       products.push(product);
     }
   });
-  
+
   return products;
 }
 
@@ -425,6 +753,16 @@ async function getExploitDbData(cveId) {
   }
 }
 
+// Helper function to parse XML using xml2js (shared by multiple functions)
+const parseXml = (xml) => {
+  return new Promise((resolve, reject) => {
+    parseString(xml, (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+};
+
 // Function to get data from SANS Internet Storm Center
 async function getSansIscData(cveId) {
   if (process.env.SANS_ISC_ENABLED !== "true") {
@@ -440,16 +778,6 @@ async function getSansIscData(cveId) {
     // Parse the XML
     const xmlData = response.data;
     let parsedData = null;
-
-    // Use xml2js to parse the XML
-    const parseXml = (xml) => {
-      return new Promise((resolve, reject) => {
-        parseString(xml, (err, result) => {
-          if (err) reject(err);
-          else resolve(result);
-        });
-      });
-    };
 
     parsedData = await parseXml(xmlData);
 
@@ -487,6 +815,430 @@ async function getSansIscData(cveId) {
     return sansData;
   } catch (error) {
     console.error("Error fetching data from SANS ISC:", error.message);
+    return null;
+  }
+}
+
+// Function to get data from Zero Day Initiative (ZDI)
+async function getZdiData(cveId) {
+  if (process.env.ZDI_ENABLED !== "true") {
+    return null;
+  }
+
+  try {
+    console.log(`Checking Zero Day Initiative for information on ${cveId}...`);
+
+    // Get the current year to try the latest feed first
+    const currentYear = new Date().getFullYear();
+
+    // Try to get data from current year and previous year feeds
+    let allZdiEntries = [];
+
+    // Try current year first
+    try {
+      const currentYearResponse = await axios.get(
+        `https://www.zerodayinitiative.com/rss/published/${currentYear}`,
+        { timeout: 10000 }
+      );
+
+      const currentYearXmlData = currentYearResponse.data;
+
+      const currentYearParsedData = await parseXml(currentYearXmlData);
+      const currentYearItems = currentYearParsedData?.rss?.channel?.[0]?.item || [];
+      allZdiEntries = [...allZdiEntries, ...currentYearItems];
+    } catch (currentYearError) {
+      console.log(`Error fetching current year ZDI data: ${currentYearError.message}`);
+    }
+
+    // Also try previous year for completeness
+    try {
+      const prevYearResponse = await axios.get(
+        `https://www.zerodayinitiative.com/rss/published/${currentYear - 1}`,
+        { timeout: 10000 }
+      );
+
+      const prevYearXmlData = prevYearResponse.data;
+      const prevYearParsedData = await parseXml(prevYearXmlData);
+      const prevYearItems = prevYearParsedData?.rss?.channel?.[0]?.item || [];
+      allZdiEntries = [...allZdiEntries, ...prevYearItems];
+    } catch (prevYearError) {
+      console.log(`Error fetching previous year ZDI data: ${prevYearError.message}`);
+    }
+
+    // If we have no entries, try the main feed as a fallback
+    if (allZdiEntries.length === 0) {
+      try {
+        const baseResponse = await axios.get(
+          "https://www.zerodayinitiative.com/rss/published/",
+          { timeout: 10000 }
+        );
+
+        const baseXmlData = baseResponse.data;
+        const baseParsedData = await parseXml(baseXmlData);
+        const baseItems = baseParsedData?.rss?.channel?.[0]?.item || [];
+        allZdiEntries = baseItems;
+      } catch (baseError) {
+        console.log(`Error fetching base ZDI feed: ${baseError.message}`);
+      }
+    }
+
+    // Filter for items related to the CVE
+    const relevantItems = allZdiEntries.filter((item) => {
+      const title = item.title?.[0] || "";
+      const description = item.description?.[0] || "";
+
+      // Look for the CVE ID in both title and description
+      return title.includes(cveId) || description.includes(cveId);
+    });
+
+    if (relevantItems.length === 0) {
+      console.log(`No information found in ZDI for ${cveId}`);
+      return null;
+    }
+
+    // Format the relevant information
+    const zdiData = relevantItems.map((item) => {
+      // Extract vendor, affected product, and vulnerability type from title if possible
+      const title = item.title?.[0] || "";
+      const description = item.description?.[0] || "";
+
+      // ZDI titles often follow the pattern: "ZDI-21-xxx: Vendor Product Vulnerability Type"
+      let vendor = "Unknown";
+      let product = "Unknown";
+      let vulnType = "Unknown";
+
+      // Try to extract the ZDI ID
+      const zdiIdMatch = title.match(/ZDI-\d+-\d+/);
+      const zdiId = zdiIdMatch ? zdiIdMatch[0] : "Unknown";
+
+      // Extract vulnerability details from title
+      const titleParts = title.split(": ");
+      if (titleParts.length > 1) {
+        const vulnDetails = titleParts[1];
+        const firstSpace = vulnDetails.indexOf(" ");
+        if (firstSpace !== -1) {
+          vendor = vulnDetails.substring(0, firstSpace).trim();
+
+          // Try to extract product and vulnerability type
+          const remainingText = vulnDetails.substring(firstSpace + 1).trim();
+          const lastSpace = remainingText.lastIndexOf(" ");
+
+          if (lastSpace !== -1 && lastSpace > 0) {
+            product = remainingText.substring(0, lastSpace).trim();
+            vulnType = remainingText.substring(lastSpace + 1).trim();
+          } else {
+            product = remainingText;
+          }
+        }
+      }
+
+      // Extract CVSS information if available
+      let cvssScore = null;
+      let severity = null;
+
+      const cvssMatch = description.match(/CVSS Score:\s*(\d+(\.\d+)?)/i);
+      if (cvssMatch) {
+        cvssScore = cvssMatch[1];
+
+        // Calculate severity based on CVSS score
+        const score = parseFloat(cvssScore);
+        if (score >= 9.0) severity = "Critical";
+        else if (score >= 7.0) severity = "High";
+        else if (score >= 4.0) severity = "Medium";
+        else if (score >= 0.1) severity = "Low";
+        else severity = "None";
+      }
+
+      return {
+        title: title,
+        link: item.link?.[0] || "",
+        date: item.pubDate?.[0] || "",
+        description: description,
+        zdiId: zdiId,
+        vendor: vendor,
+        product: product,
+        vulnType: vulnType,
+        cvssScore: cvssScore,
+        severity: severity,
+      };
+    });
+
+    return zdiData;
+  } catch (error) {
+    console.error("Error fetching data from Zero Day Initiative:", error.message);
+    return null;
+  }
+}
+
+// Function to get data from VulDB (Vulnerability Database)
+async function getVulDbData(cveId) {
+  if (process.env.VULDB_ENABLED !== "true") {
+    return null;
+  }
+
+  // Set up retry configuration
+  const maxRetries = 3;
+  const retryDelay = 2000; // 2 seconds between retries
+  let retryCount = 0;
+
+  while (retryCount < maxRetries) {
+    try {
+      console.log(
+        `Checking VulDB for information on ${cveId}... (Attempt ${retryCount + 1}/${maxRetries})`
+      );
+
+      // Fetch the VulDB RSS feed for recent vulnerabilities
+      const response = await axios.get("https://vuldb.com/?rss.recent", {
+        timeout: 15000, // Increased timeout for better reliability
+        headers: {
+          // Add a user agent to prevent being blocked by some servers
+          "User-Agent":
+            process.env.VULDB_USER_AGENT ||
+            "William Zujkowski Blog Vulnerability Analyzer",
+        },
+      });
+
+      // Check if response is valid XML
+      if (
+        !response.data ||
+        typeof response.data !== "string" ||
+        !response.data.includes("<rss")
+      ) {
+        throw new Error("Invalid XML response from VulDB");
+      }
+
+      const parsedData = await parseXml(response.data);
+
+      // Get items from the feed
+      const items = parsedData?.rss?.channel?.[0]?.item || [];
+
+      // Filter for items related to the CVE
+      const relevantItems = items.filter((item) => {
+        const title = item.title?.[0] || "";
+        const description = item.description?.[0] || "";
+        const guid = item.guid?.[0]?._ || item.guid?.[0] || "";
+
+        // Look for the CVE ID in title, description, and guid
+        return (
+          title.includes(cveId) || description.includes(cveId) || guid.includes(cveId)
+        );
+      });
+
+      if (relevantItems.length === 0) {
+        console.log(`No information found in VulDB for ${cveId}`);
+        return null;
+      }
+
+      console.log(
+        `Found ${relevantItems.length} items in VulDB feed related to ${cveId}`
+      );
+
+      // Format the relevant information
+      const vuldbData = relevantItems.map((item) => {
+        // Extract data from the item
+        const title = item.title?.[0] || "";
+        const description = item.description?.[0] || "";
+        const pubDate = item.pubDate?.[0] || "";
+        const link = item.link?.[0] || "";
+        const guid = item.guid?.[0]?._ || item.guid?.[0] || "";
+
+        // Try to extract VulDB ID from the guid or link
+        let vuldbId = null;
+        const vuldbIdMatch = guid.match(/vuldb-id-(\d+)/) || link.match(/id=(\d+)/);
+        if (vuldbIdMatch) {
+          vuldbId = vuldbIdMatch[1];
+        }
+
+        // Try to extract severity
+        let severity = null;
+        const severityMatch =
+          description.match(/Risk Level:\s*(Critical|High|Medium|Low)/i) ||
+          title.match(/(Critical|High|Medium|Low)\s+Risk/i);
+        if (severityMatch) {
+          severity = severityMatch[1];
+        }
+
+        // Try to extract CVSS score
+        let cvssScore = null;
+        const cvssMatch =
+          description.match(/CVSS Base Score:\s*(\d+(\.\d+)?)/i) ||
+          description.match(/CVSS v\d\s+Score:\s*(\d+(\.\d+)?)/i);
+        if (cvssMatch) {
+          cvssScore = cvssMatch[1];
+        }
+
+        // Try to extract affected products
+        let affectedProducts = [];
+        // VulDB often lists affected products after "Affected products:" or similar phrases
+        const productSection = description.match(/Affected products?:([^.]*)\.?/i);
+        if (productSection && productSection[1]) {
+          // Split by commas and clean up each entry
+          affectedProducts = productSection[1]
+            .split(/,|;/)
+            .map((p) => p.trim())
+            .filter(Boolean);
+        }
+
+        // Extract vulnerability type from title if possible
+        let vulnType = null;
+        // VulDB titles often follow pattern: "Product - Vulnerability Type (CVSS Score)"
+        const vulnTypeMatch = title.match(/.*?-\s*(.*?)\s*(\(|$)/);
+        if (vulnTypeMatch && vulnTypeMatch[1]) {
+          vulnType = vulnTypeMatch[1].trim();
+        }
+
+        return {
+          title: title,
+          description: description,
+          pubDate: pubDate,
+          link: link,
+          vuldbId: vuldbId ? `VDB-${vuldbId}` : null,
+          severity: severity,
+          cvssScore: cvssScore,
+          affectedProducts: affectedProducts.length > 0 ? affectedProducts : null,
+          vulnType: vulnType,
+        };
+      });
+
+      return vuldbData;
+    } catch (error) {
+      retryCount++;
+      console.error(
+        `Error fetching data from VulDB (attempt ${retryCount}/${maxRetries}):`,
+        error.message
+      );
+
+      if (retryCount >= maxRetries) {
+        console.error("All VulDB fetch attempts failed");
+        return null;
+      }
+
+      // Wait before retrying
+      console.log(`Waiting ${retryDelay / 1000} seconds before retrying...`);
+      await new Promise((resolve) => setTimeout(resolve, retryDelay));
+    }
+  }
+
+  // This should never be reached due to the return in the final retry attempt
+  return null;
+}
+
+// Function to get data from CERT Coordination Center (CERT/CC)
+async function getCertCcData(cveId) {
+  if (process.env.CERT_CC_ENABLED !== "true") {
+    return null;
+  }
+
+  try {
+    console.log(`Checking CERT/CC for information on ${cveId}...`);
+
+    // Fetch the CERT/CC Atom feed
+    const response = await axios.get("https://www.kb.cert.org/vuls/atomfeed/", {
+      timeout: 10000,
+    });
+
+    const parsedData = await parseXml(response.data);
+
+    // Get entries from the feed
+    const entries = parsedData?.feed?.entry || [];
+
+    // Filter for entries related to the CVE
+    const relevantEntries = entries.filter((entry) => {
+      const title = entry.title?.[0]?._ || entry.title?.[0] || "";
+      const summary = entry.summary?.[0]?._ || entry.summary?.[0] || "";
+      const content = entry.content?.[0]?._ || entry.content?.[0] || "";
+
+      // Look for the CVE ID in title, summary, and content
+      return (
+        title.includes(cveId) || summary.includes(cveId) || content.includes(cveId)
+      );
+    });
+
+    if (relevantEntries.length === 0) {
+      console.log(`No information found in CERT/CC for ${cveId}`);
+      return null;
+    }
+
+    // Format the relevant information
+    const certData = relevantEntries.map((entry) => {
+      // Get entry data
+      const title = entry.title?.[0]?._ || entry.title?.[0] || "";
+      const summary = entry.summary?.[0]?._ || entry.summary?.[0] || "";
+      const link = entry.link?.[0]?.$?.href || "";
+      const published = entry.published?.[0] || "";
+      const updated = entry.updated?.[0] || "";
+      const id = entry.id?.[0] || "";
+
+      // Extract VU# from id if available (typical CERT/CC identifier)
+      let vuNumber = null;
+      const vuMatch = id.match(/VU#(\d+)/i) || id.match(/vuls\/id\/(\d+)/i);
+      if (vuMatch) {
+        vuNumber = vuMatch[1];
+      }
+
+      // Extract severity indication if available
+      let severity = null;
+      const highSeverityTerms = ["critical", "high", "severe"];
+      const mediumSeverityTerms = ["moderate", "medium", "important"];
+      const lowSeverityTerms = ["low", "minor"];
+
+      const titleLower = title.toLowerCase();
+      const summaryLower = summary.toLowerCase();
+
+      if (
+        highSeverityTerms.some(
+          (term) => titleLower.includes(term) || summaryLower.includes(term)
+        )
+      ) {
+        severity = "High";
+      } else if (
+        mediumSeverityTerms.some(
+          (term) => titleLower.includes(term) || summaryLower.includes(term)
+        )
+      ) {
+        severity = "Medium";
+      } else if (
+        lowSeverityTerms.some(
+          (term) => titleLower.includes(term) || summaryLower.includes(term)
+        )
+      ) {
+        severity = "Low";
+      }
+
+      // Extract affected products if discernible
+      let affectedProducts = [];
+
+      // Common product patterns in CERT/CC alerts
+      const productPatterns = [
+        /affects\s+([^.]+)/i,
+        /vulnerability in\s+([^.]+)/i,
+        /([A-Za-z0-9\s]+)\s+vulnerable/i,
+        /([A-Za-z0-9\s]+)\s+contains a vulnerability/i,
+      ];
+
+      for (const pattern of productPatterns) {
+        const match = (title + " " + summary).match(pattern);
+        if (match && match[1]) {
+          affectedProducts.push(match[1].trim());
+          break;
+        }
+      }
+
+      return {
+        title: title,
+        summary: summary,
+        link: link,
+        published: published,
+        updated: updated,
+        vuNumber: vuNumber ? `VU#${vuNumber}` : null,
+        severity: severity,
+        affectedProducts: affectedProducts.length > 0 ? affectedProducts : null,
+      };
+    });
+
+    return certData;
+  } catch (error) {
+    console.error("Error fetching data from CERT/CC:", error.message);
     return null;
   }
 }
@@ -643,17 +1395,36 @@ function assessCloudRelevance(vulnData) {
 async function createInputData(cveId) {
   console.log(`Creating input data for ${cveId}...`);
 
-  // Get data from primary sources in parallel
-  const [vulnData, mitreCveData, exploitInfo, sansIscData] = await Promise.all([
-    getVulnerabilityData(cveId),
-    getMitreCveData(cveId),
-    getExploitDbData(cveId),
-    getSansIscData(cveId),
+  // Determine which data sources are enabled
+  const enabledSources = {
+    mitre: process.env.MITRE_API_ENABLED === "true",
+    exploitDb: process.env.EXPLOIT_DB_ENABLED === "true",
+    sansIsc: process.env.SANS_ISC_ENABLED === "true",
+    zdi: process.env.ZDI_ENABLED === "true",
+    certCc: process.env.CERT_CC_ENABLED === "true",
+    vuldb: process.env.VULDB_ENABLED === "true",
+  };
+
+  // Always try to get primary data source (MITRE preferred)
+  const mitreCveData = enabledSources.mitre ? await getMitreCveData(cveId) : null;
+
+  // Always get NVD data as fallback
+  const vulnData = await getVulnerabilityData(cveId);
+
+  // Get other data sources in parallel but only if enabled
+  const [exploitInfo, sansIscData, zdiData, certCcData, vuldbData] = await Promise.all([
+    enabledSources.exploitDb ? getExploitDbData(cveId) : null,
+    enabledSources.sansIsc ? getSansIscData(cveId) : null,
+    enabledSources.zdi ? getZdiData(cveId) : null,
+    enabledSources.certCc ? getCertCcData(cveId) : null,
+    enabledSources.vuldb ? getVulDbData(cveId) : null,
   ]);
 
   // We need at least basic vulnerability data to continue
-  if (!vulnData) {
-    console.error(`Could not retrieve basic vulnerability data for ${cveId}`);
+  if (!vulnData && !mitreCveData) {
+    console.error(
+      `Could not retrieve vulnerability data from either NVD or MITRE for ${cveId}`
+    );
     // Create a minimal vulnData object with the CVE ID
     const fallbackVulnData = {
       id: cveId,
@@ -670,8 +1441,12 @@ async function createInputData(cveId) {
     };
 
     console.log(`Created minimal fallback data for ${cveId}`);
-    return createMinimalInputData(cveId, fallbackVulnData, mitreCveData);
+    return createMinimalInputData(cveId, fallbackVulnData, mitreCveData, zdiData);
   }
+
+  // Use MITRE as primary source if available, otherwise fall back to NVD
+  let primarySourceData = mitreCveData ? "MITRE" : "NVD";
+  console.log(`Using ${primarySourceData} as primary data source`);
 
   const description = vulnData.descriptions.find((d) => d.lang === "en")?.value || "";
   const metrics =
@@ -696,16 +1471,46 @@ async function createInputData(cveId) {
   }
 
   // Get references from NVD
-  const references = vulnData.references?.map((ref) => ref.url) || [];
+  const references = vulnData?.references?.map((ref) => ref.url) || [];
 
-  // Add references from MITRE if available and not already included
+  // Use a Set to automatically deduplicate URLs
+  const uniqueReferences = new Set(references);
+
+  // Add references from MITRE if available
   if (mitreCveData && mitreCveData.containers?.cna?.references) {
-    const mitreReferences = mitreCveData.containers.cna.references
-      .map((ref) => ref.url)
-      .filter((url) => !references.includes(url));
-
-    references.push(...mitreReferences);
+    mitreCveData.containers.cna.references
+      .filter((ref) => ref.url)
+      .forEach((ref) => uniqueReferences.add(ref.url));
   }
+
+  // Add references from ZDI if available
+  if (zdiData && zdiData.length > 0) {
+    zdiData.forEach((entry) => {
+      if (entry.link) uniqueReferences.add(entry.link);
+    });
+  }
+
+  // Add references from CERT/CC if available
+  if (certCcData && certCcData.length > 0) {
+    certCcData.forEach((entry) => {
+      if (entry.link) uniqueReferences.add(entry.link);
+    });
+  }
+
+  // Add references from VulDB if available
+  if (vuldbData && vuldbData.length > 0) {
+    vuldbData.forEach((entry) => {
+      if (entry.link) uniqueReferences.add(entry.link);
+    });
+  }
+
+  // Limit to most important references to save tokens
+  const MAX_REFERENCES = 10;
+  const referenceArray = Array.from(uniqueReferences);
+  const limitedReferences =
+    referenceArray.length > MAX_REFERENCES
+      ? referenceArray.slice(0, MAX_REFERENCES)
+      : referenceArray;
 
   // Enhance technical details with MITRE data if available
   let enhancedTechnicalDetails = description;
@@ -759,18 +1564,97 @@ async function createInputData(cveId) {
     });
   }
 
+  // Enhance technical details with CERT/CC data if available
+  if (certCcData && certCcData.length > 0) {
+    enhancedTechnicalDetails +=
+      "\n\nInformation from CERT Coordination Center (CERT/CC):\n";
+    certCcData.forEach((item, index) => {
+      enhancedTechnicalDetails += `\n${index + 1}. ${item.title}\n`;
+      if (item.vuNumber) {
+        enhancedTechnicalDetails += `   Vulnerability Note: ${item.vuNumber}\n`;
+      }
+      enhancedTechnicalDetails += `   Published: ${item.published}\n`;
+      if (item.updated && item.updated !== item.published) {
+        enhancedTechnicalDetails += `   Updated: ${item.updated}\n`;
+      }
+      enhancedTechnicalDetails += `   Link: ${item.link}\n`;
+      if (item.severity) {
+        enhancedTechnicalDetails += `   Severity: ${item.severity}\n`;
+      }
+      if (item.affectedProducts && item.affectedProducts.length > 0) {
+        enhancedTechnicalDetails += `   Affected Products: ${item.affectedProducts.join(", ")}\n`;
+      }
+      enhancedTechnicalDetails += `\n`;
+
+      // Add a short excerpt from the summary if available
+      if (item.summary) {
+        const excerpt = item.summary.replace(/<[^>]*>/g, "").substring(0, 300);
+        enhancedTechnicalDetails += `   ${excerpt}...\n`;
+      }
+    });
+  }
+
+  // Enhance technical details with VulDB data if available
+  if (vuldbData && vuldbData.length > 0) {
+    enhancedTechnicalDetails +=
+      "\n\nInformation from VulDB (Vulnerability Database):\n";
+    vuldbData.forEach((item, index) => {
+      enhancedTechnicalDetails += `\n${index + 1}. ${item.title}\n`;
+      if (item.vuldbId) {
+        enhancedTechnicalDetails += `   VulDB ID: ${item.vuldbId}\n`;
+      }
+      enhancedTechnicalDetails += `   Published: ${item.pubDate}\n`;
+      enhancedTechnicalDetails += `   Link: ${item.link}\n`;
+      if (item.severity) {
+        enhancedTechnicalDetails += `   Severity: ${item.severity}\n`;
+      }
+      if (item.cvssScore) {
+        enhancedTechnicalDetails += `   CVSS Score: ${item.cvssScore}\n`;
+      }
+      if (item.vulnType) {
+        enhancedTechnicalDetails += `   Vulnerability Type: ${item.vulnType}\n`;
+      }
+      if (item.affectedProducts && item.affectedProducts.length > 0) {
+        enhancedTechnicalDetails += `   Affected Products: ${item.affectedProducts.join(", ")}\n`;
+      }
+      enhancedTechnicalDetails += `\n`;
+
+      // Add a cleaned excerpt from the description if available
+      if (item.description) {
+        // Clean HTML and extract a reasonable portion
+        const excerpt = item.description.replace(/<[^>]*>/g, "").substring(0, 300);
+        enhancedTechnicalDetails += `   ${excerpt}...\n`;
+      }
+    });
+  }
+
   // Prepare source attribution
-  const dataSources = ["National Vulnerability Database (NVD)"];
+  const dataSources = [];
+
+  // Only include sources that actually provided data
   if (mitreCveData) dataSources.push("MITRE CVE Program");
-  if (isKev !== "Unknown")
+  if (vulnData) dataSources.push("National Vulnerability Database (NVD)");
+  if (isKev !== "Unknown" && isKev !== "No")
     dataSources.push("CISA Known Exploited Vulnerabilities Catalog");
   if (exploitInfo) dataSources.push("Exploit-DB");
   if (sansIscData) dataSources.push("SANS Internet Storm Center");
+  if (zdiData && zdiData.length > 0) dataSources.push("Zero Day Initiative (ZDI)");
+  if (certCcData && certCcData.length > 0)
+    dataSources.push("CERT Coordination Center (CERT/CC)");
+  if (vuldbData && vuldbData.length > 0)
+    dataSources.push("VulDB (Vulnerability Database)");
   if (
     process.env.ALIENVAULT_OTX_ENABLED === "true" &&
-    process.env.ALIENVAULT_OTX_API_KEY
+    process.env.ALIENVAULT_OTX_API_KEY &&
+    threatActors !== "No known threat actor associations at this time." &&
+    threatActors !== "Unable to retrieve threat actor information at this time."
   ) {
     dataSources.push("AlienVault Open Threat Exchange");
+  }
+
+  // If we have no sources (unlikely), add a default
+  if (dataSources.length === 0) {
+    dataSources.push("National Vulnerability Database (NVD)");
   }
 
   // Build enhanced mitigation guidance
@@ -807,7 +1691,7 @@ async function createInputData(cveId) {
     POC_INFO: pocInfo,
     IMPACT_ANALYSIS: `This vulnerability has a CVSS score of ${cvssScore} (${severityRating}), indicating significant impact potential.`,
     MITIGATION_GUIDANCE: mitigationGuidance,
-    REFERENCE_URLS: references.join("\n"),
+    REFERENCE_URLS: limitedReferences.join("\n"),
     IS_KEV: isKev,
     EXPLOIT_STATUS: exploitStatus,
     CWE_ID: cweId,
@@ -819,11 +1703,12 @@ async function createInputData(cveId) {
 }
 
 // Function to create minimal input data when normal sources fail
-function createMinimalInputData(cveId, fallbackVulnData, mitreCveData) {
+function createMinimalInputData(cveId, fallbackVulnData, mitreCveData, zdiData) {
   console.log(`Using minimal data creation for ${cveId}`);
 
   // Extract whatever information we can from MITRE data
-  let description = fallbackVulnData.descriptions.find((d) => d.lang === "en")?.value || "";
+  let description =
+    fallbackVulnData.descriptions.find((d) => d.lang === "en")?.value || "";
   let references = [];
   let cvssScore = "Unknown";
   let cvssVector = "Unknown";
@@ -832,52 +1717,226 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData) {
   let affectedSoftware = "Unknown";
   let affectedVersions = "Unknown";
   let vulnName = cveId;
+  let vulnType = "";
+  let mitigationGuidance =
+    "Follow standard security practices. Update affected software to the latest versions when available. Monitor vendor advisories for patches and workarounds.";
+
+  // Try to extract information from ZDI data first as it often has good titles and summaries
+  if (zdiData && zdiData.length > 0) {
+    const firstZdiEntry = zdiData[0];
+
+    // Use ZDI title components if available
+    if (firstZdiEntry.vendor && firstZdiEntry.vendor !== "Unknown") {
+      affectedSoftware = firstZdiEntry.vendor;
+      if (firstZdiEntry.product && firstZdiEntry.product !== "Unknown") {
+        affectedSoftware += " " + firstZdiEntry.product;
+        affectedVersions = firstZdiEntry.product;
+      }
+    }
+
+    // Use ZDI vulnerability type if available
+    if (firstZdiEntry.vulnType && firstZdiEntry.vulnType !== "Unknown") {
+      vulnType = firstZdiEntry.vulnType;
+    }
+
+    // Use ZDI CVSS score if available
+    if (firstZdiEntry.cvssScore) {
+      cvssScore = firstZdiEntry.cvssScore;
+    }
+
+    // Use ZDI severity if available
+    if (firstZdiEntry.severity) {
+      severityRating = firstZdiEntry.severity;
+    }
+
+    // If ZDI has a good description, use it
+    if (firstZdiEntry.description && firstZdiEntry.description.length > 50) {
+      // Check if the current description is just a placeholder
+      if (description.includes("No detailed information available")) {
+        description = firstZdiEntry.description;
+      }
+    }
+
+    // Add ZDI link to references
+    if (firstZdiEntry.link) {
+      references.push(firstZdiEntry.link);
+    }
+
+    // Create a better vulnerability name using ZDI info
+    if (firstZdiEntry.vendor !== "Unknown" && firstZdiEntry.vulnType !== "Unknown") {
+      vulnName = `${cveId} (${firstZdiEntry.vendor} ${firstZdiEntry.vulnType})`;
+    }
+  }
 
   if (mitreCveData) {
     // Use MITRE data to populate as many fields as possible
     description = mitreCveData.description || description;
-    references = mitreCveData.references?.map(ref => ref.url) || [];
-    
-    // Use MITRE metrics if available
-    if (mitreCveData.metrics && mitreCveData.metrics.length > 0) {
+    references = mitreCveData.references?.map((ref) => ref.url) || [];
+
+    // Use primary metrics from enhanced MITRE data
+    if (mitreCveData.primaryMetric) {
+      cvssScore =
+        mitreCveData.formattedCvssScore ||
+        mitreCveData.primaryMetric.baseScore ||
+        "Unknown";
+      cvssVector =
+        mitreCveData.formattedCvssVector ||
+        mitreCveData.primaryMetric.vectorString ||
+        "Unknown";
+      severityRating =
+        mitreCveData.formattedSeverity ||
+        mitreCveData.primaryMetric.baseSeverity ||
+        "Unknown";
+    } else if (mitreCveData.metrics && mitreCveData.metrics.length > 0) {
+      // Fallback to first metric if primary not set
       const metric = mitreCveData.metrics[0];
       cvssScore = metric.baseScore || "Unknown";
       cvssVector = metric.vectorString || "Unknown";
       severityRating = metric.baseSeverity || "Unknown";
     }
-    
-    // Use MITRE problem types for CWE
-    if (mitreCveData.problemTypes && mitreCveData.problemTypes.length > 0) {
-      cweId = mitreCveData.problemTypes[0] || "Unknown";
-    }
-    
-    // Use MITRE product information
-    if (mitreCveData.vendorData && mitreCveData.vendorData.products.length > 0) {
-      const products = mitreCveData.vendorData.products.map(p => p.name);
-      affectedSoftware = products.join(", ") || "Unknown";
-      
-      // Try to get version information
-      const allVersions = [];
-      mitreCveData.vendorData.products.forEach(p => {
-        if (p.versions && p.versions.length > 0) {
-          const versions = p.versions.map(v => `${p.name} ${v.version}`);
-          allVersions.push(...versions);
-        }
-      });
-      
-      affectedVersions = allVersions.join(", ") || "Unknown";
-      
-      // Use the first product as the vulnerability name if available
-      if (products.length > 0) {
-        vulnName = `${cveId} (${products[0]})`;
+
+    // Use primary CWE ID from enhanced MITRE data
+    if (mitreCveData.primaryCweId) {
+      cweId = mitreCveData.primaryCweId;
+    } else if (mitreCveData.problemTypes && mitreCveData.problemTypes.length > 0) {
+      // Prioritize problem types with CWE IDs
+      const withCweId = mitreCveData.problemTypes.find((pt) => pt.cweId);
+      if (withCweId) {
+        cweId = withCweId.cweId;
+      } else {
+        // Fallback to description if no explicit CWE ID
+        cweId = mitreCveData.problemTypes[0].description || "Unknown";
       }
+    }
+
+    // Use MITRE product information with improved formatting
+    if (mitreCveData.vendorData && mitreCveData.vendorData.products.length > 0) {
+      // Get primary affected software
+      const products = mitreCveData.vendorData.products.map((p) => p.name);
+      if (products.length > 0) {
+        affectedSoftware = products.join(", ");
+      }
+
+      // Use formatted affected versions if available
+      if (mitreCveData.formattedAffectedVersions) {
+        affectedVersions = mitreCveData.formattedAffectedVersions;
+      } else {
+        // Fallback to building version information
+        const allVersions = [];
+        mitreCveData.vendorData.products.forEach((p) => {
+          if (p.versions && p.versions.length > 0) {
+            p.versions.forEach((v) => {
+              if (v.rangeDescription) {
+                allVersions.push(`${p.name} ${v.rangeDescription}`);
+              } else if (v.version) {
+                allVersions.push(`${p.name} ${v.version}`);
+              }
+            });
+          } else {
+            allVersions.push(`${p.name} (version unknown)`);
+          }
+        });
+
+        if (allVersions.length > 0) {
+          affectedVersions = allVersions.join(", ");
+        }
+      }
+
+      // Create a more descriptive vulnerability name
+      if (products.length > 0) {
+        let vendorName = mitreCveData.vendorData.vendor;
+        if (vendorName && vendorName !== "Unknown") {
+          vulnName = `${cveId} (${vendorName} ${products[0]})`;
+        } else {
+          vulnName = `${cveId} (${products[0]})`;
+        }
+      }
+    }
+
+    // Use recommendations if available
+    if (mitreCveData.recommendations) {
+      mitigationGuidance = mitreCveData.recommendations;
     }
   }
 
   // Try to get KEV status even with minimal data
   const isKev = "Unknown (CISA KEV status could not be determined)";
 
-  // Set default values for minimal data
+  // Create a richer technical description if metrics are available
+  let technicalDetails = description;
+  if (cvssScore !== "Unknown" && cvssVector !== "Unknown") {
+    technicalDetails += `\n\nThis vulnerability has a CVSS score of ${cvssScore} (${severityRating}).`;
+
+    if (cvssVector !== "Unknown") {
+      technicalDetails += ` The attack vector is represented by ${cvssVector}.`;
+    }
+
+    if (cweId !== "Unknown") {
+      technicalDetails += `\n\nThis vulnerability is classified as ${cweId}, which typically involves issues with `;
+
+      // Add some context based on common CWE IDs
+      if (cweId.includes("CWE-79")) {
+        technicalDetails +=
+          "cross-site scripting (XSS), allowing attackers to inject malicious scripts into web pages viewed by other users.";
+      } else if (cweId.includes("CWE-89")) {
+        technicalDetails +=
+          "SQL injection, allowing attackers to interfere with database queries and potentially access, modify, or delete data.";
+      } else if (cweId.includes("CWE-20")) {
+        technicalDetails +=
+          "improper input validation, potentially allowing attackers to supply crafted input that could manipulate the application in unintended ways.";
+      } else if (cweId.includes("CWE-200")) {
+        technicalDetails +=
+          "information exposure or disclosure, potentially revealing sensitive data to unauthorized parties.";
+      } else if (cweId.includes("CWE-22")) {
+        technicalDetails +=
+          "path traversal, potentially allowing attackers to access files and directories outside of intended boundaries.";
+      } else if (cweId.includes("CWE-78")) {
+        technicalDetails +=
+          "OS command injection, potentially allowing attackers to execute arbitrary commands on the host operating system.";
+      } else if (cweId.includes("CWE-352")) {
+        technicalDetails +=
+          "cross-site request forgery (CSRF), potentially allowing attackers to trick users into performing unintended actions.";
+      } else if (cweId.includes("CWE-287")) {
+        technicalDetails +=
+          "improper authentication, potentially allowing attackers to bypass authentication mechanisms.";
+      } else if (cweId.includes("CWE-502")) {
+        technicalDetails +=
+          "deserialization of untrusted data, potentially allowing attackers to execute arbitrary code.";
+      } else {
+        technicalDetails += "security weaknesses that could be exploited by attackers.";
+      }
+    }
+  }
+
+  // Create impact assessment based on severity and CWE
+  let impactAnalysis =
+    "Impact analysis could not be determined due to limited information.";
+  if (severityRating !== "Unknown") {
+    impactAnalysis = `This vulnerability has a ${severityRating.toLowerCase()} severity rating`;
+
+    if (cvssScore !== "Unknown") {
+      impactAnalysis += ` with a CVSS score of ${cvssScore}`;
+    }
+
+    impactAnalysis += `. `;
+
+    // Add impact details based on severity
+    if (severityRating.toUpperCase() === "CRITICAL") {
+      impactAnalysis +=
+        "Critical vulnerabilities typically represent severe security issues that require immediate attention. Exploitation could lead to complete system compromise, unauthorized access to sensitive data, or service disruption.";
+    } else if (severityRating.toUpperCase() === "HIGH") {
+      impactAnalysis +=
+        "High severity vulnerabilities represent significant security issues that should be prioritized for remediation. Exploitation could lead to significant data loss, system compromise, or service disruption.";
+    } else if (severityRating.toUpperCase() === "MEDIUM") {
+      impactAnalysis +=
+        "Medium severity vulnerabilities represent moderate security issues that should be addressed in a timely manner. Exploitation might be more difficult or limited in impact compared to higher severity issues.";
+    } else if (severityRating.toUpperCase() === "LOW") {
+      impactAnalysis +=
+        "Low severity vulnerabilities represent minor security issues with limited potential impact. While less urgent, they should still be addressed as part of routine security maintenance.";
+    }
+  }
+
+  // Set more comprehensive default values with enhanced MITRE data
   return {
     CVE_ID: cveId,
     VULN_NAME: vulnName,
@@ -887,15 +1946,16 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData) {
     AFFECTED_SOFTWARE: affectedSoftware,
     AFFECTED_VERSIONS: affectedVersions,
     VULN_SUMMARY: description,
-    TECHNICAL_DETAILS: description,
+    TECHNICAL_DETAILS: technicalDetails,
     POC_INFO: "No public POC information available.",
-    IMPACT_ANALYSIS: 
-      cvssScore !== "Unknown" 
-        ? `This vulnerability has a CVSS score of ${cvssScore} (${severityRating}), indicating significant impact potential.`
-        : "Impact analysis could not be determined due to limited information.",
-    MITIGATION_GUIDANCE:
-      "Follow standard security practices. Update affected software to the latest versions when available. Monitor vendor advisories for patches and workarounds.",
-    REFERENCE_URLS: references.join("\n") || "No references available.",
+    IMPACT_ANALYSIS: impactAnalysis,
+    MITIGATION_GUIDANCE: mitigationGuidance,
+    REFERENCE_URLS:
+      references.length > 0
+        ? references.length > 10
+          ? references.slice(0, 10).join("\n")
+          : references.join("\n")
+        : "No references available.",
     IS_KEV: isKev,
     EXPLOIT_STATUS: "Unknown",
     CWE_ID: cweId,
@@ -911,34 +1971,231 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData) {
 // Import the LLM provider utilities
 const { generateContent } = require("./llm-providers");
 
+/**
+ * Retrieval-Augmented Generation (RAG) functionality
+ * Enhances input data with relevant context from the vulnerability index
+ */
+async function enhanceWithRAG(inputData) {
+  // Skip if RAG is disabled
+  if (options.rag === false) {
+    console.log("RAG is disabled, skipping retrieval enhancement");
+    return inputData;
+  }
+
+  const indexPath = path.join(__dirname, "data/index.json");
+  if (!fs.existsSync(indexPath)) {
+    console.log("Vulnerability index not found, skipping RAG enhancement");
+    return inputData;
+  }
+
+  try {
+    // Load the vulnerability index
+    const indexData = fs.readFileSync(indexPath, "utf8");
+    const index = JSON.parse(indexData);
+
+    console.log(
+      `Loaded index with ${index.vulnerabilities.length} entries from ${index.metadata.timestamp}`
+    );
+
+    // Find similar vulnerabilities based on CWE, affected products, or description
+    const cveId = inputData.CVE_ID;
+    const relevantVulnerabilities = [];
+
+    // Parse CWE from inputData
+    let targetCwe = null;
+    if (inputData.CWE_ID && inputData.CWE_ID !== "Unknown") {
+      const cweMatch = inputData.CWE_ID.match(/CWE-\d+/);
+      if (cweMatch) {
+        targetCwe = cweMatch[0];
+      }
+    }
+
+    // Find by exact CVE match first
+    const exactMatch = index.vulnerabilities.find((v) => v.id === cveId);
+    if (exactMatch) {
+      console.log(`Found exact match for ${cveId} in the index`);
+      relevantVulnerabilities.push(exactMatch);
+    }
+
+    // Then find by CWE (most relevant for similar vulnerabilities)
+    if (targetCwe) {
+      console.log(`Looking for vulnerabilities with CWE ${targetCwe}`);
+      const cweSimilar = index.vulnerabilities
+        .filter((v) => v.id !== cveId && v.cweIds && v.cweIds.includes(targetCwe))
+        .sort((a, b) => b.cvssScore - a.cvssScore) // Sort by CVSS score descending
+        .slice(0, 3); // Take top 3
+
+      if (cweSimilar.length > 0) {
+        console.log(
+          `Found ${cweSimilar.length} similar vulnerabilities with matching CWE`
+        );
+        relevantVulnerabilities.push(...cweSimilar);
+      }
+    }
+
+    // If we don't have enough, find by affected products
+    if (
+      relevantVulnerabilities.length < 4 &&
+      inputData.AFFECTED_SOFTWARE !== "Unknown"
+    ) {
+      // Extract product info
+      const affectedSoftware = inputData.AFFECTED_SOFTWARE.toLowerCase();
+
+      console.log(`Looking for vulnerabilities affecting ${affectedSoftware}`);
+      const productSimilar = index.vulnerabilities
+        .filter((v) => {
+          return (
+            v.id !== cveId &&
+            v.affectedProducts &&
+            v.affectedProducts.some((p) => p.toLowerCase().includes(affectedSoftware))
+          );
+        })
+        .sort((a, b) => b.cvssScore - a.cvssScore) // Sort by CVSS score descending
+        .slice(0, 3); // Take top 3
+
+      if (productSimilar.length > 0) {
+        console.log(
+          `Found ${productSimilar.length} similar vulnerabilities affecting the same product`
+        );
+        // Filter out any duplicates
+        productSimilar.forEach((v) => {
+          if (!relevantVulnerabilities.some((rv) => rv.id === v.id)) {
+            relevantVulnerabilities.push(v);
+          }
+        });
+      }
+    }
+
+    // If we still don't have enough, find by severity
+    if (relevantVulnerabilities.length < 4 && inputData.SEVERITY_RATING !== "Unknown") {
+      const severity = inputData.SEVERITY_RATING.toUpperCase();
+
+      console.log(`Looking for vulnerabilities with ${severity} severity`);
+      const severitySimilar = index.vulnerabilities
+        .filter((v) => {
+          return v.id !== cveId && v.severity === severity;
+        })
+        .sort((a, b) => (b.published < a.published ? -1 : 1)) // Sort by publication date descending
+        .slice(0, 2); // Take only 2 for severity (less relevant than CWE/product)
+
+      if (severitySimilar.length > 0) {
+        console.log(
+          `Found ${severitySimilar.length} similar vulnerabilities with ${severity} severity`
+        );
+        // Filter out any duplicates
+        severitySimilar.forEach((v) => {
+          if (!relevantVulnerabilities.some((rv) => rv.id === v.id)) {
+            relevantVulnerabilities.push(v);
+          }
+        });
+      }
+    }
+
+    // Limit to max 5 relevant vulnerabilities to avoid token bloat
+    const limitedRelevant = relevantVulnerabilities.slice(0, 5);
+
+    if (limitedRelevant.length === 0) {
+      console.log("No relevant vulnerabilities found in the index");
+      return inputData;
+    }
+
+    // Enhance input data with relevant vulnerability context
+    console.log(
+      `Enhancing input data with ${limitedRelevant.length} relevant vulnerabilities`
+    );
+
+    const relevantContext = limitedRelevant
+      .map((v) => {
+        return `
+CVE: ${v.id}
+Severity: ${v.severity} (CVSS: ${v.cvssScore})
+Published: ${v.published ? new Date(v.published).toISOString().split("T")[0] : "Unknown"}
+Description: ${v.description}
+${v.cweIds && v.cweIds.length > 0 ? `CWE IDs: ${v.cweIds.join(", ")}` : ""}
+${v.affectedProducts && v.affectedProducts.length > 0 ? `Affected Products: ${v.affectedProducts.join(", ")}` : ""}
+`;
+      })
+      .join("\n---\n");
+
+    // Create a new input data object with the enhanced content
+    const enhancedInput = { ...inputData };
+
+    // Add relevant context to technical details
+    enhancedInput.RELEVANT_VULNERABILITIES = relevantContext;
+
+    // If we have similar vulnerabilities, update the prompt template to use them
+    if (enhancedInput.RELEVANT_VULNERABILITIES) {
+      console.log("Added relevant vulnerability context to input data");
+    }
+
+    return enhancedInput;
+  } catch (error) {
+    console.error("Error enhancing input with RAG:", error.message);
+    // Return original input data if RAG enhancement fails
+    return inputData;
+  }
+}
+
 // Function to generate the blog post using the configured LLM provider
 async function generateBlogPost(inputData) {
   const prompt = readPromptTemplate();
 
+  // Use optimized input data if available, otherwise use original
+  const dataToUse = inputData.optimizedInputData || inputData;
+
+  // Apply RAG enhancement if enabled
+  const enhancedData = await enhanceWithRAG(dataToUse);
+
   // Replace placeholders in the prompt with actual data
   let populatedPrompt = prompt;
-  for (const [key, value] of Object.entries(inputData)) {
+  for (const [key, value] of Object.entries(enhancedData)) {
     populatedPrompt = populatedPrompt.replace(new RegExp(`\\{${key}\\}`, "g"), value);
   }
 
   try {
-    // Set model options based on provider
-    const provider = process.env.LLM_PROVIDER || "openai";
+    // Set provider based on command line option or environment variable
+    const provider = options.provider || process.env.LLM_PROVIDER || "openai";
     let modelOptions = {
       temperature: 0.7,
     };
 
-    // Add provider-specific options
+    // Store provider for token usage tracking
+    tokenUsage.provider = provider;
+
+    // Add provider-specific options optimized for token efficiency
     if (provider === "openai") {
+      // Use GPT-4-turbo for better efficiency
       modelOptions.model = "gpt-4-turbo";
-      modelOptions.maxTokens = 4000;
+      modelOptions.maxTokens = 3500; // Reduce max tokens to save costs
+      modelOptions.presence_penalty = 0.1; // Slightly discourage repetition
+      modelOptions.frequency_penalty = 0.1; // Slightly discourage repetition
     } else if (provider === "gemini") {
+      // Use Flash model which is most cost-efficient
       modelOptions.model = "gemini-2.0-flash";
-      modelOptions.maxOutputTokens = 8192;
+      modelOptions.maxOutputTokens = 4096; // Reduce from 8192 to save costs
+      modelOptions.topK = 30; // Default is 40, lowering slightly improves efficiency
+      modelOptions.topP = 0.85; // Default is 0.95, lowering slightly improves efficiency
     } else if (provider === "claude") {
-      modelOptions.model = "claude-3-opus-20240229";
-      modelOptions.maxTokens = 4000;
+      // Use Haiku model which is most cost-efficient
+      modelOptions.model =
+        process.env.USE_EFFICIENT_MODEL === "true"
+          ? "claude-3-haiku-20240307"
+          : "claude-3-opus-20240229";
+      modelOptions.maxTokens = 3500; // Reduce max tokens to save costs
+    } else {
+      console.warn(`Unknown provider '${provider}', defaulting to OpenAI`);
+      modelOptions.model = "gpt-4-turbo";
+      modelOptions.maxTokens = 3500;
+      tokenUsage.provider = "openai";
     }
+
+    console.log(
+      `Generating content with ${tokenUsage.provider} model: ${modelOptions.model}`
+    );
+
+    // Estimate token count (very rough estimate - 1 token ≈ 4 chars for English text)
+    const estimatedInputTokens = Math.ceil(populatedPrompt.length / 4);
+    console.log(`Estimated input tokens: ~${estimatedInputTokens}`);
 
     // Use the LLM provider module to generate content
     const content = await generateContent(populatedPrompt, modelOptions);
@@ -1001,10 +2258,60 @@ function saveBlogPost(content, cveId, inputData) {
   // Add data sources to the frontmatter
   const sources = inputData.DATA_SOURCES || "National Vulnerability Database (NVD)";
 
+  // Truncate long fields to optimize token usage
+  const MAX_TECHNICAL_DETAILS_LENGTH = 3000;
+
+  // Create optimized inputData with truncated fields
+  const optimizedInputData = { ...inputData };
+
+  // Truncate technical details if too long
+  if (
+    inputData.TECHNICAL_DETAILS &&
+    inputData.TECHNICAL_DETAILS.length > MAX_TECHNICAL_DETAILS_LENGTH
+  ) {
+    optimizedInputData.TECHNICAL_DETAILS =
+      inputData.TECHNICAL_DETAILS.substring(0, MAX_TECHNICAL_DETAILS_LENGTH) +
+      `\n\n[... ${inputData.TECHNICAL_DETAILS.length - MAX_TECHNICAL_DETAILS_LENGTH} more characters truncated to save tokens ...]`;
+    console.log(
+      `Truncated TECHNICAL_DETAILS field from ${inputData.TECHNICAL_DETAILS.length} to ${MAX_TECHNICAL_DETAILS_LENGTH} characters`
+    );
+  }
+
+  // Create a more descriptive title based on available information
+  let vulnTitle = "";
+
+  // Include the severity if known
+  if (inputData.SEVERITY_RATING && inputData.SEVERITY_RATING !== "Unknown") {
+    vulnTitle += `[${inputData.SEVERITY_RATING}] `;
+  }
+
+  // Always include the CVE ID
+  vulnTitle += cveId;
+
+  // If we have affected software, add it to the title
+  if (inputData.AFFECTED_SOFTWARE && inputData.AFFECTED_SOFTWARE !== "Unknown") {
+    vulnTitle += `: ${inputData.AFFECTED_SOFTWARE}`;
+
+    // If we have a CWE or vulnerability type, add it as well
+    if (inputData.CWE_ID && inputData.CWE_ID !== "Unknown") {
+      // Extract a friendly name from CWE if possible
+      const cweMatch = inputData.CWE_ID.match(/CWE-\d+\s+(.+)/);
+      if (cweMatch && cweMatch[1]) {
+        vulnTitle += ` ${cweMatch[1]}`;
+      } else if (inputData.VULN_NAME && inputData.VULN_NAME !== cveId) {
+        // Fall back to VULN_NAME if it's not just the CVE ID
+        vulnTitle += ` ${inputData.VULN_NAME.replace(cveId, "").trim()}`;
+      }
+    }
+  } else if (inputData.VULN_NAME && inputData.VULN_NAME !== cveId) {
+    // If we don't have affected software but do have a name, use that
+    vulnTitle += `: ${inputData.VULN_NAME.replace(cveId, "").trim()}`;
+  }
+
   // Add frontmatter
   const frontmatter = `---
 layout: post.njk
-title: "Vulnerability Analysis: ${cveId}"
+title: "${vulnTitle}"
 date: ${date}
 description: "${description}"
 tags: ${JSON.stringify(tags)}
@@ -1160,14 +2467,32 @@ async function main() {
       }
 
       console.log("Successfully created input data, generating blog post...");
-      const blogContent = await generateBlogPost(inputData);
+      const blogContent = await generateBlogPost({ ...inputData, optimizedInputData });
       if (!blogContent) {
         console.error("Failed to generate blog post");
         process.exit(1);
       }
 
       console.log("Successfully generated blog post, saving...");
+      // Use original inputData for frontmatter to preserve all metadata
       saveBlogPost(blogContent, options.cve, inputData);
+
+      // Output token usage statistics
+      if (global.tokenUsage && global.tokenUsage.input) {
+        console.log(`\nToken Usage Summary:`);
+        console.log(`Provider: ${global.tokenUsage.provider}`);
+        console.log(`Model: ${global.tokenUsage.model}`);
+        console.log(
+          `Input tokens: ${global.tokenUsage.input}${global.tokenUsage.estimated ? " (estimated)" : ""}`
+        );
+        console.log(
+          `Output tokens: ${global.tokenUsage.output}${global.tokenUsage.estimated ? " (estimated)" : ""}`
+        );
+        console.log(
+          `Total tokens: ${global.tokenUsage.input + global.tokenUsage.output}${global.tokenUsage.estimated ? " (estimated)" : ""}`
+        );
+      }
+
       console.log("Blog post generation complete!");
     } else if (options.latest) {
       console.log("Searching for latest critical vulnerabilities...");
@@ -1190,7 +2515,7 @@ async function main() {
       }
 
       console.log("Successfully created input data, generating blog post...");
-      const blogContent = await generateBlogPost(inputData);
+      const blogContent = await generateBlogPost({ ...inputData, optimizedInputData });
       if (!blogContent) {
         console.error("Failed to generate blog post");
         process.exit(1);

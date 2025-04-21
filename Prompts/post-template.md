@@ -1,10 +1,10 @@
 ---
 title: "{{POST_TITLE}}"
-date: {{POST_DATE}}
+date: { { POST_DATE } }
 layout: post.njk
-tags: {{POST_TAGS}}
+tags: { { POST_TAGS } }
 description: "{{POST_DESCRIPTION}}"
-image: {{IMAGE_PATH}}
+image: { { IMAGE_PATH } }
 image_alt: "{{IMAGE_ALT}}"
 ---
 
