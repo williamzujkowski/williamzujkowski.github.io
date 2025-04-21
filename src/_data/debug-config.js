@@ -30,14 +30,14 @@ const possibleNavPaths = [
   path.join(__dirname, "..", "_data", "config", "navigation.json"),
   path.join(__dirname, "..", "config", "navigation.json"),
   path.join(__dirname, "..", "..", "config", "navigation.json"),
-  path.join(__dirname, "..", "..", "src", "_data", "config", "navigation.json")
+  path.join(__dirname, "..", "..", "src", "_data", "config", "navigation.json"),
 ];
 
 console.log("Checking all possible navigation.json locations:");
-possibleNavPaths.forEach(navPath => {
+possibleNavPaths.forEach((navPath) => {
   console.log(`Path: ${navPath}`);
   console.log(`File exists: ${fs.existsSync(navPath)}`);
-  
+
   if (fs.existsSync(navPath)) {
     const navData = readJsonFile(navPath);
     console.log("Navigation data contents:");
@@ -50,17 +50,17 @@ const baseLocations = [
   __dirname,
   path.join(__dirname, ".."),
   path.join(__dirname, "..", ".."),
-  path.join(__dirname, "..", "..", "src")
+  path.join(__dirname, "..", "..", "src"),
 ];
 
 console.log("\nChecking for config directories:");
-baseLocations.forEach(baseDir => {
+baseLocations.forEach((baseDir) => {
   const configDir = path.join(baseDir, "config");
   console.log(`Config dir at ${configDir} exists: ${fs.existsSync(configDir)}`);
-  
+
   if (fs.existsSync(configDir)) {
     console.log(`Files in ${configDir}:`);
-    fs.readdirSync(configDir).forEach(file => {
+    fs.readdirSync(configDir).forEach((file) => {
       console.log(`- ${file}`);
     });
   }
@@ -78,12 +78,13 @@ if (fs.existsSync(siteJsPath)) {
     const siteJsContent = fs.readFileSync(siteJsPath, "utf8");
     console.log("First 500 chars of site.js:");
     console.log(siteJsContent.substring(0, 500));
-    
+
     // Extract the navigation loading logic from site.js
-    const navLoadSection = siteJsContent.match(/\/\/ Load navigation\.json[\s\S]*?}/s) || 
-                          siteJsContent.match(/navigation\.json[\s\S]*?}/s) || 
-                          siteJsContent.match(/navPath[\s\S]*?}/s);
-    
+    const navLoadSection =
+      siteJsContent.match(/\/\/ Load navigation\.json[\s\S]*?}/s) ||
+      siteJsContent.match(/navigation\.json[\s\S]*?}/s) ||
+      siteJsContent.match(/navPath[\s\S]*?}/s);
+
     if (navLoadSection) {
       console.log("\nNavigation loading section in site.js:");
       console.log(navLoadSection[0]);
@@ -96,11 +97,18 @@ if (fs.existsSync(siteJsPath)) {
 }
 
 // Check if eleventy-navigation plugin is installed
-const nodeModulesPath = path.join(__dirname, "..", "..", "node_modules", "@11ty", "eleventy-navigation");
+const nodeModulesPath = path.join(
+  __dirname,
+  "..",
+  "..",
+  "node_modules",
+  "@11ty",
+  "eleventy-navigation"
+);
 console.log(`\neleventy-navigation plugin exists: ${fs.existsSync(nodeModulesPath)}`);
 
 export default {
   debug: true,
-  navigationPaths: possibleNavPaths.filter(p => fs.existsSync(p)),
-  configDirs: baseLocations.filter(p => fs.existsSync(path.join(p, "config")))
+  navigationPaths: possibleNavPaths.filter((p) => fs.existsSync(p)),
+  configDirs: baseLocations.filter((p) => fs.existsSync(path.join(p, "config"))),
 };

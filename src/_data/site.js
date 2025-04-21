@@ -183,9 +183,13 @@ function buildSiteConfiguration() {
         const navData = readJsonFile(navPath);
         if (navData.navigation) {
           config.navigation = navData.navigation;
-          console.log(`Loaded ${config.navigation.length} navigation items from ${navPath}`);
+          console.log(
+            `Loaded ${config.navigation.length} navigation items from ${navPath}`
+          );
         } else {
-          console.warn(`Navigation data found at ${navPath} but missing 'navigation' key`);
+          console.warn(
+            `Navigation data found at ${navPath} but missing 'navigation' key`
+          );
         }
       } else {
         console.warn(`Navigation file not found at ${navPath}`);
@@ -238,7 +242,9 @@ function buildSiteConfiguration() {
       if (!config.navigation) {
         config.navigation = siteData.navigation;
         if (config.navigation) {
-          console.log(`Loaded ${config.navigation.length} navigation items from site.json.backup`);
+          console.log(
+            `Loaded ${config.navigation.length} navigation items from site.json.backup`
+          );
         } else {
           console.warn("No navigation data found in site.json.backup");
         }
@@ -306,23 +312,23 @@ function buildSiteConfiguration() {
         {
           name: "Home",
           url: "/",
-          icon: ""
+          icon: "",
         },
         {
           name: "Links",
           url: "/links/",
-          icon: ""
+          icon: "",
         },
         {
           name: "Blog",
           url: "/blog/",
-          icon: ""
+          icon: "",
         },
         {
           name: "Vulnerability Analysis",
           url: "/vulnerability-analysis/",
-          icon: "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-shield-exclamation\" viewBox=\"0 0 16 16\"><path d=\"M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.126a1 1 0 0 0 .866 0q.114-.04.293-.126c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.03 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.856C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56z\"/><path d=\"M7.001 11h2v2h-2zm1-8a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1z\"/></svg>"
-        }
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-exclamation" viewBox="0 0 16 16"><path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.126a1 1 0 0 0 .866 0q.114-.04.293-.126c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.03 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.856C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56z"/><path d="M7.001 11h2v2h-2zm1-8a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1z"/></svg>',
+        },
       ],
       linkGroups: [],
       links: [],
