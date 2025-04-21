@@ -243,6 +243,8 @@ eleventyNavigation:
   </div>
   <div class="gh-tag-buttons">
     <button class="tag-btn selected" data-tag="">All Topics</button>
+    <button class="tag-btn" data-tag="blog">Blog Articles</button>
+    <button class="tag-btn" data-tag="vulnerability">Vulnerability Reports</button>
     <button class="tag-btn" data-tag="security">Security</button>
     <button class="tag-btn" data-tag="ai">AI</button>
     <button class="tag-btn" data-tag="cloud">Cloud</button>
@@ -279,8 +281,7 @@ eleventyNavigation:
   {%- for post in posts -%}
   <div
     class="gh-post-card searchable h-full"
-    data-tags="{{ post.data.tags | join(',') | lower }}"
-    data-type="{{ post.data.tags | join(',') | lower }}"
+    data-tags="{{ post.data.tags | join(',') | lower }}{% if post.fileSlug and post.fileSlug.includes('vulnerability-analysis') %},vulnerability{% else %},blog{% endif %}"
   >
     <!-- Post image with consistent ratio -->
     <div class="gh-post-image">
