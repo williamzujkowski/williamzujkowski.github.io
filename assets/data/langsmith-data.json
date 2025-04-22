@@ -1,6 +1,24 @@
 {
   "runs": [
     {
+      "id": "run-1745295602192-7up2d",
+      "name": "Generate Blog Post: CVE-2023-50164",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T04:19:53.554Z",
+      "endTime": "2025-04-22T04:20:02.192Z",
+      "duration": 8.638,
+      "inputTokens": 2513,
+      "outputTokens": 1133,
+      "totalTokens": 3646,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-50164",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0029560000000000003
+    },
+    {
       "id": "run-1745295379581-dbyv2",
       "name": "Generate Blog Post: CVE-2021-44228",
       "model": "gpt-3.5-turbo",
@@ -166,14 +184,14 @@
     }
   ],
   "runsByDate": {
-    "2025-04-22": 9
+    "2025-04-22": 10
   },
   "runsByModel": {
-    "gpt-3.5-turbo": 9
+    "gpt-3.5-turbo": 10
   },
-  "totalTokens": 31943,
-  "totalCost": 0.027512500000000002,
-  "avgProcessingTime": 10.702000000000002,
-  "totalRuns": 9,
-  "lastUpdated": "2025-04-22T04:16:19.581Z"
+  "totalTokens": 35589,
+  "totalCost": 0.030468500000000003,
+  "avgProcessingTime": 10.495600000000001,
+  "totalRuns": 10,
+  "lastUpdated": "2025-04-22T04:20:02.192Z"
 }

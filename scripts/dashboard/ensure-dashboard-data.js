@@ -74,5 +74,12 @@ function main() {
   }
 }
 
-// Run the script
-main();
+// Export function for direct import
+export function ensureDashboardData() {
+  main();
+}
+
+// Run the script when executed directly
+if (import.meta.url === import.meta.main) {
+  main();
+}

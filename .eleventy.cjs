@@ -211,6 +211,27 @@ module.exports = function (eleventyConfig) {
     "src/css/prism-theme-dark.css": "css/prism-theme-dark.css",
   });
 
+  // Copy scripts/dashboard/ensure-dashboard-data.js to the output directory
+  eleventyConfig.on("afterBuild", () => {
+    try {
+      console.log("Ensuring dashboard data is available...");
+      const script = require("./scripts/dashboard/ensure-dashboard-data.js");
+      if (typeof script.ensureDashboardData === "function") {
+        script.ensureDashboardData();
+      } else {
+        console.log("Running dashboard data script independently...");
+        require("child_process").execSync(
+          "node scripts/dashboard/ensure-dashboard-data.js",
+          {
+            stdio: "inherit",
+          }
+        );
+      }
+    } catch (error) {
+      console.warn("Error running dashboard data script:", error.message);
+    }
+  });
+
   // JS handling (development vs production)
   if (process.env.NODE_ENV !== "production") {
     eleventyConfig.addPassthroughCopy("src/js");
