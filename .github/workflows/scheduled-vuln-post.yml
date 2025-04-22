@@ -1,0 +1,41 @@
+name: Scheduled Vulnerability Post Generation
+
+on:
+  schedule:
+    # Run weekly on Monday at 01:00 UTC
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
+    # Allow manual triggering
+
+jobs:
+  generate-vulnerability-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate vulnerability post
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          PRIORITIZE_CURRENT_YEAR: "true"
+          MAX_VULNERABILITY_AGE_DAYS: "180"
+          LLM_PROVIDER: "gemini"
+        run: node scripts/vulnerabilities/generate-vuln-post.js --latest
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add src/posts/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Add weekly vulnerability analysis post [automated]" && git push)
