@@ -2541,35 +2541,59 @@ function saveBlogPost(content, cveId, inputData) {
     );
   }
 
-  // Create a more descriptive title based on available information
-  let vulnTitle = "";
+  // Create a standardized title in the format "CVE ID - Severity - Short Description"
+  let vulnTitle = cveId; // Start with CVE ID
 
-  // Include the severity if known
+  // Add severity if known
   if (inputData.SEVERITY_RATING && inputData.SEVERITY_RATING !== "Unknown") {
-    vulnTitle += `[${inputData.SEVERITY_RATING}] `;
+    vulnTitle += ` - ${inputData.SEVERITY_RATING}`;
+  } else {
+    vulnTitle += " - Unknown Severity";
   }
 
-  // Always include the CVE ID
-  vulnTitle += cveId;
+  // Add a short description based on available information
+  if (inputData.VULN_NAME && inputData.VULN_NAME !== cveId) {
+    // If there's a vulnerability name different from the CVE ID, use it
+    vulnTitle += ` - ${inputData.VULN_NAME.replace(cveId, "").trim()}`;
+  } else if (inputData.AFFECTED_SOFTWARE && inputData.AFFECTED_SOFTWARE !== "Unknown") {
+    // Otherwise use affected software with vulnerability type if available
+    let description = inputData.AFFECTED_SOFTWARE;
 
-  // If we have affected software, add it to the title
-  if (inputData.AFFECTED_SOFTWARE && inputData.AFFECTED_SOFTWARE !== "Unknown") {
-    vulnTitle += `: ${inputData.AFFECTED_SOFTWARE}`;
-
-    // If we have a CWE or vulnerability type, add it as well
+    // Add vulnerability type if known
     if (inputData.CWE_ID && inputData.CWE_ID !== "Unknown") {
-      // Extract a friendly name from CWE if possible
-      const cweMatch = inputData.CWE_ID.match(/CWE-\d+\s+(.+)/);
-      if (cweMatch && cweMatch[1]) {
-        vulnTitle += ` ${cweMatch[1]}`;
-      } else if (inputData.VULN_NAME && inputData.VULN_NAME !== cveId) {
-        // Fall back to VULN_NAME if it's not just the CVE ID
-        vulnTitle += ` ${inputData.VULN_NAME.replace(cveId, "").trim()}`;
+      const cweTypes = {
+        "CWE-79": "XSS",
+        "CWE-89": "SQL Injection",
+        "CWE-20": "Input Validation",
+        "CWE-78": "OS Command Injection",
+        "CWE-22": "Path Traversal",
+        "CWE-352": "CSRF",
+        "CWE-287": "Authentication Bypass",
+        "CWE-502": "Deserialization",
+        "CWE-119": "Buffer Overflow",
+        "CWE-416": "Use After Free",
+        "CWE-434": "File Upload",
+        "CWE-94": "Code Injection",
+        "CWE-295": "Certificate Validation",
+      };
+
+      // Extract CWE ID number
+      const cweIdNum = inputData.CWE_ID.match(/CWE-(\d+)/);
+      if (cweIdNum && cweTypes[`CWE-${cweIdNum[1]}`]) {
+        description += ` ${cweTypes[`CWE-${cweIdNum[1]}`]}`;
+      } else {
+        // Extract a friendly name from CWE if possible
+        const cweMatch = inputData.CWE_ID.match(/CWE-\d+\s+(.+)/);
+        if (cweMatch && cweMatch[1]) {
+          description += ` ${cweMatch[1]}`;
+        }
       }
     }
-  } else if (inputData.VULN_NAME && inputData.VULN_NAME !== cveId) {
-    // If we don't have affected software but do have a name, use that
-    vulnTitle += `: ${inputData.VULN_NAME.replace(cveId, "").trim()}`;
+
+    vulnTitle += ` - ${description}`;
+  } else {
+    // If no specific information is available, add a generic description
+    vulnTitle += " - Security Vulnerability";
   }
 
   // Add frontmatter
