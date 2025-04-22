@@ -31,8 +31,9 @@ The GitHub Actions workflows have been updated to:
 
 1. Checkout the repository with submodules: `submodules: recursive`
 2. Install dependencies for both projects
-3. Run the generator from the `tools/vuln-blog` directory
-4. Set the `OUTPUT_DIR` environment variable to `../../src/posts/`
+3. Create a wrapper script that calls the generator from the main repository
+4. Run the generator via the wrapper which sets the `OUTPUT_DIR` to the appropriate path in the main repository
+5. Commit changes and create a pull request in the main repository only, avoiding submodule changes
 
 ## How to Work with the Submodule
 

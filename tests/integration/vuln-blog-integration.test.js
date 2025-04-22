@@ -153,6 +153,21 @@ describe("Vulnerability Blog Generator Integration", () => {
         "vulnerability-posts.yml does not set OUTPUT_DIR environment variable"
       );
     });
+
+    it("should create a wrapper script", () => {
+      assert.ok(
+        vulnerabilityWorkflow.includes("Create wrapper script"),
+        "vulnerability-posts.yml does not create a wrapper script"
+      );
+    });
+
+    it("should check for changes in posts directory", () => {
+      assert.ok(
+        vulnerabilityWorkflow.includes("Check for changes") &&
+          vulnerabilityWorkflow.includes("git status --porcelain src/posts/"),
+        "vulnerability-posts.yml does not check for changes in posts directory"
+      );
+    });
   });
 
   // Test npm scripts functionality (mocked)

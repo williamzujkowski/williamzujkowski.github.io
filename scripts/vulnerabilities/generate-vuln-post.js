@@ -1943,6 +1943,8 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData, zdiData) 
     CVSS_SCORE: cvssScore,
     CVSS_VECTOR: cvssVector,
     SEVERITY_RATING: severityRating,
+    EPSS_SCORE: "Unknown",
+    EPSS_PERCENTILE: "Unknown",
     AFFECTED_SOFTWARE: affectedSoftware,
     AFFECTED_VERSIONS: affectedVersions,
     VULN_SUMMARY: description,
