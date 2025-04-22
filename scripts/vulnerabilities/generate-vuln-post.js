@@ -2286,8 +2286,8 @@ ${v.affectedProducts && v.affectedProducts.length > 0 ? `Affected Products: ${v.
 async function generateBlogPost(inputData) {
   const prompt = readPromptTemplate();
 
-  // Use optimized input data if available, otherwise use original
-  const dataToUse = inputData.optimizedInputData || inputData;
+  // Use the input data directly (optimizedInputData was removed)
+  const dataToUse = inputData;
 
   // Apply RAG enhancement if enabled
   const enhancedData = await enhanceWithRAG(dataToUse);
@@ -2347,10 +2347,10 @@ async function generateBlogPost(inputData) {
         `Using OpenAI ${modelOptions.model} for vulnerability blog generation`
       );
     } else if (provider === "gemini") {
-      // Try to use Gemini 2.5 Flash if available, fall back to 1.5 Pro
-      // Note: As of mid-2024, Gemini 2.5 Flash would be the latest model if available
-      let preferredModel = "gemini-2.5-flash"; // Prefer the latest Gemini model
-      let fallbackModel = "gemini-1.5-pro"; // Fallback to previous generation
+      // Use Gemini 1.5 Pro as the stable model
+      // Note: As of mid-2024, Gemini 1.5 Pro is the reliable model
+      let preferredModel = "gemini-1.5-pro"; // Use stable Gemini model
+      let fallbackModel = "gemini-pro"; // Fallback to previous generation
 
       // Allow environment variable override
       if (process.env.GEMINI_MODEL) {
@@ -2379,11 +2379,11 @@ async function generateBlogPost(inputData) {
         `Using Google ${modelOptions.model} for vulnerability blog generation`
       );
     } else if (provider === "claude") {
-      // Try to use Claude 3.7 Sonnet as first choice, then 3.5 Sonnet, then 3 Opus
+      // Use Claude 3 Opus as the stable model
       let models = [
-        "claude-3-7-sonnet-20240910", // First try Claude 3.7 Sonnet if available
-        "claude-3-5-sonnet-20240620", // Then try Claude 3.5 Sonnet
-        "claude-3-opus-20240229", // Finally fall back to Claude 3 Opus
+        "claude-3-opus-20240229", // Use Claude 3 Opus as stable model
+        "claude-3-sonnet-20240229", // Then try Claude 3 Sonnet
+        "claude-3-haiku-20240307", // Finally fall back to Claude 3 Haiku
       ];
 
       // Allow environment variable override
