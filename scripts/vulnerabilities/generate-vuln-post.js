@@ -2517,7 +2517,12 @@ async function main() {
       }
 
       console.log("Successfully created input data, generating blog post...");
-      const blogContent = await generateBlogPost({ ...inputData, optimizedInputData });
+      // Create optimizedInputData if it's not already defined (for fallback/minimal data cases)
+      const optimizedData = { ...inputData };
+      const blogContent = await generateBlogPost({
+        ...inputData,
+        optimizedInputData: optimizedData,
+      });
       if (!blogContent) {
         console.error("Failed to generate blog post");
         process.exit(1);
