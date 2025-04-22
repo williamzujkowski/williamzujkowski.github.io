@@ -60,7 +60,7 @@
     "standardize:frontmatter": "node scripts/standardize-frontmatter.js",
     "convert:images": "node scripts/convert-image-tags.js",
     "build:ci": "npm run build:data && eleventy --config=.eleventy.simple.cjs",
-    "create:wrapper": "mkdir -p scripts/wrapper && node -e \"const fs=require('fs');const path=require('path');const wrapperPath=path.join('scripts','wrapper','generate-vuln-post-wrapper.js');if(!fs.existsSync(wrapperPath)){fs.writeFileSync(wrapperPath,'const path = require(\\'path\\');\\nconst fs = require(\\'fs\\');\\nconst { execSync } = require(\\'child_process\\');\\n\\nconst args = process.argv.slice(2);\\n\\nprocess.env.OUTPUT_DIR = path.resolve(__dirname, \\'../../src/posts\\');\\n\\nif (!fs.existsSync(process.env.OUTPUT_DIR)) {\\n  fs.mkdirSync(process.env.OUTPUT_DIR, { recursive: true });\\n}\\n\\nconst command = `node ${path.resolve(__dirname, \\'../../tools/vuln-blog/generate-vuln-post.js\\')} ${args.join(\\' \\')}`;\\n\\ntry {\\n  console.log(`Running: ${command}`);\\n  const output = execSync(command, { stdio: \\'inherit\\' });\\n  console.log(\\'Post generated successfully\\');\\n} catch (error) {\\n  console.error(\\'Error generating post:\\', error);\\n  process.exit(1);\\n}');console.log('Wrapper script created successfully');}else{console.log('Wrapper script already exists');}\")&&chmod +x scripts/wrapper/generate-vuln-post-wrapper.js",
+    "create:wrapper": "mkdir -p scripts/wrapper && touch scripts/wrapper/generate-vuln-post-wrapper.js && chmod +x scripts/wrapper/generate-vuln-post-wrapper.js",
     "generate:vuln": "npm run create:wrapper && node scripts/wrapper/generate-vuln-post-wrapper.js --",
     "generate:latest": "npm run create:wrapper && node scripts/wrapper/generate-vuln-post-wrapper.js --latest",
     "schedule:vuln": "cd tools/vuln-blog && node schedule-posts.js --output-dir ../../src/posts/",
@@ -68,7 +68,11 @@
     "test:gemini": "cd tools/vuln-blog && node test-models.js --provider gemini",
     "test:claude": "cd tools/vuln-blog && node test-models.js --provider claude",
     "test:llm": "cd tools/vuln-blog && node test-models.js --provider all",
-    "test:sources": "cd tools/vuln-blog && node test-data-sources.js"
+    "test:sources": "cd tools/vuln-blog && node test-data-sources.js",
+    "dashboard:update": "cd tools/vuln-blog && node --experimental-modules src/scripts/update-dashboard-data.js",
+    "dashboard:ensure": "node scripts/dashboard/ensure-dashboard-data.js",
+    "build:dashboard": "npm run dashboard:update && npm run dashboard:ensure",
+    "build:with-dashboard": "npm run build:dashboard && npm run build"
   },
   "keywords": [],
   "author": "William Zujkowski",

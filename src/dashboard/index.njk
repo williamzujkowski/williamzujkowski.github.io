@@ -1,0 +1,277 @@
+---
+layout: base
+title: LLM Dashboard
+description: Dashboard for LangChain, LangGraph, and LangSmith metrics
+---
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-8">LLM Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Summary Cards -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-2">Total Runs</h2>
+      <p class="text-3xl font-bold text-blue-600 dark:text-blue-400" id="total-runs">...</p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-2">Avg Processing Time</h2>
+      <p class="text-3xl font-bold text-green-600 dark:text-green-400" id="avg-time">...</p>
+      <p class="text-sm text-gray-500">seconds</p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-2">Avg Token Usage</h2>
+      <p class="text-3xl font-bold text-purple-600 dark:text-purple-400" id="avg-tokens">...</p>
+      <p class="text-sm text-gray-500">tokens per run</p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-2">Est. Total Cost</h2>
+      <p class="text-3xl font-bold text-amber-600 dark:text-amber-400" id="total-cost">...</p>
+      <p class="text-sm text-gray-500">USD</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Charts -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4">Runs by Date</h2>
+      <div class="h-64">
+        <canvas id="runs-by-date-chart"></canvas>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4">Runs by Model</h2>
+      <div class="h-64">
+        <canvas id="runs-by-model-chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-8">
+    <h2 class="text-xl font-semibold mb-4">Recent Runs</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead>
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Start Time</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Duration</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Model</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tokens</th>
+          </tr>
+        </thead>
+        <tbody id="recent-runs-table" class="divide-y divide-gray-200 dark:divide-gray-700">
+          <tr>
+            <td colspan="6" class="px-4 py-3 text-center text-gray-500">Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="text-right text-sm text-gray-500">
+    <p>Data source: <span id="data-source" class="font-medium">...</span></p>
+    <p>Last updated: <span id="last-updated">...</span></p>
+    <div id="langsmith-link-container">
+      <p>View full details on <a href="#" id="langsmith-link" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">LangSmith</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+<!-- Dashboard JavaScript -->
+<script>
+  // Fetch dashboard data
+  async function fetchDashboardData() {
+    try {
+      const response = await fetch('/assets/data/langsmith-data.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+      return null;
+    }
+  }
+
+  // Format date for display
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  // Format duration in seconds
+  function formatDuration(seconds) {
+    if (seconds < 60) {
+      return `${Math.round(seconds)}s`;
+    } else {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.round(seconds % 60);
+      return `${minutes}m ${remainingSeconds}s`;
+    }
+  }
+
+  // Update dashboard with data
+  function updateDashboard(data) {
+    if (!data) {
+      document.querySelector('#total-runs').textContent = 'No data';
+      document.querySelector('#avg-time').textContent = 'No data';
+      document.querySelector('#avg-tokens').textContent = 'No data';
+      document.querySelector('#total-cost').textContent = 'No data';
+      document.querySelector('#last-updated').textContent = 'Never';
+      document.querySelector('#data-source').textContent = 'None';
+      document.querySelector('#langsmith-link-container').style.display = 'none';
+      return;
+    }
+
+    // Update summary cards
+    document.querySelector('#total-runs').textContent = data.totalRuns.toLocaleString();
+    document.querySelector('#avg-time').textContent = data.avgProcessingTime.toFixed(2);
+    document.querySelector('#avg-tokens').textContent = Math.round(data.avgTokenUsage).toLocaleString();
+    document.querySelector('#total-cost').textContent = data.totalCost ? `$${data.totalCost.toFixed(2)}` : '$0.00';
+    document.querySelector('#last-updated').textContent = formatDate(data.lastUpdated);
+
+    // Set data source information
+    const dataSource = data.dataSource || (data.isLocalData ? 'Local Metrics' : (data.isCached ? 'Cached Data' : 'LangSmith API'));
+    document.querySelector('#data-source').textContent = dataSource;
+
+    // Show/hide LangSmith link based on data source
+    const langsmithLinkContainer = document.querySelector('#langsmith-link-container');
+    if (dataSource === 'LangSmith API') {
+      langsmithLinkContainer.style.display = 'block';
+      document.querySelector('#langsmith-link').setAttribute('href', 'https://smith.langchain.com/projects/vuln-post-generator');
+    } else {
+      langsmithLinkContainer.style.display = 'none';
+    }
+
+    // Create runs by date chart
+    const dateCtx = document.getElementById('runs-by-date-chart').getContext('2d');
+    new Chart(dateCtx, {
+      type: 'line',
+      data: {
+        labels: data.runsByDate.map(item => item.date),
+        datasets: [{
+          label: 'Runs',
+          data: data.runsByDate.map(item => item.count),
+          backgroundColor: 'rgba(59, 130, 246, 0.5)',
+          borderColor: 'rgba(59, 130, 246, 1)',
+          borderWidth: 2,
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        }
+      }
+    });
+
+    // Create runs by model chart
+    const modelCtx = document.getElementById('runs-by-model-chart').getContext('2d');
+    const backgroundColors = [
+      'rgba(59, 130, 246, 0.5)',
+      'rgba(16, 185, 129, 0.5)',
+      'rgba(139, 92, 246, 0.5)',
+      'rgba(249, 115, 22, 0.5)',
+      'rgba(236, 72, 153, 0.5)'
+    ];
+    const borderColors = [
+      'rgba(59, 130, 246, 1)',
+      'rgba(16, 185, 129, 1)',
+      'rgba(139, 92, 246, 1)',
+      'rgba(249, 115, 22, 1)',
+      'rgba(236, 72, 153, 1)'
+    ];
+
+    new Chart(modelCtx, {
+      type: 'bar',
+      data: {
+        labels: data.runsByModel.map(item => item.model),
+        datasets: [{
+          label: 'Runs',
+          data: data.runsByModel.map(item => item.count),
+          backgroundColor: data.runsByModel.map((_, index) => backgroundColors[index % backgroundColors.length]),
+          borderColor: data.runsByModel.map((_, index) => borderColors[index % borderColors.length]),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        }
+      }
+    });
+
+    // Update recent runs table
+    const tableBody = document.querySelector('#recent-runs-table');
+    if (data.recentRuns.length === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="6" class="px-4 py-3 text-center text-gray-500">No recent runs</td>
+        </tr>
+      `;
+    } else {
+      tableBody.innerHTML = data.recentRuns.map(run => {
+        const startTime = new Date(run.startTime);
+        const endTime = new Date(run.endTime);
+        const duration = (endTime - startTime) / 1000; // in seconds
+
+        let statusClass = 'text-gray-500';
+        if (run.status === 'success') {
+          statusClass = 'text-green-500';
+        } else if (run.status === 'error') {
+          statusClass = 'text-red-500';
+        }
+
+        return `
+          <tr>
+            <td class="px-4 py-3 whitespace-nowrap">${run.name}</td>
+            <td class="px-4 py-3 whitespace-nowrap">${formatDate(run.startTime)}</td>
+            <td class="px-4 py-3 whitespace-nowrap">${formatDuration(duration)}</td>
+            <td class="px-4 py-3 whitespace-nowrap">
+              <span class="font-medium ${statusClass}">${run.status}</span>
+            </td>
+            <td class="px-4 py-3 whitespace-nowrap">${run.model}</td>
+            <td class="px-4 py-3 whitespace-nowrap">${(run.inputTokens + run.outputTokens).toLocaleString()}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+
+  // Initialize the dashboard
+  async function initDashboard() {
+    const data = await fetchDashboardData();
+    updateDashboard(data);
+  }
+
+  // Load dashboard on page load
+  document.addEventListener('DOMContentLoaded', initDashboard);
+</script>
