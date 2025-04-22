@@ -8,41 +8,41 @@ description: Dashboard for LangChain, LangGraph, and LangSmith metrics
   <h1 class="text-3xl font-bold mb-8">LLM Dashboard</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-    <!-- Summary Cards -->
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <!-- Summary Cards - Styled like home page cards -->
+    <div class="bg-surface rounded-github border border-border p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       <h2 class="text-xl font-semibold mb-2">Total Runs</h2>
-      <p class="text-3xl font-bold text-blue-600 dark:text-blue-400" id="total-runs">...</p>
+      <p class="text-3xl font-bold text-primary-500" id="total-runs">...</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="bg-surface rounded-github border border-border p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       <h2 class="text-xl font-semibold mb-2">Avg Processing Time</h2>
-      <p class="text-3xl font-bold text-green-600 dark:text-green-400" id="avg-time">...</p>
-      <p class="text-sm text-gray-500">seconds</p>
+      <p class="text-3xl font-bold text-accent-500" id="avg-time">...</p>
+      <p class="text-sm text-muted">seconds</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="bg-surface rounded-github border border-border p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       <h2 class="text-xl font-semibold mb-2">Avg Token Usage</h2>
-      <p class="text-3xl font-bold text-purple-600 dark:text-purple-400" id="avg-tokens">...</p>
-      <p class="text-sm text-gray-500">tokens per run</p>
+      <p class="text-3xl font-bold text-primary-600" id="avg-tokens">...</p>
+      <p class="text-sm text-muted">tokens per run</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="bg-surface rounded-github border border-border p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       <h2 class="text-xl font-semibold mb-2">Est. Total Cost</h2>
-      <p class="text-3xl font-bold text-amber-600 dark:text-amber-400" id="total-cost">...</p>
-      <p class="text-sm text-gray-500">USD</p>
+      <p class="text-3xl font-bold text-accent-600" id="total-cost">...</p>
+      <p class="text-sm text-muted">USD</p>
     </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
     <!-- Charts -->
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="bg-surface rounded-github border border-border p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       <h2 class="text-xl font-semibold mb-4">Runs by Date</h2>
       <div class="h-64">
         <canvas id="runs-by-date-chart"></canvas>
       </div>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="bg-surface rounded-github border border-border p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
       <h2 class="text-xl font-semibold mb-4">Runs by Model</h2>
       <div class="h-64">
         <canvas id="runs-by-model-chart"></canvas>
@@ -50,34 +50,34 @@ description: Dashboard for LangChain, LangGraph, and LangSmith metrics
     </div>
   </div>
 
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-8">
+  <div class="bg-surface rounded-github border border-border p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg mb-8">
     <h2 class="text-xl font-semibold mb-4">Recent Runs</h2>
     <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+      <table class="min-w-full divide-y divide-border">
         <thead>
           <tr>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Start Time</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Duration</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Model</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tokens</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Name</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Start Time</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Duration</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Status</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Model</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Tokens</th>
           </tr>
         </thead>
-        <tbody id="recent-runs-table" class="divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody id="recent-runs-table" class="divide-y divide-border">
           <tr>
-            <td colspan="6" class="px-4 py-3 text-center text-gray-500">Loading...</td>
+            <td colspan="6" class="px-4 py-3 text-center text-muted">Loading...</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="text-right text-sm text-gray-500">
+  <div class="text-right text-sm text-muted">
     <p>Data source: <span id="data-source" class="font-medium">...</span></p>
     <p>Last updated: <span id="last-updated">...</span></p>
     <div id="langsmith-link-container">
-      <p>View full details on <a href="#" id="langsmith-link" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">LangSmith</a></p>
+      <p>View full details on <a href="#" id="langsmith-link" class="text-accent-500 hover:underline" target="_blank">LangSmith</a></p>
     </div>
   </div>
 </div>
@@ -166,8 +166,8 @@ description: Dashboard for LangChain, LangGraph, and LangSmith metrics
         datasets: [{
           label: 'Runs',
           data: data.runsByDate.map(item => item.count),
-          backgroundColor: 'rgba(59, 130, 246, 0.5)',
-          borderColor: 'rgba(59, 130, 246, 1)',
+          backgroundColor: 'rgba(var(--color-primary-rgb), 0.5)',
+          borderColor: 'rgba(var(--color-primary-rgb), 0.8)',
           borderWidth: 2,
           tension: 0.1
         }]
@@ -188,19 +188,24 @@ description: Dashboard for LangChain, LangGraph, and LangSmith metrics
 
     // Create runs by model chart
     const modelCtx = document.getElementById('runs-by-model-chart').getContext('2d');
+
+    // Theme-compatible colors
+    const isDarkMode = document.documentElement.classList.contains('dark');
+
+    // Primary and accent color variations
     const backgroundColors = [
-      'rgba(59, 130, 246, 0.5)',
-      'rgba(16, 185, 129, 0.5)',
-      'rgba(139, 92, 246, 0.5)',
-      'rgba(249, 115, 22, 0.5)',
-      'rgba(236, 72, 153, 0.5)'
+      'rgba(var(--color-primary-rgb), 0.5)',
+      'rgba(var(--color-accent-rgb), 0.5)',
+      'rgba(var(--color-primary-rgb), 0.3)',
+      'rgba(var(--color-accent-rgb), 0.3)',
+      'rgba(var(--color-primary-rgb), 0.7)'
     ];
     const borderColors = [
-      'rgba(59, 130, 246, 1)',
-      'rgba(16, 185, 129, 1)',
-      'rgba(139, 92, 246, 1)',
-      'rgba(249, 115, 22, 1)',
-      'rgba(236, 72, 153, 1)'
+      'rgba(var(--color-primary-rgb), 0.8)',
+      'rgba(var(--color-accent-rgb), 0.8)',
+      'rgba(var(--color-primary-rgb), 0.6)',
+      'rgba(var(--color-accent-rgb), 0.6)',
+      'rgba(var(--color-primary-rgb), 1)'
     ];
 
     new Chart(modelCtx, {
@@ -273,5 +278,23 @@ description: Dashboard for LangChain, LangGraph, and LangSmith metrics
   }
 
   // Load dashboard on page load
-  document.addEventListener('DOMContentLoaded', initDashboard);
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add CSS variables for chart colors
+    const style = getComputedStyle(document.documentElement);
+
+    // Define RGB values for our theme colors
+    const primaryRGB = document.documentElement.classList.contains('dark')
+      ? '75, 170, 110' // Dark mode greenish
+      : '45, 130, 90';  // Light mode darker green
+
+    const accentRGB = document.documentElement.classList.contains('dark')
+      ? '100, 180, 240' // Dark mode blueish
+      : '30, 100, 200'; // Light mode darker blue
+
+    document.documentElement.style.setProperty('--color-primary-rgb', primaryRGB);
+    document.documentElement.style.setProperty('--color-accent-rgb', accentRGB);
+
+    // Initialize dashboard
+    initDashboard();
+  });
 </script>
