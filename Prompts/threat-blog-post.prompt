@@ -47,23 +47,23 @@ Start with the header image placeholder: `![Placeholder: Security vulnerability 
 Write 1-2 paragraphs providing a high-level overview based on {VULN_SUMMARY}. Clearly state the vulnerability type, severity ({CVSS_SCORE}, {SEVERITY_RATING}), primary affected software ({AFFECTED_SOFTWARE}), and key impact. Use accessible language.
 
 ### 3. Vulnerability Snapshot (H2)
-Create a Markdown table using this structure:
+Create an enhanced Markdown table with hyperlinks to relevant sources where available:
 
 | Attribute | Value |
 |-----------|-------|
-| CVE ID | {CVE_ID} |
+| CVE ID | [{CVE_ID}](https://cve.org/CVERecord?id={CVE_ID}) |
 | Common Name | {VULN_NAME} |
 | Affected Software | {AFFECTED_SOFTWARE} |
 | Affected Versions | {AFFECTED_VERSIONS} |
-| CVSS v3.x Base Score | {CVSS_SCORE} |
-| CVSS Vector String | {CVSS_VECTOR} |
+| CVSS v3.x Base Score | {CVSS_SCORE} ([CVSS Calculator](https://www.first.org/cvss/calculator/3.1#{CVSS_VECTOR})) |
+| CVSS Vector String | [{CVSS_VECTOR}](https://www.first.org/cvss/calculator/3.1#{CVSS_VECTOR}) |
 | Severity Rating | {SEVERITY_RATING} |
-| Key CWE ID | {CWE_ID} |
-| CISA KEV Status | {IS_KEV} |
+| Key CWE ID | {CWE_ID} {CWE_ID != "CWE ID not specified" ? "([MITRE CWE](https://cwe.mitre.org/data/definitions/" + CWE_ID.replace("CWE-", "") + ".html))" : ""} |
+| CISA KEV Status | [{IS_KEV}](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) |
 | Exploitation Observed | {EXPLOIT_STATUS} |
-| Associated Threat Actors | [Based on {THREAT_ACTORS}] |
-| Cloud Provider Impact | [Based on {AWS_IMPACT} and {CLOUD_RELEVANCE}] |
-| Patch Availability | [Based on {MITIGATION_GUIDANCE}] |
+| Associated Threat Actors | {THREAT_ACTORS != "No specific threat actor information available" ? "[Threat Actor Details: " + THREAT_ACTORS + "](https://attack.mitre.org/groups/)" : "No specific information available"} |
+| Cloud Provider Impact | [Based on available information] |
+| Patch Availability | {MITIGATION_GUIDANCE} |
 
 ### 4. Technical Deep Dive (H2)
 Provide a detailed explanation based on {TECHNICAL_DETAILS}. Explain the root cause, vulnerability mechanism, and conditions for exploitation. Target this section towards developers/security professionals. Include properly formatted code snippets if relevant.
@@ -90,7 +90,28 @@ Use information from {AWS_IMPACT} and {CLOUD_RELEVANCE}.
 Detail actionable steps based on {MITIGATION_GUIDANCE}. Prioritize official patches and mention availability. Describe workarounds and detection methods if provided. Emphasize timely patching. Include cloud-specific mitigations where applicable, such as AWS Security Groups, WAF rules, or other cloud-native security controls.
 
 ### 10. References (H2)
-Create a bulleted list of all URLs provided in {REFERENCE_URLS}. Use descriptive link text and ensure full URLs are used.
+Create a comprehensive, well-structured references section with categorized links. Format as follows:
+
+```markdown
+## References
+
+### Official Advisories
+- [CVE Record for {CVE_ID}](https://cve.org/CVERecord?id={CVE_ID}) - Official CVE Record with complete details
+- [NVD Entry for {CVE_ID}](https://nvd.nist.gov/vuln/detail/{CVE_ID}) - National Vulnerability Database entry
+- [CISA Advisory](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) - CISA Known Exploited Vulnerabilities Catalog
+
+### Vendor Resources
+[Include any vendor-specific advisory links from {REFERENCE_URLS}]
+
+### Technical Analysis
+[Include any technical blog posts or analysis links from {REFERENCE_URLS}]
+
+### Additional Resources
+- [MITRE CVE Entry](https://cve.mitre.org/cgi-bin/cvename.cgi?name={CVE_ID}) - Official CVE details
+- [CVSS Calculator](https://www.first.org/cvss/calculator/3.1#{CVSS_VECTOR}) - Interactive calculator for understanding the severity score
+```
+
+If any category lacks specific links, either omit that category or include a relevant generic resource. Ensure all links are functional and relevant.
 
 ### 11. Conclusion (H2)
 Summarize the key points, reinforce critical insights, and encourage reader engagement. Suggest relevant repositories or further reading materials. Emphasize the importance of this vulnerability for organizations using cloud service providers, especially those with workloads on AWS PaaS offerings.

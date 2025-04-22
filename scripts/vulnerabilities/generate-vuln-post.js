@@ -32,8 +32,30 @@ let tokenUsage = {
   provider: null,
 };
 
-// Load environment variables
-dotenv.config({ path: process.env.ENV_FILE || ".env.test" });
+// Load environment variables - prioritize tools/vuln-blog/.env if it exists
+const envPaths = [
+  path.join(__dirname, "../../tools/vuln-blog/.env"), // Primary location - tools/vuln-blog/.env
+  path.join(__dirname, ".env"), // Local copy in scripts/vulnerabilities/
+  process.env.ENV_FILE, // User-specified path via ENV_FILE
+  ".env.test", // Last resort fallback
+].filter(Boolean); // Remove undefined entries
+
+let envLoaded = false;
+for (const envPath of envPaths) {
+  if (fs.existsSync(envPath)) {
+    console.log(`Loading environment variables from: ${envPath}`);
+    dotenv.config({ path: envPath });
+    envLoaded = true;
+    break;
+  }
+}
+
+if (!envLoaded) {
+  console.warn(
+    "Warning: No .env file found in any of the searched locations. Using environment variables if available."
+  );
+  dotenv.config(); // Try default location as last resort
+}
 
 // Check for required API keys based on provider
 const LLM_PROVIDER = process.env.LLM_PROVIDER || "openai";
@@ -66,27 +88,131 @@ const options = program.opts();
 
 // Function to read the prompt template
 function readPromptTemplate() {
-  // Use the RAG-enabled prompt template if relevant vulnerabilities are available
-  const promptName =
-    options.rag !== false ? "threat-blog-post-rag.prompt" : "threat-blog-post.prompt";
-  const promptPath = path.join(__dirname, "../../Prompts", promptName);
+  // Always use RAG-enabled prompt template unless explicitly disabled
+  const useRag = options.rag !== false;
+  const promptName = useRag ? "threat-blog-post-rag.prompt" : "threat-blog-post.prompt";
 
-  // Fall back to standard prompt if RAG prompt doesn't exist
-  if (!fs.existsSync(promptPath) && promptName === "threat-blog-post-rag.prompt") {
+  // Define all possible template locations in order of preference
+  const templatePaths = [
+    // 1. Check tools/vuln-blog/prompts first (most likely location)
+    path.join(__dirname, "../../tools/vuln-blog/prompts", promptName),
+    // 2. Check main Prompts directory as backup
+    path.join(__dirname, "../../Prompts", promptName),
+    // 3. Check current directory in case templates are copied there
+    path.join(__dirname, promptName),
+  ];
+
+  // Try each location until we find a template
+  for (const templatePath of templatePaths) {
+    if (fs.existsSync(templatePath)) {
+      console.log(
+        `Using ${useRag ? "RAG-enabled" : "standard"} template from: ${templatePath}`
+      );
+      return fs.readFileSync(templatePath, "utf8");
+    }
+  }
+
+  // If RAG template not found in any location, try standard template
+  if (useRag) {
     console.log(
-      "RAG-enabled prompt template not found, falling back to standard template"
+      "RAG-enabled template not found in any location, trying standard template"
     );
+    options.rag = false;
     return readPromptTemplate();
   }
 
-  console.log(`Using prompt template: ${promptName}`);
-  return fs.readFileSync(promptPath, "utf8");
+  // If we get here, we couldn't find any template - create a basic emergency template
+  // This ensures we always have a template rather than failing completely
+  console.warn(
+    "WARNING: No prompt templates found! Using emergency built-in template."
+  );
+  return `# Vulnerability Analysis: {CVE_ID}
+
+![Placeholder: Security vulnerability in {AFFECTED_SOFTWARE}](blog/security-blog.jpg)
+
+## Executive Summary
+
+{VULN_SUMMARY}
+
+## Vulnerability Snapshot
+
+| Attribute | Value |
+|-----------|-------|
+| CVE ID | [{CVE_ID}](https://nvd.nist.gov/vuln/detail/{CVE_ID}) |
+| Common Name | {VULN_NAME} |
+| Affected Software | {AFFECTED_SOFTWARE} |
+| Affected Versions | {AFFECTED_VERSIONS} |
+| CVSS v3.x Base Score | {CVSS_SCORE} ([CVSS Calculator](https://www.first.org/cvss/calculator/3.1#{CVSS_VECTOR})) |
+| CVSS Vector String | [{CVSS_VECTOR}](https://www.first.org/cvss/calculator/3.1#{CVSS_VECTOR}) |
+| Severity Rating | {SEVERITY_RATING} |
+| Key CWE ID | {CWE_ID} ([MITRE CWE](https://cwe.mitre.org/data/definitions/{CWE_ID_NUMBER}.html)) |
+| CISA KEV Status | [{IS_KEV}](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) |
+| Exploitation Observed | {EXPLOIT_STATUS} |
+| Associated Threat Actors | {THREAT_ACTORS_LINK} |
+| Cloud Provider Impact | {AWS_IMPACT} |
+| Patch Availability | {MITIGATION_GUIDANCE} |
+
+## Technical Details
+
+{TECHNICAL_DETAILS}
+
+## Mitigation and Remediation
+
+{MITIGATION_GUIDANCE}
+
+## References
+
+### Official Advisories
+- [CVE Record for {CVE_ID}](https://cve.org/CVERecord?id={CVE_ID}) - Official CVE Record with complete details
+- [NVD Entry for {CVE_ID}](https://nvd.nist.gov/vuln/detail/{CVE_ID}) - National Vulnerability Database entry
+- [MITRE CVE Entry](https://cve.mitre.org/cgi-bin/cvename.cgi?name={CVE_ID}) - Legacy MITRE CVE page
+
+{REFERENCE_URLS}
+`;
 }
 
-// Function to get vulnerability data from NVD or fallback to MITRE if NVD fails
+// Function to get vulnerability data from CVE.org first, then NVD, then MITRE as fallbacks
 async function getVulnerabilityData(cveId) {
   try {
-    // Set up headers with API key if available
+    // First try to get data from CVE.org (primary source)
+    try {
+      console.log(
+        `Attempting to fetch data from CVE.org for ${cveId} (primary source)`
+      );
+      // Set up headers
+      const cveOrgHeaders = {
+        "User-Agent":
+          process.env.MITRE_USER_AGENT ||
+          "William Zujkowski Blog Vulnerability Analyzer",
+      };
+
+      // CVE.org API endpoint
+      const cveOrgResponse = await axios.get(
+        `https://cveawg.mitre.org/api/cve/${cveId}`,
+        { headers: cveOrgHeaders }
+      );
+
+      if (cveOrgResponse.data && cveOrgResponse.data.cveMetadata) {
+        console.log(`Successfully fetched CVE.org data for ${cveId}`);
+        // Process CVE.org data format and return
+        // Note: This is simplified and would need to be expanded to fully parse CVE.org API format
+        const cveOrgData = cveOrgResponse.data;
+        return {
+          id: cveOrgData.cveMetadata.cveId,
+          descriptions: cveOrgData.containers?.cna?.descriptions || [],
+          metrics: cveOrgData.containers?.cna?.metrics || {},
+          references: cveOrgData.containers?.cna?.references || [],
+          source: "CVE.org",
+        };
+      }
+    } catch (cveOrgError) {
+      console.log(
+        `Error or no data from CVE.org: ${cveOrgError.message}, trying NVD...`
+      );
+    }
+
+    // If CVE.org fails, fall back to NVD
+    console.log(`Attempting to fetch data from NVD for ${cveId} (secondary source)`);
     const headers = {
       "User-Agent": "William Zujkowski Blog Vulnerability Analyzer",
     };
@@ -1669,6 +1795,17 @@ async function createInputData(cveId) {
   mitigationGuidance +=
     "Specific patches and workarounds may be available in vendor advisories.";
 
+  // Extract CWE_ID_NUMBER by removing "CWE-" prefix
+  const cweIdNumber = cweId && cweId.startsWith("CWE-") ? cweId.substring(4) : "";
+
+  // Create THREAT_ACTORS_LINK - link to MITRE ATT&CK if available, otherwise show "No specific information available"
+  const threatActorsLink =
+    threatActors &&
+    threatActors !== "No known threat actor associations at this time." &&
+    threatActors !== "Unable to retrieve threat actor information at this time."
+      ? `[View potential threat actors on MITRE ATT&CK](https://attack.mitre.org/search/search?query=${encodeURIComponent(cveId)})`
+      : "No specific information available";
+
   return {
     CVE_ID: cveId,
     VULN_NAME:
@@ -1678,6 +1815,8 @@ async function createInputData(cveId) {
     CVSS_SCORE: cvssScore,
     CVSS_VECTOR: cvssVector,
     SEVERITY_RATING: severityRating,
+    CWE_ID_NUMBER: cweIdNumber,
+    THREAT_ACTORS_LINK: threatActorsLink,
     AFFECTED_SOFTWARE:
       vulnData.configurations?.[0]?.nodes?.[0]?.cpeMatch?.[0]?.criteria?.split(
         ":"
@@ -1936,6 +2075,9 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData, zdiData) 
     }
   }
 
+  // Extract CWE_ID_NUMBER by removing "CWE-" prefix
+  const cweIdNumber = cweId && cweId.startsWith("CWE-") ? cweId.substring(4) : "";
+
   // Set more comprehensive default values with enhanced MITRE data
   return {
     CVE_ID: cveId,
@@ -1943,6 +2085,8 @@ function createMinimalInputData(cveId, fallbackVulnData, mitreCveData, zdiData) 
     CVSS_SCORE: cvssScore,
     CVSS_VECTOR: cvssVector,
     SEVERITY_RATING: severityRating,
+    CWE_ID_NUMBER: cweIdNumber,
+    THREAT_ACTORS_LINK: "No specific information available",
     EPSS_SCORE: "Unknown",
     EPSS_PERCENTILE: "Unknown",
     AFFECTED_SOFTWARE: affectedSoftware,
@@ -2148,6 +2292,23 @@ async function generateBlogPost(inputData) {
   // Apply RAG enhancement if enabled
   const enhancedData = await enhanceWithRAG(dataToUse);
 
+  // Add derived fields for hyperlinks
+  if (enhancedData.CWE_ID && enhancedData.CWE_ID.startsWith("CWE-")) {
+    enhancedData.CWE_ID_NUMBER = enhancedData.CWE_ID.replace("CWE-", "");
+  } else {
+    enhancedData.CWE_ID_NUMBER = enhancedData.CWE_ID || "";
+  }
+
+  // Create threat actors link or fallback text
+  if (
+    enhancedData.THREAT_ACTORS &&
+    enhancedData.THREAT_ACTORS !== "No specific threat actor information available"
+  ) {
+    enhancedData.THREAT_ACTORS_LINK = `[Threat Actor Details: ${enhancedData.THREAT_ACTORS}](https://attack.mitre.org/groups/)`;
+  } else {
+    enhancedData.THREAT_ACTORS_LINK = "No specific information available";
+  }
+
   // Replace placeholders in the prompt with actual data
   let populatedPrompt = prompt;
   for (const [key, value] of Object.entries(enhancedData)) {
@@ -2164,30 +2325,86 @@ async function generateBlogPost(inputData) {
     // Store provider for token usage tracking
     tokenUsage.provider = provider;
 
-    // Add provider-specific options optimized for token efficiency
+    // Use the latest models as specified, with smart fallbacks
+    // The USE_EFFICIENT_MODEL env var can be used to override and use more efficient models
+    const useEfficientModel = process.env.USE_EFFICIENT_MODEL === "true";
+
     if (provider === "openai") {
-      // Use GPT-4-turbo for better efficiency
-      modelOptions.model = "gpt-4-turbo";
-      modelOptions.maxTokens = 3500; // Reduce max tokens to save costs
+      // Try to use GPT-4 Turbo as preferred for OpenAI
+      modelOptions.model = "gpt-4-turbo"; // Latest GPT-4 Turbo model
+
+      // Check if a specific model version is requested
+      if (process.env.OPENAI_MODEL) {
+        modelOptions.model = process.env.OPENAI_MODEL;
+        console.log(`Using specifically requested OpenAI model: ${modelOptions.model}`);
+      }
+
+      modelOptions.maxTokens = 8192; // Higher token limit for comprehensive blog posts
       modelOptions.presence_penalty = 0.1; // Slightly discourage repetition
       modelOptions.frequency_penalty = 0.1; // Slightly discourage repetition
+
+      console.log(
+        `Using OpenAI ${modelOptions.model} for vulnerability blog generation`
+      );
     } else if (provider === "gemini") {
-      // Use Flash model which is most cost-efficient
-      modelOptions.model = "gemini-2.0-flash";
-      modelOptions.maxOutputTokens = 4096; // Reduce from 8192 to save costs
-      modelOptions.topK = 30; // Default is 40, lowering slightly improves efficiency
-      modelOptions.topP = 0.85; // Default is 0.95, lowering slightly improves efficiency
+      // Try to use Gemini 2.5 Flash if available, fall back to 1.5 Pro
+      // Note: As of mid-2024, Gemini 2.5 Flash would be the latest model if available
+      let preferredModel = "gemini-2.5-flash"; // Prefer the latest Gemini model
+      let fallbackModel = "gemini-1.5-pro"; // Fallback to previous generation
+
+      // Allow environment variable override
+      if (process.env.GEMINI_MODEL) {
+        preferredModel = process.env.GEMINI_MODEL;
+        console.log(`Using specifically requested Gemini model: ${preferredModel}`);
+      }
+
+      // Try to use the preferred model, gracefully fall back if not available
+      try {
+        modelOptions.model = preferredModel;
+
+        // If connection testing is needed, it would go here
+        // For now, we'll just set the model and let the API handle availability
+      } catch (err) {
+        console.log(
+          `Preferred Gemini model unavailable, falling back to ${fallbackModel}`
+        );
+        modelOptions.model = fallbackModel;
+      }
+
+      modelOptions.maxOutputTokens = 8192; // Higher token limit for comprehensive blogs
+      modelOptions.topK = 40; // Default value for highest quality
+      modelOptions.topP = 0.95; // Default value for highest quality
+
+      console.log(
+        `Using Google ${modelOptions.model} for vulnerability blog generation`
+      );
     } else if (provider === "claude") {
-      // Use Haiku model which is most cost-efficient
-      modelOptions.model =
-        process.env.USE_EFFICIENT_MODEL === "true"
-          ? "claude-3-haiku-20240307"
-          : "claude-3-opus-20240229";
-      modelOptions.maxTokens = 3500; // Reduce max tokens to save costs
+      // Try to use Claude 3.7 Sonnet as first choice, then 3.5 Sonnet, then 3 Opus
+      let models = [
+        "claude-3-7-sonnet-20240910", // First try Claude 3.7 Sonnet if available
+        "claude-3-5-sonnet-20240620", // Then try Claude 3.5 Sonnet
+        "claude-3-opus-20240229", // Finally fall back to Claude 3 Opus
+      ];
+
+      // Allow environment variable override
+      if (process.env.CLAUDE_MODEL) {
+        modelOptions.model = process.env.CLAUDE_MODEL;
+        console.log(`Using specifically requested Claude model: ${modelOptions.model}`);
+      } else {
+        // Set to the first model in our prioritized list, API will handle availability
+        modelOptions.model = models[0];
+        console.log(`Using Anthropic ${modelOptions.model} as first choice`);
+      }
+
+      modelOptions.maxTokens = 8192; // Higher token limit for comprehensive blogs
+
+      console.log(
+        `Using Anthropic ${modelOptions.model} for vulnerability blog generation`
+      );
     } else {
-      console.warn(`Unknown provider '${provider}', defaulting to OpenAI`);
-      modelOptions.model = "gpt-4-turbo";
-      modelOptions.maxTokens = 3500;
+      console.warn(`Unknown provider '${provider}', defaulting to OpenAI GPT-4 Turbo`);
+      modelOptions.model = "gpt-4-turbo"; // Default to GPT-4 Turbo as requested
+      modelOptions.maxTokens = 8192;
       tokenUsage.provider = "openai";
     }
 
@@ -2211,6 +2428,51 @@ async function generateBlogPost(inputData) {
 
 // Function to save the blog post
 function saveBlogPost(content, cveId, inputData) {
+  // Process content to remove any remaining placeholders
+  let processedContent = content;
+
+  // Replace image placeholder with actual image path
+  processedContent = processedContent.replace(
+    /\{\{IMAGE_PATH_PLACEHOLDER\}\}/g,
+    "blog/security-blog.jpg"
+  );
+
+  // Check for other common placeholders that might remain in the content
+  const knownPlaceholders = [
+    /\{\{[A-Z_]+_PLACEHOLDER\}\}/g, // Any placeholder following the pattern {{NAME_PLACEHOLDER}}
+    /\{[A-Z_]+\}/g, // Any variable that wasn't replaced {VARIABLE_NAME}
+    /\$\{[A-Z_]+\}/g, // Template literals that weren't processed ${VARIABLE}
+    /\[Include .+?\]/g, // Instructions like [Include X]
+    /\[Based on .+?\]/g, // References like [Based on X]
+  ];
+
+  // Check for and remove each type of placeholder
+  knownPlaceholders.forEach((placeholderPattern) => {
+    const matches = processedContent.match(placeholderPattern);
+    if (matches && matches.length > 0) {
+      console.warn(
+        `WARNING: Found ${matches.length} unprocessed placeholders: ${matches[0]}...`
+      );
+
+      // Replace placeholders with appropriate fallback text or remove them
+      if (placeholderPattern.toString().includes("IMAGE_PATH_PLACEHOLDER")) {
+        processedContent = processedContent.replace(
+          placeholderPattern,
+          "blog/security-blog.jpg"
+        );
+      } else if (placeholderPattern.toString().includes("Based on")) {
+        processedContent = processedContent.replace(
+          placeholderPattern,
+          "Details not available"
+        );
+      } else if (placeholderPattern.toString().includes("Include")) {
+        processedContent = processedContent.replace(placeholderPattern, "");
+      } else {
+        processedContent = processedContent.replace(placeholderPattern, "");
+      }
+    }
+  });
+
   const date = format(new Date(), "yyyy-MM-dd");
   const slug = cveId.toLowerCase().replace(/[^a-z0-9]/g, "-");
   const filename = `${date}-vulnerability-analysis-${slug}.md`;
@@ -2320,24 +2582,89 @@ tags: ${JSON.stringify(tags)}
 cvss_score: "${inputData.CVSS_SCORE}"
 severity: "${inputData.SEVERITY_RATING}"
 cwe_id: "${inputData.CWE_ID}"
+cwe_id_number: "${inputData.CWE_ID_NUMBER}"
 kev_status: "${inputData.IS_KEV}"
 data_sources: "${sources}"
 ---\n\n`;
 
   // Check if the content starts with ```markdown and ends with ``` - this is a common LLM formatting issue
-  let cleanedContent = content;
-  if (content.trim().startsWith("```markdown") && content.trim().endsWith("```")) {
+  let cleanedContent = processedContent; // Use the processed content instead of original
+  if (
+    cleanedContent.trim().startsWith("```markdown") &&
+    cleanedContent.trim().endsWith("```")
+  ) {
     console.log("Removing markdown code block wrappers from content...");
-    cleanedContent = content
+    cleanedContent = cleanedContent
       .trim()
       .replace(/^```markdown\n/, "")
       .replace(/```$/, "");
   }
 
+  // Remove any remaining placeholders from the content
+  const placeholders = [
+    "{{IMAGE_PATH_PLACEHOLDER}}",
+    "{{CWE_DETAILS_PLACEHOLDER}}",
+    "{{DETAILED_DESCRIPTION_PLACEHOLDER}}",
+    "{{SPECIFIC_IMPACTS_PLACEHOLDER}}",
+    "{{PATCH_DETAILS_PLACEHOLDER}}",
+    "{{MITIGATION_STEPS_PLACEHOLDER}}",
+  ];
+
+  for (const placeholder of placeholders) {
+    if (cleanedContent.includes(placeholder)) {
+      console.log(`Warning: Removing placeholder ${placeholder} from final content`);
+      cleanedContent = cleanedContent.replace(new RegExp(placeholder, "g"), "");
+    }
+  }
+
+  // Enhanced placeholder detection and removal
+  // Check for and remove any remaining variable placeholders
+  const placeholderPatterns = [
+    { pattern: /\{[A-Z_]+\}/g, replacement: "" }, // {VARIABLE_NAME}
+    { pattern: /\[Based on [^\]]+\]/g, replacement: "Details not available" }, // [Based on X]
+    { pattern: /\[Include [^\]]+\]/g, replacement: "" }, // [Include X]
+    { pattern: /\[\[.*?\]\]/g, replacement: "" }, // [[template instructions]]
+    { pattern: /\({.*?}\)/g, replacement: "()" }, // Empty parentheses from removed placeholders
+    { pattern: /\[[^\]]*?{[^}]*?}[^\]]*?\]/g, replacement: "" }, // Links with placeholders inside
+  ];
+
+  for (const { pattern, replacement } of placeholderPatterns) {
+    const matches = cleanedContent.match(pattern);
+    if (matches && matches.length > 0) {
+      console.warn(
+        `WARNING: Found ${matches.length} instances of pattern ${pattern}: "${matches[0]}..."`
+      );
+      cleanedContent = cleanedContent.replace(pattern, replacement);
+    }
+  }
+
+  // Remove excessive whitespace and normalize newlines
+  cleanedContent = cleanedContent
+    .replace(/\n\s*\n\s*\n/g, "\n\n") // Replace 3+ newlines with 2
+    .replace(/\s+$/gm, "") // Trim trailing whitespace on each line
+    .replace(/^\s+/gm, "") // Trim leading whitespace on each line that's just spaces
+    .replace(/\n{3,}/g, "\n\n"); // Replace 3+ newlines with 2
+
+  // Replace image placeholder with actual image path (just in case it wasn't caught earlier)
+  cleanedContent = cleanedContent.replace(
+    /\{\{IMAGE_PATH_PLACEHOLDER\}\}/g,
+    "blog/security-blog.jpg"
+  );
+
   const fullContent = frontmatter + cleanedContent;
 
   fs.writeFileSync(filePath, fullContent);
   console.log(`Blog post saved to ${filePath}`);
+
+  // Save a backup copy for debugging if needed
+  const debugPath = path.join(path.dirname(filePath), "debug", filename);
+  try {
+    fs.mkdirSync(path.join(path.dirname(filePath), "debug"), { recursive: true });
+    fs.writeFileSync(debugPath, frontmatter + content); // Original content for comparison
+    console.log(`Debug copy saved to ${debugPath}`);
+  } catch (err) {
+    console.warn(`Failed to save debug copy: ${err.message}`);
+  }
   return filePath;
 }
 

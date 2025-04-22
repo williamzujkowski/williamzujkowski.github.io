@@ -48,23 +48,23 @@ Start with the header image placeholder: `![Placeholder: Security vulnerability 
 Write 1-2 paragraphs providing a high-level overview based on {VULN_SUMMARY}. Clearly state the vulnerability type, severity ({CVSS_SCORE}, {SEVERITY_RATING}), primary affected software ({AFFECTED_SOFTWARE}), and key impact. Use accessible language.
 
 ### 3. Vulnerability Snapshot (H2)
-Create a Markdown table using this structure:
+Create an enhanced Markdown table with hyperlinks to relevant sources where available:
 
 | Attribute | Value |
 |-----------|-------|
-| CVE ID | {CVE_ID} |
+| CVE ID | [{CVE_ID}](https://cve.org/CVERecord?id={CVE_ID}) |
 | Common Name | {VULN_NAME} |
 | Affected Software | {AFFECTED_SOFTWARE} |
 | Affected Versions | {AFFECTED_VERSIONS} |
-| CVSS v3.x Base Score | {CVSS_SCORE} |
-| CVSS Vector String | {CVSS_VECTOR} |
+| CVSS v3.x Base Score | {CVSS_SCORE} ([CVSS Calculator](https://www.first.org/cvss/calculator/3.1#{CVSS_VECTOR})) |
+| CVSS Vector String | [{CVSS_VECTOR}](https://www.first.org/cvss/calculator/3.1#{CVSS_VECTOR}) |
 | Severity Rating | {SEVERITY_RATING} |
-| Key CWE ID | {CWE_ID} |
-| CISA KEV Status | {IS_KEV} |
+| Key CWE ID | {CWE_ID} {CWE_ID != "CWE ID not specified" ? "([MITRE CWE](https://cwe.mitre.org/data/definitions/" + CWE_ID.replace("CWE-", "") + ".html))" : ""} |
+| CISA KEV Status | [{IS_KEV}](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) |
 | Exploitation Observed | {EXPLOIT_STATUS} |
-| Associated Threat Actors | [Based on {THREAT_ACTORS}] |
-| Cloud Provider Impact | [Based on {AWS_IMPACT} and {CLOUD_RELEVANCE}] |
-| Patch Availability | [Based on {MITIGATION_GUIDANCE}] |
+| Associated Threat Actors | {THREAT_ACTORS != "No specific threat actor information available" ? "[Threat Actor Details: " + THREAT_ACTORS + "](https://attack.mitre.org/groups/)" : "No specific information available"} |
+| Cloud Provider Impact | [Based on available information] |
+| Patch Availability | {MITIGATION_GUIDANCE} |
 
 ### 4. Technical Deep Dive (H2)
 Provide a detailed explanation based on {TECHNICAL_DETAILS}. Explain the root cause, vulnerability mechanism, and conditions for exploitation. Target this section towards developers/security professionals. Include properly formatted code snippets if relevant.
