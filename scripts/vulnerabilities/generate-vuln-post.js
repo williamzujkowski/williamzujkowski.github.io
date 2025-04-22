@@ -2670,16 +2670,21 @@ data_sources: "${sources}"
 
 /**
  * Function to find the latest critical vulnerability
+ * Prioritizes current year CVEs if configured
  * @returns {Promise<string|null>} The CVE ID of the latest critical vulnerability
  */
 async function findLatestCriticalCVE() {
   try {
-    // Get current date
+    // Get current date and year
     const now = new Date();
+    const currentYear = now.getFullYear();
 
-    // Get max vulnerability age from config or default to 30 days
+    // Check if we should prioritize CVEs from current year
+    const prioritizeCurrentYear = process.env.PRIORITIZE_CURRENT_YEAR === "true";
+
+    // Get max vulnerability age from config or default to 180 days
     const maxVulnerabilityAgeDays = parseInt(
-      process.env.MAX_VULNERABILITY_AGE_DAYS || "30",
+      process.env.MAX_VULNERABILITY_AGE_DAYS || "180",
       10
     );
 
@@ -2702,6 +2707,67 @@ async function findLatestCriticalCVE() {
     // Get minimum CVSS score from config or default to 9.0 (Critical)
     const minCvssScore = parseFloat(process.env.MIN_CVSS_SCORE || "9.0");
 
+    // If prioritizing current year, try to get CVEs from current year first
+    if (prioritizeCurrentYear) {
+      console.log(
+        `Prioritizing current year (${currentYear}) CVEs with critical severity`
+      );
+
+      // First try to get current year critical vulnerabilities
+      const currentYearResponse = await axios.get(
+        "https://services.nvd.nist.gov/rest/json/cves/2.0",
+        {
+          params: {
+            pubStartDate: `${currentYear}-01-01`,
+            cvssV3Severity: "CRITICAL",
+            resultsPerPage: 10,
+          },
+          headers,
+        }
+      );
+
+      if (
+        currentYearResponse.data &&
+        currentYearResponse.data.vulnerabilities &&
+        currentYearResponse.data.vulnerabilities.length > 0
+      ) {
+        console.log(
+          `Found ${currentYearResponse.data.vulnerabilities.length} critical vulnerabilities from ${currentYear}`
+        );
+        // Return the CVE ID of the most recent critical vulnerability from current year
+        return currentYearResponse.data.vulnerabilities[0].cve.id;
+      }
+
+      console.log(
+        `No critical vulnerabilities found for ${currentYear}. Trying high severity from current year...`
+      );
+
+      // Try high severity from current year
+      const currentYearHighResponse = await axios.get(
+        "https://services.nvd.nist.gov/rest/json/cves/2.0",
+        {
+          params: {
+            pubStartDate: `${currentYear}-01-01`,
+            cvssV3Severity: "HIGH",
+            resultsPerPage: 10,
+          },
+          headers,
+        }
+      );
+
+      if (
+        currentYearHighResponse.data &&
+        currentYearHighResponse.data.vulnerabilities &&
+        currentYearHighResponse.data.vulnerabilities.length > 0
+      ) {
+        console.log(
+          `Found ${currentYearHighResponse.data.vulnerabilities.length} high severity vulnerabilities from ${currentYear}`
+        );
+        return currentYearHighResponse.data.vulnerabilities[0].cve.id;
+      }
+    }
+
+    // If we get here, either we're not prioritizing current year or we didn't find any current year CVEs
     console.log(
       `Searching for vulnerabilities from the last ${maxVulnerabilityAgeDays} days with CVSS score >= ${minCvssScore}`
     );
@@ -2716,7 +2782,7 @@ async function findLatestCriticalCVE() {
         params: {
           pubStartDate,
           cvssV3Severity: "CRITICAL",
-          resultsPerPage: 5,
+          resultsPerPage: 10,
         },
         headers,
       }
@@ -2759,13 +2825,15 @@ async function findLatestCriticalCVE() {
       "No high or critical vulnerabilities found in the last 30 days via NVD API."
     );
 
-    // Fallback to a known list of important CVEs for demonstration/testing
+    // Fallback to a known list of important CVEs for demonstration/testing (prioritizing 2024/2025 CVEs)
     const fallbackCVEs = [
-      "CVE-2023-50164", // Kubernetes ingress-nginx Path Traversal
-      "CVE-2024-21413", // Windows Mark of the Web Security Feature Bypass
+      "CVE-2024-3094", // XZ Utils backdoor
+      "CVE-2024-0519", // Linux kernel privilege escalation
+      "CVE-2024-21626", // Microsoft Windows recovery environment vulnerability
+      "CVE-2024-1086", // Linux iptables issues
+      "CVE-2024-22008", // Windows Imaging Component RCE
+      "CVE-2023-50164", // Apache Struts code execution
       "CVE-2023-46604", // Apache ActiveMQ Remote Code Execution
-      "CVE-2023-4863", // WebP Zero-Day Remote Code Execution
-      "CVE-2023-36025", // Windows SmartScreen Security Feature Bypass
     ];
 
     console.log("Using fallback CVE list...");
