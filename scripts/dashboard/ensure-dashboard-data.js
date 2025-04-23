@@ -43,40 +43,61 @@ function createDefaultData() {
   console.log(`Created default dashboard data at: ${targetDataPath}`);
 }
 
-// Function to transform metrics data to dashboard format
-function transformMetricsData(metricsData) {
-  // Create dashboard data that matches the format expected by the UI
-  return {
-    totalRuns: metricsData.totalRuns || 0,
-    avgProcessingTime: metricsData.avgProcessingTime || 0,
-    avgTokenUsage:
-      metricsData.totalRuns > 0
-        ? (metricsData.totalTokens || 0) / metricsData.totalRuns
-        : 0,
-    totalCost: metricsData.totalCost || 0,
-    // Transform runsByDate from object to array format
-    runsByDate: Object.entries(metricsData.runsByDate || {})
-      .map(([date, count]) => ({ date, count }))
-      .sort((a, b) => a.date.localeCompare(b.date)),
-    // Transform runsByModel from object to array format
-    runsByModel: Object.entries(metricsData.runsByModel || {})
-      .map(([model, count]) => ({ model, count }))
-      .sort((a, b) => b.count - a.count),
-    // Use runs array as recentRuns, transforming as needed
-    recentRuns: (metricsData.runs || []).map((run) => ({
+// Function to transform data structure for dashboard
+function transformDataForDashboard(data) {
+  const transformed = { ...data };
+
+  // Transform runsByDate from object to array of objects
+  if (
+    typeof transformed.runsByDate === "object" &&
+    !Array.isArray(transformed.runsByDate)
+  ) {
+    transformed.runsByDate = Object.entries(transformed.runsByDate).map(
+      ([date, count]) => ({
+        date,
+        count,
+      })
+    );
+  }
+
+  // Transform runsByModel from object to array of objects
+  if (
+    typeof transformed.runsByModel === "object" &&
+    !Array.isArray(transformed.runsByModel)
+  ) {
+    transformed.runsByModel = Object.entries(transformed.runsByModel).map(
+      ([model, count]) => ({
+        model,
+        count,
+      })
+    );
+  }
+
+  // Calculate avgTokenUsage if not already present
+  if (!transformed.avgTokenUsage && transformed.totalTokens && transformed.totalRuns) {
+    transformed.avgTokenUsage = transformed.totalTokens / transformed.totalRuns;
+  }
+
+  // Make sure recentRuns contains simplified data for dashboard
+  if (transformed.runs && Array.isArray(transformed.runs)) {
+    transformed.recentRuns = transformed.runs.map((run) => ({
       id: run.id,
       name: run.name,
       startTime: run.startTime,
       endTime: run.endTime,
       status: run.status,
       model: run.model,
-      inputTokens: run.inputTokens || 0,
-      outputTokens: run.outputTokens || 0,
-      cost: run.cost || 0,
-    })),
-    lastUpdated: metricsData.lastUpdated || new Date().toISOString(),
-    dataSource: "local",
-  };
+      inputTokens: run.inputTokens,
+      outputTokens: run.outputTokens,
+      cost: run.cost,
+      metadata: run.metadata,
+    }));
+  }
+
+  // Add data source info
+  transformed.dataSource = transformed.dataSource || "local";
+
+  return transformed;
 }
 
 // Main function
@@ -88,14 +109,18 @@ function main() {
     if (fs.existsSync(sourceDataPath)) {
       console.log(`Source data found at: ${sourceDataPath}`);
 
-      // Read the metrics data
-      const metricsData = JSON.parse(fs.readFileSync(sourceDataPath, "utf8"));
+      // Read the source data
+      const rawData = JSON.parse(fs.readFileSync(sourceDataPath, "utf8"));
 
-      // Transform data for dashboard format
-      const dashboardData = transformMetricsData(metricsData);
+      // Transform data for dashboard
+      const transformedData = transformDataForDashboard(rawData);
 
       // Write the transformed data to the assets directory
-      fs.writeFileSync(targetDataPath, JSON.stringify(dashboardData, null, 2), "utf8");
+      fs.writeFileSync(
+        targetDataPath,
+        JSON.stringify(transformedData, null, 2),
+        "utf8"
+      );
       console.log(`Transformed data saved to: ${targetDataPath}`);
     } else {
       console.log(`Source data not found at: ${sourceDataPath}`);

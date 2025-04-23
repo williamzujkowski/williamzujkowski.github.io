@@ -6,14 +6,49 @@ on:
     - cron: '0 1 * * 1'
   workflow_dispatch:
     # Allow manual triggering
+    inputs:
+      cve_id:
+        description: 'Specific CVE ID to generate post for'
+        required: false
+        type: string
+      provider:
+        description: 'LLM provider to use'
+        required: false
+        type: choice
+        options:
+          - openai
+          - claude
+          - gemini
+        default: 'gemini'
+
+# Set concurrency to cancel in-progress runs when a new run is triggered
+concurrency:
+  group: vuln-posts-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    # Use strict bash error handling
+    shell: bash -eo pipefail {0}
 
 jobs:
   generate-vulnerability-post:
     runs-on: ubuntu-latest
+    timeout-minutes: 15  # Set a timeout to prevent hung jobs
+
+    env:
+      # Default environment variables
+      MAX_RETRY_COUNT: 3
+      DEFAULT_TIMEOUT_SECONDS: 30
+      LLM_PROVIDER: ${{ inputs.provider || 'gemini' }}
+      OUTPUT_DIR: "src/posts"
+      DEBUG: ${{ runner.debug }}
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Use full SHA for pinning in production
+        with:
+          fetch-depth: 1  # Shallow clone for faster checkout
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -21,21 +56,152 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      # Use glob pattern for more efficient caching
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            tools/vuln-blog/.cache
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
 
-      - name: Generate vulnerability post
+      - name: Install dependencies
+        id: install
+        run: npm ci
+        continue-on-error: true  # Allow continuing even if npm install fails
+
+      # Fallback npm install with less strict options if the first fails
+      - name: Fallback npm install
+        if: steps.install.outcome == 'failure'
+        run: |
+          echo "::group::Retrying installation with less strict options"
+          npm install --no-fund --no-audit
+          echo "::endgroup::"
+
+      - name: Setup debug logs
+        run: |
+          # Create logs directory if it doesn't exist
+          mkdir -p logs
+          # Setup enhanced logging in debug mode
+          if [[ "$DEBUG" == "true" ]]; then
+            echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+            echo "API_FETCH_RETRIES=3" >> $GITHUB_ENV
+            echo "DEBUG_MODE=true" >> $GITHUB_ENV
+          fi
+
+      # Determine the CVE to generate a post for
+      - name: Determine CVE
+        id: determine-cve
+        run: |
+          if [[ -n "${{ inputs.cve_id }}" ]]; then
+            echo "Using manually specified CVE: ${{ inputs.cve_id }}"
+            echo "CVE_ID=${{ inputs.cve_id }}" >> $GITHUB_ENV
+            echo "IS_MANUALLY_SPECIFIED=true" >> $GITHUB_ENV
+          else
+            echo "No CVE specified, will use --latest flag to find recent critical CVE"
+            echo "IS_MANUALLY_SPECIFIED=false" >> $GITHUB_ENV
+          fi
+
+      # Generate vulnerability post with manual CVE ID
+      - name: Generate vulnerability post (specific CVE)
+        if: env.IS_MANUALLY_SPECIFIED == 'true'
+        id: generate-specific
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "::group::Generating post for $CVE_ID"
+          node tools/vuln-blog/index.js --cve $CVE_ID --provider $LLM_PROVIDER --output-dir $OUTPUT_DIR
+          echo "::endgroup::"
+        continue-on-error: true  # Don't fail workflow if this step fails
+
+      # Generate vulnerability post with latest critical CVE
+      - name: Generate vulnerability post (latest critical)
+        if: env.IS_MANUALLY_SPECIFIED == 'false'
+        id: generate-latest
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PRIORITIZE_CURRENT_YEAR: "true"
           MAX_VULNERABILITY_AGE_DAYS: "180"
-          LLM_PROVIDER: "gemini"
-        run: node scripts/vulnerabilities/generate-vuln-post.js --latest
+        run: |
+          echo "::group::Generating post for latest critical vulnerability"
+          node tools/vuln-blog/index.js --latest --provider $LLM_PROVIDER --output-dir $OUTPUT_DIR
+          echo "::endgroup::"
+        continue-on-error: true  # Don't fail workflow if this step fails
+
+      # Fallback to a more reliable CVE if both previous attempts failed
+      - name: Fallback generation with known CVE
+        if: (steps.generate-specific.outcome == 'failure' && env.IS_MANUALLY_SPECIFIED == 'true') || (steps.generate-latest.outcome == 'failure' && env.IS_MANUALLY_SPECIFIED == 'false')
+        id: generate-fallback
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "::group::Previous generation attempts failed, using fallback CVE (CVE-2023-50164)"
+          node tools/vuln-blog/index.js --cve CVE-2023-50164 --provider $LLM_PROVIDER --output-dir $OUTPUT_DIR
+          echo "::endgroup::"
+
+      - name: Check for generated file
+        id: check-file
+        run: |
+          # Look for newly created post file
+          NEWEST_POST=$(find $OUTPUT_DIR -name "*.md" -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+          if [[ -n "$NEWEST_POST" ]]; then
+            echo "Found generated post: $NEWEST_POST"
+            echo "GENERATED_FILE=$NEWEST_POST" >> $GITHUB_ENV
+            echo "POST_GENERATION=success" >> $GITHUB_ENV
+          else
+            echo "Failed to find any generated posts"
+            echo "POST_GENERATION=failure" >> $GITHUB_ENV
+          fi
+
+      - name: Upload logs as artifacts
+        if: always()  # Always upload logs, even if the workflow fails
+        uses: actions/upload-artifact@v3
+        with:
+          name: vuln-post-logs
+          path: |
+            tools/vuln-blog/logs/
+            logs/
+
+      - name: Update dashboard data
+        if: env.POST_GENERATION == 'success'
+        run: |
+          echo "Ensuring dashboard data is properly formatted..."
+          node scripts/dashboard/ensure-dashboard-data.js
 
       - name: Commit and push if changed
+        if: env.POST_GENERATION == 'success'
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add src/posts/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Add weekly vulnerability analysis post [automated]" && git push)
+          git add $GENERATED_FILE assets/data/langsmith-data.json
+
+          # Check if there are changes to commit
+          if git diff --quiet --staged; then
+            echo "No changes to commit"
+          else
+            # Determine CVE ID from file name or content for better commit message
+            CVE_ID=$(basename "$GENERATED_FILE" | grep -o "CVE-[0-9]\{4\}-[0-9]\{4,\}" || echo "vulnerability")
+            git commit -m "Add vulnerability analysis post for $CVE_ID and update dashboard data [automated]"
+            git push
+          fi
+
+      # Notify about failure/success via GitHub issues if needed
+      - name: Create notification issue on failure
+        if: failure() && github.event_name == 'schedule'  # Only on scheduled runs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Vulnerability post generation failed on $(date +'%Y-%m-%d')" \
+            --body "The scheduled vulnerability post generation workflow failed. Please check the [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details."
