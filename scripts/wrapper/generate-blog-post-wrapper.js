@@ -23,21 +23,15 @@ if (!fs.existsSync(process.env.OUTPUT_DIR)) {
 // Get the path to the tools/vuln-blog directory
 const vulnBlogPath = path.resolve(__dirname, "../../tools/vuln-blog");
 
-// Check if index.js exists, otherwise use generate-vuln-post.js
-let scriptPath;
-if (fs.existsSync(path.resolve(vulnBlogPath, "index.js"))) {
-  scriptPath = path.resolve(vulnBlogPath, "index.js");
-} else {
-  scriptPath = path.resolve(vulnBlogPath, "generate-vuln-post.js");
-}
+// Set the path to the general blog post generator
+const scriptPath = path.resolve(vulnBlogPath, "generate-blog-post.js");
 
-// Check for workflow and tracing flags
-const useWorkflow = process.env.USE_WORKFLOW === "true" ? "--use-workflow true" : "";
+// Check for tracing flags
 const enableTracing =
   process.env.ENABLE_TRACING === "true" ? "--enable-tracing true" : "";
 
-// Build the command to run the appropriate generator
-const command = `node ${scriptPath} ${args.join(" ")} --output-dir ${process.env.OUTPUT_DIR} ${useWorkflow} ${enableTracing}`;
+// Build the command to run the blog post generator
+const command = `node ${scriptPath} ${args.join(" ")} --output-dir ${process.env.OUTPUT_DIR} ${enableTracing}`;
 
 // Set environment variables for optimal quality
 if (!process.env.LLM_PROVIDER) {

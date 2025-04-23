@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "build": "npm run build:data && eleventy --config=.eleventy.cjs && npm run build:css && npm run build:js && node scripts/fix-rss.cjs"
-  }
-}
