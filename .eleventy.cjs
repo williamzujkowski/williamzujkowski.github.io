@@ -244,7 +244,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
 
   // Copy website essentials
-  eleventyConfig.addPassthroughCopy({ "config/site.webmanifest": "site.webmanifest" });
+  eleventyConfig.addPassthroughCopy({ "site.webmanifest": "site.webmanifest" });
   eleventyConfig.addPassthroughCopy({ "assets/icons/favicon.ico": "favicon.ico" });
   eleventyConfig.addPassthroughCopy({ "assets/icons/icon.svg": "icon.svg" });
   eleventyConfig.addPassthroughCopy({
