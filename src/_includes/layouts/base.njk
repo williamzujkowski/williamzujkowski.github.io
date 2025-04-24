@@ -37,12 +37,15 @@
       </svg>
     </button>
 
-    <!-- Main scripts -->
-    <script src="/js/main.js"></script>
-    <script src="/js/site-enhancements.js"></script>
-    <script src="/js/search.js"></script>
-    <script src="/js/heatmap.js"></script>
-    <script type="module" src="/js/theme-switcher.js"></script>
+    <!-- Main scripts - updated for non-ES6 module compatibility -->
+    <script src="/js/theme-toggle.js" defer></script>
+    <script src="/js/site-config.js" defer></script>
+    <script src="/js/resource-hints.js" defer></script>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/components/joke-generator.bundle.js" defer></script>
+    <script src="/js/site-enhancements.js" defer></script>
+    <script src="/js/search.js" defer></script>
+    <script src="/js/heatmap.js" defer></script>
 
     <!-- Static visualizations are handled by static-fallbacks.js -->
   </body>

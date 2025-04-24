@@ -21,9 +21,25 @@ const PERFORMANCE_METRICS = {
 };
 
 // Import core components only - others will be lazy loaded
-import { initThemeToggle } from "./components/theme-toggle.js";
-import { initSiteConfig } from "./utils/site-config.js";
-import { initResourceHints } from "./utils/resource-hints.js";
+// Use script tags with deferred loading instead of ES modules for better compatibility
+// These functions are expected to be globally available
+const initThemeToggle =
+  window.initThemeToggle ||
+  function () {
+    console.warn("Theme toggle not loaded");
+  };
+const initSiteConfig =
+  window.initSiteConfig ||
+  function () {
+    console.warn("Site config not loaded");
+    return {};
+  };
+const initResourceHints =
+  window.initResourceHints ||
+  function () {
+    console.warn("Resource hints not loaded");
+    return true;
+  };
 
 /**
  * Records performance timing for a specific operation
