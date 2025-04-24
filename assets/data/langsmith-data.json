@@ -1,8 +1,188 @@
 {
-  "totalRuns": 10,
-  "avgProcessingTime": 10.495600000000001,
-  "avgTokenUsage": 3558.9,
-  "totalCost": 0.030468500000000003,
+  "runs": [
+    {
+      "id": "run-1745295602192-7up2d",
+      "name": "Generate Blog Post: CVE-2023-50164",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T04:19:53.554Z",
+      "endTime": "2025-04-22T04:20:02.192Z",
+      "duration": 8.638,
+      "inputTokens": 2513,
+      "outputTokens": 1133,
+      "totalTokens": 3646,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-50164",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0029560000000000003
+    },
+    {
+      "id": "run-1745295379581-dbyv2",
+      "name": "Generate Blog Post: CVE-2021-44228",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T04:16:10.717Z",
+      "endTime": "2025-04-22T04:16:19.581Z",
+      "duration": 8.864,
+      "inputTokens": 2507,
+      "outputTokens": 1246,
+      "totalTokens": 3753,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2021-44228",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0031225000000000003
+    },
+    {
+      "id": "run-1745295364763-qxczb",
+      "name": "Generate Blog Post: CVE-2024-21626",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T04:15:55.715Z",
+      "endTime": "2025-04-22T04:16:04.763Z",
+      "duration": 9.048,
+      "inputTokens": 2507,
+      "outputTokens": 1164,
+      "totalTokens": 3671,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2024-21626",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0029995
+    },
+    {
+      "id": "run-1745295264085-ji7m6",
+      "name": "Generate Blog Post: CVE-2023-23397",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T04:14:12.298Z",
+      "endTime": "2025-04-22T04:14:24.085Z",
+      "duration": 11.787,
+      "inputTokens": 2507,
+      "outputTokens": 1193,
+      "totalTokens": 3700,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-23397",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.003043
+    },
+    {
+      "id": "run-1745294695691-q2wx4",
+      "name": "Generate Blog Post: CVE-2023-12345",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T04:04:46.623Z",
+      "endTime": "2025-04-22T04:04:55.691Z",
+      "duration": 9.068,
+      "inputTokens": 2507,
+      "outputTokens": 1114,
+      "totalTokens": 3621,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0029245
+    },
+    {
+      "id": "run-1745294668746-46qti",
+      "name": "Generate Blog Post: CVE-2023-46604",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T04:04:20.180Z",
+      "endTime": "2025-04-22T04:04:28.745Z",
+      "duration": 8.565,
+      "inputTokens": 2507,
+      "outputTokens": 1154,
+      "totalTokens": 3661,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-46604",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0029845
+    },
+    {
+      "id": "run-1745294355400-1fnm5",
+      "name": "Generate Blog Post: CVE-2024-12345",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T03:59:05.721Z",
+      "endTime": "2025-04-22T03:59:15.400Z",
+      "duration": 9.679,
+      "inputTokens": 2507,
+      "outputTokens": 1262,
+      "totalTokens": 3769,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2024-12345",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0031465
+    },
+    {
+      "id": "run-1745294148246-8t01s",
+      "name": "Generate Blog Post: CVE-2023-12345",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T03:55:41.196Z",
+      "endTime": "2025-04-22T03:55:48.246Z",
+      "duration": 7.05,
+      "inputTokens": 2507,
+      "outputTokens": 1220,
+      "totalTokens": 3727,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.0030835000000000003
+    },
+    {
+      "id": "run-1745294099778-2762w",
+      "name": "Generate Blog Post: CVE-2023-12345",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T03:54:31.946Z",
+      "endTime": "2025-04-22T03:54:59.778Z",
+      "duration": 27.832,
+      "inputTokens": 2507,
+      "outputTokens": 2507,
+      "totalTokens": 5014,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai"
+      },
+      "cost": 0.005014
+    },
+    {
+      "id": "run-1745293923883-9n62v",
+      "name": "Generate Blog Post (Fallback): CVE-2023-12345",
+      "model": "gpt-3.5-turbo",
+      "startTime": "2025-04-22T03:51:59.458Z",
+      "endTime": "2025-04-22T03:52:03.883Z",
+      "duration": 4.425,
+      "inputTokens": 346,
+      "outputTokens": 681,
+      "totalTokens": 1027,
+      "status": "success",
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai",
+        "fallback": true,
+        "error": "400 Invalid value for 'content': expected a string, got null."
+      },
+      "cost": 0.0011945
+    }
+  ],
   "runsByDate": [
     {
       "date": "2025-04-22",
@@ -15,6 +195,12 @@
       "count": 10
     }
   ],
+  "totalTokens": 35589,
+  "totalCost": 0.030468500000000003,
+  "avgProcessingTime": 10.495600000000001,
+  "totalRuns": 10,
+  "lastUpdated": "2025-04-22T04:20:02.192Z",
+  "avgTokenUsage": 3558.9,
   "recentRuns": [
     {
       "id": "run-1745295602192-7up2d",
@@ -25,7 +211,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2513,
       "outputTokens": 1133,
-      "cost": 0.0029560000000000003
+      "cost": 0.0029560000000000003,
+      "metadata": {
+        "cveId": "CVE-2023-50164",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745295379581-dbyv2",
@@ -36,7 +227,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 1246,
-      "cost": 0.0031225000000000003
+      "cost": 0.0031225000000000003,
+      "metadata": {
+        "cveId": "CVE-2021-44228",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745295364763-qxczb",
@@ -47,7 +243,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 1164,
-      "cost": 0.0029995
+      "cost": 0.0029995,
+      "metadata": {
+        "cveId": "CVE-2024-21626",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745295264085-ji7m6",
@@ -58,7 +259,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 1193,
-      "cost": 0.003043
+      "cost": 0.003043,
+      "metadata": {
+        "cveId": "CVE-2023-23397",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745294695691-q2wx4",
@@ -69,7 +275,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 1114,
-      "cost": 0.0029245
+      "cost": 0.0029245,
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745294668746-46qti",
@@ -80,7 +291,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 1154,
-      "cost": 0.0029845
+      "cost": 0.0029845,
+      "metadata": {
+        "cveId": "CVE-2023-46604",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745294355400-1fnm5",
@@ -91,7 +307,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 1262,
-      "cost": 0.0031465
+      "cost": 0.0031465,
+      "metadata": {
+        "cveId": "CVE-2024-12345",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745294148246-8t01s",
@@ -102,7 +323,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 1220,
-      "cost": 0.0030835000000000003
+      "cost": 0.0030835000000000003,
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745294099778-2762w",
@@ -113,7 +339,12 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 2507,
       "outputTokens": 2507,
-      "cost": 0.005014
+      "cost": 0.005014,
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai"
+      }
     },
     {
       "id": "run-1745293923883-9n62v",
@@ -124,9 +355,15 @@
       "model": "gpt-3.5-turbo",
       "inputTokens": 346,
       "outputTokens": 681,
-      "cost": 0.0011945
+      "cost": 0.0011945,
+      "metadata": {
+        "cveId": "CVE-2023-12345",
+        "useRag": false,
+        "provider": "openai",
+        "fallback": true,
+        "error": "400 Invalid value for 'content': expected a string, got null."
+      }
     }
   ],
-  "lastUpdated": "2025-04-22T04:20:02.192Z",
   "dataSource": "local"
 }

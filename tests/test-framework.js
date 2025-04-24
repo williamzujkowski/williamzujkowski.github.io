@@ -3,7 +3,7 @@
  * Implemented as part of Phase 4 testing
  */
 
-const chalk = require("chalk");
+import chalk from "chalk";
 
 // Test counters
 let totalTests = 0;
@@ -198,9 +198,4 @@ const assert = {
   },
 };
 
-module.exports = {
-  test,
-  printSummary,
-  resetCounters,
-  assert,
-};
+export { test, printSummary, resetCounters, assert };

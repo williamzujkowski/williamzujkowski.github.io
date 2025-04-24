@@ -5,10 +5,15 @@
  * Implemented as part of Phase 4 testing
  */
 
-const fs = require("fs");
-const path = require("path");
-const chalk = require("chalk");
-const { resetCounters, printSummary } = require("../../tests/test-framework");
+import fs from "fs";
+import path from "path";
+import chalk from "chalk";
+import { fileURLToPath } from "url";
+import { resetCounters, printSummary } from "../../tests/test-framework.js";
+
+// Set up dirname equivalent in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Constants for test directories
 const TEST_DIRS = {
@@ -53,7 +58,7 @@ function fileMatchesPattern(filePath) {
  *
  * @param {string} directory - The directory containing test files
  */
-function runTestsInDirectory(directory) {
+async function runTestsInDirectory(directory) {
   // Check if directory exists
   if (!fs.existsSync(directory)) {
     console.log(chalk.yellow(`Warning: Directory ${directory} does not exist.`));
@@ -75,39 +80,46 @@ function runTestsInDirectory(directory) {
   console.log(chalk.blue(`Found ${testFiles.length} test files in ${directory}`));
 
   // Run each test file
-  testFiles.forEach((file) => {
+  for (const file of testFiles) {
     console.log(chalk.blue(`\nRunning tests in ${path.basename(file)}`));
     console.log(chalk.gray("------------------------------------------------"));
 
     try {
-      // Clear module cache to ensure tests run fresh each time
-      delete require.cache[require.resolve(file)];
-
-      // Run the tests
-      require(file);
+      // Run the tests with dynamic import
+      const module = await import(file);
     } catch (error) {
       console.log(chalk.red(`Error running tests in ${file}:`));
       console.log(chalk.red(error.stack));
     }
-  });
+  }
 }
 
-// Reset counters before running tests
-resetCounters();
+// Main function to run tests
+async function runTests() {
+  // Reset counters before running tests
+  resetCounters();
 
-// Run tests
-if (options.category === "all") {
-  // Run tests in all directories
-  Object.values(TEST_DIRS).forEach((dir) => {
-    runTestsInDirectory(dir);
-  });
-} else {
-  // Run tests in a specific directory
-  runTestsInDirectory(TEST_DIRS[options.category]);
+  // Run tests
+  if (options.category === "all") {
+    // Run tests in all directories
+    for (const dir of Object.values(TEST_DIRS)) {
+      await runTestsInDirectory(dir);
+    }
+  } else {
+    // Run tests in a specific directory
+    await runTestsInDirectory(TEST_DIRS[options.category]);
+  }
+
+  // Print summary
+  printSummary();
+
+  // Exit with appropriate code
+  process.exit(0);
 }
 
-// Print summary
-printSummary();
-
-// Exit with appropriate code
-process.exit(0);
+// Run the tests
+runTests().catch((error) => {
+  console.error(chalk.red("Error running tests:"));
+  console.error(chalk.red(error.stack));
+  process.exit(1);
+});
