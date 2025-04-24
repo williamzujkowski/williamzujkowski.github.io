@@ -6,16 +6,19 @@ This document provides a hierarchical representation of the project's file struc
 
 - **BLOG-POST-README.md** - Instructions for blog post creation and formatting
 - **BLOG-WORKFLOW.md** - Workflow guide for blog content management
-- **BACKUP/** - Backup directory for previous versions of files
 - **CHANGELOG.md** - History of changes to the project
 - **CLAUDE.md** - Consolidated guidance for Claude AI when working with this codebase
+- **COMPLETION-SUMMARY.md** - Summary of completed optimization work
 - **CONTRIBUTING.md** - Guidelines for contributing to the project
 - **FILE_TREE.md** - This file, providing a structured overview of the repository
 - **LICENSE** - Project license information
 - **MAINTENANCE.md** - Instructions for maintaining the project
 - **README.md** - Project overview and main documentation
 - **README-VULN-BLOG-MIGRATION.md** - Guide for vulnerability blog post migration
+- **SIMPLIFICATION-PROGRESS.md** - Tracks progress of codebase simplification efforts
+- **SIMPLIFICATION-SUCCESS.md** - Confirmation of successful simplification
 - **UPDATES.md** - History of recent updates to the project
+- **site.webmanifest** - Web app manifest file for PWA support
 
 ## Key Directories
 
@@ -46,8 +49,28 @@ This document provides a hierarchical representation of the project's file struc
 - **`js/`** - JavaScript files
 
   - **`components/`** - UI component scripts
-  - **`data/`** - Data handling scripts
+    - **`code-highlight.js`** - Code syntax highlighting
+    - **`joke-generator.js`** - Joke generator component
+    - **`search.js`** - Search functionality
+    - **`static-fallbacks.js`** - Static fallback components
+    - **`theme-toggle.js`** - Theme toggle component
   - **`utils/`** - JavaScript utilities
+    - **`analytics.js`** - Analytics integration
+    - **`dom.js`** - DOM manipulation utilities
+    - **`resource-hints.js`** - Resource hints utilities
+    - **`site-config.js`** - Site configuration utilities
+    - **`storage.js`** - Storage utilities
+    - **`theme-init.js`** - Theme initialization
+  - **`blog-search.js`** - Blog search functionality
+  - **`heatmap.js`** - GitHub-style contribution heatmap
+  - **`main.js`** - Main JavaScript entry point
+  - **`resource-hints.js`** - Resource hints implementation
+  - **`search.js`** - General search functionality
+  - **`site-enhancements.js`** - Site enhancement utilities
+  - **`test-utility.js`** - Testing utilities
+  - **`theme-switcher.js`** - Theme switching functionality
+  - **`theme-utils.js`** - Theme utility functions
+  - **`url-validator.js`** - URL validation utilities
 
 - **`posts/`** - Blog post content
   - **`backup/`** - Backup copies of blog posts
@@ -56,20 +79,50 @@ This document provides a hierarchical representation of the project's file struc
 
 ### `/scripts` - Utility Scripts
 
+- **`README.md`** - Documentation for scripts
 - **`bin/`** - Shell scripts and executables
 - **`build/`** - Core build process scripts
+  - **`create-core-data.js`** - Core data generation script
 - **`content/`** - Content management and processing
   - **`posts/`** - Blog post processing utilities
+- **`convert-image-tags.js`** - Tool for converting image tags
 - **`dashboard/`** - Dashboard generation and management
+  - **`ensure-dashboard-data.js`** - Dashboard data verification
 - **`data/`** - Data processing scripts
+  - **`create-fallback-data.js`** - Fallback data creation
+  - **`create-fallback-link-previews.js`** - Link previews fallback
+  - **`data-compression.js`** - Data compression utilities
+  - **`incremental-data-converter.js`** - Incremental data updates
+  - **`optimize-data-management.js`** - Data optimization
+  - **`smart-data-loader.js`** - Smart data loading utilities
+- **`fix-feed.js`** - RSS feed fixup script
 - **`link-previews/`** - Link preview generation tools
+  - **`link-preview-generator.js`** - Tool for generating link previews
 - **`media/`** - Media optimization and processing
   - **`images/`** - Image optimization utilities
+    - **`image-shortcode.js`** - Image shortcode implementation
+    - **`optimize-images.js`** - Image optimization tools
+  - **`optimize-images.js`** - Main image optimization script
+- **`rebuild-link-previews.sh`** - Shell script for rebuilding link previews
+- **`standardize-frontmatter.js`** - Markdown frontmatter standardization
 - **`styling/`** - CSS optimization scripts
+  - **`backup-old-css.js`** - CSS backup script
+  - **`enhanced-optimize-css.js`** - Enhanced CSS optimization
+  - **`extract-components.js`** - CSS component extraction
+  - **`generate-theme.js`** - Theme generation script
 - **`testing/`** - Test execution scripts
+  - **`run-accessibility-tests.js`** - Accessibility testing
+  - **`run-component-tests.js`** - Component tests
+  - **`run-tests.js`** - Main test runner
+  - **`verify-build.js`** - Build verification
+  - **`verify-templates.js`** - Template verification
 - **`utils/`** - Utility functions
 - **`validation/`** - Configuration validation tools
+  - **`validate-config.js`** - Configuration validator
+- **`verify-scripts.js`** - Script verification utility
 - **`wrapper/`** - Wrapper scripts for external tools
+  - **`generate-blog-post-wrapper.js`** - Blog post generation wrapper
+  - **`generate-vuln-post-wrapper.js`** - Vulnerability post generation wrapper
 
 ### `/assets` - Static Assets
 
@@ -118,7 +171,7 @@ This document provides a hierarchical representation of the project's file struc
 - **`config/`** - Configuration files
   - **`postcss.config.cjs`** - PostCSS configuration
   - **`tailwind.config.cjs`** - Tailwind CSS configuration
-  - **`site.webmanifest`** - Web app manifest
+  - **`site.webmanifest`** - Backup of web app manifest
 
 ## Other Important Files
 
