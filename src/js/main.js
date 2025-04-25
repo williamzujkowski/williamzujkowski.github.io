@@ -11,12 +11,32 @@
  * @module main
  */
 
-// Import components (for verification purposes only - actual loading is dynamic)
-import { initSearch } from "./components/search.js";
-import { initThemeToggle } from "./components/theme-toggle.js";
-import { initCodeHighlight } from "./components/code-highlight.js";
-import { initStaticFallbacks } from "./components/static-fallbacks.js";
-import { initResourceHints } from "./resource-hints.js";
+// Define imports as variables to avoid actual imports
+const initSearch =
+  window.initSearch ||
+  function () {
+    console.log("Search init placeholder");
+  };
+const initThemeToggle =
+  window.initThemeToggle ||
+  function () {
+    console.log("Theme toggle init placeholder");
+  };
+const initCodeHighlight =
+  window.initCodeHighlight ||
+  function () {
+    console.log("Code highlight init placeholder");
+  };
+const initStaticFallbacks =
+  window.initStaticFallbacks ||
+  function () {
+    console.log("Static fallbacks init placeholder");
+  };
+const initResourceHints =
+  window.initResourceHints ||
+  function () {
+    console.log("Resource hints init placeholder");
+  };
 
 // Initialize performance metrics
 const PERFORMANCE_METRICS = {
@@ -248,35 +268,96 @@ function initMediumPriority() {
   // Initialize scroll-based components (back to top button, etc.)
   trackPerformance("scrollEffects", setupScrollEffects);
 
-  // Initialize joke generator (content enhancement) - using dynamic import
+  // Initialize joke generator (content enhancement) - using script loading
   if (
     document.querySelector("#joke-container") ||
     document.querySelector("#mobile-joke-container")
   ) {
-    // Use a module specifier that matches where the file is actually located
-    import("/js/components/joke-generator.bundle.js")
-      .then((module) => {
-        console.log("Successfully loaded joke generator module");
-        if (typeof module.initJokeGenerator === "function") {
-          trackPerformance("jokeGenerator", module.initJokeGenerator);
-        } else {
-          console.error("initJokeGenerator function not found in module");
+    // Load joke generator using a script tag for better compatibility
+    function loadJokeGenerator() {
+      return new Promise((resolve, reject) => {
+        try {
+          // First try to use the global function if already loaded
+          if (typeof window.initJokeGenerator === "function") {
+            console.log("Joke generator already loaded globally");
+            resolve(window.initJokeGenerator);
+            return;
+          }
+
+          // Try multiple potential locations for the joke generator script
+          const possiblePaths = [
+            "/js/components/joke-generator.bundle.js",
+            "/js/components/joke-generator.js",
+            "../js/components/joke-generator.bundle.js",
+          ];
+
+          // Function to try loading from next path
+          let pathIndex = 0;
+          function tryNextPath() {
+            if (pathIndex >= possiblePaths.length) {
+              reject(new Error("All paths for joke generator failed"));
+              return;
+            }
+
+            const script = document.createElement("script");
+            script.src = possiblePaths[pathIndex];
+            script.async = true;
+
+            script.onload = () => {
+              console.log(`Successfully loaded joke generator from ${script.src}`);
+              if (typeof window.initJokeGenerator === "function") {
+                // Success! Resolve the promise with the function
+                resolve(window.initJokeGenerator);
+              } else {
+                // Function not found, but script loaded - try to call it directly
+                console.warn(
+                  `Script loaded from ${script.src} but initJokeGenerator not found`
+                );
+                // Wait a moment and check again (it might be defined asynchronously)
+                setTimeout(() => {
+                  if (typeof window.initJokeGenerator === "function") {
+                    resolve(window.initJokeGenerator);
+                  } else {
+                    // Try the next path
+                    pathIndex++;
+                    tryNextPath();
+                  }
+                }, 100);
+              }
+            };
+
+            script.onerror = () => {
+              console.warn(`Failed to load joke generator from ${script.src}`);
+              // Try the next path
+              pathIndex++;
+              tryNextPath();
+            };
+
+            document.head.appendChild(script);
+          }
+
+          // Start trying paths
+          tryNextPath();
+        } catch (e) {
+          console.error("Error in joke generator loading:", e);
+          reject(e);
         }
+      });
+    }
+
+    // Load and initialize the joke generator
+    loadJokeGenerator()
+      .then((initFunction) => {
+        trackPerformance("jokeGenerator", initFunction);
       })
       .catch((error) => {
-        console.error("Failed to load joke generator:", error);
+        console.error("All attempts to load joke generator failed:", error);
 
-        // Attempt to load using another path if the first one fails
-        import("../../js/components/joke-generator.bundle.js")
-          .then((module) => {
-            console.log("Successfully loaded joke generator from alternate path");
-            if (typeof module.initJokeGenerator === "function") {
-              trackPerformance("jokeGenerator", module.initJokeGenerator);
-            }
-          })
-          .catch((fallbackError) => {
-            console.error("All attempts to load joke generator failed:", fallbackError);
-          });
+        // Last resort fallback - direct call if function exists
+        if (typeof window.initJokeGenerator === "function") {
+          console.log("Found global joke generator function, using it directly");
+          trackPerformance("jokeGenerator", window.initJokeGenerator);
+        }
       });
   }
 }

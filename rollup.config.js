@@ -52,24 +52,27 @@ export default [
   {
     input: "src/js/main.js",
     output: {
-      dir: "_site/js",
-      entryFileNames: "[name].bundle.js",
-      chunkFileNames: "chunks/[name]-[hash].js",
-      format: "es",
+      file: "_site/js/main.bundle.js", // Use file instead of dir for IIFE format
+      format: "iife", // Use IIFE format instead of ES modules for browser compatibility
       sourcemap: !isProduction,
+      name: "main", // Global variable name for IIFE
     },
     plugins: commonPlugins,
+    // Explicitly mark certain imports as external to prevent warnings
+    external: [
+      "/js/components/joke-generator.bundle.js",
+      "../../js/components/joke-generator.bundle.js",
+    ],
   },
 
   // Blog-specific functionality
   {
     input: "src/js/blog-search.js",
     output: {
-      dir: "_site/js/blog",
-      entryFileNames: "blog.bundle.js",
-      chunkFileNames: "../chunks/[name]-[hash].js",
-      format: "es",
+      file: "_site/js/blog/blog.bundle.js",
+      format: "iife", // Use IIFE format instead of ES modules
       sourcemap: !isProduction,
+      name: "blogSearch",
     },
     plugins: commonPlugins,
   },
@@ -78,11 +81,10 @@ export default [
   {
     input: "src/js/search.js",
     output: {
-      dir: "_site/js/search",
-      entryFileNames: "search.bundle.js",
-      chunkFileNames: "../chunks/[name]-[hash].js",
-      format: "es",
+      file: "_site/js/search/search.bundle.js",
+      format: "iife", // Use IIFE format instead of ES modules
       sourcemap: !isProduction,
+      name: "search",
     },
     plugins: commonPlugins,
   },
@@ -91,11 +93,10 @@ export default [
   {
     input: "src/js/components/theme-toggle.js",
     output: {
-      dir: "_site/js/components",
-      entryFileNames: "theme-toggle.bundle.js",
-      chunkFileNames: "../chunks/[name]-[hash].js",
-      format: "es",
+      file: "_site/js/components/theme-toggle.bundle.js",
+      format: "iife", // Use IIFE format instead of ES modules
       sourcemap: !isProduction,
+      name: "themeToggle",
     },
     plugins: commonPlugins,
   },
@@ -104,11 +105,10 @@ export default [
   {
     input: "src/js/components/code-highlight.js",
     output: {
-      dir: "_site/js/components",
-      entryFileNames: "code-highlight.bundle.js",
-      chunkFileNames: "../chunks/[name]-[hash].js",
-      format: "es",
+      file: "_site/js/components/code-highlight.bundle.js",
+      format: "iife", // Use IIFE format instead of ES modules
       sourcemap: !isProduction,
+      name: "codeHighlight",
     },
     plugins: commonPlugins,
   },
@@ -117,11 +117,22 @@ export default [
   {
     input: "src/js/theme-utils.js",
     output: {
-      dir: "_site/js/utils",
-      entryFileNames: "utils.bundle.js",
-      chunkFileNames: "../chunks/[name]-[hash].js",
-      format: "es",
+      file: "_site/js/utils/utils.bundle.js",
+      format: "iife", // Use IIFE format instead of ES modules
       sourcemap: !isProduction,
+      name: "themeUtils",
+    },
+    plugins: commonPlugins,
+  },
+
+  // Special bundle for joke generator - copy from existing file to target location
+  {
+    input: "js/components/joke-generator.bundle.js",
+    output: {
+      file: "_site/js/components/joke-generator.bundle.js",
+      format: "iife",
+      sourcemap: false,
+      name: "jokeGenerator",
     },
     plugins: commonPlugins,
   },

@@ -231,11 +231,16 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ "_site/js/bundle.min.js": "js/bundle.min.js" });
   }
 
+  // Copy joke generator bundle to ensure it's available
+  eleventyConfig.addPassthroughCopy({
+    "js/components/joke-generator.bundle.js": "js/components/joke-generator.bundle.js",
+  });
+
   // CSS handling
   eleventyConfig.addPassthroughCopy("src/css");
 
   // Copy website essentials
-  eleventyConfig.addPassthroughCopy({ "site.webmanifest": "site.webmanifest" });
+  eleventyConfig.addPassthroughCopy("site.webmanifest");
   eleventyConfig.addPassthroughCopy({ "assets/icons/favicon.ico": "favicon.ico" });
   eleventyConfig.addPassthroughCopy({ "assets/icons/icon.svg": "icon.svg" });
   eleventyConfig.addPassthroughCopy({
