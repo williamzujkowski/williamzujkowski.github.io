@@ -450,6 +450,18 @@ module.exports = function (eleventyConfig) {
     );
   });
 
+  // Get most recent post for "Last updated" display
+  eleventyConfig.addFilter("getLatestPost", (collection) => {
+    if (!collection || !collection.length) {
+      return null;
+    }
+
+    // Sort by date, most recent first
+    return collection.sort((a, b) => {
+      return b.date.getTime() - a.date.getTime();
+    })[0];
+  });
+
   // ---------- SHORTCODES ----------
 
   // Basic utility shortcodes

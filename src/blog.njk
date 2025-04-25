@@ -98,7 +98,7 @@ eleventyNavigation:
             ></path>
           </svg>
           <span class="text-white text-sm"
-            >Last updated: {{ ((collections.posts | filterOutVulnerabilityPosts | sort(true, false, "date")) | first).date | readableDate }}</span
+            >Last updated: {{ (collections.posts | getLatestPost).date | readableDate }}</span
           >
         </div>
 
