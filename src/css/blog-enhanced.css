@@ -64,15 +64,7 @@
   @apply text-accent text-sm font-medium flex items-center gap-1 hover:text-accent-400 transition-colors duration-200;
 }
 
-/* Blog Controls & Search */
-.gh-blog-controls {
-  @apply mb-8;
-}
-
-.gh-control-panel {
-  @apply bg-gray-light p-4 rounded-github border border-border flex flex-col sm:flex-row gap-4 justify-between;
-}
-
+/* Search */
 .gh-search-container {
   @apply relative flex-grow max-w-md;
 }
@@ -85,12 +77,9 @@
   @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary pointer-events-none;
 }
 
-.gh-blog-stats {
-  @apply flex flex-wrap gap-4 items-center text-sm text-text-secondary;
-}
-
-.gh-stat {
-  @apply flex items-center gap-1.5;
+/* Results count */
+#search-results-count {
+  @apply inline-block;
 }
 
 /* Tag Filtering */
@@ -99,7 +88,21 @@
 }
 
 .gh-filter-header {
-  @apply flex justify-between items-center mb-4;
+  @apply flex flex-wrap justify-between items-center gap-4 mb-4;
+}
+
+@media (max-width: 768px) {
+  .gh-filter-header {
+    @apply flex-col items-start;
+  }
+
+  .gh-search-container {
+    @apply w-full my-3 order-2;
+  }
+
+  .gh-filter-clear {
+    @apply order-3;
+  }
 }
 
 .gh-filter-title {
