@@ -253,8 +253,8 @@ function initMediumPriority() {
     document.querySelector("#joke-container") ||
     document.querySelector("#mobile-joke-container")
   ) {
-    // Use an absolute module specifier to ensure consistent loading
-    import("/js/components/joke-generator.js")
+    // Use a module specifier that matches where the file is actually located
+    import("/js/components/joke-generator.bundle.js")
       .then((module) => {
         console.log("Successfully loaded joke generator module");
         if (typeof module.initJokeGenerator === "function") {
@@ -267,7 +267,7 @@ function initMediumPriority() {
         console.error("Failed to load joke generator:", error);
 
         // Attempt to load using another path if the first one fails
-        import("./components/joke-generator.js")
+        import("../../js/components/joke-generator.bundle.js")
           .then((module) => {
             console.log("Successfully loaded joke generator from alternate path");
             if (typeof module.initJokeGenerator === "function") {
