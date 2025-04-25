@@ -12,7 +12,7 @@
   "scripts": {
     "build": "npm run build:data && npm run dashboard:ensure && eleventy --config=.eleventy.cjs && npm run build:css && npm run build:js",
     "build:css": "postcss src/css/main.css -o _site/css/styles.css --config=config/postcss.config.cjs",
-    "build:data": "node scripts/build/create-core-data.js",
+    "build:data": "node scripts/build/create-core-data.cjs",
     "build:link-previews": "node scripts/content/link-preview-generator.js",
     "build:js": "rollup -c rollup.config.js",
     "build:js:prod": "NODE_ENV=production rollup -c rollup.config.js",
@@ -70,7 +70,7 @@
     "test:llm": "cd tools/vuln-blog && node test-models.js --provider all",
     "test:sources": "cd tools/vuln-blog && node test-data-sources.js",
     "dashboard:update": "cd tools/vuln-blog && node --experimental-modules src/scripts/update-dashboard-data.js",
-    "dashboard:ensure": "node scripts/dashboard/ensure-dashboard-data.js",
+    "dashboard:ensure": "node scripts/dashboard/ensure-dashboard-data.cjs",
     "build:dashboard": "npm run dashboard:update && npm run dashboard:ensure",
     "build:with-dashboard": "npm run build:dashboard && npm run build",
     "generate:blog": "npm run create:blog-wrapper && node scripts/wrapper/generate-blog-post-wrapper.js --",

@@ -215,18 +215,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.on("afterBuild", () => {
     try {
       console.log("Ensuring dashboard data is available...");
-      const script = require("./scripts/dashboard/ensure-dashboard-data.js");
-      if (typeof script.ensureDashboardData === "function") {
-        script.ensureDashboardData();
-      } else {
-        console.log("Running dashboard data script independently...");
-        require("child_process").execSync(
-          "node scripts/dashboard/ensure-dashboard-data.js",
-          {
-            stdio: "inherit",
-          }
-        );
-      }
+      // Use the CommonJS wrapper
+      const dashboardScript = require("./scripts/dashboard/ensure-dashboard-data.cjs");
+      dashboardScript.ensureDashboardData();
     } catch (error) {
       console.warn("Error running dashboard data script:", error.message);
     }
