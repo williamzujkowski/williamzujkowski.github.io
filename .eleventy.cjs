@@ -141,29 +141,26 @@ module.exports = function (eleventyConfig) {
     );
   });
 
-  // Add a custom collection for posts that explicitly filters out future-dated posts
+  // Add a custom collection for posts that includes future-dated posts (for development)
   eleventyConfig.addCollection("posts", function (collectionApi) {
     const now = new Date();
     now.setHours(0, 0, 0, 0); // Set to beginning of day for consistent comparison
     console.log(`Current date for filtering: ${now.toISOString()}`);
 
-    // Get all posts and filter out future posts
+    // Get all posts without filtering out future posts
     const filteredPosts = collectionApi
       .getFilteredByGlob("./src/posts/*.md")
-      .filter((item) => {
-        // Get post date and normalize to beginning of day
-        const postDate = new Date(item.date);
-        postDate.setHours(0, 0, 0, 0);
-
-        // Debug output
-        console.log(
-          `Post: ${item.data.title}, Date: ${postDate.toISOString()}, Include: ${postDate <= now}`
-        );
-
-        // Only include if post date is today or earlier
-        return postDate <= now;
-      })
       .sort((a, b) => b.date - a.date); // Sort by date descending
+
+    // Log details for debugging
+    filteredPosts.forEach((item) => {
+      const postDate = new Date(item.date);
+      postDate.setHours(0, 0, 0, 0);
+
+      console.log(
+        `Post: ${item.data.title}, Date: ${postDate.toISOString()}, Include: true`
+      );
+    });
 
     console.log(`Filtered posts collection has ${filteredPosts.length} posts`);
     if (filteredPosts.length > 0) {
