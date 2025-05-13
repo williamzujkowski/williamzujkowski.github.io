@@ -1,147 +1,200 @@
-# Testing Framework
+# Testing Guide
 
-This document outlines the comprehensive testing framework for verifying website functionality, implemented as part of Phase 4.
+This guide provides an overview of the comprehensive testing framework implemented in this website.
 
-## Overview
+## Table of Contents
 
-The testing framework validates that all aspects of the website function correctly after code changes or refactoring. It includes tests for template structure, build process, component functionality, security, performance, and accessibility.
+1. [Testing Overview](#testing-overview)
+2. [Test Types](#test-types)
+   - [Unit Tests](#unit-tests)
+   - [Integration Tests](#integration-tests)
+   - [End-to-End Tests](#end-to-end-tests)
+   - [Visual Regression Tests](#visual-regression-tests)
+   - [Performance Tests](#performance-tests)
+3. [Test Configuration](#test-configuration)
+4. [Running Tests](#running-tests)
+5. [Writing Tests](#writing-tests)
+6. [Continuous Integration](#continuous-integration)
+7. [Code Coverage](#code-coverage)
+8. [Best Practices](#best-practices)
 
-## Testing Philosophy
+## Testing Overview
 
-The testing strategy follows these core principles:
+The website uses a multi-layered testing approach to ensure quality and prevent regressions. Our testing framework includes:
 
-1. **Coverage**: Test critical user flows and components
-2. **Maintainability**: Tests should be easy to maintain and update
-3. **Speed**: Tests should run quickly to support rapid development
-4. **Reliability**: Tests should be deterministic and reliable
-5. **Automation**: Tests should be automated as part of the CI/CD pipeline
+- **Unit tests** for individual JavaScript functions and utilities
+- **Integration tests** for component interactions and data flows
+- **End-to-end tests** for complete user journeys
+- **Visual regression tests** for UI consistency
+- **Performance tests** for optimization metrics
 
-## Test Commands
+These tests are configured to run both locally during development and in CI/CD pipelines.
 
-The following npm scripts are available for testing:
+## Test Types
 
-- `npm test` - Run all tests
-- `npm run test:templates` - Test template structure
-- `npm run test:build` - Test build process
-- `npm run test:components` - Test JavaScript components
-- `npm run test:security` - Run security tests
-- `npm run test:performance` - Run performance tests
-- `npm run test:accessibility` - Run accessibility tests
-- `npm run test:e2e` - Run end-to-end tests
+### Unit Tests
 
-## Test Categories
+Unit tests verify individual functions and components in isolation. They use Jest as the testing framework and testing-library for DOM interactions.
 
-### 1. Template Structure Tests
+**Key files:**
 
-These tests verify that the template organization is correct:
+- `tests/unit/*.test.js` - Unit test files
+- `tests/jest.setup.js` - Jest setup configuration
+- `jest.config.js` - Jest configuration
 
-- Directory structure follows conventions (layouts, partials, macros)
-- Required template files exist
-- No inline JavaScript remains in templates
-- Template include paths use proper directory prefixes
-- main.js includes all necessary component imports
-
-### 2. Build Process Tests
-
-These tests verify that the build process works correctly:
-
-- CSS builds successfully
-- JavaScript bundling works correctly
-- Output structure is correct
-- HTML files reference CSS and JS properly
-- Template rendering produces expected output
-
-### 3. Component Tests
-
-These tests verify that JavaScript components function correctly:
-
-- Unit tests for utility functions
-- Integration tests for component interactions
-- Security tests for user input handling
-- Event handling tests for interactive elements
-
-### 4. End-to-End Tests
-
-These tests simulate real user interactions with the website:
-
-- Navigation flow tests
-- Search functionality tests
-- Blog post viewing and filtering tests
-- Theme switching tests
-
-### 5. Security Tests
-
-These tests verify that security measures function correctly:
-
-- Input validation and sanitization tests
-- XSS protection tests
-- Content Security Policy tests
-- Secure DOM manipulation tests
-
-### 6. Performance Tests
-
-These tests measure the performance of the website:
-
-- JavaScript bundle size analysis
-- Load time measurements
-- Core Web Vitals metrics
-- Animation and rendering performance
-
-### 7. Accessibility Tests
-
-These tests verify accessibility compliance:
-
-- WCAG 2.1 AA compliance
-- Keyboard navigation
-- Screen reader compatibility
-- Color contrast and font size
-
-## Test Implementation
-
-### Component Test Example
+**Example unit test:**
 
 ```javascript
-// tests/components/search.test.js
-const { JSDOM } = require("jsdom");
-const { test, assert } = require("../test-framework");
+// tests/unit/theme-utils.test.js
+import { generateOklchColor } from "../../src/js/theme-utils.js";
 
-test("Search sanitizes user input", function () {
-  // Setup test DOM
-  const dom = new JSDOM(`
-    <input id="search-input" type="text" />
-    <div id="search-results"></div>
-  `);
-
-  // Mock global objects
-  global.document = dom.window.document;
-  global.window = dom.window;
-
-  // Import the component
-  const { sanitizeSearchQuery } = require("../../src/js/search");
-
-  // Test cases
-  const testCases = [
-    { input: "<script>alert(1)</script>", expected: "scriptalert1script" },
-    { input: "javascript:alert(1)", expected: "javascriptalert1" },
-    { input: "normal text", expected: "normal text" },
-    { input: "text with <b>tags</b>", expected: "text with tags" },
-  ];
-
-  // Run tests
-  testCases.forEach(({ input, expected }) => {
-    const result = sanitizeSearchQuery(input);
-    assert.equal(result, expected, `Failed to sanitize: ${input}`);
+describe("generateOklchColor", () => {
+  test("generates correctly formatted OKLCH color string", () => {
+    const result = generateOklchColor(180, 0.2, 0.5);
+    expect(result).toBe("oklch(0.5 0.2 180)");
   });
 
-  // Clean up
-  delete global.document;
-  delete global.window;
-
-  return true;
+  test("clamps values to valid ranges", () => {
+    expect(generateOklchColor(400, 0.1, 0.5)).toBe("oklch(0.5 0.1 360)");
+    expect(generateOklchColor(180, 0.5, 0.5)).toBe("oklch(0.5 0.4 180)");
+    expect(generateOklchColor(180, 0.2, 1.5)).toBe("oklch(1 0.2 180)");
+  });
 });
 ```
 
-### Performance Test Example
+### Integration Tests
+
+Integration tests verify the interaction between multiple components or modules. These tests ensure that different parts of the application work correctly together.
+
+**Key files:**
+
+- `tests/integration/*.test.js` - Integration test files
+
+**Example integration test:**
+
+```javascript
+// tests/integration/blog-components.test.js
+import { screen, render } from "@testing-library/dom";
+import { initBlogSearch } from "../../src/js/blog-search.js";
+
+describe("Blog search integration", () => {
+  // Set up DOM environment
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <input id="search-input" type="text" />
+      <div class="searchable" data-title="Test Post" data-tags="javascript,testing">
+        <h2>Test Post</h2>
+      </div>
+    `;
+  });
+
+  test("search input filters content correctly", () => {
+    // Initialize the search functionality
+    initBlogSearch();
+
+    // Get the search input
+    const searchInput = screen.getByRole("textbox");
+
+    // Simulate user input
+    searchInput.value = "javascript";
+    searchInput.dispatchEvent(new Event("input"));
+
+    // Check that content is filtered correctly
+    const searchableItem = document.querySelector(".searchable");
+    expect(searchableItem).toBeVisible();
+
+    // Test non-matching search
+    searchInput.value = "nonexistent";
+    searchInput.dispatchEvent(new Event("input"));
+    expect(searchableItem).not.toBeVisible();
+  });
+});
+```
+
+### End-to-End Tests
+
+End-to-end tests verify the application from a user's perspective, simulating user interactions and ensuring all parts work together correctly.
+
+**Key files:**
+
+- `tests/e2e/*.test.js` - E2E test files
+- `tests/e2e/helpers.js` - Helper functions for E2E tests
+- `playwright.config.js` - Playwright configuration
+
+**Example E2E test:**
+
+```javascript
+// tests/e2e/navigation.test.js
+const { test, expect } = require("@playwright/test");
+const { navigateTo, waitForPageReady } = require("./helpers");
+
+test.describe("Site Navigation", () => {
+  test("main navigation links work correctly", async ({ page }) => {
+    // Go to home page
+    await navigateTo(page, "/");
+    await waitForPageReady(page);
+
+    // Check that page title is correct
+    await expect(page).toHaveTitle(/William Zujkowski/);
+
+    // Click blog link
+    await page.click('a[href="/blog/"]');
+    await waitForPageReady(page);
+
+    // Verify we navigated to the blog page
+    await expect(page).toHaveURL(/blog/);
+    await expect(page.locator("h1")).toContainText("Blog");
+
+    // Click home link
+    await page.click('a[href="/"]');
+    await waitForPageReady(page);
+
+    // Verify we returned to the home page
+    await expect(page).toHaveURL(/\/$/);
+  });
+});
+```
+
+### Visual Regression Tests
+
+Visual regression tests capture screenshots of UI elements and compare them to baseline images to detect visual changes.
+
+**Key files:**
+
+- `tests/visual/*.test.js` - Visual regression test files
+- `tests/visual/playwright.config.js` - Visual test configuration
+- `tests/visual/snapshots/` - Baseline screenshots
+
+**Example visual regression test:**
+
+```javascript
+// tests/visual/improved-component-regression.test.js
+const { test, expect } = require("@playwright/test");
+const { navigateTo } = require("../e2e/helpers");
+
+test.describe("Visual Regression - Core Components", () => {
+  test("header appearance", async ({ page }) => {
+    await navigateTo(page, "/");
+
+    // Take screenshot of header and compare to baseline
+    await expect(page.locator("header")).toHaveScreenshot("header-default.png");
+
+    // Test mobile header
+    await page.setViewportSize({ width: 375, height: 667 });
+    await expect(page.locator("header")).toHaveScreenshot("header-mobile.png");
+  });
+});
+```
+
+### Performance Tests
+
+Performance tests verify that the website meets performance targets like bundle size limits and load time thresholds.
+
+**Key files:**
+
+- `tests/performance/*.test.js` - Performance test files
+
+**Example performance test:**
 
 ```javascript
 // tests/performance/bundle-size.test.js
@@ -149,120 +202,134 @@ const fs = require("fs");
 const path = require("path");
 const { test, assert } = require("../test-framework");
 
-test("JavaScript bundle size is below threshold", function () {
-  const BUNDLE_SIZE_THRESHOLD = 100 * 1024; // 100 KB
+test("JavaScript bundle sizes are within limits", () => {
+  const siteDir = path.join(__dirname, "../../_site");
+  const jsDir = path.join(siteDir, "js");
 
-  const bundlePath = path.join(__dirname, "../../_site/js/main.bundle.js");
+  // Main bundle should be under 100KB
+  const mainBundle = path.join(jsDir, "main.bundle.js");
+  const mainSize = fs.statSync(mainBundle).size;
 
-  // Check if bundle exists
-  if (!fs.existsSync(bundlePath)) {
-    return "Bundle file not found";
-  }
-
-  // Get file size
-  const stats = fs.statSync(bundlePath);
-  const bundleSize = stats.size;
-
-  // Check against threshold
-  if (bundleSize > BUNDLE_SIZE_THRESHOLD) {
-    return `Bundle size (${bundleSize} bytes) exceeds threshold (${BUNDLE_SIZE_THRESHOLD} bytes)`;
-  }
+  assert.ok(mainSize < 102400, `Main bundle size ${mainSize} exceeds limit of 100KB`);
 
   return true;
 });
 ```
 
-## Adding New Tests
+## Test Configuration
 
-To add new tests:
+The test configuration is centralized in the following files:
 
-1. Determine which test category your test belongs to
-2. Add your test file to the appropriate directory:
-   - Template tests: `tests/templates/`
-   - Build tests: `tests/build/`
-   - Component tests: `tests/components/`
-   - E2E tests: `tests/e2e/`
-   - Security tests: `tests/security/`
-   - Performance tests: `tests/performance/`
-   - Accessibility tests: `tests/accessibility/`
-3. Use the `test()` function to run your test:
+- **`tests/config/test-config.js`**: Central configuration for all test types
+- **`jest.config.js`**: Jest configuration for unit and integration tests
+- **`playwright.config.js`**: Playwright configuration for E2E tests
+- **`tests/visual/playwright.config.js`**: Playwright configuration for visual tests
 
-```javascript
-test("My new test", function () {
-  // Test logic here
-  // Return true if test passes
-  // Return a string error message if test fails
-});
-```
+## Running Tests
 
-## Testing Tools
-
-The testing framework uses the following tools:
-
-- **Test Runner**: Custom test runner in `scripts/testing/run-tests.js`
-- **DOM Testing**: JSDOM for browser environment simulation
-- **Assertion Library**: Custom assertions in `tests/test-framework.js`
-- **E2E Testing**: Playwright for browser automation
-- **Performance Testing**: Lighthouse for performance metrics
-- **Accessibility Testing**: axe-core for accessibility compliance
-- **Security Testing**: Custom security tests with JSDOM
-
-## Continuous Integration
-
-It's recommended to run tests before committing changes:
+The project includes various npm scripts for running tests:
 
 ```bash
 # Run all tests
-npm test
+npm run test:enhanced:all
 
-# Fix any issues
-npm run lint:fix
-npm run format
+# Run unit tests only
+npm run test:enhanced:unit
 
-# Run tests again to verify fixes
-npm test
+# Run integration tests
+npm run test:enhanced:integration
+
+# Run end-to-end tests
+npm run test:enhanced:e2e
+
+# Run visual regression tests
+npm run test:visual
+
+# Run with code coverage
+npm run test:enhanced:coverage
+
+# Run tests in watch mode (for development)
+npm run test:watch
 ```
 
-## Test Output
+These commands are implemented in the enhanced test runner at `scripts/testing/run-tests-enhanced.js`.
 
-Tests produce colorized output with clear pass/fail status:
+## Writing Tests
 
-- Green: Test passed
-- Yellow: Warning (test passed with concerns)
-- Red: Test failed
+When writing new tests, follow these guidelines:
 
-A summary is displayed at the end showing total tests, passed, failed, and warnings.
+### Unit Tests
+
+1. Create files in `tests/unit/` with the naming pattern `*.test.js`
+2. Use Jest's `describe` and `test` functions to organize tests
+3. Test individual functions in isolation
+4. Mock dependencies and external modules
+5. Aim for high coverage of critical functions
+
+### Integration Tests
+
+1. Create files in `tests/integration/` with the naming pattern `*.test.js`
+2. Test interactions between multiple components
+3. Create realistic DOM environments for testing
+4. Test data flow between components
+5. Use proper assertions for expected behavior
+
+### End-to-End Tests
+
+1. Create files in `tests/e2e/` with the naming pattern `*.test.js`
+2. Use Playwright's API for browser interactions
+3. Test complete user journeys from start to finish
+4. Include assertions for expected page state after actions
+5. Use helper functions from `tests/e2e/helpers.js`
+
+### Visual Regression Tests
+
+1. Create files in `tests/visual/` with the naming pattern `*.test.js`
+2. Capture screenshots of UI components
+3. Compare against baseline images
+4. Test different viewport sizes
+5. Test different states (hover, active, etc.)
+
+## Continuous Integration
+
+Tests are configured to run in CI/CD pipelines. The `test:ci` script runs all tests in CI mode:
+
+```bash
+npm run test:ci
+```
+
+In CI mode:
+
+- Tests are run with stricter settings
+- Visual regression tests use a different configuration
+- Failed tests cause the CI pipeline to fail
 
 ## Code Coverage
 
-Code coverage is tracked using a custom coverage tool:
+Code coverage is tracked using Jest's coverage reporter. The coverage configuration is in `jest.config.js` and `tests/config/test-config.js`.
+
+To run tests with coverage:
 
 ```bash
-# Run tests with coverage
-npm run test:coverage
+npm run test:enhanced:coverage
 ```
 
-Coverage reports are generated in the `/coverage` directory and include:
+Coverage reports are generated in the `coverage/` directory. The coverage thresholds are:
 
-- Statement coverage
-- Branch coverage
-- Function coverage
-- Line coverage
+- **Global**: 75% statements, 70% branches, 75% functions, 75% lines
+- **Critical paths**: Higher thresholds for critical modules
 
 ## Best Practices
 
-1. **Arrange-Act-Assert**: Structure tests with clear setup, action, and verification phases
-2. **Test Isolation**: Tests should not depend on each other
-3. **Meaningful Assertions**: Make assertions specific and meaningful
-4. **Mocking External Dependencies**: Use mocks for external APIs and services
-5. **Test Performance**: Keep tests fast to support rapid development
+Follow these best practices when working with tests:
 
-## Future Enhancements
-
-Future enhancements to the testing framework include:
-
-- Browser-based visual testing with screenshot comparison
-- Expanded accessibility testing with voice recognition
-- Advanced performance profiling with Web Vitals metrics
-- Integration with GitHub Actions CI/CD pipeline
-- Mobile device simulation for responsive design testing
+1. **Write tests first**: Practice test-driven development when possible
+2. **Keep tests focused**: Each test should verify one specific behavior
+3. **Maintain independence**: Tests should not depend on each other
+4. **Use descriptive names**: Test names should describe the behavior being tested
+5. **Avoid testing implementation details**: Test behavior, not how it's implemented
+6. **Update tests with code changes**: Keep tests in sync with implementation
+7. **Run tests frequently**: Run relevant tests during development
+8. **Fix failing tests promptly**: Don't let failures accumulate
+9. **Don't skip tests**: Fix broken tests instead of skipping them
+10. **Write testable code**: Design code with testing in mind

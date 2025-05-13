@@ -1,0 +1,38 @@
+[
+  {
+    "id": "github",
+    "url": "https://github.com/williamzujkowski",
+    "name": "GitHub",
+    "type": "link",
+    "group": "Social",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "linkedin",
+    "url": "https://linkedin.com/in/williamzujkowski",
+    "name": "LinkedIn",
+    "type": "link",
+    "group": "Social",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "bluesky",
+    "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
+    "name": "Bluesky",
+    "type": "link",
+    "group": "Social",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  }
+]

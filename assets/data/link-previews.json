@@ -1,1 +1,2792 @@
-[]
+[
+  {
+    "id": "centauri-dreams",
+    "url": "https://www.centauri-dreams.org/",
+    "name": "Centauri Dreams",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Paul Gilster's blog on deep space exploration and interstellar travel",
+    "last_checked": "2025-05-13T05:12:40.735Z"
+  },
+  {
+    "id": "center-for-postnatural-history",
+    "url": "https://postnatural.org/",
+    "name": "Center for PostNatural History",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A museum dedicated to organisms altered by humans, blending biology and technology",
+    "last_checked": "2025-05-13T05:12:40.735Z"
+  },
+  {
+    "id": "museum-of-obsolete-media",
+    "url": "https://obsoletemedia.org/",
+    "name": "Museum of Obsolete Media",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "An online museum showcasing and preserving obsolete audio, video, and data formats",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "the-public-domain-review",
+    "url": "https://publicdomainreview.org/",
+    "name": "The Public Domain Review",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Explores and curates art, literature, and ideas that are now in the public domain",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "radio-garden",
+    "url": "https://radio.garden/listen",
+    "name": "Radio Garden",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Listen to live radio stations worldwide by rotating a virtual globe",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "submarine-cable-map",
+    "url": "https://www.submarinecablemap.com/",
+    "name": "Submarine Cable Map",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "An interactive map of the global undersea cables that power the internet",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "the-tau-zero-foundation",
+    "url": "https://tauzero.aero/",
+    "name": "The Tau Zero Foundation",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Explores the science behind interstellar travel and advances in space exploration",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "falling-falling",
+    "url": "https://www.fallingfalling.com/",
+    "name": "Falling Falling",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "An immersive interactive experience of cascading colors and shapes",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "floor796",
+    "url": "https://floor796.com/",
+    "name": "Floor796",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A creative hub blending design, art, and experimental projects",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "yyyyyyy",
+    "url": "https://www.yyyyyyy.info/",
+    "name": "YYYYYYY",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A minimalist experimental site exploring abstract ideas",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "national-film-registry",
+    "url": "https://www.loc.gov/programs/national-film-preservation-board/film-registry/watch-films-on-the-national-film-registry/",
+    "name": "National Film Registry",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Watch films preserved for their cultural, historical, or aesthetic significance",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "emilio",
+    "url": "http://emilio.jp",
+    "name": "Emilio",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Absolute GIF madlad",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "zack-rosebrugh",
+    "url": "https://zackrosebrugh.com",
+    "name": "Zack Rosebrugh",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.738Z"
+  },
+  {
+    "id": "beeple",
+    "url": "https://www.beeple-crap.com",
+    "name": "Beeple",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "I liked him more before he did NFTs",
+    "last_checked": "2025-05-13T05:12:40.738Z"
+  },
+  {
+    "id": "vinnie-neuberg",
+    "url": "https://vinnieneuberg.com",
+    "name": "Vinnie Neuberg",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.738Z"
+  },
+  {
+    "id": "whacko-chacko",
+    "url": "https://www.whackochacko.com",
+    "name": "Whacko Chacko",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.738Z"
+  },
+  {
+    "id": "james-gilleard",
+    "url": "https://www.behance.net/jamesgilleard",
+    "name": "James Gilleard",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "I love this guy's illustrations",
+    "last_checked": "2025-05-13T05:12:40.738Z"
+  },
+  {
+    "id": "steph-davidson",
+    "url": "http://stephdavidson.com",
+    "name": "Steph Davidson",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.738Z"
+  },
+  {
+    "id": "max-bittker",
+    "url": "https://maxbittker.com",
+    "name": "Max Bittker",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.738Z"
+  },
+  {
+    "id": "peter-burr",
+    "url": "http://www.peterburr.org",
+    "name": "Peter Burr",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "substack",
+    "url": "https://substack.net",
+    "name": "Substack",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "bill-wurtz",
+    "url": "https://billwurtz.com",
+    "name": "Bill Wurtz",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Wish this guy was my history teacher",
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "nick-briz",
+    "url": "http://nickbriz.com",
+    "name": "Nick Briz",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Has made lots of interesting videos and essays about net.art",
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "6vcr",
+    "url": "https://6vcr.com",
+    "name": "6VCR",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Fantastic pixel art artist",
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "ryou-ikeda",
+    "url": "https://ikeryou.jp",
+    "name": "Ryou Ikeda",
+    "type": "link",
+    "group": "Artists",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Ryou Ikeda's creative coding archive",
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "0ut3r-space",
+    "url": "http://0ut3r.space/",
+    "name": "0ut3r Space",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "adam-elkus",
+    "url": "https://aelkus.github.io/",
+    "name": "Adam Elkus",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "henrique-dias",
+    "url": "https://hacdias.com/articles/",
+    "name": "Henrique Dias",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Articles - Henrique Dias",
+    "last_checked": "2025-05-13T05:12:40.739Z"
+  },
+  {
+    "id": "austin-z-henley",
+    "url": "https://austinhenley.com/blog.html",
+    "name": "Austin Z. Henley",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Austin Z. Henley's Blog",
+    "last_checked": "2025-05-13T05:12:40.740Z"
+  },
+  {
+    "id": "bartosz-ciechanowski",
+    "url": "https://ciechanow.ski/",
+    "name": "Bartosz Ciechanowski",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.740Z"
+  },
+  {
+    "id": "be-mag",
+    "url": "https://be-mag.com",
+    "name": "Be-Mag",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.740Z"
+  },
+  {
+    "id": "brad-woods",
+    "url": "https://garden.bradwoods.io",
+    "name": "Brad Woods",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Brad Woods Digital Garden",
+    "last_checked": "2025-05-13T05:12:40.740Z"
+  },
+  {
+    "id": "cianblog",
+    "url": "https://cian.blog",
+    "name": "Cian.blog",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.740Z"
+  },
+  {
+    "id": "flipper-blog",
+    "url": "https://blog.flipper.net/",
+    "name": "Flipper Blog",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.740Z"
+  },
+  {
+    "id": "gossips-web",
+    "url": "https://gossipsweb.net",
+    "name": "Gossip's Web",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.740Z"
+  },
+  {
+    "id": "giacomo-miceli",
+    "url": "https://jamez.it",
+    "name": "Giacomo Miceli",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "G̶i̶a̶c̶o̶m̶o̶ ̶M̶i̶c̶e̶l̶i̶",
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "ian-bicking",
+    "url": "https://ianbicking.org/",
+    "name": "Ian Bicking",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Ian Bicking: a blog",
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "jordan-mechner",
+    "url": "https://www.jordanmechner.com/",
+    "name": "Jordan Mechner",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "josh-comeau",
+    "url": "https://www.joshwcomeau.com/",
+    "name": "Josh Comeau",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Josh Comeau's blog",
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "julia-evans",
+    "url": "http://jvns.ca/",
+    "name": "Julia Evans",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "kicks-condor",
+    "url": "https://www.kickscondor.com",
+    "name": "Kicks Condor",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "lazy-reading",
+    "url": "https://cyber.dabamos.de/blog/",
+    "name": "Lazy Reading",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Lazy Reading | The Cyber Vanguard",
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "leaded-solder",
+    "url": "https://www.leadedsolder.com/",
+    "name": "Leaded Solder",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.741Z"
+  },
+  {
+    "id": "lindsey-bieda",
+    "url": "https://rarlindseysmash.com/",
+    "name": "Lindsey Bieda",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "n-o-d-e",
+    "url": "https://N-O-D-E.net",
+    "name": "N O D E",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "nadim-kobeissi",
+    "url": "https://nadim.computer",
+    "name": "Nadim Kobeissi",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "open-wireless-link",
+    "url": "https://owlink.org/",
+    "name": "Open Wireless Link",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "parimal-satyal",
+    "url": "https://neustadt.fr/",
+    "name": "Parimal Satyal",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Parimal Satyal - Neustadt.fr",
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "rach-smith",
+    "url": "https://rachsmith.com/",
+    "name": "Rach Smith",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Rach Smith's digital garden",
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "rafa-pastuszak",
+    "url": "https://sonnet.io/",
+    "name": "Rafał Pastuszak",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "riccardo-mori",
+    "url": "https://morrick.me",
+    "name": "Riccardo Mori",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.742Z"
+  },
+  {
+    "id": "serg-hospodarets",
+    "url": "https://hospodarets.com",
+    "name": "Serg Hospodarets",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Serg Hospodarets Blog",
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "sidebar",
+    "url": "https://sidebar.io",
+    "name": "Sidebar",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "simon-willison",
+    "url": "http://simonwillison.net/",
+    "name": "Simon Willison",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Simon Willison's Weblog",
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "steve-klabnik",
+    "url": "https://steveklabnik.com/",
+    "name": "Steve Klabnik",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "the-hacker-blog",
+    "url": "https://thehackerblog.com/",
+    "name": "The Hacker Blog",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "tom-7-radar",
+    "url": "http://radar.spacebar.org/",
+    "name": "Tom 7 Radar",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "two-bit-history",
+    "url": "https://twobithistory.org/",
+    "name": "Two-Bit History",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "vladimir-klepov",
+    "url": "https://thoughtspile.github.io/",
+    "name": "Vladimir Klepov",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Vladimir Klepov as a Coder",
+    "last_checked": "2025-05-13T05:12:40.743Z"
+  },
+  {
+    "id": "waxyorg",
+    "url": "https://waxy.org/",
+    "name": "Waxy.org",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "webbed-briefs",
+    "url": "https://briefs.video/",
+    "name": "Webbed Briefs",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "xe-iaso",
+    "url": "https://xeiaso.net/",
+    "name": "Xe Iaso",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Xe Iaso's blog",
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "zach-holman",
+    "url": "http://zachholman.com/",
+    "name": "Zach Holman",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "zhenghao",
+    "url": "https://zhenghao.io",
+    "name": "Zhenghao",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Zhenghao's blog",
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "bertrand-fan",
+    "url": "https://bert.org/",
+    "name": "Bertrand Fan",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "evilsocket",
+    "url": "https://www.evilsocket.net/",
+    "name": "evilsocket",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "cmpxchg8b",
+    "url": "https://cmpxchg8b.com/",
+    "name": "cmpxchg8b",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "sdomi",
+    "url": "https://sdomi.pl/weblog/",
+    "name": "sdomi",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.744Z"
+  },
+  {
+    "id": "iwebthingshub",
+    "url": "https://iwebthings.joejenett.com/",
+    "name": "i.webthings.hub",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "internet-escape",
+    "url": "https://www.are.na/tg-z/internet-escape",
+    "name": "Internet Escape",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "julias-drawings",
+    "url": "https://drawings.jvns.ca/",
+    "name": "Julia's Drawings",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "jwz",
+    "url": "https://www.jwz.org/blog/",
+    "name": "jwz",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "kottkeorg",
+    "url": "http://kottke.org/",
+    "name": "kottke.org",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "localghost",
+    "url": "https://localghost.dev/",
+    "name": "localghost",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "mangopdfzone",
+    "url": "https://mango.pdf.zone/",
+    "name": "mango.pdf.zone",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "memalign",
+    "url": "https://memalign.github.io/index.html",
+    "name": "memalign",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "nathan-wentworth",
+    "url": "https://nathanwentworth.co",
+    "name": "Nathan Wentworth",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "nathan wentworth ✨ - posts",
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "rachel-binx",
+    "url": "https://blog.rachelbinx.com/",
+    "name": "Rachel Binx",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "rachel binx ⤇ blog",
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "surma",
+    "url": "https://surma.dev/",
+    "name": "Surma",
+    "type": "link",
+    "group": "Blogs",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "surma.dev",
+    "last_checked": "2025-05-13T05:12:40.745Z"
+  },
+  {
+    "id": "user-inyerface",
+    "url": "https://userinyerface.com",
+    "name": "User Inyerface",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "windows-93",
+    "url": "https://www.windows93.net",
+    "name": "Windows 93",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "One of the weirdest sites on the net",
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "bootstrap-386",
+    "url": "https://github.com/kristopolous/BOOTSTRA.386",
+    "name": "Bootstrap 386",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "One of the greatest bootstrap templates ever made!",
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "jodi",
+    "url": "http://wwwwwwwww.jodi.org",
+    "name": "Jodi",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "I really don't know what this is",
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "hypertext-markup-language",
+    "url": "https://www.youtube.com/watch?v=oAm1EU_pu80",
+    "name": "Hypertext Markup Language",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "the-evolution-of-trust",
+    "url": "https://ncase.me/trust",
+    "name": "The Evolution of Trust",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "bruno-simon",
+    "url": "https://bruno-simon.com",
+    "name": "Bruno Simon",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Just a ridiculously good portfolio website",
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "nested",
+    "url": "https://orteil.dashnet.org/nested",
+    "name": "Nested",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "websdr",
+    "url": "http://websdr.ewi.utwente.nl:8901",
+    "name": "WebSDR",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "tv-b-gone",
+    "url": "https://www.tvbgone.com",
+    "name": "TV-B-Gone",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.746Z"
+  },
+  {
+    "id": "language-squad",
+    "url": "https://www.languagesquad.com",
+    "name": "Language Squad",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A game where you have to guess the language spoken by a person",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "pointer-pointer",
+    "url": "https://pointerpointer.com",
+    "name": "Pointer Pointer",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "my-90s-tv",
+    "url": "https://www.my90stv.com",
+    "name": "My 90s TV",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Go back in time and watch old TV programs",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "taste-atlas",
+    "url": "https://www.tasteatlas.com",
+    "name": "Taste Atlas",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A huge map with typical dishes and food recipes from around the world",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "gui-gallery",
+    "url": "https://gui.neocities.org",
+    "name": "GUI Gallery",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A collection of movie computer interfaces",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "nealfun",
+    "url": "https://neal.fun",
+    "name": "Neal.fun",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A collection of very creative projects and stats",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "nicolas-sassoon",
+    "url": "https://www.nicolassassoon.com",
+    "name": "Nicolas Sassoon",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Great artist full of trippy patterns and designs",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "x20xx",
+    "url": "https://x20xx.com",
+    "name": "X20XX",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Something beyond my understanding",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "yyyyyyy",
+    "url": "https://www.yyyyyyy.info",
+    "name": "YYYYYYY",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "It might be too much even for someone like you!",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "do-not-touch",
+    "url": "http://donottouch.org",
+    "name": "Do Not Touch",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "One of the most creative music videos ever",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "zoom-quilt",
+    "url": "https://zoomquilt.org",
+    "name": "Zoom Quilt",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "An endless zoom-in artwork",
+    "last_checked": "2025-05-13T05:12:40.747Z"
+  },
+  {
+    "id": "super-pixel-quest",
+    "url": "http://superpixelquest.com",
+    "name": "Super Pixel Quest",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "sight",
+    "url": "https://sight.nyc",
+    "name": "Sight",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Great creative project with interesting designs, music and clothing",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "small-seasons-guide",
+    "url": "https://smallseasons.guide",
+    "name": "Small Seasons Guide",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A small guide to seasons throughout the year",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "labyrinth",
+    "url": "https://labyr.in",
+    "name": "Labyrinth",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "s-n-d",
+    "url": "https://s-n-d.si",
+    "name": "S-N-D",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Doomscrolling through various apocalyptic scenarios",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "krypt",
+    "url": "https://kry.pt",
+    "name": "Krypt",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "I love his projects and web creations",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "i-land-online",
+    "url": "https://i-land.online",
+    "name": "i-land online",
+    "type": "link",
+    "group": "Creative",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A hand-drawn point and click exploration website",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "international-association-of-exorcists",
+    "url": "https://www.aieinternational.org/",
+    "name": "International Association of Exorcists",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A humorous global organization supporting Catholic exorcists",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "paperclip-ai-game",
+    "url": "https://www.decisionproblem.com/paperclips/",
+    "name": "Paperclip AI Game",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A quirky game about the art of making paperclips",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "the-kid-should-see-this",
+    "url": "https://thekidshouldseethis.com/",
+    "name": "The Kid Should See This",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Curated educational videos for curious minds",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "the-website-is-down",
+    "url": "https://www.thewebsiteisdown.com",
+    "name": "The Website is Down",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A collection of hilarious IT videos",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "zombocom",
+    "url": "https://zombo.com/",
+    "name": "Zombo.com",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A surreal, humorous portal promising endless possibilities",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "nested",
+    "url": "https://orteil.dashnet.org/nested",
+    "name": "Nested",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A mesmerizing interactive experience exploring infinite recursion",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "stimulation-clicker",
+    "url": "https://neal.fun/stimulation-clicker/",
+    "name": "Stimulation Clicker",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A playful clicker game that tests your patience and curiosity",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "mementomovi",
+    "url": "https://mementomovi.wackyneighbor.com/",
+    "name": "MementoMovi",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A quirky site combining art and memory in unexpected ways",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "the-powder-toy",
+    "url": "https://powdertoy.co.uk",
+    "name": "The Powder Toy",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "You can do lots of things with this!",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "ian-maclarty",
+    "url": "https://ianmaclarty.com/",
+    "name": "Ian MacLarty",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A crazy and creative gamedev, play his games when you're stoned",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "broken-reality",
+    "url": "https://store.steampowered.com/app/757480/Broken_Reality",
+    "name": "Broken Reality",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "The ultimate vaporwave game",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "memory-of-a-broken-dimension",
+    "url": "https://xra.itch.io/memory-of-a-broken-dimension",
+    "name": "Memory of a Broken Dimension",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "armagetronad",
+    "url": "https://sourceforge.net/projects/armagetronad",
+    "name": "ArmagetronAD",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "I can still hear the buzzing of the lightcycles on the battlefield before going to bed",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "defcon",
+    "url": "https://www.introversion.co.uk/defcon/",
+    "name": "DEFCON",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "It's funny because we all die",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "br9732",
+    "url": "https://br9732.quentinlengele.com",
+    "name": "BR9732",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Recreation of Blade Runner Deckard's room",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "asciicker",
+    "url": "https://asciicker.com",
+    "name": "Asciicker",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Amazing ASCII styled game",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "harry-potter-minecraft",
+    "url": "https://www.planetminecraft.com/project/harry-potter-adventure-map-3347878",
+    "name": "Harry Potter Minecraft",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Harry Potter RPG game created in Minecraft (yes I love Minecraft)",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "flash-game-history",
+    "url": "https://www.flashgamehistory.com",
+    "name": "Flash Game History",
+    "type": "link",
+    "group": "Gaming",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "bureau-of-meteorology",
+    "url": "http://www.bom.gov.au/",
+    "name": "Bureau of Meteorology",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Australian weather service",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "the-eye",
+    "url": "https://the-eye.eu/",
+    "name": "The Eye",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Non-profit archival website dedicated to preserving digital content",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "lingscars",
+    "url": "https://www.lingscars.com/",
+    "name": "Lingscars",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "The most chaotic car leasing website in the world",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "space-weather",
+    "url": "https://www.spaceweather.com/",
+    "name": "Space Weather",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "News and information about solar activity",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "uncanny-valley",
+    "url": "https://uncannyvalley.jp/en",
+    "name": "Uncanny Valley",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Tokyo-based creative lab pushing the boundaries of digital art",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "nws-ocean-prediction-center",
+    "url": "https://ocean.weather.gov/",
+    "name": "NWS Ocean Prediction Center",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Marine forecasts, warnings, and meteorological analyses",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "million-dollar-homepage",
+    "url": "http://www.milliondollarhomepage.com/",
+    "name": "Million Dollar Homepage",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Historical internet artifact from 2005",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "internet-map",
+    "url": "https://internet-map.net/",
+    "name": "Internet Map",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Visual representation of websites as a galaxy",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "stripe-press",
+    "url": "https://press.stripe.com/",
+    "name": "Stripe Press",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Books about economic, technological, and scientific advancement",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "superliminal",
+    "url": "https://superliminal.com/",
+    "name": "Superliminal",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Scott Kim's puzzles and ambigrams",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "pirate-weather",
+    "url": "https://pirateweather.net/",
+    "name": "Pirate Weather",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Free weather API alternative to Dark Sky",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "crash-course",
+    "url": "https://thecrashcourse.com/",
+    "name": "Crash Course",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Educational YouTube channel covering various topics",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "list-of-physical-visualizations",
+    "url": "http://dataphys.org/list/",
+    "name": "List of Physical Visualizations",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Gallery of physical visualizations and related artifacts",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "us-census-bureau",
+    "url": "https://www.census.gov/",
+    "name": "US Census Bureau",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Data about the U.S. people and economy",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "numbeo",
+    "url": "https://www.numbeo.com/cost-of-living/",
+    "name": "Numbeo",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Database of user-contributed data about cities and countries",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "worldometer",
+    "url": "https://www.worldometers.info/",
+    "name": "Worldometer",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Real-time world statistics",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "global-biodiversity-information-facility",
+    "url": "https://www.gbif.org/",
+    "name": "Global Biodiversity Information Facility",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Free and open access to biodiversity data",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "openstreetmap",
+    "url": "https://www.openstreetmap.org/",
+    "name": "OpenStreetMap",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Free, editable map of the world",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "quora",
+    "url": "https://www.quora.com/",
+    "name": "Quora",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Question-and-answer website",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "zooniverse",
+    "url": "https://www.zooniverse.org/",
+    "name": "Zooniverse",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Platform for people-powered research",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "plazaone",
+    "url": "https://plaza.one",
+    "name": "Plaza.one",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "radio-garden",
+    "url": "https://radio.garden",
+    "name": "Radio Garden",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "radiooooo",
+    "url": "https://radiooooo.com",
+    "name": "Radiooooo",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Go back in time and listen to radio songs from all over the world",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "boards-of-canada",
+    "url": "https://bleep.com/artist/78-boards-of-canada",
+    "name": "Boards of Canada",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "This should be a religion more than a music band",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "com-truise",
+    "url": "http://comtruise.com",
+    "name": "Com Truise",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Son of Boards of Canada and Tom Cruise's Wayfarer",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "100-electronica",
+    "url": "https://www.100percentelectronica.com",
+    "name": "100% Electronica",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "vhs-head",
+    "url": "https://www.vhshead.com",
+    "name": "VHS Head",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Let's see how far we can push electronic music",
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "pogo-music",
+    "url": "https://www.youtube.com/c/PogoMusic",
+    "name": "Pogo Music",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Note: he's a controversial person, I do not agree with any of Nick's current ideologies",
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "datassette",
+    "url": "http://datassette.net",
+    "name": "Datassette",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "perturbator",
+    "url": "http://www.perturbator.com",
+    "name": "Perturbator",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "They told him he could be anything in life, so he became a synth",
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "eelf",
+    "url": "https://lbry.tv/@EELF:7",
+    "name": "EELF",
+    "type": "link",
+    "group": "Music",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Better known as EELF on YouTube. A collection of nostalgic video with deep house music in background",
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "tim-holman",
+    "url": "https://tholman.com",
+    "name": "Tim Holman",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "tom-murphy-vii",
+    "url": "http://tom7.org",
+    "name": "Tom Murphy VII",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "xxiivv",
+    "url": "https://xxiivv.com",
+    "name": "XXIIVV",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "john",
+    "url": "https://dataswamp.org/~john",
+    "name": "John",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "This guy inspired me to make a personal website",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "paul-neave",
+    "url": "https://neave.com",
+    "name": "Paul Neave",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Spent way too much time on this website",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "ciro-santilli",
+    "url": "https://cirosantilli.com",
+    "name": "Ciro Santilli",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "braulio-barahona",
+    "url": "https://brauliobarahona.com",
+    "name": "Braulio Barahona",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Great friend and awesome skater!",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "martin-kleppe",
+    "url": "https://aem1k.com",
+    "name": "Martin Kleppe",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Absolute JavaScript madlad",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "stefano-rodighiero",
+    "url": "https://stefanorodighiero.net",
+    "name": "Stefano Rodighiero",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "This guy wrote the first programming book I've ever read",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "expensive-toys",
+    "url": "https://www.expensive.toys",
+    "name": "Expensive Toys",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "He created a set of UI components used in this website <3",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "paolo-galeone",
+    "url": "https://pgaleone.eu",
+    "name": "Paolo Galeone",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "He created an Italian nerdy social network many years ago, nowadays he makes AIs that one day will take over the world",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "ben-cox",
+    "url": "https://benjojo.co.uk",
+    "name": "Ben Cox",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A very cool personal website",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "samuel-reed",
+    "url": "https://www.strml.net",
+    "name": "Samuel Reed",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Just visit this website and see the magic for yourself!",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "ertdfgcvb",
+    "url": "https://ertdfgcvb.xyz",
+    "name": "ertdfgcvb",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "wwwtxt",
+    "url": "https://wwwtxt.org/about",
+    "name": "wwwtxt",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "elliott",
+    "url": "https://elliott.computer",
+    "name": "Elliott",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "The guy who created special.fish ;-)",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "jacob-hall",
+    "url": "https://jacobhall.net",
+    "name": "Jacob Hall",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A guy with some interesting projects and links",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "broken-mind",
+    "url": "https://brkmnd.com",
+    "name": "Broken Mind",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Interesting website with an embedded CLI to navigate it",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "justus",
+    "url": "https://www.justus.ws",
+    "name": "Justus",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Personal website of Justus, he writes interesting articles and he has some interesting hobbies",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "novov",
+    "url": "https://novov.me",
+    "name": "Novov",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Great personal website, full of stuff related to his interests and hobbies",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "superinternet",
+    "url": "http://superinternet.cc",
+    "name": "Superinternet",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "giacinto-carlucci",
+    "url": "https://www.giacintocarlucci.it",
+    "name": "Giacinto Carlucci",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Personal homepage of Giacinto Carlucci, I really like his minimal website layout!",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "ian-langworth",
+    "url": "https://langworth.com",
+    "name": "Ian Langworth",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "One of the best CLI portfolio websites I've seen in a while",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "nil",
+    "url": "https://nilfm.cc",
+    "name": "Nil",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "matthew-rayfield",
+    "url": "https://matthewrayfield.com",
+    "name": "Matthew Rayfield",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "When I grow up I'd like to be like him",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "dimden",
+    "url": "https://dimden.dev",
+    "name": "Dimden",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Beautiful personal website full of interesting stuff",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "alien-head",
+    "url": "https://alienheadshitkid.neocities.org",
+    "name": "Alien Head",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A fab website",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "daniel-murray",
+    "url": "https://loom.cafe",
+    "name": "Daniel Murray",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Gorgeous personal website from Irish artist Daniel Murray",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "personal-website",
+    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+    "name": "Personal Website",
+    "type": "link",
+    "group": "Projects",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "My personal website and tech blog built with 11ty",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "the-centre-for-computing-history",
+    "url": "https://www.computinghistory.org.uk/",
+    "name": "The Centre for Computing History",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "British computer museum with a large collection of vintage computers",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "simh",
+    "url": "http://simh.trailing-edge.com/",
+    "name": "SIMH",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Computer History Simulation Project - emulators for classic systems",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "internet-archives-software-collection",
+    "url": "https://archive.org/details/software",
+    "name": "Internet Archive's Software Collection",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Huge library of vintage software you can run in your browser",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "classic-computing",
+    "url": "http://www.classic-computing.org/",
+    "name": "Classic Computing",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Dedicated to the preservation of classic computing devices",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "got-papers",
+    "url": "https://gotpapers.scene.org/",
+    "name": "Got Papers?",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Archive of computer scene papers and text files",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "os2-museum",
+    "url": "http://www.os2museum.com/wp/",
+    "name": "OS/2 Museum",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "History of OS/2 and other operating systems",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "pcjs-machines",
+    "url": "https://www.pcjs.org/",
+    "name": "PCjs Machines",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A collection of PC emulators written in JavaScript",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "mame",
+    "url": "https://www.mamedev.org/",
+    "name": "MAME",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Multiple Arcade Machine Emulator - preserves gaming history",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "viva64",
+    "url": "https://www.viva64.com/en/b/0908/",
+    "name": "Viva64",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Old C compilers archive",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "the-digital-antiquarian",
+    "url": "https://www.filfre.net/",
+    "name": "The Digital Antiquarian",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "History of digital games and digital storytelling",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "bbs-the-documentary",
+    "url": "http://www.bbsdocumentary.com/",
+    "name": "BBS: The Documentary",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Jason Scott's documentary about the BBS era",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "the-obsolete-computer-museum",
+    "url": "http://oldcomputers.net/",
+    "name": "The Obsolete Computer Museum",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Information about older computers",
+    "last_checked": "2025-05-13T05:12:40.758Z"
+  },
+  {
+    "id": "guidebook",
+    "url": "https://guidebookgallery.org/",
+    "name": "GUIdebook",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Graphical User Interface gallery",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "emaculation",
+    "url": "https://www.emaculation.com/",
+    "name": "Emaculation",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Mac emulation and virtualization community",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "winworld",
+    "url": "https://winworldpc.com/",
+    "name": "Winworld",
+    "type": "link",
+    "group": "Retrocomputing",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Archive of abandonware operating systems and applications",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "mushroom-blading",
+    "url": "https://mushroomblading.com",
+    "name": "Mushroom Blading",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Great bunch of blading lads with great inline-skating culture on their back!",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "wizard-skating",
+    "url": "https://www.youtube.com/channel/UCiwUpLaBVzm7fktnvN3r-VA",
+    "name": "Wizard Skating",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "YT channel of Wizard Skating project made by Leon Basin, has lots of amazing videos",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "the-great-blading-bubble",
+    "url": "https://toldandretold1.medium.com/the-great-blading-bubble-how-toxic-masculinity-inflated-and-burst-aggressive-inline-4313e4930714",
+    "name": "The Great Blading Bubble",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Interesting article about the downfall of rollerblading in the 90s",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "breeze-by-nils-jansons",
+    "url": "https://www.youtube.com/watch?v=fPyh7pX-TiA",
+    "name": "BREEZE by Nils Jansons",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Really inspiring video with great shots in south of Italy",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "powerslide-next-125",
+    "url": "https://www.youtube.com/watch?v=f1-cIEmWUrc",
+    "name": "Powerslide Next 125",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Spot for the Powerslide Next 125, great music and perfect editing",
+    "last_checked": "2025-05-13T05:12:40.759Z"
+  },
+  {
+    "id": "nick-lomax",
+    "url": "https://www.youtube.com/channel/UCTu40b6bDC8xnpwvC_buzag",
+    "name": "Nick Lomax",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "YT channel of Nick Lomax, very talented aggr. skater",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "them-skates",
+    "url": "https://www.youtube.com/user/bladingcup",
+    "name": "THEM skates",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "THEM skates youtube channel ••••",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "ottonovo",
+    "url": "http://ottonovo.com",
+    "name": "Ottonovo",
+    "type": "link",
+    "group": "Rollerblading",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Fantastic project by the talented blader ROBBIE PITTS",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "github",
+    "url": "https://github.com/williamzujkowski",
+    "name": "GitHub",
+    "type": "link",
+    "group": "Social",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "linkedin",
+    "url": "https://linkedin.com/in/williamzujkowski",
+    "name": "LinkedIn",
+    "type": "link",
+    "group": "Social",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "bluesky",
+    "url": "https://bsky.app/profile/williamzujkowski.bsky.social",
+    "name": "Bluesky",
+    "type": "link",
+    "group": "Social",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "learn-x-in-y-minutes",
+    "url": "https://learnxinyminutes.com/",
+    "name": "Learn X in Y Minutes",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Quick programming language tutorials",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "set-up-your-own-lte-network",
+    "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/",
+    "name": "Set Up Your Own LTE Network",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "DIY guide to building your very own LTE network",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "international-space-elevator-consortium",
+    "url": "https://www.isec.org/",
+    "name": "International Space Elevator Consortium",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Promotes the development of a space elevator to revolutionize space travel",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "orions-arm-universe-project",
+    "url": "https://www.orionsarm.com/",
+    "name": "Orion's Arm Universe Project",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A collaborative project imagining a future with advanced technologies and AI",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "dustinbrettcom",
+    "url": "https://dustinbrett.com/",
+    "name": "DustinBrett.com",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Insightful commentary on technology and digital culture",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "parallel-lives",
+    "url": "https://janwillemtulp.github.io/parallel-lives/",
+    "name": "Parallel Lives",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A creative exploration of alternate realities in digital art",
+    "last_checked": "2025-05-13T05:12:40.761Z"
+  },
+  {
+    "id": "simone-computer",
+    "url": "https://simone.computer/",
+    "name": "Simone Computer",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A cutting-edge platform merging art and technology",
+    "last_checked": "2025-05-13T05:12:40.761Z"
+  },
+  {
+    "id": "departure-mono",
+    "url": "https://departuremono.com/",
+    "name": "Departure Mono",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A minimalist design and tech blog challenging conventional thinking",
+    "last_checked": "2025-05-13T05:12:40.764Z"
+  },
+  {
+    "id": "stippler",
+    "url": "https://stippler.wolfandreas.com/",
+    "name": "Stippler",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Showcases visually striking digital artwork and creative tech projects",
+    "last_checked": "2025-05-13T05:12:40.764Z"
+  }
+]

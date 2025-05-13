@@ -4,8 +4,9 @@
  */
 
 // @ts-check
-const { devices } = require("@playwright/test");
-const config = require("./tests/e2e/config");
+import { devices } from "@playwright/test";
+import * as configModule from "./tests/e2e/config.js";
+const config = configModule.default || configModule;
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -29,8 +30,8 @@ const playwrightConfig = {
   forbidOnly: !!process.env.CI,
 
   // Global setup and teardown
-  globalSetup: require.resolve("./tests/e2e/global-setup"),
-  globalTeardown: require.resolve("./tests/e2e/global-teardown"),
+  globalSetup: "./tests/e2e/global-setup.js",
+  globalTeardown: "./tests/e2e/global-teardown.js",
 
   // Folder for test artifacts such as screenshots, videos, traces, etc.
   outputDir: config.reportDir + "/artifacts",
@@ -83,4 +84,4 @@ const playwrightConfig = {
   ],
 };
 
-module.exports = playwrightConfig;
+export default playwrightConfig;

@@ -1,0 +1,145 @@
+[
+  {
+    "id": "centauri-dreams",
+    "url": "https://www.centauri-dreams.org/",
+    "name": "Centauri Dreams",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Paul Gilster's blog on deep space exploration and interstellar travel",
+    "last_checked": "2025-05-13T05:12:40.735Z"
+  },
+  {
+    "id": "center-for-postnatural-history",
+    "url": "https://postnatural.org/",
+    "name": "Center for PostNatural History",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A museum dedicated to organisms altered by humans, blending biology and technology",
+    "last_checked": "2025-05-13T05:12:40.735Z"
+  },
+  {
+    "id": "museum-of-obsolete-media",
+    "url": "https://obsoletemedia.org/",
+    "name": "Museum of Obsolete Media",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "An online museum showcasing and preserving obsolete audio, video, and data formats",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "the-public-domain-review",
+    "url": "https://publicdomainreview.org/",
+    "name": "The Public Domain Review",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Explores and curates art, literature, and ideas that are now in the public domain",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "radio-garden",
+    "url": "https://radio.garden/listen",
+    "name": "Radio Garden",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Listen to live radio stations worldwide by rotating a virtual globe",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "submarine-cable-map",
+    "url": "https://www.submarinecablemap.com/",
+    "name": "Submarine Cable Map",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "An interactive map of the global undersea cables that power the internet",
+    "last_checked": "2025-05-13T05:12:40.736Z"
+  },
+  {
+    "id": "the-tau-zero-foundation",
+    "url": "https://tauzero.aero/",
+    "name": "The Tau Zero Foundation",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Explores the science behind interstellar travel and advances in space exploration",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "falling-falling",
+    "url": "https://www.fallingfalling.com/",
+    "name": "Falling Falling",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "An immersive interactive experience of cascading colors and shapes",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "floor796",
+    "url": "https://floor796.com/",
+    "name": "Floor796",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A creative hub blending design, art, and experimental projects",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "yyyyyyy",
+    "url": "https://www.yyyyyyy.info/",
+    "name": "YYYYYYY",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A minimalist experimental site exploring abstract ideas",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  },
+  {
+    "id": "national-film-registry",
+    "url": "https://www.loc.gov/programs/national-film-preservation-board/film-registry/watch-films-on-the-national-film-registry/",
+    "name": "National Film Registry",
+    "type": "link",
+    "group": "Art, Culture & Exploration",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Watch films preserved for their cultural, historical, or aesthetic significance",
+    "last_checked": "2025-05-13T05:12:40.737Z"
+  }
+]

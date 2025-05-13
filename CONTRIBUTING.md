@@ -24,10 +24,13 @@ git clone https://github.com/williamzujkowski/williamzujkowski.github.io.git
 cd williamzujkowski.github.io
 
 # Install dependencies
-pip install -r requirements.txt
+npm install
 
 # Run the application in development mode
-python main.py
+npm run dev
+
+# Or using the CLI utility
+./scripts/bin/dev.sh serve
 ```
 
 ## Pull Request Guidelines
@@ -40,17 +43,42 @@ python main.py
 
 ## Adding Blog Posts
 
-1. Create a new Markdown file in the `content/posts/` directory
+### Option A: Automated Blog Post Processing
+
+1. Create a file in the `new_posts/` directory using either:
+
+   - A `.txt` file with the title on the first line
+   - A `.md` file with an H1 header or front matter for the title
+
+2. Run the processing script:
+
+   ```bash
+   # Using npm script
+   npm run process:posts
+
+   # Or using the CLI utility
+   ./scripts/bin/content.sh blog:process
+   ```
+
+3. The script will format the post with proper frontmatter, schedule it appropriately, add tags, and place it in `src/posts/`.
+
+### Option B: Manual Blog Post Creation
+
+1. Create a new Markdown file in the `src/posts/` directory
 2. Follow the naming convention: `YYYY-MM-DD-post-title.md`
 3. Include frontmatter at the top of the file:
    ```
    ---
    title: Your Post Title
    date: YYYY-MM-DD
-   tags: [tag1, tag2]
+   description: A brief description of your post
+   tags: ["tag1", "tag2"]
+   image: /assets/images/blog/your-post-image.jpg
    ---
    ```
 4. Write your content using Markdown
+
+See [BLOG-WORKFLOW.md](docs/guides/BLOG-WORKFLOW.md) for more details.
 
 ## License
 

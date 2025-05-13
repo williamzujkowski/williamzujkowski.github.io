@@ -1,0 +1,119 @@
+[
+  {
+    "id": "learn-x-in-y-minutes",
+    "url": "https://learnxinyminutes.com/",
+    "name": "Learn X in Y Minutes",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Quick programming language tutorials",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "set-up-your-own-lte-network",
+    "url": "https://open5gs.org/open5gs/docs/tutorial/01-your-first-lte/",
+    "name": "Set Up Your Own LTE Network",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "DIY guide to building your very own LTE network",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "international-space-elevator-consortium",
+    "url": "https://www.isec.org/",
+    "name": "International Space Elevator Consortium",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Promotes the development of a space elevator to revolutionize space travel",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "orions-arm-universe-project",
+    "url": "https://www.orionsarm.com/",
+    "name": "Orion's Arm Universe Project",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A collaborative project imagining a future with advanced technologies and AI",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "dustinbrettcom",
+    "url": "https://dustinbrett.com/",
+    "name": "DustinBrett.com",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Insightful commentary on technology and digital culture",
+    "last_checked": "2025-05-13T05:12:40.760Z"
+  },
+  {
+    "id": "parallel-lives",
+    "url": "https://janwillemtulp.github.io/parallel-lives/",
+    "name": "Parallel Lives",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A creative exploration of alternate realities in digital art",
+    "last_checked": "2025-05-13T05:12:40.761Z"
+  },
+  {
+    "id": "simone-computer",
+    "url": "https://simone.computer/",
+    "name": "Simone Computer",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A cutting-edge platform merging art and technology",
+    "last_checked": "2025-05-13T05:12:40.761Z"
+  },
+  {
+    "id": "departure-mono",
+    "url": "https://departuremono.com/",
+    "name": "Departure Mono",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A minimalist design and tech blog challenging conventional thinking",
+    "last_checked": "2025-05-13T05:12:40.764Z"
+  },
+  {
+    "id": "stippler",
+    "url": "https://stippler.wolfandreas.com/",
+    "name": "Stippler",
+    "type": "link",
+    "group": "Technology & Innovation",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Showcases visually striking digital artwork and creative tech projects",
+    "last_checked": "2025-05-13T05:12:40.764Z"
+  }
+]

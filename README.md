@@ -19,6 +19,8 @@ This is my personal website and blog, built with [11ty](https://www.11ty.dev/), 
 - Optimized build system with incremental builds and parallel processing
 - Smart data management with caching and payload optimization
 - Responsive image optimization and delivery
+- Comprehensive test suite with unit, integration, and visual regression tests
+- Performance optimizations with critical CSS, script prioritization, and service worker
 
 ## Documentation
 
@@ -35,7 +37,7 @@ All documentation has been consolidated in the `docs/` directory for better orga
 
 - [Maintenance Guide](docs/reference/MAINTENANCE.md) - Complete guide to maintaining and updating the website
 - [Changelog](docs/reference/CHANGELOG.md) - History of changes to the website
-- [Update History](docs/reference/UPDATES.md) - Detailed update logs
+- [Performance Optimization Guide](docs/development/PERFORMANCE-OPTIMIZATION-GUIDE.md) - Guide to website performance optimizations
 
 ### Development
 
@@ -43,6 +45,7 @@ All documentation has been consolidated in the `docs/` directory for better orga
 - [Contributing](docs/development/CONTRIBUTING.md) - Guidelines for contributing to the project
 - [Link Previews](docs/development/LINK-PREVIEWS.md) - How link previews are generated and managed
 - [Data Management](docs/guides/DATA-MANAGEMENT.md) - Smart data management system documentation
+- [Testing Guide](docs/development/TESTING.md) - Comprehensive testing framework and best practices
 
 #### Using Claude AI
 
@@ -81,8 +84,9 @@ williamzujkowski.github.io/
 │   ├── content/         # Content management tools
 │   │   ├── blog/        # Blog post management
 │   │   └── links/       # Link management
-│   ├── screenshots/     # Screenshot generation tools
+│   ├── media/           # Media handling (images, etc.)
 │   ├── styling/         # Styling tools
+│   ├── testing/         # Testing scripts and utilities
 │   ├── utils/           # Utility scripts
 │   └── validation/      # Validation tools
 ├── src/                 # Source files
@@ -92,6 +96,12 @@ williamzujkowski.github.io/
 │   ├── css/             # Stylesheets
 │   ├── js/              # JavaScript files
 │   └── posts/           # Blog posts
+├── tests/               # Test files
+│   ├── unit/            # Unit tests
+│   ├── integration/     # Integration tests
+│   ├── e2e/             # End-to-end tests
+│   ├── visual/          # Visual regression tests
+│   └── performance/     # Performance tests
 ```
 
 For a detailed overview of the scripts organization, see [Scripts Documentation](docs/development/SCRIPTS.md).
@@ -129,6 +139,35 @@ Other development commands:
 # Format files with Prettier
 ./scripts/bin/dev.sh format
 ```
+
+## Testing
+
+The project includes a comprehensive testing framework with multiple test types:
+
+```bash
+# Run all tests
+npm run test:enhanced:all
+
+# Run unit tests only
+npm run test:enhanced:unit
+
+# Run integration tests
+npm run test:enhanced:integration
+
+# Run end-to-end tests
+npm run test:enhanced:e2e
+
+# Run visual regression tests
+npm run test:visual
+
+# Run with code coverage
+npm run test:enhanced:coverage
+
+# Run tests in watch mode (for development)
+npm run test:watch
+```
+
+For more details, see the [Testing Guide](docs/development/TESTING.md).
 
 ## Build
 
@@ -180,6 +219,9 @@ The site includes an advanced build system with:
 2. **Incremental Builds** - Only rebuilds what has changed to improve performance
 3. **Smart Caching** - Reduces redundant operations using intelligent cache management
 4. **Comprehensive Monitoring** - Provides detailed timing and progress feedback
+5. **Critical CSS Extraction** - Automatically extracts and inlines critical CSS for each page template
+6. **Script Prioritization** - Loads scripts in order of importance for optimal performance
+7. **Service Worker** - Provides offline support and improved caching
 
 For development with the optimized build system:
 
@@ -187,6 +229,45 @@ For development with the optimized build system:
 # Start dev server with optimized builds
 npm run dev:optimized
 ```
+
+## Performance Optimizations
+
+The website includes numerous performance optimizations:
+
+1. **JavaScript Optimization**
+
+   - Code splitting for faster loading
+   - Tree shaking to remove unused code
+   - Priority-based script loading
+   - Lazy loading for non-critical components
+
+2. **CSS Optimization**
+
+   - Critical CSS extraction and inlining
+   - CSS purging to remove unused styles
+   - Asynchronous loading of non-critical CSS
+
+3. **Image Optimization**
+
+   - Responsive images with multiple sizes
+   - Modern formats (WebP, AVIF)
+   - Lazy loading with blur-up placeholders
+   - Content-visibility optimization
+
+4. **Resource Loading**
+
+   - Preconnect for external domains
+   - Preload for critical resources
+   - Resource hint optimization
+   - Fetch priority signals
+
+5. **Caching & Offline Support**
+   - Service worker with advanced caching
+   - Offline page access
+   - Stale-while-revalidate pattern
+   - Background sync
+
+For more details, see the [Performance Optimization Guide](docs/development/PERFORMANCE-OPTIMIZATION-GUIDE.md).
 
 ## Site Configuration
 

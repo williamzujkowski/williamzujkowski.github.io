@@ -11,7 +11,11 @@
  * @module main
  */
 
-// Define imports as variables to avoid actual imports
+// Use direct function calls instead of imports to avoid code-splitting
+// These functions will be available globally when each bundle is loaded
+// For testing or development, we define placeholders
+
+// Define the component initialization functions
 const initSearch =
   window.initSearch ||
   function () {
@@ -234,22 +238,9 @@ function initHighPriority() {
     initForTesting();
   }
 
-  // Initialize analytics if configured (using dynamic import for performance)
-  if (window.analyticsId) {
-    import("./utils/analytics.js")
-      .then((module) => {
-        trackPerformance("analytics", () =>
-          module.initGoogleAnalytics(window.analyticsId)
-        );
-      })
-      .catch((error) => {
-        console.error("Failed to load analytics:", error);
-        PERFORMANCE_METRICS.errors.push({
-          component: "analytics",
-          error: error.message,
-          time: performance.now(),
-        });
-      });
+  // Initialize analytics if configured
+  if (window.analyticsId && typeof window.initGoogleAnalytics === "function") {
+    trackPerformance("analytics", () => window.initGoogleAnalytics(window.analyticsId));
   }
 }
 
@@ -373,17 +364,7 @@ function initMediumPriority() {
 function initLowPriority() {
   // Initialize search functionality (only if search input exists)
   if (document.querySelector("#search-input")) {
-    import("./components/search.js")
-      .then((module) => {
-        if (typeof module.initSearch === "function") {
-          trackPerformance("search", module.initSearch);
-        } else {
-          console.error("Search module loaded but initSearch function not found");
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to load search:", error);
-      });
+    trackPerformance("search", initSearch);
   } else {
     // For test verification
     trackPerformance("search", initSearch);
@@ -397,23 +378,11 @@ function initLowPriority() {
 
   // Initialize code highlighting for blog posts
   if (document.querySelector("pre code")) {
-    import("./components/code-highlight.js")
-      .then((module) => {
-        trackPerformance("codeHighlight", module.initCodeHighlight);
-      })
-      .catch((error) => {
-        console.error("Failed to load code highlighter:", error);
-      });
+    trackPerformance("codeHighlight", initCodeHighlight);
   }
 
   // Initialize static fallbacks for dynamic content
-  import("./components/static-fallbacks.js")
-    .then((module) => {
-      trackPerformance("staticFallbacks", module.initStaticFallbacks);
-    })
-    .catch((error) => {
-      console.error("Failed to load static fallbacks:", error);
-    });
+  trackPerformance("staticFallbacks", initStaticFallbacks);
 }
 
 /**

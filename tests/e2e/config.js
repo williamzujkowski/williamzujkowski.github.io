@@ -23,4 +23,4 @@ const config = {
   reportDir: REPORT_DIR,
 };
 
-module.exports = config;
+export default config;

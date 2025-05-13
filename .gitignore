@@ -57,3 +57,6 @@ content/
 requirements.txt
 site_config.toml
 styles.tcss
+.aider*
+
+**/.claude/settings.local.json

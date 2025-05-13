@@ -1,0 +1,106 @@
+[
+  {
+    "id": "international-association-of-exorcists",
+    "url": "https://www.aieinternational.org/",
+    "name": "International Association of Exorcists",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A humorous global organization supporting Catholic exorcists",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "paperclip-ai-game",
+    "url": "https://www.decisionproblem.com/paperclips/",
+    "name": "Paperclip AI Game",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A quirky game about the art of making paperclips",
+    "last_checked": "2025-05-13T05:12:40.748Z"
+  },
+  {
+    "id": "the-kid-should-see-this",
+    "url": "https://thekidshouldseethis.com/",
+    "name": "The Kid Should See This",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Curated educational videos for curious minds",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "the-website-is-down",
+    "url": "https://www.thewebsiteisdown.com",
+    "name": "The Website is Down",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A collection of hilarious IT videos",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "zombocom",
+    "url": "https://zombo.com/",
+    "name": "Zombo.com",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A surreal, humorous portal promising endless possibilities",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "nested",
+    "url": "https://orteil.dashnet.org/nested",
+    "name": "Nested",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A mesmerizing interactive experience exploring infinite recursion",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "stimulation-clicker",
+    "url": "https://neal.fun/stimulation-clicker/",
+    "name": "Stimulation Clicker",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A playful clicker game that tests your patience and curiosity",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  },
+  {
+    "id": "mementomovi",
+    "url": "https://mementomovi.wackyneighbor.com/",
+    "name": "MementoMovi",
+    "type": "link",
+    "group": "Fun & Curiosities",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A quirky site combining art and memory in unexpected ways",
+    "last_checked": "2025-05-13T05:12:40.749Z"
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "personal-website",
+    "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+    "name": "Personal Website",
+    "type": "link",
+    "group": "Projects",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "My personal website and tech blog built with 11ty",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  }
+]

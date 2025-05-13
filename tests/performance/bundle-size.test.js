@@ -3,9 +3,14 @@
  * Implemented as part of Phase 4 performance optimization
  */
 
-const path = require("path");
-const fs = require("fs");
-const { test, assert } = require("../test-framework");
+import path from "path";
+import fs from "fs";
+import { test, assert } from "../test-framework.js";
+import { fileURLToPath } from "url";
+
+// Set up dirname equivalent in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Define bundle size thresholds (in bytes)
 const BUNDLE_SIZE_THRESHOLDS = {
@@ -18,9 +23,9 @@ const BUNDLE_SIZE_THRESHOLDS = {
 // Define expected bundles
 const EXPECTED_BUNDLES = [
   "main.bundle.js",
-  "blog.bundle.js",
-  "search.bundle.js",
-  "utils.bundle.js",
+  "blog/blog.bundle.js",
+  "search/search.bundle.js",
+  "utils/utils.bundle.js",
   "components/theme-toggle.bundle.js",
   "components/code-highlight.bundle.js",
 ];
@@ -165,9 +170,9 @@ test("Gzip compression provides significant size reduction", function () {
     "const",
     "var",
     "let",
-    "if(",
-    "for(",
-    "while(",
+    "if",
+    "for",
+    "while",
     "===",
     "!==",
     '","',
@@ -177,7 +182,10 @@ test("Gzip compression provides significant size reduction", function () {
 
   let patternCount = 0;
   for (const pattern of patterns) {
-    const matches = content.match(new RegExp(pattern, "g"));
+    // Escape special regex characters to prevent errors
+    const escapedPattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(escapedPattern, "g");
+    const matches = content.match(regex);
     if (matches) {
       patternCount += matches.length;
     }

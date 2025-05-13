@@ -1,0 +1,358 @@
+[
+  {
+    "id": "tim-holman",
+    "url": "https://tholman.com",
+    "name": "Tim Holman",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "tom-murphy-vii",
+    "url": "http://tom7.org",
+    "name": "Tom Murphy VII",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "xxiivv",
+    "url": "https://xxiivv.com",
+    "name": "XXIIVV",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.754Z"
+  },
+  {
+    "id": "john",
+    "url": "https://dataswamp.org/~john",
+    "name": "John",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "This guy inspired me to make a personal website",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "paul-neave",
+    "url": "https://neave.com",
+    "name": "Paul Neave",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Spent way too much time on this website",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "ciro-santilli",
+    "url": "https://cirosantilli.com",
+    "name": "Ciro Santilli",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "braulio-barahona",
+    "url": "https://brauliobarahona.com",
+    "name": "Braulio Barahona",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Great friend and awesome skater!",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "martin-kleppe",
+    "url": "https://aem1k.com",
+    "name": "Martin Kleppe",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Absolute JavaScript madlad",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "stefano-rodighiero",
+    "url": "https://stefanorodighiero.net",
+    "name": "Stefano Rodighiero",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "This guy wrote the first programming book I've ever read",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "expensive-toys",
+    "url": "https://www.expensive.toys",
+    "name": "Expensive Toys",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "He created a set of UI components used in this website <3",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "paolo-galeone",
+    "url": "https://pgaleone.eu",
+    "name": "Paolo Galeone",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "He created an Italian nerdy social network many years ago, nowadays he makes AIs that one day will take over the world",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "ben-cox",
+    "url": "https://benjojo.co.uk",
+    "name": "Ben Cox",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A very cool personal website",
+    "last_checked": "2025-05-13T05:12:40.755Z"
+  },
+  {
+    "id": "samuel-reed",
+    "url": "https://www.strml.net",
+    "name": "Samuel Reed",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Just visit this website and see the magic for yourself!",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "ertdfgcvb",
+    "url": "https://ertdfgcvb.xyz",
+    "name": "ertdfgcvb",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "wwwtxt",
+    "url": "https://wwwtxt.org/about",
+    "name": "wwwtxt",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "elliott",
+    "url": "https://elliott.computer",
+    "name": "Elliott",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "The guy who created special.fish ;-)",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "jacob-hall",
+    "url": "https://jacobhall.net",
+    "name": "Jacob Hall",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A guy with some interesting projects and links",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "broken-mind",
+    "url": "https://brkmnd.com",
+    "name": "Broken Mind",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Interesting website with an embedded CLI to navigate it",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "justus",
+    "url": "https://www.justus.ws",
+    "name": "Justus",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Personal website of Justus, he writes interesting articles and he has some interesting hobbies",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "novov",
+    "url": "https://novov.me",
+    "name": "Novov",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Great personal website, full of stuff related to his interests and hobbies",
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "superinternet",
+    "url": "http://superinternet.cc",
+    "name": "Superinternet",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.756Z"
+  },
+  {
+    "id": "giacinto-carlucci",
+    "url": "https://www.giacintocarlucci.it",
+    "name": "Giacinto Carlucci",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Personal homepage of Giacinto Carlucci, I really like his minimal website layout!",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "ian-langworth",
+    "url": "https://langworth.com",
+    "name": "Ian Langworth",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "One of the best CLI portfolio websites I've seen in a while",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "nil",
+    "url": "https://nilfm.cc",
+    "name": "Nil",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "matthew-rayfield",
+    "url": "https://matthewrayfield.com",
+    "name": "Matthew Rayfield",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "When I grow up I'd like to be like him",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "dimden",
+    "url": "https://dimden.dev",
+    "name": "Dimden",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Beautiful personal website full of interesting stuff",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "alien-head",
+    "url": "https://alienheadshitkid.neocities.org",
+    "name": "Alien Head",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "A fab website",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  },
+  {
+    "id": "daniel-murray",
+    "url": "https://loom.cafe",
+    "name": "Daniel Murray",
+    "type": "link",
+    "group": "People",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Gorgeous personal website from Irish artist Daniel Murray",
+    "last_checked": "2025-05-13T05:12:40.757Z"
+  }
+]

@@ -3,14 +3,15 @@
  * Part of Phase 4 testing implementation
  */
 
-const { chromium } = require("@playwright/test");
-const { ensureDir } = require("./helpers");
-const config = require("./config");
-const fs = require("fs");
-const path = require("path");
-const { exec } = require("child_process");
-const { promisify } = require("util");
+import { chromium } from "@playwright/test";
+import { ensureDir } from "./helpers.js";
+import configModule from "./config.js";
+import fs from "fs";
+import path from "path";
+import { exec } from "child_process";
+import { promisify } from "util";
 
+const config = configModule.default || configModule;
 const execAsync = promisify(exec);
 
 /**
@@ -64,4 +65,4 @@ async function globalSetup(testConfig) {
   global.__TEST_RUN_TIMESTAMP = new Date().toISOString().replace(/[:.]/g, "-");
 }
 
-module.exports = globalSetup;
+export default globalSetup;

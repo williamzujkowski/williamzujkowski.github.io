@@ -1,0 +1,262 @@
+[
+  {
+    "id": "bureau-of-meteorology",
+    "url": "http://www.bom.gov.au/",
+    "name": "Bureau of Meteorology",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Australian weather service",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "the-eye",
+    "url": "https://the-eye.eu/",
+    "name": "The Eye",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Non-profit archival website dedicated to preserving digital content",
+    "last_checked": "2025-05-13T05:12:40.750Z"
+  },
+  {
+    "id": "lingscars",
+    "url": "https://www.lingscars.com/",
+    "name": "Lingscars",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "The most chaotic car leasing website in the world",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "space-weather",
+    "url": "https://www.spaceweather.com/",
+    "name": "Space Weather",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "News and information about solar activity",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "uncanny-valley",
+    "url": "https://uncannyvalley.jp/en",
+    "name": "Uncanny Valley",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Tokyo-based creative lab pushing the boundaries of digital art",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "nws-ocean-prediction-center",
+    "url": "https://ocean.weather.gov/",
+    "name": "NWS Ocean Prediction Center",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Marine forecasts, warnings, and meteorological analyses",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "million-dollar-homepage",
+    "url": "http://www.milliondollarhomepage.com/",
+    "name": "Million Dollar Homepage",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Historical internet artifact from 2005",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "internet-map",
+    "url": "https://internet-map.net/",
+    "name": "Internet Map",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Visual representation of websites as a galaxy",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "stripe-press",
+    "url": "https://press.stripe.com/",
+    "name": "Stripe Press",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Books about economic, technological, and scientific advancement",
+    "last_checked": "2025-05-13T05:12:40.751Z"
+  },
+  {
+    "id": "superliminal",
+    "url": "https://superliminal.com/",
+    "name": "Superliminal",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Scott Kim's puzzles and ambigrams",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "pirate-weather",
+    "url": "https://pirateweather.net/",
+    "name": "Pirate Weather",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Free weather API alternative to Dark Sky",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "crash-course",
+    "url": "https://thecrashcourse.com/",
+    "name": "Crash Course",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Educational YouTube channel covering various topics",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "list-of-physical-visualizations",
+    "url": "http://dataphys.org/list/",
+    "name": "List of Physical Visualizations",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Gallery of physical visualizations and related artifacts",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "us-census-bureau",
+    "url": "https://www.census.gov/",
+    "name": "US Census Bureau",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Data about the U.S. people and economy",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "numbeo",
+    "url": "https://www.numbeo.com/cost-of-living/",
+    "name": "Numbeo",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Database of user-contributed data about cities and countries",
+    "last_checked": "2025-05-13T05:12:40.752Z"
+  },
+  {
+    "id": "worldometer",
+    "url": "https://www.worldometers.info/",
+    "name": "Worldometer",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Real-time world statistics",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "global-biodiversity-information-facility",
+    "url": "https://www.gbif.org/",
+    "name": "Global Biodiversity Information Facility",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Free and open access to biodiversity data",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "openstreetmap",
+    "url": "https://www.openstreetmap.org/",
+    "name": "OpenStreetMap",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Free, editable map of the world",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "quora",
+    "url": "https://www.quora.com/",
+    "name": "Quora",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Question-and-answer website",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  },
+  {
+    "id": "zooniverse",
+    "url": "https://www.zooniverse.org/",
+    "name": "Zooniverse",
+    "type": "link",
+    "group": "Miscellaneous",
+    "metadata": {
+      "status": "error",
+      "error": "Expected value which is `plain object`, received value of type `number`."
+    },
+    "description": "Platform for people-powered research",
+    "last_checked": "2025-05-13T05:12:40.753Z"
+  }
+]

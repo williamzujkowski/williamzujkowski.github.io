@@ -3,6 +3,8 @@
  * Part of Phase 4 testing implementation
  */
 
+import { exec } from "child_process";
+
 /**
  * Clean up after tests
  * @param {import('@playwright/test').FullConfig} testConfig
@@ -15,7 +17,6 @@ async function globalTeardown(testConfig) {
     // Kill the server process
     if (process.platform === "win32") {
       // Windows requires a different approach to kill the process tree
-      const { exec } = require("child_process");
       exec(`taskkill /pid ${global.__SERVER_PROCESS.pid} /T /F`, (error) => {
         if (error) {
           console.error("Failed to kill server process:", error);
@@ -34,4 +35,4 @@ async function globalTeardown(testConfig) {
   }
 }
 
-module.exports = globalTeardown;
+export default globalTeardown;

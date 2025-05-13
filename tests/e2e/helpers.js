@@ -3,9 +3,11 @@
  * Part of Phase 4 testing implementation
  */
 
-const fs = require("fs");
-const path = require("path");
-const config = require("./config");
+import fs from "fs";
+import path from "path";
+import configModule from "./config.js";
+
+const config = configModule.default || configModule;
 
 /**
  * Ensures a directory exists, creating it if necessary
@@ -115,7 +117,7 @@ async function isElementVisible(page, selector) {
   }, selector);
 }
 
-module.exports = {
+export {
   takeScreenshot,
   navigateTo,
   waitForPageReady,

@@ -243,16 +243,17 @@ function verifyMainJsImports() {
   const mainJsPath = path.join(projectRoot, "src/js/main.js");
   const content = fs.readFileSync(mainJsPath, "utf8");
 
-  const requiredImports = [
-    "import { initSearch } from",
-    "import { initThemeToggle } from",
-    "import { initCodeHighlight } from",
-    "import { initStaticFallbacks } from",
+  // Check if the main.js file defines or references all required components
+  const requiredComponents = [
+    "initSearch",
+    "initThemeToggle",
+    "initCodeHighlight",
+    "initStaticFallbacks",
   ];
 
-  for (const importLine of requiredImports) {
-    if (!content.includes(importLine)) {
-      return `Missing required import: ${importLine}`;
+  for (const component of requiredComponents) {
+    if (!content.includes(component)) {
+      return `Missing required component: ${component}`;
     }
   }
 

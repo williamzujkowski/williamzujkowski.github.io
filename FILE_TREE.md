@@ -20,6 +20,20 @@ This document provides a hierarchical representation of the project's file struc
 - **UPDATES.md** - History of recent updates to the project
 - **site.webmanifest** - Web app manifest file for PWA support
 
+### `/.llmconfig` - LLM Configuration Directory
+
+- **CLAUDE.md** - Primary configuration file for Claude AI
+- **agent-rules.md** - Coding standards and best practices for LLM agents
+- **loaders.js** - Utility functions for loading LLM configurations
+- **prompt-templates/** - Reusable prompt templates
+  - **index.js** - Exports template functions for code generation, refactoring, and bug fixes
+- **context/** - Context information for LLM agents
+  - **context-types.js** - Type definitions for context objects
+- **examples/** - Example interactions for few-shot learning
+  - **index.js** - Example responses for various types of requests
+- **system-prompts/** - System-level instructions for different AI agents
+  - **index.js** - System prompts for different agent roles
+
 ## Key Directories
 
 ### `/src` - Main Source Code
