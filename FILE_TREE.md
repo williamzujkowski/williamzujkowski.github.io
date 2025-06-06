@@ -22,17 +22,26 @@ This document provides a hierarchical representation of the project's file struc
 
 ### `/.llmconfig` - LLM Configuration Directory
 
-- **CLAUDE.md** - Primary configuration file for Claude AI
-- **agent-rules.md** - Coding standards and best practices for LLM agents
-- **loaders.js** - Utility functions for loading LLM configurations
-- **prompt-templates/** - Reusable prompt templates
-  - **index.js** - Exports template functions for code generation, refactoring, and bug fixes
-- **context/** - Context information for LLM agents
-  - **context-types.js** - Type definitions for context objects
-- **examples/** - Example interactions for few-shot learning
-  - **index.js** - Example responses for various types of requests
-- **system-prompts/** - System-level instructions for different AI agents
-  - **index.js** - System prompts for different agent roles
+**CRITICAL:** All LLM-specific configurations, prompts, and context files are stored here to ensure consistent AI agent behavior and maintainable prompt engineering.
+
+- **CLAUDE.md** - Primary configuration file for Claude AI with project-specific instructions
+- **agent-rules.md** - Comprehensive coding standards and best practices for LLM agents
+- **loaders.js** - Utility functions for loading and managing LLM configurations
+
+- **prompt-templates/** - Reusable prompt templates for common operations
+
+  - **index.js** - Template functions for blog posts, code refactoring, bug fixes, components, performance optimization, content migration, accessibility improvements, documentation, and testing
+
+- **context/** - Context information and type definitions for LLM agents
+
+  - **context-types.js** - Domain context, project structure, user intent classifications, technical constraints, code patterns, and data structures
+
+- **examples/** - Example interactions and responses for few-shot learning
+
+  - **index.js** - Example responses for blog post creation, code refactoring, and component creation with complete code samples
+
+- **system-prompts/** - System-level instructions for different AI agent roles
+  - **index.js** - Role-specific prompts for content creators, developers, designers, DevOps engineers, security analysts, QA testers, documentation writers, and performance optimizers
 
 ## Key Directories
 
