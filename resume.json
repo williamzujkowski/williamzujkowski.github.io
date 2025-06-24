@@ -1,0 +1,244 @@
+{
+  "basics": {
+    "name": "William Zujkowski",
+    "email": "williamzujkowski@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/williamzujkowski",
+    "headline": "Senior InfoSec Engineer @ Cloud.gov — FedRAMP Moderate • Zero-Trust • DevSecOps • Automated Monitoring",
+    "location": {
+      "city": "Rockville",
+      "region": "Maryland",
+      "country": "United States"
+    },
+    "summary": "Seasoned Security Engineer with 15+ years safeguarding high-stakes environments. Currently driving FedRAMP Moderate compliance and Zero-Trust adoption at cloud.gov through DevSecOps pipelines and real-time monitoring. Proven in vulnerability management, incident response, secure architecture, and automation to deliver resilient, compliant cloud services to federal agencies."
+  },
+  "skills": [
+    "Ansible",
+    "AWS GovCloud",
+    "Bash Scripting",
+    "CI/CD",
+    "DevSecOps",
+    "Docker & Container Security",
+    "FedRAMP Moderate Compliance",
+    "GPU Compute & SLURM",
+    "Incident Response & IR Playbooks",
+    "Infrastructure as Code: Terraform",
+    "NIST SP 800-53 Controls",
+    "Okta / SAML / PIV Authentication",
+    "Secure Configuration Baselines",
+    "SIEM: Wazuh / OpenSearch / Splunk",
+    "Vulnerability Management (Nessus, ZAP)",
+    "Zero-Trust Architecture",
+    "Python Programming",
+    "Prompt Engineering",
+    "Retrieval-Augmented Generation (RAG)",
+    "LLM Fine-Tuning (OpenAI, Hugging Face)",
+    "Vector Embeddings & Semantic Search",
+    "Chain-of-Thought Prompting",
+    "Model Evaluation & Monitoring",
+    "Reinforcement Learning from Human Feedback (RLHF)",
+    "Few-Shot & Zero-Shot Learning",
+    "Continuous Learning & Research",
+    "Threat Modeling (STRIDE)",
+    "Security Automation & Orchestration",
+    "eBPF Monitoring & Observability",
+    "DNS Security & DoH Implementation",
+    "Secure Software Development Lifecycle (SSDLC)",
+    "Cloud Security Architecture"
+  ],
+  "languages": [
+    "English (Native or Bilingual)"
+  ],
+  "certifications": [
+    "The Fundamentals of Digital Marketing",
+    "CompTIA Security Analytics Professional – CSAP Stackable Certification",
+    "CompTIA A+ Certification",
+    "CompTIA Security+ Certification",
+    "CompTIA Network+ Certification",
+    "Crash Course on Python"
+  ],
+  "honorsAwards": [
+    "NHLBI Exceptional Performance Recognition",
+    "Certificate of Excellence",
+    "NIH OCIO Contractor Exceptional Performance Recognition"
+  ],
+  "experience": [
+    {
+      "company": "Technology Transformation Services (TTS)",
+      "position": "Information Technology Specialist (INFOSEC)",
+      "startDate": "November 2023",
+      "endDate": "Present",
+      "duration": "1 year 8 months",
+      "location": "Remote",
+      "responsibilities": [
+        "Spearheaded security initiatives for cloud.gov, enhancing the security posture of government technology.",
+        "Collaborated with cross-functional teams to ensure compliance with federal security standards.",
+        "Developed and implemented security protocols that improved incident response times by 30%.",
+        "Advocated for the mission of cloud.gov, empowering agencies to deliver innovative services efficiently."
+      ]
+    },
+    {
+      "company": "Guidehouse",
+      "position": "Lead HPC Site Reliability Engineer (Contract)",
+      "startDate": "May 2023",
+      "endDate": "November 2023",
+      "duration": "7 months",
+      "location": "United States",
+      "responsibilities": [
+        "Led the orchestration of advanced systems engineering initiatives for the LoBoS high-performance computing cluster, enhancing computational capabilities for molecular dynamics research.",
+        "Collaborated with top-tier researchers to optimize the cluster's performance, ensuring seamless serviceability for scientific projects.",
+        "Spearheaded the integration of automation tools like Ansible and workload management systems such as SLURM, improving operational efficiency.",
+        "Pioneered GPU compute capabilities with NVLINK, significantly boosting data throughput for computational chemistry applications."
+      ]
+    },
+    {
+      "company": "Edgewater Federal Solutions, Inc.",
+      "position": "Vulnerability Management Lead",
+      "startDate": "May 2022",
+      "endDate": "March 2023",
+      "duration": "11 months",
+      "location": "Bethesda, Maryland, United States",
+      "responsibilities": [
+        "Led a large team of cybersecurity engineers and analysts in managing the vulnerability management portfolio for NIH.",
+        "Oversaw activities including host-based security, web application security, and penetration testing.",
+        "Implemented secure configuration baseline management and data loss prevention strategies, enhancing overall security posture.",
+        "Achieved a significant reduction in vulnerabilities across the NIH enterprise, contributing to a safer digital environment."
+      ]
+    },
+    {
+      "company": "Edgewater Federal Solutions, Inc.",
+      "position": "Deputy Vulnerability Management Lead",
+      "startDate": "November 2021",
+      "endDate": "May 2022",
+      "duration": "7 months",
+      "location": "Bethesda, Maryland, United States",
+      "responsibilities": [
+        "Provided strategic leadership in vulnerability management for the NIH enterprise, enhancing overall security posture.",
+        "Implemented secure configuration baselines, reducing potential vulnerabilities by 30%.",
+        "Led initiatives in web application security, resulting in a 25% decrease in security incidents."
+      ]
+    },
+    {
+      "company": "Carson & SAINT Corporations",
+      "position": "Lead Information Security Engineer & Alternate ISSO",
+      "startDate": "December 2020",
+      "endDate": "November 2021",
+      "duration": "1 year",
+      "location": "Bethesda, Maryland, United States",
+      "responsibilities": [
+        "Led a dedicated team in enterprise-wide information systems security management for the National Human Genome Research Institute.",
+        "Enhanced cyber defense infrastructure, ensuring a robust security architecture and effective vulnerability management.",
+        "Spearheaded incident response initiatives, significantly reducing response times and improving overall security posture."
+      ]
+    },
+    {
+      "company": "Carson & SAINT Corporations",
+      "position": "Information Technology Security Engineer",
+      "startDate": "December 2018",
+      "endDate": "December 2020",
+      "duration": "2 years 1 month",
+      "location": "Bethesda, Maryland",
+      "responsibilities": [
+        "Delivered comprehensive cyber defense infrastructure support for the National Human Genome Research Institute.",
+        "Implemented secure architecture and vulnerability management strategies, enhancing system resilience.",
+        "Led incident response initiatives, significantly reducing response times and mitigating potential threats.",
+        "Collaborated with cross-functional teams to develop security planning protocols, ensuring compliance with NIH standards."
+      ]
+    },
+    {
+      "company": "GRSi",
+      "position": "Lead Service Desk Engineer (Tier III SME)",
+      "startDate": "February 2018",
+      "endDate": "December 2018",
+      "duration": "11 months",
+      "location": "Washington D.C. Metro Area",
+      "responsibilities": [
+        "Supervised a team of IT technical staff in a high-stakes NIH Federal Medical Research environment.",
+        "Acted as the escalation point for advanced technical issues across Windows, Mac, and Linux systems.",
+        "Managed security controls and remediated vulnerabilities on over 900 sensitive endpoints, enhancing research integrity.",
+        "Utilized advanced tools like FireEye and ServiceNow to document and resolve vulnerabilities effectively."
+      ]
+    },
+    {
+      "company": "Medical Science & Computing (MSC)",
+      "position": "Lead Service Desk Engineer (Tier III SME)",
+      "startDate": "January 2017",
+      "endDate": "February 2018",
+      "duration": "1 year 2 months",
+      "location": "Bethesda, MD",
+      "responsibilities": [
+        "Supervised a team of IT technical staff in a high-stakes NIH Federal Medical Research environment.",
+        "Acted as the escalation point for complex issues across Windows, Mac, and Linux systems.",
+        "Managed security controls and remediated vulnerabilities on over 350 sensitive endpoints.",
+        "Utilized advanced tools like FireEye and Tenable Security Center to enhance system security."
+      ]
+    },
+    {
+      "company": "Partners International",
+      "position": "Technical Support Engineer",
+      "startDate": "August 2016",
+      "endDate": "January 2017",
+      "duration": "6 months",
+      "location": "Washington D.C. Metro Area",
+      "responsibilities": [
+        "Provided Tier II-III technical support for diverse operating systems, ensuring seamless user experiences.",
+        "Managed Active Directory user accounts, enhancing security and access control for clients.",
+        "Engaged in cybersecurity incident response, effectively mitigating risks for client organizations.",
+        "Consistently surpassed SLA performance metrics, contributing to high client satisfaction rates."
+      ]
+    },
+    {
+      "company": "Sensible Software, Inc.",
+      "position": "IT Infrastructure & Support Manager",
+      "startDate": "February 2016",
+      "endDate": "August 2016",
+      "duration": "7 months",
+      "location": "Frederick, Maryland",
+      "responsibilities": [
+        "Managed a technical support team across five time zones, enhancing service delivery efficiency.",
+        "Led the migration of SMB clients from legacy systems to a SaaS cloud product, improving operational performance.",
+        "Developed security processes that reduced vulnerabilities, ensuring client data integrity and compliance."
+      ]
+    },
+    {
+      "company": "Sensible Software, Inc.",
+      "position": "Technical Support Engineer",
+      "startDate": "May 2015",
+      "endDate": "February 2016",
+      "duration": "10 months",
+      "location": "Frederick, Maryland",
+      "responsibilities": [
+        "Provided technical support for various operating systems, enhancing user experience and satisfaction.",
+        "Led cyber-security incident response efforts, ensuring swift remediation and escalation of issues.",
+        "Collaborated with client IT departments to troubleshoot complex technical problems, improving resolution times.",
+        "Advocated for security process improvements, resulting in a more robust IT infrastructure at Sensible Software, Inc."
+      ]
+    },
+    {
+      "company": "e-End",
+      "position": "IT Specialist (IT Asset Management)",
+      "startDate": "August 2014",
+      "endDate": "May 2015",
+      "duration": "10 months",
+      "location": "Frederick, MD",
+      "responsibilities": [
+        "Executed NIST and NAID compliant data destruction processes, ensuring compliance with ITAR, GLB, SOX, FACTA, FISMA, and HIPAA regulations.",
+        "Streamlined inventory and refurbishment processes for over 400 IT assets weekly, boosting operational efficiency.",
+        "Developed and implemented the \"Bulk Purchasing/Sales\" program, establishing it as the company's leading profit center through strategic initiatives."
+      ]
+    },
+    {
+      "company": "Self Employed",
+      "position": "Information Technology Consultant",
+      "startDate": "April 2005",
+      "endDate": "February 2014",
+      "duration": "8 years 11 months",
+      "location": "Harrisburg, Pennsylvania Area",
+      "responsibilities": [
+        "Provided expert troubleshooting and repair for hardware and software across workstations, servers, and networking equipment.",
+        "Implemented a centrally managed antivirus solution, enhancing security and reducing malware incidents by 30%.",
+        "Designed a comprehensive disaster recovery plan, ensuring minimal downtime for critical systems.",
+        "Delivered training and ongoing technical support to end-users, improving user satisfaction and efficiency."
+      ]
+    }
+  ]
+}
