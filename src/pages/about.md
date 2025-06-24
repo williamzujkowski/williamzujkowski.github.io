@@ -3,6 +3,9 @@ layout: page
 title: About
 description: Learn more about William Zujkowski
 permalink: /about/
+eleventyNavigation:
+  key: About
+  order: 2
 ---
 
 # About Me

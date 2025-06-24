@@ -3,6 +3,9 @@ layout: page
 title: Contact
 description: Get in touch with William Zujkowski
 permalink: /contact/
+eleventyNavigation:
+  key: Contact
+  order: 4
 ---
 
 # Contact Me

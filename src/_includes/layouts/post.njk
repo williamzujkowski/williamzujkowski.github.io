@@ -1,17 +1,73 @@
 ---
 layout: base
 ---
-<article class="post">
-    <header class="post-header">
-        <h1>{{ title }}</h1>
-        <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
-    </header>
-    
-    <div class="post-content">
-        {{ content | safe }}
+<article class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl">
+            <header class="mb-12">
+                <div class="text-center">
+                    <time datetime="{{ date | htmlDateString }}" class="text-sm font-medium text-primary-600 dark:text-primary-400">
+                        {{ date | readableDate }}
+                    </time>
+                    <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl animate-fade-in-up">
+                        {{ title }}
+                    </h1>
+                    {% if description %}
+                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                        {{ description }}
+                    </p>
+                    {% endif %}
+                </div>
+                
+                {% if tags and tags.length > 0 %}
+                <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
+                    {% for tag in tags %}
+                        {% if tag != 'posts' %}
+                        <span class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300">
+                            {{ tag }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </header>
+            
+            <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
+                {{ content | safe }}
+            </div>
+            
+            <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center justify-between">
+                    <a href="/posts/" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to all posts
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+                        <a href="https://twitter.com/intent/tweet?text={{ title | urlencode }}&url={{ site.url }}{{ page.url | urlencode }}" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                           aria-label="Share on Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url | urlencode }}" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
+                           aria-label="Share on LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
-    
-    <footer class="post-footer">
-        <a href="/posts/">← Back to all posts</a>
-    </footer>
 </article>

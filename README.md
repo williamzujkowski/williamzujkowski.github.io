@@ -26,22 +26,33 @@ Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.de
 git clone https://github.com/williamzujkowski/williamzujkowski.github.io.git
 cd williamzujkowski.github.io
 
-# Install dependencies
+# Install dependencies (including Tailwind CSS)
 npm install
 
-# Start development server
+# Start development server with hot-reload
 npm run serve
 ```
 
-The site will be available at `http://localhost:8080/`
+The site will be available at `http://localhost:8080/` with live CSS updates.
 
 ### Build for Production
 
 ```bash
+# Build optimized CSS and site
 npm run build
 ```
 
-The static site will be generated in the `_site` directory.
+The static site will be generated in the `_site` directory with minified CSS.
+
+### Development Commands
+
+```bash
+npm run serve        # Start dev server with CSS watching
+npm run build        # Production build
+npm run build:css    # Build CSS only
+npm run watch:css    # Watch CSS changes
+npm run validate:km  # Validate Knowledge Management standards
+```
 
 ## 📁 Project Structure
 
@@ -64,8 +75,10 @@ The static site will be generated in the `_site` directory.
 ## 🛠️ Technologies
 
 - **Static Site Generator**: Eleventy 2.0
-- **Templating**: Nunjucks
-- **Styling**: Vanilla CSS with CSS Custom Properties
+- **Templating**: Nunjucks with eleventy-navigation
+- **Styling**: Tailwind CSS 3.0 with PostCSS
+- **UI Features**: Dark mode, responsive design, animations
+- **Typography**: Inter font with Tailwind Typography plugin
 - **Hosting**: GitHub Pages
 - **CI/CD**: GitHub Actions
 - **Standards**: Integrated via [standards repository](https://github.com/williamzujkowski/standards)
@@ -82,6 +95,7 @@ The static site will be generated in the `_site` directory.
 title: Your Post Title
 date: 2024-01-15
 description: Brief description of your post
+tags: [web-development, tutorial]  # Optional tags
 ---
 ```
 
@@ -92,7 +106,20 @@ description: Brief description of your post
 
 1. Create a new file in `src/pages/`
 2. Use either Markdown (`.md`) or Nunjucks (`.njk`)
-3. Set the layout and permalink in front matter
+3. Set the layout, permalink, and navigation in front matter:
+
+```yaml
+---
+layout: page
+title: Page Title
+description: Page description
+permalink: /page-url/
+eleventyNavigation:
+  key: Page Name      # Required for navigation
+  order: 5           # Optional: controls menu order
+  parent: About      # Optional: creates hierarchy
+---
+```
 
 ## 🚀 Deployment
 
@@ -117,10 +144,41 @@ Edit `src/_data/site.json` to update:
 ### Eleventy Configuration
 
 Modify `.eleventy.js` to:
-- Add plugins
+- Add plugins (eleventy-navigation included)
 - Configure collections
 - Set up filters
 - Adjust build settings
+
+### Tailwind CSS Customization
+
+Edit `tailwind.config.js` to customize:
+- **Colors**: Extended primary color palette
+- **Fonts**: Currently using Inter font family
+- **Dark Mode**: Configured with class-based toggle
+- **Plugins**: Typography and Forms plugins included
+
+Common customizations:
+```javascript
+// Add custom colors
+colors: {
+  brand: {
+    50: '#your-color',
+    // ... more shades
+  }
+}
+
+// Add custom fonts
+fontFamily: {
+  sans: ['Your-Font', ...defaultTheme.fontFamily.sans],
+}
+```
+
+### CSS Architecture
+
+- **Main CSS**: `src/assets/css/tailwind.css`
+- **Components**: Custom component classes using `@layer components`
+- **Utilities**: Custom utilities using `@layer utilities`
+- **Dark Mode**: Automatic with `.dark` class on `<html>`
 
 ## 📚 Knowledge Management
 
@@ -169,6 +227,23 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 ## 📊 Changelog
+
+### [3.0.0] - 2024-01-24
+#### Added
+- Tailwind CSS 3.0 with PostCSS pipeline
+- eleventy-navigation plugin for hierarchical navigation
+- Dark mode support with system preference detection
+- Responsive mobile menu
+- Breadcrumb navigation
+- Beautiful animations and transitions
+- Glass morphism UI effects
+- Social sharing buttons on posts
+
+#### Changed
+- Complete UI redesign with modern aesthetics
+- Migrated from vanilla CSS to Tailwind CSS
+- Enhanced navigation with automatic menu generation
+- Improved typography with Tailwind Typography plugin
 
 ### [2.0.0] - 2024-01-24
 #### Added

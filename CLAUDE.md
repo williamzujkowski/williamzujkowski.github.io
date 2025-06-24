@@ -1,6 +1,6 @@
 # AI Knowledge Router - williamzujkowski.github.io
 
-**Version:** 2.0.0  
+**Version:** 4.0.0  
 **Last Updated:** 2024-01-24  
 **Status:** Active  
 **Type:** AI Interface Document
@@ -36,16 +36,18 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 
 ## 📊 Repository Overview
 
-**Total Tokens:** ~8,000 (estimated)  
+**Total Tokens:** ~10,000 (estimated)  
 **Primary Language:** JavaScript/Nunjucks  
-**Framework:** Eleventy 2.0  
+**Framework:** Eleventy 2.0 + Tailwind CSS 3.0  
 **Deployment:** GitHub Pages  
 
 ### Key Metrics
-- **Build Time:** ~0.06 seconds
+- **Build Time:** ~0.06 seconds (Eleventy) + ~1s (Tailwind CSS)
 - **Deploy Time:** ~30 seconds via GitHub Actions
 - **Content Files:** 5 pages, 1 post
 - **Standards Compliance:** Integrated via submodule
+- **UI Framework:** Tailwind CSS with PostCSS pipeline
+- **Navigation:** eleventy-navigation plugin for hierarchical menus
 
 ---
 
@@ -56,12 +58,14 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 |------|---------------------|--------------------|
 
 | Add new blog post | `content-management` + `posts-structure` | `@load CONT:writing + SEO:on-page` |
-| Update styling | `styling-architecture` + `eleventy-config` | `@load WD:visual-design + FE:performance` |
+| Update styling | `tailwind-architecture` + `eleventy-config` | `@load WD:visual-design + FE:performance` |
 | Fix build issues | `troubleshooting` + `github-actions` | `@load GH:actions + TOOL:javascript` |
-| Add new page | `content-management` + `templates` | `@load FE:architecture + WD:ux-patterns` |
+| Add new page | `content-management` + `navigation-setup` | `@load FE:architecture + WD:ux-patterns` |
 | SEO optimization | `seo-metadata` + `eleventy-config` | `@load SEO:* + CONT:seo` |
-| Performance optimization | `performance-metrics` | `@load FE:performance + SEO:core-web-vitals` |
-| Accessibility improvements | `templates` + `styling-architecture` | `@load WD:accessibility + FE:accessibility` |
+| Performance optimization | `performance-metrics` + `tailwind-architecture` | `@load FE:performance + SEO:core-web-vitals` |
+| Accessibility improvements | `templates` + `tailwind-architecture` | `@load WD:accessibility + FE:accessibility` |
+| Dark mode customization | `tailwind-architecture` + `templates` | `@load WD:visual-design + FE:responsive` |
+| Navigation updates | `navigation-setup` + `content-management` | `@load WD:ux-patterns + FE:architecture` |
 
 ### For Content Updates
 | Content Type | Location | Template Used |
@@ -95,9 +99,10 @@ williamzujkowski.github.io/
 
 ### Technology Stack
 - **SSG:** Eleventy 2.0.1
-- **Templates:** Nunjucks (.njk)
-- **Styling:** Vanilla CSS with CSS Custom Properties
-- **Build:** Node.js 18+
+- **Templates:** Nunjucks (.njk) with eleventy-navigation plugin
+- **Styling:** Tailwind CSS 3.4 with PostCSS pipeline
+- **UI Features:** Dark mode, responsive design, glass morphism effects
+- **Build:** Node.js 18+, PostCSS, npm-run-all for parallel builds
 - **Deploy:** GitHub Actions → GitHub Pages
 - **Standards:** Integrated via `.standards` submodule
 
@@ -133,10 +138,20 @@ layout: page
 title: Page Title
 description: SEO description
 permalink: /custom-url/
+eleventyNavigation:
+  key: Page Name        # Required for navigation menu
+  order: 5             # Optional: controls menu order
+  parent: About        # Optional: creates hierarchy
 ---
 
 Page content...
 ```
+
+**Navigation Integration:**
+- Pages with `eleventyNavigation` appear in menus automatically
+- Supports nested navigation with `parent` key
+- Breadcrumbs generated automatically
+- Mobile-responsive menu included
 
 ### Global Data
 Edit `src/_data/site.json`:
@@ -152,30 +167,54 @@ Edit `src/_data/site.json`:
 
 ---
 
-## 🎨 Styling Architecture (~800 tokens)
+## 🎨 Tailwind Architecture (~1,200 tokens)
 
-### CSS Structure
-Main stylesheet: `src/assets/css/main.css`
+### CSS Pipeline
+- **Source:** `src/assets/css/tailwind.css`
+- **Output:** `_site/assets/css/main.css`
+- **Process:** PostCSS → Tailwind CSS → Autoprefixer → CSSNano (production)
 
-**Design Tokens:**
-```css
-:root {
-  --color-primary: #1a1a1a;
-  --color-secondary: #666;
-  --color-accent: #0066cc;
-  --color-background: #ffffff;
-  --color-surface: #f5f5f5;
-  --font-body: system-ui, sans-serif;
-  --max-width: 1200px;
-  --spacing: 1rem;
+### Tailwind Configuration
+`tailwind.config.js` customizations:
+```javascript
+{
+  // Extended color palette
+  colors: {
+    primary: {
+      50-900: 'custom blue scale'
+    }
+  },
+  // Dark mode with class strategy
+  darkMode: 'class',
+  // Typography plugin for prose
+  plugins: [
+    '@tailwindcss/typography',
+    '@tailwindcss/forms'
+  ]
 }
 ```
 
 **Key Features:**
-- Mobile-first responsive design
-- Semantic HTML5 elements
-- Accessibility-first approach
-- No JavaScript required for core functionality
+- Dark mode toggle with system preference detection
+- Glass morphism effects with backdrop-blur
+- Smooth animations and transitions
+- Mobile-first responsive utilities
+- Custom gradient text effects
+- Sticky navigation with blur
+
+### Custom Components
+```css
+/* In tailwind.css */
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-primary-400 
+           bg-clip-text text-transparent;
+  }
+  .glass-effect {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl;
+  }
+}
+```
 
 ---
 
@@ -187,16 +226,20 @@ Main stylesheet: `src/assets/css/main.css`
 - Input: src/
 - Output: _site/
 - Templates: Nunjucks
+- Plugins: @11ty/eleventy-navigation
 - Passthrough: assets/, CNAME, .nojekyll
-- Filters: readableDate, htmlDateString
+- Filters: readableDate, htmlDateString, limit
 - Layout aliases: base, page, post
+- Navigation: Hierarchical menu generation
 ```
 
 ### Build Scripts
 ```bash
-npm run build    # Production build
-npm run serve    # Dev server (localhost:8080)
-npm run debug    # Debug mode with verbose output
+npm run serve        # Dev server with CSS watching (localhost:8080)
+npm run build        # Production build (CSS + Eleventy)
+npm run build:css    # Build Tailwind CSS only
+npm run watch:css    # Watch CSS changes
+npm run validate:km  # Validate Knowledge Management standards
 ```
 
 ### Collections
@@ -365,12 +408,54 @@ git push origin feature/new-post
 
 ---
 
+## 🧭 Navigation Setup (~800 tokens)
+
+### eleventy-navigation Plugin
+Configured in `.eleventy.js`:
+```javascript
+const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+eleventyConfig.addPlugin(eleventyNavigationPlugin);
+```
+
+### Adding Pages to Navigation
+In frontmatter:
+```yaml
+eleventyNavigation:
+  key: Page Name      # Required - identifies the page
+  title: Menu Title   # Optional - overrides page title
+  order: 5           # Optional - controls menu order
+  parent: About      # Optional - creates hierarchy
+```
+
+### Navigation Features
+- **Automatic Menus:** Pages with `eleventyNavigation` appear automatically
+- **Breadcrumbs:** Generated based on hierarchy
+- **Active States:** Current page highlighted
+- **Mobile Menu:** Responsive hamburger menu
+- **Nested Support:** Multi-level navigation
+
+### Navigation Helpers
+```nunjucks
+{# Get all navigation items #}
+{{ collections.all | eleventyNavigation }}
+
+{# Get breadcrumb trail #}
+{{ collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key) }}
+
+{# Render as HTML #}
+{{ collections.all | eleventyNavigation | eleventyNavigationToHtml(options) }}
+```
+
+---
+
 ## 🔗 Quick References
 
 ### Essential Files
 ```
-.eleventy.js         # Config - build settings
+.eleventy.js         # Config - build settings, navigation plugin
 package.json         # Dependencies and scripts
+tailwind.config.js   # Tailwind customizations
+postcss.config.js    # PostCSS pipeline config
 src/_data/site.json  # Global site data
 src/index.njk        # Homepage
 README.md           # Project documentation
@@ -385,9 +470,12 @@ README.md           # Project documentation
 ### NPM Scripts
 ```json
 {
-  "build": "eleventy",
-  "serve": "eleventy --serve",
-  "debug": "DEBUG=* eleventy"
+  "build:css": "postcss src/assets/css/tailwind.css -o _site/assets/css/main.css",
+  "build:eleventy": "eleventy",
+  "build": "npm run build:css && npm run build:eleventy",
+  "watch:css": "postcss src/assets/css/tailwind.css -o _site/assets/css/main.css --watch",
+  "watch:eleventy": "eleventy --serve",
+  "serve": "npm-run-all --parallel watch:*"
 }
 ```
 
@@ -398,14 +486,18 @@ README.md           # Project documentation
 ### Quick Tasks
 - **Update copyright year:** Edit `src/_data/site.json`
 - **Change site title:** Edit `src/_data/site.json`
-- **Add navigation item:** Edit `src/_includes/layouts/base.njk`
-- **Update CSS:** Edit `src/assets/css/main.css`
+- **Add navigation item:** Add `eleventyNavigation` to page frontmatter
+- **Update Tailwind theme:** Edit `tailwind.config.js`
+- **Toggle dark mode:** Click moon/sun icon in header
+- **Add custom CSS:** Edit `src/assets/css/tailwind.css` with @layer
 
 ### Complex Tasks
 For complex tasks, load these specific sections:
-- **Redesign:** `styling-architecture` + `templates`
-- **Add features:** `eleventy-config` + `development-workflow`
-- **Performance:** `troubleshooting` + `github-actions`
+- **Redesign:** `tailwind-architecture` + `templates`
+- **Add features:** `eleventy-config` + `navigation-setup`
+- **Performance:** `tailwind-architecture` + `performance-metrics`
+- **Dark mode customization:** `tailwind-architecture` + `templates`
+- **Navigation structure:** `navigation-setup` + `content-management`
 - **Migration:** Full document scan recommended
 
 ---
@@ -413,21 +505,29 @@ For complex tasks, load these specific sections:
 ## 📈 Performance Metrics
 
 **Build Performance:**
-- Initial build: ~0.06s
-- Incremental: ~0.02s
+- Eleventy build: ~0.06s
+- Tailwind CSS build: ~1s
+- Incremental: ~0.02s (Eleventy) + ~0.5s (CSS)
 - Total files: ~5-10
 
 **Runtime Performance:**
-- No client JS required
-- CSS: ~3KB (unminified)
-- HTML: ~2-5KB per page
-- Total page weight: <50KB
+- Minimal client JS (dark mode toggle only)
+- CSS: ~25KB minified (Tailwind utilities)
+- HTML: ~5-10KB per page
+- Total page weight: <100KB
 
-**Optimization Opportunities:**
-- [ ] Minify CSS/HTML
-- [ ] Add image optimization
-- [ ] Implement CSS purging
-- [ ] Add service worker
+**Optimization Implemented:**
+- ✅ CSS minified in production (cssnano)
+- ✅ HTML semantic and accessible
+- ✅ Responsive images ready
+- ✅ Dark mode with no flash
+- ✅ Smooth animations with will-change
+
+**Future Optimizations:**
+- [ ] Implement Tailwind CSS purging
+- [ ] Add image optimization pipeline
+- [ ] Implement service worker
+- [ ] Add resource hints (preconnect, prefetch)
 
 ---
 
@@ -496,6 +596,31 @@ Use these patterns with the standards router:
 - "Best practices for blog posts" → Loads CONT:writing + SEO:content
 - "Setting up GitHub Pages" → Loads GH:pages + GH:actions
 - "Accessibility checklist" → Loads WD:accessibility + FE:accessibility
+
+---
+
+## 📊 Changelog
+
+### [4.0.0] - 2024-01-24
+#### Added
+- Tailwind CSS architecture section with PostCSS pipeline details
+- Navigation setup section for eleventy-navigation plugin
+- Dark mode implementation guidance
+- Custom Tailwind components documentation
+- Parallel build scripts with npm-run-all
+
+#### Changed
+- Updated technology stack to include Tailwind CSS 3.0
+- Modified styling references from vanilla CSS to Tailwind
+- Enhanced build scripts section with CSS commands
+- Updated performance metrics for Tailwind CSS
+- Improved task navigation map with new sections
+
+#### Technical Updates
+- Build time now includes CSS processing (~1s)
+- CSS size increased to ~25KB (optimized Tailwind)
+- Added navigation helpers and examples
+- Document tokens increased to ~10,000
 
 ---
 

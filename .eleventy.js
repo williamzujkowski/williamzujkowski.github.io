@@ -1,4 +1,9 @@
+const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+
 module.exports = function(eleventyConfig) {
+  // Plugins
+  eleventyConfig.addPlugin(eleventyNavigationPlugin);
+
   // Copy static files
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/CNAME");
@@ -23,6 +28,11 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("htmlDateString", dateObj => {
     return new Date(dateObj).toISOString().split('T')[0];
+  });
+
+  // Limit filter
+  eleventyConfig.addFilter("limit", (array, limit) => {
+    return array.slice(0, limit);
   });
 
   return {

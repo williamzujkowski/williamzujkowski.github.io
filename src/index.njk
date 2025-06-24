@@ -2,18 +2,184 @@
 layout: base
 title: Home
 description: Welcome to the personal website of William Zujkowski
+eleventyNavigation:
+  key: Home
+  order: 1
 ---
-<section class="hero">
-    <h1>Welcome to William Zujkowski's Website</h1>
-    <p class="lead">Exploring technology, sharing knowledge, and building the future.</p>
+
+<!-- Hero Section -->
+<section class="relative isolate overflow-hidden bg-gradient-to-b from-primary-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary-400 to-primary-600 opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
+        <div class="mx-auto max-w-3xl text-center">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl animate-fade-in-up">
+                Hi, I'm <span class="gradient-text">William Zujkowski</span>
+            </h1>
+            <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 animate-fade-in-up animation-delay-200">
+                Exploring technology, sharing knowledge, and building the future. 
+                Welcome to my digital space where I write about web development, 
+                software engineering, and the intersection of technology and creativity.
+            </p>
+            <div class="mt-10 flex items-center justify-center gap-x-6 animate-fade-in-up animation-delay-400">
+                <a href="/about/" class="btn-primary">
+                    Learn more about me
+                </a>
+                <a href="/posts/" class="btn-ghost">
+                    Read my posts <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+        <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-primary-400 to-primary-600 opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"></div>
+    </div>
 </section>
 
-<section class="recent-posts">
-    <h2>Recent Posts</h2>
-    <p>Coming soon...</p>
+<!-- Recent Posts Section -->
+<section class="py-16 sm:py-24 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+                Recent Posts
+            </h2>
+            <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-300">
+                Thoughts and insights on technology, development, and more.
+            </p>
+        </div>
+        
+        <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            {% set posts = collections.posts | reverse %}
+            {% if posts.length > 0 %}
+                {% for post in posts | limit(3) %}
+                <article class="group hover-card glass dark:glass-dark rounded-2xl p-8">
+                    <time datetime="{{ post.date | htmlDateString }}" class="text-sm text-gray-500 dark:text-gray-400">
+                        {{ post.date | readableDate }}
+                    </time>
+                    <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                        <a href="{{ post.url }}">
+                            <span class="absolute inset-0"></span>
+                            {{ post.data.title }}
+                        </a>
+                    </h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300 line-clamp-3">
+                        {{ post.data.description }}
+                    </p>
+                    <div class="mt-4">
+                        <a href="{{ post.url }}" class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                            Read more <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
+            {% else %}
+                <div class="col-span-full text-center py-12">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-gray-100">No posts yet</h3>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating your first post.</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        {% if posts.length > 3 %}
+        <div class="mt-16 text-center">
+            <a href="/posts/" class="btn-primary">
+                View all posts
+            </a>
+        </div>
+        {% endif %}
+    </div>
 </section>
 
-<section class="contact-cta">
-    <h2>Get in Touch</h2>
-    <p>Feel free to <a href="/contact/">reach out</a> if you'd like to connect or collaborate.</p>
+<!-- Features Section -->
+<section class="py-16 sm:py-24 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+                What I Do
+            </h2>
+            <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-300">
+                Areas of expertise and interests
+            </p>
+        </div>
+        
+        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                <div class="flex flex-col">
+                    <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
+                            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                            </svg>
+                        </div>
+                        Web Development
+                    </dt>
+                    <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
+                        <p class="flex-auto">Building modern, responsive web applications with the latest technologies and best practices.</p>
+                    </dd>
+                </div>
+                
+                <div class="flex flex-col">
+                    <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
+                            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            </svg>
+                        </div>
+                        Performance Optimization
+                    </dt>
+                    <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
+                        <p class="flex-auto">Ensuring fast, efficient, and scalable solutions that provide excellent user experiences.</p>
+                    </dd>
+                </div>
+                
+                <div class="flex flex-col">
+                    <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
+                            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </div>
+                        Technical Writing
+                    </dt>
+                    <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
+                        <p class="flex-auto">Sharing knowledge through clear, comprehensive technical documentation and tutorials.</p>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 sm:py-24 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass dark:glass-dark rounded-3xl px-6 py-16 sm:px-12 sm:py-20 lg:px-16">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+                    Let's Connect
+                </h2>
+                <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600 dark:text-gray-300">
+                    Have a project in mind or just want to chat about technology? 
+                    I'd love to hear from you.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6">
+                    <a href="/contact/" class="btn-primary">
+                        Get in touch
+                    </a>
+                    <a href="https://github.com/williamzujkowski" class="btn-secondary">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

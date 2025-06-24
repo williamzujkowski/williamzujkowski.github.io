@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,37 +11,210 @@
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="alternate icon" href="/assets/images/favicon.ico">
+    
+    <!-- Open Graph -->
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{{ description or site.description }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:image" content="{{ site.url }}/assets/images/og-image.jpg">
     
-    <meta name="twitter:card" content="summary">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ title }}">
     <meta name="twitter:description" content="{{ description or site.description }}">
-</head>
-<body>
-    <a href="#main" class="skip-link">Skip to main content</a>
+    <meta name="twitter:image" content="{{ site.url }}/assets/images/og-image.jpg">
     
-    <header role="banner">
-        <nav aria-label="Primary navigation">
-            <a href="/" class="site-title">{{ site.title }}</a>
-            <ul class="nav-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><a href="/posts/">Posts</a></li>
-                <li><a href="/contact/">Contact</a></li>
-            </ul>
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- Dark mode script -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
+    <!-- Skip to main content -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md">
+        Skip to main content
+    </a>
+    
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl font-semibold gradient-text">
+                        {{ site.title }}
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        {{ collections.all | eleventyNavigation | eleventyNavigationToHtml({
+                            listClass: "flex items-center space-x-1",
+                            listItemClass: "",
+                            anchorClass: "px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200",
+                            activeAnchorClass: "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400",
+                            markdownIteration: false
+                        }) | safe }}
+                    </div>
+                </div>
+                
+                <!-- Dark mode toggle & Mobile menu button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
+                        <!-- Light mode icon -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Dark mode icon -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    {{ collections.all | eleventyNavigation | eleventyNavigationToHtml({
+                        listClass: "space-y-1",
+                        listItemClass: "",
+                        anchorClass: "block px-3 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200",
+                        activeAnchorClass: "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400",
+                        markdownIteration: false
+                    }) | safe }}
+                </div>
+            </div>
         </nav>
     </header>
     
-    <main id="main" role="main">
+    <!-- Breadcrumbs -->
+    {% if eleventyNavigation and eleventyNavigation.key %}
+    {% set breadcrumbs = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key) %}
+    {% if breadcrumbs and breadcrumbs.length > 0 %}
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2 text-sm">
+            <li>
+                <a href="/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Home</a>
+            </li>
+            {% for crumb in breadcrumbs %}
+            <li class="flex items-center">
+                <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                {% if loop.last %}
+                    <span class="text-gray-900 dark:text-gray-100 font-medium">{{ crumb.title }}</span>
+                {% else %}
+                    <a href="{{ crumb.url }}" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">{{ crumb.title }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    </nav>
+    {% endif %}
+    {% endif %}
+    
+    <!-- Main content -->
+    <main id="main" class="flex-grow">
         {{ content | safe }}
     </main>
     
-    <footer role="contentinfo">
-        <p>&copy; {{ site.currentYear }} {{ site.author }}. All rights reserved.</p>
-        <p>Built with <a href="https://www.11ty.dev/">Eleventy</a> and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Personal website of {{ site.author }}, exploring technology and sharing knowledge.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        {{ collections.all | eleventyNavigation | eleventyNavigationToHtml({
+                            listClass: "space-y-2",
+                            listItemClass: "",
+                            anchorClass: "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200",
+                            markdownIteration: false
+                        }) | safe }}
+                    </ul>
+                </div>
+                
+                <!-- Connect -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="Twitter">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    &copy; {{ site.currentYear }} {{ site.author }}. All rights reserved. 
+                    Built with <a href="https://www.11ty.dev/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Eleventy</a> 
+                    and <a href="https://tailwindcss.com/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Tailwind CSS</a>.
+                </p>
+            </div>
+        </div>
     </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

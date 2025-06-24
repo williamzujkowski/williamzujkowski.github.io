@@ -1,6 +1,6 @@
 # Content Creation Guide
 
-**Version:** 1.0.0  
+**Version:** 2.0.0  
 **Last Updated:** 2024-01-24  
 **Status:** Active  
 **Category:** Guide
@@ -45,6 +45,10 @@
    ```
 
 4. Visit http://localhost:8080/posts/my-first-post/
+
+### Navigation Note
+
+Blog posts automatically appear in the posts listing but are NOT added to the main navigation menu. To add pages to navigation, see [Static Pages](#static-pages) section.
 
 ---
 
@@ -158,11 +162,45 @@ layout: page                     # Required
 title: "Page Title"             # Required  
 description: "Page description" # Required
 permalink: /custom-url/         # Required
-navigation:                     # Optional
-  order: 1
-  label: "Nav Label"
+eleventyNavigation:             # Required for menu inclusion
+  key: Page Name                # Required - unique identifier
+  title: Menu Title             # Optional - overrides page title in menu
+  order: 5                      # Optional - controls menu order (lower = first)
+  parent: Parent Page           # Optional - creates nested navigation
 ---
 ```
+
+### [NEW] Navigation System
+
+The site uses `eleventy-navigation` plugin for automatic menu generation:
+
+1. **Basic Navigation Entry:**
+   ```yaml
+   eleventyNavigation:
+     key: About          # Shows "About" in menu
+   ```
+
+2. **Custom Menu Title:**
+   ```yaml
+   eleventyNavigation:
+     key: about-page
+     title: About Me     # Shows "About Me" instead of page title
+   ```
+
+3. **Ordered Navigation:**
+   ```yaml
+   eleventyNavigation:
+     key: Home
+     order: 1           # First in menu
+   ```
+
+4. **Nested Navigation:**
+   ```yaml
+   eleventyNavigation:
+     key: Team
+     parent: About      # Appears under "About" in menu
+     order: 2
+   ```
 
 ### Common Pages
 
@@ -173,6 +211,9 @@ layout: page
 title: About
 description: Learn more about William Zujkowski
 permalink: /about/
+eleventyNavigation:
+  key: About
+  order: 2
 ---
 
 # About Me
@@ -199,6 +240,9 @@ layout: page
 title: Projects
 description: Featured projects and work
 permalink: /projects/
+eleventyNavigation:
+  key: Projects
+  order: 3
 ---
 
 # Projects
@@ -209,6 +253,24 @@ permalink: /projects/
 **Link:** [View Project](#)
 
 Description of the project...
+```
+
+**Contact Page with Nested Navigation** (`src/pages/contact.md`):
+```markdown
+---
+layout: page
+title: Contact
+description: Get in touch with me
+permalink: /contact/
+eleventyNavigation:
+  key: Contact
+  parent: About    # Nested under About
+  order: 1
+---
+
+# Contact Me
+
+Feel free to reach out...
 ```
 
 ---
@@ -255,6 +317,55 @@ With caption:
   <figcaption>Image caption goes here</figcaption>
 </figure>
 ```
+
+---
+
+## Styling with Tailwind CSS
+
+### [NEW] Content Styling
+
+The site uses Tailwind CSS with the Typography plugin for beautiful content styling:
+
+1. **Prose Classes for Content**
+   ```markdown
+   All Markdown content is automatically wrapped in Tailwind's prose classes:
+   - Light mode: `prose prose-lg prose-gray`
+   - Dark mode: `prose-invert`
+   - Responsive: `lg:prose-xl`
+   ```
+
+2. **Custom Components in Content**
+   ```html
+   <!-- Alert box -->
+   <div class="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-4 my-6">
+     <p class="text-blue-800 dark:text-blue-200">
+       💡 <strong>Tip:</strong> Your helpful information here
+     </p>
+   </div>
+
+   <!-- Call-to-action button -->
+   <a href="#" class="inline-block px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+     Get Started
+   </a>
+   ```
+
+3. **Code Block Styling**
+   - Code blocks are automatically styled with syntax highlighting
+   - Dark mode compatible
+   - Scrollable for long lines
+
+4. **Responsive Images**
+   ```html
+   <!-- Full-width responsive image -->
+   <img src="/assets/images/hero.jpg" 
+        alt="Description" 
+        class="w-full h-auto rounded-lg shadow-lg">
+   
+   <!-- Centered image with max width -->
+   <img src="/assets/images/diagram.png" 
+        alt="Description" 
+        class="mx-auto max-w-2xl h-auto">
+   ```
 
 ---
 
@@ -358,7 +469,20 @@ tags: []
 ---
 ```
 
-**Page:**
+**Page with Navigation:**
+```yaml
+---
+layout: page
+title: ""
+description: ""
+permalink: //
+eleventyNavigation:
+  key: ""
+  order: 1
+---
+```
+
+**Page without Navigation:**
 ```yaml
 ---
 layout: page
@@ -399,3 +523,25 @@ permalink: //
 - [Site Documentation Standards](../standards/SITE_DOCUMENTATION_STANDARDS.md)
 - [Development Guide](DEVELOPMENT_GUIDE.md)
 - [README.md](../../README.md)
+
+---
+
+## Changelog
+
+### [2.0.0] - 2024-01-24
+#### Added
+- Navigation system documentation for eleventy-navigation plugin
+- Tailwind CSS content styling section
+- Examples of nested navigation
+- Custom component examples for content
+- Updated frontmatter templates with navigation
+
+#### Changed
+- All page examples now include eleventyNavigation configuration
+- Added navigation note to blog posts section
+- Updated version to 2.0.0
+
+#### Technical Updates
+- Pages require eleventyNavigation key for menu inclusion
+- Support for hierarchical navigation with parent key
+- Menu ordering with order property

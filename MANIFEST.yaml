@@ -1,10 +1,11 @@
 # Knowledge Management Manifest
 # Machine-readable metadata for AI assistants and automation tools
 
-version: "2.0.0"
+version: "3.0.0"
 last_updated: "2024-01-24"
 type: "personal-website"
 framework: "eleventy"
+styling_framework: "tailwindcss"
 standards_integration: true
 
 # Repository Metadata
@@ -17,12 +18,13 @@ repository:
   
 # Token Budget Overview
 token_summary:
-  total_estimated: 8000
+  total_estimated: 12000
   by_category:
-    documentation: 3000
-    source_code: 2500
-    configuration: 1000
+    documentation: 4000
+    source_code: 3500
+    configuration: 2000
     content: 1500
+    styling: 1000
 
 # Document Registry
 documents:
@@ -48,7 +50,7 @@ documents:
   - id: "claude"
     file: "CLAUDE.md"
     type: "ai-interface"
-    tokens: 2000
+    tokens: 3000
     priority: "critical"
     sections:
       quick_start:
@@ -60,6 +62,12 @@ documents:
       architecture:
         tokens: 500
         description: "Technical overview"
+      tailwind_architecture:
+        tokens: 800
+        description: "Tailwind CSS implementation"
+      navigation_setup:
+        tokens: 400
+        description: "eleventy-navigation plugin"
       troubleshooting:
         tokens: 800
         description: "Common issues and fixes"
@@ -74,6 +82,8 @@ documents:
       - "Asset passthrough"
       - "Date filters"
       - "Layout aliases"
+      - "eleventy-navigation plugin"
+      - "Limit filter for collections"
       
   - id: "package_json"
     file: "package.json"
@@ -87,6 +97,24 @@ documents:
     tokens: 400
     priority: "medium"
     purpose: "Build and deploy pipeline"
+    
+  - id: "tailwind_config"
+    file: "tailwind.config.js"
+    type: "configuration"
+    tokens: 300
+    priority: "high"
+    features:
+      - "Custom color palette"
+      - "Dark mode configuration"
+      - "Typography plugin"
+      - "Forms plugin"
+      
+  - id: "postcss_config"
+    file: "postcss.config.js"
+    type: "configuration"
+    tokens: 100
+    priority: "medium"
+    purpose: "CSS processing pipeline"
 
 # Content Structure
 content:
@@ -121,17 +149,25 @@ stack:
   static_site_generator:
     name: "Eleventy"
     version: "2.0.1"
+    plugins:
+      - "@11ty/eleventy-navigation"
     
   templating:
     engine: "Nunjucks"
     file_extension: ".njk"
     
   styling:
-    approach: "Vanilla CSS"
+    framework: "Tailwind CSS"
+    version: "3.4.17"
+    build_process: "PostCSS"
     features:
-      - "CSS Custom Properties"
-      - "Mobile-first responsive"
-      - "No build step required"
+      - "Utility-first CSS"
+      - "Dark mode support"
+      - "Typography plugin"
+      - "Forms plugin"
+      - "Glass morphism effects"
+      - "Custom color palette"
+      - "Production optimization"
       
   deployment:
     platform: "GitHub Pages"
@@ -171,16 +207,19 @@ task_mappings:
     load: ["content.posts", "claude:content_management"]
     
   - task: "update styling"
-    load: ["claude:styling_architecture", "stack.styling"]
+    load: ["claude:tailwind_architecture", "tailwind_config", "stack.styling"]
     
   - task: "fix deployment"
     load: ["github_actions", "claude:troubleshooting"]
     
   - task: "modify navigation"
-    load: ["content.templates", "eleventy_config"]
+    load: ["claude:navigation_setup", "eleventy_config", "content.templates"]
     
   - task: "optimize performance"
-    load: ["claude:performance_metrics", "stack"]
+    load: ["claude:performance_metrics", "tailwind_config", "postcss_config"]
+    
+  - task: "customize dark mode"
+    load: ["claude:tailwind_architecture", "tailwind_config", "content.templates"]
 
 # Relationships
 relationships:
@@ -236,12 +275,18 @@ automation:
   build:
     command: "npm run build"
     output: "_site/"
-    time: "~0.06s"
+    time: "~1.5s (includes CSS build)"
+    steps:
+      - "Build Tailwind CSS with PostCSS"
+      - "Build Eleventy site"
     
   serve:
     command: "npm run serve"
     port: 8080
     hot_reload: true
+    parallel_tasks:
+      - "Watch CSS changes"
+      - "Eleventy dev server"
     
   deploy:
     trigger: "push to main"
@@ -259,6 +304,8 @@ quick_reference:
     install: "npm install"
     dev: "npm run serve"
     build: "npm run build"
+    build_css: "npm run build:css"
+    watch_css: "npm run watch:css"
     
   urls:
     live: "https://williamzujkowski.github.io/"
@@ -266,6 +313,45 @@ quick_reference:
     
   key_files:
     config: ".eleventy.js"
-    styles: "src/assets/css/main.css"
+    tailwind_config: "tailwind.config.js"
+    postcss_config: "postcss.config.js"
+    styles: "src/assets/css/tailwind.css"
     home: "src/index.njk"
     global_data: "src/_data/site.json"
+    
+  dependencies:
+    production:
+      - "@11ty/eleventy"
+      - "@11ty/eleventy-navigation"
+    development:
+      - "tailwindcss"
+      - "postcss"
+      - "autoprefixer"
+      - "cssnano"
+      - "@tailwindcss/typography"
+      - "@tailwindcss/forms"
+      - "npm-run-all"
+
+# Version History
+changelog:
+  - version: "3.0.0"
+    date: "2024-01-24"
+    changes:
+      - "Added Tailwind CSS framework"
+      - "Integrated eleventy-navigation plugin"
+      - "Added PostCSS build pipeline"
+      - "Updated token estimates for new architecture"
+      - "Added new configuration files tracking"
+      - "Enhanced task mappings for CSS workflows"
+      - "Added dark mode and navigation tasks"
+  - version: "2.0.0"
+    date: "2024-01-24"
+    changes:
+      - "Full standards integration via submodule"
+      - "Applied standards mapping"
+      - "Enhanced documentation structure"
+  - version: "1.0.0"
+    date: "2024-01-24"
+    changes:
+      - "Initial manifest creation"
+      - "Basic Eleventy setup documentation"
