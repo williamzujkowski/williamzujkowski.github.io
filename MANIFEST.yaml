@@ -1,0 +1,271 @@
+# Knowledge Management Manifest
+# Machine-readable metadata for AI assistants and automation tools
+
+version: "2.0.0"
+last_updated: "2024-01-24"
+type: "personal-website"
+framework: "eleventy"
+standards_integration: true
+
+# Repository Metadata
+repository:
+  name: "williamzujkowski.github.io"
+  description: "Personal website with blog, portfolio, and professional information"
+  primary_language: "JavaScript"
+  deployment: "github-pages"
+  status: "active"
+  
+# Token Budget Overview
+token_summary:
+  total_estimated: 8000
+  by_category:
+    documentation: 3000
+    source_code: 2500
+    configuration: 1000
+    content: 1500
+
+# Document Registry
+documents:
+  - id: "readme"
+    file: "README.md"
+    type: "documentation"
+    tokens: 1200
+    priority: "high"
+    sections:
+      overview:
+        tokens: 200
+        description: "Project introduction and quick start"
+      structure:
+        tokens: 300
+        description: "Repository organization"
+      setup:
+        tokens: 400
+        description: "Installation and development"
+      deployment:
+        tokens: 300
+        description: "CI/CD and hosting"
+        
+  - id: "claude"
+    file: "CLAUDE.md"
+    type: "ai-interface"
+    tokens: 2000
+    priority: "critical"
+    sections:
+      quick_start:
+        tokens: 200
+        description: "AI assistant commands"
+      navigation:
+        tokens: 300
+        description: "Task-based loading map"
+      architecture:
+        tokens: 500
+        description: "Technical overview"
+      troubleshooting:
+        tokens: 800
+        description: "Common issues and fixes"
+        
+  - id: "eleventy_config"
+    file: ".eleventy.js"
+    type: "configuration"
+    tokens: 500
+    priority: "high"
+    features:
+      - "Template engine setup"
+      - "Asset passthrough"
+      - "Date filters"
+      - "Layout aliases"
+      
+  - id: "package_json"
+    file: "package.json"
+    type: "configuration"
+    tokens: 200
+    priority: "medium"
+    
+  - id: "github_actions"
+    file: ".github/workflows/eleventy_build.yml"
+    type: "automation"
+    tokens: 400
+    priority: "medium"
+    purpose: "Build and deploy pipeline"
+
+# Content Structure
+content:
+  pages:
+    location: "src/pages/"
+    format: "markdown"
+    layout: "page"
+    current:
+      - "about.md"
+      - "contact.md"
+      - "posts.njk"
+      
+  posts:
+    location: "src/posts/"
+    format: "markdown"
+    layout: "post"
+    features:
+      - "Date-based URLs"
+      - "Tag support"
+      - "Automatic listing"
+      
+  templates:
+    location: "src/_includes/layouts/"
+    format: "nunjucks"
+    hierarchy:
+      base: "HTML skeleton"
+      page: "Static page wrapper"
+      post: "Blog post wrapper"
+
+# Technical Stack
+stack:
+  static_site_generator:
+    name: "Eleventy"
+    version: "2.0.1"
+    
+  templating:
+    engine: "Nunjucks"
+    file_extension: ".njk"
+    
+  styling:
+    approach: "Vanilla CSS"
+    features:
+      - "CSS Custom Properties"
+      - "Mobile-first responsive"
+      - "No build step required"
+      
+  deployment:
+    platform: "GitHub Pages"
+    method: "GitHub Actions"
+    branch: "gh-pages"
+    
+  standards:
+    integrated: true
+    location: ".standards/"
+    type: "git-submodule"
+
+# Progressive Loading Strategies
+loading_strategies:
+  minimal:
+    description: "Quick overview only"
+    load: ["claude:quick_start", "readme:overview"]
+    tokens: ~400
+    
+  standard:
+    description: "Common development tasks"
+    load: ["claude:navigation", "claude:architecture", "readme:setup"]
+    tokens: ~1000
+    
+  comprehensive:
+    description: "Full documentation"
+    load: ["*"]
+    tokens: ~8000
+    
+  troubleshooting:
+    description: "Debugging and fixes"
+    load: ["claude:troubleshooting", "github_actions", "eleventy_config"]
+    tokens: ~1700
+
+# Task Mappings
+task_mappings:
+  - task: "add blog post"
+    load: ["content.posts", "claude:content_management"]
+    
+  - task: "update styling"
+    load: ["claude:styling_architecture", "stack.styling"]
+    
+  - task: "fix deployment"
+    load: ["github_actions", "claude:troubleshooting"]
+    
+  - task: "modify navigation"
+    load: ["content.templates", "eleventy_config"]
+    
+  - task: "optimize performance"
+    load: ["claude:performance_metrics", "stack"]
+
+# Relationships
+relationships:
+  dependencies:
+    readme:
+      references: ["eleventy_config", "package_json"]
+    claude:
+      references: ["all"]
+    github_actions:
+      depends_on: ["package_json", "eleventy_config"]
+      
+  standards_compliance:
+    knowledge_management: "implemented"
+    coding_standards: "via_submodule"
+    testing_standards: "basic_verification"
+    security_standards: "github_pages_model"
+    
+  applied_standards:
+    primary:
+      - standard: "KM"
+        name: "Knowledge Management"
+        implementation: "CLAUDE.md, MANIFEST.yaml, documentation structure"
+      - standard: "FE"
+        name: "Frontend & Mobile"
+        implementation: "Component architecture, performance optimization"
+      - standard: "WD"
+        name: "Web Design & UX"
+        implementation: "Design tokens, typography, accessibility"
+      - standard: "SEO"
+        name: "SEO & Web Marketing"
+        implementation: "Meta tags, structured data ready"
+      - standard: "CONT"
+        name: "Content Standards"
+        implementation: "Blog post structure, content guidelines"
+      - standard: "GH"
+        name: "GitHub Platform"
+        implementation: "GitHub Pages, Actions workflows"
+    supporting:
+      - standard: "CS"
+        name: "Coding Standards"
+        reference: ".standards/docs/standards/CODING_STANDARDS.md"
+      - standard: "TOOL"
+        name: "Toolchain Standards"
+        reference: ".standards/docs/standards/TOOLCHAIN_STANDARDS.md"
+        
+  standards_router:
+    location: ".standards/docs/core/CLAUDE.md"
+    version: "3.0.0"
+    usage: "Use for all standards queries and guidance"
+
+# Automation Capabilities
+automation:
+  build:
+    command: "npm run build"
+    output: "_site/"
+    time: "~0.06s"
+    
+  serve:
+    command: "npm run serve"
+    port: 8080
+    hot_reload: true
+    
+  deploy:
+    trigger: "push to main"
+    platform: "GitHub Actions"
+    time: "~30s"
+    
+  validation:
+    html: "W3C validator in CI"
+    links: "Manual verification"
+    accessibility: "Planned"
+
+# Quick Reference
+quick_reference:
+  commands:
+    install: "npm install"
+    dev: "npm run serve"
+    build: "npm run build"
+    
+  urls:
+    live: "https://williamzujkowski.github.io/"
+    repo: "https://github.com/williamzujkowski/williamzujkowski.github.io"
+    
+  key_files:
+    config: ".eleventy.js"
+    styles: "src/assets/css/main.css"
+    home: "src/index.njk"
+    global_data: "src/_data/site.json"

@@ -1,6 +1,16 @@
 # williamzujkowski.github.io
 
+**Version:** 2.0.0  
+**Last Updated:** 2024-01-24  
+**Status:** Active  
+**Type:** Personal Website
+
 Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/) and hosted on GitHub Pages.
+
+> **Note:** This repository implements comprehensive development standards via the [.standards](https://github.com/williamzujkowski/standards) submodule.
+> 
+> - **For AI assistants:** Use [CLAUDE.md](CLAUDE.md) for site navigation and [.standards/docs/core/CLAUDE.md](.standards/docs/core/CLAUDE.md) for standards guidance
+> - **For developers:** See [Standards Implementation Checklist](docs/STANDARDS_IMPLEMENTATION_CHECKLIST.md)
 
 ## 🚀 Quick Start
 
@@ -112,16 +122,32 @@ Modify `.eleventy.js` to:
 - Set up filters
 - Adjust build settings
 
-## 📚 Standards Integration
+## 📚 Knowledge Management
+
+This project implements comprehensive knowledge management:
+
+### Documentation
+- **[CLAUDE.md](CLAUDE.md)** - AI-optimized interface for assistants
+- **[MANIFEST.yaml](MANIFEST.yaml)** - Machine-readable metadata
+- **[Content Guide](docs/guides/CONTENT_GUIDE.md)** - How to create content
+- **[Documentation Standards](docs/standards/SITE_DOCUMENTATION_STANDARDS.md)** - Documentation guidelines
+
+### Standards Integration
 
 This project follows the guidelines from the [standards repository](https://github.com/williamzujkowski/standards), which is included as a submodule at `.standards/`.
 
 Key standards applied:
-- Semantic HTML structure
-- Accessible navigation
-- Performance optimization
-- Security best practices
-- Automated testing and deployment
+- **KM** - Knowledge Management Standards (this README structure)
+- **CS** - Coding Standards (via submodule)
+- **TS** - Testing Standards (build verification)
+- **SEC** - Security Standards (GitHub Pages model)
+
+### For AI Assistants
+
+Use these commands in CLAUDE.md:
+- `@load content-management` - Learn about posts/pages
+- `@load troubleshooting` - Debug issues
+- `@summary` - Get quick overview
 
 ## 🤝 Contributing
 
@@ -139,3 +165,27 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **Live Site**: https://williamzujkowski.github.io
 - **Standards**: https://github.com/williamzujkowski/standards
 - **Eleventy Docs**: https://www.11ty.dev/docs/
+
+---
+
+## 📊 Changelog
+
+### [2.0.0] - 2024-01-24
+#### Added
+- Full integration with .standards submodule router
+- Standards implementation checklist
+- Applied standards: FE, WD, SEO, CONT, GH, TOOL
+- Enhanced CLAUDE.md with standards commands
+
+### [1.0.0] - 2024-01-24
+#### Added
+- Initial Eleventy site setup
+- Knowledge Management Standards implementation
+- CLAUDE.md AI interface
+- MANIFEST.yaml metadata
+- GitHub Actions CI/CD
+- Documentation structure
+
+---
+
+**Note:** This README follows Knowledge Management Standards v1.0.0. For detailed documentation navigation, consult [CLAUDE.md](CLAUDE.md).

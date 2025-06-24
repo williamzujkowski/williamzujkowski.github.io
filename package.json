@@ -5,12 +5,18 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
-    "debug": "DEBUG=* eleventy"
+    "debug": "DEBUG=* eleventy",
+    "validate:km": "node tools/validation/validate-km-standards.js"
   },
-  "keywords": ["eleventy", "personal", "website"],
+  "keywords": [
+    "eleventy",
+    "personal",
+    "website"
+  ],
   "author": "William Zujkowski",
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1"
+    "@11ty/eleventy": "^2.0.1",
+    "js-yaml": "^4.1.0"
   }
 }
