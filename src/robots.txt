@@ -1,0 +1,6 @@
+# robots.txt for https://williamzujkowski.github.io
+
+User-agent: *
+Allow: /
+
+Sitemap: https://williamzujkowski.github.io/sitemap.xml

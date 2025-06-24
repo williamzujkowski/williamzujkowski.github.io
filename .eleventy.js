@@ -8,6 +8,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
 
   // Watch for changes
   eleventyConfig.addWatchTarget("src/assets/");
@@ -33,6 +34,24 @@ module.exports = function(eleventyConfig) {
   // Limit filter
   eleventyConfig.addFilter("limit", (array, limit) => {
     return array.slice(0, limit);
+  });
+
+  // Get the newest date from a collection
+  eleventyConfig.addFilter("getNewestCollectionItemDate", collection => {
+    if (!collection || !collection.length) {
+      return new Date();
+    }
+    return new Date(Math.max(...collection.map(item => item.date)));
+  });
+
+  // Convert URLs to absolute URLs for RSS
+  eleventyConfig.addFilter("htmlToAbsoluteUrls", (htmlContent, base) => {
+    if (!htmlContent) return '';
+    
+    // Simple regex to convert relative URLs to absolute
+    return htmlContent
+      .replace(/src="\/([^"]+)"/g, `src="${base}/$1"`)
+      .replace(/href="\/([^"]+)"/g, `href="${base}/$1"`);
   });
 
   return {
