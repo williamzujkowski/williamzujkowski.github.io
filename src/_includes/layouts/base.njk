@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ description or site.description }}">
+    <meta name="author" content="{{ site.author }}">
+    
+    <title>{{ title }} - {{ site.title }}</title>
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+    
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description or site.description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ description or site.description }}">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <nav aria-label="Primary navigation">
+            <a href="/" class="site-title">{{ site.title }}</a>
+            <ul class="nav-list">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/posts/">Posts</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main id="main" role="main">
+        {{ content | safe }}
+    </main>
+    
+    <footer role="contentinfo">
+        <p>&copy; {{ site.currentYear }} {{ site.author }}. All rights reserved.</p>
+        <p>Built with <a href="https://www.11ty.dev/">Eleventy</a> and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+    </footer>
+</body>
+</html>

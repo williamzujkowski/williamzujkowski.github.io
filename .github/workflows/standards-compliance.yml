@@ -1,0 +1,40 @@
+name: Standards Compliance Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: _site/
+
+      - name: Check accessibility
+        uses: a11ywatch/github-action@v1.15.0
+        with:
+          WEBSITE_URL: "https://williamzujkowski.github.io"
+          SUBDOMAINS: false
+          SITEMAP: true

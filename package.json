@@ -1,0 +1,16 @@
+{
+  "name": "williamzujkowski.github.io",
+  "version": "1.0.0",
+  "description": "Personal website of William Zujkowski",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "debug": "DEBUG=* eleventy"
+  },
+  "keywords": ["eleventy", "personal", "website"],
+  "author": "William Zujkowski",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
