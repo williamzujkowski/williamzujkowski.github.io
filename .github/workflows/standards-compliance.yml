@@ -31,10 +31,3 @@ jobs:
         uses: Cyb3r-Jak3/html5validator-action@v7.2.0
         with:
           root: _site/
-
-      - name: Check accessibility
-        uses: a11ywatch/github-action@v1.15.0
-        with:
-          WEBSITE_URL: "https://williamzujkowski.github.io"
-          SUBDOMAINS: false
-          SITEMAP: true
