@@ -1,11 +1,11 @@
 # williamzujkowski.github.io
 
-**Version:** 2.1.0  
-**Last Updated:** 2025-01-27  
+**Version:** 2.2.0  
+**Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** Personal Website
 
-Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features blog posts about security, homelab projects, and professional experience.
+Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features blog posts about security, AI/ML projects, homelab experiments, and career development. Showcases personal open-source projects and professional experience in cybersecurity.
 
 > **Note:** This repository implements comprehensive development standards via the [.standards](https://github.com/williamzujkowski/standards) submodule.
 > 

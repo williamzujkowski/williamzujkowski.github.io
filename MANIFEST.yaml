@@ -1,8 +1,8 @@
 # Knowledge Management Manifest
 # Machine-readable metadata for AI assistants and automation tools
 
-version: "3.0.0"
-last_updated: "2024-01-24"
+version: "3.1.0"
+last_updated: "2025-06-25"
 type: "personal-website"
 framework: "eleventy"
 styling_framework: "tailwindcss"
@@ -11,19 +11,19 @@ standards_integration: true
 # Repository Metadata
 repository:
   name: "williamzujkowski.github.io"
-  description: "Personal website with blog, portfolio, and professional information"
+  description: "Personal website showcasing AI/ML projects, security expertise, and open-source contributions"
   primary_language: "JavaScript"
   deployment: "github-pages"
   status: "active"
   
 # Token Budget Overview
 token_summary:
-  total_estimated: 12000
+  total_estimated: 15000
   by_category:
-    documentation: 4000
-    source_code: 3500
+    documentation: 4500
+    source_code: 4000
     configuration: 2000
-    content: 1500
+    content: 3500
     styling: 1000
 
 # Document Registry
@@ -126,6 +126,12 @@ content:
       - "about.md"
       - "contact.md"
       - "posts.njk"
+      - "experience.md"
+      - "skills.md"
+      - "projects.md"
+      - "uses.md"
+      - "resources.md"
+      - "404.md"
       
   posts:
     location: "src/posts/"
@@ -334,6 +340,16 @@ quick_reference:
 
 # Version History
 changelog:
+  - version: "3.1.0"
+    date: "2025-06-25"
+    changes:
+      - "Added 6 blog posts on security, AI/ML, and career topics"
+      - "Created comprehensive professional pages (Experience, Skills, Projects, Uses, Resources)"
+      - "Implemented reading time estimates for all posts"
+      - "Added git-based last updated dates"
+      - "Updated Projects page to focus on personal GitHub projects"
+      - "Enhanced SEO with extended meta descriptions"
+      - "Added external link security (rel=noopener noreferrer)"
   - version: "3.0.0"
     date: "2024-01-24"
     changes:

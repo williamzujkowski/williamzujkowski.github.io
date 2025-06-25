@@ -1,7 +1,7 @@
 # AI Knowledge Router - williamzujkowski.github.io
 
-**Version:** 4.1.0  
-**Last Updated:** 2025-01-27  
+**Version:** 4.2.0  
+**Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** AI Interface Document
 

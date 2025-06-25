@@ -1,14 +1,14 @@
 # Website Development TODO List
 
 **Created:** 2025-01-24  
-**Last Updated:** 2025-01-27  
+**Last Updated:** 2025-06-25  
 **Status:** Active
 
 ## 📊 Progress Summary
 
-- **Completed:** About page, SEO enhancements, professional pages, initial blog posts
-- **In Progress:** Content creation, feature enhancements
-- **Up Next:** More blog posts, interactive features, image optimization
+- **Completed:** About page, SEO enhancements, professional pages, 6 blog posts, resources page, uses page, 404 page, reading time estimates
+- **In Progress:** Interactive features, additional blog content
+- **Up Next:** Contact form functionality, blog comments, search functionality
 
 ---
 
@@ -21,12 +21,12 @@
 - [x] Add links to GitHub, LinkedIn, and other professional profiles
 - [x] Add a professional photo or avatar ✅
 
-### 2. Add More Blog Posts ✅ (3 Initial Posts Created)
+### 2. Add More Blog Posts ✅ (6 Posts Published)
 - [x] **Homelab & Personal Projects**
   - [x] "Building a Security-Focused Homelab: My Journey" ✅
   - [x] "Automating Home Network Security with Python and Open Source Tools" ✅
   - [x] "Securing Your Personal AI/ML Experiments: A Practical Guide" ✅
-  - [ ] "Raspberry Pi Security Projects That Actually Solve Problems"
+  - [x] "Raspberry Pi Security Projects That Actually Solve Problems" ✅
   - [ ] "GPU Compute Cluster for AI Research: Lessons Learned"
 - [ ] **Security Engineering Tutorials**
   - [ ] "eBPF for Security Monitoring: A Practical Guide"
@@ -37,9 +37,9 @@
   - [ ] "Local LLM Deployment: Privacy-First Approach"
   - [ ] "RAG Implementation for Personal Knowledge Management"
   - [ ] "Threat Modeling for Personal AI Projects"
-- [ ] **Career & Leadership**
-  - [ ] "From IT Support to Senior InfoSec Engineer: My 15-Year Journey"
-  - [ ] "Continuous Learning in Cybersecurity: Strategies That Work"
+- [x] **Career & Leadership** ✅ (2 posts completed)
+  - [x] "From IT Support to Senior InfoSec Engineer: My 15-Year Journey" ✅
+  - [x] "Continuous Learning in Cybersecurity: Strategies That Work" ✅
   - [ ] "Building a Security Mindset: Lessons from the Field"
 
 ### 3. Create a Projects/Portfolio Section ✅
@@ -77,7 +77,7 @@
 - [ ] Create newsletter signup with email service integration
 - [ ] Add search functionality for posts
 - [ ] Implement social share buttons
-- [ ] Add reading time estimates for posts
+- [x] Add reading time estimates for posts ✅
 - [ ] **Security-Specific Features**
   - [ ] CVE tracker for discussed vulnerabilities
   - [ ] Security tool comparison matrix
@@ -105,8 +105,8 @@
   - [ ] "Resources for Breaking into Federal Cybersecurity"
 
 ### 7. Additional Enhancements
-- [ ] Add a uses page (/uses) listing tools and setup
-- [ ] Implement proper 404 page
+- [x] Add a uses page (/uses) listing tools and setup ✅
+- [x] Implement proper 404 page ✅
 - [ ] Add analytics (privacy-respecting option like Plausible)
 - [ ] Create a style guide page
 - [ ] Add print styles for articles
@@ -130,10 +130,10 @@
   - [ ] Conference talks and presentations
   - [ ] Published articles and whitepapers
   - [ ] Podcast appearances
-- [ ] **Security Resources** (/resources)
-  - [ ] Curated list of security tools
-  - [ ] Learning resources for aspiring security engineers
-  - [ ] Career transition guide
+- [x] **Security Resources** (/resources) ✅
+  - [x] Curated list of security tools ✅
+  - [x] Learning resources for aspiring security engineers ✅
+  - [x] Career transition guide ✅
 
 ## 🎯 Priority Order
 
@@ -142,41 +142,58 @@
 - SEO enhancements (sitemap, RSS feed, robots.txt, structured data)
 - Enhanced meta tags and Open Graph configuration
 - Tailwind CSS optimization
-- Professional pages (Experience, Skills, Projects, Contact)
-- Initial blog posts (3 technical posts on personal projects)
+- Professional pages (Experience, Skills, Projects, Contact, Resources)
+- Blog posts (6 posts published):
+  - 3 technical posts on personal projects
+  - 2 career/leadership posts
+  - 1 Raspberry Pi security projects post
+- Uses page (/uses) with tools and setup
+- 404 error page
+- Reading time estimates for all posts
+- Projects page updated to focus on personal GitHub projects
 
 ### 🔴 High Priority (Next Steps)
-1. **Continue Blog Content** (Section 2)
-   - More homelab and personal project posts
-   - Security tutorials based on personal experience
-   - Career journey and learning posts
-2. **Add Visual Content**
-   - Open Graph images for social sharing
+1. **Interactive Features** (Section 5)
+   - Contact form functionality (currently static)
+   - Blog post comments system
+   - Search functionality for posts
+2. **Continue Blog Content** (Section 2)
+   - Security Engineering Tutorials
+   - AI/ML Security Content
+   - GPU Compute Cluster post
+   - Final Career & Leadership post
+3. **Add Visual Content**
+   - Open Graph images for social sharing (placeholders exist)
    - Project screenshots and diagrams
    - Responsive image optimization
 
 ### 🟡 Medium Priority
-1. **Interactive Features** (Section 5)
-   - Contact form functionality
-   - Blog post comments
-   - Search functionality
-2. **Additional Pages**
-   - /uses page for tools and setup
-   - /resources page for security tools
-   - 404 error page
-3. **Performance Enhancements**
+1. **Additional Pages**
+   - /speaking page for talks and presentations
+   - Style guide page
+2. **Performance Enhancements**
    - Image lazy loading
    - Service worker for offline access
    - Web font optimization
+3. **Security-Specific Features**
+   - CVE tracker for discussed vulnerabilities
+   - Security tool comparison matrix
+   - Interactive threat modeling diagrams
 
 ### 🟢 Nice to Have
-1. **Interactive Features** (Section 5)
-   - Comments, search, newsletter
+1. **Progressive Enhancements** (Section 7)
+   - PWA features
+   - Analytics (privacy-respecting)
+   - Print styles for articles
+   - Keyboard navigation shortcuts
 2. **Additional Content** (Section 6)
-   - Deep technical articles
-   - Tool comparisons
-3. **Progressive Enhancements** (Section 7)
-   - PWA features, analytics
+   - Deep technical articles on federal work
+   - Tool comparisons and workflows
+   - Lessons learned series
+3. **Advanced Features**
+   - Newsletter signup with email service
+   - Social share buttons
+   - Code security scanner integration
 
 ## 📝 Notes
 

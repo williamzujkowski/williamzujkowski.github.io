@@ -1,7 +1,7 @@
 # Standards Relationship Graph
 
 **Version:** 1.0.1  
-**Last Updated:** 2025-01-27  
+**Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** Reference Document
 
@@ -67,7 +67,7 @@ graph LR
 | README.md | - | All docs | CLAUDE.md, MANIFEST.yaml |
 | CLAUDE.md | MANIFEST.yaml | AI assistants | All docs |
 | MANIFEST.yaml | - | CLAUDE.md | All docs |
-| CONTENT_GUIDE.md | Site structure | Content creators | Posts, Pages |
+| CONTENT_GUIDE.md (v2.0.0) | Site structure, Tailwind CSS | Content creators | Posts, Pages |
 | SITE_DOCUMENTATION_STANDARDS.md | KM Standards | All docs | .standards/ |
 
 ### Technical Dependencies
@@ -75,6 +75,8 @@ graph LR
 | Component | Depends On | Provides |
 |-----------|-----------|----------|
 | Eleventy | Node.js, npm | Static site generation |
+| Tailwind CSS | PostCSS, npm | Styling framework |
+| eleventy-navigation | Eleventy | Hierarchical navigation |
 | GitHub Actions | .github/workflows/ | CI/CD |
 | GitHub Pages | GitHub Actions | Hosting |
 | .standards/ | Git submodules | Standards framework |
@@ -130,23 +132,30 @@ external_docs:
 
 ### Implemented ✅
 
-- [x] CLAUDE.md - AI router document (v4.1.0)
+- [x] CLAUDE.md - AI router document (v4.0.0)
 - [x] MANIFEST.yaml - Machine-readable metadata
 - [x] README.md - Updated with features and current state
-- [x] TODO.md - Comprehensive task tracking
+- [x] TODO.md - Comprehensive task tracking (updated 2025-06-25)
 - [x] Documentation structure (docs/)
-- [x] Content guidelines
+- [x] Content guidelines (v2.0.0 with Tailwind CSS)
 - [x] Cross-reference system
-- [x] Professional pages (Experience, Skills, Projects, Contact)
-- [x] Blog posts (3 technical posts)
+- [x] Professional pages (Experience, Skills, Projects, Contact, Uses, Resources)
+- [x] Blog posts (6 technical posts published)
+- [x] Reading time estimates for all posts
+- [x] Git-based last updated dates
+- [x] 404 error page
+- [x] External link security (rel="noopener noreferrer")
+- [x] Projects page updated to focus on personal GitHub projects
 
 ### Planned 📋
 
 - [ ] Automated link validation
 - [ ] Dependency checking
 - [ ] Version synchronization
-- [ ] Search optimization
-- [ ] Discovery features
+- [ ] Search functionality for blog posts
+- [ ] Interactive features (contact form, comments)
+- [ ] Open Graph images for social sharing
+- [ ] Speaking/Writing page
 
 ---
 
@@ -194,4 +203,4 @@ Keep versions aligned:
 
 ---
 
-**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of v1.0.0.
+**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of 2025-06-25. The site now includes 6 blog posts, comprehensive professional pages, and focuses on personal open-source projects.
