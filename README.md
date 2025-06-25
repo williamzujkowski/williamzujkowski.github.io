@@ -1,11 +1,11 @@
 # williamzujkowski.github.io
 
-**Version:** 2.2.0  
+**Version:** 2.3.0  
 **Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** Personal Website
 
-Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features blog posts about security, AI/ML projects, homelab experiments, and career development. Showcases personal open-source projects and professional experience in cybersecurity.
+Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 8 blog posts about security, AI/ML projects, continuous learning, and career development. Showcases personal open-source projects on GitHub and 15+ years of cybersecurity expertise. Includes search functionality, social sharing, and a comprehensive style guide.
 
 > **Note:** This repository implements comprehensive development standards via the [.standards](https://github.com/williamzujkowski/standards) submodule.
 > 
@@ -56,14 +56,15 @@ npm run validate:km  # Validate Knowledge Management standards
 
 ## ✨ Features
 
-- **Personal Blog**: Technical posts about security, homelab projects, and AI/ML
-- **Professional Pages**: Experience timeline, skills matrix, and project portfolio
+- **Personal Blog**: 8 technical posts about security, AI/ML, and career development with search functionality
+- **Professional Pages**: Experience timeline, skills matrix, project portfolio, uses, resources, and style guide
+- **Interactive Features**: Blog search, social sharing buttons (LinkedIn, Hacker News, Reddit)
 - **Dark Mode**: Automatic theme switching with manual toggle
-- **SEO Optimized**: Sitemap, RSS feed, structured data, and meta tags
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Fast Performance**: Static site with optimized assets
-- **Accessibility**: Semantic HTML and ARIA attributes
-- **GitHub Actions**: Automated builds and deployments
+- **SEO Optimized**: Extended meta descriptions, structured data ready, git-based update dates
+- **Responsive Design**: Mobile-first approach with Tailwind CSS and glass morphism effects
+- **Fast Performance**: Static site with optimized assets, reading time estimates
+- **Accessibility**: Semantic HTML, ARIA attributes, external link security
+- **GitHub Actions**: Automated builds and deployments to GitHub Pages
 
 ## 📁 Project Structure
 
@@ -238,6 +239,26 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 ## 📊 Changelog
+
+### [2.3.0] - 2025-06-25
+#### Added
+- Search functionality for blog posts with real-time filtering
+- Social share buttons (LinkedIn, Hacker News, Reddit, copy link)
+- Style Guide page documenting the design system
+- 4 new blog posts (total now 8) including local LLM deployment and security mindset
+- Custom security-themed favicon
+- Git-based last updated dates for all pages
+- External link security with automatic rel="noopener noreferrer"
+- Resources page with 86+ curated links in 8 categories
+- Reading time estimates for all posts (225 words per minute)
+
+#### Changed
+- Removed all Twitter references from the site
+- Updated homepage with AI interest section and Asimov quote
+- Projects page now focuses on personal GitHub projects
+- Skills page reorganized to highlight AI/ML and Python expertise
+- Extended all meta descriptions to 150-160 characters
+- Fixed GitHub Pages deployment configuration
 
 ### [3.0.0] - 2024-01-24
 #### Added

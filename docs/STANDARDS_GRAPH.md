@@ -64,11 +64,13 @@ graph LR
 
 | Document | Depends On | Required By | Related To |
 |----------|-----------|-------------|------------|
-| README.md | - | All docs | CLAUDE.md, MANIFEST.yaml |
-| CLAUDE.md | MANIFEST.yaml | AI assistants | All docs |
-| MANIFEST.yaml | - | CLAUDE.md | All docs |
+| README.md (v2.2.0) | - | All docs | CLAUDE.md, MANIFEST.yaml |
+| CLAUDE.md (v4.2.0) | MANIFEST.yaml | AI assistants | All docs |
+| MANIFEST.yaml (v3.1.0) | - | CLAUDE.md | All docs |
 | CONTENT_GUIDE.md (v2.0.0) | Site structure, Tailwind CSS | Content creators | Posts, Pages |
 | SITE_DOCUMENTATION_STANDARDS.md | KM Standards | All docs | .standards/ |
+| TODO.md | - | Development planning | All features |
+| DOCUMENTATION_UPDATE_SUMMARY.md | All docs | Tracking changes | Version history |
 
 ### Technical Dependencies
 
@@ -132,30 +134,36 @@ external_docs:
 
 ### Implemented ✅
 
-- [x] CLAUDE.md - AI router document (v4.0.0)
-- [x] MANIFEST.yaml - Machine-readable metadata
-- [x] README.md - Updated with features and current state
+- [x] CLAUDE.md - AI router document (v4.2.0)
+- [x] MANIFEST.yaml - Machine-readable metadata (v3.1.0)
+- [x] README.md - Updated with features and current state (v2.2.0)
 - [x] TODO.md - Comprehensive task tracking (updated 2025-06-25)
 - [x] Documentation structure (docs/)
 - [x] Content guidelines (v2.0.0 with Tailwind CSS)
 - [x] Cross-reference system
-- [x] Professional pages (Experience, Skills, Projects, Contact, Uses, Resources)
-- [x] Blog posts (6 technical posts published)
+- [x] Professional pages (Experience, Skills, Projects, Contact, Uses, Resources, Style Guide)
+- [x] Blog posts (8 technical posts published)
 - [x] Reading time estimates for all posts
 - [x] Git-based last updated dates
-- [x] 404 error page
+- [x] 404 error page (custom design)
 - [x] External link security (rel="noopener noreferrer")
 - [x] Projects page updated to focus on personal GitHub projects
+- [x] Search functionality for blog posts
+- [x] Social share buttons (LinkedIn, Hacker News, Reddit, Copy Link)
+- [x] Custom favicon (security-themed SVG)
 
 ### Planned 📋
 
 - [ ] Automated link validation
 - [ ] Dependency checking
 - [ ] Version synchronization
-- [ ] Search functionality for blog posts
-- [ ] Interactive features (contact form, comments)
+- [ ] Contact form functionality (backend required)
+- [ ] Blog post comments system (Giscus/Utterances)
 - [ ] Open Graph images for social sharing
 - [ ] Speaking/Writing page
+- [ ] Newsletter signup integration
+- [ ] Analytics (privacy-respecting)
+- [ ] Progressive Web App features
 
 ---
 
@@ -203,4 +211,4 @@ Keep versions aligned:
 
 ---
 
-**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of 2025-06-25. The site now includes 6 blog posts, comprehensive professional pages, and focuses on personal open-source projects.
+**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of 2025-06-25. The site now includes 8 blog posts, comprehensive professional pages with a style guide, search functionality, social sharing, and focuses on personal open-source projects.

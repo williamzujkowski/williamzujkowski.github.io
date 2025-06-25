@@ -1,6 +1,6 @@
 # AI Knowledge Router - williamzujkowski.github.io
 
-**Version:** 4.2.0  
+**Version:** 4.3.0  
 **Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** AI Interface Document
@@ -44,12 +44,12 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 ### Key Metrics
 - **Build Time:** ~0.10 seconds (Eleventy) + ~1s (Tailwind CSS)
 - **Deploy Time:** ~30 seconds via GitHub Actions
-- **Content Files:** 6 pages, 4 posts
+- **Content Files:** 10 pages, 8 posts
 - **Standards Compliance:** Integrated via submodule
 - **UI Framework:** Tailwind CSS with PostCSS pipeline
 - **Navigation:** eleventy-navigation plugin for hierarchical menus
-- **Professional Pages:** Experience, Skills, Projects, Contact
-- **Blog Posts:** Security, homelab, AI/ML topics
+- **Professional Pages:** Experience, Skills, Projects, Contact, Uses, Resources, Style Guide
+- **Blog Posts:** Security, AI/ML, career development, continuous learning
 
 ---
 
@@ -72,8 +72,8 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 ### For Content Updates
 | Content Type | Location | Template Used | Current Content |
 |--------------|----------|---------------|-----------------|
-| Blog Posts | `src/posts/*.md` | `post.njk` layout | 3 security/homelab posts |
-| Static Pages | `src/pages/*.md` | `page.njk` layout | About, Experience, Skills, Projects, Contact |
+| Blog Posts | `src/posts/*.md` | `post.njk` layout | 8 posts on security, AI/ML, career topics |
+| Static Pages | `src/pages/*.md` | `page.njk` layout | About, Experience, Skills, Projects, Contact, Uses, Resources, Style Guide, 404 |
 | Homepage | `src/index.njk` | `base.njk` layout | Hero with headshot, recent posts |
 | Global Data | `src/_data/*.json` | Available everywhere | Site metadata |
 
@@ -602,6 +602,45 @@ Use these patterns with the standards router:
 ---
 
 ## 📊 Changelog
+
+### [4.3.0] - 2025-06-25
+#### Added
+- Search functionality for blog posts (client-side JavaScript)
+- Social share buttons (LinkedIn, Hacker News, Reddit, copy link)
+- Style Guide page documenting design system
+- 4 additional blog posts on local LLM deployment and security mindset
+- Custom security-themed favicon
+- Git-based last updated dates for all pages
+- External link security (rel="noopener noreferrer")
+- Resources page with 86+ curated links
+
+#### Changed
+- Updated Projects page to focus on personal GitHub projects
+- Enhanced Skills page to highlight AI/ML and Python expertise
+- Removed Twitter references throughout the site
+- Added AI interest section to homepage with Asimov quote
+- Extended meta descriptions to 150-160 characters
+- Updated page count to 10 pages and 8 blog posts
+
+#### Technical Updates
+- Implemented reading time filter (225 words per minute)
+- Added gitLastModified filter using execSync
+- Added externalLinks filter for automatic security attributes
+- Fixed GitHub Pages deployment configuration (legacy to workflow)
+- Added search.js and social sharing functions in base layout
+
+### [4.2.0] - 2025-01-29
+#### Added
+- Reading time estimates for all blog posts
+- Git-based last updated dates implementation
+- External link security filter
+- Two new blog posts on Raspberry Pi security and continuous learning
+- Comprehensive Resources page with categorized links
+
+#### Changed
+- Enhanced SEO with extended meta descriptions (150-160 chars)
+- Updated Projects page to focus on personal open-source projects
+- Reorganized Skills page to reflect project-demonstrated technologies
 
 ### [4.1.0] - 2025-01-27
 #### Added
