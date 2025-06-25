@@ -2,10 +2,10 @@
 layout: page
 title: Contact
 description: Connect with me about security, technology, or just to say hello
-permalink: /contact/
-eleventyNavigation:
-  key: Contact
-  order: 3
+permalink: false
+# eleventyNavigation:
+#   key: Contact
+#   order: 3
 image: /assets/images/og/contact-og.png
 ---
 

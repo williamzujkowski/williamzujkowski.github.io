@@ -374,4 +374,4 @@ What works for you? What learning strategies have you found effective? I'm alway
 
 ---
 
-*Found this helpful? Follow me for more cybersecurity career insights. Have questions about building your learning path? [Let's connect!](/contact/)*
+*Found this helpful? Follow me for more cybersecurity career insights. Have questions about building your learning path? [Let's connect!](/about/#contact)*

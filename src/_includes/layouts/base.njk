@@ -52,8 +52,8 @@
             "name": "{{ site.author }}",
             "url": "{{ site.url }}/about/",
             "sameAs": [
-                "https://github.com/williamzujkowski",
-                "https://www.linkedin.com/in/williamzujkowski"
+                "{{ site.social.github }}",
+                "{{ site.social.linkedin }}"
             ]
         },
         "publisher": {
@@ -73,26 +73,26 @@
             "@type": "WebPage",
             "@id": "{{ site.url }}{{ page.url }}"
         },
+        "url": "{{ site.url }}{{ page.url }}"
         {% else %}
         "name": "{{ site.title }}",
         "description": "{{ site.description }}",
-        "url": "{{ site.url }}",
+        "url": "{{ site.url }}{{ page.url }}",
         "author": {
             "@type": "Person",
             "name": "{{ site.author }}",
             "url": "{{ site.url }}/about/",
             "sameAs": [
-                "https://github.com/williamzujkowski",
-                "https://www.linkedin.com/in/williamzujkowski"
+                "{{ site.social.github }}",
+                "{{ site.social.linkedin }}"
             ]
         },
         "potentialAction": {
             "@type": "SearchAction",
             "target": "{{ site.url }}/posts/?search={search_term_string}",
             "query-input": "required name=search_term_string"
-        },
+        }
         {% endif %}
-        "url": "{{ site.url }}{{ page.url }}"
     }
     </script>
     

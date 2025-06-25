@@ -419,7 +419,7 @@ A curated collection of tools, references, and learning materials that have shap
   <p class="text-gray-700 dark:text-gray-300 mb-4">
     Have a resource that should be included? Found a broken link?
   </p>
-  <a href="/contact/" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+  <a href="/about/#contact" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
     Suggest a Resource
     <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
