@@ -1,7 +1,7 @@
 # AI Knowledge Router - williamzujkowski.github.io
 
-**Version:** 4.0.0  
-**Last Updated:** 2024-01-24  
+**Version:** 4.1.0  
+**Last Updated:** 2025-01-27  
 **Status:** Active  
 **Type:** AI Interface Document
 
@@ -42,12 +42,14 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 **Deployment:** GitHub Pages  
 
 ### Key Metrics
-- **Build Time:** ~0.06 seconds (Eleventy) + ~1s (Tailwind CSS)
+- **Build Time:** ~0.10 seconds (Eleventy) + ~1s (Tailwind CSS)
 - **Deploy Time:** ~30 seconds via GitHub Actions
-- **Content Files:** 5 pages, 1 post
+- **Content Files:** 6 pages, 4 posts
 - **Standards Compliance:** Integrated via submodule
 - **UI Framework:** Tailwind CSS with PostCSS pipeline
 - **Navigation:** eleventy-navigation plugin for hierarchical menus
+- **Professional Pages:** Experience, Skills, Projects, Contact
+- **Blog Posts:** Security, homelab, AI/ML topics
 
 ---
 
@@ -68,12 +70,12 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 | Navigation updates | `navigation-setup` + `content-management` | `@load WD:ux-patterns + FE:architecture` |
 
 ### For Content Updates
-| Content Type | Location | Template Used |
-|--------------|----------|---------------|
-| Blog Posts | `src/posts/*.md` | `post.njk` layout |
-| Static Pages | `src/pages/*.md` | `page.njk` layout |
-| Homepage | `src/index.njk` | `base.njk` layout |
-| Global Data | `src/_data/*.json` | Available everywhere |
+| Content Type | Location | Template Used | Current Content |
+|--------------|----------|---------------|-----------------|
+| Blog Posts | `src/posts/*.md` | `post.njk` layout | 3 security/homelab posts |
+| Static Pages | `src/pages/*.md` | `page.njk` layout | About, Experience, Skills, Projects, Contact |
+| Homepage | `src/index.njk` | `base.njk` layout | Hero with headshot, recent posts |
+| Global Data | `src/_data/*.json` | Available everywhere | Site metadata |
 
 ---
 
@@ -600,6 +602,24 @@ Use these patterns with the standards router:
 ---
 
 ## 📊 Changelog
+
+### [4.1.0] - 2025-01-27
+#### Added
+- Professional pages documentation (Experience, Skills, Projects)
+- Blog post creation and management guidance
+- Current content inventory in navigation map
+- OPSEC considerations for content
+
+#### Changed
+- Updated content metrics (6 pages, 4 posts)
+- Revised blog post topics to focus on personal projects
+- Enhanced navigation map with current content
+- Updated build performance metrics
+
+#### Technical Updates
+- Removed government-specific content references
+- Added personal project focus
+- Updated task priorities based on completed work
 
 ### [4.0.0] - 2024-01-24
 #### Added

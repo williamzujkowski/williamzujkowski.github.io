@@ -1,11 +1,11 @@
 # williamzujkowski.github.io
 
-**Version:** 2.0.0  
-**Last Updated:** 2024-01-24  
+**Version:** 2.1.0  
+**Last Updated:** 2025-01-27  
 **Status:** Active  
 **Type:** Personal Website
 
-Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/) and hosted on GitHub Pages.
+Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features blog posts about security, homelab projects, and professional experience.
 
 > **Note:** This repository implements comprehensive development standards via the [.standards](https://github.com/williamzujkowski/standards) submodule.
 > 
@@ -53,6 +53,17 @@ npm run build:css    # Build CSS only
 npm run watch:css    # Watch CSS changes
 npm run validate:km  # Validate Knowledge Management standards
 ```
+
+## ✨ Features
+
+- **Personal Blog**: Technical posts about security, homelab projects, and AI/ML
+- **Professional Pages**: Experience timeline, skills matrix, and project portfolio
+- **Dark Mode**: Automatic theme switching with manual toggle
+- **SEO Optimized**: Sitemap, RSS feed, structured data, and meta tags
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Fast Performance**: Static site with optimized assets
+- **Accessibility**: Semantic HTML and ARIA attributes
+- **GitHub Actions**: Automated builds and deployments
 
 ## 📁 Project Structure
 
