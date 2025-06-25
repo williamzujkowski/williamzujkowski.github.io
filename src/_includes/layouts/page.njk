@@ -18,6 +18,15 @@ layout: base
             <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-400">
                 {{ content | safe }}
             </div>
+            
+            {% set lastModified = page.inputPath | gitLastModified %}
+            {% if lastModified %}
+            <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center italic">
+                    Last updated: {{ lastModified | readableDate }}
+                </p>
+            </footer>
+            {% endif %}
         </div>
     </div>
 </article>

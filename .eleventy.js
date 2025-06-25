@@ -1,4 +1,6 @@
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+const { execSync } = require('child_process');
+const path = require('path');
 
 module.exports = function(eleventyConfig) {
   // Plugins
@@ -70,6 +72,34 @@ module.exports = function(eleventyConfig) {
     return htmlContent
       .replace(/src="\/([^"]+)"/g, `src="${base}/$1"`)
       .replace(/href="\/([^"]+)"/g, `href="${base}/$1"`);
+  });
+
+  // Get git last modified date for a file
+  eleventyConfig.addFilter("gitLastModified", (inputPath) => {
+    try {
+      if (!inputPath) return null;
+      
+      // Remove the leading ./ and src/ if present
+      let cleanPath = inputPath.replace(/^\.\//, '');
+      if (cleanPath.startsWith('src/')) {
+        cleanPath = cleanPath.substring(4);
+      }
+      
+      // Construct the full file path
+      const filePath = path.join(__dirname, 'src', cleanPath);
+      
+      // Get the last commit date for this file
+      const gitCommand = `git log -1 --format=%cI -- "${filePath}"`;
+      const result = execSync(gitCommand, { encoding: 'utf-8' }).trim();
+      
+      if (result) {
+        return new Date(result);
+      }
+    } catch (error) {
+      console.error(`Error getting git date for ${inputPath}:`, error.message);
+    }
+    
+    return null;
   });
 
   return {

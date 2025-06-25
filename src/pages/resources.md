@@ -427,8 +427,4 @@ A curated collection of tools, references, and learning materials that have shap
   </a>
 </div>
 
----
-
-*Last updated: January 2025*
-
 </div>
