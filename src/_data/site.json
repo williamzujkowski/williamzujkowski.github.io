@@ -1,8 +1,14 @@
 {
   "title": "William Zujkowski",
-  "description": "Security Engineer, Homelab Enthusiast, and Lifelong Learner",
+  "description": "Senior Information Security Engineer with 15+ years experience in cybersecurity, AI security, and Zero-Trust architectures. Sharing insights on security, homelab automation, and the intersection of AI and cybersecurity.",
   "url": "https://williamzujkowski.github.io",
   "author": "William Zujkowski",
   "currentYear": 2025,
-  "defaultImage": "/assets/images/og/default-og.png"
+  "defaultImage": "/assets/images/og/default-og.png",
+  "social": {
+    "github": "https://github.com/williamzujkowski",
+    "linkedin": "https://www.linkedin.com/in/williamzujkowski"
+  },
+  "jobTitle": "Senior Information Security Engineer",
+  "keywords": "cybersecurity, information security, AI security, Zero-Trust, homelab, security engineering, NIST compliance, federal security"
 }

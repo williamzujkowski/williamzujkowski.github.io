@@ -1,6 +1,6 @@
 # AI Knowledge Router - williamzujkowski.github.io
 
-**Version:** 4.4.0  
+**Version:** 4.5.0  
 **Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** AI Interface Document
@@ -602,6 +602,20 @@ Use these patterns with the standards router:
 ---
 
 ## 📊 Changelog
+
+### [4.5.0] - 2025-06-25
+#### Added
+- Enhanced structured data for better SEO (Person, BlogPosting, BreadcrumbList)
+- Lazy loading for images with automatic filter
+- Resource hints (preconnect, dns-prefetch) for performance
+- Improved accessibility with better focus states and reduced motion support
+- Breadcrumb structured data
+
+#### Changed
+- Enhanced site.json with comprehensive metadata and social links
+- Updated structured data to include dateModified with git last modified dates
+- Improved keyboard navigation with enhanced focus styles
+- Added support for prefers-reduced-motion media query
 
 ### [4.4.0] - 2025-06-25
 #### Changed

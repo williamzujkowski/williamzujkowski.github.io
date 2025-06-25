@@ -92,6 +92,24 @@ module.exports = function(eleventyConfig) {
     );
   });
 
+  // Add lazy loading to images
+  eleventyConfig.addFilter("lazyImages", (content) => {
+    if (!content) return '';
+    
+    // Add loading="lazy" to img tags that don't already have a loading attribute
+    return content.replace(
+      /<img\s+(?![^>]*\sloading=)[^>]*>/gi,
+      (match) => {
+        // Skip if it's an SVG or data URI
+        if (match.includes('data:') || match.includes('.svg')) {
+          return match;
+        }
+        // Add loading="lazy" before the closing >
+        return match.replace(/>$/, ' loading="lazy">');
+      }
+    );
+  });
+
   // Get git last modified date for a file
   eleventyConfig.addFilter("gitLastModified", (inputPath) => {
     try {

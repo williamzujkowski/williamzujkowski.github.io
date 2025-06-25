@@ -16,7 +16,7 @@ layout: base
             </header>
             
             <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-400">
-                {{ content | externalLinks | safe }}
+                {{ content | lazyImages | externalLinks | safe }}
             </div>
             
             {% set lastModified = page.inputPath | gitLastModified %}

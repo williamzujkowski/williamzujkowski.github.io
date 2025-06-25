@@ -39,7 +39,7 @@ layout: base
             </header>
             
             <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
-                {{ content | safe }}
+                {{ content | lazyImages | safe }}
             </div>
             
             <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">

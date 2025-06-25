@@ -1,6 +1,6 @@
 # williamzujkowski.github.io
 
-**Version:** 2.4.0  
+**Version:** 2.5.0  
 **Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** Personal Website
@@ -239,6 +239,20 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 ## 📊 Changelog
+
+### [2.5.0] - 2025-06-25
+#### Added
+- Enhanced structured data for better SEO (Person, BlogPosting, BreadcrumbList schemas)
+- Automatic lazy loading for images to improve performance
+- Resource hints (preconnect, dns-prefetch) for faster font loading
+- Improved accessibility with enhanced focus states and reduced motion support
+- Comprehensive site metadata with social links
+
+#### Changed
+- Enhanced keyboard navigation with better focus indicators
+- Updated structured data to include git-based dateModified
+- Added support for users who prefer reduced motion
+- Improved SEO with extended site description and keywords
 
 ### [2.4.0] - 2025-06-25
 #### Changed
