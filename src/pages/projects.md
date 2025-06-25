@@ -7,6 +7,7 @@ eleventyNavigation:
   key: Projects
   title: Projects
   order: 5
+image: /assets/images/og/projects-og.png
 ---
 
 # Projects & Initiatives

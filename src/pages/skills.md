@@ -7,6 +7,7 @@ eleventyNavigation:
   key: Skills
   title: Skills
   order: 4
+image: /assets/images/og/skills-og.png
 ---
 
 # Technical Arsenal

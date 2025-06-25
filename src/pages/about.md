@@ -8,7 +8,7 @@ eleventyNavigation:
   title: About
   order: 2
 author: William Zujkowski
-image: /assets/images/headshot.png
+image: /assets/images/og/about-og.png
 ---
 
 # Hey there, I'm William 👋

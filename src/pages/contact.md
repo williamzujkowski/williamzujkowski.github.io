@@ -6,6 +6,7 @@ permalink: /contact/
 eleventyNavigation:
   key: Contact
   order: 6
+image: /assets/images/og/contact-og.png
 ---
 
 # Let's Connect

@@ -1,7 +1,8 @@
 {
   "title": "William Zujkowski",
-  "description": "Personal website of William Zujkowski",
+  "description": "Security Engineer, Homelab Enthusiast, and Lifelong Learner",
   "url": "https://williamzujkowski.github.io",
   "author": "William Zujkowski",
-  "currentYear": 2024
+  "currentYear": 2025,
+  "defaultImage": "/assets/images/og/default-og.png"
 }

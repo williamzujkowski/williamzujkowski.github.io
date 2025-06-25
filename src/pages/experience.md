@@ -7,6 +7,7 @@ eleventyNavigation:
   key: Experience
   title: Experience
   order: 3
+image: /assets/images/og/experience-og.png
 ---
 
 # Professional Journey
