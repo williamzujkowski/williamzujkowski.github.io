@@ -1,5 +1,5 @@
 ---
-title: "From IT Support to Senior InfoSec Engineer: My 15-Year Journey"
+title: "From IT Support to Senior InfoSec Engineer: My 15+ Year Journey"
 date: 2025-01-28
 description: "The winding path from fixing printers to securing federal systems – lessons learned, mistakes made, and advice for aspiring security professionals"
 tags: [career, security, personal-growth, learning, leadership]
@@ -10,7 +10,7 @@ author: "William Zujkowski"
 
 ## The Beginning: When "Have You Tried Turning It Off and On Again?" Was My Mantra
 
-Fifteen years ago, I was that IT guy. You know, the one who showed up when the printer jammed, when email stopped working, or when someone's computer made "that weird noise." I started as an independent IT consultant in 2005, which is a fancy way of saying I fixed computers for local businesses and anyone who would pay me.
+Twenty years ago, I was that IT guy. You know, the one who showed up when the printer jammed, when email stopped working, or when someone's computer made "that weird noise." I started as an independent IT consultant in 2005, which is a fancy way of saying I fixed computers for local businesses and anyone who would pay me.
 
 My toolkit? A USB drive full of antivirus tools, a patient smile, and an endless supply of "let me Google that for you" searches. But here's the thing – I loved it. Every problem was a puzzle, every fixed computer was a small victory, and every grateful client taught me something new about technology and people.
 
@@ -46,7 +46,7 @@ The progression was intense:
 1. **Service Desk Lead** → Learning that security at scale requires automation
 2. **Security Engineer** → Understanding frameworks like NIST SP 800-53
 3. **Lead Security Engineer & ISSO** → Realizing leadership is about enabling others
-4. **Vulnerability Management Lead** → Managing 900+ endpoints and learning that metrics matter
+4. **Vulnerability Management Lead** → Securing 100k+ systems and learning that metrics matter
 
 **Biggest revelation**: Security isn't about saying "no" – it's about finding secure ways to say "yes."
 
@@ -74,7 +74,7 @@ But most importantly, I still approach every day with that same curiosity from m
 ## Mistakes I Made (So You Don't Have To)
 
 ### 1. Thinking Certifications Were Everything
-I collected certifications like Pokémon cards. While CompTIA A+, Network+, Security+, and CSAP were valuable, the real learning happened when applying that knowledge. Certifications open doors; experience gets you through them.
+I collected certifications like Pokémon cards. While CompTIA A+, Network+, and Security+ were valuable, the real learning happened when applying that knowledge. Certifications open doors; experience gets you through them.
 
 ### 2. Avoiding What I Didn't Know
 Early on, I'd dodge tasks involving unfamiliar technologies. Bad move. The biggest growth came from jumping into the deep end – like when I had to learn SLURM for HPC management or eBPF for kernel-level monitoring.
@@ -159,11 +159,11 @@ And remember – every expert was once a beginner who refused to give up.
 
 ## One Final Thought
 
-Last week, my daughter asked me what I do at work. I told her, "I help keep the internet safe for people like you." She said, "That sounds boring."
+Last week, my son asked me what I do at work. I told him, "I help keep the internet safe for people like you." She said, "That sounds boring."
 
 Then I showed her my homelab, explained how I catch bad guys trying to break into computers, and let her help me write a Python script to monitor our network.
 
-Her response? "Okay, that's actually pretty cool. Can you teach me more?"
+His response? "Okay, that's actually pretty cool. Can you teach me more?"
 
 That's the real measure of success – inspiring the next generation to take up the shield.
 

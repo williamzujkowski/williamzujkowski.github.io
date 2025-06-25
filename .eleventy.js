@@ -36,6 +36,24 @@ module.exports = function(eleventyConfig) {
     return array.slice(0, limit);
   });
 
+  // Reading time filter
+  eleventyConfig.addFilter("readingTime", (content) => {
+    if (!content) return 0;
+    
+    // Strip HTML tags and get plain text
+    const plainText = content.replace(/<[^>]*>/g, '');
+    
+    // Count words (split by whitespace)
+    const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length;
+    
+    // Average reading speed is 200-250 words per minute
+    // Using 225 as a middle ground
+    const wordsPerMinute = 225;
+    const readingTime = Math.ceil(wordCount / wordsPerMinute);
+    
+    return readingTime;
+  });
+
   // Get the newest date from a collection
   eleventyConfig.addFilter("getNewestCollectionItemDate", collection => {
     if (!collection || !collection.length) {

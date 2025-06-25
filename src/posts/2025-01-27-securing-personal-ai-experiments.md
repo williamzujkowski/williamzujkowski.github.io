@@ -32,7 +32,6 @@ My first rule: AI experiments run in isolation. Here's my setup:
 
 ```python
 # Docker Compose for isolated AI environment
-version: '3.8'
 
 services:
   ai-sandbox:

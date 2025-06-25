@@ -26,18 +26,18 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
 - **Desktop**: Custom-built PC (because pre-builts never have enough USB ports)
   - **CPU**: AMD Ryzen 9 5900X (12 cores for all those VMs)
   - **RAM**: 64GB DDR4 (Chrome tabs are hungry)
-  - **GPU**: NVIDIA RTX 3080 (for AI experiments, definitely not gaming)
+  - **GPU**: NVIDIA RTX 3090 (for AI experiments, definitely not gaming)
   - **Storage**: 2TB NVMe for OS, 4TB NVMe for VMs, 8TB HDD for backups
-  - **Monitors**: Triple 27" 1440p displays (security dashboards need space)
+  - **Monitors**: 34" Ultrawide 4k display (security dashboards need space)
   
 ### Laptop
-- **Primary**: System76 Lemur Pro
-  - Pop!_OS (Ubuntu-based, great for security tools)
+- **Primary**: Framework Laptop
+  - Ubuntu 24.04LTS (Great for security tools)
   - Perfect for coffee shop coding and on-site work
   
 ### Homelab
 - **Firewall**: Protectli Vault FW4B running pfSense
-- **Virtualization**: 3x Dell R720 (eBay finds!)
+- **Virtualization**: 1x Dell R940
   - Proxmox cluster
   - 256GB RAM total (VMs for days)
 - **Storage**: TrueNAS server with 40TB raw storage
@@ -56,7 +56,7 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
 - **Editor**: VS Code (sorry Vim, it's not you, it's me)
   - Extensions: Python, Go, Terraform, Docker, GitLens
   - Theme: Tokyo Night (easy on the eyes during late-night incidents)
-- **Terminal**: Windows Terminal + WSL2 / iTerm2 on macOS
+- **Terminal**: Ghostty
 - **Shell**: Zsh with Oh My Zsh
   - Theme: Powerlevel10k
   - Plugins: git, docker, kubectl, aws
@@ -69,7 +69,7 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
 - **2FA**: YubiKey 5C NFC (two of them, because redundancy)
 
 ### Virtualization & Containers
-- **Hypervisor**: Proxmox (homelab), VMware Workstation (desktop)
+- **Hypervisor**: Proxmox (homelab)
 - **Containers**: Docker Desktop, Podman
 - **Orchestration**: K3s for learning Kubernetes
 - **IaC**: Terraform, Ansible
