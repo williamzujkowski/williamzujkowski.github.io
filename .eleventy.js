@@ -74,6 +74,24 @@ module.exports = function(eleventyConfig) {
       .replace(/href="\/([^"]+)"/g, `href="${base}/$1"`);
   });
 
+  // Add rel="noopener noreferrer" to external links for security
+  eleventyConfig.addFilter("externalLinks", (content) => {
+    if (!content) return '';
+    
+    // Add rel attribute to external links
+    return content.replace(
+      /<a\s+href="https?:\/\/(?!williamzujkowski\.github\.io)[^"]+"/g,
+      (match) => {
+        // Check if rel attribute already exists
+        if (match.includes('rel=')) {
+          return match;
+        }
+        // Add rel attribute before the closing >
+        return match + ' rel="noopener noreferrer"';
+      }
+    );
+  });
+
   // Get git last modified date for a file
   eleventyConfig.addFilter("gitLastModified", (inputPath) => {
     try {

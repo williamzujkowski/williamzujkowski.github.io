@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Uses
-description: The tools, hardware, and software I use daily for security work and personal projects
+description: The tools, hardware, and software I use daily for security work and personal projects. My complete tech stack for cybersecurity, development, and homelab.
 permalink: /uses/
 eleventyNavigation:
   key: Uses

@@ -235,7 +235,8 @@ From infrastructure to AI/ML – a comprehensive toolkit for modern security eng
 ## Technical Stack
 
 <div class="overflow-x-auto my-8">
-  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" aria-label="Technical stack showing categories, technologies, and experience levels">
+    <caption class="sr-only">Technical stack overview showing different technology categories, specific tools used, and experience levels with each</caption>
     <thead>
       <tr>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Category</th>

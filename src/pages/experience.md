@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Experience Timeline
-description: 15+ years of IT and security engineering experience, from help desk to federal cloud security
+description: 15+ years of IT and security engineering experience, from help desk to federal cloud security. View my career timeline and achievements in cybersecurity.
 permalink: /experience/
 eleventyNavigation:
   key: Experience

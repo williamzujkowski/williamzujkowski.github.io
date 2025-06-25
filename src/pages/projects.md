@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Projects & Portfolio
-description: Security engineering projects, open-source contributions, and technical initiatives
+description: Security engineering projects, open-source contributions, and technical initiatives. Explore my work in federal cloud security, AI/ML security, and automation.
 permalink: /projects/
 eleventyNavigation:
   key: Projects
