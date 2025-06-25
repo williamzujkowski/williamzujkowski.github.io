@@ -1,6 +1,6 @@
 ---
 title: "Building a Security-Focused Homelab: My Journey"
-date: 2025-01-25
+date: 2025-04-24
 description: "How I built a comprehensive security lab at home for learning, experimentation, and keeping my family's digital life safe"
 tags: [homelab, security, networking, learning, personal-projects]
 author: "William Zujkowski"

@@ -1,171 +1,717 @@
 ---
 layout: page
-title: About Me
-description: Dad-joke enthusiast, security engineer, and champion of bedtime stories
+title: About William Zujkowski
+description: Senior Security Engineer with 15+ years experience in federal cybersecurity, AI/ML security research, and open-source development. From IT support to securing government cloud infrastructure.
 permalink: /about/
 eleventyNavigation:
   key: About
   title: About
   order: 2
-author: William Zujkowski
 image: /assets/images/og/about-og.png
 ---
 
-# Hey there, I'm William 👋
+# William Zujkowski
 
 <div class="prose prose-lg prose-gray dark:prose-invert lg:prose-xl max-w-none">
 
-<figure class="float-right ml-8 mb-8 max-w-xs">
-  <img src="/assets/images/headshot.png" 
-       alt="William Zujkowski" 
-       class="w-48 h-48 rounded-full shadow-lg ring-4 ring-primary-100 dark:ring-primary-900">
-</figure>
-
-<p class="lead text-xl text-gray-600 dark:text-gray-400 italic">
-  Dad-joke enthusiast and champion of bedtime stories.
-</p>
-
-First things first – I'm a proud husband and dad. Everything else comes second. I believe the best debugging happens during bedtime stories, and yes, I've solved more than one production issue while reading "The Gruffalo" for the hundredth time.
-
-<div class="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-4 my-6">
-  <p class="text-blue-800 dark:text-blue-200">
-    💡 <strong>Fun Fact:</strong> It makes me happy that <a href="http://info.cern.ch/hypertext/WWW/TheProject.html" class="text-blue-600 dark:text-blue-400 underline">The FIRST website</a> is still online! There's something beautifully poetic about the permanence of that simple beginning.
+<div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-8 rounded-2xl mb-8">
+  <p class="lead text-2xl text-gray-700 dark:text-gray-300 italic mb-6">
+    Senior Security Engineer passionate about the intersection of AI/ML and cybersecurity, with 15+ years securing critical federal infrastructure and building open-source security tools.
   </p>
+  
+  <div class="flex flex-wrap gap-4 text-sm">
+    <a href="#experience" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+      <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+      Experience
+    </a>
+    <a href="#skills" class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+      <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+      </svg>
+      Skills
+    </a>
+    <a href="#projects" class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+      <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+      Projects
+    </a>
+    <a href="#contact" class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+      <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+      Contact
+    </a>
+    <a href="/William_Zujkowski_Resume.pdf" class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+      <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      Download Resume
+    </a>
+  </div>
 </div>
 
-## What Makes Me Tick
+## Quick Summary
 
-I'm a **strategy gamer at heart**. Whether I'm building civilizations, scheming in Crusader Kings, or ruling as a benevolent (mostly) dictator in Tropico, I love games that make you think three steps ahead. This probably explains why I ended up in security – it's just another strategy game, but with higher stakes and fewer save points.
+Currently serving as an **Information Technology Specialist (INFOSEC)** at **Technology Transformation Services (TTS) - cloud.gov**, where I lead security initiatives for the government's premier cloud platform serving 30+ federal agencies. My work focuses on Zero-Trust architecture implementation, FedRAMP compliance automation, and building secure infrastructure for government innovation.
 
-I run on **espresso and puns** (heavy on both). My coffee consumption is legendary, and my dad jokes are... well, they're dad jokes. Fair warning: prolonged exposure may cause involuntary groaning.
+### What I Bring
 
-As a **lifelong learner**, I jump between sci-fi world-building and Raspberry Pi wizardry with equal enthusiasm. Currently, I'm somewhere between "I can definitely automate that" and "why did I think putting my toaster on a VLAN was necessary?"
+- **15+ Years in Cybersecurity**: From IT support to senior security engineering roles across federal agencies
+- **AI/ML Security Focus**: Building tools at the intersection of artificial intelligence and security
+- **Open Source Contributor**: Active development of security automation tools and AI integration frameworks
+- **Federal Expertise**: Deep understanding of NIST compliance, FedRAMP, and government security requirements
+- **Technical Leadership**: Experience leading teams, mentoring engineers, and driving security initiatives
 
-## Current Quests 🚀
+---
+
+<div id="experience"></div>
+
+## Professional Experience
+
+### Current Position
+
+<div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-lg my-8">
+  <div class="flex items-start space-x-4">
+    <div class="flex-shrink-0">
+      <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+        TTS
+      </div>
+    </div>
+    <div class="flex-grow">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Information Technology Specialist (INFOSEC)</h3>
+      <p class="text-primary-600 dark:text-primary-400 font-medium">Technology Transformation Services (TTS) • cloud.gov</p>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">November 2023 - Present • Remote</p>
+      <div class="mt-4 space-y-2">
+        <p class="text-gray-700 dark:text-gray-300">Leading security initiatives for cloud.gov, the government's cloud platform serving 30+ federal agencies.</p>
+        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+          <li>Spearheaded Zero-Trust architecture implementation</li>
+          <li>Enhanced FedRAMP Moderate compliance automation</li>
+          <li>Reduced incident response time by 30%</li>
+          <li>Built DevSecOps pipelines for continuous compliance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Career Timeline
+
+<details class="mb-6">
+<summary class="cursor-pointer text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+  View Full Career History (2005-2023)
+</summary>
+
+<div class="relative mt-6">
+  <!-- Timeline line -->
+  <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-700"></div>
+
+  <!-- 2023 - Lead HPC SRE -->
+  <div class="relative flex items-start mb-8">
+    <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
+    <div class="ml-20">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Lead HPC Site Reliability Engineer</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Guidehouse (NIH Contract)</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">May 2023 - November 2023</p>
+        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
+          <li>Orchestrated LoBoS HPC cluster for molecular dynamics research</li>
+          <li>Implemented GPU compute with NVLINK for computational chemistry</li>
+          <li>Automated cluster management with Ansible and SLURM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2022-2023 - Vulnerability Management Lead -->
+  <div class="relative flex items-start mb-8">
+    <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
+    <div class="ml-20">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Vulnerability Management Lead</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Edgewater Federal Solutions (NIH)</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">May 2022 - March 2023</p>
+        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
+          <li>Led team managing 900+ NIH endpoints</li>
+          <li>Reduced enterprise vulnerabilities by 40%</li>
+          <li>Implemented secure configuration baselines</li>
+          <li>Oversaw penetration testing and web app security</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2021-2022 - Deputy Vulnerability Management Lead -->
+  <div class="relative flex items-start mb-8">
+    <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
+    <div class="ml-20">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Deputy Vulnerability Management Lead</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Edgewater Federal Solutions (NIH)</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">November 2021 - May 2022</p>
+        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
+          <li>Strategic leadership in enterprise vulnerability management</li>
+          <li>30% reduction in potential vulnerabilities</li>
+          <li>25% decrease in security incidents</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2020-2021 - Lead InfoSec Engineer -->
+  <div class="relative flex items-start mb-8">
+    <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
+    <div class="ml-20">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Lead Information Security Engineer & Alternate ISSO</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Carson & SAINT Corps (NHGRI)</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">December 2020 - November 2021</p>
+        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
+          <li>Enterprise-wide security management for genome research</li>
+          <li>Enhanced cyber defense infrastructure</li>
+          <li>Led incident response initiatives</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2018-2020 - IT Security Engineer -->
+  <div class="relative flex items-start mb-8">
+    <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
+    <div class="ml-20">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Information Technology Security Engineer</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Carson & SAINT Corps (NHGRI)</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">December 2018 - December 2020</p>
+        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
+          <li>Cyber defense infrastructure support</li>
+          <li>Secure architecture implementation</li>
+          <li>Incident response and threat mitigation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Early Career Summary -->
+  <div class="relative flex items-start mb-8">
+    <div class="absolute left-8 w-4 h-4 bg-gray-400 rounded-full -translate-x-1/2"></div>
+    <div class="ml-20">
+      <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">Foundation Years (2005-2018)</h3>
+        <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+          <p><strong>2017-2018:</strong> Lead Service Desk Engineer (Tier III) at GRSi & MSC - NIH Federal Medical Research</p>
+          <p><strong>2016-2017:</strong> Technical Support Engineer at Partners International - Federal contractor support</p>
+          <p><strong>2015-2016:</strong> IT Infrastructure Manager at Sensible Software - Led cloud migration initiatives</p>
+          <p><strong>2014-2015:</strong> IT Asset Management at e-End - NIST/NAID compliant data destruction</p>
+          <p><strong>2005-2014:</strong> Independent IT Consultant - Built foundation in diverse technologies</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</details>
+
+### Key Achievements
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">🏆 Recognition</h3>
+    <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+      <li>• NHLBI Exceptional Performance Recognition</li>
+      <li>• NIH OCIO Contractor Excellence Award</li>
+      <li>• Certificate of Excellence</li>
+    </ul>
+  </div>
+  
+  <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">📚 Certifications</h3>
+    <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+      <li>• CompTIA Security Analytics Professional (CSAP)</li>
+      <li>• CompTIA Security+</li>
+      <li>• CompTIA Network+</li>
+      <li>• CompTIA A+</li>
+    </ul>
+  </div>
+</div>
+
+### Professional Memberships
+
+<div class="flex flex-wrap gap-4 justify-center my-8">
+  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">OWASP</span>
+  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">IACR</span>
+  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">ACM SIGHPC</span>
+  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">USENIX</span>
+</div>
+
+---
+
+<div id="skills"></div>
+
+## Technical Skills & Expertise
+
+### Core Competencies
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+  
+  <!-- AI/ML & LLM Development -->
+  <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+      <svg class="w-6 h-6 mr-2 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+      AI/ML & LLM Development
+    </h3>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Model Context Protocol (MCP)</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-purple-600 h-2 rounded-full" style="width: 90%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">LangGraph & LangChain</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Prompt Engineering</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-purple-600 h-2 rounded-full" style="width: 88%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">AI Security & Safety</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-purple-600 h-2 rounded-full" style="width: 82%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Python Development & Automation -->
+  <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+      <svg class="w-6 h-6 mr-2 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+      Python Development
+    </h3>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Python (Advanced)</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-green-600 h-2 rounded-full" style="width: 92%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">API Development</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-green-600 h-2 rounded-full" style="width: 88%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Data Pipeline ETL</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-green-600 h-2 rounded-full" style="width: 85%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">GitHub API Integration</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-green-600 h-2 rounded-full" style="width: 90%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security & Compliance -->
+  <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+      <svg class="w-6 h-6 mr-2 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
+      Security Engineering
+    </h3>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">NIST 800-53r5 Compliance</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-red-600 h-2 rounded-full" style="width: 90%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Supply Chain Security</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-red-600 h-2 rounded-full" style="width: 85%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Zero-Trust Architecture</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-red-600 h-2 rounded-full" style="width: 88%"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Security Automation</p>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+          <div class="bg-red-600 h-2 rounded-full" style="width: 92%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Technical Stack
+
+<details class="mb-6">
+<summary class="cursor-pointer text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+  View Complete Technical Stack
+</summary>
 
 <div class="overflow-x-auto my-8">
-  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" aria-label="Technical stack showing categories, technologies, and experience levels">
+    <caption class="sr-only">Technical stack overview showing different technology categories, specific tools used, and experience levels with each</caption>
     <thead>
       <tr>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Adventure</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Notes</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Category</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Technologies</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Experience</th>
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
       <tr>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Security Automations (Hobby)</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">🔧 In Progress</td>
-        <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Building scripts "just for fun"</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Languages</td>
+        <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Python, JavaScript/TypeScript, Bash, YAML, Markdown</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Daily use</td>
       </tr>
       <tr>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Home Network Fortifications</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">🏡 Planning</td>
-        <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Because Wi-Fi should feel like Hogwarts</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">AI/ML Tools</td>
+        <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Model Context Protocol, LangGraph, LangChain, OpenAI API, LLM Integration</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Advanced</td>
       </tr>
       <tr>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">11ty Personal Site Theme</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">🎨 Polishing</td>
-        <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">Dark/light mode & fancy code snippets</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Security Tools</td>
+        <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Dependency Analysis, SBOM Generation, NIST Compliance, Supply Chain Security</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Expert</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Development</td>
+        <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">API Development, ETL Pipelines, GitHub API, Package Development, CLI Tools</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Expert</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">CI/CD & DevOps</td>
+        <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">GitHub Actions, Docker, GitHub Pages, Automated Testing, Deployment Pipelines</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Expert</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">Web Stack</td>
+        <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">Eleventy, Tailwind CSS, Nunjucks, PostCSS, Static Site Generation</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Advanced</td>
       </tr>
     </tbody>
   </table>
 </div>
+</details>
 
-## Side Quests & Hobbies 🎲
+### Soft Skills
 
-When I'm not securing government clouds or fortifying home networks, you'll find me:
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+  <div class="text-center">
+    <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-3">
+      <span class="text-3xl">👥</span>
+    </div>
+    <h4 class="font-bold text-gray-900 dark:text-gray-100">Leadership</h4>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Team lead experience, mentoring junior engineers, cross-functional collaboration</p>
+  </div>
+  <div class="text-center">
+    <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-3">
+      <span class="text-3xl">💬</span>
+    </div>
+    <h4 class="font-bold text-gray-900 dark:text-gray-100">Communication</h4>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Technical writing, stakeholder briefings, security awareness training</p>
+  </div>
+  <div class="text-center">
+    <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-3">
+      <span class="text-3xl">🎯</span>
+    </div>
+    <h4 class="font-bold text-gray-900 dark:text-gray-100">Problem Solving</h4>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Root cause analysis, incident response, strategic planning</p>
+  </div>
+</div>
 
-- **🛠 Building Raspberry Pi contraptions** – Because why buy it when you can over-engineer it?
-- **🐉 Running D&D adventures** – Where my dad jokes reach their final form (OOC = Out-Of-Control)
-- **🌌 Getting lost in sci-fi novels** – Currently alternating between hard sci-fi and space operas
-- **🌍 Family adventures** – Road trips, weekend hikes, and discovering new playgrounds
-- **🍕 Experimental coding** – Like that pizza calculator that definitely wasn't procrastination
+---
 
-## The Professional Bit
+<div id="projects"></div>
 
-Yes, I do have a day job! I'm a Security Engineer at cloud.gov, where I help make government technology more secure. I've spent 15+ years in IT and security, starting from help desk support and working my way up to securing federal systems. 
+## Open Source Projects
 
-But here's what really matters about my work:
-- I believe security should enable, not hinder
-- The best solutions come from understanding both attack and defense
-- Automation is beautiful when done right
-- Teaching others is the best way to learn
+<p class="text-xl text-gray-600 dark:text-gray-400 italic mb-8">
+Building tools that solve real problems – from security automation to AI-powered content generation.
+</p>
 
-I'm actively involved in the security community through OWASP, IACR, ACM SIGHPC, and USENIX. I also hold various CompTIA certifications, but honestly, the real education comes from breaking things in my homelab.
+### Featured Project
 
-## My Configuration File 📜
+<div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-lg my-6">
+  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+    <a href="https://github.com/williamzujkowski/mcp-standards-server" class="text-primary-600 dark:text-primary-400 hover:underline">MCP Standards Server</a>
+  </h4>
+  <div class="flex flex-wrap gap-2 mb-3">
+    <span class="px-2 py-1 bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200 text-xs rounded">Active</span>
+    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs rounded">Python</span>
+    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs rounded">Model Context Protocol</span>
+  </div>
+  <p class="text-gray-700 dark:text-gray-300 mb-3">
+    A comprehensive Model Context Protocol (MCP) server providing intelligent NIST 800-53r5 compliance checking, automated code analysis, and standards enforcement for modern development workflows.
+  </p>
+  <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mb-3">
+    <li>Built using official MCP Python SDK</li>
+    <li>Real-time standards compliance validation</li>
+    <li>Automated security control mapping</li>
+    <li>Integration with AI development tools</li>
+  </ul>
+  <div class="flex gap-3">
+    <a href="https://github.com/williamzujkowski/mcp-standards-server" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">View on GitHub →</a>
+  </div>
+</div>
 
-```yaml
-name: William Zujkowski
-roles:
-  - Dad-Joke Enthusiast
-  - Home Automation Jedi
-  - Raspberry Pi Tinkerer
-  - Security Engineer (the day job)
-location: "My home office & the great outdoors"
-skills:
-  - Storytelling: Legendary (ask my toddler)
-  - Gaming Strategy: Master
-  - Coffee Consumption: Expert
-  - Raspberry Pi Projects: Always learning
-  - Security: 15+ years and counting
-hobbies:
-  - Board Games & RPGs
-  - Sci-Fi Reading
-  - Family Adventures
-  - Daydreaming
-  - Over-engineering simple solutions
-motto: "Living life one dad joke at a time"
-```
+### Project Categories
 
-## Quick Facts About Me
+<details class="mb-6">
+<summary class="cursor-pointer text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+  🤖 AI & LLM Projects
+</summary>
 
-- My home network has more VLANs than a small enterprise (and yes, the IoT toaster has its own segment)
-- I've never met a Raspberry Pi project I didn't want to try
-- Every family game night needs a benevolent dictator (that's me!)
-- I believe the best security solutions are invisible to users
-- My toddler is my toughest code reviewer
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
+    <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+      <a href="https://github.com/williamzujkowski/llm-markdown-generator" class="text-primary-600 dark:text-primary-400 hover:underline">LLM Markdown Generator</a>
+    </h4>
+    <p class="text-gray-700 dark:text-gray-300 mb-3">
+      Leverages Large Language Models to generate markdown blog posts with customizable, 11ty-compatible front matter for various topics.
+    </p>
+    <div class="flex flex-wrap gap-2 mb-3">
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">Python</span>
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">LLM</span>
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">11ty</span>
+    </div>
+    <a href="https://github.com/williamzujkowski/llm-markdown-generator" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block">View Project →</a>
+  </div>
 
-## Let's Connect!
+  <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
+    <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+      <a href="https://github.com/williamzujkowski/vuln-post-generator" class="text-primary-600 dark:text-primary-400 hover:underline">Vulnerability Post Generator</a>
+    </h4>
+    <p class="text-gray-700 dark:text-gray-300 mb-3">
+      A comprehensive system for generating high-quality vulnerability analysis blog posts using AI.
+    </p>
+    <div class="flex flex-wrap gap-2 mb-3">
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">Python</span>
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">AI</span>
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">Security</span>
+    </div>
+    <a href="https://github.com/williamzujkowski/vuln-post-generator" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block">View Project →</a>
+  </div>
+</div>
+</details>
 
-I love connecting with fellow tech enthusiasts, parents who understand the struggle of explaining what we do to a five-year-old, or anyone who appreciates a good (bad?) dad joke.
+<details class="mb-6">
+<summary class="cursor-pointer text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+  🔒 Security & Compliance Tools
+</summary>
 
-<div class="flex flex-wrap gap-4 justify-center my-8 not-prose">
-  <a href="https://github.com/williamzujkowski" 
-     class="inline-flex items-center px-6 py-3 rounded-lg bg-gray-900 dark:bg-gray-700 text-white hover:bg-gray-800 dark:hover:bg-gray-600 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+<div class="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 p-6 rounded-lg my-6">
+  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+    <a href="https://github.com/williamzujkowski/dependency-risk-profiler" class="text-primary-600 dark:text-primary-400 hover:underline">Dependency Risk Profiler</a>
+  </h4>
+  <div class="flex flex-wrap gap-2 mb-3">
+    <span class="px-2 py-1 bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 text-xs rounded">Security</span>
+    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs rounded">Python</span>
+    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs rounded">Supply Chain</span>
+  </div>
+  <p class="text-gray-700 dark:text-gray-300 mb-3">
+    A command-line tool that goes beyond traditional vulnerability scanners to assess the overall health and risk of a project's open-source dependencies.
+  </p>
+  <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mb-3">
+    <li>Comprehensive dependency analysis</li>
+    <li>License compatibility checking</li>
+    <li>Maintenance status evaluation</li>
+    <li>Supply chain risk scoring</li>
+  </ul>
+  <div class="flex gap-3">
+    <a href="https://github.com/williamzujkowski/dependency-risk-profiler" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">View on GitHub →</a>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
+    <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+      <a href="https://github.com/williamzujkowski/repovac" class="text-primary-600 dark:text-primary-400 hover:underline">RepoVac</a>
+    </h4>
+    <p class="text-gray-700 dark:text-gray-300 mb-3">
+      A tool for grabbing dependency lists from an entire organization's repositories.
+    </p>
+    <div class="flex flex-wrap gap-2 mb-3">
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">Python</span>
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">GitHub API</span>
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">SBOM</span>
+    </div>
+    <a href="https://github.com/williamzujkowski/repovac" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block">View Project →</a>
+  </div>
+
+  <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
+    <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+      <a href="https://github.com/williamzujkowski/dont-panic" class="text-primary-600 dark:text-primary-400 hover:underline">Don't Panic</a>
+    </h4>
+    <p class="text-gray-700 dark:text-gray-300 mb-3">
+      Enriched alerting system providing detailed alerts without causing system-wide terror. Success often depends on finding your towel.
+    </p>
+    <div class="flex flex-wrap gap-2 mb-3">
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">Python</span>
+      <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-xs rounded">Monitoring</span>
+    </div>
+    <a href="https://github.com/williamzujkowski/dont-panic" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block">View Project →</a>
+  </div>
+</div>
+</details>
+
+### 🏠 Homelab & Personal Learning
+
+<div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg my-6">
+  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">Security-Focused Homelab</h4>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    Personal security operations center for learning, experimentation, and testing new security concepts.
+  </p>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Infrastructure:</h5>
+      <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+        <li>• pfSense firewall with Suricata IDS/IPS</li>
+        <li>• 5 VLANs for network segmentation</li>
+        <li>• Proxmox virtualization cluster</li>
+        <li>• Raspberry Pi monitoring nodes</li>
+        <li>• Automated backup systems</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Security Stack:</h5>
+      <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+        <li>• Wazuh SIEM with custom rules</li>
+        <li>• OpenSearch for log analysis</li>
+        <li>• Grafana security dashboards</li>
+        <li>• Automated vulnerability scanning</li>
+        <li>• Honeypot deployment</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="text-center my-8">
+  <a href="https://github.com/williamzujkowski" class="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
     </svg>
-    GitHub
-  </a>
-  <a href="https://www.linkedin.com/in/williamzujkowski" 
-     class="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-    </svg>
-    LinkedIn
-  </a>
-  <a href="https://steamcommunity.com/id/grenlan/" 
-     class="inline-flex items-center px-6 py-3 rounded-lg bg-gray-800 dark:bg-gray-700 text-white hover:bg-gray-700 dark:hover:bg-gray-600 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/>
-    </svg>
-    Steam
-  </a>
-  <a href="/contact/" 
-     class="inline-flex items-center px-6 py-3 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-    <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-    Get in Touch
+    View All Projects on GitHub
   </a>
 </div>
 
 ---
 
-<p class="text-center text-xl italic text-gray-600 dark:text-gray-400">
-  "Living life one dad joke at a time."
-</p>
+<div id="contact"></div>
+
+## Get In Touch
+
+<div class="bg-primary-50 dark:bg-primary-900/20 p-8 rounded-lg my-8">
+  <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">Let's Connect</h3>
+  
+  <p class="text-lg text-gray-700 dark:text-gray-300 text-center mb-8">
+    Whether you want to discuss federal security, AI/ML applications, career transitions, or potential collaborations, I'm always happy to connect with fellow professionals.
+  </p>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+    <a href="mailto:william.zujkowski@gmail.com" class="flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg hover:shadow-lg transition-shadow">
+      <svg class="w-8 h-8 text-primary-600 dark:text-primary-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+      <div>
+        <p class="font-medium text-gray-900 dark:text-gray-100">Email</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">william.zujkowski@gmail.com</p>
+      </div>
+    </a>
+    
+    <a href="https://linkedin.com/in/williamzujkowski" class="flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg hover:shadow-lg transition-shadow">
+      <svg class="w-8 h-8 text-primary-600 dark:text-primary-400 mr-3" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      <div>
+        <p class="font-medium text-gray-900 dark:text-gray-100">LinkedIn</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Connect professionally</p>
+      </div>
+    </a>
+  </div>
+  
+  <div class="mt-8 text-center">
+    <p class="text-gray-600 dark:text-gray-400 mb-4">
+      Also find me on:
+    </p>
+    <div class="flex justify-center gap-6">
+      <a href="https://github.com/williamzujkowski" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+---
+
+## Currently Exploring
+
+<div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg my-8">
+  <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">📚 Learning & Growth</h3>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <ul class="text-gray-700 dark:text-gray-300 space-y-2">
+      <li>• Advanced Model Context Protocol patterns</li>
+      <li>• Multi-agent AI system orchestration</li>
+      <li>• Supply chain security automation at scale</li>
+    </ul>
+    <ul class="text-gray-700 dark:text-gray-300 space-y-2">
+      <li>• Zero-knowledge proof implementations</li>
+      <li>• Privacy-preserving LLM techniques</li>
+      <li>• Distributed compliance validation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+  <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg text-center">
+    <div class="text-3xl mb-2">🤖</div>
+    <h5 class="font-bold text-gray-900 dark:text-gray-100">AI Security</h5>
+    <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">
+      LLM security, prompt injection defense, and AI supply chain security
+    </p>
+  </div>
+  
+  <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
+    <div class="text-3xl mb-2">🔐</div>
+    <h5 class="font-bold text-gray-900 dark:text-gray-100">Zero Trust</h5>
+    <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">
+      Implementing Zero Trust principles in personal and professional projects
+    </p>
+  </div>
+  
+  <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg text-center">
+    <div class="text-3xl mb-2">🛠️</div>
+    <h5 class="font-bold text-gray-900 dark:text-gray-100">Automation</h5>
+    <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">
+      Security automation, compliance as code, and developer productivity tools
+    </p>
+  </div>
+</div>
 
 </div>

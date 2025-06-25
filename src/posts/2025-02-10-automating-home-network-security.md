@@ -1,6 +1,6 @@
 ---
 title: "Automating Home Network Security with Python and Open Source Tools"
-date: 2025-01-26
+date: 2025-02-10
 description: "Practical automation scripts and tools I've built to keep my home network secure without constant manual intervention"
 tags: [python, automation, security, homelab, open-source, networking]
 author: "William Zujkowski"

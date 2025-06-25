@@ -1,6 +1,6 @@
 # AI Knowledge Router - williamzujkowski.github.io
 
-**Version:** 4.3.0  
+**Version:** 4.4.0  
 **Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** AI Interface Document
@@ -73,7 +73,7 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 | Content Type | Location | Template Used | Current Content |
 |--------------|----------|---------------|-----------------|
 | Blog Posts | `src/posts/*.md` | `post.njk` layout | 8 posts on security, AI/ML, career topics |
-| Static Pages | `src/pages/*.md` | `page.njk` layout | About, Experience, Skills, Projects, Contact, Uses, Resources, Style Guide, 404 |
+| Static Pages | `src/pages/*.md` | `page.njk` layout | About (comprehensive professional profile), Contact, Uses, Resources, Style Guide, 404 |
 | Homepage | `src/index.njk` | `base.njk` layout | Hero with headshot, recent posts |
 | Global Data | `src/_data/*.json` | Available everywhere | Site metadata |
 
@@ -602,6 +602,13 @@ Use these patterns with the standards router:
 ---
 
 ## 📊 Changelog
+
+### [4.4.0] - 2025-06-25
+#### Changed
+- Combined Experience, Skills, and Projects pages into a single comprehensive About page
+- Implemented redirect pages from old URLs to new About page sections
+- Improved information architecture following UX best practices
+- Better SEO through consolidated professional content
 
 ### [4.3.0] - 2025-06-25
 #### Added

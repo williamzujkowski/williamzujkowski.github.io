@@ -1,6 +1,6 @@
 # williamzujkowski.github.io
 
-**Version:** 2.3.0  
+**Version:** 2.4.0  
 **Last Updated:** 2025-06-25  
 **Status:** Active  
 **Type:** Personal Website
@@ -239,6 +239,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 ## 📊 Changelog
+
+### [2.4.0] - 2025-06-25
+#### Changed
+- Combined Experience, Skills, and Projects pages into comprehensive About page
+- Improved site navigation and information architecture
+- Added redirect pages from old URLs to maintain backwards compatibility
+- Enhanced user experience with unified professional profile
 
 ### [2.3.0] - 2025-06-25
 #### Added

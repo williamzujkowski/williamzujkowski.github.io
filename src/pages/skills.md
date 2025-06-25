@@ -2,11 +2,13 @@
 layout: page
 title: Skills & Expertise
 description: Comprehensive technical skills in AI/ML security, Python automation, cloud infrastructure, and open-source development demonstrated through personal projects and professional experience
-permalink: /skills/
-eleventyNavigation:
-  key: Skills
-  title: Skills
-  order: 4
+# permalink: /skills/ # Removed - content merged into About page
+permalink: false
+# Remove from navigation - content merged into About page
+# eleventyNavigation:
+#   key: Skills
+#   title: Skills
+#   order: 4
 image: /assets/images/og/skills-og.png
 ---
 

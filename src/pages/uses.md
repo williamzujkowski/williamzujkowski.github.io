@@ -6,7 +6,7 @@ permalink: /uses/
 eleventyNavigation:
   key: Uses
   title: Uses
-  order: 7
+  order: 4
 image: /assets/images/og/uses-og.png
 ---
 

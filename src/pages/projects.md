@@ -2,11 +2,13 @@
 layout: page
 title: Projects & Open Source
 description: Personal projects, open-source tools, and technical experiments. Exploring security automation, AI/ML applications, and developer productivity tools.
-permalink: /projects/
-eleventyNavigation:
-  key: Projects
-  title: Projects
-  order: 5
+# permalink: /projects/ # Removed - content merged into About page
+permalink: false
+# Remove from navigation - content merged into About page
+# eleventyNavigation:
+#   key: Projects
+#   title: Projects
+#   order: 5
 image: /assets/images/og/projects-og.png
 ---
 

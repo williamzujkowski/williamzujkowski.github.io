@@ -1,6 +1,6 @@
 ---
 title: "From IT Support to Senior InfoSec Engineer: My 15+ Year Journey"
-date: 2025-01-28
+date: 2025-03-24
 description: "The winding path from fixing printers to securing federal systems – lessons learned, mistakes made, and advice for aspiring security professionals"
 tags: [career, security, personal-growth, learning, leadership]
 author: "William Zujkowski"

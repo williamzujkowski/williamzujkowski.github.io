@@ -86,12 +86,11 @@
 
 ### 6. Content Ideas (Based on Professional Experience)
 - [ ] **Technical Deep Dives**
-  - [ ] "Building cloud.gov's Security Architecture" - Zero-Trust implementation
   - [ ] "Scaling Vulnerability Management for 900+ NIH Endpoints"
   - [ ] "GPU Cluster Security for HPC Environments"
   - [ ] "Implementing PIV/CAC Authentication in Federal Systems"
 - [ ] **Tools & Workflows**
-  - [ ] "My Security Engineering Toolkit: 2024 Edition"
+  - [ ] "My Security Engineering Toolkit: 2025 Edition"
   - [ ] "Automating FedRAMP Compliance with Python and Terraform"
   - [ ] "Building a Security Operations Center in Your Homelab"
   - [ ] "Essential SIEM Queries for Threat Hunting"
@@ -100,7 +99,6 @@
   - [ ] "Mistakes I Made (and Fixed) in Federal Cloud Security"
   - [ ] "Transitioning from IT Support to Security Leadership"
 - [ ] **Certifications & Learning**
-  - [ ] "CompTIA Security+ to CSAP: My Certification Journey"
   - [ ] "Why I'm Learning AI/ML as a Security Engineer"
   - [ ] "Resources for Breaking into Federal Cybersecurity"
 

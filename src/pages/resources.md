@@ -6,7 +6,7 @@ permalink: /resources/
 eleventyNavigation:
   key: Resources
   title: Resources
-  order: 8
+  order: 5
 image: /assets/images/og/resources-og.png
 ---
 

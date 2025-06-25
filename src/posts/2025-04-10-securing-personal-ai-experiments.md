@@ -1,6 +1,6 @@
 ---
 title: "Securing Your Personal AI/ML Experiments: A Practical Guide"
-date: 2025-01-27
+date: 2025-04-10
 description: "Lessons learned from running LLMs and AI experiments at home while keeping data and systems secure"
 tags: [ai, machine-learning, security, privacy, homelab, llm]
 author: "William Zujkowski"

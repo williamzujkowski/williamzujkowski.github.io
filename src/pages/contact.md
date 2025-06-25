@@ -5,7 +5,7 @@ description: Connect with me about security, technology, or just to say hello
 permalink: /contact/
 eleventyNavigation:
   key: Contact
-  order: 6
+  order: 3
 image: /assets/images/og/contact-og.png
 ---
 
@@ -140,7 +140,7 @@ Whether you want to discuss federal security, share dad jokes, or collaborate on
     To help me provide the best response:
   </p>
   <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
-    <li>Check out my <a href="/projects/" class="text-primary-600 dark:text-primary-400 hover:underline">projects page</a> for examples of my work</li>
+    <li>Check out my <a href="/about/#projects" class="text-primary-600 dark:text-primary-400 hover:underline">projects section</a> for examples of my work</li>
     <li>Read my <a href="/posts/" class="text-primary-600 dark:text-primary-400 hover:underline">blog posts</a> for my thoughts on security topics</li>
     <li>Include context about why you're reaching out</li>
     <li>For job opportunities, please mention if clearance is required</li>

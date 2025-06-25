@@ -1,6 +1,6 @@
 ---
 title: "Continuous Learning in Cybersecurity: Strategies That Work"
-date: 2025-01-30
+date: 2025-02-24
 description: "How I stay current in a field that changes daily – practical strategies for continuous learning without burning out"
 tags: [career, learning, security, professional-development, certifications]
 ---

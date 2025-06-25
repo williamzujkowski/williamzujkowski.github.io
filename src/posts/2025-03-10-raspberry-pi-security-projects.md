@@ -1,6 +1,6 @@
 ---
 title: "Raspberry Pi Security Projects That Actually Solve Problems"
-date: 2025-01-29
+date: 2025-03-10
 description: "From network monitoring to physical security – practical Raspberry Pi projects that enhance your home security without breaking the bank"
 tags: [raspberry-pi, security, homelab, networking, projects, DIY]
 ---
