@@ -238,41 +238,16 @@ From securing federal clouds to building homelab experiments – projects that p
 
 ## Upcoming Projects
 
-<div class="my-8">
-  <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">🚀 What's Next</h3>
-  
-  <div class="space-y-4">
-    <div class="flex items-start space-x-3">
-      <div class="flex-shrink-0 w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center">
-        <span class="text-yellow-600 dark:text-yellow-400 text-sm">1</span>
-      </div>
-      <div>
-        <p class="font-medium text-gray-900 dark:text-gray-100">Quantum-Resistant Cryptography Demo</p>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Implementing post-quantum algorithms for federal systems</p>
-      </div>
-    </div>
-    
-    <div class="flex items-start space-x-3">
-      <div class="flex-shrink-0 w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center">
-        <span class="text-yellow-600 dark:text-yellow-400 text-sm">2</span>
-      </div>
-      <div>
-        <p class="font-medium text-gray-900 dark:text-gray-100">Supply Chain Security Automation</p>
-        <p class="text-sm text-gray-600 dark:text-gray-400">SBOM generation and vulnerability tracking at scale</p>
-      </div>
-    </div>
-    
-    <div class="flex items-start space-x-3">
-      <div class="flex-shrink-0 w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center">
-        <span class="text-yellow-600 dark:text-yellow-400 text-sm">3</span>
-      </div>
-      <div>
-        <p class="font-medium text-gray-900 dark:text-gray-100">AI-Powered Threat Hunting Platform</p>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Using ML for anomaly detection in government environments</p>
-      </div>
-    </div>
-  </div>
-</div>
+### 🚀 What's Next
+
+**1. Quantum-Resistant Cryptography Demo**  
+Implementing post-quantum algorithms for federal systems
+
+**2. Supply Chain Security Automation**  
+SBOM generation and vulnerability tracking at scale
+
+**3. AI-Powered Threat Hunting Platform**  
+Using ML for anomaly detection in government environments
 
 ## Get Involved
 
@@ -294,6 +269,4 @@ From securing federal clouds to building homelab experiments – projects that p
       </svg>
     </a>
   </div>
-</div>
-
 </div>
