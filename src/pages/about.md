@@ -10,14 +10,9 @@ eleventyNavigation:
 image: /assets/images/og/about-og.png
 ---
 
-# William Zujkowski
-
 <div class="prose prose-lg prose-gray dark:prose-invert lg:prose-xl max-w-none">
 
 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-8 rounded-2xl mb-8">
-  <p class="lead text-2xl text-gray-700 dark:text-gray-300 italic mb-6">
-    Senior Security Engineer passionate about the intersection of AI/ML and cybersecurity, with 15+ years securing critical federal infrastructure and building open-source security tools.
-  </p>
   
   <div class="flex flex-wrap gap-4 text-sm">
     <a href="#experience" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
