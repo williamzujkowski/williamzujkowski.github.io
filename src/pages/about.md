@@ -136,7 +136,7 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
         <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">National Human Genome Research Institute (NIH)</h3>
         <p class="text-primary-600 dark:text-primary-400 font-medium">Security Engineering Lead / Alternate ISSO </p>
         <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">December 2020 - November 2021</p>
-        Orchestrated vulnerability remediation, Synack VDP and penetration-test programs, and rolled out Absolute endpoint protection across eight NIH Institutes. Served as alternate ISSO, chaired inter-institute working groups, and ensured federal compliance with continuous monitoring and forensics capabilities.
+        Orchestrated vulnerability remediation, Synack VDP and penetration-test programs, and rolled out Absolute endpoint protection across NHGRI. Served as alternate ISSO, chaired inter-institute working groups, and ensured federal compliance with continuous monitoring and forensics capabilities.
       </div>
     </div>
   </div>
@@ -202,10 +202,10 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
 ### Professional Memberships
 
 <div class="flex flex-wrap gap-4 justify-center my-8">
-  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">OWASP</span>
-  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">IACR</span>
-  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">ACM SIGHPC</span>
-  <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">USENIX</span>
+  <a href="https://owasp.org/"><span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">OWASP</span></a>
+  <a href="https://iacr.org/"><span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">IACR</span></a>
+  <a href="https://www.sighpc.org/"><span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">ACM SIGHPC</span></a>
+  <a href="https://www.usenix.org/"><span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300">USENIX</span></a>
 </div>
 
 ---
