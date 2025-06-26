@@ -747,8 +747,6 @@ Building tools that solve real problems – from security automation to AI-power
         </a>
       </div>
     </div>
-
-    <!-- Tech & Open Source -->
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
       <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
         <svg class="w-6 h-6 mr-2 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -771,7 +769,6 @@ Building tools that solve real problems – from security automation to AI-power
         </a>
       </div>
     </div>
-    
   </div>
 </div>
 
