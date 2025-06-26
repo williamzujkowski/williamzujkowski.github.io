@@ -3,10 +3,6 @@ layout: page
 title: Tags
 description: Browse all tags and topics covered in my blog posts
 permalink: /tags/
-eleventyNavigation:
-  key: Tags
-  parent: Posts
-  order: 2
 ---
 
 # Browse by Tag
