@@ -139,6 +139,34 @@ module.exports = function(eleventyConfig) {
     return null;
   });
 
+  // Create collection of all tags
+  eleventyConfig.addCollection("tagList", function(collection) {
+    let tagSet = new Set();
+    collection.getAll().forEach(item => {
+      (item.data.tags || []).forEach(tag => tagSet.add(tag));
+    });
+    // Convert to array and sort
+    return [...tagSet].sort();
+  });
+
+  // Slugify filter for URLs
+  eleventyConfig.addFilter("slugify", (str) => {
+    if (!str) return "";
+    return str.toString().toLowerCase()
+      .replace(/\s+/g, '-')           // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '');            // Trim - from end of text
+  });
+
+  // Truncate filter
+  eleventyConfig.addFilter("truncate", (str, length = 100) => {
+    if (!str) return "";
+    if (str.length <= length) return str;
+    return str.substring(0, length).trim() + "...";
+  });
+
   return {
     dir: {
       input: "src",

@@ -29,9 +29,9 @@ layout: base
                 <div class="mt-8 flex flex-wrap justify-center gap-2 animate-fade-in-up animation-delay-400">
                     {% for tag in tags %}
                         {% if tag != 'posts' %}
-                        <span class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300">
+                        <a href="/tags/{{ tag | slugify }}/" class="inline-flex items-center rounded-full bg-primary-50 dark:bg-primary-900/20 px-3 py-1 text-sm font-medium text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors">
                             {{ tag }}
-                        </span>
+                        </a>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -41,6 +41,53 @@ layout: base
             <div class="prose prose-lg prose-gray dark:prose-invert mx-auto animate-fade-in-up animation-delay-600">
                 {{ content | lazyImages | safe }}
             </div>
+            
+            <!-- Related Posts -->
+            {% set relatedPosts = [] %}
+            {% set currentTags = tags %}
+            {% set currentUrl = page.url %}
+            
+            {% for post in collections.posts %}
+                {% if post.url != currentUrl %}
+                    {% set commonTags = 0 %}
+                    {% for tag in post.data.tags %}
+                        {% if tag in currentTags and tag != 'posts' %}
+                            {% set commonTags = commonTags + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if commonTags > 0 %}
+                        {% set relatedPosts = (relatedPosts.push({post: post, score: commonTags}), relatedPosts) %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if relatedPosts.length > 0 %}
+            {% set sortedRelated = relatedPosts | sort(true, false, 'score') | reverse %}
+            <section class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Related Posts</h2>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {% for item in sortedRelated | limit(3) %}
+                    {% set relPost = item.post %}
+                    <article class="group">
+                        <a href="{{ relPost.url }}" class="block p-6 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 hover:shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
+                                {{ relPost.data.title }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                {{ relPost.data.description | truncate(100) }}
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                                <time datetime="{{ relPost.date | htmlDateString }}">
+                                    {{ relPost.date | readableDate }}
+                                </time>
+                                <span>{{ relPost.templateContent | readingTime }} min read</span>
+                            </div>
+                        </a>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
             
             <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
                 <div class="flex items-center justify-between">
@@ -101,3 +148,6 @@ layout: base
         </div>
     </div>
 </article>
+
+<!-- Reading Progress Indicator -->
+<script src="/assets/js/reading-progress.js"></script>
