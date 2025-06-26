@@ -36,6 +36,7 @@ Ansible solves these by providing:
 
 Let's start with a foundation that all IR playbooks should build upon:
 
+{% raw %}
 ```yaml
 ---
 # Base IR Playbook Structure
@@ -165,11 +166,13 @@ Let's start with a foundation that all IR playbooks should build upon:
           incident_id: "{{ incident_id }}"
       delegate_to: localhost
 ```
+{% endraw %}
 
 ### Ransomware Response Playbook
 
 Here's a production-tested ransomware response playbook:
 
+{% raw %}
 ```yaml
 ---
 # ransomware_response.yml
@@ -407,11 +410,13 @@ Here's a production-tested ransomware response playbook:
           color: "danger"
           incident_id: "{{ incident_id }}"
 ```
+{% endraw %}
 
 ### Credential Compromise Response
 
 Responding to stolen credentials requires speed and precision:
 
+{% raw %}
 ```yaml
 ---
 # credential_compromise_response.yml
@@ -583,6 +588,7 @@ Responding to stolen credentials requires speed and precision:
           delegate_to: localhost
           when: send_notifications | default(true)
 ```
+{% endraw %}
 
 ### Data Exfiltration Response
 
