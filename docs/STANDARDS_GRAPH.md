@@ -1,7 +1,7 @@
 # Standards Relationship Graph
 
-**Version:** 1.0.1  
-**Last Updated:** 2025-06-25  
+**Version:** 1.0.2  
+**Last Updated:** 2025-06-26  
 **Status:** Active  
 **Type:** Reference Document
 
@@ -65,7 +65,7 @@ graph LR
 | Document | Depends On | Required By | Related To |
 |----------|-----------|-------------|------------|
 | README.md (v2.2.0) | - | All docs | CLAUDE.md, MANIFEST.yaml |
-| CLAUDE.md (v4.2.0) | MANIFEST.yaml | AI assistants | All docs |
+| CLAUDE.md (v4.5.1) | MANIFEST.yaml | AI assistants | All docs |
 | MANIFEST.yaml (v3.1.0) | - | CLAUDE.md | All docs |
 | CONTENT_GUIDE.md (v2.0.0) | Site structure, Tailwind CSS | Content creators | Posts, Pages |
 | SITE_DOCUMENTATION_STANDARDS.md | KM Standards | All docs | .standards/ |
@@ -141,7 +141,7 @@ external_docs:
 - [x] Documentation structure (docs/)
 - [x] Content guidelines (v2.0.0 with Tailwind CSS)
 - [x] Cross-reference system
-- [x] Professional pages (Experience, Skills, Projects, Contact, Uses, Resources, Style Guide)
+- [x] Professional pages (About, Uses, Resources, Style Guide)
 - [x] Blog posts (8 technical posts published)
 - [x] Reading time estimates for all posts
 - [x] Git-based last updated dates
@@ -211,4 +211,4 @@ Keep versions aligned:
 
 ---
 
-**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of 2025-06-25. The site now includes 8 blog posts, comprehensive professional pages with a style guide, search functionality, social sharing, and focuses on personal open-source projects.
+**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of 2025-06-26. The site now includes 8 blog posts, a consolidated About page with professional information, Uses and Resources pages, style guide, search functionality, social sharing, and focuses on personal open-source projects.

@@ -1,8 +1,8 @@
 # Knowledge Management Manifest
 # Machine-readable metadata for AI assistants and automation tools
 
-version: "3.1.0"
-last_updated: "2025-06-25"
+version: "3.2.0"
+last_updated: "2025-06-26"
 type: "personal-website"
 framework: "eleventy"
 styling_framework: "tailwindcss"
@@ -52,6 +52,7 @@ documents:
     type: "ai-interface"
     tokens: 3000
     priority: "critical"
+    version: "4.5.1"
     sections:
       quick_start:
         tokens: 200
@@ -124,13 +125,10 @@ content:
     layout: "page"
     current:
       - "about.md"
-      - "contact.md"
       - "posts.njk"
-      - "experience.md"
-      - "skills.md"
-      - "projects.md"
       - "uses.md"
       - "resources.md"
+      - "style-guide.md"
       - "404.md"
       
   posts:
@@ -340,6 +338,14 @@ quick_reference:
 
 # Version History
 changelog:
+  - version: "3.2.0"
+    date: "2025-06-26"
+    changes:
+      - "Updated homepage with AI interest section and Asimov quote"
+      - "Consolidated Experience, Skills, and Projects into comprehensive About page"
+      - "Removed vestigial contact.md and projects.md pages (had permalink: false)"
+      - "Fixed internal link in uses.md to point to /about/#contact"
+      - "Updated all documentation to reflect current page structure"
   - version: "3.1.0"
     date: "2025-06-25"
     changes:
