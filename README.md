@@ -1,11 +1,11 @@
 # williamzujkowski.github.io
 
-**Version:** 2.5.0  
-**Last Updated:** 2025-06-25  
+**Version:** 2.6.0  
+**Last Updated:** 2025-06-26  
 **Status:** Active  
 **Type:** Personal Website
 
-Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 8 blog posts about security, AI/ML projects, continuous learning, and career development. Showcases personal open-source projects on GitHub and 15+ years of cybersecurity expertise. Includes search functionality, social sharing, and a comprehensive style guide.
+Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 13 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search functionality, social sharing, reading progress indicator, and PWA support.
 
 > **Note:** This repository implements comprehensive development standards via the [.standards](https://github.com/williamzujkowski/standards) submodule.
 > 
@@ -56,14 +56,15 @@ npm run validate:km  # Validate Knowledge Management standards
 
 ## ✨ Features
 
-- **Personal Blog**: 8 technical posts about security, AI/ML, and career development with search functionality
+- **Personal Blog**: 13 technical posts about security, AI/ML, homelab, and career development
 - **Professional Pages**: Experience timeline, skills matrix, project portfolio, uses, resources, and style guide
-- **Interactive Features**: Blog search, social sharing buttons (LinkedIn, Hacker News, Reddit)
-- **Dark Mode**: Automatic theme switching with manual toggle
-- **SEO Optimized**: Extended meta descriptions, structured data ready, git-based update dates
+- **Interactive Features**: Tag navigation, blog search, social sharing, related posts, reading progress
+- **Dark Mode**: Automatic theme switching with manual toggle and dynamic theme-color
+- **SEO Optimized**: Extended meta descriptions, structured data, git-based dates, tag pages
+- **PWA Support**: Web App Manifest, installable on mobile devices
 - **Responsive Design**: Mobile-first approach with Tailwind CSS and glass morphism effects
-- **Fast Performance**: Static site with optimized assets, reading time estimates
-- **Accessibility**: Semantic HTML, ARIA attributes, external link security
+- **Fast Performance**: Static site, lazy loading, resource hints, back-to-top button
+- **Accessibility**: Semantic HTML, ARIA attributes, external link security, motion preferences
 - **GitHub Actions**: Automated builds and deployments to GitHub Pages
 
 ## 📁 Project Structure
@@ -107,7 +108,7 @@ npm run validate:km  # Validate Knowledge Management standards
 title: Your Post Title
 date: 2024-01-15
 description: Brief description of your post
-tags: [web-development, tutorial]  # Optional tags
+tags: [web-development, tutorial]  # Tags create category pages
 ---
 ```
 
@@ -239,6 +240,32 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 ## 📊 Changelog
+
+### [2.6.0] - 2025-06-26
+#### Added
+- PWA support with Web App Manifest and icons for mobile installation
+- Dynamic tag/category pages system at /tags/[tag-name]/
+- Tag index page showing all tags with post counts
+- Related posts feature based on shared tags (shows 3 most relevant)
+- Reading progress indicator bar for blog posts
+- Back-to-top button with smooth scrolling
+- Functional search on 404 page
+- Resource hints (preconnect/dns-prefetch) for performance
+- Five new blog posts about incident response, eBPF, DNS, vulnerability management
+- Dynamic theme-color meta tags that change with dark/light mode
+
+#### Changed
+- Updated welcome post with meaningful content about building the site
+- Made all tags clickable links throughout the site
+- Updated post count from 8 to 13
+- Enhanced lazy loading implementation
+- Removed tags page from main navigation (accessible via tag clicks)
+
+#### Technical Updates
+- Added slugify and truncate filters to Eleventy config
+- Created tagList collection for dynamic tag generation
+- Added reading-progress.js and back-to-top.js scripts
+- All new features respect prefers-reduced-motion
 
 ### [2.5.0] - 2025-06-25
 #### Added

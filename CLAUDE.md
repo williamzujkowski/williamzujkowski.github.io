@@ -521,15 +521,20 @@ For complex tasks, load these specific sections:
 **Optimization Implemented:**
 - ✅ CSS minified in production (cssnano)
 - ✅ HTML semantic and accessible
-- ✅ Responsive images ready
-- ✅ Dark mode with no flash
+- ✅ Responsive images ready (lazy loading enabled)
+- ✅ Dark mode with no flash (dynamic theme-color)
 - ✅ Smooth animations with will-change
+- ✅ PWA support with manifest.json
+- ✅ Resource hints (preconnect/dns-prefetch)
+- ✅ Back-to-top button with smooth scroll
+- ✅ Reading progress indicator for posts
+- ✅ Tag-based navigation system
 
 **Future Optimizations:**
 - [ ] Implement Tailwind CSS purging
-- [ ] Add image optimization pipeline
-- [ ] Implement service worker
-- [ ] Add resource hints (preconnect, prefetch)
+- [ ] Add image optimization pipeline (@11ty/eleventy-img)
+- [ ] Implement service worker for offline support
+- [ ] Add critical CSS inlining
 
 ---
 
@@ -602,6 +607,31 @@ Use these patterns with the standards router:
 ---
 
 ## 📊 Changelog
+
+### [4.6.0] - 2025-06-26
+#### Added
+- PWA support with Web App Manifest and app icons
+- Dynamic tag/category pages at /tags/[tag-name]/
+- Tag index page at /tags/ with all tags and counts
+- Related posts feature showing 3 most relevant posts by shared tags
+- Reading progress indicator bar for blog posts
+- Back-to-top button with smooth scrolling
+- Dynamic theme-color meta tags that change with dark/light mode
+- Functional search on 404 page
+- Resource hints (preconnect/dns-prefetch) for performance
+- Five new blog posts on security and homelab topics
+
+#### Changed
+- Updated welcome post with meaningful content about building the site
+- Made tags clickable throughout the site (posts and listings)
+- Updated content count to 13 posts (was 8)
+- Removed tags page from main navigation (still accessible via tag clicks)
+
+#### Technical Updates
+- Added slugify and truncate filters to Eleventy config
+- Implemented tagList collection for dynamic tag pages
+- Added reading-progress.js and back-to-top.js scripts
+- All new features respect prefers-reduced-motion
 
 ### [4.5.1] - 2025-06-26
 #### Changed
