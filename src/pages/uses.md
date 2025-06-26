@@ -185,7 +185,7 @@ A: Coffee for coding, tea for reading, water for incidents (hydration is key).
 
 ---
 
-*This page is updated regularly as my setup evolves. Last major update: January 2025*
+*This page is updated regularly as my setup evolves.
 
 *Have questions about any of these tools? Want to share your setup? [Let's connect!](/about/#contact)*
 
