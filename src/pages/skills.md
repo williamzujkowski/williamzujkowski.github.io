@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Skills & Expertise
+title: Skills &amp; Expertise
 description: Comprehensive technical skills in AI/ML security, Python automation, cloud infrastructure, and open-source development demonstrated through personal projects and professional experience
 # permalink: /skills/ # Removed - content merged into About page
 permalink: false
@@ -24,13 +24,13 @@ From AI/ML security to infrastructure automation – skills demonstrated through
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
   
-  <!-- AI/ML & LLM Development -->
+  <!-- AI/ML &amp; LLM Development -->
   <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg">
     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
       <svg class="w-6 h-6 mr-2 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
       </svg>
-      AI/ML & LLM Development
+      AI/ML &amp; LLM Development
     </h3>
     <div class="space-y-3">
       <div>
@@ -40,7 +40,7 @@ From AI/ML security to infrastructure automation – skills demonstrated through
         </div>
       </div>
       <div>
-        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">LangGraph & LangChain</p>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">LangGraph &amp; LangChain</p>
         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
           <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
         </div>
@@ -52,7 +52,7 @@ From AI/ML security to infrastructure automation – skills demonstrated through
         </div>
       </div>
       <div>
-        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">AI Security & Safety</p>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">AI Security &amp; Safety</p>
         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
           <div class="bg-purple-600 h-2 rounded-full" style="width: 82%"></div>
         </div>

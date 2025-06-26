@@ -330,7 +330,6 @@ This style guide documents the visual design system used throughout this website
 function greet(name) {
   return `Hello, ${name}!`;
 }
-
 console.log(greet('World'));</code></pre>
   </div>
 </div>
