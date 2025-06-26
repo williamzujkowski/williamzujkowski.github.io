@@ -48,7 +48,7 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 - **Standards Compliance:** Integrated via submodule
 - **UI Framework:** Tailwind CSS with PostCSS pipeline
 - **Navigation:** eleventy-navigation plugin for hierarchical menus
-- **Professional Pages:** About (comprehensive profile), Uses, Resources, Style Guide
+- **Professional Pages:** About (comprehensive profile), Uses, Resources
 - **Blog Posts:** Security, AI/ML, career development, continuous learning
 
 ---
@@ -73,7 +73,7 @@ Personal website built with Eleventy, featuring blog posts, project documentatio
 | Content Type | Location | Template Used | Current Content |
 |--------------|----------|---------------|-----------------|
 | Blog Posts | `src/posts/*.md` | `post.njk` layout | 8 posts on security, AI/ML, career topics |
-| Static Pages | `src/pages/*.md` | `page.njk` layout | About (comprehensive professional profile), Uses, Resources, Style Guide, 404 |
+| Static Pages | `src/pages/*.md` | `page.njk` layout | About (comprehensive professional profile), Uses, Resources, 404 |
 | Homepage | `src/index.njk` | `base.njk` layout | Hero with headshot, recent posts |
 | Global Data | `src/_data/*.json` | Available everywhere | Site metadata |
 

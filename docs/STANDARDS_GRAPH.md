@@ -141,7 +141,7 @@ external_docs:
 - [x] Documentation structure (docs/)
 - [x] Content guidelines (v2.0.0 with Tailwind CSS)
 - [x] Cross-reference system
-- [x] Professional pages (About, Uses, Resources, Style Guide)
+- [x] Professional pages (About, Uses, Resources)
 - [x] Blog posts (8 technical posts published)
 - [x] Reading time estimates for all posts
 - [x] Git-based last updated dates
@@ -211,4 +211,4 @@ Keep versions aligned:
 
 ---
 
-**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of 2025-06-26. The site now includes 8 blog posts, a consolidated About page with professional information, Uses and Resources pages, style guide, search functionality, social sharing, and focuses on personal open-source projects.
+**Note:** This graph represents the Knowledge Management implementation for williamzujkowski.github.io as of 2025-06-26. The site now includes 8 blog posts, a consolidated About page with professional information, Uses and Resources pages, search functionality, social sharing, and focuses on personal open-source projects. The style guide has been moved to internal documentation.

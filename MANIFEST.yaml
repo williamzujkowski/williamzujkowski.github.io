@@ -128,7 +128,6 @@ content:
       - "posts.njk"
       - "uses.md"
       - "resources.md"
-      - "style-guide.md"
       - "404.md"
       
   posts:
