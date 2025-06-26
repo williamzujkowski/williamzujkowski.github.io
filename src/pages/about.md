@@ -723,7 +723,6 @@ Building tools that solve real problems – from security automation to AI-power
   </p>
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    
     <!-- Professional Inquiries -->
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
       <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
