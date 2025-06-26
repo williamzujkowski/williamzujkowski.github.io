@@ -594,6 +594,7 @@ Responding to stolen credentials requires speed and precision:
 
 Detecting and responding to data theft:
 
+{% raw %}
 ```yaml
 ---
 # data_exfiltration_response.yml
@@ -1228,6 +1229,7 @@ Track your performance:
     body_format: json
     body: "{{ ir_metrics }}"
 ```
+{% endraw %}
 
 ## Conclusion
 
