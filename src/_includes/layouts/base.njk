@@ -19,6 +19,10 @@
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
     <link rel="alternate icon" href="/assets/images/favicon.ico">
     
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e40af">
+    
     <!-- Open Graph -->
     <meta property="og:title" content="{% if title != "Home" %}{{ title }}{% else %}{{ site.title }}{% endif %}">
     <meta property="og:description" content="{{ description or site.description }}">
@@ -105,11 +109,19 @@
     
     <!-- Dark mode script -->
     <script>
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
+        // Initialize dark mode and theme color
+        (function() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeColorMeta) themeColorMeta.content = '#111827';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
+            }
+        })();
     </script>
 </head>
 <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
@@ -295,12 +307,16 @@
     <script>
         function toggleDarkMode() {
             const html = document.documentElement;
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
                 localStorage.theme = 'light';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
             } else {
                 html.classList.add('dark');
                 localStorage.theme = 'dark';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
             }
         }
         
@@ -356,5 +372,8 @@
             menu.classList.toggle('hidden');
         }
     </script>
+    
+    <!-- Back to Top Button -->
+    <script src="/assets/js/back-to-top.js"></script>
 </body>
 </html>
