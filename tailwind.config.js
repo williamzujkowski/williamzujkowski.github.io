@@ -35,6 +35,38 @@ module.exports = {
             },
           },
         },
+        invert: {
+          css: {
+            color: '#d1d5db', // gray-300
+            a: {
+              color: '#60a5fa', // blue-400
+              '&:hover': {
+                color: '#93bbfd', // blue-300
+              },
+            },
+            strong: {
+              color: '#e5e7eb', // gray-200
+            },
+            h1: {
+              color: '#f3f4f6', // gray-100
+            },
+            h2: {
+              color: '#f3f4f6', // gray-100
+            },
+            h3: {
+              color: '#f3f4f6', // gray-100
+            },
+            h4: {
+              color: '#f3f4f6', // gray-100
+            },
+            code: {
+              color: '#e5e7eb', // gray-200
+            },
+            'blockquote p': {
+              color: '#d1d5db', // gray-300
+            },
+          },
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
