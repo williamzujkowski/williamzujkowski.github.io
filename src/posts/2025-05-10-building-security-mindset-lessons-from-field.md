@@ -1,6 +1,6 @@
 ---
 title: "Building a Security Mindset: Lessons from the Field"
-date: 2025-06-25
+date: 2025-05-10
 description: "After 15+ years in cybersecurity, here are the key lessons about developing a security-first mindset that have shaped my approach to both professional challenges and personal projects."
 tags: [career, security, leadership, mindset, lessons-learned]
 ---

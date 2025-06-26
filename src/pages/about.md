@@ -82,16 +82,10 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
     </div>
     <div class="flex-grow">
       <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Information Technology Specialist (INFOSEC)</h3>
-      <p class="text-primary-600 dark:text-primary-400 font-medium">Technology Transformation Services (TTS) • cloud.gov</p>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">November 2023 - Present • Remote</p>
+      <p class="text-primary-600 dark:text-primary-400 font-medium">Technology Transformation Services (TTS) - cloud.gov</p>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">November 2023 - Present</p>
       <div class="mt-4 space-y-2">
         <p class="text-gray-700 dark:text-gray-300">Leading security initiatives for cloud.gov, the government's cloud platform serving 30+ federal agencies.</p>
-        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
-          <li>Spearheaded Zero-Trust architecture implementation</li>
-          <li>Enhanced FedRAMP Moderate compliance automation</li>
-          <li>Reduced incident response time by 30%</li>
-          <li>Built DevSecOps pipelines for continuous compliance</li>
-        </ul>
       </div>
     </div>
   </div>
@@ -113,14 +107,10 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
     <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
     <div class="ml-20">
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Lead HPC Site Reliability Engineer</h3>
-        <p class="text-primary-600 dark:text-primary-400 font-medium">Guidehouse (NIH Contract)</p>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">National Heart, Lung, and Blood Institute – Laboratory of Computational Biology</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Lead HPC Site Reliability Engineer</p>
         <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">May 2023 - November 2023</p>
-        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
-          <li>Orchestrated LoBoS HPC cluster for molecular dynamics research</li>
-          <li>Implemented GPU compute with NVLINK for computational chemistry</li>
-          <li>Automated cluster management with Ansible and SLURM</li>
-        </ul>
+        Led automation and resilience for NIH’s LoBoS high-performance computing cluster—implementing Ansible-driven provisioning, SLURM job scheduling, and NVLINK GPU interconnects—to accelerate molecular dynamics research and ensure continuous high-performance availability
       </div>
     </div>
   </div>
@@ -130,32 +120,10 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
     <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
     <div class="ml-20">
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Vulnerability Management Lead</h3>
-        <p class="text-primary-600 dark:text-primary-400 font-medium">Edgewater Federal Solutions (NIH)</p>
-        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">May 2022 - March 2023</p>
-        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
-          <li>Led team managing 900+ NIH endpoints</li>
-          <li>Reduced enterprise vulnerabilities by 40%</li>
-          <li>Implemented secure configuration baselines</li>
-          <li>Oversaw penetration testing and web app security</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2021-2022 - Deputy Vulnerability Management Lead -->
-  <div class="relative flex items-start mb-8">
-    <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
-    <div class="ml-20">
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Deputy Vulnerability Management Lead</h3>
-        <p class="text-primary-600 dark:text-primary-400 font-medium">Edgewater Federal Solutions (NIH)</p>
-        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">November 2021 - May 2022</p>
-        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
-          <li>Strategic leadership in enterprise vulnerability management</li>
-          <li>30% reduction in potential vulnerabilities</li>
-          <li>25% decrease in security incidents</li>
-        </ul>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">National Institutes of Health – Office of the CIO</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Vulnerability Management Team Lead </p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">November 2021 - March 2023</p>
+        Led NIH’s enterprise-wide vulnerability management across all 27 Institutes, driving strategy, automation and OS-hardening initiatives. Built and mentored a 18-member security team, championed CISA BOD 22-01 and Log4j response, and forged cross-IC stakeholder partnerships to dramatically improve NIH’s security posture.
       </div>
     </div>
   </div>
@@ -165,14 +133,10 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
     <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
     <div class="ml-20">
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Lead Information Security Engineer & Alternate ISSO</h3>
-        <p class="text-primary-600 dark:text-primary-400 font-medium">Carson & SAINT Corps (NHGRI)</p>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">National Human Genome Research Institute (NIH)</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Security Engineering Lead / Alternate ISSO </p>
         <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">December 2020 - November 2021</p>
-        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
-          <li>Enterprise-wide security management for genome research</li>
-          <li>Enhanced cyber defense infrastructure</li>
-          <li>Led incident response initiatives</li>
-        </ul>
+        Orchestrated vulnerability remediation, Synack VDP and penetration-test programs, and rolled out Absolute endpoint protection across eight NIH Institutes. Served as alternate ISSO, chaired inter-institute working groups, and ensured federal compliance with continuous monitoring and forensics capabilities.
       </div>
     </div>
   </div>
@@ -182,8 +146,8 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
     <div class="absolute left-8 w-4 h-4 bg-primary-600 rounded-full -translate-x-1/2"></div>
     <div class="ml-20">
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Information Technology Security Engineer</h3>
-        <p class="text-primary-600 dark:text-primary-400 font-medium">Carson & SAINT Corps (NHGRI)</p>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">National Human Genome Research Institute (NIH)</h3>
+        <p class="text-primary-600 dark:text-primary-400 font-medium">Information Technology Security Engineer</p>
         <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">December 2018 - December 2020</p>
         <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm">
           <li>Cyber defense infrastructure support</li>
@@ -201,8 +165,8 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
       <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
         <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">Foundation Years (2005-2018)</h3>
         <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-          <p><strong>2017-2018:</strong> Lead Service Desk Engineer (Tier III) at GRSi & MSC - NIH Federal Medical Research</p>
-          <p><strong>2016-2017:</strong> Technical Support Engineer at Partners International - Federal contractor support</p>
+          <p><strong>2017-2018:</strong> Lead Service Desk Engineer (Tier III) at GRSi & MSC - National Heart, Lung, and Blood Institute (NIH)</p>
+          <p><strong>2016-2017:</strong> Technical Support Engineer at Partners International</p>
           <p><strong>2015-2016:</strong> IT Infrastructure Manager at Sensible Software - Led cloud migration initiatives</p>
           <p><strong>2014-2015:</strong> IT Asset Management at e-End - NIST/NAID compliant data destruction</p>
           <p><strong>2005-2014:</strong> Independent IT Consultant - Built foundation in diverse technologies</p>
@@ -219,19 +183,18 @@ Currently serving as an **Information Technology Specialist (INFOSEC)** at **Tec
   <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg">
     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">🏆 Recognition</h3>
     <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-      <li>• NHLBI Exceptional Performance Recognition</li>
-      <li>• NIH OCIO Contractor Excellence Award</li>
-      <li>• Certificate of Excellence</li>
+      <li>NHLBI Exceptional Performance Recognition</li>
+      <li>NIH OCIO Contractor Excellence Award</li>
+      <li>Certificate of Excellence</li>
     </ul>
   </div>
   
   <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-lg">
     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">📚 Certifications</h3>
     <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-      <li>• CompTIA Security Analytics Professional (CSAP)</li>
-      <li>• CompTIA Security+</li>
-      <li>• CompTIA Network+</li>
-      <li>• CompTIA A+</li>
+      <li>CompTIA Security+</li>
+      <li>CompTIA Network+</li>
+      <li>CompTIA A+</li>
     </ul>
   </div>
 </div>
@@ -590,21 +553,21 @@ Building tools that solve real problems – from security automation to AI-power
     <div>
       <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Infrastructure:</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-        <li>• pfSense firewall with Suricata IDS/IPS</li>
-        <li>• 5 VLANs for network segmentation</li>
-        <li>• Proxmox virtualization cluster</li>
-        <li>• Raspberry Pi monitoring nodes</li>
-        <li>• Automated backup systems</li>
+        <li>pfSense firewall with Suricata IDS/IPS</li>
+        <li>5 VLANs for network segmentation</li>
+        <li>Proxmox virtualization cluster</li>
+        <li>Raspberry Pi monitoring nodes</li>
+        <li>Automated backup systems</li>
       </ul>
     </div>
     <div>
       <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Security Stack:</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-        <li>• Wazuh SIEM with custom rules</li>
-        <li>• OpenSearch for log analysis</li>
-        <li>• Grafana security dashboards</li>
-        <li>• Automated vulnerability scanning</li>
-        <li>• Honeypot deployment</li>
+        <li>Wazuh SIEM with custom rules</li>
+        <li>OpenSearch for log analysis</li>
+        <li>Grafana security dashboards</li>
+        <li>Automated vulnerability scanning</li>
+        <li>Honeypot deployment</li>
       </ul>
     </div>
   </div>
@@ -673,14 +636,14 @@ Building tools that solve real problems – from security automation to AI-power
   <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">📚 Learning & Growth</h3>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <ul class="text-gray-700 dark:text-gray-300 space-y-2">
-      <li>• Advanced Model Context Protocol patterns</li>
-      <li>• Multi-agent AI system orchestration</li>
-      <li>• Supply chain security automation at scale</li>
+      <li>Advanced Model Context Protocol patterns</li>
+      <li>Multi-agent AI system orchestration</li>
+      <li>Supply chain security automation at scale</li>
     </ul>
     <ul class="text-gray-700 dark:text-gray-300 space-y-2">
-      <li>• Zero-knowledge proof implementations</li>
-      <li>• Privacy-preserving LLM techniques</li>
-      <li>• Distributed compliance validation</li>
+      <li>Zero-knowledge proof implementations</li>
+      <li>Privacy-preserving LLM techniques</li>
+      <li>Distributed compliance validation</li>
     </ul>
   </div>
 </div>
@@ -738,12 +701,6 @@ Building tools that solve real problems – from security automation to AI-power
           </svg>
           LinkedIn Profile
         </a>
-        <a href="mailto:williamzujkowski@gmail.com" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
-          <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          williamzujkowski@gmail.com
-        </a>
       </div>
     </div>
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
@@ -759,12 +716,6 @@ Building tools that solve real problems – from security automation to AI-power
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
           </svg>
           GitHub (@williamzujkowski)
-        </a>
-        <a href="https://steamcommunity.com/id/grenlan/" class="flex items-center text-gray-700 dark:text-gray-300 hover:underline">
-          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/>
-          </svg>
-          Steam (grenlan)
         </a>
       </div>
     </div>

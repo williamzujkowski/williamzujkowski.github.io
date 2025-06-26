@@ -23,17 +23,17 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
 ## 🖥️ Hardware
 
 ### Primary Workstation
-- **Desktop**: Custom-built PC (because pre-builts never have enough USB ports)
+- **Desktop**: Custom-built PC (because it's fun)
   - **CPU**: AMD Ryzen 9 5900X (12 cores for all those VMs)
   - **RAM**: 64GB DDR4 (Chrome tabs are hungry)
-  - **GPU**: NVIDIA RTX 3090 (for AI experiments, definitely not gaming)
+  - **GPU**: NVIDIA RTX 3090 (for AI experiments and gaming)
   - **Storage**: 2TB NVMe for OS, 4TB NVMe for VMs, 8TB HDD for backups
   - **Monitors**: 34" Ultrawide 4k display (security dashboards need space)
   
 ### Laptop
 - **Primary**: Framework Laptop
   - Ubuntu 24.04LTS (Great for security tools)
-  - Perfect for coffee shop coding and on-site work
+  - Perfect for coffee shop coding and sshing into my other machines
   
 ### Homelab
 - **Firewall**: Protectli Vault FW4B running pfSense
@@ -44,11 +44,10 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
 - **Networking**: Ubiquiti switches and APs (VLANs everywhere)
 
 ### Accessories
-- **Keyboard**: ZSA Moonlander (split ortholinear, because ergonomics)
-- **Mouse**: Logitech MX Master 3
-- **Webcam**: Logitech Brio (for those "camera on" meetings)
-- **Headset**: SteelSeries Arctis 7 (wireless for pacing during calls)
-- **Coffee**: Breville Barista Express (critical infrastructure)
+- **Keyboard**: [Zinc Wooting 80HE](https://wooting.io/wooting-80he)
+- **Mouse**: [Glorious Gaming Model O](https://www.gloriousgaming.com/collections/model-o-mice)
+- **Headset**: [SteelSeries Arctis 7X+](https://steelseries.com/gaming-headsets/arctis-7?srsltid=AfmBOopkaAbInJC_P6KtAgs8SJ9Ugnrxm1a5v1zcAh7jo8ne2kP8d9yb) (wireless for pacing during calls)
+- **Coffee**: [10 Cup Classic Chemex](https://chemexcoffeemaker.com/products/ten-cup-classic-chemex)  (critical infrastructure)
 
 ## 💻 Desktop Software
 
@@ -58,12 +57,11 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
   - Theme: Tokyo Night (easy on the eyes during late-night incidents)
 - **Terminal**: Ghostty
 - **Shell**: Zsh with Oh My Zsh
-  - Theme: Powerlevel10k
   - Plugins: git, docker, kubectl, aws
 
 ### Security Tools
 - **Network Analysis**: Wireshark, tcpdump, nmap
-- **Vulnerability Scanning**: Nessus, OpenVAS
+- **Vulnerability Scanning**: Nessus, OSV, Grype
 - **SIEM**: Local Wazuh instance for learning
 - **Password Manager**: Bitwarden (self-hosted)
 - **2FA**: YubiKey 5C NFC (two of them, because redundancy)
@@ -74,11 +72,6 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
 - **Orchestration**: K3s for learning Kubernetes
 - **IaC**: Terraform, Ansible
 
-### Productivity
-- **Notes**: Obsidian (markdown everything)
-- **Tasks**: Todoist (keeping track of all the things)
-- **Communication**: Signal, Discord, Slack
-- **Browser**: Firefox (primary), Chrome (testing), Brave (privacy)
 
 ## 🛠️ Command Line Tools
 
@@ -87,7 +80,7 @@ My most-used CLI tools:
 ```bash
 # Security
 nmap            # Network discovery
-nikto           # Web server scanner
+zap           # Web server scanner
 gobuster        # Directory/file enumeration
 john            # Password cracking (legally!)
 hashcat         # GPU-accelerated password recovery
@@ -143,17 +136,6 @@ Self-hosted services running 24/7:
 - **Secrets**: Vault by HashiCorp
 - **Backups**: Restic to local NAS + B2
 
-## 📱 Mobile
-
-- **Phone**: Pixel 7 Pro (GrapheneOS for privacy)
-- **Tablet**: iPad Pro (for reading documentation)
-- **Apps**: 
-  - Termux (terminal on Android)
-  - Bitwarden
-  - ProtonMail
-  - Signal
-  - Authy (backup 2FA)
-
 ## 🎯 Philosophy
 
 My tool choices are guided by:
@@ -187,13 +169,13 @@ My tool choices are guided by:
 ## 🤔 Frequently Asked Questions
 
 **Q: Windows, Linux, or macOS?**  
-A: Yes. Windows for gaming, Linux for work, macOS for iOS development. WSL2 bridges the gap beautifully.
+A: Yes. Linux for personal devices and most gaming thanks to proton, macOS and Linux for work, and Windows for the few games that aren't linux compatible.
 
 **Q: Favorite programming language?**  
 A: Python for quick scripts, Go for tools, Rust for learning. Bash for gluing it all together.
 
 **Q: How do you keep up with all these tools?**  
-A: I don't. I learn what I need when I need it. The fundamentals transfer between tools.
+A: I like to play with new stuff, but I don't know everything. I learn what I need when I need it. The fundamentals transfer between tools.
 
 **Q: What's your backup strategy?**  
 A: Automated hourly snapshots locally, daily to NAS, weekly to cloud. Test restores monthly.
