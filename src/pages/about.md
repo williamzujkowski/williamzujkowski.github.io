@@ -1,7 +1,8 @@
 ---
 layout: page
 title: About William Zujkowski
-description: Senior Security Engineer with 15+ years experience in federal cybersecurity, AI/ML security research, and open-source development. From IT support to securing government cloud infrastructure.
+description: Currently serving as an Information Technology Specialist (INFOSEC) at Technology Transformation Services (TTS) - cloud.gov, where I lead security initiatives for the government's premier cloud platform serving 30+ federal agencies. My work focuses on Zero-Trust architecture implementation, FedRAMP compliance automation, and building secure infrastructure for government innovation.
+
 permalink: /about/
 eleventyNavigation:
   key: About
@@ -19,14 +20,11 @@ image: /assets/images/og/about-og.png
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <a href="#experience" 
        class="group flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
-       aria-label="Jump to Experience section">
+       aria-label="Jump to Skills section">
       <svg class="w-8 h-8 mb-3 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-      <span class="text-base font-medium text-gray-800 dark:text-gray-100">Experience</span>
-      <span class="text-sm text-gray-600 dark:text-gray-400 mt-1">15+ Years</span>
+      <span class="text-base font-medium text-gray-800 dark:text-gray-100">Skills</span>
     </a>
-    
     <a href="#skills" 
        class="group flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
        aria-label="Jump to Skills section">
@@ -34,9 +32,7 @@ image: /assets/images/og/about-og.png
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
       </svg>
       <span class="text-base font-medium text-gray-800 dark:text-gray-100">Skills</span>
-      <span class="text-sm text-gray-600 dark:text-gray-400 mt-1">Tech Stack</span>
     </a>
-    
     <a href="#projects" 
        class="group flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
        aria-label="Jump to Projects section">
@@ -44,9 +40,7 @@ image: /assets/images/og/about-og.png
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
       </svg>
       <span class="text-base font-medium text-gray-800 dark:text-gray-100">Projects</span>
-      <span class="text-sm text-gray-600 dark:text-gray-400 mt-1">Open Source</span>
-    </a>
-    
+    </a>    
     <a href="#contact" 
        class="group flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
        aria-label="Jump to Contact section">
@@ -54,20 +48,8 @@ image: /assets/images/og/about-og.png
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
       </svg>
       <span class="text-base font-medium text-gray-800 dark:text-gray-100">Contact</span>
-      <span class="text-sm text-gray-600 dark:text-gray-400 mt-1">Connect</span>
     </a>
   </div>
-</div>
-
-## Quick Summary
-
-<div class="bg-white dark:bg-gray-800/50 p-8 rounded-xl shadow-sm mb-8">
-  <p class="text-xl leading-relaxed text-gray-700 dark:text-gray-300 mb-6">
-    Currently serving as an <strong class="text-gray-900 dark:text-gray-100">Information Technology Specialist (INFOSEC)</strong> at <strong class="text-gray-900 dark:text-gray-100">Technology Transformation Services (TTS) - cloud.gov</strong>, where I lead security initiatives for the government's premier cloud platform serving 30+ federal agencies.
-  </p>
-  <p class="text-lg text-gray-600 dark:text-gray-400">
-    My work focuses on Zero-Trust architecture implementation, FedRAMP compliance automation, and building secure infrastructure for government innovation.
-  </p>
 </div>
 
 ### What I Bring
@@ -253,22 +235,13 @@ image: /assets/images/og/about-og.png
     </h3>
     <ul class="space-y-3 text-gray-700 dark:text-gray-300">
       <li class="flex items-start">
-        <svg class="w-5 h-5 text-green-600 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-        </svg>
-        NHLBI Exceptional Performance Recognition
+       NHLBI Exceptional Performance Recognition
       </li>
       <li class="flex items-start">
-        <svg class="w-5 h-5 text-green-600 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-        </svg>
-        NIH OCIO Contractor Excellence Award
+       NIH OCIO Contractor Excellence Award
       </li>
       <li class="flex items-start">
-        <svg class="w-5 h-5 text-green-600 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-        </svg>
-        Certificate of Excellence
+       Certificate of Excellence
       </li>
     </ul>
   </div>
@@ -720,9 +693,6 @@ Building tools that solve real problems – from security automation to AI-power
 
 <div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 p-10 rounded-2xl shadow-md my-12 border border-purple-200/50 dark:border-purple-800/30">
   <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
-    <span class="w-12 h-12 bg-purple-100 dark:bg-purple-800/30 rounded-xl flex items-center justify-center mr-4">
-      <span class="text-2xl">📚</span>
-    </span>
     Learning & Growth
   </h3>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -826,12 +796,10 @@ Building tools that solve real problems – from security automation to AI-power
           </svg>
           <div>
             <p class="font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">LinkedIn Profile</p>
-            <p class="text-sm text-gray-600 dark:text-gray-400">Connect professionally</p>
           </div>
         </a>
       </div>
-    </div>
-    
+    </div>  
     <div class="bg-white dark:bg-gray-800/70 p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200">
       <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
         <span class="w-12 h-12 bg-gray-100 dark:bg-gray-900/30 rounded-xl flex items-center justify-center mr-3">
@@ -850,7 +818,6 @@ Building tools that solve real problems – from security automation to AI-power
           </svg>
           <div>
             <p class="font-medium text-gray-900 dark:text-gray-100 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">GitHub (@williamzujkowski)</p>
-            <p class="text-sm text-gray-600 dark:text-gray-400">Open source projects</p>
           </div>
         </a>
       </div>
@@ -898,12 +865,6 @@ Building tools that solve real problems – from security automation to AI-power
 
 <div class="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-8 rounded-xl shadow-sm my-12 border border-yellow-200/50 dark:border-yellow-800/30">
   <div class="flex items-start space-x-4">
-    <div class="flex-shrink-0">
-      <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-800/30 rounded-lg flex items-center justify-center">
-        <span class="text-2xl">⏱️</span>
-      </div>
-    </div>
-    <div>
       <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Typical Response Time</h4>
       <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
         I try to respond within 24-48 hours for professional inquiries. If you're reaching out about security vulnerabilities or urgent matters, please indicate that in your subject line.
@@ -915,7 +876,7 @@ Building tools that solve real problems – from security automation to AI-power
 ### Speaking & Collaboration
 
 <div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg my-8">
-  <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">🎤 Available For</h3>
+  <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">Available For</h3>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <ul class="text-gray-700 dark:text-gray-300 space-y-2">
       <li>✓ Security conference talks</li>
