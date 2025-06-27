@@ -20,9 +20,10 @@ image: /assets/images/og/about-og.png
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <a href="#experience" 
        class="group flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
-       aria-label="Jump to Skills section">
+       aria-label="Jump to Experience section">
       <svg class="w-8 h-8 mb-3 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
       <span class="text-base font-medium text-gray-800 dark:text-gray-100">Experience</span>
     </a>
     <a href="#skills" 
@@ -228,9 +229,6 @@ image: /assets/images/og/about-og.png
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
   <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-8 rounded-xl shadow-sm border border-green-200/50 dark:border-green-800/30">
     <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-      <span class="w-10 h-10 bg-green-100 dark:bg-green-800/30 rounded-lg flex items-center justify-center mr-3">
-        <span class="text-2xl">🏆</span>
-      </span>
       Recognition
     </h3>
     <ul class="space-y-3 text-gray-700 dark:text-gray-300">
@@ -248,9 +246,6 @@ image: /assets/images/og/about-og.png
   
   <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-xl shadow-sm border border-purple-200/50 dark:border-purple-800/30">
     <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-      <span class="w-10 h-10 bg-purple-100 dark:bg-purple-800/30 rounded-lg flex items-center justify-center mr-3">
-        <span class="text-2xl">📚</span>
-      </span>
       Certifications
     </h3>
     <ul class="space-y-3 text-gray-700 dark:text-gray-300">
@@ -861,18 +856,6 @@ Building tools that solve real problems – from security automation to AI-power
   
 </div>
 
-### Response Time
-
-<div class="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-8 rounded-xl shadow-sm my-12 border border-yellow-200/50 dark:border-yellow-800/30">
-  <div class="flex items-start space-x-4">
-      <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Typical Response Time</h4>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-        I try to respond within 24-48 hours for professional inquiries. If you're reaching out about security vulnerabilities or urgent matters, please indicate that in your subject line.
-      </p>
-    </div>
-  </div>
-</div>
-
 ### Speaking & Collaboration
 
 <div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg my-8">
@@ -891,6 +874,18 @@ Building tools that solve real problems – from security automation to AI-power
   </div>
 </div>
 
+
+### Response Time
+
+<div class="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-8 rounded-xl shadow-sm my-12 border border-yellow-200/50 dark:border-yellow-800/30">
+  <div class="flex items-start space-x-4">
+    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+      I try to respond within 24-48 hours for professional inquiries. If you're reaching out about security vulnerabilities or urgent matters, please indicate that in your subject line.
+    </p>
+  </div>
+</div>
+
+
 <div class="text-center my-16">
   <p class="text-2xl font-light text-gray-700 dark:text-gray-300 mb-8">
     Looking forward to connecting with you!
@@ -904,3 +899,4 @@ Building tools that solve real problems – from security automation to AI-power
 </div>
 
 </div>
+
