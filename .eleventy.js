@@ -20,6 +20,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addLayoutAlias("base", "layouts/base.njk");
   eleventyConfig.addLayoutAlias("page", "layouts/page.njk");
   eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
+  eleventyConfig.addLayoutAlias("redirect", "redirect.njk");
 
   // Date filters
   eleventyConfig.addFilter("readableDate", dateObj => {
