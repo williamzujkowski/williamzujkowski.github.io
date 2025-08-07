@@ -6,8 +6,6 @@ tags: [ai, machine-learning, security, privacy, homelab, llm]
 author: "William Zujkowski"
 ---
 
-**Reading time:** 8 minutes
-
 ## The AI Revolution Hits Home
 
 Like many tech enthusiasts, I've been experimenting with AI and Large Language Models (LLMs) in my homelab. But as a security professional and a parent, I quickly realized that running AI experiments at home comes with unique security and privacy challenges.

@@ -6,8 +6,6 @@ tags: [homelab, security, networking, learning, personal-projects]
 author: "William Zujkowski"
 ---
 
-**Reading time:** 7 minutes
-
 ## Why Every Security Professional Needs a Homelab
 
 As a security engineer and a dad, I wear two hats: protecting enterprise systems by day and keeping my family's digital life secure by night. Building a homelab has been one of the most rewarding projects I've undertaken, serving as both a learning playground and a practical security solution for my home.

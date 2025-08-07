@@ -6,8 +6,6 @@ tags: [security, networking, dns, privacy, homelab, encryption]
 author: "William Zujkowski"
 ---
 
-**Reading time:** 9 minutes
-
 ## The ISP Letter That Started Everything
 
 A few years back, I became aware that many ISPs monetize DNS query data for targeted advertising. This privacy concern motivated me to research DNS-over-HTTPS implementations.

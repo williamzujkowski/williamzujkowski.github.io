@@ -6,8 +6,6 @@ tags: [career, security, personal-growth, learning, leadership]
 author: "William Zujkowski"
 ---
 
-**Reading time:** 10 minutes
-
 ## The Beginning: When "Have You Tried Turning It Off and On Again?" Was My Mantra
 
 Twenty years ago, I was that IT guy. You know, the one who showed up when the printer jammed, when email stopped working, or when someone's computer made "that weird noise." I started as an independent IT consultant in 2005, which is a fancy way of saying I fixed computers for local businesses and anyone who would pay me.

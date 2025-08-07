@@ -1,5 +1,5 @@
 ---
-title: "Supercharging Claude CLI with My Standards Repository"
+title: "Exploring Claude CLI Context and Compliance with My Standards Repository"
 date: 2025-07-22
 tags: ["ai", "development", "standards", "productivity"]
 description: "How I built a comprehensive standards repository that transforms Claude CLI into a context-aware development powerhouse with 90% token reduction."

@@ -6,8 +6,6 @@ tags: [python, automation, security, homelab, open-source, networking]
 author: "William Zujkowski"
 ---
 
-**Reading time:** 9 minutes
-
 ## The Problem: Security Doesn't Scale Without Automation
 
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management simply doesn't scale – especially when you're also trying to be present for bedtime stories.

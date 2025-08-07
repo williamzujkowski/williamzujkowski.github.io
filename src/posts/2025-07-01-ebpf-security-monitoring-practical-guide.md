@@ -6,8 +6,6 @@ tags: [security, linux, ebpf, monitoring, kernel, detection]
 author: "William Zujkowski"
 ---
 
-**Reading time:** 10 minutes
-
 ## The Day eBPF Changed Everything
 
 Years ago, I researched how attackers could potentially bypass EDR solutions by operating at the kernel level. This research led me to explore eBPF as a detection mechanism.

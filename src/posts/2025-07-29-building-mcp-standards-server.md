@@ -136,7 +136,7 @@ ChromaDB ate 4GB of RAM just to index my standards. For 25 documents. That's 160
 
 ### The MCP Protocol Is Still Evolving
 
-Halfway through development, the MCP spec changed. Twice. My perfectly working server suddenly wasn't.
+Halfway through development, the MCP spec changed. My perfectly working server suddenly wasn't.
 
 **Lesson learned**: Pin your dependencies when working with beta protocols.
 
@@ -168,14 +168,6 @@ python benchmarks/run_benchmarks.py
 
 Nobody asked for these metrics. But they're pretty.
 
-### The Accidental Community
-
-People started using it! And filing issues! My personal tool now has:
-- 12 GitHub stars (I'm basically famous)
-- 3 contributors who fixed my terrible code
-- 47 downloads last month from PyPI
-- 2 forks that are better maintained than mine
-
 ## Current State: "It Works on My Machine"
 
 The honest status:
@@ -191,7 +183,7 @@ The honest status:
 - Redis randomly disconnects
 - Web UI websocket reconnection
 - Performance under load (untested with >1 user)
-- The documentation (what documentation?)
+- The documentation
 
 ❌ **What's Broken:**
 - Windows support (WSL2 or suffer)
@@ -212,14 +204,10 @@ Version 1 worked fine. Versions 2-4 added complexity for marginal gains. Should 
 
 Having Redis available made me add caching everywhere. Having ChromaDB made me add semantic search to everything. Just because you can doesn't mean you should.
 
-### Open Source Is Terrifying and Wonderful
-
-People actually use your half-broken experiments. They file issues. They submit PRs. They make it better. They also expect things to work.
-
 ## What's Next (The Roadmap I'll Probably Ignore)
 
 **The Realistic List:**
-- Fix the Redis connection issues (week 47 of saying this)
+- Fix the Redis connection issues (week 5 of saying this)
 - Write actual documentation
 - Add integration tests that actually test integration
 - Simplify the architecture (ha!)
@@ -229,7 +217,6 @@ People actually use your half-broken experiments. They file issues. They submit 
 - Direct Claude Desktop integration  
 - Distributed standards federation
 - GraphQL API
-- Mobile app (why???)
 
 ## Try It Yourself (At Your Own Risk)
 
