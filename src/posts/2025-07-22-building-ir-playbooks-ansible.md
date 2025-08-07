@@ -8,11 +8,21 @@ author: "William Zujkowski"
 
 **Reading time:** 12 minutes
 
-## From Manual Chaos to Automated Response
+## The 3 AM Wake-Up Call That Changed Everything
 
-Picture this: It's 3 AM, your phone buzzes with a critical security alert. Half-awake, you log in to find potential ransomware activity across multiple servers. In the past, this meant hours of manual work, inconsistent responses, and missed evidence. Today, with properly built Ansible IR playbooks, the same incident triggers automated containment, evidence collection, and recovery procedures – all while you're getting dressed.
+Years ago, during my early days in incident response, I learned a lesson I'll never forget.
 
-After building and deploying IR automation for everything from small businesses to federal agencies, I've learned that Ansible can transform incident response from reactive chaos to proactive orchestration. This guide shares battle-tested playbooks and patterns that work in production.
+3:17 AM. Phone buzzing. Groggily check the alert: "CRITICAL: Ransomware activity detected."
+
+Adrenaline kicks in. I jump on my laptop, start manually checking servers. Server 1: encrypted files. Server 2: encryption in progress. Server 3, 4, 5... By the time I'd figured out the scope, documented what I'd done, and started containment, 90 minutes had passed. Ninety. Minutes.
+
+The worst part? When the incident review came, I couldn't remember exactly what commands I'd run on which servers. My notes were scattered across three terminals and a notepad. The CISO asked a simple question: "Can you guarantee you collected evidence the same way on all affected systems?"
+
+I couldn't.
+
+That's when I discovered Ansible for incident response. Same scenario today: alert fires, playbook triggers automatically. Within 60 seconds: all affected systems identified, isolated, and evidence preserved. While I'm still putting on my socks.
+
+This guide shares the battle-tested playbooks I wish I'd had that night.
 
 ## Why Ansible for Incident Response?
 

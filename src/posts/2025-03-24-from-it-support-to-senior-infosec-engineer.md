@@ -159,9 +159,9 @@ And remember – every expert was once a beginner who refused to give up.
 
 ## One Final Thought
 
-Last week, my son asked me what I do at work. I told him, "I help keep the internet safe for people like you." She said, "That sounds boring."
+Last week, my son asked me what I do at work. I told him, "I help keep the internet safe for people like you." He said, "That sounds boring."
 
-Then I showed her my homelab, explained how I catch bad guys trying to break into computers, and let her help me write a Python script to monitor our network.
+Then I showed him my homelab, explained how I catch bad guys trying to break into computers, and let him help me write a Python script to monitor our network.
 
 His response? "Okay, that's actually pretty cool. Can you teach me more?"
 

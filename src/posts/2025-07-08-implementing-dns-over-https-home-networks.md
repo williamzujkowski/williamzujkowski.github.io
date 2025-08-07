@@ -589,15 +589,38 @@ def select_doh_provider(client_ip):
         return "https://cloudflare-dns.com/dns-query"  # Global default
 ```
 
-## Conclusion
+## The Bottom Line: Is DoH Worth It?
 
-DNS-over-HTTPS is no longer optional for privacy-conscious users. Whether you choose device-level, router-level, or self-hosted implementation, you're taking control of a critical privacy leak.
+After running DoH for years, here's what changed for me:
 
-Start with device-level configuration to test, then move to router-level for network-wide protection. For maximum control, self-hosting gives you complete visibility and customization.
+**The Good:**
+- ISP can't sell my browsing habits anymore (take that, "anonymous" marketing data)
+- No more DNS hijacking to ISP "search assistance" pages
+- Kids' devices automatically protected from DNS-based malware
+- That warm fuzzy feeling of actual privacy
 
-Remember: DNS privacy is just one piece of the puzzle. Combine DoH with VPNs, encrypted SNI, and good browsing habits for comprehensive privacy protection.
+**The Annoying:**
+- Some corporate networks break (had to create a work profile that disables DoH)
+- Slightly slower initial connections (we're talking 10-20ms)
+- Explaining to family why "the internet is broken" when DoH server is down
+- Captive portals at coffee shops require temporary disabling
 
-The internet was built on open protocols, but that doesn't mean we have to accept surveillance as the price of connectivity. Take back your DNS privacy today.
+**My Verdict:** Absolutely worth it. The privacy gains far outweigh the minor inconveniences.
+
+## Your Next Steps
+
+Don't try to boil the ocean. Here's your weekend project path:
+
+1. **Right now (5 minutes):** Enable DoH in your browser. Just do it.
+2. **This weekend (2 hours):** Set up Pi-hole with DoH on a Raspberry Pi
+3. **Next month:** Configure your router for network-wide protection
+4. **Eventually:** Consider self-hosting if you're a control freak like me
+
+Remember: DNS privacy is just one piece of the puzzle. But it's a big piece. Every DNS query you encrypt is data your ISP can't monetize, a profile that can't be built, and a step toward the internet we deserve.
+
+The internet was built on open protocols, but that doesn't mean we have to accept surveillance as the price of connectivity. 
+
+Take back your DNS privacy. This weekend. I'll wait.
 
 ---
 

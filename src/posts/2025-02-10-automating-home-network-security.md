@@ -18,7 +18,13 @@ This post shares the Python scripts and automation workflows I've developed to m
 
 First challenge: knowing what's actually on your network. New devices appear constantly – kids' friends' phones, that new smart gadget someone bought, the mysterious device that might be the neighbor's printer.
 
-True story: I once spent an hour trying to figure out what "ESP_8266_UNKNOWN" was on my network. Turns out it was a smart light bulb my wife installed. Without telling me. In the guest bathroom. We need automation, folks.
+True story: Years ago, I spent an hour hunting down an "ESP_8266_UNKNOWN" device on my network. I was ready to declare a security incident when my wife walked in: "Oh, that's probably the smart light bulb I installed in the guest bathroom."
+
+Silence.
+
+"You installed a what now?"
+
+That's when I realized we needed automation – not just for security, but for marital harmony.
 
 ### Automated Device Discovery
 

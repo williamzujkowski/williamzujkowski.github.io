@@ -727,10 +727,12 @@ class SIEMIntegration:
                 time.sleep(2 ** attempt)  # Exponential backoff
 ```
 
-## Common Gotchas and Solutions
+## Common Gotchas and Solutions (Learn From My Pain)
 
-### 1. Kernel Version Compatibility
-Different kernel versions have different function names and structures. Always check:
+### 1. Kernel Version Compatibility (The "Why Isn't This Working?" Problem)
+Different kernel versions have different function names and structures. I learned this after spending 3 hours debugging why my eBPF program worked perfectly on my laptop but crashed on production servers. Turns out, production was running a slightly older kernel with different function signatures.
+
+Always check:
 
 ```python
 # Detect kernel version and adjust
@@ -743,13 +745,19 @@ else:
     attach_point = "do_sys_open"
 ```
 
-### 2. BPF Verifier Limits
-The BPF verifier has strict limits. Keep programs simple:
-- Max 1 million instructions
-- Limited loop iterations
-- Stack size limits
+### 2. BPF Verifier Limits (The "Computer Says No" Problem)
+The BPF verifier is like that strict teacher who marks you down for handwriting. It has strict limits, and when you hit them, the error messages are... unhelpful.
 
-### 3. Performance Impact
+Keep programs simple:
+- Max 1 million instructions (sounds like a lot, but it's not)
+- Limited loop iterations (no infinite loops, obviously)
+- Stack size limits (512 bytes – use it wisely)
+
+Pro tip: When the verifier rejects your code with "invalid stack access," it usually means you're trying to be too clever. Simplify.
+
+### 3. Performance Impact (The "We Fixed Security But Broke Everything Else" Problem)
+True story from my home lab: I once deployed an eBPF monitoring program so comprehensive it could track everything. It also consumed 40% CPU. On idle. My "security monitoring" had become a self-inflicted DoS attack.
+
 Monitor your monitors! Track CPU usage:
 
 ```python
