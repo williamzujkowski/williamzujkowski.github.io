@@ -15,20 +15,20 @@ image: /assets/images/og/uses-og.png
 <div class="prose prose-lg prose-gray dark:prose-invert lg:prose-xl max-w-none">
 
 <p class="lead text-xl text-gray-600 dark:text-gray-400 italic">
-A living document of the tools and tech stack that powers my work and play.
+The gear that keeps me productive, paranoid, and properly caffeinated.
 </p>
 
-Inspired by [uses.tech](https://uses.tech/), this page details the hardware, software, and services I rely on daily. As a security engineer who loves tinkering, this list changes frequently as I discover new tools or optimize my workflow.
+Let's be real: you're either here because you're shopping for new tech or you're procrastinating. Either way, welcome! This is the constantly evolving list of tools that help me break things professionally and fix them before anyone notices.
 
 ## 🖥️ Hardware
 
 ### Primary Workstation
-- **Desktop**: Custom-built PC (because it's fun)
-  - **CPU**: AMD Ryzen 9 5900X (12 cores for all those VMs)
-  - **RAM**: 64GB DDR4 (Chrome tabs are hungry)
-  - **GPU**: NVIDIA RTX 3090 (for AI experiments and gaming)
-  - **Storage**: 2TB NVMe for OS, 4TB NVMe for VMs, 8TB HDD for backups
-  - **Monitors**: 34" Ultrawide 4k display (security dashboards need space)
+- **Desktop**: Custom-built PC (because pre-builts are for people with better things to do)
+  - **CPU**: AMD Ryzen 9 5900X (12 cores because VMs breed like rabbits)
+  - **RAM**: 64GB DDR4 (50% for work, 50% for Chrome's insatiable hunger)
+  - **GPU**: NVIDIA RTX 3090 ("for AI research" *launches game*)
+  - **Storage**: 2TB NVMe for OS, 4TB NVMe for VMs, 8TB HDD for "I'll organize this later"
+  - **Monitors**: 34" Ultrawide 4k display (because 10 terminal windows need room to breathe)
   
 ### Laptop
 - **Primary**: Framework Laptop
@@ -52,9 +52,9 @@ Inspired by [uses.tech](https://uses.tech/), this page details the hardware, sof
 ## 💻 Desktop Software
 
 ### Development
-- **Editor**: VS Code (sorry Vim, it's not you, it's me)
-  - Extensions: Python, Go, Terraform, Docker, GitLens
-  - Theme: Tokyo Night (easy on the eyes during late-night incidents)
+- **Editor**: VS Code (I can exit it without googling)
+  - Extensions: Python, Go, Terraform, Docker, GitLens, and 47 others I forgot I installed
+  - Theme: Tokyo Night (because dark mode is a lifestyle, not a choice)
 - **Terminal**: Ghostty
 - **Shell**: Zsh with Oh My Zsh
   - Plugins: git, docker, kubectl, aws
@@ -169,24 +169,28 @@ My tool choices are guided by:
 ## 🤔 Frequently Asked Questions
 
 **Q: Windows, Linux, or macOS?**  
-A: Yes. Linux for personal devices and most gaming thanks to proton, macOS and Linux for work, and Windows for the few games that aren't linux compatible.
+A: Yes. Linux for when I want control, macOS for when I want things to work, and Windows for when I hate myself (kidding! ...mostly).
 
 **Q: Favorite programming language?**  
 A: Python for quick scripts, Go for tools, Rust for learning. Bash for gluing it all together.
 
 **Q: How do you keep up with all these tools?**  
-A: I like to play with new stuff, but I don't know everything. I learn what I need when I need it. The fundamentals transfer between tools.
+A: Bold of you to assume I keep up. I learn tools when something breaks or when someone on Reddit makes it sound cool. The secret? Most tools do the same thing with different syntax.
 
 **Q: What's your backup strategy?**  
 A: Automated hourly snapshots locally, daily to NAS, weekly to cloud. Test restores monthly.
 
 **Q: Coffee or tea?**  
-A: Coffee for coding, tea for reading, water for incidents (hydration is key).
+A: Coffee for coding, tea for reading, energy drinks for incidents, water for recovery, and whiskey for post-mortems (after hours, of course).
 
 ---
 
-*This page is updated regularly as my setup evolves.
+## The Truth About All This
 
-*Have questions about any of these tools? Want to share your setup? [Let's connect!](/about/#contact)*
+Look, half these tools will be obsolete in two years. The other half I'll replace because someone on Hacker News said there's something better. But right now? This setup lets me break things efficiently, fix them before anyone notices, and occasionally feel like I know what I'm doing.
+
+The real secret? It's not about having the perfect tools – it's about knowing when to use them and when to just turn it off and on again.
+
+*Got questions about any of these tools? Want to argue about why your setup is better? Found a typo that's been bothering you? [Hit me up!](/about/#contact) I promise to defend my choices with completely objective and not-at-all-emotional arguments.*
 
 </div>

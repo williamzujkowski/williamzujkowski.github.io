@@ -15,7 +15,8 @@ image: /assets/images/og/resources-og.png
 <div class="prose prose-lg prose-gray dark:prose-invert lg:prose-xl max-w-none">
 
 <p class="lead text-xl text-gray-600 dark:text-gray-400 italic">
-A curated collection of tools, references, and learning materials that have shaped my 15+ years in cybersecurity. Updated regularly as I discover new resources.
+The tools, tricks, and rabbit holes that turned me from "Have you tried turning it off and on again?" 
+to "Let me check the packet captures." Warning: may cause excessive homelab syndrome.
 </p>
 
 ## 🛠️ Essential Security Tools
@@ -129,25 +130,25 @@ A curated collection of tools, references, and learning materials that have shap
 ### Getting Started in Security
 
 <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">🎯 Beginner Path</h4>
+  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">🎯 The Path I Wish I'd Known</h4>
   <ol class="list-decimal list-inside text-gray-700 dark:text-gray-300 space-y-2">
-    <li><strong>Fundamentals</strong>
+    <li><strong>Start with the Fundamentals (boring but essential)</strong>
       <ul class="list-disc list-inside ml-6 mt-1">
         <li><a href="https://www.professormesser.com/security-plus/sy0-601/sy0-601-video/sy0-601-comptia-security-plus-course/" class="text-primary-600 dark:text-primary-400 hover:underline">Professor Messer Security+</a> - Free video course</li>
         <li><a href="https://www.cybrary.it/" class="text-primary-600 dark:text-primary-400 hover:underline">Cybrary</a> - Free cybersecurity training</li>
       </ul>
     </li>
-    <li><strong>Hands-On Practice</strong>
+    <li><strong>Break Things (Legally!)</strong>
       <ul class="list-disc list-inside ml-6 mt-1">
         <li><a href="https://tryhackme.com/" class="text-primary-600 dark:text-primary-400 hover:underline">TryHackMe</a> - Guided security challenges</li>
         <li><a href="https://www.hackthebox.com/" class="text-primary-600 dark:text-primary-400 hover:underline">HackTheBox</a> - Pentesting labs</li>
       </ul>
     </li>
-    <li><strong>Build Projects</strong>
+    <li><strong>Build Stuff That Breaks Other Stuff</strong>
       <ul class="list-disc list-inside ml-6 mt-1">
-        <li>Set up a home SIEM with Wazuh</li>
-        <li>Create a honeypot with Raspberry Pi</li>
-        <li>Build a vulnerability scanner</li>
+        <li>Set up a home SIEM with Wazuh (prepare for false positives)</li>
+        <li>Create a honeypot with Raspberry Pi (watch script kiddies fail)</li>
+        <li>Build a vulnerability scanner (scan only what you own!)</li>
       </ul>
     </li>
   </ol>
@@ -303,10 +304,10 @@ A curated collection of tools, references, and learning materials that have shap
 
 ## 🏠 Homelab Resources
 
-### Getting Started
+### Getting Started (The Addiction Begins)
 
 <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg my-6">
-  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">🔧 Homelab Essentials</h4>
+  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">🔧 Homelab Essentials (Your Wallet Will Hate You)</h4>
   <div class="space-y-4">
     <div>
       <h5 class="font-medium text-gray-800 dark:text-gray-200">Virtualization</h5>
@@ -332,11 +333,11 @@ A curated collection of tools, references, and learning materials that have shap
 ### Certification Paths
 
 <div class="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">🏆 Recommended Cert Paths</h4>
+  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">🏆 The Certification Treadmill</h4>
   <div class="space-y-3">
     <div class="border-l-4 border-green-500 pl-4">
-      <h5 class="font-medium">Entry Level</h5>
-      <p class="text-gray-700 dark:text-gray-300">CompTIA A+ → Network+ → Security+</p>
+      <h5 class="font-medium">Entry Level (The Holy Trinity)</h5>
+      <p class="text-gray-700 dark:text-gray-300">CompTIA A+ → Network+ → Security+ (yes, they're boring, yes, you need them)</p>
     </div>
     <div class="border-l-4 border-blue-500 pl-4">
       <h5 class="font-medium">Blue Team</h5>
@@ -414,10 +415,12 @@ A curated collection of tools, references, and learning materials that have shap
 
 <div class="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-lg my-8 text-center">
   <p class="text-lg text-gray-800 dark:text-gray-200 mb-4">
-    This page is updated monthly with new tools and resources I discover.
+    This page gets updated whenever I find something cool or realize a link died.
+    (RIP to all the GitHub projects that seemed awesome but got abandoned.)
   </p>
   <p class="text-gray-700 dark:text-gray-300 mb-4">
-    Have a resource that should be included? Found a broken link?
+    Know a tool that's changed your life? Found a broken link? Want to argue about 
+    the best SIEM? Hit me up!
   </p>
   <a href="/about/#contact" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
     Suggest a Resource

@@ -53,7 +53,7 @@ image: /assets/images/og/about-og.png
   </div>
 </div>
 
-### What I Bring
+### What I Actually Bring to the Table
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
   <div class="flex items-start space-x-4">
@@ -62,7 +62,7 @@ image: /assets/images/og/about-og.png
     </div>
     <div>
       <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">15+ Years in Cybersecurity</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">From IT support to senior security engineering roles across federal agencies</p>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">Started from help desk, now we're here (securing federal infrastructure)</p>
     </div>
   </div>
   
@@ -72,7 +72,7 @@ image: /assets/images/og/about-og.png
     </div>
     <div>
       <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">AI/ML Security Focus</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">Building tools at the intersection of artificial intelligence and security</p>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">Making AI behave itself while teaching it to catch bad guys</p>
     </div>
   </div>
   
@@ -82,7 +82,7 @@ image: /assets/images/og/about-og.png
     </div>
     <div>
       <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Open Source Contributor</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">Active development of security automation tools and AI integration frameworks</p>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">Building tools that let me sleep through the night (mostly)</p>
     </div>
   </div>
   
@@ -92,7 +92,7 @@ image: /assets/images/og/about-og.png
     </div>
     <div>
       <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Federal Expertise</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">Deep understanding of NIST compliance, FedRAMP, and government security requirements</p>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">I speak fluent NIST 800-53 and can translate FedRAMP into human</p>
     </div>
   </div>
   
@@ -138,7 +138,7 @@ image: /assets/images/og/about-og.png
   </div>
 </div>
 
-### Career Timeline
+### The Journey (Or: How I Went from "Password123" to Zero Trust)
 
 <details class="mb-6">
 <summary class="cursor-pointer text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
@@ -224,7 +224,7 @@ image: /assets/images/og/about-og.png
 </div>
 </details>
 
-### Key Achievements
+### Stuff I'm Actually Proud Of
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
   <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-8 rounded-xl shadow-sm border border-green-200/50 dark:border-green-800/30">
@@ -271,7 +271,7 @@ image: /assets/images/og/about-og.png
   </div>
 </div>
 
-### Professional Memberships
+### Communities That Put Up With Me
 
 <div class="flex flex-wrap gap-4 justify-center my-12">
   <a href="https://owasp.org/" 
@@ -684,7 +684,7 @@ Building tools that solve real problems – from security automation to AI-power
 
 ---
 
-## Currently Exploring
+## What's Keeping Me Up at Night (Besides Alerts)
 
 <div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 p-10 rounded-2xl shadow-md my-12 border border-purple-200/50 dark:border-purple-800/30">
   <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
@@ -768,7 +768,9 @@ Building tools that solve real problems – from security automation to AI-power
 
 <div class="bg-gradient-to-br from-green-50 via-teal-50 to-emerald-50 dark:from-green-900/20 dark:via-teal-900/20 dark:to-emerald-900/20 p-10 rounded-2xl shadow-lg my-12 border border-green-200/50 dark:border-green-800/30">
   <p class="text-2xl text-gray-700 dark:text-gray-300 italic mb-8 text-center leading-relaxed">
-    Whether you want to discuss federal security, share dad jokes, or collaborate on projects – I'm always happy to connect with fellow tech enthusiasts.
+    Whether you want to discuss Zero Trust architecture, debate vim vs emacs (it's vim), 
+    or share your latest homelab disaster story – I'm here for it. Fair warning: I will 
+    absolutely geek out about your network segmentation strategy.
   </p>
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -856,10 +858,10 @@ Building tools that solve real problems – from security automation to AI-power
   
 </div>
 
-### Speaking & Collaboration
+### Want to Collaborate?
 
 <div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg my-8">
-  <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">Available For</h3>
+  <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">I'm Down For</h3>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <ul class="text-gray-700 dark:text-gray-300 space-y-2">
       <li>✓ Security conference talks</li>
@@ -875,12 +877,13 @@ Building tools that solve real problems – from security automation to AI-power
 </div>
 
 
-### Response Time
+### The Fine Print
 
 <div class="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-8 rounded-xl shadow-sm my-12 border border-yellow-200/50 dark:border-yellow-800/30">
   <div class="flex items-start space-x-4">
     <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-      I try to respond within 24-48 hours for professional inquiries. If you're reaching out about security vulnerabilities or urgent matters, please indicate that in your subject line.
+      I usually respond within 24-48 hours unless I'm deep in a rabbit hole or my homelab caught fire again. 
+      If it's about a vulnerability, put "URGENT" in the subject – those get the coffee-fueled immediate response.
     </p>
   </div>
 </div>
