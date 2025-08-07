@@ -4,7 +4,7 @@ description: >-
   Discovering that our ML training runs were consuming as much electricity as a
   small town sparked my journey into sustainable computing - efficiency became
   an environmental imperative, not just an optimization
-date: 2024-03-21
+date: 2024-07-16
 tags:
   - sustainability
   - green-computing

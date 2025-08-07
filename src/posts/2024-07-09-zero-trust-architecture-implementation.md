@@ -4,7 +4,7 @@ description: >-
   Moving from 'trust but verify' to 'never trust, always verify' required
   dismantling years of security assumptions and rebuilding our entire
   authentication and authorization framework
-date: 2024-03-14
+date: 2024-07-09
 tags:
   - security
   - zero-trust

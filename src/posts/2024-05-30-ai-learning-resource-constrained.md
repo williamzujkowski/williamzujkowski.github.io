@@ -4,7 +4,7 @@ description: >-
   Running large language models on a raspberry pi cluster taught me more about
   efficiency and ingenuity than years of unlimited cloud computing budgets ever
   could
-date: 2024-02-21
+date: 2024-05-30
 tags:
   - ai
   - machine-learning

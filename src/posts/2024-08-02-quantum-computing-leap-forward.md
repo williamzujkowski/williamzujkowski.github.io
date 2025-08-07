@@ -4,7 +4,7 @@ description: >-
   Witnessing IBM's quantum computer solve a problem in minutes that would take
   classical computers millennia convinced me we're on the brink of a
   computational revolution - and a security crisis
-date: 2024-04-03
+date: 2024-08-02
 tags:
   - quantum-computing
   - cryptography

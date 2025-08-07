@@ -4,7 +4,7 @@ description: >-
   Containers revolutionized how we deploy applications, but after years of
   wrestling with Kubernetes complexity, I started exploring what comes next in
   application deployment
-date: 2024-02-28
+date: 2024-06-11
 tags:
   - devops
   - containers

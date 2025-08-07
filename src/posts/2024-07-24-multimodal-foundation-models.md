@@ -4,7 +4,7 @@ description: >-
   The first time I watched an AI analyze a screenshot and write working code
   based on the UI mockup, I realized we'd crossed into a new era of human-AI
   collaboration
-date: 2024-03-28
+date: 2024-07-24
 tags:
   - ai
   - multimodal

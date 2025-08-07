@@ -4,7 +4,7 @@ description: >-
   A cascade failure that took down our entire platform in three minutes taught
   me that resilience isn't about preventing failures - it's about failing
   gracefully and recovering quickly
-date: 2024-03-07
+date: 2024-06-25
 tags:
   - architecture
   - resilience

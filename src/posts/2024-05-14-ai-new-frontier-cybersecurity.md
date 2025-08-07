@@ -4,7 +4,7 @@ description: >-
   Watching AI catch an APT attack that our traditional tools missed was
   thrilling - until I realized the same technology could automate sophisticated
   attacks against us
-date: 2024-02-17
+date: 2024-05-14
 tags:
   - ai
   - cybersecurity

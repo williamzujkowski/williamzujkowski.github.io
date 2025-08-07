@@ -4,7 +4,7 @@ description: >-
   The first time I saw a convincing deepfake video, I spent an hour researching
   to convince myself it wasn't real - that moment changed how I think about
   digital evidence forever
-date: 2024-01-15
+date: 2024-02-09
 tags:
   - ai
   - security

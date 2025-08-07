@@ -4,7 +4,7 @@ description: >-
   My first attempts at prompt engineering felt like trying to teach a brilliant
   but scatterbrained colleague - discovering the right words to unlock AI
   capabilities became both art and science
-date: 2024-02-07
+date: 2024-04-19
 tags:
   - ai
   - llm

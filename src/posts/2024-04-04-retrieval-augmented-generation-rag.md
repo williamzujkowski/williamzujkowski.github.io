@@ -4,7 +4,7 @@ description: >-
   The moment I realized our LLM was confidently making up facts about our
   company's products was when I understood why RAG isn't optional - it's
   essential for trustworthy AI systems
-date: 2024-01-31
+date: 2024-04-04
 tags:
   - ai
   - llm

@@ -4,7 +4,7 @@ description: >-
   After months of experimenting with both approaches in production systems, I've
   learned that choosing between open-source and proprietary LLMs isn't about
   ideology - it's about trade-offs
-date: 2024-01-19
+date: 2024-02-22
 tags:
   - ai
   - llm

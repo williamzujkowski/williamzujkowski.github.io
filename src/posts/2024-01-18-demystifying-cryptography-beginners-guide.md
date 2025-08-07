@@ -4,7 +4,7 @@ description: >-
   Cryptography always felt like magic to me until I spent weeks trying to debug
   an SSL certificate issue - suddenly those mathematical incantations became
   very practical necessities
-date: 2024-01-07
+date: 2024-01-18
 tags:
   - security
   - cryptography

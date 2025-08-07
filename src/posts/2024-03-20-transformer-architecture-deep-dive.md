@@ -4,7 +4,7 @@ description: >-
   Reading 'Attention is All You Need' felt like discovering a secret that would
   reshape everything I thought I knew about natural language processing - and it
   did
-date: 2024-01-27
+date: 2024-03-20
 tags:
   - ai
   - llm

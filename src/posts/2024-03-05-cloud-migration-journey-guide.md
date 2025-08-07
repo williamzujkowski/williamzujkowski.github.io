@@ -4,7 +4,7 @@ description: >-
   Standing in a server room filled with humming machines, I realized our
   physical infrastructure had become an anchor - the cloud migration that
   followed taught me as much about change management as technology
-date: 2024-01-23
+date: 2024-03-05
 tags:
   - cloud
   - devops

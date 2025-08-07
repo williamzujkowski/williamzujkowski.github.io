@@ -4,7 +4,7 @@ description: >-
   Years ago, I discovered a glaring SQL injection vulnerability in an internal
   application during a routine code review - that sinking feeling taught me that
   security isn't optional
-date: 2024-01-03
+date: 2024-01-08
 tags:
   - security
   - programming

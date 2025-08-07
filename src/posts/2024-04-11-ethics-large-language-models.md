@@ -4,7 +4,7 @@ description: >-
   Deploying our first customer-facing LLM felt like releasing something
   powerful into the wild - the biases, mistakes, and unintended consequences
   that followed taught me why AI ethics isn't optional
-date: 2024-02-03
+date: 2024-04-11
 tags:
   - ai
   - llm
