@@ -93,6 +93,40 @@
     @apply bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto;
   }
 
+  /* Collapsible code blocks */
+  .code-block-wrapper {
+    @apply relative my-6;
+  }
+
+  .code-block-container {
+    @apply relative;
+  }
+
+  /* Ensure proper dark mode for code blocks */
+  .prose pre {
+    @apply relative;
+  }
+
+  /* Style for collapsed code indicator */
+  .code-gradient-overlay {
+    pointer-events: none;
+  }
+
+  /* Dark mode adjustments for code buttons */
+  .dark .code-gradient-overlay {
+    background: linear-gradient(transparent, rgba(17, 24, 39, 0.95)) !important;
+  }
+
+  /* Smooth transitions for code blocks */
+  .code-block-container {
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  /* Copy button positioning fix for wrapped code blocks */
+  .code-block-wrapper .code-copy-btn {
+    z-index: 10;
+  }
+
   /* Section spacing */
   .section-spacing {
     @apply py-16 md:py-24 lg:py-32;
