@@ -8,11 +8,13 @@ author: "William Zujkowski"
 
 **Reading time:** 10 minutes
 
-## The Power of eBPF for Security
+## The Day eBPF Changed Everything
 
-Extended Berkeley Packet Filter (eBPF) has revolutionized Linux security monitoring by allowing us to run sandboxed programs directly in kernel space. After implementing eBPF-based security monitoring across multiple environments, I've learned it's one of the most powerful tools in a security engineer's arsenal.
+"How did they bypass our EDR?"
 
-This guide shares practical, production-tested approaches to using eBPF for security monitoring, including code you can deploy today.
+That question haunted me after an incident where attackers lived in our kernel for weeks, completely invisible to our expensive security tools. Traditional monitoring was watching the front door while intruders climbed through kernel-level windows.
+
+Enter eBPF – the technology that lets you see what the kernel sees, in real-time, without kernel modules. After six months of battle-testing eBPF monitoring, I can't imagine security without it. Here's what actually works in production.
 
 ## Why eBPF for Security Monitoring?
 

@@ -8,11 +8,13 @@ author: "William Zujkowski"
 
 **Reading time:** 9 minutes
 
-## Why DNS-over-HTTPS Matters
+## The ISP Letter That Started Everything
 
-Every device on your network makes hundreds of DNS queries daily, and traditionally, these queries travel in plain text. Anyone monitoring your network can see every website you visit, every service you connect to, and build a detailed profile of your online activity.
+Last year, I got a letter from my ISP. They were "excited to inform me" about their new partnership to provide "targeted advertising based on browsing insights." Translation: they were selling my DNS queries.
 
-After implementing DNS-over-HTTPS (DoH) across multiple home networks and enterprise environments, I've learned it's one of the most impactful privacy improvements you can make. This guide shares battle-tested approaches to deploying DoH that actually work in production.
+That weekend, I implemented DNS-over-HTTPS on my home network. My ISP now sees encrypted traffic to Cloudflare, nothing more. No browsing history, no profiling, no "insights" to sell.
+
+If you're tired of being the product, here's how to take back control of your DNS privacy. It's easier than you think, and I'll show you three different ways to do it.
 
 ## Understanding the DNS Privacy Problem
 

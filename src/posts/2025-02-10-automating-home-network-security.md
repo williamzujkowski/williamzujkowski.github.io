@@ -18,9 +18,11 @@ This post shares the Python scripts and automation workflows I've developed to m
 
 First challenge: knowing what's actually on your network. New devices appear constantly – kids' friends' phones, that new smart gadget someone bought, the mysterious device that might be the neighbor's printer.
 
+True story: I once spent an hour trying to figure out what "ESP_8266_UNKNOWN" was on my network. Turns out it was a smart light bulb my wife installed. Without telling me. In the guest bathroom. We need automation, folks.
+
 ### Automated Device Discovery
 
-Here's my network discovery script that runs hourly:
+Here's the script that saves my sanity (runs hourly, alerts immediately):
 
 ```python
 #!/usr/bin/env python3

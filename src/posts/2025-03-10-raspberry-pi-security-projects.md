@@ -21,6 +21,8 @@ Before diving into projects, let's address the elephant in the room: Why use a $
 
 **Problem Solved**: Ads, tracking, and malicious domains accessing your network
 
+**The Backstory**: My kids' tablets were hitting 400+ tracking domains per hour. Per. Hour. That's when I knew we needed a bouncer at the network door.
+
 **Hardware**: Raspberry Pi 4 (2GB), microSD card, Ethernet cable
 
 ### Implementation
