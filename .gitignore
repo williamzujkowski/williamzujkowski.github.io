@@ -109,3 +109,8 @@ snapshots/
 swarm-benchmarks/
 swarm-tests/
 perf-reports/
+
+# Development and debugging directories
+subagents/
+task-tracking/
+debug-reports/
