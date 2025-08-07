@@ -31,17 +31,17 @@ Let's be real: you're either here because you're shopping for new tech or you're
   - **Monitors**: 34" Ultrawide 4k display (because 10 terminal windows need room to breathe)
   
 ### Laptop
-- **Primary**: Framework Laptop
-  - Ubuntu 24.04LTS (Great for security tools)
+- **Primary**: [Framework Laptop](https://frame.work/)
+  - [Ubuntu 24.04LTS](https://ubuntu.com/) (Great for security tools)
   - Perfect for coffee shop coding and sshing into my other machines
   
 ### Homelab
-- **Firewall**: Protectli Vault FW4B running pfSense
+- **Firewall**: [Protectli Vault FW4B](https://protectli.com/vault-4-port/) running [pfSense](https://www.pfsense.org/)
 - **Virtualization**: 1x Dell R940
-  - Proxmox cluster
+  - [Proxmox](https://www.proxmox.com/) cluster
   - 256GB RAM total (VMs for days)
-- **Storage**: TrueNAS server with 40TB raw storage
-- **Networking**: Ubiquiti switches and APs (VLANs everywhere)
+- **Storage**: [TrueNAS](https://www.truenas.com/) server with 40TB raw storage
+- **Networking**: [Ubiquiti](https://ui.com/) switches and APs (VLANs everywhere)
 
 ### Accessories
 - **Keyboard**: [Zinc Wooting 80HE](https://wooting.io/wooting-80he)
@@ -52,25 +52,25 @@ Let's be real: you're either here because you're shopping for new tech or you're
 ## 💻 Desktop Software
 
 ### Development
-- **Editor**: VS Code (I can exit it without googling)
-  - Extensions: Python, Go, Terraform, Docker, GitLens, and 47 others I forgot I installed
-  - Theme: Tokyo Night (because dark mode is a lifestyle, not a choice)
-- **Terminal**: Ghostty
-- **Shell**: Zsh with Oh My Zsh
+- **Editor**: [VS Code](https://code.visualstudio.com/) (I can exit it without googling)
+  - Extensions: Python, Go, Terraform, Docker, [GitLens](https://github.com/gitkraken/vscode-gitlens), and 47 others I forgot I installed
+  - Theme: [Tokyo Night](https://github.com/enkia/tokyo-night-vscode-theme) (because dark mode is a lifestyle, not a choice)
+- **Terminal**: [Ghostty](https://github.com/ghostty-org/ghostty)
+- **Shell**: [Zsh](https://www.zsh.org/) with [Oh My Zsh](https://ohmyz.sh/)
   - Plugins: git, docker, kubectl, aws
 
 ### Security Tools
-- **Network Analysis**: Wireshark, tcpdump, nmap
-- **Vulnerability Scanning**: Nessus, OSV, Grype
-- **SIEM**: Local Wazuh instance for learning
-- **Password Manager**: Bitwarden (self-hosted)
-- **2FA**: YubiKey 5C NFC (two of them, because redundancy)
+- **Network Analysis**: [Wireshark](https://www.wireshark.org/), [tcpdump](https://www.tcpdump.org/), [nmap](https://nmap.org/)
+- **Vulnerability Scanning**: [Nessus](https://www.tenable.com/products/nessus), [OSV](https://github.com/google/osv-scanner), [Grype](https://github.com/anchore/grype)
+- **SIEM**: Local [Wazuh](https://wazuh.com/) instance for learning
+- **Password Manager**: [Bitwarden](https://bitwarden.com/) (self-hosted)
+- **2FA**: [YubiKey 5C NFC](https://www.yubico.com/product/yubikey-5c-nfc/) (two of them, because redundancy)
 
 ### Virtualization & Containers
-- **Hypervisor**: Proxmox (homelab)
-- **Containers**: Docker Desktop, Podman
-- **Orchestration**: K3s for learning Kubernetes
-- **IaC**: Terraform, Ansible
+- **Hypervisor**: [Proxmox](https://www.proxmox.com/) (homelab)
+- **Containers**: [Docker Desktop](https://www.docker.com/products/docker-desktop/), [Podman](https://podman.io/)
+- **Orchestration**: [K3s](https://k3s.io/) for learning Kubernetes
+- **IaC**: [Terraform](https://www.terraform.io/), [Ansible](https://www.ansible.com/)
 
 
 ## 🛠️ Command Line Tools
@@ -79,62 +79,62 @@ My most-used CLI tools:
 
 ```bash
 # Security
-nmap            # Network discovery
-zap           # Web server scanner
-gobuster        # Directory/file enumeration
-john            # Password cracking (legally!)
-hashcat         # GPU-accelerated password recovery
+nmap            # Network discovery - https://nmap.org/
+zap             # Web server scanner - https://www.zaproxy.org/
+gobuster        # Directory/file enumeration - https://github.com/OJ/gobuster
+john            # Password cracking (legally!) - https://www.openwall.com/john/
+hashcat         # GPU-accelerated password recovery - https://hashcat.net/
 
 # Development
-git             # Version control
-gh              # GitHub CLI
-python3         # Scripting and automation
-go              # For performance-critical tools
-rust            # Learning for memory-safe tools
+git             # Version control - https://git-scm.com/
+gh              # GitHub CLI - https://cli.github.com/
+python3         # Scripting and automation - https://www.python.org/
+go              # For performance-critical tools - https://go.dev/
+rust            # Learning for memory-safe tools - https://www.rust-lang.org/
 
 # Infrastructure
-terraform       # Infrastructure as Code
-ansible         # Configuration management
-docker          # Containerization
-kubectl         # Kubernetes management
+terraform       # Infrastructure as Code - https://www.terraform.io/
+ansible         # Configuration management - https://www.ansible.com/
+docker          # Containerization - https://www.docker.com/
+kubectl         # Kubernetes management - https://kubernetes.io/
 
 # Utilities
-tmux            # Terminal multiplexer
-fzf             # Fuzzy finder
-ripgrep         # Fast searching
-bat             # Better cat
-htop            # System monitoring
-ncdu            # Disk usage analyzer
+tmux            # Terminal multiplexer - https://github.com/tmux/tmux
+fzf             # Fuzzy finder - https://github.com/junegunn/fzf
+ripgrep         # Fast searching - https://github.com/BurntSushi/ripgrep
+bat             # Better cat - https://github.com/sharkdp/bat
+htop            # System monitoring - https://htop.dev/
+ncdu            # Disk usage analyzer - https://dev.yorhel.nl/ncdu
 ```
 
 ## ☁️ Services & SaaS
 
 ### Development
-- **Code Hosting**: GitHub (public), GitLab (private)
-- **CI/CD**: GitHub Actions, self-hosted Jenkins
-- **Monitoring**: Netdata (self-hosted), UptimeRobot
+- **Code Hosting**: [GitHub](https://github.com/) (public), [GitLab](https://gitlab.com/) (private)
+- **CI/CD**: [GitHub Actions](https://github.com/features/actions), self-hosted [Jenkins](https://www.jenkins.io/)
+- **Monitoring**: [Netdata](https://www.netdata.cloud/) (self-hosted), [UptimeRobot](https://uptimerobot.com/)
 
 ### Security
-- **Threat Intel**: AlienVault OTX, abuse.ch feeds
-- **DNS**: Cloudflare (1.1.1.1), Pi-hole (local)
-- **VPN**: WireGuard (self-hosted), ProtonVPN (backup)
+- **Threat Intel**: [AlienVault OTX](https://otx.alienvault.com/), [abuse.ch](https://abuse.ch/) feeds
+- **DNS**: [Cloudflare](https://1.1.1.1/) (1.1.1.1), [Pi-hole](https://pi-hole.net/) (local)
+- **VPN**: [WireGuard](https://www.wireguard.com/) (self-hosted), [ProtonVPN](https://protonvpn.com/) (backup)
 
 ### Learning
-- **Courses**: Pluralsight, Linux Academy, YouTube University
-- **Labs**: HackTheBox, TryHackMe, personal lab
-- **Reading**: O'Reilly Learning, research papers
+- **Courses**: [Pluralsight](https://www.pluralsight.com/), [Linux Academy](https://linuxacademy.com/), YouTube University
+- **Labs**: [HackTheBox](https://www.hackthebox.com/), [TryHackMe](https://tryhackme.com/), personal lab
+- **Reading**: [O'Reilly Learning](https://www.oreilly.com/), research papers
 
 ## 🎮 Homelab Services
 
 Self-hosted services running 24/7:
 
-- **Monitoring**: Wazuh, Grafana, Prometheus
-- **Media**: Jellyfin (like Plex but open source)
-- **Automation**: Home Assistant (smart home)
-- **Documentation**: BookStack wiki
-- **Code**: GitLab CE
-- **Secrets**: Vault by HashiCorp
-- **Backups**: Restic to local NAS + B2
+- **Monitoring**: [Wazuh](https://wazuh.com/), [Grafana](https://grafana.com/), [Prometheus](https://prometheus.io/)
+- **Media**: [Jellyfin](https://jellyfin.org/) (like Plex but open source)
+- **Automation**: [Home Assistant](https://www.home-assistant.io/) (smart home)
+- **Documentation**: [BookStack](https://www.bookstackapp.com/) wiki
+- **Code**: [GitLab CE](https://about.gitlab.com/install/ce-or-ee/)
+- **Secrets**: [Vault](https://www.vaultproject.io/) by HashiCorp
+- **Backups**: [Restic](https://restic.net/) to local NAS + [B2](https://www.backblaze.com/cloud-storage)
 
 ## 🎯 Philosophy
 
@@ -149,14 +149,13 @@ My tool choices are guided by:
 ## 🔄 Recent Changes
 
 ### Added (Last 3 Months)
-- Ollama for local LLM experiments
-- Tailscale for zero-config VPN
-- Bruno as Postman alternative
+- [Tailscale](https://tailscale.com/) for zero-config VPN
+- [Bruno](https://www.usebruno.com/) as Postman alternative
 
 ### Removed
 - LastPass (moved to self-hosted Bitwarden)
 - VMware ESXi (Proxmox does everything I need)
-- Notion (Obsidian + Git is simpler)
+- Notion ([Obsidian](https://obsidian.md/) + Git is simpler)
 
 ## 💡 Pro Tips
 
@@ -169,7 +168,7 @@ My tool choices are guided by:
 ## 🤔 Frequently Asked Questions
 
 **Q: Windows, Linux, or macOS?**  
-A: Yes. Linux for when I want control, macOS for when I want things to work, and Windows for when I hate myself (kidding! ...mostly).
+A: Yes. Linux for when I want control, macOS for when I want things to work, and Windows for the last few games that don't support linux via proton.
 
 **Q: Favorite programming language?**  
 A: Python for quick scripts, Go for tools, Rust for learning. Bash for gluing it all together.
