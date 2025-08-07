@@ -10,9 +10,9 @@ author: "William Zujkowski"
 
 ## The ISP Letter That Started Everything
 
-Last year, I got a letter from my ISP. They were "excited to inform me" about their new partnership to provide "targeted advertising based on browsing insights." Translation: they were selling my DNS queries.
+A few years back, I became aware that many ISPs monetize DNS query data for targeted advertising. This privacy concern motivated me to research DNS-over-HTTPS implementations.
 
-That weekend, I implemented DNS-over-HTTPS on my home network. My ISP now sees encrypted traffic to Cloudflare, nothing more. No browsing history, no profiling, no "insights" to sell.
+After implementing DoH on my personal home network, I've achieved complete DNS privacy. The ISP only sees encrypted HTTPS traffic, protecting browsing patterns from commercial exploitation.
 
 If you're tired of being the product, here's how to take back control of your DNS privacy. It's easier than you think, and I'll show you three different ways to do it.
 

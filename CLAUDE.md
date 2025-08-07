@@ -351,14 +351,47 @@ Before publishing:
 
 ## Boundaries
 
+### CRITICAL: Government Work Security Guidelines
+
+**ABSOLUTE RULES FOR GOVERNMENT EMPLOYEES:**
+- **NO current incidents**: Never discuss anything that could be interpreted as a current or recent security incident
+- **Time buffer required**: Only discuss professional incidents from "years ago" (minimum 2-3 years)
+- **Generic examples only**: When discussing work scenarios, make them generic and hypothetical
+- **Personal projects safe**: Home lab and personal research projects are fine to discuss
+- **Academic tone**: Frame security topics as research, learning, or general best practices
+
+**Safe Content Patterns:**
+- "Years ago, I learned..." (with vague timeframes)
+- "In my home lab, I discovered..."
+- "While researching [topic], I found..."
+- "A common scenario in security is..." (hypothetical)
+- "Best practices suggest..." (general guidance)
+
+**NEVER Use These Patterns:**
+- "Last week/month at work..."
+- "We recently had an incident..."
+- "My current employer..."
+- "In our production environment..."
+- "I just dealt with..."
+
 **Do Share:**
-- Professional challenges and wins
-- Learning struggles and breakthroughs
-- Creative process
+- Professional challenges and wins (from years ago)
+- Learning struggles and breakthroughs (personal projects)
+- Creative process (home lab/research)
 - Book and media recommendations
 - Opinions on industry trends
+- Historical lessons learned (appropriately aged)
+- Personal research and experiments
 
 **Don't Share:**
+- Current or recent work incidents
+- Specific government agency details
+- Active security measures or controls
+- Ongoing investigations or issues
+- Current vulnerabilities or threats at work
+- Specific systems or technologies in use
+- Team member details or roles
+- Timeline-specific work events
 - Family members' personal details
 - Employer confidential information
 - Others' stories without permission

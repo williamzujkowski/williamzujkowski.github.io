@@ -170,9 +170,9 @@ Let's start with a foundation that all IR playbooks should build upon:
 
 ### Ransomware Response Playbook
 
-I'll never forget my first ransomware incident. It was 2 AM, I was fumbling through commands, and every minute felt like an hour. That's when I realized we needed automation – not tomorrow, but yesterday.
+Years ago, during my early days in incident response, I learned the hard way that manual response doesn't scale. After dealing with several ransomware scenarios in my home lab and researching industry best practices, I developed this automation approach.
 
-Here's the playbook that's saved us countless times since:
+Here's a playbook structure that follows industry best practices:
 
 {% raw %}
 ```yaml
@@ -281,7 +281,7 @@ Here's the playbook that's saved us countless times since:
 
 #### The Nuclear Option: Process Termination
 
-Here's where things get aggressive. The first time I ran this, I was terrified of killing legitimate processes. But when ransomware is spreading at 100 files per second, you don't have time for surgical precision. You need a sledgehammer:
+Here's where theory meets practice. In my testing environments, I've learned that aggressive containment is sometimes necessary. When simulating ransomware that encrypts at high speed, surgical precision isn't always an option:
 
 {% raw %}
 ```yaml
@@ -426,9 +426,9 @@ Here's where things get aggressive. The first time I ran this, I was terrified o
 
 ### Credential Compromise Response
 
-Fun fact: 80% of our incidents involve compromised credentials. I've handled so many that I can practically run this response in my sleep (and have, at 3 AM).
+Based on industry statistics, credential compromise represents the majority of security incidents. Through years of research and home lab simulations, I've developed automated responses for these scenarios.
 
-The key lesson? Speed matters, but accuracy matters more. Lock the wrong account and you've just DoS'd your CEO. Ask me how I know...
+The key lesson from my research: Speed matters, but accuracy matters more. In test environments, I've seen how locking the wrong account can cause significant disruption.
 
 {% raw %}
 ```yaml

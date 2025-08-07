@@ -10,11 +10,9 @@ author: "William Zujkowski"
 
 ## The Day eBPF Changed Everything
 
-"How did they bypass our EDR?"
+Years ago, I researched how attackers could potentially bypass EDR solutions by operating at the kernel level. This research led me to explore eBPF as a detection mechanism.
 
-That question haunted me after an incident where attackers lived in our kernel for weeks, completely invisible to our expensive security tools. Traditional monitoring was watching the front door while intruders climbed through kernel-level windows.
-
-Enter eBPF – the technology that lets you see what the kernel sees, in real-time, without kernel modules. After six months of battle-testing eBPF monitoring, I can't imagine security without it. Here's what actually works in production.
+eBPF technology provides kernel-level visibility in real-time, without requiring kernel modules. After extensive testing in my home lab and research environments, I've developed practical approaches for eBPF-based monitoring. Here's what the research shows works effectively.
 
 ## Why eBPF for Security Monitoring?
 
