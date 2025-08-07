@@ -39,7 +39,7 @@ Let's be real: you're either here because you're shopping for new tech or you're
   - **The real story**: Bought into the repairability dream after my last laptop's keyboard died 2 days past warranty. So far I've only swapped ports twice, but the peace of mind is worth it.
   
 ### Homelab (The Money Pit)
-- **Firewall**: Dream Machine Professional running [pfSense](https://www.pfsense.org/)
+- **Firewall**: [Dream Machine Professional](https://store.ui.com/us/en/products/udm-pro)
   - Started with a consumer router. Then pfSense on an old PC. Now this. My network security has evolved; my wallet has devolved.
   
 - **Virtualization** (aka "The Space Heater Collection"): 
@@ -210,7 +210,6 @@ My tool choices are guided by:
   - The breaches were the final straw. Now I control my own password destiny (and backup anxiety)
   
 - **VMware ESXi** → Proxmox
-  - Broadcom acquisition pricing made this decision for me
   - Proxmox does 100% of what I need for 0% of the cost
   
 - **Notion** → [Obsidian](https://obsidian.md/) + Git
