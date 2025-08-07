@@ -261,7 +261,7 @@ A: Automated hourly snapshots locally, daily to NAS, weekly to B2 cloud. Test re
 A: Tie between:
 - Buying enterprise gear without checking power consumption (RIP electric bill)
 - Setting up 47 services before configuring backups
-- That time I accidentally exposed my Jellyfin server to the internet (found out via Shodan alert 🤦)
+- That time I ran `rm -rf /` on the wrong SSH session (thank god for snapshots)
 
 **Q: Coffee or tea?**  
 A: Coffee for coding (chemex or death). Tea for reading docs. Energy drinks for "production is down" moments. Water for pretending to be healthy. Whiskey for successful deployments and failed deployments alike.
