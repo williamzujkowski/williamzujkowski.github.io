@@ -26,3 +26,86 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Claude and Claude-Flow files
+.claude/
+.claude-flow/
+.roo/
+.roomodes
+
+# MCP (Model Context Protocol) files
+.mcp.json
+.mcp/
+
+# Claude-Flow configuration (keep main config, ignore local)
+claude-flow.config.local.json
+claude-flow.local.json
+
+# Claude-Flow executables
+claude-flow
+claude-flow.bat
+claude-flow.ps1
+claude-flow.sh
+
+# Swarm and Hive Mind files
+.swarm/
+.hive-mind/
+hive-mind-prompt-*.txt
+swarm-*.json
+swarm-*.log
+
+# Memory and persistence
+memory/
+!memory/README.md
+memory/claude-flow-data.json
+memory/sessions/*
+!memory/sessions/README.md
+memory/agents/*
+!memory/agents/README.md
+
+# Coordination directories
+coordination/memory_bank/*
+coordination/subtasks/*
+coordination/orchestration/*
+!coordination/**/README.md
+
+# Database files
+*.db
+*.db-journal
+*.db-wal
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.leveldb
+
+# Neural network and model files
+*.onnx
+*.pt
+*.pth
+*.h5
+*.tflite
+models/
+checkpoints/
+
+# Cache and temporary swarm files
+.cache/
+.swarm-cache/
+.agent-cache/
+*.swarm.tmp
+*.agent.tmp
+
+# Log files from swarm operations
+swarm-logs/
+agent-logs/
+*.swarm.log
+*.agent.log
+
+# Backup and snapshot files
+*.swarm.backup
+*.memory.backup
+snapshots/
+
+# Test and benchmark results
+swarm-benchmarks/
+swarm-tests/
+perf-reports/
