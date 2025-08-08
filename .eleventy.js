@@ -161,6 +161,18 @@ module.exports = function(eleventyConfig) {
       .replace(/-+$/, '');            // Trim - from end of text
   });
 
+  // Override the built-in slug filter to properly handle apostrophes
+  eleventyConfig.addFilter("slug", (str) => {
+    if (!str) return "";
+    return str.toString().toLowerCase()
+      .replace(/['′'']/g, '')        // Remove apostrophes and smart quotes
+      .replace(/\s+/g, '-')           // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '');            // Trim - from end of text
+  });
+
   // Truncate filter
   eleventyConfig.addFilter("truncate", (str, length = 100) => {
     if (!str) return "";
