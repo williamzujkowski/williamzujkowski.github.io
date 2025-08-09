@@ -37,17 +37,17 @@ Having followed this field closely, I've come to understand that quantum computi
 ```mermaid
 graph LR
     subgraph "Initialization"
-        Q0[|0⟩]
-        Q1[|0⟩]
+        Q0[Qubit 0: Zero State]
+        Q1[Qubit 1: Zero State]
     end
     
-    subgraph "Gates"
-        H[Hadamard]
-        CNOT[CNOT]
-        M[Measure]
+    subgraph "Quantum Gates"
+        H[Hadamard Gate]
+        CNOT[CNOT Gate]
+        M[Measurement]
     end
     
-    subgraph "Output"
+    subgraph "Classical Output"
         C0[Classical Bit 0]
         C1[Classical Bit 1]
     end
@@ -61,6 +61,7 @@ graph LR
     
     style H fill:#2196f3
     style CNOT fill:#9c27b0
+    style M fill:#4caf50
 ```
 
 ## The Quantum Advantage: Beyond Classical Limitations
