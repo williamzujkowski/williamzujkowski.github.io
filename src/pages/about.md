@@ -687,7 +687,7 @@ Building tools that solve real problems – from security automation to AI-power
 ## What's Keeping Me Up at Night (Besides Alerts)
 
 <div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 p-10 rounded-2xl shadow-md my-12 border border-purple-200/50 dark:border-purple-800/30">
-  <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
+  <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
     Learning & Growth
   </h3>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
