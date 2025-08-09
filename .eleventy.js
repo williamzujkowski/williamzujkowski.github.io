@@ -40,6 +40,12 @@ module.exports = function(eleventyConfig) {
     return array.slice(0, limit);
   });
 
+  // Min filter - returns minimum value from array
+  eleventyConfig.addFilter("min", (values) => {
+    if (!values || !Array.isArray(values) || values.length === 0) return 0;
+    return Math.min(...values);
+  });
+
   // Reading time filter
   eleventyConfig.addFilter("readingTime", (content) => {
     if (!content) return 0;
@@ -94,11 +100,11 @@ module.exports = function(eleventyConfig) {
     );
   });
 
-  // Add lazy loading to images
+  // Add lazy loading and responsive attributes to images
   eleventyConfig.addFilter("lazyImages", (content) => {
     if (!content) return '';
     
-    // Add loading="lazy" to img tags that don't already have a loading attribute
+    // Add loading="lazy" and responsive classes to img tags
     return content.replace(
       /<img\s+(?![^>]*\sloading=)[^>]*>/gi,
       (match) => {
@@ -106,8 +112,17 @@ module.exports = function(eleventyConfig) {
         if (match.includes('data:') || match.includes('.svg')) {
           return match;
         }
+        
+        // Add responsive classes if not already present
+        let updatedMatch = match;
+        if (!match.includes('class=')) {
+          updatedMatch = match.replace('<img', '<img class="max-w-full h-auto"');
+        } else if (!match.includes('max-w-full')) {
+          updatedMatch = match.replace(/class="([^"]*)"/, 'class="$1 max-w-full h-auto"');
+        }
+        
         // Add loading="lazy" before the closing >
-        return match.replace(/>$/, ' loading="lazy">');
+        return updatedMatch.replace(/>$/, ' loading="lazy">');
       }
     );
   });
@@ -148,6 +163,20 @@ module.exports = function(eleventyConfig) {
     });
     // Convert to array and sort
     return [...tagSet].sort();
+  });
+
+  // Create search index collection
+  eleventyConfig.addCollection("searchIndex", function(collection) {
+    return collection.getFilteredByTag('posts').map(post => {
+      return {
+        title: post.data.title || '',
+        description: post.data.description || '',
+        tags: (post.data.tags || []).filter(tag => tag !== 'posts').join(' '),
+        date: post.date.toISOString(),
+        url: post.url,
+        excerpt: post.data.description || ''
+      };
+    });
   });
 
   // Slugify filter for URLs

@@ -8,19 +8,49 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // OKLCH-based colors for better perceptual uniformity
+        background: {
+          light: 'var(--clr-background-light)',
+          dark: 'var(--clr-background-dark)',
+        },
+        text: {
+          light: 'var(--clr-text-light)',
+          dark: 'var(--clr-text-dark)',
+        },
+        link: {
+          light: 'var(--clr-link-light)',
+          dark: 'var(--clr-link-dark)',
+        },
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93bbfd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
+          50: 'var(--clr-primary-50)',
+          100: 'var(--clr-primary-100)',
+          200: 'var(--clr-primary-200)',
+          300: 'var(--clr-primary-300)',
+          400: 'var(--clr-primary-400)',
+          500: 'var(--clr-primary-500)',
+          600: 'var(--clr-primary-600)',
+          700: 'var(--clr-primary-700)',
+          800: 'var(--clr-primary-800)',
+          900: 'var(--clr-primary-900)',
+          950: 'var(--clr-primary-950)',
         }
+      },
+      fontSize: {
+        // Responsive font sizes using clamp
+        'xs': 'var(--font-size-xs)',
+        'sm': 'var(--font-size-sm)',
+        'base': 'var(--font-size-base)',
+        'lg': 'var(--font-size-lg)',
+        'xl': 'var(--font-size-xl)',
+        '2xl': 'var(--font-size-2xl)',
+        '3xl': 'var(--font-size-3xl)',
+        '4xl': 'var(--font-size-4xl)',
+        '5xl': 'var(--font-size-5xl)',
+      },
+      spacing: {
+        // Mobile-friendly touch targets (minimum 44px)
+        'touch': '44px',
+        'touch-sm': '36px',
       },
       typography: {
         DEFAULT: {

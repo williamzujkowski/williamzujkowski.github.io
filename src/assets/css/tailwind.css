@@ -3,6 +3,42 @@
 @tailwind utilities;
 
 @layer base {
+  /* OKLCH Color Variables for perceptual uniformity */
+  :root {
+    /* Light mode colors */
+    --clr-background-light: oklch(0.98 0.02 270);
+    --clr-background-dark: oklch(0.12 0.03 270);
+    --clr-text-light: oklch(0.1 0.02 90);
+    --clr-text-dark: oklch(0.9 0.02 90);
+    --clr-link-light: oklch(0.55 0.2 240);
+    --clr-link-dark: oklch(0.75 0.15 240);
+    
+    /* Primary colors in OKLCH */
+    --clr-primary-50: oklch(0.97 0.02 240);
+    --clr-primary-100: oklch(0.93 0.04 240);
+    --clr-primary-200: oklch(0.88 0.08 240);
+    --clr-primary-300: oklch(0.81 0.12 240);
+    --clr-primary-400: oklch(0.73 0.16 240);
+    --clr-primary-500: oklch(0.62 0.2 240);
+    --clr-primary-600: oklch(0.52 0.22 240);
+    --clr-primary-700: oklch(0.45 0.2 240);
+    --clr-primary-800: oklch(0.38 0.18 240);
+    --clr-primary-900: oklch(0.32 0.14 240);
+    --clr-primary-950: oklch(0.25 0.1 240);
+    
+    /* Typography scale */
+    --font-scale-ratio: 1.2;
+    --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+    --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+    --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+    --font-size-2xl: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
+    --font-size-3xl: clamp(1.875rem, 1.6rem + 1.375vw, 2.25rem);
+    --font-size-4xl: clamp(2.25rem, 1.9rem + 1.75vw, 3rem);
+    --font-size-5xl: clamp(3rem, 2.5rem + 2.5vw, 3.75rem);
+  }
+  
   /* Inter font */
   @font-face {
     font-family: 'Inter';
@@ -44,11 +80,11 @@
 
   /* Glass morphism effect */
   .glass {
-    @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-xl;
+    @apply bg-white backdrop-blur-lg border border-gray-200 shadow-xl opacity-95;
   }
 
   .glass-dark {
-    @apply bg-gray-900/70 backdrop-blur-lg border border-gray-700/50 shadow-xl;
+    @apply bg-gray-900 backdrop-blur-lg border border-gray-700 shadow-xl opacity-95;
   }
 
   /* Hover card effect */
@@ -85,7 +121,7 @@
 
   /* Link styles */
   .link {
-    @apply text-primary-600 hover:text-primary-700 underline decoration-primary-400/30 hover:decoration-primary-600/50 transition-all duration-200;
+    @apply text-primary-600 hover:text-primary-700 underline underline-offset-2 decoration-primary-400 hover:decoration-primary-600 transition-all duration-200;
   }
 
   /* Code blocks */
@@ -209,7 +245,7 @@
 /* Mermaid diagram container styling */
 .mermaid-container {
   @apply relative my-6 p-4 rounded-lg overflow-x-auto;
-  @apply bg-gray-50/80 dark:bg-gray-800/50;
+  @apply bg-gray-50 dark:bg-gray-800;
   @apply backdrop-blur-sm;
   @apply border border-gray-200 dark:border-gray-700;
   @apply shadow-sm hover:shadow-md transition-shadow duration-200;
@@ -275,7 +311,7 @@
 }
 
 .toc-link-active {
-  @apply text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20;
+  @apply text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950;
 }
 
 /* Hide TOC on smaller screens */
