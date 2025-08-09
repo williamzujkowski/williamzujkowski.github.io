@@ -1,17 +1,67 @@
 ---
-title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
+date: 2024-04-04
 description: The moment I realized our LLM was confidently making up facts about our
   company's products was when I understood why RAG isn't optional - it's essential
   for trustworthy AI systems
-date: 2024-04-04
+images:
+  hero:
+    alt: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge
+      - Hero Image'
+    caption: 'Visual representation of Retrieval Augmented Generation (RAG): Enhancing
+      LLMs with External Knowledge'
+    height: 630
+    src: /assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge
+      - Social Media Preview'
+    src: /assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-og.jpg
 tags:
 - ai
 - llm
 - rag
+title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
 ---
+
 There's a moment in every conversation with a Large Language Model when you realize the fundamental limitation: the model can only work with what it learned during training. For me, that moment came during a demo where our customer service LLM confidently made up product specifications that didn't exist.
 
 Watching potential customers receive authoritative-sounding but completely incorrect information was mortifying. That incident sparked my deep dive into Retrieval Augmented Generation (RAG)—a technique that gives AI systems the power to consult external knowledge sources before generating responses.
+
+## How It Works
+
+```mermaid
+graph LR
+    subgraph "Data Pipeline"
+        Raw[Raw Data]
+        Clean[Cleaning]
+        Feature[Feature Engineering]
+    end
+    
+    subgraph "Model Training"
+        Train[Training]
+        Val[Validation]
+        Test[Testing]
+    end
+    
+    subgraph "Deployment"
+        Deploy[Model Deployment]
+        Monitor[Monitoring]
+        Update[Updates]
+    end
+    
+    Raw --> Clean
+    Clean --> Feature
+    Feature --> Train
+    Train --> Val
+    Val --> Test
+    Test --> Deploy
+    Deploy --> Monitor
+    Monitor -->|Feedback| Train
+    
+    style Train fill:#9c27b0
+    style Deploy fill:#4caf50
+```
 
 ## The Problem: When "Knowing Everything" Isn't Enough
 

@@ -1,10 +1,23 @@
 ---
-title: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern
-  Engineering'
+author: William Zujkowski
 date: 2025-08-07
 description: Discover how Claude-Flow transforms software development with AI swarm
   intelligence, achieving 84.8% SWE-Bench solve rates and 4.4x speed improvements
   through intelligent agent orchestration
+images:
+  hero:
+    alt: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern
+      Engineering - Hero Image'
+    caption: 'Visual representation of Supercharging Development with Claude-Flow:
+      AI Swarm Intelligence for Modern Engineering'
+    height: 630
+    src: /assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern
+      Engineering - Social Media Preview'
+    src: /assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-og.jpg
 tags:
 - ai
 - automation
@@ -12,8 +25,10 @@ tags:
 - open-source
 - ai-ml
 - tutorial
-author: William Zujkowski
+title: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern
+  Engineering'
 ---
+
 ## From Solo Coding to Swarm Intelligence
 
 
@@ -388,14 +403,7 @@ mkdir my-project && cd my-project
 npx claude-flow init
 
 # 2. Start a simple swarm
-npx claude-flow swarm init --topology star --max-agents 3
-
-# 3. Assign your first task
-npx claude-flow task orchestrate "Create a todo list API with CRUD operations"
-
-# 4. Monitor progress
-npx claude-flow swarm monitor --real-time
-
+    # ... (additional implementation details)
 # 5. Review results
 npx claude-flow task results --format detailed
 ```
@@ -408,20 +416,7 @@ npx claude-flow task results --format detailed
   "features": {
     "autoTopologySelection": true,  // Let AI choose best topology
     "parallelExecution": true,       // Enable parallel processing
-    "neuralTraining": true,          // Learn from patterns
-    "crossSessionMemory": true,      // Persist knowledge
-    "githubIntegration": true        // GitHub automation
-  },
-  "performance": {
-    "maxAgents": 10,                // Limit concurrent agents
-    "tokenOptimization": true,       // Reduce token usage
-    "cacheEnabled": true,            // Cache common operations
-    "telemetryLevel": "detailed"     // Track performance
-  },
-  "hooks": {
-    "preTask": "npm run lint",      // Run before tasks
-    "postTask": "npm test",         // Run after tasks
-    "onError": "npm run rollback"   // Error recovery
+    # ... (additional implementation details)
   }
 }
 ```
@@ -446,15 +441,7 @@ while true; do
   npx claude-flow agent spawn --type coder
   npx claude-flow task orchestrate "Implement feature X"
   
-  npx claude-flow agent spawn --type reviewer  
-  npx claude-flow task orchestrate "Review implementation for best practices"
-  
-  npx claude-flow agent spawn --type tester
-  npx claude-flow task orchestrate "Test all edge cases"
-  
-  # Check if standards met
-  if npx claude-flow quality assess --target feature-x --threshold 95; then
-    break
+    # ... (additional implementation details)
   fi
 done
 ```

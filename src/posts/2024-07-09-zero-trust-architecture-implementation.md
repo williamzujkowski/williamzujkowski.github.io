@@ -1,18 +1,64 @@
 ---
-title: 'Zero Trust Architecture: A Practical Implementation Guide'
+date: 2024-07-09
 description: Moving from 'trust but verify' to 'never trust, always verify' required
   dismantling years of security assumptions and rebuilding our entire authentication
   and authorization framework
-date: 2024-07-09
+images:
+  hero:
+    alt: 'Zero Trust Architecture: A Practical Implementation Guide - Hero Image'
+    caption: 'Visual representation of Zero Trust Architecture: A Practical Implementation
+      Guide'
+    height: 630
+    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Zero Trust Architecture: A Practical Implementation Guide - Social Media
+      Preview'
+    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg
 tags:
 - security
 - zero-trust
 - authentication
 - architecture
+title: 'Zero Trust Architecture: A Practical Implementation Guide'
 ---
+
 The day our "secure" internal network was compromised by a malicious USB drive plugged into a conference room computer, I realized that perimeter-based security was fundamentally flawed. An attacker had gained access to our "trusted" network and moved laterally for weeks before we detected the breach.
 
 That incident forced us to abandon the castle-and-moat security model we'd relied on for years and embrace Zero Trust Architecture—a approach that assumes compromise and verifies every interaction, regardless of source or location.
+
+## How It Works
+
+```mermaid
+graph TD
+    subgraph "Perimeter"
+        FW[Firewall]
+        WAF[WAF]
+        IDS[IDS/IPS]
+    end
+    
+    subgraph "Network"
+        VLAN[Segmentation]
+        NAC[Access Control]
+    end
+    
+    subgraph "Endpoint"
+        EDR[EDR]
+        AV[Antivirus]
+        DLP[DLP]
+    end
+    
+    Internet --> FW
+    FW --> WAF
+    WAF --> IDS
+    IDS --> VLAN
+    VLAN --> NAC
+    NAC --> EDR
+    
+    style FW fill:#2196f3
+    style EDR fill:#4caf50
+```
 
 ## The Perimeter Security Illusion
 

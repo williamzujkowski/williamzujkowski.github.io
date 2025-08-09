@@ -1,17 +1,64 @@
 ---
-title: AI Learning in Resource-Constrained Environments
+date: 2024-05-30
 description: Running large language models on a raspberry pi cluster taught me more
   about efficiency and ingenuity than years of unlimited cloud computing budgets ever
   could
-date: 2024-05-30
+images:
+  hero:
+    alt: AI Learning in Resource-Constrained Environments - Hero Image
+    caption: Visual representation of AI Learning in Resource-Constrained Environments
+    height: 630
+    src: /assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: AI Learning in Resource-Constrained Environments - Social Media Preview
+    src: /assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-og.jpg
 tags:
 - ai
 - machine-learning
 - edge-computing
+title: AI Learning in Resource-Constrained Environments
 ---
+
 Staring at my electricity bill after running a large language model training job, I realized something fundamental had to change. The thousands of dollars in GPU compute costs for a single experiment weren't sustainable for personal projects, and they certainly weren't accessible to researchers without substantial funding.
 
 That moment of financial reality sparked my deep dive into AI learning in resource-constrained environments—a journey that taught me more about efficiency, creativity, and the fundamentals of machine learning than years of unlimited cloud budgets ever could.
+
+## How It Works
+
+```mermaid
+graph LR
+    subgraph "Data Pipeline"
+        Raw[Raw Data]
+        Clean[Cleaning]
+        Feature[Feature Engineering]
+    end
+    
+    subgraph "Model Training"
+        Train[Training]
+        Val[Validation]
+        Test[Testing]
+    end
+    
+    subgraph "Deployment"
+        Deploy[Model Deployment]
+        Monitor[Monitoring]
+        Update[Updates]
+    end
+    
+    Raw --> Clean
+    Clean --> Feature
+    Feature --> Train
+    Train --> Val
+    Val --> Test
+    Test --> Deploy
+    Deploy --> Monitor
+    Monitor -->|Feedback| Train
+    
+    style Train fill:#9c27b0
+    style Deploy fill:#4caf50
+```
 
 ## The Reality Check: When Resources Become Constraints
 

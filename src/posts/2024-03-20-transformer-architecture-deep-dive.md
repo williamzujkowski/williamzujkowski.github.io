@@ -1,17 +1,62 @@
 ---
-title: 'The Transformer Architecture: A Deep Dive'
+date: 2024-03-20
 description: Reading 'Attention is All You Need' felt like discovering a secret that
   would reshape everything I thought I knew about natural language processing - and
   it did
-date: 2024-03-20
+images:
+  hero:
+    alt: 'The Transformer Architecture: A Deep Dive - Hero Image'
+    caption: 'Visual representation of The Transformer Architecture: A Deep Dive'
+    height: 630
+    src: /assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'The Transformer Architecture: A Deep Dive - Social Media Preview'
+    src: /assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-og.jpg
 tags:
 - ai
 - llm
 - machine-learning
+title: 'The Transformer Architecture: A Deep Dive'
 ---
+
 There's a moment when reading certain papers that you know you're witnessing something revolutionary. For me, that moment came with _"Attention is All You Need"_ by Vaswani et al. The elegance of the Transformer architecture felt like discovering a secret that would reshape everything I thought I knew about natural language processing.
 
 Years later, having implemented Transformers from scratch and watched them evolve into GPT, BERT, and modern LLMs, I can say that initial intuition was correct. The Transformer didn't just improve NLP—it redefined what's possible with neural networks.
+
+## How It Works
+
+```mermaid
+graph TD
+    subgraph "Input"
+        Tokens[Token Embeddings]
+        Pos[Positional Encoding]
+    end
+    
+    subgraph "Encoder Stack"
+        MHA1[Multi-Head Attention]
+        FFN1[Feed Forward]
+        Norm1[Layer Norm]
+    end
+    
+    subgraph "Decoder Stack"
+        MHA2[Masked Attention]
+        Cross[Cross Attention]
+        FFN2[Feed Forward]
+    end
+    
+    Tokens --> Pos
+    Pos --> MHA1
+    MHA1 --> FFN1
+    FFN1 --> Norm1
+    Norm1 --> Cross
+    MHA2 --> Cross
+    Cross --> FFN2
+    
+    style MHA1 fill:#ff9800
+    style Cross fill:#9c27b0
+```
 
 ## The Frustration That Led to Revolution
 

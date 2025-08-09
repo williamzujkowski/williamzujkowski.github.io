@@ -1,17 +1,64 @@
 ---
-title: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
+date: 2024-01-30
 description: The first time I deployed a microservices architecture to production,
   I thought our security was bulletproof - until a penetration tester showed me how
   they'd compromised three services in under an hour
-date: 2024-01-30
+images:
+  hero:
+    alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Hero
+      Image'
+    caption: 'Visual representation of Securing the Cloud-Native Frontier: A Guide
+      to Cloud-Native Security'
+    height: 630
+    src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Social
+      Media Preview'
+    src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-og.jpg
 tags:
 - security
 - cloud
 - devops
+title: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
 ---
+
 The shift to microservices and containers felt like stepping into a new world, brimming with potential and innovation. But my confidence was shattered years ago when a penetration tester demonstrated how they'd compromised three of our "secure" services in under an hour.
 
 Watching them pivot from service to service, exploiting trust relationships we'd never questioned, was a humbling experience. That incident taught me that cloud-native architectures don't just change how we deploy applications—they fundamentally change how we think about security.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## The Awakening: When Traditional Security Falls Short
 

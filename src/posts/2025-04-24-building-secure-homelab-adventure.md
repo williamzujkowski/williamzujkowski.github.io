@@ -1,19 +1,63 @@
 ---
-title: 'Building a Security-Focused Homelab: My Journey'
+author: William Zujkowski
 date: 2025-04-24
 description: How I built a comprehensive security lab at home for learning, experimentation,
   and keeping my family's digital life safe
+images:
+  hero:
+    alt: 'Building a Security-Focused Homelab: My Journey - Hero Image'
+    caption: 'Visual representation of Building a Security-Focused Homelab: My Journey'
+    height: 630
+    src: /assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Building a Security-Focused Homelab: My Journey - Social Media Preview'
+    src: /assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-og.jpg
 tags:
 - homelab
 - security
 - networking
 - learning
 - personal-projects
-author: William Zujkowski
+title: 'Building a Security-Focused Homelab: My Journey'
 ---
+
 ## Why Every Security Professional Needs a Homelab
 
 As a security engineer and a dad, I wear two hats: protecting enterprise systems by day and keeping my family's digital life secure by night. Building a homelab has been one of the most rewarding projects I've undertaken, serving as both a learning playground and a practical security solution for my home.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## The Journey Begins
 
@@ -45,7 +89,7 @@ Each VLAN has specific firewall rules. The IoT network, for example, can't initi
 
 I believe in starting small and growing organically. My current setup:
 
-- **Firewall**: pfSense on a Protectli Vault (4-port appliance)
+- **Firewall**: Dream Machine Professional on a Protectli Vault (4-port appliance)
 - **Virtualization**: Proxmox cluster (3 nodes with old enterprise gear from eBay)
 - **Storage**: TrueNAS with ZFS for that sweet, sweet data integrity
 - **Monitoring**: Raspberry Pi cluster running various sensors
@@ -66,7 +110,7 @@ The dashboard is mounted on an old tablet in my office. My family now knows that
 
 ### Intrusion Detection
 
-Suricata IDS on pfSense monitors all traffic between VLANs. I've tuned it to alert on:
+Suricata IDS on Dream Machine Professional monitors all traffic between VLANs. I've tuned it to alert on:
 - Known malware signatures
 - Suspicious DNS queries
 - Unusual data exfiltration patterns
@@ -92,7 +136,7 @@ This isn't just academic – my homelab has caught real threats:
 ## Lessons Learned
 
 ### Start Small
-Don't try to build everything at once. I started with just pfSense and one old server. The complexity grew with my knowledge.
+Don't try to build everything at once. I started with just Dream Machine Professional and one old server. The complexity grew with my knowledge.
 
 ### Document Everything
 Future you will thank present you. I maintain a private wiki with:
@@ -136,7 +180,7 @@ Beyond the technical learning, this project has:
 If you're thinking about building your own security homelab:
 
 1. **Start with networking**: Understanding VLANs and firewall rules is foundational
-2. **Learn one tool deeply**: Better to master pfSense than to half-learn five firewalls
+2. **Learn one tool deeply**: Better to master Dream Machine Professional than to half-learn five firewalls
 3. **Join the community**: r/homelab and r/homenetworking are goldmines
 4. **Budget wisely**: Used enterprise gear > new consumer gear
 5. **Have fun**: If it feels like work, you're doing it wrong

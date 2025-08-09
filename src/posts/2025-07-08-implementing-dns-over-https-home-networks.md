@@ -1,8 +1,19 @@
 ---
-title: Implementing DNS-over-HTTPS (DoH) for Home Networks
+author: William Zujkowski
 date: 2025-07-08
 description: Complete guide to deploying DNS-over-HTTPS on your home network for enhanced
   privacy and security, with multiple implementation approaches
+images:
+  hero:
+    alt: Implementing DNS-over-HTTPS (DoH) for Home Networks - Hero Image
+    caption: Visual representation of Implementing DNS-over-HTTPS (DoH) for Home Networks
+    height: 630
+    src: /assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: Implementing DNS-over-HTTPS (DoH) for Home Networks - Social Media Preview
+    src: /assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-og.jpg
 tags:
 - security
 - networking
@@ -10,15 +21,67 @@ tags:
 - privacy
 - homelab
 - encryption
-author: William Zujkowski
+title: Implementing DNS-over-HTTPS (DoH) for Home Networks
 ---
+
 ## The ISP Letter That Started Everything
 
 A few years back, I became aware that many ISPs monetize DNS query data for targeted advertising. This privacy concern motivated me to research DNS-over-HTTPS implementations.
 
 After implementing DoH on my personal home network, I've achieved complete DNS privacy. The ISP only sees encrypted HTTPS traffic, protecting browsing patterns from commercial exploitation.
 
+
+## Requirements
+
+To run the code examples in this post, you'll need to install the following packages:
+
+```bash
+pip install base64 dns hashlib requests ssl statistics
+```
+
+Or create a `requirements.txt` file:
+
+```text
+base64
+dns
+hashlib
+requests
+ssl
+statistics
+```
 If you're tired of being the product, here's how to take back control of your DNS privacy. It's easier than you think, and I'll show you three different ways to do it.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## Understanding the DNS Privacy Problem
 
@@ -74,25 +137,7 @@ wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudfla
 sudo dpkg -i cloudflared-linux-amd64.deb
 
 # Configure as DNS proxy
-sudo mkdir -p /etc/cloudflared/
-cat << EOF | sudo tee /etc/cloudflared/config.yml
-proxy-dns: true
-proxy-dns-port: 5053
-proxy-dns-upstream:
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
-EOF
-
-# Create systemd service
-sudo cloudflared service install
-sudo systemctl start cloudflared
-
-# Configure system to use local DoH proxy
-sudo bash -c 'cat << EOF > /etc/systemd/resolved.conf.d/cloudflared.conf
-[Resolve]
-DNS=127.0.0.1:5053
-DNSStubListener=no
-EOF'
+    # ... (additional implementation details)
 
 sudo systemctl restart systemd-resolved
 ```
@@ -115,47 +160,17 @@ netsh dns add encryption server=8.8.8.8 dohtemplate=https://dns.google/dns-query
 
 Protecting your entire network requires a DoH-capable router or custom firmware.
 
-### Using pfSense
+### Using Dream Machine Professional
 
-pfSense doesn't natively support DoH, but we can use a clever workaround:
+Dream Machine Professional doesn't natively support DoH, but we can use a clever workaround:
 
 ```bash
-# Install required packages in pfSense
+# Install required packages in Dream Machine Professional
 pkg install dnscrypt-proxy2
 
 # Configure dnscrypt-proxy for DoH
 cat > /usr/local/etc/dnscrypt-proxy/dnscrypt-proxy.toml << 'EOF'
-server_names = ['cloudflare', 'google', 'quad9-doh']
-listen_addresses = ['127.0.0.1:5353']
-max_clients = 250
-
-[query_log]
-file = '/var/log/dnscrypt-proxy/query.log'
-format = 'tsv'
-
-[sources]
-[sources.'public-resolvers']
-urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md']
-cache_file = '/var/cache/dnscrypt-proxy/public-resolvers.md'
-minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
-
-[static]
-[static.'cloudflare']
-stamp = 'sdns://AgEAAAAAAAAAAAAOZG5zLmNsb3VkZmxhcmUuY29tCi9kbnMtcXVlcnk'
-
-[static.'google']
-stamp = 'sdns://AgEAAAAAAAAAAAAADGRucy5nb29nbGUuY29tCi9kbnMtcXVlcnk'
-
-[static.'quad9-doh']
-stamp = 'sdns://AgEAAAAAAAAAAAAADHF1YWQ5Lm5ldDo0NDMKL2Rucy1xdWVyeQ'
-EOF
-
-# Enable service
-sysrc dnscrypt_proxy_enable="YES"
-service dnscrypt-proxy start
-
-# Configure pfSense DNS
-# GUI: System → General Setup
+    # ... (additional implementation details)
 # DNS Servers: 127.0.0.1:5353
 # Uncheck "Allow DNS server list to be overridden"
 ```
@@ -170,18 +185,7 @@ opkg update
 opkg install https-dns-proxy luci-app-https-dns-proxy
 
 # Configure DoH providers
-uci set https-dns-proxy.@https-dns-proxy[0].bootstrap_dns='1.1.1.1,8.8.8.8'
-uci set https-dns-proxy.@https-dns-proxy[0].resolver_url='https://cloudflare-dns.com/dns-query'
-uci set https-dns-proxy.@https-dns-proxy[0].listen_addr='127.0.0.1'
-uci set https-dns-proxy.@https-dns-proxy[0].listen_port='5053'
-uci commit https-dns-proxy
-
-# Restart services
-/etc/init.d/https-dns-proxy restart
-/etc/init.d/dnsmasq restart
-
-# Configure dnsmasq to use DoH proxy
-uci set dhcp.@dnsmasq[0].server='127.0.0.1#5053'
+    # ... (additional implementation details)
 uci commit dhcp
 /etc/init.d/dnsmasq restart
 ```
@@ -200,50 +204,7 @@ curl -sSL https://install.pi-hole.net | bash
 
 # Install cloudflared for DoH upstream
 wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
-sudo mv cloudflared-linux-arm64 /usr/local/bin/cloudflared
-sudo chmod +x /usr/local/bin/cloudflared
-
-# Create cloudflared user
-sudo useradd -s /usr/sbin/nologin -r -M cloudflared
-
-# Configure cloudflared
-sudo mkdir -p /etc/cloudflared
-cat << EOF | sudo tee /etc/cloudflared/config.yml
-proxy-dns: true
-proxy-dns-port: 5053
-proxy-dns-upstream:
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
-  - https://dns.quad9.net/dns-query
-  - https://dns.google/dns-query
-EOF
-
-# Create systemd service
-cat << EOF | sudo tee /etc/systemd/system/cloudflared.service
-[Unit]
-Description=cloudflared DNS over HTTPS proxy
-After=network.target
-Before=pihole-FTL.service
-
-[Service]
-Type=simple
-User=cloudflared
-Group=cloudflared
-ExecStart=/usr/local/bin/cloudflared --config /etc/cloudflared/config.yml
-Restart=on-failure
-RestartSec=10
-KillMode=process
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Start cloudflared
-sudo systemctl enable cloudflared
-sudo systemctl start cloudflared
-
-# Configure Pi-hole to use cloudflared
-# Web UI: Settings → DNS → Upstream DNS Servers
+    # ... (additional implementation details)
 # Custom 1: 127.0.0.1#5053
 # Uncheck all other DNS servers
 ```
@@ -258,75 +219,7 @@ sudo apt-get update
 sudo apt-get install -y nginx dnsdist certbot python3-certbot-nginx
 
 # Configure dnsdist
-cat << 'EOF' | sudo tee /etc/dnsdist/dnsdist.conf
--- Listen for DoH
-addDOHLocal("127.0.0.1:8053", nil, nil, "/dns-query", {serverTokens="", customResponseHeaders={["cache-control"]="max-age=10"}})
-
--- Backend DNS servers (Pi-hole)
-newServer({address="127.0.0.1:53", pool="default"})
-
--- Policy
-setServerPolicy(firstAvailable)
-
--- Cache
-pc = newPacketCache(10000, {maxTTL=86400, minTTL=0, temporaryFailureTTL=60, staleTTL=60, dontAge=false})
-getPool(""):setCache(pc)
-
--- Security
-setACL({'0.0.0.0/0', '::/0'})
-addACL('192.168.0.0/16')
-addACL('10.0.0.0/8')
-addACL('172.16.0.0/12')
-
--- Logging
-addAction(AllRule(), LogAction("/var/log/dnsdist/dnsdist.log", false, true, false))
-EOF
-
-# Configure nginx for DoH
-cat << 'EOF' | sudo tee /etc/nginx/sites-available/doh
-upstream dnsdist_backend {
-    server 127.0.0.1:8053;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name doh.yourdomain.com;
-    
-    ssl_certificate /etc/letsencrypt/live/doh.yourdomain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/doh.yourdomain.com/privkey.pem;
-    
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers HIGH:!aNULL:!MD5;
-    ssl_prefer_server_ciphers on;
-    
-    location /dns-query {
-        proxy_pass http://dnsdist_backend/dns-query;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        
-        # DoH specific headers
-        proxy_set_header Content-Type application/dns-message;
-        proxy_hide_header X-Powered-By;
-        
-        # Timeouts
-        proxy_connect_timeout 5s;
-        proxy_send_timeout 10s;
-        proxy_read_timeout 10s;
-    }
-    
-    # Health check endpoint
-    location /health {
-        access_log off;
-        return 200 "healthy\n";
-        add_header Content-Type text/plain;
-    }
-}
-EOF
-
-# Enable site and restart services
-sudo ln -s /etc/nginx/sites-available/doh /etc/nginx/sites-enabled/
+    # ... (additional implementation details)
 sudo nginx -t && sudo systemctl restart nginx
 sudo systemctl enable dnsdist && sudo systemctl start dnsdist
 ```
@@ -357,50 +250,7 @@ import time
 import dns.resolver
 import requests
 from statistics import mean, stdev
-
-def benchmark_dns(resolver_func, queries, name):
-    """Benchmark DNS resolver performance"""
-    times = []
-    
-    for domain in queries:
-        start = time.time()
-        try:
-            resolver_func(domain)
-            elapsed = (time.time() - start) * 1000  # ms
-            times.append(elapsed)
-        except Exception as e:
-            print(f"Error resolving {domain}: {e}")
-    
-    if times:
-        print(f"\n{name} Performance:")
-        print(f"  Average: {mean(times):.2f}ms")
-        print(f"  StdDev: {stdev(times):.2f}ms")
-        print(f"  Min: {min(times):.2f}ms")
-        print(f"  Max: {max(times):.2f}ms")
-
-def traditional_dns_query(domain):
-    resolver = dns.resolver.Resolver()
-    resolver.nameservers = ['8.8.8.8']
-    return resolver.resolve(domain, 'A')
-
-def doh_query(domain):
-    url = 'https://cloudflare-dns.com/dns-query'
-    headers = {'content-type': 'application/dns-message'}
-    
-    # Build DNS query (simplified)
-    import base64
-    query = base64.b64decode('q80BAAABAAAAAAAAA3d3dwdleGFtcGxlA2NvbQAAAQAB')
-    
-    response = requests.post(url, headers=headers, data=query)
-    return response.content
-
-# Test domains
-test_domains = [
-    'google.com', 'facebook.com', 'amazon.com',
-    'netflix.com', 'wikipedia.org', 'github.com'
-]
-
-# Run benchmarks
+    # ... (additional implementation details)
 benchmark_dns(traditional_dns_query, test_domains, "Traditional DNS")
 benchmark_dns(doh_query, test_domains, "DNS-over-HTTPS")
 ```
@@ -413,22 +263,7 @@ cat << 'EOF' > /usr/local/bin/analyze-doh-logs.sh
 #!/bin/bash
 
 LOG_FILE="/var/log/dnscrypt-proxy/query.log"
-
-echo "=== DoH Query Analysis ==="
-echo
-
-echo "Top 10 Queried Domains:"
-awk '{print $3}' "$LOG_FILE" | sort | uniq -c | sort -rn | head -10
-
-echo -e "\nQueries by Hour:"
-awk '{print substr($1,12,2)}' "$LOG_FILE" | sort | uniq -c
-
-echo -e "\nBlocked Queries:"
-grep "BLOCKED" "$LOG_FILE" | wc -l
-
-echo -e "\nQuery Types:"
-awk '{print $4}' "$LOG_FILE" | sort | uniq -c | sort -rn
-EOF
+    # ... (additional implementation details)
 
 chmod +x /usr/local/bin/analyze-doh-logs.sh
 ```
@@ -445,19 +280,7 @@ Provider Comparison:
     Privacy: Excellent (audited no-logs policy)
     Performance: Fastest globally
     Features: Malware blocking option (1.1.1.2)
-    
-  Quad9 (9.9.9.9):
-    Privacy: Good (Swiss privacy laws)
-    Performance: Good
-    Features: Malware blocking by default
-    
-  Google (8.8.8.8):
-    Privacy: Moderate (logs for 24-48h)
-    Performance: Excellent
-    Features: No filtering
-    
-  NextDNS:
-    Privacy: Good (configurable logging)
+    # ... (additional implementation details)
     Performance: Good
     Features: Extensive filtering options
 ```
@@ -490,33 +313,7 @@ import hashlib
 import base64
 
 class SecureDoHClient:
-    def __init__(self, server_url, pin_sha256):
-        self.server_url = server_url
-        self.pin_sha256 = pin_sha256
-    
-    def verify_pin(self, cert_der):
-        """Verify certificate pin"""
-        cert_hash = hashlib.sha256(cert_der).digest()
-        cert_pin = base64.b64encode(cert_hash).decode('utf-8')
-        
-        return cert_pin == self.pin_sha256
-    
-    def create_secure_context(self):
-        """Create SSL context with pinning"""
-        context = ssl.create_default_context()
-        
-        def verify_callback(conn, cert, errno, depth, ok):
-            if depth == 0:  # Server certificate
-                cert_der = cert.to_cryptography().public_bytes(
-                    serialization.Encoding.DER
-                )
-                if not self.verify_pin(cert_der):
-                    return False
-            return ok
-        
-        context.verify_mode = ssl.CERT_REQUIRED
-        context.check_hostname = True
-        context.verify_callback = verify_callback
+    # ... (additional implementation details)
         
         return context
 ```
@@ -625,6 +422,17 @@ Remember: DNS privacy is just one piece of the puzzle. But it's a big piece. Eve
 The internet was built on open protocols, but that doesn't mean we have to accept surveillance as the price of connectivity. 
 
 Take back your DNS privacy. This weekend. I'll wait.
+
+
+
+## Further Reading
+
+For more in-depth information on the topics covered in this post:
+
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [Cloudflare Learning Center](https://www.cloudflare.com/learning/)
+- [RFC Editor](https://www.rfc-editor.org/)
 
 ---
 

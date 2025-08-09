@@ -1,17 +1,64 @@
 ---
-title: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits'
+date: 2024-01-08
 description: Years ago, I discovered a glaring SQL injection vulnerability in an internal
   application during a routine code review - that sinking feeling taught me that security
   isn't optional
-date: 2024-01-08
+images:
+  hero:
+    alt: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits
+      - Hero Image'
+    caption: 'Visual representation of Writing Secure Code: A Developer''s Guide to
+      Thwarting Security Exploits'
+    height: 630
+    src: /assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits
+      - Social Media Preview'
+    src: /assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-og.jpg
 tags:
 - security
 - programming
 - cybersecurity
+title: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits'
 ---
+
 Years ago, I discovered a glaring SQL injection vulnerability in an internal application during a routine code review. The sinking feeling that washed over me was like finding a door left unlocked overnight in a dangerous neighborhood. It was a wake-up call that fundamentally changed how I approach development - writing secure code isn't just a best practice, it's a moral imperative.
 
 That incident happened early in my career, and I still remember the quiet panic as we scrambled to patch it before anyone noticed. But someone had noticed - our security team had been tracking unusual database queries for weeks. What I thought was a minor oversight could have exposed thousands of user records.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## The Real Cost of Insecure Code: Why It Matters
 

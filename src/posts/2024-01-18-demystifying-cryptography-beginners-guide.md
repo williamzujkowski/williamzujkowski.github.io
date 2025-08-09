@@ -1,17 +1,64 @@
 ---
-title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
-  Digital Signatures'
+date: 2024-01-18
 description: Cryptography always felt like magic to me until I spent weeks trying
   to debug an SSL certificate issue - suddenly those mathematical incantations became
   very practical necessities
-date: 2024-01-18
+images:
+  hero:
+    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
+      Digital Signatures - Hero Image'
+    caption: 'Visual representation of Demystifying Cryptography: A Beginner''s Guide
+      to Encryption, Hashing, and Digital Signatures'
+    height: 630
+    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
+      Digital Signatures - Social Media Preview'
+    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg
 tags:
 - security
 - cryptography
+title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
+  Digital Signatures'
 ---
+
 Cryptography always felt like magic to me—mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically years ago when I spent three sleepless nights debugging SSL certificate issues that were breaking our entire payment system.
 
 Suddenly, those abstract concepts became very real. Every failed handshake, every certificate validation error, every cipher suite mismatch taught me that cryptography isn't just theoretical—it's the backbone of everything we do online. What started as an emergency troubleshooting session became a journey into understanding the mathematical foundations that protect our digital lives.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## Encryption: The Art of Keeping Secrets
 

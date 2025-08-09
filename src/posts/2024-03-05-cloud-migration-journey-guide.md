@@ -1,17 +1,65 @@
 ---
-title: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
+date: 2024-03-05
 description: Standing in a server room filled with humming machines, I realized our
   physical infrastructure had become an anchor - the cloud migration that followed
   taught me as much about change management as technology
-date: 2024-03-05
+images:
+  hero:
+    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Hero
+      Image'
+    caption: 'Visual representation of Cloud Migration: A Guide to Navigating Your
+      Journey to the Cloud'
+    height: 630
+    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Social
+      Media Preview'
+    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-og.jpg
 tags:
 - cloud
 - devops
 - infrastructure
+title: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
 ---
+
 I recall standing in our data center years ago—warm air flowing from countless machines, cables snaking across raised floors—wondering if this physical infrastructure had become more anchor than asset. The constant hum of cooling systems and blinking server lights represented significant investment, but also significant constraints.
 
 That moment crystallized our need for cloud migration, but the journey that followed taught me as much about organizational change management as it did about technology. Moving to the cloud isn't just a technical transformation—it's a fundamental shift in how we think about infrastructure, reliability, and scale.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Frontend"
+        CDN[CDN]
+        LB[Load Balancer]
+    end
+    
+    subgraph "Application"
+        API[API Gateway]
+        Services[Microservices]
+        Cache[Redis Cache]
+    end
+    
+    subgraph "Data"
+        DB[(Database)]
+        S3[Object Storage]
+        Queue[Message Queue]
+    end
+    
+    CDN --> LB
+    LB --> API
+    API --> Services
+    Services --> Cache
+    Services --> DB
+    Services --> Queue
+    
+    style API fill:#2196f3
+    style Services fill:#4caf50
+    style DB fill:#ff9800
+```
 
 ## The Catalyst: Why We Finally Made the Leap
 

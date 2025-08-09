@@ -1,20 +1,70 @@
 ---
-title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
+date: '2024-06-09T00:00:00.000Z'
 description: Understanding how context window limitations influence LLM performance
   and the innovative approaches being developed to handle long-form content, from
   document analysis to extended conversations.
-date: '2024-06-09T00:00:00.000Z'
+images:
+  hero:
+    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Hero
+      Image'
+    caption: 'Visual representation of Context Windows in Large Language Models: The
+      Memory That Shapes AI'
+    height: 630
+    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Social
+      Media Preview'
+    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg
 tags:
 - posts
 - ai
 - programming
 - architecture
+title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
 ---
+
 Years ago, I was working with an early version of GPT-3 on a complex analysis task. Halfway through our conversation, the model seemed to "forget" important details I'd provided earlier, giving responses that contradicted its previous analysis. That frustrating experience introduced me to one of the most fundamental constraints in AI systems: the context window.
 
 A context window represents the amount of text a language model can "see" and consider simultaneously when generating responses. Think of it as the model's short-term memory—a finite space where previous conversation, relevant information, and the current query must all fit to be processed together.
 
 This technical constraint shapes everything about how we interact with AI systems, from the length of conversations we can have to the complexity of documents we can analyze. Understanding context windows is crucial for anyone working with large language models.
+
+## How It Works
+
+```mermaid
+graph LR
+    subgraph "Data Pipeline"
+        Raw[Raw Data]
+        Clean[Cleaning]
+        Feature[Feature Engineering]
+    end
+    
+    subgraph "Model Training"
+        Train[Training]
+        Val[Validation]
+        Test[Testing]
+    end
+    
+    subgraph "Deployment"
+        Deploy[Model Deployment]
+        Monitor[Monitoring]
+        Update[Updates]
+    end
+    
+    Raw --> Clean
+    Clean --> Feature
+    Feature --> Train
+    Train --> Val
+    Val --> Test
+    Test --> Deploy
+    Deploy --> Monitor
+    Monitor -->|Feedback| Train
+    
+    style Train fill:#9c27b0
+    style Deploy fill:#4caf50
+```
 
 ## The Mechanics: How Context Windows Work
 

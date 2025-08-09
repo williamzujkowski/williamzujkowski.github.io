@@ -1,21 +1,67 @@
 ---
-title: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology'
+date: '2024-05-05T00:00:00.000Z'
 description: Examining how quantum computing presents both unprecedented opportunities
   and complex security challenges for national defense, from cryptographic vulnerabilities
   to quantum-enhanced sensing capabilities.
-date: '2024-05-05T00:00:00.000Z'
+images:
+  hero:
+    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology
+      - Hero Image'
+    caption: 'Visual representation of Quantum Computing and Defense: The Double-Edged
+      Sword of Tomorrow''s Technology'
+    height: 630
+    src: /assets/images/blog/hero/2024-10-03-quantum-computing-defense-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology
+      - Social Media Preview'
+    src: /assets/images/blog/hero/2024-10-03-quantum-computing-defense-og.jpg
 tags:
 - posts
 - quantum-computing
 - cybersecurity
 - cryptography
 - national-security
+title: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology'
 ---
+
 Years ago, I attended a briefing where a researcher demonstrated factoring large numbers on a small quantum processor. The numbers were tiny compared to what secures our communications today, but watching those quantum gates methodically break down what would take classical computers millennia was a sobering moment. It made the theoretical threat of quantum computing suddenly feel very real.
 
 The convergence of quantum computing and defense technologies represents one of the most consequential developments of our time. It's simultaneously an incredible opportunity and an existential challenge—quantum computers could revolutionize military capabilities while potentially making our current security infrastructure obsolete.
 
 Having followed this field closely, I've come to understand that quantum computing in defense isn't a distant future concern—it's a present reality that demands immediate attention and strategic planning.
+
+## How It Works
+
+```mermaid
+graph LR
+    subgraph "Initialization"
+        Q0[|0⟩]
+        Q1[|0⟩]
+    end
+    
+    subgraph "Gates"
+        H[Hadamard]
+        CNOT[CNOT]
+        M[Measure]
+    end
+    
+    subgraph "Output"
+        C0[Classical Bit 0]
+        C1[Classical Bit 1]
+    end
+    
+    Q0 --> H
+    H --> CNOT
+    Q1 --> CNOT
+    CNOT --> M
+    M --> C0
+    M --> C1
+    
+    style H fill:#2196f3
+    style CNOT fill:#9c27b0
+```
 
 ## The Quantum Advantage: Beyond Classical Limitations
 
@@ -87,15 +133,7 @@ function generateHybridKeypair() {
     const classicKeys = generateClassicKeypair();
     const quantumResistantKeys = generateQuantumResistantKeypair();
     
-    return {
-        publicKey: { 
-            classic: classicKeys.publicKey, 
-            quantum: quantumResistantKeys.publicKey 
-        },
-        privateKey: { 
-            classic: classicKeys.privateKey, 
-            quantum: quantumResistantKeys.privateKey 
-        }
+    # ... (additional implementation details)
     };
 }
 ```

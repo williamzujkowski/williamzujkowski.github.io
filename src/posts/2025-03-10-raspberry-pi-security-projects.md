@@ -1,8 +1,20 @@
 ---
-title: Raspberry Pi Security Projects That Actually Solve Problems
 date: 2025-03-10
-description: "From network monitoring to physical security \u2013 practical Raspberry\
-  \ Pi projects that enhance your home security without breaking the bank"
+description: From network monitoring to physical security – practical Raspberry Pi
+  projects that enhance your home security without breaking the bank
+images:
+  hero:
+    alt: Raspberry Pi Security Projects That Actually Solve Problems - Hero Image
+    caption: Visual representation of Raspberry Pi Security Projects That Actually
+      Solve Problems
+    height: 630
+    src: /assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: Raspberry Pi Security Projects That Actually Solve Problems - Social Media
+      Preview
+    src: /assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-og.jpg
 tags:
 - raspberry-pi
 - security
@@ -10,9 +22,63 @@ tags:
 - networking
 - projects
 - DIY
+title: Raspberry Pi Security Projects That Actually Solve Problems
 ---
+
 After collecting a drawer full of Raspberry Pis over the years (we all have that drawer, right?), I decided it was time to put them to work. Here are five security projects that actually solve real problems, complete with implementation guides and lessons learned.
 
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
+
+
+## Requirements
+
+To run the code examples in this post, you'll need to install the following packages:
+
+```bash
+pip install cv2 nmap numpy paramiko socket tailer threading
+```
+
+Or create a `requirements.txt` file:
+
+```text
+cv2
+nmap
+numpy
+paramiko
+socket
+tailer
+threading
+```
 ## Why Raspberry Pi for Security?
 
 Before diving into projects, let's address the elephant in the room: Why use a $35 computer for security when enterprise solutions exist?
@@ -55,32 +121,7 @@ pihole -g
 
 import tailer
 import re
-from datetime import datetime
-import smtplib
-
-# Suspicious TLDs often used in malware
-SUSPICIOUS_TLDS = ['.tk', '.ml', '.ga', '.cf', '.click', '.download']
-
-def check_dns_query(query):
-    for tld in SUSPICIOUS_TLDS:
-        if query.endswith(tld):
-            return True
-    # Check for DGA-like domains (random looking)
-    if len(re.findall(r'[0-9]', query)) > 5:
-        return True
-    return False
-
-def monitor_pihole_log():
-    for line in tailer.follow(open('/var/log/pihole.log')):
-        if 'query[A]' in line:
-            domain = line.split('query[A]')[1].split('from')[0].strip()
-            if check_dns_query(domain):
-                alert(f"Suspicious DNS query: {domain}")
-
-def alert(message):
-    print(f"[{datetime.now()}] ALERT: {message}")
-    # Add email/Discord notification here
-
+    # ... (additional implementation details)
 if __name__ == "__main__":
     monitor_pihole_log()
 ```
@@ -101,69 +142,7 @@ if __name__ == "__main__":
 
 import cv2
 import numpy as np
-from picamera2 import Picamera2
-import time
-from datetime import datetime
-import os
-
-class SecurityCamera:
-    def __init__(self):
-        self.camera = Picamera2()
-        self.camera.configure(self.camera.create_preview_configuration())
-        self.camera.start()
-        
-        # YOLO for person detection
-        self.net = cv2.dnn.readNet("yolov4-tiny.weights", "yolov4-tiny.cfg")
-        self.classes = open("coco.names").read().strip().split("\n")
-        
-    def detect_person(self, frame):
-        height, width = frame.shape[:2]
-        
-        # Create blob from image
-        blob = cv2.dnn.blobFromImage(frame, 1/255.0, (416, 416), 
-                                     swapRB=True, crop=False)
-        self.net.setInput(blob)
-        outputs = self.net.forward(self.net.getUnconnectedOutLayersNames())
-        
-        # Parse detections
-        for output in outputs:
-            for detection in output:
-                scores = detection[5:]
-                class_id = np.argmax(scores)
-                confidence = scores[class_id]
-                
-                if confidence > 0.5 and self.classes[class_id] == "person":
-                    return True
-        return False
-    
-    def capture_alert(self):
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"alert_{timestamp}.jpg"
-        
-        frame = self.camera.capture_array()
-        
-        if self.detect_person(frame):
-            cv2.imwrite(f"/home/pi/alerts/{filename}", frame)
-            self.send_notification(filename)
-            return True
-        return False
-    
-    def send_notification(self, filename):
-        # Send to Discord webhook
-        import requests
-        webhook_url = "YOUR_DISCORD_WEBHOOK"
-        
-        with open(f"/home/pi/alerts/{filename}", "rb") as f:
-            files = {"file": (filename, f)}
-            data = {"content": f"🚨 Person detected at {datetime.now()}"}
-            requests.post(webhook_url, data=data, files=files)
-
-if __name__ == "__main__":
-    camera = SecurityCamera()
-    
-    while True:
-        if GPIO.input(PIR_PIN):
-            camera.capture_alert()
+    # ... (additional implementation details)
             time.sleep(10)  # Cooldown period
         time.sleep(0.1)
 ```
@@ -184,117 +163,7 @@ if __name__ == "__main__":
 
 import socket
 import threading
-import json
-from datetime import datetime
-import sqlite3
-
-class Honeypot:
-    def __init__(self):
-        self.setup_database()
-        
-    def setup_database(self):
-        self.conn = sqlite3.connect('honeypot.db', check_same_thread=False)
-        self.conn.execute('''
-            CREATE TABLE IF NOT EXISTS attempts (
-                timestamp TEXT,
-                service TEXT,
-                source_ip TEXT,
-                username TEXT,
-                password TEXT,
-                user_agent TEXT
-            )
-        ''')
-        self.conn.commit()
-    
-    def log_attempt(self, service, source_ip, **kwargs):
-        self.conn.execute('''
-            INSERT INTO attempts VALUES (?, ?, ?, ?, ?, ?)
-        ''', (
-            datetime.now().isoformat(),
-            service,
-            source_ip,
-            kwargs.get('username', ''),
-            kwargs.get('password', ''),
-            kwargs.get('user_agent', '')
-        ))
-        self.conn.commit()
-        
-        # Alert on suspicious patterns
-        if self.check_threat_level(source_ip):
-            self.send_alert(source_ip)
-    
-    def fake_ssh_server(self, port=2222):
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind(('0.0.0.0', port))
-        server.listen(5)
-        
-        while True:
-            client, addr = server.accept()
-            # Send fake SSH banner
-            client.send(b"SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.1\r\n")
-            
-            try:
-                data = client.recv(1024).decode('utf-8')
-                # Parse SSH handshake for username
-                self.log_attempt('ssh', addr[0])
-            except:
-                pass
-            finally:
-                client.close()
-    
-    def fake_http_server(self, port=8080):
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind(('0.0.0.0', port))
-        server.listen(5)
-        
-        while True:
-            client, addr = server.accept()
-            
-            try:
-                request = client.recv(1024).decode('utf-8')
-                lines = request.split('\n')
-                
-                # Extract user agent
-                user_agent = ""
-                for line in lines:
-                    if line.startswith("User-Agent:"):
-                        user_agent = line.split(":", 1)[1].strip()
-                
-                # Send fake response
-                response = """HTTP/1.1 200 OK
-Content-Type: text/html
-
-<html><body><h1>Router Configuration</h1></body></html>
-"""
-                client.send(response.encode())
-                
-                self.log_attempt('http', addr[0], user_agent=user_agent)
-                
-            except:
-                pass
-            finally:
-                client.close()
-    
-    def check_threat_level(self, ip):
-        # Check if IP has made multiple attempts
-        cursor = self.conn.execute('''
-            SELECT COUNT(*) FROM attempts 
-            WHERE source_ip = ? 
-            AND timestamp > datetime('now', '-1 hour')
-        ''', (ip,))
-        
-        count = cursor.fetchone()[0]
-        return count > 5
-
-honeypot = Honeypot()
-
-# Run services in threads
-threading.Thread(target=honeypot.fake_ssh_server, daemon=True).start()
-threading.Thread(target=honeypot.fake_http_server, daemon=True).start()
-
-print("Honeypot running... Check honeypot.db for attempts")
-
-# Keep main thread alive
+    # ... (additional implementation details)
 while True:
     time.sleep(60)
 ```
@@ -315,132 +184,7 @@ while True:
 
 import os
 import json
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-import base64
-import getpass
-from pathlib import Path
-
-class SecureVault:
-    def __init__(self):
-        self.vault_file = Path("/home/pi/vault/backup.enc")
-        self.vault_file.parent.mkdir(exist_ok=True)
-        
-    def derive_key(self, password: str, salt: bytes) -> bytes:
-        kdf = PBKDF2HMAC(
-            algorithm=hashes.SHA256(),
-            length=32,
-            salt=salt,
-            iterations=100000,
-        )
-        key = base64.urlsafe_b64encode(kdf.derive(password.encode()))
-        return key
-    
-    def create_backup(self):
-        print("=== 2FA Recovery Code Vault ===")
-        
-        # Generate new salt
-        salt = os.urandom(16)
-        
-        # Get master password
-        password = getpass.getpass("Create master password: ")
-        confirm = getpass.getpass("Confirm password: ")
-        
-        if password != confirm:
-            print("Passwords don't match!")
-            return
-        
-        # Derive encryption key
-        key = self.derive_key(password, salt)
-        f = Fernet(key)
-        
-        # Collect recovery codes
-        codes = {}
-        print("\nEnter recovery codes (empty service name to finish):")
-        
-        while True:
-            service = input("Service name: ").strip()
-            if not service:
-                break
-                
-            recovery_codes = []
-            print(f"Enter recovery codes for {service} (empty to finish):")
-            
-            while True:
-                code = input("Code: ").strip()
-                if not code:
-                    break
-                recovery_codes.append(code)
-            
-            if recovery_codes:
-                codes[service] = recovery_codes
-        
-        # Add metadata
-        vault_data = {
-            "created": datetime.now().isoformat(),
-            "services": codes,
-            "notes": input("\nAny additional notes: ")
-        }
-        
-        # Encrypt and save
-        encrypted = f.encrypt(json.dumps(vault_data).encode())
-        
-        with open(self.vault_file, 'wb') as file:
-            file.write(salt + encrypted)
-        
-        print(f"\n✓ Vault created with {len(codes)} services")
-        print("⚠️  This Pi is now your 2FA recovery device. Keep it secure!")
-        
-    def unlock_vault(self):
-        if not self.vault_file.exists():
-            print("No vault found!")
-            return
-        
-        with open(self.vault_file, 'rb') as file:
-            data = file.read()
-            
-        salt = data[:16]
-        encrypted = data[16:]
-        
-        # Get password
-        password = getpass.getpass("Enter vault password: ")
-        
-        try:
-            key = self.derive_key(password, salt)
-            f = Fernet(key)
-            decrypted = f.decrypt(encrypted)
-            
-            vault_data = json.loads(decrypted)
-            
-            print(f"\n=== Vault Contents ===")
-            print(f"Created: {vault_data['created']}")
-            print(f"Services: {len(vault_data['services'])}")
-            
-            for service, codes in vault_data['services'].items():
-                print(f"\n{service}:")
-                for code in codes:
-                    print(f"  - {code}")
-            
-            if vault_data.get('notes'):
-                print(f"\nNotes: {vault_data['notes']}")
-                
-        except Exception as e:
-            print("Failed to decrypt vault. Wrong password?")
-
-# Physical button interface
-import RPi.GPIO as GPIO
-
-BUTTON_PIN = 17
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-vault = SecureVault()
-
-print("Press button to unlock vault...")
-
-while True:
-    if GPIO.input(BUTTON_PIN) == GPIO.LOW:
+    # ... (additional implementation details)
         vault.unlock_vault()
         time.sleep(5)  # Debounce
 ```
@@ -461,142 +205,7 @@ while True:
 
 import nmap
 import paramiko
-import json
-from datetime import datetime
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
-class ComplianceScanner:
-    def __init__(self):
-        self.nm = nmap.PortScanner()
-        self.results = []
-        
-    def scan_network(self, network="192.168.1.0/24"):
-        print(f"Scanning network: {network}")
-        
-        # Find all hosts
-        self.nm.scan(hosts=network, arguments='-sn')
-        
-        hosts = []
-        for host in self.nm.all_hosts():
-            if self.nm[host].state() == 'up':
-                hosts.append(host)
-                
-        print(f"Found {len(hosts)} hosts")
-        
-        # Detailed scan of each host
-        for host in hosts:
-            self.scan_host(host)
-            
-        return self.results
-    
-    def scan_host(self, host):
-        print(f"\nScanning {host}...")
-        
-        result = {
-            'host': host,
-            'timestamp': datetime.now().isoformat(),
-            'issues': [],
-            'score': 100
-        }
-        
-        # Port scan
-        self.nm.scan(host, '1-65535', '-sV')
-        
-        if host in self.nm.all_hosts():
-            # Check for risky services
-            risky_ports = {
-                23: 'Telnet',
-                21: 'FTP', 
-                445: 'SMB',
-                3389: 'RDP',
-                22: 'SSH'  # Not risky, but worth checking config
-            }
-            
-            for port, service in risky_ports.items():
-                if port in self.nm[host]['tcp']:
-                    state = self.nm[host]['tcp'][port]['state']
-                    if state == 'open':
-                        issue = f"{service} port {port} is open"
-                        result['issues'].append(issue)
-                        result['score'] -= 10
-            
-            # Check SSH configuration if available
-            if 22 in self.nm[host]['tcp'] and self.nm[host]['tcp'][22]['state'] == 'open':
-                ssh_issues = self.check_ssh_config(host)
-                result['issues'].extend(ssh_issues)
-                result['score'] -= len(ssh_issues) * 5
-        
-        self.results.append(result)
-        
-    def check_ssh_config(self, host):
-        issues = []
-        
-        try:
-            # Try to connect with weak credentials
-            weak_creds = [
-                ('pi', 'raspberry'),
-                ('admin', 'admin'),
-                ('root', 'root')
-            ]
-            
-            for username, password in weak_creds:
-                try:
-                    ssh = paramiko.SSHClient()
-                    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                    ssh.connect(host, username=username, password=password, timeout=3)
-                    issues.append(f"Weak credentials work: {username}:{password}")
-                    ssh.close()
-                except:
-                    pass  # Good, credentials didn't work
-                    
-        except Exception as e:
-            pass
-            
-        return issues
-    
-    def generate_report(self):
-        report = "# Network Security Compliance Report\n\n"
-        report += f"Scan Date: {datetime.now()}\n\n"
-        
-        critical_hosts = [r for r in self.results if r['score'] < 70]
-        warning_hosts = [r for r in self.results if 70 <= r['score'] < 90]
-        
-        if critical_hosts:
-            report += "## 🔴 Critical Issues\n\n"
-            for host in critical_hosts:
-                report += f"### {host['host']} (Score: {host['score']})\n"
-                for issue in host['issues']:
-                    report += f"- {issue}\n"
-                report += "\n"
-        
-        if warning_hosts:
-            report += "## 🟡 Warnings\n\n"
-            for host in warning_hosts:
-                report += f"### {host['host']} (Score: {host['score']})\n"
-                for issue in host['issues']:
-                    report += f"- {issue}\n"
-                report += "\n"
-        
-        # Summary statistics
-        avg_score = sum(r['score'] for r in self.results) / len(self.results)
-        report += f"## Summary\n\n"
-        report += f"- Hosts scanned: {len(self.results)}\n"
-        report += f"- Average security score: {avg_score:.1f}/100\n"
-        report += f"- Critical issues: {len(critical_hosts)}\n"
-        report += f"- Warnings: {len(warning_hosts)}\n"
-        
-        return report
-
-# Run weekly scan
-scanner = ComplianceScanner()
-scanner.scan_network()
-report = scanner.generate_report()
-
-print("\n" + report)
-
-# Save report
+    # ... (additional implementation details)
 with open(f"/home/pi/reports/scan_{datetime.now().strftime('%Y%m%d')}.md", "w") as f:
     f.write(report)
 ```

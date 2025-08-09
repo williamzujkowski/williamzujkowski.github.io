@@ -1,14 +1,27 @@
 ---
-title: 'Down the MCP Rabbit Hole: Building a Standards Server'
 date: 2025-07-29
+description: 'The ongoing saga of turning my standards repository into an MCP server.
+  Spoiler: It''s working, mostly, and I''ve only rewritten it three times.'
+images:
+  hero:
+    alt: 'Down the MCP Rabbit Hole: Building a Standards Server - Hero Image'
+    caption: 'Visual representation of Down the MCP Rabbit Hole: Building a Standards
+      Server'
+    height: 630
+    src: /assets/images/blog/hero/2025-07-29-building-mcp-standards-server-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Down the MCP Rabbit Hole: Building a Standards Server - Social Media Preview'
+    src: /assets/images/blog/hero/2025-07-29-building-mcp-standards-server-og.jpg
 tags:
 - ai
 - mcp
 - development
 - open-source
-description: 'The ongoing saga of turning my standards repository into an MCP server.
-  Spoiler: It''s working, mostly, and I''ve only rewritten it three times.'
+title: 'Down the MCP Rabbit Hole: Building a Standards Server'
 ---
+
 ## When Good Ideas Get Complicated
 
 Remember last week when I was all excited about my standards repository? Well, I made the classic developer mistake: "You know what would make this better? If I rebuilt it from scratch with a completely different architecture!"
@@ -16,6 +29,41 @@ Remember last week when I was all excited about my standards repository? Well, I
 Enter the Model Context Protocol (MCP) – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP?
 
 Three weeks and several rewrites later, I have [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server). It works! Mostly. When Redis is happy. And the moon is in the right phase.
+
+## How It Works
+
+```mermaid
+graph LR
+    subgraph "Data Pipeline"
+        Raw[Raw Data]
+        Clean[Cleaning]
+        Feature[Feature Engineering]
+    end
+    
+    subgraph "Model Training"
+        Train[Training]
+        Val[Validation]
+        Test[Testing]
+    end
+    
+    subgraph "Deployment"
+        Deploy[Model Deployment]
+        Monitor[Monitoring]
+        Update[Updates]
+    end
+    
+    Raw --> Clean
+    Clean --> Feature
+    Feature --> Train
+    Train --> Val
+    Val --> Test
+    Test --> Deploy
+    Deploy --> Monitor
+    Monitor -->|Feedback| Train
+    
+    style Train fill:#9c27b0
+    style Deploy fill:#4caf50
+```
 
 ## The Original Vision vs Reality
 

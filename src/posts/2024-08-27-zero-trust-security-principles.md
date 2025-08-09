@@ -1,16 +1,30 @@
 ---
-title: 'Implementing Zero Trust Security: Never Trust, Always Verify'
+date: '2024-04-14T00:00:00.000Z'
 description: How the shift from perimeter-based security to identity-centered Zero
   Trust architecture is transforming modern software development and why it's essential
   for today's distributed systems.
-date: '2024-04-14T00:00:00.000Z'
+images:
+  hero:
+    alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Hero Image'
+    caption: 'Visual representation of Implementing Zero Trust Security: Never Trust,
+      Always Verify'
+    height: 630
+    src: /assets/images/blog/hero/2024-08-27-zero-trust-security-principles-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Social Media
+      Preview'
+    src: /assets/images/blog/hero/2024-08-27-zero-trust-security-principles-og.jpg
 tags:
 - posts
 - security
 - cybersecurity
 - devops
 - programming
+title: 'Implementing Zero Trust Security: Never Trust, Always Verify'
 ---
+
 Years ago, I remember when network security felt simpler—if you were inside the corporate firewall, you were trusted. That castle-and-moat approach worked when employees sat at desks connected to company networks and applications lived in data centers behind clearly defined perimeters.
 
 
@@ -130,27 +144,7 @@ const validateSession = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   
   if (!token) {
-    return res.status(401).send({ message: "Authentication required" });
-  }
-  
-  try {
-    // Validate the token with every request
-    const decoded = await verifyToken(token);
-    
-    // Check if user's security context has changed
-    const securityContext = await getCurrentSecurityContext(decoded.userId);
-    
-    // Re-authenticate if security policy changed since token was issued
-    if (decoded.iat < securityContext.lastPolicyChange) {
-      return res.status(401).send({ 
-        message: "Security policy updated, re-authentication required" 
-      });
-    }
-    
-    req.user = decoded;
-    next();
-  } catch (error) {
-    return res.status(401).send({ message: "Invalid or expired token" });
+    # ... (additional implementation details)
   }
 };
 ```
@@ -206,16 +200,7 @@ def check_for_anomalous_behavior(user_id, action, resource):
     # Get user's historical behavior pattern
     user_pattern = get_user_behavior_pattern(user_id)
     
-    # Calculate risk score for current action
-    risk_score = calculate_risk_score(user_pattern, action, resource)
-    
-    if risk_score > RISK_THRESHOLD:
-        # Require additional verification or block action
-        require_additional_verification(user_id)
-        log_security_event(user_id, action, resource, risk_score)
-        return False
-    
-    # Update behavior pattern with this action
+    # ... (additional implementation details)
     update_behavior_pattern(user_id, action, resource)
     return True
 ```
@@ -234,22 +219,7 @@ stages:
   - build
   - test  
   - security
-  - deploy
-
-security_scan:
-  stage: security
-  script:
-    - npm audit
-    - run-sast-scan
-    - run-dast-scan
-    - verify-dependencies
-  allow_failure: false
-
-deploy:
-  stage: deploy
-  script:
-    - verify-artifacts-signature
-    - deploy-with-minimal-permissions
+    # ... (additional implementation details)
   only:
     - main
 ```

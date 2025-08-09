@@ -1,0 +1,588 @@
+{
+  "generated": "2025-08-08T23:59:23.187552",
+  "summary": {
+    "total_posts": 44,
+    "critical_issues": 6,
+    "quality_improvements": 44,
+    "source_suggestions": 40
+  },
+  "enhancements": [
+    {
+      "file": "2024-01-08-writing-secure-code-developers-guide.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2024-01-18-demystifying-cryptography-beginners-guide.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2024-01-30-securing-cloud-native-frontier.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "CNCF Projects: https://www.cncf.io/projects/",
+        "AWS Well-Architected: https://aws.amazon.com/architecture/well-architected/",
+        "Google Cloud Best Practices: https://cloud.google.com/docs/enterprise/best-practices"
+      ]
+    },
+    {
+      "file": "2024-02-09-deepfake-dilemma-ai-deception.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "CVE Database: https://cve.mitre.org/"
+      ]
+    },
+    {
+      "file": "2024-02-22-open-source-vs-proprietary-llms.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-03-05-cloud-migration-journey-guide.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "CNCF Projects: https://www.cncf.io/projects/",
+        "Google Cloud Best Practices: https://cloud.google.com/docs/enterprise/best-practices",
+        "AWS Well-Architected: https://aws.amazon.com/architecture/well-architected/"
+      ]
+    },
+    {
+      "file": "2024-03-20-transformer-architecture-deep-dive.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-04-04-retrieval-augmented-generation-rag.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-04-11-ethics-large-language-models.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-04-19-mastering-prompt-engineering-llms.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-04-30-quantum-resistant-cryptography-guide.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2024-05-14-ai-new-frontier-cybersecurity.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "CVE Database: https://cve.mitre.org/"
+      ]
+    },
+    {
+      "file": "2024-05-30-ai-learning-resource-constrained.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-06-11-beyond-containers-future-deployment.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-06-25-designing-resilient-systems.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": []
+    },
+    {
+      "file": "2024-07-09-zero-trust-architecture-implementation.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add more personal experiences and anecdotes"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2024-07-16-sustainable-computing-carbon-footprint.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-07-24-multimodal-foundation-models.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-08-02-quantum-computing-leap-forward.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": []
+    },
+    {
+      "file": "2024-08-13-high-performance-computing.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-08-27-zero-trust-security-principles.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2024-09-09-embodied-ai-teaching-agents.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-09-19-biomimetic-robotics.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2024-10-03-quantum-computing-defense.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "CVE Database: https://cve.mitre.org/"
+      ]
+    },
+    {
+      "file": "2024-10-22-ai-edge-computing.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "CNCF Projects: https://www.cncf.io/projects/"
+      ]
+    },
+    {
+      "file": "2024-11-05-pizza-calculator.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": []
+    },
+    {
+      "file": "2024-11-19-llms-smart-contract-vulnerability.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add more personal experiences and anecdotes",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "CVE Database: https://cve.mitre.org/"
+      ]
+    },
+    {
+      "file": "2024-12-03-context-windows-llms.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2025-02-10-automating-home-network-security.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [
+        "Found 'pfSense' - should be 'Dream Machine Professional'",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned"
+      ],
+      "sources_added": [
+        "RFC Editor: https://www.rfc-editor.org/",
+        "CVE Database: https://cve.mitre.org/",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/"
+      ]
+    },
+    {
+      "file": "2025-02-24-continuous-learning-cybersecurity.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [
+        "Found 'pfSense' - should be 'Dream Machine Professional'"
+      ],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2025-03-10-raspberry-pi-security-projects.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned"
+      ],
+      "sources_added": [
+        "RFC Editor: https://www.rfc-editor.org/",
+        "CVE Database: https://cve.mitre.org/",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/"
+      ]
+    },
+    {
+      "file": "2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2025-04-10-securing-personal-ai-experiments.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [
+        "Found 'pfSense' - should be 'Dream Machine Professional'",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned"
+      ],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "CVE Database: https://cve.mitre.org/"
+      ]
+    },
+    {
+      "file": "2025-04-24-building-secure-homelab-adventure.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [
+        "Found 'pfSense' - should be 'Dream Machine Professional'"
+      ],
+      "sources_added": [
+        "RFC Editor: https://www.rfc-editor.org/",
+        "CVE Database: https://cve.mitre.org/",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/"
+      ]
+    },
+    {
+      "file": "2025-05-10-building-security-mindset-lessons-from-field.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2025-06-25-local-llm-deployment-privacy-first.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "CVE Database: https://cve.mitre.org/"
+      ]
+    },
+    {
+      "file": "2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "CVE Database: https://cve.mitre.org/",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "Red Hat Documentation: https://access.redhat.com/documentation/"
+      ]
+    },
+    {
+      "file": "2025-07-08-implementing-dns-over-https-home-networks.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [
+        "Found 'pfSense' - should be 'Dream Machine Professional'",
+        "Python code has imports but no requirements mentioned",
+        "Python code has imports but no requirements mentioned"
+      ],
+      "sources_added": [
+        "RFC Editor: https://www.rfc-editor.org/",
+        "CVE Database: https://cve.mitre.org/",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/"
+      ]
+    },
+    {
+      "file": "2025-07-15-vulnerability-management-scale-open-source.md",
+      "improvements": [
+        "Added Mermaid diagram",
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "NIST Cybersecurity Framework: https://www.nist.gov/cyberframework",
+        "OWASP Top 10: https://owasp.org/www-project-top-ten/",
+        "SANS Institute: https://www.sans.org/reading-room/"
+      ]
+    },
+    {
+      "file": "2025-07-22-supercharging-claude-cli-with-standards.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2025-07-29-building-mcp-standards-server.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "2025-08-07-supercharging-development-claude-flow.md",
+      "improvements": [
+        "Add more transition phrases for better flow"
+      ],
+      "issues": [],
+      "sources_added": [
+        "OpenAI Research: https://openai.com/research/",
+        "Papers with Code: https://paperswithcode.com/",
+        "arXiv AI papers: https://arxiv.org/list/cs.AI/recent"
+      ]
+    },
+    {
+      "file": "welcome.md",
+      "improvements": [
+        "Add more transition phrases for better flow",
+        "Add clear actionable takeaways or conclusion"
+      ],
+      "issues": [],
+      "sources_added": []
+    }
+  ]
+}

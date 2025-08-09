@@ -1,0 +1,1802 @@
+{
+  "generated": "2025-08-08T23:40:37.359012",
+  "summary": {
+    "total_posts": 44,
+    "high_code_ratio": 18,
+    "needs_images": 36,
+    "needs_content": 8,
+    "avg_code_ratio": 44.45977272727273,
+    "avg_word_count": 1283.159090909091
+  },
+  "posts": [
+    {
+      "file": "2024-01-08-writing-secure-code-developers-guide.md",
+      "metadata": {
+        "title": "Writing Secure Code: A Developer's Guide to Thwarting Security Exploits",
+        "date": "2024-01-08",
+        "tags": [
+          "security",
+          "programming",
+          "cybersecurity"
+        ],
+        "description": "Years ago, I discovered a glaring SQL injection vulnerability in an internal application during a routine code review - that sinking feeling taught me that security isn't optional",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 7341,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 7341,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1099,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 10,
+        "lists": 5,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-01-18-demystifying-cryptography-beginners-guide.md",
+      "metadata": {
+        "title": "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures",
+        "date": "2024-01-18",
+        "tags": [
+          "security",
+          "cryptography"
+        ],
+        "description": "Cryptography always felt like magic to me until I spent weeks trying to debug an SSL certificate issue - suddenly those mathematical incantations became very practical necessities",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 7522,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 7522,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1059,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 7,
+        "lists": 10,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-01-30-securing-cloud-native-frontier.md",
+      "metadata": {
+        "title": "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security",
+        "date": "2024-01-30",
+        "tags": [
+          "security",
+          "cloud",
+          "devops"
+        ],
+        "description": "The first time I deployed a microservices architecture to production, I thought our security was bulletproof - until a penetration tester showed me how they'd compromised three services in under an hour",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 9923,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 9923,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1293,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 13,
+        "lists": 4,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-02-09-deepfake-dilemma-ai-deception.md",
+      "metadata": {
+        "title": "The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception",
+        "date": "2024-02-09",
+        "tags": [
+          "ai",
+          "security",
+          "ethics"
+        ],
+        "description": "The first time I saw a convincing deepfake video, I spent an hour researching to convince myself it wasn't real - that moment changed how I think about digital evidence forever",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 9815,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 9815,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1303,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 12,
+        "lists": 15,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-02-22-open-source-vs-proprietary-llms.md",
+      "metadata": {
+        "title": "Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community",
+        "date": "2024-02-22",
+        "tags": [
+          "ai",
+          "llm",
+          "open-source"
+        ],
+        "description": "After months of experimenting with both approaches in production systems, I've learned that choosing between open-source and proprietary LLMs isn't about ideology - it's about trade-offs",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 10902,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 10902,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1355,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 12,
+        "lists": 45,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-03-05-cloud-migration-journey-guide.md",
+      "metadata": {
+        "title": "Cloud Migration: A Guide to Navigating Your Journey to the Cloud",
+        "date": "2024-03-05",
+        "tags": [
+          "cloud",
+          "devops",
+          "infrastructure"
+        ],
+        "description": "Standing in a server room filled with humming machines, I realized our physical infrastructure had become an anchor - the cloud migration that followed taught me as much about change management as technology",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11669,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 11669,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1459,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 11,
+        "lists": 7,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-03-20-transformer-architecture-deep-dive.md",
+      "metadata": {
+        "title": "The Transformer Architecture: A Deep Dive",
+        "date": "2024-03-20",
+        "tags": [
+          "ai",
+          "llm",
+          "machine-learning"
+        ],
+        "description": "Reading 'Attention is All You Need' felt like discovering a secret that would reshape everything I thought I knew about natural language processing - and it did",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11669,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 11669,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1519,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 13,
+        "lists": 8,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-04-04-retrieval-augmented-generation-rag.md",
+      "metadata": {
+        "title": "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge",
+        "date": "2024-04-04",
+        "tags": [
+          "ai",
+          "llm",
+          "rag"
+        ],
+        "description": "The moment I realized our LLM was confidently making up facts about our company's products was when I understood why RAG isn't optional - it's essential for trustworthy AI systems",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11632,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 11632,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1438,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 25,
+        "lists": 3,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-04-11-ethics-large-language-models.md",
+      "metadata": {
+        "title": "The Ethics of Large Language Models",
+        "date": "2024-04-11",
+        "tags": [
+          "ai",
+          "llm",
+          "ethics"
+        ],
+        "description": "Deploying our first customer-facing LLM felt like releasing something powerful into the wild - the biases, mistakes, and unintended consequences that followed taught me why AI ethics isn't optional",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 12563,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 12563,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1629,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 17,
+        "lists": 8,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-04-19-mastering-prompt-engineering-llms.md",
+      "metadata": {
+        "title": "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs",
+        "date": "2024-04-19",
+        "tags": [
+          "ai",
+          "llm",
+          "prompt-engineering"
+        ],
+        "description": "My first attempts at prompt engineering felt like trying to teach a brilliant but scatterbrained colleague - discovering the right words to unlock AI capabilities became both art and science",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 13325,
+        "code_chars": 1421,
+        "inline_code_chars": 3778,
+        "text_chars": 8126,
+        "code_ratio": 10.66,
+        "inline_ratio": 28.35,
+        "total_code_ratio": 39.02,
+        "word_count": 1586,
+        "code_blocks": 4,
+        "inline_codes": 7,
+        "headers": 26,
+        "lists": 7,
+        "images": 0,
+        "long_blocks": [
+          12,
+          11
+        ],
+        "avg_block_lines": 11.5
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (39.02%) - Consider replacing with Mermaid diagrams",
+        "Has 2 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2024-04-30-quantum-resistant-cryptography-guide.md",
+      "metadata": {
+        "title": "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography",
+        "date": "2024-04-30",
+        "tags": [
+          "security",
+          "cryptography",
+          "quantum-computing"
+        ],
+        "description": "The day I first understood how Shor's algorithm could break RSA encryption, I realized our entire security infrastructure might become obsolete overnight - preparing for that future became urgent",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 13728,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 13728,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1670,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 23,
+        "lists": 4,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-05-14-ai-new-frontier-cybersecurity.md",
+      "metadata": {
+        "title": "AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas",
+        "date": "2024-05-14",
+        "tags": [
+          "ai",
+          "cybersecurity",
+          "ethics"
+        ],
+        "description": "Watching AI catch an APT attack that our traditional tools missed was thrilling - until I realized the same technology could automate sophisticated attacks against us",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 14425,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 14425,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1756,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 29,
+        "lists": 4,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-05-30-ai-learning-resource-constrained.md",
+      "metadata": {
+        "title": "AI Learning in Resource-Constrained Environments",
+        "date": "2024-05-30",
+        "tags": [
+          "ai",
+          "machine-learning",
+          "edge-computing"
+        ],
+        "description": "Running large language models on a raspberry pi cluster taught me more about efficiency and ingenuity than years of unlimited cloud computing budgets ever could",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 16155,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 16155,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 2000,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 38,
+        "lists": 4,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-06-11-beyond-containers-future-deployment.md",
+      "metadata": {
+        "title": "Beyond Containers: The Future of Application Deployment",
+        "date": "2024-06-11",
+        "tags": [
+          "devops",
+          "containers",
+          "deployment",
+          "infrastructure"
+        ],
+        "description": "Containers revolutionized how we deploy applications, but after years of wrestling with Kubernetes complexity, I started exploring what comes next in application deployment",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 16148,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 16148,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1854,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 37,
+        "lists": 4,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-06-25-designing-resilient-systems.md",
+      "metadata": {
+        "title": "Designing Resilient Systems for an Uncertain World",
+        "date": "2024-06-25",
+        "tags": [
+          "architecture",
+          "resilience",
+          "systems-design",
+          "reliability"
+        ],
+        "description": "A cascade failure that took down our entire platform in three minutes taught me that resilience isn't about preventing failures - it's about failing gracefully and recovering quickly",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 15891,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 15891,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1941,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 40,
+        "lists": 15,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-07-09-zero-trust-architecture-implementation.md",
+      "metadata": {
+        "title": "Zero Trust Architecture: A Practical Implementation Guide",
+        "date": "2024-07-09",
+        "tags": [
+          "security",
+          "zero-trust",
+          "authentication",
+          "architecture"
+        ],
+        "description": "Moving from 'trust but verify' to 'never trust, always verify' required dismantling years of security assumptions and rebuilding our entire authentication and authorization framework",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 14740,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 14740,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1851,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 37,
+        "lists": 44,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-07-16-sustainable-computing-carbon-footprint.md",
+      "metadata": {
+        "title": "Sustainable Computing: Strategies for Reducing IT's Carbon Footprint",
+        "date": "2024-07-16",
+        "tags": [
+          "sustainability",
+          "green-computing",
+          "energy-efficiency",
+          "climate"
+        ],
+        "description": "Discovering that our ML training runs were consuming as much electricity as a small town sparked my journey into sustainable computing - efficiency became an environmental imperative, not just an optimization",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 15464,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 15464,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 2043,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 32,
+        "lists": 175,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-07-24-multimodal-foundation-models.md",
+      "metadata": {
+        "title": "Multimodal Foundation Models: Capabilities, Challenges, and Applications",
+        "date": "2024-07-24",
+        "tags": [
+          "ai",
+          "multimodal",
+          "computer-vision",
+          "nlp"
+        ],
+        "description": "The first time I watched an AI analyze a screenshot and write working code based on the UI mockup, I realized we'd crossed into a new era of human-AI collaboration",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 16257,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 16257,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1991,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 36,
+        "lists": 17,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-08-02-quantum-computing-leap-forward.md",
+      "metadata": {
+        "title": "Quantum Computing's Leap Forward",
+        "date": "2024-08-02",
+        "tags": [
+          "quantum-computing",
+          "cryptography",
+          "technology",
+          "future"
+        ],
+        "description": "Witnessing IBM's quantum computer solve a problem in minutes that would take classical computers millennia convinced me we're on the brink of a computational revolution - and a security crisis",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 15272,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 15272,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1802,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 40,
+        "lists": 8,
+        "images": 1,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "Add more images to break up text",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-08-13-high-performance-computing.md",
+      "metadata": {
+        "title": "The Evolution of High-Performance Computing: Key Trends and Innovations",
+        "date": "2024-04-07T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "computational-science",
+          "hpc",
+          "ai",
+          "sustainability"
+        ],
+        "description": "How HPC systems are transforming from pure performance machines to intelligent, sustainable platforms that combine AI acceleration with innovative cooling and energy management.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 9514,
+        "code_chars": 2502,
+        "inline_code_chars": 6476,
+        "text_chars": 536,
+        "code_ratio": 26.3,
+        "inline_ratio": 68.07,
+        "total_code_ratio": 94.37,
+        "word_count": 958,
+        "code_blocks": 3,
+        "inline_codes": 5,
+        "headers": 17,
+        "lists": 15,
+        "images": 0,
+        "long_blocks": [
+          18,
+          13,
+          25
+        ],
+        "avg_block_lines": 18.666666666666668
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (94.37%) - Consider replacing with Mermaid diagrams",
+        "Has 3 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2024-08-27-zero-trust-security-principles.md",
+      "metadata": {
+        "title": "Implementing Zero Trust Security: Never Trust, Always Verify",
+        "date": "2024-04-14T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "security",
+          "cybersecurity",
+          "devops",
+          "programming"
+        ],
+        "description": "How the shift from perimeter-based security to identity-centered Zero Trust architecture is transforming modern software development and why it's essential for today's distributed systems.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11010,
+        "code_chars": 4201,
+        "inline_code_chars": 7000,
+        "text_chars": -191,
+        "code_ratio": 38.16,
+        "inline_ratio": 63.58,
+        "total_code_ratio": 101.73,
+        "word_count": 925,
+        "code_blocks": 7,
+        "inline_codes": 13,
+        "headers": 17,
+        "lists": 14,
+        "images": 1,
+        "long_blocks": [
+          48,
+          28,
+          29,
+          18,
+          24
+        ],
+        "avg_block_lines": 29.4
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (101.73%) - Consider replacing with Mermaid diagrams",
+        "Has 5 code blocks >10 lines - Reduce to essential snippets",
+        "Add more images to break up text",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2024-09-09-embodied-ai-teaching-agents.md",
+      "metadata": {
+        "title": "Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction",
+        "date": "2024-04-21T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "ai",
+          "robotics",
+          "embodied-ai",
+          "multimodal-llm"
+        ],
+        "description": "How multimodal large language models are learning to recognize ambiguity and ask clarifying questions, making robots better collaborative partners in real-world scenarios.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 9130,
+        "code_chars": 1440,
+        "inline_code_chars": 1436,
+        "text_chars": 6254,
+        "code_ratio": 15.77,
+        "inline_ratio": 15.73,
+        "total_code_ratio": 31.5,
+        "word_count": 1005,
+        "code_blocks": 1,
+        "inline_codes": 1,
+        "headers": 16,
+        "lists": 3,
+        "images": 0,
+        "long_blocks": [
+          33
+        ],
+        "avg_block_lines": 33.0
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (31.5%) - Consider replacing with Mermaid diagrams",
+        "Has 1 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2024-09-19-biomimetic-robotics.md",
+      "metadata": {
+        "title": "Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering",
+        "date": "2024-04-28T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "robotics",
+          "ai",
+          "sustainability",
+          "programming"
+        ],
+        "description": "Exploring how engineers are drawing inspiration from billions of years of evolution to create more capable, efficient, and adaptable robotic systems that solve complex real-world challenges.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 12011,
+        "code_chars": 1661,
+        "inline_code_chars": 4652,
+        "text_chars": 5698,
+        "code_ratio": 13.83,
+        "inline_ratio": 38.73,
+        "total_code_ratio": 52.56,
+        "word_count": 1391,
+        "code_blocks": 2,
+        "inline_codes": 3,
+        "headers": 23,
+        "lists": 3,
+        "images": 0,
+        "long_blocks": [
+          18,
+          20
+        ],
+        "avg_block_lines": 19.0
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (52.56%) - Consider replacing with Mermaid diagrams",
+        "Has 2 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2024-10-03-quantum-computing-defense.md",
+      "metadata": {
+        "title": "Quantum Computing and Defense: The Double-Edged Sword of Tomorrow's Technology",
+        "date": "2024-05-05T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "quantum-computing",
+          "cybersecurity",
+          "cryptography",
+          "national-security"
+        ],
+        "description": "Examining how quantum computing presents both unprecedented opportunities and complex security challenges for national defense, from cryptographic vulnerabilities to quantum-enhanced sensing capabilities.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11316,
+        "code_chars": 958,
+        "inline_code_chars": 2883,
+        "text_chars": 7475,
+        "code_ratio": 8.47,
+        "inline_ratio": 25.48,
+        "total_code_ratio": 33.94,
+        "word_count": 1214,
+        "code_blocks": 2,
+        "inline_codes": 3,
+        "headers": 21,
+        "lists": 19,
+        "images": 0,
+        "long_blocks": [
+          11,
+          17
+        ],
+        "avg_block_lines": 14.0
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (33.94%) - Consider replacing with Mermaid diagrams",
+        "Has 2 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "metadata": {
+        "title": "Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet",
+        "date": "2024-05-12T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "blockchain",
+          "distributed-systems",
+          "security",
+          "programming"
+        ],
+        "description": "How blockchain technology has evolved beyond digital currencies to create distributed trust systems that are transforming supply chains, identity management, governance, and more.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 12515,
+        "code_chars": 1448,
+        "inline_code_chars": 1444,
+        "text_chars": 9623,
+        "code_ratio": 11.57,
+        "inline_ratio": 11.54,
+        "total_code_ratio": 23.11,
+        "word_count": 1394,
+        "code_blocks": 1,
+        "inline_codes": 1,
+        "headers": 28,
+        "lists": 12,
+        "images": 1,
+        "long_blocks": [
+          48
+        ],
+        "avg_block_lines": 48.0
+      },
+      "suggestions": [
+        "Add more images to break up text",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-10-22-ai-edge-computing.md",
+      "metadata": {
+        "title": "AI Meets Edge Computing: Transforming Real-Time Intelligence",
+        "date": "2024-05-19T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "ai",
+          "edge-computing",
+          "cloud",
+          "devops"
+        ],
+        "description": "How the convergence of artificial intelligence and edge computing is creating responsive, private, and resilient systems that process data where it's generated, revolutionizing applications from autonomous vehicles to smart manufacturing.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 12397,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 12397,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1563,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 29,
+        "lists": 36,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-11-05-pizza-calculator.md",
+      "metadata": {
+        "title": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
+        "date": "2024-05-26T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "devops",
+          "programming",
+          "team-management"
+        ],
+        "description": "How quantifying pizza provisioning can significantly enhance team performance during high-pressure development periods, combining resource planning, team psychology, and a surprising amount of behavioral economics.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 12084,
+        "code_chars": 1095,
+        "inline_code_chars": 1091,
+        "text_chars": 9898,
+        "code_ratio": 9.06,
+        "inline_ratio": 9.03,
+        "total_code_ratio": 18.09,
+        "word_count": 1333,
+        "code_blocks": 1,
+        "inline_codes": 1,
+        "headers": 25,
+        "lists": 20,
+        "images": 0,
+        "long_blocks": [
+          34
+        ],
+        "avg_block_lines": 34.0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-11-19-llms-smart-contract-vulnerability.md",
+      "metadata": {
+        "title": "Large Language Models for Smart Contract Security: Promise and Limitations",
+        "date": "2024-06-02T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "security",
+          "ai",
+          "blockchain",
+          "programming"
+        ],
+        "description": "Evaluating how LLMs are transforming smart contract vulnerability detection, their current capabilities versus traditional tools, and the most promising approaches for improving blockchain security.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11456,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 11456,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1357,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 22,
+        "lists": 5,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2024-12-03-context-windows-llms.md",
+      "metadata": {
+        "title": "Context Windows in Large Language Models: The Memory That Shapes AI",
+        "date": "2024-06-09T00:00:00.000Z",
+        "tags": [
+          "posts",
+          "ai",
+          "programming",
+          "architecture"
+        ],
+        "description": "Understanding how context window limitations influence LLM performance and the innovative approaches being developed to handle long-form content, from document analysis to extended conversations.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11706,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 11706,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1475,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 27,
+        "lists": 37,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2025-02-10-automating-home-network-security.md",
+      "metadata": {
+        "title": "Automating Home Network Security with Python and Open Source Tools",
+        "date": "2025-02-10",
+        "tags": [
+          "python",
+          "automation",
+          "security",
+          "homelab",
+          "open-source",
+          "networking"
+        ],
+        "description": "Practical automation scripts and tools I've built to keep my home network secure without constant manual intervention",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 20699,
+        "code_chars": 16122,
+        "inline_code_chars": 16886,
+        "text_chars": -12309,
+        "code_ratio": 77.89,
+        "inline_ratio": 81.58,
+        "total_code_ratio": 159.47,
+        "word_count": 687,
+        "code_blocks": 6,
+        "inline_codes": 11,
+        "headers": 19,
+        "lists": 15,
+        "images": 1,
+        "long_blocks": [
+          101,
+          90,
+          64,
+          60,
+          73,
+          81
+        ],
+        "avg_block_lines": 78.16666666666667
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (159.47%) - Consider replacing with Mermaid diagrams",
+        "Has 6 code blocks >10 lines - Reduce to essential snippets",
+        "Add more images to break up text",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-02-24-continuous-learning-cybersecurity.md",
+      "metadata": {
+        "title": "Continuous Learning in Cybersecurity: Strategies That Work",
+        "date": "2025-02-24",
+        "tags": [
+          "career",
+          "learning",
+          "security",
+          "professional-development",
+          "certifications"
+        ],
+        "description": "How I stay current in a field that changes daily \u2013 practical strategies for continuous learning without burning out",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 11008,
+        "code_chars": 2560,
+        "inline_code_chars": 6457,
+        "text_chars": 1991,
+        "code_ratio": 23.26,
+        "inline_ratio": 58.66,
+        "total_code_ratio": 81.91,
+        "word_count": 1286,
+        "code_blocks": 6,
+        "inline_codes": 11,
+        "headers": 53,
+        "lists": 133,
+        "images": 0,
+        "long_blocks": [
+          16,
+          16,
+          16,
+          16,
+          15,
+          22
+        ],
+        "avg_block_lines": 16.833333333333332
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (81.91%) - Consider replacing with Mermaid diagrams",
+        "Has 6 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-03-10-raspberry-pi-security-projects.md",
+      "metadata": {
+        "title": "Raspberry Pi Security Projects That Actually Solve Problems",
+        "date": "2025-03-10",
+        "tags": [
+          "raspberry-pi",
+          "security",
+          "homelab",
+          "networking",
+          "projects",
+          "DIY"
+        ],
+        "description": "From network monitoring to physical security \u2013 practical Raspberry Pi projects that enhance your home security without breaking the bank",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 21611,
+        "code_chars": 16175,
+        "inline_code_chars": 17769,
+        "text_chars": -12333,
+        "code_ratio": 74.85,
+        "inline_ratio": 82.22,
+        "total_code_ratio": 157.07,
+        "word_count": 796,
+        "code_blocks": 6,
+        "inline_codes": 11,
+        "headers": 36,
+        "lists": 16,
+        "images": 0,
+        "long_blocks": [
+          12,
+          34,
+          71,
+          119,
+          134,
+          144
+        ],
+        "avg_block_lines": 85.66666666666667
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (157.07%) - Consider replacing with Mermaid diagrams",
+        "Has 6 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+      "metadata": {
+        "title": "From IT Support to Senior InfoSec Engineer: My 15+ Year Journey",
+        "date": "2025-03-24",
+        "tags": [
+          "career",
+          "security",
+          "personal-growth",
+          "learning",
+          "leadership"
+        ],
+        "description": "The winding path from fixing printers to securing federal systems \u2013 lessons learned, mistakes made, and advice for aspiring security professionals",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 8979,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 8979,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 1406,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 23,
+        "lists": 48,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2025-04-10-securing-personal-ai-experiments.md",
+      "metadata": {
+        "title": "Securing Your Personal AI/ML Experiments: A Practical Guide",
+        "date": "2025-04-10",
+        "tags": [
+          "ai",
+          "machine-learning",
+          "security",
+          "privacy",
+          "homelab",
+          "llm"
+        ],
+        "description": "Lessons learned from running LLMs and AI experiments at home while keeping data and systems secure",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 14849,
+        "code_chars": 10917,
+        "inline_code_chars": 11757,
+        "text_chars": -7825,
+        "code_ratio": 73.52,
+        "inline_ratio": 79.18,
+        "total_code_ratio": 152.7,
+        "word_count": 576,
+        "code_blocks": 8,
+        "inline_codes": 15,
+        "headers": 25,
+        "lists": 24,
+        "images": 0,
+        "long_blocks": [
+          37,
+          53,
+          42,
+          69,
+          35,
+          38,
+          41
+        ],
+        "avg_block_lines": 45.0
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (152.7%) - Consider replacing with Mermaid diagrams",
+        "Has 7 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-04-24-building-secure-homelab-adventure.md",
+      "metadata": {
+        "title": "Building a Security-Focused Homelab: My Journey",
+        "date": "2025-04-24",
+        "tags": [
+          "homelab",
+          "security",
+          "networking",
+          "learning",
+          "personal-projects"
+        ],
+        "description": "How I built a comprehensive security lab at home for learning, experimentation, and keeping my family's digital life safe",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 6215,
+        "code_chars": 239,
+        "inline_code_chars": 235,
+        "text_chars": 5741,
+        "code_ratio": 3.85,
+        "inline_ratio": 3.78,
+        "total_code_ratio": 7.63,
+        "word_count": 922,
+        "code_blocks": 1,
+        "inline_codes": 1,
+        "headers": 19,
+        "lists": 38,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": false
+    },
+    {
+      "file": "2025-05-10-building-security-mindset-lessons-from-field.md",
+      "metadata": {
+        "title": "Building a Security Mindset: Lessons from the Field",
+        "date": "2025-05-10",
+        "tags": [
+          "career",
+          "security",
+          "leadership",
+          "mindset",
+          "lessons-learned"
+        ],
+        "description": "After 15+ years in cybersecurity, here are the key lessons about developing a security-first mindset that have shaped my approach to both professional challenges and personal projects.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 10646,
+        "code_chars": 2147,
+        "inline_code_chars": 6839,
+        "text_chars": 1660,
+        "code_ratio": 20.17,
+        "inline_ratio": 64.24,
+        "total_code_ratio": 84.41,
+        "word_count": 1259,
+        "code_blocks": 5,
+        "inline_codes": 9,
+        "headers": 34,
+        "lists": 51,
+        "images": 0,
+        "long_blocks": [
+          19,
+          22,
+          19,
+          15
+        ],
+        "avg_block_lines": 18.75
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (84.41%) - Consider replacing with Mermaid diagrams",
+        "Has 4 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-06-25-local-llm-deployment-privacy-first.md",
+      "metadata": {
+        "title": "Local LLM Deployment: Privacy-First Approach",
+        "date": "2025-06-25",
+        "tags": [
+          "ai-ml",
+          "security",
+          "privacy",
+          "homelab",
+          "llm",
+          "tutorial"
+        ],
+        "description": "Learn how to deploy Large Language Models locally for maximum privacy and security. Complete guide covering hardware requirements, model selection, and implementation strategies.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 14243,
+        "code_chars": 7215,
+        "inline_code_chars": 11150,
+        "text_chars": -4122,
+        "code_ratio": 50.66,
+        "inline_ratio": 78.28,
+        "total_code_ratio": 128.94,
+        "word_count": 1033,
+        "code_blocks": 14,
+        "inline_codes": 28,
+        "headers": 59,
+        "lists": 32,
+        "images": 1,
+        "long_blocks": [
+          44,
+          13,
+          20,
+          14,
+          25,
+          23,
+          20,
+          22,
+          61
+        ],
+        "avg_block_lines": 26.88888888888889
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (128.94%) - Consider replacing with Mermaid diagrams",
+        "Has 9 code blocks >10 lines - Reduce to essential snippets",
+        "Add more images to break up text",
+        "Technical post - Add architecture diagrams",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "metadata": {
+        "title": "eBPF for Security Monitoring: A Practical Guide",
+        "date": "2025-07-01",
+        "tags": [
+          "security",
+          "linux",
+          "ebpf",
+          "monitoring",
+          "kernel",
+          "detection"
+        ],
+        "description": "Learn how to leverage eBPF for real-time security monitoring in Linux environments with practical examples and production-ready code",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 27100,
+        "code_chars": 22637,
+        "inline_code_chars": 25289,
+        "text_chars": -20826,
+        "code_ratio": 83.53,
+        "inline_ratio": 93.32,
+        "total_code_ratio": 176.85,
+        "word_count": 634,
+        "code_blocks": 11,
+        "inline_codes": 21,
+        "headers": 28,
+        "lists": 15,
+        "images": 1,
+        "long_blocks": [
+          36,
+          15,
+          18,
+          132,
+          220,
+          215,
+          19,
+          21,
+          34
+        ],
+        "avg_block_lines": 78.88888888888889
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (176.85%) - Consider replacing with Mermaid diagrams",
+        "Has 9 code blocks >10 lines - Reduce to essential snippets",
+        "Add more images to break up text",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-07-08-implementing-dns-over-https-home-networks.md",
+      "metadata": {
+        "title": "Implementing DNS-over-HTTPS (DoH) for Home Networks",
+        "date": "2025-07-08",
+        "tags": [
+          "security",
+          "networking",
+          "dns",
+          "privacy",
+          "homelab",
+          "encryption"
+        ],
+        "description": "Complete guide to deploying DNS-over-HTTPS on your home network for enhanced privacy and security, with multiple implementation approaches",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 17458,
+        "code_chars": 12891,
+        "inline_code_chars": 14211,
+        "text_chars": -9644,
+        "code_ratio": 73.84,
+        "inline_ratio": 81.4,
+        "total_code_ratio": 155.24,
+        "word_count": 687,
+        "code_blocks": 19,
+        "inline_codes": 38,
+        "headers": 82,
+        "lists": 21,
+        "images": 0,
+        "long_blocks": [
+          27,
+          39,
+          20,
+          52,
+          77,
+          12,
+          52,
+          24,
+          21,
+          12,
+          35,
+          11
+        ],
+        "avg_block_lines": 31.833333333333332
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (155.24%) - Consider replacing with Mermaid diagrams",
+        "Has 12 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-07-15-vulnerability-management-scale-open-source.md",
+      "metadata": {
+        "title": "Vulnerability Management at Scale with Open Source Tools",
+        "date": "2025-07-15",
+        "tags": [
+          "security",
+          "vulnerability-management",
+          "open-source",
+          "enterprise",
+          "automation",
+          "compliance"
+        ],
+        "description": "Build an enterprise-grade vulnerability management program using only open source tools. From scanning to remediation tracking, here's how to do it right",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 10223,
+        "code_chars": 5535,
+        "inline_code_chars": 6937,
+        "text_chars": -2249,
+        "code_ratio": 54.14,
+        "inline_ratio": 67.86,
+        "total_code_ratio": 122.0,
+        "word_count": 664,
+        "code_blocks": 6,
+        "inline_codes": 11,
+        "headers": 31,
+        "lists": 16,
+        "images": 1,
+        "long_blocks": [
+          48,
+          17,
+          17,
+          17,
+          17,
+          62
+        ],
+        "avg_block_lines": 29.666666666666668
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (122.0%) - Consider replacing with Mermaid diagrams",
+        "Has 6 code blocks >10 lines - Reduce to essential snippets",
+        "Add more images to break up text",
+        "Security post - Add threat model diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-07-22-supercharging-claude-cli-with-standards.md",
+      "metadata": {
+        "title": "Exploring Claude CLI Context and Compliance with My Standards Repository",
+        "date": "2025-07-22",
+        "tags": [
+          "ai",
+          "development",
+          "standards",
+          "productivity"
+        ],
+        "description": "How I built a comprehensive standards repository that transforms Claude CLI into a context-aware development powerhouse with 90% token reduction.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 8400,
+        "code_chars": 3481,
+        "inline_code_chars": 5655,
+        "text_chars": -736,
+        "code_ratio": 41.44,
+        "inline_ratio": 67.32,
+        "total_code_ratio": 108.76,
+        "word_count": 725,
+        "code_blocks": 14,
+        "inline_codes": 28,
+        "headers": 49,
+        "lists": 20,
+        "images": 0,
+        "long_blocks": [
+          13,
+          12
+        ],
+        "avg_block_lines": 12.5
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (108.76%) - Consider replacing with Mermaid diagrams",
+        "Has 2 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-07-29-building-mcp-standards-server.md",
+      "metadata": {
+        "title": "Down the MCP Rabbit Hole: Building a Standards Server",
+        "date": "2025-07-29",
+        "tags": [
+          "ai",
+          "mcp",
+          "development",
+          "open-source"
+        ],
+        "description": "The ongoing saga of turning my standards repository into an MCP server. Spoiler: It's working, mostly, and I've only rewritten it three times.",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 8477,
+        "code_chars": 1929,
+        "inline_code_chars": 6140,
+        "text_chars": 408,
+        "code_ratio": 22.76,
+        "inline_ratio": 72.43,
+        "total_code_ratio": 95.19,
+        "word_count": 1027,
+        "code_blocks": 8,
+        "inline_codes": 15,
+        "headers": 49,
+        "lists": 32,
+        "images": 0,
+        "long_blocks": [
+          11,
+          14
+        ],
+        "avg_block_lines": 12.5
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (95.19%) - Consider replacing with Mermaid diagrams",
+        "Has 2 code blocks >10 lines - Reduce to essential snippets",
+        "NO IMAGES - Add hero image and inline visuals",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "2025-08-07-supercharging-development-claude-flow.md",
+      "metadata": {
+        "title": "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering",
+        "date": "2025-08-07",
+        "tags": [
+          "ai",
+          "automation",
+          "machine-learning",
+          "open-source",
+          "ai-ml",
+          "tutorial"
+        ],
+        "description": "Discover how Claude-Flow transforms software development with AI swarm intelligence, achieving 84.8% SWE-Bench solve rates and 4.4x speed improvements through intelligent agent orchestration",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 16132,
+        "code_chars": 9257,
+        "inline_code_chars": 11995,
+        "text_chars": -5120,
+        "code_ratio": 57.38,
+        "inline_ratio": 74.36,
+        "total_code_ratio": 131.74,
+        "word_count": 937,
+        "code_blocks": 26,
+        "inline_codes": 51,
+        "headers": 82,
+        "lists": 34,
+        "images": 1,
+        "long_blocks": [
+          41,
+          12,
+          18,
+          15,
+          14,
+          16,
+          22,
+          17
+        ],
+        "avg_block_lines": 19.375
+      },
+      "suggestions": [
+        "HIGH CODE RATIO (131.74%) - Consider replacing with Mermaid diagrams",
+        "Has 8 code blocks >10 lines - Reduce to essential snippets",
+        "Add more images to break up text",
+        "Technical post - Add architecture diagrams"
+      ],
+      "needs_attention": true
+    },
+    {
+      "file": "welcome.md",
+      "metadata": {
+        "title": "Building My Digital Garden with Eleventy",
+        "date": "2025-01-01",
+        "tags": [
+          "web-development",
+          "eleventy",
+          "open-source"
+        ],
+        "description": "Why I chose Eleventy for my personal site and the journey of building a fast, accessible, and privacy-respecting digital home",
+        "has_images": false
+      },
+      "metrics": {
+        "total_chars": 3893,
+        "code_chars": 0,
+        "inline_code_chars": 0,
+        "text_chars": 3893,
+        "code_ratio": 0.0,
+        "inline_ratio": 0.0,
+        "total_code_ratio": 0.0,
+        "word_count": 557,
+        "code_blocks": 0,
+        "inline_codes": 0,
+        "headers": 10,
+        "lists": 17,
+        "images": 0,
+        "long_blocks": [],
+        "avg_block_lines": 0
+      },
+      "suggestions": [
+        "NO IMAGES - Add hero image and inline visuals"
+      ],
+      "needs_attention": false
+    }
+  ]
+}

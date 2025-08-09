@@ -292,6 +292,17 @@ ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
 Never save working files, text/mds and tests to the root folder.
 
+## SOURCE OF TRUTH FOR HOMELAB AND HARDWARE
+**CRITICAL**: Always reference `/uses/` page (src/pages/uses.md) for accurate information about:
+- Hardware specifications (Intel i9-9900K, 64GB RAM, RTX 3090, Dell R940, Raspberry Pi setup)
+- Software stack (Proxmox, Docker, K3s, Wazuh, specific tools)
+- Network setup (Dream Machine Pro, Ubiquiti, VLANs)
+- Security tools (Nessus, Grype, OSV, Bitwarden self-hosted)
+- Development environment (VS Code, Ghostty terminal, Zsh)
+
+**NEVER make up or assume hardware/software details** - always check the uses page.
+**VERIFY claims with reputable sources** - use Playwright to search for authoritative documentation.
+
 ## Blog Image Management
 When working with blog posts:
 1. ALWAYS add image metadata to frontmatter

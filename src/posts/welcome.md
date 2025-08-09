@@ -1,8 +1,23 @@
 ---
-title: Building My Digital Garden with Eleventy
 date: 2025-01-01
-description: Why I chose Eleventy for my personal site and the journey of building a fast, accessible, and privacy-respecting digital home
-tags: [web-development, eleventy, open-source]
+description: Why I chose Eleventy for my personal site and the journey of building
+  a fast, accessible, and privacy-respecting digital home
+images:
+  hero:
+    alt: Building My Digital Garden with Eleventy - Hero Image
+    caption: Visual representation of Building My Digital Garden with Eleventy
+    height: 630
+    src: /assets/images/blog/hero/welcome-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: Building My Digital Garden with Eleventy - Social Media Preview
+    src: /assets/images/blog/hero/welcome-og.jpg
+tags:
+- web-development
+- eleventy
+- open-source
+title: Building My Digital Garden with Eleventy
 ---
 
 Welcome to my digital corner of the internet! After years of working in security engineering and incident response, I decided it was time to create a proper home for my thoughts, projects, and learnings.

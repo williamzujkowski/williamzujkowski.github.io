@@ -1,15 +1,28 @@
 ---
-title: Designing Resilient Systems for an Uncertain World
+date: 2024-06-25
 description: A cascade failure that took down our entire platform in three minutes
   taught me that resilience isn't about preventing failures - it's about failing gracefully
   and recovering quickly
-date: 2024-06-25
+images:
+  hero:
+    alt: Designing Resilient Systems for an Uncertain World - Hero Image
+    caption: Visual representation of Designing Resilient Systems for an Uncertain
+      World
+    height: 630
+    src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: Designing Resilient Systems for an Uncertain World - Social Media Preview
+    src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-og.jpg
 tags:
 - architecture
 - resilience
 - systems-design
 - reliability
+title: Designing Resilient Systems for an Uncertain World
 ---
+
 At 2:47 AM on a Tuesday, a single database connection timeout triggered a cascade failure that brought down our entire platform within three minutes. Despite redundant systems, failover mechanisms, and careful architectural planning, we watched helplessly as each safety measure failed in sequence.
 
 That incident fundamentally changed how I think about system resilience. I realized that traditional approaches focused on preventing failures, but resilient systems need to embrace failure as inevitable and design for graceful degradation and rapid recovery.

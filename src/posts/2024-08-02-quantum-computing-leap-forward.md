@@ -1,15 +1,27 @@
 ---
-title: Quantum Computing's Leap Forward
+date: 2024-08-02
 description: Witnessing IBM's quantum computer solve a problem in minutes that would
   take classical computers millennia convinced me we're on the brink of a computational
   revolution - and a security crisis
-date: 2024-08-02
+images:
+  hero:
+    alt: Quantum Computing's Leap Forward - Hero Image
+    caption: Visual representation of Quantum Computing's Leap Forward
+    height: 630
+    src: /assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: Quantum Computing's Leap Forward - Social Media Preview
+    src: /assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-og.jpg
 tags:
 - quantum-computing
 - cryptography
 - technology
 - future
+title: Quantum Computing's Leap Forward
 ---
+
 Standing in IBM's quantum computing lab, watching their 1000-qubit processor solve optimization problems that would take classical computers geological ages to complete, I felt like I was witnessing the birth of a new era. The implications were simultaneously thrilling and terrifying.
 
 
@@ -18,6 +30,37 @@ Standing in IBM's quantum computing lab, watching their 1000-qubit processor sol
 *Photo by Zac Wolff on Unsplash*
 
 Quantum computing isn't just a faster computer—it's a fundamentally different way of processing information that could revolutionize everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world.
+
+## How It Works
+
+```mermaid
+graph LR
+    subgraph "Initialization"
+        Q0[|0⟩]
+        Q1[|0⟩]
+    end
+    
+    subgraph "Gates"
+        H[Hadamard]
+        CNOT[CNOT]
+        M[Measure]
+    end
+    
+    subgraph "Output"
+        C0[Classical Bit 0]
+        C1[Classical Bit 1]
+    end
+    
+    Q0 --> H
+    H --> CNOT
+    Q1 --> CNOT
+    CNOT --> M
+    M --> C0
+    M --> C1
+    
+    style H fill:#2196f3
+    style CNOT fill:#9c27b0
+```
 
 ## The Quantum Breakthrough: From Theory to Reality
 

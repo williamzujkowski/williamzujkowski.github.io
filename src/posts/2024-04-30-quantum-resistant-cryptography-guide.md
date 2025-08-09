@@ -1,17 +1,64 @@
 ---
-title: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
+date: 2024-04-30
 description: The day I first understood how Shor's algorithm could break RSA encryption,
   I realized our entire security infrastructure might become obsolete overnight -
   preparing for that future became urgent
-date: 2024-04-30
+images:
+  hero:
+    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography
+      - Hero Image'
+    caption: 'Visual representation of Preparing for the Quantum Leap: A Guide to
+      Quantum-Resistant Cryptography'
+    height: 630
+    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography
+      - Social Media Preview'
+    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg
 tags:
 - security
 - cryptography
 - quantum-computing
+title: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
 ---
+
 The day I first truly understood how Shor's algorithm could factor large integers efficiently on a quantum computer, I felt a chill that had nothing to do with the temperature. Every RSA key, every elliptic curve signature, every piece of public-key cryptography that secured our digital world could potentially become worthless overnight.
 
 That realization years ago sparked my journey into quantum-resistant cryptography—a field that felt both urgently necessary and frustratingly theoretical. Today, as quantum computers inch closer to practical capability, that preparation feels less like paranoia and more like prudent planning.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## The Quantum Awakening: Understanding the Threat
 

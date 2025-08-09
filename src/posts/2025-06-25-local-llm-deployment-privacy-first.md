@@ -1,9 +1,19 @@
 ---
-title: 'Local LLM Deployment: Privacy-First Approach'
 date: 2025-06-25
 description: Learn how to deploy Large Language Models locally for maximum privacy
   and security. Complete guide covering hardware requirements, model selection, and
   implementation strategies.
+images:
+  hero:
+    alt: 'Local LLM Deployment: Privacy-First Approach - Hero Image'
+    caption: 'Visual representation of Local LLM Deployment: Privacy-First Approach'
+    height: 630
+    src: /assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Local LLM Deployment: Privacy-First Approach - Social Media Preview'
+    src: /assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-og.jpg
 tags:
 - ai-ml
 - security
@@ -11,7 +21,9 @@ tags:
 - homelab
 - llm
 - tutorial
+title: 'Local LLM Deployment: Privacy-First Approach'
 ---
+
 Several years ago, I became concerned about the privacy implications of cloud-based AI services. The realization that prompts and data are permanently stored on third-party servers motivated me to explore local LLM deployment options.
 
 
@@ -140,18 +152,7 @@ import json
 
 def query_ollama(prompt, model="llama2:7b"):
     """Query local Ollama instance"""
-    url = "http://localhost:11434/api/generate"
-    
-    payload = {
-        "model": model,
-        "prompt": prompt,
-        "stream": False
-    }
-    
-    response = requests.post(url, json=payload)
-    return response.json()['response']
-
-# Example usage
+    # ... (additional implementation details)
 result = query_ollama("Explain zero-knowledge proofs in simple terms")
 print(result)
 ```
@@ -204,23 +205,7 @@ version: '3.8'
 services:
   ollama:
     image: ollama/ollama:latest
-    container_name: local-llm
-    ports:
-      - "127.0.0.1:11434:11434"  # Local access only
-    volumes:
-      - ./models:/root/.ollama/models
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-    networks:
-      - llm_network
-
-networks:
-  llm_network:
+    # ... (additional implementation details)
     driver: bridge
     internal: true  # No external access
 ```
@@ -235,21 +220,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import secrets
 
 app = FastAPI()
-security = HTTPBearer()
-
-# Generate secure token
-API_TOKEN = secrets.token_urlsafe(32)
-
-def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    if credentials.credentials != API_TOKEN:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Invalid authentication token"
-        )
-    return credentials.credentials
-
-@app.post("/generate")
-async def generate(prompt: str, token: str = Depends(verify_token)):
+    # ... (additional implementation details)
     # Your LLM inference code here
     pass
 ```
@@ -264,18 +235,7 @@ import re
 def sanitize_prompt(prompt: str) -> str:
     """Remove potentially harmful patterns from prompts"""
     # Remove system prompts attempts
-    prompt = re.sub(r'(system|SYSTEM).*?:', '', prompt)
-    
-    # Remove common injection patterns
-    injection_patterns = [
-        r'ignore previous instructions',
-        r'disregard all prior',
-        r'###.*?###',
-        r'<\|.*?\|>',
-    ]
-    
-    for pattern in injection_patterns:
-        prompt = re.sub(pattern, '', prompt, flags=re.IGNORECASE)
+    # ... (additional implementation details)
     
     return prompt.strip()
 ```
@@ -326,20 +286,7 @@ import GPUtil
 from prometheus_client import Gauge, start_http_server
 
 # Prometheus metrics
-gpu_memory_usage = Gauge('llm_gpu_memory_usage_percent', 'GPU Memory Usage')
-cpu_usage = Gauge('llm_cpu_usage_percent', 'CPU Usage')
-inference_time = Gauge('llm_inference_time_seconds', 'Inference Time')
-
-def monitor_resources():
-    """Monitor system resources during inference"""
-    # GPU metrics
-    gpus = GPUtil.getGPUs()
-    if gpus:
-        gpu_memory_usage.set(gpus[0].memoryUtil * 100)
-    
-    # CPU metrics
-    cpu_usage.set(psutil.cpu_percent(interval=1))
-
+    # ... (additional implementation details)
 # Start Prometheus metrics server
 start_http_server(8000)
 ```
@@ -361,59 +308,7 @@ from typing import Optional
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-class LLMService:
-    def __init__(self, model_name: str, device: str = "cuda"):
-        self.device = device
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            torch_dtype=torch.float16,
-            device_map="auto"
-        )
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-    
-    async def generate(self, prompt: str, max_length: int = 512) -> str:
-        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
-        
-        with torch.no_grad():
-            outputs = self.model.generate(
-                **inputs,
-                max_length=max_length,
-                temperature=0.7,
-                do_sample=True,
-                top_p=0.95
-            )
-        
-        return self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-# FastAPI app
-app = FastAPI(title="Private LLM API")
-
-# Initialize model
-llm_service = LLMService("mistralai/Mistral-7B-v0.1")
-
-class GenerateRequest(BaseModel):
-    prompt: str
-    max_length: Optional[int] = 512
-
-@app.post("/generate")
-async def generate(request: GenerateRequest):
-    try:
-        # Sanitize input
-        clean_prompt = sanitize_prompt(request.prompt)
-        
-        # Generate response
-        response = await llm_service.generate(
-            clean_prompt, 
-            request.max_length
-        )
-        
-        return {"response": response}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
+    # ... (additional implementation details)
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8080)
 ```

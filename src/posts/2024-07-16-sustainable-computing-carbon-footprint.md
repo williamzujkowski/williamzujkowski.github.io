@@ -1,15 +1,30 @@
 ---
-title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
+date: 2024-07-16
 description: Discovering that our ML training runs were consuming as much electricity
   as a small town sparked my journey into sustainable computing - efficiency became
   an environmental imperative, not just an optimization
-date: 2024-07-16
+images:
+  hero:
+    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint -
+      Hero Image'
+    caption: 'Visual representation of Sustainable Computing: Strategies for Reducing
+      IT''s Carbon Footprint'
+    height: 630
+    src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint -
+      Social Media Preview'
+    src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-og.jpg
 tags:
 - sustainability
 - green-computing
 - energy-efficiency
 - climate
+title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
 ---
+
 The electricity bill for our machine learning training cluster arrived on the same day as a report about data centers consuming 4% of global electricity. Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning—we weren't just burning through budget, we were burning through the planet's resources.
 
 That realization started my deep dive into sustainable computing, where I discovered that efficiency isn't just about performance or cost—it's about responsibility to future generations.

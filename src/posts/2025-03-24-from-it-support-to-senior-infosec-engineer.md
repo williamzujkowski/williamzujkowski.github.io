@@ -1,21 +1,67 @@
 ---
-title: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey'
+author: William Zujkowski
 date: 2025-03-24
-description: "The winding path from fixing printers to securing federal systems \u2013\
-  \ lessons learned, mistakes made, and advice for aspiring security professionals"
+description: The winding path from fixing printers to securing federal systems – lessons
+  learned, mistakes made, and advice for aspiring security professionals
+images:
+  hero:
+    alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Hero Image'
+    caption: 'Visual representation of From IT Support to Senior InfoSec Engineer:
+      My 15+ Year Journey'
+    height: 630
+    src: /assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Social
+      Media Preview'
+    src: /assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-og.jpg
 tags:
 - career
 - security
 - personal-growth
 - learning
 - leadership
-author: William Zujkowski
+title: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey'
 ---
+
 ## The Beginning: When "Have You Tried Turning It Off and On Again?" Was My Mantra
 
 Twenty years ago, I was that IT guy. You know, the one who showed up when the printer jammed, when email stopped working, or when someone's computer made "that weird noise." I started as an independent IT consultant in 2005, which is a fancy way of saying I fixed computers for local businesses and anyone who would pay me.
 
 My toolkit? A USB drive full of antivirus tools, a patient smile, and an endless supply of "let me Google that for you" searches. But here's the thing – I loved it. Every problem was a puzzle, every fixed computer was a small victory, and every grateful client taught me something new about technology and people.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## The Accidental Security Engineer
 

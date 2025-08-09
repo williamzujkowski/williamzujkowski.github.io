@@ -1,0 +1,765 @@
+{
+  "generated": "2025-08-08T23:44:05.992223",
+  "summary": {
+    "total_posts": 44,
+    "high_priority": 0,
+    "medium_priority": 41,
+    "low_priority": 2
+  },
+  "improvements": [
+    {
+      "file": "2024-01-08-writing-secure-code-developers-guide.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ],
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-01-18-demystifying-cryptography-beginners-guide.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-01-30-securing-cloud-native-frontier.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 3 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ],
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ],
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-02-09-deepfake-dilemma-ai-deception.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-02-22-open-source-vs-proprietary-llms.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-03-05-cloud-migration-journey-guide.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ],
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-03-20-transformer-architecture-deep-dive.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 3 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Transformer Architecture",
+          "```mermaid\ngraph TD\n    subgraph \"Input\"\n        Tokens[Token Embeddings]\n        Pos[Positional Encoding]\n    end\n    \n    subgraph \"Encoder Stack\"\n        MHA1[Multi-Head Attention]\n        FFN1[Feed Forward]\n        Norm1[Layer Norm]\n    end\n    \n    subgraph \"Decoder Stack\"\n        MHA2[Masked Attention]\n        Cross[Cross Attention]\n        FFN2[Feed Forward]\n    end\n    \n    Tokens --> Pos\n    Pos --> MHA1\n    MHA1 --> FFN1\n    FFN1 --> Norm1\n    Norm1 --> Cross\n    MHA2 --> Cross\n    Cross --> FFN2\n    \n    style MHA1 fill:#ff9800\n    style Cross fill:#9c27b0\n```"
+        ],
+        [
+          "Transformer Architecture",
+          "```mermaid\ngraph TD\n    subgraph \"Input\"\n        Tokens[Token Embeddings]\n        Pos[Positional Encoding]\n    end\n    \n    subgraph \"Encoder Stack\"\n        MHA1[Multi-Head Attention]\n        FFN1[Feed Forward]\n        Norm1[Layer Norm]\n    end\n    \n    subgraph \"Decoder Stack\"\n        MHA2[Masked Attention]\n        Cross[Cross Attention]\n        FFN2[Feed Forward]\n    end\n    \n    Tokens --> Pos\n    Pos --> MHA1\n    MHA1 --> FFN1\n    FFN1 --> Norm1\n    Norm1 --> Cross\n    MHA2 --> Cross\n    Cross --> FFN2\n    \n    style MHA1 fill:#ff9800\n    style Cross fill:#9c27b0\n```"
+        ],
+        [
+          "Transformer Architecture",
+          "```mermaid\ngraph TD\n    subgraph \"Input\"\n        Tokens[Token Embeddings]\n        Pos[Positional Encoding]\n    end\n    \n    subgraph \"Encoder Stack\"\n        MHA1[Multi-Head Attention]\n        FFN1[Feed Forward]\n        Norm1[Layer Norm]\n    end\n    \n    subgraph \"Decoder Stack\"\n        MHA2[Masked Attention]\n        Cross[Cross Attention]\n        FFN2[Feed Forward]\n    end\n    \n    Tokens --> Pos\n    Pos --> MHA1\n    MHA1 --> FFN1\n    FFN1 --> Norm1\n    Norm1 --> Cross\n    MHA2 --> Cross\n    Cross --> FFN2\n    \n    style MHA1 fill:#ff9800\n    style Cross fill:#9c27b0\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-04-04-retrieval-augmented-generation-rag.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-04-11-ethics-large-language-models.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-04-19-mastering-prompt-engineering-llms.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams",
+        "Found 2 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ],
+      "long_blocks": [
+        12,
+        11
+      ]
+    },
+    {
+      "file": "2024-04-30-quantum-resistant-cryptography-guide.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ],
+        [
+          "Quantum Circuit",
+          "```mermaid\ngraph LR\n    subgraph \"Initialization\"\n        Q0[|0\u27e9]\n        Q1[|0\u27e9]\n    end\n    \n    subgraph \"Gates\"\n        H[Hadamard]\n        CNOT[CNOT]\n        M[Measure]\n    end\n    \n    subgraph \"Output\"\n        C0[Classical Bit 0]\n        C1[Classical Bit 1]\n    end\n    \n    Q0 --> H\n    H --> CNOT\n    Q1 --> CNOT\n    CNOT --> M\n    M --> C0\n    M --> C1\n    \n    style H fill:#2196f3\n    style CNOT fill:#9c27b0\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-05-14-ai-new-frontier-cybersecurity.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-05-30-ai-learning-resource-constrained.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-06-11-beyond-containers-future-deployment.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-06-25-designing-resilient-systems.md",
+      "changes": [
+        "Added image metadata"
+      ]
+    },
+    {
+      "file": "2024-07-09-zero-trust-architecture-implementation.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Security Architecture",
+          "```mermaid\ngraph TD\n    subgraph \"Perimeter\"\n        FW[Firewall]\n        WAF[WAF]\n        IDS[IDS/IPS]\n    end\n    \n    subgraph \"Network\"\n        VLAN[Segmentation]\n        NAC[Access Control]\n    end\n    \n    subgraph \"Endpoint\"\n        EDR[EDR]\n        AV[Antivirus]\n        DLP[DLP]\n    end\n    \n    Internet --> FW\n    FW --> WAF\n    WAF --> IDS\n    IDS --> VLAN\n    VLAN --> NAC\n    NAC --> EDR\n    \n    style FW fill:#2196f3\n    style EDR fill:#4caf50\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-07-16-sustainable-computing-carbon-footprint.md",
+      "changes": [
+        "Added image metadata"
+      ]
+    },
+    {
+      "file": "2024-07-24-multimodal-foundation-models.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-08-02-quantum-computing-leap-forward.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Quantum Circuit",
+          "```mermaid\ngraph LR\n    subgraph \"Initialization\"\n        Q0[|0\u27e9]\n        Q1[|0\u27e9]\n    end\n    \n    subgraph \"Gates\"\n        H[Hadamard]\n        CNOT[CNOT]\n        M[Measure]\n    end\n    \n    subgraph \"Output\"\n        C0[Classical Bit 0]\n        C1[Classical Bit 1]\n    end\n    \n    Q0 --> H\n    H --> CNOT\n    Q1 --> CNOT\n    CNOT --> M\n    M --> C0\n    M --> C1\n    \n    style H fill:#2196f3\n    style CNOT fill:#9c27b0\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-08-13-high-performance-computing.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 3 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ],
+      "long_blocks": [
+        18,
+        13,
+        25
+      ]
+    },
+    {
+      "file": "2024-08-27-zero-trust-security-principles.md",
+      "changes": [
+        "Added image metadata",
+        "Found 3 code blocks to reduce"
+      ],
+      "long_blocks": [
+        29,
+        18,
+        24
+      ]
+    },
+    {
+      "file": "2024-09-09-embodied-ai-teaching-agents.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 1 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ],
+      "long_blocks": [
+        33
+      ]
+    },
+    {
+      "file": "2024-09-19-biomimetic-robotics.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 2 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ],
+      "long_blocks": [
+        18,
+        20
+      ]
+    },
+    {
+      "file": "2024-10-03-quantum-computing-defense.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams",
+        "Found 2 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Quantum Circuit",
+          "```mermaid\ngraph LR\n    subgraph \"Initialization\"\n        Q0[|0\u27e9]\n        Q1[|0\u27e9]\n    end\n    \n    subgraph \"Gates\"\n        H[Hadamard]\n        CNOT[CNOT]\n        M[Measure]\n    end\n    \n    subgraph \"Output\"\n        C0[Classical Bit 0]\n        C1[Classical Bit 1]\n    end\n    \n    Q0 --> H\n    H --> CNOT\n    Q1 --> CNOT\n    CNOT --> M\n    M --> C0\n    M --> C1\n    \n    style H fill:#2196f3\n    style CNOT fill:#9c27b0\n```"
+        ],
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        11,
+        17
+      ]
+    },
+    {
+      "file": "2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams",
+        "Found 1 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Blockchain Architecture",
+          "```mermaid\ngraph TD\n    subgraph \"Network Layer\"\n        P2P[P2P Network]\n        Gossip[Gossip Protocol]\n    end\n    \n    subgraph \"Consensus\"\n        Mining[Mining/Validation]\n        Consensus[Consensus Algorithm]\n    end\n    \n    subgraph \"Data Layer\"\n        Blocks[Blocks]\n        Chain[Blockchain]\n        State[State Tree]\n    end\n    \n    subgraph \"Application\"\n        Smart[Smart Contracts]\n        DApp[DApps]\n    end\n    \n    P2P --> Gossip\n    Gossip --> Mining\n    Mining --> Consensus\n    Consensus --> Blocks\n    Blocks --> Chain\n    Chain --> State\n    State --> Smart\n    Smart --> DApp\n    \n    style Consensus fill:#ff9800\n    style Smart fill:#9c27b0\n```"
+        ],
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        48
+      ]
+    },
+    {
+      "file": "2024-10-22-ai-edge-computing.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 3 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ],
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-11-05-pizza-calculator.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 1 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Cloud Architecture",
+          "```mermaid\ngraph TB\n    subgraph \"Frontend\"\n        CDN[CDN]\n        LB[Load Balancer]\n    end\n    \n    subgraph \"Application\"\n        API[API Gateway]\n        Services[Microservices]\n        Cache[Redis Cache]\n    end\n    \n    subgraph \"Data\"\n        DB[(Database)]\n        S3[Object Storage]\n        Queue[Message Queue]\n    end\n    \n    CDN --> LB\n    LB --> API\n    API --> Services\n    Services --> Cache\n    Services --> DB\n    Services --> Queue\n    \n    style API fill:#2196f3\n    style Services fill:#4caf50\n    style DB fill:#ff9800\n```"
+        ]
+      ],
+      "long_blocks": [
+        34
+      ]
+    },
+    {
+      "file": "2024-11-19-llms-smart-contract-vulnerability.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 3 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "Blockchain Architecture",
+          "```mermaid\ngraph TD\n    subgraph \"Network Layer\"\n        P2P[P2P Network]\n        Gossip[Gossip Protocol]\n    end\n    \n    subgraph \"Consensus\"\n        Mining[Mining/Validation]\n        Consensus[Consensus Algorithm]\n    end\n    \n    subgraph \"Data Layer\"\n        Blocks[Blocks]\n        Chain[Blockchain]\n        State[State Tree]\n    end\n    \n    subgraph \"Application\"\n        Smart[Smart Contracts]\n        DApp[DApps]\n    end\n    \n    P2P --> Gossip\n    Gossip --> Mining\n    Mining --> Consensus\n    Consensus --> Blocks\n    Blocks --> Chain\n    Chain --> State\n    State --> Smart\n    Smart --> DApp\n    \n    style Consensus fill:#ff9800\n    style Smart fill:#9c27b0\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2024-12-03-context-windows-llms.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2025-02-10-automating-home-network-security.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 6 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        101,
+        90,
+        64,
+        60,
+        73,
+        81
+      ]
+    },
+    {
+      "file": "2025-02-24-continuous-learning-cybersecurity.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 6 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        16,
+        16,
+        16,
+        16,
+        15,
+        22
+      ]
+    },
+    {
+      "file": "2025-03-10-raspberry-pi-security-projects.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 6 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        12,
+        34,
+        71,
+        119,
+        134,
+        144
+      ]
+    },
+    {
+      "file": "2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2025-04-10-securing-personal-ai-experiments.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 3 Mermaid diagrams",
+        "Found 7 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ],
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        37,
+        53,
+        42,
+        69,
+        35,
+        38,
+        41
+      ]
+    },
+    {
+      "file": "2025-04-24-building-secure-homelab-adventure.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Post could benefit from more personal anecdotes"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ]
+    },
+    {
+      "file": "2025-05-10-building-security-mindset-lessons-from-field.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 4 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        19,
+        22,
+        19,
+        15
+      ]
+    },
+    {
+      "file": "2025-06-25-local-llm-deployment-privacy-first.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 2 Mermaid diagrams",
+        "Found 8 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ],
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ],
+      "long_blocks": [
+        13,
+        20,
+        14,
+        25,
+        23,
+        20,
+        22,
+        61
+      ]
+    },
+    {
+      "file": "2025-07-08-implementing-dns-over-https-home-networks.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 12 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        27,
+        39,
+        20,
+        52,
+        77,
+        12,
+        52,
+        24,
+        21,
+        12,
+        35,
+        11
+      ]
+    },
+    {
+      "file": "2025-07-15-vulnerability-management-scale-open-source.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 5 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "Threat Model",
+          "```mermaid\ngraph TB\n    subgraph \"Threat Actors\"\n        TA1[External Attackers]\n        TA2[Insider Threats]\n        TA3[Supply Chain]\n    end\n    \n    subgraph \"Attack Vectors\"\n        AV1[Network]\n        AV2[Application]\n        AV3[Physical]\n    end\n    \n    subgraph \"Defenses\"\n        D1[Prevention]\n        D2[Detection]\n        D3[Response]\n    end\n    \n    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3\n    AV1 & AV2 & AV3 --> D1\n    D1 -->|Bypass| D2\n    D2 --> D3\n    \n    style D1 fill:#4caf50\n    style D2 fill:#ff9800\n    style D3 fill:#f44336\n```"
+        ]
+      ],
+      "long_blocks": [
+        17,
+        17,
+        17,
+        17,
+        62
+      ]
+    },
+    {
+      "file": "2025-07-22-supercharging-claude-cli-with-standards.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 2 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ],
+      "long_blocks": [
+        13,
+        12
+      ]
+    },
+    {
+      "file": "2025-07-29-building-mcp-standards-server.md",
+      "changes": [
+        "Added image metadata",
+        "Suggested 1 Mermaid diagrams",
+        "Found 2 code blocks to reduce"
+      ],
+      "diagram_suggestions": [
+        [
+          "ML Pipeline",
+          "```mermaid\ngraph LR\n    subgraph \"Data Pipeline\"\n        Raw[Raw Data]\n        Clean[Cleaning]\n        Feature[Feature Engineering]\n    end\n    \n    subgraph \"Model Training\"\n        Train[Training]\n        Val[Validation]\n        Test[Testing]\n    end\n    \n    subgraph \"Deployment\"\n        Deploy[Model Deployment]\n        Monitor[Monitoring]\n        Update[Updates]\n    end\n    \n    Raw --> Clean\n    Clean --> Feature\n    Feature --> Train\n    Train --> Val\n    Val --> Test\n    Test --> Deploy\n    Deploy --> Monitor\n    Monitor -->|Feedback| Train\n    \n    style Train fill:#9c27b0\n    style Deploy fill:#4caf50\n```"
+        ]
+      ],
+      "long_blocks": [
+        11,
+        14
+      ]
+    },
+    {
+      "file": "2025-08-07-supercharging-development-claude-flow.md",
+      "changes": [
+        "Added image metadata",
+        "Found 6 code blocks to reduce"
+      ],
+      "long_blocks": [
+        12,
+        15,
+        14,
+        16,
+        22,
+        17
+      ]
+    },
+    {
+      "file": "welcome.md",
+      "changes": [
+        "Added image metadata",
+        "Post could benefit from more personal anecdotes"
+      ]
+    }
+  ]
+}

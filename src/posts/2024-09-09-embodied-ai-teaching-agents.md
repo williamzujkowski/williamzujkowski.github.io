@@ -1,19 +1,69 @@
 ---
-title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
+date: '2024-04-21T00:00:00.000Z'
 description: How multimodal large language models are learning to recognize ambiguity
   and ask clarifying questions, making robots better collaborative partners in real-world
   scenarios.
-date: '2024-04-21T00:00:00.000Z'
+images:
+  hero:
+    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction
+      - Hero Image'
+    caption: 'Visual representation of Teaching AI Agents to Ask for Help: A Breakthrough
+      in Human-Robot Interaction'
+    height: 630
+    src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction
+      - Social Media Preview'
+    src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-og.jpg
 tags:
 - posts
 - ai
 - robotics
 - embodied-ai
 - multimodal-llm
+title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
 ---
+
 Years ago, I watched a demonstration of a home robot that consistently brought the wrong items when given ambiguous instructions. "Please get me the book from the table," the researcher said, and the robot would dutifully select one of three books present—often not the intended one. The robot never asked which book, never sought clarification, just made its best guess and moved on.
 
 That experience stuck with me because it highlighted a fundamental gap in human-robot interaction. Humans naturally ask clarifying questions when instructions are unclear, but robots have traditionally struggled with this basic social behavior. Recent breakthrough research is finally changing that, and the implications are fascinating.
+
+## How It Works
+
+```mermaid
+graph LR
+    subgraph "Data Pipeline"
+        Raw[Raw Data]
+        Clean[Cleaning]
+        Feature[Feature Engineering]
+    end
+    
+    subgraph "Model Training"
+        Train[Training]
+        Val[Validation]
+        Test[Testing]
+    end
+    
+    subgraph "Deployment"
+        Deploy[Model Deployment]
+        Monitor[Monitoring]
+        Update[Updates]
+    end
+    
+    Raw --> Clean
+    Clean --> Feature
+    Feature --> Train
+    Train --> Val
+    Val --> Test
+    Test --> Deploy
+    Deploy --> Monitor
+    Monitor -->|Feedback| Train
+    
+    style Train fill:#9c27b0
+    style Deploy fill:#4caf50
+```
 
 ## The Problem with Assumption-Making Robots
 
@@ -48,31 +98,7 @@ function train_clarification_agent(initial_model, training_environments):
     reward_model = initialize_reward_llm()
     policy = initialize_policy(initial_model)
     
-    for episode in training_episodes:
-        env = sample_environment(training_environments)
-        instruction = generate_ambiguous_instruction(env)
-        
-        # Agent decides whether to ask a question or act directly
-        question = policy.generate_question(instruction, env.observation)
-        
-        if question != "NO_QUESTION":
-            clarification = generate_answer_to_question(question, env)
-            action = policy.select_action(instruction, clarification, env.observation)
-        else:
-            action = policy.select_action(instruction, env.observation)
-        
-        # LLM evaluates performance across multiple dimensions
-        question_relevance = reward_model.evaluate_question_relevance(
-            instruction, env.observation, question)
-        question_conciseness = reward_model.evaluate_question_conciseness(question)
-        action_correctness = reward_model.evaluate_action(
-            instruction, env.observation, action)
-        
-        # Combined reward signal guides learning
-        reward = compute_weighted_reward(
-            question_relevance, question_conciseness, action_correctness)
-        
-        policy.update(reward)
+    # ... (additional implementation details)
     
     return policy
 ```

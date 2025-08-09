@@ -1,17 +1,62 @@
 ---
-title: 'Building a Security Mindset: Lessons from the Field'
 date: 2025-05-10
 description: After 15+ years in cybersecurity, here are the key lessons about developing
   a security-first mindset that have shaped my approach to both professional challenges
   and personal projects.
+images:
+  hero:
+    alt: 'Building a Security Mindset: Lessons from the Field - Hero Image'
+    caption: 'Visual representation of Building a Security Mindset: Lessons from the
+      Field'
+    height: 630
+    src: /assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-hero.jpg
+    width: 1200
+  inline: []
+  og:
+    alt: 'Building a Security Mindset: Lessons from the Field - Social Media Preview'
+    src: /assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-og.jpg
 tags:
 - career
 - security
 - leadership
 - mindset
 - lessons-learned
+title: 'Building a Security Mindset: Lessons from the Field'
 ---
+
 Security isn't just about tools, technologies, or compliance frameworks—it's fundamentally about mindset. After spending over 15 years in the field, from IT support to senior security engineering roles, I've learned that the most effective security professionals aren't necessarily those with the most certifications or the deepest technical knowledge. They're the ones who've developed a security-first way of thinking.
+
+## How It Works
+
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Insider Threats]
+        TA3[Supply Chain]
+    end
+    
+    subgraph "Attack Vectors"
+        AV1[Network]
+        AV2[Application]
+        AV3[Physical]
+    end
+    
+    subgraph "Defenses"
+        D1[Prevention]
+        D2[Detection]
+        D3[Response]
+    end
+    
+    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
+    AV1 & AV2 & AV3 --> D1
+    D1 -->|Bypass| D2
+    D2 --> D3
+    
+    style D1 fill:#4caf50
+    style D2 fill:#ff9800
+    style D3 fill:#f44336
+```
 
 ## The Evolution of a Security Mindset
 
@@ -31,17 +76,7 @@ def handle_vulnerability(vuln):
     if vuln.severity == "CRITICAL":
         patch_immediately()
     
-# Security mindset: Proactive defense
-def vulnerability_management():
-    # Continuous assessment
-    identify_attack_surface()
-    
-    # Threat modeling
-    analyze_potential_vectors()
-    
-    # Preventive controls
-    implement_compensating_controls()
-    
+    # ... (additional implementation details)
     # Continuous monitoring
     detect_anomalies_early()
 ```
@@ -111,20 +146,7 @@ def security_strategy():
     build_high_walls()
     hope_for_the_best()
 
-# Assume breach model
-def resilient_security():
-    # Prevention (still important!)
-    implement_controls()
-    
-    # Detection (equally important)
-    monitor_everything()
-    log_everything()
-    
-    # Response (critical)
-    practice_incident_response()
-    automate_containment()
-    
-    # Recovery (often forgotten)
+    # ... (additional implementation details)
     test_backups_regularly()
     document_lessons_learned()
 ```
@@ -171,17 +193,7 @@ Make it a habit. For everything:
 ### Assets
 - What are we protecting?
 - What's the value to an attacker?
-
-### Threats
-- Who might attack us?
-- What are their capabilities?
-- What's their motivation?
-
-### Vulnerabilities
-- Where are our weak points?
-- What assumptions are we making?
-
-### Mitigations
+    # ... (additional implementation details)
 - How do we reduce risk?
 - What's our detection strategy?
 ```
