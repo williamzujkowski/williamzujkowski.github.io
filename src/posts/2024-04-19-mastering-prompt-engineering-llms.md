@@ -8,19 +8,6 @@ tags:
 - ai
 - llm
 - prompt-engineering
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-hero.jpg
-    alt: 'artificial intelligence concept diagram for Mastering Prompt Engineering:
-      Unlocking the Full Potential of LLMs'
-    caption: 'Visual representation of Mastering Prompt Engineering: Unlocking the
-      Full Potential of LLMs'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-og.jpg
-    alt: 'artificial intelligence concept diagram for Mastering Prompt Engineering:
-      Unlocking the Full Potential of LLMs'
 ---
 I remember my first attempts at coaxing a Large Language Model into producing the responses I needed—it felt like trying to communicate with a brilliant but extremely literal colleague who had access to all human knowledge but no common sense about what I actually wanted.
 

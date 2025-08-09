@@ -11,19 +11,6 @@ tags:
 - homelab
 - llm
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-hero.jpg
-    alt: 'artificial intelligence concept diagram for Securing Your Personal AI/ML
-      Experiments: A Practical Guide'
-    caption: 'Visual representation of Securing Your Personal AI/ML Experiments: A
-      Practical Guide'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-og.jpg
-    alt: 'artificial intelligence concept diagram for Securing Your Personal AI/ML
-      Experiments: A Practical Guide'
 ---
 ## The AI Revolution Hits Home
 

@@ -11,18 +11,6 @@ tags:
 - kernel
 - detection
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-practical-guide-hero.jpg
-    alt: 'cybersecurity concept illustration for eBPF for Security Monitoring: A Practical
-      Guide'
-    caption: 'Visual representation of eBPF for Security Monitoring: A Practical Guide'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-practical-guide-og.jpg
-    alt: 'cybersecurity concept illustration for eBPF for Security Monitoring: A Practical
-      Guide'
 ---
 ## The Day eBPF Changed Everything
 

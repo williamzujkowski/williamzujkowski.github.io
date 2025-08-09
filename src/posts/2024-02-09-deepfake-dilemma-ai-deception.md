@@ -8,19 +8,6 @@ tags:
 - ai
 - security
 - ethics
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-hero.jpg
-    alt: 'artificial intelligence concept diagram for The Deepfake Dilemma: Navigating
-      the Threat of AI-Generated Deception'
-    caption: 'Visual representation of The Deepfake Dilemma: Navigating the Threat
-      of AI-Generated Deception'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-og.jpg
-    alt: 'artificial intelligence concept diagram for The Deepfake Dilemma: Navigating
-      the Threat of AI-Generated Deception'
 ---
 The first time I encountered a convincing deepfake, I felt a profound sense of unease that I'm still processing years later. It was a video of a public figure saying something completely out of character, and despite knowing about deepfake technology, I found myself questioning what was real.
 

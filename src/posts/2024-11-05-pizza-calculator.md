@@ -9,19 +9,6 @@ tags:
 - devops
 - programming
 - team-management
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-11-05-pizza-calculator-hero.jpg
-    alt: 'performance metrics and optimization graph for The Pizza Calculator: Optimizing
-      Team Fuel for Critical Development Sprints'
-    caption: 'Visual representation of The Pizza Calculator: Optimizing Team Fuel
-      for Critical Development Sprints'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-11-05-pizza-calculator-og.jpg
-    alt: 'performance metrics and optimization graph for The Pizza Calculator: Optimizing
-      Team Fuel for Critical Development Sprints'
 ---
 Years ago, I was part of a weekend deployment that went sideways. We'd been debugging a critical production issue for twelve hours when someone suggested ordering pizza. Twenty minutes later, three pizzas arrived for eight hungry developers. What followed was a surprisingly tense negotiation over slice allocation that probably cost us more productivity than the original bug.
 

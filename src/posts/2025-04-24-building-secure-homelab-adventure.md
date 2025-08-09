@@ -10,18 +10,6 @@ tags:
 - learning
 - personal-projects
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-hero.jpg
-    alt: 'cybersecurity concept illustration for Building a Security-Focused Homelab:
-      My Journey'
-    caption: 'Visual representation of Building a Security-Focused Homelab: My Journey'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-og.jpg
-    alt: 'cybersecurity concept illustration for Building a Security-Focused Homelab:
-      My Journey'
 ---
 ## Why Every Security Professional Needs a Homelab
 

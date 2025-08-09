@@ -9,19 +9,6 @@ tags:
 - ai
 - programming
 - architecture
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-hero.jpg
-    alt: 'artificial intelligence concept diagram for Context Windows in Large Language
-      Models: The Memory That Shapes AI'
-    caption: 'Visual representation of Context Windows in Large Language Models: The
-      Memory That Shapes AI'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg
-    alt: 'artificial intelligence concept diagram for Context Windows in Large Language
-      Models: The Memory That Shapes AI'
 ---
 Years ago, I was working with an early version of GPT-3 on a complex analysis task. Halfway through our conversation, the model seemed to "forget" important details I'd provided earlier, giving responses that contradicted its previous analysis. That frustrating experience introduced me to one of the most fundamental constraints in AI systems: the context window.
 

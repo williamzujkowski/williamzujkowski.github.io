@@ -8,19 +8,6 @@ tags:
 - cloud
 - devops
 - infrastructure
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-hero.jpg
-    alt: 'cloud computing architecture diagram for Cloud Migration: A Guide to Navigating
-      Your Journey to the Cloud'
-    caption: 'Visual representation of Cloud Migration: A Guide to Navigating Your
-      Journey to the Cloud'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-og.jpg
-    alt: 'cloud computing architecture diagram for Cloud Migration: A Guide to Navigating
-      Your Journey to the Cloud'
 ---
 I recall standing in our data center years ago—warm air flowing from countless machines, cables snaking across raised floors—wondering if this physical infrastructure had become more anchor than asset. The constant hum of cooling systems and blinking server lights represented significant investment, but also significant constraints.
 

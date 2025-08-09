@@ -8,19 +8,6 @@ tags:
 - security
 - cloud
 - devops
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-hero.jpg
-    alt: 'cybersecurity concept illustration for Securing the Cloud-Native Frontier:
-      A Guide to Cloud-Native Security'
-    caption: 'Visual representation of Securing the Cloud-Native Frontier: A Guide
-      to Cloud-Native Security'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-og.jpg
-    alt: 'cybersecurity concept illustration for Securing the Cloud-Native Frontier:
-      A Guide to Cloud-Native Security'
 ---
 The shift to microservices and containers felt like stepping into a new world, brimming with potential and innovation. But my confidence was shattered years ago when a penetration tester demonstrated how they'd compromised three of our "secure" services in under an hour.
 

@@ -9,19 +9,6 @@ tags:
 - green-computing
 - energy-efficiency
 - climate
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-hero.jpg
-    alt: 'artificial intelligence concept diagram for Sustainable Computing: Strategies
-      for Reducing IT''s Carbon Footprint'
-    caption: 'Visual representation of Sustainable Computing: Strategies for Reducing
-      IT''s Carbon Footprint'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-og.jpg
-    alt: 'artificial intelligence concept diagram for Sustainable Computing: Strategies
-      for Reducing IT''s Carbon Footprint'
 ---
 The electricity bill for our machine learning training cluster arrived on the same day as a report about data centers consuming 4% of global electricity. Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning—we weren't just burning through budget, we were burning through the planet's resources.
 

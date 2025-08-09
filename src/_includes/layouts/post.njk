@@ -4,27 +4,6 @@ layout: base
 <article class="py-16 sm:py-24">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-3xl">
-            <!-- Hero Image -->
-            {% if images and images.hero %}
-            <div class="mb-12 -mx-4 sm:-mx-6 lg:-mx-8">
-                <picture>
-                    {% if images.hero.src %}
-                    <source media="(max-width: 640px)" srcset="{{ images.hero.src | replace('-hero.jpg', '-hero-400.jpg') }}">
-                    <source media="(max-width: 1024px)" srcset="{{ images.hero.src | replace('-hero.jpg', '-hero-800.jpg') }}">
-                    <img src="{{ images.hero.src }}" 
-                         alt="{{ images.hero.alt }}" 
-                         class="w-full h-auto object-cover rounded-lg shadow-xl"
-                         loading="lazy"
-                         width="{{ images.hero.width or 1200 }}"
-                         height="{{ images.hero.height or 630 }}">
-                    {% endif %}
-                </picture>
-                {% if images.hero.caption %}
-                <p class="mt-2 text-sm text-center text-gray-600 dark:text-gray-400 italic">{{ images.hero.caption }}</p>
-                {% endif %}
-            </div>
-            {% endif %}
-            
             <header class="mb-12">
                 <div class="text-center">
                     <div class="flex items-center justify-center space-x-4 text-sm font-medium">

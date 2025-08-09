@@ -10,19 +10,6 @@ tags:
 - distributed-systems
 - security
 - programming
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-hero.jpg
-    alt: 'blockchain network visualization for Blockchain Beyond Cryptocurrency: Building
-      the Trust Layer of the Internet'
-    caption: 'Visual representation of Blockchain Beyond Cryptocurrency: Building
-      the Trust Layer of the Internet'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-og.jpg
-    alt: 'blockchain network visualization for Blockchain Beyond Cryptocurrency: Building
-      the Trust Layer of the Internet'
 ---
 Years ago, when Bitcoin first emerged, I'll admit I was skeptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. But as I dug deeper into the underlying blockchain technology, I realized something profound was happening that had little to do with digital money.
 

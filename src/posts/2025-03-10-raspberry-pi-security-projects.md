@@ -10,19 +10,6 @@ tags:
 - networking
 - projects
 - DIY
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-hero.jpg
-    alt: cybersecurity concept illustration for Raspberry Pi Security Projects That
-      Actually Solve Problems
-    caption: Visual representation of Raspberry Pi Security Projects That Actually
-      Solve Problems
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-og.jpg
-    alt: cybersecurity concept illustration for Raspberry Pi Security Projects That
-      Actually Solve Problems
 ---
 After collecting a drawer full of Raspberry Pis over the years (we all have that drawer, right?), I decided it was time to put them to work. Here are five security projects that actually solve real problems, complete with implementation guides and lessons learned.
 

@@ -8,19 +8,6 @@ date: 2024-01-18
 tags:
 - security
 - cryptography
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-hero.jpg
-    alt: 'encryption and security visualization for Demystifying Cryptography: A Beginner''s
-      Guide to Encryption, Hashing, and Digital Signatures'
-    caption: 'Visual representation of Demystifying Cryptography: A Beginner''s Guide
-      to Encryption, Hashing, and Digital Signatures'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg
-    alt: 'encryption and security visualization for Demystifying Cryptography: A Beginner''s
-      Guide to Encryption, Hashing, and Digital Signatures'
 ---
 Cryptography always felt like magic to me—mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically years ago when I spent three sleepless nights debugging SSL certificate issues that were breaking our entire payment system.
 

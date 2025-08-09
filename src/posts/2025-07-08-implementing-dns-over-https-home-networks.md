@@ -11,18 +11,6 @@ tags:
 - homelab
 - encryption
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-hero.jpg
-    alt: cybersecurity concept illustration for Implementing DNS-over-HTTPS (DoH)
-      for Home Networks
-    caption: Visual representation of Implementing DNS-over-HTTPS (DoH) for Home Networks
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-og.jpg
-    alt: cybersecurity concept illustration for Implementing DNS-over-HTTPS (DoH)
-      for Home Networks
 ---
 ## The ISP Letter That Started Everything
 

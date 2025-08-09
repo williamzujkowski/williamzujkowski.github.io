@@ -8,19 +8,6 @@ tags:
 - security
 - programming
 - cybersecurity
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-hero.jpg
-    alt: 'cybersecurity concept illustration for Writing Secure Code: A Developer''s
-      Guide to Thwarting Security Exploits'
-    caption: 'Visual representation of Writing Secure Code: A Developer''s Guide to
-      Thwarting Security Exploits'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-og.jpg
-    alt: 'cybersecurity concept illustration for Writing Secure Code: A Developer''s
-      Guide to Thwarting Security Exploits'
 ---
 Years ago, I discovered a glaring SQL injection vulnerability in an internal application during a routine code review. The sinking feeling that washed over me was like finding a door left unlocked overnight in a dangerous neighborhood. It was a wake-up call that fundamentally changed how I approach development - writing secure code isn't just a best practice, it's a moral imperative.
 

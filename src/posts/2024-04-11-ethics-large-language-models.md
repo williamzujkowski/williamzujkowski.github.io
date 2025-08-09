@@ -8,18 +8,6 @@ tags:
 - ai
 - llm
 - ethics
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-04-11-ethics-large-language-models-hero.jpg
-    alt: artificial intelligence concept diagram for The Ethics of Large Language
-      Models
-    caption: Visual representation of The Ethics of Large Language Models
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-04-11-ethics-large-language-models-og.jpg
-    alt: artificial intelligence concept diagram for The Ethics of Large Language
-      Models
 ---
 Whenever I interact with a Large Language Model, there's a moment of awe—like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 

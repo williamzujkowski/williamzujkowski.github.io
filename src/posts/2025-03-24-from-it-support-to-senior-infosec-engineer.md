@@ -10,19 +10,6 @@ tags:
 - learning
 - leadership
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-hero.jpg
-    alt: 'cybersecurity concept illustration for From IT Support to Senior InfoSec
-      Engineer: My 15+ Year Journey'
-    caption: 'Visual representation of From IT Support to Senior InfoSec Engineer:
-      My 15+ Year Journey'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-og.jpg
-    alt: 'cybersecurity concept illustration for From IT Support to Senior InfoSec
-      Engineer: My 15+ Year Journey'
 ---
 ## The Beginning: When "Have You Tried Turning It Off and On Again?" Was My Mantra
 

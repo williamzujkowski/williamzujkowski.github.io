@@ -10,19 +10,6 @@ tags:
 - ai
 - sustainability
 - programming
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-09-19-biomimetic-robotics-hero.jpg
-    alt: 'Hero image illustrating Learning from Nature: How Biomimetic Robotics is
-      Revolutionizing Engineering'
-    caption: 'Visual representation of Learning from Nature: How Biomimetic Robotics
-      is Revolutionizing Engineering'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-09-19-biomimetic-robotics-og.jpg
-    alt: 'Hero image illustrating Learning from Nature: How Biomimetic Robotics is
-      Revolutionizing Engineering'
 ---
 Years ago, I watched a gecko effortlessly walk up a glass wall and wondered: how does something so small defy gravity so casually? That curiosity led me down a fascinating rabbit hole into biomimetic robotics—the field where engineers look to nature's solutions to solve complex engineering problems.
 

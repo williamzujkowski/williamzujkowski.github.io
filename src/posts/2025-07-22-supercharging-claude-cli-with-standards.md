@@ -8,19 +8,6 @@ tags:
 - productivity
 description: How I built a comprehensive standards repository that transforms Claude
   CLI into a context-aware development powerhouse with 90% token reduction.
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-hero.jpg
-    alt: Hero image illustrating Exploring Claude CLI Context and Compliance with
-      My Standards Repository
-    caption: Visual representation of Exploring Claude CLI Context and Compliance
-      with My Standards Repository
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-og.jpg
-    alt: Hero image illustrating Exploring Claude CLI Context and Compliance with
-      My Standards Repository
 ---
 ## The Problem: AI Tools That Forget Everything
 

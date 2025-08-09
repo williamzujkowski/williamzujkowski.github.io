@@ -10,19 +10,6 @@ tags:
 - cybersecurity
 - devops
 - programming
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-08-27-zero-trust-security-principles-hero.jpg
-    alt: 'cybersecurity concept illustration for Implementing Zero Trust Security:
-      Never Trust, Always Verify'
-    caption: 'Visual representation of Implementing Zero Trust Security: Never Trust,
-      Always Verify'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-08-27-zero-trust-security-principles-og.jpg
-    alt: 'cybersecurity concept illustration for Implementing Zero Trust Security:
-      Never Trust, Always Verify'
 ---
 Years ago, I remember when network security felt simpler—if you were inside the corporate firewall, you were trusted. That castle-and-moat approach worked when employees sat at desks connected to company networks and applications lived in data centers behind clearly defined perimeters.
 

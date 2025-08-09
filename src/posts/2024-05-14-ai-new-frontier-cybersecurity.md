@@ -8,19 +8,6 @@ tags:
 - ai
 - cybersecurity
 - ethics
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-hero.jpg
-    alt: "cybersecurity concept illustration for AI: The New Frontier in Cybersecurity\
-      \ \u2013 Opportunities and Ethical Dilemmas"
-    caption: "Visual representation of AI: The New Frontier in Cybersecurity \u2013\
-      \ Opportunities and Ethical Dilemmas"
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-og.jpg
-    alt: "cybersecurity concept illustration for AI: The New Frontier in Cybersecurity\
-      \ \u2013 Opportunities and Ethical Dilemmas"
 ---
 I still remember the morning our AI-powered security system flagged an anomaly that looked like routine database maintenance. Every traditional tool had missed it—the activity was subtle, well-disguised, and executed during normal business hours by seemingly legitimate accounts.
 

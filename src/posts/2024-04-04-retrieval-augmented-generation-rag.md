@@ -8,19 +8,6 @@ tags:
 - ai
 - llm
 - rag
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-hero.jpg
-    alt: 'artificial intelligence concept diagram for Retrieval Augmented Generation
-      (RAG): Enhancing LLMs with External Knowledge'
-    caption: 'Visual representation of Retrieval Augmented Generation (RAG): Enhancing
-      LLMs with External Knowledge'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-og.jpg
-    alt: 'artificial intelligence concept diagram for Retrieval Augmented Generation
-      (RAG): Enhancing LLMs with External Knowledge'
 ---
 There's a moment in every conversation with a Large Language Model when you realize the fundamental limitation: the model can only work with what it learned during training. For me, that moment came during a demo where our customer service LLM confidently made up product specifications that didn't exist.
 

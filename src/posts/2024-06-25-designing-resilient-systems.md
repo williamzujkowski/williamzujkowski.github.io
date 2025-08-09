@@ -9,19 +9,6 @@ tags:
 - resilience
 - systems-design
 - reliability
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-hero.jpg
-    alt: artificial intelligence concept diagram for Designing Resilient Systems for
-      an Uncertain World
-    caption: Visual representation of Designing Resilient Systems for an Uncertain
-      World
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-og.jpg
-    alt: artificial intelligence concept diagram for Designing Resilient Systems for
-      an Uncertain World
 ---
 At 2:47 AM on a Tuesday, a single database connection timeout triggered a cascade failure that brought down our entire platform within three minutes. Despite redundant systems, failover mechanisms, and careful architectural planning, we watched helplessly as each safety measure failed in sequence.
 

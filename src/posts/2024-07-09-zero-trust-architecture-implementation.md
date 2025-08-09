@@ -9,19 +9,6 @@ tags:
 - zero-trust
 - authentication
 - architecture
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-hero.jpg
-    alt: 'cybersecurity concept illustration for Zero Trust Architecture: A Practical
-      Implementation Guide'
-    caption: 'Visual representation of Zero Trust Architecture: A Practical Implementation
-      Guide'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg
-    alt: 'cybersecurity concept illustration for Zero Trust Architecture: A Practical
-      Implementation Guide'
 ---
 The day our "secure" internal network was compromised by a malicious USB drive plugged into a conference room computer, I realized that perimeter-based security was fundamentally flawed. An attacker had gained access to our "trusted" network and moved laterally for weeks before we detected the breach.
 

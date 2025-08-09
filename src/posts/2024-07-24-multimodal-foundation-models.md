@@ -9,19 +9,6 @@ tags:
 - multimodal
 - computer-vision
 - nlp
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-07-24-multimodal-foundation-models-hero.jpg
-    alt: 'artificial intelligence concept diagram for Multimodal Foundation Models:
-      Capabilities, Challenges, and Applications'
-    caption: 'Visual representation of Multimodal Foundation Models: Capabilities,
-      Challenges, and Applications'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-07-24-multimodal-foundation-models-og.jpg
-    alt: 'artificial intelligence concept diagram for Multimodal Foundation Models:
-      Capabilities, Challenges, and Applications'
 ---
 The first time I fed a UI mockup screenshot to GPT-4 Vision and watched it generate pixel-perfect HTML and CSS, I knew we'd crossed a fundamental threshold. The AI didn't just see the image—it understood design intent, inferred functionality, and translated visual concepts into working code.
 

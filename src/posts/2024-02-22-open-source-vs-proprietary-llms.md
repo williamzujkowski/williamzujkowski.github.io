@@ -9,19 +9,6 @@ tags:
 - ai
 - llm
 - open-source
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-hero.jpg
-    alt: 'large language model architecture for Open-Source vs. Proprietary LLMs:
-      A Battle of Accessibility, Customization, and Community'
-    caption: 'Visual representation of Open-Source vs. Proprietary LLMs: A Battle
-      of Accessibility, Customization, and Community'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-og.jpg
-    alt: 'large language model architecture for Open-Source vs. Proprietary LLMs:
-      A Battle of Accessibility, Customization, and Community'
 ---
 In a sunlit conference room years ago, I watched two developers engage in a passionate debate about open-source versus proprietary Large Language Models. Their argument echoed the age-old software philosophy divide, but with higher stakes—these decisions would shape how AI integrates into everything we build.
 

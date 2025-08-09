@@ -8,19 +8,6 @@ tags:
 - security
 - cryptography
 - quantum-computing
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-hero.jpg
-    alt: 'cybersecurity concept illustration for Preparing for the Quantum Leap: A
-      Guide to Quantum-Resistant Cryptography'
-    caption: 'Visual representation of Preparing for the Quantum Leap: A Guide to
-      Quantum-Resistant Cryptography'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg
-    alt: 'cybersecurity concept illustration for Preparing for the Quantum Leap: A
-      Guide to Quantum-Resistant Cryptography'
 ---
 The day I first truly understood how Shor's algorithm could factor large integers efficiently on a quantum computer, I felt a chill that had nothing to do with the temperature. Every RSA key, every elliptic curve signature, every piece of public-key cryptography that secured our digital world could potentially become worthless overnight.
 

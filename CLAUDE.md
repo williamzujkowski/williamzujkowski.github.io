@@ -30,15 +30,26 @@
 
 This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) methodology with Claude-Flow orchestration for systematic Test-Driven Development.
 
-### 📸 Blog Image System
-**Quick Commands for Blog Images:**
+### 📸 Blog Visual Enhancement System
+**Quick Commands for Blog Optimization:**
 ```bash
-# Full pipeline for new blog post images
-python scripts/update-blog-images.py && \
-python scripts/generate-blog-hero-images.py && \
-bash scripts/optimize-blog-images.sh
+# Analyze posts for high code ratios
+python scripts/optimize-blog-content.py
+
+# Generate Mermaid diagram templates
+python scripts/create-blog-diagrams.py
+
+# Search and download stock images (no API keys)
+python scripts/playwright-image-search.py
 ```
-See [Blog Image Standards section](#blog-image-standards--implementation) for complete documentation.
+
+**Code Reduction Guidelines:**
+- Target <25% code-to-content ratio
+- Replace verbose code with Mermaid diagrams
+- Keep snippets to 5-10 essential lines
+- Link to GitHub gists for full examples
+
+See docs/BLOG_VISUAL_ENHANCEMENT_GUIDE.md for complete documentation.
 
 ## SPARC Commands
 

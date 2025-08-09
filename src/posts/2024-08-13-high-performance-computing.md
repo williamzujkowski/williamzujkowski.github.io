@@ -10,19 +10,6 @@ tags:
 - hpc
 - ai
 - sustainability
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-08-13-high-performance-computing-hero.jpg
-    alt: 'artificial intelligence concept diagram for The Evolution of High-Performance
-      Computing: Key Trends and Innovations'
-    caption: 'Visual representation of The Evolution of High-Performance Computing:
-      Key Trends and Innovations'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-08-13-high-performance-computing-og.jpg
-    alt: 'artificial intelligence concept diagram for The Evolution of High-Performance
-      Computing: Key Trends and Innovations'
 ---
 Years ago, when I first encountered supercomputing facilities, the sheer scale was overwhelming—massive rooms filled with interconnected nodes, humming with activity. The landscape of High-Performance Computing has changed dramatically since then, and what we're seeing today goes far beyond just faster processors.
 

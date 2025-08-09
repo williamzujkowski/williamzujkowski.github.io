@@ -11,19 +11,6 @@ tags:
 - open-source
 - networking
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-02-10-automating-home-network-security-hero.jpg
-    alt: cybersecurity concept illustration for Automating Home Network Security with
-      Python and Open Source Tools
-    caption: Visual representation of Automating Home Network Security with Python
-      and Open Source Tools
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-02-10-automating-home-network-security-og.jpg
-    alt: cybersecurity concept illustration for Automating Home Network Security with
-      Python and Open Source Tools
 ---
 ## The Problem: Security Doesn't Scale Without Automation
 

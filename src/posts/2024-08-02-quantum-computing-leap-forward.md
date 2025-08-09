@@ -9,16 +9,6 @@ tags:
 - cryptography
 - technology
 - future
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-hero.jpg
-    alt: cybersecurity concept illustration for Quantum Computing's Leap Forward
-    caption: Visual representation of Quantum Computing's Leap Forward
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-og.jpg
-    alt: cybersecurity concept illustration for Quantum Computing's Leap Forward
 ---
 Standing in IBM's quantum computing lab, watching their 1000-qubit processor solve optimization problems that would take classical computers geological ages to complete, I felt like I was witnessing the birth of a new era. The implications were simultaneously thrilling and terrifying.
 
