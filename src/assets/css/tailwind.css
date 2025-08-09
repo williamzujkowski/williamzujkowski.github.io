@@ -127,6 +127,17 @@
     z-index: 10;
   }
 
+  /* Code language labels */
+  .code-language-label {
+    @apply text-primary-600 dark:text-primary-400;
+  }
+
+  .dark .code-language-label {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: rgba(147, 187, 253, 0.95) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+  }
+
   /* Section spacing */
   .section-spacing {
     @apply py-16 md:py-24 lg:py-32;
@@ -192,6 +203,85 @@
   .transition-all,
   .transition-colors {
     transition: none;
+  }
+}
+
+/* Mermaid diagram container styling */
+.mermaid-container {
+  @apply relative my-6 p-4 rounded-lg overflow-x-auto;
+  @apply bg-gray-50/80 dark:bg-gray-800/50;
+  @apply backdrop-blur-sm;
+  @apply border border-gray-200 dark:border-gray-700;
+  @apply shadow-sm hover:shadow-md transition-shadow duration-200;
+}
+
+.mermaid-container .mermaid {
+  @apply flex justify-center items-center min-h-[200px];
+}
+
+/* Ensure Mermaid diagrams use consistent colors */
+.mermaid svg {
+  @apply max-w-full h-auto;
+}
+
+/* Dark mode Mermaid theme adjustments */
+.dark .mermaid-container {
+  /* Better contrast for dark mode */
+  background: rgba(31, 41, 55, 0.5); /* gray-800 with opacity */
+}
+
+/* Table of Contents */
+.toc-container {
+  @apply hidden xl:block;
+  position: absolute;
+  left: calc(100% + 2rem);
+  top: 0;
+  width: 280px;
+  max-height: calc(100vh - 120px);
+  position: sticky;
+  top: 100px;
+}
+
+.toc-content {
+  @apply bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-200 dark:border-gray-700;
+}
+
+.toc-title {
+  @apply text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 uppercase tracking-wider;
+}
+
+.toc-nav {
+  @apply max-h-[calc(100vh-200px)] overflow-y-auto;
+}
+
+.toc-list {
+  @apply space-y-1;
+}
+
+.toc-list-nested {
+  @apply ml-4 mt-1 space-y-1;
+}
+
+.toc-item {
+  @apply relative;
+}
+
+.toc-link {
+  @apply block py-1 px-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 rounded;
+}
+
+.toc-item-h3 .toc-link {
+  @apply text-xs;
+}
+
+.toc-link-active {
+  @apply text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20;
+}
+
+/* Hide TOC on smaller screens */
+@media (max-width: 1279px) {
+  .toc-container {
+    display: none;
   }
 }
 

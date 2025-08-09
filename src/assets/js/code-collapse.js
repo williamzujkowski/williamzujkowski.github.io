@@ -214,7 +214,7 @@
   }
 
   /**
-   * Add copy button to all code blocks
+   * Add copy button and language labels to all code blocks
    */
   function addCopyButtons() {
     const codeBlocks = document.querySelectorAll('.prose pre:not([data-copy-processed])');
@@ -242,6 +242,85 @@
       // Skip if this is actually a Mermaid div
       if (block.parentElement && (block.parentElement.classList.contains('mermaid') || block.parentElement.hasAttribute('data-mermaid'))) {
         return;
+      }
+
+      // Extract language from class name
+      let language = null;
+      const classes = codeElement.className.split(' ');
+      for (const cls of classes) {
+        if (cls.startsWith('language-')) {
+          language = cls.replace('language-', '');
+          break;
+        }
+      }
+
+      // Map common language names to display names
+      const languageMap = {
+        'js': 'JavaScript',
+        'javascript': 'JavaScript',
+        'ts': 'TypeScript',
+        'typescript': 'TypeScript',
+        'py': 'Python',
+        'python': 'Python',
+        'bash': 'Bash',
+        'sh': 'Shell',
+        'shell': 'Shell',
+        'html': 'HTML',
+        'css': 'CSS',
+        'scss': 'SCSS',
+        'json': 'JSON',
+        'yaml': 'YAML',
+        'yml': 'YAML',
+        'xml': 'XML',
+        'sql': 'SQL',
+        'go': 'Go',
+        'rust': 'Rust',
+        'java': 'Java',
+        'c': 'C',
+        'cpp': 'C++',
+        'csharp': 'C#',
+        'php': 'PHP',
+        'ruby': 'Ruby',
+        'swift': 'Swift',
+        'kotlin': 'Kotlin',
+        'r': 'R',
+        'dockerfile': 'Dockerfile',
+        'makefile': 'Makefile',
+        'nginx': 'Nginx',
+        'apache': 'Apache',
+        'toml': 'TOML',
+        'ini': 'INI',
+        'markdown': 'Markdown',
+        'md': 'Markdown',
+        'plaintext': 'Text',
+        'text': 'Text'
+      };
+
+      // Add language label if detected
+      if (language && language !== 'nohighlight') {
+        const displayLanguage = languageMap[language.toLowerCase()] || language.charAt(0).toUpperCase() + language.slice(1);
+        
+        const langLabel = document.createElement('div');
+        langLabel.className = 'code-language-label';
+        langLabel.style.cssText = `
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          background: rgba(99, 102, 241, 0.15);
+          color: rgba(99, 102, 241, 0.9);
+          border: 1px solid rgba(99, 102, 241, 0.3);
+          border-radius: 4px;
+          padding: 2px 8px;
+          font-size: 11px;
+          font-weight: 600;
+          font-family: monospace;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          z-index: 2;
+          pointer-events: none;
+        `;
+        langLabel.textContent = displayLanguage;
+        block.appendChild(langLabel);
       }
 
       // Create copy button

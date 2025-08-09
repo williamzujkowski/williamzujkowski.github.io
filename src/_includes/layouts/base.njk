@@ -378,17 +378,90 @@
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        
         // Initialize mermaid with proper settings
         mermaid.initialize({ 
             startOnLoad: false, // We'll manually init after DOM manipulation
-            theme: 'default',
-            themeVariables: {
+            theme: isDarkMode ? 'dark' : 'default',
+            themeVariables: isDarkMode ? {
+                // Dark mode theme
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#f3f4f6',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#4b5563',
+                secondaryColor: '#374151',
+                tertiaryColor: '#1f2937',
+                background: '#111827',
+                mainBkg: '#1f2937',
+                secondBkg: '#374151',
+                tertiaryBkg: '#4b5563',
+                primaryBorderColor: '#6366f1',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: true,
+                nodeBkg: '#374151',
+                nodeBorder: '#6366f1',
+                clusterBkg: '#1f2937',
+                clusterBorder: '#4b5563',
+                defaultLinkColor: '#93bbfd',
+                titleColor: '#f3f4f6',
+                edgeLabelBackground: '#1f2937',
+                actorBorder: '#6366f1',
+                actorBkg: '#374151',
+                actorTextColor: '#f3f4f6',
+                actorLineColor: '#4b5563',
+                signalColor: '#f3f4f6',
+                signalTextColor: '#f3f4f6',
+                labelBoxBkgColor: '#374151',
+                labelBoxBorderColor: '#6366f1',
+                labelTextColor: '#f3f4f6',
+                loopTextColor: '#f3f4f6',
+                noteBorderColor: '#6366f1',
+                noteBkgColor: '#374151',
+                noteTextColor: '#f3f4f6',
+                activationBorderColor: '#6366f1',
+                activationBkgColor: '#374151',
+                sequenceNumberColor: '#111827'
+            } : {
+                // Light mode theme
                 primaryColor: '#6366f1',
                 primaryTextColor: '#fff',
                 primaryBorderColor: '#4f46e5',
-                lineColor: '#e5e7eb',
-                secondaryColor: '#f3f4f6',
-                tertiaryColor: '#fff'
+                lineColor: '#d1d5db',
+                secondaryColor: '#e5e7eb',
+                tertiaryColor: '#f3f4f6',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f3f4f6',
+                tertiaryBkg: '#e5e7eb',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '16px',
+                darkMode: false,
+                nodeBkg: '#f3f4f6',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#e5e7eb',
+                clusterBorder: '#9ca3af',
+                defaultLinkColor: '#2563eb',
+                titleColor: '#1f2937',
+                edgeLabelBackground: '#ffffff',
+                actorBorder: '#4f46e5',
+                actorBkg: '#f3f4f6',
+                actorTextColor: '#1f2937',
+                actorLineColor: '#9ca3af',
+                signalColor: '#1f2937',
+                signalTextColor: '#1f2937',
+                labelBoxBkgColor: '#f3f4f6',
+                labelBoxBorderColor: '#4f46e5',
+                labelTextColor: '#1f2937',
+                loopTextColor: '#1f2937',
+                noteBorderColor: '#4f46e5',
+                noteBkgColor: '#f3f4f6',
+                noteTextColor: '#1f2937',
+                activationBorderColor: '#4f46e5',
+                activationBkgColor: '#e5e7eb',
+                sequenceNumberColor: '#ffffff'
             },
             securityLevel: 'loose',
             flowchart: {
@@ -414,7 +487,6 @@
                     const containerDiv = document.createElement('div');
                     containerDiv.className = 'mermaid-container';
                     containerDiv.setAttribute('data-mermaid', 'true');
-                    containerDiv.style.cssText = 'position: relative; width: 100%; overflow-x: auto; margin: 1.5rem 0;';
                     
                     // Create the mermaid div
                     const graphDiv = document.createElement('div');
@@ -430,13 +502,7 @@
                 await mermaid.run();
                 console.log('Mermaid diagrams rendered');
                 
-                // Ensure diagrams are visible
-                document.querySelectorAll('.mermaid-container').forEach(function(container) {
-                    container.style.display = 'block';
-                    container.style.visibility = 'visible';
-                    container.style.maxHeight = 'none';
-                    container.style.overflow = 'visible';
-                });
+                // Diagrams are now styled via CSS, no need for inline styles
             }
             
             // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
