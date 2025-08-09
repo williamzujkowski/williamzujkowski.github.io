@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-08-09T00:36:13.213998",
+  "tests": [
+    {
+      "test": "homepage_load",
+      "status": "fail",
+      "title": "William Zujkowski",
+      "has_hero": false,
+      "has_posts": false
+    },
+    {
+      "test": "blog_citations",
+      "results": [
+        {
+          "post": "/posts/2024-07-16-sustainable-computing-carbon-footprint/",
+          "has_academic_section": false,
+          "arxiv_citations": 0,
+          "nist_citations": 0,
+          "ieee_citations": 0,
+          "total_citations": 0
+        },
+        {
+          "post": "/posts/2024-07-09-zero-trust-architecture-implementation/",
+          "has_academic_section": false,
+          "arxiv_citations": 0,
+          "nist_citations": 0,
+          "ieee_citations": 0,
+          "total_citations": 0
+        },
+        {
+          "post": "/posts/2025-08-07-supercharging-development-claude-flow/",
+          "has_academic_section": false,
+          "arxiv_citations": 0,
+          "nist_citations": 0,
+          "ieee_citations": 0,
+          "total_citations": 0
+        }
+      ]
+    },
+    {
+      "test": "visual_elements",
+      "mermaid_diagrams": 0,
+      "code_blocks": 0,
+      "images": 0
+    },
+    {
+      "test": "navigation",
+      "nav_links_count": 11,
+      "sample_links": [
+        {
+          "text": "William Zujkowski",
+          "href": "/"
+        },
+        {
+          "text": "Home",
+          "href": "/"
+        },
+        {
+          "text": "About",
+          "href": "/about/"
+        },
+        {
+          "text": "Posts",
+          "href": "/posts/"
+        },
+        {
+          "text": "Uses",
+          "href": "/uses/"
+        }
+      ]
+    },
+    {
+      "test": "performance",
+      "metrics": {
+        "domContentLoaded": 24,
+        "loadComplete": 25,
+        "domInteractive": 18
+      },
+      "status": "pass"
+    }
+  ]
+}
