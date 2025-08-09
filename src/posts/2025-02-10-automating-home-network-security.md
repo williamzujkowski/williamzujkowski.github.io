@@ -14,6 +14,11 @@ author: William Zujkowski
 ---
 ## The Problem: Security Doesn't Scale Without Automation
 
+
+
+![Digital security concept with code and lock symbols](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1920&q=80)
+*Photo by Franck on Unsplash*
+
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management simply doesn't scale – especially when you're also trying to be present for bedtime stories.
 
 This post shares the Python scripts and automation workflows I've developed to maintain security without sacrificing family time.

@@ -14,9 +14,75 @@ author: William Zujkowski
 ---
 ## The Day eBPF Changed Everything
 
+
+
+![Digital security concept with code and lock symbols](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1920&q=80)
+*Photo by Franck on Unsplash*
+
 Years ago, I researched how attackers could potentially bypass EDR solutions by operating at the kernel level. This research led me to explore eBPF as a detection mechanism.
 
 eBPF technology provides kernel-level visibility in real-time, without requiring kernel modules. After extensive testing in my home lab and research environments, I've developed practical approaches for eBPF-based monitoring. Here's what the research shows works effectively.
+
+
+## eBPF Security Architecture
+
+```mermaid
+graph TB
+    subgraph "Kernel Space"
+        Probe[Kernel Probes]
+        BPF[eBPF Programs]
+        Maps[(BPF Maps)]
+    end
+    
+    subgraph "User Space"
+        Loader[BPF Loader]
+        Monitor[Event Monitor]
+        Analyzer[Security Analyzer]
+    end
+    
+    subgraph "Monitored Events"
+        Syscalls[System Calls]
+        Network[Network Events]
+        Files[File Operations]
+        Process[Process Events]
+    end
+    
+    Syscalls --> Probe
+    Network --> Probe
+    Files --> Probe
+    Process --> Probe
+    
+    Probe --> BPF
+    BPF --> Maps
+    
+    Loader --> BPF
+    Maps --> Monitor
+    Monitor --> Analyzer
+    
+    style BPF fill:#ff9800
+    style Maps fill:#ffd54f
+    style Analyzer fill:#4caf50
+```
+
+## Event Processing Flow
+
+```mermaid
+sequenceDiagram
+    participant K as Kernel
+    participant B as eBPF Program
+    participant M as BPF Maps
+    participant U as User Space
+    participant A as Analyzer
+    
+    K->>B: System Event
+    B->>B: Filter & Process
+    B->>M: Store Event Data
+    U->>M: Poll Maps
+    M-->>U: Event Data
+    U->>A: Analyze Events
+    A-->>U: Security Alert (if needed)
+```
+
 
 ## Why eBPF for Security Monitoring?
 

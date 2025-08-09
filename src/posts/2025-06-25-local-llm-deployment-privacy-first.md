@@ -14,7 +14,62 @@ tags:
 ---
 Several years ago, I became concerned about the privacy implications of cloud-based AI services. The realization that prompts and data are permanently stored on third-party servers motivated me to explore local LLM deployment options.
 
+
+
+![Artificial intelligence and neural network visualization](https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80)
+*Photo by Google DeepMind on Unsplash*
+
 After extensive research and testing in my home lab environment, I've developed reliable approaches for running LLMs on personal hardware. This guide shares practical lessons learned from implementing various local AI solutions.
+
+
+## Local LLM Architecture
+
+```mermaid
+graph TB
+    subgraph "Hardware"
+        GPU[GPU/TPU]
+        CPU[CPU]
+        RAM[Memory]
+    end
+    
+    subgraph "Model Layer"
+        Models[(Model Files)]
+        Weights[Weights]
+        Config[Configuration]
+    end
+    
+    subgraph "Inference"
+        Engine[Inference Engine]
+        Cache[Token Cache]
+        Batch[Batch Processing]
+    end
+    
+    subgraph "Interface"
+        API[REST API]
+        UI[Web UI]
+        CLI[CLI Tool]
+    end
+    
+    GPU --> Engine
+    CPU --> Engine
+    RAM --> Cache
+    
+    Models --> Engine
+    Weights --> Engine
+    Config --> Engine
+    
+    Engine --> Cache
+    Engine --> Batch
+    
+    Batch --> API
+    API --> UI
+    API --> CLI
+    
+    style GPU fill:#ff9800
+    style Engine fill:#4caf50
+    style API fill:#2196f3
+```
+
 
 ## Why I Made the Switch (And Why You Might Too)
 
