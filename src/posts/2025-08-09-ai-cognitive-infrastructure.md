@@ -1,5 +1,5 @@
 ---
-date: '2025-01-09T00:00:00.000Z'
+date: '2025-08-09T00:00:00.000Z'
 title: 'AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought'
 description: 'Exploring how artificial intelligence is evolving from a collection of tools into foundational cognitive infrastructure that fundamentally shapes how we think, decide, and understand reality in the digital age.'
 tags:
@@ -11,13 +11,13 @@ tags:
 - society
 images:
   hero:
-    src: "/assets/images/blog/hero/2025-01-09-ai-cognitive-infrastructure-hero.jpg"
+    src: "/assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-hero.jpg"
     alt: "AI as Cognitive Infrastructure - The invisible architecture reshaping human thought"
     caption: "Visual representation of AI as the cognitive infrastructure of modern society"
     width: 1200
     height: 630
   og:
-    src: "/assets/images/blog/hero/2025-01-09-ai-cognitive-infrastructure-og.jpg"
+    src: "/assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-og.jpg"
     alt: "AI as Cognitive Infrastructure - Social media preview"
 ---
 

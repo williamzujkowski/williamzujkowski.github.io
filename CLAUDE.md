@@ -16,6 +16,30 @@
 - **Bash commands**: ALWAYS batch ALL terminal operations in ONE message
 - **Memory operations**: ALWAYS batch ALL memory store/retrieve in ONE message
 
+### 🧹 CLEANUP PHASE: MANDATORY FOR ALL WORKFLOWS
+
+**EVERY TODO LIST MUST INCLUDE:**
+1. **Cleanup tasks** as final items (remove temp files, vestigial scripts, test artifacts)
+2. **Validation after cleanup** to ensure nothing breaks
+3. **Commit and push** cleaned state
+4. **Monitor deployment** to verify site functionality
+5. **Revert if needed** and fix issues iteratively
+
+**CLEANUP TARGETS:**
+- Temporary troubleshooting scripts (e.g., `validate-*.py`, `fix-*.py`, `test-*.py`)
+- Research/analysis files in `/docs` that are no longer needed
+- Duplicate or superseded scripts in `/scripts`
+- Test artifacts and temporary data files
+- Old backup files or `.bak` extensions
+- Unnecessary log files or debug outputs
+
+**CLEANUP RULES:**
+- NEVER delete production scripts without verification
+- ALWAYS test site functionality after cleanup
+- KEEP essential utilities and actively used tools
+- PRESERVE documentation that provides value
+- MAINTAIN scripts referenced in CLAUDE.md or README
+
 ### 📁 File Organization Rules
 
 **NEVER save to root folder. Use these directories:**

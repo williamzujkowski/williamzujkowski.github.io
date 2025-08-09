@@ -1,6 +1,6 @@
 ---
 author: William Zujkowski
-date: 2025-08-07
+date: 2025-08-03
 description: Discover how Claude-Flow transforms software development with AI swarm
   intelligence, achieving 84.8% SWE-Bench solve rates and 4.4x speed improvements
   through intelligent agent orchestration
