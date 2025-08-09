@@ -1,0 +1,1485 @@
+{
+  "generated": "2025-08-09T00:32:59.370634",
+  "summary": {
+    "total_posts": 44,
+    "average_citation_rate": 32.33294483294483,
+    "total_uncited_claims": 153,
+    "posts_needing_work": 30
+  },
+  "posts": [
+    {
+      "file": "2024-01-08-writing-secure-code-developers-guide.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 5,
+      "high_quality_sources": 3,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": []
+    },
+    {
+      "file": "2024-01-18-demystifying-cryptography-beginners-guide.md",
+      "total_claims": 3,
+      "cited_claims": 0,
+      "uncited_claims": 3,
+      "citation_rate": 0.0,
+      "total_sources": 4,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "comparison",
+          "text": "better than",
+          "context": "or developer gently explained why that was barely better than plaintext.\n\nHashing transforms data into fixed-si",
+          "position": 2943
+        },
+        {
+          "type": "comparison",
+          "text": "worse than",
+          "context": "Using cryptographic libraries incorrectly can be worse than not using them at all. I've seen \"encrypted\" syst",
+          "position": 6115
+        },
+        {
+          "type": "comparison",
+          "text": "worse than",
+          "context": "tly secure system that fails during peak usage is worse than a slightly less secure system that works consiste",
+          "position": 6775
+        }
+      ],
+      "recommendations": [
+        "Add citations for 3 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-01-30-securing-cloud-native-frontier.md",
+      "total_claims": 2,
+      "cited_claims": 0,
+      "uncited_claims": 2,
+      "citation_rate": 0.0,
+      "total_sources": 4,
+      "high_quality_sources": 1,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "verification. A security scan later revealed that 40% of our images contained critical vulnerabilities.",
+          "position": 3715
+        },
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "ner creation. Vulnerabilities were being deployed faster than we could detect them.\n\n**Complex Interdependencie",
+          "position": 2531
+        }
+      ],
+      "recommendations": [
+        "Add citations for 2 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-02-09-deepfake-dilemma-ai-deception.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 6,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "dia.\n\n**Speed Kills Truth:** Fake content spreads faster than fact-checks. By the time misinformation is debunk",
+          "position": 6384
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-02-22-open-source-vs-proprietary-llms.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 3,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-03-05-cloud-migration-journey-guide.md",
+      "total_claims": 2,
+      "cited_claims": 0,
+      "uncited_claims": 2,
+      "citation_rate": 0.0,
+      "total_sources": 4,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "70%",
+          "context": "visioned based on peak usage patterns, leading to 70% average utilization. Learning to monitor and adju",
+          "position": 5373
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "ricing required detailed usage analysis. We saved 40% on compute costs by committing to one-year terms",
+          "position": 6086
+        }
+      ],
+      "recommendations": [
+        "Add citations for 2 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-03-20-transformer-architecture-deep-dive.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 4,
+      "high_quality_sources": 3,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": []
+    },
+    {
+      "file": "2024-04-04-retrieval-augmented-generation-rag.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 3,
+      "high_quality_sources": 1,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-04-11-ethics-large-language-models.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 4,
+      "high_quality_sources": 2,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-04-19-mastering-prompt-engineering-llms.md",
+      "total_claims": 3,
+      "cited_claims": 0,
+      "uncited_claims": 3,
+      "citation_rate": 0.0,
+      "total_sources": 4,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "memory_spec",
+          "text": "128GB",
+          "context": "poolside use\n\nNow convert this feature:\nFeature: 128GB storage\nBenefit:\n```\n\nThis approach leverages the",
+          "position": 4580
+        },
+        {
+          "type": "superlative",
+          "text": "most effective",
+          "context": "g different prompt variations helped identify the most effective approaches for different scenarios.\n\n## The Psych",
+          "position": 9757
+        },
+        {
+          "type": "superlative",
+          "text": "most effective",
+          "context": "itself:\n\n**Precision vs. Natural Language:** The most effective prompts often didn't sound natural but were preci",
+          "position": 9964
+        }
+      ],
+      "recommendations": [
+        "Add citations for 3 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-04-30-quantum-resistant-cryptography-guide.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 4,
+      "high_quality_sources": 1,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "memory_spec",
+          "text": "1MB",
+          "context": "ography. A Classic McEliece public key can exceed 1MB, compared to 256 bytes for an ECC key.\n\n**Computa",
+          "position": 6933
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-05-14-ai-new-frontier-cybersecurity.md",
+      "total_claims": 4,
+      "cited_claims": 0,
+      "uncited_claims": 4,
+      "citation_rate": 0.0,
+      "total_sources": 14,
+      "high_quality_sources": 7,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "tion:** Collecting and analyzing digital evidence faster than human investigators could manage\n\n**Recovery Orch",
+          "position": 4175
+        },
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "potentially discover new software vulnerabilities faster than defenders could patch them\n\n**Adaptive Malware:**",
+          "position": 5532
+        },
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "ction:** AI helped identify threats hours or days faster than traditional methods\n\n**Improved Analyst Productiv",
+          "position": 6497
+        },
+        {
+          "type": "superlative",
+          "text": "most effective",
+          "context": "ilities rather than replacing human judgment. The most effective AI security systems I've worked with combine mach",
+          "position": 15154
+        }
+      ],
+      "recommendations": [
+        "Add citations for 4 uncited claims"
+      ]
+    },
+    {
+      "file": "2024-05-30-ai-learning-resource-constrained.md",
+      "total_claims": 7,
+      "cited_claims": 0,
+      "uncited_claims": 7,
+      "citation_rate": 0.0,
+      "total_sources": 4,
+      "high_quality_sources": 2,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "75%",
+          "context": "d and quantized BERT model ran 4x faster and used 75% less memory while maintaining 95% of original acc",
+          "position": 4408
+        },
+        {
+          "type": "percentage",
+          "text": "95%",
+          "context": "faster and used 75% less memory while maintaining 95% of original accuracy.\n\n## Data Efficiency: Making",
+          "position": 4442
+        },
+        {
+          "type": "percentage",
+          "text": "60%",
+          "context": "ctive learning reduced annotation requirements by 60% while maintaining model performance on my domain-",
+          "position": 5484
+        },
+        {
+          "type": "percentage",
+          "text": "30%",
+          "context": "nce\n\nCurriculum learning reduced training time by 30% for my natural language understanding models whil",
+          "position": 8118
+        },
+        {
+          "type": "multiplier",
+          "text": "100x faster",
+          "context": "odel wasn't as capable as its teacher, but it was 100x faster and could run on devices that would never support",
+          "position": 3228
+        },
+        {
+          "type": "multiplier",
+          "text": "4x faster",
+          "context": "retraining\n\nA pruned and quantized BERT model ran 4x faster and used 75% less memory while maintaining 95% of",
+          "position": 4389
+        },
+        {
+          "type": "exclusivity",
+          "text": "Only Solution",
+          "context": "izes that maximized hardware utilization\n\n### CPU-Only Solutions: When GPUs Aren't Available\n\n**ONNX Runtime:** O",
+          "position": 7205
+        }
+      ],
+      "recommendations": [
+        "Add citations for 7 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-06-11-beyond-containers-future-deployment.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 4,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-06-25-designing-resilient-systems.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 4,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-07-09-zero-trust-architecture-implementation.md",
+      "total_claims": 13,
+      "cited_claims": 1,
+      "uncited_claims": 12,
+      "citation_rate": 7.6923076923076925,
+      "total_sources": 15,
+      "high_quality_sources": 3,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "85%",
+          "context": "# Security Metrics\n\n**Reduced Attack Surface:**\n- 85% reduction in lateral movement capability for atta",
+          "position": 10002
+        },
+        {
+          "type": "percentage",
+          "text": "70%",
+          "context": "on in lateral movement capability for attackers\n- 70% decrease in privileged access exposure\n- 95% of n",
+          "position": 10063
+        },
+        {
+          "type": "percentage",
+          "text": "95%",
+          "context": "rs\n- 70% decrease in privileged access exposure\n- 95% of network traffic now encrypted\n\n**Detection and",
+          "position": 10108
+        },
+        {
+          "type": "percentage",
+          "text": "75%",
+          "context": "ffic now encrypted\n\n**Detection and Response:**\n- 75% faster incident detection time\n- 60% reduction in",
+          "position": 10176
+        },
+        {
+          "type": "percentage",
+          "text": "60%",
+          "context": "esponse:**\n- 75% faster incident detection time\n- 60% reduction in incident impact scope\n- 90% improvem",
+          "position": 10213
+        },
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "n time\n- 60% reduction in incident impact scope\n- 90% improvement in forensic capability\n\n### Business",
+          "position": 10254
+        },
+        {
+          "type": "percentage",
+          "text": "15%",
+          "context": "usiness Metrics\n\n**User Productivity:**\n- Initial 15% decrease in productivity during transition\n- 10%",
+          "position": 10349
+        },
+        {
+          "type": "percentage",
+          "text": "10%",
+          "context": "15% decrease in productivity during transition\n- 10% increase in productivity after full implementatio",
+          "position": 10398
+        },
+        {
+          "type": "percentage",
+          "text": "50%",
+          "context": "rease in productivity after full implementation\n- 50% reduction in password reset requests\n\n**Operation",
+          "position": 10455
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "ord reset requests\n\n**Operational Efficiency:**\n- 40% reduction in security operations center workload",
+          "position": 10527
+        }
+      ],
+      "recommendations": [
+        "Add citations for 12 uncited claims",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-07-16-sustainable-computing-carbon-footprint.md",
+      "total_claims": 26,
+      "cited_claims": 1,
+      "uncited_claims": 25,
+      "citation_rate": 3.8461538461538463,
+      "total_sources": 14,
+      "high_quality_sources": 5,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "4%",
+          "context": "same day as a report about data centers consuming 4% of global electricity. Suddenly, the thousands of",
+          "position": 128
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "se computing:\n\n- ARM processors for web services (40% less energy than x86)\n- GPUs for parallel process",
+          "position": 2665
+        },
+        {
+          "type": "percentage",
+          "text": "50%",
+          "context": "- M1/M2 processors for development workstations (50% less energy)\n\n**Hardware Lifecycle Management:**",
+          "position": 2894
+        },
+        {
+          "type": "percentage",
+          "text": "70%",
+          "context": "atabase query optimization (reduced query time by 70%)\n- Memory management to reduce garbage collection",
+          "position": 3890
+        },
+        {
+          "type": "percentage",
+          "text": "60%",
+          "context": "ctual usage:\n\n- CPU utilization analysis revealed 60% over-provisioning\n- Memory optimization reduced i",
+          "position": 4217
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "g\n- Memory optimization reduced instance sizes by 40%\n- Storage tiering moved cold data to lower-energy",
+          "position": 4287
+        },
+        {
+          "type": "percentage",
+          "text": "80%",
+          "context": "to-scaling policies reduced idle resource time by 80%\n\n**Geographic Optimization:**\nChoosing data cente",
+          "position": 4403
+        },
+        {
+          "type": "percentage",
+          "text": "70%",
+          "context": "ing neural networks reduced energy consumption by 70%\n- Quantization decreased memory requirements by 7",
+          "position": 7438
+        },
+        {
+          "type": "percentage",
+          "text": "75%",
+          "context": "%\n- Quantization decreased memory requirements by 75%\n- Knowledge distillation created smaller, efficie",
+          "position": 7490
+        },
+        {
+          "type": "percentage",
+          "text": "45%",
+          "context": "mental Metrics\n\n**Carbon Emissions Reduction:**\n- 45% reduction in Scope 2 emissions over two years\n- 3",
+          "position": 9495
+        }
+      ],
+      "recommendations": [
+        "Add citations for 25 uncited claims",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-07-24-multimodal-foundation-models.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 4,
+      "high_quality_sources": 3,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": []
+    },
+    {
+      "file": "2024-08-02-quantum-computing-leap-forward.md",
+      "total_claims": 4,
+      "cited_claims": 0,
+      "uncited_claims": 4,
+      "citation_rate": 0.0,
+      "total_sources": 5,
+      "high_quality_sources": 1,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "15%",
+          "context": "nspired algorithms could reduce shipping costs by 15% even before true quantum computers became availab",
+          "position": 3077
+        },
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "from theoretical physics to practical engineering faster than most experts predicted:\n\n**IBM's Quantum Roadmap:",
+          "position": 1286
+        },
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "thm:** Searching unsorted databases quadratically faster than classical computers\n**Discrete Logarithms:** Brea",
+          "position": 2255
+        },
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "omputers can solve certain problems exponentially faster than classical computers, but they're also incredibly",
+          "position": 13694
+        }
+      ],
+      "recommendations": [
+        "Add citations for 4 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-08-13-high-performance-computing.md",
+      "total_claims": 2,
+      "cited_claims": 0,
+      "uncited_claims": 2,
+      "citation_rate": 0.0,
+      "total_sources": 2,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "25%",
+          "context": "ters themselves. The new approaches are achieving 25% energy reuse rates\u2014that's a game-changer for oper",
+          "position": 4637
+        },
+        {
+          "type": "multiplier",
+          "text": "100x better",
+          "context": "built systems for drug discovery are achieving 50-100x better performance per watt compared to general-purpose",
+          "position": 5821
+        }
+      ],
+      "recommendations": [
+        "Add citations for 2 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-08-27-zero-trust-security-principles.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 3,
+      "high_quality_sources": 1,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2024-09-09-embodied-ai-teaching-agents.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 11,
+      "high_quality_sources": 5,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "rong zero-shot baselines (including GPT-4o) by 19-40% across various scenarios. More importantly, they",
+          "position": 4049
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-09-19-biomimetic-robotics.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 2,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "eloped today. These cameras reduce data volume by 90% while dramatically improving temporal resolution",
+          "position": 5272
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-10-03-quantum-computing-defense.md",
+      "total_claims": 4,
+      "cited_claims": 0,
+      "uncited_claims": 4,
+      "citation_rate": 0.0,
+      "total_sources": 11,
+      "high_quality_sources": 6,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "50%",
+          "context": "ted signal isolation.\n\nRecent demonstrations show 50% better detection of stealth prototypes compared t",
+          "position": 6232
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "ile minimizing downtime\n\nEarly results suggest 30-40% improvements in complex logistics scenarios compa",
+          "position": 7444
+        },
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "nce\u2014to perform certain calculations exponentially faster than classical computers. While today's quantum comput",
+          "position": 1597
+        },
+        {
+          "type": "superlative",
+          "text": "most effective",
+          "context": "efense planning worldwide. The organizations that most effectively harness quantum technologies while mitigating a",
+          "position": 10656
+        }
+      ],
+      "recommendations": [
+        "Add citations for 4 uncited claims",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 4,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "99.95%",
+          "context": "n to proof-of-stake reduced energy consumption by 99.95% while maintaining security.\n\n**Layer 2 solutions*",
+          "position": 7200
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-10-22-ai-edge-computing.md",
+      "total_claims": 6,
+      "cited_claims": 0,
+      "uncited_claims": 6,
+      "citation_rate": 0.0,
+      "total_sources": 9,
+      "high_quality_sources": 3,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "95%",
+          "context": "s\n\nI've seen systems reduce network traffic by 80-95% through intelligent edge processing while actuall",
+          "position": 2633
+        },
+        {
+          "type": "percentage",
+          "text": "80%",
+          "context": "from 32-bit to 8-bit or lower, often achieving 70-80% size reduction with minimal accuracy impact.\n\n**P",
+          "position": 4526
+        },
+        {
+          "type": "percentage",
+          "text": "50%",
+          "context": "weeks before failure, reducing downtime by up to 50%.\n\n**Quality Control**: Computer vision systems in",
+          "position": 5801
+        },
+        {
+          "type": "percentage",
+          "text": "30%",
+          "context": "improving yield rates and energy efficiency by 15-30%.\n\nThese implementations transform production envi",
+          "position": 6120
+        },
+        {
+          "type": "percentage",
+          "text": "80%",
+          "context": "tically, reducing out-of-stock incidents by up to 80%.\n\n**Traffic Analysis**: Anonymous movement patter",
+          "position": 7876
+        },
+        {
+          "type": "latency_spec",
+          "text": "5ms latency",
+          "context": "e edge capabilities:\n- **Ultra-low latency**: Sub-5ms latency enabling near real-time cloud-edge coordination\n-",
+          "position": 10045
+        }
+      ],
+      "recommendations": [
+        "Add citations for 6 uncited claims",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-11-05-pizza-calculator.md",
+      "total_claims": 12,
+      "cited_claims": 0,
+      "uncited_claims": 12,
+      "citation_rate": 0.0,
+      "total_sources": 2,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "20%",
+          "context": "ort. Research shows that the brain consumes about 20% of the body's energy despite being only 2% of bod",
+          "position": 1895
+        },
+        {
+          "type": "percentage",
+          "text": "2%",
+          "context": "about 20% of the body's energy despite being only 2% of body weight. Complex cognitive tasks deplete g",
+          "position": 1939
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "ble Benefits\n\n- **Reduced order variability**: 35-40% less variance in order accuracy, reducing waste a",
+          "position": 6227
+        },
+        {
+          "type": "percentage",
+          "text": "28%",
+          "context": "across events\n- **Satisfaction improvements**: 22-28% higher satisfaction with optimized provisioning\n-",
+          "position": 6447
+        },
+        {
+          "type": "percentage",
+          "text": "45%",
+          "context": "optimized provisioning\n- **Waste reduction**: 30-45% less food waste through systematic approaches\n\n##",
+          "position": 6525
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "ulator for quarterly release cycles:\n\n**Before**: 40% of events resulted in either shortages requiring",
+          "position": 6717
+        },
+        {
+          "type": "percentage",
+          "text": "18%",
+          "context": "sion reordering\n- Decreased cost per developer by 18% through optimized quantity planning\n- Improved sa",
+          "position": 7088
+        },
+        {
+          "type": "percentage",
+          "text": "31%",
+          "context": "antity planning\n- Improved satisfaction scores by 31% for \"company support during crunch periods\"\n\n## A",
+          "position": 7162
+        },
+        {
+          "type": "percentage",
+          "text": "80%",
+          "context": "g variety.\n\n**Strategic Novelty**: Maintaining 70-80% familiar favorites with 20-30% novel options prev",
+          "position": 7682
+        },
+        {
+          "type": "percentage",
+          "text": "30%",
+          "context": "**: Maintaining 70-80% familiar favorites with 20-30% novel options prevents flavor fatigue while prese",
+          "position": 7713
+        }
+      ],
+      "recommendations": [
+        "Add citations for 12 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims",
+        "Cite specific studies when mentioning research"
+      ]
+    },
+    {
+      "file": "2024-11-19-llms-smart-contract-vulnerability.md",
+      "total_claims": 11,
+      "cited_claims": 0,
+      "uncited_claims": 11,
+      "citation_rate": 0.0,
+      "total_sources": 12,
+      "high_quality_sources": 4,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "r detection rates with fewer false positives\u2014over 90% detection for reentrancy versus 70-80% for leadin",
+          "position": 4176
+        },
+        {
+          "type": "percentage",
+          "text": "80%",
+          "context": "tives\u2014over 90% detection for reentrancy versus 70-80% for leading LLMs.\n\n**Logic flaws**: LLMs demonstr",
+          "position": 4215
+        },
+        {
+          "type": "percentage",
+          "text": "65%",
+          "context": "ch common vulnerability patterns. They identified 65% of logic vulnerabilities compared to less than 40",
+          "position": 4419
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "5% of logic vulnerabilities compared to less than 40% for pattern-matching tools.\n\n**Novel vulnerabilit",
+          "position": 4470
+        },
+        {
+          "type": "percentage",
+          "text": "55%",
+          "context": "rule-based systems, LLMs identified approximately 55% of issues compared to 30% for traditional tools.",
+          "position": 4656
+        },
+        {
+          "type": "percentage",
+          "text": "30%",
+          "context": "dentified approximately 55% of issues compared to 30% for traditional tools.\n\n#### Operational Characte",
+          "position": 4682
+        },
+        {
+          "type": "percentage",
+          "text": "62%",
+          "context": "ith GPT-4 processing, reducing false positives by 62% while providing detailed explanations.\n\n**SmartBA",
+          "position": 6304
+        },
+        {
+          "type": "percentage",
+          "text": "25%",
+          "context": "rates**: Studies found leading LLMs producing 15-25% false positive rates compared to 5-10% for specia",
+          "position": 7803
+        },
+        {
+          "type": "percentage",
+          "text": "10%",
+          "context": "oducing 15-25% false positive rates compared to 5-10% for specialized tools on common vulnerabilities.",
+          "position": 7842
+        },
+        {
+          "type": "superlative",
+          "text": "most effective",
+          "context": "ontext.\n\n## Promising Integration Approaches\n\nThe most effective smart contract security strategies combine multip",
+          "position": 5323
+        }
+      ],
+      "recommendations": [
+        "Add citations for 11 uncited claims",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2024-12-03-context-windows-llms.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 2,
+      "high_quality_sources": 1,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2025-02-10-automating-home-network-security.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 5,
+      "high_quality_sources": 2,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "superlative",
+          "text": "most effective",
+          "context": "``\n\n## DNS Monitoring and Ad Blocking\n\nOne of the most effective security measures is controlling DNS. I use Pi-ho",
+          "position": 2667
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2025-02-24-continuous-learning-cybersecurity.md",
+      "total_claims": 6,
+      "cited_claims": 0,
+      "uncited_claims": 6,
+      "citation_rate": 0.0,
+      "total_sources": 14,
+      "high_quality_sources": 3,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "70%",
+          "context": "e (Modified)\n\nThe traditional 70-20-10 rule says: 70% learning on the job, 20% from others, 10% formal",
+          "position": 1484
+        },
+        {
+          "type": "percentage",
+          "text": "20%",
+          "context": "onal 70-20-10 rule says: 70% learning on the job, 20% from others, 10% formal training. I've modified i",
+          "position": 1509
+        },
+        {
+          "type": "percentage",
+          "text": "10%",
+          "context": "e says: 70% learning on the job, 20% from others, 10% formal training. I've modified it for cybersecuri",
+          "position": 1526
+        },
+        {
+          "type": "percentage",
+          "text": "70%",
+          "context": "raining. I've modified it for cybersecurity:\n\n- **70% Hands-On Practice**: Homelab, CTFs, real incident",
+          "position": 1588
+        },
+        {
+          "type": "percentage",
+          "text": "20%",
+          "context": "-On Practice**: Homelab, CTFs, real incidents\n- **20% Community Learning**: Conferences, forums, peer d",
+          "position": 1647
+        },
+        {
+          "type": "percentage",
+          "text": "10%",
+          "context": "ning**: Conferences, forums, peer discussions\n- **10% Structured Learning**: Courses, certifications, b",
+          "position": 1715
+        }
+      ],
+      "recommendations": [
+        "Add citations for 6 uncited claims",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2025-03-10-raspberry-pi-security-projects.md",
+      "total_claims": 4,
+      "cited_claims": 0,
+      "uncited_claims": 4,
+      "citation_rate": 0.0,
+      "total_sources": 5,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "onitor_pihole_log()\n```\n\n**Results**: Blocking 30-40% of DNS queries (mostly ads/tracking), caught 3 ma",
+          "position": 2683
+        },
+        {
+          "type": "memory_spec",
+          "text": "2GB",
+          "context": "the network door.\n\n**Hardware**: Raspberry Pi 4 (2GB), microSD card, Ethernet cable\n\n### Implementatio",
+          "position": 1923
+        },
+        {
+          "type": "memory_spec",
+          "text": "4GB",
+          "context": "s multiple devices\n\n**Hardware**: Raspberry Pi 4 (4GB), good network connection\n\n### Implementation\n\n``",
+          "position": 4828
+        },
+        {
+          "type": "comparison",
+          "text": "worse than",
+          "context": "ood power supplies and consider PoE HATs. Nothing worse than your security system going down during a storm.",
+          "position": 5977
+        }
+      ],
+      "recommendations": [
+        "Add citations for 4 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 0,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "comparison",
+          "text": "faster than",
+          "context": "imes.\n\n### Never Stop Learning\nTechnology evolves faster than any of us can keep up. That's not a bug; it's a f",
+          "position": 6501
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2025-04-10-securing-personal-ai-experiments.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 4,
+      "high_quality_sources": 3,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": []
+    },
+    {
+      "file": "2025-04-24-building-secure-homelab-adventure.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 0,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2025-05-10-building-security-mindset-lessons-from-field.md",
+      "total_claims": 4,
+      "cited_claims": 0,
+      "uncited_claims": 4,
+      "citation_rate": 0.0,
+      "total_sources": 1,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "limination.\n\nAt the Smithsonian, I learned that a 90% solution implemented today beats a 100% solution",
+          "position": 3520
+        },
+        {
+          "type": "percentage",
+          "text": "100%",
+          "context": "ned that a 90% solution implemented today beats a 100% solution implemented never. We deployed MFA acros",
+          "position": 3559
+        },
+        {
+          "type": "percentage",
+          "text": "80%",
+          "context": "- **Automated Patching**: Reduced manual work by 80%\n- **Automated Compliance Scanning**: Daily report",
+          "position": 4924
+        },
+        {
+          "type": "superlative",
+          "text": "most effective",
+          "context": "security engineering roles, I've learned that the most effective security professionals aren't necessarily those w",
+          "position": 225
+        }
+      ],
+      "recommendations": [
+        "Add citations for 4 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2025-06-25-local-llm-deployment-privacy-first.md",
+      "total_claims": 9,
+      "cited_claims": 0,
+      "uncited_claims": 9,
+      "citation_rate": 0.0,
+      "total_sources": 22,
+      "high_quality_sources": 5,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "memory_spec",
+          "text": "24GB",
+          "context": "`yaml\nPrimary LLM Server:\n  GPU: NVIDIA RTX 4090 (24GB VRAM)\n  CPU: AMD Ryzen 9 7950X\n  RAM: 64GB DDR5",
+          "position": 3013
+        },
+        {
+          "type": "memory_spec",
+          "text": "64GB",
+          "context": "4090 (24GB VRAM)\n  CPU: AMD Ryzen 9 7950X\n  RAM: 64GB DDR5\n  Storage: 2TB NVMe SSD\n  OS: Ubuntu 22.04 L",
+          "position": 3056
+        },
+        {
+          "type": "memory_spec",
+          "text": "2TB",
+          "context": "PU: AMD Ryzen 9 7950X\n  RAM: 64GB DDR5\n  Storage: 2TB NVMe SSD\n  OS: Ubuntu 22.04 LTS\n\nSecondary Node (",
+          "position": 3077
+        },
+        {
+          "type": "memory_spec",
+          "text": "128GB",
+          "context": "de (CPU Inference):\n  CPU: Intel i9-13900K\n  RAM: 128GB DDR5\n  Storage: 1TB NVMe SSD\n  Purpose: Smaller m",
+          "position": 3176
+        },
+        {
+          "type": "memory_spec",
+          "text": "1TB",
+          "context": "CPU: Intel i9-13900K\n  RAM: 128GB DDR5\n  Storage: 1TB NVMe SSD\n  Purpose: Smaller models and overflow\n`",
+          "position": 3198
+        },
+        {
+          "type": "memory_spec",
+          "text": "13GB",
+          "context": "# Using llama.cpp quantization\n# Original model: 13GB (float16)\n# Quantized versions:\n# - q8_0: 7.16GB",
+          "position": 6379
+        },
+        {
+          "type": "memory_spec",
+          "text": "16GB",
+          "context": "13GB (float16)\n# Quantized versions:\n# - q8_0: 7.16GB (minimal quality loss)\n# - q5_1: 5.66GB (slight q",
+          "position": 6428
+        },
+        {
+          "type": "memory_spec",
+          "text": "66GB",
+          "context": "- q8_0: 7.16GB (minimal quality loss)\n# - q5_1: 5.66GB (slight quality loss)\n# - q4_0: 4.08GB (noticeabl",
+          "position": 6468
+        },
+        {
+          "type": "memory_spec",
+          "text": "08GB",
+          "context": "- q5_1: 5.66GB (slight quality loss)\n# - q4_0: 4.08GB (noticeable but acceptable loss)\n\n./quantize mode",
+          "position": 6507
+        }
+      ],
+      "recommendations": [
+        "Add citations for 9 uncited claims"
+      ]
+    },
+    {
+      "file": "2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "total_claims": 9,
+      "cited_claims": 1,
+      "uncited_claims": 8,
+      "citation_rate": 11.11111111111111,
+      "total_sources": 11,
+      "high_quality_sources": 2,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "5%",
+          "context": "raph \"Performance Metrics\"\n        M1[CPU Usage < 5%]\n        M2[Memory < 100MB]\n        M3[Event Loss",
+          "position": 6975
+        },
+        {
+          "type": "percentage",
+          "text": "0.01%",
+          "context": "M2[Memory < 100MB]\n        M3[Event Loss < 0.01%]\n        M4[Latency < 1ms]\n    end\n    \n    O1 --",
+          "position": 7030
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "e\" eBPF monitor tracked everything \u2013 and consumed 40% CPU on an idle system. \n\n**Solution**: Start mini",
+          "position": 9378
+        },
+        {
+          "type": "percentage",
+          "text": "0.1%",
+          "context": "for zero-day threats\n- **False Positive Rate**: <0.1% with proper tuning\n- **Performance Overhead**: 2-",
+          "position": 10656
+        },
+        {
+          "type": "percentage",
+          "text": "5%",
+          "context": "with proper tuning\n- **Performance Overhead**: 2-5% CPU in production\n- **Coverage**: 100% of kernel-",
+          "position": 10710
+        },
+        {
+          "type": "percentage",
+          "text": "100%",
+          "context": "verhead**: 2-5% CPU in production\n- **Coverage**: 100% of kernel-level events\n\n\n\n## Academic Research &",
+          "position": 10747
+        },
+        {
+          "type": "research_claim",
+          "text": "Research shows",
+          "context": "reas for eBPF security:\n\n- **Verifier Bypasses**: Research shows that the eBPF verifier, while robust, has had vul",
+          "position": 12628
+        },
+        {
+          "type": "memory_spec",
+          "text": "100MB",
+          "context": "s\"\n        M1[CPU Usage < 5%]\n        M2[Memory < 100MB]\n        M3[Event Loss < 0.01%]\n        M4[Latenc",
+          "position": 6999
+        }
+      ],
+      "recommendations": [
+        "Add citations for 8 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims",
+        "Cite specific studies when mentioning research"
+      ]
+    },
+    {
+      "file": "2025-07-08-implementing-dns-over-https-home-networks.md",
+      "total_claims": 1,
+      "cited_claims": 0,
+      "uncited_claims": 1,
+      "citation_rate": 0.0,
+      "total_sources": 20,
+      "high_quality_sources": 2,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "comparison",
+          "text": "better than",
+          "context": "dns.com/dns-query | hexdump -C\n\n# Test using dog (better than dig for DoH)\ndog example.com @https://cloudflare-",
+          "position": 5609
+        }
+      ],
+      "recommendations": [
+        "Add citations for 1 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2025-07-15-vulnerability-management-scale-open-source.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 1,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    },
+    {
+      "file": "2025-07-22-supercharging-claude-cli-with-standards.md",
+      "total_claims": 3,
+      "cited_claims": 0,
+      "uncited_claims": 3,
+      "citation_rate": 0.0,
+      "total_sources": 5,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "oken Optimization\n\nThe real game-changer is the **90% token reduction**. Instead of feeding Claude enti",
+          "position": 2848
+        },
+        {
+          "type": "percentage",
+          "text": "85%",
+          "context": "ns across all my projects\n- **Token usage**: Down 85% on average\n- **Compliance**: NIST controls tagged",
+          "position": 6458
+        },
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "le: \"Google Python style\"\n  testing: \"pytest with 90% coverage\"\n  special_rules:\n    - \"All API endpoin",
+          "position": 6792
+        }
+      ],
+      "recommendations": [
+        "Add citations for 3 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2025-07-29-building-mcp-standards-server.md",
+      "total_claims": 3,
+      "cited_claims": 0,
+      "uncited_claims": 3,
+      "citation_rate": 0.0,
+      "total_sources": 3,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "Compressed formats that reduce token usage by 70-90%:\n\n```python\n# Full standard: 5000 tokens\n# Compre",
+          "position": 4148
+        },
+        {
+          "type": "memory_spec",
+          "text": "4GB",
+          "context": "m.\n\n### Vector Databases Are Hungry\n\nChromaDB ate 4GB of RAM just to index my standards. For 25 documen",
+          "position": 4673
+        },
+        {
+          "type": "memory_spec",
+          "text": "160MB",
+          "context": "t to index my standards. For 25 documents. That's 160MB per document for... searching text.\n\n**Lesson lea",
+          "position": 4737
+        }
+      ],
+      "recommendations": [
+        "Add citations for 3 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "2025-08-07-supercharging-development-claude-flow.md",
+      "total_claims": 11,
+      "cited_claims": 0,
+      "uncited_claims": 11,
+      "citation_rate": 0.0,
+      "total_sources": 11,
+      "high_quality_sources": 2,
+      "low_quality_sources": 0,
+      "uncited_details": [
+        {
+          "type": "percentage",
+          "text": "98%",
+          "context": "full CRUD operations\n- Wrote 147 unit tests with 98% coverage\n- Generated complete OpenAPI documentati",
+          "position": 4852
+        },
+        {
+          "type": "percentage",
+          "text": "67%",
+          "context": "urs | 1.8 hours | 4.4x faster |\n| Test Coverage | 67% | 94% | +40% coverage |\n| Bug Detection | Post-de",
+          "position": 8583
+        },
+        {
+          "type": "percentage",
+          "text": "94%",
+          "context": "1.8 hours | 4.4x faster |\n| Test Coverage | 67% | 94% | +40% coverage |\n| Bug Detection | Post-deploy |",
+          "position": 8589
+        },
+        {
+          "type": "percentage",
+          "text": "40%",
+          "context": "rs | 4.4x faster |\n| Test Coverage | 67% | 94% | +40% coverage |\n| Bug Detection | Post-deploy | Pre-co",
+          "position": 8596
+        },
+        {
+          "type": "percentage",
+          "text": "100%",
+          "context": "ge |\n| Bug Detection | Post-deploy | Pre-commit | 100% earlier |\n| Code Review Time | 2 hours | 15 minut",
+          "position": 8656
+        },
+        {
+          "type": "percentage",
+          "text": "73%",
+          "context": "nt velocity**: 4.4x increase\n- **Bug reduction**: 73% fewer production issues\n- **Test coverage**: Cons",
+          "position": 13634
+        },
+        {
+          "type": "percentage",
+          "text": "90%",
+          "context": "production issues\n- **Test coverage**: Consistent 90%+ coverage\n- **Documentation**: Always up-to-date",
+          "position": 13694
+        },
+        {
+          "type": "percentage",
+          "text": "32.3%",
+          "context": "against sequential execution\n- **Token reduction (32.3%)**: Measured across standard development tasks\n-",
+          "position": 15313
+        },
+        {
+          "type": "multiplier",
+          "text": "4.4x faster",
+          "context": "| Feature Implementation | 8 hours | 1.8 hours | 4.4x faster |\n| Test Coverage | 67% | 94% | +40% coverage |\n|",
+          "position": 8551
+        },
+        {
+          "type": "multiplier",
+          "text": "8x faster",
+          "context": "ier |\n| Code Review Time | 2 hours | 15 minutes | 8x faster |\n| Documentation | 3 hours | 20 minutes | 9x fas",
+          "position": 8715
+        }
+      ],
+      "recommendations": [
+        "Add citations for 11 uncited claims",
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)",
+        "Add sources for all percentage claims"
+      ]
+    },
+    {
+      "file": "welcome.md",
+      "total_claims": 0,
+      "cited_claims": 0,
+      "uncited_claims": 0,
+      "citation_rate": 100,
+      "total_sources": 5,
+      "high_quality_sources": 0,
+      "low_quality_sources": 0,
+      "uncited_details": [],
+      "recommendations": [
+        "Add more high-quality academic sources (arXiv, Zenodo, etc.)"
+      ]
+    }
+  ]
+}

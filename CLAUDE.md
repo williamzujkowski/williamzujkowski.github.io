@@ -296,6 +296,149 @@ Never save working files, text/mds and tests to the root folder.
 **CRITICAL**: Always reference `/uses/` page (src/pages/uses.md) for accurate information about:
 - Hardware specifications (Intel i9-9900K, 64GB RAM, RTX 3090, Dell R940, Raspberry Pi setup)
 - Software stack (Proxmox, Docker, K3s, Wazuh, specific tools)
+
+## 🔬 BLOG POST RESEARCH & CREDIBILITY MODEL
+
+### ABSOLUTE RULE: NO FABRICATION
+**NEVER make up information, statistics, or claims. ALWAYS back statements with reputable sources.**
+
+### Research Verification Process
+1. **Claim Identification**: Scan content for any factual claims, statistics, or technical statements
+2. **Source Validation**: Every claim MUST have a reputable source
+3. **Citation Integration**: Properly cite all sources inline and in references
+4. **Fact Checking**: Use Playwright to verify claims against authoritative sources
+
+### 📚 Open-Access Research Platforms
+
+#### Primary Research Sources
+1. **[arXiv](https://arxiv.org/)** - Preprints in physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics
+2. **[Zenodo](https://zenodo.org/)** - General-purpose open repository by CERN with DOI assignment
+3. **[CORE](https://core.ac.uk/)** - Aggregates 250+ million open-access papers with API access
+4. **[Preprints.org](https://www.preprints.org/)** - Multi-disciplinary preprints with moderation
+5. **[Research Square](https://www.researchsquare.com/)** - Springer Nature integrated preprints
+6. **[SciPost](https://scipost.org/)** - Community-driven peer review in physics
+
+#### Domain-Specific Sources
+- **Security**: NIST, OWASP, SANS, CVE/NVD databases, security advisories
+- **AI/ML**: Papers with Code, Google AI Research, OpenAI Research, Hugging Face papers
+- **Cloud/DevOps**: CNCF resources, AWS/Azure/GCP documentation, HashiCorp guides
+- **Networking**: RFCs, Cisco documentation, Cloudflare Learning Center
+- **Linux/Kernel**: kernel.org documentation, LWN.net, Red Hat resources
+
+### 🔍 Research Integration Workflow
+
+#### For Every Blog Post:
+1. **Pre-Writing Research**
+   ```python
+   # Use scripts/research-validator.py
+   python scripts/research-validator.py --post "post-title" --check-claims
+   ```
+
+2. **Claim Validation with Playwright**
+   ```python
+   # Search academic sources
+   python scripts/academic-search.py --query "specific claim" --sources "arxiv,zenodo,core"
+   ```
+
+3. **Source Citation Format**
+   - Inline: `[Study shows 73% improvement](https://arxiv.org/abs/2024.xxxxx)`
+   - Reference section with full citations
+   - Include DOI when available
+
+4. **Visual Evidence**
+   - Extract figures/charts from papers (with permission/citation)
+   - Create original diagrams based on research data
+   - Include methodology visualizations
+
+### 📊 Content Quality Standards
+
+#### Every Technical Claim Must Have:
+- **Primary Source**: Original research paper or official documentation
+- **Secondary Validation**: Additional supporting sources
+- **Context**: Explain methodology, sample size, limitations
+- **Recency Check**: Ensure information is current (check publication dates)
+
+#### Red Flags to Avoid:
+- ❌ "Studies show..." without citation
+- ❌ Specific percentages without source
+- ❌ "It's well known that..." without evidence
+- ❌ Technical specifications without verification
+- ❌ Historical claims without references
+- ❌ Performance metrics without methodology
+
+### 🤖 Automated Research Validation
+
+#### Scripts for Research Integrity:
+```bash
+# Validate all claims in a post
+python scripts/claim-validator.py --post src/posts/example.md
+
+# Search for supporting research
+python scripts/research-finder.py --topic "quantum computing" --min-sources 5
+
+# Check source credibility
+python scripts/source-credibility.py --url "https://example.com/paper"
+
+# Generate citations
+python scripts/citation-generator.py --format "ieee" --sources sources.json
+```
+
+### 📈 Research-Backed Content Structure
+
+#### Optimal Blog Post Format:
+1. **Introduction** - Set context with cited background
+2. **Literature Review** - Brief overview of existing research
+3. **Core Content** - Main points with supporting evidence
+4. **Case Studies** - Real examples with sources
+5. **Data Visualization** - Charts/graphs from research
+6. **Limitations** - Acknowledge gaps or contradictions
+7. **Future Directions** - Based on research trends
+8. **References** - Complete citation list
+
+### 🔗 Playwright Research Automation
+
+#### Use Playwright for:
+- Searching academic databases
+- Verifying technical specifications
+- Checking latest documentation versions
+- Finding recent research papers
+- Validating statistical claims
+- Screenshot evidence collection
+
+#### Example Research Flow:
+```python
+# Search multiple academic sources
+async def research_claim(claim):
+    sources = ['arxiv', 'zenodo', 'core', 'scholar.google.com']
+    results = []
+    for source in sources:
+        results.extend(await search_source(source, claim))
+    return validate_and_rank_sources(results)
+```
+
+### ✅ Quality Checklist
+
+Before Publishing Any Post:
+- [ ] All factual claims have citations
+- [ ] Statistics include methodology and source
+- [ ] Technical specs verified against official docs
+- [ ] At least 3 reputable sources per major point
+- [ ] No outdated information (check dates)
+- [ ] Opposing viewpoints acknowledged
+- [ ] Limitations clearly stated
+- [ ] Visual aids properly attributed
+- [ ] References section complete
+- [ ] Playwright verification completed
+
+### 🚫 Never Do This:
+- Invent statistics or percentages
+- Paraphrase without attribution
+- Use Wikipedia as primary source
+- Cite outdated documentation
+- Cherry-pick data without context
+- Ignore contradicting research
+- Make absolute statements without evidence
+- Use anecdotal evidence as fact
 - Network setup (Dream Machine Pro, Ubiquiti, VLANs)
 - Security tools (Nessus, Grype, OSV, Bitwarden self-hosted)
 - Development environment (VS Code, Ghostty terminal, Zsh)
