@@ -1,16 +1,27 @@
 ---
-title: "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography"
-description: >-
-  The day I first understood how Shor's algorithm could break RSA encryption, I
-  realized our entire security infrastructure might become obsolete overnight -
+title: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
+description: The day I first understood how Shor's algorithm could break RSA encryption,
+  I realized our entire security infrastructure might become obsolete overnight -
   preparing for that future became urgent
 date: 2024-04-30
 tags:
-  - security
-  - cryptography
-  - quantum-computing
+- security
+- cryptography
+- quantum-computing
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-hero.jpg
+    alt: 'cybersecurity concept illustration for Preparing for the Quantum Leap: A
+      Guide to Quantum-Resistant Cryptography'
+    caption: 'Visual representation of Preparing for the Quantum Leap: A Guide to
+      Quantum-Resistant Cryptography'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg
+    alt: 'cybersecurity concept illustration for Preparing for the Quantum Leap: A
+      Guide to Quantum-Resistant Cryptography'
 ---
-
 The day I first truly understood how Shor's algorithm could factor large integers efficiently on a quantum computer, I felt a chill that had nothing to do with the temperature. Every RSA key, every elliptic curve signature, every piece of public-key cryptography that secured our digital world could potentially become worthless overnight.
 
 That realization years ago sparked my journey into quantum-resistant cryptography—a field that felt both urgently necessary and frustratingly theoretical. Today, as quantum computers inch closer to practical capability, that preparation feels less like paranoia and more like prudent planning.

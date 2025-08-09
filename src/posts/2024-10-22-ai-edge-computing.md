@@ -1,15 +1,29 @@
 ---
-title: "AI Meets Edge Computing: Transforming Real-Time Intelligence"
-description: "How the convergence of artificial intelligence and edge computing is creating responsive, private, and resilient systems that process data where it's generated, revolutionizing applications from autonomous vehicles to smart manufacturing."
-date: "2024-05-19T00:00:00.000Z"
+title: 'AI Meets Edge Computing: Transforming Real-Time Intelligence'
+description: How the convergence of artificial intelligence and edge computing is
+  creating responsive, private, and resilient systems that process data where it's
+  generated, revolutionizing applications from autonomous vehicles to smart manufacturing.
+date: '2024-05-19T00:00:00.000Z'
 tags:
-  - posts
-  - ai
-  - edge-computing
-  - cloud
-  - devops
+- posts
+- ai
+- edge-computing
+- cloud
+- devops
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-10-22-ai-edge-computing-hero.jpg
+    alt: 'artificial intelligence concept diagram for AI Meets Edge Computing: Transforming
+      Real-Time Intelligence'
+    caption: 'Visual representation of AI Meets Edge Computing: Transforming Real-Time
+      Intelligence'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-10-22-ai-edge-computing-og.jpg
+    alt: 'artificial intelligence concept diagram for AI Meets Edge Computing: Transforming
+      Real-Time Intelligence'
 ---
-
 Years ago, I remember watching a demonstration of an AI-powered security camera that had to upload video to the cloud for analysis before triggering alerts. The latency was frustrating—by the time the system identified a security threat, the person had already passed through the area. That experience crystallized why edge computing matters for AI applications.
 
 The convergence of artificial intelligence and edge computing represents one of the most significant shifts in how we think about data processing and decision-making. Instead of sending everything to distant cloud servers, we're bringing intelligence to where data originates—the "edge" of the network.

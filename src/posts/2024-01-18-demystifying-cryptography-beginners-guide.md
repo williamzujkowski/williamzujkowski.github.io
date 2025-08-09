@@ -1,15 +1,27 @@
 ---
-title: "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures"
-description: >-
-  Cryptography always felt like magic to me until I spent weeks trying to debug
-  an SSL certificate issue - suddenly those mathematical incantations became
+title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
+  Digital Signatures'
+description: Cryptography always felt like magic to me until I spent weeks trying
+  to debug an SSL certificate issue - suddenly those mathematical incantations became
   very practical necessities
 date: 2024-01-18
 tags:
-  - security
-  - cryptography
+- security
+- cryptography
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-hero.jpg
+    alt: 'encryption and security visualization for Demystifying Cryptography: A Beginner''s
+      Guide to Encryption, Hashing, and Digital Signatures'
+    caption: 'Visual representation of Demystifying Cryptography: A Beginner''s Guide
+      to Encryption, Hashing, and Digital Signatures'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg
+    alt: 'encryption and security visualization for Demystifying Cryptography: A Beginner''s
+      Guide to Encryption, Hashing, and Digital Signatures'
 ---
-
 Cryptography always felt like magic to me—mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically years ago when I spent three sleepless nights debugging SSL certificate issues that were breaking our entire payment system.
 
 Suddenly, those abstract concepts became very real. Every failed handshake, every certificate validation error, every cipher suite mismatch taught me that cryptography isn't just theoretical—it's the backbone of everything we do online. What started as an emergency troubleshooting session became a journey into understanding the mathematical foundations that protect our digital lives.

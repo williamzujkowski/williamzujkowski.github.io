@@ -1,15 +1,29 @@
 ---
-title: "Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet"
-description: "How blockchain technology has evolved beyond digital currencies to create distributed trust systems that are transforming supply chains, identity management, governance, and more."
-date: "2024-05-12T00:00:00.000Z"
+title: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet'
+description: How blockchain technology has evolved beyond digital currencies to create
+  distributed trust systems that are transforming supply chains, identity management,
+  governance, and more.
+date: '2024-05-12T00:00:00.000Z'
 tags:
-  - posts
-  - blockchain
-  - distributed-systems
-  - security
-  - programming
+- posts
+- blockchain
+- distributed-systems
+- security
+- programming
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-hero.jpg
+    alt: 'blockchain network visualization for Blockchain Beyond Cryptocurrency: Building
+      the Trust Layer of the Internet'
+    caption: 'Visual representation of Blockchain Beyond Cryptocurrency: Building
+      the Trust Layer of the Internet'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-og.jpg
+    alt: 'blockchain network visualization for Blockchain Beyond Cryptocurrency: Building
+      the Trust Layer of the Internet'
 ---
-
 Years ago, when Bitcoin first emerged, I'll admit I was skeptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. But as I dug deeper into the underlying blockchain technology, I realized something profound was happening that had little to do with digital money.
 
 The core innovation wasn't the currency—it was the creation of distributed trust. For the first time, we had a system that allowed parties to transact and interact without requiring a central authority to verify and enforce agreements. That breakthrough has implications far beyond finance.

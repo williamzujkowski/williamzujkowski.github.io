@@ -1,14 +1,28 @@
 ---
-title: "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints"
-description: "How quantifying pizza provisioning can significantly enhance team performance during high-pressure development periods, combining resource planning, team psychology, and a surprising amount of behavioral economics."
-date: "2024-05-26T00:00:00.000Z"
+title: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints'
+description: How quantifying pizza provisioning can significantly enhance team performance
+  during high-pressure development periods, combining resource planning, team psychology,
+  and a surprising amount of behavioral economics.
+date: '2024-05-26T00:00:00.000Z'
 tags:
-  - posts
-  - devops
-  - programming
-  - team-management
+- posts
+- devops
+- programming
+- team-management
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-11-05-pizza-calculator-hero.jpg
+    alt: 'performance metrics and optimization graph for The Pizza Calculator: Optimizing
+      Team Fuel for Critical Development Sprints'
+    caption: 'Visual representation of The Pizza Calculator: Optimizing Team Fuel
+      for Critical Development Sprints'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-11-05-pizza-calculator-og.jpg
+    alt: 'performance metrics and optimization graph for The Pizza Calculator: Optimizing
+      Team Fuel for Critical Development Sprints'
 ---
-
 Years ago, I was part of a weekend deployment that went sideways. We'd been debugging a critical production issue for twelve hours when someone suggested ordering pizza. Twenty minutes later, three pizzas arrived for eight hungry developers. What followed was a surprisingly tense negotiation over slice allocation that probably cost us more productivity than the original bug.
 
 That experience taught me something important: in high-pressure development scenarios, seemingly trivial decisions about team fuel can have outsized impacts on productivity and morale. The humble pizza has become more than convenient food in tech culture—it's a crucial component of team performance during critical development periods.

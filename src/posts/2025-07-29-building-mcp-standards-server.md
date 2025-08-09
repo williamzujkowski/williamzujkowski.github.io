@@ -1,10 +1,25 @@
 ---
-title: "Down the MCP Rabbit Hole: Building a Standards Server"
+title: 'Down the MCP Rabbit Hole: Building a Standards Server'
 date: 2025-07-29
-tags: ["ai", "mcp", "development", "open-source"]
-description: "The ongoing saga of turning my standards repository into an MCP server. Spoiler: It's working, mostly, and I've only rewritten it three times."
+tags:
+- ai
+- mcp
+- development
+- open-source
+description: 'The ongoing saga of turning my standards repository into an MCP server.
+  Spoiler: It''s working, mostly, and I''ve only rewritten it three times.'
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-07-29-building-mcp-standards-server-hero.jpg
+    alt: 'Hero image illustrating Down the MCP Rabbit Hole: Building a Standards Server'
+    caption: 'Visual representation of Down the MCP Rabbit Hole: Building a Standards
+      Server'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-07-29-building-mcp-standards-server-og.jpg
+    alt: 'Hero image illustrating Down the MCP Rabbit Hole: Building a Standards Server'
 ---
-
 ## When Good Ideas Get Complicated
 
 Remember last week when I was all excited about my standards repository? Well, I made the classic developer mistake: "You know what would make this better? If I rebuilt it from scratch with a completely different architecture!"

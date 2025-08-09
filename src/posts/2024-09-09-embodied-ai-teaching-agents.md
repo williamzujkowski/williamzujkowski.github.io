@@ -1,15 +1,29 @@
 ---
-title: "Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction"
-description: "How multimodal large language models are learning to recognize ambiguity and ask clarifying questions, making robots better collaborative partners in real-world scenarios."
-date: "2024-04-21T00:00:00.000Z"
+title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
+description: How multimodal large language models are learning to recognize ambiguity
+  and ask clarifying questions, making robots better collaborative partners in real-world
+  scenarios.
+date: '2024-04-21T00:00:00.000Z'
 tags:
-  - posts
-  - ai
-  - robotics
-  - embodied-ai
-  - multimodal-llm
+- posts
+- ai
+- robotics
+- embodied-ai
+- multimodal-llm
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-hero.jpg
+    alt: 'artificial intelligence concept diagram for Teaching AI Agents to Ask for
+      Help: A Breakthrough in Human-Robot Interaction'
+    caption: 'Visual representation of Teaching AI Agents to Ask for Help: A Breakthrough
+      in Human-Robot Interaction'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-og.jpg
+    alt: 'artificial intelligence concept diagram for Teaching AI Agents to Ask for
+      Help: A Breakthrough in Human-Robot Interaction'
 ---
-
 Years ago, I watched a demonstration of a home robot that consistently brought the wrong items when given ambiguous instructions. "Please get me the book from the table," the researcher said, and the robot would dutifully select one of three books present—often not the intended one. The robot never asked which book, never sought clarification, just made its best guess and moved on.
 
 That experience stuck with me because it highlighted a fundamental gap in human-robot interaction. Humans naturally ask clarifying questions when instructions are unclear, but robots have traditionally struggled with this basic social behavior. Recent breakthrough research is finally changing that, and the implications are fascinating.

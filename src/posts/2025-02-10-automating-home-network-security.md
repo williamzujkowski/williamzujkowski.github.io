@@ -1,11 +1,30 @@
 ---
-title: "Automating Home Network Security with Python and Open Source Tools"
+title: Automating Home Network Security with Python and Open Source Tools
 date: 2025-02-10
-description: "Practical automation scripts and tools I've built to keep my home network secure without constant manual intervention"
-tags: [python, automation, security, homelab, open-source, networking]
-author: "William Zujkowski"
+description: Practical automation scripts and tools I've built to keep my home network
+  secure without constant manual intervention
+tags:
+- python
+- automation
+- security
+- homelab
+- open-source
+- networking
+author: William Zujkowski
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-02-10-automating-home-network-security-hero.jpg
+    alt: cybersecurity concept illustration for Automating Home Network Security with
+      Python and Open Source Tools
+    caption: Visual representation of Automating Home Network Security with Python
+      and Open Source Tools
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-02-10-automating-home-network-security-og.jpg
+    alt: cybersecurity concept illustration for Automating Home Network Security with
+      Python and Open Source Tools
 ---
-
 ## The Problem: Security Doesn't Scale Without Automation
 
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management simply doesn't scale – especially when you're also trying to be present for bedtime stories.

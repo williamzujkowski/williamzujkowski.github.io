@@ -1,10 +1,28 @@
 ---
-title: "Continuous Learning in Cybersecurity: Strategies That Work"
+title: 'Continuous Learning in Cybersecurity: Strategies That Work'
 date: 2025-02-24
-description: "How I stay current in a field that changes daily – practical strategies for continuous learning without burning out"
-tags: [career, learning, security, professional-development, certifications]
+description: "How I stay current in a field that changes daily \u2013 practical strategies\
+  \ for continuous learning without burning out"
+tags:
+- career
+- learning
+- security
+- professional-development
+- certifications
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-hero.jpg
+    alt: 'cybersecurity concept illustration for Continuous Learning in Cybersecurity:
+      Strategies That Work'
+    caption: 'Visual representation of Continuous Learning in Cybersecurity: Strategies
+      That Work'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-og.jpg
+    alt: 'cybersecurity concept illustration for Continuous Learning in Cybersecurity:
+      Strategies That Work'
 ---
-
 After 15+ years in cybersecurity, I've learned one truth: The moment you stop learning is the moment you become obsolete. But here's the challenge – how do you keep up with a field that literally changes every day without burning out? Here are the strategies that have worked for me.
 
 ## The Learning Paradox

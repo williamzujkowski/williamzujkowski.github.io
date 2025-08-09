@@ -1,16 +1,24 @@
 ---
-title: "The Transformer Architecture: A Deep Dive"
-description: >-
-  Reading 'Attention is All You Need' felt like discovering a secret that would
-  reshape everything I thought I knew about natural language processing - and it
-  did
+title: 'The Transformer Architecture: A Deep Dive'
+description: Reading 'Attention is All You Need' felt like discovering a secret that
+  would reshape everything I thought I knew about natural language processing - and
+  it did
 date: 2024-03-20
 tags:
-  - ai
-  - llm
-  - machine-learning
+- ai
+- llm
+- machine-learning
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-hero.jpg
+    alt: 'system architecture diagram for The Transformer Architecture: A Deep Dive'
+    caption: 'Visual representation of The Transformer Architecture: A Deep Dive'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-og.jpg
+    alt: 'system architecture diagram for The Transformer Architecture: A Deep Dive'
 ---
-
 There's a moment when reading certain papers that you know you're witnessing something revolutionary. For me, that moment came with _"Attention is All You Need"_ by Vaswani et al. The elegance of the Transformer architecture felt like discovering a secret that would reshape everything I thought I knew about natural language processing.
 
 Years later, having implemented Transformers from scratch and watched them evolve into GPT, BERT, and modern LLMs, I can say that initial intuition was correct. The Transformer didn't just improve NLP—it redefined what's possible with neural networks.

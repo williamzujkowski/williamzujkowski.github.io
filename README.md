@@ -1,11 +1,11 @@
 # williamzujkowski.github.io
 
-**Version:** 2.6.0  
-**Last Updated:** 2025-06-26  
+**Version:** 2.7.0  
+**Last Updated:** 2025-08-08  
 **Status:** Active  
 **Type:** Personal Website
 
-Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 13 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search functionality, social sharing, reading progress indicator, and PWA support.
+Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 44 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search functionality, social sharing, reading progress indicator, hero images, and PWA support.
 
 > **Note:** This repository implements comprehensive development standards via the [.standards](https://github.com/williamzujkowski/standards) submodule.
 > 
@@ -52,11 +52,14 @@ npm run build        # Production build
 npm run build:css    # Build CSS only
 npm run watch:css    # Watch CSS changes
 npm run validate:km  # Validate Knowledge Management standards
+python scripts/update-blog-images.py  # Update blog image metadata
+python scripts/generate-blog-hero-images.py  # Generate hero images
+bash scripts/optimize-blog-images.sh  # Optimize images
 ```
 
 ## ✨ Features
 
-- **Personal Blog**: 13 technical posts about security, AI/ML, homelab, and career development
+- **Personal Blog**: 44 technical posts about security, AI/ML, homelab, and career development
 - **Professional Pages**: Experience timeline, skills matrix, project portfolio, uses, resources, and style guide
 - **Interactive Features**: Tag navigation, blog search, social sharing, related posts, reading progress
 - **Dark Mode**: Automatic theme switching with manual toggle and dynamic theme-color
@@ -239,7 +242,52 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
+## 📸 Blog Image Management
+
+### Automated Image Pipeline
+
+The site includes a comprehensive image management system for blog posts:
+
+```bash
+# Full pipeline for all blog images
+python scripts/update-blog-images.py && \
+python scripts/generate-blog-hero-images.py && \
+bash scripts/optimize-blog-images.sh
+```
+
+### Features
+- **Hero Images**: Automatically generated 1200x630px images for each post
+- **Responsive Variants**: Multiple sizes (1200px, 800px, 400px, 200px) for performance
+- **Smart Color Schemes**: Topic-based gradients (AI/ML, Security, Cloud, etc.)
+- **Accessibility**: Context-aware alt text generation
+- **Optimization**: JPEG compression, WebP support ready
+
+See [CLAUDE.md](CLAUDE.md#blog-image-standards--implementation) for complete documentation.
+
 ## 📊 Changelog
+
+### [2.7.0] - 2025-08-08
+#### Added
+- Comprehensive blog image management system with automated hero image generation
+- 44 blog posts total (31 new posts added) covering diverse technical topics
+- Hero images for all blog posts with responsive variants (352 total images)
+- Automated image optimization pipeline with three Python/Bash scripts
+- Topic-based color schemes and pattern overlays for visual consistency
+- Context-aware alt text generation for accessibility
+- Blog image standards documentation and implementation guide
+- Image metadata in frontmatter for all posts
+
+#### Changed
+- Updated CLAUDE.md with blog image standards and workflows
+- Enhanced documentation with accurate post counts and features
+- Improved project structure with organized image directories
+
+#### Technical Updates
+- Created update-blog-images.py for metadata management
+- Created generate-blog-hero-images.py for hero image creation
+- Created optimize-blog-images.sh for image optimization
+- Generated 88 hero/og images with smart color schemes
+- Created 264 responsive image variants
 
 ### [2.6.0] - 2025-06-26
 #### Added

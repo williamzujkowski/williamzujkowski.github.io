@@ -1,17 +1,28 @@
 ---
-title: "Zero Trust Architecture: A Practical Implementation Guide"
-description: >-
-  Moving from 'trust but verify' to 'never trust, always verify' required
-  dismantling years of security assumptions and rebuilding our entire
-  authentication and authorization framework
+title: 'Zero Trust Architecture: A Practical Implementation Guide'
+description: Moving from 'trust but verify' to 'never trust, always verify' required
+  dismantling years of security assumptions and rebuilding our entire authentication
+  and authorization framework
 date: 2024-07-09
 tags:
-  - security
-  - zero-trust
-  - authentication
-  - architecture
+- security
+- zero-trust
+- authentication
+- architecture
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-hero.jpg
+    alt: 'cybersecurity concept illustration for Zero Trust Architecture: A Practical
+      Implementation Guide'
+    caption: 'Visual representation of Zero Trust Architecture: A Practical Implementation
+      Guide'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg
+    alt: 'cybersecurity concept illustration for Zero Trust Architecture: A Practical
+      Implementation Guide'
 ---
-
 The day our "secure" internal network was compromised by a malicious USB drive plugged into a conference room computer, I realized that perimeter-based security was fundamentally flawed. An attacker had gained access to our "trusted" network and moved laterally for weeks before we detected the breach.
 
 That incident forced us to abandon the castle-and-moat security model we'd relied on for years and embrace Zero Trust Architecture—a approach that assumes compromise and verifies every interaction, regardless of source or location.

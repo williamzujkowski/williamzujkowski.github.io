@@ -30,6 +30,16 @@
 
 This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) methodology with Claude-Flow orchestration for systematic Test-Driven Development.
 
+### 📸 Blog Image System
+**Quick Commands for Blog Images:**
+```bash
+# Full pipeline for new blog post images
+python scripts/update-blog-images.py && \
+python scripts/generate-blog-hero-images.py && \
+bash scripts/optimize-blog-images.sh
+```
+See [Blog Image Standards section](#blog-image-standards--implementation) for complete documentation.
+
 ## SPARC Commands
 
 ### Core Commands
@@ -271,6 +281,15 @@ ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
 Never save working files, text/mds and tests to the root folder.
 
+## Blog Image Management
+When working with blog posts:
+1. ALWAYS add image metadata to frontmatter
+2. Run `python scripts/update-blog-images.py` after creating posts
+3. Generate hero images with `python scripts/generate-blog-hero-images.py`
+4. Optimize with `bash scripts/optimize-blog-images.sh`
+5. Use proper alt text for accessibility
+6. Follow the directory structure in src/assets/images/blog/
+
 ---
 
 # Content Style Guidelines for Blog Posts
@@ -404,3 +423,265 @@ Before publishing:
 - Not every post needs to be epic
 - It's okay to have opinions
 - Writing gets easier with practice
+
+---
+
+# Blog Image Standards & Implementation
+
+## 📸 Image Management System
+
+### Directory Structure
+All blog images are organized in a hierarchical structure:
+```
+src/assets/images/blog/
+├── hero/               # Hero images for post headers (1200x630px)
+├── inline/             # Inline content images (800px wide)
+├── diagrams/           # Technical diagrams and architecture visuals
+├── infographics/       # Data visualizations and infographics
+└── thumbnails/         # Small preview images (400x300px)
+```
+
+### Image Naming Convention
+- Format: `YYYY-MM-DD-post-slug-image-type.ext`
+- Example: `2025-08-07-claude-flow-architecture-diagram.png`
+
+## 🎨 Image Requirements
+
+### Hero Images
+- **Dimensions:** 1200x630px (16:9 ratio for social sharing)
+- **Format:** JPEG for photos, PNG for graphics
+- **Max file size:** 200KB (optimized)
+- **Purpose:** Post header and og:image for social media
+
+### Inline Images
+- **Dimensions:** 800px wide (height variable)
+- **Format:** JPEG/PNG/WebP
+- **Max file size:** 150KB
+- **Purpose:** Content illustration within posts
+
+### Responsive Variants
+Each hero image should have:
+- Original: 1200px wide
+- Medium: 800px wide
+- Small: 400px wide
+- Thumbnail: 200px wide
+
+## 📝 Blog Post Frontmatter
+
+Every blog post MUST include comprehensive image metadata:
+
+```yaml
+---
+title: "Post Title"
+date: YYYY-MM-DD
+description: "Post description"
+tags: [tag1, tag2]
+author: "William Zujkowski"
+images:
+  hero:
+    src: "/assets/images/blog/hero/YYYY-MM-DD-post-slug-hero.jpg"
+    alt: "Descriptive alt text for hero image"
+    caption: "Optional caption for context"
+    width: 1200
+    height: 630
+  og:
+    src: "/assets/images/blog/hero/YYYY-MM-DD-post-slug-og.jpg"
+    alt: "Open Graph image description"
+  inline:
+    - src: "/assets/images/blog/inline/image1.png"
+      alt: "Alt text for inline image 1"
+      caption: "Caption for image 1"
+    - src: "/assets/images/blog/diagrams/diagram1.svg"
+      alt: "Alt text for diagram"
+      caption: "System architecture diagram"
+---
+```
+
+## 🛠️ Automation Scripts
+
+### 1. Update Blog Image Metadata
+```bash
+# Updates all blog posts with proper image metadata
+python scripts/update-blog-images.py
+```
+This script:
+- Scans all blog posts
+- Generates appropriate image metadata
+- Creates context-aware alt text
+- Updates frontmatter automatically
+
+### 2. Generate Hero Images
+```bash
+# Creates hero images for all blog posts
+python scripts/generate-blog-hero-images.py
+```
+Features:
+- Topic-based color schemes
+- Pattern overlays (circuit, dots, lines, grid, waves)
+- Automatic text layout
+- Social media variants (og:image)
+
+### 3. Optimize Images
+```bash
+# Optimizes images and creates responsive variants
+bash scripts/optimize-blog-images.sh
+```
+Performs:
+- JPEG optimization (85% quality)
+- PNG compression
+- Responsive variant generation
+- WebP conversion (if tools available)
+
+## 🎯 Image Creation Workflow
+
+### For New Blog Posts:
+1. **Write the post** with proper frontmatter (without images section)
+2. **Run metadata update**: `python scripts/update-blog-images.py`
+3. **Generate hero image**: `python scripts/generate-blog-hero-images.py`
+4. **Optimize images**: `bash scripts/optimize-blog-images.sh`
+5. **Review and customize** if needed
+
+### For Existing Posts:
+1. **Update metadata**: `python scripts/update-blog-images.py`
+2. **Generate missing images**: `python scripts/generate-blog-hero-images.py`
+3. **Optimize all images**: `bash scripts/optimize-blog-images.sh`
+
+## ♿ Accessibility Standards
+
+### Alt Text Requirements
+- **Be descriptive**: Convey the image's purpose and content
+- **Be concise**: 125 characters or less when possible
+- **Include context**: Relate to surrounding content
+- **Avoid redundancy**: Don't repeat caption text
+
+### Examples:
+- ✅ Good: "Diagram showing Claude-Flow's hierarchical swarm topology with queen and worker agents"
+- ❌ Bad: "Image" or "Diagram"
+
+## 🎨 Visual Consistency
+
+### Color Schemes by Topic
+The image generator automatically selects colors based on content:
+- **Security**: Blue to red gradient (#1e3a8a → #dc2626)
+- **AI/ML**: Purple to pink (#7c3aed → #ec4899)
+- **Cloud**: Sky blue to teal (#0ea5e9 → #10b981)
+- **Blockchain**: Amber to emerald (#f59e0b → #10b981)
+- **Quantum**: Violet to blue (#8b5cf6 → #3b82f6)
+- **DevOps**: Green to blue (#10b981 → #3b82f6)
+- **Python**: Python blue and yellow (#3776ab → #ffd343)
+- **JavaScript**: JavaScript yellow (#f7df1e)
+
+### Pattern Selection
+Patterns are automatically chosen based on tags:
+- **AI/ML posts**: Circuit pattern
+- **Cloud/DevOps**: Dots pattern
+- **Security**: Diagonal lines
+- **Network**: Wave pattern
+- **Default**: Grid pattern
+
+## 📊 Image Optimization
+
+### Performance Targets
+- **LCP (Largest Contentful Paint)**: < 2.5s
+- **Total image weight per page**: < 1MB
+- **Hero image load time**: < 1s
+- **Lazy loading**: All below-fold images
+
+### Optimization Commands
+```bash
+# Install optimization tools
+sudo apt-get install jpegoptim optipng webp imagemagick
+
+# Optimize JPEGs
+find src/assets/images/blog -name "*.jpg" -exec jpegoptim --max=85 --strip-all {} \;
+
+# Optimize PNGs
+find src/assets/images/blog -name "*.png" -exec optipng -o2 {} \;
+
+# Create WebP versions
+for img in src/assets/images/blog/**/*.jpg; do
+  cwebp -q 85 "$img" -o "${img%.*}.webp"
+done
+```
+
+## 🚀 Best Practices
+
+### When Creating Blog Posts:
+1. **Always run the update script** after creating a new post
+2. **Generate hero images** for visual consistency
+3. **Optimize images** before committing
+4. **Test responsive loading** on different devices
+5. **Verify alt text** is descriptive and accurate
+
+### Image Selection Guidelines:
+1. **Hero images**: Should represent the post's main concept
+2. **Inline images**: Break up text every 3-4 paragraphs
+3. **Diagrams**: Use for technical explanations
+4. **Infographics**: Summarize data or processes
+5. **Screenshots**: Show actual interfaces when relevant
+
+### Content-Image Alignment:
+- Place images near relevant text
+- Use captions to provide context
+- Ensure images enhance understanding
+- Don't use decorative-only images
+
+## 📋 Quality Checklist
+
+Before publishing, ensure:
+- [ ] Hero image exists and is optimized
+- [ ] Image metadata in frontmatter is complete
+- [ ] Alt text is descriptive and meaningful
+- [ ] Responsive variants are generated
+- [ ] File sizes are under limits
+- [ ] Images load properly in development
+- [ ] Social media preview works (og:image)
+
+## 🔧 Troubleshooting
+
+### Common Issues:
+
+**Missing hero images:**
+```bash
+# Regenerate for specific post
+python scripts/generate-blog-hero-images.py --post="YYYY-MM-DD-post-slug"
+```
+
+**Images too large:**
+```bash
+# Force re-optimization
+bash scripts/optimize-blog-images.sh --force
+```
+
+**Broken image paths:**
+```bash
+# Validate all image references
+python scripts/validate-blog-images.py
+```
+
+## 📈 Monitoring
+
+Track image performance:
+1. Use Lighthouse for Core Web Vitals
+2. Monitor image bandwidth in analytics
+3. Check social media card validators
+4. Test with screen readers
+5. Validate responsive behavior
+
+## 🎯 Quick Commands Reference
+
+```bash
+# Full image pipeline for new post
+python scripts/update-blog-images.py && \
+python scripts/generate-blog-hero-images.py && \
+bash scripts/optimize-blog-images.sh
+
+# Check image statistics
+find src/assets/images/blog -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.webp" \) | wc -l
+
+# View image index
+cat docs/blog-image-index.json | jq '.stats'
+
+# Generate report
+python scripts/generate-image-report.py > docs/image-report.md
+```

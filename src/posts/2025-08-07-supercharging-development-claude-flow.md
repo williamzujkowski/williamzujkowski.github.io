@@ -1,11 +1,32 @@
 ---
-title: "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering"
+title: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern
+  Engineering'
 date: 2025-08-07
-description: "Discover how Claude-Flow transforms software development with AI swarm intelligence, achieving 84.8% SWE-Bench solve rates and 4.4x speed improvements through intelligent agent orchestration"
-tags: [ai, automation, machine-learning, open-source, ai-ml, tutorial]
-author: "William Zujkowski"
+description: Discover how Claude-Flow transforms software development with AI swarm
+  intelligence, achieving 84.8% SWE-Bench solve rates and 4.4x speed improvements
+  through intelligent agent orchestration
+tags:
+- ai
+- automation
+- machine-learning
+- open-source
+- ai-ml
+- tutorial
+author: William Zujkowski
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-hero.jpg
+    alt: 'AI swarm orchestration visualization for Supercharging Development with
+      Claude-Flow: AI Swarm Intelligence for Modern Engineering'
+    caption: 'Visual representation of Supercharging Development with Claude-Flow:
+      AI Swarm Intelligence for Modern Engineering'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-og.jpg
+    alt: 'AI swarm orchestration visualization for Supercharging Development with
+      Claude-Flow: AI Swarm Intelligence for Modern Engineering'
 ---
-
 ## From Solo Coding to Swarm Intelligence
 
 Picture this: You're tackling a complex microservices refactor. Instead of spending hours jumping between files, writing tests, updating documentation, and managing deployments solo, you spawn a swarm of specialized AI agents that work in parallel. The researcher analyzes your codebase, the architect designs the solution, coders implement changes, testers validate everything, and a coordinator ensures perfect synchronization. This isn't science fiction – it's Claude-Flow in action.

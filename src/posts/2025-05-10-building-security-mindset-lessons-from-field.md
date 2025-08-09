@@ -1,10 +1,29 @@
 ---
-title: "Building a Security Mindset: Lessons from the Field"
+title: 'Building a Security Mindset: Lessons from the Field'
 date: 2025-05-10
-description: "After 15+ years in cybersecurity, here are the key lessons about developing a security-first mindset that have shaped my approach to both professional challenges and personal projects."
-tags: [career, security, leadership, mindset, lessons-learned]
+description: After 15+ years in cybersecurity, here are the key lessons about developing
+  a security-first mindset that have shaped my approach to both professional challenges
+  and personal projects.
+tags:
+- career
+- security
+- leadership
+- mindset
+- lessons-learned
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-hero.jpg
+    alt: 'cybersecurity concept illustration for Building a Security Mindset: Lessons
+      from the Field'
+    caption: 'Visual representation of Building a Security Mindset: Lessons from the
+      Field'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-og.jpg
+    alt: 'cybersecurity concept illustration for Building a Security Mindset: Lessons
+      from the Field'
 ---
-
 Security isn't just about tools, technologies, or compliance frameworks—it's fundamentally about mindset. After spending over 15 years in the field, from IT support to senior security engineering roles, I've learned that the most effective security professionals aren't necessarily those with the most certifications or the deepest technical knowledge. They're the ones who've developed a security-first way of thinking.
 
 ## The Evolution of a Security Mindset

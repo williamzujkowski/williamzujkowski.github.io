@@ -1,11 +1,30 @@
 ---
-title: "Securing Your Personal AI/ML Experiments: A Practical Guide"
+title: 'Securing Your Personal AI/ML Experiments: A Practical Guide'
 date: 2025-04-10
-description: "Lessons learned from running LLMs and AI experiments at home while keeping data and systems secure"
-tags: [ai, machine-learning, security, privacy, homelab, llm]
-author: "William Zujkowski"
+description: Lessons learned from running LLMs and AI experiments at home while keeping
+  data and systems secure
+tags:
+- ai
+- machine-learning
+- security
+- privacy
+- homelab
+- llm
+author: William Zujkowski
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-hero.jpg
+    alt: 'artificial intelligence concept diagram for Securing Your Personal AI/ML
+      Experiments: A Practical Guide'
+    caption: 'Visual representation of Securing Your Personal AI/ML Experiments: A
+      Practical Guide'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-og.jpg
+    alt: 'artificial intelligence concept diagram for Securing Your Personal AI/ML
+      Experiments: A Practical Guide'
 ---
-
 ## The AI Revolution Hits Home
 
 Like many tech enthusiasts, I've been experimenting with AI and Large Language Models (LLMs) in my homelab. But as a security professional and a parent, I quickly realized that running AI experiments at home comes with unique security and privacy challenges.

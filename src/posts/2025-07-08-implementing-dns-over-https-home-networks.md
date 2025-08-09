@@ -1,11 +1,29 @@
 ---
-title: "Implementing DNS-over-HTTPS (DoH) for Home Networks"
+title: Implementing DNS-over-HTTPS (DoH) for Home Networks
 date: 2025-07-08
-description: "Complete guide to deploying DNS-over-HTTPS on your home network for enhanced privacy and security, with multiple implementation approaches"
-tags: [security, networking, dns, privacy, homelab, encryption]
-author: "William Zujkowski"
+description: Complete guide to deploying DNS-over-HTTPS on your home network for enhanced
+  privacy and security, with multiple implementation approaches
+tags:
+- security
+- networking
+- dns
+- privacy
+- homelab
+- encryption
+author: William Zujkowski
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-hero.jpg
+    alt: cybersecurity concept illustration for Implementing DNS-over-HTTPS (DoH)
+      for Home Networks
+    caption: Visual representation of Implementing DNS-over-HTTPS (DoH) for Home Networks
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-og.jpg
+    alt: cybersecurity concept illustration for Implementing DNS-over-HTTPS (DoH)
+      for Home Networks
 ---
-
 ## The ISP Letter That Started Everything
 
 A few years back, I became aware that many ISPs monetize DNS query data for targeted advertising. This privacy concern motivated me to research DNS-over-HTTPS implementations.

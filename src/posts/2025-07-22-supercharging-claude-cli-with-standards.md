@@ -1,10 +1,27 @@
 ---
-title: "Exploring Claude CLI Context and Compliance with My Standards Repository"
+title: Exploring Claude CLI Context and Compliance with My Standards Repository
 date: 2025-07-22
-tags: ["ai", "development", "standards", "productivity"]
-description: "How I built a comprehensive standards repository that transforms Claude CLI into a context-aware development powerhouse with 90% token reduction."
+tags:
+- ai
+- development
+- standards
+- productivity
+description: How I built a comprehensive standards repository that transforms Claude
+  CLI into a context-aware development powerhouse with 90% token reduction.
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-hero.jpg
+    alt: Hero image illustrating Exploring Claude CLI Context and Compliance with
+      My Standards Repository
+    caption: Visual representation of Exploring Claude CLI Context and Compliance
+      with My Standards Repository
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-og.jpg
+    alt: Hero image illustrating Exploring Claude CLI Context and Compliance with
+      My Standards Repository
 ---
-
 ## The Problem: AI Tools That Forget Everything
 
 Ever notice how every AI conversation starts from scratch? You explain your project structure, your coding standards, your preferences... again and again. It's like having a brilliant colleague with amnesia.

@@ -1,11 +1,28 @@
 ---
-title: "Building a Security-Focused Homelab: My Journey"
+title: 'Building a Security-Focused Homelab: My Journey'
 date: 2025-04-24
-description: "How I built a comprehensive security lab at home for learning, experimentation, and keeping my family's digital life safe"
-tags: [homelab, security, networking, learning, personal-projects]
-author: "William Zujkowski"
+description: How I built a comprehensive security lab at home for learning, experimentation,
+  and keeping my family's digital life safe
+tags:
+- homelab
+- security
+- networking
+- learning
+- personal-projects
+author: William Zujkowski
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-hero.jpg
+    alt: 'cybersecurity concept illustration for Building a Security-Focused Homelab:
+      My Journey'
+    caption: 'Visual representation of Building a Security-Focused Homelab: My Journey'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-og.jpg
+    alt: 'cybersecurity concept illustration for Building a Security-Focused Homelab:
+      My Journey'
 ---
-
 ## Why Every Security Professional Needs a Homelab
 
 As a security engineer and a dad, I wear two hats: protecting enterprise systems by day and keeping my family's digital life secure by night. Building a homelab has been one of the most rewarding projects I've undertaken, serving as both a learning playground and a practical security solution for my home.

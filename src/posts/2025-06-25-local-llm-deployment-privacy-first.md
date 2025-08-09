@@ -1,10 +1,29 @@
 ---
-title: "Local LLM Deployment: Privacy-First Approach"
+title: 'Local LLM Deployment: Privacy-First Approach'
 date: 2025-06-25
-description: "Learn how to deploy Large Language Models locally for maximum privacy and security. Complete guide covering hardware requirements, model selection, and implementation strategies."
-tags: [ai-ml, security, privacy, homelab, llm, tutorial]
+description: Learn how to deploy Large Language Models locally for maximum privacy
+  and security. Complete guide covering hardware requirements, model selection, and
+  implementation strategies.
+tags:
+- ai-ml
+- security
+- privacy
+- homelab
+- llm
+- tutorial
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-hero.jpg
+    alt: 'cybersecurity concept illustration for Local LLM Deployment: Privacy-First
+      Approach'
+    caption: 'Visual representation of Local LLM Deployment: Privacy-First Approach'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-og.jpg
+    alt: 'cybersecurity concept illustration for Local LLM Deployment: Privacy-First
+      Approach'
 ---
-
 Several years ago, I became concerned about the privacy implications of cloud-based AI services. The realization that prompts and data are permanently stored on third-party servers motivated me to explore local LLM deployment options.
 
 After extensive research and testing in my home lab environment, I've developed reliable approaches for running LLMs on personal hardware. This guide shares practical lessons learned from implementing various local AI solutions.

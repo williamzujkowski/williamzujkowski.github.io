@@ -1,16 +1,27 @@
 ---
-title: "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security"
-description: >-
-  The first time I deployed a microservices architecture to production, I
-  thought our security was bulletproof - until a penetration tester showed me
-  how they'd compromised three services in under an hour
+title: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
+description: The first time I deployed a microservices architecture to production,
+  I thought our security was bulletproof - until a penetration tester showed me how
+  they'd compromised three services in under an hour
 date: 2024-01-30
 tags:
-  - security
-  - cloud
-  - devops
+- security
+- cloud
+- devops
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-hero.jpg
+    alt: 'cybersecurity concept illustration for Securing the Cloud-Native Frontier:
+      A Guide to Cloud-Native Security'
+    caption: 'Visual representation of Securing the Cloud-Native Frontier: A Guide
+      to Cloud-Native Security'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-og.jpg
+    alt: 'cybersecurity concept illustration for Securing the Cloud-Native Frontier:
+      A Guide to Cloud-Native Security'
 ---
-
 The shift to microservices and containers felt like stepping into a new world, brimming with potential and innovation. But my confidence was shattered years ago when a penetration tester demonstrated how they'd compromised three of our "secure" services in under an hour.
 
 Watching them pivot from service to service, exploiting trust relationships we'd never questioned, was a humbling experience. That incident taught me that cloud-native architectures don't just change how we deploy applications—they fundamentally change how we think about security.

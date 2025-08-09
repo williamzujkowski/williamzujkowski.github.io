@@ -1,16 +1,27 @@
 ---
-title: "Cloud Migration: A Guide to Navigating Your Journey to the Cloud"
-description: >-
-  Standing in a server room filled with humming machines, I realized our
-  physical infrastructure had become an anchor - the cloud migration that
-  followed taught me as much about change management as technology
+title: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
+description: Standing in a server room filled with humming machines, I realized our
+  physical infrastructure had become an anchor - the cloud migration that followed
+  taught me as much about change management as technology
 date: 2024-03-05
 tags:
-  - cloud
-  - devops
-  - infrastructure
+- cloud
+- devops
+- infrastructure
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-hero.jpg
+    alt: 'cloud computing architecture diagram for Cloud Migration: A Guide to Navigating
+      Your Journey to the Cloud'
+    caption: 'Visual representation of Cloud Migration: A Guide to Navigating Your
+      Journey to the Cloud'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-og.jpg
+    alt: 'cloud computing architecture diagram for Cloud Migration: A Guide to Navigating
+      Your Journey to the Cloud'
 ---
-
 I recall standing in our data center years ago—warm air flowing from countless machines, cables snaking across raised floors—wondering if this physical infrastructure had become more anchor than asset. The constant hum of cooling systems and blinking server lights represented significant investment, but also significant constraints.
 
 That moment crystallized our need for cloud migration, but the journey that followed taught me as much about organizational change management as it did about technology. Moving to the cloud isn't just a technical transformation—it's a fundamental shift in how we think about infrastructure, reliability, and scale.

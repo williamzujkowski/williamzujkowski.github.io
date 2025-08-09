@@ -1,16 +1,26 @@
 ---
-title: "The Ethics of Large Language Models"
-description: >-
-  Deploying our first customer-facing LLM felt like releasing something
-  powerful into the wild - the biases, mistakes, and unintended consequences
-  that followed taught me why AI ethics isn't optional
+title: The Ethics of Large Language Models
+description: Deploying our first customer-facing LLM felt like releasing something
+  powerful into the wild - the biases, mistakes, and unintended consequences that
+  followed taught me why AI ethics isn't optional
 date: 2024-04-11
 tags:
-  - ai
-  - llm
-  - ethics
+- ai
+- llm
+- ethics
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-04-11-ethics-large-language-models-hero.jpg
+    alt: artificial intelligence concept diagram for The Ethics of Large Language
+      Models
+    caption: Visual representation of The Ethics of Large Language Models
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-04-11-ethics-large-language-models-og.jpg
+    alt: artificial intelligence concept diagram for The Ethics of Large Language
+      Models
 ---
-
 Whenever I interact with a Large Language Model, there's a moment of awe—like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 
 Deploying our first customer-facing LLM felt like releasing something powerful and unpredictable into the wild. The lessons that followed—about bias, fairness, and responsibility—fundamentally changed how I think about AI development and deployment.

@@ -1,11 +1,29 @@
 ---
-title: "eBPF for Security Monitoring: A Practical Guide"
+title: 'eBPF for Security Monitoring: A Practical Guide'
 date: 2025-07-01
-description: "Learn how to leverage eBPF for real-time security monitoring in Linux environments with practical examples and production-ready code"
-tags: [security, linux, ebpf, monitoring, kernel, detection]
-author: "William Zujkowski"
+description: Learn how to leverage eBPF for real-time security monitoring in Linux
+  environments with practical examples and production-ready code
+tags:
+- security
+- linux
+- ebpf
+- monitoring
+- kernel
+- detection
+author: William Zujkowski
+images:
+  hero:
+    src: /assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-practical-guide-hero.jpg
+    alt: 'cybersecurity concept illustration for eBPF for Security Monitoring: A Practical
+      Guide'
+    caption: 'Visual representation of eBPF for Security Monitoring: A Practical Guide'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-practical-guide-og.jpg
+    alt: 'cybersecurity concept illustration for eBPF for Security Monitoring: A Practical
+      Guide'
 ---
-
 ## The Day eBPF Changed Everything
 
 Years ago, I researched how attackers could potentially bypass EDR solutions by operating at the kernel level. This research led me to explore eBPF as a detection mechanism.

@@ -1,17 +1,28 @@
 ---
-title: "Beyond Containers: The Future of Application Deployment"
-description: >-
-  Containers revolutionized how we deploy applications, but after years of
-  wrestling with Kubernetes complexity, I started exploring what comes next in
+title: 'Beyond Containers: The Future of Application Deployment'
+description: Containers revolutionized how we deploy applications, but after years
+  of wrestling with Kubernetes complexity, I started exploring what comes next in
   application deployment
 date: 2024-06-11
 tags:
-  - devops
-  - containers
-  - deployment
-  - infrastructure
+- devops
+- containers
+- deployment
+- infrastructure
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-06-11-beyond-containers-future-deployment-hero.jpg
+    alt: 'artificial intelligence concept diagram for Beyond Containers: The Future
+      of Application Deployment'
+    caption: 'Visual representation of Beyond Containers: The Future of Application
+      Deployment'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-06-11-beyond-containers-future-deployment-og.jpg
+    alt: 'artificial intelligence concept diagram for Beyond Containers: The Future
+      of Application Deployment'
 ---
-
 After spending another late night debugging a Kubernetes networking issue that had taken down our production service, I found myself questioning whether containers were the final evolution of application deployment or just another step along the way.
 
 Containers had solved many problems—dependency hell, environment consistency, resource utilization—but they'd also introduced new complexities that sometimes felt heavier than the problems they solved. That sleepless night sparked my exploration into what might come after the container revolution.

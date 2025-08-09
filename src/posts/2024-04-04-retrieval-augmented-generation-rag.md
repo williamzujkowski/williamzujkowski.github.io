@@ -1,16 +1,27 @@
 ---
-title: "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge"
-description: >-
-  The moment I realized our LLM was confidently making up facts about our
-  company's products was when I understood why RAG isn't optional - it's
-  essential for trustworthy AI systems
+title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
+description: The moment I realized our LLM was confidently making up facts about our
+  company's products was when I understood why RAG isn't optional - it's essential
+  for trustworthy AI systems
 date: 2024-04-04
 tags:
-  - ai
-  - llm
-  - rag
+- ai
+- llm
+- rag
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-hero.jpg
+    alt: 'artificial intelligence concept diagram for Retrieval Augmented Generation
+      (RAG): Enhancing LLMs with External Knowledge'
+    caption: 'Visual representation of Retrieval Augmented Generation (RAG): Enhancing
+      LLMs with External Knowledge'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-og.jpg
+    alt: 'artificial intelligence concept diagram for Retrieval Augmented Generation
+      (RAG): Enhancing LLMs with External Knowledge'
 ---
-
 There's a moment in every conversation with a Large Language Model when you realize the fundamental limitation: the model can only work with what it learned during training. For me, that moment came during a demo where our customer service LLM confidently made up product specifications that didn't exist.
 
 Watching potential customers receive authoritative-sounding but completely incorrect information was mortifying. That incident sparked my deep dive into Retrieval Augmented Generation (RAG)—a technique that gives AI systems the power to consult external knowledge sources before generating responses.

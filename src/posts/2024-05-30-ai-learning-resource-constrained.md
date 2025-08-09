@@ -1,16 +1,26 @@
 ---
-title: "AI Learning in Resource-Constrained Environments"
-description: >-
-  Running large language models on a raspberry pi cluster taught me more about
-  efficiency and ingenuity than years of unlimited cloud computing budgets ever
+title: AI Learning in Resource-Constrained Environments
+description: Running large language models on a raspberry pi cluster taught me more
+  about efficiency and ingenuity than years of unlimited cloud computing budgets ever
   could
 date: 2024-05-30
 tags:
-  - ai
-  - machine-learning
-  - edge-computing
+- ai
+- machine-learning
+- edge-computing
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-hero.jpg
+    alt: cloud computing architecture diagram for AI Learning in Resource-Constrained
+      Environments
+    caption: Visual representation of AI Learning in Resource-Constrained Environments
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-og.jpg
+    alt: cloud computing architecture diagram for AI Learning in Resource-Constrained
+      Environments
 ---
-
 Staring at my electricity bill after running a large language model training job, I realized something fundamental had to change. The thousands of dollars in GPU compute costs for a single experiment weren't sustainable for personal projects, and they certainly weren't accessible to researchers without substantial funding.
 
 That moment of financial reality sparked my deep dive into AI learning in resource-constrained environments—a journey that taught me more about efficiency, creativity, and the fundamentals of machine learning than years of unlimited cloud budgets ever could.

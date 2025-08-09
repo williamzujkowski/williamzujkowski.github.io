@@ -1,14 +1,28 @@
 ---
-title: "Context Windows in Large Language Models: The Memory That Shapes AI"
-description: "Understanding how context window limitations influence LLM performance and the innovative approaches being developed to handle long-form content, from document analysis to extended conversations."
-date: "2024-06-09T00:00:00.000Z"
+title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
+description: Understanding how context window limitations influence LLM performance
+  and the innovative approaches being developed to handle long-form content, from
+  document analysis to extended conversations.
+date: '2024-06-09T00:00:00.000Z'
 tags:
-  - posts
-  - ai
-  - programming
-  - architecture
+- posts
+- ai
+- programming
+- architecture
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-hero.jpg
+    alt: 'artificial intelligence concept diagram for Context Windows in Large Language
+      Models: The Memory That Shapes AI'
+    caption: 'Visual representation of Context Windows in Large Language Models: The
+      Memory That Shapes AI'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg
+    alt: 'artificial intelligence concept diagram for Context Windows in Large Language
+      Models: The Memory That Shapes AI'
 ---
-
 Years ago, I was working with an early version of GPT-3 on a complex analysis task. Halfway through our conversation, the model seemed to "forget" important details I'd provided earlier, giving responses that contradicted its previous analysis. That frustrating experience introduced me to one of the most fundamental constraints in AI systems: the context window.
 
 A context window represents the amount of text a language model can "see" and consider simultaneously when generating responses. Think of it as the model's short-term memory—a finite space where previous conversation, relevant information, and the current query must all fit to be processed together.
