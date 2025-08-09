@@ -371,6 +371,9 @@
     <!-- Back to Top Button -->
     <script src="/assets/js/back-to-top.js"></script>
     
+    <!-- Code Collapse (must load before Mermaid processing) -->
+    <script src="/assets/js/code-collapse.js"></script>
+    
     <!-- Mermaid Diagram Support -->
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -436,18 +439,8 @@
                 });
             }
             
-            // Step 3: NOW initialize code-collapse for remaining code blocks
-            // Load and run code-collapse.js after Mermaid is done
-            if (!window.codeCollapseLoaded) {
-                const script = document.createElement('script');
-                script.src = '/assets/js/code-collapse.js';
-                script.onload = function() {
-                    console.log('Code collapse loaded');
-                    // The script will auto-initialize for non-Mermaid blocks
-                };
-                document.body.appendChild(script);
-                window.codeCollapseLoaded = true;
-            }
+            // Step 3: Code-collapse.js is already loaded and will handle remaining blocks
+            // It checks for data-processed attribute to avoid duplicates
         });
     </script>
 </body>

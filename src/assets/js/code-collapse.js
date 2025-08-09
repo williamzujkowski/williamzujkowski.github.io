@@ -18,12 +18,15 @@
    * Initialize collapsible code blocks on page load
    */
   function initCollapsibleCodeBlocks() {
-    // Find all code blocks in prose content
-    const codeBlocks = document.querySelectorAll('.prose pre');
+    // Find all code blocks in prose content that haven't been processed yet
+    const codeBlocks = document.querySelectorAll('.prose pre:not([data-processed])');
     
     codeBlocks.forEach(block => {
       const codeElement = block.querySelector('code');
       if (!codeElement) return;
+
+      // Mark as processed to prevent duplicate processing
+      block.setAttribute('data-processed', 'true');
 
       // Skip Mermaid diagrams - they should not be collapsible
       if (codeElement.classList.contains('language-mermaid')) {
@@ -37,6 +40,11 @@
 
       // Skip if this is actually a Mermaid div that was already converted
       if (block.parentElement && (block.parentElement.classList.contains('mermaid') || block.parentElement.hasAttribute('data-mermaid'))) {
+        return;
+      }
+
+      // Skip if already in a wrapper (already processed)
+      if (block.parentElement && block.parentElement.classList.contains('code-block-container')) {
         return;
       }
 
@@ -209,9 +217,12 @@
    * Add copy button to all code blocks
    */
   function addCopyButtons() {
-    const codeBlocks = document.querySelectorAll('.prose pre');
+    const codeBlocks = document.querySelectorAll('.prose pre:not([data-copy-processed])');
     
     codeBlocks.forEach(block => {
+      // Mark as processed
+      block.setAttribute('data-copy-processed', 'true');
+      
       // Skip if already has a copy button
       if (block.querySelector('.code-copy-btn')) return;
       
@@ -304,22 +315,27 @@
   window.initCollapsibleCodeBlocks = initCollapsibleCodeBlocks;
   window.addCopyButtons = addCopyButtons;
   
-  // Always initialize when this script loads
-  // By the time this script is loaded dynamically, Mermaid has already processed its blocks
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+  // Check if already initialized to prevent duplicate runs
+  if (!window.codeCollapseInitialized) {
+    window.codeCollapseInitialized = true;
+    
+    // Always initialize when this script loads
+    // By the time this script is loaded dynamically, Mermaid has already processed its blocks
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initCollapsibleCodeBlocks();
+        addCopyButtons();
+      });
+    } else {
+      // DOM is already loaded, initialize immediately
+      initCollapsibleCodeBlocks();
+      addCopyButtons();
+    }
+
+    // Re-initialize on dynamic content changes (if using a SPA or dynamic content loading)
+    window.addEventListener('codeBlocksUpdated', () => {
       initCollapsibleCodeBlocks();
       addCopyButtons();
     });
-  } else {
-    // DOM is already loaded, initialize immediately
-    initCollapsibleCodeBlocks();
-    addCopyButtons();
   }
-
-  // Re-initialize on dynamic content changes (if using a SPA or dynamic content loading)
-  window.addEventListener('codeBlocksUpdated', () => {
-    initCollapsibleCodeBlocks();
-    addCopyButtons();
-  });
 })();
