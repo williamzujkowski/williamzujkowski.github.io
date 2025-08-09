@@ -1,7 +1,7 @@
 {
   "name": "williamzujkowski.github.io",
   "version": "1.0.0",
-  "description": "Personal website of William Zujkowski",
+  "description": "Personal website of William Zujkowski - Force rebuild",
   "scripts": {
     "build:css": "postcss src/assets/css/tailwind.css -o _site/assets/css/main.css",
     "build:eleventy": "eleventy",
