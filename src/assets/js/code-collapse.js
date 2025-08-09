@@ -25,6 +25,21 @@
       const codeElement = block.querySelector('code');
       if (!codeElement) return;
 
+      // Skip Mermaid diagrams - they should not be collapsible
+      if (codeElement.classList.contains('language-mermaid')) {
+        return;
+      }
+
+      // Skip if marked as mermaid
+      if (block.hasAttribute('data-mermaid') || block.classList.contains('mermaid-pre')) {
+        return;
+      }
+
+      // Skip if this is actually a Mermaid div that was already converted
+      if (block.parentElement && (block.parentElement.classList.contains('mermaid') || block.parentElement.hasAttribute('data-mermaid'))) {
+        return;
+      }
+
       // Calculate number of lines
       const text = codeElement.textContent || '';
       const lines = text.split('\n');
@@ -202,6 +217,21 @@
       
       const codeElement = block.querySelector('code');
       if (!codeElement) return;
+
+      // Skip Mermaid diagrams - they don't need copy buttons
+      if (codeElement.classList.contains('language-mermaid')) {
+        return;
+      }
+
+      // Skip if marked as mermaid
+      if (block.hasAttribute('data-mermaid') || block.classList.contains('mermaid-pre')) {
+        return;
+      }
+
+      // Skip if this is actually a Mermaid div
+      if (block.parentElement && (block.parentElement.classList.contains('mermaid') || block.parentElement.hasAttribute('data-mermaid'))) {
+        return;
+      }
 
       // Create copy button
       const copyBtn = document.createElement('button');
