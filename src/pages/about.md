@@ -227,7 +227,7 @@ image: /assets/images/og/about-og.png
 ### Stuff I'm Actually Proud Of
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-  <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 pb-6 px-6 pt-4 rounded-xl shadow-sm border border-green-200/50 dark:border-green-800/30">
+  <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-8 rounded-xl shadow-sm border border-green-200/50 dark:border-green-800/30">
     <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
       Recognition
     </h3>
@@ -244,7 +244,7 @@ image: /assets/images/og/about-og.png
     </ul>
   </div>
   
-  <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 pb-6 px-6 pt-4 rounded-xl shadow-sm border border-purple-200/50 dark:border-purple-800/30">
+  <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-xl shadow-sm border border-purple-200/50 dark:border-purple-800/30">
     <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
       Certifications
     </h3>
@@ -686,7 +686,7 @@ Building tools that solve real problems – from security automation to AI-power
 
 ## What's Keeping Me Up at Night (Besides Alerts)
 
-<div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 pb-8 px-8 pt-6 rounded-2xl shadow-md my-12 border border-purple-200/50 dark:border-purple-800/30">
+<div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 p-10 rounded-2xl shadow-md my-12 border border-purple-200/50 dark:border-purple-800/30">
   <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
     Learning & Growth
   </h3>
@@ -766,7 +766,7 @@ Building tools that solve real problems – from security automation to AI-power
 
 ## Let's Connect
 
-<div class="bg-gradient-to-br from-green-50 via-teal-50 to-emerald-50 dark:from-green-900/20 dark:via-teal-900/20 dark:to-emerald-900/20 pb-8 px-8 pt-6 rounded-2xl shadow-lg my-12 border border-green-200/50 dark:border-green-800/30">
+<div class="bg-gradient-to-br from-green-50 via-teal-50 to-emerald-50 dark:from-green-900/20 dark:via-teal-900/20 dark:to-emerald-900/20 p-10 rounded-2xl shadow-lg my-12 border border-green-200/50 dark:border-green-800/30">
   <p class="text-2xl text-gray-700 dark:text-gray-300 italic mb-8 text-center leading-relaxed">
     Whether you want to discuss Zero Trust architecture, debate vim vs emacs (it's vim), 
     or share your latest homelab disaster story – I'm here for it. Fair warning: I will 
