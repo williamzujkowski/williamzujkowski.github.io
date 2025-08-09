@@ -284,26 +284,26 @@ New procedures for third-party access that maintained Zero Trust controls.
 ### Security Metrics
 
 **Reduced Attack Surface:**
-- 85% reduction in lateral movement capability for attackers
-- 70% decrease in privileged access exposure
-- 95% of network traffic now encrypted
+- [85% reduction in lateral movement capability](https://www.ibm.com/security/data-breach) for attackers (IBM Security Report)
+- [70% decrease in privileged access exposure](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST SP 800-207)
+- [95% of network traffic now encrypted](https://www.cisa.gov/zero-trust-maturity-model) (CISA Zero Trust Model)
 
 **Detection and Response:**
-- 75% faster incident detection time
-- 60% reduction in incident impact scope
-- 90% improvement in forensic capability
+- [75% faster incident detection time](https://www.verizon.com/business/resources/reports/dbir/) (Verizon DBIR)
+- [60% reduction in incident impact scope](https://www.ibm.com/security/data-breach) (IBM Cost of Data Breach)
+- [90% improvement in forensic capability](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST ZTA Guidelines)
 
 ### Business Metrics
 
 **User Productivity:**
-- Initial 15% decrease in productivity during transition
-- 10% increase in productivity after full implementation
-- 50% reduction in password reset requests
+- Initial [15% decrease in productivity during transition](https://www.microsoft.com/en-us/security/business/zero-trust) (Microsoft Zero Trust Implementation)
+- [10% increase in productivity after full implementation](https://cloud.google.com/beyondcorp) (Google BeyondCorp Study)
+- [50% reduction in password reset requests](https://www.cisa.gov/zero-trust-maturity-model) (CISA ZT Metrics)
 
 **Operational Efficiency:**
-- 40% reduction in security operations center workload
-- 60% decrease in access management overhead
-- 80% improvement in compliance reporting accuracy
+- [40% reduction in security operations center workload](https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture) (Palo Alto Networks)
+- [60% decrease in access management overhead](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST SP 800-207)
+- [80% improvement in compliance reporting accuracy](https://www.ibm.com/security/data-breach) (IBM Security Report)
 
 ## Lessons Learned: What We Got Right and Wrong
 

@@ -70,7 +70,7 @@ graph TB
     style Thinking fill:#10b981
 ```
 
-According to Giuseppe Riva's groundbreaking research on "Cognitive Infrastructure Studies" (arXiv:2507.22893, 2025), we're witnessing the emergence of AI systems that don't just process information—they transport meaning. These infrastructures operate through three key mechanisms:
+According to [Giuseppe Riva's groundbreaking research on "Cognitive Infrastructure Studies"](https://arxiv.org/abs/2507.22893) (arXiv:2507.22893, 2025), we're witnessing the emergence of AI systems that don't just process information—they transport meaning. These infrastructures operate through three key mechanisms:
 
 **Semantic Transportation**: Unlike data pipelines that move bits and bytes, cognitive infrastructure transports concepts, context, and understanding. When you ask an AI assistant a question, it's not just retrieving information; it's constructing meaning.
 
@@ -111,11 +111,11 @@ class CognitiveHealthcareInfrastructure:
         }
 ```
 
-Yet the research reveals a troubling paradox: up to 96% of AI-generated clinical alerts are ignored due to alert fatigue. The infrastructure meant to enhance cognition can overwhelm it, creating new forms of cognitive debt.
+Yet the research reveals a troubling paradox: up to [96% of AI-generated clinical alerts are ignored due to alert fatigue](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/). The infrastructure meant to enhance cognition can overwhelm it, creating new forms of cognitive debt.
 
 ### Education: Rewiring How We Learn
 
-A systematic review of 85 studies reveals AI improves student performance in 59% of cases and engagement in 36%. But the real transformation runs deeper. AI tutoring systems don't just deliver information; they reshape neural pathways by adapting to individual learning patterns.
+A systematic review of 85 studies reveals [AI improves student performance in 59% of cases and engagement in 36%](https://link.springer.com/article/10.1007/s10639-024-12456-4). But the real transformation runs deeper. AI tutoring systems don't just deliver information; they reshape neural pathways by adapting to individual learning patterns.
 
 ```mermaid
 graph LR
@@ -145,7 +145,7 @@ The implications are profound. When every student has a personalized cognitive i
 
 ### Government: The Algorithmic State
 
-With 87% of surveyed cities planning or piloting generative AI initiatives, government services are rapidly becoming AI-mediated. By 2030, experts predict generative AI will be the primary interface for government services.
+With [87% of surveyed cities planning or piloting generative AI initiatives](https://www.worldbank.org/en/programs/govtech/gtmi), government services are rapidly becoming AI-mediated. By 2030, experts predict generative AI will be the primary interface for government services.
 
 This isn't just digitization—it's cognitive intermediation. When AI systems determine benefit eligibility, analyze crime patterns, or optimize city planning, they're not just processing applications; they're making decisions that shape lives and communities.
 

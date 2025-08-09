@@ -364,10 +364,20 @@ Never save working files, text/mds and tests to the root folder.
    python scripts/academic-search.py --query "specific claim" --sources "arxiv,zenodo,core"
    ```
 
-3. **Source Citation Format**
+3. **Source Citation Format - MANDATORY HYPERLINKS**
+   - **ALL citations MUST include clickable hyperlinks to sources**
    - Inline: `[Study shows 73% improvement](https://arxiv.org/abs/2024.xxxxx)`
-   - Reference section with full citations
-   - Include DOI when available
+   - Reference format:
+     ```markdown
+     1. **[Paper Title](https://doi.org/10.xxxx/xxxxx)** (Year)
+        - Author names
+        - *Journal/Conference Name*
+     ```
+   - Links MUST point to:
+     - arXiv, PubMed Central, or open-access versions
+     - DOI links (https://doi.org/10.xxxx/xxxxx)
+     - Official publisher/organization pages
+   - NEVER cite without a working hyperlink to the source
 
 4. **Visual Evidence**
    - Extract figures/charts from papers (with permission/citation)
