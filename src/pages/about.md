@@ -14,7 +14,7 @@ image: /assets/images/og/about-og.png
 <div class="prose prose-lg prose-gray dark:prose-invert lg:prose-xl max-w-none">
 
 <!-- Navigation Card with improved spacing and grid layout -->
-<div class="bg-gradient-to-br from-primary-50 to-indigo-50 dark:from-gray-800/50 dark:to-primary-900/20 p-6 rounded-2xl mb-12 shadow-sm border border-primary-100/50 dark:border-primary-800/30">
+<div class="bg-gradient-to-br from-primary-50 to-indigo-50 dark:from-gray-800/50 dark:to-primary-900/20 pb-6 px-6 pt-4 rounded-2xl mb-12 shadow-sm border border-primary-100/50 dark:border-primary-800/30">
   <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">Quick Navigation</h2>
   
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
