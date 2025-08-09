@@ -300,12 +300,19 @@
   /**
    * Initialize when DOM is ready
    */
+  // Export functions globally
+  window.initCollapsibleCodeBlocks = initCollapsibleCodeBlocks;
+  window.addCopyButtons = addCopyButtons;
+  
+  // Always initialize when this script loads
+  // By the time this script is loaded dynamically, Mermaid has already processed its blocks
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initCollapsibleCodeBlocks();
       addCopyButtons();
     });
   } else {
+    // DOM is already loaded, initialize immediately
     initCollapsibleCodeBlocks();
     addCopyButtons();
   }

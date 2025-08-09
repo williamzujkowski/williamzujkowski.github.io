@@ -371,9 +371,6 @@
     <!-- Back to Top Button -->
     <script src="/assets/js/back-to-top.js"></script>
     
-    <!-- Load code-collapse.js with exported functions -->
-    <script src="/assets/js/code-collapse.js"></script>
-    
     <!-- Mermaid Diagram Support -->
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -397,48 +394,60 @@
             }
         });
         
-        // Handle code blocks with language-mermaid class
-        // Process Mermaid BEFORE code-collapse runs
+        // Process Mermaid diagrams and THEN initialize code-collapse
         window.addEventListener('DOMContentLoaded', async function() {
-            // Find all mermaid code blocks
+            // Step 1: Find and process all mermaid code blocks
             const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
             
-            for (const element of mermaidBlocks) {
-                const graphDefinition = element.textContent;
-                const preElement = element.parentNode;
-                
-                // Mark the pre element so code-collapse.js skips it
-                preElement.setAttribute('data-mermaid', 'true');
-                preElement.classList.add('mermaid-pre');
-                
-                // Create a container div for the mermaid diagram
-                const containerDiv = document.createElement('div');
-                containerDiv.className = 'mermaid-container';
-                containerDiv.setAttribute('data-mermaid', 'true');
-                containerDiv.style.cssText = 'position: relative; width: 100%; overflow-x: auto; margin: 1.5rem 0;';
-                
-                // Create the mermaid div
-                const graphDiv = document.createElement('div');
-                graphDiv.className = 'mermaid';
-                graphDiv.textContent = graphDefinition;
-                
-                // Replace the pre element with the container
-                preElement.parentNode.replaceChild(containerDiv, preElement);
-                containerDiv.appendChild(graphDiv);
-            }
-            
-            // Initialize all mermaid diagrams
             if (mermaidBlocks.length > 0) {
+                console.log('Processing', mermaidBlocks.length, 'Mermaid diagrams...');
+                
+                // Convert each mermaid code block to a diagram
+                for (const element of mermaidBlocks) {
+                    const graphDefinition = element.textContent;
+                    const preElement = element.parentNode;
+                    
+                    // Create a container div for the mermaid diagram
+                    const containerDiv = document.createElement('div');
+                    containerDiv.className = 'mermaid-container';
+                    containerDiv.setAttribute('data-mermaid', 'true');
+                    containerDiv.style.cssText = 'position: relative; width: 100%; overflow-x: auto; margin: 1.5rem 0;';
+                    
+                    // Create the mermaid div
+                    const graphDiv = document.createElement('div');
+                    graphDiv.className = 'mermaid';
+                    graphDiv.textContent = graphDefinition;
+                    
+                    // Replace the pre element with the container - this removes the code block entirely
+                    preElement.parentNode.replaceChild(containerDiv, preElement);
+                    containerDiv.appendChild(graphDiv);
+                }
+                
+                // Step 2: Initialize all mermaid diagrams
                 await mermaid.run();
+                console.log('Mermaid diagrams rendered');
+                
+                // Ensure diagrams are visible
+                document.querySelectorAll('.mermaid-container').forEach(function(container) {
+                    container.style.display = 'block';
+                    container.style.visibility = 'visible';
+                    container.style.maxHeight = 'none';
+                    container.style.overflow = 'visible';
+                });
             }
             
-            // Ensure diagrams are visible and not collapsed
-            document.querySelectorAll('.mermaid-container').forEach(function(container) {
-                container.style.display = 'block';
-                container.style.visibility = 'visible';
-                container.style.maxHeight = 'none';
-                container.style.overflow = 'visible';
-            });
+            // Step 3: NOW initialize code-collapse for remaining code blocks
+            // Load and run code-collapse.js after Mermaid is done
+            if (!window.codeCollapseLoaded) {
+                const script = document.createElement('script');
+                script.src = '/assets/js/code-collapse.js';
+                script.onload = function() {
+                    console.log('Code collapse loaded');
+                    // The script will auto-initialize for non-Mermaid blocks
+                };
+                document.body.appendChild(script);
+                window.codeCollapseLoaded = true;
+            }
         });
     </script>
 </body>
