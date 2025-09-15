@@ -10,7 +10,13 @@
     "watch:eleventy": "eleventy --serve",
     "serve": "npm-run-all --parallel watch:*",
     "debug": "DEBUG=* eleventy",
-    "validate:km": "node tools/validation/validate-km-standards.js"
+    "validate:km": "node tools/validation/validate-km-standards.js",
+    "test": "node tests/test-runner.js tests/unit",
+    "test:unit": "node tests/test-runner.js tests/unit",
+    "test:integration": "node tests/test-runner.js tests/integration",
+    "test:e2e": "node tests/test-runner.js tests/e2e",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
+    "test:watch": "nodemon --watch tests --watch src --exec 'npm test'"
   },
   "keywords": [
     "eleventy",

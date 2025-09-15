@@ -50,12 +50,51 @@ williamzujkowski.github.io/
 
 #### `/scripts` - Automation Scripts
 - **Purpose**: Python and shell scripts for content management and optimization
-- **Categories**:
-  - Blog enhancement: `*blog*.py`
-  - Image optimization: `optimize-*.sh`
-  - Content generation: `generate-*.py`
-  - Research validation: `research-*.py`, `academic-*.py`
-  - Diagnostics: `diagnose-*.py` (to be removed)
+
+##### Blog Enhancement Scripts
+| Script | Purpose | Status |
+|--------|---------|--------|
+| `analyze-blog-content.py` | Analyzes blog posts for content quality metrics | Active |
+| `batch-improve-blog-posts.py` | Batch processes blog improvements | Active |
+| `comprehensive-blog-enhancement.py` | Comprehensive blog post enhancement tool | Active |
+| `optimize-blog-content.py` | Optimizes blog content for readability | Active |
+| `update-blog-images.py` | Updates blog post image metadata | Active |
+
+##### Academic & Research Scripts
+| Script | Purpose | Status |
+|--------|---------|--------|
+| `academic-search.py` | Searches academic databases for citations | Active |
+| `add-academic-citations.py` | Adds academic citations to blog posts | Active |
+| `add-reputable-sources-to-posts.py` | Adds reputable sources to posts | Active |
+| `enhance-more-posts-citations.py` | Enhances citations across multiple posts | Active |
+| `check-citation-hyperlinks.py` | Validates citation hyperlinks | Active |
+| `research-validator.py` | Validates research claims in posts | Planned |
+
+##### Image Management Scripts
+| Script | Purpose | Status |
+|--------|---------|--------|
+| `generate-blog-hero-images.py` | Generates hero images for blog posts | Active |
+| `optimize-blog-images.sh` | Optimizes images for web performance | Active |
+| `playwright-image-search.py` | Searches and downloads stock images | Active |
+| `enhanced-blog-image-search.py` | Enhanced image search with AI | Active |
+| `fetch-stock-images.py` | Fetches stock images from APIs | Active |
+| `add-tech-images.py` | Adds technical images to posts | Active |
+| `remove-hero-images.py` | Removes hero images utility | Active |
+| `generate-og-image.py` | Generates Open Graph images | Active |
+
+##### Diagram & Visualization Scripts
+| Script | Purpose | Status |
+|--------|---------|--------|
+| `create-blog-diagrams.py` | Creates Mermaid diagrams for posts | Active |
+| `add-diagrams-to-live-posts.py` | Adds diagrams to existing posts | Active |
+| `integrate-diagrams.py` | Integrates diagrams into content | Active |
+
+##### Validation Scripts
+| Script | Purpose | Status |
+|--------|---------|--------|
+| `final-validation.py` | Final validation before deployment | Active |
+| `validate-blog-images.py` | Validates blog image references | Planned |
+| `validate-knowledge-management.py` | Validates KM standards | Planned |
 
 #### `/docs` - Documentation
 - **Purpose**: Project documentation and guides
