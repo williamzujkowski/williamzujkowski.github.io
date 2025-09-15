@@ -1,5 +1,100 @@
 # Claude Code Configuration - SPARC Development Environment
 
+## 📁 Project Directory Structure
+
+### Root Directory
+```
+williamzujkowski.github.io/
+├── src/                    # Source files for the static site
+│   ├── _data/             # Global data files for Eleventy
+│   ├── _includes/         # Reusable templates and layouts
+│   │   ├── layouts/       # Page layout templates
+│   │   └── partials/      # Reusable component templates
+│   ├── assets/            # Static assets
+│   │   ├── css/          # Stylesheets (Tailwind)
+│   │   ├── images/       # Site images
+│   │   │   └── blog/     # Blog post images
+│   │   ├── js/           # JavaScript files
+│   │   └── fonts/        # Custom fonts
+│   ├── pages/            # Static pages (about, contact, etc.)
+│   ├── posts/            # Blog posts in Markdown
+│   ├── redirects/        # URL redirect configurations
+│   └── index.njk         # Homepage template
+├── scripts/              # Utility and automation scripts
+│   ├── *-blog-*.py      # Blog management scripts
+│   ├── optimize-*.sh    # Optimization scripts
+│   └── generate-*.py    # Generation scripts
+├── docs/                 # Documentation
+│   ├── guides/          # Development guides
+│   ├── standards/       # Coding standards
+│   └── *.md            # Various documentation files
+├── _site/               # Built static site (git-ignored)
+├── node_modules/        # npm dependencies (git-ignored)
+├── .eleventy.js        # Eleventy configuration
+├── package.json        # npm configuration
+├── tailwind.config.js  # Tailwind CSS configuration
+├── postcss.config.js   # PostCSS configuration
+└── CLAUDE.md          # This file - project documentation
+```
+
+### Key Directories Explained
+
+#### `/src` - Source Directory
+- **Purpose**: Contains all source files for the Eleventy static site generator
+- **Key Files**:
+  - `index.njk`: Homepage template
+  - `404.md`: 404 error page
+  - `feed.njk`: RSS feed template
+  - `sitemap.njk`: XML sitemap template
+  - `tags.njk`: Tag listing page template
+
+#### `/scripts` - Automation Scripts
+- **Purpose**: Python and shell scripts for content management and optimization
+- **Categories**:
+  - Blog enhancement: `*blog*.py`
+  - Image optimization: `optimize-*.sh`
+  - Content generation: `generate-*.py`
+  - Research validation: `research-*.py`, `academic-*.py`
+  - Diagnostics: `diagnose-*.py` (to be removed)
+
+#### `/docs` - Documentation
+- **Purpose**: Project documentation and guides
+- **Contents**:
+  - Implementation plans
+  - Blog standards
+  - Development guides
+  - Analysis reports
+
+#### `/_site` - Build Output
+- **Purpose**: Generated static site files
+- **Note**: Git-ignored, regenerated on build
+
+### Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `.eleventy.js` | Eleventy configuration, plugins, filters |
+| `package.json` | npm scripts, dependencies |
+| `tailwind.config.js` | Tailwind CSS customization |
+| `postcss.config.js` | PostCSS plugins configuration |
+| `.gitignore` | Git ignore patterns |
+| `MANIFEST.yaml` | Site metadata and configuration |
+
+### Build Commands
+
+```bash
+# Development
+npm run serve           # Start dev server with hot reload
+
+# Production
+npm run build          # Build production site
+npm run build:css      # Build CSS only
+npm run build:eleventy # Build Eleventy only
+
+# Validation
+npm run validate:km    # Validate knowledge management standards
+```
+
 ## 🚨 CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
 
 **ABSOLUTE RULES**:
