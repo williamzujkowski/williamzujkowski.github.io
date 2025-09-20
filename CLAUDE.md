@@ -28,6 +28,24 @@ See `.claude-rules.json` for complete enforcement rules.
 
 ---
 
+## 📚 Comprehensive Documentation
+
+**MANDATORY READING for all LLMs working on this repository:**
+
+1. **[docs/ENFORCEMENT.md](docs/ENFORCEMENT.md)** - ⚠️ CRITICAL: Mandatory enforcement rules
+2. **[docs/GUIDES/LLM_ONBOARDING.md](docs/GUIDES/LLM_ONBOARDING.md)** - Quick start guide for new AI agents
+3. **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - System architecture and design principles
+4. **[docs/GUIDES/SCRIPT_CATALOG.md](docs/GUIDES/SCRIPT_CATALOG.md)** - Complete catalog of available scripts
+5. **[MANIFEST.json](MANIFEST.json)** - Single source of truth for repository inventory
+
+**Reading Order:**
+1. Start with LLM_ONBOARDING.md (5 minutes)
+2. Read ENFORCEMENT.md (critical rules)
+3. Review ARCHITECTURE.md for system understanding
+4. Reference SCRIPT_CATALOG.md as needed
+
+---
+
 ## 📁 Project Directory Structure
 
 ### Root Directory
