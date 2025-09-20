@@ -1,8 +1,8 @@
 {
   "version": "2.0.0",
   "standards_source": "https://github.com/williamzujkowski/standards",
-  "generated": "2025-09-20T15:15:43-04:00",
-  "last_validated": "2025-09-20T15:15:43-04:00",
+  "generated": "2025-09-20T18:20:04-04:00",
+  "last_validated": "2025-09-20T18:20:04-04:00",
   "MANDATORY_STANDARDS": {
     "KNOWLEDGE_MANAGEMENT": {
       "source": ".standards/docs/standards/KNOWLEDGE_MANAGEMENT_STANDARDS.md",
