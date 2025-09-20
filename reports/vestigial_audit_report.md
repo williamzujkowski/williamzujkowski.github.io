@@ -1,27 +1,20 @@
 # Vestigial Content Audit Report
 
-**Generated:** 2025-09-20 15:01:53
+**Generated:** 2025-09-20 18:50:12
 **Version:** 1.0.0
 
 ## Summary
-- **Vestigial files found:** 15
+- **Vestigial files found:** 8
 - **Potential space saved:** 0.00 MB
 
 ## Detailed Findings
 
-### Duplicate Functionality (15)
-- `integrate-diagrams.py` ↔ `add-tech-images.py` (similarity: 80.00%)
-- `integrate-diagrams.py` ↔ `remove-hero-images.py` (similarity: 72.73%)
-- `integrate-diagrams.py` ↔ `create-blog-diagrams.py` (similarity: 72.73%)
-- `integrate-diagrams.py` ↔ `add-diagrams-to-live-posts.py` (similarity: 80.00%)
-- `add-tech-images.py` ↔ `remove-hero-images.py` (similarity: 72.73%)
-- `add-tech-images.py` ↔ `create-blog-diagrams.py` (similarity: 72.73%)
-- `add-tech-images.py` ↔ `add-diagrams-to-live-posts.py` (similarity: 80.00%)
-- `remove-hero-images.py` ↔ `add-diagrams-to-live-posts.py` (similarity: 72.73%)
-- `create-blog-diagrams.py` ↔ `add-diagrams-to-live-posts.py` (similarity: 72.73%)
+### Duplicate Functionality (8)
+- `diagram-manager.py` ↔ `validate_standards.py` (similarity: 70.59%)
 - `batch-improve-blog-posts.py` ↔ `research-validator.py` (similarity: 77.78%)
 - `batch-improve-blog-posts.py` ↔ `comprehensive-blog-enhancement.py` (similarity: 88.89%)
 - `batch-improve-blog-posts.py` ↔ `analyze-blog-content.py` (similarity: 84.21%)
+- `llm-script-documenter.py` ↔ `validate_standards.py` (similarity: 70.59%)
 - `research-validator.py` ↔ `comprehensive-blog-enhancement.py` (similarity: 77.78%)
 - `research-validator.py` ↔ `analyze-blog-content.py` (similarity: 84.21%)
 - `comprehensive-blog-enhancement.py` ↔ `analyze-blog-content.py` (similarity: 84.21%)
