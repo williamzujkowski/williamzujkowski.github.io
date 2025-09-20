@@ -423,7 +423,7 @@ Recent academic research has significantly advanced our understanding of eBPF se
    - Mohamed et al. analyze potential security issues in eBPF through CVE analysis and present a generation-based eBPF fuzzer
    - *ACM Asia-Pacific Workshop on Systems*
 
-2. **[Runtime Security Monitoring with eBPF](https://www.sstic.org/media/SSTIC2021/SSTIC-actes/runtime_security_with_ebpf/SSTIC2021-Article-runtime_security_with_ebpf-fournier_afchain_baubeau.pdf)** (2021)
+2. **[Runtime Security Monitoring with eBPF](https://www.sstic.org/media/SSTIC2021/SSTIC-actes/runtime_security_with_ebpf/SSTIC2021-Article-runtime_security_with_ebpf-fournier_afchain_baubeau.pdf (2021)
    - Fournier, Afchain, and Baubeau demonstrate how eBPF drastically improves legacy runtime security monitoring
    - *17th SSTIC Symposium sur la Sécurité*
 
@@ -451,8 +451,8 @@ The academic community has identified several critical areas for eBPF security:
 
 For deeper technical understanding:
 
-- [eBPF Documentation](https://ebpf.io/) - Official eBPF project documentation
-- [Linux Kernel eBPF Documentation](https://www.kernel.org/doc/html/latest/bpf/) - Kernel documentation for eBPF
+- [eBPF Documentation](https://ebpf.io/ - Official eBPF project documentation
+- [Linux Kernel eBPF Documentation](https://www.kernel.org/doc/html/latest/bpf/ - Kernel documentation for eBPF
 - [CNCF eBPF Landscape](https://landscape.cncf.io/card-mode?category=ebpf&grouping=category) - Cloud Native eBPF projects
 
 ## Conclusion
@@ -472,4 +472,4 @@ Start small, think big, and remember: with eBPF, you're not just monitoring the 
 - [eBPF.io](https://ebpf.io) - Official eBPF documentation
 - [Falco](https://falco.org) - Production eBPF security
 - Recent Research: "Leveraging eBPF and AI for Ransomware Detection" (arXiv:2406.14020)
-- [BCC Tools](https://github.com/iovisor/bcc) - eBPF toolkit
+- [BCC Tools](https://github.com/iovisor/bcc - eBPF toolkit

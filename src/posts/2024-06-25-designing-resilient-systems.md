@@ -295,5 +295,5 @@ In an uncertain world, the only certainty is that things will go wrong. The ques
 
 - [Building Secure and Reliable Systems](https://sre.google/books/building-secure-reliable-systems/) - Google SRE
 - [Antifragile: Things That Gain from Disorder](https://www.amazon.com/Antifragile-Things-That-Disorder-Incerto/dp/0812979680) - Nassim Nicholas Taleb
-- [Chaos Engineering: System Resiliency in Practice](https://www.oreilly.com/library/view/chaos-engineering/9781492043850/) - O'Reilly
+- [Chaos Engineering: System Resiliency in Practice](https://www.oreilly.com/library/view/chaos-engineering/9781492043850/ - O'Reilly
 - [The Resilience Engineering Association](https://www.resilience-engineering-association.org/) - Research and practices in resilience engineering

@@ -73,7 +73,7 @@ graph LR
 
 ## Enter the Standards Repository
 
-I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards) – a comprehensive collection of development standards designed specifically for LLM consumption. It's not just documentation; it's an AI instruction manual for your projects.
+I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards – a comprehensive collection of development standards designed specifically for LLM consumption. It's not just documentation; it's an AI instruction manual for your projects.
 
 ### The Magic: CLAUDE.md
 
@@ -321,7 +321,7 @@ I'm working on:
 
 The repository is open source and MIT licensed. Fork it, customize it, make it yours:
 
-[github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards)
+[github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards
 
 Start small – even just adding a CLAUDE.md with your basic preferences will transform how you work with AI tools.
 

@@ -159,7 +159,7 @@ print(result)
 
 ### 2. LlamaCpp: Maximum Control
 
-For more control and optimization, use [llama.cpp](https://github.com/ggerganov/llama.cpp):
+For more control and optimization, use [llama.cpp](https://github.com/ggerganov/llama.cpp:
 
 ```bash
 # Clone and build
@@ -396,10 +396,10 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 
 ### Resources That Actually Helped
 
-- [Ollama Documentation](https://github.com/ollama/ollama) - Start here, seriously
-- [Llama.cpp Guide](https://github.com/ggerganov/llama.cpp) - When you're ready to go deeper
+- [Ollama Documentation](https://github.com/ollama/ollama - Start here, seriously
+- [Llama.cpp Guide](https://github.com/ggerganov/llama.cpp - When you're ready to go deeper
 - [Local LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) - For model shopping
-- [My LLM Deployment Scripts](https://github.com/williamzujkowski/local-llm-toolkit) *(Coming Soon - I promise!)*
+- [My LLM Deployment Scripts](https://github.com/williamzujkowski/local-llm-toolkit *(Coming Soon - I promise!)*
 
 *Next week: I'm sharing my biggest local LLM failures. Spoiler: I once accidentally exposed my model to the entire internet. Learn from my mistakes!*
 
@@ -407,35 +407,35 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 
 ### Privacy-Preserving ML Research
 
-1. **[Privacy Risks of General-Purpose Language Models](https://arxiv.org/abs/2011.05068)** (2021)
+1. **[Privacy Risks of General-Purpose Language Models](https://arxiv.org/abs/2011.05068 (2021)
    - Brown et al. analyze privacy implications of large language models
    - *IEEE Symposium on Security and Privacy*
 
-2. **[Extracting Training Data from Large Language Models](https://arxiv.org/abs/2012.07805)** (2021)
+2. **[Extracting Training Data from Large Language Models](https://arxiv.org/abs/2012.07805 (2021)
    - Carlini et al. demonstrate memorization risks in LLMs
    - *USENIX Security Symposium*
 
 ### Model Optimization Techniques
 
-1. **[LLM.int8(): 8-bit Matrix Multiplication](https://arxiv.org/abs/2208.07339)** (2022)
+1. **[LLM.int8(): 8-bit Matrix Multiplication](https://arxiv.org/abs/2208.07339 (2022)
    - Dettmers et al. - Quantization techniques for large models
    - *arXiv preprint*
 
-2. **[GPTQ: Accurate Post-Training Quantization](https://arxiv.org/abs/2210.17323)** (2023)
+2. **[GPTQ: Accurate Post-Training Quantization](https://arxiv.org/abs/2210.17323 (2023)
    - Frantar et al. - Advanced quantization methods
    - *ICLR 2023*
 
 ### Open Source Models & Tools
 
 - **[Ollama Documentation](https://ollama.ai/)** - Local LLM deployment platform
-- **[LangChain](https://python.langchain.com/)** - LLM application framework
-- **[Hugging Face Model Hub](https://huggingface.co/models)** - Open model repository
+- **[LangChain](https://python.langchain.com/ - LLM application framework
+- **[Hugging Face Model Hub](https://huggingface.co/models - Open model repository
 
 ### Privacy Regulations & Standards
 
-- **[GDPR Article 25](https://gdpr-info.eu/art-25-gdpr/)** - Data protection by design
+- **[GDPR Article 25](https://gdpr-info.eu/art-25-gdpr/ - Data protection by design
 - **[HIPAA Security Rule](https://www.hhs.gov/hipaa/for-professionals/security/)** - Healthcare data protection
-- **[NIST Privacy Framework](https://www.nist.gov/privacy-framework)** - Privacy risk management
+- **[NIST Privacy Framework](https://www.nist.gov/privacy-framework - Privacy risk management
 
 ### Performance Benchmarks
 

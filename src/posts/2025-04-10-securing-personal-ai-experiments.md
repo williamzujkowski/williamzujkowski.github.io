@@ -273,8 +273,8 @@ For more in-depth information on the topics covered in this post:
 
 - [Papers with Code](https://paperswithcode.com/)
 - [arXiv AI Research](https://arxiv.org/list/cs.AI/recent)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/
 
 ---
 

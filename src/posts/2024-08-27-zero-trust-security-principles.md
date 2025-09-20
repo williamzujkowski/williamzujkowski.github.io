@@ -264,4 +264,4 @@ Remember that Zero Trust is a journey, not a destination. Start with understandi
 
 ---
 
-*For deeper exploration, I recommend the [NIST Special Publication 800-207 on Zero Trust Architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) and the [CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model) for practical implementation guidance.*
+*For deeper exploration, I recommend the [NIST Special Publication 800-207 on Zero Trust Architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf and the [CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model for practical implementation guidance.*

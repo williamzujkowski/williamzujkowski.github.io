@@ -25,7 +25,7 @@ tags:
 title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
 ---
 
-The electricity bill for our machine learning training cluster arrived on the same day as a report about [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning—we weren't just burning through budget, we were burning through the planet's resources.
+The electricity bill for our machine learning training cluster arrived on the same day as a report about [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning—we weren't just burning through budget, we were burning through the planet's resources.
 
 That realization started my deep dive into sustainable computing, where I discovered that efficiency isn't just about performance or cost—it's about responsibility to future generations.
 
@@ -284,24 +284,24 @@ Direct contracts for renewable energy generation:
 ### Environmental Metrics
 
 **Carbon Emissions Reduction:**
-- [45% reduction in Scope 2 emissions](https://www.epa.gov/climateleadership/scope-2-inventory-guidance) over two years (EPA Scope 2 Guidance)
-- [30% decrease in energy consumption](https://www.iea.org/reports/data-centres-and-data-transmission-networks) per unit of compute (IEA Report)
+- [45% reduction in Scope 2 emissions](https://www.epa.gov/climateleadership/scope-2-inventory-guidance over two years (EPA Scope 2 Guidance)
+- [30% decrease in energy consumption](https://www.iea.org/reports/data-centres-and-data-transmission-networks per unit of compute (IEA Report)
 - [60% of computing workloads running on renewable energy](https://www.google.com/about/datacenters/renewable/) (Google Data Center Study)
-- [25% reduction in total environmental footprint](https://www.nature.com/articles/s41558-020-0837-6) (Nature Climate Change)
+- [25% reduction in total environmental footprint](https://www.nature.com/articles/s41558-020-0837-6 (Nature Climate Change)
 
 **Resource Efficiency Improvements:**
-- CPU utilization increased from [40% to 75%](https://aws.amazon.com/blogs/compute/understanding-cpu-utilization/) (AWS Best Practices)
-- [Memory efficiency improved by 50%](https://cloud.google.com/compute/docs/memory-optimized-machines) (Google Cloud Optimization)
-- [Storage costs reduced by 35%](https://azure.microsoft.com/en-us/blog/optimize-storage-costs/) through optimization (Azure Cost Management)
+- CPU utilization increased from [40% to 75%](https://aws.amazon.com/blogs/compute/understanding-cpu-utilization/ (AWS Best Practices)
+- [Memory efficiency improved by 50%](https://cloud.google.com/compute/docs/memory-optimized-machines (Google Cloud Optimization)
+- [Storage costs reduced by 35%](https://azure.microsoft.com/en-us/blog/optimize-storage-costs/ through optimization (Azure Cost Management)
 - [Network data transfer decreased by 40%](https://www.cloudflare.com/learning/performance/more/bandwidth-optimization/) (Cloudflare Performance)
 
 ### Business Benefits
 
 **Cost Savings:**
 - $2.1M annual reduction in cloud computing costs
-- [40% decrease in electricity expenses](https://www.energy.gov/eere/buildings/data-center-energy-efficiency) (US Department of Energy)
+- [40% decrease in electricity expenses](https://www.energy.gov/eere/buildings/data-center-energy-efficiency (US Department of Energy)
 - [25% reduction in hardware procurement needs](https://www.gartner.com/en/newsroom/press-releases/2023-hardware-sustainability) (Gartner Research)
-- [15% improvement in operational efficiency](https://uptimeinstitute.com/resources/research-and-reports) (Uptime Institute)
+- [15% improvement in operational efficiency](https://uptimeinstitute.com/resources/research-and-reports (Uptime Institute)
 
 **Risk Mitigation:**
 - Reduced exposure to energy price volatility
@@ -393,34 +393,34 @@ The most surprising discovery was that sustainable computing practices often ali
 
 ### Carbon Footprint Studies
 
-1. **[Carbon and Reliability-Aware Computing for Heterogeneous Data Centers](https://arxiv.org/abs/2504.00518)** (2025)
+1. **[Carbon and Reliability-Aware Computing for Heterogeneous Data Centers](https://arxiv.org/abs/2504.00518 (2025)
    - Zhang, Song, and Sahoo analyze carbon-aware computing strategies for data centers
    - *arXiv preprint*
 
-2. **[Game-Theoretic Deep RL to Minimize Carbon Emissions for AI Inference](https://arxiv.org/abs/2404.01459)** (2024)
+2. **[Game-Theoretic Deep RL to Minimize Carbon Emissions for AI Inference](https://arxiv.org/abs/2404.01459 (2024)
    - Hogade and Pasricha present game-theoretic approaches to reduce AI workload emissions
    - *arXiv preprint*
 
-3. **[A Carbon Tracking Model for Federated Learning](https://arxiv.org/abs/2310.08087)** (2023)
+3. **[A Carbon Tracking Model for Federated Learning](https://arxiv.org/abs/2310.08087 (2023)
    - Barbieri et al. quantify carbon impact of distributed machine learning
    - *arXiv preprint*
 
-4. **[Carbon Footprint Evaluation of LLM Code Generation](https://arxiv.org/abs/2504.01036)** (2025)
+4. **[Carbon Footprint Evaluation of LLM Code Generation](https://arxiv.org/abs/2504.01036 (2025)
    - Vartziotis et al. analyze environmental impact of AI-assisted programming
    - *arXiv preprint*
 
 ### Industry Reports & Standards
 
 - [Google Environmental Report 2024](https://sustainability.google/reports/) - Carbon neutrality progress
-- [Microsoft Sustainability Report](https://www.microsoft.com/en-us/sustainability) - Data center efficiency metrics
-- [AWS Sustainability](https://sustainability.aboutamazon.com/environment/the-cloud) - Cloud carbon footprint data
-- [The Shift Project](https://theshiftproject.org/en/lean-ict-2/) - ICT environmental impact analysis
+- [Microsoft Sustainability Report](https://www.microsoft.com/en-us/sustainability - Data center efficiency metrics
+- [AWS Sustainability](https://sustainability.aboutamazon.com/environment/the-cloud - Cloud carbon footprint data
+- [The Shift Project](https://theshiftproject.org/en/lean-ict-2/ - ICT environmental impact analysis
 
 ### Key Statistics Sources
 
 The following statistics are based on verified industry data:
-- **Data center energy consumption (2-3% global)**: [IEA Data Centers Report](https://www.iea.org/reports/data-centres-and-data-transmission-networks)
-- **PUE improvements (1.1-1.2)**: [Uptime Institute Global Survey](https://uptimeinstitute.com/resources/research-and-reports)
+- **Data center energy consumption (2-3% global)**: [IEA Data Centers Report](https://www.iea.org/reports/data-centres-and-data-transmission-networks
+- **PUE improvements (1.1-1.2)**: [Uptime Institute Global Survey](https://uptimeinstitute.com/resources/research-and-reports
 - **Renewable energy adoption**: Company sustainability reports (Google, Microsoft, AWS)
 
 ## Conclusion: Computing's Climate Responsibility
@@ -437,7 +437,7 @@ Our industry has the talent, resources, and innovation capacity to lead the worl
 
 ### Further Reading:
 
-- [Green Software Foundation](https://greensoftware.foundation/) - Industry collaboration on sustainable software
-- [The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149) - MIT research on ML sustainability
-- [Climate Change AI](https://www.climatechange.ai/) - Using AI to tackle climate change
+- [Green Software Foundation](https://greensoftware.foundation/ - Industry collaboration on sustainable software
+- [The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149 - MIT research on ML sustainability
+- [Climate Change AI](https://www.climatechange.ai/ - Using AI to tackle climate change
 - [Sustainable Web Manifesto](https://www.sustainablewebmanifesto.com/) - Principles for sustainable web development

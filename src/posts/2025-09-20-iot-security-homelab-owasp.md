@@ -29,7 +29,7 @@ When I set up my first smart home devices years ago, I naively trusted that manu
 
 ## The IoT Security Landscape
 
-According to [research from the IoT Security Foundation (2024)](https://www.iotsecurityfoundation.org/best-practice-guidelines/), over 70% of IoT devices ship with hardcoded credentials, unencrypted communications, or outdated firmware with known vulnerabilities. The [OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far.
+According to [research from the IoT Security Foundation (2024)](https://www.iotsecurityfoundation.org/best-practice-guidelines/), over 70% of IoT devices ship with hardcoded credentials, unencrypted communications, or outdated firmware with known vulnerabilities. The [OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/ identifies the most critical security risks, but theoretical knowledge only goes so far.
 
 Enter [OWASP IoTGoat](https://doi.org/10.1201/9781003054115-11 deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA.
 
@@ -102,7 +102,7 @@ Now for the fun part—let's explore real vulnerabilities found in countless IoT
 
 ### 1. Hardcoded Credentials
 
-[Research by Zhang et al. (2023)](https://doi.org/10.1109/TDSC.2023.3247569) found hardcoded credentials in 47% of analyzed IoT firmware. IoTGoat demonstrates this beautifully:
+[Research by Zhang et al. (2023)](https://doi.org/10.1109/TDSC.2023.3247569 found hardcoded credentials in 47% of analyzed IoT firmware. IoTGoat demonstrates this beautifully:
 
 ```python
 import telnetlib
@@ -138,7 +138,7 @@ def test_telnet_auth(host, port=23):
 
 ### 2. Insecure MQTT Communications
 
-MQTT is ubiquitous in IoT, but [analysis by Nirmal et al. (2024)](https://doi.org/10.1109/ACCESS.2024.3381234) shows 68% of MQTT deployments lack proper authentication. Here's how to explore MQTT vulnerabilities:
+MQTT is ubiquitous in IoT, but [analysis by Nirmal et al. (2024)](https://doi.org/10.1109/ACCESS.2024.3381234 shows 68% of MQTT deployments lack proper authentication. Here's how to explore MQTT vulnerabilities:
 
 ```python
 import paho.mqtt.client as mqtt
@@ -177,7 +177,7 @@ explorer.client.loop_forever()
 
 ### 3. Firmware Extraction and Analysis
 
-According to [OWASP IoT Security Verification Standard](https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS), unencrypted firmware is a critical risk. Let's extract and analyze IoTGoat's firmware:
+According to [OWASP IoT Security Verification Standard](https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS) unencrypted firmware is a critical risk. Let's extract and analyze IoTGoat's firmware:
 
 ```bash
 # Extract firmware with binwalk
@@ -195,7 +195,7 @@ checksec --file=extracted_fs/usr/bin/iot_service
 
 ### 4. Command Injection via Web Interface
 
-Web interfaces on IoT devices often lack proper input validation. [Studies show](https://doi.org/10.1145/3538969.3543815) that 34% of IoT web interfaces are vulnerable to command injection:
+Web interfaces on IoT devices often lack proper input validation. [Studies show](https://doi.org/10.1145/3538969.3543815 that 34% of IoT web interfaces are vulnerable to command injection:
 
 ```python
 import requests
@@ -277,7 +277,7 @@ def create_secure_mqtt_client():
 
 ## Real-World Impact: The Stakes
 
-These aren't just theoretical vulnerabilities. [Recent research by Meneghello et al. (2023)](https://doi.org/10.1109/COMST.2023.3325398) documented real attacks:
+These aren't just theoretical vulnerabilities. [Recent research by Meneghello et al. (2023)](https://doi.org/10.1109/COMST.2023.3325398 documented real attacks:
 
 - **Mirai and variants**: Infected 600,000 IoT devices using default credentials
 - **VPNFilter**: Compromised 500,000 routers via known vulnerabilities
@@ -354,11 +354,11 @@ Remember: in IoT security, paranoia is just good planning.
 
 ## References
 
-1. **[OWASP Internet of Things Project](https://owasp.org/www-project-internet-of-things/)** (2018)
+1. **[OWASP Internet of Things Project](https://owasp.org/www-project-internet-of-things/** (2018)
    - OWASP Foundation
    - *IoT Security Top 10 Vulnerabilities*
 
-2. **[IoT Security Foundation Best Practice Guidelines](https://www.iotsecurityfoundation.org/best-practice-guidelines/)** (2024)
+2. **[IoT Security Foundation Best Practice Guidelines](https://www.iotsecurityfoundation.org/best-practice-guidelines/ (2024)
    - IoT Security Foundation
    - *Industry Security Standards*
 
@@ -366,14 +366,14 @@ Remember: in IoT security, paranoia is just good planning.
    - Luca Allodi, Michele Campobasso
    - *Springer Lecture Notes*
 
-4. **[Firmware Security Analysis of IoT Devices](https://doi.org/10.1109/TDSC.2023.3247569) (2023)
+4. **[Firmware Security Analysis of IoT Devices](https://doi.org/10.1109/TDSC.2023.3247569 (2023)
    - Zhang, Wei, et al.
    - *IEEE Transactions on Dependable and Secure Computing*
 
-5. **[MQTT Security: A Comprehensive Survey](https://doi.org/10.1109/ACCESS.2024.3381234) (2024)
+5. **[MQTT Security: A Comprehensive Survey](https://doi.org/10.1109/ACCESS.2024.3381234 (2024)
    - Nirmal, Kumar, et al.
    - *IEEE Access*
 
-6. **[IoT Security: Ongoing Challenges and Research Opportunities](https://doi.org/10.1109/COMST.2023.3325398) (2023)
+6. **[IoT Security: Ongoing Challenges and Research Opportunities](https://doi.org/10.1109/COMST.2023.3325398 (2023)
    - Meneghello, Francesca, et al.
    - *IEEE Communications Surveys & Tutorials*

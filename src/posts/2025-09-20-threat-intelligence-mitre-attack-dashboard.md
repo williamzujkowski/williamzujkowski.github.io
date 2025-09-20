@@ -35,7 +35,7 @@ The [MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.1067155
 
 ## Understanding MITRE ATT&CK
 
-[Recent analysis by Georgiadou et al. (2023)](https://doi.org/10.1016/j.cose.2023.103097) shows that 89% of real-world attacks can be mapped to just 20% of ATT&CK techniques. This Pareto principle means we can achieve substantial coverage by focusing on the most commonly used techniques.
+[Recent analysis by Georgiadou et al. (2023)](https://doi.org/10.1016/j.cose.2023.103097 shows that 89% of real-world attacks can be mapped to just 20% of ATT&CK techniques. This Pareto principle means we can achieve substantial coverage by focusing on the most commonly used techniques.
 
 ### The ATT&CK Matrix Structure
 
@@ -139,7 +139,7 @@ class ATTACKDataLoader:
 
 ## Integrating Threat Intelligence Feeds
 
-[Research by Spring et al. (2023)](https://doi.org/10.1145/3575898.3575903) demonstrates that combining multiple threat feeds increases detection coverage by 340%. Let's integrate several open-source feeds:
+[Research by Spring et al. (2023)](https://doi.org/10.1145/3575898.3575903 demonstrates that combining multiple threat feeds increases detection coverage by 340%. Let's integrate several open-source feeds:
 
 ### AlienVault OTX Integration
 
@@ -222,7 +222,7 @@ class CISAAlertMapper:
 
 ## Creating the Visualization Layer
 
-[Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843) that visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
+[Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843 that visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
 
 ```python
 import plotly.graph_objects as go
@@ -336,7 +336,7 @@ class ThreatActorProfiler:
 
 ## Building Automated Alerting
 
-Real-time alerting based on relevant threats is crucial. [Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439) shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
+Real-time alerting based on relevant threats is crucial. [Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439 shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
 
 ```python
 import smtplib
@@ -466,7 +466,7 @@ Building and maintaining this dashboard taught me:
 
 Ready to build your own threat intelligence capability?
 
-1. Start with the [MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/)
+1. Start with the [MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/
 2. Pick 2-3 relevant threat feeds
 3. Focus on techniques relevant to your environment
 4. Automate collection and mapping
@@ -484,15 +484,15 @@ Remember: threat intelligence is only valuable if it drives action.
    - Cyber Threat Alliance
    - *Industry Threat Sharing Guidelines*
 
-3. **[A Comprehensive Study of the MITRE ATT&CK Framework](https://doi.org/10.1016/j.cose.2023.103097) (2023)
+3. **[A Comprehensive Study of the MITRE ATT&CK Framework](https://doi.org/10.1016/j.cose.2023.103097 (2023)
    - Georgiadou, Anna, et al.
    - *Computers & Security*
 
-4. **[Prioritizing Cyber Threat Intelligence](https://doi.org/10.1145/3575898.3575903) (2023)
+4. **[Prioritizing Cyber Threat Intelligence](https://doi.org/10.1145/3575898.3575903 (2023)
    - Spring, Jonathan M., et al.
    - *ACM Computing Surveys*
 
-5. **[Visual Analytics for Cyber Threat Intelligence](https://doi.org/10.1109/VIZSEC.2023.10345843) (2023)
+5. **[Visual Analytics for Cyber Threat Intelligence](https://doi.org/10.1109/VIZSEC.2023.10345843 (2023)
    - Various authors
    - *IEEE Symposium on Visualization for Cyber Security*
 
@@ -500,6 +500,6 @@ Remember: threat intelligence is only valuable if it drives action.
    - Schlette, Daniel, et al.
    - *ACM Transactions on Privacy and Security*
 
-7. **[Automated Threat Detection Systems](https://doi.org/10.1109/TSC.2024.3358439) (2024)
+7. **[Automated Threat Detection Systems](https://doi.org/10.1109/TSC.2024.3358439 (2024)
    - Rahman, M.A., et al.
    - *IEEE Transactions on Services Computing*

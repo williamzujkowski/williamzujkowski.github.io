@@ -167,6 +167,6 @@ The penetration test that humbled me years ago now serves as a reminder of how f
 ### Further Reading:
 
 - [Cloud Native Security Best Practices](https://www.cncf.io/blog/2021/06/17/best-practices-for-cloud-native-security/) - CNCF
-- [What is Cloud-Native Security?](https://cloud.google.com/learn/what-is-cloud-native-security) - Google Cloud
-- [What is Cloud-Native Security?](https://www.redhat.com/en/topics/cloud-native-apps/what-is-cloud-native-security) - Red Hat
-- [OWASP Cloud Security Project](https://owasp.org/www-project-cloud-security/)
+- [What is Cloud-Native Security?](https://cloud.google.com/learn/what-is-cloud-native-security - Google Cloud
+- [What is Cloud-Native Security?](https://www.redhat.com/en/topics/cloud-native-apps/what-is-cloud-native-security - Red Hat
+- [OWASP Cloud Security Project](https://owasp.org/www-project-cloud-security/

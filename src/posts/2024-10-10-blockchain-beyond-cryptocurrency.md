@@ -238,4 +238,4 @@ This represents not just a technical advancement but a fundamental shift toward 
 
 ---
 
-*For those interested in exploring blockchain applications beyond cryptocurrency, the [Enterprise Ethereum Alliance](https://entethalliance.org/) and [Hyperledger Foundation](https://www.hyperledger.org/) provide excellent resources for business applications, while the [MIT Digital Currency Initiative](https://dci.mit.edu/) offers research on blockchain's broader implications.*
+*For those interested in exploring blockchain applications beyond cryptocurrency, the [Enterprise Ethereum Alliance](https://entethalliance.org/) and [Hyperledger Foundation](https://www.hyperledger.org/ provide excellent resources for business applications, while the [MIT Digital Currency Initiative](https://dci.mit.edu/) offers research on blockchain's broader implications.*

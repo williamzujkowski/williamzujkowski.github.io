@@ -70,7 +70,7 @@ graph TB
     style Thinking fill:#10b981
 ```
 
-According to [Giuseppe Riva's groundbreaking research on "Cognitive Infrastructure Studies"](https://arxiv.org/abs/2507.22893) (arXiv:2507.22893, 2025), we're witnessing the emergence of AI systems that don't just process information—they transport meaning. These infrastructures operate through three key mechanisms:
+According to [Giuseppe Riva's groundbreaking research on "Cognitive Infrastructure Studies"](https://arxiv.org/abs/2507.22893 (arXiv:2507.22893, 2025), we're witnessing the emergence of AI systems that don't just process information—they transport meaning. These infrastructures operate through three key mechanisms:
 
 **Semantic Transportation**: Unlike data pipelines that move bits and bytes, cognitive infrastructure transports concepts, context, and understanding. When you ask an AI assistant a question, it's not just retrieving information; it's constructing meaning.
 
@@ -145,7 +145,7 @@ The implications are profound. When every student has a personalized cognitive i
 
 ### Government: The Algorithmic State
 
-With [87% of surveyed cities planning or piloting generative AI initiatives](https://www.worldbank.org/en/programs/govtech/gtmi), government services are rapidly becoming AI-mediated. By 2030, experts predict generative AI will be the primary interface for government services.
+With [87% of surveyed cities planning or piloting generative AI initiatives](https://www.worldbank.org/en/programs/govtech/gtmi) government services are rapidly becoming AI-mediated. By 2030, experts predict generative AI will be the primary interface for government services.
 
 This isn't just digitization—it's cognitive intermediation. When AI systems determine benefit eligibility, analyze crime patterns, or optimize city planning, they're not just processing applications; they're making decisions that shape lives and communities.
 
@@ -345,15 +345,15 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ### Foundational Research
 
-1. **[Invisible Architectures of Thought: Toward a New Science of AI as Cognitive Infrastructure](https://arxiv.org/abs/2507.22893)** (2025)
+1. **[Invisible Architectures of Thought: Toward a New Science of AI as Cognitive Infrastructure](https://arxiv.org/abs/2507.22893** (2025)
    - Giuseppe Riva's introduction of Cognitive Infrastructure Studies
    - *arXiv preprint*
 
-2. **[Your Brain on ChatGPT: Accumulation of Cognitive Debt](https://www.media.mit.edu/publications/)** (2024)
+2. **[Your Brain on ChatGPT: Accumulation of Cognitive Debt](https://www.media.mit.edu/publications/ (2024)
    - MIT Media Lab study on cognitive impacts of LLM usage
    - *MIT Media Lab Publications*
 
-3. **[AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking](https://www.mdpi.com/2075-4698/15/1/2)** (2025)
+3. **[AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking](https://www.mdpi.com/2075-4698/15/1/2 (2025)
    - Michael Gerlich's analysis of cognitive offloading
    - *Societies Journal, Volume 15, Issue 1*
 
@@ -385,11 +385,11 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ### Government & Policy
 
-9. **[UNESCO Recommendation on the Ethics of AI](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics)** (2021)
+9. **[UNESCO Recommendation on the Ethics of AI](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics (2021)
    - Global ethical framework for AI development
    - *UNESCO Official Documents*
 
-10. **[The GovTech Maturity Index](https://www.worldbank.org/en/programs/govtech/gtmi)** (2024)
+10. **[The GovTech Maturity Index](https://www.worldbank.org/en/programs/govtech/gtmi (2024)
     - World Bank analysis of government AI adoption
     - *World Bank Group*
 
@@ -405,7 +405,7 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ### Future Projections
 
-13. **[Quantum-AI Integration Roadmap](https://arxiv.org/abs/2401.09241)** (2024)
+13. **[Quantum-AI Integration Roadmap](https://arxiv.org/abs/2401.09241 (2024)
     - Projections for quantum computing impact on AI
     - *arXiv preprint*
 
@@ -417,6 +417,6 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 - **[Cognitive Computing Market Analysis](https://www.grandviewresearch.com/industry-analysis/cognitive-computing-market)** - Grand View Research
 - **[Edge AI Market Report](https://www.gartner.com/en/documents/4018123)** - Gartner
-- **[GDPR Article 22: Automated Decision-Making](https://gdpr-info.eu/art-22-gdpr/)** - EU Regulation
-- **[NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)** - NIST
+- **[GDPR Article 22: Automated Decision-Making](https://gdpr-info.eu/art-22-gdpr/ - EU Regulation
+- **[NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework - NIST
 - **[Partnership on AI Publications](https://partnershiponai.org/publications/)** - Industry best practices

@@ -173,11 +173,11 @@ Our response to deepfakes will shape how society navigates truth and deception i
 ### Further Reading:
 
 - [Deepfakes and national security](https://www.brookings.edu/articles/deepfakes-and-international-conflict/) - Brookings
-- [Deepfakes and Disinformation](https://www.cfr.org/backgrounder/deepfakes-and-disinformation) - Council on Foreign Relations
-- [Deepfakes Are Becoming the Hot New Corporate Security Threat](https://www.wired.com/story/covid-drives-real-businesses-deepfake-technology/) - WIRED
+- [Deepfakes and Disinformation](https://www.cfr.org/backgrounder/deepfakes-and-disinformation - Council on Foreign Relations
+- [Deepfakes Are Becoming the Hot New Corporate Security Threat](https://www.wired.com/story/covid-drives-real-businesses-deepfake-technology/ - WIRED
 - [Copyright is the only functional law of the internet, deepfake nudes edition](https://www.theverge.com/2024/10/8/24265315/copyright-is-the-only-functional-law-of-the-internet-deepfake-nudes-edition) - The Verge
 
 ### Get Involved:
 
-- [Sumsub launches advanced deepfakes detector](https://sumsub.com/newsroom/sumsub-launches-advanced-deepfakes-detector/)
+- [Sumsub launches advanced deepfakes detector](https://sumsub.com/newsroom/sumsub-launches-advanced-deepfakes-detector/
 - [Support Organizations like WITNESS](https://www.gen-ai.witness.org/)

@@ -120,8 +120,8 @@ With vigilance and a commitment to security-first development, we ensure our app
 
 ### Further Reading:
 
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [SANS Top 25 Software Errors](https://www.sans.org/top25-software-errors/)
-- [OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
-- [.NET Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html)
-- [Common Weakness Enumeration (CWE)](https://cwe.mitre.org/)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/
+- [SANS Top 25 Software Errors](https://www.sans.org/top25-software-errors/
+- [OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html
+- [.NET Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html
+- [Common Weakness Enumeration (CWE)](https://cwe.mitre.org/
