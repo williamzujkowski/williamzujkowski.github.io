@@ -1,0 +1,213 @@
+name: Link Health Monitor
+
+on:
+  schedule:
+    # Run daily at 3 AM UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      force_check:
+        description: 'Force check all links'
+        required: false
+        default: false
+        type: boolean
+  pull_request:
+    paths:
+      - 'src/posts/**/*.md'
+      - 'src/pages/**/*.md'
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Python Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install aiohttp asyncio pathlib dataclasses
+
+    - name: Extract Links
+      run: |
+        python scripts/link-validation/link-extractor.py \
+          --posts-dir src/posts \
+          --output links.json
+
+    - name: Validate Links
+      run: |
+        python scripts/link-validation/simple-validator.py \
+          --links links.json \
+          --output validation.json
+
+    - name: Find Repairs
+      run: |
+        # Create placeholder relevance file
+        echo '{"results": []}' > relevance.json
+
+        python scripts/link-validation/citation-repair.py \
+          --links links.json \
+          --validation validation.json \
+          --relevance relevance.json \
+          --output repairs.json || true
+
+    - name: Generate Reports
+      run: |
+        mkdir -p reports
+        python scripts/link-validation/link-report-generator.py \
+          --links links.json \
+          --validation validation.json \
+          --relevance relevance.json \
+          --repairs repairs.json \
+          --output-dir reports
+
+    - name: Upload Reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: link-validation-reports
+        path: reports/
+
+    - name: Check for Critical Issues
+      id: check_critical
+      run: |
+        # Parse validation results for critical issues
+        python -c "
+        import json
+        with open('validation.json', 'r') as f:
+            data = json.load(f)
+        broken = len([r for r in data['results'] if r['status'] == 'broken'])
+        total = len(data['results'])
+        broken_pct = (broken / total * 100) if total > 0 else 0
+        print(f'Broken: {broken}/{total} ({broken_pct:.1f}%)')
+
+        # Set output for use in other steps
+        with open('$GITHUB_OUTPUT', 'a') as f:
+            f.write(f'broken_count={broken}\n')
+            f.write(f'total_count={total}\n')
+            f.write(f'broken_percent={broken_pct:.1f}\n')
+
+        # Fail if more than 20% of links are broken
+        if broken_pct > 20:
+            print(f'ERROR: Too many broken links ({broken_pct:.1f}% > 20%)')
+            exit(1)
+        "
+
+    - name: Create Issue for Broken Links
+      if: failure() && github.event_name == 'schedule'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const report = fs.readFileSync('reports/summary.md', 'utf8');
+
+          // Create issue with report
+          await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `🔗 Link Health Alert: ${process.env.broken_count} broken links found`,
+            body: `## Automated Link Health Check Failed\n\n` +
+                  `**Date:** ${new Date().toISOString()}\n` +
+                  `**Broken Links:** ${process.env.broken_count}/${process.env.total_count} (${process.env.broken_percent}%)\n\n` +
+                  `### Summary Report\n\n${report}\n\n` +
+                  `View full reports in the [workflow artifacts](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`
+          });
+      env:
+        broken_count: ${{ steps.check_critical.outputs.broken_count }}
+        total_count: ${{ steps.check_critical.outputs.total_count }}
+        broken_percent: ${{ steps.check_critical.outputs.broken_percent }}
+
+    - name: Comment on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const summary = fs.readFileSync('reports/summary.md', 'utf8');
+
+          // Extract key metrics
+          const validation = JSON.parse(fs.readFileSync('validation.json', 'utf8'));
+          const broken = validation.results.filter(r => r.status === 'broken').length;
+          const total = validation.results.length;
+
+          let emoji = '✅';
+          let status = 'passed';
+          if (broken > 0) {
+            emoji = broken > 10 ? '❌' : '⚠️';
+            status = broken > 10 ? 'failed' : 'warning';
+          }
+
+          // Create PR comment
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: `${emoji} **Link Validation Results**\n\n` +
+                  `- **Total Links:** ${total}\n` +
+                  `- **Broken Links:** ${broken}\n` +
+                  `- **Status:** ${status}\n\n` +
+                  `<details>\n<summary>View Full Report</summary>\n\n${summary}\n</details>`
+          });
+
+  repair-links:
+    needs: check-links
+    if: github.event.inputs.force_check == 'true' || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install aiohttp asyncio pathlib dataclasses
+
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: link-validation-reports
+        path: reports/
+
+    - name: Apply High-Confidence Fixes
+      run: |
+        # Only apply fixes with >95% confidence automatically
+        if [ -f "repairs.json" ]; then
+          python scripts/link-validation/batch-link-fixer.py \
+            --repairs repairs.json \
+            --confidence-threshold 95 \
+            --apply \
+            --posts-dir src/posts
+        fi
+
+    - name: Commit Changes
+      if: success()
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+        # Check if there are changes
+        if [[ `git status --porcelain` ]]; then
+          git add src/posts/**/*.md
+          git commit -m "🔗 Auto-fix broken links with high confidence
+
+          Automated link repair by GitHub Action
+          - Applied fixes with >95% confidence
+          - See workflow run for details"
+
+          git push
+        else
+          echo "No changes to commit"
+        fi

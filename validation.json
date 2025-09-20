@@ -1,0 +1,4199 @@
+{
+  "validation_date": "2025-09-20T12:32:50.579454",
+  "stats": {
+    "total": 598,
+    "valid": 240,
+    "broken": 254,
+    "redirect": 0,
+    "timeout": 1,
+    "error": 14
+  },
+  "results": [
+    {
+      "url": "https://www.media.mit.edu/people/minsky/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://towardsdatascience.com/rag-vs-finetuning-which-is-the-best-tool-to-boost-your-llm-application-94654b1eaba7)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1412.6572)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.gartner.com/en/documents/4018123",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.quantum.gov/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.researchgate.net/publication/389520879)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://ebpf.io/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.grandviewresearch.com/industry-analysis/cognitive-computing-market",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.first.org/epss/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://softroboticstoolkit.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3575898.3575903)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.first.org/epss/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2504.00518",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://greensoftware.foundation/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1812.07858",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://partnershiponai.org/publications/)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.sstic.org/media/SSTIC2021/SSTIC-actes/runtime_security_with_ebpf/SSTIC2021-Article-runtime_security_with_ebpf-fournier_afchain_baubeau.pdf",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/blog/optimize-storage-costs/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://unity.com/products/machine-learning-agents",
+      "status": "timeout",
+      "status_code": null,
+      "issue_type": "timeout",
+      "notes": ""
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S1364661316000383",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cfr.org/backgrounder/deepfakes-and-disinformation",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/openai/human-eval",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.rfc-editor.org/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.jstor.org/stable/3328150)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-internet-of-things/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/ggerganov/llama.cpp)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/s10639-024-12456-4",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.weforum.org/stories/2024/02/ai-cybersecurity-how-to-navigate-the-risks-and-opportunities/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2507.22893)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://ollama.ai/)",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://www.promptingguide.ai/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://greensoftware.foundation/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2506.01220)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S1364661316000383)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://1.0.0.1/dns-query",
+      "status": "degraded",
+      "status_code": 415,
+      "issue_type": "http_415",
+      "notes": ""
+    },
+    {
+      "url": "https://www.grandviewresearch.com/industry-analysis/cognitive-computing-market)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1901.03407)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/VIZSEC.2023.10345843",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.rfc-editor.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/COMST.2023.3325398)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.iea.org/reports/data-centres-and-data-transmission-networks).",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1907.10597",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://ebpf.io/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://sre.google/books/building-secure-reliable-systems/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://ieeexplore.ieee.org/document/1362308)**",
+      "status": "degraded",
+      "status_code": 418,
+      "issue_type": "http_418",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/itl/applied-cybersecurity/nice",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.sans.org/top25-software-errors/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2106.15764",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://ieeexplore.ieee.org/abstract/document/9665095/",
+      "status": "degraded",
+      "status_code": 418,
+      "issue_type": "http_418",
+      "notes": ""
+    },
+    {
+      "url": "/about/#contact",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "/about/#contact"
+    },
+    {
+      "url": "https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413.pdf)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.epa.gov/climateleadership/scope-2-inventory-guidance)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://consensys.net/diligence/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://search.ebscohost.com/login.aspx?direct=true&profile=ehost&scope=site&authtype=crawler&jrnl=10798587&AN=164642663",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.exascaleproject.org/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.springer.com/gp/book/9783030239213)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://hbr.org/2014/10/what-you-eat-affects-your-productivity)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.ibm.com/security/data-breach",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/local-llm-toolkit)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3607199.3607240),",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/sustainability)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cwe.mitre.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.promptingguide.ai/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/list/cs.AI/recent)",
+      "status": "degraded",
+      "status_code": 400,
+      "issue_type": "http_400",
+      "notes": ""
+    },
+    {
+      "url": "https://www.gen-ai.witness.org/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1812.07858)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2410.18291",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.oreilly.com/library/view/zero-trust-networks/9781491962183/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.giac.org/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/OWASP/IoTGoat)\u2014a",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.gartner.com/en/information-technology/glossary/cloud-migration",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://hbr.org/2014/10/what-you-eat-affects-your-productivity",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://falco.org)",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host falco.org):443 ssl:default [Name or service not known]"
+    },
+    {
+      "url": "https://sumsub.com/newsroom/sumsub-launches-advanced-deepfakes-detector/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2112.02125)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://tryhackme.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://proceedings.mlr.press/v80/bender18a/bender18a.pdf",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nature.com/articles/s41586-019-1666-5",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2112.04359",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/ruvnet/claude-flow",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://rekt.news/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/quant-ph/9508027)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.oreilly.com/library/view/zero-trust-networks/9781491962183/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2003.12488)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1412.6572",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://local-doh.home.arpa/dns-query",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host local-doh.home.arpa:443 ssl:default [Name or service not known]"
+    },
+    {
+      "url": "https://arxiv.org/abs/1910.11215)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://dnsleaktest.com",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://www.fhi.ox.ac.uk/reports/agi-timeline-surveys/)**",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host www.fhi.ox.ac.uk:443 ssl:default [Name or service not known]"
+    },
+    {
+      "url": "https://academic.oup.com/book/8358)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/learn/what-is-cloud-migration",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/williamzujkowski.github.io)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://gdpr-info.eu/art-22-gdpr/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://dl.acm.org/doi/abs/10.1145/3609510.3609822)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.08087)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.openzeppelin.com/security-audits)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/resources/cloud-migration-best-practices/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1016/j.cose.2023.103097",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/TSC.2024.3358439)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.coursera.org/learn/crypto)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "http://jalammar.github.io/illustrated-transformer/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2504.01036",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "/resources/",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "/resources/"
+    },
+    {
+      "url": "https://swcregistry.io/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/VIZSEC.2023.10345843)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/ollama/ollama",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.anthropic.com/research)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "http://jalammar.github.io/illustrated-transformer/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://install.pi-hole.net",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1920&q=80)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://gdpr-info.eu/art-25-gdpr/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/quantum",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.csoonline.com/article/3619006/generative-ai-cybersecurity-use-cases-are-expanding-fast-but-experts-say-caution-is-warranted.html)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/standards)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.enisa.europa.eu/topics/cryptography/post-quantum-cryptography)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.amazon.com/Antifragile-Things-That-Disorder-Incerto/dp/0812979680)",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/ruvnet/claude-flow)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.etsi.org/technologies/quantum-safe-cryptography)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/iovisor/bcc",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/microsoft/autogen)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/OWASP/IoTGoat.git",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.etsi.org/technologies/quantum-safe-cryptography",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.eccouncil.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4725283",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://towardsdatascience.com/rag-vs-finetuning-which-is-the-best-tool-to-boost-your-llm-application-94654b1eaba7",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.redhat.com/en/topics/cloud-native-apps/what-is-cloud-native-security)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://dl.acm.org/doi/10.1145/3062341.3062363)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2411.02618)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/VIZSEC.2023.10345843)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cfr.org/backgrounder/deepfakes-and-disinformation)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.worldbank.org/en/programs/govtech/gtmi",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://mitre-attack.github.io/attack-navigator/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/compute/understanding-cpu-utilization/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2309.10020)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cyberthreatalliance.org/resources/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.08774",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1910.11215",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.swebench.com/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.linkedin.com/in/williamzujkowski/",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2508.13644",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://serverlessland.com/patterns)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/learn/what-is-cloud-native-security)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.openzeppelin.com/security-audits",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://qiskit.org/textbook/ch-algorithms/shor.html)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://dodcio.defense.gov/Portals/0/Documents/Library/DoD-ZTStrategy.pdf",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nap.edu/catalog/25196/quantum-computing-progress-and-prospects)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2204.14198",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cyberthreatalliance.org/resources/)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nvidia.com/en-us/edge-computing/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://dns.google/dns-query",
+      "status": "degraded",
+      "status_code": 400,
+      "issue_type": "http_400",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.08468)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.climatechange.ai/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.gartner.com/en/information-technology/glossary/cloud-migration)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://pentesterlab.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://link.springer.com/chapter/10.1007/978-3-031-25460-4_14),",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://sitn.hms.harvard.edu/flash/2020/racial-discrimination-in-face-recognition-technology/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.tensorflow.org/lite",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://api.first.org/data/v1/epss",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.sstic.org/media/SSTIC2021/SSTIC-actes/runtime_security_with_ebpf/SSTIC2021-Article-runtime_security_with_ebpf-fournier_afchain_baubeau.pdf)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-cloud-security/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://landscape.cncf.io/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cyberseek.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/TDSC.2023.3247569",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/ACCESS.2024.3381234)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/sustainability",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.iotsecurityfoundation.org/best-practice-guidelines/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.coursera.org/learn/crypto",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.hackthebox.com/)**",
+      "status": "broken",
+      "status_code": 500,
+      "issue_type": "server_error",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.idc.com/getdoc.jsp?containerId=prUS52195024",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://dl.acm.org/doi/10.1145/3062341.3062363",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.khanacademy.org/computing/computer-science/cryptography",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/example/iot-blocklist/main/list.txt",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://ieeexplore.ieee.org/document/1362308",
+      "status": "degraded",
+      "status_code": 418,
+      "issue_type": "http_418",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/quant-ph/9508027",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.fhi.ox.ac.uk/reports/agi-timeline-surveys/",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host www.fhi.ox.ac.uk:443 ssl:default [Name or service not known]"
+    },
+    {
+      "url": "https://www.cloudflare.com/learning/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-top-ten/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/security/business/zero-trust",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://serverlessland.com/patterns",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.anthropic.com/research",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3575898.3575903",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-internet-of-things/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/zero-trust-maturity-model)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.researchgate.net/publication/389520879",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/COMST.2023.3325398)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.climatechange.ai/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/security/business/zero-trust)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2003.12488",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2504.00518)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cyberthreatalliance.org/resources/),",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://sustainability.google/reports/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nvidia.com/en-us/edge-computing/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://d1.awsstatic.com/Migration/migrating-to-aws-ebook.pdf",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.theverge.com/2024/10/8/24265315/copyright-is-the-only-functional-law-of-the-internet-deepfake-nudes-edition",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/sites/default/files/publications/CISA%20Zero%20Trust%20Maturity%20Model_Draft.pdf)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.02195",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/williamzujkowski.github.io",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.02195)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/prompt-engineering)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.wired.com/story/covid-drives-real-businesses-deepfake-technology/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.forbes.com/sites/kevinkruse/2015/12/08/how-successful-teams-use-food/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://ollama.ai/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.08468",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/mcp-standards-server).",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.brookings.edu/articles/deepfakes-and-international-conflict/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/microsoft/autogen",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.canakit.com/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://docs.anthropic.com/claude/docs",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2204.05149",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/learn/what-is-cloud-migration)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.isc2.org/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://orbilu.uni.lu/handle/10993/43564)**",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host orbilu.uni.lu:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')]"
+    },
+    {
+      "url": "https://arxiv.org/abs/2011.05068)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2506.01220)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3575898.3575903)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://jade.tilab.com/",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host jade.tilab.com:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')]"
+    },
+    {
+      "url": "https://arxiv.org/abs/2204.14198)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://paperswithcode.com/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/Projects/post-quantum-cryptography)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://landscape.cncf.io/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.hhs.gov/hipaa/for-professionals/security/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "http://unikernel.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://huggingface.co/models)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/crytic/slither)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://consensys.net/diligence/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.08485",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.isc2.org/Research",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.technologyreview.com/2023/05/04/1072679/large-language-models-open-source-extended-version/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cncf.io/blog/2021/06/17/best-practices-for-cloud-native-security/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/oobabooga/text-generation-webui):",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cncf.io/blog/2021/06/17/best-practices-for-cloud-native-security/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.isc2.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.oreilly.com/library/view/chaos-engineering/9781492043850/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cve.mitre.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/learn/what-is-cloud-native-security",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/compute/docs/memory-optimized-machines)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.media.mit.edu/publications/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cve.mitre.org/)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/quantum)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/sites/default/files/publications/CISA%20Zero%20Trust%20Maturity%20Model_Draft.pdf",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.crypto101.io/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.worldbank.org/en/programs/govtech/gtmi)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://python.langchain.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1910.01108)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2012.07805)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://gdpr-info.eu/art-22-gdpr/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://landscape.cncf.io/card-mode?category=ebpf&grouping=category)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2105.12707)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.01459",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.hackthebox.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2411.02618)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1920&q=80",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1810.04805",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.sustainablewebmanifesto.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://mujoco.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2303.08774)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://consensys.github.io/smart-contract-best-practices/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2508.13644)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://learnprompting.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://orbilu.uni.lu/handle/10993/43564",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host orbilu.uni.lu:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')]"
+    },
+    {
+      "url": "https://partnershiponai.org/publications/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/services/iot-edge/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://ollama.ai/)**",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/local-llm-toolkit",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2010.11267)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://openai.com/research/gpt-4v-system-card)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/standards",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://linkedin.com/in/williamzujkowski).*",
+      "status": "broken",
+      "status_code": 999,
+      "issue_type": "server_error",
+      "notes": ""
+    },
+    {
+      "url": "https://www.worldbank.org/en/programs/govtech/gtmi),",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/projects/post-quantum-cryptography)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/OWASP/IoTGoat",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.epa.gov/climateleadership/scope-2-inventory-guidance",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nature.com/articles/s41558-020-0837-6",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://pentesterlab.com/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://python.langchain.com/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://opensource.org/licenses/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.theverge.com/2024/10/8/24265315/copyright-is-the-only-functional-law-of-the-internet-deepfake-nudes-edition)",
+      "status": "degraded",
+      "status_code": 420,
+      "issue_type": "http_420",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3538969.3543815",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.verizon.com/business/resources/reports/dbir/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2112.04359)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.enisa.europa.eu/topics/education",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.accenture.com/us-en/blogs/security/how-ai-shaping-cybersecurity-strategies)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://ebpf.io)",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host ebpf.io):443 ssl:default [Name or service not known]"
+    },
+    {
+      "url": "https://github.com/ollama/ollama)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2105.12707",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://gym.openai.com/)**",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host gym.openai.com:443 ssl:True [SSLCertVerificationError: (1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gym.openai.com'. (_ssl.c:1000)\")]"
+    },
+    {
+      "url": "https://arxiv.org/abs/2507.22893",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/projects/post-quantum-cryptography)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/s10639-024-12456-4)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://python.langchain.com/docs/modules/agents/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://unity.com/products/machine-learning-agents)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.udacity.com/course/applied-cryptography--cs387",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.etsi.org/technologies/quantum-safe-cryptography)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://sitn.hms.harvard.edu/flash/2020/racial-discrimination-in-face-recognition-technology/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.mandiant.com/resources/blog)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/simd-everywhere/simde",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/list/cs.AI/recent",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/mcp-standards-server.git",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://aws.amazon.com/greengrass/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/oobabooga/text-generation-webui",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/TDSC.2023.3247569)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.14165",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://python.langchain.com/docs/modules/agents/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/products/quantum)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2507.22893)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2208.07339)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.resilience-engineering-association.org/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://jade.tilab.com/)**",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host jade.tilab.com:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')]"
+    },
+    {
+      "url": "https://www.nist.gov/privacy-framework)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1611.03673)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.11ty.dev/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.comptia.org/certifications/security",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cloudflare.com/learning/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.08087",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2204.05149)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.isc2.org/Research)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/zero-trust-maturity-model",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-internet-of-things/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.ibm.com/security/data-breach)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://ollama.ai/install.sh",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4725283)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2508.13644)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-cloud-security/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/simd-everywhere/simde)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2504.01036)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.media.mit.edu/people/minsky/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://dci.mit.edu/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.gen-ai.witness.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.first.org/epss/articles/prob_percentile_bins)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/cyberframework)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.verizon.com/business/resources/reports/dbir/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://learnprompting.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.marketsandmarkets.com/Market-Reports/ai-infrastructure-market.asp)**",
+      "status": "degraded",
+      "status_code": 406,
+      "issue_type": "http_406",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1910.01108",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-smart-contract-top-10/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/itl/applied-cybersecurity/nice)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2012.07805",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/trailofbits/eth-security-toolbox",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://attack.mitre.org/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.first.org/epss/)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/ggerganov/llama.cpp",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.crowdstrike.com/global-threat-report/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://dodcio.defense.gov/Portals/0/Documents/Library/DoD-ZTStrategy.pdf)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://developer.nvidia.com/isaac-sim",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/).",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.media.mit.edu/publications/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/beyondcorp)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2401.09241",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://search.ebscohost.com/login.aspx?direct=true&profile=ehost&scope=site&authtype=crawler&jrnl=10798587&AN=164642663)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/ggerganov/llama.cpp):",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.swebench.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.amazon.com/Antifragile-Things-That-Disorder-Incerto/dp/0812979680",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://www.11ty.dev/).",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://attack.mitre.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/Projects/post-quantum-cryptography",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://efficientdlbook.github.io/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1920&q=80)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1706.03762",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.csoonline.com/article/3619006/generative-ai-cybersecurity-use-cases-are-expanding-fast-but-experts-say-caution-is-warranted.html",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1902.01046)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-top-ten/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/TSC.2024.3358439)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://ieeexplore.ieee.org/abstract/document/9665095/)**",
+      "status": "degraded",
+      "status_code": 418,
+      "issue_type": "http_418",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/ACCESS.2024.3381234",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/trailofbits/eth-security-toolbox)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.01459)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.idc.com/getdoc.jsp?containerId=prUS52195024)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/TSC.2024.3358439",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2009.06732)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2309.10020",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2506.01220",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://wyss.harvard.edu/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1812.11103)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.anyscale.com/blog/a-comprehensive-guide-for-building-rag-based-llm-applications-part-1",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://wasi.dev/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://dl.acm.org/doi/abs/10.1145/3609510.3609822",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413.pdf",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://consensys.github.io/smart-contract-best-practices/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1901.03407",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/TDSC.2023.3247569)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.hyperledger.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nature.com/articles/s41586-019-1666-5)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://dci.mit.edu/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/pubs/ir/8413/final)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3607199.3607240",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/compute/docs/memory-optimized-machines",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://qiskit.org/textbook/ch-algorithms/shor.html",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://huggingface.co/models",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://developer.nvidia.com/isaac-sim)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.canakit.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1706.03762)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.crowdstrike.com/global-threat-report/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.jstor.org/stable/3328150",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://link.springer.com/chapter/10.1007/978-3-031-25460-4_14)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2010.11267",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://theshiftproject.org/en/lean-ict-2/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cloudflare.com/learning/performance/more/bandwidth-optimization/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.sans.org/top25-software-errors/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2023-hardware-sustainability",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://link.springer.com/chapter/10.1007/978-3-031-25460-4_14",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://venturebeat.com/ai/the-enterprise-verdict-on-ai-models-why-open-source-will-win/",
+      "status": "degraded",
+      "status_code": 429,
+      "issue_type": "http_429",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/williamzujkowski.github.io).",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://paperswithcode.com/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://wasi.dev/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.hhs.gov/hipaa/for-professionals/security/)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.17323",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/products/quantum",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://embodied-ai.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://wyss.harvard.edu/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.tinyml.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1920&q=80",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.energy.gov/eere/buildings/data-center-energy-efficiency)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://efficientdlbook.github.io/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/services/iot-edge/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/cyberframework",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/resources/cloud-migration-best-practices/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://sustainability.google/reports/)",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://theshiftproject.org/en/lean-ict-2/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8075456/)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2411.02618",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.brookings.edu/articles/deepfakes-and-international-conflict/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://quantum-network.org/",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2112.02125",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.eccouncil.org/)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.14172",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://owasp.org/www-project-smart-contract-top-10/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cloudflare-dns.com/dns-query",
+      "status": "degraded",
+      "status_code": 415,
+      "issue_type": "http_415",
+      "notes": ""
+    },
+    {
+      "url": "https://sustainability.aboutamazon.com/environment/the-cloud",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://sumsub.com/newsroom/sumsub-launches-advanced-deepfakes-detector/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.springer.com/gp/book/9783030239213",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.marketsandmarkets.com/Market-Reports/ai-infrastructure-market.asp",
+      "status": "degraded",
+      "status_code": 406,
+      "issue_type": "http_406",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/iovisor/bcc)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.kernel.org/doc/html/latest/bpf/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://entethalliance.org/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nature.com/articles/s41558-020-0837-6)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://openai.com/research/gpt-4v-system-card",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/standards.git",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.iea.org/reports/data-centres-and-data-transmission-networks)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.iotsecurityfoundation.org/best-practice-guidelines/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/privacy-framework",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.oreilly.com/library/view/chaos-engineering/9781492043850/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://opensource.org/licenses/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cyberseek.org/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.energy.gov/eere/buildings/data-center-energy-efficiency",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/pubs/ir/8413/final",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.sustainablewebmanifesto.com/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.khanacademy.org/computing/computer-science/cryptography)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.nap.edu/catalog/25196/quantum-computing-progress-and-prospects",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://sre.google/books/building-secure-reliable-systems/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2208.07339",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.exascaleproject.org/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3538969.3543815)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2011.05068",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.mdpi.com/2075-4698/15/1/2)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://1.1.1.1/dns-query",
+      "status": "degraded",
+      "status_code": 415,
+      "issue_type": "http_415",
+      "notes": ""
+    },
+    {
+      "url": "https://www.weforum.org/stories/2024/02/ai-cybersecurity-how-to-navigate-the-risks-and-opportunities/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://rekt.news/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://dns.quad9.net/dns-query",
+      "status": "degraded",
+      "status_code": 400,
+      "issue_type": "http_400",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1145/3607199.3607240)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/COMST.2023.3325398",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cloudflare.com/learning/performance/more/bandwidth-optimization/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://entethalliance.org/)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.enisa.europa.eu/topics/cryptography/post-quantum-cryptography",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1907.10597)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)",
+      "status": "degraded",
+      "status_code": 401,
+      "issue_type": "http_401",
+      "notes": ""
+    },
+    {
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2023-hardware-sustainability)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2106.15764)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.08485)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cybrary.it/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.redhat.com/en/topics/cloud-native-apps/what-is-cloud-native-security",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://consensys.github.io/smart-contract-best-practices/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1016/j.cose.2023.103097)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://gym.openai.com/",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "Cannot connect to host gym.openai.com:443 ssl:True [SSLCertVerificationError: (1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gym.openai.com'. (_ssl.c:1000)\")]"
+    },
+    {
+      "url": "https://www.forbes.com/sites/kevinkruse/2015/12/08/how-successful-teams-use-food/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.google.com/about/datacenters/renewable/)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/s10639-024-12456-4).",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2410.18291)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://mujoco.org/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.tensorflow.org/lite)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.wired.com/story/covid-drives-real-businesses-deepfake-technology/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.iea.org/reports/data-centres-and-data-transmission-networks",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://softroboticstoolkit.com/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://cwe.mitre.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1109/ACCESS.2024.3381234)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://uptimeinstitute.com/resources/research-and-reports",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/compute/understanding-cpu-utilization/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.17323)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://d1.awsstatic.com/Migration/migrating-to-aws-ebook.pdf)",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.hyperledger.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2009.06732",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.accenture.com/us-en/blogs/security/how-ai-shaping-cybersecurity-strategies",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://coral.ai/docs/edgetpu/intro/",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1902.01046",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1810.04805)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.linkedin.com/in/williamzujkowski/),",
+      "status": "broken",
+      "status_code": 999,
+      "issue_type": "server_error",
+      "notes": ""
+    },
+    {
+      "url": "https://www.mdpi.com/2075-4698/15/1/2",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/publications/detail/sp/800-207/final",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1812.11103",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.resilience-engineering-association.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://cloud.google.com/beyondcorp",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.enisa.europa.eu/topics/education)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.comptia.org/certifications/security)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://embodied-ai.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2401.09241)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.crypto101.io/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS),",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://academic.oup.com/book/8358",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.14165)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://azure.microsoft.com/en-us/blog/optimize-storage-costs/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://coral.ai/docs/edgetpu/intro/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.verizon.com/business/resources/reports/dbir/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.top500.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://landscape.cncf.io/card-mode?category=ebpf&grouping=category",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/zero-trust-maturity-model)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://aws.amazon.com/greengrass/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.google.com/about/datacenters/renewable/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/1611.03673",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://quantum-network.org/)",
+      "status": "degraded",
+      "status_code": 405,
+      "issue_type": "http_405",
+      "notes": ""
+    },
+    {
+      "url": "https://csrc.nist.gov/publications/detail/sp/800-207/final)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.anyscale.com/blog/a-comprehensive-guide-for-building-rag-based-llm-applications-part-1)",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.technologyreview.com/2023/05/04/1072679/large-language-models-open-source-extended-version/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://attack.mitre.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/openai/human-eval)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.tinyml.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.cybrary.it/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8075456/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://doi.org/10.1016/j.cose.2023.103097)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.14172)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.iotsecurityfoundation.org/best-practice-guidelines/),",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.gartner.com/en/documents/4018123)**",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://www.first.org/epss/articles/prob_percentile_bins",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://gdpr-info.eu/art-25-gdpr/)**",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.top500.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://falco.org",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/crytic/slither",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "/about/",
+      "status": "error",
+      "status_code": null,
+      "issue_type": "connection_error",
+      "notes": "/about/"
+    },
+    {
+      "url": "https://mitre-attack.github.io/attack-navigator/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.mandiant.com/resources/blog",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.udacity.com/course/applied-cryptography--cs387)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://ebpf.io",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://sustainability.aboutamazon.com/environment/the-cloud)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://linkedin.com/in/williamzujkowski",
+      "status": "broken",
+      "status_code": 999,
+      "issue_type": "server_error",
+      "notes": ""
+    },
+    {
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://proceedings.mlr.press/v80/bender18a/bender18a.pdf)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://tryhackme.com/)**",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "http://unikernel.org/)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://arxiv.org/abs/2302.14172),",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    },
+    {
+      "url": "https://www.quantum.gov/",
+      "status": "degraded",
+      "status_code": 403,
+      "issue_type": "http_403",
+      "notes": ""
+    },
+    {
+      "url": "https://github.com/williamzujkowski/mcp-standards-server",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://swcregistry.io/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://www.giac.org/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://venturebeat.com/ai/the-enterprise-verdict-on-ai-models-why-open-source-will-win/)",
+      "status": "degraded",
+      "status_code": 429,
+      "issue_type": "http_429",
+      "notes": ""
+    },
+    {
+      "url": "https://www.kernel.org/doc/html/latest/bpf/",
+      "status": "valid",
+      "status_code": 200,
+      "issue_type": null,
+      "notes": ""
+    },
+    {
+      "url": "https://uptimeinstitute.com/resources/research-and-reports)",
+      "status": "broken",
+      "status_code": 404,
+      "issue_type": "not_found",
+      "notes": ""
+    }
+  ]
+}

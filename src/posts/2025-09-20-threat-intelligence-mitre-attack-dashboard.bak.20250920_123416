@@ -31,7 +31,7 @@ Years ago, I learned the hard way that reading threat reports isn't enough. Afte
 
 According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive an average of 10,000 threat indicators daily, but only 3% are relevant to their specific environment. Generic threat feeds are like drinking from a fire hose—lots of volume, little value.
 
-The [MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555 changes this by providing a common language for threat behaviors. Instead of tracking millions of IoCs, we can focus on the techniques that matter to our environment.
+The [MITRE ATT&CK framework](https://attack.mitre.org/) changes this by providing a common language for threat behaviors. Instead of tracking millions of IoCs, we can focus on the techniques that matter to our environment.
 
 ## Understanding MITRE ATT&CK
 
@@ -290,7 +290,7 @@ class ThreatVisualizer:
 
 ## Implementing Threat Actor Tracking
 
-According to [research by Schlette et al. (2023)](https://doi.org/10.1145/3607199.3607240) tracking threat actor TTPs improves detection of targeted attacks by 82%. Let's add actor profiling:
+According to [research by Schlette et al. (2023)](https://doi.org/10.1145/3607199.3607240), tracking threat actor TTPs improves detection of targeted attacks by 82%. Let's add actor profiling:
 
 ```python
 class ThreatActorProfiler:
@@ -476,7 +476,7 @@ Remember: threat intelligence is only valuable if it drives action.
 
 ## References
 
-1. **[MITRE ATT&CK Framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555** (2024)
+1. **[MITRE ATT&CK Framework](https://attack.mitre.org/)** (2024)
    - MITRE Corporation
    - *Adversarial Tactics, Techniques, and Common Knowledge*
 
@@ -484,22 +484,22 @@ Remember: threat intelligence is only valuable if it drives action.
    - Cyber Threat Alliance
    - *Industry Threat Sharing Guidelines*
 
-3. **[A Comprehensive Study of the MITRE ATT&CK Framework](https://doi.org/10.1016/j.cose.2023.103097) (2023)
+3. **[A Comprehensive Study of the MITRE ATT&CK Framework](https://doi.org/10.1016/j.cose.2023.103097)** (2023)
    - Georgiadou, Anna, et al.
    - *Computers & Security*
 
-4. **[Prioritizing Cyber Threat Intelligence](https://doi.org/10.1145/3575898.3575903) (2023)
+4. **[Prioritizing Cyber Threat Intelligence](https://doi.org/10.1145/3575898.3575903)** (2023)
    - Spring, Jonathan M., et al.
    - *ACM Computing Surveys*
 
-5. **[Visual Analytics for Cyber Threat Intelligence](https://doi.org/10.1109/VIZSEC.2023.10345843) (2023)
+5. **[Visual Analytics for Cyber Threat Intelligence](https://doi.org/10.1109/VIZSEC.2023.10345843)** (2023)
    - Various authors
    - *IEEE Symposium on Visualization for Cyber Security*
 
-6. **[Threat Actor Attribution Using TTP Analysis](https://doi.org/10.1145/3607199.3607240) (2023)
+6. **[Threat Actor Attribution Using TTP Analysis](https://doi.org/10.1145/3607199.3607240)** (2023)
    - Schlette, Daniel, et al.
    - *ACM Transactions on Privacy and Security*
 
-7. **[Automated Threat Detection Systems](https://doi.org/10.1109/TSC.2024.3358439) (2024)
+7. **[Automated Threat Detection Systems](https://doi.org/10.1109/TSC.2024.3358439)** (2024)
    - Rahman, M.A., et al.
    - *IEEE Transactions on Services Computing*

@@ -31,7 +31,7 @@ When I set up my first smart home devices years ago, I naively trusted that manu
 
 According to [research from the IoT Security Foundation (2024)](https://www.iotsecurityfoundation.org/best-practice-guidelines/), over 70% of IoT devices ship with hardcoded credentials, unencrypted communications, or outdated firmware with known vulnerabilities. The [OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far.
 
-Enter [OWASP IoTGoat](https://doi.org/10.1201/9781003054115-11 deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA.
+Enter [OWASP IoTGoat](https://github.com/OWASP/IoTGoat)—a deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA.
 
 ## Building Your IoT Security Lab
 
@@ -56,7 +56,7 @@ graph TD
 
 ### Essential Tools Setup
 
-Based on [security research by Allodi & Campobasso (2023)](https://doi.org/10.1007/978-3-031-25460-4_14) these tools catch 90% of common IoT vulnerabilities:
+Based on [security research by Allodi & Campobasso (2023)](https://link.springer.com/chapter/10.1007/978-3-031-25460-4_14), these tools catch 90% of common IoT vulnerabilities:
 
 ```bash
 # Core analysis tools
@@ -362,18 +362,18 @@ Remember: in IoT security, paranoia is just good planning.
    - IoT Security Foundation
    - *Industry Security Standards*
 
-3. **[Security Analysis of IoT Devices Using Testbeds](https://doi.org/10.1007/978-3-031-25460-4_14) (2023)
+3. **[Security Analysis of IoT Devices Using Testbeds](https://link.springer.com/chapter/10.1007/978-3-031-25460-4_14)** (2023)
    - Luca Allodi, Michele Campobasso
    - *Springer Lecture Notes*
 
-4. **[Firmware Security Analysis of IoT Devices](https://doi.org/10.1109/TDSC.2023.3247569) (2023)
+4. **[Firmware Security Analysis of IoT Devices](https://doi.org/10.1109/TDSC.2023.3247569)** (2023)
    - Zhang, Wei, et al.
    - *IEEE Transactions on Dependable and Secure Computing*
 
-5. **[MQTT Security: A Comprehensive Survey](https://doi.org/10.1109/ACCESS.2024.3381234) (2024)
+5. **[MQTT Security: A Comprehensive Survey](https://doi.org/10.1109/ACCESS.2024.3381234)** (2024)
    - Nirmal, Kumar, et al.
    - *IEEE Access*
 
-6. **[IoT Security: Ongoing Challenges and Research Opportunities](https://doi.org/10.1109/COMST.2023.3325398) (2023)
+6. **[IoT Security: Ongoing Challenges and Research Opportunities](https://doi.org/10.1109/COMST.2023.3325398)** (2023)
    - Meneghello, Francesca, et al.
    - *IEEE Communications Surveys & Tutorials*
