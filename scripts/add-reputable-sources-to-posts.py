@@ -1,6 +1,45 @@
 #!/usr/bin/env python3
 """
-Add reputable academic sources to blog posts based on Google Scholar findings
+SCRIPT: add-reputable-sources-to-posts.py
+PURPOSE: Add reputable academic sources to blog posts based on Google Scholar findings
+CATEGORY: blog_management
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Add reputable academic sources to blog posts based on Google Scholar findings. This script is part of the blog management
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/add-reputable-sources-to-posts.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/add-reputable-sources-to-posts.py
+
+    # With verbose output
+    python scripts/add-reputable-sources-to-posts.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in blog_management category]
+
+MANIFEST_REGISTRY: scripts/add-reputable-sources-to-posts.py
 """
 
 import frontmatter

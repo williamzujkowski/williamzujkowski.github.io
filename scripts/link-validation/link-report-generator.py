@@ -1,7 +1,45 @@
 #!/usr/bin/env python3
 """
-Link Validation Report Generator
-Generates comprehensive reports from validation results
+SCRIPT: link-report-generator.py
+PURPOSE: Link Validation Report Generator
+CATEGORY: link_validation
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Link Validation Report Generator. This script is part of the link validation
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/link-report-generator.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/link-report-generator.py
+
+    # With verbose output
+    python scripts/link-report-generator.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in link_validation category]
+
+MANIFEST_REGISTRY: scripts/link-report-generator.py
 """
 
 import json

@@ -1,7 +1,58 @@
 #!/usr/bin/env python3
 """
-Batch Blog Post Improvement Tool
-Systematically improves all blog posts with Mermaid diagrams, reduced code, and better content
+SCRIPT: batch-improve-blog-posts.py
+PURPOSE: Systematically improve all blog posts with diagrams, reduced code, and enhanced content
+CATEGORY: blog_management
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-09-20T15:45:00-04:00
+
+DESCRIPTION:
+    Batch processing tool for comprehensive blog post improvements including:
+    - Mermaid diagram generation
+    - Code block reduction and optimization
+    - Content enhancement and restructuring
+    - SEO optimization
+    - Image integration
+    - Citation addition
+
+LLM_USAGE:
+    python scripts/batch-improve-blog-posts.py [options]
+
+ARGUMENTS:
+    --posts (list): Specific posts to process (default: all)
+    --improvements (list): Types of improvements [diagrams,code,seo,citations,images]
+    --batch-size (int): Number of posts to process at once (default: 5)
+    --output-dir (str): Directory for improved posts (default: in-place)
+    --dry-run (bool): Preview changes without applying
+    --parallel (bool): Process posts in parallel
+
+EXAMPLES:
+    # Improve all posts
+    python scripts/batch-improve-blog-posts.py
+
+    # Process specific improvements
+    python scripts/batch-improve-blog-posts.py --improvements diagrams,code
+
+    # Batch process with parallel execution
+    python scripts/batch-improve-blog-posts.py --parallel --batch-size 10
+
+OUTPUT:
+    - Improved blog posts with all enhancements
+    - Detailed improvement report
+    - Backup of original posts
+
+DEPENDENCIES:
+    - Python 3.8+
+    - scripts/lib/common.py for shared utilities
+    - scripts/diagram-manager.py for diagram generation
+
+RELATED_SCRIPTS:
+    - scripts/analyze-blog-content.py: Content analysis
+    - scripts/optimize-blog-content.py: Content optimization
+    - scripts/comprehensive-blog-enhancement.py: Full enhancement
+
+MANIFEST_REGISTRY: scripts/batch-improve-blog-posts.py
 """
 
 import os

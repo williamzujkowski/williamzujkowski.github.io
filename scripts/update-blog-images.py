@@ -1,7 +1,45 @@
 #!/usr/bin/env python3
 """
-Blog Image Standards Implementation Script
-Updates blog posts with proper image metadata and generates placeholder images
+SCRIPT: update-blog-images.py
+PURPOSE: Blog Image Standards Implementation Script
+CATEGORY: blog_management
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Blog Image Standards Implementation Script. This script is part of the blog management
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/update-blog-images.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/update-blog-images.py
+
+    # With verbose output
+    python scripts/update-blog-images.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in blog_management category]
+
+MANIFEST_REGISTRY: scripts/update-blog-images.py
 """
 
 import os

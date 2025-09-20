@@ -1,0 +1,378 @@
+# Knowledge Management Manifest
+# Machine-readable metadata for AI assistants and automation tools
+
+version: "3.2.0"
+last_updated: "2025-06-26"
+type: "personal-website"
+framework: "eleventy"
+styling_framework: "tailwindcss"
+standards_integration: true
+
+# Repository Metadata
+repository:
+  name: "williamzujkowski.github.io"
+  description: "Personal website showcasing AI/ML projects, security expertise, and open-source contributions"
+  primary_language: "JavaScript"
+  deployment: "github-pages"
+  status: "active"
+  
+# Token Budget Overview
+token_summary:
+  total_estimated: 15000
+  by_category:
+    documentation: 4500
+    source_code: 4000
+    configuration: 2000
+    content: 3500
+    styling: 1000
+
+# Document Registry
+documents:
+  - id: "readme"
+    file: "README.md"
+    type: "documentation"
+    tokens: 1200
+    priority: "high"
+    sections:
+      overview:
+        tokens: 200
+        description: "Project introduction and quick start"
+      structure:
+        tokens: 300
+        description: "Repository organization"
+      setup:
+        tokens: 400
+        description: "Installation and development"
+      deployment:
+        tokens: 300
+        description: "CI/CD and hosting"
+        
+  - id: "claude"
+    file: "CLAUDE.md"
+    type: "ai-interface"
+    tokens: 3000
+    priority: "critical"
+    version: "4.5.1"
+    sections:
+      quick_start:
+        tokens: 200
+        description: "AI assistant commands"
+      navigation:
+        tokens: 300
+        description: "Task-based loading map"
+      architecture:
+        tokens: 500
+        description: "Technical overview"
+      tailwind_architecture:
+        tokens: 800
+        description: "Tailwind CSS implementation"
+      navigation_setup:
+        tokens: 400
+        description: "eleventy-navigation plugin"
+      troubleshooting:
+        tokens: 800
+        description: "Common issues and fixes"
+        
+  - id: "eleventy_config"
+    file: ".eleventy.js"
+    type: "configuration"
+    tokens: 500
+    priority: "high"
+    features:
+      - "Template engine setup"
+      - "Asset passthrough"
+      - "Date filters"
+      - "Layout aliases"
+      - "eleventy-navigation plugin"
+      - "Limit filter for collections"
+      
+  - id: "package_json"
+    file: "package.json"
+    type: "configuration"
+    tokens: 200
+    priority: "medium"
+    
+  - id: "github_actions"
+    file: ".github/workflows/eleventy_build.yml"
+    type: "automation"
+    tokens: 400
+    priority: "medium"
+    purpose: "Build and deploy pipeline"
+    
+  - id: "tailwind_config"
+    file: "tailwind.config.js"
+    type: "configuration"
+    tokens: 300
+    priority: "high"
+    features:
+      - "Custom color palette"
+      - "Dark mode configuration"
+      - "Typography plugin"
+      - "Forms plugin"
+      
+  - id: "postcss_config"
+    file: "postcss.config.js"
+    type: "configuration"
+    tokens: 100
+    priority: "medium"
+    purpose: "CSS processing pipeline"
+
+# Content Structure
+content:
+  pages:
+    location: "src/pages/"
+    format: "markdown"
+    layout: "page"
+    current:
+      - "about.md"
+      - "posts.njk"
+      - "uses.md"
+      - "resources.md"
+      - "404.md"
+      
+  posts:
+    location: "src/posts/"
+    format: "markdown"
+    layout: "post"
+    features:
+      - "Date-based URLs"
+      - "Tag support"
+      - "Automatic listing"
+      
+  templates:
+    location: "src/_includes/layouts/"
+    format: "nunjucks"
+    hierarchy:
+      base: "HTML skeleton"
+      page: "Static page wrapper"
+      post: "Blog post wrapper"
+
+# Technical Stack
+stack:
+  static_site_generator:
+    name: "Eleventy"
+    version: "2.0.1"
+    plugins:
+      - "@11ty/eleventy-navigation"
+    
+  templating:
+    engine: "Nunjucks"
+    file_extension: ".njk"
+    
+  styling:
+    framework: "Tailwind CSS"
+    version: "3.4.17"
+    build_process: "PostCSS"
+    features:
+      - "Utility-first CSS"
+      - "Dark mode support"
+      - "Typography plugin"
+      - "Forms plugin"
+      - "Glass morphism effects"
+      - "Custom color palette"
+      - "Production optimization"
+      
+  deployment:
+    platform: "GitHub Pages"
+    method: "GitHub Actions"
+    branch: "gh-pages"
+    
+  standards:
+    integrated: true
+    location: ".standards/"
+    type: "git-submodule"
+
+# Progressive Loading Strategies
+loading_strategies:
+  minimal:
+    description: "Quick overview only"
+    load: ["claude:quick_start", "readme:overview"]
+    tokens: ~400
+    
+  standard:
+    description: "Common development tasks"
+    load: ["claude:navigation", "claude:architecture", "readme:setup"]
+    tokens: ~1000
+    
+  comprehensive:
+    description: "Full documentation"
+    load: ["*"]
+    tokens: ~8000
+    
+  troubleshooting:
+    description: "Debugging and fixes"
+    load: ["claude:troubleshooting", "github_actions", "eleventy_config"]
+    tokens: ~1700
+
+# Task Mappings
+task_mappings:
+  - task: "add blog post"
+    load: ["content.posts", "claude:content_management"]
+    
+  - task: "update styling"
+    load: ["claude:tailwind_architecture", "tailwind_config", "stack.styling"]
+    
+  - task: "fix deployment"
+    load: ["github_actions", "claude:troubleshooting"]
+    
+  - task: "modify navigation"
+    load: ["claude:navigation_setup", "eleventy_config", "content.templates"]
+    
+  - task: "optimize performance"
+    load: ["claude:performance_metrics", "tailwind_config", "postcss_config"]
+    
+  - task: "customize dark mode"
+    load: ["claude:tailwind_architecture", "tailwind_config", "content.templates"]
+
+# Relationships
+relationships:
+  dependencies:
+    readme:
+      references: ["eleventy_config", "package_json"]
+    claude:
+      references: ["all"]
+    github_actions:
+      depends_on: ["package_json", "eleventy_config"]
+      
+  standards_compliance:
+    knowledge_management: "implemented"
+    coding_standards: "via_submodule"
+    testing_standards: "basic_verification"
+    security_standards: "github_pages_model"
+    
+  applied_standards:
+    primary:
+      - standard: "KM"
+        name: "Knowledge Management"
+        implementation: "CLAUDE.md, MANIFEST.yaml, documentation structure"
+      - standard: "FE"
+        name: "Frontend & Mobile"
+        implementation: "Component architecture, performance optimization"
+      - standard: "WD"
+        name: "Web Design & UX"
+        implementation: "Design tokens, typography, accessibility"
+      - standard: "SEO"
+        name: "SEO & Web Marketing"
+        implementation: "Meta tags, structured data ready"
+      - standard: "CONT"
+        name: "Content Standards"
+        implementation: "Blog post structure, content guidelines"
+      - standard: "GH"
+        name: "GitHub Platform"
+        implementation: "GitHub Pages, Actions workflows"
+    supporting:
+      - standard: "CS"
+        name: "Coding Standards"
+        reference: ".standards/docs/standards/CODING_STANDARDS.md"
+      - standard: "TOOL"
+        name: "Toolchain Standards"
+        reference: ".standards/docs/standards/TOOLCHAIN_STANDARDS.md"
+        
+  standards_router:
+    location: ".standards/docs/core/CLAUDE.md"
+    version: "3.0.0"
+    usage: "Use for all standards queries and guidance"
+
+# Automation Capabilities
+automation:
+  build:
+    command: "npm run build"
+    output: "_site/"
+    time: "~1.5s (includes CSS build)"
+    steps:
+      - "Build Tailwind CSS with PostCSS"
+      - "Build Eleventy site"
+    
+  serve:
+    command: "npm run serve"
+    port: 8080
+    hot_reload: true
+    parallel_tasks:
+      - "Watch CSS changes"
+      - "Eleventy dev server"
+    
+  deploy:
+    trigger: "push to main"
+    platform: "GitHub Actions"
+    time: "~30s"
+    
+  validation:
+    html: "W3C validator in CI"
+    links: "Manual verification"
+    accessibility: "Planned"
+
+# Quick Reference
+quick_reference:
+  commands:
+    install: "npm install"
+    dev: "npm run serve"
+    build: "npm run build"
+    build_css: "npm run build:css"
+    watch_css: "npm run watch:css"
+    
+  urls:
+    live: "https://williamzujkowski.github.io/"
+    repo: "https://github.com/williamzujkowski/williamzujkowski.github.io"
+    
+  key_files:
+    config: ".eleventy.js"
+    tailwind_config: "tailwind.config.js"
+    postcss_config: "postcss.config.js"
+    styles: "src/assets/css/tailwind.css"
+    home: "src/index.njk"
+    global_data: "src/_data/site.json"
+    
+  dependencies:
+    production:
+      - "@11ty/eleventy"
+      - "@11ty/eleventy-navigation"
+    development:
+      - "tailwindcss"
+      - "postcss"
+      - "autoprefixer"
+      - "cssnano"
+      - "@tailwindcss/typography"
+      - "@tailwindcss/forms"
+      - "npm-run-all"
+
+# Version History
+changelog:
+  - version: "3.2.0"
+    date: "2025-06-26"
+    changes:
+      - "Updated homepage with AI interest section and Asimov quote"
+      - "Consolidated Experience, Skills, and Projects into comprehensive About page"
+      - "Removed vestigial contact.md and projects.md pages (had permalink: false)"
+      - "Fixed internal link in uses.md to point to /about/#contact"
+      - "Updated all documentation to reflect current page structure"
+  - version: "3.1.0"
+    date: "2025-06-25"
+    changes:
+      - "Added 6 blog posts on security, AI/ML, and career topics"
+      - "Created comprehensive professional pages (Experience, Skills, Projects, Uses, Resources)"
+      - "Implemented reading time estimates for all posts"
+      - "Added git-based last updated dates"
+      - "Updated Projects page to focus on personal GitHub projects"
+      - "Enhanced SEO with extended meta descriptions"
+      - "Added external link security (rel=noopener noreferrer)"
+  - version: "3.0.0"
+    date: "2024-01-24"
+    changes:
+      - "Added Tailwind CSS framework"
+      - "Integrated eleventy-navigation plugin"
+      - "Added PostCSS build pipeline"
+      - "Updated token estimates for new architecture"
+      - "Added new configuration files tracking"
+      - "Enhanced task mappings for CSS workflows"
+      - "Added dark mode and navigation tasks"
+  - version: "2.0.0"
+    date: "2024-01-24"
+    changes:
+      - "Full standards integration via submodule"
+      - "Applied standards mapping"
+      - "Enhanced documentation structure"
+  - version: "1.0.0"
+    date: "2024-01-24"
+    changes:
+      - "Initial manifest creation"
+      - "Basic Eleventy setup documentation"

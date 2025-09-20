@@ -1,7 +1,53 @@
 #!/usr/bin/env python3
 """
-Blog Content Optimizer
-Analyzes blog posts to identify where code can be reduced and replaced with diagrams
+SCRIPT: optimize-blog-content.py
+PURPOSE: Analyze and optimize blog posts for readability by reducing code-to-content ratio
+CATEGORY: content_optimization
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-09-20T15:35:00-04:00
+
+DESCRIPTION:
+    Analyzes blog posts to identify where code can be reduced and replaced with
+    diagrams. Targets posts with >25% code-to-content ratio and suggests
+    optimizations including Mermaid diagrams, GitHub gists, and visual alternatives.
+
+LLM_USAGE:
+    python scripts/optimize-blog-content.py [options]
+
+ARGUMENTS:
+    --posts-dir (str): Directory containing blog posts (default: src/posts)
+    --threshold (float): Code ratio threshold (default: 0.25)
+    --output (str): Output report file (default: reports/code-optimization.json)
+    --fix (bool): Apply automatic fixes where possible
+    --dry-run (bool): Preview changes without applying
+
+EXAMPLES:
+    # Analyze all posts
+    python scripts/optimize-blog-content.py
+
+    # Fix posts with high code ratio
+    python scripts/optimize-blog-content.py --fix --threshold 0.30
+
+    # Generate detailed report
+    python scripts/optimize-blog-content.py --output reports/optimization.json
+
+OUTPUT:
+    - JSON report with optimization suggestions
+    - Updated blog posts (if --fix is used)
+    - Diagram templates in src/assets/images/blog/diagrams/
+
+DEPENDENCIES:
+    - Python 3.8+
+    - PyYAML for frontmatter parsing
+    - Optional: scripts/lib/common.py for shared utilities
+
+RELATED_SCRIPTS:
+    - scripts/diagram-manager.py: Create and manage diagrams
+    - scripts/create-blog-diagrams.py: Generate Mermaid diagrams
+    - scripts/analyze-blog-content.py: Content quality analysis
+
+MANIFEST_REGISTRY: scripts/optimize-blog-content.py
 """
 
 import re

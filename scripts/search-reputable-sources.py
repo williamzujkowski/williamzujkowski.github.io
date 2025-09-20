@@ -1,6 +1,45 @@
 #!/usr/bin/env python3
 """
-Search for reputable sources using Playwright to back up technical claims in blog posts
+SCRIPT: search-reputable-sources.py
+PURPOSE: Search for reputable sources using Playwright to back up technical claims in blog posts
+CATEGORY: utilities
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Search for reputable sources using Playwright to back up technical claims in blog posts. This script is part of the utilities
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/search-reputable-sources.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/search-reputable-sources.py
+
+    # With verbose output
+    python scripts/search-reputable-sources.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in utilities category]
+
+MANIFEST_REGISTRY: scripts/search-reputable-sources.py
 """
 
 import asyncio

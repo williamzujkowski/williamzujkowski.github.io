@@ -1,7 +1,45 @@
 #!/usr/bin/env python3
 """
-Advanced Link Repair System
-Handles malformed URLs and finds alternatives using Playwright
+SCRIPT: advanced-link-repair.py
+PURPOSE: Advanced Link Repair System
+CATEGORY: link_validation
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Advanced Link Repair System. This script is part of the link validation
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/advanced-link-repair.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/advanced-link-repair.py
+
+    # With verbose output
+    python scripts/advanced-link-repair.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in link_validation category]
+
+MANIFEST_REGISTRY: scripts/advanced-link-repair.py
 """
 
 import json

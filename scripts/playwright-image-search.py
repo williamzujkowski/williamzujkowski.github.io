@@ -1,7 +1,45 @@
 #!/usr/bin/env python3
 """
-Playwright-based Stock Image Search and Download
-Searches free stock photo sites without requiring API keys
+SCRIPT: playwright-image-search.py
+PURPOSE: Playwright-based Stock Image Search and Download
+CATEGORY: image_management
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Playwright-based Stock Image Search and Download. This script is part of the image management
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/playwright-image-search.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/playwright-image-search.py
+
+    # With verbose output
+    python scripts/playwright-image-search.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in image_management category]
+
+MANIFEST_REGISTRY: scripts/playwright-image-search.py
 """
 
 import asyncio

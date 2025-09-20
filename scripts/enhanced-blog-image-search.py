@@ -1,8 +1,45 @@
 #!/usr/bin/env python3
 """
-Enhanced Blog Image Search Tool
-Downloads unique, relevant images for blog posts based on their tags and content
-Uses Playwright for image search without requiring API keys
+SCRIPT: enhanced-blog-image-search.py
+PURPOSE: Enhanced Blog Image Search Tool
+CATEGORY: blog_management
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Enhanced Blog Image Search Tool. This script is part of the blog management
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/enhanced-blog-image-search.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/enhanced-blog-image-search.py
+
+    # With verbose output
+    python scripts/enhanced-blog-image-search.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in blog_management category]
+
+MANIFEST_REGISTRY: scripts/enhanced-blog-image-search.py
 """
 
 import os

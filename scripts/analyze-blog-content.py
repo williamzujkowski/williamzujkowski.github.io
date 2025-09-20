@@ -1,7 +1,58 @@
 #!/usr/bin/env python3
 """
-Blog Content Analyzer
-Analyzes blog posts for code-to-content ratio, readability, and improvement opportunities
+SCRIPT: analyze-blog-content.py
+PURPOSE: Analyze blog posts for content quality metrics and improvement opportunities
+CATEGORY: content_optimization
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-09-20T15:40:00-04:00
+
+DESCRIPTION:
+    Comprehensive blog content analysis tool that evaluates posts for:
+    - Readability scores (Flesch-Kincaid)
+    - Code-to-content ratio
+    - SEO optimization
+    - Image usage and optimization
+    - Citation quality
+    - Content structure and formatting
+
+LLM_USAGE:
+    python scripts/analyze-blog-content.py [options]
+
+ARGUMENTS:
+    --posts-dir (str): Directory containing blog posts (default: src/posts)
+    --output (str): Output report file (default: reports/content-analysis.json)
+    --format (str): Report format [json|markdown|html] (default: json)
+    --metrics (list): Specific metrics to analyze (default: all)
+    --threshold (dict): Quality thresholds for warnings
+
+EXAMPLES:
+    # Analyze all posts
+    python scripts/analyze-blog-content.py
+
+    # Generate markdown report
+    python scripts/analyze-blog-content.py --format markdown
+
+    # Check specific metrics
+    python scripts/analyze-blog-content.py --metrics readability,seo
+
+OUTPUT:
+    - Detailed analysis report with metrics and recommendations
+    - Quality scores for each post
+    - Actionable improvement suggestions
+
+DEPENDENCIES:
+    - Python 3.8+
+    - textstat for readability analysis
+    - BeautifulSoup4 for HTML parsing
+    - scripts/lib/common.py for shared utilities
+
+RELATED_SCRIPTS:
+    - scripts/optimize-blog-content.py: Apply optimizations
+    - scripts/batch-improve-blog-posts.py: Batch improvements
+    - scripts/comprehensive-blog-enhancement.py: Full enhancement
+
+MANIFEST_REGISTRY: scripts/analyze-blog-content.py
 """
 
 import os

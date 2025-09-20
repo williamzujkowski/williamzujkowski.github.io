@@ -1,0 +1,113 @@
+{
+  "version": "1.0.0",
+  "standards_source": "https://github.com/williamzujkowski/standards",
+  "generated": "2025-09-20T14:59:30-04:00",
+  "MANDATORY_STANDARDS": {
+    "KNOWLEDGE_MANAGEMENT": {
+      "source": ".standards/docs/standards/KNOWLEDGE_MANAGEMENT_STANDARDS.md",
+      "rules": [
+        "MUST maintain MANIFEST.json as single source of truth",
+        "MUST use progressive disclosure in documentation",
+        "MUST provide token-optimized content loading",
+        "MUST include machine-readable metadata",
+        "MUST update MANIFEST.json after any file operation",
+        "MUST check file_registry before creating any new file"
+      ]
+    },
+    "CODING_STANDARDS": {
+      "source": ".standards/docs/standards/CODING_STANDARDS.md",
+      "rules": [
+        "MUST follow language-specific standards",
+        "MUST include comprehensive docstrings",
+        "MUST use semantic naming",
+        "MUST implement error handling",
+        "MUST follow DRY principles",
+        "MUST implement SOLID principles"
+      ]
+    },
+    "FRONTEND_MOBILE": {
+      "source": ".standards/docs/standards/FRONTEND_MOBILE_STANDARDS.md",
+      "rules": [
+        "MUST optimize for performance",
+        "MUST ensure accessibility",
+        "MUST use semantic HTML",
+        "MUST implement responsive design",
+        "MUST optimize images before committing"
+      ]
+    },
+    "CONTENT_STANDARDS": {
+      "source": ".standards/docs/standards/CONTENT_STANDARDS.md",
+      "rules": [
+        "MUST include proper frontmatter",
+        "MUST optimize for SEO",
+        "MUST use consistent formatting",
+        "MUST provide alt text for images",
+        "MUST include citations for claims",
+        "MUST validate links regularly"
+      ]
+    }
+  },
+  "LLM_ENFORCEMENT": {
+    "BEFORE_ANY_OPERATION": [
+      "CHECK: MANIFEST.json is current",
+      "CHECK: No duplicate files exist",
+      "CHECK: Standards compliance",
+      "CHECK: Time.gov timestamp or system time"
+    ],
+    "FILE_OPERATIONS": [
+      "NEVER create new files when updating existing ones",
+      "ALWAYS check file_registry in MANIFEST.json first",
+      "ALWAYS update file's purpose and dependencies",
+      "NEVER leave orphaned files",
+      "ALWAYS backup before major changes"
+    ],
+    "SCRIPT_OPERATIONS": [
+      "MUST follow LLM documentation standard",
+      "MUST update llm_interface in MANIFEST.json",
+      "MUST provide clear examples",
+      "MUST handle errors gracefully",
+      "MUST import from scripts/lib/ for shared functionality"
+    ],
+    "CONTENT_OPERATIONS": [
+      "MUST validate frontmatter",
+      "MUST check for hero images",
+      "MUST ensure citations present",
+      "MUST optimize code blocks",
+      "MUST run link validation after changes"
+    ]
+  },
+  "VALIDATION_GATES": {
+    "pre_commit": {
+      "scripts": [
+        "scripts/validate_manifest.py",
+        "scripts/check_standards.py",
+        "scripts/verify_no_duplicates.py"
+      ],
+      "must_pass": true
+    },
+    "ci_pipeline": {
+      "workflows": [
+        ".github/workflows/standards_enforcement.yml",
+        ".github/workflows/manifest_validation.yml",
+        ".github/workflows/link-monitor.yml"
+      ],
+      "blocks_merge": true
+    }
+  },
+  "PENALTIES": {
+    "duplicate_file_created": "BLOCK and require cleanup",
+    "manifest_not_updated": "BLOCK until synchronized",
+    "standards_violation": "WARNING with required fix",
+    "time_not_from_time_gov": "WARNING - use system time",
+    "vestigial_content": "FLAG for removal"
+  },
+  "PROTECTED_FILES": [
+    "CLAUDE.md",
+    "MANIFEST.json",
+    ".claude-rules.json",
+    ".eleventy.js",
+    "package.json",
+    "tailwind.config.js",
+    "README.md"
+  ]
+}

@@ -1,8 +1,45 @@
 #!/usr/bin/env python3
 """
-Stock Image Fetcher for Blog Posts
-Searches and downloads relevant images from free stock photo sites
-No API keys required - uses web scraping
+SCRIPT: fetch-stock-images.py
+PURPOSE: Stock Image Fetcher for Blog Posts
+CATEGORY: image_management
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Stock Image Fetcher for Blog Posts. This script is part of the image management
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/fetch-stock-images.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/fetch-stock-images.py
+
+    # With verbose output
+    python scripts/fetch-stock-images.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in image_management category]
+
+MANIFEST_REGISTRY: scripts/fetch-stock-images.py
 """
 
 import os

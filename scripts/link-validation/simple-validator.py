@@ -1,7 +1,45 @@
 #!/usr/bin/env python3
 """
-Simple Link Validator
-Basic HTTP validation without Playwright dependency
+SCRIPT: simple-validator.py
+PURPOSE: Simple Link Validator
+CATEGORY: utilities
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Simple Link Validator. This script is part of the utilities
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/simple-validator.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/simple-validator.py
+
+    # With verbose output
+    python scripts/simple-validator.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in utilities category]
+
+MANIFEST_REGISTRY: scripts/simple-validator.py
 """
 
 import json

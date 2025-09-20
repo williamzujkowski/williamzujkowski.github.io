@@ -1,7 +1,45 @@
 #!/usr/bin/env python3
 """
-Comprehensive Blog Enhancement Tool
-Reviews all blog posts for accuracy, adds reputable sources, enhances content quality
+SCRIPT: comprehensive-blog-enhancement.py
+PURPOSE: Comprehensive Blog Enhancement Tool
+CATEGORY: blog_management
+LLM_READY: True
+VERSION: 1.0.0
+UPDATED: 2025-09-20T15:08:08-04:00
+
+DESCRIPTION:
+    Comprehensive Blog Enhancement Tool. This script is part of the blog management
+    category and provides automated functionality for the static site.
+
+LLM_USAGE:
+    python scripts/comprehensive-blog-enhancement.py [options]
+
+ARGUMENTS:
+    --help: Show help message
+    --verbose: Enable verbose output
+    [Additional arguments specific to this script]
+
+EXAMPLES:
+    # Basic usage
+    python scripts/comprehensive-blog-enhancement.py
+
+    # With verbose output
+    python scripts/comprehensive-blog-enhancement.py --verbose
+
+OUTPUT:
+    - Processed results based on script functionality
+    - Log messages if verbose mode enabled
+
+DEPENDENCIES:
+    - Python 3.8+
+    - See imports for specific package requirements
+    - scripts/lib/common.py for shared utilities (if applicable)
+
+RELATED_SCRIPTS:
+    - scripts/lib/common.py: Shared utilities
+    - [Other related scripts in blog_management category]
+
+MANIFEST_REGISTRY: scripts/comprehensive-blog-enhancement.py
 """
 
 import os
