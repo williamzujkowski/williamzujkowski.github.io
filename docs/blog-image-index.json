@@ -2,567 +2,687 @@
   "posts": {
     "2024-01-08-writing-secure-code-developers-guide": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-hero.jpg",
-        "alt": "cybersecurity concept illustration for Writing Secure Code: A Developer's Guide to Thwarting Security Exploits",
+        "alt": "Writing Secure Code: A Developer's Guide to Thwarting Security Exploits - Hero Image",
         "caption": "Visual representation of Writing Secure Code: A Developer's Guide to Thwarting Security Exploits",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-og.jpg",
-        "alt": "cybersecurity concept illustration for Writing Secure Code: A Developer's Guide to Thwarting Security Exploits"
+        "alt": "Writing Secure Code: A Developer's Guide to Thwarting Security Exploits - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-og.jpg"
       }
     },
     "2024-01-18-demystifying-cryptography-beginners-guide": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-hero.jpg",
-        "alt": "encryption and security visualization for Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures",
+        "alt": "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures - Hero Image",
         "caption": "Visual representation of Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg",
-        "alt": "encryption and security visualization for Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures"
+        "alt": "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg"
       }
     },
     "2024-01-30-securing-cloud-native-frontier": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-hero.jpg",
-        "alt": "cybersecurity concept illustration for Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security",
+        "alt": "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Hero Image",
         "caption": "Visual representation of Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-og.jpg",
-        "alt": "cybersecurity concept illustration for Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security"
+        "alt": "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-og.jpg"
       }
     },
     "2024-02-09-deepfake-dilemma-ai-deception": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-hero.jpg",
-        "alt": "artificial intelligence concept diagram for The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception",
+        "alt": "The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Hero Image",
         "caption": "Visual representation of The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-og.jpg",
-        "alt": "artificial intelligence concept diagram for The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception"
+        "alt": "The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-og.jpg"
       }
     },
     "2024-02-22-open-source-vs-proprietary-llms": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-hero.jpg",
-        "alt": "large language model architecture for Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community",
+        "alt": "Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community - Hero Image",
         "caption": "Visual representation of Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-og.jpg",
-        "alt": "large language model architecture for Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community"
+        "alt": "Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-og.jpg"
       }
     },
     "2024-03-05-cloud-migration-journey-guide": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-hero.jpg",
-        "alt": "cloud computing architecture diagram for Cloud Migration: A Guide to Navigating Your Journey to the Cloud",
+        "alt": "Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Hero Image",
         "caption": "Visual representation of Cloud Migration: A Guide to Navigating Your Journey to the Cloud",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-og.jpg",
-        "alt": "cloud computing architecture diagram for Cloud Migration: A Guide to Navigating Your Journey to the Cloud"
+        "alt": "Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-og.jpg"
       }
     },
     "2024-03-20-transformer-architecture-deep-dive": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-hero.jpg",
-        "alt": "system architecture diagram for The Transformer Architecture: A Deep Dive",
+        "alt": "The Transformer Architecture: A Deep Dive - Hero Image",
         "caption": "Visual representation of The Transformer Architecture: A Deep Dive",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-og.jpg",
-        "alt": "system architecture diagram for The Transformer Architecture: A Deep Dive"
+        "alt": "The Transformer Architecture: A Deep Dive - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-og.jpg"
       }
     },
     "2024-04-04-retrieval-augmented-generation-rag": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge",
+        "alt": "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge - Hero Image",
         "caption": "Visual representation of Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-og.jpg",
-        "alt": "artificial intelligence concept diagram for Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge"
+        "alt": "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-og.jpg"
       }
     },
     "2024-04-11-ethics-large-language-models": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-04-11-ethics-large-language-models-hero.jpg",
-        "alt": "artificial intelligence concept diagram for The Ethics of Large Language Models",
+        "alt": "The Ethics of Large Language Models - Hero Image",
         "caption": "Visual representation of The Ethics of Large Language Models",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-04-11-ethics-large-language-models-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-04-11-ethics-large-language-models-og.jpg",
-        "alt": "artificial intelligence concept diagram for The Ethics of Large Language Models"
+        "alt": "The Ethics of Large Language Models - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-04-11-ethics-large-language-models-og.jpg"
       }
     },
     "2024-04-19-mastering-prompt-engineering-llms": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Mastering Prompt Engineering: Unlocking the Full Potential of LLMs",
+        "alt": "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Hero Image",
         "caption": "Visual representation of Mastering Prompt Engineering: Unlocking the Full Potential of LLMs",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-og.jpg",
-        "alt": "artificial intelligence concept diagram for Mastering Prompt Engineering: Unlocking the Full Potential of LLMs"
+        "alt": "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-og.jpg"
       }
     },
     "2024-04-30-quantum-resistant-cryptography-guide": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-hero.jpg",
-        "alt": "cybersecurity concept illustration for Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography",
+        "alt": "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Hero Image",
         "caption": "Visual representation of Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg",
-        "alt": "cybersecurity concept illustration for Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography"
+        "alt": "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg"
       }
     },
     "2024-05-14-ai-new-frontier-cybersecurity": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-hero.jpg",
-        "alt": "cybersecurity concept illustration for AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas",
+        "alt": "AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas - Hero Image",
         "caption": "Visual representation of AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-og.jpg",
-        "alt": "cybersecurity concept illustration for AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas"
+        "alt": "AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-og.jpg"
       }
     },
     "2024-05-30-ai-learning-resource-constrained": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-hero.jpg",
-        "alt": "cloud computing architecture diagram for AI Learning in Resource-Constrained Environments",
+        "alt": "AI Learning in Resource-Constrained Environments - Hero Image",
         "caption": "Visual representation of AI Learning in Resource-Constrained Environments",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-og.jpg",
-        "alt": "cloud computing architecture diagram for AI Learning in Resource-Constrained Environments"
+        "alt": "AI Learning in Resource-Constrained Environments - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-og.jpg"
       }
     },
     "2024-06-11-beyond-containers-future-deployment": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-06-11-beyond-containers-future-deployment-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Beyond Containers: The Future of Application Deployment",
+        "alt": "Beyond Containers: The Future of Application Deployment - Hero Image",
         "caption": "Visual representation of Beyond Containers: The Future of Application Deployment",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-06-11-beyond-containers-future-deployment-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-06-11-beyond-containers-future-deployment-og.jpg",
-        "alt": "artificial intelligence concept diagram for Beyond Containers: The Future of Application Deployment"
+        "alt": "Beyond Containers: The Future of Application Deployment - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-06-11-beyond-containers-future-deployment-og.jpg"
       }
     },
     "2024-06-25-designing-resilient-systems": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-06-25-designing-resilient-systems-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Designing Resilient Systems for an Uncertain World",
+        "alt": "Designing Resilient Systems for an Uncertain World - Hero Image",
         "caption": "Visual representation of Designing Resilient Systems for an Uncertain World",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-06-25-designing-resilient-systems-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-06-25-designing-resilient-systems-og.jpg",
-        "alt": "artificial intelligence concept diagram for Designing Resilient Systems for an Uncertain World"
+        "alt": "Designing Resilient Systems for an Uncertain World - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-06-25-designing-resilient-systems-og.jpg"
       }
     },
     "2024-07-09-zero-trust-architecture-implementation": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-hero.jpg",
-        "alt": "cybersecurity concept illustration for Zero Trust Architecture: A Practical Implementation Guide",
+        "alt": "Zero Trust Architecture: A Practical Implementation Guide - Hero Image",
         "caption": "Visual representation of Zero Trust Architecture: A Practical Implementation Guide",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg",
-        "alt": "cybersecurity concept illustration for Zero Trust Architecture: A Practical Implementation Guide"
+        "alt": "Zero Trust Architecture: A Practical Implementation Guide - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg"
       }
     },
     "2024-07-16-sustainable-computing-carbon-footprint": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Sustainable Computing: Strategies for Reducing IT's Carbon Footprint",
+        "alt": "Sustainable Computing: Strategies for Reducing IT's Carbon Footprint - Hero Image",
         "caption": "Visual representation of Sustainable Computing: Strategies for Reducing IT's Carbon Footprint",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-og.jpg",
-        "alt": "artificial intelligence concept diagram for Sustainable Computing: Strategies for Reducing IT's Carbon Footprint"
+        "alt": "Sustainable Computing: Strategies for Reducing IT's Carbon Footprint - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-og.jpg"
       }
     },
     "2024-07-24-multimodal-foundation-models": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-07-24-multimodal-foundation-models-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Multimodal Foundation Models: Capabilities, Challenges, and Applications",
+        "alt": "Multimodal Foundation Models: Capabilities, Challenges, and Applications - Hero Image",
         "caption": "Visual representation of Multimodal Foundation Models: Capabilities, Challenges, and Applications",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-07-24-multimodal-foundation-models-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-07-24-multimodal-foundation-models-og.jpg",
-        "alt": "artificial intelligence concept diagram for Multimodal Foundation Models: Capabilities, Challenges, and Applications"
+        "alt": "Multimodal Foundation Models: Capabilities, Challenges, and Applications - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-07-24-multimodal-foundation-models-og.jpg"
       }
     },
     "2024-08-02-quantum-computing-leap-forward": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-hero.jpg",
-        "alt": "cybersecurity concept illustration for Quantum Computing's Leap Forward",
+        "alt": "Quantum Computing's Leap Forward - Hero Image",
         "caption": "Visual representation of Quantum Computing's Leap Forward",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-og.jpg",
-        "alt": "cybersecurity concept illustration for Quantum Computing's Leap Forward"
+        "alt": "Quantum Computing's Leap Forward - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-og.jpg"
       }
     },
     "2024-08-13-high-performance-computing": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-08-13-high-performance-computing-hero.jpg",
-        "alt": "artificial intelligence concept diagram for The Evolution of High-Performance Computing: Key Trends and Innovations",
+        "alt": "The Evolution of High-Performance Computing: Key Trends and Innovations - Hero Image",
         "caption": "Visual representation of The Evolution of High-Performance Computing: Key Trends and Innovations",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-08-13-high-performance-computing-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-08-13-high-performance-computing-og.jpg",
-        "alt": "artificial intelligence concept diagram for The Evolution of High-Performance Computing: Key Trends and Innovations"
+        "alt": "The Evolution of High-Performance Computing: Key Trends and Innovations - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-08-13-high-performance-computing-og.jpg"
       }
     },
     "2024-08-27-zero-trust-security-principles": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-08-27-zero-trust-security-principles-hero.jpg",
-        "alt": "cybersecurity concept illustration for Implementing Zero Trust Security: Never Trust, Always Verify",
+        "alt": "Implementing Zero Trust Security: Never Trust, Always Verify - Hero Image",
         "caption": "Visual representation of Implementing Zero Trust Security: Never Trust, Always Verify",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-08-27-zero-trust-security-principles-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-08-27-zero-trust-security-principles-og.jpg",
-        "alt": "cybersecurity concept illustration for Implementing Zero Trust Security: Never Trust, Always Verify"
+        "alt": "Implementing Zero Trust Security: Never Trust, Always Verify - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-08-27-zero-trust-security-principles-og.jpg"
       }
     },
     "2024-09-09-embodied-ai-teaching-agents": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction",
+        "alt": "Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Hero Image",
         "caption": "Visual representation of Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-og.jpg",
-        "alt": "artificial intelligence concept diagram for Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction"
+        "alt": "Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-og.jpg"
       }
     },
     "2024-09-19-biomimetic-robotics": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-09-19-biomimetic-robotics-hero.jpg",
-        "alt": "Hero image illustrating Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering",
+        "alt": "Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering - Hero Image",
         "caption": "Visual representation of Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-09-19-biomimetic-robotics-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-09-19-biomimetic-robotics-og.jpg",
-        "alt": "Hero image illustrating Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering"
+        "alt": "Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-09-19-biomimetic-robotics-og.jpg"
       }
     },
     "2024-10-03-quantum-computing-defense": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-10-03-quantum-computing-defense-hero.jpg",
-        "alt": "cybersecurity concept illustration for Quantum Computing and Defense: The Double-Edged Sword of Tomorrow's Technology",
+        "alt": "Quantum Computing and Defense: The Double-Edged Sword of Tomorrow's Technology - Hero Image",
         "caption": "Visual representation of Quantum Computing and Defense: The Double-Edged Sword of Tomorrow's Technology",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-10-03-quantum-computing-defense-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-10-03-quantum-computing-defense-og.jpg",
-        "alt": "cybersecurity concept illustration for Quantum Computing and Defense: The Double-Edged Sword of Tomorrow's Technology"
+        "alt": "Quantum Computing and Defense: The Double-Edged Sword of Tomorrow's Technology - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-10-03-quantum-computing-defense-og.jpg"
       }
     },
     "2024-10-10-blockchain-beyond-cryptocurrency": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-hero.jpg",
-        "alt": "blockchain network visualization for Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet",
+        "alt": "Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Hero Image",
         "caption": "Visual representation of Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-og.jpg",
-        "alt": "blockchain network visualization for Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet"
+        "alt": "Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-og.jpg"
       }
     },
     "2024-10-22-ai-edge-computing": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-10-22-ai-edge-computing-hero.jpg",
-        "alt": "artificial intelligence concept diagram for AI Meets Edge Computing: Transforming Real-Time Intelligence",
+        "alt": "AI Meets Edge Computing: Transforming Real-Time Intelligence - Hero Image",
         "caption": "Visual representation of AI Meets Edge Computing: Transforming Real-Time Intelligence",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-10-22-ai-edge-computing-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-10-22-ai-edge-computing-og.jpg",
-        "alt": "artificial intelligence concept diagram for AI Meets Edge Computing: Transforming Real-Time Intelligence"
+        "alt": "AI Meets Edge Computing: Transforming Real-Time Intelligence - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-10-22-ai-edge-computing-og.jpg"
       }
     },
     "2024-11-05-pizza-calculator": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-11-05-pizza-calculator-hero.jpg",
-        "alt": "performance metrics and optimization graph for The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
+        "alt": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Hero Image",
         "caption": "Visual representation of The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-11-05-pizza-calculator-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-11-05-pizza-calculator-og.jpg",
-        "alt": "performance metrics and optimization graph for The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints"
+        "alt": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-11-05-pizza-calculator-og.jpg"
       }
     },
     "2024-11-19-llms-smart-contract-vulnerability": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-11-19-llms-smart-contract-vulnerability-hero.jpg",
-        "alt": "cybersecurity concept illustration for Large Language Models for Smart Contract Security: Promise and Limitations",
+        "alt": "Large Language Models for Smart Contract Security: Promise and Limitations - Hero Image",
         "caption": "Visual representation of Large Language Models for Smart Contract Security: Promise and Limitations",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-11-19-llms-smart-contract-vulnerability-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-11-19-llms-smart-contract-vulnerability-og.jpg",
-        "alt": "cybersecurity concept illustration for Large Language Models for Smart Contract Security: Promise and Limitations"
+        "alt": "Large Language Models for Smart Contract Security: Promise and Limitations - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-11-19-llms-smart-contract-vulnerability-og.jpg"
       }
     },
     "2024-12-03-context-windows-llms": {
       "hero": {
-        "src": "/assets/images/blog/hero/2024-12-03-context-windows-llms-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Context Windows in Large Language Models: The Memory That Shapes AI",
+        "alt": "Context Windows in Large Language Models: The Memory That Shapes AI - Hero Image",
         "caption": "Visual representation of Context Windows in Large Language Models: The Memory That Shapes AI",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2024-12-03-context-windows-llms-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg",
-        "alt": "artificial intelligence concept diagram for Context Windows in Large Language Models: The Memory That Shapes AI"
+        "alt": "Context Windows in Large Language Models: The Memory That Shapes AI - Social Media Preview",
+        "src": "/assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg"
       }
     },
     "2025-02-10-automating-home-network-security": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-02-10-automating-home-network-security-hero.jpg",
-        "alt": "cybersecurity concept illustration for Automating Home Network Security with Python and Open Source Tools",
+        "alt": "Automating Home Network Security with Python and Open Source Tools - Hero Image",
         "caption": "Visual representation of Automating Home Network Security with Python and Open Source Tools",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-02-10-automating-home-network-security-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-02-10-automating-home-network-security-og.jpg",
-        "alt": "cybersecurity concept illustration for Automating Home Network Security with Python and Open Source Tools"
+        "alt": "Automating Home Network Security with Python and Open Source Tools - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-02-10-automating-home-network-security-og.jpg"
       }
     },
     "2025-02-24-continuous-learning-cybersecurity": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-hero.jpg",
-        "alt": "cybersecurity concept illustration for Continuous Learning in Cybersecurity: Strategies That Work",
+        "alt": "Continuous Learning in Cybersecurity: Strategies That Work - Hero Image",
         "caption": "Visual representation of Continuous Learning in Cybersecurity: Strategies That Work",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-og.jpg",
-        "alt": "cybersecurity concept illustration for Continuous Learning in Cybersecurity: Strategies That Work"
+        "alt": "Continuous Learning in Cybersecurity: Strategies That Work - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-og.jpg"
       }
     },
     "2025-03-10-raspberry-pi-security-projects": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-hero.jpg",
-        "alt": "cybersecurity concept illustration for Raspberry Pi Security Projects That Actually Solve Problems",
+        "alt": "Raspberry Pi Security Projects That Actually Solve Problems - Hero Image",
         "caption": "Visual representation of Raspberry Pi Security Projects That Actually Solve Problems",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-og.jpg",
-        "alt": "cybersecurity concept illustration for Raspberry Pi Security Projects That Actually Solve Problems"
+        "alt": "Raspberry Pi Security Projects That Actually Solve Problems - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-og.jpg"
       }
     },
     "2025-03-24-from-it-support-to-senior-infosec-engineer": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-hero.jpg",
-        "alt": "cybersecurity concept illustration for From IT Support to Senior InfoSec Engineer: My 15+ Year Journey",
+        "alt": "From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Hero Image",
         "caption": "Visual representation of From IT Support to Senior InfoSec Engineer: My 15+ Year Journey",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-og.jpg",
-        "alt": "cybersecurity concept illustration for From IT Support to Senior InfoSec Engineer: My 15+ Year Journey"
+        "alt": "From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-og.jpg"
       }
     },
     "2025-04-10-securing-personal-ai-experiments": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-hero.jpg",
-        "alt": "artificial intelligence concept diagram for Securing Your Personal AI/ML Experiments: A Practical Guide",
+        "alt": "Securing Your Personal AI/ML Experiments: A Practical Guide - Hero Image",
         "caption": "Visual representation of Securing Your Personal AI/ML Experiments: A Practical Guide",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-og.jpg",
-        "alt": "artificial intelligence concept diagram for Securing Your Personal AI/ML Experiments: A Practical Guide"
+        "alt": "Securing Your Personal AI/ML Experiments: A Practical Guide - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-og.jpg"
       }
     },
     "2025-04-24-building-secure-homelab-adventure": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-hero.jpg",
-        "alt": "cybersecurity concept illustration for Building a Security-Focused Homelab: My Journey",
+        "alt": "Building a Security-Focused Homelab: My Journey - Hero Image",
         "caption": "Visual representation of Building a Security-Focused Homelab: My Journey",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-og.jpg",
-        "alt": "cybersecurity concept illustration for Building a Security-Focused Homelab: My Journey"
+        "alt": "Building a Security-Focused Homelab: My Journey - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-og.jpg"
       }
     },
     "2025-05-10-building-security-mindset-lessons-from-field": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-hero.jpg",
-        "alt": "cybersecurity concept illustration for Building a Security Mindset: Lessons from the Field",
+        "alt": "Building a Security Mindset: Lessons from the Field - Hero Image",
         "caption": "Visual representation of Building a Security Mindset: Lessons from the Field",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-og.jpg",
-        "alt": "cybersecurity concept illustration for Building a Security Mindset: Lessons from the Field"
+        "alt": "Building a Security Mindset: Lessons from the Field - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-og.jpg"
       }
     },
     "2025-06-25-local-llm-deployment-privacy-first": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-hero.jpg",
-        "alt": "cybersecurity concept illustration for Local LLM Deployment: Privacy-First Approach",
+        "alt": "Local LLM Deployment: Privacy-First Approach - Hero Image",
         "caption": "Visual representation of Local LLM Deployment: Privacy-First Approach",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-og.jpg",
-        "alt": "cybersecurity concept illustration for Local LLM Deployment: Privacy-First Approach"
+        "alt": "Local LLM Deployment: Privacy-First Approach - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-og.jpg"
       }
     },
     "2025-07-01-ebpf-security-monitoring-practical-guide": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-practical-guide-hero.jpg",
-        "alt": "cybersecurity concept illustration for eBPF for Security Monitoring: A Practical Guide",
-        "caption": "Visual representation of eBPF for Security Monitoring: A Practical Guide",
-        "width": 1200,
-        "height": 630
+        "alt": "Futuristic dashboard showing real-time kernel-level security monitoring with eBPF",
+        "caption": "Real-time kernel visibility changes everything in security monitoring",
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-hero.jpg",
+        "width": 1200
       },
+      "inline": [
+        {
+          "alt": "eBPF architecture showing kernel and userspace interaction",
+          "caption": "How eBPF programs interact with the Linux kernel",
+          "src": "/assets/images/blog/inline/ebpf-architecture-visualization.png"
+        },
+        {
+          "alt": "Event flow from kernel through eBPF to security analysis",
+          "caption": "Real-time event processing pipeline",
+          "src": "/assets/images/blog/diagrams/ebpf-event-flow.svg"
+        }
+      ],
       "og": {
-        "src": "/assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-practical-guide-og.jpg",
-        "alt": "cybersecurity concept illustration for eBPF for Security Monitoring: A Practical Guide"
+        "alt": "eBPF Security Monitoring - Kernel-level detection and response",
+        "src": "/assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-og.jpg"
       }
     },
     "2025-07-08-implementing-dns-over-https-home-networks": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-hero.jpg",
-        "alt": "cybersecurity concept illustration for Implementing DNS-over-HTTPS (DoH) for Home Networks",
+        "alt": "Implementing DNS-over-HTTPS (DoH) for Home Networks - Hero Image",
         "caption": "Visual representation of Implementing DNS-over-HTTPS (DoH) for Home Networks",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-og.jpg",
-        "alt": "cybersecurity concept illustration for Implementing DNS-over-HTTPS (DoH) for Home Networks"
+        "alt": "Implementing DNS-over-HTTPS (DoH) for Home Networks - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-07-08-implementing-dns-over-https-home-networks-og.jpg"
       }
     },
     "2025-07-15-vulnerability-management-scale-open-source": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-07-15-vulnerability-management-scale-open-source-hero.jpg",
-        "alt": "Hero image illustrating Vulnerability Management at Scale with Open Source Tools",
+        "alt": "Vulnerability Management at Scale with Open Source Tools - Hero Image",
         "caption": "Visual representation of Vulnerability Management at Scale with Open Source Tools",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-07-15-vulnerability-management-scale-open-source-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-07-15-vulnerability-management-scale-open-source-og.jpg",
-        "alt": "Hero image illustrating Vulnerability Management at Scale with Open Source Tools"
+        "alt": "Vulnerability Management at Scale with Open Source Tools - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-07-15-vulnerability-management-scale-open-source-og.jpg"
       }
     },
     "2025-07-22-supercharging-claude-cli-with-standards": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-hero.jpg",
-        "alt": "Hero image illustrating Exploring Claude CLI Context and Compliance with My Standards Repository",
+        "alt": "Exploring Claude CLI Context and Compliance with My Standards Repository - Hero Image",
         "caption": "Visual representation of Exploring Claude CLI Context and Compliance with My Standards Repository",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-og.jpg",
-        "alt": "Hero image illustrating Exploring Claude CLI Context and Compliance with My Standards Repository"
+        "alt": "Exploring Claude CLI Context and Compliance with My Standards Repository - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-og.jpg"
       }
     },
     "2025-07-29-building-mcp-standards-server": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-07-29-building-mcp-standards-server-hero.jpg",
-        "alt": "Hero image illustrating Down the MCP Rabbit Hole: Building a Standards Server",
+        "alt": "Down the MCP Rabbit Hole: Building a Standards Server - Hero Image",
         "caption": "Visual representation of Down the MCP Rabbit Hole: Building a Standards Server",
-        "width": 1200,
-        "height": 630
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-07-29-building-mcp-standards-server-hero.jpg",
+        "width": 1200
       },
+      "inline": [],
       "og": {
-        "src": "/assets/images/blog/hero/2025-07-29-building-mcp-standards-server-og.jpg",
-        "alt": "Hero image illustrating Down the MCP Rabbit Hole: Building a Standards Server"
+        "alt": "Down the MCP Rabbit Hole: Building a Standards Server - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-07-29-building-mcp-standards-server-og.jpg"
       }
     },
     "2025-08-07-supercharging-development-claude-flow": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-hero.jpg",
-        "alt": "AI swarm orchestration visualization for Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering",
+        "alt": "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering - Hero Image",
         "caption": "Visual representation of Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering",
+        "height": 630,
+        "src": "/assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-hero.jpg",
+        "width": 1200
+      },
+      "inline": [],
+      "og": {
+        "alt": "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-og.jpg"
+      }
+    },
+    "2025-08-09-ai-cognitive-infrastructure": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-hero.jpg",
+        "alt": "AI as Cognitive Infrastructure - The invisible architecture reshaping human thought",
+        "caption": "Visual representation of AI as the cognitive infrastructure of modern society",
         "width": 1200,
         "height": 630
       },
       "og": {
-        "src": "/assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-og.jpg",
-        "alt": "AI swarm orchestration visualization for Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering"
+        "src": "/assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-og.jpg",
+        "alt": "AI as Cognitive Infrastructure - Social media preview"
+      }
+    },
+    "2025-09-20-iot-security-homelab-owasp": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-09-20-iot-security-homelab-owasp-hero.jpg",
+        "alt": "cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons from OWASP IoTGoat",
+        "caption": "Visual representation of IoT Security in Your Home Lab: Lessons from OWASP IoTGoat",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-09-20-iot-security-homelab-owasp-og.jpg",
+        "alt": "cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons from OWASP IoTGoat"
+      }
+    },
+    "2025-09-20-threat-intelligence-mitre-attack-dashboard": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-hero.jpg",
+        "alt": "Python code and development workflow for Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+        "caption": "Visual representation of Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-og.jpg",
+        "alt": "Python code and development workflow for Building Your Own MITRE ATT&CK Threat Intelligence Dashboard"
+      }
+    },
+    "2025-09-20-vulnerability-prioritization-epss-kev": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-09-20-vulnerability-prioritization-epss-kev-hero.jpg",
+        "alt": "Hero image illustrating Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV",
+        "caption": "Visual representation of Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-09-20-vulnerability-prioritization-epss-kev-og.jpg",
+        "alt": "Hero image illustrating Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV"
+      }
+    },
+    "welcome": {
+      "hero": {
+        "alt": "Building My Digital Garden with Eleventy - Hero Image",
+        "caption": "Visual representation of Building My Digital Garden with Eleventy",
+        "height": 630,
+        "src": "/assets/images/blog/hero/welcome-hero.jpg",
+        "width": 1200
+      },
+      "inline": [],
+      "og": {
+        "alt": "Building My Digital Garden with Eleventy - Social Media Preview",
+        "src": "/assets/images/blog/hero/welcome-og.jpg"
       }
     }
   },
   "stats": {
-    "total_posts": 44,
-    "posts_with_images": 43,
-    "total_images": 43
+    "total_posts": 48,
+    "posts_with_images": 48,
+    "total_images": 50
   }
 }
