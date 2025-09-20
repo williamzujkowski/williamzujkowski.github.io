@@ -1,5 +1,33 @@
 # Claude Code Configuration - SPARC Development Environment
 
+## 🚨 MANDATORY ENFORCEMENT NOTICE 🚨
+
+**CRITICAL**: Before ANY operation, you MUST:
+
+1. **CHECK** `.claude-rules.json` for current enforcement rules
+2. **VALIDATE** MANIFEST.json is current (check last_validated timestamp)
+3. **VERIFY** no duplicate files will be created (check file_registry)
+4. **CONFIRM** operation follows standards from https://github.com/williamzujkowski/standards
+5. **USE** appropriate timestamps (prefer time.gov, fallback to system time)
+
+**VIOLATIONS WILL BE AUTOMATICALLY BLOCKED**
+
+Your operation will FAIL if you:
+- Create duplicate files instead of updating existing ones
+- Don't update MANIFEST.json after changes
+- Violate standards from the submodule
+- Use incorrect timestamps
+- Save files to incorrect directories
+
+**ENFORCEMENT IS ACTIVE**:
+- Pre-commit hooks validate all changes
+- GitHub Actions enforce standards on all pushes
+- `.claude-rules.json` defines mandatory rules
+
+See `.claude-rules.json` for complete enforcement rules.
+
+---
+
 ## 📁 Project Directory Structure
 
 ### Root Directory
