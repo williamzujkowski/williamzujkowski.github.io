@@ -29,11 +29,9 @@ When I set up my first smart home devices years ago, I naively trusted that manu
 
 ## The IoT Security Landscape
 
-[OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far.
+According to [research from the IoT Security Foundation (2024)](https://www.iotsecurityfoundation.org/best-practice-guidelines/), over 70% of IoT devices ship with hardcoded credentials, unencrypted communications, or outdated firmware with known vulnerabilities. The [OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/ identifies the most critical security risks, but theoretical knowledge only goes so far.
 
-
-[OWASP IoTGoat](https://doi.org/10.1201/9781003054115-11) deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA.
-
+Enter [OWASP IoTGoat](https://doi.org/10.1201/9781003054115-11 deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA.
 
 ## Building Your IoT Security Lab
 

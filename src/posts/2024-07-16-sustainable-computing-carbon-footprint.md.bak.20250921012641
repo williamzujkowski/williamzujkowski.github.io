@@ -25,8 +25,7 @@ tags:
 title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
 ---
 
-[data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks) Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning—we weren't just burning through budget, we were burning through the planet's resources.
-
+The electricity bill for our machine learning training cluster arrived on the same day as a report about [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning—we weren't just burning through budget, we were burning through the planet's resources.
 
 That realization started my deep dive into sustainable computing, where I discovered that efficiency isn't just about performance or cost—it's about responsibility to future generations.
 
@@ -413,18 +412,14 @@ The most surprising discovery was that sustainable computing practices often ali
 ### Industry Reports & Standards
 
 - [Google Environmental Report 2024](https://sustainability.google/reports/) - Carbon neutrality progress
-[Microsoft Sustainability Report](https://www.microsoft.com/en-us/sustainability) - Data center efficiency metrics
-
-[AWS Sustainability](https://sustainability.aboutamazon.com/environment/the-cloud) - Cloud carbon footprint data
-
-[The Shift Project](https://theshiftproject.org/en/lean-ict-2/) - ICT environmental impact analysis
-
+- [Microsoft Sustainability Report](https://www.microsoft.com/en-us/sustainability - Data center efficiency metrics
+- [AWS Sustainability](https://sustainability.aboutamazon.com/environment/the-cloud - Cloud carbon footprint data
+- [The Shift Project](https://theshiftproject.org/en/lean-ict-2/ - ICT environmental impact analysis
 
 ### Key Statistics Sources
 
 The following statistics are based on verified industry data:
-[IEA Data Centers Report](https://www.iea.org/reports/data-centres-and-data-transmission-networks)
-
+- **Data center energy consumption (2-3% global)**: [IEA Data Centers Report](https://www.iea.org/reports/data-centres-and-data-transmission-networks
 [Uptime Institute Global Survey](https://uptimeinstitute.com/resources/research-and-reports)
 
 - **Renewable energy adoption**: Company sustainability reports (Google, Microsoft, AWS)
@@ -443,10 +438,7 @@ Our industry has the talent, resources, and innovation capacity to lead the worl
 
 ### Further Reading:
 
-[Green Software Foundation](https://greensoftware.foundation/) - Industry collaboration on sustainable software
-
-[The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149) - MIT research on ML sustainability
-
-[Climate Change AI](https://www.climatechange.ai/) - Using AI to tackle climate change
-
+- [Green Software Foundation](https://greensoftware.foundation/ - Industry collaboration on sustainable software
+- [The Carbon Footprint of Machine Learning Training Will Plateau, Then Shrink](https://arxiv.org/abs/2204.05149 - MIT research on ML sustainability
+- [Climate Change AI](https://www.climatechange.ai/ - Using AI to tackle climate change
 - [Sustainable Web Manifesto](https://www.sustainablewebmanifesto.com/) - Principles for sustainable web development
