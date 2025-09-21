@@ -1,13 +1,13 @@
 # Standards Validation Report
 
-**Generated:** 2025-09-20T20:36:06-04:00
+**Generated:** 2025-09-20T18:21:36-04:00
 **Status:** FAIL
-**Pass Rate:** 24.1%
+**Pass Rate:** 24.2%
 
 ## Summary
-- Total Checks: 399
+- Total Checks: 396
 - Passes: 96
-- Warnings: 12
+- Warnings: 9
 - Violations: 291
 
 ## ❌ Violations (Must Fix)
@@ -312,7 +312,6 @@
 - **LOW**: {'check': 'Directory structure', 'message': "Unexpected file type 'docs/blog-improvement-report.json' in 'docs'", 'severity': 'LOW'}
 - **LOW**: {'check': 'Directory structure', 'message': "Unexpected file type 'docs/enhancement-report.json' in 'docs'", 'severity': 'LOW'}
 - **LOW**: {'check': 'Directory structure', 'message': "Unexpected file type 'reports/detailed_report.csv' in 'reports'", 'severity': 'LOW'}
-- **LOW**: {'check': 'Directory structure', 'message': "Unexpected file type 'tests/__init__.py' in 'tests'", 'severity': 'LOW'}
 - **LOW**: {'check': 'Directory structure', 'message': "Unexpected file type 'tests/test-runner.js' in 'tests'", 'severity': 'LOW'}
 
 ## ✅ Passes
