@@ -420,11 +420,9 @@ Implement changes gradually to maintain stability and user confidence.
 
 ### NIST and Government Standards
 
-[NIST SP 800-207: Zero Trust Architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf**)
-
+- **[NIST SP 800-207: Zero Trust Architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf**
   - Official NIST ZTA framework and guidelines
-[CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model**)
-
+- **[CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model**
   - Federal implementation guidance
 - **[DoD Zero Trust Reference Architecture](https://dodcio.defense.gov/Portals/0/Documents/Library/DoD-ZTStrategy.pdf)**
   - Military-grade ZTA specifications
@@ -438,8 +436,7 @@ Implement changes gradually to maintain stability and user confidence.
 ### Key Statistics Sources
 
 - **Breach cost reduction (50%)**: [IBM Cost of a Data Breach Report 2024](https://www.ibm.com/security/data-breach)
-[Verizon Data Breach Investigations Report](https://www.verizon.com/business/resources/reports/dbir/)
-
+- **Identity verification statistics**: [Verizon Data Breach Investigations Report](https://www.verizon.com/business/resources/reports/dbir/
 - **Network segmentation effectiveness**: NIST SP 800-207 guidelines
 
 ## Conclusion: Trust Is a Luxury We Can't Afford

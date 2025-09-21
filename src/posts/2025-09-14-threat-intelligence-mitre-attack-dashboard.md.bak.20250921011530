@@ -466,8 +466,7 @@ Building and maintaining this dashboard taught me:
 
 Ready to build your own threat intelligence capability?
 
-[MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/)
-
+1. Start with the [MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/
 2. Pick 2-3 relevant threat feeds
 3. Focus on techniques relevant to your environment
 4. Automate collection and mapping
