@@ -1,0 +1,68 @@
+{
+  "timestamp": "2025-09-20T22:07:38-04:00",
+  "repository_health": {
+    "manifest_current": false,
+    "manifest_age_hours": 999,
+    "total_files": 661,
+    "protected_files_intact": true,
+    "enforcement_active": true,
+    "standards_submodule": true
+  },
+  "compliance_status": {
+    "overall": false,
+    "validations": {
+      "standards": "FAIL",
+      "no_duplicates": "FAIL"
+    },
+    "enforcement_rules_loaded": true
+  },
+  "test_results": {
+    "last_run": "2025-09-20T22:03:31-04:00",
+    "total_categories": 1,
+    "passed": 1,
+    "failed": 0,
+    "pass_rate": "100.0%"
+  },
+  "content_metrics": {
+    "total_posts": 0,
+    "posts_with_hero_images": 0,
+    "high_code_ratio_posts": 0,
+    "total_images": 0,
+    "unused_images": 0,
+    "pages": 0
+  },
+  "script_metrics": {
+    "total_scripts": 25,
+    "documented_scripts": 0,
+    "documentation_coverage": "0.0%",
+    "duplicate_scripts_found": 8,
+    "categories": 7
+  },
+  "performance_indicators": {
+    "build_success": true,
+    "site_size_mb": 16.67,
+    "repo_size_mb": 48.77,
+    "vestigial_content_removed": true
+  },
+  "recent_changes": [
+    "2bcc0e8 feat(testing): Phase 7 - Implement Testing Framework",
+    "e8a3268 feat(documentation): Complete Phase 6 - Documentation Architecture",
+    "7f5e787 feat(audit): Complete Phase 4 - Comprehensive Vestigial Audit",
+    "ff0645f feat(enforcement): Complete Phase 3 - Standards Enforcement System",
+    "2634d0f feat(enforcement): Complete Phase 3 - Standards Enforcement System"
+  ],
+  "alerts": [
+    {
+      "level": "WARNING",
+      "message": "MANIFEST.json is over 24 hours old"
+    },
+    {
+      "level": "ERROR",
+      "message": "Standards compliance validation failed"
+    },
+    {
+      "level": "INFO",
+      "message": "8 duplicate scripts should be consolidated"
+    }
+  ]
+}

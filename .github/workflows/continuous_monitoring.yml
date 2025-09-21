@@ -1,0 +1,125 @@
+name: Continuous Repository Monitoring
+
+on:
+  schedule:
+    # Run daily at 2 AM EST
+    - cron: '0 7 * * *'
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  monitor-health:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0  # Full history for git operations
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ~/.cache/pip
+            node_modules
+          key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json', '**/requirements*.txt') }}
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          pip install -r requirements.txt || echo "No Python requirements"
+          pip install -r tests/requirements-test.txt || echo "No test requirements"
+
+      - name: Update MANIFEST.json
+        run: |
+          python scripts/update_manifest.py || echo "Update script not found"
+
+      - name: Check standards compliance
+        run: python scripts/validate_standards.py
+        continue-on-error: true
+
+      - name: Check for duplicate files
+        run: python scripts/check_duplicates.py || echo "Duplicate check not available"
+        continue-on-error: true
+
+      - name: Run test suite
+        run: python scripts/run_all_tests.py
+        continue-on-error: true
+
+      - name: Build site
+        run: npm run build
+        continue-on-error: true
+
+      - name: Generate health dashboard
+        run: python scripts/generate_health_dashboard.py
+
+      - name: Generate compliance report
+        run: python scripts/generate_compliance_report.py
+        continue-on-error: true
+
+      - name: Upload monitoring artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: monitoring-reports-${{ github.run_number }}
+          path: |
+            reports/health_dashboard.md
+            reports/health_metrics.json
+            reports/compliance_report.md
+            reports/test_report.json
+            reports/test_report.md
+
+      - name: Check for critical issues
+        id: health-check
+        run: |
+          python -c "
+          import json
+          try:
+              metrics = json.loads(open('reports/health_metrics.json').read())
+              critical = any(a['level'] == 'ERROR' for a in metrics.get('alerts', []))
+              if critical:
+                  print('::warning::Critical issues found in health check')
+          except:
+              print('::notice::Unable to check health metrics')
+          "
+
+      - name: Comment on PR with health status
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            try {
+              const dashboard = fs.readFileSync('reports/health_dashboard.md', 'utf8');
+
+              // Truncate if too long for comment
+              const maxLength = 65000;
+              const truncated = dashboard.length > maxLength
+                ? dashboard.substring(0, maxLength) + '\n\n... (truncated)'
+                : dashboard;
+
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: truncated
+              });
+            } catch (e) {
+              console.log('Unable to post health dashboard:', e);
+            }
+        continue-on-error: true

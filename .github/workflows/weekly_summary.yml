@@ -1,0 +1,57 @@
+name: Weekly Summary Report
+
+on:
+  schedule:
+    # Run every Monday at 9 AM EST
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+jobs:
+  weekly-summary:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt || echo "No requirements"
+
+      - name: Generate weekly summary
+        run: python scripts/generate_weekly_summary.py
+
+      - name: Upload summary
+        uses: actions/upload-artifact@v3
+        with:
+          name: weekly-summary-${{ github.run_id }}
+          path: |
+            reports/weekly_summary.md
+            reports/weekly_summary.json
+
+      - name: Create summary issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            try {
+              const summary = fs.readFileSync('reports/weekly_summary.md', 'utf8');
+
+              github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `📅 Weekly Summary - ${new Date().toLocaleDateString()}`,
+                body: summary,
+                labels: ['weekly-summary', 'monitoring', 'automated']
+              });
+            } catch (e) {
+              console.log('Unable to create weekly summary issue:', e);
+            }
+        continue-on-error: true

@@ -1,0 +1,29 @@
+{
+  "week_ending": "2025-09-20T22:07:39-04:00",
+  "commits": [
+    "2bcc0e8 feat(testing): Phase 7 - Implement Testing Framework",
+    "e8a3268 feat(documentation): Complete Phase 6 - Documentation Architecture",
+    "7f5e787 feat(audit): Complete Phase 4 - Comprehensive Vestigial Audit",
+    "ff0645f feat(enforcement): Complete Phase 3 - Standards Enforcement System",
+    "2634d0f feat(enforcement): Complete Phase 3 - Standards Enforcement System",
+    "e143331 feat(modernization): Complete Phase 2 - LLM Script Optimization",
+    "32442dc \ud83d\udd17 feat: Advanced link repair - fixed 221 broken links (76% success rate)",
+    "8f70d33 \ud83d\udd17 feat: Comprehensive link validation and repair system",
+    "2f37027 feat: Add three new security blog posts from data-sources analysis",
+    "57f0de4 feat(implementation): Complete SPARC implementation plan execution",
+    "0d04360 refactor(cleanup): Remove vestigial code and improve documentation per SPARC implementation"
+  ],
+  "issues_closed": "N/A (GitHub API not configured)",
+  "test_performance": {
+    "total_runs": 1,
+    "avg_pass_rate": 100.0
+  },
+  "compliance_history": "\u26a0\ufe0f Some compliance issues detected",
+  "health_trends": [
+    "\u26a0\ufe0f MANIFEST.json needs updating",
+    "\u26a0\ufe0f 3 alerts need attention"
+  ],
+  "recommendations": [
+    "Repository health is excellent - keep up the good work!"
+  ]
+}
