@@ -121,7 +121,7 @@
 </head>
 <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
     <!-- Skip to main content -->
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md">
+    <a href="#main" class="skip-link" tabindex="0">
         Skip to main content
     </a>
     
@@ -164,7 +164,7 @@
                     </button>
                     
                     <!-- Mobile menu button -->
-                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu">
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -173,7 +173,7 @@
             </div>
             
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden md:hidden">
+            <div id="mobile-menu" class="hidden md:hidden" data-mobile-menu-panel>
                 <div class="px-2 pt-2 pb-3 space-y-1">
                     {{ collections.all | eleventyNavigation | eleventyNavigationToHtml({
                         listClass: "space-y-1",
@@ -368,9 +368,12 @@
         }
     </script>
     
+    <!-- UI/UX Enhancements -->
+    <script src="/assets/js/ui-enhancements.js"></script>
+
     <!-- Back to Top Button -->
     <script src="/assets/js/back-to-top.js"></script>
-    
+
     <!-- Code Collapse (must load before Mermaid processing) -->
     <script src="/assets/js/code-collapse.js"></script>
     
