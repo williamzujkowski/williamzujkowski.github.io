@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About William Zujkowski
-description: Senior Information Security Engineer with expertise in cloud-native security, Zero-Trust architecture, and secure infrastructure design. Passionate about building resilient systems and advancing cybersecurity practices through technical innovation and hands-on implementation.
+description: Cybersecurity engineer passionate about building secure systems, sharing knowledge, and exploring the intersection of AI and security. Currently focused on Zero-Trust architecture and secure infrastructure design.
 
 permalink: /about/
 eleventyNavigation:
@@ -18,29 +18,29 @@ image: /assets/images/og/about-og.png
   <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">Quick Navigation</h2>
   
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <a href="#experience" 
+    <a href="#journey" 
        class="group flex flex-col items-center justify-center p-4 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
-       aria-label="Jump to Experience section">
+       aria-label="Jump to My Journey section">
       <svg class="w-8 h-8 mb-2 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
       </svg>
-      <span class="text-base font-medium text-gray-800 dark:text-gray-100">Experience</span>
+      <span class="text-base font-medium text-gray-800 dark:text-gray-100">My Journey</span>
     </a>
-    <a href="#skills" 
+    <a href="#tools" 
        class="group flex flex-col items-center justify-center p-4 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
-       aria-label="Jump to Skills section">
+       aria-label="Jump to Tools section">
       <svg class="w-8 h-8 mb-2 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
       </svg>
-      <span class="text-base font-medium text-gray-800 dark:text-gray-100">Skills</span>
+      <span class="text-base font-medium text-gray-800 dark:text-gray-100">Tools I Love</span>
     </a>
-    <a href="#projects" 
+    <a href="#drives" 
        class="group flex flex-col items-center justify-center p-4 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
-       aria-label="Jump to Projects section">
+       aria-label="Jump to What Drives Me section">
       <svg class="w-8 h-8 mb-2 text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
       </svg>
-      <span class="text-base font-medium text-gray-800 dark:text-gray-100">Projects</span>
+      <span class="text-base font-medium text-gray-800 dark:text-gray-100">What Drives Me</span>
     </a>    
     <a href="#contact" 
        class="group flex flex-col items-center justify-center p-4 bg-white dark:bg-gray-800/70 rounded-xl shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 dark:border-gray-700"
@@ -53,92 +53,41 @@ image: /assets/images/og/about-og.png
   </div>
 </div>
 
-### What I Actually Bring to the Table
+## Hi There!
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-  <div class="flex items-start space-x-4">
-    <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
-      <span class="text-xl">🛡️</span>
-    </div>
-    <div>
-      <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">15+ Years in Cybersecurity</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">Started from help desk, now we're here (securing federal infrastructure)</p>
-    </div>
-  </div>
-  
-  <div class="flex items-start space-x-4">
-    <div class="flex-shrink-0 w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
-      <span class="text-xl">🤖</span>
-    </div>
-    <div>
-      <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">AI/ML Security Focus</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">Making AI behave itself while teaching it to catch bad guys</p>
-    </div>
-  </div>
-  
-  <div class="flex items-start space-x-4">
-    <div class="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-      <span class="text-xl">💻</span>
-    </div>
-    <div>
-      <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Open Source Contributor</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">Building tools that let me sleep through the night (mostly)</p>
-    </div>
-  </div>
-  
-  <div class="flex items-start space-x-4">
-    <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-      <span class="text-xl">🏛️</span>
-    </div>
-    <div>
-      <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Federal Expertise</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">I speak fluent NIST 800-53 and can translate FedRAMP into human</p>
-    </div>
-  </div>
-  
-  <div class="flex items-start space-x-4">
-    <div class="flex-shrink-0 w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
-      <span class="text-xl">👥</span>
-    </div>
-    <div>
-      <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Technical Leadership</h4>
-      <p class="text-gray-600 dark:text-gray-400 text-sm">Experience leading teams, mentoring engineers, and driving security initiatives</p>
-    </div>
-  </div>
-</div>
+I'm a cybersecurity engineer who believes that the best security is invisible to users – it just works. I spend my days building tools that protect systems while my nights are devoted to breaking them in my homelab (you know, for science).
+
+I didn't start in security – like many of us, I found my way here through curiosity and a healthy dose of "what happens if I click this?" Combined with years of cleaning up the aftermath, it led me down the rabbit hole of understanding not just how things break, but why they break and how to prevent it.
+
+### The Real Story
+
+I'm passionate about making security enablement, not enforcement. Whether it's helping developers ship faster with secure CI/CD pipelines, building monitoring that catches threats without drowning teams in false positives, or sharing what I've learned through this blog and open-source projects – I believe security works best when it makes everyone's life easier.
+
+Currently, I'm exploring the intersection of AI and security, building tools with Model Context Protocol, and trying to keep my homelab from becoming sentient (jury's still out on that last one).
 
 ---
 
-<div id="experience"></div>
+<div id="journey"></div>
 
-## Professional Experience
+## My Journey into Security
 
-### Current Position
+### How I Got Here
 
-<div class="bg-gradient-to-br from-primary-50 via-blue-50 to-indigo-50 dark:from-primary-900/20 dark:via-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl shadow-md my-8 border border-primary-200/50 dark:border-primary-700/30">
-  <div class="flex items-start space-x-6">
-    <div class="flex-shrink-0">
-      <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl shadow-lg flex items-center justify-center text-white font-bold text-2xl">
-        TTS
-      </div>
-    </div>
-    <div class="flex-grow">
-      <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Information Technology Specialist (INFOSEC)</h3>
-      <p class="text-lg text-primary-600 dark:text-primary-400 font-semibold mb-1">Technology Transformation Services (TTS) - cloud.gov</p>
-      <p class="text-gray-600 dark:text-gray-400 mb-4">November 2023 - Present</p>
-      <div class="space-y-2">
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">Senior Information Security Engineer specializing in cloud-native security architecture and secure infrastructure design.</p>
-        <div class="flex flex-wrap gap-2 mt-4">
-          <span class="px-3 py-1 bg-primary-100 dark:bg-primary-800/30 text-primary-700 dark:text-primary-300 text-sm rounded-full">Zero-Trust Architecture</span>
-          <span class="px-3 py-1 bg-primary-100 dark:bg-primary-800/30 text-primary-700 dark:text-primary-300 text-sm rounded-full">FedRAMP Compliance</span>
-          <span class="px-3 py-1 bg-primary-100 dark:bg-primary-800/30 text-primary-700 dark:text-primary-300 text-sm rounded-full">Security Automation</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+My path to cybersecurity started in 2005 with an independent IT consulting business – basically, I was the person people called when their computer "stopped working." What began as fixing printers and recovering lost files gradually evolved into something deeper: understanding how systems fail and why.
 
-### The Journey (Or: How I Went from "Password123" to Zero Trust)
+The real turning point came during my time in IT support when I started asking the dangerous questions: "Why did this break?" and "How can we prevent this from happening again?" Those questions led me from reactive troubleshooting to proactive security thinking.
+
+### The Learning Years
+
+Working in various environments taught me different aspects of security:
+- **Enterprise settings** showed me the importance of standardization and process
+- **Government platforms** demonstrated how compliance frameworks can drive innovation
+- **Small teams** reminded me that perfect is often the enemy of good
+- **My homelab** keeps me grounded in what actually works
+
+Through my work in the public sector, I've gained deep experience with compliance frameworks like NIST 800-53 and FedRAMP, learning how to make security both effective and user-friendly. Currently, I focus on Zero-Trust architecture and cloud-native security, always with an eye toward making security invisible to end users.
+
+### The Full Timeline (For the Curious)
 
 <details class="mb-6">
 <summary class="cursor-pointer text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
@@ -310,11 +259,17 @@ image: /assets/images/og/about-og.png
 
 ---
 
-<div id="skills"></div>
+<div id="tools"></div>
 
-## Technical Skills & Expertise
+## Tools I Love (and Why)
 
-### Core Competencies
+**Python** was my first real programming language – I still remember the excitement of writing my first network scanner (and the panic when I accidentally pointed it at the wrong subnet). These days, it's my go-to for security automation and quick prototypes.
+
+**Go** entered my life when I needed something faster than Python but didn't want to wrestle with C. Now I'm hooked on its simplicity and those blazing fast compile times. Most of my security tools are written in Go now.
+
+**The AI/ML Journey**: What started as curiosity about using machine learning for threat detection has evolved into exploring how to secure AI systems themselves. Currently obsessed with Model Context Protocol and building secure AI workflows.
+
+### What's Currently in My Toolkit
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
   
@@ -684,6 +639,30 @@ Building tools that solve real problems – from security automation to AI-power
 
 ---
 
+<div id="drives"></div>
+
+## What Drives Me
+
+I believe security isn't about saying "no" – it's about finding safe ways to say "yes." The best security solutions are the ones users never notice because they just work seamlessly.
+
+### My Security Philosophy
+
+**Security as Enablement**: I'm passionate about building security that accelerates teams rather than slowing them down. Whether it's CI/CD pipelines that catch vulnerabilities early or monitoring systems that distinguish real threats from noise, the goal is always empowerment.
+
+**Community and Sharing**: The security community is incredibly generous with knowledge, and I try to pay that forward through blog posts, open-source contributions, and mentoring. We're all stronger when we share what we've learned.
+
+**Continuous Learning**: This field changes too fast to ever stop learning. My current obsessions include AI security, zero-knowledge proofs, and finding new ways to break things in my homelab (responsibly, of course).
+
+## Beyond the Terminal
+
+When I'm not staring at terminal windows or reading CVEs, you'll find me:
+
+- **Experimenting with home automation** (everything is a potential IoT security lab!)
+- **Reading sci-fi** (currently working through Asimov's complete works – yes, all of them)
+- **Contributing to local tech meetups** and sharing knowledge with the community
+- **Learning about quantum computing** and its implications for cryptography
+- **Playing strategy games** (both digital and tabletop – there's something about thinking several moves ahead)
+
 ## What's Keeping Me Up at Night (Besides Alerts)
 
 <div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 p-10 rounded-2xl shadow-md my-12 border border-purple-200/50 dark:border-purple-800/30">
@@ -766,11 +745,12 @@ Building tools that solve real problems – from security automation to AI-power
 
 ## Let's Connect
 
+I love connecting with fellow security professionals, developers, and anyone curious about the intersection of technology and security. Whether you want to discuss Zero Trust architecture, share homelab horror stories, or debate the finer points of container security, I'm here for it.
+
 <div class="bg-gradient-to-br from-green-50 via-teal-50 to-emerald-50 dark:from-green-900/20 dark:via-teal-900/20 dark:to-emerald-900/20 p-10 rounded-2xl shadow-lg my-12 border border-green-200/50 dark:border-green-800/30">
-  <p class="text-2xl text-gray-700 dark:text-gray-300 italic mb-8 text-center leading-relaxed">
-    Whether you want to discuss Zero Trust architecture, debate vim vs emacs (it's vim), 
-    or share your latest homelab disaster story – I'm here for it. Fair warning: I will 
-    absolutely geek out about your network segmentation strategy.
+  <p class="text-xl text-gray-700 dark:text-gray-300 italic mb-8 text-center leading-relaxed">
+    Fair warning: I will absolutely geek out about your network segmentation strategy,
+    and yes, I have strong opinions about configuration management (it's Ansible, fight me).
   </p>
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -19,6 +19,28 @@ The tools that survived my testing, the projects that actually work, and the boo
 No vendor pitches, no compliance frameworks – just the open source goodness that makes homelabbing addictive.
 </p>
 
+<div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-6 my-8">
+  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">🧭 Your Learning Journey Map</h4>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    I've been down this rabbit hole for years, and trust me – the path isn't linear. You'll circle back, get distracted by shiny new tools,
+    and occasionally question your life choices at 3 AM when Docker won't start. That's normal. Here's what I wish someone had told me when I started.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded">
+      <strong class="text-green-600 dark:text-green-400">🌱 Start Here</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Docker, basic monitoring, and one programming language. Don't try to learn everything at once.</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded">
+      <strong class="text-blue-600 dark:text-blue-400">🚀 Build Momentum</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Add orchestration, monitoring, and start breaking things intentionally. Security mindset begins here.</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded">
+      <strong class="text-purple-600 dark:text-purple-400">🔬 Go Deep</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Specialize in what interests you. Red team, blue team, DevOps, or just really cool home automation.</p>
+    </div>
+  </div>
+</div>
+
 ## 🚀 Hot Right Now: Tools I'm Excited About
 
 These are the tools that have me staying up way too late "just testing one more thing."
@@ -31,9 +53,11 @@ These are the tools that have me staying up way too late "just testing one more 
     <p class="text-gray-700 dark:text-gray-300 mb-2">
       Container minification that actually works. Turned my 1.2GB containers into 40MB. Black magic.
     </p>
-    <p class="text-sm text-gray-600 dark:text-gray-500">
-      Why I love it: Smaller attack surface + faster deploys = happy me
-    </p>
+    <div class="text-sm text-gray-600 dark:text-gray-500 space-y-1">
+      <p><strong>Why I love it:</strong> Smaller attack surface + faster deploys = happy me</p>
+      <p><strong>Real talk:</strong> Found this after spending weeks manually optimizing Dockerfiles. Wish I'd known about it sooner!</p>
+      <p><strong>Gotcha:</strong> Sometimes breaks dynamic code loading. Test thoroughly before production.</p>
+    </div>
   </div>
 
   <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-lg">
@@ -43,9 +67,11 @@ These are the tools that have me staying up way too late "just testing one more 
     <p class="text-gray-700 dark:text-gray-300 mb-2">
       WireGuard VPN that just works. No port forwarding, no crying.
     </p>
-    <p class="text-sm text-gray-600 dark:text-gray-500">
-      Why I love it: Connected my homelab to my phone in 2 minutes. TWO MINUTES.
-    </p>
+    <div class="text-sm text-gray-600 dark:text-gray-500 space-y-1">
+      <p><strong>Why I love it:</strong> Connected my homelab to my phone in 2 minutes. TWO MINUTES.</p>
+      <p><strong>Game changer:</strong> Before this, I spent weekends fighting with OpenVPN configs. Now I actually use my VPN.</p>
+      <p><strong>Pro tip:</strong> Start with the free tier, then upgrade when you inevitably add every device you own.</p>
+    </div>
   </div>
 
   <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg">
@@ -55,9 +81,11 @@ These are the tools that have me staying up way too late "just testing one more 
     <p class="text-gray-700 dark:text-gray-300 mb-2">
       Collaborative IPS that actually learns from attacks. Like fail2ban grew a brain.
     </p>
-    <p class="text-sm text-gray-600 dark:text-gray-500">
-      Why I love it: Community-powered threat intel that actually works
-    </p>
+    <div class="text-sm text-gray-600 dark:text-gray-500 space-y-1">
+      <p><strong>Why I love it:</strong> Community-powered threat intel that actually works</p>
+      <p><strong>Discovery story:</strong> Stumbled on this during a weekend security audit. Blocked my first attack within an hour.</p>
+      <p><strong>Learning curve:</strong> Start with default scenarios, then customize. The community hub is gold.</p>
+    </div>
   </div>
 
   <div class="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 p-6 rounded-lg">
@@ -67,13 +95,40 @@ These are the tools that have me staying up way too late "just testing one more 
     <p class="text-gray-700 dark:text-gray-300 mb-2">
       Real-time monitoring that doesn't need a PhD to configure. Pretty graphs included.
     </p>
-    <p class="text-sm text-gray-600 dark:text-gray-500">
-      Why I love it: Found a memory leak in 5 minutes that I'd been hunting for days
-    </p>
+    <div class="text-sm text-gray-600 dark:text-gray-500 space-y-1">
+      <p><strong>Why I love it:</strong> Found a memory leak in 5 minutes that I'd been hunting for days</p>
+      <p><strong>First impression:</strong> "This can't be this easy." Spoiler: it was.</p>
+      <p><strong>Warning:</strong> You'll become addicted to watching real-time metrics. Don't say I didn't warn you.</p>
+    </div>
   </div>
 </div>
 
 ## 🏠 Homelab Essentials: The Foundation
+
+<div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 p-6 my-6">
+  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">📚 Learning Path: From Zero to Hero</h4>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    Here's the order I'd tackle these if I were starting over. Each tool builds on the last, and you'll use these concepts everywhere.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-green-600 dark:text-green-400">Week 1-2</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Docker basics, simple containers</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-blue-600 dark:text-blue-400">Week 3-4</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Docker Compose, multi-container apps</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-purple-600 dark:text-purple-400">Month 2</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Orchestration (K3s or Nomad)</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-orange-600 dark:text-orange-400">Month 3+</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Infrastructure as Code</p>
+    </div>
+  </div>
+</div>
 
 ### Container & Orchestration
 
@@ -81,21 +136,45 @@ These are the tools that have me staying up way too late "just testing one more 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
       <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-3">🐳 Container Platforms</h5>
-      <ul class="text-gray-700 dark:text-gray-300 space-y-2">
-        <li><a href="https://www.portainer.io/" class="text-primary-600 dark:text-primary-400 hover:underline">Portainer</a> - Docker management that doesn't suck</li>
-        <li><a href="https://k3s.io/" class="text-primary-600 dark:text-primary-400 hover:underline">K3s</a> - Kubernetes for humans (only 40MB!)</li>
-        <li><a href="https://podman.io/" class="text-primary-600 dark:text-primary-400 hover:underline">Podman</a> - Docker without the daemon drama</li>
-        <li><a href="https://www.nomadproject.io/" class="text-primary-600 dark:text-primary-400 hover:underline">Nomad</a> - Simple orchestration that actually is simple</li>
-      </ul>
+      <div class="space-y-3">
+        <div class="border-l-2 border-green-400 pl-3">
+          <p><a href="https://www.portainer.io/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Portainer</a> - Docker management that doesn't suck</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🌱 <strong>Start here:</strong> Web UI makes Docker approachable. Perfect for beginners who need visual feedback.</p>
+        </div>
+        <div class="border-l-2 border-blue-400 pl-3">
+          <p><a href="https://k3s.io/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">K3s</a> - Kubernetes for humans (only 40MB!)</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🚀 <strong>My go-to:</strong> All the K8s power, none of the complexity. Runs on a Pi!</p>
+        </div>
+        <div class="border-l-2 border-purple-400 pl-3">
+          <p><a href="https://podman.io/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Podman</a> - Docker without the daemon drama</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🔒 <strong>Security win:</strong> Rootless containers out of the box. Steep learning curve though.</p>
+        </div>
+        <div class="border-l-2 border-orange-400 pl-3">
+          <p><a href="https://www.nomadproject.io/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Nomad</a> - Simple orchestration that actually is simple</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">💡 <strong>Hidden gem:</strong> When K8s feels like overkill. Single binary, zero fuss.</p>
+        </div>
+      </div>
     </div>
     <div>
       <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-3">🔧 Infrastructure as Code</h5>
-      <ul class="text-gray-700 dark:text-gray-300 space-y-2">
-        <li><a href="https://www.ansible.com/" class="text-primary-600 dark:text-primary-400 hover:underline">Ansible</a> - Automate all the things</li>
-        <li><a href="https://www.terraform.io/" class="text-primary-600 dark:text-primary-400 hover:underline">Terraform</a> - For when you want to code your infrastructure</li>
-        <li><a href="https://www.pulumi.com/" class="text-primary-600 dark:text-primary-400 hover:underline">Pulumi</a> - Terraform but with real programming languages</li>
-        <li><a href="https://github.com/hashicorp/packer" class="text-primary-600 dark:text-primary-400 hover:underline">Packer</a> - Golden images done right</li>
-      </ul>
+      <div class="space-y-3">
+        <div class="border-l-2 border-green-400 pl-3">
+          <p><a href="https://www.ansible.com/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Ansible</a> - Automate all the things</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🌱 <strong>Start here:</strong> YAML you can actually read. Great for server setup and maintenance.</p>
+        </div>
+        <div class="border-l-2 border-blue-400 pl-3">
+          <p><a href="https://www.terraform.io/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Terraform</a> - For when you want to code your infrastructure</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🚀 <strong>Game changer:</strong> Destroyed and rebuilt my lab 50+ times learning this. Worth every retry.</p>
+        </div>
+        <div class="border-l-2 border-purple-400 pl-3">
+          <p><a href="https://www.pulumi.com/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Pulumi</a> - Terraform but with real programming languages</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">💻 <strong>For devs:</strong> If you prefer Python/TypeScript over HCL. Powerful but opinionated.</p>
+        </div>
+        <div class="border-l-2 border-orange-400 pl-3">
+          <p><a href="https://github.com/hashicorp/packer" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Packer</a> - Golden images done right</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🏗️ <strong>Advanced move:</strong> Standardize your VM builds. Pairs beautifully with Terraform.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -135,30 +214,106 @@ These are the tools that have me staying up way too late "just testing one more 
   </div>
 </div>
 
+## 💀 The Graveyard: Tools That Didn't Make the Cut
+
+<div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 p-6 my-8">
+  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">🪦 Learn from My Mistakes</h4>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    Not every tool is a winner. Here are some that looked promising but didn't survive contact with reality.
+    Learning what doesn't work is just as valuable as finding what does.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">OpenShift (for homelab)</h5>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        <strong>Why I tried it:</strong> Red Hat magic, enterprise features<br>
+        <strong>Why it failed:</strong> Resource hungry beast. Ate my entire lab for breakfast. K3s does 90% for 10% of the resources.
+      </p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">Jenkins (for simple CI/CD)</h5>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        <strong>Why I tried it:</strong> Industry standard, huge plugin ecosystem<br>
+        <strong>Why it failed:</strong> Configuration nightmare. Spent more time maintaining Jenkins than using it. GitLab CI or Drone CI work better for small projects.
+      </p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">Full ELK Stack (personal use)</h5>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        <strong>Why I tried it:</strong> Industry standard logging<br>
+        <strong>Why it failed:</strong> Java memory hog for homelab scale. Loki + Grafana gives 80% of the value with 20% of the complexity.
+      </p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">OSSEC (before Wazuh)</h5>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        <strong>Why I tried it:</strong> Free SIEM solution<br>
+        <strong>Why it failed:</strong> Configuration by editing XML files. In 2023. Wazuh is what OSSEC should have become.
+      </p>
+    </div>
+  </div>
+  <div class="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded border border-yellow-300 dark:border-yellow-700">
+    <p class="text-sm text-yellow-800 dark:text-yellow-200">
+      <strong>💡 The pattern:</strong> Complex enterprise tools often don't scale down well to homelab environments.
+      Look for tools designed for simplicity first, then scale up if needed.
+    </p>
+  </div>
+</div>
+
 ## 🔒 Security Tools That Actually Work
 
 ### Offensive Tools (For Defense, Obviously)
 
 <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg my-6">
   <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">⚔️ Know Your Enemy</h4>
+  <div class="bg-yellow-100 dark:bg-yellow-900/30 p-4 mb-4 rounded border border-yellow-300 dark:border-yellow-700">
+    <p class="text-sm text-yellow-800 dark:text-yellow-200">
+      <strong>🚨 Ethics First:</strong> Only use these on systems you own or have explicit permission to test.
+      Set up isolated lab environments. I use VMs and containers to keep experiments contained.
+    </p>
+  </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Recon & Scanning</h5>
-      <ul class="text-gray-700 dark:text-gray-300 space-y-1">
-        <li><a href="https://github.com/projectdiscovery/nuclei" class="text-primary-600 dark:text-primary-400 hover:underline">Nuclei</a> - Template-based vulnerability scanner</li>
-        <li><a href="https://github.com/projectdiscovery/subfinder" class="text-primary-600 dark:text-primary-400 hover:underline">Subfinder</a> - Subdomain discovery on steroids</li>
-        <li><a href="https://github.com/michenriksen/aquatone" class="text-primary-600 dark:text-primary-400 hover:underline">Aquatone</a> - Visual recon for web apps</li>
-        <li><a href="https://github.com/OWASP/Amass" class="text-primary-600 dark:text-primary-400 hover:underline">Amass</a> - Network mapping that's scary good</li>
-      </ul>
+      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-3">Recon & Scanning</h5>
+      <div class="space-y-3">
+        <div class="border-l-2 border-red-400 pl-3">
+          <p><a href="https://github.com/projectdiscovery/nuclei" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Nuclei</a> - Template-based vulnerability scanner</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🎯 <strong>My daily driver:</strong> Community templates mean you're always up-to-date. Start with basic scans, build custom templates later.</p>
+        </div>
+        <div class="border-l-2 border-orange-400 pl-3">
+          <p><a href="https://github.com/projectdiscovery/subfinder" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Subfinder</a> - Subdomain discovery on steroids</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🔍 <strong>Eye-opening:</strong> You'll be shocked how many subdomains your targets have. Combine with Aquatone for visual recon.</p>
+        </div>
+        <div class="border-l-2 border-pink-400 pl-3">
+          <p><a href="https://github.com/michenriksen/aquatone" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Aquatone</a> - Visual recon for web apps</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">📸 <strong>Screenshots save time:</strong> Quickly identify interesting targets visually. Great for reports too.</p>
+        </div>
+        <div class="border-l-2 border-purple-400 pl-3">
+          <p><a href="https://github.com/OWASP/Amass" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Amass</a> - Network mapping that's scary good</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🗺️ <strong>Deep dive tool:</strong> When you need to map the entire infrastructure. Slow but thorough.</p>
+        </div>
+      </div>
     </div>
     <div>
-      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Exploitation Frameworks</h5>
-      <ul class="text-gray-700 dark:text-gray-300 space-y-1">
-        <li><a href="https://github.com/rapid7/metasploit-framework" class="text-primary-600 dark:text-primary-400 hover:underline">Metasploit</a> - The classic, still relevant</li>
-        <li><a href="https://github.com/calebstewart/pwncat" class="text-primary-600 dark:text-primary-400 hover:underline">pwncat</a> - Netcat on steroids</li>
-        <li><a href="https://github.com/carlospolop/PEASS-ng" class="text-primary-600 dark:text-primary-400 hover:underline">PEASS-ng</a> - Privilege escalation scripts</li>
-        <li><a href="https://github.com/Flangvik/SharpCollection" class="text-primary-600 dark:text-primary-400 hover:underline">SharpCollection</a> - .NET tools for red teams</li>
-      </ul>
+      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-3">Exploitation Frameworks</h5>
+      <div class="space-y-3">
+        <div class="border-l-2 border-red-400 pl-3">
+          <p><a href="https://github.com/rapid7/metasploit-framework" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Metasploit</a> - The classic, still relevant</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🏛️ <strong>Still the gold standard:</strong> Heavy but comprehensive. Start here for learning exploitation fundamentals.</p>
+        </div>
+        <div class="border-l-2 border-blue-400 pl-3">
+          <p><a href="https://github.com/calebstewart/pwncat" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">pwncat</a> - Netcat on steroids</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🐱 <strong>Modern approach:</strong> Python-based, extensible. Great for post-exploitation and maintaining access.</p>
+        </div>
+        <div class="border-l-2 border-green-400 pl-3">
+          <p><a href="https://github.com/carlospolop/PEASS-ng" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">PEASS-ng</a> - Privilege escalation scripts</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">⬆️ <strong>Instant results:</strong> Automates the tedious enumeration phase. Run this first when you get a foothold.</p>
+        </div>
+        <div class="border-l-2 border-purple-400 pl-3">
+          <p><a href="https://github.com/Flangvik/SharpCollection" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">SharpCollection</a> - .NET tools for red teams</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🔧 <strong>Windows specialist:</strong> When you're dealing with modern Windows environments. Bypasses many AV solutions.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -252,37 +407,74 @@ Because learning should be fun, here are some projects that'll teach you tons:
 
 ## 📚 Books That Actually Taught Me Something
 
-Not affiliate links, just books worth your money:
+<div class="bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-400 p-6 my-8">
+  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">📖 My Reading Philosophy</h4>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    I'm a hands-on learner, so books that combine theory with practical exercises work best for me.
+    These aren't affiliate links – just books that made me better at what I do.
+    I've listed them roughly in the order I'd recommend reading them, with personal notes about what makes each special.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-green-600 dark:text-green-400">📚 Start Here</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Foundation books that build core knowledge</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-blue-600 dark:text-blue-400">🔬 Go Deeper</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Technical deep dives for specific skills</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-purple-600 dark:text-purple-400">🧠 Perspective</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Stories and context that change how you think</p>
+    </div>
+  </div>
+</div>
 
 ### Security Essentials
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
   <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
     <h5 class="font-bold text-gray-900 dark:text-gray-100 mb-3">Technical Deep Dives</h5>
-    <ul class="text-gray-700 dark:text-gray-300 space-y-2">
-      <li>📘 <a href="https://www.amazon.com/Web-Application-Hackers-Handbook-Exploiting/dp/1118026470" class="text-primary-600 dark:text-primary-400 hover:underline">The Web Application Hacker's Handbook</a>
-        <br><span class="text-sm text-gray-600">Still the bible for web security</span></li>
-      <li>📕 <a href="https://www.amazon.com/Practical-Malware-Analysis-Hands-Dissecting/dp/1593272901" class="text-primary-600 dark:text-primary-400 hover:underline">Practical Malware Analysis</a>
-        <br><span class="text-sm text-gray-600">How to dissect malware without infecting yourself</span></li>
-      <li>📗 <a href="https://www.amazon.com/Network-Security-Through-Data-Analysis/dp/1491962844" class="text-primary-600 dark:text-primary-400 hover:underline">Network Security Through Data Analysis</a>
-        <br><span class="text-sm text-gray-600">Turn packet captures into intelligence</span></li>
-      <li>📙 <a href="https://www.amazon.com/Rtfm-Red-Team-Field-Manual/dp/1494295504" class="text-primary-600 dark:text-primary-400 hover:underline">RTFM: Red Team Field Manual</a>
-        <br><span class="text-sm text-gray-600">Cheat codes for pentesters</span></li>
-    </ul>
+    <div class="space-y-4">
+      <div class="border-l-2 border-green-400 pl-3">
+        <p>📚 <strong>START HERE:</strong> <a href="https://www.amazon.com/Web-Application-Hackers-Handbook-Exploiting/dp/1118026470" class="text-primary-600 dark:text-primary-400 hover:underline">The Web Application Hacker's Handbook</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">Still the bible for web security. I re-read chapters when I'm stuck on specific attack types. The examples are dated but the fundamentals are timeless.</p>
+      </div>
+      <div class="border-l-2 border-blue-400 pl-3">
+        <p>📕 <a href="https://www.amazon.com/Practical-Malware-Analysis-Hands-Dissecting/dp/1593272901" class="text-primary-600 dark:text-primary-400 hover:underline">Practical Malware Analysis</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">How to dissect malware without infecting yourself. Set up the lab environment first – you'll need it. Takes time but builds essential reverse engineering skills.</p>
+      </div>
+      <div class="border-l-2 border-purple-400 pl-3">
+        <p>📗 <a href="https://www.amazon.com/Network-Security-Through-Data-Analysis/dp/1491962844" class="text-primary-600 dark:text-primary-400 hover:underline">Network Security Through Data Analysis</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">Turn packet captures into intelligence. This book taught me to think like data, not just look at it. Great for building SIEM detection rules.</p>
+      </div>
+      <div class="border-l-2 border-orange-400 pl-3">
+        <p>📙 <a href="https://www.amazon.com/Rtfm-Red-Team-Field-Manual/dp/1494295504" class="text-primary-600 dark:text-primary-400 hover:underline">RTFM: Red Team Field Manual</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">Cheat codes for pentesters. Keep this handy during engagements. Not for learning fundamentals, but great for quick reference when you're in the thick of it.</p>
+      </div>
+    </div>
   </div>
-  
+
   <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
     <h5 class="font-bold text-gray-900 dark:text-gray-100 mb-3">Mind-Expanding Reads</h5>
-    <ul class="text-gray-700 dark:text-gray-300 space-y-2">
-      <li>📘 <a href="https://www.amazon.com/Cuckoos-Egg-Tracking-Computer-Espionage/dp/1416507787" class="text-primary-600 dark:text-primary-400 hover:underline">The Cuckoo's Egg</a>
-        <br><span class="text-sm text-gray-600">The OG hacker hunt story</span></li>
-      <li>📕 <a href="https://www.amazon.com/Sandworm-Cyberwar-Kremlins-Dangerous-Hackers/dp/0385544405" class="text-primary-600 dark:text-primary-400 hover:underline">Sandworm</a>
-        <br><span class="text-sm text-gray-600">Nation-state hacking that'll keep you up at night</span></li>
-      <li>📗 <a href="https://www.amazon.com/Ghost-Wires-Adventures-Worlds-Wanted/dp/0316037729" class="text-primary-600 dark:text-primary-400 hover:underline">Ghost in the Wires</a>
-        <br><span class="text-sm text-gray-600">Kevin Mitnick's wild ride</span></li>
-      <li>📙 <a href="https://www.amazon.com/Cult-Dead-Cow-Original-Supergroup/dp/154176238X" class="text-primary-600 dark:text-primary-400 hover:underline">Cult of the Dead Cow</a>
-        <br><span class="text-sm text-gray-600">The hackers who shaped the internet</span></li>
-    </ul>
+    <div class="space-y-4">
+      <div class="border-l-2 border-green-400 pl-3">
+        <p>📚 <strong>START HERE:</strong> <a href="https://www.amazon.com/Cuckoos-Egg-Tracking-Computer-Espionage/dp/1416507787" class="text-primary-600 dark:text-primary-400 hover:underline">The Cuckoo's Egg</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">The OG hacker hunt story. Written in 1989 but feels modern. Shows that good investigative techniques are timeless. Made me appreciate the detective work in security.</p>
+      </div>
+      <div class="border-l-2 border-red-400 pl-3">
+        <p>📕 <a href="https://www.amazon.com/Sandworm-Cyberwar-Kremlins-Dangerous-Hackers/dp/0385544405" class="text-primary-600 dark:text-primary-400 hover:underline">Sandworm</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">Nation-state hacking that'll keep you up at night. Understanding geopolitical cyber warfare helps you think bigger than just technical vulnerabilities.</p>
+      </div>
+      <div class="border-l-2 border-blue-400 pl-3">
+        <p>📗 <a href="https://www.amazon.com/Ghost-Wires-Adventures-Worlds-Wanted/dp/0316037729" class="text-primary-600 dark:text-primary-400 hover:underline">Ghost in the Wires</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">Kevin Mitnick's wild ride. Shows that social engineering often beats technical attacks. Changed how I think about human factors in security.</p>
+      </div>
+      <div class="border-l-2 border-purple-400 pl-3">
+        <p>📙 <a href="https://www.amazon.com/Cult-Dead-Cow-Original-Supergroup/dp/154176238X" class="text-primary-600 dark:text-primary-400 hover:underline">Cult of the Dead Cow</a></p>
+        <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">The hackers who shaped the internet. Great for understanding the culture and ethics that drive security research. Made me appreciate the history behind modern tools.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -308,27 +500,77 @@ Not affiliate links, just books worth your money:
 
 ## 🎓 Learning Platforms That Don't Suck
 
+<div class="bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-400 p-6 my-8">
+  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">🎯 My Learning Strategy</h4>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    I learn best by doing, failing, and trying again. Start with free platforms to find what clicks for you,
+    then invest money in areas where you want to go deeper. Here's the progression that worked for me:
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-green-600 dark:text-green-400">Month 1-2</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Free platforms, basic CTFs</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-blue-600 dark:text-blue-400">Month 3-6</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Paid platform, focused learning</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-purple-600 dark:text-purple-400">Month 6+</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Build your own labs, teach others</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
+      <strong class="text-orange-600 dark:text-orange-400">Always</strong>
+      <p class="text-gray-600 dark:text-gray-400 mt-1">Keep learning from failures</p>
+    </div>
+  </div>
+</div>
+
 ### Free Stuff That's Actually Good
 
 <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg my-6">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Hands-On Labs</h5>
-      <ul class="text-gray-700 dark:text-gray-300 space-y-1">
-        <li>🎯 <a href="https://overthewire.org/wargames/" class="text-primary-600 dark:text-primary-400 hover:underline">OverTheWire</a> - Start with Bandit, thank me later</li>
-        <li>🏴 <a href="https://picoctf.org/" class="text-primary-600 dark:text-primary-400 hover:underline">PicoCTF</a> - Beginner-friendly CTF</li>
-        <li>🔓 <a href="https://portswigger.net/web-security" class="text-primary-600 dark:text-primary-400 hover:underline">PortSwigger Academy</a> - Free web security training</li>
-        <li>🎮 <a href="https://www.hackthissite.org/" class="text-primary-600 dark:text-primary-400 hover:underline">HackThisSite</a> - Old school but gold</li>
-      </ul>
+      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-3">Hands-On Labs</h5>
+      <div class="space-y-3">
+        <div class="border-l-2 border-green-400 pl-3">
+          <p>🎯 <a href="https://overthewire.org/wargames/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">OverTheWire</a> - Start with Bandit, thank me later</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>My first steps:</strong> Spent weeks on Bandit learning Linux basics. Don't rush – each level teaches something important.</p>
+        </div>
+        <div class="border-l-2 border-blue-400 pl-3">
+          <p>🏴 <a href="https://picoctf.org/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">PicoCTF</a> - Beginner-friendly CTF</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>Great for confidence:</strong> Designed for high schoolers but perfect for adults learning fundamentals. Hint system prevents frustration.</p>
+        </div>
+        <div class="border-l-2 border-purple-400 pl-3">
+          <p>🔓 <a href="https://portswigger.net/web-security" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">PortSwigger Academy</a> - Free web security training</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>Industry standard:</strong> Made by the Burp Suite team. Interactive labs that teach real vulnerabilities.</p>
+        </div>
+        <div class="border-l-2 border-orange-400 pl-3">
+          <p>🎮 <a href="https://www.hackthissite.org/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">HackThisSite</a> - Old school but gold</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>Nostalgic value:</strong> Where I learned basic web vulnerabilities. Interface is dated but content is solid.</p>
+        </div>
+      </div>
     </div>
     <div>
-      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">YouTube University</h5>
-      <ul class="text-gray-700 dark:text-gray-300 space-y-1">
-        <li>📺 <a href="https://www.youtube.com/@ippsec" class="text-primary-600 dark:text-primary-400 hover:underline">IppSec</a> - HTB walkthroughs that teach</li>
-        <li>🎬 <a href="https://www.youtube.com/@_JohnHammond" class="text-primary-600 dark:text-primary-400 hover:underline">John Hammond</a> - CTFs and malware analysis</li>
-        <li>🎥 <a href="https://www.youtube.com/@NetworkChuck" class="text-primary-600 dark:text-primary-400 hover:underline">NetworkChuck</a> - Makes networking fun</li>
-        <li>📹 <a href="https://www.youtube.com/@LiveOverflow" class="text-primary-600 dark:text-primary-400 hover:underline">LiveOverflow</a> - Deep technical dives</li>
-      </ul>
+      <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-3">YouTube University</h5>
+      <div class="space-y-3">
+        <div class="border-l-2 border-red-400 pl-3">
+          <p>📺 <a href="https://www.youtube.com/@ippsec" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">IppSec</a> - HTB walkthroughs that teach</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>Watch while doing:</strong> Don't just watch – pause and try techniques yourself. His methodology is gold.</p>
+        </div>
+        <div class="border-l-2 border-blue-400 pl-3">
+          <p>🎬 <a href="https://www.youtube.com/@_JohnHammond" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">John Hammond</a> - CTFs and malware analysis</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>Great teacher:</strong> Explains his thinking process clearly. Good for understanding tool usage and methodology.</p>
+        </div>
+        <div class="border-l-2 border-green-400 pl-3">
+          <p>🎥 <a href="https://www.youtube.com/@NetworkChuck" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">NetworkChuck</a> - Makes networking fun</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>Enthusiasm wins:</strong> His energy is infectious. Great for homelab inspiration and practical networking.</p>
+        </div>
+        <div class="border-l-2 border-purple-400 pl-3">
+          <p>📹 <a href="https://www.youtube.com/@LiveOverflow" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">LiveOverflow</a> - Deep technical dives</p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1"><strong>Next level:</strong> When you're ready to understand the "why" behind exploits. Requires patience but worth it.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -336,13 +578,45 @@ Not affiliate links, just books worth your money:
 ### Worth Paying For
 
 <div class="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-lg my-6">
-  <h5 class="font-bold text-gray-900 dark:text-gray-100 mb-3">💰 If You're Going to Spend Money</h5>
-  <ul class="text-gray-700 dark:text-gray-300 space-y-2">
-    <li><a href="https://tryhackme.com/" class="text-primary-600 dark:text-primary-400 hover:underline">TryHackMe</a> - Guided learning path, great for beginners ($10/month)</li>
-    <li><a href="https://www.hackthebox.com/" class="text-primary-600 dark:text-primary-400 hover:underline">HackTheBox</a> - More challenging, great community ($20/month)</li>
-    <li><a href="https://academy.tcm-sec.com/" class="text-primary-600 dark:text-primary-400 hover:underline">TCM Security</a> - Practical, real-world focused courses</li>
-    <li><a href="https://www.pentesterlab.com/" class="text-primary-600 dark:text-primary-400 hover:underline">PentesterLab</a> - Web security focus ($20/month)</li>
-  </ul>
+  <h5 class="font-bold text-gray-900 dark:text-gray-100 mb-4">💰 When to Invest Your Money</h5>
+  <div class="space-y-4">
+    <div class="border-l-2 border-green-400 pl-4">
+      <p><a href="https://tryhackme.com/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">TryHackMe</a> - Guided learning path ($10/month)</p>
+      <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">
+        <strong>Perfect for beginners:</strong> I started here and it's still my go-to recommendation.
+        The guided paths prevent you from getting lost. Good mix of theory and practice.
+        <br><strong>My path:</strong> Complete Introduction to Cyber Security → Pre Security → choose a specialty.
+      </p>
+    </div>
+    <div class="border-l-2 border-red-400 pl-4">
+      <p><a href="https://www.hackthebox.com/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">HackTheBox</a> - More challenging ($20/month)</p>
+      <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">
+        <strong>Level up here:</strong> Harder than THM but more realistic. Great community and writeups.
+        <br><strong>Warning:</strong> Can be frustrating without solid fundamentals. Try Starting Point boxes first.
+        <br><strong>Secret:</strong> The forums and Discord are where the real learning happens.
+      </p>
+    </div>
+    <div class="border-l-2 border-blue-400 pl-4">
+      <p><a href="https://academy.tcm-sec.com/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">TCM Security</a> - Practical courses (varies)</p>
+      <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">
+        <strong>Real-world focused:</strong> Heath Adams knows his stuff. Courses feel like mentorship.
+        <br><strong>Best for:</strong> PNPT certification path or if you want structured learning without fluff.
+      </p>
+    </div>
+    <div class="border-l-2 border-purple-400 pl-4">
+      <p><a href="https://www.pentesterlab.com/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">PentesterLab</a> - Web security focus ($20/month)</p>
+      <p class="text-sm text-gray-600 dark:text-gray-500 mt-1">
+        <strong>Deep web security:</strong> If you want to really understand web app pentesting, this is it.
+        <br><strong>Heads up:</strong> Can be dry. Better after you have some experience with web vulns.
+      </p>
+    </div>
+  </div>
+  <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-900/30 rounded border border-blue-300 dark:border-blue-700">
+    <p class="text-sm text-blue-800 dark:text-blue-200">
+      <strong>💡 My recommendation:</strong> Start with TryHackMe for 3-6 months, then add HackTheBox.
+      Don't jump around – depth beats breadth when you're learning fundamentals.
+    </p>
+  </div>
 </div>
 
 ## 🚨 Security News & Intel
@@ -393,6 +667,68 @@ Tools so new they might break everything (that's half the fun):
   </ul>
 </div>
 
+## 🚀 Your Next Steps
+
+<div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-8 rounded-lg my-8">
+  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">📋 Start Your Journey</h4>
+  <p class="text-gray-700 dark:text-gray-300 mb-6">
+    Feeling overwhelmed? That's normal. Here's exactly what I'd do if I were starting today:
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-bold text-green-600 dark:text-green-400 mb-3">🌱 Week 1-2: Foundation</h5>
+      <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+        <li>• Set up a basic homelab VM</li>
+        <li>• Install Docker and run Portainer</li>
+        <li>• Start OverTheWire Bandit</li>
+        <li>• Join TryHackMe (free tier)</li>
+        <li>• Read "The Cuckoo's Egg"</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-bold text-blue-600 dark:text-blue-400 mb-3">🚀 Month 2-3: Build Momentum</h5>
+      <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+        <li>• Deploy your first monitoring stack</li>
+        <li>• Complete THM Pre Security path</li>
+        <li>• Try your first vulnerability scanner</li>
+        <li>• Start learning one programming language</li>
+        <li>• Document everything you break</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-bold text-purple-600 dark:text-purple-400 mb-3">🔬 Month 4-6: Specialize</h5>
+      <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+        <li>• Choose: Red team, blue team, or DevOps</li>
+        <li>• Upgrade to paid learning platforms</li>
+        <li>• Build projects, not just tutorials</li>
+        <li>• Start teaching others what you learn</li>
+        <li>• Join communities and ask questions</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
+      <h5 class="font-bold text-orange-600 dark:text-orange-400 mb-3">🎯 Month 6+: Master</h5>
+      <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+        <li>• Contribute to open source projects</li>
+        <li>• Write about your learnings</li>
+        <li>• Mentor newcomers</li>
+        <li>• Build real solutions to real problems</li>
+        <li>• Never stop being curious</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-6 p-4 bg-yellow-100 dark:bg-yellow-900/30 rounded border border-yellow-300 dark:border-yellow-700">
+    <p class="text-sm text-yellow-800 dark:text-yellow-200">
+      <strong>🔥 Hot take:</strong> The best way to learn is to fail publicly and document the journey.
+      Start a blog, make GitHub repos, and don't be afraid to look stupid. We've all been there.
+    </p>
+  </div>
+</div>
+
 ## 🎉 Join the Chaos
 
 <div class="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-lg my-8 text-center">
@@ -400,7 +736,7 @@ Tools so new they might break everything (that's half the fun):
     This list grows every time I find something that makes me go "Oh, that's clever!"
   </p>
   <p class="text-gray-700 dark:text-gray-300 mb-4">
-    Got a tool that changed your life? Found something that should be on this list? 
+    Got a tool that changed your life? Found something that should be on this list?
     Want to argue about why vim is better than nano? (It is.)
   </p>
   <a href="/about/#contact" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
@@ -411,9 +747,15 @@ Tools so new they might break everything (that's half the fun):
   </a>
 </div>
 
-<div class="text-center text-gray-600 dark:text-gray-400 my-8">
-  <p class="italic">Remember: With great tools comes great responsibility. Only hack what you own, </p>
-  <p class="italic">and always have backups. Seriously. Backups of your backups.</p>
+<div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-6 rounded-lg my-8">
+  <h4 class="text-lg font-bold text-red-800 dark:text-red-200 mb-3">⚠️ Final Reminder</h4>
+  <div class="text-red-700 dark:text-red-300 space-y-2">
+    <p><strong>Ethics first:</strong> Only hack what you own or have explicit permission to test.</p>
+    <p><strong>Learn responsibly:</strong> Understand the impact of your actions.</p>
+    <p><strong>Back up everything:</strong> Seriously. Back up your backups. Then back up those.</p>
+    <p><strong>Document your journey:</strong> Your future self will thank you.</p>
+    <p><strong>Have fun:</strong> If you're not enjoying it, you're doing it wrong.</p>
+  </div>
 </div>
 
 </div>
