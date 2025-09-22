@@ -218,5 +218,5 @@ The future likely belongs to organizations that understand both approaches and a
 ### Further Reading:
 
 - [Open Source Licenses](https://opensource.org/licenses/)
-- [The open-source language model revolution](https://www.technologyreview.com/2023/05/04/1072679/large-language-models-open-source-extended-version/ - MIT Technology Review
+- [The open-source language model revolution](https://www.technologyreview.com/2023/05/04/1072679/large-language-models-open-source-extended-version/) - MIT Technology Review
 - [Open-Source vs. Proprietary: Which Large Language Model Is Right for You?](https://venturebeat.com/ai/the-enterprise-verdict-on-ai-models-why-open-source-will-win/) - VentureBeat

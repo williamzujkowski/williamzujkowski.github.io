@@ -300,7 +300,7 @@ As AI continues to evolve, the ability to work efficiently within constraints wi
 
 ### Further Reading:
 
-- [Efficient Deep Learning Book](https://efficientdlbook.github.io/ - MIT Press
-- [TinyML Foundation](https://www.tinyml.org/ - Community and resources for efficient AI
-- [Green AI Research](https://arxiv.org/abs/1907.10597 - Environmental considerations in AI research
-- [DistilBERT Paper](https://arxiv.org/abs/1910.01108 - Knowledge distillation for efficient transformers
+- [Efficient Deep Learning Book](https://efficientdlbook.github.io/) - MIT Press
+- [TinyML Foundation](https://www.tinyml.org/) - Community and resources for efficient AI
+- [Green AI Research](https://arxiv.org/abs/1907.10597) - Environmental considerations in AI research
+- [DistilBERT Paper](https://arxiv.org/abs/1910.01108) - Knowledge distillation for efficient transformers

@@ -164,40 +164,40 @@ The future of human-robot interaction looks increasingly conversational, collabo
 
 ---
 
-*For those interested in diving deeper, the original research paper "Grounding Multimodal LLMs to Embodied Agents that Ask for Help with Reinforcement Learning" provides comprehensive technical details, while the [Stanford Embodied AI Workshop](https://embodied-ai.org/ offers broader context on advances in this field.*
+*For those interested in diving deeper, the original research paper "Grounding Multimodal LLMs to Embodied Agents that Ask for Help with Reinforcement Learning" provides comprehensive technical details, while the [Stanford Embodied AI Workshop](https://embodied-ai.org/) offers broader context on advances in this field.*
 
 ## Academic Research & References
 
 ### Embodied AI Research
 
-1. **[Embodied AI: From Research to Applications](https://arxiv.org/abs/2304.02195 (2023)
+1. **[Embodied AI: From Research to Applications](https://arxiv.org/abs/2304.02195)** (2023)
    - Survey of embodied artificial intelligence
    - *arXiv preprint*
 
-2. **[Learning to Navigate in Complex Environments](https://arxiv.org/abs/1611.03673 (2017)
+2. **[Learning to Navigate in Complex Environments](https://arxiv.org/abs/1611.03673)** (2017)
    - Mirowski et al. - DeepMind navigation research
    - *ICLR 2017*
 
 ### Robotics & Simulation
 
-1. **[Sim-to-Real Transfer in Deep Reinforcement Learning](https://arxiv.org/abs/1812.11103 (2018)
+1. **[Sim-to-Real Transfer in Deep Reinforcement Learning](https://arxiv.org/abs/1812.11103)** (2018)
    - Zhao et al. - Bridging simulation and reality
    - *arXiv preprint*
 
-2. **[RoboNet: Large-Scale Multi-Robot Learning](https://arxiv.org/abs/1910.11215 (2019)
+2. **[RoboNet: Large-Scale Multi-Robot Learning](https://arxiv.org/abs/1910.11215)** (2019)
    - Dasari et al. - Multi-robot learning framework
    - *CoRL 2019*
 
 ### Simulation Platforms
 
-- **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim - Robotics simulation platform
+- **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim)** - Robotics simulation platform
 - **[Unity ML-Agents](https://unity.com/products/machine-learning-agents)** - Game engine for AI training
 - **[OpenAI Gym](https://gym.openai.com/)** - Reinforcement learning toolkit
-- **[MuJoCo](https://mujoco.org/ - Physics simulation for robotics
+- **[MuJoCo](https://mujoco.org/)** - Physics simulation for robotics
 
 ### Cognitive Architecture
 
-1. **[The Society of Mind](https://www.media.mit.edu/people/minsky/ - Marvin Minsky
+1. **[The Society of Mind](https://www.media.mit.edu/people/minsky/)** - Marvin Minsky
    - Foundational cognitive architecture theory
    - *MIT Press*
 

@@ -525,7 +525,7 @@ Since adopting Claude-Flow in my workflow:
 
 ### AI Agent Systems Research
 
-1. **[AutoGPT: An Autonomous GPT-4 Experiment](https://arxiv.org/abs/2303.08774 (2023)
+1. **[AutoGPT: An Autonomous GPT-4 Experiment](https://arxiv.org/abs/2303.08774) (2023)
    - Research on autonomous AI agent architectures
    - *arXiv preprint*
 
@@ -536,13 +536,13 @@ Since adopting Claude-Flow in my workflow:
 ### Multi-Agent Coordination
 
 - **[JADE Framework](https://jade.tilab.com/)** - Java Agent Development Framework
-- **[Microsoft AutoGen](https://github.com/microsoft/autogen - Multi-agent conversation framework
-- **[LangChain Agents](https://python.langchain.com/docs/modules/agents/ - LLM agent orchestration
+- **[Microsoft AutoGen](https://github.com/microsoft/autogen)** - Multi-agent conversation framework
+- **[LangChain Agents](https://python.langchain.com/docs/modules/agents/)** - LLM agent orchestration
 
 ### Performance Benchmarks
 
-- **[SWE-bench](https://www.swebench.com/ - Software engineering benchmark for LLMs
-- **[HumanEval](https://github.com/openai/human-eval - Code generation evaluation dataset
+- **[SWE-bench](https://www.swebench.com/)** - Software engineering benchmark for LLMs
+- **[HumanEval](https://github.com/openai/human-eval)** - Code generation evaluation dataset
 
 ### WebAssembly & SIMD Research
 
@@ -550,7 +550,7 @@ Since adopting Claude-Flow in my workflow:
    - Haas et al. - WebAssembly design and implementation
    - *ACM SIGPLAN*
 
-2. **[SIMD Everywhere](https://github.com/simd-everywhere/simde - Portable SIMD implementations
+2. **[SIMD Everywhere](https://github.com/simd-everywhere/simde)** - Portable SIMD implementations
 
 ### Key Statistics Sources
 
@@ -568,6 +568,6 @@ Start small with a single agent, experiment with different topologies, and gradu
 
 ---
 
-*Want to dive deeper? Check out the [Claude-Flow repository](https://github.com/ruvnet/claude-flow for advanced examples, contribute to the project, or share your swarm patterns with the community. The revolution in AI-assisted development is just beginning, and you can be part of shaping it.*
+*Want to dive deeper? Check out the [Claude-Flow repository](https://github.com/ruvnet/claude-flow) for advanced examples, contribute to the project, or share your swarm patterns with the community. The revolution in AI-assisted development is just beginning, and you can be part of shaping it.*
 
 *Questions about implementing Claude-Flow in your workflow? Reach out – I love discussing AI orchestration patterns and learning from different use cases!*

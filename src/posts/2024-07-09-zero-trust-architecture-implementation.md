@@ -285,24 +285,24 @@ New procedures for third-party access that maintained Zero Trust controls.
 
 **Reduced Attack Surface:**
 - [85% reduction in lateral movement capability](https://www.ibm.com/security/data-breach) for attackers (IBM Security Report)
-- [70% decrease in privileged access exposure](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf (NIST SP 800-207)
-- [95% of network traffic now encrypted](https://www.cisa.gov/zero-trust-maturity-model (CISA Zero Trust Model)
+- [70% decrease in privileged access exposure](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST SP 800-207)
+- [95% of network traffic now encrypted](https://www.cisa.gov/zero-trust-maturity-model) (CISA Zero Trust Model)
 
 **Detection and Response:**
-- [75% faster incident detection time](https://www.verizon.com/business/resources/reports/dbir/ (Verizon DBIR)
+- [75% faster incident detection time](https://www.verizon.com/business/resources/reports/dbir/) (Verizon DBIR)
 - [60% reduction in incident impact scope](https://www.ibm.com/security/data-breach) (IBM Cost of Data Breach)
-- [90% improvement in forensic capability](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf (NIST ZTA Guidelines)
+- [90% improvement in forensic capability](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST ZTA Guidelines)
 
 ### Business Metrics
 
 **User Productivity:**
-- Initial [15% decrease in productivity during transition](https://www.microsoft.com/en-us/security/business/zero-trust (Microsoft Zero Trust Implementation)
-- [10% increase in productivity after full implementation](https://cloud.google.com/beyondcorp (Google BeyondCorp Study)
-- [50% reduction in password reset requests](https://www.cisa.gov/zero-trust-maturity-model (CISA ZT Metrics)
+- Initial [15% decrease in productivity during transition](https://www.microsoft.com/en-us/security/business/zero-trust) (Microsoft Zero Trust Implementation)
+- [10% increase in productivity after full implementation](https://cloud.google.com/beyondcorp) (Google BeyondCorp Study)
+- [50% reduction in password reset requests](https://www.cisa.gov/zero-trust-maturity-model) (CISA ZT Metrics)
 
 **Operational Efficiency:**
-- [40% reduction in security operations center workload](https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture (Palo Alto Networks)
-- [60% decrease in access management overhead](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf (NIST SP 800-207)
+- [40% reduction in security operations center workload](https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture) (Palo Alto Networks)
+- [60% decrease in access management overhead](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) (NIST SP 800-207)
 - [80% improvement in compliance reporting accuracy](https://www.ibm.com/security/data-breach) (IBM Security Report)
 
 ## Lessons Learned: What We Got Right and Wrong
@@ -406,7 +406,7 @@ Implement changes gradually to maintain stability and user confidence.
 
 ### Zero Trust Research Papers
 
-1. **[Enhancing Enterprise Security with Zero Trust Architecture](https://arxiv.org/abs/2410.18291 (2024)
+1. **[Enhancing Enterprise Security with Zero Trust Architecture](https://arxiv.org/abs/2410.18291)** (2024)
    - Mahmud Hasan provides comprehensive analysis of ZTA implementation
    - *arXiv preprint*
 
@@ -420,25 +420,23 @@ Implement changes gradually to maintain stability and user confidence.
 
 ### NIST and Government Standards
 
-[NIST SP 800-207: Zero Trust Architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf**)
-
+- **[NIST SP 800-207: Zero Trust Architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf)**
   - Official NIST ZTA framework and guidelines
-[CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model**)
-
+- **[CISA Zero Trust Maturity Model](https://www.cisa.gov/zero-trust-maturity-model)**
   - Federal implementation guidance
 - **[DoD Zero Trust Reference Architecture](https://dodcio.defense.gov/Portals/0/Documents/Library/DoD-ZTStrategy.pdf)**
   - Military-grade ZTA specifications
 
 ### Industry Implementation Guides
 
-- [Google BeyondCorp](https://cloud.google.com/beyondcorp - Google's zero trust implementation
-- [Microsoft Zero Trust](https://www.microsoft.com/en-us/security/business/zero-trust - Azure ZTA model
-- [Palo Alto Networks Zero Trust](https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture - Network security perspective
+- [Google BeyondCorp](https://cloud.google.com/beyondcorp) - Google's zero trust implementation
+- [Microsoft Zero Trust](https://www.microsoft.com/en-us/security/business/zero-trust) - Azure ZTA model
+- [Palo Alto Networks Zero Trust](https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture) - Network security perspective
 
 ### Key Statistics Sources
 
 - **Breach cost reduction (50%)**: [IBM Cost of a Data Breach Report 2024](https://www.ibm.com/security/data-breach)
-[Verizon Data Breach Investigations Report](https://www.verizon.com/business/resources/reports/dbir/)
+- **[Verizon Data Breach Investigations Report](https://www.verizon.com/business/resources/reports/dbir/)**
 
 - **Network segmentation effectiveness**: NIST SP 800-207 guidelines
 
@@ -456,7 +454,7 @@ Zero Trust isn't paranoia—it's pragmatism applied to an uncertain world where 
 
 ### Further Reading:
 
-- [NIST Zero Trust Architecture (SP 800-207)](https://csrc.nist.gov/publications/detail/sp/800-207/final - National Institute of Standards and Technology
-- [Zero Trust Maturity Model](https://www.cisa.gov/sites/default/files/publications/CISA%20Zero%20Trust%20Maturity%20Model_Draft.pdf - CISA
-- [BeyondCorp: A New Approach to Enterprise Security](https://cloud.google.com/beyondcorp - Google
-- [Zero Trust Network Security](https://www.oreilly.com/library/view/zero-trust-networks/9781491962183/ - O'Reilly Media
+- [NIST Zero Trust Architecture (SP 800-207)](https://csrc.nist.gov/publications/detail/sp/800-207/final) - National Institute of Standards and Technology
+- [Zero Trust Maturity Model](https://www.cisa.gov/sites/default/files/publications/CISA%20Zero%20Trust%20Maturity%20Model_Draft.pdf) - CISA
+- [BeyondCorp: A New Approach to Enterprise Security](https://cloud.google.com/beyondcorp) - Google
+- [Zero Trust Network Security](https://www.oreilly.com/library/view/zero-trust-networks/9781491962183/) - O'Reilly Media

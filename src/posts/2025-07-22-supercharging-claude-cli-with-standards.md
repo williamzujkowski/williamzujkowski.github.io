@@ -73,7 +73,7 @@ graph LR
 
 ## Enter the Standards Repository
 
-I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards – a comprehensive collection of development standards designed specifically for LLM consumption. It's not just documentation; it's an AI instruction manual for your projects.
+I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards) – a comprehensive collection of development standards designed specifically for LLM consumption. It's not just documentation; it's an AI instruction manual for your projects.
 
 ### The Magic: CLAUDE.md
 
@@ -92,9 +92,9 @@ The centerpiece is a file called `CLAUDE.md` that acts as an intelligent router.
 
 Here's how I used it yesterday to bootstrap a new Python service:
 
-```bash
-# Step 1: Clone standards to my project
-git submodule add https://github.com/williamzujkowski/standards.git .standards
+```bash)
+# Step 1: Clone standards to my project)
+git submodule add [https://github.com/williamzujkowski/standards.git](https://github.com/williamzujkowski/standards.git) .standards
 
 # Step 2: Copy CLAUDE.md to project root
 cp .standards/docs/core/CLAUDE.md .
@@ -226,7 +226,7 @@ Want to try this yourself? Here's my recommended approach:
 
 ```bash
 # 1. Add to existing project
-curl -O https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md
+curl -O [https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md](https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md)
 
 # 2. Tell Claude about it
 "Use CLAUDE.md for standards. I'm building [your project type]"
@@ -238,7 +238,7 @@ curl -O https://raw.githubusercontent.com/williamzujkowski/standards/master/docs
 
 ```bash
 # 1. Clone the standards
-git clone https://github.com/williamzujkowski/standards.git
+git clone [https://github.com/williamzujkowski/standards.git](https://github.com/williamzujkowski/standards.git)
 
 # 2. Run setup script
 ./standards/scripts/setup-project.sh my-project

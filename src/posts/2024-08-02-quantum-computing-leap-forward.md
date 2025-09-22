@@ -324,6 +324,6 @@ Standing in that IBM quantum lab, I realized I wasn't just witnessing advanced t
 ### Further Reading:
 
 - [IBM Quantum Network](https://quantum-network.org/) - Access to quantum computers and education
-- [Microsoft Quantum Development Kit](https://azure.microsoft.com/en-us/products/quantum - Quantum programming tools
-- [NIST Post-Quantum Cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography - Standards for quantum-resistant security
-- [Quantum Computing: An Applied Approach](https://www.springer.com/gp/book/9783030239213 - Comprehensive quantum computing textbook
+- [Microsoft Quantum Development Kit](https://azure.microsoft.com/en-us/products/quantum) - Quantum programming tools
+- [NIST Post-Quantum Cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography) - Standards for quantum-resistant security
+- [Quantum Computing: An Applied Approach](https://www.springer.com/gp/book/9783030239213) - Comprehensive quantum computing textbook

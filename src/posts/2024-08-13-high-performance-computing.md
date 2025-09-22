@@ -196,4 +196,4 @@ The HPC revolution isn't just changing how we compute; it's changing what we can
 
 ---
 
-*For those interested in exploring HPC further, the [Top500 List](https://www.top500.org/ provides regular updates on the world's most powerful systems, while the [Exascale Computing Project](https://www.exascaleproject.org/) offers insights into the cutting-edge research driving these innovations.*
+*For those interested in exploring HPC further, the [Top500 List](https://www.top500.org/) provides regular updates on the world's most powerful systems, while the [Exascale Computing Project](https://www.exascaleproject.org/) offers insights into the cutting-edge research driving these innovations.*

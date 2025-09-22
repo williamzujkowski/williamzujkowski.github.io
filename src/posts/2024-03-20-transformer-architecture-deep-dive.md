@@ -188,7 +188,7 @@ The paper that first captured my imagination years ago continues to inspire new 
 
 ### Further Reading:
 
-- [Attention Is All You Need](https://arxiv.org/abs/1706.03762 - Original Transformer Paper
-- [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/ - Jay Alammar's Visual Guide
-- [BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805 - BERT Paper
-- [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165 - GPT-3 Paper
+- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) - Original Transformer Paper
+- [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/) - Jay Alammar's Visual Guide
+- [BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805) - BERT Paper
+- [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) - GPT-3 Paper

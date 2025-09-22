@@ -207,4 +207,4 @@ The robots of tomorrow won't just mimic nature's solutions—they may improve up
 
 ---
 
-*For those interested in exploring this field further, the [Wyss Institute for Biologically Inspired Engineering](https://wyss.harvard.edu/) at Harvard and the [Soft Robotics Toolkit](https://softroboticstoolkit.com/ provide excellent resources for both research and hands-on exploration.*
+*For those interested in exploring this field further, the [Wyss Institute for Biologically Inspired Engineering](https://wyss.harvard.edu/) at Harvard and the [Soft Robotics Toolkit](https://softroboticstoolkit.com/) provide excellent resources for both research and hands-on exploration.*

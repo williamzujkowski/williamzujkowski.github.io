@@ -95,7 +95,7 @@ def quantum_pattern_detection(data, patterns):
     quantum_state = encode_quantum_state(data, patterns)
     
     # Apply Grover's algorithm to find matches
-    # Achieves O(sqrt(n*m)) complexity vs classical O(n*m)
+    # Achieves O(sqrt(n*m) complexity vs classical O(n*m)
     matches = apply_grovers_algorithm(quantum_state, matching_oracle)
     
     return decode_results(matches)
@@ -238,23 +238,23 @@ The quantum era of defense has already begun. Understanding both its promises an
 
 ---
 
-*For those interested in exploring quantum defense applications further, [Quantum.gov](https://www.quantum.gov/) provides updates on national quantum initiatives, while [NIST's Post-Quantum Cryptography project](https://csrc.nist.gov/Projects/post-quantum-cryptography offers the latest on quantum-resistant security standards.*
+*For those interested in exploring quantum defense applications further, [Quantum.gov](https://www.quantum.gov/) provides updates on national quantum initiatives, while [NIST's Post-Quantum Cryptography project](https://csrc.nist.gov/Projects/post-quantum-cryptography) offers the latest on quantum-resistant security standards.*
 
 ## Academic Research & Standards
 
-### NIST Post-Quantum Cryptography
-
+### NIST Post-Quantum Cryptography)
+)
 1. **[NIST Post-Quantum Cryptography Standardization](https://csrc.nist.gov/projects/post-quantum-cryptography)**
    - Official NIST PQC project and selected algorithms
    - CRYSTALS-Kyber, CRYSTALS-Dilithium, FALCON, SPHINCS+
 
-2. **[Status Report on the Third Round of the NIST PQC Standardization Process](https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413.pdf (2022)
+2. **[Status Report on the Third Round of the NIST PQC Standardization Process](https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413.pdf) (2022)
    - Detailed analysis of selected algorithms
    - *NIST Internal Report 8413*
 
 ### Quantum Computing Research
 
-1. **[Quantum Supremacy Using a Programmable Superconducting Processor](https://www.nature.com/articles/s41586-019-1666-5 (2019)
+1. **[Quantum Supremacy Using a Programmable Superconducting Processor](https://www.nature.com/articles/s41586-019-1666-5) (2019)
    - Google's quantum supremacy achievement
    - *Nature 574, 505–510*
 
@@ -272,10 +272,10 @@ The quantum era of defense has already begun. Understanding both its promises an
 
 ### Key Research Papers
 
-1. **[Shor's Algorithm](https://arxiv.org/abs/quant-ph/9508027 (1995)
+1. **[Shor's Algorithm](https://arxiv.org/abs/quant-ph/9508027) (1995)
    - Peter Shor's polynomial-time factoring algorithm
    - *Foundations of Computer Science*
 
-2. **[Post-Quantum Cryptography: Current state and quantum mitigation](https://arxiv.org/abs/2105.12707 (2021)
+2. **[Post-Quantum Cryptography: Current state and quantum mitigation](https://arxiv.org/abs/2105.12707) (2021)
    - Comprehensive survey of PQC approaches
    - *arXiv preprint*

@@ -184,7 +184,7 @@ For organizations considering cloud migration, my advice is simple: start with s
 
 ### Further Reading:
 
-- [What is cloud migration?](https://cloud.google.com/learn/what-is-cloud-migration - Google Cloud
+- [What is cloud migration?](https://cloud.google.com/learn/what-is-cloud-migration) - Google Cloud
 - [Best Practices for Planning, Executing, and Monitoring AWS Cloud Migrations](https://d1.awsstatic.com/Migration/migrating-to-aws-ebook.pdf) - AWS
-- [Top Cloud Migration Best Practices](https://azure.microsoft.com/en-us/resources/cloud-migration-best-practices/ - Microsoft Azure
+- [Top Cloud Migration Best Practices](https://azure.microsoft.com/en-us/resources/cloud-migration-best-practices/) - Microsoft Azure
 - [Cloud Migration](https://www.gartner.com/en/information-technology/glossary/cloud-migration) - Gartner

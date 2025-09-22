@@ -280,7 +280,7 @@ Open source SIEM/XDR platform
 
     # ... (additional implementation details)
 
-#tools #siem #detection
+# tools #siem #detection
 ```
 
 ### Spaced Repetition: Anki
@@ -401,34 +401,34 @@ For more in-depth information on the topics covered in this post:
 
 ### Cybersecurity Education Research
 
-1. **[The Skills Gap in Cybersecurity Education](https://www.nist.gov/itl/applied-cybersecurity/nice (2024)
+1. **[The Skills Gap in Cybersecurity Education](https://www.nist.gov/itl/applied-cybersecurity/nice)** (2024)
    - NIST NICE Framework for cybersecurity education
    - *NIST Special Publication*
 
-2. **[Cybersecurity Skills Development](https://www.enisa.europa.eu/topics/education (2024)
+2. **[Cybersecurity Skills Development](https://www.enisa.europa.eu/topics/education)** (2024)
    - ENISA European cybersecurity skills framework
    - *European Union Agency for Cybersecurity*
 
 ### Professional Certifications
 
-- **[ISC² Certifications](https://www.isc2.org/ - CISSP, CCSP, SSCP
-- **[CompTIA Security+](https://www.comptia.org/certifications/security - Entry-level security
+- **[ISC² Certifications](https://www.isc2.org/)** - CISSP, CCSP, SSCP
+- **[CompTIA Security+](https://www.comptia.org/certifications/security)** - Entry-level security
 - **[EC-Council](https://www.eccouncil.org/)** - CEH, CHFI, security certifications
-- **[SANS/GIAC](https://www.giac.org/ - Specialized security certifications
+- **[SANS/GIAC](https://www.giac.org/)** - Specialized security certifications
 
 ### Learning Platforms
 
-- **[Cybrary](https://www.cybrary.it/ - Cybersecurity career development
+- **[Cybrary](https://www.cybrary.it/)** - Cybersecurity career development
 - **[TryHackMe](https://tryhackme.com/)** - Hands-on security training
-- **[HackTheBox](https://www.hackthebox.com/ - Penetration testing practice
-- **[PentesterLab](https://pentesterlab.com/ - Web application security
+- **[HackTheBox](https://www.hackthebox.com/)** - Penetration testing practice
+- **[PentesterLab](https://pentesterlab.com/)** - Web application security
 
 ### Industry Reports
 
-1. **[CyberSeek Cybersecurity Supply/Demand Heat Map](https://www.cyberseek.org/ (2024)
+1. **[CyberSeek Cybersecurity Supply/Demand Heat Map](https://www.cyberseek.org/)** (2024)
    - Real-time cybersecurity job market data
    - *NICE/CompTIA*
 
-2. **[Global Information Security Workforce Study](https://www.isc2.org/Research (2024)
+2. **[Global Information Security Workforce Study](https://www.isc2.org/Research)** (2024)
    - ISC² workforce analysis and skills gaps
    - *ISC² Research*

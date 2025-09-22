@@ -295,16 +295,16 @@ The future belongs to systems that can think and act at the speed of human inter
 ## Research & Industry Resources
 
 ### Academic Papers
-- [Edge AI: A Survey](https://arxiv.org/abs/2003.12488 - Comprehensive survey of AI at the edge
-- [TinyML: Machine Learning with TensorFlow Lite](https://arxiv.org/abs/2010.11267 - Ultra-low-power ML systems
-- [Federated Learning at the Network Edge](https://arxiv.org/abs/1902.01046 - Distributed learning approaches
+- [Edge AI: A Survey](https://arxiv.org/abs/2003.12488) - Comprehensive survey of AI at the edge
+- [TinyML: Machine Learning with TensorFlow Lite](https://arxiv.org/abs/2010.11267) - Ultra-low-power ML systems
+- [Federated Learning at the Network Edge](https://arxiv.org/abs/1902.01046) - Distributed learning approaches
 
 ### Industry Standards & Frameworks
-- [NVIDIA Edge Computing Resources](https://www.nvidia.com/en-us/edge-computing/ - GPU-accelerated edge AI
-- [Google Edge TPU Documentation](https://coral.ai/docs/edgetpu/intro/ - Purpose-built edge AI hardware
-- [AWS IoT Greengrass](https://aws.amazon.com/greengrass/ - Edge computing for IoT devices
-- [Azure IoT Edge](https://azure.microsoft.com/en-us/services/iot-edge/ - Microsoft's edge platform
+- [NVIDIA Edge Computing Resources](https://www.nvidia.com/en-us/edge-computing/) - GPU-accelerated edge AI
+- [Google Edge TPU Documentation](https://coral.ai/docs/edgetpu/intro/) - Purpose-built edge AI hardware
+- [AWS IoT Greengrass](https://aws.amazon.com/greengrass/) - Edge computing for IoT devices
+- [Azure IoT Edge](https://azure.microsoft.com/en-us/services/iot-edge/) - Microsoft's edge platform
 
 ---
 
-*For those looking to explore edge AI implementation, [TensorFlow Lite](https://www.tensorflow.org/lite provides an excellent starting point for deploying ML on mobile and edge devices, while [NVIDIA's Edge Computing resources](https://www.nvidia.com/en-us/edge-computing/ offer insights into GPU-accelerated edge applications.*
+*For those looking to explore edge AI implementation, [TensorFlow Lite](https://www.tensorflow.org/lite) provides an excellent starting point for deploying ML on mobile and edge devices, while [NVIDIA's Edge Computing resources](https://www.nvidia.com/en-us/edge-computing/) offer insights into GPU-accelerated edge applications.*

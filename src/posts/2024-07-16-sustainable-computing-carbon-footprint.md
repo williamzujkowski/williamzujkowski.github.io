@@ -285,24 +285,24 @@ Direct contracts for renewable energy generation:
 ### Environmental Metrics
 
 **Carbon Emissions Reduction:**
-- [45% reduction in Scope 2 emissions](https://www.epa.gov/climateleadership/scope-2-inventory-guidance over two years (EPA Scope 2 Guidance)
-- [30% decrease in energy consumption](https://www.iea.org/reports/data-centres-and-data-transmission-networks per unit of compute (IEA Report)
+- [45% reduction in Scope 2 emissions](https://www.epa.gov/climateleadership/scope-2-inventory-guidance) over two years (EPA Scope 2 Guidance)
+- [30% decrease in energy consumption](https://www.iea.org/reports/data-centres-and-data-transmission-networks) per unit of compute (IEA Report)
 - [60% of computing workloads running on renewable energy](https://www.google.com/about/datacenters/renewable/) (Google Data Center Study)
-- [25% reduction in total environmental footprint](https://www.nature.com/articles/s41558-020-0837-6 (Nature Climate Change)
+- [25% reduction in total environmental footprint](https://www.nature.com/articles/s41558-020-0837-6) (Nature Climate Change)
 
 **Resource Efficiency Improvements:**
-- CPU utilization increased from [40% to 75%](https://aws.amazon.com/blogs/compute/understanding-cpu-utilization/ (AWS Best Practices)
-- [Memory efficiency improved by 50%](https://cloud.google.com/compute/docs/memory-optimized-machines (Google Cloud Optimization)
-- [Storage costs reduced by 35%](https://azure.microsoft.com/en-us/blog/optimize-storage-costs/ through optimization (Azure Cost Management)
+- CPU utilization increased from [40% to 75%](https://aws.amazon.com/blogs/compute/understanding-cpu-utilization/) (AWS Best Practices)
+- [Memory efficiency improved by 50%](https://cloud.google.com/compute/docs/memory-optimized-machines) (Google Cloud Optimization)
+- [Storage costs reduced by 35%](https://azure.microsoft.com/en-us/blog/optimize-storage-costs/) through optimization (Azure Cost Management)
 - [Network data transfer decreased by 40%](https://www.cloudflare.com/learning/performance/more/bandwidth-optimization/) (Cloudflare Performance)
 
 ### Business Benefits
 
 **Cost Savings:**
 - $2.1M annual reduction in cloud computing costs
-- [40% decrease in electricity expenses](https://www.energy.gov/eere/buildings/data-center-energy-efficiency (US Department of Energy)
+- [40% decrease in electricity expenses](https://www.energy.gov/eere/buildings/data-center-energy-efficiency) (US Department of Energy)
 - [25% reduction in hardware procurement needs](https://www.gartner.com/en/newsroom/press-releases/2023-hardware-sustainability) (Gartner Research)
-- [15% improvement in operational efficiency](https://uptimeinstitute.com/resources/research-and-reports (Uptime Institute)
+- [15% improvement in operational efficiency](https://uptimeinstitute.com/resources/research-and-reports) (Uptime Institute)
 
 **Risk Mitigation:**
 - Reduced exposure to energy price volatility
@@ -394,19 +394,19 @@ The most surprising discovery was that sustainable computing practices often ali
 
 ### Carbon Footprint Studies
 
-1. **[Carbon and Reliability-Aware Computing for Heterogeneous Data Centers](https://arxiv.org/abs/2504.00518 (2025)
+1. **[Carbon and Reliability-Aware Computing for Heterogeneous Data Centers](https://arxiv.org/abs/2504.00518)** (2025)
    - Zhang, Song, and Sahoo analyze carbon-aware computing strategies for data centers
    - *arXiv preprint*
 
-2. **[Game-Theoretic Deep RL to Minimize Carbon Emissions for AI Inference](https://arxiv.org/abs/2404.01459 (2024)
+2. **[Game-Theoretic Deep RL to Minimize Carbon Emissions for AI Inference](https://arxiv.org/abs/2404.01459) (2024)
    - Hogade and Pasricha present game-theoretic approaches to reduce AI workload emissions
    - *arXiv preprint*
 
-3. **[A Carbon Tracking Model for Federated Learning](https://arxiv.org/abs/2310.08087 (2023)
+3. **[A Carbon Tracking Model for Federated Learning](https://arxiv.org/abs/2310.08087) (2023)
    - Barbieri et al. quantify carbon impact of distributed machine learning
    - *arXiv preprint*
 
-4. **[Carbon Footprint Evaluation of LLM Code Generation](https://arxiv.org/abs/2504.01036 (2025)
+4. **[Carbon Footprint Evaluation of LLM Code Generation](https://arxiv.org/abs/2504.01036) (2025)
    - Vartziotis et al. analyze environmental impact of AI-assisted programming
    - *arXiv preprint*
 
@@ -431,7 +431,7 @@ The following statistics are based on verified industry data:
 
 ## Conclusion: Computing's Climate Responsibility
 
-The electricity bill that started this journey was more than a financial wake-up call—it was a moral one. The technology industry that has transformed human civilization now has the responsibility to lead the fight against climate change.
+The electricity bill that started this journey was more than a financial wake-up call—it was a moral one. [The technology industry that has transformed human civilization now has the responsibility to lead the fight against climate change](https://www.nature.com/articles/s41558-020-0837-6).
 
 Sustainable computing isn't about doing less with technology—it's about doing more with less environmental impact. The optimizations, efficiencies, and innovations driven by sustainability concerns often lead to better, faster, more reliable systems.
 

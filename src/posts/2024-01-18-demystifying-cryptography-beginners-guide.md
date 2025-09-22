@@ -132,5 +132,5 @@ Whether you're building financial systems, healthcare applications, or simple we
 - [Cryptography](https://www.khanacademy.org/computing/computer-science/cryptography) - Khan Academy
 [Crypto 101](https://www.crypto101.io/)
 
-- [Cryptography I](https://www.coursera.org/learn/crypto - Coursera
-- [Applied Cryptography](https://www.udacity.com/course/applied-cryptography--cs387 - Udacity
+- [Cryptography I](https://www.coursera.org/learn/crypto) - Coursera
+- [Applied Cryptography](https://www.udacity.com/course/applied-cryptography--cs387) - Udacity

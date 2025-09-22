@@ -117,14 +117,14 @@ Most modern browsers support DoH natively:
 ```javascript
 // about:config settings
 network.trr.mode = 2  // Enable DoH with fallback
-network.trr.uri = "https://cloudflare-dns.com/dns-query"
+network.trr.uri = "[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)"
 network.trr.bootstrapAddress = "1.1.1.1"
 ```
 
 **Chrome/Edge:**
 ```
 Settings → Privacy and Security → Security → Use secure DNS
-Select provider or enter custom: https://dns.google/dns-query
+Select provider or enter custom: [https://dns.google/dns-query](https://dns.google/dns-query)
 ```
 
 ### System-Wide DoH on Linux
@@ -133,7 +133,7 @@ For system-wide protection, I use `cloudflared`:
 
 ```bash
 # Install cloudflared
-wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+wget [https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb](https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb)
 sudo dpkg -i cloudflared-linux-amd64.deb
 
 # Configure as DNS proxy
@@ -148,8 +148,8 @@ Windows 11 has native DoH support:
 
 ```powershell
 # Enable DoH for network adapter
-netsh dns add encryption server=1.1.1.1 dohtemplate=https://cloudflare-dns.com/dns-query
-netsh dns add encryption server=8.8.8.8 dohtemplate=https://dns.google/dns-query
+netsh dns add encryption server=1.1.1.1 dohtemplate=[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)
+netsh dns add encryption server=8.8.8.8 dohtemplate=[https://dns.google/dns-query](https://dns.google/dns-query)
 
 # Configure network adapter to use DoH
 # GUI: Settings → Network → Ethernet/WiFi → DNS server assignment → Manual
@@ -200,10 +200,10 @@ Transform Pi-hole into a DoH server:
 
 ```bash
 # Install Pi-hole (if not already installed)
-curl -sSL https://install.pi-hole.net | bash
+curl -sSL [https://install.pi-hole.net](https://install.pi-hole.net) | bash
 
 # Install cloudflared for DoH upstream
-wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
+wget [https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64](https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64)
     # ... (additional implementation details)
 # Custom 1: 127.0.0.1#5053
 # Uncheck all other DNS servers
@@ -232,13 +232,13 @@ sudo systemctl enable dnsdist && sudo systemctl start dnsdist
 # Test using curl
 curl -H 'content-type: application/dns-message' \
      --data-binary @<(echo -n 'q80BAAABAAAAAAAAA3d3dwdleGFtcGxlA2NvbQAAAQAB' | base64 -d) \
-     https://cloudflare-dns.com/dns-query | hexdump -C
+     [https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query) | hexdump -C
 
 # Test using dog (better than dig for DoH)
-dog example.com @https://cloudflare-dns.com/dns-query
+dog example.com @[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)
 
 # Check for DNS leaks
-# Visit: https://dnsleaktest.com
+# Visit: [https://dnsleaktest.com](https://dnsleaktest.com)
 # Should only show your configured DoH provider
 ```
 
@@ -344,9 +344,9 @@ max-upstream-conns: 5
 
 # Multiple upstream servers for redundancy
 proxy-dns-upstream:
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
-  - https://dns.quad9.net/dns-query
+  - [https://1.1.1.1/dns-query](https://1.1.1.1/dns-query)
+  - [https://1.0.0.1/dns-query](https://1.0.0.1/dns-query)
+  - [https://dns.quad9.net/dns-query](https://dns.quad9.net/dns-query)
 ```
 
 ### 3. Corporate Network Compatibility
@@ -383,11 +383,11 @@ def select_doh_provider(client_ip):
     """Select optimal DoH provider based on location"""
     # Simplified geo-detection
     if client_ip.startswith('192.168.'):
-        return "https://local-doh.home.arpa/dns-query"
+        return "[https://local-doh.home.arpa/dns-query](https://local-doh.home.arpa/dns-query)"
     elif is_asian_ip(client_ip):
-        return "https://dns.google/dns-query"  # Better in Asia
+        return "[https://dns.google/dns-query](https://dns.google/dns-query)"  # Better in Asia
     else:
-        return "https://cloudflare-dns.com/dns-query"  # Global default
+        return "[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)"  # Global default
 ```
 
 ## The Bottom Line: Is DoH Worth It?

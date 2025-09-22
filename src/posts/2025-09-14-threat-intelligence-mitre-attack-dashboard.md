@@ -100,7 +100,7 @@ from stix2 import MemoryStore, Filter
 
 class ATTACKDataLoader:
     def __init__(self):
-        self.attack_url = "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json"
+        self.attack_url = "[https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json](https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json)"
         self.memory_store = None
 
     def load_attack_data(self):
@@ -141,7 +141,7 @@ class ATTACKDataLoader:
 
 ## Integrating Threat Intelligence Feeds
 
-[Research by Spring et al. (2023)](https://doi.org/10.1145/3575898.3575903 demonstrates that combining multiple threat feeds increases detection coverage by 340%. Let's integrate several open-source feeds:
+[Research by Spring et al. (2023)](https://doi.org/10.1145/3575898.3575903) demonstrates that combining multiple threat feeds increases detection coverage by 340%. Let's integrate several open-source feeds:
 
 ### AlienVault OTX Integration
 
@@ -156,7 +156,7 @@ class AlienVaultCollector:
     def get_recent_pulses(self, days_back=7):
         """Fetch recent threat pulses"""
         pulses = self.otx.getall_iter(
-            modified_since=(datetime.now() - timedelta(days=days_back))
+            modified_since=(datetime.now() - timedelta(days=days_back)
         )
 
         attack_mappings = []
@@ -182,7 +182,7 @@ class AlienVaultCollector:
 ```python
 class CISAAlertMapper:
     def __init__(self):
-        self.cisa_url = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+        self.cisa_url = "[https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json](https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json)"
         self.attack_mappings = self.load_mappings()
 
     async def get_cisa_alerts(self):
@@ -224,7 +224,7 @@ class CISAAlertMapper:
 
 ## Creating the Visualization Layer
 
-[Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843 that visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
+[Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843) that visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
 
 ```python
 import plotly.graph_objects as go
@@ -244,7 +244,7 @@ class ThreatVisualizer:
             for technique in tech_list:
                 tactics.append(tactic)
                 techniques.append(technique['name'])
-                frequencies.append(technique.get('frequency', 0))
+                frequencies.append(technique.get('frequency', 0)
 
         fig = go.Figure(data=go.Heatmap(
             x=tactics,
@@ -252,7 +252,7 @@ class ThreatVisualizer:
             z=frequencies,
             colorscale='Reds',
             showscale=True
-        ))
+        )
 
         fig.update_layout(
             title='MITRE ATT&CK Technique Frequency',
@@ -278,7 +278,7 @@ class ThreatVisualizer:
                     size=alert['severity'] * 5,
                     color=self.get_color_by_severity(alert['severity'])
                 )
-            ))
+            )
 
         fig.update_layout(
             title='Threat Activity Timeline',
@@ -338,7 +338,7 @@ class ThreatActorProfiler:
 
 ## Building Automated Alerting
 
-Real-time alerting based on relevant threats is crucial. [Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439 shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
+Real-time alerting based on relevant threats is crucial. [Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439) shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
 
 ```python
 import smtplib
@@ -360,12 +360,12 @@ class ThreatAlerting:
         for threat in new_threats:
             # Check against priority techniques
             if any(tech in self.priority_techniques
-                   for tech in threat.get('techniques', [])):
-                alerts.append(self.create_alert(threat))
+                   for tech in threat.get('techniques', []):
+                alerts.append(self.create_alert(threat)
 
             # Check for ransomware indicators
             if threat.get('ransomware_use'):
-                alerts.append(self.create_critical_alert(threat))
+                alerts.append(self.create_critical_alert(threat)
 
         return alerts
 
@@ -386,7 +386,7 @@ class ThreatAlerting:
         msg['To'] = ', '.join(self.recipients)
 
         html_body = self.format_alert_html(alert)
-        msg.attach(MIMEText(html_body, 'html'))
+        msg.attach(MIMEText(html_body, 'html')
 
         with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
             server.starttls()
@@ -479,7 +479,7 @@ Remember: threat intelligence is only valuable if it drives action.
 
 ## References
 
-1. **[MITRE ATT&CK Framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555** (2024)
+1. **[MITRE ATT&CK Framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555)** (2024)
    - MITRE Corporation
    - *Adversarial Tactics, Techniques, and Common Knowledge*
 
@@ -487,22 +487,22 @@ Remember: threat intelligence is only valuable if it drives action.
    - Cyber Threat Alliance
    - *Industry Threat Sharing Guidelines*
 
-3. **[A Comprehensive Study of the MITRE ATT&CK Framework](https://doi.org/10.1016/j.cose.2023.103097 (2023)
+3. **[A Comprehensive Study of the MITRE ATT&CK Framework](https://doi.org/10.1016/j.cose.2023.103097)** (2023)
    - Georgiadou, Anna, et al.
    - *Computers & Security*
 
-4. **[Prioritizing Cyber Threat Intelligence](https://doi.org/10.1145/3575898.3575903 (2023)
+4. **[Prioritizing Cyber Threat Intelligence](https://doi.org/10.1145/3575898.3575903)** (2023)
    - Spring, Jonathan M., et al.
    - *ACM Computing Surveys*
 
-5. **[Visual Analytics for Cyber Threat Intelligence](https://doi.org/10.1109/VIZSEC.2023.10345843 (2023)
+5. **[Visual Analytics for Cyber Threat Intelligence](https://doi.org/10.1109/VIZSEC.2023.10345843)** (2023)
    - Various authors
    - *IEEE Symposium on Visualization for Cyber Security*
 
-6. **[Threat Actor Attribution Using TTP Analysis](https://doi.org/10.1145/3607199.3607240) (2023)
+6. **[Threat Actor Attribution Using TTP Analysis](https://doi.org/10.1145/3607199.3607240)** (2023)
    - Schlette, Daniel, et al.
    - *ACM Transactions on Privacy and Security*
 
-7. **[Automated Threat Detection Systems](https://doi.org/10.1109/TSC.2024.3358439 (2024)
+7. **[Automated Threat Detection Systems](https://doi.org/10.1109/TSC.2024.3358439)** (2024)
    - Rahman, M.A., et al.
    - *IEEE Transactions on Services Computing*

@@ -258,7 +258,7 @@ The quantum future is coming whether we're ready or not. The question isn't whet
 
 ### Further Reading:
 
-- [Getting Ready for Post-Quantum Cryptography](https://csrc.nist.gov/pubs/ir/8413/final - NIST
-- [Quantum-Safe Cryptography](https://www.etsi.org/technologies/quantum-safe-cryptography - ETSI
-- [Post-Quantum Cryptography](https://www.enisa.europa.eu/topics/cryptography/post-quantum-cryptography - ENISA
+- [Getting Ready for Post-Quantum Cryptography](https://csrc.nist.gov/pubs/ir/8413/final) - NIST
+- [Quantum-Safe Cryptography](https://www.etsi.org/technologies/quantum-safe-cryptography) - ETSI
+- [Post-Quantum Cryptography](https://www.enisa.europa.eu/topics/cryptography/post-quantum-cryptography) - ENISA
 - [IBM Quantum Network](https://qiskit.org/textbook/ch-algorithms/shor.html) - Shor's Algorithm Implementation

@@ -374,7 +374,7 @@ The future of application deployment will be more diverse, more specialized, and
 
 ### Further Reading:
 
-- [WebAssembly System Interface (WASI)](https://wasi.dev/ - Standardizing WASM for system programming
-- [Unikernel Systems](http://unikernel.org/ - Research and development in specialized OS
+- [WebAssembly System Interface (WASI)](https://wasi.dev/) - Standardizing WASM for system programming)
+- [Unikernel Systems](http://unikernel.org/) - Research and development in specialized OS)
 - [CNCF Landscape](https://landscape.cncf.io/) - Overview of cloud native technologies
 - [Serverless Architecture Patterns](https://serverlessland.com/patterns) - AWS serverless application patterns

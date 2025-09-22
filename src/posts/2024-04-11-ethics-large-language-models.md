@@ -232,10 +232,10 @@ The stakes couldn't be higher, but I remain optimistic that thoughtful, ethical 
 
 ### Further Reading:
 
-- ["Ethical and social risks of harm from Language Models"](https://arxiv.org/abs/2112.04359 - Nature
-- ["On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"](https://proceedings.mlr.press/v80/bender18a/bender18a.pdf - Bender et al.
+- ["Ethical and social risks of harm from Language Models"](https://arxiv.org/abs/2112.04359) - Nature
+- ["On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"](https://proceedings.mlr.press/v80/bender18a/bender18a.pdf) - Bender et al.
 - ["Racial Discrimination in Face Recognition Technology"](https://sitn.hms.harvard.edu/flash/2020/racial-discrimination-in-face-recognition-technology/) - Science in the News, Harvard University
-- ["Four Principles of Explainable Artificial Intelligence"](https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence - NIST
+- ["Four Principles of Explainable Artificial Intelligence"](https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence) - NIST
 
 ### Get Involved:
 

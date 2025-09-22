@@ -101,13 +101,13 @@ Before diving into projects, let's address the elephant in the room: Why use a $
 
 ```bash
 # Install Pi-hole
-curl -sSL https://install.pi-hole.net | bash
+curl -sSL [https://install.pi-hole.net](https://install.pi-hole.net) | bash
 
 # Add custom blocklists for security
 cd /etc/pihole
-sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt
-sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt
-sudo wget https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt
+sudo wget [https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt](https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/malware.txt)
+sudo wget [https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt](https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/ransomware.txt)
+sudo wget [https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt](https://raw.githubusercontent.com/RPiList/specials/master/Blocklists/phishing.txt)
 
 # Update gravity database
 pihole -g
@@ -267,7 +267,7 @@ The key is identifying a real problem and building a focused solution.
 - **Hardware**: [CanaKit](https://www.canakit.com/) for reliable Pi bundles
 - **Cases**: Check Thingiverse for security-specific Pi cases
 - **Community**: r/raspberry_pi and r/homelab are goldmines
-- **My Scripts**: [GitHub - Coming Soon] (sanitizing for public release)
+- **My Scripts**: [GitHub - Coming Soon](sanitizing for public release)
 
 Remember: The best security system is one that actually gets used. These Raspberry Pi projects work because they're maintainable, understandable, and solve real problems.
 

@@ -311,7 +311,7 @@ The question isn't whether multimodal AI will reshape technology—it's how quic
 
 ### Further Reading:
 
-- [Flamingo: a Visual Language Model for Few-Shot Learning](https://arxiv.org/abs/2204.14198 - DeepMind's multimodal research
-- [LLaVA: Large Language and Vision Assistant](https://arxiv.org/abs/2304.08485 - Open source multimodal model
+- [Flamingo: a Visual Language Model for Few-Shot Learning](https://arxiv.org/abs/2204.14198) - DeepMind's multimodal research
+- [LLaVA: Large Language and Vision Assistant](https://arxiv.org/abs/2304.08485) - Open source multimodal model
 - [GPT-4V(ision) System Card](https://openai.com/research/gpt-4v-system-card) - OpenAI's vision capabilities
-- [Multimodal Foundation Models: From Specialists to General-Purpose Assistants](https://arxiv.org/abs/2309.10020 - Comprehensive survey
+- [Multimodal Foundation Models: From Specialists to General-Purpose Assistants](https://arxiv.org/abs/2309.10020) - Comprehensive survey

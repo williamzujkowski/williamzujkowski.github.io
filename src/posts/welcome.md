@@ -74,15 +74,15 @@ This site will evolve as I do. Expect content on:
 
 ## The Open Source Advantage
 
-[open source on GitHub](https://github.com/williamzujkowski/williamzujkowski.github.io) Feel free to explore the code, learn from it, or even fork it for your own use. I believe in learning in public and sharing knowledge freely.
+This site is [open source on GitHub](https://github.com/williamzujkowski/williamzujkowski.github.io). Feel free to explore the code, learn from it, or even fork it for your own use. I believe in learning in public and sharing knowledge freely.
 
 
 ## Let's Connect
 
-I'm always interested in connecting with fellow engineers, security professionals, and anyone passionate about technology. You can find me on [GitHub](https://github.com/williamzujkowski and [LinkedIn](https://www.linkedin.com/in/williamzujkowski/) or reach out directly through my [contact page](/about/#contact).
+I'm always interested in connecting with fellow engineers, security professionals, and anyone passionate about technology. You can find me on [GitHub](https://github.com/williamzujkowski) and [LinkedIn](https://www.linkedin.com/in/williamzujkowski/) or reach out directly through my [contact page](/about/#contact).
 
 Here's to building a better, faster, more accessible web – one static site at a time!
 
 ---
 
-[README](https://github.com/williamzujkowski/williamzujkowski.github.io) on GitHub. I've documented everything from the build process to the deployment pipeline.*
+*Check out the [README](https://github.com/williamzujkowski/williamzujkowski.github.io) on GitHub. I've documented everything from the build process to the deployment pipeline.*

@@ -259,4 +259,4 @@ The future of AI systems lies not just in expanding memory but in developing inc
 
 ---
 
-*For those interested in exploring context window innovations further, [Anthropic's research on long-context language models](https://www.anthropic.com/research provides insights into optimization techniques, while the [Efficient Transformers survey paper](https://arxiv.org/abs/2009.06732 offers comprehensive coverage of architectural improvements addressing these challenges.*
+*For those interested in exploring context window innovations further, [Anthropic's research on long-context language models](https://www.anthropic.com/research) provides insights into optimization techniques, while the [Efficient Transformers survey paper](https://arxiv.org/abs/2009.06732) offers comprehensive coverage of architectural improvements addressing these challenges.*)

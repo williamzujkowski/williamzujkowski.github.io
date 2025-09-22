@@ -280,7 +280,7 @@ pip install mcp-standards-server
 mcp-standards serve --stdio
 
 # The realistic setup
-git clone https://github.com/williamzujkowski/mcp-standards-server.git
+git clone [https://github.com/williamzujkowski/mcp-standards-server.git](https://github.com/williamzujkowski/mcp-standards-server.git)
 cd mcp-standards-server
 python -m venv venv && source venv/bin/activate
 pip install -e .
