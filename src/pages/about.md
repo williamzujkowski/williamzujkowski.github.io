@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About William Zujkowski
-description: Currently serving as an Information Technology Specialist (INFOSEC) at Technology Transformation Services (TTS) - cloud.gov, where I lead security initiatives for the government's premier cloud platform serving 30+ federal agencies. My work focuses on Zero-Trust architecture implementation, FedRAMP compliance automation, and building secure infrastructure for government innovation.
+description: Senior Information Security Engineer with expertise in cloud-native security, Zero-Trust architecture, and secure infrastructure design. Passionate about building resilient systems and advancing cybersecurity practices through technical innovation and hands-on implementation.
 
 permalink: /about/
 eleventyNavigation:
@@ -127,7 +127,7 @@ image: /assets/images/og/about-og.png
       <p class="text-lg text-primary-600 dark:text-primary-400 font-semibold mb-1">Technology Transformation Services (TTS) - cloud.gov</p>
       <p class="text-gray-600 dark:text-gray-400 mb-4">November 2023 - Present</p>
       <div class="space-y-2">
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">Leading security initiatives for cloud.gov, the government's cloud platform serving 30+ federal agencies.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">Senior Information Security Engineer specializing in cloud-native security architecture and secure infrastructure design.</p>
         <div class="flex flex-wrap gap-2 mt-4">
           <span class="px-3 py-1 bg-primary-100 dark:bg-primary-800/30 text-primary-700 dark:text-primary-300 text-sm rounded-full">Zero-Trust Architecture</span>
           <span class="px-3 py-1 bg-primary-100 dark:bg-primary-800/30 text-primary-700 dark:text-primary-300 text-sm rounded-full">FedRAMP Compliance</span>
@@ -865,7 +865,7 @@ Building tools that solve real problems – from security automation to AI-power
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <ul class="text-gray-700 dark:text-gray-300 space-y-2">
       <li>✓ Security conference talks</li>
-      <li>✓ Federal agency workshops</li>
+      <li>✓ Enterprise security workshops</li>
       <li>✓ Podcast appearances</li>
     </ul>
     <ul class="text-gray-700 dark:text-gray-300 space-y-2">

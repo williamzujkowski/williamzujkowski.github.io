@@ -476,7 +476,7 @@
             const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
             
             if (mermaidBlocks.length > 0) {
-                console.log('Processing', mermaidBlocks.length, 'Mermaid diagrams...');
+                // Processing Mermaid diagrams
                 
                 // Convert each mermaid code block to a diagram
                 for (const element of mermaidBlocks) {
@@ -500,7 +500,7 @@
                 
                 // Step 2: Initialize all mermaid diagrams
                 await mermaid.run();
-                console.log('Mermaid diagrams rendered');
+                // Mermaid diagrams rendered
                 
                 // Diagrams are now styled via CSS, no need for inline styles
             }

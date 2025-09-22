@@ -1,0 +1,24 @@
+REVIEW CONTEXT AND INSTRUCTIONS
+
+FILES TO REVIEW:
+- All posts in src/posts/
+- All pages in src/pages/
+- Verify against src/pages/uses.md
+
+SECURITY BOUNDARIES:
+- NO current/recent work incidents
+- Only "years ago" (2-3+ years minimum)
+- Personal projects/homelab OK
+- Generic examples only
+
+VOICE REQUIREMENTS:
+- Conversational and genuine
+- Personal but professional
+- Helpful but humble
+- Learning-focused
+
+CHECK FOR:
+1. Boundary violations
+2. Tone consistency
+3. Citation quality
+4. Technical accuracy
