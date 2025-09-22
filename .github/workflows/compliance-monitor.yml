@@ -33,7 +33,7 @@ jobs:
       continue-on-error: false
 
     - name: Check for broken links
-      uses: lycheeverse/lychee-action@v1
+      uses: lycheeverse/lychee-action@v2
       with:
         args: --verbose --no-progress './src/**/*.md' './src/**/*.njk'
         fail: true

@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -68,7 +68,7 @@ jobs:
           --output-dir reports
 
     - name: Upload Reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: link-validation-reports
         path: reports/
@@ -100,7 +100,7 @@ jobs:
 
     - name: Create Issue for Broken Links
       if: failure() && github.event_name == 'schedule'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
         script: |
           const fs = require('fs');
@@ -124,7 +124,7 @@ jobs:
 
     - name: Comment on PR
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
         script: |
           const fs = require('fs');
@@ -161,7 +161,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -176,7 +176,7 @@ jobs:
         pip install aiohttp asyncio pathlib dataclasses
 
     - name: Download Artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: link-validation-reports
         path: reports/
