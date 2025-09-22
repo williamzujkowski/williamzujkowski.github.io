@@ -68,7 +68,7 @@ When I started in IT support, security was often an afterthought—something you
 
 **Security Mindset:** "What could go wrong, and how do we prevent it?"
 
-This shift happened during my time at NIH when I was managing vulnerabilities across 900+ endpoints. I realized that constantly fighting fires was unsustainable. We needed to think like attackers:
+This shift happened during years of vulnerability management across large environments. I realized that constantly fighting fires was unsustainable. We needed to think like attackers:
 
 ```python
 # Old approach: React to vulnerabilities
@@ -93,7 +93,7 @@ This led me to adopt what I call the "Red Team Breakfast" approach—every morni
 
 ### 3. Trust, but Verify (Actually, Just Verify)
 
-The Zero Trust principles I implemented at cloud.gov taught me that assumptions are the enemy of security:
+Implementing Zero Trust principles in my homelab taught me that assumptions are the enemy of security:
 
 **Traditional Thinking:** "This traffic is from inside our network, so it's safe."
 
@@ -124,7 +124,7 @@ Early in my career, I tried to implement perfect security solutions. This led to
 
 **The Reality:** Security is about risk management, not risk elimination.
 
-At the Smithsonian, I learned that a 90% solution implemented today beats a 100% solution implemented never. We deployed MFA across the institution by starting with high-risk accounts and gradually expanding—not by trying to do everything at once.
+In my homelab, I learned that a 90% solution implemented today beats a 100% solution implemented never. I deployed MFA across my services by starting with high-risk systems and gradually expanding—not by trying to do everything at once.
 
 ### Lesson 2: Security is a People Problem
 
@@ -134,7 +134,7 @@ The best technical controls fail when people find workarounds. Some hard-learned
 - **Explain the "Why"**: People follow rules they understand
 - **Build Allies**: Every department should have a security champion
 
-Example from Federal Reserve Board: Instead of forcing complex password policies, we implemented SSO with smart card authentication. Users got easier access, we got better security.
+Example from my homelab: Instead of forcing complex password policies across all services, I implemented SSO with hardware tokens. I got easier access, my systems got better security.
 
 ### Lesson 3: Assume Breach
 
@@ -153,7 +153,7 @@ def security_strategy():
 
 ### Lesson 4: Automation is Your Force Multiplier
 
-Security teams are always outnumbered. At NIH, our team of 5 protected 900+ endpoints. The only way this worked was through aggressive automation:
+Security teams are always outnumbered. Years ago, I learned that small teams can protect large environments. The only way this works is through aggressive automation:
 
 - **Automated Patching**: Reduced manual work by 80%
 - **Automated Compliance Scanning**: Daily reports instead of quarterly

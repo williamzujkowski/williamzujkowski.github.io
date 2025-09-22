@@ -75,7 +75,7 @@ That's when it clicked. Security wasn't just about technology – it was about e
 
 ## The Enterprise Leap: From Small Business to Big Systems
 
-In 2014, I joined e-End, handling IT asset management with a security focus. Suddenly, I wasn't just dealing with a few computers – I was processing hundreds of devices weekly, ensuring NIST-compliant data destruction. The scale was overwhelming at first.
+In 2014, I transitioned to enterprise IT, handling asset management with a security focus. Suddenly, I wasn't just dealing with a few computers – I was working with hundreds of devices, ensuring NIST-compliant processes. The scale was overwhelming at first.
 
 **Key lesson**: Enterprise IT is a different beast. It's not about knowing everything; it's about:
 - Understanding processes and compliance
@@ -83,35 +83,35 @@ In 2014, I joined e-End, handling IT asset management with a security focus. Sud
 - Documenting everything (seriously, everything)
 - Learning to work within frameworks, not against them
 
-## The NIH Years: Where Security Became Serious
+## The Federal Years: Where Security Became Serious
 
-My time at NIH (2016-2023) transformed me from an IT generalist into a security specialist. Starting as a Lead Service Desk Engineer, I was suddenly responsible for:
-- 350+ endpoints in a federal medical research environment
-- Implementing security controls that could impact life-saving research
+Years ago, I transitioned into federal cybersecurity work, which transformed me from an IT generalist into a security specialist. Starting as a Service Desk Lead, I gradually took on broader security responsibilities:
+- Managing endpoints in regulated environments
+- Implementing security controls for sensitive operations
 - Leading teams through security incidents
-- Translating between researchers who needed flexibility and auditors who needed compliance
+- Translating between technical staff and compliance auditors
 
 The progression was intense:
 1. **Service Desk Lead** → Learning that security at scale requires automation
 2. **Security Engineer** → Understanding frameworks like NIST SP 800-53
-3. **Lead Security Engineer & ISSO** → Realizing leadership is about enabling others
-4. **Vulnerability Management Lead** → Securing 100k+ systems and learning that metrics matter
+3. **Lead Security Engineer** → Realizing leadership is about enabling others
+4. **Vulnerability Management** → Working with large-scale systems and learning that metrics matter
 
 **Biggest revelation**: Security isn't about saying "no" – it's about finding secure ways to say "yes."
 
-## The Plot Twist: HPC and Molecular Dynamics
+## The Plot Twist: HPC and Research Computing
 
-In 2023, I took a detour into High-Performance Computing at NIH's LoBoS cluster. Suddenly, I was securing GPU clusters running molecular dynamics simulations. Talk about imposter syndrome!
+In recent years, I worked with High-Performance Computing environments. Suddenly, I was securing GPU clusters running complex computational workloads. Talk about imposter syndrome!
 
-But here's what I learned: Security principles are universal. Whether you're protecting a small business network or a supercomputer running cancer research, the fundamentals remain:
+But here's what I learned: Security principles are universal. Whether you're protecting a small business network or a supercomputer running research calculations, the fundamentals remain:
 - Understand what you're protecting and why
 - Know your threat landscape
 - Build defense in depth
 - Monitor, respond, iterate
 
-## The Present: Securing the Cloud (The Government One)
+## The Present: Cloud Security and Beyond
 
-Today, I'm at Technology Transformation Services, working on cloud.gov. It's the culmination of everything I've learned:
+Today, I work in cloud security, which represents the culmination of everything I've learned:
 - The troubleshooting skills from IT support days
 - The process knowledge from enterprise IT
 - The security frameworks from federal work

@@ -1,8 +1,6 @@
 ---
 date: 2024-04-04
-description: The moment I realized our LLM was confidently making up facts about our
-  company's products was when I understood why RAG isn't optional - it's essential
-  for trustworthy AI systems
+description: The moment I realized how LLMs confidently hallucinate facts was when I understood why RAG isn't optional - it's essential for trustworthy AI systems
 images:
   hero:
     alt: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge
@@ -24,9 +22,9 @@ tags:
 title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
 ---
 
-There's a moment in every conversation with a Large Language Model when you realize the fundamental limitation: the model can only work with what it learned during training. For me, that moment came during a demo where our customer service LLM confidently made up product specifications that didn't exist.
+There's a moment in every conversation with a Large Language Model when you realize the fundamental limitation: the model can only work with what it learned during training. For me, that moment came while experimenting with a homelab chatbot that confidently made up technical specifications for Docker containers that didn't exist.
 
-Watching potential customers receive authoritative-sounding but completely incorrect information was mortifying. That incident sparked my deep dive into Retrieval Augmented Generation (RAG)—a technique that gives AI systems the power to consult external knowledge sources before generating responses.
+Watching the LLM provide authoritative-sounding but completely incorrect information about my own infrastructure was eye-opening. That experiment sparked my deep dive into Retrieval Augmented Generation (RAG)—a technique that gives AI systems the power to consult external knowledge sources before generating responses.
 
 ## How It Works
 
@@ -67,11 +65,11 @@ graph LR
 
 The limitations of standard LLMs became apparent as soon as we tried to use them for real-world applications:
 
-**Knowledge Cutoffs:** Our model's training data ended months before our latest product releases. When customers asked about new features, the AI had no choice but to hallucinate or admit ignorance.
+**Knowledge Cutoffs:** Standard models lack information about recent developments. When querying about new Kubernetes features or recent CVEs, the AI had no choice but to hallucinate or admit ignorance.
 
-**Domain Specificity:** General language models lack deep knowledge about specialized domains. A model that could write poetry couldn't accurately answer questions about our proprietary API documentation.
+**Domain Specificity:** General language models lack deep knowledge about specialized domains. A model that could write poetry couldn't accurately answer questions about my homelab's custom API configurations.
 
-**Dynamic Information:** Product prices, inventory levels, and policy changes couldn't be reflected in models with fixed training data.
+**Dynamic Information:** Real-time metrics, current system status, and configuration changes couldn't be reflected in models with fixed training data.
 
 **Context Limitations:** Even when relevant information existed in training data, context windows often couldn't accommodate all necessary background information for complex queries.
 
