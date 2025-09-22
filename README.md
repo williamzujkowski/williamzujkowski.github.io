@@ -7,10 +7,12 @@
 
 Personal website of William Zujkowski, built with [Eleventy](https://www.11ty.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 44 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search functionality, social sharing, reading progress indicator, hero images, and PWA support.
 
-> **Note:** This repository implements comprehensive development standards via the [.standards](https://github.com/williamzujkowski/standards) submodule.
-> 
-> - **For AI assistants:** Use [CLAUDE.md](CLAUDE.md) for site navigation and [.standards/docs/core/CLAUDE.md](.standards/docs/core/CLAUDE.md) for standards guidance
-> - **For developers:** See [Standards Implementation Checklist](docs/STANDARDS_IMPLEMENTATION_CHECKLIST.md)
+> **📌 IMPORTANT:** [CLAUDE.md](CLAUDE.md) is the **AUTHORITATIVE DOCUMENTATION** for this repository.
+>
+> - **For Development Standards**: See [CLAUDE.md](CLAUDE.md) - Authoritative source (v3.0.0)
+> - **For Content Guidelines**: See [CLAUDE.md](CLAUDE.md#content-standards)
+> - **For UI/UX Standards**: See [CLAUDE.md](CLAUDE.md#ui-ux-standards)
+> - **For AI Assistants**: Start with [CLAUDE.md](CLAUDE.md) then [LLM_ONBOARDING.md](docs/guides/LLM_ONBOARDING.md)
 
 ## 🚀 Quick Start
 

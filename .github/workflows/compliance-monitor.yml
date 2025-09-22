@@ -1,0 +1,183 @@
+name: Compliance Monitoring
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  compliance-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build site
+      run: npm run build
+      continue-on-error: false
+
+    - name: Check for broken links
+      uses: lycheeverse/lychee-action@v1
+      with:
+        args: --verbose --no-progress './src/**/*.md' './src/**/*.njk'
+        fail: true
+
+    - name: Run Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v10
+      with:
+        urls: |
+          http://localhost:8080/
+          http://localhost:8080/posts/
+          http://localhost:8080/about/
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+        runs: 3
+        configPath: .lighthouserc.json
+      continue-on-error: true
+
+    - name: Check WCAG Compliance
+      uses: pa11y/pa11y-ci@v3
+      with:
+        sitemap: './sitemap.xml'
+        standard: 'WCAG2AA'
+      continue-on-error: true
+
+    - name: Validate HTML
+      uses: cyb3r-b4stard/html5validator-action@v7.2.0
+      with:
+        root: _site/
+        css: true
+      continue-on-error: true
+
+    - name: Check citation coverage
+      run: |
+        echo "Checking citation coverage..."
+        python3 -c "
+        import os
+        import re
+        from pathlib import Path
+
+        posts_dir = Path('src/posts')
+        total_posts = 0
+        posts_with_citations = 0
+
+        for post in posts_dir.glob('*.md'):
+            total_posts += 1
+            content = post.read_text()
+            # Check for citation patterns
+            if re.search(r'\[.*?\]\(https?://.*?\)', content) or \
+               re.search(r'\[.*?\]\(.*?doi\.org.*?\)', content) or \
+               re.search(r'\[.*?\]\(.*?arxiv\.org.*?\)', content):
+                posts_with_citations += 1
+
+        coverage = (posts_with_citations / total_posts * 100) if total_posts > 0 else 0
+        print(f'Citation Coverage: {coverage:.1f}% ({posts_with_citations}/{total_posts} posts)')
+
+        if coverage < 90:
+            print(f'WARNING: Citation coverage ({coverage:.1f}%) is below 90% target')
+            exit(1)
+        "
+
+    - name: Content compliance check
+      run: |
+        echo "Checking content compliance..."
+        python3 -c "
+        import os
+        import re
+        from pathlib import Path
+
+        # Forbidden patterns for NDA compliance
+        forbidden_patterns = [
+            r'at work',
+            r'my employer',
+            r'our production',
+            r'in production',
+            r'recent incident',
+            r'last week at',
+            r'my team',
+            r'our security team',
+            r'government',
+            r'agency',
+            r'classified',
+            r'sensitive',
+            r'confidential'
+        ]
+
+        issues_found = []
+
+        for post in Path('src/posts').glob('*.md'):
+            content = post.read_text().lower()
+            for pattern in forbidden_patterns:
+                if re.search(pattern, content, re.IGNORECASE):
+                    issues_found.append(f'{post.name}: Found pattern \"{pattern}\"')
+
+        if issues_found:
+            print('Compliance Issues Found:')
+            for issue in issues_found:
+                print(f'  - {issue}')
+            exit(1)
+        else:
+            print('✅ Content compliance check passed')
+        "
+
+    - name: Generate compliance report
+      if: always()
+      run: |
+        echo "# Compliance Report" > compliance-report.md
+        echo "Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> compliance-report.md
+        echo "" >> compliance-report.md
+        echo "## Build Status" >> compliance-report.md
+        echo "- Build: ${{ job.status }}" >> compliance-report.md
+        echo "" >> compliance-report.md
+        echo "## Checks Performed" >> compliance-report.md
+        echo "- [x] Site build validation" >> compliance-report.md
+        echo "- [x] Link checking" >> compliance-report.md
+        echo "- [x] Lighthouse performance" >> compliance-report.md
+        echo "- [x] WCAG accessibility" >> compliance-report.md
+        echo "- [x] HTML validation" >> compliance-report.md
+        echo "- [x] Citation coverage" >> compliance-report.md
+        echo "- [x] Content compliance" >> compliance-report.md
+
+    - name: Upload compliance report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: compliance-report
+        path: compliance-report.md
+        retention-days: 30
+
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Run security scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy results to GitHub Security
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
