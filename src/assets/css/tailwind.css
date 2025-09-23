@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import responsive enhancements */
-@import './responsive-enhancements.css';
+/* Responsive enhancements are now included in enhancements.css */
 
 @layer base {
   /* OKLCH Color Variables for perceptual uniformity */

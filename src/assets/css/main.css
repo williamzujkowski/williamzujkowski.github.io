@@ -1,0 +1,87 @@
+/* Main CSS - Consolidated Architecture
+ * This file imports all necessary styles in the correct order
+ * to prevent conflicts and ensure proper cascade
+ */
+
+/* 1. Base Tailwind CSS - must come first */
+@import 'tailwind.css';
+
+/* 2. Theme tokens and CSS custom properties */
+@import 'theme-tokens.css';
+
+/* 3. Site-specific enhancements */
+@import 'enhancements.css';
+
+/* Base reset and improvements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper font loading */
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fix for gradient text in Safari */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Dark mode specific fixes */
+.dark {
+  color-scheme: dark;
+}
+
+/* Ensure all sections have proper background in dark mode */
+.dark main,
+.dark section,
+.dark article,
+.dark aside {
+  background-color: transparent; /* Let parent background show through */
+}
+
+/* Fix white sections in dark mode by ensuring inheritance */
+.dark .bg-white {
+  background-color: rgb(31 41 55) !important; /* gray-800 */
+}
+
+.dark .bg-gray-50 {
+  background-color: rgb(17 24 39) !important; /* gray-900 */
+}
+
+.dark .bg-gray-100 {
+  background-color: rgb(31 41 55) !important; /* gray-800 */
+}
+
+/* Ensure text contrast in dark mode */
+.dark .text-gray-900 {
+  color: rgb(243 244 246) !important; /* gray-100 */
+}
+
+.dark .text-gray-800 {
+  color: rgb(229 231 235) !important; /* gray-200 */
+}
+
+.dark .text-gray-700 {
+  color: rgb(209 213 219) !important; /* gray-300 */
+}

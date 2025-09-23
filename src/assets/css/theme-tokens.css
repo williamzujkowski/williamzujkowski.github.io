@@ -48,27 +48,29 @@
 }
 
 /* Dark Theme */
-:root.dark,
-[data-theme="dark"] {
-  /* Dark Theme Colors */
-  --bg: #0b1220; /* dark slate/blue-black */
-  --bg-secondary: #0f172a; /* slate-900 */
-  --fg: #f1f5f9; /* slate-100 */
-  --fg-secondary: #e2e8f0; /* slate-200 */
-  --muted: #cbd5e1; /* slate-300 */
-  --muted-secondary: #94a3b8; /* slate-400 */
+.dark {
+  /* Dark Theme Colors - fixed for proper dark mode */
+  --bg: #111827; /* gray-900 */
+  --bg-secondary: #1f2937; /* gray-800 */
+  --fg: #f9fafb; /* gray-50 */
+  --fg-secondary: #f3f4f6; /* gray-100 */
+  --muted: #d1d5db; /* gray-300 */
+  --muted-secondary: #9ca3af; /* gray-400 */
   --link: #60a5fa; /* blue-400 */
   --link-hover: #93c5fd; /* blue-300 */
-  --border: #1e293b; /* slate-800 */
-  --border-secondary: #334155; /* slate-700 */
-  --card: #0f172a; /* slate-900 */
-  --card-hover: #1e293b; /* slate-800 */
+  --border: #374151; /* gray-700 */
+  --border-secondary: #4b5563; /* gray-600 */
+  --card: #1f2937; /* gray-800 */
+  --card-hover: #374151; /* gray-700 */
   --accent: #818cf8; /* indigo-400 */
   --accent-hover: #a5b4fc; /* indigo-300 */
 
   /* Focus colors dark */
   --focus-ring: #60a5fa; /* blue-400 */
-  --focus-ring-offset: #0b1220;
+  --focus-ring-offset: #111827;
+
+  /* Ensure proper color-scheme */
+  color-scheme: dark;
 }
 
 /* Utility Classes for Theme Variables */
