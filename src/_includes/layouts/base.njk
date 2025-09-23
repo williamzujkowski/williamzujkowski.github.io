@@ -10,6 +10,7 @@
     <title>{% if title != "Home" %}{{ title }} - {% endif %}{{ site.title }}</title>
     
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/theme-tokens.css">
     <link rel="stylesheet" href="/assets/css/visual-design-enhanced.css">
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     
@@ -121,12 +122,12 @@
     </script>
 </head>
 <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
-    <a href="#main" class="skip-to-content">Skip to main content</a>
+    <a href="#main" class="skip-to-main">Skip to main content</a>
 
 
     
     <!-- Header -->
-    <header role="banner" aria-label="Site header" class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
+    <header role="banner" aria-label="Site header" class="site-header sticky top-0 z-50 w-full">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->

@@ -1,6 +1,6 @@
 /**
  * Table of Contents Generator
- * Automatically generates a floating table of contents for blog posts
+ * Generates an accessible table of contents accordion for blog posts
  */
 
 (function() {
@@ -10,34 +10,33 @@
    * Initialize table of contents
    */
   function initTableOfContents() {
-    // Only run on blog post pages
+    // Find the ToC content container
+    const tocContent = document.getElementById('toc-content');
+    if (!tocContent) return;
+
+    // Find all headings in the article
     const article = document.querySelector('article .prose');
     if (!article) return;
 
-    // Find all headings (h2 and h3 only for cleaner TOC)
+    // Find all headings (h2 and h3 for cleaner TOC)
     const headings = article.querySelectorAll('h2, h3');
-    
-    // Only create TOC if we have enough headings
-    if (headings.length < 3) return;
 
-    // Create TOC container
-    const tocContainer = document.createElement('aside');
-    tocContainer.className = 'toc-container';
-    tocContainer.setAttribute('aria-label', 'Table of contents');
-    tocContainer.innerHTML = `
-      <div class="toc-content">
-        <h2 class="toc-title">On this page</h2>
-        <nav class="toc-nav">
-          <ul class="toc-list"></ul>
-        </nav>
-      </div>
-    `;
+    // Hide TOC if we don't have enough headings
+    if (headings.length < 2) {
+      const tocAccordion = document.querySelector('.toc-accordion');
+      if (tocAccordion) {
+        tocAccordion.style.display = 'none';
+      }
+      return;
+    }
 
-    const tocList = tocContainer.querySelector('.toc-list');
+    // Create TOC list
+    const tocList = document.createElement('ul');
+    tocList.className = 'space-y-2';
 
     // Process headings and build TOC
     let currentH2Item = null;
-    
+
     headings.forEach((heading, index) => {
       // Generate ID if not present
       if (!heading.id) {
@@ -52,53 +51,56 @@
       const link = document.createElement('a');
       link.href = '#' + heading.id;
       link.textContent = heading.textContent;
-      link.className = 'toc-link';
+      link.className = 'block py-1 px-2 rounded transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-300';
       
       if (heading.tagName === 'H2') {
         // Main section
-        listItem.className = 'toc-item toc-item-h2';
         listItem.appendChild(link);
         tocList.appendChild(listItem);
         currentH2Item = listItem;
       } else if (heading.tagName === 'H3' && currentH2Item) {
-        // Subsection
-        listItem.className = 'toc-item toc-item-h3';
-        
+        // Subsection - indent it
+        link.className = 'block py-1 px-2 ml-4 text-sm rounded transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-300';
+
         // Create or get the nested list
         let nestedList = currentH2Item.querySelector('ul');
         if (!nestedList) {
           nestedList = document.createElement('ul');
-          nestedList.className = 'toc-list toc-list-nested';
+          nestedList.className = 'mt-1 space-y-1';
           currentH2Item.appendChild(nestedList);
         }
-        
+
         listItem.appendChild(link);
         nestedList.appendChild(listItem);
       }
     });
 
-    // Insert TOC into the page (for desktop only)
-    const articleContainer = document.querySelector('.container .max-w-3xl');
-    if (articleContainer && window.innerWidth >= 1280) {
-      articleContainer.style.position = 'relative';
-      articleContainer.appendChild(tocContainer);
-    }
+    // Insert TOC into the accordion content
+    tocContent.appendChild(tocList);
 
     // Smooth scroll behavior
-    tocContainer.querySelectorAll('a').forEach(link => {
+    tocList.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('href').slice(1);
         const targetElement = document.getElementById(targetId);
-        
+
         if (targetElement) {
           const offset = 100; // Account for sticky header
           const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
-          
+
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
           });
+
+          // Close the accordion on mobile after clicking
+          if (window.innerWidth < 768) {
+            const details = tocContent.closest('details');
+            if (details) {
+              details.open = false;
+            }
+          }
         }
       });
     });
@@ -113,26 +115,19 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const id = entry.target.id;
-        const tocLink = tocContainer.querySelector(`a[href="#${id}"]`);
-        
+        const tocLink = tocList.querySelector(`a[href="#${id}"]`);
+
         if (entry.isIntersecting) {
           // Remove previous active states
-          tocContainer.querySelectorAll('.toc-link-active').forEach(link => {
-            link.classList.remove('toc-link-active');
+          tocList.querySelectorAll('.text-blue-600, .dark\\:text-blue-400').forEach(link => {
+            link.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-semibold');
+            link.classList.add('text-gray-600', 'dark:text-gray-400');
           });
-          
+
           // Add active state to current link
           if (tocLink) {
-            tocLink.classList.add('toc-link-active');
-            
-            // Also highlight parent H2 if this is an H3
-            const parentItem = tocLink.closest('.toc-item-h3')?.closest('.toc-item-h2');
-            if (parentItem) {
-              const parentLink = parentItem.querySelector('.toc-link');
-              if (parentLink) {
-                parentLink.classList.add('toc-link-active');
-              }
-            }
+            tocLink.classList.remove('text-gray-600', 'dark:text-gray-400');
+            tocLink.classList.add('text-blue-600', 'dark:text-blue-400', 'font-semibold');
           }
         }
       });
@@ -142,17 +137,6 @@
     headings.forEach(heading => {
       observer.observe(heading);
     });
-
-    // Handle responsive behavior
-    function handleResize() {
-      if (window.innerWidth < 1280 && tocContainer.parentElement) {
-        tocContainer.remove();
-      } else if (window.innerWidth >= 1280 && !tocContainer.parentElement && articleContainer) {
-        articleContainer.appendChild(tocContainer);
-      }
-    }
-
-    window.addEventListener('resize', handleResize);
   }
 
   // Initialize when DOM is ready
