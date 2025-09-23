@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
     <title>{% if title != "Home" %}{{ title }} - {% endif %}{{ site.title }}</title>
     
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/visual-design-enhanced.css">
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     
     <!-- RSS Feed -->
@@ -120,10 +121,12 @@
     </script>
 </head>
 <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
+    <a href="#main" class="skip-to-content">Skip to main content</a>
+
 
     
     <!-- Header -->
-    <header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
+    <header role="banner" aria-label="Site header" class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
@@ -240,7 +243,7 @@
     </main>
     
     <!-- Footer -->
-    <footer class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+    <footer role="contentinfo" aria-label="Site footer" class="mt-auto border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- About -->

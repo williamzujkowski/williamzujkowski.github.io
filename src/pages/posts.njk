@@ -47,7 +47,7 @@ permalink: /posts/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
 <div id="posts-container" class="grid gap-8 md:gap-12">
     {% if posts.length > 0 %}
         {% for post in posts %}
-        <article 
+        <article role="article" 
             class="group relative glass dark:glass-dark rounded-2xl p-8 hover-card search-item"
             data-search="{{ post.data.title | lower }} {{ post.data.description | lower }} {{ post.data.tags | join(' ') | lower }}"
             data-title="{{ post.data.title }}"
