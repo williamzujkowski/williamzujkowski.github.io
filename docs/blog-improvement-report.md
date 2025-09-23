@@ -56,7 +56,7 @@ Enhanced 9 high-impact blog posts with academic citations:
 ## 🔬 Research Sources Integration
 
 ### Academic Databases
-- arXiv preprints for cutting-edge research
+- arXiv preprints for current research
 - IEEE Xplore for engineering papers
 - ACM Digital Library for computer science
 - Nature/Science for breakthrough research

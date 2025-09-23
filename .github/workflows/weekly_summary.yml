@@ -6,6 +6,10 @@ on:
     - cron: '0 14 * * 1'
   workflow_dispatch:
 
+permissions:
+  issues: write
+  contents: read
+
 jobs:
   weekly-summary:
     runs-on: ubuntu-latest

@@ -28,6 +28,6 @@ jobs:
         run: npm run build
 
       - name: Validate HTML
-        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        uses: cyb3r-jak3/html5validator-action@v7.2.0
         with:
           root: _site/
