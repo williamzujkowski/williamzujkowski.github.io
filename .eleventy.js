@@ -6,8 +6,10 @@ module.exports = function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
-  // Copy static files
-  eleventyConfig.addPassthroughCopy("src/assets");
+  // Copy static files (excluding CSS which is processed by PostCSS)
+  eleventyConfig.addPassthroughCopy("src/assets/js");
+  eleventyConfig.addPassthroughCopy("src/assets/images");
+  eleventyConfig.addPassthroughCopy("src/assets/fonts");
   eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
   eleventyConfig.addPassthroughCopy("src/robots.txt");
