@@ -192,52 +192,42 @@ williamzujkowski.github.io/
   - `tags.njk`: Tag listing page template
 
 #### `/scripts` - Automation Scripts
-- **Purpose**: Python and shell scripts for content management and optimization
+- **Purpose**: Organized Python and shell scripts for blog management
+- **Structure**: Scripts organized into logical categories for better maintainability
 
-##### Blog Enhancement Scripts
-| Script | Purpose | Status |
-|--------|---------|--------|
-| `analyze-blog-content.py` | Analyzes blog posts for content quality metrics | Active |
-| `batch-improve-blog-posts.py` | Batch processes blog improvements | Active |
-| `comprehensive-blog-enhancement.py` | Comprehensive blog post enhancement tool | Active |
-| `optimize-blog-content.py` | Optimizes blog content for readability | Active |
-| `update-blog-images.py` | Updates blog post image metadata | Active |
+##### Script Organization (Post-Phase 3 Cleanup)
 
-##### Academic & Research Scripts
-| Script | Purpose | Status |
-|--------|---------|--------|
-| `academic-search.py` | Searches academic databases for citations | Active |
-| `add-academic-citations.py` | Adds academic citations to blog posts | Active |
-| `add-reputable-sources-to-posts.py` | Adds reputable sources to posts | Active |
-| `enhance-more-posts-citations.py` | Enhances citations across multiple posts | Active |
-| `check-citation-hyperlinks.py` | Validates citation hyperlinks | Active |
-| `research-validator.py` | Validates research claims in posts | Planned |
+```
+scripts/
+├── blog-content/        # Content management & optimization (5 scripts)
+│   ├── analyze-blog-content.py
+│   ├── batch-improve-blog-posts.py
+│   ├── blog-manager.py
+│   ├── comprehensive-blog-enhancement.py
+│   └── optimize-blog-content.py
+├── blog-images/         # Image generation & management (6 scripts)
+│   ├── enhanced-blog-image-search.py
+│   ├── fetch-stock-images.py
+│   ├── generate-blog-hero-images.py
+│   ├── generate-og-image.py
+│   ├── playwright-image-search.py
+│   └── update-blog-images.py
+├── blog-research/       # Academic citations & research (7 scripts)
+│   ├── academic-search.py
+│   ├── add-academic-citations.py
+│   ├── add-reputable-sources-to-posts.py
+│   ├── check-citation-hyperlinks.py
+│   ├── enhance-more-posts-citations.py
+│   ├── research-validator.py
+│   └── search-reputable-sources.py
+├── utilities/           # General utilities (3 scripts)
+│   ├── diagram-manager.py
+│   ├── final-validation.py
+│   └── llm-script-documenter.py
+└── optimize-blog-images.sh  # Shell script for image optimization
+```
 
-##### Image Management Scripts
-| Script | Purpose | Status |
-|--------|---------|--------|
-| `generate-blog-hero-images.py` | Generates hero images for blog posts | Active |
-| `optimize-blog-images.sh` | Optimizes images for web performance | Active |
-| `playwright-image-search.py` | Searches and downloads stock images | Active |
-| `enhanced-blog-image-search.py` | Enhanced image search with AI | Active |
-| `fetch-stock-images.py` | Fetches stock images from APIs | Active |
-| `add-tech-images.py` | Adds technical images to posts | Active |
-| `remove-hero-images.py` | Removes hero images utility | Active |
-| `generate-og-image.py` | Generates Open Graph images | Active |
-
-##### Diagram & Visualization Scripts
-| Script | Purpose | Status |
-|--------|---------|--------|
-| `create-blog-diagrams.py` | Creates Mermaid diagrams for posts | Active |
-| `add-diagrams-to-live-posts.py` | Adds diagrams to existing posts | Active |
-| `integrate-diagrams.py` | Integrates diagrams into content | Active |
-
-##### Validation Scripts
-| Script | Purpose | Status |
-|--------|---------|--------|
-| `final-validation.py` | Final validation before deployment | Active |
-| `validate-blog-images.py` | Validates blog image references | Planned |
-| `validate-knowledge-management.py` | Validates KM standards | Planned |
+**Total Active Scripts**: 21 Python scripts + 1 Shell script (reduced from 39)
 
 #### `/docs` - Documentation
 - **Purpose**: Project documentation and guides
@@ -335,13 +325,13 @@ This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Co
 **Quick Commands for Blog Optimization:**
 ```bash
 # Analyze posts for high code ratios
-python scripts/optimize-blog-content.py
+python scripts/blog-content/optimize-blog-content.py
 
 # Generate Mermaid diagram templates
-python scripts/create-blog-diagrams.py
+python scripts/utilities/diagram-manager.py
 
 # Search and download stock images (no API keys)
-python scripts/playwright-image-search.py
+python scripts/blog-images/playwright-image-search.py
 ```
 
 **Code Reduction Guidelines:**
@@ -632,13 +622,13 @@ Never save working files, text/mds and tests to the root folder.
 1. **Pre-Writing Research**
    ```python
    # Use scripts/research-validator.py
-   python scripts/research-validator.py --post "post-title" --check-claims
+   python scripts/blog-research/research-validator.py --post "post-title" --check-claims
    ```
 
 2. **Claim Validation with Playwright**
    ```python
    # Search academic sources
-   python scripts/academic-search.py --query "specific claim" --sources "arxiv,zenodo,core"
+   python scripts/blog-research/academic-search.py --query "specific claim" --sources "arxiv,zenodo,core"
    ```
 
 3. **Source Citation Format - MANDATORY HYPERLINKS**
@@ -681,17 +671,17 @@ Never save working files, text/mds and tests to the root folder.
 
 #### Scripts for Research Integrity:
 ```bash
-# Validate all claims in a post
-python scripts/claim-validator.py --post src/posts/example.md
+# Validate research claims in posts
+python scripts/blog-research/research-validator.py --post src/posts/example.md
 
-# Search for supporting research
-python scripts/research-finder.py --topic "quantum computing" --min-sources 5
+# Search academic sources for supporting research
+python scripts/blog-research/academic-search.py --query "quantum computing" --sources "arxiv,zenodo,core"
 
-# Check source credibility
-python scripts/source-credibility.py --url "https://example.com/paper"
+# Add academic citations to blog posts
+python scripts/blog-research/add-academic-citations.py --post src/posts/example.md
 
-# Generate citations
-python scripts/citation-generator.py --format "ieee" --sources sources.json
+# Check citation hyperlinks for validity
+python scripts/blog-research/check-citation-hyperlinks.py
 ```
 
 ### 📈 Research-Backed Content Structure
@@ -760,8 +750,8 @@ Before Publishing Any Post:
 ## Blog Image Management
 When working with blog posts:
 1. ALWAYS add image metadata to frontmatter
-2. Run `python scripts/update-blog-images.py` after creating posts
-3. Generate hero images with `python scripts/generate-blog-hero-images.py`
+2. Run `python scripts/blog-images/update-blog-images.py` after creating posts
+3. Generate hero images with `python scripts/blog-images/generate-blog-hero-images.py`
 4. Optimize with `bash scripts/optimize-blog-images.sh`
 5. Use proper alt text for accessibility
 6. Follow the directory structure in src/assets/images/blog/
@@ -978,7 +968,7 @@ images:
 ### 1. Update Blog Image Metadata
 ```bash
 # Updates all blog posts with proper image metadata
-python scripts/update-blog-images.py
+python scripts/blog-images/update-blog-images.py
 ```
 This script:
 - Scans all blog posts
@@ -989,7 +979,7 @@ This script:
 ### 2. Generate Hero Images
 ```bash
 # Creates hero images for all blog posts
-python scripts/generate-blog-hero-images.py
+python scripts/blog-images/generate-blog-hero-images.py
 ```
 Features:
 - Topic-based color schemes
@@ -1012,14 +1002,14 @@ Performs:
 
 ### For New Blog Posts:
 1. **Write the post** with proper frontmatter (without images section)
-2. **Run metadata update**: `python scripts/update-blog-images.py`
-3. **Generate hero image**: `python scripts/generate-blog-hero-images.py`
+2. **Run metadata update**: `python scripts/blog-images/update-blog-images.py`
+3. **Generate hero image**: `python scripts/blog-images/generate-blog-hero-images.py`
 4. **Optimize images**: `bash scripts/optimize-blog-images.sh`
 5. **Review and customize** if needed
 
 ### For Existing Posts:
-1. **Update metadata**: `python scripts/update-blog-images.py`
-2. **Generate missing images**: `python scripts/generate-blog-hero-images.py`
+1. **Update metadata**: `python scripts/blog-images/update-blog-images.py`
+2. **Generate missing images**: `python scripts/blog-images/generate-blog-hero-images.py`
 3. **Optimize all images**: `bash scripts/optimize-blog-images.sh`
 
 ## ♿ Accessibility Standards
@@ -1120,7 +1110,7 @@ Before publishing, ensure:
 **Missing hero images:**
 ```bash
 # Regenerate for specific post
-python scripts/generate-blog-hero-images.py --post="YYYY-MM-DD-post-slug"
+python scripts/blog-images/generate-blog-hero-images.py --post="YYYY-MM-DD-post-slug"
 ```
 
 **Images too large:**
@@ -1132,7 +1122,8 @@ bash scripts/optimize-blog-images.sh --force
 **Broken image paths:**
 ```bash
 # Validate all image references
-python scripts/validate-blog-images.py
+# Validate blog images
+python scripts/blog-images/update-blog-images.py --validate
 ```
 
 ## 📈 Monitoring
@@ -1148,8 +1139,8 @@ Track image performance:
 
 ```bash
 # Full image pipeline for new post
-python scripts/update-blog-images.py && \
-python scripts/generate-blog-hero-images.py && \
+python scripts/blog-images/update-blog-images.py && \
+python scripts/blog-images/generate-blog-hero-images.py && \
 bash scripts/optimize-blog-images.sh
 
 # Check image statistics
@@ -1159,5 +1150,6 @@ find src/assets/images/blog -type f \( -name "*.jpg" -o -name "*.png" -o -name "
 cat docs/blog-image-index.json | jq '.stats'
 
 # Generate report
-python scripts/generate-image-report.py > docs/image-report.md
+# Generate image report (use update-blog-images.py with report flag)
+python scripts/blog-images/update-blog-images.py --report > docs/image-report.md
 ```
