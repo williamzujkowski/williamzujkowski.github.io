@@ -5,7 +5,8 @@
   "scripts": {
     "build:css": "postcss src/assets/css/tailwind.css -o _site/assets/css/main.css",
     "build:eleventy": "eleventy",
-    "build": "npm run build:css && npm run build:eleventy",
+    "build:js": "node scripts/bundle-js.js",
+    "build": "npm run build:css && npm run build:eleventy && npm run build:js",
     "watch:css": "postcss src/assets/css/tailwind.css -o _site/assets/css/main.css --watch",
     "watch:eleventy": "eleventy --serve",
     "serve": "npm-run-all --parallel watch:*",
