@@ -109,8 +109,6 @@
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus-ring;
   }
 
-  /* High specificity to override link styles */
-  a.btn-primary,
   .btn-primary {
     @apply btn bg-primary-700 text-white hover:bg-primary-800 active:bg-primary-900 shadow-sm hover:shadow-md;
   }
