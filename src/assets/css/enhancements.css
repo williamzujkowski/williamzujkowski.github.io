@@ -176,22 +176,22 @@ a:not(.btn):not(.nav-link):hover {
   color: #93c5fd;
 }
 
-/* Button color overrides - higher specificity to prevent link style inheritance */
+/* Button color overrides - !important needed to override PostCSS generated a:not(.btn-secondary) selectors */
 a.btn-primary,
 button.btn-primary {
-  color: white;
+  color: white !important;
   text-decoration: none;
 }
 
 a.btn-secondary,
 button.btn-secondary {
-  color: rgb(17, 24, 39);
+  color: rgb(17, 24, 39) !important;
   text-decoration: none;
 }
 
 .dark a.btn-secondary,
 .dark button.btn-secondary {
-  color: rgb(243, 244, 246);
+  color: rgb(243, 244, 246) !important;
 }
 
 /* ========================================
