@@ -204,7 +204,7 @@ This project implements comprehensive knowledge management:
 
 ### Documentation
 - **[CLAUDE.md](CLAUDE.md)** - AI-optimized interface for assistants
-- **[MANIFEST.yaml](MANIFEST.yaml)** - Machine-readable metadata
+- **[MANIFEST.json](MANIFEST.json)** - Repository inventory and metadata
 - **[Content Guide](docs/guides/CONTENT_GUIDE.md)** - How to create content
 - **[Documentation Standards](docs/standards/SITE_DOCUMENTATION_STANDARDS.md)** - Documentation guidelines
 
@@ -387,7 +387,7 @@ See [CLAUDE.md](CLAUDE.md#blog-image-standards--implementation) for complete doc
 - Initial Eleventy site setup
 - Knowledge Management Standards implementation
 - CLAUDE.md AI interface
-- MANIFEST.yaml metadata
+- MANIFEST.json metadata
 - GitHub Actions CI/CD
 - Documentation structure
 

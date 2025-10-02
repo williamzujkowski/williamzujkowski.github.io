@@ -66,11 +66,11 @@ class BlogManager:
         self.config = self._load_config()
 
     def _load_config(self) -> Dict:
-        """Load configuration from MANIFEST.yaml"""
-        manifest_path = self.project_root / "MANIFEST.yaml"
+        """Load configuration from MANIFEST.json"""
+        manifest_path = self.project_root / "MANIFEST.json"
         if manifest_path.exists():
             with open(manifest_path, 'r') as f:
-                return yaml.safe_load(f)
+                return json.load(f)
         return {}
 
     def enhance_content(self, post_path: str = None, **options) -> bool:

@@ -1,7 +1,7 @@
 ---
 STATUS: AUTHORITATIVE
 VERSION: 3.0.0
-LAST_AUDIT: 2025-09-22
+LAST_AUDIT: 2025-09-23
 COMPLIANCE: 100%
 CITATIONS: 90%+
 UI_UX: OPTIMIZED
@@ -20,8 +20,8 @@ This file (CLAUDE.md) serves as the **single source of truth** for:
 
 All development, content creation, and maintenance MUST reference this document.
 
-**Last comprehensive audit:** 2025-09-22
-**Next scheduled review:** 2025-12-22
+**Last comprehensive audit:** 2025-09-23
+**Next scheduled review:** 2025-12-01
 
 ## 📊 Current Compliance Status
 
@@ -29,7 +29,7 @@ All development, content creation, and maintenance MUST reference this document.
 - **NDA Compliance**: 100% - Zero work references
 - **Political Neutrality**: 100% - Technical focus maintained
 - **Personal Focus**: 100% - Homelab and personal projects only
-- **Last Audit**: 2025-09-22
+- **Last Audit**: 2025-09-23
 - **Posts Reviewed**: 48/48
 
 ### Research & Citations ✅
@@ -220,6 +220,22 @@ scripts/
 │   ├── enhance-more-posts-citations.py
 │   ├── research-validator.py
 │   └── search-reputable-sources.py
+├── link-validation/     # Link validation & repair (12 scripts)
+│   ├── advanced-link-repair.py
+│   ├── batch-link-fixer.py
+│   ├── citation-repair.py
+│   ├── citation-updater.py
+│   ├── content-relevance-checker.py
+│   ├── link-extractor.py
+│   ├── link-monitor.py
+│   ├── link-report-generator.py
+│   ├── link-validator.py
+│   ├── simple-validator.py
+│   ├── specialized-validators.py
+│   └── wayback-archiver.py
+├── lib/                 # Shared libraries (1 Python, 1 Shell)
+│   ├── common.py        # Common Python functions
+│   └── memory-file.sh   # Memory management shell functions
 ├── utilities/           # General utilities (3 scripts)
 │   ├── diagram-manager.py
 │   ├── final-validation.py
@@ -227,7 +243,7 @@ scripts/
 └── optimize-blog-images.sh  # Shell script for image optimization
 ```
 
-**Total Active Scripts**: 21 Python scripts + 1 Shell script (reduced from 39)
+**Total Active Scripts**: 34 Python scripts + 2 Shell scripts
 
 #### `/docs` - Documentation
 - **Purpose**: Project documentation and guides
@@ -250,21 +266,35 @@ scripts/
 | `tailwind.config.js` | Tailwind CSS customization |
 | `postcss.config.js` | PostCSS plugins configuration |
 | `.gitignore` | Git ignore patterns |
-| `MANIFEST.yaml` | Site metadata and configuration |
+| `MANIFEST.json` | Repository inventory and metadata |
 
 ### Build Commands
 
 ```bash
 # Development
 npm run serve           # Start dev server with hot reload
+npm run watch:css       # Watch and rebuild CSS on changes
+npm run watch:eleventy  # Watch and rebuild Eleventy on changes
 
 # Production
-npm run build          # Build production site
-npm run build:css      # Build CSS only
-npm run build:eleventy # Build Eleventy only
+npm run build           # Build production site (CSS + Eleventy + JS)
+npm run build:css       # Build CSS only with PostCSS
+npm run build:eleventy  # Build Eleventy only
+npm run build:js        # Bundle JavaScript files
+
+# Testing
+npm run test            # Run unit tests
+npm run test:unit       # Run unit tests only
+npm run test:integration # Run integration tests
+npm run test:e2e        # Run end-to-end tests
+npm run test:all        # Run all tests
+npm run test:watch      # Run tests in watch mode
 
 # Validation
-npm run validate:km    # Validate knowledge management standards
+npm run validate:km     # Validate knowledge management standards
+
+# Debugging
+npm run debug           # Run Eleventy with debug output
 ```
 
 ## 🚨 CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
@@ -355,11 +385,12 @@ See docs/BLOG_VISUAL_ENHANCEMENT_GUIDE.md for complete documentation.
 - `npx claude-flow sparc pipeline "<task>"` - Full pipeline processing
 - `npx claude-flow sparc concurrent <mode> "<tasks-file>"` - Multi-task processing
 
-### Build Commands
-- `npm run build` - Build project
-- `npm run test` - Run tests
-- `npm run lint` - Linting
-- `npm run typecheck` - Type checking
+### Available npm Commands
+- `npm run build` - Build production site
+- `npm run serve` - Development server with hot reload
+- `npm run test` - Run unit tests
+- `npm run test:all` - Run all test suites
+- `npm run validate:km` - Validate knowledge management standards
 
 ## SPARC Workflow Phases
 
