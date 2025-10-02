@@ -154,8 +154,8 @@ button:active,
   transform: translateY(0);
 }
 
-/* Link improvements */
-a:not(.btn):not(.nav-link) {
+/* Link improvements - exclude all button classes */
+a:not([class*="btn"]):not(.nav-link) {
   color: #2563eb;
   text-decoration-line: underline;
   text-decoration-color: transparent;
@@ -163,16 +163,16 @@ a:not(.btn):not(.nav-link) {
   transition: all 0.2s ease;
 }
 
-a:not(.btn):not(.nav-link):hover {
+a:not([class*="btn"]):not(.nav-link):hover {
   color: #1d4ed8;
   text-decoration-color: currentColor;
 }
 
-.dark a:not(.btn):not(.nav-link) {
+.dark a:not([class*="btn"]):not(.nav-link) {
   color: #60a5fa;
 }
 
-.dark a:not(.btn):not(.nav-link):hover {
+.dark a:not([class*="btn"]):not(.nav-link):hover {
   color: #93c5fd;
 }
 
