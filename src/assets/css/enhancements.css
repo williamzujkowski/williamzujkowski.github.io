@@ -154,8 +154,8 @@ button:active,
   transform: translateY(0);
 }
 
-/* Link improvements - exclude all button classes */
-a:not([class*="btn"]):not(.nav-link) {
+/* Link improvements */
+a:not(.btn):not(.nav-link) {
   color: #2563eb;
   text-decoration-line: underline;
   text-decoration-color: transparent;
@@ -163,16 +163,16 @@ a:not([class*="btn"]):not(.nav-link) {
   transition: all 0.2s ease;
 }
 
-a:not([class*="btn"]):not(.nav-link):hover {
+a:not(.btn):not(.nav-link):hover {
   color: #1d4ed8;
   text-decoration-color: currentColor;
 }
 
-.dark a:not([class*="btn"]):not(.nav-link) {
+.dark a:not(.btn):not(.nav-link) {
   color: #60a5fa;
 }
 
-.dark a:not([class*="btn"]):not(.nav-link):hover {
+.dark a:not(.btn):not(.nav-link):hover {
   color: #93c5fd;
 }
 
@@ -586,4 +586,24 @@ img {
   a:hover {
     transition: all 0.2s ease;
   }
+}
+
+/* ========================================
+   BUTTON COLOR OVERRIDES
+   ======================================== */
+
+/* Force correct colors on buttons - must come after link styles */
+a.btn-primary,
+button.btn-primary {
+  color: rgb(255, 255, 255) !important;
+}
+
+a.btn-secondary,
+button.btn-secondary {
+  /* Color already defined in tailwind.css */
+}
+
+a.btn-ghost,
+button.btn-ghost {
+  /* Color already defined in tailwind.css */
 }
