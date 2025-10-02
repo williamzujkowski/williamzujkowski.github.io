@@ -56,44 +56,76 @@ module.exports = {
         DEFAULT: {
           css: {
             maxWidth: 'none',
-            color: '#334155',
+            color: 'var(--fg)',
             a: {
-              color: '#2563eb',
+              color: 'var(--link)',
+              textDecoration: 'underline',
+              textDecorationColor: 'transparent',
+              textUnderlineOffset: '2px',
+              transition: 'all 150ms ease',
               '&:hover': {
-                color: '#1d4ed8',
-              },
-            },
-          },
-        },
-        invert: {
-          css: {
-            color: '#d1d5db', // gray-300
-            a: {
-              color: '#60a5fa', // blue-400
-              '&:hover': {
-                color: '#93bbfd', // blue-300
+                color: 'var(--link-hover)',
+                textDecorationColor: 'currentColor',
               },
             },
             strong: {
-              color: '#e5e7eb', // gray-200
+              color: 'var(--fg)',
+              fontWeight: '600',
             },
-            h1: {
-              color: '#f3f4f6', // gray-100
-            },
-            h2: {
-              color: '#f3f4f6', // gray-100
-            },
-            h3: {
-              color: '#f3f4f6', // gray-100
-            },
-            h4: {
-              color: '#f3f4f6', // gray-100
+            'h1, h2, h3, h4, h5, h6': {
+              color: 'var(--fg)',
+              fontWeight: '600',
             },
             code: {
-              color: '#e5e7eb', // gray-200
+              color: 'var(--accent)',
+              backgroundColor: 'var(--bg-secondary)',
+              padding: '0.125rem 0.375rem',
+              borderRadius: '0.25rem',
+              fontWeight: '500',
+            },
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+            pre: {
+              backgroundColor: 'var(--bg-secondary)',
+              border: '1px solid var(--border)',
+              borderRadius: '0.75rem',
+              color: 'var(--fg-secondary)',
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              padding: '0',
+              color: 'inherit',
+            },
+            blockquote: {
+              color: 'var(--muted)',
+              borderLeftColor: 'var(--border-secondary)',
+              fontStyle: 'italic',
             },
             'blockquote p': {
-              color: '#d1d5db', // gray-300
+              color: 'var(--muted)',
+            },
+            hr: {
+              borderColor: 'var(--border)',
+            },
+            'ol, ul': {
+              color: 'var(--fg-secondary)',
+            },
+            li: {
+              color: 'var(--fg-secondary)',
+            },
+            p: {
+              color: 'var(--fg-secondary)',
+            },
+            thead: {
+              color: 'var(--fg)',
+              borderBottomColor: 'var(--border-secondary)',
+            },
+            'tbody tr': {
+              borderBottomColor: 'var(--border)',
             },
           },
         },
