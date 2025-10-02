@@ -105,9 +105,9 @@ These are the tools that have me staying up way too late "just testing one more 
 
 ## 🏠 Homelab Essentials: The Foundation
 
-<div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 p-6 my-6">
-  <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">📚 Learning Path: From Zero to Hero</h4>
-  <p class="text-gray-700 dark:text-gray-300 mb-4">
+<div class="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-400 dark:border-blue-500 p-6 my-6">
+  <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-3">📚 Learning Path: From Zero to Hero</h4>
+  <p class="text-gray-700 dark:text-gray-200 mb-4">
     Here's the order I'd tackle these if I were starting over. Each tool builds on the last, and you'll use these concepts everywhere.
   </p>
   <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
@@ -181,8 +181,8 @@ These are the tools that have me staying up way too late "just testing one more 
 
 ### Self-Hosted Services That Don't Suck
 
-<div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">🎯 Actually Useful Services</h4>
+<div class="bg-blue-50 dark:bg-blue-950/50 p-6 rounded-lg my-6">
+  <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🎯 Actually Useful Services</h4>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <div>
       <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Monitoring & Logs</h5>
@@ -480,10 +480,10 @@ Because learning should be fun, here are some projects that'll teach you tons:
 
 ### Homelab & DevOps
 
-<div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg my-6">
-  <h5 class="font-bold text-gray-900 dark:text-gray-100 mb-3">Level Up Your Lab</h5>
+<div class="bg-blue-50 dark:bg-blue-950/50 p-6 rounded-lg my-6">
+  <h5 class="font-bold text-gray-900 dark:text-white mb-3">Level Up Your Lab</h5>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <ul class="text-gray-700 dark:text-gray-300 space-y-2">
+    <ul class="text-gray-700 dark:text-gray-200 space-y-2">
       <li>🔧 <a href="https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/1942788290" class="text-primary-600 dark:text-primary-400 hover:underline">The Phoenix Project</a>
         <br><span class="text-sm text-gray-600">DevOps explained through a story that hits too close to home</span></li>
       <li>⚙️ <a href="https://www.amazon.com/Site-Reliability-Engineering-Production-Systems/dp/149192912X" class="text-primary-600 dark:text-primary-400 hover:underline">Site Reliability Engineering</a>
@@ -611,8 +611,8 @@ Because learning should be fun, here are some projects that'll teach you tons:
       </p>
     </div>
   </div>
-  <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-900/30 rounded border border-blue-300 dark:border-blue-700">
-    <p class="text-sm text-blue-800 dark:text-blue-200">
+  <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-950/50 rounded border border-blue-300 dark:border-blue-600">
+    <p class="text-sm text-blue-900 dark:text-blue-100">
       <strong>💡 My recommendation:</strong> Start with TryHackMe for 3-6 months, then add HackTheBox.
       Don't jump around – depth beats breadth when you're learning fundamentals.
     </p>
