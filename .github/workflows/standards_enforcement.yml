@@ -73,11 +73,11 @@ jobs:
           echo "📋 Checking .claude-rules.json..."
           if [ -f ".claude-rules.json" ]; then
             python -c "
-            import json
-            with open('.claude-rules.json', 'r') as f:
-                rules = json.load(f)
-            print(f'✅ Loaded {len(rules.get(\"MANDATORY_STANDARDS\", {}))} standards')
-            "
+import json
+with open('.claude-rules.json', 'r') as f:
+    rules = json.load(f)
+print(f'✅ Loaded {len(rules.get(\"MANDATORY_STANDARDS\", {}))} standards')
+"
           else
             echo "⚠️  .claude-rules.json not found"
           fi

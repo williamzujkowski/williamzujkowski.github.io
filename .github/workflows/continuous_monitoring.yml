@@ -68,6 +68,7 @@ jobs:
 
       - name: Generate health dashboard
         run: python scripts/generate_health_dashboard.py
+        continue-on-error: true
 
       - name: Generate compliance report
         run: python scripts/generate_compliance_report.py

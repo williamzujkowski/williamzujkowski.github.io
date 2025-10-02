@@ -686,7 +686,6 @@ Tools so new they might break everything (that's half the fun):
         <li>• Read "The Cuckoo's Egg"</li>
       </ul>
     </div>
-
     <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-bold text-blue-600 dark:text-blue-400 mb-3">🚀 Month 2-3: Build Momentum</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
@@ -697,7 +696,6 @@ Tools so new they might break everything (that's half the fun):
         <li>• Document everything you break</li>
       </ul>
     </div>
-
     <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-bold text-purple-600 dark:text-purple-400 mb-3">🔬 Month 4-6: Specialize</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
@@ -708,7 +706,6 @@ Tools so new they might break everything (that's half the fun):
         <li>• Join communities and ask questions</li>
       </ul>
     </div>
-
     <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-bold text-orange-600 dark:text-orange-400 mb-3">🎯 Month 6+: Master</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
