@@ -1,18 +1,16 @@
 ---
-
 title: "Uses"
 layout: page
 permalink: /uses/
 description: "Hardware, software, and services I use."
 eleventyNavigation:
-key: Uses
-order: 6
---------
+  key: Uses
+  order: 6
+---
 
 # Uses
 
 This page lists the **hardware, software, and services** I personally use for security engineering, development, homelab experiments, and AI projects. It is intended as a living reference: tools and preferences evolve as I learn and refine my workflow.
-
 ---
 
 ## 🖥️ Hardware
