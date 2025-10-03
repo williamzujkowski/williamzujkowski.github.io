@@ -102,7 +102,7 @@ This page lists the **hardware, software, and services** I personally use for se
 
 ## ☁️ Services
 
-* Code Hosting: GitHub (public), [GitLab CE](https://about.gitlab.com/install/ce/) (private).
+* Code Hosting: GitHub (public), [GitLab CE](https://about.gitlab.com/install/) (private).
 * CI/CD: GitHub Actions, [Jenkins](https://www.jenkins.io/) for lab automation.
 * Monitoring: [UptimeRobot](https://uptimerobot.com/).
 * VPN: [WireGuard](https://www.wireguard.com/), [Tailscale](https://tailscale.com/), [ProtonVPN](https://protonvpn.com/).
@@ -116,7 +116,7 @@ This page lists the **hardware, software, and services** I personally use for se
 * [Jellyfin](https://jellyfin.org/) media server
 * [Home Assistant](https://www.home-assistant.io/) automation
 * [BookStack](https://www.bookstackapp.com/) documentation/wiki
-* [GitLab CE](https://about.gitlab.com/install/ce/) private repos
+* [GitLab CE](https://about.gitlab.com/install/) private repos
 * [restic](https://restic.net/) backups → [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html)
 
 ---
