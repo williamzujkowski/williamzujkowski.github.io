@@ -38,8 +38,8 @@ This page lists the **hardware, software, and services** I personally use for se
 
 **Related posts:**
 
-* Implementing DNS-over-HTTPS (DoH) for Home Networks → [/posts/implementing-dns-over-https-doh-for-home-networks/](/posts/implementing-dns-over-https-doh-for-home-networks/)
-* IoT Security in Your Home Lab: Lessons from OWASP IoTGoat → [/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/](/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/)
+* [Implementing DNS-over-HTTPS (DoH) for Home Networks](/posts/implementing-dns-over-https-doh-for-home-networks/)
+* [IoT Security in Your Home Lab: Lessons from OWASP IoTGoat](/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/)
 
 ---
 
@@ -76,10 +76,10 @@ This page lists the **hardware, software, and services** I personally use for se
 
 **Related posts:**
 
-* Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV → [/posts/building-a-smart-vulnerability-prioritization-system-with-epss-and-cisa-kev/](/posts/building-a-smart-vulnerability-prioritization-system-with-epss-and-cisa-kev/)
-* Vulnerability Management at Scale with Open Source Tools → [/posts/vulnerability-management-at-scale-with-open-source-tools/](/posts/vulnerability-management-at-scale-with-open-source-tools/)
-* Building Your Own MITRE ATT&CK Threat Intelligence Dashboard → [/posts/building-your-own-mitre-attck-threat-intelligence-dashboard/](/posts/building-your-own-mitre-attck-threat-intelligence-dashboard/)
-* eBPF for Security Monitoring: A Practical Guide → [/posts/ebpf-for-security-monitoring-a-practical-guide/](/posts/ebpf-for-security-monitoring-a-practical-guide/)
+* [Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV](/posts/building-a-smart-vulnerability-prioritization-system-with-epss-and-cisa-kev/)
+* [Vulnerability Management at Scale with Open Source Tools](/posts/vulnerability-management-at-scale-with-open-source-tools/)
+* [Building Your Own MITRE ATT&CK Threat Intelligence Dashboard](/posts/building-your-own-mitre-attck-threat-intelligence-dashboard/)
+* [eBPF for Security Monitoring: A Practical Guide](/posts/ebpf-for-security-monitoring-a-practical-guide/)
 
 ---
 
@@ -91,10 +91,10 @@ This page lists the **hardware, software, and services** I personally use for se
 
 **Related posts:**
 
-* Supercharging Development with Claude-Flow → [/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/](/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/)
-* Down the MCP Rabbit Hole: Building a Standards Server → [/posts/down-the-mcp-rabbit-hole-building-a-standards-server/](/posts/down-the-mcp-rabbit-hole-building-a-standards-server/)
-* Exploring Claude CLI Context and Compliance → [/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/](/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/)
-* AI as Cognitive Infrastructure → [/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/](/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/)
+* [Supercharging Development with Claude-Flow](/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/)
+* [Down the MCP Rabbit Hole: Building a Standards Server](/posts/down-the-mcp-rabbit-hole-building-a-standards-server/)
+* [Exploring Claude CLI Context and Compliance](/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/)
+* [AI as Cognitive Infrastructure](/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/)
 
 ---
 
@@ -121,29 +121,28 @@ This page lists the **hardware, software, and services** I personally use for se
 
 ## 🧪 CLI Tools
 
-```bash
 # Development
-[git](https://git-scm.com/)        # Version control
-[gh](https://cli.github.com/)      # GitHub CLI
-[python3](https://www.python.org/) # Scripting & automation
-[go](https://go.dev/)              # Systems programming
-[rust](https://www.rust-lang.org/) # Memory‑safe development
+* [git](https://git-scm.com/)        - Version control
+* [gh](https://cli.github.com/)      - GitHub CLI
+* [python3](https://www.python.org/) - Scripting & automation
+* [go](https://go.dev/)              - Systems programming
+* [rust](https://www.rust-lang.org/) - Memory‑safe development
 
 # Infrastructure
-[terraform](https://www.terraform.io/)  # IaC
-[ansible](https://www.ansible.com/)     # Configuration management
-[docker](https://www.docker.com/)       # Containers
-[kubectl](https://kubernetes.io/docs/reference/kubectl/) # Kubernetes
-[k3s](https://k3s.io/)                  # Lightweight Kubernetes
+* [terraform](https://www.terraform.io/)  - IaC
+* [ansible](https://www.ansible.com/)     - Configuration management
+* [docker](https://www.docker.com/)       - Containers
+* [kubectl](https://kubernetes.io/docs/reference/kubectl/) - Kubernetes
+* [k3s](https://k3s.io/)                  - Lightweight Kubernetes
 
 # Utilities
-[tmux](https://github.com/tmux/tmux)    # Multiplexer
-[fzf](https://github.com/junegunn/fzf)  # Fuzzy finder
-[ripgrep](https://github.com/BurntSushi/ripgrep) # Code search
-[bat](https://github.com/sharkdp/bat)   # Syntax‑highlighted cat
-[htop](https://htop.dev/)               # Process monitor
-[ncdu](https://dev.yorhel.nl/ncdu)      # Disk usage
-```
+* [tmux](https://github.com/tmux/tmux)    - Multiplexer
+* [fzf](https://github.com/junegunn/fzf)  - Fuzzy finder
+* [ripgrep](https://github.com/BurntSushi/ripgrep) - Code search
+* [bat](https://github.com/sharkdp/bat)   - Syntax‑highlighted cat
+* [htop](https://htop.dev/)               - Process monitor
+* [ncdu](https://dev.yorhel.nl/ncdu)      - Disk usage
+
 
 ---
 
