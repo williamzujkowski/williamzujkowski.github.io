@@ -115,7 +115,7 @@ After leading vulnerability management for NIH's enterprise (**~100k+ assets** a
 <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-lg border-l-4 border-purple-400">
   <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 flex items-center">
     <span class="text-2xl mr-3">🧬</span>
-    NHGRI Research Infrastructure Security (2020-2021)
+    NHGRI Research Infrastructure Security (2018-2021)
   </h3>
   <p class="text-gray-700 dark:text-gray-300">
     Secured research infrastructure supporting ~2,200 endpoints, including scientific instruments and research workstations, while maintaining compliance and enabling cutting-edge genomics research
