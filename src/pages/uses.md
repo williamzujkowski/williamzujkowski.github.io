@@ -167,4 +167,4 @@ This page lists the **hardware, software, and services** I personally use for se
 
 ---
 
-*Last updated:* {{ "now" | date: "%Y-%m-%d" }}
+*Last updated: 2025-10-03*
