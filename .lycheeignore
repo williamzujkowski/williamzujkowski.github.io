@@ -1,13 +1,13 @@
 # Lychee link checker exclusions
 
-# JavaScript template literals in 404 page
-${result.url}
+# JavaScript template literals in 404 page - properly escaped regex
+\$\{result\.url\}
 
 # Bot detection - these sites block automated checkers
-reddit.com/submit
-platform.openai.com
-www.udacity.com
-www.cloudflare.com/learning
+reddit\.com/submit
+platform\.openai\.com
+www\.udacity\.com
+www\.cloudflare\.com/learning
 
 # Known false positives
 mailto:
