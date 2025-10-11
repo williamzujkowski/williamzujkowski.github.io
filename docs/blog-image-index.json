@@ -626,6 +626,71 @@
         "alt": "AI as Cognitive Infrastructure - Social media preview"
       }
     },
+    "2025-08-18-container-security-hardening-homelab": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-08-18-container-security-hardening-homelab-hero.jpg",
+        "alt": "cybersecurity concept illustration for Container Security Hardening in My Homelab",
+        "caption": "Visual representation of Container Security Hardening in My Homelab",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-08-18-container-security-hardening-homelab-og.jpg",
+        "alt": "cybersecurity concept illustration for Container Security Hardening in My Homelab"
+      }
+    },
+    "2025-08-25-network-traffic-analysis-suricata-homelab": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-08-25-network-traffic-analysis-suricata-homelab-hero.jpg",
+        "alt": "network topology and connections for Building a Network Traffic Analysis Lab with Suricata",
+        "caption": "Visual representation of Building a Network Traffic Analysis Lab with Suricata",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-08-25-network-traffic-analysis-suricata-homelab-og.jpg",
+        "alt": "network topology and connections for Building a Network Traffic Analysis Lab with Suricata"
+      }
+    },
+    "2025-09-01-self-hosted-bitwarden-migration-guide": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-09-01-self-hosted-bitwarden-migration-guide-hero.jpg",
+        "alt": "cybersecurity concept illustration for Self-Hosted Password Manager Migration: Bitwarden Deep Dive",
+        "caption": "Visual representation of Self-Hosted Password Manager Migration: Bitwarden Deep Dive",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-09-01-self-hosted-bitwarden-migration-guide-og.jpg",
+        "alt": "cybersecurity concept illustration for Self-Hosted Password Manager Migration: Bitwarden Deep Dive"
+      }
+    },
+    "2025-09-08-zero-trust-vlan-segmentation-homelab": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-09-08-zero-trust-vlan-segmentation-homelab-hero.jpg",
+        "alt": "network topology and connections for Implementing Zero Trust Microsegmentation with VLANs",
+        "caption": "Visual representation of Implementing Zero Trust Microsegmentation with VLANs",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-09-08-zero-trust-vlan-segmentation-homelab-og.jpg",
+        "alt": "network topology and connections for Implementing Zero Trust Microsegmentation with VLANs"
+      }
+    },
+    "2025-09-14-threat-intelligence-mitre-attack-dashboard": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-hero.jpg",
+        "alt": "Python code and development workflow for Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+        "caption": "Visual representation of Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-og.jpg",
+        "alt": "Python code and development workflow for Building Your Own MITRE ATT&CK Threat Intelligence Dashboard"
+      }
+    },
     "2025-09-20-iot-security-homelab-owasp": {
       "hero": {
         "src": "/assets/images/blog/hero/2025-09-20-iot-security-homelab-owasp-hero.jpg",
@@ -639,19 +704,6 @@
         "alt": "cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons from OWASP IoTGoat"
       }
     },
-    "2025-09-20-threat-intelligence-mitre-attack-dashboard": {
-      "hero": {
-        "src": "/assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-hero.jpg",
-        "alt": "Python code and development workflow for Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
-        "caption": "Visual representation of Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
-        "width": 1200,
-        "height": 630
-      },
-      "og": {
-        "src": "/assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-og.jpg",
-        "alt": "Python code and development workflow for Building Your Own MITRE ATT&CK Threat Intelligence Dashboard"
-      }
-    },
     "2025-09-20-vulnerability-prioritization-epss-kev": {
       "hero": {
         "src": "/assets/images/blog/hero/2025-09-20-vulnerability-prioritization-epss-kev-hero.jpg",
@@ -663,6 +715,45 @@
       "og": {
         "src": "/assets/images/blog/hero/2025-09-20-vulnerability-prioritization-epss-kev-og.jpg",
         "alt": "Hero image illustrating Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV"
+      }
+    },
+    "2025-09-29-proxmox-high-availability-homelab": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-09-29-proxmox-high-availability-homelab-hero.jpg",
+        "alt": "artificial intelligence concept diagram for Proxmox High Availability Setup for Homelab Reliability",
+        "caption": "Visual representation of Proxmox High Availability Setup for Homelab Reliability",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-09-29-proxmox-high-availability-homelab-og.jpg",
+        "alt": "artificial intelligence concept diagram for Proxmox High Availability Setup for Homelab Reliability"
+      }
+    },
+    "2025-10-06-automated-security-scanning-pipeline": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-10-06-automated-security-scanning-pipeline-hero.jpg",
+        "alt": "cybersecurity concept illustration for Automated Security Scanning Pipeline with Grype and OSV",
+        "caption": "Visual representation of Automated Security Scanning Pipeline with Grype and OSV",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-10-06-automated-security-scanning-pipeline-og.jpg",
+        "alt": "cybersecurity concept illustration for Automated Security Scanning Pipeline with Grype and OSV"
+      }
+    },
+    "2025-10-13-ai-agent-development-claude-mcp": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-10-13-ai-agent-development-claude-mcp-hero.jpg",
+        "alt": "artificial intelligence concept diagram for AI Agent Development with Claude Code and MCP Servers",
+        "caption": "Visual representation of AI Agent Development with Claude Code and MCP Servers",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-10-13-ai-agent-development-claude-mcp-og.jpg",
+        "alt": "artificial intelligence concept diagram for AI Agent Development with Claude Code and MCP Servers"
       }
     },
     "welcome": {
@@ -681,8 +772,8 @@
     }
   },
   "stats": {
-    "total_posts": 48,
-    "posts_with_images": 48,
-    "total_images": 50
+    "total_posts": 55,
+    "posts_with_images": 55,
+    "total_images": 57
   }
 }
