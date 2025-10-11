@@ -725,7 +725,6 @@ My cluster performance:
 ### Ceph Storage
 
 1. **[Ceph Architecture and Design](https://docs.ceph.com/en/latest/architecture/)** - Official Ceph docs
-2. **[Understanding Ceph Performance](https://www.sebastien-han.fr/blog/2012/12/26/ceph-performance-interesting-things-learned-from-performance-tests/)** - Performance analysis
 
 ### High Availability Concepts
 

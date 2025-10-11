@@ -79,7 +79,7 @@ This site is [open source on GitHub](https://github.com/williamzujkowski/william
 
 ## Let's Connect
 
-I'm always interested in connecting with fellow engineers, security professionals, and anyone passionate about technology. You can find me on [GitHub](https://github.com/williamzujkowski) and [LinkedIn](https://www.linkedin.com/in/williamzujkowski/) or reach out directly through my [contact page](/about/#contact).
+I'm always interested in connecting with fellow engineers, security professionals, and anyone passionate about technology. You can find me on [GitHub](https://github.com/williamzujkowski) or reach out directly through my [contact page](/about/#contact).
 
 Here's to building a better, faster, more accessible web – one static site at a time!
 

@@ -300,4 +300,4 @@ Stay curious. Stay humble. Stay secure.
 
 ---
 
-*What aspects of the security mindset have been most valuable in your career? I'd love to hear your experiences and lessons learned. Feel free to [reach out](/about/#contact) or connect on [LinkedIn](https://linkedin.com/in/williamzujkowski)*
+*What aspects of the security mindset have been most valuable in your career? I'd love to hear your experiences and lessons learned. Feel free to [reach out](/about/#contact).*
