@@ -1,0 +1,111 @@
+**Compose an engaging and informative blog post for [williamzujowski.github.io](https://williamzujowski.github.io) that delves into a novel and intriguing topic within the realms of AI, quantum computing, cybersecurity, cryptography, robotics, high-performance computing, or science fiction. Choose a topic that adds diversity to the blog by focusing on an area that hasn't been covered in recent posts.**
+
+---
+
+### **Instructions:**
+
+#### 1. **Audience:**
+- Craft content that appeals to technology enthusiasts.
+- Begin with a concise summary to help beginners grasp key points.
+
+#### 2. **Topic Selection:**
+- Ensure the subject matter hasn't been previously covered on the blog by reviewing past posts.
+- Choose a primary topic/category that differs from the main topics of at least the 5 most recent blog posts to maintain content diversity.
+- Before starting, analyze the most recent 10 posts in the /src/posts/ directory to identify overrepresented topics and select an underrepresented area instead.
+- Clearly define the objective of the post, such as educating readers on a new concept, providing a tutorial, or offering insights into recent developments.
+- To ensure content is cutting-edge and relevant, explore papers uploaded to arXiv within the last 30 days that align with the blog's focus areas (AI, quantum computing, cybersecurity, cryptography, robotics, high-performance computing, or science fiction).
+  - Search for papers with high citation potential, novel methodologies, or breakthrough findings in these domains
+  - Focus on identifying emerging trends, paradigm shifts, or unexpected connections between fields
+  - Select topics that build upon existing literature while introducing new concepts or applications
+  - Consider papers that bridge multiple disciplines, as these often present unique storytelling opportunities
+  - Prioritize topics that haven't been the primary focus of any blog post in the last 2 months
+
+#### 3. **Content Development:**
+- Incorporate insights from recent developments and personal experiences.
+- Enhance the narrative with relevant code samples, diagrams, or images to elucidate complex concepts.
+- Provide links to reputable sources for readers to find more information.
+- Include discussions on emerging security vulnerabilities with CVSS scores over 9.5, detailing their implications and mitigation strategies.
+
+#### 4. **Code Integration:**
+- Since the website is hosted on GitHub, store any code samples within the appropriate folders of the website's repository.
+- Include instructions or links in the blog post directing readers to these resources.
+
+#### 5. **Formatting and Accessibility:**
+- Use clear headings, subheadings, bullet points, and numbered lists to organize content logically.
+- Ensure all visuals have descriptive alt text for accessibility.
+- Use simple language where possible and provide explanations for jargon.
+
+#### 6. **Conclusion:**
+- Summarize the main points at the end of the post, reinforcing critical insights.
+- Include a call to action encouraging readers to apply the knowledge, participate in discussions, or explore related topics.
+
+#### 7. **Additional Resources:**
+- Suggest available relevant public repositories or other projects that may be fun to explore, even if they are not owned by the author.
+
+#### 8. **Metadata and Title Selection:**
+- Include the publication date and, if applicable, the last updated date.
+- Create a unique, compelling title that hasn't been used before:
+  - Search all existing posts in /src/posts/ to ensure the title is not a duplicate or too similar to an existing post
+  - Avoid reusing primary keywords from recent post titles (check last 10 posts)
+  - The title should be descriptive, engaging, and between 6-12 words in length
+  - Include a primary keyword and a secondary keyword for SEO optimization
+- Ensure the content is accessible to a diverse audience, including those using assistive technologies.
+
+#### 9. **Citations:**
+- When referencing external sources, include the full URL to ensure readers can access the original material.
+
+#### 10. **Visual Enhancements:**
+- Incorporate actual images throughout the post, not just suggestions:
+  - Include a header image at the top of the post
+  - Add relevant images throughout the content (approximately one per major section)
+  - Select images that directly illustrate or enhance the concepts being discussed
+
+- Source images from copyright-free websites like:
+  - Unsplash (https://unsplash.com/)
+  - Pexels (https://www.pexels.com/)
+  - Pixabay (https://pixabay.com/)
+  - Wikimedia Commons (https://commons.wikimedia.org/)
+  - NASA Image Gallery (https://www.nasa.gov/multimedia/imagegallery/)
+  - StockSnap.io (https://stocksnap.io/)
+  - Kaboompics (https://kaboompics.com/)
+  - ISO Republic (https://isorepublic.com/)
+  - Burst by Shopify (https://burst.shopify.com/)
+  - Rawpixel (https://www.rawpixel.com/)
+
+- For each image, provide:
+  - Direct URL to the specific image (not just the website)
+  - Proper attribution if required by the source
+  - Descriptive alt text for accessibility
+  - Complete Markdown formatting for inclusion in the post
+
+- Use appropriate search terms to find highly relevant images for the topic
+
+#### 11. **Clarity and Engagement:**
+- Utilize analogies and real-world examples to simplify complex technical concepts, making the content more relatable and easier to understand for a broader audience.
+
+#### 12. **Balanced Perspective:**
+- Discuss trade-offs and limitations when presenting technologies or solutions to provide a balanced and credible analysis.
+
+#### 13. **Tone:**
+- Maintain a conversational writing style to engage readers effectively. Using simple language, posing questions, and addressing the reader directly can make your content more accessible.
+
+#### 14. **Readability:**
+- Structure your content with clear headings, subheadings, bullet points, and numbered lists. This formatting enhances readability and allows readers to skim content efficiently.
+
+#### 15. **Further Exploration:**
+- At the end of your post, provide links to related articles, official documentation, or tutorials to encourage readers to delve deeper into the topic.
+
+#### 16. **Reading Time:**
+- Aim for a reading time of approximately 6 to 9 minutes. Given that the average adult reads non-fiction at about 238 words per minute, this equates to a word count of approximately 1,400 to 2,100 words. Posts under 1,400 words will be rejected for being too short.
+
+#### 17. **Topic Diversity Tracking:**
+- Begin your writing process by completing this topic analysis template:
+  ```
+  TOPIC DIVERSITY ANALYSIS:
+  Last 10 blog post primary topics: [list them]
+  Over-represented topics: [identify any topics that appear 2+ times in recent posts]
+  Under-represented topics: [identify topics from our focus areas that haven't been covered recently]
+  Selected primary topic for this post: [your choice]
+  Justification: [brief explanation of why this topic adds diversity]
+  ```
+- The analysis should remain in your working notes and not appear in the final blog post.
