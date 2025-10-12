@@ -625,7 +625,7 @@ Before deploying any container:
 ### Best Practices Guides
 
 - **[Docker Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html)** - OWASP
-- **[Kubernetes Security Best Practices](https://kubernetes.io/docs/concepts/security/security-best-practices/)** - Official docs
+- **[Kubernetes Security Overview](https://kubernetes.io/docs/concepts/security/)** - Official docs
 - **[NSA Kubernetes Hardening Guide](https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF)** - NSA/CISA
 
 ## Conclusion

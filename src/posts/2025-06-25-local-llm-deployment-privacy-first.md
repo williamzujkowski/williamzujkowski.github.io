@@ -159,7 +159,7 @@ print(result)
 
 ### 2. LlamaCpp: Maximum Control
 
-[llama.cpp](https://github.com/ggerganov/llama.cpp:)
+[llama.cpp](https://github.com/ggerganov/llama.cpp)
 
 
 ```bash
@@ -400,7 +400,6 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 - [Ollama Documentation](https://github.com/ollama/ollama) - Start here, seriously
 - [Llama.cpp Guide](https://github.com/ggerganov/llama.cpp) - When you're ready to go deeper
 - [Local LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) - For model shopping
-- [My LLM Deployment Scripts](https://github.com/williamzujkowski/local-llm-toolkit) *(Coming Soon - I promise!)*
 
 *Next week: I'm sharing my biggest local LLM failures. Spoiler: I once accidentally exposed my model to the entire internet. Learn from my mistakes!*
 

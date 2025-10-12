@@ -291,7 +291,7 @@ Direct contracts for renewable energy generation:
 - [25% reduction in total environmental footprint](https://www.nature.com/articles/s41558-020-0837-6) (Nature Climate Change)
 
 **Resource Efficiency Improvements:**
-- CPU utilization increased from [40% to 75%](https://aws.amazon.com/blogs/compute/understanding-cpu-utilization/) (AWS Best Practices)
+- CPU utilization increased from [40% to 75%](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html) (AWS Best Practices)
 - [Memory efficiency improved by 50%](https://cloud.google.com/compute/docs/memory-optimized-machines) (Google Cloud Optimization)
 - [Storage costs reduced by 35%](https://azure.microsoft.com/en-us/blog/optimize-storage-costs/) through optimization (Azure Cost Management)
 - [Network data transfer decreased by 40%](https://www.cloudflare.com/learning/performance/more/bandwidth-optimization/) (Cloudflare Performance)
@@ -300,7 +300,7 @@ Direct contracts for renewable energy generation:
 
 **Cost Savings:**
 - $2.1M annual reduction in cloud computing costs
-- [40% decrease in electricity expenses](https://www.energy.gov/eere/buildings/data-center-energy-efficiency) (US Department of Energy)
+- [40% decrease in electricity expenses](https://www.energy.gov/eere/buildings/data-centers-and-servers) (US Department of Energy)
 - [25% reduction in hardware procurement needs](https://www.gartner.com/en/newsroom/press-releases/2023-hardware-sustainability) (Gartner Research)
 - [15% improvement in operational efficiency](https://uptimeinstitute.com/resources/research-and-reports) (Uptime Institute)
 
@@ -417,7 +417,7 @@ The most surprising discovery was that sustainable computing practices often ali
 
 [AWS Sustainability](https://sustainability.aboutamazon.com/environment/the-cloud) - Cloud carbon footprint data
 
-[The Shift Project](https://theshiftproject.org/en/lean-ict-2/) - ICT environmental impact analysis
+[The Shift Project - Lean ICT Report](https://theshiftproject.org/en/article/lean-ict-our-new-report/) - ICT environmental impact analysis
 
 
 ### Key Statistics Sources

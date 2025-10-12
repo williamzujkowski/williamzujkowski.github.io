@@ -254,4 +254,4 @@ This applies equally to code efficiency and to fueling the developers who write 
 
 ---
 
-*For teams interested in exploring development nutrition optimization further, Harvard Business Review's [analysis of workplace nutrition impact](https://hbr.org/2014/10/what-you-eat-affects-your-productivity) provides scientific background, while the [Team Building Through Food](https://www.forbes.com/sites/kevinkruse/2015/12/08/how-successful-teams-use-food/) Forbes article explores the social psychology of shared meals in team environments.*)
+*For teams interested in exploring development nutrition optimization further, Harvard Business Review's [analysis of workplace nutrition impact](https://hbr.org/2014/10/what-you-eat-affects-your-productivity) provides scientific background, while the Cornell Chronicle's [Groups that eat together perform better together](https://news.cornell.edu/stories/2015/11/groups-eat-together-perform-better-together) explores the social psychology of shared meals in team environments.*)

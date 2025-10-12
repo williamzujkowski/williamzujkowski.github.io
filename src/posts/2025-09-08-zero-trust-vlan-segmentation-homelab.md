@@ -674,7 +674,7 @@ Since implementing VLAN segmentation:
 
 ### Network Segmentation Standards
 
-- **[PCI DSS Network Segmentation](https://www.pcisecuritystandards.org/documents/Guidance-PCI-DSS-Scoping-and-Network-Segmentation_v1.pdf)** - Payment Card Industry requirements
+- **[PCI DSS Scoping and Segmentation Guidance](https://www.pcisecuritystandards.org/documents/Guidance-PCI-DSS-Scoping-and-Segmentation_v1.pdf)** - Payment Card Industry requirements
 - **[NIST SP 800-41: Guidelines on Firewalls and Firewall Policy](https://csrc.nist.gov/publications/detail/sp/800-41/rev-1/final)**
 - **[CIS Controls v8: Network Segmentation](https://www.cisecurity.org/controls/network-infrastructure-management)**
 
