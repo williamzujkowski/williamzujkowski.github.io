@@ -345,7 +345,7 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ### Foundational Research
 
-1. **[Invisible Architectures of Thought: Toward a New Science of AI as Cognitive Infrastructure](https://arxiv.org/abs/2507.22893**) (2025)
+1. **[Invisible Architectures of Thought: Toward a New Science of AI as Cognitive Infrastructure](https://arxiv.org/abs/2507.22893)** (2025)
    - Giuseppe Riva's introduction of Cognitive Infrastructure Studies
    - *arXiv preprint*
 

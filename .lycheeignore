@@ -9,6 +9,23 @@ platform\.openai\.com
 www\.udacity\.com
 www\.cloudflare\.com/learning
 doi\.org
+gym\.openai\.com
+orbilu\.uni\.lu
+jade\.tilab\.com
+www\.fhi\.ox\.ac\.uk
+www\.nsa\.gov
+academic\.oup\.com
+www\.gartner\.com
+www\.idc\.com
+www\.mdpi\.com
+search\.ebscohost\.com
+www\.linkedin\.com
+partnershiponai\.org
+sciencedirect\.com
+
+# Template literals and dynamic content
+\$\{.*\}
+%7B.*%7D
 
 # Known false positives
 mailto:
