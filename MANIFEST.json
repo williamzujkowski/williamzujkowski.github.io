@@ -2,13 +2,23 @@
   "version": "4.0.0",
   "schema_version": "1.0.0",
   "generated": "2025-09-20T14:59:30-04:00",
-  "last_validated": "2025-10-11T19:22:37-04:00",
+  "last_validated": "2025-10-11T23:30:26-04:00",
   "repository": {
     "name": "williamzujkowski.github.io",
     "type": "personal-website",
     "framework": "eleventy",
     "deployment": "github-pages",
     "standards_reference": "https://github.com/williamzujkowski/standards"
+  },
+  "project_overrides": {
+    "description": "Project-specific files that intentionally override or extend standards files",
+    "allowed_duplicates": [
+      {
+        "project_file": "CLAUDE.md",
+        "standards_file": ".standards/docs/core/CLAUDE.md",
+        "reason": "Project-specific configuration extends base standards with blog-specific guidelines"
+      }
+    ]
   },
   "inventory": {
     "files": {

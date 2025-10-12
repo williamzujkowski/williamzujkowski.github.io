@@ -923,6 +923,251 @@ Before publishing:
 
 ---
 
+# 📝 Blog Post Creation Guidelines
+
+## Overview
+
+When creating blog posts for williamzujkowski.github.io, follow these comprehensive guidelines to ensure quality, consistency, and alignment with the blog's mission.
+
+## Target Audience
+
+- **Primary**: Technology enthusiasts with varying levels of expertise
+- **Secondary**: Beginners seeking to understand complex technical concepts
+- **Approach**: Begin with concise summaries to help beginners grasp key points, then dive deeper for advanced readers
+
+## Topic Selection and Diversity
+
+### Pre-Writing Topic Analysis
+
+**MANDATORY**: Before starting any blog post, complete this topic diversity analysis:
+
+```
+TOPIC DIVERSITY ANALYSIS:
+Last 10 blog post primary topics: [list them from /src/posts/]
+Over-represented topics: [identify any topics appearing 2+ times in recent posts]
+Under-represented topics: [identify topics from focus areas not covered recently]
+Selected primary topic for this post: [your choice]
+Justification: [brief explanation of why this topic adds diversity]
+```
+
+**Note**: This analysis should remain in working notes and not appear in the final blog post.
+
+### Focus Areas
+
+Choose topics from these core domains:
+- Artificial Intelligence and Machine Learning
+- Quantum Computing
+- Cybersecurity and Information Security
+- Cryptography
+- Robotics and Automation
+- High-Performance Computing
+- Science Fiction (technology implications)
+- Homelab and Self-Hosted Solutions
+
+### Diversity Requirements
+
+- **Primary topic/category** must differ from the main topics of at least the **last 5 blog posts**
+- **Analyze the most recent 10 posts** in `/src/posts/` to identify overrepresented topics
+- **Prioritize topics** that haven't been the primary focus of any blog post in the last 2 months
+- **Avoid repeating primary keywords** from recent post titles (check last 10 posts)
+
+### Topic Research Strategy
+
+To ensure content is cutting-edge and relevant:
+
+1. **Explore Recent Research**: Search arXiv for papers uploaded within the last 30 days that align with blog focus areas
+2. **Identify Breakthrough Papers**: Look for papers with:
+   - High citation potential
+   - Novel methodologies
+   - Breakthrough findings
+   - Emerging trends or paradigm shifts
+   - Unexpected connections between fields
+3. **Bridge Multiple Disciplines**: Papers that connect different domains often present unique storytelling opportunities
+4. **Build on Existing Literature**: Select topics that introduce new concepts or applications while building on established knowledge
+
+### Topic Objective Definition
+
+Clearly define the post's objective:
+- **Educational**: Teaching readers a new concept
+- **Tutorial**: Providing step-by-step guidance
+- **Insight**: Offering perspectives on recent developments
+- **Analysis**: Examining trade-offs and implications
+- **Experience Report**: Sharing lessons from personal projects
+
+## Content Development
+
+### Required Elements
+
+1. **Opening Hook**: Start with a compelling story, question, or interesting fact
+2. **Context Setting**: Explain why this topic matters now
+3. **Core Content**: Main technical information and insights
+4. **Personal Experience**: Incorporate insights from homelab experiments or research
+5. **Practical Examples**: Include code samples, diagrams, or images to illustrate concepts
+6. **Security Considerations**: When relevant, discuss vulnerabilities (CVSS 9.5+) and mitigation strategies
+7. **Trade-offs and Limitations**: Provide balanced analysis of technologies and solutions
+8. **Personal Reflection**: What this means to you and why you find it interesting
+9. **Conclusion**: Summarize main points and reinforce critical insights
+10. **Call to Action**: Encourage readers to apply knowledge, participate in discussions, or explore related topics
+
+### Content Quality Standards
+
+- **Analogies and Real-World Examples**: Use to simplify complex technical concepts
+- **Balanced Perspective**: Discuss trade-offs and limitations for credibility
+- **Simple Language**: Where possible, with explanations for necessary jargon
+- **Conversational Tone**: Engage readers by posing questions and addressing them directly
+- **Structured Format**: Clear headings, subheadings, bullet points, and numbered lists
+
+### Code Integration
+
+- Store code samples in appropriate folders within the website's repository
+- Include instructions or direct links in the blog post to these resources
+- Use syntax highlighting and add comments for clarity
+- Keep code examples concise and focused on key concepts
+
+## Reading Time and Length Requirements
+
+### Minimum Standards
+
+- **Target Reading Time**: 6 to 9 minutes
+- **Word Count**: Approximately 1,400 to 2,100 words (based on 238 words/minute average reading speed)
+- **Rejection Criteria**: Posts under 1,400 words will be rejected for being too short
+
+### Length by Post Type
+
+- **Personal Essays**: 800-2000 words
+- **Tutorials**: As needed for completeness (typically 1,500-2,500 words)
+- **Thought Pieces**: 600-1500 words
+- **Project Documentation**: As needed for comprehensive coverage
+
+## Metadata and SEO
+
+### Title Requirements
+
+- **Uniqueness**: Search all existing posts in `/src/posts/` to ensure no duplicate or similar titles
+- **Keyword Optimization**: Include primary and secondary keywords for SEO
+- **Length**: Between 6-12 words
+- **Engagement**: Descriptive and compelling
+- **Keyword Diversity**: Avoid reusing primary keywords from last 10 post titles
+
+### Required Metadata
+
+- Publication date (YYYY-MM-DD format)
+- Last updated date (if applicable)
+- Description/summary (150-160 characters)
+- Tags (4-8 relevant tags)
+- Author information
+- Image metadata (see Blog Image Standards section)
+
+## Visual Enhancements
+
+### Image Requirements
+
+**MANDATORY**: Incorporate actual images throughout the post, not just suggestions.
+
+#### Required Images
+
+1. **Header Image**: At the top of the post (1200x630px)
+2. **Section Images**: Approximately one image per major section
+3. **Relevant Illustrations**: Images that directly illustrate or enhance concepts being discussed
+
+#### Image Sources
+
+Use copyright-free websites:
+- [Unsplash](https://unsplash.com/)
+- [Pexels](https://www.pexels.com/)
+- [Pixabay](https://pixabay.com/)
+- [Wikimedia Commons](https://commons.wikimedia.org/)
+- [NASA Image Gallery](https://www.nasa.gov/multimedia/imagegallery/)
+- [StockSnap.io](https://stocksnap.io/)
+- [Kaboompics](https://kaboompics.com/)
+- [ISO Republic](https://isorepublic.com/)
+- [Burst by Shopify](https://burst.shopify.com/)
+- [Rawpixel](https://www.rawpixel.com/)
+
+#### Image Details
+
+For each image, provide:
+- Direct URL to the specific image (not just the website)
+- Proper attribution if required by the source
+- Descriptive alt text for accessibility
+- Complete Markdown formatting for inclusion in the post
+- Appropriate search terms to find highly relevant images
+
+## Citations and References
+
+### Citation Requirements
+
+- **Full URLs**: Include complete URLs for all external sources
+- **Reputable Sources**: Link to authoritative sources (see Research & Credibility Model section)
+- **Academic Papers**: Prefer DOI links or arXiv references
+- **90%+ Coverage**: Maintain the blog's 90%+ citation coverage standard
+- **Hyperlinked Citations**: ALL citations MUST include clickable hyperlinks to sources
+
+### Further Exploration Section
+
+At the end of each post, include:
+- Links to related articles
+- Official documentation
+- Tutorials and guides
+- Relevant public repositories (even if not owned by author)
+- Projects that readers may find interesting to explore
+
+## Accessibility and Formatting
+
+### Required Practices
+
+- **Descriptive Alt Text**: For all visual elements
+- **Clear Heading Hierarchy**: Proper H1 → H2 → H3 structure
+- **Simple Language**: Make content accessible to diverse audiences
+- **Assistive Technology**: Ensure compatibility with screen readers and other assistive tools
+- **Mobile Optimization**: Test on various screen sizes (375px-2560px)
+
+### Formatting Standards
+
+- Clear headings and subheadings
+- Bullet points for lists
+- Numbered lists for sequential steps
+- Code blocks with syntax highlighting
+- White space for readability
+- Short paragraphs (3-5 sentences)
+
+## Pre-Publication Checklist
+
+Before submitting any blog post:
+
+- [ ] Topic diversity analysis completed
+- [ ] Title is unique (verified against existing posts)
+- [ ] Word count meets minimum (1,400+ words)
+- [ ] Reading time is 6-9 minutes
+- [ ] All factual claims have citations with working hyperlinks
+- [ ] At least 3 reputable sources per major point
+- [ ] Header image and section images included
+- [ ] All images have descriptive alt text
+- [ ] Code examples are tested and functional
+- [ ] Links are verified (no broken links)
+- [ ] Mobile preview checked
+- [ ] Accessibility requirements met
+- [ ] NDA compliance verified (no work references)
+- [ ] Personal experience incorporated
+- [ ] Call to action included
+- [ ] Further reading section populated
+- [ ] Metadata complete (date, tags, description, images)
+- [ ] Trade-offs and limitations discussed
+- [ ] Conversational tone maintained
+- [ ] Grammar and spelling checked
+
+## Integration with Existing Workflows
+
+When creating blog posts, also:
+
+1. Run `python scripts/blog-images/update-blog-images.py` to update image metadata
+2. Generate hero images with `python scripts/blog-images/generate-blog-hero-images.py`
+3. Optimize images with `bash scripts/optimize-blog-images.sh`
+4. Validate citations with `python scripts/blog-research/research-validator.py`
+5. Check for broken links before committing
+
+---
+
 # Blog Image Standards & Implementation
 
 ## 📸 Image Management System
