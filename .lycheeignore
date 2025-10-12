@@ -22,6 +22,39 @@ search\.ebscohost\.com
 www\.linkedin\.com
 partnershiponai\.org
 sciencedirect\.com
+weforum\.org
+defense\.gov
+dodcio\.defense\.gov
+media\.defense\.gov
+researchgate\.net
+dl\.acm\.org
+www\.jstor\.org
+jstor\.org
+www\.hhs\.gov
+openai\.com
+cisa\.gov
+www\.cisa\.gov
+www\.iea\.org
+www\.epa\.gov
+coral\.ai
+www\.enisa\.europa\.eu
+www\.cfr\.org
+www\.redhat\.com
+
+# Rate limiting - these sites return 429 Too Many Requests
+terraform\.io
+www\.terraform\.io
+nomadproject\.io
+www\.nomadproject\.io
+vaultproject\.io
+www\.vaultproject\.io
+backblaze\.com
+www\.backblaze\.com
+venturebeat\.com
+
+# Timeout - these sites are slow or unreliable
+uptimekuma\.com
+azure\.microsoft\.com
 
 # Template literals and dynamic content
 \$\{.*\}
