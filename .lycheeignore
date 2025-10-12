@@ -8,6 +8,7 @@ reddit\.com/submit
 platform\.openai\.com
 www\.udacity\.com
 www\.cloudflare\.com/learning
+doi\.org
 
 # Known false positives
 mailto:
