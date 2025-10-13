@@ -96,17 +96,25 @@ This isn't just research—VLA models are becoming practical for serious hobbyis
 
 ### Hardware Requirements
 
-**Minimum Setup** (~$2,000-3,000):
-- **Robot Arm**: Kinova Gen3 lite, UR5e, or Franka Emika Panda (used market)
-- **Vision**: Intel RealSense D435 depth camera ($400)
-- **Compute**: NVIDIA RTX 4080 or better for real-time inference
+**Realistic Budget Setup** (~$500-2,000):
+- **Entry Robot Arm**: Used Lynxmotion AL5D or AL5D Piper ($500-800)
+- **Vision**: Webcam or RealSense D435 ($50-400)
+- **Compute**: Existing gaming PC with NVIDIA GPU (RTX 3060 or better)
 - **Workstation**: Similar to my Intel i9-9900K + RTX 3090 setup
 
-**Advanced Setup** (~$10,000-20,000):
+**Mid-Range Aspirational** (~$3,000-5,000):
+- **Better Robot Arm**: Used professional arm or newer hobby-grade platform
+- **Improved Vision**: Intel RealSense D455 with wider FOV ($600)
+- **Dedicated Compute**: Jetson AGX Orin for edge deployment ($2,000)
+- **Safety Hardware**: Emergency stops, force sensors, limit switches
+
+**Dream Setup** (If budgets allowed... ~$10,000-20,000+):
 - **Mobile Manipulator**: Used Fetch or TurtleBot with arm
 - **Multi-camera system**: Stereo depth + overhead tracking
-- **Edge compute**: Jetson AGX Orin for low-latency control
-- **Safety systems**: Force-torque sensors, emergency stop hardware
+- **Professional Arms**: Used Kinova or Universal Robots
+- **Complete Safety Stack**: Force-torque sensors, collision detection hardware
+
+This last tier is more about understanding what's possible than actual near-term plans—my learning budget doesn't stretch that far (yet!).
 
 ### Software Stack
 
@@ -135,31 +143,37 @@ sudo apt install ros-humble-moveit
 
 ### My Homelab Integration Plan
 
-I'm building this incrementally on my existing infrastructure:
+I'm approaching this incrementally, balancing learning goals with realistic budgets:
 
-**Phase 1: Simulation** (Current)
+**Phase 1: Simulation** (Current - Free)
 - Running Isaac Sim on my RTX 3090
-- Training simple pick-and-place tasks
-- Validating safety protocols in simulation
-- Docker containers for reproducible environments
+- Training simple pick-and-place tasks in virtual environments
+- Validating safety protocols before touching hardware
+- Docker containers for reproducible experiments
 
-**Phase 2: Static Arm** (Next 3 months)
-- Kinova Gen3 lite mounted to workbench
-- Intel RealSense for vision
-- K3s deployment for model serving
-- Wazuh monitoring for safety alerts
+**Phase 2: Budget Hardware** (Next 3-6 months - ~$1,000)
+- Used Lynxmotion AL5D arm ($500-800)
+- Webcam or basic RealSense for vision ($50-400)
+- OpenVLA model fine-tuning on simple tasks
+- Basic safety monitoring through existing Wazuh setup
 
-**Phase 3: Mobile Platform** (6-12 months)
-- TurtleBot 4 with mounted arm
-- Multi-camera SLAM system
-- Network integration with existing VLAN security
-- Workshop-wide object manipulation
+**Phase 3: If Budget Allows...** (Aspirational - ~$3,000-5,000)
+- Better robot arm with more DOF and payload
+- Proper depth camera (RealSense D455)
+- Dedicated edge compute (Jetson Orin)
+- Multi-camera coverage for workspace
 
-**Phase 4: Advanced Automation** (Future)
+**Phase 4: The Dream** (Pure aspiration - ~$10,000+)
+- Mobile manipulator for workshop-wide tasks
 - 3D printer error recovery (my original motivation)
-- Tool organization and retrieval
-- Component sorting and inventory
-- Automated testing setups
+- Tool organization and automated inventory
+- Full VLAN integration with production-grade safety systems
+
+**The Humanoid Option** (Watching closely - ~$16,000)
+
+[Unitree's G1 humanoid](https://www.unitree.com/g1) is particularly interesting at around $16k. A full humanoid platform with VLA model integration could handle far more diverse tasks than a static arm. It's not in reach now, but if the next generation drops closer to $10k or used models become available, it becomes a serious consideration. The ability to navigate and manipulate across an entire workshop—not just a benchtop—fundamentally changes what's possible.
+
+For now, I'm focused on Phase 1-2: mastering simulation and getting hands-on with affordable hardware. The expensive options are more about understanding the field's trajectory than actual shopping lists.
 
 ## Security and Safety Considerations
 
@@ -335,9 +349,10 @@ The software developers who understand this shift early will have a significant 
 - [Physical Intelligence Discord](https://discord.gg/pi) - VLA model discussions
 
 **Hardware Recommendations**:
-- **Budget**: Used Lynxmotion AL5D ($500) + Webcam ($50)
-- **Mid-range**: Kinova Gen3 lite ($10k) + RealSense D435 ($400)
-- **Professional**: Universal Robots UR5e ($25k) + Zivid 3D camera ($15k)
+- **Actually Affordable**: Used Lynxmotion AL5D ($500-800) + Webcam ($50)
+- **Realistic Stretch Goal**: Better hobby arm + RealSense D435 ($2k-3k total)
+- **Aspirational (watching prices)**: Unitree G1 humanoid ($16k) or used professional arms
+- **Reference Only**: New industrial robots like UR5e ($25k+) - useful to know the capability ceiling
 
 ## Conclusion
 
