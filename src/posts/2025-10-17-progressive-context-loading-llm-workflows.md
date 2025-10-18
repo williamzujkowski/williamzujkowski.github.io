@@ -212,7 +212,7 @@ That's a **98.7% cost reduction** and **27× speedup**—transforming pre-commit
 
 **Case Study 2: Documentation Generation**
 
-The [blog content standards](https://github.com/williamzujkowski/standards/blob/main/rules/content/blog-requirements.md) in the repository are comprehensive—2,847 tokens covering structure, style, citations, and accessibility. Before progressive loading, every blog post generation would load all requirements upfront.
+The blog content standards in the repository are comprehensive—2,847 tokens covering structure, style, citations, and accessibility. Before progressive loading, every blog post generation would load all requirements upfront.
 
 Progressive loading introduced a workflow-aware routing:
 - **Title generation**: Loads only structure standards (487 tokens)
