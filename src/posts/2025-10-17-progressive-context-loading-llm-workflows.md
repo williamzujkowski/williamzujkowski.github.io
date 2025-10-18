@@ -480,7 +480,6 @@ Share your experiences in the comments, or reach out directly. Let's push the bo
 14. **[Equipping Agents for the Real World with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)** (2025) - Anthropic engineering blog on Skills
 15. **[Anthropic Skills GitHub Repository](https://github.com/anthropics/skills)** (2025) - Open-source Skills implementation examples
 16. **[William Zujkowski Standards Repository](https://github.com/williamzujkowski/standards)** (2025) - Progressive loading implementation reference
-17. **[Blog Content Standards Example](https://github.com/williamzujkowski/standards/blob/main/rules/content/blog-requirements.md)** (2025) - Real-world skill example
 
 ## Further Reading
 
