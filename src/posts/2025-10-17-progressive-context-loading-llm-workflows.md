@@ -486,4 +486,4 @@ Share your experiences in the comments, or reach out directly. Let's push the bo
 
 - [Model Context Protocol (MCP) Documentation](https://modelcontextprotocol.io/) - Framework for tool integration
 - [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/prompt-engineering) - Best practices for context design
-- [Token Optimization Strategies for Production AI Systems](https://williamzujkowski.com/tags/token-optimization/) - Related blog posts on optimization techniques
+- [Token Optimization Strategies for Production AI Systems](https://williamzujkowski.github.io/tags/token-optimization/) - Related blog posts on optimization techniques
