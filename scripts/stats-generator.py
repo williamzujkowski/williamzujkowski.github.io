@@ -34,6 +34,13 @@ class BlogStatsGenerator:
     # Average reading speed (words per minute)
     READING_SPEED_WPM = 238
 
+    # Compiled regex patterns for performance
+    REGEX_CODE_BLOCKS = re.compile(r'```.*?```', re.DOTALL)
+    REGEX_INLINE_CODE = re.compile(r'`[^`]+`')
+    REGEX_URLS = re.compile(r'https?://\S+')
+    REGEX_MD_LINKS = re.compile(r'\[([^\]]+)\]\(([^\)]+)\)')
+    REGEX_IMAGES = re.compile(r'!\[([^\]]*)\]\([^\)]+\)')
+
     def __init__(self, posts_dir: str = "src/posts", output_file: str = "src/_data/blogStats.json"):
         """
         Initialize the stats generator.
@@ -132,6 +139,91 @@ class BlogStatsGenerator:
         import math
         return math.ceil(word_count / self.READING_SPEED_WPM)
 
+    def extract_code_blocks(self, content: str) -> List[str]:
+        """
+        Extract all code blocks from content.
+
+        Args:
+            content: Markdown content
+
+        Returns:
+            List of code block strings
+        """
+        return self.REGEX_CODE_BLOCKS.findall(content)
+
+    def calculate_code_to_content_ratio(self, content: str) -> float:
+        """
+        Calculate percentage of content that is code blocks.
+
+        Args:
+            content: Markdown content
+
+        Returns:
+            Percentage (0-100) of content that is code
+        """
+        code_blocks = self.extract_code_blocks(content)
+        code_chars = sum(len(block) for block in code_blocks)
+        total_chars = len(content)
+        return (code_chars / total_chars * 100) if total_chars > 0 else 0
+
+    def extract_links(self, content: str) -> Dict[str, Any]:
+        """
+        Extract and categorize links from content.
+
+        Args:
+            content: Markdown content
+
+        Returns:
+            Dictionary with link statistics
+        """
+        from urllib.parse import urlparse
+
+        # Find all markdown links
+        all_links = self.REGEX_MD_LINKS.findall(content)
+
+        external_links = []
+        internal_links = []
+
+        for link_text, link_url in all_links:
+            # Skip image links (they have ! prefix)
+            if link_url.startswith('http'):
+                # External link
+                if 'williamzujkowski.github.io' not in link_url:
+                    external_links.append(link_url)
+            elif link_url.startswith('/'):
+                # Internal link
+                internal_links.append(link_url)
+
+        # Calculate unique domains for external links
+        external_domains = set()
+        for url in external_links:
+            try:
+                domain = urlparse(url).netloc
+                if domain:
+                    external_domains.add(domain)
+            except:
+                pass
+
+        return {
+            'external_count': len(external_links),
+            'internal_count': len(internal_links),
+            'external_domains': len(external_domains),
+            'external_links': external_links
+        }
+
+    def calculate_citation_density(self, external_count: int, word_count: int) -> float:
+        """
+        Calculate citation density (citations per 1000 words).
+
+        Args:
+            external_count: Number of external links
+            word_count: Total word count
+
+        Returns:
+            Citations per 1000 words
+        """
+        return (external_count / (word_count / 1000)) if word_count > 0 else 0
+
     def parse_post(self, filepath: Path) -> Optional[Dict[str, Any]]:
         """
         Parse a single blog post file.
@@ -204,6 +296,11 @@ class BlogStatsGenerator:
             if not isinstance(tags, list):
                 tags = [tags] if tags else []
 
+            # Extract code and link statistics
+            code_ratio = self.calculate_code_to_content_ratio(post_content)
+            link_stats = self.extract_links(post_content)
+            citation_density = self.calculate_citation_density(link_stats['external_count'], word_count)
+
             # Build post data
             post_data = {
                 'filename': filepath.name,
@@ -218,6 +315,11 @@ class BlogStatsGenerator:
                 'word_count': word_count,
                 'reading_time': reading_time,
                 'has_images': bool(frontmatter.get('images')),
+                'code_to_content_ratio': round(code_ratio, 1),
+                'external_links': link_stats['external_count'],
+                'internal_links': link_stats['internal_count'],
+                'citation_density': round(citation_density, 2),
+                'external_domains': link_stats['external_domains'],
             }
 
             return post_data
@@ -329,6 +431,23 @@ class BlogStatsGenerator:
         # Posts with images
         posts_with_images = sum(1 for p in posts if p['has_images'])
 
+        # Reading time distribution (histogram bins: 1-3, 4-6, 7-9, 10+ minutes)
+        reading_time_bins = {
+            '1-3 min': sum(1 for p in posts if 1 <= p['reading_time'] <= 3),
+            '4-6 min': sum(1 for p in posts if 4 <= p['reading_time'] <= 6),
+            '7-9 min': sum(1 for p in posts if 7 <= p['reading_time'] <= 9),
+            '10+ min': sum(1 for p in posts if p['reading_time'] >= 10)
+        }
+
+        # Citation and link statistics
+        total_external_links = sum(p['external_links'] for p in posts)
+        total_internal_links = sum(p['internal_links'] for p in posts)
+        average_citation_density = sum(p['citation_density'] for p in posts) / total_posts if total_posts > 0 else 0
+
+        # Code-to-content ratio statistics
+        average_code_ratio = sum(p['code_to_content_ratio'] for p in posts) / total_posts if total_posts > 0 else 0
+        posts_with_code = sum(1 for p in posts if p['code_to_content_ratio'] > 0)
+
         # Compile statistics
         stats = {
             'total_posts': total_posts,
@@ -352,6 +471,18 @@ class BlogStatsGenerator:
             },
             'posts_with_images': posts_with_images,
             'posts_with_images_percentage': round((posts_with_images / total_posts * 100), 1),
+            'reading_time_distribution': reading_time_bins,
+            'citation_stats': {
+                'total_external_links': total_external_links,
+                'total_internal_links': total_internal_links,
+                'average_citation_density': round(average_citation_density, 2),
+                'average_external_links_per_post': round(total_external_links / total_posts, 1) if total_posts > 0 else 0
+            },
+            'code_stats': {
+                'average_code_to_content_ratio': round(average_code_ratio, 1),
+                'posts_with_code': posts_with_code,
+                'posts_with_code_percentage': round((posts_with_code / total_posts * 100), 1) if total_posts > 0 else 0
+            },
             'generated_at': datetime.now().isoformat(),
             'reading_speed_wpm': self.READING_SPEED_WPM
         }

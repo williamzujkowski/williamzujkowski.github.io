@@ -308,6 +308,53 @@ eleventyComputed:
       </table>
     </div>
 
+    <!-- Citation & Link Statistics -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Citation Statistics</h2>
+        <div class="space-y-6">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total External Links</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.total_external_links }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">across all posts</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Citations per Post</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_external_links_per_post }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">external references</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Citation Density</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_citation_density }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">citations per 1,000 words</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Code Statistics</h2>
+        <div class="space-y-6">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Code-to-Content Ratio</h3>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.average_code_to_content_ratio }}%</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of content is code blocks</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Posts with Code</h3>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.posts_with_code }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of {{ blogStats.total_posts }} posts ({{ blogStats.code_stats.posts_with_code_percentage }}%)</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Technical Content Focus</h3>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mt-2">
+              <div class="bg-purple-600 dark:bg-purple-400 h-4 rounded-full transition-all duration-500" style="width: {{ blogStats.code_stats.posts_with_code_percentage }}%"></div>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">posts include code examples</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     </div>
   </section>
 </main>
@@ -777,30 +824,22 @@ function updateCharts() {
     }
   });
 
-  // Reading Time Distribution
-  const readingTimeBuckets = { '0-5': 0, '6-10': 0, '11-15': 0, '16-20': 0, '20+': 0 };
-  posts.forEach(post => {
-    const time = post.readingTime;
-    if (time <= 5) readingTimeBuckets['0-5']++;
-    else if (time <= 10) readingTimeBuckets['6-10']++;
-    else if (time <= 15) readingTimeBuckets['11-15']++;
-    else if (time <= 20) readingTimeBuckets['16-20']++;
-    else readingTimeBuckets['20+']++;
-  });
+  // Reading Time Distribution (using pre-calculated data from stats generator)
+  const readingTimeBuckets = {{ blogStats.reading_time_distribution | dump | safe }};
 
   // Update data table for screen readers
   const readingTimeTable = document.getElementById('readingTimeTable');
   readingTimeTable.innerHTML = Object.entries(readingTimeBuckets).map(([range, count]) =>
-    `<tr><td>${range} min</td><td>${count}</td></tr>`
+    `<tr><td>${range}</td><td>${count}</td></tr>`
   ).join('');
 
   charts.readingTime = new Chart(document.getElementById('readingTimeChart'), {
     type: 'doughnut',
     data: {
-      labels: Object.keys(readingTimeBuckets).map(label => label + ' min'),
+      labels: Object.keys(readingTimeBuckets),
       datasets: [{
         data: Object.values(readingTimeBuckets),
-        backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'],
+        backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b'],
         borderColor: isDark ? '#1f2937' : '#ffffff',
         borderWidth: 2
       }]
