@@ -947,7 +947,7 @@ function updateHeatmap() {
   years.forEach(year => {
     html += `<div class="flex items-start gap-3">`;
     html += `<div class="w-16 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
-    html += `<div class="grid grid-cols-12 gap-2 flex-1">`;
+    html += `<div class="grid grid-cols-12 gap-1.5 flex-1 min-w-0">`;
 
     months.forEach((month, idx) => {
       const key = `${year}-${idx}`;
@@ -965,10 +965,10 @@ function updateHeatmap() {
         : colors[colorIndex];
 
       html += `
-        <div class="group relative aspect-square" tabindex="0" role="button"
+        <div class="group relative aspect-square min-h-[44px]" tabindex="0" role="button"
              aria-label="${month} ${year}: ${count} post${count !== 1 ? 's' : ''}"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();}">
-          <div class="w-full h-full min-h-[44px] min-w-[44px] rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
+          <div class="w-full h-full rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
                style="background-color: ${bgColor}"></div>
           <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-lg">
             ${month} ${year}: ${count} post${count !== 1 ? 's' : ''}
