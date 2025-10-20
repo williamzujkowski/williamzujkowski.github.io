@@ -949,7 +949,7 @@ function updateHeatmap() {
   years.forEach(year => {
     html += `<div class="flex items-start gap-2">`;
     html += `<div class="w-14 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
-    html += `<div class="grid grid-cols-12 gap-0.5 flex-1 min-w-0">`;
+    html += `<div class="grid gap-0.5 flex-1 min-w-0" style="grid-template-columns: repeat(12, 83px);">`;
 
     months.forEach((month, idx) => {
       const key = `${year}-${idx}`;
