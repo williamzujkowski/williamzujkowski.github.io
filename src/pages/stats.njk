@@ -10,7 +10,7 @@ eleventyComputed:
   stats: "{{ blogStats }}"
 ---
 
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <!-- Header -->
   <header class="max-w-4xl mx-auto text-center mb-12">
     <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
@@ -1105,50 +1105,4 @@ const themeObserver = new MutationObserver((mutations) => {
 
 themeObserver.observe(document.documentElement, { attributes: true });
 </script>
-
-<style>
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.dark .glass-card {
-  background: rgba(31, 41, 55, 0.7);
-  border: 1px solid rgba(75, 85, 99, 0.3);
-}
-
-.animate-counter {
-  font-variant-numeric: tabular-nums;
-}
-
-/* Fade-in animation */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Ensure minimum touch target sizes */
-button, a, [role="button"] {
-  min-height: 44px;
-  min-width: 44px;
-}
-
-/* Improve focus visibility */
-*:focus-visible {
-  outline: 2px solid #6366f1;
-  outline-offset: 2px;
-}
-
-/* Better tooltip contrast */
-.group:hover > div[class*="tooltip"],
-.group:focus > div[class*="tooltip"] {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-</style>
+</div>
