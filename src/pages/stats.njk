@@ -306,7 +306,7 @@ eleventyComputed:
     <!-- Publishing Activity Heatmap -->
     <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Publishing Activity Heatmap</h2>
-      <div id="publishingHeatmap" class="overflow-x-auto" role="region" aria-label="Publishing activity heatmap">
+      <div id="publishingHeatmap" class="overflow-x-auto overflow-y-visible" role="region" aria-label="Publishing activity heatmap">
         <!-- Heatmap will be generated here -->
       </div>
       <!-- Color Legend (dynamically updated based on theme) -->
@@ -946,8 +946,8 @@ function updateHeatmap() {
 
   years.forEach(year => {
     html += `<div class="flex items-start gap-2">`;
-    html += `<div class="w-16 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
-    html += `<div class="grid grid-cols-12 gap-1.5 flex-1 min-w-0">`;
+    html += `<div class="w-14 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
+    html += `<div class="grid grid-cols-12 gap-1 flex-1 min-w-0">`;
 
     months.forEach((month, idx) => {
       const key = `${year}-${idx}`;
