@@ -1,0 +1,582 @@
+---
+title: "Blog Statistics"
+layout: base
+permalink: /stats/
+description: "Comprehensive statistics and visualizations for williamzujkowski.github.io blog posts"
+eleventyNavigation:
+  key: Stats
+  order: 5
+eleventyComputed:
+  stats: "{{ blogStats }}"
+---
+
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <!-- Header -->
+  <header class="max-w-4xl mx-auto text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+      Blog Statistics
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-400">
+      A comprehensive look at content trends, topics, and publishing patterns
+    </p>
+  </header>
+
+  <!-- Year Selector -->
+  <section aria-label="Year filter navigation">
+    <nav class="max-w-6xl mx-auto mb-8">
+    <div class="flex justify-center items-center gap-4 flex-wrap">
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white shadow-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="all"
+        onclick="switchYear('all')"
+        aria-label="Show statistics for all years"
+        aria-pressed="true"
+        role="button"
+      >
+        All Time
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2024"
+        onclick="switchYear('2024')"
+        aria-label="Show statistics for 2024"
+        aria-pressed="false"
+        role="button"
+      >
+        2024
+      </button>
+      <button
+        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        data-year="2025"
+        onclick="switchYear('2025')"
+        aria-label="Show statistics for 2025"
+        aria-pressed="false"
+        role="button"
+      >
+        2025
+      </button>
+    </div>
+    </nav>
+  </section>
+
+  <!-- Summary Stats Cards -->
+  <section aria-labelledby="overview-heading">
+    <h2 id="overview-heading" class="sr-only">Statistics Overview</h2>
+    <div class="max-w-6xl mx-auto mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Total Posts Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Posts</h3>
+          <svg class="w-8 h-8 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="total-posts">
+          {{ collections.posts.length }}
+        </p>
+      </div>
+
+      <!-- Total Words Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Words</h3>
+          <svg class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="total-words">
+          {% set totalWords = 0 %}
+          {% for post in collections.posts %}
+            {% set wordCount = (post.templateContent | striptags | split(' ') | length) %}
+            {% set totalWords = totalWords + wordCount %}
+          {% endfor %}
+          {{ totalWords | toLocaleString }}
+        </p>
+      </div>
+
+      <!-- Unique Tags Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Unique Tags</h3>
+          <svg class="w-8 h-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="unique-tags">
+          {% set allTags = [] %}
+          {% for post in collections.posts %}
+            {% for tag in post.data.tags %}
+              {% if tag != "posts" %}
+                {% set allTags = (allTags.push(tag), allTags) %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          {{ allTags | unique | length }}
+        </p>
+      </div>
+
+      <!-- Avg Reading Time Card -->
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Avg Reading</h3>
+          <svg class="w-8 h-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100 animate-counter" data-stat="avg-reading">
+          {% set totalReadingTime = 0 %}
+          {% for post in collections.posts %}
+            {% set readingTime = post.templateContent | readingTime %}
+            {% set totalReadingTime = totalReadingTime + readingTime %}
+          {% endfor %}
+          {{ (totalReadingTime / collections.posts.length) | round }}m
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charts Section -->
+  <section aria-labelledby="charts-heading">
+    <h2 id="charts-heading" class="sr-only">Data Visualizations</h2>
+    <div class="max-w-6xl mx-auto space-y-12">
+
+    <!-- Posts Over Time Chart -->
+    <div class="glass-card p-8 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Posts Over Time</h2>
+      <div class="h-80">
+        <canvas id="postsOverTimeChart" aria-label="Line chart showing blog posts published over time" role="img"></canvas>
+      </div>
+    </div>
+
+    <!-- Two Column Layout for Smaller Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- Top Tags Chart -->
+      <div class="glass-card p-8 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Top Tags</h2>
+        <div class="h-80">
+          <canvas id="topTagsChart" aria-label="Bar chart showing most frequently used blog post tags" role="img"></canvas>
+        </div>
+      </div>
+
+      <!-- Reading Time Distribution -->
+      <div class="glass-card p-8 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Reading Time Distribution</h2>
+        <div class="h-80">
+          <canvas id="readingTimeChart" aria-label="Doughnut chart showing distribution of reading times across blog posts" role="img"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Publishing Activity Heatmap -->
+    <div class="glass-card p-8 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Publishing Activity Heatmap</h2>
+      <div id="publishingHeatmap" class="overflow-x-auto">
+        <!-- Heatmap will be generated here -->
+      </div>
+    </div>
+
+    <!-- Tag Cloud -->
+    <div class="glass-card p-8 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Tag Cloud</h2>
+      <div id="tagCloud" class="flex flex-wrap gap-3 justify-center min-h-[200px]">
+        <!-- Tag cloud will be generated here -->
+      </div>
+    </div>
+
+    <!-- Word Count Analysis -->
+    <div class="glass-card p-8 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Word Count Analysis</h2>
+      <div class="h-80">
+        <canvas id="wordCountChart" aria-label="Bar chart showing word count distribution across blog posts" role="img"></canvas>
+      </div>
+    </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- Stats Data and Visualization Script -->
+<script>
+// Prepare blog post data
+const blogPosts = [
+  {% for post in collections.posts %}
+  {
+    title: {{ post.data.title | dump | safe }},
+    date: "{{ post.date | htmlDateString }}",
+    tags: {{ post.data.tags | dump | safe }},
+    wordCount: {{ (post.templateContent | striptags | split(' ') | length) }},
+    readingTime: {{ post.templateContent | readingTime }}
+  }{% if not loop.last %},{% endif %}
+  {% endfor %}
+];
+
+let currentYear = 'all';
+let charts = {};
+
+// Get filtered posts based on selected year
+function getFilteredPosts() {
+  if (currentYear === 'all') {
+    return blogPosts;
+  }
+  return blogPosts.filter(post => post.date.startsWith(currentYear));
+}
+
+// Switch year filter
+function switchYear(year) {
+  currentYear = year;
+
+  // Update tab styles and ARIA attributes
+  document.querySelectorAll('.year-tab').forEach(tab => {
+    if (tab.dataset.year === year) {
+      tab.className = 'year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white shadow-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900';
+      tab.setAttribute('aria-pressed', 'true');
+    } else {
+      tab.className = 'year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900';
+      tab.setAttribute('aria-pressed', 'false');
+    }
+  });
+
+  // Update all visualizations
+  updateStats();
+  updateCharts();
+  updateHeatmap();
+  updateTagCloud();
+}
+
+// Update summary statistics
+function updateStats() {
+  const posts = getFilteredPosts();
+
+  // Total posts
+  document.querySelector('[data-stat="total-posts"]').textContent = posts.length;
+
+  // Total words
+  const totalWords = posts.reduce((sum, post) => sum + post.wordCount, 0);
+  document.querySelector('[data-stat="total-words"]').textContent = totalWords.toLocaleString();
+
+  // Unique tags
+  const allTags = posts.flatMap(post => post.tags.filter(tag => tag !== 'posts'));
+  const uniqueTags = [...new Set(allTags)];
+  document.querySelector('[data-stat="unique-tags"]').textContent = uniqueTags.length;
+
+  // Average reading time
+  const avgReading = posts.reduce((sum, post) => sum + post.readingTime, 0) / posts.length;
+  document.querySelector('[data-stat="avg-reading"]').textContent = Math.round(avgReading) + 'm';
+}
+
+// Update all charts
+function updateCharts() {
+  const posts = getFilteredPosts();
+
+  // Destroy existing charts
+  Object.values(charts).forEach(chart => {
+    if (chart) chart.destroy();
+  });
+  charts = {};
+
+  // Get theme colors
+  const isDark = document.documentElement.classList.contains('dark');
+  const textColor = isDark ? '#e5e7eb' : '#374151';
+  const gridColor = isDark ? '#374151' : '#e5e7eb';
+
+  // Posts Over Time Chart
+  const monthCounts = {};
+  posts.forEach(post => {
+    const month = post.date.substring(0, 7); // YYYY-MM
+    monthCounts[month] = (monthCounts[month] || 0) + 1;
+  });
+
+  const sortedMonths = Object.keys(monthCounts).sort();
+
+  charts.postsOverTime = new Chart(document.getElementById('postsOverTimeChart'), {
+    type: 'line',
+    data: {
+      labels: sortedMonths,
+      datasets: [{
+        label: 'Posts Published',
+        data: sortedMonths.map(month => monthCounts[month]),
+        borderColor: '#6366f1',
+        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: textColor } }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+
+  // Top Tags Chart
+  const tagCounts = {};
+  posts.forEach(post => {
+    post.tags.filter(tag => tag !== 'posts').forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  const topTags = Object.entries(tagCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+
+  charts.topTags = new Chart(document.getElementById('topTagsChart'), {
+    type: 'bar',
+    data: {
+      labels: topTags.map(([tag]) => tag),
+      datasets: [{
+        label: 'Post Count',
+        data: topTags.map(([, count]) => count),
+        backgroundColor: [
+          '#6366f1', '#8b5cf6', '#ec4899', '#f59e0b',
+          '#10b981', '#3b82f6', '#ef4444', '#14b8a6',
+          '#f97316', '#84cc16'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { display: false }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+
+  // Reading Time Distribution
+  const readingTimeBuckets = { '0-5': 0, '6-10': 0, '11-15': 0, '16-20': 0, '20+': 0 };
+  posts.forEach(post => {
+    const time = post.readingTime;
+    if (time <= 5) readingTimeBuckets['0-5']++;
+    else if (time <= 10) readingTimeBuckets['6-10']++;
+    else if (time <= 15) readingTimeBuckets['11-15']++;
+    else if (time <= 20) readingTimeBuckets['16-20']++;
+    else readingTimeBuckets['20+']++;
+  });
+
+  charts.readingTime = new Chart(document.getElementById('readingTimeChart'), {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(readingTimeBuckets).map(label => label + ' min'),
+      datasets: [{
+        data: Object.values(readingTimeBuckets),
+        backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981']
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { color: textColor }
+        }
+      }
+    }
+  });
+
+  // Word Count Chart
+  const wordCountBuckets = { '0-1000': 0, '1001-2000': 0, '2001-3000': 0, '3001-4000': 0, '4000+': 0 };
+  posts.forEach(post => {
+    const words = post.wordCount;
+    if (words <= 1000) wordCountBuckets['0-1000']++;
+    else if (words <= 2000) wordCountBuckets['1001-2000']++;
+    else if (words <= 3000) wordCountBuckets['2001-3000']++;
+    else if (words <= 4000) wordCountBuckets['3001-4000']++;
+    else wordCountBuckets['4000+']++;
+  });
+
+  charts.wordCount = new Chart(document.getElementById('wordCountChart'), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(wordCountBuckets).map(label => label + ' words'),
+      datasets: [{
+        label: 'Number of Posts',
+        data: Object.values(wordCountBuckets),
+        backgroundColor: '#6366f1'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: textColor } }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { display: false }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+}
+
+// Update publishing heatmap
+function updateHeatmap() {
+  const posts = getFilteredPosts();
+  const heatmapData = {};
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  posts.forEach(post => {
+    const date = new Date(post.date);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const key = `${year}-${month}`;
+    heatmapData[key] = (heatmapData[key] || 0) + 1;
+  });
+
+  const maxCount = Math.max(...Object.values(heatmapData), 1);
+  const years = [...new Set(posts.map(post => new Date(post.date).getFullYear()))].sort();
+
+  let html = '<div class="grid gap-2">';
+
+  years.forEach(year => {
+    html += `<div class="flex items-center gap-2">`;
+    html += `<div class="w-16 text-sm font-medium text-gray-600 dark:text-gray-400">${year}</div>`;
+    html += `<div class="flex gap-1">`;
+
+    months.forEach((month, idx) => {
+      const key = `${year}-${idx}`;
+      const count = heatmapData[key] || 0;
+      const intensity = count / maxCount;
+      const bgColor = count === 0
+        ? 'bg-gray-100 dark:bg-gray-800'
+        : `bg-primary-${Math.ceil(intensity * 5) * 100}`;
+
+      html += `
+        <div class="group relative">
+          <div class="w-12 h-12 rounded ${bgColor} hover:ring-2 hover:ring-primary-400 transition-all cursor-pointer"></div>
+          <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            ${month} ${year}: ${count} post${count !== 1 ? 's' : ''}
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
+  });
+
+  html += '</div>';
+
+  document.getElementById('publishingHeatmap').innerHTML = html;
+}
+
+// Update tag cloud
+function updateTagCloud() {
+  const posts = getFilteredPosts();
+  const tagCounts = {};
+
+  posts.forEach(post => {
+    post.tags.filter(tag => tag !== 'posts').forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  const maxCount = Math.max(...Object.values(tagCounts), 1);
+  const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+
+  const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6'];
+
+  const html = tags.map(([tag, count], idx) => {
+    const size = 0.8 + (count / maxCount) * 1.5;
+    const color = colors[idx % colors.length];
+    return `
+      <a href="/tags/${tag}/"
+         class="inline-block px-4 py-2 rounded-full transition-transform hover:scale-110"
+         style="font-size: ${size}rem; background-color: ${color}20; color: ${color}; border: 2px solid ${color}">
+        ${tag} <span class="text-xs opacity-70">(${count})</span>
+      </a>
+    `;
+  }).join('');
+
+  document.getElementById('tagCloud').innerHTML = html;
+}
+
+// Animate counters
+function animateCounters() {
+  document.querySelectorAll('.animate-counter').forEach(counter => {
+    const target = parseInt(counter.textContent.replace(/,/g, ''));
+    if (isNaN(target)) return;
+
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        counter.textContent = target.toLocaleString();
+        clearInterval(timer);
+      } else {
+        counter.textContent = Math.floor(current).toLocaleString();
+      }
+    }, 20);
+  });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  updateCharts();
+  updateHeatmap();
+  updateTagCloud();
+  animateCounters();
+});
+
+// Update charts on theme change
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === 'class') {
+      updateCharts();
+    }
+  });
+});
+
+observer.observe(document.documentElement, { attributes: true });
+</script>
+
+<style>
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-card {
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+.animate-counter {
+  font-variant-numeric: tabular-nums;
+}
+</style>

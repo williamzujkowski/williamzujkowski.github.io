@@ -48,6 +48,24 @@ module.exports = function(eleventyConfig) {
     return Math.min(...values);
   });
 
+  // Split filter for stats page
+  eleventyConfig.addFilter("split", (str, delimiter) => {
+    if (!str) return [];
+    return str.split(delimiter);
+  });
+
+  // Unique filter to get unique values from array
+  eleventyConfig.addFilter("unique", (array) => {
+    if (!array || !Array.isArray(array)) return [];
+    return [...new Set(array)];
+  });
+
+  // toLocaleString filter for number formatting
+  eleventyConfig.addFilter("toLocaleString", (num) => {
+    if (typeof num !== 'number') return num;
+    return num.toLocaleString();
+  });
+
   // Reading time filter
   eleventyConfig.addFilter("readingTime", (content) => {
     if (!content) return 0;

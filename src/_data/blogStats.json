@@ -1,0 +1,256 @@
+{
+  "total_posts": 56,
+  "total_words": 62548,
+  "average_words": 1116.9,
+  "average_reading_time": 5.2,
+  "posts_by_year": {
+    "2024": 29,
+    "2025": 27
+  },
+  "words_by_year": {
+    "2024": 41094,
+    "2025": 21454
+  },
+  "posts_by_month": {
+    "2025-01": 1,
+    "2025-02": 2,
+    "2025-03": 2,
+    "2025-04": 2,
+    "2025-05": 1,
+    "2025-06": 1,
+    "2025-07": 5,
+    "2025-08": 4,
+    "2025-09": 6,
+    "2025-10": 3
+  },
+  "top_tags": [
+    {
+      "tag": "security",
+      "count": 28
+    },
+    {
+      "tag": "ai",
+      "count": 22
+    },
+    {
+      "tag": "homelab",
+      "count": 13
+    },
+    {
+      "tag": "posts",
+      "count": 11
+    },
+    {
+      "tag": "devops",
+      "count": 8
+    },
+    {
+      "tag": "llm",
+      "count": 8
+    },
+    {
+      "tag": "programming",
+      "count": 7
+    },
+    {
+      "tag": "automation",
+      "count": 7
+    },
+    {
+      "tag": "networking",
+      "count": 7
+    },
+    {
+      "tag": "open-source",
+      "count": 6
+    },
+    {
+      "tag": "machine-learning",
+      "count": 5
+    },
+    {
+      "tag": "cybersecurity",
+      "count": 4
+    },
+    {
+      "tag": "cryptography",
+      "count": 4
+    },
+    {
+      "tag": "infrastructure",
+      "count": 4
+    },
+    {
+      "tag": "privacy",
+      "count": 4
+    },
+    {
+      "tag": "cloud",
+      "count": 3
+    },
+    {
+      "tag": "ethics",
+      "count": 3
+    },
+    {
+      "tag": "quantum-computing",
+      "count": 3
+    },
+    {
+      "tag": "architecture",
+      "count": 3
+    },
+    {
+      "tag": "sustainability",
+      "count": 3
+    }
+  ],
+  "recent_posts": [
+    {
+      "title": "From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows",
+      "date": "2025-10-17",
+      "reading_time": 6,
+      "tags": [
+        "ai",
+        "llm",
+        "development-workflows",
+        "token-optimization",
+        "context-engineering",
+        "claude",
+        "mcp",
+        "progressive-loading"
+      ]
+    },
+    {
+      "title": "From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution",
+      "date": "2025-10-13",
+      "reading_time": 7,
+      "tags": [
+        "ai",
+        "robotics",
+        "automation",
+        "embodied-ai",
+        "homelab",
+        "machine-learning"
+      ]
+    },
+    {
+      "title": "Automated Security Scanning Pipeline with Grype and OSV",
+      "date": "2025-10-06",
+      "reading_time": 3,
+      "tags": [
+        "security",
+        "cicd",
+        "automation",
+        "vulnerability-scanning",
+        "devops",
+        "supply-chain"
+      ]
+    },
+    {
+      "title": "Proxmox High Availability Setup for Homelab Reliability",
+      "date": "2025-09-29",
+      "reading_time": 4,
+      "tags": [
+        "virtualization",
+        "proxmox",
+        "high-availability",
+        "clustering",
+        "homelab",
+        "infrastructure"
+      ]
+    },
+    {
+      "title": "IoT Security in Your Home Lab: Lessons from OWASP IoTGoat",
+      "date": "2025-09-20",
+      "reading_time": 2,
+      "tags": [
+        "iot",
+        "security",
+        "owasp",
+        "homelab",
+        "vulnerability-research",
+        "networking"
+      ]
+    },
+    {
+      "title": "Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV",
+      "date": "2025-09-20",
+      "reading_time": 3,
+      "tags": [
+        "security",
+        "vulnerability-management",
+        "epss",
+        "cisa-kev",
+        "automation",
+        "python"
+      ]
+    },
+    {
+      "title": "Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+      "date": "2025-09-14",
+      "reading_time": 3,
+      "tags": [
+        "threat-intelligence",
+        "mitre-attack",
+        "security",
+        "python",
+        "dashboard",
+        "automation"
+      ]
+    },
+    {
+      "title": "Implementing Zero Trust Microsegmentation with VLANs",
+      "date": "2025-09-08",
+      "reading_time": 3,
+      "tags": [
+        "security",
+        "networking",
+        "zero-trust",
+        "vlan",
+        "homelab",
+        "ubiquiti"
+      ]
+    },
+    {
+      "title": "Self-Hosted Password Manager Migration: Bitwarden Deep Dive",
+      "date": "2025-09-01",
+      "reading_time": 4,
+      "tags": [
+        "security",
+        "passwords",
+        "self-hosted",
+        "bitwarden",
+        "homelab",
+        "privacy"
+      ]
+    },
+    {
+      "title": "Building a Network Traffic Analysis Lab with Suricata",
+      "date": "2025-08-25",
+      "reading_time": 3,
+      "tags": [
+        "security",
+        "networking",
+        "ids-ips",
+        "suricata",
+        "homelab",
+        "threat-detection"
+      ]
+    }
+  ],
+  "longest_post": {
+    "title": "AI Learning in Resource-Constrained Environments",
+    "word_count": 2014,
+    "reading_time": 9
+  },
+  "shortest_post": {
+    "title": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
+    "word_count": 229,
+    "reading_time": 1
+  },
+  "posts_with_images": 56,
+  "posts_with_images_percentage": 100.0,
+  "generated_at": "2025-10-19T22:45:58.887708",
+  "reading_speed_wpm": 238
+}
