@@ -947,7 +947,7 @@ function updateHeatmap() {
   years.forEach(year => {
     html += `<div class="flex items-start gap-3">`;
     html += `<div class="w-16 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
-    html += `<div class="flex gap-2 flex-wrap flex-1 justify-start">`;
+    html += `<div class="grid grid-cols-12 gap-2 flex-1">`;
 
     months.forEach((month, idx) => {
       const key = `${year}-${idx}`;
@@ -965,10 +965,10 @@ function updateHeatmap() {
         : colors[colorIndex];
 
       html += `
-        <div class="group relative" tabindex="0" role="button"
+        <div class="group relative aspect-square" tabindex="0" role="button"
              aria-label="${month} ${year}: ${count} post${count !== 1 ? 's' : ''}"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();}">
-          <div class="w-14 h-14 min-h-[44px] min-w-[44px] rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
+          <div class="w-full h-full min-h-[44px] min-w-[44px] rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
                style="background-color: ${bgColor}"></div>
           <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-lg">
             ${month} ${year}: ${count} post${count !== 1 ? 's' : ''}
@@ -997,18 +997,18 @@ function updateHeatmapLegend() {
 
   const labels = ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%'];
 
-  let html = '<span class="text-sm text-gray-600 dark:text-gray-400">Less</span>';
-  html += '<div class="flex gap-2">';
+  let html = '<span class="text-sm text-gray-600 dark:text-gray-400 flex-shrink-0">Less</span>';
+  html += '<div class="flex gap-2 flex-1 justify-center max-w-xs">';
 
   colors.forEach((color, idx) => {
-    html += `<div class="w-11 h-11 min-h-[44px] min-w-[44px] rounded"
+    html += `<div class="w-12 h-12 min-h-[44px] min-w-[44px] rounded flex-shrink-0"
                   style="background-color: ${color}"
                   aria-label="${labels[idx]} activity"
                   role="img"></div>`;
   });
 
   html += '</div>';
-  html += '<span class="text-sm text-gray-600 dark:text-gray-400">More</span>';
+  html += '<span class="text-sm text-gray-600 dark:text-gray-400 flex-shrink-0">More</span>';
 
   document.getElementById('heatmapLegend').innerHTML = html;
 }
