@@ -60,15 +60,15 @@ eleventyComputed:
   </section>
 
   <!-- Summary Stats Cards -->
-  <section aria-labelledby="overview-heading">
+  <section aria-labelledby="overview-heading" aria-live="polite">
     <h2 id="overview-heading" class="sr-only">Statistics Overview</h2>
     <div class="max-w-6xl mx-auto mb-12">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <!-- Total Posts Card -->
-      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Posts</h3>
-          <svg class="w-8 h-8 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-8 h-8 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
         </div>
@@ -78,10 +78,10 @@ eleventyComputed:
       </div>
 
       <!-- Total Words Card -->
-      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 100ms">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Words</h3>
-          <svg class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
           </svg>
         </div>
@@ -96,10 +96,10 @@ eleventyComputed:
       </div>
 
       <!-- Unique Tags Card -->
-      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 200ms">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Unique Tags</h3>
-          <svg class="w-8 h-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-8 h-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
           </svg>
         </div>
@@ -117,10 +117,10 @@ eleventyComputed:
       </div>
 
       <!-- Avg Reading Time Card -->
-      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200">
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 300ms">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Avg Reading</h3>
-          <svg class="w-8 h-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-8 h-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
@@ -136,61 +136,184 @@ eleventyComputed:
     </div>
   </section>
 
+  <!-- Writing Streaks Section -->
+  <section aria-labelledby="streaks-heading" class="max-w-6xl mx-auto mb-12">
+    <h2 id="streaks-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Writing Streaks</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in">
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Longest Streak</h3>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100" data-stat="longest-streak">0</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">consecutive months</p>
+      </div>
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 100ms">
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Current Streak</h3>
+        <p class="text-4xl font-bold text-gray-900 dark:text-gray-100" data-stat="current-streak">0</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">consecutive months</p>
+      </div>
+      <div class="glass-card p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 fade-in" style="animation-delay: 200ms">
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Most Productive</h3>
+        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="most-productive-month">-</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-stat="most-productive-count">0 posts</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Charts Section -->
   <section aria-labelledby="charts-heading">
     <h2 id="charts-heading" class="sr-only">Data Visualizations</h2>
     <div class="max-w-6xl mx-auto space-y-12">
 
     <!-- Posts Over Time Chart -->
-    <div class="glass-card p-8 rounded-xl shadow-lg">
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Posts Over Time</h2>
       <div class="h-80">
         <canvas id="postsOverTimeChart" aria-label="Line chart showing blog posts published over time" role="img"></canvas>
       </div>
+      <!-- Data table fallback for screen readers -->
+      <table class="sr-only" role="table" aria-label="Posts over time data">
+        <caption>Blog posts published per month</caption>
+        <thead>
+          <tr><th>Month</th><th>Posts</th></tr>
+        </thead>
+        <tbody id="postsOverTimeTable"></tbody>
+      </table>
     </div>
 
     <!-- Two Column Layout for Smaller Charts -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
       <!-- Top Tags Chart -->
-      <div class="glass-card p-8 rounded-xl shadow-lg">
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Top Tags</h2>
         <div class="h-80">
           <canvas id="topTagsChart" aria-label="Bar chart showing most frequently used blog post tags" role="img"></canvas>
         </div>
+        <!-- Data table fallback for screen readers -->
+        <table class="sr-only" role="table" aria-label="Top tags data">
+          <caption>Most frequently used tags</caption>
+          <thead>
+            <tr><th>Tag</th><th>Count</th></tr>
+          </thead>
+          <tbody id="topTagsTable"></tbody>
+        </table>
       </div>
 
-      <!-- Reading Time Distribution -->
-      <div class="glass-card p-8 rounded-xl shadow-lg">
+      <!-- Day of Week Analysis -->
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Publishing by Day of Week</h2>
+        <div class="h-80">
+          <canvas id="dayOfWeekChart" aria-label="Radar chart showing publishing patterns by day of week" role="img"></canvas>
+        </div>
+        <!-- Data table fallback for screen readers -->
+        <table class="sr-only" role="table" aria-label="Day of week data">
+          <caption>Posts published by day of week</caption>
+          <thead>
+            <tr><th>Day</th><th>Posts</th></tr>
+          </thead>
+          <tbody id="dayOfWeekTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Reading Time Distribution and Enhanced Insights -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Reading Time Distribution</h2>
         <div class="h-80">
           <canvas id="readingTimeChart" aria-label="Doughnut chart showing distribution of reading times across blog posts" role="img"></canvas>
+        </div>
+        <!-- Data table fallback for screen readers -->
+        <table class="sr-only" role="table" aria-label="Reading time distribution data">
+          <caption>Distribution of reading times</caption>
+          <thead>
+            <tr><th>Range</th><th>Posts</th></tr>
+          </thead>
+          <tbody id="readingTimeTable"></tbody>
+        </table>
+      </div>
+
+      <!-- Enhanced Reading Time Insights -->
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Reading Time Insights</h2>
+        <div class="space-y-4">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Median Reading Time</h3>
+            <p class="text-3xl font-bold text-gray-900 dark:text-gray-100" data-stat="median-reading">-</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">25th Percentile</h3>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="percentile-25">-</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">75th Percentile</h3>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="percentile-75">-</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Longest Post</h3>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100" data-stat="longest-post">-</p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Publishing Activity Heatmap -->
-    <div class="glass-card p-8 rounded-xl shadow-lg">
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Publishing Activity Heatmap</h2>
-      <div id="publishingHeatmap" class="overflow-x-auto">
+      <div id="publishingHeatmap" class="overflow-x-auto" role="region" aria-label="Publishing activity heatmap">
         <!-- Heatmap will be generated here -->
+      </div>
+      <!-- Color Legend -->
+      <div class="mt-6 flex items-center justify-center gap-2" role="img" aria-label="Heatmap color legend">
+        <span class="text-sm text-gray-600 dark:text-gray-400">Less</span>
+        <div class="flex gap-1">
+          <div class="w-8 h-8 rounded" style="background-color: #eef2ff" aria-label="0-20% activity"></div>
+          <div class="w-8 h-8 rounded" style="background-color: #c7d2fe" aria-label="20-40% activity"></div>
+          <div class="w-8 h-8 rounded" style="background-color: #a5b4fc" aria-label="40-60% activity"></div>
+          <div class="w-8 h-8 rounded" style="background-color: #818cf8" aria-label="60-80% activity"></div>
+          <div class="w-8 h-8 rounded" style="background-color: #6366f1" aria-label="80-100% activity"></div>
+        </div>
+        <span class="text-sm text-gray-600 dark:text-gray-400">More</span>
       </div>
     </div>
 
+    <!-- Topic Evolution Timeline -->
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Topic Evolution Over Time</h2>
+      <div class="h-96">
+        <canvas id="topicEvolutionChart" aria-label="Line chart showing evolution of top 5 tags over time" role="img"></canvas>
+      </div>
+      <!-- Data table fallback for screen readers -->
+      <table class="sr-only" role="table" aria-label="Topic evolution data">
+        <caption>Top 5 tags usage over time</caption>
+        <thead>
+          <tr><th>Tag</th><th>Month</th><th>Count</th></tr>
+        </thead>
+        <tbody id="topicEvolutionTable"></tbody>
+      </table>
+    </div>
+
     <!-- Tag Cloud -->
-    <div class="glass-card p-8 rounded-xl shadow-lg">
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Tag Cloud</h2>
-      <div id="tagCloud" class="flex flex-wrap gap-3 justify-center min-h-[200px]">
+      <div id="tagCloud" class="flex flex-wrap gap-3 justify-center min-h-[200px]" role="list" aria-label="Tag cloud">
         <!-- Tag cloud will be generated here -->
       </div>
     </div>
 
     <!-- Word Count Analysis -->
-    <div class="glass-card p-8 rounded-xl shadow-lg">
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Word Count Analysis</h2>
       <div class="h-80">
         <canvas id="wordCountChart" aria-label="Bar chart showing word count distribution across blog posts" role="img"></canvas>
       </div>
+      <!-- Data table fallback for screen readers -->
+      <table class="sr-only" role="table" aria-label="Word count distribution data">
+        <caption>Distribution of word counts</caption>
+        <thead>
+          <tr><th>Range</th><th>Posts</th></tr>
+        </thead>
+        <tbody id="wordCountTable"></tbody>
+      </table>
     </div>
 
     </div>
@@ -246,6 +369,143 @@ function switchYear(year) {
   updateCharts();
   updateHeatmap();
   updateTagCloud();
+  updateStreaks();
+  updateReadingTimeInsights();
+}
+
+// Calculate writing streaks
+function calculateStreaks(posts) {
+  if (posts.length === 0) {
+    return { longest: 0, current: 0, mostProductiveMonth: '-', mostProductiveCount: 0 };
+  }
+
+  // Group posts by month
+  const monthCounts = {};
+  posts.forEach(post => {
+    const month = post.date.substring(0, 7); // YYYY-MM
+    monthCounts[month] = (monthCounts[month] || 0) + 1;
+  });
+
+  const sortedMonths = Object.keys(monthCounts).sort();
+
+  // Calculate longest streak
+  let longestStreak = 1;
+  let currentStreak = 1;
+
+  for (let i = 1; i < sortedMonths.length; i++) {
+    const prevDate = new Date(sortedMonths[i - 1] + '-01');
+    const currDate = new Date(sortedMonths[i] + '-01');
+
+    // Check if consecutive months
+    const monthsDiff = (currDate.getFullYear() - prevDate.getFullYear()) * 12 +
+                       (currDate.getMonth() - prevDate.getMonth());
+
+    if (monthsDiff === 1) {
+      currentStreak++;
+      longestStreak = Math.max(longestStreak, currentStreak);
+    } else {
+      currentStreak = 1;
+    }
+  }
+
+  // Calculate current streak from most recent month
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const lastMonth = sortedMonths[sortedMonths.length - 1];
+
+  currentStreak = 1;
+  if (lastMonth === currentMonth || lastMonth === getCurrentOrPreviousMonth()) {
+    for (let i = sortedMonths.length - 2; i >= 0; i--) {
+      const prevDate = new Date(sortedMonths[i] + '-01');
+      const currDate = new Date(sortedMonths[i + 1] + '-01');
+      const monthsDiff = (currDate.getFullYear() - prevDate.getFullYear()) * 12 +
+                         (currDate.getMonth() - prevDate.getMonth());
+
+      if (monthsDiff === 1) {
+        currentStreak++;
+      } else {
+        break;
+      }
+    }
+  } else {
+    currentStreak = 0;
+  }
+
+  // Find most productive month
+  let mostProductiveMonth = '-';
+  let mostProductiveCount = 0;
+  Object.entries(monthCounts).forEach(([month, count]) => {
+    if (count > mostProductiveCount) {
+      mostProductiveCount = count;
+      mostProductiveMonth = month;
+    }
+  });
+
+  // Format most productive month
+  if (mostProductiveMonth !== '-') {
+    const date = new Date(mostProductiveMonth + '-01');
+    mostProductiveMonth = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  }
+
+  return {
+    longest: longestStreak,
+    current: currentStreak,
+    mostProductiveMonth,
+    mostProductiveCount
+  };
+}
+
+// Helper function to get current or previous month
+function getCurrentOrPreviousMonth() {
+  const now = new Date();
+  const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  return `${prevMonth.getFullYear()}-${String(prevMonth.getMonth() + 1).padStart(2, '0')}`;
+}
+
+// Update streak statistics
+function updateStreaks() {
+  const posts = getFilteredPosts();
+  const streaks = calculateStreaks(posts);
+
+  document.querySelector('[data-stat="longest-streak"]').textContent = streaks.longest;
+  document.querySelector('[data-stat="current-streak"]').textContent = streaks.current;
+  document.querySelector('[data-stat="most-productive-month"]').textContent = streaks.mostProductiveMonth;
+  document.querySelector('[data-stat="most-productive-count"]').textContent =
+    `${streaks.mostProductiveCount} post${streaks.mostProductiveCount !== 1 ? 's' : ''}`;
+}
+
+// Calculate percentile
+function percentile(arr, p) {
+  if (arr.length === 0) return 0;
+  const sorted = [...arr].sort((a, b) => a - b);
+  const index = (p / 100) * (sorted.length - 1);
+  const lower = Math.floor(index);
+  const upper = Math.ceil(index);
+  const weight = index - lower;
+  return sorted[lower] * (1 - weight) + sorted[upper] * weight;
+}
+
+// Update reading time insights
+function updateReadingTimeInsights() {
+  const posts = getFilteredPosts();
+  if (posts.length === 0) {
+    document.querySelector('[data-stat="median-reading"]').textContent = '-';
+    document.querySelector('[data-stat="percentile-25"]').textContent = '-';
+    document.querySelector('[data-stat="percentile-75"]').textContent = '-';
+    document.querySelector('[data-stat="longest-post"]').textContent = '-';
+    return;
+  }
+
+  const readingTimes = posts.map(p => p.readingTime);
+  const median = Math.round(percentile(readingTimes, 50));
+  const p25 = Math.round(percentile(readingTimes, 25));
+  const p75 = Math.round(percentile(readingTimes, 75));
+  const longest = Math.max(...readingTimes);
+
+  document.querySelector('[data-stat="median-reading"]').textContent = `${median}m`;
+  document.querySelector('[data-stat="percentile-25"]').textContent = `${p25}m`;
+  document.querySelector('[data-stat="percentile-75"]').textContent = `${p75}m`;
+  document.querySelector('[data-stat="longest-post"]').textContent = `${longest}m`;
 }
 
 // Update summary statistics
@@ -265,7 +525,9 @@ function updateStats() {
   document.querySelector('[data-stat="unique-tags"]').textContent = uniqueTags.length;
 
   // Average reading time
-  const avgReading = posts.reduce((sum, post) => sum + post.readingTime, 0) / posts.length;
+  const avgReading = posts.length > 0
+    ? posts.reduce((sum, post) => sum + post.readingTime, 0) / posts.length
+    : 0;
   document.querySelector('[data-stat="avg-reading"]').textContent = Math.round(avgReading) + 'm';
 }
 
@@ -293,6 +555,12 @@ function updateCharts() {
 
   const sortedMonths = Object.keys(monthCounts).sort();
 
+  // Update data table for screen readers
+  const postsOverTimeTable = document.getElementById('postsOverTimeTable');
+  postsOverTimeTable.innerHTML = sortedMonths.map(month =>
+    `<tr><td>${month}</td><td>${monthCounts[month]}</td></tr>`
+  ).join('');
+
   charts.postsOverTime = new Chart(document.getElementById('postsOverTimeChart'), {
     type: 'line',
     data: {
@@ -310,7 +578,14 @@ function updateCharts() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { labels: { color: textColor } }
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
       },
       scales: {
         x: {
@@ -337,6 +612,12 @@ function updateCharts() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10);
 
+  // Update data table for screen readers
+  const topTagsTable = document.getElementById('topTagsTable');
+  topTagsTable.innerHTML = topTags.map(([tag, count]) =>
+    `<tr><td>${tag}</td><td>${count}</td></tr>`
+  ).join('');
+
   charts.topTags = new Chart(document.getElementById('topTagsChart'), {
     type: 'bar',
     data: {
@@ -355,12 +636,146 @@ function updateCharts() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { display: false }
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
       },
       scales: {
         x: {
           ticks: { color: textColor },
           grid: { display: false }
+        },
+        y: {
+          ticks: { color: textColor, stepSize: 1 },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+
+  // Day of Week Analysis (NEW)
+  const dayOfWeekCounts = {
+    'Sunday': 0, 'Monday': 0, 'Tuesday': 0, 'Wednesday': 0,
+    'Thursday': 0, 'Friday': 0, 'Saturday': 0
+  };
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  posts.forEach(post => {
+    const date = new Date(post.date);
+    const dayName = dayNames[date.getDay()];
+    dayOfWeekCounts[dayName]++;
+  });
+
+  // Update data table for screen readers
+  const dayOfWeekTable = document.getElementById('dayOfWeekTable');
+  dayOfWeekTable.innerHTML = Object.entries(dayOfWeekCounts).map(([day, count]) =>
+    `<tr><td>${day}</td><td>${count}</td></tr>`
+  ).join('');
+
+  charts.dayOfWeek = new Chart(document.getElementById('dayOfWeekChart'), {
+    type: 'radar',
+    data: {
+      labels: dayNames,
+      datasets: [{
+        label: 'Posts Published',
+        data: dayNames.map(day => dayOfWeekCounts[day]),
+        borderColor: '#6366f1',
+        backgroundColor: isDark ? 'rgba(99, 102, 241, 0.2)' : 'rgba(99, 102, 241, 0.1)',
+        pointBackgroundColor: '#6366f1',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#6366f1'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        r: {
+          ticks: {
+            color: textColor,
+            stepSize: 1,
+            backdropColor: 'transparent'
+          },
+          grid: { color: gridColor },
+          pointLabels: { color: textColor }
+        }
+      }
+    }
+  });
+
+  // Topic Evolution Chart (NEW)
+  const top5Tags = topTags.slice(0, 5).map(([tag]) => tag);
+  const tagByMonth = {};
+
+  posts.forEach(post => {
+    const month = post.date.substring(0, 7);
+    if (!tagByMonth[month]) tagByMonth[month] = {};
+
+    post.tags.filter(tag => top5Tags.includes(tag)).forEach(tag => {
+      tagByMonth[month][tag] = (tagByMonth[month][tag] || 0) + 1;
+    });
+  });
+
+  const allMonths = Object.keys(tagByMonth).sort();
+  const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'];
+
+  // Update data table for screen readers
+  const topicEvolutionTable = document.getElementById('topicEvolutionTable');
+  topicEvolutionTable.innerHTML = top5Tags.flatMap(tag =>
+    allMonths.map(month =>
+      `<tr><td>${tag}</td><td>${month}</td><td>${tagByMonth[month][tag] || 0}</td></tr>`
+    )
+  ).join('');
+
+  charts.topicEvolution = new Chart(document.getElementById('topicEvolutionChart'), {
+    type: 'line',
+    data: {
+      labels: allMonths,
+      datasets: top5Tags.map((tag, idx) => ({
+        label: tag,
+        data: allMonths.map(month => tagByMonth[month][tag] || 0),
+        borderColor: colors[idx],
+        backgroundColor: colors[idx] + '20',
+        fill: false,
+        tension: 0.4
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: { color: textColor },
+          position: 'top'
+        },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
         },
         y: {
           ticks: { color: textColor, stepSize: 1 },
@@ -381,13 +796,21 @@ function updateCharts() {
     else readingTimeBuckets['20+']++;
   });
 
+  // Update data table for screen readers
+  const readingTimeTable = document.getElementById('readingTimeTable');
+  readingTimeTable.innerHTML = Object.entries(readingTimeBuckets).map(([range, count]) =>
+    `<tr><td>${range} min</td><td>${count}</td></tr>`
+  ).join('');
+
   charts.readingTime = new Chart(document.getElementById('readingTimeChart'), {
     type: 'doughnut',
     data: {
       labels: Object.keys(readingTimeBuckets).map(label => label + ' min'),
       datasets: [{
         data: Object.values(readingTimeBuckets),
-        backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981']
+        backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'],
+        borderColor: isDark ? '#1f2937' : '#ffffff',
+        borderWidth: 2
       }]
     },
     options: {
@@ -397,6 +820,13 @@ function updateCharts() {
         legend: {
           position: 'bottom',
           labels: { color: textColor }
+        },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
         }
       }
     }
@@ -413,6 +843,12 @@ function updateCharts() {
     else wordCountBuckets['4000+']++;
   });
 
+  // Update data table for screen readers
+  const wordCountTable = document.getElementById('wordCountTable');
+  wordCountTable.innerHTML = Object.entries(wordCountBuckets).map(([range, count]) =>
+    `<tr><td>${range} words</td><td>${count}</td></tr>`
+  ).join('');
+
   charts.wordCount = new Chart(document.getElementById('wordCountChart'), {
     type: 'bar',
     data: {
@@ -427,7 +863,14 @@ function updateCharts() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { labels: { color: textColor } }
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          backgroundColor: isDark ? '#1f2937' : '#ffffff',
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
       },
       scales: {
         x: {
@@ -443,7 +886,7 @@ function updateCharts() {
   });
 }
 
-// Update publishing heatmap
+// CRITICAL FIX: Update publishing heatmap with inline styles instead of dynamic Tailwind classes
 function updateHeatmap() {
   const posts = getFilteredPosts();
   const heatmapData = {};
@@ -460,25 +903,41 @@ function updateHeatmap() {
   const maxCount = Math.max(...Object.values(heatmapData), 1);
   const years = [...new Set(posts.map(post => new Date(post.date).getFullYear()))].sort();
 
+  // Color scales for light and dark mode
+  const isDark = document.documentElement.classList.contains('dark');
+  const lightColors = ['#eef2ff', '#c7d2fe', '#a5b4fc', '#818cf8', '#6366f1'];
+  const darkColors = ['#1e1b4b', '#312e81', '#3730a3', '#4338ca', '#6366f1'];
+  const colors = isDark ? darkColors : lightColors;
+
   let html = '<div class="grid gap-2">';
 
   years.forEach(year => {
     html += `<div class="flex items-center gap-2">`;
     html += `<div class="w-16 text-sm font-medium text-gray-600 dark:text-gray-400">${year}</div>`;
-    html += `<div class="flex gap-1">`;
+    html += `<div class="flex gap-1 flex-wrap">`;
 
     months.forEach((month, idx) => {
       const key = `${year}-${idx}`;
       const count = heatmapData[key] || 0;
       const intensity = count / maxCount;
+
+      // Calculate color index (0-4) based on intensity
+      let colorIndex = 0;
+      if (count > 0) {
+        colorIndex = Math.min(Math.floor(intensity * 5), 4);
+      }
+
       const bgColor = count === 0
-        ? 'bg-gray-100 dark:bg-gray-800'
-        : `bg-primary-${Math.ceil(intensity * 5) * 100}`;
+        ? (isDark ? '#1f2937' : '#f3f4f6')
+        : colors[colorIndex];
 
       html += `
-        <div class="group relative">
-          <div class="w-12 h-12 rounded ${bgColor} hover:ring-2 hover:ring-primary-400 transition-all cursor-pointer"></div>
-          <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+        <div class="group relative" tabindex="0" role="button"
+             aria-label="${month} ${year}: ${count} post${count !== 1 ? 's' : ''}"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();}">
+          <div class="w-12 h-12 min-h-[44px] min-w-[44px] rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
+               style="background-color: ${bgColor}"></div>
+          <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-lg">
             ${month} ${year}: ${count} post${count !== 1 ? 's' : ''}
           </div>
         </div>
@@ -514,8 +973,10 @@ function updateTagCloud() {
     const color = colors[idx % colors.length];
     return `
       <a href="/tags/${tag}/"
-         class="inline-block px-4 py-2 rounded-full transition-transform hover:scale-110"
-         style="font-size: ${size}rem; background-color: ${color}20; color: ${color}; border: 2px solid ${color}">
+         role="listitem"
+         class="inline-block px-4 py-2 min-h-[44px] rounded-full transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500"
+         style="font-size: ${size}rem; background-color: ${color}20; color: ${color}; border: 2px solid ${color}"
+         aria-label="${tag} tag, ${count} post${count !== 1 ? 's' : ''}">
         ${tag} <span class="text-xs opacity-70">(${count})</span>
       </a>
     `;
@@ -527,7 +988,8 @@ function updateTagCloud() {
 // Animate counters
 function animateCounters() {
   document.querySelectorAll('.animate-counter').forEach(counter => {
-    const target = parseInt(counter.textContent.replace(/,/g, ''));
+    const text = counter.textContent.replace(/,/g, '').replace('m', '');
+    const target = parseInt(text);
     if (isNaN(target)) return;
 
     let current = 0;
@@ -535,7 +997,7 @@ function animateCounters() {
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
-        counter.textContent = target.toLocaleString();
+        counter.textContent = target.toLocaleString() + (counter.textContent.includes('m') ? 'm' : '');
         clearInterval(timer);
       } else {
         counter.textContent = Math.floor(current).toLocaleString();
@@ -544,24 +1006,43 @@ function animateCounters() {
   });
 }
 
+// Add fade-in animation observer
+const fadeInObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fade-in-visible');
+    }
+  });
+}, {
+  threshold: 0.1
+});
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
   updateCharts();
   updateHeatmap();
   updateTagCloud();
+  updateStreaks();
+  updateReadingTimeInsights();
   animateCounters();
+
+  // Observe all fade-in elements
+  document.querySelectorAll('.fade-in').forEach(el => {
+    fadeInObserver.observe(el);
+  });
 });
 
 // Update charts on theme change
-const observer = new MutationObserver((mutations) => {
+const themeObserver = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.attributeName === 'class') {
       updateCharts();
+      updateHeatmap(); // Re-render heatmap with correct colors for new theme
     }
   });
 });
 
-observer.observe(document.documentElement, { attributes: true });
+themeObserver.observe(document.documentElement, { attributes: true });
 </script>
 
 <style>
@@ -578,5 +1059,35 @@ observer.observe(document.documentElement, { attributes: true });
 
 .animate-counter {
   font-variant-numeric: tabular-nums;
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure minimum touch target sizes */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Improve focus visibility */
+*:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Better tooltip contrast */
+.group:hover > div[class*="tooltip"],
+.group:focus > div[class*="tooltip"] {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 </style>
