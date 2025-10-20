@@ -166,7 +166,7 @@ eleventyComputed:
     <!-- Posts Over Time Chart -->
     <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Posts Over Time</h2>
-      <div class="h-80">
+      <div class="h-80 px-2">
         <canvas id="postsOverTimeChart" aria-label="Line chart showing blog posts published over time" role="img"></canvas>
       </div>
       <!-- Data table fallback for screen readers -->
@@ -179,13 +179,13 @@ eleventyComputed:
       </table>
     </div>
 
-    <!-- Two Column Layout for Smaller Charts -->
+    <!-- Two Column Layout: Charts -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
       <!-- Top Tags Chart -->
       <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Top Tags</h2>
-        <div class="h-80">
+        <div class="h-80 px-2">
           <canvas id="topTagsChart" aria-label="Bar chart showing most frequently used blog post tags" role="img"></canvas>
         </div>
         <!-- Data table fallback for screen readers -->
@@ -201,7 +201,7 @@ eleventyComputed:
       <!-- Day of Week Analysis -->
       <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Publishing by Day of Week</h2>
-        <div class="h-80">
+        <div class="h-80 px-2">
           <canvas id="dayOfWeekChart" aria-label="Radar chart showing publishing patterns by day of week" role="img"></canvas>
         </div>
         <!-- Data table fallback for screen readers -->
@@ -215,11 +215,58 @@ eleventyComputed:
       </div>
     </div>
 
+    <!-- Two Column Layout: Text Statistics -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Citation Statistics</h2>
+        <div class="space-y-6">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total External Links</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.total_external_links }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">across all posts</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Citations per Post</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_external_links_per_post }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">external references</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Citation Density</h3>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_citation_density }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">citations per 1,000 words</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Code Statistics</h2>
+        <div class="space-y-6">
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Code-to-Content Ratio</h3>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.average_code_to_content_ratio }}%</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of content is code blocks</p>
+          </div>
+          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Posts with Code</h3>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.posts_with_code }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of {{ blogStats.total_posts }} posts ({{ blogStats.code_stats.posts_with_code_percentage }}%)</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Technical Content Focus</h3>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mt-2">
+              <div class="bg-purple-600 dark:bg-purple-400 h-4 rounded-full transition-all duration-500" style="width: {{ blogStats.code_stats.posts_with_code_percentage }}%"></div>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">posts include code examples</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Reading Time Distribution and Enhanced Insights -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Reading Time Distribution</h2>
-        <div class="h-80">
+        <div class="h-80 px-4">
           <canvas id="readingTimeChart" aria-label="Doughnut chart showing distribution of reading times across blog posts" role="img"></canvas>
         </div>
         <!-- Data table fallback for screen readers -->
@@ -268,10 +315,18 @@ eleventyComputed:
       </div>
     </div>
 
+    <!-- Tag Cloud -->
+    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Tag Cloud</h2>
+      <div id="tagCloud" class="flex flex-wrap gap-3 justify-center min-h-[200px]" role="list" aria-label="Tag cloud">
+        <!-- Tag cloud will be generated here -->
+      </div>
+    </div>
+
     <!-- Topic Evolution Timeline -->
     <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Topic Evolution Over Time</h2>
-      <div class="h-96">
+      <div class="h-96 px-2">
         <canvas id="topicEvolutionChart" aria-label="Line chart showing evolution of top 5 tags over time" role="img"></canvas>
       </div>
       <!-- Data table fallback for screen readers -->
@@ -284,18 +339,10 @@ eleventyComputed:
       </table>
     </div>
 
-    <!-- Tag Cloud -->
-    <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Tag Cloud</h2>
-      <div id="tagCloud" class="flex flex-wrap gap-3 justify-center min-h-[200px]" role="list" aria-label="Tag cloud">
-        <!-- Tag cloud will be generated here -->
-      </div>
-    </div>
-
     <!-- Word Count Analysis -->
     <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Word Count Analysis</h2>
-      <div class="h-80">
+      <div class="h-80 px-2">
         <canvas id="wordCountChart" aria-label="Bar chart showing word count distribution across blog posts" role="img"></canvas>
       </div>
       <!-- Data table fallback for screen readers -->
@@ -306,53 +353,6 @@ eleventyComputed:
         </thead>
         <tbody id="wordCountTable"></tbody>
       </table>
-    </div>
-
-    <!-- Citation & Link Statistics -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Citation Statistics</h2>
-        <div class="space-y-6">
-          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
-            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total External Links</h3>
-            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.total_external_links }}</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">across all posts</p>
-          </div>
-          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
-            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Citations per Post</h3>
-            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_external_links_per_post }}</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">external references</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Citation Density</h3>
-            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_citation_density }}</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">citations per 1,000 words</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Code Statistics</h2>
-        <div class="space-y-6">
-          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
-            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Code-to-Content Ratio</h3>
-            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.average_code_to_content_ratio }}%</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of content is code blocks</p>
-          </div>
-          <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
-            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Posts with Code</h3>
-            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.posts_with_code }}</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of {{ blogStats.total_posts }} posts ({{ blogStats.code_stats.posts_with_code_percentage }}%)</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Technical Content Focus</h3>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mt-2">
-              <div class="bg-purple-600 dark:bg-purple-400 h-4 rounded-full transition-all duration-500" style="width: {{ blogStats.code_stats.posts_with_code_percentage }}%"></div>
-            </div>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">posts include code examples</p>
-          </div>
-        </div>
-      </div>
     </div>
 
     </div>
@@ -942,12 +942,12 @@ function updateHeatmap() {
   const darkColors = ['#5b6fa8', '#7b8fc8', '#9bafd8', '#bccfe8', '#d9e5f5'];
   const colors = isDark ? darkColors : lightColors;
 
-  let html = '<div class="grid gap-2">';
+  let html = '<div class="grid gap-3">';
 
   years.forEach(year => {
-    html += `<div class="flex items-center gap-2">`;
-    html += `<div class="w-16 text-sm font-medium text-gray-600 dark:text-gray-400">${year}</div>`;
-    html += `<div class="flex gap-1 flex-wrap">`;
+    html += `<div class="flex items-start gap-3">`;
+    html += `<div class="w-16 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
+    html += `<div class="flex gap-2 flex-wrap flex-1 justify-start">`;
 
     months.forEach((month, idx) => {
       const key = `${year}-${idx}`;
@@ -968,7 +968,7 @@ function updateHeatmap() {
         <div class="group relative" tabindex="0" role="button"
              aria-label="${month} ${year}: ${count} post${count !== 1 ? 's' : ''}"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();}">
-          <div class="w-12 h-12 min-h-[44px] min-w-[44px] rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
+          <div class="w-14 h-14 min-h-[44px] min-w-[44px] rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
                style="background-color: ${bgColor}"></div>
           <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-lg">
             ${month} ${year}: ${count} post${count !== 1 ? 's' : ''}
@@ -998,10 +998,10 @@ function updateHeatmapLegend() {
   const labels = ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%'];
 
   let html = '<span class="text-sm text-gray-600 dark:text-gray-400">Less</span>';
-  html += '<div class="flex gap-1">';
+  html += '<div class="flex gap-2">';
 
   colors.forEach((color, idx) => {
-    html += `<div class="w-10 h-10 min-h-[44px] min-w-[44px] rounded"
+    html += `<div class="w-11 h-11 min-h-[44px] min-w-[44px] rounded"
                   style="background-color: ${color}"
                   aria-label="${labels[idx]} activity"
                   role="img"></div>`;
