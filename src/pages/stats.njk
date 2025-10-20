@@ -949,7 +949,7 @@ function updateHeatmap() {
   years.forEach(year => {
     html += `<div class="flex items-start gap-2">`;
     html += `<div class="w-14 flex-shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400 pt-2">${year}</div>`;
-    html += `<div class="grid gap-0.5 flex-1 min-w-0" style="grid-template-columns: repeat(12, 83px);">`;
+    html += `<div class="grid gap-0.5 flex-1 min-w-0" style="grid-template-columns: repeat(12, 81px);">`;
 
     months.forEach((month, idx) => {
       const key = `${year}-${idx}`;
@@ -967,7 +967,7 @@ function updateHeatmap() {
         : colors[colorIndex];
 
       html += `
-        <div class="group relative hover:z-50 focus:z-50" style="width: 83px; height: 83px;" tabindex="0" role="button"
+        <div class="group relative hover:z-50 focus:z-50" style="width: 81px; height: 81px;" tabindex="0" role="button"
              aria-label="${month} ${year}: ${count} post${count !== 1 ? 's' : ''}"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();}">
           <div class="w-full h-full rounded hover:ring-2 hover:ring-primary-400 dark:hover:ring-primary-500 transition-all cursor-pointer"
