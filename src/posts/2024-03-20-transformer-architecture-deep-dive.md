@@ -120,7 +120,7 @@ Watching Transformers evolve into BERT, GPT, T5, and other architectures has bee
 
 **BERT (Encoder-Only):** Bidirectional training created powerful representations for classification tasks. I used BERT for document classification and was amazed by its ability to encode context and nuance.
 
-**GPT Series (Decoder-Only):** Unidirectional generation models that became the foundation for modern language models. The progression from GPT-1 to GPT-4 demonstrated how scaling Transformer architectures could unlock emergent capabilities.
+**GPT Series (Decoder-Only):** Unidirectional generation models that became the foundation for modern language models. [The progression from GPT-1 to GPT-4 demonstrated how scaling Transformer architectures could unlock emergent capabilities](https://arxiv.org/abs/2303.12712) (Bubeck et al., 2023).
 
 **T5 (Text-to-Text Transfer):** Framing all NLP tasks as text generation problems showed the Transformer's incredible versatility.
 
@@ -130,7 +130,7 @@ Each variant taught lessons about the architecture's flexibility and the importa
 
 Implementing Transformers from first principles revealed details that papers couldn't convey:
 
-**Computational Complexity:** Self-attention's O(n²) complexity with sequence length becomes prohibitive for very long sequences. This limitation drives research into efficient attention mechanisms.
+**Computational Complexity:** [Self-attention's O(n²) complexity with sequence length](https://arxiv.org/abs/2209.04881) (Duman-Keles et al., 2022) becomes prohibitive for very long sequences. This limitation drives research into efficient attention mechanisms.
 
 **Memory Requirements:** Storing attention matrices for long sequences requires substantial GPU memory. Gradient checkpointing and other optimization techniques become essential.
 
@@ -140,13 +140,13 @@ Implementing Transformers from first principles revealed details that papers cou
 
 ## The Scale Revolution: What Bigger Models Taught Us
 
-Scaling Transformers to billions of parameters revealed emergent behaviors that smaller models didn't exhibit:
+Scaling Transformers to billions of parameters [revealed emergent behaviors that smaller models didn't exhibit](https://arxiv.org/abs/2206.07682) (Wei et al., 2022):
 
-**In-Context Learning:** Large models could learn new tasks from examples in the input without parameter updates. This capability wasn't present in smaller models.
+**In-Context Learning:** [Large models could learn new tasks from examples in the input without parameter updates](https://arxiv.org/abs/2303.08774) (OpenAI, 2023). This capability wasn't present in smaller models.
 
-**Chain-of-Thought Reasoning:** Explicit reasoning steps emerged as a powerful capability in sufficiently large models.
+**Chain-of-Thought Reasoning:** [Explicit reasoning steps emerged as a powerful capability in sufficiently large models](https://arxiv.org/abs/2201.11903) (Wei et al., 2022).
 
-**Few-Shot Generalization:** The ability to adapt to new tasks with minimal examples improved dramatically with scale.
+**Few-Shot Generalization:** The ability to adapt to new tasks with minimal examples [improved dramatically with scale](https://arxiv.org/abs/2005.14165) (Brown et al., 2020).
 
 These observations suggested that the Transformer architecture could support capabilities far beyond what we initially imagined.
 
@@ -154,7 +154,7 @@ These observations suggested that the Transformer architecture could support cap
 
 Years of working with Transformers also revealed their limitations:
 
-**Context Length:** The quadratic attention complexity limits practical context windows, though recent research addresses this with sparse attention patterns and other innovations.
+**Context Length:** [The quadratic attention complexity](https://arxiv.org/abs/1706.03762) (Vaswani et al., 2017) limits practical context windows, though recent research addresses this with sparse attention patterns and other innovations.
 
 **Compositional Reasoning:** While impressive, Transformers sometimes struggle with systematic compositional reasoning that requires strict logical consistency.
 
@@ -186,9 +186,48 @@ As I watch continued innovations in efficient attention, longer context windows,
 
 The paper that first captured my imagination years ago continues to inspire new research, new applications, and new questions about intelligence, attention, and learning. In the rapidly evolving landscape of AI, that's the mark of truly revolutionary work.
 
-### Further Reading:
+## References
 
-- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) - Original Transformer Paper
+1. **[Attention Is All You Need](https://arxiv.org/abs/1706.03762)** (2017)
+   - Vaswani et al.
+   - *NeurIPS 2017*
+   - Original Transformer architecture paper
+
+2. **[GPT-4 Technical Report](https://arxiv.org/abs/2303.08774)** (2023)
+   - OpenAI
+   - *arXiv preprint*
+   - Demonstrates in-context learning and emergent capabilities
+
+3. **[Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712)** (2023)
+   - Bubeck et al.
+   - *arXiv preprint*
+   - Analysis of emergent capabilities at scale
+
+4. **[Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)** (2022)
+   - Wei et al.
+   - *NeurIPS 2022*
+   - Foundational work on chain-of-thought reasoning
+
+5. **[Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682)** (2022)
+   - Wei et al.
+   - *TMLR 2022*
+   - Comprehensive analysis of emergent behaviors
+
+6. **[Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)** (2020)
+   - Brown et al.
+   - *NeurIPS 2020*
+   - GPT-3 paper demonstrating few-shot learning
+
+7. **[On The Computational Complexity of Self-Attention](https://arxiv.org/abs/2209.04881)** (2022)
+   - Duman-Keles et al.
+   - *ALT 2023*
+   - Theoretical analysis of quadratic complexity
+
+8. **[BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805)** (2018)
+   - Devlin et al.
+   - *NAACL 2019*
+   - Encoder-only architecture
+
+### Further Reading
+
 - [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/) - Jay Alammar's Visual Guide
-- [BERT: Pre-training of Deep Bidirectional Transformers](https://arxiv.org/abs/1810.04805) - BERT Paper
-- [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) - GPT-3 Paper
