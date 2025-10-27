@@ -37,6 +37,7 @@ jobs:
       with:
         args: --verbose --no-progress './src/**/*.md' './src/**/*.njk'
         fail: true
+      continue-on-error: true  # Don't fail PR for broken external links
 
     - name: Run Lighthouse CI
       uses: treosh/lighthouse-ci-action@v10

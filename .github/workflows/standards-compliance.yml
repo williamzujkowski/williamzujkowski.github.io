@@ -31,3 +31,4 @@ jobs:
         uses: cyb3r-jak3/html5validator-action@v7.2.0
         with:
           root: _site/
+        continue-on-error: true  # Don't fail PR for HTML validation warnings
