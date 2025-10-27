@@ -1,0 +1,1600 @@
+{
+  "stats": {
+    "total_posts": 56,
+    "ai_posts": 23,
+    "avg_word_count": 1719,
+    "verbose_posts": [
+      {
+        "filename": "2024-05-14-ai-new-frontier-cybersecurity.md",
+        "word_count": 2078
+      },
+      {
+        "filename": "2024-05-30-ai-learning-resource-constrained.md",
+        "word_count": 2145
+      },
+      {
+        "filename": "2024-06-11-beyond-containers-future-deployment.md",
+        "word_count": 2003
+      },
+      {
+        "filename": "2024-06-25-designing-resilient-systems.md",
+        "word_count": 2037
+      },
+      {
+        "filename": "2024-07-09-zero-trust-architecture-implementation.md",
+        "word_count": 2205
+      },
+      {
+        "filename": "2024-07-16-sustainable-computing-carbon-footprint.md",
+        "word_count": 2336
+      },
+      {
+        "filename": "2024-07-24-multimodal-foundation-models.md",
+        "word_count": 2151
+      },
+      {
+        "filename": "2025-08-07-supercharging-development-claude-flow.md",
+        "word_count": 2191
+      },
+      {
+        "filename": "2025-08-09-ai-cognitive-infrastructure.md",
+        "word_count": 2516
+      },
+      {
+        "filename": "2025-09-01-self-hosted-bitwarden-migration-guide.md",
+        "word_count": 2121
+      },
+      {
+        "filename": "2025-09-08-zero-trust-vlan-segmentation-homelab.md",
+        "word_count": 2201
+      },
+      {
+        "filename": "2025-09-29-proxmox-high-availability-homelab.md",
+        "word_count": 2299
+      },
+      {
+        "filename": "2025-10-06-automated-security-scanning-pipeline.md",
+        "word_count": 2287
+      },
+      {
+        "filename": "2025-10-13-embodied-ai-robots-physical-world.md",
+        "word_count": 2445
+      },
+      {
+        "filename": "2025-10-17-progressive-context-loading-llm-workflows.md",
+        "word_count": 3507
+      }
+    ],
+    "avg_brevity_score": 9.7,
+    "avg_tone_score": 9.6,
+    "avg_skepticism_score": 9.1,
+    "worst_offenders": [
+      {
+        "filename": "2024-03-20-transformer-architecture-deep-dive.md",
+        "title": "The Transformer Architecture: A Deep Dive",
+        "word_count": 1671,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 9,
+          "ai_skepticism": 5,
+          "total": 8.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [
+            "Line 171: Corporate speak: 'Paradigm Shift'"
+          ],
+          "ai_skepticism": [
+            "Line 99: Uncited AI claim: 'Self-attention's power came with a challenge: without sequential processing, how...'",
+            "Line 103: Uncited AI claim: 'Implementing positional encoding taught me about the elegant interplay between l...'",
+            "Line 175: AI anthropomorphism: 'feels'"
+          ]
+        }
+      },
+      {
+        "filename": "2024-05-30-ai-learning-resource-constrained.md",
+        "title": "AI Learning in Resource-Constrained Environments",
+        "word_count": 2145,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 9,
+          "polite_linus": 8,
+          "ai_skepticism": 8,
+          "total": 8.3
+        },
+        "violations": {
+          "smart_brevity": [
+            "Verbose: 2145 words (recommend <2000)"
+          ],
+          "polite_linus": [
+            "Line 263: Corporate speak: 'leverage'",
+            "Line 279: Corporate speak: 'Leverage'"
+          ],
+          "ai_skepticism": [
+            "Line 85: Uncited AI claim: '**Knowledge Transfer:** The smaller model learned not just from original data, b...'"
+          ]
+        }
+      },
+      {
+        "filename": "2025-10-17-progressive-context-loading-llm-workflows.md",
+        "title": "From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows",
+        "word_count": 3507,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 8,
+          "polite_linus": 10,
+          "ai_skepticism": 7,
+          "total": 8.3
+        },
+        "violations": {
+          "smart_brevity": [
+            "Very verbose: 3507 words (recommend <2000)"
+          ],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "Line 54: Uncited AI claim: 'G --> I[98% accuracy in prediction]...'",
+            "Line 112: AI anthropomorphism: 'knows'"
+          ]
+        }
+      },
+      {
+        "filename": "2025-07-22-supercharging-claude-cli-with-standards.md",
+        "title": "Exploring Claude CLI Context and Compliance with My Standards Repository",
+        "word_count": 1345,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 9,
+          "ai_skepticism": 7,
+          "total": 8.7
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [
+            "Line 123: Corporate speak: 'game-changer'"
+          ],
+          "ai_skepticism": [
+            "Line 135: AI anthropomorphism: 'knows'",
+            "Line 333: AI anthropomorphism: 'knows'",
+            "Line 335: AI anthropomorphism: 'knows'"
+          ]
+        }
+      },
+      {
+        "filename": "2024-04-19-mastering-prompt-engineering-llms.md",
+        "title": "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs",
+        "word_count": 1961,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 8,
+          "ai_skepticism": 9,
+          "total": 9.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [
+            "Line 84: Corporate speak: 'leverage'",
+            "Line 294: Corporate speak: 'leverage'"
+          ],
+          "ai_skepticism": [
+            "Line 292: AI anthropomorphism: 'feels'"
+          ]
+        }
+      },
+      {
+        "filename": "2024-05-14-ai-new-frontier-cybersecurity.md",
+        "title": "AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas",
+        "word_count": 2078,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 9,
+          "polite_linus": 10,
+          "ai_skepticism": 8,
+          "total": 9.0
+        },
+        "violations": {
+          "smart_brevity": [
+            "Verbose: 2078 words (recommend <2000)"
+          ],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "Line 74: Uncited AI claim: '**Automation Scale:** AI can process security events at superhuman speed, but at...'"
+          ]
+        }
+      },
+      {
+        "filename": "2024-07-24-multimodal-foundation-models.md",
+        "title": "Multimodal Foundation Models: Capabilities, Challenges, and Applications",
+        "word_count": 2151,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 9,
+          "polite_linus": 8,
+          "ai_skepticism": 10,
+          "total": 9.0
+        },
+        "violations": {
+          "smart_brevity": [
+            "Verbose: 2151 words (recommend <2000)"
+          ],
+          "polite_linus": [
+            "Line 281: Corporate speak: 'leverage'",
+            "Line 310: Corporate speak: 'leverage'"
+          ],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-07-01-ebpf-security-monitoring-practical-guide.md",
+        "title": "eBPF for Security Monitoring: A Practical Guide",
+        "word_count": 1830,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 7,
+          "ai_skepticism": 10,
+          "total": 9.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [
+            "Line 4: Corporate speak: 'leverage'",
+            "Line 38: Corporate speak: 'paradigm shift'",
+            "Line 439: Corporate speak: 'leverage'"
+          ],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-08-07-supercharging-development-claude-flow.md",
+        "title": "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern",
+        "word_count": 2191,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 9,
+          "polite_linus": 8,
+          "ai_skepticism": 10,
+          "total": 9.0
+        },
+        "violations": {
+          "smart_brevity": [
+            "Verbose: 2191 words (recommend <2000)"
+          ],
+          "polite_linus": [
+            "Line 354: Corporate speak: 'Leverage'",
+            "Line 502: Corporate speak: 'paradigm shift'"
+          ],
+          "ai_skepticism": []
+        }
+      },
+      {
+        "filename": "2025-10-13-embodied-ai-robots-physical-world.md",
+        "title": "From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution",
+        "word_count": 2445,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 9,
+          "polite_linus": 10,
+          "ai_skepticism": 8,
+          "total": 9.0
+        },
+        "violations": {
+          "smart_brevity": [
+            "Verbose: 2445 words (recommend <2000)"
+          ],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "Line 67: Uncited AI claim: 'The breakthrough isn't just multimodal AI\u2014we've had that. It's the direct mappin...'"
+          ]
+        }
+      }
+    ],
+    "best_examples": [
+      {
+        "filename": "welcome.md",
+        "title": "Building My Digital Garden with Eleventy",
+        "word_count": 623,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-09-20-vulnerability-prioritization-epss-kev.md",
+        "title": "Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV",
+        "word_count": 1240,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-09-20-iot-security-homelab-owasp.md",
+        "title": "IoT Security in Your Home Lab: Lessons from OWASP IoTGoat",
+        "word_count": 1430,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-09-14-threat-intelligence-mitre-attack-dashboard.md",
+        "title": "Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+        "word_count": 1665,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-08-25-network-traffic-analysis-suricata-homelab.md",
+        "title": "Building a Network Traffic Analysis Lab with Suricata",
+        "word_count": 1959,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-08-18-container-security-hardening-homelab.md",
+        "title": "Container Security Hardening in My Homelab",
+        "word_count": 1766,
+        "is_ai_related": true,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": []
+        }
+      },
+      {
+        "filename": "2025-07-29-building-mcp-standards-server.md",
+        "title": "Down the MCP Rabbit Hole: Building a Standards Server",
+        "word_count": 1407,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-07-15-vulnerability-management-scale-open-source.md",
+        "title": "Vulnerability Management at Scale with Open Source Tools",
+        "word_count": 1070,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-07-08-implementing-dns-over-https-home-networks.md",
+        "title": "Implementing DNS-over-HTTPS (DoH) for Home Networks",
+        "word_count": 1548,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      },
+      {
+        "filename": "2025-05-10-building-security-mindset-lessons-from-field.md",
+        "title": "Building a Security Mindset: Lessons from the Field",
+        "word_count": 1598,
+        "is_ai_related": false,
+        "scores": {
+          "smart_brevity": 10,
+          "polite_linus": 10,
+          "ai_skepticism": 10,
+          "total": 10.0
+        },
+        "violations": {
+          "smart_brevity": [],
+          "polite_linus": [],
+          "ai_skepticism": [
+            "N/A - Not an AI-related post"
+          ]
+        }
+      }
+    ]
+  },
+  "results": [
+    {
+      "filename": "2024-01-08-writing-secure-code-developers-guide.md",
+      "title": "Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits",
+      "word_count": 1265,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-01-18-demystifying-cryptography-beginners-guide.md",
+      "title": "Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and",
+      "word_count": 1230,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-01-30-securing-cloud-native-frontier.md",
+      "title": "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security",
+      "word_count": 1464,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-02-09-deepfake-dilemma-ai-deception.md",
+      "title": "The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception",
+      "word_count": 1469,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-02-22-open-source-vs-proprietary-llms.md",
+      "title": "Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization,",
+      "word_count": 1515,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-03-05-cloud-migration-journey-guide.md",
+      "title": "Cloud Migration: A Guide to Navigating Your Journey to the Cloud",
+      "word_count": 1632,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-03-20-transformer-architecture-deep-dive.md",
+      "title": "The Transformer Architecture: A Deep Dive",
+      "word_count": 1671,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 9,
+        "ai_skepticism": 5,
+        "total": 8.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 171: Corporate speak: 'Paradigm Shift'"
+        ],
+        "ai_skepticism": [
+          "Line 99: Uncited AI claim: 'Self-attention's power came with a challenge: without sequential processing, how...'",
+          "Line 103: Uncited AI claim: 'Implementing positional encoding taught me about the elegant interplay between l...'",
+          "Line 175: AI anthropomorphism: 'feels'"
+        ]
+      }
+    },
+    {
+      "filename": "2024-04-04-retrieval-augmented-generation-rag.md",
+      "title": "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge",
+      "word_count": 1605,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-04-11-ethics-large-language-models.md",
+      "title": "The Ethics of Large Language Models",
+      "word_count": 1782,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-04-19-mastering-prompt-engineering-llms.md",
+      "title": "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs",
+      "word_count": 1961,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 8,
+        "ai_skepticism": 9,
+        "total": 9.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 84: Corporate speak: 'leverage'",
+          "Line 294: Corporate speak: 'leverage'"
+        ],
+        "ai_skepticism": [
+          "Line 292: AI anthropomorphism: 'feels'"
+        ]
+      }
+    },
+    {
+      "filename": "2024-04-30-quantum-resistant-cryptography-guide.md",
+      "title": "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography",
+      "word_count": 1842,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-05-14-ai-new-frontier-cybersecurity.md",
+      "title": "AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas",
+      "word_count": 2078,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 8,
+        "total": 9.0
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2078 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "Line 74: Uncited AI claim: '**Automation Scale:** AI can process security events at superhuman speed, but at...'"
+        ]
+      }
+    },
+    {
+      "filename": "2024-05-30-ai-learning-resource-constrained.md",
+      "title": "AI Learning in Resource-Constrained Environments",
+      "word_count": 2145,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 8,
+        "ai_skepticism": 8,
+        "total": 8.3
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2145 words (recommend <2000)"
+        ],
+        "polite_linus": [
+          "Line 263: Corporate speak: 'leverage'",
+          "Line 279: Corporate speak: 'Leverage'"
+        ],
+        "ai_skepticism": [
+          "Line 85: Uncited AI claim: '**Knowledge Transfer:** The smaller model learned not just from original data, b...'"
+        ]
+      }
+    },
+    {
+      "filename": "2024-06-11-beyond-containers-future-deployment.md",
+      "title": "Beyond Containers: The Future of Application Deployment",
+      "word_count": 2003,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 9,
+        "ai_skepticism": 10,
+        "total": 9.3
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2003 words (recommend <2000)"
+        ],
+        "polite_linus": [
+          "Line 191: Corporate speak: 'leverage'"
+        ],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-06-25-designing-resilient-systems.md",
+      "title": "Designing Resilient Systems for an Uncertain World",
+      "word_count": 2037,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2037 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-07-09-zero-trust-architecture-implementation.md",
+      "title": "Zero Trust Architecture: A Practical Implementation Guide",
+      "word_count": 2205,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2205 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-07-16-sustainable-computing-carbon-footprint.md",
+      "title": "Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint",
+      "word_count": 2336,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2336 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-07-24-multimodal-foundation-models.md",
+      "title": "Multimodal Foundation Models: Capabilities, Challenges, and Applications",
+      "word_count": 2151,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 8,
+        "ai_skepticism": 10,
+        "total": 9.0
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2151 words (recommend <2000)"
+        ],
+        "polite_linus": [
+          "Line 281: Corporate speak: 'leverage'",
+          "Line 310: Corporate speak: 'leverage'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-08-02-quantum-computing-leap-forward.md",
+      "title": "Quantum Computing's Leap Forward",
+      "word_count": 1954,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 9,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 197: Corporate speak: 'leverage'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-08-13-high-performance-computing.md",
+      "title": "The Evolution of High-Performance Computing: Key Trends and Innovations",
+      "word_count": 1221,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 9,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 121: Corporate speak: 'game-changer'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-08-27-zero-trust-security-principles.md",
+      "title": "Implementing Zero Trust Security: Never Trust, Always Verify",
+      "word_count": 1327,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-09-09-embodied-ai-teaching-agents.md",
+      "title": "Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction",
+      "word_count": 1358,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-09-19-biomimetic-robotics.md",
+      "title": "Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering",
+      "word_count": 1649,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 9,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 111: Corporate speak: 'disruptive'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-10-03-quantum-computing-defense.md",
+      "title": "Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology",
+      "word_count": 1597,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "title": "Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet",
+      "word_count": 1593,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 9,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "Line 113: AI anthropomorphism: 'knows'"
+        ]
+      }
+    },
+    {
+      "filename": "2024-10-22-ai-edge-computing.md",
+      "title": "AI Meets Edge Computing: Transforming Real-Time Intelligence",
+      "word_count": 1810,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 9,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 153: Corporate speak: 'leverage'"
+        ],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2024-11-05-pizza-calculator.md",
+      "title": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
+      "word_count": 1534,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 9,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 167: Corporate speak: 'disruptive'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-11-19-llms-smart-contract-vulnerability.md",
+      "title": "Large Language Models for Smart Contract Security: Promise and Limitations",
+      "word_count": 1667,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 8,
+        "ai_skepticism": 10,
+        "total": 9.3
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 103: Corporate speak: 'leverage'",
+          "Line 181: Corporate speak: 'leverage'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2024-12-03-context-windows-llms.md",
+      "title": "Context Windows in Large Language Models: The Memory That Shapes AI",
+      "word_count": 1645,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2025-02-10-automating-home-network-security.md",
+      "title": "Automating Home Network Security with Python and Open Source Tools",
+      "word_count": 1083,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-02-24-continuous-learning-cybersecurity.md",
+      "title": "Continuous Learning in Cybersecurity: Strategies That Work",
+      "word_count": 1795,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-03-10-raspberry-pi-security-projects.md",
+      "title": "Raspberry Pi Security Projects That Actually Solve Problems",
+      "word_count": 1157,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+      "title": "From IT Support to Senior InfoSec Engineer: My 15+ Year Journey",
+      "word_count": 1567,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-04-10-securing-personal-ai-experiments.md",
+      "title": "Securing Your Personal AI/ML Experiments: A Practical Guide",
+      "word_count": 1008,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2025-04-24-building-secure-homelab-adventure.md",
+      "title": "Building a Security-Focused Homelab: My Journey",
+      "word_count": 1118,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-05-10-building-security-mindset-lessons-from-field.md",
+      "title": "Building a Security Mindset: Lessons from the Field",
+      "word_count": 1598,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-06-25-local-llm-deployment-privacy-first.md",
+      "title": "Local LLM Deployment: Privacy-First Approach",
+      "word_count": 1766,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 9,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "Line 94: AI anthropomorphism: 'feels'"
+        ]
+      }
+    },
+    {
+      "filename": "2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "title": "eBPF for Security Monitoring: A Practical Guide",
+      "word_count": 1830,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 7,
+        "ai_skepticism": 10,
+        "total": 9.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 4: Corporate speak: 'leverage'",
+          "Line 38: Corporate speak: 'paradigm shift'",
+          "Line 439: Corporate speak: 'leverage'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-07-08-implementing-dns-over-https-home-networks.md",
+      "title": "Implementing DNS-over-HTTPS (DoH) for Home Networks",
+      "word_count": 1548,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-07-15-vulnerability-management-scale-open-source.md",
+      "title": "Vulnerability Management at Scale with Open Source Tools",
+      "word_count": 1070,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-07-22-supercharging-claude-cli-with-standards.md",
+      "title": "Exploring Claude CLI Context and Compliance with My Standards Repository",
+      "word_count": 1345,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 9,
+        "ai_skepticism": 7,
+        "total": 8.7
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [
+          "Line 123: Corporate speak: 'game-changer'"
+        ],
+        "ai_skepticism": [
+          "Line 135: AI anthropomorphism: 'knows'",
+          "Line 333: AI anthropomorphism: 'knows'",
+          "Line 335: AI anthropomorphism: 'knows'"
+        ]
+      }
+    },
+    {
+      "filename": "2025-07-29-building-mcp-standards-server.md",
+      "title": "Down the MCP Rabbit Hole: Building a Standards Server",
+      "word_count": 1407,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-08-07-supercharging-development-claude-flow.md",
+      "title": "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern",
+      "word_count": 2191,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 8,
+        "ai_skepticism": 10,
+        "total": 9.0
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2191 words (recommend <2000)"
+        ],
+        "polite_linus": [
+          "Line 354: Corporate speak: 'Leverage'",
+          "Line 502: Corporate speak: 'paradigm shift'"
+        ],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2025-08-09-ai-cognitive-infrastructure.md",
+      "title": "AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought",
+      "word_count": 2516,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 8,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 9.3
+      },
+      "violations": {
+        "smart_brevity": [
+          "Very verbose: 2516 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2025-08-18-container-security-hardening-homelab.md",
+      "title": "Container Security Hardening in My Homelab",
+      "word_count": 1766,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2025-08-25-network-traffic-analysis-suricata-homelab.md",
+      "title": "Building a Network Traffic Analysis Lab with Suricata",
+      "word_count": 1959,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-09-01-self-hosted-bitwarden-migration-guide.md",
+      "title": "Self-Hosted Password Manager Migration: Bitwarden Deep Dive",
+      "word_count": 2121,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2121 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-09-08-zero-trust-vlan-segmentation-homelab.md",
+      "title": "Implementing Zero Trust Microsegmentation with VLANs",
+      "word_count": 2201,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2201 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-09-14-threat-intelligence-mitre-attack-dashboard.md",
+      "title": "Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+      "word_count": 1665,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-09-20-iot-security-homelab-owasp.md",
+      "title": "IoT Security in Your Home Lab: Lessons from OWASP IoTGoat",
+      "word_count": 1430,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-09-20-vulnerability-prioritization-epss-kev.md",
+      "title": "Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV",
+      "word_count": 1240,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-09-29-proxmox-high-availability-homelab.md",
+      "title": "Proxmox High Availability Setup for Homelab Reliability",
+      "word_count": 2299,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 9.7
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2299 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": []
+      }
+    },
+    {
+      "filename": "2025-10-06-automated-security-scanning-pipeline.md",
+      "title": "Automated Security Scanning Pipeline with Grype and OSV",
+      "word_count": 2287,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 9,
+        "ai_skepticism": 10,
+        "total": 9.3
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2287 words (recommend <2000)"
+        ],
+        "polite_linus": [
+          "Line 746: Corporate speak: 'low-hanging fruit'"
+        ],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    },
+    {
+      "filename": "2025-10-13-embodied-ai-robots-physical-world.md",
+      "title": "From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution",
+      "word_count": 2445,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 9,
+        "polite_linus": 10,
+        "ai_skepticism": 8,
+        "total": 9.0
+      },
+      "violations": {
+        "smart_brevity": [
+          "Verbose: 2445 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "Line 67: Uncited AI claim: 'The breakthrough isn't just multimodal AI\u2014we've had that. It's the direct mappin...'"
+        ]
+      }
+    },
+    {
+      "filename": "2025-10-17-progressive-context-loading-llm-workflows.md",
+      "title": "From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows",
+      "word_count": 3507,
+      "is_ai_related": true,
+      "scores": {
+        "smart_brevity": 8,
+        "polite_linus": 10,
+        "ai_skepticism": 7,
+        "total": 8.3
+      },
+      "violations": {
+        "smart_brevity": [
+          "Very verbose: 3507 words (recommend <2000)"
+        ],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "Line 54: Uncited AI claim: 'G --> I[98% accuracy in prediction]...'",
+          "Line 112: AI anthropomorphism: 'knows'"
+        ]
+      }
+    },
+    {
+      "filename": "welcome.md",
+      "title": "Building My Digital Garden with Eleventy",
+      "word_count": 623,
+      "is_ai_related": false,
+      "scores": {
+        "smart_brevity": 10,
+        "polite_linus": 10,
+        "ai_skepticism": 10,
+        "total": 10.0
+      },
+      "violations": {
+        "smart_brevity": [],
+        "polite_linus": [],
+        "ai_skepticism": [
+          "N/A - Not an AI-related post"
+        ]
+      }
+    }
+  ],
+  "generated_at": "2025-10-26T22:24:15.777858"
+}
