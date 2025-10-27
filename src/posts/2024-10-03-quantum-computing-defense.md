@@ -66,7 +66,7 @@ graph LR
 
 ## The Quantum Advantage: Beyond Classical Limitations
 
-Quantum computing leverages principles of quantum mechanics—superposition, entanglement, and quantum interference—to perform certain calculations exponentially faster than classical computers. While today's quantum computers are still noisy and limited, they're already capable enough to impact defense planning.
+Quantum computing uses principles of quantum mechanics—superposition, entanglement, and quantum interference—to perform certain calculations exponentially faster than classical computers. While today's quantum computers are still noisy and limited, they're already capable enough to impact defense planning.
 
 ### Current Quantum Capabilities
 
@@ -222,7 +222,7 @@ Defense organizations need comprehensive strategies balancing immediate concerns
 
 ### Long-Term Vision (7+ Years)
 
-1. **Quantum advantage integration**: Fully leveraging quantum capabilities in military operations
+1. **Quantum advantage integration**: Fully using quantum capabilities in military operations
 2. **Quantum sensing networks**: Comprehensive surveillance transformation
 3. **Quantum AI integration**: Advanced decision support systems
 

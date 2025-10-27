@@ -1,0 +1,248 @@
+{
+  "timestamp": "2025-10-26T22:35:19.390059",
+  "files_processed": 16,
+  "total_replacements": 32,
+  "changes": [
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-03-20-transformer-architecture-deep-dive.md",
+      "line": 171,
+      "original": "Paradigm Shift",
+      "replacement": "Fundamental change",
+      "context": "## Personal Reflections on a Paradigm Shift"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-04-19-mastering-prompt-engineering-llms.md",
+      "line": 84,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "**Pattern Matching:** LLMs excel at recognizing patterns in your prompts and applying similar struct"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-04-19-mastering-prompt-engineering-llms.md",
+      "line": 294,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "As AI models become more capable and widely adopted, the ability to communicate effectively with the"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-04-19-mastering-prompt-engineering-llms.md",
+      "line": 126,
+      "original": "leverages",
+      "replacement": "uses",
+      "context": "This approach leverages the model's pattern recognition capabilities while providing concrete exampl"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
+      "line": 218,
+      "original": "leveraging",
+      "replacement": "using",
+      "context": "**Regulatory Compliance:** Meeting legal requirements while leveraging AI capabilities"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
+      "line": 262,
+      "original": "Leveraging",
+      "replacement": "Using",
+      "context": "**Quantum-Enhanced AI:** Leveraging quantum computing for advanced pattern recognition and cryptogra"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-05-30-ai-learning-resource-constrained.md",
+      "line": 263,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "**Federated Learning Growth:** Collaborative training approaches that leverage distributed resources"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-05-30-ai-learning-resource-constrained.md",
+      "line": 279,
+      "original": "Leverage",
+      "replacement": "Use",
+      "context": "**Use Community Resources:** Leverage existing efficient models and tools rather than building from "
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-05-30-ai-learning-resource-constrained.md",
+      "line": 113,
+      "original": "Leveraging",
+      "replacement": "Using",
+      "context": "**In-Context Learning:** Leveraging pre-trained models' ability to adapt to new tasks with just a fe"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-05-30-ai-learning-resource-constrained.md",
+      "line": 157,
+      "original": "Leveraging",
+      "replacement": "Using",
+      "context": "**Intel OpenVINO:** Leveraging specialized libraries for efficient CPU-based AI inference"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-06-11-beyond-containers-future-deployment.md",
+      "line": 191,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "**Progressive Web Apps:** Browser-based applications could leverage local storage and offline capabi"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-06-11-beyond-containers-future-deployment.md",
+      "line": 283,
+      "original": "Leveraging",
+      "replacement": "Using",
+      "context": "**Hardware Efficiency:** Leveraging newer, more efficient hardware architectures when available."
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-06-11-beyond-containers-future-deployment.md",
+      "line": 309,
+      "original": "leveraging",
+      "replacement": "using",
+      "context": "**Abstraction Layers:** Platforms that hide deployment complexity while leveraging appropriate under"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-06-25-designing-resilient-systems.md",
+      "line": 259,
+      "original": "Leveraging",
+      "replacement": "Using",
+      "context": "**Quantum-Enhanced Security:** Leveraging quantum technologies for improved security and resilience"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-07-24-multimodal-foundation-models.md",
+      "line": 281,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "**Change Management:** Users need training to effectively leverage multimodal capabilities"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-07-24-multimodal-foundation-models.md",
+      "line": 310,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "The question isn't whether multimodal AI will reshape technology\u2014it's how quickly we can adapt to le"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-08-02-quantum-computing-leap-forward.md",
+      "line": 197,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "**Quantum Machine Learning:** Algorithms that leverage quantum properties for learning tasks"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-10-03-quantum-computing-defense.md",
+      "line": 69,
+      "original": "leverages",
+      "replacement": "uses",
+      "context": "Quantum computing leverages principles of quantum mechanics\u2014superposition, entanglement, and quantum"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-10-03-quantum-computing-defense.md",
+      "line": 225,
+      "original": "leveraging",
+      "replacement": "using",
+      "context": "1. **Quantum advantage integration**: Fully leveraging quantum capabilities in military operations"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-10-22-ai-edge-computing.md",
+      "line": 153,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "Manufacturing floors leverage edge AI for real-time optimization:"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
+      "line": 103,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "Large language models represent a fundamentally different approach to code analysis. Rather than app"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
+      "line": 181,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "Organizations seeking to leverage LLMs for smart contract security should consider these approaches:"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2024-12-03-context-windows-llms.md",
+      "line": 256,
+      "original": "utilize",
+      "replacement": "use",
+      "context": "As we look toward future developments, the question isn't simply \"how large can context windows beco"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-05-10-building-security-mindset-lessons-from-field.md",
+      "line": 63,
+      "original": "paradigm shifts",
+      "replacement": "fundamental changes",
+      "context": "When I started in IT support, security was often an afterthought\u2014something you dealt with when there"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "line": 4,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "description: Learn how to leverage eBPF for real-time security monitoring in Linux"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "line": 439,
+      "original": "leverage",
+      "replacement": "use",
+      "context": "- Gwak, Doan, and Jung leverage LSM and eBPF for dynamic security policy enforcement in Kubernetes"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "line": 474,
+      "original": "Leveraging",
+      "replacement": "Using",
+      "context": "- Recent Research: \"Leveraging eBPF and AI for Ransomware Detection\" (arXiv:2406.14020)"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "line": 38,
+      "original": "paradigm shift",
+      "replacement": "fundamental change",
+      "context": "Imagine having X-ray vision into your kernel, seeing every system call, network packet, and file ope"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-08-07-supercharging-development-claude-flow.md",
+      "line": 354,
+      "original": "Leverage",
+      "replacement": "Use",
+      "context": "### 3. Leverage Parallel Processing"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-08-07-supercharging-development-claude-flow.md",
+      "line": 41,
+      "original": "leveraging",
+      "replacement": "using",
+      "context": "After integrating Claude-Flow into my development workflow, I've seen firsthand how AI swarm intelli"
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-08-07-supercharging-development-claude-flow.md",
+      "line": 502,
+      "original": "paradigm shift",
+      "replacement": "fundamental change",
+      "context": "Claude-Flow represents a paradigm shift in how we approach software development. Instead of linear, "
+    },
+    {
+      "file": "/home/william/git/williamzujkowski.github.io/src/posts/2025-10-17-progressive-context-loading-llm-workflows.md",
+      "line": 154,
+      "original": "leverages",
+      "replacement": "uses",
+      "context": "The architecture leverages insights from [ChunkKV](https://arxiv.org/html/2502.00299v1), which demon"
+    }
+  ],
+  "replacements": {
+    "leverage": "use",
+    "leverages": "uses",
+    "leveraging": "using",
+    "leveraged": "used",
+    "paradigm shift": "fundamental change",
+    "paradigm shifts": "fundamental changes",
+    "utilize": "use",
+    "utilizes": "uses",
+    "utilizing": "using",
+    "utilized": "used",
+    "synergy": "collaboration",
+    "synergies": "collaborations",
+    "going forward": "in the future",
+    "circle back": "return to",
+    "touch base": "check in"
+  }
+}

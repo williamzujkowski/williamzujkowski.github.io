@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-07-01
-description: Learn how to leverage eBPF for real-time security monitoring in Linux
+description: Learn how to use eBPF for real-time security monitoring in Linux
   environments with practical examples and production-ready patterns
 images:
   hero:
@@ -35,7 +35,7 @@ title: 'eBPF for Security Monitoring: A Practical Guide'
 
 Years ago, while researching potential EDR bypass techniques in my home lab, I discovered something fascinating: attackers operating at the kernel level could evade most traditional security tools. This realization led me down the rabbit hole of eBPF technology – and completely changed how I approach security monitoring.
 
-Imagine having X-ray vision into your kernel, seeing every system call, network packet, and file operation as it happens. That's eBPF. After extensive testing and real-world deployments, I've learned that eBPF isn't just another security tool – it's a paradigm shift in how we detect and respond to threats.
+Imagine having X-ray vision into your kernel, seeing every system call, network packet, and file operation as it happens. That's eBPF. After extensive testing and real-world deployments, I've learned that eBPF isn't just another security tool – it's a fundamental change in how we detect and respond to threats.
 
 [Recent research from arXiv confirms what practitioners have discovered: eBPF-based detection achieves 99.76% accuracy in identifying ransomware within seconds of execution, even for zero-day variants](https://arxiv.org/abs/2406.14020) (Sekar et al., 2024). But raw detection isn't everything – let me show you how to build practical, production-ready eBPF security monitoring.
 
@@ -436,7 +436,7 @@ Recent academic research has significantly advanced our understanding of eBPF se
    - *IEEE Conference on Network Function Virtualization*
 
 5. **[Container Instrumentation and Enforcement System for Runtime Security of Kubernetes Platform with eBPF](https://search.ebscohost.com/login.aspx?direct=true&profile=ehost&scope=site&authtype=crawler&jrnl=10798587&AN=164642663)** (2023)
-   - Gwak, Doan, and Jung leverage LSM and eBPF for dynamic security policy enforcement in Kubernetes
+   - Gwak, Doan, and Jung use LSM and eBPF for dynamic security policy enforcement in Kubernetes
    - *Intelligent Automation & Soft Computing*
 
 ### Security Research Insights
@@ -471,5 +471,5 @@ Start small, think big, and remember: with eBPF, you're not just monitoring the 
 
 - [eBPF.io](https://ebpf.io) - Official eBPF documentation
 - [Falco](https://falco.org) - Production eBPF security
-- Recent Research: "Leveraging eBPF and AI for Ransomware Detection" (arXiv:2406.14020)
+- Recent Research: "using eBPF and AI for Ransomware Detection" (arXiv:2406.14020)
 - [BCC Tools](https://github.com/iovisor/bcc) - eBPF toolkit)

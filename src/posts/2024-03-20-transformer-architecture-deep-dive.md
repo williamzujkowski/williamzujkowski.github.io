@@ -168,7 +168,7 @@ The Transformer's influence extends far beyond NLP. Vision Transformers (ViTs) a
 
 Recent innovations like sparse attention, mixture of experts, and retrieval-augmented generation build on the Transformer foundation while addressing its limitations. The architecture that seemed revolutionary years ago has become the platform for continued innovation.
 
-## Personal Reflections on a Paradigm Shift
+## Personal Reflections on a fundamental change
 
 Working with Transformers over the years has been like watching a new language develop. Each improvement, each new application, each scale increase revealed new possibilities and raised new questions.
 

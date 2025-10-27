@@ -150,7 +150,7 @@ The integration of AI and edge computing is revolutionizing operations across se
 
 ### Smart Manufacturing
 
-Manufacturing floors leverage edge AI for real-time optimization:
+Manufacturing floors use edge AI for real-time optimization:
 
 **Predictive Maintenance**: Edge systems analyze vibration patterns, temperature readings, and acoustic signatures to detect equipment anomalies weeks before failure, reducing downtime by up to 50%.
 

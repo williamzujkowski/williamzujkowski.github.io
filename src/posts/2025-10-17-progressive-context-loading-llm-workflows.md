@@ -151,7 +151,7 @@ graph LR
 
 This progressive assembly means simple tasks complete with minimal context (2K tokens), while complex tasks dynamically expand to 5-8K tokens—still 95% less than monolithic loading, but with accuracy comparable to full context.
 
-The architecture leverages insights from [ChunkKV](https://arxiv.org/html/2502.00299v1), which demonstrates that chunked context loading with cross-chunk attention maintains 97%+ accuracy while reducing memory footprint by an order of magnitude. This implementation adapts these principles to human-readable markdown skills rather than learned embeddings.
+The architecture uses insights from [ChunkKV](https://arxiv.org/html/2502.00299v1), which demonstrates that chunked context loading with cross-chunk attention maintains 97%+ accuracy while reducing memory footprint by an order of magnitude. This implementation adapts these principles to human-readable markdown skills rather than learned embeddings.
 
 ## How This Aligns with Anthropic's Skills
 

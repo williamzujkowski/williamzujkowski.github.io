@@ -110,7 +110,7 @@ Limited computational resources forced me to think carefully about training data
 
 ### Few-Shot and Zero-Shot Learning
 
-**In-Context Learning:** Leveraging pre-trained models' ability to adapt to new tasks with just a few examples
+**In-Context Learning:** using pre-trained models' ability to adapt to new tasks with just a few examples
 **Prompt Engineering:** Crafting inputs that elicit desired behaviors without parameter updates
 **Template-Based Approaches:** Using structured prompts to guide model behavior for specific tasks
 **Meta-Learning:** Training models to learn new tasks quickly with minimal examples
@@ -154,7 +154,7 @@ A cluster of eight Raspberry Pi 4s could run inference on models that previously
 ### CPU-Only Solutions: When GPUs Aren't Available
 
 **ONNX Runtime:** Optimizing models for CPU inference through advanced graph optimizations
-**Intel OpenVINO:** Leveraging specialized libraries for efficient CPU-based AI inference
+**Intel OpenVINO:** using specialized libraries for efficient CPU-based AI inference
 **Quantization Libraries:** Using tools like TensorFlow Lite for mobile and embedded deployment
 **Threading Optimization:** Maximizing multi-core CPU utilization for parallel inference
 
@@ -260,7 +260,7 @@ Curriculum learning reduced training time by 30% for my natural language underst
 
 **Neural Architecture Search:** Automated discovery of efficient model architectures
 **Hardware-Software Co-Design:** Specialized chips designed specifically for efficient AI workloads
-**Federated Learning Growth:** Collaborative training approaches that leverage distributed resources
+**Federated Learning Growth:** Collaborative training approaches that use distributed resources
 **Sustainable AI Movement:** Growing focus on environmental impact and energy efficiency
 
 ### Technological Advances
@@ -276,7 +276,7 @@ Curriculum learning reduced training time by 30% for my natural language underst
 
 **Start Small:** Begin with simple problems and gradually increase complexity as you develop efficiency skills
 **Measure Everything:** Track computational costs, energy usage, and training time alongside accuracy metrics
-**Use Community Resources:** Leverage existing efficient models and tools rather than building from scratch
+**Use Community Resources:** use existing efficient models and tools rather than building from scratch
 **Share Learnings:** Contribute your efficiency discoveries back to the open source community
 
 ### For Organizations

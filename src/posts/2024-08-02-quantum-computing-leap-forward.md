@@ -194,7 +194,7 @@ Today's quantum computers are powerful but limited:
 
 **Variational Quantum Eigensolver (VQE):** Finding ground states of quantum systems
 **Quantum Approximate Optimization Algorithm (QAOA):** Solving optimization problems
-**Quantum Machine Learning:** Algorithms that leverage quantum properties for learning tasks
+**Quantum Machine Learning:** Algorithms that use quantum properties for learning tasks
 **Quantum Simulation:** Using quantum computers to simulate other quantum systems
 
 ## The Security Revolution: Post-Quantum Cryptography

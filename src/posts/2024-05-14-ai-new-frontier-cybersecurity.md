@@ -215,7 +215,7 @@ Deploying AI in security contexts raised profound ethical questions:
 
 **Legal Liability:** Determining responsibility when AI security systems make mistakes with serious consequences
 
-**Regulatory Compliance:** Meeting legal requirements while leveraging AI capabilities
+**Regulatory Compliance:** Meeting legal requirements while using AI capabilities
 
 ## Building Ethical AI Security Programs
 
@@ -259,7 +259,7 @@ The evolution of AI in cybersecurity suggests an escalating arms race:
 
 **Federated Learning:** Collaborative AI training across organizations without sharing sensitive data
 
-**Quantum-Enhanced AI:** Leveraging quantum computing for advanced pattern recognition and cryptographic analysis
+**Quantum-Enhanced AI:** using quantum computing for advanced pattern recognition and cryptographic analysis
 
 **Autonomous Security Operations:** Fully automated security operations centers with minimal human intervention
 

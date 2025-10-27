@@ -188,7 +188,7 @@ Different deployment technologies showed varying suitability for edge environmen
 
 **Static Binaries:** Self-contained executables eliminated runtime dependencies and simplified deployment.
 
-**Progressive Web Apps:** Browser-based applications could leverage local storage and offline capabilities.
+**Progressive Web Apps:** Browser-based applications could use local storage and offline capabilities.
 
 ## GitOps and Infrastructure as Code Evolution
 
@@ -280,7 +280,7 @@ The environmental impact of deployment technologies became increasingly importan
 
 **Workload Optimization:** Designing applications to minimize resource consumption.
 
-**Hardware Efficiency:** Leveraging newer, more efficient hardware architectures when available.
+**Hardware Efficiency:** using newer, more efficient hardware architectures when available.
 
 **Measurement and Reporting:** Tracking and reporting on the environmental impact of deployment decisions.
 
@@ -306,7 +306,7 @@ Rather than a single successor to containers, the future appears to involve mult
 
 **Smart Orchestration:** Systems that automatically choose optimal deployment technologies based on workload characteristics.
 
-**Abstraction Layers:** Platforms that hide deployment complexity while leveraging appropriate underlying technologies.
+**Abstraction Layers:** Platforms that hide deployment complexity while using appropriate underlying technologies.
 
 **Policy-Driven Deployment:** Automated technology selection based on performance, cost, and compliance requirements.
 

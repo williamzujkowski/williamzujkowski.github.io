@@ -256,7 +256,7 @@ Calculating the ROI of resilience investments required understanding all downtim
 ### Quantum-Safe Resilience
 
 **Post-Quantum Cryptography:** Preparing for quantum computing threats to current security systems
-**Quantum-Enhanced Security:** Leveraging quantum technologies for improved security and resilience
+**Quantum-Enhanced Security:** using quantum technologies for improved security and resilience
 **Hybrid Systems:** Combining classical and quantum approaches for optimal resilience
 
 ## Practical Implementation Strategy

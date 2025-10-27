@@ -278,7 +278,7 @@ The breakthrough came from learning shared representations across modalities:
 ### Business Considerations
 
 **Cost Management:** Multimodal processing costs can scale quickly with usage
-**Change Management:** Users need training to effectively leverage multimodal capabilities
+**Change Management:** Users need training to effectively use multimodal capabilities
 **Competitive Advantage:** Early adoption can provide significant competitive benefits
 **Risk Assessment:** New capabilities require updated risk assessment and mitigation strategies
 
@@ -307,7 +307,7 @@ The challenges are significant—computational requirements, ethical considerati
 
 As these capabilities mature and become more accessible, they'll transform how we interact with information, create content, solve problems, and augment human capabilities. The future belongs to those who learn to effectively collaborate with AI systems that see, hear, and understand the world as richly as we do.
 
-The question isn't whether multimodal AI will reshape technology—it's how quickly we can adapt to leverage its transformative potential.
+The question isn't whether multimodal AI will reshape technology—it's how quickly we can adapt to use its transformative potential.
 
 ### Further Reading:
 

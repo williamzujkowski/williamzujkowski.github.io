@@ -60,7 +60,7 @@ graph TB
 
 ## The Evolution of a Security Mindset
 
-When I started in IT support, security was often an afterthought—something you dealt with when there was a problem. The journey to developing a true security mindset involved several paradigm shifts:
+When I started in IT support, security was often an afterthought—something you dealt with when there was a problem. The journey to developing a true security mindset involved several fundamental changes:
 
 ### 1. From Reactive to Proactive
 
