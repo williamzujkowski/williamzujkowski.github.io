@@ -1,14 +1,14 @@
 {
   "total_posts": 56,
-  "total_words": 62602,
-  "average_words": 1117.9,
+  "total_words": 63196,
+  "average_words": 1128.5,
   "average_reading_time": 5.3,
   "posts_by_year": {
     "2024": 29,
     "2025": 27
   },
   "words_by_year": {
-    "2024": 42003,
+    "2024": 42597,
     "2025": 20599
   },
   "posts_by_month": {
@@ -253,21 +253,21 @@
   "posts_with_images_percentage": 100.0,
   "reading_time_distribution": {
     "1-3 min": 15,
-    "4-6 min": 23,
-    "7-9 min": 17,
+    "4-6 min": 22,
+    "7-9 min": 18,
     "10+ min": 1
   },
   "citation_stats": {
-    "total_external_links": 549,
+    "total_external_links": 560,
     "total_internal_links": 5,
-    "average_citation_density": 12.39,
-    "average_external_links_per_post": 9.8
+    "average_citation_density": 12.5,
+    "average_external_links_per_post": 10.0
   },
   "code_stats": {
-    "average_code_to_content_ratio": 21.2,
+    "average_code_to_content_ratio": 20.9,
     "posts_with_code": 51,
     "posts_with_code_percentage": 91.1
   },
-  "generated_at": "2025-10-27T00:27:22.439350",
+  "generated_at": "2025-10-27T01:07:49.411588",
   "reading_speed_wpm": 238
 }
