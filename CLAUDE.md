@@ -339,13 +339,24 @@ npm run debug           # Run Eleventy with debug output
 
 ### 📁 File Organization Rules
 
-**NEVER save to root folder. Use these directories:**
-- `/src` - Source code files
-- `/tests` - Test files
-- `/docs` - Documentation and markdown files
-- `/config` - Configuration files
-- `/scripts` - Utility scripts
-- `/examples` - Example code
+**Never save to root.** Use these directories:
+
+```
+/src         → Source code
+/tests       → Test files
+/docs        → Documentation (including this file)
+/scripts     → Automation utilities
+/config      → Configuration files
+```
+
+**Common mistakes:**
+❌ `validate-claims.py` in root
+❌ `test-citations.md` in root
+❌ `working-notes.txt` anywhere
+
+✅ `scripts/blog-research/validate-claims.py`
+✅ `tests/test-citations.py`
+✅ `docs/working-notes.md`
 
 ## Project Overview
 
@@ -508,44 +519,33 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 
 ## 🎯 Concurrent Execution Examples
 
-### ✅ CORRECT (Single Message):
+### The One-Message Rule
+
+**All related operations in one message.**
+
+✅ **Correct:**
 ```javascript
-[BatchTool]:
-  // Initialize swarm
-  mcp__claude-flow__swarm_init { topology: "mesh", maxAgents: 6 }
-  mcp__claude-flow__agent_spawn { type: "researcher" }
-  mcp__claude-flow__agent_spawn { type: "coder" }
-  mcp__claude-flow__agent_spawn { type: "tester" }
-  
-  // Spawn agents with Task tool
-  Task("Research agent: Analyze requirements...")
-  Task("Coder agent: Implement features...")
-  Task("Tester agent: Create test suite...")
-  
-  // Batch todos
-  TodoWrite { todos: [
-    {id: "1", content: "Research", status: "in_progress", priority: "high"},
-    {id: "2", content: "Design", status: "pending", priority: "high"},
-    {id: "3", content: "Implement", status: "pending", priority: "high"},
-    {id: "4", content: "Test", status: "pending", priority: "medium"},
-    {id: "5", content: "Document", status: "pending", priority: "low"}
-  ]}
-  
-  // File operations
-  Bash "mkdir -p app/{src,tests,docs}"
-  Write "app/src/index.js"
-  Write "app/tests/index.test.js"
-  Write "app/docs/README.md"
+// Single message with all operations
+Read("file1.js")
+Read("file2.js")
+Edit("file1.js", old, new)
+Edit("file2.js", old, new)
+Bash("npm test")
 ```
 
-### ❌ WRONG (Multiple Messages):
+❌ **Wrong:**
 ```javascript
-Message 1: mcp__claude-flow__swarm_init
-Message 2: Task("agent 1")
-Message 3: TodoWrite { todos: [single todo] }
-Message 4: Write "file.js"
-// This breaks parallel coordination!
+// Message 1
+Read("file1.js")
+
+// Message 2
+Edit("file1.js", old, new)
+
+// Message 3
+Bash("npm test")
 ```
+
+**Why it matters:** Parallel execution = 2.8-4.4x faster. Sequential = slow, wasted tokens.
 
 ## Performance Benefits
 
@@ -624,8 +624,10 @@ Never save working files, text/mds and tests to the root folder.
 ### ABSOLUTE RULE: NO FABRICATION
 **NEVER make up information, statistics, or claims. ALWAYS back statements with reputable sources.**
 
+**Why it matters:** No citations = no credibility. Readers can verify your claims.
+
 ### Research Verification Process
-1. **Claim Identification**: Scan content for any factual claims, statistics, or technical statements
+1. **Claim Identification**: Scan content for factual claims, statistics, technical statements
 2. **Source Validation**: Every claim MUST have a reputable source
 3. **Citation Integration**: Properly cite all sources inline and in references
 4. **Fact Checking**: Use Playwright to verify claims against authoritative sources
@@ -684,13 +686,13 @@ Never save working files, text/mds and tests to the root folder.
 
 ### 📊 Content Quality Standards
 
-#### Every Technical Claim Must Have:
-- **Primary Source**: Original research paper or official documentation
-- **Secondary Validation**: Additional supporting sources
-- **Context**: Explain methodology, sample size, limitations
-- **Recency Check**: Ensure information is current (check publication dates)
+**Every technical claim needs:**
+- Primary source (original research paper or official documentation)
+- Secondary validation (additional supporting sources)
+- Context (methodology, sample size, limitations)
+- Recency check (publication dates within 2 years)
 
-#### Red Flags to Avoid:
+**Red flags to avoid:**
 - ❌ "Studies show..." without citation
 - ❌ Specific percentages without source
 - ❌ "It's well known that..." without evidence
@@ -748,21 +750,30 @@ async def research_claim(claim):
     return validate_and_rank_sources(results)
 ```
 
-### ✅ Quality Checklist
+### ✅ Pre-Publication Checklist
 
-Before Publishing Any Post:
-- [ ] All factual claims have citations
+Run before committing:
+```bash
+# Validate all citations
+python scripts/blog-research/check-citation-hyperlinks.py
+
+# Check for uncited claims
+python scripts/blog-research/research-validator.py --post src/posts/[file].md
+```
+
+**Verify:**
+- [ ] All factual claims have citations with working hyperlinks
 - [ ] Statistics include methodology and source
 - [ ] Technical specs verified against official docs
 - [ ] At least 3 reputable sources per major point
-- [ ] No outdated information (check dates)
+- [ ] No outdated information (check publication dates)
 - [ ] Opposing viewpoints acknowledged
 - [ ] Limitations clearly stated
 - [ ] Visual aids properly attributed
 - [ ] References section complete
 - [ ] Playwright verification completed
 
-### 🚫 Never Do This:
+### 🚫 Never Do This
 - Invent statistics or percentages
 - Paraphrase without attribution
 - Use Wikipedia as primary source
@@ -771,9 +782,6 @@ Before Publishing Any Post:
 - Ignore contradicting research
 - Make absolute statements without evidence
 - Use anecdotal evidence as fact
-- Network setup (Dream Machine Pro, Ubiquiti, VLANs)
-- Security tools (Nessus, Grype, OSV, Bitwarden self-hosted)
-- Development environment (VS Code, Ghostty terminal, Zsh)
 
 **NEVER make up or assume hardware/software details** - always check the uses page.
 **VERIFY claims with reputable sources** - use Playwright to search for authoritative documentation.
@@ -791,21 +799,67 @@ When working with blog posts:
 
 # Content Style Guidelines for Blog Posts
 
-## Content Philosophy
+## Writing Style: The "Polite Linus Torvalds" Standard
+
+**What it means:**
+Direct. Honest. Respectful. Substance over style.
+
+**Why it matters:**
+This blog shares real technical work, not corporate marketing. Readers want clarity, not fluff.
 
 ### Core Principles
-- **Be Genuine**: Write conversationally, share real experiences including failures
-- **Add Value**: Every post should provide practical tips, new perspectives, or thought-provoking questions
-- **Stay Curious**: Write about genuine interests, update old posts when learning something new
 
-## Writing Voice & Style
+**Lead with the point:**
+- First sentence = most important takeaway
+- No throat-clearing
+- No "In this post, I will discuss..."
 
-### Voice Characteristics
-- **Conversational but Thoughtful**: Like explaining something just learned
-- **Personal but Professional**: Share relevant stories while maintaining boundaries
-- **Helpful but Humble**: Share what worked personally, acknowledge different approaches
+**Use bullets liberally:**
+- One idea per bullet
+- Short sentences
+- White space is your friend
 
-### Language Guidelines
+**Cut ruthlessly:**
+- Remove qualifiers: "actually," "basically," "essentially"
+- Delete adverbs: "very," "really," "quite"
+- Kill corporate speak: "leverage," "synergy," "paradigm"
+
+**Examples:**
+
+❌ Bad:
+```
+In this post, I'm going to discuss some really interesting
+findings I discovered while essentially experimenting with
+various approaches to leverage containerization in my homelab
+environment, which actually proved to be quite beneficial.
+```
+
+✅ Good:
+```
+Docker cut my homelab deployment time by 70%.
+
+Here's what worked and what didn't.
+```
+
+### "Why it matters" Sections
+
+Every major claim needs context:
+
+```markdown
+**Why it matters:** [One sentence explaining impact]
+```
+
+Example:
+```markdown
+K3s uses 512MB RAM vs Kubernetes' 2GB minimum.
+
+**Why it matters:** You can run production-grade orchestration
+on a Raspberry Pi without sacrificing features.
+```
+
+## Content Philosophy
+
+### Voice Guidelines
 **Use:**
 - First person (I/me) for personal experiences
 - Second person (you) when addressing readers
@@ -819,7 +873,7 @@ When working with blog posts:
 - Absolute statements unless warranted
 - Clickbait that doesn't match content
 
-### Structure
+### Structure Rules
 - Mix short punchy sentences with detailed ones
 - One idea per paragraph
 - Use white space for readability
@@ -869,26 +923,34 @@ Before publishing:
 
 ### CRITICAL: Government Work Security Guidelines
 
-**ABSOLUTE RULES FOR GOVERNMENT EMPLOYEES:**
-- **NO current incidents**: Never discuss anything that could be interpreted as a current or recent security incident
-- **Time buffer required**: Only discuss professional incidents from "years ago" (minimum 2-3 years)
-- **Generic examples only**: When discussing work scenarios, make them generic and hypothetical
-- **Personal projects safe**: Home lab and personal research projects are fine to discuss
-- **Academic tone**: Frame security topics as research, learning, or general best practices
+**NEVER discuss:**
+- Current work incidents (minimum 2-3 year buffer)
+- Specific government systems
+- Active vulnerabilities at work
+- Timeline-specific work events
+- Team members or organizational structure
 
-**Safe Content Patterns:**
-- "Years ago, I learned..." (with vague timeframes)
-- "In my home lab, I discovered..."
-- "While researching [topic], I found..."
-- "A common scenario in security is..." (hypothetical)
-- "Best practices suggest..." (general guidance)
+**ALWAYS use:**
+- "Years ago, I learned..." (vague timeframes)
+- "In my homelab..." (personal projects)
+- "Research suggests..." (academic framing)
+- "A common pattern..." (hypothetical)
 
-**NEVER Use These Patterns:**
-- "Last week/month at work..."
-- "We recently had an incident..."
-- "My current employer..."
-- "In our production environment..."
-- "I just dealt with..."
+**Safe patterns:**
+```markdown
+✅ "In my homelab, I discovered X vulnerability in Y."
+✅ "Years ago, I worked on systems that faced Z challenge."
+✅ "Research shows this attack pattern is common."
+```
+
+**Unsafe patterns:**
+```markdown
+❌ "Last month at work..."
+❌ "My current employer uses..."
+❌ "We recently discovered..."
+```
+
+**Why it matters:** Your clearance and career matter more than a blog post. When in doubt, leave it out.
 
 **Do Share:**
 - Professional challenges and wins (from years ago)
@@ -914,6 +976,70 @@ Before publishing:
 - Financial specifics
 - Personal relationship details
 
+## Healthy AI Skepticism
+
+### Question the Hype
+
+**The rule:** Every AI claim gets scrutinized.
+
+**Red flags:**
+- "AI will solve X" without methodology
+- Benchmarks without reproducible code
+- Percentages without sample size
+- "State-of-the-art" without comparison
+- "Revolutionary" without evidence
+
+### Demand Evidence
+
+**Before writing about AI:**
+- Find the actual paper
+- Check if code is public
+- Verify claims against independent sources
+- Look for limitations section
+- Check for conflicts of interest
+
+**Required context for AI claims:**
+- Dataset size and composition
+- Compute requirements
+- Comparison with baselines
+- Known failure modes
+- Reproducibility status
+
+### Write About AI Honestly
+
+**Good patterns:**
+```markdown
+✅ "GPT-4 scored 73% on this benchmark (vs GPT-3.5's 61%).
+   But the test data may overlap with training data."
+
+✅ "This model works well for X. It fails completely at Y.
+   Paper doesn't mention Y."
+
+✅ "Impressive demo. No public weights. No reproducibility.
+   Treat with skepticism."
+```
+
+**Bad patterns:**
+```markdown
+❌ "AI achieves human-level performance"
+❌ "This breakthrough will revolutionize..."
+❌ "AI understands X" (it predicts tokens)
+```
+
+### The Anthropomorphism Rule
+
+**Don't:**
+- Say AI "understands," "thinks," or "knows"
+- Attribute human qualities to models
+- Imply consciousness or reasoning
+
+**Do:**
+- Say models "predict," "generate," or "classify"
+- Describe training methodology
+- Explain statistical patterns
+
+**Why it matters:** Precise language prevents misconceptions about what these systems actually do.
+
 ## Remember
 - Perfect is the enemy of published
 - Voice will evolve—that's good
@@ -925,32 +1051,39 @@ Before publishing:
 
 # 📝 Blog Post Creation Guidelines
 
-## Overview
+## Before You Write
 
-When creating blog posts for williamzujkowski.github.io, follow these comprehensive guidelines to ensure quality, consistency, and alignment with the blog's mission.
+**Check topic diversity:**
+```bash
+# List last 10 post topics
+ls -t src/posts/*.md | head -10 | xargs grep "^tags:"
+```
+
+**Rules:**
+- Different primary topic than last 5 posts
+- No duplicate keywords in title
+- Check overrepresented topics
+
+**Why it matters:** Readers get bored. Variety keeps them coming back.
+
+## Minimum Standards
+
+- **Length:** 1,400-2,100 words (6-9 min read)
+- **Citations:** 90%+ of claims sourced
+- **Images:** Hero + 1 per major section
+- **Code:** <25% of content
+
+**Instant rejection criteria:**
+- <1,400 words
+- Made-up statistics
+- No sources for technical claims
+- Work/NDA violations
 
 ## Target Audience
 
 - **Primary**: Technology enthusiasts with varying levels of expertise
 - **Secondary**: Beginners seeking to understand complex technical concepts
 - **Approach**: Begin with concise summaries to help beginners grasp key points, then dive deeper for advanced readers
-
-## Topic Selection and Diversity
-
-### Pre-Writing Topic Analysis
-
-**MANDATORY**: Before starting any blog post, complete this topic diversity analysis:
-
-```
-TOPIC DIVERSITY ANALYSIS:
-Last 10 blog post primary topics: [list them from /src/posts/]
-Over-represented topics: [identify any topics appearing 2+ times in recent posts]
-Under-represented topics: [identify topics from focus areas not covered recently]
-Selected primary topic for this post: [your choice]
-Justification: [brief explanation of why this topic adds diversity]
-```
-
-**Note**: This analysis should remain in working notes and not appear in the final blog post.
 
 ### Focus Areas
 
@@ -994,50 +1127,64 @@ Clearly define the post's objective:
 - **Analysis**: Examining trade-offs and implications
 - **Experience Report**: Sharing lessons from personal projects
 
-## Content Development
+## Structure (5 Parts)
 
-### Required Elements
+1. **Hook** (50 words): Grab attention with one strong sentence
+2. **Context** (100 words): Why this matters now
+3. **Main Content** (1,000-1,500 words): The substance
+4. **Reflection** (150 words): What I learned
+5. **Call to Action** (50 words): What readers should do
 
-1. **Opening Hook**: Start with a compelling story, question, or interesting fact
-2. **Context Setting**: Explain why this topic matters now
-3. **Core Content**: Main technical information and insights
-4. **Personal Experience**: Incorporate insights from homelab experiments or research
-5. **Practical Examples**: Include code samples, diagrams, or images to illustrate concepts
-6. **Security Considerations**: When relevant, discuss vulnerabilities (CVSS 9.5+) and mitigation strategies
-7. **Trade-offs and Limitations**: Provide balanced analysis of technologies and solutions
-8. **Personal Reflection**: What this means to you and why you find it interesting
-9. **Conclusion**: Summarize main points and reinforce critical insights
-10. **Call to Action**: Encourage readers to apply knowledge, participate in discussions, or explore related topics
+## Writing Rules
 
-### Content Quality Standards
+**Lead with the point:**
+```markdown
+❌ "While exploring various approaches to container orchestration..."
+✅ "K3s cut my RAM usage by 75%. Here's how."
+```
 
-- **Analogies and Real-World Examples**: Use to simplify complex technical concepts
-- **Balanced Perspective**: Discuss trade-offs and limitations for credibility
-- **Simple Language**: Where possible, with explanations for necessary jargon
-- **Conversational Tone**: Engage readers by posing questions and addressing them directly
-- **Structured Format**: Clear headings, subheadings, bullet points, and numbered lists
+**Use bullets for lists:**
+```markdown
+✅ Three ways this failed:
+   - OOM kills on 2GB nodes
+   - etcd corruption after power loss
+   - DNS resolution lag >5s
+```
 
-### Code Integration
+**One idea per paragraph:**
+```markdown
+✅ K3s uses SQLite instead of etcd. This matters for edge deployments.
 
-- Store code samples in appropriate folders within the website's repository
-- Include instructions or direct links in the blog post to these resources
-- Use syntax highlighting and add comments for clarity
-- Keep code examples concise and focused on key concepts
+   SQLite needs no quorum. Your cluster survives network partitions.
+```
 
-## Reading Time and Length Requirements
+## Content Requirements
 
-### Minimum Standards
+**Every post must include:**
+- Opening hook (compelling story, question, or fact)
+- Context setting (why this topic matters now)
+- Core technical content with sources
+- Personal experience (homelab experiments or research)
+- Practical examples (code samples, diagrams, images)
+- Security considerations (when relevant, CVSS 9.5+)
+- Trade-offs and limitations (balanced analysis)
+- Personal reflection (what this means to you)
+- Conclusion (summarize main points)
+- Call to action (encourage readers to apply knowledge)
 
-- **Target Reading Time**: 6 to 9 minutes
-- **Word Count**: Approximately 1,400 to 2,100 words (based on 238 words/minute average reading speed)
-- **Rejection Criteria**: Posts under 1,400 words will be rejected for being too short
+**Content quality:**
+- Analogies and real-world examples
+- Balanced perspective (discuss trade-offs)
+- Simple language with jargon explanations
+- Conversational tone
+- Clear headings, bullet points, numbered lists
 
-### Length by Post Type
-
-- **Personal Essays**: 800-2000 words
-- **Tutorials**: As needed for completeness (typically 1,500-2,500 words)
-- **Thought Pieces**: 600-1500 words
-- **Project Documentation**: As needed for comprehensive coverage
+**Code integration:**
+- Store samples in appropriate folders
+- Include direct links in post
+- Use syntax highlighting
+- Add comments for clarity
+- Keep examples concise (5-10 lines)
 
 ## Metadata and SEO
 
@@ -1058,59 +1205,61 @@ Clearly define the post's objective:
 - Author information
 - Image metadata (see Blog Image Standards section)
 
-## Visual Enhancements
+## Images
 
-### Image Requirements
+**Required:**
+- Hero image (1200x630px)
+- One image per major section
+- All images have descriptive alt text
 
-**MANDATORY**: Incorporate actual images throughout the post, not just suggestions.
+**Scripts:**
+```bash
+# Auto-generate hero images
+python scripts/blog-images/generate-blog-hero-images.py
 
-#### Required Images
+# Optimize all images
+bash scripts/optimize-blog-images.sh
+```
 
-1. **Header Image**: At the top of the post (1200x630px)
-2. **Section Images**: Approximately one image per major section
-3. **Relevant Illustrations**: Images that directly illustrate or enhance concepts being discussed
-
-#### Image Sources
-
-Use copyright-free websites:
+**Sources (copyright-free):**
 - [Unsplash](https://unsplash.com/)
 - [Pexels](https://www.pexels.com/)
 - [Pixabay](https://pixabay.com/)
 - [Wikimedia Commons](https://commons.wikimedia.org/)
 - [NASA Image Gallery](https://www.nasa.gov/multimedia/imagegallery/)
-- [StockSnap.io](https://stocksnap.io/)
-- [Kaboompics](https://kaboompics.com/)
-- [ISO Republic](https://isorepublic.com/)
-- [Burst by Shopify](https://burst.shopify.com/)
-- [Rawpixel](https://www.rawpixel.com/)
 
-#### Image Details
-
-For each image, provide:
-- Direct URL to the specific image (not just the website)
-- Proper attribution if required by the source
+**For each image:**
+- Direct URL to specific image
+- Proper attribution if required
 - Descriptive alt text for accessibility
-- Complete Markdown formatting for inclusion in the post
-- Appropriate search terms to find highly relevant images
+- Complete Markdown formatting
+- Appropriate search terms
 
-## Citations and References
+## Citations
 
-### Citation Requirements
+**Every technical claim needs:**
+- Primary source (paper, documentation)
+- Working hyperlink
+- Publication date
 
-- **Full URLs**: Include complete URLs for all external sources
-- **Reputable Sources**: Link to authoritative sources (see Research & Credibility Model section)
-- **Academic Papers**: Prefer DOI links or arXiv references
-- **90%+ Coverage**: Maintain the blog's 90%+ citation coverage standard
-- **Hyperlinked Citations**: ALL citations MUST include clickable hyperlinks to sources
+**Format:**
+```markdown
+[Kubernetes uses 2GB RAM minimum](https://kubernetes.io/docs/setup/) (2024)
 
-### Further Exploration Section
+**Research citation:**
+"K3s reduces memory footprint by 50%" ([Rancher Labs, 2023](https://rancher.com/k3s-whitepaper))
+```
+
+**Why it matters:** No citations = no credibility.
+
+**Further Exploration Section:**
 
 At the end of each post, include:
 - Links to related articles
 - Official documentation
 - Tutorials and guides
-- Relevant public repositories (even if not owned by author)
-- Projects that readers may find interesting to explore
+- Relevant public repositories
+- Projects readers may find interesting
 
 ## Accessibility and Formatting
 
@@ -1133,38 +1282,47 @@ At the end of each post, include:
 
 ## Pre-Publication Checklist
 
-Before submitting any blog post:
+**Before submitting:**
 
-- [ ] Topic diversity analysis completed
-- [ ] Title is unique (verified against existing posts)
-- [ ] Word count meets minimum (1,400+ words)
-- [ ] Reading time is 6-9 minutes
-- [ ] All factual claims have citations with working hyperlinks
-- [ ] At least 3 reputable sources per major point
-- [ ] Header image and section images included
-- [ ] All images have descriptive alt text
-- [ ] Code examples are tested and functional
-- [ ] Links are verified (no broken links)
+- [ ] Topic diversity (different from last 5 posts)
+- [ ] Title is unique
+- [ ] 1,400+ words (6-9 min read)
+- [ ] All claims have citations with working hyperlinks
+- [ ] 3+ reputable sources per major point
+- [ ] Hero image + section images
+- [ ] Descriptive alt text on all images
+- [ ] Code examples tested
+- [ ] Links verified (no broken links)
 - [ ] Mobile preview checked
 - [ ] Accessibility requirements met
-- [ ] NDA compliance verified (no work references)
-- [ ] Personal experience incorporated
-- [ ] Call to action included
+- [ ] NDA compliance (no work references)
+- [ ] Personal experience included
+- [ ] Call to action present
 - [ ] Further reading section populated
-- [ ] Metadata complete (date, tags, description, images)
+- [ ] Metadata complete
 - [ ] Trade-offs and limitations discussed
-- [ ] Conversational tone maintained
 - [ ] Grammar and spelling checked
 
-## Integration with Existing Workflows
+## Automation Workflow
 
-When creating blog posts, also:
+**When creating blog posts, run:**
 
-1. Run `python scripts/blog-images/update-blog-images.py` to update image metadata
-2. Generate hero images with `python scripts/blog-images/generate-blog-hero-images.py`
-3. Optimize images with `bash scripts/optimize-blog-images.sh`
-4. Validate citations with `python scripts/blog-research/research-validator.py`
-5. Check for broken links before committing
+```bash
+# Update image metadata
+python scripts/blog-images/update-blog-images.py
+
+# Generate hero images
+python scripts/blog-images/generate-blog-hero-images.py
+
+# Optimize images
+bash scripts/optimize-blog-images.sh
+
+# Validate citations
+python scripts/blog-research/research-validator.py
+
+# Check for broken links
+python scripts/blog-research/check-citation-hyperlinks.py
+```
 
 ---
 
