@@ -147,7 +147,7 @@ import numpy as np
         time.sleep(0.1)
 ```
 
-**Results**: Caught multiple package delivery attempts, identified a raccoon problem (AI thought it was a person at first), zero false alerts after tuning.
+**Results**: Caught multiple package delivery attempts, identified a raccoon problem (AI classifier initially misidentified it as a person), zero false alerts after tuning.
 
 ## Project 3: The Honeypot – Early Warning System
 

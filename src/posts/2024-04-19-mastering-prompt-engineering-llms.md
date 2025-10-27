@@ -223,7 +223,7 @@ Trying to accomplish too much in a single prompt often backfired. Complex multi-
 
 ### The Context Assumption
 
-Assuming the model understood implicit context was a frequent mistake. What seemed obvious to me wasn't necessarily obvious to the AI. Explicitly stating assumptions and background information improved results significantly.
+Assuming the model processed implicit context was a frequent mistake. What seemed obvious to me wasn't necessarily encoded in the AI's training data. Explicitly stating assumptions and background information improved results significantly.
 
 ### The Perfect First Try Fallacy
 

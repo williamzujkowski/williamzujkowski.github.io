@@ -62,13 +62,13 @@ graph TD
 
 Before Transformers, I spent countless hours wrestling with RNNs and LSTMs, watching them struggle with long sequences and vanishing gradients. I remember debugging a machine translation model that would forget the beginning of sentences by the time it reached the end. The sequential nature of these architectures was both their defining characteristic and their fundamental limitation.
 
-Convolutional networks helped with some tasks, but they had their own constraints. Local receptive fields meant missing long-range dependencies, and the hierarchical processing couldn't capture the kind of flexible attention patterns that human language understanding requires.
+Convolutional networks helped with some tasks, but they had their own constraints. Local receptive fields meant missing long-range dependencies, and the hierarchical processing couldn't capture the kind of flexible attention patterns that human language processing requires.
 
 The Transformer's promise was immediate and profound: handle sequences without scanning them one element at a time, enabling massive parallelization while capturing long-range dependencies. It was like discovering you could see an entire landscape at once instead of peering through a narrow window.
 
 ## Self-Attention: The Heart of Innovation
 
-Implementing self-attention for the first time was a revelation. Instead of processing words in sequence, the model could consider every word's relationship to every other word simultaneously. This wasn't just faster—it was a fundamentally different way of understanding language.
+Implementing self-attention for the first time was a revelation. Instead of processing words in sequence, the model could consider every word's relationship to every other word simultaneously. This wasn't just faster—it was a fundamentally different way of representing language.
 
 The mechanism itself is elegant in its simplicity:
 
@@ -92,15 +92,15 @@ I've observed attention heads that focus on:
 - **Positional patterns:** Beginning-of-sentence markers, punctuation relationships
 - **Co-reference resolution:** Pronoun-antecedent relationships
 
-The diversity of learned attention patterns explained why Transformers performed so well across different NLP tasks. They weren't just learning one way to understand language—they were learning multiple complementary perspectives.
+The diversity of learned attention patterns explained why Transformers performed so well across different NLP tasks. They weren't just learning one way to process language—they were learning multiple complementary perspectives.
 
 ## Positional Encoding: Solving the Order Problem
 
-Self-attention's power came with a challenge: without sequential processing, how does the model understand word order? "Dog bites man" and "Man bites dog" contain identical words but have very different meanings.
+Self-attention's power came with a challenge: without sequential processing, how does the model represent word order? "Dog bites man" and "Man bites dog" contain identical words but have very different meanings.
 
-The solution—positional encoding—was mathematically beautiful. Instead of learning position representations, the original paper used sine and cosine functions at different frequencies. This provided unique positional signatures while enabling the model to understand relative positions.
+The solution—positional encoding—was mathematically beautiful. Instead of learning position representations, the original paper used sine and cosine functions at different frequencies. This provided unique positional signatures while enabling the model to encode relative positions.
 
-Implementing positional encoding taught me about the elegant interplay between learned and engineered features. The model learned to use positional information in sophisticated ways, combining it with content to understand both what words mean and where they appear.
+Implementing positional encoding taught me about the elegant interplay between learned and engineered features. The model learned to use positional information in sophisticated ways, combining it with content to process both word semantics and spatial relationships.
 
 ## Encoder-Decoder Architecture: Versatility in Design
 
@@ -118,7 +118,7 @@ I've seen this architecture applied to machine translation, text summarization, 
 
 Watching Transformers evolve into BERT, GPT, T5, and other architectures has been like watching a family tree grow:
 
-**BERT (Encoder-Only):** Bidirectional training created powerful representations for understanding tasks. I used BERT for document classification and was amazed by its ability to understand context and nuance.
+**BERT (Encoder-Only):** Bidirectional training created powerful representations for classification tasks. I used BERT for document classification and was amazed by its ability to encode context and nuance.
 
 **GPT Series (Decoder-Only):** Unidirectional generation models that became the foundation for modern language models. The progression from GPT-1 to GPT-4 demonstrated how scaling Transformer architectures could unlock emergent capabilities.
 
@@ -164,7 +164,7 @@ Years of working with Transformers also revealed their limitations:
 
 ## Looking Forward: The Transformer Legacy
 
-The Transformer's influence extends far beyond NLP. Vision Transformers (ViTs) apply attention mechanisms to image patches, demonstrating the architecture's generality. Multi-modal models combine text and image Transformers for unified understanding.
+The Transformer's influence extends far beyond NLP. Vision Transformers (ViTs) apply attention mechanisms to image patches, demonstrating the architecture's generality. Multi-modal models combine text and image Transformers for unified representations.
 
 Recent innovations like sparse attention, mixture of experts, and retrieval-augmented generation build on the Transformer foundation while addressing its limitations. The architecture that seemed revolutionary years ago has become the platform for continued innovation.
 
@@ -180,7 +180,7 @@ Yet the more I work with these models, the more I appreciate both their power an
 
 The Transformer architecture represents one of those rare innovations that fundamentally changes a field. By replacing sequential processing with parallel attention, it didn't just solve the limitations of RNNs and LSTMs—it opened entirely new possibilities for neural networks.
 
-From machine translation to large language models to vision applications, Transformers have become the foundation for modern AI systems. The "attention is all you need" insight has proven remarkably prescient, with attention mechanisms becoming central to understanding how neural networks can model complex relationships.
+From machine translation to large language models to vision applications, Transformers have become the foundation for modern AI systems. The "attention is all you need" insight has proven remarkably prescient, with attention mechanisms becoming central to analyzing how neural networks can model complex relationships.
 
 As I watch continued innovations in efficient attention, longer context windows, and multi-modal applications, I'm reminded that the Transformer revolution is far from over. The architecture that transformed NLP is now transforming AI itself, and we're still discovering what's possible when attention is indeed all you need.
 
