@@ -36,6 +36,7 @@ npm-debug.log*
 # MCP (Model Context Protocol) files
 .mcp.json
 .mcp/
+.playwright-mcp/
 
 # Claude-Flow configuration (keep main config, ignore local)
 claude-flow.config.local.json
