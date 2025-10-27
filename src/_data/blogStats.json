@@ -1,14 +1,14 @@
 {
   "total_posts": 56,
-  "total_words": 61406,
-  "average_words": 1096.5,
-  "average_reading_time": 5.2,
+  "total_words": 62602,
+  "average_words": 1117.9,
+  "average_reading_time": 5.3,
   "posts_by_year": {
     "2024": 29,
     "2025": 27
   },
   "words_by_year": {
-    "2024": 40807,
+    "2024": 42003,
     "2025": 20599
   },
   "posts_by_month": {
@@ -240,9 +240,9 @@
     }
   ],
   "longest_post": {
-    "title": "AI Learning in Resource-Constrained Environments",
-    "word_count": 2014,
-    "reading_time": 9
+    "title": "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures",
+    "word_count": 2250,
+    "reading_time": 10
   },
   "shortest_post": {
     "title": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
@@ -253,21 +253,21 @@
   "posts_with_images_percentage": 100.0,
   "reading_time_distribution": {
     "1-3 min": 15,
-    "4-6 min": 24,
+    "4-6 min": 23,
     "7-9 min": 17,
-    "10+ min": 0
+    "10+ min": 1
   },
   "citation_stats": {
-    "total_external_links": 539,
+    "total_external_links": 549,
     "total_internal_links": 5,
-    "average_citation_density": 12.35,
-    "average_external_links_per_post": 9.6
+    "average_citation_density": 12.39,
+    "average_external_links_per_post": 9.8
   },
   "code_stats": {
-    "average_code_to_content_ratio": 21.3,
-    "posts_with_code": 52,
-    "posts_with_code_percentage": 92.9
+    "average_code_to_content_ratio": 21.2,
+    "posts_with_code": 51,
+    "posts_with_code_percentage": 91.1
   },
-  "generated_at": "2025-10-27T00:09:03.954206",
+  "generated_at": "2025-10-27T00:27:22.439350",
   "reading_speed_wpm": 238
 }
