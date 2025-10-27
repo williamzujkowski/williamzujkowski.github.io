@@ -1,15 +1,15 @@
 {
   "total_posts": 56,
-  "total_words": 62844,
-  "average_words": 1122.2,
-  "average_reading_time": 5.3,
+  "total_words": 62555,
+  "average_words": 1117.1,
+  "average_reading_time": 5.2,
   "posts_by_year": {
     "2024": 29,
     "2025": 27
   },
   "words_by_year": {
     "2024": 41390,
-    "2025": 21454
+    "2025": 21165
   },
   "posts_by_month": {
     "2025-01": 1,
@@ -109,7 +109,7 @@
     {
       "title": "From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows",
       "date": "2025-10-17",
-      "reading_time": 6,
+      "reading_time": 5,
       "tags": [
         "ai",
         "llm",
@@ -260,7 +260,7 @@
   "citation_stats": {
     "total_external_links": 505,
     "total_internal_links": 5,
-    "average_citation_density": 11.34,
+    "average_citation_density": 11.47,
     "average_external_links_per_post": 9.0
   },
   "code_stats": {
@@ -268,6 +268,6 @@
     "posts_with_code": 53,
     "posts_with_code_percentage": 94.6
   },
-  "generated_at": "2025-10-26T22:46:53.193166",
+  "generated_at": "2025-10-26T23:13:00.992256",
   "reading_speed_wpm": 238
 }
