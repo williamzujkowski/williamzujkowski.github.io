@@ -1,14 +1,14 @@
 {
   "total_posts": 56,
-  "total_words": 63896,
-  "average_words": 1141.0,
-  "average_reading_time": 5.4,
+  "total_words": 65837,
+  "average_words": 1175.7,
+  "average_reading_time": 5.5,
   "posts_by_year": {
     "2024": 29,
     "2025": 27
   },
   "words_by_year": {
-    "2024": 42597,
+    "2024": 44538,
     "2025": 21299
   },
   "posts_by_month": {
@@ -240,9 +240,9 @@
     }
   ],
   "longest_post": {
-    "title": "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures",
-    "word_count": 2250,
-    "reading_time": 10
+    "title": "Implementing Zero Trust Security: Never Trust, Always Verify",
+    "word_count": 2562,
+    "reading_time": 11
   },
   "shortest_post": {
     "title": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
@@ -252,22 +252,22 @@
   "posts_with_images": 56,
   "posts_with_images_percentage": 100.0,
   "reading_time_distribution": {
-    "1-3 min": 14,
+    "1-3 min": 13,
     "4-6 min": 23,
     "7-9 min": 18,
-    "10+ min": 1
+    "10+ min": 2
   },
   "citation_stats": {
-    "total_external_links": 573,
+    "total_external_links": 583,
     "total_internal_links": 5,
-    "average_citation_density": 12.68,
-    "average_external_links_per_post": 10.2
+    "average_citation_density": 12.69,
+    "average_external_links_per_post": 10.4
   },
   "code_stats": {
-    "average_code_to_content_ratio": 20.4,
+    "average_code_to_content_ratio": 20.0,
     "posts_with_code": 51,
     "posts_with_code_percentage": 91.1
   },
-  "generated_at": "2025-10-27T01:29:10.532189",
+  "generated_at": "2025-10-27T01:47:03.420162",
   "reading_speed_wpm": 238
 }
