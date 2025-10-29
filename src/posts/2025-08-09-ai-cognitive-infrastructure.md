@@ -1,7 +1,7 @@
 ---
 date: '2025-08-09T00:00:00.000Z'
 title: 'AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought'
-description: 'AI is evolving from tools into foundational cognitive infrastructure that shapes how billions think and decide. With little understanding of long-term effects, we are replacing human cognitive processes at unprecedented scale.'
+description: AI is evolving from tools into cognitive infrastructure that shapes how billions think, yet we understand little about its long-term effects
 tags:
 - posts
 - ai
@@ -11,16 +11,15 @@ tags:
 - society
 images:
   hero:
-    src: "/assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-hero.jpg"
-    alt: "AI as Cognitive Infrastructure - The invisible architecture reshaping human thought"
-    caption: "Visual representation of AI as the cognitive infrastructure of modern society"
+    src: /assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-hero.jpg
+    alt: AI as Cognitive Infrastructure - The invisible architecture reshaping human thought
+    caption: Visual representation of AI as the cognitive infrastructure of modern society
     width: 1200
     height: 630
   og:
-    src: "/assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-og.jpg"
-    alt: "AI as Cognitive Infrastructure - Social media preview"
+    src: /assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-og.jpg
+    alt: AI as Cognitive Infrastructure - Social media preview
 ---
-
 ## Bottom Line Up Front
 
 AI isn't a collection of tools anymore. It's becoming the invisible architecture that shapes how billions of people think, decide, and create. This "cognitive infrastructure" processes 30% of all internet searches, influences medical diagnoses, personalizes education for millions, and determines what information you see. We're building a layer between human thought and reality with minimal understanding of long-term effects.

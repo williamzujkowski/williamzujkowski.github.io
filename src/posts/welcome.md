@@ -1,7 +1,6 @@
 ---
 date: 2025-01-01
-description: Why I chose Eleventy for my personal site and the journey of building
-  a fast, accessible, and privacy-respecting digital home
+description: Why I chose Eleventy for my personal site and the journey of building a fast, accessible, privacy-respecting digital home with modern web technologies
 images:
   hero:
     alt: Building My Digital Garden with Eleventy - Hero Image
@@ -19,7 +18,6 @@ tags:
 - open-source
 title: Building My Digital Garden with Eleventy
 ---
-
 Welcome to my digital corner of the internet! After years of working in security engineering and incident response, I decided it was time to create a proper home for my thoughts, projects, and learnings.
 
 ## The Journey to Eleventy

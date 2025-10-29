@@ -1,12 +1,10 @@
 ---
 author: William Zujkowski
 date: 2025-07-01
-description: Learn how to use eBPF for real-time security monitoring in Linux
-  environments with practical examples and production-ready patterns
+description: Using eBPF for real-time Linux security monitoring—syscall tracking, network observability, and production-ready patterns for kernel-level visibility
 images:
   hero:
-    alt: Futuristic dashboard showing real-time kernel-level security monitoring with
-      eBPF
+    alt: Futuristic dashboard showing real-time kernel-level security monitoring with eBPF
     caption: Real-time kernel visibility changes everything in security monitoring
     height: 630
     src: /assets/images/blog/hero/2025-07-01-ebpf-security-monitoring-hero.jpg
@@ -30,7 +28,6 @@ tags:
 - detection
 title: 'eBPF for Security Monitoring: A Practical Guide'
 ---
-
 ## The Day eBPF Changed Everything
 
 Years ago, while researching potential EDR bypass techniques in my home lab, I discovered something fascinating: attackers operating at the kernel level could evade most traditional security tools. This realization led me down the rabbit hole of eBPF technology – and completely changed how I approach security monitoring.

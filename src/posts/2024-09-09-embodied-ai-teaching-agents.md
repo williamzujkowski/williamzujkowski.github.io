@@ -1,21 +1,16 @@
 ---
 date: '2024-04-21T00:00:00.000Z'
-description: How multimodal large language models are learning to recognize ambiguity
-  and ask clarifying questions, making robots better collaborative partners in real-world
-  scenarios.
+description: Training AI agents to learn from physical interaction with the world, combining vision, language, and action for robots that adapt to real environments
 images:
   hero:
-    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction
-      - Hero Image'
-    caption: 'Visual representation of Teaching AI Agents to Ask for Help: A Breakthrough
-      in Human-Robot Interaction'
+    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Hero Image'
+    caption: 'Visual representation of Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
     height: 630
     src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction
-      - Social Media Preview'
+    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Social Media Preview'
     src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-og.jpg
 tags:
 - posts
@@ -25,7 +20,6 @@ tags:
 - multimodal-llm
 title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
 ---
-
 In August 2024, I spent 47 hours in NVIDIA Isaac Sim trying to teach a simulated robot arm to grasp objects in my virtual homelab. My RTX 3090 hummed at 73°C while rendering the physics at 18.4 FPS, and I gave the agent what I thought was a clear instruction: "Pick up the small container." There were three containers on the table. The robot grabbed one confidently, and it was the wrong one. Every single time.
 
 I tried again with better phrasing. Still wrong 68% of the time. The frustrating part? The robot never asked which container I meant. It just guessed based on some internal heuristic I couldn't decipher, failed, and waited for me to try again. After two weeks of this, I realized the fundamental problem: I was treating clarification as a bug to avoid rather than a feature to embrace.

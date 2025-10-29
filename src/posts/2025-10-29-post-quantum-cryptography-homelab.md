@@ -1,26 +1,25 @@
 ---
 date: 2025-10-29
-title: "Preparing Your Homelab for the Quantum Future: Post-Quantum Cryptography Migration"
-description: "After three weekends of breaking TLS connections and crashing my homelab, I finally got post-quantum cryptography working. Here's what NIST's 2024 standards mean for your self-hosted services."
+title: 'Preparing Your Homelab for the Quantum Future: Post-Quantum Cryptography Migration'
+description: Preparing my homelab for the quantum threat with NIST's post-quantum algorithms—CRYSTALS-Kyber, CRYSTALS-Dilithium, and practical implementation lessons
 tags:
-  - quantum-computing
-  - cryptography
-  - homelab
-  - security
-  - networking
-  - privacy
+- quantum-computing
+- cryptography
+- homelab
+- security
+- networking
+- privacy
 images:
   hero:
     src: /assets/images/blog/hero/2025-10-29-post-quantum-cryptography-homelab-hero.jpg
-    alt: "Abstract visualization of post-quantum cryptography protecting a homelab server with quantum-safe encryption"
-    caption: "Preparing personal infrastructure for the quantum computing era"
+    alt: Abstract visualization of post-quantum cryptography protecting a homelab server with quantum-safe encryption
+    caption: Preparing personal infrastructure for the quantum computing era
     width: 1200
     height: 630
   og:
     src: /assets/images/blog/hero/2025-10-29-post-quantum-cryptography-homelab-og.jpg
-    alt: "Post-quantum cryptography for homelabs: NIST standards and practical migration"
+    alt: 'Post-quantum cryptography for homelabs: NIST standards and practical migration'
 ---
-
 I spent three weekends trying to enable post-quantum cryptography on my homelab Nginx server. The first attempt crashed every single HTTPS connection because I completely forgot that hybrid mode exists and tried forcing pure ML-KEM-768. The second weekend, I got hybrid mode working but didn't realize my certificate chain had ballooned to 18KB, triggering TCP fragmentation and adding a mysterious 200ms to every handshake. By the third weekend, I'd finally figured out that my Raspberry Pi 4 running Wazuh was perfectly capable of handling PQC, I just needed to stop treating it like it was 2015.
 
 Here's what I learned about preparing homelabs for the quantum computing threat that's probably 10-15 years away but requires action today.

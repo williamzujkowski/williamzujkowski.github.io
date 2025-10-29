@@ -1,21 +1,16 @@
 ---
 date: 2024-03-05
-description: Standing in a server room filled with humming machines, I realized our
-  physical infrastructure had become an anchor - the cloud migration that followed
-  taught me as much about change management as technology
+description: Our cloud migration taught me as much about change management as technology. Lessons from moving from physical servers to the cloud
 images:
   hero:
-    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Hero
-      Image'
-    caption: 'Visual representation of Cloud Migration: A Guide to Navigating Your
-      Journey to the Cloud'
+    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Hero Image'
+    caption: 'Visual representation of Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
     height: 630
     src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Social
-      Media Preview'
+    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Social Media Preview'
     src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-og.jpg
 tags:
 - cloud
@@ -23,7 +18,6 @@ tags:
 - infrastructure
 title: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
 ---
-
 I recall standing in our data center in late 2019, warm air flowing from countless machines, cables snaking across raised floors. I couldn't help wondering if this physical infrastructure had become more anchor than asset. The constant hum of cooling systems and blinking server lights represented significant investment, but also significant constraints.
 
 That moment crystallized our need for cloud migration, but the journey that followed taught me as much about organizational change management as it did about technology. Moving to the cloud isn't just a technical transformation. It's a fundamental shift in how we think about infrastructure, reliability, and scale.

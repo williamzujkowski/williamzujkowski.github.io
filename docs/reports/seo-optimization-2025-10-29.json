@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-10-29T13:53:26.276158",
+  "summary": {
+    "total_posts": 1,
+    "updated": 1,
+    "skipped": 52,
+    "errors": 0,
+    "avg_length_before": 166.0,
+    "avg_length_after": 154.0,
+    "avg_reduction": 12.0,
+    "status_distribution": {
+      "optimal": 1,
+      "acceptable": 0,
+      "too_short": 0,
+      "too_long": 0
+    }
+  },
+  "results": [
+    {
+      "file": "2025-07-22-supercharging-claude-cli-with-standards.md",
+      "before": "How I built a comprehensive standards repository that transforms Claude CLI into context-aware development powerhouse with 90% token reduction and workflow automation",
+      "after": "How I built a standards repository that transforms Claude CLI into a context-aware development powerhouse with 90% token reduction and workflow automation",
+      "before_length": 166,
+      "after_length": 154,
+      "change": -12,
+      "status": "optimal"
+    }
+  ]
+}

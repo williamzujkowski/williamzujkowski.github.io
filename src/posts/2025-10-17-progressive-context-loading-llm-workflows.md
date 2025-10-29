@@ -1,28 +1,27 @@
 ---
-title: "From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows"
+title: 'From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows'
 date: 2025-10-17
-description: "Discover how progressive skill loading achieves 98% token reduction in LLM development workflows through modular context architecture: lessons from building a production system that aligns with emerging research"
+description: Progressive skill loading achieves 98% token reduction in LLM workflows through modular context architecture—lessons from building production systems
 tags:
-  - ai
-  - llm
-  - development-workflows
-  - token-optimization
-  - context-engineering
-  - claude
-  - mcp
-  - progressive-loading
-author: "William Zujkowski"
+- ai
+- llm
+- development-workflows
+- token-optimization
+- context-engineering
+- claude
+- mcp
+- progressive-loading
+author: William Zujkowski
 images:
   hero:
-    src: "/assets/images/blog/hero/2025-10-17-progressive-context-loading-hero.jpg"
-    alt: "Abstract visualization of token streams being compressed through progressive loading layers, showing 150K tokens reducing to 2K"
+    src: /assets/images/blog/hero/2025-10-17-progressive-context-loading-hero.jpg
+    alt: Abstract visualization of token streams being compressed through progressive loading layers, showing 150K tokens reducing to 2K
     width: 1200
     height: 630
   og:
-    src: "/assets/images/blog/hero/2025-10-17-progressive-context-loading-og.jpg"
-    alt: "Progressive context loading reduces LLM token usage by 98%"
+    src: /assets/images/blog/hero/2025-10-17-progressive-context-loading-og.jpg
+    alt: Progressive context loading reduces LLM token usage by 98%
 ---
-
 ## Bottom Line Up Front
 
 Progressive context loading cuts LLM token usage by 98% (150K → 2K) while maintaining full codebase context. Instead of dumping your entire repository into every prompt, load relevant code on-demand as the AI works. Real deployment at [williamzujkowski/standards](https://github.com/williamzujkowski/standards) reduced costs from $4.50/session to $0.06.

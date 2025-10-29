@@ -1,21 +1,16 @@
 ---
 date: 2024-02-09
-description: The first time I saw a convincing deepfake video, I spent an hour researching
-  to convince myself it wasn't real - that moment changed how I think about digital
-  evidence forever
+description: AI-generated deepfakes threaten truth itself. Exploring detection techniques, authentication methods, and the arms race between creation and detection
 images:
   hero:
-    alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception -
-      Hero Image'
-    caption: 'Visual representation of The Deepfake Dilemma: Navigating the Threat
-      of AI-Generated Deception'
+    alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Hero Image'
+    caption: 'Visual representation of The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception'
     height: 630
     src: /assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception -
-      Social Media Preview'
+    alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Social Media Preview'
     src: /assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-og.jpg
 tags:
 - ai
@@ -23,7 +18,6 @@ tags:
 - ethics
 title: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception'
 ---
-
 The first time I encountered a convincing deepfake, I felt a profound sense of unease that I'm still processing years later. It was a video of a public figure saying something completely out of character, and despite knowing about deepfake technology, I found myself questioning what was real.
 
 I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media, and highlighted a terrifying reality about our information landscape.

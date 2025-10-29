@@ -1,20 +1,16 @@
 ---
 date: 2024-07-09
-description: Moving from 'trust but verify' to 'never trust, always verify' required
-  dismantling years of security assumptions and rebuilding our entire authentication
-  and authorization framework
+description: 'Practical guide to implementing zero trust architecture: identity verification, micro-segmentation, and continuous monitoring for modern security'
 images:
   hero:
     alt: 'Zero Trust Architecture: A Practical Implementation Guide - Hero Image'
-    caption: 'Visual representation of Zero Trust Architecture: A Practical Implementation
-      Guide'
+    caption: 'Visual representation of Zero Trust Architecture: A Practical Implementation Guide'
     height: 630
     src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Zero Trust Architecture: A Practical Implementation Guide - Social Media
-      Preview'
+    alt: 'Zero Trust Architecture: A Practical Implementation Guide - Social Media Preview'
     src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg
 tags:
 - security
@@ -23,7 +19,6 @@ tags:
 - architecture
 title: 'Zero Trust Architecture: A Practical Implementation Guide'
 ---
-
 In May 2024, I made the decision to completely segment my homelab network into 8 separate VLANs. The catalyst? I discovered my Raspberry Pi running Pi-hole was on the same network segment as my Dell R940 server hosting production workloads. One compromised smart light bulb could theoretically pivot to my most sensitive systems.
 
 I spent three solid weekends implementing Zero Trust principles in my homelab using my Ubiquiti Dream Machine Pro. The experience taught me that implementing Zero Trust is probably harder than most guides suggest, and I locked myself out of my management interface three times while testing firewall rules. But the results were worth the frustration.

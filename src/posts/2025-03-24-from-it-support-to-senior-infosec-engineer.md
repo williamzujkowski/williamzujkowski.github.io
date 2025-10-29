@@ -1,20 +1,17 @@
 ---
 author: William Zujkowski
 date: 2025-03-24
-description: The winding path from fixing printers to securing federal systems – lessons
-  learned, mistakes made, and advice for aspiring security professionals
+description: The winding path from fixing printers to securing federal systems over 10 years—lessons learned, mistakes made, and advice for aspiring security professionals
 images:
   hero:
     alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Hero Image'
-    caption: 'Visual representation of From IT Support to Senior InfoSec Engineer:
-      My 15+ Year Journey'
+    caption: 'Visual representation of From IT Support to Senior InfoSec Engineer: My 15+ Year Journey'
     height: 630
     src: /assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Social
-      Media Preview'
+    alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Social Media Preview'
     src: /assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-og.jpg
 tags:
 - career
@@ -24,7 +21,6 @@ tags:
 - leadership
 title: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey'
 ---
-
 ## The Beginning: When "Have You Tried Turning It Off and On Again?" Was My Mantra
 
 Twenty years ago, I was that IT guy. You know, the one who showed up when the printer jammed, when email stopped working, or when someone's computer made "that weird noise." I started as an independent IT consultant in 2005, which is a fancy way of saying I fixed computers for local businesses and anyone who would pay me.

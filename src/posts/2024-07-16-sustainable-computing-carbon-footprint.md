@@ -1,21 +1,16 @@
 ---
 date: 2024-07-16
-description: Discovering that our ML training runs were consuming as much electricity
-  as a small town sparked my journey into sustainable computing - efficiency became
-  an environmental imperative, not just an optimization
+description: ML training consuming as much electricity as a small town sparked my journey into sustainable computing—efficiency as environmental imperative
 images:
   hero:
-    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint -
-      Hero Image'
-    caption: 'Visual representation of Sustainable Computing: Strategies for Reducing
-      IT''s Carbon Footprint'
+    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint - Hero Image'
+    caption: 'Visual representation of Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
     height: 630
     src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint -
-      Social Media Preview'
+    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint - Social Media Preview'
     src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-og.jpg
 tags:
 - sustainability
@@ -24,7 +19,6 @@ tags:
 - climate
 title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
 ---
-
 In September 2023, I analyzed our machine learning infrastructure's energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning. We weren't just burning through budget, we were burning through the planet's resources.
 
 

@@ -1,13 +1,10 @@
 ---
 date: 2024-06-25
-description: A cascade failure that took down our entire platform in three minutes
-  taught me that resilience isn't about preventing failures - it's about failing gracefully
-  and recovering quickly
+description: Building systems that gracefully handle failures through redundancy, circuit breakers, and chaos engineering—lessons from production incidents
 images:
   hero:
     alt: Designing Resilient Systems for an Uncertain World - Hero Image
-    caption: Visual representation of Designing Resilient Systems for an Uncertain
-      World
+    caption: Visual representation of Designing Resilient Systems for an Uncertain World
     height: 630
     src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-hero.jpg
     width: 1200
@@ -22,7 +19,6 @@ tags:
 - reliability
 title: Designing Resilient Systems for an Uncertain World
 ---
-
 ## BLUF: When Perfect Systems Fail Perfectly
 
 At 2:47 AM on that Tuesday in May 2019, our "bulletproof" platform collapsed in three minutes from a single database timeout. The cascade revealed a harsh truth: resilience isn't about preventing failures, it's about failing gracefully and recovering fast. Traditional approaches build robust systems that resist failure, while resilient systems embrace failure as inevitable and turn it into strength. The economic case is clear: our 3-minute outage cost approximately $2.4M in revenue plus immeasurable customer trust, but the resilience patterns I learned now protect billions in annual transactions. The patterns described in Google's SRE handbook[1] now form the foundation of modern resilience engineering.

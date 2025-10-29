@@ -1,21 +1,16 @@
 ---
 date: 2024-04-19
-description: My first attempts at prompt engineering felt like trying to teach a brilliant
-  but scatterbrained colleague - discovering the right words to unlock AI capabilities
-  became both art and science
+description: Effective prompt engineering techniques for LLMs—few-shot learning, chain-of-thought, system prompts, and strategies for reliable outputs
 images:
   hero:
-    alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Hero
-      Image'
-    caption: 'Visual representation of Mastering Prompt Engineering: Unlocking the
-      Full Potential of LLMs'
+    alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Hero Image'
+    caption: 'Visual representation of Mastering Prompt Engineering: Unlocking the Full Potential of LLMs'
     height: 630
     src: /assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Social
-      Media Preview'
+    alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Social Media Preview'
     src: /assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-og.jpg
 tags:
 - ai
@@ -23,7 +18,6 @@ tags:
 - prompt-engineering
 title: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs'
 ---
-
 I remember my first attempts at coaxing a Large Language Model into producing the responses I needed. It felt like trying to communicate with a brilliant but extremely literal colleague who had access to all human knowledge but no common sense about what I actually wanted.
 
 Those early experiments were equal parts fascinating and frustrating. A slight change in wording could transform gibberish into genius, while seemingly clear instructions would produce completely unexpected results. Over months of trial and error, I discovered that prompt engineering is both an art requiring intuition and a science demanding systematic experimentation.

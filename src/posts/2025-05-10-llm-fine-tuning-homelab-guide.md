@@ -1,6 +1,6 @@
 ---
 date: '2025-05-10'
-description: Fine-tuning large language models on consumer hardware using LoRA and QLoRA techniques, with practical insights from homelab experimentation and performance optimization strategies.
+description: Complete guide to fine-tuning open-source LLMs on homelab hardware using QLoRA, covering dataset prep, training optimization, and evaluation
 images:
   hero:
     alt: 'Fine-Tuning LLMs in the Homelab: A Practical Guide - Hero Image'
@@ -20,7 +20,6 @@ tags:
 - programming
 title: 'Fine-Tuning LLMs in the Homelab: A Practical Guide'
 ---
-
 In March 2025, I attempted to fine-tune Llama 3 8B on my RTX 3090. The first attempt consumed all 24GB of VRAM in under 3 minutes and crashed with a CUDA out-of-memory error. After 47 hours of experimentation across two weeks, I finally got it working using QLoRA with 4-bit quantization. The successful training run took 14 hours at 340W average power consumption, which cost me roughly $8.40 in electricity.
 
 This guide shares everything I learned from that journey, including the five failures that taught me more than the eventual success.

@@ -1,21 +1,16 @@
 ---
 date: 2024-01-30
-description: The first time I deployed a microservices architecture to production,
-  I thought our security was bulletproof - until a penetration tester showed me how
-  they'd compromised three services in under an hour
+description: Securing cloud-native environments requires new approaches—container security, service mesh, secrets management, and zero trust for microservices
 images:
   hero:
-    alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Hero
-      Image'
-    caption: 'Visual representation of Securing the Cloud-Native Frontier: A Guide
-      to Cloud-Native Security'
+    alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Hero Image'
+    caption: 'Visual representation of Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
     height: 630
     src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Social
-      Media Preview'
+    alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Social Media Preview'
     src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-og.jpg
 tags:
 - security
@@ -23,7 +18,6 @@ tags:
 - devops
 title: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
 ---
-
 In January 2024, I decided to harden the security of my K3s cluster running on my Proxmox homelab. I felt confident. I had firewalls configured, network segmentation via VLANs, and proper TLS certificates everywhere. Then I ran Grype v0.74.1 against my container images and discovered 47 high-severity vulnerabilities in what I thought were "minimal" base images. One Alpine 3.18 image that I used as a base for 12 different services had CVE-2023-5678 with a CVSS score of 9.8. That single vulnerable base image meant 12 services were potentially compromised.
 
 That was probably my most humbling moment in months. I spent the next three hours scanning every container image in my registry, only to find that roughly 60% of my "production-ready" images had at least one critical CVE. The wake-up call got worse when I accidentally exposed my Docker socket while troubleshooting a networking issue in February 2024. For about 20 minutes, my entire container runtime was potentially accessible before I caught the mistake.

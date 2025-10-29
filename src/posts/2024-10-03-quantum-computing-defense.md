@@ -1,21 +1,16 @@
 ---
 date: '2024-05-05T00:00:00.000Z'
-description: Examining how quantum computing presents both significant opportunities
-  and complex security challenges for national defense, from cryptographic vulnerabilities
-  to quantum-enhanced sensing capabilities.
+description: Quantum computers will break current encryption within years. Here's how I'm preparing with post-quantum cryptography and quantum-resistant algorithms
 images:
   hero:
-    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology
-      - Hero Image'
-    caption: 'Visual representation of Quantum Computing and Defense: The Double-Edged
-      Sword of Tomorrow''s Technology'
+    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology - Hero Image'
+    caption: 'Visual representation of Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology'
     height: 630
     src: /assets/images/blog/hero/2024-10-03-quantum-computing-defense-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology
-      - Social Media Preview'
+    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology - Social Media Preview'
     src: /assets/images/blog/hero/2024-10-03-quantum-computing-defense-og.jpg
 tags:
 - posts
@@ -25,7 +20,6 @@ tags:
 - national-security
 title: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology'
 ---
-
 Years ago, I attended a briefing where a researcher demonstrated factoring large numbers on a small quantum processor. The numbers were tiny compared to what secures our communications today, but watching those quantum gates methodically break down what would take classical computers millennia was a sobering moment. It made the theoretical threat of quantum computing suddenly feel very real.
 
 The convergence of quantum computing and defense technologies represents one of the most consequential developments of our time. It's simultaneously an opportunity and an existential challenge. Quantum computers could fundamentally reshape military capabilities while potentially making our current security infrastructure obsolete.

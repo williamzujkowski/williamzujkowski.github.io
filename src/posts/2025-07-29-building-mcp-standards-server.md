@@ -1,12 +1,10 @@
 ---
 date: 2025-07-29
-description: 'The ongoing saga of turning my standards repository into an MCP server.
-  Spoiler: It''s working, mostly, and I''ve only rewritten it three times.'
+description: 'The ongoing saga of turning my standards repo into an MCP server for Claude. Spoiler: It''s working mostly, and I''ve only rewritten it three times so far'
 images:
   hero:
     alt: 'Down the MCP Rabbit Hole: Building a Standards Server - Hero Image'
-    caption: 'Visual representation of Down the MCP Rabbit Hole: Building a Standards
-      Server'
+    caption: 'Visual representation of Down the MCP Rabbit Hole: Building a Standards Server'
     height: 630
     src: /assets/images/blog/hero/2025-07-29-building-mcp-standards-server-hero.jpg
     width: 1200
@@ -21,7 +19,6 @@ tags:
 - open-source
 title: 'Down the MCP Rabbit Hole: Building a Standards Server'
 ---
-
 ## Bottom Line Up Front
 
 I built a standards server that was supposed to be a simple wrapper around my documentation repository. Three weeks later, I had written 6,000 lines of code across 47 components, implementing Redis caching, vector search, six different language analyzers, 88 tests, and a React UI. For a read-only documentation server. That I'm the only user of.

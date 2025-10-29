@@ -1,20 +1,16 @@
 ---
 date: '2024-05-19T00:00:00.000Z'
-description: How the convergence of artificial intelligence and edge computing is
-  creating responsive, private, and resilient systems that process data where it's
-  generated, revolutionizing applications from autonomous vehicles to smart manufacturing.
+description: How AI and edge computing create responsive, private systems that process data locally, revolutionizing autonomous vehicles and smart manufacturing
 images:
   hero:
     alt: 'AI Meets Edge Computing: Transforming Real-Time Intelligence - Hero Image'
-    caption: 'Visual representation of AI Meets Edge Computing: Transforming Real-Time
-      Intelligence'
+    caption: 'Visual representation of AI Meets Edge Computing: Transforming Real-Time Intelligence'
     height: 630
     src: /assets/images/blog/hero/2024-10-22-ai-edge-computing-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'AI Meets Edge Computing: Transforming Real-Time Intelligence - Social Media
-      Preview'
+    alt: 'AI Meets Edge Computing: Transforming Real-Time Intelligence - Social Media Preview'
     src: /assets/images/blog/hero/2024-10-22-ai-edge-computing-og.jpg
 tags:
 - posts
@@ -24,7 +20,6 @@ tags:
 - devops
 title: 'AI Meets Edge Computing: Transforming Real-Time Intelligence'
 ---
-
 In September 2024, I tried deploying YOLOv8 for real-time object detection on my Raspberry Pi 4 (8GB RAM, 1.8 GHz ARM Cortex-A72). My first attempt used the full PyTorch model, and the Pi crashed after about 30 seconds of continuous inference. The CPU temperature hit 82°C and the system just froze. Not exactly the "edge AI revolution" I was hoping for.
 
 But that failure taught me something important about edge computing. After converting to TensorFlow Lite (shrinking the model from 400MB to just 4MB) and implementing proper thermal throttling, I got it working at 2.3 FPS. Not amazing, but good enough for my home security camera that only needs to detect when someone approaches the front door. The real win? Latency dropped from 200-500ms (cloud-based) to 15-50ms (local inference), and I'm not paying $0.001 per inference anymore.

@@ -1,19 +1,16 @@
 ---
 date: '2024-10-10T00:00:00.000Z'
-description: After running Ethereum nodes on my homelab for three months, I learned blockchain is less about cryptocurrency hype and more about building trust without central authorities. Here's what actually works (and what doesn't).
+description: Running Ethereum nodes on my homelab taught me blockchain is about building trust without central authorities. Here's what works (and doesn't)
 images:
   hero:
-    alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet
-      - Hero Image'
-    caption: 'Visual representation of Blockchain Beyond Cryptocurrency: Building
-      the Trust Layer of the Internet'
+    alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Hero Image'
+    caption: 'Visual representation of Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet'
     height: 630
     src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet
-      - Social Media Preview'
+    alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Social Media Preview'
     src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-og.jpg
 tags:
 - posts
@@ -23,7 +20,6 @@ tags:
 - programming
 title: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet'
 ---
-
 In early October 2024, I deployed a private Ethereum test network on my homelab's Dell R940 server. The initial sync took 47 hours and consumed 1.2TB of disk space, which immediately taught me my first lesson: blockchain infrastructure is not lightweight. My i9-9900K system handled the validator node workload, but at a constant 340W power draw. That's real electricity costs for what I initially thought would be a simple weekend experiment.
 
 I'll admit I started this project skeptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. But after three months of running actual nodes, deploying smart contracts, and watching my IPFS storage grow to 340GB, I realized something: the core innovation has little to do with digital money.

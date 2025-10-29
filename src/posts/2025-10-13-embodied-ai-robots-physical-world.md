@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-10-13
-description: Vision-Language-Action models closed the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability with practical implications for security, safety, and homelab automation
+description: Vision-Language-Action models transform AI from code into physical robots, with practical implications for security, safety, and homelab automation
 tags:
 - ai
 - robotics
@@ -9,7 +9,7 @@ tags:
 - embodied-ai
 - homelab
 - machine-learning
-title: "From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution"
+title: 'From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution'
 images:
   hero:
     src: /assets/images/blog/hero/2025-10-13-embodied-ai-robots-hero.jpg
@@ -21,7 +21,6 @@ images:
     src: /assets/images/blog/hero/2025-10-13-embodied-ai-robots-og.jpg
     alt: AI-powered robotics and embodied intelligence
 ---
-
 ## Bottom Line Up Front
 
 AI escaped the screen in 2025. [Google DeepMind's Gemini Robotics](https://arxiv.org/abs/2503.20020) demonstrates 90%+ success rates on complex manipulation tasks, not in simulation, but in the real world. Vision-Language-Action (VLA) models bridge the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability.

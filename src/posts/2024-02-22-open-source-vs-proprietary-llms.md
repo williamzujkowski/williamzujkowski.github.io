@@ -1,30 +1,23 @@
 ---
 date: 2024-02-22
-description: After months of experimenting with both approaches in production systems,
-  I've learned that choosing between open-source and proprietary LLMs isn't about
-  ideology - it's about trade-offs
+description: Running both Llama and GPT-4 in my homelab taught me the real trade-offs between open-source and proprietary LLMs beyond hype and marketing
 images:
   hero:
-    alt: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization,
-      and Community - Hero Image'
-    caption: 'Visual representation of Open-Source vs. Proprietary LLMs: A Battle
-      of Accessibility, Customization, and Community'
+    alt: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community - Hero Image'
+    caption: 'Visual representation of Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community'
     height: 630
     src: /assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization,
-      and Community - Social Media Preview'
+    alt: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community - Social Media Preview'
     src: /assets/images/blog/hero/2024-02-22-open-source-vs-proprietary-llms-og.jpg
 tags:
 - ai
 - llm
 - open-source
-title: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization,
-  and Community'
+title: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community'
 ---
-
 In January 2024, I spent three days trying to load Llama 3 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors after 45 minutes of loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize.
 
 After switching to a 4-bit quantized version and tweaking llama.cpp settings, I finally got it running at 15 tokens per second. Not bad, but GPT-4's API was processing the same prompts at 40 tokens per second, and I didn't have to babysit VRAM allocation or worry about thermal throttling on my i9-9900K.

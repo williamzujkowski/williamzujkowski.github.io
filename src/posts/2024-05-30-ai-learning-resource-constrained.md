@@ -1,8 +1,6 @@
 ---
 date: 2024-05-30
-description: Running large language models on a raspberry pi cluster taught me more
-  about efficiency and ingenuity than years of unlimited cloud computing budgets ever
-  could
+description: Training effective AI models with limited compute—techniques like quantization, pruning, distillation, and efficient architectures for resource constraints
 images:
   hero:
     alt: AI Learning in Resource-Constrained Environments - Hero Image
@@ -20,7 +18,6 @@ tags:
 - edge-computing
 title: AI Learning in Resource-Constrained Environments
 ---
-
 ## BLUF: When Constraints Become Innovation
 
 Running large language models on a Raspberry Pi cluster taught me more about AI efficiency than years of unlimited cloud budgets. After burning thousands on a single GPU training run in 2023, I faced a choice: quit or innovate. Resource constraints (financial limits, consumer hardware, energy costs, tight timelines) aren't obstacles. They're design challenges that spark creativity. I compressed GPT-3's capabilities into a 125M-parameter model through distillation, running 100x faster on my laptop. Pruning and quantization reduced BERT's memory by 75% while maintaining 95% accuracy. Active learning cut annotation requirements by 60%. Eight Raspberry Pi 4s replaced cloud GPUs for edge inference. The future of AI belongs not to those with the largest budgets, but to those who achieve the most impact with available resources.

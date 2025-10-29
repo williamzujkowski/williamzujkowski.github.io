@@ -1,6 +1,6 @@
 ---
 date: 2024-06-11
-description: After migrating 23 services from Docker to Kubernetes on my homelab and spending three weeks debugging networking issues, I started exploring what might actually come after containers. Spoiler, I broke things.
+description: 'After migrating 23 services to Kubernetes and debugging for weeks, I explored what comes after containers. Spoiler: I broke things'
 images:
   hero:
     alt: 'Beyond Containers: The Future of Application Deployment - Hero Image'
@@ -19,7 +19,6 @@ tags:
 - infrastructure
 title: 'Beyond Containers: The Future of Application Deployment'
 ---
-
 In June 2024, I migrated 23 services from Docker Compose to K3s on my homelab. The migration took three weeks longer than planned, broke my monitoring stack twice, and resulted in my wife asking why the Plex server kept going down during movie night. At 2 AM on June 28th, while debugging why my ingress controller couldn't route traffic to my GitLab instance, I had a thought: maybe containers aren't the final answer.
 
 I'd spent the previous year wrestling with Kubernetes networking, persistent volume claims that mysteriously disappeared, and YAML files that grew to ridiculous sizes. My Dell R940 was humming along with 64GB of RAM allocated to K3s, but something felt wrong. The complexity I'd added seemed heavier than the problems I was solving.

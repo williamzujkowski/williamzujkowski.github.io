@@ -1,8 +1,6 @@
 ---
 date: 2024-04-11
-description: Deploying our first customer-facing LLM felt like releasing something
-  powerful into the wild - the biases, mistakes, and unintended consequences that
-  followed taught me why AI ethics isn't optional
+description: Ethical implications of LLMs—bias, misinformation, privacy, and accountability. Exploring responsible AI development and deployment frameworks
 images:
   hero:
     alt: The Ethics of Large Language Models - Hero Image
@@ -20,7 +18,6 @@ tags:
 - ethics
 title: The Ethics of Large Language Models
 ---
-
 Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 
 Deploying our first customer-facing LLM in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, fundamentally changed how I think about AI development and deployment.

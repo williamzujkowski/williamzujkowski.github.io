@@ -1,21 +1,16 @@
 ---
 date: '2024-05-26T00:00:00.000Z'
-description: How quantifying pizza provisioning can significantly enhance team performance
-  during high-pressure development periods, combining resource planning, team psychology,
-  and a surprising amount of behavioral economics.
+description: How quantifying pizza provisioning enhances team performance during high-pressure development, combining resource planning and behavioral economics
 images:
   hero:
-    alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints
-      - Hero Image'
-    caption: 'Visual representation of The Pizza Calculator: Optimizing Team Fuel
-      for Critical Development Sprints'
+    alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Hero Image'
+    caption: 'Visual representation of The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints'
     height: 630
     src: /assets/images/blog/hero/2024-11-05-pizza-calculator-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints
-      - Social Media Preview'
+    alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Social Media Preview'
     src: /assets/images/blog/hero/2024-11-05-pizza-calculator-og.jpg
 tags:
 - posts
@@ -24,7 +19,6 @@ tags:
 - team-management
 title: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints'
 ---
-
 Years ago, I was part of a weekend deployment that went sideways. We'd been debugging a critical production issue for twelve hours when someone suggested ordering pizza. Twenty minutes later, three pizzas arrived for eight hungry developers. What followed was a surprisingly tense negotiation over slice allocation that probably cost us more productivity than the original bug.
 
 That experience stuck with me. Fast forward to October 2024, and I found myself in a similar situation at home. My wife and I were ordering pizza and arguing about whether two 12-inch pizzas ($14.99 each) were better value than one 18-inch ($24.99). I opened VS Code and spent the next two hours building a simple calculator to settle the debate once and for all. What started as a Saturday afternoon coding exercise turned into a surprisingly deep exploration of resource optimization.

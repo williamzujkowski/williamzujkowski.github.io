@@ -1,20 +1,16 @@
 ---
 date: '2024-04-14T00:00:00.000Z'
-description: How the shift from perimeter-based security to identity-centered Zero
-  Trust architecture is transforming modern software development and why it's essential
-  for today's distributed systems.
+description: Zero trust security assumes breach and verifies everything. My journey implementing these principles in a homelab environment with practical examples
 images:
   hero:
     alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Hero Image'
-    caption: 'Visual representation of Implementing Zero Trust Security: Never Trust,
-      Always Verify'
+    caption: 'Visual representation of Implementing Zero Trust Security: Never Trust, Always Verify'
     height: 630
     src: /assets/images/blog/hero/2024-08-27-zero-trust-security-principles-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Social Media
-      Preview'
+    alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Social Media Preview'
     src: /assets/images/blog/hero/2024-08-27-zero-trust-security-principles-og.jpg
 tags:
 - posts
@@ -24,7 +20,6 @@ tags:
 - programming
 title: 'Implementing Zero Trust Security: Never Trust, Always Verify'
 ---
-
 ## BLUF: Zero Trust is Federal Law, Industry Standard
 
 Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Order 14028[1], and 63% of enterprises are following suit according to Forrester Research[2]. The shift from perimeter-based "castle-and-moat" security to identity-centric "never trust, always verify" isn't optional. It's a response to cloud computing, remote work, and sophisticated attacks that bypass traditional defenses. Here's the architecture, implementation strategy, and lessons learned from modernizing security for distributed systems.

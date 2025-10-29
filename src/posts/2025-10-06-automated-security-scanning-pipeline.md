@@ -1,9 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-10-06
-description: Building an automated security scanning pipeline with Grype and OSV-Scanner
-  for continuous vulnerability detection in CI/CD workflows, container images, and
-  dependencies
+description: Building automated security scanning pipelines with Grype, OSV, and Trivy—CI/CD integration, vulnerability tracking, and actionable reporting
 tags:
 - security
 - cicd
@@ -15,16 +13,13 @@ title: Automated Security Scanning Pipeline with Grype and OSV
 images:
   hero:
     src: /assets/images/blog/hero/2025-10-06-automated-security-scanning-pipeline-hero.jpg
-    alt: cybersecurity concept illustration for Automated Security Scanning Pipeline
-      with Grype and OSV
-    caption: Visual representation of Automated Security Scanning Pipeline with Grype
-      and OSV
+    alt: cybersecurity concept illustration for Automated Security Scanning Pipeline with Grype and OSV
+    caption: Visual representation of Automated Security Scanning Pipeline with Grype and OSV
     width: 1200
     height: 630
   og:
     src: /assets/images/blog/hero/2025-10-06-automated-security-scanning-pipeline-og.jpg
-    alt: cybersecurity concept illustration for Automated Security Scanning Pipeline
-      with Grype and OSV
+    alt: cybersecurity concept illustration for Automated Security Scanning Pipeline with Grype and OSV
 ---
 ## The Dependency That Haunted Me
 

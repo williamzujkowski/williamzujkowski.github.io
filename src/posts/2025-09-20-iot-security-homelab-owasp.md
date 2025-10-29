@@ -1,8 +1,7 @@
 ---
 title: 'IoT Security in Your Home Lab: Lessons from OWASP IoTGoat'
 date: 2025-09-20
-description: Explore IoT security vulnerabilities hands-on using OWASP IoTGoat and
-  learn how to build a secure IoT testing environment in your home lab.
+description: Explore IoT security vulnerabilities hands-on with OWASP IoTGoat—testing firmware extraction, API exploitation, and building secure IoT lab environments
 tags:
 - iot
 - security
@@ -14,16 +13,13 @@ author: William Zujkowski
 images:
   hero:
     src: /assets/images/blog/hero/2025-09-20-iot-security-homelab-owasp-hero.jpg
-    alt: 'cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons
-      from OWASP IoTGoat'
-    caption: 'Visual representation of IoT Security in Your Home Lab: Lessons from
-      OWASP IoTGoat'
+    alt: 'cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons from OWASP IoTGoat'
+    caption: 'Visual representation of IoT Security in Your Home Lab: Lessons from OWASP IoTGoat'
     width: 1200
     height: 630
   og:
     src: /assets/images/blog/hero/2025-09-20-iot-security-homelab-owasp-og.jpg
-    alt: 'cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons
-      from OWASP IoTGoat'
+    alt: 'cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons from OWASP IoTGoat'
 ---
 When I set up my first smart home devices years ago, I naively trusted that manufacturers had security figured out. Then I started packet capturing my IoT traffic. What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, and ultimately building an isolated IoT security lab. Today, I'll show you how to use OWASP IoTGoat to safely explore these vulnerabilities yourself.
 

@@ -1,20 +1,17 @@
 ---
 author: William Zujkowski
 date: 2025-04-10
-description: Lessons learned from running LLMs and AI experiments at home while keeping
-  data and systems secure
+description: Lessons from running LLMs and AI experiments at home while keeping data secure, covering model isolation, network segmentation, and privacy controls
 images:
   hero:
     alt: 'Securing Your Personal AI/ML Experiments: A Practical Guide - Hero Image'
-    caption: 'Visual representation of Securing Your Personal AI/ML Experiments: A
-      Practical Guide'
+    caption: 'Visual representation of Securing Your Personal AI/ML Experiments: A Practical Guide'
     height: 630
     src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Securing Your Personal AI/ML Experiments: A Practical Guide - Social Media
-      Preview'
+    alt: 'Securing Your Personal AI/ML Experiments: A Practical Guide - Social Media Preview'
     src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-og.jpg
 tags:
 - ai
@@ -25,7 +22,6 @@ tags:
 - llm
 title: 'Securing Your Personal AI/ML Experiments: A Practical Guide'
 ---
-
 ## The AI Revolution Hits Home
 
 Like many tech enthusiasts, I've been experimenting with AI and Large Language Models (LLMs) in my homelab. But as a security professional and a parent, I quickly realized that running AI experiments at home comes with unique security and privacy challenges. I started with Llama 3.1 70B in April 2024, running on my RTX 3090 with 24GB VRAM, barely enough for inference at 4-bit quantization.

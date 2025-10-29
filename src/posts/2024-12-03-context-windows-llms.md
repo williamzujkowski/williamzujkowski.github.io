@@ -1,21 +1,16 @@
 ---
 date: '2024-06-09T00:00:00.000Z'
-description: Understanding how context window limitations influence LLM performance
-  and the innovative approaches being developed to handle long-form content, from
-  document analysis to extended conversations.
+description: From 2K to 2M tokens—how expanding context windows transform LLMs from chatbots to reasoning engines, with practical implications for applications
 images:
   hero:
-    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Hero
-      Image'
-    caption: 'Visual representation of Context Windows in Large Language Models: The
-      Memory That Shapes AI'
+    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Hero Image'
+    caption: 'Visual representation of Context Windows in Large Language Models: The Memory That Shapes AI'
     height: 630
     src: /assets/images/blog/hero/2024-12-03-context-windows-llms-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Social
-      Media Preview'
+    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Social Media Preview'
     src: /assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg
 tags:
 - posts
@@ -24,7 +19,6 @@ tags:
 - architecture
 title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
 ---
-
 In November 2024, I ran an experiment in my homelab that completely changed how I think about context windows. I fed a 47,000-token codebase to Llama 3 70B running on my RTX 3090. Everything worked beautifully until around token 28,000. Then I watched the model's responses degrade in real time. Function names got confused. Variable references became inconsistent. The model started hallucinating code that didn't exist in the original files.
 
 I spent six hours optimizing prompts and adjusting parameters before realizing the brutal truth: the model just couldn't handle that much context. The 8K context window wasn't a guideline. It was a hard limit.

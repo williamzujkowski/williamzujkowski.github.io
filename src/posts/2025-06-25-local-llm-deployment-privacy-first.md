@@ -1,8 +1,6 @@
 ---
 date: 2025-06-25
-description: Learn how to deploy Large Language Models locally for maximum privacy
-  and security. Complete guide covering hardware requirements, model selection, and
-  implementation strategies.
+description: 'Complete guide to running LLMs locally for privacy: hardware requirements, model selection, optimization techniques, and practical deployment strategies'
 images:
   hero:
     alt: 'Local LLM Deployment: Privacy-First Approach - Hero Image'
@@ -23,7 +21,6 @@ tags:
 - tutorial
 title: 'Local LLM Deployment: Privacy-First Approach'
 ---
-
 Several years ago, I became concerned about the privacy implications of cloud-based AI services. The realization that prompts and data are permanently stored on third-party servers motivated me to explore local LLM deployment options.
 
 

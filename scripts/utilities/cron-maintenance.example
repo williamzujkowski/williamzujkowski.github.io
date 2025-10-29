@@ -1,0 +1,87 @@
+# Repository Maintenance Cron Example
+# Add to crontab with: crontab -e
+
+# Set environment variables
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+REPO_DIR=/home/william/git/williamzujkowski.github.io
+LOG_DIR=$REPO_DIR/logs
+
+# Ensure log directory exists
+# Run once before setting up cron:
+# mkdir -p /home/william/git/williamzujkowski.github.io/logs
+
+# ===================================
+# Monthly Full Maintenance
+# ===================================
+# Run on 1st of each month at 2:00 AM
+0 2 1 * * cd $REPO_DIR && python scripts/utilities/repo-maintenance.py --full --force --backup >> $LOG_DIR/maintenance.log 2>&1
+
+# ===================================
+# Weekly Health Check
+# ===================================
+# Run every Monday at 6:00 AM
+0 6 * * 1 cd $REPO_DIR && python scripts/utilities/repo-maintenance.py --health-check >> $LOG_DIR/health-check.log 2>&1
+
+# ===================================
+# Daily Cleanup (Light)
+# ===================================
+# Run daily at 3:00 AM
+0 3 * * * cd $REPO_DIR && python scripts/utilities/repo-maintenance.py --cleanup >> $LOG_DIR/cleanup.log 2>&1
+
+# ===================================
+# Quarterly Archive
+# ===================================
+# Run on 1st day of Jan, Apr, Jul, Oct at 1:00 AM
+0 1 1 1,4,7,10 * cd $REPO_DIR && python scripts/utilities/repo-maintenance.py --archive --backup >> $LOG_DIR/archive.log 2>&1
+
+# ===================================
+# Log Rotation
+# ===================================
+# Rotate logs on 1st of each month at 4:00 AM
+0 4 1 * * cd $LOG_DIR && gzip maintenance.log && mv maintenance.log.gz maintenance-$(date +\%Y-\%m).log.gz && touch maintenance.log
+
+# ===================================
+# Email Notifications (Optional)
+# ===================================
+# To receive email notifications, ensure mail is configured on the system
+# Then add MAILTO at the top:
+# MAILTO=your-email@example.com
+
+# Example with email:
+# 0 2 1 * * cd $REPO_DIR && python scripts/utilities/repo-maintenance.py --full --force --backup 2>&1 | mail -s "Maintenance Report $(date +\%Y-\%m-\%d)" your-email@example.com
+
+# ===================================
+# Alternative: Systemd Timer (Modern Linux)
+# ===================================
+# Instead of cron, you can use systemd timers:
+#
+# 1. Create /etc/systemd/system/repo-maintenance.service:
+#
+# [Unit]
+# Description=Repository Maintenance
+#
+# [Service]
+# Type=oneshot
+# User=william
+# WorkingDirectory=/home/william/git/williamzujkowski.github.io
+# ExecStart=/usr/bin/python3 scripts/utilities/repo-maintenance.py --full --force --backup
+# StandardOutput=append:/home/william/git/williamzujkowski.github.io/logs/maintenance.log
+# StandardError=append:/home/william/git/williamzujkowski.github.io/logs/maintenance.log
+#
+# 2. Create /etc/systemd/system/repo-maintenance.timer:
+#
+# [Unit]
+# Description=Monthly Repository Maintenance
+#
+# [Timer]
+# OnCalendar=monthly
+# Persistent=true
+#
+# [Install]
+# WantedBy=timers.target
+#
+# 3. Enable and start:
+# sudo systemctl enable repo-maintenance.timer
+# sudo systemctl start repo-maintenance.timer
+# sudo systemctl status repo-maintenance.timer

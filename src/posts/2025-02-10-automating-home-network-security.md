@@ -1,21 +1,17 @@
 ---
 author: William Zujkowski
 date: 2025-02-10
-description: Practical automation scripts and tools I've built to keep my home network
-  secure without constant manual intervention
+description: Automation scripts and tools I built to keep my home network secure, including Ansible playbooks, Python monitors, and automated patching systems
 images:
   hero:
-    alt: Automating Home Network Security with Python and Open Source Tools - Hero
-      Image
-    caption: Visual representation of Automating Home Network Security with Python
-      and Open Source Tools
+    alt: Automating Home Network Security with Python and Open Source Tools - Hero Image
+    caption: Visual representation of Automating Home Network Security with Python and Open Source Tools
     height: 630
     src: /assets/images/blog/hero/2025-02-10-automating-home-network-security-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: Automating Home Network Security with Python and Open Source Tools - Social
-      Media Preview
+    alt: Automating Home Network Security with Python and Open Source Tools - Social Media Preview
     src: /assets/images/blog/hero/2025-02-10-automating-home-network-security-og.jpg
 tags:
 - python
@@ -26,7 +22,6 @@ tags:
 - networking
 title: Automating Home Network Security with Python and Open Source Tools
 ---
-
 ## The Problem: Security Doesn't Scale Without Automation
 
 

@@ -1,29 +1,22 @@
 ---
 date: 2024-01-18
-description: Cryptography always felt like magic to me until I spent weeks trying
-  to debug an SSL certificate issue - suddenly those mathematical incantations became
-  practical necessities
+description: Breaking down cryptography fundamentals—symmetric/asymmetric encryption, hashing, digital signatures—with practical examples and implementation guidance
 images:
   hero:
-    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
-      Digital Signatures - Hero Image'
-    caption: 'Visual representation of Demystifying Cryptography: A Beginner''s Guide
-      to Encryption, Hashing, and Digital Signatures'
+    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures - Hero Image'
+    caption: 'Visual representation of Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures'
     height: 630
     src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
-      Digital Signatures - Social Media Preview'
+    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures - Social Media Preview'
     src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg
 tags:
 - security
 - cryptography
-title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and
-  Digital Signatures'
+title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures'
 ---
-
 ## BLUF: Why This Matters
 
 **Three days into a production crisis**, our payment processor had stopped accepting SSL certificates. No transactions flowing. Support tickets piling up. I stared at OpenSSL errors I couldn't decode, certificate chains that made no sense, and encryption algorithms I'd always treated as black boxes. That week transformed cryptography from "abstract math I don't need to understand" into "critical infrastructure I must get right."

@@ -1,9 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-08
-description: Implementing zero trust network segmentation using VLANs in a homelab
-  environment with Ubiquiti Dream Machine Pro, covering VLAN design, firewall rules,
-  and micro-segmentation strategies
+description: How I implemented zero trust principles using VLAN segmentation on my homelab—practical network security beyond simple firewall rules
 tags:
 - security
 - networking
@@ -15,16 +13,13 @@ title: Implementing Zero Trust Microsegmentation with VLANs
 images:
   hero:
     src: /assets/images/blog/hero/2025-09-08-zero-trust-vlan-segmentation-homelab-hero.jpg
-    alt: network topology and connections for Implementing Zero Trust Microsegmentation
-      with VLANs
-    caption: Visual representation of Implementing Zero Trust Microsegmentation with
-      VLANs
+    alt: network topology and connections for Implementing Zero Trust Microsegmentation with VLANs
+    caption: Visual representation of Implementing Zero Trust Microsegmentation with VLANs
     width: 1200
     height: 630
   og:
     src: /assets/images/blog/hero/2025-09-08-zero-trust-vlan-segmentation-homelab-og.jpg
-    alt: network topology and connections for Implementing Zero Trust Microsegmentation
-      with VLANs
+    alt: network topology and connections for Implementing Zero Trust Microsegmentation with VLANs
 ---
 ## The IoT Camera That Taught Me About Network Segmentation
 

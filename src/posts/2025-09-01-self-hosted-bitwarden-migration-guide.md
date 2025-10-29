@@ -1,9 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-01
-description: Complete guide to migrating from cloud password managers to self-hosted
-  Bitwarden, including setup, security hardening, backup strategies, and lessons from
-  real-world deployment
+description: 'Migrating from cloud password managers to self-hosted Bitwarden: setup, security hardening, backup strategies, and why I made the switch'
 tags:
 - security
 - passwords
@@ -15,16 +13,13 @@ title: 'Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
 images:
   hero:
     src: /assets/images/blog/hero/2025-09-01-self-hosted-bitwarden-migration-guide-hero.jpg
-    alt: 'cybersecurity concept illustration for Self-Hosted Password Manager Migration:
-      Bitwarden Deep Dive'
-    caption: 'Visual representation of Self-Hosted Password Manager Migration: Bitwarden
-      Deep Dive'
+    alt: 'cybersecurity concept illustration for Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
+    caption: 'Visual representation of Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
     width: 1200
     height: 630
   og:
     src: /assets/images/blog/hero/2025-09-01-self-hosted-bitwarden-migration-guide-og.jpg
-    alt: 'cybersecurity concept illustration for Self-Hosted Password Manager Migration:
-      Bitwarden Deep Dive'
+    alt: 'cybersecurity concept illustration for Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
 ---
 ## The Cloud Password Manager Breach That Changed Everything
 

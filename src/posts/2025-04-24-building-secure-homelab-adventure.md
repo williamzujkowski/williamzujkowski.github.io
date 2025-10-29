@@ -1,8 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-04-24
-description: How I built a comprehensive security lab at home for learning, experimentation,
-  and keeping my family's digital life safe
+description: How I built a comprehensive security lab at home for learning and experimentation—covering Proxmox, VLANs, IDS/IPS, and keeping my family's data safe
 images:
   hero:
     alt: 'Building a Security-Focused Homelab: My Journey - Hero Image'
@@ -22,7 +21,6 @@ tags:
 - personal-projects
 title: 'Building a Security-Focused Homelab: My Journey'
 ---
-
 ## Why Every Security Professional Needs a Homelab
 
 As a security engineer and a dad, I wear two hats: protecting enterprise systems by day and keeping my family's digital life secure by night. Building a homelab has been one of the most rewarding projects I've undertaken, serving as both a learning playground and a practical security solution for my home.

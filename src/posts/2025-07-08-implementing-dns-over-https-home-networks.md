@@ -1,8 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-07-08
-description: Complete guide to deploying DNS-over-HTTPS on your home network for enhanced
-  privacy and security, with multiple implementation approaches
+description: Complete guide to deploying DNS-over-HTTPS on home networks for privacy and security, covering Pi-hole, dnscrypt-proxy, and multiple implementation approaches
 images:
   hero:
     alt: Implementing DNS-over-HTTPS (DoH) for Home Networks - Hero Image
@@ -23,7 +22,6 @@ tags:
 - encryption
 title: Implementing DNS-over-HTTPS (DoH) for Home Networks
 ---
-
 ## The ISP Letter That Started Everything
 
 A few years back, I became aware that many ISPs monetize DNS query data for targeted advertising. This privacy concern motivated me to research DNS-over-HTTPS implementations.

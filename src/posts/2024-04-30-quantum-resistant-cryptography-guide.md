@@ -1,21 +1,16 @@
 ---
 date: 2024-04-30
-description: The day I first understood how Shor's algorithm could break RSA encryption,
-  I realized our entire security infrastructure might become obsolete overnight.
-  Preparing for that future became urgent.
+description: Quantum computers threaten today's encryption. Implementing NIST's post-quantum cryptographic algorithms to future-proof security infrastructure
 images:
   hero:
-    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography
-      - Hero Image'
-    caption: 'Visual representation of Preparing for the Quantum Leap: A Guide to
-      Quantum-Resistant Cryptography'
+    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Hero Image'
+    caption: 'Visual representation of Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
     height: 630
     src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-hero.jpg
     width: 1200
   inline: []
   og:
-    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography
-      - Social Media Preview'
+    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Social Media Preview'
     src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg
 tags:
 - security
@@ -23,7 +18,6 @@ tags:
 - quantum-computing
 title: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
 ---
-
 The day I first truly understood how Shor's algorithm could factor large integers efficiently on a quantum computer, I felt a chill that had nothing to do with the temperature. Every RSA key, every elliptic curve signature, every piece of public-key cryptography that secured our digital world could potentially become worthless overnight.
 
 That realization in late 2018 sparked my journey into quantum-resistant cryptography, a field that felt both urgently necessary and frustratingly theoretical. Today, as quantum computers inch closer to practical capability, that preparation feels less like paranoia and more like prudent planning.

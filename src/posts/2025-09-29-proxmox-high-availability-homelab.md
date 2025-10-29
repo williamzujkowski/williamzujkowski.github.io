@@ -1,9 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-29
-description: Building a high-availability Proxmox cluster for homelab reliability,
-  including cluster setup, shared storage with Ceph, automated failover, and lessons
-  from real-world outages
+description: Building high-availability Proxmox clusters on homelab hardware—shared storage, live migration, automated failover, and lessons from three failed attempts
 tags:
 - virtualization
 - proxmox
@@ -15,16 +13,13 @@ title: Proxmox High Availability Setup for Homelab Reliability
 images:
   hero:
     src: /assets/images/blog/hero/2025-09-29-proxmox-high-availability-homelab-hero.jpg
-    alt: artificial intelligence concept diagram for Proxmox High Availability Setup
-      for Homelab Reliability
-    caption: Visual representation of Proxmox High Availability Setup for Homelab
-      Reliability
+    alt: artificial intelligence concept diagram for Proxmox High Availability Setup for Homelab Reliability
+    caption: Visual representation of Proxmox High Availability Setup for Homelab Reliability
     width: 1200
     height: 630
   og:
     src: /assets/images/blog/hero/2025-09-29-proxmox-high-availability-homelab-og.jpg
-    alt: artificial intelligence concept diagram for Proxmox High Availability Setup
-      for Homelab Reliability
+    alt: artificial intelligence concept diagram for Proxmox High Availability Setup for Homelab Reliability
 ---
 ## The 3 AM Outage That Changed My Architecture
 
