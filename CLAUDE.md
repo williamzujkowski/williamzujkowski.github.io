@@ -1552,6 +1552,614 @@ grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/po
 
 ---
 
+## 📝 Blog Post Humanization Standards
+
+### Overview
+
+This blog uses a proven 7-phase humanization methodology to ensure all content sounds authentically human, not AI-generated. The system has been battle-tested across 6+ batches of post refinements, achieving a **48.8% → 94.5% passing rate** transformation.
+
+**Key Achievements:**
+- 52 of 55 posts (94.5%) now pass humanization validation (≥75/100)
+- 40 posts (72.7%) achieve excellent scores (≥90/100)
+- 20 posts (36.4%) reach perfect scores (100/100)
+- Zero new AI-tell violations introduced
+- Maintained 100% NDA compliance throughout
+
+**Enforcement:**
+Pre-commit hooks automatically validate all blog posts using `humanization-validator.py`. Posts scoring <75/100 are **rejected** until refined. See `.git/hooks/pre-commit` for implementation.
+
+**Complete Methodology:**
+For comprehensive documentation of the 7-phase process, validation patterns, and batch completion reports, see:
+- **Validation Tools:** `docs/HUMANIZATION_VALIDATION.md`
+- **Validator Script:** `scripts/blog-content/humanization-validator.py`
+- **Pattern Definitions:** `scripts/blog-content/humanization-patterns.yaml`
+- **Batch 6 Report:** `docs/reports/batch-6-completion-report.md`
+
+---
+
+### Quick Reference by Baseline Score
+
+Use this decision tree to determine the appropriate humanization approach based on a post's current validation score.
+
+#### Posts Scoring 0-59 (Failing)
+
+**Action Required:** Full 7-phase refinement
+
+**Priority Phases:**
+1. Phase 1 (AI-Tell Removal) - Eliminate em dashes, semicolons, AI transitions
+2. Phase 2 (Personal Voice) - Add 8+ first-person statements
+3. Phase 3 (Measurements) - Add 15+ concrete metrics
+
+**Target Score:** ≥75/100 minimum (aim for 80-85)
+
+**Effort Estimate:** 2-4 hours per post
+
+**Validation Strategy:**
+- Run `humanization-validator.py` after completing all phases
+- Address high-severity violations first
+- Validate zero violations before committing
+
+**Why it matters:** These posts sound AI-generated. Readers notice. Fix immediately.
+
+---
+
+#### Posts Scoring 60-74 (Needs Improvement)
+
+**Action Required:** Targeted refinement (3-5 phases)
+
+**Common Gaps:**
+- Missing personal voice (Phase 2)
+- Insufficient measurements (Phase 3)
+- No uncertainty phrases (Phase 4)
+- Missing trade-off discussions (Phase 6)
+
+**Target Score:** 75-85 range
+
+**Effort Estimate:** 1-2 hours per post
+
+**Validation Strategy:**
+- Identify specific violations from validator output
+- Focus on violation elimination first (em dashes, semicolons)
+- Add missing required patterns (first-person, uncertainty)
+- Verify improvements with validator
+
+**Pattern:** Most posts in this range need 2-3 phases to reach passing threshold.
+
+---
+
+#### Posts Scoring 75-89 (Good)
+
+**Action Required:** Polish to excellent tier (2-3 phases)
+
+**Enhancement Areas:**
+- Add more measurements (Phase 3) - Target 20+ specific metrics
+- Deepen trade-off discussions (Phase 6) - Add nuanced perspectives
+- Enrich failure narratives (Phase 5) - Include more authentic stories
+
+**Target Score:** ≥90/100 (excellent tier)
+
+**Effort Estimate:** 30-60 minutes per post
+
+**Validation Strategy:**
+- Ensure no regressions during refinement
+- Verify additions sound natural, not forced
+- Check that personal voice remains consistent
+
+**Why enhance:** Moving from "good" to "excellent" improves reader engagement and credibility.
+
+---
+
+#### Posts Scoring 90-100 (Excellent)
+
+**Action Required:** Maintain or minor tweaks only
+
+**Risk:** Don't over-optimize and lose authenticity
+
+**Target Score:** Sustain ≥90/100
+
+**Effort Estimate:** Review only, 10-15 minutes
+
+**Validation Strategy:**
+- Periodic re-validation (monthly)
+- Check for new AI-tell patterns as they emerge
+- Update if validator patterns change
+
+**Pattern:** These posts require minimal maintenance. Focus efforts on lower-scoring posts.
+
+---
+
+### The 7-Phase Humanization Framework
+
+This section provides a condensed overview of each phase. For complete methodology with examples and swarm orchestration patterns, see batch completion reports in `docs/reports/`.
+
+#### Phase 1: AI-Tell Removal
+
+**Objective:** Eliminate punctuation and language patterns that signal AI authorship
+
+**Target:** 0 violations
+
+**Key Patterns to Remove:**
+- **Em dashes (—):** Replace with commas or split into two sentences
+- **Semicolons (;):** Use periods (except in code blocks)
+- **AI phrases:** "in conclusion," "overall," "in summary," "therefore"
+- **Hype words:** "exciting," "remarkable," "revolutionary," "cutting-edge"
+- **Corporate jargon:** "leverage" → "use," "utilize" → "use," "facilitate" → "help"
+
+**Quick Check:**
+```bash
+grep -E "—|;|in conclusion|overall|leverage|exciting" src/posts/[file].md
+```
+
+**Why it matters:** These tells are the fastest way readers identify AI-generated content. Eliminate first.
+
+---
+
+#### Phase 2: Personal Voice Addition
+
+**Objective:** Ground content in authentic personal experience
+
+**Target:** 8+ first-person statements throughout post
+
+**Required Elements:**
+- First-person narrative: "I tested," "I discovered," "I tried"
+- Homelab stories: 5-7 specific experiments or incidents
+- Personal framing: "In my homelab," "My setup," "My experience with"
+
+**Examples:**
+```markdown
+✅ "I tested K3s on 3 Raspberry Pi 4s over 2 weeks."
+✅ "My RTX 3090 handled 22.1GB VRAM during inference."
+✅ "I made the mistake of skipping input validation."
+```
+
+**Distribution:** Every major section should include personal narrative.
+
+**Why it matters:** Generic advice sounds AI-generated. Personal stories prove you've done the work.
+
+---
+
+#### Phase 3: Concrete Measurement Addition
+
+**Objective:** Replace vague claims with specific, verifiable metrics
+
+**Target:** 15+ specific measurements per post
+
+**Measurement Types:**
+- **Technical metrics:** "22.1GB VRAM," "147ms latency," "3.2TB storage"
+- **Time investments:** "Took 17 minutes to compile," "2 hours debugging PATH issues"
+- **Iteration counts:** "After 4 failed attempts," "Tested 312 CVEs," "87 violations found"
+- **Quantified outcomes:** "73% improvement," "178 CVEs detected," "Reduced scan time from 147s to 12s"
+
+**Examples:**
+```markdown
+✅ "K3s uses 512MB RAM vs Kubernetes' 2GB minimum."
+✅ "Scanned 178 CVEs across 47 containers in 8 seconds."
+✅ "First test failed. Second crashed after 23 minutes. Third worked."
+```
+
+**Pattern:** Every major claim needs a number. No vague "faster" or "better" without data.
+
+**Why it matters:** Specific measurements prove you tested this yourself, not just summarized documentation.
+
+---
+
+#### Phase 4: Uncertainty Addition
+
+**Objective:** Demonstrate nuanced thinking by acknowledging knowledge gaps
+
+**Target:** 6-8+ natural uncertainty markers per post
+
+**Uncertainty Patterns:**
+- **Probabilistic language:** "probably," "likely," "might," "seems to"
+- **Conditional statements:** "depends on," "in my case," "at least in my testing"
+- **Honest caveats:** "I think," "I'm not certain," "YMMV" (your mileage may vary)
+
+**Placement Strategy:**
+- After technical claims: "This probably depends on your kernel version."
+- During recommendations: "K3s likely works better for edge deployments."
+- In conclusions: "These results seem consistent, but more testing needed."
+
+**Examples:**
+```markdown
+✅ "Your mileage may vary depending on hardware."
+✅ "This probably works on most distributions, but I tested on Ubuntu 24.04."
+✅ "Seems like DNS caching was the issue, though I'm not certain."
+```
+
+**Why it matters:** AI generates absolute statements. Humans express uncertainty.
+
+---
+
+#### Phase 5: Failure Narrative Addition
+
+**Objective:** Share authentic failures to build credibility and provide learning value
+
+**Target:** 5-7 genuine failure stories per post
+
+**Failure Story Structure:**
+1. **What I tried:** Specific action taken
+2. **What broke:** Concrete consequence
+3. **How I fixed it:** Solution and iteration count
+4. **Lesson learned:** Takeaway for readers
+
+**Example Pattern:**
+```markdown
+✅ "I tried privileged containers for quick testing.
+   Bad idea. Container escaped to host in 3 minutes.
+   Took 4 attempts to configure AppArmor profiles correctly.
+   Now I test in isolated VMs first."
+```
+
+**Failure Categories:**
+- Configuration mistakes
+- Security incidents (in homelab)
+- Performance degradations
+- Time wasted on wrong approaches
+- Breaking changes during upgrades
+
+**Why it matters:** Only humans make mistakes. Sharing failures proves authenticity.
+
+---
+
+#### Phase 6: Trade-off Discussion Addition
+
+**Objective:** Demonstrate balanced expertise by acknowledging costs and limitations
+
+**Target:** 10+ balanced perspective statements per post
+
+**Trade-off Formula:** `[Benefit] yet/but/however [Cost]`
+
+**Examples:**
+```markdown
+✅ "K3s reduces RAM usage, yet requires SQLite expertise."
+✅ "Container security improves with AppArmor. But profiles break frequently."
+✅ "EPSS prioritization saves time. However, API rate limits slow automation."
+```
+
+**Trade-off Connectors:**
+- "but," "yet," "however," "though," "still"
+- "on the other hand," "the downside is," "the problem with"
+- "doesn't work well for," "struggles with," "limitation is"
+
+**Distribution:** Every recommendation should include at least one trade-off.
+
+**Why it matters:** AI overstates benefits. Humans acknowledge costs.
+
+---
+
+#### Phase 7: Final Validation
+
+**Objective:** Verify all humanization requirements are met before publishing
+
+**Target:** ≥75/100 passing score (≥90/100 excellent tier)
+
+**Validation Command:**
+```bash
+python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
+```
+
+**Pre-Commit Enforcement:**
+Pre-commit hooks automatically run validation. Posts scoring <75/100 are rejected:
+```bash
+# .git/hooks/pre-commit runs:
+python scripts/blog-content/humanization-validator.py --post "$file" --min-score 75
+```
+
+**Validation Checklist:**
+- [ ] Zero high-severity violations (em dashes, semicolons, AI phrases)
+- [ ] All required patterns present (first-person, uncertainty, measurements, trade-offs)
+- [ ] Sentiment score balanced (<1.2 threshold)
+- [ ] Sentence variety confirmed (3+ short sentences)
+- [ ] Paragraph structure varies
+
+**Output Interpretation:**
+```
+Score: 82/100 - PASS
+
+VIOLATIONS (1)
+  [HIGH] banned_token
+    Em dashes are AI-tells. Use commas or split into two sentences.
+    Found: 2 occurrence(s)
+
+PASSED CHECKS (6)
+  ✓ first_person: Found 8 (required: 1)
+  ✓ uncertainty: Found 7 (required: 1)
+  ✓ trade_offs: Found 15 (required: 1)
+  ✓ specificity: Found 22 (required: 1)
+  ✓ concrete_details: Found 7 (required: 2)
+  ✓ sentiment_balance: 0.8 (threshold: 1.2)
+```
+
+**Why it matters:** Manual review misses patterns. Automated validation catches all AI-tells.
+
+---
+
+### Pre-Commit Hook Enforcement
+
+Pre-commit hooks automatically enforce humanization standards on all blog posts.
+
+**Hook Location:** `.git/hooks/pre-commit`
+
+**Validation Flow:**
+```bash
+# 1. Pre-commit hook detects staged blog posts
+STAGED_POSTS=$(git diff --cached --name-only --diff-filter=ACM | grep "^src/posts/.*\.md$")
+
+# 2. Runs validator on each post
+for post in $STAGED_POSTS; do
+  python scripts/blog-content/humanization-validator.py --post "$post" --min-score 75
+done
+
+# 3. Rejects commit if any post scores <75/100
+if [ $? -ne 0 ]; then
+  echo "❌ Humanization validation failed. Refine post before committing."
+  exit 1
+fi
+```
+
+**Hook Actions:**
+1. **MANIFEST.json validation:** Ensures repository inventory is current
+2. **Duplicate detection:** Prevents creating duplicate files
+3. **Standards compliance:** Verifies adherence to coding standards
+4. **Humanization validation:** Checks blog posts score ≥75/100
+5. **MANIFEST.json update:** Auto-updates file registry after validation
+
+**If Validation Fails:**
+```bash
+# Example failure output:
+❌ FAIL: src/posts/2025-10-29-example.md scored 68/100 (threshold: 75)
+
+Violations:
+- [HIGH] Em dashes found (3 occurrences)
+- [HIGH] Missing uncertainty patterns
+- [MEDIUM] Overly positive sentiment (score: 1.4, threshold: 1.2)
+
+Refine post using appropriate phases:
+- Phase 1: Remove em dashes
+- Phase 4: Add uncertainty phrases ("probably," "likely")
+- Phase 6: Add trade-off discussions
+```
+
+**To Refine and Retry:**
+1. Address violations using appropriate phases
+2. Re-run validator: `python scripts/blog-content/humanization-validator.py --post src/posts/[file].md`
+3. Verify score ≥75/100
+4. Re-attempt commit: `git commit -m "fix: humanize blog post"`
+
+**Bypass (NOT Recommended):**
+```bash
+# Only use for emergencies (e.g., fixing broken build)
+git commit --no-verify -m "emergency: fix critical issue"
+```
+
+**Why it matters:** Automated enforcement prevents AI-sounding posts from reaching production.
+
+---
+
+### Edge Case Quick Reference
+
+Certain post types have different humanization requirements. These edge cases are documented based on learnings from 6 batches of refinements.
+
+#### Career/NDA-Sensitive Posts
+
+**Challenge:** Professional content requires generic language to avoid NDA violations, but this reduces personal voice.
+
+**Adjustments:**
+- **Lower personal narrative threshold:** 60-70% acceptable (vs 80%+ standard)
+- **Time buffering required:** All work references must use "years ago" phrasing
+- **Generic employer language:** "Public sector platforms," "Federal systems," never specific agencies
+- **Homelab substitution:** Replace work examples with homelab analogies
+
+**Example Transformation:**
+```markdown
+❌ "Last month at work, we discovered a CVSS 9.8 RCE in our production environment."
+✅ "Years ago, I worked on systems that faced critical RCE vulnerabilities."
+✅ "In my homelab, I replicated a similar RCE scenario with Metasploit."
+```
+
+**Validation Adjustment:**
+- Phase 2 target: 5+ first-person statements (vs 8+ standard)
+- Phase 5 target: 3-5 failure stories (vs 5-7 standard)
+- Homelab stories compensate for work story limitations
+
+**Why it matters:** Career posts must balance authenticity with NDA compliance.
+
+---
+
+#### Technical Deep-Dives
+
+**Challenge:** Highly technical posts require precision and academic tone, which can conflict with humanization patterns.
+
+**Adjustments:**
+- **Higher measurement requirement:** 20-30+ concrete metrics (vs 15+ standard)
+- **Academic tone acceptable:** Formal language allowed for technical accuracy
+- **Lower personal narrative:** 50-60% acceptable if compensated by measurements
+- **Code-heavy content:** Higher code-to-content ratio permitted (30-40% vs <25% standard)
+
+**Example Pattern:**
+```markdown
+✅ "Tested LLaMA 3.1 70B on RTX 3090: 22.1GB VRAM, 4.7 tokens/sec, 8192 context."
+✅ "Quantization reduced model size from 140GB to 35GB with 3% accuracy loss."
+```
+
+**Validation Adjustment:**
+- Phase 3 target: 20+ measurements (vs 15+ standard)
+- Phase 2 target: 5+ first-person (vs 8+ standard)
+- Phase 4 target: 10+ uncertainty phrases (vs 6-8 standard) to balance precision
+
+**Why it matters:** Technical accuracy shouldn't be sacrificed for humanization.
+
+---
+
+#### Tutorial/How-To Posts
+
+**Challenge:** Instructional content focuses on steps, which can sound procedural and AI-generated.
+
+**Adjustments:**
+- **Code-to-content ratio:** Target <25% (aggressively reduce verbose code)
+- **Higher failure narrative emphasis:** 80-90% of sections include "what didn't work"
+- **Every technique needs trade-off:** Explain when NOT to use each approach
+- **Personal testing framing:** Frame every step as "When I tested this"
+
+**Example Pattern:**
+```markdown
+✅ "Step 1: Install K3s. I tried curl | bash first. Broke network on reboot.
+    Second attempt: Disabled Traefik, used Nginx instead. Worked after 3 tries."
+
+✅ "This works for edge deployments. But production needs full K8s.
+    K3s struggles with stateful workloads >50 pods in my testing."
+```
+
+**Validation Adjustment:**
+- Phase 5 target: 7-10 failure stories (vs 5-7 standard)
+- Phase 6 target: 15+ trade-offs (vs 10+ standard)
+- Every code example needs "why it matters" or "what broke" annotation
+
+**Why it matters:** Tutorials sound especially AI-generated without failure stories.
+
+---
+
+#### Security/Vulnerability Posts
+
+**Challenge:** Security content requires responsible disclosure timing and homelab attribution.
+
+**Adjustments:**
+- **90-day minimum age:** Only discuss CVEs published ≥90 days ago
+- **CVSS scores contextualized:** Never cite score alone, explain impact
+- **Homelab testing attribution:** All exploitation examples must be homelab-tested
+- **No work incident references:** Even with time buffering, avoid implying work context
+
+**Example Pattern:**
+```markdown
+✅ "CVE-2024-1234 (CVSS 9.8) allows RCE via deserialization.
+    In my homelab, I tested exploitation with Metasploit.
+    Container escaped to host in 3 minutes."
+
+❌ "We discovered this vulnerability during routine scanning."
+❌ "This affected our production systems."
+```
+
+**Validation Adjustment:**
+- Phase 3 target: Include CVE IDs, CVSS scores, exploitation times
+- Phase 5 target: Frame all failures as homelab incidents, never work
+- Phase 6 target: Discuss both attacker and defender perspectives
+
+**Why it matters:** Security content must be both authentic and responsible.
+
+---
+
+#### Meta/Process Posts
+
+**Challenge:** Posts about writing, methodology, or personal development are inherently subjective.
+
+**Adjustments:**
+- **Inherently personal:** Expect 90-95% personal narrative (highest tier)
+- **Iteration documentation critical:** Show evolution of thinking, not final state
+- **Self-awareness scoring category:** Acceptable to discuss limitations of own approach
+- **Lower measurement requirement:** 8-10 metrics acceptable (vs 15+ standard)
+
+**Example Pattern:**
+```markdown
+✅ "I tried 3 writing workflows. First failed after 2 posts.
+    Second worked for 10 posts, then broke.
+    This third approach has lasted 6 months, but I'm revising it now."
+```
+
+**Validation Adjustment:**
+- Phase 2 target: 10-15 first-person (vs 8+ standard)
+- Phase 5 target: 8-10 failure stories (vs 5-7 standard)
+- Phase 3 target: 8+ measurements (vs 15+ standard)
+- Iteration counts and time investments count as measurements
+
+**Why it matters:** Meta posts showcase authentic learning journey.
+
+---
+
+### Validation Commands
+
+Quick reference for common humanization validation tasks.
+
+#### Validate Single Post
+```bash
+# Basic validation with text output
+python scripts/blog-content/humanization-validator.py --post src/posts/YYYY-MM-DD-slug.md
+
+# JSON output for parsing
+python scripts/blog-content/humanization-validator.py --post src/posts/YYYY-MM-DD-slug.md --output json
+
+# Strict mode (fail on any violation)
+python scripts/blog-content/humanization-validator.py --post src/posts/YYYY-MM-DD-slug.md --strict
+
+# Custom minimum score
+python scripts/blog-content/humanization-validator.py --post src/posts/YYYY-MM-DD-slug.md --min-score 80
+```
+
+#### Validate All Posts
+```bash
+# Validate entire portfolio
+for post in src/posts/*.md; do
+  python scripts/blog-content/humanization-validator.py --post "$post" --output json
+done | jq -s 'map(select(.score < 75))'
+
+# Generate portfolio report
+python scripts/blog-content/humanization-validator.py --all --report
+```
+
+#### Check Specific Post Score
+```bash
+# Extract score only (for scripting)
+python scripts/blog-content/humanization-validator.py \
+  --post src/posts/YYYY-MM-DD-slug.md \
+  --output json | jq '.score'
+```
+
+#### List Failing Posts
+```bash
+# Find all posts scoring <75/100
+for post in src/posts/*.md; do
+  score=$(python scripts/blog-content/humanization-validator.py --post "$post" --output json 2>/dev/null | jq '.score')
+  if [ "$score" -lt 75 ]; then
+    echo "$post: $score/100"
+  fi
+done
+```
+
+#### CI/CD Integration
+```bash
+# GitHub Actions validation
+python scripts/blog-content/humanization-validator.py \
+  --post "$GITHUB_WORKSPACE/src/posts/$POST_FILE" \
+  --min-score 75 \
+  --output json > validation-report.json
+
+# Exit code determines workflow status
+# 0 = pass, 1 = fail, 2 = error
+```
+
+---
+
+### References
+
+**Complete Documentation:**
+- **Unified Methodology:** `docs/guides/UNIFIED_HUMANIZATION_METHODOLOGY.md` (comprehensive 7-phase guide)
+- **Validation Tools:** `docs/HUMANIZATION_VALIDATION.md` (tool usage and integration)
+- **Pattern Definitions:** `scripts/blog-content/humanization-patterns.yaml` (validator configuration)
+
+**Batch Completion Reports:**
+- **Batch 6:** `docs/reports/batch-6-completion-report.md` (7 posts, 52.5-70 → 87.5-100)
+- **Batch 5:** `docs/reports/batch-5-completion-report.md` (5 posts, 47.5-52.5 → 80-95)
+- **Quick Wins:** `docs/reports/quick-wins-completion-report.md` (5 posts, 75-79 → 95-100)
+
+**Validation Scripts:**
+- **Humanization Validator:** `scripts/blog-content/humanization-validator.py` (standalone validation)
+- **Pattern Configuration:** `scripts/blog-content/humanization-patterns.yaml` (banned tokens, required patterns)
+
+**Pre-Commit Hooks:**
+- **Hook Location:** `.git/hooks/pre-commit` (automated enforcement)
+- **Hook Setup:** `docs/SETUP-HUMANIZATION-HOOK.md` (installation guide)
+
+---
+
 ## Automation Workflow
 
 **When creating blog posts, run:**
@@ -1571,6 +2179,9 @@ python scripts/blog-research/research-validator.py
 
 # Check for broken links
 python scripts/blog-research/check-citation-hyperlinks.py
+
+# Validate humanization (MANDATORY before commit)
+python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
 ```
 
 ---

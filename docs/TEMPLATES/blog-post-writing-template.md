@@ -681,4 +681,4 @@ Before writing your next post:
 **Validation Baseline:** Posts using this template score 80-85/100 on first draft
 **Success Rate:** 100% of template-guided posts passed pre-commit validation (≥75/100)
 
-**Questions?** Review `/docs/reports/batch-5-completion-report.md` for detailed examples of the 7-phase methodology in action.
+**Questions?** Review `/docs/reports/archive/batches/batch-5-completion-report.md` for detailed examples of the 7-phase methodology in action.
