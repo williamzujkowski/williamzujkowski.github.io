@@ -1,0 +1,709 @@
+[
+  {
+    "file": "src/posts/2024-01-08-writing-secure-code-developers-guide.md",
+    "title": "Writing Secure Code: A Developer's Guide to Thwarting Security Exploits",
+    "description": "Years ago, I discovered a glaring SQL injection vulnerability in an internal application during a routine code review - that sinking feeling taught me that security isn't optional",
+    "length": 179,
+    "tags": [
+      "security",
+      "programming",
+      "cybersecurity"
+    ],
+    "date": "2024-01-08"
+  },
+  {
+    "file": "src/posts/2024-01-18-demystifying-cryptography-beginners-guide.md",
+    "title": "Demystifying Cryptography: A Beginner's Guide to Encryption, Hashing, and Digital Signatures",
+    "description": "Cryptography always felt like magic to me until I spent weeks trying to debug an SSL certificate issue - suddenly those mathematical incantations became practical necessities",
+    "length": 174,
+    "tags": [
+      "security",
+      "cryptography"
+    ],
+    "date": "2024-01-18"
+  },
+  {
+    "file": "src/posts/2024-01-30-securing-cloud-native-frontier.md",
+    "title": "Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security",
+    "description": "The first time I deployed a microservices architecture to production, I thought our security was bulletproof - until a penetration tester showed me how they'd compromised three services in under an hour",
+    "length": 202,
+    "tags": [
+      "security",
+      "cloud",
+      "devops"
+    ],
+    "date": "2024-01-30"
+  },
+  {
+    "file": "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
+    "title": "The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception",
+    "description": "The first time I saw a convincing deepfake video, I spent an hour researching to convince myself it wasn't real - that moment changed how I think about digital evidence forever",
+    "length": 176,
+    "tags": [
+      "ai",
+      "security",
+      "ethics"
+    ],
+    "date": "2024-02-09"
+  },
+  {
+    "file": "src/posts/2024-02-22-open-source-vs-proprietary-llms.md",
+    "title": "Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community",
+    "description": "After months of experimenting with both approaches in production systems, I've learned that choosing between open-source and proprietary LLMs isn't about ideology - it's about trade-offs",
+    "length": 186,
+    "tags": [
+      "ai",
+      "llm",
+      "open-source"
+    ],
+    "date": "2024-02-22"
+  },
+  {
+    "file": "src/posts/2024-03-05-cloud-migration-journey-guide.md",
+    "title": "Cloud Migration: A Guide to Navigating Your Journey to the Cloud",
+    "description": "Standing in a server room filled with humming machines, I realized our physical infrastructure had become an anchor - the cloud migration that followed taught me as much about change management as technology",
+    "length": 207,
+    "tags": [
+      "cloud",
+      "devops",
+      "infrastructure"
+    ],
+    "date": "2024-03-05"
+  },
+  {
+    "file": "src/posts/2024-03-20-transformer-architecture-deep-dive.md",
+    "title": "The Transformer Architecture: A Deep Dive",
+    "description": "Reading 'Attention is All You Need' felt like discovering a secret that would reshape everything I thought I knew about natural language processing - and it did",
+    "length": 160,
+    "tags": [
+      "ai",
+      "llm",
+      "machine-learning"
+    ],
+    "date": "2024-03-20"
+  },
+  {
+    "file": "src/posts/2024-04-04-retrieval-augmented-generation-rag.md",
+    "title": "Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge",
+    "description": "The moment I realized how LLMs confidently hallucinate facts was when I understood why RAG isn't optional - it's essential for trustworthy AI systems",
+    "length": 149,
+    "tags": [
+      "ai",
+      "llm",
+      "rag"
+    ],
+    "date": "2024-04-04"
+  },
+  {
+    "file": "src/posts/2024-04-11-ethics-large-language-models.md",
+    "title": "The Ethics of Large Language Models",
+    "description": "Deploying our first customer-facing LLM felt like releasing something powerful into the wild - the biases, mistakes, and unintended consequences that followed taught me why AI ethics isn't optional",
+    "length": 197,
+    "tags": [
+      "ai",
+      "llm",
+      "ethics"
+    ],
+    "date": "2024-04-11"
+  },
+  {
+    "file": "src/posts/2024-04-19-mastering-prompt-engineering-llms.md",
+    "title": "Mastering Prompt Engineering: Unlocking the Full Potential of LLMs",
+    "description": "My first attempts at prompt engineering felt like trying to teach a brilliant but scatterbrained colleague - discovering the right words to unlock AI capabilities became both art and science",
+    "length": 190,
+    "tags": [
+      "ai",
+      "llm",
+      "prompt-engineering"
+    ],
+    "date": "2024-04-19"
+  },
+  {
+    "file": "src/posts/2024-04-30-quantum-resistant-cryptography-guide.md",
+    "title": "Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography",
+    "description": "The day I first understood how Shor's algorithm could break RSA encryption, I realized our entire security infrastructure might become obsolete overnight. Preparing for that future became urgent.",
+    "length": 195,
+    "tags": [
+      "security",
+      "cryptography",
+      "quantum-computing"
+    ],
+    "date": "2024-04-30"
+  },
+  {
+    "file": "src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
+    "title": "AI: The New Frontier in Cybersecurity \u2013 Opportunities and Ethical Dilemmas",
+    "description": "Watching AI catch an APT attack that our traditional tools missed was thrilling - until I realized the same technology could automate sophisticated attacks against us",
+    "length": 166,
+    "tags": [
+      "ai",
+      "cybersecurity",
+      "ethics"
+    ],
+    "date": "2024-05-14"
+  },
+  {
+    "file": "src/posts/2024-05-30-ai-learning-resource-constrained.md",
+    "title": "AI Learning in Resource-Constrained Environments",
+    "description": "Running large language models on a raspberry pi cluster taught me more about efficiency and ingenuity than years of unlimited cloud computing budgets ever could",
+    "length": 160,
+    "tags": [
+      "ai",
+      "machine-learning",
+      "edge-computing"
+    ],
+    "date": "2024-05-30"
+  },
+  {
+    "file": "src/posts/2024-06-11-beyond-containers-future-deployment.md",
+    "title": "Beyond Containers: The Future of Application Deployment",
+    "description": "After migrating 23 services from Docker to Kubernetes on my homelab and spending three weeks debugging networking issues, I started exploring what might actually come after containers. Spoiler, I broke things.",
+    "length": 209,
+    "tags": [
+      "devops",
+      "containers",
+      "deployment"
+    ],
+    "date": "2024-06-11"
+  },
+  {
+    "file": "src/posts/2024-06-25-designing-resilient-systems.md",
+    "title": "Designing Resilient Systems for an Uncertain World",
+    "description": "A cascade failure that took down our entire platform in three minutes taught me that resilience isn't about preventing failures - it's about failing gracefully and recovering quickly",
+    "length": 182,
+    "tags": [
+      "architecture",
+      "resilience",
+      "systems-design"
+    ],
+    "date": "2024-06-25"
+  },
+  {
+    "file": "src/posts/2024-07-09-zero-trust-architecture-implementation.md",
+    "title": "Zero Trust Architecture: A Practical Implementation Guide",
+    "description": "Moving from 'trust but verify' to 'never trust, always verify' required dismantling years of security assumptions and rebuilding our entire authentication and authorization framework",
+    "length": 182,
+    "tags": [
+      "security",
+      "zero-trust",
+      "authentication"
+    ],
+    "date": "2024-07-09"
+  },
+  {
+    "file": "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md",
+    "title": "Sustainable Computing: Strategies for Reducing IT's Carbon Footprint",
+    "description": "Discovering that our ML training runs were consuming as much electricity as a small town sparked my journey into sustainable computing - efficiency became an environmental imperative, not just an optimization",
+    "length": 208,
+    "tags": [
+      "sustainability",
+      "green-computing",
+      "energy-efficiency"
+    ],
+    "date": "2024-07-16"
+  },
+  {
+    "file": "src/posts/2024-07-24-multimodal-foundation-models.md",
+    "title": "Multimodal Foundation Models: Capabilities, Challenges, and Applications",
+    "description": "The first time I watched an AI analyze a screenshot and write working code based on the UI mockup, I realized we'd crossed into a new era of human-AI collaboration",
+    "length": 163,
+    "tags": [
+      "ai",
+      "multimodal",
+      "computer-vision"
+    ],
+    "date": "2024-07-24"
+  },
+  {
+    "file": "src/posts/2024-08-02-quantum-computing-leap-forward.md",
+    "title": "Quantum Computing's Leap Forward",
+    "description": "Witnessing IBM's quantum computer solve a problem in minutes that would take classical computers millennia convinced me we're on the brink of a computational revolution - and a security crisis",
+    "length": 192,
+    "tags": [
+      "quantum-computing",
+      "cryptography",
+      "technology"
+    ],
+    "date": "2024-08-02"
+  },
+  {
+    "file": "src/posts/2024-08-13-high-performance-computing.md",
+    "title": "The Evolution of High-Performance Computing: Key Trends and Innovations",
+    "description": "How HPC systems are transforming from pure performance machines to intelligent, sustainable platforms that combine AI acceleration with innovative cooling and energy management.",
+    "length": 177,
+    "tags": [
+      "posts",
+      "computational-science",
+      "hpc"
+    ],
+    "date": "2024-04-07T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-08-27-zero-trust-security-principles.md",
+    "title": "Implementing Zero Trust Security: Never Trust, Always Verify",
+    "description": "How the shift from perimeter-based security to identity-centered Zero Trust architecture is transforming modern software development and why it's essential for today's distributed systems.",
+    "length": 188,
+    "tags": [
+      "posts",
+      "security",
+      "cybersecurity"
+    ],
+    "date": "2024-04-14T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-09-09-embodied-ai-teaching-agents.md",
+    "title": "Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction",
+    "description": "How multimodal large language models are learning to recognize ambiguity and ask clarifying questions, making robots better collaborative partners in real-world scenarios.",
+    "length": 171,
+    "tags": [
+      "posts",
+      "ai",
+      "robotics"
+    ],
+    "date": "2024-04-21T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-09-19-biomimetic-robotics.md",
+    "title": "Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering",
+    "description": "Exploring how engineers are drawing inspiration from billions of years of evolution to create more capable, efficient, and adaptable robotic systems that solve complex real-world challenges.",
+    "length": 190,
+    "tags": [
+      "posts",
+      "robotics",
+      "ai"
+    ],
+    "date": "2024-04-28T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-10-03-quantum-computing-defense.md",
+    "title": "Quantum Computing and Defense: The Double-Edged Sword of Tomorrow's Technology",
+    "description": "Examining how quantum computing presents both significant opportunities and complex security challenges for national defense, from cryptographic vulnerabilities to quantum-enhanced sensing capabilities.",
+    "length": 202,
+    "tags": [
+      "posts",
+      "quantum-computing",
+      "cybersecurity"
+    ],
+    "date": "2024-05-05T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md",
+    "title": "Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet",
+    "description": "After running Ethereum nodes on my homelab for three months, I learned blockchain is less about cryptocurrency hype and more about building trust without central authorities. Here's what actually works (and what doesn't).",
+    "length": 221,
+    "tags": [
+      "posts",
+      "blockchain",
+      "distributed-systems"
+    ],
+    "date": "2024-10-10T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-10-22-ai-edge-computing.md",
+    "title": "AI Meets Edge Computing: Transforming Real-Time Intelligence",
+    "description": "How the convergence of artificial intelligence and edge computing is creating responsive, private, and resilient systems that process data where it's generated, revolutionizing applications from autonomous vehicles to smart manufacturing.",
+    "length": 238,
+    "tags": [
+      "posts",
+      "ai",
+      "edge-computing"
+    ],
+    "date": "2024-05-19T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-11-05-pizza-calculator.md",
+    "title": "The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints",
+    "description": "How quantifying pizza provisioning can significantly enhance team performance during high-pressure development periods, combining resource planning, team psychology, and a surprising amount of behavioral economics.",
+    "length": 214,
+    "tags": [
+      "posts",
+      "devops",
+      "programming"
+    ],
+    "date": "2024-05-26T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-11-15-gpu-power-monitoring-homelab-ml.md",
+    "title": "GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill",
+    "description": "After my October electricity bill showed a $43 spike, I spent three months measuring GPU power consumption across different LLM workloads. Here's what I learned about running AI at home sustainably.",
+    "length": 198,
+    "tags": [
+      "posts",
+      "ai-ml",
+      "homelab"
+    ],
+    "date": "2024-11-15T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
+    "title": "Large Language Models for Smart Contract Security: Promise and Limitations",
+    "description": "Evaluating how LLMs are transforming smart contract vulnerability detection, their current capabilities versus traditional tools, and the most promising approaches for improving blockchain security.",
+    "length": 198,
+    "tags": [
+      "posts",
+      "security",
+      "ai"
+    ],
+    "date": "2024-06-02T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2024-12-03-context-windows-llms.md",
+    "title": "Context Windows in Large Language Models: The Memory That Shapes AI",
+    "description": "Understanding how context window limitations influence LLM performance and the innovative approaches being developed to handle long-form content, from document analysis to extended conversations.",
+    "length": 195,
+    "tags": [
+      "posts",
+      "ai",
+      "programming"
+    ],
+    "date": "2024-06-09T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2025-02-10-automating-home-network-security.md",
+    "title": "Automating Home Network Security with Python and Open Source Tools",
+    "description": "Practical automation scripts and tools I've built to keep my home network secure without constant manual intervention",
+    "length": 117,
+    "tags": [
+      "python",
+      "automation",
+      "security"
+    ],
+    "date": "2025-02-10"
+  },
+  {
+    "file": "src/posts/2025-02-24-continuous-learning-cybersecurity.md",
+    "title": "Continuous Learning in Cybersecurity: Strategies That Work",
+    "description": "How I stay current in a field that changes daily \u2013 practical strategies for continuous learning without burning out",
+    "length": 115,
+    "tags": [
+      "career",
+      "learning",
+      "security"
+    ],
+    "date": "2025-02-24"
+  },
+  {
+    "file": "src/posts/2025-03-10-raspberry-pi-security-projects.md",
+    "title": "Raspberry Pi Security Projects That Actually Solve Problems",
+    "description": "From network monitoring to physical security \u2013 practical Raspberry Pi projects that enhance your home security without breaking the bank",
+    "length": 136,
+    "tags": [
+      "raspberry-pi",
+      "security",
+      "homelab"
+    ],
+    "date": "2025-03-10"
+  },
+  {
+    "file": "src/posts/2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+    "title": "From IT Support to Senior InfoSec Engineer: My 15+ Year Journey",
+    "description": "The winding path from fixing printers to securing federal systems \u2013 lessons learned, mistakes made, and advice for aspiring security professionals",
+    "length": 146,
+    "tags": [
+      "career",
+      "security",
+      "personal-growth"
+    ],
+    "date": "2025-03-24"
+  },
+  {
+    "file": "src/posts/2025-04-10-securing-personal-ai-experiments.md",
+    "title": "Securing Your Personal AI/ML Experiments: A Practical Guide",
+    "description": "Lessons learned from running LLMs and AI experiments at home while keeping data and systems secure",
+    "length": 98,
+    "tags": [
+      "ai",
+      "machine-learning",
+      "security"
+    ],
+    "date": "2025-04-10"
+  },
+  {
+    "file": "src/posts/2025-04-24-building-secure-homelab-adventure.md",
+    "title": "Building a Security-Focused Homelab: My Journey",
+    "description": "How I built a comprehensive security lab at home for learning, experimentation, and keeping my family's digital life safe",
+    "length": 121,
+    "tags": [
+      "homelab",
+      "security",
+      "networking"
+    ],
+    "date": "2025-04-24"
+  },
+  {
+    "file": "src/posts/2025-05-10-llm-fine-tuning-homelab-guide.md",
+    "title": "Fine-Tuning LLMs in the Homelab: A Practical Guide",
+    "description": "Fine-tuning large language models on consumer hardware using LoRA and QLoRA techniques, with practical insights from homelab experimentation and performance optimization strategies.",
+    "length": 181,
+    "tags": [
+      "posts",
+      "ai",
+      "machine-learning"
+    ],
+    "date": "2025-05-10"
+  },
+  {
+    "file": "src/posts/2025-06-25-local-llm-deployment-privacy-first.md",
+    "title": "Local LLM Deployment: Privacy-First Approach",
+    "description": "Learn how to deploy Large Language Models locally for maximum privacy and security. Complete guide covering hardware requirements, model selection, and implementation strategies.",
+    "length": 178,
+    "tags": [
+      "ai-ml",
+      "security",
+      "privacy"
+    ],
+    "date": "2025-06-25"
+  },
+  {
+    "file": "src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md",
+    "title": "eBPF for Security Monitoring: A Practical Guide",
+    "description": "Learn how to use eBPF for real-time security monitoring in Linux environments with practical examples and production-ready patterns",
+    "length": 131,
+    "tags": [
+      "security",
+      "linux",
+      "ebpf"
+    ],
+    "date": "2025-07-01"
+  },
+  {
+    "file": "src/posts/2025-07-08-implementing-dns-over-https-home-networks.md",
+    "title": "Implementing DNS-over-HTTPS (DoH) for Home Networks",
+    "description": "Complete guide to deploying DNS-over-HTTPS on your home network for enhanced privacy and security, with multiple implementation approaches",
+    "length": 138,
+    "tags": [
+      "security",
+      "networking",
+      "dns"
+    ],
+    "date": "2025-07-08"
+  },
+  {
+    "file": "src/posts/2025-07-15-vulnerability-management-scale-open-source.md",
+    "title": "Vulnerability Management at Scale with Open Source Tools",
+    "description": "Build an enterprise-grade vulnerability management program using only open source tools. From scanning to remediation tracking, here's how to do it right",
+    "length": 153,
+    "tags": [
+      "security",
+      "vulnerability-management",
+      "open-source"
+    ],
+    "date": "2025-07-15"
+  },
+  {
+    "file": "src/posts/2025-07-22-supercharging-claude-cli-with-standards.md",
+    "title": "Exploring Claude CLI Context and Compliance with My Standards Repository",
+    "description": "How I built a comprehensive standards repository that transforms Claude CLI into a context-aware development powerhouse with 90% token reduction.",
+    "length": 145,
+    "tags": [
+      "ai",
+      "development",
+      "standards"
+    ],
+    "date": "2025-07-22"
+  },
+  {
+    "file": "src/posts/2025-07-29-building-mcp-standards-server.md",
+    "title": "Down the MCP Rabbit Hole: Building a Standards Server",
+    "description": "The ongoing saga of turning my standards repository into an MCP server. Spoiler: It's working, mostly, and I've only rewritten it three times.",
+    "length": 142,
+    "tags": [
+      "ai",
+      "mcp",
+      "development"
+    ],
+    "date": "2025-07-29"
+  },
+  {
+    "file": "src/posts/2025-08-07-supercharging-development-claude-flow.md",
+    "title": "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering",
+    "description": "Discover how Claude-Flow transforms software development with AI swarm intelligence, achieving 84.8% SWE-Bench solve rates and 4.4x speed improvements through intelligent agent orchestration",
+    "length": 190,
+    "tags": [
+      "ai",
+      "automation",
+      "machine-learning"
+    ],
+    "date": "2025-08-03"
+  },
+  {
+    "file": "src/posts/2025-08-09-ai-cognitive-infrastructure.md",
+    "title": "AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought",
+    "description": "AI is evolving from tools into foundational cognitive infrastructure that shapes how billions think and decide. With little understanding of long-term effects, we are replacing human cognitive processes at unprecedented scale.",
+    "length": 226,
+    "tags": [
+      "posts",
+      "ai",
+      "cognitive-science"
+    ],
+    "date": "2025-08-09T00:00:00.000Z"
+  },
+  {
+    "file": "src/posts/2025-08-18-container-security-hardening-homelab.md",
+    "title": "Container Security Hardening in My Homelab",
+    "description": "Practical container security hardening techniques for Docker and K3s in a homelab environment, from base image selection to runtime security monitoring",
+    "length": 151,
+    "tags": [
+      "security",
+      "containers",
+      "docker"
+    ],
+    "date": "2025-08-18"
+  },
+  {
+    "file": "src/posts/2025-08-25-network-traffic-analysis-suricata-homelab.md",
+    "title": "Building a Network Traffic Analysis Lab with Suricata",
+    "description": "Building a comprehensive network traffic analysis lab with Suricata IDS/IPS, from installation to custom rule development and threat detection in a homelab environment",
+    "length": 167,
+    "tags": [
+      "security",
+      "networking",
+      "ids-ips"
+    ],
+    "date": "2025-08-25"
+  },
+  {
+    "file": "src/posts/2025-09-01-self-hosted-bitwarden-migration-guide.md",
+    "title": "Self-Hosted Password Manager Migration: Bitwarden Deep Dive",
+    "description": "Complete guide to migrating from cloud password managers to self-hosted Bitwarden, including setup, security hardening, backup strategies, and lessons from real-world deployment",
+    "length": 177,
+    "tags": [
+      "security",
+      "passwords",
+      "self-hosted"
+    ],
+    "date": "2025-09-01"
+  },
+  {
+    "file": "src/posts/2025-09-08-zero-trust-vlan-segmentation-homelab.md",
+    "title": "Implementing Zero Trust Microsegmentation with VLANs",
+    "description": "Implementing zero trust network segmentation using VLANs in a homelab environment with Ubiquiti Dream Machine Pro, covering VLAN design, firewall rules, and micro-segmentation strategies",
+    "length": 186,
+    "tags": [
+      "security",
+      "networking",
+      "zero-trust"
+    ],
+    "date": "2025-09-08"
+  },
+  {
+    "file": "src/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard.md",
+    "title": "Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+    "description": "Create a personal threat intelligence dashboard using MITRE ATT&CK framework, open-source feeds, and Python to track relevant threats to your environment.",
+    "length": 154,
+    "tags": [
+      "threat-intelligence",
+      "mitre-attack",
+      "security"
+    ],
+    "date": "2025-09-14"
+  },
+  {
+    "file": "src/posts/2025-09-20-iot-security-homelab-owasp.md",
+    "title": "IoT Security in Your Home Lab: Lessons from OWASP IoTGoat",
+    "description": "Explore IoT security vulnerabilities hands-on using OWASP IoTGoat and learn how to build a secure IoT testing environment in your home lab.",
+    "length": 139,
+    "tags": [
+      "iot",
+      "security",
+      "owasp"
+    ],
+    "date": "2025-09-20"
+  },
+  {
+    "file": "src/posts/2025-09-20-vulnerability-prioritization-epss-kev.md",
+    "title": "Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV",
+    "description": "Learn how to combine EPSS scores, CISA KEV data, and NVD information to create an intelligent vulnerability management system that prioritizes what actually matters.",
+    "length": 165,
+    "tags": [
+      "security",
+      "vulnerability-management",
+      "epss"
+    ],
+    "date": "2025-09-20"
+  },
+  {
+    "file": "src/posts/2025-09-29-proxmox-high-availability-homelab.md",
+    "title": "Proxmox High Availability Setup for Homelab Reliability",
+    "description": "Building a high-availability Proxmox cluster for homelab reliability, including cluster setup, shared storage with Ceph, automated failover, and lessons from real-world outages",
+    "length": 176,
+    "tags": [
+      "virtualization",
+      "proxmox",
+      "high-availability"
+    ],
+    "date": "2025-09-29"
+  },
+  {
+    "file": "src/posts/2025-10-06-automated-security-scanning-pipeline.md",
+    "title": "Automated Security Scanning Pipeline with Grype and OSV",
+    "description": "Building an automated security scanning pipeline with Grype and OSV-Scanner for continuous vulnerability detection in CI/CD workflows, container images, and dependencies",
+    "length": 169,
+    "tags": [
+      "security",
+      "cicd",
+      "automation"
+    ],
+    "date": "2025-10-06"
+  },
+  {
+    "file": "src/posts/2025-10-13-embodied-ai-robots-physical-world.md",
+    "title": "From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution",
+    "description": "Vision-Language-Action models closed the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability with practical implications for security, safety, and homelab automation",
+    "length": 232,
+    "tags": [
+      "ai",
+      "robotics",
+      "automation"
+    ],
+    "date": "2025-10-13"
+  },
+  {
+    "file": "src/posts/2025-10-17-progressive-context-loading-llm-workflows.md",
+    "title": "From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows",
+    "description": "Discover how progressive skill loading achieves 98% token reduction in LLM development workflows through modular context architecture: lessons from building a production system that aligns with emerging research",
+    "length": 211,
+    "tags": [
+      "ai",
+      "llm",
+      "development-workflows"
+    ],
+    "date": "2025-10-17"
+  },
+  {
+    "file": "src/posts/2025-10-29-post-quantum-cryptography-homelab.md",
+    "title": "Preparing Your Homelab for the Quantum Future: Post-Quantum Cryptography Migration",
+    "description": "After three weekends of breaking TLS connections and crashing my homelab, I finally got post-quantum cryptography working. Here's what NIST's 2024 standards mean for your self-hosted services.",
+    "length": 192,
+    "tags": [
+      "quantum-computing",
+      "cryptography",
+      "homelab"
+    ],
+    "date": "2025-10-29"
+  },
+  {
+    "file": "src/posts/2025-10-29-privacy-first-ai-lab-local-llms.md",
+    "title": "Building a Privacy-First AI Lab: Deploying Local LLMs Without Sacrificing Ethics",
+    "description": "My RTX 3090 runs Llama 3.1 70B locally, but 'local' doesn't automatically mean 'private.' After discovering unexpected network traffic from Ollama, I rebuilt my AI lab with real privacy controls.",
+    "length": 195,
+    "tags": [
+      "ai-ethics",
+      "privacy",
+      "machine-learning"
+    ],
+    "date": "2025-10-29"
+  },
+  {
+    "file": "src/posts/welcome.md",
+    "title": "Building My Digital Garden with Eleventy",
+    "description": "Why I chose Eleventy for my personal site and the journey of building a fast, accessible, and privacy-respecting digital home",
+    "length": 125,
+    "tags": [
+      "web-development",
+      "eleventy",
+      "open-source"
+    ],
+    "date": "2025-01-01"
+  }
+]

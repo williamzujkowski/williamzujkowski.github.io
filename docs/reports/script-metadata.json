@@ -1,0 +1,739 @@
+{
+  "scripts/optimize-blog-images.sh": {
+    "docstring": "Blog Image Optimization Script Optimizes images and creates responsive variants",
+    "category": "root",
+    "imports": [
+      "bash"
+    ],
+    "size": 4874,
+    "lines": 161
+  },
+  "scripts/stats-generator.py": {
+    "docstring": "Blog Statistics Generator\n\nParses all markdown blog posts and generates comprehensive statistics\nfor display on the blog. Outputs to src/_data/blogStats.json.\n\nAuthor: William Zujkowski\nCreated: 2025-10-20",
+    "category": "root",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "sys",
+      "collections",
+      "math",
+      "datetime",
+      "typing",
+      "urllib.parse",
+      "yaml"
+    ],
+    "size": 20409,
+    "lines": 579
+  },
+  "scripts/blog-research/check-citation-hyperlinks.py": {
+    "docstring": "SCRIPT: check-citation-hyperlinks.py\nPURPOSE: Check all blog posts for citations that lack hyperlinks\nCATEGORY: academic_research\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Check all blog posts for citations that lack hyperlinks. This script is part of the academic research\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/check-citation-hyperlinks.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/check-citation-hyperlinks.py\n\n    # With verbose output\n    python scripts/check-citation-hyperlinks.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in academic_research category]\n\nMANIFEST_REGISTRY: scripts/check-citation-hyperlinks.py",
+    "category": "blog-research",
+    "imports": [
+      "re",
+      "os",
+      "typing",
+      "pathlib"
+    ],
+    "size": 6420,
+    "lines": 179
+  },
+  "scripts/blog-research/search-reputable-sources.py": {
+    "docstring": "SCRIPT: search-reputable-sources.py\nPURPOSE: Search for reputable sources using Playwright to back up technical claims in blog posts\nCATEGORY: utilities\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Search for reputable sources using Playwright to back up technical claims in blog posts. This script is part of the utilities\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/search-reputable-sources.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/search-reputable-sources.py\n\n    # With verbose output\n    python scripts/search-reputable-sources.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in utilities category]\n\nMANIFEST_REGISTRY: scripts/search-reputable-sources.py",
+    "category": "blog-research",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "asyncio",
+      "playwright.async_api",
+      "frontmatter"
+    ],
+    "size": 8057,
+    "lines": 227
+  },
+  "scripts/blog-research/add-academic-citations.py": {
+    "docstring": "SCRIPT: add-academic-citations.py\nPURPOSE: Add academic citations to blog posts based on research validation results\nCATEGORY: academic_research\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Add academic citations to blog posts based on research validation results. This script is part of the academic research\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/add-academic-citations.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/add-academic-citations.py\n\n    # With verbose output\n    python scripts/add-academic-citations.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in academic_research category]\n\nMANIFEST_REGISTRY: scripts/add-academic-citations.py",
+    "category": "blog-research",
+    "imports": [
+      "re",
+      "frontmatter",
+      "json",
+      "pathlib"
+    ],
+    "size": 14475,
+    "lines": 353
+  },
+  "scripts/blog-research/research-validator.py": {
+    "docstring": "SCRIPT: research-validator.py\nPURPOSE: Research Validator - Ensures all blog post claims are backed by reputable sources\nCATEGORY: academic_research\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Research Validator - Ensures all blog post claims are backed by reputable sources. This script is part of the academic research\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/research-validator.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/research-validator.py\n\n    # With verbose output\n    python scripts/research-validator.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in academic_research category]\n\nMANIFEST_REGISTRY: scripts/research-validator.py",
+    "category": "blog-research",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "typing",
+      "datetime",
+      "frontmatter",
+      "argparse"
+    ],
+    "size": 11727,
+    "lines": 296
+  },
+  "scripts/blog-research/academic-search.py": {
+    "docstring": "SCRIPT: academic-search.py\nPURPOSE: Academic Search - Use Playwright to search reputable academic sources\nCATEGORY: academic_research\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Academic Search - Use Playwright to search reputable academic sources. This script is part of the academic research\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/academic-search.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/academic-search.py\n\n    # With verbose output\n    python scripts/academic-search.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in academic_research category]\n\nMANIFEST_REGISTRY: scripts/academic-search.py",
+    "category": "blog-research",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "asyncio",
+      "typing",
+      "datetime",
+      "playwright.async_api",
+      "argparse"
+    ],
+    "size": 13989,
+    "lines": 375
+  },
+  "scripts/blog-research/enhance-more-posts-citations.py": {
+    "docstring": "SCRIPT: enhance-more-posts-citations.py\nPURPOSE: Add academic citations to additional blog posts\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Add academic citations to additional blog posts. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/enhance-more-posts-citations.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/enhance-more-posts-citations.py\n\n    # With verbose output\n    python scripts/enhance-more-posts-citations.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/enhance-more-posts-citations.py",
+    "category": "blog-research",
+    "imports": [
+      "frontmatter",
+      "pathlib"
+    ],
+    "size": 10959,
+    "lines": 300
+  },
+  "scripts/blog-research/add-reputable-sources-to-posts.py": {
+    "docstring": "SCRIPT: add-reputable-sources-to-posts.py\nPURPOSE: Add reputable academic sources to blog posts based on Google Scholar findings\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Add reputable academic sources to blog posts based on Google Scholar findings. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/add-reputable-sources-to-posts.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/add-reputable-sources-to-posts.py\n\n    # With verbose output\n    python scripts/add-reputable-sources-to-posts.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/add-reputable-sources-to-posts.py",
+    "category": "blog-research",
+    "imports": [
+      "frontmatter",
+      "pathlib"
+    ],
+    "size": 8231,
+    "lines": 194
+  },
+  "scripts/utilities/blog-compliance-analyzer.py": {
+    "docstring": "Blog Compliance Analyzer - CLAUDE.md Standards\nAnalyzes all blog posts for compliance with new content standards:\n1. Smart Brevity (BLUF, bullets, conciseness)\n2. Polite Linus Tone (direct, honest, respectful)\n3. AI Skepticism (question claims, demand evidence)",
+    "category": "utilities",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "collections",
+      "datetime",
+      "typing"
+    ],
+    "size": 18630,
+    "lines": 452
+  },
+  "scripts/utilities/diagram-manager.py": {
+    "docstring": "SCRIPT: diagram-manager.py\nPURPOSE: Unified diagram and technical image management for blog posts\nCATEGORY: image_management\nLLM_READY: True\nVERSION: 2.0.0\nUPDATED: 2025-09-20T15:30:00-04:00\n\nDESCRIPTION:\n    Consolidates functionality from multiple diagram scripts:\n    - integrate-diagrams.py\n    - add-tech-images.py\n    - create-blog-diagrams.py\n    - add-diagrams-to-live-posts.py\n\n    This unified script handles all diagram-related operations including\n    creation, integration, and management of technical diagrams for blog posts.\n\nLLM_USAGE:\n    python scripts/diagram-manager.py [command] [options]\n\nCOMMANDS:\n    create    - Create new diagrams for posts\n    integrate - Add diagrams to existing posts\n    update    - Update existing diagrams\n    validate  - Check diagram references\n    optimize  - Optimize diagram files\n\nARGUMENTS:\n    command (str): The operation to perform\n    --post (str): Specific post to process\n    --all (bool): Process all posts\n    --type (str): Diagram type (mermaid, svg, png)\n    --force (bool): Force regeneration\n    --dry-run (bool): Preview changes without applying\n\nEXAMPLES:\n    # Create diagrams for a specific post\n    python scripts/diagram-manager.py create --post=\"2024-03-15-claude-flow\"\n\n    # Integrate diagrams into all posts\n    python scripts/diagram-manager.py integrate --all\n\n    # Validate diagram references\n    python scripts/diagram-manager.py validate --all\n\n    # Optimize all diagram files\n    python scripts/diagram-manager.py optimize --force\n\nOUTPUT:\n    - Creates/updates diagram files in src/assets/images/blog/diagrams/\n    - Updates blog post content with diagram references\n    - Generates report in reports/diagram-status.json\n\nDEPENDENCIES:\n    - Python 3.8+\n    - Required: scripts/lib/common.py\n    - Optional: Pillow for image optimization\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - scripts/generate-blog-hero-images.py: Hero image generation\n    - scripts/optimize-blog-content.py: Content optimization\n\nMANIFEST_REGISTRY: scripts/diagram-manager.py",
+    "category": "utilities",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "subprocess",
+      "sys",
+      "typing",
+      "datetime",
+      "lib.common",
+      "argparse"
+    ],
+    "size": 17534,
+    "lines": 482
+  },
+  "scripts/utilities/final-validation.py": {
+    "docstring": "SCRIPT: final-validation.py\nPURPOSE: Final validation of live site after deployment\nCATEGORY: utilities\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Final validation of live site after deployment. This script is part of the utilities\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/final-validation.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/final-validation.py\n\n    # With verbose output\n    python scripts/final-validation.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in utilities category]\n\nMANIFEST_REGISTRY: scripts/final-validation.py",
+    "category": "utilities",
+    "imports": [
+      "playwright.async_api",
+      "json",
+      "asyncio"
+    ],
+    "size": 4090,
+    "lines": 111
+  },
+  "scripts/utilities/count-bullets.sh": {
+    "docstring": "count-bullets.sh Counts bullet points and numbered lists in blog posts Usage: ./count-bullets.sh [file.md]",
+    "category": "utilities",
+    "imports": [
+      "bash"
+    ],
+    "size": 6125,
+    "lines": 183
+  },
+  "scripts/utilities/analyze-post.py": {
+    "docstring": "Quick post analyzer - counts citations, weak language, and bullets\nUsage: python analyze-post.py <markdown-file>",
+    "category": "utilities",
+    "imports": [
+      "re",
+      "sys",
+      "pathlib"
+    ],
+    "size": 3021,
+    "lines": 96
+  },
+  "scripts/utilities/llm-script-documenter.py": {
+    "docstring": "SCRIPT: llm-script-documenter.py\nPURPOSE: Automatically add LLM-friendly documentation headers to all Python scripts\nCATEGORY: utility\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:50:00-04:00\n\nDESCRIPTION:\n    Scans all Python scripts in the repository and adds or updates LLM-friendly\n    documentation headers. Categorizes scripts based on their purpose and\n    updates the MANIFEST.json with complete script documentation.\n\nLLM_USAGE:\n    python scripts/llm-script-documenter.py [options]\n\nARGUMENTS:\n    --scripts-dir (str): Directory containing scripts (default: scripts/)\n    --update-manifest (bool): Update MANIFEST.json with documentation\n    --force (bool): Overwrite existing headers\n    --dry-run (bool): Preview changes without applying\n\nEXAMPLES:\n    # Document all scripts and update manifest\n    python scripts/llm-script-documenter.py --update-manifest\n\n    # Preview changes\n    python scripts/llm-script-documenter.py --dry-run\n\nOUTPUT:\n    - Updated script files with LLM headers\n    - Updated MANIFEST.json with script catalog\n    - Documentation report in reports/script-documentation.json\n\nDEPENDENCIES:\n    - Python 3.8+\n    - scripts/lib/common.py for shared utilities\n\nMANIFEST_REGISTRY: scripts/llm-script-documenter.py",
+    "category": "utilities",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "sys",
+      "typing",
+      "datetime",
+      "lib.common",
+      "argparse"
+    ],
+    "size": 11678,
+    "lines": 355
+  },
+  "scripts/utilities/remove-corporate-speak.py": {
+    "docstring": "Corporate Speak Removal Script\nSystematically removes corporate buzzwords from blog posts while preserving code blocks.",
+    "category": "utilities",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "typing",
+      "datetime"
+    ],
+    "size": 8732,
+    "lines": 253
+  },
+  "scripts/utilities/batch-analyzer.py": {
+    "docstring": "Batch analyzer - Scans all posts and ranks them for refactoring priority\nUsage: python batch-analyzer.py",
+    "category": "utilities",
+    "imports": [
+      "re",
+      "pathlib",
+      "sys",
+      "typing",
+      "dataclasses"
+    ],
+    "size": 3859,
+    "lines": 121
+  },
+  "scripts/link-validation/content-relevance-checker.py": {
+    "docstring": "SCRIPT: content-relevance-checker.py\nPURPOSE: Content Relevance Checker\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Content Relevance Checker. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/content-relevance-checker.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/content-relevance-checker.py\n\n    # With verbose output\n    python scripts/content-relevance-checker.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/content-relevance-checker.py",
+    "category": "link-validation",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "unicodedata",
+      "sklearn.metrics.pairwise",
+      "typing",
+      "datetime",
+      "urllib.parse",
+      "numpy",
+      "difflib"
+    ],
+    "size": 18347,
+    "lines": 534
+  },
+  "scripts/link-validation/citation-updater.py": {
+    "docstring": "SCRIPT: citation-updater.py\nPURPOSE: Citation Updater\nCATEGORY: academic_research\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Citation Updater. This script is part of the academic research\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/citation-updater.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/citation-updater.py\n\n    # With verbose output\n    python scripts/citation-updater.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in academic_research category]\n\nMANIFEST_REGISTRY: scripts/citation-updater.py",
+    "category": "link-validation",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "typing",
+      "datetime",
+      "dataclasses",
+      "argparse"
+    ],
+    "size": 19225,
+    "lines": 489
+  },
+  "scripts/link-validation/batch-link-fixer.py": {
+    "docstring": "SCRIPT: batch-link-fixer.py\nPURPOSE: Batch Link Fixer\nCATEGORY: link_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Batch Link Fixer. This script is part of the link validation\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/batch-link-fixer.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/batch-link-fixer.py\n\n    # With verbose output\n    python scripts/batch-link-fixer.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in link_validation category]\n\nMANIFEST_REGISTRY: scripts/batch-link-fixer.py",
+    "category": "link-validation",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "subprocess",
+      "sys",
+      "shutil",
+      "typing",
+      "datetime",
+      "argparse"
+    ],
+    "size": 14057,
+    "lines": 388
+  },
+  "scripts/link-validation/simple-validator.py": {
+    "docstring": "SCRIPT: simple-validator.py\nPURPOSE: Simple Link Validator\nCATEGORY: utilities\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Simple Link Validator. This script is part of the utilities\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/simple-validator.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/simple-validator.py\n\n    # With verbose output\n    python scripts/simple-validator.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in utilities category]\n\nMANIFEST_REGISTRY: scripts/simple-validator.py",
+    "category": "link-validation",
+    "imports": [
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "typing",
+      "datetime",
+      "urllib.parse",
+      "argparse"
+    ],
+    "size": 6741,
+    "lines": 211
+  },
+  "scripts/link-validation/link-report-generator.py": {
+    "docstring": "SCRIPT: link-report-generator.py\nPURPOSE: Link Validation Report Generator\nCATEGORY: link_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Link Validation Report Generator. This script is part of the link validation\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/link-report-generator.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/link-report-generator.py\n\n    # With verbose output\n    python scripts/link-report-generator.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in link_validation category]\n\nMANIFEST_REGISTRY: scripts/link-report-generator.py",
+    "category": "link-validation",
+    "imports": [
+      "json",
+      "pathlib",
+      "collections",
+      "typing",
+      "datetime",
+      "urllib.parse",
+      "csv",
+      "argparse"
+    ],
+    "size": 17609,
+    "lines": 434
+  },
+  "scripts/link-validation/link-validator.py": {
+    "docstring": "SCRIPT: link-validator.py\nPURPOSE: Link Validator using Playwright\nCATEGORY: link_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Link Validator using Playwright. This script is part of the link validation\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/link-validator.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/link-validator.py\n\n    # With verbose output\n    python scripts/link-validator.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in link_validation category]\n\nMANIFEST_REGISTRY: scripts/link-validator.py",
+    "category": "link-validation",
+    "imports": [
+      "time",
+      "re",
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "ssl",
+      "certifi",
+      "typing",
+      "datetime"
+    ],
+    "size": 17967,
+    "lines": 544
+  },
+  "scripts/link-validation/link-monitor.py": {
+    "docstring": "SCRIPT: link-monitor.py\nPURPOSE: Link Monitor\nCATEGORY: link_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Link Monitor. This script is part of the link validation\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/link-monitor.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/link-monitor.py\n\n    # With verbose output\n    python scripts/link-monitor.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in link_validation category]\n\nMANIFEST_REGISTRY: scripts/link-monitor.py",
+    "category": "link-validation",
+    "imports": [
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "email.mime.text",
+      "smtplib",
+      "email.mime.multipart",
+      "typing",
+      "datetime",
+      "dataclasses"
+    ],
+    "size": 18054,
+    "lines": 486
+  },
+  "scripts/link-validation/citation-report.py": {
+    "docstring": "SCRIPT: citation-report.py\nPURPOSE: Generate citation-specific validation report for GitHub Actions\nCATEGORY: link_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-10-28T00:00:00-04:00\n\nDESCRIPTION:\n    Generates a markdown report specifically for citation link validation,\n    designed to be used in GitHub Actions workflows.\n\nLLM_USAGE:\n    python scripts/link-validation/citation-report.py --input validation.json --links links.json --output report.md\n\nARGUMENTS:\n    --input: Path to validation results JSON\n    --links: Path to extracted links JSON\n    --output: Path to output markdown report\n    --verbose: Enable verbose output\n\nEXAMPLES:\n    # Generate citation report\n    python scripts/link-validation/citation-report.py         --input citation-validation.json         --links citation-links.json         --output citation-report.md\n\nOUTPUT:\n    - Markdown formatted report with broken citation links\n    - Grouped by blog post\n    - Includes suggested actions\n\nDEPENDENCIES:\n    - Python 3.8+\n    - json, pathlib (standard library)\n\nMANIFEST_REGISTRY: scripts/link-validation/citation-report.py",
+    "category": "link-validation",
+    "imports": [
+      "json",
+      "pathlib",
+      "collections",
+      "typing",
+      "datetime",
+      "argparse"
+    ],
+    "size": 9224,
+    "lines": 264
+  },
+  "scripts/link-validation/test-citation-workflow.sh": {
+    "docstring": "Test script for citation validation workflow Simulates what the GitHub Action will run",
+    "category": "link-validation",
+    "imports": [
+      "bash"
+    ],
+    "size": 2560,
+    "lines": 85
+  },
+  "scripts/link-validation/advanced-link-repair.py": {
+    "docstring": "SCRIPT: advanced-link-repair.py\nPURPOSE: Advanced Link Repair System\nCATEGORY: link_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Advanced Link Repair System. This script is part of the link validation\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/advanced-link-repair.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/advanced-link-repair.py\n\n    # With verbose output\n    python scripts/advanced-link-repair.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in link_validation category]\n\nMANIFEST_REGISTRY: scripts/advanced-link-repair.py",
+    "category": "link-validation",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "asyncio",
+      "typing",
+      "datetime",
+      "urllib.parse",
+      "difflib",
+      "argparse"
+    ],
+    "size": 17954,
+    "lines": 479
+  },
+  "scripts/link-validation/specialized-validators.py": {
+    "docstring": "SCRIPT: specialized-validators.py\nPURPOSE: Specialized Link Validators\nCATEGORY: utilities\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Specialized Link Validators. This script is part of the utilities\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/specialized-validators.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/specialized-validators.py\n\n    # With verbose output\n    python scripts/specialized-validators.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in utilities category]\n\nMANIFEST_REGISTRY: scripts/specialized-validators.py",
+    "category": "link-validation",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "packaging",
+      "typing",
+      "datetime",
+      "urllib.parse",
+      "dataclasses"
+    ],
+    "size": 18074,
+    "lines": 490
+  },
+  "scripts/link-validation/wayback-archiver.py": {
+    "docstring": "SCRIPT: wayback-archiver.py\nPURPOSE: Wayback Machine Archiver\nCATEGORY: utilities\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Wayback Machine Archiver. This script is part of the utilities\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/wayback-archiver.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/wayback-archiver.py\n\n    # With verbose output\n    python scripts/wayback-archiver.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in utilities category]\n\nMANIFEST_REGISTRY: scripts/wayback-archiver.py",
+    "category": "link-validation",
+    "imports": [
+      "time",
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "typing",
+      "datetime",
+      "dataclasses",
+      "argparse"
+    ],
+    "size": 16420,
+    "lines": 460
+  },
+  "scripts/link-validation/link-extractor.py": {
+    "docstring": "SCRIPT: link-extractor.py\nPURPOSE: Link Extractor for Blog Posts\nCATEGORY: link_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Link Extractor for Blog Posts. This script is part of the link validation\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/link-extractor.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/link-extractor.py\n\n    # With verbose output\n    python scripts/link-extractor.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in link_validation category]\n\nMANIFEST_REGISTRY: scripts/link-extractor.py",
+    "category": "link-validation",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "typing",
+      "datetime",
+      "dataclasses",
+      "argparse",
+      "hashlib"
+    ],
+    "size": 11318,
+    "lines": 327
+  },
+  "scripts/link-validation/citation-repair.py": {
+    "docstring": "SCRIPT: citation-repair.py\nPURPOSE: Citation Repair Tool\nCATEGORY: academic_research\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Citation Repair Tool. This script is part of the academic research\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/citation-repair.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/citation-repair.py\n\n    # With verbose output\n    python scripts/citation-repair.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in academic_research category]\n\nMANIFEST_REGISTRY: scripts/citation-repair.py",
+    "category": "link-validation",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "typing",
+      "datetime",
+      "urllib.parse",
+      "dataclasses",
+      "argparse"
+    ],
+    "size": 21803,
+    "lines": 597
+  },
+  "scripts/blog-content/generate-stats-dashboard.py": {
+    "docstring": "Generate HTML statistics dashboard for blog post quality metrics.\nReads from portfolio-assessment.json and generates an interactive dashboard.",
+    "category": "blog-content",
+    "imports": [
+      "collections",
+      "datetime",
+      "json",
+      "pathlib"
+    ],
+    "size": 15663,
+    "lines": 528
+  },
+  "scripts/blog-content/blog-manager.py": {
+    "docstring": "SCRIPT: blog-manager.py\nPURPOSE: Unified Blog Management Tool for williamzujkowski.github.io\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Unified Blog Management Tool for williamzujkowski.github.io. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/blog-manager.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/blog-manager.py\n\n    # With verbose output\n    python scripts/blog-manager.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/blog-manager.py",
+    "category": "blog-content",
+    "imports": [
+      "os",
+      "json",
+      "pathlib",
+      "subprocess",
+      "sys",
+      "datetime",
+      "typing",
+      "yaml",
+      "argparse"
+    ],
+    "size": 16008,
+    "lines": 460
+  },
+  "scripts/blog-content/analyze-compliance.py": {
+    "docstring": "Analyze blog posts for CLAUDE.md compliance.\n\nEvaluates:\n- Smart Brevity violations (weak language, verbosity)\n- AI skepticism presence\n- BLUF structure\n- Paragraph length\n- Bullet usage",
+    "category": "blog-content",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "collections",
+      "typing"
+    ],
+    "size": 9176,
+    "lines": 279
+  },
+  "scripts/blog-content/optimize-blog-content.py": {
+    "docstring": "SCRIPT: optimize-blog-content.py\nPURPOSE: Analyze and optimize blog posts for readability by reducing code-to-content ratio\nCATEGORY: content_optimization\nLLM_READY: True\nVERSION: 2.0.0\nUPDATED: 2025-09-20T15:35:00-04:00\n\nDESCRIPTION:\n    Analyzes blog posts to identify where code can be reduced and replaced with\n    diagrams. Targets posts with >25% code-to-content ratio and suggests\n    optimizations including Mermaid diagrams, GitHub gists, and visual alternatives.\n\nLLM_USAGE:\n    python scripts/optimize-blog-content.py [options]\n\nARGUMENTS:\n    --posts-dir (str): Directory containing blog posts (default: src/posts)\n    --threshold (float): Code ratio threshold (default: 0.25)\n    --output (str): Output report file (default: reports/code-optimization.json)\n    --fix (bool): Apply automatic fixes where possible\n    --dry-run (bool): Preview changes without applying\n\nEXAMPLES:\n    # Analyze all posts\n    python scripts/optimize-blog-content.py\n\n    # Fix posts with high code ratio\n    python scripts/optimize-blog-content.py --fix --threshold 0.30\n\n    # Generate detailed report\n    python scripts/optimize-blog-content.py --output reports/optimization.json\n\nOUTPUT:\n    - JSON report with optimization suggestions\n    - Updated blog posts (if --fix is used)\n    - Diagram templates in src/assets/images/blog/diagrams/\n\nDEPENDENCIES:\n    - Python 3.8+\n    - PyYAML for frontmatter parsing\n    - Optional: scripts/lib/common.py for shared utilities\n\nRELATED_SCRIPTS:\n    - scripts/diagram-manager.py: Create and manage diagrams\n    - scripts/create-blog-diagrams.py: Generate Mermaid diagrams\n    - scripts/analyze-blog-content.py: Content quality analysis\n\nMANIFEST_REGISTRY: scripts/optimize-blog-content.py",
+    "category": "blog-content",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "typing",
+      "yaml"
+    ],
+    "size": 16900,
+    "lines": 398
+  },
+  "scripts/blog-content/batch-improve-blog-posts.py": {
+    "docstring": "SCRIPT: batch-improve-blog-posts.py\nPURPOSE: Systematically improve all blog posts with diagrams, reduced code, and enhanced content\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 2.0.0\nUPDATED: 2025-09-20T15:45:00-04:00\n\nDESCRIPTION:\n    Batch processing tool for comprehensive blog post improvements including:\n    - Mermaid diagram generation\n    - Code block reduction and optimization\n    - Content enhancement and restructuring\n    - SEO optimization\n    - Image integration\n    - Citation addition\n\nLLM_USAGE:\n    python scripts/batch-improve-blog-posts.py [options]\n\nARGUMENTS:\n    --posts (list): Specific posts to process (default: all)\n    --improvements (list): Types of improvements [diagrams,code,seo,citations,images]\n    --batch-size (int): Number of posts to process at once (default: 5)\n    --output-dir (str): Directory for improved posts (default: in-place)\n    --dry-run (bool): Preview changes without applying\n    --parallel (bool): Process posts in parallel\n\nEXAMPLES:\n    # Improve all posts\n    python scripts/batch-improve-blog-posts.py\n\n    # Process specific improvements\n    python scripts/batch-improve-blog-posts.py --improvements diagrams,code\n\n    # Batch process with parallel execution\n    python scripts/batch-improve-blog-posts.py --parallel --batch-size 10\n\nOUTPUT:\n    - Improved blog posts with all enhancements\n    - Detailed improvement report\n    - Backup of original posts\n\nDEPENDENCIES:\n    - Python 3.8+\n    - scripts/lib/common.py for shared utilities\n    - scripts/diagram-manager.py for diagram generation\n\nRELATED_SCRIPTS:\n    - scripts/analyze-blog-content.py: Content analysis\n    - scripts/optimize-blog-content.py: Content optimization\n    - scripts/comprehensive-blog-enhancement.py: Full enhancement\n\nMANIFEST_REGISTRY: scripts/batch-improve-blog-posts.py",
+    "category": "blog-content",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "datetime",
+      "typing",
+      "frontmatter",
+      "argparse"
+    ],
+    "size": 19171,
+    "lines": 612
+  },
+  "scripts/blog-content/full-post-validation.py": {
+    "docstring": "SCRIPT: full-post-validation.py\nPURPOSE: Comprehensive blog post validation combining humanization, citations, and content quality checks\nCATEGORY: content_validation\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-10-28\n\nDESCRIPTION:\n    Comprehensive pre-publish validation tool that combines:\n    - Humanization checks (AI-tells, tone, sentiment)\n    - Citation coverage and link validation\n    - Content quality (bullets, weak language, readability)\n    - Smart Brevity principles\n    - Accessibility requirements\n\n    Provides a single validation command for blog posts before publishing.\n\nLLM_USAGE:\n    python scripts/blog-content/full-post-validation.py [options]\n\nARGUMENTS:\n    --post (str): Path to blog post file (required)\n    --min-human-score (int): Minimum humanization score (default: 70)\n    --min-citation-coverage (float): Minimum citation percentage (default: 0.9)\n    --strict (bool): Strict mode - fail on any violation (default: False)\n    --output (str): Output format [text|json|markdown] (default: text)\n    --report-file (str): Save report to file (optional)\n\nEXAMPLES:\n    # Validate single post\n    python scripts/blog-content/full-post-validation.py --post src/posts/2025-01-15-example.md\n\n    # Strict validation with report\n    python scripts/blog-content/full-post-validation.py --post src/posts/example.md --strict --report-file validation-report.md\n\n    # JSON output for CI/CD\n    python scripts/blog-content/full-post-validation.py --post src/posts/example.md --output json\n\nOUTPUT:\n    - Overall validation status (PASS/FAIL)\n    - Comprehensive scorecard across all dimensions\n    - Specific violations and recommendations\n    - Exit code: 0 (pass), 1 (fail), 2 (error)\n\nDEPENDENCIES:\n    - Python 3.8+\n    - humanization-validator.py\n    - PyYAML for config\n    - frontmatter for post parsing\n\nRELATED_SCRIPTS:\n    - scripts/blog-content/humanization-validator.py: Human tone validation\n    - scripts/blog-research/research-validator.py: Citation validation\n    - scripts/link-validation/link-validator.py: Link checking\n    - scripts/blog-content/analyze-blog-content.py: Content metrics\n\nMANIFEST_REGISTRY: scripts/blog-content/full-post-validation.py",
+    "category": "blog-content",
+    "imports": [
+      "importlib.util",
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "sys",
+      "io",
+      "typing",
+      "datetime",
+      "yaml"
+    ],
+    "size": 20024,
+    "lines": 530
+  },
+  "scripts/blog-content/humanization-validator.py": {
+    "docstring": "SCRIPT: humanization-validator.py\nPURPOSE: Validate blog posts for human tone and detect AI-generated content tells\nCATEGORY: content_validation\nLLM_READY: True\nVERSION: 2.0.0\nUPDATED: 2025-10-29\n\nDESCRIPTION:\n    Validates blog posts against humanization requirements to ensure authentic,\n    engaging content that doesn't sound AI-generated. Checks for:\n    - AI-tells (em dashes, semicolons, generic transitions)\n    - Required humanization elements (first-person, uncertainty, specificity)\n    - Sentiment analysis (reject overly positive/hype content)\n    - Sentence and paragraph structure\n    - Corporate jargon and buzzwords\n\n    NEW in v2.0: Batch processing with parallel execution for portfolio-wide validation.\n\nLLM_USAGE:\n    python scripts/blog-content/humanization-validator.py [options]\n\nARGUMENTS:\n    --post (str): Path to blog post file (single-post mode)\n    --batch (bool): Process all posts in src/posts/ directory\n    --dir (str): Custom directory for batch processing\n    --config (str): Path to humanization patterns YAML (default: scripts/blog-content/humanization-patterns.yaml)\n    --output (str): Output format [text|json] (default: text)\n    --format (str): Batch output format [summary|json|detailed] (default: summary)\n    --strict (bool): Strict mode - fail on any violation (default: False)\n    --min-score (int): Minimum passing score 0-100 (default: 70)\n    --filter-below (int): In batch mode, only show posts scoring below this threshold\n    --save-report (str): Save batch report to file\n    --compare (str): Compare with previous report JSON\n    --workers (int): Number of parallel workers (default: 4)\n\nEXAMPLES:\n    # Validate single post\n    python scripts/blog-content/humanization-validator.py --post src/posts/2025-01-15-example.md\n\n    # Batch validate all posts\n    python scripts/blog-content/humanization-validator.py --batch\n\n    # Batch with filtering and JSON output\n    python scripts/blog-content/humanization-validator.py --batch --filter-below 90 --format json\n\n    # Save batch report\n    python scripts/blog-content/humanization-validator.py --batch --save-report reports/validation-2025-10-29.json\n\n    # Compare with previous report\n    python scripts/blog-content/humanization-validator.py --batch --compare reports/validation-2025-10-28.json\n\nOUTPUT:\n    - Human tone score (0-100)\n    - Specific violations with line numbers\n    - Required patterns status\n    - Sentiment analysis\n    - Recommendations for improvement\n    - Exit code: 0 (pass), 1 (fail), 2 (error)\n\nDEPENDENCIES:\n    - Python 3.8+\n    - PyYAML for config parsing\n    - frontmatter for post parsing\n    - re for pattern matching\n\nRELATED_SCRIPTS:\n    - scripts/blog-content/full-post-validation.py: Comprehensive validation\n    - scripts/blog-content/humanization-patterns.yaml: Pattern definitions\n    - scripts/blog-content/analyze-blog-content.py: Content analysis\n\nMANIFEST_REGISTRY: scripts/blog-content/humanization-validator.py",
+    "category": "blog-content",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "time",
+      "pathlib",
+      "sys",
+      "collections",
+      "typing",
+      "multiprocessing",
+      "datetime"
+    ],
+    "size": 48302,
+    "lines": 1157
+  },
+  "scripts/blog-content/comprehensive-blog-enhancement.py": {
+    "docstring": "SCRIPT: comprehensive-blog-enhancement.py\nPURPOSE: Comprehensive Blog Enhancement Tool\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Comprehensive Blog Enhancement Tool. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/comprehensive-blog-enhancement.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/comprehensive-blog-enhancement.py\n\n    # With verbose output\n    python scripts/comprehensive-blog-enhancement.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/comprehensive-blog-enhancement.py",
+    "category": "blog-content",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "datetime",
+      "typing",
+      "frontmatter",
+      "argparse"
+    ],
+    "size": 15685,
+    "lines": 409
+  },
+  "scripts/blog-content/analyze-blog-content.py": {
+    "docstring": "SCRIPT: analyze-blog-content.py\nPURPOSE: Analyze blog posts for content quality metrics and improvement opportunities\nCATEGORY: content_optimization\nLLM_READY: True\nVERSION: 2.0.0\nUPDATED: 2025-09-20T15:40:00-04:00\n\nDESCRIPTION:\n    Comprehensive blog content analysis tool that evaluates posts for:\n    - Readability scores (Flesch-Kincaid)\n    - Code-to-content ratio\n    - SEO optimization\n    - Image usage and optimization\n    - Citation quality\n    - Content structure and formatting\n\nLLM_USAGE:\n    python scripts/analyze-blog-content.py [options]\n\nARGUMENTS:\n    --posts-dir (str): Directory containing blog posts (default: src/posts)\n    --output (str): Output report file (default: reports/content-analysis.json)\n    --format (str): Report format [json|markdown|html] (default: json)\n    --metrics (list): Specific metrics to analyze (default: all)\n    --threshold (dict): Quality thresholds for warnings\n\nEXAMPLES:\n    # Analyze all posts\n    python scripts/analyze-blog-content.py\n\n    # Generate markdown report\n    python scripts/analyze-blog-content.py --format markdown\n\n    # Check specific metrics\n    python scripts/analyze-blog-content.py --metrics readability,seo\n\nOUTPUT:\n    - Detailed analysis report with metrics and recommendations\n    - Quality scores for each post\n    - Actionable improvement suggestions\n\nDEPENDENCIES:\n    - Python 3.8+\n    - textstat for readability analysis\n    - BeautifulSoup4 for HTML parsing\n    - scripts/lib/common.py for shared utilities\n\nRELATED_SCRIPTS:\n    - scripts/optimize-blog-content.py: Apply optimizations\n    - scripts/batch-improve-blog-posts.py: Batch improvements\n    - scripts/comprehensive-blog-enhancement.py: Full enhancement\n\nMANIFEST_REGISTRY: scripts/analyze-blog-content.py",
+    "category": "blog-content",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "typing",
+      "datetime",
+      "frontmatter",
+      "argparse"
+    ],
+    "size": 15228,
+    "lines": 374
+  },
+  "scripts/blog-content/validate-all-posts.py": {
+    "docstring": "Portfolio-Wide Humanization Validation\nValidates all blog posts and generates comprehensive assessment report.\n\nUsage:\n    python validate-all-posts.py --output docs/reports/\n    python validate-all-posts.py --format json\n    python validate-all-posts.py --threshold 75",
+    "category": "blog-content",
+    "imports": [
+      "os",
+      "json",
+      "pathlib",
+      "subprocess",
+      "sys",
+      "collections",
+      "datetime",
+      "argparse"
+    ],
+    "size": 12030,
+    "lines": 368
+  },
+  "scripts/maintenance/monthly-portfolio-validation.sh": {
+    "docstring": " Monthly Portfolio Validation Script Purpose: Automated monthly health checks with comprehensive reporting Schedule: First of every month at 2 AM (via cron) Maintainer: William Zujkowski Version: 1.0.0 ",
+    "category": "maintenance",
+    "imports": [
+      "bash"
+    ],
+    "size": 11538,
+    "lines": 323
+  },
+  "scripts/blog-images/generate-og-image.py": {
+    "docstring": "SCRIPT: generate-og-image.py\nPURPOSE: Generate Open Graph images for social sharing\nCATEGORY: image_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Generate Open Graph images for social sharing. This script is part of the image management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/generate-og-image.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/generate-og-image.py\n\n    # With verbose output\n    python scripts/generate-og-image.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in image_management category]\n\nMANIFEST_REGISTRY: scripts/generate-og-image.py",
+    "category": "blog-images",
+    "imports": [
+      "PIL",
+      "textwrap",
+      "os"
+    ],
+    "size": 5820,
+    "lines": 163
+  },
+  "scripts/blog-images/enhanced-blog-image-search.py": {
+    "docstring": "SCRIPT: enhanced-blog-image-search.py\nPURPOSE: Enhanced Blog Image Search Tool\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Enhanced Blog Image Search Tool. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/enhanced-blog-image-search.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/enhanced-blog-image-search.py\n\n    # With verbose output\n    python scripts/enhanced-blog-image-search.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/enhanced-blog-image-search.py",
+    "category": "blog-images",
+    "imports": [
+      "os",
+      "time",
+      "json",
+      "argparse",
+      "pathlib",
+      "re",
+      "sys",
+      "typing",
+      "datetime",
+      "PIL"
+    ],
+    "size": 14882,
+    "lines": 357
+  },
+  "scripts/blog-images/fetch-stock-images.py": {
+    "docstring": "SCRIPT: fetch-stock-images.py\nPURPOSE: Stock Image Fetcher for Blog Posts\nCATEGORY: image_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Stock Image Fetcher for Blog Posts. This script is part of the image management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/fetch-stock-images.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/fetch-stock-images.py\n\n    # With verbose output\n    python scripts/fetch-stock-images.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in image_management category]\n\nMANIFEST_REGISTRY: scripts/fetch-stock-images.py",
+    "category": "blog-images",
+    "imports": [
+      "os",
+      "time",
+      "json",
+      "pathlib",
+      "urllib.parse",
+      "yaml",
+      "requests",
+      "hashlib"
+    ],
+    "size": 11568,
+    "lines": 311
+  },
+  "scripts/blog-images/generate-blog-hero-images.py": {
+    "docstring": "SCRIPT: generate-blog-hero-images.py\nPURPOSE: Generate Hero Images for Blog Posts\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Generate Hero Images for Blog Posts. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/generate-blog-hero-images.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/generate-blog-hero-images.py\n\n    # With verbose output\n    python scripts/generate-blog-hero-images.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/generate-blog-hero-images.py",
+    "category": "blog-images",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "random",
+      "math",
+      "PIL",
+      "hashlib",
+      "yaml",
+      "colorsys"
+    ],
+    "size": 16842,
+    "lines": 452
+  },
+  "scripts/blog-images/update-blog-images.py": {
+    "docstring": "SCRIPT: update-blog-images.py\nPURPOSE: Blog Image Standards Implementation Script\nCATEGORY: blog_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Blog Image Standards Implementation Script. This script is part of the blog management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/update-blog-images.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/update-blog-images.py\n\n    # With verbose output\n    python scripts/update-blog-images.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in blog_management category]\n\nMANIFEST_REGISTRY: scripts/update-blog-images.py",
+    "category": "blog-images",
+    "imports": [
+      "re",
+      "os",
+      "json",
+      "pathlib",
+      "datetime",
+      "typing",
+      "yaml"
+    ],
+    "size": 9714,
+    "lines": 259
+  },
+  "scripts/blog-images/playwright-image-search.py": {
+    "docstring": "SCRIPT: playwright-image-search.py\nPURPOSE: Playwright-based Stock Image Search and Download\nCATEGORY: image_management\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:08:08-04:00\n\nDESCRIPTION:\n    Playwright-based Stock Image Search and Download. This script is part of the image management\n    category and provides automated functionality for the static site.\n\nLLM_USAGE:\n    python scripts/playwright-image-search.py [options]\n\nARGUMENTS:\n    --help: Show help message\n    --verbose: Enable verbose output\n    [Additional arguments specific to this script]\n\nEXAMPLES:\n    # Basic usage\n    python scripts/playwright-image-search.py\n\n    # With verbose output\n    python scripts/playwright-image-search.py --verbose\n\nOUTPUT:\n    - Processed results based on script functionality\n    - Log messages if verbose mode enabled\n\nDEPENDENCIES:\n    - Python 3.8+\n    - See imports for specific package requirements\n    - scripts/lib/common.py for shared utilities (if applicable)\n\nRELATED_SCRIPTS:\n    - scripts/lib/common.py: Shared utilities\n    - [Other related scripts in image_management category]\n\nMANIFEST_REGISTRY: scripts/playwright-image-search.py",
+    "category": "blog-images",
+    "imports": [
+      "json",
+      "pathlib",
+      "aiohttp",
+      "asyncio",
+      "aiofiles",
+      "typing",
+      "yaml",
+      "playwright.async_api",
+      "hashlib"
+    ],
+    "size": 16005,
+    "lines": 406
+  },
+  "scripts/lib/memory-file.sh": {
+    "docstring": "Create a review context file",
+    "category": "lib",
+    "imports": [
+      "bash"
+    ],
+    "size": 1183,
+    "lines": 49
+  },
+  "scripts/lib/common.py": {
+    "docstring": "SCRIPT: common.py\nPURPOSE: Shared utilities for all scripts - DRY/SOLID implementation\nCATEGORY: utility\nLLM_READY: True\nVERSION: 1.0.0\nUPDATED: 2025-09-20T15:02:00-04:00\n\nDESCRIPTION:\n    This module provides shared functionality for all scripts in the repository,\n    implementing DRY (Don't Repeat Yourself) and SOLID principles. All scripts\n    should import from this module instead of duplicating common code.\n\nSOLID PRINCIPLES:\n    S - Single Responsibility: Each class has one clear purpose\n    O - Open/Closed: Classes are open for extension, closed for modification\n    L - Liskov Substitution: Derived classes can substitute base classes\n    I - Interface Segregation: Specific interfaces over general ones\n    D - Dependency Inversion: Depend on abstractions, not concretions\n\nMANIFEST_REGISTRY: scripts/lib/common.py",
+    "category": "lib",
+    "imports": [
+      "re",
+      "json",
+      "pathlib",
+      "subprocess",
+      "abc",
+      "shutil",
+      "datetime",
+      "typing",
+      "yaml",
+      "logging"
+    ],
+    "size": 18186,
+    "lines": 579
+  }
+}
