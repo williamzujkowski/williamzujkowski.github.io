@@ -91,6 +91,7 @@ required_patterns:
   uncertainty:
     min_occurrences: 1
     patterns:
+      # Original 10 patterns
       - "probably"
       - "likely"
       - "might"
@@ -101,6 +102,25 @@ required_patterns:
       - "at least in my testing"
       - "seems to"
       - "appears to"
+      # Hedging Language (5 new)
+      - "might be"
+      - "could be"
+      - "may be"
+      - "tends to"
+      - "typically"
+      # Caveats & Limitations (5 new)
+      - "varies by"
+      - "in my experience"
+      - "at least for me"
+      - "depending on your"
+      - "could vary"
+      # Admissions of Ignorance (3 new)
+      - "I'm not sure if"
+      - "I don't know if"
+      - "unclear whether"
+      # Future Uncertainty (2 new)
+      - "will probably"
+      - "might eventually"
     message: "Include caveats or uncertainty to show nuanced thinking."
 
   specificity:
