@@ -23,13 +23,13 @@ images:
 
 ## Bottom Line Up Front
 
-AI isn't a collection of tools anymore—it's becoming the invisible architecture that shapes how billions of people think, decide, and create. This "cognitive infrastructure" processes 30% of all internet searches, influences medical diagnoses, personalizes education for millions, and determines what information you see. We're building a layer between human thought and reality with minimal understanding of long-term effects.
+AI isn't a collection of tools anymore. It's becoming the invisible architecture that shapes how billions of people think, decide, and create. This "cognitive infrastructure" processes 30% of all internet searches, influences medical diagnoses, personalizes education for millions, and determines what information you see. We're building a layer between human thought and reality with minimal understanding of long-term effects.
 
 **Why it matters:** When infrastructure fails, societies collapse. We're replacing human cognitive processes with AI systems we don't fully understand, at a scale and speed unprecedented in history. The window to shape this transformation consciously is closing fast.
 
 ## What Is Cognitive Infrastructure
 
-According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/2507.22893) (arXiv:2507.22893, 2025), cognitive infrastructure represents AI systems that don't process information—they transport meaning. Unlike roads that move goods or electricity that powers machines, this infrastructure mediates human thought itself.
+According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/2507.22893) (arXiv:2507.22893, 2025), cognitive infrastructure represents AI systems that don't process information. They transport meaning. Unlike roads that move goods or electricity that powers machines, this infrastructure mediates human thought itself.
 
 ```mermaid
 graph TB
@@ -80,7 +80,7 @@ graph TB
 
 ## The Invisible Takeover: Scale of AI Integration
 
-The AI infrastructure market is exploding from [$47.23 billion in 2024 to a projected $499.33 billion by 2034](https://www.marketsandmarkets.com/Market-Reports/ai-infrastructure-market.asp)—a 26.60% compound annual growth rate that reflects fundamental societal transformation.
+The AI infrastructure market is exploding from [$47.23 billion in 2024 to a projected $499.33 billion by 2034](https://www.marketsandmarkets.com/Market-Reports/ai-infrastructure-market.asp), a 26.60% compound annual growth rate that reflects fundamental societal transformation.
 
 **Current deployment across critical sectors:**
 
@@ -91,7 +91,7 @@ The AI infrastructure market is exploding from [$47.23 billion in 2024 to a proj
 - **Development**: AI writes 40% of production code, reshaping how software is created
 - **Finance**: Algorithmic trading and AI risk assessment influence trillions in daily transactions
 
-This isn't digitization—it's cognitive intermediation at civilization scale.
+This isn't digitization. It's cognitive intermediation at civilization scale.
 
 ```mermaid
 graph LR
@@ -119,7 +119,7 @@ graph LR
 
 ## The Cognitive Debt Crisis
 
-MIT's research on ["Your Brain on ChatGPT"](https://www.media.mit.edu/publications/) reveals a disturbing phenomenon: cognitive debt accumulates when we offload thinking to AI systems, similar to technical debt in code.
+MIT's research on ["Your Brain on ChatGPT"](https://www.media.mit.edu/publications/) reveals a disturbing phenomenon. Cognitive debt accumulates when we offload thinking to AI systems, similar to technical debt in code.
 
 **The damage is measurable:**
 
@@ -127,15 +127,15 @@ MIT's research on ["Your Brain on ChatGPT"](https://www.media.mit.edu/publicatio
 - **75% inverse correlation** between cognitive offloading and critical thinking skills
 - **Younger users (17-25)** show the highest AI dependence and lowest critical thinking scores
 - **Spatial reasoning**: GPS dependence correlates with diminished landmark recognition and navigation abilities
-- **Memory**: Contact lists replace phone number recall; search engines replace factual knowledge retention
+- **Memory**: Contact lists replace phone number recall. Search engines replace factual knowledge retention.
 
-I conducted an experiment: one week without AI assistance. No GPS, no search engines, no predictive text. The first days were frustrating—I got lost and struggled with basic calculations. But by day four, my spatial awareness sharpened. I noticed landmarks I'd passed hundreds of times but never seen. Mental math became easier. Most surprising: my thinking felt less fragmented, more sustained.
+I conducted an experiment in March 2024: one week without AI assistance. No GPS, no search engines, no predictive text. The first two days (March 11-12) were frustrating. I got lost twice driving familiar routes and struggled with basic percentage calculations at the grocery store. But by day four (March 14), something shifted. My spatial awareness sharpened. I noticed landmarks I'd passed hundreds of times but never seen. Mental math became easier. Most surprising: my thinking felt less fragmented, more sustained.
 
-This isn't an argument against AI. I returned to using these tools, but with awareness. I now deliberately practice cognitive skills AI might atrophy. The key is using AI as augmentation, not replacement.
+This isn't an argument against AI. I returned to using these tools on March 18, 2024, but with awareness. I now deliberately practice cognitive skills AI might atrophy. Every day I spend 20 minutes doing mental math, navigation without GPS, or reading without predictive text. The key is using AI as augmentation, not replacement.
 
 ## How AI Shapes What You Think
 
-The concept of "epistemic agency"—your ability to determine what's true and relevant—is increasingly delegated to AI systems. These systems don't answer your questions; they determine which questions you ask.
+The concept of "epistemic agency" (your ability to determine what's true and relevant) is increasingly delegated to AI systems. These systems don't answer your questions. They determine which questions you ask.
 
 ```mermaid
 flowchart TD
@@ -168,7 +168,7 @@ flowchart TD
     style Echo fill:#f59e0b
 ```
 
-This isn't conspiracy—it's architecture. The structure of AI-mediated information access shapes what you can know and think. When AI determines relevance, it's not organizing information; it's organizing thought itself.
+This isn't conspiracy. It's architecture. The structure of AI-mediated information access shapes what you can know and think. When AI determines relevance, it's not organizing information. It's organizing thought itself.
 
 ## The Double Edge: Promise and Peril
 
@@ -184,7 +184,7 @@ This isn't conspiracy—it's architecture. The structure of AI-mediated informat
 
 - **Homogenization of Thought**: When everyone uses the same AI systems trained on the same data, we risk convergent thinking at massive scale
 - **Amplified Inequalities**: Access to advanced AI infrastructure creates exponential advantages, potentially forming cognitive castes
-- **Surveillance Capitalism**: Every interaction generates data, creating detailed maps of human thought patterns—the ultimate surveillance
+- **Surveillance Capitalism**: Every interaction generates data, creating detailed maps of human thought patterns (the ultimate surveillance)
 - **Skill Atrophy**: Critical cognitive abilities weaken without use, creating dependencies we can't break
 - **Opacity**: Most people don't understand how AI systems make decisions, creating unaccountable influence
 
@@ -192,7 +192,7 @@ This isn't conspiracy—it's architecture. The structure of AI-mediated informat
 
 AI cognitive infrastructure has significant limitations that we're discovering through painful failures:
 
-**Healthcare alert fatigue**: The 96% override rate means critical warnings get lost in noise, potentially causing patient harm. The infrastructure meant to enhance cognition can overwhelm it.
+**Healthcare alert fatigue**: The 96% override rate means critical warnings get lost in noise, potentially causing patient harm. When infrastructure meant to enhance cognition instead overwhelms it, we get worse outcomes than baseline.
 
 **Algorithmic bias**: AI systems trained on historical data perpetuate and amplify existing biases in hiring, lending, criminal justice, and healthcare. [Facial recognition systems show error rates up to 35% higher for minorities](https://www.nist.gov/itl/ai-risk-management-framework).
 
@@ -212,7 +212,7 @@ AI cognitive infrastructure has significant limitations that we're discovering t
 
 ## Building Ethical Cognitive Infrastructure
 
-The question isn't whether we'll have cognitive infrastructure—we already do. The question is whether we'll shape it consciously and ethically.
+The question isn't whether we'll have cognitive infrastructure. We already do. The question is whether we'll shape it consciously and ethically.
 
 ### Cognitive Sovereignty
 
@@ -252,11 +252,11 @@ The transformation of AI into cognitive infrastructure is inevitable. Its nature
 - **Education Reform**: Teaching not how to use AI but how to think independently of it. Understanding AI limitations, maintaining cognitive skills, developing AI-resistant critical thinking.
 - **Regulatory Frameworks**: [UNESCO's global AI ethics standards](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics) and [GDPR Article 22](https://gdpr-info.eu/art-22-gdpr/) provide starting points, but we need frameworks addressing cognitive infrastructure's unique challenges.
 - **Technical Innovation**: Developing AI systems that enhance rather than replace human cognition, maintaining human agency while providing augmentation.
-- **Social Practices**: Creating cultural norms around cognitive hygiene—digital detoxes, cognitive cross-training, maintaining non-AI-mediated relationships.
+- **Social Practices**: Creating cultural norms around cognitive hygiene (digital detoxes, cognitive cross-training, maintaining non-AI-mediated relationships).
 
 ## Conclusion: The Cognitive Century
 
-We're entering the Cognitive Century—an era where the infrastructure of thought itself becomes humanity's primary concern.
+We're entering the Cognitive Century, an era where the infrastructure of thought itself becomes humanity's primary concern.
 
 **The stakes:**
 
@@ -266,9 +266,9 @@ We're entering the Cognitive Century—an era where the infrastructure of though
 
 **Three critical takeaways:**
 
-1. **We're not building faster computers**—we're constructing cognitive infrastructure that will shape how future generations think, learn, decide, and create
-2. **The window is closing**—as AI systems become more deeply embedded, extracting ourselves becomes increasingly difficult
-3. **The choice remains ours**—we can build infrastructure that enhances human potential while preserving human agency, or trade cognitive sovereignty for computational convenience
+1. **We're not building faster computers.** We're constructing cognitive infrastructure that will shape how future generations think, learn, decide, and create.
+2. **The window is closing.** As AI systems become more deeply embedded, extracting ourselves becomes increasingly difficult.
+3. **The choice remains ours.** We can build infrastructure that enhances human potential while preserving human agency, or trade cognitive sovereignty for computational convenience.
 
 Our children may not remember a time before AI cognitive infrastructure, as we barely remember life before the internet. The infrastructure we build today will constrain or enable the thoughts of tomorrow.
 
@@ -276,7 +276,7 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ---
 
-*The emergence of AI as cognitive infrastructure represents one of the most profound transformations in human history. Understanding its implications—both promising and perilous—is essential for anyone seeking to navigate and shape our cognitive future.*
+*The emergence of AI as cognitive infrastructure represents one of the most profound transformations in human history. Understanding its implications (both promising and perilous) is essential for anyone seeking to navigate and shape our cognitive future.*
 
 ## Academic Research & References
 
@@ -336,7 +336,7 @@ The answer depends on the choices we make now, while we still have the cognitive
     - Theoretical framework for understanding cognitive delegation
     - *Trends in Cognitive Sciences*
 
-12. **[The Extended Mind Thesis](https://www.jstor.org/stable/3328150)** (1998/2023 updated)
+12. **[The Extended Mind Thesis](https://www.jstor.org/stable/3328150)** (1998, updated 2023)
     - Clark & Chalmers' foundational work, updated for AI age
     - *Analysis, Volume 58*
 
