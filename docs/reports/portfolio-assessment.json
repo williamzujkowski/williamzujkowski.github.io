@@ -1,24 +1,24 @@
 {
-  "generated_at": "2025-10-28T22:51:35.945193",
+  "generated_at": "2025-10-28T23:17:13.287079",
   "total_posts": 55,
-  "average_score": 57.2,
+  "average_score": 71.7,
   "score_distribution": {
-    "excellent": 10,
-    "good": 12,
+    "excellent": 17,
+    "good": 15,
     "needs_improvement": 6,
-    "failing": 27
+    "failing": 17
   },
   "bottom_10_posts": [
-    "src/posts/2024-03-20-transformer-architecture-deep-dive.md",
-    "src/posts/2024-05-30-ai-learning-resource-constrained.md",
-    "src/posts/2025-08-09-ai-cognitive-infrastructure.md",
-    "src/posts/2024-03-05-cloud-migration-journey-guide.md",
-    "src/posts/2024-10-03-quantum-computing-defense.md",
-    "src/posts/2024-07-24-multimodal-foundation-models.md",
-    "src/posts/2025-10-13-embodied-ai-robots-physical-world.md",
-    "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md",
-    "src/posts/2024-04-30-quantum-resistant-cryptography-guide.md",
-    "src/posts/2024-04-11-ethics-large-language-models.md"
+    "src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
+    "src/posts/2024-01-30-securing-cloud-native-frontier.md",
+    "src/posts/2024-08-02-quantum-computing-leap-forward.md",
+    "src/posts/2024-11-05-pizza-calculator.md",
+    "src/posts/2024-02-22-open-source-vs-proprietary-llms.md",
+    "src/posts/2024-07-09-zero-trust-architecture-implementation.md",
+    "src/posts/2024-12-03-context-windows-llms.md",
+    "src/posts/2025-05-10-building-security-mindset-lessons-from-field.md",
+    "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
+    "src/posts/2024-09-09-embodied-ai-teaching-agents.md"
   ],
   "all_results": [
     {
@@ -403,22 +403,8 @@
       "status": "FAIL"
     },
     {
-      "score": 7.5,
+      "score": 80,
       "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 9,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "banned_token",
-          "severity": "medium",
-          "token": ";",
-          "count": 3,
-          "message": "Semicolons in narrative text are overly formal. Use periods or commas."
-        },
         {
           "type": "missing_required_pattern",
           "severity": "high",
@@ -426,118 +412,6 @@
           "found": 0,
           "required": 1,
           "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "implement",
-          "count": 1,
-          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
-          "suggestions": [
-            "build",
-            "create",
-            "add",
-            "configure",
-            "set up"
-          ]
-        }
-      ],
-      "passed_checks": [
-        {
-          "type": "specificity",
-          "found": 1,
-          "required": 1
-        },
-        {
-          "type": "trade_offs",
-          "found": 7,
-          "required": 1
-        },
-        {
-          "type": "sentiment_balance",
-          "sentiment_score": -0.03,
-          "threshold": 1.2
-        },
-        {
-          "type": "sentence_variety",
-          "short_sentences": 24,
-          "avg_length": 14.7
-        },
-        {
-          "type": "paragraph_variety",
-          "short_paragraphs": 64,
-          "avg_length": 22.9
-        }
-      ],
-      "post_path": "src/posts/2024-03-05-cloud-migration-journey-guide.md",
-      "post": "src/posts/2024-03-05-cloud-migration-journey-guide.md",
-      "status": "FAIL"
-    },
-    {
-      "score": 0,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 9,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "hype_word",
-          "severity": "medium",
-          "word": "remarkable",
-          "count": 3,
-          "message": "Empty superlative. Be specific about what's notable."
-        },
-        {
-          "type": "hype_word",
-          "severity": "high",
-          "word": "revolutionary",
-          "count": 3,
-          "message": "Hyperbolic claim. Explain the actual innovation."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
         },
         {
           "type": "missing_required_pattern",
@@ -551,29 +425,89 @@
       "warnings": [],
       "passed_checks": [
         {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 4,
+          "required": 1
+        },
+        {
           "type": "trade_offs",
-          "found": 13,
+          "found": 9,
           "required": 1
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": 0.04,
+          "sentiment_score": -0.03,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 56,
-          "avg_length": 12.3
+          "short_sentences": 30,
+          "avg_length": 14.3
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 74,
-          "avg_length": 22.2
+          "short_paragraphs": 55,
+          "avg_length": 28.8
+        }
+      ],
+      "post_path": "src/posts/2024-03-05-cloud-migration-journey-guide.md",
+      "post": "src/posts/2024-03-05-cloud-migration-journey-guide.md",
+      "status": "PASS"
+    },
+    {
+      "score": 100,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 16,
+          "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 67,
+          "avg_length": 12.8
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 65,
+          "avg_length": 28.4
         }
       ],
       "post_path": "src/posts/2024-03-20-transformer-architecture-deep-dive.md",
       "post": "src/posts/2024-03-20-transformer-architecture-deep-dive.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 52.5,
@@ -655,37 +589,13 @@
       "status": "FAIL"
     },
     {
-      "score": 25,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 11,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
+      "score": 100,
+      "violations": [],
       "warnings": [],
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 1,
+          "found": 6,
           "required": 1
         },
         {
@@ -694,9 +604,19 @@
           "required": 1
         },
         {
-          "type": "trade_offs",
-          "found": 13,
+          "type": "specificity",
+          "found": 1,
           "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 18,
+          "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
         },
         {
           "type": "sentiment_balance",
@@ -705,18 +625,18 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 33,
-          "avg_length": 14.4
+          "short_sentences": 36,
+          "avg_length": 15.4
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 96,
-          "avg_length": 18.7
+          "short_paragraphs": 86,
+          "avg_length": 23.6
         }
       ],
       "post_path": "src/posts/2024-04-11-ethics-large-language-models.md",
       "post": "src/posts/2024-04-11-ethics-large-language-models.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 70,
@@ -780,36 +700,14 @@
       "status": "FAIL"
     },
     {
-      "score": 20,
+      "score": 85,
       "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 10,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "banned_token",
-          "severity": "medium",
-          "token": ";",
-          "count": 1,
-          "message": "Semicolons in narrative text are overly formal. Use periods or commas."
-        },
         {
           "type": "ai_transition",
           "severity": "medium",
           "phrase": "overall",
           "count": 1,
           "message": "Generic summarizer. Be specific about what you're concluding."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
         },
         {
           "type": "missing_required_pattern",
@@ -823,39 +721,44 @@
       "warnings": [],
       "passed_checks": [
         {
+          "type": "first_person",
+          "found": 6,
+          "required": 1
+        },
+        {
           "type": "uncertainty",
-          "found": 4,
+          "found": 7,
           "required": 1
         },
         {
           "type": "specificity",
-          "found": 1,
+          "found": 17,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 12,
+          "found": 18,
           "required": 1
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": -0.08,
+          "sentiment_score": -0.09,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 16,
-          "avg_length": 16.8
+          "short_sentences": 22,
+          "avg_length": 16.6
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 101,
-          "avg_length": 16.3
+          "short_paragraphs": 90,
+          "avg_length": 21.1
         }
       ],
       "post_path": "src/posts/2024-04-30-quantum-resistant-cryptography-guide.md",
       "post": "src/posts/2024-04-30-quantum-resistant-cryptography-guide.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 25,
@@ -940,15 +843,8 @@
       "status": "FAIL"
     },
     {
-      "score": 0,
+      "score": 77.5,
       "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 10,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
         {
           "type": "ai_transition",
           "severity": "medium",
@@ -959,23 +855,9 @@
         {
           "type": "hype_word",
           "severity": "medium",
-          "word": "remarkable",
-          "count": 2,
-          "message": "Empty superlative. Be specific about what's notable."
-        },
-        {
-          "type": "hype_word",
-          "severity": "medium",
           "word": "cutting-edge",
           "count": 1,
           "message": "Vague descriptor. Specify what's novel."
-        },
-        {
-          "type": "hype_word",
-          "severity": "low",
-          "word": "seamless",
-          "count": 3,
-          "message": "Marketing speak. Describe the actual user experience."
         },
         {
           "type": "missing_required_pattern",
@@ -987,18 +869,6 @@
         }
       ],
       "warnings": [
-        {
-          "type": "jargon",
-          "severity": "medium",
-          "word": "leverage",
-          "count": 3,
-          "message": "Corporate buzzword. Use 'use' or 'take advantage of'.",
-          "suggestions": [
-            "use",
-            "take advantage of",
-            "apply"
-          ]
-        },
         {
           "type": "jargon",
           "severity": "low",
@@ -1016,7 +886,7 @@
         {
           "type": "long_sentences",
           "severity": "low",
-          "avg_length": 55.9,
+          "avg_length": 52.6,
           "max_avg": 20,
           "message": "Mix short punchy sentences with occasional longer ones."
         }
@@ -1029,12 +899,12 @@
         },
         {
           "type": "specificity",
-          "found": 38,
+          "found": 39,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 64,
+          "found": 67,
           "required": 1
         },
         {
@@ -1044,23 +914,23 @@
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": -0.02,
+          "sentiment_score": -0.03,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 82,
-          "avg_length": 55.9
+          "short_sentences": 84,
+          "avg_length": 52.6
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 91,
-          "avg_length": 48.5
+          "short_paragraphs": 89,
+          "avg_length": 49.3
         }
       ],
       "post_path": "src/posts/2024-05-30-ai-learning-resource-constrained.md",
       "post": "src/posts/2024-05-30-ai-learning-resource-constrained.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 50,
@@ -1298,48 +1168,8 @@
       "status": "FAIL"
     },
     {
-      "score": 17.5,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 7,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 0,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
+      "score": 92.5,
+      "violations": [],
       "warnings": [
         {
           "type": "jargon",
@@ -1358,105 +1188,7 @@
         {
           "type": "long_sentences",
           "severity": "low",
-          "avg_length": 27.2,
-          "max_avg": 20,
-          "message": "Mix short punchy sentences with occasional longer ones."
-        }
-      ],
-      "passed_checks": [
-        {
-          "type": "trade_offs",
-          "found": 5,
-          "required": 1
-        },
-        {
-          "type": "sentiment_balance",
-          "sentiment_score": -0.03,
-          "threshold": 1.2
-        },
-        {
-          "type": "sentence_variety",
-          "short_sentences": 44,
-          "avg_length": 27.2
-        },
-        {
-          "type": "paragraph_variety",
-          "short_paragraphs": 114,
-          "avg_length": 19.2
-        }
-      ],
-      "post_path": "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md",
-      "post": "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md",
-      "status": "FAIL"
-    },
-    {
-      "score": 12.5,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 7,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "ai_transition",
-          "severity": "medium",
-          "phrase": "overall",
-          "count": 1,
-          "message": "Generic summarizer. Be specific about what you're concluding."
-        },
-        {
-          "type": "hype_word",
-          "severity": "high",
-          "word": "revolutionary",
-          "count": 2,
-          "message": "Hyperbolic claim. Explain the actual innovation."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "implement",
-          "count": 3,
-          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
-          "suggestions": [
-            "build",
-            "create",
-            "add",
-            "configure",
-            "set up"
-          ]
-        },
-        {
-          "type": "long_sentences",
-          "severity": "low",
-          "avg_length": 50.0,
+          "avg_length": 24.1,
           "max_avg": 20,
           "message": "Mix short punchy sentences with occasional longer ones."
         }
@@ -1464,33 +1196,120 @@
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 2,
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 9,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 11,
+          "found": 9,
           "required": 1
         },
         {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
           "type": "sentiment_balance",
-          "sentiment_score": 0.04,
+          "sentiment_score": -0.04,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 9,
-          "avg_length": 50.0
+          "short_sentences": 58,
+          "avg_length": 24.1
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 78,
-          "avg_length": 23.8
+          "short_paragraphs": 107,
+          "avg_length": 23.0
+        }
+      ],
+      "post_path": "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md",
+      "post": "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md",
+      "status": "PASS"
+    },
+    {
+      "score": 90.0,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 4,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        },
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 22.0,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 21,
+          "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 6,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.01,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 40,
+          "avg_length": 22.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 56,
+          "avg_length": 36.1
         }
       ],
       "post_path": "src/posts/2024-07-24-multimodal-foundation-models.md",
       "post": "src/posts/2024-07-24-multimodal-foundation-models.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 30,
@@ -1810,30 +1629,8 @@
       "status": "PASS"
     },
     {
-      "score": 10,
+      "score": 90,
       "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 11,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "hype_word",
-          "severity": "high",
-          "word": "revolutionary",
-          "count": 1,
-          "message": "Hyperbolic claim. Explain the actual innovation."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
         {
           "type": "missing_required_pattern",
           "severity": "high",
@@ -1841,21 +1638,23 @@
           "found": 0,
           "required": 1,
           "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
         }
       ],
       "warnings": [],
       "passed_checks": [
         {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
           "type": "trade_offs",
-          "found": 5,
+          "found": 6,
           "required": 1
         },
         {
@@ -1865,23 +1664,23 @@
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": -0.04,
+          "sentiment_score": -0.15,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 32,
-          "avg_length": 14.9
+          "short_sentences": 36,
+          "avg_length": 16.1
         },
         {
           "type": "paragraph_variety",
           "short_paragraphs": 77,
-          "avg_length": 17.2
+          "avg_length": 21.1
         }
       ],
       "post_path": "src/posts/2024-10-03-quantum-computing-defense.md",
       "post": "src/posts/2024-10-03-quantum-computing-defense.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 50,
@@ -3177,22 +2976,8 @@
       "status": "PASS"
     },
     {
-      "score": 0,
+      "score": 90,
       "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 17,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "banned_token",
-          "severity": "medium",
-          "token": ";",
-          "count": 3,
-          "message": "Semicolons in narrative text are overly formal. Use periods or commas."
-        },
         {
           "type": "missing_required_pattern",
           "severity": "high",
@@ -3231,18 +3016,18 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 87,
-          "avg_length": 12.0
+          "short_sentences": 102,
+          "avg_length": 11.1
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 75,
-          "avg_length": 21.6
+          "short_paragraphs": 74,
+          "avg_length": 22.4
         }
       ],
       "post_path": "src/posts/2025-08-09-ai-cognitive-infrastructure.md",
       "post": "src/posts/2025-08-09-ai-cognitive-infrastructure.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 52.5,
@@ -3872,31 +3657,8 @@
       "status": "PASS"
     },
     {
-      "score": 15,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 14,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "banned_token",
-          "severity": "medium",
-          "token": ";",
-          "count": 1,
-          "message": "Semicolons in narrative text are overly formal. Use periods or commas."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        }
-      ],
+      "score": 100,
+      "violations": [],
       "warnings": [],
       "passed_checks": [
         {
@@ -3905,13 +3667,18 @@
           "required": 1
         },
         {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
           "type": "specificity",
-          "found": 1,
+          "found": 2,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 6,
+          "found": 7,
           "required": 1
         },
         {
@@ -3926,18 +3693,18 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 67,
-          "avg_length": 14.0
+          "short_sentences": 65,
+          "avg_length": 15.6
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 57,
-          "avg_length": 22.9
+          "short_paragraphs": 55,
+          "avg_length": 25.9
         }
       ],
       "post_path": "src/posts/2025-10-13-embodied-ai-robots-physical-world.md",
       "post": "src/posts/2025-10-13-embodied-ai-robots-physical-world.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 67.5,
