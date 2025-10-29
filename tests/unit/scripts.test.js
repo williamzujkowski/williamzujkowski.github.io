@@ -19,10 +19,10 @@ module.exports = {
         };
       }
 
-      // Test 2: Check for critical scripts
+      // Test 2: Check for critical scripts in organized subdirectories
       const criticalScripts = [
-        'optimize-blog-content.py',
-        'generate-blog-hero-images.py',
+        'blog-content/optimize-blog-content.py',
+        'blog-images/generate-blog-hero-images.py',
         'optimize-blog-images.sh'
       ];
 
@@ -31,7 +31,7 @@ module.exports = {
         if (!fs.existsSync(scriptPath)) {
           return {
             success: false,
-            error: `Critical script ${script} not found`
+            error: `Critical script ${script} not found at ${scriptPath}`
           };
         }
       }

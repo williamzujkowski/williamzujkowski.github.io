@@ -115,3 +115,4 @@ perf-reports/
 subagents/
 task-tracking/
 debug-reports/
+__pycache__/
