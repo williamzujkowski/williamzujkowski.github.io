@@ -26,9 +26,9 @@ title: 'Down the MCP Rabbit Hole: Building a Standards Server'
 
 I built a standards server that was supposed to be a simple wrapper around my documentation repository. Three weeks later, I had written 6,000 lines of code across 47 components, implementing Redis caching, vector search, six different language analyzers, 88 tests, and a React UI. For a read-only documentation server. That I'm the only user of.
 
-This is a case study in scope creep, premature optimization, and what happens when you let "one more feature" become your guiding principle. The irony? Version 1 worked perfectly fine at 200 lines of code. But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way—tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
+This is a case study in scope creep, premature optimization, and what happens when you let "one more feature" become your guiding principle. The irony? Version 1 worked perfectly fine at 200 lines of code. But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
 
-**The Numbers**: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story—it's a cautionary tale about knowing when good enough is perfect.
+**The Numbers**: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
 
 ## When Good Ideas Get Complicated
 
@@ -74,7 +74,7 @@ Yeah, it got away from me a bit.
 ## The Architecture Journey
 
 ### Version 1: "Keep It Simple"
-Started with stdio communication. Just pipe standards in and out. Clean, simple, working.
+I started with stdio communication. Just pipe standards in and out. Clean, simple, working.
 
 Then I thought: "But what about caching?"
 
@@ -166,6 +166,8 @@ standard = get_standard("react-patterns", format="compressed")
 ## The Struggles (Learning Moments)
 
 ### Redis Is Not Your Friend at 3 AM
+
+I spent two frustrating days tracking down silent cache failures before I realized I'd configured Redis with a noeviction policy. My "temporary" cache was storing everything indefinitely.
 
 **The Problem:**
 - Spent 2 days debugging silent cache failures
@@ -388,7 +390,7 @@ That's the beauty of side projects – they're never finished, only in various s
 
 Building an MCP server for my standards was like using a sledgehammer to hang a picture. It works, the picture is hung, but there's also a hole in the wall and my neighbors are asking questions.
 
-But hey, it's MY hole in the wall, and I learned how to use a sledgehammer.
+But hey, it's MY hole in the wall, and I learned how to use a sledgehammer. I tested every feature, broke things multiple times, and rebuilt them better each iteration.
 
 Sometimes that's enough.
 

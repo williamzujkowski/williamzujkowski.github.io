@@ -27,9 +27,9 @@ title: 'Implementing Zero Trust Security: Never Trust, Always Verify'
 
 ## BLUF: Zero Trust is Federal Law, Industry Standard
 
-Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Order 14028[1], and 63% of enterprises are following suit according to Forrester Research[2]. The shift from perimeter-based "castle-and-moat" security to identity-centric "never trust, always verify" isn't optional—it's a response to cloud computing, remote work, and sophisticated attacks that bypass traditional defenses. Here's the architecture, implementation strategy, and lessons learned from modernizing security for distributed systems.
+Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Order 14028[1], and 63% of enterprises are following suit according to Forrester Research[2]. The shift from perimeter-based "castle-and-moat" security to identity-centric "never trust, always verify" isn't optional. It's a response to cloud computing, remote work, and sophisticated attacks that bypass traditional defenses. Here's the architecture, implementation strategy, and lessons learned from modernizing security for distributed systems.
 
-Years ago, I remember when network security was simpler—if you were inside the corporate firewall, you were trusted. That castle-and-moat approach worked when employees sat at desks connected to company networks and applications lived in data centers behind clearly defined perimeters.
+Years ago, I remember when network security was simpler. If you were inside the corporate firewall, you were trusted. That castle-and-moat approach worked when employees sat at desks connected to company networks and applications lived in data centers behind clearly defined perimeters.
 
 
 
@@ -38,7 +38,7 @@ Years ago, I remember when network security was simpler—if you were inside the
 
 But that world is gone. The shift to cloud computing, remote work, and distributed systems has made the traditional perimeter meaningless. This is where Zero Trust architecture comes in, operating on the principle of "never trust, always verify."
 
-I've seen organizations struggle with this transition, and I've learned that implementing Zero Trust isn't just about adopting new tools—it's about fundamentally rethinking how we approach security in software development.
+I've seen organizations struggle with this transition, and I've learned that implementing Zero Trust isn't just about adopting new tools. It's about fundamentally rethinking how we approach security in software development.
 
 
 ## Zero Trust Architecture
@@ -185,13 +185,13 @@ The access request flow demonstrates continuous verification:
 
 ## Beyond the Perimeter: Why Zero Trust Matters
 
-The traditional model assumed threats existed outside the network. But years ago, I learned the hard way that some of the most damaging incidents come from inside the supposed "secure" perimeter—compromised credentials, malicious insiders, or attackers who've already breached the outer defenses.
+The traditional model assumed threats existed outside the network. But years ago, I learned the hard way that some of the most damaging incidents come from inside the supposed "secure" perimeter. This includes compromised credentials, malicious insiders, or attackers who've already breached the outer defenses.
 
 Zero Trust flips this assumption. NIST SP 800-207 defines three core principles with specific implementation requirements[3]:
 
 ### 1. Verify Explicitly
 
-Authenticate and authorize based on all available data points:
+Authenticate and authorize based on all available data points. Specific requirements include:
 
 - **Multi-factor authentication**: Something you know (password), have (FIDO2 key), are (biometric)
 - **Device attestation**: TPM-based secure boot, hardware-backed key storage, EDR validation
@@ -201,7 +201,7 @@ Authenticate and authorize based on all available data points:
 
 ### 2. Use Least Privilege Access
 
-Limit user access with Just-In-Time and Just-Enough-Access:
+Limit user access with Just-In-Time and Just-Enough-Access. Key controls include:
 
 - **Just-In-Time (JIT) access**: Temporary elevated privileges (1-8 hour windows)
 - **Just-Enough-Access (JEA)**: Minimum permissions required for specific task
@@ -211,7 +211,7 @@ Limit user access with Just-In-Time and Just-Enough-Access:
 
 ### 3. Assume Breach
 
-Minimize blast radius and verify end-to-end encryption:
+Minimize blast radius and verify end-to-end encryption. Essential practices include:
 
 - **Lateral movement prevention**: Segment networks so compromised endpoints can't pivot
 - **Blast radius minimization**: Isolate failure domains (one service breach doesn't cascade)
@@ -303,7 +303,7 @@ This creates a web of trust where every component must prove its identity before
 
 ## Least Privilege in Practice
 
-The principle of least privilege sounds straightforward, but implementing it effectively requires careful design:
+The principle of least privilege sounds straightforward, but applying it effectively requires careful design:
 
 **Permission Models:**
 - **RBAC (Role-Based)**: Group permissions by job function (developer, admin, auditor)
@@ -332,7 +332,7 @@ public Document getDocument(String documentId) {
 }
 ```
 
-This example shows how authorization can consider multiple factors—not just who is making the request, but what they're trying to access and where they're accessing it from.
+This example shows how authorization can consider multiple factors. Not just who is making the request, but what they're trying to access and where they're accessing it from.
 
 ## Continuous Verification and Monitoring
 
@@ -404,7 +404,7 @@ stages:
     - main
 ```
 
-Every artifact is signed and verified. Deployments use minimal permissions. Security scanning isn't optional—it's a gate that must pass.
+Every artifact is signed and verified. Deployments use minimal permissions. Security scanning isn't optional. It's a gate that must pass.
 
 ## The Challenges I've Encountered
 
@@ -454,7 +454,7 @@ Map your application's data flows and identify your most sensitive data:
 
 ### 2. Identity Foundation - Strong Authentication
 
-Implement strong identity management for users, services, and devices:
+Build strong identity management for users, services, and devices:
 
 - **Centralized identity provider**: Deploy enterprise IAM (Azure AD, Okta) or self-hosted (Keycloak)
 - **MFA rollout**: Phased deployment (admins first, then all users), hardware key distribution
@@ -462,7 +462,7 @@ Implement strong identity management for users, services, and devices:
 
 ### 3. Network Segmentation - Micro-Perimeters
 
-Isolate services and implement proper boundaries:
+Isolate services and create proper boundaries:
 
 - **Micro-segmentation**: Firewall rules per service, network policies in Kubernetes
 - **Service mesh deployment**: Istio sidecar injection, automatic mTLS between services
@@ -478,7 +478,7 @@ Apply encryption and access controls for data at rest and in transit:
 
 ### 5. Monitoring - Comprehensive Visibility
 
-Implement comprehensive logging and threat detection:
+Deploy comprehensive logging and threat detection:
 
 - **Centralized logging**: Aggregate logs from all sources (applications, infrastructure, security tools)
 - **SIEM integration**: Correlation rules for threat detection, automated incident workflows
@@ -496,13 +496,13 @@ The key is to approach this incrementally. You don't need to transform everythin
 
 ## Why Zero Trust Matters More Than Ever
 
-The shift to Zero Trust isn't just a security trend—it's a response to fundamental changes in how we build and deploy software. With applications spanning multiple clouds, remote teams, and increasingly sophisticated attacks, the old perimeter-based model fails in modern distributed environments.
+The shift to Zero Trust isn't just a security trend. It's a response to fundamental changes in how we build and deploy software. With applications spanning multiple clouds, remote teams, and increasingly sophisticated attacks, the old perimeter-based model fails in modern distributed environments.
 
 What I find most compelling about Zero Trust is how it aligns security with modern development practices. Instead of being an afterthought, security becomes an integral part of how we design and build systems.
 
 The investment in Zero Trust pays dividends beyond security. Applications built with these principles tend to be more resilient, better monitored, and easier to operate at scale.
 
-Remember that Zero Trust is a journey, not a destination. Start with understanding your current security posture, identify the highest-impact improvements, and gradually implement additional controls. The result will be applications that are not only more secure but also better prepared for whatever challenges come next.
+Remember that Zero Trust is a journey, not a destination. Start with understanding your current security posture, identify the highest-impact improvements, and gradually add additional controls. The result will be applications that are not only more secure but also better prepared for whatever challenges come next.
 
 ---
 
