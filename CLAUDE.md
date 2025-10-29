@@ -864,6 +864,26 @@ K3s uses 512MB RAM vs Kubernetes' 2GB minimum.
 on a Raspberry Pi without sacrificing features.
 ```
 
+### Sentence Rhythm and Cadence
+
+**Pattern:** Short → medium → punch.
+
+Examples:
+- "K3s works. It uses 512MB RAM. You can run it on a Raspberry Pi." (5-8-10 words)
+- "The first test failed. Took 20 minutes to debug. Turns out I forgot sudo." (4-5-8 words)
+
+**Avoid AI patterns:**
+- ❌ Perfectly parallel structures: "This improves X. This enhances Y. This optimizes Z."
+- ✅ Break rhythm: "This improves X. Y gets better too. Z? Still working on it."
+
+**Use minimal conjunctions:**
+- ❌ "I tested the system, and it worked, but the performance was slow."
+- ✅ "I tested the system. It worked. Performance was slow."
+
+**Add transitions like a human:**
+- Use: "Still," "Anyway," "That's fine," "Turns out"
+- Avoid: "Therefore," "Hence," "In conclusion," "Overall"
+
 ## Content Philosophy
 
 ### Voice Guidelines
@@ -885,6 +905,27 @@ on a Raspberry Pi without sacrificing features.
 - One idea per paragraph
 - Use white space for readability
 - Start paragraphs with strong hooks
+
+### Anti-AI-Tells Checklist
+
+**Before publishing, eliminate these machine-like patterns:**
+
+| Category | Remove | Replace With |
+|----------|--------|--------------|
+| **Punctuation** | Em dashes (—), semicolons (;) | Short sentences or commas |
+| **Transitions** | "In conclusion," "Overall," "Therefore" | "Anyway," "That's the gist," "Still" |
+| **Emotion** | "exciting," "remarkable," "thrilled" | "useful," "surprising," or remove |
+| **Vocabulary** | "utilize," "leverage," "paradigm" | "use," "try," "model" |
+| **Certainty** | Absolute claims ("always," "never") | "probably," "usually," "depends" |
+| **Symmetry** | Perfectly parallel clauses | Break rhythm intentionally |
+
+**Quick validation:**
+```bash
+# Check for AI tells in your post
+grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
+```
+
+**Why it matters:** These patterns signal AI authorship. Readers (and AI detectors) notice.
 
 ## Content Types
 
@@ -1053,6 +1094,25 @@ Before publishing:
 - Not every post needs to be epic
 - It's okay to have opinions
 - Writing gets easier with practice
+
+---
+
+## Humanization Techniques (Quick Reference)
+
+**Add these elements to avoid AI-like writing:**
+
+| Technique | Example | Use When |
+|-----------|---------|----------|
+| **Hesitation** | "At first I thought it was DNS. It wasn't." | Debugging stories |
+| **Reflection** | "Looking back, that assumption was wrong." | Lessons learned |
+| **Micro-failure** | "The first fix made it worse." | Tutorials |
+| **Concrete detail** | "Took 17 minutes to compile." | Technical posts |
+| **Temporal anchor** | "As of October 2025…" | Current state |
+| **Contradiction** | "I hate YAML. But it works." | Opinions |
+
+**Extended guidance:** See `human_tone.md` for advanced humanization techniques and style models (Polite Linus Torvalds, Kelsey Hightower clarity, Troy Hunt transparency).
+
+**Automation:** Run `python scripts/blog-content/humanization-validator.py --post [file]` before publishing.
 
 ---
 
@@ -1308,6 +1368,12 @@ At the end of each post, include:
 - [ ] Further reading section populated
 - [ ] Metadata complete
 - [ ] Trade-offs and limitations discussed
+- [ ] Tone validation completed (Phase G)
+- [ ] No AI tells (em dashes, "in conclusion," "leverage")
+- [ ] Sentence rhythm varies (short/medium/long)
+- [ ] At least one hesitation or reflection included
+- [ ] Personal voice preserved in stories
+- [ ] Concrete details added (timestamps, numbers)
 - [ ] Grammar and spelling checked
 
 ---
@@ -1316,11 +1382,11 @@ At the end of each post, include:
 
 ## Overview
 
-For transforming existing blog posts to meet Smart Brevity standards (10+ citations, 60+ bullets, 0 weak language, strong BLUF), use the proven 6-phase methodology from Batch 2 (8 posts, 100% success rate, 90-120 min per post).
+For transforming existing blog posts to meet Smart Brevity standards (10+ citations, 60+ bullets, 0 weak language, strong BLUF, human tone), use the proven 7-phase methodology from Batch 2+ (validated on 8 posts, enhanced with human tone validation).
 
-**Complete methodology documented in:** `docs/batch-2/CLAUDE_MD_UPDATES.md`
+**Complete methodology documented in:** `docs/batch-2/CLAUDE_MD_UPDATES.md` and `docs/human-tone-integration-plan.md`
 
-## The 6 Phases (Quick Reference)
+## The 7 Phases (Quick Reference)
 
 ### Phase A: Pre-Analysis (15 min)
 - Count current metrics (citations, bullets, weak language, word count)
@@ -1357,6 +1423,21 @@ For transforming existing blog posts to meet Smart Brevity standards (10+ citati
 - Verify: ≥10 citations, ≥60 bullets, 0 weak language, ≥1,400 words
 - Check personal voice preserved in stories
 - Mobile preview (375px screens)
+
+### Phase G: Tone Validation (10 min)
+- Remove AI tells (em dashes, semicolons, "in conclusion," "overall")
+- Eliminate corporate jargon ("leverage," "utilize," "exciting")
+- Break perfect parallel structures (vary rhythm)
+- Add humanization elements (hesitation, reflection, concrete details)
+- Verify sentence length variety (5-30 words, mixed)
+- Run humanization validator: `python scripts/blog-content/humanization-validator.py --post [file]`
+
+**Quick AI-tells check:**
+```bash
+grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
+```
+
+**Why Phase G matters:** Smart Brevity (Phases A-F) handles structure and citations. Tone validation ensures AI-generated content reads human, not corporate.
 
 ## Batch 2 Results (8 Posts)
 

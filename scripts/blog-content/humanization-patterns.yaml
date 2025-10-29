@@ -1,0 +1,206 @@
+# Humanization Patterns for Blog Post Validation
+# VERSION: 1.0.0
+# UPDATED: 2025-10-28
+# PURPOSE: Define patterns for detecting AI-generated content and enforcing human tone
+
+# BANNED TOKENS - These indicate AI-generated content
+banned_tokens:
+  punctuation:
+    - token: "—"
+      name: "em_dash"
+      severity: "high"
+      message: "Em dashes are AI-tells. Use commas or split into two sentences."
+    - token: ";"
+      name: "semicolon"
+      severity: "medium"
+      message: "Semicolons in narrative text are overly formal. Use periods or commas."
+      # Note: Allow semicolons in code blocks
+
+  transitions:
+    - phrase: "in conclusion"
+      severity: "high"
+      message: "AI transition phrase. End naturally without signaling."
+    - phrase: "overall"
+      severity: "medium"
+      message: "Generic summarizer. Be specific about what you're concluding."
+    - phrase: "in summary"
+      severity: "high"
+      message: "AI transition phrase. Use natural conclusion instead."
+    - phrase: "to summarize"
+      severity: "high"
+      message: "AI transition phrase. Avoid explicit meta-commentary."
+
+  jargon:
+    - word: "leverage"
+      severity: "medium"
+      message: "Corporate buzzword. Use 'use' or 'take advantage of'."
+      suggested_replacements: ["use", "take advantage of", "apply"]
+    - word: "utilize"
+      severity: "medium"
+      message: "Pretentious. Just say 'use'."
+      suggested_replacements: ["use"]
+    - word: "facilitate"
+      severity: "low"
+      message: "Overly formal. Use 'help' or 'enable'."
+      suggested_replacements: ["help", "enable", "make easier"]
+    - word: "implement"
+      severity: "low"
+      message: "Consider more specific verbs: 'build', 'create', 'add', 'configure'."
+      suggested_replacements: ["build", "create", "add", "configure", "set up"]
+
+  hype_words:
+    - word: "exciting"
+      severity: "medium"
+      message: "Overly enthusiastic. Show excitement through content, not adjectives."
+    - word: "remarkable"
+      severity: "medium"
+      message: "Empty superlative. Be specific about what's notable."
+    - word: "amazing"
+      severity: "high"
+      message: "Marketing hype. Use concrete descriptions."
+    - word: "revolutionary"
+      severity: "high"
+      message: "Hyperbolic claim. Explain the actual innovation."
+    - word: "game-changing"
+      severity: "high"
+      message: "Buzzword. Describe the specific impact."
+    - word: "cutting-edge"
+      severity: "medium"
+      message: "Vague descriptor. Specify what's novel."
+    - word: "seamless"
+      severity: "low"
+      message: "Marketing speak. Describe the actual user experience."
+
+# REQUIRED PATTERNS - These indicate human authorship
+required_patterns:
+  first_person:
+    min_occurrences: 1
+    patterns:
+      - "I tested"
+      - "I tried"
+      - "I found"
+      - "I noticed"
+      - "I ran"
+      - "I configured"
+      - "I deployed"
+      - "my homelab"
+      - "my setup"
+      - "my experience"
+    message: "Add at least one first-person statement about your direct experience."
+
+  uncertainty:
+    min_occurrences: 1
+    patterns:
+      - "probably"
+      - "likely"
+      - "might"
+      - "depends on"
+      - "your mileage may vary"
+      - "YMMV"
+      - "in my case"
+      - "at least in my testing"
+      - "seems to"
+      - "appears to"
+    message: "Include caveats or uncertainty to show nuanced thinking."
+
+  specificity:
+    min_occurrences: 1
+    patterns:
+      - regex: '\b\d+\.\d+\.\d+\b'  # Version numbers (1.2.3)
+      - regex: '\b20\d{2}-\d{2}-\d{2}\b'  # Dates (2025-01-15)
+      - regex: '\b\d+(?:GB|MB|TB|ms|μs)\b'  # Quantitative specs
+      - regex: '\b(?:in|took|after)\s+\d+\s+(?:seconds?|minutes?|hours?|days?)\b'  # Time measurements
+    message: "Include specific timestamps, versions, or measurements from your testing."
+
+  trade_offs:
+    min_occurrences: 1
+    patterns:
+      - "trade-off"
+      - "downside"
+      - "limitation"
+      - "caveat"
+      - "but"
+      - "however"
+      - "on the other hand"
+      - "the problem is"
+      - "doesn't work well for"
+      - "struggled with"
+    message: "Discuss trade-offs or limitations to show balanced perspective."
+
+  concrete_details:
+    min_occurrences: 2
+    patterns:
+      - regex: '```[\s\S]+?```'  # Code blocks
+      - "why it matters"
+      - "here's how"
+      - "for example"
+      - "in practice"
+      - "what this means"
+    message: "Include concrete examples or explanations of practical impact."
+
+# SENTIMENT ANALYSIS
+sentiment:
+  overly_positive_threshold: 1.2
+  positive_emotion_words:
+    - "great"
+    - "excellent"
+    - "fantastic"
+    - "wonderful"
+    - "superb"
+    - "outstanding"
+    - "impressive"
+    - "powerful"
+    - "robust"
+    - "elegant"
+    - "beautiful"
+    - "perfect"
+    - "ideal"
+
+  negative_balance_words:
+    - "problem"
+    - "issue"
+    - "challenge"
+    - "difficult"
+    - "limitation"
+    - "downside"
+    - "struggled"
+    - "failed"
+    - "error"
+    - "bug"
+
+# SENTENCE STRUCTURE
+sentence_structure:
+  min_short_sentences: 3  # < 10 words
+  max_avg_sentence_length: 20  # words
+  allow_occasional_long: true  # Up to 30 words is ok occasionally
+  message: "Mix short punchy sentences with occasional longer ones."
+
+# PARAGRAPH STRUCTURE
+paragraph_structure:
+  max_avg_paragraph_length: 100  # words
+  min_short_paragraphs: 2  # < 50 words
+  message: "Break up long paragraphs. Aim for 3-5 sentences per paragraph."
+
+# FORMAL VOCABULARY REPLACEMENTS
+vocabulary_replacements:
+  "commence": "start"
+  "terminate": "end"
+  "obtain": "get"
+  "purchase": "buy"
+  "attempt": "try"
+  "accomplish": "do"
+  "demonstrate": "show"
+  "indicate": "show"
+  "determine": "find out"
+  "require": "need"
+  "provide": "give"
+  "possess": "have"
+
+# SCORING WEIGHTS
+scoring:
+  banned_token_penalty: -5  # per occurrence
+  missing_required_pattern_penalty: -10  # per missing pattern type
+  overly_positive_sentiment_penalty: -15
+  good_structure_bonus: 5
+  max_score: 100
+  passing_score: 70
