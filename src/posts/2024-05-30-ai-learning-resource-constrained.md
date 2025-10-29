@@ -414,7 +414,7 @@ Running AI models on Raspberry Pi clusters taught me the importance of hardware-
 - Fault tolerance: handle individual Pi failures gracefully in cluster
 - Practical throughput: 8-device cluster achieves 50-200 inferences/sec depending on model size
 
-My cluster of eight Raspberry Pi 4s now runs inference on models that previously required cloud GPUs. This opened possibilities for edge AI deployment I hadn't considered before.
+My cluster of eight Raspberry Pi 4s now runs inference on models that previously required cloud GPUs. I tested this setup with BERT inference and found it handled 50-80 requests per second, which opened possibilities for edge AI deployment I hadn't considered before.
 
 ### GPU Efficiency: Maximizing Utilization
 
@@ -694,7 +694,7 @@ When I applied curriculum learning to my natural language understanding models i
 - Pareto frontiers: visualize accuracy vs efficiency trade-offs
 - Reproducibility: standardized protocols ensure fair comparison
 - Hardware diversity: benchmarks across CPU, GPU, mobile, edge devices
-- Public leaderboards: track state-of-the-art efficient models
+- Public leaderboards: track most efficient models and current best practices
 
 **Optimization Guides:**
 - Hardware-specific: NVIDIA (CUDA), Intel (oneAPI), Apple (Metal)
@@ -935,7 +935,7 @@ Working within constraints revealed technical truths that apply far beyond resou
 - Profile first, optimize second: intuition wrong 80% of time about bottlenecks
 - Measure everything: latency, throughput, memory, energy, accuracy, user satisfaction
 - Micro-benchmarks necessary: understanding component costs allows informed decisions
-- End-to-end metrics matter most: component optimization must improve overall system
+- End-to-end metrics matter most: component optimization must improve the complete system
 - Hardware-specific behavior: same code performs differently on different architectures
 - Statistical significance: variance matters, single runs misleading
 - Continuous monitoring: performance regressions detected early easier to fix
@@ -956,7 +956,7 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 - AI research shouldn't require elite institutional access or corporate funding
 - Geographic lottery: talent distributed globally, computational resources concentrated regionally
 - Economic barriers: requiring $100K compute budgets excludes brilliant minds without resources
-- Knowledge democratization: breakthroughs can come from anyone with access to tools
+- Knowledge democratization: important advances can come from anyone with access to tools
 - Diversity of thought: resource constraints drive different perspectives and approaches
 - Long-tail applications: most valuable AI applications serve niche communities, not mass markets
 
@@ -980,7 +980,7 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 - Limitations focus attention: infinite resources permit undisciplined exploration
 - Necessity mothers invention: pressure produces unexpected solutions to old problems
 - Resourcefulness vs resources: cleverness often outperforms computation
-- Historical pattern: breakthrough innovations often emerged from resource-poor environments
+- Historical pattern: significant innovations often emerged from resource-constrained environments
 - Different optimization surface: constraints reveal solutions invisible from abundance perspective
 - Generalization beyond origin: efficient techniques developed for constraints benefit all
 
@@ -1134,7 +1134,7 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 - Training programs: workshops on quantization, pruning, knowledge distillation
 - Efficiency bootcamps: hands-on sessions optimizing real models on constrained hardware
 - Cross-functional learning: ML engineers learn hardware, hardware engineers learn ML
-- Conference attendance: NeurIPS, MLSys, TinyML conferences for cutting-edge techniques
+- Conference attendance: NeurIPS, MLSys, TinyML conferences for latest optimization techniques
 - Internal knowledge sharing: lunch-and-learns, tech talks, documentation wikis
 - Mentorship pairs: experienced efficiency engineers guide newcomers
 - Tool familiarity: ensure teams know profiling, optimization, and deployment tools

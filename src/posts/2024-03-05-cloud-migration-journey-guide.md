@@ -65,7 +65,7 @@ graph TB
 
 Our migration decision came from multiple pressures converging simultaneously:
 
-**Capacity Constraints:** Our fastest-growing service was hitting infrastructure limits. Procurement cycles for new servers stretched months, while our competitors spun up resources in minutes.
+**Capacity Constraints:** Our fastest-growing service was hitting infrastructure limits. Here's how bad it got: procurement cycles for new servers stretched months, while our competitors spun up resources in minutes.
 
 **Cost Reality:** I spent three weeks analyzing our total cost of ownership in early 2020. Server depreciation, data center rent, cooling costs, and staff overhead painted a stark picture. We were paying roughly $180,000 annually for infrastructure that delivered performance a $60,000 cloud solution could match. The numbers were hard to ignore.
 
@@ -79,7 +79,7 @@ However, the reality proved more nuanced. Our first month in the cloud came to $
 
 Our initial approach was embarrassingly naive. We thought migration meant "lift and shift" everything to AWS and call it done. Reality proved far more complex.
 
-**Infrastructure Assessment:** I spent two weeks cataloging our systems, and it revealed dependencies I'd completely forgotten existed. That "simple" web application connected to fourteen different services, three legacy databases, and a file server that hadn't been documented since 2015.
+**Infrastructure Assessment:** I spent two weeks cataloging our systems, and it revealed dependencies I'd completely forgotten existed. I ran dependency mapping tools and found that "simple" web application connected to fourteen different services, three legacy databases, and a file server that hadn't been documented since 2015.
 
 The migration timeline reflected this complexity: we planned for 2 weeks but the actual migration took 3.5 weeks (a 75% overrun). This approach worked for our scale of about 40 core services, though I think enterprise environments with hundreds of interconnected applications would face even longer timelines...
 

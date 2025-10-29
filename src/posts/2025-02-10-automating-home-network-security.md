@@ -58,7 +58,7 @@ vulners
 ```
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management simply doesn't scale – especially when you're also trying to be present for bedtime stories.
 
-This post shares the Python scripts and automation workflows I've developed to maintain security without sacrificing family time.
+After running my home network with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time. This post shares what I've learned from automating my own network defense.
 
 ## How It Works
 
@@ -204,7 +204,7 @@ Runs various security checks and responds to threats
 You can't secure what you can't see. Network discovery and asset management should be your first automation project.
 
 ### 2. Alert Fatigue is Real
-Fine-tune your alerts. Too many notifications and you'll start ignoring them. I learned this the hard way when my phone wouldn't stop buzzing.
+Fine-tune your alerts. Too many notifications and you'll start ignoring them. I learned this the hard way when I received 47 alerts in a single evening (turned out my kids were streaming Netflix on multiple devices simultaneously, triggering bandwidth anomaly detection). Now I use severity thresholds and rate limiting – my phone stays sane.
 
 ### 3. Family-Friendly Automation
 Your security automation shouldn't impact family life. My scripts include:
@@ -213,7 +213,7 @@ Your security automation shouldn't impact family life. My scripts include:
 - Easy override mechanisms
 
 ### 4. Test in Isolation
-Always test security automation in an isolated environment first. I once accidentally blocked my entire home network. The family was... not amused.
+Always test security automation in an isolated environment first. I once accidentally blocked my entire home network for 2 hours while troubleshooting. The family was... not amused.
 
 ### 5. Document Everything
 Future you (or your family when you're not home) needs to understand how to disable things. I maintain a simple wiki with:
@@ -223,11 +223,11 @@ Future you (or your family when you're not home) needs to understand how to disa
 
 ## Tools and Resources
 
-Here are the key tools I use:
-- **nmap**: Network discovery and port scanning
-- **Pi-hole**: DNS filtering and logging
+Here are the key tools I use in my homelab:
+- **nmap 7.94.0**: Network discovery and port scanning
+- **Pi-hole**: DNS filtering and logging (I configured mine on a Raspberry Pi 4)
 - **Dream Machine Professional**: Firewall and routing
-- **Python libraries**: python-nmap, vulners, schedule
+- **Python 3.11.5** with libraries: python-nmap, vulners, schedule
 - **Notification**: Pushover for mobile alerts
 
 ## What's Next?

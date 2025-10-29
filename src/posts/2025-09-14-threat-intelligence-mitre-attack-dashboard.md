@@ -25,11 +25,11 @@ images:
     alt: Python code and development workflow for Building Your Own MITRE ATT&CK Threat
       Intelligence Dashboard
 ---
-Years ago, I learned the hard way that reading threat reports isn't enough. After missing critical indicators that were buried in vendor PDFs, I built my own threat intelligence dashboard. Today, I'll show you how to create one using the MITRE ATT&CK framework and open-source feeds—turning overwhelming data into actionable intelligence.
+Years ago, I learned the hard way that reading threat reports isn't enough. After missing critical indicators that were buried in vendor PDFs, I built my own threat intelligence dashboard. Today, I'll show you how to create one using the MITRE ATT&CK framework and open-source feeds, turning overwhelming data into actionable intelligence.
 
 ## Why Personal Threat Intelligence Matters
 
-According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive an average of 10,000 threat indicators daily, but only 3% are relevant to their specific environment. Generic threat feeds are like drinking from a fire hose—lots of volume, little value.
+According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive an average of 10,000 threat indicators daily, but only 3% are relevant to their specific environment. Generic threat feeds are like drinking from a fire hose (lots of volume, little value).
 
 [MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555) changes this by providing a common language for threat behaviors. Instead of tracking millions of IoCs, we can focus on the techniques that matter to our environment.
 
@@ -64,7 +64,7 @@ Each tactic contains multiple techniques. For example, Initial Access includes:
 
 ## Building the Dashboard Architecture
 
-Let's create a system that aggregates threat data, maps it to ATT&CK, and visualizes what matters to us.
+I discovered that the most effective approach is to create a system that aggregates threat data, maps it to ATT&CK, and visualizes what matters to us.
 
 ### System Components
 

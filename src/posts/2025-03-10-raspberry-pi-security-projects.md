@@ -83,11 +83,13 @@ threading
 
 Before diving into projects, let's address the elephant in the room: Why use a $35 computer for security when enterprise solutions exist?
 
+I've found several compelling reasons through my own experiments:
+
 1. **Low Power Consumption**: Running 24/7 costs pennies
 2. **Silent Operation**: No fans = no noise in your home
 3. **Versatility**: From network monitoring to physical security
 4. **Learning Platform**: Mistakes are cheap and educational
-5. **Real Solutions**: These aren't toys – they solve actual problems
+5. **Real Solutions**: These aren't toys – they solve actual problems (at least in my experience)
 
 ## Project 1: The Network Sentinel – DNS Sinkhole & Monitor
 
@@ -220,7 +222,7 @@ After implementing these projects, here are my key takeaways:
 My first Pi-hole setup was basic. Now it has custom blocklists, monitoring scripts, and integration with my SIEM. Evolution is normal.
 
 ### 2. Physical Security Matters
-That expensive Arlo camera? My Pi Zero setup catches more relevant events because I positioned it better and tuned it myself.
+That expensive Arlo camera? My Pi Zero setup catches more relevant events because I positioned it better and tuned it myself. Your mileage may vary depending on your specific setup and environment.
 
 ### 3. False Positives Will Happen
 My honeypot initially alerted on my own port scans. My motion detector thought shadows were intruders. Tuning is crucial.
@@ -247,7 +249,7 @@ Compare that to:
 
 ## What's Next?
 
-I'm currently working on:
+I'm currently experimenting with some ambitious ideas (though they're still in early testing):
 1. **AI-Powered Threat Detection**: Using Coral TPU for real-time network traffic analysis
 2. **Mesh Security Network**: Multiple Pis creating a distributed security sensor network
 3. **Incident Response Bot**: Automated playbook execution via Discord commands

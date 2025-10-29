@@ -36,13 +36,13 @@ After evaluating options ranging from Next.js to Hugo, I landed on [Eleventy](ht
 ## Why Eleventy Won Me Over
 
 ### 1. Simplicity Without Sacrificing Power
-Eleventy generates static HTML with zero client-side JavaScript by default. This means my site loads instantly, works on slow connections, and respects users' bandwidth. When I do need interactivity (like the dark mode toggle or search), I can add just what's necessary.
+Eleventy generates static HTML with zero client-side JavaScript by default. What this means in practice is my site loads instantly, works on slow connections, and respects users' bandwidth. When I do need interactivity (like the dark mode toggle or search), I can add just what's necessary.
 
 ### 2. Data Cascade
 One of Eleventy's killer features is its data cascade. I can define global data, directory data, and page-specific data that all merge intelligently. This made building features like automatic navigation and tag pages surprisingly straightforward.
 
 ### 3. Incredible Build Speed
-My entire site builds in under 100ms. Coming from webpack-based tools, this feels like magic. Fast builds mean I can iterate quickly and deploy confidently.
+My entire site builds in under 100ms. Coming from webpack-based tools, this feels like magic. Why it matters: fast builds mean I can iterate quickly and deploy confidently. Your mileage may vary depending on site complexity, but for my setup it's been consistently fast.
 
 ## What I've Built
 

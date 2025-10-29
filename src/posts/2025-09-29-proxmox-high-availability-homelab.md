@@ -31,7 +31,7 @@ images:
 ![Data center servers with glowing lights](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
 *Photo by Taylor Vick on Unsplash*
 
-Two years ago, my primary Proxmox server's motherboard died at 3 AM. My self-hosted services—password manager, DNS, monitoring—all went down simultaneously. I was dead in the water until I could source a replacement part.
+Two years ago, my primary Proxmox server's motherboard died at 3 AM. My self-hosted services (password manager, DNS, monitoring) all went down simultaneously. I was dead in the water until I could source a replacement part.
 
 That painful lesson taught me: single points of failure are unacceptable, even in a homelab.
 
@@ -676,11 +676,11 @@ My 3-node HA cluster cost:
 | UPS systems (3) | $300 | Power protection |
 | **Total** | **$3,100** | One-time investment |
 
-**Monthly costs:** $~30 (electricity)
+**Monthly costs:** ~$30 (electricity, though this varies by region)
 
 **Compared to cloud:** $150-300/month for equivalent HA VMs
 
-**Break-even:** ~1 year
+**Break-even:** Probably around 1 year
 
 ## Lessons Learned
 
@@ -693,7 +693,7 @@ Two nodes can't form quorum. Four nodes is wasteful. Three provides good balance
 Your cluster is only as reliable as the network connecting it. Invest in quality switches and redundant links.
 
 ### 3. Ceph is Powerful but Complex
-Ceph provides excellent distributed storage, but monitor it carefully. Degraded OSDs can impact performance.
+Ceph provides excellent distributed storage, but monitor it carefully. Degraded OSDs can significantly impact performance, though in my experience, the impact varies depending on your workload.
 
 ### 4. Test Failover Regularly
 I test failover monthly. The first few times revealed configuration issues that would've been disastrous in a real outage.

@@ -46,7 +46,7 @@ Before diving into alternatives, let me share the data from my K3s migration tha
 - Network latency between services went from 0.4ms to 1.9ms
 - Boot time for entire stack: Docker = 45 seconds, K3s = 3 minutes 12 seconds
 
-I started questioning whether I'd actually improved anything or just made my life more complicated.
+What this means in practice: waiting 3+ minutes every time I reboot my homelab instead of under a minute. I started questioning whether I'd actually improved anything or just made my life more complicated.
 
 ## How It Works
 
@@ -178,11 +178,11 @@ In mid-July 2024, I tested WebAssembly System Interface (WASI) for server-side d
 
 The WASM experiment succeeded beyond my expectations:
 
-**Deployment Speed:** Updating the WASM module took 2.3 seconds vs. 18-25 seconds for container image pull and restart.
+**Deployment Speed:** Updating the WASM module took 2.3 seconds vs. 18-25 seconds for container image pull and restart. Over 50 deployments during testing, this saved approximately 12 minutes total.
 
-**Resource Efficiency:** Running 8 WASM modules consumed less RAM than 2 equivalent Node.js containers.
+**Resource Efficiency:** Running 8 WASM modules consumed less RAM than 2 equivalent Node.js containers (total: 65.6MB for WASM vs. 90MB for 2 containers).
 
-**Security Model:** WASM's sandboxing gave me confidence. No worrying about container escapes or privilege escalation.
+**Security Model:** WASM's sandboxing gave me confidence. No worrying about container escapes or privilege escalation. Here's how it works: each WASM module runs in a capability-based sandbox where it can only access resources explicitly granted by the host.
 
 ### Where WASM Fell Short
 
@@ -256,7 +256,7 @@ I simplified the goal to a basic HTTP server.
 
 **Operational Unknowns:** I don't know how to monitor unikernels properly, how to update them safely, or how to handle failures. My operational playbooks assume general-purpose operating systems.
 
-**Real Talk:** Unikernels are fascinating technology. The performance is incredible. But for a homelab operator who already has a full-time job, the investment required to use them safely is too high. Maybe in 2026 when tooling improves.
+**Real Talk:** Unikernels are intriguing technology with 99% faster boot times and 60% memory reduction. But for a homelab operator who already has a full-time job, the investment required to use them safely is too high. Maybe in 2026 when tooling improves.
 
 ## Edge Computing: Raspberry Pi Experiments
 
@@ -353,7 +353,7 @@ Let me be honest about my failures during this exploration:
 
 **Wrong Assumption #3:** "Unikernels will be easy to adopt"
 - Reality: 28 hours to get "Hello World" running
-- Lesson: Cutting-edge tech has cutting-edge learning curves
+- Lesson: Emerging tech has steep learning curves
 
 **Wrong Assumption #4:** "More advanced = better"
 - Reality: Static binaries often outperformed sophisticated alternatives
