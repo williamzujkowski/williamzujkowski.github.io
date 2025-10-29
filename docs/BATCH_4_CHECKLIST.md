@@ -120,14 +120,14 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 ### Spawn Agents (5 min)
 
 - [ ] Agent 7: `2024-12-03-context-windows-llms.md` (40/100, 4 violations)
-- [ ] Agent 8: `2025-05-10-building-security-mindset-lessons-from-field.md` (40/100, 4 violations) ⚠️ **NDA RISK**
+- [ ] Agent 8: `2024-10-22-ai-edge-computing.md` (40/100, 4 violations) ⚠️ **NDA RISK**
 - [ ] Agent 9: `2024-02-09-deepfake-dilemma-ai-deception.md` (42.5/100, 3 violations)
 - [ ] Agent 10: `2024-09-09-embodied-ai-teaching-agents.md` (45/100, 3 violations)
 
 ### Agent 8 Special Instructions (NDA Critical)
 
 ```
-Fix building-security-mindset-lessons-from-field.md:
+Fix ai-edge-computing.md:
 
 ⚠️ CRITICAL NDA REQUIREMENTS:
 - Remove ANY current/recent work references
@@ -164,7 +164,7 @@ Then apply standard humanization:
 
 ### Manual NDA Review (Post 8) - 10 min ⚠️
 
-- [ ] Open `src/posts/2025-05-10-building-security-mindset-lessons-from-field.md`
+- [ ] Open `src/posts/2024-10-22-ai-edge-computing.md`
 - [ ] Search for forbidden patterns: "recent", "current", "last week/month", "employer", "production"
 - [ ] Verify all timestamps are 2019-2021 or earlier
 - [ ] Confirm stories are generic/hypothetical or homelab-specific
@@ -177,7 +177,7 @@ Then apply standard humanization:
 
 For each post:
 - [ ] Post 7: Run `python scripts/blog-content/humanization-validator.py src/posts/2024-12-03-context-windows-llms.md`
-- [ ] Post 8: Run `python scripts/blog-content/humanization-validator.py src/posts/2025-05-10-building-security-mindset-lessons-from-field.md`
+- [ ] Post 8: Run `python scripts/blog-content/humanization-validator.py src/posts/2024-10-22-ai-edge-computing.md`
 - [ ] Post 9: Run `python scripts/blog-content/humanization-validator.py src/posts/2024-02-09-deepfake-dilemma-ai-deception.md`
 - [ ] Post 10: Run `python scripts/blog-content/humanization-validator.py src/posts/2024-09-09-embodied-ai-teaching-agents.md`
 
@@ -193,14 +193,14 @@ For each post:
 
 ```bash
 git add src/posts/2024-12-03-context-windows-llms.md
-git add src/posts/2025-05-10-building-security-mindset-lessons-from-field.md
+git add src/posts/2024-10-22-ai-edge-computing.md
 git add src/posts/2024-02-09-deepfake-dilemma-ai-deception.md
 git add src/posts/2024-09-09-embodied-ai-teaching-agents.md
 
 git commit -m "feat(blog): Batch 4 Wave 2 - humanize 4 posts (40-45 range)
 
 - Context Windows LLMs: 40 → ≥80/100
-- Building Security Mindset: 40 → ≥80/100 (NDA reviewed)
+- AI at the Edge Computing: 45 → ≥90/100 (safe replacement)
 - Deepfake Dilemma AI Deception: 42.5 → ≥80/100
 - Embodied AI Teaching Agents: 45 → ≥80/100
 

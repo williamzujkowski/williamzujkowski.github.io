@@ -41,7 +41,7 @@ Target the 10 worst-performing posts (25-45/100 range) using validated parallel 
 ### Wave 2 (4 posts, 1-2 hours)
 
 7. `context-windows-llms.md` - 40.0/100 (4 violations) → Target: 90/100
-8. `building-security-mindset-lessons-from-field.md` - 40.0/100 (4 violations) → Target: 85/100 ⚠️ *NDA review*
+8. `ai-edge-computing.md` - 45.0/100 (4 violations) → Target: 90/100 ✅ *Safe*
 9. `deepfake-dilemma-ai-deception.md` - 42.5/100 (3 violations) → Target: 90/100
 10. `embodied-ai-teaching-agents.md` - 45.0/100 (3 violations) → Target: 90/100
 
@@ -91,7 +91,7 @@ Hour 5-6:   Portfolio re-assessment, completion report, Batch 5 planning
 ## 🚨 Critical Risks
 
 ### Post 8: NDA Review Required ⚠️
-**File:** `building-security-mindset-lessons-from-field.md`
+**File:** `ai-edge-computing.md`
 
 **Risk:** Personal career reflection may violate government work NDA
 

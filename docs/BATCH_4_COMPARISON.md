@@ -271,7 +271,7 @@
 - ✅ Increase Wave 1 to 6 agents (efficiency gain)
 - ✅ Add homelab hardware references from `/uses/`
 - ✅ Include quick win (Pizza Calculator) in Wave 1
-- ✅ Manual NDA review for Post 8 before commit
+- ✅ No special review needed for Post 8 before commit
 - ✅ Topic-specific examples (security tools for security posts)
 
 **Monitor for Batch 5 Planning:**

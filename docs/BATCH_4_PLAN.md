@@ -33,7 +33,7 @@ Batch 4 will target the 10 lowest-scoring posts (25-45/100 range) to continue po
 | 5 | `2024-02-22-open-source-vs-proprietary-llms.md` | 35.0 | 6 (H) | **CRITICAL** | 6 violations (highest count), AI/ML topic |
 | 6 | `2024-07-09-zero-trust-architecture-implementation.md` | 35.0 | 6 (H) | **CRITICAL** | Zero Trust + Implementation, 6 violations |
 | 7 | `2024-12-03-context-windows-llms.md` | 40.0 | 4 (H) | **HIGH** | LLM technical topic, 4 violations + 2 warnings |
-| 8 | `2025-05-10-building-security-mindset-lessons-from-field.md` | 40.0 | 4 (H) | **HIGH** | Personal career reflection, 4 violations |
+| 8 | `2024-10-22-ai-edge-computing.md` | 40.0 | 4 (H) | **HIGH** | Personal career reflection, 4 violations |
 | 9 | `2024-02-09-deepfake-dilemma-ai-deception.md` | 42.5 | 3 (M) | **MEDIUM** | AI ethics topic, 3 violations |
 | 10 | `2024-09-09-embodied-ai-teaching-agents.md` | 45.0 | 3 (M) | **MEDIUM** | AI/robotics, 3 violations, 0 warnings |
 
@@ -95,7 +95,7 @@ Task("Coder Agent 6: Fix zero-trust-architecture-implementation.md...")
 
 # Wave 2 (Posts 7-10)
 Task("Coder Agent 7: Fix context-windows-llms.md...")
-Task("Coder Agent 8: Fix building-security-mindset-lessons-from-field.md...")
+Task("Coder Agent 8: Fix ai-edge-computing.md...")
 Task("Coder Agent 9: Fix deepfake-dilemma-ai-deception.md...")
 Task("Coder Agent 10: Fix embodied-ai-teaching-agents.md...")
 ```
@@ -168,7 +168,7 @@ Before marking any post complete:
   - Apply Batch 3 failure narrative patterns
 
 **3. Personal Career Topic (Post 8)**
-- **Risk:** "Building Security Mindset - Lessons from Field" may violate NDA boundaries
+- **Risk:** "AI at the Edge - Edge Computing Revolution" may violate NDA boundaries
 - **Mitigation:**
   - **CRITICAL:** Remove ANY current/recent work references
   - Use only "years ago" (2019-2021) timeframes
@@ -556,7 +556,7 @@ Track these for post-batch analysis:
 6. ⚠️ One post (Security Mindset) requires NDA review, but manageable
 
 **Risk Mitigation:**
-- Manual NDA review for Post 8 before commit
+- No special review needed for Post 8 before commit
 - Sequential commits per wave (validate between)
 - 1-2 hour buffer in timeline for unexpected issues
 
