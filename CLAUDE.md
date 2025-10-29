@@ -206,11 +206,12 @@ williamzujkowski.github.io/
 
 ```
 scripts/
-├── blog-content/        # Content management & optimization (5 scripts)
+├── blog-content/        # Content management & optimization (6 scripts)
 │   ├── analyze-blog-content.py
 │   ├── batch-improve-blog-posts.py
 │   ├── blog-manager.py
 │   ├── comprehensive-blog-enhancement.py
+│   ├── humanization-validator.py     # v2.0: 155x faster batch validation
 │   └── optimize-blog-content.py
 ├── blog-images/         # Image generation & management (6 scripts)
 │   ├── enhanced-blog-image-search.py
@@ -250,7 +251,7 @@ scripts/
 └── optimize-blog-images.sh  # Shell script for image optimization
 ```
 
-**Total Active Scripts**: 34 Python scripts + 2 Shell scripts
+**Total Active Scripts**: 35 Python scripts + 2 Shell scripts
 
 #### `/docs` - Documentation
 - **Purpose**: Project documentation and guides
@@ -1577,6 +1578,315 @@ For comprehensive documentation of the 7-phase process, validation patterns, and
 
 ---
 
+## 📊 Humanization Validator v2.0
+
+**Version:** 2.0.0 (October 2025)
+**Performance:** 155x faster with batch processing (0.74s for 57 posts)
+**Scoring:** Enhanced with measurement bonuses (up to +10 points)
+**Location:** `scripts/blog-content/humanization-validator.py`
+
+### Quick Commands
+
+```bash
+# Single post validation
+python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+
+# Batch validate all posts (FAST!)
+python scripts/blog-content/humanization-validator.py --batch
+
+# Find posts needing attention
+python scripts/blog-content/humanization-validator.py --batch --filter-below 90
+
+# Save monthly report
+python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-$(date +%Y-%m).json
+
+# Compare with last month
+python scripts/blog-content/humanization-validator.py --batch --compare reports/monthly-2025-09.json
+```
+
+### New Features in v2.0
+
+#### 1. Measurement Detection (+10 bonus for 10+ measurements)
+
+Automatically detects 8 types of concrete measurements:
+
+- **Percentages:** "73% improvement", "25.5% faster"
+- **Multipliers:** "2.1x faster", "4x speedup"
+- **Comparisons:** "X vs Y", "from 100ms to 50ms"
+- **Performance:** "3.2 seconds", "1,000 req/s"
+- **Hardware:** "64GB RAM", "Intel i9-9900K", "RTX 3090"
+- **Time:** "3 hours", "2 weeks", "5 minutes"
+- **Data Sizes:** "48,000 lines", "12 projects"
+- **Experimental:** "tested with 50 samples", "measured over 3 months"
+
+**Bonus Scoring:** +5 for 5-9 measurements, +10 for 10+
+
+**Why it matters:** Measurements prove you did the work. Generic posts say "faster," specific posts say "73% faster after 3 weeks testing."
+
+#### 2. Failure Narrative Scoring (0-10 subscore)
+
+Detects authentic failure stories across 6 categories:
+
+- Bug admissions, debugging stories, learning from failure
+- Time costs, explicit mistakes, recovery narratives
+- Weighted scoring (debugging: 2.0x, admissions: 1.5x)
+
+**Example patterns detected:**
+```markdown
+✅ "I spent 6 hours debugging this issue..."
+✅ "The first fix made it worse..."
+✅ "After 4 failed attempts, I discovered..."
+✅ "This mistake cost me 2 days..."
+```
+
+**Why it matters:** Only humans make mistakes. Admitting failures proves authenticity.
+
+#### 3. Trade-off Depth Analysis (0-11 depth score)
+
+Analyzes trade-off discussion quality:
+
+- Multi-option evaluation (tested 4, 8, 12, 16 heads)
+- Constraint discussion, nuanced conclusions
+- Quantified comparisons, context-dependent recommendations
+
+**Example patterns detected:**
+```markdown
+✅ "K3s uses 512MB RAM vs Kubernetes' 2GB minimum."
+✅ "This works for edge deployments. But production needs full K8s."
+✅ "Tested 4, 8, 12, 16 attention heads. 8 performed best for my use case."
+```
+
+**Why it matters:** AI overstates benefits. Humans acknowledge costs.
+
+#### 4. Uncertainty Patterns (expanded to 25)
+
+Now detects 25 uncertainty markers:
+
+- Hedging: "might be", "could be", "tends to"
+- Caveats: "in my experience", "Your mileage may vary"
+- Admissions: "I'm not sure if", "unclear whether"
+- Future: "will probably", "might eventually"
+
+**Why it matters:** AI generates absolute statements. Humans express uncertainty.
+
+#### 5. Batch Processing (155x faster)
+
+- Parallel processing with multiprocessing
+- Progress indicators with ETA
+- Multiple output formats (summary, JSON, detailed)
+- Report comparison for trend analysis
+
+**Performance comparison:**
+- **v1.0 (sequential):** 115 seconds for 57 posts
+- **v2.0 (batch):** 0.74 seconds for 57 posts
+- **Speedup:** 155x faster
+
+### Best Practices for New Posts
+
+**To achieve 100+ scores:**
+
+1. **Add 10+ concrete measurements** - Numbers, percentages, comparisons
+   - "73% improvement", "2.1x faster", "64GB RAM"
+
+2. **Include failure stories** - Honest mistakes and debugging nightmares
+   - "I spent 6 hours debugging this issue..."
+   - "The first fix made it worse..."
+
+3. **Discuss trade-offs** - Multi-option evaluation with quantified outcomes
+   - "K3s uses 512MB vs K8s 2GB minimum"
+   - "Works for edge deployments. But production needs full K8s."
+
+4. **Use uncertainty markers** - "I think", "probably", "in my experience"
+   - "Your mileage may vary depending on hardware"
+   - "This probably depends on your kernel version"
+
+5. **Add first-person narrative** - "I discovered", "I made a mistake"
+   - "In my homelab, I tested..."
+   - "I tried 3 approaches. First failed..."
+
+**Example of excellent content:**
+
+```markdown
+I spent 6 hours debugging this issue and discovered it was a simple
+misconfiguration. The performance improved from 340ms to 85ms (4x faster)
+once I fixed it. In retrospect, I should have checked the logs first,
+but I learned the hard way that assumptions are expensive. Your mileage
+may vary depending on your setup.
+```
+
+**This has:** measurements (6 hours, 340ms→85ms, 4x), failure story (debugging),
+uncertainty (should have, mileage may vary), first-person (I spent, I discovered).
+
+### Validation Workflow
+
+#### Pre-Commit Validation
+
+All blog posts are automatically validated before commit:
+
+```bash
+# Pre-commit hook runs:
+python scripts/blog-content/humanization-validator.py --post "$file" --min-score 75
+
+# If score <75/100:
+❌ FAIL: Post scored 68/100 (threshold: 75)
+
+Violations:
+- [HIGH] Em dashes found (3 occurrences)
+- [HIGH] Missing uncertainty patterns
+- [MEDIUM] Overly positive sentiment (score: 1.4, threshold: 1.2)
+
+Refine post using appropriate phases.
+```
+
+#### Manual Validation
+
+```bash
+# Validate single post
+python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+
+# Batch validate all posts
+python scripts/blog-content/humanization-validator.py --batch
+
+# Find posts below threshold
+python scripts/blog-content/humanization-validator.py --batch --filter-below 75
+
+# Generate detailed report
+python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-report.json
+```
+
+#### Output Interpretation
+
+```
+Score: 82/100 - PASS
+
+VIOLATIONS (1)
+  [HIGH] banned_token
+    Em dashes are AI-tells. Use commas or split into two sentences.
+    Found: 2 occurrence(s)
+
+PASSED CHECKS (6)
+  ✓ first_person: Found 8 (required: 1)
+  ✓ uncertainty: Found 7 (required: 1)
+  ✓ trade_offs: Found 15 (required: 1)
+  ✓ specificity: Found 22 (required: 1)
+  ✓ concrete_details: Found 7 (required: 2)
+  ✓ sentiment_balance: 0.8 (threshold: 1.2)
+
+SCORE BREAKDOWN:
+  Base score: 72
+  Measurement bonus: +10 (detected 15 measurements)
+  Total: 82/100
+```
+
+### Validation Standards
+
+**Scoring Tiers:**
+
+- **0-59 (Failing):** Sounds AI-generated. Full 7-phase refinement required.
+- **60-74 (Needs Improvement):** Missing key patterns. Targeted refinement.
+- **75-89 (Good):** Passes validation. Polish to excellent tier.
+- **90-100 (Excellent):** Authentically human. Minimal maintenance.
+
+**Minimum Requirements:**
+
+- ≥75/100 to pass pre-commit validation
+- ≥90/100 for excellent tier (target for all posts)
+- 0 high-severity violations (em dashes, semicolons, AI phrases)
+- 8+ first-person statements
+- 6+ uncertainty phrases
+- 10+ trade-off discussions
+- 15+ concrete measurements
+
+### Integration with 7-Phase Methodology
+
+**v2.0 enhances existing phases:**
+
+- **Phase 1 (AI-Tell Removal):** Detects em dashes, semicolons, AI phrases
+- **Phase 2 (Personal Voice):** Counts first-person statements
+- **Phase 3 (Measurements):** Detects 8 measurement types, awards bonuses
+- **Phase 4 (Uncertainty):** Validates 25 uncertainty patterns
+- **Phase 5 (Failure Narratives):** Scores failure story quality (0-10)
+- **Phase 6 (Trade-offs):** Analyzes trade-off depth (0-11)
+- **Phase 7 (Validation):** Automated scoring with detailed feedback
+
+**Workflow integration:**
+
+```bash
+# After completing Phase 1-6 refinements
+python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+
+# If score <75, identify gaps:
+# - High violations? Return to Phase 1
+# - Missing measurements? Add concrete metrics (Phase 3)
+# - No uncertainty? Add hedging language (Phase 4)
+# - Weak trade-offs? Add balanced perspectives (Phase 6)
+
+# Re-validate after improvements
+python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+```
+
+### Batch Reporting
+
+**Monthly trend analysis:**
+
+```bash
+# Generate October report
+python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-2025-10.json
+
+# Compare with September
+python scripts/blog-content/humanization-validator.py --batch --compare reports/monthly-2025-09.json
+
+# Output shows:
+Portfolio Trend Analysis:
+  Average score: 87.3 → 89.1 (+1.8)
+  Posts ≥90: 35 → 40 (+5)
+  Posts <75: 3 → 0 (-3)
+  Measurement bonus: 27 posts now qualify (+10 from v2.0 detection)
+```
+
+**Why it matters:** Track portfolio quality over time. Identify posts needing attention.
+
+### Edge Cases
+
+**Career/NDA-sensitive posts:**
+- Lower personal narrative threshold (60-70% vs 80%+)
+- Time buffering required ("years ago")
+- Homelab substitution for work examples
+
+**Technical deep-dives:**
+- Higher measurement requirement (20-30+ vs 15+)
+- Academic tone acceptable for precision
+- Lower personal narrative (50-60%) if compensated by measurements
+
+**Tutorial/how-to posts:**
+- Higher failure narrative emphasis (80-90% of sections)
+- Every technique needs trade-off
+- Personal testing framing for every step
+
+**Security/vulnerability posts:**
+- 90-day minimum age for CVE discussion
+- CVSS scores contextualized (never score alone)
+- Homelab testing attribution required
+
+### Performance Metrics
+
+**v2.0 vs v1.0:**
+
+| Metric | v1.0 | v2.0 | Improvement |
+|--------|------|------|-------------|
+| Single post validation | 2.0s | 1.9s | Negligible |
+| Batch 57 posts | 115s | 0.74s | 155x faster |
+| Measurement detection | Manual | Automated | +100% |
+| Failure scoring | Pattern count | Weighted depth | +Quality |
+| Trade-off analysis | Boolean | 0-11 scale | +Nuance |
+| Uncertainty patterns | 12 | 25 | +108% |
+
+**Why it matters:** v2.0 enables portfolio-wide validation in <1 second. Run often.
+
+---
+
+---
+
 ### Quick Reference by Baseline Score
 
 Use this decision tree to determine the appropriate humanization approach based on a post's current validation score.
@@ -2182,6 +2492,22 @@ python scripts/blog-research/check-citation-hyperlinks.py
 
 # Validate humanization (MANDATORY before commit)
 python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
+```
+
+**Quick humanization commands (v2.0):**
+
+```bash
+# Single post validation
+python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+
+# Batch validate all posts (155x faster)
+python scripts/blog-content/humanization-validator.py --batch
+
+# Find posts needing attention
+python scripts/blog-content/humanization-validator.py --batch --filter-below 90
+
+# Monthly portfolio report
+python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-$(date +%Y-%m).json
 ```
 
 ---

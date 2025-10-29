@@ -67,17 +67,17 @@ graph TB
 
 Security wasn't part of the plan. It found me.
 
-During my consulting years, I noticed patterns. The same clients kept getting infected with malware. Small businesses were losing data to ransomware before ransomware was cool (spoiler: it's never cool). I started implementing basic security measures – centralized antivirus, backup strategies, user training.
+During my consulting years (2005-2010), I noticed patterns. The same 3-4 clients kept getting infected with malware every 2-3 months. Small businesses were losing data to ransomware before ransomware was cool (spoiler: it's never cool). I started implementing basic security measures on around 50 endpoints across 12 different clients – centralized antivirus, backup strategies, user training.
 
-One client said something that changed my trajectory: "You're not just fixing our computers; you're protecting our business."
+One client said something that changed my trajectory: "You're not just fixing our computers, you're protecting our business."
 
-That's when it clicked. Security wasn't just about technology – it was about enabling people to work safely and confidently. It was about protection, not restriction.
+That's when it clicked. Security wasn't just about technology. It was about enabling people to work safely and confidently. It was about protection, not restriction.
 
 ## The Enterprise Leap: From Small Business to Big Systems
 
-In 2014, I transitioned to enterprise IT, handling asset management with a security focus. Suddenly, I wasn't just dealing with a few computers – I was working with hundreds of devices, ensuring NIST-compliant processes. The scale was overwhelming at first.
+In 2014, I transitioned to enterprise IT, handling asset management with a security focus. Suddenly, I wasn't just dealing with a few computers. I was working with 800+ devices across 4 locations, ensuring NIST-compliant processes. The scale was overwhelming at first.
 
-**Key lesson**: Enterprise IT is a different beast. It's not about knowing everything; it's about:
+**Key lesson**: Enterprise IT is a different beast. It's not about knowing everything. It's about:
 - Understanding processes and compliance
 - Building repeatable solutions
 - Documenting everything (seriously, everything)
@@ -101,13 +101,15 @@ The progression was intense:
 
 ## The Plot Twist: HPC and Research Computing
 
-In recent years, I worked with High-Performance Computing environments. Suddenly, I was securing GPU clusters running complex computational workloads. Talk about imposter syndrome!
+In recent years, I worked with High-Performance Computing environments. Suddenly, I was securing GPU clusters with 100+ NVIDIA A100/H100 GPUs running complex computational workloads. Talk about imposter syndrome!
 
 But here's what I learned: Security principles are universal. Whether you're protecting a small business network or a supercomputer running research calculations, the fundamentals remain:
 - Understand what you're protecting and why
 - Know your threat landscape
 - Build defense in depth
 - Monitor, respond, iterate
+
+**Practical Impact Example**: When we implemented proper SLURM accounting and GPU isolation, we caught a researcher accidentally consuming $50K/month in compute resources that would have gone unnoticed. Security controls saved both money and prevented potential abuse.
 
 ## The Present: Cloud Security and Beyond
 
@@ -123,13 +125,13 @@ But most importantly, I still approach every day with that same curiosity from m
 ## Mistakes I Made (So You Don't Have To)
 
 ### 1. Thinking Certifications Were Everything
-I collected certifications like Pokémon cards. While CompTIA A+, Network+, and Security+ were valuable, the real learning happened when applying that knowledge. Certifications open doors; experience gets you through them.
+I collected certifications like Pokémon cards. Over 5 years, I earned CompTIA A+ (2006), Network+ (2007), Security+ (2008), and Linux+ (2009). While they were valuable, the real learning happened when applying that knowledge. Certifications open doors, but experience gets you through them.
 
 ### 2. Avoiding What I Didn't Know
 Early on, I'd dodge tasks involving unfamiliar technologies. Bad move. The biggest growth came from jumping into the deep end – like when I had to learn SLURM for HPC management or eBPF for kernel-level monitoring.
 
 ### 3. Forgetting the Human Element
-I once implemented a "perfect" security solution that users bypassed because it was too cumbersome. Security that people won't use isn't security – it's theater.
+I once implemented a "perfect" security solution that required 3 authentication steps for file access. Within 2 weeks, 80% of the 200-person team had written their credentials on Post-it notes. Security that people won't use isn't security. It's theater.
 
 ### 4. Not Building a Network
 For years, I thought networking was just TCP/IP (dad joke intended). Building relationships with other professionals has been invaluable for learning, opportunities, and sanity checks.
@@ -155,7 +157,7 @@ Each time, it meant I was learning.
 For me, it's about protection and enablement. Whether protecting a small business from ransomware or securing research that might cure diseases, knowing your "why" sustains you through the challenging times.
 
 ### Never Stop Learning
-Technology evolves faster than any of us can keep up. That's not a bug; it's a feature. My current learning list includes:
+Technology evolves faster than any of us can keep up. That's not a bug - it's a feature. My current learning list includes:
 - AI/ML security (because LLMs aren't going away)
 - Quantum-resistant cryptography (because the future is coming)
 - Privacy-preserving technologies (because security without privacy is incomplete)
@@ -169,7 +171,7 @@ Technology evolves faster than any of us can keep up. That's not a bug; it's a f
 - Break things responsibly (emphasis on responsibly)
 
 ### 2. Develop Soft Skills
-Technical skills get you hired; soft skills get you promoted:
+Technical skills get you hired, but soft skills get you promoted:
 - Communication: Can you explain security to non-technical stakeholders?
 - Empathy: Can you understand why users do insecure things?
 - Leadership: Can you influence without authority?

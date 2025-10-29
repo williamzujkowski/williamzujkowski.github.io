@@ -1,0 +1,4915 @@
+[2025-10-29 08:07:23] Starting monthly portfolio validation...
+[2025-10-29 08:07:23] Month: 2025-10
+[2025-10-29 08:07:23] Repository: /home/william/git/williamzujkowski.github.io
+[2025-10-29 08:07:23] Creating necessary directories...
+[0;32m[SUCCESS][0m Directories created
+[2025-10-29 08:07:23] Checking prerequisites...
+[0;32m[SUCCESS][0m All prerequisites met
+[2025-10-29 08:07:23] Running batch validation for 2025-10...
+
+[1mStarting batch validation...[0m
+Posts to validate: [96m57[0m
+Workers: [96m4[0m
+
+[92m✓[0m [1/57]   1.8% | Score: [92m110[0m | ETA:   3.2s | 2024-01-08-writing-secure-code-developers-guide.md
+[92m✓[0m [2/57]   3.5% | Score: [92m110[0m | ETA:   1.7s | 2024-01-18-demystifying-cryptography-beginners-guide.md
+[92m✓[0m [3/57]   5.3% | Score: [92m110[0m | ETA:   1.2s | 2024-01-30-securing-cloud-native-frontier.md
+[92m✓[0m [4/57]   7.0% | Score: [92m100[0m | ETA:   0.9s | 2024-02-09-deepfake-dilemma-ai-deception.md
+[92m✓[0m [5/57]   8.8% | Score: [92m110[0m | ETA:   1.0s | 2024-02-22-open-source-vs-proprietary-llms.md
+[92m✓[0m [6/57]  10.5% | Score: [92m110[0m | ETA:   0.8s | 2024-03-05-cloud-migration-journey-guide.md
+[92m✓[0m [7/57]  12.3% | Score: [92m110[0m | ETA:   0.8s | 2024-03-20-transformer-architecture-deep-dive.md
+[92m✓[0m [8/57]  14.0% | Score: [92m100[0m | ETA:   0.7s | 2024-04-04-retrieval-augmented-generation-rag.md
+[92m✓[0m [9/57]  15.8% | Score: [92m110[0m | ETA:   0.7s | 2024-04-11-ethics-large-language-models.md
+[92m✓[0m [10/57]  17.5% | Score: [92m110[0m | ETA:   0.7s | 2024-04-19-mastering-prompt-engineering-llms.md
+[92m✓[0m [11/57]  19.3% | Score: [92m107[0m | ETA:   0.7s | 2024-04-30-quantum-resistant-cryptography-guide.md
+[92m✓[0m [12/57]  21.1% | Score: [92m100[0m | ETA:   0.7s | 2024-05-14-ai-new-frontier-cybersecurity.md
+[92m✓[0m [13/57]  22.8% | Score: [92m107[0m | ETA:   0.9s | 2024-05-30-ai-learning-resource-constrained.md
+[92m✓[0m [14/57]  24.6% | Score: [92m110[0m | ETA:   0.8s | 2024-06-11-beyond-containers-future-deployment.md
+[92m✓[0m [15/57]  26.3% | Score: [92m107[0m | ETA:   0.8s | 2024-06-25-designing-resilient-systems.md
+[92m✓[0m [16/57]  28.1% | Score: [92m102[0m | ETA:   0.7s | 2024-07-09-zero-trust-architecture-implementation.md
+[92m✓[0m [17/57]  29.8% | Score: [92m102[0m | ETA:   0.6s | 2024-07-16-sustainable-computing-carbon-footprint.md
+[92m✓[0m [18/57]  31.6% | Score: [92m100[0m | ETA:   0.6s | 2024-07-24-multimodal-foundation-models.md
+[92m✓[0m [19/57]  33.3% | Score: [92m110[0m | ETA:   0.6s | 2024-08-02-quantum-computing-leap-forward.md
+[92m✓[0m [20/57]  35.1% | Score: [92m110[0m | ETA:   0.6s | 2024-08-13-high-performance-computing.md
+[92m✓[0m [21/57]  36.8% | Score: [92m110[0m | ETA:   0.6s | 2024-08-27-zero-trust-security-principles.md
+[92m✓[0m [22/57]  38.6% | Score: [92m107[0m | ETA:   0.5s | 2024-09-09-embodied-ai-teaching-agents.md
+[92m✓[0m [23/57]  40.4% | Score: [92m110[0m | ETA:   0.5s | 2024-09-19-biomimetic-robotics.md
+[92m✓[0m [24/57]  42.1% | Score: [92m110[0m | ETA:   0.5s | 2024-10-03-quantum-computing-defense.md
+[92m✓[0m [25/57]  43.9% | Score: [92m105[0m | ETA:   0.5s | 2024-10-10-blockchain-beyond-cryptocurrency.md
+[92m✓[0m [26/57]  45.6% | Score: [92m100[0m | ETA:   0.5s | 2024-10-22-ai-edge-computing.md
+[92m✓[0m [27/57]  47.4% | Score: [92m110[0m | ETA:   0.4s | 2024-11-05-pizza-calculator.md
+[92m✓[0m [28/57]  49.1% | Score: [92m100[0m | ETA:   0.4s | 2024-11-15-gpu-power-monitoring-homelab-ml.md
+[92m✓[0m [29/57]  50.9% | Score: [92m 97[0m | ETA:   0.4s | 2024-11-19-llms-smart-contract-vulnerability.md
+[92m✓[0m [30/57]  52.6% | Score: [92m100[0m | ETA:   0.4s | 2024-12-03-context-windows-llms.md
+[92m✓[0m [31/57]  54.4% | Score: [92m100[0m | ETA:   0.4s | 2025-02-10-automating-home-network-security.md
+[92m✓[0m [32/57]  56.1% | Score: [92m110[0m | ETA:   0.3s | 2025-02-24-continuous-learning-cybersecurity.md
+[92m✓[0m [33/57]  57.9% | Score: [92m110[0m | ETA:   0.3s | 2025-03-10-raspberry-pi-security-projects.md
+[92m✓[0m [34/57]  59.6% | Score: [92m 85[0m | ETA:   0.3s | 2025-03-24-from-it-support-to-senior-infosec-engineer.md
+[92m✓[0m [35/57]  61.4% | Score: [92m100[0m | ETA:   0.3s | 2025-04-10-securing-personal-ai-experiments.md
+[92m✓[0m [36/57]  63.2% | Score: [92m 90[0m | ETA:   0.3s | 2025-04-24-building-secure-homelab-adventure.md
+[92m✓[0m [37/57]  64.9% | Score: [92m 97[0m | ETA:   0.3s | 2025-05-10-llm-fine-tuning-homelab-guide.md
+[92m✓[0m [38/57]  66.7% | Score: [92m100[0m | ETA:   0.3s | 2025-06-25-local-llm-deployment-privacy-first.md
+[92m✓[0m [39/57]  68.4% | Score: [92m110[0m | ETA:   0.2s | 2025-07-01-ebpf-security-monitoring-practical-guide.md
+[92m✓[0m [40/57]  70.2% | Score: [92m100[0m | ETA:   0.2s | 2025-07-08-implementing-dns-over-https-home-networks.md
+[92m✓[0m [41/57]  71.9% | Score: [92m110[0m | ETA:   0.2s | 2025-07-15-vulnerability-management-scale-open-source.md
+[92m✓[0m [42/57]  73.7% | Score: [92m110[0m | ETA:   0.2s | 2025-07-22-supercharging-claude-cli-with-standards.md
+[92m✓[0m [43/57]  75.4% | Score: [92m110[0m | ETA:   0.2s | 2025-07-29-building-mcp-standards-server.md
+[92m✓[0m [44/57]  77.2% | Score: [92m107[0m | ETA:   0.2s | 2025-08-07-supercharging-development-claude-flow.md
+[92m✓[0m [45/57]  78.9% | Score: [92m100[0m | ETA:   0.2s | 2025-08-09-ai-cognitive-infrastructure.md
+[92m✓[0m [46/57]  80.7% | Score: [92m110[0m | ETA:   0.1s | 2025-08-18-container-security-hardening-homelab.md
+[92m✓[0m [47/57]  82.5% | Score: [92m 85[0m | ETA:   0.1s | 2025-08-25-network-traffic-analysis-suricata-homelab.md
+[92m✓[0m [48/57]  84.2% | Score: [92m 92[0m | ETA:   0.1s | 2025-09-01-self-hosted-bitwarden-migration-guide.md
+[92m✓[0m [49/57]  86.0% | Score: [92m 82[0m | ETA:   0.1s | 2025-09-08-zero-trust-vlan-segmentation-homelab.md
+[92m✓[0m [50/57]  87.7% | Score: [92m100[0m | ETA:   0.1s | 2025-09-14-threat-intelligence-mitre-attack-dashboard.md
+[92m✓[0m [51/57]  89.5% | Score: [92m 97[0m | ETA:   0.1s | 2025-09-20-iot-security-homelab-owasp.md
+[92m✓[0m [52/57]  91.2% | Score: [92m107[0m | ETA:   0.1s | 2025-09-20-vulnerability-prioritization-epss-kev.md
+[92m✓[0m [53/57]  93.0% | Score: [92m110[0m | ETA:   0.0s | 2025-09-29-proxmox-high-availability-homelab.md
+[92m✓[0m [54/57]  94.7% | Score: [92m107[0m | ETA:   0.0s | 2025-10-06-automated-security-scanning-pipeline.md
+[92m✓[0m [55/57]  96.5% | Score: [92m110[0m | ETA:   0.0s | 2025-10-13-embodied-ai-robots-physical-world.md
+[92m✓[0m [56/57]  98.2% | Score: [92m107[0m | ETA:   0.0s | 2025-10-17-progressive-context-loading-llm-workflows.md
+[92m✓[0m [57/57] 100.0% | Score: [92m100[0m | ETA:   0.0s | welcome.md
+
+[92mBatch validation complete![0m
+Total time: [96m0.68s[0m
+Average: [96m0.01s[0m per post
+
+{
+  "timestamp": "2025-10-29T08:07:24.272068",
+  "total_posts": 57,
+  "results": [
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 16,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 12,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 4,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 20,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.04,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 44,
+          "avg_length": 13.9
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 28,
+          "avg_length": 42.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 46,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 9,
+            "multipliers": 2,
+            "comparisons": 2,
+            "performance_metrics": 3,
+            "hardware_specs": 0,
+            "time_measurements": 21,
+            "data_sizes": 7,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 46 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-01-08-writing-secure-code-developers-guide.md",
+      "measurements": {
+        "percentages": 9,
+        "multipliers": 2,
+        "comparisons": 2,
+        "performance_metrics": 3,
+        "hardware_specs": 0,
+        "time_measurements": 21,
+        "data_sizes": 7,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 29.0,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 16,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.02,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 35,
+          "avg_length": 29.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 68,
+          "avg_length": 31.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 47,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 2,
+            "multipliers": 3,
+            "comparisons": 10,
+            "performance_metrics": 9,
+            "hardware_specs": 0,
+            "time_measurements": 16,
+            "data_sizes": 6,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 47 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-01-18-demystifying-cryptography-beginners-guide.md",
+      "measurements": {
+        "percentages": 2,
+        "multipliers": 3,
+        "comparisons": 10,
+        "performance_metrics": 9,
+        "hardware_specs": 0,
+        "time_measurements": 16,
+        "data_sizes": 6,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 13,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 27,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 14,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 6,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.1,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 82,
+          "avg_length": 12.9
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 23,
+          "avg_length": 47.8
+        },
+        {
+          "type": "measurement_richness",
+          "total": 29,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 5,
+            "multipliers": 1,
+            "comparisons": 3,
+            "performance_metrics": 8,
+            "hardware_specs": 0,
+            "time_measurements": 10,
+            "data_sizes": 0,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 29 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-01-30-securing-cloud-native-frontier.md",
+      "measurements": {
+        "percentages": 5,
+        "multipliers": 1,
+        "comparisons": 3,
+        "performance_metrics": 8,
+        "hardware_specs": 0,
+        "time_measurements": 10,
+        "data_sizes": 0,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 100,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 12,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 22,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.11,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 44,
+          "avg_length": 14.8
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 47,
+          "avg_length": 36.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 46,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 21,
+            "multipliers": 0,
+            "comparisons": 6,
+            "performance_metrics": 5,
+            "hardware_specs": 3,
+            "time_measurements": 10,
+            "data_sizes": 1,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 46 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
+      "measurements": {
+        "percentages": 21,
+        "multipliers": 0,
+        "comparisons": 6,
+        "performance_metrics": 5,
+        "hardware_specs": 3,
+        "time_measurements": 10,
+        "data_sizes": 1,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 23.0,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 15,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 17,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 22,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 25,
+          "avg_length": 23.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 32,
+          "avg_length": 44.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 60,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 16,
+            "multipliers": 4,
+            "comparisons": 12,
+            "performance_metrics": 0,
+            "hardware_specs": 11,
+            "time_measurements": 17,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 60 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-02-22-open-source-vs-proprietary-llms.md",
+      "measurements": {
+        "percentages": 16,
+        "multipliers": 4,
+        "comparisons": 12,
+        "performance_metrics": 0,
+        "hardware_specs": 11,
+        "time_measurements": 17,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 13,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 13,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 40,
+          "avg_length": 14.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 57,
+          "avg_length": 32.9
+        },
+        {
+          "type": "measurement_richness",
+          "total": 46,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 13,
+            "multipliers": 2,
+            "comparisons": 6,
+            "performance_metrics": 10,
+            "hardware_specs": 1,
+            "time_measurements": 14,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 46 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-03-05-cloud-migration-journey-guide.md",
+      "measurements": {
+        "percentages": 13,
+        "multipliers": 2,
+        "comparisons": 6,
+        "performance_metrics": 10,
+        "hardware_specs": 1,
+        "time_measurements": 14,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 4,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 13,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 20,
+          "required": 1,
+          "depth_score": 7,
+          "depth_analysis": "Very Good: Multi-option evaluation with quantified comparisons"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 112,
+          "avg_length": 12.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 59,
+          "avg_length": 37.3
+        },
+        {
+          "type": "measurement_richness",
+          "total": 46,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 12,
+            "multipliers": 7,
+            "comparisons": 14,
+            "performance_metrics": 0,
+            "hardware_specs": 3,
+            "time_measurements": 8,
+            "data_sizes": 0,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 46 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-03-20-transformer-architecture-deep-dive.md",
+      "measurements": {
+        "percentages": 12,
+        "multipliers": 7,
+        "comparisons": 14,
+        "performance_metrics": 0,
+        "hardware_specs": 3,
+        "time_measurements": 8,
+        "data_sizes": 0,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 100.0,
+      "violations": [
+        {
+          "type": "hype_word",
+          "severity": "high",
+          "word": "amazing",
+          "count": 1,
+          "message": "Marketing hype. Use concrete descriptions."
+        }
+      ],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 2,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 18,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 12,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 50,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 126,
+          "avg_length": 11.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 91,
+          "avg_length": 31.5
+        },
+        {
+          "type": "measurement_richness",
+          "total": 64,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 11,
+            "multipliers": 1,
+            "comparisons": 13,
+            "performance_metrics": 15,
+            "hardware_specs": 3,
+            "time_measurements": 20,
+            "data_sizes": 0,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 64 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-04-04-retrieval-augmented-generation-rag.md",
+      "measurements": {
+        "percentages": 11,
+        "multipliers": 1,
+        "comparisons": 13,
+        "performance_metrics": 15,
+        "hardware_specs": 3,
+        "time_measurements": 20,
+        "data_sizes": 0,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 18,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 36,
+          "avg_length": 15.4
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 86,
+          "avg_length": 23.6
+        },
+        {
+          "type": "measurement_richness",
+          "total": 26,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 17,
+            "multipliers": 0,
+            "comparisons": 3,
+            "performance_metrics": 3,
+            "hardware_specs": 0,
+            "time_measurements": 3,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 26 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-04-11-ethics-large-language-models.md",
+      "measurements": {
+        "percentages": 17,
+        "multipliers": 0,
+        "comparisons": 3,
+        "performance_metrics": 3,
+        "hardware_specs": 0,
+        "time_measurements": 3,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 23,
+          "required": 1,
+          "depth_score": 5,
+          "depth_analysis": "Good: Detailed comparison with metrics"
+        },
+        {
+          "type": "concrete_details",
+          "found": 5,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 54,
+          "avg_length": 13.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 93,
+          "avg_length": 21.6
+        },
+        {
+          "type": "measurement_richness",
+          "total": 21,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 13,
+            "multipliers": 1,
+            "comparisons": 3,
+            "performance_metrics": 0,
+            "hardware_specs": 1,
+            "time_measurements": 3,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 21 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-04-19-mastering-prompt-engineering-llms.md",
+      "measurements": {
+        "percentages": 13,
+        "multipliers": 1,
+        "comparisons": 3,
+        "performance_metrics": 0,
+        "hardware_specs": 1,
+        "time_measurements": 3,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 18,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 20,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 25,
+          "required": 1,
+          "depth_score": 2,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.09,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 51,
+          "avg_length": 14.9
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 86,
+          "avg_length": 26.5
+        },
+        {
+          "type": "measurement_richness",
+          "total": 44,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 2,
+            "multipliers": 3,
+            "comparisons": 10,
+            "performance_metrics": 22,
+            "hardware_specs": 2,
+            "time_measurements": 4,
+            "data_sizes": 0,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 44 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-04-30-quantum-resistant-cryptography-guide.md",
+      "measurements": {
+        "percentages": 2,
+        "multipliers": 3,
+        "comparisons": 10,
+        "performance_metrics": 22,
+        "hardware_specs": 2,
+        "time_measurements": 4,
+        "data_sizes": 0,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 100,
+      "violations": [
+        {
+          "type": "ai_transition",
+          "severity": "medium",
+          "phrase": "overall",
+          "count": 1,
+          "message": "Generic summarizer. Be specific about what you're concluding."
+        },
+        {
+          "type": "hype_word",
+          "severity": "medium",
+          "word": "remarkable",
+          "count": 1,
+          "message": "Empty superlative. Be specific about what's notable."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 20,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 21,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 7,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 46,
+          "required": 1,
+          "depth_score": 2,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.01,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 128,
+          "avg_length": 13.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 97,
+          "avg_length": 29.8
+        },
+        {
+          "type": "measurement_richness",
+          "total": 64,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 18,
+            "multipliers": 2,
+            "comparisons": 11,
+            "performance_metrics": 5,
+            "hardware_specs": 2,
+            "time_measurements": 23,
+            "data_sizes": 2,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 64 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
+      "measurements": {
+        "percentages": 18,
+        "multipliers": 2,
+        "comparisons": 11,
+        "performance_metrics": 5,
+        "hardware_specs": 2,
+        "time_measurements": 23,
+        "data_sizes": 2,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        },
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 52.7,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 39,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 67,
+          "required": 1,
+          "depth_score": 5,
+          "depth_analysis": "Good: Detailed comparison with metrics"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 84,
+          "avg_length": 52.7
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 89,
+          "avg_length": 49.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 228,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 79,
+            "multipliers": 55,
+            "comparisons": 44,
+            "performance_metrics": 18,
+            "hardware_specs": 17,
+            "time_measurements": 9,
+            "data_sizes": 0,
+            "experimental_data": 6
+          },
+          "message": "Excellent: 228 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-05-30-ai-learning-resource-constrained.md",
+      "measurements": {
+        "percentages": 79,
+        "multipliers": 55,
+        "comparisons": 44,
+        "performance_metrics": 18,
+        "hardware_specs": 17,
+        "time_measurements": 9,
+        "data_sizes": 0,
+        "experimental_data": 6
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 11,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 48,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 12,
+          "required": 1,
+          "depth_score": 4,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 72,
+          "avg_length": 17.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 126,
+          "avg_length": 20.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 75,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 13,
+            "multipliers": 2,
+            "comparisons": 8,
+            "performance_metrics": 26,
+            "hardware_specs": 9,
+            "time_measurements": 16,
+            "data_sizes": 0,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 75 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-06-11-beyond-containers-future-deployment.md",
+      "measurements": {
+        "percentages": 13,
+        "multipliers": 2,
+        "comparisons": 8,
+        "performance_metrics": 26,
+        "hardware_specs": 9,
+        "time_measurements": 16,
+        "data_sizes": 0,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        },
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 50.4,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 8,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 27,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.06,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 52,
+          "avg_length": 50.4
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 117,
+          "avg_length": 35.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 35,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 9,
+            "multipliers": 0,
+            "comparisons": 15,
+            "performance_metrics": 4,
+            "hardware_specs": 0,
+            "time_measurements": 7,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 35 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-06-25-designing-resilient-systems.md",
+      "measurements": {
+        "percentages": 9,
+        "multipliers": 0,
+        "comparisons": 15,
+        "performance_metrics": 4,
+        "hardware_specs": 0,
+        "time_measurements": 7,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 102.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 3,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 15,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 19,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 43,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 28,
+          "required": 1,
+          "depth_score": 4,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.08,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 160,
+          "avg_length": 14.8
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 147,
+          "avg_length": 29.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 135,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 30,
+            "multipliers": 1,
+            "comparisons": 12,
+            "performance_metrics": 19,
+            "hardware_specs": 4,
+            "time_measurements": 62,
+            "data_sizes": 1,
+            "experimental_data": 6
+          },
+          "message": "Excellent: 135 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-07-09-zero-trust-architecture-implementation.md",
+      "measurements": {
+        "percentages": 30,
+        "multipliers": 1,
+        "comparisons": 12,
+        "performance_metrics": 19,
+        "hardware_specs": 4,
+        "time_measurements": 62,
+        "data_sizes": 1,
+        "experimental_data": 6
+      }
+    },
+    {
+      "score": 102.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 3,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        },
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 24.1,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 9,
+          "required": 1,
+          "depth_score": 5,
+          "depth_analysis": "Good: Detailed comparison with metrics"
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.04,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 58,
+          "avg_length": 24.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 107,
+          "avg_length": 23.0
+        },
+        {
+          "type": "measurement_richness",
+          "total": 78,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 34,
+            "multipliers": 6,
+            "comparisons": 12,
+            "performance_metrics": 7,
+            "hardware_specs": 0,
+            "time_measurements": 8,
+            "data_sizes": 0,
+            "experimental_data": 11
+          },
+          "message": "Excellent: 78 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md",
+      "measurements": {
+        "percentages": 34,
+        "multipliers": 6,
+        "comparisons": 12,
+        "performance_metrics": 7,
+        "hardware_specs": 0,
+        "time_measurements": 8,
+        "data_sizes": 0,
+        "experimental_data": 11
+      }
+    },
+    {
+      "score": 100.0,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 4,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        },
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 22.0,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 7,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 21,
+          "required": 1,
+          "depth_score": 2,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 6,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.01,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 40,
+          "avg_length": 22.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 56,
+          "avg_length": 36.1
+        },
+        {
+          "type": "measurement_richness",
+          "total": 59,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 24,
+            "multipliers": 6,
+            "comparisons": 6,
+            "performance_metrics": 6,
+            "hardware_specs": 1,
+            "time_measurements": 9,
+            "data_sizes": 2,
+            "experimental_data": 5
+          },
+          "message": "Excellent: 59 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-07-24-multimodal-foundation-models.md",
+      "measurements": {
+        "percentages": 24,
+        "multipliers": 6,
+        "comparisons": 6,
+        "performance_metrics": 6,
+        "hardware_specs": 1,
+        "time_measurements": 9,
+        "data_sizes": 2,
+        "experimental_data": 5
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 48,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 7,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 34,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.27,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 173,
+          "avg_length": 11.3
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 147,
+          "avg_length": 27.0
+        },
+        {
+          "type": "measurement_richness",
+          "total": 57,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 7,
+            "multipliers": 2,
+            "comparisons": 14,
+            "performance_metrics": 9,
+            "hardware_specs": 3,
+            "time_measurements": 22,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 57 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-08-02-quantum-computing-leap-forward.md",
+      "measurements": {
+        "percentages": 7,
+        "multipliers": 2,
+        "comparisons": 14,
+        "performance_metrics": 9,
+        "hardware_specs": 3,
+        "time_measurements": 22,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 23.6,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 6,
+          "required": 1,
+          "depth_score": 2,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.06,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 65,
+          "avg_length": 23.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 77,
+          "avg_length": 36.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 49,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 22,
+            "multipliers": 8,
+            "comparisons": 12,
+            "performance_metrics": 1,
+            "hardware_specs": 3,
+            "time_measurements": 3,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 49 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-08-13-high-performance-computing.md",
+      "measurements": {
+        "percentages": 22,
+        "multipliers": 8,
+        "comparisons": 12,
+        "performance_metrics": 1,
+        "hardware_specs": 3,
+        "time_measurements": 3,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 23.0,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 7,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 16,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 8,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 60,
+          "avg_length": 23.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 109,
+          "avg_length": 24.6
+        },
+        {
+          "type": "measurement_richness",
+          "total": 17,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 3,
+            "multipliers": 0,
+            "comparisons": 0,
+            "performance_metrics": 8,
+            "hardware_specs": 0,
+            "time_measurements": 6,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 17 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-08-27-zero-trust-security-principles.md",
+      "measurements": {
+        "percentages": 3,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 8,
+        "hardware_specs": 0,
+        "time_measurements": 6,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 11,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 12,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.09,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 40,
+          "avg_length": 15.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 40,
+          "avg_length": 34.7
+        },
+        {
+          "type": "measurement_richness",
+          "total": 41,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 29,
+            "multipliers": 0,
+            "comparisons": 1,
+            "performance_metrics": 0,
+            "hardware_specs": 4,
+            "time_measurements": 7,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 41 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-09-09-embodied-ai-teaching-agents.md",
+      "measurements": {
+        "percentages": 29,
+        "multipliers": 0,
+        "comparisons": 1,
+        "performance_metrics": 0,
+        "hardware_specs": 4,
+        "time_measurements": 7,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 22.5,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 9,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 6,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.01,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 37,
+          "avg_length": 22.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 67,
+          "avg_length": 26.1
+        },
+        {
+          "type": "measurement_richness",
+          "total": 20,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 12,
+            "multipliers": 3,
+            "comparisons": 4,
+            "performance_metrics": 0,
+            "hardware_specs": 0,
+            "time_measurements": 1,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 20 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-09-19-biomimetic-robotics.md",
+      "measurements": {
+        "percentages": 12,
+        "multipliers": 3,
+        "comparisons": 4,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 1,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 6,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.15,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 36,
+          "avg_length": 16.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 77,
+          "avg_length": 21.1
+        },
+        {
+          "type": "measurement_richness",
+          "total": 11,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 2,
+            "multipliers": 0,
+            "comparisons": 6,
+            "performance_metrics": 0,
+            "hardware_specs": 0,
+            "time_measurements": 3,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 11 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-10-03-quantum-computing-defense.md",
+      "measurements": {
+        "percentages": 2,
+        "multipliers": 0,
+        "comparisons": 6,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 3,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 105.0,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 2,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 14,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 15,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 46,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 5,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 88,
+          "avg_length": 12.3
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 80,
+          "avg_length": 26.3
+        },
+        {
+          "type": "measurement_richness",
+          "total": 23,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 2,
+            "multipliers": 0,
+            "comparisons": 2,
+            "performance_metrics": 8,
+            "hardware_specs": 1,
+            "time_measurements": 8,
+            "data_sizes": 0,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 23 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "measurements": {
+        "percentages": 2,
+        "multipliers": 0,
+        "comparisons": 2,
+        "performance_metrics": 8,
+        "hardware_specs": 1,
+        "time_measurements": 8,
+        "data_sizes": 0,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 100,
+      "violations": [
+        {
+          "type": "hype_word",
+          "severity": "medium",
+          "word": "exciting",
+          "count": 1,
+          "message": "Overly enthusiastic. Show excitement through content, not adjectives."
+        },
+        {
+          "type": "hype_word",
+          "severity": "high",
+          "word": "amazing",
+          "count": 1,
+          "message": "Marketing hype. Use concrete descriptions."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 17,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 23,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 33,
+          "required": 1,
+          "depth_score": 6,
+          "depth_analysis": "Good: Detailed comparison with metrics"
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 65,
+          "avg_length": 14.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 98,
+          "avg_length": 27.6
+        },
+        {
+          "type": "measurement_richness",
+          "total": 57,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 11,
+            "multipliers": 3,
+            "comparisons": 6,
+            "performance_metrics": 18,
+            "hardware_specs": 15,
+            "time_measurements": 1,
+            "data_sizes": 1,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 57 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-10-22-ai-edge-computing.md",
+      "measurements": {
+        "percentages": 11,
+        "multipliers": 3,
+        "comparisons": 6,
+        "performance_metrics": 18,
+        "hardware_specs": 15,
+        "time_measurements": 1,
+        "data_sizes": 1,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 7,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 50,
+          "avg_length": 13.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 80,
+          "avg_length": 19.9
+        },
+        {
+          "type": "measurement_richness",
+          "total": 21,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 11,
+            "multipliers": 1,
+            "comparisons": 2,
+            "performance_metrics": 0,
+            "hardware_specs": 0,
+            "time_measurements": 5,
+            "data_sizes": 1,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 21 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-11-05-pizza-calculator.md",
+      "measurements": {
+        "percentages": 11,
+        "multipliers": 1,
+        "comparisons": 2,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 5,
+        "data_sizes": 1,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 100,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 8,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 8,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 22,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 105,
+          "avg_length": 13.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 69,
+          "avg_length": 33.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 72,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 12,
+            "multipliers": 6,
+            "comparisons": 6,
+            "performance_metrics": 12,
+            "hardware_specs": 12,
+            "time_measurements": 22,
+            "data_sizes": 0,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 72 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-11-15-gpu-power-monitoring-homelab-ml.md",
+      "measurements": {
+        "percentages": 12,
+        "multipliers": 6,
+        "comparisons": 6,
+        "performance_metrics": 12,
+        "hardware_specs": 12,
+        "time_measurements": 22,
+        "data_sizes": 0,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 97.5,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 15,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 29,
+          "required": 1,
+          "depth_score": 4,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.08,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 63,
+          "avg_length": 14.4
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 88,
+          "avg_length": 28.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 83,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 38,
+            "multipliers": 0,
+            "comparisons": 12,
+            "performance_metrics": 9,
+            "hardware_specs": 2,
+            "time_measurements": 16,
+            "data_sizes": 4,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 83 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
+      "measurements": {
+        "percentages": 38,
+        "multipliers": 0,
+        "comparisons": 12,
+        "performance_metrics": 9,
+        "hardware_specs": 2,
+        "time_measurements": 16,
+        "data_sizes": 4,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 100,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 26,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 18,
+          "required": 1,
+          "depth_score": 2,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 68,
+          "avg_length": 14.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 82,
+          "avg_length": 29.6
+        },
+        {
+          "type": "measurement_richness",
+          "total": 38,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 6,
+            "multipliers": 4,
+            "comparisons": 6,
+            "performance_metrics": 9,
+            "hardware_specs": 3,
+            "time_measurements": 9,
+            "data_sizes": 1,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 38 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2024-12-03-context-windows-llms.md",
+      "measurements": {
+        "percentages": 6,
+        "multipliers": 4,
+        "comparisons": 6,
+        "performance_metrics": 9,
+        "hardware_specs": 3,
+        "time_measurements": 9,
+        "data_sizes": 1,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 100,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 2,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 10,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.04,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 27,
+          "avg_length": 13.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 46,
+          "avg_length": 16.2
+        }
+      ],
+      "post_path": "src/posts/2025-02-10-automating-home-network-security.md",
+      "measurements": {
+        "percentages": 0,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 1,
+        "time_measurements": 1,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 7,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 8,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 52,
+          "avg_length": 16.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 87,
+          "avg_length": 17.6
+        },
+        {
+          "type": "measurement_richness",
+          "total": 17,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 6,
+            "multipliers": 0,
+            "comparisons": 1,
+            "performance_metrics": 0,
+            "hardware_specs": 2,
+            "time_measurements": 8,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 17 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-02-24-continuous-learning-cybersecurity.md",
+      "measurements": {
+        "percentages": 6,
+        "multipliers": 0,
+        "comparisons": 1,
+        "performance_metrics": 0,
+        "hardware_specs": 2,
+        "time_measurements": 8,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 4,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 9,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.14,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 21,
+          "avg_length": 16.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 56,
+          "avg_length": 15.0
+        },
+        {
+          "type": "measurement_richness",
+          "total": 12,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 1,
+            "multipliers": 0,
+            "comparisons": 1,
+            "performance_metrics": 0,
+            "hardware_specs": 8,
+            "time_measurements": 2,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 12 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-03-10-raspberry-pi-security-projects.md",
+      "measurements": {
+        "percentages": 1,
+        "multipliers": 0,
+        "comparisons": 1,
+        "performance_metrics": 0,
+        "hardware_specs": 8,
+        "time_measurements": 2,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 85,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "specificity",
+          "found": 0,
+          "required": 1,
+          "message": "Include specific timestamps, versions, or measurements from your testing."
+        },
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 9,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.02,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 35,
+          "avg_length": 16.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 44,
+          "avg_length": 28.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 6,
+          "bonus": 5,
+          "breakdown": {
+            "percentages": 1,
+            "multipliers": 0,
+            "comparisons": 1,
+            "performance_metrics": 0,
+            "hardware_specs": 0,
+            "time_measurements": 3,
+            "data_sizes": 1,
+            "experimental_data": 0
+          },
+          "message": "Good: 6 measurements found"
+        }
+      ],
+      "post_path": "src/posts/2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+      "measurements": {
+        "percentages": 1,
+        "multipliers": 0,
+        "comparisons": 1,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 3,
+        "data_sizes": 1,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 100,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 1,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 12,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.06,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 22,
+          "avg_length": 16.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 48,
+          "avg_length": 14.0
+        }
+      ],
+      "post_path": "src/posts/2025-04-10-securing-personal-ai-experiments.md",
+      "measurements": {
+        "percentages": 0,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 1,
+        "time_measurements": 0,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 90,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "specificity",
+          "found": 0,
+          "required": 1,
+          "message": "Include specific timestamps, versions, or measurements from your testing."
+        }
+      ],
+      "warnings": [
+        {
+          "type": "long_sentences",
+          "severity": "low",
+          "avg_length": 21.7,
+          "max_avg": 20,
+          "message": "Mix short punchy sentences with occasional longer ones."
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 1,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.02,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 9,
+          "avg_length": 21.7
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 43,
+          "avg_length": 20.2
+        }
+      ],
+      "post_path": "src/posts/2025-04-24-building-secure-homelab-adventure.md",
+      "measurements": {
+        "percentages": 0,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 2,
+        "time_measurements": 0,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 97.5,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 12,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 13,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 22,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 30,
+          "required": 1,
+          "depth_score": 7,
+          "depth_analysis": "Very Good: Multi-option evaluation with quantified comparisons"
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 94,
+          "avg_length": 13.8
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 121,
+          "avg_length": 26.7
+        },
+        {
+          "type": "measurement_richness",
+          "total": 65,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 17,
+            "multipliers": 2,
+            "comparisons": 16,
+            "performance_metrics": 1,
+            "hardware_specs": 9,
+            "time_measurements": 18,
+            "data_sizes": 0,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 65 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-05-10-llm-fine-tuning-homelab-guide.md",
+      "measurements": {
+        "percentages": 17,
+        "multipliers": 2,
+        "comparisons": 16,
+        "performance_metrics": 1,
+        "hardware_specs": 9,
+        "time_measurements": 18,
+        "data_sizes": 0,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 100.0,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 2,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 5,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 14,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 50,
+          "avg_length": 12.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 78,
+          "avg_length": 15.0
+        },
+        {
+          "type": "measurement_richness",
+          "total": 6,
+          "bonus": 5,
+          "breakdown": {
+            "percentages": 0,
+            "multipliers": 1,
+            "comparisons": 0,
+            "performance_metrics": 0,
+            "hardware_specs": 4,
+            "time_measurements": 1,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Good: 6 measurements found"
+        }
+      ],
+      "post_path": "src/posts/2025-06-25-local-llm-deployment-privacy-first.md",
+      "measurements": {
+        "percentages": 0,
+        "multipliers": 1,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 4,
+        "time_measurements": 1,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 4,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 12,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.02,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 50,
+          "avg_length": 12.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 57,
+          "avg_length": 19.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 15,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 7,
+            "multipliers": 0,
+            "comparisons": 0,
+            "performance_metrics": 4,
+            "hardware_specs": 0,
+            "time_measurements": 3,
+            "data_sizes": 1,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 15 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md",
+      "measurements": {
+        "percentages": 7,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 4,
+        "hardware_specs": 0,
+        "time_measurements": 3,
+        "data_sizes": 1,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 100.0,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 2,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 4,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 16,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 3,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 23,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.01,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 29,
+          "avg_length": 16.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 73,
+          "avg_length": 11.3
+        },
+        {
+          "type": "measurement_richness",
+          "total": 7,
+          "bonus": 5,
+          "breakdown": {
+            "percentages": 0,
+            "multipliers": 0,
+            "comparisons": 2,
+            "performance_metrics": 2,
+            "hardware_specs": 1,
+            "time_measurements": 2,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Good: 7 measurements found"
+        }
+      ],
+      "post_path": "src/posts/2025-07-08-implementing-dns-over-https-home-networks.md",
+      "measurements": {
+        "percentages": 0,
+        "multipliers": 0,
+        "comparisons": 2,
+        "performance_metrics": 2,
+        "hardware_specs": 1,
+        "time_measurements": 2,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 6,
+          "required": 1,
+          "depth_score": 2,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 5,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 71,
+          "avg_length": 18.3
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 67,
+          "avg_length": 30.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 23,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 6,
+            "multipliers": 1,
+            "comparisons": 1,
+            "performance_metrics": 0,
+            "hardware_specs": 1,
+            "time_measurements": 14,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 23 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-07-15-vulnerability-management-scale-open-source.md",
+      "measurements": {
+        "percentages": 6,
+        "multipliers": 1,
+        "comparisons": 1,
+        "performance_metrics": 0,
+        "hardware_specs": 1,
+        "time_measurements": 14,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 20,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 27,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 18,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.06,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 65,
+          "avg_length": 12.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 73,
+          "avg_length": 20.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 44,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 11,
+            "multipliers": 0,
+            "comparisons": 2,
+            "performance_metrics": 4,
+            "hardware_specs": 0,
+            "time_measurements": 18,
+            "data_sizes": 8,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 44 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-07-22-supercharging-claude-cli-with-standards.md",
+      "measurements": {
+        "percentages": 11,
+        "multipliers": 0,
+        "comparisons": 2,
+        "performance_metrics": 4,
+        "hardware_specs": 0,
+        "time_measurements": 18,
+        "data_sizes": 8,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 18,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 13,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 8,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.01,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 58,
+          "avg_length": 16.9
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 86,
+          "avg_length": 20.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 52,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 10,
+            "multipliers": 0,
+            "comparisons": 3,
+            "performance_metrics": 14,
+            "hardware_specs": 2,
+            "time_measurements": 7,
+            "data_sizes": 15,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 52 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-07-29-building-mcp-standards-server.md",
+      "measurements": {
+        "percentages": 10,
+        "multipliers": 0,
+        "comparisons": 3,
+        "performance_metrics": 14,
+        "hardware_specs": 2,
+        "time_measurements": 7,
+        "data_sizes": 15,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 4,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 26,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 41,
+          "avg_length": 15.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 84,
+          "avg_length": 13.9
+        },
+        {
+          "type": "measurement_richness",
+          "total": 21,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 8,
+            "multipliers": 6,
+            "comparisons": 0,
+            "performance_metrics": 0,
+            "hardware_specs": 0,
+            "time_measurements": 7,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 21 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-08-07-supercharging-development-claude-flow.md",
+      "measurements": {
+        "percentages": 8,
+        "multipliers": 6,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 7,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 100,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "specificity",
+          "found": 0,
+          "required": 1,
+          "message": "Include specific timestamps, versions, or measurements from your testing."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 11,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.1,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 102,
+          "avg_length": 11.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 74,
+          "avg_length": 22.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 16,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 15,
+            "multipliers": 0,
+            "comparisons": 0,
+            "performance_metrics": 0,
+            "hardware_specs": 0,
+            "time_measurements": 1,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 16 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-08-09-ai-cognitive-infrastructure.md",
+      "measurements": {
+        "percentages": 15,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 1,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 8,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 4,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 21,
+          "required": 1,
+          "depth_score": 2,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 28,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 77,
+          "avg_length": 12.9
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 105,
+          "avg_length": 18.0
+        },
+        {
+          "type": "measurement_richness",
+          "total": 30,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 6,
+            "multipliers": 1,
+            "comparisons": 1,
+            "performance_metrics": 0,
+            "hardware_specs": 0,
+            "time_measurements": 20,
+            "data_sizes": 0,
+            "experimental_data": 2
+          },
+          "message": "Excellent: 30 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-08-18-container-security-hardening-homelab.md",
+      "measurements": {
+        "percentages": 6,
+        "multipliers": 1,
+        "comparisons": 1,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 20,
+        "data_sizes": 0,
+        "experimental_data": 2
+      }
+    },
+    {
+      "score": 85,
+      "violations": [
+        {
+          "type": "banned_token",
+          "severity": "high",
+          "token": "\u2014",
+          "count": 3,
+          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 4,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 13,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 1,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 26,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 36,
+          "avg_length": 12.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 73,
+          "avg_length": 10.0
+        }
+      ],
+      "post_path": "src/posts/2025-08-25-network-traffic-analysis-suricata-homelab.md",
+      "measurements": {
+        "percentages": 1,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 1,
+        "time_measurements": 1,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 92.5,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "uncertainty",
+          "found": 0,
+          "required": 1,
+          "message": "Include caveats or uncertainty to show nuanced thinking."
+        }
+      ],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 1,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 20,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.02,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 47,
+          "avg_length": 12.8
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 83,
+          "avg_length": 11.4
+        },
+        {
+          "type": "measurement_richness",
+          "total": 6,
+          "bonus": 5,
+          "breakdown": {
+            "percentages": 3,
+            "multipliers": 0,
+            "comparisons": 0,
+            "performance_metrics": 2,
+            "hardware_specs": 1,
+            "time_measurements": 0,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Good: 6 measurements found"
+        }
+      ],
+      "post_path": "src/posts/2025-09-01-self-hosted-bitwarden-migration-guide.md",
+      "measurements": {
+        "percentages": 3,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 2,
+        "hardware_specs": 1,
+        "time_measurements": 0,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 82.5,
+      "violations": [
+        {
+          "type": "banned_token",
+          "severity": "high",
+          "token": "\u2014",
+          "count": 1,
+          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
+        },
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "uncertainty",
+          "found": 0,
+          "required": 1,
+          "message": "Include caveats or uncertainty to show nuanced thinking."
+        }
+      ],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 62,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 2,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 20,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.04,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 33,
+          "avg_length": 13.7
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 71,
+          "avg_length": 11.5
+        }
+      ],
+      "post_path": "src/posts/2025-09-08-zero-trust-vlan-segmentation-homelab.md",
+      "measurements": {
+        "percentages": 0,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 0,
+        "time_measurements": 0,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 100,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "first_person",
+          "found": 0,
+          "required": 1,
+          "message": "Add at least one first-person statement about your direct experience."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 3,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 11,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.0,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 72,
+          "avg_length": 8.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 45,
+          "avg_length": 15.8
+        },
+        {
+          "type": "measurement_richness",
+          "total": 13,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 9,
+            "multipliers": 0,
+            "comparisons": 0,
+            "performance_metrics": 0,
+            "hardware_specs": 1,
+            "time_measurements": 2,
+            "data_sizes": 0,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 13 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard.md",
+      "measurements": {
+        "percentages": 9,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 0,
+        "hardware_specs": 1,
+        "time_measurements": 2,
+        "data_sizes": 0,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 97.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 5,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 20,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 13,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 118,
+          "avg_length": 8.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 52,
+          "avg_length": 22.2
+        },
+        {
+          "type": "measurement_richness",
+          "total": 13,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 4,
+            "multipliers": 0,
+            "comparisons": 2,
+            "performance_metrics": 1,
+            "hardware_specs": 0,
+            "time_measurements": 5,
+            "data_sizes": 1,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 13 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-09-20-iot-security-homelab-owasp.md",
+      "measurements": {
+        "percentages": 4,
+        "multipliers": 0,
+        "comparisons": 2,
+        "performance_metrics": 1,
+        "hardware_specs": 0,
+        "time_measurements": 5,
+        "data_sizes": 1,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 12,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 17,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 5,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.02,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 77,
+          "avg_length": 11.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 48,
+          "avg_length": 28.1
+        },
+        {
+          "type": "measurement_richness",
+          "total": 43,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 17,
+            "multipliers": 1,
+            "comparisons": 2,
+            "performance_metrics": 4,
+            "hardware_specs": 0,
+            "time_measurements": 18,
+            "data_sizes": 0,
+            "experimental_data": 1
+          },
+          "message": "Excellent: 43 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-09-20-vulnerability-prioritization-epss-kev.md",
+      "measurements": {
+        "percentages": 17,
+        "multipliers": 1,
+        "comparisons": 2,
+        "performance_metrics": 4,
+        "hardware_specs": 0,
+        "time_measurements": 18,
+        "data_sizes": 0,
+        "experimental_data": 1
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 4,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 29,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 7,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 23,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.02,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 46,
+          "avg_length": 13.0
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 80,
+          "avg_length": 11.0
+        },
+        {
+          "type": "measurement_richness",
+          "total": 25,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 1,
+            "multipliers": 2,
+            "comparisons": 2,
+            "performance_metrics": 5,
+            "hardware_specs": 6,
+            "time_measurements": 9,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 25 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-09-29-proxmox-high-availability-homelab.md",
+      "measurements": {
+        "percentages": 1,
+        "multipliers": 2,
+        "comparisons": 2,
+        "performance_metrics": 5,
+        "hardware_specs": 6,
+        "time_measurements": 9,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 9,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 20,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 66,
+          "avg_length": 12.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 61,
+          "avg_length": 21.1
+        },
+        {
+          "type": "measurement_richness",
+          "total": 21,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 9,
+            "multipliers": 0,
+            "comparisons": 1,
+            "performance_metrics": 3,
+            "hardware_specs": 1,
+            "time_measurements": 7,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 21 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-10-06-automated-security-scanning-pipeline.md",
+      "measurements": {
+        "percentages": 9,
+        "multipliers": 0,
+        "comparisons": 1,
+        "performance_metrics": 3,
+        "hardware_specs": 1,
+        "time_measurements": 7,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 110,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 7,
+          "required": 1,
+          "depth_score": 1,
+          "depth_analysis": "Minimal: Simple trade-off mention"
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 65,
+          "avg_length": 15.6
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 55,
+          "avg_length": 25.9
+        },
+        {
+          "type": "measurement_richness",
+          "total": 15,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 3,
+            "multipliers": 0,
+            "comparisons": 1,
+            "performance_metrics": 2,
+            "hardware_specs": 5,
+            "time_measurements": 4,
+            "data_sizes": 0,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 15 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-10-13-embodied-ai-robots-physical-world.md",
+      "measurements": {
+        "percentages": 3,
+        "multipliers": 0,
+        "comparisons": 1,
+        "performance_metrics": 2,
+        "hardware_specs": 5,
+        "time_measurements": 4,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 107.5,
+      "violations": [],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 8,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 15,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 25,
+          "required": 1,
+          "depth_score": 3,
+          "depth_analysis": "Fair: Basic two-sided comparison"
+        },
+        {
+          "type": "concrete_details",
+          "found": 13,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.08,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 155,
+          "avg_length": 11.3
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 123,
+          "avg_length": 22.6
+        },
+        {
+          "type": "measurement_richness",
+          "total": 71,
+          "bonus": 10,
+          "breakdown": {
+            "percentages": 39,
+            "multipliers": 5,
+            "comparisons": 5,
+            "performance_metrics": 12,
+            "hardware_specs": 1,
+            "time_measurements": 7,
+            "data_sizes": 2,
+            "experimental_data": 0
+          },
+          "message": "Excellent: 71 measurements found across diverse categories"
+        }
+      ],
+      "post_path": "src/posts/2025-10-17-progressive-context-loading-llm-workflows.md",
+      "measurements": {
+        "percentages": 39,
+        "multipliers": 5,
+        "comparisons": 5,
+        "performance_metrics": 12,
+        "hardware_specs": 1,
+        "time_measurements": 7,
+        "data_sizes": 2,
+        "experimental_data": 0
+      }
+    },
+    {
+      "score": 100,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 3,
+          "required": 1,
+          "depth_score": 0,
+          "depth_analysis": "None: No measurable trade-off depth"
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.04,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 16,
+          "avg_length": 15.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 22,
+          "avg_length": 22.5
+        }
+      ],
+      "post_path": "src/posts/welcome.md",
+      "measurements": {
+        "percentages": 0,
+        "multipliers": 0,
+        "comparisons": 0,
+        "performance_metrics": 1,
+        "hardware_specs": 0,
+        "time_measurements": 0,
+        "data_sizes": 0,
+        "experimental_data": 0
+      }
+    }
+  ],
+  "statistics": {
+    "total_posts": 57,
+    "passed": 57,
+    "failed": 0,
+    "pass_rate": 100.0,
+    "fail_rate": 0.0,
+    "avg_score": 104.16666666666667,
+    "median_score": 107.5,
+    "min_score": 82.5,
+    "max_score": 110
+  }
+}
+[92mReport saved to: /home/william/git/williamzujkowski.github.io/reports/monthly/validation-2025-10.json[0m
+
+[0;32m[SUCCESS][0m Validation completed successfully
+[2025-10-29 08:07:24] Comparing with previous month (2025-09)...
+[1;33m[WARNING][0m No previous month report found for comparison
+[2025-10-29 08:07:24] Generating summary report...
+[0;32m[SUCCESS][0m Summary report generated: /home/william/git/williamzujkowski.github.io/reports/monthly/summary-2025-10.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUICK STATS - 2025-10
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total: 57 | Passing: 57 | Failing: 0 | Avg: 104.16666666666667
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[2025-10-29 08:07:24] Checking for email notification setup...
+[2025-10-29 08:07:24] Email notifications not configured (set EMAIL environment variable)
+[2025-10-29 08:07:24] Archiving old reports...
+[2025-10-29 08:07:24] No old reports to archive
+[0;32m[SUCCESS][0m Monthly validation completed successfully
+[2025-10-29 08:07:24] Reports saved to: /home/william/git/williamzujkowski.github.io/reports/monthly
+[2025-10-29 08:07:24] Summary: /home/william/git/williamzujkowski.github.io/reports/monthly/summary-2025-10.txt
+╔════════════════════════════════════════════════════════════════╗
+║         Portfolio Health Report - 2025-10                  ║
+╚════════════════════════════════════════════════════════════════╝
+
+Generated: 2025-10-29 08:07:24
+Report Period: 2025-10
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OVERALL STATISTICS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Total Posts:        57
+Passing Posts:      57
+Failing Posts:      0
+Average Score:      104.16666666666667
+
+Pass Rate:          100.0%
+
+
+✅ All posts passing validation!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALITY BREAKDOWN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+src/posts/2025-10-13-embodied-ai-robots-physical-world.md - Score: 110
+src/posts/2025-09-29-proxmox-high-availability-homelab.md - Score: 110
+src/posts/2025-08-18-container-security-hardening-homelab.md - Score: 110
+src/posts/2025-07-29-building-mcp-standards-server.md - Score: 110
+src/posts/2025-07-22-supercharging-claude-cli-with-standards.md - Score: 110
+src/posts/2025-07-15-vulnerability-management-scale-open-source.md - Score: 110
+src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md - Score: 110
+src/posts/2025-03-10-raspberry-pi-security-projects.md - Score: 110
+src/posts/2025-02-24-continuous-learning-cybersecurity.md - Score: 110
+src/posts/2024-11-05-pizza-calculator.md - Score: 110
+src/posts/2024-10-03-quantum-computing-defense.md - Score: 110
+src/posts/2024-09-19-biomimetic-robotics.md - Score: 110
+src/posts/2024-08-27-zero-trust-security-principles.md - Score: 110
+src/posts/2024-08-13-high-performance-computing.md - Score: 110
+src/posts/2024-08-02-quantum-computing-leap-forward.md - Score: 110
+src/posts/2024-06-11-beyond-containers-future-deployment.md - Score: 110
+src/posts/2024-04-19-mastering-prompt-engineering-llms.md - Score: 110
+src/posts/2024-04-11-ethics-large-language-models.md - Score: 110
+src/posts/2024-03-20-transformer-architecture-deep-dive.md - Score: 110
+src/posts/2024-03-05-cloud-migration-journey-guide.md - Score: 110
+src/posts/2024-02-22-open-source-vs-proprietary-llms.md - Score: 110
+src/posts/2024-01-30-securing-cloud-native-frontier.md - Score: 110
+src/posts/2024-01-18-demystifying-cryptography-beginners-guide.md - Score: 110
+src/posts/2024-01-08-writing-secure-code-developers-guide.md - Score: 110
+src/posts/2025-10-17-progressive-context-loading-llm-workflows.md - Score: 107.5
+src/posts/2025-10-06-automated-security-scanning-pipeline.md - Score: 107.5
+src/posts/2025-09-20-vulnerability-prioritization-epss-kev.md - Score: 107.5
+src/posts/2025-08-07-supercharging-development-claude-flow.md - Score: 107.5
+src/posts/2024-09-09-embodied-ai-teaching-agents.md - Score: 107.5
+src/posts/2024-06-25-designing-resilient-systems.md - Score: 107.5
+src/posts/2024-05-30-ai-learning-resource-constrained.md - Score: 107.5
+src/posts/2024-04-30-quantum-resistant-cryptography-guide.md - Score: 107.5
+src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md - Score: 105.0
+src/posts/2024-07-16-sustainable-computing-carbon-footprint.md - Score: 102.5
+src/posts/2024-07-09-zero-trust-architecture-implementation.md - Score: 102.5
+src/posts/welcome.md - Score: 100
+src/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard.md - Score: 100
+src/posts/2025-08-09-ai-cognitive-infrastructure.md - Score: 100
+src/posts/2025-07-08-implementing-dns-over-https-home-networks.md - Score: 100.0
+src/posts/2025-06-25-local-llm-deployment-privacy-first.md - Score: 100.0
+src/posts/2025-04-10-securing-personal-ai-experiments.md - Score: 100
+src/posts/2025-02-10-automating-home-network-security.md - Score: 100
+src/posts/2024-12-03-context-windows-llms.md - Score: 100
+src/posts/2024-11-15-gpu-power-monitoring-homelab-ml.md - Score: 100
+src/posts/2024-10-22-ai-edge-computing.md - Score: 100
+src/posts/2024-07-24-multimodal-foundation-models.md - Score: 100.0
+src/posts/2024-05-14-ai-new-frontier-cybersecurity.md - Score: 100
+src/posts/2024-04-04-retrieval-augmented-generation-rag.md - Score: 100.0
+src/posts/2024-02-09-deepfake-dilemma-ai-deception.md - Score: 100
+src/posts/2025-09-20-iot-security-homelab-owasp.md - Score: 97.5
+src/posts/2025-05-10-llm-fine-tuning-homelab-guide.md - Score: 97.5
+src/posts/2024-11-19-llms-smart-contract-vulnerability.md - Score: 97.5
+src/posts/2025-09-01-self-hosted-bitwarden-migration-guide.md - Score: 92.5
+src/posts/2025-04-24-building-secure-homelab-adventure.md - Score: 90
+src/posts/2025-08-25-network-traffic-analysis-suricata-homelab.md - Score: 85
+src/posts/2025-03-24-from-it-support-to-senior-infosec-engineer.md - Score: 85
+src/posts/2025-09-08-zero-trust-vlan-segmentation-homelab.md - Score: 82.5
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Full report available at:
+    /home/william/git/williamzujkowski.github.io/reports/monthly/validation-2025-10.json
+
+Generated by: monthly-portfolio-validation.sh
+Documentation: docs/guides/MONTHLY_VALIDATION_SETUP.md
+
