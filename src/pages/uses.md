@@ -177,9 +177,9 @@ What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab
 
 * [Nessus](https://www.tenable.com/products/nessus) for vulnerability assessment
 
-  **Expensive but worth it:** $3,390/year for Nessus Professional (home use). Tried OpenVAS for a year in 2020. Spent more time fixing false positives than finding vulns. Nessus just works.
+  **Using:** Nessus Essentials (free version, up to 16 IPs). Tried OpenVAS for a year in 2020—spent more time fixing false positives than finding vulns. Nessus just works.
 
-  **Why I pay:** Time is money. Nessus saves me 10+ hours/month in validation. ROI is obvious when you do the math.
+  **Trade-off:** Free version is limited to 16 hosts, but that covers my critical infrastructure. For a full homelab scan, I rotate scans across subnets or use Grype/OSV for container/package scanning.
 
   **What I scan:** Everything. Monthly full scans of all homelab assets. Found critical vulns in IoT devices that vendors never patched.
 
