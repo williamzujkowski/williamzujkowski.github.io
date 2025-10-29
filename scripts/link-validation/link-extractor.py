@@ -298,6 +298,8 @@ def main():
     parser.add_argument('--output', type=Path,
                        default=Path('links.json'),
                        help='Output JSON file')
+    parser.add_argument('--citations-only', action='store_true',
+                       help='Extract only citation links (research papers, academic sources)')
     parser.add_argument('--verbose', action='store_true',
                        help='Verbose output')
 
@@ -308,7 +310,15 @@ def main():
         return 1
 
     extractor = LinkExtractor(args.posts_dir)
-    extractor.extract_all()
+    all_links = extractor.extract_all()
+
+    # Filter for citations only if requested
+    if args.citations_only:
+        citation_links = [link for link in all_links if link.type == 'citation']
+        extractor.links = citation_links
+        extractor.stats['total_links'] = len(citation_links)
+        print(f"🔬 Filtered to {len(citation_links)} citation links (from {len(all_links)} total)")
+
     extractor.save_results(args.output)
 
     return 0
