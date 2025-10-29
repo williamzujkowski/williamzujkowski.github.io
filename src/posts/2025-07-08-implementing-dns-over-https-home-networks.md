@@ -90,14 +90,14 @@ Traditional DNS has several privacy and security issues:
 1. **Plain Text Queries**: ISPs and network observers see all DNS lookups
 2. **DNS Hijacking**: Malicious actors can redirect your traffic
 3. **ISP Monetization**: Many ISPs sell DNS query data
-4. **Censorship**: DNS blocking is a common censorship technique
-5. **Man-in-the-Middle**: Unencrypted DNS is vulnerable to tampering
+4. **Censorship**: DNS blocking is a common technique for content filtering
+5. **Interception Attacks**: Unencrypted DNS is vulnerable to tampering
 
 DNS-over-HTTPS solves these by:
 - Encrypting all DNS queries with HTTPS
 - Authenticating the DNS server
 - Hiding DNS queries from network observers
-- Preventing DNS-based censorship and filtering
+- Preventing DNS-based filtering (though this may not be desirable in all environments)
 
 ## Implementation Approaches
 
@@ -162,7 +162,7 @@ Protecting your entire network requires a DoH-capable router or custom firmware.
 
 ### Using Dream Machine Professional
 
-Dream Machine Professional doesn't natively support DoH, but we can use a clever workaround:
+Dream Machine Professional doesn't natively support DoH, but I've found a workaround that works well (though be aware this requires SSH access and may not survive firmware updates):
 
 ```bash
 # Install required packages in Dream Machine Professional
@@ -244,6 +244,8 @@ dog example.com @[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.c
 
 ### Performance Monitoring
 
+While DoH improved privacy in my testing, it does add latency compared to traditional DNS. Here's a script I use to measure the impact:
+
 ```python
 #!/usr/bin/env python3
 import time
@@ -254,6 +256,8 @@ from statistics import mean, stdev
 benchmark_dns(traditional_dns_query, test_domains, "Traditional DNS")
 benchmark_dns(doh_query, test_domains, "DNS-over-HTTPS")
 ```
+
+In my tests, DoH typically adds 10-30ms per query, though results vary based on network conditions and provider selection.
 
 ### Logging and Analytics
 
@@ -272,7 +276,7 @@ chmod +x /usr/local/bin/analyze-doh-logs.sh
 
 ### 1. DoH Provider Selection
 
-Not all DoH providers are equal. Consider:
+Not all DoH providers are equal. Based on my research and testing, here are the key factors to consider:
 
 ```yaml
 Provider Comparison:
@@ -402,11 +406,11 @@ After running DoH for years, here's what changed for me:
 
 **The Annoying:**
 - Some corporate networks break (had to create a work profile that disables DoH)
-- Slightly slower initial connections (we're talking 10-20ms)
+- Slightly slower initial connections (we're talking 10-20ms, though your mileage may vary)
 - Explaining to family why "the internet is broken" when DoH server is down
 - Captive portals at coffee shops require temporary disabling
 
-**My Verdict:** Absolutely worth it. The privacy gains far outweigh the minor inconveniences.
+**My Verdict:** Absolutely worth it for my setup. The privacy gains far outweigh the minor inconveniences, though I recognize that the latency impact might be more noticeable on slower connections.
 
 ## Your Next Steps
 

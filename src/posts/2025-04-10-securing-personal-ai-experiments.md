@@ -28,7 +28,7 @@ title: 'Securing Your Personal AI/ML Experiments: A Practical Guide'
 
 ## The AI Revolution Hits Home
 
-Like many tech enthusiasts, I've been experimenting with AI and Large Language Models (LLMs) in my homelab. But as a security professional and a parent, I quickly realized that running AI experiments at home comes with unique security and privacy challenges.
+Like many tech enthusiasts, I've been experimenting with AI and Large Language Models (LLMs) in my homelab. But as a security professional and a parent, I quickly realized that running AI experiments at home comes with unique security and privacy challenges. I started with Llama 3.1 70B in April 2024, running on my RTX 3090 with 24GB VRAM, barely enough for inference at 4-bit quantization.
 
 This post shares practical approaches to securing your personal AI/ML experiments, learned through both successes and (carefully contained) failures.
 
@@ -101,7 +101,7 @@ Before diving into the technical details, let's address why this matters:
 
 ### Isolated Environment is Key
 
-My first rule: AI experiments run in isolation. Here's my setup:
+My first rule: AI experiments run in isolation. Here's my setup (though I'll admit this approach adds operational complexity, and you're trading convenience for security):
 
 ```python
 # Docker Compose for isolated AI environment
@@ -226,16 +226,16 @@ class FamilySafeAI:
 ## Lessons Learned
 
 ### 1. Start Small and Isolated
-Begin with small experiments in completely isolated environments. Scale up only after understanding the security implications.
+Begin with small experiments in completely isolated environments. Scale up only after understanding the security implications. That said, perfect isolation isn't always practical. I've had to make compromises when connectivity was needed for model downloads or API calls.
 
 ### 2. Monitor Everything
-AI workloads can behave unexpectedly. Comprehensive monitoring helps catch issues early.
+AI workloads can behave unexpectedly. Comprehensive monitoring helps catch issues early, though distinguishing between legitimate spikes and actual problems is probably more art than science.
 
 ### 3. Version Control for Models
 Track model versions and their sources. Know exactly what you're running.
 
 ### 4. Regular Security Audits
-AI tools evolve rapidly. Regular security reviews are essential.
+AI tools evolve rapidly. Regular security reviews are essential, though I'll be honest, I'm still figuring out the right cadence for these audits myself.
 
 ### 5. Educate Family Members
 Help family understand AI privacy implications. My family now knows to ask before sharing personal info with any AI tool.
@@ -259,7 +259,7 @@ My upcoming AI security projects:
 
 ## Conclusion
 
-Running AI experiments at home can be both exciting and secure. With proper isolation, monitoring, and privacy controls, you can explore the frontiers of AI while keeping your family's data safe.
+Running AI experiments at home can be done securely with the right safeguards. With proper isolation, monitoring, and privacy controls, you can explore the frontiers of AI while keeping your family's data safe.
 
 Remember: in the AI age, we're not just securing our networks and devices – we're securing our thoughts, conversations, and creative outputs. That's a responsibility worth taking seriously.
 

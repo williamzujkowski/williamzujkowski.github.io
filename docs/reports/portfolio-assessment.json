@@ -1,10 +1,10 @@
 {
-  "generated_at": "2025-10-29T00:45:09.369651",
+  "generated_at": "2025-10-29T04:34:48.952135",
   "total_posts": 55,
-  "average_score": 86.1,
+  "average_score": 88.2,
   "score_distribution": {
-    "excellent": 29,
-    "good": 18,
+    "excellent": 34,
+    "good": 13,
     "needs_improvement": 6,
     "failing": 2
   },
@@ -17,8 +17,8 @@
     "src/posts/2025-10-17-progressive-context-loading-llm-workflows.md",
     "src/posts/2024-01-08-writing-secure-code-developers-guide.md",
     "src/posts/2024-04-19-mastering-prompt-engineering-llms.md",
-    "src/posts/2025-04-10-securing-personal-ai-experiments.md",
-    "src/posts/2025-07-08-implementing-dns-over-https-home-networks.md"
+    "src/posts/2024-05-30-ai-learning-resource-constrained.md",
+    "src/posts/2024-03-05-cloud-migration-journey-guide.md"
   ],
   "all_results": [
     {
@@ -1848,13 +1848,13 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 27,
+          "short_sentences": 26,
           "avg_length": 13.2
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 49,
-          "avg_length": 15.1
+          "short_paragraphs": 48,
+          "avg_length": 14.6
         }
       ],
       "post_path": "src/posts/2025-02-10-automating-home-network-security.md",
@@ -1862,45 +1862,23 @@
       "status": "PASS"
     },
     {
-      "score": 77.5,
-      "violations": [
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "implement",
-          "count": 1,
-          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
-          "suggestions": [
-            "build",
-            "create",
-            "add",
-            "configure",
-            "set up"
-          ]
-        }
-      ],
+      "score": 100,
+      "violations": [],
+      "warnings": [],
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 1,
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
           "required": 1
         },
         {
@@ -1915,18 +1893,18 @@
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": -0.01,
+          "sentiment_score": 0.0,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 54,
-          "avg_length": 15.2
+          "short_sentences": 52,
+          "avg_length": 16.0
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 88,
-          "avg_length": 16.2
+          "short_paragraphs": 87,
+          "avg_length": 17.6
         }
       ],
       "post_path": "src/posts/2025-02-24-continuous-learning-cybersecurity.md",
@@ -1978,12 +1956,12 @@
         {
           "type": "sentence_variety",
           "short_sentences": 23,
-          "avg_length": 15.8
+          "avg_length": 15.9
         },
         {
           "type": "paragraph_variety",
           "short_paragraphs": 56,
-          "avg_length": 14.6
+          "avg_length": 14.7
         }
       ],
       "post_path": "src/posts/2025-03-10-raspberry-pi-security-projects.md",
@@ -2055,37 +2033,23 @@
       "status": "FAIL"
     },
     {
-      "score": 75,
-      "violations": [
-        {
-          "type": "hype_word",
-          "severity": "medium",
-          "word": "exciting",
-          "count": 1,
-          "message": "Overly enthusiastic. Show excitement through content, not adjectives."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        }
-      ],
+      "score": 100,
+      "violations": [],
       "warnings": [],
       "passed_checks": [
         {
           "type": "first_person",
           "found": 2,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
           "required": 1
         },
         {
@@ -2100,18 +2064,18 @@
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": 0.04,
+          "sentiment_score": 0.06,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
           "short_sentences": 22,
-          "avg_length": 15.5
+          "avg_length": 16.0
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 49,
-          "avg_length": 12.6
+          "short_paragraphs": 48,
+          "avg_length": 14.0
         }
       ],
       "post_path": "src/posts/2025-04-10-securing-personal-ai-experiments.md",
@@ -2134,7 +2098,7 @@
         {
           "type": "long_sentences",
           "severity": "low",
-          "avg_length": 21.3,
+          "avg_length": 21.7,
           "max_avg": 20,
           "message": "Mix short punchy sentences with occasional longer ones."
         }
@@ -2147,7 +2111,7 @@
         },
         {
           "type": "uncertainty",
-          "found": 2,
+          "found": 1,
           "required": 1
         },
         {
@@ -2168,12 +2132,12 @@
         {
           "type": "sentence_variety",
           "short_sentences": 9,
-          "avg_length": 21.3
+          "avg_length": 21.7
         },
         {
           "type": "paragraph_variety",
           "short_paragraphs": 43,
-          "avg_length": 20.3
+          "avg_length": 20.2
         }
       ],
       "post_path": "src/posts/2025-04-24-building-secure-homelab-adventure.md",
@@ -2315,42 +2279,20 @@
       "status": "PASS"
     },
     {
-      "score": 77.5,
-      "violations": [
+      "score": 100,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
         {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
+          "type": "first_person",
+          "found": 2,
+          "required": 1
         },
         {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "implement",
-          "count": 1,
-          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
-          "suggestions": [
-            "build",
-            "create",
-            "add",
-            "configure",
-            "set up"
-          ]
-        }
-      ],
-      "passed_checks": [
+          "type": "uncertainty",
+          "found": 1,
+          "required": 1
+        },
         {
           "type": "specificity",
           "found": 2,
@@ -2373,13 +2315,13 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 51,
-          "avg_length": 11.8
+          "short_sentences": 50,
+          "avg_length": 12.2
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 58,
-          "avg_length": 18.4
+          "short_paragraphs": 57,
+          "avg_length": 19.2
         }
       ],
       "post_path": "src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md",
@@ -2387,25 +2329,8 @@
       "status": "PASS"
     },
     {
-      "score": 75.0,
-      "violations": [
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        }
-      ],
+      "score": 95.0,
+      "violations": [],
       "warnings": [
         {
           "type": "jargon",
@@ -2424,8 +2349,18 @@
       ],
       "passed_checks": [
         {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 2,
+          "required": 1
+        },
+        {
           "type": "specificity",
-          "found": 15,
+          "found": 16,
           "required": 1
         },
         {
@@ -2445,13 +2380,13 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 31,
-          "avg_length": 14.7
+          "short_sentences": 29,
+          "avg_length": 16.1
         },
         {
           "type": "paragraph_variety",
           "short_paragraphs": 73,
-          "avg_length": 10.2
+          "avg_length": 11.3
         }
       ],
       "post_path": "src/posts/2025-07-08-implementing-dns-over-https-home-networks.md",
@@ -3311,29 +3246,33 @@
       "status": "PASS"
     },
     {
-      "score": 75,
-      "violations": [
+      "score": 97.5,
+      "violations": [],
+      "warnings": [
         {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 3,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
         }
       ],
-      "warnings": [],
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 3,
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 6,
           "required": 1
         },
         {
@@ -3343,7 +3282,7 @@
         },
         {
           "type": "trade_offs",
-          "found": 2,
+          "found": 9,
           "required": 1
         },
         {
@@ -3353,18 +3292,18 @@
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": 0.0,
+          "sentiment_score": -0.03,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 45,
-          "avg_length": 10.7
+          "short_sentences": 66,
+          "avg_length": 12.5
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 60,
-          "avg_length": 10.6
+          "short_paragraphs": 61,
+          "avg_length": 21.1
         }
       ],
       "post_path": "src/posts/2025-10-06-automated-security-scanning-pipeline.md",

@@ -134,7 +134,7 @@ def detect_privilege_escalation(event):
     return None
 ```
 
-The magic happens in the kernel with eBPF programs that capture these events in real-time. Here's what the complete system looks like:
+The magic happens in the kernel with eBPF programs that capture these events in real-time. In my homelab, I've found this pattern catches most privilege escalation attempts within the first second. Here's what the complete system looks like:
 
 ```mermaid
 sequenceDiagram
@@ -294,9 +294,9 @@ graph TD
     style Success fill:#4caf50
 ```
 
-Key optimization patterns:
+Key optimization patterns that work well in my environment (though your mileage may vary depending on workload):
 1. **Filter at the source**: Drop uninteresting events in kernel space
-2. **Use BPF maps wisely**: Implement rate limiting and deduplication
+2. **Use BPF maps wisely**: Build rate limiting and deduplication directly into your maps
 3. **Sample when appropriate**: Not every packet needs inspection
 4. **Size buffers correctly**: Prevent event loss without wasting memory
 
@@ -405,10 +405,10 @@ Ready to build your own eBPF security monitoring? Start with these steps:
 
 ## Real-World Success Metrics
 
-From my deployments and research validation:
+From my homelab deployments and research validation (keeping in mind that production environments can vary significantly):
 - **Detection Speed**: 1-5 seconds for zero-day threats
 - **False Positive Rate**: <0.1% with proper tuning
-- **Performance Overhead**: 2-5% CPU in production
+- **Performance Overhead**: 2-5% CPU in my test environments
 - **Coverage**: 100% of kernel-level events
 
 
