@@ -1179,6 +1179,16 @@ Parenting is ONE humanization element among many. Prioritize:
 
 # 📝 Blog Post Creation Guidelines
 
+## Recommended Workflow
+
+**For NEW blog posts**, use the **Content Template** at `docs/TEMPLATES/blog-post-writing-template.md` to achieve 80-90/100 baseline scores on first draft. This proactive humanization approach is **50% faster** than reactive refinement.
+
+**Template Validation Results:**
+- Test post scored **90/100** (vs 50/100 unguided)
+- All required patterns present: 8 first-person, 6 uncertainty, 22 trade-offs
+- Time to baseline: 2.5 hours (vs 4-6 hours reactive)
+- Full results: `docs/reports/phase-1-template-validation-report.md`
+
 ## Before You Write
 
 **Check topic diversity:**
