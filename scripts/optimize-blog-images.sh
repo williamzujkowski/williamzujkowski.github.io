@@ -44,11 +44,17 @@ echo ""
 echo "📐 Creating responsive variants..."
 echo "----------------------------------"
 
-# Process hero images
+# Process hero images (original files only, not variants)
 for img in hero/*.jpg; do
     if [ -f "$img" ]; then
+        # Skip if file already has size suffix (-400, -800, -thumb, -og)
+        if [[ "$img" =~ -[0-9]+\.jpg$ ]] || [[ "$img" =~ -(thumb|og)\.jpg$ ]]; then
+            echo "  ⏭️  Skipping $img (variant file)"
+            continue
+        fi
+
         basename="${img%.*}"
-        
+
         # Skip if variants already exist
         if [ -f "${basename}-800.jpg" ]; then
             echo "  ⏭️  Skipping $img (variants exist)"
@@ -108,8 +114,13 @@ if command -v cwebp &> /dev/null; then
     
     for img in hero/*.jpg; do
         if [ -f "$img" ]; then
+            # Skip variant files for WebP generation too
+            if [[ "$img" =~ -[0-9]+\.jpg$ ]] || [[ "$img" =~ -(thumb|og)\.jpg$ ]]; then
+                continue
+            fi
+
             webp_file="${img%.*}.webp"
-            
+
             # Skip if WebP already exists
             if [ -f "$webp_file" ]; then
                 echo "  ⏭️  Skipping $img (WebP exists)"

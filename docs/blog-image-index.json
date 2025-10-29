@@ -378,6 +378,19 @@
         "src": "/assets/images/blog/hero/2024-11-05-pizza-calculator-og.jpg"
       }
     },
+    "2024-11-15-gpu-power-monitoring-homelab-ml": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2024-11-15-gpu-power-monitoring-homelab-ml-hero.jpg",
+        "alt": "artificial intelligence concept diagram for GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill",
+        "caption": "Visual representation of GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2024-11-15-gpu-power-monitoring-homelab-ml-og.jpg",
+        "alt": "artificial intelligence concept diagram for GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill"
+      }
+    },
     "2024-11-19-llms-smart-contract-vulnerability": {
       "hero": {
         "alt": "Large Language Models for Smart Contract Security: Promise and Limitations - Hero Image",
@@ -490,18 +503,18 @@
         "src": "/assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-og.jpg"
       }
     },
-    "2025-05-10-building-security-mindset-lessons-from-field": {
+    "2025-05-10-llm-fine-tuning-homelab-guide": {
       "hero": {
-        "alt": "Building a Security Mindset: Lessons from the Field - Hero Image",
-        "caption": "Visual representation of Building a Security Mindset: Lessons from the Field",
+        "alt": "Fine-Tuning LLMs in the Homelab: A Practical Guide - Hero Image",
+        "caption": "Visual representation of Fine-Tuning LLMs in the Homelab: A Practical Guide",
         "height": 630,
-        "src": "/assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-hero.jpg",
+        "src": "/assets/images/blog/hero/2025-05-10-llm-fine-tuning-homelab-guide-hero.jpg",
         "width": 1200
       },
       "inline": [],
       "og": {
-        "alt": "Building a Security Mindset: Lessons from the Field - Social Media Preview",
-        "src": "/assets/images/blog/hero/2025-05-10-building-security-mindset-lessons-from-field-og.jpg"
+        "alt": "Fine-Tuning LLMs in the Homelab: A Practical Guide - Social Media Preview",
+        "src": "/assets/images/blog/hero/2025-05-10-llm-fine-tuning-homelab-guide-og.jpg"
       }
     },
     "2025-06-25-local-llm-deployment-privacy-first": {
@@ -743,17 +756,55 @@
         "alt": "cybersecurity concept illustration for Automated Security Scanning Pipeline with Grype and OSV"
       }
     },
-    "2025-10-13-ai-agent-development-claude-mcp": {
+    "2025-10-13-embodied-ai-robots-physical-world": {
       "hero": {
-        "src": "/assets/images/blog/hero/2025-10-13-ai-agent-development-claude-mcp-hero.jpg",
-        "alt": "artificial intelligence concept diagram for AI Agent Development with Claude Code and MCP Servers",
-        "caption": "Visual representation of AI Agent Development with Claude Code and MCP Servers",
+        "src": "/assets/images/blog/hero/2025-10-13-embodied-ai-robots-hero.jpg",
+        "alt": "robotic arm controlled by AI in workshop environment",
+        "caption": "Vision-Language-Action models bringing AI into the physical world",
         "width": 1200,
         "height": 630
       },
       "og": {
-        "src": "/assets/images/blog/hero/2025-10-13-ai-agent-development-claude-mcp-og.jpg",
-        "alt": "artificial intelligence concept diagram for AI Agent Development with Claude Code and MCP Servers"
+        "src": "/assets/images/blog/hero/2025-10-13-embodied-ai-robots-og.jpg",
+        "alt": "AI-powered robotics and embodied intelligence"
+      }
+    },
+    "2025-10-17-progressive-context-loading-llm-workflows": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-10-17-progressive-context-loading-hero.jpg",
+        "alt": "Abstract visualization of token streams being compressed through progressive loading layers, showing 150K tokens reducing to 2K",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-10-17-progressive-context-loading-og.jpg",
+        "alt": "Progressive context loading reduces LLM token usage by 98%"
+      }
+    },
+    "2025-10-29-post-quantum-cryptography-homelab": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-10-29-post-quantum-cryptography-homelab-hero.jpg",
+        "alt": "Abstract visualization of post-quantum cryptography protecting a homelab server with quantum-safe encryption",
+        "caption": "Preparing personal infrastructure for the quantum computing era",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-10-29-post-quantum-cryptography-homelab-og.jpg",
+        "alt": "Post-quantum cryptography for homelabs: NIST standards and practical migration"
+      }
+    },
+    "2025-10-29-privacy-first-ai-lab-local-llms": {
+      "hero": {
+        "src": "/assets/images/blog/hero/2025-10-29-privacy-first-ai-lab-local-llms-hero.jpg",
+        "alt": "Secure homelab setup with local LLM deployment featuring network isolation and privacy controls",
+        "caption": "Building truly private AI infrastructure beyond just self-hosting",
+        "width": 1200,
+        "height": 630
+      },
+      "og": {
+        "src": "/assets/images/blog/hero/2025-10-29-privacy-first-ai-lab-local-llms-og.jpg",
+        "alt": "Privacy-first AI lab: deploying local LLMs with real security"
       }
     },
     "welcome": {
@@ -772,8 +823,8 @@
     }
   },
   "stats": {
-    "total_posts": 55,
-    "posts_with_images": 55,
-    "total_images": 57
+    "total_posts": 59,
+    "posts_with_images": 59,
+    "total_images": 61
   }
 }

@@ -1,15 +1,30 @@
 ---
 date: '2024-11-15T00:00:00.000Z'
-description: After my October electricity bill showed a $43 spike, I spent three months measuring GPU power consumption across different LLM workloads. Here's what I learned about running AI at home sustainably.
+description: After my October electricity bill showed a $43 spike, I spent three months
+  measuring GPU power consumption across different LLM workloads. Here's what I learned
+  about running AI at home sustainably.
 tags:
 - posts
 - ai-ml
 - homelab
 - hardware
 - sustainability
-title: 'GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
+title: 'GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity
+  Bill'
+images:
+  hero:
+    src: /assets/images/blog/hero/2024-11-15-gpu-power-monitoring-homelab-ml-hero.jpg
+    alt: 'artificial intelligence concept diagram for GPU Power Monitoring in My Homelab:
+      When Machine Learning Met My Electricity Bill'
+    caption: 'Visual representation of GPU Power Monitoring in My Homelab: When Machine
+      Learning Met My Electricity Bill'
+    width: 1200
+    height: 630
+  og:
+    src: /assets/images/blog/hero/2024-11-15-gpu-power-monitoring-homelab-ml-og.jpg
+    alt: 'artificial intelligence concept diagram for GPU Power Monitoring in My Homelab:
+      When Machine Learning Met My Electricity Bill'
 ---
-
 In October 2024, I opened my electricity bill and immediately knew something was wrong. The number staring back at me was $187, a $43 jump from September's $144. I'd been running Ollama on my RTX 3090 for the past month, experimenting with various Llama 3.1 models for personal projects. But I hadn't expected the financial impact to hit quite this hard. That uncomfortable moment sparked a three-month deep dive into GPU power consumption, leading me to instrument my entire homelab with power monitoring gear and spend way too many evenings staring at Grafana dashboards. What I discovered surprised me: my assumptions about AI workload efficiency were mostly wrong, and the path to sustainable home AI required rethinking how I approached every inference request.
 
 The 312W average power draw I measured during typical LLM inference sessions wasn't the shocking part. I knew the RTX 3090 was power-hungry. What caught me off guard was the massive variability: idle Ollama consumed 87W, while fine-tuning a LoRA adapter briefly spiked to 394W before my system's power limits kicked in. These weren't abstract numbers from a spec sheet. They were real watts flowing through my Kill-A-Watt P4400 meter, translating directly into dollars on my utility bill at $0.12/kWh.
