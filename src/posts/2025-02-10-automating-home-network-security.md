@@ -242,8 +242,6 @@ Security automation is an ongoing journey. My upcoming projects include:
 
 Automating home network security has transformed my approach to protecting my family's digital life. Instead of constantly checking logs and running manual scans, I can focus on improving defenses while automation handles the routine work.
 
-The best part? When my kids ask what I do for work, I can show them our "home security robot" in action. Nothing beats seeing their faces light up when they understand that Dad's job is basically being a cyber superhero.
-
 Remember: the goal isn't to build Fort Knox, it's to raise the bar high enough that attackers move on to easier targets. Automation helps you maintain that bar without burning out.
 
 

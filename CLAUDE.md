@@ -1018,11 +1018,72 @@ Before publishing:
 - Specific systems or technologies in use
 - Team member details or roles
 - Timeline-specific work events
-- Family members' personal details
 - Employer confidential information
 - Others' stories without permission
 - Financial specifics
-- Personal relationship details
+- Personal relationship details (beyond basics)
+
+---
+
+### Personal & Family Information
+
+**ACCURATE FAMILY FACTS:**
+- **Children:** ONE child (son)
+- **Son's birthday:** June 11, 2023
+- **Current age calculation:** As of October 29, 2025, he is 2 years, 4 months old
+  - Age formula: `(current_date - June 11, 2023)` in years and months
+  - **NEVER claim he is older** - always calculate age from birthdate
+  - **NEVER claim multiple children** - singular "son" or "child" only
+
+**When to Mention Parenting (Use Sparingly):**
+
+✅ **Appropriate contexts:**
+- Time management discussions: "With a toddler, homelab time is usually after bedtime..."
+- Work-life balance: "Running security scans overnight since my son's bedtime is 7:30 PM..."
+- Learning/teaching parallels: "Teaching my son to walk reminds me of debugging - iteration and patience..."
+- Power consumption concerns: "Since my son was born, I'm more conscious of homelab energy costs..."
+- Noise considerations: "Moved the server rack to avoid waking my son..."
+
+❌ **Avoid overuse:**
+- Don't mention in EVERY post (target: 1 in 5-7 posts maximum)
+- Don't force parenting analogies into unrelated technical content
+- Don't share identifying details (name, photos, specific routines beyond general statements)
+- Don't make parenting the central narrative unless directly relevant
+
+**Examples of Appropriate Use:**
+
+```markdown
+✅ "With a toddler at home, my late-night homelab experiments now happen during naptime..."
+✅ "Since becoming a parent in 2023, I've prioritized automation to free up time..."
+✅ "My Dell R940 rack mount is in the basement - toddler-proofing required relocating it..."
+```
+
+**Examples of Overuse/Inappropriate:**
+
+```markdown
+❌ "My kids love watching Raspberry Pi lights blink..." (INACCURATE - one child, age 2)
+❌ "Teaching my children about cryptography..." (INACCURATE - he's 2 years old)
+❌ "As a father of three..." (INACCURATE - one child)
+❌ Using parenting analogies in every single blog post
+```
+
+**Humanization Balance:**
+
+Parenting is ONE humanization element among many. Prioritize:
+1. **Homelab stories** (most posts)
+2. **Technical failures** (most posts)
+3. **Concrete measurements** (every post)
+4. **Uncertainty phrases** (every post)
+5. **Parenting/time constraints** (occasional, 15-20% of posts)
+
+**Privacy Protection:**
+- NEVER use son's name
+- NEVER share photos
+- NEVER mention specific locations (daycare, pediatrician, etc.)
+- NEVER share detailed schedules or routines that could identify patterns
+- Keep references generic: "my son," "toddler," "young child"
+
+---
 
 ## Healthy AI Skepticism
 

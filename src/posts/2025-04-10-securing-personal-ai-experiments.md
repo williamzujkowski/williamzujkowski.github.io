@@ -238,7 +238,7 @@ Track model versions and their sources. Know exactly what you're running.
 AI tools evolve rapidly. Regular security reviews are essential.
 
 ### 5. Educate Family Members
-Help family understand AI privacy implications. My kids now know to ask before sharing personal info with any AI tool.
+Help family understand AI privacy implications. My family now knows to ask before sharing personal info with any AI tool.
 
 ## Tools and Resources
 
@@ -263,7 +263,7 @@ Running AI experiments at home can be both exciting and secure. With proper isol
 
 Remember: in the AI age, we're not just securing our networks and devices – we're securing our thoughts, conversations, and creative outputs. That's a responsibility worth taking seriously.
 
-The best part? When properly secured, AI becomes a powerful tool for learning and creativity rather than a privacy risk. My kids now use our "family AI" for homework help, creative writing, and even generating dad jokes (though mine are still better).
+The best part? When properly secured, AI becomes a powerful tool for learning and creativity rather than a privacy risk.
 
 
 

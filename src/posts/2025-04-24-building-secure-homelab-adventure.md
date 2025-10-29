@@ -67,7 +67,7 @@ My initial goals were:
 - Learn security tools hands-on without breaking anything important
 - Protect my family's devices from increasing cyber threats
 - Have a safe environment to test new technologies
-- Build something my kids might find cool (success metric: "Dad, that's actually not boring!")
+- Build something interesting to show my family
 
 ## The Architecture
 
@@ -173,7 +173,7 @@ Beyond the technical learning, this project has:
 - Given me stories that make sense to non-technical family ("Remember when I caught that virus before it infected your laptop?")
 - Provided hands-on experience with enterprise tools
 - Created a safe space for spectacular failures (yes, I've locked myself out multiple times)
-- Sparked my kids' interest in technology and security
+- Created opportunities to discuss technology and security at home
 
 ## Resources for Getting Started
 
