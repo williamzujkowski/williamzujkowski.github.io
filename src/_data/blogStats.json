@@ -1,15 +1,15 @@
 {
   "total_posts": 56,
-  "total_words": 73462,
-  "average_words": 1311.8,
-  "average_reading_time": 6.1,
+  "total_words": 77704,
+  "average_words": 1387.6,
+  "average_reading_time": 6.4,
   "posts_by_year": {
     "2024": 29,
     "2025": 27
   },
   "words_by_year": {
-    "2024": 52110,
-    "2025": 21352
+    "2024": 56025,
+    "2025": 21679
   },
   "posts_by_month": {
     "2025-01": 1,
@@ -124,7 +124,7 @@
     {
       "title": "From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution",
       "date": "2025-10-13",
-      "reading_time": 5,
+      "reading_time": 6,
       "tags": [
         "ai",
         "robotics",
@@ -253,21 +253,21 @@
   "posts_with_images_percentage": 100.0,
   "reading_time_distribution": {
     "1-3 min": 13,
-    "4-6 min": 23,
-    "7-9 min": 16,
-    "10+ min": 4
+    "4-6 min": 22,
+    "7-9 min": 12,
+    "10+ min": 9
   },
   "citation_stats": {
     "total_external_links": 617,
     "total_internal_links": 5,
-    "average_citation_density": 12.59,
+    "average_citation_density": 12.28,
     "average_external_links_per_post": 11.0
   },
   "code_stats": {
-    "average_code_to_content_ratio": 19.9,
+    "average_code_to_content_ratio": 19.8,
     "posts_with_code": 51,
     "posts_with_code_percentage": 91.1
   },
-  "generated_at": "2025-10-28T22:45:20.383760",
+  "generated_at": "2025-10-28T23:28:13.523984",
   "reading_speed_wpm": 238
 }

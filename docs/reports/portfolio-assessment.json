@@ -1,24 +1,24 @@
 {
-  "generated_at": "2025-10-28T23:17:13.287079",
+  "generated_at": "2025-10-29T00:45:09.369651",
   "total_posts": 55,
-  "average_score": 71.7,
+  "average_score": 86.1,
   "score_distribution": {
-    "excellent": 17,
-    "good": 15,
+    "excellent": 29,
+    "good": 18,
     "needs_improvement": 6,
-    "failing": 17
+    "failing": 2
   },
   "bottom_10_posts": [
-    "src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
-    "src/posts/2024-01-30-securing-cloud-native-frontier.md",
-    "src/posts/2024-08-02-quantum-computing-leap-forward.md",
-    "src/posts/2024-11-05-pizza-calculator.md",
-    "src/posts/2024-02-22-open-source-vs-proprietary-llms.md",
-    "src/posts/2024-07-09-zero-trust-architecture-implementation.md",
-    "src/posts/2024-12-03-context-windows-llms.md",
-    "src/posts/2025-05-10-building-security-mindset-lessons-from-field.md",
-    "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
-    "src/posts/2024-09-09-embodied-ai-teaching-agents.md"
+    "src/posts/2025-08-18-container-security-hardening-homelab.md",
+    "src/posts/2025-03-24-from-it-support-to-senior-infosec-engineer.md",
+    "src/posts/2025-07-22-supercharging-claude-cli-with-standards.md",
+    "src/posts/2025-09-20-iot-security-homelab-owasp.md",
+    "src/posts/2025-09-20-vulnerability-prioritization-epss-kev.md",
+    "src/posts/2025-10-17-progressive-context-loading-llm-workflows.md",
+    "src/posts/2024-01-08-writing-secure-code-developers-guide.md",
+    "src/posts/2024-04-19-mastering-prompt-engineering-llms.md",
+    "src/posts/2025-04-10-securing-personal-ai-experiments.md",
+    "src/posts/2025-07-08-implementing-dns-over-https-home-networks.md"
   ],
   "all_results": [
     {
@@ -148,206 +148,58 @@
       "status": "PASS"
     },
     {
-      "score": 27.5,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 6,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "implement",
-          "count": 1,
-          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
-          "suggestions": [
-            "build",
-            "create",
-            "add",
-            "configure",
-            "set up"
-          ]
-        }
-      ],
-      "passed_checks": [
-        {
-          "type": "trade_offs",
-          "found": 9,
-          "required": 1
-        },
-        {
-          "type": "sentiment_balance",
-          "sentiment_score": -0.04,
-          "threshold": 1.2
-        },
-        {
-          "type": "sentence_variety",
-          "short_sentences": 28,
-          "avg_length": 14.1
-        },
-        {
-          "type": "paragraph_variety",
-          "short_paragraphs": 57,
-          "avg_length": 22.8
-        }
-      ],
-      "post_path": "src/posts/2024-01-30-securing-cloud-native-frontier.md",
-      "post": "src/posts/2024-01-30-securing-cloud-native-frontier.md",
-      "status": "FAIL"
-    },
-    {
-      "score": 42.5,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 7,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "facilitate",
-          "count": 1,
-          "message": "Overly formal. Use 'help' or 'enable'.",
-          "suggestions": [
-            "help",
-            "enable",
-            "make easier"
-          ]
-        }
-      ],
+      "score": 100,
+      "violations": [],
+      "warnings": [],
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 1,
+          "found": 13,
           "required": 1
         },
         {
           "type": "uncertainty",
-          "found": 1,
+          "found": 14,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 8,
+          "found": 14,
           "required": 1
         },
         {
+          "type": "concrete_details",
+          "found": 6,
+          "required": 2
+        },
+        {
           "type": "sentiment_balance",
-          "sentiment_score": -0.12,
+          "sentiment_score": -0.1,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 18,
-          "avg_length": 16.9
+          "short_sentences": 82,
+          "avg_length": 12.9
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 57,
-          "avg_length": 22.9
+          "short_paragraphs": 23,
+          "avg_length": 47.8
         }
       ],
-      "post_path": "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
-      "post": "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
-      "status": "FAIL"
+      "post_path": "src/posts/2024-01-30-securing-cloud-native-frontier.md",
+      "post": "src/posts/2024-01-30-securing-cloud-native-frontier.md",
+      "status": "PASS"
     },
     {
-      "score": 35,
+      "score": 90,
       "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 3,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "banned_token",
-          "severity": "medium",
-          "token": ";",
-          "count": 1,
-          "message": "Semicolons in narrative text are overly formal. Use periods or commas."
-        },
-        {
-          "type": "hype_word",
-          "severity": "medium",
-          "word": "remarkable",
-          "count": 2,
-          "message": "Empty superlative. Be specific about what's notable."
-        },
-        {
-          "type": "hype_word",
-          "severity": "medium",
-          "word": "cutting-edge",
-          "count": 3,
-          "message": "Vague descriptor. Specify what's novel."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
         {
           "type": "missing_required_pattern",
           "severity": "high",
@@ -357,11 +209,56 @@
           "message": "Include concrete examples or explanations of practical impact."
         }
       ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 10,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 11,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 3,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 22,
+          "required": 1
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.11,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 44,
+          "avg_length": 14.8
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 47,
+          "avg_length": 36.4
+        }
+      ],
+      "post_path": "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
+      "post": "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md",
+      "status": "PASS"
+    },
+    {
+      "score": 100,
+      "violations": [],
       "warnings": [
         {
           "type": "long_sentences",
           "severity": "low",
-          "avg_length": 25.0,
+          "avg_length": 23.0,
           "max_avg": 20,
           "message": "Mix short punchy sentences with occasional longer ones."
         }
@@ -369,18 +266,28 @@
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 2,
+          "found": 15,
           "required": 1
         },
         {
           "type": "uncertainty",
-          "found": 1,
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 17,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 12,
+          "found": 22,
           "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
         },
         {
           "type": "sentiment_balance",
@@ -389,18 +296,18 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 13,
-          "avg_length": 25.0
+          "short_sentences": 25,
+          "avg_length": 23.0
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 57,
-          "avg_length": 23.3
+          "short_paragraphs": 32,
+          "avg_length": 44.4
         }
       ],
       "post_path": "src/posts/2024-02-22-open-source-vs-proprietary-llms.md",
       "post": "src/posts/2024-02-22-open-source-vs-proprietary-llms.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 80,
@@ -510,30 +417,14 @@
       "status": "PASS"
     },
     {
-      "score": 52.5,
+      "score": 90.0,
       "violations": [
         {
-          "type": "banned_token",
+          "type": "hype_word",
           "severity": "high",
-          "token": "\u2014",
-          "count": 5,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
+          "word": "amazing",
+          "count": 1,
+          "message": "Marketing hype. Use concrete descriptions."
         }
       ],
       "warnings": [
@@ -541,7 +432,7 @@
           "type": "jargon",
           "severity": "low",
           "word": "implement",
-          "count": 1,
+          "count": 2,
           "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
           "suggestions": [
             "build",
@@ -555,38 +446,48 @@
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 1,
+          "found": 18,
           "required": 1
         },
         {
           "type": "uncertainty",
-          "found": 2,
+          "found": 8,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 12,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 14,
+          "found": 50,
           "required": 1
         },
         {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
           "type": "sentiment_balance",
-          "sentiment_score": -0.02,
+          "sentiment_score": -0.05,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 10,
-          "avg_length": 16.9
+          "short_sentences": 126,
+          "avg_length": 11.6
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 100,
-          "avg_length": 14.2
+          "short_paragraphs": 91,
+          "avg_length": 31.5
         }
       ],
       "post_path": "src/posts/2024-04-04-retrieval-augmented-generation-rag.md",
       "post": "src/posts/2024-04-04-retrieval-augmented-generation-rag.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 100,
@@ -761,14 +662,14 @@
       "status": "PASS"
     },
     {
-      "score": 25,
+      "score": 90,
       "violations": [
         {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 8,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
+          "type": "ai_transition",
+          "severity": "medium",
+          "phrase": "overall",
+          "count": 1,
+          "message": "Generic summarizer. Be specific about what you're concluding."
         },
         {
           "type": "hype_word",
@@ -776,71 +677,54 @@
           "word": "remarkable",
           "count": 1,
           "message": "Empty superlative. Be specific about what's notable."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
         }
       ],
-      "warnings": [
-        {
-          "type": "long_sentences",
-          "severity": "low",
-          "avg_length": 32.4,
-          "max_avg": 20,
-          "message": "Mix short punchy sentences with occasional longer ones."
-        }
-      ],
+      "warnings": [],
       "passed_checks": [
         {
+          "type": "first_person",
+          "found": 20,
+          "required": 1
+        },
+        {
           "type": "uncertainty",
-          "found": 2,
+          "found": 16,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 7,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 12,
+          "found": 46,
           "required": 1
         },
         {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
+        },
+        {
           "type": "sentiment_balance",
-          "sentiment_score": -0.02,
+          "sentiment_score": 0.01,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 24,
-          "avg_length": 32.4
+          "short_sentences": 128,
+          "avg_length": 13.6
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 140,
-          "avg_length": 13.4
+          "short_paragraphs": 97,
+          "avg_length": 29.8
         }
       ],
       "post_path": "src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
       "post": "src/posts/2024-05-14-ai-new-frontier-cybersecurity.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 77.5,
@@ -933,29 +817,14 @@
       "status": "PASS"
     },
     {
-      "score": 50,
+      "score": 80,
       "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 5,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
         {
           "type": "hype_word",
           "severity": "medium",
-          "word": "exciting",
-          "count": 1,
-          "message": "Overly enthusiastic. Show excitement through content, not adjectives."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
+          "word": "cutting-edge",
+          "count": 2,
+          "message": "Vague descriptor. Specify what's novel."
         },
         {
           "type": "missing_required_pattern",
@@ -970,38 +839,43 @@
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 1,
+          "found": 10,
           "required": 1
         },
         {
           "type": "uncertainty",
-          "found": 4,
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 46,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 14,
+          "found": 12,
           "required": 1
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": -0.01,
+          "sentiment_score": -0.03,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 14,
-          "avg_length": 15.5
+          "short_sentences": 72,
+          "avg_length": 17.2
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 161,
-          "avg_length": 11.5
+          "short_paragraphs": 126,
+          "avg_length": 19.7
         }
       ],
       "post_path": "src/posts/2024-06-11-beyond-containers-future-deployment.md",
       "post": "src/posts/2024-06-11-beyond-containers-future-deployment.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 97.5,
@@ -1076,55 +950,8 @@
       "status": "PASS"
     },
     {
-      "score": 35.0,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 3,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "hype_word",
-          "severity": "low",
-          "word": "seamless",
-          "count": 1,
-          "message": "Marketing speak. Describe the actual user experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
+      "score": 95.0,
+      "violations": [],
       "warnings": [
         {
           "type": "jargon",
@@ -1143,9 +970,29 @@
       ],
       "passed_checks": [
         {
-          "type": "trade_offs",
-          "found": 8,
+          "type": "first_person",
+          "found": 12,
           "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 13,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 36,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 18,
+          "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 3,
+          "required": 2
         },
         {
           "type": "sentiment_balance",
@@ -1154,18 +1001,18 @@
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 55,
-          "avg_length": 13.9
+          "short_sentences": 141,
+          "avg_length": 11.8
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 140,
-          "avg_length": 14.8
+          "short_paragraphs": 134,
+          "avg_length": 22.6
         }
       ],
       "post_path": "src/posts/2024-07-09-zero-trust-architecture-implementation.md",
       "post": "src/posts/2024-07-09-zero-trust-architecture-implementation.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 92.5,
@@ -1312,83 +1159,54 @@
       "status": "PASS"
     },
     {
-      "score": 30,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 8,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "hype_word",
-          "severity": "high",
-          "word": "revolutionary",
-          "count": 2,
-          "message": "Hyperbolic claim. Explain the actual innovation."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "long_sentences",
-          "severity": "low",
-          "avg_length": 45.4,
-          "max_avg": 20,
-          "message": "Mix short punchy sentences with occasional longer ones."
-        }
-      ],
+      "score": 100,
+      "violations": [],
+      "warnings": [],
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 2,
+          "found": 6,
           "required": 1
         },
         {
           "type": "uncertainty",
-          "found": 2,
+          "found": 35,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 7,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 5,
+          "found": 34,
           "required": 1
         },
         {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
           "type": "sentiment_balance",
-          "sentiment_score": -0.11,
+          "sentiment_score": -0.27,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 13,
-          "avg_length": 45.4
+          "short_sentences": 173,
+          "avg_length": 11.3
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 95,
-          "avg_length": 18.8
+          "short_paragraphs": 147,
+          "avg_length": 27.0
         }
       ],
       "post_path": "src/posts/2024-08-02-quantum-computing-leap-forward.md",
       "post": "src/posts/2024-08-02-quantum-computing-leap-forward.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 100,
@@ -1507,68 +1325,69 @@
       "status": "PASS"
     },
     {
-      "score": 45,
-      "violations": [
+      "score": 97.5,
+      "violations": [],
+      "warnings": [
         {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 7,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
         }
       ],
-      "warnings": [],
       "passed_checks": [
         {
+          "type": "first_person",
+          "found": 10,
+          "required": 1
+        },
+        {
           "type": "uncertainty",
-          "found": 2,
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 1,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 4,
+          "found": 12,
           "required": 1
         },
         {
           "type": "concrete_details",
-          "found": 3,
+          "found": 2,
           "required": 2
         },
         {
           "type": "sentiment_balance",
-          "sentiment_score": -0.04,
+          "sentiment_score": -0.09,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 28,
-          "avg_length": 14.5
+          "short_sentences": 40,
+          "avg_length": 15.6
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 52,
-          "avg_length": 22.0
+          "short_paragraphs": 40,
+          "avg_length": 34.7
         }
       ],
       "post_path": "src/posts/2024-09-09-embodied-ai-teaching-agents.md",
       "post": "src/posts/2024-09-09-embodied-ai-teaching-agents.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 100,
@@ -1683,341 +1502,8 @@
       "status": "PASS"
     },
     {
-      "score": 50,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 5,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "ai_transition",
-          "severity": "medium",
-          "phrase": "overall",
-          "count": 1,
-          "message": "Generic summarizer. Be specific about what you're concluding."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        }
-      ],
-      "warnings": [],
-      "passed_checks": [
-        {
-          "type": "first_person",
-          "found": 1,
-          "required": 1
-        },
-        {
-          "type": "trade_offs",
-          "found": 14,
-          "required": 1
-        },
-        {
-          "type": "concrete_details",
-          "found": 2,
-          "required": 2
-        },
-        {
-          "type": "sentiment_balance",
-          "sentiment_score": 0.0,
-          "threshold": 1.2
-        },
-        {
-          "type": "sentence_variety",
-          "short_sentences": 13,
-          "avg_length": 19.8
-        },
-        {
-          "type": "paragraph_variety",
-          "short_paragraphs": 68,
-          "avg_length": 20.3
-        }
-      ],
-      "post_path": "src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md",
-      "post": "src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md",
-      "status": "FAIL"
-    },
-    {
-      "score": 45,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 5,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "long_sentences",
-          "severity": "low",
-          "avg_length": 22.9,
-          "max_avg": 20,
-          "message": "Mix short punchy sentences with occasional longer ones."
-        }
-      ],
-      "passed_checks": [
-        {
-          "type": "specificity",
-          "found": 1,
-          "required": 1
-        },
-        {
-          "type": "trade_offs",
-          "found": 8,
-          "required": 1
-        },
-        {
-          "type": "sentiment_balance",
-          "sentiment_score": 0.03,
-          "threshold": 1.2
-        },
-        {
-          "type": "sentence_variety",
-          "short_sentences": 14,
-          "avg_length": 22.9
-        },
-        {
-          "type": "paragraph_variety",
-          "short_paragraphs": 100,
-          "avg_length": 16.4
-        }
-      ],
-      "post_path": "src/posts/2024-10-22-ai-edge-computing.md",
-      "post": "src/posts/2024-10-22-ai-edge-computing.md",
-      "status": "FAIL"
-    },
-    {
-      "score": 32.5,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 11,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "implement",
-          "count": 1,
-          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
-          "suggestions": [
-            "build",
-            "create",
-            "add",
-            "configure",
-            "set up"
-          ]
-        }
-      ],
-      "passed_checks": [
-        {
-          "type": "uncertainty",
-          "found": 4,
-          "required": 1
-        },
-        {
-          "type": "specificity",
-          "found": 5,
-          "required": 1
-        },
-        {
-          "type": "trade_offs",
-          "found": 3,
-          "required": 1
-        },
-        {
-          "type": "concrete_details",
-          "found": 2,
-          "required": 2
-        },
-        {
-          "type": "sentiment_balance",
-          "sentiment_score": -0.07,
-          "threshold": 1.2
-        },
-        {
-          "type": "sentence_variety",
-          "short_sentences": 39,
-          "avg_length": 13.4
-        },
-        {
-          "type": "paragraph_variety",
-          "short_paragraphs": 83,
-          "avg_length": 16.0
-        }
-      ],
-      "post_path": "src/posts/2024-11-05-pizza-calculator.md",
-      "post": "src/posts/2024-11-05-pizza-calculator.md",
-      "status": "FAIL"
-    },
-    {
-      "score": 47.5,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 6,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
-      "warnings": [
-        {
-          "type": "jargon",
-          "severity": "low",
-          "word": "implement",
-          "count": 1,
-          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
-          "suggestions": [
-            "build",
-            "create",
-            "add",
-            "configure",
-            "set up"
-          ]
-        }
-      ],
-      "passed_checks": [
-        {
-          "type": "uncertainty",
-          "found": 1,
-          "required": 1
-        },
-        {
-          "type": "specificity",
-          "found": 1,
-          "required": 1
-        },
-        {
-          "type": "trade_offs",
-          "found": 9,
-          "required": 1
-        },
-        {
-          "type": "sentiment_balance",
-          "sentiment_score": 0.01,
-          "threshold": 1.2
-        },
-        {
-          "type": "sentence_variety",
-          "short_sentences": 22,
-          "avg_length": 16.4
-        },
-        {
-          "type": "paragraph_variety",
-          "short_paragraphs": 98,
-          "avg_length": 15.2
-        }
-      ],
-      "post_path": "src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
-      "post": "src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
-      "status": "FAIL"
-    },
-    {
-      "score": 40.0,
-      "violations": [
-        {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 5,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "first_person",
-          "found": 0,
-          "required": 1,
-          "message": "Add at least one first-person statement about your direct experience."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "concrete_details",
-          "found": 1,
-          "required": 2,
-          "message": "Include concrete examples or explanations of practical impact."
-        }
-      ],
+      "score": 95.0,
+      "violations": [],
       "warnings": [
         {
           "type": "jargon",
@@ -2032,45 +1518,291 @@
             "configure",
             "set up"
           ]
-        },
-        {
-          "type": "long_sentences",
-          "severity": "low",
-          "avg_length": 21.3,
-          "max_avg": 20,
-          "message": "Mix short punchy sentences with occasional longer ones."
         }
       ],
       "passed_checks": [
         {
-          "type": "uncertainty",
-          "found": 1,
+          "type": "first_person",
+          "found": 14,
           "required": 1
         },
         {
-          "type": "trade_offs",
+          "type": "uncertainty",
           "found": 10,
           "required": 1
         },
         {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 46,
+          "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 5,
+          "required": 2
+        },
+        {
           "type": "sentiment_balance",
-          "sentiment_score": -0.01,
+          "sentiment_score": -0.05,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 9,
-          "avg_length": 21.3
+          "short_sentences": 88,
+          "avg_length": 12.3
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 79,
-          "avg_length": 18.3
+          "short_paragraphs": 80,
+          "avg_length": 26.3
+        }
+      ],
+      "post_path": "src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "post": "src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md",
+      "status": "PASS"
+    },
+    {
+      "score": 90,
+      "violations": [
+        {
+          "type": "hype_word",
+          "severity": "medium",
+          "word": "exciting",
+          "count": 1,
+          "message": "Overly enthusiastic. Show excitement through content, not adjectives."
+        },
+        {
+          "type": "hype_word",
+          "severity": "high",
+          "word": "amazing",
+          "count": 1,
+          "message": "Marketing hype. Use concrete descriptions."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 13,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 23,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 33,
+          "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 4,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": 0.03,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 65,
+          "avg_length": 14.1
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 98,
+          "avg_length": 27.6
+        }
+      ],
+      "post_path": "src/posts/2024-10-22-ai-edge-computing.md",
+      "post": "src/posts/2024-10-22-ai-edge-computing.md",
+      "status": "PASS"
+    },
+    {
+      "score": 100,
+      "violations": [],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 1,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 6,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 7,
+          "required": 1
+        },
+        {
+          "type": "concrete_details",
+          "found": 2,
+          "required": 2
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 50,
+          "avg_length": 13.2
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 80,
+          "avg_length": 19.9
+        }
+      ],
+      "post_path": "src/posts/2024-11-05-pizza-calculator.md",
+      "post": "src/posts/2024-11-05-pizza-calculator.md",
+      "status": "PASS"
+    },
+    {
+      "score": 87.5,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [
+        {
+          "type": "jargon",
+          "severity": "low",
+          "word": "implement",
+          "count": 1,
+          "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
+          "suggestions": [
+            "build",
+            "create",
+            "add",
+            "configure",
+            "set up"
+          ]
+        }
+      ],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 15,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 9,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 2,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 29,
+          "required": 1
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.08,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 63,
+          "avg_length": 14.4
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 88,
+          "avg_length": 28.4
+        }
+      ],
+      "post_path": "src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
+      "post": "src/posts/2024-11-19-llms-smart-contract-vulnerability.md",
+      "status": "PASS"
+    },
+    {
+      "score": 90,
+      "violations": [
+        {
+          "type": "missing_required_pattern",
+          "severity": "high",
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
+        }
+      ],
+      "warnings": [],
+      "passed_checks": [
+        {
+          "type": "first_person",
+          "found": 26,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "trade_offs",
+          "found": 18,
+          "required": 1
+        },
+        {
+          "type": "sentiment_balance",
+          "sentiment_score": -0.05,
+          "threshold": 1.2
+        },
+        {
+          "type": "sentence_variety",
+          "short_sentences": 68,
+          "avg_length": 14.5
+        },
+        {
+          "type": "paragraph_variety",
+          "short_paragraphs": 82,
+          "avg_length": 29.6
         }
       ],
       "post_path": "src/posts/2024-12-03-context-windows-llms.md",
       "post": "src/posts/2024-12-03-context-windows-llms.md",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "score": 80,
@@ -2449,37 +2181,15 @@
       "status": "PASS"
     },
     {
-      "score": 40.0,
+      "score": 87.5,
       "violations": [
         {
-          "type": "banned_token",
-          "severity": "high",
-          "token": "\u2014",
-          "count": 6,
-          "message": "Em dashes are AI-tells. Use commas or split into two sentences."
-        },
-        {
-          "type": "banned_token",
-          "severity": "medium",
-          "token": ";",
-          "count": 1,
-          "message": "Semicolons in narrative text are overly formal. Use periods or commas."
-        },
-        {
           "type": "missing_required_pattern",
           "severity": "high",
-          "pattern_type": "uncertainty",
-          "found": 0,
-          "required": 1,
-          "message": "Include caveats or uncertainty to show nuanced thinking."
-        },
-        {
-          "type": "missing_required_pattern",
-          "severity": "high",
-          "pattern_type": "specificity",
-          "found": 0,
-          "required": 1,
-          "message": "Include specific timestamps, versions, or measurements from your testing."
+          "pattern_type": "concrete_details",
+          "found": 1,
+          "required": 2,
+          "message": "Include concrete examples or explanations of practical impact."
         }
       ],
       "warnings": [
@@ -2487,7 +2197,7 @@
           "type": "jargon",
           "severity": "low",
           "word": "implement",
-          "count": 2,
+          "count": 1,
           "message": "Consider more specific verbs: 'build', 'create', 'add', 'configure'.",
           "suggestions": [
             "build",
@@ -2501,38 +2211,43 @@
       "passed_checks": [
         {
           "type": "first_person",
-          "found": 6,
+          "found": 12,
+          "required": 1
+        },
+        {
+          "type": "uncertainty",
+          "found": 5,
+          "required": 1
+        },
+        {
+          "type": "specificity",
+          "found": 22,
           "required": 1
         },
         {
           "type": "trade_offs",
-          "found": 6,
+          "found": 30,
           "required": 1
         },
         {
-          "type": "concrete_details",
-          "found": 6,
-          "required": 2
-        },
-        {
           "type": "sentiment_balance",
-          "sentiment_score": 0.0,
+          "sentiment_score": -0.05,
           "threshold": 1.2
         },
         {
           "type": "sentence_variety",
-          "short_sentences": 37,
-          "avg_length": 16.3
+          "short_sentences": 94,
+          "avg_length": 13.8
         },
         {
           "type": "paragraph_variety",
-          "short_paragraphs": 70,
-          "avg_length": 17.2
+          "short_paragraphs": 121,
+          "avg_length": 26.7
         }
       ],
-      "post_path": "src/posts/2025-05-10-building-security-mindset-lessons-from-field.md",
-      "post": "src/posts/2025-05-10-building-security-mindset-lessons-from-field.md",
-      "status": "FAIL"
+      "post_path": "src/posts/2025-05-10-llm-fine-tuning-homelab-guide.md",
+      "post": "src/posts/2025-05-10-llm-fine-tuning-homelab-guide.md",
+      "status": "PASS"
     },
     {
       "score": 95.0,
