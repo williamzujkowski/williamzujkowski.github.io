@@ -1,5 +1,5 @@
 ---
-date: YYYY-MM-DD
+date: Last Modified
 title: "Your Post Title Here (6-12 words, with primary keywords)"
 description: "150-160 character description for SEO and social sharing - make it compelling and keyword-rich"
 tags:
