@@ -195,7 +195,46 @@ Use these directories:
 
 **Full guidelines:** `docs/context/core/file-management.md`
 
-### 4.3: Concurrent Execution
+### 4.3: Python Package Management with UV
+
+**This repository uses UV (Rust-based Python package manager) instead of pip.**
+
+**Why UV:**
+- 10-100x faster than pip
+- Reliable dependency resolution
+- Automatic virtual environment management
+- Zero configuration required
+
+**Installation:**
+```bash
+# Already installed (v0.7.3)
+# To verify: uv --version
+
+# If needed:
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**Common Commands:**
+```bash
+# Install project dependencies
+uv sync
+
+# Install specific package
+uv pip install package-name
+
+# Run Python script
+uv run python scripts/blog-content/humanization-validator.py --batch
+
+# Run tool without installation
+uv run black .
+uv run ruff check .
+```
+
+**All Python scripts now use:** `#!/usr/bin/env -S uv run python3`
+
+**Migration guide:** `docs/guides/UV_MIGRATION_GUIDE.md`
+
+### 4.4: Concurrent Execution
 
 **The Golden Rule:** "1 MESSAGE = ALL RELATED OPERATIONS"
 

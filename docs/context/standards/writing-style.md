@@ -331,7 +331,7 @@ Add these elements to avoid AI-like writing:
 
 **Extended guidance:** See `standards/humanization-standards.md` for advanced techniques and 7-phase methodology.
 
-**Automation:** Run `python scripts/blog-content/humanization-validator.py --post [file]` before publishing.
+**Automation:** Run `uv run python scripts/blog-content/humanization-validator.py --post [file]` before publishing.
 
 ---
 
@@ -409,7 +409,7 @@ handles my 47 containers without breaking a sweat.
 grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
 
 # Full humanization validation
-python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
+uv run python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
 ```
 
 ---

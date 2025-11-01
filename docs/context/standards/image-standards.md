@@ -43,8 +43,8 @@ This module defines image management standards for blog posts, including directo
 **Required Automation:**
 ```bash
 # Complete image pipeline for new post
-python scripts/blog-images/update-blog-images.py && \
-python scripts/blog-images/generate-blog-hero-images.py && \
+uv run python scripts/blog-images/update-blog-images.py && \
+uv run python scripts/blog-images/generate-blog-hero-images.py && \
 bash scripts/optimize-blog-images.sh
 ```
 
@@ -138,7 +138,7 @@ images:
 
 ```bash
 # Updates all blog posts with proper image metadata
-python scripts/blog-images/update-blog-images.py
+uv run python scripts/blog-images/update-blog-images.py
 ```
 
 **This script:**
@@ -151,7 +151,7 @@ python scripts/blog-images/update-blog-images.py
 
 ```bash
 # Creates hero images for all blog posts
-python scripts/blog-images/generate-blog-hero-images.py
+uv run python scripts/blog-images/generate-blog-hero-images.py
 ```
 
 **Features:**
@@ -180,15 +180,15 @@ bash scripts/optimize-blog-images.sh
 ### For New Blog Posts
 
 1. **Write the post** with proper frontmatter (without images section)
-2. **Run metadata update**: `python scripts/blog-images/update-blog-images.py`
-3. **Generate hero image**: `python scripts/blog-images/generate-blog-hero-images.py`
+2. **Run metadata update**: `uv run python scripts/blog-images/update-blog-images.py`
+3. **Generate hero image**: `uv run python scripts/blog-images/generate-blog-hero-images.py`
 4. **Optimize images**: `bash scripts/optimize-blog-images.sh`
 5. **Review and customize** if needed
 
 ### For Existing Posts
 
-1. **Update metadata**: `python scripts/blog-images/update-blog-images.py`
-2. **Generate missing images**: `python scripts/blog-images/generate-blog-hero-images.py`
+1. **Update metadata**: `uv run python scripts/blog-images/update-blog-images.py`
+2. **Generate missing images**: `uv run python scripts/blog-images/generate-blog-hero-images.py`
 3. **Optimize all images**: `bash scripts/optimize-blog-images.sh`
 
 ---
@@ -367,13 +367,13 @@ Before publishing, ensure:
 
 ```bash
 # Validate all image references
-python scripts/blog-images/update-blog-images.py --validate
+uv run python scripts/blog-images/update-blog-images.py --validate
 
 # Check image statistics
 find src/assets/images/blog -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.webp" \) | wc -l
 
 # Generate image report
-python scripts/blog-images/update-blog-images.py --report > docs/image-report.md
+uv run python scripts/blog-images/update-blog-images.py --report > docs/image-report.md
 ```
 
 ---

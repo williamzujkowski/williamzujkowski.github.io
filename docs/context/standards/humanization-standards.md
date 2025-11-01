@@ -80,19 +80,19 @@ Pre-commit hooks automatically validate all blog posts using `humanization-valid
 
 ```bash
 # Single post validation
-python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+uv run python scripts/blog-content/humanization-validator.py --post src/posts/example.md
 
 # Batch validate all posts (FAST!)
-python scripts/blog-content/humanization-validator.py --batch
+uv run python scripts/blog-content/humanization-validator.py --batch
 
 # Find posts needing attention
-python scripts/blog-content/humanization-validator.py --batch --filter-below 90
+uv run python scripts/blog-content/humanization-validator.py --batch --filter-below 90
 
 # Save monthly report
-python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-$(date +%Y-%m).json
+uv run python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-$(date +%Y-%m).json
 
 # Compare with last month
-python scripts/blog-content/humanization-validator.py --batch --compare reports/monthly-2025-09.json
+uv run python scripts/blog-content/humanization-validator.py --batch --compare reports/monthly-2025-09.json
 ```
 
 ### New Features in v2.0
@@ -341,14 +341,14 @@ grep -E "—|;|in conclusion|overall|leverage|exciting" src/posts/[file].md
 
 **Validation Command:**
 ```bash
-python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
+uv run python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
 ```
 
 **Pre-Commit Enforcement:**
 Pre-commit hooks automatically run validation. Posts scoring <75/100 are rejected:
 ```bash
 # .git/hooks/pre-commit runs:
-python scripts/blog-content/humanization-validator.py --post "$file" --min-score 75
+uv run python scripts/blog-content/humanization-validator.py --post "$file" --min-score 75
 ```
 
 **Validation Checklist:**
@@ -448,19 +448,19 @@ may vary depending on your setup.
 
 ```bash
 # Single post validation
-python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+uv run python scripts/blog-content/humanization-validator.py --post src/posts/example.md
 
 # Batch validate all posts
-python scripts/blog-content/humanization-validator.py --batch
+uv run python scripts/blog-content/humanization-validator.py --batch
 
 # Find posts below threshold
-python scripts/blog-content/humanization-validator.py --batch --filter-below 75
+uv run python scripts/blog-content/humanization-validator.py --batch --filter-below 75
 
 # Generate monthly report
-python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-$(date +%Y-%m).json
+uv run python scripts/blog-content/humanization-validator.py --batch --save-report reports/monthly-$(date +%Y-%m).json
 
 # Compare with previous month
-python scripts/blog-content/humanization-validator.py --batch --compare reports/monthly-2025-09.json
+uv run python scripts/blog-content/humanization-validator.py --batch --compare reports/monthly-2025-09.json
 ```
 
 ### Expected Output
