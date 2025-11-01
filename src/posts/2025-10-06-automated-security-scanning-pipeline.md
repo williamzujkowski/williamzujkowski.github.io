@@ -143,14 +143,14 @@ flowchart LR
 - Slack notifications on failure
 
 📎 **Full GitHub Actions workflow (109 lines):**
-[Complete implementation with SARIF uploads, quality gates, and Slack notifications](https://gist.github.com/williamzujkowski/security-scan-workflow-complete)
+[Complete implementation with SARIF uploads, quality gates, and Slack notifications](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16)
 
 ### Slack Notifications
 
 Add real-time alerts when scans fail:
 
 📎 **Complete Slack notification workflow with formatted blocks:**
-[Full implementation](https://gist.github.com/williamzujkowski/security-scan-slack-notification)
+[Full implementation](https://gist.github.com/williamzujkowski/31cb8443a5a00f58568308a9b3c641fc)
 
 The notification uses `slackapi/slack-github-action@v1.24.0` with failure condition, including repo, branch, commit SHA, and direct link to failed run.
 
@@ -169,7 +169,7 @@ Create `.pre-commit-config.yaml` with local hooks for Grype (`fail-on high`) and
 Run scans directly from your IDE with custom tasks. Each task outputs JSON for easy parsing with `jq`.
 
 📎 **Complete VS Code tasks configuration:**
-[Full tasks.json with all three scanners](https://gist.github.com/williamzujkowski/vscode-security-scan-tasks)
+[Full tasks.json with all three scanners](https://gist.github.com/williamzujkowski/a63e9adf2fa91764899517c5b40b6829)
 
 ## Advanced Scanning Configurations
 
@@ -178,7 +178,7 @@ Run scans directly from your IDE with custom tasks. Each task outputs JSON for e
 Control false positives and severity thresholds.
 
 📎 **Complete Grype configuration:**
-[Full .grype.yaml with all ignore rules](https://gist.github.com/williamzujkowski/grype-config)
+[Full .grype.yaml with all ignore rules](https://gist.github.com/williamzujkowski/90a547307bb8d0158bcadc43b86df18f)
 
 Configure `fail-on-severity: high` and add ignore rules with expiration dates for accepted risks.
 
@@ -187,7 +187,7 @@ Configure `fail-on-severity: high` and add ignore rules with expiration dates fo
 Customize lockfile scanning and parallel workers.
 
 📎 **Complete OSV configuration:**
-[Full osv-scanner.toml with private registries](https://gist.github.com/williamzujkowski/osv-scanner-config)
+[Full osv-scanner.toml with private registries](https://gist.github.com/williamzujkowski/da899905c2905fafe74db871be75fcbe)
 
 Set `workers = 4` for parallel scanning (40% faster on my 8-core system).
 
@@ -196,7 +196,7 @@ Set `workers = 4` for parallel scanning (40% faster on my 8-core system).
 Enforce security policies with custom OPA Rego rules.
 
 📎 **Complete Trivy OPA policy:**
-[Full security.rego with all deny/warn rules](https://gist.github.com/williamzujkowski/trivy-opa-policy)
+[Full security.rego with all deny/warn rules](https://gist.github.com/williamzujkowski/c3363ce4488fbcca39099f3fdc9f8a14)
 
 Create Rego policies that deny on critical severities and apply with `trivy image --policy ./policy/security.rego myapp:latest`.
 
@@ -207,7 +207,7 @@ Create Rego policies that deny on critical severities and apply with `trivy imag
 Daily automated scans catch newly-published CVEs. I scan 3 production images daily. Results go to Wazuh for trend analysis.
 
 📎 **Complete scheduled scan workflow:**
-[Full workflow with matrix strategy and SIEM integration](https://gist.github.com/williamzujkowski/scheduled-security-scans)
+[Full workflow with matrix strategy and SIEM integration](https://gist.github.com/williamzujkowski/4ba54b27bc5b2038bbdea88e6e14e5e2)
 
 Configure cron schedule (`0 6 * * *` for daily 6 AM) with matrix strategy scanning multiple production images.
 
@@ -216,7 +216,7 @@ Configure cron schedule (`0 6 * * *` for daily 6 AM) with matrix strategy scanni
 Track vulnerability trends by detecting drift. This helped me identify 12 new CVEs in a dependency I thought was stable.
 
 📎 **Complete scan comparison tool:**
-[Full Python script with JSON parsing and reporting](https://gist.github.com/williamzujkowski/vulnerability-scan-comparison)
+[Full Python script with JSON parsing and reporting](https://gist.github.com/williamzujkowski/185d9d21330cf2b935c466ee27696a6b)
 
 Compare two scan results to detect new and fixed vulnerabilities. Run with `--current today.json --baseline baseline.json`.
 
@@ -231,7 +231,7 @@ Use `syft` to generate CycloneDX SBOM, scan with `grype sbom:./sbom.json`, and c
 Generate and scan SBOMs on every release. I store historical SBOMs to track dependency evolution over time.
 
 📎 **Complete SBOM workflow:**
-[Full workflow with CycloneDX generation and S3 storage](https://gist.github.com/williamzujkowski/sbom-generation-workflow)
+[Full workflow with CycloneDX generation and S3 storage](https://gist.github.com/williamzujkowski/1b74fbcb94cfaccfa91151fb75287f38)
 
 Trigger on release publication, generate CycloneDX format, scan with Grype, and upload to S3 for historical tracking.
 
@@ -242,7 +242,7 @@ Trigger on release publication, generate CycloneDX format, scan with Grype, and 
 Weekly auto-remediation with PR creation. This automatically fixed 35% of vulnerabilities in my testing (12 of 34 CVEs).
 
 📎 **Complete auto-remediation workflow:**
-[Full workflow with PR creation and test validation](https://gist.github.com/williamzujkowski/auto-remediate-vulnerabilities)
+[Full workflow with PR creation and test validation](https://gist.github.com/williamzujkowski/7fd0e2b45a0311ffb4fc9d37c0684ad8)
 
 Weekly scheduled job scans for vulnerabilities, runs `npm audit fix`, validates fixes pass tests, and creates PR for review.
 
@@ -253,7 +253,7 @@ Weekly scheduled job scans for vulnerabilities, runs `npm audit fix`, validates 
 Forward vulnerability data to your SIEM. I ship scans via syslog to Wazuh for centralized tracking.
 
 📎 **Complete Wazuh integration:**
-[Full script with JSON transformation and error handling](https://gist.github.com/williamzujkowski/wazuh-vulnerability-ingestion)
+[Full script with JSON transformation and error handling](https://gist.github.com/williamzujkowski/fe46d3793fb1f2d9771c8b9e1a2ee5d6)
 
 Pipe Grype JSON output through `jq`, format as syslog, and send to Wazuh manager on port 1514 using `netcat`.
 
@@ -262,7 +262,7 @@ Pipe Grype JSON output through `jq`, format as syslog, and send to Wazuh manager
 Create custom alerting rules. Critical findings trigger level 12 alerts (email + PagerDuty integration).
 
 📎 **Complete Wazuh rules:**
-[Full local_rules.xml with all severity levels](https://gist.github.com/williamzujkowski/wazuh-vulnerability-rules)
+[Full local_rules.xml with all severity levels](https://gist.github.com/williamzujkowski/bd0a834441a1df242f7d35868d1b1a9b)
 
 Define base rule matching vulnerability IDs (level 7), then escalate to level 12 for critical severity findings.
 
@@ -309,7 +309,7 @@ I should note that these times are specific to my homelab setup (Intel i9-9900K,
 Track security posture with PostgreSQL queries. My current MTTR: 4.2 days (down from 12 days initially).
 
 📎 **Complete SQL analytics:**
-[Full PostgreSQL queries for vulnerability tracking](https://gist.github.com/williamzujkowski/vulnerability-metrics-sql)
+[Full PostgreSQL queries for vulnerability tracking](https://gist.github.com/williamzujkowski/0a94337fba5a5e94fa8082c543c2a4df)
 
 Query vulnerability trends over time, grouping by severity and date to track remediation progress and new findings.
 

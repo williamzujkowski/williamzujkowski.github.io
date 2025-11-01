@@ -1,6 +1,6 @@
 {
   "total_posts": 59,
-  "total_words": 118696,
+  "total_words": 118698,
   "average_words": 2011.8,
   "average_reading_time": 8.9,
   "posts_by_year": {
@@ -9,7 +9,7 @@
   },
   "words_by_year": {
     "2024": 84332,
-    "2025": 34364
+    "2025": 34366
   },
   "posts_by_month": {
     "2025-01": 1,
@@ -268,6 +268,6 @@
     "posts_with_code": 53,
     "posts_with_code_percentage": 89.8
   },
-  "generated_at": "2025-11-01T11:36:12.208170",
+  "generated_at": "2025-11-01T11:53:56.566051",
   "reading_speed_wpm": 238
 }

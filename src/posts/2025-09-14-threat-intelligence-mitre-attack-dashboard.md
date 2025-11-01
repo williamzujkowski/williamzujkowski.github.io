@@ -69,14 +69,14 @@ I discovered that the most effective approach is to create a system that aggrega
 ### System Components
 
 📎 **Complete implementation:**
-[Full ThreatIntelligenceDashboard class](https://gist.github.com/williamzujkowski/mitre-dashboard-core)
+[Full ThreatIntelligenceDashboard class](https://gist.github.com/williamzujkowski/222a6d72b84fa44ef17ba09ea1cb5a37)
 
 Core pattern: `dashboard.initialize()` loads ATT&CK data via STIX format
 
 ### Fetching MITRE ATT&CK Data
 
 📎 **Complete implementation:**
-[Full ATTACKDataLoader with STIX processing](https://gist.github.com/williamzujkowski/attack-data-loader)
+[Full ATTACKDataLoader with STIX processing](https://gist.github.com/williamzujkowski/0e06bcfd7a5ef936c0ed0309f9b0296b)
 
 Uses STIX2 library to query attack patterns from MITRE's repository
 
@@ -87,14 +87,14 @@ Uses STIX2 library to query attack patterns from MITRE's repository
 ### AlienVault OTX Integration
 
 📎 **Complete implementation:**
-[Full AlienVaultCollector with pulse caching](https://gist.github.com/williamzujkowski/alienvault-otx-collector)
+[Full AlienVaultCollector with pulse caching](https://gist.github.com/williamzujkowski/185bc14b8514a9b8c4ee0ab5bdd03db9)
 
 Extracts ATT&CK technique tags (starting with 'T') from threat pulses
 
 ### CISA Alerts Mapping
 
 📎 **Complete implementation:**
-[Full CISAAlertMapper with vulnerability categorization](https://gist.github.com/williamzujkowski/cisa-alert-mapper)
+[Full CISAAlertMapper with vulnerability categorization](https://gist.github.com/williamzujkowski/5534c363757980ecf1d8ebcf414a1b29)
 
 Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
 
@@ -103,7 +103,7 @@ Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
 [Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843) that visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
 
 📎 **Complete visualization code:**
-[Full ThreatVisualizer with Plotly heatmaps](https://gist.github.com/williamzujkowski/threat-visualizer)
+[Full ThreatVisualizer with Plotly heatmaps](https://gist.github.com/williamzujkowski/03d4dcd49f436d7b73839be73e88ad72)
 
 **Key features:**
 - Interactive heatmaps for technique frequency (Plotly)
@@ -115,7 +115,7 @@ Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
 According to [research by Schlette et al. (2023)](https://doi.org/10.1145/3607199.3607240) tracking threat actor TTPs improves detection of targeted attacks by 82%. Let's add actor profiling:
 
 📎 **Complete implementation:**
-[Full ThreatActorProfiler with MITRE groups database](https://gist.github.com/williamzujkowski/threat-actor-profiler)
+[Full ThreatActorProfiler with MITRE groups database](https://gist.github.com/williamzujkowski/f840bcab11952a1aa1bf56fe87749b17)
 
 Matches observed techniques to known actor profiles using set overlap, sorted by confidence
 
@@ -124,7 +124,7 @@ Matches observed techniques to known actor profiles using set overlap, sorted by
 Real-time alerting based on relevant threats is crucial. [Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439) shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
 
 📎 **Complete implementation:**
-[Full ThreatAlerting class with SMTP, Slack, and PagerDuty](https://gist.github.com/williamzujkowski/threat-alerting)
+[Full ThreatAlerting class with SMTP, Slack, and PagerDuty](https://gist.github.com/williamzujkowski/70cf0c33d82fb391ce11c63aaa189072)
 
 Checks new threats against priority techniques, sends alerts via configured channels
 
@@ -133,7 +133,7 @@ Checks new threats against priority techniques, sends alerts via configured chan
 Here's the complete dashboard implementation:
 
 📎 **Complete implementation:**
-[Full MITREDashboard with async collection loop](https://gist.github.com/williamzujkowski/mitre-dashboard-main)
+[Full MITREDashboard with async collection loop](https://gist.github.com/williamzujkowski/c7715b89372e56b06771f87a6336e618)
 
 Main loop collects threats hourly, maps to ATT&CK, checks alert conditions, updates visualizations
 

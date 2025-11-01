@@ -1,0 +1,227 @@
+{
+  "security-scanning/workflows/security-scan-workflow-complete.yml": {
+    "url": "https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16",
+    "slug": "security-scan-workflow-complete",
+    "description": "Complete GitHub Actions security scanning workflow with Grype, OSV-Scanner, Trivy"
+  },
+  "security-scanning/workflows/scheduled-security-scans.yml": {
+    "url": "https://gist.github.com/williamzujkowski/4ba54b27bc5b2038bbdea88e6e14e5e2",
+    "slug": "scheduled-security-scans",
+    "description": "Daily scheduled security scans with matrix strategy and SIEM integration"
+  },
+  "security-scanning/workflows/sbom-generation-workflow.yml": {
+    "url": "https://gist.github.com/williamzujkowski/1b74fbcb94cfaccfa91151fb75287f38",
+    "slug": "sbom-generation-workflow",
+    "description": "SBOM generation workflow with CycloneDX and GitHub release upload"
+  },
+  "security-scanning/workflows/auto-remediate-vulnerabilities.yml": {
+    "url": "https://gist.github.com/williamzujkowski/7fd0e2b45a0311ffb4fc9d37c0684ad8",
+    "slug": "auto-remediate-vulnerabilities",
+    "description": "Weekly scheduled auto-remediation with OSV scanning and PR creation"
+  },
+  "security-scanning/configs/grype-config.yaml": {
+    "url": "https://gist.github.com/williamzujkowski/90a547307bb8d0158bcadc43b86df18f",
+    "slug": "grype-config",
+    "description": "Grype vulnerability scanner configuration with ignore rules and severity thresholds"
+  },
+  "security-scanning/configs/osv-scanner-config.toml": {
+    "url": "https://gist.github.com/williamzujkowski/da899905c2905fafe74db871be75fcbe",
+    "slug": "osv-scanner-config",
+    "description": "OSV-Scanner configuration with ignore rules and parallel scanning"
+  },
+  "security-scanning/configs/trivy-opa-policy.rego": {
+    "url": "https://gist.github.com/williamzujkowski/c3363ce4488fbcca39099f3fdc9f8a14",
+    "slug": "trivy-opa-policy",
+    "description": "Trivy OPA policy with critical deny rules and high severity warnings"
+  },
+  "security-scanning/scripts/vulnerability-scan-comparison.py": {
+    "url": "https://gist.github.com/williamzujkowski/185d9d21330cf2b935c466ee27696a6b",
+    "slug": "vulnerability-scan-comparison",
+    "description": "Python script for vulnerability scan comparison and alerting"
+  },
+  "security-scanning/scripts/wazuh-vulnerability-ingestion.sh": {
+    "url": "https://gist.github.com/williamzujkowski/fe46d3793fb1f2d9771c8b9e1a2ee5d6",
+    "slug": "wazuh-vulnerability-ingestion",
+    "description": "Bash script for Wazuh vulnerability ingestion via syslog"
+  },
+  "security-scanning/integrations/security-scan-slack-notification.yml": {
+    "url": "https://gist.github.com/williamzujkowski/31cb8443a5a00f58568308a9b3c641fc",
+    "slug": "security-scan-slack-notification",
+    "description": "Slack webhook payload with formatted blocks and repository details"
+  },
+  "security-scanning/integrations/wazuh-vulnerability-rules.xml": {
+    "url": "https://gist.github.com/williamzujkowski/bd0a834441a1df242f7d35868d1b1a9b",
+    "slug": "wazuh-vulnerability-rules",
+    "description": "Wazuh detection rules for vulnerability scanning"
+  },
+  "security-scanning/integrations/vscode-security-scan-tasks.json": {
+    "url": "https://gist.github.com/williamzujkowski/a63e9adf2fa91764899517c5b40b6829",
+    "slug": "vscode-security-scan-tasks",
+    "description": "VS Code tasks.json with Grype, OSV, and combined scan tasks"
+  },
+  "security-scanning/integrations/vulnerability-metrics.sql": {
+    "url": "https://gist.github.com/williamzujkowski/0a94337fba5a5e94fa8082c543c2a4df",
+    "slug": "vulnerability-metrics-sql",
+    "description": "PostgreSQL analytics for vulnerability metrics and trends"
+  },
+  "mitre-dashboard/dashboard-core.py": {
+    "url": "https://gist.github.com/williamzujkowski/222a6d72b84fa44ef17ba09ea1cb5a37",
+    "slug": "mitre-dashboard-core",
+    "description": "Main ThreatIntelligenceDashboard class with Flask backend"
+  },
+  "mitre-dashboard/attack-data-loader.py": {
+    "url": "https://gist.github.com/williamzujkowski/0e06bcfd7a5ef936c0ed0309f9b0296b",
+    "slug": "attack-data-loader",
+    "description": "ATTACKDataLoader with STIX processing and technique extraction"
+  },
+  "mitre-dashboard/alienvault-collector.py": {
+    "url": "https://gist.github.com/williamzujkowski/185bc14b8514a9b8c4ee0ab5bdd03db9",
+    "slug": "alienvault-collector",
+    "description": "AlienVault OTX pulse integration with IoC extraction"
+  },
+  "mitre-dashboard/cisa-alert-mapper.py": {
+    "url": "https://gist.github.com/williamzujkowski/5534c363757980ecf1d8ebcf414a1b29",
+    "slug": "cisa-alert-mapper",
+    "description": "CISA Known Exploited Vulnerabilities mapper linking CVEs to MITRE techniques"
+  },
+  "mitre-dashboard/threat-actor-profiler.py": {
+    "url": "https://gist.github.com/williamzujkowski/f840bcab11952a1aa1bf56fe87749b17",
+    "slug": "threat-actor-profiler",
+    "description": "Threat actor profiling with technique frequency analysis"
+  },
+  "mitre-dashboard/dashboard-main.py": {
+    "url": "https://gist.github.com/williamzujkowski/c7715b89372e56b06771f87a6336e618",
+    "slug": "dashboard-main",
+    "description": "Main dashboard entry point with Flask application setup"
+  },
+  "mitre-dashboard/threat-visualizer.py": {
+    "url": "https://gist.github.com/williamzujkowski/03d4dcd49f436d7b73839be73e88ad72",
+    "slug": "threat-visualizer",
+    "description": "Technique heatmap generation using Plotly visualization"
+  },
+  "mitre-dashboard/threat-alerting.py": {
+    "url": "https://gist.github.com/williamzujkowski/70cf0c33d82fb391ce11c63aaa189072",
+    "slug": "threat-alerting",
+    "description": "Wazuh integration for MITRE technique-based alerting"
+  },
+  "vlan-segmentation/udm-pro-vlan-config.sh": {
+    "url": "https://gist.github.com/williamzujkowski/5422062bf5c4c6054de281cb912ce5d9",
+    "slug": "udm-pro-vlan-config",
+    "description": "UDM Pro VLAN creation, tagging, and trunk port configuration"
+  },
+  "vlan-segmentation/vlan-dhcp-config.json": {
+    "url": "https://gist.github.com/williamzujkowski/f5de5f7a5b7e30b7eaa59de0bd55a91b",
+    "slug": "vlan-dhcp-config",
+    "description": "DHCP server configuration with reservations and custom options"
+  },
+  "vlan-segmentation/management-vlan-rules.json": {
+    "url": "https://gist.github.com/williamzujkowski/088045937fa7c77821a67f31cf994556",
+    "slug": "management-vlan-rules",
+    "description": "UDM Pro firewall rules for management VLAN with logging"
+  },
+  "vlan-segmentation/iot-vlan-rules.json": {
+    "url": "https://gist.github.com/williamzujkowski/42d5f269c97a1fbd8335316d09f90068",
+    "slug": "iot-vlan-rules",
+    "description": "Full IoT isolation rules with default-deny policy"
+  },
+  "vlan-segmentation/server-vlan-rules.json": {
+    "url": "https://gist.github.com/williamzujkowski/337822d5fca33ab0bbd5806204df73af",
+    "slug": "server-vlan-rules",
+    "description": "Server VLAN firewall rules with update policies"
+  },
+  "vlan-segmentation/mdns-reflector-config.conf": {
+    "url": "https://gist.github.com/williamzujkowski/2b9b624d76d9a7f139cbcbd914559a2b",
+    "slug": "mdns-reflector-config",
+    "description": "Avahi mDNS reflector configuration for cross-VLAN service discovery"
+  },
+  "vlan-segmentation/pvlan-iot-isolation.sh": {
+    "url": "https://gist.github.com/williamzujkowski/48d68afcb132e2f3b924ce74ce7adfa8",
+    "slug": "pvlan-iot-isolation",
+    "description": "Private VLAN setup for IoT isolation with promiscuous/isolated ports"
+  },
+  "vlan-segmentation/radius-dynamic-vlan.conf": {
+    "url": "https://gist.github.com/williamzujkowski/841cea35e4eb424d28f927b596808674",
+    "slug": "radius-dynamic-vlan",
+    "description": "FreeRADIUS dynamic VLAN assignment based on 802.1X authentication"
+  },
+  "vlan-segmentation/pihole-vlan-filtering.sh": {
+    "url": "https://gist.github.com/williamzujkowski/c58aa2ce297f125633f090549146c536",
+    "slug": "pihole-vlan-filtering",
+    "description": "Pi-hole DNS filtering with VLAN-specific blocklists"
+  },
+  "vlan-segmentation/dns-threat-detection.py": {
+    "url": "https://gist.github.com/williamzujkowski/345730384bf7d77c8b82e7ee4299ce43",
+    "slug": "dns-threat-detection",
+    "description": "Full DNS query analyzer with threat detection and alerting"
+  },
+  "vlan-segmentation/netflow-vlan-analysis.sh": {
+    "url": "https://gist.github.com/williamzujkowski/05e39be6317d012d22991a51fe603bbb",
+    "slug": "netflow-vlan-analysis",
+    "description": "NetFlow v9 configuration for VLAN traffic monitoring"
+  },
+  "vlan-segmentation/vlan-traffic-monitor.py": {
+    "url": "https://gist.github.com/williamzujkowski/b2224d5ef6333717d24d18575c597044",
+    "slug": "vlan-traffic-monitor",
+    "description": "VLAN traffic monitor with anomaly detection and multiple alert channels"
+  },
+  "vlan-segmentation/vlan-connectivity-tests.sh": {
+    "url": "https://gist.github.com/williamzujkowski/2281086bfb8a52a7ab14fb72f47b9635",
+    "slug": "vlan-connectivity-tests",
+    "description": "VLAN segmentation test suite with ping sweep and port scanning"
+  },
+  "vlan-segmentation/vlan-breakout-tests.sh": {
+    "url": "https://gist.github.com/williamzujkowski/12ecda690c2c3b878ca981f8a09dc50d",
+    "slug": "vlan-breakout-tests",
+    "description": "VLAN breakout testing with nmap and metasploit"
+  },
+  "proxmox-ha/node-prep.sh": {
+    "url": "https://gist.github.com/williamzujkowski/4e5328d0f87d7c5cb227536ec28508f3",
+    "slug": "proxmox-node-prep",
+    "description": "Node preparation script with hostname, networking, SSH keys"
+  },
+  "proxmox-ha/cluster-create.sh": {
+    "url": "https://gist.github.com/williamzujkowski/b7e8c6f80865e952b2e04ccac9a208cd",
+    "slug": "proxmox-cluster-create",
+    "description": "Cluster creation with pvecm and node joining"
+  },
+  "proxmox-ha/corosync.conf": {
+    "url": "https://gist.github.com/williamzujkowski/f9db6bfc2a99d7a60d4138b9c4e485e0",
+    "slug": "proxmox-corosync-config",
+    "description": "Corosync configuration with ring redundancy"
+  },
+  "proxmox-ha/ceph-install.sh": {
+    "url": "https://gist.github.com/williamzujkowski/372c1276a16f72eeb5e938206f12695c",
+    "slug": "proxmox-ceph-install",
+    "description": "Ceph installation script with monitor deployment"
+  },
+  "proxmox-ha/ceph-osd-setup.sh": {
+    "url": "https://gist.github.com/williamzujkowski/c7e3679bd125f4cc06212b74dc4f9086",
+    "slug": "proxmox-ceph-osd-setup",
+    "description": "OSD creation and pool configuration with replication settings"
+  },
+  "proxmox-ha/ha-manager-setup.sh": {
+    "url": "https://gist.github.com/williamzujkowski/62daa9dbf0756881424c0cbbfdf513a8",
+    "slug": "proxmox-ha-manager-config",
+    "description": "HA manager configuration with resource groups"
+  },
+  "proxmox-ha/vm-ha-config.sh": {
+    "url": "https://gist.github.com/williamzujkowski/65bfcda35551568a539ba575fd6cb36c",
+    "slug": "proxmox-vm-ha-config",
+    "description": "VM HA configuration with priority settings and failover tests"
+  },
+  "proxmox-ha/backup-config.sh": {
+    "url": "https://gist.github.com/williamzujkowski/763dfba35128942ebe45c6a3f1f335b3",
+    "slug": "proxmox-backup-config",
+    "description": "Proxmox Backup Server integration with retention policies"
+  },
+  "proxmox-ha/prometheus-config.yml": {
+    "url": "https://gist.github.com/williamzujkowski/6d6197585a388ffb16c6bb303d61b0d6",
+    "slug": "proxmox-prometheus-config",
+    "description": "Prometheus configuration for Proxmox metrics with alerting"
+  },
+  "proxmox-ha/disaster-recovery.sh": {
+    "url": "https://gist.github.com/williamzujkowski/4a1c8872ec30c4e1fcfd7e743859ca31",
+    "slug": "proxmox-disaster-recovery",
+    "description": "DR procedures with cluster rebuild and node recovery"
+  }
+}
