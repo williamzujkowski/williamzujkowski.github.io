@@ -227,68 +227,30 @@ class CISAAlertMapper:
 [Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843) that visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
 
 ```python
+# Visualization layer using Plotly (simplified)
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 
 class ThreatVisualizer:
-    def __init__(self, threat_data):
-        self.threat_data = threat_data
-
     def create_attack_heatmap(self):
-        """Create heatmap of technique frequency"""
-        tactics = []
-        techniques = []
-        frequencies = []
-
-        for tactic, tech_list in self.threat_data.items():
-            for technique in tech_list:
-                tactics.append(tactic)
-                techniques.append(technique['name'])
-                frequencies.append(technique.get('frequency', 0)
-
+        """Interactive heatmap of technique frequency"""
         fig = go.Figure(data=go.Heatmap(
-            x=tactics,
-            y=techniques,
-            z=frequencies,
-            colorscale='Reds',
-            showscale=True
-        )
-
-        fig.update_layout(
-            title='MITRE ATT&CK Technique Frequency',
-            xaxis_title='Tactics',
-            yaxis_title='Techniques',
-            height=800
-        )
-
+            x=tactics, y=techniques, z=frequencies,
+            colorscale='Reds', showscale=True
+        ))
+        fig.update_layout(title='MITRE ATT&CK Technique Frequency',
+                          xaxis_title='Tactics', yaxis_title='Techniques')
         return fig
 
     def create_threat_timeline(self, alerts):
-        """Create timeline of threat activity"""
-        fig = go.Figure()
-
-        for alert in alerts:
-            fig.add_trace(go.Scatter(
-                x=[alert['timestamp']],
-                y=[alert['severity']],
-                mode='markers+text',
-                name=alert['source'],
-                text=alert['description'],
-                marker=dict(
-                    size=alert['severity'] * 5,
-                    color=self.get_color_by_severity(alert['severity'])
-                )
-            )
-
-        fig.update_layout(
-            title='Threat Activity Timeline',
-            xaxis_title='Time',
-            yaxis_title='Severity',
-            showlegend=True
-        )
-
-        return fig
+        """Timeline visualization with severity indicators"""
+        # Scatter plot with dynamic sizing by severity
+        # Full implementation: code-examples/mitre-dashboard/plotly-heatmap.py
 ```
+
+**Key features:**
+- Interactive heatmaps for technique frequency
+- Timeline views with severity-based sizing
+- Configurable color scales (Reds for threats)
 
 ## Implementing Threat Actor Tracking
 
