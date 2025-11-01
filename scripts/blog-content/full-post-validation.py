@@ -66,11 +66,16 @@ import json
 import yaml
 import argparse
 import frontmatter
+import logging
 from pathlib import Path
 from typing import Dict, List, Tuple
 from datetime import datetime
 
-# ANSI color codes for terminal output (replicated for standalone use)
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# ANSI color codes for terminal output (kept for backward compatibility with print_results)
 class Colors:
     RED = '\033[91m'
     GREEN = '\033[92m'
@@ -487,12 +492,19 @@ Examples:
     parser.add_argument('--strict', action='store_true', help='Strict mode - fail on any violation')
     parser.add_argument('--output', choices=['text', 'json', 'markdown'], default='text', help='Output format')
     parser.add_argument('--report-file', help='Save report to file')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
 
     args = parser.parse_args()
 
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
     # Validate post exists
     if not os.path.exists(args.post):
-        print(f"{Colors.RED}Error: Post file not found: {args.post}{Colors.RESET}", file=sys.stderr)
+        logger.error(f"Post file not found: {args.post}")
         return 2
 
     # Run validation
@@ -514,7 +526,7 @@ Examples:
 
         with open(args.report_file, 'w') as f:
             f.write(report_content)
-        print(f"Report saved to: {args.report_file}")
+        logger.info(f"Report saved to: {args.report_file}")
     else:
         print_results(results, args.output)
 

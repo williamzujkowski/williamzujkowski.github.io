@@ -306,9 +306,18 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Automatically add LLM-friendly documentation to scripts"
+        description="Automatically add LLM-friendly documentation to scripts",
+        epilog='''
+Examples:
+  %(prog)s --update-manifest
+  %(prog)s --dry-run
+  %(prog)s --scripts-dir custom_scripts
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
 
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--scripts-dir', default='scripts',
                        help='Directory containing scripts')
     parser.add_argument('--update-manifest', action='store_true',
@@ -317,6 +326,8 @@ def main():
                        help='Overwrite existing headers')
     parser.add_argument('--dry-run', action='store_true',
                        help='Preview changes without applying')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 

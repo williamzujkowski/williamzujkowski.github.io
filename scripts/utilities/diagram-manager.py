@@ -406,9 +406,18 @@ def main():
     """Main entry point"""
     parser = argparse.ArgumentParser(
         description="Unified diagram and technical image management for blog posts",
+        epilog='''
+Examples:
+  %(prog)s create --post 2024-03-15-claude-flow
+  %(prog)s integrate --all
+  %(prog)s validate --all
+  %(prog)s optimize --force
+  %(prog)s --version
+        ''',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
 
+    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
     parser.add_argument('command',
                        choices=['create', 'integrate', 'update', 'validate', 'optimize'],
                        help='Operation to perform')
@@ -420,6 +429,8 @@ def main():
                        help='Force regeneration/optimization')
     parser.add_argument('--dry-run', action='store_true',
                        help='Preview changes without applying')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 

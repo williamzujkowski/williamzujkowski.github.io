@@ -45,6 +45,7 @@ MANIFEST_REGISTRY: scripts/simple-validator.py
 import json
 import asyncio
 import aiohttp
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime
@@ -129,7 +130,7 @@ class SimpleValidator:
         self.stats['total'] += 1
         return result
 
-    async def validate_batch(self, urls: List[str], batch_size: int = 10) -> List[Dict]:
+    async def validate_batch(self, urls: List[str], batch_size: int = 10, quiet: bool = False) -> List[Dict]:
         """Validate URLs in batches"""
         results = []
         unique_urls = list(set(urls))
@@ -141,7 +142,8 @@ class SimpleValidator:
             results.extend(batch_results)
 
             # Progress indicator
-            print(f"Validated {min(i+batch_size, len(unique_urls))}/{len(unique_urls)} URLs")
+            if not quiet:
+                print(f"Validated {min(i+batch_size, len(unique_urls))}/{len(unique_urls)} URLs")
 
         self.results = results
         return results
@@ -154,7 +156,7 @@ class SimpleValidator:
         """Get all redirected links"""
         return [r for r in self.results if r['status'] == 'redirect']
 
-    def save_results(self, output_file: Path):
+    def save_results(self, output_file: Path, quiet: bool = False):
         """Save validation results"""
         data = {
             'validation_date': datetime.now().isoformat(),
@@ -165,40 +167,58 @@ class SimpleValidator:
         with open(output_file, 'w') as f:
             json.dump(data, f, indent=2)
 
-        print(f"\n✅ Validation complete!")
-        print(f"  Total: {self.stats['total']}")
-        print(f"  Valid: {self.stats['valid']}")
-        print(f"  Broken: {self.stats['broken']}")
-        print(f"  Redirects: {self.stats['redirect']}")
-        print(f"  Timeouts: {self.stats['timeout']}")
-        print(f"  Errors: {self.stats['error']}")
+        if not quiet:
+            print(f"\n✅ Validation complete!")
+            print(f"  Total: {self.stats['total']}")
+            print(f"  Valid: {self.stats['valid']}")
+            print(f"  Broken: {self.stats['broken']}")
+            print(f"  Redirects: {self.stats['redirect']}")
+            print(f"  Timeouts: {self.stats['timeout']}")
+            print(f"  Errors: {self.stats['error']}")
 
 async def main():
-    parser = argparse.ArgumentParser(description='Simple link validator')
-    parser.add_argument('--links', type=Path, default=Path('links.json'))
-    parser.add_argument('--output', type=Path, default=Path('validation.json'))
+    parser = argparse.ArgumentParser(
+        description='Simple link validator',
+        epilog='''
+Examples:
+  %(prog)s --links links.json --output validation.json
+  %(prog)s --links extracted-links.json --quiet
+  %(prog)s --help
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--links', type=Path, default=Path('links.json'),
+                       help='JSON file with extracted links')
+    parser.add_argument('--output', type=Path, default=Path('validation.json'),
+                       help='Output report file')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
     if not args.links.exists():
-        print(f"Links file not found: {args.links}")
-        return 1
+        print(f"Error: File not found: {args.links}", file=sys.stderr)
+        print(f"Expected: {args.links.absolute()}", file=sys.stderr)
+        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        sys.exit(2)
 
     # Load links
     with open(args.links, 'r') as f:
         links_data = json.load(f)
 
     urls = [link['url'] for link in links_data.get('links', [])]
-    print(f"Validating {len(set(urls))} unique URLs...")
+    if not args.quiet:
+        print(f"Validating {len(set(urls))} unique URLs...")
 
     # Validate
     async with SimpleValidator() as validator:
-        await validator.validate_batch(urls)
-        validator.save_results(args.output)
+        await validator.validate_batch(urls, quiet=args.quiet)
+        validator.save_results(args.output, quiet=args.quiet)
 
         # Show broken links
         broken = validator.get_broken_links()
-        if broken:
+        if broken and not args.quiet:
             print(f"\n❌ Found {len(broken)} broken links:")
             for link in broken[:10]:
                 print(f"  - {link['url']}")
@@ -208,4 +228,4 @@ async def main():
     return 0
 
 if __name__ == "__main__":
-    exit(asyncio.run(main()))
+    sys.exit(asyncio.run(main()))

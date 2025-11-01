@@ -441,7 +441,18 @@ async def continuous_monitor(monitor: LinkMonitor, urls: List[str],
         await asyncio.sleep(interval_minutes * 60)
 
 async def main():
-    parser = argparse.ArgumentParser(description='Monitor link health continuously')
+    parser = argparse.ArgumentParser(
+        description='Monitor link health continuously',
+        epilog='''
+Examples:
+  %(prog)s --links links.json --once
+  %(prog)s --interval 30 --config monitor.json
+  %(prog)s --quiet --output report.json
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--links', type=Path, default=Path('links.json'),
                        help='JSON file with links to monitor')
     parser.add_argument('--config', type=Path, default=Path('monitor-config.json'),
@@ -452,13 +463,17 @@ async def main():
                        help='Run once and exit')
     parser.add_argument('--output', type=Path, default=Path('monitoring-report.json'),
                        help='Output report file')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
     # Load links
     if not args.links.exists():
-        print(f"Links file not found: {args.links}")
-        return 1
+        print(f"Error: File not found: {args.links}", file=sys.stderr)
+        print(f"Expected: {args.links.absolute()}", file=sys.stderr)
+        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        sys.exit(2)
 
     with open(args.links, 'r') as f:
         links_data = json.load(f)
@@ -483,4 +498,4 @@ async def main():
     return 0
 
 if __name__ == "__main__":
-    exit(asyncio.run(main()))
+    sys.exit(asyncio.run(main()))

@@ -13,9 +13,16 @@ import os
 import re
 import json
 import yaml
+import sys
+import logging
+import argparse
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional
+
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
 
 # Configuration
 POSTS_DIR = Path("src/posts")
@@ -198,7 +205,7 @@ MANUAL_OPTIMIZATIONS = {
 class DescriptionOptimizer:
     """Optimizes blog post meta descriptions for SEO."""
 
-    def __init__(self):
+    def __init__(self, logger=None):
         self.posts_dir = POSTS_DIR
         self.report_dir = REPORT_DIR
         self.report_dir.mkdir(parents=True, exist_ok=True)
@@ -209,6 +216,7 @@ class DescriptionOptimizer:
             "skipped": 0,
             "errors": 0
         }
+        self.logger = logger or logging.getLogger(__name__)
 
     def extract_frontmatter(self, content: str) -> Tuple[Optional[Dict], str, str]:
         """Extract YAML frontmatter from markdown content."""
@@ -244,7 +252,7 @@ class DescriptionOptimizer:
             frontmatter, frontmatter_text, body = self.extract_frontmatter(content)
 
             if not frontmatter or 'description' not in frontmatter:
-                print(f"⚠️  Skipping {filepath.name}: No description found")
+                self.logger.warning(f"Skipping {filepath.name}: No description found")
                 self.stats["skipped"] += 1
                 return False
 
@@ -257,7 +265,7 @@ class DescriptionOptimizer:
 
             # Check if already optimal
             if current_desc == optimized_desc:
-                print(f"✅ Skipping {filepath.name}: Already optimized ({current_len} chars)")
+                self.logger.info(f"Skipping {filepath.name}: Already optimized ({current_len} chars)")
                 self.stats["skipped"] += 1
                 return False
 
@@ -305,14 +313,14 @@ class DescriptionOptimizer:
             }
             self.results.append(result)
 
-            print(f"{status_emoji} Updated {filepath.name}: {current_len} → {optimized_len} chars ({status})")
+            self.logger.info(f"Updated {filepath.name}: {current_len} → {optimized_len} chars ({status})")
 
             self.stats["processed"] += 1
             self.stats["updated"] += 1
             return True
 
         except Exception as e:
-            print(f"❌ Error processing {filepath.name}: {e}")
+            self.logger.error(f"Error processing {filepath.name}: {e}")
             self.stats["errors"] += 1
             return False
 
@@ -353,7 +361,7 @@ class DescriptionOptimizer:
         with open(report_file, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
 
-        print(f"\n📊 Report saved to: {report_file}")
+        self.logger.info(f"Report saved to: {report_file}")
 
         return report
 
@@ -387,15 +395,25 @@ class DescriptionOptimizer:
 
 def main():
     """Main execution function."""
-    print("🚀 Starting SEO Meta Description Optimization")
-    print("="*70)
+    parser = argparse.ArgumentParser(description='Optimize SEO Meta Descriptions')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+    args = parser.parse_args()
 
-    optimizer = DescriptionOptimizer()
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    logger.info("Starting SEO Meta Description Optimization")
+    logger.info("="*70)
+
+    optimizer = DescriptionOptimizer(logger=logger)
 
     # Get all markdown files
     post_files = sorted(POSTS_DIR.glob("*.md"))
-    print(f"\n📁 Found {len(post_files)} blog posts")
-    print(f"🎯 Targeting {len(MANUAL_OPTIMIZATIONS)} posts for optimization")
+    logger.info(f"Found {len(post_files)} blog posts")
+    logger.info(f"Targeting {len(MANUAL_OPTIMIZATIONS)} posts for optimization")
 
     # Process each post
     for filepath in post_files:
@@ -406,10 +424,10 @@ def main():
         report = optimizer.generate_report()
         optimizer.print_summary(report)
 
-    print(f"\n✨ Optimization complete!")
-    print(f"   Updated {optimizer.stats['updated']} posts")
-    print(f"   Skipped {optimizer.stats['skipped']} posts (already optimal)")
-    print(f"   Errors: {optimizer.stats['errors']}")
+    logger.info("Optimization complete!")
+    logger.info(f"Updated {optimizer.stats['updated']} posts")
+    logger.info(f"Skipped {optimizer.stats['skipped']} posts (already optimal)")
+    logger.info(f"Errors: {optimizer.stats['errors']}")
 
     return 0 if optimizer.stats['errors'] == 0 else 1
 

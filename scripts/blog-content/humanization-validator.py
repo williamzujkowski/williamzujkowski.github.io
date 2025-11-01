@@ -81,13 +81,18 @@ import yaml
 import argparse
 import frontmatter
 import time
+import logging
 from pathlib import Path
 from typing import Dict, List, Tuple
 from collections import defaultdict
 from multiprocessing import Pool, cpu_count
 from datetime import datetime
 
-# ANSI color codes for terminal output
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# ANSI color codes for terminal output (kept for backward compatibility with print_results)
 class Colors:
     RED = '\033[91m'
     GREEN = '\033[92m'
@@ -856,20 +861,23 @@ def validate_post_wrapper(args_tuple):
             'error': True
         }
 
-def batch_validate_posts(posts_dir: str, config_path: str, workers: int = 4) -> List[Dict]:
+def batch_validate_posts(posts_dir: str, config_path: str, workers: int = 4, logger=None) -> List[Dict]:
     """Validate multiple posts in parallel."""
+    if logger is None:
+        logger = logging.getLogger(__name__)
+
     # Find all markdown files
     posts_path = Path(posts_dir)
     post_files = sorted(posts_path.glob('*.md'))
 
     if not post_files:
-        print(f"{Colors.YELLOW}No markdown files found in {posts_dir}{Colors.RESET}")
+        logger.warning(f"No markdown files found in {posts_dir}")
         return []
 
     total_posts = len(post_files)
-    print(f"\n{Colors.BOLD}Starting batch validation...{Colors.RESET}")
-    print(f"Posts to validate: {Colors.CYAN}{total_posts}{Colors.RESET}")
-    print(f"Workers: {Colors.CYAN}{workers}{Colors.RESET}\n")
+    logger.info("Starting batch validation...")
+    logger.info(f"Posts to validate: {total_posts}")
+    logger.info(f"Workers: {workers}")
 
     # Prepare arguments for multiprocessing
     args_list = [(str(post), config_path) for post in post_files]
@@ -890,17 +898,15 @@ def batch_validate_posts(posts_dir: str, config_path: str, workers: int = 4) -> 
             eta = avg_time * (total_posts - i)
 
             status = "✓" if result['score'] >= 70 else "✗"
-            color = Colors.GREEN if result['score'] >= 70 else Colors.RED
             score = int(result['score'])  # Convert to int for display
 
-            print(f"{color}{status}{Colors.RESET} [{i}/{total_posts}] {progress:5.1f}% | "
-                  f"Score: {color}{score:3d}{Colors.RESET} | "
-                  f"ETA: {eta:5.1f}s | {Path(result['post_path']).name}")
+            logger.info(f"{status} [{i}/{total_posts}] {progress:5.1f}% | "
+                       f"Score: {score:3d} | ETA: {eta:5.1f}s | {Path(result['post_path']).name}")
 
     total_time = time.time() - start_time
-    print(f"\n{Colors.GREEN}Batch validation complete!{Colors.RESET}")
-    print(f"Total time: {Colors.CYAN}{total_time:.2f}s{Colors.RESET}")
-    print(f"Average: {Colors.CYAN}{total_time/total_posts:.2f}s{Colors.RESET} per post\n")
+    logger.info("Batch validation complete!")
+    logger.info(f"Total time: {total_time:.2f}s")
+    logger.info(f"Average: {total_time/total_posts:.2f}s per post")
 
     return results
 
@@ -1090,20 +1096,27 @@ Examples:
                         help='Number of parallel workers')
     parser.add_argument('--quiet', '-q', action='store_true',
                         help='Suppress non-essential output')
+    parser.add_argument('--verbose', '-v', action='store_true',
+                        help='Enable debug output')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
 
     args = parser.parse_args()
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
 
     # Determine mode
     if args.batch:
         # Batch mode
         if not os.path.exists(args.dir):
-            print(f"{Colors.RED}Error: Directory not found: {args.dir}{Colors.RESET}", file=sys.stderr)
-            print(f"Expected directory: {os.path.abspath(args.dir)}", file=sys.stderr)
-            print(f"Current directory: {os.getcwd()}", file=sys.stderr)
+            logger.error(f"Directory not found: {args.dir}")
+            logger.error(f"Expected directory: {os.path.abspath(args.dir)}")
+            logger.error(f"Current directory: {os.getcwd()}")
             return 2
 
         # Run batch validation
-        results = batch_validate_posts(args.dir, args.config, args.workers)
+        results = batch_validate_posts(args.dir, args.config, args.workers, logger=logger)
 
         if not results:
             return 2
@@ -1113,7 +1126,7 @@ Examples:
             if os.path.exists(args.compare):
                 compare_reports(results, args.compare)
             else:
-                print(f"{Colors.YELLOW}Warning: Previous report not found: {args.compare}{Colors.RESET}")
+                logger.warning(f"Previous report not found: {args.compare}")
 
         # Print results
         print_batch_summary(results, args.format, args.filter_below, args.min_score)
@@ -1129,7 +1142,7 @@ Examples:
             os.makedirs(os.path.dirname(args.save_report) or '.', exist_ok=True)
             with open(args.save_report, 'w') as f:
                 json.dump(output, f, indent=2)
-            print(f"{Colors.GREEN}Report saved to: {args.save_report}{Colors.RESET}\n")
+            logger.info(f"Report saved to: {args.save_report}")
 
         # Exit code: 0 if all pass, 1 if any fail
         failed_count = sum(1 for r in results if r['score'] < args.min_score)
@@ -1138,17 +1151,16 @@ Examples:
     else:
         # Single-post mode
         if not args.post:
-            print(f"{Colors.RED}Error: --post required for single-post mode (or use --batch){Colors.RESET}",
-                  file=sys.stderr)
-            print(f"\nUsage: {sys.argv[0]} --post <path-to-post.md>", file=sys.stderr)
-            print(f"   Or: {sys.argv[0]} --batch", file=sys.stderr)
+            logger.error("--post required for single-post mode (or use --batch)")
+            logger.info(f"Usage: {sys.argv[0]} --post <path-to-post.md>")
+            logger.info(f"   Or: {sys.argv[0]} --batch")
             return 2
 
         if not os.path.exists(args.post):
-            print(f"{Colors.RED}Error: Post file not found: {args.post}{Colors.RESET}", file=sys.stderr)
-            print(f"Expected file: {os.path.abspath(args.post)}", file=sys.stderr)
-            print(f"Current directory: {os.getcwd()}", file=sys.stderr)
-            print(f"\nTip: Posts are typically in src/posts/ directory", file=sys.stderr)
+            logger.error(f"Post file not found: {args.post}")
+            logger.error(f"Expected file: {os.path.abspath(args.post)}")
+            logger.error(f"Current directory: {os.getcwd()}")
+            logger.info("Tip: Posts are typically in src/posts/ directory")
             return 2
 
         # Run validation

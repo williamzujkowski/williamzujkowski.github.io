@@ -6,6 +6,7 @@ Usage: python batch-analyzer.py
 
 import re
 import sys
+import argparse
 from pathlib import Path
 from dataclasses import dataclass
 from typing import List
@@ -67,7 +68,34 @@ def analyze_post(filepath: Path) -> PostAnalysis:
     )
 
 def main():
-    posts_dir = Path('src/posts')
+    parser = argparse.ArgumentParser(
+        description='Scan blog posts and rank them for refactoring priority',
+        epilog='''
+Examples:
+  %(prog)s
+  %(prog)s --posts-dir src/posts
+  %(prog)s --top 10 --quiet
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--posts-dir', type=Path, default=Path('src/posts'),
+                       help='Directory containing blog posts')
+    parser.add_argument('--top', type=int, default=20,
+                       help='Number of top candidates to show')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
+
+    args = parser.parse_args()
+
+    posts_dir = args.posts_dir
+
+    if not posts_dir.exists():
+        print(f"Error: Directory not found: {posts_dir}", file=sys.stderr)
+        print(f"Expected: {posts_dir.absolute()}", file=sys.stderr)
+        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        sys.exit(2)
 
     # Skip Batch 1 completed posts
     batch1_posts = [
@@ -78,8 +106,9 @@ def main():
 
     analyses: List[PostAnalysis] = []
 
-    print("Scanning all blog posts...")
-    print("="*80)
+    if not args.quiet:
+        print("Scanning all blog posts...")
+        print("="*80)
 
     for post_file in sorted(posts_dir.glob('*.md')):
         if post_file.name in batch1_posts:
@@ -92,30 +121,38 @@ def main():
     analyses.sort(key=lambda x: x.priority_score, reverse=True)
 
     # Print top candidates
-    print(f"\n{'Rank':<6} {'Filename':<50} {'Weak':<6} {'Bullets':<8} {'Cites':<7} {'Score':<6}")
-    print("="*80)
+    if not args.quiet:
+        print(f"\n{'Rank':<6} {'Filename':<50} {'Weak':<6} {'Bullets':<8} {'Cites':<7} {'Score':<6}")
+        print("="*80)
 
-    for i, analysis in enumerate(analyses[:20], 1):
-        print(f"{i:<6} {analysis.filename:<50} {analysis.weak_language:<6} {analysis.bullets:<8} {analysis.citations:<7} {analysis.priority_score:<6}")
+        for i, analysis in enumerate(analyses[:args.top], 1):
+            print(f"{i:<6} {analysis.filename:<50} {analysis.weak_language:<6} {analysis.bullets:<8} {analysis.citations:<7} {analysis.priority_score:<6}")
 
-    print("\n" + "="*80)
-    print(f"\nTop 8 candidates for Batch 2:")
-    print("-"*80)
+        print("\n" + "="*80)
+        print(f"\nTop 8 candidates for Batch 2:")
+        print("-"*80)
 
     batch2_candidates = []
     for i, analysis in enumerate(analyses[:8], 1):
         status = "🔴" if analysis.weak_language > 15 else "🟡" if analysis.weak_language > 5 else "🟢"
-        print(f"{i}. {status} {analysis.filename}")
-        print(f"   Weak: {analysis.weak_language}, Bullets: {analysis.bullets}, Citations: {analysis.citations}")
+        if not args.quiet:
+            print(f"{i}. {status} {analysis.filename}")
+            print(f"   Weak: {analysis.weak_language}, Bullets: {analysis.bullets}, Citations: {analysis.citations}")
         batch2_candidates.append(analysis.filename)
 
     # Save batch2 selection
-    with open('docs/batch-2/batch-2-selection.txt', 'w') as f:
+    output_dir = Path('docs/batch-2')
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    with open(output_dir / 'batch-2-selection.txt', 'w') as f:
         f.write("# Batch 2 Selected Posts\n\n")
         for i, filename in enumerate(batch2_candidates, 1):
             f.write(f"{i}. {filename}\n")
 
-    print(f"\n✅ Batch 2 selection saved to docs/batch-2/batch-2-selection.txt")
+    if not args.quiet:
+        print(f"\n✅ Batch 2 selection saved to docs/batch-2/batch-2-selection.txt")
+
+    return 0
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

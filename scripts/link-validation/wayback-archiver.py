@@ -45,6 +45,7 @@ MANIFEST_REGISTRY: scripts/wayback-archiver.py
 import json
 import asyncio
 import aiohttp
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime, timedelta
@@ -395,7 +396,18 @@ async def archive_critical_links(links_file: Path, output_file: Path):
         archiver.generate_archive_report(results, statuses, output_file)
 
 async def main():
-    parser = argparse.ArgumentParser(description='Archive links to Wayback Machine')
+    parser = argparse.ArgumentParser(
+        description='Archive links to Wayback Machine',
+        epilog='''
+Examples:
+  %(prog)s --links links.json --output archive-report.json
+  %(prog)s --find-alternatives --validation validation.json
+  %(prog)s --archive-all --quiet
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--links', type=Path, default=Path('links.json'),
                        help='JSON file with extracted links')
     parser.add_argument('--validation', type=Path, default=Path('validation.json'),
@@ -406,14 +418,18 @@ async def main():
                        help='Find archived alternatives for broken links')
     parser.add_argument('--output', type=Path, default=Path('archive-report.json'),
                        help='Output report file')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
     if args.find_alternatives:
         # Find alternatives for broken links
         if not args.validation.exists():
-            print(f"Validation file not found: {args.validation}")
-            return 1
+            print(f"Error: File not found: {args.validation}", file=sys.stderr)
+            print(f"Expected: {args.validation.absolute()}", file=sys.stderr)
+            print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+            sys.exit(2)
 
         with open(args.validation, 'r') as f:
             validation_data = json.load(f)
@@ -437,8 +453,10 @@ async def main():
     else:
         # Archive links
         if not args.links.exists():
-            print(f"Links file not found: {args.links}")
-            return 1
+            print(f"Error: File not found: {args.links}", file=sys.stderr)
+            print(f"Expected: {args.links.absolute()}", file=sys.stderr)
+            print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+            sys.exit(2)
 
         if args.archive_all:
             print("Archiving all links...")
@@ -457,4 +475,4 @@ async def main():
     return 0
 
 if __name__ == "__main__":
-    exit(asyncio.run(main()))
+    sys.exit(asyncio.run(main()))

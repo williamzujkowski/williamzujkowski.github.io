@@ -463,28 +463,92 @@ class SpecializedValidatorOrchestrator:
         return [r for r in results if r is not None]
 
 async def main():
-    """Test specialized validators"""
-    test_urls = [
-        "https://github.com/anthropics/claude-flow",
-        "https://github.com/fake-owner/fake-repo",
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "https://docs.python.org/3.8/library/asyncio.html",
-        "https://twitter.com/anthropicai",
-        "https://images.unsplash.com/photo-123456789"
-    ]
+    """Main entry point with CLI support"""
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description='Specialized link validators for various platforms',
+        epilog='''
+Examples:
+  %(prog)s --urls urls.txt --output results.json
+  %(prog)s --test-mode
+  %(prog)s --quiet --urls links.json
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--urls', type=str,
+                       help='File containing URLs to validate (one per line or JSON)')
+    parser.add_argument('--output', type=str, default='specialized-validation.json',
+                       help='Output JSON file for results')
+    parser.add_argument('--test-mode', action='store_true',
+                       help='Run with built-in test URLs')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
+
+    args = parser.parse_args()
+
+    # Determine URLs to validate
+    if args.test_mode:
+        test_urls = [
+            "https://github.com/anthropics/claude-flow",
+            "https://github.com/fake-owner/fake-repo",
+            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "https://docs.python.org/3.8/library/asyncio.html",
+            "https://twitter.com/anthropicai",
+            "https://images.unsplash.com/photo-123456789"
+        ]
+    elif args.urls:
+        from pathlib import Path
+        urls_path = Path(args.urls)
+        if not urls_path.exists():
+            print(f"Error: File not found: {args.urls}", file=sys.stderr)
+            print(f"Expected: {urls_path.absolute()}", file=sys.stderr)
+            print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+            sys.exit(2)
+
+        # Try to load as JSON first, fall back to line-by-line
+        with open(urls_path, 'r') as f:
+            content = f.read()
+            try:
+                data = json.loads(content)
+                test_urls = data if isinstance(data, list) else data.get('urls', [])
+            except:
+                test_urls = [line.strip() for line in content.split('\n') if line.strip()]
+    else:
+        print("Error: Must provide --urls or --test-mode", file=sys.stderr)
+        sys.exit(2)
 
     async with SpecializedValidatorOrchestrator() as orchestrator:
         results = await orchestrator.validate_batch(test_urls)
 
-        for result in results:
-            print(f"\n{result.link_type.upper()}: {result.url}")
-            print(f"  Valid: {result.is_valid}")
-            if result.issues:
-                print(f"  Issues: {', '.join(result.issues)}")
-            if result.suggestions:
-                print(f"  Suggestions: {', '.join(result.suggestions)}")
-            if result.metadata:
-                print(f"  Metadata: {result.metadata}")
+        if not args.quiet:
+            for result in results:
+                print(f"\n{result.link_type.upper()}: {result.url}")
+                print(f"  Valid: {result.is_valid}")
+                if result.issues:
+                    print(f"  Issues: {', '.join(result.issues)}")
+                if result.suggestions:
+                    print(f"  Suggestions: {', '.join(result.suggestions)}")
+                if result.metadata:
+                    print(f"  Metadata: {result.metadata}")
+
+        # Save results
+        output_data = {
+            'timestamp': datetime.now().isoformat(),
+            'total_validated': len(results),
+            'results': [asdict(r) for r in results]
+        }
+
+        with open(args.output, 'w') as f:
+            json.dump(output_data, f, indent=2)
+
+        if not args.quiet:
+            print(f"\n✅ Results saved to {args.output}")
+
+    return 0
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    import sys
+    sys.exit(asyncio.run(main()))

@@ -44,6 +44,7 @@ MANIFEST_REGISTRY: scripts/content-relevance-checker.py
 
 import json
 import re
+import sys
 import argparse
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -468,7 +469,7 @@ class ContentRelevanceChecker:
             analysis_time=datetime.now().isoformat()
         )
 
-    def save_results(self, results: List[RelevanceResult], output_file: Path):
+    def save_results(self, results: List[RelevanceResult], output_file: Path, quiet: bool = False):
         """Save relevance check results"""
         data = {
             'analysis_date': datetime.now().isoformat(),
@@ -479,15 +480,26 @@ class ContentRelevanceChecker:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
 
-        print(f"✅ Checked relevance for {self.stats['total_checked']} links")
-        print(f"✔️  High relevance: {self.stats['high_relevance']}")
-        print(f"⚠️  Medium relevance: {self.stats['medium_relevance']}")
-        print(f"❌ Low relevance: {self.stats['low_relevance']}")
-        print(f"🔍 Review needed: {self.stats['review_needed']}")
-        print(f"💾 Results saved to {output_file}")
+        if not quiet:
+            print(f"✅ Checked relevance for {self.stats['total_checked']} links")
+            print(f"✔️  High relevance: {self.stats['high_relevance']}")
+            print(f"⚠️  Medium relevance: {self.stats['medium_relevance']}")
+            print(f"❌ Low relevance: {self.stats['low_relevance']}")
+            print(f"🔍 Review needed: {self.stats['review_needed']}")
+            print(f"💾 Results saved to {output_file}")
 
 def main():
-    parser = argparse.ArgumentParser(description='Check content relevance of validated links')
+    parser = argparse.ArgumentParser(
+        description='Check content relevance of validated links',
+        epilog='''
+Examples:
+  %(prog)s --links links.json --validation validation.json
+  %(prog)s --output relevance.json --quiet
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--links', type=Path,
                        default=Path('links.json'),
                        help='Input JSON file with extracted links')
@@ -497,16 +509,22 @@ def main():
     parser.add_argument('--output', type=Path,
                        default=Path('relevance.json'),
                        help='Output JSON file')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
     if not args.links.exists():
-        print(f"❌ Links file not found: {args.links}")
-        return 1
+        print(f"Error: File not found: {args.links}", file=sys.stderr)
+        print(f"Expected: {args.links.absolute()}", file=sys.stderr)
+        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        sys.exit(2)
 
     if not args.validation.exists():
-        print(f"❌ Validation file not found: {args.validation}")
-        return 1
+        print(f"Error: File not found: {args.validation}", file=sys.stderr)
+        print(f"Expected: {args.validation.absolute()}", file=sys.stderr)
+        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        sys.exit(2)
 
     # Load data
     with open(args.links, 'r', encoding='utf-8') as f:
@@ -515,7 +533,8 @@ def main():
     with open(args.validation, 'r', encoding='utf-8') as f:
         validation_data = json.load(f)
 
-    print(f"📋 Loaded {len(links_data['links'])} links to check")
+    if not args.quiet:
+        print(f"📋 Loaded {len(links_data['links'])} links to check")
 
     # Check relevance
     checker = ContentRelevanceChecker()
@@ -526,9 +545,9 @@ def main():
         results.append(result)
 
     # Save results
-    checker.save_results(results, args.output)
+    checker.save_results(results, args.output, quiet=args.quiet)
 
     return 0
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

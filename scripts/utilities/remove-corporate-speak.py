@@ -240,14 +240,46 @@ All original files backed up to: `backups/corporate-speak-removal/`
         print(f"📊 JSON data saved: {json_path}")
 
 def main():
-    posts_dir = '/home/william/git/williamzujkowski.github.io/src/posts'
-    output_dir = Path('/home/william/git/williamzujkowski.github.io/docs/quick-wins')
+    import argparse
 
-    remover = CorporateSpeakRemover(posts_dir)
+    parser = argparse.ArgumentParser(
+        description='Remove corporate buzzwords from blog posts',
+        epilog='''
+Examples:
+  %(prog)s
+  %(prog)s --posts-dir src/posts --output-dir docs/reports
+  %(prog)s --quiet
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--posts-dir', type=Path,
+                       default=Path('src/posts'),
+                       help='Directory containing blog posts')
+    parser.add_argument('--output-dir', type=Path,
+                       default=Path('docs/quick-wins'),
+                       help='Output directory for reports')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
+
+    args = parser.parse_args()
+
+    if not args.posts_dir.exists():
+        print(f"Error: Directory not found: {args.posts_dir}", file=sys.stderr)
+        print(f"Expected: {args.posts_dir.absolute()}", file=sys.stderr)
+        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        sys.exit(2)
+
+    remover = CorporateSpeakRemover(args.posts_dir)
     remover.process_all_posts()
-    remover.generate_report(output_dir / 'corporate-speak-removal.md')
+    remover.generate_report(args.output_dir / 'corporate-speak-removal.md')
 
-    print(f"\n✅ Complete! {remover.total_replacements} replacements in {remover.files_processed} files.")
+    if not args.quiet:
+        print(f"\n✅ Complete! {remover.total_replacements} replacements in {remover.files_processed} files.")
+
+    return 0
 
 if __name__ == '__main__':
-    main()
+    import sys
+    sys.exit(main())

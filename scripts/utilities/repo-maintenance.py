@@ -759,6 +759,7 @@ Examples:
                         help="Skip confirmation prompts")
     parser.add_argument("--backup", action="store_true",
                         help="Create backups before archiving")
+    parser.add_argument("--version", action='version', version='%(prog)s 1.0.0')
 
     args = parser.parse_args()
 
