@@ -111,13 +111,7 @@ I tested these three scanners in September 2024 against my homelab services to u
 
 ### Installation
 
-I installed all three scanners on my Ubuntu 22.04 homelab server. The process took about 10 minutes:
-
-```bash
-curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh
-go install github.com/google/osv-scanner/cmd/osv-scanner@latest
-wget .../trivy_0.48.0_Linux-64bit.deb && sudo dpkg -i trivy_*.deb
-```
+I installed all three scanners on my Ubuntu 22.04 homelab server. The process took about 10 minutes: `curl` script for Grype, `go install` for OSV-Scanner, and `dpkg` for Trivy's Debian package.
 
 **Note from experience:** OSV-Scanner requires Go 1.21+. My first install failed with Go 1.19.
 
@@ -158,14 +152,7 @@ Add real-time alerts when scans fail:
 📎 **Complete Slack notification workflow with formatted blocks:**
 [Full implementation](https://gist.github.com/williamzujkowski/security-scan-slack-notification)
 
-```yaml
-# Key integration pattern
-- name: Send Slack notification
-  if: failure()
-  uses: slackapi/slack-github-action@v1.24.0
-```
-
-The notification includes repo, branch, commit SHA, and direct link to failed run.
+The notification uses `slackapi/slack-github-action@v1.24.0` with failure condition, including repo, branch, commit SHA, and direct link to failed run.
 
 ## Local Development Integration
 
@@ -173,16 +160,7 @@ One lesson I learned the hard way: catching vulnerabilities in CI is good, but c
 
 ### Pre-Commit Hooks
 
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: local
-    hooks:
-      - {id: grype-scan, entry: "grype dir:. --fail-on high"}
-      - {id: osv-scan, entry: "osv-scanner --lockfile=package-lock.json"}
-```
-
-Install: `pip install pre-commit && pre-commit install`
+Create `.pre-commit-config.yaml` with local hooks for Grype (`fail-on high`) and OSV-Scanner (`--lockfile=package-lock.json`). Install with `pip install pre-commit && pre-commit install`.
 
 **Reality check:** These hooks add 30-45 seconds per commit. Some developers use `--no-verify` to bypass them. I don't have a good solution yet. It's a constant tension between security and developer experience.
 
@@ -193,11 +171,6 @@ Run scans directly from your IDE with custom tasks. Each task outputs JSON for e
 📎 **Complete VS Code tasks configuration:**
 [Full tasks.json with all three scanners](https://gist.github.com/williamzujkowski/vscode-security-scan-tasks)
 
-```json
-// .vscode/tasks.json - Essential pattern
-{"label": "Security Scan: All", "dependsOn": ["Grype", "OSV"]}
-```
-
 ## Advanced Scanning Configurations
 
 ### Grype Custom Configuration
@@ -207,11 +180,7 @@ Control false positives and severity thresholds.
 📎 **Complete Grype configuration:**
 [Full .grype.yaml with all ignore rules](https://gist.github.com/williamzujkowski/grype-config)
 
-```yaml
-# .grype.yaml - Key settings
-fail-on-severity: high
-ignore: [{vulnerability: CVE-2023-12345, expiration: 2025-12-31}]
-```
+Configure `fail-on-severity: high` and add ignore rules with expiration dates for accepted risks.
 
 ### OSV-Scanner Configuration
 
@@ -220,11 +189,7 @@ Customize lockfile scanning and parallel workers.
 📎 **Complete OSV configuration:**
 [Full osv-scanner.toml with private registries](https://gist.github.com/williamzujkowski/osv-scanner-config)
 
-```toml
-# osv-scanner.toml - Key settings
-[scanning]
-workers = 4  # 40% faster on my 8-core system
-```
+Set `workers = 4` for parallel scanning (40% faster on my 8-core system).
 
 ### Trivy Policy as Code
 
@@ -233,15 +198,7 @@ Enforce security policies with custom OPA Rego rules.
 📎 **Complete Trivy OPA policy:**
 [Full security.rego with all deny/warn rules](https://gist.github.com/williamzujkowski/trivy-opa-policy)
 
-```rego
-# policy/security.rego - Block critical CVEs
-deny[msg] {
-    input.Vulnerabilities[_].Severity == "CRITICAL"
-    msg := sprintf("Critical: %s", [input.VulnerabilityID])
-}
-```
-
-Apply: `trivy image --policy ./policy/security.rego myapp:latest`
+Create Rego policies that deny on critical severities and apply with `trivy image --policy ./policy/security.rego myapp:latest`.
 
 ## Continuous Monitoring
 
@@ -252,13 +209,7 @@ Daily automated scans catch newly-published CVEs. I scan 3 production images dai
 📎 **Complete scheduled scan workflow:**
 [Full workflow with matrix strategy and SIEM integration](https://gist.github.com/williamzujkowski/scheduled-security-scans)
 
-```yaml
-# .github/workflows/scheduled-scan.yml
-on: {schedule: [{cron: '0 6 * * *'}]}
-jobs:
-  scan-production:
-    strategy: {matrix: {image: [myapp-web, myapp-api, myapp-worker]}}
-```
+Configure cron schedule (`0 6 * * *` for daily 6 AM) with matrix strategy scanning multiple production images.
 
 ### Scan Comparison Script
 
@@ -267,24 +218,13 @@ Track vulnerability trends by detecting drift. This helped me identify 12 new CV
 📎 **Complete scan comparison tool:**
 [Full Python script with JSON parsing and reporting](https://gist.github.com/williamzujkowski/vulnerability-scan-comparison)
 
-```python
-# scripts/compare-scans.py - Core logic
-def compare_scans(current_file, baseline_file):
-    new_vulns = current_vulns - baseline_vulns
-    fixed_vulns = baseline_vulns - current_vulns
-```
-
-**Usage:** `python compare-scans.py --current today.json --baseline baseline.json`
+Compare two scan results to detect new and fixed vulnerabilities. Run with `--current today.json --baseline baseline.json`.
 
 ## SBOM Generation and Management
 
 ### Generate Software Bill of Materials
 
-```bash
-syft packages dir:. -o cyclonedx-json > sbom.json
-grype sbom:./sbom.json
-diff <(jq -S '.components[].name' sbom-v1.json) <(jq -S '.components[].name' sbom-v2.json)
-```
+Use `syft` to generate CycloneDX SBOM, scan with `grype sbom:./sbom.json`, and compare versions with `jq` to track dependency changes.
 
 ### SBOM-Based Vulnerability Tracking
 
@@ -293,13 +233,7 @@ Generate and scan SBOMs on every release. I store historical SBOMs to track depe
 📎 **Complete SBOM workflow:**
 [Full workflow with CycloneDX generation and S3 storage](https://gist.github.com/williamzujkowski/sbom-generation-workflow)
 
-```yaml
-# .github/workflows/sbom-scan.yml - Key steps
-on: {release: {types: [published]}}
-jobs:
-  sbom:
-    steps: [Generate CycloneDX, Scan with Grype, Upload to S3]
-```
+Trigger on release publication, generate CycloneDX format, scan with Grype, and upload to S3 for historical tracking.
 
 ## Remediation Workflows
 
@@ -310,13 +244,7 @@ Weekly auto-remediation with PR creation. This automatically fixed 35% of vulner
 📎 **Complete auto-remediation workflow:**
 [Full workflow with PR creation and test validation](https://gist.github.com/williamzujkowski/auto-remediate-vulnerabilities)
 
-```yaml
-# .github/workflows/auto-remediate.yml
-on: {schedule: [{cron: '0 3 * * 1'}]}
-jobs:
-  update:
-    steps: [Scan, npm audit fix, Re-scan, Create PR]
-```
+Weekly scheduled job scans for vulnerabilities, runs `npm audit fix`, validates fixes pass tests, and creates PR for review.
 
 ## Integration with Wazuh SIEM
 
@@ -327,13 +255,7 @@ Forward vulnerability data to your SIEM. I ship scans via syslog to Wazuh for ce
 📎 **Complete Wazuh integration:**
 [Full script with JSON transformation and error handling](https://gist.github.com/williamzujkowski/wazuh-vulnerability-ingestion)
 
-```bash
-# send-scans-to-wazuh.sh - Core pattern
-grype myapp:latest -o json | jq -c '.matches[]' | \
-  while read line; do
-    echo "<134>vulnerability: $line" | nc -w1 $WAZUH_MANAGER 1514
-  done
-```
+Pipe Grype JSON output through `jq`, format as syslog, and send to Wazuh manager on port 1514 using `netcat`.
 
 ### Wazuh Rules for Vulnerability Alerts
 
@@ -342,11 +264,7 @@ Create custom alerting rules. Critical findings trigger level 12 alerts (email +
 📎 **Complete Wazuh rules:**
 [Full local_rules.xml with all severity levels](https://gist.github.com/williamzujkowski/wazuh-vulnerability-rules)
 
-```xml
-<!-- /var/ossec/etc/rules/local_rules.xml -->
-<rule id="100100" level="7"><field name="vulnerability_id">\.+</field></rule>
-<rule id="100101" level="12"><if_sid>100100</if_sid><field name="severity">CRITICAL</field></rule>
-```
+Define base rule matching vulnerability IDs (level 7), then escalate to level 12 for critical severity findings.
 
 ## Lessons Learned
 
@@ -393,12 +311,7 @@ Track security posture with PostgreSQL queries. My current MTTR: 4.2 days (down 
 📎 **Complete SQL analytics:**
 [Full PostgreSQL queries for vulnerability tracking](https://gist.github.com/williamzujkowski/vulnerability-metrics-sql)
 
-```sql
--- Vulnerability trends (last 30 days)
-SELECT severity, COUNT(*), DATE(scan_date)
-FROM vulnerabilities WHERE scan_date > NOW() - INTERVAL '30 days'
-GROUP BY severity, DATE(scan_date);
-```
+Query vulnerability trends over time, grouping by severity and date to track remediation progress and new findings.
 
 ## Research & References
 
