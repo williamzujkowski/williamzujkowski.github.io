@@ -12,9 +12,16 @@ Evaluates:
 
 import re
 import json
+import logging
+import sys
+import argparse
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Tuple
+
+# Add parent directory to path for lib imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 # Weak language patterns (Polite Linus violations)
 WEAK_PATTERNS = {
@@ -225,7 +232,18 @@ def analyze_post(filepath: Path) -> Dict:
 
 def main():
     """Analyze all blog posts."""
-    posts_dir = Path(__file__).parent.parent.parent / 'src' / 'posts'
+    parser = argparse.ArgumentParser(description='Analyze blog posts for CLAUDE.md compliance')
+    parser.add_argument('--posts-dir', type=Path, help='Directory containing blog posts')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+    args = parser.parse_args()
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    posts_dir = args.posts_dir or (Path(__file__).parent.parent.parent / 'src' / 'posts')
     posts = sorted(posts_dir.glob('*.md'))
 
     results = []
@@ -233,7 +251,7 @@ def main():
         if post.name == 'welcome.md':
             continue  # Skip welcome post
 
-        print(f"Analyzing {post.name}...")
+        logger.info(f"Analyzing {post.name}")
         analysis = analyze_post(post)
         results.append(analysis)
 
@@ -255,25 +273,24 @@ def main():
     output_path.parent.mkdir(exist_ok=True)
     output_path.write_text(json.dumps(report, indent=2))
 
-    print(f"\n{'='*80}")
-    print(f"COMPLIANCE ANALYSIS COMPLETE")
-    print(f"{'='*80}")
-    print(f"Total posts: {report['total_posts']}")
-    print(f"Tier 1 (high priority): {report['tier_1_count']}")
-    print(f"Tier 2 (medium priority): {report['tier_2_count']}")
-    print(f"Tier 3 (low priority): {report['tier_3_count']}")
-    print(f"Average compliance score: {report['avg_compliance_score']:.1f}/100")
-    print(f"\nReport saved to: {output_path}")
+    logger.info("="*80)
+    logger.info("COMPLIANCE ANALYSIS COMPLETE")
+    logger.info("="*80)
+    logger.info(f"Total posts: {report['total_posts']}")
+    logger.info(f"Tier 1 (high priority): {report['tier_1_count']}")
+    logger.info(f"Tier 2 (medium priority): {report['tier_2_count']}")
+    logger.info(f"Tier 3 (low priority): {report['tier_3_count']}")
+    logger.info(f"Average compliance score: {report['avg_compliance_score']:.1f}/100")
+    logger.info(f"Report saved to: {output_path}")
 
     # Print top 10 worst offenders
-    print(f"\n{'='*80}")
-    print("TOP 10 POSTS NEEDING REFACTORING (Tier 1)")
-    print(f"{'='*80}")
+    logger.info("="*80)
+    logger.info("TOP 10 POSTS NEEDING REFACTORING (Tier 1)")
+    logger.info("="*80)
     for i, post in enumerate(results[:10], 1):
-        print(f"{i}. {post['filename']}")
-        print(f"   Score: {post['compliance_score']}/100 | Words: {post['word_count']} | Tier: {post['priority_tier']}")
-        print(f"   Violations: {', '.join(post['violations'][:3])}")
-        print()
+        logger.info(f"{i}. {post['filename']}")
+        logger.info(f"   Score: {post['compliance_score']}/100 | Words: {post['word_count']} | Tier: {post['priority_tier']}")
+        logger.info(f"   Violations: {', '.join(post['violations'][:3])}")
 
 if __name__ == '__main__':
     main()

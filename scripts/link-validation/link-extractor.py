@@ -291,7 +291,19 @@ class LinkExtractor:
         print(f"💾 Results saved to {output_file}")
 
 def main():
-    parser = argparse.ArgumentParser(description='Extract links from blog posts')
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description='Extract links from blog posts',
+        epilog='''
+Examples:
+  %(prog)s --posts-dir src/posts
+  %(prog)s --citations-only
+  %(prog)s --output links.json --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--posts-dir', type=Path,
                        default=Path('src/posts'),
                        help='Directory containing blog posts')
@@ -302,26 +314,37 @@ def main():
                        help='Extract only citation links (research papers, academic sources)')
     parser.add_argument('--verbose', action='store_true',
                        help='Verbose output')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
-    if not args.posts_dir.exists():
-        print(f"❌ Posts directory not found: {args.posts_dir}")
-        return 1
+    try:
+        if not args.posts_dir.exists():
+            print(f"❌ Posts directory not found: {args.posts_dir}", file=sys.stderr)
+            sys.exit(2)
 
-    extractor = LinkExtractor(args.posts_dir)
-    all_links = extractor.extract_all()
+        extractor = LinkExtractor(args.posts_dir)
+        all_links = extractor.extract_all()
 
-    # Filter for citations only if requested
-    if args.citations_only:
-        citation_links = [link for link in all_links if link.type == 'citation']
-        extractor.links = citation_links
-        extractor.stats['total_links'] = len(citation_links)
-        print(f"🔬 Filtered to {len(citation_links)} citation links (from {len(all_links)} total)")
+        # Filter for citations only if requested
+        if args.citations_only:
+            citation_links = [link for link in all_links if link.type == 'citation']
+            extractor.links = citation_links
+            extractor.stats['total_links'] = len(citation_links)
+            if not args.quiet:
+                print(f"🔬 Filtered to {len(citation_links)} citation links (from {len(all_links)} total)")
 
-    extractor.save_results(args.output)
-
-    return 0
+        extractor.save_results(args.output)
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected: {args.posts_dir}", file=sys.stderr)
+        print("Tip: Run from repository root", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == '__main__':
     exit(main())

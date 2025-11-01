@@ -59,15 +59,22 @@ import os
 import re
 import json
 import argparse
+import logging
 from pathlib import Path
 from typing import Dict, List, Tuple
 import frontmatter
 from datetime import datetime
+import sys
+
+# Add parent directory to path for lib imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 class BlogContentAnalyzer:
-    def __init__(self, posts_dir: str = "src/posts"):
+    def __init__(self, posts_dir: str = "src/posts", logger=None):
         self.posts_dir = Path(posts_dir)
         self.analysis_results = []
+        self.logger = logger or logging.getLogger(__name__)
         
     def extract_code_blocks(self, content: str) -> List[str]:
         """Extract all code blocks from markdown content."""
@@ -240,7 +247,7 @@ class BlogContentAnalyzer:
     def analyze_all_posts(self) -> Dict:
         """Analyze all blog posts and generate report."""
         posts = sorted(self.posts_dir.glob("*.md"))
-        print(f"Analyzing {len(posts)} blog posts...")
+        self.logger.info(f"Analyzing {len(posts)} blog posts")
         
         high_code_posts = []
         needs_images = []
@@ -269,60 +276,60 @@ class BlogContentAnalyzer:
     def generate_report(self, output_file: str = None):
         """Generate detailed analysis report."""
         report = self.analyze_all_posts()
-        
-        print("\n" + "="*80)
-        print("BLOG CONTENT ANALYSIS REPORT")
-        print("="*80)
-        
-        print(f"\nTotal Posts Analyzed: {report['total_posts']}")
-        print(f"Posts with High Code Ratio (>25%): {len(report['high_code_posts'])}")
-        print(f"Posts Needing Images: {len(report['needs_images'])}")
-        print(f"Posts Needing More Content: {len(report['needs_content'])}")
+
+        self.logger.info("="*80)
+        self.logger.info("BLOG CONTENT ANALYSIS REPORT")
+        self.logger.info("="*80)
+
+        self.logger.info(f"Total Posts Analyzed: {report['total_posts']}")
+        self.logger.info(f"Posts with High Code Ratio (>25%): {len(report['high_code_posts'])}")
+        self.logger.info(f"Posts Needing Images: {len(report['needs_images'])}")
+        self.logger.info(f"Posts Needing More Content: {len(report['needs_content'])}")
         
         # High code ratio posts
         if report['high_code_posts']:
-            print("\n" + "-"*40)
-            print("HIGH CODE RATIO POSTS (Need Mermaid Diagrams):")
-            print("-"*40)
-            for post in sorted(report['high_code_posts'], 
-                             key=lambda x: x['metrics']['total_code_ratio'], 
+            self.logger.info("-"*40)
+            self.logger.info("HIGH CODE RATIO POSTS (Need Mermaid Diagrams):")
+            self.logger.info("-"*40)
+            for post in sorted(report['high_code_posts'],
+                             key=lambda x: x['metrics']['total_code_ratio'],
                              reverse=True)[:10]:
-                print(f"\n📄 {post['file']}")
-                print(f"   Code Ratio: {post['metrics']['total_code_ratio']}%")
-                print(f"   Code Blocks: {post['metrics']['code_blocks']}")
+                self.logger.info(f"📄 {post['file']}")
+                self.logger.info(f"   Code Ratio: {post['metrics']['total_code_ratio']}%")
+                self.logger.info(f"   Code Blocks: {post['metrics']['code_blocks']}")
                 if post['metrics']['long_blocks']:
-                    print(f"   Long Blocks: {len(post['metrics']['long_blocks'])} blocks >10 lines")
-                
+                    self.logger.info(f"   Long Blocks: {len(post['metrics']['long_blocks'])} blocks >10 lines")
+
                 # Mermaid suggestions
                 mermaid_suggestions = self.generate_mermaid_suggestions(post)
                 if mermaid_suggestions:
-                    print(f"   Suggested Diagrams:")
+                    self.logger.info(f"   Suggested Diagrams:")
                     for diagram in mermaid_suggestions:
-                        print(f"     - {diagram}")
+                        self.logger.info(f"     - {diagram}")
         
         # Posts needing images
         if report['needs_images'][:10]:
-            print("\n" + "-"*40)
-            print("POSTS NEEDING IMAGES:")
-            print("-"*40)
+            self.logger.info("-"*40)
+            self.logger.info("POSTS NEEDING IMAGES:")
+            self.logger.info("-"*40)
             for post in report['needs_images'][:10]:
-                print(f"\n📷 {post['file']}")
+                self.logger.info(f"📷 {post['file']}")
                 tags = ', '.join(post['metadata'].get('tags', []))
-                print(f"   Tags: {tags}")
-                print(f"   Suggested image types: Hero, 2-3 inline diagrams")
-        
+                self.logger.info(f"   Tags: {tags}")
+                self.logger.info(f"   Suggested image types: Hero, 2-3 inline diagrams")
+
         # Summary statistics
-        print("\n" + "-"*40)
-        print("OVERALL STATISTICS:")
-        print("-"*40)
-        
-        avg_code_ratio = sum(p['metrics']['total_code_ratio'] 
+        self.logger.info("-"*40)
+        self.logger.info("OVERALL STATISTICS:")
+        self.logger.info("-"*40)
+
+        avg_code_ratio = sum(p['metrics']['total_code_ratio']
                            for p in report['all_results']) / len(report['all_results'])
-        avg_word_count = sum(p['metrics']['word_count'] 
+        avg_word_count = sum(p['metrics']['word_count']
                            for p in report['all_results']) / len(report['all_results'])
-        
-        print(f"Average Code Ratio: {avg_code_ratio:.2f}%")
-        print(f"Average Word Count: {avg_word_count:.0f}")
+
+        self.logger.info(f"Average Code Ratio: {avg_code_ratio:.2f}%")
+        self.logger.info(f"Average Word Count: {avg_word_count:.0f}")
         
         # Save detailed report
         if output_file:
@@ -341,31 +348,38 @@ class BlogContentAnalyzer:
             
             with open(output_file, 'w') as f:
                 json.dump(detailed_report, f, indent=2, default=str)
-            print(f"\nDetailed report saved to: {output_file}")
+            self.logger.info(f"Detailed report saved to: {output_file}")
 
 def main():
     parser = argparse.ArgumentParser(description='Analyze blog content for improvements')
     parser.add_argument('--posts-dir', default='src/posts', help='Directory containing blog posts')
     parser.add_argument('--output', help='Output JSON file for detailed report')
     parser.add_argument('--post', help='Analyze single post')
-    
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
     args = parser.parse_args()
-    
-    analyzer = BlogContentAnalyzer(args.posts_dir)
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    analyzer = BlogContentAnalyzer(args.posts_dir, logger=logger)
     
     if args.post:
         # Analyze single post
         post_path = Path(args.posts_dir) / args.post
         if post_path.exists():
             result = analyzer.analyze_post(post_path)
-            print(f"\nAnalysis for {args.post}:")
-            print(f"Code Ratio: {result['metrics']['total_code_ratio']}%")
-            print(f"Word Count: {result['metrics']['word_count']}")
-            print(f"Suggestions:")
+            logger.info(f"Analysis for {args.post}:")
+            logger.info(f"Code Ratio: {result['metrics']['total_code_ratio']}%")
+            logger.info(f"Word Count: {result['metrics']['word_count']}")
+            logger.info(f"Suggestions:")
             for suggestion in result['suggestions']:
-                print(f"  - {suggestion}")
+                logger.info(f"  - {suggestion}")
         else:
-            print(f"Post not found: {post_path}")
+            logger.error(f"Post not found: {post_path}")
     else:
         # Analyze all posts
         analyzer.generate_report(args.output)

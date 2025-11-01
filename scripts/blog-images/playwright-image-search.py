@@ -42,6 +42,7 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/playwright-image-search.py
 """
 
+import sys
 import asyncio
 import json
 import hashlib
@@ -390,17 +391,40 @@ class PlaywrightImageSearcher:
         print("• Updated blog post metadata with image information")
         print("• Images saved to /assets/images/blog/stock/")
 
-async def main():
+async def main(quiet=False):
     """Main execution"""
     searcher = PlaywrightImageSearcher()
     await searcher.process_all_posts()
 
 if __name__ == "__main__":
-    print("🚀 Starting Playwright-based image search...")
-    print("This will search and download relevant images from:")
-    print("  • Pexels")
-    print("  • Unsplash")
-    print("  • Pixabay")
-    print("\nNo API keys required!\n")
-    
-    asyncio.run(main())
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Playwright-based Stock Image Search and Download',
+        epilog='''
+Examples:
+  %(prog)s
+  %(prog)s --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
+
+    args = parser.parse_args()
+
+    try:
+        if not args.quiet:
+            print("🚀 Starting Playwright-based image search...")
+            print("This will search and download relevant images from:")
+            print("  • Pexels")
+            print("  • Unsplash")
+            print("  • Pixabay")
+            print("\nNo API keys required!\n")
+
+        asyncio.run(main(args.quiet))
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)

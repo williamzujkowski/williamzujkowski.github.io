@@ -45,18 +45,26 @@ MANIFEST_REGISTRY: scripts/comprehensive-blog-enhancement.py
 import os
 import re
 import json
+import logging
+import sys
+import argparse
 import frontmatter
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Tuple
 
+# Add parent directory to path for lib imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
+
 class BlogEnhancer:
-    def __init__(self, posts_dir: str = "src/posts", uses_file: str = "src/pages/uses.md"):
+    def __init__(self, posts_dir: str = "src/posts", uses_file: str = "src/pages/uses.md", logger=None):
         self.posts_dir = Path(posts_dir)
         self.uses_file = Path(uses_file)
         self.uses_content = self.load_uses_page()
         self.hardware_facts = self.extract_hardware_facts()
         self.enhancements = []
+        self.logger = logger or logging.getLogger(__name__)
         
     def load_uses_page(self) -> str:
         """Load the uses page content as source of truth."""
@@ -313,10 +321,10 @@ graph TD
         """Generate comprehensive enhancement report."""
         posts = sorted(self.posts_dir.glob("*.md"))
         
-        print("="*80)
-        print("COMPREHENSIVE BLOG ENHANCEMENT REPORT")
-        print("="*80)
-        print(f"\nAnalyzing {len(posts)} posts for enhancements...\n")
+        self.logger.info("="*80)
+        self.logger.info("COMPREHENSIVE BLOG ENHANCEMENT REPORT")
+        self.logger.info("="*80)
+        self.logger.info(f"\nAnalyzing {len(posts)} posts for enhancements...\n")
         
         critical_issues = []
         quality_improvements = []
@@ -334,41 +342,41 @@ graph TD
         
         # Report critical issues
         if critical_issues:
-            print("-"*40)
-            print("CRITICAL ISSUES (Incorrect Information):")
-            print("-"*40)
+            self.logger.info("-"*40)
+            self.logger.info("CRITICAL ISSUES (Incorrect Information):")
+            self.logger.info("-"*40)
             for post in critical_issues[:10]:
-                print(f"\n❌ {post['file']}")
+                self.logger.info(f"\n❌ {post['file']}")
                 for issue in post['issues']:
-                    print(f"   • {issue}")
+                    self.logger.info(f"   • {issue}")
         
         # Report quality improvements
         if quality_improvements:
-            print("\n" + "-"*40)
-            print("QUALITY IMPROVEMENTS NEEDED:")
-            print("-"*40)
+            self.logger.info("\n" + "-"*40)
+            self.logger.info("QUALITY IMPROVEMENTS NEEDED:")
+            self.logger.info("-"*40)
             for post in quality_improvements[:10]:
-                print(f"\n📝 {post['file']}")
+                self.logger.info(f"\n📝 {post['file']}")
                 for improvement in post['improvements'][:3]:
-                    print(f"   • {improvement}")
+                    self.logger.info(f"   • {improvement}")
         
         # Report source suggestions
         if source_suggestions:
-            print("\n" + "-"*40)
-            print("REPUTABLE SOURCES TO ADD:")
-            print("-"*40)
+            self.logger.info("\n" + "-"*40)
+            self.logger.info("REPUTABLE SOURCES TO ADD:")
+            self.logger.info("-"*40)
             for post in source_suggestions[:5]:
-                print(f"\n📚 {post['file']}")
+                self.logger.info(f"\n📚 {post['file']}")
                 for source in post['sources_added'][:2]:
-                    print(f"   • {source}")
+                    self.logger.info(f"   • {source}")
         
         # Summary
-        print("\n" + "-"*40)
-        print("ENHANCEMENT SUMMARY:")
-        print("-"*40)
-        print(f"Posts with critical issues: {len(critical_issues)}")
-        print(f"Posts needing quality improvements: {len(quality_improvements)}")
-        print(f"Posts needing sources: {len(source_suggestions)}")
+        self.logger.info("\n" + "-"*40)
+        self.logger.info("ENHANCEMENT SUMMARY:")
+        self.logger.info("-"*40)
+        self.logger.info(f"Posts with critical issues: {len(critical_issues)}")
+        self.logger.info(f"Posts needing quality improvements: {len(quality_improvements)}")
+        self.logger.info(f"Posts needing sources: {len(source_suggestions)}")
         
         # Save detailed report
         report = {
@@ -385,23 +393,29 @@ graph TD
         with open('docs/enhancement-report.json', 'w') as f:
             json.dump(report, f, indent=2, default=str)
         
-        print(f"\nDetailed report saved to: docs/enhancement-report.json")
+        self.logger.info(f"\nDetailed report saved to: docs/enhancement-report.json")
 
 def main():
-    import argparse
     parser = argparse.ArgumentParser(description='Comprehensive blog enhancement tool')
     parser.add_argument('--posts-dir', default='src/posts', help='Directory containing blog posts')
     parser.add_argument('--uses-file', default='src/pages/uses.md', help='Path to uses page')
     parser.add_argument('--fix', action='store_true', help='Apply automatic fixes')
-    
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
     args = parser.parse_args()
-    
-    enhancer = BlogEnhancer(args.posts_dir, args.uses_file)
-    
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    enhancer = BlogEnhancer(args.posts_dir, args.uses_file, logger=logger)
+
     if args.fix:
-        print("Applying automatic enhancements...")
+        logger.info("Applying automatic enhancements...")
         # Implementation for automatic fixes would go here
-        print("Manual review required for critical changes")
+        logger.info("Manual review required for critical changes")
     else:
         enhancer.generate_enhancement_report()
 

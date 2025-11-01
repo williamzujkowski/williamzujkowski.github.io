@@ -285,16 +285,47 @@ def add_citations_to_continuous_learning():
     print(f"✅ Added citations to {post_path.name}")
 
 def main():
-    print("="*60)
-    print("ENHANCING MORE POSTS WITH ACADEMIC CITATIONS")
-    print("="*60)
-    
-    add_citations_to_quantum_defense()
-    add_citations_to_ai_cybersecurity()
-    add_citations_to_embodied_ai()
-    add_citations_to_continuous_learning()
-    
-    print("\n✅ Successfully enhanced additional posts with citations!")
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description='Add academic citations to additional blog posts',
+        epilog='''
+Examples:
+  %(prog)s
+  %(prog)s --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
+
+    args = parser.parse_args()
+
+    try:
+        if not args.quiet:
+            print("="*60)
+            print("ENHANCING MORE POSTS WITH ACADEMIC CITATIONS")
+            print("="*60)
+
+        add_citations_to_quantum_defense()
+        add_citations_to_ai_cybersecurity()
+        add_citations_to_embodied_ai()
+        add_citations_to_continuous_learning()
+
+        if not args.quiet:
+            print("\n✅ Successfully enhanced additional posts with citations!")
+
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected: src/posts/", file=sys.stderr)
+        print("Tip: Run from repository root", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

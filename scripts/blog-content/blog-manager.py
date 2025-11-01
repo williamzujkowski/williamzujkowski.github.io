@@ -47,20 +47,26 @@ import os
 import sys
 import json
 import yaml
+import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 import subprocess
 
+# Add parent directory to path for lib imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
+
 class BlogManager:
     """Central blog management system"""
 
-    def __init__(self, project_root: Path = None):
+    def __init__(self, project_root: Path = None, logger=None):
         self.project_root = project_root or Path(__file__).parent.parent
         self.posts_dir = self.project_root / "src" / "posts"
         self.assets_dir = self.project_root / "src" / "assets"
         self.scripts_dir = self.project_root / "scripts"
         self.docs_dir = self.project_root / "docs"
+        self.logger = logger or logging.getLogger(__name__)
 
         # Load configuration
         self.config = self._load_config()
@@ -78,7 +84,7 @@ class BlogManager:
         Enhance blog post content
         Consolidates: optimize-blog-content.py, comprehensive-blog-enhancement.py
         """
-        print(f"📝 Enhancing content...")
+        self.logger.info(f"📝 Enhancing content...")
 
         # If specific post provided
         if post_path:
@@ -87,7 +93,7 @@ class BlogManager:
             posts = list(self.posts_dir.glob("*.md"))
 
         for post in posts:
-            print(f"  Processing: {post.name}")
+            self.logger.info(f"  Processing: {post.name}")
 
             # Apply optimizations
             if options.get('optimize_readability', True):
@@ -107,7 +113,7 @@ class BlogManager:
         Consolidates: generate-blog-hero-images.py, optimize-blog-images.sh,
                     playwright-image-search.py, fetch-stock-images.py
         """
-        print(f"🖼️  Managing images: {action}")
+        self.logger.info(f"🖼️  Managing images: {action}")
 
         if action == 'generate-hero':
             return self._generate_hero_images(**options)
@@ -118,7 +124,7 @@ class BlogManager:
         elif action == 'update-metadata':
             return self._update_image_metadata(**options)
         else:
-            print(f"Unknown image action: {action}")
+            self.logger.info(f"Unknown image action: {action}")
             return False
 
     def manage_citations(self, action: str, **options) -> bool:
@@ -127,7 +133,7 @@ class BlogManager:
         Consolidates: academic-search.py, add-academic-citations.py,
                     add-reputable-sources-to-posts.py
         """
-        print(f"📚 Managing citations: {action}")
+        self.logger.info(f"📚 Managing citations: {action}")
 
         if action == 'add':
             return self._add_citations(**options)
@@ -136,7 +142,7 @@ class BlogManager:
         elif action == 'search':
             return self._search_academic(**options)
         else:
-            print(f"Unknown citation action: {action}")
+            self.logger.info(f"Unknown citation action: {action}")
             return False
 
     def manage_diagrams(self, action: str, **options) -> bool:
@@ -145,7 +151,7 @@ class BlogManager:
         Consolidates: create-blog-diagrams.py, add-diagrams-to-live-posts.py,
                     integrate-diagrams.py
         """
-        print(f"📊 Managing diagrams: {action}")
+        self.logger.info(f"📊 Managing diagrams: {action}")
 
         if action == 'create':
             return self._create_diagrams(**options)
@@ -154,7 +160,7 @@ class BlogManager:
         elif action == 'update':
             return self._update_diagrams(**options)
         else:
-            print(f"Unknown diagram action: {action}")
+            self.logger.info(f"Unknown diagram action: {action}")
             return False
 
     def analyze(self, target: str = 'all', **options) -> Dict:
@@ -162,7 +168,7 @@ class BlogManager:
         Analyze blog content
         Consolidates: analyze-blog-content.py
         """
-        print(f"🔍 Analyzing: {target}")
+        self.logger.info(f"🔍 Analyzing: {target}")
 
         analysis = {
             'posts_count': 0,
@@ -199,10 +205,10 @@ class BlogManager:
         Batch process multiple operations
         Consolidates: batch-improve-blog-posts.py
         """
-        print(f"⚡ Batch processing {len(operations)} operations")
+        self.logger.info(f"⚡ Batch processing {len(operations)} operations")
 
         for op in operations:
-            print(f"\n  Executing: {op}")
+            self.logger.info(f"\n  Executing: {op}")
 
             if op == 'enhance':
                 self.enhance_content(**options)
@@ -216,7 +222,7 @@ class BlogManager:
             elif op == 'validate':
                 self.validate(**options)
             else:
-                print(f"  Unknown operation: {op}")
+                self.logger.info(f"  Unknown operation: {op}")
 
         return True
 
@@ -225,7 +231,7 @@ class BlogManager:
         Validate blog posts
         Consolidates: final-validation.py, check-citation-hyperlinks.py
         """
-        print("✅ Validating blog posts...")
+        self.logger.info("✅ Validating blog posts...")
 
         issues = []
         posts = list(self.posts_dir.glob("*.md"))
@@ -236,11 +242,11 @@ class BlogManager:
                 issues.extend(post_issues)
 
         if issues:
-            print(f"\n❌ Found {len(issues)} issues:")
+            self.logger.info(f"\n❌ Found {len(issues)} issues:")
             for issue in issues[:10]:  # Show first 10 issues
-                print(f"  - {issue}")
+                self.logger.info(f"  - {issue}")
         else:
-            print("✅ All validations passed!")
+            self.logger.info("✅ All validations passed!")
 
         return len(issues) == 0
 
@@ -417,10 +423,19 @@ Examples:
     validate_parser = subparsers.add_parser('validate', help='Validate blog posts')
     validate_parser.add_argument('--fix', action='store_true', help='Attempt to fix issues')
 
+    # Add common arguments
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
     args = parser.parse_args()
 
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
     # Initialize blog manager
-    manager = BlogManager()
+    manager = BlogManager(logger=logger)
 
     # Execute command
     if args.command == 'enhance':
@@ -436,14 +451,14 @@ Examples:
         if args.output == 'json':
             print(json.dumps(result, indent=2))
         else:
-            print(f"\n📊 Analysis Results:")
-            print(f"  Posts: {result['posts_count']}")
-            print(f"  Total Words: {result['total_words']:,}")
-            print(f"  Avg Quality: {result['avg_readability']:.1f}/100")
+            logger.info(f"📊 Analysis Results:")
+            logger.info(f"  Posts: {result['posts_count']}")
+            logger.info(f"  Total Words: {result['total_words']:,}")
+            logger.info(f"  Avg Quality: {result['avg_readability']:.1f}/100")
             if result['missing_images']:
-                print(f"  Missing Images: {len(result['missing_images'])} posts")
+                logger.info(f"  Missing Images: {len(result['missing_images'])} posts")
             if result['missing_citations']:
-                print(f"  Need Citations: {len(result['missing_citations'])} posts")
+                logger.info(f"  Need Citations: {len(result['missing_citations'])} posts")
         success = True
     elif args.command == 'batch':
         success = manager.batch_process(args.operations)

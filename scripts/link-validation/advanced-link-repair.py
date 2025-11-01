@@ -445,8 +445,19 @@ class AdvancedLinkRepair:
 async def main():
     """Run advanced link repair"""
     import argparse
+    import sys
 
-    parser = argparse.ArgumentParser(description='Advanced link repair system')
+    parser = argparse.ArgumentParser(
+        description='Advanced link repair system',
+        epilog='''
+Examples:
+  %(prog)s --input validation.json
+  %(prog)s --apply --dry-run
+  %(prog)s --output repairs.json --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--input', type=Path, default=Path('validation.json'),
                        help='Validation results file')
     parser.add_argument('--output', type=Path, default=Path('advanced-repairs.json'),
@@ -455,25 +466,38 @@ async def main():
                        help='Apply repairs to files')
     parser.add_argument('--dry-run', action='store_true',
                        help='Show what would be fixed without applying')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
-    repairer = AdvancedLinkRepair()
+    try:
+        repairer = AdvancedLinkRepair()
 
-    # Process broken links
-    print("🔧 Starting Advanced Link Repair...")
-    repairs = await repairer.process_all_broken_links(args.input)
+        # Process broken links
+        if not args.quiet:
+            print("🔧 Starting Advanced Link Repair...")
+        repairs = await repairer.process_all_broken_links(args.input)
 
-    # Apply repairs if requested
-    if args.apply or args.dry_run:
-        print("\n📝 Applying repairs to files...")
-        total_fixed = repairer.apply_repairs_to_files(repairs, dry_run=args.dry_run)
-        print(f"Total links fixed: {total_fixed}")
+        # Apply repairs if requested
+        if args.apply or args.dry_run:
+            if not args.quiet:
+                print("\n📝 Applying repairs to files...")
+            total_fixed = repairer.apply_repairs_to_files(repairs, dry_run=args.dry_run)
+            if not args.quiet:
+                print(f"Total links fixed: {total_fixed}")
 
-    # Generate report
-    repairer.generate_report(args.output)
-
-    return 0
+        # Generate report
+        repairer.generate_report(args.output)
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected: {args.input}", file=sys.stderr)
+        print("Tip: Run link extraction and validation first", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     exit(asyncio.run(main()))

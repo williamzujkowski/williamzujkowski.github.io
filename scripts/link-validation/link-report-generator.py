@@ -399,36 +399,59 @@ class ReportGenerator:
         return stats
 
 def main():
-    parser = argparse.ArgumentParser(description='Generate link validation reports')
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description='Generate link validation reports',
+        epilog='''
+Examples:
+  %(prog)s
+  %(prog)s --output-dir reports
+  %(prog)s --links links.json --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--links', type=Path, default=Path('links.json'))
     parser.add_argument('--validation', type=Path, default=Path('validation.json'))
     parser.add_argument('--relevance', type=Path, default=Path('relevance.json'))
     parser.add_argument('--repairs', type=Path, default=Path('repairs.json'))
     parser.add_argument('--output-dir', type=Path, default=Path('reports'))
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
-    # Load all data
-    with open(args.links, 'r') as f:
-        links_data = json.load(f)
+    try:
+        # Load all data
+        with open(args.links, 'r') as f:
+            links_data = json.load(f)
 
-    with open(args.validation, 'r') as f:
-        validation_data = json.load(f)
+        with open(args.validation, 'r') as f:
+            validation_data = json.load(f)
 
-    with open(args.relevance, 'r') as f:
-        relevance_data = json.load(f)
+        with open(args.relevance, 'r') as f:
+            relevance_data = json.load(f)
 
-    with open(args.repairs, 'r') as f:
-        repairs_data = json.load(f)
+        with open(args.repairs, 'r') as f:
+            repairs_data = json.load(f)
 
-    # Generate reports
-    generator = ReportGenerator()
-    generator.generate_all_reports(
-        links_data, validation_data, relevance_data, repairs_data,
-        args.output_dir
-    )
+        # Generate reports
+        generator = ReportGenerator()
+        generator.generate_all_reports(
+            links_data, validation_data, relevance_data, repairs_data,
+            args.output_dir
+        )
 
-    return 0
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected files: links.json, validation.json, relevance.json, repairs.json", file=sys.stderr)
+        print("Tip: Run link extraction, validation, and repair first", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == '__main__':
     exit(main())

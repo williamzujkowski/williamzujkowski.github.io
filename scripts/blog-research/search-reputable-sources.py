@@ -219,9 +219,37 @@ class ReputableSourceSearcher:
         print(f"\n✅ Found sources for {len(self.sources_found)} posts")
         print("Sources saved to: docs/blog-sources.json")
 
-async def main():
+async def main(quiet=False):
     searcher = ReputableSourceSearcher()
     await searcher.search_all_posts()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description='Search for reputable sources using Playwright to back up technical claims',
+        epilog='''
+Examples:
+  %(prog)s
+  %(prog)s --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
+
+    args = parser.parse_args()
+
+    try:
+        asyncio.run(main(args.quiet))
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected: src/posts/", file=sys.stderr)
+        print("Tip: Run from repository root", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)

@@ -84,13 +84,33 @@ def analyze_post(filepath):
     }
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: python analyze-post.py <markdown-file>")
-        sys.exit(1)
+    import argparse
 
-    filepath = sys.argv[1]
-    if not Path(filepath).exists():
-        print(f"Error: File not found: {filepath}")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description='Quick post analyzer - counts citations, weak language, and bullets',
+        epilog='''
+Examples:
+  %(prog)s src/posts/my-post.md
+  %(prog)s src/posts/my-post.md --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('filepath', type=str, help='Path to markdown file to analyze')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
-    analyze_post(filepath)
+    args = parser.parse_args()
+
+    try:
+        if not Path(args.filepath).exists():
+            print(f"Error: File not found: {args.filepath}", file=sys.stderr)
+            print(f"Current directory: {Path.cwd()}", file=sys.stderr)
+            print("Tip: Provide full path to markdown file", file=sys.stderr)
+            sys.exit(2)
+
+        analyze_post(args.filepath)
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)

@@ -43,6 +43,7 @@ MANIFEST_REGISTRY: scripts/fetch-stock-images.py
 """
 
 import os
+import sys
 import json
 import requests
 import time
@@ -274,38 +275,70 @@ class StockImageFetcher:
 
 def main():
     """Main execution"""
-    print("🖼️ Stock Image Fetcher for Blog Posts")
-    print("=" * 50)
-    print("\n⚠️ NOTE: This is a demonstration script.")
-    print("For production use, you should:")
-    print("1. Register for free API keys from Pexels/Unsplash")
-    print("2. Use their official APIs for better reliability")
-    print("3. Implement proper rate limiting and error handling")
-    print("\nAlternatively, use Playwright for automated browser-based search.")
-    print("\n" + "=" * 50)
-    
-    fetcher = StockImageFetcher()
-    posts_dir = Path("src/posts")
-    
-    # Process a few posts as examples
-    posts = list(posts_dir.glob("*.md"))[:5]  # Just process first 5 as demo
-    
-    for post_file in posts:
-        result = fetcher.process_blog_post(post_file)
-        if result:
-            print(f"  📁 Would update: {post_file.name}")
-    
-    print("\n" + "=" * 50)
-    print("✨ Image search complete!")
-    print("\n🎯 Next Steps:")
-    print("1. Register for API keys at:")
-    print("   - Pexels: https://www.pexels.com/api/")
-    print("   - Unsplash: https://unsplash.com/developers")
-    print("2. Update this script with your API keys")
-    print("3. Run the full image download process")
-    print("\nOR")
-    print("\n1. Use the Playwright-based image searcher (no API keys needed)")
-    print("2. Run: python scripts/playwright-image-search.py")
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Stock Image Fetcher for Blog Posts',
+        epilog='''
+Examples:
+  %(prog)s --posts-dir src/posts
+  %(prog)s --limit 10 --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--posts-dir', type=Path, default=Path('src/posts'),
+                       help='Directory containing blog posts')
+    parser.add_argument('--limit', type=int, default=5,
+                       help='Limit number of posts to process')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
+
+    args = parser.parse_args()
+
+    try:
+        if not args.quiet:
+            print("🖼️ Stock Image Fetcher for Blog Posts")
+            print("=" * 50)
+            print("\n⚠️ NOTE: This is a demonstration script.")
+            print("For production use, you should:")
+            print("1. Register for free API keys from Pexels/Unsplash")
+            print("2. Use their official APIs for better reliability")
+            print("3. Implement proper rate limiting and error handling")
+            print("\nAlternatively, use Playwright for automated browser-based search.")
+            print("\n" + "=" * 50)
+
+        fetcher = StockImageFetcher()
+        posts = list(args.posts_dir.glob("*.md"))[:args.limit]
+
+        for post_file in posts:
+            result = fetcher.process_blog_post(post_file)
+            if result and not args.quiet:
+                print(f"  📁 Would update: {post_file.name}")
+
+        if not args.quiet:
+            print("\n" + "=" * 50)
+            print("✨ Image search complete!")
+            print("\n🎯 Next Steps:")
+            print("1. Register for API keys at:")
+            print("   - Pexels: https://www.pexels.com/api/")
+            print("   - Unsplash: https://unsplash.com/developers")
+            print("2. Update this script with your API keys")
+            print("3. Run the full image download process")
+            print("\nOR")
+            print("\n1. Use the Playwright-based image searcher (no API keys needed)")
+            print("2. Run: python scripts/playwright-image-search.py")
+
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected: {args.posts_dir}", file=sys.stderr)
+        print(f"Current directory: {os.getcwd()}", file=sys.stderr)
+        print("Tip: Run from repository root", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

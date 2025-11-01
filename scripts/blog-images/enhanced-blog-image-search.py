@@ -328,30 +328,55 @@ class BlogImageSearcher:
             print(f"  Updated frontmatter for {post_path.name}")
 
 def main():
-    parser = argparse.ArgumentParser(description='Enhanced blog image search tool')
+    parser = argparse.ArgumentParser(
+        description='Enhanced blog image search tool',
+        epilog='''
+Examples:
+  %(prog)s --report
+  %(prog)s --limit 5
+  %(prog)s --posts-dir src/posts --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--posts-dir', default='src/posts', help='Directory containing blog posts')
     parser.add_argument('--images-dir', default='src/assets/images/blog', help='Directory for images')
     parser.add_argument('--limit', type=int, help='Limit number of posts to process')
     parser.add_argument('--report', action='store_true', help='Generate coverage report')
-    
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress progress messages')
+
     args = parser.parse_args()
     
-    searcher = BlogImageSearcher(args.posts_dir, args.images_dir)
-    
-    if args.report:
-        report = searcher.create_search_report()
-        print("\n=== Blog Image Coverage Report ===")
-        print(f"Posts processed: {report['posts_processed']}")
-        print(f"Posts with images: {len(report['posts_with_images'])}")
-        print(f"Posts without images: {len(report['posts_without_images'])}")
-        print(f"Unique images: {report['unique_images']}")
-        print("\nTag coverage:")
-        for tag, count in sorted(report['tag_coverage'].items(), key=lambda x: x[1], reverse=True):
-            print(f"  {tag}: {count} posts")
-    else:
-        searcher.process_all_posts(limit=args.limit)
-        print("\nImage search preparation complete!")
-        print("Note: This script prepares metadata. Use playwright-image-search.py for actual downloads.")
+    try:
+        searcher = BlogImageSearcher(args.posts_dir, args.images_dir)
+
+        if args.report:
+            report = searcher.create_search_report()
+            if not args.quiet:
+                print("\n=== Blog Image Coverage Report ===")
+                print(f"Posts processed: {report['posts_processed']}")
+                print(f"Posts with images: {len(report['posts_with_images'])}")
+                print(f"Posts without images: {len(report['posts_without_images'])}")
+                print(f"Unique images: {report['unique_images']}")
+                print("\nTag coverage:")
+                for tag, count in sorted(report['tag_coverage'].items(), key=lambda x: x[1], reverse=True):
+                    print(f"  {tag}: {count} posts")
+        else:
+            searcher.process_all_posts(limit=args.limit)
+            if not args.quiet:
+                print("\nImage search preparation complete!")
+                print("Note: This script prepares metadata. Use playwright-image-search.py for actual downloads.")
+
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected: {args.posts_dir}", file=sys.stderr)
+        print(f"Current directory: {os.getcwd()}", file=sys.stderr)
+        print("Tip: Run from repository root", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

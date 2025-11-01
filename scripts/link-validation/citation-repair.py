@@ -550,7 +550,19 @@ class CitationRepair:
         print(f"💾 Results saved to {output_file}")
 
 async def main():
-    parser = argparse.ArgumentParser(description='Find repairs for broken citations')
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description='Find repairs for broken citations',
+        epilog='''
+Examples:
+  %(prog)s --links links.json --validation validation.json
+  %(prog)s --output repairs.json
+  %(prog)s --quiet
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--links', type=Path,
                        default=Path('links.json'),
                        help='Links data file')
@@ -563,35 +575,46 @@ async def main():
     parser.add_argument('--output', type=Path,
                        default=Path('repairs.json'),
                        help='Output file')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress progress messages')
 
     args = parser.parse_args()
 
-    # Load input data
-    with open(args.links, 'r') as f:
-        links_data = json.load(f)
-
-    with open(args.validation, 'r') as f:
-        validation_data = json.load(f)
-
-    with open(args.relevance, 'r') as f:
-        relevance_data = json.load(f)
-
-    # Initialize repair tool
-    repair_tool = CitationRepair()
-    await repair_tool.initialize()
-
     try:
-        # Find repairs
-        repairs = await repair_tool.find_repairs(
-            links_data, validation_data, relevance_data
-        )
+        # Load input data
+        with open(args.links, 'r') as f:
+            links_data = json.load(f)
 
-        # Save results
-        repair_tool.save_results(repairs, args.output)
-    finally:
-        await repair_tool.cleanup()
+        with open(args.validation, 'r') as f:
+            validation_data = json.load(f)
 
-    return 0
+        with open(args.relevance, 'r') as f:
+            relevance_data = json.load(f)
+
+        # Initialize repair tool
+        repair_tool = CitationRepair()
+        await repair_tool.initialize()
+
+        try:
+            # Find repairs
+            repairs = await repair_tool.find_repairs(
+                links_data, validation_data, relevance_data
+            )
+
+            # Save results
+            repair_tool.save_results(repairs, args.output)
+        finally:
+            await repair_tool.cleanup()
+
+        sys.exit(0)
+    except FileNotFoundError as e:
+        print(f"Error: File not found: {e}", file=sys.stderr)
+        print(f"Expected files: links.json, validation.json, relevance.json", file=sys.stderr)
+        print("Tip: Run link extraction and validation first", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == '__main__':
     asyncio.run(main())

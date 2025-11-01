@@ -52,17 +52,25 @@ MANIFEST_REGISTRY: scripts/optimize-blog-content.py
 
 import re
 import json
+import logging
+import sys
+import argparse
 from pathlib import Path
 from typing import Dict, List, Tuple
 import yaml
 
+# Add parent directory to path for lib imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
+
 class BlogContentOptimizer:
-    def __init__(self, base_path: str = "."):
+    def __init__(self, base_path: str = ".", logger=None):
         self.base_path = Path(base_path)
         self.posts_dir = self.base_path / "src" / "posts"
         self.diagrams_dir = self.base_path / "src" / "assets" / "images" / "blog" / "diagrams"
         self.diagrams_dir.mkdir(parents=True, exist_ok=True)
-        
+        self.logger = logger or logging.getLogger(__name__)
+
         # Track optimization suggestions
         self.suggestions = []
     
@@ -285,8 +293,8 @@ class BlogContentOptimizer:
     
     def generate_optimization_report(self):
         """Generate comprehensive optimization report for all posts"""
-        print("📊 Blog Content Optimization Analysis")
-        print("=" * 70)
+        self.logger.info("📊 Blog Content Optimization Analysis")
+        self.logger.info("=" * 70)
         
         posts = sorted(list(self.posts_dir.glob('*.md')))
         reports = []
@@ -299,100 +307,109 @@ class BlogContentOptimizer:
         reports.sort(key=lambda x: (x['priority'] == 'high', x['metrics']['code_ratio']), reverse=True)
         
         # Print summary
-        print(f"\n📈 Overall Statistics:")
-        print(f"   Total posts analyzed: {len(reports)}")
+        self.logger.info(f"\n📈 Overall Statistics:")
+        self.logger.info(f"   Total posts analyzed: {len(reports)}")
         
         total_code_blocks = sum(r['metrics']['code_blocks'] for r in reports)
         total_code_lines = sum(r['metrics']['code_lines'] for r in reports)
         avg_code_ratio = sum(r['metrics']['code_ratio'] for r in reports) / len(reports)
         
-        print(f"   Total code blocks: {total_code_blocks}")
-        print(f"   Total code lines: {total_code_lines}")
-        print(f"   Average code ratio: {avg_code_ratio:.1f}%")
+        self.logger.info(f"   Total code blocks: {total_code_blocks}")
+        self.logger.info(f"   Total code lines: {total_code_lines}")
+        self.logger.info(f"   Average code ratio: {avg_code_ratio:.1f}%")
         
         # High priority posts (too much code)
         high_priority = [r for r in reports if r['priority'] == 'high']
         if high_priority:
-            print(f"\n🔴 High Priority Posts ({len(high_priority)} posts with >40% code):")
+            self.logger.info(f"\n🔴 High Priority Posts ({len(high_priority)} posts with >40% code):")
             for report in high_priority[:10]:  # Show top 10
-                print(f"\n   📝 {report['title'][:60]}...")
-                print(f"      File: {report['file']}")
-                print(f"      Code ratio: {report['metrics']['code_ratio']}%")
-                print(f"      Code blocks: {report['metrics']['code_blocks']}")
+                self.logger.info(f"\n   📝 {report['title'][:60]}...")
+                self.logger.info(f"      File: {report['file']}")
+                self.logger.info(f"      Code ratio: {report['metrics']['code_ratio']}%")
+                self.logger.info(f"      Code blocks: {report['metrics']['code_blocks']}")
                 
                 # Show top suggestions
                 if report['code_block_analysis']:
-                    print("      Suggestions:")
+                    self.logger.info("      Suggestions:")
                     seen_suggestions = set()
                     for analysis in report['code_block_analysis'][:3]:
                         for suggestion in analysis['suggestions']:
                             key = (suggestion['type'], suggestion['reason'][:30])
                             if key not in seen_suggestions:
-                                print(f"        • {suggestion['reason']}")
+                                self.logger.info(f"        • {suggestion['reason']}")
                                 seen_suggestions.add(key)
                 
                 # Show diagram suggestions
                 if report['diagram_suggestions']:
-                    print("      Recommended diagrams:")
+                    self.logger.info("      Recommended diagrams:")
                     for diagram in report['diagram_suggestions'][:2]:
-                        print(f"        • {diagram['type']}: {diagram['description'][:50]}...")
+                        self.logger.info(f"        • {diagram['type']}: {diagram['description'][:50]}...")
         
         # Medium priority posts
         medium_priority = [r for r in reports if r['priority'] == 'medium']
         if medium_priority:
-            print(f"\n🟡 Medium Priority Posts ({len(medium_priority)} posts with 25-40% code):")
+            self.logger.info(f"\n🟡 Medium Priority Posts ({len(medium_priority)} posts with 25-40% code):")
             for report in medium_priority[:5]:  # Show top 5
-                print(f"   • {report['title'][:60]}... ({report['metrics']['code_ratio']}% code)")
+                self.logger.info(f"   • {report['title'][:60]}... ({report['metrics']['code_ratio']}% code)")
         
         # Save detailed report
         report_file = self.base_path / "blog_optimization_report.json"
         with open(report_file, 'w') as f:
             json.dump(reports, f, indent=2)
         
-        print(f"\n📁 Detailed report saved to: {report_file}")
+        self.logger.info(f"\n📁 Detailed report saved to: {report_file}")
         
         # Generate actionable recommendations
-        print("\n🎯 Actionable Recommendations:")
-        print("\n1. IMMEDIATE ACTIONS (High Impact):")
-        print("   • Replace large configuration blocks with architecture diagrams")
-        print("   • Convert workflow code to visual flowcharts")
-        print("   • Extract repetitive code patterns into concise examples")
+        self.logger.info("\n🎯 Actionable Recommendations:")
+        self.logger.info("\n1. IMMEDIATE ACTIONS (High Impact):")
+        self.logger.info("   • Replace large configuration blocks with architecture diagrams")
+        self.logger.info("   • Convert workflow code to visual flowcharts")
+        self.logger.info("   • Extract repetitive code patterns into concise examples")
         
-        print("\n2. DIAGRAM OPPORTUNITIES:")
+        self.logger.info("\n2. DIAGRAM OPPORTUNITIES:")
         total_diagrams = sum(len(r['diagram_suggestions']) for r in reports)
-        print(f"   • {total_diagrams} diagram opportunities identified")
-        print("   • Focus on architecture, flowchart, and sequence diagrams")
-        print("   • Use Mermaid for inline diagrams (renders in markdown)")
+        self.logger.info(f"   • {total_diagrams} diagram opportunities identified")
+        self.logger.info("   • Focus on architecture, flowchart, and sequence diagrams")
+        self.logger.info("   • Use Mermaid for inline diagrams (renders in markdown)")
         
-        print("\n3. CODE REDUCTION STRATEGIES:")
-        print("   • Show only essential code snippets (5-10 lines)")
-        print("   • Link to full examples in GitHub gists")
-        print("   • Use '...' to indicate omitted boilerplate")
-        print("   • Focus on the unique/important parts")
+        self.logger.info("\n3. CODE REDUCTION STRATEGIES:")
+        self.logger.info("   • Show only essential code snippets (5-10 lines)")
+        self.logger.info("   • Link to full examples in GitHub gists")
+        self.logger.info("   • Use '...' to indicate omitted boilerplate")
+        self.logger.info("   • Focus on the unique/important parts")
         
-        print("\n4. VISUAL ENHANCEMENT IDEAS:")
-        print("   • Add comparison tables instead of multiple code examples")
-        print("   • Use before/after screenshots for UI changes")
-        print("   • Create infographics for statistics and metrics")
-        print("   • Add animated GIFs for interactive features")
+        self.logger.info("\n4. VISUAL ENHANCEMENT IDEAS:")
+        self.logger.info("   • Add comparison tables instead of multiple code examples")
+        self.logger.info("   • Use before/after screenshots for UI changes")
+        self.logger.info("   • Create infographics for statistics and metrics")
+        self.logger.info("   • Add animated GIFs for interactive features")
         
         return reports
 
 def main():
     """Main execution"""
-    import json
-    
-    optimizer = BlogContentOptimizer()
+    parser = argparse.ArgumentParser(description='Optimize blog content by reducing code ratio')
+    parser.add_argument('--base-path', default='.', help='Base path for blog repository')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+    args = parser.parse_args()
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    optimizer = BlogContentOptimizer(args.base_path, logger=logger)
     reports = optimizer.generate_optimization_report()
-    
-    print("\n" + "=" * 70)
-    print("✨ Analysis Complete!")
-    print("\nNext steps:")
-    print("1. Review the high-priority posts first")
-    print("2. Create diagrams using Mermaid or draw.io")
-    print("3. Reduce code blocks to essential snippets")
-    print("4. Add visual content where it adds value")
-    print("\nUse 'python scripts/create-blog-diagrams.py' to generate diagram templates")
+
+    logger.info("=" * 70)
+    logger.info("✨ Analysis Complete!")
+    logger.info("Next steps:")
+    logger.info("1. Review the high-priority posts first")
+    logger.info("2. Create diagrams using Mermaid or draw.io")
+    logger.info("3. Reduce code blocks to essential snippets")
+    logger.info("4. Add visual content where it adds value")
+    logger.info("Use 'python scripts/create-blog-diagrams.py' to generate diagram templates")
 
 if __name__ == "__main__":
     main()
