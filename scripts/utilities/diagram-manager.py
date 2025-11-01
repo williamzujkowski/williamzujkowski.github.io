@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: diagram-manager.py
 PURPOSE: Unified diagram and technical image management for blog posts

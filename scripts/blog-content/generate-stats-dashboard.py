@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 Generate HTML statistics dashboard for blog post quality metrics.
 Reads from portfolio-assessment.json and generates an interactive dashboard.

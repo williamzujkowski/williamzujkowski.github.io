@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: analyze-blog-content.py
 PURPOSE: Analyze blog posts for content quality metrics and improvement opportunities

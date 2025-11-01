@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 Quick post analyzer - counts citations, weak language, and bullets
 Usage: python analyze-post.py <markdown-file>

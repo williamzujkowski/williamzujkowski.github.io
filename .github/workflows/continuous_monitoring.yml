@@ -26,6 +26,10 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Install UV
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && export PATH="$HOME/.cargo/bin:$PATH"
+
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -43,23 +47,23 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          pip install -r requirements.txt || echo "No Python requirements"
-          pip install -r tests/requirements-test.txt || echo "No test requirements"
+          uv pip install -r requirements.txt || echo "No Python requirements"
+          uv pip install -r tests/requirements-test.txt || echo "No test requirements"
 
       - name: Update MANIFEST.json
         run: |
-          python scripts/update_manifest.py || echo "Update script not found"
+          uv run python scripts/update_manifest.py || echo "Update script not found"
 
       - name: Check standards compliance
-        run: python scripts/validate_standards.py
+        run: uv run python scripts/validate_standards.py
         continue-on-error: true
 
       - name: Check for duplicate files
-        run: python scripts/check_duplicates.py || echo "Duplicate check not available"
+        run: uv run python scripts/check_duplicates.py || echo "Duplicate check not available"
         continue-on-error: true
 
       - name: Run test suite
-        run: python scripts/run_all_tests.py
+        run: uv run python scripts/run_all_tests.py
         continue-on-error: true
 
       - name: Build site
@@ -67,11 +71,11 @@ jobs:
         continue-on-error: true
 
       - name: Generate health dashboard
-        run: python scripts/generate_health_dashboard.py
+        run: uv run python scripts/generate_health_dashboard.py
         continue-on-error: true
 
       - name: Generate compliance report
-        run: python scripts/generate_compliance_report.py
+        run: uv run python scripts/generate_compliance_report.py
         continue-on-error: true
 
       - name: Upload monitoring artifacts

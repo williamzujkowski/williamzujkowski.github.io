@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 Batch analyzer - Scans all posts and ranks them for refactoring priority
 Usage: python batch-analyzer.py

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: update-blog-images.py
 PURPOSE: Blog Image Standards Implementation Script

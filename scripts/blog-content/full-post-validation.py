@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: full-post-validation.py
 PURPOSE: Comprehensive blog post validation combining humanization, citations, and content quality checks

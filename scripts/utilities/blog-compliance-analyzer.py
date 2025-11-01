@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 Blog Compliance Analyzer - CLAUDE.md Standards
 Analyzes all blog posts for compliance with new content standards:

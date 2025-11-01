@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: blog-manager.py
 PURPOSE: Unified Blog Management Tool for williamzujkowski.github.io

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: repo-maintenance.py
 PURPOSE: Automated repository cleanup and health monitoring

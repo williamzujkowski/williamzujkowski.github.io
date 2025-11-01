@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: citation-report.py
 PURPOSE: Generate citation-specific validation report for GitHub Actions

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: generate-blog-hero-images.py
 PURPOSE: Generate Hero Images for Blog Posts

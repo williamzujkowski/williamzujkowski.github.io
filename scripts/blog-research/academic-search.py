@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: academic-search.py
 PURPOSE: Academic Search - Use Playwright to search reputable academic sources

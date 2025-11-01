@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: llm-script-documenter.py
 PURPOSE: Automatically add LLM-friendly documentation headers to all Python scripts

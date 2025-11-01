@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: enhance-more-posts-citations.py
 PURPOSE: Add academic citations to additional blog posts

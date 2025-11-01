@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: batch-improve-blog-posts.py
 PURPOSE: Systematically improve all blog posts with diagrams, reduced code, and enhanced content

@@ -25,12 +25,16 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Install UV
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && export PATH="$HOME/.cargo/bin:$PATH"
+
+
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt || echo "No requirements"
+          uv pip install -r requirements.txt || echo "No requirements"
 
       - name: Generate weekly summary
-        run: python scripts/generate_weekly_summary.py
+        run: uv run python scripts/generate_weekly_summary.py
 
       - name: Upload summary
         uses: actions/upload-artifact@v4

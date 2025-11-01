@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: search-reputable-sources.py
 PURPOSE: Search for reputable sources using Playwright to back up technical claims in blog posts

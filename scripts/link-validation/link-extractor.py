@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: link-extractor.py
 PURPOSE: Link Extractor for Blog Posts

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: add-reputable-sources-to-posts.py
 PURPOSE: Add reputable academic sources to blog posts based on Google Scholar findings

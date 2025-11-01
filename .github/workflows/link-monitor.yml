@@ -29,20 +29,24 @@ jobs:
       with:
         python-version: '3.11'
 
+      - name: Install UV
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && export PATH="$HOME/.cargo/bin:$PATH"
+
+
     - name: Install Python Dependencies
       run: |
-        pip install --upgrade pip
-        pip install aiohttp asyncio pathlib dataclasses
+        uv pip install --upgrade pip
+        uv pip install aiohttp asyncio pathlib dataclasses
 
     - name: Extract Links
       run: |
-        python scripts/link-validation/link-extractor.py \
+        uv run python scripts/link-validation/link-extractor.py \
           --posts-dir src/posts \
           --output links.json
 
     - name: Validate Links
       run: |
-        python scripts/link-validation/simple-validator.py \
+        uv run python scripts/link-validation/simple-validator.py \
           --links links.json \
           --output validation.json
 
@@ -51,7 +55,7 @@ jobs:
         # Create placeholder relevance file
         echo '{"results": []}' > relevance.json
 
-        python scripts/link-validation/citation-repair.py \
+        uv run python scripts/link-validation/citation-repair.py \
           --links links.json \
           --validation validation.json \
           --relevance relevance.json \
@@ -60,7 +64,7 @@ jobs:
     - name: Generate Reports
       run: |
         mkdir -p reports
-        python scripts/link-validation/link-report-generator.py \
+        uv run python scripts/link-validation/link-report-generator.py \
           --links links.json \
           --validation validation.json \
           --relevance relevance.json \
@@ -172,8 +176,8 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install --upgrade pip
-        pip install aiohttp asyncio pathlib dataclasses
+        uv pip install --upgrade pip
+        uv pip install aiohttp asyncio pathlib dataclasses
 
     - name: Download Artifacts
       uses: actions/download-artifact@v4
@@ -185,7 +189,7 @@ jobs:
       run: |
         # Only apply fixes with >95% confidence automatically
         if [ -f "repairs.json" ]; then
-          python scripts/link-validation/batch-link-fixer.py \
+          uv run python scripts/link-validation/batch-link-fixer.py \
             --repairs repairs.json \
             --confidence-threshold 95 \
             --apply \

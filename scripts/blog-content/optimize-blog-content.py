@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: optimize-blog-content.py
 PURPOSE: Analyze and optimize blog posts for readability by reducing code-to-content ratio

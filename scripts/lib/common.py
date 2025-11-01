@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: common.py
 PURPOSE: Shared utilities for all scripts - DRY/SOLID implementation
@@ -556,6 +556,97 @@ class ScriptTester:
         return True
 
 
+# Quick Win utilities for standardized script behavior
+
+def setup_argparse_with_examples(description: str, examples: str, version: str = "1.0.0"):
+    """Create argparser with examples and version flag
+
+    Args:
+        description: Main description of the script
+        examples: Example usage strings (one per line)
+        version: Version number for --version flag
+
+    Returns:
+        argparse.ArgumentParser configured with examples and version
+    """
+    import argparse
+    parser = argparse.ArgumentParser(
+        description=description,
+        epilog=f"\nExamples:\n{examples}",
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version',
+                       version=f'%(prog)s {version}')
+    return parser
+
+
+def exit_with_code(success: bool, message: str = None, quiet: bool = False) -> int:
+    """Standard exit code handler
+
+    Args:
+        success: Whether operation was successful
+        message: Optional message to log
+        quiet: Suppress output if True
+
+    Returns:
+        0 for success, 1 for error, 2 for usage error
+    """
+    logger = Logger.get_logger("exit_handler")
+
+    if message and not quiet:
+        if success:
+            logger.info(message)
+        else:
+            logger.error(message)
+
+    return 0 if success else 1
+
+
+def exit_usage_error(message: str, quiet: bool = False) -> int:
+    """Exit with usage error code
+
+    Args:
+        message: Error message explaining usage problem
+        quiet: Suppress output if True
+
+    Returns:
+        2 (usage error code)
+    """
+    logger = Logger.get_logger("usage_error")
+    if not quiet:
+        logger.error(f"Usage error: {message}")
+    return 2
+
+
+def format_error_with_context(error: Exception, filepath: Path = None,
+                              line_number: int = None, context: Dict = None) -> str:
+    """Format error message with helpful context
+
+    Args:
+        error: The exception that occurred
+        filepath: Optional file path where error occurred
+        line_number: Optional line number where error occurred
+        context: Optional dictionary of additional context
+
+    Returns:
+        Formatted error message with context
+    """
+    parts = [f"Error: {str(error)}"]
+
+    if filepath:
+        parts.append(f"\nFile: {filepath}")
+
+    if line_number:
+        parts.append(f"Line: {line_number}")
+
+    if context:
+        parts.append("\nContext:")
+        for key, value in context.items():
+            parts.append(f"  {key}: {value}")
+
+    return "\n".join(parts)
+
+
 # Export commonly used classes and functions
 __all__ = [
     'ManifestManager',
@@ -575,5 +666,9 @@ __all__ = [
     'write_json',
     'get_file_type',
     'calculate_similarity',
-    'format_size'
+    'format_size',
+    'setup_argparse_with_examples',
+    'exit_with_code',
+    'exit_usage_error',
+    'format_error_with_context'
 ]

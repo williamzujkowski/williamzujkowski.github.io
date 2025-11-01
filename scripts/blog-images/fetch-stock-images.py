@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: fetch-stock-images.py
 PURPOSE: Stock Image Fetcher for Blog Posts

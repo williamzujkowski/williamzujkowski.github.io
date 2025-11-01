@@ -22,15 +22,19 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install UV
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh && export PATH="$HOME/.cargo/bin:$PATH"
+
+
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 playwright aiohttp certifi
+          uv pip install requests beautifulsoup4 playwright aiohttp certifi
           playwright install chromium
 
       - name: Extract citation links
         id: extract
         run: |
-          python scripts/link-validation/link-extractor.py \
+          uv run python scripts/link-validation/link-extractor.py \
             --posts-dir src/posts \
             --output citation-links.json \
             --citations-only
@@ -43,7 +47,7 @@ jobs:
       - name: Validate citation links
         id: validate
         run: |
-          python scripts/link-validation/link-validator.py \
+          uv run python scripts/link-validation/link-validator.py \
             --input citation-links.json \
             --output citation-validation.json \
             --max-retries 3 \
@@ -68,7 +72,7 @@ jobs:
       - name: Generate markdown report
         if: steps.validate.outputs.broken_count > 0
         run: |
-          python scripts/link-validation/citation-report.py \
+          uv run python scripts/link-validation/citation-report.py \
             --input citation-validation.json \
             --links citation-links.json \
             --output citation-report.md

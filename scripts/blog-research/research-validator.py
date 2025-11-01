@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: research-validator.py
 PURPOSE: Research Validator - Ensures all blog post claims are backed by reputable sources

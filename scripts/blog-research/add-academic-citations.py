@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: add-academic-citations.py
 PURPOSE: Add academic citations to blog posts based on research validation results

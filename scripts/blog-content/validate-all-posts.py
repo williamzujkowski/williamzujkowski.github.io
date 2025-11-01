@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 Portfolio-Wide Humanization Validation
 Validates all blog posts and generates comprehensive assessment report.

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: content-relevance-checker.py
 PURPOSE: Content Relevance Checker

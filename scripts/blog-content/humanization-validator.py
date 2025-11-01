@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: humanization-validator.py
 PURPOSE: Validate blog posts for human tone and detect AI-generated content tells
@@ -1057,19 +1057,23 @@ def main():
         epilog="""
 Examples:
   # Single post validation
-  python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+  %(prog)s --post src/posts/example.md
 
   # Batch validation
-  python scripts/blog-content/humanization-validator.py --batch
+  %(prog)s --batch
 
   # Batch with filtering
-  python scripts/blog-content/humanization-validator.py --batch --filter-below 90 --format detailed
+  %(prog)s --batch --filter-below 90 --format detailed
 
   # Save report
-  python scripts/blog-content/humanization-validator.py --batch --save-report validation-report.json
+  %(prog)s --batch --save-report validation-report.json
+
+  # Quiet mode (suppress progress output)
+  %(prog)s --batch --quiet
         """
     )
 
+    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
     parser.add_argument('--post', help='Path to blog post file (single-post mode)')
     parser.add_argument('--batch', action='store_true', help='Process all posts in directory')
     parser.add_argument('--dir', default='src/posts', help='Directory for batch processing')
@@ -1084,6 +1088,8 @@ Examples:
     parser.add_argument('--compare', help='Compare with previous report JSON')
     parser.add_argument('--workers', type=int, default=min(4, cpu_count()),
                         help='Number of parallel workers')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                        help='Suppress non-essential output')
 
     args = parser.parse_args()
 
@@ -1092,6 +1098,8 @@ Examples:
         # Batch mode
         if not os.path.exists(args.dir):
             print(f"{Colors.RED}Error: Directory not found: {args.dir}{Colors.RESET}", file=sys.stderr)
+            print(f"Expected directory: {os.path.abspath(args.dir)}", file=sys.stderr)
+            print(f"Current directory: {os.getcwd()}", file=sys.stderr)
             return 2
 
         # Run batch validation
@@ -1132,10 +1140,15 @@ Examples:
         if not args.post:
             print(f"{Colors.RED}Error: --post required for single-post mode (or use --batch){Colors.RESET}",
                   file=sys.stderr)
+            print(f"\nUsage: {sys.argv[0]} --post <path-to-post.md>", file=sys.stderr)
+            print(f"   Or: {sys.argv[0]} --batch", file=sys.stderr)
             return 2
 
         if not os.path.exists(args.post):
             print(f"{Colors.RED}Error: Post file not found: {args.post}{Colors.RESET}", file=sys.stderr)
+            print(f"Expected file: {os.path.abspath(args.post)}", file=sys.stderr)
+            print(f"Current directory: {os.getcwd()}", file=sys.stderr)
+            print(f"\nTip: Posts are typically in src/posts/ directory", file=sys.stderr)
             return 2
 
         # Run validation

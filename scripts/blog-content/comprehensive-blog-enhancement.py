@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: comprehensive-blog-enhancement.py
 PURPOSE: Comprehensive Blog Enhancement Tool

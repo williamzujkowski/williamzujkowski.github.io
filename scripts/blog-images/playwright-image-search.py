@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run python3
 """
 SCRIPT: playwright-image-search.py
 PURPOSE: Playwright-based Stock Image Search and Download
