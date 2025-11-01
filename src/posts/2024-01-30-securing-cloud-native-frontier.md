@@ -20,7 +20,7 @@ title: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
 ---
 In January 2024, I decided to harden the security of my K3s cluster running on my Proxmox homelab. I felt confident. I had firewalls configured, network segmentation via VLANs, and proper TLS certificates everywhere. Then I ran Grype v0.74.1 against my container images and discovered 47 high-severity vulnerabilities in what I thought were "minimal" base images. One Alpine 3.18 image that I used as a base for 12 different services had CVE-2023-5678 with a CVSS score of 9.8. That single vulnerable base image meant 12 services were potentially compromised.
 
-That was probably my most humbling moment in months. I spent the next three hours scanning every container image in my registry, only to find that roughly 60% of my "production-ready" images had at least one critical CVE. The wake-up call got worse when I accidentally exposed my Docker socket while troubleshooting a networking issue in February 2024. For about 20 minutes, my entire container runtime was potentially accessible before I caught the mistake.
+That was probably my most humbling moment in months. I spent the next three hours scanning every container image in my registry, only to find that roughly 60% of my "production-ready" images had at least one critical CVE. The wake-up call got worse when I accidentally exposed my Docker socket to other VMs on my Proxmox host while troubleshooting a networking issue in February 2024. For about 20 minutes, my entire container runtime was accessible to every virtual machine on the hypervisor before I caught the mistake.
 
 These incidents taught me something crucial. Cloud-native architectures don't just change how we deploy applications, they fundamentally reshape how we think about security. Every microservice becomes a potential entry point. Every API call is a trust decision waiting to be exploited.
 
@@ -150,7 +150,7 @@ Looking back on my cloud-native security journey from December 2023 to April 202
 
 **Compliance Complexity:** Cloud-native environments can complicate compliance requirements. Understanding how regulations apply to distributed systems is crucial. In my homelab, I follow reasonable security practices even though I'm not under compliance mandates. The mental model of "where is my data?" becomes much harder when it's distributed across 15-20 ephemeral containers.
 
-**Incident Response Planning:** Traditional incident response plans don't work well for distributed systems. When I had the Docker socket exposure incident in February 2024, my first instinct was to isolate the host. In a cloud-native environment, that would have killed dozens of unrelated services. I had to completely rethink response procedures around pod isolation, namespace quarantine, and service-level incident containment.
+**Incident Response Planning:** Traditional incident response plans don't work well for distributed systems. When I had the Docker socket exposure incident in February 2024 (exposed to other VMs on my Proxmox hypervisor), my first instinct was to isolate the host. In a cloud-native environment, that would have killed dozens of unrelated services. I had to completely rethink response procedures around pod isolation, namespace quarantine, and service-level incident containment.
 
 ## Conclusion
 
@@ -158,7 +158,7 @@ Cloud-native architectures unlock unprecedented agility and scalability, but the
 
 By layering security controls throughout the development and deployment lifecycle, from container creation to orchestrator configuration, we can harness the benefits of cloud-native architectures without sacrificing security. The frontier may be vast and evolving, but with proper planning, continuous learning, and a DevSecOps mindset, we can probably navigate it safely. I say "probably" because the threat landscape evolves faster than any single person can track. Staying secure requires constant vigilance.
 
-My journey from finding 47 high-severity vulnerabilities in January 2024 to building comprehensive security controls by April 2024 taught me humility. Each new deployment is an opportunity to apply lessons learned and strengthen defenses against an ever-evolving threat landscape. The Docker socket exposure incident that happened in February 2024 now serves as a reminder of how far I've come and how much further I have to go. Security is never "done." It's an ongoing process of learning, adapting, and improving.
+My journey from finding 47 high-severity vulnerabilities in January 2024 to building comprehensive security controls by April 2024 taught me humility. Each new deployment is an opportunity to apply lessons learned and strengthen defenses against an ever-evolving threat landscape. The Docker socket exposure incident that happened in February 2024 (exposed internally to other VMs, not externally) now serves as a reminder of how far I've come and how much further I have to go. Security is never "done." It's an ongoing process of learning, adapting, and improving.
 
 ### Further Reading:
 

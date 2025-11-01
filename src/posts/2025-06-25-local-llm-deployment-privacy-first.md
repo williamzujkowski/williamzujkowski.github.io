@@ -398,7 +398,7 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 - [Llama.cpp Guide](https://github.com/ggerganov/llama.cpp) - When you're ready to go deeper
 - [Local LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) - For model shopping
 
-*Next week: I'm sharing my biggest local LLM failures. Spoiler: I once accidentally exposed my model to the entire internet. Learn from my mistakes!*
+*Next week: I'm sharing my biggest local LLM failures. Spoiler: I once had Ollama listening on all network interfaces, accessible to my IoT VLAN full of questionable smart devices. Learn from my mistakes!*
 
 ## Academic Research & Technical References
 
