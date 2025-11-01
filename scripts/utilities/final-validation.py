@@ -108,4 +108,21 @@ async def validate_live_site():
         print("\n📸 Screenshots saved for review")
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Final validation of live site after deployment',
+        epilog='''
+Examples:
+  # Validate live site (checks Mermaid diagrams and images)
+  %(prog)s
+
+  # Check version
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    args = parser.parse_args()
+
     asyncio.run(validate_live_site())

@@ -51,6 +51,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 from datetime import datetime
 import sys
+from tqdm import tqdm
 
 class BatchLinkFixer:
     """Orchestrate link validation and repair"""
@@ -183,7 +184,7 @@ class BatchLinkFixer:
         repairs_by_file = self._group_repairs_by_file(applicable_repairs)
 
         # Apply repairs to each file
-        for file_path, file_repairs in repairs_by_file.items():
+        for file_path, file_repairs in tqdm(repairs_by_file.items(), desc="Fixing files"):
             self._apply_file_repairs(file_path, file_repairs)
 
     def _group_repairs_by_file(self, repairs: List[Dict]) -> Dict[str, List[Dict]]:

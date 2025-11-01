@@ -245,6 +245,26 @@ class BlogImageManager:
 
 def main():
     """Main execution function"""
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Blog Image Standards Implementation Script',
+        epilog='''
+Examples:
+  # Update all blog posts with image metadata
+  %(prog)s
+
+  # Generate image index and statistics
+  %(prog)s
+
+  # Check version
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    args = parser.parse_args()
+
     manager = BlogImageManager()
     manager.process_all_posts()
     

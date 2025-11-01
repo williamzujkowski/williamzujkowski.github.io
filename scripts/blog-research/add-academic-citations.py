@@ -46,6 +46,7 @@ import json
 import frontmatter
 from pathlib import Path
 import re
+from tqdm import tqdm
 
 def load_validation_report():
     """Load the research validation report."""
@@ -333,20 +334,47 @@ def add_citations_to_local_llm():
     print(f"✅ Added academic citations to {post_path.name}")
 
 def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Add academic citations to blog posts',
+        epilog='''
+Examples:
+  # Add citations to all high-priority posts
+  %(prog)s
+
+  # Check version
+  %(prog)s --version
+
+  # View which posts will be updated
+  # (Currently processes: sustainable-computing, zero-trust, llm-security, claude-flow, local-llm)
+  %(prog)s
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    args = parser.parse_args()
+
     print("="*60)
     print("ADDING ACADEMIC CITATIONS TO BLOG POSTS")
     print("="*60)
-    
+
     # Load validation report to prioritize
     report = load_validation_report()
-    
-    # Add citations to posts with most uncited claims
-    add_citations_to_sustainable_computing()  # 25 uncited claims
-    add_citations_to_zero_trust()  # 12 uncited claims
-    add_citations_to_llm_security()  # 11 uncited claims
-    add_citations_to_claude_flow()  # 10 uncited claims
-    add_citations_to_local_llm()  # 9 uncited claims
-    
+
+    # Define citation functions to run
+    citation_functions = [
+        ("Sustainable Computing", add_citations_to_sustainable_computing),
+        ("Zero Trust Architecture", add_citations_to_zero_trust),
+        ("LLM Security", add_citations_to_llm_security),
+        ("Claude Flow", add_citations_to_claude_flow),
+        ("Local LLM", add_citations_to_local_llm),
+    ]
+
+    # Add citations to posts with progress bar
+    for name, func in tqdm(citation_functions, desc="Adding citations"):
+        func()
+
     print("\n✅ Successfully added academic citations to high-priority posts!")
 
 if __name__ == "__main__":

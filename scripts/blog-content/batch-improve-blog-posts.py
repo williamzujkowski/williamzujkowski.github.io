@@ -62,6 +62,7 @@ import frontmatter
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Tuple
+from tqdm import tqdm
 
 class BlogPostImprover:
     def __init__(self, posts_dir: str = "src/posts"):
@@ -482,17 +483,17 @@ graph LR
     def generate_improvement_report(self):
         """Generate a comprehensive improvement report."""
         posts = sorted(self.posts_dir.glob("*.md"))
-        
+
         print("="*80)
         print("BLOG POST IMPROVEMENT ANALYSIS")
         print("="*80)
         print(f"\nAnalyzing {len(posts)} posts for improvements...\n")
-        
+
         high_priority = []
         medium_priority = []
         low_priority = []
-        
-        for post_path in posts:
+
+        for post_path in tqdm(posts, desc="Analyzing posts"):
             improvements = self.improve_post(post_path)
             
             if len(improvements.get('changes', [])) > 3:
@@ -586,11 +587,26 @@ graph LR
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description='Batch improve blog posts')
+    parser = argparse.ArgumentParser(
+        description='Batch improve blog posts',
+        epilog='''
+Examples:
+  # Generate improvement report for all posts
+  %(prog)s
+
+  # Apply automatic improvements to all posts
+  %(prog)s --apply
+
+  # Improve specific post
+  %(prog)s --apply --post 2024-07-09-zero-trust-architecture-implementation.md
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
     parser.add_argument('--posts-dir', default='src/posts', help='Directory containing blog posts')
     parser.add_argument('--apply', action='store_true', help='Apply automatic improvements')
     parser.add_argument('--post', help='Improve specific post')
-    
+
     args = parser.parse_args()
     
     improver = BlogPostImprover(args.posts_dir)
@@ -598,9 +614,9 @@ def main():
     if args.apply:
         posts = sorted(Path(args.posts_dir).glob("*.md"))
         print(f"Applying automatic improvements to {len(posts)} posts...")
-        
+
         improved_count = 0
-        for post_path in posts:
+        for post_path in tqdm(posts, desc="Applying improvements"):
             if improver.apply_automatic_improvements(post_path):
                 improved_count += 1
         

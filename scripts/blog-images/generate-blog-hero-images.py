@@ -431,6 +431,23 @@ class HeroImageGenerator:
 
 def main():
     """Main execution function"""
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Generate Hero Images for Blog Posts',
+        epilog='''
+Examples:
+  # Generate hero images for all blog posts
+  %(prog)s
+
+  # Check version
+  %(prog)s --version
+        ''',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    args = parser.parse_args()
+
     # Check for required library
     try:
         from PIL import Image
@@ -438,7 +455,7 @@ def main():
         print("❌ Pillow library not installed.")
         print("   Run: pip install Pillow")
         return
-    
+
     generator = HeroImageGenerator()
     generator.process_all_posts()
     
