@@ -122,14 +122,14 @@ My VLAN design follows these principles:
 ### Initial Setup
 
 📎 **Complete configuration:**
-[Full UDM Pro VLAN setup with all 7 VLANs](https://gist.github.com/williamzujkowski/udm-pro-vlan-config)
+[Full UDM Pro VLAN setup with all 7 VLANs](https://gist.github.com/williamzujkowski/5422062bf5c4c6054de281cb912ce5d9)
 
 Each VLAN gets dedicated interface: `set interfaces ethernet eth1 vif <id> address <gateway>`
 
 ### DHCP Configuration
 
 📎 **Complete configuration:**
-[All VLAN DHCP configs with DNS and gateways](https://gist.github.com/williamzujkowski/vlan-dhcp-config)
+[All VLAN DHCP configs with DNS and gateways](https://gist.github.com/williamzujkowski/f5de5f7a5b7e30b7eaa59de0bd55a91b)
 
 Each VLAN subnet gets DHCP pool starting at .100 address
 
@@ -147,21 +147,21 @@ Follow this rule ordering for predictable behavior:
 ### Management VLAN Rules
 
 📎 **Complete ruleset:**
-[All management firewall rules with logging](https://gist.github.com/williamzujkowski/management-vlan-rules)
+[All management firewall rules with logging](https://gist.github.com/williamzujkowski/088045937fa7c77821a67f31cf994556)
 
 Management VLAN (10.0.10.0/24) can access all VLANs. All VLANs can SSH to management.
 
 ### IoT VLAN Rules (Most Restrictive)
 
 📎 **Complete ruleset:**
-[Full IoT isolation rules with default-deny](https://gist.github.com/williamzujkowski/iot-vlan-rules)
+[Full IoT isolation rules with default-deny](https://gist.github.com/williamzujkowski/42d5f269c97a1fbd8335316d09f90068)
 
 IoT blocked from all VLANs. Only HTTP/HTTPS to internet allowed.
 
 ### Server VLAN Rules
 
 📎 **Complete ruleset:**
-[Server VLAN firewall rules with update policies](https://gist.github.com/williamzujkowski/server-vlan-rules)
+[Server VLAN firewall rules with update policies](https://gist.github.com/williamzujkowski/337822d5fca33ab0bbd5806204df73af)
 
 Trusted VLAN can reach servers on HTTPS. Servers blocked from management VLAN.
 
@@ -172,21 +172,21 @@ Trusted VLAN can reach servers on HTTPS. Servers blocked from management VLAN.
 Allow service discovery across VLANs without full connectivity:
 
 📎 **Complete configuration:**
-[Full Avahi mDNS reflector setup for UDM Pro](https://gist.github.com/williamzujkowski/mdns-reflector-config)
+[Full Avahi mDNS reflector setup for UDM Pro](https://gist.github.com/williamzujkowski/2b9b624d76d9a7f139cbcbd914559a2b)
 
 Enable Avahi reflector for AirPlay, Chromecast, HomeKit services across VLANs
 
 ### Private VLAN (PVLAN) for IoT Isolation
 
 📎 **Complete configuration:**
-[Full PVLAN isolation setup with promiscuous ports](https://gist.github.com/williamzujkowski/pvlan-iot-isolation)
+[Full PVLAN isolation setup with promiscuous ports](https://gist.github.com/williamzujkowski/48d68afcb132e2f3b924ce74ce7adfa8)
 
 Set `private-vlan isolated` on IoT interface so devices can't reach each other
 
 ### Dynamic VLAN Assignment with RADIUS
 
 📎 **Complete configuration:**
-[Full FreeRADIUS dynamic VLAN config with device mappings](https://gist.github.com/williamzujkowski/radius-dynamic-vlan)
+[Full FreeRADIUS dynamic VLAN config with device mappings](https://gist.github.com/williamzujkowski/841cea35e4eb424d28f927b596808674)
 
 Map MAC addresses to VLAN IDs via RADIUS `Tunnel-Private-Group-Id` attribute
 
@@ -195,14 +195,14 @@ Map MAC addresses to VLAN IDs via RADIUS `Tunnel-Private-Group-Id` attribute
 ### Pi-hole for VLAN-Specific Filtering
 
 📎 **Complete blocklists:**
-[IoT telemetry blocklist and conditional forwarding](https://gist.github.com/williamzujkowski/pihole-vlan-filtering)
+[IoT telemetry blocklist and conditional forwarding](https://gist.github.com/williamzujkowski/c58aa2ce297f125633f090549146c536)
 
 Block vendor telemetry domains per VLAN, conditional forwarding for local zones
 
 ### DNS Query Logging for Threat Detection
 
 📎 **Complete script:**
-[Full DNS query analyzer with alerting](https://gist.github.com/williamzujkowski/dns-threat-detection)
+[Full DNS query analyzer with alerting](https://gist.github.com/williamzujkowski/345730384bf7d77c8b82e7ee4299ce43)
 
 Analyze Pi-hole logs for IoT VLAN unusual query patterns
 
@@ -211,14 +211,14 @@ Analyze Pi-hole logs for IoT VLAN unusual query patterns
 ### NetFlow Analysis
 
 📎 **Complete configuration:**
-[Full NetFlow setup with nfdump analysis queries](https://gist.github.com/williamzujkowski/netflow-vlan-analysis)
+[Full NetFlow setup with nfdump analysis queries](https://gist.github.com/williamzujkowski/05e39be6317d012d22991a51fe603bbb)
 
 Export NetFlow to collector for cross-VLAN traffic analysis
 
 ### Traffic Analysis Alerts
 
 📎 **Complete script:**
-[Full VLAN traffic monitor with multiple alert channels](https://gist.github.com/williamzujkowski/vlan-traffic-monitor)
+[Full VLAN traffic monitor with multiple alert channels](https://gist.github.com/williamzujkowski/b2224d5ef6333717d24d18575c597044)
 
 Alert on cross-VLAN flows not in allowed whitelist
 
@@ -227,21 +227,21 @@ Alert on cross-VLAN flows not in allowed whitelist
 ### Connectivity Testing Matrix
 
 📎 **Complete script:**
-[Full VLAN segmentation test suite with all protocols](https://gist.github.com/williamzujkowski/vlan-connectivity-tests)
+[Full VLAN segmentation test suite with all protocols](https://gist.github.com/williamzujkowski/2281086bfb8a52a7ab14fb72f47b9635)
 
 Test all VLAN pairs with ping/curl to verify firewall rules work
 
 ### Automated Penetration Testing
 
 📎 **Complete script:**
-[VLAN breakout testing with nmap and metasploit](https://gist.github.com/williamzujkowski/vlan-breakout-tests)
+[VLAN breakout testing with nmap and metasploit](https://gist.github.com/williamzujkowski/12ecda690c2c3b878ca981f8a09dc50d)
 
 Attempt VLAN breakout from IoT using nmap source-ip spoofing
 
 ## Troubleshooting Common Issues
 
-📎 **Complete troubleshooting guide:**
-[All common VLAN issues and solutions](https://gist.github.com/williamzujkowski/vlan-troubleshooting)
+<!-- 📎 **Complete troubleshooting guide:**
+[All common VLAN issues and solutions](https://gist.github.com/williamzujkowski/vlan-troubleshooting) -->
 
 **DHCP issues:** Check daemon logs, tcpdump VLAN traffic on port 67
 **Routing issues:** Verify `ip_forward=1`, traceroute between VLANs
@@ -249,8 +249,8 @@ Attempt VLAN breakout from IoT using nmap source-ip spoofing
 
 ## Performance Optimization
 
-📎 **Complete optimization guide:**
-[Hardware offloading and VLAN tuning](https://gist.github.com/williamzujkowski/vlan-performance-tuning)
+<!-- 📎 **Complete optimization guide:**
+[Hardware offloading and VLAN tuning](https://gist.github.com/williamzujkowski/vlan-performance-tuning) -->
 
 Enable hardware NAT offloading, increase MTU to 9000 for storage VLANs
 

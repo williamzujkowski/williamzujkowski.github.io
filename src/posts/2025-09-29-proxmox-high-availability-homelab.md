@@ -126,14 +126,14 @@ Proxmox HA requires an odd number of nodes for quorum:
 ### Prepare Each Node
 
 📎 **Complete setup script:**
-[Full node preparation with networking and repositories](https://gist.github.com/williamzujkowski/proxmox-node-prep)
+[Full node preparation with networking and repositories](https://gist.github.com/williamzujkowski/4e5328d0f87d7c5cb227536ec28508f3)
 
 Update packages, configure bridge interfaces with static IPs
 
 ### Create Cluster
 
 📎 **Complete cluster setup:**
-[Full 3-node cluster creation with dual links](https://gist.github.com/williamzujkowski/proxmox-cluster-init)
+[Full 3-node cluster creation with dual links](https://gist.github.com/williamzujkowski/b7e8c6f80865e952b2e04ccac9a208cd)
 
 Create cluster on node 1: `pvecm create homelab-cluster`
 Join from other nodes: `pvecm add <node1-ip>`
@@ -141,7 +141,7 @@ Join from other nodes: `pvecm add <node1-ip>`
 ### Configure Corosync
 
 📎 **Complete configuration:**
-[Full corosync.conf with redundant rings and crypto](https://gist.github.com/williamzujkowski/corosync-config)
+[Full corosync.conf with redundant rings and crypto](https://gist.github.com/williamzujkowski/f9db6bfc2a99d7a60d4138b9c4e485e0)
 
 Enable knet transport with AES256 encryption, configure redundant links
 
@@ -150,28 +150,28 @@ Enable knet transport with AES256 encryption, configure redundant links
 ### Install Ceph
 
 📎 **Complete setup:**
-[Full Ceph installation with all monitors](https://gist.github.com/williamzujkowski/ceph-installation)
+[Full Ceph installation with all monitors](https://gist.github.com/williamzujkowski/372c1276a16f72eeb5e938206f12695c)
 
 Install Ceph packages, initialize cluster on storage network, create monitors
 
 ### Configure Ceph OSDs
 
 📎 **Complete setup:**
-[OSD creation script for all nodes and disks](https://gist.github.com/williamzujkowski/ceph-osd-setup)
+[OSD creation script for all nodes and disks](https://gist.github.com/williamzujkowski/c7e3679bd125f4cc06212b74dc4f9086)
 
 Create OSD on each disk: `pveceph osd create /dev/sdX`
 
 ### Create Ceph Pools
 
-📎 **Complete configuration:**
-[All pools with replication settings and storage mappings](https://gist.github.com/williamzujkowski/ceph-pool-creation)
+<!-- 📎 **Complete configuration:**
+[All pools with replication settings and storage mappings](https://gist.github.com/williamzujkowski/ceph-pool-creation) -->
 
 Create pools with 3x replication (min 2), map to Proxmox storage
 
 ### Ceph Performance Tuning
 
-📎 **Complete tuning guide:**
-[Full Ceph performance optimization settings](https://gist.github.com/williamzujkowski/ceph-performance-tuning)
+<!-- 📎 **Complete tuning guide:**
+[Full Ceph performance optimization settings](https://gist.github.com/williamzujkowski/ceph-performance-tuning) -->
 
 Set placement groups to 128, enable RBD caching
 
@@ -180,7 +180,7 @@ Set placement groups to 128, enable RBD caching
 ### Enable HA Manager
 
 📎 **Complete HA setup:**
-[Full HA manager configuration and verification](https://gist.github.com/williamzujkowski/ha-manager-setup)
+[Full HA manager configuration and verification](https://gist.github.com/williamzujkowski/62daa9dbf0756881424c0cbbfdf513a8)
 
 Verify HA services running, check cluster status
 
@@ -188,15 +188,15 @@ Verify HA services running, check cluster status
 
 Fencing prevents split-brain scenarios by forcibly powering off unresponsive nodes.
 
-📎 **Complete fencing configuration:**
-[IPMI fencing setup for all nodes with testing](https://gist.github.com/williamzujkowski/ipmi-fencing-config)
+<!-- 📎 **Complete fencing configuration:**
+[IPMI fencing setup for all nodes with testing](https://gist.github.com/williamzujkowski/ipmi-fencing-config) -->
 
 Install fence-agents, configure IPMI credentials for each node
 
 ### Enable HA for VMs
 
 📎 **Complete VM HA configuration:**
-[HA resource management with groups and priorities](https://gist.github.com/williamzujkowski/vm-ha-config)
+[HA resource management with groups and priorities](https://gist.github.com/williamzujkowski/65bfcda35551568a539ba575fd6cb36c)
 
 Add VMs to HA: `ha-manager add vm:100 --state started --max_restart 3`
 
@@ -204,22 +204,22 @@ Add VMs to HA: `ha-manager add vm:100 --state started --max_restart 3`
 
 ### Simulated Node Failure
 
-📎 **Complete test suite:**
-[Full failover testing scripts with monitoring](https://gist.github.com/williamzujkowski/ha-failover-tests)
+<!-- 📎 **Complete test suite:**
+[Full failover testing scripts with monitoring](https://gist.github.com/williamzujkowski/ha-failover-tests) -->
 
 Power off node, watch VMs migrate within 2 minutes
 
 ### Simulated Network Partition
 
-📎 **Complete test:**
-[Network partition testing with split-brain prevention](https://gist.github.com/williamzujkowski/network-partition-test)
+<!-- 📎 **Complete test:**
+[Network partition testing with split-brain prevention](https://gist.github.com/williamzujkowski/network-partition-test) -->
 
 Block all traffic with iptables, verify fencing powers off minority partition
 
 ### Simulated Ceph Failure
 
-📎 **Complete test:**
-[Ceph OSD failure scenarios and recovery](https://gist.github.com/williamzujkowski/ceph-failure-tests)
+<!-- 📎 **Complete test:**
+[Ceph OSD failure scenarios and recovery](https://gist.github.com/williamzujkowski/ceph-failure-tests) -->
 
 Stop OSD daemon, verify data remains accessible via replication
 
@@ -228,14 +228,14 @@ Stop OSD daemon, verify data remains accessible via replication
 ### Proxmox Backup Server Integration
 
 📎 **Complete backup configuration:**
-[Full PBS setup with schedules and retention](https://gist.github.com/williamzujkowski/pbs-integration)
+[Full PBS setup with schedules and retention](https://gist.github.com/williamzujkowski/763dfba35128942ebe45c6a3f1f335b3)
 
 Add PBS storage, schedule nightly snapshots at 2 AM
 
 ### Automated Backup Script
 
-📎 **Complete script:**
-[Full cluster backup with Ceph, config, and offsite sync](https://gist.github.com/williamzujkowski/cluster-backup-script)
+<!-- 📎 **Complete script:**
+[Full cluster backup with Ceph, config, and offsite sync](https://gist.github.com/williamzujkowski/cluster-backup-script) -->
 
 Backup cluster config to tarball, sync offsite with rclone
 
@@ -244,21 +244,21 @@ Backup cluster config to tarball, sync offsite with rclone
 ### Prometheus Exporter
 
 📎 **Complete monitoring setup:**
-[Full Prometheus exporter config with metrics](https://gist.github.com/williamzujkowski/prometheus-pve-exporter)
+[Full Prometheus exporter config with metrics](https://gist.github.com/williamzujkowski/6d6197585a388ffb16c6bb303d61b0d6)
 
 Install exporter, configure PVE credentials, expose metrics
 
 ### Grafana Dashboard
 
-📎 **Complete dashboard:**
-[Full Grafana dashboard JSON with all panels](https://gist.github.com/williamzujkowski/grafana-proxmox-dashboard)
+<!-- 📎 **Complete dashboard:**
+[Full Grafana dashboard JSON with all panels](https://gist.github.com/williamzujkowski/grafana-proxmox-dashboard) -->
 
 Import dashboard with cluster quorum, Ceph health, VM status panels
 
 ### Alerting Rules
 
-📎 **Complete alerting:**
-[All Prometheus alert rules for HA cluster](https://gist.github.com/williamzujkowski/prometheus-ha-alerts)
+<!-- 📎 **Complete alerting:**
+[All Prometheus alert rules for HA cluster](https://gist.github.com/williamzujkowski/prometheus-ha-alerts) -->
 
 Alert on quorum loss, Ceph errors, node failures
 
@@ -266,15 +266,15 @@ Alert on quorum loss, Ceph errors, node failures
 
 ### Maintenance Mode
 
-📎 **Complete procedure:**
-[Full maintenance mode workflow with VM migration](https://gist.github.com/williamzujkowski/ha-maintenance-mode)
+<!-- 📎 **Complete procedure:**
+[Full maintenance mode workflow with VM migration](https://gist.github.com/williamzujkowski/ha-maintenance-mode) -->
 
 Migrate all VMs off node, set maintenance state, perform updates
 
 ### Rolling Updates
 
-📎 **Complete script:**
-[Rolling update script for all nodes with zero downtime](https://gist.github.com/williamzujkowski/rolling-update-script)
+<!-- 📎 **Complete script:**
+[Rolling update script for all nodes with zero downtime](https://gist.github.com/williamzujkowski/rolling-update-script) -->
 
 Migrate VMs, update packages, reboot node, repeat for all nodes
 
@@ -300,8 +300,8 @@ Migrate VMs, update packages, reboot node, repeat for all nodes
 
 **Manual Recovery:**
 
-📎 **Complete recovery procedure:**
-[Full split-brain recovery with quorum restoration](https://gist.github.com/williamzujkowski/split-brain-recovery)
+<!-- 📎 **Complete recovery procedure:**
+[Full split-brain recovery with quorum restoration](https://gist.github.com/williamzujkowski/split-brain-recovery) -->
 
 Set expected votes, restart cluster services, verify quorum
 
@@ -309,8 +309,8 @@ Set expected votes, restart cluster services, verify quorum
 
 **Manual Recovery:**
 
-📎 **Complete disaster recovery:**
-[Full cluster rebuild procedure from total failure](https://gist.github.com/williamzujkowski/total-cluster-recovery)
+<!-- 📎 **Complete disaster recovery:**
+[Full cluster rebuild procedure from total failure](https://gist.github.com/williamzujkowski/total-cluster-recovery) -->
 
 Set expected=1, start VMs manually, restore quorum after nodes rejoin
 
