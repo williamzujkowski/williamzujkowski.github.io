@@ -1,0 +1,223 @@
+version: "1.0.0"
+last_updated: "2025-11-01"
+total_modules: 5
+total_categories: 6
+
+categories:
+  core:
+    priority: HIGH
+    description: "Critical rules and standards, always loaded"
+    token_budget: 6300
+    modules_count: 5
+    modules:
+      - name: enforcement
+        file: docs/context/core/enforcement.md
+        priority: HIGH
+        estimated_tokens: 1500
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Any operation that modifies files"
+          - "Creating new content"
+          - "Before commits"
+          - "File operations (create, edit, delete)"
+        tags: [mandatory, rules, validation, pre-commit, enforcement]
+        dependencies: []
+        description: "Mandatory enforcement rules for pre-commit hooks, MANIFEST.json validation, and standards compliance"
+
+      - name: nda-compliance
+        file: docs/context/core/nda-compliance.md
+        priority: HIGH
+        estimated_tokens: 1200
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Writing blog posts"
+          - "Creating content mentioning work/career"
+          - "Discussing security topics"
+          - "Referencing professional experience"
+        tags: [security, privacy, boundaries, nda, career, family]
+        dependencies: []
+        description: "NDA compliance boundaries and personal privacy protection for content creation"
+
+      - name: file-management
+        file: docs/context/core/file-management.md
+        priority: HIGH
+        estimated_tokens: 1800
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Creating new files"
+          - "Moving or renaming files"
+          - "Cleanup operations"
+          - "Documentation management"
+        tags: [files, organization, cleanup, concurrent-execution, directories]
+        dependencies: [enforcement]
+        description: "File organization rules, concurrent execution patterns, and cleanup workflows"
+
+      - name: mandatory-reading
+        file: docs/context/core/mandatory-reading.md
+        priority: HIGH
+        estimated_tokens: 800
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "First session with this repository"
+          - "Onboarding new AI agents"
+          - "Understanding repository structure"
+          - "Finding relevant documentation"
+        tags: [onboarding, documentation, reading-order, architecture]
+        dependencies: []
+        description: "Mandatory reading order and documentation hierarchy for LLM onboarding"
+
+      - name: standards-integration
+        file: docs/context/core/standards-integration.md
+        priority: HIGH
+        estimated_tokens: 1000
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Before any file operation"
+          - "When validating changes"
+          - "Before commits"
+          - "During MANIFEST.json updates"
+        tags: [standards, manifest, timestamps, validation, submodule]
+        dependencies: [enforcement]
+        description: "Standards repository integration, MANIFEST.json management, and timestamp handling"
+
+  workflows:
+    priority: MEDIUM
+    description: "Task-specific workflows and processes"
+    token_budget: 8000
+    modules_count: 0
+    modules: []
+    status: "To be implemented in Phase 6"
+    planned_modules:
+      - blog-writing
+      - sparc-workflow
+      - swarm-orchestration
+      - git-workflow
+
+  standards:
+    priority: MEDIUM
+    description: "Quality gates and validation standards"
+    token_budget: 6000
+    modules_count: 0
+    modules: []
+    status: "To be implemented in Phase 7"
+    planned_modules:
+      - humanization-validation
+      - citation-requirements
+      - image-standards
+      - accessibility
+
+  technical:
+    priority: LOW
+    description: "Technical reference and tooling"
+    token_budget: 4000
+    modules_count: 0
+    modules: []
+    status: "To be implemented in Phase 8"
+    planned_modules:
+      - script-catalog
+      - git-commands
+      - build-automation
+      - testing
+
+  reference:
+    priority: LOW
+    description: "Historical context and lessons learned"
+    token_budget: 3000
+    modules_count: 0
+    modules: []
+    status: "To be implemented in Phase 9"
+    planned_modules:
+      - batch-lessons
+      - phase-reports
+      - historical-context
+
+  templates:
+    priority: LOW
+    description: "Reusable patterns and templates"
+    token_budget: 2000
+    modules_count: 0
+    modules: []
+    status: "To be implemented in Phase 10"
+    planned_modules:
+      - blog-post-template
+      - module-template
+      - script-template
+      - documentation-template
+
+# Loading Strategy
+loading_strategy:
+  always_load:
+    - core/enforcement
+    - core/nda-compliance
+    - core/mandatory-reading
+
+  conditional_load:
+    file_operations:
+      - core/file-management
+      - core/standards-integration
+
+    blog_writing:
+      - core/nda-compliance
+      - workflows/blog-writing (when implemented)
+      - standards/humanization-validation (when implemented)
+      - standards/citation-requirements (when implemented)
+
+    code_changes:
+      - core/enforcement
+      - core/standards-integration
+      - technical/script-catalog (when implemented)
+
+    cleanup_operations:
+      - core/file-management
+      - core/enforcement
+
+# Token Budget Tracking
+token_budgets:
+  total_available: 25000
+  core_modules: 6300
+  workflow_modules: 0
+  standards_modules: 0
+  technical_modules: 0
+  reference_modules: 0
+  template_modules: 0
+  remaining_budget: 18700
+
+# Module Discovery
+discovery:
+  by_priority:
+    HIGH: [core/enforcement, core/nda-compliance, core/file-management, core/mandatory-reading, core/standards-integration]
+    MEDIUM: []
+    LOW: []
+
+  by_tag:
+    enforcement: [core/enforcement, core/standards-integration]
+    nda: [core/nda-compliance]
+    files: [core/file-management, core/standards-integration]
+    onboarding: [core/mandatory-reading]
+    validation: [core/enforcement, core/standards-integration]
+
+# Implementation Status
+implementation_status:
+  phase_1_complete: true
+  phase_2_complete: true
+  phase_3_complete: true
+  phase_4_complete: true
+  phase_5_pending: true
+  phase_6_pending: true
+  phase_7_pending: true
+  phase_8_pending: true
+  phase_9_pending: true
+  phase_10_pending: true
+
+# Validation
+validation:
+  all_core_modules_created: true
+  frontmatter_complete: true
+  cross_references_accurate: true
+  examples_included: true
+  token_estimates_reasonable: true

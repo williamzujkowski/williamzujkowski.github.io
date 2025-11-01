@@ -1,6 +1,0 @@
-[ ] No current work mentions
-[ ] All incidents 2+ years old
-[ ] Hardware matches uses.md
-[ ] Conversational tone
-[ ] Proper citations
-[ ] Value to readers
