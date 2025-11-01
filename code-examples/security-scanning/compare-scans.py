@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+# scripts/compare-scans.py
+# Compare two vulnerability scan results and report differences
+# Upload this to a GitHub gist and reference from blog post
+
+import json
+import sys
+from pathlib import Path
+
+def load_scan(filepath):
+    """Load scan results from JSON file"""
+    with open(filepath) as f:
+        return json.load(f)
+
+def extract_vulnerabilities(scan_data):
+    """Extract vulnerability IDs from scan results"""
+    vulns = set()
+    for match in scan_data.get('matches', []):
+        vulns.add(match['vulnerability']['id'])
+    return vulns
+
+def compare_scans(current_file, baseline_file, alert_on_new=False):
+    """Compare two scan results"""
+    current = load_scan(current_file)
+    baseline = load_scan(baseline_file)
+
+    current_vulns = extract_vulnerabilities(current)
+    baseline_vulns = extract_vulnerabilities(baseline)
+
+    new_vulns = current_vulns - baseline_vulns
+    fixed_vulns = baseline_vulns - current_vulns
+
+    print(f"Scan Comparison Results")
+    print(f"=======================")
+    print(f"Baseline vulnerabilities: {len(baseline_vulns)}")
+    print(f"Current vulnerabilities: {len(current_vulns)}")
+    print(f"New vulnerabilities: {len(new_vulns)}")
+    print(f"Fixed vulnerabilities: {len(fixed_vulns)}")
+
+    if new_vulns:
+        print(f"\n⚠️  New vulnerabilities detected:")
+        for vuln in sorted(new_vulns):
+            print(f"  - {vuln}")
+
+        if alert_on_new:
+            sys.exit(1)
+
+    if fixed_vulns:
+        print(f"\n✅ Vulnerabilities fixed:")
+        for vuln in sorted(fixed_vulns):
+            print(f"  - {vuln}")
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--current', required=True)
+    parser.add_argument('--baseline', required=True)
+    parser.add_argument('--alert-on-new', action='store_true')
+    args = parser.parse_args()
+
+    compare_scans(args.current, args.baseline, args.alert_on_new)
