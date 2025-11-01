@@ -1,0 +1,73 @@
+```mermaid
+graph LR
+    subgraph "Data Pipeline"
+        Raw[Raw Data]
+        Clean[Data Cleaning]
+        Feature[Feature Engineering]
+        Split[Train/Val/Test Split]
+    end
+
+    subgraph "Model Training"
+        Model[Model Architecture]
+        Train[Training Loop]
+        Val[Validation]
+        Tune[Hyperparameter Tuning]
+    end
+
+    subgraph "Evaluation"
+        Metrics[Performance Metrics]
+        Test[Test Set Evaluation]
+        Compare[Model Comparison]
+    end
+
+    subgraph "Deployment"
+        Export[Model Export]
+        Serve[Inference Server]
+        Monitor[Performance Monitoring]
+    end
+
+    Raw --> Clean
+    Clean --> Feature
+    Feature --> Split
+
+    Split --> Model
+    Model --> Train
+    Train --> Val
+    Val --> Tune
+    Tune -.iterate.-> Train
+
+    Val --> Metrics
+    Metrics --> Test
+    Test --> Compare
+
+    Compare --> Export
+    Export --> Serve
+    Serve --> Monitor
+    Monitor -.feedback.-> Feature
+```
+
+**Usage Instructions:**
+
+1. **Copy this template** into your blog post
+2. **Customize data pipeline stages** for your specific ML workflow
+3. **Add/remove training steps** based on your approach
+4. **Modify evaluation metrics** to match your problem domain
+5. **Adjust deployment** for your infrastructure (cloud, edge, local)
+
+**Used in 14 existing posts:**
+- deepfake-dilemma-ai-deception.md
+- open-source-vs-proprietary-llms.md
+- retrieval-augmented-generation-rag.md
+- ethics-large-language-models.md
+- mastering-prompt-engineering-llms.md
+- ai-new-frontier-cybersecurity.md
+- ai-learning-resource-constrained.md
+- multimodal-foundation-models.md
+- embodied-ai-teaching-agents.md
+- ai-edge-computing.md
+- context-windows-llms.md
+- securing-personal-ai-experiments.md
+- llm-fine-tuning-homelab-guide.md
+- supercharging-claude-cli-with-standards.md
+
+**Color scheme:** Purple/Pink gradient (AI/ML topics) (#7c3aed → #ec4899)

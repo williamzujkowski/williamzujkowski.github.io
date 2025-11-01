@@ -100,6 +100,35 @@ See `.claude-rules.json` for complete enforcement rules.
 3. Review ARCHITECTURE.md for system understanding
 4. Reference SCRIPT_CATALOG.md as needed
 
+## 📋 Documentation Retention Policy
+
+**Active Documentation (0-30 days):**
+- Keep in root `/reports` or `/docs`
+- Current phase work, recent completion reports
+- Actively referenced methodology documents
+
+**Archive (30-180 days):**
+- Move to `/docs/archive/YYYY-QX/`
+- Completed batch reports (Batch 1-6)
+- Phase completion reports (Phase 8.4, 8.5, etc.)
+- Historical test reports
+
+**Purge (180+ days):**
+- Delete non-reference documentation
+- Superseded plans and intermediate reports
+- Redundant status updates
+
+**Never Delete:**
+- `LESSONS_LEARNED.md` files (all batches)
+- Final completion reports (latest per phase)
+- Methodology documentation (`CLAUDE_MD_UPDATES.md`, `UNIFIED_HUMANIZATION_METHODOLOGY.md`)
+- Validation tools and pattern definitions
+- Architecture and enforcement guides
+
+**Archive Locations:**
+- **Q3 2025**: `docs/archive/2025-Q3/` (Batches 1-6, Smart Brevity transformation)
+- **Q4 2025**: `docs/archive/2025-Q4/` (Phase 8 code reduction, security refinements)
+
 ## 📂 Documentation Hierarchy
 
 ### Primary (Authoritative):
@@ -1456,7 +1485,7 @@ At the end of each post, include:
 
 For transforming existing blog posts to meet Smart Brevity standards (10+ citations, 60+ bullets, 0 weak language, strong BLUF, human tone), use the proven 7-phase methodology from Batch 2+ (validated on 8 posts, enhanced with human tone validation).
 
-**Complete methodology documented in:** `docs/batch-2/CLAUDE_MD_UPDATES.md` and `docs/human-tone-integration-plan.md`
+**Complete methodology documented in:** `docs/archive/2025-Q3/batch-2/CLAUDE_MD_UPDATES.md` and `docs/human-tone-integration-plan.md`
 
 ## The 7 Phases (Quick Reference)
 
@@ -1546,10 +1575,10 @@ grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/po
 
 ## Documentation References
 
-- **Complete methodology**: `docs/batch-2/CLAUDE_MD_UPDATES.md` (40K, comprehensive guide)
-- **Lessons learned**: `docs/batch-2/LESSONS_LEARNED.md` (36K, Batch 2 analysis)
-- **Pre-analysis examples**: `docs/batch-2/pre-analysis/post-[1-8]-pre-analysis.md`
-- **Cleanup report**: `docs/batch-2/CLEANUP_REPORT.md` (organization strategy)
+- **Complete methodology**: `docs/archive/2025-Q3/batch-2/CLAUDE_MD_UPDATES.md` (40K, comprehensive guide)
+- **Lessons learned**: `docs/archive/2025-Q3/batch-2/LESSONS_LEARNED.md` (36K, Batch 2 analysis)
+- **Pre-analysis examples**: `docs/archive/2025-Q3/batch-2/pre-analysis/post-[1-8]-pre-analysis.md`
+- **Cleanup report**: `docs/archive/2025-Q3/batch-2/CLEANUP_REPORT.md` (organization strategy)
 
 ---
 
@@ -2467,6 +2496,171 @@ python scripts/blog-content/humanization-validator.py \
 **Pre-Commit Hooks:**
 - **Hook Location:** `.git/hooks/pre-commit` (automated enforcement)
 - **Hook Setup:** `docs/SETUP-HUMANIZATION-HOOK.md` (installation guide)
+
+---
+
+## 📦 GitHub Gist Management
+
+### Overview
+
+Blog posts maintain <25% code-to-content ratio by linking to GitHub gists instead of embedding verbose code blocks. The gist workflow extracts full implementations to shareable gists while keeping blog posts readable.
+
+**Why use gists:**
+- Keep blog posts focused (text + essential 5-10 line snippets)
+- Share full implementations via direct links
+- Enable download, fork, embed, and star features
+- Improve reader experience with syntax highlighting
+
+### When to Extract Code to Gists
+
+**Extract to gists when:**
+- Blog post code ratio >20% (target: <25%)
+- Code blocks >30 lines (verbose implementations)
+- Multiple related files (configs, scripts, workflows)
+- Reusable code examples readers will copy
+
+**Keep inline when:**
+- Essential 5-10 line patterns demonstrating concepts
+- Single commands or configuration snippets
+- Mermaid diagrams (visual aids, not code)
+
+### Complete Gist Workflow
+
+#### Phase 1: Create Local Gists Folder (Phase 8.5)
+
+**1. Organize code by blog post category:**
+```bash
+mkdir -p gists/{category-name}/{workflows,configs,scripts,integrations}
+```
+
+**2. Extract code from blog posts to individual files:**
+- Add descriptive headers with source attribution
+- Include usage instructions and prerequisites
+- Add MIT license
+
+**3. Create category READMEs:**
+- Quick start guide
+- File descriptions
+- Troubleshooting tips
+
+**Example file structure:**
+```
+gists/
+├── security-scanning/        # 13 files
+│   ├── README.md
+│   ├── workflows/           # GitHub Actions
+│   ├── configs/             # Scanner configs
+│   ├── scripts/             # Python/Bash scripts
+│   └── integrations/        # Slack, Wazuh, etc.
+├── mitre-dashboard/         # 8 files
+├── vlan-segmentation/       # 14 files
+└── proxmox-ha/              # 10 files
+```
+
+#### Phase 2: Create GitHub Gists (Phase 8.6)
+
+**1. Test gist creation (3 files first):**
+```bash
+python scripts/create-gists-from-folder.py --test-only
+```
+
+**2. Batch create all gists:**
+```bash
+python scripts/create-gists-from-folder.py
+```
+
+**Features:**
+- Rate limiting (1 gist/second)
+- Progress reporting
+- Generates `gists/gist-mapping.json`
+- `--dry-run` flag for testing
+
+**3. Update blog posts with real gist URLs:**
+```bash
+python scripts/update-blog-gist-urls.py
+```
+
+**Replaces:**
+`https://gist.github.com/williamzujkowski/{slug}` →
+`https://gist.github.com/williamzujkowski/{real-gist-id}`
+
+**4. Validate all gist links:**
+```bash
+python scripts/validate-gist-links.py
+```
+
+Checks all 45+ gist links return HTTP 200.
+
+### Gist File Format Standards
+
+**Required header for all code files:**
+```python
+#!/usr/bin/env python3
+"""
+Title: [Descriptive name]
+Source: https://williamzujkowski.github.io/posts/[slug]/
+Purpose: [What this code does]
+Prerequisites: [Required tools/dependencies]
+Usage:
+    [Example commands]
+
+License: MIT
+"""
+```
+
+### Gist Mapping File
+
+**Location:** `gists/gist-mapping.json`
+
+**Format:**
+```json
+{
+  "category/subcategory/filename.ext": {
+    "url": "https://gist.github.com/williamzujkowski/abc123...",
+    "slug": "descriptive-slug-name",
+    "description": "Brief description for gist"
+  }
+}
+```
+
+**Usage:**
+- Source of truth for all gist URLs
+- Used by `update-blog-gist-urls.py` to replace placeholders
+- Used by `validate-gist-links.py` to verify links
+
+### Maintenance
+
+**Weekly validation:**
+```bash
+python scripts/validate-gist-links.py --verbose
+```
+
+**Update existing gist:**
+1. Edit file in `/gists` directory
+2. Manually update gist on GitHub
+3. No URL change needed (gist ID stays the same)
+
+**Add new gist:**
+1. Create file in appropriate `/gists` subdirectory
+2. Add metadata to `scripts/create-gists-from-folder.py` GIST_METADATA
+3. Run: `python scripts/create-gists-from-folder.py`
+4. Update blog post with new gist URL
+
+### Troubleshooting
+
+**Slug mismatch errors:**
+- Check blog post uses correct slug from `gist-mapping.json`
+- Run: `python scripts/update-blog-gist-urls.py` to fix
+
+**Gist creation fails:**
+- Verify `gh` CLI authenticated: `gh auth status`
+- Check rate limiting (1 gist/second)
+- Ensure file exists in `/gists` directory
+
+**Broken gist links:**
+- Run validator: `python scripts/validate-gist-links.py`
+- Check gist not deleted on GitHub
+- Verify URL in blog post matches `gist-mapping.json`
 
 ---
 

@@ -1,0 +1,68 @@
+```mermaid
+graph TB
+    subgraph "Threat Actors"
+        TA1[External Attackers]
+        TA2[Internal Threats]
+        TA3[Advanced Persistent Threats]
+    end
+
+    subgraph "Attack Vectors"
+        AV1[Network Intrusion]
+        AV2[Social Engineering]
+        AV3[Supply Chain]
+        AV4[Insider Threat]
+    end
+
+    subgraph "Target Assets"
+        AS1[User Data]
+        AS2[System Infrastructure]
+        AS3[Application Logic]
+        AS4[Authentication Systems]
+    end
+
+    subgraph "Defense Layers"
+        DEF1[Perimeter Security]
+        DEF2[Network Segmentation]
+        DEF3[Access Controls]
+        DEF4[Monitoring & Detection]
+        DEF5[Incident Response]
+    end
+
+    TA1 --> AV1
+    TA1 --> AV2
+    TA2 --> AV4
+    TA3 --> AV3
+
+    AV1 --> AS2
+    AV2 --> AS4
+    AV3 --> AS3
+    AV4 --> AS1
+
+    DEF1 -.blocks.-> AV1
+    DEF2 -.contains.-> AV1
+    DEF3 -.prevents.-> AV4
+    DEF4 -.detects.-> AV2
+    DEF5 -.responds.-> TA3
+```
+
+**Usage Instructions:**
+
+1. **Copy this template** into your blog post
+2. **Customize threat actors** for your specific scenario
+3. **Add/remove attack vectors** based on your context
+4. **Modify defense layers** to match your security controls
+5. **Adjust relationships** (arrows) to show your threat model
+
+**Used in 10 existing posts:**
+- writing-secure-code-developers-guide.md
+- securing-cloud-native-frontier.md
+- quantum-resistant-cryptography-guide.md
+- llms-smart-contract-vulnerability.md
+- automating-home-network-security.md
+- continuous-learning-cybersecurity.md
+- raspberry-pi-security-projects.md
+- from-it-support-to-senior-infosec-engineer.md
+- building-secure-homelab-adventure.md
+- implementing-dns-over-https-home-networks.md
+
+**Color scheme:** Blue (security) gradient (#1e3a8a → #dc2626)
