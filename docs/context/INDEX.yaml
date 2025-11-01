@@ -1,6 +1,6 @@
 version: "1.0.0"
 last_updated: "2025-11-01"
-total_modules: 15
+total_modules: 21
 total_categories: 6
 
 root_anchor:
@@ -266,17 +266,95 @@ categories:
     status: "Phase 7 complete"
 
   technical:
-    priority: LOW
-    description: "Technical reference and tooling"
-    token_budget: 4000
-    modules_count: 0
-    modules: []
-    status: "To be implemented in Phase 8"
-    planned_modules:
-      - script-catalog
-      - git-commands
-      - build-automation
-      - testing
+    priority: MEDIUM/LOW
+    description: "Implementation details and automation references"
+    token_budget: 9000
+    modules_count: 6
+    modules:
+      - name: script-catalog
+        file: docs/context/technical/script-catalog.md
+        priority: MEDIUM
+        estimated_tokens: 2000
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Finding automation scripts"
+          - "Understanding script organization"
+          - "Running blog utilities"
+        tags: [scripts, automation, utilities, catalog]
+        dependencies: []
+        description: "Complete catalog of 35 Python + 2 Shell scripts organized by category (blog-content, blog-images, blog-research, link-validation, utilities)"
+
+      - name: git-workflow
+        file: docs/context/technical/git-workflow.md
+        priority: MEDIUM
+        estimated_tokens: 1500
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Committing changes"
+          - "Creating PRs"
+          - "Git operations"
+        tags: [git, commits, prs, version-control]
+        dependencies: [core/enforcement]
+        description: "Git safety protocol, commit workflow, PR creation, and troubleshooting"
+
+      - name: build-automation
+        file: docs/context/technical/build-automation.md
+        priority: LOW
+        estimated_tokens: 1200
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Running builds"
+          - "Debugging build issues"
+          - "Understanding npm scripts"
+        tags: [build, npm, deployment, automation]
+        dependencies: []
+        description: "npm scripts, build pipeline (Eleventy, Tailwind, PostCSS), optimization, and troubleshooting"
+
+      - name: agent-coordination
+        file: docs/context/technical/agent-coordination.md
+        priority: LOW
+        estimated_tokens: 1800
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Using SPARC agents"
+          - "Multi-agent coordination"
+          - "Hook integration"
+        tags: [agents, sparc, coordination, hooks]
+        dependencies: [workflows/sparc-development, workflows/swarm-orchestration]
+        description: "54 available agents, coordination protocols, Claude-Flow integration, and advanced features (v2.0.0)"
+
+      - name: research-automation
+        file: docs/context/technical/research-automation.md
+        priority: MEDIUM
+        estimated_tokens: 1500
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Adding citations"
+          - "Research validation"
+          - "Running academic searches"
+        tags: [research, automation, playwright, citations]
+        dependencies: [standards/citation-research]
+        description: "Research integration workflow, Playwright automation, academic search tools, and citation validation"
+
+      - name: image-automation
+        file: docs/context/technical/image-automation.md
+        priority: LOW
+        estimated_tokens: 1000
+        version: 1.0.0
+        last_updated: "2025-11-01"
+        load_when:
+          - "Generating hero images"
+          - "Optimizing images"
+          - "Running image automation"
+        tags: [images, automation, optimization, hero]
+        dependencies: [standards/image-standards]
+        description: "Complete image automation workflow: metadata updates, hero generation, and optimization scripts"
+    status: "Phase 8 complete"
 
   reference:
     priority: LOW
@@ -336,17 +414,17 @@ token_budgets:
   core_modules: 6300
   workflow_modules: 10000
   standards_modules: 9000
-  technical_modules: 0
+  technical_modules: 9000
   reference_modules: 0
   template_modules: 0
-  remaining_budget: -300  # Slightly over budget but acceptable
+  remaining_budget: -9300  # Over budget but modular loading compensates
 
 # Module Discovery
 discovery:
   by_priority:
     HIGH: [core/enforcement, core/nda-compliance, core/file-management, core/mandatory-reading, core/standards-integration, standards/humanization-standards, standards/citation-research]
-    MEDIUM: [workflows/blog-writing, workflows/sparc-development, workflows/swarm-orchestration, workflows/blog-transformation, standards/image-standards, standards/writing-style, standards/accessibility]
-    LOW: [workflows/gist-management]
+    MEDIUM: [workflows/blog-writing, workflows/sparc-development, workflows/swarm-orchestration, workflows/blog-transformation, standards/image-standards, standards/writing-style, standards/accessibility, technical/script-catalog, technical/git-workflow, technical/research-automation]
+    LOW: [workflows/gist-management, technical/build-automation, technical/agent-coordination, technical/image-automation]
 
   by_tag:
     enforcement: [core/enforcement, core/standards-integration, workflows/sparc-development, workflows/swarm-orchestration]
@@ -355,14 +433,19 @@ discovery:
     onboarding: [core/mandatory-reading]
     validation: [core/enforcement, core/standards-integration, standards/humanization-standards, standards/citation-research]
     blog: [workflows/blog-writing, workflows/blog-transformation, standards/humanization-standards, standards/citation-research, standards/writing-style]
-    sparc: [workflows/sparc-development]
-    swarm: [workflows/swarm-orchestration]
+    sparc: [workflows/sparc-development, technical/agent-coordination]
+    swarm: [workflows/swarm-orchestration, technical/agent-coordination]
     gist: [workflows/gist-management]
     humanization: [standards/humanization-standards]
-    citations: [standards/citation-research]
-    images: [standards/image-standards]
+    citations: [standards/citation-research, technical/research-automation]
+    images: [standards/image-standards, technical/image-automation]
     accessibility: [standards/accessibility]
     writing: [standards/writing-style]
+    scripts: [technical/script-catalog]
+    git: [technical/git-workflow]
+    build: [technical/build-automation]
+    automation: [technical/script-catalog, technical/research-automation, technical/image-automation]
+    research: [technical/research-automation, standards/citation-research]
 
 # Implementation Status
 implementation_status:
@@ -373,7 +456,7 @@ implementation_status:
   phase_5_complete: true
   phase_6_complete: true
   phase_7_complete: true
-  phase_8_pending: true
+  phase_8_complete: true
   phase_9_pending: true
   phase_10_pending: true
 
