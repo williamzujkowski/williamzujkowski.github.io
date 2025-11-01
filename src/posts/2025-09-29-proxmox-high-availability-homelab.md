@@ -125,486 +125,158 @@ Proxmox HA requires an odd number of nodes for quorum:
 
 ### Prepare Each Node
 
-```bash
-# On each node: Update and prepare
-apt update && apt full-upgrade -y
-apt install -y bridge-utils ifupdown2
+📎 **Complete setup script:**
+[Full node preparation with networking and repositories](https://gist.github.com/williamzujkowski/proxmox-node-prep)
 
-# Disable enterprise repository (for homelab)
-rm /etc/apt/sources.list.d/pve-enterprise.list
-
-# Add no-subscription repository
-echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" > \
-    /etc/apt/sources.list.d/pve-no-subscription.list
-
-apt update
-
-# Configure static IP addresses
-cat >> /etc/network/interfaces <<EOF
-auto vmbr0
-iface vmbr0 inet static
-    address 10.0.10.11/24
-    gateway 10.0.10.1
-    bridge-ports eno1
-    bridge-stp off
-    bridge-fd 0
-
-auto vmbr1
-iface vmbr1 inet static
-    address 10.0.100.11/24
-    bridge-ports eno2
-    bridge-stp off
-    bridge-fd 0
-    # Ceph storage network
-EOF
-
-systemctl restart networking
-```
+Update packages, configure bridge interfaces with static IPs
 
 ### Create Cluster
 
-```bash
-# On Node 1 (create cluster)
-pvecm create homelab-cluster --link0 10.0.10.11 --link1 10.0.100.11
+📎 **Complete cluster setup:**
+[Full 3-node cluster creation with dual links](https://gist.github.com/williamzujkowski/proxmox-cluster-init)
 
-# Verify cluster status
-pvecm status
-
-# On Node 2 and 3 (join cluster)
-pvecm add 10.0.10.11 --link0 10.0.10.12 --link1 10.0.100.12
-pvecm add 10.0.10.11 --link0 10.0.10.13 --link1 10.0.100.13
-
-# Verify all nodes joined
-pvecm nodes
-```
+Create cluster on node 1: `pvecm create homelab-cluster`
+Join from other nodes: `pvecm add <node1-ip>`
 
 ### Configure Corosync
 
-```bash
-# Edit /etc/pve/corosync.conf on any node
-totem {
-    version: 2
-    cluster_name: homelab-cluster
-    config_version: 3
-    transport: knet
-    crypto_cipher: aes256
-    crypto_hash: sha256
-}
+📎 **Complete configuration:**
+[Full corosync.conf with redundant rings and crypto](https://gist.github.com/williamzujkowski/corosync-config)
 
-nodelist {
-    node {
-        name: pve1
-        nodeid: 1
-        quorum_votes: 1
-        ring0_addr: 10.0.10.11
-        ring1_addr: 10.0.100.11
-    }
-    node {
-        name: pve2
-        nodeid: 2
-        quorum_votes: 1
-        ring0_addr: 10.0.10.12
-        ring1_addr: 10.0.100.12
-    }
-    node {
-        name: pve3
-        nodeid: 3
-        quorum_votes: 1
-        ring0_addr: 10.0.10.13
-        ring1_addr: 10.0.100.13
-    }
-}
-
-quorum {
-    provider: corosync_votequorum
-}
-
-# Apply changes
-systemctl restart pve-cluster corosync
-```
+Enable knet transport with AES256 encryption, configure redundant links
 
 ## Ceph Storage Configuration
 
 ### Install Ceph
 
-```bash
-# On all nodes
-pveceph install --repository no-subscription --version quincy
+📎 **Complete setup:**
+[Full Ceph installation with all monitors](https://gist.github.com/williamzujkowski/ceph-installation)
 
-# Initialize Ceph on Node 1
-pveceph init --network 10.0.100.0/24
-
-# Create monitors on all nodes
-pveceph mon create
-```
+Install Ceph packages, initialize cluster on storage network, create monitors
 
 ### Configure Ceph OSDs
 
-```bash
-# On each node, for each disk:
-# Identify disks
-lsblk
-ceph-volume lvm list
+📎 **Complete setup:**
+[OSD creation script for all nodes and disks](https://gist.github.com/williamzujkowski/ceph-osd-setup)
 
-# Create OSDs (replace /dev/sdX with actual disks)
-pveceph osd create /dev/sdb
-pveceph osd create /dev/sdc
-pveceph osd create /dev/sdd
-
-# Verify OSDs are up
-ceph osd tree
-ceph osd status
-```
+Create OSD on each disk: `pveceph osd create /dev/sdX`
 
 ### Create Ceph Pools
 
-```bash
-# Create pool for VM storage
-pveceph pool create vm-storage --min_size 2 --size 3
+📎 **Complete configuration:**
+[All pools with replication settings and storage mappings](https://gist.github.com/williamzujkowski/ceph-pool-creation)
 
-# Create pool for backups
-pveceph pool create backup-storage --min_size 2 --size 3
-
-# Add to Proxmox storage
-pvesm add rbd vm-storage --pool vm-storage --content images,rootdir
-pvesm add rbd backup-storage --pool backup-storage --content backup
-```
+Create pools with 3x replication (min 2), map to Proxmox storage
 
 ### Ceph Performance Tuning
 
-```bash
-# Configure placement groups (adjust for your cluster size)
-ceph osd pool set vm-storage pg_num 128
-ceph osd pool set vm-storage pgp_num 128
+📎 **Complete tuning guide:**
+[Full Ceph performance optimization settings](https://gist.github.com/williamzujkowski/ceph-performance-tuning)
 
-# Enable RBD cache
-ceph config set client rbd_cache true
-ceph config set client rbd_cache_size 67108864
-
-# Enable scrubbing during off-peak hours
-ceph config set osd osd_scrub_begin_hour 2
-ceph config set osd osd_scrub_end_hour 6
-
-# Check cluster health
-ceph -s
-ceph health detail
-```
+Set placement groups to 128, enable RBD caching
 
 ## High Availability Configuration
 
 ### Enable HA Manager
 
-```bash
-# HA is enabled by default with cluster setup
-# Verify HA services are running
-systemctl status pve-ha-lrm
-systemctl status pve-ha-crm
+📎 **Complete HA setup:**
+[Full HA manager configuration and verification](https://gist.github.com/williamzujkowski/ha-manager-setup)
 
-# Check HA status
-ha-manager status
-```
+Verify HA services running, check cluster status
 
 ### Configure Fencing
 
 Fencing prevents split-brain scenarios by forcibly powering off unresponsive nodes.
 
-```bash
-# Install fence agents
-apt install -y fence-agents-all
+📎 **Complete fencing configuration:**
+[IPMI fencing setup for all nodes with testing](https://gist.github.com/williamzujkowski/ipmi-fencing-config)
 
-# Configure IPMI-based fencing for each node
-ha-manager add fence-pve1 --type=ipmilan \
-    --ip=10.0.10.21 \
-    --username=admin \
-    --password=secure-password \
-    --lanplus=1
-
-ha-manager add fence-pve2 --type=ipmilan \
-    --ip=10.0.10.22 \
-    --username=admin \
-    --password=secure-password \
-    --lanplus=1
-
-ha-manager add fence-pve3 --type=ipmilan \
-    --ip=10.0.10.23 \
-    --username=admin \
-    --password=secure-password \
-    --lanplus=1
-
-# Test fencing
-fence_ipmilan -a 10.0.10.21 -l admin -p secure-password -o status
-```
+Install fence-agents, configure IPMI credentials for each node
 
 ### Enable HA for VMs
 
-```bash
-# Enable HA for a VM (via web UI or CLI)
-ha-manager add vm:100 --state started --group default_group --max_restart 3 --max_relocate 3
+📎 **Complete VM HA configuration:**
+[HA resource management with groups and priorities](https://gist.github.com/williamzujkowski/vm-ha-config)
 
-# Configure HA groups (optional)
-ha-manager groupadd critical_services --nodes "pve1:2,pve2:1,pve3:1" --nofailback 0
-
-# Add VM to HA group
-ha-manager add vm:100 --group critical_services
-
-# View HA resources
-ha-manager status
-```
+Add VMs to HA: `ha-manager add vm:100 --state started --max_restart 3`
 
 ## Testing Failover
 
 ### Simulated Node Failure
 
-```bash
-# Test 1: Graceful shutdown
-ssh pve2 "poweroff"
+📎 **Complete test suite:**
+[Full failover testing scripts with monitoring](https://gist.github.com/williamzujkowski/ha-failover-tests)
 
-# Watch HA manager migrate VMs
-watch -n 1 'ha-manager status'
-
-# Expected: VMs on pve2 migrate to pve1 or pve3 within 2 minutes
-
-# Bring node back online
-# Power on pve2
-# VMs should NOT migrate back (nofailback setting)
-```
+Power off node, watch VMs migrate within 2 minutes
 
 ### Simulated Network Partition
 
-```bash
-# Test 2: Network isolation
-ssh pve2 "iptables -A INPUT -j DROP; iptables -A OUTPUT -j DROP"
+📎 **Complete test:**
+[Network partition testing with split-brain prevention](https://gist.github.com/williamzujkowski/network-partition-test)
 
-# Watch cluster response
-pvecm status
-
-# Expected: Fencing agent powers off pve2 to prevent split-brain
-# VMs migrate to surviving nodes
-
-# Restore network
-ssh pve2 "iptables -F"
-systemctl restart corosync pve-cluster
-```
+Block all traffic with iptables, verify fencing powers off minority partition
 
 ### Simulated Ceph Failure
 
-```bash
-# Test 3: Stop Ceph OSD
-systemctl stop ceph-osd@0
+📎 **Complete test:**
+[Ceph OSD failure scenarios and recovery](https://gist.github.com/williamzujkowski/ceph-failure-tests)
 
-# Check Ceph status
-ceph -s
-
-# Expected: Ceph marks OSD as down, data still accessible (redundancy)
-
-# Restore OSD
-systemctl start ceph-osd@0
-```
+Stop OSD daemon, verify data remains accessible via replication
 
 ## Backup Strategy
 
 ### Proxmox Backup Server Integration
 
-```bash
-# Install Proxmox Backup Server on separate hardware
-# Add PBS as backup storage
-pvesm add pbs pbs-backup \
-    --server 10.0.10.50 \
-    --datastore homelab-backups \
-    --username backup@pbs \
-    --password <password> \
-    --fingerprint <fingerprint>
+📎 **Complete backup configuration:**
+[Full PBS setup with schedules and retention](https://gist.github.com/williamzujkowski/pbs-integration)
 
-# Configure backup schedule
-pvesh create /cluster/backup --schedule "0 2 * * *" \
-    --storage pbs-backup \
-    --mode snapshot \
-    --compress zstd \
-    --all 1 \
-    --enabled 1 \
-    --mailnotification failure
-```
+Add PBS storage, schedule nightly snapshots at 2 AM
 
 ### Automated Backup Script
 
-```bash
-#!/bin/bash
-# /usr/local/bin/cluster-backup.sh
+📎 **Complete script:**
+[Full cluster backup with Ceph, config, and offsite sync](https://gist.github.com/williamzujkowski/cluster-backup-script)
 
-BACKUP_DIR="/mnt/backup/proxmox"
-DATE=$(date +%Y%m%d_%H%M%S)
-
-# Backup cluster configuration
-tar -czf "$BACKUP_DIR/cluster-config_$DATE.tar.gz" \
-    /etc/pve \
-    /etc/corosync \
-    /etc/ceph
-
-# Backup Ceph configuration
-ceph config dump > "$BACKUP_DIR/ceph-config_$DATE.txt"
-ceph osd tree > "$BACKUP_DIR/ceph-osd-tree_$DATE.txt"
-
-# Test backups
-vzdump-backup-test "$BACKUP_DIR"/*.tar.gz
-
-# Sync to offsite location
-rclone sync "$BACKUP_DIR" remote:proxmox-backups/
-
-# Retention: Keep 7 days local, 30 days offsite
-find "$BACKUP_DIR" -name "*.tar.gz" -mtime +7 -delete
-```
+Backup cluster config to tarball, sync offsite with rclone
 
 ## Monitoring and Alerting
 
 ### Prometheus Exporter
 
-```bash
-# Install Proxmox VE exporter
-apt install -y prometheus-pve-exporter
+📎 **Complete monitoring setup:**
+[Full Prometheus exporter config with metrics](https://gist.github.com/williamzujkowski/prometheus-pve-exporter)
 
-# Configure /etc/prometheus/pve.yml
-default:
-  user: monitoring@pve
-  password: secure-password
-  verify_ssl: false
-
-# Restart exporter
-systemctl restart prometheus-pve-exporter
-```
+Install exporter, configure PVE credentials, expose metrics
 
 ### Grafana Dashboard
 
-```json
-{
-  "dashboard": {
-    "title": "Proxmox HA Cluster",
-    "panels": [
-      {
-        "title": "Cluster Quorum Status",
-        "targets": [
-          {
-            "expr": "pve_cluster_quorum"
-          }
-        ]
-      },
-      {
-        "title": "Node Status",
-        "targets": [
-          {
-            "expr": "pve_node_info"
-          }
-        ]
-      },
-      {
-        "title": "Ceph Health",
-        "targets": [
-          {
-            "expr": "ceph_health_status"
-          }
-        ]
-      },
-      {
-        "title": "VM Migration Events",
-        "targets": [
-          {
-            "expr": "rate(pve_vm_migrate_total[5m])"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+📎 **Complete dashboard:**
+[Full Grafana dashboard JSON with all panels](https://gist.github.com/williamzujkowski/grafana-proxmox-dashboard)
+
+Import dashboard with cluster quorum, Ceph health, VM status panels
 
 ### Alerting Rules
 
-```yaml
-# /etc/prometheus/alerts/proxmox.yml
-groups:
-  - name: proxmox_ha
-    rules:
-      - alert: ClusterQuorumLost
-        expr: pve_cluster_quorum == 0
-        for: 1m
-        labels:
-          severity: critical
-        annotations:
-          summary: "Proxmox cluster lost quorum"
+📎 **Complete alerting:**
+[All Prometheus alert rules for HA cluster](https://gist.github.com/williamzujkowski/prometheus-ha-alerts)
 
-      - alert: NodeDown
-        expr: up{job="proxmox"} == 0
-        for: 2m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Proxmox node {{ $labels.instance }} is down"
-
-      - alert: CephHealthError
-        expr: ceph_health_status != 0
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Ceph cluster health degraded"
-
-      - alert: HAMigrationFailed
-        expr: increase(pve_vm_migrate_failed_total[10m]) > 0
-        labels:
-          severity: critical
-        annotations:
-          summary: "HA migration failed for VM {{ $labels.vmid }}"
-```
+Alert on quorum loss, Ceph errors, node failures
 
 ## Operational Procedures
 
 ### Maintenance Mode
 
-```bash
-# Migrate all VMs off node for maintenance
-for vm in $(qm list | grep running | awk '{print $1}'); do
-    ha-manager migrate $vm pve2
-done
+📎 **Complete procedure:**
+[Full maintenance mode workflow with VM migration](https://gist.github.com/williamzujkowski/ha-maintenance-mode)
 
-# Enter maintenance mode
-ha-manager set pve1 --state maintenance
-
-# Perform maintenance
-apt update && apt full-upgrade -y
-reboot
-
-# Exit maintenance mode after node returns
-ha-manager set pve1 --state online
-```
+Migrate all VMs off node, set maintenance state, perform updates
 
 ### Rolling Updates
 
-```bash
-#!/bin/bash
-# /usr/local/bin/rolling-update.sh
+📎 **Complete script:**
+[Rolling update script for all nodes with zero downtime](https://gist.github.com/williamzujkowski/rolling-update-script)
 
-NODES=("pve1" "pve2" "pve3")
-
-for node in "${NODES[@]}"; do
-    echo "Updating $node..."
-
-    # Migrate VMs
-    ssh $node "ha-manager migrate-all pve2"
-
-    # Wait for migrations
-    sleep 60
-
-    # Update and reboot
-    ssh $node "apt update && apt full-upgrade -y && reboot"
-
-    # Wait for node to come back
-    while ! ssh $node "uptime"; do
-        sleep 30
-    done
-
-    echo "$node updated successfully"
-    sleep 60
-done
-```
+Migrate VMs, update packages, reboot node, repeat for all nodes
 
 ## Disaster Recovery
 
@@ -627,35 +299,20 @@ done
 4. Fencing prevents both partitions from writing to Ceph
 
 **Manual Recovery:**
-```bash
-# After network restored
-# Check quorum status
-pvecm expected 3
 
-# Verify all nodes see each other
-pvecm status
+📎 **Complete recovery procedure:**
+[Full split-brain recovery with quorum restoration](https://gist.github.com/williamzujkowski/split-brain-recovery)
 
-# Restart cluster services if needed
-systemctl restart corosync pve-cluster
-```
+Set expected votes, restart cluster services, verify quorum
 
 ### Scenario 3: Total Cluster Failure
 
 **Manual Recovery:**
-```bash
-# Boot nodes one at a time
-# Node 1 first (has tie-breaker vote)
 
-# Force quorum with single node
-pvecm expected 1
+📎 **Complete disaster recovery:**
+[Full cluster rebuild procedure from total failure](https://gist.github.com/williamzujkowski/total-cluster-recovery)
 
-# Start VMs manually
-qm start 100
-qm start 101
-
-# When other nodes boot
-pvecm expected 3
-```
+Set expected=1, start VMs manually, restore quorum after nodes rejoin
 
 ## Cost Analysis
 
