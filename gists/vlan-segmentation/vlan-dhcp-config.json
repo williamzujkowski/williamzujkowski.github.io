@@ -1,0 +1,70 @@
+{
+  "vlans": [
+    {
+      "id": 10,
+      "name": "Management",
+      "subnet": "10.0.10.0/24",
+      "dhcp": {
+        "enabled": true,
+        "start": "10.0.10.100",
+        "end": "10.0.10.200",
+        "lease_time": 86400,
+        "dns": ["10.0.10.5"],
+        "gateway": "10.0.10.1",
+        "domain": "mgmt.home"
+      }
+    },
+    {
+      "id": 20,
+      "name": "Trusted",
+      "subnet": "10.0.20.0/24",
+      "dhcp": {
+        "enabled": true,
+        "start": "10.0.20.100",
+        "end": "10.0.20.250",
+        "lease_time": 86400,
+        "dns": ["10.0.10.5"],
+        "gateway": "10.0.20.1",
+        "domain": "home.local"
+      }
+    },
+    {
+      "id": 30,
+      "name": "Servers",
+      "subnet": "10.0.30.0/24",
+      "dhcp": {
+        "enabled": false,
+        "dns": ["10.0.10.5"],
+        "gateway": "10.0.30.1",
+        "domain": "servers.home"
+      }
+    },
+    {
+      "id": 40,
+      "name": "IoT",
+      "subnet": "10.0.40.0/24",
+      "dhcp": {
+        "enabled": true,
+        "start": "10.0.40.100",
+        "end": "10.0.40.250",
+        "lease_time": 86400,
+        "dns": ["10.0.10.5"],
+        "gateway": "10.0.40.1",
+        "domain": "iot.home"
+      }
+    },
+    {
+      "id": 50,
+      "name": "Guest",
+      "subnet": "10.0.50.0/24",
+      "dhcp": {
+        "enabled": true,
+        "start": "10.0.50.100",
+        "end": "10.0.50.250",
+        "lease_time": 3600,
+        "dns": ["1.1.1.1", "8.8.8.8"],
+        "gateway": "10.0.50.1"
+      }
+    }
+  ]
+}

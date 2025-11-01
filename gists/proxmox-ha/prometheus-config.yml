@@ -1,0 +1,53 @@
+# Prometheus Configuration for Proxmox HA Cluster Monitoring
+# Source: https://williamzujkowski.github.io/posts/proxmox-high-availability-homelab/
+# Purpose: Monitor cluster health, node status, Ceph health, and VM migrations
+# Location: /etc/prometheus/prometheus.yml
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Alerting configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - localhost:9093
+
+# Load alerting rules
+rule_files:
+  - "/etc/prometheus/alerts/proxmox.yml"
+
+# Scrape configurations
+scrape_configs:
+  # Proxmox VE nodes
+  - job_name: 'proxmox'
+    static_configs:
+      - targets:
+          - '10.0.10.11:9221'  # pve1
+          - '10.0.10.12:9221'  # pve2
+          - '10.0.10.13:9221'  # pve3
+    metrics_path: /pve
+    params:
+      module: [default]
+
+  # Ceph cluster
+  - job_name: 'ceph'
+    static_configs:
+      - targets:
+          - '10.0.100.11:9283'  # ceph-mgr on pve1
+
+  # Node exporter for system metrics
+  - job_name: 'node'
+    static_configs:
+      - targets:
+          - '10.0.10.11:9100'
+          - '10.0.10.12:9100'
+          - '10.0.10.13:9100'
+
+# Proxmox PVE Exporter Configuration
+# /etc/prometheus/pve.yml
+# default:
+#   user: monitoring@pve
+#   password: secure-password
+#   verify_ssl: false

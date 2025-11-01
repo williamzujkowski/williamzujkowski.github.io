@@ -1,0 +1,113 @@
+# Complete GitHub Actions Security Scanning Workflow
+# Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
+# Purpose: Automated vulnerability scanning with Grype, OSV-Scanner, and Trivy
+# Usage: Add to .github/workflows/security-scan.yml in your repository
+
+name: Security Scanning Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+
+jobs:
+  dependency-scan:
+    name: Scan Dependencies (OSV)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run OSV-Scanner
+        uses: google/osv-scanner-action@v1.6.2
+        with:
+          scan-args: |-
+            --lockfile=package-lock.json
+            --lockfile=requirements.txt
+            --format=sarif
+            --output=osv-results.sarif
+        continue-on-error: true
+
+      - name: Upload OSV results to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: osv-results.sarif
+          category: osv-scanner
+
+      - name: Check for critical vulnerabilities
+        run: |
+          CRITICAL=$(jq '[.runs[].results[] | select(.level=="error")] | length' osv-results.sarif)
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "❌ Found $CRITICAL critical vulnerabilities"
+            exit 1
+          fi
+
+  container-scan:
+    name: Scan Container Images (Grype)
+    runs-on: ubuntu-latest
+    needs: dependency-scan
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t myapp:${{ github.sha }} .
+
+      - name: Run Grype scan
+        uses: anchore/scan-action@v3
+        id: grype
+        with:
+          image: "myapp:${{ github.sha }}"
+          fail-build: true
+          severity-cutoff: high
+          output-format: sarif
+
+      - name: Upload Grype results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: ${{ steps.grype.outputs.sarif }}
+          category: grype
+
+  comprehensive-scan:
+    name: Comprehensive Scan (Trivy)
+    runs-on: ubuntu-latest
+    needs: dependency-scan
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+          category: trivy
+
+  security-gate:
+    name: Security Quality Gate
+    runs-on: ubuntu-latest
+    needs: [dependency-scan, container-scan, comprehensive-scan]
+    if: always()
+
+    steps:
+      - name: Evaluate security posture
+        run: |
+          echo "All security scans completed"
+          # Download and analyze all SARIF reports
+          # Make final go/no-go decision

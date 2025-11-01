@@ -1,0 +1,42 @@
+{
+  "rules": [
+    {
+      "name": "Allow Trusted to Servers HTTPS",
+      "action": "accept",
+      "source": "10.0.20.0/24",
+      "destination": "10.0.30.0/24",
+      "protocol": "tcp",
+      "port": "443,8443",
+      "logging": false,
+      "description": "Trusted users access server services"
+    },
+    {
+      "name": "Allow Servers to Internet Updates",
+      "action": "accept",
+      "source": "10.0.30.0/24",
+      "destination": "any",
+      "protocol": "tcp",
+      "port": "80,443",
+      "logging": true,
+      "description": "Servers can download updates"
+    },
+    {
+      "name": "Block Servers to Management",
+      "action": "drop",
+      "source": "10.0.30.0/24",
+      "destination": "10.0.10.0/24",
+      "protocol": "all",
+      "logging": true,
+      "description": "Servers cannot access management infrastructure"
+    },
+    {
+      "name": "Allow Server to Server Communication",
+      "action": "accept",
+      "source": "10.0.30.0/24",
+      "destination": "10.0.30.0/24",
+      "protocol": "all",
+      "logging": false,
+      "description": "Servers can communicate within their VLAN"
+    }
+  ]
+}

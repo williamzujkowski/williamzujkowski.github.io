@@ -1,0 +1,26 @@
+# OSV-Scanner Configuration
+# Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
+# Purpose: Configure OSV-Scanner for dependency scanning with ignore rules
+# Usage: Save as osv-scanner.toml in project root
+
+[ignore]
+# Ignore specific vulnerabilities
+vulnerabilities = [
+  "GHSA-xxxx-yyyy-zzzz"
+]
+
+# Ignore packages in devDependencies
+dev_dependencies = true
+
+# Custom package registries
+[[package_repositories]]
+name = "private-npm"
+url = "https://npm.internal.company.com"
+
+[scanning]
+# Skip git directories
+skip_git = true
+
+# Parallel scanning
+max_depth = 10
+workers = 4

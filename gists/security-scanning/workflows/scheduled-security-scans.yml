@@ -1,0 +1,48 @@
+# Daily Scheduled Security Scans
+# Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
+# Purpose: Run security scans on production images daily and compare with baseline
+# Usage: Add to .github/workflows/scheduled-scan.yml
+
+name: Daily Security Scan
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+
+jobs:
+  scan-production:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        image:
+          - myapp-web:latest
+          - myapp-api:latest
+          - myapp-worker:latest
+
+    steps:
+      - name: Pull production image
+        run: docker pull registry.internal/${{ matrix.image }}
+
+      - name: Scan with Grype
+        run: |
+          grype registry.internal/${{ matrix.image }} \
+            -o json > grype-${{ matrix.image }}.json
+
+      - name: Scan with Trivy
+        run: |
+          trivy image registry.internal/${{ matrix.image }} \
+            -f json > trivy-${{ matrix.image }}.json
+
+      - name: Compare with baseline
+        run: |
+          python scripts/compare-scans.py \
+            --current grype-${{ matrix.image }}.json \
+            --baseline baseline-${{ matrix.image }}.json \
+            --alert-on-new
+
+      - name: Upload results to SIEM
+        run: |
+          curl -X POST https://wazuh.internal/api/vulnerabilities \
+            -H "Authorization: Bearer ${{ secrets.WAZUH_TOKEN }}" \
+            -d @grype-${{ matrix.image }}.json

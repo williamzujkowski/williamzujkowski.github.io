@@ -1,0 +1,42 @@
+# SBOM Generation and Vulnerability Scanning Workflow
+# Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
+# Purpose: Generate Software Bill of Materials (SBOM) and scan for vulnerabilities
+# Usage: Add to .github/workflows/sbom-scan.yml - runs on release
+
+name: SBOM Generation and Scanning
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          format: cyclonedx-json
+          output-file: sbom.cyclonedx.json
+
+      - name: Scan SBOM
+        run: grype sbom:./sbom.cyclonedx.json -o sarif > grype-sbom.sarif
+
+      - name: Upload SBOM to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./sbom.cyclonedx.json
+          asset_name: sbom.cyclonedx.json
+          asset_content_type: application/json
+
+      - name: Store SBOM for future comparison
+        run: |
+          aws s3 cp sbom.cyclonedx.json \
+            s3://mybucket/sboms/${{ github.repository }}/${{ github.ref_name }}.json

@@ -1,0 +1,25 @@
+# Grype Vulnerability Scanner Configuration
+# Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
+# Purpose: Configure Grype scanner with ignore rules and severity thresholds
+# Usage: Save as .grype.yaml in project root
+
+# Exclude false positives
+ignore:
+  - vulnerability: CVE-2023-12345
+    reason: "Not applicable - feature not used"
+    expiration: 2025-12-31
+
+  - vulnerability: GHSA-xxxx-yyyy-zzzz
+    package:
+      name: "lodash"
+      version: "4.17.20"
+    reason: "Testing environment only"
+
+# Configure severity thresholds
+fail-on-severity: high
+
+# Scope what to scan
+scope: all-layers
+
+# Output formatting
+output: json

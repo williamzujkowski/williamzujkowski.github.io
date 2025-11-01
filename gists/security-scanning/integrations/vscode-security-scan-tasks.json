@@ -1,0 +1,41 @@
+// VS Code Security Scanning Tasks
+// Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
+// Purpose: Run security scans directly from VS Code
+// Usage: Save as .vscode/tasks.json and run via Command Palette (Ctrl+Shift+P > "Tasks: Run Task")
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Security Scan: Grype",
+      "type": "shell",
+      "command": "grype dir:. -o json | jq",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Security Scan: OSV",
+      "type": "shell",
+      "command": "osv-scanner --lockfile=package-lock.json --format=json",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Security Scan: All",
+      "dependsOn": [
+        "Security Scan: Grype",
+        "Security Scan: OSV"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    }
+  ]
+}

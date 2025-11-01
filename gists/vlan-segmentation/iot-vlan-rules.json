@@ -1,0 +1,60 @@
+{
+  "rules": [
+    {
+      "name": "Block IoT to Management",
+      "action": "drop",
+      "source": "10.0.40.0/24",
+      "destination": "10.0.10.0/24",
+      "protocol": "all",
+      "logging": true,
+      "description": "IoT devices cannot access management infrastructure"
+    },
+    {
+      "name": "Block IoT to Trusted",
+      "action": "drop",
+      "source": "10.0.40.0/24",
+      "destination": "10.0.20.0/24",
+      "protocol": "all",
+      "logging": true,
+      "description": "IoT devices cannot reach trusted user devices"
+    },
+    {
+      "name": "Allow IoT to Internet HTTP/HTTPS",
+      "action": "accept",
+      "source": "10.0.40.0/24",
+      "destination": "any",
+      "protocol": "tcp",
+      "port": "80,443",
+      "logging": false,
+      "description": "IoT devices can reach internet for updates/cloud services"
+    },
+    {
+      "name": "Allow Trusted to IoT HTTP",
+      "action": "accept",
+      "source": "10.0.20.0/24",
+      "destination": "10.0.40.0/24",
+      "protocol": "tcp",
+      "port": "80,443,554,8080",
+      "logging": true,
+      "description": "Trusted users can access IoT device interfaces"
+    },
+    {
+      "name": "Allow IoT DNS",
+      "action": "accept",
+      "source": "10.0.40.0/24",
+      "destination": "10.0.10.5",
+      "protocol": "udp",
+      "port": 53,
+      "description": "IoT devices can resolve DNS"
+    },
+    {
+      "name": "Block All Other IoT Traffic",
+      "action": "drop",
+      "source": "10.0.40.0/24",
+      "destination": "any",
+      "protocol": "all",
+      "logging": true,
+      "description": "Default deny for IoT VLAN"
+    }
+  ]
+}

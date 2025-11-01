@@ -1,0 +1,51 @@
+# Automated Vulnerability Remediation Workflow
+# Source: https://williamzujkowski.github.io/posts/2025-10-06-automated-security-scanning-pipeline/
+# Purpose: Automatically update dependencies to fix vulnerabilities and create PR
+# Usage: Add to .github/workflows/auto-remediate.yml - runs weekly
+
+name: Automated Vulnerability Remediation
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'  # Weekly on Monday
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Scan for vulnerabilities
+        id: scan
+        run: |
+          osv-scanner --lockfile=package-lock.json --format=json > vulns.json
+          VULN_COUNT=$(jq '.results[].vulnerabilities | length' vulns.json)
+          echo "count=$VULN_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Update dependencies
+        if: steps.scan.outputs.count > 0
+        run: |
+          npm audit fix
+          npm update
+
+      - name: Re-scan
+        run: osv-scanner --lockfile=package-lock.json
+
+      - name: Create pull request
+        if: steps.scan.outputs.count > 0
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: Update dependencies to fix vulnerabilities"
+          title: "🔒 Security: Automated dependency updates"
+          body: |
+            ## Automated Vulnerability Remediation
+
+            This PR updates dependencies to address security vulnerabilities.
+
+            **Vulnerabilities fixed:** ${{ steps.scan.outputs.count }}
+
+            Please review the changes and run tests before merging.
+          branch: auto-remediate/vulnerabilities
+          labels: security,dependencies

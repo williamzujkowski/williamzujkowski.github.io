@@ -1,0 +1,33 @@
+{
+  "rules": [
+    {
+      "name": "Allow Management to All",
+      "action": "accept",
+      "source": "10.0.10.0/24",
+      "destination": "any",
+      "protocol": "all",
+      "logging": true,
+      "description": "Management VLAN has full access for administration"
+    },
+    {
+      "name": "Allow SSH to Management",
+      "action": "accept",
+      "source": "10.0.20.0/24",
+      "destination": "10.0.10.0/24",
+      "protocol": "tcp",
+      "port": 22,
+      "logging": true,
+      "description": "Trusted users can SSH to management devices"
+    },
+    {
+      "name": "Allow HTTPS to Management UI",
+      "action": "accept",
+      "source": "10.0.20.0/24",
+      "destination": "10.0.10.0/24",
+      "protocol": "tcp",
+      "port": 443,
+      "logging": false,
+      "description": "Access to web management interfaces"
+    }
+  ]
+}
