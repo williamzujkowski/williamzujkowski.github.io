@@ -1,0 +1,67 @@
+```mermaid
+graph TB
+    subgraph "Frontend"
+        CDN[CDN]
+        Static[Static Assets]
+        SPA[Single Page App]
+    end
+
+    subgraph "API Gateway"
+        Gateway[API Gateway]
+        Auth[Authentication]
+        Rate[Rate Limiting]
+    end
+
+    subgraph "Application Layer"
+        API[API Server]
+        Cache[Redis Cache]
+        Queue[Message Queue]
+    end
+
+    subgraph "Data Layer"
+        DB[(Primary Database)]
+        Replica[(Read Replica)]
+        Storage[Object Storage]
+    end
+
+    subgraph "Monitoring"
+        Logs[Centralized Logging]
+        Metrics[Metrics Dashboard]
+        Alerts[Alert System]
+    end
+
+    CDN --> Static
+    CDN --> SPA
+    SPA --> Gateway
+
+    Gateway --> Auth
+    Auth --> Rate
+    Rate --> API
+
+    API --> Cache
+    API --> Queue
+    API --> DB
+
+    DB --> Replica
+    API --> Storage
+
+    API --> Logs
+    API --> Metrics
+    Metrics --> Alerts
+```
+
+**Usage Instructions:**
+
+1. **Copy this template** into your blog post
+2. **Customize frontend components** for your stack (React, Vue, static)
+3. **Add/remove API gateway features** based on your requirements
+4. **Modify application layer** for your architecture (microservices, monolith)
+5. **Adjust data layer** for your database choice (PostgreSQL, MongoDB, etc.)
+6. **Customize monitoring** for your observability stack
+
+**Used in 3 existing posts:**
+- cloud-migration-journey-guide.md
+- beyond-containers-future-deployment.md
+- pizza-calculator.md
+
+**Color scheme:** Sky Blue/Teal gradient (cloud topics) (#0ea5e9 → #10b981)

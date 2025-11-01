@@ -1,0 +1,10 @@
+# Batch 2 Selected Posts
+
+1. 2024-09-19-biomimetic-robotics.md
+2. 2025-07-29-building-mcp-standards-server.md
+3. 2024-01-18-demystifying-cryptography-beginners-guide.md
+4. 2024-08-13-high-performance-computing.md
+5. 2025-07-15-vulnerability-management-scale-open-source.md
+6. 2024-08-27-zero-trust-security-principles.md
+7. 2024-06-25-designing-resilient-systems.md
+8. 2024-05-30-ai-learning-resource-constrained.md
