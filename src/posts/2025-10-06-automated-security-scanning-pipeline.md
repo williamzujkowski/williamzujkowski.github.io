@@ -136,117 +136,27 @@ trivy version      # Should show v0.48.0
 
 ### Complete Scan Workflow
 
+The pipeline orchestrates three scanners in parallel, with a final quality gate:
+
 ```yaml
-# .github/workflows/security-scan.yml
+# .github/workflows/security-scan.yml (simplified)
 name: Security Scanning Pipeline
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 2 * * *'  # Daily at 2 AM
-
 jobs:
-  dependency-scan:
-    name: Scan Dependencies (OSV)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run OSV-Scanner
-        uses: google/osv-scanner-action@v1.6.2
-        with:
-          scan-args: |-
-            --lockfile=package-lock.json
-            --lockfile=requirements.txt
-            --format=sarif
-            --output=osv-results.sarif
-        continue-on-error: true
-
-      - name: Upload OSV results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: osv-results.sarif
-          category: osv-scanner
-
-      - name: Check for critical vulnerabilities
-        run: |
-          CRITICAL=$(jq '[.runs[].results[] | select(.level=="error")] | length' osv-results.sarif)
-          if [ "$CRITICAL" -gt 0 ]; then
-            echo "❌ Found $CRITICAL critical vulnerabilities"
-            exit 1
-          fi
-
-  container-scan:
-    name: Scan Container Images (Grype)
-    runs-on: ubuntu-latest
-    needs: dependency-scan
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t myapp:${{ github.sha }} .
-
-      - name: Run Grype scan
-        uses: anchore/scan-action@v3
-        id: grype
-        with:
-          image: "myapp:${{ github.sha }}"
-          fail-build: true
-          severity-cutoff: high
-          output-format: sarif
-
-      - name: Upload Grype results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: ${{ steps.grype.outputs.sarif }}
-          category: grype
-
-  comprehensive-scan:
-    name: Comprehensive Scan (Trivy)
-    runs-on: ubuntu-latest
-    needs: dependency-scan
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
-
-      - name: Upload Trivy results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
-          category: trivy
-
-  security-gate:
-    name: Security Quality Gate
-    runs-on: ubuntu-latest
-    needs: [dependency-scan, container-scan, comprehensive-scan]
-    if: always()
-
-    steps:
-      - name: Evaluate security posture
-        run: |
-          echo "All security scans completed"
-          # Download and analyze all SARIF reports
-          # Make final go/no-go decision
+  dependency-scan:    # OSV-Scanner for lockfiles
+  container-scan:     # Grype for Docker images
+  comprehensive-scan: # Trivy for filesystem
+  security-gate:      # Final quality gate (blocks on critical)
 ```
+
+**Key features:**
+- Runs on push, PR, and daily schedule (2 AM)
+- Uploads SARIF reports to GitHub Security tab
+- Fails build if critical vulnerabilities detected
+- Parallel execution for speed
+
+📎 **Full workflow with SARIF uploads and blocking logic:**
+[See complete implementation in code-examples/security-scanning/full-workflow.yml]
 
 ### Slack Notifications
 
@@ -504,67 +414,29 @@ jobs:
 
 ### Scan Comparison Script
 
+Track vulnerability trends by comparing scan results over time:
+
 ```python
-#!/usr/bin/env python3
-# scripts/compare-scans.py
-
-import json
-import sys
-from pathlib import Path
-
-def load_scan(filepath):
-    """Load scan results from JSON file"""
-    with open(filepath) as f:
-        return json.load(f)
-
-def extract_vulnerabilities(scan_data):
-    """Extract vulnerability IDs from scan results"""
-    vulns = set()
-    for match in scan_data.get('matches', []):
-        vulns.add(match['vulnerability']['id'])
-    return vulns
-
+# scripts/compare-scans.py (simplified)
 def compare_scans(current_file, baseline_file, alert_on_new=False):
-    """Compare two scan results"""
-    current = load_scan(current_file)
-    baseline = load_scan(baseline_file)
-
-    current_vulns = extract_vulnerabilities(current)
-    baseline_vulns = extract_vulnerabilities(baseline)
+    """Compare two vulnerability scan results"""
+    current_vulns = extract_vulnerabilities(load_scan(current_file))
+    baseline_vulns = extract_vulnerabilities(load_scan(baseline_file))
 
     new_vulns = current_vulns - baseline_vulns
     fixed_vulns = baseline_vulns - current_vulns
 
-    print(f"Scan Comparison Results")
-    print(f"=======================")
-    print(f"Baseline vulnerabilities: {len(baseline_vulns)}")
-    print(f"Current vulnerabilities: {len(current_vulns)}")
-    print(f"New vulnerabilities: {len(new_vulns)}")
-    print(f"Fixed vulnerabilities: {len(fixed_vulns)}")
-
-    if new_vulns:
-        print(f"\n⚠️  New vulnerabilities detected:")
-        for vuln in sorted(new_vulns):
-            print(f"  - {vuln}")
-
-        if alert_on_new:
-            sys.exit(1)
-
-    if fixed_vulns:
-        print(f"\n✅ Vulnerabilities fixed:")
-        for vuln in sorted(fixed_vulns):
-            print(f"  - {vuln}")
-
-if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--current', required=True)
-    parser.add_argument('--baseline', required=True)
-    parser.add_argument('--alert-on-new', action='store_true')
-    args = parser.parse_args()
-
-    compare_scans(args.current, args.baseline, args.alert_on_new)
+    # Report differences and optionally alert on new vulnerabilities
+    # Full script with JSON parsing and detailed reporting:
+    # [See code-examples/security-scanning/compare-scans.py]
 ```
+
+**Usage:**
+```bash
+python compare-scans.py --current today.json --baseline baseline.json --alert-on-new
+```
+
+This script helps identify vulnerability drift and verifies that fixes are actually working.
 
 ## SBOM Generation and Management
 
