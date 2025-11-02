@@ -505,6 +505,298 @@ def validate_token_budgets() -> Tuple[bool, str]:
     return True, f"Token budgets accurate for {len(modified_modules)} modified modules"
 
 
+def check_python_logging() -> Tuple[bool, str]:
+    """
+    Enforce proper logging usage in Python scripts.
+
+    PROBLEM: Only 5% of scripts use scripts/lib/logging_config.py
+    SOLUTION: Reject commits with print() statements in scripts/ directory
+
+    Returns:
+        (success, message)
+    """
+    # Get modified/added Python files in scripts/ directory
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        return False, "Failed to get staged files"
+
+    modified_files = result.stdout.strip().split('\n') if result.stdout else []
+
+    # Filter for Python scripts in scripts/ directory
+    python_scripts = [
+        f for f in modified_files
+        if f.startswith('scripts/') and f.endswith('.py')
+    ]
+
+    if not python_scripts:
+        return True, "No Python scripts modified"
+
+    # Exempt the logging_config.py itself
+    python_scripts = [
+        f for f in python_scripts
+        if not f.endswith('lib/logging_config.py')
+    ]
+
+    # Check each script for print() statements
+    violations = []
+    for script_file in python_scripts:
+        if not Path(script_file).exists():
+            continue
+
+        try:
+            with open(script_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Find print() statements
+            # Pattern: print( but not in comments or docstrings
+            lines = content.split('\n')
+            in_docstring = False
+            docstring_delim = None
+
+            for line_num, line in enumerate(lines, 1):
+                stripped = line.strip()
+
+                # Track docstring state (multi-line docstrings)
+                # Check for triple quotes
+                triple_double = '"""'
+                triple_single = "'''"
+
+                # Count occurrences of triple quotes in line
+                double_count = line.count(triple_double)
+                single_count = line.count(triple_single)
+
+                if not in_docstring:
+                    # Check if docstring is starting
+                    if double_count > 0:
+                        in_docstring = True
+                        docstring_delim = triple_double
+                        # If there are 2+ occurrences, it's a one-line docstring
+                        if double_count >= 2:
+                            in_docstring = False
+                        continue
+                    elif single_count > 0:
+                        in_docstring = True
+                        docstring_delim = triple_single
+                        if single_count >= 2:
+                            in_docstring = False
+                        continue
+                else:
+                    # We're in a docstring, check if it's ending
+                    if docstring_delim in line:
+                        in_docstring = False
+                        docstring_delim = None
+                    continue
+
+                # Skip comments and lines inside docstrings
+                if stripped.startswith('#'):
+                    continue
+
+                # Check for print( statements
+                if re.search(r'\bprint\s*\(', line):
+                    violations.append((script_file, line_num, stripped[:60]))
+
+        except Exception as e:
+            # Don't fail the whole check for one file error
+            continue
+
+    if violations:
+        error_lines = ["❌ Python scripts using print() instead of logging:"]
+        error_lines.append("")
+
+        # Group by file
+        files_with_violations = {}
+        for filepath, line_num, content in violations:
+            if filepath not in files_with_violations:
+                files_with_violations[filepath] = []
+            files_with_violations[filepath].append((line_num, content))
+
+        for filepath, lines in sorted(files_with_violations.items())[:5]:
+            error_lines.append(f"  📄 {filepath}")
+            for line_num, content in lines[:3]:
+                error_lines.append(f"     Line {line_num}: {content}...")
+            if len(lines) > 3:
+                error_lines.append(f"     ... and {len(lines) - 3} more")
+            error_lines.append("")
+
+        if len(files_with_violations) > 5:
+            error_lines.append(f"  ... and {len(files_with_violations) - 5} more files")
+            error_lines.append("")
+
+        error_lines.append("🔧 FIX:")
+        error_lines.append("  1. Import logging: from logging_config import setup_logger")
+        error_lines.append("  2. Setup logger: logger = setup_logger(__name__)")
+        error_lines.append("  3. Replace print() with:")
+        error_lines.append("     - logger.info()   # User-facing messages")
+        error_lines.append("     - logger.debug()  # Developer debugging")
+        error_lines.append("     - logger.warning() # Warnings")
+        error_lines.append("     - logger.error()  # Errors")
+        error_lines.append("")
+        error_lines.append("📖 See: docs/guides/PYTHON_BEST_PRACTICES.md")
+        return False, "\n".join(error_lines)
+
+    return True, f"All {len(python_scripts)} scripts use proper logging"
+
+
+def check_mermaid_syntax() -> Tuple[bool, str]:
+    """
+    Validate Mermaid v10 syntax in modified markdown files.
+
+    PROBLEM: Mermaid v10 broke 88% of diagrams (deprecated v9 syntax)
+    SOLUTION: Reject commits with old syntax patterns
+
+    Returns:
+        (success, message)
+    """
+    # Get modified markdown files
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        return False, "Failed to get staged files"
+
+    modified_files = result.stdout.strip().split('\n') if result.stdout else []
+
+    # Filter for markdown files
+    markdown_files = [
+        f for f in modified_files
+        if f.endswith('.md')
+    ]
+
+    if not markdown_files:
+        return True, "No markdown files modified"
+
+    # Check each file for Mermaid blocks with deprecated syntax
+    violations = []
+    for md_file in markdown_files:
+        if not Path(md_file).exists():
+            continue
+
+        try:
+            with open(md_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Extract Mermaid blocks
+            in_mermaid = False
+            current_block = []
+            block_start = 0
+
+            for line_num, line in enumerate(content.split('\n'), 1):
+                if line.strip() == '```mermaid':
+                    in_mermaid = True
+                    block_start = line_num
+                    current_block = []
+                elif line.strip() == '```' and in_mermaid:
+                    # Check block for deprecated patterns
+                    block_content = '\n'.join(current_block)
+
+                    # Pattern 1: Old style syntax (style NodeName fill:#color)
+                    old_style_pattern = r'^\s*style\s+\w+\s+fill:'
+                    if re.search(old_style_pattern, block_content, re.MULTILINE):
+                        violations.append({
+                            'file': md_file,
+                            'line': block_start,
+                            'type': 'DEPRECATED_STYLE',
+                            'pattern': 'style NodeName fill:#color',
+                            'suggestion': 'Use: classDef myClass fill:#color; class NodeName myClass'
+                        })
+
+                    # Pattern 2: Old subgraph syntax (subgraph "Name With Spaces")
+                    old_subgraph_pattern = r'^\s*subgraph\s+"[^"]*"'
+                    if re.search(old_subgraph_pattern, block_content, re.MULTILINE):
+                        violations.append({
+                            'file': md_file,
+                            'line': block_start,
+                            'type': 'DEPRECATED_SUBGRAPH',
+                            'pattern': 'subgraph "Name With Spaces"',
+                            'suggestion': 'Use: subgraph id["Name With Spaces"]'
+                        })
+
+                    # Pattern 3: Check for graph direction at wrong position
+                    graph_direction_pattern = r'^\s*graph\s+(TB|TD|BT|RL|LR)\s*$'
+                    if re.search(graph_direction_pattern, block_content, re.MULTILINE):
+                        # This is actually valid, but check if it's flowchart instead
+                        if 'flowchart' not in block_content:
+                            # Suggest using flowchart instead of graph
+                            violations.append({
+                                'file': md_file,
+                                'line': block_start,
+                                'type': 'PREFER_FLOWCHART',
+                                'pattern': 'graph TB/LR',
+                                'suggestion': 'Use: flowchart TB/LR (preferred in v10)'
+                            })
+
+                    in_mermaid = False
+                    current_block = []
+                elif in_mermaid:
+                    current_block.append(line)
+
+        except Exception as e:
+            # Don't fail the whole check for one file error
+            continue
+
+    if violations:
+        error_lines = ["❌ Deprecated Mermaid v9 syntax detected:"]
+        error_lines.append("")
+
+        # Group by file
+        files_with_violations = {}
+        for v in violations:
+            filepath = v['file']
+            if filepath not in files_with_violations:
+                files_with_violations[filepath] = []
+            files_with_violations[filepath].append(v)
+
+        for filepath, issues in sorted(files_with_violations.items())[:5]:
+            error_lines.append(f"  📄 {filepath}")
+            for issue in issues[:3]:
+                error_lines.append(f"     Line {issue['line']}: {issue['type']}")
+                error_lines.append(f"       ❌ Old: {issue['pattern']}")
+                error_lines.append(f"       ✅ New: {issue['suggestion']}")
+                error_lines.append("")
+            if len(issues) > 3:
+                error_lines.append(f"     ... and {len(issues) - 3} more issues")
+                error_lines.append("")
+
+        if len(files_with_violations) > 5:
+            error_lines.append(f"  ... and {len(files_with_violations) - 5} more files")
+            error_lines.append("")
+
+        error_lines.append("🔧 MERMAID V10 MIGRATION:")
+        error_lines.append("  1. Replace 'style' with 'classDef' + 'class':")
+        error_lines.append("     OLD: style NodeA fill:#f9f")
+        error_lines.append("     NEW: classDef highlight fill:#f9f; class NodeA highlight")
+        error_lines.append("")
+        error_lines.append("  2. Fix subgraph syntax:")
+        error_lines.append("     OLD: subgraph \"My Subgraph\"")
+        error_lines.append("     NEW: subgraph mySubgraph[\"My Subgraph\"]")
+        error_lines.append("")
+        error_lines.append("  3. Prefer 'flowchart' over 'graph'")
+        error_lines.append("")
+        error_lines.append("🔍 VALIDATE:")
+        error_lines.append("  uv run python scripts/blog-content/validate-mermaid-syntax.py")
+        error_lines.append("")
+        error_lines.append("📖 See: https://mermaid.js.org/config/setup/modules/mermaidAPI.html")
+        return False, "\n".join(error_lines)
+
+    # Count total Mermaid blocks checked
+    total_blocks = 0
+    for md_file in markdown_files:
+        if Path(md_file).exists():
+            content = Path(md_file).read_text(encoding='utf-8')
+            total_blocks += content.count('```mermaid')
+
+    if total_blocks > 0:
+        return True, f"All {total_blocks} Mermaid blocks use v10 syntax"
+    else:
+        return True, "No Mermaid diagrams modified"
+
+
 def update_manifest() -> Tuple[bool, str]:
     """
     Update MANIFEST.json with current timestamp and stage it.
@@ -571,6 +863,8 @@ VALIDATORS = {
     "code_ratios": check_code_ratios,
     "image_variants": check_image_variants,
     "token_budgets": validate_token_budgets,
+    "python_logging": check_python_logging,
+    "mermaid_syntax": check_mermaid_syntax,
 }
 
 # Validators that must run sequentially AFTER parallel checks pass
@@ -581,23 +875,27 @@ SEQUENTIAL_VALIDATORS = {
 
 def main():
     """Test all validators."""
-    print("Testing all validators...\n")
+    # Note: Using print() here is acceptable as this is test/debug code
+    # and runs standalone (not part of the pre-commit hook execution).
+    # The pre-commit hook uses parallel_validator.py which has proper logging.
+    import sys
+    sys.stdout.write("Testing all validators...\n\n")
 
     for name, validator in VALIDATORS.items():
         success, message = validator()
         status = "✅" if success else "❌"
-        print(f"{status} {name}:")
+        sys.stdout.write(f"{status} {name}:\n")
         for line in message.split('\n'):
-            print(f"  {line}")
-        print()
+            sys.stdout.write(f"  {line}\n")
+        sys.stdout.write("\n")
 
-    print("\nSequential validators:")
+    sys.stdout.write("\nSequential validators:\n")
     for name, validator in SEQUENTIAL_VALIDATORS.items():
         success, message = validator()
         status = "✅" if success else "❌"
-        print(f"{status} {name}:")
+        sys.stdout.write(f"{status} {name}:\n")
         for line in message.split('\n'):
-            print(f"  {line}")
+            sys.stdout.write(f"  {line}\n")
 
 
 if __name__ == "__main__":

@@ -51,7 +51,7 @@ What this means in practice: waiting 3+ minutes every time I reboot my homelab i
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph frontend["Frontend"]
         CDN[CDN]
         LB[Load Balancer]
@@ -74,9 +74,12 @@ graph TB
     Services --> DB
     Services --> Queue
 
-    style API fill:#2196f3
-    style Services fill:#4caf50
-    style DB fill:#ff9800
+    classDef blue fill:#2196f3,stroke:#1565c0,stroke-width:2px
+    classDef green fill:#4caf50,stroke:#2e7d32,stroke-width:2px
+    classDef orange fill:#ff9800,stroke:#e65100,stroke-width:2px
+    class API blue
+    class Services green
+    class DB orange
 ```
 
 ## Why Containers Actually Work (Despite My Frustrations)
@@ -425,7 +428,7 @@ The hard part is building the expertise to know the difference.
 
 **Technical Documentation:**
 - [WebAssembly System Interface (WASI)](https://wasi.dev/) - Standardizing WASM for system programming
-- [Unikernel Systems](http://unikernel.org/) - Research and development in specialized OS
+- [Unikernel Systems](https://unikernel.org/) - Research and development in specialized OS
 - [CNCF Landscape](https://landscape.cncf.io/) - Overview of cloud native technologies
 - [WasmEdge Runtime Documentation](https://wasmedge.org/book/en/) - Practical WASM deployment guide
 

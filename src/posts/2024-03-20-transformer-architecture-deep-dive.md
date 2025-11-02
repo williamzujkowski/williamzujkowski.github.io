@@ -28,7 +28,7 @@ In late 2018, I implemented my first Transformer from scratch for a machine tran
 ## How It Works
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph input["Input"]
         Tokens[Token Embeddings]
         Pos[Positional Encoding]
@@ -43,7 +43,7 @@ graph TD
         Cross[Cross Attention]
         FFN2[Feed Forward]
     end
-    
+
     Tokens --> Pos
     Pos --> MHA1
     MHA1 --> FFN1
@@ -51,9 +51,11 @@ graph TD
     Norm1 --> Cross
     MHA2 --> Cross
     Cross --> FFN2
-    
-    style MHA1 fill:#ff9800
-    style Cross fill:#9c27b0
+
+    classDef orange fill:#ff9800,stroke:#e65100,stroke-width:2px
+    classDef purple fill:#9c27b0,stroke:#6a1b9a,stroke-width:2px
+    class MHA1 orange
+    class Cross purple
 ```
 
 ## The Frustration That Led to Revolution
@@ -236,4 +238,4 @@ The paper that first captured my imagination years ago continues to inspire new 
 
 ### Further Reading
 
-- [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/) - Jay Alammar's Visual Guide
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) - Jay Alammar's Visual Guide
