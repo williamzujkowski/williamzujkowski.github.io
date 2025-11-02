@@ -42,8 +42,8 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          if [ -f requirements.txt ]; then uv pip install -r requirements.txt; fi
-          uv pip install pyyaml requests
+          if [ -f requirements.txt ]; then uv pip install --system -r requirements.txt; fi
+          uv pip install --system pyyaml requests
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -87,7 +87,7 @@ jobs:
         run: |
           echo "🔍 Running standards validation..."
           if [ -f "scripts/validate_standards.py" ]; then
-            uv run python scripts/validate_standards.py --format json --report reports/validation.json || true
+            uv run --system python scripts/validate_standards.py --format json --report reports/validation.json || true
 
             # Parse and display results
             python -c "

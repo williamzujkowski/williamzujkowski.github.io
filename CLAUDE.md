@@ -464,3 +464,5 @@ Complete list of existing modules (10 total). For full catalog with tags, depend
 - Emphasized date format enforcement (YYYY-MM-DD via pre-commit hooks)
 - Added Python logging standards reference (scripts/lib/logging_config.py)
 - Documented swarm coordination patterns (5 agents, 11 tasks, 27 minutes)
+- Documented gist extraction strategy for code ratio compliance (33.4% → 20%, extract >30 line blocks)
+- Verified token estimate accuracy (corrected 3.3x underestimate: 42K claimed → 138K actual)
