@@ -2,7 +2,7 @@
   "version": "5.0.0",
   "schema": "optimized-lazy-loading",
   "generated": "2025-11-01T23:27:04-04:00",
-  "last_validated": "2025-11-02T00:40:08-04:00",
+  "last_validated": "2025-11-02T05:57:31-04:00",
   "repository": {
     "name": "williamzujkowski.github.io",
     "type": "personal-website",
@@ -40,10 +40,10 @@
   },
   "inventory": {
     "files": {
-      "total_count": 593,
+      "total_count": 594,
       "file_registry": {
         "_lazy_load": true,
-        "_hash": "a02ca90ef80efe82",
+        "_hash": "7b26788c5d745084",
         "_detail_file": ".manifest/file-registry.json",
         "_note": "Full registry moved to .manifest/file-registry.json for lazy loading. Access via ManifestLoader helper."
       }
