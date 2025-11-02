@@ -55,19 +55,45 @@ def check_duplicates() -> Tuple[bool, str]:
     OPTIMIZED: Uses lazy loading for MANIFEST v5.0.
     Only loads full registry if hash check indicates potential conflicts.
 
+    FIX: Handles git rename operations (git mv) correctly.
+    Renames are tracked as R100 status and should be excluded from duplicate checking.
+
     Returns:
         (success, message)
     """
-    # Get staged files
+    # Get staged files with status to detect renames
     result = subprocess.run(
-        ["git", "diff", "--cached", "--name-only"],
+        ["git", "diff", "--cached", "--name-status"],
         capture_output=True,
         text=True
     )
     if result.returncode != 0:
         return False, "Failed to get staged files"
 
-    staged_files = [f for f in result.stdout.strip().split('\n') if f]
+    staged_lines = result.stdout.strip().split('\n') if result.stdout else []
+
+    # Parse status and filenames
+    # Status format: "STATUS\tFILE" or "R###\tOLD_FILE\tNEW_FILE" for renames
+    staged_files = []
+    rename_pairs = set()
+
+    for line in staged_lines:
+        if not line:
+            continue
+        parts = line.split('\t')
+        status = parts[0]
+
+        if status.startswith('R'):  # Rename operation (R100, R095, etc.)
+            if len(parts) >= 3:
+                old_path = parts[1]
+                new_path = parts[2]
+                # Track both paths as part of rename
+                rename_pairs.add((old_path, new_path))
+                rename_pairs.add((new_path, old_path))
+                staged_files.append(new_path)  # Still check new path for other duplicates
+        elif len(parts) >= 2:
+            # Normal add/modify/delete
+            staged_files.append(parts[1])
 
     if not staged_files:
         return True, "No files staged"
@@ -118,6 +144,10 @@ def check_duplicates() -> Tuple[bool, str]:
                 continue
 
             if Path(registered).name == staged_name and registered != staged:
+                # Skip if this is part of a rename operation
+                if (staged, registered) in rename_pairs or (registered, staged) in rename_pairs:
+                    continue
+
                 if (staged, registered) not in allowed_pairs:
                     duplicates.append((staged, registered))
 

@@ -176,7 +176,9 @@ Now detects 25 uncertainty markers:
 
 ## The 7-Phase Humanization Framework
 
-This section provides a condensed overview of each phase. For complete methodology with examples and swarm orchestration patterns, see batch completion reports in `docs/reports/`.
+**Authoritative Source:** This module contains the complete, authoritative methodology for all humanization requirements. Other modules (blog-writing, blog-transformation, writing-style) cross-reference this section rather than duplicating content.
+
+This section provides the complete 7-phase framework with detailed requirements, patterns, and examples.
 
 ### Phase 1: AI-Tell Removal
 
@@ -490,6 +492,12 @@ SCORE BREAKDOWN:
 ---
 
 ## Changelog
+
+### Version 1.0.1 (2025-11-01)
+- **Phase 2A Consolidation:** Established as authoritative source for humanization methodology
+- Other modules (blog-writing, blog-transformation, writing-style) now cross-reference instead of duplicating
+- Added explicit "Authoritative Source" notice in 7-Phase Framework section
+- Token savings: 0 (content preserved, became central reference)
 
 ### Version 1.0.0 (2025-11-01)
 - Initial extraction from CLAUDE.md v3.0.0

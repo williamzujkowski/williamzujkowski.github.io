@@ -109,19 +109,23 @@ For transforming existing blog posts to meet Smart Brevity standards (10+ citati
 - Mobile preview (375px screens)
 
 ### Phase G: Tone Validation (10 min)
-- Remove AI tells (em dashes, semicolons, "in conclusion," "overall")
-- Eliminate corporate jargon ("leverage," "utilize," "exciting")
-- Break perfect parallel structures (vary rhythm)
-- Add humanization elements (hesitation, reflection, concrete details)
-- Verify sentence length variety (5-30 words, mixed)
-- Run humanization validator: `python scripts/blog-content/humanization-validator.py --post [file]`
 
-**Quick AI-tells check:**
+**Complete methodology:** See [humanization-standards.md](../standards/humanization-standards.md#the-7-phase-humanization-framework) for the authoritative 7-phase framework including:
+- AI-tell removal patterns (Phase 1)
+- Personal voice addition (Phase 2)
+- Concrete measurements (Phase 3)
+- Uncertainty markers (Phase 4)
+- Failure narratives (Phase 5)
+- Trade-off discussions (Phase 6)
+- Final validation (Phase 7)
+
+**Quick validation:**
 ```bash
-grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
+# Run humanization validator
+uv run python scripts/blog-content/humanization-validator.py --post [file]
 ```
 
-**Why Phase G matters:** Smart Brevity (Phases A-F) handles structure and citations. Tone validation ensures AI-generated content reads human, not corporate.
+**Why Phase G matters:** Smart Brevity (Phases A-F) handles structure and citations. Tone validation ensures content reads human, not AI-generated.
 
 ---
 
@@ -198,8 +202,8 @@ python scripts/blog-content/analyze-blog-content.py --post src/posts/example.md 
 # Phases B-F: Apply transformations
 # (manual editing with Smart Brevity principles)
 
-# Phase G: Tone Validation
-python scripts/blog-content/humanization-validator.py --post src/posts/example.md
+# Phase G: Tone Validation (see humanization-standards.md for complete methodology)
+uv run python scripts/blog-content/humanization-validator.py --post src/posts/example.md
 
 # Result: 90/100 score, 12 citations, 78 bullets, 0 weak language
 ```
@@ -260,8 +264,8 @@ Task("Coder", "Execute Phases B-F for all posts")
 # Validate structure and citations
 npm run build
 
-# Check humanization score
-python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
+# Check humanization score (see humanization-standards.md for validation details)
+uv run python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
 
 # Verify citation links
 python scripts/blog-research/check-citation-hyperlinks.py
@@ -270,6 +274,11 @@ python scripts/blog-research/check-citation-hyperlinks.py
 ---
 
 ## Changelog
+
+### Version 1.1.0 (2025-11-01)
+- **Phase 2A Consolidation:** Replaced Phase G duplicate methodology with cross-reference to humanization-standards.md
+- Simplified validation commands to reference authoritative source
+- Token savings: ~550 tokens (2000 → 1450)
 
 ### Version 1.0.0 (2025-11-01)
 - Initial extraction from CLAUDE.md section "Blog Post Transformation: Smart Brevity Methodology"

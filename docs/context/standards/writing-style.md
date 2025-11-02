@@ -316,9 +316,17 @@ Before publishing:
 
 ---
 
-## Humanization Techniques (Quick Reference)
+## Humanization Techniques
 
-Add these elements to avoid AI-like writing:
+**Complete methodology:** See [humanization-standards.md](humanization-standards.md#the-7-phase-humanization-framework) for the authoritative 7-phase framework including:
+- Personal voice addition techniques
+- Concrete measurement patterns
+- Uncertainty markers (25 patterns)
+- Failure narrative structure
+- Trade-off discussion formulas
+- Edge case handling
+
+**Quick reference techniques:**
 
 | Technique | Example | Use When |
 |-----------|---------|----------|
@@ -328,10 +336,6 @@ Add these elements to avoid AI-like writing:
 | **Concrete detail** | "Took 17 minutes to compile." | Technical posts |
 | **Temporal anchor** | "As of October 2025…" | Current state |
 | **Contradiction** | "I hate YAML. But it works." | Opinions |
-
-**Extended guidance:** See `standards/humanization-standards.md` for advanced techniques and 7-phase methodology.
-
-**Automation:** Run `uv run python scripts/blog-content/humanization-validator.py --post [file]` before publishing.
 
 ---
 
@@ -404,17 +408,22 @@ handles my 47 containers without breaking a sweat.
 
 ### Validation Commands
 
-```bash
-# Check for AI tells
-grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
+**Complete validation workflow:** See [humanization-standards.md](humanization-standards.md#validation) for full command reference, expected output, and score interpretation.
 
-# Full humanization validation
-uv run python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
+```bash
+# Check for AI tells (quick)
+grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
 ```
 
 ---
 
 ## Changelog
+
+### Version 1.1.0 (2025-11-01)
+- **Phase 2A Consolidation:** Replaced duplicate humanization techniques with cross-reference to humanization-standards.md
+- Simplified validation commands to reference authoritative source
+- Kept quick reference table (justified as style-specific quick check)
+- Token savings: ~150 tokens (2000 → 1850)
 
 ### Version 1.0.0 (2025-11-01)
 - Initial extraction from CLAUDE.md v3.0.0

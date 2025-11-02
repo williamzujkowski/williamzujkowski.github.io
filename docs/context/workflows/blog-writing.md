@@ -210,8 +210,10 @@ Clearly define the post's objective:
 - Analogies and real-world examples
 - Balanced perspective (discuss trade-offs)
 - Simple language with jargon explanations
-- Conversational tone
+- Conversational tone (see [writing-style.md](../standards/writing-style.md) for complete voice guidelines)
 - Clear headings, bullet points, numbered lists
+
+**Humanization requirements:** For detailed edge case handling (career/NDA-sensitive posts, technical deep-dives, tutorials, security posts), see [humanization-standards.md](../standards/humanization-standards.md#edge-cases).
 
 **Code integration:**
 - Store samples in appropriate folders
@@ -447,16 +449,12 @@ git commit -m "feat: add new blog post"
 - [ ] Humanization score ≥75/100
 - [ ] All accessibility requirements met
 
-**Commands:**
+**For complete validation workflow** (commands, expected output, score interpretation), see [humanization-standards.md](../standards/humanization-standards.md#validation).
+
+**Quick validation:**
 ```bash
 # Check word count
 wc -w src/posts/[file].md
-
-# Validate humanization
-python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
-
-# Check citation links
-python scripts/blog-research/check-citation-hyperlinks.py
 
 # Build test
 npm run build
@@ -465,6 +463,12 @@ npm run build
 ---
 
 ## Changelog
+
+### Version 1.1.0 (2025-11-01)
+- **Phase 2A Consolidation:** Replaced duplicate validation commands with cross-reference to humanization-standards.md
+- Added cross-reference to writing-style.md for complete voice guidelines
+- Added cross-reference to humanization-standards.md for edge case handling
+- Token savings: ~300 tokens (3500 → 3200)
 
 ### Version 1.0.0 (2025-11-01)
 - Initial extraction from CLAUDE.md section "Blog Post Creation Guidelines"

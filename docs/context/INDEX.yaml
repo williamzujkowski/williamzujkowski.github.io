@@ -114,8 +114,8 @@ categories:
       - name: blog-writing
         file: docs/context/workflows/blog-writing.md
         priority: MEDIUM
-        estimated_tokens: 3500
-        version: 1.0.0
+        estimated_tokens: 3200
+        version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
           - "Creating new blog post"
@@ -156,8 +156,8 @@ categories:
       - name: blog-transformation
         file: docs/context/workflows/blog-transformation.md
         priority: MEDIUM
-        estimated_tokens: 2000
-        version: 1.0.0
+        estimated_tokens: 1450
+        version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
           - "Transforming existing posts"
@@ -238,8 +238,8 @@ categories:
       - name: writing-style
         file: docs/context/standards/writing-style.md
         priority: MEDIUM
-        estimated_tokens: 2000
-        version: 1.0.0
+        estimated_tokens: 1850
+        version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
           - "Creating blog posts"
@@ -495,13 +495,13 @@ loading_strategy:
 token_budgets:
   total_available: 25000
   core_modules: 6300
-  workflow_modules: 7064  # Corrected from 10000 (actual usage lower)
-  standards_modules: 10977  # Corrected from 9000 (+1977 tokens)
+  workflow_modules: 6514  # Corrected after consolidation (7064 - 550 tokens)
+  standards_modules: 10677  # Corrected after consolidation (10977 - 300 tokens)
   technical_modules: 9200  # Corrected from 9000 (+200 tokens)
   reference_modules: 5080  # Corrected from 2800 (+2280 tokens)
   template_modules: 6334  # Corrected from 2000 (+4334 tokens)
-  actual_total: 44955  # Measured actual token usage
-  remaining_budget: -19955  # Over budget but modular loading compensates
+  actual_total: 44105  # Measured actual token usage (44955 - 850 consolidation savings)
+  remaining_budget: -19105  # Over budget but modular loading compensates
 
 # Module Discovery
 discovery:
