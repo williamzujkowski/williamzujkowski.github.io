@@ -192,21 +192,15 @@ python scripts/blog-research/academic-search.py --query "specific claim" --sourc
 
 ## Automated Research Validation
 
-### Scripts for Research Integrity
+### Automated Validation Scripts
 
-```bash
-# Validate research claims in posts
-python scripts/blog-research/research-validator.py --post src/posts/example.md
+The following scripts enforce citation quality standards:
+- `research-validator.py` - Scan for unsupported claims
+- `academic-search.py` - Search arXiv, Zenodo, CORE
+- `add-academic-citations.py` - Auto-add citations
+- `check-citation-hyperlinks.py` - Validate links
 
-# Search academic sources for supporting research
-python scripts/blog-research/academic-search.py --query "quantum computing" --sources "arxiv,zenodo,core"
-
-# Add academic citations to blog posts
-python scripts/blog-research/add-academic-citations.py --post src/posts/example.md
-
-# Check citation hyperlinks for validity
-python scripts/blog-research/check-citation-hyperlinks.py
-```
+**Complete usage guide:** [research-automation.md](../technical/research-automation.md#scripts-for-research-integrity)
 
 ---
 
@@ -227,26 +221,14 @@ python scripts/blog-research/check-citation-hyperlinks.py
 
 ## Playwright Research Automation
 
-### Use Playwright For
+Use Playwright to automate research validation across academic databases.
 
-- Searching academic databases
-- Verifying technical specifications
-- Checking latest documentation versions
-- Finding recent research papers
-- Validating statistical claims
+**Capabilities:**
+- Multi-source search (arXiv, Zenodo, CORE, Google Scholar)
+- Technical specification verification
 - Screenshot evidence collection
 
-### Example Research Flow
-
-```python
-# Search multiple academic sources
-async def research_claim(claim):
-    sources = ['arxiv', 'zenodo', 'core', 'scholar.google.com']
-    results = []
-    for source in sources:
-        results.extend(await search_source(source, claim))
-    return validate_and_rank_sources(results)
-```
+**Complete guide:** [research-automation.md](../technical/research-automation.md#playwright-research-automation)
 
 ---
 

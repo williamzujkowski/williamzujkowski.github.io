@@ -102,6 +102,8 @@ For transforming existing blog posts to meet Smart Brevity standards (10+ citati
 - Format: inline citations + comprehensive References section
 - Distribute: 2-3 in BLUF, 1 per major claim, complete list at end
 
+**Citation format and research validation:** [citation-research.md](../standards/citation-research.md)
+
 ### Phase F: Validation (10 min)
 - Run `npm run build` (must pass)
 - Verify: ≥10 citations, ≥60 bullets, 0 weak language, ≥1,400 words

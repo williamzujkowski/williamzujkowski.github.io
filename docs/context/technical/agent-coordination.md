@@ -132,35 +132,11 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 
 **Purpose**: Generate summaries, export metrics, persist state.
 
-## Concurrent Execution Examples
+## Concurrent Execution
 
-### The One-Message Rule
+**Agent coordination follows the "One-Message Rule":** All related operations in one message for 2.8-4.4x speedup.
 
-**All related operations in one message.**
-
-✅ **Correct:**
-```javascript
-// Single message with all operations
-Read("file1.js")
-Read("file2.js")
-Edit("file1.js", old, new)
-Edit("file2.js", old, new)
-Bash("npm test")
-```
-
-❌ **Wrong:**
-```javascript
-// Message 1
-Read("file1.js")
-
-// Message 2
-Edit("file1.js", old, new)
-
-// Message 3
-Bash("npm test")
-```
-
-**Why it matters:** Parallel execution = 2.8-4.4x faster. Sequential = slow, wasted tokens.
+See [file-management.md](../core/file-management.md#concurrent-execution--file-management) for complete concurrent execution patterns and examples.
 
 ## MCP Tool Categories
 

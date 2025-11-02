@@ -115,7 +115,7 @@ categories:
         file: docs/context/workflows/blog-writing.md
         priority: MEDIUM
         estimated_tokens: 3200
-        version: 1.1.0
+        version: 1.2.0
         last_updated: "2025-11-01"
         load_when:
           - "Creating new blog post"
@@ -142,8 +142,8 @@ categories:
       - name: swarm-orchestration
         file: docs/context/workflows/swarm-orchestration.md
         priority: MEDIUM
-        estimated_tokens: 2500
-        version: 1.0.0
+        estimated_tokens: 2478
+        version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
           - "Multi-agent coordination"
@@ -157,7 +157,7 @@ categories:
         file: docs/context/workflows/blog-transformation.md
         priority: MEDIUM
         estimated_tokens: 1450
-        version: 1.1.0
+        version: 1.2.0
         last_updated: "2025-11-01"
         load_when:
           - "Transforming existing posts"
@@ -208,8 +208,8 @@ categories:
       - name: citation-research
         file: docs/context/standards/citation-research.md
         priority: HIGH
-        estimated_tokens: 1800
-        version: 1.0.0
+        estimated_tokens: 1300
+        version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
           - "Creating blog posts"
@@ -316,8 +316,8 @@ categories:
       - name: agent-coordination
         file: docs/context/technical/agent-coordination.md
         priority: LOW
-        estimated_tokens: 1800
-        version: 1.0.0
+        estimated_tokens: 1750
+        version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
           - "Using SPARC agents"
@@ -330,8 +330,8 @@ categories:
       - name: research-automation
         file: docs/context/technical/research-automation.md
         priority: MEDIUM
-        estimated_tokens: 1500
-        version: 1.0.0
+        estimated_tokens: 200
+        version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
           - "Adding citations"
@@ -495,13 +495,13 @@ loading_strategy:
 token_budgets:
   total_available: 25000
   core_modules: 6300
-  workflow_modules: 6514  # Corrected after consolidation (7064 - 550 tokens)
-  standards_modules: 10677  # Corrected after consolidation (10977 - 300 tokens)
-  technical_modules: 9200  # Corrected from 9000 (+200 tokens)
+  workflow_modules: 6492  # Corrected after consolidation (7064 - 572 tokens)
+  standards_modules: 10177  # Reduced after citation consolidation (10677 - 500 tokens)
+  technical_modules: 7850  # Reduced after citation + concurrent exec consolidation (9200 - 1350 tokens)
   reference_modules: 5080  # Corrected from 2800 (+2280 tokens)
   template_modules: 6334  # Corrected from 2000 (+4334 tokens)
-  actual_total: 44105  # Measured actual token usage (44955 - 850 consolidation savings)
-  remaining_budget: -19105  # Over budget but modular loading compensates
+  actual_total: 42233  # Measured actual token usage (44105 - 1872 total consolidation savings)
+  remaining_budget: -17233  # Over budget but modular loading compensates
 
 # Module Discovery
 discovery:

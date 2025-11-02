@@ -47,28 +47,9 @@ python scripts/blog-research/academic-search.py --query "specific claim" --sourc
 - Ranks results by relevance
 - Extracts abstracts and metadata
 
-**3. Source Citation Format - MANDATORY HYPERLINKS**
+**3. Source Citation Format**
 
-**ALL citations MUST include clickable hyperlinks to sources.**
-
-**Inline citation:**
-```markdown
-[Study shows 73% improvement](https://arxiv.org/abs/2024.xxxxx)
-```
-
-**Reference section format:**
-```markdown
-1. **[Paper Title](https://doi.org/10.xxxx/xxxxx)** (Year)
-   - Author names
-   - *Journal/Conference Name*
-```
-
-**Links MUST point to:**
-- arXiv, PubMed Central, or open-access versions
-- DOI links (https://doi.org/10.xxxx/xxxxx)
-- Official publisher/organization pages
-
-**NEVER cite without a working hyperlink to the source.**
+See [Citation Format Standards](../standards/citation-research.md#source-citation-format---mandatory-hyperlinks) for complete formatting guidance including inline citations, reference section format, and hyperlink requirements.
 
 **4. Visual Evidence**
 - Extract figures/charts from papers (with permission/citation)
@@ -86,12 +67,7 @@ python scripts/blog-research/academic-search.py --query "specific claim" --sourc
 
 ### Red Flags to Avoid
 
-❌ "Studies show..." without citation
-❌ Specific percentages without source
-❌ "It's well known that..." without evidence
-❌ Technical specifications without verification
-❌ Historical claims without references
-❌ Performance metrics without methodology
+For citation quality standards and red flags to avoid, see [citation-research.md](../standards/citation-research.md#content-quality-standards).
 
 ## Automated Research Validation
 
@@ -241,78 +217,23 @@ async def research_claim(claim):
 # (Use add-academic-citations.py)
 ```
 
-## Pre-Publication Checklist
+## Validation
 
-### Run Before Committing
+Before publishing, run the pre-publication checklist from [citation-research.md](../standards/citation-research.md#pre-publication-checklist).
 
+**Additional technical checks:**
 ```bash
-# 1. Validate all citations
-python scripts/blog-research/check-citation-hyperlinks.py
-
-# 2. Check for uncited claims
-python scripts/blog-research/research-validator.py --post src/posts/[file].md
-
-# 3. Verify citation format
+# Verify citation link format
 grep -E '\[.*\]\(https?://.*\)' src/posts/[file].md
 ```
 
-### Verification Checklist
+## Research Platform Integration
 
-- [ ] All factual claims have citations with working hyperlinks
-- [ ] Statistics include methodology and source
-- [ ] Technical specs verified against official docs
-- [ ] At least 3 reputable sources per major point
-- [ ] No outdated information (check publication dates)
-- [ ] Opposing viewpoints acknowledged
-- [ ] Limitations clearly stated
-- [ ] Visual aids properly attributed
-- [ ] References section complete
-- [ ] Playwright verification completed
+This module uses the platforms listed in [citation-research.md](../standards/citation-research.md#open-access-research-platforms):
+- **Primary sources:** arXiv, Zenodo, CORE, Preprints.org, Research Square, SciPost
+- **Domain-specific:** NIST, OWASP, SANS, RFCs, CNCF, kernel.org, LWN.net, etc.
 
-## Open-Access Research Platforms
-
-### Primary Sources
-
-1. **[arXiv](https://arxiv.org/)**: Preprints in physics, CS, math, bio, finance, stats, EE
-2. **[Zenodo](https://zenodo.org/)**: General-purpose open repository by CERN with DOI assignment
-3. **[CORE](https://core.ac.uk/)**: Aggregates 250+ million open-access papers with API access
-4. **[Preprints.org](https://www.preprints.org/)**: Multi-disciplinary preprints with moderation
-5. **[Research Square](https://www.researchsquare.com/)**: Springer Nature integrated preprints
-6. **[SciPost](https://scipost.org/)**: Community-driven peer review in physics
-
-### Domain-Specific Sources
-
-**Security:**
-- NIST (National Institute of Standards and Technology)
-- OWASP (Open Web Application Security Project)
-- SANS (SysAdmin, Audit, Network, Security)
-- CVE/NVD databases
-- Security advisories (Debian, Ubuntu, RedHat)
-
-**AI/ML:**
-- Papers with Code
-- Google AI Research
-- OpenAI Research
-- Hugging Face papers
-- arXiv cs.AI, cs.LG, cs.CL
-
-**Cloud/DevOps:**
-- CNCF (Cloud Native Computing Foundation) resources
-- AWS/Azure/GCP official documentation
-- HashiCorp guides
-- Kubernetes blog
-
-**Networking:**
-- RFCs (Internet Engineering Task Force)
-- Cisco documentation
-- Cloudflare Learning Center
-- Network Working Group
-
-**Linux/Kernel:**
-- kernel.org documentation
-- LWN.net (Linux Weekly News)
-- Red Hat resources
-- Linux Foundation
+The scripts below integrate with these platforms via Playwright automation.
 
 ## Citation Hyperlink Validation
 

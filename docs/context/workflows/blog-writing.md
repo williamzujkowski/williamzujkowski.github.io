@@ -294,6 +294,9 @@ bash scripts/optimize-blog-images.sh
 
 **Why it matters:** No citations = no credibility.
 
+**For complete citation standards, research platforms, and validation workflows:**
+See [citation-research.md](../standards/citation-research.md)
+
 **Further Exploration Section:**
 
 At the end of each post, include:

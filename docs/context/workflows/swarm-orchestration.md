@@ -176,31 +176,14 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 
 ### The One-Message Rule
 
-**All related operations in one message.**
+**All related operations in one message for 2.8-4.4x speedup.**
 
-✅ **Correct:**
-```javascript
-// Single message with all operations
-Read("file1.js")
-Read("file2.js")
-Edit("file1.js", old, new)
-Edit("file2.js", old, new)
-Bash("npm test")
-```
+**Swarm-specific applications:**
+- Spawn multiple agents in parallel (not sequentially)
+- Batch memory operations across agents
+- Coordinate hooks (pre-task, post-edit, post-task) in one message
 
-❌ **Wrong:**
-```javascript
-// Message 1
-Read("file1.js")
-
-// Message 2
-Edit("file1.js", old, new)
-
-// Message 3
-Bash("npm test")
-```
-
-**Why it matters:** Parallel execution = 2.8-4.4x faster. Sequential = slow, wasted tokens.
+See [file-management.md](../core/file-management.md#concurrent-execution-examples) for complete examples and patterns.
 
 ---
 
