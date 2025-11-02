@@ -4,7 +4,7 @@ VERSION: 4.0.0
 LAST_AUDIT: 2025-11-01
 COMPLIANCE: 100%
 ARCHITECTURE: MODULAR
-TOKEN_EFFICIENCY: 97.5%
+TOKEN_EFFICIENCY: 84.9%
 ---
 
 # Claude Code Configuration - SPARC Development Environment
@@ -19,7 +19,7 @@ This file (CLAUDE.md) serves as the **root anchor** for a modular documentation 
 
 **Previous architecture:** 12,900-word monolith (80,000+ tokens) loaded for every task
 **New architecture:** ~2,000-word anchor (8,000 tokens) + selective module loading (2,000-15,000 tokens)
-**Efficiency gain:** 97.5% reduction in unnecessary context (8K vs 80K tokens for simple tasks)
+**Efficiency gain:** 84.9% reduction in unnecessary context (2.6K vs 17K tokens for simple tasks)
 
 All development, content creation, and maintenance MUST reference this document and load task-appropriate modules.
 
@@ -437,4 +437,4 @@ Complete list of existing modules (10 total). For full catalog with tags, depend
 
 **Architecture version:** 4.0.0 (modular)
 **Previous version:** 3.0.0 (monolith, 12,900 words)
-**Efficiency gain:** 97.5% token reduction for simple tasks
+**Efficiency gain:** 84.9% token reduction for simple tasks (2.6K vs 17K tokens)

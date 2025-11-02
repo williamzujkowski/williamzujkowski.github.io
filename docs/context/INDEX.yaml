@@ -10,7 +10,7 @@ root_anchor:
   token_estimate: 7372
   last_updated: "2025-11-01"
   architecture: "modular"
-  efficiency_gain: "97.5% (8K vs 80K tokens for simple tasks)"
+  efficiency_gain: "84.9% (2.6K vs 17K tokens for simple tasks)"
   sections:
     - header_status
     - enforcement_rules
@@ -495,12 +495,13 @@ loading_strategy:
 token_budgets:
   total_available: 25000
   core_modules: 6300
-  workflow_modules: 10000
-  standards_modules: 9000
-  technical_modules: 9000
-  reference_modules: 2800
-  template_modules: 2000
-  remaining_budget: -14100  # Over budget but modular loading compensates
+  workflow_modules: 7064  # Corrected from 10000 (actual usage lower)
+  standards_modules: 10977  # Corrected from 9000 (+1977 tokens)
+  technical_modules: 9200  # Corrected from 9000 (+200 tokens)
+  reference_modules: 5080  # Corrected from 2800 (+2280 tokens)
+  template_modules: 6334  # Corrected from 2000 (+4334 tokens)
+  actual_total: 44955  # Measured actual token usage
+  remaining_budget: -19955  # Over budget but modular loading compensates
 
 # Module Discovery
 discovery:
