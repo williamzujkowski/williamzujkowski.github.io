@@ -27,13 +27,13 @@ categories:
   core:
     priority: HIGH
     description: "Critical rules and standards, always loaded"
-    token_budget: 6300
+    token_budget: 20256
     modules_count: 5
     modules:
       - name: enforcement
         file: docs/context/core/enforcement.md
         priority: HIGH
-        estimated_tokens: 1050
+        estimated_tokens: 3140
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -48,7 +48,7 @@ categories:
       - name: nda-compliance
         file: docs/context/core/nda-compliance.md
         priority: HIGH
-        estimated_tokens: 1200
+        estimated_tokens: 4532
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -63,7 +63,7 @@ categories:
       - name: file-management
         file: docs/context/core/file-management.md
         priority: HIGH
-        estimated_tokens: 1800
+        estimated_tokens: 4772
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -78,7 +78,7 @@ categories:
       - name: mandatory-reading
         file: docs/context/core/mandatory-reading.md
         priority: HIGH
-        estimated_tokens: 800
+        estimated_tokens: 3708
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -93,7 +93,7 @@ categories:
       - name: standards-integration
         file: docs/context/core/standards-integration.md
         priority: HIGH
-        estimated_tokens: 1000
+        estimated_tokens: 4104
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -108,13 +108,13 @@ categories:
   workflows:
     priority: MEDIUM
     description: "Task-specific workflows and processes"
-    token_budget: 10000
+    token_budget: 25884
     modules_count: 5
     modules:
       - name: blog-writing
         file: docs/context/workflows/blog-writing.md
         priority: MEDIUM
-        estimated_tokens: 3200
+        estimated_tokens: 7776
         version: 1.2.0
         last_updated: "2025-11-01"
         load_when:
@@ -128,7 +128,7 @@ categories:
       - name: sparc-development
         file: docs/context/workflows/sparc-development.md
         priority: MEDIUM
-        estimated_tokens: 2800
+        estimated_tokens: 4240
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -142,7 +142,7 @@ categories:
       - name: swarm-orchestration
         file: docs/context/workflows/swarm-orchestration.md
         priority: MEDIUM
-        estimated_tokens: 2478
+        estimated_tokens: 4124
         version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
@@ -156,7 +156,7 @@ categories:
       - name: blog-transformation
         file: docs/context/workflows/blog-transformation.md
         priority: MEDIUM
-        estimated_tokens: 1450
+        estimated_tokens: 5084
         version: 1.2.0
         last_updated: "2025-11-01"
         load_when:
@@ -170,7 +170,7 @@ categories:
       - name: gist-management
         file: docs/context/workflows/gist-management.md
         priority: LOW
-        estimated_tokens: 1800
+        estimated_tokens: 4660
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -185,13 +185,13 @@ categories:
   standards:
     priority: MEDIUM
     description: "Quality gates and validation standards"
-    token_budget: 9000
+    token_budget: 33360
     modules_count: 5
     modules:
       - name: humanization-standards
         file: docs/context/standards/humanization-standards.md
         priority: HIGH
-        estimated_tokens: 2500
+        estimated_tokens: 9128
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -208,7 +208,7 @@ categories:
       - name: citation-research
         file: docs/context/standards/citation-research.md
         priority: HIGH
-        estimated_tokens: 1300
+        estimated_tokens: 5604
         version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
@@ -223,7 +223,7 @@ categories:
       - name: image-standards
         file: docs/context/standards/image-standards.md
         priority: MEDIUM
-        estimated_tokens: 1500
+        estimated_tokens: 5720
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -238,7 +238,7 @@ categories:
       - name: writing-style
         file: docs/context/standards/writing-style.md
         priority: MEDIUM
-        estimated_tokens: 1850
+        estimated_tokens: 7460
         version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
@@ -253,7 +253,7 @@ categories:
       - name: accessibility
         file: docs/context/standards/accessibility.md
         priority: MEDIUM
-        estimated_tokens: 1200
+        estimated_tokens: 5448
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -268,13 +268,13 @@ categories:
   technical:
     priority: MEDIUM/LOW
     description: "Implementation details and automation references"
-    token_budget: 9000
+    token_budget: 26256
     modules_count: 6
     modules:
       - name: script-catalog
         file: docs/context/technical/script-catalog.md
         priority: MEDIUM
-        estimated_tokens: 2000
+        estimated_tokens: 3992
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -288,7 +288,7 @@ categories:
       - name: git-workflow
         file: docs/context/technical/git-workflow.md
         priority: MEDIUM
-        estimated_tokens: 1500
+        estimated_tokens: 5436
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -302,7 +302,7 @@ categories:
       - name: build-automation
         file: docs/context/technical/build-automation.md
         priority: LOW
-        estimated_tokens: 1200
+        estimated_tokens: 4160
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -316,7 +316,7 @@ categories:
       - name: agent-coordination
         file: docs/context/technical/agent-coordination.md
         priority: LOW
-        estimated_tokens: 1750
+        estimated_tokens: 4620
         version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
@@ -330,7 +330,7 @@ categories:
       - name: research-automation
         file: docs/context/technical/research-automation.md
         priority: MEDIUM
-        estimated_tokens: 200
+        estimated_tokens: 3904
         version: 1.1.0
         last_updated: "2025-11-01"
         load_when:
@@ -344,7 +344,7 @@ categories:
       - name: image-automation
         file: docs/context/technical/image-automation.md
         priority: LOW
-        estimated_tokens: 1000
+        estimated_tokens: 4144
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -359,13 +359,13 @@ categories:
   reference:
     priority: LOW
     description: "Historical context and lessons learned"
-    token_budget: 3000
+    token_budget: 14480
     modules_count: 3
     modules:
       - name: directory-structure
         file: docs/context/reference/directory-structure.md
         priority: LOW
-        estimated_tokens: 1000
+        estimated_tokens: 4316
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -379,7 +379,7 @@ categories:
       - name: batch-history
         file: docs/context/reference/batch-history.md
         priority: LOW
-        estimated_tokens: 1000
+        estimated_tokens: 5872
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -393,7 +393,7 @@ categories:
       - name: compliance-history
         file: docs/context/reference/compliance-history.md
         priority: LOW
-        estimated_tokens: 800
+        estimated_tokens: 4292
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -408,13 +408,13 @@ categories:
   templates:
     priority: LOW
     description: "Reusable patterns and templates"
-    token_budget: 2000
+    token_budget: 18104
     modules_count: 4
     modules:
       - name: blog-post-template
         file: docs/context/templates/blog-post-template.md
         priority: LOW
-        estimated_tokens: 500
+        estimated_tokens: 4556
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -427,7 +427,7 @@ categories:
       - name: module-template
         file: docs/context/templates/module-template.md
         priority: LOW
-        estimated_tokens: 500
+        estimated_tokens: 3804
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -440,7 +440,7 @@ categories:
       - name: script-template
         file: docs/context/templates/script-template.md
         priority: LOW
-        estimated_tokens: 500
+        estimated_tokens: 4688
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -453,7 +453,7 @@ categories:
       - name: documentation-template
         file: docs/context/templates/documentation-template.md
         priority: LOW
-        estimated_tokens: 500
+        estimated_tokens: 5056
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:
@@ -491,17 +491,26 @@ loading_strategy:
       - core/file-management
       - core/enforcement
 
-# Token Budget Tracking
+# Token Budget Tracking (Accurate Measurements)
 token_budgets:
-  total_available: 25000
-  core_modules: 6300
-  workflow_modules: 6492  # Corrected after consolidation (7064 - 572 tokens)
-  standards_modules: 10177  # Reduced after citation consolidation (10677 - 500 tokens)
-  technical_modules: 7850  # Reduced after citation + concurrent exec consolidation (9200 - 1350 tokens)
-  reference_modules: 5080  # Corrected from 2800 (+2280 tokens)
-  template_modules: 6334  # Corrected from 2000 (+4334 tokens)
-  actual_total: 42233  # Measured actual token usage (44105 - 1872 total consolidation savings)
-  remaining_budget: -17233  # Over budget but modular loading compensates
+  # Note: These are ACCURATE counts based on word count × 4
+  # Previous estimates were 3.3x too low (42,233 vs 138,340)
+
+  core_modules: 20256        # 5 modules (was: 6,300)
+  workflow_modules: 25884    # 5 modules (was: 6,492)
+  standards_modules: 33360   # 5 modules (was: 10,177)
+  technical_modules: 26256   # 6 modules (was: 7,850)
+  reference_modules: 14480   # 3 modules (was: 5,080)
+  template_modules: 18104    # 4 modules (was: 6,334)
+
+  actual_total: 138340       # MEASURED (was estimated: 42,233)
+  underestimate_factor: 3.27 # Previous estimates were 3.3x too low
+
+  # Why modular loading is CRITICAL:
+  # - Loading all 28 modules = 138K tokens (unsustainable)
+  # - Typical blog post task = ~15-20K tokens (core + workflows + standards)
+  # - Simple file operation = ~8-10K tokens (core modules only)
+  # - Selective loading achieves 85-90% reduction vs loading everything
 
 # Module Discovery
 discovery:

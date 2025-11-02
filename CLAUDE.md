@@ -398,32 +398,33 @@ Complete list of existing modules (10 total). For full catalog with tags, depend
 
 | Module | Priority | Load When | Location | Tokens |
 |--------|----------|-----------|----------|--------|
-| **enforcement** | HIGH | Any file operation, before commits, creating content | `docs/context/core/` | 1500 |
-| **nda-compliance** | HIGH | Writing blog posts, discussing work/career, security topics | `docs/context/core/` | 1200 |
-| **file-management** | HIGH | Creating files, cleanup operations, concurrent execution | `docs/context/core/` | 1800 |
-| **mandatory-reading** | HIGH | First session, onboarding, understanding structure | `docs/context/core/` | 800 |
-| **standards-integration** | HIGH | Before file operations, validation, MANIFEST.json updates | `docs/context/core/` | 1000 |
-| **blog-writing** | MEDIUM | Creating new blog post, editing existing post, content review | `docs/context/workflows/` | 3500 |
-| **sparc-development** | MEDIUM | Using SPARC methodology, TDD development, architecture work | `docs/context/workflows/` | 2800 |
-| **swarm-orchestration** | MEDIUM | Multi-agent coordination, complex task decomposition, parallel execution | `docs/context/workflows/` | 2500 |
-| **blog-transformation** | MEDIUM | Transforming existing posts, Smart Brevity refinement, citation enhancement | `docs/context/workflows/` | 2000 |
-| **gist-management** | LOW | Managing code examples, blog post code ratio >20%, creating shareable snippets | `docs/context/workflows/` | 1800 |
+| **enforcement** | HIGH | Any file operation, before commits, creating content | `docs/context/core/` | 3140 |
+| **nda-compliance** | HIGH | Writing blog posts, discussing work/career, security topics | `docs/context/core/` | 4532 |
+| **file-management** | HIGH | Creating files, cleanup operations, concurrent execution | `docs/context/core/` | 4772 |
+| **mandatory-reading** | HIGH | First session, onboarding, understanding structure | `docs/context/core/` | 3708 |
+| **standards-integration** | HIGH | Before file operations, validation, MANIFEST.json updates | `docs/context/core/` | 4104 |
+| **blog-writing** | MEDIUM | Creating new blog post, editing existing post, content review | `docs/context/workflows/` | 7776 |
+| **sparc-development** | MEDIUM | Using SPARC methodology, TDD development, architecture work | `docs/context/workflows/` | 4240 |
+| **swarm-orchestration** | MEDIUM | Multi-agent coordination, complex task decomposition, parallel execution | `docs/context/workflows/` | 4124 |
+| **blog-transformation** | MEDIUM | Transforming existing posts, Smart Brevity refinement, citation enhancement | `docs/context/workflows/` | 5084 |
+| **gist-management** | LOW | Managing code examples, blog post code ratio >20%, creating shareable snippets | `docs/context/workflows/` | 4660 |
 
-**Planned modules (15+):**
-- **standards/**: humanization-validation, citation-requirements, image-standards, accessibility (Phase 7)
-- **technical/**: script-catalog, git-commands, build-automation, testing (Phase 8)
-- **reference/**: batch-lessons, phase-reports, historical-context, troubleshooting (Phase 9)
-- **templates/**: blog-post-template, module-template, script-template, documentation-template (Phase 10)
+**Additional modules (18 total, all implemented):**
+- **standards/**: humanization-standards (9128), citation-research (5604), image-standards (5720), accessibility (5448), writing-style (7460)
+- **technical/**: script-catalog (3992), git-workflow (5436), build-automation (4160), agent-coordination (4620), research-automation (3904), image-automation (4144)
+- **reference/**: batch-history (5872), compliance-history (4292), directory-structure (4316)
+- **templates/**: blog-post-template (4556), module-template (3804), script-template (4688), documentation-template (5056)
 
-**Token budgets (all 28 modules implemented):**
-- Core modules: 6,300 tokens (5 modules)
-- Workflow modules: 6,492 tokens (5 modules)
-- Standards modules: 10,177 tokens (5 modules)
-- Technical modules: 7,850 tokens (6 modules)
-- Reference modules: 5,080 tokens (3 modules)
-- Template modules: 6,334 tokens (4 modules)
-- **Total: 42,233 tokens** (28 modules complete)
-- Note: Over nominal 25K budget, but modular loading compensates
+**Accurate token budgets (all 28 modules measured):**
+- Core modules: **20,256 tokens** (5 modules) - was 6,300
+- Workflow modules: **25,884 tokens** (5 modules) - was 6,492
+- Standards modules: **33,360 tokens** (5 modules) - was 10,177
+- Technical modules: **26,256 tokens** (6 modules) - was 7,850
+- Reference modules: **14,480 tokens** (3 modules) - was 5,080
+- Template modules: **18,104 tokens** (4 modules) - was 6,334
+- **ACTUAL TOTAL: 138,340 tokens** (28 modules complete)
+- **Previous estimate: 42,233 tokens (3.3x underestimate)**
+- Note: High token count emphasizes importance of selective modular loading
 
 **Full index:** `docs/context/INDEX.yaml`
 

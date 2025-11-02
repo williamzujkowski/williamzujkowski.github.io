@@ -37,39 +37,6 @@ In June 2025, I integrated my standards repo with Claude CLI for the first time.
 
 The humbling part? I discovered I'd been consistently making the same mistake with frontmatter formatting across multiple posts. Manual code review never caught it because it looked fine to human eyes.
 
-## How It Works
-
-```mermaid
-graph LR
-    subgraph datapipeline["Data Pipeline"]
-        Raw[Raw Data]
-        Clean[Cleaning]
-        Feature[Feature Engineering]
-    end
-    subgraph modeltraining["Model Training"]
-        Train[Training]
-        Val[Validation]
-        Test[Testing]
-    end
-    subgraph deployment["Deployment"]
-        Deploy[Model Deployment]
-        Monitor[Monitoring]
-        Update[Updates]
-    end
-    
-    Raw --> Clean
-    Clean --> Feature
-    Feature --> Train
-    Train --> Val
-    Val --> Test
-    Test --> Deploy
-    Deploy --> Monitor
-    Monitor -->|Feedback| Train
-    
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
-```
-
 ## Enter the Standards Repository
 
 I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards) – a comprehensive collection of development standards designed specifically for LLM consumption. It's not just documentation but rather an AI instruction manual for your projects.
@@ -91,16 +58,7 @@ The centerpiece is a file called `CLAUDE.md` that acts as an intelligent router.
 
 Here's how I used it yesterday to bootstrap a new Python service:
 
-```bash)
-# Step 1: Clone standards to my project)
-git submodule add [https://github.com/williamzujkowski/standards.git](https://github.com/williamzujkowski/standards.git) .standards
-
-# Step 2: Copy CLAUDE.md to project root
-cp .standards/docs/core/CLAUDE.md .
-
-# Step 3: Start Claude CLI
-claude chat
-```
+[View full setup script →](https://gist.github.com/williamzujkowski/4b740d51c2921d94fea0c4603c3a85e0)
 
 Then in Claude:
 
@@ -137,16 +95,7 @@ Claude knows to reference the full standards without needing them in context eve
 
 Since I work in government-adjacent spaces, NIST 800-53r5 compliance is crucial. The standards include automatic control tagging:
 
-```python
-# Claude automatically suggests NIST controls
-@nist ac-2 "User account management"
-class UserAccountManager:
-    @nist ia-2 "Multi-factor authentication"
-    @nist ia-5 "Authenticator management"
-    def authenticate_user(self, credentials):
-        # Implementation with security controls
-        pass
-```
+[View NIST compliance example →](https://gist.github.com/williamzujkowski/f80a7dcf4890372f4eab0018ad9afd0d)
 
 Run the compliance checker:
 
@@ -271,19 +220,7 @@ curl -O [https://raw.githubusercontent.com/williamzujkowski/standards/master/doc
 
 ### Full Integration (30 minutes)
 
-```bash
-# 1. Clone the standards
-git clone [https://github.com/williamzujkowski/standards.git](https://github.com/williamzujkowski/standards.git)
-
-# 2. Run setup script
-./standards/scripts/setup-project.sh my-project
-
-# 3. Customize for your needs
-# Edit CLAUDE.md with your preferences
-
-# 4. Set up NIST compliance (if needed)
-./scripts/setup-nist-hooks.sh
-```
+[View complete integration script →](https://gist.github.com/williamzujkowski/4c2214e2b1843b341a4ee0012fffc0d3)
 
 ## Real-World Impact: The Numbers
 
@@ -320,16 +257,7 @@ project_context:
 
 ### 2. Chain Commands Efficiently
 
-```bash
-# My typical workflow
-claude chat << 'EOF'
-@load [CS:python + SEC:*]
-@task refactor
-Review this module for standards compliance:
-$(cat src/payment_processor.py)
-Generate improved version with tests.
-EOF
-```
+[View automated workflow example →](https://gist.github.com/williamzujkowski/dc26a695bf3f8d2b7d2e96584c0ff215)
 
 ### 3. Build Your Own Standards
 
