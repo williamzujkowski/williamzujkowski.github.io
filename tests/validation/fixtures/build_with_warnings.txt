@@ -1,0 +1,6 @@
+[11ty] Writing _site/posts/index.html from ./src/posts.njk
+[11ty] Warning: Deprecated filter used in template
+[11ty] Successfully parsed 56 posts
+[11ty] Wrote 245 files in 4.23 seconds
+[11ty] Warning: Missing image reference in post
+[11ty] Build complete!

@@ -303,7 +303,7 @@ def generate_json_output(results, categories, output_file="docs/reports/portfoli
 
 def main():
     parser = argparse.ArgumentParser(description="Validate all blog posts for humanization quality")
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
     parser.add_argument("--output", default="docs/reports/", help="Output directory for reports")
     parser.add_argument("--format", choices=["markdown", "json", "both"], default="both", help="Output format")
     parser.add_argument("--threshold", type=int, default=75, help="Passing score threshold")

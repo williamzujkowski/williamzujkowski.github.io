@@ -72,9 +72,9 @@ from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
 # Import centralized logging configuration
-from scripts.lib.logging_config import get_logger
+from scripts.lib.logging_config import setup_logger
 
-logger = get_logger(__name__)
+logger = setup_logger(__name__)
 
 
 @dataclass

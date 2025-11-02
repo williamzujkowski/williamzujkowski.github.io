@@ -4,8 +4,8 @@ SCRIPT: full-post-validation.py
 PURPOSE: Comprehensive blog post validation combining humanization, citations, and content quality checks
 CATEGORY: content_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-10-28
+VERSION: 1.1.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Comprehensive pre-publish validation tool that combines:

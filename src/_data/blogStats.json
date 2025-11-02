@@ -1,7 +1,7 @@
 {
   "total_posts": 63,
-  "total_words": 125691,
-  "average_words": 1995.1,
+  "total_words": 125813,
+  "average_words": 1997.0,
   "average_reading_time": 8.8,
   "posts_by_year": {
     "2024": 32,
@@ -9,7 +9,7 @@
   },
   "words_by_year": {
     "2024": 87346,
-    "2025": 38345
+    "2025": 38467
   },
   "posts_by_month": {
     "2025-01": 3,
@@ -245,8 +245,8 @@
     "reading_time": 25
   },
   "shortest_post": {
-    "title": "Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering",
-    "word_count": 244,
+    "title": "Implementing Zero Trust Microsegmentation with VLANs",
+    "word_count": 330,
     "reading_time": 2
   },
   "posts_with_images": 61,
@@ -258,16 +258,16 @@
     "10+ min": 28
   },
   "citation_stats": {
-    "total_external_links": 933,
+    "total_external_links": 937,
     "total_internal_links": 6,
-    "average_citation_density": 12.05,
-    "average_external_links_per_post": 14.8
+    "average_citation_density": 11.99,
+    "average_external_links_per_post": 14.9
   },
   "code_stats": {
-    "average_code_to_content_ratio": 13.0,
+    "average_code_to_content_ratio": 12.4,
     "posts_with_code": 57,
     "posts_with_code_percentage": 90.5
   },
-  "generated_at": "2025-11-02T16:23:46.315983",
+  "generated_at": "2025-11-02T16:53:03.009284",
   "reading_speed_wpm": 238
 }

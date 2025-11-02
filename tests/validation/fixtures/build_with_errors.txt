@@ -1,0 +1,5 @@
+[11ty] Writing _site/posts/index.html from ./src/posts.njk
+[11ty] Error: Template syntax error in index.njk
+[11ty] Error: Failed to parse frontmatter
+[11ty] Successfully parsed 42 posts
+[11ty] Build failed with errors

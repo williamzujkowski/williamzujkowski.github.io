@@ -4,8 +4,8 @@ SCRIPT: blog-manager.py
 PURPOSE: Unified Blog Management Tool for williamzujkowski.github.io
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 1.1.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Unified Blog Management Tool for williamzujkowski.github.io. This script is part of the blog management
@@ -449,6 +449,7 @@ Examples:
     elif args.command == 'analyze':
         result = manager.analyze(target=args.target)
         if args.output == 'json':
+            # JSON output to stdout for piping/parsing (intentional print)
             print(json.dumps(result, indent=2))
         else:
             logger.info(f"📊 Analysis Results:")

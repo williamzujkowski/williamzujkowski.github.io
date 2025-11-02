@@ -455,7 +455,7 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - **[docs/ENFORCEMENT.md](docs/ENFORCEMENT.md)** - Extended enforcement rules and examples
 - **[docs/GUIDES/LLM_ONBOARDING.md](docs/GUIDES/LLM_ONBOARDING.md)** - Detailed onboarding guide for AI agents
 - **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - System architecture and design principles
-- **[docs/GUIDES/SCRIPT_CATALOG.md](docs/GUIDES/SCRIPT_CATALOG.md)** - Complete catalog of 37 automation scripts
+- **[docs/GUIDES/SCRIPT_CATALOG.md](docs/GUIDES/SCRIPT_CATALOG.md)** - Script catalog (37 core utilities documented, 85+ total)
 - **[MANIFEST.json](MANIFEST.json)** - Single source of truth for repository inventory
 - **[docs/context/INDEX.yaml](docs/context/INDEX.yaml)** - Complete module catalog with tags and dependencies
 - **[TODO.md](TODO.md)** - Active tasks and improvement backlog (code ratio fixes, Python migration, etc.)
@@ -485,6 +485,10 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Documented swarm coordination patterns (5 agents, 11 tasks, 27 minutes; updated to 6-agent deployments with agent type validation)
 - Documented gist extraction strategy for code ratio compliance (21.0% verified, extract >30 line blocks, see CODE_RATIO_MEASUREMENT_METHODOLOGY.md for methodology)
 - Verified token estimate accuracy (corrected 3.3x underestimate: 42K claimed → 138K actual)
-- Created production Python template (786 lines, docs/templates/python-script-template.py) with logging, error handling, type hints, achieving 95+ quality scores
+- Created Python script template (503 lines, docs/context/templates/script-template.md) with logging, error handling, type hints
 - Documented performance optimization insights (validation scripts <2s/<100MB, incremental improvements: 34% speedup potential via date regex pre-filter)
 - Established monthly repository cleanup pattern (vestigial file scanning, archive vs delete criteria, documentation accuracy audits)
+- Completed Python logging Phase 1: metadata-validator.py refactored (710 lines, v4.0, centralized logging, dataclasses, comprehensive docstrings)
+- Implemented parallel validation (ThreadPoolExecutor, 6 workers, 20-25% speedup for I/O-bound operations)
+- Created test infrastructure (tests/validation/fixtures/) with automated regression prevention
+- Documented SEO description formula (120-160 chars optimal, validation integrated into metadata-validator)

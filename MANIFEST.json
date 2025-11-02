@@ -2,7 +2,7 @@
   "version": "5.0.0",
   "schema": "optimized-lazy-loading",
   "generated": "2025-11-01T23:27:04-04:00",
-  "last_validated": "2025-11-02T16:30:00.000000",
+  "last_validated": "2025-11-02T16:55:00.000000",
   "repository": {
     "name": "williamzujkowski.github.io",
     "type": "personal-website",
@@ -40,7 +40,7 @@
   },
   "inventory": {
     "files": {
-      "total_count": 601,
+      "total_count": 610,
       "file_registry": {
         "_lazy_load": true,
         "_hash": "d74c43e0d9cbd0fe",

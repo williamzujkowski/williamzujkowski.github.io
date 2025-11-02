@@ -4,8 +4,8 @@ SCRIPT: humanization-validator.py
 PURPOSE: Validate blog posts for human tone and detect AI-generated content tells
 CATEGORY: content_validation
 LLM_READY: True
-VERSION: 2.0.0
-UPDATED: 2025-10-29
+VERSION: 2.1.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Validates blog posts against humanization requirements to ensure authentic,
@@ -864,7 +864,7 @@ def validate_post_wrapper(args_tuple):
 def batch_validate_posts(posts_dir: str, config_path: str, workers: int = 4, logger=None) -> List[Dict]:
     """Validate multiple posts in parallel."""
     if logger is None:
-        logger = logging.getLogger(__name__)
+        logger = setup_logger(__name__)
 
     # Find all markdown files
     posts_path = Path(posts_dir)
@@ -911,8 +911,10 @@ def batch_validate_posts(posts_dir: str, config_path: str, workers: int = 4, log
     return results
 
 def print_batch_summary(results: List[Dict], format_type: str = 'summary',
-                        filter_below: int = None, min_score: int = 70):
+                        filter_below: int = None, min_score: int = 70, logger=None):
     """Print batch validation summary."""
+    if logger is None:
+        logger = setup_logger(__name__)
 
     # Filter results if requested
     if filter_below:
@@ -931,7 +933,7 @@ def print_batch_summary(results: List[Dict], format_type: str = 'summary',
     # Calculate statistics
     stats = calculate_statistics(results, min_score)
 
-    # Print header
+    # Print header (kept as print for formatted output)
     print(f"\n{Colors.BOLD}{'='*80}{Colors.RESET}")
     print(f"{Colors.BOLD}BATCH VALIDATION SUMMARY{Colors.RESET}")
     print(f"{Colors.BOLD}{'='*80}{Colors.RESET}\n")
@@ -1079,7 +1081,7 @@ Examples:
         """
     )
 
-    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 2.1.0')
     parser.add_argument('--post', help='Path to blog post file (single-post mode)')
     parser.add_argument('--batch', action='store_true', help='Process all posts in directory')
     parser.add_argument('--dir', default='src/posts', help='Directory for batch processing')

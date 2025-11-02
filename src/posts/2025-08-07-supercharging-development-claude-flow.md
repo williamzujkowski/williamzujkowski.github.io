@@ -97,64 +97,15 @@ graph TB
     style Neural fill:#4caf50,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
-```javascript
-// Hierarchical: Queen-worker pattern for complex coordination
-npx claude-flow swarm init --topology hierarchical --max-agents 8
+**Swarm Initialization & Agent Spawning Examples:**
 
-// Mesh: Peer-to-peer for collaborative tasks
-npx claude-flow swarm init --topology mesh --strategy balanced
+<script src="https://gist.github.com/williamzujkowski/2e8e787541c00d8650d83f6b9c53d03a.js"></script>
 
-// Ring: Sequential processing for pipelines
-npx claude-flow swarm init --topology ring --max-agents 5
-
-// Star: Centralized coordination for focused tasks
-npx claude-flow swarm init --topology star --strategy specialized
-```
-
-### Agent Specialization
-
-Each agent brings unique capabilities:
-
-```bash
-# Spawn specialized agents for a full-stack feature
-npx claude-flow agent spawn --type researcher --name "API-Researcher"
-npx claude-flow agent spawn --type architect --name "System-Designer"  
-npx claude-flow agent spawn --type backend-dev --name "API-Builder"
-npx claude-flow agent spawn --type tester --name "Test-Writer"
-npx claude-flow agent spawn --type reviewer --name "Code-Reviewer"
-```
+[View complete examples on GitHub Gist](https://gist.github.com/williamzujkowski/2e8e787541c00d8650d83f6b9c53d03a)
 
 ## Real-World Example: Building a REST API
 
-I recently used Claude-Flow to build a complete REST API for a metrics dashboard in my homelab. Let me walk you through the process:
-
-### Step 1: Initialize the Swarm
-
-```bash
-# Start with SPARC methodology for systematic development
-npx claude-flow sparc tdd "Build REST API for user metrics with authentication"
-```
-
-Claude-Flow automatically:
-1. Analyzes requirements
-2. Creates specifications
-3. Designs architecture
-4. Implements with TDD
-5. Refines and optimizes
-
-### Step 2: The Swarm in Action
-
-Here's what happened behind the scenes:
-
-```yaml
-# Simplified swarm execution plan
-swarm_execution:
-  specification: [researcher, analyst] → Requirements analysis
-  architecture: [architect, system-architect] → System design  
-  implementation: [backend-dev, coder, api-docs] → Parallel coding
-  testing: [tester, tdd-london-swarm] → Comprehensive testing
-  refinement: [reviewer, perf-analyzer] → Optimization
-```
+I recently used Claude-Flow to build a complete REST API for a metrics dashboard in my homelab. Let me walk you through the process using the SPARC methodology and swarm coordination patterns shown above.
 
 ### Step 3: The Results
 
@@ -169,63 +120,17 @@ In just 12 minutes, the swarm:
 
 ## Advanced Features That Change Everything
 
-### 1. Neural Pattern Learning
+### Neural Training, Memory & Performance
 
-Claude-Flow learns from your codebase:
+Claude-Flow provides advanced features for learning patterns, preserving context, and optimizing workflows:
 
-```bash
-# Train on successful patterns
-npx claude-flow neural train --pattern coordination --data "./src"
+<script src="https://gist.github.com/williamzujkowski/be7284a8615d02d17a7de1140b07938b.js"></script>
 
-# Apply learned patterns to new features
-npx claude-flow neural predict --model coordination --task "implement caching layer"
-```
+[View complete examples on GitHub Gist](https://gist.github.com/williamzujkowski/be7284a8615d02d17a7de1140b07938b)
 
 When I first started using the neural training features, I was skeptical about how much value it would add. After training the model on my authentication patterns, though, I saw it consistently suggest the same secure approaches I had manually implemented – it effectively learned my coding style and security preferences.
 
-### 2. Cross-Session Memory
-
-Never lose context between sessions:
-
-```bash
-# Save session state
-npx claude-flow memory persist --session "api-development"
-
-# Restore in a new session
-npx claude-flow memory restore --session "api-development"
-
-# Query previous decisions
-npx claude-flow memory search --pattern "authentication"
-```
-
-I've found this feature invaluable when working across multiple days – being able to pick up exactly where I left off, with all context intact, has saved me countless hours of re-familiarization.
-
-### 3. Bottleneck Analysis
-
-Identify and resolve performance issues:
-
-```bash
-# Analyze development workflow
-npx claude-flow bottleneck analyze --component "test-suite"
-
-# Auto-optimize based on findings
-npx claude-flow topology optimize --swarm-id current
-```
-
-### 4. GitHub Integration
-
-Automate your entire GitHub workflow:
-
-```bash
-# Automated PR reviews
-npx claude-flow github pr enhance --repo owner/repo --pr 123
-
-# Intelligent issue triage
-npx claude-flow github issue triage --repo owner/repo --smart-assign
-
-# Release coordination
-npx claude-flow github release coordinate --version 2.0.0
-```
+I've found the cross-session memory feature invaluable when working across multiple days – being able to pick up exactly where I left off, with all context intact, has saved me countless hours of re-familiarization.
 
 
 
@@ -253,53 +158,7 @@ flowchart LR
 
 ## Practical Use Cases
 
-### Security Audit Automation
-
-```bash
-# Spawn security-focused swarm
-npx claude-flow swarm init --topology hierarchical --strategy security
-
-# Run comprehensive audit
-npx claude-flow task orchestrate \
-  "Perform security audit: check dependencies, scan for vulnerabilities, review auth, test for injections, verify encryption"
-```
-
-The swarm parallel-processes:
-- Dependency vulnerability scanning
-- Code pattern analysis for security flaws
-- Authentication/authorization review
-- Input validation checks
-- Encryption implementation verification
-
-### Database Migration
-
-```bash
-# Complex migration with zero downtime
-npx claude-flow sparc run migration \
-  "Migrate from PostgreSQL 12 to 15 with schema changes, maintain backwards compatibility"
-```
-
-Claude-Flow handles:
-- Schema analysis and compatibility checking
-- Migration script generation
-- Rollback procedures
-- Test data migration
-- Performance impact assessment
-
-### Documentation Generation
-
-```bash
-# Intelligent documentation from code
-npx claude-flow task orchestrate \
-  "Generate comprehensive docs: API references, architecture diagrams, deployment guides, troubleshooting"
-```
-
-Produces:
-- API documentation with examples
-- Architecture decision records
-- Deployment procedures
-- Troubleshooting guides
-- Performance benchmarks
+Claude-Flow excels at complex workflows like security audits, database migrations, and documentation generation. The swarm can parallel-process security scans (dependencies, code patterns, auth review, input validation, encryption), handle zero-downtime database migrations with rollback procedures, and generate comprehensive documentation including API references, architecture diagrams, and deployment guides.
 
 ## Performance Metrics
 
@@ -313,186 +172,23 @@ Real measurements from production use:
 | Code Review Time | 2 hours | 15 minutes | 8x faster |
 | Documentation | 3 hours | 20 minutes | 9x faster |
 
-## Best Practices
+## Best Practices, Common Patterns & Troubleshooting
 
-### 1. Start Small, Scale Smart
+**Production-Ready Workflows:**
 
-```bash
-# Begin with simple tasks
-npx claude-flow agent spawn --type coder
-npx claude-flow task orchestrate "Add input validation to user form"
+<script src="https://gist.github.com/williamzujkowski/d7c84bb665d58245f9041d951873ed53.js"></script>
 
-# Gradually increase complexity
-npx claude-flow swarm init --topology mesh --max-agents 5
-npx claude-flow sparc tdd "Implement complete payment processing system"
-```
+[View complete patterns on GitHub Gist](https://gist.github.com/williamzujkowski/d7c84bb665d58245f9041d951873ed53)
 
-### 2. Use Memory Effectively
-
-```javascript
-// Store critical decisions
-await claudeFlow.memory.store({
-  key: 'architecture/api/auth',
-  value: {
-    method: 'JWT',
-    expiry: '24h',
-    refresh: true,
-    rationale: 'Stateless, scalable, industry standard'
-  },
-  ttl: null // Permanent storage
-});
-
-// Reference in future sessions
-const authDecision = await claudeFlow.memory.retrieve('architecture/api/auth');
-```
-
-### 3. use Parallel Processing
-
-```bash
-# Batch related tasks for parallel execution
-npx claude-flow task orchestrate --parallel \
-  "Task 1: Update API endpoints" \
-  "Task 2: Migrate database schema" \
-  "Task 3: Update documentation" \
-  "Task 4: Write integration tests"
-```
-
-### 4. Enable Self-Healing Workflows
-
-```yaml
-# claude-flow.config.json
-{
-  "features": {
-    "selfHealingWorkflows": true,
-    "autoTopologySelection": true,
-    "smartAutoSpawning": true
-  },
-  "recovery": {
-    "maxRetries": 3,
-    "fallbackStrategy": "redistribute",
-    "alertOnFailure": true
-  }
-}
-```
+In my testing, the review-loop pattern works particularly well for iterative refinement, though I've noticed it can sometimes over-optimize if you're not careful about setting clear completion criteria.
 
 ## Getting Started
 
-### Installation
+**Installation & Configuration:**
 
-```bash
-# Install Claude-Flow
-npm install -g claude-flow@alpha
+<script src="https://gist.github.com/williamzujkowski/325ab7edde18fdd562a8d8797eed466e.js"></script>
 
-# Add as MCP server to Claude
-claude mcp add claude-flow npx claude-flow@alpha mcp start
-
-# Verify installation
-npx claude-flow --version
-```
-
-### Your First Swarm
-
-```bash
-# 1. Initialize a project
-mkdir my-project && cd my-project
-npx claude-flow init
-
-# 2. Start a simple swarm
-    # ... (additional implementation details)
-# 5. Review results
-npx claude-flow task results --format detailed
-```
-
-### Configuration Tips
-
-```javascript
-// claude-flow.config.json
-{
-  "features": {
-    "autoTopologySelection": true,  // Let AI choose best topology
-    "parallelExecution": true,       // Enable parallel processing
-    # ... (additional implementation details)
-  }
-}
-```
-
-## Common Patterns
-
-### The Research-First Pattern
-
-```bash
-# Always research before implementing
-npx claude-flow agent spawn --type researcher --name "deep-researcher"
-npx claude-flow task orchestrate "Research: current best practices for implementing OAuth 2.0"
-# Then implement based on findings
-npx claude-flow sparc tdd "Implement OAuth 2.0 based on research findings"
-```
-
-### The Review-Loop Pattern
-
-```bash
-# Continuous review and refinement
-while true; do
-  npx claude-flow agent spawn --type coder
-  npx claude-flow task orchestrate "Implement feature X"
-
-    # ... (additional implementation details)
-  fi
-done
-```
-
-In my testing, this pattern works particularly well for iterative refinement, though I've noticed it can sometimes over-optimize if you're not careful about setting clear completion criteria.
-
-### The Production-Ready Pattern
-
-```bash
-# Ensure production readiness
-npx claude-flow sparc pipeline \
-  "Build feature -> Write tests -> Security audit -> Performance test -> Documentation -> Deploy"
-
-# Validate before deployment
-npx claude-flow agent spawn --type production-validator
-npx claude-flow task orchestrate "Validate: all production criteria met"
-```
-
-## Troubleshooting
-
-### Agent Coordination Issues
-
-```bash
-# Reset swarm topology
-npx claude-flow swarm destroy --force
-npx claude-flow swarm init --topology mesh --fresh
-
-# Check agent health
-npx claude-flow agent metrics --all
-npx claude-flow health check --components [agents, memory, coordination]
-```
-
-### Memory Conflicts
-
-```bash
-# Clear namespace conflicts
-npx claude-flow memory namespace --action clear --namespace "conflicted"
-
-# Rebuild memory index
-npx claude-flow memory compress
-npx claude-flow memory sync --rebuild-index
-```
-
-### Performance Bottlenecks
-
-```bash
-# Identify bottlenecks
-npx claude-flow bottleneck analyze --timeframe 24h
-
-# Auto-optimize
-npx claude-flow performance optimize --auto
-
-# Manual tuning
-npx claude-flow config set performance.maxAgents 15
-npx claude-flow config set performance.executionStrategy "adaptive"
-```
+[View installation guide on GitHub Gist](https://gist.github.com/williamzujkowski/325ab7edde18fdd562a8d8797eed466e)
 
 ## The Future of Development
 
