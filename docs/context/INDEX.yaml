@@ -33,7 +33,7 @@ categories:
       - name: enforcement
         file: docs/context/core/enforcement.md
         priority: HIGH
-        estimated_tokens: 1500
+        estimated_tokens: 1050
         version: 1.0.0
         last_updated: "2025-11-01"
         load_when:

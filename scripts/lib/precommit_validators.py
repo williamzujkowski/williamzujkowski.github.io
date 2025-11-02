@@ -12,6 +12,7 @@ import json
 import re
 import subprocess
 import sys
+import yaml
 from pathlib import Path
 from typing import Tuple, List, Dict, Any
 
@@ -381,6 +382,129 @@ def check_image_variants() -> Tuple[bool, str]:
     return True, f"No recursive image variants ({img_count} images)"
 
 
+def validate_token_budgets() -> Tuple[bool, str]:
+    """
+    Validate that INDEX.yaml token estimates are accurate for modified modules.
+
+    Uses measured word counts and proven 1.33 tokens/word ratio (not the old 6.2
+    ratio that caused 97.5% overestimation in Phase 1).
+
+    This is a WARNING validator - doesn't block commits, but alerts to drift.
+
+    Returns:
+        (success, message)
+    """
+    # Check if INDEX.yaml exists
+    index_path = Path("docs/context/INDEX.yaml")
+    if not index_path.exists():
+        return True, "INDEX.yaml not found (skipping)"
+
+    # Get modified context module files
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        return False, "Failed to get staged files"
+
+    modified_files = result.stdout.strip().split('\n') if result.stdout else []
+
+    # Filter for docs/context/ modules (markdown files)
+    modified_modules = [
+        f for f in modified_files
+        if f.startswith('docs/context/') and f.endswith('.md')
+    ]
+
+    if not modified_modules:
+        return True, "No context modules modified"
+
+    # Load INDEX.yaml
+    try:
+        with open(index_path, 'r', encoding='utf-8') as f:
+            index = yaml.safe_load(f)
+    except Exception as e:
+        return False, f"Failed to load INDEX.yaml: {e}"
+
+    # Build module lookup from INDEX.yaml
+    module_estimates = {}
+    for category_name, category_data in index.get('categories', {}).items():
+        if not isinstance(category_data, dict):
+            continue
+        for module in category_data.get('modules', []):
+            if not isinstance(module, dict):
+                continue
+            file_path = module.get('file', '')
+            estimated_tokens = module.get('estimated_tokens', 0)
+            module_name = module.get('name', '')
+            if file_path:
+                module_estimates[file_path] = {
+                    'name': module_name,
+                    'estimated': estimated_tokens,
+                    'category': category_name
+                }
+
+    # Check each modified module
+    warnings = []
+    for module_file in modified_modules:
+        if module_file not in module_estimates:
+            # Module not in INDEX.yaml yet (probably new)
+            continue
+
+        module_info = module_estimates[module_file]
+        estimated = module_info['estimated']
+
+        # Calculate actual tokens from word count
+        try:
+            with open(module_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Count words (split on whitespace)
+            words = content.split()
+            word_count = len(words)
+
+            # Use proven 1.33 tokens/word ratio (validated by tester agent)
+            # Round to nearest 50 for readability
+            actual_tokens = round((word_count * 1.33) / 50) * 50
+
+            # Calculate variance percentage
+            if estimated > 0:
+                variance = abs(actual_tokens - estimated) / estimated * 100
+
+                # Warn if >20% variance
+                if variance > 20:
+                    warnings.append({
+                        'file': module_file,
+                        'name': module_info['name'],
+                        'category': module_info['category'],
+                        'estimated': estimated,
+                        'actual': actual_tokens,
+                        'variance': variance,
+                        'word_count': word_count
+                    })
+        except Exception as e:
+            # Don't fail the whole check for one file error
+            continue
+
+    if warnings:
+        warn_lines = ["⚠️  Token budget variance detected:"]
+        for w in warnings[:3]:  # Limit to 3 for brevity
+            warn_lines.append(
+                f"  {w['category']}/{w['name']}: "
+                f"{w['estimated']} → {w['actual']} tokens "
+                f"({w['variance']:.0f}% variance, {w['word_count']} words)"
+            )
+        if len(warnings) > 3:
+            warn_lines.append(f"  ... and {len(warnings) - 3} more")
+        warn_lines.append("\nUpdate INDEX.yaml estimates to reflect actual token counts")
+        warn_lines.append("Formula: (word_count * 1.33), rounded to nearest 50")
+
+        # Return success (warning only, don't block commit)
+        return True, "\n".join(warn_lines)
+
+    return True, f"Token budgets accurate for {len(modified_modules)} modified modules"
+
+
 def update_manifest() -> Tuple[bool, str]:
     """
     Update MANIFEST.json with current timestamp and stage it.
@@ -446,6 +570,7 @@ VALIDATORS = {
     "humanization_scores": validate_humanization_scores,
     "code_ratios": check_code_ratios,
     "image_variants": check_image_variants,
+    "token_budgets": validate_token_budgets,
 }
 
 # Validators that must run sequentially AFTER parallel checks pass
