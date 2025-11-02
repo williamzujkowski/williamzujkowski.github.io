@@ -1,36 +1,145 @@
 #!/usr/bin/env -S uv run python3
 """
-Metadata Quality Validator
-Validates frontmatter metadata across all blog posts
+SCRIPT: metadata-validator.py
+PURPOSE: Validate blog post metadata for quality and completeness
+CATEGORY: validation
+LLM_READY: True
+VERSION: 3.0.0
+UPDATED: 2025-11-02
 
-Usage:
-    uv run python scripts/validation/metadata-validator.py [--format json|text]
+DESCRIPTION:
+    Validates YAML frontmatter metadata across all blog posts to ensure
+    quality, completeness, and compliance with SEO best practices.
+
+    Validation checks:
+    1. Required fields: title, description, date, author, tags
+    2. Description length (optimal: 120-160 chars for SEO)
+    3. Date format (YYYY-MM-DD or ISO 8601)
+    4. Hero image path validation
+    5. Tag count and quality (3-8 recommended)
+
+    Used in CI/CD pipeline to ensure content quality before deployment.
+
+USAGE:
+    # Text report (default)
+    uv run python scripts/validation/metadata-validator.py
+
+    # JSON report for CI/CD
+    uv run python scripts/validation/metadata-validator.py --format json
+
+    # Validate specific directory
+    uv run python scripts/validation/metadata-validator.py --posts-dir src/drafts
+
+ARGUMENTS:
+    --format: Output format [text|json] (default: text)
+    --posts-dir: Posts directory (default: src/posts)
+
+OUTPUT:
+    - Total posts scanned
+    - Validation statistics
+    - Detailed issue reports per post
+    - Exit code: 0 (valid), 1 (errors detected)
+
+DEPENDENCIES:
+    - Python 3.8+
+    - PyYAML for frontmatter parsing
+    - logging_config for consistent logging
+
+RELATED_SCRIPTS:
+    - scripts/validation/build-monitor.py: Build process validation
+
+MANIFEST_REGISTRY: scripts/validation/metadata-validator.py
 """
 
-import os
+import re
 import sys
-import yaml
 import json
+import yaml
 import argparse
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional, Any
+from dataclasses import dataclass, asdict
 
-# Color codes for terminal output
-class Colors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
+
+# Pre-compiled regex for date validation (Optimization #1)
+DATE_PATTERN_SIMPLE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+DATE_PATTERN_ISO = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})?$')
+
+@dataclass
+class ValidationResult:
+    """Represents validation result for a single post.
+
+    Attributes:
+        filename: Name of the validated markdown file.
+        issues: List of validation errors that must be fixed.
+        warnings: List of non-critical suggestions for improvement.
+        valid: Boolean indicating if post passes all required validations.
+    """
+    filename: str
+    issues: List[str]
+    warnings: List[str]
+    valid: bool
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization.
+
+        Returns:
+            Dictionary representation of validation result.
+        """
+        return asdict(self)
+
 
 class MetadataValidator:
-    def __init__(self, posts_dir: str = "src/posts"):
-        self.posts_dir = Path(posts_dir)
-        self.results = {
+    """Validate blog post metadata for quality and completeness.
+
+    This validator checks YAML frontmatter in markdown files for:
+    - Required fields (title, description, date, author, tags)
+    - SEO-optimized description length (120-160 characters)
+    - Valid date formats (YYYY-MM-DD or ISO 8601)
+    - Hero image path existence
+    - Appropriate tag counts (3-8 recommended)
+
+    Attributes:
+        DESCRIPTION_MIN: Minimum acceptable description length (50 chars).
+        DESCRIPTION_OPTIMAL_MIN: Lower bound for SEO-optimal range (120 chars).
+        DESCRIPTION_OPTIMAL_MAX: Upper bound for SEO-optimal range (160 chars).
+        DESCRIPTION_MAX: Maximum acceptable description length (200 chars).
+        TAG_MIN_WARN: Minimum tags before warning (3).
+        TAG_MAX: Maximum allowed tags (10).
+        TAG_OPTIMAL_RANGE: Optimal tag count range (3-8).
+    """
+
+    # SEO-optimal description length
+    DESCRIPTION_MIN: int = 50
+    DESCRIPTION_OPTIMAL_MIN: int = 120
+    DESCRIPTION_OPTIMAL_MAX: int = 160
+    DESCRIPTION_MAX: int = 200
+
+    # Tag count recommendations
+    TAG_MIN_WARN: int = 3
+    TAG_MAX: int = 10
+    TAG_OPTIMAL_RANGE: Tuple[int, int] = (3, 8)
+
+    def __init__(self, posts_dir: Path) -> None:
+        """Initialize the metadata validator.
+
+        Args:
+            posts_dir: Directory containing blog post markdown files.
+
+        Raises:
+            TypeError: If posts_dir is not a Path object.
+        """
+        if not isinstance(posts_dir, Path):
+            raise TypeError(f"posts_dir must be Path, got {type(posts_dir)}")
+
+        self.posts_dir: Path = posts_dir
+        self.results: Dict[str, Any] = {
             "total_posts": 0,
             "posts_with_issues": [],
             "metadata_coverage": {},
@@ -47,99 +156,236 @@ class MetadataValidator:
             }
         }
 
-    def extract_frontmatter(self, file_path: Path) -> Tuple[Dict, str]:
-        """Extract YAML frontmatter from markdown file"""
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+    def extract_frontmatter(self, file_path: Path) -> Tuple[Dict[str, Any], Optional[str]]:
+        """Extract YAML frontmatter from markdown file.
+
+        Parses the YAML metadata block at the beginning of markdown files,
+        delimited by '---' markers.
+
+        Args:
+            file_path: Path to markdown file to parse.
+
+        Returns:
+            Tuple containing:
+                - frontmatter_dict: Parsed YAML as dictionary (empty if error).
+                - error_message: Error description string or None if successful.
+
+        Examples:
+            >>> validator = MetadataValidator(Path("posts"))
+            >>> frontmatter, error = validator.extract_frontmatter(Path("post.md"))
+            >>> if error is None:
+            ...     print(frontmatter['title'])
+        """
+        try:
+            content: str = file_path.read_text(encoding='utf-8')
+        except UnicodeDecodeError as e:
+            error_msg = f"Encoding error: {e}"
+            logger.error(f"Encoding error in {file_path.name}: {e}")
+            return {}, error_msg
+        except (IOError, OSError) as e:
+            error_msg = f"I/O error: {e}"
+            logger.error(f"Cannot read {file_path.name}: {e}")
+            return {}, error_msg
 
         if not content.startswith('---'):
             return {}, "No frontmatter found"
 
         try:
             # Find second --- delimiter
-            end_index = content.find('---', 3)
+            end_index: int = content.find('---', 3)
             if end_index == -1:
                 return {}, "Malformed frontmatter (no closing ---)"
 
-            frontmatter_text = content[3:end_index].strip()
-            frontmatter = yaml.safe_load(frontmatter_text)
-            return frontmatter, None
+            frontmatter_text: str = content[3:end_index].strip()
+            frontmatter: Any = yaml.safe_load(frontmatter_text)
+            return frontmatter or {}, None
         except yaml.YAMLError as e:
-            return {}, f"YAML parsing error: {str(e)}"
+            error_msg = f"YAML parsing error: {str(e)}"
+            logger.error(f"YAML parsing error in {file_path.name}: {e}")
+            return {}, error_msg
+        except Exception as e:
+            error_msg = f"Unexpected error: {str(e)}"
+            logger.error(f"Unexpected error parsing {file_path.name}: {e}", exc_info=True)
+            return {}, error_msg
 
-    def validate_description_length(self, description: str) -> Tuple[bool, str]:
-        """Validate description length (optimal: 120-160 chars for SEO)"""
+    def validate_description_length(self, description: Optional[str]) -> Tuple[bool, str]:
+        """Validate description length for SEO optimization.
+
+        Checks if meta description falls within SEO-optimal ranges:
+        - Critical: 50-200 characters (hard limits)
+        - Optimal: 120-160 characters (Google search snippet length)
+        - Acceptable: 50-119 or 161-200 characters
+
+        Args:
+            description: Meta description text from frontmatter.
+
+        Returns:
+            Tuple containing:
+                - is_valid: True if description meets minimum requirements.
+                - status_message: Human-readable validation result.
+
+        Examples:
+            >>> validator = MetadataValidator(Path("posts"))
+            >>> valid, msg = validator.validate_description_length("Short")
+            >>> print(valid, msg)
+            False Too short (5 chars, recommend 120-160)
+        """
         if not description:
             return False, "Missing"
 
-        length = len(description)
-        if length < 50:
+        length: int = len(description)
+        if length < self.DESCRIPTION_MIN:
             return False, f"Too short ({length} chars, recommend 120-160)"
-        elif length > 200:
+        elif length > self.DESCRIPTION_MAX:
             return False, f"Too long ({length} chars, recommend 120-160)"
-        elif length < 120 or length > 160:
+        elif length < self.DESCRIPTION_OPTIMAL_MIN or length > self.DESCRIPTION_OPTIMAL_MAX:
             return True, f"Acceptable ({length} chars, optimal: 120-160)"
         else:
             return True, f"Optimal ({length} chars)"
 
-    def validate_date_format(self, date_value) -> Tuple[bool, str]:
-        """Validate date format"""
+    def validate_date_format(self, date_value: Any) -> Tuple[bool, str]:
+        """Validate date format compliance.
+
+        Accepts YAML date objects, YYYY-MM-DD strings, or ISO 8601 timestamps.
+        Uses regex pre-filter for performance (Optimization #1).
+
+        Args:
+            date_value: Date value from frontmatter (string, datetime, or None).
+
+        Returns:
+            Tuple containing:
+                - is_valid: True if date format is acceptable.
+                - status_message: Description of date format or error.
+
+        Examples:
+            >>> validator = MetadataValidator(Path("posts"))
+            >>> valid, msg = validator.validate_date_format("2025-11-02")
+            >>> print(valid, msg)
+            True Valid (YYYY-MM-DD)
+        """
         if not date_value:
             return False, "Missing"
 
-        # Handle both string and datetime objects
+        # Handle datetime objects from YAML parser
         if isinstance(date_value, datetime):
             return True, "Valid (datetime object)"
 
-        try:
-            # Try parsing common date formats
-            datetime.strptime(str(date_value), '%Y-%m-%d')
-            return True, "Valid (YYYY-MM-DD)"
-        except ValueError:
+        date_str: str = str(date_value)
+
+        # Fast regex pre-filter (Optimization #1)
+        if DATE_PATTERN_SIMPLE.match(date_str):
             try:
-                datetime.strptime(str(date_value), '%Y-%m-%dT%H:%M:%S')
-                return True, "Valid (ISO 8601)"
-            except ValueError:
+                datetime.strptime(date_str, '%Y-%m-%d')
+                return True, "Valid (YYYY-MM-DD)"
+            except ValueError as e:
+                logger.debug(f"Date regex matched but parsing failed: {date_str} - {e}")
                 return False, f"Invalid format: {date_value}"
 
-    def validate_image_path(self, image_path: str) -> Tuple[bool, str]:
-        """Validate hero image path exists"""
+        if DATE_PATTERN_ISO.match(date_str):
+            # ISO 8601 format - accept without full parsing
+            return True, "Valid (ISO 8601)"
+
+        # Fallback: no regex match
+        return False, f"Invalid format: {date_value}"
+
+    def validate_image_path(self, image_path: Optional[str]) -> Tuple[bool, str]:
+        """Validate hero image path exists.
+
+        Checks both absolute paths and paths relative to project root.
+
+        Args:
+            image_path: Path to hero image (absolute or relative to project root).
+
+        Returns:
+            Tuple containing:
+                - is_valid: True if image file exists at specified path.
+                - status_message: Validation result or error description.
+
+        Examples:
+            >>> validator = MetadataValidator(Path("posts"))
+            >>> valid, msg = validator.validate_image_path("/images/hero.jpg")
+            >>> print(valid, msg)
+            True Valid
+        """
         if not image_path:
             return False, "Missing"
 
-        # Check if absolute path exists
-        if os.path.isabs(image_path):
-            if not os.path.exists(image_path):
-                return False, f"Path not found: {image_path}"
-        else:
-            # Check relative to project root
-            full_path = Path(self.posts_dir).parent.parent / image_path.lstrip('/')
-            if not full_path.exists():
-                return False, f"Path not found: {image_path}"
+        try:
+            # Check if absolute path exists
+            img_path: Path = Path(image_path)
+            if img_path.is_absolute():
+                if not img_path.exists():
+                    return False, f"Path not found: {image_path}"
+            else:
+                # Check relative to project root
+                full_path: Path = self.posts_dir.parent.parent / image_path.lstrip('/')
+                if not full_path.exists():
+                    return False, f"Path not found: {image_path}"
 
-        return True, "Valid"
+            return True, "Valid"
+        except (OSError, ValueError) as e:
+            logger.debug(f"Image path validation error: {image_path} - {e}")
+            return False, f"Invalid path: {image_path}"
 
-    def validate_tags(self, tags: List[str]) -> Tuple[bool, str]:
-        """Validate tags presence and count"""
+    def validate_tags(self, tags: Any) -> Tuple[bool, str]:
+        """Validate tags presence and count.
+
+        Checks that tags field is a non-empty list with appropriate count.
+        Optimal range is 3-8 tags for SEO and discoverability.
+
+        Args:
+            tags: List of tag strings from frontmatter (or other type if invalid).
+
+        Returns:
+            Tuple containing:
+                - is_valid: True if tags meet minimum requirements.
+                - status_message: Validation result with tag count.
+
+        Examples:
+            >>> validator = MetadataValidator(Path("posts"))
+            >>> valid, msg = validator.validate_tags(["python", "tutorial", "web"])
+            >>> print(valid, msg)
+            True Good (3 tags)
+        """
         if not tags:
             return False, "Missing"
 
         if not isinstance(tags, list):
             return False, "Not a list"
 
-        tag_count = len(tags)
+        tag_count: int = len(tags)
         if tag_count == 0:
             return False, "Empty list"
-        elif tag_count < 3:
+        elif tag_count < self.TAG_MIN_WARN:
             return True, f"Sparse ({tag_count} tags, recommend 3-8)"
-        elif tag_count > 10:
+        elif tag_count > self.TAG_MAX:
             return False, f"Too many ({tag_count} tags, recommend 3-8)"
         else:
             return True, f"Good ({tag_count} tags)"
 
-    def validate_post(self, file_path: Path) -> Dict:
-        """Validate all metadata for a single post"""
-        post_result = {
+    def validate_post(self, file_path: Path) -> Dict[str, Any]:
+        """Validate all metadata for a single post.
+
+        Runs all validation checks on a blog post's YAML frontmatter and
+        aggregates results into issues (must fix) and warnings (suggestions).
+
+        Args:
+            file_path: Path to blog post markdown file.
+
+        Returns:
+            Dictionary containing:
+                - file: Filename of the validated post.
+                - issues: List of validation errors (critical).
+                - warnings: List of suggestions (non-critical).
+                - valid: Boolean indicating if post passes all checks.
+
+        Examples:
+            >>> validator = MetadataValidator(Path("posts"))
+            >>> result = validator.validate_post(Path("posts/my-post.md"))
+            >>> if not result['valid']:
+            ...     print(result['issues'])
+        """
+        post_result: Dict[str, Any] = {
             "file": file_path.name,
             "issues": [],
             "warnings": [],
@@ -213,102 +459,201 @@ class MetadataValidator:
 
         return post_result
 
-    def validate_all_posts(self):
-        """Validate all posts in the posts directory"""
-        post_files = list(self.posts_dir.glob("*.md"))
+    def validate_all_posts(self) -> Dict[str, Any]:
+        """Validate all posts in the posts directory.
+
+        Scans all markdown files in the configured posts directory and runs
+        validation checks on each. Aggregates results into summary statistics.
+
+        Returns:
+            Dictionary containing:
+                - total_posts: Total number of markdown files scanned.
+                - posts_with_issues: List of posts with errors or warnings.
+                - metadata_coverage: Statistics dict with validation counts.
+                - issues_summary: Breakdown of specific issue types.
+
+        Examples:
+            >>> validator = MetadataValidator(Path("posts"))
+            >>> results = validator.validate_all_posts()
+            >>> print(f"Valid: {results['metadata_coverage']['posts_valid']}")
+        """
+        post_files: List[Path] = list(self.posts_dir.glob("*.md"))
         self.results["total_posts"] = len(post_files)
 
-        print(f"{Colors.HEADER}{'=' * 80}{Colors.ENDC}")
-        print(f"{Colors.HEADER}{Colors.BOLD}METADATA VALIDATION REPORT{Colors.ENDC}")
-        print(f"{Colors.HEADER}{'=' * 80}{Colors.ENDC}\n")
+        logger.info("=" * 80)
+        logger.info("METADATA VALIDATION REPORT")
+        logger.info("=" * 80)
+        logger.info(f"Validating {len(post_files)} posts in {self.posts_dir}/...")
 
-        print(f"Validating {len(post_files)} posts in {self.posts_dir}/...\n")
+        valid_count: int = 0
+        warning_count: int = 0
 
-        valid_count = 0
-        warning_count = 0
-
-        for post_file in post_files:
-            result = self.validate_post(post_file)
+        for post_file in sorted(post_files):
+            result: Dict[str, Any] = self.validate_post(post_file)
             if result["valid"] and not result["warnings"]:
                 valid_count += 1
             elif result["warnings"] and not result["issues"]:
                 warning_count += 1
 
         # Calculate coverage
+        total_posts: int = self.results["total_posts"]
+        validation_rate: float = (valid_count / total_posts * 100) if total_posts > 0 else 0.0
+
         self.results["metadata_coverage"] = {
             "posts_valid": valid_count,
             "posts_with_warnings": warning_count,
             "posts_with_errors": len(self.results["posts_with_issues"]) - warning_count,
-            "validation_rate": f"{(valid_count / self.results['total_posts'] * 100):.1f}%"
+            "validation_rate": f"{validation_rate:.1f}%"
         }
 
-    def print_text_report(self):
-        """Print formatted text report"""
+        return self.results
+
+    def print_text_report(self) -> None:
+        """Print formatted text report to console.
+
+        Outputs human-readable validation results including:
+        - Summary statistics (total posts, validation rate)
+        - Issue breakdown by type
+        - Detailed per-post issues and warnings
+        - Final status (PASSED/FAILED)
+
+        Note: Uses logger for structured output. Print statements only used
+        for JSON output in print_json_report().
+        """
         # Summary statistics
-        print(f"{Colors.OKBLUE}{Colors.BOLD}Summary Statistics:{Colors.ENDC}")
-        print(f"  Total posts: {self.results['total_posts']}")
-        print(f"  Posts valid: {Colors.OKGREEN}{self.results['metadata_coverage']['posts_valid']}{Colors.ENDC}")
-        print(f"  Posts with warnings: {Colors.WARNING}{self.results['metadata_coverage']['posts_with_warnings']}{Colors.ENDC}")
-        print(f"  Posts with errors: {Colors.FAIL}{self.results['metadata_coverage']['posts_with_errors']}{Colors.ENDC}")
-        print(f"  Validation rate: {self.results['metadata_coverage']['validation_rate']}\n")
+        logger.info("\n📊 Summary Statistics:")
+        logger.info(f"  - Total posts: {self.results['total_posts']}")
+        logger.info(f"  - Posts valid: {self.results['metadata_coverage']['posts_valid']}")
+        logger.info(f"  - Posts with warnings: {self.results['metadata_coverage']['posts_with_warnings']}")
+        logger.info(f"  - Posts with errors: {self.results['metadata_coverage']['posts_with_errors']}")
+        logger.info(f"  - Validation rate: {self.results['metadata_coverage']['validation_rate']}")
 
         # Issues breakdown
-        print(f"{Colors.OKBLUE}{Colors.BOLD}Issues Breakdown:{Colors.ENDC}")
         issues = self.results["issues_summary"]
-        for issue_type, count in issues.items():
-            if count > 0:
-                color = Colors.FAIL if count > 5 else Colors.WARNING
-                print(f"  {color}{issue_type.replace('_', ' ').title()}: {count}{Colors.ENDC}")
+        has_issues = any(count > 0 for count in issues.values())
+
+        if has_issues:
+            logger.info("\n📋 Issues Breakdown:")
+            for issue_type, count in issues.items():
+                if count > 0:
+                    level = "ERROR" if count > 5 else "WARNING"
+                    logger.warning(f"  - {issue_type.replace('_', ' ').title()}: {count} ({level})")
 
         # Detailed issues
         if self.results["posts_with_issues"]:
-            print(f"\n{Colors.OKBLUE}{Colors.BOLD}Detailed Issues:{Colors.ENDC}")
+            logger.info("\n📄 Detailed Issues:")
             for post in self.results["posts_with_issues"]:
-                print(f"\n  {Colors.BOLD}{post['file']}{Colors.ENDC}")
+                rel_path = Path(post['file'])
+                logger.info(f"\n  {rel_path.name}")
+                logger.info("  " + "-" * 78)
 
                 if post["issues"]:
-                    print(f"    {Colors.FAIL}Errors:{Colors.ENDC}")
+                    logger.error("  Errors:")
                     for issue in post["issues"]:
-                        print(f"      - {issue}")
+                        logger.error(f"    • {issue}")
 
                 if post["warnings"]:
-                    print(f"    {Colors.WARNING}Warnings:{Colors.ENDC}")
+                    logger.warning("  Warnings:")
                     for warning in post["warnings"]:
-                        print(f"      - {warning}")
+                        logger.warning(f"    • {warning}")
 
-        print(f"\n{Colors.HEADER}{'=' * 80}{Colors.ENDC}")
+        logger.info("\n" + "=" * 80)
 
-        # Exit code
+        # Final status
         if self.results['metadata_coverage']['posts_with_errors'] > 0:
-            print(f"{Colors.FAIL}Validation FAILED - Fix errors before committing{Colors.ENDC}")
-            return 1
+            logger.error("❌ Validation FAILED - Fix errors before committing")
         elif self.results['metadata_coverage']['posts_with_warnings'] > 0:
-            print(f"{Colors.WARNING}Validation PASSED with warnings{Colors.ENDC}")
-            return 0
+            logger.warning("⚠️  Validation PASSED with warnings")
         else:
-            print(f"{Colors.OKGREEN}Validation PASSED - All metadata valid{Colors.ENDC}")
-            return 0
+            logger.info("✅ Validation PASSED - All metadata valid")
 
-    def print_json_report(self):
-        """Print JSON report"""
+    def print_json_report(self) -> None:
+        """Print JSON report for CI/CD integration.
+
+        Outputs validation results as JSON to stdout for parsing by CI/CD
+        pipelines or other automation tools.
+
+        Note: This is the ONLY method that uses print() instead of logger,
+        as it produces machine-readable output that should go to stdout.
+        """
         print(json.dumps(self.results, indent=2))
-        return 0
 
-def main():
-    parser = argparse.ArgumentParser(description="Validate blog post metadata")
-    parser.add_argument('--format', choices=['text', 'json'], default='text',
-                       help='Output format (default: text)')
-    parser.add_argument('--posts-dir', default='src/posts',
-                       help='Posts directory (default: src/posts)')
+    def run(self) -> int:
+        """Run the validation process.
+
+        Validates all posts in the configured directory and returns
+        appropriate exit code for shell scripts and CI/CD integration.
+
+        Returns:
+            Exit code:
+                - 0: Validation passed (all posts valid or only warnings).
+                - 1: Validation failed (posts with errors or directory not found).
+
+        Raises:
+            OSError: If posts directory cannot be accessed.
+        """
+        if not self.posts_dir.exists():
+            logger.error(f"Posts directory not found: {self.posts_dir}")
+            return 1
+
+        self.validate_all_posts()
+        return 1 if self.results['metadata_coverage']['posts_with_errors'] > 0 else 0
+
+
+def main() -> int:
+    """Main entry point for metadata-validator.py script.
+
+    Parses command-line arguments, configures validator, runs validation,
+    and outputs report in requested format (text or JSON).
+
+    Returns:
+        Exit code:
+            - 0: Validation passed (no errors).
+            - 1: Validation failed (errors detected) or fatal error.
+            - 130: User interrupted with Ctrl+C.
+
+    Examples:
+        Run from command line:
+            $ uv run python scripts/validation/metadata-validator.py
+            $ uv run python scripts/validation/metadata-validator.py --format json
+    """
+    parser = argparse.ArgumentParser(
+        description='Validate blog post metadata for quality and completeness',
+        epilog='Example: %(prog)s --format json'
+    )
+    parser.add_argument(
+        '--format',
+        choices=['text', 'json'],
+        default='text',
+        help='Output format (default: text)'
+    )
+    parser.add_argument(
+        '--posts-dir',
+        type=Path,
+        default=Path(__file__).parent.parent.parent / 'src' / 'posts',
+        help='Posts directory (default: src/posts)'
+    )
+
     args = parser.parse_args()
 
-    validator = MetadataValidator(posts_dir=args.posts_dir)
-    validator.validate_all_posts()
+    try:
+        validator = MetadataValidator(posts_dir=args.posts_dir)
+        exit_code = validator.run()
 
-    if args.format == 'json':
-        return validator.print_json_report()
-    else:
-        return validator.print_text_report()
+        if args.format == 'json':
+            validator.print_json_report()
+        else:
+            validator.print_text_report()
+
+        return exit_code
+
+    except KeyboardInterrupt:
+        logger.warning("\nValidation cancelled by user")
+        return 130
+    except Exception as e:
+        logger.error(f"Fatal error: {e}", exc_info=True)
+        return 1
+
 
 if __name__ == "__main__":
     sys.exit(main())

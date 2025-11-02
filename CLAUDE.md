@@ -13,7 +13,7 @@ TOKEN_EFFICIENCY: 84.9%
 
 This file (CLAUDE.md) serves as the **root anchor** for a modular documentation architecture:
 - Progressive context loading based on task requirements
-- 10 specialized modules organized by priority (core, workflows, standards, technical, reference, templates)
+- 28 specialized modules organized by priority (core, workflows, standards, technical, reference, templates)
 - Token-efficient: Load only what you need for the current task
 - Complete index: `docs/context/INDEX.yaml`
 
@@ -131,8 +131,7 @@ Three ways to find relevant modules:
 **1. By Task:** Use table above for 8 common patterns
 
 **2. By Index:** Check `docs/context/INDEX.yaml` for complete catalog:
-- 10 existing modules (5 core + 5 workflows)
-- 15+ planned modules (standards, technical, reference, templates)
+- 28 existing modules (5 core + 5 workflows + 5 standards + 6 technical + 3 reference + 4 templates)
 - Tags, dependencies, load conditions, token estimates
 
 **3. By Priority:**
@@ -377,6 +376,26 @@ cat MANIFEST.json | jq '.last_validated'
 cat .git/hooks/pre-commit
 ```
 
+**Workflow 3: Swarm Orchestration**
+```bash
+# 1. Load required modules
+- core/enforcement.md
+- workflows/swarm-orchestration.md
+- technical/agent-coordination.md (for agent type validation)
+
+# 2. Validate agent types exist (prevent hallucination)
+# Check docs/context/technical/agent-coordination.md for 54 available agent types
+
+# 3. Decompose task into parallel subtasks
+# Pattern: research → implement → test → review
+
+# 4. Deploy swarm with TodoWrite batching
+# Use concurrent execution (1 message = all operations)
+
+# 5. Coordinate via shared memory/TodoWrite
+# Track progress: 6 agents, 11 tasks, 27 minutes typical
+```
+
 ### Emergency Contacts
 
 **If something breaks:**
@@ -394,7 +413,7 @@ cat .git/hooks/pre-commit
 
 ## 📚 Module Index
 
-Complete list of existing modules (10 total). For full catalog with tags, dependencies, and load conditions, see `docs/context/INDEX.yaml`.
+Complete list of existing modules (28 total). For full catalog with tags, dependencies, and load conditions, see `docs/context/INDEX.yaml`.
 
 | Module | Priority | Load When | Location | Tokens |
 |--------|----------|-----------|----------|--------|
@@ -463,6 +482,9 @@ Complete list of existing modules (10 total). For full catalog with tags, depend
 - Documented validation infrastructure (metadata-validator, build-monitor)
 - Emphasized date format enforcement (YYYY-MM-DD via pre-commit hooks)
 - Added Python logging standards reference (scripts/lib/logging_config.py)
-- Documented swarm coordination patterns (5 agents, 11 tasks, 27 minutes)
+- Documented swarm coordination patterns (5 agents, 11 tasks, 27 minutes; updated to 6-agent deployments with agent type validation)
 - Documented gist extraction strategy for code ratio compliance (21.0% verified, extract >30 line blocks, see CODE_RATIO_MEASUREMENT_METHODOLOGY.md for methodology)
 - Verified token estimate accuracy (corrected 3.3x underestimate: 42K claimed → 138K actual)
+- Created production Python template (786 lines, docs/templates/python-script-template.py) with logging, error handling, type hints, achieving 95+ quality scores
+- Documented performance optimization insights (validation scripts <2s/<100MB, incremental improvements: 34% speedup potential via date regex pre-filter)
+- Established monthly repository cleanup pattern (vestigial file scanning, archive vs delete criteria, documentation accuracy audits)

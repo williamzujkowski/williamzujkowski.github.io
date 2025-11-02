@@ -4,8 +4,8 @@ SCRIPT: final-validation.py
 PURPOSE: Final validation of live site after deployment
 CATEGORY: utilities
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 1.1.0
+UPDATED: 2025-11-02T17:45:00-04:00
 
 DESCRIPTION:
     Final validation of live site after deployment. This script is part of the utilities
@@ -43,69 +43,81 @@ MANIFEST_REGISTRY: scripts/final-validation.py
 """
 
 import asyncio
+import sys
+from pathlib import Path
 from playwright.async_api import async_playwright
 import json
 
+# Setup centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
+
 async def validate_live_site():
     """Quick validation of key features on live site"""
-    
+
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
-        
-        print("=" * 70)
-        print("🌐 Final Live Site Validation")
-        print("=" * 70)
-        
+
+        logger.info("=" * 70)
+        logger.info("Final Live Site Validation")
+        logger.info("=" * 70)
+
         # Check Claude-Flow post (should have Mermaid and image)
         url = "https://williamzujkowski.github.io/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/"
-        print(f"\n📝 Checking Claude-Flow post...")
-        print(f"   URL: {url}")
-        
+        logger.info("Checking Claude-Flow post...")
+        logger.debug(f"URL: {url}")
+
         await page.goto(url, wait_until='networkidle', timeout=30000)
-        
+
         # Check for Mermaid diagrams
         mermaid_divs = await page.query_selector_all('div.mermaid')
         svg_diagrams = await page.query_selector_all('svg[id*="mermaid"], svg.mermaid-svg, div.mermaid svg')
         images = await page.query_selector_all('article img')
-        
-        print(f"   ✅ Mermaid diagrams: {len(mermaid_divs)} containers, {len(svg_diagrams)} rendered")
-        print(f"   ✅ Images in article: {len(images)}")
-        
+
+        logger.info(f"Mermaid diagrams: {len(mermaid_divs)} containers, {len(svg_diagrams)} rendered")
+        logger.info(f"Images in article: {len(images)}")
+
         # Check if Unsplash image is present
         unsplash_images = await page.query_selector_all('img[src*="unsplash.com"]')
         if unsplash_images:
-            print(f"   ✅ Unsplash image found with attribution")
-        
+            logger.info("Unsplash image found with attribution")
+
         # Check Zero Trust post (should have diagrams)
         url2 = "https://williamzujkowski.github.io/posts/implementing-zero-trust-security-never-trust-always-verify/"
-        print(f"\n📝 Checking Zero Trust post...")
-        print(f"   URL: {url2}")
-        
+        logger.info("Checking Zero Trust post...")
+        logger.debug(f"URL: {url2}")
+
         await page.goto(url2, wait_until='networkidle', timeout=30000)
-        
+
         mermaid_divs2 = await page.query_selector_all('div.mermaid')
         svg_diagrams2 = await page.query_selector_all('svg[id*="mermaid"], svg.mermaid-svg, div.mermaid svg')
         images2 = await page.query_selector_all('article img')
-        
-        print(f"   ✅ Mermaid diagrams: {len(mermaid_divs2)} containers, {len(svg_diagrams2)} rendered")
-        print(f"   ✅ Images in article: {len(images2)}")
-        
+
+        logger.info(f"Mermaid diagrams: {len(mermaid_divs2)} containers, {len(svg_diagrams2)} rendered")
+        logger.info(f"Images in article: {len(images2)}")
+
         # Take final screenshots
+        logger.debug("Taking screenshot of Zero Trust post")
         await page.screenshot(path="final_validation_zerotrust.png")
-        
+
+        logger.debug("Taking screenshot of Claude Flow post")
         await page.goto(url, wait_until='networkidle')
         await page.screenshot(path="final_validation_claudeflow.png")
-        
+
         await browser.close()
-        
-        print("\n" + "=" * 70)
-        print("✅ Final Validation Complete!")
-        print("\nSummary:")
-        print("• Mermaid diagrams are rendering properly")
-        print("• Images are displaying with attribution")
-        print("• Site is fully deployed and functional")
-        print("\n📸 Screenshots saved for review")
+
+        logger.info("=" * 70)
+        logger.info("Final Validation Complete!")
+        logger.info("")
+        logger.info("Summary:")
+        logger.info("- Mermaid diagrams are rendering properly")
+        logger.info("- Images are displaying with attribution")
+        logger.info("- Site is fully deployed and functional")
+        logger.info("")
+        logger.info("Screenshots saved for review")
 
 if __name__ == "__main__":
     import argparse

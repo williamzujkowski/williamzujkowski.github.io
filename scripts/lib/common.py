@@ -4,8 +4,8 @@ SCRIPT: common.py
 PURPOSE: Shared utilities for all scripts - DRY/SOLID implementation
 CATEGORY: utility
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:02:00-04:00
+VERSION: 1.1.0
+UPDATED: 2025-11-02T17:30:00-04:00
 
 DESCRIPTION:
     This module provides shared functionality for all scripts in the repository,
@@ -24,7 +24,6 @@ MANIFEST_REGISTRY: scripts/lib/common.py
 
 import json
 import hashlib
-import logging
 import requests
 from pathlib import Path
 from datetime import datetime
@@ -32,12 +31,13 @@ from typing import Dict, List, Any, Optional
 from abc import ABC, abstractmethod
 import yaml
 import re
+import sys
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+# Setup centralized logging
+sys.path.insert(0, str(Path(__file__).parent))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 # Constants
 MANIFEST_PATH = Path("MANIFEST.json")
@@ -50,7 +50,7 @@ class ManifestManager:
 
     def __init__(self, manifest_path: Path = MANIFEST_PATH):
         self.manifest_path = manifest_path
-        self.logger = logging.getLogger(self.__class__.__name__)
+        self.logger = setup_logger(self.__class__.__name__)
         self.manifest = self.load()
 
     def load(self) -> Dict[str, Any]:
@@ -192,7 +192,7 @@ class FileHasher:
                     sha256_hash.update(byte_block)
             return sha256_hash.hexdigest()
         except Exception as e:
-            logging.error(f"Failed to hash file {filepath}: {e}")
+            logger.error(f"Failed to hash file {filepath}: {e}")
             return ""
 
     @staticmethod
@@ -213,8 +213,8 @@ class ConfigManager:
 
     def __init__(self, config_path: Path = None):
         self.config_path = config_path or Path(".claude-rules.json")
+        self.logger = setup_logger(self.__class__.__name__)
         self.config = self.load()
-        self.logger = logging.getLogger(self.__class__.__name__)
 
     def load(self) -> Dict[str, Any]:
         """Load configuration"""
@@ -337,7 +337,7 @@ class StandardsValidator:
 
     def __init__(self):
         self.config = ConfigManager()
-        self.logger = logging.getLogger(self.__class__.__name__)
+        self.logger = setup_logger(self.__class__.__name__)
 
     def validate_file(self, filepath: Path) -> List[str]:
         """Validate a file against standards"""
@@ -411,7 +411,7 @@ class FileBackup:
         import shutil
         shutil.copy2(filepath, backup_path)
 
-        logging.info(f"Created backup: {backup_path}")
+        logger.info(f"Created backup: {backup_path}")
         return backup_path
 
     @staticmethod
@@ -420,30 +420,20 @@ class FileBackup:
         try:
             import shutil
             shutil.copy2(backup_path, original_path)
-            logging.info(f"Restored from backup: {backup_path}")
+            logger.info(f"Restored from backup: {backup_path}")
             return True
         except Exception as e:
-            logging.error(f"Failed to restore backup: {e}")
+            logger.error(f"Failed to restore backup: {e}")
             return False
 
 
 class Logger:
-    """Centralized logging - Single Responsibility Principle"""
+    """Centralized logging - Single Responsibility Principle (legacy wrapper)"""
 
     @staticmethod
-    def get_logger(name: str) -> logging.Logger:
-        """Get a configured logger"""
-        logger = logging.getLogger(name)
-
-        if not logger.handlers:
-            handler = logging.StreamHandler()
-            formatter = logging.Formatter(
-                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-            )
-            handler.setFormatter(formatter)
-            logger.addHandler(handler)
-
-        return logger
+    def get_logger(name: str):
+        """Get a configured logger (delegates to setup_logger)"""
+        return setup_logger(name)
 
 
 # Utility functions for common operations

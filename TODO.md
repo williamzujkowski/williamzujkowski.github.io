@@ -69,15 +69,27 @@
 ---
 
 ### 2. Refactor Remaining Validation Scripts
-**Issue:** 2 of 4 newly created validation scripts still need refactoring
+**Issue:** 2 of 4 validation scripts need refactoring to best practices
 **Status:** 2/4 complete (fix-mermaid-subgraphs, validate-mermaid-syntax at 96-97/100)
 
+**⚠️ CRITICAL NOTE (2025-11-02):**
+- **Swarm session attempted refactoring but FAILED**
+- metadata-validator.py left in BROKEN state (NameError)
+- Incomplete refactoring: Header updated (lines 1-76) but implementation stopped mid-file
+- **IMMEDIATE ACTION REQUIRED:** Rollback broken changes before any commits
+- See: `docs/reports/SWARM_IMPLEMENTATION_PHASE_COMPLETE.md` for failure analysis
+
 **Remaining:**
-- ⏳ `scripts/validation/metadata-validator.py` (current: 52/100)
+- ❌ `scripts/validation/metadata-validator.py` (current: BROKEN, was 52/100)
+  - **Priority:** CRITICAL (rollback first)
+  - **Issue:** Removed Colors class but left 23 references in code
+  - **Action:** `git checkout HEAD -- scripts/validation/metadata-validator.py`
 - ⏳ `scripts/validation/build-monitor.py` (current: 52/100)
+  - Status: Unchanged, original code intact
 
 **Template:** Use refactored Mermaid scripts as examples
 **Estimated Effort:** 9-11 hours (2 scripts × 4.5-5.5 hours each)
+**Recommended Approach:** Incremental TDD (test after every function)
 
 ---
 

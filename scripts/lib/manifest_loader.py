@@ -4,8 +4,8 @@ SCRIPT: manifest_loader.py
 PURPOSE: Lazy-loading helper for MANIFEST.json v5.0
 CATEGORY: utilities
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-01
+VERSION: 1.1.0
+UPDATED: 2025-11-02T17:35:00-04:00
 
 DESCRIPTION:
     Provides backward-compatible access to MANIFEST.json with lazy loading
@@ -40,10 +40,17 @@ MANIFEST_REGISTRY: scripts/lib/manifest_loader.py
 
 import json
 import hashlib
+import sys
 from pathlib import Path
 from typing import Dict, Any, Optional
 from functools import lru_cache
 import threading
+
+# Setup centralized logging
+sys.path.insert(0, str(Path(__file__).parent))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 
 class ManifestLoader:
@@ -75,8 +82,10 @@ class ManifestLoader:
         if self._core is None:
             with self._lock:
                 if self._core is None:  # Double-check locking
+                    logger.debug(f"Loading core manifest from {self.manifest_path}")
                     with open(self.manifest_path) as f:
                         self._core = json.load(f)
+                    logger.debug("Core manifest loaded successfully")
         return self._core
 
     def get_core(self) -> Dict[str, Any]:
@@ -97,10 +106,13 @@ class ManifestLoader:
             with self._lock:
                 if self._file_registry is None:
                     registry_path = self.manifest_dir / ".manifest" / "file-registry.json"
+                    logger.debug(f"Loading file registry from {registry_path}")
                     if registry_path.exists():
                         with open(registry_path) as f:
                             self._file_registry = json.load(f)
+                        logger.debug(f"Loaded {len(self._file_registry)} files from registry")
                     else:
+                        logger.debug("Registry file not found, checking legacy format")
                         # Fallback: check if legacy format still exists
                         core = self.core
                         if 'inventory' in core and 'files' in core['inventory']:
@@ -108,10 +120,13 @@ class ManifestLoader:
                             if isinstance(registry, dict) and '_lazy_load' not in registry:
                                 # Old format still in core manifest
                                 self._file_registry = registry
+                                logger.debug(f"Using legacy registry with {len(self._file_registry)} files")
                             else:
                                 self._file_registry = {}
+                                logger.warning("No file registry found")
                         else:
                             self._file_registry = {}
+                            logger.warning("No file registry found")
         return self._file_registry
 
     def get_registry_hash(self) -> str:
@@ -346,36 +361,36 @@ def check_hash() -> str:
 
 if __name__ == "__main__":
     # Test the loader
-    print("Testing ManifestLoader...\n")
+    logger.info("Testing ManifestLoader...")
 
     loader = ManifestLoader()
 
     # Test 1: Load core (fast)
-    print("1. Loading core manifest...")
+    logger.info("1. Loading core manifest...")
     core = loader.get_core()
-    print(f"   Version: {core.get('version')}")
-    print(f"   Schema: {core.get('schema')}")
-    print(f"   Token reduction: {core.get('optimization', {}).get('token_reduction', 'N/A')}")
+    logger.info(f"   Version: {core.get('version')}")
+    logger.info(f"   Schema: {core.get('schema')}")
+    logger.info(f"   Token reduction: {core.get('optimization', {}).get('token_reduction', 'N/A')}")
 
     # Test 2: Check hash (instant)
-    print("\n2. Checking registry hash...")
+    logger.info("2. Checking registry hash...")
     hash_val = loader.get_registry_hash()
-    print(f"   Hash: {hash_val}")
+    logger.info(f"   Hash: {hash_val}")
 
     # Test 3: Load registry (lazy)
-    print("\n3. Loading file registry (lazy)...")
+    logger.info("3. Loading file registry (lazy)...")
     registry = loader.get_file_registry()
-    print(f"   Files in registry: {len(registry)}")
+    logger.info(f"   Files in registry: {len(registry)}")
 
     # Test 4: Check file exists
-    print("\n4. Checking if MANIFEST.json exists...")
+    logger.info("4. Checking if MANIFEST.json exists...")
     exists = loader.file_exists("MANIFEST.json")
-    print(f"   Exists: {exists}")
+    logger.info(f"   Exists: {exists}")
 
     # Test 5: Calculate hash
-    print("\n5. Calculating registry hash...")
+    logger.info("5. Calculating registry hash...")
     calculated = loader.calculate_registry_hash()
-    print(f"   Calculated: {calculated}")
-    print(f"   Matches stored: {calculated == hash_val}")
+    logger.info(f"   Calculated: {calculated}")
+    logger.info(f"   Matches stored: {calculated == hash_val}")
 
-    print("\n✅ All tests passed!")
+    logger.info("All tests passed!")

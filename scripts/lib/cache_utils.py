@@ -4,8 +4,8 @@ SCRIPT: cache_utils.py
 PURPOSE: Shared caching utilities for 30-40% performance improvement
 CATEGORY: lib
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-02
+VERSION: 1.1.0
+UPDATED: 2025-11-02T17:40:00-04:00
 
 DESCRIPTION:
     Comprehensive caching infrastructure providing:
@@ -44,11 +44,11 @@ MANIFEST_REGISTRY: scripts/lib/cache_utils.py
 
 import json
 import hashlib
-import logging
 import os
 import pickle
 import time
 import yaml
+import sys
 from functools import lru_cache, wraps
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple, Callable
@@ -56,6 +56,12 @@ from datetime import datetime, timedelta
 from threading import Lock
 import aiohttp
 import asyncio
+
+# Setup centralized logging
+sys.path.insert(0, str(Path(__file__).parent))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 # Constants
 CACHE_DIR = Path(".cache")
@@ -78,8 +84,6 @@ _stats = {
 # Initialize cache directories
 CACHE_DIR.mkdir(exist_ok=True)
 HTTP_CACHE_DIR.mkdir(exist_ok=True)
-
-logger = logging.getLogger(__name__)
 
 
 # ============================================================================
@@ -215,6 +219,7 @@ def cached_frontmatter(filepath: Path) -> Tuple[Dict[str, Any], str]:
         print(frontmatter['title'])
     """
     _stats['frontmatter_misses'] += 1
+    logger.debug(f"Cache miss: parsing frontmatter from {filepath}")
 
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -225,11 +230,13 @@ def cached_frontmatter(filepath: Path) -> Tuple[Dict[str, Any], str]:
             try:
                 frontmatter = yaml.safe_load(parts[1])
                 body = parts[2]
+                logger.debug(f"Successfully parsed frontmatter from {filepath}")
                 return frontmatter or {}, body
             except yaml.YAMLError as e:
                 logger.warning(f"YAML parse error in {filepath}: {e}")
                 return {}, content
 
+    logger.debug(f"No frontmatter found in {filepath}")
     return {}, content
 
 
@@ -315,15 +322,18 @@ def cached_manifest(manifest_path: str = "MANIFEST.json") -> Dict[str, Any]:
     # Check if cache is valid
     if _manifest_cache is not None and _manifest_mtime == current_mtime:
         _stats['hits'] += 1
+        logger.debug("Manifest cache hit")
         return _manifest_cache
 
     # Cache miss - reload
     _stats['misses'] += 1
+    logger.debug(f"Manifest cache miss, loading from {path}")
 
     with open(path, 'r') as f:
         _manifest_cache = json.load(f)
         _manifest_mtime = current_mtime
 
+    logger.debug("Manifest loaded and cached")
     return _manifest_cache
 
 
@@ -370,12 +380,14 @@ def cached_http_get(url: str, timeout: int = 10, use_disk_cache: bool = True) ->
             print(response['content'])
     """
     _stats['http_misses'] += 1
+    logger.debug(f"HTTP cache miss for {url}")
 
     # Check disk cache first
     if use_disk_cache:
         cache_path = _get_http_cache_path(url)
         if _is_cache_valid(cache_path, HTTP_CACHE_TTL):
             _stats['http_hits'] += 1
+            logger.debug(f"HTTP disk cache hit for {url}")
             with open(cache_path, 'rb') as f:
                 return pickle.load(f)
 
@@ -592,20 +604,20 @@ def print_cache_stats():
     """Print formatted cache statistics"""
     stats = get_cache_stats()
 
-    print("\n=== Cache Statistics ===")
-    print(f"Overall Hit Rate: {stats['hit_rate']:.1%}")
-    print(f"  Hits: {stats['total_hits']}")
-    print(f"  Misses: {stats['total_misses']}")
-    print()
-    print(f"HTTP Cache Hit Rate: {stats['http_hit_rate']:.1%}")
-    print(f"  Hits: {stats['http_hits']}")
-    print(f"  Misses: {stats['http_misses']}")
-    print()
-    print(f"Frontmatter Cache Hit Rate: {stats['frontmatter_hit_rate']:.1%}")
-    print(f"  Hits: {stats['frontmatter_hits']}")
-    print(f"  Misses: {stats['frontmatter_misses']}")
-    print()
-    print(f"Disk Cache: {stats['disk_cache_size']} files ({stats['disk_cache_bytes']:,} bytes)")
+    logger.info("=== Cache Statistics ===")
+    logger.info(f"Overall Hit Rate: {stats['hit_rate']:.1%}")
+    logger.info(f"  Hits: {stats['total_hits']}")
+    logger.info(f"  Misses: {stats['total_misses']}")
+    logger.info("")
+    logger.info(f"HTTP Cache Hit Rate: {stats['http_hit_rate']:.1%}")
+    logger.info(f"  Hits: {stats['http_hits']}")
+    logger.info(f"  Misses: {stats['http_misses']}")
+    logger.info("")
+    logger.info(f"Frontmatter Cache Hit Rate: {stats['frontmatter_hit_rate']:.1%}")
+    logger.info(f"  Hits: {stats['frontmatter_hits']}")
+    logger.info(f"  Misses: {stats['frontmatter_misses']}")
+    logger.info("")
+    logger.info(f"Disk Cache: {stats['disk_cache_size']} files ({stats['disk_cache_bytes']:,} bytes)")
 
 
 def clear_all_caches():
