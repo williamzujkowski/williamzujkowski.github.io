@@ -29,6 +29,12 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Install UV
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Add UV to PATH
+        run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
       - name: Install dependencies
         run: npm ci
 
