@@ -1,0 +1,42 @@
+{
+  "version": "5.0.0",
+  "schema": "optimized",
+  "generated": "2025-11-01T23:27:04.493174",
+  "last_validated": "2025-11-01T23:27:04.493187",
+  "enforcement": {
+    "critical_rules": [
+      "CHECK MANIFEST before file operations",
+      "NO duplicate files - use file_registry hash",
+      "UPDATE MANIFEST after changes",
+      "FOLLOW standards from submodule",
+      "USE appropriate directories"
+    ],
+    "validation_gates": {
+      "pre_commit": "scripts/validate_manifest.py",
+      "must_pass": true
+    },
+    "protected_files": [
+      "CLAUDE.md",
+      "MANIFEST.json",
+      ".claude-rules.json"
+    ]
+  },
+  "file_registry": {
+    "hash_algorithm": "sha256",
+    "total_files": 593,
+    "registry_hash": "a02ca90ef80efe82",
+    "detail_file": "docs/manifests/file-registry.json"
+  },
+  "metadata": {
+    "directory_structure": "docs/manifests/directory-structure.json",
+    "llm_interfaces": "docs/manifests/llm-interfaces.json",
+    "standards": "docs/manifests/standards.json",
+    "scripts_catalog": "docs/manifests/scripts-catalog.json"
+  },
+  "token_usage": {
+    "this_file": 306,
+    "total_with_lazy_load": "estimated ~3K tokens",
+    "original_manifest": "~10K+ tokens",
+    "reduction": "70%+"
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "version": "1.0.0",
+  "script_catalog": {
+    "generate-og-image.py": {
+      "llm_ready": true,
+      "purpose": "Generate Open Graph images for social sharing",
+      "category": "image_management",
+      "version": "1.0.0",
+      "usage": "python scripts/generate-og-image.py [options]",
+      "dependencies": []
+    },
+    "integrate-diagrams.py": {
+      "llm_ready": true,
+      "purpose": "Integrate Mermaid diagrams and optimize code blocks in blog posts",
+      "category": "image_management",
+      "version": "1.0.0",
+      "usage": "python scripts/integrate-diagrams.py [options]",
+      "dependencies": []
+    },
+    "manifest_migrator.py": {
+      "llm_ready": true,
+      "purpose": "Migrate MANIFEST.yaml to MANIFEST.json with complete cataloging",
+      "category": "utility",
+      "version": "1.0.0",
+      "usage": "python scripts/manifest_migrator.py [--backup] [--validate]",
+      "dependencies": []
+    },
+    "blog-manager.py": {
+      "llm_ready": true,
+      "purpose": "Unified Blog Management Tool for williamzujkowski.github.io",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/blog-manager.py [options]",
+      "dependencies": []
+    },
+    "add-tech-images.py": {
+      "llm_ready": true,
+      "purpose": "Add tech-related images to blog posts with proper attribution",
+      "category": "image_management",
+      "version": "1.0.0",
+      "usage": "python scripts/add-tech-images.py [options]",
+      "dependencies": []
+    },
+    "enhanced-blog-image-search.py": {
+      "llm_ready": true,
+      "purpose": "Enhanced Blog Image Search Tool",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/enhanced-blog-image-search.py [options]",
+      "dependencies": []
+    },
+    "fetch-stock-images.py": {
+      "llm_ready": true,
+      "purpose": "Stock Image Fetcher for Blog Posts",
+      "category": "image_management",
+      "version": "1.0.0",
+      "usage": "python scripts/fetch-stock-images.py [options]",
+      "dependencies": []
+    },
+    "remove-hero-images.py": {
+      "llm_ready": true,
+      "purpose": "Remove Generic Hero Images from Blog Posts",
+      "category": "image_management",
+      "version": "1.0.0",
+      "usage": "python scripts/remove-hero-images.py [options]",
+      "dependencies": []
+    },
+    "diagram-manager.py": {
+      "llm_ready": true,
+      "purpose": "Unified diagram and technical image management for blog posts",
+      "category": "image_management",
+      "version": "2.0.0",
+      "usage": "python scripts/diagram-manager.py [command] [options]",
+      "dependencies": []
+    },
+    "final-validation.py": {
+      "llm_ready": true,
+      "purpose": "Final validation of live site after deployment",
+      "category": "utilities",
+      "version": "1.0.0",
+      "usage": "python scripts/final-validation.py [options]",
+      "dependencies": []
+    },
+    "check-citation-hyperlinks.py": {
+      "llm_ready": true,
+      "purpose": "Check all blog posts for citations that lack hyperlinks",
+      "category": "academic_research",
+      "version": "1.0.0",
+      "usage": "python scripts/check-citation-hyperlinks.py [options]",
+      "dependencies": []
+    },
+    "search-reputable-sources.py": {
+      "llm_ready": true,
+      "purpose": "Search for reputable sources using Playwright to back up technical claims in blog posts",
+      "category": "utilities",
+      "version": "1.0.0",
+      "usage": "python scripts/search-reputable-sources.py [options]",
+      "dependencies": []
+    },
+    "optimize-blog-content.py": {
+      "llm_ready": true,
+      "purpose": "Analyze and optimize blog posts for readability by reducing code-to-content ratio",
+      "category": "content_optimization",
+      "version": "2.0.0",
+      "usage": "python scripts/optimize-blog-content.py [options]",
+      "dependencies": []
+    },
+    "add-academic-citations.py": {
+      "llm_ready": true,
+      "purpose": "Add academic citations to blog posts based on research validation results",
+      "category": "academic_research",
+      "version": "1.0.0",
+      "usage": "python scripts/add-academic-citations.py [options]",
+      "dependencies": []
+    },
+    "create-blog-diagrams.py": {
+      "llm_ready": true,
+      "purpose": "Blog Diagram Generator",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/create-blog-diagrams.py [options]",
+      "dependencies": []
+    },
+    "batch-improve-blog-posts.py": {
+      "llm_ready": true,
+      "purpose": "Systematically improve all blog posts with diagrams, reduced code, and enhanced content",
+      "category": "blog_management",
+      "version": "2.0.0",
+      "usage": "python scripts/batch-improve-blog-posts.py [options]",
+      "dependencies": []
+    },
+    "llm-script-documenter.py": {
+      "llm_ready": true,
+      "purpose": "Automatically add LLM-friendly documentation headers to all Python scripts",
+      "category": "utility",
+      "version": "1.0.0",
+      "usage": "python scripts/llm-script-documenter.py [options]",
+      "dependencies": []
+    },
+    "research-validator.py": {
+      "llm_ready": true,
+      "purpose": "Research Validator - Ensures all blog post claims are backed by reputable sources",
+      "category": "academic_research",
+      "version": "1.0.0",
+      "usage": "python scripts/research-validator.py [options]",
+      "dependencies": []
+    },
+    "comprehensive-blog-enhancement.py": {
+      "llm_ready": true,
+      "purpose": "Comprehensive Blog Enhancement Tool",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/comprehensive-blog-enhancement.py [options]",
+      "dependencies": []
+    },
+    "generate-blog-hero-images.py": {
+      "llm_ready": true,
+      "purpose": "Generate Hero Images for Blog Posts",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/generate-blog-hero-images.py [options]",
+      "dependencies": []
+    },
+    "academic-search.py": {
+      "llm_ready": true,
+      "purpose": "Academic Search - Use Playwright to search reputable academic sources",
+      "category": "academic_research",
+      "version": "1.0.0",
+      "usage": "python scripts/academic-search.py [options]",
+      "dependencies": []
+    },
+    "enhance-more-posts-citations.py": {
+      "llm_ready": true,
+      "purpose": "Add academic citations to additional blog posts",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/enhance-more-posts-citations.py [options]",
+      "dependencies": []
+    },
+    "update-blog-images.py": {
+      "llm_ready": true,
+      "purpose": "Blog Image Standards Implementation Script",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/update-blog-images.py [options]",
+      "dependencies": []
+    },
+    "add-reputable-sources-to-posts.py": {
+      "llm_ready": true,
+      "purpose": "Add reputable academic sources to blog posts based on Google Scholar findings",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/add-reputable-sources-to-posts.py [options]",
+      "dependencies": []
+    },
+    "vestigial_audit.py": {
+      "llm_ready": true,
+      "purpose": "Comprehensive audit to identify all vestigial content",
+      "category": "validation",
+      "version": "1.0.0",
+      "usage": "python scripts/vestigial_audit.py [--full] [--check-only] [--report]",
+      "dependencies": []
+    },
+    "playwright-image-search.py": {
+      "llm_ready": true,
+      "purpose": "Playwright-based Stock Image Search and Download",
+      "category": "image_management",
+      "version": "1.0.0",
+      "usage": "python scripts/playwright-image-search.py [options]",
+      "dependencies": []
+    },
+    "analyze-blog-content.py": {
+      "llm_ready": true,
+      "purpose": "Analyze blog posts for content quality metrics and improvement opportunities",
+      "category": "content_optimization",
+      "version": "2.0.0",
+      "usage": "python scripts/analyze-blog-content.py [options]",
+      "dependencies": []
+    },
+    "add-diagrams-to-live-posts.py": {
+      "llm_ready": true,
+      "purpose": "Add Mermaid diagrams to existing published blog posts",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/add-diagrams-to-live-posts.py [options]",
+      "dependencies": []
+    },
+    "content-relevance-checker.py": {
+      "llm_ready": true,
+      "purpose": "Content Relevance Checker",
+      "category": "blog_management",
+      "version": "1.0.0",
+      "usage": "python scripts/content-relevance-checker.py [options]",
+      "dependencies": []
+    },
+    "citation-updater.py": {
+      "llm_ready": true,
+      "purpose": "Citation Updater",
+      "category": "academic_research",
+      "version": "1.0.0",
+      "usage": "python scripts/citation-updater.py [options]",
+      "dependencies": []
+    },
+    "batch-link-fixer.py": {
+      "llm_ready": true,
+      "purpose": "Batch Link Fixer",
+      "category": "link_validation",
+      "version": "1.0.0",
+      "usage": "python scripts/batch-link-fixer.py [options]",
+      "dependencies": []
+    },
+    "simple-validator.py": {
+      "llm_ready": true,
+      "purpose": "Simple Link Validator",
+      "category": "utilities",
+      "version": "1.0.0",
+      "usage": "python scripts/simple-validator.py [options]",
+      "dependencies": []
+    },
+    "link-report-generator.py": {
+      "llm_ready": true,
+      "purpose": "Link Validation Report Generator",
+      "category": "link_validation",
+      "version": "1.0.0",
+      "usage": "python scripts/link-report-generator.py [options]",
+      "dependencies": []
+    },
+    "link-validator.py": {
+      "llm_ready": true,
+      "purpose": "Link Validator using Playwright",
+      "category": "link_validation",
+      "version": "1.0.0",
+      "usage": "python scripts/link-validator.py [options]",
+      "dependencies": []
+    },
+    "link-monitor.py": {
+      "llm_ready": true,
+      "purpose": "Link Monitor",
+      "category": "link_validation",
+      "version": "1.0.0",
+      "usage": "python scripts/link-monitor.py [options]",
+      "dependencies": []
+    },
+    "advanced-link-repair.py": {
+      "llm_ready": true,
+      "purpose": "Advanced Link Repair System",
+      "category": "link_validation",
+      "version": "1.0.0",
+      "usage": "python scripts/advanced-link-repair.py [options]",
+      "dependencies": []
+    },
+    "specialized-validators.py": {
+      "llm_ready": true,
+      "purpose": "Specialized Link Validators",
+      "category": "utilities",
+      "version": "1.0.0",
+      "usage": "python scripts/specialized-validators.py [options]",
+      "dependencies": []
+    },
+    "wayback-archiver.py": {
+      "llm_ready": true,
+      "purpose": "Wayback Machine Archiver",
+      "category": "utilities",
+      "version": "1.0.0",
+      "usage": "python scripts/wayback-archiver.py [options]",
+      "dependencies": []
+    },
+    "link-extractor.py": {
+      "llm_ready": true,
+      "purpose": "Link Extractor for Blog Posts",
+      "category": "link_validation",
+      "version": "1.0.0",
+      "usage": "python scripts/link-extractor.py [options]",
+      "dependencies": []
+    },
+    "citation-repair.py": {
+      "llm_ready": true,
+      "purpose": "Citation Repair Tool",
+      "category": "academic_research",
+      "version": "1.0.0",
+      "usage": "python scripts/citation-repair.py [options]",
+      "dependencies": []
+    },
+    "common.py": {
+      "llm_ready": true,
+      "purpose": "Shared utilities for all scripts - DRY/SOLID implementation",
+      "category": "utility",
+      "version": "1.0.0",
+      "usage": "\" not in content:",
+      "dependencies": []
+    }
+  },
+  "workflows": {
+    "blog_enhancement": {
+      "description": "Complete blog post enhancement workflow",
+      "steps": [],
+      "scripts_used": []
+    }
+  },
+  "command_aliases": {}
+}

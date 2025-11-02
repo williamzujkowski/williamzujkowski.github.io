@@ -4,6 +4,8 @@ Pre-commit validation functions for parallel execution.
 
 Each validator is independent and can run concurrently.
 All validators return (success: bool, message: str).
+
+UPDATED: 2025-11-01 - Added lazy loading support for MANIFEST v5.0
 """
 
 import json
@@ -12,6 +14,13 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Tuple, List, Dict, Any
+
+# Import lazy loader for MANIFEST v5.0
+try:
+    from lib.manifest_loader import ManifestLoader
+    LAZY_LOADING_AVAILABLE = True
+except ImportError:
+    LAZY_LOADING_AVAILABLE = False
 
 
 def validate_manifest() -> Tuple[bool, str]:
@@ -43,6 +52,9 @@ def check_duplicates() -> Tuple[bool, str]:
     """
     Check for duplicate files in staged changes.
 
+    OPTIMIZED: Uses lazy loading for MANIFEST v5.0.
+    Only loads full registry if hash check indicates potential conflicts.
+
     Returns:
         (success, message)
     """
@@ -60,13 +72,22 @@ def check_duplicates() -> Tuple[bool, str]:
     if not staged_files:
         return True, "No files staged"
 
-    # Load manifest
+    # Load manifest (use lazy loader if available)
     try:
-        with open('MANIFEST.json') as f:
-            manifest = json.load(f)
-        file_registry = manifest.get('inventory', {}).get('files', {}).get('file_registry', {})
+        if LAZY_LOADING_AVAILABLE:
+            loader = ManifestLoader()
+            manifest = loader.get_core()
+            # Lazy-load file registry (only loads if needed)
+            file_registry = loader.get_file_registry()
+        else:
+            # Fallback: load full manifest (v4.0 compatible)
+            with open('MANIFEST.json') as f:
+                manifest = json.load(f)
+            file_registry = manifest.get('inventory', {}).get('files', {}).get('file_registry', {})
+
         allowed_duplicates = manifest.get('project_overrides', {}).get('allowed_duplicates', [])
-    except Exception:
+    except Exception as e:
+        # Graceful degradation
         file_registry = {}
         allowed_duplicates = []
 
@@ -334,6 +355,9 @@ def update_manifest() -> Tuple[bool, str]:
     """
     Update MANIFEST.json with current timestamp and stage it.
 
+    OPTIMIZED: For MANIFEST v5.0, only updates timestamp in core file.
+    File registry updates handled separately by manifest_loader.
+
     Note: This should run AFTER all other validators pass.
 
     Returns:
@@ -354,7 +378,7 @@ def update_manifest() -> Tuple[bool, str]:
         return True, "No changes to manifest needed"
 
     try:
-        # Load manifest
+        # Load manifest (small core only for v5.0)
         with open('MANIFEST.json') as f:
             manifest = json.load(f)
 
@@ -370,6 +394,14 @@ def update_manifest() -> Tuple[bool, str]:
         result = subprocess.run(['git', 'add', 'MANIFEST.json'])
         if result.returncode != 0:
             return False, "Failed to stage MANIFEST.json"
+
+        # If v5.0, also stage .manifest/ files if they changed
+        schema = manifest.get('schema', '')
+        if 'optimized' in schema or manifest.get('version', '').startswith('5.'):
+            # Stage .manifest directory if it exists
+            manifest_dir = Path('.manifest')
+            if manifest_dir.exists():
+                subprocess.run(['git', 'add', '.manifest/'], check=False)
 
         return True, f"Updated for {len(staged_files)} staged files"
     except Exception as e:

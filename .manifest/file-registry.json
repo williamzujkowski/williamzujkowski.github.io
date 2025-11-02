@@ -1,0 +1,2967 @@
+{
+  "claude-flow.config.json": {
+    "size": 487,
+    "modified": "2025-08-06T23:37:34.450623",
+    "type": "json"
+  },
+  "requirements.txt": {
+    "size": 148,
+    "modified": "2025-09-22T17:28:45.534468",
+    "type": "txt"
+  },
+  "postcss.config.js": {
+    "size": 177,
+    "modified": "2025-09-23T22:00:44.482148",
+    "type": "js"
+  },
+  "MANIFEST.json": {
+    "size": 118865,
+    "modified": "2025-11-01T17:34:21.643914",
+    "type": "json"
+  },
+  "package.json": {
+    "size": 1932,
+    "modified": "2025-11-01T16:21:08.106336",
+    "type": "json"
+  },
+  "package-lock.json": {
+    "size": 319315,
+    "modified": "2025-10-26T23:00:57.604456",
+    "type": "json"
+  },
+  "CLAUDE.md": {
+    "size": 15916,
+    "modified": "2025-11-01T16:19:22.563864",
+    "type": "md"
+  },
+  "README.md": {
+    "size": 13801,
+    "modified": "2025-10-01T22:47:18.569662",
+    "type": "md"
+  },
+  "pyproject.toml": {
+    "size": 2868,
+    "modified": "2025-11-01T16:22:27.248240",
+    "type": "toml"
+  },
+  "human_tone.md": {
+    "size": 10506,
+    "modified": "2025-10-28T21:50:27.250157",
+    "type": "md"
+  },
+  "claude-flow": {
+    "size": 2312,
+    "modified": "2025-08-06T23:37:34.457623",
+    "type": "no_extension"
+  },
+  "tailwind.config.js": {
+    "size": 4337,
+    "modified": "2025-10-01T22:59:53.792504",
+    "type": "js"
+  },
+  "uv.lock": {
+    "size": 354153,
+    "modified": "2025-11-01T16:21:08.816326",
+    "type": "lock"
+  },
+  "LICENSE": {
+    "size": 1074,
+    "modified": "2025-06-23T23:12:19.375944",
+    "type": "no_extension"
+  },
+  "logs/monthly-validation.log": {
+    "size": 1748,
+    "modified": "2025-10-29T08:15:34.039290",
+    "type": "log"
+  },
+  "diagram_templates/2025-03-10-raspberry-pi-security-projects_diagrams.md": {
+    "size": 1737,
+    "modified": "2025-08-08T22:16:51.507335",
+    "type": "md"
+  },
+  "diagram_templates/2025-02-10-automating-home-network-security_diagrams.md": {
+    "size": 1818,
+    "modified": "2025-08-08T22:16:51.507219",
+    "type": "md"
+  },
+  "diagram_templates/2025-09-08-zero-trust-vlan-segmentation-homelab_diagrams.md": {
+    "size": 7923,
+    "modified": "2025-10-29T14:21:41.284348",
+    "type": "md"
+  },
+  "diagram_templates/2024-08-27-zero-trust-security-principles_diagrams.md": {
+    "size": 2166,
+    "modified": "2025-08-08T22:16:51.507276",
+    "type": "md"
+  },
+  "diagram_templates/2025-10-06-automated-security-scanning-pipeline_diagrams.md": {
+    "size": 5333,
+    "modified": "2025-10-29T14:20:08.589035",
+    "type": "md"
+  },
+  "diagram_templates/2025-08-07-supercharging-development-claude-flow_diagrams.md": {
+    "size": 2398,
+    "modified": "2025-08-08T22:16:51.507246",
+    "type": "md"
+  },
+  "diagram_templates/2025-09-14-threat-intelligence-mitre-attack-dashboard_diagrams.md": {
+    "size": 6812,
+    "modified": "2025-10-29T14:20:08.962032",
+    "type": "md"
+  },
+  "diagram_templates/2025-07-08-implementing-dns-over-https-home-networks_diagrams.md": {
+    "size": 1827,
+    "modified": "2025-08-08T22:16:51.507308",
+    "type": "md"
+  },
+  "diagram_templates/2025-06-25-local-llm-deployment-privacy-first_diagrams.md": {
+    "size": 1913,
+    "modified": "2025-08-08T22:16:51.507362",
+    "type": "md"
+  },
+  "diagram_templates/2025-07-15-vulnerability-management-scale-open-source_diagrams.md": {
+    "size": 2428,
+    "modified": "2025-08-08T22:16:51.507146",
+    "type": "md"
+  },
+  "diagram_templates/2025-07-01-ebpf-security-monitoring-practical-guide_diagrams.md": {
+    "size": 1691,
+    "modified": "2025-08-08T22:16:51.507191",
+    "type": "md"
+  },
+  "diagram_templates/2025-09-29-proxmox-high-availability-homelab_diagrams.md": {
+    "size": 9447,
+    "modified": "2025-10-29T14:21:41.666345",
+    "type": "md"
+  },
+  "memory/claude-flow-data.json": {
+    "size": 65,
+    "modified": "2025-08-06T23:37:34.458623",
+    "type": "json"
+  },
+  "memory/sessions/README.md": {
+    "size": 1284,
+    "modified": "2025-08-06T23:37:34.459623",
+    "type": "md"
+  },
+  "memory/agents/README.md": {
+    "size": 1213,
+    "modified": "2025-08-06T23:37:34.459623",
+    "type": "md"
+  },
+  "code-examples/security-scanning/README.md": {
+    "size": 2116,
+    "modified": "2025-10-31T21:48:12.396774",
+    "type": "md"
+  },
+  "code-examples/security-scanning/full-workflow.yml": {
+    "size": 2984,
+    "modified": "2025-10-31T21:48:11.682778",
+    "type": "yml"
+  },
+  "code-examples/security-scanning/compare-scans.py": {
+    "size": 1964,
+    "modified": "2025-10-31T21:48:11.919777",
+    "type": "py"
+  },
+  "code-examples/mitre-dashboard/README.md": {
+    "size": 1358,
+    "modified": "2025-10-31T21:54:49.709288",
+    "type": "md"
+  },
+  "code-examples/mitre-dashboard/plotly-heatmap.py": {
+    "size": 1894,
+    "modified": "2025-10-31T21:54:49.323290",
+    "type": "py"
+  },
+  "code-examples/vlan-segmentation/README.md": {
+    "size": 1084,
+    "modified": "2025-10-31T21:57:54.738045",
+    "type": "md"
+  },
+  "code-examples/vlan-segmentation/firewall-rules.json": {
+    "size": 1761,
+    "modified": "2025-10-31T21:57:54.309048",
+    "type": "json"
+  },
+  "reports/COMPLETE_QA_REPORT_2025-09-22.md": {
+    "size": 6221,
+    "modified": "2025-09-22T22:36:04.216915",
+    "type": "md"
+  },
+  "reports/ui-ux-audit-results.json": {
+    "size": 259589,
+    "modified": "2025-09-23T00:53:35.788559",
+    "type": "json"
+  },
+  "reports/phase-8-4-fix-plan.md": {
+    "size": 9942,
+    "modified": "2025-10-31T22:24:44.439708",
+    "type": "md"
+  },
+  "reports/phase-8-4-gist-links-to-create.md": {
+    "size": 7667,
+    "modified": "2025-10-31T22:21:11.357274",
+    "type": "md"
+  },
+  "reports/test_smoke.json": {
+    "size": 6962,
+    "modified": "2025-09-20T22:03:31.354916",
+    "type": "json"
+  },
+  "reports/phase-8-4-status.md": {
+    "size": 8389,
+    "modified": "2025-10-31T22:22:08.893545",
+    "type": "md"
+  },
+  "reports/phase-8-5-completion-report.md": {
+    "size": 11834,
+    "modified": "2025-11-01T11:38:22.430929",
+    "type": "md"
+  },
+  "reports/test_unit.json": {
+    "size": 8169,
+    "modified": "2025-09-20T20:36:03.463815",
+    "type": "json"
+  },
+  "reports/compliance_report.md": {
+    "size": 1924,
+    "modified": "2025-09-20T18:23:45.998684",
+    "type": "md"
+  },
+  "reports/blog_optimization_report_2025-10-29.json": {
+    "size": 294270,
+    "modified": "2025-10-29T14:17:07.104186",
+    "type": "json"
+  },
+  "reports/weekly_summary.md": {
+    "size": 1501,
+    "modified": "2025-09-20T22:07:39.849332",
+    "type": "md"
+  },
+  "reports/phase-8-4-posts-2-4-summary.md": {
+    "size": 4383,
+    "modified": "2025-10-31T22:35:19.959414",
+    "type": "md"
+  },
+  "reports/batches-2-4-completion.md": {
+    "size": 11272,
+    "modified": "2025-11-01T10:15:04.392043",
+    "type": "md"
+  },
+  "reports/UI_UX_ENHANCEMENT_REPORT_2025-09-22.md": {
+    "size": 8317,
+    "modified": "2025-09-22T00:39:54.877281",
+    "type": "md"
+  },
+  "reports/security-anecdote-fixes.md": {
+    "size": 9916,
+    "modified": "2025-11-01T09:40:15.067750",
+    "type": "md"
+  },
+  "reports/SECURITY_RESOLUTION_REPORT_2025-09-22.md": {
+    "size": 4673,
+    "modified": "2025-09-22T17:19:48.580613",
+    "type": "md"
+  },
+  "reports/test_report.json": {
+    "size": 2519,
+    "modified": "2025-09-20T22:03:31.834249",
+    "type": "json"
+  },
+  "reports/action_plan.md": {
+    "size": 962,
+    "modified": "2025-09-20T12:34:06.802965",
+    "type": "md"
+  },
+  "reports/COMPLIANCE_REPORT_2025-09-21.md": {
+    "size": 5707,
+    "modified": "2025-09-21T23:03:22.411960",
+    "type": "md"
+  },
+  "reports/COMPREHENSIVE_UPDATE_REPORT_2025-09-22.md": {
+    "size": 7211,
+    "modified": "2025-09-22T17:08:24.030610",
+    "type": "md"
+  },
+  "reports/health_dashboard.md": {
+    "size": 2484,
+    "modified": "2025-09-20T22:07:39.080953",
+    "type": "md"
+  },
+  "reports/ui-ux-score-report.json": {
+    "size": 80051,
+    "modified": "2025-09-23T00:53:39.688517",
+    "type": "json"
+  },
+  "reports/manual_review.md": {
+    "size": 4731,
+    "modified": "2025-09-20T12:34:06.802878",
+    "type": "md"
+  },
+  "reports/test_report.md": {
+    "size": 534,
+    "modified": "2025-09-20T22:03:31.834468",
+    "type": "md"
+  },
+  "reports/humanization-baseline-2025-10-29.json": {
+    "size": 119554,
+    "modified": "2025-10-29T07:49:14.147049",
+    "type": "json"
+  },
+  "reports/security-anecdote-audit.md": {
+    "size": 17257,
+    "modified": "2025-11-01T09:37:35.395423",
+    "type": "md"
+  },
+  "reports/phase-8-4-validation-report.md": {
+    "size": 13080,
+    "modified": "2025-10-31T22:19:10.464912",
+    "type": "md"
+  },
+  "reports/phase-8-4-gist-creation-plan.md": {
+    "size": 35634,
+    "modified": "2025-10-31T22:50:34.146979",
+    "type": "md"
+  },
+  "reports/CITATION_ENHANCEMENT_REPORT_2025-09-21.md": {
+    "size": 6728,
+    "modified": "2025-09-21T23:47:29.845892",
+    "type": "md"
+  },
+  "reports/phase5-post-enhancement-baseline.json": {
+    "size": 119554,
+    "modified": "2025-10-29T07:52:29.468499",
+    "type": "json"
+  },
+  "reports/script-documentation.json": {
+    "size": 135,
+    "modified": "2025-09-20T15:08:13.846545",
+    "type": "json"
+  },
+  "reports/VISUAL_DESIGN_REPORT_2025-09-23.md": {
+    "size": 7287,
+    "modified": "2025-09-23T00:54:27.252007",
+    "type": "md"
+  },
+  "reports/UI_UX_SWARM_REPORT_2025-09-23.md": {
+    "size": 7622,
+    "modified": "2025-09-23T00:10:23.070784",
+    "type": "md"
+  },
+  "reports/phase-8-4-post-1-final.md": {
+    "size": 9161,
+    "modified": "2025-10-31T22:50:25.521716",
+    "type": "md"
+  },
+  "reports/SITE_QA_REPORT_2025-09-22.md": {
+    "size": 6837,
+    "modified": "2025-09-22T23:10:23.336827",
+    "type": "md"
+  },
+  "reports/test_integration.json": {
+    "size": 7714,
+    "modified": "2025-09-20T20:36:06.212908",
+    "type": "json"
+  },
+  "reports/test_validation.md": {
+    "size": 73088,
+    "modified": "2025-09-20T18:21:36.374626",
+    "type": "md"
+  },
+  "reports/phase-8-4-completion-report.md": {
+    "size": 8488,
+    "modified": "2025-10-31T22:43:21.535240",
+    "type": "md"
+  },
+  "reports/formatting_audit.json": {
+    "size": 5795,
+    "modified": "2025-09-21T23:46:18.682292",
+    "type": "json"
+  },
+  "reports/phase-8-4-optimization-summary.md": {
+    "size": 7665,
+    "modified": "2025-10-31T22:20:31.486797",
+    "type": "md"
+  },
+  "reports/ACHIEVE_90_PLUS_REPORT_2025-09-23.md": {
+    "size": 5620,
+    "modified": "2025-09-23T00:47:53.246602",
+    "type": "md"
+  },
+  "reports/phase3-standards-enforcement-report.md": {
+    "size": 7420,
+    "modified": "2025-09-20T15:20:11.332832",
+    "type": "md"
+  },
+  "reports/phase-8-4-final-summary.md": {
+    "size": 11317,
+    "modified": "2025-10-31T22:52:45.885564",
+    "type": "md"
+  },
+  "reports/standards_validation.md": {
+    "size": 73218,
+    "modified": "2025-09-20T22:07:39.810596",
+    "type": "md"
+  },
+  "reports/health_metrics.json": {
+    "size": 1818,
+    "modified": "2025-09-20T22:07:39.081207",
+    "type": "json"
+  },
+  "reports/PAGE_ENHANCEMENT_REPORT_2025-09-21.md": {
+    "size": 8423,
+    "modified": "2025-09-22T00:08:39.259726",
+    "type": "md"
+  },
+  "reports/weekly_summary.json": {
+    "size": 1400,
+    "modified": "2025-09-20T22:07:39.851308",
+    "type": "json"
+  },
+  "reports/final_compliance_report.md": {
+    "size": 6280,
+    "modified": "2025-09-21T23:02:05.211517",
+    "type": "md"
+  },
+  "reports/localhost_2025-09-23_21-19-50.report.html": {
+    "size": 388338,
+    "modified": "2025-09-23T21:19:54.885585",
+    "type": "html"
+  },
+  "reports/batch-1-security-scanning-completion.md": {
+    "size": 9177,
+    "modified": "2025-11-01T10:06:08.107774",
+    "type": "md"
+  },
+  "reports/llm-script-optimization-report.md": {
+    "size": 5577,
+    "modified": "2025-09-20T15:09:08.285443",
+    "type": "md"
+  },
+  "reports/WORKFLOW_FIX_REPORT_2025-09-22.md": {
+    "size": 5533,
+    "modified": "2025-09-22T17:30:23.609665",
+    "type": "md"
+  },
+  "reports/phase-8-5-local-gist-plan.md": {
+    "size": 34708,
+    "modified": "2025-11-01T10:04:25.356567",
+    "type": "md"
+  },
+  "reports/DOCUMENTATION_AUTHORITY_REPORT_2025-09-22.md": {
+    "size": 8347,
+    "modified": "2025-09-22T00:58:27.209600",
+    "type": "md"
+  },
+  "reports/phase-8-4-final-results.md": {
+    "size": 4537,
+    "modified": "2025-10-31T22:40:22.317764",
+    "type": "md"
+  },
+  "reports/summary.md": {
+    "size": 1932,
+    "modified": "2025-09-20T12:34:06.796509",
+    "type": "md"
+  },
+  "reports/phase-8-6-completion-report.md": {
+    "size": 14495,
+    "modified": "2025-11-01T11:57:01.920269",
+    "type": "md"
+  },
+  "reports/monthly/TEST_EXECUTION_RESULTS.md": {
+    "size": 13488,
+    "modified": "2025-10-29T08:09:01.003551",
+    "type": "md"
+  },
+  "reports/monthly/validation-2025-10.json": {
+    "size": 119758,
+    "modified": "2025-10-29T08:07:24.282772",
+    "type": "json"
+  },
+  "reports/monthly/summary-2025-10.txt": {
+    "size": 5922,
+    "modified": "2025-10-29T08:07:24.332434",
+    "type": "txt"
+  },
+  "reports/monthly/QUICK_REFERENCE.md": {
+    "size": 6421,
+    "modified": "2025-10-29T08:09:37.814224",
+    "type": "md"
+  },
+  "src/manifest.json": {
+    "size": 1165,
+    "modified": "2025-06-26T00:37:23.137637",
+    "type": "json"
+  },
+  "src/feed.njk": {
+    "size": 1083,
+    "modified": "2025-06-24T17:53:54.586409",
+    "type": "njk"
+  },
+  "src/tags.njk": {
+    "size": 2751,
+    "modified": "2025-06-26T00:50:17.392215",
+    "type": "njk"
+  },
+  "src/index.njk": {
+    "size": 16038,
+    "modified": "2025-10-29T09:54:03.694937",
+    "type": "njk"
+  },
+  "src/robots.txt": {
+    "size": 132,
+    "modified": "2025-06-24T17:54:22.666160",
+    "type": "txt"
+  },
+  "src/sitemap.njk": {
+    "size": 538,
+    "modified": "2025-06-24T17:53:39.456543",
+    "type": "njk"
+  },
+  "src/search-index.njk": {
+    "size": 91,
+    "modified": "2025-08-09T17:58:55.731279",
+    "type": "njk"
+  },
+  "src/404.md": {
+    "size": 4755,
+    "modified": "2025-06-26T00:41:06.879086",
+    "type": "md"
+  },
+  "src/posts/2024-04-11-ethics-large-language-models.md": {
+    "size": 18896,
+    "modified": "2025-10-29T13:53:12.203301",
+    "type": "md"
+  },
+  "src/posts/2024-10-22-ai-edge-computing.md": {
+    "size": 23135,
+    "modified": "2025-10-29T13:53:12.235083",
+    "type": "md"
+  },
+  "src/posts/2025-10-06-automated-security-scanning-pipeline.md": {
+    "size": 18010,
+    "modified": "2025-11-01T11:57:01.921269",
+    "type": "md"
+  },
+  "src/posts/2025-02-10-automating-home-network-security.md": {
+    "size": 8418,
+    "modified": "2025-10-29T13:53:12.244283",
+    "type": "md"
+  },
+  "src/posts/2024-11-15-gpu-power-monitoring-homelab-ml.md": {
+    "size": 20037,
+    "modified": "2025-10-29T13:53:12.238804",
+    "type": "md"
+  },
+  "src/posts/2025-09-20-vulnerability-prioritization-epss-kev.md": {
+    "size": 15264,
+    "modified": "2025-10-29T13:53:12.280071",
+    "type": "md"
+  },
+  "src/posts/2024-02-22-open-source-vs-proprietary-llms.md": {
+    "size": 19993,
+    "modified": "2025-10-29T13:53:12.199869",
+    "type": "md"
+  },
+  "src/posts/2025-09-20-iot-security-homelab-owasp.md": {
+    "size": 16958,
+    "modified": "2025-10-29T13:53:12.278286",
+    "type": "md"
+  },
+  "src/posts/2025-07-08-implementing-dns-over-https-home-networks.md": {
+    "size": 13350,
+    "modified": "2025-10-29T13:53:12.261666",
+    "type": "md"
+  },
+  "src/posts/2025-09-01-self-hosted-bitwarden-migration-guide.md": {
+    "size": 17880,
+    "modified": "2025-10-29T13:53:12.274800",
+    "type": "md"
+  },
+  "src/posts/2024-09-15-running-llama-raspberry-pi-pipeload.md": {
+    "size": 22140,
+    "modified": "2025-11-01T14:48:04.006490",
+    "type": "md"
+  },
+  "src/posts/2024-07-24-multimodal-foundation-models.md": {
+    "size": 24470,
+    "modified": "2025-10-29T13:53:12.220127",
+    "type": "md"
+  },
+  "src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md": {
+    "size": 15861,
+    "modified": "2025-10-29T13:53:12.259680",
+    "type": "md"
+  },
+  "src/posts/2024-08-02-quantum-computing-leap-forward.md": {
+    "size": 34292,
+    "modified": "2025-10-29T13:53:12.221934",
+    "type": "md"
+  },
+  "src/posts/2025-05-10-llm-fine-tuning-homelab-guide.md": {
+    "size": 26008,
+    "modified": "2025-10-29T13:53:12.255364",
+    "type": "md"
+  },
+  "src/posts/2024-03-05-cloud-migration-journey-guide.md": {
+    "size": 18407,
+    "modified": "2025-10-29T13:53:12.200826",
+    "type": "md"
+  },
+  "src/posts/2024-11-05-pizza-calculator.md": {
+    "size": 15714,
+    "modified": "2025-10-29T13:53:12.236941",
+    "type": "md"
+  },
+  "src/posts/posts.json": {
+    "size": 96,
+    "modified": "2025-06-23T23:18:38.178438",
+    "type": "json"
+  },
+  "src/posts/2025-10-29-privacy-first-ai-lab-local-llms.md": {
+    "size": 26596,
+    "modified": "2025-11-01T09:40:33.295559",
+    "type": "md"
+  },
+  "src/posts/2025-10-29-post-quantum-cryptography-homelab.md": {
+    "size": 38855,
+    "modified": "2025-10-29T13:53:12.288923",
+    "type": "md"
+  },
+  "src/posts/2025-01-12-privacy-preserving-federated-learning-homelab.md": {
+    "size": 19582,
+    "modified": "2025-11-01T14:47:49.194631",
+    "type": "md"
+  },
+  "src/posts/2024-09-19-biomimetic-robotics.md": {
+    "size": 16428,
+    "modified": "2025-10-29T13:53:12.229468",
+    "type": "md"
+  },
+  "src/posts/2024-07-16-sustainable-computing-carbon-footprint.md": {
+    "size": 22207,
+    "modified": "2025-10-29T13:53:12.218280",
+    "type": "md"
+  },
+  "src/posts/2024-04-19-mastering-prompt-engineering-llms.md": {
+    "size": 19655,
+    "modified": "2025-10-29T13:53:12.205140",
+    "type": "md"
+  },
+  "src/posts/2025-06-25-local-llm-deployment-privacy-first.md": {
+    "size": 13628,
+    "modified": "2025-11-01T09:40:14.691754",
+    "type": "md"
+  },
+  "src/posts/2025-09-08-zero-trust-vlan-segmentation-homelab.md": {
+    "size": 11693,
+    "modified": "2025-11-01T11:57:01.920269",
+    "type": "md"
+  },
+  "src/posts/2024-10-10-blockchain-beyond-cryptocurrency.md": {
+    "size": 20431,
+    "modified": "2025-10-29T13:53:12.233236",
+    "type": "md"
+  },
+  "src/posts/2024-05-30-ai-learning-resource-constrained.md": {
+    "size": 74914,
+    "modified": "2025-10-29T13:53:12.210837",
+    "type": "md"
+  },
+  "src/posts/2025-10-13-embodied-ai-robots-physical-world.md": {
+    "size": 15183,
+    "modified": "2025-10-29T13:53:12.285370",
+    "type": "md"
+  },
+  "src/posts/2025-08-25-network-traffic-analysis-suricata-homelab.md": {
+    "size": 17093,
+    "modified": "2025-10-29T13:53:12.272939",
+    "type": "md"
+  },
+  "src/posts/2024-06-25-designing-resilient-systems.md": {
+    "size": 48671,
+    "modified": "2025-10-29T13:53:12.214505",
+    "type": "md"
+  },
+  "src/posts/2025-03-10-raspberry-pi-security-projects.md": {
+    "size": 9250,
+    "modified": "2025-10-29T13:53:12.247945",
+    "type": "md"
+  },
+  "src/posts/2024-09-09-embodied-ai-teaching-agents.md": {
+    "size": 16467,
+    "modified": "2025-10-29T13:53:12.227616",
+    "type": "md"
+  },
+  "src/posts/2024-08-13-high-performance-computing.md": {
+    "size": 28419,
+    "modified": "2025-10-29T13:53:12.223898",
+    "type": "md"
+  },
+  "src/posts/2024-10-03-quantum-computing-defense.md": {
+    "size": 16829,
+    "modified": "2025-10-29T13:53:12.231328",
+    "type": "md"
+  },
+  "src/posts/2024-12-03-context-windows-llms.md": {
+    "size": 22783,
+    "modified": "2025-10-29T13:53:12.242422",
+    "type": "md"
+  },
+  "src/posts/2024-04-30-quantum-resistant-cryptography-guide.md": {
+    "size": 23844,
+    "modified": "2025-10-29T13:53:12.206969",
+    "type": "md"
+  },
+  "src/posts/2024-05-14-ai-new-frontier-cybersecurity.md": {
+    "size": 33155,
+    "modified": "2025-10-29T13:53:12.208912",
+    "type": "md"
+  },
+  "src/posts/2025-10-17-progressive-context-loading-llm-workflows.md": {
+    "size": 26831,
+    "modified": "2025-10-29T13:53:12.287151",
+    "type": "md"
+  },
+  "src/posts/2024-09-25-gvisor-container-sandboxing-security.md": {
+    "size": 16379,
+    "modified": "2025-11-01T14:48:08.244449",
+    "type": "md"
+  },
+  "src/posts/2024-07-09-zero-trust-architecture-implementation.md": {
+    "size": 40448,
+    "modified": "2025-10-29T13:53:12.216385",
+    "type": "md"
+  },
+  "src/posts/2024-01-08-writing-secure-code-developers-guide.md": {
+    "size": 15999,
+    "modified": "2025-10-29T13:53:12.192447",
+    "type": "md"
+  },
+  "src/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard.md": {
+    "size": 9054,
+    "modified": "2025-11-01T11:57:01.921269",
+    "type": "md"
+  },
+  "src/posts/2024-08-27-zero-trust-security-principles.md": {
+    "size": 27429,
+    "modified": "2025-10-29T13:53:12.225768",
+    "type": "md"
+  },
+  "src/posts/2025-08-09-ai-cognitive-infrastructure.md": {
+    "size": 18513,
+    "modified": "2025-10-29T13:53:12.270996",
+    "type": "md"
+  },
+  "src/posts/2025-01-22-llm-agent-homelab-incident-response.md": {
+    "size": 18705,
+    "modified": "2025-11-01T14:47:54.488581",
+    "type": "md"
+  },
+  "src/posts/2024-01-18-demystifying-cryptography-beginners-guide.md": {
+    "size": 19782,
+    "modified": "2025-10-29T13:53:12.194436",
+    "type": "md"
+  },
+  "src/posts/2025-09-29-proxmox-high-availability-homelab.md": {
+    "size": 13251,
+    "modified": "2025-11-01T11:57:01.921269",
+    "type": "md"
+  },
+  "src/posts/2024-01-30-securing-cloud-native-frontier.md": {
+    "size": 20957,
+    "modified": "2025-11-01T09:40:14.898751",
+    "type": "md"
+  },
+  "src/posts/2025-02-24-continuous-learning-cybersecurity.md": {
+    "size": 14092,
+    "modified": "2025-10-29T13:53:12.246094",
+    "type": "md"
+  },
+  "src/posts/2024-03-20-transformer-architecture-deep-dive.md": {
+    "size": 23105,
+    "modified": "2025-10-29T13:51:18.226368",
+    "type": "md"
+  },
+  "src/posts/2025-07-22-supercharging-claude-cli-with-standards.md": {
+    "size": 16229,
+    "modified": "2025-10-29T13:53:26.263464",
+    "type": "md"
+  },
+  "src/posts/2024-02-09-deepfake-dilemma-ai-deception.md": {
+    "size": 17251,
+    "modified": "2025-10-29T13:53:12.197933",
+    "type": "md"
+  },
+  "src/posts/2025-07-15-vulnerability-management-scale-open-source.md": {
+    "size": 23042,
+    "modified": "2025-10-29T13:51:18.228698",
+    "type": "md"
+  },
+  "src/posts/2025-03-24-from-it-support-to-senior-infosec-engineer.md": {
+    "size": 11008,
+    "modified": "2025-10-29T13:53:12.249889",
+    "type": "md"
+  },
+  "src/posts/2025-08-18-container-security-hardening-homelab.md": {
+    "size": 24104,
+    "modified": "2025-10-29T13:51:18.229698",
+    "type": "md"
+  },
+  "src/posts/2025-08-07-supercharging-development-claude-flow.md": {
+    "size": 18590,
+    "modified": "2025-10-29T13:53:12.268731",
+    "type": "md"
+  },
+  "src/posts/2025-04-10-securing-personal-ai-experiments.md": {
+    "size": 8435,
+    "modified": "2025-10-29T13:53:12.251773",
+    "type": "md"
+  },
+  "src/posts/2024-06-11-beyond-containers-future-deployment.md": {
+    "size": 19523,
+    "modified": "2025-10-29T13:53:12.212724",
+    "type": "md"
+  },
+  "src/posts/2025-04-24-building-secure-homelab-adventure.md": {
+    "size": 7662,
+    "modified": "2025-10-29T13:53:12.253576",
+    "type": "md"
+  },
+  "src/posts/welcome.md": {
+    "size": 4568,
+    "modified": "2025-10-29T13:53:12.290451",
+    "type": "md"
+  },
+  "src/posts/2024-11-19-llms-smart-contract-vulnerability.md": {
+    "size": 22604,
+    "modified": "2025-10-29T13:53:12.240610",
+    "type": "md"
+  },
+  "src/posts/2024-04-04-retrieval-augmented-generation-rag.md": {
+    "size": 25102,
+    "modified": "2025-10-29T13:51:18.226368",
+    "type": "md"
+  },
+  "src/posts/2025-07-29-building-mcp-standards-server.md": {
+    "size": 15251,
+    "modified": "2025-10-29T13:53:12.266192",
+    "type": "md"
+  },
+  "src/redirects/skills.njk": {
+    "size": 109,
+    "modified": "2025-06-25T18:23:14.720094",
+    "type": "njk"
+  },
+  "src/redirects/experience.njk": {
+    "size": 117,
+    "modified": "2025-06-25T18:23:10.165134",
+    "type": "njk"
+  },
+  "src/redirects/projects.njk": {
+    "size": 113,
+    "modified": "2025-06-25T18:23:19.811051",
+    "type": "njk"
+  },
+  "src/redirects/contact.njk": {
+    "size": 140,
+    "modified": "2025-06-25T18:55:54.219378",
+    "type": "njk"
+  },
+  "src/pages/resources.md": {
+    "size": 56912,
+    "modified": "2025-10-29T09:07:05.631029",
+    "type": "md"
+  },
+  "src/pages/uses.md": {
+    "size": 25583,
+    "modified": "2025-10-29T09:54:06.874913",
+    "type": "md"
+  },
+  "src/pages/posts.njk": {
+    "size": 11107,
+    "modified": "2025-09-23T21:12:06.582515",
+    "type": "njk"
+  },
+  "src/pages/stats.njk": {
+    "size": 44173,
+    "modified": "2025-10-20T02:04:31.173208",
+    "type": "njk"
+  },
+  "src/pages/tags.md": {
+    "size": 2717,
+    "modified": "2025-09-23T00:45:22.228022",
+    "type": "md"
+  },
+  "src/pages/about.md": {
+    "size": 23695,
+    "modified": "2025-10-29T09:54:54.895547",
+    "type": "md"
+  },
+  "src/templates/blog-post-template.md": {
+    "size": 14831,
+    "modified": "2025-10-29T09:22:13.416063",
+    "type": "md"
+  },
+  "src/_data/blogStats.json": {
+    "size": 5619,
+    "modified": "2025-11-01T16:40:12.065215",
+    "type": "json"
+  },
+  "src/_data/site.json": {
+    "size": 764,
+    "modified": "2025-06-25T18:38:42.332708",
+    "type": "json"
+  },
+  "src/assets/js/table-of-contents.js": {
+    "size": 4954,
+    "modified": "2025-09-23T01:39:33.559644",
+    "type": "js"
+  },
+  "src/assets/js/ui-enhancements.js": {
+    "size": 14670,
+    "modified": "2025-09-22T00:34:26.505682",
+    "type": "js"
+  },
+  "src/assets/js/reading-progress.js": {
+    "size": 2734,
+    "modified": "2025-06-26T00:52:46.570158",
+    "type": "js"
+  },
+  "src/assets/js/code-collapse.js": {
+    "size": 13235,
+    "modified": "2025-08-09T11:57:32.743441",
+    "type": "js"
+  },
+  "src/assets/js/back-to-top.js": {
+    "size": 2105,
+    "modified": "2025-06-26T00:38:46.926058",
+    "type": "js"
+  },
+  "src/assets/js/search.js": {
+    "size": 11606,
+    "modified": "2025-08-09T17:56:56.120712",
+    "type": "js"
+  },
+  "src/assets/css/theme-tokens.css": {
+    "size": 8881,
+    "modified": "2025-10-01T23:01:02.209955",
+    "type": "css"
+  },
+  "src/assets/css/tailwind.css": {
+    "size": 8423,
+    "modified": "2025-10-01T23:41:44.195163",
+    "type": "css"
+  },
+  "src/assets/css/main.css": {
+    "size": 2083,
+    "modified": "2025-09-23T18:50:16.995027",
+    "type": "css"
+  },
+  "src/assets/css/enhancements.css": {
+    "size": 12264,
+    "modified": "2025-10-01T23:46:07.145329",
+    "type": "css"
+  },
+  "src/assets/images/headshot.png": {
+    "size": 242412,
+    "modified": "2025-06-24T18:11:55.373649",
+    "type": "png"
+  },
+  "src/assets/images/icon-192.svg": {
+    "size": 304,
+    "modified": "2025-06-26T00:37:08.753736",
+    "type": "svg"
+  },
+  "src/assets/images/icon-512.svg": {
+    "size": 307,
+    "modified": "2025-06-26T00:37:13.921700",
+    "type": "svg"
+  },
+  "src/assets/images/favicon.svg": {
+    "size": 1587,
+    "modified": "2025-06-25T14:47:14.308659",
+    "type": "svg"
+  },
+  "src/assets/images/og/default-og.png": {
+    "size": 23718,
+    "modified": "2025-06-25T00:18:59.519880",
+    "type": "png"
+  },
+  "src/assets/images/og/about-og.png": {
+    "size": 20082,
+    "modified": "2025-06-25T00:18:59.553880",
+    "type": "png"
+  },
+  "src/assets/images/og/uses-og.png": {
+    "size": 18055,
+    "modified": "2025-06-25T00:18:59.718879",
+    "type": "png"
+  },
+  "src/assets/images/og/blog-og.png": {
+    "size": 18205,
+    "modified": "2025-06-25T00:18:59.746879",
+    "type": "png"
+  },
+  "src/assets/images/blog/hero/welcome-og-thumb-thumb.jpg": {
+    "size": 3892,
+    "modified": "2025-10-29T13:04:55.558352",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-400-thumb.jpg": {
+    "size": 3968,
+    "modified": "2025-10-29T13:04:55.388477",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-800.jpg": {
+    "size": 30988,
+    "modified": "2025-10-11T18:58:40.669929",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-thumb-800.jpg": {
+    "size": 21904,
+    "modified": "2025-10-29T13:04:55.444410",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og-800.jpg": {
+    "size": 30988,
+    "modified": "2025-10-11T18:58:40.725125",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero.jpg": {
+    "size": 56177,
+    "modified": "2025-09-20T00:23:49.143629",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-400.jpg": {
+    "size": 11372,
+    "modified": "2025-10-11T18:58:40.688934",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og-thumb-800.jpg": {
+    "size": 21904,
+    "modified": "2025-10-29T13:04:55.543375",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-thumb-thumb.jpg": {
+    "size": 3892,
+    "modified": "2025-10-29T13:04:55.461288",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og.jpg": {
+    "size": 56177,
+    "modified": "2025-09-20T00:23:49.145629",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og-thumb-400.jpg": {
+    "size": 8644,
+    "modified": "2025-10-29T13:04:55.551559",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-thumb-400.jpg": {
+    "size": 8644,
+    "modified": "2025-10-29T13:04:55.454645",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og-400-thumb.jpg": {
+    "size": 3968,
+    "modified": "2025-10-29T13:04:55.495375",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og-800-thumb.jpg": {
+    "size": 3898,
+    "modified": "2025-10-29T13:04:55.530845",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og-400.jpg": {
+    "size": 11372,
+    "modified": "2025-10-11T18:58:40.743160",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-og-thumb.jpg": {
+    "size": 3882,
+    "modified": "2025-10-11T18:58:40.759308",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-thumb.jpg": {
+    "size": 3882,
+    "modified": "2025-10-11T18:58:40.705775",
+    "type": "jpg"
+  },
+  "src/assets/images/blog/hero/welcome-hero-800-thumb.jpg": {
+    "size": 3898,
+    "modified": "2025-10-29T13:04:55.430516",
+    "type": "jpg"
+  },
+  "src/_includes/redirect.njk": {
+    "size": 354,
+    "modified": "2025-06-25T18:23:04.965178",
+    "type": "njk"
+  },
+  "src/_includes/layouts/post.njk": {
+    "size": 13615,
+    "modified": "2025-09-23T21:11:46.024624",
+    "type": "njk"
+  },
+  "src/_includes/layouts/page.njk": {
+    "size": 1408,
+    "modified": "2025-09-23T00:45:22.226679",
+    "type": "njk"
+  },
+  "src/_includes/layouts/base.njk": {
+    "size": 25291,
+    "modified": "2025-10-11T23:43:22.182976",
+    "type": "njk"
+  },
+  "src/_includes/partials/favicon-meta.njk": {
+    "size": 522,
+    "modified": "2025-07-20T21:03:04.716301",
+    "type": "njk"
+  },
+  "scripts/playwright-ui-ux-audit.js": {
+    "size": 6734,
+    "modified": "2025-09-23T00:07:46.279512",
+    "type": "js"
+  },
+  "scripts/optimize-blog-images.sh": {
+    "size": 4874,
+    "modified": "2025-10-29T13:15:58.399369",
+    "type": "sh"
+  },
+  "scripts/create-gists-from-folder.py": {
+    "size": 15966,
+    "modified": "2025-11-01T16:18:34.908730",
+    "type": "py"
+  },
+  "scripts/update-blog-gist-urls.py": {
+    "size": 8061,
+    "modified": "2025-11-01T16:18:34.909160",
+    "type": "py"
+  },
+  "scripts/lighthouse-comprehensive-audit.js": {
+    "size": 12714,
+    "modified": "2025-09-23T01:46:38.312642",
+    "type": "js"
+  },
+  "scripts/validate-gist-links.py": {
+    "size": 9968,
+    "modified": "2025-11-01T16:18:34.909416",
+    "type": "py"
+  },
+  "scripts/simple-lighthouse-audit.js": {
+    "size": 11720,
+    "modified": "2025-09-23T01:47:32.875248",
+    "type": "js"
+  },
+  "scripts/README-update-blog-gist-urls.md": {
+    "size": 6602,
+    "modified": "2025-11-01T11:57:01.920269",
+    "type": "md"
+  },
+  "scripts/calculate-ux-score.js": {
+    "size": 8261,
+    "modified": "2025-09-23T00:04:19.300177",
+    "type": "js"
+  },
+  "scripts/stats-generator.py": {
+    "size": 20419,
+    "modified": "2025-11-01T16:18:34.909657",
+    "type": "py"
+  },
+  "scripts/bundle-js.js": {
+    "size": 3568,
+    "modified": "2025-09-23T21:09:58.776353",
+    "type": "js"
+  },
+  "scripts/blog-research/check-citation-hyperlinks.py": {
+    "size": 9460,
+    "modified": "2025-11-01T16:19:32.969755",
+    "type": "py"
+  },
+  "scripts/blog-research/search-reputable-sources.py": {
+    "size": 8067,
+    "modified": "2025-11-01T16:18:34.910110",
+    "type": "py"
+  },
+  "scripts/blog-research/add-academic-citations.py": {
+    "size": 14485,
+    "modified": "2025-11-01T16:18:34.910311",
+    "type": "py"
+  },
+  "scripts/blog-research/research-validator.py": {
+    "size": 11737,
+    "modified": "2025-11-01T16:18:34.910525",
+    "type": "py"
+  },
+  "scripts/blog-research/academic-search.py": {
+    "size": 13999,
+    "modified": "2025-11-01T16:18:34.910709",
+    "type": "py"
+  },
+  "scripts/blog-research/enhance-more-posts-citations.py": {
+    "size": 10969,
+    "modified": "2025-11-01T16:18:34.910922",
+    "type": "py"
+  },
+  "scripts/blog-research/add-reputable-sources-to-posts.py": {
+    "size": 8241,
+    "modified": "2025-11-01T16:18:34.911124",
+    "type": "py"
+  },
+  "scripts/utilities/repo-maintenance.py": {
+    "size": 28854,
+    "modified": "2025-11-01T16:18:34.911419",
+    "type": "py"
+  },
+  "scripts/utilities/blog-compliance-analyzer.py": {
+    "size": 18640,
+    "modified": "2025-11-01T16:18:34.911791",
+    "type": "py"
+  },
+  "scripts/utilities/diagram-manager.py": {
+    "size": 17544,
+    "modified": "2025-11-01T16:18:34.912103",
+    "type": "py"
+  },
+  "scripts/utilities/final-validation.py": {
+    "size": 4100,
+    "modified": "2025-11-01T16:18:34.912370",
+    "type": "py"
+  },
+  "scripts/utilities/count-bullets.sh": {
+    "size": 6125,
+    "modified": "2025-10-26T23:42:25.062263",
+    "type": "sh"
+  },
+  "scripts/utilities/analyze-post.py": {
+    "size": 3031,
+    "modified": "2025-11-01T16:18:34.912541",
+    "type": "py"
+  },
+  "scripts/utilities/llm-script-documenter.py": {
+    "size": 11688,
+    "modified": "2025-11-01T16:18:34.912738",
+    "type": "py"
+  },
+  "scripts/utilities/remove-corporate-speak.py": {
+    "size": 8742,
+    "modified": "2025-11-01T16:18:34.912977",
+    "type": "py"
+  },
+  "scripts/utilities/cron-maintenance.example": {
+    "size": 3120,
+    "modified": "2025-10-29T14:00:50.668225",
+    "type": "example"
+  },
+  "scripts/utilities/batch-analyzer.py": {
+    "size": 3869,
+    "modified": "2025-11-01T16:18:34.913141",
+    "type": "py"
+  },
+  "scripts/memory/memory-store.json": {
+    "size": 952,
+    "modified": "2025-09-21T22:12:21.372972",
+    "type": "json"
+  },
+  "scripts/link-validation/content-relevance-checker.py": {
+    "size": 18357,
+    "modified": "2025-11-01T16:18:34.913346",
+    "type": "py"
+  },
+  "scripts/link-validation/citation-updater.py": {
+    "size": 19235,
+    "modified": "2025-11-01T16:18:34.913605",
+    "type": "py"
+  },
+  "scripts/link-validation/batch-link-fixer.py": {
+    "size": 14067,
+    "modified": "2025-11-01T16:18:34.913867",
+    "type": "py"
+  },
+  "scripts/link-validation/simple-validator.py": {
+    "size": 6751,
+    "modified": "2025-11-01T16:18:34.914077",
+    "type": "py"
+  },
+  "scripts/link-validation/link-report-generator.py": {
+    "size": 17619,
+    "modified": "2025-11-01T16:18:34.914268",
+    "type": "py"
+  },
+  "scripts/link-validation/link-validator.py": {
+    "size": 17977,
+    "modified": "2025-11-01T16:18:34.914512",
+    "type": "py"
+  },
+  "scripts/link-validation/link-monitor.py": {
+    "size": 18064,
+    "modified": "2025-11-01T16:18:34.914721",
+    "type": "py"
+  },
+  "scripts/link-validation/citation-report.py": {
+    "size": 9234,
+    "modified": "2025-11-01T16:18:34.914982",
+    "type": "py"
+  },
+  "scripts/link-validation/test-citation-workflow.sh": {
+    "size": 2560,
+    "modified": "2025-10-28T23:27:01.493783",
+    "type": "sh"
+  },
+  "scripts/link-validation/advanced-link-repair.py": {
+    "size": 17964,
+    "modified": "2025-11-01T16:18:34.915189",
+    "type": "py"
+  },
+  "scripts/link-validation/specialized-validators.py": {
+    "size": 18084,
+    "modified": "2025-11-01T16:18:34.915390",
+    "type": "py"
+  },
+  "scripts/link-validation/wayback-archiver.py": {
+    "size": 16430,
+    "modified": "2025-11-01T16:18:34.915622",
+    "type": "py"
+  },
+  "scripts/link-validation/link-extractor.py": {
+    "size": 11328,
+    "modified": "2025-11-01T16:18:34.915822",
+    "type": "py"
+  },
+  "scripts/link-validation/citation-repair.py": {
+    "size": 21813,
+    "modified": "2025-11-01T16:18:34.916099",
+    "type": "py"
+  },
+  "scripts/blog-content/generate-stats-dashboard.py": {
+    "size": 15673,
+    "modified": "2025-11-01T16:18:34.916347",
+    "type": "py"
+  },
+  "scripts/blog-content/blog-manager.py": {
+    "size": 16018,
+    "modified": "2025-11-01T16:18:34.916588",
+    "type": "py"
+  },
+  "scripts/blog-content/analyze-compliance.py": {
+    "size": 9186,
+    "modified": "2025-11-01T16:18:34.916780",
+    "type": "py"
+  },
+  "scripts/blog-content/humanization-patterns.yaml": {
+    "size": 6517,
+    "modified": "2025-10-29T07:43:35.676765",
+    "type": "yaml"
+  },
+  "scripts/blog-content/optimize-blog-content.py": {
+    "size": 16910,
+    "modified": "2025-11-01T16:18:34.916947",
+    "type": "py"
+  },
+  "scripts/blog-content/batch-improve-blog-posts.py": {
+    "size": 19181,
+    "modified": "2025-11-01T16:18:34.917253",
+    "type": "py"
+  },
+  "scripts/blog-content/full-post-validation.py": {
+    "size": 20034,
+    "modified": "2025-11-01T16:18:34.917493",
+    "type": "py"
+  },
+  "scripts/blog-content/humanization-validator.py": {
+    "size": 48966,
+    "modified": "2025-11-01T16:18:34.917828",
+    "type": "py"
+  },
+  "scripts/blog-content/comprehensive-blog-enhancement.py": {
+    "size": 15695,
+    "modified": "2025-11-01T16:18:34.918171",
+    "type": "py"
+  },
+  "scripts/blog-content/optimize-seo-descriptions.py": {
+    "size": 20403,
+    "modified": "2025-11-01T16:18:34.918401",
+    "type": "py"
+  },
+  "scripts/blog-content/analyze-blog-content.py": {
+    "size": 15238,
+    "modified": "2025-11-01T16:18:34.918610",
+    "type": "py"
+  },
+  "scripts/blog-content/validate-all-posts.py": {
+    "size": 12040,
+    "modified": "2025-11-01T16:18:34.918814",
+    "type": "py"
+  },
+  "scripts/maintenance/monthly-portfolio-validation.sh": {
+    "size": 11538,
+    "modified": "2025-10-29T08:05:45.172389",
+    "type": "sh"
+  },
+  "scripts/blog-images/generate-og-image.py": {
+    "size": 5830,
+    "modified": "2025-11-01T16:18:34.918959",
+    "type": "py"
+  },
+  "scripts/blog-images/enhanced-blog-image-search.py": {
+    "size": 14892,
+    "modified": "2025-11-01T16:18:34.919100",
+    "type": "py"
+  },
+  "scripts/blog-images/fetch-stock-images.py": {
+    "size": 11578,
+    "modified": "2025-11-01T16:18:34.919297",
+    "type": "py"
+  },
+  "scripts/blog-images/generate-blog-hero-images.py": {
+    "size": 16852,
+    "modified": "2025-11-01T16:18:34.919495",
+    "type": "py"
+  },
+  "scripts/blog-images/update-blog-images.py": {
+    "size": 9724,
+    "modified": "2025-11-01T16:18:34.919685",
+    "type": "py"
+  },
+  "scripts/blog-images/playwright-image-search.py": {
+    "size": 16015,
+    "modified": "2025-11-01T16:18:34.919908",
+    "type": "py"
+  },
+  "scripts/lib/memory-file.sh": {
+    "size": 1183,
+    "modified": "2025-09-21T22:11:59.522329",
+    "type": "sh"
+  },
+  "scripts/lib/common.py": {
+    "size": 20876,
+    "modified": "2025-11-01T16:18:34.920130",
+    "type": "py"
+  },
+  "archive/batch-2/README.md": {
+    "size": 4472,
+    "modified": "2025-10-28T22:41:03.068367",
+    "type": "md"
+  },
+  "archive/batch-2/site-health-report.md": {
+    "size": 30677,
+    "modified": "2025-10-28T22:11:13.531848",
+    "type": "md"
+  },
+  "archive/batch-2/human-tone-integration-plan.md": {
+    "size": 29255,
+    "modified": "2025-10-28T21:56:44.452628",
+    "type": "md"
+  },
+  "archive/batch-2/batch-2-tone-audit.md": {
+    "size": 16757,
+    "modified": "2025-10-28T21:55:56.739073",
+    "type": "md"
+  },
+  "archive/batch-2/strategic-next-phase-analysis.md": {
+    "size": 28980,
+    "modified": "2025-10-28T22:10:05.811369",
+    "type": "md"
+  },
+  "diagrams/README.md": {
+    "size": 5814,
+    "modified": "2025-11-01T14:07:26.012045",
+    "type": "md"
+  },
+  "diagrams/templates/ml-data-pipeline-template.mmd": {
+    "size": 1883,
+    "modified": "2025-11-01T14:07:26.012493",
+    "type": "mmd"
+  },
+  "diagrams/templates/threat-actor-security-template.mmd": {
+    "size": 1765,
+    "modified": "2025-11-01T14:07:26.012493",
+    "type": "mmd"
+  },
+  "diagrams/templates/cloud-frontend-template.mmd": {
+    "size": 1539,
+    "modified": "2025-11-01T14:07:26.012410",
+    "type": "mmd"
+  },
+  "docs/lighthouse-audit-summary.md": {
+    "size": 6503,
+    "modified": "2025-09-23T01:49:07.009566",
+    "type": "md"
+  },
+  "docs/ENFORCEMENT.md": {
+    "size": 7360,
+    "modified": "2025-09-20T19:08:10.665181",
+    "type": "md"
+  },
+  "docs/CITATION_VALIDATION_IMPLEMENTATION.md": {
+    "size": 9565,
+    "modified": "2025-10-28T23:29:08.997885",
+    "type": "md"
+  },
+  "docs/quick-wins-implementation-report.md": {
+    "size": 12079,
+    "modified": "2025-11-01T16:20:54.549531",
+    "type": "md"
+  },
+  "docs/PROGRESSIVE_CONTEXT_ARCHITECTURE.md": {
+    "size": 76323,
+    "modified": "2025-11-01T15:09:50.121042",
+    "type": "md"
+  },
+  "docs/blog-image-index.json": {
+    "size": 39853,
+    "modified": "2025-10-29T13:04:41.820940",
+    "type": "json"
+  },
+  "docs/MAINTENANCE_SUMMARY.md": {
+    "size": 9173,
+    "modified": "2025-10-29T14:01:49.530756",
+    "type": "md"
+  },
+  "docs/QUICK_REFERENCE_BATCH_VALIDATION.md": {
+    "size": 5060,
+    "modified": "2025-10-29T07:51:14.895907",
+    "type": "md"
+  },
+  "docs/MAINTENANCE_FRAMEWORK.md": {
+    "size": 7329,
+    "modified": "2025-09-22T00:57:36.826945",
+    "type": "md"
+  },
+  "docs/uncertainty-pattern-expansion-report.md": {
+    "size": 5826,
+    "modified": "2025-10-29T07:45:25.073084",
+    "type": "md"
+  },
+  "docs/SETUP-HUMANIZATION-HOOK.md": {
+    "size": 9365,
+    "modified": "2025-10-28T23:29:56.055696",
+    "type": "md"
+  },
+  "docs/QUICK_REFERENCE_MAINTENANCE.md": {
+    "size": 2726,
+    "modified": "2025-10-29T14:00:33.611361",
+    "type": "md"
+  },
+  "docs/HOOKS-HUMANIZATION.md": {
+    "size": 9933,
+    "modified": "2025-10-28T23:29:02.384775",
+    "type": "md"
+  },
+  "docs/BATCH_VALIDATION_GUIDE.md": {
+    "size": 9111,
+    "modified": "2025-10-29T07:50:00.587369",
+    "type": "md"
+  },
+  "docs/ARCHITECTURE.md": {
+    "size": 9429,
+    "modified": "2025-09-20T19:06:33.192092",
+    "type": "md"
+  },
+  "docs/review-context.txt": {
+    "size": 504,
+    "modified": "2025-09-21T22:12:18.135192",
+    "type": "txt"
+  },
+  "docs/BATCH_2_COMPLETION_SUMMARY.md": {
+    "size": 9539,
+    "modified": "2025-10-28T22:42:18.509263",
+    "type": "md"
+  },
+  "docs/DELIVERY_REPO_MAINTENANCE.md": {
+    "size": 12157,
+    "modified": "2025-10-29T14:04:59.292236",
+    "type": "md"
+  },
+  "docs/MAINTENANCE_SETUP_CHECKLIST.md": {
+    "size": 9512,
+    "modified": "2025-10-29T14:03:36.503900",
+    "type": "md"
+  },
+  "docs/HUMANIZATION_VALIDATION.md": {
+    "size": 16502,
+    "modified": "2025-10-28T21:58:25.815683",
+    "type": "md"
+  },
+  "docs/DASHBOARD.md": {
+    "size": 5184,
+    "modified": "2025-10-28T23:28:06.221844",
+    "type": "md"
+  },
+  "docs/EXAMPLES_MAINTENANCE.md": {
+    "size": 11308,
+    "modified": "2025-10-29T14:02:48.867282",
+    "type": "md"
+  },
+  "docs/MEASUREMENT_DETECTION_RESULTS.md": {
+    "size": 5549,
+    "modified": "2025-10-29T07:49:17.640636",
+    "type": "md"
+  },
+  "docs/BLOG_VISUAL_ENHANCEMENT_GUIDE.md": {
+    "size": 6569,
+    "modified": "2025-08-08T22:17:48.768322",
+    "type": "md"
+  },
+  "docs/new-uncertainty-patterns.md": {
+    "size": 2545,
+    "modified": "2025-10-29T07:45:40.131990",
+    "type": "md"
+  },
+  "docs/heatmap-accessibility-audit.md": {
+    "size": 13036,
+    "modified": "2025-10-19T23:32:29.313110",
+    "type": "md"
+  },
+  "docs/guides/TEMPLATE_SYSTEM_OVERVIEW.md": {
+    "size": 10341,
+    "modified": "2025-10-29T08:10:32.290751",
+    "type": "md"
+  },
+  "docs/guides/UNIFIED_HUMANIZATION_METHODOLOGY.md": {
+    "size": 79794,
+    "modified": "2025-10-29T06:41:38.908919",
+    "type": "md"
+  },
+  "docs/guides/content-review-instructions.md": {
+    "size": 12293,
+    "modified": "2025-09-21T22:44:02.835489",
+    "type": "md"
+  },
+  "docs/guides/SCRIPT_CATALOG.md": {
+    "size": 30488,
+    "modified": "2025-10-29T13:28:51.936279",
+    "type": "md"
+  },
+  "docs/guides/PROGRESSIVE_CONTEXT_USAGE.md": {
+    "size": 13451,
+    "modified": "2025-11-01T16:39:38.137514",
+    "type": "md"
+  },
+  "docs/guides/MONTHLY_VALIDATION_SETUP.md": {
+    "size": 12849,
+    "modified": "2025-10-29T08:06:54.867712",
+    "type": "md"
+  },
+  "docs/guides/USING_POST_TEMPLATE.md": {
+    "size": 16522,
+    "modified": "2025-10-29T08:09:32.797269",
+    "type": "md"
+  },
+  "docs/guides/MAINTENANCE_RUNBOOK.md": {
+    "size": 14932,
+    "modified": "2025-10-29T08:17:20.935466",
+    "type": "md"
+  },
+  "docs/guides/STANDARDS_QUICK_REFERENCE.md": {
+    "size": 5008,
+    "modified": "2025-09-21T22:39:15.670046",
+    "type": "md"
+  },
+  "docs/guides/CONTENT_GUIDE.md": {
+    "size": 10807,
+    "modified": "2025-09-21T22:39:15.656812",
+    "type": "md"
+  },
+  "docs/guides/TAILWIND_CUSTOMIZATION.md": {
+    "size": 9447,
+    "modified": "2025-09-21T22:39:15.675342",
+    "type": "md"
+  },
+  "docs/guides/HUMANIZATION_QUICK_REFERENCE.md": {
+    "size": 9361,
+    "modified": "2025-10-29T08:09:33.025267",
+    "type": "md"
+  },
+  "docs/guides/TEMPLATE_QUICK_START.md": {
+    "size": 4656,
+    "modified": "2025-10-29T08:11:15.110387",
+    "type": "md"
+  },
+  "docs/guides/LLM_ONBOARDING.md": {
+    "size": 9703,
+    "modified": "2025-09-20T19:08:59.408501",
+    "type": "md"
+  },
+  "docs/guides/FAILURE_NARRATIVE_INTEGRATION.md": {
+    "size": 6946,
+    "modified": "2025-10-29T07:48:58.482755",
+    "type": "md"
+  },
+  "docs/guides/UV_MIGRATION_GUIDE.md": {
+    "size": 10209,
+    "modified": "2025-11-01T16:22:08.996487",
+    "type": "md"
+  },
+  "docs/analysis/quick-fix-guide.md": {
+    "size": 9702,
+    "modified": "2025-10-26T22:55:31.584296",
+    "type": "md"
+  },
+  "docs/analysis/compliance-report-pre-quick-wins.json": {
+    "size": 129876,
+    "modified": "2025-10-26T22:23:44.422790",
+    "type": "json"
+  },
+  "docs/analysis/README.md": {
+    "size": 6286,
+    "modified": "2025-10-26T22:55:31.582931",
+    "type": "md"
+  },
+  "docs/analysis/cleanup-plan.md": {
+    "size": 9957,
+    "modified": "2025-10-26T22:56:24.630541",
+    "type": "md"
+  },
+  "docs/analysis/blog-compliance-report.md": {
+    "size": 3784,
+    "modified": "2025-10-26T22:55:31.584296",
+    "type": "md"
+  },
+  "docs/analysis/blog-compliance-summary.md": {
+    "size": 8490,
+    "modified": "2025-10-26T22:55:31.584296",
+    "type": "md"
+  },
+  "docs/analysis/blog-compliance-report.json": {
+    "size": 46139,
+    "modified": "2025-10-26T22:55:31.584296",
+    "type": "json"
+  },
+  "docs/research/ai-safety-ethics-frameworks.md": {
+    "size": 26290,
+    "modified": "2025-10-29T12:48:21.661868",
+    "type": "md"
+  },
+  "docs/research/style-research.md": {
+    "size": 18334,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "md"
+  },
+  "docs/research/progressive-context-loading-research.md": {
+    "size": 26170,
+    "modified": "2025-11-01T15:06:57.751683",
+    "type": "md"
+  },
+  "docs/GUIDES/REPO_MAINTENANCE_GUIDE.md": {
+    "size": 10615,
+    "modified": "2025-10-29T13:59:58.638639",
+    "type": "md"
+  },
+  "docs/TEMPLATES/blog-post-writing-template.md": {
+    "size": 21190,
+    "modified": "2025-10-29T06:46:57.474936",
+    "type": "md"
+  },
+  "docs/architecture/style-update-architecture.md": {
+    "size": 19925,
+    "modified": "2025-10-26T22:55:31.584296",
+    "type": "md"
+  },
+  "docs/review/claude-md-review.md": {
+    "size": 11863,
+    "modified": "2025-10-26T22:55:31.585931",
+    "type": "md"
+  },
+  "docs/review/review-summary.md": {
+    "size": 5957,
+    "modified": "2025-10-26T22:55:31.585931",
+    "type": "md"
+  },
+  "docs/review/pr-3-compliance-analysis.md": {
+    "size": 10119,
+    "modified": "2025-10-26T22:56:36.189455",
+    "type": "md"
+  },
+  "docs/review/refactoring-plan-review.md": {
+    "size": 23132,
+    "modified": "2025-10-26T22:55:31.585931",
+    "type": "md"
+  },
+  "docs/reports/portfolio-assessment.md": {
+    "size": 8235,
+    "modified": "2025-10-29T04:34:48.952042",
+    "type": "md"
+  },
+  "docs/reports/seo-optimization-summary-2025-10-29.md": {
+    "size": 10568,
+    "modified": "2025-10-29T13:55:03.118966",
+    "type": "md"
+  },
+  "docs/reports/seo-audit-2025-10-29.md": {
+    "size": 15545,
+    "modified": "2025-10-29T13:28:52.043278",
+    "type": "md"
+  },
+  "docs/reports/mermaid-diagram-analysis-report.md": {
+    "size": 18203,
+    "modified": "2025-11-01T14:07:26.016045",
+    "type": "md"
+  },
+  "docs/reports/phase-8-completion-report.md": {
+    "size": 12310,
+    "modified": "2025-11-01T15:57:38.396658",
+    "type": "md"
+  },
+  "docs/reports/seo-raw-data.json": {
+    "size": 28455,
+    "modified": "2025-10-29T13:23:09.730339",
+    "type": "json"
+  },
+  "docs/reports/portfolio-assessment.json": {
+    "size": 85394,
+    "modified": "2025-10-29T04:34:48.954425",
+    "type": "json"
+  },
+  "docs/reports/BATCH_VALIDATION_SUMMARY.md": {
+    "size": 7911,
+    "modified": "2025-10-29T07:50:45.680088",
+    "type": "md"
+  },
+  "docs/reports/script-metadata.json": {
+    "size": 64478,
+    "modified": "2025-10-29T13:23:07.291083",
+    "type": "json"
+  },
+  "docs/reports/seo-optimization-2025-10-29.json": {
+    "size": 917,
+    "modified": "2025-10-29T13:53:26.276307",
+    "type": "json"
+  },
+  "docs/reports/humanization-hook-implementation.md": {
+    "size": 13406,
+    "modified": "2025-10-28T23:31:07.715743",
+    "type": "md"
+  },
+  "docs/reports/progressive-context-completion-report.md": {
+    "size": 16018,
+    "modified": "2025-11-01T16:07:39.882024",
+    "type": "md"
+  },
+  "docs/reports/archive/batches/batch-6-completion-report.md": {
+    "size": 15560,
+    "modified": "2025-10-29T05:21:08.530936",
+    "type": "md"
+  },
+  "docs/reports/archive/batches/batch-3-completion-report-reconstructed.md": {
+    "size": 28749,
+    "modified": "2025-10-29T06:36:51.206681",
+    "type": "md"
+  },
+  "docs/reports/archive/batches/quick-wins-completion-report.md": {
+    "size": 11066,
+    "modified": "2025-10-29T04:36:44.943366",
+    "type": "md"
+  },
+  "docs/reports/archive/batches/batch-4-completion-report-reconstructed.md": {
+    "size": 28643,
+    "modified": "2025-10-29T06:39:48.809523",
+    "type": "md"
+  },
+  "docs/reports/archive/batches/README.md": {
+    "size": 27384,
+    "modified": "2025-10-29T06:46:47.675951",
+    "type": "md"
+  },
+  "docs/reports/archive/batches/batch-5-completion-report.md": {
+    "size": 14445,
+    "modified": "2025-10-29T00:46:48.298276",
+    "type": "md"
+  },
+  "docs/standards/SITE_DOCUMENTATION_STANDARDS.md": {
+    "size": 7040,
+    "modified": "2025-06-23T23:32:20.373299",
+    "type": "md"
+  },
+  "docs/planning/BATCH_1_KICKOFF.md": {
+    "size": 7442,
+    "modified": "2025-10-26T22:55:31.584296",
+    "type": "md"
+  },
+  "docs/planning/REFACTORING_SUMMARY.md": {
+    "size": 9148,
+    "modified": "2025-10-26T22:55:31.585254",
+    "type": "md"
+  },
+  "docs/planning/blog-refactoring-plan.md": {
+    "size": 20331,
+    "modified": "2025-10-26T22:55:31.585254",
+    "type": "md"
+  },
+  "docs/planning/batch-1-execution-plan.md": {
+    "size": 30614,
+    "modified": "2025-10-26T22:57:58.402838",
+    "type": "md"
+  },
+  "docs/batch-1/post-1-final-summary.md": {
+    "size": 13417,
+    "modified": "2025-10-26T23:16:35.536808",
+    "type": "md"
+  },
+  "docs/batch-1/post-2-validation-report.md": {
+    "size": 6459,
+    "modified": "2025-10-26T23:23:24.850385",
+    "type": "md"
+  },
+  "docs/batch-1/post-3-final-report.md": {
+    "size": 11466,
+    "modified": "2025-10-26T23:30:52.841483",
+    "type": "md"
+  },
+  "docs/batch-1/batch-1-complete-summary.md": {
+    "size": 14028,
+    "modified": "2025-10-26T23:32:17.669877",
+    "type": "md"
+  },
+  "docs/batch-1/post-1-pre-analysis.md": {
+    "size": 12839,
+    "modified": "2025-10-26T23:06:15.388919",
+    "type": "md"
+  },
+  "docs/batch-1/LESSONS_LEARNED.md": {
+    "size": 18412,
+    "modified": "2025-10-26T23:40:02.989372",
+    "type": "md"
+  },
+  "docs/batch-1/post-2-pre-analysis.md": {
+    "size": 2667,
+    "modified": "2025-10-26T23:19:40.051268",
+    "type": "md"
+  },
+  "docs/batch-1/post-3-pre-analysis.md": {
+    "size": 3669,
+    "modified": "2025-10-26T23:27:26.384891",
+    "type": "md"
+  },
+  "docs/batch-1/post-2-transformation-summary.md": {
+    "size": 6315,
+    "modified": "2025-10-26T23:23:25.070383",
+    "type": "md"
+  },
+  "docs/batch-1/POST-2-RESULTS.md": {
+    "size": 7824,
+    "modified": "2025-10-26T23:24:19.776051",
+    "type": "md"
+  },
+  "docs/batch-1/post-1-validation-report.md": {
+    "size": 9568,
+    "modified": "2025-10-26T23:12:41.761750",
+    "type": "md"
+  },
+  "docs/link-validation/final-report.md": {
+    "size": 6607,
+    "modified": "2025-09-20T12:46:34.079276",
+    "type": "md"
+  },
+  "docs/link-validation/README.md": {
+    "size": 8181,
+    "modified": "2025-09-20T12:35:35.425947",
+    "type": "md"
+  },
+  "docs/link-validation/initial-report.md": {
+    "size": 3679,
+    "modified": "2025-09-20T12:25:45.138937",
+    "type": "md"
+  },
+  "docs/quick-wins/corporate-speak-removal.json": {
+    "size": 11048,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "json"
+  },
+  "docs/quick-wins/README.md": {
+    "size": 2938,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "md"
+  },
+  "docs/quick-wins/QUICK_WINS_SUMMARY.md": {
+    "size": 15125,
+    "modified": "2025-10-26T22:55:31.585254",
+    "type": "md"
+  },
+  "docs/quick-wins/VALIDATION.md": {
+    "size": 4315,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "md"
+  },
+  "docs/quick-wins/ai-anthropomorphism-fixes.md": {
+    "size": 8094,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "md"
+  },
+  "docs/quick-wins/SUMMARY.md": {
+    "size": 5379,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "md"
+  },
+  "docs/quick-wins/missing-citations-added.md": {
+    "size": 9899,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "md"
+  },
+  "docs/quick-wins/corporate-speak-removal.md": {
+    "size": 7061,
+    "modified": "2025-10-26T22:55:31.585711",
+    "type": "md"
+  },
+  "docs/templates/blog-post-refactoring.md": {
+    "size": 11665,
+    "modified": "2025-10-26T22:55:31.585931",
+    "type": "md"
+  },
+  "docs/testing/style-validation-plan.md": {
+    "size": 24353,
+    "modified": "2025-10-26T22:55:31.585931",
+    "type": "md"
+  },
+  "docs/archive/blogpost.prompt_context.legacy": {
+    "size": 7086,
+    "modified": "2025-10-11T23:24:40.991717",
+    "type": "legacy"
+  },
+  "docs/archive/test-reports-2025-Q3.md": {
+    "size": 87355,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/README.md": {
+    "size": 1187,
+    "modified": "2025-10-11T23:30:57.239130",
+    "type": "md"
+  },
+  "docs/archive/ARCHIVAL_SUMMARY.md": {
+    "size": 5489,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-6-completion-report.md": {
+    "size": 15560,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-3-completion-report-reconstructed.md": {
+    "size": 28749,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/quick-wins-completion-report.md": {
+    "size": 11066,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-4-completion-report-reconstructed.md": {
+    "size": 28643,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/README.md": {
+    "size": 27384,
+    "modified": "2025-11-01T14:07:26.012493",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-5-completion-report.md": {
+    "size": 14445,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-1-final-summary.md": {
+    "size": 13417,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-2-validation-report.md": {
+    "size": 6459,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-3-final-report.md": {
+    "size": 11466,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/batch-1-complete-summary.md": {
+    "size": 14028,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-1-pre-analysis.md": {
+    "size": 12839,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/LESSONS_LEARNED.md": {
+    "size": 18412,
+    "modified": "2025-11-01T14:07:26.012857",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-2-pre-analysis.md": {
+    "size": 2667,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-3-pre-analysis.md": {
+    "size": 3669,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-2-transformation-summary.md": {
+    "size": 6315,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/POST-2-RESULTS.md": {
+    "size": 7824,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-1/post-1-validation-report.md": {
+    "size": 9568,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/LESSONS_LEARNED.md": {
+    "size": 36453,
+    "modified": "2025-11-01T14:07:26.013865",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/batch-2-selection.txt": {
+    "size": 416,
+    "modified": "2025-11-01T14:07:26.013865",
+    "type": "txt"
+  },
+  "docs/archive/2025-Q3/batch-2/CLAUDE_MD_UPDATES.md": {
+    "size": 40107,
+    "modified": "2025-11-01T14:07:26.013026",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/CLEANUP_REPORT.md": {
+    "size": 9561,
+    "modified": "2025-11-01T14:07:26.013865",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-1-pre-analysis.md": {
+    "size": 8410,
+    "modified": "2025-11-01T14:07:26.013865",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-2-pre-analysis.md": {
+    "size": 7326,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-3-pre-analysis.md": {
+    "size": 7802,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-6-pre-analysis.md": {
+    "size": 46571,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-8-pre-analysis.md": {
+    "size": 116246,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-4-pre-analysis.md": {
+    "size": 4272,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-5-pre-analysis.md": {
+    "size": 30295,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q3/batch-2/pre-analysis/post-7-pre-analysis.md": {
+    "size": 68158,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-06/DOCUMENTATION_ACCURACY_REPORT.md": {
+    "size": 3880,
+    "modified": "2025-06-25T17:03:40.087988",
+    "type": "md"
+  },
+  "docs/archive/2025-06/KM_IMPLEMENTATION_SUMMARY.md": {
+    "size": 3755,
+    "modified": "2025-06-23T23:36:10.614255",
+    "type": "md"
+  },
+  "docs/archive/2025-06/DOCUMENTATION_UPDATE_SUMMARY.md": {
+    "size": 5619,
+    "modified": "2025-06-25T17:02:33.205649",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-fix-plan.md": {
+    "size": 9942,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-gist-links-to-create.md": {
+    "size": 7667,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-status.md": {
+    "size": 8389,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-posts-2-4-summary.md": {
+    "size": 4383,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/security-anecdote-fixes.md": {
+    "size": 9916,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/README.md": {
+    "size": 989,
+    "modified": "2025-11-01T15:19:43.537565",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/security-anecdote-audit.md": {
+    "size": 17257,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-validation-report.md": {
+    "size": 13080,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-gist-creation-plan.md": {
+    "size": 35634,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-post-1-final.md": {
+    "size": 9161,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-completion-report.md": {
+    "size": 8488,
+    "modified": "2025-11-01T14:07:26.014141",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-optimization-summary.md": {
+    "size": 7665,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-final-summary.md": {
+    "size": 11317,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-5-local-gist-plan.md": {
+    "size": 34708,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-8-4-final-results.md": {
+    "size": 4537,
+    "modified": "2025-11-01T14:07:26.015628",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_4_EXEC_SUMMARY.md": {
+    "size": 6888,
+    "modified": "2025-10-28T23:46:52.735484",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/POST_1_REPLACEMENT_ANALYSIS.md": {
+    "size": 9403,
+    "modified": "2025-10-29T00:20:51.661813",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_3_COMPLETION_SUMMARY.md": {
+    "size": 22362,
+    "modified": "2025-10-28T23:19:43.680107",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_4_COMPARISON.md": {
+    "size": 11802,
+    "modified": "2025-10-28T23:46:52.735866",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_4_COMPLETION_SUMMARY.md": {
+    "size": 17415,
+    "modified": "2025-10-29T00:16:39.455247",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_4_CHECKLIST.md": {
+    "size": 12303,
+    "modified": "2025-10-28T23:46:52.735695",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_5_EXEC_SUMMARY.md": {
+    "size": 2890,
+    "modified": "2025-10-29T00:25:24.998055",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_4_PLAN.md": {
+    "size": 21259,
+    "modified": "2025-10-28T23:46:52.735174",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/batch-reports/BATCH_5_PLAN.md": {
+    "size": 16030,
+    "modified": "2025-10-29T00:24:58.752289",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE5_AUTOMATION_STRATEGY.md": {
+    "size": 32378,
+    "modified": "2025-10-29T07:41:31.287540",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase8-session-summary-2025-10-31.md": {
+    "size": 8718,
+    "modified": "2025-10-31T21:57:07.508366",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE6_MAINTENANCE_STRATEGY.md": {
+    "size": 32555,
+    "modified": "2025-10-29T08:01:18.926152",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase5-deliverables.md": {
+    "size": 8006,
+    "modified": "2025-10-29T07:49:42.449482",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE5_COMPLETION_REPORT.md": {
+    "size": 14813,
+    "modified": "2025-10-29T07:54:13.497796",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE6.5_QUICK_REFERENCE.md": {
+    "size": 12617,
+    "modified": "2025-10-29T09:00:11.044390",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase8-diagram-templates-summary.md": {
+    "size": 10393,
+    "modified": "2025-10-29T14:23:06.826705",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase-4-completion-report.md": {
+    "size": 33564,
+    "modified": "2025-10-29T06:52:31.948367",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase8-visual-enhancement-plan.md": {
+    "size": 8193,
+    "modified": "2025-10-29T14:18:32.315738",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase-1-template-validation-report.md": {
+    "size": 11236,
+    "modified": "2025-10-29T04:54:18.395048",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase8-post1-transformation-plan.md": {
+    "size": 3910,
+    "modified": "2025-10-31T21:48:56.156517",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE3_WAVE2_STRATEGY.md": {
+    "size": 14395,
+    "modified": "2025-10-29T07:25:17.625670",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE6.5_STATIC_PAGES_STRATEGY.md": {
+    "size": 61838,
+    "modified": "2025-10-29T08:58:45.472099",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE3_WAVE1_STRATEGY.md": {
+    "size": 19828,
+    "modified": "2025-10-29T06:58:09.211341",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE6_DECISION_TREE.md": {
+    "size": 9054,
+    "modified": "2025-10-29T08:02:47.818253",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase3-final-portfolio-report.md": {
+    "size": 1206,
+    "modified": "2025-10-29T07:29:47.492948",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase-4-documentation-consolidation-plan.md": {
+    "size": 33543,
+    "modified": "2025-10-29T06:46:57.837935",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/phase8-checkpoint-summary.md": {
+    "size": 2598,
+    "modified": "2025-10-31T21:49:26.617335",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE3_COMPLETION_SUMMARY.md": {
+    "size": 11277,
+    "modified": "2025-10-29T07:31:29.755304",
+    "type": "md"
+  },
+  "docs/archive/2025-Q4/phase-reports/PHASE6_EXECUTIVE_SUMMARY.md": {
+    "size": 6043,
+    "modified": "2025-10-29T08:01:58.847811",
+    "type": "md"
+  },
+  "docs/batch-2/LESSONS_LEARNED.md": {
+    "size": 36453,
+    "modified": "2025-10-28T21:41:16.316398",
+    "type": "md"
+  },
+  "docs/batch-2/batch-2-selection.txt": {
+    "size": 416,
+    "modified": "2025-10-26T23:47:24.348165",
+    "type": "txt"
+  },
+  "docs/batch-2/CLEANUP_REPORT.md": {
+    "size": 9561,
+    "modified": "2025-10-28T21:38:10.450213",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-1-pre-analysis.md": {
+    "size": 8410,
+    "modified": "2025-10-26T23:48:49.305218",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-2-pre-analysis.md": {
+    "size": 7326,
+    "modified": "2025-10-27T00:00:57.629656",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-3-pre-analysis.md": {
+    "size": 7802,
+    "modified": "2025-10-27T00:17:12.048091",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-6-pre-analysis.md": {
+    "size": 46571,
+    "modified": "2025-10-27T01:34:52.166891",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-8-pre-analysis.md": {
+    "size": 116246,
+    "modified": "2025-10-27T06:51:26.040871",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-4-pre-analysis.md": {
+    "size": 4272,
+    "modified": "2025-10-27T00:35:51.212096",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-5-pre-analysis.md": {
+    "size": 30295,
+    "modified": "2025-10-27T01:16:16.334228",
+    "type": "md"
+  },
+  "docs/batch-2/pre-analysis/post-7-pre-analysis.md": {
+    "size": 68158,
+    "modified": "2025-10-27T06:20:50.202861",
+    "type": "md"
+  },
+  "docs/context/INDEX.yaml": {
+    "size": 21226,
+    "modified": "2025-11-01T16:05:54.964810",
+    "type": "yaml"
+  },
+  "docs/context/standards/image-standards.md": {
+    "size": 11271,
+    "modified": "2025-11-01T16:19:08.232121",
+    "type": "md"
+  },
+  "docs/context/standards/writing-style.md": {
+    "size": 12892,
+    "modified": "2025-11-01T16:19:08.232554",
+    "type": "md"
+  },
+  "docs/context/standards/humanization-standards.md": {
+    "size": 17166,
+    "modified": "2025-11-01T16:19:08.232955",
+    "type": "md"
+  },
+  "docs/context/standards/citation-research.md": {
+    "size": 12040,
+    "modified": "2025-11-01T15:43:14.380197",
+    "type": "md"
+  },
+  "docs/context/standards/accessibility.md": {
+    "size": 10161,
+    "modified": "2025-11-01T15:46:22.965731",
+    "type": "md"
+  },
+  "docs/context/workflows/gist-management.md": {
+    "size": 9069,
+    "modified": "2025-11-01T15:31:35.959285",
+    "type": "md"
+  },
+  "docs/context/workflows/blog-writing.md": {
+    "size": 13823,
+    "modified": "2025-11-01T15:31:35.393288",
+    "type": "md"
+  },
+  "docs/context/workflows/blog-transformation.md": {
+    "size": 9667,
+    "modified": "2025-11-01T15:31:35.818286",
+    "type": "md"
+  },
+  "docs/context/workflows/swarm-orchestration.md": {
+    "size": 8985,
+    "modified": "2025-11-01T15:31:35.659287",
+    "type": "md"
+  },
+  "docs/context/workflows/sparc-development.md": {
+    "size": 8215,
+    "modified": "2025-11-01T15:31:35.522287",
+    "type": "md"
+  },
+  "docs/context/templates/documentation-template.md": {
+    "size": 9465,
+    "modified": "2025-11-01T16:05:08.608159",
+    "type": "md"
+  },
+  "docs/context/templates/script-template.md": {
+    "size": 11856,
+    "modified": "2025-11-01T16:05:08.503160",
+    "type": "md"
+  },
+  "docs/context/templates/blog-post-template.md": {
+    "size": 7996,
+    "modified": "2025-11-01T16:05:08.256162",
+    "type": "md"
+  },
+  "docs/context/templates/module-template.md": {
+    "size": 7403,
+    "modified": "2025-11-01T16:05:08.379161",
+    "type": "md"
+  },
+  "docs/context/core/standards-integration.md": {
+    "size": 7796,
+    "modified": "2025-11-01T15:15:10.397037",
+    "type": "md"
+  },
+  "docs/context/core/mandatory-reading.md": {
+    "size": 7413,
+    "modified": "2025-11-01T15:14:30.099839",
+    "type": "md"
+  },
+  "docs/context/core/file-management.md": {
+    "size": 8640,
+    "modified": "2025-11-01T15:13:55.316638",
+    "type": "md"
+  },
+  "docs/context/core/enforcement.md": {
+    "size": 5804,
+    "modified": "2025-11-01T15:12:07.526809",
+    "type": "md"
+  },
+  "docs/context/core/nda-compliance.md": {
+    "size": 7780,
+    "modified": "2025-11-01T15:12:59.578250",
+    "type": "md"
+  },
+  "docs/context/reference/batch-history.md": {
+    "size": 11238,
+    "modified": "2025-11-01T16:05:08.020164",
+    "type": "md"
+  },
+  "docs/context/reference/compliance-history.md": {
+    "size": 7691,
+    "modified": "2025-11-01T16:05:08.145163",
+    "type": "md"
+  },
+  "docs/context/reference/directory-structure.md": {
+    "size": 8429,
+    "modified": "2025-11-01T16:05:07.944164",
+    "type": "md"
+  },
+  "docs/context/technical/git-workflow.md": {
+    "size": 8900,
+    "modified": "2025-11-01T15:55:22.369771",
+    "type": "md"
+  },
+  "docs/context/technical/script-catalog.md": {
+    "size": 9118,
+    "modified": "2025-11-01T15:55:22.281772",
+    "type": "md"
+  },
+  "docs/context/technical/build-automation.md": {
+    "size": 7573,
+    "modified": "2025-11-01T15:55:22.478771",
+    "type": "md"
+  },
+  "docs/context/technical/image-automation.md": {
+    "size": 8592,
+    "modified": "2025-11-01T15:55:22.805768",
+    "type": "md"
+  },
+  "docs/context/technical/agent-coordination.md": {
+    "size": 10161,
+    "modified": "2025-11-01T15:55:22.589770",
+    "type": "md"
+  },
+  "docs/context/technical/research-automation.md": {
+    "size": 10991,
+    "modified": "2025-11-01T15:55:22.701769",
+    "type": "md"
+  },
+  "tools/validation/validate-km-standards.js": {
+    "size": 5525,
+    "modified": "2025-06-23T23:45:01.240677",
+    "type": "js"
+  },
+  "tests/__init__.py": {
+    "size": 0,
+    "modified": "2025-09-20T20:32:39.496306",
+    "type": "py"
+  },
+  "tests/test-runner.js": {
+    "size": 2736,
+    "modified": "2025-09-15T00:01:57.178097",
+    "type": "js"
+  },
+  "tests/trade-off-depth-analysis-results.md": {
+    "size": 6434,
+    "modified": "2025-10-29T07:48:50.174807",
+    "type": "md"
+  },
+  "tests/test-batch-validation-performance.md": {
+    "size": 4642,
+    "modified": "2025-10-29T07:49:12.950665",
+    "type": "md"
+  },
+  "tests/trade-off-examples-shallow-vs-deep.md": {
+    "size": 6073,
+    "modified": "2025-10-29T07:49:33.136540",
+    "type": "md"
+  },
+  "tests/test-humanization-hook.sh": {
+    "size": 7346,
+    "modified": "2025-10-28T23:26:29.369262",
+    "type": "sh"
+  },
+  "tests/requirements-test.txt": {
+    "size": 93,
+    "modified": "2025-09-20T20:32:50.669218",
+    "type": "txt"
+  },
+  "tests/simple-hook-test.sh": {
+    "size": 4463,
+    "modified": "2025-10-28T23:26:58.548735",
+    "type": "sh"
+  },
+  "tests/conftest.py": {
+    "size": 548,
+    "modified": "2025-09-20T20:32:46.083254",
+    "type": "py"
+  },
+  "tests/smoke/test_build_deploy.py": {
+    "size": 2814,
+    "modified": "2025-09-20T20:33:33.009887",
+    "type": "py"
+  },
+  "tests/integration/test_script_workflows.py": {
+    "size": 3143,
+    "modified": "2025-10-11T16:44:18.100008",
+    "type": "py"
+  },
+  "tests/unit/assets.test.js": {
+    "size": 2144,
+    "modified": "2025-10-11T16:44:18.100008",
+    "type": "js"
+  },
+  "tests/unit/scripts.test.js": {
+    "size": 2535,
+    "modified": "2025-10-28T22:48:15.551966",
+    "type": "js"
+  },
+  "tests/unit/templates.test.js": {
+    "size": 2107,
+    "modified": "2025-10-11T16:44:18.100857",
+    "type": "js"
+  },
+  "tests/unit/content.test.js": {
+    "size": 1988,
+    "modified": "2025-10-11T16:44:18.100857",
+    "type": "js"
+  },
+  "tests/unit/test_common.py": {
+    "size": 3673,
+    "modified": "2025-10-11T16:44:18.100857",
+    "type": "py"
+  },
+  "tests/unit/build.test.js": {
+    "size": 1546,
+    "modified": "2025-10-11T16:44:18.100857",
+    "type": "js"
+  },
+  "gists/README.md": {
+    "size": 5487,
+    "modified": "2025-11-01T10:16:36.929485",
+    "type": "md"
+  },
+  "gists/gist-mapping.json": {
+    "size": 11739,
+    "modified": "2025-11-01T11:57:01.919269",
+    "type": "json"
+  },
+  "gists/proxmox-ha/backup-config.sh": {
+    "size": 1777,
+    "modified": "2025-11-01T10:13:57.248177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/corosync.conf": {
+    "size": 1036,
+    "modified": "2025-11-01T10:13:56.898177",
+    "type": "conf"
+  },
+  "gists/proxmox-ha/ha-manager-setup.sh": {
+    "size": 1275,
+    "modified": "2025-11-01T10:13:57.109177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/node-prep.sh": {
+    "size": 1157,
+    "modified": "2025-11-01T10:13:56.752177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/vm-ha-config.sh": {
+    "size": 946,
+    "modified": "2025-11-01T10:13:57.178177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/README.md": {
+    "size": 7698,
+    "modified": "2025-11-01T10:13:57.475177",
+    "type": "md"
+  },
+  "gists/proxmox-ha/ceph-osd-setup.sh": {
+    "size": 1648,
+    "modified": "2025-11-01T10:13:57.039177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/ceph-install.sh": {
+    "size": 754,
+    "modified": "2025-11-01T10:13:56.969177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/disaster-recovery.sh": {
+    "size": 4032,
+    "modified": "2025-11-01T10:13:57.400177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/cluster-create.sh": {
+    "size": 1219,
+    "modified": "2025-11-01T10:13:56.823177",
+    "type": "sh"
+  },
+  "gists/proxmox-ha/prometheus-config.yml": {
+    "size": 1288,
+    "modified": "2025-11-01T10:13:57.318177",
+    "type": "yml"
+  },
+  "gists/security-scanning/README.md": {
+    "size": 8252,
+    "modified": "2025-11-01T10:05:05.622653",
+    "type": "md"
+  },
+  "gists/security-scanning/workflows/scheduled-security-scans.yml": {
+    "size": 1445,
+    "modified": "2025-11-01T10:04:14.187684",
+    "type": "yml"
+  },
+  "gists/security-scanning/workflows/sbom-generation-workflow.yml": {
+    "size": 1296,
+    "modified": "2025-11-01T10:04:14.341682",
+    "type": "yml"
+  },
+  "gists/security-scanning/workflows/auto-remediate-vulnerabilities.yml": {
+    "size": 1681,
+    "modified": "2025-11-01T10:04:14.420681",
+    "type": "yml"
+  },
+  "gists/security-scanning/workflows/security-scan-workflow-complete.yml": {
+    "size": 3124,
+    "modified": "2025-11-01T10:03:05.152406",
+    "type": "yml"
+  },
+  "gists/security-scanning/integrations/wazuh-vulnerability-rules.xml": {
+    "size": 912,
+    "modified": "2025-11-01T10:04:14.583679",
+    "type": "xml"
+  },
+  "gists/security-scanning/integrations/security-scan-slack-notification.yml": {
+    "size": 1088,
+    "modified": "2025-11-01T10:03:37.660066",
+    "type": "yml"
+  },
+  "gists/security-scanning/integrations/vulnerability-metrics.sql": {
+    "size": 899,
+    "modified": "2025-11-01T10:05:05.545654",
+    "type": "sql"
+  },
+  "gists/security-scanning/integrations/vscode-security-scan-tasks.json": {
+    "size": 1028,
+    "modified": "2025-11-01T10:03:37.736065",
+    "type": "json"
+  },
+  "gists/security-scanning/scripts/vulnerability-scan-comparison.py": {
+    "size": 2124,
+    "modified": "2025-11-01T10:04:14.262683",
+    "type": "py"
+  },
+  "gists/security-scanning/scripts/wazuh-vulnerability-ingestion.sh": {
+    "size": 801,
+    "modified": "2025-11-01T10:04:14.499680",
+    "type": "sh"
+  },
+  "gists/security-scanning/configs/grype-config.yaml": {
+    "size": 678,
+    "modified": "2025-11-01T10:03:37.816064",
+    "type": "yaml"
+  },
+  "gists/security-scanning/configs/osv-scanner-config.toml": {
+    "size": 620,
+    "modified": "2025-11-01T10:03:37.892063",
+    "type": "toml"
+  },
+  "gists/security-scanning/configs/trivy-opa-policy.rego": {
+    "size": 879,
+    "modified": "2025-11-01T10:03:37.971063",
+    "type": "rego"
+  },
+  "gists/mitre-dashboard/dashboard-core.py": {
+    "size": 1618,
+    "modified": "2025-11-01T10:08:51.085007",
+    "type": "py"
+  },
+  "gists/mitre-dashboard/alienvault-collector.py": {
+    "size": 1398,
+    "modified": "2025-11-01T10:08:51.224005",
+    "type": "py"
+  },
+  "gists/mitre-dashboard/dashboard-main.py": {
+    "size": 2476,
+    "modified": "2025-11-01T10:08:51.561998",
+    "type": "py"
+  },
+  "gists/mitre-dashboard/threat-alerting.py": {
+    "size": 3185,
+    "modified": "2025-11-01T10:08:51.493999",
+    "type": "py"
+  },
+  "gists/mitre-dashboard/threat-visualizer.py": {
+    "size": 2438,
+    "modified": "2025-11-01T10:08:51.359002",
+    "type": "py"
+  },
+  "gists/mitre-dashboard/threat-actor-profiler.py": {
+    "size": 2245,
+    "modified": "2025-11-01T10:08:51.425001",
+    "type": "py"
+  },
+  "gists/mitre-dashboard/README.md": {
+    "size": 3414,
+    "modified": "2025-11-01T10:08:51.627997",
+    "type": "md"
+  },
+  "gists/mitre-dashboard/attack-data-loader.py": {
+    "size": 1834,
+    "modified": "2025-11-01T10:08:51.155006",
+    "type": "py"
+  },
+  "gists/mitre-dashboard/cisa-alert-mapper.py": {
+    "size": 2108,
+    "modified": "2025-11-01T10:08:51.291003",
+    "type": "py"
+  },
+  "gists/vlan-segmentation/vlan-breakout-tests.sh": {
+    "size": 1794,
+    "modified": "2025-11-01T10:11:40.657384",
+    "type": "sh"
+  },
+  "gists/vlan-segmentation/vlan-connectivity-tests.sh": {
+    "size": 1714,
+    "modified": "2025-11-01T10:11:40.588385",
+    "type": "sh"
+  },
+  "gists/vlan-segmentation/vlan-traffic-monitor.py": {
+    "size": 3034,
+    "modified": "2025-11-01T10:11:40.518386",
+    "type": "py"
+  },
+  "gists/vlan-segmentation/vlan-dhcp-config.json": {
+    "size": 1497,
+    "modified": "2025-11-01T10:11:39.797396",
+    "type": "json"
+  },
+  "gists/vlan-segmentation/server-vlan-rules.json": {
+    "size": 1131,
+    "modified": "2025-11-01T10:11:40.009393",
+    "type": "json"
+  },
+  "gists/vlan-segmentation/README.md": {
+    "size": 5662,
+    "modified": "2025-11-01T10:11:40.797382",
+    "type": "md"
+  },
+  "gists/vlan-segmentation/dns-threat-detection.py": {
+    "size": 3214,
+    "modified": "2025-11-01T10:11:40.375388",
+    "type": "py"
+  },
+  "gists/vlan-segmentation/pvlan-iot-isolation.sh": {
+    "size": 1045,
+    "modified": "2025-11-01T10:11:40.151392",
+    "type": "sh"
+  },
+  "gists/vlan-segmentation/mdns-reflector-config.conf": {
+    "size": 809,
+    "modified": "2025-11-01T10:11:40.080392",
+    "type": "conf"
+  },
+  "gists/vlan-segmentation/pihole-vlan-filtering.sh": {
+    "size": 1108,
+    "modified": "2025-11-01T10:11:40.304389",
+    "type": "sh"
+  },
+  "gists/vlan-segmentation/management-vlan-rules.json": {
+    "size": 845,
+    "modified": "2025-11-01T10:11:39.867395",
+    "type": "json"
+  },
+  "gists/vlan-segmentation/iot-vlan-rules.json": {
+    "size": 1625,
+    "modified": "2025-11-01T10:11:39.939394",
+    "type": "json"
+  },
+  "gists/vlan-segmentation/netflow-vlan-analysis.sh": {
+    "size": 1290,
+    "modified": "2025-11-01T10:11:40.447387",
+    "type": "sh"
+  },
+  "gists/vlan-segmentation/udm-pro-vlan-config.sh": {
+    "size": 1338,
+    "modified": "2025-11-01T10:11:39.726397",
+    "type": "sh"
+  },
+  "gists/vlan-segmentation/radius-dynamic-vlan.conf": {
+    "size": 1413,
+    "modified": "2025-11-01T10:11:40.236390",
+    "type": "conf"
+  },
+  "gists/vlan-segmentation/vlan-troubleshooting.md": {
+    "size": 4125,
+    "modified": "2025-11-01T10:11:40.726383",
+    "type": "md"
+  }
+}

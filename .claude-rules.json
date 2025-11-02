@@ -72,7 +72,9 @@
       "ALWAYS update existing files instead of creating new ones",
       "MUST maintain backward compatibility",
       "ALWAYS validate changes against standards",
-      "MUST use scripts/lib/common.py for shared functionality"
+      "MUST use scripts/lib/common.py for shared functionality",
+      "MANIFEST v5.0: File registry is lazy-loaded from .manifest/file-registry.json",
+      "CHECK hash first before loading full file registry for efficiency"
     ],
     "BEFORE_ANY_OPERATION": [
       "CHECK: MANIFEST.json is current",
@@ -83,9 +85,10 @@
     ],
     "FILE_OPERATIONS": {
       "CREATE": [
-        "MUST check file_registry in MANIFEST.json for duplicates",
+        "MUST check file_registry hash in MANIFEST.json for duplicates",
+        "Lazy-load full registry from .manifest/file-registry.json if needed",
         "MUST use appropriate directory structure",
-        "MUST add to MANIFEST.json immediately",
+        "MUST add to .manifest/file-registry.json and update hash",
         "MUST include proper documentation",
         "NEVER create files in root directory"
       ],
