@@ -45,13 +45,16 @@ MANIFEST_REGISTRY: scripts/add-reputable-sources-to-posts.py
 import frontmatter
 from pathlib import Path
 
-def add_sources_to_ebpf_post():
+def add_sources_to_ebpf_post(quiet=False):
     """Add academic sources to the eBPF post."""
     post_path = Path('src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md')
-    
+
+    if not post_path.exists():
+        raise FileNotFoundError(f"Post not found: {post_path}")
+
     with open(post_path, 'r', encoding='utf-8') as f:
         post = frontmatter.load(f)
-    
+
     # Add academic sources section
     sources_section = """
 
@@ -111,13 +114,17 @@ For deeper technical understanding:
     # Save the updated post
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
-    
-    print(f"✅ Added academic sources to {post_path.name}")
 
-def add_sources_to_ai_edge_post():
+    if not quiet:
+        print(f"✅ Added academic sources to {post_path.name}")
+
+def add_sources_to_ai_edge_post(quiet=False):
     """Add sources to AI Edge Computing post."""
     post_path = Path('src/posts/2024-10-22-ai-edge-computing.md')
-    
+
+    if not post_path.exists():
+        raise FileNotFoundError(f"Post not found: {post_path}")
+
     with open(post_path, 'r', encoding='utf-8') as f:
         post = frontmatter.load(f)
     
@@ -145,16 +152,19 @@ def add_sources_to_ai_edge_post():
     
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
-    
-    print(f"✅ Added sources to {post_path.name}")
 
-def add_sources_to_quantum_post():
+    if not quiet:
+        print(f"✅ Added sources to {post_path.name}")
+
+def add_sources_to_quantum_post(quiet=False):
     """Add sources to Quantum Computing post."""
     post_path = Path('src/posts/2024-06-15-quantum-computing-cybersecurity.md')
-    
+
     if not post_path.exists():
+        if not quiet:
+            print(f"ℹ️  Post not found: {post_path.name} (skipping)")
         return
-    
+
     with open(post_path, 'r', encoding='utf-8') as f:
         post = frontmatter.load(f)
     
@@ -173,22 +183,55 @@ def add_sources_to_quantum_post():
     
     if "Academic Research" not in post.content and post_path.exists():
         post.content += sources_section
-        
+
         with open(post_path, 'w', encoding='utf-8') as f:
             f.write(frontmatter.dumps(post))
-        
-        print(f"✅ Added sources to {post_path.name}")
+
+        if not quiet:
+            print(f"✅ Added sources to {post_path.name}")
 
 def main():
-    print("="*60)
-    print("ADDING REPUTABLE SOURCES TO BLOG POSTS")
-    print("="*60)
-    
-    add_sources_to_ebpf_post()
-    add_sources_to_ai_edge_post()
-    add_sources_to_quantum_post()
-    
-    print("\n✅ Successfully added academic sources to key blog posts!")
+    parser = argparse.ArgumentParser(
+        description='Add reputable academic sources to blog posts based on Google Scholar findings',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Add sources to posts
+  python scripts/blog-research/add-reputable-sources-to-posts.py
+
+  # Quiet mode
+  python scripts/blog-research/add-reputable-sources-to-posts.py --quiet
+        """
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress output messages')
+
+    args = parser.parse_args()
+
+    try:
+        if not args.quiet:
+            print("="*60)
+            print("ADDING REPUTABLE SOURCES TO BLOG POSTS")
+            print("="*60)
+
+        add_sources_to_ebpf_post(quiet=args.quiet)
+        add_sources_to_ai_edge_post(quiet=args.quiet)
+        add_sources_to_quantum_post(quiet=args.quiet)
+
+        if not args.quiet:
+            print("\n✅ Successfully added academic sources to key blog posts!")
+
+        return 0
+
+    except FileNotFoundError as e:
+        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+        return 2
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    import sys
+    sys.exit(main())

@@ -44,11 +44,16 @@ MANIFEST_REGISTRY: scripts/research-validator.py
 
 import re
 import json
+import sys
+import logging
 import frontmatter
 from pathlib import Path
 from typing import Dict, List, Tuple
 import argparse
 from datetime import datetime
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 class ResearchValidator:
     def __init__(self):
@@ -219,42 +224,45 @@ class ResearchValidator:
         
         return recommendations
     
-    def generate_report(self, posts_dir: Path = Path('src/posts')):
+    def generate_report(self, posts_dir: Path = Path('src/posts'), logger=None):
         """Generate a comprehensive research validation report for all posts."""
         posts = sorted(posts_dir.glob('*.md'))
         results = []
-        
-        print("="*80)
-        print("BLOG POST RESEARCH VALIDATION REPORT")
-        print("="*80)
-        print(f"\nAnalyzing {len(posts)} posts for research integrity...\n")
-        
+
+        if logger:
+            logger.info("="*80)
+            logger.info("BLOG POST RESEARCH VALIDATION REPORT")
+            logger.info("="*80)
+            logger.info(f"\nAnalyzing {len(posts)} posts for research integrity...\n")
+
         for post_path in posts:
             result = self.validate_post(post_path)
             results.append(result)
-            
+
             # Print summary for posts needing attention
             if result['citation_rate'] < 80 or result['low_quality_sources'] > 0:
-                print(f"\n⚠️  {result['file']}")
-                print(f"   Citation Rate: {result['citation_rate']:.1f}%")
-                print(f"   Uncited Claims: {result['uncited_claims']}")
-                if result['low_quality_sources'] > 0:
-                    print(f"   Low Quality Sources: {result['low_quality_sources']}")
-                for rec in result['recommendations'][:3]:
-                    print(f"   • {rec}")
-        
+                if logger:
+                    logger.info(f"\n⚠️  {result['file']}")
+                    logger.info(f"   Citation Rate: {result['citation_rate']:.1f}%")
+                    logger.info(f"   Uncited Claims: {result['uncited_claims']}")
+                    if result['low_quality_sources'] > 0:
+                        logger.info(f"   Low Quality Sources: {result['low_quality_sources']}")
+                    for rec in result['recommendations'][:3]:
+                        logger.info(f"   • {rec}")
+
         # Overall statistics
         avg_citation_rate = sum(r['citation_rate'] for r in results) / len(results)
         total_uncited = sum(r['uncited_claims'] for r in results)
         posts_needing_work = sum(1 for r in results if r['citation_rate'] < 80)
-        
-        print("\n" + "="*80)
-        print("OVERALL STATISTICS")
-        print("="*80)
-        print(f"Average Citation Rate: {avg_citation_rate:.1f}%")
-        print(f"Total Uncited Claims: {total_uncited}")
-        print(f"Posts Needing Citations: {posts_needing_work}/{len(posts)}")
-        
+
+        if logger:
+            logger.info("\n" + "="*80)
+            logger.info("OVERALL STATISTICS")
+            logger.info("="*80)
+            logger.info(f"Average Citation Rate: {avg_citation_rate:.1f}%")
+            logger.info(f"Total Uncited Claims: {total_uncited}")
+            logger.info(f"Posts Needing Citations: {posts_needing_work}/{len(posts)}")
+
         # Save detailed report
         report = {
             'generated': datetime.now().isoformat(),
@@ -266,31 +274,71 @@ class ResearchValidator:
             },
             'posts': results
         }
-        
+
         with open('docs/research-validation-report.json', 'w') as f:
             json.dump(report, f, indent=2, default=str)
-        
-        print(f"\nDetailed report saved to: docs/research-validation-report.json")
-        
+
+        if logger:
+            logger.info(f"\nDetailed report saved to: docs/research-validation-report.json")
+
         return results
 
 def main():
-    parser = argparse.ArgumentParser(description='Validate research citations in blog posts')
+    parser = argparse.ArgumentParser(
+        description='Validate research citations in blog posts',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Validate all posts
+  python scripts/blog-research/research-validator.py
+
+  # Validate specific post
+  python scripts/blog-research/research-validator.py --post 2024-01-01-example
+
+  # Check all claims
+  python scripts/blog-research/research-validator.py --check-claims
+
+  # Quiet mode
+  python scripts/blog-research/research-validator.py --quiet
+        """
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--post', help='Specific post to validate')
     parser.add_argument('--check-claims', action='store_true', help='Check all claims')
     parser.add_argument('--fix', action='store_true', help='Suggest fixes for uncited claims')
-    
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress output messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
     args = parser.parse_args()
-    
-    validator = ResearchValidator()
-    
-    if args.post:
-        post_path = Path(f'src/posts/{args.post}.md')
-        if post_path.exists():
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    try:
+        validator = ResearchValidator()
+
+        if args.post:
+            post_path = Path(f'src/posts/{args.post}.md')
+            if not post_path.exists():
+                logger.error(f"❌ Error: Post not found: {post_path}")
+                return 1
             result = validator.validate_post(post_path)
-            print(json.dumps(result, indent=2))
-    else:
-        validator.generate_report()
+            if not args.quiet:
+                logger.info(json.dumps(result, indent=2))
+        else:
+            validator.generate_report(logger=logger)
+
+        return 0
+
+    except FileNotFoundError as e:
+        logger.error(f"❌ Error: File not found - {e}")
+        return 1
+    except Exception as e:
+        logger.error(f"❌ Error: {e}")
+        return 2
 
 if __name__ == "__main__":
-    main()
+    import sys
+    sys.exit(main())

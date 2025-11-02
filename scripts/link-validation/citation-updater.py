@@ -418,7 +418,25 @@ class CitationUpdater:
         print(f"✅ Report saved to {md_file}")
 
 async def main():
-    parser = argparse.ArgumentParser(description='Update citations to newer versions')
+    parser = argparse.ArgumentParser(
+        description='Update citations to newer versions',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Update citations from links file
+  python scripts/link-validation/citation-updater.py
+
+  # Dry run to preview updates
+  python scripts/link-validation/citation-updater.py --dry-run
+
+  # Specify custom links file
+  python scripts/link-validation/citation-updater.py --links custom-links.json
+
+  # Quiet mode
+  python scripts/link-validation/citation-updater.py --quiet
+        """
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--links', type=Path, default=Path('links.json'),
                        help='JSON file with extracted links')
     parser.add_argument('--posts-dir', type=Path, default=Path('src/posts'),
@@ -427,12 +445,15 @@ async def main():
                        help='Show what would be changed without modifying files')
     parser.add_argument('--output', type=Path, default=Path('citation-updates.json'),
                        help='Output report file')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress output messages')
 
     args = parser.parse_args()
 
-    if not args.links.exists():
-        print(f"Links file not found: {args.links}")
-        return 1
+    try:
+        if not args.links.exists():
+            print(f"❌ Error: Links file not found: {args.links}", file=sys.stderr)
+            return 1
 
     # Load links
     with open(args.links, 'r') as f:
@@ -480,10 +501,18 @@ async def main():
 
             print(f"\n✅ Total citations updated: {total_changes}")
 
-        # Generate report
+            # Generate report
         updater.generate_update_report(updates, args.output)
 
-    return 0
+        return 0
+
+    except FileNotFoundError as e:
+        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+        return 2
 
 if __name__ == "__main__":
-    exit(asyncio.run(main()))
+    import sys
+    sys.exit(asyncio.run(main()))

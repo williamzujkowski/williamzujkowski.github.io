@@ -5,9 +5,15 @@ Reads from portfolio-assessment.json and generates an interactive dashboard.
 """
 
 import json
+import logging
+import sys
 from pathlib import Path
 from datetime import datetime
 from collections import Counter
+import argparse
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 def load_portfolio_data():
     """Load latest portfolio assessment data."""
@@ -503,25 +509,38 @@ def generate_html_dashboard(data):
 
     return html
 
-def save_dashboard(html):
+def save_dashboard(html, logger=None):
     """Save dashboard to _site/ directory."""
     output_path = Path(__file__).parent.parent.parent / "_site/stats.html"
     output_path.parent.mkdir(exist_ok=True)
     with open(output_path, 'w') as f:
         f.write(html)
-    print(f"✅ Dashboard saved to {output_path}")
-    print(f"📊 Dashboard will be accessible at: /stats.html")
+    if logger:
+        logger.info(f"✅ Dashboard saved to {output_path}")
+        logger.info(f"📊 Dashboard will be accessible at: /stats.html")
 
 def main():
     """Main execution function."""
+    parser = argparse.ArgumentParser(description='Generate blog quality dashboard')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
+    args = parser.parse_args()
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
     try:
-        print("📊 Generating blog quality dashboard...")
+        logger.info("📊 Generating blog quality dashboard...")
         data = load_portfolio_data()
         html = generate_html_dashboard(data)
-        save_dashboard(html)
-        print("✅ Dashboard generation complete!")
+        save_dashboard(html, logger)
+        logger.info("✅ Dashboard generation complete!")
     except Exception as e:
-        print(f"❌ Error generating dashboard: {e}")
+        logger.error(f"❌ Error generating dashboard: {e}")
         raise
 
 if __name__ == "__main__":

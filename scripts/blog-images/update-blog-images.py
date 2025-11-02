@@ -45,10 +45,16 @@ MANIFEST_REGISTRY: scripts/update-blog-images.py
 import os
 import re
 import json
+import sys
+import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional
 import yaml
+import argparse
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 class BlogImageManager:
     def __init__(self, base_path: str = "."):
@@ -146,41 +152,44 @@ class BlogImageManager:
         # Default alt text
         return f"Hero image illustrating {title}"
     
-    def update_post_frontmatter(self, post_file: Path) -> bool:
+    def update_post_frontmatter(self, post_file: Path, logger=None) -> bool:
         """Update a blog post's frontmatter with image metadata"""
         try:
             with open(post_file, 'r', encoding='utf-8') as f:
                 content = f.read()
-            
+
             frontmatter, post_content = self.parse_frontmatter(content)
-            
+
             # Skip if images already defined
             if 'images' in frontmatter:
-                print(f"  ⏭️  Skipping {post_file.name} (images already defined)")
+                if logger:
+                    logger.info(f"  ⏭️  Skipping {post_file.name} (images already defined)")
                 return False
-            
+
             # Generate image metadata
             image_metadata = self.generate_image_metadata(post_file)
-            
+
             if image_metadata:
                 frontmatter['images'] = image_metadata
-                
+
                 # Rebuild the file content
                 new_content = '---\n'
                 new_content += yaml.dump(frontmatter, default_flow_style=False, sort_keys=False)
                 new_content += '---\n'
                 new_content += post_content
-                
+
                 # Write back to file
                 with open(post_file, 'w', encoding='utf-8') as f:
                     f.write(new_content)
-                
-                print(f"  ✅ Updated {post_file.name}")
+
+                if logger:
+                    logger.info(f"  ✅ Updated {post_file.name}")
                 return True
-            
+
         except Exception as e:
-            print(f"  ❌ Error processing {post_file.name}: {e}")
-        
+            if logger:
+                logger.error(f"  ❌ Error processing {post_file.name}: {e}")
+
         return False
     
     def generate_image_index(self) -> Dict:
@@ -213,40 +222,42 @@ class BlogImageManager:
         
         return index
     
-    def process_all_posts(self):
+    def process_all_posts(self, logger=None):
         """Process all blog posts and update their image metadata"""
-        print("🖼️  Blog Image Standards Implementation")
-        print("=" * 50)
-        
+        if logger:
+            logger.info("🖼️  Blog Image Standards Implementation")
+            logger.info("=" * 50)
+
         posts = list(self.posts_dir.glob('*.md'))
-        print(f"Found {len(posts)} blog posts to process\n")
-        
+        if logger:
+            logger.info(f"Found {len(posts)} blog posts to process\n")
+
         updated_count = 0
         for post_file in sorted(posts):
-            if self.update_post_frontmatter(post_file):
+            if self.update_post_frontmatter(post_file, logger):
                 updated_count += 1
-        
-        print("\n" + "=" * 50)
-        print(f"✨ Processing complete!")
-        print(f"   Updated: {updated_count} posts")
-        print(f"   Skipped: {len(posts) - updated_count} posts")
-        
+
+        if logger:
+            logger.info("\n" + "=" * 50)
+            logger.info(f"✨ Processing complete!")
+            logger.info(f"   Updated: {updated_count} posts")
+            logger.info(f"   Skipped: {len(posts) - updated_count} posts")
+
         # Generate and save index
         index = self.generate_image_index()
         index_path = self.base_path / "docs" / "blog-image-index.json"
         with open(index_path, 'w', encoding='utf-8') as f:
             json.dump(index, f, indent=2)
-        
-        print(f"\n📊 Image Statistics:")
-        print(f"   Total posts: {index['stats']['total_posts']}")
-        print(f"   Posts with images: {index['stats']['posts_with_images']}")
-        print(f"   Total images referenced: {index['stats']['total_images']}")
-        print(f"\n📁 Image index saved to: {index_path}")
+
+        if logger:
+            logger.info(f"\n📊 Image Statistics:")
+            logger.info(f"   Total posts: {index['stats']['total_posts']}")
+            logger.info(f"   Posts with images: {index['stats']['posts_with_images']}")
+            logger.info(f"   Total images referenced: {index['stats']['total_images']}")
+            logger.info(f"\n📁 Image index saved to: {index_path}")
 
 def main():
     """Main execution function"""
-    import argparse
-
     parser = argparse.ArgumentParser(
         description='Blog Image Standards Implementation Script',
         epilog='''
@@ -263,17 +274,25 @@ Examples:
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
     args = parser.parse_args()
 
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
     manager = BlogImageManager()
-    manager.process_all_posts()
-    
-    print("\n🎯 Next Steps:")
-    print("1. Generate actual hero images for each post")
-    print("2. Optimize images using the provided bash scripts")
-    print("3. Create WebP alternatives for better performance")
-    print("4. Test responsive image loading")
-    print("5. Verify accessibility with screen readers")
+    manager.process_all_posts(logger)
+
+    logger.info("\n🎯 Next Steps:")
+    logger.info("1. Generate actual hero images for each post")
+    logger.info("2. Optimize images using the provided bash scripts")
+    logger.info("3. Create WebP alternatives for better performance")
+    logger.info("4. Test responsive image loading")
+    logger.info("5. Verify accessibility with screen readers")
 
 if __name__ == "__main__":
     main()

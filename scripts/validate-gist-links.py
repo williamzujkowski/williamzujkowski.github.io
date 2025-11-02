@@ -234,11 +234,20 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
+  # Validate all gist links
   python scripts/validate-gist-links.py
+
+  # Verbose output
   python scripts/validate-gist-links.py --verbose
+
+  # JSON output
   python scripts/validate-gist-links.py --json > validation-report.json
+
+  # Quiet mode
+  python scripts/validate-gist-links.py --quiet
         """
     )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument(
         '--verbose', '-v',
         action='store_true',
@@ -255,8 +264,15 @@ Examples:
         default=10,
         help='Timeout in seconds per gist (default: 10)'
     )
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress output messages (conflicts with --verbose)')
 
     args = parser.parse_args()
+
+    # Validate conflicting options
+    if args.quiet and args.verbose:
+        print("❌ Error: Cannot use both --quiet and --verbose", file=sys.stderr)
+        return 2
 
     # Determine repository root
     script_dir = Path(__file__).parent

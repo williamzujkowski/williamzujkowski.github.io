@@ -45,6 +45,8 @@ MANIFEST_REGISTRY: scripts/link-validator.py
 import json
 import asyncio
 import argparse
+import sys
+import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass, asdict
@@ -54,12 +56,15 @@ import ssl
 import time
 from urllib.parse import urlparse, urljoin
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
+
 try:
     from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False
-    print("⚠️  Playwright not installed. Using basic HTTP validation.")
+    # Will log this later when logger is available
 
 import aiohttp
 import certifi
@@ -475,7 +480,7 @@ class LinkValidator:
         except:
             return 'unknown'
 
-    async def save_results(self, results: List[ValidationResult], output_file: Path):
+    async def save_results(self, results: List[ValidationResult], output_file: Path, logger=None):
         """Save validation results to JSON"""
         data = {
             'validation_date': datetime.now().isoformat(),
@@ -486,12 +491,13 @@ class LinkValidator:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
 
-        print(f"✅ Validated {self.stats['total']} links")
-        print(f"✔️  Valid: {self.stats['valid']}")
-        print(f"❌ Broken: {self.stats['broken']}")
-        print(f"↪️  Redirects: {self.stats['redirects']}")
-        print(f"⏱️  Timeouts: {self.stats['timeouts']}")
-        print(f"💾 Results saved to {output_file}")
+        if logger:
+            logger.info(f"✅ Validated {self.stats['total']} links")
+            logger.info(f"✔️  Valid: {self.stats['valid']}")
+            logger.info(f"❌ Broken: {self.stats['broken']}")
+            logger.info(f"↪️  Redirects: {self.stats['redirects']}")
+            logger.info(f"⏱️  Timeouts: {self.stats['timeouts']}")
+            logger.info(f"💾 Results saved to {output_file}")
 
 import re  # Add import at top of file
 
@@ -507,11 +513,22 @@ async def main():
                        help='Maximum retry attempts')
     parser.add_argument('--timeout', type=int, default=30,
                        help='Request timeout in seconds')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
 
     args = parser.parse_args()
 
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    # Log Playwright availability
+    if not PLAYWRIGHT_AVAILABLE:
+        logger.warning("⚠️  Playwright not installed. Using basic HTTP validation.")
+
     if not args.input.exists():
-        print(f"❌ Input file not found: {args.input}")
+        logger.error(f"❌ Input file not found: {args.input}")
         return 1
 
     # Load links
@@ -519,7 +536,7 @@ async def main():
         data = json.load(f)
 
     links = data['links']
-    print(f"📋 Loaded {len(links)} links to validate")
+    logger.info(f"📋 Loaded {len(links)} links to validate")
 
     # Initialize validator
     validator = LinkValidator(
@@ -534,7 +551,7 @@ async def main():
         results = await validator.validate_batch(links)
 
         # Save results
-        await validator.save_results(results, args.output)
+        await validator.save_results(results, args.output, logger)
     finally:
         await validator.cleanup()
 

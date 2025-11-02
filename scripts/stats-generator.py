@@ -560,9 +560,41 @@ class BlogStatsGenerator:
 
 def main():
     """Main execution function."""
+    parser = argparse.ArgumentParser(
+        description='Generate comprehensive statistics from blog posts',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Generate statistics
+  python scripts/stats-generator.py
+
+  # Quiet mode
+  python scripts/stats-generator.py --quiet
+
+  # Specify custom posts directory
+  python scripts/stats-generator.py --posts-dir src/posts
+        """
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--posts-dir', default='src/posts',
+                       help='Directory containing blog posts')
+    parser.add_argument('--output', default='src/_data/blogStats.json',
+                       help='Output JSON file path')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress output messages')
+
+    args = parser.parse_args()
+
     try:
+        # Configure logging based on quiet flag
+        if args.quiet:
+            logging.getLogger().setLevel(logging.ERROR)
+
         # Initialize generator
-        generator = BlogStatsGenerator()
+        generator = BlogStatsGenerator(
+            posts_dir=args.posts_dir,
+            output_file=args.output
+        )
 
         # Generate statistics
         stats = generator.generate()
@@ -570,10 +602,14 @@ def main():
         logger.info("Statistics generation completed successfully")
         return 0
 
+    except FileNotFoundError as e:
+        logger.error(f"File not found: {e}")
+        return 1
     except Exception as e:
         logger.error(f"Fatal error: {e}")
-        return 1
+        return 2
 
 
 if __name__ == "__main__":
+    import argparse
     sys.exit(main())

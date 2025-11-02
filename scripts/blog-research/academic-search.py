@@ -45,10 +45,15 @@ MANIFEST_REGISTRY: scripts/academic-search.py
 import asyncio
 import json
 import argparse
+import sys
+import logging
 from pathlib import Path
 from playwright.async_api import async_playwright
 from typing import List, Dict
 from datetime import datetime
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 class AcademicSearcher:
     def __init__(self):
@@ -106,8 +111,9 @@ class AcademicSearcher:
             results.extend(papers)
             
         except Exception as e:
-            print(f"Error searching arXiv: {e}")
-        
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error searching arXiv: {e}")
+
         return results
     
     async def search_zenodo(self, page, query: str) -> List[Dict]:
@@ -144,8 +150,9 @@ class AcademicSearcher:
             results.extend(records)
             
         except Exception as e:
-            print(f"Error searching Zenodo: {e}")
-        
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error searching Zenodo: {e}")
+
         return results
     
     async def search_google_scholar(self, page, query: str) -> List[Dict]:
@@ -189,8 +196,9 @@ class AcademicSearcher:
             results.extend(papers)
             
         except Exception as e:
-            print(f"Error searching Google Scholar: {e}")
-        
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error searching Google Scholar: {e}")
+
         return results
     
     async def search_core(self, page, query: str) -> List[Dict]:
@@ -227,31 +235,33 @@ class AcademicSearcher:
             results.extend(papers)
             
         except Exception as e:
-            print(f"Error searching CORE: {e}")
-        
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error searching CORE: {e}")
+
         return results
     
-    async def search_all_sources(self, query: str, sources: List[str] = None) -> Dict:
+    async def search_all_sources(self, query: str, sources: List[str] = None, logger=None) -> Dict:
         """Search multiple academic sources for a query."""
         if sources is None:
             sources = ['arxiv', 'scholar', 'zenodo', 'core']
-        
+
         all_results = {
             'query': query,
             'timestamp': datetime.now().isoformat(),
             'sources': {}
         }
-        
+
         async with async_playwright() as p:
             browser = await p.chromium.launch(headless=True)
-            
+
             for source in sources:
                 if source not in self.sources:
                     continue
-                
+
                 page = await browser.new_page()
-                print(f"Searching {source} for: {query}")
-                
+                if logger:
+                    logger.info(f"Searching {source} for: {query}")
+
                 if source == 'arxiv':
                     results = await self.search_arxiv(page, query)
                 elif source == 'zenodo':
@@ -262,15 +272,15 @@ class AcademicSearcher:
                     results = await self.search_core(page, query)
                 else:
                     results = []
-                
+
                 all_results['sources'][source] = results
                 await page.close()
-                
+
                 # Be respectful to servers
                 await asyncio.sleep(2)
-            
+
             await browser.close()
-        
+
         return all_results
     
     def rank_results(self, all_results: Dict) -> List[Dict]:
@@ -332,35 +342,43 @@ class AcademicSearcher:
 async def main():
     parser = argparse.ArgumentParser(description='Search academic sources for research')
     parser.add_argument('--query', required=True, help='Search query')
-    parser.add_argument('--sources', default='arxiv,scholar,zenodo,core', 
+    parser.add_argument('--sources', default='arxiv,scholar,zenodo,core',
                        help='Comma-separated list of sources')
     parser.add_argument('--output', help='Output file for results')
     parser.add_argument('--format', choices=['json', 'citations'], default='json',
                        help='Output format')
-    
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
     args = parser.parse_args()
-    
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
     searcher = AcademicSearcher()
     sources = args.sources.split(',')
-    
+
     # Search all sources
-    results = await searcher.search_all_sources(args.query, sources)
-    
+    results = await searcher.search_all_sources(args.query, sources, logger)
+
     # Rank results
     ranked = searcher.rank_results(results)
-    
+
     # Output results
     if args.format == 'citations':
         citations = searcher.format_citations(ranked)
         for i, citation in enumerate(citations, 1):
-            print(f"[{i}] {citation}")
+            logger.info(f"[{i}] {citation}")
     else:
-        print(json.dumps({
+        output = json.dumps({
             'query': args.query,
             'top_results': ranked,
             'total_found': sum(len(r) for r in results['sources'].values())
-        }, indent=2))
-    
+        }, indent=2)
+        logger.info(output)
+
     # Save to file if specified
     if args.output:
         with open(args.output, 'w') as f:
@@ -368,7 +386,7 @@ async def main():
                 f.write('\n'.join(searcher.format_citations(ranked)))
             else:
                 json.dump(results, f, indent=2)
-        print(f"\nResults saved to: {args.output}")
+        logger.info(f"\nResults saved to: {args.output}")
 
 if __name__ == "__main__":
     import re

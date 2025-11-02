@@ -353,7 +353,28 @@ class BatchLinkFixer:
         print(f"✅ Manual review queue saved to {output_file}")
 
 def main():
-    parser = argparse.ArgumentParser(description='Batch link fixer and pipeline orchestrator')
+    parser = argparse.ArgumentParser(
+        description='Batch link fixer and pipeline orchestrator',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Run full validation pipeline
+  python scripts/link-validation/batch-link-fixer.py
+
+  # Apply repairs only
+  python scripts/link-validation/batch-link-fixer.py --apply
+
+  # Dry run to preview changes
+  python scripts/link-validation/batch-link-fixer.py --dry-run
+
+  # Generate manual review queue
+  python scripts/link-validation/batch-link-fixer.py --generate-review-queue
+
+  # Quiet mode
+  python scripts/link-validation/batch-link-fixer.py --quiet
+        """
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument('--posts-dir', type=Path, default=Path('src/posts'),
                        help='Directory containing blog posts')
     parser.add_argument('--repairs', type=Path, default=Path('repairs.json'),
@@ -368,22 +389,32 @@ def main():
                        help='Generate manual review queue')
     parser.add_argument('--output', type=Path, default=Path('manual-review.md'),
                        help='Output file for review queue')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress output messages')
 
     args = parser.parse_args()
 
-    fixer = BatchLinkFixer(
-        confidence_threshold=args.confidence_threshold,
-        dry_run=args.dry_run
-    )
+    try:
+        fixer = BatchLinkFixer(
+            confidence_threshold=args.confidence_threshold,
+            dry_run=args.dry_run
+        )
 
-    if args.generate_review_queue:
-        fixer.generate_review_queue(args.repairs, args.output)
-    elif args.apply:
-        fixer.apply_repairs(args.repairs, args.posts_dir)
-    else:
-        return fixer.run_full_pipeline(args.posts_dir)
+        if args.generate_review_queue:
+            fixer.generate_review_queue(args.repairs, args.output)
+        elif args.apply:
+            fixer.apply_repairs(args.repairs, args.posts_dir)
+        else:
+            return fixer.run_full_pipeline(args.posts_dir)
 
-    return 0
+        return 0
+
+    except FileNotFoundError as e:
+        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+        return 2
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

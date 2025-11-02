@@ -295,8 +295,24 @@ def create_gist(filepath: Path, description: str, slug: str, dry_run: bool = Fal
 def main():
     """Main gist creation workflow."""
     parser = argparse.ArgumentParser(
-        description="Create GitHub gists from /gists directory"
+        description="Create GitHub gists from /gists directory",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Create all gists
+  python scripts/create-gists-from-folder.py
+
+  # Dry run to preview actions
+  python scripts/create-gists-from-folder.py --dry-run
+
+  # Test mode (first 3 gists only)
+  python scripts/create-gists-from-folder.py --test-only
+
+  # Quiet mode
+  python scripts/create-gists-from-folder.py --quiet
+        """
     )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -307,129 +323,153 @@ def main():
         action="store_true",
         help="Only create gists for first 3 files (testing mode)"
     )
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress output messages')
     args = parser.parse_args()
 
-    print("🚀 GitHub Gist Creation Tool")
-    print("=" * 60)
+    try:
+        if not args.quiet:
+            print("🚀 GitHub Gist Creation Tool")
+            print("=" * 60)
 
-    # Configuration
-    BASE_DIR = Path("/home/william/git/williamzujkowski.github.io/gists")
-    MAPPING_FILE = BASE_DIR / "gist-mapping.json"
+        # Configuration
+        BASE_DIR = Path("/home/william/git/williamzujkowski.github.io/gists")
+        MAPPING_FILE = BASE_DIR / "gist-mapping.json"
 
-    # Verify base directory exists
-    if not BASE_DIR.exists():
-        print(f"❌ Error: {BASE_DIR} does not exist")
-        print(f"   Create it with: mkdir -p {BASE_DIR}")
-        return 1
-
-    # Check gh authentication (skip in dry-run)
-    if not args.dry_run:
-        print("\n🔑 Checking gh CLI authentication...")
-        if not check_gh_auth():
-            print("❌ Error: gh CLI not authenticated")
-            print("   Run: gh auth login")
+        # Verify base directory exists
+        if not BASE_DIR.exists():
+            print(f"❌ Error: {BASE_DIR} does not exist", file=sys.stderr)
+            print(f"   Create it with: mkdir -p {BASE_DIR}", file=sys.stderr)
             return 1
-        print("   ✅ Authenticated")
 
-    # Determine how many gists to create
-    total_count = len(GIST_METADATA)
-    if args.test_only:
-        total_count = min(3, total_count)
-        print(f"\n⚠️  TEST MODE: Only creating first {total_count} gists")
+        # Check gh authentication (skip in dry-run)
+        if not args.dry_run:
+            if not args.quiet:
+                print("\n🔑 Checking gh CLI authentication...")
+            if not check_gh_auth():
+                print("❌ Error: gh CLI not authenticated", file=sys.stderr)
+                print("   Run: gh auth login", file=sys.stderr)
+                return 1
+            if not args.quiet:
+                print("   ✅ Authenticated")
 
-    # Create gists
-    created_gists = {}
-    failed_gists = []
-    start_time = time.time()
+        # Determine how many gists to create
+        total_count = len(GIST_METADATA)
+        if args.test_only:
+            total_count = min(3, total_count)
+            if not args.quiet:
+                print(f"\n⚠️  TEST MODE: Only creating first {total_count} gists")
 
-    print(f"\n📎 Creating {total_count} gists...")
-    if args.dry_run:
-        print("   (DRY RUN MODE - no actual gists will be created)")
-    print("=" * 60)
+        # Create gists
+        created_gists = {}
+        failed_gists = []
+        start_time = time.time()
 
-    for i, (rel_path, metadata) in enumerate(list(GIST_METADATA.items())[:total_count], 1):
-        filepath = BASE_DIR / rel_path
+        if not args.quiet:
+            print(f"\n📎 Creating {total_count} gists...")
+            if args.dry_run:
+                print("   (DRY RUN MODE - no actual gists will be created)")
+            print("=" * 60)
 
-        print(f"\n[{i}/{total_count}] {rel_path}")
+        for i, (rel_path, metadata) in enumerate(list(GIST_METADATA.items())[:total_count], 1):
+            filepath = BASE_DIR / rel_path
 
-        # Check if file exists
-        if not filepath.exists():
-            print(f"  ⚠️  File not found: {filepath}")
-            failed_gists.append({"path": rel_path, "error": "File not found"})
-            continue
+            if not args.quiet:
+                print(f"\n[{i}/{total_count}] {rel_path}")
 
-        try:
-            gist_url = create_gist(
-                filepath,
-                metadata["description"],
-                metadata["slug"],
-                dry_run=args.dry_run
-            )
+            # Check if file exists
+            if not filepath.exists():
+                if not args.quiet:
+                    print(f"  ⚠️  File not found: {filepath}")
+                failed_gists.append({"path": rel_path, "error": "File not found"})
+                continue
 
-            if gist_url:
-                created_gists[rel_path] = {
-                    "url": gist_url,
-                    "slug": metadata["slug"],
-                    "description": metadata["description"]
-                }
+            try:
+                gist_url = create_gist(
+                    filepath,
+                    metadata["description"],
+                    metadata["slug"],
+                    dry_run=args.dry_run
+                )
 
-                # Rate limiting: 1 second delay between gist creations (skip in dry-run)
-                if not args.dry_run and i < total_count:
-                    time.sleep(1)
+                if gist_url:
+                    created_gists[rel_path] = {
+                        "url": gist_url,
+                        "slug": metadata["slug"],
+                        "description": metadata["description"]
+                    }
+
+                    # Rate limiting: 1 second delay between gist creations (skip in dry-run)
+                    if not args.dry_run and i < total_count:
+                        time.sleep(1)
+                else:
+                    failed_gists.append({"path": rel_path, "error": "Gist creation failed"})
+
+            except Exception as e:
+                if not args.quiet:
+                    print(f"  ❌ Failed: {e}")
+                failed_gists.append({"path": rel_path, "error": str(e)})
+
+        # Calculate elapsed time
+        elapsed_time = time.time() - start_time
+        minutes = int(elapsed_time // 60)
+        seconds = int(elapsed_time % 60)
+
+        # Save mapping
+        if not args.dry_run:
+            if not args.quiet:
+                print(f"\n💾 Saving gist mapping to {MAPPING_FILE}...")
+            try:
+                with open(MAPPING_FILE, "w") as f:
+                    json.dump(created_gists, f, indent=2)
+                if not args.quiet:
+                    print(f"   ✅ Mapping saved ({len(created_gists)} entries)")
+            except Exception as e:
+                print(f"   ❌ Error saving mapping: {e}", file=sys.stderr)
+                return 1
+        else:
+            if not args.quiet:
+                print(f"\n💾 [DRY RUN] Would save mapping to {MAPPING_FILE}")
+
+        # Summary
+        if not args.quiet:
+            print("\n" + "=" * 60)
+            print("📊 SUMMARY")
+            print("=" * 60)
+            print(f"✅ Created:  {len(created_gists)}/{total_count} gists")
+            print(f"❌ Failed:   {len(failed_gists)}/{total_count} gists")
+            print(f"⏱️  Time:     {minutes}m {seconds}s")
+            if not args.dry_run:
+                print(f"📝 Mapping:  {MAPPING_FILE}")
+
+        if failed_gists:
+            if not args.quiet:
+                print("\n⚠️  Failed gists:")
+                for failure in failed_gists:
+                    print(f"  - {failure['path']}")
+                    print(f"    Error: {failure['error']}")
+            return 1
+
+        if not args.quiet:
+            if args.dry_run:
+                print("\n✅ Dry run completed successfully!")
+                print("   Remove --dry-run flag to create actual gists")
             else:
-                failed_gists.append({"path": rel_path, "error": "Gist creation failed"})
+                print("\n✅ All gists created successfully!")
+                print("\nNext steps:")
+                print("1. Review gist-mapping.json")
+                print("2. Update blog posts with real gist URLs")
+                print("3. Validate all links work")
+                print("4. Run npm run build")
 
-        except Exception as e:
-            print(f"  ❌ Failed: {e}")
-            failed_gists.append({"path": rel_path, "error": str(e)})
+        return 0
 
-    # Calculate elapsed time
-    elapsed_time = time.time() - start_time
-    minutes = int(elapsed_time // 60)
-    seconds = int(elapsed_time % 60)
-
-    # Save mapping
-    if not args.dry_run:
-        print(f"\n💾 Saving gist mapping to {MAPPING_FILE}...")
-        try:
-            with open(MAPPING_FILE, "w") as f:
-                json.dump(created_gists, f, indent=2)
-            print(f"   ✅ Mapping saved ({len(created_gists)} entries)")
-        except Exception as e:
-            print(f"   ❌ Error saving mapping: {e}")
-            return 1
-    else:
-        print(f"\n💾 [DRY RUN] Would save mapping to {MAPPING_FILE}")
-
-    # Summary
-    print("\n" + "=" * 60)
-    print("📊 SUMMARY")
-    print("=" * 60)
-    print(f"✅ Created:  {len(created_gists)}/{total_count} gists")
-    print(f"❌ Failed:   {len(failed_gists)}/{total_count} gists")
-    print(f"⏱️  Time:     {minutes}m {seconds}s")
-    if not args.dry_run:
-        print(f"📝 Mapping:  {MAPPING_FILE}")
-
-    if failed_gists:
-        print("\n⚠️  Failed gists:")
-        for failure in failed_gists:
-            print(f"  - {failure['path']}")
-            print(f"    Error: {failure['error']}")
+    except FileNotFoundError as e:
+        print(f"❌ Error: File not found - {e}", file=sys.stderr)
         return 1
-
-    if args.dry_run:
-        print("\n✅ Dry run completed successfully!")
-        print("   Remove --dry-run flag to create actual gists")
-    else:
-        print("\n✅ All gists created successfully!")
-        print("\nNext steps:")
-        print("1. Review gist-mapping.json")
-        print("2. Update blog posts with real gist URLs")
-        print("3. Validate all links work")
-        print("4. Run npm run build")
-
-    return 0
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":

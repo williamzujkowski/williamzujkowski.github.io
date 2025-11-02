@@ -45,10 +45,15 @@ MANIFEST_REGISTRY: scripts/generate-blog-hero-images.py
 import os
 import re
 import json
+import sys
+import logging
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import colorsys
 import hashlib
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 class HeroImageGenerator:
     def __init__(self, base_path: str = "."):
@@ -372,62 +377,68 @@ class HeroImageGenerator:
         og_path = output_path.parent / output_path.name.replace('-hero.jpg', '-og.jpg')
         img.save(og_path, 'JPEG', quality=85, optimize=True)
     
-    def process_all_posts(self):
+    def process_all_posts(self, logger=None):
         """Generate hero images for all blog posts"""
-        print("🎨 Generating Hero Images for Blog Posts")
-        print("=" * 50)
-        
+        if logger:
+            logger.info("🎨 Generating Hero Images for Blog Posts")
+            logger.info("=" * 50)
+
         # Load the blog image index
         index_path = self.base_path / "docs" / "blog-image-index.json"
         if index_path.exists():
             with open(index_path, 'r') as f:
                 index = json.load(f)
         else:
-            print("❌ Blog image index not found. Run update-blog-images.py first.")
+            if logger:
+                logger.error("❌ Blog image index not found. Run update-blog-images.py first.")
             return
-        
+
         generated_count = 0
         skipped_count = 0
-        
+
         for post_file in sorted(self.posts_dir.glob('*.md')):
             # Parse post metadata
             with open(post_file, 'r', encoding='utf-8') as f:
                 content = f.read()
-            
+
             # Extract frontmatter
             if content.startswith('---'):
                 try:
                     _, fm, _ = content.split('---', 2)
                     import yaml
                     frontmatter = yaml.safe_load(fm)
-                    
+
                     title = frontmatter.get('title', '')
                     date = str(frontmatter.get('date', ''))
                     tags = frontmatter.get('tags', [])
-                    
+
                     # Generate output filename
                     filename = post_file.stem
                     hero_path = self.hero_dir / f"{filename}-hero.jpg"
-                    
+
                     # Skip if already exists
                     if hero_path.exists():
-                        print(f"  ⏭️  Skipping {filename} (already exists)")
+                        if logger:
+                            logger.info(f"  ⏭️  Skipping {filename} (already exists)")
                         skipped_count += 1
                         continue
-                    
+
                     # Generate the image
                     self.create_hero_image(title, date, tags, hero_path)
-                    print(f"  ✅ Generated {hero_path.name}")
+                    if logger:
+                        logger.info(f"  ✅ Generated {hero_path.name}")
                     generated_count += 1
-                    
+
                 except Exception as e:
-                    print(f"  ❌ Error processing {post_file.name}: {e}")
-        
-        print("\n" + "=" * 50)
-        print(f"✨ Hero image generation complete!")
-        print(f"   Generated: {generated_count} images")
-        print(f"   Skipped: {skipped_count} images")
-        print(f"\n📁 Images saved to: {self.hero_dir}")
+                    if logger:
+                        logger.error(f"  ❌ Error processing {post_file.name}: {e}")
+
+        if logger:
+            logger.info("\n" + "=" * 50)
+            logger.info(f"✨ Hero image generation complete!")
+            logger.info(f"   Generated: {generated_count} images")
+            logger.info(f"   Skipped: {skipped_count} images")
+            logger.info(f"\n📁 Images saved to: {self.hero_dir}")
 
 def main():
     """Main execution function"""
@@ -446,24 +457,32 @@ Examples:
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+
     args = parser.parse_args()
+
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
 
     # Check for required library
     try:
         from PIL import Image
     except ImportError:
-        print("❌ Pillow library not installed.")
-        print("   Run: pip install Pillow")
+        logger.error("❌ Pillow library not installed.")
+        logger.error("   Run: pip install Pillow")
         return
 
     generator = HeroImageGenerator()
-    generator.process_all_posts()
-    
-    print("\n🎯 Next Steps:")
-    print("1. Review generated images in src/assets/images/blog/hero/")
-    print("2. Replace with custom images where desired")
-    print("3. Optimize images for web delivery")
-    print("4. Test responsive loading")
+    generator.process_all_posts(logger)
+
+    logger.info("\n🎯 Next Steps:")
+    logger.info("1. Review generated images in src/assets/images/blog/hero/")
+    logger.info("2. Replace with custom images where desired")
+    logger.info("3. Optimize images for web delivery")
+    logger.info("4. Test responsive loading")
 
 if __name__ == "__main__":
     main()

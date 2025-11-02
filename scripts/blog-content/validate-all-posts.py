@@ -13,17 +13,22 @@ import sys
 import os
 import json
 import subprocess
+import logging
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
 import argparse
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
-def find_all_posts(posts_dir="src/posts"):
+
+def find_all_posts(posts_dir="src/posts", logger=None):
     """Find all markdown blog posts."""
     posts_path = Path(posts_dir)
     if not posts_path.exists():
-        print(f"Error: Posts directory not found: {posts_dir}")
+        if logger:
+            logger.error(f"Posts directory not found: {posts_dir}")
         sys.exit(1)
 
     posts = list(posts_path.glob("*.md"))
@@ -75,10 +80,12 @@ def validate_post(post_path, validator_script="scripts/blog-content/humanization
             return None
 
     except subprocess.TimeoutExpired:
-        print(f"Timeout validating {post_path}")
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Timeout validating {post_path}")
         return None
     except Exception as e:
-        print(f"Error validating {post_path}: {e}")
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error validating {post_path}: {e}")
         return None
 
 
@@ -296,71 +303,79 @@ def generate_json_output(results, categories, output_file="docs/reports/portfoli
 
 def main():
     parser = argparse.ArgumentParser(description="Validate all blog posts for humanization quality")
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     parser.add_argument("--output", default="docs/reports/", help="Output directory for reports")
     parser.add_argument("--format", choices=["markdown", "json", "both"], default="both", help="Output format")
     parser.add_argument("--threshold", type=int, default=75, help="Passing score threshold")
     parser.add_argument("--posts-dir", default="src/posts", help="Directory containing blog posts")
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--log-file', type=Path, help='Write logs to file')
 
     args = parser.parse_args()
 
-    print("🔍 Portfolio-Wide Humanization Assessment")
-    print("=" * 60)
+    # Setup logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+
+    logger.info("🔍 Portfolio-Wide Humanization Assessment")
+    logger.info("=" * 60)
 
     # Find all posts
-    posts = find_all_posts(args.posts_dir)
-    print(f"\n📚 Found {len(posts)} blog posts")
+    posts = find_all_posts(args.posts_dir, logger)
+    logger.info(f"\n📚 Found {len(posts)} blog posts")
 
     # Validate each post
-    print("\n🧪 Validating posts...")
+    logger.info("\n🧪 Validating posts...")
     results = []
     for i, post in enumerate(posts, 1):
-        print(f"  [{i}/{len(posts)}] {post.name}...", end=" ")
+        logger.info(f"  [{i}/{len(posts)}] {post.name}...", extra={'no_newline': True})
         result = validate_post(post)
         if result:
             results.append(result)
-            print(f"{result['score']:.1f}/100 - {result.get('status', 'UNKNOWN')}")
+            logger.info(f" {result['score']:.1f}/100 - {result.get('status', 'UNKNOWN')}")
         else:
-            print("SKIPPED (validation error)")
+            logger.warning(" SKIPPED (validation error)")
 
     if not results:
-        print("\n❌ No valid results. Check validator script.")
+        logger.error("\n❌ No valid results. Check validator script.")
         sys.exit(1)
 
     # Categorize
     categories = categorize_posts(results, args.threshold)
 
     # Generate reports
-    print("\n📊 Generating reports...")
+    logger.info("\n📊 Generating reports...")
 
     if args.format in ["markdown", "both"]:
         md_file = generate_markdown_report(results, categories,
                                           os.path.join(args.output, "portfolio-assessment.md"))
-        print(f"  ✅ Markdown report: {md_file}")
+        logger.info(f"  ✅ Markdown report: {md_file}")
 
     if args.format in ["json", "both"]:
         json_file = generate_json_output(results, categories,
                                         os.path.join(args.output, "portfolio-assessment.json"))
-        print(f"  ✅ JSON report: {json_file}")
+        logger.info(f"  ✅ JSON report: {json_file}")
 
     # Summary
     total = len(results)
     avg_score = sum(r["score"] for r in results) / total
     passing = len(categories["excellent"]) + len(categories["good"])
 
-    print("\n" + "=" * 60)
-    print("📈 ASSESSMENT COMPLETE")
-    print("=" * 60)
-    print(f"  Total Posts: {total}")
-    print(f"  Average Score: {avg_score:.1f}/100")
-    print(f"  Passing Rate: {passing/total*100:.1f}% ({passing}/{total} posts ≥{args.threshold})")
-    print(f"  Bottom 10 Avg: {sum(r['score'] for r in sorted(results, key=lambda x: x['score'])[:10])/10:.1f}/100")
-    print("=" * 60)
+    logger.info("\n" + "=" * 60)
+    logger.info("📈 ASSESSMENT COMPLETE")
+    logger.info("=" * 60)
+    logger.info(f"  Total Posts: {total}")
+    logger.info(f"  Average Score: {avg_score:.1f}/100")
+    logger.info(f"  Passing Rate: {passing/total*100:.1f}% ({passing}/{total} posts ≥{args.threshold})")
+    logger.info(f"  Bottom 10 Avg: {sum(r['score'] for r in sorted(results, key=lambda x: x['score'])[:10])/10:.1f}/100")
+    logger.info("=" * 60)
 
     # Exit code based on passing rate
     if passing / total >= 0.75:  # 75% passing rate
         sys.exit(0)
     else:
-        print("\n⚠️  Warning: Less than 75% of posts meet threshold")
+        logger.warning("\n⚠️  Warning: Less than 75% of posts meet threshold")
         sys.exit(1)
 
 

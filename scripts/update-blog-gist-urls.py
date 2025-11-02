@@ -191,85 +191,120 @@ def validate_all_placeholders_replaced(
 
 def main():
     """Main execution function."""
-    # Parse arguments
-    dry_run = "--dry-run" in sys.argv
+    parser = argparse.ArgumentParser(
+        description='Update blog posts with real GitHub gist URLs',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Update all placeholder URLs
+  python scripts/update-blog-gist-urls.py
 
-    if dry_run:
-        print("🔍 DRY RUN MODE - No changes will be written\n")
+  # Dry run to preview changes
+  python scripts/update-blog-gist-urls.py --dry-run
 
-    # Get repository root
-    repo_root = Path(__file__).parent.parent
+  # Quiet mode
+  python scripts/update-blog-gist-urls.py --quiet
+        """
+    )
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--dry-run', action='store_true',
+                       help='Show what would be changed without modifying files')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                       help='Suppress output messages')
 
-    # Load gist mapping
-    mapping_file = repo_root / MAPPING_FILE
-    print(f"📖 Loading gist mapping from: {mapping_file}")
+    args = parser.parse_args()
 
     try:
+        if args.dry_run and not args.quiet:
+            print("🔍 DRY RUN MODE - No changes will be written\n")
+
+        # Get repository root
+        repo_root = Path(__file__).parent.parent
+
+        # Load gist mapping
+        mapping_file = repo_root / MAPPING_FILE
+        if not args.quiet:
+            print(f"📖 Loading gist mapping from: {mapping_file}")
+
         mapping = load_gist_mapping(mapping_file)
-    except FileNotFoundError as e:
-        print(f"❌ Error: {e}")
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"❌ Error: Invalid JSON in {mapping_file}: {e}")
-        sys.exit(1)
 
-    print(f"✓ Loaded {len(mapping)} gist mappings\n")
+        if not args.quiet:
+            print(f"✓ Loaded {len(mapping)} gist mappings\n")
 
-    # Process each blog post
-    total_replacements = 0
-    all_valid = True
+        # Process each blog post
+        total_replacements = 0
+        all_valid = True
 
-    for post_file in BLOG_POSTS:
-        post_path = repo_root / post_file
-        print(f"📝 Processing: {post_path.name}")
-        print("-" * 60)
+        for post_file in BLOG_POSTS:
+            post_path = repo_root / post_file
+            if not args.quiet:
+                print(f"📝 Processing: {post_path.name}")
+                print("-" * 60)
 
-        # Update placeholders
-        count, messages = update_blog_post(post_path, mapping, dry_run)
+            # Update placeholders
+            count, messages = update_blog_post(post_path, mapping, args.dry_run)
 
-        if count > 0:
-            print(f"\n✓ Made {count} replacement(s):\n")
-            for msg in messages:
-                print(msg)
-        else:
-            for msg in messages:
-                print(msg)
+            if not args.quiet:
+                if count > 0:
+                    print(f"\n✓ Made {count} replacement(s):\n")
+                    for msg in messages:
+                        print(msg)
+                else:
+                    for msg in messages:
+                        print(msg)
 
-        total_replacements += count
+            total_replacements += count
 
-        # Validate all placeholders replaced (only if not dry-run)
-        if not dry_run and count > 0:
-            is_valid, remaining = validate_all_placeholders_replaced(post_path)
-            if not is_valid:
-                all_valid = False
-                print(f"\n⚠️  WARNING: {len(remaining)} placeholder(s) still remain:")
-                for slug in remaining:
-                    print(f"    - {slug}")
+            # Validate all placeholders replaced (only if not dry-run)
+            if not args.dry_run and count > 0:
+                is_valid, remaining = validate_all_placeholders_replaced(post_path)
+                if not is_valid:
+                    all_valid = False
+                    if not args.quiet:
+                        print(f"\n⚠️  WARNING: {len(remaining)} placeholder(s) still remain:")
+                        for slug in remaining:
+                            print(f"    - {slug}")
+                else:
+                    if not args.quiet:
+                        print("\n✓ All placeholders successfully replaced")
+
+            if not args.quiet:
+                print()
+
+        # Summary
+        if not args.quiet:
+            print("=" * 60)
+            print("SUMMARY")
+            print("=" * 60)
+            print(f"Total replacements: {total_replacements}")
+            print(f"Posts processed: {len(BLOG_POSTS)}")
+
+            if args.dry_run:
+                print("\n🔍 DRY RUN - No files were modified")
+                print("Run without --dry-run to apply changes")
+            elif total_replacements > 0:
+                if all_valid:
+                    print("\n✓ All placeholder URLs successfully replaced!")
+                else:
+                    print("\n⚠️  Some placeholders could not be replaced")
+                    print("Check the warnings above for details")
+                    return 1
             else:
-                print("\n✓ All placeholders successfully replaced")
+                print("\nℹ️  No placeholders found in any posts")
 
-        print()
+        return 0
 
-    # Summary
-    print("=" * 60)
-    print("SUMMARY")
-    print("=" * 60)
-    print(f"Total replacements: {total_replacements}")
-    print(f"Posts processed: {len(BLOG_POSTS)}")
-
-    if dry_run:
-        print("\n🔍 DRY RUN - No files were modified")
-        print("Run without --dry-run to apply changes")
-    elif total_replacements > 0:
-        if all_valid:
-            print("\n✓ All placeholder URLs successfully replaced!")
-        else:
-            print("\n⚠️  Some placeholders could not be replaced")
-            print("Check the warnings above for details")
-            sys.exit(1)
-    else:
-        print("\nℹ️  No placeholders found in any posts")
+    except FileNotFoundError as e:
+        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        return 1
+    except json.JSONDecodeError as e:
+        print(f"❌ Error: Invalid JSON - {e}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    sys.exit(main())
