@@ -43,7 +43,7 @@ Swarm Session 2 successfully completed 6 major initiatives focused on repository
 - Readability: Good content buried in code
 
 **After:**
-- Code ratio: ~20% (estimated)
+- Code ratio: 21.0% (verified, see CODE_RATIO_MEASUREMENT_METHODOLOGY.md)
 - Gists created: 4
 - Total lines: 347 (reduced from 449)
 - Token savings: ~3,000-4,000 tokens
@@ -76,7 +76,7 @@ Swarm Session 2 successfully completed 6 major initiatives focused on repository
 **Status:** ✅ VERIFIED - NO ACTION NEEDED
 
 **Analysis:**
-- Code ratio: 14.6% (already below 25%)
+- Code ratio: 15.3% (below 25%, compliant)
 - Status: Compliant as-is
 - Action: None required
 
@@ -379,7 +379,7 @@ Token budgets (all 28 modules implemented):
 
 ### Gist Extraction Strategy
 
-**Challenge:** Remove 33.4% code ratio from Claude CLI post while maintaining value
+**Challenge:** Reduce code ratio from 33.4% to below 25% threshold in Claude CLI post while maintaining value
 
 **Solution:** Extract large, reusable code blocks to GitHub Gists
 
@@ -404,6 +404,7 @@ After (1 line):
 ```
 
 **Impact:** 50:1 line reduction per extracted block
+**Result:** Achieved 21.0% code ratio (below 25% threshold, compliant)
 
 ### Pre-Commit Hook Architecture
 
@@ -511,7 +512,7 @@ class MermaidSyntaxValidator:
 ### What Worked Well
 
 1. **Gist Extraction Strategy**
-   - Reduced code ratio from 33.4% → ~20%
+   - Reduced code ratio from 33.4% → 21.0% (see CODE_RATIO_MEASUREMENT_METHODOLOGY.md)
    - Maintained content value
    - Created reusable assets
 
@@ -644,3 +645,12 @@ Swarm Session 2 achieved exceptional success across all 6 objectives, bringing t
 - `docs/reports/FINAL_DEPLOYMENT_REPORT.md` (Swarm 1 summary)
 - `CLAUDE.md` (corrected token estimates)
 - GitHub Gists: 4 created for Post 1
+
+---
+
+## Measurement Methodology Note
+
+**Update (2025-11-02):** Initial code ratio measurements used inconsistent methodology.
+Verified final measurements: Claude CLI 21.0%, Vulnerability Management 15.3%.
+Both posts compliant with <25% threshold. See `CODE_RATIO_MEASUREMENT_METHODOLOGY.md`
+for full transparency report on measurement confusion and standardized methodology.

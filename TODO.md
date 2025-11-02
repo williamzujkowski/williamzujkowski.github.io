@@ -18,14 +18,16 @@
 - **Posts requiring tiered targets:** 3 (architecture diagrams essential)
 
 **HIGH PRIORITY (Completed):**
-1. ✅ `2025-07-22-supercharging-claude-cli-with-standards.md` (33.4% → ~20% with 4 gists)
+1. ✅ `2025-07-22-supercharging-claude-cli-with-standards.md` (21.0%, compliant with 4 gists)
    - **Status:** COMPLETE (2025-11-02)
    - **Gists created:** 4 (Bash scripts + Python + YAML + workflows)
    - **URLs:** All embedded in post
    - **Result:** Below 25% threshold
-2. ✅ `2025-07-15-vulnerability-management-scale-open-source.md` (14.6%)
-   - **Status:** VERIFIED - Already below 25% threshold
+   - **Note:** See CODE_RATIO_MEASUREMENT_METHODOLOGY.md for measurement details
+2. ✅ `2025-07-15-vulnerability-management-scale-open-source.md` (15.3%, compliant)
+   - **Status:** VERIFIED - Below 25% threshold
    - **Action:** None needed
+   - **Note:** See CODE_RATIO_MEASUREMENT_METHODOLOGY.md for measurement details
 
 **MEDIUM PRIORITY (Partial improvement):**
 3. ⏳ `2025-02-24-continuous-learning-cybersecurity.md` (40.2% → 35.4% with 1 gist)
@@ -53,6 +55,12 @@
 4. Update posts with gist embeds
 5. Verify code ratio <25% for all posts
 6. Commit without `--no-verify`
+
+**Measurement Methodology:**
+- **Tool:** `scripts/blog-content/code-ratio-calculator.py`
+- **Method:** Exclude frontmatter, count lines between fences, exclude blank lines
+- **Threshold:** 25% (defined in `.claude-rules.json`)
+- **Note:** See `docs/reports/CODE_RATIO_MEASUREMENT_METHODOLOGY.md` for details
 
 **Estimated Effort:** 8-12 hours (16 posts × 30-45 min each)
 **Assigned:** Unassigned

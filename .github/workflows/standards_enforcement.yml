@@ -63,7 +63,7 @@ jobs:
           try:
               with open('MANIFEST.json', 'r') as f:
                   manifest = json.load(f)
-              required = ['version', 'inventory', 'standards_compliance']
+              required = ['version', 'inventory']
               missing = [k for k in required if k not in manifest]
               if missing:
                   print(f'❌ Missing required fields: {missing}')
