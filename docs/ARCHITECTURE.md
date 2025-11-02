@@ -1,6 +1,6 @@
 # 🏗️ System Architecture Documentation
 
-**Generated:** 2025-09-20T19:06:33-04:00
+**Generated:** 2025-11-02T17:45:00+00:00
 **Version:** 1.0.0
 **Status:** Active
 
@@ -156,11 +156,11 @@ graph TD
 
 ## 📊 Current System Statistics
 
-- **Total Files**: 661
+- **Total Files**: 594
 - **Python Scripts**: 37
-- **Blog Posts**: 48
+- **Blog Posts**: 64
 - **Images**: 262
-- **Build Time**: ~1.8 seconds
+- **Build Time**: ~8.5 seconds (Eleventy: ~4.6s)
 - **Standards Compliance**: Active
 
 ## 🔌 Integration Points

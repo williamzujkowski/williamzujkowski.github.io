@@ -1,5 +1,5 @@
 ---
-date: '2024-06-09T00:00:00.000Z'
+date: 2024-06-09
 description: From 2K to 2M tokens—how expanding context windows transform LLMs from chatbots to reasoning engines, with practical implications for applications
 images:
   hero:
@@ -31,19 +31,17 @@ This technical constraint shapes everything about how we interact with AI system
 
 ```mermaid
 graph LR
-    subgraph "Data Pipeline"
+    subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
         Feature[Feature Engineering]
     end
-    
-    subgraph "Model Training"
+    subgraph modeltraining["Model Training"]
         Train[Training]
         Val[Validation]
         Test[Testing]
     end
-    
-    subgraph "Deployment"
+    subgraph deployment["Deployment"]
         Deploy[Model Deployment]
         Monitor[Monitoring]
         Update[Updates]

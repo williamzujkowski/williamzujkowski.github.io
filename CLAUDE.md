@@ -1,7 +1,7 @@
 ---
 STATUS: AUTHORITATIVE
-VERSION: 4.0.0
-LAST_AUDIT: 2025-11-01
+VERSION: 4.0.1
+LAST_AUDIT: 2025-11-02
 COMPLIANCE: 100%
 ARCHITECTURE: MODULAR
 TOKEN_EFFICIENCY: 84.9%
@@ -232,6 +232,11 @@ uv run ruff check .
 
 **All Python scripts now use:** `#!/usr/bin/env -S uv run python3`
 
+**Centralized logging:** Use `scripts/lib/logging_config.py` for consistent logging across scripts
+- Structured JSON logging
+- Automatic file + console handlers
+- Debug mode support
+
 **Migration guide:** `docs/guides/UV_MIGRATION_GUIDE.md`
 
 ### 4.4: Concurrent Execution
@@ -261,6 +266,8 @@ Bash("npm test")
 ```
 
 **Why it matters:** Parallel execution = 2.8-4.4x faster. Sequential = slow, wasted tokens.
+
+**Swarm coordination:** For complex tasks, 5 specialized agents completed 11 tasks in 27 minutes using parallel execution patterns. Load `workflows/swarm-orchestration.md` for multi-agent coordination.
 
 **Full guidelines:** `docs/context/core/file-management.md`
 
@@ -321,6 +328,11 @@ Bash("npm test")
 - No duplicate files?
 - Standards compliance?
 - Blog posts pass humanization validation (≥75/100)?
+- Metadata format (dates must be YYYY-MM-DD)?
+
+# Run validation scripts:
+python scripts/blog-content/metadata-validator.py --batch
+python scripts/blog-content/build-monitor.py
 ```
 
 ### Common Workflows
@@ -374,6 +386,7 @@ cat .git/hooks/pre-commit
 3. **Duplicate file error:** Check `MANIFEST.json` file_registry for existing files
 4. **Standards violation:** Review `.claude-rules.json` and `docs/context/core/enforcement.md`
 5. **Context confusion:** Return to `docs/context/INDEX.yaml` and reload appropriate modules
+6. **Dependency issues:** Check Mermaid syntax (v10+), date formats (YYYY-MM-DD), metadata fields (author, tags)
 
 **General principle:** When unsure, load `core/mandatory-reading.md` and follow documentation hierarchy.
 
@@ -402,11 +415,15 @@ Complete list of existing modules (10 total). For full catalog with tags, depend
 - **reference/**: batch-lessons, phase-reports, historical-context, troubleshooting (Phase 9)
 - **templates/**: blog-post-template, module-template, script-template, documentation-template (Phase 10)
 
-**Token budgets:**
+**Token budgets (all 28 modules implemented):**
 - Core modules: 6,300 tokens (5 modules)
-- Workflow modules: 10,000 tokens (5 modules)
-- Total existing: 16,300 tokens
-- Available budget: 8,700 tokens remaining
+- Workflow modules: 6,492 tokens (5 modules)
+- Standards modules: 10,177 tokens (5 modules)
+- Technical modules: 7,850 tokens (6 modules)
+- Reference modules: 5,080 tokens (3 modules)
+- Template modules: 6,334 tokens (4 modules)
+- **Total: 42,233 tokens** (28 modules complete)
+- Note: Over nominal 25K budget, but modular loading compensates
 
 **Full index:** `docs/context/INDEX.yaml`
 
@@ -421,6 +438,7 @@ Complete list of existing modules (10 total). For full catalog with tags, depend
 - **[docs/GUIDES/SCRIPT_CATALOG.md](docs/GUIDES/SCRIPT_CATALOG.md)** - Complete catalog of 37 automation scripts
 - **[MANIFEST.json](MANIFEST.json)** - Single source of truth for repository inventory
 - **[docs/context/INDEX.yaml](docs/context/INDEX.yaml)** - Complete module catalog with tags and dependencies
+- **[TODO.md](TODO.md)** - Active tasks and improvement backlog (code ratio fixes, Python migration, etc.)
 
 **Standards Repository:**
 - **[github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards)** - Coding standards submodule (referenced in enforcement)
@@ -435,6 +453,13 @@ Complete list of existing modules (10 total). For full catalog with tags, depend
 
 **Remember:** This is a modular architecture. Load only what you need for the current task. Trust your judgment to navigate autonomously. When unsure, return to `docs/context/INDEX.yaml`.
 
-**Architecture version:** 4.0.0 (modular)
+**Architecture version:** 4.0.1 (modular + swarm learnings)
 **Previous version:** 3.0.0 (monolith, 12,900 words)
 **Efficiency gain:** 84.9% token reduction for simple tasks (2.6K vs 17K tokens)
+
+**Recent improvements (2025-11-02):**
+- Added Mermaid v10 migration guidance (88% posts had v9 syntax)
+- Documented validation infrastructure (metadata-validator, build-monitor)
+- Emphasized date format enforcement (YYYY-MM-DD via pre-commit hooks)
+- Added Python logging standards reference (scripts/lib/logging_config.py)
+- Documented swarm coordination patterns (5 agents, 11 tasks, 27 minutes)

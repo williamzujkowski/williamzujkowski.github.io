@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Syntax Test</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default'
+        });
+    </script>
+</head>
+<body>
+    <h1>Blockchain Post Mermaid Test</h1>
+
+    <h2>Original Diagram</h2>
+    <div class="mermaid">
+graph TD
+    subgraph "Network Layer"
+        P2P[P2P Network]
+        Gossip[Gossip Protocol]
+    end
+
+    subgraph "Consensus"
+        Mining[Mining/Validation]
+        Consensus[Consensus Algorithm]
+    end
+
+    subgraph "Data Layer"
+        Blocks[Blocks]
+        Chain[Blockchain]
+        State[State Tree]
+    end
+
+    subgraph "Application"
+        Smart[Smart Contracts]
+        DApp[DApps]
+    end
+
+    P2P --> Gossip
+    Gossip --> Mining
+    Mining --> Consensus
+    Consensus --> Blocks
+    Blocks --> Chain
+    Chain --> State
+    State --> Smart
+    Smart --> DApp
+
+    style Consensus fill:#ff9800
+    style Smart fill:#9c27b0
+    </div>
+
+    <h2>Test Result</h2>
+    <p id="result">Rendering...</p>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const mermaidDiv = document.querySelector('.mermaid');
+                if (mermaidDiv && mermaidDiv.getAttribute('data-processed')) {
+                    document.getElementById('result').textContent = 'SUCCESS: Diagram rendered!';
+                    document.getElementById('result').style.color = 'green';
+                } else {
+                    document.getElementById('result').textContent = 'FAILED: Diagram did not render';
+                    document.getElementById('result').style.color = 'red';
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

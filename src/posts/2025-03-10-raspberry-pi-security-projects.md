@@ -27,19 +27,17 @@ After collecting a drawer full of Raspberry Pis over the years (we all have that
 
 ```mermaid
 graph TB
-    subgraph "Threat Actors"
+    subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
         TA3[Supply Chain]
     end
-    
-    subgraph "Attack Vectors"
+    subgraph attackvectors["Attack Vectors"]
         AV1[Network]
         AV2[Application]
         AV3[Physical]
     end
-    
-    subgraph "Defenses"
+    subgraph defenses["Defenses"]
         D1[Prevention]
         D2[Detection]
         D3[Response]

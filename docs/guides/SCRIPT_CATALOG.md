@@ -1,8 +1,8 @@
 # Script Catalog
 
-**Generated:** 2025-10-29
-**Total Scripts:** 50
-**Categories:** 8
+**Generated:** 2025-11-02
+**Total Scripts:** 56
+**Categories:** 9
 
 This catalog provides comprehensive documentation for all automation scripts in the repository. Scripts are organized by category with usage examples, dependencies, and related tools.
 
@@ -10,10 +10,11 @@ This catalog provides comprehensive documentation for all automation scripts in 
 
 ## Table of Contents
 
-- [Blog Content Management (10 scripts)](#blog-content-management)
+- [Blog Content Management (12 scripts)](#blog-content-management)
 - [Blog Research & Citations (7 scripts)](#blog-research--citations)
 - [Blog Images (6 scripts)](#blog-images)
 - [Link Validation (12 scripts)](#link-validation)
+- [Validation & Monitoring (4 scripts)](#validation--monitoring)
 - [Utilities (10 scripts)](#utilities)
 - [Maintenance (1 script)](#maintenance)
 - [Library (2 scripts)](#library)
@@ -264,6 +265,57 @@ python scripts/blog-content/validate-all-posts.py --threshold 75
 
 **Key Dependencies:** subprocess, collections
 **File Size:** 12,030 bytes | Lines: 368
+
+---
+
+### fix-mermaid-subgraphs.py
+
+**Location:** `scripts/blog-content/fix-mermaid-subgraphs.py`
+**Purpose:** Fix Mermaid subgraph syntax errors in blog posts
+**Version:** 1.0.0
+
+**Description:**
+Automatically detects and fixes Mermaid subgraph syntax errors across all blog posts. Creates backup files before modification and provides detailed logging of changes.
+
+**Usage:**
+```bash
+# Fix all Mermaid subgraph syntax errors
+python scripts/blog-content/fix-mermaid-subgraphs.py
+
+# Dry run to preview changes
+python scripts/blog-content/fix-mermaid-subgraphs.py --dry-run
+```
+
+**Key Dependencies:** re, pathlib
+**Related Scripts:** validate-mermaid-syntax.py
+**File Size:** 5,054 bytes | Lines: 166
+
+---
+
+### validate-mermaid-syntax.py
+
+**Location:** `scripts/blog-content/validate-mermaid-syntax.py`
+**Purpose:** Validate Mermaid diagram syntax across all blog posts
+**Version:** 1.0.0
+
+**Description:**
+Pattern-based syntax validation for Mermaid diagrams. Detects common errors including subgraph syntax, quote mismatches, arrow syntax, and bracket errors. Generates comprehensive validation reports without modifying files.
+
+**Usage:**
+```bash
+# Validate all blog posts
+python scripts/blog-content/validate-mermaid-syntax.py
+
+# Validate with detailed output
+python scripts/blog-content/validate-mermaid-syntax.py --verbose
+
+# Generate JSON report
+python scripts/blog-content/validate-mermaid-syntax.py --format json
+```
+
+**Key Dependencies:** re, pathlib, collections
+**Related Scripts:** fix-mermaid-subgraphs.py
+**File Size:** 6,342 bytes | Lines: 184
 
 ---
 
@@ -803,6 +855,115 @@ bash scripts/link-validation/test-citation-workflow.sh
 
 ---
 
+## Validation & Monitoring
+
+Scripts for build monitoring, metadata validation, and syntax checking.
+
+### build-monitor.py
+
+**Location:** `scripts/validation/build-monitor.py`
+**Purpose:** Continuous build monitoring and health checks
+**Version:** 1.0.0
+
+**Description:**
+Real-time build monitoring system that tracks build performance, detects errors, and provides health metrics. Integrates with CI/CD pipelines through JSON output and supports continuous monitoring with alerting capabilities.
+
+**Usage:**
+```bash
+# Monitor build once
+python scripts/validation/build-monitor.py
+
+# Continuous monitoring mode
+python scripts/validation/build-monitor.py --continuous --interval 60
+
+# Generate JSON report for CI/CD
+python scripts/validation/build-monitor.py --format json --output build-report.json
+```
+
+**Key Dependencies:** subprocess, datetime, pathlib
+**Related Scripts:** continuous-monitor.sh, metadata-validator.py
+**File Size:** 13,721 bytes | Lines: 365
+
+---
+
+### metadata-validator.py
+
+**Location:** `scripts/validation/metadata-validator.py`
+**Purpose:** Validate blog post metadata and frontmatter
+**Version:** 1.0.0
+
+**Description:**
+Comprehensive frontmatter validation ensuring all blog posts meet metadata requirements. Validates required fields, date formats, tag consistency, and schema compliance. Generates detailed validation reports with fix suggestions.
+
+**Usage:**
+```bash
+# Validate all posts
+python scripts/validation/metadata-validator.py
+
+# Validate specific post
+python scripts/validation/metadata-validator.py --post src/posts/2025-01-15-example.md
+
+# Strict mode with schema validation
+python scripts/validation/metadata-validator.py --strict --schema
+```
+
+**Key Dependencies:** yaml, frontmatter, datetime
+**Related Scripts:** build-monitor.py
+**File Size:** 12,188 bytes | Lines: 314
+
+---
+
+### continuous-monitor.sh
+
+**Location:** `scripts/validation/continuous-monitor.sh`
+**Purpose:** Wrapper for continuous build monitoring
+**Version:** 1.0.0
+
+**Description:**
+Shell wrapper script for daemonizing build-monitor.py. Provides process management, log rotation, and system integration for continuous monitoring deployments.
+
+**Usage:**
+```bash
+# Start monitoring daemon
+bash scripts/validation/continuous-monitor.sh start
+
+# Stop monitoring daemon
+bash scripts/validation/continuous-monitor.sh stop
+
+# Check monitoring status
+bash scripts/validation/continuous-monitor.sh status
+```
+
+**Key Dependencies:** bash, build-monitor.py
+**Related Scripts:** build-monitor.py
+**File Size:** 1,931 bytes | Lines: 58
+
+---
+
+### validate-mermaid-syntax.py
+
+**Location:** `scripts/blog-content/validate-mermaid-syntax.py`
+**Purpose:** Validate Mermaid diagram syntax across all blog posts
+**Version:** 1.0.0
+
+**Description:**
+Pattern-based syntax validation for Mermaid diagrams. Detects common errors including subgraph syntax, quote mismatches, arrow syntax, and bracket errors. Part of the validation infrastructure to ensure diagram quality.
+
+**Usage:**
+```bash
+# Validate all blog posts
+python scripts/blog-content/validate-mermaid-syntax.py
+
+# Detailed validation report
+python scripts/blog-content/validate-mermaid-syntax.py --verbose --format markdown
+```
+
+**Key Dependencies:** re, pathlib, collections
+**Related Scripts:** fix-mermaid-subgraphs.py (in Blog Content Management)
+**File Size:** 6,342 bytes | Lines: 184
+
+---
+
 ## Utilities
 
 General-purpose utility scripts for blog maintenance and analysis.
@@ -1088,6 +1249,15 @@ python scripts/stats-generator.py
 9. common.py - 18,186 bytes
 10. link-monitor.py - 18,054 bytes
 
+### Newest Scripts (Added 2025-11-02)
+
+1. **build-monitor.py** - 13,721 bytes | 365 lines - Build health monitoring
+2. **metadata-validator.py** - 12,188 bytes | 314 lines - Frontmatter validation
+3. **validate-mermaid-syntax.py** - 6,342 bytes | 184 lines - Mermaid syntax checking
+4. **fix-mermaid-subgraphs.py** - 5,054 bytes | 166 lines - Mermaid syntax repair
+5. **continuous-monitor.sh** - 1,931 bytes | 58 lines - Monitoring daemon wrapper
+6. **test-mermaid-rendering.html** - 3KB | Test harness - Browser-based validation
+
 ### Most Complex (Lines of Code)
 
 1. humanization-validator.py - 1,157 lines
@@ -1095,6 +1265,8 @@ python scripts/stats-generator.py
 3. citation-repair.py - 597 lines
 4. stats-generator.py - 579 lines
 5. common.py - 579 lines
+6. build-monitor.py - 365 lines (NEW)
+7. metadata-validator.py - 314 lines (NEW)
 
 ### Key Integration Points
 
@@ -1116,6 +1288,12 @@ identify claims → academic-search.py → add-academic-citations.py →
 check-citation-hyperlinks.py → citation-repair.py
 ```
 
+**Validation Pipeline (NEW):**
+```
+pre-commit → metadata-validator.py → validate-mermaid-syntax.py →
+build-monitor.py → continuous-monitor.sh (production)
+```
+
 ---
 
 **Maintenance Notes:**
@@ -1125,6 +1303,13 @@ check-citation-hyperlinks.py → citation-repair.py
 - Follow SOLID principles when extending script capabilities
 - Update this catalog when adding/removing/modifying scripts
 - Version numbers follow semantic versioning (MAJOR.MINOR.PATCH)
+
+---
+
+**Change Log:**
+
+- **2025-11-02:** Added 6 new scripts (2 Mermaid, 3 validation, 1 test harness). New "Validation & Monitoring" category. Total: 56 scripts across 9 categories.
+- **2025-10-29:** Initial catalog with 50 scripts across 8 categories.
 
 ---
 

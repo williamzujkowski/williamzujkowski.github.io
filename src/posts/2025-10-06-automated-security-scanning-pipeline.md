@@ -34,32 +34,28 @@ That incident taught me an important lesson: hope is not a security strategy.
 
 ```mermaid
 graph TB
-    subgraph "Code Repository"
+    subgraph coderepository["Code Repository"]
         Git[Git Push]
         PR[Pull Request]
     end
-
-    subgraph "CI/CD Pipeline"
+    subgraph cicdpipeline["CI/CD Pipeline"]
         Trigger[GitHub Actions Trigger]
         Build[Build Stage]
         Test[Test Stage]
         Scan[Security Scan Stage]
     end
-
-    subgraph "Security Tools"
+    subgraph securitytools["Security Tools"]
         Grype[Grype<br/>Container Scanning]
         OSV[OSV-Scanner<br/>Dependency Scanning]
         Trivy[Trivy<br/>Multi-Scanner]
     end
-
-    subgraph "Analysis & Reporting"
+    subgraph analysisreporting["Analysis & Reporting"]
         SARIF[SARIF Reports]
         GH[GitHub Security]
         Slack[Slack Alerts]
         Wazuh[Wazuh SIEM]
     end
-
-    subgraph "Policy Enforcement"
+    subgraph policyenforcement["Policy Enforcement"]
         Gates[Quality Gates]
         Block[Block on Critical]
         Approve[Manual Review]

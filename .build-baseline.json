@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-11-02T12:50:07.537396",
+  "success": true,
+  "build_time": 8.54,
+  "return_code": 0,
+  "stats": {
+    "posts_parsed": 63,
+    "files_written": 209,
+    "files_copied": 0,
+    "total_words": 0,
+    "js_bundles": {
+      "core.min.js": {
+        "original": "29.30 KB",
+        "minified": "14.95 KB",
+        "reduction": 49.0
+      },
+      "blog.min.js": {
+        "original": "7.51 KB",
+        "minified": "3.29 KB",
+        "reduction": 56.2
+      },
+      "search.min.js": {
+        "original": "11.33 KB",
+        "minified": "6.03 KB",
+        "reduction": 46.8
+      }
+    },
+    "eleventy_time": 4.59
+  },
+  "warnings": [],
+  "errors": []
+}

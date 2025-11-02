@@ -1,5 +1,6 @@
 ---
 date: 2024-03-05
+author: William Zujkowski
 description: Our cloud migration taught me as much about change management as technology. Lessons from moving from physical servers to the cloud
 images:
   hero:
@@ -26,18 +27,16 @@ That moment crystallized our need for cloud migration, but the journey that foll
 
 ```mermaid
 graph TB
-    subgraph "Frontend"
+    subgraph frontend["Frontend"]
         CDN[CDN]
         LB[Load Balancer]
     end
-    
-    subgraph "Application"
+    subgraph application["Application"]
         API[API Gateway]
         Services[Microservices]
         Cache[Redis Cache]
     end
-    
-    subgraph "Data"
+    subgraph data["Data"]
         DB[(Database)]
         S3[Object Storage]
         Queue[Message Queue]

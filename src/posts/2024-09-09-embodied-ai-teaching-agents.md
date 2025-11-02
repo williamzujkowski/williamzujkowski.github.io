@@ -1,5 +1,5 @@
 ---
-date: '2024-04-21T00:00:00.000Z'
+date: 2024-04-21
 description: Training AI agents to learn from physical interaction with the world, combining vision, language, and action for robots that adapt to real environments
 images:
   hero:
@@ -30,19 +30,17 @@ That simulation experience crystallized something I'd been thinking about for ye
 
 ```mermaid
 graph LR
-    subgraph "Data Pipeline"
+    subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
         Feature[Feature Engineering]
     end
-    
-    subgraph "Model Training"
+    subgraph modeltraining["Model Training"]
         Train[Training]
         Val[Validation]
         Test[Testing]
     end
-    
-    subgraph "Deployment"
+    subgraph deployment["Deployment"]
         Deploy[Model Deployment]
         Monitor[Monitoring]
         Update[Updates]

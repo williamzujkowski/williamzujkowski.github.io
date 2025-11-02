@@ -40,21 +40,19 @@ Imagine having X-ray vision into your kernel, seeing every system call, network 
 
 ```mermaid
 graph TB
-    subgraph "Attack Surface"
+    subgraph attacksurface["Attack Surface"]
         A1[Process Execution]
         A2[Network Connections]
         A3[File Operations]
         A4[Privilege Changes]
     end
-    
-    subgraph "Kernel Space"
+    subgraph kernelspace["Kernel Space"]
         KP[Kernel Probes]
         BPF[eBPF VM]
         Maps[(BPF Maps)]
         Verifier[BPF Verifier]
     end
-    
-    subgraph "User Space"
+    subgraph userspace["User Space"]
         Loader[BPF Loader]
         Monitor[Event Monitor]
         AI[AI/ML Analysis]
@@ -88,7 +86,7 @@ With eBPF monitoring on an identical honeypot, the same attack was detected in 1
 
 ```mermaid
 graph LR
-    subgraph "Traditional Monitoring"
+    subgraph traditionalmonitoring["Traditional Monitoring"]
         T1[Application Logs]
         T2[System Logs]
         T3[Network Logs]
@@ -100,8 +98,7 @@ graph LR
         T3 -->|After the fact| T4
         T4 -->|Minutes to hours| T5
     end
-    
-    subgraph "eBPF Monitoring"
+    subgraph ebpfmonitoring["eBPF Monitoring"]
         E1[Kernel Events]
         E2[Real-time Processing]
         E3[In-kernel Filtering]
@@ -159,21 +156,19 @@ My research aligns with recent findings: ransomware has unique behavioral finger
 
 ```mermaid
 graph TD
-    subgraph "Detection Layers"
+    subgraph detectionlayers["Detection Layers"]
         L1[File System Monitoring]
         L2[Process Behavior Analysis]
         L3[Network Communication]
         L4[Ransom Note Detection]
     end
-    
-    subgraph "eBPF Probes"
+    subgraph ebpfprobes["eBPF Probes"]
         P1[VFS Operations]
         P2[Process Creation]
         P3[TCP Connections]
         P4[File Writes]
     end
-    
-    subgraph "AI/ML Pipeline"
+    subgraph aimlpipeline["AI/ML Pipeline"]
         ML1[Feature Extraction]
         ML2[Behavior Classification]
         ML3[NLP Analysis]
@@ -201,20 +196,18 @@ Container security is critical in cloud environments. eBPF excels here because i
 
 ```mermaid
 graph TB
-    subgraph "Container"
+    subgraph container["Container"]
         C1[Process]
         C2[Namespace]
         C3[Cgroups]
     end
-    
-    subgraph "Detection Points"
+    subgraph detectionpoints["Detection Points"]
         D1[Namespace Changes]
         D2[Capability Escalation]
         D3[Syscall Anomalies]
         D4[Device Access]
     end
-    
-    subgraph "eBPF Monitors"
+    subgraph ebpfmonitors["eBPF Monitors"]
         M1[setns monitoring]
         M2[CAP_SYS_ADMIN checks]
         M3[Syscall filtering]
@@ -237,19 +230,17 @@ After deploying eBPF monitoring across various environments, here's my battle-te
 
 ```mermaid
 graph LR
-    subgraph "Phase 1: Development"
+    subgraph phase1development["Phase 1: Development"]
         Dev1[Write eBPF Programs]
         Dev2[Test in VM]
         Dev3[Verify Performance]
     end
-    
-    subgraph "Phase 2: Staging"
+    subgraph phase2staging["Phase 2: Staging"]
         Stage1[Deploy to Staging]
         Stage2[Monitor False Positives]
         Stage3[Tune Detection Rules]
     end
-    
-    subgraph "Phase 3: Production"
+    subgraph phase3production["Phase 3: Production"]
         Prod1[Gradual Rollout]
         Prod2[Performance Monitoring]
         Prod3[Continuous Tuning]
@@ -267,14 +258,13 @@ The biggest lesson I learned the hard way: an overly aggressive eBPF program can
 
 ```mermaid
 graph TD
-    subgraph "Optimization Strategies"
+    subgraph optimizationstrategies["Optimization Strategies"]
         O1[Early Filtering]
         O2[Map-based Deduplication]
         O3[Sampling]
         O4[Ring Buffer Sizing]
     end
-    
-    subgraph "Performance Metrics"
+    subgraph performancemetrics["Performance Metrics"]
         M1[CPU Usage < 5%]
         M2[Memory < 100MB]
         M3[Event Loss < 0.01%]
@@ -303,26 +293,23 @@ eBPF doesn't exist in isolation. Here's how it fits into a modern security archi
 
 ```mermaid
 graph TB
-    subgraph "Data Sources"
+    subgraph datasources["Data Sources"]
         eBPF[eBPF Events]
         Logs[Traditional Logs]
         Network[Network Traffic]
         Cloud[Cloud APIs]
     end
-    
-    subgraph "Processing Layer"
+    subgraph processinglayer["Processing Layer"]
         Stream[Stream Processing]
         Enrich[Enrichment]
         Correlate[Correlation Engine]
     end
-    
-    subgraph "Intelligence Layer"
+    subgraph intelligencelayer["Intelligence Layer"]
         ML[Machine Learning]
         Threat[Threat Intel]
         Rules[Detection Rules]
     end
-    
-    subgraph "Response Layer"
+    subgraph responselayer["Response Layer"]
         Alert[Alerting]
         Auto[Automation]
         Investigate[Investigation]

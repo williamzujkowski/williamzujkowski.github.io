@@ -1,5 +1,6 @@
 ---
 date: 2025-01-01
+author: William Zujkowski
 description: Why I chose Eleventy for my personal site and the journey of building a fast, accessible, privacy-respecting digital home with modern web technologies
 images:
   hero:

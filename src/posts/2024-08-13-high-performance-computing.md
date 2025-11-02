@@ -1,5 +1,5 @@
 ---
-date: '2024-04-07T00:00:00.000Z'
+date: 2024-04-07
 description: High-performance computing brings supercomputer capabilities to research and industry—parallel processing, distributed systems, and optimization strategies
 images:
   hero:

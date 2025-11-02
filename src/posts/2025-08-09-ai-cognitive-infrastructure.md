@@ -1,5 +1,5 @@
 ---
-date: '2025-08-09T00:00:00.000Z'
+date: 2025-08-09
 title: 'AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought'
 description: AI is evolving from tools into cognitive infrastructure that shapes how billions think, yet we understand little about its long-term effects
 tags:
@@ -32,19 +32,17 @@ According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/250
 
 ```mermaid
 graph TB
-    subgraph "Traditional Infrastructure"
+    subgraph traditionalinfrastructure["Traditional Infrastructure"]
         Roads[Physical Roads]
         Power[Electricity Grid]
         Telecom[Telecommunications]
     end
-
-    subgraph "Cognitive Infrastructure"
+    subgraph cognitiveinfrastructure["Cognitive Infrastructure"]
         AI[AI Systems]
         ML[Machine Learning]
         NLP[Natural Language Processing]
     end
-
-    subgraph "Human Cognition"
+    subgraph humancognition["Human Cognition"]
         Memory[Memory]
         Decision[Decision Making]
         Analysis[Analysis]
@@ -94,13 +92,12 @@ This isn't digitization. It's cognitive intermediation at civilization scale.
 
 ```mermaid
 graph LR
-    subgraph "Traditional Learning"
+    subgraph traditionallearning["Traditional Learning"]
         Teacher[Teacher] --> Student1[Student A]
         Teacher --> Student2[Student B]
         Teacher --> Student3[Student C]
     end
-
-    subgraph "AI-Augmented Learning"
+    subgraph aiaugmentedlearning["AI-Augmented Learning"]
         AI[AI System] --> Path1[Personalized Path A]
         AI --> Path2[Personalized Path B]
         AI --> Path3[Personalized Path C]

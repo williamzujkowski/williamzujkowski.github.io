@@ -58,22 +58,20 @@ Claude-Flow supports multiple swarm topologies, each optimized for different sce
 
 ```mermaid
 graph TB
-    subgraph "Swarm Topologies"
+    subgraph swarmtopologies["Swarm Topologies"]
         Mesh[Mesh - P2P Collaboration]
         Hier[Hierarchical - Queen/Worker]
         Ring[Ring - Sequential Pipeline]
         Star[Star - Centralized Control]
     end
-    
-    subgraph "Core Agents"
+    subgraph coreagents["Core Agents"]
         Orch[🎭 Orchestrator]
         Research[🔍 Researcher]
         Arch[🏗️ Architect]
         Coder[💻 Coder]
         Tester[🧪 Tester]
     end
-    
-    subgraph "Intelligence Layer"
+    subgraph intelligencelayer["Intelligence Layer"]
         Memory[(💾 Persistent Memory)]
         Neural[🧠 Neural Training]
         Pattern[🔄 Pattern Recognition]

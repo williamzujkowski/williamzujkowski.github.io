@@ -1,5 +1,5 @@
 ---
-date: '2024-04-14T00:00:00.000Z'
+date: 2024-04-14
 description: Zero trust security assumes breach and verifies everything. My journey implementing these principles in a homelab environment with practical examples
 images:
   hero:
@@ -40,25 +40,22 @@ I've seen organizations struggle with this transition, and I've learned that imp
 
 ```mermaid
 graph TB
-    subgraph "Identity & Access"
+    subgraph identityaccess["Identity & Access"]
         User[Users]
         Device[Devices]
         Apps[Applications]
     end
-    
-    subgraph "Policy Engine"
+    subgraph policyengine["Policy Engine"]
         PEP[Policy Enforcement]
         PDP[Policy Decision]
         Trust[Trust Engine]
     end
-    
-    subgraph "Verification"
+    subgraph verification["Verification"]
         MFA[Multi-Factor Auth]
         Risk[Risk Assessment]
         Context[Context Analysis]
     end
-    
-    subgraph "Resources"
+    subgraph resources["Resources"]
         Data[(Data)]
         Services[Services]
         Network[Network]

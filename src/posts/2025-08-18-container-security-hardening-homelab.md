@@ -39,21 +39,19 @@ That mistake taught me container security isn't optional, even in a homelab. **H
 
 ```mermaid
 graph TB
-    subgraph "Build Time Security"
+    subgraph buildtimesecurity["Build Time Security"]
         Base[Base Image Selection]
         Scan[Vulnerability Scanning]
         Secrets[Secrets Management]
         Build[Secure Build Process]
     end
-
-    subgraph "Runtime Security"
+    subgraph runtimesecurity["Runtime Security"]
         Runtime[Runtime Protection]
         Network[Network Policies]
         Resources[Resource Limits]
         Monitor[Continuous Monitoring]
     end
-
-    subgraph "Defense Layers"
+    subgraph defenselayers["Defense Layers"]
         AppArmor[AppArmor/SELinux]
         Seccomp[Seccomp Profiles]
         Capabilities[Capability Dropping]

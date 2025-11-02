@@ -59,19 +59,17 @@ After running my home network with 25+ connected devices (including IoT gadgets,
 
 ```mermaid
 graph TB
-    subgraph "Threat Actors"
+    subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
         TA3[Supply Chain]
     end
-    
-    subgraph "Attack Vectors"
+    subgraph attackvectors["Attack Vectors"]
         AV1[Network]
         AV2[Application]
         AV3[Physical]
     end
-    
-    subgraph "Defenses"
+    subgraph defenses["Defenses"]
         D1[Prevention]
         D2[Detection]
         D3[Response]

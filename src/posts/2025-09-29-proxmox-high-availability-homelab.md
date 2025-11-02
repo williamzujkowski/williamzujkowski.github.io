@@ -34,28 +34,24 @@ That painful lesson taught me: single points of failure are unacceptable, even i
 
 ```mermaid
 graph TB
-    subgraph "Cluster Nodes"
+    subgraph clusternodes["Cluster Nodes"]
         Node1[Proxmox Node 1<br/>Dell R940]
         Node2[Proxmox Node 2<br/>Dell R730]
         Node3[Proxmox Node 3<br/>Custom Build]
     end
-
-    subgraph "Shared Storage"
+    subgraph sharedstorage["Shared Storage"]
         Ceph[(Ceph Cluster<br/>Distributed Storage)]
     end
-
-    subgraph "Network Infrastructure"
+    subgraph networkinfrastructure["Network Infrastructure"]
         Switch1[10Gb Switch<br/>Primary]
         Switch2[1Gb Switch<br/>Management]
     end
-
-    subgraph "HA Services"
+    subgraph haservices["HA Services"]
         Corosync[Corosync<br/>Cluster Communication]
         PVE[PVE HA Manager<br/>Failover Orchestration]
         Fencing[Fencing Agent<br/>Split-Brain Prevention]
     end
-
-    subgraph "VMs with HA"
+    subgraph vmswithha["VMs with HA"]
         DNS[Pi-hole DNS]
         Vault[Bitwarden]
         Monitor[Wazuh SIEM]

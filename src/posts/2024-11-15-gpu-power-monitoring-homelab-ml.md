@@ -1,5 +1,5 @@
 ---
-date: '2024-11-15T00:00:00.000Z'
+date: 2024-11-15
 description: Monitoring GPU power consumption during ML training with NVIDIA SMI, custom dashboards, and optimization strategies to reduce electricity costs
 tags:
 - posts

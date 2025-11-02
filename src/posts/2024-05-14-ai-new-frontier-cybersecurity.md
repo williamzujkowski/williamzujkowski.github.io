@@ -18,7 +18,7 @@ tags:
 - ethics
 title: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas'
 ---
-In August 2024, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. My test environment was running on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs.
+In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. My test environment was running on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs.
 
 The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted (that's an 8.2% accuracy rate, if you're keeping score). The rest were false positives from my perfectly normal Plex streaming, Home Assistant automation triggers, and Docker container restarts. I spent three days tuning detection thresholds, thinking I'd made a terrible mistake.
 
@@ -30,19 +30,17 @@ That moment crystallized both the immense promise and the frustrating reality of
 
 ```mermaid
 graph LR
-    subgraph "Data Pipeline"
+    subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
         Feature[Feature Engineering]
     end
-    
-    subgraph "Model Training"
+    subgraph modeltraining["Model Training"]
         Train[Training]
         Val[Validation]
         Test[Testing]
     end
-    
-    subgraph "Deployment"
+    subgraph deployment["Deployment"]
         Deploy[Model Deployment]
         Monitor[Monitoring]
         Update[Updates]

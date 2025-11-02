@@ -28,19 +28,17 @@ My homelab became my testing ground. I ran Llama 3.1 70B on my Dell R940, burnin
 
 ```mermaid
 graph LR
-    subgraph "Data Pipeline"
+    subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
         Feature[Feature Engineering]
     end
-    
-    subgraph "Model Training"
+    subgraph modeltraining["Model Training"]
         Train[Training]
         Val[Validation]
         Test[Testing]
     end
-    
-    subgraph "Deployment"
+    subgraph deployment["Deployment"]
         Deploy[Model Deployment]
         Monitor[Monitoring]
         Update[Updates]

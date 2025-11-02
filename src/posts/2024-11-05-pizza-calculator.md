@@ -1,5 +1,6 @@
 ---
-date: '2024-05-26T00:00:00.000Z'
+date: 2024-05-26
+author: William Zujkowski
 description: How quantifying pizza provisioning enhances team performance during high-pressure development, combining resource planning and behavioral economics
 images:
   hero:
@@ -31,18 +32,16 @@ Enter the Pizza Calculator. A specialized tool for optimizing resource allocatio
 
 ```mermaid
 graph TB
-    subgraph "Frontend"
+    subgraph frontend["Frontend"]
         CDN[CDN]
         LB[Load Balancer]
     end
-    
-    subgraph "Application"
+    subgraph application["Application"]
         API[API Gateway]
         Services[Microservices]
         Cache[Redis Cache]
     end
-    
-    subgraph "Data"
+    subgraph data["Data"]
         DB[(Database)]
         S3[Object Storage]
         Queue[Message Queue]

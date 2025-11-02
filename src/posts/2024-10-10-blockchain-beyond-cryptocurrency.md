@@ -1,5 +1,5 @@
 ---
-date: '2024-10-10T00:00:00.000Z'
+date: 2024-10-10
 description: Running Ethereum nodes on my homelab taught me blockchain is about building trust without central authorities. Here's what works (and doesn't)
 images:
   hero:
@@ -37,23 +37,23 @@ That has implications far beyond finance, though I'm still figuring out where th
 
 ```mermaid
 graph TD
-    subgraph "Network Layer"
+    subgraph network["Network Layer"]
         P2P[P2P Network]
         Gossip[Gossip Protocol]
     end
 
-    subgraph "Consensus"
+    subgraph consensus["Consensus"]
         Mining[Mining/Validation]
         Consensus[Consensus Algorithm]
     end
 
-    subgraph "Data Layer"
+    subgraph data["Data Layer"]
         Blocks[Blocks]
         Chain[Blockchain]
         State[State Tree]
     end
 
-    subgraph "Application"
+    subgraph app["Application"]
         Smart[Smart Contracts]
         DApp[DApps]
     end
@@ -67,8 +67,10 @@ graph TD
     State --> Smart
     Smart --> DApp
 
-    style Consensus fill:#ff9800
-    style Smart fill:#9c27b0
+    classDef orange fill:#ff9800,stroke:#e65100,stroke-width:2px
+    classDef purple fill:#9c27b0,stroke:#6a1b9a,stroke-width:2px
+    class Consensus orange
+    class Smart purple
 ```
 
 My local testnet processed about 47 transactions per second on the Dell R940, which sounds impressive until you compare it to Visa's 24,000 tps. Scalability remains a real challenge, and I'm not convinced we've solved it yet.

@@ -34,27 +34,24 @@ That question led me to self-host Bitwarden, and I haven't looked back.
 
 ```mermaid
 graph TB
-    subgraph "Client Access"
+    subgraph clientaccess["Client Access"]
         Web[Web Vault]
         Mobile[Mobile Apps]
         Desktop[Desktop Apps]
         Browser[Browser Extensions]
     end
-
-    subgraph "Bitwarden Server"
+    subgraph bitwardenserver["Bitwarden Server"]
         Nginx[Nginx Reverse Proxy]
         Vaultwarden[Vaultwarden Service]
         DB[(SQLite/PostgreSQL)]
     end
-
-    subgraph "Security Layer"
+    subgraph securitylayer["Security Layer"]
         Firewall[Firewall Rules]
         WAF[ModSecurity WAF]
         Fail2ban[Fail2ban]
         TLS[TLS 1.3]
     end
-
-    subgraph "Backup & Recovery"
+    subgraph backuprecovery["Backup & Recovery"]
         Local[Local Backups]
         Offsite[Offsite Backups]
         Encrypted[Encrypted Storage]

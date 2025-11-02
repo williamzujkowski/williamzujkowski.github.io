@@ -29,18 +29,16 @@ By June 2024, I had created distinct VLANs for management (192.168.1.0/24), serv
 
 ```mermaid
 graph TD
-    subgraph "Perimeter"
+    subgraph perimeter["Perimeter"]
         FW[Firewall]
         WAF[WAF]
         IDS[IDS/IPS]
     end
-    
-    subgraph "Network"
+    subgraph network["Network"]
         VLAN[Segmentation]
         NAC[Access Control]
     end
-    
-    subgraph "Endpoint"
+    subgraph endpoint["Endpoint"]
         EDR[EDR]
         AV[Antivirus]
         DLP[DLP]

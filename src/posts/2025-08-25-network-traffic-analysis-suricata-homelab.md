@@ -34,27 +34,24 @@ That incident convinced me: you can't protect what you can't see.
 
 ```mermaid
 graph TB
-    subgraph "Traffic Collection"
+    subgraph trafficcollection["Traffic Collection"]
         Mirror[Port Mirroring]
         Tap[Network TAP]
         Span[SPAN Port]
     end
-
-    subgraph "Suricata Engine"
+    subgraph suricataengine["Suricata Engine"]
         Capture[Packet Capture]
         Decode[Protocol Decoder]
         Detection[Detection Engine]
         Logger[Event Logger]
     end
-
-    subgraph "Rule Management"
+    subgraph rulemanagement["Rule Management"]
         Emerging[Emerging Threats]
         Custom[Custom Rules]
         ETPRO[ET Pro Rules]
         Update[Rule Updates]
     end
-
-    subgraph "Analysis & Response"
+    subgraph analysisresponse["Analysis & Response"]
         EVE[EVE JSON Logs]
         Filebeat[Filebeat Shipper]
         Elastic[Elasticsearch]

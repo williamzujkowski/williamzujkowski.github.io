@@ -1,5 +1,6 @@
 ---
 date: 2024-06-11
+author: William Zujkowski
 description: 'After migrating 23 services to Kubernetes and debugging for weeks, I explored what comes after containers. Spoiler: I broke things'
 images:
   hero:
@@ -51,18 +52,16 @@ What this means in practice: waiting 3+ minutes every time I reboot my homelab i
 
 ```mermaid
 graph TB
-    subgraph "Frontend"
+    subgraph frontend["Frontend"]
         CDN[CDN]
         LB[Load Balancer]
     end
-
-    subgraph "Application"
+    subgraph application["Application"]
         API[API Gateway]
         Services[Microservices]
         Cache[Redis Cache]
     end
-
-    subgraph "Data"
+    subgraph data["Data"]
         DB[(Database)]
         S3[Object Storage]
         Queue[Message Queue]

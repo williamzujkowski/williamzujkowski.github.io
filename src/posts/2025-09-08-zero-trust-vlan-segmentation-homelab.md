@@ -34,40 +34,34 @@ That camera is now in a VLAN jail, where it belongs.
 
 ```mermaid
 graph TB
-    subgraph "Internet Edge"
+    subgraph internetedge["Internet Edge"]
         WAN[WAN Connection]
         UDM[Dream Machine Pro]
     end
-
-    subgraph "Management VLAN 10"
+    subgraph managementvlan10["Management VLAN 10"]
         Admin[Admin Devices]
         Proxmox[Proxmox Host]
         Switches[Network Switches]
     end
-
-    subgraph "Trusted VLAN 20"
+    subgraph trustedvlan20["Trusted VLAN 20"]
         Workstation[Workstations]
         Laptops[Laptops]
         Phones[Personal Phones]
     end
-
-    subgraph "Server VLAN 30"
+    subgraph servervlan30["Server VLAN 30"]
         Web[Web Servers]
         DB[Databases]
         Apps[Applications]
     end
-
-    subgraph "IoT VLAN 40"
+    subgraph iotvlan40["IoT VLAN 40"]
         Camera[IP Cameras]
         Smart[Smart Devices]
         Sensors[IoT Sensors]
     end
-
-    subgraph "Guest VLAN 50"
+    subgraph guestvlan50["Guest VLAN 50"]
         GuestDevices[Guest Devices]
     end
-
-    subgraph "Security Services"
+    subgraph securityservices["Security Services"]
         Firewall[Firewall Rules]
         IDS[Suricata IDS]
         DNS[Pi-hole DNS]

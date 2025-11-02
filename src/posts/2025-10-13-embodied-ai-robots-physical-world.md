@@ -41,12 +41,11 @@ That gap is closing. VLA models combine three capabilities:
 
 ```mermaid
 graph LR
-    subgraph "Traditional AI Agents"
+    subgraph traditionalaiagents["Traditional AI Agents"]
         A[Text Input] --> B[Language Model]
         B --> C[Text Output]
     end
-
-    subgraph "Vision-Language-Action Models"
+    subgraph visionlanguageactionmodels["Vision-Language-Action Models"]
         D[Visual Input] --> E[VLA Model]
         F[Language Input] --> E
         E --> G[Physical Actions]
@@ -147,7 +146,7 @@ VLA models are powerful but immature, and I'm frankly concerned about how quickl
 
 ```mermaid
 graph TB
-    subgraph "Safety Layers"
+    subgraph safetylayers["Safety Layers"]
         A[VLA Model] --> B[Action Filter]
         B --> C[Collision Detection]
         C --> D[Force Limits]

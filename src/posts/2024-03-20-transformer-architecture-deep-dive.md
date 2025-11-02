@@ -29,18 +29,16 @@ In late 2018, I implemented my first Transformer from scratch for a machine tran
 
 ```mermaid
 graph TD
-    subgraph "Input"
+    subgraph input["Input"]
         Tokens[Token Embeddings]
         Pos[Positional Encoding]
     end
-    
-    subgraph "Encoder Stack"
+    subgraph encoderstack["Encoder Stack"]
         MHA1[Multi-Head Attention]
         FFN1[Feed Forward]
         Norm1[Layer Norm]
     end
-    
-    subgraph "Decoder Stack"
+    subgraph decoderstack["Decoder Stack"]
         MHA2[Masked Attention]
         Cross[Cross Attention]
         FFN2[Feed Forward]

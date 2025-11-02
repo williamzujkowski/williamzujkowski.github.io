@@ -1,5 +1,5 @@
 ---
-date: '2024-05-05T00:00:00.000Z'
+date: 2024-05-05
 description: Quantum computers will break current encryption within years. Here's how I'm preparing with post-quantum cryptography and quantum-resistant algorithms
 images:
   hero:
@@ -30,18 +30,16 @@ Having followed this field closely since 2018, I've come to understand that quan
 
 ```mermaid
 graph LR
-    subgraph "Initialization"
+    subgraph initialization["Initialization"]
         Q0[Qubit 0: Zero State]
         Q1[Qubit 1: Zero State]
     end
-    
-    subgraph "Quantum Gates"
+    subgraph quantumgates["Quantum Gates"]
         H[Hadamard Gate]
         CNOT[CNOT Gate]
         M[Measurement]
     end
-    
-    subgraph "Classical Output"
+    subgraph classicaloutput["Classical Output"]
         C0[Classical Bit 0]
         C1[Classical Bit 1]
     end

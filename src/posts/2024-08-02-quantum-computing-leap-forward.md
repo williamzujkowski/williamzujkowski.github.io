@@ -30,18 +30,16 @@ That learning experience taught me something critical. Quantum computing isn't j
 
 ```mermaid
 graph LR
-    subgraph "Initialization"
+    subgraph initialization["Initialization"]
         Q0[Qubit 0: Zero State]
         Q1[Qubit 1: Zero State]
     end
-    
-    subgraph "Quantum Gates"
+    subgraph quantumgates["Quantum Gates"]
         H[Hadamard Gate]
         CNOT[CNOT Gate]
         M[Measurement]
     end
-    
-    subgraph "Classical Output"
+    subgraph classicaloutput["Classical Output"]
         C0[Classical Bit 0]
         C1[Classical Bit 1]
     end

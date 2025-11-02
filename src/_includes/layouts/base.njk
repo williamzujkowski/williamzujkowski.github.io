@@ -494,10 +494,18 @@
                     containerDiv.appendChild(graphDiv);
                 }
                 
-                // Step 2: Initialize all mermaid diagrams
-                await mermaid.run();
-                // Mermaid diagrams rendered
-                
+                // Step 2: Initialize all mermaid diagrams with error handling
+                try {
+                    await mermaid.run();
+                    console.log(`✅ Successfully rendered ${mermaidBlocks.length} Mermaid diagram(s)`);
+                } catch (error) {
+                    console.error('❌ Mermaid rendering failed:', error);
+                    // Log each diagram's content for debugging
+                    document.querySelectorAll('.mermaid').forEach((div, index) => {
+                        console.error(`Diagram ${index + 1} content:`, div.textContent);
+                    });
+                }
+
                 // Diagrams are now styled via CSS, no need for inline styles
             }
             

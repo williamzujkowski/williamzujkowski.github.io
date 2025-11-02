@@ -1,5 +1,5 @@
 ---
-date: '2024-05-19T00:00:00.000Z'
+date: 2024-05-19
 description: How AI and edge computing create responsive, private systems that process data locally, revolutionizing autonomous vehicles and smart manufacturing
 images:
   hero:
@@ -32,19 +32,17 @@ This transformation is creating systems that can respond in milliseconds rather 
 
 ```mermaid
 graph LR
-    subgraph "Data Pipeline"
+    subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
         Feature[Feature Engineering]
     end
-    
-    subgraph "Model Training"
+    subgraph modeltraining["Model Training"]
         Train[Training]
         Val[Validation]
         Test[Testing]
     end
-    
-    subgraph "Deployment"
+    subgraph deployment["Deployment"]
         Deploy[Model Deployment]
         Monitor[Monitoring]
         Update[Updates]

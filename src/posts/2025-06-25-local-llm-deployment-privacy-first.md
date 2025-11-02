@@ -35,25 +35,22 @@ After extensive research and testing in my home lab environment, I've developed 
 
 ```mermaid
 graph TB
-    subgraph "Hardware"
+    subgraph hardware["Hardware"]
         GPU[GPU/TPU]
         CPU[CPU]
         RAM[Memory]
     end
-    
-    subgraph "Model Layer"
+    subgraph modellayer["Model Layer"]
         Models[(Model Files)]
         Weights[Weights]
         Config[Configuration]
     end
-    
-    subgraph "Inference"
+    subgraph inference["Inference"]
         Engine[Inference Engine]
         Cache[Token Cache]
         Batch[Batch Processing]
     end
-    
-    subgraph "Interface"
+    subgraph interface["Interface"]
         API[REST API]
         UI[Web UI]
         CLI[CLI Tool]
