@@ -1,17 +1,46 @@
 #!/usr/bin/env -S uv run python3
 """
-Validate Mermaid diagram syntax in all blog posts.
+SCRIPT: validate-mermaid-syntax.py
+PURPOSE: Mermaid Syntax Validator
+CATEGORY: blog_content
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
-This script:
-1. Finds all Mermaid code blocks in posts
-2. Validates basic syntax (proper fencing, valid diagram types, common errors)
-3. Reports issues with file locations and suggested fixes
+DESCRIPTION:
+    Validate Mermaid diagram syntax in all blog posts.
+
+    This script:
+    1. Finds all Mermaid code blocks in posts
+    2. Validates basic syntax (proper fencing, valid diagram types, common errors)
+    3. Reports issues with file locations and suggested fixes
+
+LLM_USAGE:
+    python scripts/blog-content/validate-mermaid-syntax.py
+
+ARGUMENTS:
+    None
+
+EXAMPLES:
+    # Basic usage
+    python scripts/blog-content/validate-mermaid-syntax.py
+
+OUTPUT:
+    - Validation report with any syntax errors found in Mermaid diagrams
 """
 
 import re
 import sys
 from pathlib import Path
 from typing import List, Dict, Any
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 # Valid Mermaid diagram types
 VALID_DIAGRAM_TYPES = {
@@ -137,47 +166,47 @@ def validate_posts_directory(posts_dir: Path) -> Dict[str, List]:
                         all_issues[str(post_file)] = []
                     all_issues[str(post_file)].extend(errors)
 
-    print(f"\n📊 Scan Summary:")
-    print(f"  - Posts scanned: {len(list(posts_dir.glob('*.md')))}")
-    print(f"  - Posts with Mermaid: {post_count}")
-    print(f"  - Total Mermaid blocks: {block_count}")
-    print(f"  - Files with issues: {len(all_issues)}")
+    logger.info("\n📊 Scan Summary:")
+    logger.info(f"  - Posts scanned: {len(list(posts_dir.glob('*.md')))}")
+    logger.info(f"  - Posts with Mermaid: {post_count}")
+    logger.info(f"  - Total Mermaid blocks: {block_count}")
+    logger.info(f"  - Files with issues: {len(all_issues)}")
 
     return all_issues
 
 def main():
     """Main validation entry point."""
-    print("🔍 Validating Mermaid diagram syntax...\n")
+    logger.info("🔍 Validating Mermaid diagram syntax...\n")
 
     repo_root = Path(__file__).parent.parent.parent
     posts_dir = repo_root / 'src' / 'posts'
 
     if not posts_dir.exists():
-        print(f"❌ Posts directory not found: {posts_dir}")
+        logger.error(f"❌ Posts directory not found: {posts_dir}")
         sys.exit(1)
 
     issues = validate_posts_directory(posts_dir)
 
     if not issues:
-        print("\n✅ All Mermaid diagrams validated successfully!")
+        logger.info("\n✅ All Mermaid diagrams validated successfully!")
         return 0
 
-    print(f"\n⚠️  Found issues in {len(issues)} files:\n")
+    logger.warning(f"\n⚠️  Found issues in {len(issues)} files:\n")
 
     for filepath, errors in sorted(issues.items()):
         rel_path = Path(filepath).relative_to(repo_root)
-        print(f"\n📄 {rel_path}")
-        print("=" * 80)
+        logger.warning(f"\n📄 {rel_path}")
+        logger.warning("=" * 80)
 
         for error in errors:
-            print(f"\n  Line {error['line']}: {error['type']}")
-            print(f"  ├─ {error['message']}")
+            logger.warning(f"\n  Line {error['line']}: {error['type']}")
+            logger.warning(f"  ├─ {error['message']}")
             if 'content' in error:
-                print(f"  ├─ Content: {error['content']}")
+                logger.warning(f"  ├─ Content: {error['content']}")
             if 'suggestion' in error:
-                print(f"  └─ Suggestion: {error['suggestion']}")
+                logger.warning(f"  └─ Suggestion: {error['suggestion']}")
 
-    print(f"\n\n❌ Validation failed with {sum(len(e) for e in issues.values())} total errors")
+    logger.error(f"\n\n❌ Validation failed with {sum(len(e) for e in issues.values())} total errors")
     return 1
 
 if __name__ == '__main__':
