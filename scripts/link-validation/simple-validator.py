@@ -4,8 +4,8 @@ SCRIPT: simple-validator.py
 PURPOSE: Simple Link Validator
 CATEGORY: utilities
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Simple Link Validator. This script is part of the utilities
@@ -51,6 +51,12 @@ from typing import Dict, List, Optional
 from datetime import datetime
 import argparse
 from urllib.parse import urlparse
+
+# Setup logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 class SimpleValidator:
     """Simple link validator using only aiohttp"""
@@ -143,7 +149,7 @@ class SimpleValidator:
 
             # Progress indicator
             if not quiet:
-                print(f"Validated {min(i+batch_size, len(unique_urls))}/{len(unique_urls)} URLs")
+                logger.info(f"Validated {min(i+batch_size, len(unique_urls))}/{len(unique_urls)} URLs")
 
         self.results = results
         return results
@@ -168,13 +174,13 @@ class SimpleValidator:
             json.dump(data, f, indent=2)
 
         if not quiet:
-            print(f"\n✅ Validation complete!")
-            print(f"  Total: {self.stats['total']}")
-            print(f"  Valid: {self.stats['valid']}")
-            print(f"  Broken: {self.stats['broken']}")
-            print(f"  Redirects: {self.stats['redirect']}")
-            print(f"  Timeouts: {self.stats['timeout']}")
-            print(f"  Errors: {self.stats['error']}")
+            logger.info(f"\n✅ Validation complete!")
+            logger.info(f"  Total: {self.stats['total']}")
+            logger.info(f"  Valid: {self.stats['valid']}")
+            logger.info(f"  Broken: {self.stats['broken']}")
+            logger.info(f"  Redirects: {self.stats['redirect']}")
+            logger.info(f"  Timeouts: {self.stats['timeout']}")
+            logger.info(f"  Errors: {self.stats['error']}")
 
 async def main():
     parser = argparse.ArgumentParser(
@@ -198,9 +204,9 @@ Examples:
     args = parser.parse_args()
 
     if not args.links.exists():
-        print(f"Error: File not found: {args.links}", file=sys.stderr)
-        print(f"Expected: {args.links.absolute()}", file=sys.stderr)
-        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        logger.error(f"Error: File not found: {args.links}")
+        logger.error(f"Expected: {args.links.absolute()}")
+        logger.error(f"Tip: Run from repository root or provide absolute path")
         sys.exit(2)
 
     # Load links
@@ -209,7 +215,7 @@ Examples:
 
     urls = [link['url'] for link in links_data.get('links', [])]
     if not args.quiet:
-        print(f"Validating {len(set(urls))} unique URLs...")
+        logger.info(f"Validating {len(set(urls))} unique URLs...")
 
     # Validate
     async with SimpleValidator() as validator:
@@ -219,11 +225,11 @@ Examples:
         # Show broken links
         broken = validator.get_broken_links()
         if broken and not args.quiet:
-            print(f"\n❌ Found {len(broken)} broken links:")
+            logger.info(f"\n❌ Found {len(broken)} broken links:")
             for link in broken[:10]:
-                print(f"  - {link['url']}")
+                logger.info(f"  - {link['url']}")
                 if link.get('notes'):
-                    print(f"    {link['notes']}")
+                    logger.info(f"    {link['notes']}")
 
     return 0
 

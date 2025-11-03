@@ -4,8 +4,8 @@ SCRIPT: generate-og-image.py
 PURPOSE: Generate Open Graph images for social sharing
 CATEGORY: image_management
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Generate Open Graph images for social sharing. This script is part of the image management
@@ -44,7 +44,15 @@ MANIFEST_REGISTRY: scripts/generate-og-image.py
 
 from PIL import Image, ImageDraw, ImageFont
 import os
+import sys
 import textwrap
+from pathlib import Path
+
+# Setup logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 def create_og_image(title, output_path, subtitle=None):
     """Create an Open Graph image with the given title"""
@@ -125,7 +133,7 @@ def create_og_image(title, output_path, subtitle=None):
     
     # Save image
     img.save(output_path, 'PNG', optimize=True)
-    print(f"Created: {output_path}")
+    logger.info(f"Created: {output_path}")
 
 def main():
     """Generate OG images for the site"""
@@ -154,10 +162,10 @@ def main():
     
     for filename, (title, subtitle) in pages.items():
         create_og_image(title, os.path.join(output_dir, filename), subtitle)
-    
-    print(f"\nGenerated {len(pages) + 1} Open Graph images in {output_dir}")
-    print("\nTo use these images, add to your page frontmatter:")
-    print('image: "/assets/images/og/your-image.png"')
+
+    logger.info(f"\nGenerated {len(pages) + 1} Open Graph images in {output_dir}")
+    logger.info("\nTo use these images, add to your page frontmatter:")
+    logger.info('image: "/assets/images/og/your-image.png"')
 
 if __name__ == "__main__":
     main()

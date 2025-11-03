@@ -1,0 +1,46 @@
+BATCH 5 TARGET SCRIPTS (8 Total)
+================================
+
+Execute in order for optimal efficiency (wrappers first for batch pattern):
+
+WRAPPERS (4 scripts, ~40 minutes total):
+1. /home/william/git/williamzujkowski.github.io/scripts/link-validation/_link-validator-wrapper.py
+   - 25 lines, 2 prints, ~10 min
+
+2. /home/william/git/williamzujkowski.github.io/scripts/link-validation/_citation-updater-wrapper.py
+   - 25 lines, 2 prints, ~10 min
+
+3. /home/william/git/williamzujkowski.github.io/scripts/link-validation/_batch-link-fixer-wrapper.py
+   - 25 lines, 2 prints, ~10 min
+
+4. /home/william/git/williamzujkowski.github.io/scripts/_validate-gist-links-wrapper.py
+   - 25 lines, 2 prints, ~10 min
+
+
+MEDIUM SCRIPTS (3 scripts, ~58 minutes total):
+5. /home/william/git/williamzujkowski.github.io/scripts/link-validation/link-extractor.py
+   - 350 lines, 10 prints, ~20 min
+
+6. /home/william/git/williamzujkowski.github.io/scripts/link-validation/simple-validator.py
+   - 231 lines, 15 prints, ~20 min
+
+7. /home/william/git/williamzujkowski.github.io/scripts/utilities/batch-analyzer.py
+   - 158 lines, 14 prints, ~18 min
+
+
+SMALL SCRIPT (1 script, ~13 minutes):
+8. /home/william/git/williamzujkowski.github.io/scripts/blog-images/generate-og-image.py
+   - 163 lines, 4 prints, ~13 min
+
+
+TOTAL ESTIMATED TIME: 111 minutes (1.85 hours)
+
+EXPECTED OUTCOME:
+- Progress: 39/77 → 47/77 (50.6% → 61.0%)
+- Milestone: ✅ Exceeds 60% target
+- Risk: LOW (all scripts ≤15 prints, verified with grep)
+
+VERIFICATION COMMAND:
+find scripts/ -name "*.py" -exec grep -l "logging_config\|setup_logger\|setup_logging" {} \; | wc -l
+
+EXPECTED RESULT AFTER BATCH 5: 47

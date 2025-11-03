@@ -2,6 +2,9 @@
 """
 Batch analyzer - Scans all posts and ranks them for refactoring priority
 Usage: python batch-analyzer.py
+
+Version: 2.0.0
+Updated: 2025-11-03
 """
 
 import re
@@ -10,6 +13,12 @@ import argparse
 from pathlib import Path
 from dataclasses import dataclass
 from typing import List
+
+# Setup logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 WEAK_WORDS = [
     'really', 'very', 'quite', 'just', 'actually', 'basically',
@@ -92,9 +101,9 @@ Examples:
     posts_dir = args.posts_dir
 
     if not posts_dir.exists():
-        print(f"Error: Directory not found: {posts_dir}", file=sys.stderr)
-        print(f"Expected: {posts_dir.absolute()}", file=sys.stderr)
-        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        logger.error(f"Error: Directory not found: {posts_dir}")
+        logger.error(f"Expected: {posts_dir.absolute()}")
+        logger.error(f"Tip: Run from repository root or provide absolute path")
         sys.exit(2)
 
     # Skip Batch 1 completed posts
@@ -107,8 +116,8 @@ Examples:
     analyses: List[PostAnalysis] = []
 
     if not args.quiet:
-        print("Scanning all blog posts...")
-        print("="*80)
+        logger.info("Scanning all blog posts...")
+        logger.info("="*80)
 
     for post_file in sorted(posts_dir.glob('*.md')):
         if post_file.name in batch1_posts:
@@ -122,22 +131,22 @@ Examples:
 
     # Print top candidates
     if not args.quiet:
-        print(f"\n{'Rank':<6} {'Filename':<50} {'Weak':<6} {'Bullets':<8} {'Cites':<7} {'Score':<6}")
-        print("="*80)
+        logger.info(f"\n{'Rank':<6} {'Filename':<50} {'Weak':<6} {'Bullets':<8} {'Cites':<7} {'Score':<6}")
+        logger.info("="*80)
 
         for i, analysis in enumerate(analyses[:args.top], 1):
-            print(f"{i:<6} {analysis.filename:<50} {analysis.weak_language:<6} {analysis.bullets:<8} {analysis.citations:<7} {analysis.priority_score:<6}")
+            logger.info(f"{i:<6} {analysis.filename:<50} {analysis.weak_language:<6} {analysis.bullets:<8} {analysis.citations:<7} {analysis.priority_score:<6}")
 
-        print("\n" + "="*80)
-        print(f"\nTop 8 candidates for Batch 2:")
-        print("-"*80)
+        logger.info("\n" + "="*80)
+        logger.info(f"\nTop 8 candidates for Batch 2:")
+        logger.info("-"*80)
 
     batch2_candidates = []
     for i, analysis in enumerate(analyses[:8], 1):
         status = "🔴" if analysis.weak_language > 15 else "🟡" if analysis.weak_language > 5 else "🟢"
         if not args.quiet:
-            print(f"{i}. {status} {analysis.filename}")
-            print(f"   Weak: {analysis.weak_language}, Bullets: {analysis.bullets}, Citations: {analysis.citations}")
+            logger.info(f"{i}. {status} {analysis.filename}")
+            logger.info(f"   Weak: {analysis.weak_language}, Bullets: {analysis.bullets}, Citations: {analysis.citations}")
         batch2_candidates.append(analysis.filename)
 
     # Save batch2 selection
@@ -150,7 +159,7 @@ Examples:
             f.write(f"{i}. {filename}\n")
 
     if not args.quiet:
-        print(f"\n✅ Batch 2 selection saved to docs/batch-2/batch-2-selection.txt")
+        logger.info(f"\n✅ Batch 2 selection saved to docs/batch-2/batch-2-selection.txt")
 
     return 0
 

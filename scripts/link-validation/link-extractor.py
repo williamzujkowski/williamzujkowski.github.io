@@ -4,8 +4,8 @@ SCRIPT: link-extractor.py
 PURPOSE: Link Extractor for Blog Posts
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Link Extractor for Blog Posts. This script is part of the link validation
@@ -45,11 +45,18 @@ MANIFEST_REGISTRY: scripts/link-extractor.py
 import re
 import json
 import argparse
+import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 from dataclasses import dataclass, asdict
 from datetime import datetime
 import hashlib
+
+# Setup logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 @dataclass
 class LinkContext:
@@ -178,7 +185,7 @@ class LinkExtractor:
                         )
 
         except Exception as e:
-            print(f"Error processing {file_path}: {e}")
+            logger.error(f"Error processing {file_path}: {e}")
 
     def _is_part_of_markdown_link(self, line: str, url: str) -> bool:
         """Check if a URL is already part of a markdown link"""
@@ -286,13 +293,11 @@ class LinkExtractor:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
 
-        print(f"✅ Extracted {len(self.links)} links from {self.stats['total_files']} files")
-        print(f"📊 By type: {self.stats['by_type']}")
-        print(f"💾 Results saved to {output_file}")
+        logger.info(f"✅ Extracted {len(self.links)} links from {self.stats['total_files']} files")
+        logger.info(f"📊 By type: {self.stats['by_type']}")
+        logger.info(f"💾 Results saved to {output_file}")
 
 def main():
-    import sys
-
     parser = argparse.ArgumentParser(
         description='Extract links from blog posts',
         epilog='''
@@ -321,7 +326,7 @@ Examples:
 
     try:
         if not args.posts_dir.exists():
-            print(f"❌ Posts directory not found: {args.posts_dir}", file=sys.stderr)
+            logger.error(f"❌ Posts directory not found: {args.posts_dir}")
             sys.exit(2)
 
         extractor = LinkExtractor(args.posts_dir)
@@ -333,17 +338,17 @@ Examples:
             extractor.links = citation_links
             extractor.stats['total_links'] = len(citation_links)
             if not args.quiet:
-                print(f"🔬 Filtered to {len(citation_links)} citation links (from {len(all_links)} total)")
+                logger.info(f"🔬 Filtered to {len(citation_links)} citation links (from {len(all_links)} total)")
 
         extractor.save_results(args.output)
         sys.exit(0)
     except FileNotFoundError as e:
-        print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected: {args.posts_dir}", file=sys.stderr)
-        print("Tip: Run from repository root", file=sys.stderr)
+        logger.error(f"Error: File not found: {e}")
+        logger.error(f"Expected: {args.posts_dir}")
+        logger.error("Tip: Run from repository root")
         sys.exit(2)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)
 
 if __name__ == '__main__':

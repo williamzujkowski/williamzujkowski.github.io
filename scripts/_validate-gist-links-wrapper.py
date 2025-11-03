@@ -4,11 +4,20 @@ DEPRECATED: This script has been replaced by link-manager.py
 Use: python scripts/link-validation/link-manager.py check-gists [options]
 
 This wrapper provides backward compatibility.
+
+Version: 2.0.0
+Updated: 2025-11-03
 """
 
 import sys
 import subprocess
 from pathlib import Path
+
+# Setup logging
+sys.path.insert(0, str(Path(__file__).parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 def main():
     # Build command for new unified script
@@ -20,6 +29,6 @@ def main():
     return result.returncode
 
 if __name__ == '__main__':
-    print("⚠️  WARNING: validate-gist-links.py is deprecated. Use: link-manager.py check-gists")
-    print("   Running compatibility wrapper...\n")
+    logger.warning("⚠️  WARNING: validate-gist-links.py is deprecated. Use: link-manager.py check-gists")
+    logger.info("   Running compatibility wrapper...\n")
     sys.exit(main())
