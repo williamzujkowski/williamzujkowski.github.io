@@ -144,8 +144,14 @@
 **Batch 1 Results:** +5 scripts (1 new migration, 4 already done)
 **Completion Report:** `docs/MIGRATION_REPORTS/logging-migration-batch1-completion.md`
 **Estimated Remaining:** 11.8 hours (57 scripts × 12.5 min average)
-**Assigned:** Unassigned
-**Deadline:** Incremental batching (see Batch 2-5 strategy in analysis report)
+
+**Batch 2 READY (Session 9):**
+- **Target:** 6 scripts, 1.2 hours, 168 print() statements
+- **Scripts:** humanization-validator.py (62), repo-maintenance.py (37), batch-improve-blog-posts.py (22), check-citation-hyperlinks.py (20), code-ratio-calculator.py (10), fix-mermaid-subgraphs.py (17)
+- **Strategy:** Quick wins first (code-ratio-calculator: 8 min → fix-mermaid-subgraphs: 7 min), pattern reuse after first script
+- **Report:** `docs/MIGRATION_REPORTS/logging-migration-batch2-plan.md`
+- **Assigned:** Unassigned
+- **Deadline:** Next sprint (Week 1)
 
 ---
 
@@ -330,7 +336,7 @@
 
 ## 📝 Notes
 
-**Pre-Commit Bypass Used:** 2025-11-02 for Hive Mind Swarm deployment (swarm-1762104660960-e5d44xa8g)
+**Pre-Commit Bypass Used:** 2025-11-02 for Hive Mind Swarm deployment
 **Reason:** Code ratio violations are pre-existing, not introduced by swarm work
 **Action:** Track as TODO #1 (this file)
 

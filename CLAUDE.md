@@ -23,7 +23,7 @@ This file (CLAUDE.md) serves as the **root anchor** for a modular documentation 
 
 All development, content creation, and maintenance MUST reference this document and load task-appropriate modules.
 
-**Last comprehensive audit:** 2025-11-01
+**Last comprehensive audit:** 2025-11-02
 **Next scheduled review:** 2025-12-01
 
 ## 📊 Current Compliance Status
@@ -66,6 +66,7 @@ All development, content creation, and maintenance MUST reference this document 
 3. **VERIFY** no duplicate files will be created (check file_registry)
 4. **CONFIRM** operation follows standards from https://github.com/williamzujkowski/standards
 5. **USE** appropriate timestamps (prefer time.gov, fallback to system time)
+6. **AUDIT** documentation accuracy monthly (prevent exaggeration creep, verify stats)
 
 **VIOLATIONS WILL BE AUTOMATICALLY BLOCKED**
 
@@ -192,6 +193,11 @@ Use these directories:
 - ✅ `tests/test-citations.py`
 - ✅ `docs/working-notes.md`
 
+**Monthly maintenance:**
+- ✅ Scan for vestigial content (outdated scripts, orphaned directories)
+- ✅ Archive (don't delete) questionable files for reversibility
+- ✅ Document cleanup rationale in commit messages
+
 **Full guidelines:** `docs/context/core/file-management.md`
 
 ### 4.3: Python Package Management with UV
@@ -270,7 +276,7 @@ Bash("npm test")
 
 **Full guidelines:** `docs/context/core/file-management.md`
 
-### 4.4: Documentation Hierarchy
+### 4.5: Documentation Hierarchy
 
 **Primary (Authoritative):**
 - **CLAUDE.md**: Master reference for all standards (THIS DOCUMENT)
@@ -332,6 +338,7 @@ Bash("npm test")
 # Run validation scripts:
 python scripts/blog-content/metadata-validator.py --batch
 python scripts/blog-content/build-monitor.py
+python scripts/playwright/test-gist-rendering.py  # Automated page validation
 ```
 
 ### Common Workflows
@@ -394,6 +401,10 @@ cat .git/hooks/pre-commit
 
 # 5. Coordinate via shared memory/TodoWrite
 # Track progress: 6 agents, 11 tasks, 27 minutes typical
+
+# 6. Validate deployment identifiers
+# NEVER hardcode swarm IDs in documentation
+# Pattern: Use generic examples ("swarm-[id]"), not deployment-specific values
 ```
 
 ### Emergency Contacts
@@ -493,16 +504,15 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Created test infrastructure (tests/validation/fixtures/) with automated regression prevention
 - Documented SEO description formula (120-160 chars optimal, validation integrated into metadata-validator)
 - Session 5: Validated gist embed rendering with Playwright (8 gists in Claude-Flow post, zero console errors, <2s load time)
-- Session 5: Container Security code ratio compliance achieved (32.8%→20.5% with 10 gists, 717→441 lines, below 25% threshold)
 - Session 6: Fixed pre-commit validator regex bug (closing fences matched, 40% overestimation; implemented line-by-line parser from code-ratio-calculator.py)
-- Session 6: Completed Container Security gist extraction (17 total gists, final ratio 10.5%, well below 25% threshold)
+- Session 5-6: Container Security gist extraction completed in 2 phases (32.8%→10.5% with 17 gists, well below 25% threshold)
 - Session 6: Corrected Python logging migration status (actual 19.5%, 15/77 scripts; previous 29.9% claim was inaccurate; documented in comprehensive analysis)
 - Session 6: Established validator cross-verification requirement (always verify with code-ratio-calculator.py, not pre-commit alone, to prevent false positives)
 - Session 7: Python logging Batch 1 completed 56% faster than estimated (4/6 scripts already migrated; always audit current state before planning)
 - Session 7: Fixed Python logging overestimate (23→15 actual scripts, 53% error; established mandatory verification requirement for all migration claims)
 - Session 7: Created gist extraction staging workflow (tmp/gists/ for pre-upload preparation, 8 files staged for AI experiments post)
 - Session 7: Removed non-standard /reports/ directory (moved 4 files to canonical locations; established monthly documentation accuracy audit pattern)
-- Session 8: Multi-track swarm execution validated (5 agents, 5 concurrent tracks, 1.5hr completion: migrations + extraction + validation + cleanup + docs)
-- Session 8: Code ratio extraction ROI insight (Network Security: 27.6%→14.7% with 7 gists; posts nearest threshold yield highest compliance gains)
-- Session 8: Playwright gist validation confirms production viability (17 gists: 316ms load, zero errors, 100% success; comprehensive console/network/accessibility testing)
-- Session 8: Repository cleanup conservatism established (3.16MB archived not deleted; 10 reports preserved with READMEs for reference; reversibility prioritized)
+- Session 8: Playwright gist validation confirms production viability (17 gists: 316ms load, zero errors, 100% success)
+- Session 8: Repository cleanup conservatism established (3.16MB archived not deleted; reversibility prioritized)
+- Session 9: Agent type validation requirement (verify against agent-coordination.md before swarm init; prevents hallucination)
+- Session 9: Documentation accuracy audit (92/100 score, corrected 4 inaccuracies, established monthly review pattern)

@@ -1,6 +1,7 @@
 # 🏗️ System Architecture Documentation
 
-**Generated:** 2025-11-02T17:45:00+00:00
+**Generated:** 2025-11-02T21:30:00-04:00
+**Last Updated:** Session 9 (2025-11-02)
 **Version:** 1.0.0
 **Status:** Active
 
@@ -30,9 +31,9 @@ williamzujkowski.github.io/
 │   │   └── images/       # Site images
 │   │       └── blog/     # Blog post images
 │   ├── pages/            # Static pages (about, uses, etc.)
-│   ├── posts/            # Blog posts (48 articles)
+│   ├── posts/            # Blog posts (63 articles)
 │   └── index.njk         # Homepage template
-├── scripts/              # Automation scripts (37 Python)
+├── scripts/              # Automation scripts (77 Python)
 │   └── lib/             # Shared Python modules (DRY/SOLID)
 │       └── common.py    # Core utilities (60% complete)
 ├── docs/                 # Documentation
@@ -102,7 +103,7 @@ williamzujkowski.github.io/
 ## 🔄 Data Flow Architecture
 
 ```mermaid
-graph TD
+flowchart TD
     A[Markdown Content] --> B[Python Scripts]
     B --> C[Enhanced Content]
     C --> D[Eleventy SSG]
@@ -186,7 +187,7 @@ graph TD
 
 ### Content Creation Flow
 ```mermaid
-graph LR
+flowchart LR
     A[Write Content] --> B[Add Metadata]
     B --> C[Run Scripts]
     C --> D[Generate Images]
