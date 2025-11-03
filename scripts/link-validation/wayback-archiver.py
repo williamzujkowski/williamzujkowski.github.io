@@ -4,8 +4,8 @@ SCRIPT: wayback-archiver.py
 PURPOSE: Wayback Machine Archiver
 CATEGORY: utilities
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Wayback Machine Archiver. This script is part of the utilities
@@ -52,6 +52,13 @@ from datetime import datetime, timedelta
 from dataclasses import dataclass, asdict
 import argparse
 import time
+
+# Path setup for logging import
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 @dataclass
 class ArchiveResult:
@@ -136,7 +143,7 @@ class WaybackArchiver:
                     )
 
         except Exception as e:
-            print(f"Error checking availability for {url}: {e}")
+            logger.error(f"Error checking availability for {url}: {e}")
             return ArchiveStatus(
                 url=url,
                 is_archived=False,
@@ -252,15 +259,15 @@ class WaybackArchiver:
             sorted_urls = urls
 
         for i, url in enumerate(sorted_urls):
-            print(f"[{i+1}/{len(sorted_urls)}] Archiving: {url}")
+            logger.info(f"[{i+1}/{len(sorted_urls)}] Archiving: {url}")
 
             result = await self.archive_url(url)
             results.append(result)
 
             if result.archived:
-                print(f"  ✅ Archived: {result.archive_url}")
+                logger.info(f"  ✅ Archived: {result.archive_url}")
             else:
-                print(f"  ❌ Failed: {result.error}")
+                logger.error(f"  ❌ Failed: {result.error}")
 
             # Rate limiting
             if i < len(sorted_urls) - 1:
@@ -276,8 +283,8 @@ class WaybackArchiver:
             archived = await self.retrieve_archived_version(url)
             if archived:
                 alternatives[url] = archived
-                print(f"✅ Found archived version for: {url}")
-                print(f"   Archive: {archived}")
+                logger.info(f"✅ Found archived version for: {url}")
+                logger.info(f"   Archive: {archived}")
 
         return alternatives
 
@@ -340,7 +347,7 @@ class WaybackArchiver:
         with open(md_file, 'w') as f:
             f.write('\n'.join(lines))
 
-        print(f"✅ Report saved to {md_file}")
+        logger.info(f"✅ Report saved to {md_file}")
 
 async def archive_critical_links(links_file: Path, output_file: Path):
     """Archive critical links from blog posts"""
@@ -366,11 +373,11 @@ async def archive_critical_links(links_file: Path, output_file: Path):
         if any(domain in url for domain in CRITICAL_DOMAINS)
     ]
 
-    print(f"Found {len(critical_urls)} critical URLs to archive")
+    logger.info(f"Found {len(critical_urls)} critical URLs to archive")
 
     async with WaybackArchiver() as archiver:
         # Check current archive status
-        print("\n📊 Checking archive status...")
+        logger.info("\n📊 Checking archive status...")
         statuses = []
         for url in critical_urls[:50]:  # Limit to avoid rate limiting
             status = await archiver.check_availability(url)
@@ -385,7 +392,7 @@ async def archive_critical_links(links_file: Path, output_file: Path):
         ]
 
         to_archive = not_archived + old_archives
-        print(f"\n📦 Archiving {len(to_archive)} URLs...")
+        logger.info(f"\n📦 Archiving {len(to_archive)} URLs...")
 
         if to_archive:
             results = await archiver.batch_archive(to_archive[:20])  # Limit batch size
@@ -426,9 +433,9 @@ Examples:
     if args.find_alternatives:
         # Find alternatives for broken links
         if not args.validation.exists():
-            print(f"Error: File not found: {args.validation}", file=sys.stderr)
-            print(f"Expected: {args.validation.absolute()}", file=sys.stderr)
-            print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+            logger.error(f"Error: File not found: {args.validation}")
+            logger.error(f"Expected: {args.validation.absolute()}")
+            logger.error(f"Tip: Run from repository root or provide absolute path")
             sys.exit(2)
 
         with open(args.validation, 'r') as f:
@@ -439,7 +446,7 @@ Examples:
             if r.get('status') == 'broken'
         ]
 
-        print(f"Finding archived alternatives for {len(broken_urls)} broken links...")
+        logger.info(f"Finding archived alternatives for {len(broken_urls)} broken links...")
 
         async with WaybackArchiver() as archiver:
             alternatives = await archiver.find_alternatives_for_broken(broken_urls)
@@ -448,18 +455,18 @@ Examples:
             with open('wayback-alternatives.json', 'w') as f:
                 json.dump(alternatives, f, indent=2)
 
-            print(f"\n✅ Found {len(alternatives)} archived alternatives")
+            logger.info(f"\n✅ Found {len(alternatives)} archived alternatives")
 
     else:
         # Archive links
         if not args.links.exists():
-            print(f"Error: File not found: {args.links}", file=sys.stderr)
-            print(f"Expected: {args.links.absolute()}", file=sys.stderr)
-            print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+            logger.error(f"Error: File not found: {args.links}")
+            logger.error(f"Expected: {args.links.absolute()}")
+            logger.error(f"Tip: Run from repository root or provide absolute path")
             sys.exit(2)
 
         if args.archive_all:
-            print("Archiving all links...")
+            logger.info("Archiving all links...")
             # Archive all links
             with open(args.links, 'r') as f:
                 links_data = json.load(f)

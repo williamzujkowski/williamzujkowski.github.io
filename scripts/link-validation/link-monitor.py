@@ -4,8 +4,8 @@ SCRIPT: link-monitor.py
 PURPOSE: Link Monitor
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Link Monitor. This script is part of the link validation
@@ -54,6 +54,14 @@ import argparse
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import sys
+
+# Path setup for logging import
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 @dataclass
 class LinkStatus:
@@ -322,8 +330,8 @@ class LinkMonitor:
     async def _send_email_alert(self, message: str):
         """Send email alert"""
         # Implementation depends on email configuration
-        print(f"Email alert would be sent to: {self.config['alert_email']}")
-        print(message)
+        logger.info(f"Email alert would be sent to: {self.config['alert_email']}")
+        logger.info(message)
 
     async def _send_webhook_alert(self, message: str):
         """Send webhook alert"""
@@ -332,9 +340,9 @@ class LinkMonitor:
             try:
                 async with self.session.post(webhook_url, json={'text': message}) as response:
                     if response.status == 200:
-                        print("Webhook alert sent successfully")
+                        logger.info("Webhook alert sent successfully")
             except Exception as e:
-                print(f"Failed to send webhook: {e}")
+                logger.error(f"Failed to send webhook: {e}")
 
     def generate_report(self, output_file: Path):
         """Generate monitoring report"""
@@ -411,11 +419,11 @@ class LinkMonitor:
 async def continuous_monitor(monitor: LinkMonitor, urls: List[str],
                             interval_minutes: int):
     """Run continuous monitoring"""
-    print(f"Starting continuous monitoring of {len(urls)} links")
-    print(f"Check interval: {interval_minutes} minutes")
+    logger.info(f"Starting continuous monitoring of {len(urls)} links")
+    logger.info(f"Check interval: {interval_minutes} minutes")
 
     while True:
-        print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Running checks...")
+        logger.info(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Running checks...")
 
         # Check all links
         results = await monitor.check_all_links(urls)
@@ -425,7 +433,7 @@ async def continuous_monitor(monitor: LinkMonitor, urls: List[str],
 
         # Send alerts if any
         if alerts:
-            print(f"Found {len(alerts)} alerts")
+            logger.info(f"Found {len(alerts)} alerts")
             await monitor.send_alerts(alerts)
 
         # Save state
@@ -434,10 +442,10 @@ async def continuous_monitor(monitor: LinkMonitor, urls: List[str],
         # Generate report
         report_file = Path(f"monitoring-report-{datetime.now().strftime('%Y%m%d-%H%M%S')}.json")
         monitor.generate_report(report_file)
-        print(f"Report saved to {report_file}")
+        logger.info(f"Report saved to {report_file}")
 
         # Wait for next check
-        print(f"Next check in {interval_minutes} minutes...")
+        logger.info(f"Next check in {interval_minutes} minutes...")
         await asyncio.sleep(interval_minutes * 60)
 
 async def main():
@@ -470,16 +478,16 @@ Examples:
 
     # Load links
     if not args.links.exists():
-        print(f"Error: File not found: {args.links}", file=sys.stderr)
-        print(f"Expected: {args.links.absolute()}", file=sys.stderr)
-        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        logger.error(f"Error: File not found: {args.links}")
+        logger.error(f"Expected: {args.links.absolute()}")
+        logger.error(f"Tip: Run from repository root or provide absolute path")
         sys.exit(2)
 
     with open(args.links, 'r') as f:
         links_data = json.load(f)
         urls = list(set(link['url'] for link in links_data.get('links', [])))
 
-    print(f"Loaded {len(urls)} unique URLs to monitor")
+    logger.info(f"Loaded {len(urls)} unique URLs to monitor")
 
     # Run monitor
     async with LinkMonitor(args.config) as monitor:
@@ -490,7 +498,7 @@ Examples:
             if alerts:
                 await monitor.send_alerts(alerts)
             monitor.generate_report(args.output)
-            print(f"Report saved to {args.output}")
+            logger.info(f"Report saved to {args.output}")
         else:
             # Continuous monitoring
             await continuous_monitor(monitor, urls, args.interval)

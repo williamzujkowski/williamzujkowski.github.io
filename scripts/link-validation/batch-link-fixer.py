@@ -4,8 +4,8 @@ SCRIPT: batch-link-fixer.py
 PURPOSE: Batch Link Fixer
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Batch Link Fixer. This script is part of the link validation
@@ -53,6 +53,13 @@ from datetime import datetime
 import sys
 from tqdm import tqdm
 
+# Path setup for logging import
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
+
 class BatchLinkFixer:
     """Orchestrate link validation and repair"""
 
@@ -64,12 +71,12 @@ class BatchLinkFixer:
 
     def run_full_pipeline(self, posts_dir: Path) -> int:
         """Run the complete validation and repair pipeline"""
-        print("🚀 Starting Link Validation Pipeline")
-        print("=" * 60)
+        logger.info("🚀 Starting Link Validation Pipeline")
+        logger.info("=" * 60)
 
         try:
             # Step 1: Extract links
-            print("\n📎 Step 1: Extracting links from blog posts...")
+            logger.info("\n📎 Step 1: Extracting links from blog posts...")
             if not self._run_command([
                 'python', 'scripts/link-validation/link-extractor.py',
                 '--posts-dir', str(posts_dir),
@@ -78,26 +85,26 @@ class BatchLinkFixer:
                 return 1
 
             # Step 2: Validate links
-            print("\n🔍 Step 2: Validating links...")
+            logger.info("\n🔍 Step 2: Validating links...")
             if not self._run_command([
                 'python', 'scripts/link-validation/link-validator.py',
                 '--input', 'links.json',
                 '--output', 'validation.json'
             ]):
-                print("⚠️  Link validation failed, continuing with basic validation...")
+                logger.warning("⚠️  Link validation failed, continuing with basic validation...")
 
             # Step 3: Check content relevance
-            print("\n📊 Step 3: Checking content relevance...")
+            logger.info("\n📊 Step 3: Checking content relevance...")
             if not self._run_command([
                 'python', 'scripts/link-validation/content-relevance-checker.py',
                 '--links', 'links.json',
                 '--validation', 'validation.json',
                 '--output', 'relevance.json'
             ]):
-                print("⚠️  Relevance check failed, continuing...")
+                logger.warning("⚠️  Relevance check failed, continuing...")
 
             # Step 4: Find repairs
-            print("\n🔧 Step 4: Finding repairs for broken links...")
+            logger.info("\n🔧 Step 4: Finding repairs for broken links...")
             if not self._run_command([
                 'python', 'scripts/link-validation/citation-repair.py',
                 '--links', 'links.json',
@@ -105,10 +112,10 @@ class BatchLinkFixer:
                 '--relevance', 'relevance.json',
                 '--output', 'repairs.json'
             ]):
-                print("⚠️  Repair search failed, continuing...")
+                logger.warning("⚠️  Repair search failed, continuing...")
 
             # Step 5: Generate reports
-            print("\n📈 Step 5: Generating reports...")
+            logger.info("\n📈 Step 5: Generating reports...")
             if not self._run_command([
                 'python', 'scripts/link-validation/link-report-generator.py',
                 '--links', 'links.json',
@@ -117,19 +124,19 @@ class BatchLinkFixer:
                 '--repairs', 'repairs.json',
                 '--output-dir', 'reports'
             ]):
-                print("⚠️  Report generation failed, continuing...")
+                logger.warning("⚠️  Report generation failed, continuing...")
 
             # Step 6: Apply fixes
-            print("\n✏️ Step 6: Applying fixes...")
+            logger.info("\n✏️ Step 6: Applying fixes...")
             self.apply_repairs('repairs.json', posts_dir)
 
-            print("\n✅ Pipeline completed successfully!")
+            logger.info("\n✅ Pipeline completed successfully!")
             self._print_summary()
 
             return 0
 
         except Exception as e:
-            print(f"\n❌ Pipeline failed: {e}")
+            logger.error(f"\n❌ Pipeline failed: {e}")
             return 1
 
     def _run_command(self, cmd: List[str]) -> bool:
@@ -137,14 +144,14 @@ class BatchLinkFixer:
         try:
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
             if result.stdout:
-                print(result.stdout)
+                logger.info(result.stdout)
             return True
         except subprocess.CalledProcessError as e:
             if e.stderr:
-                print(f"Error: {e.stderr}")
+                logger.error(f"Error: {e.stderr}")
             return False
         except FileNotFoundError:
-            print(f"Command not found: {cmd[0]}")
+            logger.error(f"Command not found: {cmd[0]}")
             return False
 
     def apply_repairs(self, repairs_file: Path, posts_dir: Path):
@@ -155,7 +162,7 @@ class BatchLinkFixer:
             posts_dir = Path(posts_dir)
 
         if not repairs_file.exists():
-            print("No repairs file found")
+            logger.info("No repairs file found")
             return
 
         # Load repairs
@@ -164,7 +171,7 @@ class BatchLinkFixer:
 
         repairs = repairs_data.get('repairs', [])
         if not repairs:
-            print("No repairs to apply")
+            logger.info("No repairs to apply")
             return
 
         # Filter by confidence threshold
@@ -173,10 +180,10 @@ class BatchLinkFixer:
             if r.get('confidence', 0) >= self.confidence_threshold
         ]
 
-        print(f"Found {len(applicable_repairs)} repairs with confidence >= {self.confidence_threshold}%")
+        logger.info(f"Found {len(applicable_repairs)} repairs with confidence >= {self.confidence_threshold}%")
 
         if self.dry_run:
-            print("\n🔍 DRY RUN - No changes will be made")
+            logger.info("\n🔍 DRY RUN - No changes will be made")
             self._show_planned_changes(applicable_repairs)
             return
 
@@ -214,7 +221,7 @@ class BatchLinkFixer:
         file_path = Path(file_path)
 
         if not file_path.exists():
-            print(f"⚠️  File not found: {file_path}")
+            logger.warning(f"⚠️  File not found: {file_path}")
             return
 
         # Create backup
@@ -252,7 +259,7 @@ class BatchLinkFixer:
         if changes > 0 and not self.dry_run:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            print(f"✅ Fixed {changes} links in {file_path.name}")
+            logger.info(f"✅ Fixed {changes} links in {file_path.name}")
 
     def _create_backup(self, file_path: Path) -> Path:
         """Create backup of file"""
@@ -262,27 +269,27 @@ class BatchLinkFixer:
 
     def _show_planned_changes(self, repairs: List[Dict]):
         """Show what changes would be made"""
-        print("\nPlanned changes:")
-        print("-" * 60)
+        logger.info("\nPlanned changes:")
+        logger.info("-" * 60)
 
         for repair in repairs[:10]:  # Show first 10
-            print(f"\nOriginal: {repair['original_url']}")
-            print(f"Replace:  {repair['suggested_url']}")
-            print(f"Source:   {repair['source']}")
-            print(f"Confidence: {repair['confidence']}%")
-            print(f"Notes:    {repair.get('notes', 'N/A')}")
+            logger.info(f"\nOriginal: {repair['original_url']}")
+            logger.info(f"Replace:  {repair['suggested_url']}")
+            logger.info(f"Source:   {repair['source']}")
+            logger.info(f"Confidence: {repair['confidence']}%")
+            logger.info(f"Notes:    {repair.get('notes', 'N/A')}")
 
         if len(repairs) > 10:
-            print(f"\n... and {len(repairs) - 10} more changes")
+            logger.info(f"\n... and {len(repairs) - 10} more changes")
 
     def _print_summary(self):
         """Print summary of changes made"""
         if not self.changes_made:
-            print("\n📊 No changes were made")
+            logger.info("\n📊 No changes were made")
             return
 
-        print("\n📊 Summary of Changes")
-        print("=" * 60)
+        logger.info("\n📊 Summary of Changes")
+        logger.info("=" * 60)
 
         # Count by repair type
         by_type = {}
@@ -292,15 +299,15 @@ class BatchLinkFixer:
             by_type[repair_type] = by_type.get(repair_type, 0) + change['count']
             total_links += change['count']
 
-        print(f"Total links fixed: {total_links}")
-        print("\nBy repair type:")
+        logger.info(f"Total links fixed: {total_links}")
+        logger.info("\nBy repair type:")
         for repair_type, count in sorted(by_type.items()):
-            print(f"  {repair_type}: {count}")
+            logger.info(f"  {repair_type}: {count}")
 
-        print(f"\nFiles modified: {len(set(c['file'] for c in self.changes_made))}")
+        logger.info(f"\nFiles modified: {len(set(c['file'] for c in self.changes_made))}")
 
         if self.backups_created:
-            print(f"\nBackups created: {len(self.backups_created)}")
+            logger.info(f"\nBackups created: {len(self.backups_created)}")
 
     def generate_review_queue(self, repairs_file: Path, output_file: Path):
         """Generate manual review queue for low-confidence repairs"""
@@ -350,7 +357,7 @@ class BatchLinkFixer:
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write('\n'.join(review))
 
-        print(f"✅ Manual review queue saved to {output_file}")
+        logger.info(f"✅ Manual review queue saved to {output_file}")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -410,10 +417,10 @@ Examples:
         return 0
 
     except FileNotFoundError as e:
-        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        logger.error(f"❌ Error: File not found - {e}")
         return 1
     except Exception as e:
-        print(f"❌ Error: {e}", file=sys.stderr)
+        logger.error(f"❌ Error: {e}")
         return 2
 
 if __name__ == '__main__':

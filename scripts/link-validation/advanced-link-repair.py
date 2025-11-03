@@ -4,8 +4,8 @@ SCRIPT: advanced-link-repair.py
 PURPOSE: Advanced Link Repair System
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Advanced Link Repair System. This script is part of the link validation
@@ -50,6 +50,14 @@ from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 from urllib.parse import urlparse, quote
 from difflib import SequenceMatcher
+import sys
+
+# Path setup for logging import
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 class AdvancedLinkRepair:
     """Advanced link repair with pattern detection and intelligent alternatives"""
@@ -324,12 +332,12 @@ class AdvancedLinkRepair:
                     # Merge link context with validation result
                     broken_links.append({**link, **validation_map[url]})
 
-        print(f"Found {len(broken_links)} broken links to process")
+        logger.info(f"Found {len(broken_links)} broken links to process")
 
         # Process each broken link
         for i, link in enumerate(broken_links, 1):
             if i % 10 == 0:
-                print(f"Processing {i}/{len(broken_links)}...")
+                logger.info(f"Processing {i}/{len(broken_links)}...")
 
             result = await self.process_broken_link(link)
             self.repairs.append(result)
@@ -353,7 +361,7 @@ class AdvancedLinkRepair:
 
         for file_path, file_repairs in files_to_update.items():
             if not Path(file_path).exists():
-                print(f"File not found: {file_path}")
+                logger.warning(f"File not found: {file_path}")
                 continue
 
             with open(file_path, 'r') as f:
@@ -383,7 +391,7 @@ class AdvancedLinkRepair:
                 with open(file_path, 'w') as f:
                     f.write(content)
 
-                print(f"Fixed {fixes_in_file} links in {Path(file_path).name}")
+                logger.info(f"Fixed {fixes_in_file} links in {Path(file_path).name}")
 
         return total_fixes
 
@@ -438,14 +446,13 @@ class AdvancedLinkRepair:
         with open(md_file, 'w') as f:
             f.write('\n'.join(lines))
 
-        print(f"\n✅ Report saved to {md_file}")
-        print(f"Successfully repaired: {report['summary']['successfully_repaired']}/{self.stats['total_processed']} "
+        logger.info(f"\n✅ Report saved to {md_file}")
+        logger.info(f"Successfully repaired: {report['summary']['successfully_repaired']}/{self.stats['total_processed']} "
               f"({report['summary']['repair_rate']:.1f}%)")
 
 async def main():
     """Run advanced link repair"""
     import argparse
-    import sys
 
     parser = argparse.ArgumentParser(
         description='Advanced link repair system',
@@ -457,7 +464,7 @@ Examples:
         ''',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
     parser.add_argument('--input', type=Path, default=Path('validation.json'),
                        help='Validation results file')
     parser.add_argument('--output', type=Path, default=Path('advanced-repairs.json'),
@@ -476,27 +483,27 @@ Examples:
 
         # Process broken links
         if not args.quiet:
-            print("🔧 Starting Advanced Link Repair...")
+            logger.info("🔧 Starting Advanced Link Repair...")
         repairs = await repairer.process_all_broken_links(args.input)
 
         # Apply repairs if requested
         if args.apply or args.dry_run:
             if not args.quiet:
-                print("\n📝 Applying repairs to files...")
+                logger.info("\n📝 Applying repairs to files...")
             total_fixed = repairer.apply_repairs_to_files(repairs, dry_run=args.dry_run)
             if not args.quiet:
-                print(f"Total links fixed: {total_fixed}")
+                logger.info(f"Total links fixed: {total_fixed}")
 
         # Generate report
         repairer.generate_report(args.output)
         sys.exit(0)
     except FileNotFoundError as e:
-        print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected: {args.input}", file=sys.stderr)
-        print("Tip: Run link extraction and validation first", file=sys.stderr)
+        logger.error(f"Error: File not found: {e}")
+        logger.error(f"Expected: {args.input}")
+        logger.error("Tip: Run link extraction and validation first")
         sys.exit(2)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
