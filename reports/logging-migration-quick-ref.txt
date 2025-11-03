@@ -1,0 +1,87 @@
+================================================================================
+PYTHON LOGGING MIGRATION - QUICK REFERENCE CARD
+================================================================================
+Updated: 2025-11-02
+Status: 15/77 scripts migrated (19.5%) | 62 remaining (80.5%)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ NEXT BATCH (Batch 1): 5 scripts, ~1 hour                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ 1. validation/build-monitor.py           710 lines | P0 | 15 min           │
+│ 2. lib/precommit_validators.py         1,027 lines | P0 | 20 min           │
+│ 3. lib/cache_utils.py                    711 lines | P1 | 15 min           │
+│ 4. lib/manifest_loader.py                396 lines | P1 | 10 min           │
+│ 5. link-validation/citation-report.py    264 lines | P0 |  8 min           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+PROGRESS VISUALIZATION
+[█████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 19.5%
+
+BY PRIORITY:
+  🔴 P0 (Critical)        6 scripts | 1.3 hrs | Must complete before release
+  🟠 P1 (High)            8 scripts | 1.7 hrs | Infrastructure + weekly use
+  🟡 P2 (Medium)         10 scripts | 2.1 hrs | Monthly use + research tools
+  🟢 P3 (Low)            37 scripts | 7.7 hrs | Audit → archive → migrate
+
+MIGRATION PATTERN (Copy-Paste)
+────────────────────────────────────────────────────────────────────────────────
+from lib.logging_config import setup_logger
+
+logger = setup_logger(__name__)
+
+# Replace:
+print(f"Info: {x}")    → logger.info(f"Info: {x}")
+print(f"Error: {x}")   → logger.error(f"Error: {x}")
+print(f"Warning: {x}") → logger.warning(f"Warning: {x}")
+print(f"Debug: {x}")   → logger.debug(f"Debug: {x}")
+────────────────────────────────────────────────────────────────────────────────
+
+QUICK CHECKLIST
+  ☐ Read script, identify print() statements
+  ☐ Add: from lib.logging_config import setup_logger
+  ☐ Add: logger = setup_logger(__name__)
+  ☐ Replace all print() with logger.info/error/warning/debug()
+  ☐ Add type hints to function signatures
+  ☐ Wrap risky operations in try/except with logger.error()
+  ☐ Test: uv run python scripts/[category]/[script].py
+  ☐ Commit with pre-commit hooks
+
+EXPECTED OUTCOMES (After Batch 1)
+  • Progress: 15/77 → 20/77 (26.0%)
+  • P0 Critical: 1/7 → 5/7 (71.4%)
+  • Pre-commit validation: ✅ Fully standardized
+  • Git hooks infrastructure: ✅ Production-ready
+  • Cache/manifest utilities: ✅ Centralized logging
+
+REMAINING P0 CRITICAL (After Batch 1)
+  • blog-content/humanization-validator.py (1,184 lines)
+  • blog-content/code-ratio-calculator.py (526 lines)
+
+TIMELINE TO COMPLETION
+  Batch 1 (Critical)      →  1.0 hr → 26.0% (Session 6)
+  Batch 2 (Content)       →  1.2 hr → 32.5% (Session 7)
+  Batch 3 (Infrastructure)→  1.0 hr → 40.3% (Session 8)
+  Batch 4 (Research)      →  1.2 hr → 49.4% (Session 9)
+  Batch 5+ (Cleanup)      →  8.1 hr → 100%  (After audit)
+  ────────────────────────────────────────────────────
+  TOTAL                   → 12.5 hr (3-4 weeks)
+
+DISCREPANCY ALERT
+  TODO.md claims: 23/77 (29.9%) migrated
+  Actual count: 15/77 (19.5%) migrated
+  Error: -8 scripts | Must correct TODO.md after Batch 1
+
+KEY INSIGHTS
+  1. metadata-validator.py already uses centralized logging (reduces P0 to 6)
+  2. 37 P3 scripts need audit before migration (archive vs. migrate decision)
+  3. Average migration time: 12.5 min/script (range: 5-20 min)
+  4. Batch efficiency: 20-30% time savings via pattern reuse
+
+REFERENCES
+  Full Analysis:    reports/python-logging-migration-analysis.md
+  Next Steps:       reports/logging-migration-next-steps.md
+  Template:         docs/context/templates/script-template.md
+  Logging Config:   scripts/lib/logging_config.py
+
+READY TO EXECUTE: ✅ No blockers, proceed with Batch 1
+────────────────────────────────────────────────────────────────────────────────
