@@ -4,8 +4,8 @@ SCRIPT: search-reputable-sources.py
 PURPOSE: Search for reputable sources using Playwright to back up technical claims in blog posts
 CATEGORY: utilities
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 1.1.0
+UPDATED: 2025-11-02T00:00:00-04:00
 
 DESCRIPTION:
     Search for reputable sources using Playwright to back up technical claims in blog posts. This script is part of the utilities
@@ -44,10 +44,17 @@ MANIFEST_REGISTRY: scripts/search-reputable-sources.py
 
 import asyncio
 import json
+import sys
 from playwright.async_api import async_playwright
 from pathlib import Path
 import frontmatter
 import re
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 class ReputableSourceSearcher:
     def __init__(self):
@@ -114,7 +121,7 @@ class ReputableSourceSearcher:
             return results
             
         except Exception as e:
-            print(f"Error searching for {topic}: {e}")
+            logger.error(f"Error searching for {topic}: {e}")
             return []
         finally:
             await page.close()
@@ -158,8 +165,8 @@ class ReputableSourceSearcher:
         
         tags = post.metadata.get('tags', [])
         title = post.metadata.get('title', '')
-        
-        print(f"\n📚 Searching sources for: {post_path.name}")
+
+        logger.info(f"Searching sources for: {post_path.name}")
         
         all_sources = []
         
@@ -215,9 +222,9 @@ class ReputableSourceSearcher:
         # Save sources to file
         with open('docs/blog-sources.json', 'w') as f:
             json.dump(self.sources_found, f, indent=2)
-        
-        print(f"\n✅ Found sources for {len(self.sources_found)} posts")
-        print("Sources saved to: docs/blog-sources.json")
+
+        logger.info(f"Found sources for {len(self.sources_found)} posts")
+        logger.info("Sources saved to: docs/blog-sources.json")
 
 async def main(quiet=False):
     searcher = ReputableSourceSearcher()
@@ -225,7 +232,6 @@ async def main(quiet=False):
 
 if __name__ == "__main__":
     import argparse
-    import sys
 
     parser = argparse.ArgumentParser(
         description='Search for reputable sources using Playwright to back up technical claims',
@@ -236,7 +242,7 @@ Examples:
         ''',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
     parser.add_argument('--quiet', '-q', action='store_true',
                        help='Suppress progress messages')
 

@@ -4,8 +4,8 @@ SCRIPT: repo-maintenance.py
 PURPOSE: Automated repository cleanup and health monitoring
 CATEGORY: maintenance
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-10-29T00:00:00-04:00
+VERSION: 1.1.0
+UPDATED: 2025-11-02T00:00:00-04:00
 
 DESCRIPTION:
     Comprehensive repository maintenance tool that performs:
@@ -78,11 +78,15 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
 try:
     from common import (
         ManifestManager, TimeManager, FileHasher, ConfigManager,
-        Logger, ensure_directory, read_json, write_json, format_size
+        ensure_directory, read_json, write_json, format_size
     )
-except ImportError:
-    print("ERROR: Failed to import common utilities from scripts/lib/common.py")
+    from logging_config import setup_logger
+except ImportError as e:
+    print(f"ERROR: Failed to import utilities from scripts/lib: {e}")
     sys.exit(2)
+
+# Setup centralized logging
+logger = setup_logger(__name__)
 
 
 # Color codes for console output
@@ -102,7 +106,6 @@ class MaintenanceReport:
     """Collect and report maintenance findings"""
 
     def __init__(self):
-        self.logger = Logger.get_logger(self.__class__.__name__)
         self.findings = defaultdict(list)
         self.stats = defaultdict(int)
         self.errors = []
@@ -223,7 +226,6 @@ class TempFileCleanup:
     def __init__(self, report: MaintenanceReport, dry_run: bool = False):
         self.report = report
         self.dry_run = dry_run
-        self.logger = Logger.get_logger(self.__class__.__name__)
         self.root_dir = Path.cwd()
 
         # Protected files that should never be deleted
@@ -288,10 +290,10 @@ class TempFileCleanup:
         for file_path in temp_files:
             try:
                 if self.dry_run:
-                    self.logger.info(f"[DRY-RUN] Would delete: {file_path.name}")
+                    logger.info(f"[DRY-RUN] Would delete: {file_path.name}")
                 else:
                     file_path.unlink()
-                    self.logger.info(f"Deleted: {file_path.name}")
+                    logger.info(f"Deleted: {file_path.name}")
                     self.report.add_action(f"Deleted temp file: {file_path.name}")
                 removed_count += 1
             except Exception as e:
@@ -312,7 +314,6 @@ class ReportArchiver:
         self.report = report
         self.dry_run = dry_run
         self.backup = backup
-        self.logger = Logger.get_logger(self.__class__.__name__)
         self.reports_dir = Path("docs/reports")
         self.archive_dir = Path("docs/archive/reports")
 
@@ -370,7 +371,7 @@ class ReportArchiver:
                 archive_path = self.archive_dir / year_month / file_path.name
 
                 if self.dry_run:
-                    self.logger.info(f"[DRY-RUN] Would archive: {file_path.name} -> {archive_path}")
+                    logger.info(f"[DRY-RUN] Would archive: {file_path.name} -> {archive_path}")
                 else:
                     ensure_directory(archive_path.parent)
 
@@ -381,7 +382,7 @@ class ReportArchiver:
 
                     # Move to archive
                     shutil.move(str(file_path), str(archive_path))
-                    self.logger.info(f"Archived: {file_path.name} -> {archive_path}")
+                    logger.info(f"Archived: {file_path.name} -> {archive_path}")
                     self.report.add_action(f"Archived report: {file_path.name}")
 
                 archived_count += 1
@@ -401,7 +402,6 @@ class ImageVariantDetector:
 
     def __init__(self, report: MaintenanceReport):
         self.report = report
-        self.logger = Logger.get_logger(self.__class__.__name__)
         self.images_dir = Path("src/assets/images")
 
     def scan_variants(self) -> List[Path]:
@@ -434,7 +434,6 @@ class DuplicateDetector:
 
     def __init__(self, report: MaintenanceReport):
         self.report = report
-        self.logger = Logger.get_logger(self.__class__.__name__)
 
     def scan_duplicates(self, directory: Path) -> Dict[str, List[Path]]:
         """Scan for duplicate files by hash"""
@@ -477,7 +476,6 @@ class HealthChecker:
 
     def __init__(self, report: MaintenanceReport):
         self.report = report
-        self.logger = Logger.get_logger(self.__class__.__name__)
         self.root_dir = Path.cwd()
 
     def check_all(self) -> Dict[str, Any]:
@@ -663,7 +661,6 @@ class SEODriftDetector:
 
     def __init__(self, report: MaintenanceReport):
         self.report = report
-        self.logger = Logger.get_logger(self.__class__.__name__)
         self.posts_dir = Path("src/posts")
 
     def check_meta_descriptions(self) -> Dict[str, Any]:
@@ -759,7 +756,7 @@ Examples:
                         help="Skip confirmation prompts")
     parser.add_argument("--backup", action="store_true",
                         help="Create backups before archiving")
-    parser.add_argument("--version", action='version', version='%(prog)s 1.0.0')
+    parser.add_argument("--version", action='version', version='%(prog)s 1.1.0')
 
     args = parser.parse_args()
 

@@ -26,6 +26,8 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+tmp/
+!tmp/README.md
 
 # Claude and Claude-Flow files
 .claude/
@@ -63,6 +65,10 @@ memory/sessions/*
 !memory/sessions/README.md
 memory/agents/*
 !memory/agents/README.md
+
+# Manifest versions
+.manifest/
+!.manifest/README.md
 
 # Coordination directories
 coordination/memory_bank/*

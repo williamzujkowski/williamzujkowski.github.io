@@ -4,8 +4,8 @@ SCRIPT: link-report-generator.py
 PURPOSE: Link Validation Report Generator
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 1.1.0
+UPDATED: 2025-11-02T00:00:00-04:00
 
 DESCRIPTION:
     Link Validation Report Generator. This script is part of the link validation
@@ -45,10 +45,17 @@ MANIFEST_REGISTRY: scripts/link-report-generator.py
 import json
 import csv
 import argparse
+import sys
 from pathlib import Path
 from typing import Dict, List
 from datetime import datetime
 from collections import defaultdict
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 class ReportGenerator:
     """Generate detailed reports from link validation results"""
@@ -135,7 +142,7 @@ class ReportGenerator:
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write('\n'.join(report))
 
-        print(f"✅ Summary report saved to {output_file}")
+        logger.info(f"Summary report saved to {output_file}")
 
     def generate_detailed_csv(self, links_data: Dict, validation_data: Dict,
                              relevance_data: Dict, repairs_data: Dict,
@@ -178,7 +185,7 @@ class ReportGenerator:
                 writer.writeheader()
                 writer.writerows(rows)
 
-        print(f"✅ Detailed CSV saved to {output_file}")
+        logger.info(f"Detailed CSV saved to {output_file}")
 
     def generate_manual_review_queue(self, links_data: Dict, validation_data: Dict,
                                     relevance_data: Dict, repairs_data: Dict,
@@ -254,7 +261,7 @@ class ReportGenerator:
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write('\n'.join(report))
 
-        print(f"✅ Manual review queue saved to {output_file}")
+        logger.info(f"Manual review queue saved to {output_file}")
 
     def generate_action_plan(self, links_data: Dict, validation_data: Dict,
                             relevance_data: Dict, repairs_data: Dict,
@@ -317,7 +324,7 @@ class ReportGenerator:
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write('\n'.join(report))
 
-        print(f"✅ Action plan saved to {output_file}")
+        logger.info(f"Action plan saved to {output_file}")
 
     def _calculate_statistics(self, links_data: Dict, validation_data: Dict,
                              relevance_data: Dict, repairs_data: Dict) -> Dict:
@@ -399,8 +406,6 @@ class ReportGenerator:
         return stats
 
 def main():
-    import sys
-
     parser = argparse.ArgumentParser(
         description='Generate link validation reports',
         epilog='''
@@ -411,7 +416,7 @@ Examples:
         ''',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
     parser.add_argument('--links', type=Path, default=Path('links.json'))
     parser.add_argument('--validation', type=Path, default=Path('validation.json'))
     parser.add_argument('--relevance', type=Path, default=Path('relevance.json'))

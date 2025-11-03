@@ -11,12 +11,21 @@ Usage:
     validator = ParallelValidator(max_workers=4)
     validator.add_validator("manifest", validate_manifest)
     success, errors = validator.run_all()
+
+VERSION: 1.1.0
 """
 
 import concurrent.futures
 import sys
 import time
+from pathlib import Path
 from typing import List, Tuple, Callable
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 
 class ValidationResult:
@@ -124,9 +133,9 @@ class ParallelValidator:
                 result = future.result()
                 results.append(result)
 
-                # Print live status if verbose
+                # Log live status if verbose
                 if self.verbose:
-                    print(f"  {result}")
+                    logger.info(f"Validation completed: {result}")
 
         # Calculate statistics
         total_duration = time.time() - start_time
@@ -135,15 +144,15 @@ class ParallelValidator:
         # Sort results by name for consistent output
         results.sort(key=lambda r: r.name)
 
-        # Print summary
+        # Log summary
         if self.verbose:
             serial_time = sum(r.duration for r in results)
             speedup = serial_time / total_duration if total_duration > 0 else 1.0
-            print(f"\n📊 Validation Summary:")
-            print(f"  Total time: {total_duration:.2f}s")
-            print(f"  Serial equivalent: {serial_time:.2f}s")
-            print(f"  Speedup: {speedup:.1f}x")
-            print(f"  Status: {'✅ PASS' if all_passed else '❌ FAIL'}")
+            logger.info("Validation Summary")
+            logger.info(f"Total time: {total_duration:.2f}s")
+            logger.info(f"Serial equivalent: {serial_time:.2f}s")
+            logger.info(f"Speedup: {speedup:.1f}x")
+            logger.info(f"Status: {'PASS' if all_passed else 'FAIL'}")
 
         return all_passed, results
 

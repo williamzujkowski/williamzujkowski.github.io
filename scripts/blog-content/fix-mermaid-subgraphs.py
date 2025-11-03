@@ -11,6 +11,8 @@ This script:
 2. Converts to v10-compatible syntax
 3. Backs up original files
 4. Reports all changes
+
+VERSION: 1.1.0
 """
 
 import re
@@ -18,6 +20,12 @@ import sys
 import shutil
 from pathlib import Path
 from typing import List, Tuple
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 def fix_subgraph_syntax(content: str) -> Tuple[str, List[str]]:
     """
@@ -92,7 +100,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> Tuple[bool, List[str]
         return False, []
 
     except Exception as e:
-        print(f"❌ Error processing {filepath}: {e}")
+        logger.error(f"Error processing {filepath}: {e}")
         return False, []
 
 def main():
