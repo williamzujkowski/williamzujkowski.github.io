@@ -112,13 +112,13 @@ def main():
     parser.add_argument('--verbose', action='store_true', help='Show detailed progress')
     args = parser.parse_args()
 
-    print("🔧 Fixing Mermaid subgraph syntax for v10 compatibility\n")
+    logger.info("Fixing Mermaid subgraph syntax for v10 compatibility")
 
     repo_root = Path(__file__).parent.parent.parent
     posts_dir = repo_root / 'src' / 'posts'
 
     if not posts_dir.exists():
-        print(f"❌ Posts directory not found: {posts_dir}")
+        logger.error(f"Posts directory not found: {posts_dir}")
         sys.exit(1)
 
     # Find posts with Mermaid diagrams
@@ -128,10 +128,10 @@ def main():
         if '```mermaid' in content:
             posts_with_mermaid.append(post_file)
 
-    print(f"📊 Found {len(posts_with_mermaid)} posts with Mermaid diagrams")
+    logger.info(f"Found {len(posts_with_mermaid)} posts with Mermaid diagrams")
 
     if args.dry_run:
-        print("🔍 DRY RUN MODE - No files will be modified\n")
+        logger.info("DRY RUN MODE - No files will be modified")
 
     # Process each file
     modified_count = 0
@@ -145,28 +145,28 @@ def main():
             total_changes += len(changes)
 
             rel_path = post_file.relative_to(repo_root)
-            print(f"\n✏️  {rel_path}")
-            print("=" * 80)
+            logger.info(f"Modified: {rel_path}")
+            logger.info("=" * 80)
             for change in changes:
-                print(f"  • {change}")
+                logger.info(f"  • {change}")
 
             if args.verbose and not args.dry_run:
-                print(f"  ✓ Backup created: {post_file.name}.bak")
+                logger.debug(f"Backup created: {post_file.name}.bak")
 
     # Summary
-    print(f"\n{'=' * 80}")
-    print(f"\n📊 Summary:")
-    print(f"  • Total posts scanned: {len(posts_with_mermaid)}")
-    print(f"  • Posts modified: {modified_count}")
-    print(f"  • Total changes: {total_changes}")
+    logger.info("=" * 80)
+    logger.info("Summary:")
+    logger.info(f"  • Total posts scanned: {len(posts_with_mermaid)}")
+    logger.info(f"  • Posts modified: {modified_count}")
+    logger.info(f"  • Total changes: {total_changes}")
 
     if args.dry_run:
-        print(f"\n💡 Run without --dry-run to apply changes")
+        logger.info("Run without --dry-run to apply changes")
     elif modified_count > 0:
-        print(f"\n✅ All Mermaid subgraphs updated to v10 syntax!")
-        print(f"   Backups saved with .bak extension")
+        logger.info("All Mermaid subgraphs updated to v10 syntax!")
+        logger.info("Backups saved with .bak extension")
     else:
-        print(f"\n✅ No changes needed - all diagrams already v10 compatible!")
+        logger.info("No changes needed - all diagrams already v10 compatible!")
 
     return 0 if modified_count > 0 or args.dry_run else 0
 

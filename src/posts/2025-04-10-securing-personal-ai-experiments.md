@@ -51,7 +51,7 @@ torch
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
@@ -67,7 +67,7 @@ graph LR
         Monitor[Monitoring]
         Update[Updates]
     end
-    
+
     Raw --> Clean
     Clean --> Feature
     Feature --> Train
@@ -76,9 +76,11 @@ graph LR
     Test --> Deploy
     Deploy --> Monitor
     Monitor -->|Feedback| Train
-    
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
+
+    classDef trainStyle fill:#9c27b0
+    classDef deployStyle fill:#4caf50
+    class Train trainStyle
+    class Deploy deployStyle
 ```
 
 ## Why Security Matters for Personal AI Projects
@@ -97,29 +99,13 @@ Before diving into the technical details, let's address why this matters:
 
 My first rule: AI experiments run in isolation. Here's my setup (though I'll admit this approach adds operational complexity, and you're trading convenience for security):
 
-```python
-# Docker Compose for isolated AI environment
-
-services:
-  ai-sandbox:
-    image: pytorch/pytorch:latest
-    # ... (additional implementation details)
-    driver: bridge
-    internal: true  # No external network access
-```
+<script src="https://gist.github.com/williamzujkowski/d8ad8f2e7cb5431e0def2c94283d4ce5.js"></script>
 
 ### Network Segmentation for AI Workloads
 
 AI experiments get their own VLAN with strict firewall rules:
 
-```bash
-# Dream Machine Professional firewall rules for AI VLAN
-- Allow: AI VLAN -> Internal model repository
-- Allow: AI VLAN -> Specific whitelisted APIs (OpenAI, Hugging Face)
-- Block: AI VLAN -> Home network
-- Block: AI VLAN -> Management network
-- Log: All AI VLAN traffic for monitoring
-```
+<script src="https://gist.github.com/williamzujkowski/6eaf1ebe4f96aad330fc23fc5b57c671.js"></script>
 
 ## Securing Local LLM Deployments
 
@@ -127,46 +113,19 @@ Running LLMs locally (like LLaMA or Mistral) requires special consideration:
 
 ### Safe Model Loading
 
-```python
-import torch
-import hashlib
-from pathlib import Path
-
-class SecureModelLoader:
-    # ... (additional implementation details)
-        # Add more sanitization as needed
-        return sanitized
-```
+<script src="https://gist.github.com/williamzujkowski/139b291b7ab1aaf8188ae9d66370a018.js"></script>
 
 ### Prompt Injection Protection
 
 When building AI applications, protecting against prompt injection is crucial:
 
-```python
-class PromptSecurityFilter:
-    def __init__(self):
-        self.blocked_patterns = [
-            r"ignore previous instructions",
-            r"disregard all prior",
-    # ... (additional implementation details)
-        
-        return sanitized
-```
+<script src="https://gist.github.com/williamzujkowski/5c97f26a169c386e822ffe9a77e48507.js"></script>
 
 ## Monitoring AI Resource Usage
 
 AI workloads can consume significant resources. Here's how I monitor them:
 
-```python
-import psutil
-import GPUtil
-import logging
-from datetime import datetime
-
-    # ... (additional implementation details)
-        
-        return suspicious_processes
-```
+<script src="https://gist.github.com/williamzujkowski/328c43577820c92437ed40c58e276ae8.js"></script>
 
 ## Data Privacy in AI Experiments
 
@@ -174,31 +133,13 @@ from datetime import datetime
 
 When experimenting with AI, especially when using family photos or documents:
 
-```python
-class PrivacyPreservingAI:
-    def __init__(self):
-        self.pii_patterns = {
-            'email': r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
-            'phone': r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b',
-    # ... (additional implementation details)
-        
-        return processed_data
-```
+<script src="https://gist.github.com/williamzujkowski/271230bd22778b63d2645fb63570b3bf.js"></script>
 
 ### Secure API Key Management
 
 For cloud AI services, proper API key management is essential:
 
-```python
-import os
-from cryptography.fernet import Fernet
-import keyring
-
-class SecureAPIManager:
-    # ... (additional implementation details)
-        # Implementation for key rotation
-        pass
-```
+<script src="https://gist.github.com/williamzujkowski/9321cf345abbe8ae554d4d106645a0db.js"></script>
 
 ## Family-Safe AI Guidelines
 
@@ -206,16 +147,7 @@ When kids want to experiment with AI, additional safeguards are needed:
 
 ### Content Filtering for AI Outputs
 
-```python
-class FamilySafeAI:
-    def __init__(self):
-        self.load_safety_filters()
-    
-    def is_appropriate_for_kids(self, text):
-    # ... (additional implementation details)
-        
-        return safe_generate
-```
+<script src="https://gist.github.com/williamzujkowski/cda8c25a0a3b3596aa38207ad76769a8.js"></script>
 
 ## Lessons Learned
 
