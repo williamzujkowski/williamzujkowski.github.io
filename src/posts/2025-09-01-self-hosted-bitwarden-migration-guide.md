@@ -33,7 +33,7 @@ That question led me to self-host Bitwarden, and I haven't looked back.
 ## Self-Hosted Password Management Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph clientaccess["Client Access"]
         Web[Web Vault]
         Mobile[Mobile Apps]
@@ -76,9 +76,12 @@ graph TB
     Encrypted --> Offsite
     Offsite --> Versioned
 
-    style Vaultwarden fill:#4caf50,color:#fff
-    style WAF fill:#ff9800,color:#fff
-    style Encrypted fill:#f44336,color:#fff
+    classDef successStyle fill:#4caf50,color:#fff
+    classDef warningStyle fill:#ff9800,color:#fff
+    classDef criticalStyle fill:#f44336,color:#fff
+    class Vaultwarden successStyle
+    class WAF warningStyle
+    class Encrypted criticalStyle
 ```
 
 ## Why Self-Host?
@@ -120,200 +123,17 @@ Before diving into the technical implementation, let me address the elephant in 
 
 ### Docker Compose Deployment
 
-```yaml
-# docker-compose.yml
-version: '3.8'
-
-services:
-  vaultwarden:
-    image: vaultwarden/server:latest
-    container_name: vaultwarden
-    restart: unless-stopped
-    environment:
-      - DOMAIN=https://vault.example.com
-      - SIGNUPS_ALLOWED=false
-      - INVITATIONS_ALLOWED=true
-      - ADMIN_TOKEN=${ADMIN_TOKEN}
-      - SMTP_HOST=smtp.gmail.com
-      - SMTP_FROM=no-reply@example.com
-      - SMTP_PORT=587
-      - SMTP_SECURITY=starttls
-      - SMTP_USERNAME=${SMTP_USERNAME}
-      - SMTP_PASSWORD=${SMTP_PASSWORD}
-      - LOG_LEVEL=info
-      - EXTENDED_LOGGING=true
-      - DATABASE_URL=postgresql://bitwarden:${DB_PASSWORD}@postgres:5432/bitwarden
-    volumes:
-      - ./vw-data:/data
-    depends_on:
-      - postgres
-    networks:
-      - bitwarden-net
-
-  postgres:
-    image: postgres:15-alpine
-    container_name: vaultwarden-db
-    restart: unless-stopped
-    environment:
-      - POSTGRES_DB=bitwarden
-      - POSTGRES_USER=bitwarden
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
-    networks:
-      - bitwarden-net
-
-  backup:
-    image: tiredofit/db-backup
-    container_name: vaultwarden-backup
-    restart: unless-stopped
-    environment:
-      - DB_TYPE=postgres
-      - DB_HOST=postgres
-      - DB_NAME=bitwarden
-      - DB_USER=bitwarden
-      - DB_PASS=${DB_PASSWORD}
-      - DB_DUMP_FREQ=1440
-      - DB_DUMP_BEGIN=0300
-      - DB_CLEANUP_TIME=8640
-      - COMPRESSION=GZ
-    volumes:
-      - ./backups:/backup
-    depends_on:
-      - postgres
-    networks:
-      - bitwarden-net
-
-networks:
-  bitwarden-net:
-    driver: bridge
-```
-
-### Environment Variables
-
-```bash
-# .env (NEVER commit this to git)
-ADMIN_TOKEN=$(openssl rand -base64 48)
-DB_PASSWORD=$(openssl rand -base64 32)
-SMTP_USERNAME=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
-```
+<script src="https://gist.github.com/williamzujkowski/dc0728c2908e4689896f35bec5f3855a.js"></script>
 
 ### Deploy the Stack
 
-```bash
-# Create directories
-mkdir -p ~/bitwarden/{vw-data,postgres-data,backups}
-cd ~/bitwarden
-
-# Create docker-compose.yml and .env
-# (use files above)
-
-# Set secure permissions
-chmod 600 .env
-
-# Start services
-docker-compose up -d
-
-# Check logs
-docker-compose logs -f vaultwarden
-```
+<script src="https://gist.github.com/williamzujkowski/b8cb1cd1d6ff8f64425f02ec912a6d1a.js"></script>
 
 ## Reverse Proxy Configuration
 
 ### Nginx with TLS
 
-```nginx
-# /etc/nginx/sites-available/bitwarden
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name vault.example.com;
-
-    # TLS configuration
-    ssl_certificate /etc/letsencrypt/live/vault.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/vault.example.com/privkey.pem;
-    ssl_session_timeout 1d;
-    ssl_session_cache shared:MozSSL:10m;
-    ssl_session_tickets off;
-
-    # Modern TLS configuration
-    ssl_protocols TLSv1.3;
-    ssl_prefer_server_ciphers off;
-
-    # HSTS
-    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
-
-    # Security headers
-    add_header X-Frame-Options "DENY" always;
-    add_header X-Content-Type-Options "nosniff" always;
-    add_header X-XSS-Protection "1; mode=block" always;
-    add_header Referrer-Policy "same-origin" always;
-
-    # Rate limiting
-    limit_req_zone $binary_remote_addr zone=bitwarden_login:10m rate=10r/m;
-    limit_req zone=bitwarden_login burst=5 nodelay;
-
-    # Client body size (for attachments)
-    client_max_body_size 525M;
-
-    location / {
-        proxy_pass http://127.0.0.1:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_read_timeout 300s;
-    }
-
-    location /notifications/hub {
-        proxy_pass http://127.0.0.1:3012;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-    }
-
-    location /notifications/hub/negotiate {
-        proxy_pass http://127.0.0.1:8080;
-    }
-
-    # Admin panel rate limiting
-    location /admin {
-        limit_req zone=bitwarden_login burst=2 nodelay;
-        proxy_pass http://127.0.0.1:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-# HTTP redirect
-server {
-    listen 80;
-    listen [::]:80;
-    server_name vault.example.com;
-    return 301 https://$server_name$request_uri;
-}
-```
-
-Enable and test:
-
-```bash
-sudo ln -s /etc/nginx/sites-available/bitwarden /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx
-```
-
-### Obtaining TLS Certificate
-
-```bash
-# Install certbot
-sudo apt install certbot python3-certbot-nginx
-
-# Obtain certificate
-sudo certbot --nginx -d vault.example.com
-
-# Auto-renewal is configured by default
-sudo systemctl status certbot.timer
-```
+<script src="https://gist.github.com/williamzujkowski/f11619209152dd8cf3ed558335ac7a3f.js"></script>
 
 ## Security Hardening
 
@@ -321,23 +141,7 @@ sudo systemctl status certbot.timer
 
 Protect against brute-force attacks:
 
-```ini
-# /etc/fail2ban/filter.d/vaultwarden.conf
-[Definition]
-failregex = ^.*Username or password is incorrect\. Try again\. IP: <HOST>\. Username:.*$
-ignoreregex =
-
-# /etc/fail2ban/jail.d/vaultwarden.conf
-[vaultwarden]
-enabled = true
-port = 80,443,8081
-filter = vaultwarden
-action = iptables-allports[name=vaultwarden]
-logpath = /home/user/bitwarden/vw-data/vaultwarden.log
-maxretry = 3
-bantime = 14400
-findtime = 14400
-```
+<script src="https://gist.github.com/williamzujkowski/28d9a26bcff2a02c2d0aabbaf570b409.js"></script>
 
 Restart Fail2ban:
 
@@ -348,24 +152,7 @@ sudo fail2ban-client status vaultwarden
 
 ### Firewall Rules
 
-```bash
-# UFW firewall configuration
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-
-# Allow SSH (change port if using non-standard)
-sudo ufw allow 22/tcp
-
-# Allow HTTP/HTTPS
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-
-# Enable firewall
-sudo ufw enable
-
-# Check status
-sudo ufw status verbose
-```
+<script src="https://gist.github.com/williamzujkowski/0549ee4b142ddff4d684e8ec21fb0317.js"></script>
 
 ### Two-Factor Authentication
 
@@ -429,41 +216,7 @@ shred -vfz -n 10 lastpass-export.csv
 
 ### Automated Database Backups
 
-```bash
-#!/bin/bash
-# /usr/local/bin/backup-vaultwarden.sh
-
-BACKUP_DIR="/mnt/backups/vaultwarden"
-DATE=$(date +%Y%m%d_%H%M%S)
-RETENTION_DAYS=30
-
-# Create backup directory
-mkdir -p "$BACKUP_DIR"
-
-# Backup database
-docker exec vaultwarden-db pg_dump -U bitwarden bitwarden | \
-    gzip > "$BACKUP_DIR/bitwarden_$DATE.sql.gz"
-
-# Backup attachments and data
-tar -czf "$BACKUP_DIR/vw-data_$DATE.tar.gz" -C /home/user/bitwarden/vw-data .
-
-# Encrypt backups
-gpg --encrypt --recipient your-email@example.com \
-    "$BACKUP_DIR/bitwarden_$DATE.sql.gz"
-
-gpg --encrypt --recipient your-email@example.com \
-    "$BACKUP_DIR/vw-data_$DATE.tar.gz"
-
-# Remove unencrypted backups
-rm "$BACKUP_DIR/bitwarden_$DATE.sql.gz"
-rm "$BACKUP_DIR/vw-data_$DATE.tar.gz"
-
-# Remove old backups
-find "$BACKUP_DIR" -name "*.gpg" -mtime +$RETENTION_DAYS -delete
-
-# Sync to offsite location (Backblaze B2, rsync, etc.)
-rclone copy "$BACKUP_DIR" remote:vaultwarden-backups/
-```
+<script src="https://gist.github.com/williamzujkowski/f007271e97105ae16de1d28a2cfbe9d7.js"></script>
 
 Schedule with cron:
 
@@ -474,17 +227,7 @@ Schedule with cron:
 
 ### Testing Backup Restoration
 
-```bash
-# Decrypt backup
-gpg --decrypt bitwarden_20250901_030000.sql.gz.gpg > bitwarden_restore.sql.gz
-gunzip bitwarden_restore.sql.gz
-
-# Restore to test database
-docker exec -i vaultwarden-db psql -U bitwarden bitwarden < bitwarden_restore.sql
-
-# Verify data integrity
-docker exec vaultwarden-db psql -U bitwarden bitwarden -c "SELECT COUNT(*) FROM users;"
-```
+<script src="https://gist.github.com/williamzujkowski/327bbe4806d93f947478373788a4ede5.js"></script>
 
 **Test your backups regularly!** A backup you haven't tested is just wishful thinking.
 
@@ -492,59 +235,7 @@ docker exec vaultwarden-db psql -U bitwarden bitwarden -c "SELECT COUNT(*) FROM 
 
 ### Health Check Script
 
-```bash
-#!/bin/bash
-# /usr/local/bin/check-vaultwarden.sh
-
-VAULT_URL="https://vault.example.com"
-ADMIN_TOKEN="your-admin-token"
-
-# Check if service is responding
-HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$VAULT_URL")
-
-if [ "$HTTP_STATUS" -ne 200 ]; then
-    echo "ERROR: Vaultwarden returned HTTP $HTTP_STATUS"
-    # Send alert (email, Telegram, etc.)
-    exit 1
-fi
-
-# Check SSL certificate expiry
-CERT_DAYS=$(echo | openssl s_client -servername vault.example.com \
-    -connect vault.example.com:443 2>/dev/null | \
-    openssl x509 -noout -dates | grep "notAfter" | cut -d= -f2)
-
-EXPIRY_EPOCH=$(date -d "$CERT_DAYS" +%s)
-NOW_EPOCH=$(date +%s)
-DAYS_LEFT=$(( ($EXPIRY_EPOCH - $NOW_EPOCH) / 86400 ))
-
-if [ "$DAYS_LEFT" -lt 30 ]; then
-    echo "WARNING: SSL certificate expires in $DAYS_LEFT days"
-fi
-
-# Check database size
-DB_SIZE=$(docker exec vaultwarden-db psql -U bitwarden -t -c \
-    "SELECT pg_size_pretty(pg_database_size('bitwarden'));")
-
-echo "Database size: $DB_SIZE"
-
-# Check backup status
-LATEST_BACKUP=$(find /mnt/backups/vaultwarden -name "*.gpg" -type f -printf '%T@ %p\n' | \
-    sort -n | tail -1 | cut -d' ' -f2-)
-
-if [ -z "$LATEST_BACKUP" ]; then
-    echo "ERROR: No backups found"
-    exit 1
-fi
-
-BACKUP_AGE=$(( ($(date +%s) - $(stat -c %Y "$LATEST_BACKUP")) / 3600 ))
-
-if [ "$BACKUP_AGE" -gt 26 ]; then
-    echo "ERROR: Latest backup is $BACKUP_AGE hours old"
-    exit 1
-fi
-
-echo "✅ All checks passed"
-```
+<script src="https://gist.github.com/williamzujkowski/b5fd9b8c6991a5e43587cb78f30ff344.js"></script>
 
 ### Prometheus Metrics
 
@@ -589,25 +280,7 @@ Export metrics for monitoring:
 
 ### CLI Client
 
-```bash
-# Install Bitwarden CLI
-npm install -g @bitwarden/cli
-
-# Configure server
-bw config server https://vault.example.com
-
-# Login
-bw login your-email@example.com
-
-# Unlock vault
-export BW_SESSION=$(bw unlock --raw)
-
-# List items
-bw list items
-
-# Get specific password
-bw get password github.com
-```
+<script src="https://gist.github.com/williamzujkowski/4b8fc96deb050dd4376e396d71044031.js"></script>
 
 ## Disaster Recovery Plan
 

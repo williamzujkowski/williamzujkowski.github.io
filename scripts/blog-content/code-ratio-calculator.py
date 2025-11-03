@@ -60,8 +60,8 @@ Set custom threshold:
     uv run python scripts/blog-content/code-ratio-calculator.py --batch --threshold 30
 
 Author: Claude Code Agent
-Version: 1.0.0
-Last Updated: 2025-11-02
+Version: 1.1.0
+Last Updated: 2025-11-03
 """
 
 import argparse
@@ -109,17 +109,27 @@ class CodeRatioResult:
         total_lines: Total content lines (excluding frontmatter)
         code_blocks: List of detected code blocks
         total_code_lines: Sum of all code lines across blocks
+        mermaid_lines: Lines in Mermaid diagram blocks
+        actual_code_lines: Lines in non-Mermaid code blocks
         code_ratio: Percentage of code vs total content
+        mermaid_percentage: Percentage of Mermaid within all code
+        actual_code_percentage: Percentage of actual code vs total content
         compliant: Whether ratio is below threshold
         threshold: Threshold used for compliance check
+        is_diagram_heavy: Whether post is primarily Mermaid diagrams
     """
     filename: str
     total_lines: int
     code_blocks: List[CodeBlock]
     total_code_lines: int
+    mermaid_lines: int
+    actual_code_lines: int
     code_ratio: float
+    mermaid_percentage: float
+    actual_code_percentage: float
     compliant: bool
     threshold: float
+    is_diagram_heavy: bool
 
     def to_dict(self) -> Dict:
         """Convert result to dictionary for JSON serialization."""
@@ -136,9 +146,14 @@ class CodeRatioResult:
                 for block in self.code_blocks
             ],
             "total_code_lines": self.total_code_lines,
+            "mermaid_lines": self.mermaid_lines,
+            "actual_code_lines": self.actual_code_lines,
             "code_ratio": round(self.code_ratio, 1),
+            "mermaid_percentage": round(self.mermaid_percentage, 1),
+            "actual_code_percentage": round(self.actual_code_percentage, 1),
             "compliant": self.compliant,
-            "threshold": self.threshold
+            "threshold": self.threshold,
+            "is_diagram_heavy": self.is_diagram_heavy
         }
 
 
@@ -170,9 +185,9 @@ def skip_frontmatter(lines: List[str]) -> int:
     return 0
 
 
-def extract_code_blocks(lines: List[str], content_start: int) -> Tuple[List[CodeBlock], int]:
+def extract_code_blocks(lines: List[str], content_start: int) -> Tuple[List[CodeBlock], int, int, int]:
     """
-    Extract all code blocks from content lines.
+    Extract all code blocks from content lines, tracking Mermaid separately.
 
     METHODOLOGY:
     -----------
@@ -180,25 +195,30 @@ def extract_code_blocks(lines: List[str], content_start: int) -> Tuple[List[Code
     2. Detect opening ``` fence (with optional language identifier)
     3. Count non-blank lines until closing ``` fence
     4. Store block metadata (start, end, line count, language)
-    5. Exclude fence markers themselves from all counts
+    5. Track Mermaid blocks separately for diagram-heavy detection
+    6. Exclude fence markers themselves from all counts
 
     Args:
         lines: All lines from the markdown file
         content_start: Index where content begins (after frontmatter)
 
     Returns:
-        Tuple of (list of CodeBlock objects, total code lines)
+        Tuple of (list of CodeBlock objects, total code lines, mermaid lines, actual code lines)
 
     Example:
         >>> lines = ["---", "title: Test", "---", "", "```python", "print(1)", "", "print(2)", "```"]
-        >>> blocks, total = extract_code_blocks(lines, 3)
+        >>> blocks, total, mermaid, actual = extract_code_blocks(lines, 3)
         >>> len(blocks)
         1
         >>> total
         2
+        >>> actual
+        2
     """
     code_blocks: List[CodeBlock] = []
     total_code_lines = 0
+    mermaid_lines = 0
+    actual_code_lines = 0
     in_code_block = False
     current_block_start = 0
     current_block_lines = 0
@@ -226,6 +246,13 @@ def extract_code_blocks(lines: List[str], content_start: int) -> Tuple[List[Code
                 )
                 code_blocks.append(block)
                 total_code_lines += current_block_lines
+
+                # Track Mermaid vs actual code separately
+                if current_language.lower() == 'mermaid':
+                    mermaid_lines += current_block_lines
+                else:
+                    actual_code_lines += current_block_lines
+
                 in_code_block = False
                 current_language = ""
         elif in_code_block:
@@ -245,7 +272,13 @@ def extract_code_blocks(lines: List[str], content_start: int) -> Tuple[List[Code
         code_blocks.append(block)
         total_code_lines += current_block_lines
 
-    return code_blocks, total_code_lines
+        # Track Mermaid vs actual code for unclosed block
+        if current_language.lower() == 'mermaid':
+            mermaid_lines += current_block_lines
+        else:
+            actual_code_lines += current_block_lines
+
+    return code_blocks, total_code_lines, mermaid_lines, actual_code_lines
 
 
 def count_content_lines(lines: List[str], content_start: int) -> int:
@@ -289,7 +322,7 @@ def count_content_lines(lines: List[str], content_start: int) -> int:
 
 def analyze_file(filepath: Path, threshold: float = 25.0) -> CodeRatioResult:
     """
-    Analyze a single markdown file for code ratio.
+    Analyze a single markdown file for code ratio with Mermaid distinction.
 
     Args:
         filepath: Path to markdown file
@@ -318,16 +351,24 @@ def analyze_file(filepath: Path, threshold: float = 25.0) -> CodeRatioResult:
     content_start = skip_frontmatter(lines)
     logger.debug(f"Content starts at line {content_start + 1}")
 
-    # Step 2: Extract code blocks
-    code_blocks, total_code_lines = extract_code_blocks(lines, content_start)
+    # Step 2: Extract code blocks with Mermaid tracking
+    code_blocks, total_code_lines, mermaid_lines, actual_code_lines = extract_code_blocks(lines, content_start)
     logger.debug(f"Found {len(code_blocks)} code blocks with {total_code_lines} total code lines")
+    logger.debug(f"  Mermaid: {mermaid_lines} lines, Actual code: {actual_code_lines} lines")
 
     # Step 3: Count total content lines
     total_lines = count_content_lines(lines, content_start)
     logger.debug(f"Total content lines: {total_lines}")
 
-    # Step 4: Calculate ratio
+    # Step 4: Calculate ratios
     code_ratio = (total_code_lines / total_lines * 100) if total_lines > 0 else 0.0
+    mermaid_percentage = (mermaid_lines / total_code_lines * 100) if total_code_lines > 0 else 0.0
+    actual_code_percentage = (actual_code_lines / total_lines * 100) if total_lines > 0 else 0.0
+
+    # Step 5: Determine if diagram-heavy
+    # Criteria: >80% of code is Mermaid AND actual code <10% of post
+    is_diagram_heavy = (mermaid_percentage > 80.0 and actual_code_percentage < 10.0)
+
     compliant = code_ratio <= threshold
 
     result = CodeRatioResult(
@@ -335,18 +376,26 @@ def analyze_file(filepath: Path, threshold: float = 25.0) -> CodeRatioResult:
         total_lines=total_lines,
         code_blocks=code_blocks,
         total_code_lines=total_code_lines,
+        mermaid_lines=mermaid_lines,
+        actual_code_lines=actual_code_lines,
         code_ratio=code_ratio,
+        mermaid_percentage=mermaid_percentage,
+        actual_code_percentage=actual_code_percentage,
         compliant=compliant,
-        threshold=threshold
+        threshold=threshold,
+        is_diagram_heavy=is_diagram_heavy
     )
 
-    logger.info(f"Analysis complete: {code_ratio:.1f}% code ratio ({'COMPLIANT' if compliant else 'EXCEEDS THRESHOLD'})")
+    status = 'COMPLIANT' if compliant else 'EXCEEDS THRESHOLD'
+    if is_diagram_heavy:
+        status += ' (DIAGRAM-HEAVY)'
+    logger.info(f"Analysis complete: {code_ratio:.1f}% code ratio ({status})")
     return result
 
 
 def format_result(result: CodeRatioResult, show_blocks: bool = True) -> str:
     """
-    Format analysis result for human-readable output.
+    Format analysis result for human-readable output with Mermaid breakdown.
 
     Args:
         result: CodeRatioResult to format
@@ -367,11 +416,26 @@ def format_result(result: CodeRatioResult, show_blocks: bool = True) -> str:
         for i, block in enumerate(result.code_blocks, 1):
             output.append(f"  Block {i} (lines {block.start_line}-{block.end_line}): {block.code_lines} lines [{block.language or 'no-language'}]")
 
-    output.extend([
-        f"Total code lines: {result.total_code_lines}",
-        f"Code ratio: {result.code_ratio:.1f}%",
-        f"Status: {status} (threshold: {result.threshold}%)",
-    ])
+    # Enhanced breakdown showing Mermaid vs actual code
+    if result.total_code_lines > 0:
+        output.extend([
+            f"Total code lines: {result.total_code_lines} ({result.code_ratio:.1f}%)",
+            f"├─ Mermaid diagrams: {result.mermaid_lines} lines ({result.mermaid_percentage:.1f}% of code)",
+            f"└─ Actual code: {result.actual_code_lines} lines ({result.actual_code_percentage:.1f}% of post)",
+        ])
+    else:
+        output.append(f"Total code lines: {result.total_code_lines}")
+
+    # Add diagram-heavy classification
+    if result.is_diagram_heavy:
+        output.extend([
+            f"",
+            f"Status: ⚠️  DIAGRAM-HEAVY ({result.mermaid_percentage:.1f}% Mermaid)",
+            f"Recommendation: Educational visualizations - consider policy exception for ratio",
+            f"Compliance: {status} (threshold: {result.threshold}%)",
+        ])
+    else:
+        output.append(f"Status: {status} (threshold: {result.threshold}%)")
 
     return "\n".join(output)
 
