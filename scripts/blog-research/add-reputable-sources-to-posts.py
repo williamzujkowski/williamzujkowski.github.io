@@ -44,13 +44,17 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/add-reputable-sources-to-posts.py
 """
 
-from scripts.lib.logging_config import setup_logging
 import logging
+import sys
 import frontmatter
 from pathlib import Path
 
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
 # Setup logging
-logger = setup_logging(__name__)
+logger = setup_logger(__name__)
 
 def add_sources_to_ebpf_post(quiet=False):
     """Add academic sources to the eBPF post."""

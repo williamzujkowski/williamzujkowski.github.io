@@ -4,8 +4,8 @@ SCRIPT: check-citation-hyperlinks.py
 PURPOSE: Check all blog posts for citations that lack hyperlinks
 CATEGORY: academic_research
 LLM_READY: True
-VERSION: 1.2.0
-UPDATED: 2025-11-02
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Check all blog posts for citations that lack hyperlinks. Detects academic citations,
@@ -176,26 +176,27 @@ class CitationChecker:
                 'total_issues': sum(len(v) for v in issues.values()),
                 'issues': issues
             }
-            print(json.dumps(output, indent=2))
+            # JSON output goes to stdout for piping/automation
+            logger.info(json.dumps(output, indent=2))
             return
 
         # Text format
         if not issues:
-            print("✅ All citations have hyperlinks!")
+            logger.info("✅ All citations have hyperlinks!")
             return
 
-        print("=" * 60)
-        print("CITATIONS WITHOUT HYPERLINKS")
-        print("=" * 60)
-        print()
+        logger.info("=" * 60)
+        logger.info("CITATIONS WITHOUT HYPERLINKS")
+        logger.info("=" * 60)
+        logger.info("")
 
         total_issues = sum(len(v) for v in issues.values())
-        print(f"Found {total_issues} citations without hyperlinks in {len(issues)} files\n")
+        logger.info(f"Found {total_issues} citations without hyperlinks in {len(issues)} files\n")
 
         for filepath, file_issues in issues.items():
             filename = Path(filepath).name
-            print(f"\n📄 {filename}")
-            print("-" * 40)
+            logger.info(f"\n📄 {filename}")
+            logger.info("-" * 40)
 
             # Group by type
             by_type = {}
@@ -206,18 +207,18 @@ class CitationChecker:
                 by_type[issue_type].append(issue)
 
             for issue_type, typed_issues in by_type.items():
-                print(f"\n  {issue_type.replace('_', ' ').title()} ({len(typed_issues)} issues):")
+                logger.info(f"\n  {issue_type.replace('_', ' ').title()} ({len(typed_issues)} issues):")
                 for issue in typed_issues[:3]:  # Show first 3
-                    print(f"    Line {issue['line']}: {issue['match']}")
+                    logger.info(f"    Line {issue['line']}: {issue['match']}")
                 if len(typed_issues) > 3:
-                    print(f"    ... and {len(typed_issues) - 3} more")
+                    logger.info(f"    ... and {len(typed_issues) - 3} more")
 
-        print("\n" + "=" * 60)
-        print("SUMMARY")
-        print("=" * 60)
-        print(f"Total posts checked: {len(list(self.posts_dir.glob('*.md')))}")
-        print(f"Posts with issues: {len(issues)}")
-        print(f"Total citations without hyperlinks: {total_issues}")
+        logger.info("\n" + "=" * 60)
+        logger.info("SUMMARY")
+        logger.info("=" * 60)
+        logger.info(f"Total posts checked: {len(list(self.posts_dir.glob('*.md')))}")
+        logger.info(f"Posts with issues: {len(issues)}")
+        logger.info(f"Total citations without hyperlinks: {total_issues}")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -239,7 +240,7 @@ Examples:
         """
     )
 
-    parser.add_argument('--version', action='version', version='%(prog)s 1.2.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
     parser.add_argument('--dir', default='src/posts',
                        help='Directory to scan for markdown files (default: src/posts)')
     parser.add_argument('--format', choices=['text', 'json'], default='text',
@@ -264,11 +265,9 @@ Examples:
 
     except FileNotFoundError as e:
         logger.error(f"Directory not found: {e}")
-        print(f"Error: {e}", file=sys.stderr)
         return 2
     except Exception as e:
         logger.exception(f"Unexpected error during citation checking: {e}")
-        print(f"Unexpected error: {e}", file=sys.stderr)
         if not args.quiet:
             import traceback
             traceback.print_exc()

@@ -4,8 +4,8 @@ SCRIPT: search-reputable-sources.py
 PURPOSE: Search for reputable sources using Playwright to back up technical claims in blog posts
 CATEGORY: utilities
 LLM_READY: True
-VERSION: 1.1.0
-UPDATED: 2025-11-02T00:00:00-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Search for reputable sources using Playwright to back up technical claims in blog posts. This script is part of the utilities
@@ -242,7 +242,7 @@ Examples:
         ''',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
     parser.add_argument('--quiet', '-q', action='store_true',
                        help='Suppress progress messages')
 
@@ -252,10 +252,10 @@ Examples:
         asyncio.run(main(args.quiet))
         sys.exit(0)
     except FileNotFoundError as e:
-        print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected: src/posts/", file=sys.stderr)
-        print("Tip: Run from repository root", file=sys.stderr)
+        logger.error(f"File not found: {e}")
+        logger.error("Expected: src/posts/")
+        logger.error("Tip: Run from repository root")
         sys.exit(2)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Unexpected error: {e}")
         sys.exit(1)

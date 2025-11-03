@@ -44,16 +44,20 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/add-academic-citations.py
 """
 
-from scripts.lib.logging_config import setup_logging
 import logging
 import json
+import sys
 import frontmatter
 from pathlib import Path
 import re
 from tqdm import tqdm
 
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
 # Setup logging
-logger = setup_logging(__name__)
+logger = setup_logger(__name__)
 
 def load_validation_report():
     """Load the research validation report."""

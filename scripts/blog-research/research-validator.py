@@ -52,8 +52,8 @@ from typing import Dict, List, Tuple
 import argparse
 from datetime import datetime
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from lib.logging_config import setup_logger
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
 
 class ResearchValidator:
     def __init__(self):
