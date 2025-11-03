@@ -251,9 +251,133 @@ def validate_humanization_scores() -> Tuple[bool, str]:
     return True, f"All {len(modified_posts)} posts meet standards (≥75/100)"
 
 
+def _skip_frontmatter_inline(lines: List[str]) -> int:
+    """
+    Helper: Find the end of YAML frontmatter and return the starting index for content.
+
+    This is an inline copy of skip_frontmatter() from code-ratio-calculator.py
+    to avoid circular import dependencies in pre-commit hooks.
+
+    Args:
+        lines: All lines from the markdown file
+
+    Returns:
+        Index of first line after frontmatter (0-indexed)
+    """
+    if not lines or not lines[0].strip().startswith("---"):
+        return 0
+
+    # Find the closing --- marker
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            return i + 1
+
+    # No closing marker found, treat as no frontmatter
+    return 0
+
+
+def _extract_code_blocks_inline(lines: List[str], content_start: int) -> Tuple[int, int]:
+    """
+    Helper: Extract all code blocks from content lines and count total code lines.
+
+    This is an inline copy of extract_code_blocks() from code-ratio-calculator.py
+    to avoid circular import dependencies in pre-commit hooks.
+
+    METHODOLOGY:
+    -----------
+    1. Iterate through lines starting after frontmatter
+    2. Detect opening ``` fence (with optional language identifier)
+    3. Count non-blank lines until closing ``` fence
+    4. Store line count per block
+    5. Exclude fence markers themselves from all counts
+    6. Include ALL code blocks (including Mermaid diagrams)
+
+    NOTE: Mermaid diagrams are counted as code because they contribute to
+    technical density and can make posts harder to read for non-technical audiences.
+
+    Args:
+        lines: All lines from the markdown file
+        content_start: Index where content begins (after frontmatter)
+
+    Returns:
+        Tuple of (number of code blocks, total code lines)
+    """
+    num_blocks = 0
+    total_code_lines = 0
+    in_code_block = False
+    current_block_lines = 0
+
+    for i in range(content_start, len(lines)):
+        line = lines[i]
+        stripped = line.strip()
+
+        if stripped.startswith("```"):
+            if not in_code_block:
+                # Opening fence
+                in_code_block = True
+                current_block_lines = 0
+            else:
+                # Closing fence - count all code blocks
+                num_blocks += 1
+                total_code_lines += current_block_lines
+                in_code_block = False
+        elif in_code_block:
+            # Count non-blank lines within code block
+            if stripped:  # Non-empty line
+                current_block_lines += 1
+
+    # Handle unclosed code block
+    if in_code_block:
+        num_blocks += 1
+        total_code_lines += current_block_lines
+
+    return num_blocks, total_code_lines
+
+
+def _count_content_lines_inline(lines: List[str], content_start: int) -> int:
+    """
+    Helper: Count total content lines, excluding frontmatter and code fence markers.
+
+    This is an inline copy of count_content_lines() from code-ratio-calculator.py
+    to avoid circular import dependencies in pre-commit hooks.
+
+    METHODOLOGY:
+    -----------
+    - Count ALL lines after frontmatter (including blank lines)
+    - Exclude the ``` fence markers themselves
+    - Include blank lines in content count (they affect readability/structure)
+
+    Args:
+        lines: All lines from the markdown file
+        content_start: Index where content begins (after frontmatter)
+
+    Returns:
+        Number of content lines
+    """
+    total_lines = 0
+    in_code_block = False
+
+    for i in range(content_start, len(lines)):
+        line = lines[i].strip()
+
+        if line.startswith("```"):
+            in_code_block = not in_code_block
+            # Do NOT count the fence marker itself
+            continue
+
+        # Count all other lines (including blanks)
+        total_lines += 1
+
+    return total_lines
+
+
 def check_code_ratios() -> Tuple[bool, str]:
     """
     Check code-to-content ratio for blog posts (<25%).
+
+    Uses the AUTHORITATIVE line-by-line parser from code-ratio-calculator.py
+    instead of flawed regex pattern (which incorrectly counted closing fences
+    and captured prose as code).
 
     Returns:
         (success, message)
@@ -278,35 +402,34 @@ def check_code_ratios() -> Tuple[bool, str]:
     if not modified_posts:
         return True, "No blog posts modified"
 
-    # Analyze each post
+    # Analyze each post using robust line-by-line parser
     violations = []
     for post_file in modified_posts:
         if not Path(post_file).exists():
             continue
 
         try:
+            # Read all lines (keep as list for line-by-line parsing)
             with open(post_file, 'r', encoding='utf-8') as f:
-                content = f.read()
+                lines = f.readlines()
 
-            # Skip frontmatter
-            if content.startswith('---'):
-                parts = content.split('---', 2)
-                if len(parts) >= 3:
-                    content = parts[2]
+            if not lines:
+                continue
 
-            # Count lines
-            total_lines = len(content.split('\n'))
+            # Step 1: Skip frontmatter
+            content_start = _skip_frontmatter_inline(lines)
 
-            # Extract code blocks (EXCLUDE mermaid diagrams)
-            # Pattern: Match ``` followed by optional language, but NOT mermaid
-            code_blocks = re.findall(r'```(?!mermaid).*?\n(.*?)```', content, re.DOTALL)
-            code_lines = sum(len(block.split('\n')) for block in code_blocks)
+            # Step 2: Extract code blocks (excluding Mermaid diagrams)
+            num_blocks, total_code_lines = _extract_code_blocks_inline(lines, content_start)
 
-            # Calculate ratio
-            code_ratio = (code_lines / total_lines * 100) if total_lines > 0 else 0
+            # Step 3: Count total content lines
+            total_lines = _count_content_lines_inline(lines, content_start)
+
+            # Step 4: Calculate ratio
+            code_ratio = (total_code_lines / total_lines * 100) if total_lines > 0 else 0
 
             if code_ratio > 25:
-                violations.append((Path(post_file).name, code_ratio, code_lines, total_lines))
+                violations.append((Path(post_file).name, code_ratio, total_code_lines, total_lines))
         except Exception as e:
             # Don't fail the whole check for one file error
             continue
