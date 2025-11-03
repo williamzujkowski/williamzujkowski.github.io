@@ -4,8 +4,8 @@ SCRIPT: blog-manager.py
 PURPOSE: Unified Blog Management Tool for williamzujkowski.github.io
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 1.1.0
-UPDATED: 2025-11-02
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Unified Blog Management Tool for williamzujkowski.github.io. This script is part of the blog management

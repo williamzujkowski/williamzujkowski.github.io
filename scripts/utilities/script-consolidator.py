@@ -4,8 +4,8 @@ SCRIPT: script-consolidator.py
 PURPOSE: Identify and consolidate duplicate script functionality
 CATEGORY: optimization
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-01
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Analyzes existing scripts for duplication and creates consolidated
@@ -35,6 +35,14 @@ from typing import Dict, List, Set, Tuple
 from dataclasses import dataclass
 from collections import defaultdict
 import ast
+import sys
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 
 @dataclass
@@ -79,7 +87,7 @@ class ScriptConsolidator:
                 script = self._parse_script(script_path)
                 scripts.append(script)
             except Exception as e:
-                print(f"Warning: Could not parse {script_path}: {e}")
+                logger.warning(f"Warning: Could not parse {script_path}: {e}")
 
         return scripts
 
@@ -452,15 +460,15 @@ def main():
     if args.analyze or not any([args.plan, args.consolidate]):
         analysis = consolidator.analyze_duplication()
 
-        print("\n=== SCRIPT ANALYSIS ===\n")
-        print(f"Total scripts: {analysis['total_scripts']}")
-        print(f"Total lines: {analysis['total_lines']:,}")
-        print(f"\nConsolidation opportunities: {len(analysis['opportunities'])}")
+        logger.info("=== SCRIPT ANALYSIS ===")
+        logger.info(f"Total scripts: {analysis['total_scripts']}")
+        logger.info(f"Total lines: {analysis['total_lines']:,}")
+        logger.info(f"Consolidation opportunities: {len(analysis['opportunities'])}")
 
         for opp in analysis['opportunities']:
-            print(f"\n  [{opp.priority}] {opp.name}")
-            print(f"    Scripts: {len(opp.scripts)}")
-            print(f"    Line reduction: {opp.estimated_reduction:,}")
+            logger.info(f"[{opp.priority}] {opp.name}")
+            logger.info(f"    Scripts: {len(opp.scripts)}")
+            logger.info(f"    Line reduction: {opp.estimated_reduction:,}")
 
     if args.plan:
         plan = consolidator.generate_consolidation_plan()
@@ -469,7 +477,7 @@ def main():
         with open(output_file, 'w') as f:
             f.write(plan)
 
-        print(f"\n✓ Consolidation plan: {output_file}")
+        logger.info(f"✓ Consolidation plan: {output_file}")
 
     if args.consolidate:
         analysis = consolidator.analyze_duplication()
@@ -481,7 +489,7 @@ def main():
             with open(output_file, 'w') as f:
                 f.write(example)
 
-            print(f"✓ Generated: {output_file}")
+            logger.info(f"✓ Generated: {output_file}")
 
 
 if __name__ == '__main__':

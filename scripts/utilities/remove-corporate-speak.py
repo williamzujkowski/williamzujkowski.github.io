@@ -2,6 +2,9 @@
 """
 Corporate Speak Removal Script
 Systematically removes corporate buzzwords from blog posts while preserving code blocks.
+
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 """
 
 import re
@@ -10,6 +13,14 @@ from pathlib import Path
 from typing import List, Dict, Tuple
 import json
 from datetime import datetime
+import sys
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 # Corporate buzzword replacements
 REPLACEMENTS = {
@@ -144,21 +155,21 @@ class CorporateSpeakRemover:
                 self.total_replacements += len(changes)
                 self.files_processed += 1
 
-                print(f"✓ {filepath.name}: {len(changes)} replacements")
+                logger.info(f"✓ {filepath.name}: {len(changes)} replacements")
                 return True
             else:
-                print(f"- {filepath.name}: No buzzwords found")
+                logger.info(f"- {filepath.name}: No buzzwords found")
                 return False
 
         except Exception as e:
-            print(f"✗ {filepath.name}: Error - {e}")
+            logger.error(f"✗ {filepath.name}: Error - {e}")
             return False
 
     def process_all_posts(self):
         """Process all markdown files in posts directory"""
         md_files = list(self.posts_dir.glob('*.md'))
 
-        print(f"\n🔍 Scanning {len(md_files)} blog posts for corporate buzzwords...\n")
+        logger.info(f"🔍 Scanning {len(md_files)} blog posts for corporate buzzwords...")
 
         for filepath in sorted(md_files):
             self.process_file(filepath)
@@ -225,7 +236,7 @@ All original files backed up to: `backups/corporate-speak-removal/`
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(report)
-        print(f"\n📄 Report generated: {output_path}")
+        logger.info(f"📄 Report generated: {output_path}")
 
         # Also save JSON for programmatic access
         json_path = output_path.with_suffix('.json')
@@ -237,7 +248,7 @@ All original files backed up to: `backups/corporate-speak-removal/`
             'replacements': {k.replace(r'\b', ''): v for k, v in REPLACEMENTS.items()}
         }
         json_path.write_text(json.dumps(json_data, indent=2))
-        print(f"📊 JSON data saved: {json_path}")
+        logger.info(f"📊 JSON data saved: {json_path}")
 
 def main():
     import argparse
@@ -266,9 +277,9 @@ Examples:
     args = parser.parse_args()
 
     if not args.posts_dir.exists():
-        print(f"Error: Directory not found: {args.posts_dir}", file=sys.stderr)
-        print(f"Expected: {args.posts_dir.absolute()}", file=sys.stderr)
-        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        logger.error(f"Error: Directory not found: {args.posts_dir}")
+        logger.error(f"Expected: {args.posts_dir.absolute()}")
+        logger.error(f"Tip: Run from repository root or provide absolute path")
         sys.exit(2)
 
     remover = CorporateSpeakRemover(args.posts_dir)
@@ -276,7 +287,7 @@ Examples:
     remover.generate_report(args.output_dir / 'corporate-speak-removal.md')
 
     if not args.quiet:
-        print(f"\n✅ Complete! {remover.total_replacements} replacements in {remover.files_processed} files.")
+        logger.info(f"✅ Complete! {remover.total_replacements} replacements in {remover.files_processed} files.")
 
     return 0
 

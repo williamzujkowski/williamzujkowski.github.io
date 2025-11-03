@@ -4,8 +4,8 @@ SCRIPT: optimization-benchmark.py
 PURPOSE: Benchmark and compare optimization prototypes
 CATEGORY: optimization
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-01
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Comprehensive benchmarking of all optimization prototypes:
@@ -35,6 +35,14 @@ from pathlib import Path
 from typing import Dict, List
 from dataclasses import dataclass, asdict
 from datetime import datetime
+import sys
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 
 @dataclass
@@ -455,7 +463,7 @@ through waste identification.
         with open(results_file, 'w') as f:
             json.dump([asdict(r) for r in results], f, indent=2)
 
-        print(f"✓ Saved results: {results_file}")
+        logger.info(f"✓ Saved results: {results_file}")
 
 
 def main():
@@ -494,15 +502,15 @@ def main():
         }
 
         result = method_map[args.benchmark]()
-        print(f"\n=== {result.name.upper()} ===\n")
-        print(json.dumps(asdict(result), indent=2))
+        logger.info(f"=== {result.name.upper()} ===")
+        logger.info(json.dumps(asdict(result), indent=2))
 
     elif args.all or args.report:
         results = benchmark.run_all_benchmarks()
 
-        print("\n=== RUNNING ALL BENCHMARKS ===\n")
+        logger.info("=== RUNNING ALL BENCHMARKS ===")
         for result in results:
-            print(f"✓ {result.name}")
+            logger.info(f"✓ {result.name}")
 
         benchmark.save_results(results)
 
@@ -513,8 +521,8 @@ def main():
             with open(report_file, 'w') as f:
                 f.write(report)
 
-            print(f"\n✓ Report: {report_file}")
-            print("\n" + report)
+            logger.info(f"✓ Report: {report_file}")
+            logger.info(report)
 
     else:
         parser.print_help()

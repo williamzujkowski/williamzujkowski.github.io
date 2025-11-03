@@ -4,8 +4,8 @@ SCRIPT: optimize-seo-descriptions.py
 PURPOSE: SEO Meta Description Optimizer
 CATEGORY: blog_content
 LLM_READY: True
-VERSION: 1.1.0
-UPDATED: 2025-11-02T14:30:00-05:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Automatically optimizes blog post meta descriptions to the 120-160 character

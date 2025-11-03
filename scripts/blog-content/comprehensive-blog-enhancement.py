@@ -4,8 +4,8 @@ SCRIPT: comprehensive-blog-enhancement.py
 PURPOSE: Comprehensive Blog Enhancement Tool
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Comprehensive Blog Enhancement Tool. This script is part of the blog management

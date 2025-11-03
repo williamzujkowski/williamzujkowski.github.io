@@ -4,8 +4,8 @@ SCRIPT: manifest-optimizer.py
 PURPOSE: Generate optimized MANIFEST.json with simplified structure
 CATEGORY: optimization
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-01
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Prototype for optimized MANIFEST.json structure that reduces token usage
@@ -35,6 +35,13 @@ from pathlib import Path
 from typing import Dict, Any, List
 from datetime import datetime
 import sys
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 
 class TokenCounter:
@@ -379,12 +386,12 @@ def main():
     if args.analyze or not any([args.optimize, args.compare]):
         # Default action: analyze
         analysis = optimizer.analyze_current_structure()
-        print("\n=== MANIFEST ANALYSIS ===")
-        print(f"Total tokens: {analysis['total_tokens']:,}")
-        print(f"Total files: {analysis['total_files']:,}")
-        print("\nOptimization targets:")
+        logger.info("=== MANIFEST ANALYSIS ===")
+        logger.info(f"Total tokens: {analysis['total_tokens']:,}")
+        logger.info(f"Total files: {analysis['total_files']:,}")
+        logger.info("Optimization targets:")
         for target in analysis['optimization_targets']:
-            print(f"  - {target}")
+            logger.info(f"  - {target}")
 
     if args.optimize:
         # Generate optimized manifest
@@ -394,8 +401,8 @@ def main():
         with open(output_file, 'w') as f:
             json.dump(optimized, f, indent=2)
 
-        print(f"\n✓ Optimized manifest: {output_file}")
-        print(f"  Tokens: {optimized['token_usage']['this_file']:,}")
+        logger.info(f"✓ Optimized manifest: {output_file}")
+        logger.info(f"  Tokens: {optimized['token_usage']['this_file']:,}")
 
         # Generate lazy-loaded files
         metadata_files = optimizer.create_lazy_metadata_files()
@@ -407,7 +414,7 @@ def main():
                 f.write(content)
 
             tokens = TokenCounter.estimate_tokens(json.loads(content))
-            print(f"  Metadata: {output_path} ({tokens:,} tokens)")
+            logger.info(f"  Metadata: {output_path} ({tokens:,} tokens)")
 
     if args.compare:
         # Generate comparison report
@@ -417,8 +424,8 @@ def main():
         with open(output_file, 'w') as f:
             f.write(report)
 
-        print(f"\n✓ Comparison report: {output_file}")
-        print("\n" + report)
+        logger.info(f"✓ Comparison report: {output_file}")
+        logger.info(report)
 
 
 if __name__ == '__main__':

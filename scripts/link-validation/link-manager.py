@@ -4,8 +4,8 @@ SCRIPT: link-manager.py
 PURPOSE: Unified Link Management Suite
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-02T00:00:00-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Unified link validation, fixing, and citation management tool.

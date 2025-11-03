@@ -4,8 +4,8 @@ SCRIPT: link-validator.py
 PURPOSE: Link Validator using Playwright
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Link Validator using Playwright. This script is part of the link validation

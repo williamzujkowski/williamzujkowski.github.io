@@ -4,8 +4,8 @@ SCRIPT: llm-script-documenter.py
 PURPOSE: Automatically add LLM-friendly documentation headers to all Python scripts
 CATEGORY: utility
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:50:00-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Scans all Python scripts in the repository and adds or updates LLM-friendly
@@ -47,6 +47,13 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime
 
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
+
 # Import shared utilities
 sys.path.append(str(Path(__file__).parent))
 from lib.common import (
@@ -62,7 +69,6 @@ class LLMScriptDocumenter:
 
     def __init__(self, dry_run: bool = False):
         self.dry_run = dry_run
-        self.logger = Logger.get_logger(self.__class__.__name__)
         self.manifest = ManifestManager()
         self.scripts_dir = Path("scripts")
         self.report = {
@@ -120,7 +126,7 @@ class LLMScriptDocumenter:
 
         # Check if already has LLM header
         if "LLM_READY: True" in existing_content[:1000]:
-            self.logger.info(f"Script already documented: {script_name}")
+            logger.info(f"Script already documented: {script_name}")
             return None
 
         header = f'''#!/usr/bin/env python3
@@ -177,7 +183,7 @@ MANIFEST_REGISTRY: scripts/{script_name}
 
             # Skip if already has LLM header
             if "LLM_READY: True" in content[:1000]:
-                self.logger.info(f"Already documented: {script_path.name}")
+                logger.info(f"Already documented: {script_path.name}")
                 return False
 
             # Generate new header
@@ -212,15 +218,15 @@ MANIFEST_REGISTRY: scripts/{script_name}
             if not self.dry_run:
                 with open(script_path, 'w') as f:
                     f.write(new_content)
-                self.logger.info(f"Updated: {script_path.name}")
+                logger.info(f"Updated: {script_path.name}")
                 self.report["headers_added"] += 1
             else:
-                self.logger.info(f"Would update: {script_path.name}")
+                logger.info(f"Would update: {script_path.name}")
 
             return True
 
         except Exception as e:
-            self.logger.error(f"Failed to update {script_path}: {e}")
+            logger.error(f"Failed to update {script_path}: {e}")
             self.report["errors"].append({
                 "script": str(script_path),
                 "error": str(e)
@@ -244,7 +250,7 @@ MANIFEST_REGISTRY: scripts/{script_name}
     def update_manifest(self):
         """Update MANIFEST.json with script documentation"""
         if self.dry_run:
-            self.logger.info("Dry run - would update MANIFEST.json")
+            logger.info("Dry run - would update MANIFEST.json")
             return
 
         # Build script catalog
@@ -265,7 +271,7 @@ MANIFEST_REGISTRY: scripts/{script_name}
         # Update manifest
         self.manifest.update_section("llm_interface.script_catalog", script_catalog)
         self.manifest.save()
-        self.logger.info("Updated MANIFEST.json with script catalog")
+        logger.info("Updated MANIFEST.json with script catalog")
 
     def extract_script_info(self, content: str) -> Dict:
         """Extract script information from LLM header"""
@@ -298,7 +304,7 @@ MANIFEST_REGISTRY: scripts/{script_name}
         ensure_directory(Path("reports"))
         report_path = Path("reports/script-documentation.json")
         write_json(self.report, report_path)
-        self.logger.info(f"Report saved to: {report_path}")
+        logger.info(f"Report saved to: {report_path}")
 
 
 def main():
@@ -345,19 +351,19 @@ Examples:
     documenter.save_report()
 
     # Print summary
-    print(f"\n{'='*60}")
-    print("LLM Script Documentation Complete")
-    print(f"{'='*60}")
-    print(f"Scripts processed: {report['scripts_processed']}")
-    print(f"Headers added: {report['headers_added']}")
-    print(f"Headers updated: {report['headers_updated']}")
+    logger.info(f"{'='*60}")
+    logger.info("LLM Script Documentation Complete")
+    logger.info(f"{'='*60}")
+    logger.info(f"Scripts processed: {report['scripts_processed']}")
+    logger.info(f"Headers added: {report['headers_added']}")
+    logger.info(f"Headers updated: {report['headers_updated']}")
 
     if report['errors']:
-        print(f"\n⚠️  Errors encountered: {len(report['errors'])}")
+        logger.warning(f"⚠️  Errors encountered: {len(report['errors'])}")
         for error in report['errors'][:5]:
-            print(f"  - {error['script']}: {error['error']}")
+            logger.warning(f"  - {error['script']}: {error['error']}")
 
-    print(f"{'='*60}\n")
+    logger.info(f"{'='*60}")
 
     return 0 if not report['errors'] else 1
 

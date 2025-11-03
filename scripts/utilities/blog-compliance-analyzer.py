@@ -5,6 +5,9 @@ Analyzes all blog posts for compliance with new content standards:
 1. Smart Brevity (BLUF, bullets, conciseness)
 2. Polite Linus Tone (direct, honest, respectful)
 3. AI Skepticism (question claims, demand evidence)
+
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 """
 
 import os
@@ -14,6 +17,14 @@ from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
 from typing import Dict, List, Tuple
+import sys
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 # Corporate speak patterns to flag
 CORPORATE_SPEAK = [
@@ -116,9 +127,9 @@ class ComplianceAnalyzer:
                 post = BlogPost(str(filepath))
                 self.posts.append(post)
             except Exception as e:
-                print(f"Error loading {filepath}: {e}")
+                logger.error(f"Error loading {filepath}: {e}")
 
-        print(f"Loaded {len(self.posts)} blog posts")
+        logger.info(f"Loaded {len(self.posts)} blog posts")
 
     def score_smart_brevity(self, post: BlogPost) -> Tuple[int, List[str]]:
         """Score post on Smart Brevity compliance (1-10)"""
@@ -413,7 +424,7 @@ class ComplianceAnalyzer:
 
         # Write report
         Path(output_file).write_text('\n'.join(report), encoding='utf-8')
-        print(f"Report written to: {output_file}")
+        logger.info(f"Report written to: {output_file}")
 
         # Also save JSON results
         json_file = output_file.replace('.md', '.json')
@@ -423,7 +434,7 @@ class ComplianceAnalyzer:
                 'results': self.results,
                 'generated_at': datetime.now().isoformat()
             }, f, indent=2)
-        print(f"JSON data written to: {json_file}")
+        logger.info(f"JSON data written to: {json_file}")
 
         return stats
 
@@ -435,18 +446,18 @@ def main():
     analyzer.load_posts()
     stats = analyzer.generate_report(output_file)
 
-    print("\n" + "="*60)
-    print("ANALYSIS COMPLETE")
-    print("="*60)
-    print(f"Total Posts: {stats['total_posts']}")
-    print(f"Average Word Count: {stats['avg_word_count']}")
-    print(f"Average Scores:")
-    print(f"  - Smart Brevity: {stats['avg_brevity_score']}/10")
-    print(f"  - Polite Linus: {stats['avg_tone_score']}/10")
-    print(f"  - AI Skepticism: {stats['avg_skepticism_score']}/10")
-    print(f"\nVerbose Posts (>2000 words): {len(stats['verbose_posts'])}")
-    print("\nSee detailed report at:")
-    print(f"  {output_file}")
+    logger.info("="*60)
+    logger.info("ANALYSIS COMPLETE")
+    logger.info("="*60)
+    logger.info(f"Total Posts: {stats['total_posts']}")
+    logger.info(f"Average Word Count: {stats['avg_word_count']}")
+    logger.info(f"Average Scores:")
+    logger.info(f"  - Smart Brevity: {stats['avg_brevity_score']}/10")
+    logger.info(f"  - Polite Linus: {stats['avg_tone_score']}/10")
+    logger.info(f"  - AI Skepticism: {stats['avg_skepticism_score']}/10")
+    logger.info(f"Verbose Posts (>2000 words): {len(stats['verbose_posts'])}")
+    logger.info("See detailed report at:")
+    logger.info(f"  {output_file}")
 
 if __name__ == "__main__":
     main()

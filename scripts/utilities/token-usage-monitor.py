@@ -4,8 +4,8 @@ SCRIPT: token-usage-monitor.py
 PURPOSE: Monitor and analyze token usage across operations
 CATEGORY: optimization
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-01
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Real-time token usage monitoring and optimization recommendations.
@@ -37,6 +37,14 @@ from typing import Dict, List, Optional
 from dataclasses import dataclass, asdict
 from datetime import datetime
 from collections import defaultdict
+import sys
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 
 @dataclass
@@ -102,7 +110,7 @@ class TokenUsageMonitor:
         )
 
         self._save_session(session)
-        print(f"✓ Started session: {session_id}")
+        logger.info(f"✓ Started session: {session_id}")
         return session
 
     def log_usage(self, operation: str, tokens: int, session_id: Optional[str] = None,
@@ -132,7 +140,7 @@ class TokenUsageMonitor:
                 session.total_tokens += tokens
                 self._save_session(session)
 
-        print(f"✓ Logged: {operation} ({tokens:,} tokens, category: {category})")
+        logger.info(f"✓ Logged: {operation} ({tokens:,} tokens, category: {category})")
         return usage
 
     def end_session(self, session_id: str) -> Session:
@@ -152,10 +160,10 @@ class TokenUsageMonitor:
         with open(report_file, 'w') as f:
             f.write(report)
 
-        print(f"✓ Ended session: {session_id}")
-        print(f"  Total tokens: {session.total_tokens:,}")
-        print(f"  Operations: {len(session.operations)}")
-        print(f"  Report: {report_file}")
+        logger.info(f"✓ Ended session: {session_id}")
+        logger.info(f"  Total tokens: {session.total_tokens:,}")
+        logger.info(f"  Operations: {len(session.operations)}")
+        logger.info(f"  Report: {report_file}")
 
         return session
 
@@ -420,28 +428,28 @@ def main():
 
     elif args.analyze:
         analysis = monitor.analyze_usage()
-        print("\n=== TOKEN USAGE ANALYSIS ===\n")
-        print(f"Total operations: {analysis['total_operations']:,}")
-        print(f"Total tokens: {analysis['total_tokens']:,}")
-        print(f"Average per operation: {analysis.get('average_tokens', 0):,.0f}")
-        print("\nBy category:")
+        logger.info("=== TOKEN USAGE ANALYSIS ===")
+        logger.info(f"Total operations: {analysis['total_operations']:,}")
+        logger.info(f"Total tokens: {analysis['total_tokens']:,}")
+        logger.info(f"Average per operation: {analysis.get('average_tokens', 0):,.0f}")
+        logger.info("By category:")
 
         for category, stats in sorted(
             analysis['by_category'].items(),
             key=lambda x: x[1]['tokens'],
             reverse=True
         ):
-            print(f"  {category}: {stats['tokens']:,} tokens ({stats['count']} ops)")
+            logger.info(f"  {category}: {stats['tokens']:,} tokens ({stats['count']} ops)")
 
-        print("\nTop operations:")
+        logger.info("Top operations:")
         for op, tokens in analysis.get('top_operations', [])[:5]:
-            print(f"  {op}: {tokens:,} tokens")
+            logger.info(f"  {op}: {tokens:,} tokens")
 
     elif args.recommend:
         recommendations = monitor.generate_recommendations()
-        print("\n=== OPTIMIZATION RECOMMENDATIONS ===\n")
+        logger.info("=== OPTIMIZATION RECOMMENDATIONS ===")
         for rec in recommendations:
-            print(f"{rec}\n")
+            logger.info(rec)
 
     else:
         parser.print_help()
