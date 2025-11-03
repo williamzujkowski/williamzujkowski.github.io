@@ -494,3 +494,7 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Documented SEO description formula (120-160 chars optimal, validation integrated into metadata-validator)
 - Session 5: Validated gist embed rendering with Playwright (8 gists in Claude-Flow post, zero console errors, <2s load time)
 - Session 5: Container Security code ratio compliance achieved (32.8%→20.5% with 10 gists, 717→441 lines, below 25% threshold)
+- Session 6: Fixed pre-commit validator regex bug (closing fences matched, 40% overestimation; implemented line-by-line parser from code-ratio-calculator.py)
+- Session 6: Completed Container Security gist extraction (17 total gists, final ratio 10.5%, well below 25% threshold)
+- Session 6: Corrected Python logging migration status (actual 19.5%, 15/77 scripts; previous 29.9% claim was inaccurate; documented in comprehensive analysis)
+- Session 6: Established validator cross-verification requirement (always verify with code-ratio-calculator.py, not pre-commit alone, to prevent false positives)

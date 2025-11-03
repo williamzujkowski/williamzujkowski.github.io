@@ -4,8 +4,8 @@ SCRIPT: citation-report.py
 PURPOSE: Generate citation-specific validation report for GitHub Actions
 CATEGORY: link_validation
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-10-28T00:00:00-04:00
+VERSION: 1.1.0
+UPDATED: 2025-11-02T18:00:00-04:00
 
 DESCRIPTION:
     Generates a markdown report specifically for citation link validation,
@@ -35,16 +35,24 @@ OUTPUT:
 DEPENDENCIES:
     - Python 3.8+
     - json, pathlib (standard library)
+    - logging_config for centralized logging
 
 MANIFEST_REGISTRY: scripts/link-validation/citation-report.py
 """
 
 import json
 import argparse
+import sys
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List
 from datetime import datetime
+
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
 
 
 def generate_citation_report(validation_data: Dict, links_data: Dict) -> str:
@@ -187,7 +195,13 @@ def generate_citation_report(validation_data: Dict, links_data: Dict) -> str:
     return '\n'.join(report)
 
 
-def main():
+def main() -> int:
+    """
+    Main entry point for citation report generation.
+
+    Returns:
+        Exit code: 0 for success, 1 for broken links or errors
+    """
     parser = argparse.ArgumentParser(
         description='Generate citation validation report for GitHub Actions'
     )
@@ -217,47 +231,56 @@ def main():
 
     args = parser.parse_args()
 
-    # Validate input files
-    if not args.input.exists():
-        print(f"❌ Validation results not found: {args.input}")
+    try:
+        # Validate input files
+        if not args.input.exists():
+            logger.error(f"Validation results not found: {args.input}")
+            return 1
+
+        if not args.links.exists():
+            logger.error(f"Links data not found: {args.links}")
+            return 1
+
+        # Load data
+        logger.debug(f"Loading validation results from {args.input}")
+        with open(args.input, 'r', encoding='utf-8') as f:
+            validation_data = json.load(f)
+
+        logger.debug(f"Loading link data from {args.links}")
+        with open(args.links, 'r', encoding='utf-8') as f:
+            links_data = json.load(f)
+
+        if args.verbose:
+            logger.info(f"Loaded validation results: {len(validation_data.get('results', []))} links")
+            logger.info(f"Loaded link data: {len(links_data.get('links', []))} links")
+
+        # Generate report
+        logger.debug("Generating citation report")
+        report = generate_citation_report(validation_data, links_data)
+
+        # Save report
+        logger.debug(f"Writing report to {args.output}")
+        with open(args.output, 'w', encoding='utf-8') as f:
+            f.write(report)
+
+        logger.info(f"Citation report saved to: {args.output}")
+
+        # Print summary
+        broken_count = len([
+            r for r in validation_data.get('results', [])
+            if r.get('status') == 'broken'
+        ])
+
+        if broken_count > 0:
+            logger.warning(f"Found {broken_count} broken citation links")
+            return 1
+        else:
+            logger.info("All citation links are valid")
+            return 0
+
+    except Exception as e:
+        logger.error(f"Fatal error generating citation report: {e}", exc_info=True)
         return 1
-
-    if not args.links.exists():
-        print(f"❌ Links data not found: {args.links}")
-        return 1
-
-    # Load data
-    with open(args.input, 'r', encoding='utf-8') as f:
-        validation_data = json.load(f)
-
-    with open(args.links, 'r', encoding='utf-8') as f:
-        links_data = json.load(f)
-
-    if args.verbose:
-        print(f"📊 Loaded validation results: {len(validation_data.get('results', []))} links")
-        print(f"📋 Loaded link data: {len(links_data.get('links', []))} links")
-
-    # Generate report
-    report = generate_citation_report(validation_data, links_data)
-
-    # Save report
-    with open(args.output, 'w', encoding='utf-8') as f:
-        f.write(report)
-
-    print(f"✅ Citation report saved to: {args.output}")
-
-    # Print summary
-    broken_count = len([
-        r for r in validation_data.get('results', [])
-        if r.get('status') == 'broken'
-    ])
-
-    if broken_count > 0:
-        print(f"⚠️  Found {broken_count} broken citation links")
-        return 1
-    else:
-        print("✅ All citation links are valid")
-        return 0
 
 
 if __name__ == '__main__':
