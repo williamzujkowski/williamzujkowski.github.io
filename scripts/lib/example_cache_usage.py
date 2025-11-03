@@ -2,10 +2,10 @@
 """
 SCRIPT: example_cache_usage.py
 PURPOSE: Example demonstrating cache_utils.py integration patterns
-CATEGORY: lib
+CATEGORY: infrastructure
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-02
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Example script showing how to integrate cache_utils.py into existing scripts.
@@ -24,6 +24,15 @@ import asyncio
 import time
 from pathlib import Path
 from typing import Dict, List
+
+# Add parent directory to path for imports
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 # Import caching utilities
 from cache_utils import (
@@ -61,7 +70,7 @@ def example_frontmatter_before():
                 body = parts[2]
 
         # Process frontmatter...
-        print(f"Processed: {post_path.name}")
+        logger.info(f"Processed: {post_path.name}")
 
 
 def example_frontmatter_after():
@@ -73,7 +82,7 @@ def example_frontmatter_after():
         frontmatter, body = cached_frontmatter(post_path)
 
         # Process frontmatter...
-        print(f"Processed: {post_path.name}")
+        logger.info(f"Processed: {post_path.name}")
 
 
 def benchmark_frontmatter():
@@ -81,10 +90,10 @@ def benchmark_frontmatter():
     posts = get_all_blog_posts()
 
     if not posts:
-        print("No blog posts found in src/posts/")
+        logger.info("No blog posts found in src/posts/")
         return
 
-    print("\n=== Frontmatter Parsing Benchmark ===")
+    logger.info("\n=== Frontmatter Parsing Benchmark ===")
 
     # First pass (cache miss)
     start = time.time()
@@ -100,11 +109,11 @@ def benchmark_frontmatter():
 
     speedup = first_pass / second_pass if second_pass > 0 else float('inf')
 
-    print(f"Posts processed: {len(posts)}")
-    print(f"First pass (uncached): {first_pass:.3f}s")
-    print(f"Second pass (cached): {second_pass:.3f}s")
-    print(f"Speedup: {speedup:.1f}x faster")
-    print(f"Time saved: {(first_pass - second_pass):.3f}s ({100*(1-second_pass/first_pass):.1f}% reduction)")
+    logger.info(f"Posts processed: {len(posts)}")
+    logger.info(f"First pass (uncached): {first_pass:.3f}s")
+    logger.info(f"Second pass (cached): {second_pass:.3f}s")
+    logger.info(f"Speedup: {speedup:.1f}x faster")
+    logger.info(f"Time saved: {(first_pass - second_pass):.3f}s ({100*(1-second_pass/first_pass):.1f}% reduction)")
 
 
 # ============================================================================
@@ -187,7 +196,7 @@ def benchmark_http():
         "https://python.org",
     ]
 
-    print("\n=== HTTP Caching Benchmark ===")
+    logger.info("\n=== HTTP Caching Benchmark ===")
 
     # First pass (cache miss)
     start = time.time()
@@ -203,10 +212,10 @@ def benchmark_http():
 
     speedup = first_pass / second_pass if second_pass > 0 else float('inf')
 
-    print(f"URLs fetched: {len(test_urls)}")
-    print(f"First pass (network): {first_pass:.3f}s")
-    print(f"Second pass (cached): {second_pass:.3f}s")
-    print(f"Speedup: {speedup:.1f}x faster")
+    logger.info(f"URLs fetched: {len(test_urls)}")
+    logger.info(f"First pass (network): {first_pass:.3f}s")
+    logger.info(f"Second pass (cached): {second_pass:.3f}s")
+    logger.info(f"Speedup: {speedup:.1f}x faster")
 
 
 # ============================================================================
@@ -236,7 +245,7 @@ def example_manifest_after():
 
 def benchmark_manifest():
     """Benchmark MANIFEST caching"""
-    print("\n=== MANIFEST Caching Benchmark ===")
+    logger.info("\n=== MANIFEST Caching Benchmark ===")
 
     # First pass
     start = time.time()
@@ -247,9 +256,9 @@ def benchmark_manifest():
     # All subsequent calls are cached
     speedup = first_pass / (first_pass / 100) if first_pass > 0 else 1
 
-    print(f"100 loads: {first_pass:.3f}s")
-    print(f"Average: {first_pass/100*1000:.2f}ms per load")
-    print(f"Speedup from caching: ~{speedup:.0f}x (after first load)")
+    logger.info(f"100 loads: {first_pass:.3f}s")
+    logger.info(f"Average: {first_pass/100*1000:.2f}ms per load")
+    logger.info(f"Speedup from caching: ~{speedup:.0f}x (after first load)")
 
 
 # ============================================================================
@@ -368,39 +377,39 @@ def example_complete_script_after():
 def main():
     """Run all examples and benchmarks"""
 
-    print("=" * 60)
-    print("CACHE_UTILS.PY INTEGRATION EXAMPLES")
-    print("=" * 60)
+    logger.info("=" * 60)
+    logger.info("CACHE_UTILS.PY INTEGRATION EXAMPLES")
+    logger.info("=" * 60)
 
     # Example 1: Frontmatter
-    print("\n1. Frontmatter Parsing Example")
+    logger.info("\n1. Frontmatter Parsing Example")
     benchmark_frontmatter()
 
     # Example 2: HTTP
-    print("\n2. HTTP Caching Example")
+    logger.info("\n2. HTTP Caching Example")
     # benchmark_http()  # Skip to avoid actual network requests in example
 
     # Example 3: MANIFEST
-    print("\n3. MANIFEST Caching Example")
+    logger.info("\n3. MANIFEST Caching Example")
     benchmark_manifest()
 
     # Example 4: Blog Discovery
-    print("\n4. Blog Post Discovery Example")
+    logger.info("\n4. Blog Post Discovery Example")
     posts = get_all_blog_posts()
-    print(f"Found {len(posts)} blog posts (cached)")
+    logger.info(f"Found {len(posts)} blog posts (cached)")
 
     # Example 5: Link Extraction
-    print("\n5. Link Extraction Example")
+    logger.info("\n5. Link Extraction Example")
     links = parse_markdown_links("See [Python](https://python.org)")
-    print(f"Extracted {len(links)} links (cached)")
+    logger.info(f"Extracted {len(links)} links (cached)")
 
     # Show cache statistics
     print_cache_stats()
 
-    print("\n" + "=" * 60)
-    print("MIGRATION SUMMARY")
-    print("=" * 60)
-    print("""
+    logger.info("\n" + "=" * 60)
+    logger.info("MIGRATION SUMMARY")
+    logger.info("=" * 60)
+    logger.info("""
 Before cache_utils.py:
     - 29 scripts duplicate frontmatter parsing (~500 LOC)
     - 22 scripts duplicate blog discovery (~30 LOC)

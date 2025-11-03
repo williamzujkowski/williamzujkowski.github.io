@@ -2,10 +2,10 @@
 """
 SCRIPT: benchmark_caching.py
 PURPOSE: Comprehensive benchmarking of cache_utils.py performance improvements
-CATEGORY: lib
+CATEGORY: infrastructure
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-02
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Measures actual performance improvements from cache_utils.py implementation.
@@ -48,6 +48,15 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 from datetime import datetime
 
+# Add parent directory to path for imports
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
+
 # Import both cached and uncached methods for comparison
 from cache_utils import (
     cached_frontmatter,
@@ -70,7 +79,7 @@ class CacheBenchmark:
     def log(self, message: str):
         """Log message if verbose"""
         if self.verbose:
-            print(message)
+            logger.info(message)
 
     def benchmark_frontmatter_parsing(self) -> Dict[str, float]:
         """
@@ -349,9 +358,9 @@ class CacheBenchmark:
 
     def run_all_benchmarks(self) -> Dict[str, Dict]:
         """Run all benchmarks and collect results"""
-        print("\n" + "=" * 70)
-        print("CACHE_UTILS.PY PERFORMANCE BENCHMARK")
-        print("=" * 70)
+        logger.info("\n" + "=" * 70)
+        logger.info("CACHE_UTILS.PY PERFORMANCE BENCHMARK")
+        logger.info("=" * 70)
 
         # Clear caches before starting
         clear_all_caches()
@@ -369,54 +378,54 @@ class CacheBenchmark:
 
     def print_results(self):
         """Print formatted benchmark results"""
-        print("\n" + "=" * 70)
-        print("BENCHMARK RESULTS")
-        print("=" * 70)
+        logger.info("\n" + "=" * 70)
+        logger.info("BENCHMARK RESULTS")
+        logger.info("=" * 70)
 
         # Frontmatter parsing
         fm = self.results['frontmatter']
-        print(f"\n1. FRONTMATTER PARSING ({fm['posts_count']} posts)")
-        print(f"   Uncached:     {fm['uncached_avg']:.3f}s")
-        print(f"   Cached (hit): {fm['cached_hit_avg']:.3f}s")
-        print(f"   Speedup:      {fm['speedup_vs_uncached']:.1f}x faster")
-        print(f"   Time saved:   {fm['time_saved']:.3f}s ({fm['percent_faster']:.1f}% improvement)")
+        logger.info(f"\n1. FRONTMATTER PARSING ({fm['posts_count']} posts)")
+        logger.info(f"   Uncached:     {fm['uncached_avg']:.3f}s")
+        logger.info(f"   Cached (hit): {fm['cached_hit_avg']:.3f}s")
+        logger.info(f"   Speedup:      {fm['speedup_vs_uncached']:.1f}x faster")
+        logger.info(f"   Time saved:   {fm['time_saved']:.3f}s ({fm['percent_faster']:.1f}% improvement)")
 
         # MANIFEST loading
         man = self.results['manifest']
-        print(f"\n2. MANIFEST LOADING ({man['loads_count']} loads)")
-        print(f"   Uncached:     {man['uncached_total']:.3f}s ({man['uncached_per_load']*1000:.2f}ms per load)")
-        print(f"   Cached:       {man['cached_total']:.3f}s ({man['cached_per_load']*1000:.2f}ms per load)")
-        print(f"   Speedup:      {man['speedup']:.1f}x faster")
-        print(f"   Time saved:   {man['time_saved']:.3f}s ({man['percent_faster']:.1f}% improvement)")
+        logger.info(f"\n2. MANIFEST LOADING ({man['loads_count']} loads)")
+        logger.info(f"   Uncached:     {man['uncached_total']:.3f}s ({man['uncached_per_load']*1000:.2f}ms per load)")
+        logger.info(f"   Cached:       {man['cached_total']:.3f}s ({man['cached_per_load']*1000:.2f}ms per load)")
+        logger.info(f"   Speedup:      {man['speedup']:.1f}x faster")
+        logger.info(f"   Time saved:   {man['time_saved']:.3f}s ({man['percent_faster']:.1f}% improvement)")
 
         # Blog discovery
         disc = self.results['discovery']
-        print(f"\n3. BLOG POST DISCOVERY ({disc['posts_count']} posts)")
-        print(f"   Uncached:     {disc['uncached_avg']:.2f}ms per scan")
-        print(f"   Cached:       {disc['cached_avg']:.2f}ms per scan")
-        print(f"   Speedup:      {disc['speedup']:.1f}x faster")
-        print(f"   Time saved:   {disc['time_saved_ms']:.2f}ms ({disc['percent_faster']:.1f}% improvement)")
+        logger.info(f"\n3. BLOG POST DISCOVERY ({disc['posts_count']} posts)")
+        logger.info(f"   Uncached:     {disc['uncached_avg']:.2f}ms per scan")
+        logger.info(f"   Cached:       {disc['cached_avg']:.2f}ms per scan")
+        logger.info(f"   Speedup:      {disc['speedup']:.1f}x faster")
+        logger.info(f"   Time saved:   {disc['time_saved_ms']:.2f}ms ({disc['percent_faster']:.1f}% improvement)")
 
         # Batch operation (MOST IMPORTANT)
         batch = self.results['batch_operation']
-        print(f"\n4. BATCH OPERATION (realistic workflow)")
-        print(f"   Uncached:     {batch['uncached_avg']:.3f}s")
-        print(f"   Cached:       {batch['cached_avg']:.3f}s")
-        print(f"   Speedup:      {batch['speedup']:.1f}x faster")
-        print(f"   Time saved:   {batch['time_saved']:.3f}s ({batch['percent_faster']:.1f}% improvement)")
+        logger.info(f"\n4. BATCH OPERATION (realistic workflow)")
+        logger.info(f"   Uncached:     {batch['uncached_avg']:.3f}s")
+        logger.info(f"   Cached:       {batch['cached_avg']:.3f}s")
+        logger.info(f"   Speedup:      {batch['speedup']:.1f}x faster")
+        logger.info(f"   Time saved:   {batch['time_saved']:.3f}s ({batch['percent_faster']:.1f}% improvement)")
 
         # Cache statistics
         stats = self.results['cache_stats']
-        print(f"\n5. CACHE STATISTICS")
-        print(f"   Hit rate:     {stats['hit_rate']:.1%}")
-        print(f"   HTTP hits:    {stats['http_hits']}/{stats['http_hits']+stats['http_misses']}")
-        print(f"   FM hits:      {stats['frontmatter_hits']}/{stats['frontmatter_hits']+stats['frontmatter_misses']}")
+        logger.info(f"\n5. CACHE STATISTICS")
+        logger.info(f"   Hit rate:     {stats['hit_rate']:.1%}")
+        logger.info(f"   HTTP hits:    {stats['http_hits']}/{stats['http_hits']+stats['http_misses']}")
+        logger.info(f"   FM hits:      {stats['frontmatter_hits']}/{stats['frontmatter_hits']+stats['frontmatter_misses']}")
 
         # Overall summary
-        print("\n" + "=" * 70)
-        print("SUMMARY")
-        print("=" * 70)
-        print(f"""
+        logger.info("\n" + "=" * 70)
+        logger.info("SUMMARY")
+        logger.info("=" * 70)
+        logger.info(f"""
 Overall Performance Improvement: {batch['percent_faster']:.1f}%
 Target: 30-40% improvement
 Status: {"✅ TARGET MET" if batch['percent_faster'] >= 30 else "⚠️  BELOW TARGET"}
@@ -450,7 +459,7 @@ Conclusion:
         with open(output_path, 'w') as f:
             json.dump(report, f, indent=2)
 
-        print(f"\n✅ Benchmark report saved to {output_path}")
+        logger.info(f"\n✅ Benchmark report saved to {output_path}")
 
 
 def main():

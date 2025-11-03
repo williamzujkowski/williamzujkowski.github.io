@@ -1,9 +1,15 @@
 #!/usr/bin/env -S uv run python3
 """
-Realistic benchmark simulating expensive validators (with blog posts).
+SCRIPT: benchmark_realistic.py
+PURPOSE: Realistic benchmark simulating expensive validators (with blog posts)
+CATEGORY: infrastructure
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
-This simulates the real-world scenario where humanization validation
-runs on multiple blog posts, which is computationally expensive.
+DESCRIPTION:
+    This simulates the real-world scenario where humanization validation
+    runs on multiple blog posts, which is computationally expensive.
 """
 
 import sys
@@ -15,6 +21,14 @@ import subprocess
 
 # Add scripts directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 from lib.parallel_validator import ParallelValidator
 
@@ -120,36 +134,36 @@ def run_parallel_realistic(max_workers: int = 6) -> Tuple[float, bool]:
 
 def main():
     """Run realistic benchmarks."""
-    print("=" * 60)
-    print("REALISTIC PRE-COMMIT HOOK BENCHMARK")
-    print("=" * 60)
-    print("\nSimulating scenario:")
-    print("  - 3 blog posts + code ratio check (4 expensive validators)")
-    print("  - Each validation takes ~2-2.8s")
-    print("  - 3 cheap validators (<50ms each)")
-    print("  - Total sequential time: ~9.6s")
-    print("  - Total parallel time: ~2.8s (max worker time)")
-    print("  - Expected speedup: ~3.4x\n")
+    logger.info("=" * 60)
+    logger.info("REALISTIC PRE-COMMIT HOOK BENCHMARK")
+    logger.info("=" * 60)
+    logger.info("\nSimulating scenario:")
+    logger.info("  - 3 blog posts + code ratio check (4 expensive validators)")
+    logger.info("  - Each validation takes ~2-2.8s")
+    logger.info("  - 3 cheap validators (<50ms each)")
+    logger.info("  - Total sequential time: ~9.6s")
+    logger.info("  - Total parallel time: ~2.8s (max worker time)")
+    logger.info("  - Expected speedup: ~3.4x\n")
 
     # Run sequential
-    print("Running SEQUENTIAL execution (3 runs)...")
+    logger.info("Running SEQUENTIAL execution (3 runs)...")
     seq_times = []
     for i in range(3):
         duration, passed = run_sequential_realistic()
         seq_times.append(duration)
-        print(f"  Run {i + 1}: {duration:.2f}s {'✅' if passed else '❌'}")
+        logger.info(f"  Run {i + 1}: {duration:.2f}s {'✅' if passed else '❌'}")
 
     seq_avg = sum(seq_times) / len(seq_times)
 
     # Run parallel
-    print("\nRunning PARALLEL execution (3 runs)...")
+    logger.info("\nRunning PARALLEL execution (3 runs)...")
     par_times = []
     for i in range(3):
         start = time.time()
         _, passed = run_parallel_realistic()
         duration = time.time() - start
         par_times.append(duration)
-        print(f"  Run {i + 1}: {duration:.2f}s {'✅' if passed else '❌'}")
+        logger.info(f"  Run {i + 1}: {duration:.2f}s {'✅' if passed else '❌'}")
 
     par_avg = sum(par_times) / len(par_times)
 
@@ -158,27 +172,27 @@ def main():
     time_saved = seq_avg - par_avg
 
     # Print results
-    print("\n" + "=" * 60)
-    print("RESULTS")
-    print("=" * 60)
-    print(f"\nSequential execution: {seq_avg:.2f}s average")
-    print(f"Parallel execution:   {par_avg:.2f}s average")
-    print(f"\n🚀 Speedup: {speedup:.2f}x faster")
-    print(f"⏱️  Time saved: {time_saved:.2f}s per commit")
+    logger.info("\n" + "=" * 60)
+    logger.info("RESULTS")
+    logger.info("=" * 60)
+    logger.info(f"\nSequential execution: {seq_avg:.2f}s average")
+    logger.info(f"Parallel execution:   {par_avg:.2f}s average")
+    logger.info(f"\n🚀 Speedup: {speedup:.2f}x faster")
+    logger.info(f"⏱️  Time saved: {time_saved:.2f}s per commit")
 
     if speedup >= 3.0:
-        print(f"\n✅ TARGET MET: {speedup:.1f}x speedup (target: 3-5x)")
+        logger.info(f"\n✅ TARGET MET: {speedup:.1f}x speedup (target: 3-5x)")
     elif speedup >= 2.5:
-        print(f"\n⚠️  CLOSE: {speedup:.1f}x speedup (target: 3-5x)")
+        logger.info(f"\n⚠️  CLOSE: {speedup:.1f}x speedup (target: 3-5x)")
     else:
-        print(f"\n❌ BELOW TARGET: {speedup:.1f}x speedup (target: 3-5x)")
+        logger.info(f"\n❌ BELOW TARGET: {speedup:.1f}x speedup (target: 3-5x)")
 
-    print("\n" + "=" * 60)
-    print("NOTE: Real-world speedup depends on:")
-    print("  - Number of blog posts modified")
-    print("  - Complexity of humanization validation")
-    print("  - System CPU cores and load")
-    print("=" * 60)
+    logger.info("\n" + "=" * 60)
+    logger.info("NOTE: Real-world speedup depends on:")
+    logger.info("  - Number of blog posts modified")
+    logger.info("  - Complexity of humanization validation")
+    logger.info("  - System CPU cores and load")
+    logger.info("=" * 60)
 
 
 if __name__ == "__main__":

@@ -1,8 +1,14 @@
 #!/usr/bin/env -S uv run python3
 """
-Benchmark script to compare sequential vs parallel validator execution.
+SCRIPT: benchmark_validators.py
+PURPOSE: Benchmark script to compare sequential vs parallel validator execution
+CATEGORY: infrastructure
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
-Measures the speedup achieved by parallel execution.
+DESCRIPTION:
+    Measures the speedup achieved by parallel execution.
 """
 
 import sys
@@ -12,6 +18,14 @@ from typing import List, Tuple
 
 # Add scripts directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 from lib.parallel_validator import ParallelValidator
 from lib.precommit_validators import VALIDATORS
@@ -46,31 +60,31 @@ def run_parallel(max_workers: int = 6) -> Tuple[float, bool]:
 
 def main():
     """Run benchmarks and print results."""
-    print("=" * 60)
-    print("PRE-COMMIT HOOK BENCHMARK")
-    print("=" * 60)
-    print(f"\nValidators to test: {len(VALIDATORS)}")
-    print(f"Parallel workers: 6\n")
+    logger.info("=" * 60)
+    logger.info("PRE-COMMIT HOOK BENCHMARK")
+    logger.info("=" * 60)
+    logger.info(f"\nValidators to test: {len(VALIDATORS)}")
+    logger.info(f"Parallel workers: 6\n")
 
     # Run sequential
-    print("Running sequential execution...")
+    logger.info("Running sequential execution...")
     seq_times = []
     for i in range(5):
         duration, passed = run_sequential()
         seq_times.append(duration)
-        print(f"  Run {i + 1}: {duration:.3f}s {'✅' if passed else '❌'}")
+        logger.info(f"  Run {i + 1}: {duration:.3f}s {'✅' if passed else '❌'}")
 
     seq_avg = sum(seq_times) / len(seq_times)
     seq_min = min(seq_times)
     seq_max = max(seq_times)
 
     # Run parallel
-    print("\nRunning parallel execution...")
+    logger.info("\nRunning parallel execution...")
     par_times = []
     for i in range(5):
         duration, passed = run_parallel()
         par_times.append(duration)
-        print(f"  Run {i + 1}: {duration:.3f}s {'✅' if passed else '❌'}")
+        logger.info(f"  Run {i + 1}: {duration:.3f}s {'✅' if passed else '❌'}")
 
     par_avg = sum(par_times) / len(par_times)
     par_min = min(par_times)
@@ -81,34 +95,34 @@ def main():
     speedup_best = seq_max / par_min if par_min > 0 else 0
 
     # Print results
-    print("\n" + "=" * 60)
-    print("RESULTS")
-    print("=" * 60)
-    print(f"\nSequential execution:")
-    print(f"  Average: {seq_avg:.3f}s")
-    print(f"  Range:   {seq_min:.3f}s - {seq_max:.3f}s")
+    logger.info("\n" + "=" * 60)
+    logger.info("RESULTS")
+    logger.info("=" * 60)
+    logger.info(f"\nSequential execution:")
+    logger.info(f"  Average: {seq_avg:.3f}s")
+    logger.info(f"  Range:   {seq_min:.3f}s - {seq_max:.3f}s")
 
-    print(f"\nParallel execution (6 workers):")
-    print(f"  Average: {par_avg:.3f}s")
-    print(f"  Range:   {par_min:.3f}s - {par_max:.3f}s")
+    logger.info(f"\nParallel execution (6 workers):")
+    logger.info(f"  Average: {par_avg:.3f}s")
+    logger.info(f"  Range:   {par_min:.3f}s - {par_max:.3f}s")
 
-    print(f"\n🚀 Speedup:")
-    print(f"  Average: {speedup_avg:.2f}x faster")
-    print(f"  Best:    {speedup_best:.2f}x faster")
+    logger.info(f"\n🚀 Speedup:")
+    logger.info(f"  Average: {speedup_avg:.2f}x faster")
+    logger.info(f"  Best:    {speedup_best:.2f}x faster")
 
-    print(f"\n⏱️  Time saved per commit:")
-    print(f"  Average: {(seq_avg - par_avg):.3f}s")
-    print(f"  Best:    {(seq_max - par_min):.3f}s")
+    logger.info(f"\n⏱️  Time saved per commit:")
+    logger.info(f"  Average: {(seq_avg - par_avg):.3f}s")
+    logger.info(f"  Best:    {(seq_max - par_min):.3f}s")
 
-    print("\n" + "=" * 60)
+    logger.info("\n" + "=" * 60)
 
     # Check if speedup meets target
     if speedup_avg >= 3.0:
-        print(f"✅ TARGET MET: {speedup_avg:.1f}x speedup (target: 3-5x)")
+        logger.info(f"✅ TARGET MET: {speedup_avg:.1f}x speedup (target: 3-5x)")
     elif speedup_avg >= 2.0:
-        print(f"⚠️  PARTIAL: {speedup_avg:.1f}x speedup (target: 3-5x)")
+        logger.info(f"⚠️  PARTIAL: {speedup_avg:.1f}x speedup (target: 3-5x)")
     else:
-        print(f"❌ BELOW TARGET: {speedup_avg:.1f}x speedup (target: 3-5x)")
+        logger.info(f"❌ BELOW TARGET: {speedup_avg:.1f}x speedup (target: 3-5x)")
 
 
 if __name__ == "__main__":
