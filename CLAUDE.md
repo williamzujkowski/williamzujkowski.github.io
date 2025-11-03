@@ -562,3 +562,8 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Session 20: Suricata CRITICAL post fixed (53.8% → 23.7%; 7 gists extracted 277 lines, Mermaid v10 migration, researcher + 2x coder agents; 1.08 hours)
 - Session 20: Multi-phase extraction strategy validated (initial 6 gists → 32.3% still exceeded, 7th gist Kibana query → 23.7% COMPLIANT; build 2-3 point safety margins)
 - Session 20: Gist extraction workflow proven (researcher 15 min analysis prevents 30-45 min trial-and-error; tmp/gists/ backup, gh CLI upload, post embed validation pattern)
+- Session 21: Code ratio dual-strategy discovery (eBPF 97.3% Mermaid vs other posts 81.5% extractable code; calculator enhanced v1.1.0 with DIAGRAM-HEAVY detection)
+- Session 21: Parallel execution 2nd validation (Track A calculator enhancement + Track B Bitwarden extraction; 95 min total vs ~160 min sequential; 80% efficiency matched Session 14)
+- Session 21: Bitwarden CRITICAL fixed (51.5% → 22.1%; 9 gists 298 lines extracted, Mermaid v10 compliant, Playwright 100% pass rate; HIGHEST violation resolved)
+- Session 21: Calculator policy flag implemented (>80% Mermaid posts flagged as "DIAGRAM-HEAVY" educational content; distinguishes code-heavy vs diagram-heavy violations)
+- Session 21: Remaining work clarified (6 posts need traditional extraction 23 gists 4-6 hours; 1 post eBPF needs policy exception or Mermaid→images conversion)
