@@ -1,7 +1,7 @@
 # 📋 Repository TODO - Active Tasks
 
 **Status:** ACTIVE
-**Last Updated:** 2025-11-02
+**Last Updated:** 2025-11-03
 **Purpose:** Track ongoing improvements and maintenance tasks discovered during audits
 
 ---
@@ -44,13 +44,23 @@
 3. ✅ `2025-08-07-supercharging-development-claude-flow.md` (20.6%, 8 gists) - Session 4
 4. ✅ `2025-08-18-container-security-hardening-homelab.md` (20.5%, 10 gists) - Session 5/6
 
-**Remaining to address (6 posts):**
+**Remaining to address (8 posts - CORRECTED 2025-11-03):**
 9. ✅ `2025-04-10-securing-personal-ai-experiments.md` (19.2%, 8 gists extracted - Session 10)
-12. ✗ `2025-02-10-automating-home-network-security.md` (27.6% - 64/232 lines)
-13. ✗ `2025-08-25-network-traffic-analysis-suricata-homelab.md` (27.0% - 159/589 lines)
-14. ✗ `2024-10-10-blockchain-beyond-cryptocurrency.md` (26.1% - 74/284 lines)
-15. ✗ `2025-09-01-self-hosted-bitwarden-migration-guide.md` (25.9% - 172/665 lines)
-16. ✗ `2025-10-13-embodied-ai-robots-physical-world.md` (25.9% - 75/290 lines)
+10. ✗ `2025-03-10-raspberry-pi-security-projects.md` (32.2%)
+11. ✗ `2025-06-25-local-llm-deployment-privacy-first.md` (33.6%)
+12. ✗ `2025-07-01-ebpf-security-monitoring-practical-guide.md` (53.5% - CRITICAL)
+13. ✗ `2025-07-08-implementing-dns-over-https-home-networks.md` (43.2%)
+14. ✗ `2025-08-25-network-traffic-analysis-suricata-homelab.md` (53.8% - CRITICAL)
+15. ✗ `2025-09-01-self-hosted-bitwarden-migration-guide.md` (51.5%)
+16. ✗ `2025-09-20-iot-security-homelab-owasp.md` (46.7%)
+17. ✗ `2025-09-20-vulnerability-prioritization-epss-kev.md` (31.2%)
+
+**False Positives Removed (Session 20 audit):**
+- ✅ `2025-02-10-automating-home-network-security.md` - Now <25% ✅
+- ✅ `2024-10-10-blockchain-beyond-cryptocurrency.md` - Now <25% ✅
+- ✅ `2025-10-13-embodied-ai-robots-physical-world.md` - Now <25% ✅
+
+**Audit Report:** `docs/reports/session20-code-ratio-audit.md`
 
 **Workflow:**
 1. Load `docs/context/workflows/gist-management.md`
@@ -66,7 +76,8 @@
 - **Threshold:** 25% (defined in `.claude-rules.json`)
 - **Note:** See `docs/reports/CODE_RATIO_MEASUREMENT_METHODOLOGY.md` for details
 
-**Estimated Effort:** 8-12 hours (16 posts × 30-45 min each)
+**Estimated Effort:** 4-6 hours (8 posts × 30-45 min each)
+**Priority:** Tier 1 CRITICAL (>50%): ebpf, suricata | Tier 2 HIGH (40-50%): dns-doh, iot-owasp
 **Assigned:** Unassigned
 **Deadline:** Before next major content push
 
