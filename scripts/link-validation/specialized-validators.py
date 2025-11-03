@@ -4,8 +4,8 @@ SCRIPT: specialized-validators.py
 PURPOSE: Specialized Link Validators
 CATEGORY: utilities
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Specialized Link Validators. This script is part of the utilities
@@ -46,12 +46,20 @@ import re
 import json
 import asyncio
 import aiohttp
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass, asdict
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 import hashlib
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 @dataclass
 class SpecializedValidation:
@@ -465,7 +473,6 @@ class SpecializedValidatorOrchestrator:
 async def main():
     """Main entry point with CLI support"""
     import argparse
-    import sys
 
     parser = argparse.ArgumentParser(
         description='Specialized link validators for various platforms',
@@ -503,9 +510,9 @@ Examples:
         from pathlib import Path
         urls_path = Path(args.urls)
         if not urls_path.exists():
-            print(f"Error: File not found: {args.urls}", file=sys.stderr)
-            print(f"Expected: {urls_path.absolute()}", file=sys.stderr)
-            print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+            logger.error(f"Error: File not found: {args.urls}")
+            logger.error(f"Expected: {urls_path.absolute()}")
+            logger.info(f"Tip: Run from repository root or provide absolute path")
             sys.exit(2)
 
         # Try to load as JSON first, fall back to line-by-line
@@ -517,7 +524,7 @@ Examples:
             except:
                 test_urls = [line.strip() for line in content.split('\n') if line.strip()]
     else:
-        print("Error: Must provide --urls or --test-mode", file=sys.stderr)
+        logger.error("Error: Must provide --urls or --test-mode")
         sys.exit(2)
 
     async with SpecializedValidatorOrchestrator() as orchestrator:
@@ -525,14 +532,14 @@ Examples:
 
         if not args.quiet:
             for result in results:
-                print(f"\n{result.link_type.upper()}: {result.url}")
-                print(f"  Valid: {result.is_valid}")
+                logger.info(f"\n{result.link_type.upper()}: {result.url}")
+                logger.info(f"  Valid: {result.is_valid}")
                 if result.issues:
-                    print(f"  Issues: {', '.join(result.issues)}")
+                    logger.info(f"  Issues: {', '.join(result.issues)}")
                 if result.suggestions:
-                    print(f"  Suggestions: {', '.join(result.suggestions)}")
+                    logger.info(f"  Suggestions: {', '.join(result.suggestions)}")
                 if result.metadata:
-                    print(f"  Metadata: {result.metadata}")
+                    logger.info(f"  Metadata: {result.metadata}")
 
         # Save results
         output_data = {
@@ -545,10 +552,9 @@ Examples:
             json.dump(output_data, f, indent=2)
 
         if not args.quiet:
-            print(f"\n✅ Results saved to {args.output}")
+            logger.info(f"\n✅ Results saved to {args.output}")
 
     return 0
 
 if __name__ == "__main__":
-    import sys
     sys.exit(asyncio.run(main()))

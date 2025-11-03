@@ -4,8 +4,8 @@ SCRIPT: content-relevance-checker.py
 PURPOSE: Content Relevance Checker
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Content Relevance Checker. This script is part of the blog management
@@ -55,6 +55,13 @@ from difflib import SequenceMatcher
 import unicodedata
 import string
 
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
+
 # Try to import advanced NLP libraries
 try:
     from sklearn.feature_extraction.text import TfidfVectorizer
@@ -63,7 +70,7 @@ try:
     SKLEARN_AVAILABLE = True
 except ImportError:
     SKLEARN_AVAILABLE = False
-    print("⚠️  scikit-learn not installed. Using basic text similarity.")
+    logger.warning("⚠️  scikit-learn not installed. Using basic text similarity.")
 
 @dataclass
 class RelevanceResult:
@@ -481,12 +488,12 @@ class ContentRelevanceChecker:
             json.dump(data, f, indent=2)
 
         if not quiet:
-            print(f"✅ Checked relevance for {self.stats['total_checked']} links")
-            print(f"✔️  High relevance: {self.stats['high_relevance']}")
-            print(f"⚠️  Medium relevance: {self.stats['medium_relevance']}")
-            print(f"❌ Low relevance: {self.stats['low_relevance']}")
-            print(f"🔍 Review needed: {self.stats['review_needed']}")
-            print(f"💾 Results saved to {output_file}")
+            logger.info(f"✅ Checked relevance for {self.stats['total_checked']} links")
+            logger.info(f"✔️  High relevance: {self.stats['high_relevance']}")
+            logger.info(f"⚠️  Medium relevance: {self.stats['medium_relevance']}")
+            logger.info(f"❌ Low relevance: {self.stats['low_relevance']}")
+            logger.info(f"🔍 Review needed: {self.stats['review_needed']}")
+            logger.info(f"💾 Results saved to {output_file}")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -515,15 +522,15 @@ Examples:
     args = parser.parse_args()
 
     if not args.links.exists():
-        print(f"Error: File not found: {args.links}", file=sys.stderr)
-        print(f"Expected: {args.links.absolute()}", file=sys.stderr)
-        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        logger.error(f"Error: File not found: {args.links}")
+        logger.error(f"Expected: {args.links.absolute()}")
+        logger.info(f"Tip: Run from repository root or provide absolute path")
         sys.exit(2)
 
     if not args.validation.exists():
-        print(f"Error: File not found: {args.validation}", file=sys.stderr)
-        print(f"Expected: {args.validation.absolute()}", file=sys.stderr)
-        print(f"Tip: Run from repository root or provide absolute path", file=sys.stderr)
+        logger.error(f"Error: File not found: {args.validation}")
+        logger.error(f"Expected: {args.validation.absolute()}")
+        logger.info(f"Tip: Run from repository root or provide absolute path")
         sys.exit(2)
 
     # Load data
@@ -534,7 +541,7 @@ Examples:
         validation_data = json.load(f)
 
     if not args.quiet:
-        print(f"📋 Loaded {len(links_data['links'])} links to check")
+        logger.info(f"📋 Loaded {len(links_data['links'])} links to check")
 
     # Check relevance
     checker = ContentRelevanceChecker()

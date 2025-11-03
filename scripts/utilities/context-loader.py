@@ -4,8 +4,8 @@ SCRIPT: context-loader.py
 PURPOSE: Intelligent context loading based on task requirements
 CATEGORY: optimization
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-11-01
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Prototype for optimized context loading that dynamically determines
@@ -38,6 +38,15 @@ from pathlib import Path
 from typing import Dict, List, Set, Tuple
 from dataclasses import dataclass
 from datetime import datetime
+
+# Add parent directory to path for imports
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 
 @dataclass
@@ -402,15 +411,15 @@ def main():
 
     if args.coverage:
         coverage = loader.analyze_task_coverage()
-        print("\n=== TASK COVERAGE ANALYSIS ===\n")
+        logger.info("\n=== TASK COVERAGE ANALYSIS ===\n")
 
         for task, data in coverage.items():
-            print(f"{task}:")
-            print(f"  Required tags: {', '.join(data['required_tags'])}")
-            print(f"  Matching modules: {len(data['matching_modules'])}")
-            print(f"  Coverage score: {data['coverage_score']:.1%}")
-            print(f"  Token budget: {data['max_tokens']:,}")
-            print()
+            logger.info(f"{task}:")
+            logger.info(f"  Required tags: {', '.join(data['required_tags'])}")
+            logger.info(f"  Matching modules: {len(data['matching_modules'])}")
+            logger.info(f"  Coverage score: {data['coverage_score']:.1%}")
+            logger.info(f"  Token budget: {data['max_tokens']:,}")
+            logger.info("")
 
         return
 
@@ -420,12 +429,12 @@ def main():
         try:
             plan = loader.create_load_plan(task)
 
-            print("\n=== LOADING PLAN ===\n")
-            print(plan.rationale)
-            print("Load order:")
+            logger.info("\n=== LOADING PLAN ===\n")
+            logger.info(plan.rationale)
+            logger.info("Load order:")
             for i, module_name in enumerate(plan.load_order, 1):
                 module = loader.modules[module_name]
-                print(f"  {i}. {module_name} ({module.tokens:,} tokens)")
+                logger.info(f"  {i}. {module_name} ({module.tokens:,} tokens)")
 
             if args.generate_script:
                 script = loader.generate_loading_script(plan)
@@ -435,16 +444,16 @@ def main():
                     f.write(script)
 
                 output_file.chmod(0o755)  # Make executable
-                print(f"\n✓ Loading script: {output_file}")
+                logger.info(f"\n✓ Loading script: {output_file}")
 
         except ValueError as e:
-            print(f"Error: {e}")
+            logger.error(f"Error: {e}")
 
     if args.interactive:
-        print("\n=== INTERACTIVE CONTEXT LOADER ===\n")
-        print("Available tasks:")
+        logger.info("\n=== INTERACTIVE CONTEXT LOADER ===\n")
+        logger.info("Available tasks:")
         for i, (task, pattern) in enumerate(loader.task_patterns.items(), 1):
-            print(f"  {i}. {task}: {pattern['description']}")
+            logger.info(f"  {i}. {task}: {pattern['description']}")
 
         while True:
             choice = input("\nSelect task (number or name, 'q' to quit): ").strip()
@@ -461,9 +470,9 @@ def main():
 
             if choice in loader.task_patterns:
                 plan = loader.create_load_plan(choice)
-                print(f"\n{plan.rationale}")
+                logger.info(f"\n{plan.rationale}")
             else:
-                print(f"Unknown task: {choice}")
+                logger.warning(f"Unknown task: {choice}")
 
 
 if __name__ == '__main__':

@@ -1,19 +1,25 @@
 #!/usr/bin/env -S uv run python3
 """
-Validate GitHub gist links in blog posts.
+SCRIPT: validate-gist-links.py
+PURPOSE: Validate GitHub gist links in blog posts
+CATEGORY: utilities
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
-Scans all blog posts for gist URLs and verifies each one returns HTTP 200.
-Reports broken links with post filename and line number.
+DESCRIPTION:
+    Scans all blog posts for gist URLs and verifies each one returns HTTP 200.
+    Reports broken links with post filename and line number.
 
-Usage:
-    python scripts/validate-gist-links.py [--verbose] [--json]
+    Usage:
+        python scripts/validate-gist-links.py [--verbose] [--json]
 
-Exit codes:
-    0 - All gist links valid
-    1 - Broken links found
-    2 - Error (can't read files, network error, etc.)
+    Exit codes:
+        0 - All gist links valid
+        1 - Broken links found
+        2 - Error (can't read files, network error, etc.)
 
-License: MIT
+    License: MIT
 """
 
 import argparse
@@ -25,11 +31,19 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 from urllib.parse import urlparse
 
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
+
 try:
     import requests
 except ImportError:
-    print("❌ ERROR: requests library not installed")
-    print("   Install with: pip install requests")
+    logger.error("requests library not installed")
+    logger.error("   Install with: pip install requests")
     sys.exit(2)
 
 
@@ -77,7 +91,7 @@ class GistValidator:
                         full_url = f'https://gist.github.com/williamzujkowski/{gist_id}'
                         gists.append((line_num, full_url))
         except Exception as e:
-            print(f"❌ ERROR: Cannot read {filepath}: {e}", file=sys.stderr)
+            logger.error(f"Cannot read {filepath}: {e}")
             return []
 
         return gists
@@ -123,7 +137,7 @@ class GistValidator:
         post_gists = {}
 
         if not posts_dir.exists():
-            print(f"❌ ERROR: Posts directory not found: {posts_dir}", file=sys.stderr)
+            logger.error(f"Posts directory not found: {posts_dir}")
             sys.exit(2)
 
         for post_file in sorted(posts_dir.glob("*.md")):
@@ -147,17 +161,14 @@ class GistValidator:
         start_time = time.time()
         post_gists = self.scan_posts(posts_dir)
 
-        # Route output based on format
-        out = sys.stderr if json_output else sys.stdout
-
         if not post_gists:
-            print("ℹ️  No gist links found in blog posts", file=out)
+            logger.info("No gist links found in blog posts")
             return (0, 0, [])
 
         # Count total gists
         total_gists = sum(len(gists) for gists in post_gists.values())
 
-        print(f"📎 Validating {total_gists} GitHub gist links...\n", file=out)
+        logger.info(f"📎 Validating {total_gists} GitHub gist links...\n")
 
         valid_count = 0
         broken_count = 0
@@ -179,7 +190,7 @@ class GistValidator:
 
             for url, line_nums in unique_gists.items():
                 if self.verbose:
-                    print(f"  Checking {url}...", end=" ", flush=True, file=out)
+                    logger.info(f"  Checking {url}...")
 
                 is_valid, status_code, error_msg = self.validate_gist(url)
 
@@ -187,12 +198,12 @@ class GistValidator:
                     valid_count += 1
                     post_valid += 1
                     if self.verbose:
-                        print("✅", file=out)
+                        logger.info("✅")
                 else:
                     broken_count += 1
                     post_broken += 1
                     if self.verbose:
-                        print(f"❌ {error_msg}", file=out)
+                        logger.error(f"{error_msg}")
 
                     for line_num in line_nums:
                         broken_links.append({
@@ -204,26 +215,26 @@ class GistValidator:
 
             post_results[post_name] = (post_valid, post_broken, len(unique_gists))
 
-        # Print summary by post
-        print(file=out)
+        # Log summary by post
+        logger.info("")
         for post_name, (post_valid, post_broken, post_total) in sorted(post_results.items()):
             # Extract post title from filename (remove date and extension)
             title_parts = post_name.replace('.md', '').split('-')[3:]
             title = ' '.join(word.capitalize() for word in title_parts)
 
             if post_broken == 0:
-                print(f"✅ {title} ({post_valid}/{post_total} gists valid)", file=out)
+                logger.info(f"✅ {title} ({post_valid}/{post_total} gists valid)")
             else:
-                print(f"❌ {title} ({post_valid}/{post_total} gists valid, {post_broken} broken)", file=out)
+                logger.error(f"❌ {title} ({post_valid}/{post_total} gists valid, {post_broken} broken)")
 
-        # Print summary
+        # Log summary
         elapsed = time.time() - start_time
-        print("\n" + "=" * 60, file=out)
-        print("📊 SUMMARY", file=out)
-        print("=" * 60, file=out)
-        print(f"✅ Valid:   {valid_count}/{total_gists} gists ({valid_count*100//total_gists}%)", file=out)
-        print(f"❌ Broken:  {broken_count}/{total_gists} gists ({broken_count*100//total_gists}%)", file=out)
-        print(f"⏱️  Time:   {elapsed:.1f}s", file=out)
+        logger.info("\n" + "=" * 60)
+        logger.info("📊 SUMMARY")
+        logger.info("=" * 60)
+        logger.info(f"✅ Valid:   {valid_count}/{total_gists} gists ({valid_count*100//total_gists}%)")
+        logger.info(f"❌ Broken:  {broken_count}/{total_gists} gists ({broken_count*100//total_gists}%)")
+        logger.info(f"⏱️  Time:   {elapsed:.1f}s")
 
         return (valid_count, broken_count, broken_links)
 
@@ -271,7 +282,7 @@ Examples:
 
     # Validate conflicting options
     if args.quiet and args.verbose:
-        print("❌ Error: Cannot use both --quiet and --verbose", file=sys.stderr)
+        logger.error("Cannot use both --quiet and --verbose")
         return 2
 
     # Determine repository root
@@ -284,10 +295,10 @@ Examples:
     try:
         valid_count, broken_count, broken_links = validator.validate_all(posts_dir, json_output=args.json)
     except KeyboardInterrupt:
-        print("\n❌ Interrupted by user", file=sys.stderr)
+        logger.error("\nInterrupted by user")
         sys.exit(2)
     except Exception as e:
-        print(f"\n❌ ERROR: {e}", file=sys.stderr)
+        logger.error(f"\nERROR: {e}")
         sys.exit(2)
 
     # Output results
@@ -298,19 +309,19 @@ Examples:
             'total': valid_count + broken_count,
             'broken_links': broken_links
         }
-        print(json.dumps(result, indent=2))
+        logger.info(json.dumps(result, indent=2))
 
     if broken_count > 0:
         if not args.json:
-            print("\n❌ BROKEN LINKS FOUND:\n", file=sys.stderr)
+            logger.error("\nBROKEN LINKS FOUND:\n")
             for broken in broken_links:
-                print(f"src/posts/{broken['post']}:{broken['line']}", file=sys.stderr)
-                print(f"  {broken['url']}", file=sys.stderr)
-                print(f"  {broken['error']}\n", file=sys.stderr)
+                logger.error(f"src/posts/{broken['post']}:{broken['line']}")
+                logger.error(f"  {broken['url']}")
+                logger.error(f"  {broken['error']}\n")
         sys.exit(1)
     else:
         if not args.json:
-            print(file=sys.stdout)
+            logger.info("")
         sys.exit(0)
 
 

@@ -1,16 +1,21 @@
 #!/usr/bin/env -S uv run python3
 """
-Blog Statistics Generator
+SCRIPT: stats-generator.py
+PURPOSE: Blog Statistics Generator
+CATEGORY: utilities
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
-Parses all markdown blog posts and generates comprehensive statistics
-for display on the blog. Outputs to src/_data/blogStats.json.
+DESCRIPTION:
+    Parses all markdown blog posts and generates comprehensive statistics
+    for display on the blog. Outputs to src/_data/blogStats.json.
 
-Author: William Zujkowski
-Created: 2025-10-20
+    Author: William Zujkowski
+    Created: 2025-10-20
 """
 
 import json
-import logging
 import re
 import sys
 from collections import Counter, defaultdict
@@ -20,12 +25,13 @@ from typing import Any, Dict, List, Optional
 
 import yaml
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 
 class BlogStatsGenerator:
@@ -520,42 +526,42 @@ class BlogStatsGenerator:
 
     def _print_summary(self, stats: Dict[str, Any]) -> None:
         """
-        Print a summary of generated statistics.
+        Log a summary of generated statistics.
 
         Args:
             stats: Statistics dictionary
         """
-        print("\n" + "="*60)
-        print("BLOG STATISTICS SUMMARY")
-        print("="*60)
-        print(f"Total Posts: {stats['total_posts']}")
-        print(f"Total Words: {stats['total_words']:,}")
-        print(f"Average Words per Post: {stats['average_words']:,.1f}")
-        print(f"Average Reading Time: {stats['average_reading_time']:.1f} minutes")
-        print(f"Posts with Images: {stats['posts_with_images']} ({stats['posts_with_images_percentage']}%)")
+        logger.info("\n" + "="*60)
+        logger.info("BLOG STATISTICS SUMMARY")
+        logger.info("="*60)
+        logger.info(f"Total Posts: {stats['total_posts']}")
+        logger.info(f"Total Words: {stats['total_words']:,}")
+        logger.info(f"Average Words per Post: {stats['average_words']:,.1f}")
+        logger.info(f"Average Reading Time: {stats['average_reading_time']:.1f} minutes")
+        logger.info(f"Posts with Images: {stats['posts_with_images']} ({stats['posts_with_images_percentage']}%)")
 
         if stats['posts_by_year']:
-            print("\nPosts by Year:")
+            logger.info("\nPosts by Year:")
             for year, count in stats['posts_by_year'].items():
                 words = stats['words_by_year'][year]
-                print(f"  {year}: {count} posts ({words:,} words)")
+                logger.info(f"  {year}: {count} posts ({words:,} words)")
 
         if stats['top_tags']:
-            print("\nTop 10 Tags:")
+            logger.info("\nTop 10 Tags:")
             for i, tag_data in enumerate(stats['top_tags'][:10], 1):
-                print(f"  {i}. {tag_data['tag']}: {tag_data['count']} posts")
+                logger.info(f"  {i}. {tag_data['tag']}: {tag_data['count']} posts")
 
         if stats.get('longest_post'):
-            print("\nLongest Post:")
-            print(f"  {stats['longest_post']['title']}")
-            print(f"  {stats['longest_post']['word_count']:,} words ({stats['longest_post']['reading_time']} min read)")
+            logger.info("\nLongest Post:")
+            logger.info(f"  {stats['longest_post']['title']}")
+            logger.info(f"  {stats['longest_post']['word_count']:,} words ({stats['longest_post']['reading_time']} min read)")
 
         if stats.get('shortest_post'):
-            print("\nShortest Post:")
-            print(f"  {stats['shortest_post']['title']}")
-            print(f"  {stats['shortest_post']['word_count']:,} words ({stats['shortest_post']['reading_time']} min read)")
+            logger.info("\nShortest Post:")
+            logger.info(f"  {stats['shortest_post']['title']}")
+            logger.info(f"  {stats['shortest_post']['word_count']:,} words ({stats['shortest_post']['reading_time']} min read)")
 
-        print("="*60 + "\n")
+        logger.info("="*60 + "\n")
 
 
 def main():
@@ -586,10 +592,6 @@ Examples:
     args = parser.parse_args()
 
     try:
-        # Configure logging based on quiet flag
-        if args.quiet:
-            logging.getLogger().setLevel(logging.ERROR)
-
         # Initialize generator
         generator = BlogStatsGenerator(
             posts_dir=args.posts_dir,

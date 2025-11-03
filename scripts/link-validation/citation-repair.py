@@ -4,8 +4,8 @@ SCRIPT: citation-repair.py
 PURPOSE: Citation Repair Tool
 CATEGORY: academic_research
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Citation Repair Tool. This script is part of the academic research
@@ -47,12 +47,20 @@ import re
 import asyncio
 import aiohttp
 import argparse
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass, asdict
 from datetime import datetime
 from urllib.parse import urlparse, quote
 import hashlib
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 @dataclass
 class RepairSuggestion:
@@ -126,7 +134,7 @@ class CitationRepair:
             links_data, validation_data, relevance_data
         )
 
-        print(f"🔍 Found {len(broken_links)} links needing repair")
+        logger.info(f"🔍 Found {len(broken_links)} links needing repair")
 
         # Process each broken link
         for link_info in broken_links:
@@ -234,7 +242,7 @@ class CitationRepair:
                     self.stats['alternative_fixes'] += 1
                     return result
             except Exception as e:
-                print(f"  Strategy {strategy.__name__} failed: {e}")
+                logger.debug(f"  Strategy {strategy.__name__} failed: {e}")
                 continue
 
         return None
@@ -276,7 +284,7 @@ class CitationRepair:
                                 notes='Open access version available on arXiv'
                             )
         except Exception as e:
-            print(f"    arXiv search error: {e}")
+            logger.debug(f"    arXiv search error: {e}")
 
         return None
 
@@ -315,7 +323,7 @@ class CitationRepair:
                                 notes='Permanent DOI link'
                             )
         except Exception as e:
-            print(f"    CrossRef search error: {e}")
+            logger.debug(f"    CrossRef search error: {e}")
 
         return None
 
@@ -418,7 +426,7 @@ class CitationRepair:
                             notes='Historical snapshot - content may be outdated'
                         )
         except Exception as e:
-            print(f"    Wayback Machine error: {e}")
+            logger.debug(f"    Wayback Machine error: {e}")
 
         return None
 
@@ -542,16 +550,14 @@ class CitationRepair:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
 
-        print(f"✅ Processed {self.stats['total_processed']} broken links")
-        print(f"🔧 Direct fixes: {self.stats['direct_fixes']}")
-        print(f"📚 Wayback fixes: {self.stats['wayback_fixes']}")
-        print(f"🔄 Alternative fixes: {self.stats['alternative_fixes']}")
-        print(f"❌ No fix found: {self.stats['no_fix_found']}")
-        print(f"💾 Results saved to {output_file}")
+        logger.info(f"✅ Processed {self.stats['total_processed']} broken links")
+        logger.info(f"🔧 Direct fixes: {self.stats['direct_fixes']}")
+        logger.info(f"📚 Wayback fixes: {self.stats['wayback_fixes']}")
+        logger.info(f"🔄 Alternative fixes: {self.stats['alternative_fixes']}")
+        logger.info(f"❌ No fix found: {self.stats['no_fix_found']}")
+        logger.info(f"💾 Results saved to {output_file}")
 
 async def main():
-    import sys
-
     parser = argparse.ArgumentParser(
         description='Find repairs for broken citations',
         epilog='''
@@ -608,12 +614,12 @@ Examples:
 
         sys.exit(0)
     except FileNotFoundError as e:
-        print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected files: links.json, validation.json, relevance.json", file=sys.stderr)
-        print("Tip: Run link extraction and validation first", file=sys.stderr)
+        logger.error(f"Error: File not found: {e}")
+        logger.error(f"Expected files: links.json, validation.json, relevance.json")
+        logger.info("Tip: Run link extraction and validation first")
         sys.exit(2)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)
 
 if __name__ == '__main__':

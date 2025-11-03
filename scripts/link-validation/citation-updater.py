@@ -4,8 +4,8 @@ SCRIPT: citation-updater.py
 PURPOSE: Citation Updater
 CATEGORY: academic_research
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Citation Updater. This script is part of the academic research
@@ -46,11 +46,19 @@ import json
 import re
 import asyncio
 import aiohttp
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 from dataclasses import dataclass, asdict
 import argparse
+
+# Path setup for centralized logging
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+# Initialize logger
+logger = setup_logger(__name__)
 
 @dataclass
 class CitationUpdate:
@@ -130,7 +138,7 @@ class CitationUpdater:
                         )
 
         except Exception as e:
-            print(f"Error checking arXiv version: {e}")
+            logger.error(f"Error checking arXiv version: {e}")
 
         return None
 
@@ -177,7 +185,7 @@ class CitationUpdater:
                             )
 
         except Exception as e:
-            print(f"Error resolving DOI: {e}")
+            logger.error(f"Error resolving DOI: {e}")
 
         return None
 
@@ -361,11 +369,11 @@ class CitationUpdater:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(content)
 
-            print(f"✅ Updated {changes_made} citations in {file_path.name}")
-            print(f"   Backup saved to {backup_path.name}")
+            logger.info(f"✅ Updated {changes_made} citations in {file_path.name}")
+            logger.info(f"   Backup saved to {backup_path.name}")
 
         elif dry_run:
-            print(f"Would update {changes_made} citations in {file_path.name}")
+            logger.info(f"Would update {changes_made} citations in {file_path.name}")
 
         return changes_made
 
@@ -415,7 +423,7 @@ class CitationUpdater:
         with open(md_file, 'w') as f:
             f.write('\n'.join(lines))
 
-        print(f"✅ Report saved to {md_file}")
+        logger.info(f"✅ Report saved to {md_file}")
 
 async def main():
     parser = argparse.ArgumentParser(
@@ -452,7 +460,7 @@ Examples:
 
     try:
         if not args.links.exists():
-            print(f"❌ Error: Links file not found: {args.links}", file=sys.stderr)
+            logger.error(f"❌ Error: Links file not found: {args.links}")
             return 1
 
     # Load links
@@ -465,14 +473,14 @@ Examples:
         if link.get('type') in ['citation', 'reference']
     ]
 
-    print(f"Found {len(citations)} citations to check")
+    logger.info(f"Found {len(citations)} citations to check")
 
     # Update citations
     async with CitationUpdater() as updater:
         updates = await updater.update_all_citations(citations)
 
         if updates:
-            print(f"\n📊 Found {len(updates)} citations that can be updated")
+            logger.info(f"\n📊 Found {len(updates)} citations that can be updated")
 
             # Group updates by file
             updates_by_file = {}
@@ -488,9 +496,9 @@ Examples:
 
             # Apply updates to each file
             if not args.dry_run:
-                print("\n✏️ Applying updates...")
+                logger.info("\n✏️ Applying updates...")
             else:
-                print("\n🔍 DRY RUN - No changes will be made")
+                logger.info("\n🔍 DRY RUN - No changes will be made")
 
             total_changes = 0
             for file_path, file_updates in updates_by_file.items():
@@ -499,7 +507,7 @@ Examples:
                 )
                 total_changes += changes
 
-            print(f"\n✅ Total citations updated: {total_changes}")
+            logger.info(f"\n✅ Total citations updated: {total_changes}")
 
             # Generate report
         updater.generate_update_report(updates, args.output)
@@ -507,12 +515,11 @@ Examples:
         return 0
 
     except FileNotFoundError as e:
-        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        logger.error(f"❌ Error: File not found - {e}")
         return 1
     except Exception as e:
-        print(f"❌ Error: {e}", file=sys.stderr)
+        logger.error(f"❌ Error: {e}")
         return 2
 
 if __name__ == "__main__":
-    import sys
     sys.exit(asyncio.run(main()))

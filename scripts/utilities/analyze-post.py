@@ -1,12 +1,27 @@
 #!/usr/bin/env -S uv run python3
 """
-Quick post analyzer - counts citations, weak language, and bullets
-Usage: python analyze-post.py <markdown-file>
+SCRIPT: analyze-post.py
+PURPOSE: Quick post analyzer - counts citations, weak language, and bullets
+CATEGORY: utilities
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-11-03
+
+DESCRIPTION:
+    Quick post analyzer - counts citations, weak language, and bullets
 """
 
 import re
 import sys
 from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 WEAK_WORDS = [
     'really', 'very', 'quite', 'just', 'actually', 'basically',
@@ -46,36 +61,36 @@ def analyze_post(filepath):
     bullets = len(re.findall(r'^[\s]*[-*+]\s', content_no_front, re.MULTILINE))
     bullets += len(re.findall(r'^[\s]*\d+\.\s', content_no_front, re.MULTILINE))
 
-    # Print results
-    print(f"\n{'='*50}")
-    print(f"Analysis: {Path(filepath).name}")
-    print(f"{'='*50}\n")
+    # Log results
+    logger.info(f"\n{'='*50}")
+    logger.info(f"Analysis: {Path(filepath).name}")
+    logger.info(f"{'='*50}\n")
 
-    print(f"📚 Citations: {len(citations)}")
-    print(f"   arXiv: {arxiv}")
-    print(f"   DOI: {doi}")
-    print(f"   GitHub: {github}")
-    print(f"   Other: {len(citations) - arxiv - doi - github}")
+    logger.info(f"📚 Citations: {len(citations)}")
+    logger.info(f"   arXiv: {arxiv}")
+    logger.info(f"   DOI: {doi}")
+    logger.info(f"   GitHub: {github}")
+    logger.info(f"   Other: {len(citations) - arxiv - doi - github}")
 
-    print(f"\n💬 Weak Language: {weak_count} instances")
+    logger.info(f"\n💬 Weak Language: {weak_count} instances")
     if weak_count > 0:
-        print("   ⚠️  Found:")
+        logger.info("   ⚠️  Found:")
         for instance in weak_instances[:10]:  # Show first 10
-            print(f"      {instance}")
+            logger.info(f"      {instance}")
         if len(weak_instances) > 10:
-            print(f"      ... and {len(weak_instances) - 10} more")
+            logger.info(f"      ... and {len(weak_instances) - 10} more")
     else:
-        print("   ✅ Clean!")
+        logger.info("   ✅ Clean!")
 
-    print(f"\n📝 Bullet Points: {bullets}")
+    logger.info(f"\n📝 Bullet Points: {bullets}")
     if bullets >= 60:
-        print("   ✅ Excellent scannability (≥60)")
+        logger.info("   ✅ Excellent scannability (≥60)")
     elif bullets >= 20:
-        print("   ⚠️  Good but could improve (target: 60+)")
+        logger.info("   ⚠️  Good but could improve (target: 60+)")
     else:
-        print("   ❌ Low scannability (<20)")
+        logger.info("   ❌ Low scannability (<20)")
 
-    print(f"\n{'='*50}\n")
+    logger.info(f"\n{'='*50}\n")
 
     return {
         'citations': len(citations),
@@ -104,13 +119,13 @@ Examples:
 
     try:
         if not Path(args.filepath).exists():
-            print(f"Error: File not found: {args.filepath}", file=sys.stderr)
-            print(f"Current directory: {Path.cwd()}", file=sys.stderr)
-            print("Tip: Provide full path to markdown file", file=sys.stderr)
+            logger.error(f"File not found: {args.filepath}")
+            logger.error(f"Current directory: {Path.cwd()}")
+            logger.error("Tip: Provide full path to markdown file")
             sys.exit(2)
 
         analyze_post(args.filepath)
         sys.exit(0)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)

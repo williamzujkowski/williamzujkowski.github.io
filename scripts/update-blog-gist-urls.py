@@ -1,18 +1,24 @@
 #!/usr/bin/env -S uv run python3
 """
-Update blog posts with real GitHub gist URLs.
+SCRIPT: update-blog-gist-urls.py
+PURPOSE: Update blog posts with real GitHub gist URLs
+CATEGORY: utilities
+LLM_READY: True
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
-Reads gist-mapping.json and replaces placeholder gist URLs in blog posts
-with actual URLs from created gists.
+DESCRIPTION:
+    Reads gist-mapping.json and replaces placeholder gist URLs in blog posts
+    with actual URLs from created gists.
 
-Usage:
-    python scripts/update-blog-gist-urls.py [--dry-run]
+    Usage:
+        python scripts/update-blog-gist-urls.py [--dry-run]
 
-Prerequisites:
-    - gists/gist-mapping.json exists (created by create-gists-from-folder.py)
-    - Blog posts in src/posts/ with placeholder URLs
+    Prerequisites:
+        - gists/gist-mapping.json exists (created by create-gists-from-folder.py)
+        - Blog posts in src/posts/ with placeholder URLs
 
-License: MIT
+    License: MIT
 """
 
 import json
@@ -20,6 +26,14 @@ import re
 import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 # Blog posts to update
 BLOG_POSTS = [
@@ -216,7 +230,7 @@ Examples:
 
     try:
         if args.dry_run and not args.quiet:
-            print("🔍 DRY RUN MODE - No changes will be written\n")
+            logger.info("🔍 DRY RUN MODE - No changes will be written\n")
 
         # Get repository root
         repo_root = Path(__file__).parent.parent
@@ -224,12 +238,12 @@ Examples:
         # Load gist mapping
         mapping_file = repo_root / MAPPING_FILE
         if not args.quiet:
-            print(f"📖 Loading gist mapping from: {mapping_file}")
+            logger.info(f"📖 Loading gist mapping from: {mapping_file}")
 
         mapping = load_gist_mapping(mapping_file)
 
         if not args.quiet:
-            print(f"✓ Loaded {len(mapping)} gist mappings\n")
+            logger.info(f"✓ Loaded {len(mapping)} gist mappings\n")
 
         # Process each blog post
         total_replacements = 0
@@ -238,20 +252,20 @@ Examples:
         for post_file in BLOG_POSTS:
             post_path = repo_root / post_file
             if not args.quiet:
-                print(f"📝 Processing: {post_path.name}")
-                print("-" * 60)
+                logger.info(f"📝 Processing: {post_path.name}")
+                logger.info("-" * 60)
 
             # Update placeholders
             count, messages = update_blog_post(post_path, mapping, args.dry_run)
 
             if not args.quiet:
                 if count > 0:
-                    print(f"\n✓ Made {count} replacement(s):\n")
+                    logger.info(f"\n✓ Made {count} replacement(s):\n")
                     for msg in messages:
-                        print(msg)
+                        logger.info(msg)
                 else:
                     for msg in messages:
-                        print(msg)
+                        logger.info(msg)
 
             total_replacements += count
 
@@ -261,47 +275,47 @@ Examples:
                 if not is_valid:
                     all_valid = False
                     if not args.quiet:
-                        print(f"\n⚠️  WARNING: {len(remaining)} placeholder(s) still remain:")
+                        logger.warning(f"\n⚠️  WARNING: {len(remaining)} placeholder(s) still remain:")
                         for slug in remaining:
-                            print(f"    - {slug}")
+                            logger.warning(f"    - {slug}")
                 else:
                     if not args.quiet:
-                        print("\n✓ All placeholders successfully replaced")
+                        logger.info("\n✓ All placeholders successfully replaced")
 
             if not args.quiet:
-                print()
+                logger.info("")
 
         # Summary
         if not args.quiet:
-            print("=" * 60)
-            print("SUMMARY")
-            print("=" * 60)
-            print(f"Total replacements: {total_replacements}")
-            print(f"Posts processed: {len(BLOG_POSTS)}")
+            logger.info("=" * 60)
+            logger.info("SUMMARY")
+            logger.info("=" * 60)
+            logger.info(f"Total replacements: {total_replacements}")
+            logger.info(f"Posts processed: {len(BLOG_POSTS)}")
 
             if args.dry_run:
-                print("\n🔍 DRY RUN - No files were modified")
-                print("Run without --dry-run to apply changes")
+                logger.info("\n🔍 DRY RUN - No files were modified")
+                logger.info("Run without --dry-run to apply changes")
             elif total_replacements > 0:
                 if all_valid:
-                    print("\n✓ All placeholder URLs successfully replaced!")
+                    logger.info("\n✓ All placeholder URLs successfully replaced!")
                 else:
-                    print("\n⚠️  Some placeholders could not be replaced")
-                    print("Check the warnings above for details")
+                    logger.warning("\n⚠️  Some placeholders could not be replaced")
+                    logger.warning("Check the warnings above for details")
                     return 1
             else:
-                print("\nℹ️  No placeholders found in any posts")
+                logger.info("\nℹ️  No placeholders found in any posts")
 
         return 0
 
     except FileNotFoundError as e:
-        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        logger.error(f"File not found - {e}")
         return 1
     except json.JSONDecodeError as e:
-        print(f"❌ Error: Invalid JSON - {e}", file=sys.stderr)
+        logger.error(f"Invalid JSON - {e}")
         return 1
     except Exception as e:
-        print(f"❌ Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         return 2
 
 

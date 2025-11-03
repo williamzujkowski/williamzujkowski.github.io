@@ -5,7 +5,7 @@ PURPOSE: Unified diagram and technical image management for blog posts
 CATEGORY: image_management
 LLM_READY: True
 VERSION: 2.0.0
-UPDATED: 2025-09-20T15:30:00-04:00
+UPDATED: 2025-11-03
 
 DESCRIPTION:
     Consolidates functionality from multiple diagram scripts:
@@ -73,6 +73,11 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+
+from logging_config import setup_logger
+
 # Import shared utilities from common library
 sys.path.append(str(Path(__file__).parent))
 from lib.common import (
@@ -87,6 +92,9 @@ from lib.common import (
     read_json,
     write_json
 )
+
+# Setup logging
+logger = setup_logger(__name__)
 
 class DiagramManager:
     """Unified diagram management for blog posts"""
@@ -455,32 +463,32 @@ Examples:
     if not args.dry_run:
         manager.save_report()
 
-    # Print summary
-    print(f"\n{'='*60}")
-    print(f"Diagram Manager - {args.command.capitalize()} Complete")
-    print(f"{'='*60}")
+    # Log summary
+    logger.info(f"\n{'='*60}")
+    logger.info(f"Diagram Manager - {args.command.capitalize()} Complete")
+    logger.info(f"{'='*60}")
 
     if args.command in ['create', 'integrate', 'update']:
-        print(f"Posts processed: {report.get('posts_processed', 0)}")
-        print(f"Diagrams created: {report.get('diagrams_created', 0)}")
-        print(f"Diagrams updated: {report.get('diagrams_updated', 0)}")
+        logger.info(f"Posts processed: {report.get('posts_processed', 0)}")
+        logger.info(f"Diagrams created: {report.get('diagrams_created', 0)}")
+        logger.info(f"Diagrams updated: {report.get('diagrams_updated', 0)}")
 
     elif args.command == 'validate':
-        print(f"Valid references: {len(report.get('valid', []))}")
-        print(f"Missing diagrams: {len(report.get('missing', []))}")
-        print(f"Broken references: {len(report.get('broken', []))}")
-        print(f"Unused diagrams: {len(report.get('unused', []))}")
+        logger.info(f"Valid references: {len(report.get('valid', []))}")
+        logger.info(f"Missing diagrams: {len(report.get('missing', []))}")
+        logger.info(f"Broken references: {len(report.get('broken', []))}")
+        logger.info(f"Unused diagrams: {len(report.get('unused', []))}")
 
     elif args.command == 'optimize':
-        print(f"Files optimized: {len(report.get('optimized', []))}")
-        print(f"Files skipped: {len(report.get('skipped', []))}")
+        logger.info(f"Files optimized: {len(report.get('optimized', []))}")
+        logger.info(f"Files skipped: {len(report.get('skipped', []))}")
 
     if report.get('errors'):
-        print(f"\n⚠️  Errors encountered: {len(report['errors'])}")
+        logger.warning(f"\n⚠️  Errors encountered: {len(report['errors'])}")
         for error in report['errors'][:5]:
-            print(f"  - {error}")
+            logger.warning(f"  - {error}")
 
-    print(f"{'='*60}\n")
+    logger.info(f"{'='*60}\n")
 
     # Update manifest
     if not args.dry_run:
