@@ -2,13 +2,13 @@
 """
 SCRIPT: enhanced-blog-image-search.py
 PURPOSE: Enhanced Blog Image Search Tool
-CATEGORY: blog_management
+CATEGORY: blog_images
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
-    Enhanced Blog Image Search Tool. This script is part of the blog management
+    Enhanced Blog Image Search Tool. This script is part of the blog_images
     category and provides automated functionality for the static site.
 
 LLM_USAGE:
@@ -55,13 +55,21 @@ import frontmatter
 from datetime import datetime
 import re
 
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
+
 # Optional imports for image processing
 try:
     from PIL import Image
     HAS_PIL = True
 except ImportError:
     HAS_PIL = False
-    print("Warning: PIL not installed. Install with: pip install Pillow")
+    logger.warning("PIL not installed. Install with: pip install Pillow")
 
 class BlogImageSearcher:
     def __init__(self, posts_dir: str = "src/posts", images_dir: str = "src/assets/images/blog"):
@@ -191,7 +199,7 @@ class BlogImageSearcher:
                 
                 # Check if image is unique
                 if not self.is_image_unique(image_hash, post_slug):
-                    print(f"  Skipping duplicate image for {post_slug}")
+                    logger.info(f"  Skipping duplicate image for {post_slug}")
                     return False
                 
                 # Save image
@@ -210,7 +218,7 @@ class BlogImageSearcher:
                 
                 return True
         except Exception as e:
-            print(f"  Error downloading image: {e}")
+            logger.error(f"  Error downloading image: {e}")
             return False
     
     def optimize_image(self, image_path: Path):
@@ -234,7 +242,7 @@ class BlogImageSearcher:
             # Save optimized
             img.save(image_path, quality=85, optimize=True)
         except Exception as e:
-            print(f"  Warning: Could not optimize image: {e}")
+            logger.warning(f"  Could not optimize image: {e}")
     
     def create_search_report(self) -> Dict:
         """Create a report of search activities and results."""
@@ -274,29 +282,29 @@ class BlogImageSearcher:
         posts = sorted(self.posts_dir.glob("*.md"))
         if limit:
             posts = posts[:limit]
-        
-        print(f"Processing {len(posts)} blog posts...")
-        
+
+        logger.info(f"Processing {len(posts)} blog posts...")
+
         for i, post_file in enumerate(posts, 1):
-            print(f"\n[{i}/{len(posts)}] Processing: {post_file.name}")
+            logger.info(f"\n[{i}/{len(posts)}] Processing: {post_file.name}")
             metadata = self.get_post_metadata(post_file)
-            
+
             # Generate search queries
             queries = self.generate_search_queries(metadata)
-            print(f"  Generated {len(queries)} search queries")
-            
+            logger.info(f"  Generated {len(queries)} search queries")
+
             # Create image paths
             slug = metadata['slug']
             hero_dir = self.images_dir / 'hero'
             inline_dir = self.images_dir / 'inline'
-            
+
             hero_dir.mkdir(parents=True, exist_ok=True)
             inline_dir.mkdir(parents=True, exist_ok=True)
-            
+
             # Note: Actual image search would require Playwright integration
             # This is a placeholder for the search logic
-            print(f"  Search queries: {', '.join(queries[:2])}")
-            
+            logger.info(f"  Search queries: {', '.join(queries[:2])}")
+
             # Generate placeholder metadata for now
             self.update_post_frontmatter(post_file, metadata)
     
@@ -325,7 +333,7 @@ class BlogImageSearcher:
             # Save updated post
             with open(post_path, 'w', encoding='utf-8') as f:
                 f.write(frontmatter.dumps(post))
-            print(f"  Updated frontmatter for {post_path.name}")
+            logger.info(f"  Updated frontmatter for {post_path.name}")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -353,29 +361,29 @@ Examples:
         if args.report:
             report = searcher.create_search_report()
             if not args.quiet:
-                print("\n=== Blog Image Coverage Report ===")
-                print(f"Posts processed: {report['posts_processed']}")
-                print(f"Posts with images: {len(report['posts_with_images'])}")
-                print(f"Posts without images: {len(report['posts_without_images'])}")
-                print(f"Unique images: {report['unique_images']}")
-                print("\nTag coverage:")
+                logger.info("\n=== Blog Image Coverage Report ===")
+                logger.info(f"Posts processed: {report['posts_processed']}")
+                logger.info(f"Posts with images: {len(report['posts_with_images'])}")
+                logger.info(f"Posts without images: {len(report['posts_without_images'])}")
+                logger.info(f"Unique images: {report['unique_images']}")
+                logger.info("\nTag coverage:")
                 for tag, count in sorted(report['tag_coverage'].items(), key=lambda x: x[1], reverse=True):
-                    print(f"  {tag}: {count} posts")
+                    logger.info(f"  {tag}: {count} posts")
         else:
             searcher.process_all_posts(limit=args.limit)
             if not args.quiet:
-                print("\nImage search preparation complete!")
-                print("Note: This script prepares metadata. Use playwright-image-search.py for actual downloads.")
+                logger.info("\nImage search preparation complete!")
+                logger.info("Note: This script prepares metadata. Use playwright-image-search.py for actual downloads.")
 
         sys.exit(0)
     except FileNotFoundError as e:
-        print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected: {args.posts_dir}", file=sys.stderr)
-        print(f"Current directory: {os.getcwd()}", file=sys.stderr)
-        print("Tip: Run from repository root", file=sys.stderr)
+        logger.error(f"File not found: {e}")
+        logger.error(f"Expected: {args.posts_dir}")
+        logger.error(f"Current directory: {os.getcwd()}")
+        logger.error("Tip: Run from repository root")
         sys.exit(2)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

@@ -2,13 +2,13 @@
 """
 SCRIPT: fetch-stock-images.py
 PURPOSE: Stock Image Fetcher for Blog Posts
-CATEGORY: image_management
+CATEGORY: blog_images
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
-    Stock Image Fetcher for Blog Posts. This script is part of the image management
+    Stock Image Fetcher for Blog Posts. This script is part of the blog_images
     category and provides automated functionality for the static site.
 
 LLM_USAGE:
@@ -50,6 +50,14 @@ import time
 from pathlib import Path
 from urllib.parse import quote, urlparse
 import hashlib
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 class StockImageFetcher:
     def __init__(self, base_path: str = "."):
@@ -133,7 +141,7 @@ class StockImageFetcher:
         
         try:
             # Note: This is a simplified example - in production you'd use proper scraping
-            print(f"  🔍 Searching Pexels for: {query}")
+            logger.info(f"  🔍 Searching Pexels for: {query}")
             # For now, return placeholder since actual scraping requires more complex handling
             results.append({
                 'url': f"https://images.pexels.com/photos/placeholder/{query}.jpg",
@@ -142,7 +150,7 @@ class StockImageFetcher:
                 'license': 'Pexels License'
             })
         except Exception as e:
-            print(f"  ⚠️ Error searching Pexels: {e}")
+            logger.warning(f"  Error searching Pexels: {e}")
         
         return results[:count]
     
@@ -156,7 +164,7 @@ class StockImageFetcher:
         }
         
         try:
-            print(f"  🔍 Searching Unsplash for: {query}")
+            logger.info(f"  🔍 Searching Unsplash for: {query}")
             # Placeholder for actual implementation
             results.append({
                 'url': f"https://images.unsplash.com/photo-placeholder-{query}",
@@ -165,7 +173,7 @@ class StockImageFetcher:
                 'license': 'Unsplash License'
             })
         except Exception as e:
-            print(f"  ⚠️ Error searching Unsplash: {e}")
+            logger.warning(f"  Error searching Unsplash: {e}")
         
         return results[:count]
     
@@ -182,7 +190,7 @@ class StockImageFetcher:
             
             return str(filepath)
         except Exception as e:
-            print(f"  ❌ Error downloading {url}: {e}")
+            logger.error(f"  Error downloading {url}: {e}")
             return None
     
     def process_blog_post(self, post_file: Path) -> dict:
@@ -207,15 +215,15 @@ class StockImageFetcher:
         
         # Skip if already has custom images
         if 'images' in frontmatter and 'custom' in frontmatter.get('images', {}):
-            print(f"  ⏭️ Skipping {post_file.name} (has custom images)")
+            logger.info(f"  ⏭️ Skipping {post_file.name} (has custom images)")
             return None
-        
+
         # Generate search terms
         search_terms = self.get_search_terms(title, tags)
-        
-        print(f"\n📸 Processing: {title}")
-        print(f"  🏷️ Tags: {', '.join(tags)}")
-        print(f"  🔎 Search terms: {', '.join(search_terms)}")
+
+        logger.info(f"\n📸 Processing: {title}")
+        logger.info(f"  🏷️ Tags: {', '.join(tags)}")
+        logger.info(f"  🔎 Search terms: {', '.join(search_terms)}")
         
         # Search for images
         images = []
@@ -233,7 +241,7 @@ class StockImageFetcher:
                 break
         
         if not images:
-            print(f"  ⚠️ No images found")
+            logger.warning(f"  No images found")
             return None
         
         # Use first image as hero
@@ -246,7 +254,7 @@ class StockImageFetcher:
         # Check cache
         cache_key = f"{filename_base}"
         if cache_key in self.cache:
-            print(f"  ✅ Using cached image")
+            logger.info(f"  ✅ Using cached image")
             return self.cache[cache_key]
         
         # For now, create metadata without actual download
@@ -268,9 +276,9 @@ class StockImageFetcher:
         # Cache the result
         self.cache[cache_key] = image_data
         self.save_cache()
-        
-        print(f"  ✅ Image metadata created")
-        
+
+        logger.info(f"  ✅ Image metadata created")
+
         return image_data
 
 def main():
@@ -298,15 +306,15 @@ Examples:
 
     try:
         if not args.quiet:
-            print("🖼️ Stock Image Fetcher for Blog Posts")
-            print("=" * 50)
-            print("\n⚠️ NOTE: This is a demonstration script.")
-            print("For production use, you should:")
-            print("1. Register for free API keys from Pexels/Unsplash")
-            print("2. Use their official APIs for better reliability")
-            print("3. Implement proper rate limiting and error handling")
-            print("\nAlternatively, use Playwright for automated browser-based search.")
-            print("\n" + "=" * 50)
+            logger.info("🖼️ Stock Image Fetcher for Blog Posts")
+            logger.info("=" * 50)
+            logger.info("\n⚠️ NOTE: This is a demonstration script.")
+            logger.info("For production use, you should:")
+            logger.info("1. Register for free API keys from Pexels/Unsplash")
+            logger.info("2. Use their official APIs for better reliability")
+            logger.info("3. Implement proper rate limiting and error handling")
+            logger.info("\nAlternatively, use Playwright for automated browser-based search.")
+            logger.info("\n" + "=" * 50)
 
         fetcher = StockImageFetcher()
         posts = list(args.posts_dir.glob("*.md"))[:args.limit]
@@ -314,30 +322,30 @@ Examples:
         for post_file in posts:
             result = fetcher.process_blog_post(post_file)
             if result and not args.quiet:
-                print(f"  📁 Would update: {post_file.name}")
+                logger.info(f"  📁 Would update: {post_file.name}")
 
         if not args.quiet:
-            print("\n" + "=" * 50)
-            print("✨ Image search complete!")
-            print("\n🎯 Next Steps:")
-            print("1. Register for API keys at:")
-            print("   - Pexels: https://www.pexels.com/api/")
-            print("   - Unsplash: https://unsplash.com/developers")
-            print("2. Update this script with your API keys")
-            print("3. Run the full image download process")
-            print("\nOR")
-            print("\n1. Use the Playwright-based image searcher (no API keys needed)")
-            print("2. Run: python scripts/playwright-image-search.py")
+            logger.info("\n" + "=" * 50)
+            logger.info("✨ Image search complete!")
+            logger.info("\n🎯 Next Steps:")
+            logger.info("1. Register for API keys at:")
+            logger.info("   - Pexels: https://www.pexels.com/api/")
+            logger.info("   - Unsplash: https://unsplash.com/developers")
+            logger.info("2. Update this script with your API keys")
+            logger.info("3. Run the full image download process")
+            logger.info("\nOR")
+            logger.info("\n1. Use the Playwright-based image searcher (no API keys needed)")
+            logger.info("2. Run: python scripts/playwright-image-search.py")
 
         sys.exit(0)
     except FileNotFoundError as e:
-        print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected: {args.posts_dir}", file=sys.stderr)
-        print(f"Current directory: {os.getcwd()}", file=sys.stderr)
-        print("Tip: Run from repository root", file=sys.stderr)
+        logger.error(f"File not found: {e}")
+        logger.error(f"Expected: {args.posts_dir}")
+        logger.error(f"Current directory: {os.getcwd()}")
+        logger.error("Tip: Run from repository root")
         sys.exit(2)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

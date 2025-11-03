@@ -2,13 +2,13 @@
 """
 SCRIPT: playwright-image-search.py
 PURPOSE: Playwright-based Stock Image Search and Download
-CATEGORY: image_management
+CATEGORY: blog_images
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-03
 
 DESCRIPTION:
-    Playwright-based Stock Image Search and Download. This script is part of the image management
+    Playwright-based Stock Image Search and Download. This script is part of the blog_images
     category and provides automated functionality for the static site.
 
 LLM_USAGE:
@@ -52,6 +52,14 @@ import yaml
 from playwright.async_api import async_playwright
 import aiohttp
 import aiofiles
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+
+from logging_config import setup_logger
+
+# Setup logging
+logger = setup_logger(__name__)
 
 class PlaywrightImageSearcher:
     def __init__(self, base_path: str = "."):
@@ -119,7 +127,7 @@ class PlaywrightImageSearcher:
     async def search_pexels(self, page, query: str) -> Optional[Dict]:
         """Search Pexels for images using Playwright"""
         try:
-            print(f"    🔍 Searching Pexels for: {query}")
+            logger.info(f"    🔍 Searching Pexels for: {query}")
             
             # Navigate to Pexels search
             search_url = f"https://www.pexels.com/search/{query}/"
@@ -153,16 +161,16 @@ class PlaywrightImageSearcher:
                         'source_url': search_url,
                         'license': 'Pexels License (Free to use)'
                     }
-            
+
         except Exception as e:
-            print(f"    ⚠️ Pexels search error: {e}")
-        
+            logger.warning(f"    Pexels search error: {e}")
+
         return None
     
     async def search_unsplash(self, page, query: str) -> Optional[Dict]:
         """Search Unsplash for images using Playwright"""
         try:
-            print(f"    🔍 Searching Unsplash for: {query}")
+            logger.info(f"    🔍 Searching Unsplash for: {query}")
             
             # Navigate to Unsplash search
             search_url = f"https://unsplash.com/s/photos/{query}"
@@ -197,16 +205,16 @@ class PlaywrightImageSearcher:
                         'source_url': search_url,
                         'license': 'Unsplash License (Free to use)'
                     }
-            
+
         except Exception as e:
-            print(f"    ⚠️ Unsplash search error: {e}")
-        
+            logger.warning(f"    Unsplash search error: {e}")
+
         return None
     
     async def search_pixabay(self, page, query: str) -> Optional[Dict]:
         """Search Pixabay for images using Playwright"""
         try:
-            print(f"    🔍 Searching Pixabay for: {query}")
+            logger.info(f"    🔍 Searching Pixabay for: {query}")
             
             # Navigate to Pixabay search
             search_url = f"https://pixabay.com/images/search/{query}/"
@@ -242,10 +250,10 @@ class PlaywrightImageSearcher:
                             'source_url': page.url,
                             'license': 'Pixabay License (Free for commercial use)'
                         }
-            
+
         except Exception as e:
-            print(f"    ⚠️ Pixabay search error: {e}")
-        
+            logger.warning(f"    Pixabay search error: {e}")
+
         return None
     
     async def download_image(self, url: str, filename: str) -> bool:
@@ -259,12 +267,12 @@ class PlaywrightImageSearcher:
                         
                         async with aiofiles.open(filepath, 'wb') as f:
                             await f.write(content)
-                        
-                        print(f"    ✅ Downloaded: {filename}")
+
+                        logger.info(f"    ✅ Downloaded: {filename}")
                         return True
         except Exception as e:
-            print(f"    ❌ Download failed: {e}")
-        
+            logger.error(f"    Download failed: {e}")
+
         return False
     
     async def process_post(self, post_file: Path, browser) -> Optional[Dict]:
@@ -289,10 +297,10 @@ class PlaywrightImageSearcher:
         # Skip if already processed
         cache_key = post_file.stem
         if cache_key in self.cache and self.cache[cache_key].get('downloaded'):
-            print(f"  ⏭️ Already processed: {post_file.name}")
+            logger.info(f"  ⏭️ Already processed: {post_file.name}")
             return None
-        
-        print(f"\n📝 Processing: {title[:60]}...")
+
+        logger.info(f"\n📝 Processing: {title[:60]}...")
         
         # Generate search query
         search_query = self.get_search_query(title, tags)
@@ -308,9 +316,9 @@ class PlaywrightImageSearcher:
                 break
         
         await page.close()
-        
+
         if not image_data:
-            print(f"  ⚠️ No images found for: {title[:40]}...")
+            logger.warning(f"  No images found for: {title[:40]}...")
             return None
         
         # Download the image
@@ -350,19 +358,19 @@ class PlaywrightImageSearcher:
             # Write back to file
             with open(post_file, 'w', encoding='utf-8') as f:
                 f.write(new_content)
-            
-            print(f"  ✅ Updated: {post_file.name}")
+
+            logger.info(f"  ✅ Updated: {post_file.name}")
             return metadata
-        
+
         return None
     
     async def process_all_posts(self):
         """Process all blog posts to add relevant stock images"""
-        print("🖼️ Playwright Image Search & Download")
-        print("=" * 50)
-        
+        logger.info("🖼️ Playwright Image Search & Download")
+        logger.info("=" * 50)
+
         posts = sorted(list(self.posts_dir.glob('*.md')))
-        print(f"Found {len(posts)} blog posts\n")
+        logger.info(f"Found {len(posts)} blog posts\n")
         
         async with async_playwright() as p:
             # Use Chromium for better compatibility
@@ -370,26 +378,26 @@ class PlaywrightImageSearcher:
             
             processed = 0
             for i, post_file in enumerate(posts, 1):
-                print(f"\n[{i}/{len(posts)}]", end="")
+                logger.info(f"\n[{i}/{len(posts)}]")
                 result = await self.process_post(post_file, browser)
                 if result:
                     processed += 1
-                
+
                 # Small delay to be respectful to the sites
                 await asyncio.sleep(2)
-            
+
             await browser.close()
-        
-        print("\n" + "=" * 50)
-        print(f"✨ Processing complete!")
-        print(f"   Processed: {processed} posts")
-        print(f"   Skipped: {len(posts) - processed} posts")
-        
-        print("\n📋 Summary:")
-        print("• Downloaded relevant hero images from free stock sites")
-        print("• Added proper attribution for all images")
-        print("• Updated blog post metadata with image information")
-        print("• Images saved to /assets/images/blog/stock/")
+
+        logger.info("\n" + "=" * 50)
+        logger.info(f"✨ Processing complete!")
+        logger.info(f"   Processed: {processed} posts")
+        logger.info(f"   Skipped: {len(posts) - processed} posts")
+
+        logger.info("\n📋 Summary:")
+        logger.info("• Downloaded relevant hero images from free stock sites")
+        logger.info("• Added proper attribution for all images")
+        logger.info("• Updated blog post metadata with image information")
+        logger.info("• Images saved to /assets/images/blog/stock/")
 
 async def main(quiet=False):
     """Main execution"""
@@ -416,15 +424,15 @@ Examples:
 
     try:
         if not args.quiet:
-            print("🚀 Starting Playwright-based image search...")
-            print("This will search and download relevant images from:")
-            print("  • Pexels")
-            print("  • Unsplash")
-            print("  • Pixabay")
-            print("\nNo API keys required!\n")
+            logger.info("🚀 Starting Playwright-based image search...")
+            logger.info("This will search and download relevant images from:")
+            logger.info("  • Pexels")
+            logger.info("  • Unsplash")
+            logger.info("  • Pixabay")
+            logger.info("\nNo API keys required!\n")
 
         asyncio.run(main(args.quiet))
         sys.exit(0)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)
