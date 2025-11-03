@@ -38,19 +38,9 @@ To run the code examples in this post, you'll need to install the following pack
 pip install collections email ipaddress nmap requests smtplib sqlite3 subprocess vulners
 ```
 
-Or create a `requirements.txt` file:
+Or create a `requirements.txt` file with these dependencies:
 
-```text
-collections
-email
-ipaddress
-nmap
-requests
-smtplib
-sqlite3
-subprocess
-vulners
-```
+<script src="https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4.js"></script>
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management simply doesn't scale – especially when you're also trying to be present for bedtime stories.
 
 After running my home network with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time. This post shares what I've learned from automating my own network defense.
@@ -58,7 +48,7 @@ After running my home network with 25+ connected devices (including IoT gadgets,
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -74,15 +64,19 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef preventionNode fill:#4caf50,color:#fff
+    classDef detectionNode fill:#ff9800,color:#fff
+    classDef responseNode fill:#f44336,color:#fff
+
+    class D1 preventionNode
+    class D2 detectionNode
+    class D3 responseNode
 ```
 
 ## The Foundation: Network Discovery and Asset Management
@@ -101,16 +95,7 @@ That's when I realized we needed automation – not just for security, but for m
 
 Here's the script that saves my sanity (runs hourly, alerts immediately):
 
-```python
-#!/usr/bin/env python3
-import nmap
-import json
-import sqlite3
-from datetime import datetime
-    # ... (additional implementation details)
-        print(f"⚠️  Found {len(new_devices)} new devices!")
-        # Send notification (covered in the notification section)
-```
+<script src="https://gist.github.com/williamzujkowski/2abad62ff98d044d09102ae06ecf3b0f.js"></script>
 
 ## DNS Monitoring and Ad Blocking
 
@@ -120,76 +105,31 @@ One of the most effective security measures is controlling DNS. I use Pi-hole fo
 
 This script monitors DNS logs for suspicious patterns:
 
-```python
-import re
-import sqlite3
-from collections import defaultdict
-from datetime import datetime, timedelta
-
-    # ... (additional implementation details)
-            # Add more from threat feeds
-        }
-```
+<script src="https://gist.github.com/williamzujkowski/6c7c754be164e75b84f6b9e601753531.js"></script>
 
 ## Automated Vulnerability Scanning
 
 Keeping devices patched is crucial. This script runs weekly to identify vulnerable services:
 
-```python
-import nmap
-import vulners
-import json
-from datetime import datetime
-
-    # ... (additional implementation details)
-        
-        return report
-```
+<script src="https://gist.github.com/williamzujkowski/e3e41c782e4099a06a6ac1f482cd3119.js"></script>
 
 ## Smart Firewall Rules Management
 
 Static firewall rules don't adapt to changing threats. Here's how I automate rule updates:
 
-```python
-import subprocess
-import ipaddress
-from datetime import datetime, timedelta
-
-class DynamicFirewall:
-    # ... (additional implementation details)
-            # Update pfBlockerNG lists
-            self.update_pf_blocker_list(country_code)
-```
+<script src="https://gist.github.com/williamzujkowski/6af94c70d3afd57829d26c12940d1cb1.js"></script>
 
 ## Notification System
 
 All this automation is useless if you don't know what's happening. Here's my notification system:
 
-```python
-import smtplib
-import requests
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
-    # ... (additional implementation details)
-        
-        self.send_email("Daily Security Summary", html_content, html=True)
-```
+<script src="https://gist.github.com/williamzujkowski/f025bd03e6d265b8aa9fdb8d73df9740.js"></script>
 
 ## Putting It All Together
 
 The real power comes from orchestrating these scripts. Here's my master automation script:
 
-```python
-#!/usr/bin/env python3
-"""
-Home Security Automation Orchestrator
-Runs various security checks and responds to threats
-"""
-    # ... (additional implementation details)
-    orchestrator = SecurityOrchestrator()
-    orchestrator.run()
-```
+<script src="https://gist.github.com/williamzujkowski/9cc496653878271d7045108bead98a65.js"></script>
 
 ## Lessons Learned
 

@@ -4,8 +4,8 @@ SCRIPT: batch-improve-blog-posts.py
 PURPOSE: Systematically improve all blog posts with diagrams, reduced code, and enhanced content
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 2.0.0
-UPDATED: 2025-09-20T15:45:00-04:00
+VERSION: 2.1.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Batch processing tool for comprehensive blog post improvements including:
@@ -57,6 +57,7 @@ MANIFEST_REGISTRY: scripts/batch-improve-blog-posts.py
 
 import os
 import re
+import sys
 import json
 import frontmatter
 from pathlib import Path
@@ -64,10 +65,17 @@ from datetime import datetime
 from typing import Dict, List, Tuple
 from tqdm import tqdm
 
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
+
 class BlogPostImprover:
     def __init__(self, posts_dir: str = "src/posts"):
         self.posts_dir = Path(posts_dir)
         self.improvements_log = []
+        logger.info(f"Initialized BlogPostImprover with posts directory: {self.posts_dir}")
         
         # Mermaid diagram templates by topic
         self.diagram_templates = {
@@ -443,14 +451,15 @@ graph LR
     
     def improve_post(self, post_path: Path) -> Dict:
         """Improve a single blog post."""
+        logger.debug(f"Analyzing post for improvements: {post_path.name}")
         with open(post_path, 'r', encoding='utf-8') as f:
             post = frontmatter.load(f)
-        
+
         improvements = {
             'file': post_path.name,
             'changes': []
         }
-        
+
         # Analyze current content
         analysis = self.analyze_post_content(post.content)
         
@@ -483,6 +492,7 @@ graph LR
     def generate_improvement_report(self):
         """Generate a comprehensive improvement report."""
         posts = sorted(self.posts_dir.glob("*.md"))
+        logger.info(f"Generating improvement report for {len(posts)} posts")
 
         print("="*80)
         print("BLOG POST IMPROVEMENT ANALYSIS")
@@ -538,16 +548,19 @@ graph LR
             'improvements': self.improvements_log
         }
         
-        with open('docs/blog-improvement-report.json', 'w') as f:
+        report_path = 'docs/blog-improvement-report.json'
+        with open(report_path, 'w') as f:
             json.dump(report, f, indent=2, default=str)
-        
-        print(f"\nDetailed report saved to: docs/blog-improvement-report.json")
+
+        logger.info(f"Improvement report saved to: {report_path}")
+        print(f"\nDetailed report saved to: {report_path}")
     
     def apply_automatic_improvements(self, post_path: Path):
         """Apply automatic improvements to a post."""
+        logger.info(f"Applying automatic improvements to: {post_path.name}")
         with open(post_path, 'r', encoding='utf-8') as f:
             post = frontmatter.load(f)
-        
+
         content = post.content
         changes_made = []
         
@@ -580,8 +593,11 @@ graph LR
             post.content = content
             with open(post_path, 'w', encoding='utf-8') as f:
                 f.write(frontmatter.dumps(post))
+            logger.info(f"Applied {len(changes_made)} improvements to {post_path.name}: {', '.join(changes_made)}")
             print(f"✅ {post_path.name}: {', '.join(changes_made)}")
             return True
+        else:
+            logger.debug(f"No automatic improvements needed for {post_path.name}")
         
         return False
 
@@ -602,26 +618,30 @@ Examples:
         ''',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 2.1.0')
     parser.add_argument('--posts-dir', default='src/posts', help='Directory containing blog posts')
     parser.add_argument('--apply', action='store_true', help='Apply automatic improvements')
     parser.add_argument('--post', help='Improve specific post')
 
     args = parser.parse_args()
-    
+
+    logger.info("Starting blog post improvement process")
     improver = BlogPostImprover(args.posts_dir)
-    
+
     if args.apply:
         posts = sorted(Path(args.posts_dir).glob("*.md"))
+        logger.info(f"Applying automatic improvements to {len(posts)} posts")
         print(f"Applying automatic improvements to {len(posts)} posts...")
 
         improved_count = 0
         for post_path in tqdm(posts, desc="Applying improvements"):
             if improver.apply_automatic_improvements(post_path):
                 improved_count += 1
-        
+
+        logger.info(f"Improved {improved_count} out of {len(posts)} posts")
         print(f"\n✅ Improved {improved_count} posts")
     else:
+        logger.info("Generating improvement report without applying changes")
         improver.generate_improvement_report()
 
 if __name__ == "__main__":

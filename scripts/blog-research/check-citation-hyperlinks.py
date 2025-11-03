@@ -4,8 +4,8 @@ SCRIPT: check-citation-hyperlinks.py
 PURPOSE: Check all blog posts for citations that lack hyperlinks
 CATEGORY: academic_research
 LLM_READY: True
-VERSION: 1.1.0
-UPDATED: 2025-11-01
+VERSION: 1.2.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Check all blog posts for citations that lack hyperlinks. Detects academic citations,
@@ -61,6 +61,12 @@ import argparse
 from pathlib import Path
 from typing import List, Dict, Tuple
 
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
+
+logger = setup_logger(__name__)
+
 class CitationChecker:
     def __init__(self, posts_dir: str = "src/posts", quiet: bool = False):
         self.posts_dir = Path(posts_dir)
@@ -78,11 +84,6 @@ class CitationChecker:
             (r'According to\s+(?!.*?https?://)[^,.\n]+', 'according_to'),
         ]
         self.results = []
-
-    def log(self, message: str):
-        """Log message unless in quiet mode."""
-        if not self.quiet:
-            print(message)
 
     def check_file(self, filepath: Path) -> List[Dict]:
         """Check a single markdown file for citations without hyperlinks."""
@@ -138,6 +139,10 @@ class CitationChecker:
     def scan_all_posts(self) -> Dict[str, List[Dict]]:
         """Scan all blog posts for citation issues."""
         if not self.posts_dir.exists():
+            logger.error(f"Posts directory not found: {self.posts_dir}")
+            logger.error(f"Expected: {self.posts_dir.absolute()}")
+            logger.error(f"Current directory: {Path.cwd()}")
+            logger.error("Tip: Run from repository root or specify --dir")
             raise FileNotFoundError(
                 f"Posts directory not found: {self.posts_dir}\n"
                 f"Expected: {self.posts_dir.absolute()}\n"
@@ -147,17 +152,19 @@ class CitationChecker:
 
         post_files = list(self.posts_dir.glob("*.md"))
         if not post_files:
-            self.log(f"No markdown files found in {self.posts_dir}")
+            logger.warning(f"No markdown files found in {self.posts_dir}")
             return {}
 
         all_issues = {}
-        self.log(f"Scanning {len(post_files)} posts in {self.posts_dir}...")
+        logger.info(f"Scanning {len(post_files)} posts in {self.posts_dir}...")
 
         for post_file in sorted(post_files):
             issues = self.check_file(post_file)
             if issues:
                 all_issues[str(post_file)] = issues
+                logger.debug(f"Found {len(issues)} issues in {post_file.name}")
 
+        logger.info(f"Scan complete: {len(all_issues)} posts with issues")
         return all_issues
 
     def print_report(self, issues: Dict[str, List[Dict]], format_type: str = 'text'):
@@ -232,7 +239,7 @@ Examples:
         """
     )
 
-    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.2.0')
     parser.add_argument('--dir', default='src/posts',
                        help='Directory to scan for markdown files (default: src/posts)')
     parser.add_argument('--format', choices=['text', 'json'], default='text',
@@ -248,12 +255,19 @@ Examples:
         checker.print_report(issues, format_type=args.format)
 
         # Return exit code based on whether issues were found
-        return 0 if not issues else 1
+        exit_code = 0 if not issues else 1
+        if exit_code == 1:
+            logger.warning(f"Found citation issues in {len(issues)} posts")
+        else:
+            logger.info("All citations have proper hyperlinks")
+        return exit_code
 
     except FileNotFoundError as e:
+        logger.error(f"Directory not found: {e}")
         print(f"Error: {e}", file=sys.stderr)
         return 2
     except Exception as e:
+        logger.exception(f"Unexpected error during citation checking: {e}")
         print(f"Unexpected error: {e}", file=sys.stderr)
         if not args.quiet:
             import traceback

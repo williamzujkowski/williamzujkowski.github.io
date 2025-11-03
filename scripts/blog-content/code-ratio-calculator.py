@@ -71,8 +71,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
-# Import centralized logging configuration
-from scripts.lib.logging_config import setup_logger
+# Add lib directory to path for logging_config
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
 
 logger = setup_logger(__name__)
 
