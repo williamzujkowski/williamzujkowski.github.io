@@ -1,12 +1,50 @@
 #!/usr/bin/env -S uv run python3
 """
-SEO Meta Description Optimizer
+SCRIPT: optimize-seo-descriptions.py
+PURPOSE: SEO Meta Description Optimizer
+CATEGORY: blog_content
+LLM_READY: True
+VERSION: 1.1.0
+UPDATED: 2025-11-02T14:30:00-05:00
 
-Automatically optimizes blog post meta descriptions to the 120-160 character
-range (with 150-160 being optimal) while preserving voice, keywords, and meaning.
+DESCRIPTION:
+    Automatically optimizes blog post meta descriptions to the 120-160 character
+    range (with 150-160 being optimal) while preserving voice, keywords, and meaning.
+    Now uses centralized logging configuration from scripts/lib/logging_config.py.
 
-Usage:
+LLM_USAGE:
+    python scripts/blog-content/optimize-seo-descriptions.py [options]
+
+ARGUMENTS:
+    --verbose, -v: Enable debug output
+    --quiet, -q: Suppress info messages
+    --log-file: Write logs to file
+
+EXAMPLES:
+    # Basic usage
     python scripts/blog-content/optimize-seo-descriptions.py
+
+    # With verbose logging
+    python scripts/blog-content/optimize-seo-descriptions.py --verbose
+
+    # Write logs to file
+    python scripts/blog-content/optimize-seo-descriptions.py --log-file logs/seo-optimizer.log
+
+OUTPUT:
+    - Updated blog posts with optimized meta descriptions
+    - JSON report in docs/reports/seo-optimization-{date}.json
+    - Statistics summary
+
+DEPENDENCIES:
+    - Python 3.8+
+    - PyYAML for frontmatter parsing
+    - scripts/lib/logging_config.py for centralized logging
+
+RELATED_SCRIPTS:
+    - scripts/blog-content/analyze-blog-content.py: Content analysis
+    - scripts/blog-content/metadata-validator.py: Metadata validation
+
+MANIFEST_REGISTRY: scripts/blog-content/optimize-seo-descriptions.py
 """
 
 import os
@@ -21,8 +59,8 @@ from datetime import datetime
 from typing import Dict, List, Tuple, Optional
 
 # Add lib directory to path for logging_config
-sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
-from logging_config import setup_logger
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from lib.logging_config import setup_logger
 
 # Configuration
 POSTS_DIR = Path("src/posts")
@@ -235,7 +273,8 @@ class DescriptionOptimizer:
             if frontmatter is None:
                 frontmatter = {}
         except yaml.YAMLError as e:
-            print(f"   Warning: YAML parse error: {e}")
+            if self.logger:
+                self.logger.warning(f"YAML parse error: {e}")
             return None, frontmatter_text, body
 
         return frontmatter, frontmatter_text, body
@@ -369,28 +408,28 @@ class DescriptionOptimizer:
         """Print summary statistics."""
         summary = report['summary']
 
-        print("\n" + "="*70)
-        print("SEO META DESCRIPTION OPTIMIZATION SUMMARY")
-        print("="*70)
-        print(f"\n📈 Processing Statistics:")
-        print(f"   Total posts processed: {summary['total_posts']}")
-        print(f"   Successfully updated: {summary['updated']}")
-        print(f"   Skipped (already optimal): {summary['skipped']}")
-        print(f"   Errors: {summary['errors']}")
+        self.logger.info("\n" + "="*70)
+        self.logger.info("SEO META DESCRIPTION OPTIMIZATION SUMMARY")
+        self.logger.info("="*70)
+        self.logger.info(f"\n📈 Processing Statistics:")
+        self.logger.info(f"   Total posts processed: {summary['total_posts']}")
+        self.logger.info(f"   Successfully updated: {summary['updated']}")
+        self.logger.info(f"   Skipped (already optimal): {summary['skipped']}")
+        self.logger.info(f"   Errors: {summary['errors']}")
 
-        print(f"\n📏 Length Statistics:")
-        print(f"   Average before: {summary['avg_length_before']:.1f} chars")
-        print(f"   Average after: {summary['avg_length_after']:.1f} chars")
-        print(f"   Average change: {summary['avg_reduction']:.1f} chars")
+        self.logger.info(f"\n📏 Length Statistics:")
+        self.logger.info(f"   Average before: {summary['avg_length_before']:.1f} chars")
+        self.logger.info(f"   Average after: {summary['avg_length_after']:.1f} chars")
+        self.logger.info(f"   Average change: {summary['avg_reduction']:.1f} chars")
 
-        print(f"\n🎯 Status Distribution:")
+        self.logger.info(f"\n🎯 Status Distribution:")
         status = summary['status_distribution']
-        print(f"   Optimal (150-160): {status['optimal']}")
-        print(f"   Acceptable (120-160): {status['acceptable']}")
-        print(f"   Too short (<120): {status['too_short']}")
-        print(f"   Too long (>160): {status['too_long']}")
+        self.logger.info(f"   Optimal (150-160): {status['optimal']}")
+        self.logger.info(f"   Acceptable (120-160): {status['acceptable']}")
+        self.logger.info(f"   Too short (<120): {status['too_short']}")
+        self.logger.info(f"   Too long (>160): {status['too_long']}")
 
-        print("\n" + "="*70)
+        self.logger.info("\n" + "="*70)
 
 
 def main():
