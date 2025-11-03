@@ -4,12 +4,14 @@ SCRIPT: add-reputable-sources-to-posts.py
 PURPOSE: Add reputable academic sources to blog posts based on Google Scholar findings
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Add reputable academic sources to blog posts based on Google Scholar findings. This script is part of the blog management
     category and provides automated functionality for the static site.
+
+    Uses centralized logging from scripts/lib/logging_config.py for consistent output.
 
 LLM_USAGE:
     python scripts/add-reputable-sources-to-posts.py [options]
@@ -42,8 +44,13 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/add-reputable-sources-to-posts.py
 """
 
+from scripts.lib.logging_config import setup_logging
+import logging
 import frontmatter
 from pathlib import Path
+
+# Setup logging
+logger = setup_logging(__name__)
 
 def add_sources_to_ebpf_post(quiet=False):
     """Add academic sources to the eBPF post."""
@@ -116,7 +123,7 @@ For deeper technical understanding:
         f.write(frontmatter.dumps(post))
 
     if not quiet:
-        print(f"✅ Added academic sources to {post_path.name}")
+        logger.info(f"✅ Added academic sources to {post_path.name}")
 
 def add_sources_to_ai_edge_post(quiet=False):
     """Add sources to AI Edge Computing post."""
@@ -154,7 +161,7 @@ def add_sources_to_ai_edge_post(quiet=False):
         f.write(frontmatter.dumps(post))
 
     if not quiet:
-        print(f"✅ Added sources to {post_path.name}")
+        logger.info(f"✅ Added sources to {post_path.name}")
 
 def add_sources_to_quantum_post(quiet=False):
     """Add sources to Quantum Computing post."""
@@ -162,7 +169,7 @@ def add_sources_to_quantum_post(quiet=False):
 
     if not post_path.exists():
         if not quiet:
-            print(f"ℹ️  Post not found: {post_path.name} (skipping)")
+            logger.info(f"ℹ️  Post not found: {post_path.name} (skipping)")
         return
 
     with open(post_path, 'r', encoding='utf-8') as f:
@@ -188,7 +195,7 @@ def add_sources_to_quantum_post(quiet=False):
             f.write(frontmatter.dumps(post))
 
         if not quiet:
-            print(f"✅ Added sources to {post_path.name}")
+            logger.info(f"✅ Added sources to {post_path.name}")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -211,24 +218,24 @@ Examples:
 
     try:
         if not args.quiet:
-            print("="*60)
-            print("ADDING REPUTABLE SOURCES TO BLOG POSTS")
-            print("="*60)
+            logger.info("="*60)
+            logger.info("ADDING REPUTABLE SOURCES TO BLOG POSTS")
+            logger.info("="*60)
 
         add_sources_to_ebpf_post(quiet=args.quiet)
         add_sources_to_ai_edge_post(quiet=args.quiet)
         add_sources_to_quantum_post(quiet=args.quiet)
 
         if not args.quiet:
-            print("\n✅ Successfully added academic sources to key blog posts!")
+            logger.info("\n✅ Successfully added academic sources to key blog posts!")
 
         return 0
 
     except FileNotFoundError as e:
-        print(f"❌ Error: File not found - {e}", file=sys.stderr)
+        logger.error(f"File not found - {e}")
         return 1
     except Exception as e:
-        print(f"❌ Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         return 2
 
 if __name__ == "__main__":

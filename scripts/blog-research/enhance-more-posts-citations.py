@@ -4,12 +4,14 @@ SCRIPT: enhance-more-posts-citations.py
 PURPOSE: Add academic citations to additional blog posts
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Add academic citations to additional blog posts. This script is part of the blog management
     category and provides automated functionality for the static site.
+
+    Uses centralized logging from scripts/lib/logging_config.py for consistent output.
 
 LLM_USAGE:
     python scripts/enhance-more-posts-citations.py [options]
@@ -42,8 +44,13 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/enhance-more-posts-citations.py
 """
 
+from scripts.lib.logging_config import setup_logging
+import logging
 import frontmatter
 from pathlib import Path
+
+# Setup logging
+logger = setup_logging(__name__)
 
 def add_citations_to_quantum_defense():
     """Add citations to quantum computing defense post."""
@@ -105,7 +112,7 @@ def add_citations_to_quantum_defense():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added citations to {post_path.name}")
+    logger.info(f"✅ Added citations to {post_path.name}")
 
 def add_citations_to_ai_cybersecurity():
     """Add citations to AI in cybersecurity post."""
@@ -161,7 +168,7 @@ def add_citations_to_ai_cybersecurity():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added citations to {post_path.name}")
+    logger.info(f"✅ Added citations to {post_path.name}")
 
 def add_citations_to_embodied_ai():
     """Add citations to embodied AI post."""
@@ -222,7 +229,7 @@ def add_citations_to_embodied_ai():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added citations to {post_path.name}")
+    logger.info(f"✅ Added citations to {post_path.name}")
 
 def add_citations_to_continuous_learning():
     """Add citations to continuous learning post."""
@@ -282,7 +289,7 @@ def add_citations_to_continuous_learning():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added citations to {post_path.name}")
+    logger.info(f"✅ Added citations to {post_path.name}")
 
 def main():
     import argparse
@@ -305,9 +312,9 @@ Examples:
 
     try:
         if not args.quiet:
-            print("="*60)
-            print("ENHANCING MORE POSTS WITH ACADEMIC CITATIONS")
-            print("="*60)
+            logger.info("="*60)
+            logger.info("ENHANCING MORE POSTS WITH ACADEMIC CITATIONS")
+            logger.info("="*60)
 
         add_citations_to_quantum_defense()
         add_citations_to_ai_cybersecurity()
@@ -315,16 +322,16 @@ Examples:
         add_citations_to_continuous_learning()
 
         if not args.quiet:
-            print("\n✅ Successfully enhanced additional posts with citations!")
+            logger.info("\n✅ Successfully enhanced additional posts with citations!")
 
         sys.exit(0)
     except FileNotFoundError as e:
-        print(f"Error: File not found: {e}", file=sys.stderr)
-        print(f"Expected: src/posts/", file=sys.stderr)
-        print("Tip: Run from repository root", file=sys.stderr)
+        logger.error(f"File not found: {e}")
+        logger.error(f"Expected: src/posts/")
+        logger.error("Tip: Run from repository root")
         sys.exit(2)
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error(f"Error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

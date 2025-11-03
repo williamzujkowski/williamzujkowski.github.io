@@ -4,12 +4,14 @@ SCRIPT: add-academic-citations.py
 PURPOSE: Add academic citations to blog posts based on research validation results
 CATEGORY: academic_research
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-02
 
 DESCRIPTION:
     Add academic citations to blog posts based on research validation results. This script is part of the academic research
     category and provides automated functionality for the static site.
+
+    Uses centralized logging from scripts/lib/logging_config.py for consistent output.
 
 LLM_USAGE:
     python scripts/add-academic-citations.py [options]
@@ -42,11 +44,16 @@ RELATED_SCRIPTS:
 MANIFEST_REGISTRY: scripts/add-academic-citations.py
 """
 
+from scripts.lib.logging_config import setup_logging
+import logging
 import json
 import frontmatter
 from pathlib import Path
 import re
 from tqdm import tqdm
+
+# Setup logging
+logger = setup_logging(__name__)
 
 def load_validation_report():
     """Load the research validation report."""
@@ -108,8 +115,8 @@ The following statistics are based on verified industry data:
     # Save updated post
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
-    
-    print(f"✅ Added academic citations to {post_path.name}")
+
+    logger.info(f"✅ Added academic citations to {post_path.name}")
 
 def add_citations_to_zero_trust():
     """Add citations to zero trust architecture post."""
@@ -165,7 +172,7 @@ def add_citations_to_zero_trust():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added academic citations to {post_path.name}")
+    logger.info(f"✅ Added academic citations to {post_path.name}")
 
 def add_citations_to_llm_security():
     """Add citations to LLM smart contract post."""
@@ -214,7 +221,7 @@ def add_citations_to_llm_security():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added academic citations to {post_path.name}")
+    logger.info(f"✅ Added academic citations to {post_path.name}")
 
 def add_citations_to_claude_flow():
     """Add citations to Claude Flow post."""
@@ -272,7 +279,7 @@ def add_citations_to_claude_flow():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added academic citations to {post_path.name}")
+    logger.info(f"✅ Added academic citations to {post_path.name}")
 
 def add_citations_to_local_llm():
     """Add citations to local LLM deployment post."""
@@ -331,7 +338,7 @@ def add_citations_to_local_llm():
     with open(post_path, 'w', encoding='utf-8') as f:
         f.write(frontmatter.dumps(post))
     
-    print(f"✅ Added academic citations to {post_path.name}")
+    logger.info(f"✅ Added academic citations to {post_path.name}")
 
 def main():
     import argparse
@@ -355,9 +362,9 @@ Examples:
     parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
     args = parser.parse_args()
 
-    print("="*60)
-    print("ADDING ACADEMIC CITATIONS TO BLOG POSTS")
-    print("="*60)
+    logger.info("="*60)
+    logger.info("ADDING ACADEMIC CITATIONS TO BLOG POSTS")
+    logger.info("="*60)
 
     # Load validation report to prioritize
     report = load_validation_report()
@@ -375,7 +382,7 @@ Examples:
     for name, func in tqdm(citation_functions, desc="Adding citations"):
         func()
 
-    print("\n✅ Successfully added academic citations to high-priority posts!")
+    logger.info("\n✅ Successfully added academic citations to high-priority posts!")
 
 if __name__ == "__main__":
     main()
