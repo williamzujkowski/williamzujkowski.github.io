@@ -44,14 +44,14 @@
 3. ✅ `2025-08-07-supercharging-development-claude-flow.md` (20.6%, 8 gists) - Session 4
 4. ✅ `2025-08-18-container-security-hardening-homelab.md` (20.5%, 10 gists) - Session 5/6
 
-**Remaining to address (7 posts - Session 20 in progress):**
+**Remaining to address (6 posts - Session 21 in progress):**
 9. ✅ `2025-04-10-securing-personal-ai-experiments.md` (19.2%, 8 gists - Session 10)
 10. ✗ `2025-03-10-raspberry-pi-security-projects.md` (32.2%)
 11. ✗ `2025-06-25-local-llm-deployment-privacy-first.md` (33.6%)
-12. ✗ `2025-07-01-ebpf-security-monitoring-practical-guide.md` (53.5% - CRITICAL)
+12. ⚠️ `2025-07-01-ebpf-security-monitoring-practical-guide.md` (53.5% - DIAGRAM-HEAVY: 97.3% Mermaid)
 13. ✗ `2025-07-08-implementing-dns-over-https-home-networks.md` (43.2%)
 14. ✅ `2025-08-25-network-traffic-analysis-suricata-homelab.md` (23.7%, 7 gists - Session 20) ✅
-15. ✗ `2025-09-01-self-hosted-bitwarden-migration-guide.md` (51.5%)
+15. ✅ `2025-09-01-self-hosted-bitwarden-migration-guide.md` (22.1%, 9 gists - Session 21) ✅
 16. ✗ `2025-09-20-iot-security-homelab-owasp.md` (46.7%)
 17. ✗ `2025-09-20-vulnerability-prioritization-epss-kev.md` (31.2%)
 
@@ -60,6 +60,15 @@
 - Researcher + 2x Coder agents deployed
 - Build: ✅ PASSING | Pre-commit: ✅ PASSING
 - **Progress:** 2/9 posts complete (22%), 7 remaining
+
+**Session 21 Completion:**
+- ✅ Bitwarden post: 51.5% → 22.1% (9 gists extracted, HIGHEST violation fixed)
+- ✅ Calculator enhanced v1.1.0 with DIAGRAM-HEAVY detection (>80% Mermaid)
+- Parallel execution: Track A (calculator) + Track B (Bitwarden) = 80% efficiency
+- eBPF flagged as DIAGRAM-HEAVY (97.3% Mermaid, 1.5% actual code)
+- Playwright validation: 9/9 gists, zero errors, all HTTP 200
+- Build: ✅ PASSING | Pre-commit: ✅ PASSING
+- **Progress:** 3/9 posts complete (33%), 6 remaining (1 policy exception)
 
 **False Positives Removed (Session 20 audit):**
 - ✅ `2025-02-10-automating-home-network-security.md` - Now <25% ✅
