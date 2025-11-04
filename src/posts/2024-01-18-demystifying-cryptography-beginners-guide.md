@@ -282,6 +282,8 @@ Implementing cryptography in real systems taught me lessons no textbook could:
 - Migration plans for current algorithms (assume 5-10 year lifespan)
 - Test suites that fail when using deprecated crypto
 
+The quantum computing threat is accelerating this timeline – I'm [preparing my homelab for the quantum future](/posts/2025-10-29-post-quantum-cryptography-homelab) by testing post-quantum cryptographic algorithms today, before they become urgent necessities.
+
 ### Implementation Details Matter
 
 **"Encrypted" systems I've seen compromised by implementation errors:**
@@ -339,6 +341,9 @@ Whether you're building financial systems, healthcare applications, or simple we
 **Hash Collision Attacks:**
 - [SHAttered - First SHA-1 Collision](https://shattered.io) - Google research demonstrating practical SHA-1 collision attack (2017)
 - [Fast Collision Attack on MD5](https://link.springer.com/article/10.1007/s11390-007-9010-1) - Academic paper on MD5 vulnerabilities
+
+**Post-Quantum Cryptography:**
+For a practical [guide to quantum-resistant cryptography](/posts/2024-04-30-quantum-resistant-cryptography-guide), including algorithm selection and implementation strategies, see my comprehensive overview of NIST's post-quantum standards.
 
 #### Educational Resources
 

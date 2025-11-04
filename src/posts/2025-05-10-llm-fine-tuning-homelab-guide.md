@@ -27,7 +27,7 @@ This guide shares everything I learned from that journey, including the five fai
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
@@ -53,15 +53,17 @@ graph LR
     Deploy --> Monitor
     Monitor -->|Feedback| Train
 
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
+    classDef purpleNode fill:#9c27b0
+    classDef greenNode fill:#4caf50
+    class Train purpleNode
+    class Deploy greenNode
 ```
 
 ## Understanding Parameter-Efficient Fine-Tuning
 
 Traditional fine-tuning updates all model parameters during training. For large models with billions of parameters, this requires enormous computational resources. I discovered this the hard way when my first attempt to fine-tune the full Llama 3 8B model immediately maxed out my system's 64GB of RAM and triggered swap thrashing on my i9-9900K.
 
-Parameter-efficient fine-tuning (PEFT) methods achieve comparable results while training only a small fraction of parameters. After switching to LoRA, my trainable parameter count dropped from 8 billion to approximately 4.2 million, a reduction of roughly 99.95%.
+Parameter-efficient fine-tuning (PEFT) methods achieve comparable results while training only a small fraction of parameters. After switching to LoRA, my trainable parameter count dropped from 8 billion to approximately 4.2 million, a reduction of roughly 99.95%. For background on [local LLM deployment guide](/posts/2025-06-25-local-llm-deployment-privacy-first), including hardware selection and infrastructure setup, I've documented the complete foundation you'll need before attempting fine-tuning.
 
 ### LoRA: Low-Rank Adaptation
 
@@ -91,6 +93,8 @@ Key specifications to consider:
 - **Compute Capability**: My RTX 3090 (compute capability 8.6) processes approximately 1,247 tokens per second during training.
 - **Thermal Design**: Sustained loads differ dramatically from gaming workloads. Plan for 8-14 hour continuous training runs.
 - **Power Consumption**: My training runs averaged 340W, with peaks up to 370W. Factor in electricity costs.
+
+Before diving into fine-tuning, ensure you have a proper [privacy-first AI lab setup](/posts/2025-10-29-privacy-first-ai-lab-local-llms) with network isolation, monitoring, and security controls – training exposes your models to the same privacy risks as inference.
 
 ### Memory Optimization Strategies
 

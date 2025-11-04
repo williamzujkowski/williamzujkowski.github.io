@@ -53,7 +53,7 @@ After digging into recent security research, I found that "local" AI faces way m
 
 The most concerning finding came from academic research on [prompt injection attacks achieving 89.6% success rates](https://arxiv.org/abs/2408.03561) using roleplay-based techniques. These aren't theoretical attacks, they work on production models. An attacker can craft prompts that extract information about the model's training data, reveal system prompts, or even exfiltrate sensitive context you've provided.
 
-I tested this on my own Ollama instance with a basic "jailbreak" prompt. It worked. The model happily explained how to bypass its own safety guidelines. If an adversary got access to my LLM API (which was listening on all network interfaces by default—including my IoT VLAN), they could extract far more than I was comfortable with.
+I tested this on my own Ollama instance with a basic "jailbreak" prompt. It worked. The model happily explained how to bypass its own safety guidelines. If an adversary got access to my LLM API (which was listening on all network interfaces by default—including my IoT VLAN), they could extract far more than I was comfortable with. This experience reinforced lessons I learned while [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments) – never assume "local" automatically means "secure."
 
 ### Membership Inference and PII Leakage
 
@@ -151,7 +151,7 @@ My RTX 3090 runs 70B models with tool use, so I treat it as high-capability. Tha
 4. Test content filter bypass techniques (basic profanity filters failed immediately)
 5. Attempt model extraction through repeated queries (rate limiting helps)
 
-Running these tests revealed embarrassing gaps. My content filters were trivial to bypass. My rate limiting was too permissive. I'm still fixing issues.
+Running these tests revealed embarrassing gaps. My content filters were trivial to bypass. My rate limiting was too permissive. I'm still fixing issues. For readers new to local LLM infrastructure, start with a comprehensive guide to [deploying local LLMs with privacy-first approach](/posts/2025-06-25-local-llm-deployment-privacy-first) before jumping into advanced privacy techniques.
 
 ## Privacy-Preserving Techniques: The Performance Trade-Offs
 
@@ -475,7 +475,7 @@ If you're not willing to properly secure your deployment, use a reputable cloud 
 
 Building a truly private AI lab isn't about buying hardware, it's about systematic threat modeling, continuous monitoring, and honest assessment of trade-offs. After six months of learning (mostly from mistakes), I finally have a setup I trust with sensitive data.
 
-But I'm not done. The field evolves constantly. [KV cache protection](https://arxiv.org/abs/2409.04040) is on my 2025 roadmap. Better red teaming automation. Implementing [federated RAG for private knowledge bases](https://arxiv.org/abs/2410.13272). There's always more to do.
+But I'm not done. The field evolves constantly. [KV cache protection](https://arxiv.org/abs/2409.04040) is on my 2025 roadmap. Better red teaming automation. Implementing [federated RAG for private knowledge bases](https://arxiv.org/abs/2410.13272), drawing on techniques from [privacy-preserving federated learning across homelabs](/posts/2025-01-12-privacy-preserving-federated-learning-homelab) to distribute knowledge while maintaining privacy guarantees. There's always more to do.
 
 The question isn't whether perfect privacy is achievable (it's not). The question is: what level of privacy does your threat model require, and are you willing to pay the performance and complexity costs to achieve it?
 

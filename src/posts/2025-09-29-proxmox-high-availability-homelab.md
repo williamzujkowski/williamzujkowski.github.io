@@ -28,12 +28,12 @@ images:
 
 Two years ago, my primary Proxmox server's motherboard died at 3 AM. My self-hosted services (password manager, DNS, monitoring) all went down simultaneously. I was dead in the water until I could source a replacement part.
 
-That painful lesson taught me: single points of failure are unacceptable, even in a homelab.
+That painful lesson taught me: single points of failure are unacceptable, even in a homelab. This incident became a driving force behind [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure) with resilience baked in from the start.
 
 ## High Availability Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph clusternodes["Cluster Nodes"]
         Node1[Proxmox Node 1<br/>Dell R940]
         Node2[Proxmox Node 2<br/>Dell R730]
@@ -82,9 +82,12 @@ graph TB
     Ceph --> Monitor
     Ceph --> Web
 
-    style Ceph fill:#4caf50,color:#fff
-    style Corosync fill:#2196f3,color:#fff
-    style Fencing fill:#f44336,color:#fff
+    classDef greenNode fill:#4caf50,color:#fff
+    classDef blueNode fill:#2196f3,color:#fff
+    classDef redNode fill:#f44336,color:#fff
+    class Ceph greenNode
+    class Corosync blueNode
+    class Fencing redNode
 ```
 
 ## Planning Your HA Cluster

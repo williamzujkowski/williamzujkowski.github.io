@@ -40,7 +40,7 @@ For my homelab, that meant my encrypted backups, my self-hosted Bitwarden vault 
 
 ## Understanding the Post-Quantum Algorithms
 
-NIST's standardization process evaluated 82 algorithms over eight years and selected three winners. Here's what actually made it to production:
+NIST's standardization process evaluated 82 algorithms over eight years and selected three winners. Here's what actually made it to production. If you need a refresher on the classical cryptography these algorithms are replacing, check out my [cryptography fundamentals guide](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
 
 ### ML-KEM (CRYSTALS-Kyber) - The Key Exchange Workhorse
 
@@ -65,13 +65,13 @@ According to [research from NIST's PQC Conference](https://csrc.nist.gov/csrc/me
 
 ### SLH-DSA (SPHINCS+) - The Backup Plan
 
-[SLH-DSA (Stateless Hash-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf), based on SPHINCS+, is NIST's backup signature standard. It uses hash functions instead of lattice math, which means if someone discovers a breakthrough attack against lattice-based cryptography, we're not completely screwed.
+[SLH-DSA (Stateless Hash-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf), based on SPHINCS+, is NIST's backup signature standard. It uses hash functions instead of lattice math, which means if someone discovers a breakthrough attack against lattice-based cryptography, we're not completely screwed. For a deeper dive into the mathematics behind quantum-resistant approaches, see my [quantum-resistant cryptography guide](/posts/2024-04-30-quantum-resistant-cryptography-guide).
 
 The trade-off is brutal: [SPHINCS+ signing is significantly slower](https://arxiv.org/abs/2504.13537) than Dilithium and produces larger signatures. I haven't even attempted implementing this in my homelab because honestly, ML-DSA works fine for my threat model. But if you're building a time capsule or need signatures that must remain valid for 50+ years, the hash-based approach might be worth the performance hit.
 
 ## The Quantum Threat Timeline: When Should You Actually Worry?
 
-The [Global Risk Institute's 2024 expert survey](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) estimates a **19-34% probability** of CRQCs emerging within 10 years (by 2034), and **5-14% probability** within 5 years (by 2029). That's up from 17-31% and 4-11% respectively in their 2023 survey, the probability is increasing as quantum hardware improves.
+The [Global Risk Institute's 2024 expert survey](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) estimates a **19-34% probability** of CRQCs emerging within 10 years (by 2034), and **5-14% probability** within 5 years (by 2029). That's up from 17-31% and 4-11% respectively in their 2023 survey, the probability is increasing as quantum hardware improves. For context on why quantum computing represents such a fundamental shift, see my analysis of [quantum computing's leap forward](/posts/2024-08-02-quantum-computing-leap-forward).
 
 But here's where it gets interesting: [Craig Gidney from Google Quantum AI published a paper in May 2025](https://arxiv.org/abs/2505.15917) showing that breaking RSA-2048 now requires **less than a million noisy qubits**, down from his [2019 estimate of 20 million qubits](https://arxiv.org/abs/1905.09749). That's a **95% reduction** in hardware requirements. Companies like IBM are targeting [100,000-qubit systems by 2033](https://www.ibm.com/quantum/roadmap), which suddenly makes the 2033-2035 threat window look a lot more realistic than the conservative 2045 estimates.
 

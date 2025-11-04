@@ -28,12 +28,12 @@ images:
 
 Years ago, I bought a cheap IP camera for my homelab. Within hours, it was beaconing to servers in China, scanning my network, and attempting to access my NAS. All because I put it on the same network as my trusted devices.
 
-That camera is now in a VLAN jail, where it belongs.
+That camera is now in a VLAN jail, where it belongs. This experience became a core lesson in [building a security-focused homelab with VLANs](/posts/2025-04-24-building-secure-homelab-adventure), where network segmentation proved essential for containing untrusted devices.
 
 ## Zero Trust Network Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph internetedge["Internet Edge"]
         WAN[WAN Connection]
         UDM[Dream Machine Pro]
@@ -79,9 +79,12 @@ graph TB
     Firewall --> IDS
     Firewall --> DNS
 
-    style Firewall fill:#f44336,color:#fff
-    style IoT fill:#ff9800,color:#fff
-    style Guest fill:#ff5722,color:#fff
+    classDef redNode fill:#f44336,color:#fff
+    classDef orangeNode fill:#ff9800,color:#fff
+    classDef deepOrangeNode fill:#ff5722,color:#fff
+    class Firewall redNode
+    class Camera,Smart,Sensors orangeNode
+    class GuestDevices deepOrangeNode
 ```
 
 ## VLAN Design Philosophy
@@ -90,6 +93,8 @@ graph TB
 
 **Traditional approach:** Trust everything inside the network perimeter.
 **Zero trust approach:** Verify explicitly, enforce least privilege, assume breach.
+
+These principles build on the foundational concepts I explored in my guide to [zero trust architecture fundamentals](/posts/2024-07-09-zero-trust-architecture-implementation). VLAN segmentation is one practical implementation of those abstract security principles.
 
 My VLAN design follows these principles:
 
@@ -150,7 +155,7 @@ Management VLAN (10.0.10.0/24) can access all VLANs. All VLANs can SSH to manage
 📎 **Complete ruleset:**
 [Full IoT isolation rules with default-deny](https://gist.github.com/williamzujkowski/42d5f269c97a1fbd8335316d09f90068)
 
-IoT blocked from all VLANs. Only HTTP/HTTPS to internet allowed.
+IoT blocked from all VLANs. Only HTTP/HTTPS to internet allowed. These strict rules are essential for [IoT security with VLAN isolation](/posts/2025-09-20-iot-security-homelab-owasp), where untrusted devices need containment without breaking functionality.
 
 ### Server VLAN Rules
 

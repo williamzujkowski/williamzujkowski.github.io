@@ -33,7 +33,7 @@ That incident taught me an important lesson: hope is not a security strategy.
 ## Automated Security Pipeline Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph coderepository["Code Repository"]
         Git[Git Push]
         PR[Pull Request]
@@ -84,9 +84,12 @@ graph TB
     Gates --> Block
     Gates --> Approve
 
-    style Scan fill:#f44336,color:#fff
-    style Gates fill:#ff9800,color:#fff
-    style Block fill:#d32f2f,color:#fff
+    classDef redNode fill:#f44336,color:#fff
+    classDef orangeNode fill:#ff9800,color:#fff
+    classDef darkRedNode fill:#d32f2f,color:#fff
+    class Scan redNode
+    class Gates orangeNode
+    class Block darkRedNode
 ```
 
 Today, every commit to my repositories is automatically scanned for vulnerabilities. Critical findings block deployment. Here's how I built it.
@@ -95,7 +98,7 @@ Today, every commit to my repositories is automatically scanned for vulnerabilit
 
 ### Why Multiple Scanners?
 
-I tested these three scanners in September 2024 against my homelab services to understand their strengths:
+I tested these three scanners in September 2024 against my homelab services to understand their strengths. These tools complement my broader approach to [smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev), which helps me focus on what actually matters rather than just raw CVE counts.
 
 | Scanner | Strengths | Best For | My Test Results |
 |---------|-----------|----------|-----------------|
@@ -264,7 +267,7 @@ Define base rule matching vulnerability IDs (level 7), then escalate to level 12
 
 ## Lessons Learned
 
-After building and running this pipeline for a year, here's what I discovered through trial and error:
+After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source), where the focus is on sustainable processes rather than perfect tools.
 
 ### 1. Multiple Scanners Reduce False Negatives
 When I first tested Grype alone, I thought I had good coverage. Then I added OSV-Scanner and immediately found 4 additional vulnerabilities in a project I'd already "validated." The overlap between tools is surprisingly low. I measured around 60-65% in my homelab testing. Running both catches more real issues, though I'm still uncertain if three scanners is overkill for smaller projects.
