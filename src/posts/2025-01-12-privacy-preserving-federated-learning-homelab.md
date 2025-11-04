@@ -305,5 +305,5 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 - [**Raspberry Pi 5 Specifications**](https://www.raspberrypi.com/products/raspberry-pi-5/) - Hardware details for the 16GB model
 
 ### Related Homelab Posts
-- [Privacy-First AI Lab: Running Local LLMs on Consumer Hardware](/posts/privacy-first-ai-lab-local-llms/)
-- [Securing the Cloud-Native Frontier: Hardening Kubernetes in Production](/posts/securing-cloud-native-frontier/)
+- [Privacy-First AI Lab: Running Local LLMs on Consumer Hardware](/posts/2025-10-29-privacy-first-ai-lab-local-llms)
+- [Securing the Cloud-Native Frontier: Hardening Kubernetes in Production](/posts/2024-01-30-securing-cloud-native-frontier)
