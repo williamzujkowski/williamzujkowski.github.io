@@ -479,22 +479,23 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 | **blog-transformation** | MEDIUM | Transforming existing posts, Smart Brevity refinement, citation enhancement | `docs/context/workflows/` | 5084 |
 | **gist-management** | LOW | Managing code examples, blog post code ratio >20%, creating shareable snippets | `docs/context/workflows/` | 4660 |
 | **code-block-quality** | HIGH | Refactoring posts, reviewing code blocks, quality audits | `docs/STANDARDS/` | 5600 |
+| **blog-patterns** | HIGH | Creating/editing blog posts, content audits, SEO optimization | `docs/context/standards/` | 7200 |
 
-**Additional modules (19 total, all implemented):**
-- **standards/**: humanization-standards (9128), citation-research (5604), image-standards (5720), accessibility (5448), writing-style (7460), code-block-quality (5600)
+**Additional modules (20 total, all implemented):**
+- **standards/**: humanization-standards (9128), citation-research (5604), image-standards (5720), accessibility (5448), writing-style (7460), code-block-quality (5600), blog-patterns (7200)
 - **technical/**: script-catalog (3992), git-workflow (5436), build-automation (4160), agent-coordination (4620), research-automation (3904), image-automation (4144)
 - **reference/**: batch-history (5872), compliance-history (4292), directory-structure (4316), historical-learnings (8120)
 - **templates/**: blog-post-template (4556), module-template (3804), script-template (4688), documentation-template (5056)
 
-**Accurate token budgets (all 30 modules measured):**
-- Core modules: **20,256 tokens** (5 modules) - was 6,300
-- Workflow modules: **25,884 tokens** (5 modules) - was 6,492
-- Standards modules: **38,960 tokens** (6 modules) - was 33,360
-- Technical modules: **26,256 tokens** (6 modules) - was 7,850
-- Reference modules: **22,600 tokens** (4 modules) - was 14,480
-- Template modules: **18,104 tokens** (4 modules) - was 6,334
-- **ACTUAL TOTAL: 152,060 tokens** (30 modules complete)
-- **Previous estimate: 146,460 tokens (new module +5,600)**
+**Accurate token budgets (all 31 modules measured):**
+- Core modules: **20,256 tokens** (5 modules)
+- Workflow modules: **25,884 tokens** (5 modules)
+- Standards modules: **46,160 tokens** (7 modules) - was 38,960
+- Technical modules: **26,256 tokens** (6 modules)
+- Reference modules: **22,600 tokens** (4 modules)
+- Template modules: **18,104 tokens** (4 modules)
+- **ACTUAL TOTAL: 159,260 tokens** (31 modules complete)
+- **Previous: 152,060 tokens (new module +7,200)**
 - Note: High token count emphasizes importance of selective modular loading
 
 **Full index:** `docs/context/INDEX.yaml`
@@ -616,3 +617,6 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Session 22: Quality refactoring implemented (Raspberry Pi 32.2%→14.6% via padding removal, Local LLM 33.6%→14.8% via stub deletion, EPSS 31.2%→15.2% minimal changes)
 - Session 22: Content standards established (KEEP <15 lines teaching core, EXTRACT >20 lines reference, DELETE truncated pseudocode; quality > ratio compliance)
 - Session 22: DIAGRAM-HEAVY policy created (eBPF 97.3% Mermaid accepted as educational visualization; >80% diagrams + <10% actual code = exception)
+- Session 23: Blog optimization research completed (88 citations, 13,000+ word report; identified CRITICAL gap: internal linking 0.095/post vs 6-10 target = 40% traffic opportunity)
+- Session 23: Blog patterns module created (docs/context/standards/blog-patterns.md, 7,200 tokens; P0-P3 priorities, research-backed thresholds)
+- Session 23: Script audit completed (23 blog scripts analyzed; 7/23 aligned, 12/23 need updates, 4/23 new scripts needed; 31-43 hours estimated)
