@@ -52,7 +52,7 @@ If you're tired of being the product, here's how to take back control of your DN
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -68,15 +68,18 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef greenNode fill:#4caf50
+    classDef orangeNode fill:#ff9800
+    classDef redNode fill:#f44336
+    class D1 greenNode
+    class D2 orangeNode
+    class D3 redNode
 ```
 
 ## Understanding the DNS Privacy Problem
@@ -127,16 +130,7 @@ Select provider or enter custom: [https://dns.google/dns-query](https://dns.goog
 
 For system-wide protection, I use `cloudflared`:
 
-```bash
-# Install cloudflared
-wget [https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb](https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb)
-sudo dpkg -i cloudflared-linux-amd64.deb
-
-# Configure as DNS proxy
-    # ... (additional implementation details)
-
-sudo systemctl restart systemd-resolved
-```
+<script src="https://gist.github.com/williamzujkowski/9ca841f8bdea7bced7c797ee2cfa5597.js"></script>
 
 ### Windows DoH Setup
 
@@ -160,31 +154,11 @@ Protecting your entire network requires a DoH-capable router or custom firmware.
 
 Dream Machine Professional doesn't natively support DoH, but I've found a workaround that works well (though be aware this requires SSH access and may not survive firmware updates):
 
-```bash
-# Install required packages in Dream Machine Professional
-pkg install dnscrypt-proxy2
-
-# Configure dnscrypt-proxy for DoH
-cat > /usr/local/etc/dnscrypt-proxy/dnscrypt-proxy.toml << 'EOF'
-    # ... (additional implementation details)
-# DNS Servers: 127.0.0.1:5353
-# Uncheck "Allow DNS server list to be overridden"
-```
+See the Dream Machine Pro configuration in the router setup gist above.
 
 ### OpenWrt with DoH
 
-OpenWrt makes DoH implementation straightforward:
-
-```bash
-# Install packages
-opkg update
-opkg install https-dns-proxy luci-app-https-dns-proxy
-
-# Configure DoH providers
-    # ... (additional implementation details)
-uci commit dhcp
-/etc/init.d/dnsmasq restart
-```
+OpenWrt makes DoH implementation straightforward (see gist above).
 
 ## Approach 3: Self-Hosted DoH Server
 
@@ -224,49 +198,17 @@ sudo systemctl enable dnsdist && sudo systemctl start dnsdist
 
 ### Verify DoH is Working
 
-```bash
-# Test using curl
-curl -H 'content-type: application/dns-message' \
-     --data-binary @<(echo -n 'q80BAAABAAAAAAAAA3d3dwdleGFtcGxlA2NvbQAAAQAB' | base64 -d) \
-     [https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query) | hexdump -C
-
-# Test using dog (better than dig for DoH)
-dog example.com @[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)
-
-# Check for DNS leaks
-# Visit: [https://dnsleaktest.com](https://dnsleaktest.com)
-# Should only show your configured DoH provider
-```
+<script src="https://gist.github.com/williamzujkowski/82e4d29a006b6fc5b20b881760d6deb9.js"></script>
 
 ### Performance Monitoring
 
-While DoH improved privacy in my testing, it does add latency compared to traditional DNS. Here's a script I use to measure the impact:
-
-```python
-#!/usr/bin/env python3
-import time
-import dns.resolver
-import requests
-from statistics import mean, stdev
-    # ... (additional implementation details)
-benchmark_dns(traditional_dns_query, test_domains, "Traditional DNS")
-benchmark_dns(doh_query, test_domains, "DNS-over-HTTPS")
-```
+While DoH improved privacy in my testing, it does add latency compared to traditional DNS. See the monitoring tools gist above for performance benchmarking and log analysis.
 
 In my tests, DoH typically adds 10-30ms per query, though results vary based on network conditions and provider selection.
 
 ### Logging and Analytics
 
-```bash
-# Parse dnscrypt-proxy logs
-cat << 'EOF' > /usr/local/bin/analyze-doh-logs.sh
-#!/bin/bash
-
-LOG_FILE="/var/log/dnscrypt-proxy/query.log"
-    # ... (additional implementation details)
-
-chmod +x /usr/local/bin/analyze-doh-logs.sh
-```
+See the log parsing script in the monitoring tools gist above.
 
 ## Security Considerations
 
@@ -289,106 +231,39 @@ Provider Comparison:
 
 Ensure all DNS queries use DoH:
 
-```bash
-# iptables rules to force DoH
-# Block standard DNS (port 53) except from DoH proxy
-iptables -A OUTPUT -p udp --dport 53 -m owner ! --uid-owner cloudflared -j DROP
-iptables -A OUTPUT -p tcp --dport 53 -m owner ! --uid-owner cloudflared -j DROP
-
-# Block DNS-over-TLS (port 853)
-iptables -A OUTPUT -p tcp --dport 853 -j DROP
-
-# Allow only DoH proxy to make HTTPS connections to DNS providers
-iptables -A OUTPUT -p tcp --dport 443 -d 1.1.1.1 -m owner ! --uid-owner cloudflared -j DROP
-iptables -A OUTPUT -p tcp --dport 443 -d 8.8.8.8 -m owner ! --uid-owner cloudflared -j DROP
-```
+<script src="https://gist.github.com/williamzujkowski/48bd7c6e1d18e0d12cfcad67ff4a644c.js"></script>
 
 ### 3. Certificate Pinning
 
-For self-hosted DoH, implement certificate pinning:
-
-```python
-import ssl
-import hashlib
-import base64
-
-class SecureDoHClient:
-    # ... (additional implementation details)
-        
-        return context
-```
+For self-hosted DoH, implement certificate pinning (see Python script in the security hardening gist above).
 
 ## Troubleshooting Common Issues
 
+<script src="https://gist.github.com/williamzujkowski/365d9b3a0dc812e93ec8177e5bf84922.js"></script>
+
 ### 1. Slow Initial Queries
 
-```bash
-# Implement DNS caching
-# For dnsmasq
-echo "cache-size=10000" >> /etc/dnsmasq.conf
-echo "min-cache-ttl=3600" >> /etc/dnsmasq.conf
-
-# For systemd-resolved
-[Resolve]
-Cache=yes
-CacheLimit=2048
-```
+See DNS caching configuration in the troubleshooting gist above.
 
 ### 2. Connection Timeouts
 
-```bash
-# Increase timeout values
-# cloudflared config
-timeout: 10s
-max-upstream-conns: 5
-
-# Multiple upstream servers for redundancy
-proxy-dns-upstream:
-  - [https://1.1.1.1/dns-query](https://1.1.1.1/dns-query)
-  - [https://1.0.0.1/dns-query](https://1.0.0.1/dns-query)
-  - [https://dns.quad9.net/dns-query](https://dns.quad9.net/dns-query)
-```
+See timeout and redundancy configuration in the troubleshooting gist above.
 
 ### 3. Corporate Network Compatibility
 
-Some corporate networks block DoH. Implement fallback:
-
-```bash
-# Detect corporate network and adjust
-if ping -c 1 corp-gateway.local > /dev/null 2>&1; then
-    echo "Corporate network detected, using standard DNS"
-    systemctl stop cloudflared
-else
-    systemctl start cloudflared
-fi
-```
+Some corporate networks block DoH. See the corporate network detection script in the troubleshooting gist above.
 
 ## Advanced Configurations
 
+<script src="https://gist.github.com/williamzujkowski/8749d27f31c0c222e79033fc978069bd.js"></script>
+
 ### Load Balancing Multiple DoH Providers
 
-```nginx
-upstream doh_providers {
-    server 1.1.1.1:443 weight=3;
-    server dns.google:443 weight=2;
-    server dns.quad9.net:443 weight=1;
-    keepalive 32;
-}
-```
+See the nginx configuration in the advanced routing gist above.
 
 ### Geo-based DoH Selection
 
-```python
-def select_doh_provider(client_ip):
-    """Select optimal DoH provider based on location"""
-    # Simplified geo-detection
-    if client_ip.startswith('192.168.'):
-        return "[https://local-doh.home.arpa/dns-query](https://local-doh.home.arpa/dns-query)"
-    elif is_asian_ip(client_ip):
-        return "[https://dns.google/dns-query](https://dns.google/dns-query)"  # Better in Asia
-    else:
-        return "[https://cloudflare-dns.com/dns-query](https://cloudflare-dns.com/dns-query)"  # Global default
-```
+See the geo-based provider selection logic in the advanced routing gist above.
 
 ## The Bottom Line: Is DoH Worth It?
 

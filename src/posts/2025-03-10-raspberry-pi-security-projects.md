@@ -26,7 +26,7 @@ After collecting a drawer full of Raspberry Pis over the years (we all have that
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -42,37 +42,24 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef greenNode fill:#4caf50
+    classDef orangeNode fill:#ff9800
+    classDef redNode fill:#f44336
+    class D1 greenNode
+    class D2 orangeNode
+    class D3 redNode
 ```
 
 
 ## Requirements
 
-To run the code examples in this post, you'll need to install the following packages:
-
-```bash
-pip install cv2 nmap numpy paramiko socket tailer threading
-```
-
-Or create a `requirements.txt` file:
-
-```text
-cv2
-nmap
-numpy
-paramiko
-socket
-tailer
-threading
-```
+The scripts demonstrated in this post use Python libraries including OpenCV (`opencv-python` for computer vision), `python-nmap` (network scanning), and `paramiko` (SSH automation). Install via: `pip install opencv-python python-nmap paramiko`
 ## Why Raspberry Pi for Security?
 
 Before diving into projects, let's address the elephant in the room: Why use a $35 computer for security when enterprise solutions exist?
@@ -111,16 +98,7 @@ pihole -g
 
 ### Enhancements I Added
 
-```python
-#!/usr/bin/env python3
-# dns_alert.py - Alert on suspicious DNS queries
-
-import tailer
-import re
-    # ... (additional implementation details)
-if __name__ == "__main__":
-    monitor_pihole_log()
-```
+The DNS monitoring script uses Python's `tailer` library to follow Pi-hole's query log in real-time. It watches for suspicious patterns like excessive queries to unknown domains, connections to known malicious IPs from threat feeds, and domain generation algorithm (DGA) patterns using regex matching. When detected, it sends notifications via Pushover or email.
 
 **Results**: Blocking 30-40% of DNS queries (mostly ads/tracking), caught 3 malware callbacks in 6 months, kids' devices are significantly faster.
 
@@ -132,16 +110,7 @@ if __name__ == "__main__":
 
 ### Implementation
 
-```python
-#!/usr/bin/env python3
-# motion_security.py - Smart motion detection with AI
-
-import cv2
-import numpy as np
-    # ... (additional implementation details)
-            time.sleep(10)  # Cooldown period
-        time.sleep(0.1)
-```
+Using OpenCV's background subtraction and contour detection, the motion security system analyzes frames from the Pi Camera, filtering false positives through frame differencing and minimum area thresholds. Detected motion triggers GPIO outputs (siren, lights) and saves annotated frames with bounding boxes.
 
 **Results**: Caught multiple package delivery attempts, identified a raccoon problem (AI classifier initially misidentified it as a person), zero false alerts after tuning.
 
@@ -153,16 +122,7 @@ import numpy as np
 
 ### Implementation
 
-```python
-#!/usr/bin/env python3
-# honeypot.py - Lightweight SSH/HTTP honeypot
-
-import socket
-import threading
-    # ... (additional implementation details)
-while True:
-    time.sleep(60)
-```
+The SSH honeypot listens on ports 22, 2222, and 8022 using Python's socket library with multi-threaded handling. It logs connection attempts, captures login credentials (stored hashed), and records basic interaction patterns to identify scanning behavior vs targeted attacks.
 
 **Results**: Detected 3 targeted scans of my network, identified compromised IoT device attempting lateral movement, fascinating data on bot behavior.
 
@@ -174,16 +134,7 @@ while True:
 
 ### Implementation
 
-```python
-#!/usr/bin/env python3
-# vault_guardian.py - Offline 2FA backup vault
-
-import os
-import json
-    # ... (additional implementation details)
-        vault.unlock_vault()
-        time.sleep(5)  # Debounce
-```
+The secure vault combines AES-256 encryption (Python `cryptography` library) with physical access control. A tactile button triggers the OLED display to show time-based recovery codes (TOTP), ensuring secrets remain encrypted at rest and only accessible via physical presence.
 
 **Results**: Peace of mind knowing recovery codes are offline but accessible, survived a YubiKey failure gracefully, spouse approved the "break glass" simplicity.
 
@@ -195,16 +146,7 @@ import json
 
 ### Implementation
 
-```python
-#!/usr/bin/env python3
-# compliance_scanner.py - Automated security baseline checker
-
-import nmap
-import paramiko
-    # ... (additional implementation details)
-with open(f"/home/pi/reports/scan_{datetime.now().strftime('%Y%m%d')}.md", "w") as f:
-    f.write(report)
-```
+Automated daily scans use `nmap` for service discovery and `paramiko` for SSH-based configuration checks. The scanner verifies settings like SSH key-only authentication, disabled root login, firewall status, and automatic updates. Results generate markdown reports with findings categorized by risk level (critical/high/medium/low).
 
 **Results**: Found 2 IoT devices with default passwords, discovered forgotten test VM with open services, maintains security baseline visibility.
 

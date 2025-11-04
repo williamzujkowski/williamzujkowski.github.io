@@ -41,7 +41,7 @@ Before diving into vulnerabilities, let's set up a proper isolated environment. 
 Here's my home lab IoT security setup using VLANs and a dedicated analysis subnet. I moved all IoT devices to a separate VLAN (192.168.50.0/24) with firewall rules blocking LAN access. My Nest thermostat immediately stopped working until I allowed specific port 443 traffic to Google servers. The **trade-off**: security versus convenience. You gain isolation **but** lose easy device-to-device communication.
 
 ```mermaid
-graph TD
+flowchart TD
     A[Main Network<br/>VLAN 10] -->|Firewall| F[pfSense/OPNsense]
     B[IoT Production<br/>VLAN 20] -->|Isolated| F
     C[IoT Testing<br/>VLAN 666] -->|No Internet| F
@@ -55,45 +55,13 @@ graph TD
 
 ### Essential Tools Setup
 
-Based on [security research by Allodi & Campobasso (2023)](https://doi.org/10.1007/978-3-031-25460-4_14) these tools catch 90% of common IoT vulnerabilities:
+Based on [security research by Allodi & Campobasso (2023)](https://doi.org/10.1007/978-3-031-25460-4_14) these tools catch 90% of common IoT vulnerabilities. The complete lab setup script includes tool installation, IoTGoat deployment, and firmware analysis commands:
 
-```bash
-# Core analysis tools
-sudo apt-get update
-sudo apt-get install -y \
-    wireshark \
-    nmap \
-    binwalk \
-    firmware-mod-kit \
-    mosquitto-clients \
-    john \
-    hashcat
-
-# Python tools for IoT testing
-pip install paho-mqtt scapy pycryptodome
-```
+<script src="https://gist.github.com/williamzujkowski/680213bdd6d4a52ef369d1f2801cb9b4.js"></script>
 
 ## Deploying OWASP IoTGoat
 
-IoTGoat simulates a vulnerable IoT device firmware. Let's deploy it safely:
-
-```bash
-# Clone the repository
-git clone [https://github.com/OWASP/IoTGoat.git](https://github.com/OWASP/IoTGoat.git)
-cd IoTGoat
-
-# Build the Docker container (isolated environment)
-docker build -t iotgoat .
-
-# Run with network isolation
-docker network create --driver bridge iot-isolated
-docker run -d --name iotgoat \
-    --network iot-isolated \
-    -p 8080:80 \
-    -p 1883:1883 \
-    -p 8883:8883 \
-    iotgoat
-```
+IoTGoat simulates a vulnerable IoT device firmware. The setup script above handles deployment in an isolated Docker environment. For manual installation, see the [IoTGoat repository](https://github.com/OWASP/IoTGoat).
 
 ## Exploring Common IoT Vulnerabilities
 
@@ -103,39 +71,11 @@ Now for the fun part. Let's explore real vulnerabilities found in countless IoT 
 
 [Research by Zhang et al. (2023)](https://doi.org/10.1109/TDSC.2023.3247569) found hardcoded credentials in 47% of analyzed IoT firmware. IoTGoat demonstrates this beautifully.
 
-I ran a password audit on my 23 IoT devices. Eight were still using default credentials (admin/admin). Three had hardcoded passwords I couldn't change. Five supported only WEP encryption (yes, WEP in 2024). This was my wake-up call. Default credentials are convenient **though** fundamentally insecure:
+I ran a password audit on my 23 IoT devices. Eight were still using default credentials (admin/admin). Three had hardcoded passwords I couldn't change. Five supported only WEP encryption (yes, WEP in 2024). This was my wake-up call. Default credentials are convenient **though** fundamentally insecure.
 
-```python
-import telnetlib
-import time
+Here's a comprehensive toolkit for testing IoT vulnerabilities including default credentials, MQTT discovery, and command injection:
 
-# Common default credentials in IoT devices
-credentials = [
-    ('admin', 'admin'),
-    ('root', 'root'),
-    ('admin', '1234'),
-    ('user', 'user'),
-    ('admin', 'password')
-]
-
-def test_telnet_auth(host, port=23):
-    """Test for default credentials on telnet service"""
-    for username, password in credentials:
-        try:
-            tn = telnetlib.Telnet(host, port, timeout=5)
-            tn.read_until(b"login: ")
-            tn.write(username.encode() + b"\n")
-            tn.read_until(b"Password: ")
-            tn.write(password.encode() + b"\n")
-
-            result = tn.read_some()
-            if b"#" in result or b"$" in result:
-                print(f"[+] Found credentials: {username}:{password}")
-                return True
-        except:
-            continue
-    return False
-```
+<script src="https://gist.github.com/williamzujkowski/8d96ac97bbb24da06b9b381c4b46b441.js"></script>
 
 ### 2. Insecure MQTT Communications
 
@@ -143,42 +83,7 @@ MQTT is ubiquitous in IoT, but [analysis by Nirmal et al. (2024)](https://doi.or
 
 Using Wireshark, I captured 48 hours of IoT traffic. Results: 847MB outbound, 1.2GB inbound. My Ring doorbell alone sent 412MB (mostly motion-triggered snapshots to AWS). I now rate-limit IoT traffic to 500Kbps per device. Cloud connectivity enables remote access **however** creates privacy risks. You get convenience **but** sacrifice control over your data.
 
-Here's how to explore MQTT vulnerabilities:
-
-```python
-import paho.mqtt.client as mqtt
-import json
-
-class MQTTExplorer:
-    def __init__(self, broker_addr):
-        self.broker = broker_addr
-        self.client = mqtt.Client()
-        self.discovered_topics = set()
-
-    def on_connect(self, client, userdata, flags, rc):
-        if rc == 0:
-            print("[+] Connected to MQTT broker")
-            # Subscribe to all topics
-            client.subscribe("#", 0)
-            client.subscribe("$SYS/#", 0)
-
-    def on_message(self, client, userdata, msg):
-        self.discovered_topics.add(msg.topic)
-        print(f"[*] Topic: {msg.topic}")
-        print(f"    Payload: {msg.payload.decode('utf-8', 'ignore')}")
-
-        # Check for sensitive data patterns
-        payload = msg.payload.decode('utf-8', 'ignore')
-        if any(keyword in payload.lower() for keyword in
-               ['password', 'token', 'key', 'secret']):
-            print("[!] Potential sensitive data found!")
-
-explorer = MQTTExplorer("iotgoat.local")
-explorer.client.on_connect = explorer.on_connect
-explorer.client.on_message = explorer.on_message
-explorer.client.connect(explorer.broker, 1883, 60)
-explorer.client.loop_forever()
-```
+The vulnerability testing toolkit above includes `MQTTExplorer` for discovering insecure MQTT communications and identifying sensitive data in unencrypted payloads.
 
 ### 3. Firmware Extraction and Analysis
 
@@ -186,49 +91,15 @@ According to [OWASP IoT Security Verification Standard](https://github.com/OWASP
 
 I bricked a $45 Wyze camera by attempting a manual firmware flash from a third-party source. The manufacturer's update server was down for 3 days, and I got impatient. Lesson learned: wait for official updates. Firmware updates fix vulnerabilities **yet** risk bricking devices. Third-party firmware offers features **yet** voids warranties and risks turning your hardware into an expensive paperweight.
 
-Let's extract and analyze IoTGoat's firmware:
-
-```bash
-# Extract firmware with binwalk
-binwalk -e iotgoat_firmware.bin
-
-# Search for hardcoded secrets
-grep -r "password\|passwd\|pwd\|api_key\|secret" _iotgoat_firmware.bin.extracted/
-
-# Extract file system if squashfs
-unsquashfs -d extracted_fs _iotgoat_firmware.bin.extracted/*.squashfs
-
-# Analyze binaries for vulnerabilities
-checksec --file=extracted_fs/usr/bin/iot_service
-```
+For firmware extraction and analysis commands, refer to the lab setup script above which includes binwalk extraction, secret scanning, and binary analysis using checksec.
 
 ### 4. Command Injection via Web Interface
 
 Web interfaces on IoT devices often lack proper input validation. [Studies show](https://doi.org/10.1145/3538969.3543815) that 34% of IoT web interfaces are vulnerable to command injection.
 
-I discovered my cheap Chinese security camera accepted ANY SSL certificate. It never verified the server identity. An attacker on my network could have easily MiTM'd the video feed. Certificate validation is critical **but** many cheap devices don't implement it. Manual configuration is secure **but probably** too tedious for most users. I'm not sure if all manufacturers use the same lax certificate handling, but it seems to be common in budget devices:
+I discovered my cheap Chinese security camera accepted ANY SSL certificate. It never verified the server identity. An attacker on my network could have easily MiTM'd the video feed. Certificate validation is critical **but** many cheap devices don't implement it. Manual configuration is secure **but probably** too tedious for most users. I'm not sure if all manufacturers use the same lax certificate handling, but it seems to be common in budget devices.
 
-```python
-import requests
-
-def test_command_injection(url, param_name):
-    """Test for command injection vulnerabilities"""
-    payloads = [
-        "; cat /etc/passwd",
-        "| cat /etc/shadow",
-        "$(cat /proc/self/environ)",
-        "`id`"
-    ]
-
-    for payload in payloads:
-        data = {param_name: f"test{payload}"}
-        response = requests.post(url, data=data)
-
-        if "root:" in response.text or "uid=" in response.text:
-            print(f"[!] Command injection found with: {payload}")
-            return True
-    return False
-```
+The vulnerability testing toolkit above includes `test_command_injection()` to probe web interfaces for command injection flaws using common payload patterns.
 
 ## Defensive Measures: Securing Your IoT Devices
 
@@ -307,45 +178,9 @@ The **trade-off** between usability and security is constant in IoT. Manufacture
 
 ## Building Your Detection System
 
-Here's a practical monitoring setup I use in my home lab:
+Here's a practical monitoring setup I use in my home lab for real-time packet analysis and anomaly detection:
 
-```python
-from scapy.all import *
-import json
-from datetime import datetime
-
-class IoTMonitor:
-    def __init__(self):
-        self.suspicious_patterns = []
-        self.device_profiles = {}
-
-    def packet_callback(self, packet):
-        if packet.haslayer(IP):
-            src_ip = packet[IP].src
-            dst_ip = packet[IP].dst
-
-            # Track device behavior
-            if src_ip.startswith("192.168.20."):  # IoT VLAN
-                self.profile_device(src_ip, dst_ip, packet)
-
-                # Detect anomalies
-                if self.is_suspicious(packet):
-                    self.alert(packet)
-
-    def is_suspicious(self, packet):
-        # Check for unexpected destinations
-        if packet.haslayer(TCP):
-            dst_port = packet[TCP].dport
-            if dst_port in [23, 22, 3389]:  # Telnet, SSH, RDP
-                return True
-
-        # Check for large data transfers
-        if packet.haslayer(Raw):
-            if len(packet[Raw].load) > 10000:
-                return True
-
-        return False
-```
+<script src="https://gist.github.com/williamzujkowski/369cedae8893df3807bc6fb66870c8e8.js"></script>
 
 ## Lessons Learned
 

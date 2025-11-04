@@ -116,6 +116,7 @@ Use this table to determine which modules to load for common tasks:
 |------|-------------------|----------|------------|
 | **Create blog post** | `core/enforcement` + `core/nda-compliance` + `workflows/blog-writing` + `standards/humanization-standards` | HIGH | ~8K |
 | **Transform existing post** | `core/enforcement` + `workflows/blog-transformation` + `standards/humanization-standards` | HIGH | ~6K |
+| **Refactor post quality** | `core/enforcement` + `standards/code-block-quality` + `workflows/blog-transformation` | HIGH | ~6K |
 | **Validate content** | `core/enforcement` + `standards/humanization-standards` + `standards/citation-requirements` | HIGH | ~5K |
 | **Manage images** | `standards/image-standards` + `technical/image-automation` | MEDIUM | ~3K |
 | **Git operations** | `core/enforcement` + `core/standards-integration` + `technical/git-workflow` | HIGH | ~4K |
@@ -275,6 +276,45 @@ Bash("npm test")
 **Swarm coordination:** For complex tasks, 5 specialized agents completed 11 tasks in 27 minutes using parallel execution patterns. Load `workflows/swarm-orchestration.md` for multi-agent coordination.
 
 **Full guidelines:** `docs/context/core/file-management.md`
+
+### 4.4.1: Code Block Quality Standards
+
+**Philosophy:** Code blocks must "earn their place" - every code block should teach something readers can't get from prose.
+
+**Decision Framework:**
+
+**KEEP INLINE (<15 lines):**
+- Teaches core concept (syntax examples, key patterns)
+- Context-critical (interrupting flow to visit gist breaks learning)
+- Complete and runnable (or clearly labeled as simplified)
+- Cannot be better expressed as diagram/prose
+
+**EXTRACT TO GIST (>20 lines):**
+- Complete implementations readers will copy-paste
+- Reference material (full configs, complete scripts)
+- Reusable across projects (not post-specific examples)
+- Latest version maintenance outside post valuable
+
+**DELETE/CONVERT (any length):**
+- Truncated with "# ... (additional implementation)" - incomplete pseudocode
+- Redundant with official documentation (link instead)
+- Can be better expressed as prose (2-3 sentences)
+- Can be better expressed as Mermaid diagram (workflows, sequences)
+
+**Tiered Thresholds by Post Type:**
+
+| Post Type | Total Code Ratio | Actual Code Ratio | Rationale |
+|-----------|-----------------|-------------------|-----------|
+| Tutorial | <35% | <30% | Step-by-step needs examples |
+| Conceptual | <25% | <20% | Diagrams + light code |
+| Experience | <20% | <15% | Lessons > implementation |
+| DIAGRAM-HEAVY | <60%* | <10% | *If >80% Mermaid educational |
+
+**Add to frontmatter:** `post_type: tutorial` (applies appropriate threshold)
+
+**Enforcement:** Pre-commit hook checks via `code-ratio-calculator.py --post-type-aware`
+
+**Full guidelines:** `docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md`
 
 ### 4.5: Documentation Hierarchy
 
@@ -438,22 +478,23 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 | **swarm-orchestration** | MEDIUM | Multi-agent coordination, complex task decomposition, parallel execution | `docs/context/workflows/` | 4124 |
 | **blog-transformation** | MEDIUM | Transforming existing posts, Smart Brevity refinement, citation enhancement | `docs/context/workflows/` | 5084 |
 | **gist-management** | LOW | Managing code examples, blog post code ratio >20%, creating shareable snippets | `docs/context/workflows/` | 4660 |
+| **code-block-quality** | HIGH | Refactoring posts, reviewing code blocks, quality audits | `docs/STANDARDS/` | 5600 |
 
 **Additional modules (19 total, all implemented):**
-- **standards/**: humanization-standards (9128), citation-research (5604), image-standards (5720), accessibility (5448), writing-style (7460)
+- **standards/**: humanization-standards (9128), citation-research (5604), image-standards (5720), accessibility (5448), writing-style (7460), code-block-quality (5600)
 - **technical/**: script-catalog (3992), git-workflow (5436), build-automation (4160), agent-coordination (4620), research-automation (3904), image-automation (4144)
 - **reference/**: batch-history (5872), compliance-history (4292), directory-structure (4316), historical-learnings (8120)
 - **templates/**: blog-post-template (4556), module-template (3804), script-template (4688), documentation-template (5056)
 
-**Accurate token budgets (all 29 modules measured):**
+**Accurate token budgets (all 30 modules measured):**
 - Core modules: **20,256 tokens** (5 modules) - was 6,300
 - Workflow modules: **25,884 tokens** (5 modules) - was 6,492
-- Standards modules: **33,360 tokens** (5 modules) - was 10,177
+- Standards modules: **38,960 tokens** (6 modules) - was 33,360
 - Technical modules: **26,256 tokens** (6 modules) - was 7,850
 - Reference modules: **22,600 tokens** (4 modules) - was 14,480
 - Template modules: **18,104 tokens** (4 modules) - was 6,334
-- **ACTUAL TOTAL: 146,460 tokens** (29 modules complete)
-- **Previous estimate: 42,233 tokens (3.5x underestimate)**
+- **ACTUAL TOTAL: 152,060 tokens** (30 modules complete)
+- **Previous estimate: 146,460 tokens (new module +5,600)**
 - Note: High token count emphasizes importance of selective modular loading
 
 **Full index:** `docs/context/INDEX.yaml`
@@ -566,4 +607,12 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Session 21: Parallel execution 2nd validation (Track A calculator enhancement + Track B Bitwarden extraction; 95 min total vs ~160 min sequential; 80% efficiency matched Session 14)
 - Session 21: Bitwarden CRITICAL fixed (51.5% → 22.1%; 9 gists 298 lines extracted, Mermaid v10 compliant, Playwright 100% pass rate; HIGHEST violation resolved)
 - Session 21: Calculator policy flag implemented (>80% Mermaid posts flagged as "DIAGRAM-HEAVY" educational content; distinguishes code-heavy vs diagram-heavy violations)
-- Session 21: Remaining work clarified (6 posts need traditional extraction 23 gists 4-6 hours; 1 post eBPF needs policy exception or Mermaid→images conversion)
+- Session 21: Remaining work clarified (3 posts need traditional extraction ~12 gists 2-3 hours; 1 post eBPF needs policy exception or Mermaid→images conversion)
+- Session 22: Code ratio accuracy audit (TODO.md 43% accurate → 100%; removed 7 false positives: DNS-DoH 43.2%→23.6% COMPLIANT, IoT Security 46.7%→17.3% COMPLIANT, +5 more)
+- Session 22: Audit-first pattern 6th validation (15-20 min review prevents 2-3 hour wasted extraction effort; 43% accuracy drift caught: 7 violations claimed → 4 actual)
+- Session 22: Remaining work verified (3 posts actual: Raspberry Pi 32.2%, Local LLM 33.6%, EPSS/KEV 31.2%; eBPF correctly categorized DIAGRAM-HEAVY policy exception)
+- Session 22: Hybrid strategy validated (Mermaid conversion + gist extraction; code-analyzer confirmed calculator v1.1.0 correctly distinguishes diagram vs code; Python logging 78/78 verified)
+- Session 22: Code quality swarm deployed (4 posts analyzed: 55% padding/pseudocode discovered, 16 truncated blocks found)
+- Session 22: Quality refactoring implemented (Raspberry Pi 32.2%→14.6% via padding removal, Local LLM 33.6%→14.8% via stub deletion, EPSS 31.2%→15.2% minimal changes)
+- Session 22: Content standards established (KEEP <15 lines teaching core, EXTRACT >20 lines reference, DELETE truncated pseudocode; quality > ratio compliance)
+- Session 22: DIAGRAM-HEAVY policy created (eBPF 97.3% Mermaid accepted as educational visualization; >80% diagrams + <10% actual code = exception)

@@ -34,7 +34,7 @@ After extensive research and testing in my home lab environment, I've developed 
 ## Local LLM Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph hardware["Hardware"]
         GPU[GPU/TPU]
         CPU[CPU]
@@ -55,25 +55,28 @@ graph TB
         UI[Web UI]
         CLI[CLI Tool]
     end
-    
+
     GPU --> Engine
     CPU --> Engine
     RAM --> Cache
-    
+
     Models --> Engine
     Weights --> Engine
     Config --> Engine
-    
+
     Engine --> Cache
     Engine --> Batch
-    
+
     Batch --> API
     API --> UI
     API --> CLI
-    
-    style GPU fill:#ff9800
-    style Engine fill:#4caf50
-    style API fill:#2196f3
+
+    classDef orangeNode fill:#ff9800
+    classDef greenNode fill:#4caf50
+    classDef blueNode fill:#2196f3
+    class GPU orangeNode
+    class Engine greenNode
+    class API blueNode
 ```
 
 
@@ -105,20 +108,9 @@ Let's talk hardware. I learned this the hard way when my first attempt crashed s
 
 For reference, here's my current LLM deployment infrastructure:
 
-```yaml
-Primary LLM Server:
-  GPU: NVIDIA RTX 4090 (24GB VRAM)
-  CPU: AMD Ryzen 9 7950X
-  RAM: 64GB DDR5
-  Storage: 2TB NVMe SSD
-  OS: Ubuntu 22.04 LTS
+**Primary LLM Server:** NVIDIA RTX 4090 (24GB VRAM) | AMD Ryzen 9 7950X (16C/32T) | 64GB DDR5-5200 | 2TB NVMe SSD (Gen4) | Ubuntu 22.04 LTS
 
-Secondary Node (CPU Inference):
-  CPU: Intel i9-13900K
-  RAM: 128GB DDR5
-  Storage: 1TB NVMe SSD
-  Purpose: Smaller models and overflow
-```
+**Secondary Node (CPU Inference):** Intel i9-13900K | 128GB DDR5 | 1TB NVMe SSD | Purpose: Smaller models and overflow processing
 
 ## Software Stack
 
@@ -140,16 +132,7 @@ OLLAMA_NUM_GPU=1 ollama serve
 
 #### Python Integration
 
-```python
-import requests
-import json
-
-def query_ollama(prompt, model="llama2:7b"):
-    """Query local Ollama instance"""
-    # ... (additional implementation details)
-result = query_ollama("Explain zero-knowledge proofs in simple terms")
-print(result)
-```
+Query Ollama models via REST API using Python's `requests` library. Send prompts as JSON to `http://localhost:11434/api/generate` with streaming enabled, parsing newline-delimited responses for real-time token generation. The API accepts parameters like `temperature`, `top_p`, and `num_ctx` for controlling inference behavior.
 
 ### 2. LlamaCpp: Maximum Control
 
@@ -192,48 +175,15 @@ python server.py --gpu-memory 22 --cpu-memory 32
 
 ### 1. Network Isolation
 
-Keep your LLM infrastructure isolated:
-
-```yaml
-# Docker Compose for isolated deployment
-version: '3.8'
-services:
-  ollama:
-    image: ollama/ollama:latest
-    # ... (additional implementation details)
-    driver: bridge
-    internal: true  # No external access
-```
+Deploy Ollama in an isolated Docker network with `network_mode: bridge`, internal-only connectivity via `172.18.0.0/16` subnet, resource limits (`mem_limit: 16g`, `cpus: 8`), and persistent volume mounts for models (`/root/.ollama:/models`). Use Docker Compose's `internal: true` network setting to prevent external access while allowing inter-container communication.
 
 ### 2. Access Control
 
-Implement authentication for any exposed endpoints:
-
-```python
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-import secrets
-
-app = FastAPI()
-    # ... (additional implementation details)
-    # Your LLM inference code here
-    pass
-```
+Implement bearer token authentication using FastAPI's `HTTPBearer` security utility with constant-time comparison via Python's `secrets.compare_digest()` to protect LLM endpoints from unauthorized access. Configure a strong API key (32+ bytes) stored in environment variables, and use dependency injection with `Depends()` to validate tokens on each request before allowing inference operations.
 
 ### 3. Input Sanitization
 
-Always sanitize inputs to prevent prompt injection:
-
-```python
-import re
-
-def sanitize_prompt(prompt: str) -> str:
-    """Remove potentially harmful patterns from prompts"""
-    # Remove system prompts attempts
-    # ... (additional implementation details)
-    
-    return prompt.strip()
-```
+Sanitize prompts by removing system prompt injection attempts (e.g., `[INST]`, `<<SYS>>`), escape sequences, and limiting input length (max 4096 tokens) to prevent prompt injection and resource exhaustion attacks. Use regex patterns to detect common injection markers, strip control characters via `re.sub(r'[\x00-\x1F\x7F]', '', prompt)`, and validate UTF-8 encoding before processing.
 
 ## Model Selection Guide
 
@@ -256,35 +206,13 @@ def sanitize_prompt(prompt: str) -> str:
 
 ### Quantization for Efficiency
 
-Reduce model size and memory requirements:
-
-```python
-# Using llama.cpp quantization
-# Original model: 13GB (float16)
-# Quantized versions:
-# - q8_0: 7.16GB (minimal quality loss)
-# - q5_1: 5.66GB (slight quality loss)
-# - q4_0: 4.08GB (noticeable but acceptable loss)
-
-./quantize models/llama-2-7b.gguf models/llama-2-7b-q4_0.gguf q4_0
-```
+Reduce model size and memory requirements using llama.cpp quantization. A typical 13GB float16 model compresses to **q8_0 (7.16GB, minimal quality loss)**, **q5_1 (5.66GB, slight quality loss)**, or **q4_0 (4.08GB, noticeable but acceptable loss)**. Use the `quantize` binary to convert models: `./quantize models/llama-2-7b.gguf models/llama-2-7b-q4_0.gguf q4_0`
 
 ## Monitoring and Optimization
 
 ### Performance Monitoring
 
-Track your LLM deployment metrics:
-
-```python
-import psutil
-import GPUtil
-from prometheus_client import Gauge, start_http_server
-
-# Prometheus metrics
-    # ... (additional implementation details)
-# Start Prometheus metrics server
-start_http_server(8000)
-```
+Expose Prometheus metrics for GPU utilization (`nvidia_smi_utilization_gpu`), memory usage (`nvidia_smi_memory_used_bytes`), and inference latency (`llm_inference_duration_seconds`) using the `prometheus_client` library with custom collectors. Use `GPUtil.getGPUs()` for NVIDIA stats and `psutil` for system metrics, registering gauges via `Gauge()` and serving on port 8000 with `start_http_server()`.
 
 ### Optimization Tips
 
@@ -295,18 +223,7 @@ start_http_server(8000)
 
 ## Real-World Implementation
 
-Here's a complete example of a privacy-first LLM service:
-
-```python
-import asyncio
-from typing import Optional
-import uvicorn
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-    # ... (additional implementation details)
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8080)
-```
+A privacy-first LLM service combines FastAPI for async HTTP endpoints, Pydantic for request validation (fields: `prompt`, `model`, `temperature`, `max_tokens`), and Uvicorn as the ASGI server. Bind to `127.0.0.1:8080` to prevent external access, implement rate limiting via `slowapi` (e.g., 10 requests/minute per IP), and use asyncio task queues to prevent concurrent inference overload on GPU resources.
 
 ## Cost Analysis
 
@@ -342,14 +259,8 @@ python run.py --gpu-memory 20 --cpu-memory 64
 3. Optimize batch sizes: Find the sweet spot for your hardware
 
 ### Model Loading Failures
-```python
-# Clear cache and retry
-import torch
-torch.cuda.empty_cache()
 
-# Check available VRAM
-print(f"Available VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
-```
+Clear GPU memory cache using PyTorch's `torch.cuda.empty_cache()` to free fragmented VRAM before retrying model loads. Verify available GPU memory with `torch.cuda.get_device_properties(0).total_memory` (returns bytes, divide by 1e9 for GB). For persistent issues, restart the Ollama service to completely reset GPU state and deallocate stuck memory allocations.
 
 ## Future Considerations
 
