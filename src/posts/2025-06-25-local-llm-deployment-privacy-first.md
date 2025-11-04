@@ -84,7 +84,7 @@ flowchart TB
 
 Let me be honest about why I really went local:
 
-1. **The privacy panic**: That moment when you realize you've been sharing proprietary code with OpenAI (we've all been there)
+1. **The privacy panic**: That moment when you realize you've been sharing proprietary code with OpenAI (we've all been there). For more on AI privacy risks, see my guide on [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments).
 2. **The monthly bill shock**: $120/month adds up fast when you're using AI daily
 3. **The compliance nightmare**: Try explaining to legal why your sensitive data is processed "somewhere in the cloud"
 4. **The offline need**: Internet went down during a critical project deadline (Murphy's law in action)
@@ -106,7 +106,7 @@ Let's talk hardware. I learned this the hard way when my first attempt crashed s
 
 ### My Homelab Setup
 
-For reference, here's my current LLM deployment infrastructure:
+For reference, here's my current LLM deployment infrastructure. If you're interested in the broader homelab context, check out my [security-focused homelab journey](/posts/2025-04-24-building-secure-homelab-adventure).
 
 **Primary LLM Server:** NVIDIA RTX 4090 (24GB VRAM) | AMD Ryzen 9 7950X (16C/32T) | 64GB DDR5-5200 | 2TB NVMe SSD (Gen4) | Ubuntu 22.04 LTS
 
@@ -175,11 +175,11 @@ python server.py --gpu-memory 22 --cpu-memory 32
 
 ### 1. Network Isolation
 
-Deploy Ollama in an isolated Docker network with `network_mode: bridge`, internal-only connectivity via `172.18.0.0/16` subnet, resource limits (`mem_limit: 16g`, `cpus: 8`), and persistent volume mounts for models (`/root/.ollama:/models`). Use Docker Compose's `internal: true` network setting to prevent external access while allowing inter-container communication.
+Deploy Ollama in an isolated Docker network with `network_mode: bridge`, internal-only connectivity via `172.18.0.0/16` subnet, resource limits (`mem_limit: 16g`, `cpus: 8`), and persistent volume mounts for models (`/root/.ollama:/models`). Use Docker Compose's `internal: true` network setting to prevent external access while allowing inter-container communication. For broader network security context, see my guide on [implementing DNS-over-HTTPS](/posts/2025-07-08-implementing-dns-over-https-home-networks).
 
 ### 2. Access Control
 
-Implement bearer token authentication using FastAPI's `HTTPBearer` security utility with constant-time comparison via Python's `secrets.compare_digest()` to protect LLM endpoints from unauthorized access. Configure a strong API key (32+ bytes) stored in environment variables, and use dependency injection with `Depends()` to validate tokens on each request before allowing inference operations.
+Implement bearer token authentication using FastAPI's `HTTPBearer` security utility with constant-time comparison via Python's `secrets.compare_digest()` to protect LLM endpoints from unauthorized access. Configure a strong API key (32+ bytes) stored in environment variables, and use dependency injection with `Depends()` to validate tokens on each request before allowing inference operations. For password management best practices, consider [self-hosted password managers like Bitwarden](/posts/2025-09-01-self-hosted-bitwarden-migration-guide).
 
 ### 3. Input Sanitization
 
@@ -203,6 +203,8 @@ Sanitize prompts by removing system prompt injection attempts (e.g., `[INST]`, `
    - Pros: Truly open license, good multilingual support
    - Cons: Higher memory requirements
    - Best for: Commercial applications
+
+For a deeper comparison of model licensing and customization, see my post on [open-source vs. proprietary LLMs](/posts/2024-02-22-open-source-vs-proprietary-llms).
 
 ### Quantization for Efficiency
 
@@ -268,7 +270,7 @@ As you scale your local LLM deployment:
 
 1. **Multi-GPU Setup**: Distribute larger models across GPUs
 2. **Model Router**: Automatically select optimal model for each query
-3. **Fine-Tuning Pipeline**: Customize models for your specific needs
+3. **Fine-Tuning Pipeline**: Customize models for your specific needs (see my [LLM fine-tuning guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide))
 4. **Federated Learning**: Train across multiple nodes while preserving privacy
 
 ## So, Should You Take the Plunge?
@@ -290,9 +292,9 @@ But let's be real about the challenges:
 - Model updates are manual
 - No one to blame when things break
 
-My advice? Start small. Grab a used RTX 3060 for $300, install Ollama (literally one command), and try Mistral 7B for a week. Total investment: $300 and an afternoon.
+My advice? Start small. Grab a used RTX 3060 for $300, install Ollama (literally one command), and try Mistral 7B for a week. Total investment: $300 and an afternoon. For hardware optimization tips, check out my post on [GPU power monitoring in homelabs](/posts/2024-11-15-gpu-power-monitoring-homelab-ml).
 
-You'll know within days if this is your path. And if it is? Welcome to the club. Once you experience sub-second responses with complete privacy, you'll wonder why you ever trusted the cloud with your thoughts.
+You'll know within days if this is your path. And if it is? Welcome to the club. Once you experience sub-second responses with complete privacy, you'll wonder why you ever trusted the cloud with your thoughts. For more on privacy-first approaches, explore my guide to [building a privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
 
 ### Your Turn
 

@@ -27,7 +27,7 @@ In September 2024, I analyzed traffic from my Philips Hue bridge. I discovered i
 
 ## The IoT Security Landscape
 
-[OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far. I'm still figuring out which risks are actually exploitable in my homelab versus which are edge cases.
+[OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far. I'm still figuring out which risks are actually exploitable in my homelab versus which are edge cases. If you're new to security fundamentals, my guide to [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide) provides essential background.
 
 [OWASP IoTGoat](https://doi.org/10.1201/9781003054115-11) deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA, **but** with the added complexity of embedded systems.
 
@@ -38,7 +38,7 @@ Before diving into vulnerabilities, let's set up a proper isolated environment. 
 
 ### Network Architecture
 
-Here's my home lab IoT security setup using VLANs and a dedicated analysis subnet. I moved all IoT devices to a separate VLAN (192.168.50.0/24) with firewall rules blocking LAN access. My Nest thermostat immediately stopped working until I allowed specific port 443 traffic to Google servers. The **trade-off**: security versus convenience. You gain isolation **but** lose easy device-to-device communication.
+Here's my home lab IoT security setup using VLANs and a dedicated analysis subnet. I moved all IoT devices to a separate VLAN (192.168.50.0/24) with firewall rules blocking LAN access. My Nest thermostat immediately stopped working until I allowed specific port 443 traffic to Google servers. The **trade-off**: security versus convenience. You gain isolation **but** lose easy device-to-device communication. For a comprehensive approach to this architecture, see my guide on [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure).
 
 ```mermaid
 flowchart TD
@@ -55,7 +55,7 @@ flowchart TD
 
 ### Essential Tools Setup
 
-Based on [security research by Allodi & Campobasso (2023)](https://doi.org/10.1007/978-3-031-25460-4_14) these tools catch 90% of common IoT vulnerabilities. The complete lab setup script includes tool installation, IoTGoat deployment, and firmware analysis commands:
+Based on [security research by Allodi & Campobasso (2023)](https://doi.org/10.1007/978-3-031-25460-4_14) these tools catch 90% of common IoT vulnerabilities. For additional automation approaches, check out my post on [automating home network security with Python](/posts/2025-02-10-automating-home-network-security). The complete lab setup script includes tool installation, IoTGoat deployment, and firmware analysis commands:
 
 <script src="https://gist.github.com/williamzujkowski/680213bdd6d4a52ef369d1f2801cb9b4.js"></script>
 
@@ -107,7 +107,7 @@ After exploring these vulnerabilities, here's how to protect your actual IoT dev
 
 ### 1. Network Segmentation
 
-VLAN isolation improves security **but** breaks device interoperability. Smart home devices often expect to discover each other via mDNS. Segmentation blocks this. You might be forced to choose between security and features like "Hey Google, turn on the bedroom lights." Cross-VLAN communication is possible with firewall rules, but it requires careful configuration.
+VLAN isolation improves security **but** breaks device interoperability. Smart home devices often expect to discover each other via mDNS. Segmentation blocks this. You might be forced to choose between security and features like "Hey Google, turn on the bedroom lights." Cross-VLAN communication is possible with firewall rules, but it requires careful configuration. For a deep dive into VLAN-based security, see my guide on [implementing zero trust microsegmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab).
 
 Implement strict VLAN isolation:
 
@@ -123,7 +123,7 @@ pass in on $IOT_IF proto tcp from $IOT_NET to any port {80, 443, 8883}
 
 ### 2. DNS Filtering and Power Consumption
 
-Use Pi-hole or AdGuard to block suspicious IoT communications. Rate limiting reduces data leakage **but** may break legitimate functionality. You'll need to test each device.
+Use Pi-hole or AdGuard to block suspicious IoT communications. Rate limiting reduces data leakage **but** may break legitimate functionality. You'll need to test each device. For enhanced privacy, consider [implementing DNS-over-HTTPS](/posts/2025-07-08-implementing-dns-over-https-home-networks) for encrypted DNS queries.
 
 I measured IoT device power with a Kill-A-Watt meter. Total draw: 127W continuous. That's roughly $134/year at $0.12/kWh. Smart plugs alone used 18W (doing nothing). I've since disabled "always-on" features. Always-on features are convenient **however** waste significant power:
 
@@ -178,7 +178,7 @@ The **trade-off** between usability and security is constant in IoT. Manufacture
 
 ## Building Your Detection System
 
-Here's a practical monitoring setup I use in my home lab for real-time packet analysis and anomaly detection:
+Here's a practical monitoring setup I use in my home lab for real-time packet analysis and anomaly detection. This complements the network traffic analysis techniques I cover in my [Suricata lab guide](/posts/2025-08-25-network-traffic-analysis-suricata-homelab):
 
 <script src="https://gist.github.com/williamzujkowski/369cedae8893df3807bc6fb66870c8e8.js"></script>
 
@@ -200,7 +200,7 @@ Ready to dive deeper? Here's your roadmap:
 
 1. **Set up IoTGoat** in an isolated environment. Start simple. I spent 4 hours troubleshooting Docker networking before realizing I needed bridge mode.
 2. **Practice the OWASP IoT Top 10** vulnerabilities. Theory is nice **but** hands-on experience teaches you what actually matters.
-3. **Analyze your own IoT devices** (legally and ethically). You'll probably be horrified by what you find.
+3. **Analyze your own IoT devices** (legally and ethically). You'll probably be horrified by what you find. Consider [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects) for affordable testing platforms.
 4. **Implement network segmentation** if you haven't already. It's tedious **but** worth the effort.
 5. **Build automated monitoring** for your IoT network. You can't secure what you can't see.
 
