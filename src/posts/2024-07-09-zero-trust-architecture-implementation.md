@@ -28,7 +28,7 @@ By June 2024, I had created distinct VLANs for management (192.168.1.0/24), serv
 ## How It Works
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph perimeter["Perimeter"]
         FW[Firewall]
         WAF[WAF]
@@ -43,16 +43,18 @@ graph TD
         AV[Antivirus]
         DLP[DLP]
     end
-    
+
     Internet --> FW
     FW --> WAF
     WAF --> IDS
     IDS --> VLAN
     VLAN --> NAC
     NAC --> EDR
-    
-    style FW fill:#2196f3
-    style EDR fill:#4caf50
+
+    classDef blueNode fill:#2196f3
+    classDef greenNode fill:#4caf50
+    class FW blueNode
+    class EDR greenNode
 ```
 
 ## The Perimeter Security Illusion
@@ -100,7 +102,7 @@ Security controls shifted from perimeter defense to continuous monitoring, rapid
 
 ### Phase 1: Identity Foundation
 
-Zero Trust starts with knowing who and what is trying to access your systems. At least that's the theory. In practice, I found identity management to be the hardest part of my homelab Zero Trust implementation.
+Zero Trust starts with knowing who and what is trying to access your systems. At least that's the theory. In practice, I found identity management to be the hardest part of my homelab Zero Trust implementation. If you're starting from scratch, my comprehensive guide to building a [security-focused homelab with zero trust](/posts/2025-04-24-building-secure-homelab-adventure) principles provides essential foundation and planning considerations.
 
 **Identity Provider Consolidation:**
 I migrated to self-hosted Bitwarden 2024.6.2 as my password manager and authentication source. The migration took me three attempts because I initially configured the wrong database connection string and locked myself out. As of September 2024, I have 247 unique credentials stored with MFA enabled on 89% of them.
@@ -183,7 +185,7 @@ I conduct monthly access reviews, though I'll admit this is probably overkill fo
 ### Phase 2: Network Segmentation
 
 **Micro-Segmentation:**
-In my homelab implementation, I created 127 firewall rules between the 8 VLANs. The IoT VLAN (192.168.20.0/24) could only communicate with the DNS server on port 53 and nothing else. I learned the hard way that I needed to allow DHCP (ports 67/68) when I accidentally blocked it and spent 2 hours debugging why my smart lights stopped working.
+In my homelab implementation, I created 127 firewall rules between the 8 VLANs. The IoT VLAN (192.168.20.0/24) could only communicate with the DNS server on port 53 and nothing else. I learned the hard way that I needed to allow DHCP (ports 67/68) when I accidentally blocked it and spent 2 hours debugging why my smart lights stopped working. For a deep dive into practical network isolation techniques, see my guide on [implementing zero trust microsegmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) with VLANs.
 
 **Failure Story #3: The Overly Restrictive Default-Deny Catastrophe**
 

@@ -26,9 +26,9 @@ images:
 ![Network monitoring visualization with glowing connections](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
 *Photo by Alina Grubnyak on Unsplash*
 
-Last year, I noticed unusual DNS queries from my homelab network—hundreds of requests to obscure domains at 3 AM. Without network monitoring, I would never have caught the IoT device beacon ing home to its manufacturer with telemetry data I didn't authorize.
+Last year, I noticed unusual DNS queries from my homelab network—hundreds of requests to obscure domains at 3 AM. Without network monitoring, I would never have caught the IoT device beaconing home to its manufacturer with telemetry data I didn't authorize.
 
-That incident convinced me: you can't protect what you can't see.
+That incident convinced me: you can't protect what you can't see. If you're [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure), network traffic analysis with Suricata should be a core component of your monitoring strategy.
 
 ## Network Traffic Analysis Architecture
 
@@ -131,6 +131,8 @@ action protocol source_ip source_port -> dest_ip dest_port (rule options)
 ```
 
 ### Custom Detection Rules
+
+One particularly valuable use case is detecting suspicious IoT device behavior. After working through [lessons from OWASP IoTGoat on IoT security](/posts/2025-09-20-iot-security-homelab-owasp), I developed custom rules to catch the most common IoT attack patterns:
 
 <script src="https://gist.github.com/williamzujkowski/fdd48db6a837ca02c00c79f7c4fd6cde.js"></script>
 

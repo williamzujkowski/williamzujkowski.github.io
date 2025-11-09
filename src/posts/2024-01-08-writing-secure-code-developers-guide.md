@@ -26,7 +26,7 @@ That incident happened early in my career, and I still remember the quiet panic 
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -42,15 +42,18 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef greenNode fill:#4caf50
+    classDef orangeNode fill:#ff9800
+    classDef redNode fill:#f44336
+    class D1 greenNode
+    class D2 orangeNode
+    class D3 redNode
 ```
 
 ## The Real Cost of Insecure Code: Why It Matters
@@ -85,7 +88,7 @@ I now keep a mental checklist: Is this input from a trusted source? Have I valid
 
 ## Output Encoding: Preventing Cross-Site Scripting (XSS)
 
-Even if your application has good intentions, user input might not. Encoding user-provided text before sending it to the browser ensures that script tags stay as harmless text, never executed code.
+Even if your application has good intentions, user input might not. Encoding user-provided text before sending it to the browser ensures that script tags stay as harmless text, never executed code. Understanding proper [cryptography fundamentals for developers](/posts/2024-01-18-demystifying-cryptography-beginners-guide) provides essential context for implementing these security measures correctly.
 
 Years ago, I built a comment system for a blog without proper encoding. Everything worked fine in testing until a user posted a comment with embedded JavaScript. Suddenly, every visitor to that page was redirected to a phishing site. The fix was simple (proper HTML encoding), **but** the damage to user trust took much longer to repair.
 
@@ -93,7 +96,7 @@ Code review improves quality, **but** requires time and coordination. I reviewed
 
 ## Secure Handling of Sensitive Data: Protecting What Matters
 
-I never want to see passwords stored in plain text again. In my early days, I inherited a system where user passwords were stored as readable text in the database "for easier troubleshooting." The horror of that realization still motivates my security practices today.
+I never want to see passwords stored in plain text again. In my early days, I inherited a system where user passwords were stored as readable text in the database "for easier troubleshooting." The horror of that realization still motivates my security practices today. For container-based applications, implementing [container security hardening practices](/posts/2025-08-18-container-security-hardening-homelab) adds another critical layer of protection for sensitive data.
 
 In my homelab authentication service, I benchmarked bcrypt (with cost factor 12) against SHA-256 for password hashing. Bcrypt took 150ms per hash vs 2ms for SHA-256 - a 75x performance penalty. That slowdown is the point: it makes brute-force attacks computationally expensive. The **trade-off** between authentication speed and security is worth it when credential stuffing attacks can test 1,000 passwords per second against weak hashes.
 

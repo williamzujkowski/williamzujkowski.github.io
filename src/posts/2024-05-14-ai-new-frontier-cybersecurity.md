@@ -29,7 +29,7 @@ That moment crystallized both the immense promise and the frustrating reality of
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
@@ -45,7 +45,7 @@ graph LR
         Monitor[Monitoring]
         Update[Updates]
     end
-    
+
     Raw --> Clean
     Clean --> Feature
     Feature --> Train
@@ -54,9 +54,11 @@ graph LR
     Test --> Deploy
     Deploy --> Monitor
     Monitor -->|Feedback| Train
-    
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
+
+    classDef purpleNode fill:#9c27b0
+    classDef greenNode fill:#4caf50
+    class Train purpleNode
+    class Deploy greenNode
 ```
 
 ## The Double-Edged Nature of AI in Security
@@ -101,13 +103,13 @@ In July 2024, I integrated threat intelligence feeds (MISP, AlienVault OTX, and 
 
 ### Automated Response and Mitigation
 
-Automated response is where AI gets both powerful and potentially dangerous. I've been testing this capability carefully since April 2024:
+Automated response is where AI gets both powerful and potentially dangerous. I've been testing this capability carefully since April 2024, drawing on lessons from [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments) in my homelab environment:
 
 **Instant Containment:** I configured Wazuh to automatically block IPs after detecting brute force attempts. In one October 2024 test, a simulated SSH attack triggered isolation within 3.7 seconds. That's impressive. But I also accidentally locked myself out of my own server twice when the system misidentified my legitimate authentication failures. Automated response needs careful tuning, or you'll DDoS yourself.
 
 **Dynamic Defense Adaptation:** In theory, AI can adjust firewall rules and access controls in real-time. In practice, I'm cautious here. I tested this in a sandboxed environment in June 2024, and it worked well for simple scenarios. But giving AI autonomous control over your network perimeter feels risky. I use it in "recommend mode" where it suggests changes I manually approve. Maybe I'm paranoid.
 
-**Forensic Automation:** This is genuinely useful. When an incident occurs, the AI automatically captures memory dumps, network pcaps, and system state within seconds. In my September 2024 malware simulation, it collected 2.4GB of forensic data before I even saw the alert. Manual collection would have taken me at least 15-20 minutes, by which time evidence might be lost.
+**Forensic Automation:** This is genuinely useful. When an incident occurs, the AI automatically captures memory dumps, network pcaps, and system state within seconds. In my September 2024 malware simulation, it collected 2.4GB of forensic data before I even saw the alert. Manual collection would have taken me at least 15-20 minutes, by which time evidence might be lost. For more advanced applications of AI in defensive security, my work with [LLM agents for incident response](/posts/2025-01-22-llm-agent-homelab-incident-response) demonstrates AI's potential for rapid threat analysis and automated remediation.
 
 **Recovery Orchestration:** I haven't fully tested this yet (deliberately breaking production systems seems unwise). The capability exists to coordinate rollbacks, restores, and system recovery. But trusting AI to recover critical systems without human oversight? That's probably a few years away for me.
 
@@ -187,7 +189,7 @@ The fundamental tension here is unavoidable. Effective security monitoring argua
 
 **Employee Monitoring:** AI systems that detect insider threats must monitor user behavior in significant detail. In my homelab, this means my Wazuh deployment logs every command I execute, every file I access, every network connection I make. It's comprehensive surveillance, even if I'm monitoring myself. In an organizational context, this raises serious privacy concerns. Where's the line between security and invasive monitoring?
 
-**Data Collection:** My AI security system collects roughly 2.3GB of security logs daily, including DNS queries, HTTP headers, authentication attempts, and process executions. That's a complete digital footprint. I'm comfortable with this in my homelab, but imagine this in a workplace. Every website visit, every typo in a command, every late-night work session, all logged and analyzed by AI. The security value is clear, but the privacy implications are troubling.
+**Data Collection:** My AI security system collects roughly 2.3GB of security logs daily, including DNS queries, HTTP headers, authentication attempts, and process executions. That's a complete digital footprint. I'm comfortable with this in my homelab, but imagine this in a workplace. Every website visit, every typo in a command, every late-night work session, all logged and analyzed by AI. The security value is clear, but the privacy implications are troubling. This is why I emphasize the importance of [privacy-first AI lab setup](/posts/2025-10-29-privacy-first-ai-lab-local-llms) when building AI-powered security infrastructure.
 
 **Behavioral Analysis:** To detect anomalies, AI must first understand normal behavior. That means the system learns when you typically work, what applications you use, how you interact with systems. It builds a detailed behavioral profile. In June 2024, my system accurately predicted my work patterns with roughly 89% accuracy. That's useful for anomaly detection but deeply invasive from a privacy perspective.
 

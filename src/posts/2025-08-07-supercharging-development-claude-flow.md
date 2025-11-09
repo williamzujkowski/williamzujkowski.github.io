@@ -37,10 +37,12 @@ After integrating Claude-Flow into my development workflow, I've seen firsthand 
 
 Claude-Flow is an AI orchestration framework that brings swarm intelligence to software development. Think of it as having an entire development team at your fingertips – but instead of human developers, you're coordinating specialized AI agents that work together seamlessly.
 
+If you're interested in [building an MCP standards server](/posts/2025-07-29-building-mcp-standards-server) to enhance Claude's capabilities or [supercharging Claude CLI](/posts/2025-07-22-supercharging-claude-cli-with-standards) with custom standards, Claude-Flow provides the orchestration layer to make these tools work together seamlessly.
+
 At its core, Claude-Flow provides:
 
 - **Multi-agent orchestration** with 54+ specialized agents
-- **Parallel execution** for 2.8-4.4x speed improvements  
+- **Parallel execution** for 2.8-4.4x speed improvements
 - **Neural training** for learning from your codebase
 - **Memory persistence** across sessions
 - **GitHub integration** for automated workflows
@@ -57,7 +59,7 @@ Claude-Flow supports multiple swarm topologies, each optimized for different sce
 ## System Architecture Overview
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph swarmtopologies["Swarm Topologies"]
         Mesh[Mesh - P2P Collaboration]
         Hier[Hierarchical - Queen/Worker]
@@ -76,25 +78,28 @@ graph TB
         Neural[🧠 Neural Training]
         Pattern[🔄 Pattern Recognition]
     end
-    
+
     Mesh --> Orch
     Hier --> Orch
     Ring --> Orch
     Star --> Orch
-    
+
     Orch --> Research
     Orch --> Arch
     Orch --> Coder
     Orch --> Tester
-    
+
     Research --> Memory
     Arch --> Pattern
     Coder --> Neural
     Tester --> Memory
-    
-    style Orch fill:#9c27b0,stroke:#fff,stroke-width:2px,color:#fff
-    style Memory fill:#ffd54f,stroke:#333,stroke-width:2px
-    style Neural fill:#4caf50,stroke:#fff,stroke-width:2px,color:#fff
+
+    classDef purpleNode fill:#9c27b0,stroke:#fff,stroke-width:2px,color:#fff
+    classDef yellowNode fill:#ffd54f,stroke:#333,stroke-width:2px
+    classDef greenNode fill:#4caf50,stroke:#fff,stroke-width:2px,color:#fff
+    class Orch purpleNode
+    class Memory yellowNode
+    class Neural greenNode
 ```
 
 **Swarm Initialization & Agent Spawning Examples:**
@@ -130,7 +135,7 @@ Claude-Flow provides advanced features for learning patterns, preserving context
 
 When I first started using the neural training features, I was skeptical about how much value it would add. After training the model on my authentication patterns, though, I saw it consistently suggest the same secure approaches I had manually implemented – it effectively learned my coding style and security preferences.
 
-I've found the cross-session memory feature invaluable when working across multiple days – being able to pick up exactly where I left off, with all context intact, has saved me countless hours of re-familiarization.
+I've found the cross-session memory feature invaluable when working across multiple days – being able to pick up exactly where I left off, with all context intact, has saved me countless hours of re-familiarization. This pairs well with [progressive context loading techniques](/posts/2025-10-17-progressive-context-loading-llm-workflows) to manage large codebases efficiently.
 
 
 
@@ -142,18 +147,23 @@ flowchart LR
     P --> A[🏛️ Architecture]
     A --> R[🔧 Refinement]
     R --> C[✅ Completion]
-    
+
     S -.-> M1[Define Requirements]
     P -.-> M2[Design Algorithms]
     A -.-> M3[System Structure]
     R -.-> M4[TDD & Iteration]
     C -.-> M5[Integration & Deploy]
-    
-    style S fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    style P fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style A fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style R fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style C fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+
+    classDef blueNode fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef purpleNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef orangeNode fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef greenNode fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef redNode fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    class S blueNode
+    class P purpleNode
+    class A orangeNode
+    class R greenNode
+    class C redNode
 ```
 
 ## Practical Use Cases

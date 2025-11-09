@@ -31,7 +31,7 @@ This is a case study in scope creep, premature optimization, and what happens wh
 
 Remember last week when I was all excited about my standards repository? Well, I made the classic developer mistake: "You know what would make this better? If I rebuilt it from scratch with a completely different architecture!"
 
-Enter the [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp) – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP?
+Enter the [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp) – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP? This server became a key component of my broader workflow when [supercharging development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow), enabling dynamic standards integration across multiple projects.
 
 Three weeks and several rewrites later, I have [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server). It works! Mostly. When Redis is happy. And the moon is in the right phase.
 
@@ -144,7 +144,7 @@ mcp-standards validate src/ --language auto
 
 ### Token Optimization That Actually Matters
 
-Compressed formats reduce LLM token costs by 70-90%:
+Compressed formats reduce LLM token costs by 70-90%. This optimization strategy builds on the principles I discuss in my guide to [progressive context loading for LLM workflows](/posts/2025-10-17-progressive-context-loading-llm-workflows), where efficient token management becomes critical for complex projects:
 
 ```python
 # Full standard: 5000 tokens
@@ -349,7 +349,7 @@ The honest status:
 
 ## Try It Yourself (At Your Own Risk)
 
-If you're brave enough:
+If you're brave enough to try this server, you might also want to explore my simpler (and arguably more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB:
 
 ```bash
 # The optimistic quick start
