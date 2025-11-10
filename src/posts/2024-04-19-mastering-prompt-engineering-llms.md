@@ -1,6 +1,6 @@
 ---
 date: 2024-04-19
-description: Effective prompt engineering techniques for LLMs—few-shot learning, chain-of-thought, system prompts, and strategies for reliable outputs
+description: "Effective prompt engineering techniques for LLMs: few-shot learning, chain-of-thought, system prompts, and strategies for reliable outputs"
 images:
   hero:
     alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Hero Image'
@@ -27,7 +27,7 @@ My homelab became my testing ground. I ran Llama 3.1 70B on my Dell R940, burnin
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
@@ -43,7 +43,7 @@ graph LR
         Monitor[Monitoring]
         Update[Updates]
     end
-    
+
     Raw --> Clean
     Clean --> Feature
     Feature --> Train
@@ -52,9 +52,11 @@ graph LR
     Test --> Deploy
     Deploy --> Monitor
     Monitor -->|Feedback| Train
-    
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
+
+    classDef trainStyle fill:#9c27b0
+    classDef deployStyle fill:#4caf50
+    class Train trainStyle
+    class Deploy deployStyle
 ```
 
 ## The Awakening: When Words Become Programming

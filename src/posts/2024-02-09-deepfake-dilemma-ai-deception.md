@@ -27,7 +27,7 @@ Fast forward to January 2024, when I decided to test this problem in my own home
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
@@ -43,7 +43,7 @@ graph LR
         Monitor[Monitoring]
         Update[Updates]
     end
-    
+
     Raw --> Clean
     Clean --> Feature
     Feature --> Train
@@ -52,9 +52,11 @@ graph LR
     Test --> Deploy
     Deploy --> Monitor
     Monitor -->|Feedback| Train
-    
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
+
+    classDef trainStyle fill:#9c27b0
+    classDef deployStyle fill:#4caf50
+    class Train trainStyle
+    class Deploy deployStyle
 ```
 
 ## The Technology That Shattered Trust

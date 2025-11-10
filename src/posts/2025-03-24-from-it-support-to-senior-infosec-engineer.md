@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-03-24
-description: The winding path from fixing printers to securing federal systems over 10 years—lessons learned, mistakes made, and advice for aspiring security professionals
+description: The winding path from fixing printers to securing federal systems over 10 years. Lessons learned, mistakes made, and advice for aspiring security professionals
 images:
   hero:
     alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Hero Image'
@@ -30,7 +30,7 @@ My toolkit? A USB drive full of antivirus tools, a patient smile, and an endless
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -46,15 +46,18 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef preventionStyle fill:#4caf50
+    classDef detectionStyle fill:#ff9800
+    classDef responseStyle fill:#f44336
+    class D1 preventionStyle
+    class D2 detectionStyle
+    class D3 responseStyle
 ```
 
 ## The Accidental Security Engineer

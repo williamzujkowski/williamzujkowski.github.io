@@ -1,6 +1,6 @@
 ---
 date: 2024-01-18
-description: Breaking down cryptography fundamentals—symmetric/asymmetric encryption, hashing, digital signatures—with practical examples and implementation guidance
+description: "Breaking down cryptography fundamentals: symmetric/asymmetric encryption, hashing, digital signatures, with practical examples and implementation guidance"
 images:
   hero:
     alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures - Hero Image'

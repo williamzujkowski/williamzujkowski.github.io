@@ -1,6 +1,6 @@
 ---
 date: 2025-03-10
-description: From network monitoring to physical security—practical Raspberry Pi security projects like Pi-hole, VPN gateway, and honeypots without breaking the bank
+description: From network monitoring to physical security, practical Raspberry Pi security projects like Pi-hole, VPN gateway, and honeypots without breaking the bank
 images:
   hero:
     alt: Raspberry Pi Security Projects That Actually Solve Problems - Hero Image

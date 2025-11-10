@@ -23,7 +23,7 @@ images:
 
 I spent six months believing my homelab AI setup was perfectly private. The RTX 3090 hummed away in my server rack running Llama models locally, no cloud API calls, no data leaving my network. Or so I thought.
 
-Then I ran Wireshark while Ollama was generating responses. My "private" LLM was making network connections I never authorized—reaching out to every device on my home network. Port 11434 was listening on 0.0.0.0, accessible to my IoT VLAN, my main network, everything. My supposedly isolated AI workload was broadcasting its existence to every device behind my firewall.
+Then I ran Wireshark while Ollama was generating responses. My "private" LLM was making network connections I never authorized. It was reaching out to every device on my home network. Port 11434 was listening on 0.0.0.0, accessible to my IoT VLAN, my main network, everything. My supposedly isolated AI workload was broadcasting its existence to every device behind my firewall.
 
 Turns out, I'd built privacy theater, not actual privacy.
 
@@ -31,7 +31,7 @@ Turns out, I'd built privacy theater, not actual privacy.
 
 Here's what running a 70B parameter model on my RTX 3090 actually involves: 80GB of VRAM maxed out, inference times around 2-3 seconds per token, and enough heat to warm my office in winter. The hardware is impressive. The GPU does exactly what I tell it to, nothing leaves the card without my permission.
 
-But privacy isn't just about where the compute happens. It's about the entire stack: network behavior, telemetry, data persistence, memory isolation, and threat modeling. I learned this the hard way when I discovered Ollama was listening on 0.0.0.0:11434 by default—accessible to every device on my home network, including the IoT VLAN with its collection of questionable smart cameras. Security researchers found [1,139 vulnerable Ollama instances exposed on the internet](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama), and while mine wasn't one of them (homelab behind NAT), the default configuration made me realize how easy it would be to accidentally expose if I ever set up remote access.
+But privacy isn't just about where the compute happens. It's about the entire stack: network behavior, telemetry, data persistence, memory isolation, and threat modeling. I learned this the hard way when I discovered Ollama was listening on 0.0.0.0:11434 by default, accessible to every device on my home network, including the IoT VLAN with its collection of questionable smart cameras. Security researchers found [1,139 vulnerable Ollama instances exposed on the internet](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama), and while mine wasn't one of them (homelab behind NAT), the default configuration made me realize how easy it would be to accidentally expose if I ever set up remote access.
 
 ### My Three-Layer Threat Model
 
@@ -53,7 +53,7 @@ After digging into recent security research, I found that "local" AI faces way m
 
 The most concerning finding came from academic research on [prompt injection attacks achieving 89.6% success rates](https://arxiv.org/abs/2408.03561) using roleplay-based techniques. These aren't theoretical attacks, they work on production models. An attacker can craft prompts that extract information about the model's training data, reveal system prompts, or even exfiltrate sensitive context you've provided.
 
-I tested this on my own Ollama instance with a basic "jailbreak" prompt. It worked. The model happily explained how to bypass its own safety guidelines. If an adversary got access to my LLM API (which was listening on all network interfaces by default—including my IoT VLAN), they could extract far more than I was comfortable with. This experience reinforced lessons I learned while [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments) – never assume "local" automatically means "secure."
+I tested this on my own Ollama instance with a basic "jailbreak" prompt. It worked. The model happily explained how to bypass its own safety guidelines. If an adversary got access to my LLM API (which was listening on all network interfaces by default, including my IoT VLAN), they could extract far more than I was comfortable with. This experience reinforced lessons I learned while [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments) – never assume "local" automatically means "secure."
 
 ### Membership Inference and PII Leakage
 
@@ -325,7 +325,7 @@ The fix was binding Ollama to localhost only and implementing strict firewall ru
 
 The biggest mistake was assuming that running models on-premise automatically made them secure. It doesn't. Privacy requires architecture, monitoring, and constant vigilance.
 
-I spent $2,400 on the RTX 3090 specifically for "private AI," then configured it to be accessible to every device on my home network with default configs. My IoT VLAN—with its cheap cameras and smart bulbs—could reach my LLM API. That's embarrassing in hindsight.
+I spent $2,400 on the RTX 3090 specifically for "private AI," then configured it to be accessible to every device on my home network with default configs. My IoT VLAN, with its cheap cameras and smart bulbs, could reach my LLM API. That's embarrassing in hindsight.
 
 ## What I'd Do Differently Starting Over
 

@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-10-06
-description: Building automated security scanning pipelines with Grype, OSV, and Trivy—CI/CD integration, vulnerability tracking, and actionable reporting
+description: Building automated security scanning pipelines with Grype, OSV, and Trivy. CI/CD integration, vulnerability tracking, and actionable reporting
 tags:
 - security
 - cicd

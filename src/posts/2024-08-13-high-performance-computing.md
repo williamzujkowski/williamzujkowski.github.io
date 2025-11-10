@@ -1,6 +1,6 @@
 ---
 date: 2024-04-07
-description: High-performance computing brings supercomputer capabilities to research and industry—parallel processing, distributed systems, and optimization strategies
+description: High-performance computing brings supercomputer capabilities to research and industry. Parallel processing, distributed systems, and optimization strategies
 images:
   hero:
     alt: 'The Evolution of High-Performance Computing: Key Trends and Innovations - Hero Image'

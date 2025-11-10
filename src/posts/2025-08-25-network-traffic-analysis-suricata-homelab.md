@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-08-25
-description: Setting up Suricata IDS/IPS on homelab for real-time network threat detection—rule management, performance tuning, and integrating with security stack
+description: Setting up Suricata IDS/IPS on homelab for real-time network threat detection. Rule management, performance tuning, and integrating with security stack
 tags:
 - security
 - networking
@@ -26,7 +26,7 @@ images:
 ![Network monitoring visualization with glowing connections](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
 *Photo by Alina Grubnyak on Unsplash*
 
-Last year, I noticed unusual DNS queries from my homelab network—hundreds of requests to obscure domains at 3 AM. Without network monitoring, I would never have caught the IoT device beaconing home to its manufacturer with telemetry data I didn't authorize.
+Last year, I noticed unusual DNS queries from my homelab network. Hundreds of requests to obscure domains at 3 AM. Without network monitoring, I would never have caught the IoT device beaconing home to its manufacturer with telemetry data I didn't authorize.
 
 That incident convinced me: you can't protect what you can't see. If you're [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure), network traffic analysis with Suricata should be a core component of your monitoring strategy.
 
@@ -219,10 +219,10 @@ Regularly test that your rules actually fire. A rule that never alerts might be 
 
 ## Conclusion
 
-Network traffic analysis with Suricata transformed my homelab from an opaque network into a monitored, understood environment. The visibility gained from IDS/IPS isn't just about catching threats—it's about understanding normal behavior so you can spot anomalies.
+Network traffic analysis with Suricata transformed my homelab from an opaque network into a monitored, understood environment. The visibility gained from IDS/IPS isn't just about catching threats. It's about understanding normal behavior so you can spot anomalies.
 
 Start with basic installation, enable Emerging Threats rules, and gradually add custom detections for your specific environment. The investment in proper monitoring pays dividends the first time you catch an incident before it escalates.
 
 ---
 
-*Running Suricata in your environment? What detection rules have proven most valuable? Share your custom rules and detection strategies—let's build better defenses together!*
+*Running Suricata in your environment? What detection rules have proven most valuable? Share your custom rules and detection strategies. Let's build better defenses together!*

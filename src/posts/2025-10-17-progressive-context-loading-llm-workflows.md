@@ -1,7 +1,7 @@
 ---
 title: 'From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows'
 date: 2025-10-17
-description: Progressive skill loading achieves 98% token reduction in LLM workflows through modular context architecture—lessons from building production systems
+description: Progressive skill loading achieves 98% token reduction in LLM workflows through modular context architecture. Lessons from building production systems
 tags:
 - ai
 - llm
@@ -42,7 +42,7 @@ Traditional LLM workflows suffer from "context obesity": stuffing every possible
 - **Result**: 95% of your context is computational waste, though I'm still experimenting with optimal ratios
 
 ```mermaid
-graph TD
+flowchart TD
     A[Context Loading Strategy] --> B[Monolithic Load]
     A --> C[Progressive Load]
 
@@ -55,8 +55,10 @@ graph TD
     E --> H[99% unused context]
     G --> I[98% accuracy in prediction]
 
-    style E fill:#ff6b6b
-    style G fill:#51cf66
+    classDef monolithicStyle fill:#ff6b6b
+    classDef progressiveStyle fill:#51cf66
+    class E monolithicStyle
+    class G progressiveStyle
 ```
 
 **My homelab challenge**:
@@ -167,7 +169,7 @@ Inspired by [semantic retention mechanisms](https://arxiv.org/abs/2505.07289): p
 Task flow:
 
 ```mermaid
-graph LR
+flowchart LR
     A[Task Arrives] --> B{Parse File Types}
     B --> C[Query Product Matrix]
     C --> D{Determine Skills}
@@ -179,9 +181,12 @@ graph LR
     I --> F
     H -->|No| J[Request Clarification]
 
-    style E fill:#51cf66
-    style I fill:#ffd93d
-    style J fill:#6bcfff
+    classDef primaryStyle fill:#51cf66
+    classDef dependencyStyle fill:#ffd93d
+    classDef clarificationStyle fill:#6bcfff
+    class E primaryStyle
+    class I dependencyStyle
+    class J clarificationStyle
 ```
 
 **Performance** (measured in my homelab):
@@ -350,7 +355,7 @@ Use embeddings to auto-discover skill relationships. Loading `python/type-safety
 **Future vision**:
 
 ```mermaid
-graph TD
+flowchart TD
     A[Task: Validate Python File] --> B{Learned Router}
     B -->|98% confidence| C[Core Skills 1.8K]
     B -->|85% confidence| D[Extended Skills +2.1K]
@@ -372,8 +377,10 @@ graph TD
     M --> N[Generate Custom Skill]
     N --> I
 
-    style G fill:#51cf66
-    style N fill:#ffd93d
+    classDef compressedStyle fill:#51cf66
+    classDef customStyle fill:#ffd93d
+    class G compressedStyle
+    class N customStyle
 ```
 
 Target: 99.5%+ token reduction while handling novel tasks without manual skill authoring.

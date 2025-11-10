@@ -1,10 +1,11 @@
 ---
 STATUS: AUTHORITATIVE
-VERSION: 4.0.2
-LAST_AUDIT: 2025-11-03
+VERSION: 4.0.3
+LAST_AUDIT: 2025-11-10
 COMPLIANCE: 100%
 ARCHITECTURE: MODULAR
 TOKEN_EFFICIENCY: 84.9%
+WRITING_STYLE: Polite Linus Torvalds
 ---
 
 # Claude Code Configuration - SPARC Development Environment
@@ -114,8 +115,8 @@ Use this table to determine which modules to load for common tasks:
 
 | Task | Load These Modules | Priority | Token Cost |
 |------|-------------------|----------|------------|
-| **Create blog post** | `core/enforcement` + `core/nda-compliance` + `workflows/blog-writing` + `standards/humanization-standards` | HIGH | ~8K |
-| **Transform existing post** | `core/enforcement` + `workflows/blog-transformation` + `standards/humanization-standards` | HIGH | ~6K |
+| **Create blog post** | `core/enforcement` + `core/nda-compliance` + `workflows/blog-writing` + `standards/writing-style` | HIGH | ~11K |
+| **Transform existing post** | `core/enforcement` + `workflows/blog-transformation` + `standards/writing-style` | HIGH | ~10K |
 | **Refactor post quality** | `core/enforcement` + `standards/code-block-quality` + `workflows/blog-transformation` | HIGH | ~6K |
 | **Validate content** | `core/enforcement` + `standards/humanization-standards` + `standards/citation-requirements` | HIGH | ~5K |
 | **Manage images** | `standards/image-standards` + `technical/image-automation` | MEDIUM | ~3K |
@@ -316,7 +317,31 @@ Bash("npm test")
 
 **Full guidelines:** `docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md`
 
-### 4.5: Documentation Hierarchy
+### 4.5: Writing Style and Tone
+
+**This repository enforces "Polite Linus Torvalds" style for all technical writing.**
+
+**Core characteristics:**
+- Technical precision without explanation bloat
+- Direct, casual-professional tone (engineer-to-engineer)
+- Active voice, short sentences (avg <20 words)
+- Zero tolerance for fluff and decorative punctuation
+- Results-oriented language ("Show me the code")
+
+**Prohibited patterns:**
+- ❌ Semicolons for sophistication
+- ❌ Em-dashes for dramatic pauses
+- ❌ Symmetrical sentence patterns (Smart Brevity disease)
+- ❌ Rhetorical questions and setup-punchline structures
+- ❌ Corporate hedging ("arguably", "potentially", "perhaps")
+- ❌ Academic formality ("furthermore", "moreover", "hence")
+- ❌ Filler phrases ("in order to" → "to", "due to the fact that" → "because")
+
+**Quality test:** If it sounds like "engineer explaining facts to another engineer" → correct. If it sounds like TED talk/textbook/marketing → wrong.
+
+**Full guidelines:** `docs/context/standards/writing-style.md` (7,460 tokens)
+
+### 4.6: Documentation Hierarchy
 
 **Primary (Authoritative):**
 - **CLAUDE.md**: Master reference for all standards (THIS DOCUMENT)

@@ -25,7 +25,7 @@ That realization in late 2018 sparked my journey into quantum-resistant cryptogr
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -41,15 +41,18 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef preventionStyle fill:#4caf50
+    classDef detectionStyle fill:#ff9800
+    classDef responseStyle fill:#f44336
+    class D1 preventionStyle
+    class D2 detectionStyle
+    class D3 responseStyle
 ```
 
 ## The Quantum Awakening: Understanding the Threat
