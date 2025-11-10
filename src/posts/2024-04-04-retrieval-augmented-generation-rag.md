@@ -29,7 +29,7 @@ The spark for this project came from watching GPT-4 confidently make up technica
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
@@ -55,8 +55,10 @@ graph LR
     Deploy --> Monitor
     Monitor -->|Feedback| Train
 
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
+    classDef trainStyle fill:#9c27b0
+    classDef deployStyle fill:#4caf50
+    class Train trainStyle
+    class Deploy deployStyle
 ```
 
 ## The Problem: When "Knowing Everything" Isn't Enough

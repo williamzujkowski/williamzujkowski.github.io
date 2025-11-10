@@ -26,7 +26,7 @@ That moment crystallized our need for cloud migration, but the journey that foll
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph frontend["Frontend"]
         CDN[CDN]
         LB[Load Balancer]
@@ -41,17 +41,20 @@ graph TB
         S3[Object Storage]
         Queue[Message Queue]
     end
-    
+
     CDN --> LB
     LB --> API
     API --> Services
     Services --> Cache
     Services --> DB
     Services --> Queue
-    
-    style API fill:#2196f3
-    style Services fill:#4caf50
-    style DB fill:#ff9800
+
+    classDef apiStyle fill:#2196f3
+    classDef servicesStyle fill:#4caf50
+    classDef dbStyle fill:#ff9800
+    class API apiStyle
+    class Services servicesStyle
+    class DB dbStyle
 ```
 
 ## The Catalyst: Why We Finally Made the Leap

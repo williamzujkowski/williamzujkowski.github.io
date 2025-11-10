@@ -36,7 +36,7 @@ That has implications far beyond finance, though I'm still figuring out where th
 ## How It Actually Works (From My Test Network)
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph network["Network Layer"]
         P2P[P2P Network]
         Gossip[Gossip Protocol]

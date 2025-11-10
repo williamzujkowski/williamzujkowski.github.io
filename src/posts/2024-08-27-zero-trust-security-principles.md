@@ -39,7 +39,7 @@ I've seen organizations struggle with this transition, and I've learned that imp
 ## Zero Trust Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph identityaccess["Identity & Access"]
         User[Users]
         Device[Devices]
@@ -60,29 +60,32 @@ graph TB
         Services[Services]
         Network[Network]
     end
-    
+
     User --> PEP
     Device --> PEP
     Apps --> PEP
-    
+
     PEP --> PDP
     PDP --> Trust
-    
+
     Trust --> MFA
     Trust --> Risk
     Trust --> Context
-    
+
     MFA --> PDP
     Risk --> PDP
     Context --> PDP
-    
+
     PDP -->|Allow/Deny| Data
     PDP -->|Allow/Deny| Services
     PDP -->|Allow/Deny| Network
-    
-    style PEP fill:#ff5252
-    style Trust fill:#ff9800
-    style PDP fill:#4caf50
+
+    classDef pepStyle fill:#ff5252
+    classDef trustStyle fill:#ff9800
+    classDef pdpStyle fill:#4caf50
+    class PEP pepStyle
+    class Trust trustStyle
+    class PDP pdpStyle
 ```
 
 ### Architecture Components Explained
@@ -139,10 +142,13 @@ flowchart TD
     Monitor --> Anomaly{Anomaly?}
     Anomaly -->|Yes| Revoke[Revoke Access]
     Anomaly -->|No| Monitor
-    
-    style Deny fill:#f44336
-    style Grant fill:#4caf50
-    style Monitor fill:#2196f3
+
+    classDef denyStyle fill:#f44336
+    classDef grantStyle fill:#4caf50
+    classDef monitorStyle fill:#2196f3
+    class Deny denyStyle
+    class Grant grantStyle
+    class Monitor monitorStyle
 ```
 
 ### Verification Flow Stages

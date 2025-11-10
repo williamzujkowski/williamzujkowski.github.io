@@ -1,7 +1,7 @@
 ---
 date: 2024-01-30
 author: William Zujkowski
-description: Securing cloud-native environments requires new approaches—container security, service mesh, secrets management, and zero trust for microservices
+description: Securing cloud-native environments requires new approaches. Container security, service mesh, secrets management, and zero trust for microservices
 images:
   hero:
     alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Hero Image'
@@ -28,7 +28,7 @@ These incidents taught me something crucial. Cloud-native architectures don't ju
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -44,15 +44,18 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef preventionStyle fill:#4caf50
+    classDef detectionStyle fill:#ff9800
+    classDef responseStyle fill:#f44336
+    class D1 preventionStyle
+    class D2 detectionStyle
+    class D3 responseStyle
 ```
 
 ## The Awakening: When Traditional Security Falls Short

@@ -29,7 +29,7 @@ Having followed this field closely since 2018, I've come to understand that quan
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph initialization["Initialization"]
         Q0[Qubit 0: Zero State]
         Q1[Qubit 1: Zero State]
@@ -43,17 +43,20 @@ graph LR
         C0[Classical Bit 0]
         C1[Classical Bit 1]
     end
-    
+
     Q0 --> H
     H --> CNOT
     Q1 --> CNOT
     CNOT --> M
     M --> C0
     M --> C1
-    
-    style H fill:#2196f3
-    style CNOT fill:#9c27b0
-    style M fill:#4caf50
+
+    classDef hadamardStyle fill:#2196f3
+    classDef cnotStyle fill:#9c27b0
+    classDef measureStyle fill:#4caf50
+    class H hadamardStyle
+    class CNOT cnotStyle
+    class M measureStyle
 ```
 
 ## The Quantum Advantage: Beyond Classical Limitations

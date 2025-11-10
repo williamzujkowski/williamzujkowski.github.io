@@ -96,7 +96,7 @@ Combined with layer unloading, peak memory usage drops by 90.3% for GPT-style mo
 ### Architecture Diagram
 
 ```mermaid
-graph TD
+flowchart TD
     A[Input Tokens] --> B[Layer 0]
     B --> C[Unload Layer 0]
     C --> D[Load Layer 1 in parallel]
@@ -108,14 +108,12 @@ graph TD
     I --> J[Layer 31]
     J --> K[Output Tokens]
 
-    style B fill:#10b981
-    style E fill:#10b981
-    style H fill:#10b981
-    style J fill:#10b981
-    style C fill:#ef4444
-    style F fill:#ef4444
-    style D fill:#3b82f6
-    style G fill:#3b82f6
+    classDef layerStyle fill:#10b981
+    classDef unloadStyle fill:#ef4444
+    classDef loadStyle fill:#3b82f6
+    class B,E,H,J layerStyle
+    class C,F unloadStyle
+    class D,G loadStyle
 ```
 
 **Key insight:** By the time layer N completes execution, layer N+1 is already loaded and ready. No idle CPU cycles waiting for I/O.
@@ -323,16 +321,20 @@ I attempted splitting LLaMA 3.1 70B across my 3 Raspberry Pi 5s (16GB each) usin
 ### Performance Characteristics
 
 ```mermaid
-graph LR
+flowchart LR
     A[Standard PyTorch] -->|Memory| B[100%]
     A -->|Speed| C[100%]
     D[PIPELOAD] -->|Memory| E[10-14%]
     D -->|Speed| F[88% single device<br/>425% edge vs swap]
 
-    style B fill:#ef4444
-    style E fill:#10b981
-    style C fill:#10b981
-    style F fill:#f59e0b
+    classDef highMemStyle fill:#ef4444
+    classDef lowMemStyle fill:#10b981
+    classDef highSpeedStyle fill:#10b981
+    classDef medSpeedStyle fill:#f59e0b
+    class B highMemStyle
+    class E lowMemStyle
+    class C highSpeedStyle
+    class F medSpeedStyle
 ```
 
 **Bottom line:** PIPELOAD enables inference that's otherwise impossible on edge devices. The 12% latency overhead is acceptable when the alternative is OOM crashes or cloud dependency.

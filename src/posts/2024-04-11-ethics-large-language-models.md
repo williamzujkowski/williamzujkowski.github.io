@@ -1,6 +1,6 @@
 ---
 date: 2024-04-11
-description: Ethical implications of LLMs—bias, misinformation, privacy, and accountability. Exploring responsible AI development and deployment frameworks
+description: "Ethical implications of LLMs: bias, misinformation, privacy, and accountability. Exploring responsible AI development and deployment frameworks"
 images:
   hero:
     alt: The Ethics of Large Language Models - Hero Image
@@ -25,7 +25,7 @@ Deploying our first customer-facing LLM in March 2023 felt like releasing someth
 ## How It Works
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph datapipeline["Data Pipeline"]
         Raw[Raw Data]
         Clean[Cleaning]
@@ -41,7 +41,7 @@ graph LR
         Monitor[Monitoring]
         Update[Updates]
     end
-    
+
     Raw --> Clean
     Clean --> Feature
     Feature --> Train
@@ -50,9 +50,11 @@ graph LR
     Test --> Deploy
     Deploy --> Monitor
     Monitor -->|Feedback| Train
-    
-    style Train fill:#9c27b0
-    style Deploy fill:#4caf50
+
+    classDef trainStyle fill:#9c27b0
+    classDef deployStyle fill:#4caf50
+    class Train trainStyle
+    class Deploy deployStyle
 ```
 
 ## The Bias Mirror: Reflecting Humanity's Flaws

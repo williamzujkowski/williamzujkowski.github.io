@@ -1,6 +1,6 @@
 ---
 date: 2024-06-25
-description: Building systems that gracefully handle failures through redundancy, circuit breakers, and chaos engineering—lessons from production incidents
+description: Building systems that gracefully handle failures through redundancy, circuit breakers, and chaos engineering. Lessons from production incidents
 images:
   hero:
     alt: Designing Resilient Systems for an Uncertain World - Hero Image
