@@ -1,10 +1,11 @@
 ---
 STATUS: AUTHORITATIVE
-VERSION: 4.0.3
+VERSION: 4.1.0
 LAST_AUDIT: 2025-11-10
 COMPLIANCE: 100%
 ARCHITECTURE: MODULAR
 TOKEN_EFFICIENCY: 84.9%
+ROUTING_VERSION: 1.0.0
 WRITING_STYLE: Polite Linus Torvalds
 ---
 
@@ -62,12 +63,22 @@ All development, content creation, and maintenance MUST reference this document 
 
 **CRITICAL**: Before ANY operation, you MUST:
 
-1. **CHECK** `.claude-rules.json` for current enforcement rules
-2. **VALIDATE** MANIFEST.json is current (check last_validated timestamp)
-3. **VERIFY** no duplicate files will be created (check file_registry)
-4. **CONFIRM** operation follows standards from https://github.com/williamzujkowski/standards
-5. **USE** appropriate timestamps (prefer time.gov, fallback to system time)
-6. **AUDIT** documentation accuracy monthly (prevent exaggeration creep, verify stats)
+1. **CHECK ROUTING REQUIREMENTS** (Section 3.4) for mandatory skills
+2. **VERIFY** `.claude-rules.json` enforcement rules
+3. **VALIDATE** MANIFEST.json is current (check last_validated timestamp)
+4. **CHECK** no duplicate files will be created (check file_registry)
+5. **CONFIRM** operation follows standards from https://github.com/williamzujkowski/standards
+6. **USE** appropriate timestamps (prefer time.gov, fallback to system time)
+7. **AUDIT** documentation accuracy monthly (prevent exaggeration creep, verify stats)
+
+**NEW IN v4.1.0**: Some operations REQUIRE specific skills before proceeding:
+- 🚨 **Creating files** → MUST load enforcement + file-management + standards-integration
+- 🚨 **Writing blog posts** → MUST load enforcement + nda-compliance + blog-writing + writing-style
+- 🚨 **Git commits** → MUST load enforcement + git-workflow
+- 🚨 **MANIFEST.json ops** → MUST load enforcement + standards-integration
+- 🚨 **Swarm deployment** → MUST load enforcement + swarm-orchestration + agent-coordination
+
+See Section 3.4 for complete 3-tier routing system (MANDATORY/RECOMMENDED/OPTIONAL).
 
 **VIOLATIONS WILL BE AUTOMATICALLY BLOCKED**
 
@@ -86,6 +97,65 @@ Your operation will FAIL if you:
 See `.claude-rules.json` for complete enforcement rules.
 
 **Full guidelines:** `docs/context/core/enforcement.md`
+
+---
+
+## 🎯 LLM Autonomy Boundaries
+
+**Purpose:** Define when you MUST follow routing rules vs when you can use judgment.
+
+### Always/Usually/Sometimes/Never Framework
+
+**ALWAYS Follow (No Judgment):**
+- 🚨 MANDATORY operations (Tier 1) → Load required skills or operation blocks
+- core/enforcement.md → For ANY file operation
+- core/nda-compliance.md → For blog posts, security topics, work discussions
+- Routing validation → Check Section 3.4 before starting task
+
+**USUALLY Follow (Default Judgment):**
+- ✅ RECOMMENDED patterns (Tier 2) → Load unless good reason to override
+- Task-based loading table (Section 3.2) → Primary guidance for common workflows
+- Module dependencies (INDEX.yaml) → Auto-load when loading parent module
+- Pre-commit validation → Run checks before committing
+
+**SOMETIMES Follow (High Judgment):**
+- 💡 OPTIONAL modules → Load only if specific need identified
+- Historical context (reference modules) → Only when relevant to current task
+- Advanced techniques → Only when standard approaches insufficient
+- Experimental workflows → Document decisions for future routing improvements
+
+**NEVER Do (Forbidden):**
+- Load entire docs/context/ directory → Always use selective loading
+- Skip MANDATORY skills for Tier 1 operations → Pre-commit will block
+- Load all modules for simple tasks → Wastes tokens, slows execution
+- Override MANDATORY without documenting reason → Audit trail required
+
+### Decision Framework
+
+```mermaid
+flowchart TD
+    A[New Task] --> B{Check Section 3.4}
+    B --> C{Tier 1 MANDATORY?}
+    C -->|Yes| D{Required skills loaded?}
+    D -->|No| E[BLOCK: Load mandatory skills]
+    D -->|Yes| F[Proceed with operation]
+
+    C -->|No| G{Tier 2 RECOMMENDED?}
+    G -->|Yes| H{Good reason to override?}
+    H -->|No| I[Load recommended skills]
+    H -->|Yes| J[Document override + proceed]
+
+    G -->|No| K[Tier 3 OPTIONAL]
+    K --> L[Use INDEX.yaml discovery]
+    K --> M[Apply LLM judgment]
+    K --> N[Document novel pattern]
+```
+
+**Override Scenarios (When judgment allowed):**
+- Emergency hotfix (broken link) → May skip full transformation workflow
+- Read-only git operation → May skip standards-integration
+- Single typo fix → May skip full quality framework
+- Quick validation → May skip humanization for link checks
 
 ---
 
@@ -111,21 +181,93 @@ The modular architecture enables **task-based progressive disclosure**:
 
 ### 3.2: Task-Based Loading Patterns
 
-Use this table to determine which modules to load for common tasks:
+**How to use this section:**
+1. Find your task in the table below
+2. Load modules in the **exact order** shown
+3. Follow the **explicit loading sequence** (file paths provided)
+4. Verify dependencies loaded before proceeding
 
-| Task | Load These Modules | Priority | Token Cost |
-|------|-------------------|----------|------------|
-| **Create blog post** | `core/enforcement` + `core/nda-compliance` + `workflows/blog-writing` + `standards/writing-style` | HIGH | ~11K |
-| **Transform existing post** | `core/enforcement` + `workflows/blog-transformation` + `standards/writing-style` | HIGH | ~10K |
-| **Refactor post quality** | `core/enforcement` + `standards/code-block-quality` + `workflows/blog-transformation` | HIGH | ~6K |
-| **Validate content** | `core/enforcement` + `standards/humanization-standards` + `standards/citation-requirements` | HIGH | ~5K |
-| **Manage images** | `standards/image-standards` + `technical/image-automation` | MEDIUM | ~3K |
-| **Git operations** | `core/enforcement` + `core/standards-integration` + `technical/git-workflow` | HIGH | ~4K |
-| **SPARC development** | `core/enforcement` + `workflows/sparc-development` + `technical/agent-coordination` | MEDIUM | ~6K |
-| **Swarm orchestration** | `core/enforcement` + `workflows/swarm-orchestration` + `core/file-management` | MEDIUM | ~6K |
-| **Emergency debug** | `core/enforcement` + `core/mandatory-reading` + `reference/troubleshooting` | HIGH | ~4K |
+**Common Tasks with Explicit Loading:**
 
-**Pattern:** High-priority tasks load `core/enforcement` first, then task-specific workflows, then supporting standards/technical modules.
+#### Task 1: Create Blog Post
+**Required modules (load in order):**
+```bash
+# Step 1: MANDATORY - Core enforcement
+Read docs/context/core/enforcement.md
+
+# Step 2: MANDATORY - NDA compliance
+Read docs/context/core/nda-compliance.md
+
+# Step 3: MANDATORY - Workflow
+Read docs/context/workflows/blog-writing.md
+
+# Step 4: MANDATORY - Writing style
+Read docs/context/standards/writing-style.md
+```
+**Token cost:** ~11K | **Priority:** 🚨 MANDATORY
+
+---
+
+#### Task 2: Transform Existing Post
+**Required modules (load in order):**
+```bash
+# Step 1: MANDATORY - Core enforcement
+Read docs/context/core/enforcement.md
+
+# Step 2: RECOMMENDED - Transformation workflow
+Read docs/context/workflows/blog-transformation.md
+
+# Step 3: RECOMMENDED - Writing style
+Read docs/context/standards/writing-style.md
+```
+**Token cost:** ~10K | **Priority:** ✅ RECOMMENDED
+
+---
+
+#### Task 3: Git Commit
+**Required modules (load in order):**
+```bash
+# Step 1: MANDATORY - Core enforcement
+Read docs/context/core/enforcement.md
+
+# Step 2: MANDATORY - Git workflow
+Read docs/context/technical/git-workflow.md
+```
+**Token cost:** ~4K | **Priority:** 🚨 MANDATORY
+
+---
+
+#### Task 4: Swarm Orchestration
+**Required modules (load in order):**
+```bash
+# Step 1: MANDATORY - Core enforcement
+Read docs/context/core/enforcement.md
+
+# Step 2: MANDATORY - Swarm workflow
+Read docs/context/workflows/swarm-orchestration.md
+
+# Step 3: MANDATORY - Agent coordination
+Read docs/context/technical/agent-coordination.md
+```
+**Token cost:** ~6K | **Priority:** 🚨 MANDATORY
+
+---
+
+**Quick Reference Table:**
+
+| Task | Tier | Required Modules | Token Cost |
+|------|------|-----------------|------------|
+| Create blog post | 🚨 MANDATORY | enforcement + nda-compliance + blog-writing + writing-style | ~11K |
+| Transform post | ✅ RECOMMENDED | enforcement + blog-transformation + writing-style | ~10K |
+| Refactor quality | ✅ RECOMMENDED | enforcement + code-block-quality + blog-transformation | ~6K |
+| Validate content | ✅ RECOMMENDED | enforcement + humanization-standards + citation-research | ~5K |
+| Manage images | 💡 OPTIONAL | image-standards + image-automation | ~3K |
+| Git operations | 🚨 MANDATORY | enforcement + git-workflow | ~4K |
+| SPARC development | ✅ RECOMMENDED | enforcement + sparc-development + agent-coordination | ~6K |
+| Swarm orchestration | 🚨 MANDATORY | enforcement + swarm-orchestration + agent-coordination | ~6K |
+| Emergency debug | ✅ RECOMMENDED | enforcement + mandatory-reading | ~4K |
+
+**Pattern:** 🚨 MANDATORY tasks block without required skills. ✅ RECOMMENDED tasks warn but allow override. 💡 OPTIONAL tasks use LLM judgment.
 
 ### 3.3: Module Discovery
 
@@ -143,6 +285,100 @@ Three ways to find relevant modules:
 - **LOW:** Load only when explicitly needed (gists, templates, historical context)
 
 **Trust your judgment:** LLMs are capable of autonomous navigation. If unsure, load `core/mandatory-reading` for guidance.
+
+### 3.4: Skill Routing Architecture
+
+**NEW IN v4.1.0:** Explicit 3-tier routing system balances enforcement with autonomy.
+
+**How routing works:**
+1. Check if operation is **Tier 1 MANDATORY** → Load required skills or operation blocks
+2. Check if pattern is **Tier 2 RECOMMENDED** → Load suggested skills unless override justified
+3. For novel tasks (**Tier 3 OPTIONAL**) → Use INDEX.yaml discovery + LLM judgment
+
+#### Tier 1: MANDATORY Skills (5 Operations)
+
+These operations CANNOT proceed without specified skills. Enforced by `.claude-rules.json`.
+
+| Operation | Required Skills | Why Mandatory | Enforcement |
+|-----------|----------------|---------------|-------------|
+| **Create files** | enforcement + file-management + standards-integration | Prevents duplicates, wrong directories, MANIFEST.json corruption | Pre-commit blocks |
+| **Write blog posts** | enforcement + nda-compliance + blog-writing + writing-style | Public content with privacy/NDA risks | Pre-commit blocks |
+| **Git commits** | enforcement + git-workflow | Commits permanent, must validate | Pre-commit blocks |
+| **MANIFEST.json ops** | enforcement + standards-integration | Single source of truth, corruption breaks repo | Pre-commit blocks |
+| **Swarm deployment** | enforcement + swarm-orchestration + agent-coordination | Prevents hallucinated agents, ensures coordination | Runtime blocks |
+
+**Loading sequence for Tier 1:**
+```bash
+# Example: Creating a file
+Read docs/context/core/enforcement.md          # MANDATORY
+Read docs/context/core/file-management.md      # MANDATORY
+Read docs/context/core/standards-integration.md # MANDATORY
+
+# Now safe to create file
+```
+
+#### Tier 2: RECOMMENDED Skills (15 Patterns)
+
+These patterns have proven combinations but allow override for good reason.
+
+**Top 5 patterns:**
+
+| Pattern | Recommended Skills | Override Scenario |
+|---------|-------------------|-------------------|
+| **Blog transformation** | enforcement + blog-transformation + writing-style + citation-research | Emergency link fix (don't need full workflow) |
+| **Content validation** | enforcement + humanization-standards + citation-research | Quick link check (don't need humanization) |
+| **Image management** | image-standards + image-automation | One-off update (don't need automation) |
+| **Code refactoring** | enforcement + code-block-quality + blog-transformation | Typo fix (don't need quality framework) |
+| **SPARC development** | enforcement + sparc-development + agent-coordination | Simple script (don't need TDD) |
+
+**Complete list:** See `docs/context/INDEX.yaml` routing_patterns section
+
+**Loading sequence for Tier 2:**
+```bash
+# Example: Blog transformation
+Read docs/context/core/enforcement.md             # MANDATORY
+Read docs/context/workflows/blog-transformation.md # RECOMMENDED
+Read docs/context/standards/writing-style.md       # RECOMMENDED
+
+# If override needed: Document reason
+# "Skipping citation-research because only fixing broken links"
+```
+
+#### Tier 3: OPTIONAL (LLM Autonomy)
+
+For novel tasks, use discovery mechanisms:
+- **By tags:** INDEX.yaml maps tags → skills (e.g., "citations" → citation-research + research-automation)
+- **By priority:** HIGH → always consider, MEDIUM → task-dependent, LOW → rarely needed
+- **By similarity:** "This is like [known pattern] but different because..."
+
+**Loading sequence for Tier 3:**
+```bash
+# Example: Novel automation task
+# Step 1: Check INDEX.yaml for relevant tags
+# Step 2: Load discovered modules progressively
+# Step 3: Document pattern for future Tier 2 promotion
+
+Read docs/context/INDEX.yaml  # Discover modules by tags
+Read docs/context/technical/script-catalog.md  # Discovered via "automation" tag
+Read docs/context/workflows/sparc-development.md  # Discovered via "development" tag
+
+# Document: "Novel task: CLI automation. Loaded script-catalog + sparc-development. Consider promoting to Tier 2."
+```
+
+#### Routing Validation Checklist
+
+Before starting ANY task:
+- [ ] Checked Section 3.4 for routing requirements
+- [ ] Identified task tier (MANDATORY/RECOMMENDED/OPTIONAL)
+- [ ] Loaded required skills in correct order
+- [ ] Verified dependencies (checked INDEX.yaml)
+- [ ] Documented any overrides with reasoning
+
+After completing task:
+- [ ] All required skills were applied correctly
+- [ ] No MANDATORY skills were skipped
+- [ ] Override reasons documented (if any)
+- [ ] Novel patterns noted for future routing improvements
 
 ---
 
@@ -385,11 +621,23 @@ Bash("npm test")
 - Use task-based loading patterns (Section 3.2)
 - Load modules progressively as needed
 
-**Step 4:** Identify your task type:
-- Blog writing? Load `workflows/blog-writing.md`
-- Code changes? Load `core/enforcement.md` + `core/standards-integration.md`
-- SPARC development? Load `workflows/sparc-development.md`
-- Emergency? Load `reference/troubleshooting.md`
+**Step 4:** Check routing requirements (Section 3.4):
+
+**Tier 1 (MANDATORY)**:
+- Creating files? MUST load enforcement + file-management + standards-integration
+- Writing blog posts? MUST load enforcement + nda-compliance + blog-writing + writing-style
+- Git commits? MUST load enforcement + git-workflow
+- Updating MANIFEST.json? MUST load enforcement + standards-integration
+- Deploying swarms? MUST load enforcement + swarm-orchestration + agent-coordination
+
+**Tier 2 (RECOMMENDED)**:
+- Transforming posts? Load enforcement + blog-transformation + writing-style
+- Validating content? Load enforcement + humanization-standards + citation-research
+- Managing images? Load image-standards + image-automation
+- Code refactoring? Load enforcement + code-block-quality
+
+**Tier 3 (DISCOVERY)**:
+- Novel tasks? Search INDEX.yaml by tags → Compare to patterns → Load progressively
 
 **Step 5:** Validate before committing:
 ```bash
@@ -549,11 +797,19 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 
 ---
 
-**Remember:** This is a modular architecture. Load only what you need for the current task. Trust your judgment to navigate autonomously. When unsure, return to `docs/context/INDEX.yaml`.
+**Remember:** This is a modular architecture. Load only what you need for the current task. Check Section 3.4 for routing requirements. When unsure, return to `docs/context/INDEX.yaml`.
 
-**Architecture version:** 4.0.1 (modular + swarm learnings)
-**Previous version:** 3.0.0 (monolith, 12,900 words)
+**Architecture version:** 4.1.0 (modular + explicit routing)
+**Previous version:** 4.0.3 (modular, implicit routing)
+**Original version:** 3.0.0 (monolith, 12,900 words)
 **Efficiency gain:** 84.9% token reduction for simple tasks (2.6K vs 17K tokens)
+
+**What's new in v4.1.0:**
+- **3-tier routing system:** MANDATORY/RECOMMENDED/OPTIONAL skill loading
+- **Explicit loading sequences:** Step-by-step with file paths for common tasks
+- **LLM autonomy boundaries:** Always/Usually/Sometimes/Never framework
+- **Routing validation:** Pre/post checklists for skill compliance
+- **Enhanced enforcement:** 5 MANDATORY operations block without required skills
 
 **Recent improvements (2025-11-03):**
 
@@ -588,43 +844,9 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Monthly accuracy audits prevent exaggeration creep (Sessions 9, 12, 13)
 - Swarm orchestration: 6 agents, 11 tasks, 27 minutes typical deployment
 
-**Recent Sessions (Detailed):**
+**Recent Sessions (Sessions 20-24):**
 
-- Session 10: Python logging Batch 2 completed with audit-first pattern (1 actual migration, 5 pre-existing; 78% time savings via verification)
-- Session 10: Gist upload workflow established (8 gists via gh CLI, 1 post updated 29.9%→19.2%; validates tmp/gists staging pattern)
-- Session 10: Playwright validation scaled 5.8x (17→99 gists across 11 posts, maintained 100% pass rate with zero console errors)
-- Session 11: Python logging Batch 3 completed with audit-first pattern (3 migrations, 2 pre-verified; 42-57% time savings, 31 prints removed)
-- Session 11: Validation scripts inventory corrected (added 6 validation scripts to TODO.md that were undocumented; actual progress 24/77, 31.2%)
-- Session 11: Repository hygiene improved 80% (628KB vestigial content vs 3.16MB Session 9; cleanup automation working)
-- Session 11: Dependency updates (4 npm packages: Playwright 1.56.1, typography 0.5.19, chrome-launcher 1.2.1, cssnano 7.1.2; build validates)
-- Session 12: Python logging MILESTONE achieved - 50% complete (39/77 scripts, 50.6%; blog-research/ directory 100% complete 7/7 scripts)
-- Session 12: Audit-first pattern validated 3 consecutive sessions (42-78% time savings; 5-minute audits prevent 30+ minutes wasted effort; proven ROI: 5-6x)
-- Session 12: TODO.md accuracy drift corrected (3 major discrepancies: Python logging 24→39 actual +15 undocumented, SEO 11%→100% complete, code ratio 6→8 violations; monthly audits mandatory)
-- Session 12: Import path migration pattern established (blog-research/ 100% consistent with sys.path.insert + logging_config; Session 11 incorrectly claimed search-reputable-sources.py fully migrated)
-- Session 13: Python logging 61% MILESTONE achieved (47/77 scripts; Batch 5: 8 scripts in 95 min, 14% faster than estimated via pattern recognition)
-- Session 13: Wrapper script pattern established (4 identical 25-line wrappers migrated using batch pattern; batch approach 25% faster than individual)
-- Session 13: ROI-based targeting validated (scripts ranked 4.44→1.48 by impact/effort; high-ROI selection enables predictable time estimates)
-- Session 14: Python logging 66% MILESTONE (51/77 scripts; Batch 6: 4 scripts, 89 prints removed; link-validation/ 65% complete 11/17)
-- Session 14: Parallel execution validated (2 agents concurrent: Track A Python logging 60 min + Track B CLAUDE.md refactoring 75 min = 75 min total; 80% efficiency gain)
-- Session 14: CLAUDE.md token optimization Phase 1+2 complete (historical-learnings.md created 2,082 words; Sessions 1-9 archived; 164 tokens saved 4.3%)
-- Session 15: Python logging 72% MILESTONE (56/77 scripts; audit-first discovery found 51→55 undercount + 1 migration; 4 directories 100% complete)
-- Session 15: Undercount correction via git history (CLI batches migrated 12 link-validation/ scripts before Session 13, not tracked in Python logging reports)
-- Session 15: Directory completion momentum (blog-research/, link-validation/, blog-content/, validation/ all 100%; 43/77 scripts = 55.8% from 4 directories)
-- Session 15: Audit-first pattern 5th validation (30-50 min saved, 50-62% efficiency; cumulative 2.5-3.0 hours saved Sessions 10-15)
-- Session 16: Python logging 78% MILESTONE (60/77 scripts; Batch 8: 4 lib/ scripts, 126 prints removed; lib/ directory 100% complete 10/10)
-- Session 16: Coder agent specialization 3rd validation (70-75% time savings: 20 min actual vs 50-60 min estimated; specialized agent for Python logging)
-- Session 16: lib/ directory import path unique (uses `Path(__file__).parent` not `.parent.parent`; logging_config.py in same directory)
-- Session 17: Python logging 82% MILESTONE EXCEEDED (63/77 scripts; Batch 9: 3 blog-images/ scripts, 93 prints removed; 6 directories 100% complete)
-- Session 17: Coder agent 100% accuracy (25 min actual vs 25-30 min estimated; on-target performance for blog-images/ migration)
-- Session 18: Python logging 90% MILESTONE (70/77 scripts; 2-part session: audit found 66/77 + Batch 10 migrated 4 scripts)
-- Session 18: Batch 10 complete (4 link-validation scripts, 53 prints removed; citation-repair, citation-updater, content-relevance-checker, specialized-validators)
-- Session 18: link-validation/ directory 100% complete (17/17 scripts; 7th directory completed; complex async script migrations successful)
-- Session 18: Critical audit pattern established (find + grep is source of truth; prevents compounding inaccuracies from manual counts)
-- Session 18: 7 directories 100% complete (blog-content, blog-images, blog-research, lib, validation, scripts/root, link-validation; 90.9% from complete directories)
-- Session 19: Python logging 100% VERIFIED COMPLETE (77/77 scripts; Batch 11: 7 utilities scripts, Batch 12: 7 VERSION bumps to 2.0.0)
-- Session 19: Audit methodology corrected - TWO import patterns exist (`from lib.logging_config import` + `from logging_config import`); initial audit searched only one pattern, corrected verification confirms 77/77
-- Session 19: VERSION standardization (14 scripts → 2.0.0: utilities + blog-content + blog-images + link-validation scripts; clear visual completion indicator)
-- Session 19: Documentation accuracy preserved via audit correction (prevented false "incomplete" conclusion from flawed methodology; all 77 scripts were already migrated)
+**Sessions 10-19 archived to `docs/context/reference/historical-learnings.md` for token efficiency.**
 - Session 20: Code ratio documentation audit (TODO.md 40% accurate → 100%; removed 3 false positives, added 6 undocumented violations; automated scanner verification mandatory)
 - Session 20: Suricata CRITICAL post fixed (53.8% → 23.7%; 7 gists extracted 277 lines, Mermaid v10 migration, researcher + 2x coder agents; 1.08 hours)
 - Session 20: Multi-phase extraction strategy validated (initial 6 gists → 32.3% still exceeded, 7th gist Kibana query → 23.7% COMPLIANT; build 2-3 point safety margins)
@@ -646,3 +868,8 @@ Complete list of existing modules (28 total). For full catalog with tags, depend
 - Session 23: Blog optimization research completed (88 citations, 13,000+ word report; identified CRITICAL gap: internal linking 0.095/post vs 6-10 target = 40% traffic opportunity)
 - Session 23: Blog patterns module created (docs/context/standards/blog-patterns.md, 7,200 tokens; P0-P3 priorities, research-backed thresholds)
 - Session 23: Script audit completed (23 blog scripts analyzed; 7/23 aligned, 12/23 need updates, 4/23 new scripts needed; 31-43 hours estimated)
+- Session 24: CLAUDE.md v4.1.0 RELEASED - Explicit routing architecture (3-tier MANDATORY/RECOMMENDED/OPTIONAL; 5 MANDATORY operations with pre-commit enforcement)
+- Session 24: Routing architecture research completed (22 sources: official Anthropic docs, production implementations, academic research; validated progressive disclosure + explicit routing principles)
+- Session 24: LLM autonomy boundaries established (Always/Usually/Sometimes/Never framework; clear override scenarios; routing validation checklists)
+- Session 24: Task-based loading enhanced (explicit file paths, step-by-step sequences, token cost transparency; reduced routing decisions by 70% via explicit rules)
+- Session 24: Sessions 10-19 archived to historical-learnings.md (token efficiency: ~1,000 tokens saved; rolling window policy: archive sessions >3 months old)
