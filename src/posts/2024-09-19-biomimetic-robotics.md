@@ -30,16 +30,14 @@ I first encountered this approach while experimenting with a simple gripper in m
 
 ## The Gecko That Started It All
 
-Years ago, I watched a gecko walk up a glass wall and wondered: how does something so small defy gravity? That curiosity led me into biomimetic robotics, where engineers extract nature's solutions for technology.
+Years ago, I watched a gecko walk up a glass wall and wondered: how does something so small defy gravity? That curiosity led me into biomimetic robotics, where engineers extract nature's solutions for technology. After 3.8 billion years of evolution, nature developed extraordinarily efficient solutions.
 
-After 3.8 billion years of evolution, nature developed extraordinarily efficient solutions. The gecko's climbing ability, the octopus's ability to squeeze through tiny spaces, the efficiency of bird flight: these are blueprints for transformative technologies.
-
-Biomimetic robotics isn't about copying nature superficially. It's about understanding the underlying principles that make natural systems effective and reimagining them for technological applications. Though I should note that we're still far from fully understanding many of these biological mechanisms.
+The gecko's climbing ability, the octopus's ability to squeeze through tiny spaces, the efficiency of bird flight: these are blueprints for transformative technologies. Biomimetic robotics isn't about copying nature superficially. It's about understanding the underlying principles that make natural systems effective and reimagining them for technological applications, though we're still far from fully understanding many biological mechanisms.
 
 
 ## The Fundamental Insight: Morphological Intelligence
 
-[Morphological intelligence](https://www.nature.com/articles/s41467-021-25874-z) embeds computational functions in physical structure. Nature distributes intelligence throughout an organism's body, not concentrating it in the brain alone.
+[Morphological intelligence](https://www.nature.com/articles/s41467-021-25874-z) embeds computational functions in physical structure. Nature distributes intelligence throughout an organism's body, not concentrating it in the brain alone. This approach offloads processing from CPUs to mechanical design, letting physics solve problems instead of software.
 
 **Key principles:**
 - Physical structure performs computations passively
@@ -59,7 +57,7 @@ The elegance: physics does the work, software complexity drops dramatically. In 
 
 ### The Legged Revolution
 
-Modern biomimetic approaches create robots that move with animal-like grace. The key insight: animals don't maintain static balance. Instead, they use dynamic movement for stability, continuously adjusting during locomotion.
+Modern biomimetic approaches create robots that move with animal-like grace. The key insight: animals don't maintain static balance. Instead, they use dynamic movement for stability, continuously adjusting during locomotion to maintain forward momentum.
 
 **[MIT Cheetah](https://journals.sagepub.com/doi/10.1177/0278364917694244) performance (as of 2017):**
 - Speed: 6.4 m/s (matches human sprinter)
@@ -77,7 +75,7 @@ Modern biomimetic approaches create robots that move with animal-like grace. The
 
 ### Flying Machines That Work
 
-Bird and insect flight inspired breakthrough micro aerial vehicles.
+Bird and insect flight inspired breakthrough micro aerial vehicles. Engineers discovered that biological wing mechanics scale down to remarkably small platforms, enabling autonomous flight at weights lighter than a paperclip.
 
 **[Harvard RoboBee X-Wing](https://arxiv.org/abs/2411.06382) specifications (2024 prototype):**
 - Mass: 90 milligrams (lighter than a paperclip)
@@ -94,7 +92,7 @@ Bird and insect flight inspired breakthrough micro aerial vehicles.
 
 ### Underwater Grace
 
-Marine locomotion demonstrates biomimetic efficiency advantages.
+Marine locomotion demonstrates biomimetic efficiency advantages. Fish and marine mammals achieve remarkable maneuverability through undulatory body motion, eliminating the need for propellers entirely.
 
 **MIT soft robotic fish capabilities:**
 - Undulatory body motion (no propellers)
@@ -106,11 +104,7 @@ Marine locomotion demonstrates biomimetic efficiency advantages.
 
 ## Advanced Sensing: Beyond Human Capabilities
 
-Nature's sensory systems offer lessons that go far beyond our traditional five senses.
-
-### Event-Based Vision
-
-[Neuromorphic vision sensors](https://www.nature.com/articles/s44172-025-00492-5) mimic the human retina, recording only pixel changes rather than fixed-interval frames.
+Nature's sensory systems offer lessons that go far beyond our traditional five senses. Evolution developed specialized sensors for detecting everything from electromagnetic fields to chemical gradients. [Neuromorphic vision sensors](https://www.nature.com/articles/s44172-025-00492-5) mimic the human retina, recording only pixel changes rather than fixed-interval frames.
 
 **Advantages:**
 - Data volume reduction: 90% less than traditional cameras
@@ -122,7 +116,7 @@ Nature's sensory systems offer lessons that go far beyond our traditional five s
 
 ### Unconventional Sensing Modalities
 
-Biomimetic sensors enable capabilities beyond human senses.
+Biomimetic sensors enable capabilities beyond human senses. Animals like bats, electric fish, and pit vipers use specialized sensors that detect stimuli invisible to humans, inspiring entirely new classes of robotic perception systems.
 
 **Echolocation (MIT RF-Pose):**
 - Inspired by: Bat echolocation systems
@@ -146,7 +140,7 @@ Biomimetic sensors enable capabilities beyond human senses.
 
 ## Swarm Intelligence: The Power of Many Simple Agents
 
-[Swarm robotics](https://www.science.org/doi/10.1126/scirobotics.abo6140) demonstrates how simple individual rules create emergent collective intelligence.
+[Swarm robotics](https://www.science.org/doi/10.1126/scirobotics.abo6140) demonstrates how simple individual rules create emergent collective intelligence. Ant colonies, bee swarms, and flocking birds coordinate without central control, using local interactions to solve complex problems.
 
 ### Decentralized Decision-Making
 
@@ -208,7 +202,7 @@ Biomimetic robotics transitions from research to practical deployment across mul
 
 ## The Sustainability Advantage
 
-Natural systems evolved under strict resource constraints, rewarding energy-efficient solutions. Biomimetic approaches inherit this sustainability.
+Natural systems evolved under strict resource constraints, rewarding energy-efficient solutions. Biomimetic approaches inherit this sustainability, achieving better performance with lower energy consumption. Evolution favored designs that minimized waste and maximized efficiency over billions of years.
 
 **Energy efficiency gains:**
 - 10-30% better than traditional rigid robots (measured in cost-of-transport metrics)
@@ -223,7 +217,7 @@ Natural systems evolved under strict resource constraints, rewarding energy-effi
 
 ## Challenges and Future Directions
 
-Biomimetic robotics faces technical hurdles before matching biological performance.
+Biomimetic robotics faces technical hurdles before matching biological performance. Despite significant progress, robots still consume far more energy than their biological counterparts for equivalent tasks. Closing this energy gap remains one of the field's greatest challenges.
 
 ### The Energy Gap
 
@@ -241,9 +235,9 @@ Biomimetic robotics faces technical hurdles before matching biological performan
 ### Control System Complexity
 
 **Challenges:**
-- Neural control system replication remains difficult (we're still debating which aspects matter most)
-- Biological processing vastly more efficient than silicon (estimates suggest 10,000× more efficient per operation)
-- Real-time adaptive control requires massive computation
+- Neural control system replication remains difficult, and we're still debating which aspects matter most for robotic implementation
+- Biological processing is vastly more efficient than silicon, with estimates suggesting 10,000× more efficiency per operation
+- Real-time adaptive control requires massive computation that current hardware struggles to provide
 
 **Promising approaches:**
 - [Neuromorphic computing](https://www.nature.com/articles/s44172-025-00492-5): Hardware mimics neural structures
@@ -254,9 +248,9 @@ Biomimetic robotics faces technical hurdles before matching biological performan
 ### Materials Innovation
 
 **Current gaps:**
-- Synthetic materials lack biological versatility
-- Self-healing capabilities difficult to replicate (current materials heal in hours, biology heals in minutes)
-- Gradient properties (stiff to soft transitions) challenging to manufacture at scale
+- Synthetic materials lack the versatility of biological tissues, which can change properties dynamically
+- Self-healing capabilities are difficult to replicate, with current materials requiring hours versus minutes for biological systems
+- Gradient properties like stiff-to-soft transitions remain challenging to manufacture at scale
 
 **Emerging solutions:**
 - 4D printing: Materials that change properties over time
@@ -266,18 +260,15 @@ Biomimetic robotics faces technical hurdles before matching biological performan
 
 ## Looking Ahead: Towards Bio-Hybrid Systems
 
-The future of biomimetic robotics likely lies in bio-hybrid approaches that combine engineered components with cultivated biological tissues. This could achieve properties impossible with synthetic materials alone, though the timeline for practical deployment depends on advances in tissue engineering.
+The future of biomimetic robotics likely lies in bio-hybrid approaches that combine engineered components with cultivated biological tissues. This could achieve properties impossible with synthetic materials alone, though the timeline for practical deployment depends on advances in tissue engineering. The convergence of synthetic and biological systems may unlock capabilities neither can achieve independently.
 
-I'm particularly excited about developments in:
-- Neuromorphic computing that processes information more like brains (though we're still in early stages)
-- Materials that can self-heal and adapt like living tissue
-- Systems that learn and evolve their capabilities over time
+I'm particularly excited about developments in neuromorphic computing that processes information more like brains, though we're still in early stages. Materials that can self-heal and adapt like living tissue show promise. Systems that learn and evolve their capabilities over time could revolutionize how we build robots.
 
 When I built a small swarm simulation in 2019 using just 10 simple rules, I was amazed to see emergent behavior I never programmed. It gave me a deep appreciation for how complexity arises from simplicity in natural systems.
 
 ## A New Relationship with Technology
 
-Biomimetic robotics represents a fundamental shift toward working with natural principles rather than against them. The most successful examples extract underlying principles and reimagine them for technological applications.
+Biomimetic robotics represents a fundamental shift toward working with natural principles rather than against them. The most successful examples extract underlying principles and reimagine them for technological applications. This approach creates technologies that complement rather than conflict with natural systems.
 
 **Key achievements:**
 - Navigate previously impossible environments

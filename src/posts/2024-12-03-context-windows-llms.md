@@ -19,13 +19,17 @@ tags:
 - architecture
 title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
 ---
-In November 2024, I ran an experiment in my homelab that completely changed how I think about context windows. I fed a 47,000-token codebase to Llama 3 70B running on my RTX 3090. Everything worked beautifully until around token 28,000. Then I watched the model's responses degrade in real time. Function names got confused. Variable references became inconsistent. The model started hallucinating code that didn't exist in the original files.
+In November 2024, I ran an experiment in my homelab that completely changed how I think about context windows. I fed a 47,000-token codebase to Llama 3 70B running on my RTX 3090. Everything worked beautifully until around token 28,000.
+
+Then I watched the model's responses degrade in real time. Function names got confused. Variable references became inconsistent. The model started hallucinating code that didn't exist in the original files.
 
 I spent six hours optimizing prompts and adjusting parameters before realizing the brutal truth: the model just couldn't handle that much context. The 8K context window wasn't a guideline. It was a hard limit.
 
-That night of frustration taught me more about context windows than any research paper ever could. A context window represents the amount of text a language model can "see" and consider simultaneously when generating responses. Think of it as the model's short-term memory. It's a finite space where previous conversation, relevant information, and the current query must all fit to be processed together.
+That night of frustration taught me more about context windows than any research paper ever could. A context window represents the amount of text a language model can "see" and consider simultaneously when generating responses. Think of it as the model's short-term memory.
 
-This technical constraint shapes everything about how we interact with AI systems. The length of conversations we can have. The complexity of documents we can analyze. The quality of code assistance we can expect. Understanding context windows isn't optional if you're working with large language models.
+It's a finite space where previous conversation, relevant information, and the current query must all fit to be processed together. This technical constraint shapes everything about how we interact with AI systems.
+
+The length of conversations we can have. The complexity of documents we can analyze. The quality of code assistance we can expect. Understanding context windows isn't optional if you're working with large language models.
 
 ## How It Works
 
@@ -66,67 +70,55 @@ flowchart LR
 
 At its core, a context window defines the maximum number of tokens (parts of words, whole words, or punctuation marks) that a language model can process simultaneously. This limitation stems from the fundamental architecture of transformer models, which rely on attention mechanisms that weigh relationships between all elements in a sequence.
 
-The computational resources required for these operations increase quadratically with sequence length. In practical terms, processing a million-token context would require analyzing one trillion token relationships. That's computationally infeasible with traditional approaches.
+The computational resources required for these operations increase quadratically with sequence length. In practical terms, processing a million-token context would require analyzing one trillion token relationships.
 
-I learned this the hard way when testing Claude 3 Opus in December 2024. I threw a 150,000-token dataset at it (well within its 200K limit) and watched my API costs explode. Each request took 23 seconds to process. The 200K context window is technically real, but practically speaking, it's probably only useful for 10% of real-world use cases. The computational cost makes it impractical for anything except specialized analysis tasks.
+That's computationally infeasible with traditional approaches. I learned this the hard way when testing Claude 3 Opus in December 2024.
+
+I threw a 150,000-token dataset at it (well within its 200K limit) and watched my API costs explode. Each request took 23 seconds to process. The 200K context window is technically real, but practically speaking, it's probably only useful for 10% of real-world use cases.
 
 ### What Consumes Context Space
 
-When interacting with an LLM, several elements compete for the limited context space:
-- Previous messages in the conversation
-- The model's past responses
-- System prompts and instructions
-- Current user queries
-- Any additional data (documents, code, etc.)
+When interacting with an LLM, several elements compete for the limited context space: previous messages in the conversation, the model's past responses, system prompts and instructions, current user queries, and any additional data (documents, code, etc.).
 
 Each element consumes valuable token space. When the limit is approached, models typically prioritize more recent information, "forgetting" earlier details.
 
-I tracked this precisely in my homelab testing. Using GPT-4 Turbo (128K context, released November 2023), I ran a 45-minute conversation about Kubernetes architecture. The conversation consumed tokens like this:
-- First 10 messages: 2,847 tokens
-- System prompt overhead: 412 tokens
-- My uploaded cluster config: 8,923 tokens
-- Code examples in responses: 14,556 tokens
-- Total by message 30: 47,891 tokens
+I tracked this precisely in my homelab testing. Using GPT-4 Turbo (128K context, released November 2023), I ran a 45-minute conversation about Kubernetes architecture.
+
+The conversation consumed tokens like this: first 10 messages (2,847 tokens), system prompt overhead (412 tokens), my uploaded cluster config (8,923 tokens), code examples in responses (14,556 tokens), totaling 47,891 tokens by message 30.
 
 By message 45, we hit 89,234 tokens. The model started dropping details about my initial cluster setup. It wasn't being forgetful. It was running out of room.
 
 ### The Tokenization Challenge
 
-Different languages and content types consume tokens at varying rates. Programming code, specialized notation, and non-Latin scripts often require more tokens to express the same information as standard English text. This creates practical challenges when working with diverse content within fixed window constraints.
+Different languages and content types consume tokens at varying rates. Programming code, specialized notation, and non-Latin scripts often require more tokens to express the same information as standard English text.
 
-Here's a concrete example from my testing in November 2024. I fed the same basic algorithm to GPT-4 in three different formats:
-- Plain English description: 127 tokens
-- Python implementation: 234 tokens
-- Assembly code: 891 tokens
+This creates practical challenges when working with diverse content within fixed window constraints. Here's a concrete example from my testing in November 2024.
 
-Same logic. Seven times more tokens for assembly. This tokenization penalty hits you hard when you're trying to fit complex code into limited context.
+I fed the same basic algorithm to GPT-4 in three different formats: plain English description (127 tokens), Python implementation (234 tokens), and Assembly code (891 tokens). Same logic, but seven times more tokens for assembly.
+
+This tokenization penalty hits you hard when you're trying to fit complex code into limited context.
 
 ## The Evolution: From Hundreds to Millions of Tokens
 
-I've been testing LLMs in my homelab since 2022, and the context window expansion has been wild to watch. Here's what I've actually used:
+I've been testing LLMs in my homelab since 2022, and the context window expansion has been wild to watch. Here's what I've actually used.
 
 ### Early Limitations (2017-2020)
-- **BERT** (October 2018): 512 tokens
-- **GPT-2** (February 2019): 1,024 tokens
-- **T5** (October 2019): 512 tokens
+
+BERT (October 2018) offered 512 tokens. GPT-2 (February 2019) provided 1,024 tokens. T5 (October 2019) returned to 512 tokens.
 
 These constraints were brutal. Analyzing a full research paper? Impossible. I remember trying to get GPT-2 to help debug a moderately complex script in 2020. I could either show it the error or show it the function causing the error. Not both.
 
 ### Meaningful Progress (2020-2022)
-- **GPT-3** (June 2020): 2,048 tokens
-- **LaMDA** (May 2021): roughly 4,096 tokens
-- **PaLM** (April 2022): roughly 8,192 tokens
+
+GPT-3 (June 2020) brought 2,048 tokens. LaMDA (May 2021) offered roughly 4,096 tokens. PaLM (April 2022) provided roughly 8,192 tokens.
 
 This period enabled more sophisticated conversations and document analysis, though lengthy materials still required segmentation and processing in chunks. I tested PaLM in late 2022 and could finally fit entire configuration files (around 6,000 tokens) into context. After years of working within the constraints of 1K-2K windows, that felt like a huge step forward.
 
 ### Current Generation (2023-Present)
-- **GPT-4 Turbo** (November 2023): 128,000 tokens
-- **Claude 3 Opus** (March 2024): 200,000 tokens
-- **Gemini 1.5 Pro** (May 2024): 1,000,000 tokens
-- **Llama 3 70B** (April 2024): 8,192 tokens
-- **Mistral 8x7B** (December 2023): 32,768 tokens
 
-Today's models can ingest entire books, large codebases, or comprehensive conversation histories. When Gemini 1.5 Pro launched with a million-token context in May 2024, I immediately tested it by uploading my entire homelab documentation (472,000 tokens). The model handled it without breaking a sweat. Performance degraded around token 750,000, but that's still mind-blowing compared to where we were in 2020.
+Today's models can ingest entire books, large codebases, or comprehensive conversation histories. GPT-4 Turbo (November 2023) offers 128,000 tokens. Claude 3 Opus (March 2024) provides 200,000 tokens. Gemini 1.5 Pro (May 2024) reaches 1,000,000 tokens. Llama 3 70B (April 2024) offers 8,192 tokens, while Mistral 8x7B (December 2023) provides 32,768 tokens.
+
+When Gemini 1.5 Pro launched with a million-token context in May 2024, I immediately tested it by uploading my entire homelab documentation (472,000 tokens). The model handled it without breaking a sweat. Performance degraded around token 750,000, but that's still mind-blowing compared to where we were in 2020.
 
 ## Technical Challenges of Extended Context
 
@@ -134,9 +126,13 @@ Expanding context windows introduces several engineering challenges. I've run in
 
 ### Quadratic Attention Complexity
 
-Standard self-attention examines relationships between all tokens in a sequence. For a million-token context, this means processing one trillion relationships. That's clearly impractical with traditional methods.
+Standard self-attention examines relationships between all tokens in a sequence. For a million-token context, this means processing one trillion relationships.
 
-I tested this in December 2024 using Llama 3 70B on my RTX 3090. The model has an 8K context window. Processing at 4K tokens? GPU utilization sat at 76%, inference took 1.2 seconds. Processing at the full 8K? GPU utilization maxed at 98%, inference jumped to 4.7 seconds. That's nearly 4x the compute time for 2x the context. Quadratic complexity isn't theoretical. It's the reason my electricity bill went up $43 that month.
+That's clearly impractical with traditional methods. I tested this in December 2024 using Llama 3 70B on my RTX 3090. The model has an 8K context window.
+
+Processing at 4K tokens? GPU utilization sat at 76%, inference took 1.2 seconds. Processing at the full 8K? GPU utilization maxed at 98%, inference jumped to 4.7 seconds.
+
+That's nearly 4x the compute time for 2x the context. Quadratic complexity isn't theoretical. It's the reason my electricity bill went up $43 that month.
 
 Several innovations help address this:
 
@@ -152,7 +148,9 @@ Several innovations help address this:
 
 Long sequences create substantial memory demands. Each token typically requires 128-256 floating-point values for representation. A million-token context translates to gigabytes of memory just for maintaining model state.
 
-My RTX 3090 has 24GB of VRAM. Running Llama 3 70B in 4-bit quantization with an 8K context? The model consumed 18.7GB at idle and peaked at 22.3GB during inference. I had roughly 1.7GB of headroom. Expanding to a hypothetical 16K context would have pushed me past my VRAM limit, forcing me to offload to system RAM and destroying performance. Memory isn't just a theoretical constraint. It's the physical limit that determines what I can actually run.
+My RTX 3090 has 24GB of VRAM. Running Llama 3 70B in 4-bit quantization with an 8K context? The model consumed 18.7GB at idle and peaked at 22.3GB during inference.
+
+I had roughly 1.7GB of headroom. Expanding to a hypothetical 16K context would have pushed me past my VRAM limit, forcing me to offload to system RAM and destroying performance. Memory isn't just a theoretical constraint. It's the physical limit that determines what I can actually run.
 
 ### Strategic Trade-offs
 

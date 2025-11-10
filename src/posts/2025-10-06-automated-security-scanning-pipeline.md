@@ -26,9 +26,9 @@ images:
 ![CI/CD pipeline visualization with security gates](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)
 *Photo by Carlos Muza on Unsplash*
 
-Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed. I found out from a security scanner, after the vulnerable code had been running in production for 90 days.
+Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed.
 
-That incident taught me an important lesson: hope is not a security strategy.
+I found out from a security scanner, after the vulnerable code had been running in production for 90 days. That incident taught me an important lesson: hope is not a security strategy.
 
 ## Automated Security Pipeline Architecture
 
@@ -98,7 +98,9 @@ Today, every commit to my repositories is automatically scanned for vulnerabilit
 
 ### Why Multiple Scanners?
 
-I tested these three scanners in September 2024 against my homelab services to understand their strengths. These tools complement my broader approach to [smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev), which helps me focus on what actually matters rather than just raw CVE counts.
+I tested these three scanners in September 2024 against my homelab services to understand their strengths. These tools complement my broader approach to [smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev).
+
+This helps me focus on what actually matters rather than just raw CVE counts.
 
 | Scanner | Strengths | Best For | My Test Results |
 |---------|-----------|----------|-----------------|
@@ -106,7 +108,9 @@ I tested these three scanners in September 2024 against my homelab services to u
 | **OSV-Scanner** | Language-specific, lockfile parsing | npm, pip, cargo, go.mod | 8.1s scan time, found 8 CVEs (4 overlapping) |
 | **Trivy** | All-in-one, config scanning | Comprehensive coverage, IaC | 42s scan time, found 15 CVEs total |
 
-**My strategy:** Run all three, correlate findings, reduce false positives. When I tested this on my Python microservices project, Grype caught a critical vulnerability in a base image layer that OSV missed entirely, while OSV found a transitive npm dependency issue that Grype didn't detect. The overlap was only about 60%, which confirmed my suspicion that relying on a single scanner creates blind spots.
+**My strategy:** Run all three, correlate findings, reduce false positives. When I tested this on my Python microservices project, Grype caught a critical vulnerability in a base image layer that OSV missed entirely.
+
+Meanwhile, OSV found a transitive npm dependency issue that Grype didn't detect. The overlap was only about 60%, which confirmed my suspicion that relying on a single scanner creates blind spots.
 
 ### Installation
 
@@ -134,12 +138,7 @@ flowchart LR
     G -->|Critical Found| I[Block & Alert]
 ```
 
-**Key workflow features:**
-- Triggers: Push, PR, daily at 2 AM UTC
-- Parallel scanner execution (2-3 minute total runtime)
-- SARIF reports upload to GitHub Security tab
-- Hard block on critical/high vulnerabilities
-- Slack notifications on failure
+**Key workflow features:** Triggers on push, pull requests, and daily at 2 AM UTC. Parallel scanner execution completes in 2-3 minutes total runtime. SARIF reports upload to GitHub Security tab automatically. Hard blocks occur on critical/high vulnerabilities. Slack notifications alert on failure.
 
 📎 **Full GitHub Actions workflow (109 lines):**
 [Complete implementation with SARIF uploads, quality gates, and Slack notifications](https://gist.github.com/williamzujkowski/8185611a406dd91806f37d51778cdd16)
@@ -161,7 +160,9 @@ One lesson I learned the hard way: catching vulnerabilities in CI is good, but c
 
 Create `.pre-commit-config.yaml` with local hooks for Grype (`fail-on high`) and OSV-Scanner (`--lockfile=package-lock.json`). Install with `pip install pre-commit && pre-commit install`.
 
-**Reality check:** These hooks add 30-45 seconds per commit. Some developers use `--no-verify` to bypass them. I don't have a good solution yet. It's a constant tension between security and developer experience.
+**Reality check:** These hooks add 30-45 seconds per commit. Some developers use `--no-verify` to bypass them.
+
+I don't have a good solution yet. It's a constant tension between security and developer experience.
 
 ### VS Code Integration
 
@@ -267,22 +268,39 @@ Define base rule matching vulnerability IDs (level 7), then escalate to level 12
 
 ## Lessons Learned
 
-After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source), where the focus is on sustainable processes rather than perfect tools.
+After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source).
+
+The focus should be on sustainable processes rather than perfect tools.
 
 ### 1. Multiple Scanners Reduce False Negatives
-When I first tested Grype alone, I thought I had good coverage. Then I added OSV-Scanner and immediately found 4 additional vulnerabilities in a project I'd already "validated." The overlap between tools is surprisingly low. I measured around 60-65% in my homelab testing. Running both catches more real issues, though I'm still uncertain if three scanners is overkill for smaller projects.
+
+When I first tested Grype alone, I thought I had good coverage. Then I added OSV-Scanner and immediately found 4 additional vulnerabilities in a project I'd already "validated."
+
+The overlap between tools is surprisingly low. I measured around 60-65% in my homelab testing. Running both catches more real issues, though I'm still uncertain if three scanners is overkill for smaller projects.
 
 ### 2. Fail Fast, Fail Loud
-I initially set my pipeline to "warn" on critical vulnerabilities, thinking I'd review them later. That lasted two weeks before I had 47 unreviewed warnings. Switching to hard-block on critical findings was painful. I spent a full weekend fixing vulnerabilities the first time, but it forces good hygiene. Though I'll admit, there are times when I question whether blocking a build for a vulnerability in a dev-only dependency is the right call.
+
+I initially set my pipeline to "warn" on critical vulnerabilities, thinking I'd review them later. That lasted two weeks before I had 47 unreviewed warnings.
+
+Switching to hard-block on critical findings was painful. I spent a full weekend fixing vulnerabilities the first time, but it forces good hygiene. Though I'll admit, there are times when I question whether blocking a build for a vulnerability in a dev-only dependency is the right call.
 
 ### 3. Baseline Everything
-Without a baseline, you're drowning in noise. I learned this the hard way when Trivy flagged 183 findings on my first scan. Most were from base images I inherited. Now I track what's new vs. what's been there, and my alert fatigue dropped by about 80%. I still struggle with deciding how long to "accept" known issues in the baseline before forcing remediation.
+
+Without a baseline, you're drowning in noise. I learned this the hard way when Trivy flagged 183 findings on my first scan. Most were from base images I inherited.
+
+Now I track what's new vs. what's been there, and my alert fatigue dropped by about 80%. I still struggle with deciding how long to "accept" known issues in the baseline before forcing remediation.
 
 ### 4. Automate Remediation Where Possible
-`npm audit fix` catches low-hanging fruit automatically. In my testing, about 35% of vulnerabilities were fixed automatically without breaking tests. Focus human effort on complex issues. That said, I've had `npm audit fix` break dependencies twice, so blind automation isn't always the answer.
+
+`npm audit fix` catches low-hanging fruit automatically. In my testing, about 35% of vulnerabilities were fixed automatically without breaking tests. Focus human effort on complex issues.
+
+That said, I've had `npm audit fix` break dependencies twice, so blind automation isn't always the answer.
 
 ### 5. Integration is Key
-Scanning results are useless if no one sees them. I initially just had GitHub annotations, which I never actually checked. Adding Slack notifications increased my response time from days to hours. Shipping to my Wazuh SIEM let me track trends over time. Though honestly, I'm still figuring out the right balance between visibility and notification fatigue.
+
+Scanning results are useless if no one sees them. I initially just had GitHub annotations, which I never actually checked. Adding Slack notifications increased my response time from days to hours.
+
+Shipping to my Wazuh SIEM let me track trends over time. Though honestly, I'm still figuring out the right balance between visibility and notification fatigue.
 
 ## Performance Optimization
 
@@ -296,12 +314,18 @@ When I first implemented this pipeline, builds were taking forever. Here are my 
 | **Total** | **6m 30s** | **2m** | **69% faster** |
 
 **Optimizations I added:**
-- **Parallel scanning** (matrix strategy): Reduced wait time by running all three scanners simultaneously instead of sequentially
-- **Cached vulnerability databases**: Grype's DB cache alone saved 40 seconds per run
-- **Scoped scanning** (ignore test files): Cutting out `node_modules` and test fixtures dropped scan time by 25%
-- **Early failure** (stop on critical): When a critical CVE is found, I stop immediately rather than completing all scans
 
-I should note that these times are specific to my homelab setup (Intel i9-9900K, GitHub-hosted runners). Your mileage may vary depending on project size and runner specs. I'm also not entirely convinced the complexity of running three scanners is worth the maintenance burden for every project. Smaller teams might be better off with just Grype and calling it a day.
+**Parallel scanning** (matrix strategy): Reduced wait time by running all three scanners simultaneously instead of sequentially.
+
+**Cached vulnerability databases**: Grype's DB cache alone saved 40 seconds per run.
+
+**Scoped scanning** (ignore test files): Cutting out `node_modules` and test fixtures dropped scan time by 25%.
+
+**Early failure** (stop on critical): When a critical CVE is found, I stop immediately rather than completing all scans.
+
+I should note that these times are specific to my homelab setup (Intel i9-9900K, GitHub-hosted runners). Your mileage may vary depending on project size and runner specs.
+
+I'm also not entirely convinced the complexity of running three scanners is worth the maintenance burden for every project. Smaller teams might be better off with just Grype and calling it a day.
 
 ## Metrics Dashboard
 

@@ -19,9 +19,13 @@ tags:
 - devops
 title: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
 ---
-In January 2024, I decided to harden the security of my K3s cluster running on my Proxmox homelab. I felt confident. I had firewalls configured, network segmentation via VLANs, and proper TLS certificates everywhere. Then I ran Grype v0.74.1 against my container images and discovered 47 high-severity vulnerabilities in what I thought were "minimal" base images. One Alpine 3.18 image that I used as a base for 12 different services had CVE-2023-5678 with a CVSS score of 9.8. That single vulnerable base image meant 12 services were potentially compromised.
+In January 2024, I decided to harden the security of my K3s cluster running on my Proxmox homelab. I felt confident. I had firewalls configured, network segmentation via VLANs, and proper TLS certificates everywhere.
 
-That was probably my most humbling moment in months. I spent the next three hours scanning every container image in my registry, only to find that roughly 60% of my "production-ready" images had at least one critical CVE. The wake-up call got worse when I accidentally exposed my Docker socket to other VMs on my Proxmox host while troubleshooting a networking issue in February 2024. For about 20 minutes, my entire container runtime was accessible to every virtual machine on the hypervisor before I caught the mistake.
+Then I ran Grype v0.74.1 against my container images and discovered 47 high-severity vulnerabilities in what I thought were "minimal" base images. One Alpine 3.18 image that I used as a base for 12 different services had CVE-2023-5678 with a CVSS score of 9.8. That single vulnerable base image meant 12 services were potentially compromised.
+
+That was probably my most humbling moment in months. I spent the next three hours scanning every container image in my registry, only to find that roughly 60% of my "production-ready" images had at least one critical CVE.
+
+The wake-up call got worse when I accidentally exposed my Docker socket to other VMs on my Proxmox host while troubleshooting a networking issue in February 2024. For about 20 minutes, my entire container runtime was accessible to every virtual machine on the hypervisor before I caught the mistake.
 
 These incidents taught me something crucial. Cloud-native architectures don't just change how we deploy applications, they fundamentally reshape how we think about security. Every microservice becomes a potential entry point. Every API call is a trust decision waiting to be exploited.
 
@@ -62,7 +66,9 @@ flowchart TB
 
 My first microservices deployment to my homelab in December 2023 seemed secure by traditional standards. I had firewalls, encrypted connections, and proper authentication. What I missed was the exponential growth in attack surface that comes with distributed systems.
 
-Each microservice was a potential entry point. Each API call was a trust decision. Each container was a boundary that could be breached. When I ran OSV-Scanner v1.5.0 across my entire stack in March 2024, I found security issues in places I never expected. Out of 23 services, 18 had at least one transitive dependency with known vulnerabilities. The static security models that worked for monolithic applications typically crumble when faced with dozens of interconnected, ephemeral services.
+Each microservice was a potential entry point. Each API call was a trust decision. Each container was a boundary that could be breached.
+
+When I ran OSV-Scanner v1.5.0 across my entire stack in March 2024, I found security issues in places I never expected. Out of 23 services, 18 had at least one transitive dependency with known vulnerabilities. The static security models that worked for monolithic applications typically crumble when faced with dozens of interconnected, ephemeral services.
 
 ## The Unique Security Challenges I've Encountered
 
@@ -70,9 +76,15 @@ Testing cloud-native environments in my homelab has taught me that distributed s
 
 **Increased Attack Surface:** Every microservice is an entry point, every API an unlocked door. In my K3s cluster running on Docker 24.0.7, I have roughly 15-20 services at any given time. Each one represents a potential attack vector. I learned this the hard way in February 2024 when a test service I spun up for "just five minutes" remained exposed for two days because I forgot to tear it down.
 
-**Dynamic and Ephemeral Infrastructure:** Containers spawn and die within minutes, leaving little time for traditional security scanning. In my homelab, I've measured container lifecycles as short as 30 seconds during auto-scaling tests. Running security scans that typically take 2-3 minutes per image means vulnerabilities can be deployed and running before detection completes. This timing mismatch probably affects most dynamic environments. The practical impact is that I had to shift from reactive scanning (scan running containers) to proactive scanning (scan images before deployment). This change reduced my exposure window from potentially hours to zero, since vulnerable images never reach my cluster.
+**Dynamic and Ephemeral Infrastructure:** Containers spawn and die within minutes, leaving little time for traditional security scanning. In my homelab, I've measured container lifecycles as short as 30 seconds during auto-scaling tests.
 
-**Complex Interdependencies:** A single compromised service can cascade through the entire system if network policies aren't properly configured. When I misconfigured my Wazuh logging agent in March 2024, it had access to every container's logs across all namespaces. That's when I realized a compromised logging service could exfiltrate data from every application it monitors. Here's why it matters: without proper network segmentation, one vulnerability in a logging service becomes a vulnerability in every service it touches. In practice, this means creating deny-all-by-default NetworkPolicies and explicitly allowing only necessary communications.
+Running security scans that typically take 2-3 minutes per image means vulnerabilities can be deployed and running before detection completes. This timing mismatch probably affects most dynamic environments.
+
+The practical impact is that I had to shift from reactive scanning (scan running containers) to proactive scanning (scan images before deployment). This change reduced my exposure window from potentially hours to zero, since vulnerable images never reach my cluster.
+
+**Complex Interdependencies:** A single compromised service can cascade through the entire system if network policies aren't properly configured. When I misconfigured my Wazuh logging agent in March 2024, it had access to every container's logs across all namespaces.
+
+That's when I realized a compromised logging service could exfiltrate data from every application it monitors. Here's why it matters: without proper network segmentation, one vulnerability in a logging service becomes a vulnerability in every service it touches. In practice, this means creating deny-all-by-default NetworkPolicies and explicitly allowing only necessary communications.
 
 **Shared Responsibility Confusion:** The cloud provider secures the infrastructure, but application security remains our responsibility. This division confused me for months. I assumed Proxmox's virtualization layer handled container isolation, but it doesn't. Container security is entirely my responsibility at the Docker/K3s layer.
 
@@ -84,25 +96,45 @@ Every mistake in my homelab taught me something valuable about securing cloud-na
 
 ### 1. Container Security: Lessons from the Trenches
 
-**Image Security:** Early in my containerization journey in late 2023, I pulled base images from Docker Hub without verification. When I finally ran Grype v0.74.1 against them in January 2024, I found that roughly 40% of my 35 container images contained critical vulnerabilities (CVSS 9.0+). One Alpine 3.18 image had 12 high-severity CVEs. For example, CVE-2023-5678 in the base layer affected every service I built on top of it. Now I only use verified base images and scan everything before deployment. Switching to distroless images reduced my vulnerability count by approximately 78% in tested images. What this means in practice: instead of starting with a full OS (200+ packages), I now use distroless images containing only my application and its runtime dependencies (typically 5-10 packages).
+**Image Security:** Early in my containerization journey in late 2023, I pulled base images from Docker Hub without verification. When I finally ran Grype v0.74.1 against them in January 2024, I found that roughly 40% of my 35 container images contained critical vulnerabilities (CVSS 9.0+).
 
-**Registry Security:** In February 2024, I accidentally pushed a test container image containing a hardcoded API token to my local registry. The token was for a development service, but it taught me a crucial lesson. If that had been production credentials, they could have been discovered within hours. I immediately set up Bitwarden for secrets management and configured registry access controls. Secure, private registries became non-negotiable after that incident.
+One Alpine 3.18 image had 12 high-severity CVEs. For example, CVE-2023-5678 in the base layer affected every service I built on top of it. Now I only use verified base images and scan everything before deployment.
 
-**Build Process Security:** I learned about supply chain attacks when scanning my CI/CD pipeline outputs with OSV-Scanner v1.5.0 in March 2024. Three of my build dependencies had known vulnerabilities that were being packaged into every container I built. My pipelines now include mandatory vulnerability scanning at every stage, which typically adds 30-45 seconds to build time but catches issues before deployment.
+Switching to distroless images reduced my vulnerability count by approximately 78% in tested images. What this means in practice: instead of starting with a full OS (200+ packages), I now use distroless images containing only my application and its runtime dependencies (typically 5-10 packages).
+
+**Registry Security:** In February 2024, I accidentally pushed a test container image containing a hardcoded API token to my local registry. The token was for a development service, but it taught me a crucial lesson.
+
+If that had been production credentials, they could have been discovered within hours. I immediately set up Bitwarden for secrets management and configured registry access controls. Secure, private registries became non-negotiable after that incident.
+
+**Build Process Security:** I learned about supply chain attacks when scanning my CI/CD pipeline outputs with OSV-Scanner v1.5.0 in March 2024. Three of my build dependencies had known vulnerabilities that were being packaged into every container I built.
+
+My pipelines now include mandatory vulnerability scanning at every stage, which typically adds 30-45 seconds to build time but catches issues before deployment.
 
 ### 2. Runtime Security: Constant Vigilance
 
-**Least Privilege Principle:** Every container gets only the minimum permissions required. I learned this in April 2024 when testing container escape techniques on my isolated test node. A container running with CAP_SYS_ADMIN capability could access the host filesystem within seconds. I created a test container with this capability and successfully read /etc/shadow from the host in under 10 seconds using a simple mount command. Now I drop all capabilities by default and only add back what's absolutely necessary. This approach probably prevents 90% of common escape vectors. The practical result is that my containers now start with zero capabilities, and I explicitly grant only what each service needs, typically 1-2 capabilities like CAP_NET_BIND_SERVICE for services that need to listen on privileged ports.
+**Least Privilege Principle:** Every container gets only the minimum permissions required. I learned this in April 2024 when testing container escape techniques on my isolated test node.
 
-**Network Segmentation:** Implementing proper Kubernetes NetworkPolicies in my K3s v1.28 cluster prevented what could have been a serious issue. In March 2024, I had a misconfigured service that was attempting to connect to my Bitwarden database. The connection failed because of network isolation policies. Without those policies, that service would have had unrestricted database access. The policies typically add 5-10ms latency to first connection, which is acceptable for the security benefit.
+A container running with CAP_SYS_ADMIN capability could access the host filesystem within seconds. I created a test container with this capability and successfully read /etc/shadow from the host in under 10 seconds using a simple mount command.
 
-**Runtime Monitoring:** I installed Wazuh 4.7.0 for runtime monitoring in January 2024. Within the first week, it detected unusual network connections from a container I was testing. The container was attempting DNS lookups to suspicious domains, probably from a compromised dependency I hadn't caught during build scanning. Real-time threat detection is now a cornerstone of my security approach, even if it increases log storage by roughly 40GB per month.
+Now I drop all capabilities by default and only add back what's absolutely necessary. This approach probably prevents 90% of common escape vectors. The practical result is that my containers now start with zero capabilities, and I explicitly grant only what each service needs, typically 1-2 capabilities like CAP_NET_BIND_SERVICE for services that need to listen on privileged ports.
+
+**Network Segmentation:** Implementing proper Kubernetes NetworkPolicies in my K3s v1.28 cluster prevented what could have been a serious issue. In March 2024, I had a misconfigured service that was attempting to connect to my Bitwarden database.
+
+The connection failed because of network isolation policies. Without those policies, that service would have had unrestricted database access. The policies typically add 5-10ms latency to first connection, which is acceptable for the security benefit.
+
+**Runtime Monitoring:** I installed Wazuh 4.7.0 for runtime monitoring in January 2024. Within the first week, it detected unusual network connections from a container I was testing.
+
+The container was attempting DNS lookups to suspicious domains, probably from a compromised dependency I hadn't caught during build scanning. Real-time threat detection is now a cornerstone of my security approach, even if it increases log storage by roughly 40GB per month.
 
 ### 3. API Security: The Frontline Defense
 
-**Authentication and Authorization:** No open APIs, ever. I learned this in February 2024 when I left a metrics endpoint unauthenticated for "just a few days" while debugging. That endpoint exposed container resource usage, namespace names, and service topology. An attacker could have used that information to map my entire infrastructure. Now every API endpoint requires authentication, even internal ones.
+**Authentication and Authorization:** No open APIs, ever. I learned this in February 2024 when I left a metrics endpoint unauthenticated for "just a few days" while debugging.
 
-**API Gateways:** I deployed Traefik v2.11 as my API gateway in March 2024. Centralizing API management helped me configure consistent security policies and rate limiting across all 15+ services. Before Traefik, each service had its own authentication logic, and three of them had slightly different implementations. Centralization probably reduced my security configuration errors by 60-70%.
+That endpoint exposed container resource usage, namespace names, and service topology. An attacker could have used that information to map my entire infrastructure. Now every API endpoint requires authentication, even internal ones.
+
+**API Gateways:** I deployed Traefik v2.11 as my API gateway in March 2024. Centralizing API management helped me configure consistent security policies and rate limiting across all 15+ services.
+
+Before Traefik, each service had its own authentication logic, and three of them had slightly different implementations. Centralization probably reduced my security configuration errors by 60-70%.
 
 **Rate Limiting:** I've configured rate limiting to 100 requests per minute per IP on my external-facing services. Without it, a single misconfigured client script in March 2024 hit my API 3,400 times in two minutes, degrading performance for all services. Proper rate limiting was the difference between graceful degradation and complete service failure. The limits typically block 5-10 requests per day, all from scanning bots.
 
