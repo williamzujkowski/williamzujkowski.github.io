@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-08-03
-description: Claude-Flow orchestrates AI agent swarms for development—84.8% SWE-Bench solve rate with neural learning. Here's my experience building with it
+description: Claude-Flow orchestrates AI agent swarms for development with 84.8% SWE-Bench solve rate and neural learning. Here's my experience building with it
 images:
   hero:
     alt: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering - Hero Image'

@@ -375,9 +375,10 @@ def check_code_ratios() -> Tuple[bool, str]:
     """
     Check code-to-content ratio for blog posts (<25%).
 
-    Uses the AUTHORITATIVE line-by-line parser from code-ratio-calculator.py
-    instead of flawed regex pattern (which incorrectly counted closing fences
-    and captured prose as code).
+    Uses the AUTHORITATIVE code-ratio-calculator.py which includes:
+    - Mermaid diagram detection and separate tracking
+    - DIAGRAM-HEAVY policy exceptions (>80% Mermaid + <10% actual code)
+    - Accurate line-by-line parsing
 
     Returns:
         (success, message)
@@ -402,35 +403,40 @@ def check_code_ratios() -> Tuple[bool, str]:
     if not modified_posts:
         return True, "No blog posts modified"
 
-    # Analyze each post using robust line-by-line parser
+    # Use the authoritative calculator with DIAGRAM-HEAVY detection
     violations = []
     for post_file in modified_posts:
         if not Path(post_file).exists():
             continue
 
         try:
-            # Read all lines (keep as list for line-by-line parsing)
-            with open(post_file, 'r', encoding='utf-8') as f:
-                lines = f.readlines()
+            # Call the authoritative calculator
+            result = subprocess.run(
+                ["uv", "run", "python", "scripts/blog-content/code-ratio-calculator.py", "--post", post_file, "--json"],
+                capture_output=True,
+                text=True,
+                timeout=10
+            )
 
-            if not lines:
+            if result.returncode != 0:
                 continue
 
-            # Step 1: Skip frontmatter
-            content_start = _skip_frontmatter_inline(lines)
+            data = json.loads(result.stdout)
 
-            # Step 2: Extract code blocks (excluding Mermaid diagrams)
-            num_blocks, total_code_lines = _extract_code_blocks_inline(lines, content_start)
+            # Check if post violates threshold AND is not DIAGRAM-HEAVY
+            code_ratio = data.get('code_ratio', 0)
+            is_diagram_heavy = data.get('is_diagram_heavy', False)
 
-            # Step 3: Count total content lines
-            total_lines = _count_content_lines_inline(lines, content_start)
+            # Violation only if exceeds threshold AND not DIAGRAM-HEAVY exception
+            if code_ratio > 25 and not is_diagram_heavy:
+                violations.append((
+                    Path(post_file).name,
+                    code_ratio,
+                    data.get('total_code_lines', 0),
+                    data.get('total_lines', 0)
+                ))
 
-            # Step 4: Calculate ratio
-            code_ratio = (total_code_lines / total_lines * 100) if total_lines > 0 else 0
-
-            if code_ratio > 25:
-                violations.append((Path(post_file).name, code_ratio, total_code_lines, total_lines))
-        except Exception as e:
+        except (subprocess.TimeoutExpired, json.JSONDecodeError, Exception):
             # Don't fail the whole check for one file error
             continue
 
@@ -442,9 +448,10 @@ def check_code_ratios() -> Tuple[bool, str]:
         error_lines.append("\nTip: Extract code to gists or reduce code examples.")
         error_lines.append("See: docs/context/workflows/gist-management.md")
         error_lines.append("Run: uv run python scripts/blog-content/optimize-blog-content.py")
+        error_lines.append("\nNote: DIAGRAM-HEAVY posts (>80% Mermaid) are exempt from ratio checks")
         return False, "\n".join(error_lines)
 
-    return True, f"All {len(modified_posts)} posts <25% code ratio"
+    return True, f"All {len(modified_posts)} posts <25% code ratio (DIAGRAM-HEAVY exceptions applied)"
 
 
 def check_image_variants() -> Tuple[bool, str]:

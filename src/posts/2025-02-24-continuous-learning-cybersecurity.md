@@ -1,6 +1,6 @@
 ---
 date: 2025-02-24
-description: How I stay current in a field that changes daily—practical strategies including lab exercises, research tracking, and community engagement without burnout
+description: How I stay current in a field that changes daily. Practical strategies including lab exercises, research tracking, and community engagement without burnout
 images:
   hero:
     alt: 'Continuous Learning in Cybersecurity: Strategies That Work - Hero Image'
@@ -25,7 +25,7 @@ After 15+ years in cybersecurity, I've learned one truth: The moment you stop le
 ## How It Works
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph threatactors["Threat Actors"]
         TA1[External Attackers]
         TA2[Insider Threats]
@@ -41,15 +41,18 @@ graph TB
         D2[Detection]
         D3[Response]
     end
-    
+
     TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
     AV1 & AV2 & AV3 --> D1
     D1 -->|Bypass| D2
     D2 --> D3
-    
-    style D1 fill:#4caf50
-    style D2 fill:#ff9800
-    style D3 fill:#f44336
+
+    classDef preventionStyle fill:#4caf50
+    classDef detectionStyle fill:#ff9800
+    classDef responseStyle fill:#f44336
+    class D1 preventionStyle
+    class D2 detectionStyle
+    class D3 responseStyle
 ```
 
 ## The Learning Paradox

@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-07-01
-description: Using eBPF for real-time Linux security monitoring—syscall tracking, network observability, and production-ready patterns for kernel-level visibility
+description: Using eBPF for real-time Linux security monitoring. Syscall tracking, network observability, and production-ready patterns for kernel-level visibility
 images:
   hero:
     alt: Futuristic dashboard showing real-time kernel-level security monitoring with eBPF
@@ -39,7 +39,7 @@ Imagine having X-ray vision into your kernel, seeing every system call, network 
 ## Understanding eBPF Security Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph attacksurface["Attack Surface"]
         A1[Process Execution]
         A2[Network Connections]
@@ -58,24 +58,27 @@ graph TB
         AI[AI/ML Analysis]
         SIEM[SIEM Integration]
     end
-    
+
     A1 --> KP
     A2 --> KP
     A3 --> KP
     A4 --> KP
-    
+
     KP --> Verifier
     Verifier -->|Safe| BPF
     BPF --> Maps
-    
+
     Loader -->|Load Program| Verifier
     Maps -->|Poll Events| Monitor
     Monitor --> AI
     AI --> SIEM
-    
-    style BPF fill:#ff9800
-    style AI fill:#9c27b0
-    style SIEM fill:#4caf50
+
+    classDef bpfStyle fill:#ff9800
+    classDef aiStyle fill:#9c27b0
+    classDef siemStyle fill:#4caf50
+    class BPF bpfStyle
+    class AI aiStyle
+    class SIEM siemStyle
 ```
 
 ## Why Traditional Monitoring Falls Short
@@ -85,14 +88,14 @@ Let me share a story from my research lab. I once set up a honeypot with traditi
 With eBPF monitoring on an identical honeypot, the same attack was detected in 1.3 seconds. Here's what makes the difference:
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph traditionalmonitoring["Traditional Monitoring"]
         T1[Application Logs]
         T2[System Logs]
         T3[Network Logs]
         T4[SIEM Aggregation]
         T5[Alert Generation]
-        
+
         T1 -->|Delayed| T4
         T2 -->|Can be tampered| T4
         T3 -->|After the fact| T4
@@ -103,14 +106,16 @@ graph LR
         E2[Real-time Processing]
         E3[In-kernel Filtering]
         E4[Instant Detection]
-        
+
         E1 -->|Nanoseconds| E2
         E2 -->|Microseconds| E3
         E3 -->|Milliseconds| E4
     end
-    
-    style T5 fill:#f44336
-    style E4 fill:#4caf50
+
+    classDef traditionalStyle fill:#f44336
+    classDef ebpfStyle fill:#4caf50
+    class T5 traditionalStyle
+    class E4 ebpfStyle
 ```
 
 ## Real-World Detection Patterns
@@ -155,7 +160,7 @@ sequenceDiagram
 My research aligns with recent findings: ransomware has unique behavioral fingerprints. Here's the multi-layered detection approach:
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph detectionlayers["Detection Layers"]
         L1[File System Monitoring]
         L2[Process Behavior Analysis]
@@ -174,20 +179,22 @@ graph TD
         ML3[NLP Analysis]
         ML4[Threat Scoring]
     end
-    
+
     P1 --> L1 --> ML1
     P2 --> L2 --> ML1
     P3 --> L3 --> ML1
     P4 --> L4 --> ML3
-    
+
     ML1 --> ML2
     ML3 --> ML2
     ML2 --> ML4
-    
+
     ML4 -->|Score > Threshold| Alert[Generate Alert]
-    
-    style ML2 fill:#9c27b0
-    style Alert fill:#f44336
+
+    classDef mlStyle fill:#9c27b0
+    classDef alertStyle fill:#f44336
+    class ML2 mlStyle
+    class Alert alertStyle
 ```
 
 ### Pattern 3: Container Escape Detection
@@ -195,7 +202,7 @@ graph TD
 Container security is critical in cloud environments. eBPF excels here because it sees through container boundaries:
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph container["Container"]
         C1[Process]
         C2[Namespace]
@@ -213,15 +220,16 @@ graph TB
         M3[Syscall filtering]
         M4[Device operation tracking]
     end
-    
+
     C1 --> D1 --> M1
     C1 --> D2 --> M2
     C2 --> D3 --> M3
     C3 --> D4 --> M4
-    
+
     M1 & M2 & M3 & M4 --> Detection[Container Escape Detection]
-    
-    style Detection fill:#ff5722
+
+    classDef detectionStyle fill:#ff5722
+    class Detection detectionStyle
 ```
 
 ## Production Deployment Strategy
@@ -229,7 +237,7 @@ graph TB
 After deploying eBPF monitoring across various environments, here's my battle-tested deployment strategy:
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph phase1development["Phase 1: Development"]
         Dev1[Write eBPF Programs]
         Dev2[Test in VM]
@@ -245,10 +253,10 @@ graph LR
         Prod2[Performance Monitoring]
         Prod3[Continuous Tuning]
     end
-    
+
     Dev3 --> Stage1
     Stage3 --> Prod1
-    
+
     Prod3 -->|Feedback| Dev1
 ```
 
@@ -257,7 +265,7 @@ graph LR
 The biggest lesson I learned the hard way: an overly aggressive eBPF program can become a self-inflicted DoS. Here's how to avoid that:
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph optimizationstrategies["Optimization Strategies"]
         O1[Early Filtering]
         O2[Map-based Deduplication]
@@ -270,15 +278,16 @@ graph TD
         M3[Event Loss < 0.01%]
         M4[Latency < 1ms]
     end
-    
+
     O1 --> M1
     O2 --> M2
     O3 --> M3
     O4 --> M4
-    
+
     M1 & M2 & M3 & M4 --> Success[Production Ready]
-    
-    style Success fill:#4caf50
+
+    classDef successStyle fill:#4caf50
+    class Success successStyle
 ```
 
 Key optimization patterns that work well in my environment (though your mileage may vary depending on workload):
@@ -292,7 +301,7 @@ Key optimization patterns that work well in my environment (though your mileage 
 eBPF doesn't exist in isolation. Here's how it fits into a modern security architecture:
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph datasources["Data Sources"]
         eBPF[eBPF Events]
         Logs[Traditional Logs]
@@ -314,25 +323,27 @@ graph TB
         Auto[Automation]
         Investigate[Investigation]
     end
-    
+
     eBPF --> Stream
     Logs --> Stream
     Network --> Stream
     Cloud --> Stream
-    
+
     Stream --> Enrich
     Enrich --> Correlate
-    
+
     Correlate --> ML
     Correlate --> Threat
     Correlate --> Rules
-    
+
     ML & Threat & Rules --> Alert
     Alert --> Auto
     Alert --> Investigate
-    
-    style eBPF fill:#ff9800
-    style ML fill:#9c27b0
+
+    classDef ebpfStyle fill:#ff9800
+    classDef mlStyle fill:#9c27b0
+    class eBPF ebpfStyle
+    class ML mlStyle
 ```
 
 ## Lessons from the Trenches
