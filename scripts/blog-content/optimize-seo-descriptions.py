@@ -1,39 +1,49 @@
 #!/usr/bin/env -S uv run python3
 """
 SCRIPT: optimize-seo-descriptions.py
-PURPOSE: SEO Meta Description Optimizer
+PURPOSE: SEO Meta Description Optimizer with Keyword Analysis
 CATEGORY: blog_content
 LLM_READY: True
-VERSION: 2.0.0
-UPDATED: 2025-11-03
+VERSION: 3.0.0
+UPDATED: 2025-11-10
 
 DESCRIPTION:
-    Automatically optimizes blog post meta descriptions to the 120-160 character
-    range (with 150-160 being optimal) while preserving voice, keywords, and meaning.
-    Now uses centralized logging configuration from scripts/lib/logging_config.py.
+    Automatically analyzes and optimizes blog post meta descriptions for SEO:
+    - Validates length (130-155 chars optimal for CTR)
+    - Extracts and validates primary keywords
+    - Checks uniqueness across all posts
+    - Generates quality scores (0-100)
+    - Provides actionable recommendations
+
+    Based on research: 130-155 char descriptions with keywords improve CTR by 40%
 
 LLM_USAGE:
     python scripts/blog-content/optimize-seo-descriptions.py [options]
 
 ARGUMENTS:
-    --verbose, -v: Enable debug output
-    --quiet, -q: Suppress info messages
-    --log-file: Write logs to file
+    --post PATH: Analyze single post
+    --batch: Analyze all posts in src/posts/
+    --csv PATH: Output CSV report
+    --generate: Generate optimized recommendations
+    --debug: Enable debug logging
+    --verbose, -v: Enable verbose output
 
 EXAMPLES:
-    # Basic usage
-    python scripts/blog-content/optimize-seo-descriptions.py
+    # Analyze single post
+    python scripts/blog-content/optimize-seo-descriptions.py --post src/posts/welcome.md
 
-    # With verbose logging
-    python scripts/blog-content/optimize-seo-descriptions.py --verbose
+    # Batch analysis with CSV report
+    python scripts/blog-content/optimize-seo-descriptions.py --batch --csv reports/seo-analysis.csv
 
-    # Write logs to file
-    python scripts/blog-content/optimize-seo-descriptions.py --log-file logs/seo-optimizer.log
+    # Generate recommendations for all posts
+    python scripts/blog-content/optimize-seo-descriptions.py --batch --generate
 
 OUTPUT:
-    - Updated blog posts with optimized meta descriptions
-    - JSON report in docs/reports/seo-optimization-{date}.json
-    - Statistics summary
+    - Quality scores for each description (0-100)
+    - Keyword analysis and validation
+    - Uniqueness check across all posts
+    - Optimized description recommendations
+    - CSV report with detailed metrics
 
 DEPENDENCIES:
     - Python 3.8+
@@ -49,6 +59,7 @@ MANIFEST_REGISTRY: scripts/blog-content/optimize-seo-descriptions.py
 
 import os
 import re
+import csv
 import json
 import yaml
 import sys
@@ -56,204 +67,49 @@ import logging
 import argparse
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Set
+from collections import Counter
+from difflib import SequenceMatcher
 
 # Add lib directory to path for logging_config
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from lib.logging_config import setup_logger
+sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
+from logging_config import setup_logger
 
 # Configuration
 POSTS_DIR = Path("src/posts")
 REPORT_DIR = Path("docs/reports")
 MIN_CHARS = 120
-OPTIMAL_MIN = 150
-OPTIMAL_MAX = 160
+OPTIMAL_MIN = 130
+OPTIMAL_MAX = 155
 MAX_CHARS = 160
 
+# Action verbs for compelling descriptions
+ACTION_VERBS = [
+    "Implement", "Build", "Secure", "Deploy", "Explore", "Master",
+    "Learn", "Discover", "Create", "Optimize", "Configure", "Analyze",
+    "Protect", "Enhance", "Automate", "Monitor", "Test", "Debug"
+]
 
-# Manual optimizations for all 44 posts requiring fixes
-MANUAL_OPTIMIZATIONS = {
-    # Critical (190+  chars) - 9 posts
-    "2025-10-13-embodied-ai-robots-physical-world.md":
-        "Vision-Language-Action models transform AI from code into physical robots, with practical implications for security, safety, and homelab automation",
-
-    "2025-08-09-ai-cognitive-infrastructure.md":
-        "AI is evolving from tools into cognitive infrastructure that shapes how billions think, yet we understand little about its long-term effects",
-
-    "2024-10-22-ai-edge-computing.md":
-        "How AI and edge computing create responsive, private systems that process data locally, revolutionizing autonomous vehicles and smart manufacturing",
-
-    "2024-10-10-blockchain-beyond-cryptocurrency.md":
-        "Running Ethereum nodes on my homelab taught me blockchain is about building trust without central authorities. Here's what works (and doesn't)",
-
-    "2024-11-05-pizza-calculator.md":
-        "How quantifying pizza provisioning enhances team performance during high-pressure development, combining resource planning and behavioral economics",
-
-    "2025-10-17-progressive-context-loading-llm-workflows.md":
-        "Progressive skill loading achieves 98% token reduction in LLM workflows through modular context architecture—lessons from building production systems",
-
-    "2024-06-11-beyond-containers-future-deployment.md":
-        "After migrating 23 services to Kubernetes and debugging for weeks, I explored what comes after containers. Spoiler: I broke things",
-
-    "2024-03-05-cloud-migration-journey-guide.md":
-        "Our cloud migration taught me as much about change management as technology. Lessons from moving from physical servers to the cloud",
-
-    "2024-07-16-sustainable-computing-carbon-footprint.md":
-        "ML training consuming as much electricity as a small town sparked my journey into sustainable computing—efficiency as environmental imperative",
-
-    # High (180-189 chars) - 10 posts
-    "2024-08-27-zero-trust-security-principles.md":
-        "Zero trust security assumes breach and verifies everything. My journey implementing these principles in a homelab environment with practical examples",
-
-    "2024-09-19-biomimetic-robotics.md":
-        "How nature's 3.8 billion years of R&D inspires robot design—from gecko feet to swarm intelligence, exploring biomimetic principles in modern robotics",
-
-    "2024-06-25-designing-resilient-systems.md":
-        "Building systems that gracefully handle failures through redundancy, circuit breakers, and chaos engineering—lessons from production incidents",
-
-    "2024-07-09-zero-trust-architecture-implementation.md":
-        "Practical guide to implementing zero trust architecture: identity verification, micro-segmentation, and continuous monitoring for modern security",
-
-    "2025-09-08-zero-trust-vlan-segmentation-homelab.md":
-        "How I implemented zero trust principles using VLAN segmentation on my homelab—practical network security beyond simple firewall rules",
-
-    "2024-02-22-open-source-vs-proprietary-llms.md":
-        "Running both Llama and GPT-4 in my homelab taught me the real trade-offs between open-source and proprietary LLMs beyond hype and marketing",
-
-    "2025-08-07-supercharging-development-claude-flow.md":
-        "Claude-Flow orchestrates AI agent swarms for development—84.8% SWE-Bench solve rate with neural learning. Here's my experience building with it",
-
-    "2025-05-10-llm-fine-tuning-homelab-guide.md":
-        "Complete guide to fine-tuning open-source LLMs on homelab hardware using QLoRA, covering dataset prep, training optimization, and evaluation",
-
-    "2024-10-03-quantum-computing-defense.md":
-        "Quantum computers will break current encryption within years. Here's how I'm preparing with post-quantum cryptography and quantum-resistant algorithms",
-
-    "2024-12-03-context-windows-llms.md":
-        "From 2K to 2M tokens—how expanding context windows transform LLMs from chatbots to reasoning engines, with practical implications for applications",
-
-    # Medium (170-179 chars) - 11 posts
-    "2024-01-08-writing-secure-code-developers-guide.md":
-        "Practical guide to writing secure code from the start: input validation, parameterized queries, secrets management, and secure architecture patterns",
-
-    "2024-01-18-demystifying-cryptography-beginners-guide.md":
-        "Breaking down cryptography fundamentals—symmetric/asymmetric encryption, hashing, digital signatures—with practical examples and implementation guidance",
-
-    "2024-02-09-deepfake-dilemma-ai-deception.md":
-        "AI-generated deepfakes threaten truth itself. Exploring detection techniques, authentication methods, and the arms race between creation and detection",
-
-    "2024-08-13-high-performance-computing.md":
-        "High-performance computing brings supercomputer capabilities to research and industry—parallel processing, distributed systems, and optimization strategies",
-
-    "2024-09-09-embodied-ai-teaching-agents.md":
-        "Training AI agents to learn from physical interaction with the world, combining vision, language, and action for robots that adapt to real environments",
-
-    "2025-06-25-local-llm-deployment-privacy-first.md":
-        "Complete guide to running LLMs locally for privacy: hardware requirements, model selection, optimization techniques, and practical deployment strategies",
-
-    "2025-09-29-proxmox-high-availability-homelab.md":
-        "Building high-availability Proxmox clusters on homelab hardware—shared storage, live migration, automated failover, and lessons from three failed attempts",
-
-    "2025-09-01-self-hosted-bitwarden-migration-guide.md":
-        "Migrating from cloud password managers to self-hosted Bitwarden: setup, security hardening, backup strategies, and why I made the switch",
-
-    "2025-08-25-network-traffic-analysis-suricata-homelab.md":
-        "Setting up Suricata IDS/IPS on homelab for real-time network threat detection—rule management, performance tuning, and integrating with security stack",
-
-    "2024-11-19-llms-smart-contract-vulnerability.md":
-        "Can LLMs detect smart contract vulnerabilities? Testing GPT-4 and Claude against known exploits with surprising results and security implications",
-
-    "2024-04-30-quantum-resistant-cryptography-guide.md":
-        "Quantum computers threaten today's encryption. Implementing NIST's post-quantum cryptographic algorithms to future-proof security infrastructure",
-
-    # Low (160-169 chars) - 11 posts
-    "2024-05-14-ai-new-frontier-cybersecurity.md":
-        "AI revolutionizes both attack and defense in cybersecurity—from automated threat detection to AI-powered exploits. Exploring the evolving battleground",
-
-    "2024-05-30-ai-learning-resource-constrained.md":
-        "Training effective AI models with limited compute—techniques like quantization, pruning, distillation, and efficient architectures for resource constraints",
-
-    "2024-07-24-multimodal-foundation-models.md":
-        "Foundation models that understand text, images, and audio together—architecture, capabilities, and applications beyond single-modality systems",
-
-    "2025-09-20-vulnerability-prioritization-epss-kev.md":
-        "Moving beyond CVSS scores to prioritize vulnerabilities using EPSS probability metrics and CISA KEV catalog for risk-based patch management",
-
-    "2025-10-06-automated-security-scanning-pipeline.md":
-        "Building automated security scanning pipelines with Grype, OSV, and Trivy—CI/CD integration, vulnerability tracking, and actionable reporting",
-
-    "2024-01-30-securing-cloud-native-frontier.md":
-        "Securing cloud-native environments requires new approaches—container security, service mesh, secrets management, and zero trust for microservices",
-
-    "2024-08-02-quantum-computing-leap-forward.md":
-        "Recent quantum computing breakthroughs bring us closer to practical quantum advantage—algorithm development, error correction, and real applications",
-
-    "2024-04-11-ethics-large-language-models.md":
-        "Ethical implications of LLMs—bias, misinformation, privacy, and accountability. Exploring responsible AI development and deployment frameworks",
-
-    "2024-04-19-mastering-prompt-engineering-llms.md":
-        "Effective prompt engineering techniques for LLMs—few-shot learning, chain-of-thought, system prompts, and strategies for reliable outputs",
-
-    "2025-10-29-post-quantum-cryptography-homelab.md":
-        "Preparing my homelab for the quantum threat with NIST's post-quantum algorithms—CRYSTALS-Kyber, CRYSTALS-Dilithium, and practical implementation lessons",
-
-    "2024-11-15-gpu-power-monitoring-homelab-ml.md":
-        "Monitoring GPU power consumption during ML training with NVIDIA SMI, custom dashboards, and optimization strategies to reduce electricity costs",
-
-    # Acceptable (120-149 chars) - Need to expand to 150-160 - 9 posts
-    "2025-09-20-iot-security-homelab-owasp.md":
-        "Explore IoT security vulnerabilities hands-on with OWASP IoTGoat—testing firmware extraction, API exploitation, and building secure IoT lab environments",
-
-    "2025-03-10-raspberry-pi-security-projects.md":
-        "From network monitoring to physical security—practical Raspberry Pi security projects like Pi-hole, VPN gateway, and honeypots without breaking the bank",
-
-    "2025-07-01-ebpf-security-monitoring-practical-guide.md":
-        "Using eBPF for real-time Linux security monitoring—syscall tracking, network observability, and production-ready patterns for kernel-level visibility",
-
-    "2025-07-08-implementing-dns-over-https-home-networks.md":
-        "Complete guide to deploying DNS-over-HTTPS on home networks for privacy and security, covering Pi-hole, dnscrypt-proxy, and multiple implementation approaches",
-
-    "2025-07-22-supercharging-claude-cli-with-standards.md":
-        "How I built a standards repository that transforms Claude CLI into a context-aware development powerhouse with 90% token reduction and workflow automation",
-
-    "2025-07-29-building-mcp-standards-server.md":
-        "The ongoing saga of turning my standards repo into an MCP server for Claude. Spoiler: It's working mostly, and I've only rewritten it three times so far",
-
-    "2025-04-24-building-secure-homelab-adventure.md":
-        "How I built a comprehensive security lab at home for learning and experimentation—covering Proxmox, VLANs, IDS/IPS, and keeping my family's data safe",
-
-    "2025-03-24-from-it-support-to-senior-infosec-engineer.md":
-        "The winding path from fixing printers to securing federal systems over 10 years—lessons learned, mistakes made, and advice for aspiring security professionals",
-
-    "welcome.md":
-        "Why I chose Eleventy for my personal site and the journey of building a fast, accessible, privacy-respecting digital home with modern web technologies",
-
-    # Too short (<120 chars) - Need to expand - 3 posts
-    "2025-04-10-securing-personal-ai-experiments.md":
-        "Lessons from running LLMs and AI experiments at home while keeping data secure, covering model isolation, network segmentation, and privacy controls",
-
-    "2025-02-24-continuous-learning-cybersecurity.md":
-        "How I stay current in a field that changes daily—practical strategies including lab exercises, research tracking, and community engagement without burnout",
-
-    "2025-02-10-automating-home-network-security.md":
-        "Automation scripts and tools I built to keep my home network secure, including Ansible playbooks, Python monitors, and automated patching systems",
+# Stop words to ignore in keyword extraction
+STOP_WORDS = {
+    "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for",
+    "of", "with", "by", "from", "as", "is", "was", "are", "were", "be",
+    "been", "being", "have", "has", "had", "do", "does", "did", "will",
+    "would", "should", "could", "may", "might", "must", "can", "this",
+    "that", "these", "those", "i", "you", "he", "she", "it", "we", "they",
+    "my", "your", "his", "her", "its", "our", "their"
 }
 
 
 class DescriptionOptimizer:
-    """Optimizes blog post meta descriptions for SEO."""
+    """Optimizes blog post meta descriptions for SEO with keyword analysis."""
 
     def __init__(self, logger=None):
         self.posts_dir = POSTS_DIR
         self.report_dir = REPORT_DIR
         self.report_dir.mkdir(parents=True, exist_ok=True)
         self.results = []
-        self.stats = {
-            "processed": 0,
-            "updated": 0,
-            "skipped": 0,
-            "errors": 0
-        }
+        self.all_descriptions = {}  # Cache for uniqueness checking
         self.logger = logger or logging.getLogger(__name__)
 
     def extract_frontmatter(self, content: str) -> Tuple[Optional[Dict], str, str]:
@@ -267,208 +123,458 @@ class DescriptionOptimizer:
         frontmatter_text = match.group(1)
         body = match.group(2)
 
-        # Parse YAML frontmatter properly
         try:
             frontmatter = yaml.safe_load(frontmatter_text)
             if frontmatter is None:
                 frontmatter = {}
         except yaml.YAMLError as e:
-            if self.logger:
-                self.logger.warning(f"YAML parse error: {e}")
+            self.logger.warning(f"YAML parse error: {e}")
             return None, frontmatter_text, body
 
         return frontmatter, frontmatter_text, body
 
-    def process_post(self, filepath: Path) -> bool:
-        """Process a single blog post and optimize its description."""
+    def extract_primary_keyword(self, post_content: str, post_title: str, post_tags: List[str]) -> str:
+        """
+        Extract 1-2 primary keywords from content/title.
+
+        Strategy:
+        - Use first technical term from title (2+ words)
+        - Count word frequency in H2 headings
+        - Prefer multi-word technical terms
+        - Fall back to most frequent tag
+
+        Returns: str (primary keyword)
+        """
+        # Try title first (often contains primary topic)
+        title_words = [w.lower() for w in post_title.split() if w.lower() not in STOP_WORDS]
+        if len(title_words) >= 2:
+            # Multi-word title is likely the primary keyword
+            candidate = " ".join(title_words[:2])
+            if len(candidate) > 3:  # Avoid short words
+                return candidate
+
+        # Extract H2 headings
+        h2_pattern = r'^##\s+(.+)$'
+        h2_headings = re.findall(h2_pattern, post_content, re.MULTILINE)
+
+        # Count word frequency in headings
+        word_freq = Counter()
+        for heading in h2_headings:
+            words = [w.lower() for w in heading.split()
+                    if w.lower() not in STOP_WORDS and len(w) > 3]
+            word_freq.update(words)
+
+        # Get most common technical term
+        if word_freq:
+            primary_word = word_freq.most_common(1)[0][0]
+            return primary_word
+
+        # Fall back to first tag
+        if post_tags:
+            return post_tags[0].replace("-", " ")
+
+        return title_words[0] if title_words else "guide"
+
+    def check_uniqueness(self, description: str, current_post: str) -> Tuple[bool, Optional[str]]:
+        """
+        Check if description is unique across all posts.
+
+        Returns: (is_unique: bool, duplicate_post: Optional[str])
+        """
+        for post_name, other_desc in self.all_descriptions.items():
+            if post_name == current_post:
+                continue
+
+            # Use fuzzy matching (80%+ similarity = duplicate)
+            similarity = SequenceMatcher(None, description.lower(), other_desc.lower()).ratio()
+            if similarity > 0.80:
+                return False, post_name
+
+        return True, None
+
+    def analyze_description(self,
+                          post_name: str,
+                          post_metadata: Dict,
+                          post_content: str,
+                          post_title: str) -> Dict:
+        """
+        Analyze meta description quality.
+
+        Returns:
+            dict: {
+                'post': str,
+                'current_description': str,
+                'length': int,
+                'length_compliant': bool,  # 130-155 chars
+                'has_primary_keyword': bool,
+                'primary_keyword': str,
+                'is_unique': bool,
+                'duplicate_of': Optional[str],
+                'has_action_verb': bool,
+                'quality_score': int,  # 0-100
+                'recommendation': str,
+                'issues': [str]
+            }
+        """
+        description = post_metadata.get('description', '')
+        tags = post_metadata.get('tags', [])
+
+        # Extract primary keyword
+        primary_keyword = self.extract_primary_keyword(post_content, post_title, tags)
+
+        # Check length compliance
+        length = len(description)
+        length_compliant = OPTIMAL_MIN <= length <= OPTIMAL_MAX
+
+        # Check for primary keyword
+        has_keyword = primary_keyword.lower() in description.lower()
+
+        # Check uniqueness
+        is_unique, duplicate_of = self.check_uniqueness(description, post_name)
+
+        # Check for action verb
+        has_action_verb = any(verb.lower() in description.lower() for verb in ACTION_VERBS)
+
+        # Calculate quality score (0-100)
+        score = 0
+        issues = []
+
+        # Length: 40 points
+        if OPTIMAL_MIN <= length <= OPTIMAL_MAX:
+            score += 40
+        elif MIN_CHARS <= length < OPTIMAL_MIN:
+            score += 30
+            issues.append(f"Length {length} chars (expand to {OPTIMAL_MIN}-{OPTIMAL_MAX} for optimal CTR)")
+        elif OPTIMAL_MAX < length <= MAX_CHARS:
+            score += 30
+            issues.append(f"Length {length} chars (reduce to {OPTIMAL_MIN}-{OPTIMAL_MAX} for optimal CTR)")
+        elif length < MIN_CHARS:
+            score += 10
+            issues.append(f"Too short ({length} chars, minimum {MIN_CHARS})")
+        else:
+            score += 5
+            issues.append(f"Too long ({length} chars, maximum {MAX_CHARS})")
+
+        # Primary keyword: 30 points
+        if has_keyword:
+            score += 30
+        else:
+            issues.append(f"Missing primary keyword: '{primary_keyword}'")
+
+        # Uniqueness: 20 points
+        if is_unique:
+            score += 20
+        else:
+            issues.append(f"Similar to: {duplicate_of}")
+
+        # Action verb: 10 points
+        if has_action_verb:
+            score += 10
+        else:
+            issues.append("No action verb (Implement, Build, Secure, etc.)")
+
+        # Generate recommendation
+        recommendation = self.generate_optimized_description(
+            post_content, primary_keyword, post_title, description
+        )
+
+        return {
+            'post': post_name,
+            'current_description': description,
+            'length': length,
+            'length_compliant': length_compliant,
+            'has_primary_keyword': has_keyword,
+            'primary_keyword': primary_keyword,
+            'is_unique': is_unique,
+            'duplicate_of': duplicate_of,
+            'has_action_verb': has_action_verb,
+            'quality_score': score,
+            'recommendation': recommendation,
+            'issues': issues
+        }
+
+    def generate_optimized_description(self,
+                                      post_content: str,
+                                      primary_keyword: str,
+                                      post_title: str,
+                                      current_description: str = None) -> str:
+        """
+        Generate SEO-optimized description.
+
+        Template: "[Action verb] [primary keyword] [benefit/outcome] - [scope]"
+        Length: 130-155 characters
+        Includes: primary_keyword
+
+        Strategy:
+        - Extract key benefit from intro paragraph
+        - Use active voice (Implement, Build, Secure)
+        - Include specific outcome/timeframe
+        - Optimize for 145 chars (mobile + desktop)
+
+        Returns: str (optimized description)
+        """
+        if current_description and OPTIMAL_MIN <= len(current_description) <= OPTIMAL_MAX:
+            # Already optimal length
+            if primary_keyword.lower() in current_description.lower():
+                return current_description
+
+            # Just add keyword
+            return f"{primary_keyword.title()}: {current_description}"[:OPTIMAL_MAX]
+
+        # Extract first paragraph (intro)
+        paragraphs = [p.strip() for p in post_content.split('\n\n') if p.strip()]
+        intro = paragraphs[0] if paragraphs else post_title
+
+        # Extract key benefit (look for words like: learn, build, secure, implement)
+        benefit_words = ["learn", "build", "secure", "implement", "deploy", "configure"]
+        benefit = None
+        for word in benefit_words:
+            if word in intro.lower():
+                # Extract sentence containing benefit word
+                sentences = intro.split('.')
+                for sent in sentences:
+                    if word in sent.lower():
+                        benefit = sent.strip()
+                        break
+                if benefit:
+                    break
+
+        # Select action verb
+        action_verb = "Explore"
+        for verb in ACTION_VERBS:
+            if verb.lower() in intro.lower():
+                action_verb = verb
+                break
+
+        # Build optimized description
+        # Template: "[Verb] [keyword] [benefit] - [scope]"
+        if benefit and len(benefit) > 20:
+            # Use extracted benefit
+            description = f"{action_verb} {primary_keyword}: {benefit[:100]}"
+        else:
+            # Generic template
+            description = f"{action_verb} {primary_keyword} with practical examples, implementation guide, and security considerations"
+
+        # Trim to optimal length (145 chars target)
+        if len(description) > OPTIMAL_MAX:
+            description = description[:OPTIMAL_MAX-3] + "..."
+
+        return description
+
+    def load_all_descriptions(self) -> None:
+        """Load all post descriptions for uniqueness checking."""
+        for filepath in self.posts_dir.glob("*.md"):
+            try:
+                content = filepath.read_text(encoding='utf-8')
+                frontmatter, _, _ = self.extract_frontmatter(content)
+                if frontmatter and 'description' in frontmatter:
+                    self.all_descriptions[filepath.name] = frontmatter['description']
+            except Exception as e:
+                self.logger.warning(f"Error loading {filepath.name}: {e}")
+
+    def analyze_post(self, filepath: Path) -> Optional[Dict]:
+        """Analyze a single blog post."""
         try:
-            # Check if this file needs optimization
-            if filepath.name not in MANUAL_OPTIMIZATIONS:
-                return False
-
-            # Read file
             content = filepath.read_text(encoding='utf-8')
-            frontmatter, frontmatter_text, body = self.extract_frontmatter(content)
+            frontmatter, _, body = self.extract_frontmatter(content)
 
-            if not frontmatter or 'description' not in frontmatter:
-                self.logger.warning(f"Skipping {filepath.name}: No description found")
-                self.stats["skipped"] += 1
-                return False
+            if not frontmatter:
+                self.logger.warning(f"Skipping {filepath.name}: No frontmatter")
+                return None
 
-            current_desc = frontmatter['description']
-            current_len = len(current_desc)
+            if 'description' not in frontmatter:
+                self.logger.warning(f"Skipping {filepath.name}: No description")
+                return None
 
-            # Get optimized description
-            optimized_desc = MANUAL_OPTIMIZATIONS[filepath.name]
-            optimized_len = len(optimized_desc)
+            title = frontmatter.get('title', filepath.stem)
 
-            # Check if already optimal
-            if current_desc == optimized_desc:
-                self.logger.info(f"Skipping {filepath.name}: Already optimized ({current_len} chars)")
-                self.stats["skipped"] += 1
-                return False
-
-            # Update frontmatter in dictionary
-            frontmatter['description'] = optimized_desc
-
-            # Serialize back to YAML (preserve order)
-            new_frontmatter_text = yaml.dump(
-                frontmatter,
-                default_flow_style=False,
-                allow_unicode=True,
-                sort_keys=False,
-                width=1000  # Prevent line wrapping
+            analysis = self.analyze_description(
+                filepath.name, frontmatter, body, title
             )
 
-            # Reconstruct file
-            new_content = f"---\n{new_frontmatter_text}---\n{body}"
-
-            # Write back
-            filepath.write_text(new_content, encoding='utf-8')
-
-            # Determine status
-            if OPTIMAL_MIN <= optimized_len <= OPTIMAL_MAX:
-                status = "optimal"
-                status_emoji = "✅"
-            elif MIN_CHARS <= optimized_len <= MAX_CHARS:
-                status = "acceptable"
-                status_emoji = "✅"
-            elif optimized_len < MIN_CHARS:
-                status = "too_short"
-                status_emoji = "⚠️"
-            else:
-                status = "too_long"
-                status_emoji = "⚠️"
-
-            # Record result
-            result = {
-                "file": filepath.name,
-                "before": current_desc,
-                "after": optimized_desc,
-                "before_length": current_len,
-                "after_length": optimized_len,
-                "change": optimized_len - current_len,
-                "status": status
-            }
-            self.results.append(result)
-
-            self.logger.info(f"Updated {filepath.name}: {current_len} → {optimized_len} chars ({status})")
-
-            self.stats["processed"] += 1
-            self.stats["updated"] += 1
-            return True
+            return analysis
 
         except Exception as e:
-            self.logger.error(f"Error processing {filepath.name}: {e}")
-            self.stats["errors"] += 1
-            return False
+            self.logger.error(f"Error analyzing {filepath.name}: {e}")
+            return None
 
-    def generate_report(self):
-        """Generate comprehensive optimization report."""
-        timestamp = datetime.now().isoformat()
+    def batch_analyze(self, output_csv: Optional[Path] = None) -> List[Dict]:
+        """Analyze all descriptions, optionally generate CSV report."""
+        self.logger.info("Loading all descriptions for uniqueness check...")
+        self.load_all_descriptions()
 
-        # Calculate statistics
-        total_before = sum(r['before_length'] for r in self.results)
-        total_after = sum(r['after_length'] for r in self.results)
-        avg_before = total_before / len(self.results) if self.results else 0
-        avg_after = total_after / len(self.results) if self.results else 0
+        self.logger.info(f"Analyzing {len(self.all_descriptions)} posts...")
 
-        status_counts = {
-            "optimal": len([r for r in self.results if r['status'] == 'optimal']),
-            "acceptable": len([r for r in self.results if r['status'] == 'acceptable']),
-            "too_short": len([r for r in self.results if r['status'] == 'too_short']),
-            "too_long": len([r for r in self.results if r['status'] == 'too_long'])
-        }
+        results = []
+        for filepath in sorted(self.posts_dir.glob("*.md")):
+            analysis = self.analyze_post(filepath)
+            if analysis:
+                results.append(analysis)
 
-        report = {
-            "timestamp": timestamp,
-            "summary": {
-                "total_posts": self.stats["processed"],
-                "updated": self.stats["updated"],
-                "skipped": self.stats["skipped"],
-                "errors": self.stats["errors"],
-                "avg_length_before": round(avg_before, 1),
-                "avg_length_after": round(avg_after, 1),
-                "avg_reduction": round(avg_before - avg_after, 1),
-                "status_distribution": status_counts
-            },
-            "results": self.results
-        }
+                # Log summary
+                score = analysis['quality_score']
+                emoji = "✅" if score >= 80 else "⚠️" if score >= 60 else "❌"
+                self.logger.info(
+                    f"{emoji} {filepath.name}: {score}/100 "
+                    f"({analysis['length']} chars, keyword: {analysis['primary_keyword']})"
+                )
 
-        # Write JSON report
-        report_file = self.report_dir / f"seo-optimization-{datetime.now().strftime('%Y-%m-%d')}.json"
-        with open(report_file, 'w', encoding='utf-8') as f:
-            json.dump(report, f, indent=2, ensure_ascii=False)
+        # Generate CSV if requested
+        if output_csv and results:
+            self._write_csv_report(results, output_csv)
 
-        self.logger.info(f"Report saved to: {report_file}")
+        return results
 
-        return report
+    def _write_csv_report(self, results: List[Dict], output_path: Path) -> None:
+        """Write analysis results to CSV."""
+        output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    def print_summary(self, report: Dict):
+        with open(output_path, 'w', newline='', encoding='utf-8') as f:
+            fieldnames = [
+                'post', 'quality_score', 'length', 'length_compliant',
+                'has_primary_keyword', 'primary_keyword', 'is_unique',
+                'has_action_verb', 'issues', 'current_description', 'recommendation'
+            ]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+
+            for result in results:
+                row = {
+                    'post': result['post'],
+                    'quality_score': result['quality_score'],
+                    'length': result['length'],
+                    'length_compliant': result['length_compliant'],
+                    'has_primary_keyword': result['has_primary_keyword'],
+                    'primary_keyword': result['primary_keyword'],
+                    'is_unique': result['is_unique'],
+                    'has_action_verb': result['has_action_verb'],
+                    'issues': '; '.join(result['issues']),
+                    'current_description': result['current_description'],
+                    'recommendation': result['recommendation']
+                }
+                writer.writerow(row)
+
+        self.logger.info(f"CSV report saved to: {output_path}")
+
+    def print_summary(self, results: List[Dict]) -> None:
         """Print summary statistics."""
-        summary = report['summary']
+        if not results:
+            self.logger.warning("No results to summarize")
+            return
+
+        total = len(results)
+        avg_score = sum(r['quality_score'] for r in results) / total
+        avg_length = sum(r['length'] for r in results) / total
+
+        length_compliant = sum(1 for r in results if r['length_compliant'])
+        has_keyword = sum(1 for r in results if r['has_primary_keyword'])
+        is_unique = sum(1 for r in results if r['is_unique'])
+        has_action = sum(1 for r in results if r['has_action_verb'])
+
+        high_quality = sum(1 for r in results if r['quality_score'] >= 80)
+        medium_quality = sum(1 for r in results if 60 <= r['quality_score'] < 80)
+        low_quality = sum(1 for r in results if r['quality_score'] < 60)
 
         self.logger.info("\n" + "="*70)
-        self.logger.info("SEO META DESCRIPTION OPTIMIZATION SUMMARY")
+        self.logger.info("SEO META DESCRIPTION ANALYSIS SUMMARY")
         self.logger.info("="*70)
-        self.logger.info(f"\n📈 Processing Statistics:")
-        self.logger.info(f"   Total posts processed: {summary['total_posts']}")
-        self.logger.info(f"   Successfully updated: {summary['updated']}")
-        self.logger.info(f"   Skipped (already optimal): {summary['skipped']}")
-        self.logger.info(f"   Errors: {summary['errors']}")
 
-        self.logger.info(f"\n📏 Length Statistics:")
-        self.logger.info(f"   Average before: {summary['avg_length_before']:.1f} chars")
-        self.logger.info(f"   Average after: {summary['avg_length_after']:.1f} chars")
-        self.logger.info(f"   Average change: {summary['avg_reduction']:.1f} chars")
+        self.logger.info(f"\n📊 Overall Statistics:")
+        self.logger.info(f"   Total posts analyzed: {total}")
+        self.logger.info(f"   Average quality score: {avg_score:.1f}/100")
+        self.logger.info(f"   Average description length: {avg_length:.1f} chars")
 
-        self.logger.info(f"\n🎯 Status Distribution:")
-        status = summary['status_distribution']
-        self.logger.info(f"   Optimal (150-160): {status['optimal']}")
-        self.logger.info(f"   Acceptable (120-160): {status['acceptable']}")
-        self.logger.info(f"   Too short (<120): {status['too_short']}")
-        self.logger.info(f"   Too long (>160): {status['too_long']}")
+        self.logger.info(f"\n📏 Length Compliance (130-155 chars):")
+        self.logger.info(f"   Optimal length: {length_compliant}/{total} ({length_compliant/total*100:.1f}%)")
+
+        self.logger.info(f"\n🔑 Keyword Analysis:")
+        self.logger.info(f"   Has primary keyword: {has_keyword}/{total} ({has_keyword/total*100:.1f}%)")
+
+        self.logger.info(f"\n✨ Uniqueness:")
+        self.logger.info(f"   Unique descriptions: {is_unique}/{total} ({is_unique/total*100:.1f}%)")
+
+        self.logger.info(f"\n💪 Action Verbs:")
+        self.logger.info(f"   Has action verb: {has_action}/{total} ({has_action/total*100:.1f}%)")
+
+        self.logger.info(f"\n🎯 Quality Distribution:")
+        self.logger.info(f"   High (80-100): {high_quality} ({high_quality/total*100:.1f}%)")
+        self.logger.info(f"   Medium (60-79): {medium_quality} ({medium_quality/total*100:.1f}%)")
+        self.logger.info(f"   Low (<60): {low_quality} ({low_quality/total*100:.1f}%)")
 
         self.logger.info("\n" + "="*70)
 
 
 def main():
     """Main execution function."""
-    parser = argparse.ArgumentParser(description='Optimize SEO Meta Descriptions')
-    parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
-    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
-    parser.add_argument('--log-file', type=Path, help='Write logs to file')
+    parser = argparse.ArgumentParser(
+        description='Optimize SEO Meta Descriptions with Keyword Analysis'
+    )
+    parser.add_argument('--post', type=Path, help='Analyze single post')
+    parser.add_argument('--batch', action='store_true', help='Analyze all posts')
+    parser.add_argument('--csv', type=Path, help='Output CSV report path')
+    parser.add_argument('--generate', action='store_true', help='Generate recommendations')
+    parser.add_argument('--debug', action='store_true', help='Enable debug logging')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Enable verbose output')
     args = parser.parse_args()
 
     # Setup logging
-    level = logging.DEBUG if args.verbose else logging.INFO
-    logger = setup_logger(__name__, level=level, log_file=args.log_file, quiet=args.quiet)
+    level = logging.DEBUG if args.debug else logging.INFO
+    logger = setup_logger(__name__, level=level)
 
-    logger.info("Starting SEO Meta Description Optimization")
+    logger.info("SEO Meta Description Optimizer v3.0.0")
     logger.info("="*70)
 
     optimizer = DescriptionOptimizer(logger=logger)
 
-    # Get all markdown files
-    post_files = sorted(POSTS_DIR.glob("*.md"))
-    logger.info(f"Found {len(post_files)} blog posts")
-    logger.info(f"Targeting {len(MANUAL_OPTIMIZATIONS)} posts for optimization")
+    # Single post analysis
+    if args.post:
+        if not args.post.exists():
+            logger.error(f"Post not found: {args.post}")
+            return 1
 
-    # Process each post
-    for filepath in post_files:
-        optimizer.process_post(filepath)
+        logger.info(f"Analyzing: {args.post.name}")
+        optimizer.load_all_descriptions()
 
-    # Generate report
-    if optimizer.results:
-        report = optimizer.generate_report()
-        optimizer.print_summary(report)
+        analysis = optimizer.analyze_post(args.post)
+        if analysis:
+            logger.info(f"\n📊 Analysis Results:")
+            logger.info(f"   Quality Score: {analysis['quality_score']}/100")
+            logger.info(f"   Length: {analysis['length']} chars")
+            logger.info(f"   Primary Keyword: {analysis['primary_keyword']}")
+            logger.info(f"   Has Keyword: {analysis['has_primary_keyword']}")
+            logger.info(f"   Unique: {analysis['is_unique']}")
+            logger.info(f"   Action Verb: {analysis['has_action_verb']}")
 
-    logger.info("Optimization complete!")
-    logger.info(f"Updated {optimizer.stats['updated']} posts")
-    logger.info(f"Skipped {optimizer.stats['skipped']} posts (already optimal)")
-    logger.info(f"Errors: {optimizer.stats['errors']}")
+            if analysis['issues']:
+                logger.info(f"\n⚠️  Issues:")
+                for issue in analysis['issues']:
+                    logger.info(f"   - {issue}")
 
-    return 0 if optimizer.stats['errors'] == 0 else 1
+            if args.generate:
+                logger.info(f"\n💡 Recommended Description:")
+                logger.info(f"   {analysis['recommendation']}")
+                logger.info(f"   ({len(analysis['recommendation'])} chars)")
+
+        return 0
+
+    # Batch analysis
+    if args.batch:
+        results = optimizer.batch_analyze(args.csv)
+        optimizer.print_summary(results)
+
+        if args.generate:
+            logger.info("\n📝 Top 5 Posts Needing Optimization:")
+            sorted_results = sorted(results, key=lambda x: x['quality_score'])
+            for i, result in enumerate(sorted_results[:5], 1):
+                logger.info(f"\n{i}. {result['post']} (Score: {result['quality_score']}/100)")
+                logger.info(f"   Current: {result['current_description']}")
+                logger.info(f"   Recommended: {result['recommendation']}")
+
+        return 0
+
+    # No action specified
+    parser.print_help()
+    return 1
 
 
 if __name__ == "__main__":
