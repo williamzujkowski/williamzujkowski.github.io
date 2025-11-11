@@ -24,6 +24,8 @@ After 15+ years in cybersecurity, I've learned one truth: The moment you stop le
 
 ## How It Works
 
+⚠️ **Warning:** This diagram illustrates security concepts for educational purposes. The threat actor and attack vector patterns shown should only be studied in controlled environments with proper authorization.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]
@@ -82,6 +84,8 @@ But here's the key: These percentages flex based on your current needs.
 My homelab isn't just for fun – it's my gym for cybersecurity skills.
 
 ### Current Lab Setup
+
+**Pseudocode - Simplified Lab Configuration:**
 ```yaml
 Production_Like_Environment:
   - Domain: homelab.local (Active Directory)
@@ -91,7 +95,6 @@ Production_Like_Environment:
   - Hardware:
     - RAM: 64GB DDR4
     - Storage: 2TB NVMe
-    # ... (additional implementation details)
       - Network: Dream Machine Professional + Suricata
       - Deception: Honeypots
 ```
@@ -157,13 +160,14 @@ If no to all three, it goes in the "Maybe Later" bookmark folder. Though I'll ad
 Inspired by Agile, I do 2-week learning sprints:
 
 ### Sprint Planning
+
+**Pseudocode - Simplified Sprint Template:**
 ```markdown
 ## Learning Sprint: Jan 15-29, 2024
 
 **Goal**: Master MITRE ATT&CK Framework for Detection Engineering
 
 **Deliverables**:
-    # ... (additional implementation details)
 - Red Canary's detection guide
 - Florian Roth's Sigma rules
 ```
@@ -204,14 +208,16 @@ Certifications are controversial. Here's my approach:
 - **Senior Level**: Certs for specific needs (cloud, leadership)
 
 ### My Certification Strategy
+
+**Pseudocode - Simplified Decision Function:**
 ```python
 def should_get_cert(cert_name):
     questions = {
         "Does job require it?": 10,
         "Will it teach new skills?": 8,
         "Does it align with career goals?": 7,
-    # ... (additional implementation details)
-    
+    }
+
     return score >= 15  # Threshold for "worth it"
 ```
 
@@ -226,13 +232,15 @@ Instead of collecting certs, I focus on:
 Every incident is a masterclass in what not to do.
 
 ### Personal Incident Journal
+
+**Pseudocode - Simplified Incident Template:**
 ```markdown
 ## Incident: Ransomware Near-Miss
 **Date**: October 17, 2023
 **What Happened**: User clicked phishing link, antivirus caught it
 **What Worked**:
 - Email security flagged but didn't block
-    # ... (additional implementation details)
+**Action Items**:
 - [ ] Review email security settings
 - [ ] Schedule phishing simulation
 ```
@@ -247,7 +255,7 @@ Every incident is a masterclass in what not to do.
 The specialist vs. generalist debate misses the point. You need both.
 
 ### My T-Shaped Approach
-```
+```text
 Broad Knowledge (1 inch deep):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Cloud | AI/ML | Compliance | DevOps | Privacy
@@ -272,14 +280,17 @@ Deep Expertise (1 mile deep):
 ## Practical Tools for Learning
 
 ### Note-Taking: Obsidian
+
+⚠️ **Warning:** This note-taking example includes security monitoring tools. Use these tools only in authorized environments for legitimate security purposes.
+
+**Pseudocode - Simplified Note Template:**
 ```markdown
 # Tool: Wazuh
 
 ## Overview
 Open source SIEM/XDR platform
 
-    # ... (additional implementation details)
-
+# tags
 # tools #siem #detection
 ```
 

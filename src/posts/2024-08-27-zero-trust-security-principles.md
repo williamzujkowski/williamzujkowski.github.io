@@ -43,6 +43,8 @@ Zero Trust addresses this by verifying every access request, regardless of netwo
 
 ## Zero Trust Architecture
 
+⚠️ **Warning:** This diagram illustrates security architecture concepts for educational purposes. Implementation should follow organizational security policies and include proper authorization controls.
+
 ```mermaid
 flowchart TB
     subgraph identityaccess["Identity & Access"]
@@ -246,13 +248,14 @@ Identity replaces network location as the primary security boundary:
 - **Passwordless**: FIDO2/WebAuthn, passkeys, certificates
 - **Federated**: Cross-organization identity without credential sharing
 
+**Pseudocode - Simplified Validation Middleware:**
 ```typescript
 // Example of continuous validation middleware
 const validateSession = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    # ... (additional implementation details)
+    return res.status(401).json({ error: "No token" });
   }
 };
 ```
@@ -358,13 +361,16 @@ Traditional security authenticated once, then trusted until session expiration. 
 - MITRE ATT&CK: Map adversary techniques in behavior
 - Feedback: False positive tuning, model retraining
 
+⚠️ **Warning:** This code demonstrates security monitoring concepts for educational purposes. Implement behavioral monitoring with proper privacy controls and compliance with organizational policies.
+
+**Pseudocode - Simplified Behavior Monitoring:**
 ```python
 # Example of continuous behavior monitoring
 def check_for_anomalous_behavior(user_id, action, resource):
     # Get user's historical behavior pattern
     user_pattern = get_user_behavior_pattern(user_id)
 
-    # ... (additional implementation details)
+    # Check if action matches normal pattern
     update_behavior_pattern(user_id, action, resource)
     return True
 ```
@@ -393,15 +399,16 @@ Traditional build systems had broad production access "because they needed to de
 - Container scanning: Trivy/Grype block high-severity issues
 - Policy-as-code: OPA policies[9] validate compliance
 
+**Pseudocode - Simplified CI/CD Security Pipeline:**
 ```yaml
 # Example GitLab CI with security scanning and verification
 stages:
   - build
   - test
   - security
-    # ... (additional implementation details)
-  only:
-    - main
+  - deploy
+only:
+  - main
 ```
 
 Every artifact is signed and verified. Deployments use minimal permissions. Security scanning is a gate that must pass.
