@@ -209,6 +209,8 @@ What's particularly interesting is how this sustainability focus is changing sof
 
 Here's an example of power-aware computation:
 
+⚠️ **Warning:** This code demonstrates power-aware computing concepts for educational purposes. Implementation requires proper hardware monitoring and power management infrastructure.
+
 ```python
 # Power-aware computational kernel
 def power_aware_matrix_multiply(A, B, power_constraint):
@@ -282,12 +284,10 @@ The integration between quantum and classical HPC systems has evolved rapidly ov
 - **Unified quantum platforms**: Emerging platforms provide portable abstraction layers allowing quantum algorithms to run across different QPU architectures without code rewrites[11]
 
 ```python
-# Example of hybrid quantum-classical programming
+# Simplified: Hybrid quantum-classical programming example
 def optimize_molecular_configuration(molecule, target_properties):
     classical_simulator = ClassicalMolecularSimulator()
     initial_configuration = classical_simulator.initialize_configuration(molecule)
-
-    # ... (additional implementation details)
 
     return current_configuration
 ```
