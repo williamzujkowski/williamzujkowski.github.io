@@ -85,7 +85,11 @@ Early in my career, I thought validation was just checking for empty fields. The
 
 In my homelab, I tested 50 common SQL injection payloads against an API before and after implementing parameterized queries. Before: 38 payloads (76%) succeeded in manipulating queries. After parameterization: 0 successful injections (100% blocked). That stark difference convinced me that input validation isn't optional.
 
-I built a simple Flask API for my homelab monitoring dashboard in late 2023. I didn't validate URL parameters because "it's just for internal use." A friend tested it and achieved RCE in under 5 minutes. After adding input validation (150 lines of code), I re-tested with the same attack vectors and reduced successful exploits from 12 to 0. Static analysis catches these bugs, **but** produces many false positives. In my initial Semgrep scan, 88% were false positives - after tuning rules for 2 hours, that dropped to 12%. Automated scanning is essential, **however** it can't replace human review and testing with malicious inputs.
+I built a simple Flask API for my homelab monitoring dashboard in late 2023. I didn't validate URL parameters because "it's just for internal use." A friend tested it and achieved RCE in under 5 minutes.
+
+After adding input validation (150 lines of code), I re-tested with the same attack vectors and reduced successful exploits from 12 to 0. Static analysis catches these bugs, **but** produces many false positives.
+
+In my initial Semgrep scan, 88% were false positives - after tuning rules for 2 hours, that dropped to 12%. Automated scanning is essential, **however** it can't replace human review and testing with malicious inputs.
 
 I now keep a mental checklist: Is this input from a trusted source? Have I validated the format? Am I using parameterized queries? Have I tested with malicious inputs? That checklist has saved me from repeating old mistakes, though I'm still learning what "good enough" validation looks like.
 
@@ -103,7 +107,9 @@ I never want to see passwords stored in plain text again. In my early days, I in
 
 In my homelab authentication service, I benchmarked bcrypt (with cost factor 12) against SHA-256 for password hashing. Bcrypt took 150ms per hash vs 2ms for SHA-256 - a 75x performance penalty. That slowdown is the point: it makes brute-force attacks computationally expensive. The **trade-off** between authentication speed and security is worth it when credential stuffing attacks can test 1,000 passwords per second against weak hashes.
 
-In early 2024, I accidentally committed an AWS API key to a public GitHub repo in my homelab. Within 14 minutes, I received an email from GitHub's secret scanning feature. Within 2 hours, the key had 3 unauthorized access attempts from IP addresses in Russia. Secrets scanning prevents disasters, **though** false alarms are common. I revoked the key and spent 90 minutes rotating all my credentials.
+In early 2024, I accidentally committed an AWS API key to a public GitHub repo. Within 14 minutes, I received an email from GitHub's secret scanning feature.
+
+Within 2 hours, the key had 3 unauthorized access attempts from IP addresses in Russia. Secrets scanning prevents disasters, **though** false alarms are common. I revoked the key and spent 90 minutes rotating all my credentials.
 
 Encryption in transit (HTTPS) is mandatory, not optional. Passwords, when stored, go through salted hashing with algorithms like Argon2 or bcrypt. Years of experience have taught me that convenience is never worth the risk. I've seen the aftermath of breaches where "temporary" insecure shortcuts became permanent vulnerabilities. Security-by-design is ideal, **but** often sacrificed for deadlines.
 
@@ -111,7 +117,11 @@ Encryption in transit (HTTPS) is mandatory, not optional. Passwords, when stored
 
 Testing often reveals cracks you never knew existed. Static analysis can unearth flawed logic before it reaches production, dynamic analysis catches vulnerabilities in running systems, and penetration testing simulates real attackers.
 
-One of my most humbling experiences was a security audit years ago where the tester found a dozen vulnerabilities I'd missed. They showed me how buffer overflows could be triggered, how authentication could be bypassed, and how sensitive data could be extracted. It was eye-opening to see my code from an attacker's perspective. When I implemented their recommendations, I added 400 lines of defensive code across 12 files. The 6 hours of hardening work felt minor compared to what would have been 40+ hours of incident response and cleanup if those flaws had been exploited in production.
+One of my most humbling experiences was a security audit years ago where the tester found a dozen vulnerabilities I'd missed. They showed me how buffer overflows could be triggered, how authentication could be bypassed, and how sensitive data could be extracted.
+
+It was eye-opening to see my code from an attacker's perspective. When I implemented their recommendations, I added 400 lines of defensive code across 12 files.
+
+The 6 hours of hardening work felt minor compared to what would have been 40+ hours of incident response and cleanup if those flaws had been exploited in production.
 
 My homelab Python project used 47 dependencies in December 2023. Running `pip-audit` revealed 18 known CVEs, including 3 critical vulnerabilities with CVSS scores above 9.0. Dependency updates fix vulnerabilities, **yet** often break functionality. Updating those dependencies broke 4 API integrations. I spent 2 days refactoring to use safer alternatives. Threat modeling is valuable, **but probably** overkill for simple personal projects. I'm not sure where to draw that line.
 
