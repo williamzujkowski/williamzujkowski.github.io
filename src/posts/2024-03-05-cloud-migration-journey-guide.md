@@ -77,7 +77,9 @@ Our initial approach was embarrassingly naive. We thought migration meant "lift 
 
 **Infrastructure Assessment:** I spent two weeks cataloging our systems, and it revealed dependencies I'd completely forgotten existed. I ran dependency mapping tools and found that "simple" web application connected to fourteen different services, three legacy databases, and a file server that hadn't been documented since 2015.
 
-The migration timeline reflected this complexity: we planned for 2 weeks but the actual migration took 3.5 weeks (a 75% overrun). This approach worked for our scale of about 40 core services, though I think enterprise environments with hundreds of interconnected applications would face even longer timelines...
+The migration timeline reflected this complexity: we planned for 2 weeks but the actual migration took 3.5 weeks (a 75% overrun).
+
+This approach worked for our scale of about 40 core services, though I think enterprise environments with hundreds of interconnected applications would face even longer timelines...
 
 **Dependency Mapping:** We spent months creating visual maps of service interactions. Some dependencies were logical. Others were historical accidents that had calcified into critical paths. Understanding these relationships prevented catastrophic failures during migration.
 
@@ -142,7 +144,11 @@ Technology challenges proved easier than human ones:
 
 **Database Migration Strategies:** Database migrations proved most complex, requiring careful replication setup, testing procedures, and fallback plans. Our PostgreSQL migration took five attempts before we got it right. We learned to prioritize read replicas and gradual traffic shifting over big-bang cutovers. The final successful migration took 72 hours with carefully orchestrated traffic shifts at 10%, 25%, 50%, and finally 100%.
 
-Our biggest database mistake was underestimating downtime. We estimated 2 hours for the cutover, but it actually took 8 hours (4x longer than planned). The issue? We hadn't accounted for index rebuilding on a production-sized dataset. Our test database had only 15GB of data, while production held 2.1TB. Those indexes took 6 hours alone to rebuild. The lesson: always test on production-scale data, or at minimum, calculate index build times based on actual data volumes. We moved all 2.1TB over 6 days at an average rate of 400GB per day, constantly monitoring replication lag to avoid overwhelming the target database.
+Our biggest database mistake was underestimating downtime. We estimated 2 hours for the cutover, but it actually took 8 hours (4x longer than planned).
+
+The issue? We hadn't accounted for index rebuilding on a production-sized dataset. Our test database had only 15GB of data, while production held 2.1TB. Those indexes took 6 hours alone to rebuild.
+
+The lesson: always test on production-scale data, or at minimum, calculate index build times based on actual data volumes. We moved all 2.1TB over 6 days at an average rate of 400GB per day, constantly monitoring replication lag to avoid overwhelming the target database.
 
 ## Unexpected Benefits: Discoveries Along the Way
 
