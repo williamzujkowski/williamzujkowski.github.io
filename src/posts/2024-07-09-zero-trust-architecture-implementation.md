@@ -1,4 +1,5 @@
 ---
+
 date: 2024-07-09
 description: "Implement zero trust with identity verification and micro-segmentation—secure networks using never-trust-always-verify principles."
 images:
@@ -12,12 +13,13 @@ images:
   og:
     alt: 'Zero Trust Architecture: A Practical Implementation Guide - Social Media Preview'
     src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg
-tags:
-- security
-- zero-trust
-- authentication
-- architecture
 title: 'Zero Trust Architecture: A Practical Implementation Guide'
+tags:
+  - architecture
+  - cryptography
+  - security
+  - zero-trust
+
 ---
 In May 2024, I made the decision to completely segment my homelab network into 8 separate VLANs. The catalyst? I discovered my Raspberry Pi running Pi-hole was on the same network segment as my Dell R940 server hosting production workloads. One compromised smart light bulb could theoretically pivot to my most sensitive systems.
 

@@ -1,14 +1,8 @@
 ---
+
 author: William Zujkowski
 date: 2025-09-29
 description: Build Proxmox high-availability clusters with shared storage and automated failover—implement live migration for zero-downtime homelab maintenance.
-tags:
-- virtualization
-- proxmox
-- high-availability
-- clustering
-- homelab
-- infrastructure
 title: Proxmox High Availability Setup for Homelab Reliability
 images:
   hero:
@@ -20,6 +14,11 @@ images:
   og:
     src: /assets/images/blog/hero/2025-09-29-proxmox-high-availability-homelab-og.jpg
     alt: artificial intelligence concept diagram for Proxmox High Availability Setup for Homelab Reliability
+tags:
+  - homelab
+  - infrastructure
+  - virtualization
+
 ---
 ## The 3 AM Outage That Changed My Architecture
 

@@ -1,4 +1,5 @@
 ---
+
 date: 2025-06-25
 description: "Deploy local LLMs for privacy-first AI—run language models on homelab hardware with model selection, optimization, and deployment strategies."
 images:
@@ -12,14 +13,15 @@ images:
   og:
     alt: 'Local LLM Deployment: Privacy-First Approach - Social Media Preview'
     src: /assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-og.jpg
-tags:
-- ai-ml
-- security
-- privacy
-- homelab
-- llm
-- tutorial
 title: 'Local LLM Deployment: Privacy-First Approach'
+tags:
+  - ai
+  - homelab
+  - llm
+  - privacy
+  - security
+  - tutorial
+
 ---
 I run Llama 2 70B on my RTX 4090, completely offline. Zero cloud dependencies, zero data leakage, zero monthly fees. This guide shows you how I built a privacy-first LLM deployment that matches cloud AI performance without the surveillance.
 

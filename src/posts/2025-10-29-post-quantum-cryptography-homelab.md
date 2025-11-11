@@ -1,14 +1,8 @@
 ---
+
 date: 2025-10-29
 title: 'Preparing Your Homelab for the Quantum Future: Post-Quantum Cryptography Migration'
 description: "Implement post-quantum cryptography with CRYSTALS-Kyber and Dilithium—prepare homelab for quantum threats using NIST-approved algorithms."
-tags:
-- quantum-computing
-- cryptography
-- homelab
-- security
-- networking
-- privacy
 images:
   hero:
     src: /assets/images/blog/hero/2025-10-29-post-quantum-cryptography-homelab-hero.jpg
@@ -19,6 +13,14 @@ images:
   og:
     src: /assets/images/blog/hero/2025-10-29-post-quantum-cryptography-homelab-og.jpg
     alt: 'Post-quantum cryptography for homelabs: NIST standards and practical migration'
+tags:
+  - computational-science
+  - cryptography
+  - homelab
+  - networking
+  - privacy
+  - security
+
 ---
 I spent three weekends trying to enable post-quantum cryptography on my homelab Nginx server. The first attempt crashed every single HTTPS connection because I completely forgot that hybrid mode exists and tried forcing pure ML-KEM-768.
 

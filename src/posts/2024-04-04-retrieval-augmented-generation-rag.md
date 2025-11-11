@@ -1,4 +1,5 @@
 ---
+
 date: 2024-04-04
 description: Build RAG systems with vector databases and semantic search—eliminate LLM hallucinations and ground responses in verified knowledge for trustworthy AI.
 images:
@@ -15,11 +16,11 @@ images:
     alt: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge
       - Social Media Preview'
     src: /assets/images/blog/hero/2024-04-04-retrieval-augmented-generation-rag-og.jpg
-tags:
-- ai
-- llm
-- rag
 title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
+tags:
+  - ai
+  - llm
+
 ---
 
 **BLUF:** In April 2024, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense.

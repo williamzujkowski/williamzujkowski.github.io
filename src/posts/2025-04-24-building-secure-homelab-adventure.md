@@ -1,4 +1,5 @@
 ---
+
 author: William Zujkowski
 date: 2025-04-24
 description: Build security-focused homelab with Proxmox, VLANs, and IDS/IPS—create testing environment for cybersecurity and family data protection.
@@ -13,13 +14,13 @@ images:
   og:
     alt: 'Building a Security-Focused Homelab: My Journey - Social Media Preview'
     src: /assets/images/blog/hero/2025-04-24-building-secure-homelab-adventure-og.jpg
-tags:
-- homelab
-- security
-- networking
-- learning
-- personal-projects
 title: 'Building a Security-Focused Homelab: My Journey'
+tags:
+  - homelab
+  - learning
+  - networking
+  - security
+
 ---
 ## Why Every Security Professional Needs a Homelab
 

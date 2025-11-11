@@ -1,8 +1,8 @@
 ---
+
 title: "Running LLaMA 3.1 on a Raspberry Pi: Memory-Efficient Edge AI with PIPELOAD"
 date: 2024-09-15
 description: "Run LLaMA 3.1 on Raspberry Pi with PIPELOAD pipeline inference—achieve 90% memory reduction and deploy 7B models on 8GB edge devices at 2.5 tokens/sec."
-tags: [edge-ai, llm, raspberry-pi, pytorch, homelab, machine-learning]
 author: "William Zujkowski"
 reading_time: 8
 images:
@@ -12,6 +12,13 @@ images:
     caption: "Edge AI inference on a Raspberry Pi 4: 2.5 tokens/sec with 90% memory reduction using PIPELOAD"
     width: 1200
     height: 630
+tags:
+  - edge-computing
+  - homelab
+  - llm
+  - machine-learning
+  - raspberry-pi
+
 ---
 
 ## Bottom Line Up Front

@@ -1,4 +1,5 @@
 ---
+
 date: 2024-01-08
 author: William Zujkowski
 description: 'Master secure code development with input validation, parameterized queries, and secrets management—prevent SQL injection and XSS in production systems.'
@@ -13,11 +14,11 @@ images:
   og:
     alt: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits - Social Media Preview'
     src: /assets/images/blog/hero/2024-01-08-writing-secure-code-developers-guide-og.jpg
-tags:
-- security
-- programming
-- cybersecurity
 title: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits'
+tags:
+  - programming
+  - security
+
 ---
 Years ago, I discovered a glaring SQL injection vulnerability in an internal application during a routine code review. The sinking feeling that washed over me was like finding a door left unlocked overnight in a dangerous neighborhood. It was a wake-up call that fundamentally changed how I approach development - writing secure code isn't just a best practice, it's a moral imperative.
 

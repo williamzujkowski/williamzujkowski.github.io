@@ -1,4 +1,5 @@
 ---
+
 date: 2024-10-10
 description: "Deploy blockchain beyond cryptocurrency with Ethereum and smart contracts—build decentralized trust for supply chain and identity verification."
 images:
@@ -12,13 +13,13 @@ images:
   og:
     alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Social Media Preview'
     src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-og.jpg
-tags:
-- posts
-- blockchain
-- distributed-systems
-- security
-- programming
 title: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet'
+tags:
+  - architecture
+  - blockchain
+  - programming
+  - security
+
 ---
 In early October 2024, I deployed a private Ethereum test network on my homelab's Dell R940 server. The initial sync took 47 hours and consumed 1.2TB of disk space, which immediately taught me my first lesson: blockchain infrastructure is not lightweight. My i9-9900K system handled the validator node workload, but at a constant 340W power draw. That's real electricity costs for what I initially thought would be a simple weekend experiment.
 

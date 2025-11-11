@@ -1,14 +1,8 @@
 ---
+
 author: William Zujkowski
 date: 2025-08-18
 description: "Harden Docker and K3s containers with rootless mode, seccomp profiles, and image scanning for production-grade Kubernetes security."
-tags:
-- security
-- containers
-- docker
-- kubernetes
-- homelab
-- devops
 title: Container Security Hardening in My Homelab
 images:
   hero:
@@ -22,6 +16,13 @@ images:
     src: /assets/images/blog/hero/2025-08-18-container-security-hardening-homelab-og.jpg
     alt: cybersecurity concept illustration for Container Security Hardening in My
       Homelab
+tags:
+  - container-orchestration
+  - devops
+  - docker
+  - homelab
+  - security
+
 ---
 ## The Wake-Up Call
 

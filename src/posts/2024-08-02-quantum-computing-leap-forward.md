@@ -1,4 +1,5 @@
 ---
+
 date: 2024-08-02
 description: "Explore quantum computing with IBM Qiskit and quantum algorithms—quantum advantage, error correction, and real-world applications."
 images:
@@ -12,12 +13,12 @@ images:
   og:
     alt: Quantum Computing's Leap Forward - Social Media Preview
     src: /assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-og.jpg
-tags:
-- quantum-computing
-- cryptography
-- technology
-- future
 title: Quantum Computing's Leap Forward
+tags:
+  - computational-science
+  - cryptography
+  - future-technology
+
 ---
 In June 2024, I spent 40 hours working through IBM's Qiskit tutorials, attempting to understand quantum gates and superposition. My first attempt at implementing a simple quantum circuit failed spectacularly. I had confused the Hadamard gate with the Pauli-X gate, causing my entire algorithm to produce random noise instead of the expected Bell state. It took me three days of debugging before I realized my fundamental conceptual error.
 

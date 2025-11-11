@@ -1,4 +1,5 @@
 ---
+
 date: 2024-05-30
 description: Train AI models on resource-constrained hardware with quantization, pruning, and distillation—run GPT-3 capabilities 100x faster through compression.
 images:
@@ -12,11 +13,12 @@ images:
   og:
     alt: AI Learning in Resource-Constrained Environments - Social Media Preview
     src: /assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-og.jpg
-tags:
-- ai
-- machine-learning
-- edge-computing
 title: AI Learning in Resource-Constrained Environments
+tags:
+  - ai
+  - edge-computing
+  - machine-learning
+
 ---
 ## BLUF: When Constraints Become Innovation
 

@@ -1,4 +1,5 @@
 ---
+
 date: 2024-01-18
 description: "Learn cryptography fundamentals with AES-256, RSA, and SHA-3—implement encryption, hashing, and digital signatures for production security systems."
 images:
@@ -12,10 +13,11 @@ images:
   og:
     alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures - Social Media Preview'
     src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg
-tags:
-- security
-- cryptography
 title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures'
+tags:
+  - cryptography
+  - security
+
 ---
 ## BLUF: Why This Matters
 

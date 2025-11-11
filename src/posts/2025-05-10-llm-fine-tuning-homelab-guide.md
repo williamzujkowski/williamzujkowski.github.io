@@ -1,4 +1,5 @@
 ---
+
 date: '2025-05-10'
 description: Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization. Train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.
 images:
@@ -12,13 +13,13 @@ images:
   og:
     alt: 'Fine-Tuning LLMs in the Homelab: A Practical Guide - Social Media Preview'
     src: /assets/images/blog/hero/2025-05-10-llm-fine-tuning-homelab-guide-og.jpg
-tags:
-- posts
-- ai
-- machine-learning
-- homelab
-- programming
 title: 'Fine-Tuning LLMs in the Homelab: A Practical Guide'
+tags:
+  - ai
+  - homelab
+  - machine-learning
+  - programming
+
 ---
 **BLUF:** In March 2025, I attempted to fine-tune Llama 3 8B on my RTX 3090. The first attempt consumed all 24GB of VRAM in under 3 minutes and crashed with a CUDA out-of-memory error.
 

@@ -1,4 +1,5 @@
 ---
+
 date: 2024-04-30
 description: "Implement quantum-resistant cryptography with NIST post-quantum algorithms. Future-proof encryption against quantum attacks using Kyber and Dilithium."
 images:
@@ -12,11 +13,12 @@ images:
   og:
     alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Social Media Preview'
     src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg
-tags:
-- security
-- cryptography
-- quantum-computing
 title: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
+tags:
+  - computational-science
+  - cryptography
+  - security
+
 ---
 Shor's algorithm breaks RSA encryption in polynomial time on a quantum computer. Every RSA key, every elliptic curve signature securing our digital world becomes worthless when quantum computers achieve practical capability. That realization in late 2018 sparked my quantum-resistant cryptography journey. Today's quantum progress makes preparation essential, not paranoid.
 

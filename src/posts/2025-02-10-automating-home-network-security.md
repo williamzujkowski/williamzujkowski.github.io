@@ -1,4 +1,5 @@
 ---
+
 author: William Zujkowski
 date: 2025-02-10
 description: "Automate home network security with Python and Ansible—deploy patching, threat detection, and compliance scanning for homelab infrastructure."
@@ -13,14 +14,15 @@ images:
   og:
     alt: Automating Home Network Security with Python and Open Source Tools - Social Media Preview
     src: /assets/images/blog/hero/2025-02-10-automating-home-network-security-og.jpg
-tags:
-- python
-- automation
-- security
-- homelab
-- open-source
-- networking
 title: Automating Home Network Security with Python and Open Source Tools
+tags:
+  - automation
+  - homelab
+  - networking
+  - open-source
+  - python
+  - security
+
 ---
 ## The Problem: Security Doesn't Scale Without Automation
 

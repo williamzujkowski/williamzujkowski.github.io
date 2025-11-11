@@ -1,4 +1,5 @@
 ---
+
 date: 2024-06-11
 author: William Zujkowski
 description: "Explore deployment beyond containers with serverless, WebAssembly, and unikernels—understand alternatives to Kubernetes for modern apps."
@@ -13,12 +14,12 @@ images:
   og:
     alt: 'Beyond Containers: The Future of Application Deployment - Social Media Preview'
     src: /assets/images/blog/hero/2024-06-11-beyond-containers-future-deployment-og.jpg
-tags:
-- devops
-- containers
-- deployment
-- infrastructure
 title: 'Beyond Containers: The Future of Application Deployment'
+tags:
+  - devops
+  - docker
+  - infrastructure
+
 ---
 In June 2024, I migrated 23 services from Docker Compose to K3s on my homelab. The migration took three weeks longer than planned, broke my monitoring stack twice, and resulted in my wife asking why the Plex server kept going down during movie night. At 2 AM on June 28th, while debugging why my ingress controller couldn't route traffic to my GitLab instance, I had a thought: maybe containers aren't the final answer.
 

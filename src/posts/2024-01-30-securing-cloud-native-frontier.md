@@ -1,4 +1,5 @@
 ---
+
 date: 2024-01-30
 author: William Zujkowski
 description: Secure cloud-native microservices with container scanning, service mesh, and zero trust—protect Kubernetes clusters from 47+ critical vulnerabilities.
@@ -13,11 +14,12 @@ images:
   og:
     alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Social Media Preview'
     src: /assets/images/blog/hero/2024-01-30-securing-cloud-native-frontier-og.jpg
-tags:
-- security
-- cloud
-- devops
 title: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security'
+tags:
+  - cloud
+  - devops
+  - security
+
 ---
 In January 2024, I decided to harden the security of my K3s cluster running on my Proxmox homelab. I felt confident. I had firewalls configured, network segmentation via VLANs, and proper TLS certificates everywhere.
 

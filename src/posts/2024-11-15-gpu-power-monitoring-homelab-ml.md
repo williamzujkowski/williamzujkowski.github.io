@@ -1,12 +1,7 @@
 ---
+
 date: 2024-11-15
 description: Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.
-tags:
-- posts
-- ai-ml
-- homelab
-- hardware
-- sustainability
 title: 'GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
 images:
   hero:
@@ -18,6 +13,12 @@ images:
   og:
     src: /assets/images/blog/hero/2024-11-15-gpu-power-monitoring-homelab-ml-og.jpg
     alt: 'artificial intelligence concept diagram for GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
+tags:
+  - ai
+  - hardware
+  - homelab
+  - sustainability
+
 ---
 I opened my October 2024 electricity bill: $187, a $43 jump from September's $144. I'd been running Ollama on my RTX 3090 for a month. That shock sparked a three-month deep dive into GPU power consumption. I instrumented my entire homelab with monitoring gear and spent evenings staring at Grafana dashboards. My assumptions about AI workload efficiency were mostly wrong.
 

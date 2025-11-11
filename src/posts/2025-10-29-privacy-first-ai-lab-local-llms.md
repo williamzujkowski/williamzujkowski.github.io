@@ -1,14 +1,8 @@
 ---
+
 date: 2025-10-29
 title: "Building a Privacy-First AI Lab: Deploying Local LLMs Without Sacrificing Ethics"
 description: "Build privacy-first AI lab with local LLMs—run Llama 3.1 70B on RTX 3090 with network isolation, traffic monitoring, and real privacy controls."
-tags:
-  - ai-ethics
-  - privacy
-  - machine-learning
-  - homelab
-  - llm
-  - security
 images:
   hero:
     src: /assets/images/blog/hero/2025-10-29-privacy-first-ai-lab-local-llms-hero.jpg
@@ -19,6 +13,14 @@ images:
   og:
     src: /assets/images/blog/hero/2025-10-29-privacy-first-ai-lab-local-llms-og.jpg
     alt: "Privacy-first AI lab: deploying local LLMs with real security"
+tags:
+  - ethics
+  - homelab
+  - llm
+  - machine-learning
+  - privacy
+  - security
+
 ---
 
 I spent six months believing my homelab AI setup was perfectly private. The RTX 3090 hummed away in my server rack running Llama models locally, no cloud API calls, no data leaving my network. Or so I thought.

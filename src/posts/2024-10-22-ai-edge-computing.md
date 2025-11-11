@@ -1,4 +1,5 @@
 ---
+
 date: 2024-05-19
 description: Deploy AI edge computing with YOLOv8 and TensorFlow Lite—achieve 15ms latency for real-time inference on Raspberry Pi with local processing for privacy.
 images:
@@ -12,13 +13,13 @@ images:
   og:
     alt: 'AI Meets Edge Computing: Transforming Real-Time Intelligence - Social Media Preview'
     src: /assets/images/blog/hero/2024-10-22-ai-edge-computing-og.jpg
-tags:
-- posts
-- ai
-- edge-computing
-- cloud
-- devops
 title: 'AI Meets Edge Computing: Transforming Real-Time Intelligence'
+tags:
+  - ai
+  - cloud
+  - devops
+  - edge-computing
+
 ---
 **BLUF:** In September 2024, I tried deploying YOLOv8 for real-time object detection on my Raspberry Pi 4 (8GB RAM, 1.8 GHz ARM Cortex-A72). My first attempt used the full PyTorch model. The Pi crashed after about 30 seconds of continuous inference. CPU temperature hit 82°C and the system froze. Not exactly the "edge AI revolution" I was hoping for.
 

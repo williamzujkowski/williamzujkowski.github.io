@@ -1,10 +1,16 @@
 ---
+
 title: "Privacy-Preserving AI Training Across My Homelab: Federated Learning with Granular-Ball Computing"
 date: 2025-01-12
 description: "Deploy federated learning across homelab with granular-ball computing—train privacy-preserving models with 82% reduced network transfer."
-tags: [federated-learning, privacy, machine-learning, pytorch, raspberry-pi, homelab]
 author: "William Zujkowski"
 reading_time: 9
+tags:
+  - homelab
+  - machine-learning
+  - privacy
+  - raspberry-pi
+
 ---
 
 In November 2024, I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R940 acted as the aggregation server while 3 Raspberry Pi 5s (16GB each) trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.

@@ -1,4 +1,5 @@
 ---
+
 date: 2024-07-16
 description: Reduce IT carbon footprint with sustainable computing practices—optimize datacenter energy efficiency and cut ML training costs by 40%.
 images:
@@ -12,12 +13,10 @@ images:
   og:
     alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint - Social Media Preview'
     src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-og.jpg
-tags:
-- sustainability
-- green-computing
-- energy-efficiency
-- climate
 title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
+tags:
+  - sustainability
+
 ---
 In September 2023, I analyzed our machine learning infrastructure's energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning. We weren't just burning through budget, we were burning through the planet's resources.
 

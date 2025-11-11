@@ -1,4 +1,5 @@
 ---
+
 date: 2024-06-25
 description: Design resilient systems with circuit breakers, redundancy, and chaos engineering—recover from failures in minutes using proven patterns.
 images:
@@ -12,12 +13,10 @@ images:
   og:
     alt: Designing Resilient Systems for an Uncertain World - Social Media Preview
     src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-og.jpg
-tags:
-- architecture
-- resilience
-- systems-design
-- reliability
 title: Designing Resilient Systems for an Uncertain World
+tags:
+  - architecture
+
 ---
 ## BLUF: When Perfect Systems Fail Perfectly
 

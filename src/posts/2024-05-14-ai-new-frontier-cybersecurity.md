@@ -1,4 +1,5 @@
 ---
+
 date: 2024-05-14
 description: "Deploy AI-powered cybersecurity with automated threat detection—achieve 73% accuracy in anomaly detection catching attacks SIEM systems miss."
 images:
@@ -12,11 +13,12 @@ images:
   og:
     alt: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas - Social Media Preview'
     src: /assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-og.jpg
-tags:
-- ai
-- cybersecurity
-- ethics
 title: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas'
+tags:
+  - ai
+  - ethics
+  - security
+
 ---
 **BLUF:** In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss.
 

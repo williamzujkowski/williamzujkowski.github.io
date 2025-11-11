@@ -1,4 +1,5 @@
 ---
+
 date: 2024-04-28
 description: Design biomimetic robots inspired by nature—implement gecko adhesion, swarm intelligence, and soft robotics using billions of years of evolution.
 images:
@@ -12,13 +13,13 @@ images:
   og:
     alt: 'Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering - Social Media Preview'
     src: /assets/images/blog/hero/2024-09-19-biomimetic-robotics-og.jpg
-tags:
-- posts
-- robotics
-- ai
-- sustainability
-- programming
 title: 'Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering'
+tags:
+  - ai
+  - programming
+  - robotics
+  - sustainability
+
 ---
 ## Bottom Line Up Front
 

@@ -1,14 +1,8 @@
 ---
+
 author: William Zujkowski
 date: 2025-09-08
 description: Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation and layer 3 firewalls for defense in depth.
-tags:
-- security
-- networking
-- zero-trust
-- vlan
-- homelab
-- ubiquiti
 title: Implementing Zero Trust Microsegmentation with VLANs
 images:
   hero:
@@ -20,6 +14,12 @@ images:
   og:
     src: /assets/images/blog/hero/2025-09-08-zero-trust-vlan-segmentation-homelab-og.jpg
     alt: network topology and connections for Implementing Zero Trust Microsegmentation with VLANs
+tags:
+  - homelab
+  - networking
+  - security
+  - zero-trust
+
 ---
 ## The IoT Camera That Taught Me About Network Segmentation
 

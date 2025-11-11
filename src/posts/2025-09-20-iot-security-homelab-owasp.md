@@ -1,14 +1,8 @@
 ---
+
 title: 'IoT Security in Your Home Lab: Lessons from OWASP IoTGoat'
 date: 2025-09-20
 description: Test IoT security with OWASP IoTGoat—practice firmware extraction, API exploitation, and hardware hacking in secure lab environments.
-tags:
-- iot
-- security
-- owasp
-- homelab
-- vulnerability-research
-- networking
 author: William Zujkowski
 images:
   hero:
@@ -20,6 +14,13 @@ images:
   og:
     src: /assets/images/blog/hero/2025-09-20-iot-security-homelab-owasp-og.jpg
     alt: 'cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons from OWASP IoTGoat'
+tags:
+  - homelab
+  - iot
+  - networking
+  - security
+  - vulnerability-management
+
 ---
 **BLUF:** When I set up my first smart home devices years ago, I naively trusted that manufacturers had security figured out. Then I started packet capturing my IoT traffic.
 

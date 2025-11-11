@@ -1,4 +1,5 @@
 ---
+
 date: 2024-04-14
 description: Deploy zero trust security with continuous verification and identity-centric controls—implement never-trust-always-verify for Federal EO 14028 compliance.
 images:
@@ -12,13 +13,12 @@ images:
   og:
     alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Social Media Preview'
     src: /assets/images/blog/hero/2024-08-27-zero-trust-security-principles-og.jpg
-tags:
-- posts
-- security
-- cybersecurity
-- devops
-- programming
 title: 'Implementing Zero Trust Security: Never Trust, Always Verify'
+tags:
+  - devops
+  - programming
+  - security
+
 ---
 ## BLUF
 

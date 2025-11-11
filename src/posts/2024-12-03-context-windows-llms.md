@@ -1,4 +1,5 @@
 ---
+
 date: 2024-06-09
 description: Understand LLM context windows from 2K to 2M tokens—optimize model performance and prevent hallucinations at 28K token boundaries.
 images:
@@ -12,12 +13,12 @@ images:
   og:
     alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Social Media Preview'
     src: /assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg
-tags:
-- posts
-- ai
-- programming
-- architecture
 title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
+tags:
+  - ai
+  - architecture
+  - programming
+
 ---
 In November 2024, I ran an experiment in my homelab that completely changed how I think about context windows. I fed a 47,000-token codebase to Llama 3 70B running on my RTX 3090. Everything worked beautifully until around token 28,000.
 

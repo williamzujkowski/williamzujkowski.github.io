@@ -1,4 +1,5 @@
 ---
+
 date: 2024-02-09
 description: Detect AI-generated deepfakes with neural network analysis and authentication methods—combat misinformation with 73% accuracy detection models.
 images:
@@ -12,11 +13,12 @@ images:
   og:
     alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Social Media Preview'
     src: /assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-og.jpg
-tags:
-- ai
-- security
-- ethics
 title: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception'
+tags:
+  - ai
+  - ethics
+  - security
+
 ---
 **BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease. It was a video of a public figure saying something completely out of character. Despite knowing about deepfake technology, I found myself questioning what was real.
 

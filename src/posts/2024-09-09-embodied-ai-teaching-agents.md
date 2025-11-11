@@ -1,4 +1,5 @@
 ---
+
 date: 2024-04-21
 description: Train embodied AI agents with vision, language, and physical interaction—build robots that learn from real environments using reinforcement learning.
 images:
@@ -12,13 +13,12 @@ images:
   og:
     alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Social Media Preview'
     src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-og.jpg
-tags:
-- posts
-- ai
-- robotics
-- embodied-ai
-- multimodal-llm
 title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
+tags:
+  - ai
+  - llm
+  - robotics
+
 ---
 In August 2024, I spent 47 hours in NVIDIA Isaac Sim trying to teach a simulated robot arm to grasp objects in my virtual homelab. My RTX 3090 hummed at 73°C while rendering the physics at 18.4 FPS, and I gave the agent what I thought was a clear instruction: "Pick up the small container."
 

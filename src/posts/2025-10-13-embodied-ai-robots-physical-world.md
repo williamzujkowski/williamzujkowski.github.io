@@ -1,14 +1,8 @@
 ---
+
 author: William Zujkowski
 date: 2025-10-13
 description: Deploy Vision-Language-Action models for embodied AI robots—integrate physical world interaction with security considerations for homelab automation.
-tags:
-- ai
-- robotics
-- automation
-- embodied-ai
-- homelab
-- machine-learning
 title: 'From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution'
 images:
   hero:
@@ -20,6 +14,13 @@ images:
   og:
     src: /assets/images/blog/hero/2025-10-13-embodied-ai-robots-og.jpg
     alt: AI-powered robotics and embodied intelligence
+tags:
+  - ai
+  - automation
+  - homelab
+  - machine-learning
+  - robotics
+
 ---
 ## Bottom Line Up Front
 
@@ -40,7 +41,7 @@ That gap is closing. VLA models combine three capabilities:
 - **Action**: Generating physical control signals for robotic systems
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph traditionalaiagents["Traditional AI Agents"]
         A[Text Input] --> B[Language Model]
         B --> C[Text Output]
@@ -54,8 +55,10 @@ graph LR
 
     C -.evolves into.-> E
 
-    style E fill:#e11d48
-    style H fill:#10b981
+    classDef highlight1 fill:#e11d48
+    classDef highlight2 fill:#10b981
+    class E highlight1
+    class H highlight2
 ```
 
 The breakthrough: direct mapping from perception and language to low-level robotic control. Traditional robotics required extensive programming for each task. VLA models learn generalizable manipulation skills from demonstration data.
@@ -145,7 +148,7 @@ VLA models are powerful but immature, and I'm frankly concerned about how quickl
 ### Defense in Depth
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph safetylayers["Safety Layers"]
         A[VLA Model] --> B[Action Filter]
         B --> C[Collision Detection]
@@ -160,9 +163,12 @@ graph TB
 
     H[Human Supervisor] --> E
 
-    style A fill:#3b82f6
-    style E fill:#ef4444
-    style G fill:#f59e0b
+    classDef highlight1 fill:#3b82f6
+    classDef highlight2 fill:#ef4444
+    classDef highlight3 fill:#f59e0b
+    class A highlight1
+    class E highlight2
+    class G highlight3
 ```
 
 **Required safety layers:**

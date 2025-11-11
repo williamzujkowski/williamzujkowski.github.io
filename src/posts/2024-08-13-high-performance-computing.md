@@ -1,4 +1,5 @@
 ---
+
 date: 2024-04-07
 description: Deploy high-performance computing with parallel processing and distributed systems—access supercomputer capabilities through cloud HPC for AI workloads.
 images:
@@ -12,13 +13,12 @@ images:
   og:
     alt: 'The Evolution of High-Performance Computing: Key Trends and Innovations - Social Media Preview'
     src: /assets/images/blog/hero/2024-08-13-high-performance-computing-og.jpg
-tags:
-- posts
-- computational-science
-- hpc
-- ai
-- sustainability
 title: 'The Evolution of High-Performance Computing: Key Trends and Innovations'
+tags:
+  - ai
+  - computational-science
+  - sustainability
+
 ---
 ## BLUF: The Transformation of Supercomputing
 

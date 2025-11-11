@@ -1,4 +1,5 @@
 ---
+
 author: William Zujkowski
 date: 2025-03-24
 description: Navigate IT support to senior InfoSec engineer path—learn from 15+ years securing federal systems with practical career transition advice.
@@ -13,13 +14,12 @@ images:
   og:
     alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Social Media Preview'
     src: /assets/images/blog/hero/2025-03-24-from-it-support-to-senior-infosec-engineer-og.jpg
-tags:
-- career
-- security
-- personal-growth
-- learning
-- leadership
 title: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey'
+tags:
+  - learning
+  - professional-development
+  - security
+
 ---
 ## The Beginning
 
