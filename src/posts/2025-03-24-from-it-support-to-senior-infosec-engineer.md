@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-03-24
-description: The winding path from fixing printers to securing federal systems over 10 years. Lessons learned, mistakes made, and advice for aspiring security professionals
+description: Navigate IT support to senior InfoSec engineer career path—learn from 15+ years securing federal systems with practical advice for cybersecurity career transitions.
 images:
   hero:
     alt: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey - Hero Image'

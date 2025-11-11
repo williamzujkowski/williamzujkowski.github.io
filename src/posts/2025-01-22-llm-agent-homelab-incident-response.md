@@ -1,7 +1,7 @@
 ---
 title: "I Built an AI Agent to Debug My Homelab: LLM-Powered Incident Response with AIOpsLab"
 date: 2025-01-22
-description: "Automated homelab incident response with an LLM agent, reduced diagnosis time from 30 minutes to 5 minutes by auto-correlating Prometheus, Loki, and Tempo telemetry."
+description: "Build LLM-powered incident response with AIOpsLab framework—reduce diagnosis time by 5.4x using automated Prometheus, Loki, and Tempo correlation for Kubernetes clusters."
 tags: [aiops, llm, observability, prometheus, kubernetes, homelab, automation]
 author: "William Zujkowski"
 reading_time: 10

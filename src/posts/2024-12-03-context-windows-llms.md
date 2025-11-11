@@ -1,6 +1,6 @@
 ---
 date: 2024-06-09
-description: From 2K to 2M tokens, how expanding context windows transform LLMs from chatbots to reasoning engines, with practical implications for applications
+description: Understand LLM context windows from 2K to 2M tokens—optimize large language model performance and prevent hallucinations at 28K token boundaries in production.
 images:
   hero:
     alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Hero Image'

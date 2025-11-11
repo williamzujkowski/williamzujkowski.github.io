@@ -1,7 +1,7 @@
 ---
 title: 'From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows'
 date: 2025-10-17
-description: Progressive skill loading achieves 98% token reduction in LLM workflows through modular context architecture. Lessons from building production systems
+description: Optimize LLM workflows with progressive context loading—achieve 98% token reduction using modular architecture for efficient production language model deployments.
 tags:
 - ai
 - llm

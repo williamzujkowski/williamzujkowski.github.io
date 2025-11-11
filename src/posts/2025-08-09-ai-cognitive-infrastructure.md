@@ -1,7 +1,7 @@
 ---
 date: 2025-08-09
 title: 'AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought'
-description: AI is evolving from tools into cognitive infrastructure that shapes how billions think, yet we understand little about its long-term effects
+description: Understand AI cognitive infrastructure shaping how billions think—explore long-term societal effects of language models transforming from tools to thought infrastructure.
 tags:
 - posts
 - ai

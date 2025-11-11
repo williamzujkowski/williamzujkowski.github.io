@@ -1,6 +1,6 @@
 ---
 date: 2025-07-29
-description: 'The ongoing saga of turning my standards repo into an MCP server for Claude. Spoiler: It''s working mostly, and I''ve only rewritten it three times so far'
+description: 'Build MCP standards server for Claude AI integration—implement Model Context Protocol for intelligent code standards enforcement and context-aware development workflows.'
 images:
   hero:
     alt: 'Down the MCP Rabbit Hole: Building a Standards Server - Hero Image'

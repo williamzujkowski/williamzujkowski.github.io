@@ -1,6 +1,6 @@
 ---
 date: 2025-06-25
-description: 'Complete guide to running LLMs locally for privacy: hardware requirements, model selection, optimization techniques, and practical deployment strategies'
+description: 'Deploy local LLMs for privacy-first AI—run language models on homelab hardware with model selection, optimization, and secure deployment strategies without cloud dependencies.'
 images:
   hero:
     alt: 'Local LLM Deployment: Privacy-First Approach - Hero Image'

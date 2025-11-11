@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-29
-description: Building high-availability Proxmox clusters on homelab hardware. Shared storage, live migration, automated failover, and lessons from three failed attempts
+description: Build Proxmox high-availability clusters with shared storage and automated failover—implement live migration for zero-downtime maintenance in homelab infrastructure.
 tags:
 - virtualization
 - proxmox

@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-07-08
-description: Complete guide to deploying DNS-over-HTTPS on home networks for privacy and security, covering Pi-hole, dnscrypt-proxy, and multiple implementation approaches
+description: Deploy DNS-over-HTTPS with Pi-hole and dnscrypt-proxy—encrypt DNS queries for home network privacy and prevent ISP monitoring with DoH implementation guide.
 images:
   hero:
     alt: Implementing DNS-over-HTTPS (DoH) for Home Networks - Hero Image

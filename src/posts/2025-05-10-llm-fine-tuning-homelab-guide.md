@@ -1,6 +1,6 @@
 ---
 date: '2025-05-10'
-description: Complete guide to fine-tuning open-source LLMs on homelab hardware using QLoRA, covering dataset prep, training optimization, and evaluation
+description: Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization—train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.
 images:
   hero:
     alt: 'Fine-Tuning LLMs in the Homelab: A Practical Guide - Hero Image'

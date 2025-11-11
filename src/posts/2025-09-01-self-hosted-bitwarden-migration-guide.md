@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-01
-description: 'Migrating from cloud password managers to self-hosted Bitwarden: setup, security hardening, backup strategies, and why I made the switch'
+description: 'Migrate to self-hosted Bitwarden password manager—deploy secure vault with backup strategies, SSL certificates, and database encryption for complete password control.'
 tags:
 - security
 - passwords

@@ -1,7 +1,7 @@
 ---
 title: Building Your Own MITRE ATT&CK Threat Intelligence Dashboard
 date: 2025-09-14
-description: Create a personal threat intelligence dashboard using MITRE ATT&CK framework,
+description: Build threat intelligence dashboard with MITRE ATT&CK framework—track adversary tactics, techniques, and procedures for security monitoring and incident response.
   open-source feeds, and Python to track relevant threats to your environment.
 tags:
 - threat-intelligence

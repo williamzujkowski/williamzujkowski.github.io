@@ -1,7 +1,7 @@
 ---
 date: 2025-10-29
 title: 'Preparing Your Homelab for the Quantum Future: Post-Quantum Cryptography Migration'
-description: Preparing my homelab for the quantum threat with NIST's post-quantum algorithms. CRYSTALS-Kyber, CRYSTALS-Dilithium, and practical implementation lessons
+description: Implement post-quantum cryptography with CRYSTALS-Kyber and Dilithium—prepare homelab infrastructure for quantum threats using NIST-approved algorithms in production.
 tags:
 - quantum-computing
 - cryptography

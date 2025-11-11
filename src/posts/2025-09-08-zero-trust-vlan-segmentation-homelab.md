@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-08
-description: How I implemented zero trust principles using VLAN segmentation on my homelab - practical network security beyond simple firewall rules
+description: Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation, policy enforcement, and layer 3 firewall rules for defense in depth.
 tags:
 - security
 - networking

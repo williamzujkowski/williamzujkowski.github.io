@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-08-25
-description: Setting up Suricata IDS/IPS on homelab for real-time network threat detection. Rule management, performance tuning, and integrating with security stack
+description: Deploy Suricata IDS/IPS for real-time network threat detection—configure rule management, performance tuning, and SIEM integration for homelab security monitoring.
 tags:
 - security
 - networking
