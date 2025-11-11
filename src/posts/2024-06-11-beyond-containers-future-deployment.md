@@ -101,7 +101,9 @@ But here's what containers didn't fix:
 
 **Security Concerns:** Container escape vulnerabilities worry me. Running privileged containers for certain workloads feels risky, but sometimes necessary. I still don't fully trust my security posture.
 
-**Performance Overhead:** While efficient, containers add abstraction layers. My database benchmarks showed 8-12% performance penalty compared to bare metal. For most things, that's fine. For some things, it's not.
+**Performance Overhead:** While efficient, containers add abstraction layers. My database benchmarks showed 8-12% performance penalty compared to bare metal.
+
+For most things, that's fine. For some things, it's not.
 
 **State Management:** Persistent data in Kubernetes remains messy. I've lost data twice due to misconfigured PersistentVolumeClaims. Backups saved me, but I shouldn't need to worry this much.
 
@@ -140,7 +142,9 @@ After two weeks, I had actual data:
 - For my 2,400 daily invocations, a dedicated container was more efficient
 - Maybe serverless makes sense at scale. At homelab scale, probably not.
 
-I rolled back after 16 days and learned an important lesson: serverless solves specific problems (massive scale variability, true zero-to-infinity workloads), but it's not a universal container replacement. For steady-state homelab workloads, it added complexity without benefits.
+I rolled back after 16 days and learned an important lesson: serverless solves specific problems (massive scale variability, true zero-to-infinity workloads), but it's not a universal container replacement.
+
+For steady-state homelab workloads, it added complexity without benefits.
 
 ## WebAssembly: The Experiment That Actually Worked
 
@@ -258,7 +262,9 @@ I simplified the goal to a basic HTTP server.
 
 **Operational Unknowns:** I don't know how to monitor unikernels properly, how to update them safely, or how to handle failures. My operational playbooks assume general-purpose operating systems.
 
-**Real Talk:** Unikernels are intriguing technology with 99% faster boot times and 60% memory reduction. But for a homelab operator who already has a full-time job, the investment required to use them safely is too high. Maybe in 2026 when tooling improves.
+**Real Talk:** Unikernels are intriguing technology with 99% faster boot times and 60% memory reduction. But for a homelab operator who already has a full-time job, the investment required to use them safely is too high.
+
+Maybe in 2026 when tooling improves.
 
 ## Edge Computing: Raspberry Pi Experiments
 
