@@ -115,7 +115,8 @@ My introduction to hashing came through password storage, and I made every begin
 - Compared against known-good hash snapshots from backups
 - Identified exactly which batches were corrupted
 - Pinpointed corruption timeline by comparing daily snapshots
-- **Result**: Within 4 hours, found 127,000 compromised records and corruption source
+
+**Result**: Within 4 hours, found 127,000 compromised records and corruption source
 
 **Lessons learned:**
 - Hash functions are perfect integrity validators
@@ -191,9 +192,8 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
 - First test was nerve-wracking. Would signatures hold up under scrutiny?
 - Watched lawyers confidently accept digitally signed agreements
 - Previously, they had insisted everything be handled on paper
-- Digital signatures provided non-repudiation (signer can't deny signing)
-- Timestamps proved when documents were signed (stored to the millisecond in UTC)
-- Audit trail tracked all signature events (reduced contract turnaround from 7 days to 45 minutes)
+
+Digital signatures provided non-repudiation (signer can't deny signing). Timestamps proved when documents were signed (stored to the millisecond in UTC). Audit trail tracked all signature events (reduced contract turnaround from 7 days to 45 minutes).
 
 ### Algorithm Comparison from Real Deployments
 
