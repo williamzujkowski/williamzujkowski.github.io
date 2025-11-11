@@ -33,6 +33,8 @@ These incidents taught me something crucial. Cloud-native architectures don't ju
 
 ## How It Works
 
+⚠️ **Warning:** This diagram illustrates cloud-native security threat vectors for educational purposes. Organizations should implement comprehensive security controls following zero-trust principles.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]

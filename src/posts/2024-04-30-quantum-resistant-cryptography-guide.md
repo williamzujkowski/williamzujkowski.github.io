@@ -24,6 +24,8 @@ Shor's algorithm breaks RSA encryption in polynomial time on a quantum computer.
 
 ## How It Works
 
+⚠️ **Warning:** This diagram shows quantum computing threats to cryptography for educational purposes. Organizations should begin quantum-resistant migration planning now.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]

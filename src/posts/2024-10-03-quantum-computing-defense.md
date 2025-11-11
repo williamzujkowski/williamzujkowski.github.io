@@ -83,6 +83,8 @@ The computational properties that make quantum computing particularly powerful f
 
 **Pattern Recognition**: Quantum machine learning algorithms show superior performance in identifying subtle patterns in massive datasets. This capability is particularly valuable for intelligence analysis, though it's worth noting that we're still in the early stages of understanding the practical limits of quantum machine learning in production environments.
 
+⚠️ **Warning:** This code demonstrates conceptual quantum computing algorithms for educational purposes. Quantum computing research should follow ethical guidelines and proper authorization.
+
 ```python
 # Quantum advantage in pattern recognition (conceptual)
 def quantum_pattern_detection(data, patterns):
@@ -124,13 +126,12 @@ In response, defense agencies worldwide are investing heavily in post-quantum cr
 The challenge is enormous: transitioning global security infrastructure while ensuring backward compatibility and maintaining security during the transition period.
 
 ```javascript
-// Migrating to quantum-resistant encryption
+// Simplified: Migrating to quantum-resistant encryption
 function generateHybridKeypair() {
     const classicKeys = generateClassicKeypair();
     const quantumResistantKeys = generateQuantumResistantKeypair();
-    
-    # ... (additional implementation details)
-    };
+
+    return { classic: classicKeys, quantum: quantumResistantKeys };
 }
 ```
 

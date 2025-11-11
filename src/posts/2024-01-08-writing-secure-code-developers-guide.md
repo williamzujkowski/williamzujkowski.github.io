@@ -26,6 +26,8 @@ That incident happened early in my career, and I still remember the quiet panic 
 
 ## How It Works
 
+⚠️ **Warning:** This diagram illustrates security threat vectors for educational purposes. Developers should implement proper security controls and follow secure coding practices in all production environments.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]

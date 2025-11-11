@@ -102,6 +102,8 @@ Combined with layer unloading, peak memory usage drops by 90.3% for GPT-style mo
 
 ### Architecture Diagram
 
+⚠️ **Warning:** This diagram demonstrates layer-wise loading architecture for educational purposes. Implementation requires proper memory management and hardware configuration.
+
 ```mermaid
 flowchart TD
     A[Input Tokens] --> B[Layer 0]
@@ -207,7 +209,10 @@ print(output)
 ```
 
 **Inference output:**
-```
+
+⚠️ **Warning:** This output demonstrates LLM inference on edge devices for educational purposes. Running LLMs requires substantial computational resources and proper licensing compliance.
+
+```text
 Explain edge AI inference in simple terms:
 
 Edge AI inference means running AI models directly on devices like phones,
