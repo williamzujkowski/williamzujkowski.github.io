@@ -1,7 +1,7 @@
 ---
 title: "Privacy-Preserving AI Training Across My Homelab: Federated Learning with Granular-Ball Computing"
 date: 2025-01-12
-description: "Deploy federated learning across homelab devices with granular-ball computing—train privacy-preserving AI models with 82% reduced network transfer without sharing raw data."
+description: "Deploy federated learning across homelab with granular-ball computing—train privacy-preserving models with 82% reduced network transfer."
 tags: [federated-learning, privacy, machine-learning, pytorch, raspberry-pi, homelab]
 author: "William Zujkowski"
 reading_time: 9

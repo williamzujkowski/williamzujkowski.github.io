@@ -1,6 +1,6 @@
 ---
 date: 2024-08-02
-description: Explore quantum computing breakthroughs with IBM Qiskit and quantum algorithms—understand quantum advantage, error correction, and real-world quantum applications in development.
+description: "Explore quantum computing with IBM Qiskit and quantum algorithms—quantum advantage, error correction, and real-world applications."
 images:
   hero:
     alt: Quantum Computing's Leap Forward - Hero Image

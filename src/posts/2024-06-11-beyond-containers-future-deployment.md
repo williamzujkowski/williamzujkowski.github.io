@@ -1,7 +1,7 @@
 ---
 date: 2024-06-11
 author: William Zujkowski
-description: Explore deployment technologies beyond containers including serverless, WebAssembly, and unikernels—understand alternatives to Kubernetes for modern application delivery.
+description: "Explore deployment beyond containers with serverless, WebAssembly, and unikernels—understand alternatives to Kubernetes for modern apps."
 images:
   hero:
     alt: 'Beyond Containers: The Future of Application Deployment - Hero Image'

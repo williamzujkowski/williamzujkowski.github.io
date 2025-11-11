@@ -1,6 +1,6 @@
 ---
 date: 2024-07-09
-description: 'Implement zero trust architecture with identity verification and micro-segmentation—secure networks with never-trust-always-verify principles for modern cloud infrastructure.'
+description: "Implement zero trust with identity verification and micro-segmentation—secure networks using never-trust-always-verify principles."
 images:
   hero:
     alt: 'Zero Trust Architecture: A Practical Implementation Guide - Hero Image'

@@ -1,6 +1,6 @@
 ---
 date: 2024-10-10
-description: Deploy blockchain beyond cryptocurrency with Ethereum nodes and smart contracts—build decentralized trust systems for supply chain and identity verification applications.
+description: "Deploy blockchain beyond cryptocurrency with Ethereum and smart contracts—build decentralized trust for supply chain and identity verification."
 images:
   hero:
     alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Hero Image'

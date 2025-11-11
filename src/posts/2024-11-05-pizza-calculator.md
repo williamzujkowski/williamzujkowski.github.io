@@ -1,7 +1,7 @@
 ---
 date: 2024-05-26
 author: William Zujkowski
-description: Optimize team resource planning with data-driven pizza provisioning—calculate cost per square inch and maximize developer productivity during critical sprints using math.
+description: "Optimize team resource planning with data-driven pizza—calculate cost per square inch and maximize developer productivity during sprints."
 images:
   hero:
     alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Hero Image'

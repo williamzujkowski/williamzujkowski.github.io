@@ -1,6 +1,6 @@
 ---
 date: 2025-07-29
-description: 'Build MCP standards server for Claude AI integration—implement Model Context Protocol for intelligent code standards enforcement and context-aware development workflows.'
+description: "Build MCP standards server for Claude AI—implement Model Context Protocol for intelligent code standards and context-aware workflows."
 images:
   hero:
     alt: 'Down the MCP Rabbit Hole: Building a Standards Server - Hero Image'

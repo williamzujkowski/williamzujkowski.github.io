@@ -1,7 +1,7 @@
 ---
 date: 2025-08-09
 title: 'AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought'
-description: Understand AI cognitive infrastructure shaping how billions think—explore long-term societal effects of language models transforming from tools to thought infrastructure.
+description: "Understand AI cognitive infrastructure shaping how billions think—explore societal effects of language models transforming from tools to thought systems."
 tags:
 - posts
 - ai
@@ -31,7 +31,7 @@ AI isn't a collection of tools anymore. It's becoming the invisible architecture
 According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/2507.22893) (arXiv:2507.22893, 2025), cognitive infrastructure represents AI systems that don't process information. They transport meaning. Unlike roads that move goods or electricity that powers machines, this infrastructure mediates human thought itself.
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph traditionalinfrastructure["Traditional Infrastructure"]
         Roads[Physical Roads]
         Power[Electricity Grid]
@@ -63,10 +63,10 @@ graph TB
     Analysis --> Thinking
     Creativity --> Thinking
 
-    style AI fill:#e11d48
-    style ML fill:#e11d48
-    style NLP fill:#e11d48
-    style Thinking fill:#10b981
+    classDef aiStyle fill:#e11d48
+    classDef thinkStyle fill:#10b981
+    class AI,ML,NLP aiStyle
+    class Thinking thinkStyle
 ```
 
 **Three mechanisms define cognitive infrastructure:**
@@ -91,7 +91,7 @@ The AI infrastructure market is exploding from [$47.23 billion in 2024 to a proj
 This isn't digitization. It's cognitive intermediation at civilization scale.
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph traditionallearning["Traditional Learning"]
         Teacher[Teacher] --> Student1[Student A]
         Teacher --> Student2[Student B]
@@ -107,10 +107,10 @@ graph LR
         Path3 --> Outcome3[Optimized Learning C]
     end
 
-    style AI fill:#8b5cf6
-    style Path1 fill:#fbbf24
-    style Path2 fill:#fbbf24
-    style Path3 fill:#fbbf24
+    classDef purpleStyle fill:#8b5cf6
+    classDef yellowStyle fill:#fbbf24
+    class AI purpleStyle
+    class Path1,Path2,Path3 yellowStyle
 ```
 
 ## The Cognitive Debt Crisis
@@ -158,10 +158,10 @@ flowchart TD
     Later -.->|Rarely Seen| Void
     Echo -.->|Reinforcement| Decision
 
-    style Hidden fill:#ef4444
-    style Void fill:#ef4444
-    style Bubble fill:#f59e0b
-    style Echo fill:#f59e0b
+    classDef redStyle fill:#ef4444
+    classDef orangeStyle fill:#f59e0b
+    class Hidden,Void redStyle
+    class Bubble,Echo orangeStyle
 ```
 
 This isn't conspiracy. It's architecture. The structure of AI-mediated information access shapes what you can know and think. When AI determines relevance, it's not organizing information. It's organizing thought itself.
