@@ -1,6 +1,6 @@
 ---
 date: 2024-04-14
-description: Deploy zero trust security with continuous verification and identity-centric controls—implement never-trust-always-verify principles for Federal EO 14028 compliance.
+description: Deploy zero trust security with continuous verification and identity-centric controls—implement never-trust-always-verify for Federal EO 14028 compliance.
 images:
   hero:
     alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Hero Image'

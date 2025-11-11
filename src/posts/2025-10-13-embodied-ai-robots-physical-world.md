@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-10-13
-description: Deploy Vision-Language-Action models for embodied AI robots—integrate physical world interaction with security considerations for homelab automation and robotics.
+description: Deploy Vision-Language-Action models for embodied AI robots—integrate physical world interaction with security considerations for homelab automation.
 tags:
 - ai
 - robotics

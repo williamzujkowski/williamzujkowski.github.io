@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-08
-description: Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation, policy enforcement, and layer 3 firewall rules for defense in depth.
+description: Implement zero trust with VLAN segmentation—secure homelab networks using micro-segmentation, policy enforcement, and layer 3 firewalls for defense in depth.
 tags:
 - security
 - networking

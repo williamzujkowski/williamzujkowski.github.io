@@ -1,6 +1,6 @@
 ---
 date: 2024-04-04
-description: Build RAG systems with vector databases and semantic search—eliminate LLM hallucinations and ground responses in verified knowledge for trustworthy AI applications.
+description: Build RAG systems with vector databases and semantic search—eliminate LLM hallucinations and ground responses in verified knowledge for trustworthy AI.
 images:
   hero:
     alt: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge

@@ -1,6 +1,6 @@
 ---
 date: 2025-03-10
-description: Build Raspberry Pi security projects with Pi-hole, VPN gateway, and honeypots—deploy practical network monitoring and threat detection on budget-friendly hardware.
+description: Build Raspberry Pi security projects with Pi-hole, VPN gateway, and honeypots—deploy practical network monitoring and threat detection on budget hardware.
 images:
   hero:
     alt: Raspberry Pi Security Projects That Actually Solve Problems - Hero Image

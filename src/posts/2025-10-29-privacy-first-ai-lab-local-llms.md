@@ -1,7 +1,7 @@
 ---
 date: 2025-10-29
 title: "Building a Privacy-First AI Lab: Deploying Local LLMs Without Sacrificing Ethics"
-description: "Build privacy-first AI lab with local LLMs—run Llama 3.1 70B on RTX 3090 with network isolation, traffic monitoring, and real privacy controls beyond cloud services."
+description: "Build privacy-first AI lab with local LLMs—run Llama 3.1 70B on RTX 3090 with network isolation, traffic monitoring, and real privacy controls."
 tags:
   - ai-ethics
   - privacy

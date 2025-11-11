@@ -1,6 +1,6 @@
 ---
 date: 2024-06-25
-description: Design resilient systems with circuit breakers, redundancy, and chaos engineering—recover from failures in minutes instead of hours using proven reliability patterns.
+description: Design resilient systems with circuit breakers, redundancy, and chaos engineering—recover from failures in minutes using proven patterns.
 images:
   hero:
     alt: Designing Resilient Systems for an Uncertain World - Hero Image

@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-07-01
-description: Implement eBPF security monitoring for real-time Linux kernel visibility—track syscalls and network activity with production-ready patterns for threat detection.
+description: Implement eBPF security monitoring for real-time kernel visibility—track syscalls and network activity with production-ready patterns for threat detection.
 images:
   hero:
     alt: Futuristic dashboard showing real-time kernel-level security monitoring with eBPF

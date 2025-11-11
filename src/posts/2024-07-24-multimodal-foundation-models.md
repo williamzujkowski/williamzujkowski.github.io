@@ -1,6 +1,6 @@
 ---
 date: 2024-07-24
-description: Build multimodal AI systems with GPT-4 Vision and CLIP—process text, images, and audio together for next-generation foundation model applications in production.
+description: Build multimodal AI systems with GPT-4 Vision and CLIP—process text, images, and audio together for next-generation foundation model applications.
 images:
   hero:
     alt: 'Multimodal Foundation Models: Capabilities, Challenges, and Applications - Hero Image'

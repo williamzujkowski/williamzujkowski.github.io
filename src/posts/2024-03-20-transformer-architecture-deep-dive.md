@@ -1,6 +1,6 @@
 ---
 date: 2024-03-20
-description: Master transformer architecture with self-attention and positional encoding—understand the foundation of GPT-4, BERT, and modern language models in production.
+description: Master transformer architecture with self-attention and positional encoding—understand the foundation of GPT-4, BERT, and modern language models.
 images:
   hero:
     alt: 'The Transformer Architecture: A Deep Dive - Hero Image'

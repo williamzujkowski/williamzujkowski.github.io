@@ -1,7 +1,7 @@
 ---
 title: 'From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes LLM Development Workflows'
 date: 2025-10-17
-description: Optimize LLM workflows with progressive context loading—achieve 98% token reduction using modular architecture for efficient production language model deployments.
+description: Optimize LLM workflows with progressive context loading—achieve 98% token reduction using modular architecture for efficient production deployments.
 tags:
 - ai
 - llm

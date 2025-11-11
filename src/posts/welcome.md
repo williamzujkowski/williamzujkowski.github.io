@@ -1,7 +1,7 @@
 ---
 date: 2025-01-01
 author: William Zujkowski
-description: Build privacy-respecting sites with Eleventy—create fast, accessible static websites using modern web technologies with zero tracking and excellent Core Web Vitals.
+description: Build privacy-respecting sites with Eleventy—create fast, accessible static websites using modern technologies with zero tracking and excellent Core Web Vitals.
 images:
   hero:
     alt: Building My Digital Garden with Eleventy - Hero Image

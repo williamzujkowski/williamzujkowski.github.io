@@ -1,6 +1,6 @@
 ---
 date: 2024-04-21
-description: Train embodied AI agents with vision, language, and physical interaction—build robots that learn from real-world environments using multimodal reinforcement learning.
+description: Train embodied AI agents with vision, language, and physical interaction—build robots that learn from real environments using reinforcement learning.
 images:
   hero:
     alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Hero Image'

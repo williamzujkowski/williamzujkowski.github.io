@@ -1,6 +1,6 @@
 ---
 date: 2024-04-11
-description: Address LLM ethics including bias, privacy, and accountability—implement responsible AI frameworks for large language model deployment in production systems.
+description: Address LLM ethics including bias, privacy, and accountability—implement responsible AI frameworks for large language model deployment in production.
 images:
   hero:
     alt: The Ethics of Large Language Models - Hero Image

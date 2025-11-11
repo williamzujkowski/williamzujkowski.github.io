@@ -1,7 +1,7 @@
 ---
 date: 2024-01-08
 author: William Zujkowski
-description: 'Master secure code development with input validation, parameterized queries, and secrets management—prevent SQL injection and XSS vulnerabilities in production.'
+description: 'Master secure code development with input validation, parameterized queries, and secrets management—prevent SQL injection and XSS in production systems.'
 images:
   hero:
     alt: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits - Hero Image'

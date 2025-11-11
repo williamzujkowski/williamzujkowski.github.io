@@ -1,6 +1,6 @@
 ---
 date: 2024-04-07
-description: Deploy high-performance computing with parallel processing and distributed systems—access supercomputer capabilities through cloud HPC for research and AI workloads.
+description: Deploy high-performance computing with parallel processing and distributed systems—access supercomputer capabilities through cloud HPC for AI workloads.
 images:
   hero:
     alt: 'The Evolution of High-Performance Computing: Key Trends and Innovations - Hero Image'

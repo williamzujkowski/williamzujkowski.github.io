@@ -1,7 +1,7 @@
 ---
 date: 2024-03-05
 author: William Zujkowski
-description: Execute cloud migration from on-premises infrastructure with AWS/Azure strategies—reduce costs by 40% and improve scalability with proven migration patterns.
+description: Execute cloud migration from on-premises infrastructure with AWS/Azure strategies—reduce costs by 40% and improve scalability with proven patterns.
 images:
   hero:
     alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Hero Image'
