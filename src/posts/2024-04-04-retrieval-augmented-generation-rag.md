@@ -22,7 +22,7 @@ tags:
 title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
 ---
 
-In April 2024, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense. The results were... mixed. More on that later.
+**BLUF:** In April 2024, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense. The results were mixed.
 
 The spark for this project came from watching GPT-4 confidently make up technical specifications for Docker containers that didn't exist in my setup. It told me I was running version 2.3.1 of a service I'd never installed. The response was authoritative, detailed, and completely wrong. That's when I realized I needed RAG, not just a smarter model.
 

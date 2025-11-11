@@ -18,11 +18,11 @@ tags:
 - ethics
 title: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception'
 ---
-The first time I encountered a convincing deepfake, I felt a profound sense of unease that I'm still processing years later. It was a video of a public figure saying something completely out of character, and despite knowing about deepfake technology, I found myself questioning what was real.
+**BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease that I'm still processing years later. It was a video of a public figure saying something completely out of character, and despite knowing about deepfake technology, I found myself questioning what was real.
 
-I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media, and highlighted a terrifying reality about our information landscape.
+I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media, and highlighted a terrifying reality about our information landscape. Fast forward to January 2024, when I decided to test this problem in my own homelab.
 
-Fast forward to January 2024, when I decided to test this problem in my own homelab. I downloaded 50 known deepfake videos from academic datasets and ran them through three different detection models on my RTX 3090. The results were sobering: my best model achieved only 73% accuracy, taking 3.2 seconds per frame to process. Even more concerning, the false positive rate hit 18%, meaning nearly one in five real videos got flagged as fake. This wasn't theoretical anymore. I had the processing power to detect deepfakes, but the technology itself was probably still too unreliable for real-world deployment.
+I downloaded 50 known deepfake videos from academic datasets and ran them through three different detection models on my RTX 3090. The results were sobering: my best model achieved only 73% accuracy, taking 3.2 seconds per frame to process. Even more concerning, the false positive rate hit 18%, meaning nearly one in five real videos got flagged as fake. This wasn't theoretical anymore. I had the processing power to detect deepfakes, but the technology itself was still too unreliable for real-world deployment.
 
 ## How It Works
 

@@ -18,13 +18,11 @@ tags:
 - ethics
 title: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas'
 ---
-In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. My test environment was running on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs.
+**BLUF:** In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss.
 
-The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted (that's an 8.2% accuracy rate, if you're keeping score). The rest were false positives from my perfectly normal Plex streaming, Home Assistant automation triggers, and Docker container restarts. I spent three days tuning detection thresholds, thinking I'd made a terrible mistake.
+My test environment was running on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs. The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted (that's an 8.2% accuracy rate, if you're keeping score). The rest were false positives from my perfectly normal Plex streaming, Home Assistant automation triggers, and Docker container restarts. I spent three days tuning detection thresholds, thinking I'd made a terrible mistake.
 
-Then something clicked. After feeding the system two weeks of baseline traffic and adjusting the sensitivity, accuracy jumped to around 73%. More importantly, it caught a port scan from an unknown IP that my Suricata IDS had completely missed. The pattern was subtle: five ports probed over 18 hours, each connection lasting under 2 seconds. Traditional tools saw five unrelated connection attempts. The AI saw reconnaissance.
-
-That moment crystallized both the immense promise and the frustrating reality of AI in cybersecurity. When it works, it's remarkable. When it doesn't, you're drowning in false alarms wondering if you should just go back to grep and tcpdump.
+Then something clicked. After feeding the system two weeks of baseline traffic and adjusting the sensitivity, accuracy jumped to around 73%. More importantly, it caught a port scan from an unknown IP that my Suricata IDS had completely missed. The pattern was subtle: five ports probed over 18 hours, each connection lasting under 2 seconds. Traditional tools saw five unrelated connection attempts. The AI saw reconnaissance. That moment crystallized both the immense promise and the frustrating reality of AI in cybersecurity. When it works, it's remarkable. When it doesn't, you're drowning in false alarms wondering if you should just go back to grep and tcpdump.
 
 ## How It Works
 
