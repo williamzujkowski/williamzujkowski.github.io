@@ -81,9 +81,13 @@ But "free" came with hidden costs. Setting up Ollama on my homelab server, confi
 
 In early 2024, I ran two experiments that highlighted these trade-offs perfectly:
 
-**Experiment Alpha (Open-Source):** I deployed Mistral 7B v0.3 (December 2023 release) for local code completion on my homelab. The 7B model fit comfortably in my RTX 3090's 24GB VRAM and ran at 45 tokens per second, which meant autocomplete suggestions appeared instantly without any perceptible lag. This responsiveness makes it possible to integrate LLM suggestions directly into my coding workflow without disrupting my thought process. Total setup time was about 8 hours over two days, including downloading the 14GB model file and configuring vLLM for optimal batching. The electricity cost came to roughly $0.15 per day at my local rates.
+**Experiment Alpha (Open-Source):** I deployed Mistral 7B v0.3 (December 2023 release) for local code completion on my homelab. The 7B model fit comfortably in my RTX 3090's 24GB VRAM and ran at 45 tokens per second, which meant autocomplete suggestions appeared instantly without any perceptible lag.
 
-**Experiment Beta (Proprietary):** I integrated GPT-4 API for a chatbot prototype. Integration took 2 hours, including writing the API wrapper and handling rate limits. Performance was excellent at 40 tokens per second with no local hardware requirements. The first month's usage cost $47 for approximately 1.5 million tokens, which would have been free on local hardware (aside from electricity). However, I had zero control when OpenAI updated the model in March 2024, and response formatting changed slightly, requiring prompt adjustments.
+This responsiveness makes it possible to integrate LLM suggestions directly into my coding workflow without disrupting my thought process. Total setup time was about 8 hours over two days, including downloading the 14GB model file and configuring vLLM for optimal batching. The electricity cost came to roughly $0.15 per day at my local rates.
+
+**Experiment Beta (Proprietary):** I integrated GPT-4 API for a chatbot prototype. Integration took 2 hours, including writing the API wrapper and handling rate limits. Performance was excellent at 40 tokens per second with no local hardware requirements.
+
+The first month's usage cost $47 for approximately 1.5 million tokens, which would have been free on local hardware (aside from electricity). However, I had zero control when OpenAI updated the model in March 2024, and response formatting changed slightly, requiring prompt adjustments.
 
 Both approaches worked, but they taught me that the "right" choice depends entirely on constraints, requirements, and whether you enjoy debugging CUDA drivers at 2 AM.
 
@@ -92,7 +96,11 @@ Both approaches worked, but they taught me that the "right" choice depends entir
 Open-source advocates often emphasize customization as a key advantage, but my experience reveals nuance:
 
 **Deep Customization (Open-Source):**
-In February 2024, I fine-tuned Code Llama 13B on my homelab's dataset of internal documentation and code samples. The process consumed 64GB of RAM, pegged my i9-9900K at 100% CPU utilization for 6 hours, and required careful LoRA (Low-Rank Adaptation) configuration to fit within my RTX 3090's 24GB VRAM. The resulting model was 8% more accurate on domain-specific tasks according to my test set, which translates to answering internal documentation questions correctly 87% of the time versus 79% for the base model. This improvement came after two weeks of experimentation with learning rates and batch sizes. This level of customization would be impossible with proprietary APIs, though GPT-4's fine-tuning service (announced in August 2023) offers some middle ground.
+In February 2024, I fine-tuned Code Llama 13B on my homelab's dataset of internal documentation and code samples. The process consumed 64GB of RAM, pegged my i9-9900K at 100% CPU utilization for 6 hours, and required careful LoRA (Low-Rank Adaptation) configuration to fit within my RTX 3090's 24GB VRAM.
+
+The resulting model was 8% more accurate on domain-specific tasks according to my test set, which translates to answering internal documentation questions correctly 87% of the time versus 79% for the base model. This improvement came after two weeks of experimentation with learning rates and batch sizes.
+
+This level of customization would be impossible with proprietary APIs, though GPT-4's fine-tuning service (announced in August 2023) offers some middle ground.
 
 **Practical Customization (Proprietary):**
 For most applications, prompt engineering and retrieval-augmented generation provide sufficient customization. I recently built a code search tool using GPT-4 Turbo with carefully crafted prompts and a vector database of code snippets. The results matched my needs without infrastructure complexity, though I'm locked into OpenAI's token pricing ($0.01 per 1K input tokens, $0.03 per 1K output tokens as of March 2024).
