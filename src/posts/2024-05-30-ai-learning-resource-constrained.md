@@ -1,6 +1,6 @@
 ---
 date: 2024-05-30
-description: Train AI models on resource-constrained hardware with quantization, pruning, and distillation—run GPT-3 capabilities 100x faster using compression techniques.
+description: Train AI models on resource-constrained hardware with quantization, pruning, and distillation—run GPT-3 capabilities 100x faster through compression.
 images:
   hero:
     alt: AI Learning in Resource-Constrained Environments - Hero Image

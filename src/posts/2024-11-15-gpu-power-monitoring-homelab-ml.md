@@ -1,6 +1,6 @@
 ---
 date: 2024-11-15
-description: Monitor GPU power consumption with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.
+description: Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.
 tags:
 - posts
 - ai-ml

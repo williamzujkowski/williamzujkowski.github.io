@@ -1,6 +1,6 @@
 ---
 date: 2025-02-24
-description: Master continuous cybersecurity learning with lab exercises, research tracking, and community engagement—stay current in evolving landscape without burnout.
+description: Master continuous cybersecurity learning with lab exercises, research tracking, and community engagement—stay current without burnout.
 images:
   hero:
     alt: 'Continuous Learning in Cybersecurity: Strategies That Work - Hero Image'

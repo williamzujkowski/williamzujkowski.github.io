@@ -1,7 +1,7 @@
 ---
 title: Building Your Own MITRE ATT&CK Threat Intelligence Dashboard
 date: 2025-09-14
-description: "Build MITRE ATT&CK threat intelligence dashboard with Python—track adversary tactics and techniques using open-source feeds."
+description: Build MITRE ATT&CK threat intelligence dashboard with Python—track adversary tactics and techniques using open-source threat feeds.
 tags:
 - threat-intelligence
 - mitre-attack

@@ -1,6 +1,6 @@
 ---
 date: 2024-06-09
-description: Understand LLM context windows from 2K to 2M tokens—optimize large language model performance and prevent hallucinations at 28K token boundaries in production.
+description: Understand LLM context windows from 2K to 2M tokens—optimize model performance and prevent hallucinations at 28K token boundaries.
 images:
   hero:
     alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Hero Image'
