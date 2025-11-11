@@ -31,6 +31,8 @@ AI isn't a collection of tools anymore. It's becoming the invisible architecture
 
 According to [Giuseppe Riva's groundbreaking research](https://arxiv.org/abs/2507.22893) (arXiv:2507.22893, 2025), cognitive infrastructure represents AI systems that don't process information. They transport meaning. Unlike roads that move goods or electricity that powers machines, this infrastructure mediates human thought itself.
 
+⚠️ **Warning:** These diagrams illustrate AI cognitive infrastructure concepts for educational analysis. Understanding these systems' influence requires critical evaluation and awareness of algorithmic mediation.
+
 ```mermaid
 flowchart TB
     subgraph traditionalinfrastructure["Traditional Infrastructure"]
@@ -133,6 +135,8 @@ This isn't an argument against AI. I returned to using these tools on March 18, 
 ## How AI Shapes What You Think
 
 The concept of "epistemic agency" (your ability to determine what's true and relevant) is increasingly delegated to AI systems. These systems don't answer your questions. They determine which questions you ask.
+
+⚠️ **Warning:** This diagram demonstrates how AI systems influence information access and decision-making. Users should maintain awareness of algorithmic filtering and actively seek diverse information sources.
 
 ```mermaid
 flowchart TD

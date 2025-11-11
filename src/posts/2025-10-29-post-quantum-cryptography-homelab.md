@@ -142,6 +142,8 @@ I went through two paths: the hard way (building everything from source) and the
 
 **The Hard Way (OpenSSL 3.5 + oqs-provider):**
 
+⚠️ **Warning:** This configuration demonstrates post-quantum cryptography implementation for educational purposes. Only deploy in controlled environments with proper testing and backup procedures.
+
 ```bash
 # Install dependencies
 sudo apt-get update
@@ -323,6 +325,8 @@ My personal risk tolerance says these trade-offs are acceptable for homelab expe
 Here's the process I'd follow if I had to start over, knowing what I know now:
 
 ### Phase 1: Test in an Isolated VM (Weekend 1)
+
+⚠️ **Warning:** This deployment script is for educational and testing purposes. Ensure proper security reviews and organizational approval before production use.
 
 ```bash
 # Spin up Ubuntu 24.04 VM in Proxmox

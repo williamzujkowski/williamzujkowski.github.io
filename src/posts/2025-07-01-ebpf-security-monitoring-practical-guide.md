@@ -40,6 +40,8 @@ Imagine having X-ray vision into your kernel, seeing every system call, network 
 
 ## Understanding eBPF Security Architecture
 
+⚠️ **Warning:** The following diagrams and examples demonstrate security monitoring concepts for educational purposes. eBPF programs require kernel privileges and should only be deployed in controlled environments with proper authorization.
+
 ```mermaid
 flowchart TB
     subgraph attacksurface["Attack Surface"]
@@ -125,6 +127,8 @@ flowchart LR
 ### Pattern 1: Privilege Escalation Detection
 
 Instead of showing you 200 lines of code, here's the detection logic that matters:
+
+⚠️ **Warning:** This code demonstrates security detection logic for educational purposes. Only deploy in authorized environments with proper testing and approval.
 
 ```python
 # Core detection logic (simplified)
@@ -301,6 +305,8 @@ Key optimization patterns that work well in my environment (though your mileage 
 ## Integration with Modern Security Stack
 
 eBPF doesn't exist in isolation. Here's how it fits into a modern security architecture:
+
+⚠️ **Warning:** This diagram shows integration of security components for educational purposes. Implement security architectures only with proper authorization and following organizational policies.
 
 ```mermaid
 flowchart TB
