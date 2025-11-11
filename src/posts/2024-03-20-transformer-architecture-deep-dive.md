@@ -1,8 +1,6 @@
 ---
 date: 2024-03-20
-description: Reading 'Attention is All You Need' felt like discovering a secret that
-  would reshape everything I thought I knew about natural language processing - and
-  it did
+description: Master transformer architecture with self-attention and positional encoding—understand the foundation of GPT-4, BERT, and modern language models in production.
 images:
   hero:
     alt: 'The Transformer Architecture: A Deep Dive - Hero Image'

@@ -1,6 +1,6 @@
 ---
 date: 2024-04-04
-description: The moment I realized how LLMs confidently hallucinate facts was when I understood why RAG isn't optional - it's essential for trustworthy AI systems
+description: Build RAG systems with vector databases and semantic search—eliminate LLM hallucinations and ground responses in verified knowledge for trustworthy AI applications.
 images:
   hero:
     alt: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge

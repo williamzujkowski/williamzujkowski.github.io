@@ -1,6 +1,6 @@
 ---
 date: 2024-04-11
-description: "Ethical implications of LLMs: bias, misinformation, privacy, and accountability. Exploring responsible AI development and deployment frameworks"
+description: Address LLM ethics including bias, privacy, and accountability—implement responsible AI frameworks for large language model deployment in production systems.
 images:
   hero:
     alt: The Ethics of Large Language Models - Hero Image

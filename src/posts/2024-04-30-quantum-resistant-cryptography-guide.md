@@ -1,6 +1,6 @@
 ---
 date: 2024-04-30
-description: Quantum computers threaten today's encryption. Implementing NIST's post-quantum cryptographic algorithms to future-proof security infrastructure
+description: Implement quantum-resistant cryptography with NIST post-quantum algorithms—future-proof RSA and ECC encryption against quantum computer attacks using Kyber and Dilithium.
 images:
   hero:
     alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Hero Image'

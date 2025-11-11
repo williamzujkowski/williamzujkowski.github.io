@@ -1,6 +1,6 @@
 ---
 date: 2024-07-24
-description: Foundation models that understand text, images, and audio together. Architecture, capabilities, and applications beyond single-modality systems
+description: Build multimodal AI systems with GPT-4 Vision and CLIP—process text, images, and audio together for next-generation foundation model applications in production.
 images:
   hero:
     alt: 'Multimodal Foundation Models: Capabilities, Challenges, and Applications - Hero Image'

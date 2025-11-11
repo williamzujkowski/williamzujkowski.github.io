@@ -1,6 +1,6 @@
 ---
 date: 2024-04-28
-description: How nature's 3.8 billion years of R&D inspires robot design, from gecko feet to swarm intelligence, exploring biomimetic principles in modern robotics
+description: Design biomimetic robots inspired by nature—implement gecko adhesion, swarm intelligence, and soft robotics using 3.8 billion years of biological R&D for engineering.
 images:
   hero:
     alt: 'Learning from Nature: How Biomimetic Robotics is Revolutionizing Engineering - Hero Image'

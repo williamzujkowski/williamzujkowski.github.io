@@ -1,7 +1,7 @@
 ---
 title: "Sandboxing Untrusted Containers with gVisor: Lessons from G-Fuzz Vulnerability Research"
 date: 2024-09-25
-description: "Deploying gVisor for application-level container sandboxing in my homelab K3s cluster, protecting against kernel exploits while managing the 15-30% performance overhead."
+description: "Secure containers with gVisor application-level sandboxing—prevent kernel exploits in Kubernetes clusters while managing 59% startup overhead for untrusted workloads."
 tags: [container-security, gvisor, kubernetes, docker, fuzzing, homelab]
 author: "William Zujkowski"
 reading_time: 9

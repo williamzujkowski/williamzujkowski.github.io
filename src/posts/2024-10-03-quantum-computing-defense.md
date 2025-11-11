@@ -1,6 +1,6 @@
 ---
 date: 2024-05-05
-description: Quantum computers will break current encryption within years. Here's how I'm preparing with post-quantum cryptography and quantum-resistant algorithms
+description: Prepare for quantum computing threats with post-quantum cryptography—protect RSA and ECC encryption from quantum attacks using NIST quantum-resistant algorithms.
 images:
   hero:
     alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology - Hero Image'

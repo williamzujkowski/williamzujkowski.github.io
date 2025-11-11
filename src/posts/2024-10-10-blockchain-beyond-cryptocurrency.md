@@ -1,6 +1,6 @@
 ---
 date: 2024-10-10
-description: Running Ethereum nodes on my homelab taught me blockchain is about building trust without central authorities. Here's what works (and doesn't)
+description: Deploy blockchain beyond cryptocurrency with Ethereum nodes and smart contracts—build decentralized trust systems for supply chain and identity verification applications.
 images:
   hero:
     alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Hero Image'

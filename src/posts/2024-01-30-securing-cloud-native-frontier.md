@@ -1,7 +1,7 @@
 ---
 date: 2024-01-30
 author: William Zujkowski
-description: Securing cloud-native environments requires new approaches. Container security, service mesh, secrets management, and zero trust for microservices
+description: Secure cloud-native microservices with container scanning, service mesh, and zero trust—protect Kubernetes clusters from 47+ critical vulnerabilities.
 images:
   hero:
     alt: 'Securing the Cloud-Native Frontier: A Guide to Cloud-Native Security - Hero Image'

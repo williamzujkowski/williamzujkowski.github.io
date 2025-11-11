@@ -1,6 +1,6 @@
 ---
 date: 2024-02-22
-description: Running both Llama and GPT-4 in my homelab taught me the real trade-offs between open-source and proprietary LLMs beyond hype and marketing
+description: Compare open-source vs proprietary LLMs with Llama 3 and GPT-4 benchmarks—understand performance, cost, and customization trade-offs for production deployment.
 images:
   hero:
     alt: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community - Hero Image'

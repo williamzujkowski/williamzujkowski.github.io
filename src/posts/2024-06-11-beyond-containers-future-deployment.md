@@ -1,7 +1,7 @@
 ---
 date: 2024-06-11
 author: William Zujkowski
-description: 'After migrating 23 services to Kubernetes and debugging for weeks, I explored what comes after containers. Spoiler: I broke things'
+description: Explore deployment technologies beyond containers including serverless, WebAssembly, and unikernels—understand alternatives to Kubernetes for modern application delivery.
 images:
   hero:
     alt: 'Beyond Containers: The Future of Application Deployment - Hero Image'

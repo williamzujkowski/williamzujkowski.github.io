@@ -1,7 +1,7 @@
 ---
 date: 2024-05-26
 author: William Zujkowski
-description: How quantifying pizza provisioning enhances team performance during high-pressure development, combining resource planning and behavioral economics
+description: Optimize team resource planning with data-driven pizza provisioning—calculate cost per square inch and maximize developer productivity during critical sprints using math.
 images:
   hero:
     alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Hero Image'

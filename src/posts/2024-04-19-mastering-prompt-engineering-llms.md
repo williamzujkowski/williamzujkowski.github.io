@@ -1,6 +1,6 @@
 ---
 date: 2024-04-19
-description: "Effective prompt engineering techniques for LLMs: few-shot learning, chain-of-thought, system prompts, and strategies for reliable outputs"
+description: "Master prompt engineering with few-shot learning and chain-of-thought techniques—improve LLM response quality by 40% with systematic prompt optimization strategies."
 images:
   hero:
     alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Hero Image'

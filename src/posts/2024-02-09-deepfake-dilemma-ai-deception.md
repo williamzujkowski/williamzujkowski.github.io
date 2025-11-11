@@ -1,6 +1,6 @@
 ---
 date: 2024-02-09
-description: AI-generated deepfakes threaten truth itself. Exploring detection techniques, authentication methods, and the arms race between creation and detection
+description: Detect AI-generated deepfakes with neural network analysis and authentication methods—combat misinformation with 73% accuracy detection models in production.
 images:
   hero:
     alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Hero Image'

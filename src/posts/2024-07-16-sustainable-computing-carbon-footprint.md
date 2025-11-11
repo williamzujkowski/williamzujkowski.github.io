@@ -1,6 +1,6 @@
 ---
 date: 2024-07-16
-description: ML training consuming as much electricity as a small town sparked my journey into sustainable computing. Efficiency as environmental imperative
+description: Reduce IT carbon footprint with sustainable computing practices—optimize datacenter energy efficiency and cut ML training costs by 40% using green infrastructure.
 images:
   hero:
     alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint - Hero Image'

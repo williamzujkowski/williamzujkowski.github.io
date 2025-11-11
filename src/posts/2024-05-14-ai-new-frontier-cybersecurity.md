@@ -1,6 +1,6 @@
 ---
 date: 2024-05-14
-description: AI revolutionizes both attack and defense in cybersecurity, from automated threat detection to AI-powered exploits. Exploring the evolving battleground
+description: Deploy AI-powered cybersecurity with automated threat detection—achieve 73% accuracy in anomaly detection and catch attacks traditional SIEM systems miss in production.
 images:
   hero:
     alt: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas - Hero Image'

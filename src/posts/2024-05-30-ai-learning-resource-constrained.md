@@ -1,6 +1,6 @@
 ---
 date: 2024-05-30
-description: Training effective AI models with limited compute. Techniques like quantization, pruning, distillation, and efficient architectures for resource constraints
+description: Train AI models on resource-constrained hardware with quantization, pruning, and distillation—run GPT-3 capabilities 100x faster using model compression techniques.
 images:
   hero:
     alt: AI Learning in Resource-Constrained Environments - Hero Image

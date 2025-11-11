@@ -1,6 +1,6 @@
 ---
 date: 2024-04-14
-description: Zero trust security assumes breach and verifies everything. My journey implementing these principles in a homelab environment with practical examples
+description: Deploy zero trust security with continuous verification and identity-centric controls—implement never-trust-always-verify principles for Federal EO 14028 compliance.
 images:
   hero:
     alt: 'Implementing Zero Trust Security: Never Trust, Always Verify - Hero Image'

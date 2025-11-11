@@ -1,7 +1,7 @@
 ---
 date: 2024-01-08
 author: William Zujkowski
-description: 'Practical guide to writing secure code from the start: input validation, parameterized queries, secrets management, and secure architecture patterns'
+description: 'Master secure code development with input validation, parameterized queries, and secrets management—prevent SQL injection and XSS vulnerabilities in production.'
 images:
   hero:
     alt: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits - Hero Image'

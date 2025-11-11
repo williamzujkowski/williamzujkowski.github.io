@@ -1,6 +1,6 @@
 ---
 date: 2024-06-25
-description: Building systems that gracefully handle failures through redundancy, circuit breakers, and chaos engineering. Lessons from production incidents
+description: Design resilient systems with circuit breakers, redundancy, and chaos engineering—recover from failures in minutes instead of hours using proven reliability patterns.
 images:
   hero:
     alt: Designing Resilient Systems for an Uncertain World - Hero Image
