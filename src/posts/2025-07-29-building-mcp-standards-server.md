@@ -77,17 +77,17 @@ Yeah, it got away from me a bit.
 ### Version 1: "Keep It Simple"
 I started with stdio communication. Just pipe standards in and out. Clean, simple, working.
 
-Then I thought: "But what about caching?"
+Then I thought: "What about caching?"
 
 ### Version 2: "Add Some Redis"
 Added Redis for caching. Now I had two problems: cache invalidation and Redis connection management.
 
-Then I thought: "But what about semantic search?"
+Then I thought: "What about semantic search?"
 
 ### Version 3: "ChromaDB Will Fix Everything"
 Added ChromaDB for vector search. Now I had three problems: embeddings, vector storage, and "why is my laptop fan screaming?"
 
-Then I thought: "But what about multi-language support?"
+Then I thought: "What about multi-language support?"
 
 ### Version 4: "The Kitchen Sink"
 Current state. It has:
@@ -353,7 +353,9 @@ The honest status:
 
 ## Try It Yourself (At Your Own Risk)
 
-If you're brave enough to try this server, you might also want to explore my simpler (and arguably more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB:
+If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB:
+
+**AI skepticism note:** MCP is bleeding-edge technology from Anthropic. The spec changes. The libraries break. The examples in the docs don't always work. Building production systems on top of experimental protocols is a recipe for midnight debugging sessions.
 
 ```bash
 # The optimistic quick start
@@ -375,7 +377,9 @@ Fair warning: This is a work in progress. It works, but "works" is doing some he
 
 ## The Real Talk
 
-This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior but practically inferior – it's harder to install, easier to break, and solves problems that might not exist.
+This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist.
+
+**The honest assessment:** This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (6,000+ lines) is more impressive and less useful. Sometimes the best code is the code you don't write.
 
 But I learned a ton:
 - How MCP works (and doesn't)
