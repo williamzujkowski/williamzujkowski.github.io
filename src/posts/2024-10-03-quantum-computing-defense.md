@@ -106,14 +106,18 @@ Perhaps the most immediate impact involves cryptographic security. Many current 
 
 ### The Timeline to "Q-Day"
 
-Current estimates suggest quantum computers capable of breaking RSA-2048 encryption could emerge within 5-10 years. This creates what researchers call "Q-Day", the moment when quantum computers make current cryptographic systems obsolete. However, I should note that these timelines have been revised multiple times over the past decade, and there's significant uncertainty in the exact trajectory of quantum hardware development.
+Current estimates suggest quantum computers capable of breaking RSA-2048 encryption could emerge within 5-10 years. This creates what researchers call "Q-Day", the moment when quantum computers make current cryptographic systems obsolete.
+
+However, I should note that these timelines have been revised multiple times over the past decade, and there's significant uncertainty in the exact trajectory of quantum hardware development.
 
 The implications are staggering:
 - **RSA encryption**: Used extensively in secure communications, vulnerable to Shor's algorithm
 - **Elliptic Curve Cryptography**: Protects military communications and identification systems
 - **Diffie-Hellman key exchange**: Fundamental protocol for establishing shared secrets
 
-In 2019, I spent several weeks analyzing Shor's algorithm implementations and came to understand that a sufficiently powerful quantum computer could break 2048-bit RSA in hours or days, compared to the billions of years required by classical computers. This isn't theoretical. It's mathematically inevitable once quantum hardware matures, though the exact threshold of "sufficiently powerful" remains a moving target as error correction techniques evolve.
+In 2019, I spent several weeks analyzing Shor's algorithm implementations and came to understand that a sufficiently powerful quantum computer could break 2048-bit RSA in hours or days, compared to the billions of years required by classical computers.
+
+This isn't theoretical. It's mathematically inevitable once quantum hardware matures, though the exact threshold of "sufficiently powerful" remains a moving target as error correction techniques evolve.
 
 ### Post-Quantum Cryptography: The Race for Quantum-Resistant Security
 
