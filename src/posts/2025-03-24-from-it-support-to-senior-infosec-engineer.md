@@ -21,11 +21,11 @@ tags:
 - leadership
 title: 'From IT Support to Senior InfoSec Engineer: My 15+ Year Journey'
 ---
-## The Beginning: When "Have You Tried Turning It Off and On Again?" Was My Mantra
+## The Beginning
 
-Twenty years ago, I was that IT guy. You know, the one who showed up when the printer jammed, when email stopped working, or when someone's computer made "that weird noise." I started as an independent IT consultant in 2005, which is a fancy way of saying I fixed computers for local businesses and anyone who would pay me.
+Twenty years ago, I was that IT guy. Printer jammed, email stopped working, computer made "that weird noise"—I showed up. I started as an independent IT consultant in 2005, fixing computers for local businesses.
 
-My toolkit? A USB drive full of antivirus tools, a patient smile, and an endless supply of "let me Google that for you" searches. But here's the thing – I loved it. Every problem was a puzzle, every fixed computer was a small victory, and every grateful client taught me something new about technology and people.
+My toolkit: USB drive full of antivirus tools, patient smile, endless "let me Google that for you" searches. I loved it. Every problem was a puzzle, every fixed computer a small victory, every grateful client taught me something new about technology and people.
 
 ## How It Works
 
@@ -64,11 +64,11 @@ flowchart TB
 
 Security wasn't part of the plan. It found me.
 
-During my consulting years (2005-2010), I noticed patterns. The same 3-4 clients kept getting infected with malware every 2-3 months. Small businesses were losing data to ransomware before ransomware was cool (spoiler: it's never cool). I started implementing basic security measures on around 50 endpoints across 12 different clients – centralized antivirus, backup strategies, user training.
+During consulting years (2005-2010), I noticed patterns. Same 3-4 clients kept getting infected with malware every 2-3 months. Small businesses were losing data to ransomware before ransomware was cool. I started implementing basic security measures on around 50 endpoints across 12 clients: centralized antivirus, backup strategies, user training.
 
 One client said something that changed my trajectory: "You're not just fixing our computers, you're protecting our business."
 
-That's when it clicked. Security wasn't just about technology. It was about enabling people to work safely and confidently. It was about protection, not restriction.
+That clicked. Security wasn't about technology. It was about enabling people to work safely and confidently. Protection, not restriction.
 
 ## The Enterprise Leap: From Small Business to Big Systems
 
@@ -80,21 +80,25 @@ In 2014, I transitioned to enterprise IT, handling asset management with a secur
 - Documenting everything (seriously, everything)
 - Learning to work within frameworks, not against them
 
-## The Federal Years: Where Security Became Serious
+## The Federal Years
 
-Years ago, I transitioned into federal cybersecurity work, which transformed me from an IT generalist into a security specialist. Starting as a Service Desk Lead, I gradually took on broader security responsibilities:
+Years ago, I transitioned into federal cybersecurity work. IT generalist became security specialist. Starting as Service Desk Lead, I gradually took on broader security responsibilities:
 - Managing endpoints in regulated environments
 - Implementing security controls for sensitive operations
 - Leading teams through security incidents
 - Translating between technical staff and compliance auditors
 
 The progression was intense:
-1. **Service Desk Lead** → Learning that security at scale requires automation
-2. **Security Engineer** → Understanding frameworks like NIST SP 800-53
-3. **Lead Security Engineer** → Realizing leadership is about enabling others
-4. **Vulnerability Management** → Working with large-scale systems and learning that metrics matter
 
-**Biggest revelation**: Security isn't about saying "no" – it's about finding secure ways to say "yes."
+**Service Desk Lead**: Security at scale requires automation.
+
+**Security Engineer**: Understanding frameworks like NIST SP 800-53.
+
+**Lead Security Engineer**: Leadership is about enabling others.
+
+**Vulnerability Management**: Large-scale systems taught me metrics matter.
+
+Biggest revelation: Security isn't about saying "no." It's about finding secure ways to say "yes."
 
 ## The Plot Twist: HPC and Research Computing
 
@@ -122,27 +126,27 @@ But most importantly, I still approach every day with that same curiosity from m
 ## Mistakes I Made (So You Don't Have To)
 
 ### 1. Thinking Certifications Were Everything
-I collected certifications like Pokémon cards. Over 5 years, I earned CompTIA A+ (2006), Network+ (2007), Security+ (2008), and Linux+ (2009). While they were valuable, the real learning happened when applying that knowledge. Certifications open doors, but experience gets you through them.
+I collected certifications like Pokémon cards. Over 5 years: CompTIA A+ (2006), Network+ (2007), Security+ (2008), Linux+ (2009). Valuable, but real learning happened when applying knowledge. Certifications open doors, experience gets you through them.
 
 ### 2. Avoiding What I Didn't Know
-Early on, I'd dodge tasks involving unfamiliar technologies. Bad move. The biggest growth came from jumping into the deep end – like when I had to learn SLURM for HPC management or eBPF for kernel-level monitoring.
+Early on, I'd dodge unfamiliar technologies. Bad move. Biggest growth came from jumping into the deep end: SLURM for HPC management, eBPF for kernel-level monitoring.
 
 ### 3. Forgetting the Human Element
-I once implemented a "perfect" security solution that required 3 authentication steps for file access. Within 2 weeks, 80% of the 200-person team had written their credentials on Post-it notes. Security that people won't use isn't security. It's theater.
+I once implemented a "perfect" security solution requiring 3 authentication steps for file access. Within 2 weeks, 80% of the 200-person team had written credentials on Post-it notes. Security people won't use isn't security. It's theater.
 
 ### 4. Not Building a Network
-For years, I thought networking was just TCP/IP (dad joke intended). Building relationships with other professionals has been invaluable for learning, opportunities, and sanity checks.
+For years, I thought networking was just TCP/IP (dad joke intended). Building relationships with other professionals has been invaluable for learning, opportunities, sanity checks.
 
 ## Lessons That Shaped My Career
 
 ### Start Where You Are
-You don't need to know everything about security to start in security. My IT support background gave me:
+You don't need to know everything about security to start. My IT support background gave me:
 - Troubleshooting skills that translate directly to incident response
 - Customer service experience crucial for stakeholder management
-- Broad technical knowledge that helps in understanding attack surfaces
+- Broad technical knowledge for understanding attack surfaces
 
 ### Embrace the Imposter Syndrome
-That feeling of "I don't belong here"? It's your brain recognizing you're growing. I felt it moving from:
+That feeling of "I don't belong here"? Your brain recognizing you're growing. I felt it moving from:
 - Small business to enterprise
 - IT support to security
 - Private sector to federal
@@ -151,13 +155,13 @@ That feeling of "I don't belong here"? It's your brain recognizing you're growin
 Each time, it meant I was learning.
 
 ### Find Your Why
-For me, it's about protection and enablement. Whether protecting a small business from ransomware or securing research that might cure diseases, knowing your "why" sustains you through the challenging times.
+For me, it's protection and enablement. Whether protecting a small business from ransomware or securing research that might cure diseases, knowing your "why" sustains you through challenging times.
 
 ### Never Stop Learning
-Technology evolves faster than any of us can keep up. That's not a bug - it's a feature. My current learning list includes:
-- AI/ML security (because LLMs aren't going away)
-- Quantum-resistant cryptography (because the future is coming)
-- Privacy-preserving technologies (because security without privacy is incomplete)
+Technology evolves faster than any of us can keep up. Not a bug—it's a feature. My current learning list:
+- AI/ML security (LLMs aren't going away)
+- Quantum-resistant cryptography (the future is coming)
+- Privacy-preserving technologies (security without privacy is incomplete)
 
 ## Advice for Aspiring Security Professionals
 
@@ -199,11 +203,11 @@ Build sustainable practices:
 
 ## The Journey Continues
 
-Fifteen years in, and I still feel like I'm just getting started. The kid who was excited about fixing computers is now excited about Zero-Trust architectures and AI security. The tools changed, the scale changed, but the core remains the same: solving problems, protecting people, and enabling progress.
+Fifteen years in, I still feel like I'm just getting started. The kid excited about fixing computers is now excited about Zero-Trust architectures and AI security. The tools changed, scale changed, but the core remains: solving problems, protecting people, enabling progress.
 
 To those starting their journey: the path isn't straight, the learning never stops, and yes, you belong here. Whether you're in help desk, development, networking, or any other IT role, security needs your perspective.
 
-And remember – every expert was once a beginner who refused to give up.
+Every expert was once a beginner who refused to give up.
 
 ## One Final Thought
 
