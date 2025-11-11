@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-09-01
-description: 'Migrate to self-hosted Bitwarden password manager—deploy secure vault with backup strategies, SSL certificates, and database encryption for complete password control.'
+description: "Migrate to self-hosted Bitwarden—deploy secure vault with backup strategies, SSL certificates, and database encryption for full control."
 tags:
 - security
 - passwords

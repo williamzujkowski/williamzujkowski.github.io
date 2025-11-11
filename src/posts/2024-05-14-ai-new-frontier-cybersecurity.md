@@ -1,6 +1,6 @@
 ---
 date: 2024-05-14
-description: Deploy AI-powered cybersecurity with automated threat detection—achieve 73% accuracy in anomaly detection and catch attacks traditional SIEM systems miss in production.
+description: "Deploy AI-powered cybersecurity with automated threat detection—achieve 73% accuracy in anomaly detection catching attacks SIEM systems miss."
 images:
   hero:
     alt: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas - Hero Image'

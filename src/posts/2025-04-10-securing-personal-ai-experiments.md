@@ -1,7 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-04-10
-description: Secure personal AI experiments with model isolation and network segmentation—protect LLM deployments in homelab environments using privacy controls and threat modeling.
+description: "Secure personal AI experiments with model isolation and network segmentation—protect LLM deployments using privacy controls and threat modeling."
 images:
   hero:
     alt: 'Securing Your Personal AI/ML Experiments: A Practical Guide - Hero Image'
