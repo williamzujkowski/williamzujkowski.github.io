@@ -25,6 +25,8 @@ After collecting a drawer full of Raspberry Pis over the years (we all have that
 
 ## How It Works
 
+⚠️ **Warning:** These Raspberry Pi security projects are for educational purposes. Deploy only in authorized environments with proper network permissions and security controls.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]

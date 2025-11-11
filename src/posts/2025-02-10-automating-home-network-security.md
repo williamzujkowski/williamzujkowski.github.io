@@ -36,6 +36,8 @@ tags:
 
 To run the code examples in this post, you'll need to install the following packages:
 
+⚠️ **Warning:** These automation tools perform network security operations for educational purposes. Only deploy in authorized environments with proper permissions and safeguards.
+
 ```bash
 pip install collections email ipaddress nmap requests smtplib sqlite3 subprocess vulners
 ```
@@ -50,6 +52,8 @@ After running my home network with 25+ connected devices (including IoT gadgets,
 This post shares what I've learned from automating my own network defense.
 
 ## How It Works
+
+⚠️ **Warning:** This diagram illustrates network security automation for educational purposes. Implement security controls only with proper authorization and following security policies.
 
 ```mermaid
 flowchart TB

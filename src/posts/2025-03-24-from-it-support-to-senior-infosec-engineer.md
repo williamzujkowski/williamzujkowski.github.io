@@ -29,6 +29,8 @@ My toolkit: USB drive full of antivirus tools, patient smile, endless "let me Go
 
 ## How It Works
 
+⚠️ **Warning:** This diagram illustrates cybersecurity threat landscape for educational purposes. Security professionals should follow ethical guidelines and proper authorization in all activities.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]

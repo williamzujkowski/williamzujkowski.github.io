@@ -67,6 +67,8 @@ I built the agent using LangChain for orchestration and Ollama for local inferen
 
 **Architecture:**
 
+⚠️ **Warning:** This architecture demonstrates LLM-based incident response for educational purposes. AI-driven operations should include human oversight and proper safety controls.
+
 ```
 ┌─────────────────┐
 │  Alertmanager   │
@@ -140,6 +142,8 @@ At 2:17 AM on November 3, 2024, Alertmanager fired: `KubePodCrashLooping: coredn
 - **Total time: 4 minutes 44 seconds**
 
 **Agent reasoning trace:**
+
+⚠️ **Warning:** This trace demonstrates automated incident analysis for educational purposes. Implement proper access controls and review processes for production AI systems.
 
 ```
 [Tool: prometheus] Query: rate(container_memory_usage_bytes{pod="coredns-5d78c9869d-x4j7m"}[5m])
