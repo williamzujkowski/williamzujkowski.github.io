@@ -1,5 +1,5 @@
 ---
-
+author: "William Zujkowski"
 date: 2025-10-29
 title: 'Preparing Your Homelab for the Quantum Future: Post-Quantum Cryptography Migration'
 description: "Implement post-quantum cryptography with CRYSTALS-Kyber and Dilithium—prepare homelab for quantum threats using NIST-approved algorithms."
