@@ -22,9 +22,11 @@ tags:
 title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowledge'
 ---
 
-**BLUF:** In April 2024, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense. The results were mixed.
+**BLUF:** In April 2024, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense.
 
-The spark for this project came from watching GPT-4 confidently make up technical specifications for Docker containers that didn't exist in my setup. It told me I was running version 2.3.1 of a service I'd never installed. The response was authoritative, detailed, and completely wrong. That's when I realized I needed RAG, not just a smarter model.
+The spark for this project came from watching GPT-4 confidently make up technical specifications for Docker containers that didn't exist in my setup. It told me I was running version 2.3.1 of a service I'd never installed. The response was authoritative, detailed, and completely wrong.
+
+That's when I realized I needed RAG, not just a smarter model.
 
 ## How It Works
 
@@ -93,9 +95,12 @@ I say "looks simple" because the implementation details will humble you.
 My initial RAG implementation was embarrassingly naive. I thought I could just stuff search results into prompts and call it done. I was wrong.
 
 **Attempt 1: The Kitchen Sink Approach**
-I indexed 612,000 tokens of homelab documentation in Qdrant, my vector database of choice. Total index size: 840MB. I threw every Markdown file, config snippet, and troubleshooting note into the system. My first query was "How do I restart the Plex container?"
 
-The system retrieved 12 documents, totaling 8,400 tokens. Then it tried to cram all of that into GPT-4's context window along with my query. The response took 14.3 seconds to generate and mentioned Docker Swarm, which I don't use. Retrieval precision was terrible, maybe 3 out of 12 documents were actually relevant.
+I indexed 612,000 tokens of homelab documentation in Qdrant, my vector database of choice. Total index size: 840MB. I threw every Markdown file, config snippet, and troubleshooting note into the system. My first query: "How do I restart the Plex container?"
+
+The system retrieved 12 documents, totaling 8,400 tokens. Then it tried to cram all of that into GPT-4's context window along with my query. The response took 14.3 seconds to generate and mentioned Docker Swarm, which I don't use.
+
+Retrieval precision was terrible. Maybe 3 out of 12 documents were actually relevant.
 
 **Attempt 2: The Chunk Size Disaster**
 I read somewhere that 512-token chunks were optimal for semantic search. I split my 612,000 tokens into 1,195 chunks using that size. The problem? My documentation had nested hierarchies. A chunk might start mid-paragraph with "the container will restart automatically" but without context about which container or why.

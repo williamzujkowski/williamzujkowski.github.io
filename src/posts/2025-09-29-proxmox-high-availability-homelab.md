@@ -26,9 +26,11 @@ images:
 ![Data center servers with glowing lights](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
 *Photo by Taylor Vick on Unsplash*
 
-Two years ago, my primary Proxmox server's motherboard died at 3 AM. My self-hosted services (password manager, DNS, monitoring) all went down simultaneously. I was dead in the water until I could source a replacement part.
+Two years ago, my primary Proxmox server's motherboard died at 3 AM. My self-hosted services went down simultaneously: password manager, DNS, monitoring. I was dead in the water until I could source a replacement part.
 
-That painful lesson taught me: single points of failure are unacceptable, even in a homelab. This incident became a driving force behind [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure) with resilience baked in from the start.
+That painful lesson taught me: single points of failure are unacceptable, even in a homelab.
+
+This incident became a driving force behind [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure) with resilience baked in from the start.
 
 ## High Availability Architecture
 

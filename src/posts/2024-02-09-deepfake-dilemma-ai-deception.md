@@ -18,11 +18,13 @@ tags:
 - ethics
 title: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception'
 ---
-**BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease that I'm still processing years later. It was a video of a public figure saying something completely out of character, and despite knowing about deepfake technology, I found myself questioning what was real.
+**BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease. It was a video of a public figure saying something completely out of character. Despite knowing about deepfake technology, I found myself questioning what was real.
 
-I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media, and highlighted a terrifying reality about our information landscape. Fast forward to January 2024, when I decided to test this problem in my own homelab.
+I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media and highlighted a terrifying reality about our information landscape.
 
-I downloaded 50 known deepfake videos from academic datasets and ran them through three different detection models on my RTX 3090. The results were sobering: my best model achieved only 73% accuracy, taking 3.2 seconds per frame to process. Even more concerning, the false positive rate hit 18%, meaning nearly one in five real videos got flagged as fake. This wasn't theoretical anymore. I had the processing power to detect deepfakes, but the technology itself was still too unreliable for real-world deployment.
+Fast forward to January 2024, when I decided to test this problem in my own homelab. I downloaded 50 known deepfake videos from academic datasets and ran them through three different detection models on my RTX 3090. The results were sobering: my best model achieved only 73% accuracy, taking 3.2 seconds per frame to process.
+
+Even more concerning, the false positive rate hit 18%. Nearly one in five real videos got flagged as fake. This wasn't theoretical anymore. I had the processing power to detect deepfakes, but the technology itself was still too unreliable for real-world deployment.
 
 ## How It Works
 
@@ -61,11 +63,13 @@ flowchart LR
 
 ## The Technology That Shattered Trust
 
-Deepfakes harness generative adversarial networks (GANs) in what amounts to a digital arms race. One neural network creates increasingly realistic fake content while another network tries to detect the forgeries. They push each other toward perfection in an endless cycle of improvement.
+Deepfakes harness generative adversarial networks (GANs) in a digital arms race. One neural network creates increasingly realistic fake content while another network tries to detect the forgeries. They push each other toward perfection in an endless cycle of improvement.
 
-Years ago, I witnessed this technology's impact firsthand during a cybersecurity conference. A researcher demonstrated how they'd created a convincing video of the conference organizer endorsing a controversial political position. The room fell silent as we realized the implications: any public figure could be made to "say" anything.
+Years ago, I witnessed this technology's impact at a cybersecurity conference. A researcher demonstrated how they'd created a convincing video of the conference organizer endorsing a controversial political position. The room fell silent. Any public figure could be made to "say" anything.
 
-In February 2024, I tried generating my own deepfake using open-source tools. The process was shockingly simple. On my 64GB RAM workstation, I trained a basic model on 200 photos in just 4.7 hours. The resulting video quality was terrible by 2024 standards (lots of facial artifacts around the mouth), but it would have been convincing back in 2019. More sophisticated models probably achieve near-perfect results, but even my amateur attempt showed how accessible this technology has become.
+In February 2024, I tried generating my own deepfake using open-source tools. The process was shockingly simple. On my 64GB RAM workstation, I trained a basic model on 200 photos in just 4.7 hours.
+
+The resulting video quality was terrible by 2024 standards. Lots of facial artifacts around the mouth, but it would have been convincing back in 2019. More sophisticated models probably achieve near-perfect results, but even my amateur attempt showed how accessible this technology has become.
 
 ## Beyond Entertainment: Real-World Consequences
 

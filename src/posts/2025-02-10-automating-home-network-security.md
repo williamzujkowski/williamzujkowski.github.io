@@ -41,9 +41,11 @@ pip install collections email ipaddress nmap requests smtplib sqlite3 subprocess
 Or create a `requirements.txt` file with these dependencies:
 
 <script src="https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4.js"></script>
-Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management simply doesn't scale – especially when you're also trying to be present for bedtime stories.
+Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management doesn't scale. Especially when you're also trying to be present for bedtime stories.
 
-After running my home network with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time. This post shares what I've learned from automating my own network defense.
+After running my home network with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time.
+
+This post shares what I've learned from automating my own network defense.
 
 ## How It Works
 

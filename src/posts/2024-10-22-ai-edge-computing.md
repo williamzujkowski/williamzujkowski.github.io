@@ -20,9 +20,11 @@ tags:
 - devops
 title: 'AI Meets Edge Computing: Transforming Real-Time Intelligence'
 ---
-**BLUF:** In September 2024, I tried deploying YOLOv8 for real-time object detection on my Raspberry Pi 4 (8GB RAM, 1.8 GHz ARM Cortex-A72). My first attempt used the full PyTorch model, and the Pi crashed after about 30 seconds of continuous inference. The CPU temperature hit 82°C and the system just froze. Not exactly the "edge AI revolution" I was hoping for.
+**BLUF:** In September 2024, I tried deploying YOLOv8 for real-time object detection on my Raspberry Pi 4 (8GB RAM, 1.8 GHz ARM Cortex-A72). My first attempt used the full PyTorch model. The Pi crashed after about 30 seconds of continuous inference. CPU temperature hit 82°C and the system froze. Not exactly the "edge AI revolution" I was hoping for.
 
-That failure taught me something important about edge computing. After converting to TensorFlow Lite (shrinking the model from 400MB to just 4MB) and implementing proper thermal throttling, I got it working at 2.3 FPS. Not amazing, but good enough for my home security camera that only needs to detect when someone approaches the front door. The real win? Latency dropped from 200-500ms (cloud-based) to 15-50ms (local inference), and I'm not paying $0.001 per inference anymore.
+That failure taught me something important about edge computing. After converting to TensorFlow Lite and implementing proper thermal throttling, I got it working at 2.3 FPS. The model shrunk from 400MB to just 4MB. Not amazing performance, but good enough for my home security camera that only needs to detect when someone approaches the front door.
+
+The real win? Latency dropped from 200-500ms (cloud-based) to 15-50ms (local inference). And I'm not paying $0.001 per inference anymore.
 
 The convergence of artificial intelligence and edge computing represents one of the most significant shifts in how we think about data processing and decision-making. Instead of sending everything to distant cloud servers, we're bringing intelligence to where data originates, at the "edge" of the network. This transformation is creating systems that can respond in milliseconds rather than seconds, protect privacy by keeping sensitive data local, and maintain functionality even when network connections fail. It's fundamentally changing what's possible with AI applications. Though I should say, edge AI works great for simple tasks like object detection, but complex reasoning still needs cloud-scale compute.
 
