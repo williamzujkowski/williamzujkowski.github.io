@@ -26,7 +26,7 @@ images:
 ![Digital lock and security concept](https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=1920&q=80)
 *Photo by FLY:D on Unsplash*
 
-A few years back, news broke about yet another cloud password manager breach. While my passwords weren't directly compromised, it made me question: why am I trusting my most sensitive data to a third party when I have a perfectly capable homelab?
+**BLUF:** A few years back, news broke about yet another cloud password manager breach. While my passwords weren't directly compromised, it made me question: why am I trusting my most sensitive data to a third party when I have a perfectly capable homelab?
 
 That question led me to self-host Bitwarden, and I haven't looked back.
 
@@ -86,33 +86,33 @@ flowchart TB
 
 ## Why Self-Host?
 
-Before diving into the technical implementation, let me address the elephant in the room: **Is self-hosting really more secure than cloud services?**
+**The elephant in the room:** Is self-hosting really more secure than cloud services?
 
-### Pros:
+**Pros:**
 - **Full control**: You own the infrastructure and data
 - **Zero trust**: No third-party breaches affect you
 - **Privacy**: Your passwords never leave your network
 - **Customization**: Tailor security to your threat model
 - **Cost**: Free for personal use (Vaultwarden)
 
-### Cons:
+**Cons:**
 - **Responsibility**: You're the security team and on-call engineer
 - **Complexity**: More moving parts to secure and maintain
 - **Single point of failure**: Your server is your only backup
 - **Disaster recovery**: You must plan for total infrastructure loss
 
-**My take**: If you have a homelab and enjoy tinkering, self-hosting is empowering. If you're not technical or don't have reliable infrastructure, stick with cloud services.
+**My take:** If you have a homelab and enjoy tinkering, self-hosting is empowering. If you're not technical or don't have reliable infrastructure, stick with cloud services.
 
 ## Choosing Bitwarden vs Vaultwarden
 
-**Bitwarden**: Official open-source password manager
+**Bitwarden (Official):**
 - Full-featured
 - Requires .NET runtime
-- Higher resource usage
+- Higher resource usage (~500MB RAM)
 - Official support
 
-**Vaultwarden**: Unofficial Rust implementation of Bitwarden API
-- Lightweight (~10MB RAM vs ~500MB)
+**Vaultwarden (Unofficial Rust implementation):**
+- Lightweight (~10MB RAM)
 - Single binary, easy deployment
 - API-compatible with all Bitwarden clients
 - Community supported
@@ -305,7 +305,7 @@ Export metrics for monitoring:
 
 ## Lessons Learned
 
-After two years of self-hosting Bitwarden:
+**After two years of self-hosting Bitwarden:**
 
 ### 1. Backups Are Non-Negotiable
 Test them monthly. I caught a corrupted backup during a test restore that would have been catastrophic in a real disaster.

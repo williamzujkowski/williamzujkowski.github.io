@@ -24,18 +24,18 @@ images:
     alt: Python code and development workflow for Building Your Own MITRE ATT&CK Threat
       Intelligence Dashboard
 ---
-Years ago, I learned the hard way that reading threat reports isn't enough. After missing critical indicators that were buried in vendor PDFs, I built my own threat intelligence dashboard. Today, I'll show you how to create one using the MITRE ATT&CK framework and open-source feeds, turning overwhelming data into actionable intelligence.
+Years ago, I learned the hard way that reading threat reports isn't enough. After missing critical indicators buried in vendor PDFs, I built my own threat intelligence dashboard. This guide shows you how to create one using the MITRE ATT&CK framework and open-source feeds, turning overwhelming data into actionable intelligence.
 
 ## Why Personal Threat Intelligence Matters
 
-According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive an average of 10,000 threat indicators daily, but only 3% are relevant to their specific environment. Generic threat feeds are like drinking from a fire hose (lots of volume, little value).
+**BLUF:** Generic threat feeds are like drinking from a fire hose. Lots of volume, little value.
 
-[MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555) changes this by providing a common language for threat behaviors. Instead of tracking millions of IoCs, we can focus on the techniques that matter to our environment.
+According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive 10,000 threat indicators daily, but only 3% are relevant to their specific environment. The [MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555) changes this by providing a common language for threat behaviors. Instead of tracking millions of IoCs, we focus on techniques that matter to our environment.
 
 
 ## Understanding MITRE ATT&CK
 
-[Recent analysis by Georgiadou et al. (2023)](https://doi.org/10.1016/j.cose.2023.103097) shows that 89% of real-world attacks can be mapped to just 20% of ATT&CK techniques. This Pareto principle means we can achieve substantial coverage by focusing on the most commonly used techniques.
+**The Pareto principle applies:** [Recent analysis by Georgiadou et al. (2023)](https://doi.org/10.1016/j.cose.2023.103097) shows that 89% of real-world attacks map to just 20% of ATT&CK techniques. We achieve substantial coverage by focusing on the most commonly used techniques.
 
 
 ### The ATT&CK Matrix Structure
@@ -55,7 +55,7 @@ flowchart LR
     K --> L[Impact]
 ```
 
-Each tactic contains multiple techniques. For example, Initial Access includes:
+Each tactic contains multiple techniques. **Initial Access includes:**
 - Phishing (T1566)
 - External Remote Services (T1133)
 - Valid Accounts (T1078)
@@ -63,7 +63,7 @@ Each tactic contains multiple techniques. For example, Initial Access includes:
 
 ## Building the Dashboard Architecture
 
-I discovered that the most effective approach is to create a system that aggregates threat data, maps it to ATT&CK, and visualizes what matters to us.
+The most effective approach aggregates threat data, maps it to ATT&CK, and visualizes what matters to us.
 
 ### System Components
 
@@ -81,7 +81,7 @@ Uses STIX2 library to query attack patterns from MITRE's repository
 
 ## Integrating Threat Intelligence Feeds
 
-[Research by Spring et al. (2023)](https://doi.org/10.1145/3575898.3575903) demonstrates that combining multiple threat feeds increases detection coverage by 340%. Let's integrate several open-source feeds:
+**Multiple feeds matter:** [Research by Spring et al. (2023)](https://doi.org/10.1145/3575898.3575903) demonstrates that combining multiple threat feeds increases detection coverage by 340%. Let's integrate several open-source feeds:
 
 ### AlienVault OTX Integration
 
@@ -99,7 +99,7 @@ Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
 
 ## Creating the Visualization Layer
 
-[Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843) that visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
+[Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843) visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
 
 📎 **Complete visualization code:**
 [Full ThreatVisualizer with Plotly heatmaps](https://gist.github.com/williamzujkowski/03d4dcd49f436d7b73839be73e88ad72)
@@ -111,7 +111,7 @@ Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
 
 ## Implementing Threat Actor Tracking
 
-According to [research by Schlette et al. (2023)](https://doi.org/10.1145/3607199.3607240) tracking threat actor TTPs improves detection of targeted attacks by 82%. Let's add actor profiling:
+[Research by Schlette et al. (2023)](https://doi.org/10.1145/3607199.3607240) shows tracking threat actor TTPs improves detection of targeted attacks by 82%. Let's add actor profiling:
 
 📎 **Complete implementation:**
 [Full ThreatActorProfiler with MITRE groups database](https://gist.github.com/williamzujkowski/f840bcab11952a1aa1bf56fe87749b17)
@@ -120,7 +120,7 @@ Matches observed techniques to known actor profiles using set overlap, sorted by
 
 ## Building Automated Alerting
 
-Real-time alerting based on relevant threats is crucial. [Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439) shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
+[Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439) shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
 
 📎 **Complete implementation:**
 [Full ThreatAlerting class with SMTP, Slack, and PagerDuty](https://gist.github.com/williamzujkowski/70cf0c33d82fb391ce11c63aaa189072)
@@ -138,7 +138,7 @@ Main loop collects threats hourly, maps to ATT&CK, checks alert conditions, upda
 
 ## Real-World Results
 
-After running this dashboard for six months in my environment, here are the results:
+After running this dashboard for six months in my environment:
 
 - **Reduced noise by 94%**: From 10,000+ daily indicators to ~600 relevant ones
 - **Improved detection time**: Average 4 hours from publication to alert
@@ -147,7 +147,7 @@ After running this dashboard for six months in my environment, here are the resu
 
 ## Customization for Your Environment
 
-The key to effective threat intelligence is relevance. Here's how to customize:
+**The key to effective threat intelligence is relevance.** Here's how to customize:
 
 1. **Identify your critical assets** and their attack surface
 2. **Map your defensive capabilities** to ATT&CK techniques
@@ -157,7 +157,7 @@ The key to effective threat intelligence is relevance. Here's how to customize:
 
 ## Lessons Learned
 
-Building and maintaining this dashboard taught me:
+Building and maintaining this dashboard taught me several lessons:
 
 - **Less is more**: Focus on quality over quantity of threat data
 - **Context matters**: The same technique has different risk levels for different organizations
@@ -167,16 +167,15 @@ Building and maintaining this dashboard taught me:
 
 ## Next Steps
 
-Ready to build your own threat intelligence capability?
+**Ready to build your own threat intelligence capability?**
 
-[MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/)
-
+1. Start with [MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/)
 2. Pick 2-3 relevant threat feeds
 3. Focus on techniques relevant to your environment
 4. Automate collection and mapping
 5. Iterate based on actual incidents
 
-Remember: threat intelligence is only valuable if it drives action.
+Threat intelligence is only valuable if it drives action.
 
 ## References
 

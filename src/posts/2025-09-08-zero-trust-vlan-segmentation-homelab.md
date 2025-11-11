@@ -26,9 +26,9 @@ images:
 ![Network security and segmentation visualization](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
 *Photo by Alina Grubnyak on Unsplash*
 
-Years ago, I bought a cheap IP camera for my homelab. Within hours, it was beaconing to servers in China, scanning my network, and attempting to access my NAS. All because I put it on the same network as my trusted devices.
+**BLUF:** Years ago, I bought a cheap IP camera for my homelab. Within hours, it was beaconing to servers in China, scanning my network, and attempting to access my NAS.
 
-That camera is now in a VLAN jail, where it belongs. This experience became a core lesson in [building a security-focused homelab with VLANs](/posts/2025-04-24-building-secure-homelab-adventure), where network segmentation proved essential for containing untrusted devices.
+All because I put it on the same network as my trusted devices. That camera is now in a VLAN jail, where it belongs. This experience became a core lesson in [building a security-focused homelab with VLANs](/posts/2025-04-24-building-secure-homelab-adventure), where network segmentation proved essential for containing untrusted devices.
 
 ## Zero Trust Network Architecture
 
@@ -92,11 +92,10 @@ flowchart TB
 ### The Zero Trust Principle
 
 **Traditional approach:** Trust everything inside the network perimeter.
+
 **Zero trust approach:** Verify explicitly, enforce least privilege, assume breach.
 
-These principles build on the foundational concepts I explored in my guide to [zero trust architecture fundamentals](/posts/2024-07-09-zero-trust-architecture-implementation). VLAN segmentation is one practical implementation of those abstract security principles.
-
-My VLAN design follows these principles:
+These principles build on the foundational concepts I explored in my guide to [zero trust architecture fundamentals](/posts/2024-07-09-zero-trust-architecture-implementation). VLAN segmentation is one practical implementation of those abstract security principles. My VLAN design follows these principles:
 
 1. **Default deny**: No traffic flows between VLANs unless explicitly allowed
 2. **Least privilege**: Each VLAN has minimum required access
@@ -136,7 +135,7 @@ Each VLAN subnet gets DHCP pool starting at .100 address
 
 ### Rule Structure
 
-Follow this rule ordering for predictable behavior:
+**Follow this rule ordering for predictable behavior:**
 
 1. Explicit allow rules (most specific first)
 2. Logging rules
@@ -255,16 +254,16 @@ Enable hardware NAT offloading, increase MTU to 9000 for storage VLANs
 
 ## Lessons Learned
 
-After years of running segmented VLANs:
+**After years of running segmented VLANs:**
 
 ### 1. Start Simple, Add Complexity Gradually
-I made the mistake of creating 12 VLANs on day one. Half of them sat unused for months. Start with 3-4 logical segments, validate they work, then expand. Your mileage may vary depending on your network complexity.
+I made the mistake of creating 12 VLANs on day one. Half sat unused for months. Start with 3-4 logical segments, validate they work, then expand.
 
 ### 2. Document Your Rules
-Future you will thank present you. I maintain a wiki page with every firewall rule and its justification. When I review rules 6 months later, I'm usually glad I documented why that specific port was opened.
+Future you will thank present you. I maintain a wiki page with every firewall rule and its justification. When I review rules 6 months later, I'm glad I documented why that specific port was opened.
 
 ### 3. Default Deny is Your Friend
-Block everything by default, then explicitly allow what's needed. It's harder to setup but probably more secure in the long run. I spent 3 hours debugging why HomeKit wasn't working until I realized default-deny was blocking mDNS.
+Block everything by default, then explicitly allow what's needed. It's harder to setup but more secure. I spent 3 hours debugging why HomeKit wasn't working until I realized default-deny was blocking mDNS.
 
 ### 4. Test Your Segmentation Regularly
 I run automated tests weekly to ensure segmentation hasn't degraded over time.
@@ -274,7 +273,7 @@ Firewall rules without logging are security theater. Log everything and alert on
 
 ## Security Benefits Realized
 
-Since implementing VLAN segmentation:
+**Since implementing VLAN segmentation:**
 
 - **Reduced attack surface**: Compromised IoT devices can't pivot to trusted networks
 - **Easier forensics**: VLAN ID in logs immediately identifies affected segment
@@ -306,11 +305,9 @@ Since implementing VLAN segmentation:
 
 ## Conclusion
 
-VLAN segmentation transformed my homelab from a flat, vulnerable network into a defense-in-depth architecture. The cheap IoT camera that inspired this journey is now safely contained, unable to reach anything important.
+VLAN segmentation transformed my homelab from a flat, vulnerable network into a defense-in-depth architecture. The cheap IoT camera that inspired this journey is now safely contained, unable to reach anything important. Zero trust isn't about perfection. It's about making each compromised device a dead end rather than a jumping-off point.
 
-Zero trust isn't about perfection. It's about making each compromised device a dead end rather than a jumping-off point. Start with logical segments, implement strict firewall rules, monitor everything, and iterate.
-
-Your homelab will be more secure, more organized, and far more interesting to manage.
+**Start with logical segments, implement strict firewall rules, monitor everything, and iterate.** Your homelab will be more secure, more organized, and far more interesting to manage.
 
 ---
 
