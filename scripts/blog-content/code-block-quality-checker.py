@@ -64,7 +64,7 @@ CROSS-REFERENCES:
 - Code ratio tool: scripts/blog-content/code-ratio-calculator.py
 
 Author: Claude Code Agent
-Version: 1.0.0
+Version: 2.0.0
 Created: 2025-11-11
 Last Updated: 2025-11-11
 """
@@ -82,7 +82,7 @@ from typing import Dict, List, Optional, Tuple
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
 from logging_config import setup_logger
 
-VERSION = "1.0.0"
+VERSION = "2.0.0"
 logger = setup_logger(__name__)
 
 
@@ -312,10 +312,79 @@ def extract_code_blocks_with_context(lines: List[str], content_start: int) -> Li
         - preceding_prose: 3 lines of prose before block
         - following_prose: 3 lines of prose after block
     """
-    # TODO: Implement code block extraction with context
-    # Reference: code-ratio-calculator.py extract_code_blocks()
-    # Enhancement: Include surrounding prose for context analysis
-    raise NotImplementedError("extract_code_blocks_with_context() to be implemented by researcher")
+    blocks = []
+    in_code_block = False
+    current_block = {
+        'line_start': 0,
+        'line_end': 0,
+        'language': '',
+        'content': [],
+        'preceding_prose': [],
+        'following_prose': []
+    }
+    context_buffer = []  # Store recent prose lines for preceding context
+
+    for i in range(content_start, len(lines)):
+        line = lines[i]
+
+        # Detect code fence opening
+        if line.strip().startswith('```') and not in_code_block:
+            in_code_block = True
+            current_block['line_start'] = i + 1  # 1-indexed
+
+            # Extract language tag
+            lang_match = line.strip()[3:].strip()
+            current_block['language'] = lang_match if lang_match else 'generic'
+
+            # Capture preceding context (last 3 lines of prose before block)
+            current_block['preceding_prose'] = context_buffer[-3:] if len(context_buffer) >= 3 else context_buffer[:]
+            context_buffer = []  # Reset buffer
+
+        # Inside code block - capture content
+        elif in_code_block and not line.strip().startswith('```'):
+            current_block['content'].append(line.rstrip('\n'))
+
+        # Detect code fence closing
+        elif line.strip().startswith('```') and in_code_block:
+            in_code_block = False
+            current_block['line_end'] = i + 1  # 1-indexed
+
+            # Capture following context (next 3 lines after block)
+            following_start = i + 1
+            following_end = min(len(lines), following_start + 3)
+            current_block['following_prose'] = [
+                lines[j].rstrip('\n') for j in range(following_start, following_end)
+            ]
+
+            # Create block entry
+            blocks.append({
+                'block_number': len(blocks) + 1,
+                'line_start': current_block['line_start'],
+                'line_end': current_block['line_end'],
+                'language': current_block['language'],
+                'content': current_block['content'][:],  # Copy list
+                'preceding_prose': current_block['preceding_prose'][:],
+                'following_prose': current_block['following_prose'][:]
+            })
+
+            # Reset for next block
+            current_block = {
+                'line_start': 0,
+                'line_end': 0,
+                'language': '',
+                'content': [],
+                'preceding_prose': [],
+                'following_prose': []
+            }
+
+        # Outside code block - buffer prose for context
+        elif not in_code_block:
+            # Only buffer non-empty lines
+            if line.strip():
+                context_buffer.append(line.rstrip('\n'))
+
+    logger.info(f"Extracted {len(blocks)} code blocks with context")
+    return blocks
 
 
 def analyze_code_block(block: Dict, standards: Dict) -> CodeBlockAnalysis:
@@ -338,14 +407,138 @@ def analyze_code_block(block: Dict, standards: Dict) -> CodeBlockAnalysis:
     6. Attribution for adapted code
     7. Gist extraction opportunity (>20 lines)
     """
-    # TODO: Implement quality analysis logic
-    # - Check language tag presence
-    # - Scan for comment density
-    # - Detect truncation patterns
-    # - Identify security keywords without warnings
-    # - Check attribution for non-trivial code
-    # - Flag gist extraction candidates
-    raise NotImplementedError("analyze_code_block() to be implemented by researcher")
+    issues = []
+    content_str = '\n'.join(block['content'])
+    line_count = len(block['content'])
+    language = block['language']
+
+    # Check 1: Language tag presence
+    has_language_tag = language != 'generic'
+    if not has_language_tag:
+        issues.append(CodeBlockIssue(
+            block_number=block['block_number'],
+            line_start=block['line_start'],
+            line_end=block['line_end'],
+            issue_type='missing_language_tag',
+            severity='MEDIUM',
+            description='Code block lacks language identifier',
+            recommendation='Add language tag: ```python, ```bash, ```yaml, etc.'
+        ))
+
+    # Check 2: Truncation patterns
+    is_truncated = False
+    for pattern in TRUNCATION_MARKERS:
+        if re.search(pattern, content_str, re.IGNORECASE):
+            is_truncated = True
+            issues.append(CodeBlockIssue(
+                block_number=block['block_number'],
+                line_start=block['line_start'],
+                line_end=block['line_end'],
+                issue_type='truncated_code',
+                severity='HIGH',
+                description='Code block contains truncation marker (e.g., # ..., // ...)',
+                recommendation='Remove truncated pseudocode or complete implementation, or clearly label as "Pseudocode" or "Simplified"'
+            ))
+            break
+
+    # Check 3: Security keywords without warnings
+    has_security_keyword = any(keyword in content_str.lower() for keyword in SECURITY_KEYWORDS)
+
+    if has_security_keyword:
+        # Check for warning markers in preceding context
+        preceding_text = '\n'.join(block.get('preceding_prose', []))
+        warning_markers = ['⚠️', 'WARNING', 'CAUTION', '**Warning**', 'EDUCATIONAL ONLY', 'Do not use']
+        has_warning = any(marker.lower() in preceding_text.lower() for marker in warning_markers)
+
+        if not has_warning:
+            issues.append(CodeBlockIssue(
+                block_number=block['block_number'],
+                line_start=block['line_start'],
+                line_end=block['line_end'],
+                issue_type='missing_security_warning',
+                severity='HIGH',
+                description='Security-related code lacks warning marker in preceding prose',
+                recommendation='Add warning before block: "⚠️ **Warning:** This is proof-of-concept code for educational purposes only..."'
+            ))
+
+    # Check 4: Gist extraction opportunity (>20 lines)
+    needs_gist_extraction = line_count > 20
+    if needs_gist_extraction:
+        issues.append(CodeBlockIssue(
+            block_number=block['block_number'],
+            line_start=block['line_start'],
+            line_end=block['line_end'],
+            issue_type='gist_extraction_opportunity',
+            severity='LOW',
+            description=f'Large code block ({line_count} lines) could be extracted to GitHub gist',
+            recommendation='Consider extracting to gist if this is complete reference code (not teaching example)'
+        ))
+
+    # Check 5: Comment density (annotations)
+    comment_patterns = [
+        r'^\s*#',      # Python comments
+        r'^\s*//',     # JavaScript/C++ comments
+        r'^\s*<!--',   # HTML comments
+    ]
+
+    comment_lines = sum(
+        1 for line in block['content']
+        if any(re.match(pattern, line) for pattern in comment_patterns)
+    )
+    comment_ratio = comment_lines / line_count if line_count > 0 else 0
+    has_annotations = comment_ratio > 0
+
+    # Flag low annotation density for >10 line blocks
+    if line_count > 10 and comment_ratio < 0.1:  # <10% comments
+        issues.append(CodeBlockIssue(
+            block_number=block['block_number'],
+            line_start=block['line_start'],
+            line_end=block['line_end'],
+            issue_type='low_annotation_density',
+            severity='LOW',
+            description=f'Low comment density ({comment_ratio:.1%}) for {line_count}-line block',
+            recommendation='Add comments explaining non-obvious logic, configuration choices, or security implications'
+        ))
+
+    # Check 6: Attribution for adapted code
+    attribution_patterns = ATTRIBUTION_MARKERS
+    has_attribution = any(re.search(pattern, content_str, re.IGNORECASE) for pattern in attribution_patterns)
+
+    # Only check if block seems non-trivial (>15 lines, not simple config)
+    if line_count > 15 and not has_attribution:
+        # Check if preceding prose mentions source
+        preceding_text = '\n'.join(block.get('preceding_prose', []))
+        has_attribution_in_prose = any(
+            re.search(pattern, preceding_text, re.IGNORECASE)
+            for pattern in attribution_patterns
+        )
+
+        # This is a SUGGESTION, not a violation (since we can't know if code is original)
+        # We'll track it but with LOW severity
+        if not has_attribution_in_prose:
+            # Don't add issue automatically - too many false positives
+            # Only log for manual review
+            pass
+
+    # Determine runnability (heuristic - not perfect)
+    is_runnable = not is_truncated and has_language_tag
+
+    # Create analysis result
+    analysis = CodeBlockAnalysis(
+        block_number=block['block_number'],
+        line_start=block['line_start'],
+        line_end=block['line_end'],
+        line_count=line_count,
+        language=language,
+        has_language_tag=has_language_tag,
+        has_annotations=has_annotations,
+        is_truncated=is_truncated,
+        is_runnable=is_runnable,
+        needs_gist_extraction=needs_gist_extraction,
+        issues=issues
+    )
+
+    return analysis
 
 
 def analyze_post(filepath: Path, min_score: int = 70) -> PostQualityResult:
@@ -379,27 +572,71 @@ def analyze_post(filepath: Path, min_score: int = 70) -> PostQualityResult:
     content_start = skip_frontmatter(lines)
 
     # Extract code blocks with context
-    # TODO: blocks = extract_code_blocks_with_context(lines, content_start)
+    blocks = extract_code_blocks_with_context(lines, content_start)
+
+    if not blocks:
+        # No code blocks found - return empty result
+        logger.info(f"No code blocks found in {filepath.name}")
+        return PostQualityResult(
+            filename=filepath.name,
+            total_blocks=0,
+            blocks=[],
+            overall_score=100.0,  # Perfect score for posts without code
+            total_issues=0,
+            high_severity_count=0,
+            medium_severity_count=0,
+            low_severity_count=0,
+            gist_extraction_candidates=0,
+            compliant=True
+        )
 
     # Analyze each block
-    # TODO: block_analyses = [analyze_code_block(block, standards) for block in blocks]
+    standards = {}  # Could load from config file if needed
+    block_analyses = [analyze_code_block(block, standards) for block in blocks]
 
-    # Calculate overall metrics
-    # TODO: Calculate scores, count issues, identify gist candidates
+    # Aggregate issues across all blocks
+    all_issues = []
+    for block_analysis in block_analyses:
+        all_issues.extend(block_analysis.issues)
 
-    # Placeholder return
-    return PostQualityResult(
+    # Count issues by severity
+    high_count = sum(1 for issue in all_issues if issue.severity == 'HIGH')
+    medium_count = sum(1 for issue in all_issues if issue.severity == 'MEDIUM')
+    low_count = sum(1 for issue in all_issues if issue.severity == 'LOW')
+
+    # Count gist extraction candidates
+    gist_candidates = sum(1 for ba in block_analyses if ba.needs_gist_extraction)
+
+    # Calculate overall quality score (0-100)
+    # Method: Average of individual block scores
+    block_scores = [ba.quality_score() for ba in block_analyses]
+    overall_score = sum(block_scores) / len(block_scores) if block_scores else 100.0
+
+    # Determine compliance
+    # Compliant if: score >= min_score AND no HIGH severity issues
+    compliant = overall_score >= min_score and high_count == 0
+
+    result = PostQualityResult(
         filename=filepath.name,
-        total_blocks=0,
-        blocks=[],
-        overall_score=0.0,
-        total_issues=0,
-        high_severity_count=0,
-        medium_severity_count=0,
-        low_severity_count=0,
-        gist_extraction_candidates=0,
-        compliant=False
+        total_blocks=len(block_analyses),
+        blocks=block_analyses,
+        overall_score=round(overall_score, 1),
+        total_issues=len(all_issues),
+        high_severity_count=high_count,
+        medium_severity_count=medium_count,
+        low_severity_count=low_count,
+        gist_extraction_candidates=gist_candidates,
+        compliant=compliant
     )
+
+    logger.info(
+        f"Analysis complete for {filepath.name}: "
+        f"{len(block_analyses)} blocks, "
+        f"score {result.overall_score}/100, "
+        f"{high_count} HIGH issues"
+    )
+
+    return result
 
 
 def format_result(result: PostQualityResult, verbose: bool = True) -> str:
@@ -413,9 +650,53 @@ def format_result(result: PostQualityResult, verbose: bool = True) -> str:
     Returns:
         Formatted string ready for console output
     """
-    # TODO: Implement human-readable formatting
-    # Similar to code-ratio-calculator.py format_result()
-    raise NotImplementedError("format_result() to be implemented")
+    lines = []
+
+    # Header
+    lines.append(f"\n{'='*60}")
+    lines.append(f"Code Block Quality Report: {result.filename}")
+    lines.append(f"{'='*60}")
+
+    # Summary metrics
+    lines.append(f"\nTotal code blocks: {result.total_blocks}")
+    lines.append(f"Overall quality score: {result.overall_score}/100")
+    lines.append(f"Compliance status: {'✅ COMPLIANT' if result.compliant else '❌ NON-COMPLIANT'}")
+
+    # Issue breakdown
+    lines.append(f"\nIssues found: {result.total_issues}")
+    lines.append(f"  HIGH severity: {result.high_severity_count}")
+    lines.append(f"  MEDIUM severity: {result.medium_severity_count}")
+    lines.append(f"  LOW severity: {result.low_severity_count}")
+
+    # Gist extraction opportunities
+    if result.gist_extraction_candidates > 0:
+        lines.append(f"\nGist extraction opportunities: {result.gist_extraction_candidates}")
+
+    # Detailed block-by-block breakdown
+    if verbose and result.blocks:
+        lines.append(f"\n{'-'*60}")
+        lines.append("Block Details:")
+        lines.append(f"{'-'*60}")
+
+        for block in result.blocks:
+            lines.append(f"\nBlock #{block.block_number} (lines {block.line_start}-{block.line_end}):")
+            lines.append(f"  Language: {block.language}")
+            lines.append(f"  Line count: {block.line_count}")
+            lines.append(f"  Quality score: {block.quality_score()}/100")
+            lines.append(f"  Has language tag: {'✅' if block.has_language_tag else '❌'}")
+            lines.append(f"  Has annotations: {'✅' if block.has_annotations else '❌'}")
+            lines.append(f"  Is truncated: {'❌' if block.is_truncated else '✅'}")
+
+            if block.issues:
+                lines.append(f"  Issues ({len(block.issues)}):")
+                for issue in block.issues:
+                    lines.append(f"    [{issue.severity}] {issue.issue_type}")
+                    lines.append(f"      {issue.description}")
+                    lines.append(f"      → {issue.recommendation}")
+
+    lines.append(f"\n{'='*60}\n")
+
+    return '\n'.join(lines)
 
 
 def generate_csv_report(results: List[PostQualityResult], output_path: Path) -> None:
@@ -437,9 +718,38 @@ def generate_csv_report(results: List[PostQualityResult], output_path: Path) -> 
     - gist_candidates
     - compliant
     """
-    # TODO: Implement CSV generation
-    # Reference: analyze-compliance.py CSV export pattern
-    raise NotImplementedError("generate_csv_report() to be implemented")
+    logger.info(f"Generating CSV report: {output_path}")
+
+    with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = [
+            'filename',
+            'total_blocks',
+            'overall_score',
+            'total_issues',
+            'high_severity',
+            'medium_severity',
+            'low_severity',
+            'gist_candidates',
+            'compliant'
+        ]
+
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for result in results:
+            writer.writerow({
+                'filename': result.filename,
+                'total_blocks': result.total_blocks,
+                'overall_score': result.overall_score,
+                'total_issues': result.total_issues,
+                'high_severity': result.high_severity_count,
+                'medium_severity': result.medium_severity_count,
+                'low_severity': result.low_severity_count,
+                'gist_candidates': result.gist_extraction_candidates,
+                'compliant': 'YES' if result.compliant else 'NO'
+            })
+
+    logger.info(f"CSV report written with {len(results)} entries")
 
 
 def main() -> int:
@@ -531,16 +841,133 @@ Quality Standards:
     if not args.post and not args.batch and not args.audit:
         parser.error("Must specify either --post, --batch, or --audit")
 
-    # TODO: Implement main logic
-    # 1. Collect files to analyze
-    # 2. Run quality checks
-    # 3. Generate reports
-    # 4. Return appropriate exit code
+    try:
+        # Collect files to analyze
+        files_to_analyze = []
 
-    logger.info("Code block quality checker initialized")
-    logger.warning("Implementation pending - waiting for researcher baseline")
+        if args.post:
+            # Single post mode
+            if not args.post.exists():
+                logger.error(f"File not found: {args.post}")
+                return 1
+            files_to_analyze = [args.post]
 
-    return 0
+        elif args.batch or args.audit:
+            # Batch mode - analyze all posts
+            posts_dir = Path("src/posts")
+            if not posts_dir.exists():
+                logger.error(f"Posts directory not found: {posts_dir}")
+                return 1
+
+            files_to_analyze = sorted(posts_dir.glob("*.md"))
+            logger.info(f"Found {len(files_to_analyze)} posts to analyze")
+
+        # Run analysis on all files
+        results = []
+        for filepath in files_to_analyze:
+            try:
+                result = analyze_post(filepath, min_score=args.min_score)
+                results.append(result)
+            except Exception as e:
+                logger.error(f"Failed to analyze {filepath.name}: {e}")
+                continue
+
+        # Filter results - only include posts with code blocks
+        results_with_code = [r for r in results if r.total_blocks > 0]
+
+        if not results_with_code:
+            logger.info("No posts with code blocks found")
+            return 0
+
+        # Output based on mode
+        if args.json:
+            # JSON output - only print JSON, no logger
+            output = [r.to_dict() for r in results_with_code]
+            import sys
+            sys.stdout.write(json.dumps(output, indent=2) + '\n')
+
+        elif args.audit:
+            # Audit mode - summary statistics
+            total_posts = len(results_with_code)
+            compliant_posts = sum(1 for r in results_with_code if r.compliant)
+            avg_score = sum(r.overall_score for r in results_with_code) / total_posts
+
+            total_blocks = sum(r.total_blocks for r in results_with_code)
+            total_issues = sum(r.total_issues for r in results_with_code)
+            high_issues = sum(r.high_severity_count for r in results_with_code)
+            gist_opportunities = sum(r.gist_extraction_candidates for r in results_with_code)
+
+            # Build summary report
+            summary = []
+            summary.append(f"\n{'='*60}")
+            summary.append("Code Block Quality Audit Summary")
+            summary.append(f"{'='*60}")
+            summary.append(f"\nPosts analyzed: {total_posts}")
+            summary.append(f"Posts with code blocks: {total_posts}")
+            summary.append(f"Compliant posts: {compliant_posts}/{total_posts} ({100*compliant_posts/total_posts:.1f}%)")
+            summary.append(f"Average quality score: {avg_score:.1f}/100")
+            summary.append(f"\nTotal code blocks: {total_blocks}")
+            summary.append(f"Total issues found: {total_issues}")
+            summary.append(f"  HIGH severity issues: {high_issues}")
+            summary.append(f"Gist extraction opportunities: {gist_opportunities}")
+
+            # Show top violators
+            if high_issues > 0:
+                summary.append(f"\n{'-'*60}")
+                summary.append("Posts with HIGH severity issues:")
+                summary.append(f"{'-'*60}")
+                violators = [r for r in results_with_code if r.high_severity_count > 0]
+                violators.sort(key=lambda r: r.high_severity_count, reverse=True)
+                for r in violators[:10]:  # Top 10
+                    summary.append(f"  {r.filename}: {r.high_severity_count} HIGH issues (score: {r.overall_score}/100)")
+
+            summary.append(f"\n{'='*60}\n")
+
+            # Write to stdout
+            import sys
+            sys.stdout.write('\n'.join(summary) + '\n')
+
+        elif args.extract:
+            # Extract mode - show gist extraction opportunities
+            candidates = [r for r in results_with_code if r.gist_extraction_candidates > 0]
+            output = []
+            if candidates:
+                output.append(f"\nGist Extraction Opportunities ({len(candidates)} posts):\n")
+                for r in candidates:
+                    output.append(f"{r.filename}:")
+                    for block in r.blocks:
+                        if block.needs_gist_extraction:
+                            output.append(f"  Block #{block.block_number} (lines {block.line_start}-{block.line_end}): {block.line_count} lines")
+            else:
+                output.append("\nNo gist extraction opportunities found")
+
+            import sys
+            sys.stdout.write('\n'.join(output) + '\n')
+
+        else:
+            # Standard output - show individual results
+            import sys
+            for result in results_with_code:
+                sys.stdout.write(format_result(result, verbose=not args.batch))
+
+        # Generate CSV report if requested
+        if args.report:
+            generate_csv_report(results_with_code, args.report)
+            logger.info(f"CSV report saved: {args.report}")
+
+        # Return appropriate exit code
+        if args.validate:
+            # Strict mode - fail if any non-compliant posts
+            non_compliant = [r for r in results_with_code if not r.compliant]
+            if non_compliant:
+                logger.warning(f"{len(non_compliant)} posts failed quality validation")
+                return 2
+
+        return 0
+
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}", exc_info=True)
+        return 1
 
 
 if __name__ == "__main__":
