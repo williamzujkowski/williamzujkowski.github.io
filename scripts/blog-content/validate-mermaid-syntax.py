@@ -1,10 +1,26 @@
 #!/usr/bin/env -S uv run python3
 """
+DEPRECATED: This script has been superseded by validate-mermaid-syntax-refactored.py
+
+Please use the refactored version instead:
+    python scripts/blog-content/validate-mermaid-syntax-refactored.py
+
+Reason: Refactored version has better error handling, class-based architecture,
+improved maintainability, enhanced validation rules, and comprehensive CI/CD integration.
+
+This script will be removed in a future release.
+
+STATUS: DEPRECATED (as of 2025-11-11)
+REPLACEMENT: scripts/blog-content/validate-mermaid-syntax-refactored.py
+REMOVAL_PLANNED: Phase 3 P2 script consolidation
+
+---
+
 SCRIPT: validate-mermaid-syntax.py
 PURPOSE: Mermaid Syntax Validator
 CATEGORY: blog_content
 LLM_READY: True
-VERSION: 2.0.0
+VERSION: 2.0.0 (DEPRECATED)
 UPDATED: 2025-11-03
 
 DESCRIPTION:

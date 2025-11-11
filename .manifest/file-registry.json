@@ -2973,5 +2973,23 @@
     "size": 25249,
     "modified": "2025-11-02T16:06:20.299961",
     "type": "py"
+  },
+  "scripts/blog-content/fix-mermaid-subgraphs.py": {
+    "status": "DEPRECATED",
+    "deprecated_date": "2025-11-11",
+    "replacement": "scripts/blog-content/fix-mermaid-subgraphs-refactored.py",
+    "removal_planned": "Phase 3 P2 script consolidation",
+    "reason": "Replaced by refactored version with better architecture and error handling",
+    "size_bytes": 5286,
+    "category": "blog_content"
+  },
+  "scripts/blog-content/validate-mermaid-syntax.py": {
+    "status": "DEPRECATED",
+    "deprecated_date": "2025-11-11",
+    "replacement": "scripts/blog-content/validate-mermaid-syntax-refactored.py",
+    "removal_planned": "Phase 3 P2 script consolidation",
+    "reason": "Replaced by refactored version with better architecture and validation rules",
+    "size_bytes": 7095,
+    "category": "blog_content"
   }
 }

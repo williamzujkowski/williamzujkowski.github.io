@@ -1,5 +1,21 @@
 #!/usr/bin/env -S uv run python3
 """
+DEPRECATED: This script has been superseded by fix-mermaid-subgraphs-refactored.py
+
+Please use the refactored version instead:
+    python scripts/blog-content/fix-mermaid-subgraphs-refactored.py
+
+Reason: Refactored version has better error handling, class-based architecture,
+improved maintainability, and comprehensive CI/CD integration.
+
+This script will be removed in a future release.
+
+STATUS: DEPRECATED (as of 2025-11-11)
+REPLACEMENT: scripts/blog-content/fix-mermaid-subgraphs-refactored.py
+REMOVAL_PLANNED: Phase 3 P2 script consolidation
+
+---
+
 Fix Mermaid subgraph syntax for v10 compatibility.
 
 Mermaid v10 changed subgraph syntax:
@@ -12,7 +28,7 @@ This script:
 3. Backs up original files
 4. Reports all changes
 
-VERSION: 1.1.0
+VERSION: 1.1.0 (DEPRECATED)
 """
 
 import re
