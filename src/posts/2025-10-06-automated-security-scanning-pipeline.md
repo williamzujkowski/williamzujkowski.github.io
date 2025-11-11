@@ -26,9 +26,9 @@ images:
 ![CI/CD pipeline visualization with security gates](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)
 *Photo by Carlos Muza on Unsplash*
 
-Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed.
+I built an automated security pipeline that scans every commit with Grype, OSV-Scanner, and Trivy. The result: 69% faster builds (6.5min → 2min), 35% auto-remediation rate for vulnerabilities, and mean time to remediation dropping from 12 days to 4.2 days. Critical findings block deployment automatically.
 
-I found out from a security scanner, after the vulnerable code had been running in production for 90 days. That incident taught me an important lesson: hope is not a security strategy.
+**Why it matters:** Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed. The vulnerable code ran in production for 90 days before I found out from a security scanner. Hope is not a security strategy.
 
 ## Automated Security Pipeline Architecture
 
@@ -100,7 +100,7 @@ Today, every commit to my repositories is automatically scanned for vulnerabilit
 
 I tested these three scanners in September 2024 against my homelab services to understand their strengths. These tools complement my broader approach to [smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev).
 
-This helps me focus on what actually matters rather than just raw CVE counts.
+This helps me focus on what actually matters instead of raw CVE counts.
 
 | Scanner | Strengths | Best For | My Test Results |
 |---------|-----------|----------|-----------------|
@@ -162,7 +162,7 @@ Create `.pre-commit-config.yaml` with local hooks for Grype (`fail-on high`) and
 
 **Reality check:** These hooks add 30-45 seconds per commit. Some developers use `--no-verify` to bypass them.
 
-I don't have a good solution yet. It's a constant tension between security and developer experience.
+No good solution exists for this yet. It's a constant tension between security and developer experience.
 
 ### VS Code Integration
 
@@ -270,25 +270,25 @@ Define base rule matching vulnerability IDs (level 7), then escalate to level 12
 
 After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source).
 
-The focus should be on sustainable processes rather than perfect tools.
+The focus should be on sustainable processes instead of perfect tools.
 
 ### 1. Multiple Scanners Reduce False Negatives
 
 When I first tested Grype alone, I thought I had good coverage. Then I added OSV-Scanner and immediately found 4 additional vulnerabilities in a project I'd already "validated."
 
-The overlap between tools is surprisingly low. I measured around 60-65% in my homelab testing. Running both catches more real issues, though I'm still uncertain if three scanners is overkill for smaller projects.
+The overlap between tools is surprisingly low. I measured around 60-65% in my homelab testing. Running both catches more real issues. For smaller projects, three scanners might be overkill. I'm still testing this hypothesis.
 
 ### 2. Fail Fast, Fail Loud
 
 I initially set my pipeline to "warn" on critical vulnerabilities, thinking I'd review them later. That lasted two weeks before I had 47 unreviewed warnings.
 
-Switching to hard-block on critical findings was painful. I spent a full weekend fixing vulnerabilities the first time, but it forces good hygiene. Though I'll admit, there are times when I question whether blocking a build for a vulnerability in a dev-only dependency is the right call.
+Switching to hard-block on critical findings was painful. I spent a full weekend fixing vulnerabilities the first time. It forces good hygiene. There are times when I question whether blocking a build for a vulnerability in a dev-only dependency is the right call. No perfect answer exists.
 
 ### 3. Baseline Everything
 
 Without a baseline, you're drowning in noise. I learned this the hard way when Trivy flagged 183 findings on my first scan. Most were from base images I inherited.
 
-Now I track what's new vs. what's been there, and my alert fatigue dropped by about 80%. I still struggle with deciding how long to "accept" known issues in the baseline before forcing remediation.
+Now I track what's new vs. what's been there. My alert fatigue dropped by 80%. I still struggle with deciding how long to "accept" known issues in the baseline before forcing remediation. This is an ongoing balance.
 
 ### 4. Automate Remediation Where Possible
 
@@ -298,9 +298,9 @@ That said, I've had `npm audit fix` break dependencies twice, so blind automatio
 
 ### 5. Integration is Key
 
-Scanning results are useless if no one sees them. I initially just had GitHub annotations, which I never actually checked. Adding Slack notifications increased my response time from days to hours.
+Scanning results are useless if no one sees them. I initially just had GitHub annotations, which I never checked. Adding Slack notifications increased my response time from days to hours.
 
-Shipping to my Wazuh SIEM let me track trends over time. Though honestly, I'm still figuring out the right balance between visibility and notification fatigue.
+Shipping to my Wazuh SIEM let me track trends over time. I'm still figuring out the right balance between visibility and notification fatigue. Too many alerts become noise.
 
 ## Performance Optimization
 
@@ -315,17 +315,14 @@ When I first implemented this pipeline, builds were taking forever. Here are my 
 
 **Optimizations I added:**
 
-**Parallel scanning** (matrix strategy): Reduced wait time by running all three scanners simultaneously instead of sequentially.
+- **Parallel scanning** (matrix strategy): Reduced wait time by running all three scanners simultaneously instead of sequentially
+- **Cached vulnerability databases**: Grype's DB cache alone saved 40 seconds per run
+- **Scoped scanning** (ignore test files): Cutting out `node_modules` and test fixtures dropped scan time by 25%
+- **Early failure** (stop on critical): When a critical CVE is found, I stop immediately instead of completing all scans
 
-**Cached vulnerability databases**: Grype's DB cache alone saved 40 seconds per run.
+These times are specific to my homelab setup (Intel i9-9900K, GitHub-hosted runners). Your mileage may vary depending on project size and runner specs.
 
-**Scoped scanning** (ignore test files): Cutting out `node_modules` and test fixtures dropped scan time by 25%.
-
-**Early failure** (stop on critical): When a critical CVE is found, I stop immediately rather than completing all scans.
-
-I should note that these times are specific to my homelab setup (Intel i9-9900K, GitHub-hosted runners). Your mileage may vary depending on project size and runner specs.
-
-I'm also not entirely convinced the complexity of running three scanners is worth the maintenance burden for every project. Smaller teams might be better off with just Grype and calling it a day.
+The complexity of running three scanners creates maintenance burden. Smaller teams might be better off with just Grype. I'm still testing whether the extra coverage justifies the extra complexity.
 
 ## Metrics Dashboard
 
@@ -361,19 +358,30 @@ Query vulnerability trends over time, grouping by severity and date to track rem
 Before you build this exact pipeline, here are some things I'm still uncertain about:
 
 ### When Is This Overkill?
-For my homelab with 15+ services, running three scanners makes sense. But if you're maintaining a single Node.js app, this might be excessive overhead. I honestly don't know where the threshold is. Maybe two services? Five? It depends on your risk tolerance and team size.
+
+For my homelab with 15+ services, running three scanners makes sense. For a single Node.js app, this might be excessive overhead. I don't know where the threshold is. Maybe two services? Five? It depends on your risk tolerance and team size.
+
+**Scaling unknowns:**
+- This setup works for my ~50 repositories
+- Would it work for 500? 5,000? Unknown.
+- Centralized SARIF reporting might become a bottleneck
+- I haven't tested at enterprise scale
 
 ### False Positives Are Still a Problem
-Even with three scanners, I get false positives. Last month, Trivy flagged a "critical" vulnerability in a Go binary that turned out to be a misidentified version number. I spent three hours investigating before realizing the scanner was wrong. No tool is perfect, and I haven't found a good way to systematically reduce false positives beyond manual review.
+
+Even with three scanners, I get false positives. Last month, Trivy flagged a "critical" vulnerability in a Go binary that turned out to be a misidentified version number. I spent three hours investigating before realizing the scanner was wrong. No tool is perfect. I haven't found a good way to systematically reduce false positives beyond manual review.
 
 ### Maintenance Burden
-These scanners update their databases constantly, which is great for coverage but means your pipeline can suddenly start failing because a new CVE was published overnight. I've had emergency fixes on Sunday mornings because of this. Is there a better way to handle breaking changes from vulnerability database updates? I'm still figuring that out.
 
-### Enterprise Scalability Unknown
-This setup works for my ~50 repositories. Would it work for 500? 5,000? I genuinely don't know. The centralized SARIF reporting might become a bottleneck, but I haven't tested it at that scale.
+These scanners update their databases constantly. Great for coverage. Terrible when your pipeline suddenly fails because a new CVE was published overnight. I've had emergency fixes on Sunday mornings because of this. Is there a better way to handle breaking changes from vulnerability database updates? I'm still figuring that out.
 
 ### Cost Considerations
-GitHub-hosted runners aren't free at scale. My current setup costs about $8/month in runner time. That's fine for a homelab, but might not scale well for larger organizations. Self-hosted runners would help, but then you're managing infrastructure.
+
+GitHub-hosted runners aren't free at scale:
+- My current setup: ~$8/month in runner time
+- Fine for a homelab
+- Scales poorly for larger organizations
+- Self-hosted runners would help (but you're managing infrastructure)
 
 ## Conclusion
 
