@@ -938,6 +938,6 @@ In an uncertain world, the only certainty is that things will go wrong. The ques
 #### Resilience Resources
 14. **[Antifragile: Things That Gain from Disorder](https://www.amazon.com/Antifragile-Things-That-Disorder-Incerto/dp/0812979680)** (2012) - Nassim Nicholas Taleb, *Random House*
 
-15. **[Zero Trust Architecture - NIST SP 800-207](https://csrc.nist.gov/pubs/sp/800/207/final)** (2020) - National Institute of Standards and Technology, *DOI: 10.6028/NIST.SP.800-207*
+15. **[Zero Trust Architecture - NIST SP 800-207](https://csrc.nist.gov/pubs/sp/800/207/final)** (2020) - National Institute of Standards and Technology, *https://doi.org/10.6028/NIST.SP.800-207*
 
 16. **[The Resilience Engineering Association](https://www.resilience-engineering-association.org/)** - Research and practices in resilience engineering
