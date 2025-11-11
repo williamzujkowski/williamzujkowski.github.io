@@ -21,9 +21,9 @@ images:
     src: /assets/images/blog/hero/2025-09-20-iot-security-homelab-owasp-og.jpg
     alt: 'cybersecurity concept illustration for IoT Security in Your Home Lab: Lessons from OWASP IoTGoat'
 ---
-When I set up my first smart home devices years ago, I naively trusted that manufacturers had security figured out. Then I started packet capturing my IoT traffic. What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, and ultimately building an isolated IoT security lab. Today, I'll show you how to use OWASP IoTGoat to safely explore these vulnerabilities yourself.
+**BLUF:** When I set up my first smart home devices years ago, I naively trusted that manufacturers had security figured out. Then I started packet capturing my IoT traffic.
 
-In September 2024, I analyzed traffic from my Philips Hue bridge. I discovered it was sending device status every 12 seconds to cloud servers, even when I wasn't using the app. Total data: 2.1MB/day just for "phone home" pings. That's when I realized I probably needed to take IoT security more seriously.
+What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, and ultimately building an isolated IoT security lab. In September 2024, I analyzed traffic from my Philips Hue bridge. I discovered it was sending device status every 12 seconds to cloud servers, even when I wasn't using the app. Total data: 2.1MB/day just for "phone home" pings. That's when I realized I needed to take IoT security more seriously. Today, I'll show you how to use OWASP IoTGoat to safely explore these vulnerabilities yourself.
 
 ## The IoT Security Landscape
 
