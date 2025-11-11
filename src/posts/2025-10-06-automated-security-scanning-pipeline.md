@@ -33,6 +33,8 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
 
 ## Automated Security Pipeline Architecture
 
+⚠️ **Warning:** Security scanning pipelines must be configured with appropriate policies and approval gates. Automated remediation should include review processes for production environments.
+
 ```mermaid
 flowchart TB
     subgraph coderepository["Code Repository"]

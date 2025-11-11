@@ -41,6 +41,8 @@ According to [research from the Cyber Threat Alliance (2024)](https://www.cybert
 
 ### The ATT&CK Matrix Structure
 
+⚠️ **Warning:** Threat intelligence systems collect sensitive security information. Implement proper access controls and follow data protection requirements for security monitoring.
+
 ```mermaid
 flowchart LR
     A[Initial Access] --> B[Execution]

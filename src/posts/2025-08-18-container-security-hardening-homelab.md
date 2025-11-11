@@ -37,6 +37,8 @@ Container security isn't optional. Learning what "hardened" means required break
 
 ## Container Security Architecture
 
+⚠️ **Warning:** Container security testing should only be performed in isolated lab environments. Container escapes and privilege escalation techniques are for educational purposes only.
+
 ```mermaid
 flowchart TB
     subgraph buildtimesecurity["Build Time Security"]

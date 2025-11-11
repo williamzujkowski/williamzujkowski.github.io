@@ -147,6 +147,8 @@ VLA models are powerful but immature, and I'm frankly concerned about how quickl
 
 ### Defense in Depth
 
+⚠️ **Warning:** Embodied AI systems that interact with the physical world require extensive safety testing. Physical robotics experiments must follow proper safety protocols and risk assessments.
+
 ```mermaid
 flowchart TB
     subgraph safetylayers["Safety Layers"]

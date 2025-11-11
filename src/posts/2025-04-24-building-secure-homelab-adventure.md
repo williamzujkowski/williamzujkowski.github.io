@@ -30,6 +30,8 @@ It serves as both a learning playground and a practical security solution for my
 
 ## How It Works
 
+⚠️ **Warning:** This diagram illustrates homelab security architecture for educational purposes. Implement security controls with proper planning, backups, and family network segregation.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]

@@ -32,6 +32,8 @@ That incident convinced me: you can't protect what you can't see. If you're [bui
 
 ## Network Traffic Analysis Architecture
 
+⚠️ **Warning:** Network traffic analysis must comply with privacy laws and organizational policies. Deploy only on networks you own or have explicit authorization to monitor.
+
 ```mermaid
 flowchart TB
     subgraph trafficcollection["Traffic Collection"]
@@ -126,7 +128,9 @@ I run Suricata on my Dell R940 with:
 
 Suricata rules follow this structure:
 
-```
+⚠️ **Warning:** Network detection rules must be tested in lab environments before production deployment. Improper rules can cause false positives or network disruption.
+
+```text
 action protocol source_ip source_port -> dest_ip dest_port (rule options)
 ```
 
