@@ -28,11 +28,11 @@ images:
 ![Container security concept with locks and shields](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
 *Photo by Timelab Pro on Unsplash*
 
-In July 2025, I tested container escape techniques in my homelab. I ran a privileged container with the `--privileged` flag to see what could go wrong. Using `nsenter`, I achieved host filesystem access in under 3 minutes. That scared me enough to audit my 47 running containers.
+In July 2025, I escaped a privileged container in my homelab. `--privileged` flag plus `nsenter` gave me host filesystem access in under 3 minutes. That scared me into auditing my 47 running containers.
 
-I found 12 containers running with unnecessary privileges. A few years back, I'd been careless with a test web app container, skipping security best practices because "it's just for testing." A month later, I discovered it was mining cryptocurrency. The attacker got in through an outdated nginx base image with CVE-2019-9511 (CVSS 7.5).
+I found 12 containers with unnecessary privileges. Years back, a test web app container I'd left unsecured was mining cryptocurrency. The attacker exploited an outdated nginx base image with CVE-2019-9511 (CVSS 7.5).
 
-That mistake taught me container security isn't optional, even in a homelab. **However**, learning what "hardened" actually means required breaking things repeatedly.
+Container security isn't optional. Learning what "hardened" means required breaking things repeatedly.
 
 ## Container Security Architecture
 
@@ -88,14 +88,14 @@ Your security posture starts with the base image. I learned this through painful
 
 ### The nginx:alpine Migration Disaster
 
-I ran vulnerability scans with Grype across my 12 primary images in August 2025. The results were sobering:
-- nginx:latest had 42 CVEs (7 HIGH, 2 CRITICAL)
-- postgres:15 had 31 CVEs (5 HIGH)
-- Total across all images: 178 CVEs
+I ran Grype scans across my 12 primary images in August 2025:
+- nginx:latest: 42 CVEs (7 HIGH, 2 CRITICAL)
+- postgres:15: 31 CVEs (5 HIGH)
+- Total: 178 CVEs
 
-I switched from `nginx:latest` to `nginx:alpine` to reduce the attack surface. The image size dropped from 142MB to 41MB (71% reduction), and CVE count fell to 6. **But** three of my custom nginx modules broke immediately because alpine uses musl libc instead of glibc. I spent 8 hours recompiling modules and debugging segfaults before I got the site working again.
+I switched `nginx:latest` to `nginx:alpine`. Image size dropped from 142MB to 41MB (71% reduction), CVE count fell to 6. Three custom nginx modules broke immediately because alpine uses musl libc instead of glibc. I spent 8 hours recompiling modules and debugging segfaults.
 
-**The trade-off**: Alpine images are smaller and have fewer vulnerabilities, **yet** they may lack libraries your app expects. Test thoroughly.
+Alpine images are smaller with fewer vulnerabilities. They may lack libraries your app expects. Test thoroughly.
 
 ### Minimal Base Images
 
@@ -115,16 +115,16 @@ Always verify image signatures to prevent supply chain attacks:
 
 ### Multi-Stage Builds
 
-Separate build dependencies from runtime to minimize attack surface:
+Separate build dependencies from runtime:
 
 <script src="https://gist.github.com/williamzujkowski/1f42aca62d981a71aeb28d2389f5ca2f.js"></script>
 
 This approach:
 - Removes build tools from final image
-- Reduces image size by 90%+ (I've seen 340MB drop to 28MB)
+- Reduces image size 90%+ (340MB → 28MB in my tests)
 - Limits attack surface dramatically
 
-**The trade-off**: Multi-stage builds are more secure, **but** they complicate local development. I keep a `Dockerfile.dev` with a full base image for debugging, and use the hardened multi-stage build for production.
+Multi-stage builds complicate local development. I keep `Dockerfile.dev` with a full base image for debugging, use hardened multi-stage for production.
 
 ### Vulnerability Scanning Pipeline
 
@@ -150,16 +150,14 @@ I immediately:
 
 ### User Namespaces: The Permission Nightmare
 
-I enabled user namespace remapping in Docker daemon.json in July 2025. I thought it would be straightforward. It wasn't.
-
-Within 10 minutes of restarting Docker, 8 of my 23 services failed with permission errors:
+I enabled user namespace remapping in Docker daemon.json in July 2025. Within 10 minutes, 8 of 23 services failed with permission errors:
 - PostgreSQL couldn't write to `/var/lib/postgresql/data`
 - Redis couldn't access `/data`
-- Nginx couldn't bind to port 80 (even though I mapped it)
+- Nginx couldn't bind to port 80
 
-I spent 2 days debugging volume mount permissions. User namespace remapping maps root inside the container to a non-privileged UID on the host (typically 100000+). My bind mounts had wrong ownership on the host.
+I spent 2 days debugging volume mount permissions. User namespace remapping maps root inside containers to non-privileged UIDs on the host (typically 100000+). My bind mounts had wrong ownership.
 
-The fix involved running `chown -R 100000:100000` on all Docker volumes. **The trade-off**: User namespaces provide strong isolation **but** break existing deployments and complicate permission management. I'm not sure the security benefit is worth the operational complexity for a homelab. **Probably** makes more sense in multi-tenant production environments.
+The fix: `chown -R 100000:100000` on all Docker volumes. User namespaces provide strong isolation but break existing deployments. The security benefit may not justify operational complexity for homelabs. Multi-tenant production makes more sense.
 
 ### Non-Root Execution
 
@@ -185,16 +183,16 @@ For K3s pods:
 
 ### Network Policies: The Debugging Trap
 
-I segmented my K3s containers into 5 separate Docker networks in July 2025 to enforce isolation:
+I segmented K3s containers into 5 Docker networks in July 2025:
 - `frontend` (Nginx, web apps)
 - `backend` (APIs, application servers)
 - `data` (PostgreSQL, Redis)
 - `monitoring` (Prometheus, Grafana)
 - `security` (Wazuh, Falco)
 
-Default deny all traffic between networks. **The trade-off**: Redis on the `data` network couldn't talk to the webapp on the `backend` network, which I intended. **However**, when the webapp started throwing 500 errors, it took me 3 hours to realize it was a network policy issue, not an application bug.
+Default deny all traffic between networks. Redis on `data` couldn't talk to webapp on `backend`, which I intended. When the webapp threw 500 errors, it took 3 hours to realize it was a network policy issue, not an application bug.
 
-I added explicit network links between `backend` and `data`, which **probably** reduced my isolation by 30% (rough estimate based on the attack surface increase). Perfect security makes debugging nearly impossible.
+I added explicit network links between `backend` and `data`, reducing isolation by roughly 30%. Perfect security makes debugging nearly impossible.
 
 ### Zero-Trust Networking in K3s
 
@@ -291,28 +289,28 @@ Enforce policies with OPA Gatekeeper:
 
 ## Lessons Learned from Breaking Things
 
-After hardening 47 containers in my homelab (and breaking many of them):
+After hardening 47 containers in my homelab:
 
-### 1. Security is Layers, Not a Single Wall
-No single control prevents all attacks. I've learned that combining image scanning (178 CVEs found), runtime protection (AppArmor, seccomp), network policies (5 isolated networks), and monitoring (Falco, Wazuh) provides real defense. **However**, each layer adds operational complexity. The **trade-off** between security and maintainability is constant.
+### 1. Security is Layers
+No single control prevents all attacks. Combining image scanning (178 CVEs found), runtime protection (AppArmor, seccomp), network policies (5 isolated networks), and monitoring (Falco, Wazuh) provides real defense. Each layer adds operational complexity. Security and maintainability are in constant tension.
 
 ### 2. Hardening Always Breaks Something First
-User namespace remapping broke 8 of 23 services. Read-only root broke my FastAPI app. AppArmor took 14 iterations to get right. **Every** security control I enabled required troubleshooting and refactoring. Budget time for this, **probably** 2-3x your initial estimate.
+User namespace remapping broke 8 of 23 services. Read-only root broke my FastAPI app. AppArmor took 14 iterations to get right. Every security control required troubleshooting and refactoring. Budget 2-3x your initial estimate.
 
 ### 3. Vulnerability Scanning Creates Alert Fatigue
-Finding 178 CVEs across 12 images sounds useful, **but** 89% were LOW or MEDIUM severity in packages I don't even use. I set my threshold to HIGH+ only, which reduced alerts by 74%. **The trade-off**: I **might be** missing important medium-severity issues in core dependencies.
+Finding 178 CVEs across 12 images sounds useful, but 89% were LOW or MEDIUM severity in packages I don't use. I set my threshold to HIGH+ only, reducing alerts by 74%. I may be missing important medium-severity issues in core dependencies.
 
 ### 4. Perfect Security Makes Debugging Impossible
-Network policies that deny all traffic by default are great for security, terrible for troubleshooting. Distroless images with no shell make `docker exec` useless. I keep a `debug` variant of each critical container with a shell for emergencies. **The trade-off**: Debug containers are less secure **but** massively more debuggable.
+Network policies that deny all traffic by default are great for security, terrible for troubleshooting. Distroless images with no shell make `docker exec` useless. I keep a `debug` variant of each critical container with a shell for emergencies. Debug containers are less secure but massively more debuggable.
 
 ### 5. Some Hardening Isn't Worth the Cost
-User namespace remapping provides strong isolation, **but** the 2 days I spent fixing permissions **probably** outweighs the security benefit for my single-tenant homelab. I've since disabled it. **The trade-off**: Not every security control makes sense for every environment. Context matters.
+User namespace remapping provides strong isolation, but the 2 days I spent fixing permissions outweighs the security benefit for my single-tenant homelab. I've disabled it. Not every security control makes sense for every environment. Context matters.
 
 ### 6. Automation Catches What I Miss
-My Grype scans in CI/CD blocked a Node.js image with CVE-2023-30581 (CVSS 9.8) from deploying. I would have missed it manually. Automate image scanning, **probably** the highest ROI security investment I've made.
+My Grype scans in CI/CD blocked a Node.js image with CVE-2023-30581 (CVSS 9.8) from deploying. I would have missed it manually. Automate image scanning for highest ROI security investment.
 
 ### 7. Test Your Defenses
-I use [botb](https://github.com/brompwnie/botb) to test container escape paths quarterly. My privileged container escape test (3 minutes to host access) revealed real vulnerabilities I thought I'd fixed. Regular testing is the only way to verify your hardening actually works.
+I use [botb](https://github.com/brompwnie/botb) to test container escape paths quarterly. My privileged container escape test (3 minutes to host access) revealed real vulnerabilities I thought I'd fixed. Regular testing verifies hardening actually works.
 
 ## Practical Checklist
 
@@ -363,17 +361,17 @@ Before deploying any container:
 
 ## Conclusion
 
-Container security isn't complicated, **but** it's tedious and requires iteration. Start with secure base images (distroless **probably** has the best security-to-effort ratio), scan for vulnerabilities (Grype catches 90%+ of issues), apply runtime protections (drop all capabilities by default), and monitor continuously (Falco for anomalies).
+Container security isn't complicated, but it's tedious and requires iteration. Start with secure base images (distroless has the best security-to-effort ratio), scan for vulnerabilities (Grype catches 90%+ of issues), apply runtime protections (drop all capabilities by default), and monitor continuously (Falco for anomalies).
 
-My homelab cryptocurrency mining incident taught me that "just testing" environments need security rigor too. The controls I've shared are battle-tested across my 47 Docker and K3s containers. They've caught real threats:
+My homelab cryptocurrency mining incident taught me "just testing" environments need security rigor. The controls I've shared are battle-tested across 47 Docker and K3s containers. They've caught real threats:
 - 178 CVEs in vulnerable images (before scanning)
 - 23 unauthorized Docker Hub pulls (secrets exposure)
 - 12 unnecessarily privileged containers (reduced attack surface)
 - 1 container escape test that succeeded (fixed by dropping `--privileged`)
 
-**The big lesson**: Every hardening control broke something initially. User namespaces broke 8 services. AppArmor took 14 iterations. Read-only root required 6 hours of refactoring. **However**, each failure taught me how containers actually work, which **probably** made me a better engineer.
+Every hardening control broke something initially. User namespaces broke 8 services. AppArmor took 14 iterations. Read-only root required 6 hours of refactoring. Each failure taught me how containers actually work.
 
-Security is iterative, not perfect. I'm still learning what "good enough" looks like for a homelab. Start with the basics, automate scanning, expect to break things, and improve continuously.
+Security is iterative, not perfect. I'm still learning what "good enough" looks like for a homelab. Start with the basics, automate scanning, expect to break things, improve continuously.
 
 ---
 
