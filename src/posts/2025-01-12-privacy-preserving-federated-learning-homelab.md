@@ -17,7 +17,9 @@ In November 2024, I spent three weeks training an image classifier across 4 devi
 
 What surprised me most was the data transfer reduction. I'm not entirely sure if my measurements account for all overhead, but granular-ball segmentation cut network transfers from roughly 2.3GB per round to 410MB. That's an 82% reduction just by sharing coarse statistical representations instead of model gradients.
 
-My initial variance threshold (0.1) was way too coarse. The aggregated model's accuracy dropped 12% compared to centralized training because I lost too much fine-grained information. After three failed training runs, I adjusted the threshold to 0.03 and got within 2.1% of centralized baseline accuracy. I wasted 18 hours debugging before realizing the threshold was the problem.
+My initial variance threshold (0.1) was way too coarse. The aggregated model's accuracy dropped 12% compared to centralized training because I lost too much fine-grained information.
+
+After three failed training runs, I adjusted the threshold to 0.03 and got within 2.1% of centralized baseline accuracy. I wasted 18 hours debugging before realizing the threshold was the problem.
 
 This post explores federated learning with granular-ball computing, based on my homelab experiments and the GrBFL paper from January 2025.
 

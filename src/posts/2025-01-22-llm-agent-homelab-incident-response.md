@@ -26,7 +26,9 @@ LLM agent reduced my homelab incident response time from 30 minutes to 5 minutes
 
 ## The Problem: Alert Fatigue and Manual Log Correlation
 
-I run a K3s cluster in my homelab. Three Raspberry Pi 4 nodes, one Dell R940 control plane, Prometheus monitoring, Loki for logs, Tempo for traces. In October 2024, I received 47 alerts. Of those, 23 were false positives. 16 required manual investigation spanning multiple data sources. 8 woke me up after midnight.
+I run a K3s cluster in my homelab. Three Raspberry Pi 4 nodes, one Dell R940 control plane, Prometheus monitoring, Loki for logs, Tempo for traces.
+
+In October 2024, I received 47 alerts. Of those, 23 were false positives. 16 required manual investigation spanning multiple data sources. 8 woke me up after midnight.
 
 **Manual diagnosis workflow:**
 1. Receive alert from Alertmanager
@@ -264,7 +266,9 @@ I spent 44 minutes manually diagnosing after agent's false positive. This was wo
 - Energy cost: Negligible (<$0.01 per incident)
 - Time saved: 30 minutes per incident (priceless)
 
-**For my homelab:** Local inference on RTX 3090 makes sense. For production environments, probably use cloud LLMs with proper data governance. Your mileage may vary depending on privacy requirements and incident volume.
+**For my homelab:** Local inference on RTX 3090 makes sense. For production environments, probably use cloud LLMs with proper data governance.
+
+Your mileage may vary depending on privacy requirements and incident volume.
 
 ## Implementation Guide: Building Your Own Agent
 
@@ -327,7 +331,9 @@ No, if:
 
 ## Conclusion: LLMs as SRE Copilots
 
-LLM agents won't replace SREs. But they're excellent copilots for routine incident response. In my homelab, the agent handles 80% of first-pass triage, saving me 4-6 hours per month. The 20% of incidents it misdiagnoses teach me where to improve the system.
+LLM agents won't replace SREs. But they're excellent copilots for routine incident response.
+
+In my homelab, the agent handles 80% of first-pass triage, saving me 4-6 hours per month. The 20% of incidents it misdiagnoses teach me where to improve the system.
 
 **Key takeaways:**
 - AIOpsLab framework provides structured approach to evaluating LLM agents for operations
@@ -341,7 +347,9 @@ LLM agents won't replace SREs. But they're excellent copilots for routine incide
 - Proactive anomaly detection: Agent monitors metrics continuously, alerts on deviations before failure
 - Remediation automation: Auto-restart pods, scale resources, apply config fixes (with approval gates)
 
-If you're drowning in alerts and spending too much time correlating logs, consider building an LLM agent. Start simple, iterate based on failures, and never fully trust the output. The agent is a tool, not a replacement for human judgment.
+If you're drowning in alerts and spending too much time correlating logs, consider building an LLM agent. Start simple, iterate based on failures, and never fully trust the output.
+
+The agent is a tool, not a replacement for human judgment.
 
 Your homelab incidents don't need to wake you at 2 AM. Let the agent handle first-pass triage. You can verify its work in the morning.
 
