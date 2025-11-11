@@ -1,0 +1,52 @@
+{
+  "generated": "2025-11-11T16:22:49.691368",
+  "total_unique_tags": 46,
+  "avg_tags_per_post": 3.8,
+  "posts_with_0_tags": 0,
+  "posts_with_1_2_tags": 7,
+  "posts_with_3_5_tags": 49,
+  "posts_with_6plus_tags": 6,
+  "compliance_rate": 79.0,
+  "top_10_tags": [
+    {
+      "tag": "security",
+      "count": 32
+    },
+    {
+      "tag": "ai",
+      "count": 25
+    },
+    {
+      "tag": "homelab",
+      "count": 21
+    },
+    {
+      "tag": "llm",
+      "count": 12
+    },
+    {
+      "tag": "programming",
+      "count": 10
+    },
+    {
+      "tag": "machine-learning",
+      "count": 10
+    },
+    {
+      "tag": "devops",
+      "count": 9
+    },
+    {
+      "tag": "cryptography",
+      "count": 8
+    },
+    {
+      "tag": "automation",
+      "count": 8
+    },
+    {
+      "tag": "networking",
+      "count": 8
+    }
+  ]
+}

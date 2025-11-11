@@ -1,0 +1,19 @@
+{
+  "generated": "2025-11-11T16:22:49.226380",
+  "total_links": 58,
+  "avg_links_per_post": 0.92,
+  "target_range": "6-10",
+  "posts_below_target": 60,
+  "posts_in_target": 3,
+  "posts_above_target": 0,
+  "orphaned_posts": 32,
+  "hub_posts": 1,
+  "progress_to_target": "4.8%",
+  "link_distribution": {
+    "0_links": 45,
+    "1_2_links": 8,
+    "3_5_links": 7,
+    "6_10_links": 3,
+    "10plus_links": 0
+  }
+}

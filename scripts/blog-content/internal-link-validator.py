@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
 from logging_config import setup_logger
 import re
 import yaml
+import json
 from dataclasses import dataclass, field
 from typing import List, Dict, Set, Tuple, Optional
 from collections import Counter, defaultdict
@@ -527,6 +528,74 @@ class InternalLinkValidator:
 
         logger.info(f"\n{'='*80}\n")
 
+    def generate_json_metrics(self, output_path: Path) -> None:
+        """
+        Generate JSON metrics for dashboard consumption.
+
+        Outputs internal linking metrics to JSON file:
+        - Total links, avg links per post
+        - Posts below/in/above target (6-10 links)
+        - Orphaned posts count
+        - Hub posts count
+        - Link distribution
+        - Progress to target percentage
+
+        Args:
+            output_path: Path to output JSON file
+        """
+        if not self.posts:
+            logger.warning("No posts parsed. Run parse_posts() first.")
+            return
+
+        # Calculate statistics
+        total_posts = len(self.posts)
+        total_links = sum(p.link_density() for p in self.posts)
+        avg_links = total_links / total_posts if total_posts > 0 else 0
+        posts_below_target = sum(1 for p in self.posts if p.link_density() < 6)
+        posts_above_target = sum(1 for p in self.posts if p.link_density() > 10)
+        posts_in_target = total_posts - posts_below_target - posts_above_target
+
+        # Orphaned posts
+        orphaned = self.find_orphaned_posts()
+
+        # Hub posts (posts with 6+ incoming links)
+        hub_posts = sum(1 for post_slug in self.incoming_links if len(self.incoming_links[post_slug]) >= 6)
+
+        # Link distribution
+        link_counts = Counter(p.link_density() for p in self.posts)
+        link_distribution = {
+            "0_links": link_counts[0],
+            "1_2_links": link_counts[1] + link_counts[2],
+            "3_5_links": sum(link_counts.get(i, 0) for i in range(3, 6)),
+            "6_10_links": sum(link_counts.get(i, 0) for i in range(6, 11)),
+            "10plus_links": sum(link_counts.get(i, 0) for i in range(11, 100))
+        }
+
+        # Progress to target (percentage of posts in 6-10 range)
+        progress = (posts_in_target / total_posts * 100) if total_posts > 0 else 0
+
+        # Build metrics JSON
+        metrics = {
+            "generated": datetime.now().isoformat(),
+            "total_links": total_links,
+            "avg_links_per_post": round(avg_links, 2),
+            "target_range": "6-10",
+            "posts_below_target": posts_below_target,
+            "posts_in_target": posts_in_target,
+            "posts_above_target": posts_above_target,
+            "orphaned_posts": len(orphaned),
+            "hub_posts": hub_posts,
+            "progress_to_target": f"{progress:.1f}%",
+            "link_distribution": link_distribution
+        }
+
+        # Write to file
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with output_path.open('w', encoding='utf-8') as f:
+            json.dump(metrics, f, indent=2)
+
+        logger.info(f"JSON metrics written to {output_path}")
+
 def main():
     """Main entry point."""
     import argparse
@@ -565,6 +634,8 @@ Examples:
                        help="Test on N pilot posts")
     parser.add_argument("--output", type=str, metavar="FILE",
                        help="Save detailed suggestions to file")
+    parser.add_argument("--json", action="store_true",
+                       help="Generate JSON metrics for dashboard (saved to docs/reports/internal-link-metrics.json)")
 
     args = parser.parse_args()
 
@@ -640,6 +711,11 @@ Examples:
                 f.write("\n")
 
         logger.info(f"Detailed suggestions saved to {output_path}")
+
+    # Generate JSON metrics if requested
+    if args.json:
+        json_output = Path("docs/reports/internal-link-metrics.json")
+        validator.generate_json_metrics(json_output)
 
     return 0
 

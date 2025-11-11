@@ -787,6 +787,49 @@ class TagManager:
 
         self.logger.info("\n" + "="*70)
 
+    def generate_json_metrics(self, analysis: Dict, output_path: Path) -> None:
+        """
+        Generate JSON metrics for dashboard consumption.
+
+        Args:
+            analysis: Analysis results from analyze_tag_distribution()
+            output_path: Path to output JSON file
+        """
+        if not analysis:
+            self.logger.warning("No analysis data available for JSON generation")
+            return
+
+        # Calculate compliance rate (posts with 3-5 tags)
+        total_posts = analysis['total_posts']
+        compliant_posts = analysis['posts_with_3_5_tags']
+        compliance_rate = (compliant_posts / total_posts * 100) if total_posts > 0 else 0
+
+        # Get top 10 tags
+        top_10_tags = [
+            {"tag": tag, "count": count}
+            for tag, count in list(analysis['tag_frequency'].items())[:10]
+        ]
+
+        # Build metrics JSON
+        metrics = {
+            "generated": datetime.now().isoformat(),
+            "total_unique_tags": analysis['total_unique_tags'],
+            "avg_tags_per_post": round(analysis['avg_tags_per_post'], 1),
+            "posts_with_0_tags": analysis['posts_with_0_tags'],
+            "posts_with_1_2_tags": analysis['posts_with_1_2_tags'],
+            "posts_with_3_5_tags": analysis['posts_with_3_5_tags'],
+            "posts_with_6plus_tags": analysis['posts_with_6plus_tags'],
+            "compliance_rate": round(compliance_rate, 1),
+            "top_10_tags": top_10_tags
+        }
+
+        # Write to file
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with output_path.open('w', encoding='utf-8') as f:
+            json.dump(metrics, f, indent=2)
+
+        self.logger.info(f"JSON metrics written to {output_path}")
+
 
 def main():
     """Main execution function."""
@@ -821,6 +864,8 @@ Examples:
     parser.add_argument('--debug', action='store_true', help='Enable debug logging')
     parser.add_argument('--verbose', '-v', action='store_true', help='Enable verbose output')
     parser.add_argument('--quiet', '-q', action='store_true', help='Suppress info messages')
+    parser.add_argument('--json', action='store_true',
+                       help='Generate JSON metrics for dashboard (saved to docs/reports/tag-metrics.json)')
     args = parser.parse_args()
 
     # Setup logging
@@ -850,6 +895,11 @@ Examples:
         logger.info("Running tag distribution audit...")
         analysis = manager.analyze_tag_distribution(posts)
         manager.print_summary(analysis)
+
+        # Generate JSON metrics if requested
+        if args.json:
+            json_output = Path("docs/reports/tag-metrics.json")
+            manager.generate_json_metrics(analysis, json_output)
 
         if args.csv:
             # TODO: Generate CSV report
