@@ -152,8 +152,9 @@ Choosing data center locations based on carbon intensity:
 ### Carbon-Aware Computing
 
 **Time-Shifting Workloads:**
-Scheduling compute-intensive tasks when renewable energy was abundant had a bigger impact than I expected. For example, shifting our nightly ML training jobs to run between 11 AM and 3 PM (when solar generation peaks in California) reduced the carbon intensity of those workloads by 58% according to WattTime API data. Concrete results:
+Scheduling compute-intensive tasks when renewable energy was abundant had a bigger impact than I expected. For example, shifting our nightly ML training jobs to run between 11 AM and 3 PM (when solar generation peaks in California) reduced the carbon intensity of those workloads by 58% according to WattTime API data.
 
+Concrete results:
 - ML training scheduled during peak solar hours (11 AM - 3 PM, carbon intensity dropped from 420 to 175 gCO2/kWh)
 - Batch processing delayed until wind energy availability (moved from 6 PM to 2 AM in Iowa region)
 - Data backups moved to overnight hours in wind-rich regions (saved 2.3 metric tons CO2e annually)

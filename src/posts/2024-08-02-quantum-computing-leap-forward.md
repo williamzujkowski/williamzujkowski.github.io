@@ -238,7 +238,9 @@ Quantum computers pose an existential threat to current cryptographic systems, t
 
 **Key Exchange:** Current protocols for secure communication (DHE, ECDHE) would be broken by quantum computers with sufficient qubits.
 
-**Timeline Concerns:** While large-scale quantum computers may be decades away, the "harvest now, decrypt later" threat is real. Adversaries could store encrypted data today and decrypt it in 15-20 years when quantum computers mature. This timeline uncertainty makes the threat immediate for long-term sensitive data.
+**Timeline Concerns:** While large-scale quantum computers may be decades away, the "harvest now, decrypt later" threat is real. Adversaries could store encrypted data today and decrypt it in 15-20 years when quantum computers mature.
+
+This timeline uncertainty makes the threat immediate for long-term sensitive data.
 
 ### Quantum-Resistant Solutions
 

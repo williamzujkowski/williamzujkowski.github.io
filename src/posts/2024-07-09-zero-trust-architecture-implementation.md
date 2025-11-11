@@ -107,7 +107,9 @@ Security controls shifted from perimeter defense to continuous monitoring, rapid
 Zero Trust starts with knowing who and what is trying to access your systems. At least that's the theory. In practice, I found identity management to be the hardest part of my homelab Zero Trust implementation. If you're starting from scratch, my comprehensive guide to building a [security-focused homelab with zero trust](/posts/2025-04-24-building-secure-homelab-adventure) principles provides essential foundation and planning considerations.
 
 **Identity Provider Consolidation:**
-I migrated to self-hosted Bitwarden 2024.6.2 as my password manager and authentication source. The migration took me three attempts because I initially configured the wrong database connection string and locked myself out. As of September 2024, I have 247 unique credentials stored with MFA enabled on 89% of them.
+I migrated to self-hosted Bitwarden 2024.6.2 as my password manager and authentication source. The migration took me three attempts because I initially configured the wrong database connection string and locked myself out.
+
+As of September 2024, I have 247 unique credentials stored with MFA enabled on 89% of them.
 
 **Failure Story #1: The Certificate Expiration Disaster**
 
@@ -174,9 +176,13 @@ In August 2024, I was testing my Zero Trust MFA implementation. Within 5 minutes
 - User complaints: 5 from family members ("Why did you make this harder?")
 
 **Trade-offs I'm still navigating:**
-This implementation works well for me in a homelab context, but I'm not entirely sure if the 3-digit number matching provides significantly more security than well-implemented push notifications with rate limiting. The security research suggests it does, but I sometimes wonder if I'm just adding friction without proportional security gain. For my threat model (primarily protecting against compromised IoT devices and accidental misconfigurations), it's probably overkill. But it's a good learning exercise.
+This implementation works well for me in a homelab context, but I'm not entirely sure if the 3-digit number matching provides significantly more security than well-implemented push notifications with rate limiting. The security research suggests it does, but I sometimes wonder if I'm just adding friction without proportional security gain.
 
-The real lesson: security controls you implement without thinking deeply about human behavior will fail. I was technically compliant with "MFA everywhere" but practically vulnerable to the simplest social engineering attack. Now every security control I add includes a "can I fool myself with this?" test.
+For my threat model (primarily protecting against compromised IoT devices and accidental misconfigurations), it's probably overkill. But it's a good learning exercise.
+
+The real lesson: security controls you implement without thinking deeply about human behavior will fail. I was technically compliant with "MFA everywhere" but practically vulnerable to the simplest social engineering attack.
+
+Now every security control I add includes a "can I fool myself with this?" test.
 
 **Device Registration and Management:**
 Every device in my homelab has a unique TLS certificate issued by my internal certificate authority. I maintain a device inventory spreadsheet with 42 registered devices as of October 2024. Unregistered devices get zero network access beyond basic DHCP.
