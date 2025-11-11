@@ -220,6 +220,8 @@ ab -n 100000 -c 100 http://gvisor-nginx/
 
 ## Container Escape Testing
 
+⚠️ **Warning:** This section demonstrates container escape techniques for educational purposes only. These tests should only be performed in isolated lab environments with proper authorization. Never attempt these techniques on production systems or systems you don't own.
+
 I attempted 5 common container escape techniques.
 
 **Test 1: Privileged container with host filesystem mount**

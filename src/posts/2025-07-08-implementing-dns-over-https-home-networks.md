@@ -52,6 +52,8 @@ If you're tired of being the product, here's how to take back control of your DN
 
 ## How It Works
 
+⚠️ **Warning:** This diagram illustrates security concepts for educational purposes. DNS-over-HTTPS configuration should follow organizational security policies and comply with network usage agreements.
+
 ```mermaid
 flowchart TB
     subgraph threatactors["Threat Actors"]
@@ -169,13 +171,15 @@ For maximum privacy and control, run your own DoH server:
 
 Transform Pi-hole into a DoH server:
 
+**Pseudocode - Simplified Pi-hole DoH Setup:**
 ```bash
 # Install Pi-hole (if not already installed)
-curl -sSL [https://install.pi-hole.net](https://install.pi-hole.net) | bash
+curl -sSL https://install.pi-hole.net | bash
 
 # Install cloudflared for DoH upstream
-wget [https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64](https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64)
-    # ... (additional implementation details)
+wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
+
+# Configure Pi-hole DNS settings
 # Custom 1: 127.0.0.1#5053
 # Uncheck all other DNS servers
 ```
@@ -184,13 +188,13 @@ wget [https://github.com/cloudflare/cloudflared/releases/latest/download/cloudfl
 
 Serve DoH directly to clients using nginx and dnsdist:
 
+**Pseudocode - Simplified nginx DoH Server Setup:**
 ```bash
 # Install required packages
 sudo apt-get update
 sudo apt-get install -y nginx dnsdist certbot python3-certbot-nginx
 
-# Configure dnsdist
-    # ... (additional implementation details)
+# Configure and start services
 sudo nginx -t && sudo systemctl restart nginx
 sudo systemctl enable dnsdist && sudo systemctl start dnsdist
 ```
@@ -217,13 +221,14 @@ See the log parsing script in the monitoring tools gist above.
 
 Not all DoH providers are equal. Based on my research and testing, here are the key factors to consider:
 
+**Pseudocode - Simplified Provider Comparison:**
 ```yaml
 Provider Comparison:
   Cloudflare (1.1.1.1):
     Privacy: Excellent (audited no-logs policy)
     Performance: Fastest globally
     Features: Malware blocking option (1.1.1.2)
-    # ... (additional implementation details)
+  Others:
     Performance: Good
     Features: Extensive filtering options
 ```

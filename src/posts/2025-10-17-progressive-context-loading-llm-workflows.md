@@ -39,6 +39,8 @@ Traditional LLM workflows suffer from "context obesity": stuffing every possible
 - [Progressive sparse attention](https://arxiv.org/html/2503.00392v1): Models attend to only 2-5% of input tokens for most tasks
 - **Result**: 95% of your context is computational waste, though I'm still experimenting with optimal ratios
 
+⚠️ **Warning:** This diagram illustrates LLM context loading strategies for educational purposes. Implement proper security controls and access restrictions when deploying progressive loading systems in production environments.
+
 ```mermaid
 flowchart TD
     A[Context Loading Strategy] --> B[Monolithic Load]
@@ -129,6 +131,8 @@ Three core mechanisms:
 
 **1. Modular Skill Architecture**
 
+⚠️ **Warning:** This example demonstrates skill routing configuration. When implementing in production, ensure proper validation of file patterns and security checks to prevent unauthorized access to sensitive skills or data.
+
 Each skill = self-contained markdown document with metadata declaring purpose, triggers, dependencies.
 
 ```yaml
@@ -163,6 +167,8 @@ Product matrix maps file types to required skills:
 Inspired by [semantic retention mechanisms](https://arxiv.org/abs/2505.07289): preserves critical context, discards irrelevant information. Enables constant-time lookup.
 
 **3. Dynamic Context Assembly**
+
+⚠️ **Warning:** This task flow diagram illustrates dynamic context assembly for educational purposes. Production implementations should include security validation and access control at each decision point.
 
 Task flow:
 
@@ -265,7 +271,10 @@ Three repositories (blog, standards, homelab-automation) with different file typ
 - Option A: Load all standards (wasteful)
 - Option B: Separate CLAUDE.md per repo (maintenance nightmare)
 
+⚠️ **Warning:** This multi-repository routing example is for educational purposes. Implement proper repository access controls and authentication when deploying cross-repo automation systems.
+
 **Progressive solution**: Single standards repository with per-repo routing:
+
 ```markdown
 @repository williamzujkowski.github.io
   *.md -> blog-requirements, citation-standards

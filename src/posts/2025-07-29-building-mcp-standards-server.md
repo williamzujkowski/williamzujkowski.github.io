@@ -47,18 +47,22 @@ Three weeks and several rewrites later, I have [github.com/williamzujkowski/mcp-
 
 "I'll wrap my standards in an MCP server. How hard could it be?"
 
+**Pseudocode - Simplified Initial Vision:**
 ```python
 # My naive first attempt
 class StandardsServer:
     def __init__(self):
         self.standards = load_standards()  # Easy!
-    
+
     def get_standard(self, name):
         return self.standards[name]  # Done!
 ```
 
 ### The Reality (Week 3)
 
+⚠️ **Warning:** This code illustrates over-engineering patterns for educational purposes. Implement security controls and proper authentication for production MCP servers with external access.
+
+**Pseudocode - Simplified Current Architecture:**
 ```python
 # Current reality - 6000+ lines of code later
 class MCPStandardsServer:
@@ -149,6 +153,8 @@ mcp-standards validate src/ --language auto
 - Integrates with pre-commit hooks
 
 ### Token Optimization That Actually Matters
+
+⚠️ **Warning:** This example demonstrates API optimization techniques. Implement proper authentication and rate limiting when exposing MCP servers to untrusted clients.
 
 Compressed formats reduce LLM token costs by 70-90%. This optimization strategy builds on the principles I discuss in my guide to [progressive context loading for LLM workflows](/posts/2025-10-17-progressive-context-loading-llm-workflows), where efficient token management becomes critical for complex projects:
 
@@ -247,6 +253,8 @@ cd web && ./start.sh
 **The Irony**: I use this more than the CLI now. Sometimes procrastination produces useful things.
 
 ### Performance Benchmarking Addiction
+
+⚠️ **Warning:** This benchmarking code is for development and testing purposes. Never expose benchmarking endpoints in production without proper authentication and rate limiting.
 
 Built tools to prove server speed. Discovered it was slow. Spent a week optimizing. Now: graphs!
 
