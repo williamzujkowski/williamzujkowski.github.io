@@ -107,6 +107,8 @@ I run a 3-node [K3s](https://k3s.io/) cluster on Raspberry Pi 5s (16GB each) plu
 
 **Initial attempt:** Deploy gVisor globally.
 
+⚠️ **Warning:** These commands modify system configuration. Only use in controlled lab environments with proper backups.
+
 ```bash
 # Install gVisor runtime
 curl -fsSL https://gvisor.dev/archive.key | sudo gpg --dearmor -o /usr/share/keyrings/gvisor-archive-keyring.gpg
@@ -250,6 +252,8 @@ docker run --rm --runtime=runsc alpine sh -c "echo 1 > /proc/sys/kernel/core_pat
 
 **Test 3: cgroup release_agent exploit**
 
+⚠️ **Warning:** This demonstrates a known container escape technique. Only use in isolated lab environments for educational purposes.
+
 ```bash
 # Classic container escape technique
 docker run --rm --runtime=runsc alpine sh -c "echo '/payload.sh' > /sys/fs/cgroup/memory/release_agent"
@@ -271,6 +275,8 @@ docker run --rm --runtime=runsc -v /var/run/docker.sock:/var/run/docker.sock doc
 **Mitigation:** Don't mount Docker sockets. Use least-privilege service accounts.
 
 **Test 5: Dirty Pipe (CVE-2022-0847) attempt**
+
+⚠️ **Warning:** This tests a known kernel vulnerability (CVE-2022-0847). Only use in isolated lab environments for educational purposes.
 
 ```bash
 # Attempt to exploit pipe write vulnerability

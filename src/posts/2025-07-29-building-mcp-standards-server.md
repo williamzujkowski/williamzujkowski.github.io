@@ -65,6 +65,7 @@ class StandardsServer:
 **Pseudocode - Simplified Current Architecture:**
 ```python
 # Current reality - 6000+ lines of code later
+# Simplified representation showing core components
 class MCPStandardsServer:
     def __init__(self):
         self.rule_engine = RuleEngine()
@@ -73,7 +74,7 @@ class MCPStandardsServer:
         self.analyzers = MultiLanguageAnalyzerFactory()
         self.compliance_mapper = NISTComplianceEngine()
         self.token_optimizer = CompressionStrategy()
-        # ... 47 more components
+        # Plus 47 additional components for full functionality
 ```
 
 Yeah, it got away from me a bit.
@@ -115,6 +116,8 @@ Despite my scope creep, some genuinely useful stuff emerged:
 ### Intelligent Standard Selection
 
 Context-aware rule engine eliminates manual standard selection:
+
+⚠️ **Warning:** This demonstrates API usage patterns. Implement proper input validation and security controls for production deployments.
 
 ```python
 context = {
@@ -366,6 +369,8 @@ The honest status:
 If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB:
 
 **AI skepticism note:** MCP is bleeding-edge technology from Anthropic. The spec changes. The libraries break. The examples in the docs don't always work. Building production systems on top of experimental protocols is a recipe for midnight debugging sessions.
+
+⚠️ **Warning:** These installation commands modify system packages. Use isolated environments (virtual environments, containers) to avoid conflicts.
 
 ```bash
 # The optimistic quick start

@@ -361,6 +361,8 @@ Use embeddings to auto-discover skill relationships. Loading `python/type-safety
 
 **Future vision**:
 
+⚠️ **Warning:** This diagram represents a conceptual architecture requiring significant ML infrastructure (RL training, embedding models, semantic search). Only implement with proper resource planning.
+
 ```mermaid
 flowchart TD
     A[Task: Validate Python File] --> B{Learned Router}
@@ -409,6 +411,8 @@ My audit: 47 topics in one file, which seemed like an obvious modularization tar
 
 Create skills directory, split by logical boundaries. Target 1,000-3,000 tokens each.
 
+⚠️ **Warning:** These commands create directory structures and files. Ensure proper backup before modifying existing documentation systems.
+
 ```bash
 mkdir -p skills/{enforcement,reference,workflow}
 cat > skills/enforcement/python/code-quality.md << 'EOF'
@@ -423,6 +427,8 @@ EOF
 ```
 
 **Step 3: Create Product Matrix**
+
+⚠️ **Warning:** This configuration file controls context loading behavior. Test thoroughly before deploying to production LLM workflows.
 
 ```yaml
 # product-matrix.md
