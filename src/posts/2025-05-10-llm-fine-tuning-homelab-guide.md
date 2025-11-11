@@ -1,6 +1,6 @@
 ---
 date: '2025-05-10'
-description: Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization—train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.
+description: Fine-tune LLMs on homelab hardware with QLoRA and 4-bit quantization. Train Llama 3 8B models on RTX 3090 with dataset prep and optimization strategies.
 images:
   hero:
     alt: 'Fine-Tuning LLMs in the Homelab: A Practical Guide - Hero Image'
@@ -85,28 +85,25 @@ I'm running an Intel i9-9900K with 64GB DDR4 RAM and an NVIDIA RTX 3090 (24GB VR
 
 ### GPU Requirements
 
-During my March 2025 testing, GPU temperatures peaked at 84°C during training, which caused mild thermal throttling that extended my training run by approximately 47 minutes. I added two Noctua NF-A12x25 fans to my case, which reduced peak temperatures to 76°C and eliminated throttling.
+During March 2025 testing, GPU temperatures peaked at 84°C during training, causing mild thermal throttling that extended my training run by approximately 47 minutes. Adding two Noctua NF-A12x25 fans reduced peak temperatures to 76°C and eliminated throttling.
 
-Key specifications to consider:
+Key GPU specifications to consider:
 
-- **VRAM Capacity**: Determines maximum model size you can train. My 24GB enables Llama 3 8B with QLoRA, but I couldn't fit Llama 3 70B even with aggressive quantization.
-- **Compute Capability**: My RTX 3090 (compute capability 8.6) processes approximately 1,247 tokens per second during training.
+- **VRAM Capacity**: Determines maximum model size you can train (my 24GB enables Llama 3 8B with QLoRA, but couldn't fit Llama 3 70B even with aggressive quantization)
+- **Compute Capability**: My RTX 3090 (compute capability 8.6) processes approximately 1,247 tokens per second during training
 - **Thermal Design**: Sustained loads differ dramatically from gaming workloads. Plan for 8-14 hour continuous training runs.
-- **Power Consumption**: My training runs averaged 340W, with peaks up to 370W. Factor in electricity costs.
+- **Power Consumption**: My training runs averaged 340W, with peaks up to 370W (factor in electricity costs)
 
 Before diving into fine-tuning, ensure you have a proper [privacy-first AI lab setup](/posts/2025-10-29-privacy-first-ai-lab-local-llms) with network isolation, monitoring, and security controls – training exposes your models to the same privacy risks as inference.
 
 ### Memory Optimization Strategies
 
-Several techniques help maximize effective VRAM utilization. I've used all of these at various points.
+Several techniques help maximize effective VRAM utilization:
 
-**Gradient Checkpointing**: Trades computation for memory by recomputing activations during backward pass rather than storing them. This increased my training time by approximately 23% but reduced VRAM usage by 4.1GB. The trade-off is worth it when you're hitting memory limits.
-
-**Mixed Precision Training**: I use BF16 for most operations while maintaining FP32 precision for critical computations. This reduced my VRAM footprint by roughly 30% compared to full FP32 training, with no measurable quality loss in my validation metrics.
-
-**Gradient Accumulation**: I process smaller batches and accumulate gradients over 4 steps before updating weights. This simulates an effective batch size of 32 while only requiring memory for batch size 8. Training stability improved noticeably compared to my initial attempts with effective batch size 4.
-
-**Model Offloading**: I tried offloading inactive parameters to CPU memory during training. This worked but increased training time by approximately 3.2x, which seemed impractical for my 8B model. This approach may be more suitable for 30B+ models where VRAM is the primary bottleneck.
+- **Gradient Checkpointing**: Trades computation for memory by recomputing activations during backward pass rather than storing them (increased my training time by approximately 23% but reduced VRAM usage by 4.1GB, worth it when hitting memory limits)
+- **Mixed Precision Training**: I use BF16 for most operations while maintaining FP32 precision for critical computations (reduced my VRAM footprint by roughly 30% compared to full FP32 training, with no measurable quality loss)
+- **Gradient Accumulation**: I process smaller batches and accumulate gradients over 4 steps before updating weights (simulates effective batch size of 32 while only requiring memory for batch size 8, and training stability improved noticeably)
+- **Model Offloading**: Offloading inactive parameters to CPU memory during training worked but increased training time by approximately 3.2x (impractical for my 8B model, may suit 30B+ models where VRAM is the primary bottleneck)
 
 ## Dataset Preparation and Quality
 
@@ -178,13 +175,10 @@ The diminishing returns above r=16 weren't worth the memory cost for my use case
 
 I track these metrics obsessively during training after learning from early failures:
 
-**Training Loss**: Should decrease steadily. My successful runs show smooth exponential decay from around 2.8 down to 0.7-0.9. Erratic behavior (which I saw in my learning rate 2e-3 disaster) suggests the learning rate is too high or data has quality issues.
-
-**Validation Loss**: This saved me from deploying a badly overfit model in late March. My validation loss started increasing at epoch 3.2 while training loss kept dropping. I now use early stopping with patience of 0.5 epochs.
-
-**GPU Metrics**: I monitor temperature, power consumption, and memory usage via nvidia-smi every 30 seconds. Before adding better cooling, thermal throttling extended my training run by roughly 47 minutes. Power consumption averaging 340W at $0.13/kWh means each 14-hour training run costs approximately $8.40.
-
-**Throughput**: I process roughly 1,247 tokens per second during training with my current configuration. This helps me estimate total training time. My 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput.
+- **Training Loss**: Should decrease steadily (my successful runs show smooth exponential decay from around 2.8 down to 0.7-0.9, and erratic behavior suggests learning rate is too high or data has quality issues)
+- **Validation Loss**: Saved me from deploying a badly overfit model in late March (my validation loss started increasing at epoch 3.2 while training loss kept dropping, so I now use early stopping with patience of 0.5 epochs)
+- **GPU Metrics**: I monitor temperature, power consumption, and memory usage via nvidia-smi every 30 seconds (before adding better cooling, thermal throttling extended my training run by roughly 47 minutes, and power consumption averaging 340W at $0.13/kWh means each 14-hour training run costs approximately $8.40)
+- **Throughput**: I process roughly 1,247 tokens per second during training with my current configuration (helps me estimate total training time, as my 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput)
 
 ## Practical Challenges and Solutions
 
@@ -321,17 +315,13 @@ The trade-off isn't worth it for my use case, but may be valuable for critical a
 
 ## Common Mistakes to Avoid
 
-Learn from my failures to save yourself time and electricity costs:
+Learn from my failures to save time and electricity costs:
 
-**Using insufficient or poor quality data**: My initial 847-example dataset produced a model worse than baseline in several areas. Investing 2 weeks to curate 3,400 quality examples was time well spent. The quality difference was dramatic.
-
-**Not monitoring validation metrics**: I trained my second model for 6 epochs without watching validation loss. The resulting overfit model memorized training data and performed poorly on new inputs. This wasted 11 hours and roughly $6.50 in electricity.
-
-**Inappropriate learning rates**: My learning rate 2e-3 disaster diverged after 840 steps. Learning rate 1e-6 barely trained after 8 hours. Finding the right range (1e-4 to 5e-5 for my setup) required experimentation but was critical.
-
-**Ignoring base model capabilities**: I tried fine-tuning Llama 3 8B to generate highly specialized medical terminology, a domain where the base model had minimal knowledge. Results were poor no matter how much I tweaked hyperparameters. Fine-tuning works best when building on existing capabilities.
-
-**Skipping systematic evaluation**: Casual testing of my March model missed the fact that it occasionally fabricated technical details. Creating a proper 200-example test set with manual review revealed this issue before deployment.
+- **Using insufficient or poor quality data**: My initial 847-example dataset produced a model worse than baseline in several areas (investing 2 weeks to curate 3,400 quality examples was time well spent, and the quality difference was dramatic)
+- **Not monitoring validation metrics**: I trained my second model for 6 epochs without watching validation loss (the resulting overfit model memorized training data and performed poorly on new inputs, wasting 11 hours and roughly $6.50 in electricity)
+- **Inappropriate learning rates**: My learning rate 2e-3 disaster diverged after 840 steps, while learning rate 1e-6 barely trained after 8 hours (finding the right range, 1e-4 to 5e-5 for my setup, required experimentation but was critical)
+- **Ignoring base model capabilities**: I tried fine-tuning Llama 3 8B to generate highly specialized medical terminology, a domain where the base model had minimal knowledge (results were poor no matter how much I tweaked hyperparameters, and fine-tuning works best when building on existing capabilities)
+- **Skipping systematic evaluation**: Casual testing of my March model missed the fact that it occasionally fabricated technical details (creating a proper 200-example test set with manual review revealed this issue before deployment)
 
 ## Future Directions
 

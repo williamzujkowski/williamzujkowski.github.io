@@ -186,11 +186,11 @@ Here's a practical monitoring setup I use in my home lab for real-time packet an
 
 After months of IoT security testing, here are my key takeaways:
 
-1. **Never trust IoT devices**: Assume they're compromised and segment accordingly
-2. **Update or isolate**: If a device can't be updated, it shouldn't have internet access. Encryption is optional to manufacturers. You'll need to implement your own protection via VPN or proxy.
-3. **Monitor everything**: IoT devices are chatty. Sudden silence or excessive noise indicates problems
-4. **Default credentials are everywhere**: Always change them, even on "professional" equipment. I've learned this the hard way multiple times.
-5. **VLAN segmentation is essential but frustrating**: You'll spend hours troubleshooting why devices can't talk to each other, then realize that's exactly what you configured them to do
+- **Never trust IoT devices**: Assume they're compromised and segment accordingly
+- **Update or isolate**: If a device can't be updated, it shouldn't have internet access (encryption is optional to manufacturers; implement your own protection via VPN or proxy)
+- **Monitor everything**: IoT devices are chatty—sudden silence or excessive noise indicates problems
+- **Default credentials are everywhere**: Always change them, even on "professional" equipment (I've learned this the hard way multiple times)
+- **VLAN segmentation is essential but frustrating**: You'll spend hours troubleshooting why devices can't talk to each other, then realize that's exactly what you configured them to do
 
 The biggest lesson? Perfect security makes devices unusable. Usable devices have security gaps. You have to find your own comfort zone somewhere in the middle.
 
@@ -198,11 +198,11 @@ The biggest lesson? Perfect security makes devices unusable. Usable devices have
 
 Ready to dive deeper? Here's your roadmap:
 
-1. **Set up IoTGoat** in an isolated environment. Start simple. I spent 4 hours troubleshooting Docker networking before realizing I needed bridge mode.
-2. **Practice the OWASP IoT Top 10** vulnerabilities. Theory is nice **but** hands-on experience teaches you what actually matters.
-3. **Analyze your own IoT devices** (legally and ethically). You'll probably be horrified by what you find. Consider [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects) for affordable testing platforms.
-4. **Implement network segmentation** if you haven't already. It's tedious **but** worth the effort.
-5. **Build automated monitoring** for your IoT network. You can't secure what you can't see.
+- **Set up IoTGoat** in an isolated environment (start simple; I spent 4 hours troubleshooting Docker networking before realizing I needed bridge mode)
+- **Practice the OWASP IoT Top 10** vulnerabilities (theory is nice, but hands-on experience teaches you what actually matters)
+- **Analyze your own IoT devices** legally and ethically (you'll probably be horrified by what you find; consider [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects) for affordable testing platforms)
+- **Implement network segmentation** if you haven't already (it's tedious but worth the effort)
+- **Build automated monitoring** for your IoT network (you can't secure what you can't see)
 
 Remember: in IoT security, paranoia is just good planning. Or maybe it's overkill. I'm still figuring that out.
 
