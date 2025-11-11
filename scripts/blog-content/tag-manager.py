@@ -4,17 +4,17 @@ SCRIPT: tag-manager.py
 PURPOSE: Tag Strategy Management - Analyze, consolidate, and optimize blog post tags
 CATEGORY: blog_content
 LLM_READY: True
-VERSION: 1.0.0
+VERSION: 2.0.0
 UPDATED: 2025-11-11
 
 DESCRIPTION:
     Manages tag strategy across all blog posts to improve discoverability and SEO:
     - Audits current tag distribution and usage patterns
-    - Identifies consolidation opportunities (plurals, synonyms, similar terms)
+    - Applies tag consolidation using research-backed mapping (120 → 44 tags)
     - Enforces 3-5 tags per post guideline (blog-patterns.md standard)
     - Validates tag consistency and naming conventions
     - Generates quality scores and actionable recommendations
-    - Applies tag strategy changes with dry-run support
+    - Auto-suggests tags from content for posts without tags
 
     Target: 3-5 tags/post for optimal SEO and user navigation
     Focus: Technical accuracy, discoverability, and consistency
@@ -24,8 +24,9 @@ LLM_USAGE:
 
 ARGUMENTS:
     --audit: Analyze current tag distribution and usage
-    --consolidate: Suggest tag consolidation opportunities
-    --apply: Apply recommended tag strategy to posts
+    --consolidate: Apply tag consolidation using mapping file
+    --consolidation-map PATH: Path to consolidation map JSON (default: tmp/tag-consolidation-map.json)
+    --apply-suggestions: Apply auto-suggested tags to posts without tags
     --post PATH: Analyze/update single post
     --batch: Process all posts in src/posts/
     --dry-run: Preview changes without writing to files
@@ -38,32 +39,48 @@ EXAMPLES:
     # Audit current tag usage across all posts
     python scripts/blog-content/tag-manager.py --audit --batch
 
-    # Identify consolidation opportunities
-    python scripts/blog-content/tag-manager.py --consolidate --batch --csv reports/tag-consolidation.csv
+    # Preview consolidation (dry-run)
+    python scripts/blog-content/tag-manager.py --consolidate --dry-run --batch
 
-    # Preview tag strategy changes (dry-run)
-    python scripts/blog-content/tag-manager.py --apply --batch --dry-run
+    # Apply consolidation
+    python scripts/blog-content/tag-manager.py --consolidate --batch
 
-    # Apply tag strategy to single post
-    python scripts/blog-content/tag-manager.py --apply --post src/posts/welcome.md
+    # Apply suggestions to posts without tags
+    python scripts/blog-content/tag-manager.py --consolidate --apply-suggestions --batch
 
-    # Full workflow: audit + consolidate + apply
-    python scripts/blog-content/tag-manager.py --audit --consolidate --apply --batch
+    # Verify results
+    python scripts/blog-content/tag-manager.py --audit --batch
+
+CONSOLIDATION WORKFLOW:
+    1. Audit current state:
+       python scripts/blog-content/tag-manager.py --audit --batch
+
+    2. Preview consolidation (dry-run):
+       python scripts/blog-content/tag-manager.py --consolidate --dry-run --batch
+
+    3. Apply consolidation:
+       python scripts/blog-content/tag-manager.py --consolidate --batch
+
+    4. Apply suggestions to posts without tags:
+       python scripts/blog-content/tag-manager.py --consolidate --apply-suggestions --batch
+
+    5. Verify results:
+       python scripts/blog-content/tag-manager.py --audit --batch
 
 OUTPUT:
     - Tag distribution statistics (frequency, co-occurrence patterns)
     - Posts violating 3-5 tag guideline with recommendations
-    - Consolidation suggestions (plural→singular, synonyms, merges)
+    - Consolidation results (120 → 44 tags, 63.3% reduction)
     - Quality scores per post (0-100 based on tag strategy compliance)
     - CSV report with detailed metrics
-    - Applied changes summary (if --apply used)
+    - Applied changes summary
 
-TAG STRATEGY PATTERNS:
-    - Plural→Singular: "containers" → "container"
-    - Synonym consolidation: "machine-learning" ↔ "ml" → "machine-learning"
-    - Category standardization: "k8s" → "kubernetes"
-    - Hyphenation consistency: "machine_learning" → "machine-learning"
-    - Case normalization: "Docker" → "docker"
+TAG CONSOLIDATION PATTERNS:
+    - Direct 1:1: "cybersecurity" → "security"
+    - Synonym merge: "ai-ml" → "ai"
+    - Technology consolidation: "containers" → "docker"
+    - Category standardization: "pytorch" → "machine-learning"
+    - Deprecated removal: "posts", "projects"
 
 QUALITY SCORING (0-100):
     - Tag count compliance (3-5): +40 points
@@ -104,7 +121,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
 from logging_config import setup_logger
 
 # Configuration
-VERSION = "1.0.0"
+VERSION = "2.0.0"
 POSTS_DIR = Path("src/posts")
 REPORT_DIR = Path("docs/reports")
 MIN_TAGS = 3
@@ -146,6 +163,9 @@ class TagManager:
         self.tag_co_occurrence: Dict[str, Counter] = defaultdict(Counter)
         self.post_tags: Dict[str, List[str]] = {}  # filename -> tags
         self.all_tags: Set[str] = set()
+
+        # Consolidation state
+        self.consolidation_map: Optional[Dict[str, any]] = None
 
     def extract_frontmatter(self, content: str) -> Tuple[Optional[Dict], str, str]:
         """
@@ -204,6 +224,329 @@ class TagManager:
             return [tags.lower().strip()]
 
         return []
+
+    def load_consolidation_map(self, map_path: str) -> Dict[str, any]:
+        """
+        Load and validate tag consolidation mapping.
+
+        Args:
+            map_path: Path to consolidation map JSON
+
+        Returns:
+            Dict with consolidations, deprecated, canonical_tags, taxonomy
+
+        Raises:
+            FileNotFoundError: If map file doesn't exist
+            ValueError: If JSON invalid or missing required keys
+        """
+        map_file = Path(map_path)
+        if not map_file.exists():
+            raise FileNotFoundError(f"Consolidation map not found: {map_path}")
+
+        try:
+            with open(map_file, 'r') as f:
+                consolidation_map = json.load(f)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON in consolidation map: {e}")
+
+        # Validate required keys
+        required_keys = ['consolidations', 'deprecated', 'canonical_tags', 'taxonomy']
+        missing = [k for k in required_keys if k not in consolidation_map]
+        if missing:
+            raise ValueError(f"Consolidation map missing required keys: {missing}")
+
+        self.logger.info(f"Loaded consolidation map: {len(consolidation_map['consolidations'])} rules, "
+                        f"{len(consolidation_map['canonical_tags'])} canonical tags")
+
+        self.consolidation_map = consolidation_map
+        return consolidation_map
+
+    def consolidate_tags(self, tags: List[str]) -> Tuple[List[str], List[str]]:
+        """
+        Apply consolidation rules to tag list.
+
+        Args:
+            tags: Original tag list from post
+
+        Returns:
+            Tuple of (consolidated_tags, changes_made)
+            - consolidated_tags: List of canonical tags
+            - changes_made: List of change descriptions (for logging/reporting)
+
+        Logic:
+            1. Normalize tags (lowercase, strip whitespace)
+            2. Apply consolidation rules (map old → new)
+            3. Remove deprecated tags
+            4. Remove duplicates (after consolidation)
+            5. Sort alphabetically
+            6. Validate all tags are canonical
+        """
+        if not self.consolidation_map:
+            raise ValueError("Consolidation map not loaded. Call load_consolidation_map() first.")
+
+        self.logger.debug(f"consolidate_tags called with: {tags}")
+
+        if not tags:
+            self.logger.debug("No tags to consolidate, returning empty lists")
+            return [], []
+
+        consolidations = self.consolidation_map['consolidations']
+        deprecated = self.consolidation_map['deprecated']
+        canonical_tags = self.consolidation_map['canonical_tags']
+
+        changes = []
+        result_tags = []
+
+        for tag in tags:
+            # Normalize
+            normalized = tag.lower().strip()
+
+            # Check if deprecated
+            if normalized in deprecated:
+                changes.append(f"Removed deprecated tag: {normalized}")
+                continue
+
+            # Apply consolidation rule
+            if normalized in consolidations:
+                new_tag = consolidations[normalized]
+                changes.append(f"Consolidated {normalized} → {new_tag}")
+                result_tags.append(new_tag)
+            else:
+                # Keep as-is if already canonical
+                if normalized in canonical_tags:
+                    result_tags.append(normalized)
+                else:
+                    # Unrecognized tag (not in map), keep but warn
+                    self.logger.warning(f"Unrecognized tag (not in consolidation map): {normalized}")
+                    result_tags.append(normalized)
+
+        # Remove duplicates (can occur after consolidation)
+        unique_tags = []
+        seen = set()
+        for tag in result_tags:
+            if tag not in seen:
+                unique_tags.append(tag)
+                seen.add(tag)
+            else:
+                changes.append(f"Removed duplicate: {tag}")
+
+        # Sort alphabetically
+        unique_tags.sort()
+
+        self.logger.debug(f"Returning consolidated_tags={unique_tags}, changes={changes}")
+        result = (unique_tags, changes)
+        self.logger.debug(f"Result type: {type(result)}, Result: {result}")
+        return result
+
+    def suggest_tags_from_content(self, post_path: str, max_suggestions: int = 5) -> List[str]:
+        """
+        Extract tag suggestions from post content.
+
+        Args:
+            post_path: Path to markdown post
+            max_suggestions: Maximum tags to suggest (default 5)
+
+        Returns:
+            List of suggested canonical tags
+
+        Logic:
+            1. Read post frontmatter and content
+            2. Extract keywords from title and meta description
+            3. Match keywords against taxonomy categories
+            4. Parse code block language tags (Python → python)
+            5. Rank suggestions by confidence
+            6. Return top N suggestions (3-5 target)
+        """
+        if not self.consolidation_map:
+            raise ValueError("Consolidation map not loaded. Call load_consolidation_map() first.")
+
+        try:
+            with open(post_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            self.logger.error(f"Failed to read post {post_path}: {e}")
+            return []
+
+        suggestions = []
+        confidence_scores = {}
+
+        # Extract frontmatter
+        if content.startswith('---'):
+            parts = content.split('---', 2)
+            if len(parts) >= 3:
+                frontmatter_text = parts[1]
+                body = parts[2]
+
+                # Extract title
+                title_match = re.search(r'title:\s*["\']?(.+?)["\']?\s*$', frontmatter_text, re.MULTILINE)
+                title = title_match.group(1).lower() if title_match else ""
+
+                # Extract description
+                desc_match = re.search(r'description:\s*["\']?(.+?)["\']?\s*$', frontmatter_text, re.MULTILINE)
+                description = desc_match.group(1).lower() if desc_match else ""
+
+                # Combine search text
+                search_text = f"{title} {description}"
+
+                # Match against canonical tags (keyword matching)
+                canonical_tags = self.consolidation_map['canonical_tags']
+                for tag in canonical_tags:
+                    # Simple keyword matching (can be improved with fuzzy matching)
+                    tag_keywords = tag.replace('-', ' ').split()
+                    matches = sum(1 for keyword in tag_keywords if keyword in search_text)
+                    if matches > 0:
+                        confidence_scores[tag] = matches
+
+                # Parse code blocks for language tags
+                code_langs = re.findall(r'```(\w+)', body)
+                lang_map = {
+                    'python': 'python', 'py': 'python',
+                    'javascript': 'javascript', 'js': 'javascript',
+                    'bash': 'bash', 'shell': 'bash',
+                    'yaml': 'devops', 'yml': 'devops',
+                    'dockerfile': 'docker'
+                }
+                for lang in set(code_langs):
+                    mapped = lang_map.get(lang.lower())
+                    if mapped and mapped in canonical_tags:
+                        confidence_scores[mapped] = confidence_scores.get(mapped, 0) + 2
+
+        # Sort by confidence and take top N
+        sorted_suggestions = sorted(confidence_scores.items(), key=lambda x: x[1], reverse=True)
+        suggestions = [tag for tag, score in sorted_suggestions[:max_suggestions]]
+
+        self.logger.info(f"Generated {len(suggestions)} tag suggestions for {Path(post_path).name}")
+        return suggestions
+
+    def update_frontmatter_tags(self, frontmatter_text: str, tags: List[str]) -> str:
+        """
+        Update tags field in YAML frontmatter.
+
+        Args:
+            frontmatter_text: Original frontmatter string
+            tags: New tag list
+
+        Returns:
+            Updated frontmatter string
+        """
+        # Remove existing tags section (both array and list formats)
+        lines = frontmatter_text.split('\n')
+        new_lines = []
+        in_tags = False
+
+        for line in lines:
+            if line.startswith('tags:'):
+                in_tags = True
+                continue
+            elif in_tags and (line.startswith('  -') or line.startswith('- ')):
+                continue
+            elif in_tags and line.strip() and not line.startswith(' '):
+                in_tags = False
+
+            if not in_tags:
+                new_lines.append(line)
+
+        # Add new tags section (YAML list format)
+        tags_section = 'tags:\n' + '\n'.join(f'  - {tag}' for tag in tags)
+
+        # Insert before last line (usually empty)
+        if new_lines and not new_lines[-1].strip():
+            new_lines.insert(-1, tags_section)
+        else:
+            new_lines.append(tags_section)
+
+        return '\n'.join(new_lines)
+
+    def apply_consolidation_to_post(self, post_path: str, dry_run: bool = False,
+                                   apply_suggestions: bool = False) -> Dict[str, any]:
+        """
+        Consolidate tags for single post and optionally write back.
+
+        Args:
+            post_path: Path to markdown post
+            dry_run: If True, don't write files (preview only)
+            apply_suggestions: If True, suggest tags for posts without tags
+
+        Returns:
+            Dict with:
+                - original_tags: List[str]
+                - consolidated_tags: List[str]
+                - changes: List[str] (descriptions of changes)
+                - compliant: bool (3-5 tag target met)
+                - suggestion_applied: bool
+        """
+        if not self.consolidation_map:
+            raise ValueError("Consolidation map not loaded. Call load_consolidation_map() first.")
+
+        # Read post
+        try:
+            with open(post_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            self.logger.error(f"Failed to read post {post_path}: {e}")
+            return {'error': str(e)}
+
+        # Extract frontmatter
+        if not content.startswith('---'):
+            self.logger.warning(f"Post missing frontmatter: {post_path}")
+            return {'error': 'No frontmatter'}
+
+        parts = content.split('---', 2)
+        if len(parts) < 3:
+            self.logger.warning(f"Invalid frontmatter structure: {post_path}")
+            return {'error': 'Invalid frontmatter'}
+
+        frontmatter_text = parts[1]
+        body = parts[2]
+
+        # Parse frontmatter to get current tags
+        try:
+            frontmatter_dict = yaml.safe_load(frontmatter_text)
+            if frontmatter_dict is None:
+                frontmatter_dict = {}
+        except yaml.YAMLError as e:
+            self.logger.error(f"YAML parse error in {post_path}: {e}")
+            return {'error': f'YAML parse error: {e}'}
+
+        # Extract current tags
+        original_tags = self.parse_tags(frontmatter_dict)
+
+        # Decide: consolidate or suggest
+        if not original_tags and apply_suggestions:
+            # Suggest tags from content
+            suggested_tags = self.suggest_tags_from_content(post_path)
+            consolidated_tags = suggested_tags
+            changes = [f"Suggested {len(suggested_tags)} tags from content"]
+            suggestion_applied = True
+        else:
+            # Consolidate existing tags
+            consolidated_tags, changes = self.consolidate_tags(original_tags)
+            suggestion_applied = False
+
+        # Validate compliance (3-5 tags)
+        compliant = MIN_TAGS <= len(consolidated_tags) <= MAX_TAGS
+
+        # Write back if not dry-run
+        if not dry_run and (original_tags != consolidated_tags):
+            # Update frontmatter with new tags
+            updated_frontmatter = self.update_frontmatter_tags(frontmatter_text, consolidated_tags)
+            updated_content = f"---\n{updated_frontmatter}\n---{body}"
+
+            try:
+                with open(post_path, 'w', encoding='utf-8') as f:
+                    f.write(updated_content)
+                self.logger.info(f"Updated tags in {Path(post_path).name}")
+            except Exception as e:
+                self.logger.error(f"Failed to write post {post_path}: {e}")
+                return {'error': str(e)}
+
+        return {
+            'original_tags': original_tags,
+            'consolidated_tags': consolidated_tags,
+            'changes': changes,
+            'compliant': compliant,
+            'suggestion_applied': suggestion_applied
+        }
 
     def analyze_tag_distribution(self, posts: List[Path]) -> Dict:
         """
@@ -387,9 +730,9 @@ class TagManager:
         # TODO: Implement after researcher provides baseline
         pass
 
-    def consolidate_tags(self, posts: List[Path], dry_run: bool = True) -> Dict:
+    def consolidate_tags_batch(self, posts: List[Path], dry_run: bool = True) -> Dict:
         """
-        Apply tag consolidation strategy.
+        Apply tag consolidation strategy (DEPRECATED - use apply_consolidation_to_post).
 
         Args:
             posts: List of post file paths
@@ -398,8 +741,8 @@ class TagManager:
         Returns:
             Consolidation results dict
         """
-        # TODO: Implement after researcher provides baseline
-        pass
+        # Deprecated method - functionality moved to apply_consolidation_to_post
+        raise NotImplementedError("Use apply_consolidation_to_post instead")
 
     def apply_tag_strategy(self, filepath: Path, new_tags: List[str], dry_run: bool = True) -> bool:
         """
@@ -455,19 +798,22 @@ Examples:
   # Audit current tag usage
   %(prog)s --audit --batch
 
-  # Identify consolidation opportunities
-  %(prog)s --consolidate --batch --csv reports/tag-consolidation.csv
+  # Preview consolidation (dry-run)
+  %(prog)s --consolidate --dry-run --batch
 
-  # Preview tag strategy changes
-  %(prog)s --apply --batch --dry-run
+  # Apply consolidation
+  %(prog)s --consolidate --batch
 
-  # Apply strategy to single post
-  %(prog)s --apply --post src/posts/welcome.md
+  # Apply consolidation to single post
+  %(prog)s --consolidate --post src/posts/example.md
         """
     )
     parser.add_argument('--audit', action='store_true', help='Analyze current tag distribution')
-    parser.add_argument('--consolidate', action='store_true', help='Suggest tag consolidation')
-    parser.add_argument('--apply', action='store_true', help='Apply tag strategy changes')
+    parser.add_argument('--consolidate', action='store_true', help='Apply tag consolidation using mapping file')
+    parser.add_argument('--consolidation-map', default='tmp/tag-consolidation-map.json',
+                       help='Path to consolidation map JSON (default: tmp/tag-consolidation-map.json)')
+    parser.add_argument('--apply-suggestions', action='store_true',
+                       help='Apply auto-suggested tags to posts without tags')
     parser.add_argument('--post', type=Path, help='Analyze/update single post')
     parser.add_argument('--batch', action='store_true', help='Process all posts')
     parser.add_argument('--dry-run', action='store_true', help='Preview changes without writing')
@@ -510,19 +856,96 @@ Examples:
             logger.info(f"CSV output not yet implemented")
 
     if args.consolidate:
-        logger.info("Identifying consolidation opportunities...")
-        # TODO: Implement consolidation logic
-        logger.info("Consolidation analysis not yet implemented")
+        try:
+            # Load consolidation map
+            consolidation_map = manager.load_consolidation_map(args.consolidation_map)
 
-    if args.apply:
-        logger.info("Applying tag strategy changes...")
-        if args.dry_run:
-            logger.info("DRY RUN MODE - No files will be modified")
-        # TODO: Implement apply logic
-        logger.info("Tag application not yet implemented")
+            if args.dry_run:
+                logger.info("DRY RUN MODE - No files will be modified")
 
-    if not (args.audit or args.consolidate or args.apply):
-        logger.warning("No action specified. Use --audit, --consolidate, or --apply")
+            if args.batch:
+                # Process all posts
+                logger.info(f"Processing {len(posts)} posts...")
+
+                results = []
+                for post in posts:
+                    try:
+                        result = manager.apply_consolidation_to_post(
+                            str(post),
+                            dry_run=args.dry_run,
+                            apply_suggestions=args.apply_suggestions
+                        )
+                        if result is None:
+                            result = {'error': 'Unknown error - returned None'}
+                        results.append((post.name, result))
+                    except Exception as e:
+                        logger.error(f"Failed to process {post.name}: {e}")
+                        results.append((post.name, {'error': str(e)}))
+
+                # Report results
+                compliant_count = sum(1 for _, r in results if r.get('compliant'))
+                changed_count = sum(1 for _, r in results if r.get('changes'))
+                suggestion_count = sum(1 for _, r in results if r.get('suggestion_applied'))
+                error_count = sum(1 for _, r in results if 'error' in r)
+
+                logger.info("\n" + "="*70)
+                logger.info("CONSOLIDATION RESULTS")
+                logger.info("="*70)
+                logger.info(f"\n📊 Overall Statistics:")
+                logger.info(f"   Posts processed: {len(results)}")
+                logger.info(f"   Posts changed: {changed_count}")
+                logger.info(f"   Posts with suggestions applied: {suggestion_count}")
+                logger.info(f"   Posts compliant (3-5 tags): {compliant_count}/{len(results)} ({100*compliant_count/len(results):.1f}%)")
+                if error_count > 0:
+                    logger.warning(f"   Posts with errors: {error_count}")
+
+                # Show detailed changes for verbose mode
+                if args.verbose:
+                    logger.info(f"\n📝 Detailed Changes:")
+                    for post_name, result in results:
+                        if result.get('changes'):
+                            logger.info(f"\n   {post_name}:")
+                            logger.info(f"      Original tags: {result.get('original_tags', [])}")
+                            logger.info(f"      Consolidated tags: {result.get('consolidated_tags', [])}")
+                            for change in result.get('changes', []):
+                                logger.info(f"      - {change}")
+
+                logger.info("\n" + "="*70)
+
+            elif args.post:
+                # Process single post
+                try:
+                    result = manager.apply_consolidation_to_post(
+                        str(args.post),
+                        dry_run=args.dry_run,
+                        apply_suggestions=args.apply_suggestions
+                    )
+
+                    if result is None:
+                        logger.error("apply_consolidation_to_post returned None")
+                        return 1
+
+                    logger.info(f"\nPost: {args.post.name}")
+                    logger.info(f"  Original tags: {result.get('original_tags', [])}")
+                    logger.info(f"  Consolidated tags: {result.get('consolidated_tags', [])}")
+                    logger.info(f"  Changes: {len(result.get('changes', []))}")
+                    for change in result.get('changes', []):
+                        logger.info(f"    - {change}")
+                    logger.info(f"  Compliant: {'YES' if result.get('compliant') else 'NO'}")
+                    if result.get('suggestion_applied'):
+                        logger.info(f"  Suggestions applied: YES")
+                except Exception as e:
+                    import traceback
+                    logger.error(f"Failed to process post: {e}")
+                    logger.error(traceback.format_exc())
+                    return 1
+
+        except Exception as e:
+            logger.error(f"Consolidation failed: {e}")
+            return 1
+
+    if not (args.audit or args.consolidate):
+        logger.warning("No action specified. Use --audit or --consolidate")
         parser.print_help()
         return 1
 
