@@ -79,7 +79,7 @@ Academic grants rarely cover full computational costs of modern AI research. Cho
 
 **Hardware Limitations:**
 
-Most researchers work with consumer-grade GPUs (RTX 3060/3090) rather than A100 clusters. 8 to 24GB VRAM versus enterprise 80GB limits model sizes and batch sizes. CPU-only configurations force creative optimization strategies.
+Most researchers work with consumer-grade GPUs (RTX 3060/3090) instead of A100 clusters. 8 to 24GB VRAM versus enterprise 80GB limits model sizes and batch sizes. CPU-only configurations force creative optimization strategies.
 
 Single-machine training versus distributed systems changes architectural decisions. RAM constraints (16-64GB typical) clash with models requiring 100GB+ for training. Storage becomes a bottleneck when datasets measure terabytes but available SSD space is limited.
 
@@ -89,14 +89,14 @@ Single-machine training versus distributed systems changes architectural decisio
 - Personal electricity bills spike $200-$500/month during intensive training
 - Datacenter cooling requirements double or triple base power consumption
 - Environmental impact increasingly scrutinized by academic review boards
-- Sustainable AI becoming ethical requirement, not just technical consideration
+- Sustainable AI becoming ethical requirement (not technical consideration)
 
 **Time Pressures:**
 - Academic conference deadlines measured in weeks, not months
 - Product launch schedules incompatible with 30-day training runs
 - Iterative experimentation requires fast feedback loops
 - Debugging takes longer when each experiment consumes days of compute
-- Career advancement tied to publication frequency, not just quality
+- Career advancement tied to publication frequency over quality
 - Limited time windows for access to shared compute resources
 
 These limitations weren't obstacles to overcome. They were design constraints that sparked innovation.
@@ -111,7 +111,7 @@ My first successful resource-constrained project involved distilling knowledge f
 
 **Teacher-Student Framework:**
 - Large "teacher" model (GPT-3 175B parameters) generates synthetic training data[1]
-- Smaller "student" model learns from teacher's outputs, not just raw data
+- Smaller "student" model learns from teacher's outputs (beyond raw data)
 - Student captures teacher's decision boundaries and reasoning patterns
 - Compresses knowledge: billion-parameter models into hundred-million-parameter versions
 - Teacher provides soft labels (probability distributions) vs. hard labels (single answers)
@@ -231,7 +231,7 @@ The distilled model wasn't as capable as its teacher, but it was 100x faster and
 - PyTorch dynamic quantization: single function call for immediate benefits
 - Trade-off: less speedup than full quantization, easier implementation
 
-When I combined pruning and quantization on my BERT model, it ran 4x faster and used 75% less memory while maintaining 95% of original accuracy. The key was pruning first, then quantizing, rather than trying both simultaneously.
+When I combined pruning and quantization on my BERT model, it ran 4x faster and used 75% less memory while maintaining 95% of original accuracy. The key was pruning first, then quantizing (not simultaneously).
 
 ## Data Efficiency: Making Every Example Count
 
@@ -945,7 +945,9 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 - GPT-3's 175B parameters impressive, but GPT-2 (1.5B) sufficient for most real applications
 - ImageNet-trained models overparameterized: 10× smaller models match performance on specific domains
 - Bigger models excel at generalization, but most problems don't need universal generalization
-- Parameter count became status symbol rather than engineering decision
+- Parameter count became status symbol over engineering decision
+
+**AI skepticism required:** Claims of "100x speedup" depend heavily on baseline comparisons. My measurements are from September 2023 using specific hardware (RTX 3090, 24GB VRAM). Your results will vary. The gap between research benchmarks and production performance remains significant. Many compression techniques work beautifully in controlled tests and fail mysteriously in production.
 - Diminishing returns: doubling model size rarely doubles capability
 - Right-sized models: match capacity to problem complexity, not budget to competition
 
@@ -955,6 +957,8 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 - Economic barriers: requiring $100K compute budgets excludes brilliant minds without resources
 - Knowledge democratization: important advances can come from anyone with access to tools
 - Diversity of thought: resource constraints drive different perspectives and approaches
+
+**But:** Resource constraints also exclude people. Not everyone has $400 for a Raspberry Pi cluster. Not everyone has time to optimize models while working full-time. The romanticization of "doing more with less" can ignore genuine barriers to entry.
 - Long-tail applications: most valuable AI applications serve niche communities, not mass markets
 
 **Environmental Responsibility:**
@@ -1080,7 +1084,7 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 - Implement basic techniques first: quantization and pruning before advanced NAS
 - Single task mastery: optimize one model deeply before tackling multiple projects
 - Gradually increase complexity: simple CNNs → transformers → multi-modal models
-- Build efficiency intuition: understand why optimizations work, not just how
+- Build efficiency intuition: understand why optimizations work (not only how)
 - Celebrate small wins: 10% speedup is significant progress
 - Set realistic goals: match ambitions to available compute and time
 - Learn from failures: document what didn't work to avoid repeating mistakes
@@ -1161,11 +1165,13 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 
 Working within resource constraints transformed my understanding of artificial intelligence from a field requiring massive resources to one where creativity and efficiency could achieve substantial results with modest means.
 
-The raspberry pi cluster humming quietly on my desk represents more than just a technical achievement. It's a symbol of democratized AI, where ideas matter more than computing budgets. Every watt of electricity it saves, every second of reduced inference time, and every dollar of compute cost avoided makes AI more accessible to researchers, students, and organizations around the world. I spent roughly $400 building this 8-node cluster in early 2024, and it handles inference workloads that previously cost me $50-100 per day on cloud GPUs.
+The raspberry pi cluster humming quietly on my desk represents more than a technical achievement. It's a symbol of democratized AI, where ideas matter more than computing budgets. Every watt of electricity it saves, every second of reduced inference time, and every dollar of compute cost avoided makes AI more accessible to researchers, students, and organizations around the world. I spent $400 building this 8-node cluster in early 2024. It handles inference workloads that previously cost me $50-100 per day on cloud GPUs.
 
 Resource constraints aren't obstacles to overcome. They're design challenges that drive innovation. The most impactful AI applications of the future will likely come not from those with the largest budgets, but from those who learn to achieve more with less.
 
-The lessons learned from efficient AI development (careful measurement, thoughtful trade-offs, and creative problem-solving) apply far beyond resource-constrained environments. They represent fundamental principles for building AI systems that are not just powerful, but responsible, sustainable, and accessible. Though I'll admit my first few pruning attempts produced models that worked beautifully in testing but failed mysteriously in production, teaching me to always validate on realistic data distributions.
+The lessons learned from efficient AI development (careful measurement, thoughtful trade-offs, and creative problem-solving) apply far beyond resource-constrained environments. They represent fundamental principles for building AI systems that are powerful, responsible, sustainable, and accessible.
+
+**The failures:** My first few pruning attempts produced models that worked beautifully in testing and failed mysteriously in production. This taught me to always validate on realistic data distributions. The gap between benchmark performance and real-world reliability remains the hardest problem in compressed AI.
 
 As AI continues to evolve, the ability to work efficiently within constraints will become increasingly valuable. The future belongs not to those who can train the largest models, but to those who can achieve the most impact with the resources available to them.
 
