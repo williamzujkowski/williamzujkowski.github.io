@@ -1,14 +1,30 @@
 #!/usr/bin/env -S uv run python3
 """
+⚠️  DEPRECATION NOTICE ⚠️
+This script has been consolidated into blog-manager.py as of 2025-11-11.
+Please use: python scripts/blog-content/blog-manager.py enhance [options]
+
+Available flags:
+  --hardware-check      Check hardware claims against uses.md
+  --suggest-sources     Suggest reputable sources based on tags
+  --enhance-diagrams    Add/enhance Mermaid diagrams
+  --check-readability   Analyze readability and flow
+  --validate-code       Validate code examples
+  --report              Generate enhancement report
+  --all                 Run all enhancement checks
+
+This file is kept for reference only. All functionality has been migrated.
+
 SCRIPT: comprehensive-blog-enhancement.py
-PURPOSE: Comprehensive Blog Enhancement Tool
+PURPOSE: Comprehensive Blog Enhancement Tool (DEPRECATED - use blog-manager.py)
 CATEGORY: blog_management
 LLM_READY: True
-VERSION: 2.0.0
+VERSION: 2.0.0 (DEPRECATED)
 UPDATED: 2025-11-03
+DEPRECATED: 2025-11-11
 
 DESCRIPTION:
-    Comprehensive Blog Enhancement Tool. This script is part of the blog management
+    [DEPRECATED] Comprehensive Blog Enhancement Tool. This script is part of the blog management
     category and provides automated functionality for the static site.
 
 LLM_USAGE:

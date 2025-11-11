@@ -48,6 +48,8 @@ import sys
 import json
 import yaml
 import logging
+import re
+import frontmatter
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
@@ -61,15 +63,21 @@ class BlogManager:
     """Central blog management system"""
 
     def __init__(self, project_root: Path = None, logger=None):
-        self.project_root = project_root or Path(__file__).parent.parent
+        self.project_root = project_root or Path(__file__).parent.parent.parent
         self.posts_dir = self.project_root / "src" / "posts"
         self.assets_dir = self.project_root / "src" / "assets"
         self.scripts_dir = self.project_root / "scripts"
         self.docs_dir = self.project_root / "docs"
+        self.uses_file = self.project_root / "src" / "pages" / "uses.md"
         self.logger = logger or logging.getLogger(__name__)
 
         # Load configuration
         self.config = self._load_config()
+
+        # Enhancement tracking
+        self.enhancements = []
+        self.uses_content = self._load_uses_page()
+        self.hardware_facts = self._extract_hardware_facts()
 
     def _load_config(self) -> Dict:
         """Load configuration from MANIFEST.json"""
@@ -88,22 +96,44 @@ class BlogManager:
 
         # If specific post provided
         if post_path:
-            posts = [Path(post_path)]
+            path = Path(post_path)
+            # Handle both absolute and relative paths
+            if not path.is_absolute():
+                path = self.project_root / path
+            posts = [path]
         else:
             posts = list(self.posts_dir.glob("*.md"))
+
+        # Enhancement options
+        hardware_check = options.get('hardware_check', False)
+        suggest_sources = options.get('suggest_sources', False)
+        enhance_diagrams = options.get('enhance_diagrams', False)
+        check_readability = options.get('check_readability', False)
+        validate_code = options.get('validate_code', False)
+        generate_report = options.get('report', False)
+        run_all = options.get('all', False)
+
+        # Reset enhancements tracking
+        self.enhancements = []
 
         for post in posts:
             self.logger.info(f"  Processing: {post.name}")
 
-            # Apply optimizations
-            if options.get('optimize_readability', True):
-                self._optimize_readability(post)
+            result = self._enhance_single_post(
+                post,
+                hardware_check=hardware_check or run_all,
+                suggest_sources=suggest_sources or run_all,
+                enhance_diagrams=enhance_diagrams or run_all,
+                check_readability=check_readability or run_all,
+                validate_code=validate_code or run_all
+            )
 
-            if options.get('add_structure', True):
-                self._add_structure(post)
+            if result['improvements'] or result['issues']:
+                self.enhancements.append(result)
 
-            if options.get('validate_frontmatter', True):
-                self._validate_frontmatter(post)
+        # Generate report if requested
+        if generate_report or run_all:
+            self._generate_enhancement_report()
 
         return True
 
@@ -250,20 +280,352 @@ class BlogManager:
 
         return len(issues) == 0
 
-    # Helper methods
+    # Enhancement helper methods (from BlogEnhancer)
+    def _load_uses_page(self) -> str:
+        """Load the uses page content as source of truth."""
+        if self.uses_file.exists():
+            with open(self.uses_file, 'r', encoding='utf-8') as f:
+                return f.read()
+        return ""
+
+    def _extract_hardware_facts(self) -> Dict:
+        """Extract factual information from uses page."""
+        facts = {
+            'processor': 'Intel Core i9-9900K @ 3.60GHz',
+            'ram': '64GB DDR4',
+            'gpu': 'NVIDIA RTX 3090',
+            'server': 'Dell R940 with 256GB RAM and Proxmox',
+            'storage': 'TrueNAS with 40TB raw storage',
+            'firewall': 'Dream Machine Professional',
+            'raspberry_pi': '3x Raspberry Pi 5 16GB, 1x Raspberry Pi 4 8GB',
+            'network': 'Ubiquiti switches and APs with VLANs',
+            'hypervisor': 'Proxmox',
+            'containers': 'Docker and Podman',
+            'orchestration': 'K3s',
+            'monitoring': 'Wazuh, Grafana, Prometheus, Netdata',
+            'security_tools': ['Nessus', 'OSV', 'Grype', 'Wireshark', 'nmap', 'tcpdump'],
+            'password_manager': 'Self-hosted Bitwarden',
+            'backup': 'Restic to local NAS + Backblaze B2',
+            'editor': 'VS Code',
+            'terminal': 'Ghostty',
+            'shell': 'Zsh with Oh My Zsh'
+        }
+        return facts
+
+    def _check_hardware_claims(self, content: str) -> List[str]:
+        """Check for incorrect hardware claims in content."""
+        issues = []
+
+        # Common mistakes to check
+        incorrect_patterns = [
+            (r'32GB(?:\s+of)?\s+RAM', '64GB RAM'),
+            (r'RTX\s+3080', 'RTX 3090'),
+            (r'i7-\d+', 'i9-9900K'),
+            (r'ESXi', 'Proxmox'),
+            (r'pfSense', 'Dream Machine Professional'),
+            (r'LastPass', 'Bitwarden (self-hosted)'),
+            (r'8GB\s+Pi\s+5', '16GB Pi 5'),
+            (r'Docker\s+only', 'Docker and Podman'),
+        ]
+
+        for pattern, correct in incorrect_patterns:
+            if re.search(pattern, content, re.IGNORECASE):
+                issues.append(f"Found '{pattern}' - should be '{correct}'")
+
+        return issues
+
+    def _add_reputable_sources(self, content: str, tags: List[str]) -> Dict:
+        """Suggest reputable sources based on content and tags."""
+        sources = {
+            'security': [
+                'NIST Cybersecurity Framework: https://www.nist.gov/cyberframework',
+                'OWASP Top 10: https://owasp.org/www-project-top-ten/',
+                'CVE Database: https://cve.mitre.org/',
+                'SANS Institute: https://www.sans.org/reading-room/',
+            ],
+            'ai': [
+                'arXiv AI papers: https://arxiv.org/list/cs.AI/recent',
+                'Papers with Code: https://paperswithcode.com/',
+                'Google AI Research: https://ai.google/research/',
+                'OpenAI Research: https://openai.com/research/',
+            ],
+            'cloud': [
+                'AWS Well-Architected: https://aws.amazon.com/architecture/well-architected/',
+                'Google Cloud Best Practices: https://cloud.google.com/docs/enterprise/best-practices',
+                'CNCF Projects: https://www.cncf.io/projects/',
+            ],
+            'networking': [
+                'RFC Editor: https://www.rfc-editor.org/',
+                'Cisco Documentation: https://www.cisco.com/c/en/us/tech/index.html',
+                'Cloudflare Learning: https://www.cloudflare.com/learning/',
+            ],
+            'linux': [
+                'Linux Kernel Documentation: https://www.kernel.org/doc/',
+                'Red Hat Documentation: https://access.redhat.com/documentation/',
+                'Arch Wiki: https://wiki.archlinux.org/',
+            ],
+            'docker': [
+                'Docker Official Docs: https://docs.docker.com/',
+                'Docker Best Practices: https://docs.docker.com/develop/dev-best-practices/',
+                'Container Security: https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html',
+            ],
+            'kubernetes': [
+                'Kubernetes Documentation: https://kubernetes.io/docs/',
+                'K3s Documentation: https://docs.k3s.io/',
+                'CNCF Kubernetes Security: https://www.cncf.io/blog/2021/11/09/kubernetes-security-best-practices/',
+            ]
+        }
+
+        relevant_sources = []
+        for tag in tags:
+            tag_lower = tag.lower()
+            for category, links in sources.items():
+                if category in tag_lower or tag_lower in category:
+                    relevant_sources.extend(links)
+
+        return {'suggested_sources': list(set(relevant_sources))}
+
+    def _enhance_mermaid_diagrams(self, content: str, metadata: Dict) -> str:
+        """Enhance or add Mermaid diagrams based on content."""
+        tags = metadata.get('tags', [])
+
+        # Check if post needs more diagrams
+        mermaid_count = content.count('```mermaid')
+
+        if mermaid_count < 2:
+            # Suggest additional diagrams based on content
+            if any(tag in ['security', 'monitoring'] for tag in tags):
+                if 'detection flow' not in content.lower():
+                    diagram = '''
+## Detection and Response Flow
+
+```mermaid
+graph TD
+    subgraph "Detection Layer"
+        D1[Network Monitoring]
+        D2[Host Monitoring]
+        D3[Application Monitoring]
+    end
+
+    subgraph "Analysis"
+        A1[Event Correlation]
+        A2[Threat Intelligence]
+        A3[Anomaly Detection]
+    end
+
+    subgraph "Response"
+        R1[Alert Generation]
+        R2[Automated Response]
+        R3[Manual Investigation]
+    end
+
+    D1 & D2 & D3 --> A1
+    A1 --> A2
+    A2 --> A3
+    A3 --> R1
+    R1 --> R2
+    R1 --> R3
+
+    style A1 fill:#ff9800
+    style R2 fill:#4caf50
+```'''
+                    return content + diagram
+
+        return content
+
+    def _improve_readability(self, content: str) -> Tuple[str, List[str]]:
+        """Improve content readability and flow."""
+        improvements = []
+
+        # Check paragraph length
+        paragraphs = content.split('\n\n')
+        long_paragraphs = [p for p in paragraphs if len(p.split()) > 100]
+        if long_paragraphs:
+            improvements.append(f"Found {len(long_paragraphs)} paragraphs over 100 words - consider breaking up")
+
+        # Check for transition phrases
+        transition_phrases = [
+            'Furthermore', 'Moreover', 'In addition', 'However',
+            'Nevertheless', 'On the other hand', 'For example',
+            'In conclusion', 'To summarize', 'First', 'Second', 'Finally'
+        ]
+
+        transition_count = sum(1 for phrase in transition_phrases if phrase in content)
+        if transition_count < 3:
+            improvements.append("Add more transition phrases for better flow")
+
+        # Check for personal anecdotes
+        personal_indicators = ['I ', 'my ', 'I\'ve ', 'I\'m ', 'My ']
+        personal_count = sum(content.count(indicator) for indicator in personal_indicators)
+        if personal_count < 5:
+            improvements.append("Add more personal experiences and anecdotes")
+
+        # Check for actionable takeaways
+        if 'takeaway' not in content.lower() and 'conclusion' not in content.lower():
+            improvements.append("Add clear actionable takeaways or conclusion")
+
+        return content, improvements
+
+    def _validate_code_examples(self, content: str) -> List[str]:
+        """Validate that code examples are accurate and working."""
+        issues = []
+
+        # Extract code blocks
+        code_blocks = re.findall(r'```(\w+)?\n(.*?)```', content, re.DOTALL)
+
+        for lang, code in code_blocks:
+            if lang == 'python':
+                # Check for common Python issues
+                if 'import' in code and 'requirements.txt' not in content:
+                    issues.append("Python code has imports but no requirements mentioned")
+            elif lang == 'bash':
+                # Check for dangerous commands
+                dangerous = ['rm -rf /', 'dd if=', ':(){ :|:& };:']
+                for cmd in dangerous:
+                    if cmd in code:
+                        issues.append(f"Dangerous command found: {cmd}")
+            elif lang == 'yaml':
+                # Check for placeholder values
+                if 'YOUR_' in code or 'CHANGE_ME' in code:
+                    issues.append("YAML contains placeholder values")
+
+        return issues
+
+    def _enhance_single_post(self, post_path: Path, **options) -> Dict:
+        """Comprehensively enhance a single blog post."""
+        with open(post_path, 'r', encoding='utf-8') as f:
+            post = frontmatter.load(f)
+
+        enhancements = {
+            'file': post_path.name,
+            'improvements': [],
+            'issues': [],
+            'sources_added': []
+        }
+
+        # Check hardware claims
+        if options.get('hardware_check', False):
+            hardware_issues = self._check_hardware_claims(post.content)
+            if hardware_issues:
+                enhancements['issues'].extend(hardware_issues)
+
+        # Add reputable sources
+        if options.get('suggest_sources', False):
+            sources = self._add_reputable_sources(post.content, post.metadata.get('tags', []))
+            if sources['suggested_sources']:
+                enhancements['sources_added'] = sources['suggested_sources'][:3]
+
+        # Enhance Mermaid diagrams
+        if options.get('enhance_diagrams', False):
+            enhanced_content = self._enhance_mermaid_diagrams(post.content, post.metadata)
+            if enhanced_content != post.content:
+                enhancements['improvements'].append("Added Mermaid diagram")
+                post.content = enhanced_content
+
+        # Improve readability
+        if options.get('check_readability', False):
+            _, readability_improvements = self._improve_readability(post.content)
+            enhancements['improvements'].extend(readability_improvements)
+
+        # Validate code examples
+        if options.get('validate_code', False):
+            code_issues = self._validate_code_examples(post.content)
+            if code_issues:
+                enhancements['issues'].extend(code_issues)
+
+        return enhancements
+
+    def _generate_enhancement_report(self):
+        """Generate comprehensive enhancement report."""
+        posts = sorted(self.posts_dir.glob("*.md"))
+
+        self.logger.info("="*80)
+        self.logger.info("COMPREHENSIVE BLOG ENHANCEMENT REPORT")
+        self.logger.info("="*80)
+        self.logger.info(f"\nAnalyzing {len(posts)} posts for enhancements...\n")
+
+        critical_issues = []
+        quality_improvements = []
+        source_suggestions = []
+
+        for enhancement in self.enhancements:
+            if enhancement['issues']:
+                critical_issues.append(enhancement)
+            if enhancement['improvements']:
+                quality_improvements.append(enhancement)
+            if enhancement['sources_added']:
+                source_suggestions.append(enhancement)
+
+        # Report critical issues
+        if critical_issues:
+            self.logger.info("-"*40)
+            self.logger.info("CRITICAL ISSUES (Incorrect Information):")
+            self.logger.info("-"*40)
+            for post in critical_issues[:10]:
+                self.logger.info(f"\n❌ {post['file']}")
+                for issue in post['issues']:
+                    self.logger.info(f"   • {issue}")
+
+        # Report quality improvements
+        if quality_improvements:
+            self.logger.info("\n" + "-"*40)
+            self.logger.info("QUALITY IMPROVEMENTS NEEDED:")
+            self.logger.info("-"*40)
+            for post in quality_improvements[:10]:
+                self.logger.info(f"\n📝 {post['file']}")
+                for improvement in post['improvements'][:3]:
+                    self.logger.info(f"   • {improvement}")
+
+        # Report source suggestions
+        if source_suggestions:
+            self.logger.info("\n" + "-"*40)
+            self.logger.info("REPUTABLE SOURCES TO ADD:")
+            self.logger.info("-"*40)
+            for post in source_suggestions[:5]:
+                self.logger.info(f"\n📚 {post['file']}")
+                for source in post['sources_added'][:2]:
+                    self.logger.info(f"   • {source}")
+
+        # Summary
+        self.logger.info("\n" + "-"*40)
+        self.logger.info("ENHANCEMENT SUMMARY:")
+        self.logger.info("-"*40)
+        self.logger.info(f"Posts with critical issues: {len(critical_issues)}")
+        self.logger.info(f"Posts needing quality improvements: {len(quality_improvements)}")
+        self.logger.info(f"Posts needing sources: {len(source_suggestions)}")
+
+        # Save detailed report
+        report = {
+            'generated': datetime.now().isoformat(),
+            'summary': {
+                'total_posts': len(posts),
+                'critical_issues': len(critical_issues),
+                'quality_improvements': len(quality_improvements),
+                'source_suggestions': len(source_suggestions)
+            },
+            'enhancements': self.enhancements
+        }
+
+        report_path = self.docs_dir / 'enhancement-report.json'
+        with open(report_path, 'w') as f:
+            json.dump(report, f, indent=2, default=str)
+
+        self.logger.info(f"\nDetailed report saved to: {report_path}")
+
+    # Original helper methods
     def _optimize_readability(self, post_path: Path) -> None:
-        """Optimize post readability"""
-        # Implementation would go here
+        """Optimize post readability (legacy method)"""
+        # Kept for backwards compatibility
         pass
 
     def _add_structure(self, post_path: Path) -> None:
-        """Add proper structure to post"""
-        # Implementation would go here
+        """Add proper structure to post (legacy method)"""
+        # Kept for backwards compatibility
         pass
 
     def _validate_frontmatter(self, post_path: Path) -> None:
-        """Validate post frontmatter"""
-        # Implementation would go here
+        """Validate post frontmatter (legacy method)"""
+        # Kept for backwards compatibility
         pass
 
     def _generate_hero_images(self, **options) -> bool:
@@ -392,7 +754,13 @@ Examples:
     # Enhance command
     enhance_parser = subparsers.add_parser('enhance', help='Enhance blog content')
     enhance_parser.add_argument('--post', help='Specific post to enhance')
-    enhance_parser.add_argument('--all', action='store_true', help='Enhance all posts')
+    enhance_parser.add_argument('--all', action='store_true', help='Run all enhancement checks')
+    enhance_parser.add_argument('--hardware-check', action='store_true', help='Check hardware claims against uses.md')
+    enhance_parser.add_argument('--suggest-sources', action='store_true', help='Suggest reputable sources based on tags')
+    enhance_parser.add_argument('--enhance-diagrams', action='store_true', help='Add/enhance Mermaid diagrams')
+    enhance_parser.add_argument('--check-readability', action='store_true', help='Analyze readability and flow')
+    enhance_parser.add_argument('--validate-code', action='store_true', help='Validate code examples')
+    enhance_parser.add_argument('--report', action='store_true', help='Generate enhancement report')
 
     # Images command
     images_parser = subparsers.add_parser('images', help='Manage blog images')
@@ -439,7 +807,16 @@ Examples:
 
     # Execute command
     if args.command == 'enhance':
-        success = manager.enhance_content(post_path=args.post)
+        success = manager.enhance_content(
+            post_path=args.post,
+            hardware_check=args.hardware_check,
+            suggest_sources=args.suggest_sources,
+            enhance_diagrams=args.enhance_diagrams,
+            check_readability=args.check_readability,
+            validate_code=args.validate_code,
+            report=args.report,
+            all=args.all
+        )
     elif args.command == 'images':
         success = manager.manage_images(args.action, post=args.post)
     elif args.command == 'citations':
@@ -449,8 +826,10 @@ Examples:
     elif args.command == 'analyze':
         result = manager.analyze(target=args.target)
         if args.output == 'json':
-            # JSON output to stdout for piping/parsing (intentional print)
-            print(json.dumps(result, indent=2))
+            # JSON output to stdout for piping/parsing (intentional print, not logging)
+            # This is the correct pattern for CLI tools that output structured data
+            import sys
+            sys.stdout.write(json.dumps(result, indent=2) + '\n')
         else:
             logger.info(f"📊 Analysis Results:")
             logger.info(f"  Posts: {result['posts_count']}")
