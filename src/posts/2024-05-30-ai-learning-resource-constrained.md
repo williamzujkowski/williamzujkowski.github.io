@@ -20,7 +20,11 @@ title: AI Learning in Resource-Constrained Environments
 ---
 ## BLUF: When Constraints Become Innovation
 
-Running large language models on a Raspberry Pi cluster taught me more about AI efficiency than years of unlimited cloud budgets. After burning thousands on a single GPU training run in 2023, I faced a choice: quit or innovate. Resource constraints (financial limits, consumer hardware, energy costs, tight timelines) aren't obstacles. They're design challenges that spark creativity. I compressed GPT-3's capabilities into a 125M-parameter model through distillation, running 100x faster on my laptop. Pruning and quantization reduced BERT's memory by 75% while maintaining 95% accuracy. Active learning cut annotation requirements by 60%. Eight Raspberry Pi 4s replaced cloud GPUs for edge inference. The future of AI belongs not to those with the largest budgets, but to those who achieve the most impact with available resources.
+Running large language models on a Raspberry Pi cluster taught me more about AI efficiency than years of unlimited cloud budgets. After burning thousands on a single GPU training run in 2023, I faced a choice: quit or innovate.
+
+Resource constraints (financial limits, consumer hardware, energy costs, tight timelines) aren't obstacles. They're design challenges that spark creativity. I compressed GPT-3's capabilities into a 125M-parameter model through distillation, running 100x faster on my laptop.
+
+Pruning and quantization reduced BERT's memory by 75% while maintaining 95% accuracy. Active learning cut annotation requirements by 60%. Eight Raspberry Pi 4s replaced cloud GPUs for edge inference. The future of AI belongs not to those with the largest budgets, but to those who achieve the most impact with available resources.
 
 Staring at my electricity bill after running a large language model training job in August 2023, I realized something fundamental had to change. The $2,400 I spent on GPU compute for a single experiment wasn't sustainable for personal projects. That bill forced me to either abandon AI research or learn to work smarter within constraints.
 
@@ -68,20 +72,16 @@ My introduction to resource-constrained AI came from necessity, not choice. Afte
 The conventional wisdom suggested that meaningful AI work required massive datasets, enormous models, and virtually unlimited compute resources. But working within tight constraints forced me to question every assumption about what was truly necessary versus what was merely convenient.
 
 **Financial Constraints:**
-- Personal research budgets typically $0 to $500 per month vs. BigTech's millions in compute spending
-- Single GPU training run can cost $1,000-$10,000 for large models
-- AWS/GCP credits run out fast: 3-5 experiments can drain $500 in credits
-- Academic grants rarely cover full computational costs of modern AI research
-- Choosing between rent and GPU hours becomes a real dilemma
-- Cloud costs scale linearly with experimentation, making iteration expensive
+
+Personal research budgets typically range from $0 to $500 per month versus BigTech's millions in compute spending. Single GPU training runs can cost $1,000-$10,000 for large models, and AWS/GCP credits run out fast (3-5 experiments can drain $500).
+
+Academic grants rarely cover full computational costs of modern AI research. Choosing between rent and GPU hours becomes a real dilemma. Cloud costs scale linearly with experimentation, making iteration expensive.
 
 **Hardware Limitations:**
-- Most researchers work with consumer-grade GPUs (RTX 3060/3090), not A100 clusters
-- 8 to 24GB VRAM vs. enterprise 80GB or more limits model sizes and batch sizes
-- CPU-only configurations force creative optimization strategies
-- Single-machine training vs. distributed systems changes architectural decisions
-- RAM constraints (16-64GB typical) vs. models requiring 100GB+ for training
-- Storage becomes bottleneck: datasets measured in terabytes vs. available SSD space
+
+Most researchers work with consumer-grade GPUs (RTX 3060/3090) rather than A100 clusters. 8 to 24GB VRAM versus enterprise 80GB limits model sizes and batch sizes. CPU-only configurations force creative optimization strategies.
+
+Single-machine training versus distributed systems changes architectural decisions. RAM constraints (16-64GB typical) clash with models requiring 100GB+ for training. Storage becomes a bottleneck when datasets measure terabytes but available SSD space is limited.
 
 **Energy Concerns:**
 - Training GPT-3 consumed 1,287 MWh, equivalent to 120 US homes for a year[11]

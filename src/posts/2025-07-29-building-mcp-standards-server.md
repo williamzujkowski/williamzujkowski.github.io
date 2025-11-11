@@ -21,9 +21,13 @@ title: 'Down the MCP Rabbit Hole: Building a Standards Server'
 ---
 ## Bottom Line Up Front
 
-I built a standards server that was supposed to be a simple wrapper around my documentation repository. Three weeks later, I had written 6,000 lines of code across 47 components, implementing Redis caching, vector search, six different language analyzers, 88 tests, and a React UI. For a read-only documentation server. That I'm the only user of.
+I built a standards server that was supposed to be a simple wrapper around my documentation repository. Three weeks later, I had written 6,000 lines of code across 47 components, implementing Redis caching, vector search, six different language analyzers, 88 tests, and a React UI.
 
-This is a case study in scope creep, premature optimization, and what happens when you let "one more feature" become your guiding principle. The irony? Version 1 worked perfectly fine at 200 lines of code. But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
+For a read-only documentation server. That I'm the only user of.
+
+This is a case study in scope creep, premature optimization, and what happens when you let "one more feature" become your guiding principle. The irony? Version 1 worked perfectly fine at 200 lines of code.
+
+But here's the thing: personal projects are where we learn by overdoing it, by making every mistake in the book when the stakes are low. This post walks through the evolution from working prototype to over-engineered monstrosity, examining the classic developer pitfalls I hit along the way, including tool-driven architecture, the seduction of sophisticated patterns, and the massive gap between "it works" and "it's production ready."
 
 **The Numbers**: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
 

@@ -20,17 +20,23 @@ images:
     src: /assets/images/blog/hero/2025-10-29-post-quantum-cryptography-homelab-og.jpg
     alt: 'Post-quantum cryptography for homelabs: NIST standards and practical migration'
 ---
-I spent three weekends trying to enable post-quantum cryptography on my homelab Nginx server. The first attempt crashed every single HTTPS connection because I completely forgot that hybrid mode exists and tried forcing pure ML-KEM-768. The second weekend, I got hybrid mode working but didn't realize my certificate chain had ballooned to 18KB, triggering TCP fragmentation and adding a mysterious 200ms to every handshake. By the third weekend, I'd finally figured out that my Raspberry Pi 4 running Wazuh was perfectly capable of handling PQC, I just needed to stop treating it like it was 2015.
+I spent three weekends trying to enable post-quantum cryptography on my homelab Nginx server. The first attempt crashed every single HTTPS connection because I completely forgot that hybrid mode exists and tried forcing pure ML-KEM-768.
+
+The second weekend, I got hybrid mode working but didn't realize my certificate chain had ballooned to 18KB, triggering TCP fragmentation and adding a mysterious 200ms to every handshake. By the third weekend, I'd finally figured out that my Raspberry Pi 4 running Wazuh was perfectly capable of handling PQC, I just needed to stop treating it like it was 2015.
 
 Here's what I learned about preparing homelabs for the quantum computing threat that's probably 10-15 years away but requires action today.
 
 ## Why This Matters Right Now
 
-In August 2024, NIST finalized three post-quantum cryptography standards: [ML-KEM (FIPS 203)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf) for key encapsulation, [ML-DSA (FIPS 204)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) for digital signatures, and [SLH-DSA (FIPS 205)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf) for hash-based signatures. The federal government has set a hard deadline of [2035 for migrating all federal systems](https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf), with [National Security Systems required to transition by 2030](https://csrc.nist.gov/projects/post-quantum-cryptography).
+In August 2024, NIST finalized three post-quantum cryptography standards: [ML-KEM (FIPS 203)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf) for key encapsulation, [ML-DSA (FIPS 204)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) for digital signatures, and [SLH-DSA (FIPS 205)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf) for hash-based signatures.
+
+The federal government has set a hard deadline of [2035 for migrating all federal systems](https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf), with [National Security Systems required to transition by 2030](https://csrc.nist.gov/projects/post-quantum-cryptography).
 
 But here's the uncomfortable truth: you're probably already out of time.
 
-The threat isn't cryptographically-relevant quantum computers (CRQCs) breaking your encryption today, those are still [estimated to arrive between 2030-2045 according to expert surveys](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/). The real threat is what security researchers call "Store Now, Decrypt Later" (SNDL) attacks. Adversaries are capturing encrypted network traffic right now, storing it in massive databases, and waiting for quantum computers powerful enough to crack it.
+The threat isn't cryptographically-relevant quantum computers (CRQCs) breaking your encryption today, those are still [estimated to arrive between 2030-2045 according to expert surveys](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/). The real threat is what security researchers call "Store Now, Decrypt Later" (SNDL) attacks.
+
+Adversaries are capturing encrypted network traffic right now, storing it in massive databases, and waiting for quantum computers powerful enough to crack it.
 
 According to [RAND Corporation's analysis](https://www.rand.org/pubs/research_reports/RR3102.html), if your data needs to remain confidential for 20-30 years (think: medical records, financial data, personal backups), and it takes you 10-15 years to fully migrate your infrastructure to post-quantum cryptography, then by the time quantum computers arrive in the 2035-2040 window, everything you encrypted between 2015-2030 becomes retroactively vulnerable.
 
