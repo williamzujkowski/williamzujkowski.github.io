@@ -1,8 +1,7 @@
 ---
 title: Building Your Own MITRE ATT&CK Threat Intelligence Dashboard
 date: 2025-09-14
-description: Build threat intelligence dashboard with MITRE ATT&CK framework—track adversary tactics, techniques, and procedures for security monitoring and incident response.
-  open-source feeds, and Python to track relevant threats to your environment.
+description: "Build MITRE ATT&CK threat intelligence dashboard with Python—track adversary tactics and techniques using open-source feeds."
 tags:
 - threat-intelligence
 - mitre-attack
@@ -42,7 +41,7 @@ According to [research from the Cyber Threat Alliance (2024)](https://www.cybert
 ### The ATT&CK Matrix Structure
 
 ```mermaid
-graph LR
+flowchart LR
     A[Initial Access] --> B[Execution]
     B --> C[Persistence]
     C --> D[Privilege Escalation]

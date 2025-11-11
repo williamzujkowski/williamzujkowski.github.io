@@ -1,8 +1,7 @@
 ---
 author: William Zujkowski
 date: 2025-08-18
-description: Harden container security with Docker and K3s best practices—implement rootless containers, seccomp profiles, and image scanning for Kubernetes production workloads.
-  in a homelab environment, from base image selection to runtime security monitoring
+description: "Harden Docker and K3s containers with rootless mode, seccomp profiles, and image scanning for production-grade Kubernetes security."
 tags:
 - security
 - containers
