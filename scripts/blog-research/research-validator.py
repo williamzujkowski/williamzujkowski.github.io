@@ -4,40 +4,70 @@ SCRIPT: research-validator.py
 PURPOSE: Research Validator - Ensures all blog post claims are backed by reputable sources
 CATEGORY: academic_research
 LLM_READY: True
-VERSION: 1.0.0
-UPDATED: 2025-09-20T15:08:08-04:00
+VERSION: 2.0.0
+UPDATED: 2025-11-11T12:55:00-05:00
 
 DESCRIPTION:
-    Research Validator - Ensures all blog post claims are backed by reputable sources. This script is part of the academic research
-    category and provides automated functionality for the static site.
+    Research Validator - Ensures all blog post claims are backed by reputable sources.
+
+    v2.0.0 NEW FEATURES:
+    - DOI format normalization (5 patterns to canonical HTTPS format)
+    - Duplicate citation detection (DOI/arXiv across posts)
+    - Enhanced CLI with --normalize-dois, --detect-duplicates, --dry-run
+
+    This script is part of the academic research category and provides automated
+    functionality for the static site.
 
 LLM_USAGE:
-    python scripts/research-validator.py [options]
+    # Normalize DOI formats (dry-run)
+    python scripts/blog-research/research-validator.py --normalize-dois --dry-run --batch
+
+    # Apply DOI normalization
+    python scripts/blog-research/research-validator.py --normalize-dois --batch
+
+    # Detect duplicate citations
+    python scripts/blog-research/research-validator.py --detect-duplicates
+
+    # Validate specific post
+    python scripts/blog-research/research-validator.py --post [filename]
 
 ARGUMENTS:
-    --help: Show help message
+    --normalize-dois: Normalize DOI citations to canonical HTTPS format
+    --detect-duplicates: Detect duplicate citations across posts
+    --dry-run: Preview changes without writing files
+    --batch: Process all posts with citations
+    --post: Specific post to process
     --verbose: Enable verbose output
-    [Additional arguments specific to this script]
+    --quiet: Suppress output messages
+    --log-file: Write logs to file
 
 EXAMPLES:
-    # Basic usage
-    python scripts/research-validator.py
+    # Basic validation (all posts)
+    python scripts/blog-research/research-validator.py
 
-    # With verbose output
-    python scripts/research-validator.py --verbose
+    # Normalize DOIs in all posts
+    python scripts/blog-research/research-validator.py --normalize-dois --batch
+
+    # Check for duplicate citations
+    python scripts/blog-research/research-validator.py --detect-duplicates
+
+    # Normalize specific post (dry-run)
+    python scripts/blog-research/research-validator.py --normalize-dois --dry-run --post 2024-03-20-transformer-architecture-deep-dive
 
 OUTPUT:
-    - Processed results based on script functionality
+    - Citation validation results
+    - DOI normalization summary
+    - Duplicate citation report
     - Log messages if verbose mode enabled
 
 DEPENDENCIES:
     - Python 3.8+
-    - See imports for specific package requirements
-    - scripts/lib/common.py for shared utilities (if applicable)
+    - frontmatter
+    - scripts/lib/logging_config.py
 
 RELATED_SCRIPTS:
-    - scripts/lib/common.py: Shared utilities
-    - [Other related scripts in academic_research category]
+    - scripts/lib/logging_config.py: Centralized logging
+    - scripts/blog-research/citation-analyzer.py: Citation analysis
 
 MANIFEST_REGISTRY: scripts/research-validator.py
 """
@@ -283,9 +313,224 @@ class ResearchValidator:
 
         return results
 
+
+# ============================================================================
+# v2.0.0: Citation Enhancement Functions
+# ============================================================================
+
+def normalize_doi_format(citation_text: str) -> Tuple[str, int]:
+    """Normalize DOI citations to canonical HTTPS URL format.
+
+    Args:
+        citation_text: Citation text that may contain DOI
+
+    Returns:
+        Tuple of (updated citation text, number of changes made)
+
+    Patterns handled:
+        1. http://doi.org/... → https://doi.org/...
+        2. DOI: 10.xxxx/... → https://doi.org/10.xxxx/...
+        3. doi:10.xxxx/... → https://doi.org/10.xxxx/...
+        4. Plain 10.xxxx/... → https://doi.org/10.xxxx/...
+        5. dx.doi.org/... → doi.org/... (canonical domain)
+    """
+    original_text = citation_text
+    changes = 0
+
+    # Pattern 1: Upgrade HTTP to HTTPS
+    before = citation_text
+    citation_text = re.sub(
+        r'http://doi\.org/',
+        'https://doi.org/',
+        citation_text
+    )
+    if citation_text != before:
+        changes += len(re.findall(r'https://doi\.org/', citation_text)) - len(re.findall(r'https://doi\.org/', before))
+
+    # Pattern 2: Convert dx.doi.org to doi.org (canonical)
+    before = citation_text
+    citation_text = re.sub(
+        r'https?://dx\.doi\.org/',
+        'https://doi.org/',
+        citation_text
+    )
+    if citation_text != before:
+        changes += 1
+
+    # Pattern 3: DOI: prefix format → URL
+    before = citation_text
+    citation_text = re.sub(
+        r'DOI:\s*(10\.\d{4,}/[^\s\)]+)',
+        r'https://doi.org/\1',
+        citation_text,
+        flags=re.IGNORECASE
+    )
+    if citation_text != before:
+        changes += len(re.findall(r'https://doi\.org/10\.', citation_text)) - len(re.findall(r'https://doi\.org/10\.', before))
+
+    # Pattern 4: doi: prefix format → URL
+    before = citation_text
+    citation_text = re.sub(
+        r'doi:\s*(10\.\d{4,}/[^\s\)]+)',
+        r'https://doi.org/\1',
+        citation_text,
+        flags=re.IGNORECASE
+    )
+    if citation_text != before:
+        changes += 1
+
+    # Pattern 5: Bare DOI identifiers (conservative - only in citation contexts)
+    # Look for patterns like [123] 10.xxxx/yyyy or (Author 2023) 10.xxxx/yyyy
+    before = citation_text
+    citation_text = re.sub(
+        r'(\[\d+\]|\([^)]+\d{4}\))\s+(10\.\d{4,}/[^\s\)]+)',
+        r'\1 https://doi.org/\2',
+        citation_text
+    )
+    if citation_text != before:
+        changes += 1
+
+    return citation_text, changes
+
+
+def process_citations_in_post(
+    post_path: str,
+    normalize_dois: bool = True,
+    dry_run: bool = False,
+    logger = None
+) -> Dict[str, any]:
+    """Process all citations in a post's References section.
+
+    Args:
+        post_path: Path to markdown post
+        normalize_dois: Apply DOI format normalization
+        dry_run: Preview changes without writing
+        logger: Logger instance
+
+    Returns:
+        Dict with processing results
+    """
+    if logger is None:
+        logger = setup_logger(__name__)
+
+    try:
+        with open(post_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except Exception as e:
+        logger.error(f"Failed to read {post_path}: {e}")
+        return {'error': str(e)}
+
+    # Find References section
+    refs_match = re.search(
+        r'(## References|### References)(.*?)(?=^## |\Z)',
+        content,
+        re.MULTILINE | re.DOTALL
+    )
+
+    if not refs_match:
+        logger.debug(f"No References section in {Path(post_path).name}")
+        return {'has_references': False}
+
+    refs_section = refs_match.group(2)
+    original_refs = refs_section
+
+    # Apply normalizations
+    changes_made = []
+    total_changes = 0
+
+    if normalize_dois:
+        normalized_refs, change_count = normalize_doi_format(refs_section)
+
+        if change_count > 0:
+            changes_made.append(f"Normalized {change_count} DOI format(s)")
+            total_changes += change_count
+            refs_section = normalized_refs
+
+    # Count citations
+    doi_count = len(re.findall(r'doi\.org/10\.\d{4,}', refs_section))
+    arxiv_count = len(re.findall(r'arxiv\.org/abs/\d{4}\.\d{4,}', refs_section))
+
+    # Update content if not dry_run
+    if not dry_run and changes_made:
+        updated_content = content.replace(original_refs, refs_section)
+
+        try:
+            with open(post_path, 'w', encoding='utf-8') as f:
+                f.write(updated_content)
+            logger.info(f"✅ Updated citations in {Path(post_path).name}")
+        except Exception as e:
+            logger.error(f"Failed to write {post_path}: {e}")
+            return {'error': str(e)}
+    elif dry_run and changes_made:
+        logger.info(f"🔍 [DRY RUN] Would update {Path(post_path).name}")
+
+    return {
+        'has_references': True,
+        'changes_made': changes_made,
+        'change_count': total_changes,
+        'doi_count': doi_count,
+        'arxiv_count': arxiv_count,
+        'dry_run': dry_run
+    }
+
+
+def detect_duplicate_citations(posts_with_citations: List[str], logger=None) -> Dict[str, any]:
+    """Find duplicate DOI/arXiv citations across posts.
+
+    Args:
+        posts_with_citations: List of post paths to check
+        logger: Logger instance
+
+    Returns:
+        Dict mapping citation identifier to list of posts using it
+    """
+    if logger is None:
+        logger = setup_logger(__name__)
+
+    doi_usage = {}
+    arxiv_usage = {}
+
+    for post_path in posts_with_citations:
+        try:
+            with open(post_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            logger.warning(f"Could not read {post_path}: {e}")
+            continue
+
+        post_name = Path(post_path).name
+
+        # Extract DOI identifiers (normalized format)
+        dois = re.findall(r'10\.\d{4,}/[^\s\)]+', content)
+        for doi in set(dois):  # Unique DOIs per post
+            if doi not in doi_usage:
+                doi_usage[doi] = []
+            doi_usage[doi].append(post_name)
+
+        # Extract arXiv identifiers
+        arxivs = re.findall(r'arxiv\.org/abs/(\d{4}\.\d{4,})', content, re.IGNORECASE)
+        for arxiv_id in set(arxivs):
+            if arxiv_id not in arxiv_usage:
+                arxiv_usage[arxiv_id] = []
+            arxiv_usage[arxiv_id].append(post_name)
+
+    # Filter to only duplicates (used in >1 post)
+    doi_duplicates = {k: v for k, v in doi_usage.items() if len(v) > 1}
+    arxiv_duplicates = {k: v for k, v in arxiv_usage.items() if len(v) > 1}
+
+    return {
+        'doi_duplicates': doi_duplicates,
+        'arxiv_duplicates': arxiv_duplicates,
+        'total_doi_duplicates': len(doi_duplicates),
+        'total_arxiv_duplicates': len(arxiv_duplicates),
+        'total_unique_dois': len(doi_usage),
+        'total_unique_arxivs': len(arxiv_usage)
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description='Validate research citations in blog posts',
+        description='Validate research citations in blog posts (v2.0.0)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -295,17 +540,27 @@ Examples:
   # Validate specific post
   python scripts/blog-research/research-validator.py --post 2024-01-01-example
 
-  # Check all claims
-  python scripts/blog-research/research-validator.py --check-claims
+  # Normalize DOI formats (dry-run)
+  python scripts/blog-research/research-validator.py --normalize-dois --dry-run --batch
+
+  # Apply DOI normalization to all posts
+  python scripts/blog-research/research-validator.py --normalize-dois --batch
+
+  # Detect duplicate citations
+  python scripts/blog-research/research-validator.py --detect-duplicates
 
   # Quiet mode
   python scripts/blog-research/research-validator.py --quiet
         """
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0')
-    parser.add_argument('--post', help='Specific post to validate')
+    parser.add_argument('--version', action='version', version='%(prog)s 2.0.0')
+    parser.add_argument('--post', help='Specific post to process (without .md extension)')
+    parser.add_argument('--batch', action='store_true', help='Process all posts with citations')
     parser.add_argument('--check-claims', action='store_true', help='Check all claims')
     parser.add_argument('--fix', action='store_true', help='Suggest fixes for uncited claims')
+    parser.add_argument('--normalize-dois', action='store_true', help='Normalize DOI citations to canonical HTTPS format')
+    parser.add_argument('--detect-duplicates', action='store_true', help='Detect duplicate citations across posts')
+    parser.add_argument('--dry-run', action='store_true', help='Preview changes without writing files')
     parser.add_argument('--verbose', '-v', action='store_true', help='Enable debug output')
     parser.add_argument('--quiet', '-q', action='store_true', help='Suppress output messages')
     parser.add_argument('--log-file', type=Path, help='Write logs to file')
@@ -319,7 +574,109 @@ Examples:
     try:
         validator = ResearchValidator()
 
-        if args.post:
+        # v2.0.0: Citation enhancement features
+        if args.normalize_dois:
+            if args.batch:
+                # Process all posts with citations
+                posts_dir = Path('src/posts')
+                posts = list(posts_dir.glob('*.md'))
+
+                logger.info("="*80)
+                logger.info("DOI NORMALIZATION - BATCH MODE")
+                logger.info("="*80)
+                if args.dry_run:
+                    logger.info("Mode: DRY RUN (no files will be modified)\n")
+
+                results = []
+                for post in posts:
+                    result = process_citations_in_post(
+                        str(post),
+                        normalize_dois=True,
+                        dry_run=args.dry_run,
+                        logger=logger
+                    )
+                    if result.get('has_references'):
+                        results.append((post.name, result))
+
+                # Summary
+                total_posts = len(results)
+                posts_changed = sum(1 for _, r in results if r.get('change_count', 0) > 0)
+                total_changes = sum(r.get('change_count', 0) for _, r in results)
+
+                logger.info("\n" + "="*80)
+                logger.info("SUMMARY")
+                logger.info("="*80)
+                logger.info(f"Posts with citations: {total_posts}")
+                logger.info(f"Posts with changes: {posts_changed}")
+                logger.info(f"Total DOI normalizations: {total_changes}")
+
+                if args.dry_run:
+                    logger.info(f"\nMode: DRY RUN - No files were modified")
+                    logger.info(f"Run without --dry-run to apply changes")
+
+            elif args.post:
+                # Process specific post
+                post_path = Path(f'src/posts/{args.post}.md')
+                if not post_path.exists():
+                    logger.error(f"❌ Error: Post not found: {post_path}")
+                    return 1
+
+                result = process_citations_in_post(
+                    str(post_path),
+                    normalize_dois=True,
+                    dry_run=args.dry_run,
+                    logger=logger
+                )
+
+                if not args.quiet:
+                    logger.info(f"\nPost: {post_path.name}")
+                    logger.info(f"  Changes: {result.get('changes_made', [])}")
+                    logger.info(f"  DOI count: {result.get('doi_count', 0)}")
+                    logger.info(f"  arXiv count: {result.get('arxiv_count', 0)}")
+            else:
+                logger.error("❌ Error: Must specify --batch or --post with --normalize-dois")
+                return 1
+
+        elif args.detect_duplicates:
+            # Find posts with citations
+            posts_dir = Path('src/posts')
+            posts = [str(p) for p in posts_dir.glob('*.md')]
+
+            logger.info("="*80)
+            logger.info("DUPLICATE CITATION DETECTION")
+            logger.info("="*80)
+            logger.info(f"Analyzing {len(posts)} posts...\n")
+
+            duplicates = detect_duplicate_citations(posts, logger=logger)
+
+            logger.info(f"\n" + "="*80)
+            logger.info("DUPLICATE CITATION REPORT")
+            logger.info("="*80)
+            logger.info(f"Total unique DOIs: {duplicates['total_unique_dois']}")
+            logger.info(f"Total unique arXiv papers: {duplicates['total_unique_arxivs']}")
+            logger.info(f"DOI duplicates: {duplicates['total_doi_duplicates']}")
+            logger.info(f"arXiv duplicates: {duplicates['total_arxiv_duplicates']}")
+
+            if duplicates['doi_duplicates']:
+                logger.info(f"\nTop 10 DOI Duplicates:")
+                sorted_dois = sorted(duplicates['doi_duplicates'].items(), key=lambda x: len(x[1]), reverse=True)
+                for doi, posts_list in sorted_dois[:10]:
+                    logger.info(f"  {doi}: {len(posts_list)} posts")
+                    if args.verbose:
+                        for post in posts_list:
+                            logger.info(f"    - {post}")
+
+            if duplicates['arxiv_duplicates']:
+                logger.info(f"\nTop 10 arXiv Duplicates:")
+                sorted_arxivs = sorted(duplicates['arxiv_duplicates'].items(), key=lambda x: len(x[1]), reverse=True)
+                for arxiv, posts_list in sorted_arxivs[:10]:
+                    logger.info(f"  arxiv.org/abs/{arxiv}: {len(posts_list)} posts")
+                    if args.verbose:
+                        for post in posts_list:
+                            logger.info(f"    - {post}")
+
+        elif args.post:
+            # Original validation functionality
             post_path = Path(f'src/posts/{args.post}.md')
             if not post_path.exists():
                 logger.error(f"❌ Error: Post not found: {post_path}")
@@ -328,6 +685,7 @@ Examples:
             if not args.quiet:
                 logger.info(json.dumps(result, indent=2))
         else:
+            # Original batch validation
             validator.generate_report(logger=logger)
 
         return 0

@@ -792,10 +792,10 @@ def check_mermaid_syntax() -> Tuple[bool, str]:
 
     modified_files = result.stdout.strip().split('\n') if result.stdout else []
 
-    # Filter for markdown files
+    # Filter for markdown files (exclude archived files)
     markdown_files = [
         f for f in modified_files
-        if f.endswith('.md')
+        if f.endswith('.md') and not f.startswith('docs/archive/')
     ]
 
     if not markdown_files:
