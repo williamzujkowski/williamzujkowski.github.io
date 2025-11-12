@@ -500,7 +500,7 @@ uv run python scripts/blog-content/link-validator.py --post src/posts/[file].md
 
 ### 7.3 Code Block Quality
 
-**Reference:** `docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md`
+**Reference:** `docs/context/standards/code-block-quality.md`
 
 - [ ] **Code ratio within threshold for post type**
   ```bash
@@ -798,7 +798,7 @@ This approach is 73% faster (2.3s vs 8.1s) and uses 41% less RAM
 - **`scripts/blog-content/link-validator.py`** - Broken link detection
 
 ### Quality Standards
-- **`docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md`** - Code block quality guidelines
+- **`docs/context/standards/code-block-quality.md`** - Code block quality guidelines
 - **`docs/HUMANIZATION_VALIDATION.md`** - Complete humanization methodology
 - **`CLAUDE.md`** - Master configuration and routing architecture
 
