@@ -166,6 +166,69 @@ Enable 2FA for all accounts through web vault:
 
 Recovery codes are critical. Without them, device loss means account lockout.
 
+### Admin Panel Security (CRITICAL)
+
+**The Problem:** Vaultwarden enables an admin panel at `/admin` by default. Without proper configuration, anyone who discovers this endpoint can access server settings, disable security features, and view administrative information.
+
+**Why it matters:** An exposed admin panel is a critical vulnerability for internet-facing deployments. The risk severity depends on your deployment:
+- **Internet-exposed:** CRITICAL (CVE-waiting-to-happen)
+- **Internal-only:** HIGH (lateral movement risk)
+- **Localhost-only:** MEDIUM (requires local access)
+
+**Required configuration in docker-compose.yml:**
+
+```yaml
+environment:
+  - ADMIN_TOKEN=${ADMIN_TOKEN}
+  - DISABLE_ADMIN_TOKEN=false  # Optional: Disable after initial setup
+  # - ADMIN_TOKEN="" # Completely disables admin panel (recommended after configuration)
+```
+
+**Generate secure admin token:**
+
+```bash
+# Generate 48-byte random token
+openssl rand -base64 48
+
+# Add to .env file (NEVER commit this!)
+echo "ADMIN_TOKEN=$(openssl rand -base64 48)" >> .env
+
+# Set restrictive permissions
+chmod 600 .env
+```
+
+**Best practices:**
+1. **Initial setup:** Set ADMIN_TOKEN for configuration access
+2. **After configuration:** Either disable completely (`ADMIN_TOKEN=""`) or restrict by IP
+3. **Never:** Leave admin panel accessible without authentication
+4. **Production:** Disable panel entirely unless actively debugging
+
+**IP restriction (if panel needed long-term):**
+
+Add to nginx configuration:
+
+```nginx
+location /admin {
+    allow 192.168.1.0/24;  # Your management network
+    deny all;
+    proxy_pass http://vaultwarden:80;
+}
+```
+
+**Verification:**
+
+```bash
+# Test authentication requirement
+curl -I https://vault.example.com/admin
+# Should return 401 Unauthorized or redirect to login
+
+# Test IP restriction (if configured)
+curl -I https://vault.example.com/admin
+# From restricted IP: Should return 403 Forbidden
+```
+
+**Senior engineer note:** Years of production experience taught me admin interfaces are often forgotten after initial setup. The security-conscious approach: configure once, disable immediately. Vaultwarden's runtime configuration rarely needs changes. If you do need admin access later, temporarily enable with environment variable, make changes, then disable again.
+
 ### YubiKey Integration
 
 For hardware 2FA:
@@ -333,7 +396,7 @@ Perfect security makes systems unusable. Match security to your threat model, no
 - Unencrypted backups
 - Weak master passwords
 - Missing 2FA
-- Exposed admin panel
+- **Exposed admin panel** (see Admin Panel Security section for mitigation)
 
 ## Performance and Scaling
 
