@@ -256,9 +256,125 @@ After implementing PQC across my homelab, here are the nuanced trade-offs I wish
 
 **Hybrid mode** (what everyone actually uses in production):
 - Combines classical X25519 with ML-KEM-768
-- Security: You're protected as long as *either* algorithm remains unbroken
 - Compatibility: Falls back to classical if client doesn't support PQC
 - Performance: Minimal overhead (0.3-0.4ms according to [MDPI research](https://www.mdpi.com/2410-387X/9/2/32))
+
+#### Hybrid Crypto Security Model (MAJOR Clarification)
+
+**The oversimplification:** "You're protected as long as *either* algorithm remains unbroken" ← This statement requires critical context about WHICH attacks it applies to.
+
+**The reality:** Hybrid cryptography security depends on your threat model. Different attack scenarios have different protection guarantees.
+
+**Security Against Quantum Attacks:**
+- **Threat:** Quantum computer breaks X25519 classical key exchange
+- **Protection:** ML-KEM-768 must remain secure
+- **Outcome:** If ML-KEM is broken by quantum attack → VULNERABLE (despite X25519 working)
+- **Conclusion:** ML-KEM is the ONLY defense against quantum threats
+
+**Security Against Classical Attacks:**
+- **Threat:** Classical computer breaks ML-KEM-768 (hypothetical cryptanalysis)
+- **Protection:** X25519 must remain secure
+- **Outcome:** If X25519 is broken classically → VULNERABLE (despite ML-KEM working)
+- **Conclusion:** X25519 is the ONLY defense against classical threats
+
+**Security Against Combined Attacks:**
+- **Threat:** Attacker breaks BOTH X25519 AND ML-KEM simultaneously
+- **Protection:** BOTH algorithms must fail for complete compromise
+- **Outcome:** Hybrid provides defense-in-depth, not "either algorithm" protection
+- **Conclusion:** Attacker needs TWO breakthroughs, not just one
+
+**When "Either Algorithm" Claim is Correct:**
+
+The "protected as long as either remains unbroken" statement ONLY applies when:
+1. Attacker attacks ONLY classical crypto (X25519 protects) OR
+2. Attacker attacks ONLY PQC (ML-KEM protects) OR
+3. Attacker attacks BOTH but only ONE succeeds (remaining algorithm protects)
+
+**When "Either Algorithm" Claim is WRONG:**
+
+The claim FAILS when:
+- Quantum computer + ML-KEM cryptanalysis breakthrough occurs simultaneously → VULNERABLE
+- Both algorithms broken via side-channel attacks → VULNERABLE
+- Implementation bugs compromise both key exchanges → VULNERABLE
+
+**Threat Model Breakdown:**
+
+| **Threat Scenario** | **X25519 Status** | **ML-KEM Status** | **Hybrid Security** | **Protected?** |
+|---------------------|-------------------|-------------------|---------------------|----------------|
+| Quantum attack (2035) | Broken | Secure | ML-KEM protects | ✅ YES |
+| ML-KEM cryptanalysis (classical) | Secure | Broken | X25519 protects | ✅ YES |
+| Both broken (unlikely) | Broken | Broken | No protection | ❌ NO |
+| Side-channel attack (both) | Compromised | Compromised | No protection | ❌ NO |
+| Implementation bug (both) | Broken | Broken | No protection | ❌ NO |
+
+**Practical Example: Store Now, Decrypt Later (SNDL)**
+
+**Scenario:** Adversary records your TLS traffic today (2025), waits for quantum computer (2035).
+
+**Hybrid Protection Analysis:**
+1. **Attacker records encrypted traffic** (today)
+2. **Quantum computer breaks X25519** (2035)
+3. **Can attacker decrypt?** NO, because ML-KEM-768 remains quantum-resistant
+4. **Outcome:** Hybrid protects against SNDL attacks IF ML-KEM remains unbroken
+
+**Counter-scenario:** What if ML-KEM has undiscovered classical weakness discovered in 2030?
+1. **Attacker discovers ML-KEM cryptanalysis** (2030)
+2. **Attacker also has quantum computer** (2035)
+3. **Can attacker decrypt?** YES, because BOTH algorithms are now broken
+4. **Outcome:** Hybrid fails if BOTH algorithms broken by 2035
+
+**Correct Statement:** "Hybrid protects against quantum attacks IF ML-KEM remains secure, and protects against classical attacks IF X25519 remains secure. Protection requires at least ONE algorithm to remain unbroken against the specific attack being attempted."
+
+**Implementation Validation:**
+
+```bash
+# Verify hybrid key exchange negotiation
+openssl s_client -connect example.com:443 -groups x25519_kyber768 -tls1_3 2>&1 | grep -E "shared_group|key_share"
+
+# Should output BOTH:
+# "shared_group: x25519_kyber768"
+# "key_share: X25519Kyber768KeyShare"
+
+# This confirms BOTH classical and PQC key material is exchanged
+```
+
+**Test failure scenarios:**
+
+```bash
+# Test fallback to classical (simulate ML-KEM not supported)
+openssl s_client -connect example.com:443 -groups x25519 -tls1_3 2>&1 | grep "shared_group"
+# Should fallback to: "shared_group: x25519"
+
+# Test pure PQC rejection (no classical fallback configured)
+openssl s_client -connect pqc-only.example.com:443 -groups x25519 -tls1_3
+# Should fail with: "alert handshake failure" (if pure PQC enforced)
+```
+
+**Security Trade-Off Analysis:**
+
+**Hybrid Advantages:**
+- ✅ Defense-in-depth (two independent algorithms)
+- ✅ Compatibility with classical-only clients
+- ✅ Gradual migration path
+- ✅ Protection against single-algorithm failure
+
+**Hybrid Disadvantages:**
+- ❌ NOT protected if BOTH algorithms fail
+- ❌ Larger handshake overhead (~1.6KB additional data)
+- ❌ Slightly slower handshake (~0.3-0.4ms overhead)
+- ❌ False sense of security if threat model unclear
+
+**Threat Model Checklist:**
+
+Before deploying hybrid crypto, answer these questions:
+- [ ] Am I protecting against quantum threats? (Requires ML-KEM security)
+- [ ] Am I protecting against classical threats? (Requires X25519 security)
+- [ ] What's my data retention period? (Determines quantum urgency)
+- [ ] What's the SNDL risk? (Adversary recording traffic today)
+- [ ] Do I trust ML-KEM implementation? (Lattice math is complex)
+- [ ] Can my clients support fallback? (Compatibility requirements)
+
+**Senior engineer perspective:** Years of cryptography implementation taught me that "either algorithm" statements hide critical assumptions. Hybrid crypto isn't magic insurance—it's defense-in-depth against SPECIFIC threat models. I've seen teams deploy hybrid thinking they're "covered if either breaks" without understanding that quantum attacks ONLY care about ML-KEM security, and classical attacks ONLY care about X25519 security. The "either" claim is technically correct but dangerously incomplete without threat model context. Always ask: protected against WHICH attack scenario? The answer determines which algorithm actually matters.
 
 **Pure PQC mode** (what I accidentally tried first):
 - ML-KEM-768 only, no classical fallback
