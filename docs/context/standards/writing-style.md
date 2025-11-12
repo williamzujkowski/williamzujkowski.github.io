@@ -2,16 +2,17 @@
 title: Writing Style & Voice Standards
 category: standards
 priority: MEDIUM
-version: 1.1.0
+version: 1.2.0
 last_updated: 2025-11-11
-estimated_tokens: 7090
+estimated_tokens: 10500
 load_when:
   - Creating blog posts
   - Reviewing content tone
   - Editorial guidance needed
+  - Technical content validation
 dependencies:
   - standards/humanization-standards
-tags: [writing, style, voice, tone, editorial]
+tags: [writing, style, voice, tone, editorial, technical-authority, senior-engineer]
 ---
 
 # Writing Style & Voice Standards
@@ -39,10 +40,17 @@ This module defines the "Polite Linus Torvalds" writing style standard, core pri
 | Cut ruthlessly | Remove qualifiers, adverbs | Delete "actually", "basically", "really" |
 | Sentence rhythm | Short → medium → punch | "K3s works. It uses 512MB RAM. You can run it on a Raspberry Pi." |
 | Transitions | Human, not formal | Use "Still", "Anyway", not "Therefore" |
+| Technical depth | Senior engineer level | Assume sysadmin background, explain architecture decisions |
+| Authority signals | Show experience | Time investments, multiple approaches tried, failure modes |
 
-**Anti-AI-Tell Quick Check:**
+**Quick Validation Checks:**
+
 ```bash
+# Anti-AI-Tell check
 grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
+
+# Technical authority check (should find these patterns)
+grep -E "I tested|I spent|took [0-9]+ hours|[0-9]+GB RAM|kernel|version" src/posts/[file].md
 ```
 
 ---
@@ -238,6 +246,158 @@ Before publishing:
 
 ---
 
+## Technical Authority Standards
+
+**This blog is written by a senior security engineer with 15+ years experience in systems administration, network security, and vulnerability management. Writing must reflect deep technical expertise while remaining accessible.**
+
+### Senior Engineer Voice Principles
+
+**What senior engineers do:**
+- Acknowledge complexity without oversimplifying
+- Admit when something is hard or poorly designed
+- Question vendor claims with specific technical objections
+- Reference multiple failure modes from experience
+- Differentiate between theory and production reality
+
+**What senior engineers avoid:**
+- Oversimplified explanations that obscure important details
+- Treating complex systems as simple
+- Vendor talking points without critical analysis
+- Tutorials that skip prerequisite knowledge
+- "Just do X" without explaining trade-offs
+
+### Technical Depth Expectations
+
+**System/Network Administration Context:**
+
+This blog assumes readers have systems administration background. Don't explain:
+- Basic networking (TCP/IP, DNS, routing)
+- Linux fundamentals (package management, systemd, permissions)
+- Container basics (Docker, images, registries)
+- Common security concepts (CVEs, CVSS, authentication vs authorization)
+
+**Do explain:**
+- Non-obvious behavior (kernel quirks, edge cases)
+- Advanced configurations (performance tuning, security hardening)
+- Integration challenges (tool compatibility, version conflicts)
+- Architecture decisions (why this approach vs alternatives)
+
+**Examples:**
+
+❌ Oversimplified:
+```markdown
+Docker is a containerization platform that lets you run applications
+in isolated environments. It's easy to use and makes deployment simple.
+```
+
+✅ Appropriate depth:
+```markdown
+Docker provides process isolation via kernel namespaces (PID, network, mount)
+and resource limits via cgroups. Works well for stateless services. Storage
+gets messy—overlay2 performs better than devicemapper, but BTRFS snapshots
+handle state better if you're willing to tune it.
+
+Most tutorials skip the part where Docker's bridge networking breaks
+multicast. Learned that the hard way during a Consul deployment.
+```
+
+### Security Mistake Patterns to Avoid
+
+**Common oversimplifications:**
+
+❌ "Just use AppArmor for container security"
+✅ "AppArmor provides mandatory access control for containers. But profiles
+   break frequently during upgrades. I maintain 23 custom profiles—each one
+   took 3-4 iterations to get right. Test in staging first."
+
+❌ "Enable HTTPS and you're secure"
+✅ "HTTPS encrypts transport. Doesn't help if your application has SQLi.
+   Doesn't prevent SSRF. Doesn't stop credential stuffing. It's table stakes,
+   not a security strategy."
+
+❌ "This CVE is CRITICAL (CVSS 9.8), patch immediately"
+✅ "CVSS 9.8 measures theoretical severity. EPSS shows 0.3% exploitation
+   probability. Still patch it, but maybe not at 2am on a weekend.
+   Context matters."
+
+### Technical Authority Validation Checklist
+
+Before publishing technical content, verify:
+
+**Accuracy checks:**
+- [ ] All version numbers verified against official docs
+- [ ] Command syntax tested in actual environment
+- [ ] Performance claims backed by measurements (not vendor specs)
+- [ ] Security recommendations tested in homelab
+- [ ] Breaking changes documented with version context
+
+**Depth checks:**
+- [ ] Explains *why* not just *what*
+- [ ] Acknowledges alternative approaches
+- [ ] Discusses failure modes
+- [ ] Includes system architecture context
+- [ ] Differentiates development vs production requirements
+
+**Authority signals:**
+- [ ] References multiple tools/approaches tried
+- [ ] Admits what doesn't work or is poorly designed
+- [ ] Quantifies time investments (debugging, testing)
+- [ ] Cites specific kernel versions, OS distributions, hardware configs
+- [ ] Discusses upgrade/migration challenges
+
+**Anti-patterns to avoid:**
+- [ ] No vendor claims without independent verification
+- [ ] No "best practices" without context
+- [ ] No security advice without threat model
+- [ ] No performance tips without profiling data
+- [ ] No "enterprise-grade" or marketing language
+
+### System/Network Administration Examples
+
+**Networking context (appropriate depth):**
+
+```markdown
+✅ "BGP lets you control routing paths. Useful for multi-homing.
+   Pain to debug. tcpdump won't show you policy decisions, only packets.
+   I spent 4 hours troubleshooting asymmetric routing because one peer
+   preferred a longer AS path. Wireshark + looking glass finally revealed it."
+```
+
+**Storage context (appropriate depth):**
+
+```markdown
+✅ "ZFS handles checksumming, compression, snapshots. Solid for NAS.
+   Terrible for databases without tuning—ARC cache fights with PostgreSQL's
+   shared_buffers. I run ZFS with primarycache=metadata for my Postgres
+   cluster. Took 3 configurations to find the right balance."
+```
+
+**Container orchestration context (appropriate depth):**
+
+```markdown
+✅ "K3s strips out cloud provider integrations to save RAM. Works great for
+   edge. But if you need AWS ELB integration or Azure CSI drivers, you're
+   bolting them back on. Tested both: vanilla K3s used 512MB RAM, K3s +
+   cloud-controller-manager + CSI drivers hit 890MB. Still better than
+   full k8s (2.1GB), but margin shrinks."
+```
+
+### Cross-References with Humanization Standards
+
+These technical authority standards work with humanization requirements:
+
+**Phase 2 (Personal Voice):** Senior engineer voice means sharing real debugging stories, not just successful implementations.
+
+**Phase 3 (Measurements):** Technical depth requires specific version numbers, performance data, resource measurements.
+
+**Phase 5 (Failure Narratives):** Authority comes from admitting mistakes and showing iteration process.
+
+**Phase 6 (Trade-offs):** Every technical recommendation must acknowledge costs, limitations, contexts where it fails.
+
+**See also:** [humanization-standards.md](humanization-standards.md) for complete validation methodology.
+
+---
+
 ## Healthy AI Skepticism
 
 ### Question the Hype
@@ -418,6 +578,20 @@ grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/po
 ---
 
 ## Changelog
+
+### Version 1.2.0 (2025-11-11)
+- **NEW SECTION: Technical Authority Standards** - Added comprehensive senior engineer voice guidelines
+  - Senior engineer voice principles (what to do/avoid)
+  - Technical depth expectations (sysadmin context assumptions)
+  - Security mistake patterns to avoid (common oversimplifications)
+  - Technical authority validation checklist (accuracy, depth, authority signals)
+  - System/network administration examples (networking, storage, orchestration)
+  - Cross-references with humanization standards methodology
+- Updated Quick Reference table with technical depth and authority signals
+- Added technical authority validation check to Quick Reference
+- Updated metadata: version 1.2.0, estimated_tokens 7090→10500, added tags (technical-authority, senior-engineer)
+- Added load_when condition: "Technical content validation"
+- Token increase: +3410 tokens (new technical authority section ~3500 tokens)
 
 ### Version 1.1.0 (2025-11-11)
 - **Consolidation with humanization-standards.md:** Replaced duplicate content with cross-references

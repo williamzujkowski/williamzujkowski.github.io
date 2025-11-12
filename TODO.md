@@ -522,7 +522,125 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 
 ---
 
-### 2. CLAUDE.md v4.1.0 Routing Architecture (COMPLETED 2025-11-10)
+### 2. Technical Accuracy Fixes - Blog Post Security Issues (STARTED 2025-11-12, Session 38)
+**Issue:** Technical review identified 21 accuracy/security issues across 7 security-focused blog posts
+**Impact:** Security credibility, technical accuracy, reader trust
+**Solution:** Prioritized 4-phase remediation (CRITICAL → MAJOR → MODERATE → MINOR)
+
+**Review Foundation:**
+- Comprehensive report: 29KB analysis with specific line references
+- Research: 22 industry/academic sources (OWASP, NIST, CIS, IEEE, ACM)
+- Reviewer agent: 7 posts analyzed (Bitwarden, VLAN, Suricata, Container, eBPF, EPSS, Post-Quantum)
+
+**Phase 1: CRITICAL Security Fixes (2-3 hours)** ⏳ **IN PROGRESS: 0/3 complete**
+
+1. ⏳ **Bitwarden Post: Exposed Admin Panel** - CRITICAL SECURITY ISSUE
+   - **Location:** `src/posts/2025-09-01-self-hosted-bitwarden-migration-guide.md`
+   - **Issue:** Docker Compose config doesn't disable admin panel (CVE-waiting-to-happen)
+   - **Fix Required:**
+     - Add `ADMIN_TOKEN` environment variable configuration
+     - Document secure token generation (`openssl rand -base64 48`)
+     - Recommend disabling admin panel after initial setup
+     - Add IP restriction guidance
+   - **Gist Update:** Update Docker Compose gist with security hardening
+   - **Estimated Time:** 45-60 minutes
+   - **Priority:** 🔴 CRITICAL - Internet-facing vulnerability
+
+2. ⏳ **VLAN Post: Missing Anti-Spoofing Controls** - CRITICAL SECURITY ISSUE
+   - **Location:** `src/posts/2025-09-08-zero-trust-vlan-segmentation-homelab.md`
+   - **Issue:** No VLAN hopping protection or port security (CVE-2005-4440)
+   - **Fix Required:**
+     - Add `switchport mode access` configuration for user ports
+     - Document native VLAN tagging
+     - Add DHCP snooping configuration
+     - Add Dynamic ARP Inspection (DAI) examples
+     - Explain double-tagging attack prevention
+   - **Gist Update:** New gist for anti-spoofing configurations
+   - **Estimated Time:** 60-75 minutes
+   - **Priority:** 🔴 CRITICAL - VLAN isolation bypass risk
+
+3. ⏳ **Suricata Post: Unsigned Rule Updates** - CRITICAL SECURITY ISSUE
+   - **Location:** `src/posts/2025-08-25-network-traffic-analysis-suricata-homelab.md`
+   - **Issue:** No GPG signature verification of rule downloads
+   - **Fix Required:**
+     - Add `suricata-update --etopen` with signature verification
+     - Document GPG signature checking workflow
+     - Add staging environment testing recommendation
+     - Explain malicious rule injection risks
+   - **Gist Update:** Update Suricata deployment gist with verification steps
+   - **Estimated Time:** 45-60 minutes
+   - **Priority:** 🔴 CRITICAL - Supply chain attack vector
+
+**Phase 2: MAJOR Technical Issues (3-4 hours)** ⏳ **PENDING: 0/4 complete**
+
+4. ⏳ **Container Security: Distroless Debugging Misconception**
+   - **Location:** `src/posts/2025-08-18-container-security-hardening-homelab.md`
+   - **Issue:** Claims distroless makes debugging "significantly harder" without mentioning ephemeral debug containers
+   - **Fix:** Add Kubernetes 1.23+ ephemeral container examples (`kubectl debug`)
+   - **Time:** 30-45 minutes
+
+5. ⏳ **eBPF Post: Missing Verifier Bypass Discussion**
+   - **Location:** `src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md`
+   - **Issue:** Presents eBPF verifier as inherently safe without CVE context
+   - **Fix:** Add CVE-2021-31440, CVE-2021-33624, CVE-2023-2163 with mitigation guidance
+   - **Time:** 45-60 minutes
+
+6. ⏳ **EPSS Post: Percentile Misinterpretation**
+   - **Location:** `src/posts/2025-09-20-vulnerability-prioritization-epss-kev.md`
+   - **Issue:** Confuses EPSS score interpretation (95th percentile explanation incorrect)
+   - **Fix:** Clarify percentile meaning, add FIRST.org decision matrix
+   - **Time:** 30-45 minutes
+
+7. ⏳ **Post-Quantum: Hybrid Crypto Security Claim**
+   - **Location:** `src/posts/2025-10-29-post-quantum-cryptography-homelab.md`
+   - **Issue:** Oversimplifies hybrid cryptography security ("protected as long as *either* algorithm remains unbroken")
+   - **Fix:** Clarify threat model dependencies, quantum vs classical attack scenarios
+   - **Time:** 30-45 minutes
+
+**Phase 3: MODERATE Context Issues (4-5 hours)** ⏳ **PENDING: 0/7 complete**
+
+8-14. **Context Enhancements:** Backup key management, VLAN 1 guidance, ET Open delay, user namespace alternatives, eBPF overhead ranges, EPSS API rate limits, Falcon vs ML-DSA comparison
+
+**Phase 4: MINOR Polish Items (2-3 hours)** ⏳ **PENDING: 0/7 complete**
+
+15-21. **Polish:** 2FA storage, mDNS security, Suricata performance, SBOM generation, BTF checks, KEV deadlines, Dilithium variants
+
+**Progress Tracking:**
+- **Phase 1 (CRITICAL):** 0/3 (0%) - Start immediately
+- **Phase 2 (MAJOR):** 0/4 (0%) - After Phase 1 complete
+- **Phase 3 (MODERATE):** 0/7 (0%) - Batch with monthly maintenance
+- **Phase 4 (MINOR):** 0/7 (0%) - Low priority, document for future
+- **Overall:** 0/21 (0%) - **JUST STARTED**
+
+**Estimated Timeline:**
+- **Week 1:** Phase 1 CRITICAL (2-3 hours) - IMMEDIATE
+- **Week 2:** Phase 2 MAJOR (3-4 hours)
+- **Month 2:** Phase 3 MODERATE (4-5 hours) during monthly maintenance
+- **Quarter:** Phase 4 MINOR (2-3 hours) as time permits
+
+**Success Metrics:**
+```markdown
+Phase      | Issues | Time Est | Priority | Status
+-----------|--------|----------|----------|--------
+CRITICAL   | 3      | 2-3h     | 🔴 NOW   | ⏳ 0%
+MAJOR      | 4      | 3-4h     | 🟡 Week  | ⏳ 0%
+MODERATE   | 7      | 4-5h     | 🟠 Month | ⏳ 0%
+MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
+**TOTAL**  | **21** | **11-15h** | -      | **0%**
+```
+
+**Documentation:**
+- Technical review report: Available from Session 38 output
+- Research standards: `docs/research/senior-security-engineer-writing-standards.md`
+- Validation checklist: `docs/checklists/senior-engineer-content-validation.md`
+
+**Status:** ⏳ **PHASE 1 IN PROGRESS** - CRITICAL fixes starting now
+**Started:** 2025-11-12 (Session 38)
+**Target Completion:** Phase 1 by 2025-11-13, Full completion by Q1 2026
+
+---
+
+### 3. CLAUDE.md v4.1.0 Routing Architecture (COMPLETED 2025-11-10)
 **Issue:** CLAUDE.md v4.0.3 routing was implicit, causing ambiguity about when to load skills vs use LLM judgment
 **Impact:** LLMs uncertain about mandatory vs optional skill loading, potential routing errors
 **Solution:** Implement explicit 3-tier routing system (MANDATORY/RECOMMENDED/OPTIONAL)

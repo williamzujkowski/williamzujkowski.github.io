@@ -577,6 +577,139 @@ Bash("npm test")
 
 **Full guidelines:** `docs/context/standards/writing-style.md` (7,460 tokens)
 
+### 4.5.1: Technical Authority & Security Expertise
+
+**Author background:** Senior security engineer with system/network administration foundation. This expertise shapes content depth, technical accuracy, and credibility markers.
+
+**Technical depth standards:**
+
+**System-level understanding required:**
+- Network protocols, packet analysis, traffic inspection
+- Operating system internals (Linux kernel, Windows internals)
+- Infrastructure security (firewalls, IDS/IPS, SIEM)
+- Virtualization and containerization (VMware, Docker, Kubernetes)
+- Hardware configuration (servers, networking equipment, storage)
+
+**Security expertise areas:**
+- Vulnerability assessment and penetration testing
+- Incident response and forensics
+- Security architecture and design
+- Compliance frameworks (NIST, CIS, DISA STIGs)
+- Threat modeling and risk assessment
+
+**Appropriate technical depth examples:**
+
+✅ **Correct depth (senior engineer perspective):**
+```markdown
+"Suricata's AF_PACKET mode bypasses kernel network stack for direct NIC access.
+Set ring-size to 64MB minimum (128MB for 10Gbps) to handle burst traffic.
+Monitor /proc/net/pf_ring/stats for packet drops - anything >0.1% needs tuning."
+
+"eBPF's verifier limits stack to 512 bytes and enforces bounded loops.
+For complex packet parsing, pre-allocate per-CPU maps (BPF_MAP_TYPE_PERCPU_ARRAY)
+to avoid runtime allocation failures under load."
+
+"EPSS models exploit likelihood using CVSS + real-world telemetry.
+KEV catalog requires active exploitation evidence from CISA threat intel.
+Cross-reference both: EPSS >0.7 + KEV presence = immediate patching required."
+```
+
+❌ **Insufficient depth (junior engineer perspective):**
+```markdown
+"Suricata is fast because it uses special networking modes."
+"eBPF is good for security monitoring."
+"EPSS helps you prioritize vulnerabilities."
+```
+
+**Credibility markers (use appropriately):**
+
+**Experience indicators (NDA-compliant):**
+- "Years of system administration taught me..." (vague timeframe)
+- "After managing enterprise networks..." (no employer details)
+- "In production environments, I've seen..." (no work specifics)
+- "Homelab testing confirmed industry patterns..." (safe attribution)
+
+**Knowledge depth signals:**
+- Specific version numbers and configuration parameters
+- Performance metrics and tuning thresholds
+- Edge cases and failure modes
+- Trade-offs between competing approaches
+- Tool limitations and workarounds
+
+**Cross-reference with NDA compliance:**
+
+✅ **Safe expertise demonstration:**
+```markdown
+"In my homelab, I replicated CVE-2024-1234 using Metasploit against hardened containers.
+Escape achieved in <3 minutes via cgroup release_agent. Mitigation requires
+AppArmor profile: deny /sys/fs/cgroup/**/release_agent rwklx."
+
+"Years ago, I learned IDS signature tuning the hard way. False positive rates
+>5% train analysts to ignore alerts. Suppress noisy signatures first
+(dns.query ANY, tls.sni *.cdn.cloudflare.com), then tune detection thresholds."
+```
+
+❌ **Unsafe expertise demonstration:**
+```markdown
+"Last month at work, we discovered RCE in our production environment..."
+"My current employer's SIEM correlates 500K events/second using..."
+"Federal systems I manage require multi-factor authentication..."
+```
+
+**Security best practices in examples:**
+
+**Always demonstrate:**
+- Least privilege principles (not root unless necessary)
+- Defense in depth (multiple security layers)
+- Fail-secure defaults (deny-by-default configurations)
+- Input validation and sanitization
+- Secure credential management (never hardcoded secrets)
+
+**Example patterns:**
+
+✅ **Secure examples:**
+```bash
+# Run as unprivileged user
+sudo -u scanner nmap -sV target.local
+
+# Read-only bind mount
+docker run -v /data:/data:ro alpine
+
+# Environment variables for secrets
+export DB_PASSWORD=$(vault kv get -field=password secret/db)
+```
+
+❌ **Insecure examples:**
+```bash
+# Running as root unnecessarily
+nmap -sV target.local
+
+# Writable mount for read-only data
+docker run -v /data:/data alpine
+
+# Hardcoded credentials
+DB_PASSWORD="admin123"
+```
+
+**Technical accuracy standards:**
+
+**Required for all technical content:**
+- Command syntax verified (tested in homelab before publishing)
+- Version-specific features noted (tool versions, API changes)
+- Error messages quoted exactly (no paraphrasing)
+- Performance metrics measured (not estimated or guessed)
+- Configuration parameters validated (defaults, ranges, dependencies)
+
+**Quality checklist:**
+- [ ] Technical details accurate to specific tool versions
+- [ ] Security implications explained (not just "how" but "why secure")
+- [ ] Edge cases and failure modes documented
+- [ ] NDA compliance verified (homelab attribution, time buffering)
+- [ ] Commands tested before publication
+- [ ] Performance claims backed by measurements
+
+**Cross-reference:** See `docs/context/core/nda-compliance.md` for safe attribution patterns when demonstrating security expertise.
+
 ### 4.6: Documentation Hierarchy
 
 **Primary (Authoritative):**
