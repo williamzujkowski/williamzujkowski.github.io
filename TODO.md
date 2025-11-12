@@ -1090,8 +1090,8 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 
 ---
 
-### 10. Playwright Test Suite Expansion
-**Issue:** 5 pages tested; opportunity to add Mermaid rendering validation
+### 10. Playwright Test Suite Expansion ⚡ IN PROGRESS (Phase 1 Complete)
+**Issue:** 5 pages tested; expanding to Mermaid validation + dark mode testing
 **Solution:** Add automated Mermaid diagram validation + dark mode testing
 
 **Current Coverage:**
@@ -1100,19 +1100,27 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 - ✅ Metrics: First impressions, navigation, typography, visual hierarchy, touch targets
 - ✅ Playwright v1.56.1 installed
 
-**Expansion Opportunities:**
-1. **Mermaid rendering validation** (49 posts) - HIGH VALUE
-   - Validates style guide compliance
+**Progress (Session 36 - 2025-11-12):**
+1. ✅ **Mermaid rendering validation** (49 posts) - COMPLETE
+   - Created: `scripts/validate-mermaid-rendering.js` (318 lines)
+   - Validates style guide compliance (Session 34)
    - Catches rendering errors before production
    - Prevents v9→v10 regressions
-2. **Dark mode toggle functionality** - MEDIUM VALUE
+   - Console error detection + SVG verification
+   - npm script: `npm run validate:mermaid`
+   - Documentation: `scripts/README-MERMAID-VALIDATION.md` (269 lines)
+   - PR #10: Merged to main
+
+2. ⏳ **Dark mode toggle functionality** - PENDING
    - Toggle detected but not functionally tested
    - Quick win (1-2 hours)
-3. **Top 10 most-visited posts** - MEDIUM VALUE (requires analytics)
-4. **Search functionality** - LOW VALUE (if exists)
 
-**Estimated Effort:** 4-6 hours (reduced from 6-8h due to existing infrastructure)
-**Priority:** MEDIUM (Task #8 Mermaid guide complete, validation would add value)
+3. ⏳ **Top 10 most-visited posts** - PENDING (requires analytics)
+4. ⏳ **Search functionality** - PENDING (LOW priority)
+
+**Estimated Effort:** 4-6 hours total (2-3h completed, 2-3h remaining)
+**Priority:** MEDIUM (Phase 1 complete, Phase 2 dark mode testing next)
+**Status:** ⚡ **PHASE 1 COMPLETE** - Phase 2 pending
 
 ---
 
@@ -1134,6 +1142,26 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 | **Monthly Cleanup Audit** | 1 audit | 1 | 0 | 100% ✅ |
 | **Session Reports Archival** | 26 reports | 26 | 0 | 100% ✅ |
 | **Mermaid v10 Style Guide** | 1 guide | 1 | 0 | 100% ✅ |
+| **Mermaid Validation Script** | 1 script | 1 | 0 | 100% ✅ |
+| **Playwright Test Expansion** | 4 phases | 1 | 3 | 25% ⏳ |
+
+**Session 37 Key Changes (2025-11-12):**
+- PR Merges: Merged PR #10 (Mermaid validation), closed stale PR #11
+- Repository Cleanup: Archived Phase 1 P0 reports, finalized Session 34 archival
+- Validator Enhancement: Updated pre-commit to exclude docs/archive/ from Mermaid v10 checks
+- Research Validator: Updated to v2.0.0 with DOI normalization + duplicate detection
+- Task #10 Phase 1 Complete: Mermaid rendering validation (49 posts, npm run validate:mermaid)
+
+**Session 36 Key Changes (2025-11-12):**
+- Mermaid Rendering Validation: Created automated validation for 49 posts with diagrams
+- Task #10 Phase 1 Complete: Mermaid validation script (validate-mermaid-rendering.js)
+- npm script added: npm run validate:mermaid
+- Documentation: README-MERMAID-VALIDATION.md (269 lines)
+
+**Session 35 Key Changes (2025-11-12):**
+- Strategic Planning: Infrastructure audit revealed TODO.md inaccuracies
+- TODO.md Corrections: Task #10 updated with accurate Playwright coverage
+- Effort savings: 2-3 hours identified via audit-first approach
 
 **Session 34 Key Changes (2025-11-11):**
 - Quick Wins: Archived 26 session reports, git housekeeping (prune + gc)
