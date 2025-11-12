@@ -1091,17 +1091,28 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 ---
 
 ### 10. Playwright Test Suite Expansion
-**Issue:** Only blockchain post + homepage tested
-**Solution:** Expand to 20-30 critical pages
+**Issue:** 5 pages tested; opportunity to add Mermaid rendering validation
+**Solution:** Add automated Mermaid diagram validation + dark mode testing
 
-**Pages to Add:**
-- All posts with Mermaid diagrams (50 posts)
-- Top 10 most visited posts (check analytics)
-- Navigation pages (tags, about, resources)
-- Search functionality
-- Dark mode toggle
+**Current Coverage:**
+- ✅ UI/UX audit script tests 5 pages across 8 breakpoints (320px-2560px)
+- ✅ Pages: / (homepage), /about/, /posts/, /uses/, Claude Flow post
+- ✅ Metrics: First impressions, navigation, typography, visual hierarchy, touch targets
+- ✅ Playwright v1.56.1 installed
 
-**Estimated Effort:** 6-8 hours
+**Expansion Opportunities:**
+1. **Mermaid rendering validation** (49 posts) - HIGH VALUE
+   - Validates style guide compliance
+   - Catches rendering errors before production
+   - Prevents v9→v10 regressions
+2. **Dark mode toggle functionality** - MEDIUM VALUE
+   - Toggle detected but not functionally tested
+   - Quick win (1-2 hours)
+3. **Top 10 most-visited posts** - MEDIUM VALUE (requires analytics)
+4. **Search functionality** - LOW VALUE (if exists)
+
+**Estimated Effort:** 4-6 hours (reduced from 6-8h due to existing infrastructure)
+**Priority:** MEDIUM (Task #8 Mermaid guide complete, validation would add value)
 
 ---
 
