@@ -782,8 +782,8 @@ DB_PASSWORD="admin123"
 - Metadata format (dates must be YYYY-MM-DD)?
 
 # Run validation scripts:
-python scripts/blog-content/metadata-validator.py --batch
-python scripts/blog-content/build-monitor.py
+python scripts/validation/metadata-validator.py --batch
+python scripts/validation/build-monitor.py
 python scripts/playwright/test-gist-rendering.py  # Automated page validation
 ```
 
