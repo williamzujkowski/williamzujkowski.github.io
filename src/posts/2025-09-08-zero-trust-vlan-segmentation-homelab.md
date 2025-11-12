@@ -131,6 +131,152 @@ Each VLAN gets dedicated interface: `set interfaces ethernet eth1 vif <id> addre
 
 Each VLAN subnet gets DHCP pool starting at .100 address
 
+## VLAN Security: Anti-Spoofing Controls (CRITICAL)
+
+**The Problem:** VLAN segmentation alone doesn't prevent Layer 2 attacks. Without anti-spoofing controls, attackers can bypass VLAN isolation through double-tagging (CVE-2005-4440), VLAN hopping, ARP spoofing, and DHCP attacks.
+
+**Why it matters:** Layer 2 attacks circumvent firewall rules entirely. An attacker on IoT VLAN 40 could access Management VLAN 10 by manipulating 802.1Q headers or poisoning ARP tables. Defense in depth requires security at Layer 2 **and** Layer 3.
+
+### Port Security: Prevent VLAN Hopping
+
+**Attack vector:** Malicious device negotiates trunking with switch, gains access to all VLANs.
+
+**Mitigation for UDM Pro:**
+
+```bash
+# Force access mode on all user-facing ports (NOT trunk mode)
+set interfaces ethernet eth2 switchport mode access
+set interfaces ethernet eth2 switchport access vlan 40  # IoT VLAN
+
+# Disable DTP (Dynamic Trunking Protocol) negotiation
+set interfaces ethernet eth2 switchport nonegotiate
+
+# Verify configuration
+show interfaces ethernet eth2 switchport
+```
+
+**Best practice:** Only trunk ports should connect to other switches. Every port connecting to an end device must be `mode access`.
+
+### Native VLAN Tagging
+
+**Attack vector:** Double-tagging attack sends frame with two 802.1Q tags. Outer tag matches native VLAN, gets stripped. Inner tag routes frame to target VLAN.
+
+**Mitigation:**
+
+```bash
+# Tag ALL VLANs, including native VLAN 1
+set interfaces ethernet eth1 native-vlan 999  # Unused VLAN
+set interfaces ethernet eth1 vlan-tagging
+
+# Or disable VLAN 1 entirely (recommended)
+set interfaces ethernet eth1 no-native-vlan
+```
+
+**Senior engineer note:** Years of network administration taught me: never trust VLAN 1. It's a common attack target. Either tag it or disable it. My homelab uses VLAN 999 as dead native VLAN—nothing assigned, nothing can exploit it.
+
+### DHCP Snooping
+
+**Attack vector:** Rogue DHCP server on IoT VLAN assigns malicious gateway IP, intercepts all traffic.
+
+**Mitigation:**
+
+```bash
+# Enable DHCP snooping globally
+set service dhcp-snooping
+
+# Mark trusted interfaces (uplinks to legitimate DHCP servers)
+set service dhcp-snooping interface eth0 trust
+
+# Untrusted interfaces (user-facing ports) automatically monitored
+set service dhcp-snooping vlan 40  # IoT VLAN
+
+# Verify binding table
+show dhcp snooping binding
+```
+
+**How it works:** Snooping builds MAC-to-IP-to-port binding table. DHCP Offer packets from untrusted ports are dropped. Only trusted uplink receives/sends DHCP traffic.
+
+### Dynamic ARP Inspection (DAI)
+
+**Attack vector:** ARP spoofing allows IoT device to impersonate gateway, intercept traffic to Management VLAN.
+
+**Mitigation:**
+
+```bash
+# Enable DAI on IoT VLAN (requires DHCP snooping first)
+set service dhcp-snooping vlan 40
+set service arp-inspection vlan 40
+
+# Trust uplink ports (allow ARP from legitimate gateway)
+set service arp-inspection interface eth0 trust
+
+# Rate limit ARP on untrusted ports (prevent DoS)
+set service arp-inspection rate-limit 15  # packets per second
+
+# Verify inspection statistics
+show arp inspection statistics vlan 40
+```
+
+**Dependency:** DAI uses DHCP snooping binding table to validate ARP packets. Configure snooping first.
+
+### Storm Control
+
+**Attack vector:** Malicious broadcast/multicast storm from compromised IoT device saturates network.
+
+**Mitigation:**
+
+```bash
+# Limit broadcast/multicast on IoT VLAN interfaces
+set interfaces ethernet eth2 storm-control broadcast level 10  # 10% bandwidth
+set interfaces ethernet eth2 storm-control multicast level 10
+set interfaces ethernet eth2 storm-control action drop
+
+# Monitor storm-control events
+show storm-control
+```
+
+### Validation Commands
+
+**Test anti-spoofing configuration:**
+
+```bash
+# 1. Verify access-only ports (no trunking)
+show interfaces switchport | grep "Operational Mode: access"
+
+# 2. Check DHCP snooping bindings
+show dhcp snooping binding
+
+# 3. Verify ARP inspection is active
+show arp inspection statistics
+
+# 4. Test VLAN hopping (should fail)
+# From IoT device, attempt to send double-tagged frame
+# Should be dropped by port security
+
+# 5. Monitor for attacks
+show log | match "DHCP-SNOOPING\|ARP-INSPECTION"
+```
+
+**Expected behavior:**
+- DHCP Offers from untrusted ports: **DROPPED**
+- ARP packets with mismatched MAC/IP: **DROPPED**
+- Double-tagged frames on access ports: **DROPPED**
+- Storm-control threshold exceeded: **TRAFFIC DROPPED**
+
+### Why These Controls Matter
+
+**Without anti-spoofing:**
+- IoT camera → double-tags packet → reaches management VLAN → firewall bypassed ✅ ATTACK SUCCEEDS
+- Compromised device → rogue DHCP server → gateway poisoning → traffic interception ✅ ATTACK SUCCEEDS
+- Malicious ARP → impersonates gateway → MitM attack → credential theft ✅ ATTACK SUCCEEDS
+
+**With anti-spoofing:**
+- Double-tagged frame → port security drops → attack fails ❌
+- Rogue DHCP Offer → snooping drops → attack fails ❌
+- Spoofed ARP → DAI drops → attack fails ❌
+
+**Senior engineer perspective:** VLAN firewall rules protect against Layer 3 attacks. Anti-spoofing protects against Layer 2 attacks. You need both. Most homelab tutorials skip Layer 2 security because it's complex and vendor-specific. But that's exactly what attackers exploit. Defense in depth means securing every layer, not just the firewall.
+
 ## Firewall Rules
 
 ### Rule Structure
