@@ -166,6 +166,189 @@ Enable 2FA for all accounts through web vault:
 
 Recovery codes are critical. Without them, device loss means account lockout.
 
+### Backup Key Management (MODERATE)
+
+**The Problem:** Self-hosted password managers create a single point of failure for ALL your credentials. Lose access to your Bitwarden instance + master password, and every account password is gone. Backup key management isn't optional—it's disaster recovery planning.
+
+**Why it matters:** Unlike cloud providers with account recovery workflows, self-hosted means YOU are responsible for ALL recovery scenarios. No support team can help you. Master password loss + no backup export = permanent data loss.
+
+#### Recovery Code Storage Best Practices
+
+**2FA recovery codes (30-digit codes from Authenticator setup):**
+
+```bash
+# CRITICAL: Store recovery codes in multiple secure locations
+# Location 1: Printed hardcopy in fireproof safe (primary)
+# Location 2: Encrypted USB drive in bank safety deposit box (offsite)
+# Location 3: Encrypted cloud storage (encrypted with different passphrase)
+
+# Generate encrypted backup of recovery codes
+echo "Primary 2FA Recovery: XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" | gpg --symmetric --cipher-algo AES256 > bitwarden-2fa-recovery.gpg
+
+# Store encrypted file in 3 locations
+# DO NOT store decryption passphrase with encrypted file
+```
+
+**Storage location requirements:**
+- [ ] Physical copy in fireproof/waterproof safe (home)
+- [ ] Encrypted digital copy offsite (bank safety deposit box)
+- [ ] Encrypted cloud backup (Backblaze B2, encrypted before upload)
+- [ ] Decryption passphrase memorized or stored separately
+
+**Common mistakes:**
+- ❌ Screenshot saved to cloud photos (plaintext, accessible if cloud compromised)
+- ❌ Stored in Bitwarden itself (can't access if locked out)
+- ❌ Single location only (house fire = total loss)
+- ✅ Multiple locations, different security domains (physical + digital + offsite)
+
+#### Master Password Loss Scenarios
+
+**Scenario 1: Master password forgotten, 2FA device available**
+- **Impact:** CANNOT recover master password (zero-knowledge encryption)
+- **Solution:** Use 2FA recovery code to access vault, immediately export all passwords, create new vault with new master password, import passwords, update all recovery codes
+- **Time to recovery:** 2-4 hours (export + reimport + reconfigure)
+
+**Scenario 2: Master password forgotten, 2FA device lost, have recovery codes**
+- **Impact:** Can log in with recovery code, but still cannot recover master password
+- **Solution:** Same as Scenario 1 (export + rebuild)
+- **Time to recovery:** 2-4 hours
+
+**Scenario 3: Master password forgotten, 2FA device lost, NO recovery codes**
+- **Impact:** TOTAL DATA LOSS (permanent lockout)
+- **Solution:** Restore from backup export file (if you have one)
+- **Time to recovery:** N/A if no backup exists
+
+**Scenario 4: Server failure, have backup database, forgot master password**
+- **Impact:** Database encrypted with master password, cannot decrypt
+- **Solution:** None (database is useless without master password)
+- **Prevention:** Regular encrypted exports that you CAN decrypt
+
+#### Emergency Access Setup
+
+**For family/trusted contacts (Bitwarden Premium feature):**
+
+```bash
+# Configure emergency access for spouse/family member
+# Settings → Emergency Access → Invite Emergency Contact
+
+# Emergency contact workflow:
+# 1. Contact requests emergency access
+# 2. Wait period expires (7-30 days, configurable)
+# 3. If you don't reject, they gain access
+# 4. They can view/takeover vault depending on permission level
+```
+
+**Emergency access levels:**
+- **View:** Read-only access to passwords (for account recovery assistance)
+- **Takeover:** Full access, can change master password (for estate planning)
+
+**Wait period considerations:**
+- **7 days:** Balance between security and actual emergency (recommended)
+- **30 days:** Maximum security, delays legitimate emergency access
+- **0 days:** Security risk, compromised contact = immediate vault access
+
+#### Backup Export Encryption
+
+**Database backups vs password exports:**
+
+| **Backup Type** | **Encryption** | **Master Password Required** | **Use Case** |
+|-----------------|----------------|------------------------------|--------------|
+| Database dump (db.sqlite3) | Encrypted with master password | YES (always) | Disaster recovery with known master password |
+| JSON export (unencrypted) | NONE | NO | Dangerous, only for migrations |
+| JSON export (encrypted) | Password-protected file | YES (decryption) | Secure offline backup |
+
+**Create encrypted export:**
+
+```bash
+# Export from Bitwarden CLI
+bw export --format encrypted_json --password "$BACKUP_PASSWORD" > bitwarden-backup-2025-11-12.json.enc
+
+# Encrypt again with GPG for defense-in-depth
+gpg --symmetric --cipher-algo AES256 bitwarden-backup-2025-11-12.json.enc
+
+# Verify encrypted file can be decrypted
+gpg --decrypt bitwarden-backup-2025-11-12.json.enc.gpg > test-decrypt.json.enc
+bw import encrypted_json test-decrypt.json.enc --password "$BACKUP_PASSWORD"
+
+# Store backup password separately from backup file
+# Options:
+# 1. KeePassXC file on different encrypted USB
+# 2. Paper printout in safe (different location from backup)
+# 3. Memorized passphrase (minimum 8 words, Diceware recommended)
+```
+
+**Backup storage hierarchy:**
+1. **Local encrypted backup:** NAS with encrypted ZFS pool (daily automated)
+2. **Offsite encrypted backup:** Encrypted before uploading to Backblaze B2 (weekly)
+3. **Cold storage backup:** Encrypted USB in bank safety deposit box (monthly)
+4. **Emergency export:** Encrypted JSON on USB given to emergency contact (quarterly update)
+
+#### Encryption Key Rotation
+
+**When to rotate master password:**
+- [ ] Annually (proactive security hygiene)
+- [ ] After suspected compromise (immediately)
+- [ ] After employee/family member loses access (within 24 hours)
+- [ ] After exporting for migration (export file contains old passwords)
+
+**Rotation procedure:**
+
+```bash
+# 1. Export current vault (encrypted)
+bw export --format encrypted_json --password "$BACKUP_PASSWORD" > pre-rotation-backup.json.enc
+
+# 2. Change master password in web vault
+# Settings → Security → Master Password → Change Master Password
+
+# 3. Re-export with new master password encryption
+bw export --format encrypted_json --password "$NEW_BACKUP_PASSWORD" > post-rotation-backup.json.enc
+
+# 4. Securely delete old backups (or keep with clear labeling)
+shred -vfz -n 10 pre-rotation-backup.json.enc
+
+# 5. Update all recovery codes (2FA reset triggers new codes)
+# Settings → Two-step Login → Disable → Re-enable (generates new recovery codes)
+
+# 6. Update emergency access contacts
+# Emergency contacts must be re-invited after master password change
+```
+
+**Frequency recommendations:**
+- **Master password:** Annually or after incident
+- **2FA recovery codes:** After master password change
+- **Backup exports:** Weekly (automated)
+- **Backup password:** Annually (align with master password rotation)
+
+#### Validation Checklist
+
+Test your backup recovery capability monthly:
+
+```bash
+# Monthly validation workflow
+# 1. Restore database backup to test instance
+docker run -d --name vaultwarden-test \
+  -v ./test-backup/:/data/ \
+  vaultwarden/server:latest
+
+# 2. Verify login with master password
+curl -X POST https://test-vault.local/identity/connect/token \
+  -d "grant_type=password&username=test@example.com&password=$MASTER_PASSWORD"
+
+# 3. Test encrypted export decryption
+bw import encrypted_json backup.json.enc --password "$BACKUP_PASSWORD"
+
+# 4. Verify 2FA recovery code works
+# Log out, log in with recovery code instead of TOTP
+
+# 5. Test emergency access workflow
+# Initiate emergency access request, verify notification received
+
+# 6. Document results
+echo "$(date): Backup validation PASSED/FAILED" >> backup-validation-log.txt
+```
+
+**Senior engineer perspective:** Years of security work taught me that backup testing is where theory meets reality. I've seen teams lose entire vaults because "we have backups" actually meant "we have encrypted files we can't decrypt because the backup password was stored IN the vault." Test your full recovery workflow quarterly under simulated emergency conditions: no access to production server, no cached browser sessions, only your printed recovery codes and encrypted backups. If you can't recover from that scenario, your backup strategy is fiction.
+
 ### Admin Panel Security (CRITICAL)
 
 **The Problem:** Vaultwarden enables an admin panel at `/admin` by default. Without proper configuration, anyone who discovers this endpoint can access server settings, disable security features, and view administrative information.

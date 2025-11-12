@@ -174,6 +174,215 @@ set interfaces ethernet eth1 no-native-vlan
 
 **Senior engineer note:** Years of network administration taught me: never trust VLAN 1. It's a common attack target. Either tag it or disable it. My homelab uses VLAN 999 as dead native VLAN—nothing assigned, nothing can exploit it.
 
+#### Why VLAN 1 is Dangerous (MODERATE)
+
+**The Problem:** VLAN 1 isn't just another VLAN—it's special. Most network equipment treats VLAN 1 as the default VLAN for management traffic, CDP/LLDP, STP, VTP, and untagged frames. This makes it a high-value target for attackers and a common misconfiguration vector.
+
+**Why it matters:** Using VLAN 1 for user traffic or leaving it active without tagging creates multiple attack surfaces. Even if you never explicitly configure VLAN 1, it exists by default on every switch port, processing frames you might not expect.
+
+**VLAN 1 Special Behaviors:**
+
+1. **Default VLAN for All Ports**
+   - Every switch port starts in VLAN 1 by default
+   - Untagged frames (no 802.1Q tag) automatically go to VLAN 1
+   - Attacker plugging into unused port lands in VLAN 1
+
+2. **Control Plane Traffic**
+   - Cisco Discovery Protocol (CDP) frames → VLAN 1
+   - Link Layer Discovery Protocol (LLDP) → VLAN 1
+   - Spanning Tree Protocol (STP) BPDUs → VLAN 1 (cannot be changed)
+   - VLAN Trunking Protocol (VTP) → VLAN 1
+   - **Impact:** Sniffing VLAN 1 reveals network topology, device models, firmware versions
+
+3. **Management Plane Default**
+   - Switch management IP often defaults to VLAN 1
+   - Many organizations inherit this from initial setup, never migrate
+   - **Impact:** VLAN 1 compromise = switch management interface accessible
+
+4. **Cannot Be Deleted**
+   - VLAN 1 is hardcoded, cannot be removed from database
+   - Can only be restricted, not eliminated
+   - **Impact:** Even "unused" VLAN 1 still processes control frames
+
+**Attack Scenarios:**
+
+**Scenario 1: VLAN 1 Double-Tagging Attack**
+```
+Attacker crafts frame:
+[Ethernet Header][Outer 802.1Q Tag: VLAN 1][Inner 802.1Q Tag: VLAN 40][Data]
+
+Switch behavior:
+1. Receives frame on access port (VLAN 1)
+2. Strips outer tag (standard 802.1Q behavior)
+3. Forwards frame with inner tag intact
+4. Inner tag (VLAN 40) gets processed by next switch
+5. Frame reaches IoT VLAN without proper authorization
+
+Mitigation:
+- Tag VLAN 1 on trunk ports (no native VLAN)
+- Use non-1 native VLAN (e.g., VLAN 999)
+```
+
+**Scenario 2: STP Manipulation via VLAN 1**
+```
+Attacker sends malicious STP BPDUs on VLAN 1:
+1. Claims to be root bridge (priority 0)
+2. Legitimate root bridge relinquishes role
+3. Attacker becomes root bridge
+4. All traffic flows through attacker for inspection/modification
+
+Mitigation:
+- Enable BPDU Guard on access ports
+- Use Root Guard on trunk ports
+- Filter VLAN 1 where not needed
+```
+
+**Scenario 3: CDP Information Disclosure**
+```
+Attacker sniffs VLAN 1 CDP frames:
+- Device hostname: "core-switch-01"
+- Model: "Cisco Catalyst 3650"
+- Firmware: "IOS-XE 16.6.4" (has CVE-2020-1234 vulnerability)
+- Management IP: 192.168.1.1
+- Native VLAN: 1
+
+Attacker now has:
+- Target for exploitation (known vulnerable firmware)
+- Management interface address
+- Network topology information
+
+Mitigation:
+- Disable CDP globally (unless monitoring requires it)
+- Use LLDP instead (more secure, standards-based)
+- Filter VLAN 1 on untrusted ports
+```
+
+**Migration Strategies:**
+
+**Strategy 1: Dead VLAN Approach (Recommended for Homelabs)**
+
+```bash
+# Assign unused VLAN as native (e.g., VLAN 999)
+set interfaces ethernet eth1 native-vlan 999
+set interfaces ethernet eth1 vlan-tagging
+
+# Verify no devices in VLAN 999
+show vlan 999
+# Should output: "No devices assigned"
+
+# Disable VLAN 1 on access ports (user-facing)
+set interfaces ethernet eth2 switchport mode access
+set interfaces ethernet eth2 switchport access vlan 40  # IoT VLAN
+# VLAN 1 no longer processes user traffic on this port
+```
+
+**Strategy 2: Management VLAN Migration (Enterprise)**
+
+```bash
+# Create dedicated management VLAN
+set vlan 10 description "MGMT"
+set interface vlan 10 address 192.168.10.1/24
+
+# Migrate switch management IP from VLAN 1 to VLAN 10
+set system ip management interface vlan 10
+
+# Restrict VLAN 1 to control traffic only
+set vlan 1 description "CONTROL-PLANE-ONLY"
+# Do NOT assign user devices to VLAN 1
+
+# Disable VLAN 1 on user-facing access ports
+set interface ethernet eth2-48 switchport mode access
+set interface ethernet eth2-48 switchport vlan 40
+# VLAN 1 no longer active on these ports
+```
+
+**Strategy 3: 802.1Q Tagging Everything (Maximum Security)**
+
+```bash
+# Force tagging on ALL VLANs including VLAN 1
+set interfaces ethernet eth1 vlan-tagging
+set interfaces ethernet eth1 allowed-vlan 1,10,20,30,40,50
+# All VLANs now tagged, no native VLAN
+
+# Or explicitly remove VLAN 1 from trunk
+set interfaces ethernet eth1 allowed-vlan 10,20,30,40,50
+# VLAN 1 cannot traverse this trunk
+```
+
+**Verification Commands:**
+
+```bash
+# Verify native VLAN configuration
+show interfaces ethernet eth1 switchport
+# Check: "Native VLAN: 999" (not 1)
+
+# Verify VLAN 1 not in use on access ports
+show vlan brief | grep "VLAN0001"
+# Should show: "VLAN0001, Name: default, Status: active, Ports: (none)"
+
+# Check STP root bridge (should not be attacker-controlled)
+show spanning-tree root
+# Verify root bridge priority and MAC address match expected device
+
+# Verify CDP disabled (or VLAN 1 filtered)
+show cdp neighbors
+# If enabled, should not leak sensitive information
+
+# Audit all ports for VLAN assignment
+show interfaces status | grep "VLAN 1"
+# Any user-facing port in VLAN 1 is misconfigured
+```
+
+**Common Misconfigurations:**
+
+| **Misconfiguration** | **Risk** | **Correct Configuration** |
+|----------------------|----------|---------------------------|
+| VLAN 1 as native VLAN on trunks | Double-tagging attacks | Use VLAN 999 as dead native |
+| User devices in VLAN 1 | Control plane exposure | Assign all users to VLAN 10+ |
+| Management IP in VLAN 1 | Switch compromise via user access | Migrate management to VLAN 10 |
+| CDP enabled globally | Information disclosure | Disable CDP or filter VLAN 1 |
+| VLAN 1 on access ports | Unused ports = VLAN 1 entry point | Set access ports to dead VLAN 999 |
+
+**Homelab Best Practices:**
+
+```bash
+# My homelab VLAN 1 configuration (zero user traffic):
+# 1. Native VLAN 999 (dead, nothing assigned)
+set interfaces ethernet eth1 native-vlan 999
+
+# 2. Management on VLAN 10 (isolated, firewall-protected)
+set vlan 10 description "MGMT"
+set interface vlan 10 address 192.168.10.1/24
+
+# 3. VLAN 1 allowed only on trunk (for control traffic)
+set interfaces ethernet eth1 allowed-vlan 1,10,20,30,40,50
+
+# 4. User VLANs start at 20+
+set vlan 20 description "TRUSTED"   # Workstations
+set vlan 30 description "GUEST"     # Guests
+set vlan 40 description "IOT"       # IoT devices
+set vlan 50 description "SERVERS"   # Homelab servers
+
+# 5. Unused ports in dead VLAN 999
+set interfaces ethernet eth10-24 switchport access vlan 999
+set interfaces ethernet eth10-24 shutdown
+```
+
+**Production Migration Checklist:**
+
+- [ ] Identify all devices currently in VLAN 1 (inventory scan)
+- [ ] Create management VLAN (VLAN 10) with appropriate firewall rules
+- [ ] Migrate switch management IPs to VLAN 10
+- [ ] Reassign user devices from VLAN 1 to appropriate VLANs
+- [ ] Configure trunk ports with non-1 native VLAN (999 recommended)
+- [ ] Enable BPDU Guard on access ports (prevent STP attacks)
+- [ ] Verify VLAN 1 traffic patterns (should be control plane only)
+- [ ] Document VLAN assignments and migration rationale
+- [ ] Test failover scenarios (STP convergence, port failures)
+- [ ] Schedule rollback window (migration risks downtime)
+
+**Senior engineer perspective:** Years of network security audits taught me VLAN 1 is the most commonly exploited misconfiguration in enterprise networks. I've seen attackers pivot from compromised IoT device in "default VLAN 1" directly to switch management interfaces because nobody migrated off the default. In one memorable incident, an intern plugged a laptop into an unused port (VLAN 1 by default), ran Wireshark, and captured switch management credentials from CDP frames—all because VLAN 1 was left as-shipped. Don't be that network. VLAN 1 is legacy baggage from when VLANs were simple. Modern networks should treat it as toxic: isolate it, tag it, or make it a dead VLAN with nothing assigned.
+
 ### DHCP Snooping
 
 **Attack vector:** Rogue DHCP server on IoT VLAN assigns malicious gateway IP, intercepts all traffic.
