@@ -1,7 +1,7 @@
 # 📋 Repository TODO - Active Tasks
 
 **Status:** ACTIVE
-**Last Updated:** 2025-11-12
+**Last Updated:** 2025-11-12 (Session 41 Extended Complete)
 **Purpose:** Track ongoing improvements and maintenance tasks discovered during audits
 
 ---
@@ -798,9 +798,9 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
 - ✅ Files changed: 3 (INDEX.yaml, CLAUDE.md, MANIFEST.json)
 - ✅ Lines changed: +48 insertions, -19 deletions
 
-**⏳ P1 HIGH PRIORITY (Scheduled - 7.5 hours):**
+**⏳ P1 HIGH PRIORITY (Remaining - 6-9 hours):**
 
-4. ⏳ **Add INDEX.yaml validator to pre-commit** (2-3h):
+4. ⏳ **Add INDEX.yaml validator to pre-commit** (2-3h - NEXT):
    - Validate module counts match filesystem
    - Block commits with >20% token variance
    - Automated drift prevention
@@ -812,11 +812,11 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
    - Prevent 30+ min wasted effort
    - **Impact:** Catches violations before commit time
 
-6. ⏳ **Resolve code-block-quality location** (45min):
-   - Move docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md → docs/context/standards/code-block-quality.md
-   - Update CLAUDE.md references
-   - Add to INDEX.yaml
-   - **Impact:** Integrates into progressive loading architecture
+6. ✅ **Resolve code-block-quality location** (45min actual - COMPLETE):
+   - Moved docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md → docs/context/standards/code-block-quality.md
+   - Updated CLAUDE.md references
+   - Added to INDEX.yaml (31/31 modules now integrated)
+   - **Impact:** Integrates into progressive loading architecture (100% complete)
 
 **💡 P2-P3 IMPROVEMENTS (Deferred - 3-4 hours):**
 
@@ -843,11 +843,52 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
 - P0 fixes: 3.5 hours (implementation + PR + validation)
 - **Total Session 41:** 5.5 hours actual
 
-**Status:** ✅ **P0 COMPLETE** - PR #24 merged pending GitHub Actions
+**✅ WORKFLOW OPTIMIZATION (Session 41 continuation)** - PR #25
+
+**Issue:** Lighthouse CI causing 8+ minute delays in PR checks (discovered during PR #24 monitoring)
+**Solution:** Reduced Lighthouse runs from 3→1 per URL, added 5-min timeout
+
+**Changes:**
+- compliance-monitor.yml: `runs: 3` → `runs: 1` (9 total runs → 3 total runs)
+- Added `timeout-minutes: 5` to prevent indefinite hanging
+- Kept 3 URL coverage (homepage, posts, about)
+
+**Results:**
+- compliance-check: 8+ min → 5.2 min (40% faster)
+- Time invested: 1.5 hours (implementation + PR + monitoring)
+
+**✅ P1.3 COMPLETE (Session 41 continuation)** - PR #26
+
+6. ✅ **Code-block-quality integration** (45min actual):
+   - Relocated: docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md → docs/context/standards/code-block-quality.md
+   - Updated INDEX.yaml: Added module entry (10,228 tokens, HIGH priority)
+   - Updated total_modules: 30 → 31 (100% progressive loading integration)
+   - Updated standards_modules: 47,212 → 57,440 tokens
+   - Updated actual_total: 170,256 → 180,484 tokens (+10,228)
+   - Updated 5 files: CLAUDE.md, INDEX.yaml, code-block-quality-checker.py (3 refs), senior-engineer-content-validation.md (2 refs)
+   - **Impact:** Module now discoverable via INDEX.yaml tags, completes progressive loading architecture (31/31 modules)
+
+**Success Metrics (Updated):**
+- **P0 complete (PR #24):** Repository health 92.4% → 95.0% (+2.6pp)
+- **Workflow opt (PR #25):** CI/CD 8+ min → 5.2 min (40% faster)
+- **P1.3 complete (PR #26):** Progressive loading 30/31 → 31/31 (100%)
+- **After P1.1-P1.2:** Module count 100% accurate, token budgets ≤5% variance, enforcement coverage 67% → 80%
+- **After P2-P3:** Overall compliance 95.3% → 97%, full automation
+
+**Time Investment (Updated):**
+- Audit execution: 2 hours (6 agents parallel)
+- P0 fixes (PR #24): 3.5 hours
+- Workflow optimization (PR #25): 1.5 hours
+- P1.3 implementation (PR #26): 0.75 hours
+- Monitoring/merging: 0.75 hours
+- **Total Session 41:** 8.5 hours actual
+
+**Status:** ✅ **P0 + P1.3 COMPLETE** - 3 PRs merged to main (#24, #25, #26)
 **Completion Date:** 2025-11-12 (Session 41)
-**Pull Request:** #24 (fix/documentation-drift-session41)
-**Commits:** 9350659 (P0 fixes)
-**Next Steps:** Monitor PR #24, schedule P1 fixes (7.5h), plan P2-P3 (3-4h)
+**Pull Requests:** #24 (documentation drift), #25 (workflow optimization), #26 (code-block-quality integration)
+**Commits:** 9350659 (P0), c164fe0 (workflow), 2a3e119 (P1.3)
+**Repository Health:** 92.4% → 95.3% (+2.9pp)
+**Next Steps:** P1.1 INDEX.yaml validator (2-3h), P1.2 runtime validator (4-6h)
 
 ---
 
