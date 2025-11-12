@@ -576,7 +576,7 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
    - **PR:** #16 merged to main
    - **Changes:** New "Rule Update Security (CRITICAL)" section (~155 lines), GPG signature verification, staging environment testing, automated update pipeline, supply chain attack scenarios, rule source trust hierarchy, validation commands, senior engineer context
 
-**Phase 2: MAJOR Technical Issues (3-4 hours)** ⏳ **IN PROGRESS: 1/4 complete (25%)**
+**Phase 2: MAJOR Technical Issues (3-4 hours)** ✅ **COMPLETE: 4/4 (100%)**
 
 4. ✅ **Container Security: Distroless Debugging Misconception** - **FIXED (Session 39, PR #17)**
    - **Location:** `src/posts/2025-08-18-container-security-hardening-homelab.md`
@@ -587,23 +587,32 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
    - **PR:** #17 merged to main
    - **Changes:** New "Debugging Distroless Containers" subsection (~60 lines), Kubernetes ephemeral debug containers (`kubectl debug`), Docker PID namespace sharing, practical debugging workflows, updated Lesson #4 to reflect modern debugging capabilities, senior engineer context
 
-5. ⏳ **eBPF Post: Missing Verifier Bypass Discussion**
+5. ✅ **eBPF Post: Missing Verifier Bypass Discussion** - **FIXED (Session 40, PR #19)**
    - **Location:** `src/posts/2025-07-01-ebpf-security-monitoring-practical-guide.md`
-   - **Issue:** Presents eBPF verifier as inherently safe without CVE context
+   - **Issue:** Presents eBPF verifier as inherently safe without documented CVE context demonstrating real-world privilege escalation
    - **Fix:** Add CVE-2021-31440, CVE-2021-33624, CVE-2023-2163 with mitigation guidance
-   - **Time:** 45-60 minutes
+   - **Status:** ✅ COMPLETE
+   - **Actual Time:** 50 minutes
+   - **PR:** #19 merged to main
+   - **Changes:** New "eBPF Verifier Security: Understanding Bypass Risks (MAJOR)" section (~125 lines), 3 historical CVEs with CVSS scores/impacts/exploitations, mitigation strategies (kernel version requirements ≥6.1 LTS, unprivileged eBPF restrictions, kernel lockdown mode, namespace restrictions), validation commands (5-step verification), production hardening checklist, senior engineer perspective on verifier as high-value attack surface
 
-6. ⏳ **EPSS Post: Percentile Misinterpretation**
+6. ✅ **EPSS Post: Percentile Misinterpretation** - **FIXED (Session 40, PR #20)**
    - **Location:** `src/posts/2025-09-20-vulnerability-prioritization-epss-kev.md`
-   - **Issue:** Confuses EPSS score interpretation (95th percentile explanation incorrect)
-   - **Fix:** Clarify percentile meaning, add FIRST.org decision matrix
-   - **Time:** 30-45 minutes
+   - **Issue:** Brief percentile section lacked critical guidance on combining score + percentile for prioritization decisions
+   - **Fix:** Clarify percentile meaning, add FIRST.org official decision matrix
+   - **Status:** ✅ COMPLETE
+   - **Actual Time:** 40 minutes
+   - **PR:** #20 merged to main
+   - **Changes:** New "Understanding EPSS Scores and Percentiles (MAJOR)" section (~140 lines), explicit percentile clarification (95th = higher than 95% of all CVEs = HIGH RISK), FIRST.org decision matrix table (4 risk tiers: CRITICAL ≥0.43+≥82%, HIGH ≥0.1+≥60%, MEDIUM ≥0.01+≥40%, LOW <0.01+<40%), 3 practical examples (CVE-2023-38545 CRITICAL, CVE-2024-1234 LOW despite CVSS 9.8, 92nd percentile mistake breakdown), Python API function, 4 common pitfalls, bash validation queries, production checklist, senior engineer perspective on percentile intuition failure
 
-7. ⏳ **Post-Quantum: Hybrid Crypto Security Claim**
+7. ✅ **Post-Quantum: Hybrid Crypto Security Claim** - **FIXED (Session 40, PR #21)**
    - **Location:** `src/posts/2025-10-29-post-quantum-cryptography-homelab.md`
-   - **Issue:** Oversimplifies hybrid cryptography security ("protected as long as *either* algorithm remains unbroken")
-   - **Fix:** Clarify threat model dependencies, quantum vs classical attack scenarios
-   - **Time:** 30-45 minutes
+   - **Issue:** Oversimplifies hybrid cryptography security ("protected as long as *either* algorithm remains unbroken") without critical threat model context
+   - **Fix:** Clarify threat model dependencies, quantum vs classical attack scenarios, SNDL attack analysis
+   - **Status:** ✅ COMPLETE
+   - **Actual Time:** 35 minutes
+   - **PR:** #21 merged to main
+   - **Changes:** New "Hybrid Crypto Security Model (MAJOR Clarification)" subsection (~125 lines), threat model breakdown (quantum attacks require ML-KEM security ONLY, classical attacks require X25519 security ONLY, combined attacks require BOTH to fail), "When Either Algorithm Claim is Correct" (3 scenarios), "When Either Algorithm Claim is WRONG" (3 failure modes), threat model table (5 attack scenarios), SNDL attack practical example (protection analysis + counter-scenario), implementation validation (bash commands), security trade-off analysis, threat model checklist, senior engineer perspective on "either" dangerous incompleteness
 
 **Phase 3: MODERATE Context Issues (4-5 hours)** ⏳ **PENDING: 0/7 complete**
 
@@ -615,10 +624,10 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 
 **Progress Tracking:**
 - **Phase 1 (CRITICAL):** 3/3 (100%) ✅ COMPLETE - **Sessions 38-39: All CRITICAL fixes complete**
-- **Phase 2 (MAJOR):** 1/4 (25%) ⏳ IN PROGRESS - **Session 39: Container debugging fixed**
+- **Phase 2 (MAJOR):** 4/4 (100%) ✅ COMPLETE - **Sessions 39-40: All MAJOR fixes complete**
 - **Phase 3 (MODERATE):** 0/7 (0%) - Batch with monthly maintenance
 - **Phase 4 (MINOR):** 0/7 (0%) - Low priority, document for future
-- **Overall:** 4/21 (19%) - **Sessions 38-39: Phase 1 complete, Phase 2 started**
+- **Overall:** 7/21 (33%) - **Sessions 38-40: Phases 1-2 complete, Phase 3 pending**
 
 **Session 38 Progress (2025-11-12):**
 - ✅ Bitwarden admin panel security (45 min, PR #13)
@@ -634,21 +643,29 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 - **Efficiency:** Excellent, Phase 1 100% complete, Phase 2 25% complete
 - **Cumulative Sessions 38-39:** 3.25 hours, 4/21 issues resolved (19%)
 
+**Session 40 Progress (2025-11-12):**
+- ✅ eBPF verifier bypass CVEs (50 min, PR #19) - **Phase 2 continued**
+- ✅ EPSS percentile interpretation (40 min, PR #20) - **Phase 2 continued**
+- ✅ Post-quantum hybrid crypto (35 min, PR #21) - **Phase 2 COMPLETE**
+- **Total time:** 2.08 hours (~125 minutes)
+- **Efficiency:** Excellent, Phase 2 100% complete (4/4 MAJOR fixes)
+- **Cumulative Sessions 38-40:** 5.33 hours, 7/21 issues resolved (33%)
+
 **Estimated Timeline:**
 - ✅ **Session 39:** Complete Phase 1 (Suricata), start Phase 2 MAJOR issues - DONE
-- **Sessions 40-41:** Complete Phase 2 MAJOR (3 remaining issues, ~2-2.5 hours)
-- **Month 2:** Phase 3 MODERATE (4-5 hours) during monthly maintenance
-- **Quarter:** Phase 4 MINOR (2-3 hours) as time permits
+- ✅ **Session 40:** Complete Phase 2 MAJOR (3 remaining issues) - DONE
+- **Month 2:** Phase 3 MODERATE (7 issues, 4-5 hours) during monthly maintenance
+- **Quarter:** Phase 4 MINOR (7 issues, 2-3 hours) as time permits
 
 **Success Metrics:**
 ```markdown
 Phase      | Issues | Time Est | Priority | Status
 -----------|--------|----------|----------|----------
 CRITICAL   | 3      | 2-3h     | 🔴 NOW   | ✅ 100%
-MAJOR      | 4      | 3-4h     | 🟡 Week  | ⏳ 25%
+MAJOR      | 4      | 3-4h     | 🟡 Week  | ✅ 100%
 MODERATE   | 7      | 4-5h     | 🟠 Month | ⏳ 0%
 MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
-**TOTAL**  | **21** | **11-15h** | -      | **19%**
+**TOTAL**  | **21** | **11-15h** | -      | **33%**
 ```
 
 **Documentation:**
@@ -656,10 +673,11 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
 - Research standards: `docs/research/senior-security-engineer-writing-standards.md`
 - Validation checklist: `docs/checklists/senior-engineer-content-validation.md`
 
-**Status:** ⏳ **PHASE 2 IN PROGRESS** - MAJOR technical fixes (3 remaining)
+**Status:** ⏳ **PHASE 3 PENDING** - MODERATE context enhancements (7 remaining)
 **Started:** 2025-11-12 (Session 38)
 **Phase 1 Completed:** 2025-11-12 (Session 39) ✅
-**Target Completion:** Phase 2 by 2025-11-13, Full completion by Q1 2026
+**Phase 2 Completed:** 2025-11-12 (Session 40) ✅
+**Target Completion:** Phase 3 during monthly maintenance, Full completion by Q1 2026
 
 ---
 
