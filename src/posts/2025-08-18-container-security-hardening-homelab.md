@@ -106,7 +106,66 @@ Choosing the right base image significantly impacts your attack surface:
 
 <script src="https://gist.github.com/williamzujkowski/42e9323a7b2cefb6d88bd12e306debfd.js"></script>
 
-**Why distroless?** No shell, no package manager, no utilities. Just your application binary. An attacker with code execution can't pivot because there's nothing to execute. I think this is the single most effective hardening technique, **though** it makes debugging significantly harder (no shell means no `docker exec` troubleshooting).
+**Why distroless?** No shell, no package manager, no utilities. Just your application binary. An attacker with code execution can't pivot because there's nothing to execute. I think this is the single most effective hardening technique.
+
+**Debugging distroless containers:** Modern container runtimes support ephemeral debug containers—you attach a debug shell **without** compromising the distroless container's security. No shell in production image doesn't mean no debugging capability.
+
+#### Debugging Distroless Containers
+
+**Kubernetes (1.23+): Ephemeral Debug Containers**
+
+```bash
+# Attach busybox debug container to distroless pod
+kubectl debug -it pod-name --image=busybox --target=container-name
+
+# Inside debug shell, you can:
+# - Inspect filesystem: ls /proc/1/root/app
+# - Check process tree: ps aux
+# - Network debugging: wget, nc, nslookup
+# - File inspection: cat /proc/1/root/etc/config.yaml
+
+# Debug container shares PID and network namespace with target
+# but maintains separate filesystem (unless you mount /proc/1/root)
+```
+
+**Docker: PID namespace sharing**
+
+```bash
+# Run debug container sharing PID namespace with distroless container
+docker run -it --pid=container:distroless-app-id --net=container:distroless-app-id \
+  busybox sh
+
+# From debug shell:
+# - Inspect processes: ps aux | grep app
+# - Network debugging: netstat -tulpn
+# - Check open files: ls -la /proc/$(pidof app)/fd
+
+# Alternative: Use nsenter to enter container namespaces
+docker run -it --rm --privileged --pid=container:distroless-app-id \
+  alpine nsenter -t 1 -m -u -i -n sh
+```
+
+**Debugging workflow examples:**
+
+```bash
+# 1. Check if application is running
+kubectl debug -it nginx-distroless-pod --image=busybox --target=nginx
+ps aux | grep nginx  # Verify process
+
+# 2. Test network connectivity
+kubectl debug -it api-pod --image=nicolaka/netshoot --target=api
+curl localhost:8080/health
+
+# 3. Inspect application files
+kubectl debug -it app-pod --image=busybox --target=app
+ls -la /proc/1/root/app/config/
+
+# 4. Check environment variables
+kubectl debug -it app-pod --image=busybox --target=app
+cat /proc/1/environ | tr '\0' '\n'
+```
+
+**Senior engineer note:** Distroless doesn't sacrifice debuggability for teams familiar with ephemeral containers. The security benefit is massive—eliminating 90%+ of the attack surface—while modern tooling provides full debugging capability. I've debugged production distroless containers this way for years. The workflow is different (attach debugger vs exec into container), but equally effective. Organizations rejecting distroless due to "can't debug" misconceptions are missing the best container hardening technique available.
 
 ### Image Verification
 
@@ -303,8 +362,8 @@ User namespace remapping broke 8 of 23 services. Read-only root broke my FastAPI
 ### 3. Vulnerability Scanning Creates Alert Fatigue
 Finding 178 CVEs across 12 images sounds useful, but 89% were LOW or MEDIUM severity in packages I don't use. I set my threshold to HIGH+ only, reducing alerts by 74%. I may be missing important medium-severity issues in core dependencies.
 
-### 4. Perfect Security Makes Debugging Impossible
-Network policies that deny all traffic by default are great for security, terrible for troubleshooting. Distroless images with no shell make `docker exec` useless. I keep a `debug` variant of each critical container with a shell for emergencies. Debug containers are less secure but massively more debuggable.
+### 4. Perfect Security Makes Debugging Harder (But Not Impossible)
+Network policies that deny all traffic by default are great for security, terrible for troubleshooting. Distroless images with no shell change debugging workflows—you use ephemeral debug containers (`kubectl debug` or `docker run --pid`) instead of `docker exec`. Modern tooling makes distroless debugging straightforward. Debug variants with shells are unnecessary if you know the ephemeral container workflow.
 
 ### 5. Some Hardening Isn't Worth the Cost
 User namespace remapping provides strong isolation, but the 2 days I spent fixing permissions outweighs the security benefit for my single-tenant homelab. I've disabled it. Not every security control makes sense for every environment. Context matters.
