@@ -1,6 +1,6 @@
 version: "1.0.0"
-last_updated: "2025-11-01"
-total_modules: 28
+last_updated: "2025-11-12"
+total_modules: 30
 total_categories: 6
 
 root_anchor:
@@ -185,8 +185,8 @@ categories:
   standards:
     priority: MEDIUM
     description: "Quality gates and validation standards"
-    token_budget: 33360
-    modules_count: 5
+    token_budget: 47212
+    modules_count: 6
     modules:
       - name: humanization-standards
         file: docs/context/standards/humanization-standards.md
@@ -266,6 +266,20 @@ categories:
         tags: [accessibility, wcag, a11y, formatting, mobile]
         dependencies: []
         description: "WCAG AA standards, mobile optimization, touch targets, keyboard navigation requirements"
+
+      - name: blog-patterns
+        file: docs/context/standards/blog-patterns.md
+        priority: HIGH
+        estimated_tokens: 7200
+        version: 1.0.0
+        last_updated: "2025-11-04"
+        load_when:
+          - "Creating/editing blog posts"
+          - "Content audits"
+          - "SEO optimization"
+        tags: [blog, seo, optimization, internal-linking, tags, meta-descriptions]
+        dependencies: []
+        description: "Research-backed blog optimization patterns (P0-P3 priorities, thresholds)"
     status: "Phase 7 complete"
 
   technical:
@@ -362,8 +376,8 @@ categories:
   reference:
     priority: LOW
     description: "Historical context and lessons learned"
-    token_budget: 14480
-    modules_count: 3
+    token_budget: 25352
+    modules_count: 4
     modules:
       - name: directory-structure
         file: docs/context/reference/directory-structure.md
@@ -406,6 +420,20 @@ categories:
         tags: [compliance, metrics, quality, history]
         dependencies: []
         description: "Current compliance status and historical tracking (content, citations, UI/UX, technical quality)"
+
+      - name: historical-learnings
+        file: docs/context/reference/historical-learnings.md
+        priority: LOW
+        estimated_tokens: 8120
+        version: 1.0.0
+        last_updated: "2025-11-10"
+        load_when:
+          - "Understanding session history"
+          - "Learning from past patterns"
+          - "Architectural decisions context"
+        tags: [history, sessions, archive, patterns, decisions]
+        dependencies: []
+        description: "Archived session history (Sessions 1-19), proven patterns, audit-first methodology, repository hygiene"
     status: "Phase 9 complete"
 
   templates:
@@ -499,18 +527,19 @@ token_budgets:
   # Note: These are ACCURATE counts based on word count × 4
   # Previous estimates were 3.3x too low (42,233 vs 138,340)
 
-  core_modules: 20256        # 5 modules (was: 6,300)
-  workflow_modules: 25884    # 5 modules (was: 6,492)
-  standards_modules: 33360   # 5 modules (was: 10,177)
-  technical_modules: 26256   # 6 modules (was: 7,850)
-  reference_modules: 14480   # 3 modules (was: 5,080)
-  template_modules: 18104    # 4 modules (was: 6,334)
+  core_modules: 27448        # 5 modules (was: 20,256, measured via word count × 4)
+  workflow_modules: 25884    # 5 modules (accurate)
+  standards_modules: 47212   # 6 modules (was: 33,360, +blog-patterns.md)
+  technical_modules: 26256   # 6 modules (accurate)
+  reference_modules: 25352   # 4 modules (was: 14,480, +historical-learnings.md)
+  template_modules: 18104    # 4 modules (accurate)
 
-  actual_total: 138340       # MEASURED (was estimated: 42,233)
-  underestimate_factor: 3.27 # Previous estimates were 3.3x too low
+  actual_total: 170256       # MEASURED via comprehensive audit (Session 41, 2025-11-12)
+  previous_estimate: 138340  # Previous underestimate by 23.1%
+  measurement_method: "word count × 4 tokens/word"
 
   # Why modular loading is CRITICAL:
-  # - Loading all 28 modules = 138K tokens (unsustainable)
+  # - Loading all 30 modules = 170K tokens (unsustainable)
   # - Typical blog post task = ~15-20K tokens (core + workflows + standards)
   # - Simple file operation = ~8-10K tokens (core modules only)
   # - Selective loading achieves 85-90% reduction vs loading everything
