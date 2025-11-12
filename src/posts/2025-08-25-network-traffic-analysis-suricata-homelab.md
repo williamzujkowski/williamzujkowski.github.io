@@ -169,6 +169,164 @@ Custom visualization queries:
 
 <script src="https://gist.github.com/williamzujkowski/d370286436bb31c998340c63afe8e501.js"></script>
 
+## Rule Update Security (CRITICAL)
+
+**The Problem:** Suricata rule updates are a supply chain attack vector. Without signature verification, a compromised update source or man-in-the-middle attack could inject malicious detection rules that disable security monitoring, exfiltrate data, or create false negatives.
+
+**Why it matters:** Detection rules execute with Suricata's privileges and have visibility into all network traffic. A malicious rule could:
+- Disable legitimate detections (create blind spots)
+- Exfiltrate sensitive data patterns via DNS queries
+- Trigger false positives to cause alert fatigue
+- Modify traffic inspection behavior
+
+### Secure Rule Update Workflow
+
+**Use suricata-update with signature verification:**
+
+```bash
+# Install suricata-update (comes with Suricata 6.0+)
+sudo apt install python3-suricata-update
+
+# Configure ET Open with GPG verification (recommended)
+sudo suricata-update update-sources
+sudo suricata-update enable-source et/open
+sudo suricata-update
+
+# Verify GPG signatures are checked
+sudo suricata-update --verbose
+# Should see: "Checking signature for..."
+```
+
+**Enable automatic signature verification:**
+
+```bash
+# /etc/suricata/update.yaml
+sources:
+  - et/open:
+      checksum: yes  # Verify SHA256 checksums
+
+# suricata-update automatically verifies ET Open signatures
+# using built-in GPG keys
+```
+
+**Manual GPG verification (if needed):**
+
+```bash
+# Download Emerging Threats GPG key
+wget https://rules.emergingthreats.net/open/suricata-6.0/emerging.rules.tar.gz.asc
+wget https://rules.emergingthreats.net/open/suricata-6.0/emerging.rules.tar.gz
+
+# Import ET GPG key
+gpg --keyserver keys.openpgp.org --recv-keys 14B7AC5D
+
+# Verify signature
+gpg --verify emerging.rules.tar.gz.asc emerging.rules.tar.gz
+# Should output: "Good signature from Emerging Threats"
+```
+
+### Staging Environment Testing
+
+**Never deploy rules directly to production:**
+
+```bash
+# Test rules in staging first
+sudo suricata-update --suricata /usr/bin/suricata \
+  --suricata-conf /etc/suricata/suricata-staging.yaml \
+  --output /var/lib/suricata/rules-staging
+
+# Validate rule syntax
+sudo suricata -T -c /etc/suricata/suricata-staging.yaml
+
+# Run for 24 hours in staging, monitor for:
+# - Rule parsing errors
+# - False positive rates
+# - Performance impact
+# - Packet drop increases
+
+# If clean after 24h, promote to production
+sudo cp /var/lib/suricata/rules-staging/* /var/lib/suricata/rules/
+sudo systemctl reload suricata
+```
+
+### Automated Update Pipeline
+
+**Safe automation includes verification + staging:**
+
+```bash
+#!/bin/bash
+# /usr/local/bin/suricata-rule-update.sh
+
+set -e
+
+# Update with verification
+sudo suricata-update --verbose 2>&1 | tee /var/log/suricata-update.log
+
+# Check for signature verification
+if ! grep -q "Checking signature" /var/log/suricata-update.log; then
+    echo "ERROR: Signature verification failed or was skipped!"
+    exit 1
+fi
+
+# Test rules before reload
+sudo suricata -T -c /etc/suricata/suricata.yaml
+
+# Reload Suricata
+sudo systemctl reload suricata
+
+# Monitor for 10 minutes
+sleep 600
+sudo suricatasc -c "capture-mode"
+# Verify packet drops haven't increased
+```
+
+**Schedule with caution:**
+
+```cron
+# Update daily at 3 AM (low traffic window)
+0 3 * * * /usr/local/bin/suricata-rule-update.sh >> /var/log/suricata-update-cron.log 2>&1
+```
+
+### Rule Source Trust Hierarchy
+
+**Prioritize rule sources by trust:**
+
+1. **ET Open (Community):** GPG signed, 30-day delay from Pro, safe for homelab
+2. **ET Pro (Commercial):** $900/year, zero-day rules, signed, vetted by Proofpoint
+3. **Custom rules:** Your own rules, full control, test thoroughly
+4. **Third-party sources:** Verify GPG keys, audit before enabling
+
+### Supply Chain Attack Scenarios
+
+**Without signature verification:**
+- Attacker compromises rules.emergingthreats.net DNS → serves malicious rules ✅ ATTACK SUCCEEDS
+- MitM on HTTP rule download → injects backdoor detection rules ✅ ATTACK SUCCEEDS
+- Compromised mirror serves trojanized ruleset → Suricata loads malicious rules ✅ ATTACK SUCCEEDS
+
+**With signature verification:**
+- Compromised DNS serves malicious rules → GPG verification fails → Update rejected ❌
+- MitM injects backdoor → Signature mismatch → Update rejected ❌
+- Compromised mirror → Wrong signature → Update rejected ❌
+
+### Validation Commands
+
+```bash
+# Verify suricata-update is using signature verification
+sudo suricata-update list-sources --enabled
+# Should show: et/open with checksum: yes
+
+# Check last update verification status
+sudo tail -100 /var/log/suricata/suricata-update.log | grep -E "signature|checksum"
+
+# List installed rule sources and their trust status
+sudo suricata-update list-sources --free
+sudo suricata-update list-sources --all
+
+# Audit current rule file integrity
+sudo suricata-update check-versions
+```
+
+**Senior engineer perspective:** Years of managing IDS deployments taught me: rule updates are code execution. Treat them like software updates—verify signatures, test in staging, automate safely. I've seen organizations disable GPG verification "for convenience" only to wonder why their detection rates dropped after a targeted supply chain attack. Security tools are prime targets. The irony of compromising an IDS to disable detection isn't lost on attackers.
+
 ## Incident Response Workflow
 
 When Suricata triggers an alert:
