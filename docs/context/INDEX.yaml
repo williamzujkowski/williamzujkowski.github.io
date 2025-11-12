@@ -1,6 +1,6 @@
 version: "1.0.0"
 last_updated: "2025-11-12"
-total_modules: 30
+total_modules: 31
 total_categories: 6
 
 root_anchor:
@@ -185,8 +185,8 @@ categories:
   standards:
     priority: MEDIUM
     description: "Quality gates and validation standards"
-    token_budget: 47212
-    modules_count: 6
+    token_budget: 57440
+    modules_count: 7
     modules:
       - name: humanization-standards
         file: docs/context/standards/humanization-standards.md
@@ -280,6 +280,21 @@ categories:
         tags: [blog, seo, optimization, internal-linking, tags, meta-descriptions]
         dependencies: []
         description: "Research-backed blog optimization patterns (P0-P3 priorities, thresholds)"
+
+      - name: code-block-quality
+        file: docs/context/standards/code-block-quality.md
+        priority: HIGH
+        estimated_tokens: 10228
+        version: 1.0.0
+        last_updated: "2025-11-03"
+        load_when:
+          - "Refactoring posts"
+          - "Reviewing code blocks"
+          - "Quality audits"
+          - "Code ratio compliance"
+        tags: [code, quality, standards, gist, ratio, earn-their-place]
+        dependencies: []
+        description: "Code block quality standards: earn-their-place philosophy, tiered thresholds by post type, inline vs gist vs delete decision framework"
     status: "Phase 7 complete"
 
   technical:
@@ -529,17 +544,17 @@ token_budgets:
 
   core_modules: 27448        # 5 modules (was: 20,256, measured via word count × 4)
   workflow_modules: 25884    # 5 modules (accurate)
-  standards_modules: 47212   # 6 modules (was: 33,360, +blog-patterns.md)
+  standards_modules: 57440   # 7 modules (was: 47,212, +code-block-quality.md integrated)
   technical_modules: 26256   # 6 modules (accurate)
   reference_modules: 25352   # 4 modules (was: 14,480, +historical-learnings.md)
   template_modules: 18104    # 4 modules (accurate)
 
-  actual_total: 170256       # MEASURED via comprehensive audit (Session 41, 2025-11-12)
-  previous_estimate: 138340  # Previous underestimate by 23.1%
+  actual_total: 180484       # MEASURED via comprehensive audit (Session 41, updated Session 41 P1)
+  previous_estimate: 170256  # Session 41 estimate before code-block-quality integration
   measurement_method: "word count × 4 tokens/word"
 
   # Why modular loading is CRITICAL:
-  # - Loading all 30 modules = 170K tokens (unsustainable)
+  # - Loading all 31 modules = 180K tokens (unsustainable)
   # - Typical blog post task = ~15-20K tokens (core + workflows + standards)
   # - Simple file operation = ~8-10K tokens (core modules only)
   # - Selective loading achieves 85-90% reduction vs loading everything

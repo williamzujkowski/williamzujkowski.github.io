@@ -6,7 +6,7 @@ AUTHORITATIVE PURPOSE:
 ======================
 
 Validates code blocks in blog posts against quality standards defined in
-CODE_BLOCK_CONTENT_STANDARDS.md. Ensures code blocks enhance reader
+code-block-quality.md. Ensures code blocks enhance reader
 understanding and maintain professional quality.
 
 VALIDATION CRITERIA:
@@ -59,7 +59,7 @@ Batch processing:
 
 CROSS-REFERENCES:
 ----------------
-- Standards: docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md
+- Standards: docs/context/standards/code-block-quality.md
 - Gist workflow: docs/context/workflows/gist-management.md
 - Code ratio tool: scripts/blog-content/code-ratio-calculator.py
 
@@ -780,7 +780,7 @@ Examples:
   %(prog)s --batch --validate --min-score 90
 
 Quality Standards:
-  See docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md for complete criteria.
+  See docs/context/standards/code-block-quality.md for complete criteria.
         """
     )
 

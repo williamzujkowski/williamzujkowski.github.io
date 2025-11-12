@@ -551,7 +551,7 @@ Bash("npm test")
 
 **Enforcement:** Pre-commit hook checks via `code-ratio-calculator.py --post-type-aware`
 
-**Full guidelines:** `docs/STANDARDS/CODE_BLOCK_CONTENT_STANDARDS.md`
+**Full guidelines:** `docs/context/standards/code-block-quality.md`
 
 ### 4.5: Writing Style and Tone
 
