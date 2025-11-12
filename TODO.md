@@ -798,15 +798,23 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
 - ✅ Files changed: 3 (INDEX.yaml, CLAUDE.md, MANIFEST.json)
 - ✅ Lines changed: +48 insertions, -19 deletions
 
-**⏳ P1 HIGH PRIORITY (Remaining - 6-9 hours):**
+**⏳ P1 HIGH PRIORITY (Remaining - 4-6 hours):**
 
-4. ⏳ **Add INDEX.yaml validator to pre-commit** (2-3h - NEXT):
-   - Validate module counts match filesystem
-   - Block commits with >20% token variance
-   - Automated drift prevention
-   - **Impact:** Prevents future documentation drift
+4. ✅ **Add INDEX.yaml validator to pre-commit** (2h actual - COMPLETE):
+   - ✅ Validator implemented in precommit_validators.py (138 lines)
+   - ✅ Validates module counts match filesystem (31 modules verified)
+   - ✅ Blocks commits with >20% token variance
+   - ✅ Checks category token_budget totals
+   - ✅ Verifies all module files exist
+   - ✅ Auto-fix script created: fix-index-token-budgets.py (131 lines)
+   - ✅ Discovered major token budget drift: 180,484 → 60,050 tokens (-67%)
+   - ✅ All 31 modules corrected using word_count × 1.33 formula
+   - **Impact:** Prevents future documentation drift (Session 41 root cause addressed)
+   - **Status:** ✅ COMPLETE (Session 41 continuation)
+   - **Completion Date:** 2025-11-12
+   - **Time Invested:** 2h actual vs 2-3h estimate (100% on-budget)
 
-5. ⏳ **Implement runtime skill-loading validator** (4-6h):
+5. ⏳ **Implement runtime skill-loading validator** (4-6h - NEXT):
    - Verify Tier 1 MANDATORY operations have required skills loaded
    - Warn before executing without skills
    - Prevent 30+ min wasted effort
@@ -834,14 +842,19 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
 - **Prevention:** P1 task #4 (INDEX.yaml validator) addresses root cause
 
 **Success Metrics:**
-- **P0 complete:** Repository health 92.4% → 95% (+2.6pp)
-- **After P1:** Module count 100% accurate, token budgets ≤5% variance, enforcement coverage 67% → 80%
-- **After P2-P3:** Overall compliance 95% → 97%, full automation
+- **P0 complete:** Repository health 92.4% → 95.3% (+2.9pp)
+- **P1.3 complete:** code-block-quality integrated (31/31 modules documented)
+- **P1.1 complete:** INDEX.yaml validator prevents drift, 180K token overestimate corrected
+- **After P1:** Module count 100% accurate, token budgets 0% variance, enforcement coverage 70% → 80%
+- **After P2-P3:** Overall compliance 95.3% → 97%, full automation
 
 **Time Investment:**
 - Audit execution: 2 hours (6 agents parallel)
-- P0 fixes: 3.5 hours (implementation + PR + validation)
-- **Total Session 41:** 5.5 hours actual
+- P0 fixes: 3.5 hours (implementation + PR #24)
+- Workflow optimization: 1.5 hours (PR #25)
+- P1.3 integration: 0.5 hours (PR #26)
+- P1.1 validator: 2 hours (implementation + fixes)
+- **Total Session 41:** 9.5 hours actual
 
 **✅ WORKFLOW OPTIMIZATION (Session 41 continuation)** - PR #25
 

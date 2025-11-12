@@ -771,6 +771,143 @@ def check_python_logging() -> Tuple[bool, str]:
     return True, f"All {len(python_scripts)} scripts use proper logging"
 
 
+def validate_index_yaml() -> Tuple[bool, str]:
+    """
+    Validate INDEX.yaml structure and token budgets.
+
+    PROBLEM: Session 41 discovered 23.1% token budget underestimate and 2 undocumented modules
+    SOLUTION: Automated validation of module counts, file existence, and token accuracy
+
+    Validates:
+    - INDEX.yaml exists and has valid structure
+    - total_modules matches actual module count in categories
+    - Each module file exists on filesystem
+    - Token budgets are within 20% variance (blocks commit if >20%)
+    - Category module_count matches actual modules in category
+
+    Returns:
+        (success, message)
+    """
+    index_path = Path("docs/context/INDEX.yaml")
+    if not index_path.exists():
+        return False, "INDEX.yaml not found at docs/context/"
+
+    try:
+        with open(index_path, 'r', encoding='utf-8') as f:
+            index = yaml.safe_load(f)
+    except Exception as e:
+        return False, f"Failed to parse INDEX.yaml: {e}"
+
+    # Validation checks
+    errors = []
+    warnings = []
+
+    # Check 1: total_modules matches actual count
+    total_modules = index.get('total_modules', 0)
+    actual_modules = []
+
+    for category_name, category_data in index.get('categories', {}).items():
+        if not isinstance(category_data, dict):
+            continue
+        modules = category_data.get('modules', [])
+        actual_modules.extend(modules)
+
+    if len(actual_modules) != total_modules:
+        errors.append(
+            f"total_modules mismatch: INDEX.yaml claims {total_modules} but found {len(actual_modules)} modules"
+        )
+
+    # Check 2: Validate each module file exists and token budgets
+    missing_files = []
+    token_variances = []
+
+    for category_name, category_data in index.get('categories', {}).items():
+        if not isinstance(category_data, dict):
+            continue
+
+        modules = category_data.get('modules', [])
+        category_module_count = category_data.get('modules_count', 0)
+        category_token_budget = category_data.get('token_budget', 0)
+
+        # Check 3: Category modules_count matches actual
+        if len(modules) != category_module_count:
+            errors.append(
+                f"{category_name}: modules_count={category_module_count} but found {len(modules)} modules"
+            )
+
+        # Check 4: Sum of estimated_tokens matches category token_budget
+        actual_budget = sum(m.get('estimated_tokens', 0) for m in modules)
+        if actual_budget != category_token_budget:
+            errors.append(
+                f"{category_name}: token_budget={category_token_budget} but sum={actual_budget} "
+                f"(variance: {abs(actual_budget - category_token_budget)})"
+            )
+
+        for module in modules:
+            if not isinstance(module, dict):
+                continue
+
+            module_name = module.get('name', 'unknown')
+            file_path = module.get('file', '')
+            estimated_tokens = module.get('estimated_tokens', 0)
+
+            # Check file exists
+            if file_path:
+                if not Path(file_path).exists():
+                    missing_files.append(f"{category_name}/{module_name}: {file_path}")
+                elif estimated_tokens > 0:
+                    # Check token variance (only for existing files)
+                    try:
+                        with open(file_path, 'r', encoding='utf-8') as f:
+                            content = f.read()
+
+                        words = content.split()
+                        word_count = len(words)
+                        actual_tokens = round((word_count * 1.33) / 50) * 50
+                        variance = abs(actual_tokens - estimated_tokens) / estimated_tokens * 100
+
+                        # BLOCK commits with >20% variance
+                        if variance > 20:
+                            token_variances.append({
+                                'category': category_name,
+                                'name': module_name,
+                                'file': file_path,
+                                'estimated': estimated_tokens,
+                                'actual': actual_tokens,
+                                'variance': variance,
+                                'word_count': word_count
+                            })
+                    except Exception:
+                        # Don't fail for read errors
+                        pass
+
+    # Build error message
+    if missing_files:
+        errors.append("Missing module files:")
+        for f in missing_files[:5]:
+            errors.append(f"  {f}")
+        if len(missing_files) > 5:
+            errors.append(f"  ... and {len(missing_files) - 5} more")
+
+    if token_variances:
+        errors.append("Token budget variance >20% (BLOCKING):")
+        for v in token_variances[:5]:
+            errors.append(
+                f"  {v['category']}/{v['name']}: "
+                f"{v['estimated']} → {v['actual']} tokens "
+                f"({v['variance']:.0f}% variance, {v['word_count']} words)"
+            )
+        if len(token_variances) > 5:
+            errors.append(f"  ... and {len(token_variances) - 5} more")
+        errors.append("\nUpdate INDEX.yaml estimates to reflect actual token counts")
+        errors.append("Formula: (word_count * 1.33), rounded to nearest 50")
+
+    if errors:
+        return False, "\n".join(errors)
+
+    return True, f"INDEX.yaml valid: {total_modules} modules, all files exist, token budgets accurate"
+
+
 def check_mermaid_syntax() -> Tuple[bool, str]:
     """
     Validate Mermaid v10 syntax in modified markdown files.
@@ -995,6 +1132,7 @@ VALIDATORS = {
     "token_budgets": validate_token_budgets,
     "python_logging": check_python_logging,
     "mermaid_syntax": check_mermaid_syntax,
+    "index_yaml_validation": validate_index_yaml,
 }
 
 # Validators that must run sequentially AFTER parallel checks pass
