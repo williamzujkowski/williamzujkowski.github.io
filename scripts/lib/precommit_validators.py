@@ -775,6 +775,158 @@ def check_python_logging() -> Tuple[bool, str]:
     return True, f"All {len(python_scripts)} scripts use proper logging"
 
 
+def check_nda_compliance() -> Tuple[bool, str]:
+    """
+    Check blog posts for NDA compliance violations.
+
+    PROBLEM: Manual NDA review is error-prone and time-consuming
+    SOLUTION: Automated pattern detection for forbidden phrases and patterns
+
+    Validates:
+    - No recent work timeline references (2-3 year buffer required)
+    - No current employer/team references
+    - No active vulnerability disclosures
+    - Accurate family information (one child, correct age)
+    - Time-buffered professional references
+
+    Returns:
+        (success, message)
+    """
+    # Load NDA patterns
+    patterns_file = Path("scripts/validation/nda-patterns.yaml")
+    if not patterns_file.exists():
+        return True, "NDA patterns file not found (skipping)"
+
+    try:
+        with open(patterns_file, 'r', encoding='utf-8') as f:
+            nda_patterns = yaml.safe_load(f)
+    except Exception as e:
+        return False, f"Failed to load NDA patterns: {e}"
+
+    # Get modified blog posts
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        return False, "Failed to get staged files"
+
+    modified_files = result.stdout.strip().split('\n') if result.stdout else []
+
+    # Filter for blog posts (exclude welcome.md)
+    blog_posts = [
+        f for f in modified_files
+        if f.startswith('src/posts/') and f.endswith('.md') and 'welcome.md' not in f
+    ]
+
+    if not blog_posts:
+        return True, "No blog posts modified"
+
+    # Check each post for violations
+    violations = []
+
+    for post_file in blog_posts:
+        if not Path(post_file).exists():
+            continue
+
+        try:
+            with open(post_file, 'r', encoding='utf-8') as f:
+                content = f.read().lower()  # Case-insensitive matching
+
+            post_violations = []
+
+            # Check forbidden time references
+            time_patterns = nda_patterns.get('forbidden_time_references', {}).get('patterns', [])
+            for pattern in time_patterns:
+                if pattern in content:
+                    # Check if it's in a work context
+                    context_patterns = nda_patterns.get('forbidden_time_references', {}).get('context_required', [])
+                    for context in context_patterns:
+                        if context in content:
+                            post_violations.append({
+                                'severity': 'CRITICAL',
+                                'pattern': pattern,
+                                'category': 'Forbidden Time Reference',
+                                'fix': "Use time-buffered references like 'Years ago...'"
+                            })
+                            break
+
+            # Check forbidden work references
+            work_patterns = nda_patterns.get('forbidden_work_references', {}).get('patterns', [])
+            for pattern in work_patterns:
+                if pattern in content:
+                    post_violations.append({
+                        'severity': 'CRITICAL',
+                        'pattern': pattern,
+                        'category': 'Current Work Reference',
+                        'fix': "Attribute to homelab or use time buffer"
+                    })
+
+            # Check family inaccuracies
+            family_patterns = nda_patterns.get('family_inaccuracies', {}).get('patterns', [])
+            for pattern in family_patterns:
+                if pattern in content:
+                    post_violations.append({
+                        'severity': 'HIGH',
+                        'pattern': pattern,
+                        'category': 'Family Inaccuracy',
+                        'fix': "Use accurate singular: 'my son' or 'my toddler'"
+                    })
+
+            # Check unsafe discovery patterns
+            discovery_patterns = nda_patterns.get('unsafe_discovery_patterns', {}).get('patterns', [])
+            for pattern in discovery_patterns:
+                if pattern in content:
+                    post_violations.append({
+                        'severity': 'CRITICAL',
+                        'pattern': pattern,
+                        'category': 'Active Vulnerability Disclosure',
+                        'fix': "Use homelab attribution or research framing"
+                    })
+
+            if post_violations:
+                violations.append({
+                    'file': post_file,
+                    'violations': post_violations
+                })
+
+        except Exception as e:
+            # Don't fail entire check for one file error
+            continue
+
+    if violations:
+        error_lines = ["❌ NDA compliance violations detected:"]
+        error_lines.append("")
+
+        for v in violations[:3]:  # Limit to 3 files
+            error_lines.append(f"  📄 {Path(v['file']).name}")
+            for violation in v['violations'][:5]:  # Limit to 5 violations per file
+                error_lines.append(f"     [{violation['severity']}] {violation['category']}")
+                error_lines.append(f"       Pattern: '{violation['pattern']}'")
+                error_lines.append(f"       Fix: {violation['fix']}")
+                error_lines.append("")
+
+            if len(v['violations']) > 5:
+                error_lines.append(f"     ... and {len(v['violations']) - 5} more violations")
+                error_lines.append("")
+
+        if len(violations) > 3:
+            error_lines.append(f"  ... and {len(violations) - 3} more files")
+            error_lines.append("")
+
+        error_lines.append("🔧 FIX: Review and update blog posts to remove NDA violations")
+        error_lines.append("  Guidance: docs/context/core/nda-compliance.md")
+        error_lines.append("  Safe patterns:")
+        error_lines.append("    - 'In my homelab...'")
+        error_lines.append("    - 'Years ago, I worked on...'")
+        error_lines.append("    - 'Research shows...'")
+
+        return False, "\n".join(error_lines)
+
+    return True, f"All {len(blog_posts)} posts pass NDA compliance checks"
+
+
 def validate_index_yaml() -> Tuple[bool, str]:
     """
     Validate INDEX.yaml structure and token budgets.
@@ -1137,6 +1289,7 @@ VALIDATORS = {
     "python_logging": check_python_logging,
     "mermaid_syntax": check_mermaid_syntax,
     "index_yaml_validation": validate_index_yaml,
+    "nda_compliance": check_nda_compliance,
 }
 
 # Validators that must run sequentially AFTER parallel checks pass

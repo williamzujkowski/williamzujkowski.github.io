@@ -1,0 +1,107 @@
+# NDA Compliance Pattern Detection Rules
+# Generated from docs/context/core/nda-compliance.md
+# Version: 1.0.0
+# Last Updated: 2025-11-12
+
+# These patterns detect NDA violations in blog posts and documentation.
+# Each pattern has a severity level and provides fix suggestions.
+
+forbidden_time_references:
+  severity: CRITICAL
+  description: "Recent work timeline references violate 2-3 year buffer requirement"
+  patterns:
+    - "last week"
+    - "last month"
+    - "recently"
+    - "currently"
+    - "this year"
+    - "last quarter"
+    - "last year"
+    - "2024"
+    - "2025"
+  context_required:
+    - "at work"
+    - "my employer"
+    - "my team"
+    - "work"
+  fix: "Use time-buffered references: 'Years ago...', 'Throughout my career...', 'Over a decade of experience...'"
+
+forbidden_work_references:
+  severity: CRITICAL
+  description: "Current work references violate NDA"
+  patterns:
+    - "at work"
+    - "my employer"
+    - "my current employer"
+    - "my team"
+    - "current role"
+    - "my agency"
+    - "we recently"
+    - "our systems"
+    - "we discovered"
+    - "we implemented"
+    - "my current role"
+    - "in my senior engineer role"
+    - "as a senior security engineer at"
+  fix: "Attribute to homelab: 'In my homelab...', or use time buffer: 'Years ago, I worked on systems...'"
+
+forbidden_employer_specifics:
+  severity: CRITICAL
+  description: "Specific employer or agency details violate NDA"
+  patterns:
+    - "specific government agency"
+    - "federal agency"
+    - "DOD"
+    - "Department of Defense"
+    - "contractor for"
+    - "consulting for"
+    - "working at"
+    - "[employer name]"
+  fix: "Remove employer specifics. Use generic: 'Throughout my career...', 'Professional experience...'"
+
+unsafe_discovery_patterns:
+  severity: CRITICAL
+  description: "Active vulnerability or incident disclosure"
+  patterns:
+    - "we recently discovered"
+    - "my team found"
+    - "discovered at work"
+    - "found a vulnerability in our"
+    - "security incident"
+    - "breach"
+    - "active vulnerability"
+  fix: "Use homelab attribution: 'In my homelab, I discovered...', or research: 'Research shows this pattern...'"
+
+family_inaccuracies:
+  severity: HIGH
+  description: "Incorrect family information violates privacy and accuracy"
+  patterns:
+    - "my kids"
+    - "my children"
+    - "father of three"
+    - "father of two"
+    - "both my kids"
+    - "all my children"
+  # Note: Son is 2 years old as of November 2025
+  age_overstatement_patterns:
+    - "teaching my children"
+    - "my kids learn"
+    - "my children understand"
+  fix: "Use accurate singular: 'my son' or 'my toddler'. He is 2 years old (born June 11, 2023)."
+
+unsafe_framing_patterns:
+  severity: HIGH
+  description: "Recent work framing without time buffer"
+  patterns:
+    - regex: "(?i)(last|this)\\s+(week|month|quarter|year).*(at work|my team|we)"
+    - regex: "(?i)(recently|currently).*(at work|my employer|our systems)"
+    - regex: "(?i)in my current.*(role|position|job)"
+  fix: "Add time buffer (2-3 years minimum): 'Years ago...', 'Early in my career...'"
+
+safe_attribution_examples:
+  - "In my homelab, I discovered..."
+  - "Years ago, I worked on systems that..."
+  - "Research shows this attack pattern..."
+  - "Throughout my career spanning 15+ years..."
+  - "Professional experience suggested..."
+  - "Over a decade of system administration..."
