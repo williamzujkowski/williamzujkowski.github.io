@@ -21,7 +21,8 @@
     "test:e2e": "node tests/test-runner.js tests/e2e",
     "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
     "test:watch": "nodemon --watch tests --watch src --exec 'npm test'",
-    "validate:mermaid": "node scripts/validate-mermaid-rendering.js"
+    "validate:mermaid": "node scripts/validate-mermaid-rendering.js",
+    "test:darkmode": "node scripts/test-dark-mode-toggle.js"
   },
   "keywords": [
     "eleventy",

@@ -1100,8 +1100,8 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 - ✅ Metrics: First impressions, navigation, typography, visual hierarchy, touch targets
 - ✅ Playwright v1.56.1 installed
 
-**Progress (Session 36 - 2025-11-12):**
-1. ✅ **Mermaid rendering validation** (49 posts) - COMPLETE
+**Progress:**
+1. ✅ **Mermaid rendering validation** (49 posts) - Session 36 COMPLETE
    - Created: `scripts/validate-mermaid-rendering.js` (318 lines)
    - Validates style guide compliance (Session 34)
    - Catches rendering errors before production
@@ -1111,16 +1111,22 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
    - Documentation: `scripts/README-MERMAID-VALIDATION.md` (269 lines)
    - PR #10: Merged to main
 
-2. ⏳ **Dark mode toggle functionality** - PENDING
-   - Toggle detected but not functionally tested
-   - Quick win (1-2 hours)
+2. ✅ **Dark mode toggle functionality** - Session 37 COMPLETE
+   - Created: `scripts/test-dark-mode-toggle.js` (467 lines)
+   - Tests toggle click → theme change → toggle back
+   - localStorage persistence validation
+   - Before/after screenshot capture
+   - Console error detection
+   - npm script: `npm run test:darkmode`
+   - Documentation: `scripts/README-DARK-MODE-TESTING.md` (262 lines)
+   - JSON report: `dark-mode-validation-report.json`
 
 3. ⏳ **Top 10 most-visited posts** - PENDING (requires analytics)
 4. ⏳ **Search functionality** - PENDING (LOW priority)
 
-**Estimated Effort:** 4-6 hours total (2-3h completed, 2-3h remaining)
-**Priority:** MEDIUM (Phase 1 complete, Phase 2 dark mode testing next)
-**Status:** ⚡ **PHASE 1 COMPLETE** - Phase 2 pending
+**Estimated Effort:** 4-6 hours total (4-5h completed, 1-2h remaining)
+**Priority:** MEDIUM (Phase 1-2 complete, analytics-dependent Phase 3 pending)
+**Status:** ⚡ **PHASE 2 COMPLETE** - 50% done (2/4 phases)
 
 ---
 
@@ -1143,7 +1149,8 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 | **Session Reports Archival** | 26 reports | 26 | 0 | 100% ✅ |
 | **Mermaid v10 Style Guide** | 1 guide | 1 | 0 | 100% ✅ |
 | **Mermaid Validation Script** | 1 script | 1 | 0 | 100% ✅ |
-| **Playwright Test Expansion** | 4 phases | 1 | 3 | 25% ⏳ |
+| **Dark Mode Testing Script** | 1 script | 1 | 0 | 100% ✅ |
+| **Playwright Test Expansion** | 4 phases | 2 | 2 | 50% ⏳ |
 
 **Session 37 Key Changes (2025-11-12):**
 - PR Merges: Merged PR #10 (Mermaid validation), closed stale PR #11
@@ -1151,6 +1158,9 @@ Citation quality            | 99.5%    | 95%+     | ✅     | Research credibili
 - Validator Enhancement: Updated pre-commit to exclude docs/archive/ from Mermaid v10 checks
 - Research Validator: Updated to v2.0.0 with DOI normalization + duplicate detection
 - Task #10 Phase 1 Complete: Mermaid rendering validation (49 posts, npm run validate:mermaid)
+- Task #10 Phase 2 Complete: Dark mode toggle testing (npm run test:darkmode)
+- Scripts created: test-dark-mode-toggle.js (467 lines) + README-DARK-MODE-TESTING.md (262 lines)
+- npm scripts added: validate:mermaid, test:darkmode
 
 **Session 36 Key Changes (2025-11-12):**
 - Mermaid Rendering Validation: Created automated validation for 49 posts with diagrams
