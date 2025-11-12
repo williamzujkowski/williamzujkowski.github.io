@@ -1,0 +1,44 @@
+BATCH 3 TARGET POSTS - QUICK REFERENCE
+======================================
+
+Priority Order (Lowest Compliance → Highest)
+
+P0 - CRITICAL (2 posts, 22 min)
+--------------------------------
+1. src/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard.md (80%, 1,039 words, 10 min)
+2. src/posts/2025-09-08-zero-trust-vlan-segmentation-homelab.md (87%, 1,446 words, 12 min)
+
+P1 - HIGH (4 posts, 83 min)
+---------------------------
+3. src/posts/2025-09-01-self-hosted-bitwarden-migration-guide.md (92%, 1,301 words, 11 min)
+4. src/posts/2024-11-19-llms-smart-contract-vulnerability.md (97%, 3,126 words, 26 min)
+5. src/posts/2025-05-10-llm-fine-tuning-homelab-guide.md (97%, 3,797 words, 31 min)
+6. src/posts/2025-09-20-iot-security-homelab-owasp.md (97%, 1,806 words, 15 min)
+
+P2 - POLISH (4 posts, 115 min)
+-------------------------------
+7. src/posts/2024-02-09-deepfake-dilemma-ai-deception.md (100%, 2,409 words, 20 min)
+8. src/posts/2024-04-04-retrieval-augmented-generation-rag.md (100%, 3,656 words, 30 min)
+9. src/posts/2024-05-14-ai-new-frontier-cybersecurity.md (100%, 4,635 words, 38 min)
+10. src/posts/2024-10-22-ai-edge-computing.md (100%, 3,330 words, 27 min)
+
+TOTALS
+------
+Posts: 10
+Words: 26,545 (avg 2,654/post)
+Time: 220 minutes (3.7 hours with buffer)
+Avg compliance: 95.0
+
+VALIDATION COMMAND
+------------------
+uv run python scripts/blog-content/humanization-validator.py --post [file]
+
+EXCLUSIONS (24 already refactored)
+-----------------------------------
+Session 26-27 (13): securing-cloud-native-frontier, embodied-ai-teaching-agents, biomimetic-robotics, context-windows-llms, automated-security-scanning-pipeline, supercharging-claude-cli-with-standards, designing-resilient-systems, ai-learning-resource-constrained, building-mcp-standards-server, post-quantum-cryptography-homelab, multimodal-foundation-models, high-performance-computing, progressive-context-loading-llm-workflows
+
+Session 28 Batch 2A (5): securing-personal-ai-experiments, supercharging-development-claude-flow, zero-trust-security-principles, vulnerability-management-scale-open-source, mastering-prompt-engineering-llms
+
+Session 28 Batch 2B (6): local-llm-deployment-privacy-first, container-security-hardening-homelab, quantum-resistant-cryptography-guide, gpu-power-monitoring-homelab-ml, from-it-support-to-senior-infosec-engineer, embodied-ai-robots-physical-world
+
+REMAINING AFTER BATCH 3: 12 posts (all 100-107% compliance)
