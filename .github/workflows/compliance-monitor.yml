@@ -54,9 +54,10 @@ jobs:
           http://localhost:8080/about/
         uploadArtifacts: true
         temporaryPublicStorage: true
-        runs: 3
+        runs: 1  # Reduced from 3 to 1 for faster PR checks (was causing 8+ min delays)
         configPath: .lighthouserc.json
       continue-on-error: true
+      timeout-minutes: 5  # Prevent indefinite hanging
 
     - name: Check WCAG Compliance
       run: |
