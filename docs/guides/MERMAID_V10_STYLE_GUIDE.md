@@ -130,7 +130,7 @@ flowchart TB
 
 #### ❌ Avoid: Deprecated v9 Style Statements
 
-```mermaid
+```text
 flowchart TB
     A[Node]
 
@@ -176,12 +176,14 @@ classDef redNode fill:#f44336,color:#fff,stroke:#d32f2f,stroke-width:2px
 
 **Error 1: Quoted subgraph without ID**
 
-```mermaid
+```text
 %% ❌ WRONG - Will fail to render
 subgraph "Threat Actors"
     TA1[External Attackers]
 end
+```
 
+```mermaid
 %% ✅ CORRECT
 subgraph threatactors["Threat Actors"]
     TA1[External Attackers]
@@ -190,11 +192,13 @@ end
 
 **Error 2: Mixed style approaches**
 
-```mermaid
+```text
 %% ❌ WRONG - Inconsistent styling
 classDef redNode fill:#f44336
 style B fill:#ff9800
+```
 
+```mermaid
 %% ✅ CORRECT - Use classDef consistently
 classDef redNode fill:#f44336
 classDef orangeNode fill:#ff9800
@@ -1273,14 +1277,14 @@ flowchart TD
 
 **❌ Bad: 35+ nodes in one diagram**
 
-```mermaid
+```text
 %% Don't create massive diagrams with 35 nodes
 %% Reader loses context, poor mobile experience
 ```
 
 **✅ Good: Split into 2-3 focused diagrams**
 
-```mermaid
+```text
 %% Diagram 1: High-level architecture (12 nodes)
 %% Diagram 2: Detailed subsystem (15 nodes)
 %% Each diagram tells one story
@@ -1290,7 +1294,7 @@ flowchart TD
 
 **❌ Bad: Random colors without semantic meaning**
 
-```mermaid
+```text
 classDef randomColor1 fill:#ff1234
 classDef randomColor2 fill:#ab56ef
 classDef randomColor3 fill:#12ab34
@@ -1308,7 +1312,7 @@ classDef critical fill:#f44336
 
 **❌ Bad: Will not render in v10**
 
-```mermaid
+```text
 subgraph "Data Pipeline"
     node1[Data]
 end
@@ -1351,7 +1355,7 @@ flowchart TB
 
 **❌ Bad: Fails WCAG AA (3.1:1 contrast)**
 
-```mermaid
+```text
 classDef badContrast fill:#4caf50,color:#fff
 %% Light green on white = poor contrast
 ```
