@@ -826,12 +826,17 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
    - Added to INDEX.yaml (31/31 modules now integrated)
    - **Impact:** Integrates into progressive loading architecture (100% complete)
 
-**💡 P2-P3 IMPROVEMENTS (Deferred - 3-4 hours):**
+**💡 P2-P3 IMPROVEMENTS (In Progress - 3-4 hours):**
 
-7. ⏳ **Enhance token budget validator** (30min):
-   - Change WARNING → BLOCK for >20% variance
-   - Stricter enforcement
-8. ⏳ **Implement NDA compliance validator** (3-4h):
+7. ✅ **Enhance token budget validator** (20min actual - COMPLETE):
+   - ✅ Changed WARNING → BLOCK for >20% variance
+   - ✅ Updated error messages with fix instructions
+   - ✅ Added Option 1 (auto-fix script) and Option 2 (manual)
+   - **Impact:** Stricter enforcement prevents token budget drift at commit time
+   - **Status:** ✅ COMPLETE (Session 41 continuation)
+   - **Completion Date:** 2025-11-12
+   - **Time Invested:** 20min actual vs 30min estimate (33% under budget)
+8. ⏳ **Implement NDA compliance validator** (3-4h - NEXT):
    - Automated pattern detection for work references
    - Pre-commit blocking for unsafe phrases
    - **Impact:** Reduces manual NDA review burden
@@ -845,8 +850,9 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
 - **P0 complete:** Repository health 92.4% → 95.3% (+2.9pp)
 - **P1.3 complete:** code-block-quality integrated (31/31 modules documented)
 - **P1.1 complete:** INDEX.yaml validator prevents drift, 180K token overestimate corrected
-- **After P1:** Module count 100% accurate, token budgets 0% variance, enforcement coverage 70% → 80%
-- **After P2-P3:** Overall compliance 95.3% → 97%, full automation
+- **P2 complete:** Token budget validator now BLOCKS commits with >20% variance (stricter enforcement)
+- **After P1+P2:** Module count 100% accurate, token budgets 0% variance, enforcement coverage 70% → 82%
+- **After P3:** Overall compliance 95.3% → 97%, full automation
 
 **Time Investment:**
 - Audit execution: 2 hours (6 agents parallel)
@@ -854,7 +860,8 @@ MINOR      | 7      | 2-3h     | 🟢 Later | ⏳ 0%
 - Workflow optimization: 1.5 hours (PR #25)
 - P1.3 integration: 0.5 hours (PR #26)
 - P1.1 validator: 2 hours (implementation + fixes)
-- **Total Session 41:** 9.5 hours actual
+- P2 enhancement: 0.3 hours (WARNING → BLOCK)
+- **Total Session 41:** 9.8 hours actual
 
 **✅ WORKFLOW OPTIMIZATION (Session 41 continuation)** - PR #25
 

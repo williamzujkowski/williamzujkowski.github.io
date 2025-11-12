@@ -519,7 +519,8 @@ def validate_token_budgets() -> Tuple[bool, str]:
     Uses measured word counts and proven 1.33 tokens/word ratio (not the old 6.2
     ratio that caused 97.5% overestimation in Phase 1).
 
-    This is a WARNING validator - doesn't block commits, but alerts to drift.
+    UPDATED (P2 Session 41): Changed from WARNING to BLOCKING for >20% variance.
+    Stricter enforcement prevents token budget drift at commit time.
 
     Returns:
         (success, message)
@@ -617,20 +618,23 @@ def validate_token_budgets() -> Tuple[bool, str]:
             continue
 
     if warnings:
-        warn_lines = ["⚠️  Token budget variance detected:"]
+        error_lines = ["❌ Token budget variance >20% (BLOCKING):"]
         for w in warnings[:3]:  # Limit to 3 for brevity
-            warn_lines.append(
+            error_lines.append(
                 f"  {w['category']}/{w['name']}: "
                 f"{w['estimated']} → {w['actual']} tokens "
                 f"({w['variance']:.0f}% variance, {w['word_count']} words)"
             )
         if len(warnings) > 3:
-            warn_lines.append(f"  ... and {len(warnings) - 3} more")
-        warn_lines.append("\nUpdate INDEX.yaml estimates to reflect actual token counts")
-        warn_lines.append("Formula: (word_count * 1.33), rounded to nearest 50")
+            error_lines.append(f"  ... and {len(warnings) - 3} more")
+        error_lines.append("\n🔧 FIX: Update INDEX.yaml token estimates")
+        error_lines.append("  Option 1 (Automatic): uv run python scripts/validation/fix-index-token-budgets.py")
+        error_lines.append("  Option 2 (Manual): Update estimated_tokens in INDEX.yaml")
+        error_lines.append("  Formula: (word_count * 1.33), rounded to nearest 50")
+        error_lines.append("\nThen stage INDEX.yaml and retry commit")
 
-        # Return success (warning only, don't block commit)
-        return True, "\n".join(warn_lines)
+        # CHANGED (P2): Return False to BLOCK commit instead of warning
+        return False, "\n".join(error_lines)
 
     return True, f"Token budgets accurate for {len(modified_modules)} modified modules"
 
