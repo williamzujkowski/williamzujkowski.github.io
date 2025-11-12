@@ -2,9 +2,9 @@
 title: Humanization Standards & Validation
 category: standards
 priority: HIGH
-version: 1.0.0
-last_updated: 2025-11-01
-estimated_tokens: 2500
+version: 1.0.1
+last_updated: 2025-11-11
+estimated_tokens: 9128
 load_when:
   - Creating blog posts
   - Refining existing posts
@@ -13,7 +13,9 @@ load_when:
 dependencies:
   - core/enforcement
   - workflows/blog-writing
-tags: [humanization, validation, tone, voice, authenticity]
+optional_dependencies:
+  - standards/writing-style
+tags: [humanization, validation, tone, voice, authenticity, 7-phase-framework, validator]
 ---
 
 # Humanization Standards & Validation
@@ -200,6 +202,8 @@ grep -E "—|;|in conclusion|overall|leverage|exciting" src/posts/[file].md
 
 **Why it matters:** These tells are the fastest way readers identify AI-generated content. Eliminate first.
 
+**Editorial context:** See [writing-style.md](writing-style.md#anti-ai-tells-checklist) for quick reference table and "Polite Linus Torvalds" editorial philosophy.
+
 ---
 
 ### Phase 2: Personal Voice Addition
@@ -362,6 +366,8 @@ uv run python scripts/blog-content/humanization-validator.py --post "$file" --mi
 
 **Why it matters:** Manual review misses patterns. Automated validation catches all AI-tells.
 
+**Style guidelines:** See [writing-style.md](writing-style.md#writing-style-the-polite-linus-torvalds-standard) for comprehensive editorial voice and tone guidance.
+
 ---
 
 ## Edge Cases
@@ -493,11 +499,15 @@ SCORE BREAKDOWN:
 
 ## Changelog
 
-### Version 1.0.1 (2025-11-01)
-- **Phase 2A Consolidation:** Established as authoritative source for humanization methodology
-- Other modules (blog-writing, blog-transformation, writing-style) now cross-reference instead of duplicating
-- Added explicit "Authoritative Source" notice in 7-Phase Framework section
-- Token savings: 0 (content preserved, became central reference)
+### Version 1.0.1 (2025-11-11)
+- **Consolidation with writing-style.md:** Established as authoritative source for humanization methodology
+  - Added cross-reference to writing-style.md after Phase 1 (editorial context)
+  - Added cross-reference to writing-style.md after Phase 7 (style guidelines)
+  - Added optional_dependencies: standards/writing-style in frontmatter
+  - Added tags: 7-phase-framework, validator
+- Updated estimated_tokens from 2500 to 9128 (accurate measurement)
+- Token savings: 0 (content preserved, became central reference for validation)
+- Clear ownership: humanization-standards = validation methodology, writing-style = editorial voice
 
 ### Version 1.0.0 (2025-11-01)
 - Initial extraction from CLAUDE.md v3.0.0

@@ -192,18 +192,20 @@ categories:
         file: docs/context/standards/humanization-standards.md
         priority: HIGH
         estimated_tokens: 9128
-        version: 1.0.0
-        last_updated: "2025-11-01"
+        version: 1.0.1
+        last_updated: "2025-11-11"
         load_when:
           - "Creating blog posts"
           - "Refining existing posts"
           - "Pre-commit validation"
           - "Content review"
-        tags: [humanization, validation, tone, voice, authenticity]
+        tags: [humanization, validation, tone, voice, authenticity, 7-phase-framework, validator]
         dependencies:
           - core/enforcement
           - workflows/blog-writing
-        description: "7-phase humanization methodology and validation standards ensuring content sounds authentically human"
+        optional_dependencies:
+          - standards/writing-style
+        description: "7-phase humanization methodology and validation standards ensuring content sounds authentically human, validator v2.0 documentation"
 
       - name: citation-research
         file: docs/context/standards/citation-research.md
@@ -238,17 +240,18 @@ categories:
       - name: writing-style
         file: docs/context/standards/writing-style.md
         priority: MEDIUM
-        estimated_tokens: 7460
+        estimated_tokens: 7090
         version: 1.1.0
-        last_updated: "2025-11-01"
+        last_updated: "2025-11-11"
         load_when:
           - "Creating blog posts"
           - "Reviewing content tone"
           - "Editorial guidance needed"
-        tags: [writing, style, voice, tone, editorial]
+          - "AI/ML topic writing (for AI skepticism section)"
+        tags: [writing, style, voice, tone, editorial, ai-skepticism]
         dependencies:
           - standards/humanization-standards
-        description: "'Polite Linus Torvalds' writing style, core principles, sentence rhythm, anti-AI-tell checklist"
+        description: "'Polite Linus Torvalds' writing style, core principles, sentence rhythm, anti-AI-tell checklist, healthy AI skepticism"
 
       - name: accessibility
         file: docs/context/standards/accessibility.md

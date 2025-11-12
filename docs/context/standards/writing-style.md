@@ -2,9 +2,9 @@
 title: Writing Style & Voice Standards
 category: standards
 priority: MEDIUM
-version: 1.0.0
-last_updated: 2025-11-01
-estimated_tokens: 2000
+version: 1.1.0
+last_updated: 2025-11-11
+estimated_tokens: 7090
 load_when:
   - Creating blog posts
   - Reviewing content tone
@@ -170,7 +170,7 @@ on a Raspberry Pi without sacrificing features.
 
 ## Anti-AI-Tells Checklist
 
-Before publishing, eliminate these machine-like patterns:
+**Quick reference table:**
 
 | Category | Remove | Replace With |
 |----------|--------|--------------|
@@ -178,8 +178,6 @@ Before publishing, eliminate these machine-like patterns:
 | **Transitions** | "In conclusion," "Overall," "Therefore" | "Anyway," "That's the gist," "Still" |
 | **Emotion** | "exciting," "remarkable," "thrilled" | "useful," "surprising," or remove |
 | **Vocabulary** | "utilize," "leverage," "paradigm" | "use," "try," "model" |
-| **Certainty** | Absolute claims ("always," "never") | "probably," "usually," "depends" |
-| **Symmetry** | Perfectly parallel clauses | Break rhythm intentionally |
 
 **Quick validation:**
 ```bash
@@ -187,7 +185,7 @@ Before publishing, eliminate these machine-like patterns:
 grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/posts/[file].md
 ```
 
-**Why it matters:** These patterns signal AI authorship. Readers (and AI detectors) notice.
+**Complete Phase 1 methodology:** See [humanization-standards.md](humanization-standards.md#phase-1-ai-tell-removal) for full requirements, patterns, and enforcement rules.
 
 ---
 
@@ -319,12 +317,12 @@ Before publishing:
 ## Humanization Techniques
 
 **Complete methodology:** See [humanization-standards.md](humanization-standards.md#the-7-phase-humanization-framework) for the authoritative 7-phase framework including:
-- Personal voice addition techniques
-- Concrete measurement patterns
-- Uncertainty markers (25 patterns)
-- Failure narrative structure
-- Trade-off discussion formulas
-- Edge case handling
+- Personal voice addition techniques (Phase 2: 8+ first-person statements)
+- Concrete measurement patterns (Phase 3: 15+ measurements, 8 types)
+- Uncertainty markers (Phase 4: 25 patterns)
+- Failure narrative structure (Phase 5: 5-7 stories)
+- Trade-off discussion formulas (Phase 6: 10+ balanced statements)
+- Edge case handling (NDA-sensitive, technical deep-dives, tutorials)
 
 **Quick reference techniques:**
 
@@ -371,6 +369,8 @@ handles my 47 containers without breaking a sweat.
 ```
 
 **Analysis:** Direct opening, sentence rhythm varies (short/medium/long), first-person narrative, concrete measurements (70%, 5 minutes, 512MB), trade-off acknowledged (complex for 3 nodes), uncertainty marker (your mileage may vary), personal context (my testing).
+
+**See also:** [humanization-standards.md](humanization-standards.md#examples) for additional examples with validation scoring breakdowns.
 
 ---
 
@@ -419,11 +419,14 @@ grep -E "—|;|exciting|leverage|utilize|in conclusion|overall|therefore" src/po
 
 ## Changelog
 
-### Version 1.1.0 (2025-11-01)
-- **Phase 2A Consolidation:** Replaced duplicate humanization techniques with cross-reference to humanization-standards.md
-- Simplified validation commands to reference authoritative source
-- Kept quick reference table (justified as style-specific quick check)
-- Token savings: ~150 tokens (2000 → 1850)
+### Version 1.1.0 (2025-11-11)
+- **Consolidation with humanization-standards.md:** Replaced duplicate content with cross-references
+  - Anti-AI-Tell Checklist: Kept quick reference table + added cross-reference to Phase 1 methodology
+  - Humanization Techniques: Enhanced cross-reference with specific phase targets
+  - Example Analysis: Added cross-reference to additional examples
+- Updated estimated_tokens from 2000 to 7090 (accurate measurement)
+- Token savings: ~370 tokens via consolidation (reduced duplication by ~5%)
+- Established clear ownership: writing-style = editorial voice, humanization-standards = validation methodology
 
 ### Version 1.0.0 (2025-11-01)
 - Initial extraction from CLAUDE.md v3.0.0
