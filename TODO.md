@@ -236,7 +236,57 @@
 
 ---
 
-## 🟡 MEDIUM/LOW PRIORITY
+## 🟡 MEDIUM PRIORITY (Q1 2026 Roadmap)
+
+### 11. Internal Linking Enhancement - Batch System ⚡ **IN PROGRESS** (2025-11-13 →)
+**Issue:** Only 58/378-630 links (15.3% of target), 60/63 posts below minimum, 32 orphaned
+**Impact:** 40% organic traffic boost (research-backed), improved time-on-site, better SEO
+**Solution:** Progressive batch implementation (15 posts per PR, ~90 links per batch)
+
+**Current State:**
+- Total internal links: 58 (0.92/post)
+- Target: 378-630 links (6-10/post)
+- Gap: 320-572 links needed
+- Posts below target (<6 links): 60/63 (95.2%)
+- Orphaned posts (no incoming): 32/63 (50.8%)
+
+**Batch Implementation Plan:**
+- **Batch 1 (PR #32):** 15 hub posts (security, AI, homelab themes) → ~90 links
+- **Batch 2 (PR #34):** 15 orphaned posts → ~90 links
+- **Batch 3 (PR #36):** Remaining posts to 50% target (189 links) → ~90 links
+- **Batch 4-6:** Progressive to 100% target (378-630 links)
+
+**Automation:**
+- Script: `internal-link-validator.py` v2.0.0
+- 500 suggestions generated (10min/post manual review)
+- Validation: Auto-check broken links, duplicates, anchor quality
+
+**Estimated Effort:** 2.5h per batch × 6 batches = 15h total
+**Target Completion:** Q1 2026 (100% target by March 2026)
+
+**Status:** ⏳ **BATCH 1 STARTING** (Session 43+)
+
+---
+
+### 12. Playwright Test Suite - Search Functionality ⏳ **READY** (Task 10 Phase 4)
+**Issue:** Phase 3 blocked (analytics), Phase 4 (search) ready to implement
+**Impact:** Ensure search functionality works correctly, catch regressions
+**Solution:** Automated Playwright tests for search feature
+
+**Implementation:**
+- Create: `scripts/playwright/test-search-functionality.js`
+- Tests: Search input, results display, filtering, pagination
+- Validation: Console errors, result accuracy, performance
+- npm script: `npm run test:search`
+
+**Estimated Effort:** 1.5-2 hours
+**Priority:** MEDIUM (Phase 3 blocked, Phase 4 independent)
+
+**Status:** ⏳ **PENDING** (PR #33)
+
+---
+
+## 🟢 LOW PRIORITY / COMPLETED
 
 **Completed Tasks Archived:** Tasks 3-9 moved to `docs/archive/2025-Q4/TODO-completed-tasks-3-9.md` (165 lines archived, 2025-11-12)
 - ✅ Task 3: Pre-Commit Hooks (2025-11-02)
