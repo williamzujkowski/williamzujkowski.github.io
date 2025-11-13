@@ -22,7 +22,7 @@ What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab
 
 * **Desktop PC** — Intel i9-9900K (2019), 64 GB RAM, [RTX 3090](https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/) (2021), 1TB NVMe + 8TB HDD storage
 
-  **Why this build:** Needed something that could handle local LLM experiments (hence the 3090's 24GB VRAM) plus VM workloads (hence the 64GB RAM). Built in 2019 for ~$2,400, upgraded GPU in 2021 when I realized 11GB VRAM on my old 2080 Ti wasn't enough for the 70B parameter models I wanted to run.
+  **Why this build:** Needed something that could handle local LLM experiments (hence the 3090's 24GB VRAM) plus VM workloads (hence the 64GB RAM). Built in 2019 for ~$2,400, upgraded GPU in 2021 when I realized 11GB VRAM on my old 2080 Ti limited me to 7B models. The 3090's 24GB handles 7B-34B models comfortably in full VRAM.
 
   **Trade-off:** Could've gone AMD Threadripper for better multi-threading, but CUDA support for ML work made NVIDIA the obvious choice. The 3090 was expensive ($1,500 during the shortage), but it saves me hundreds per month in cloud GPU costs.
 
@@ -236,13 +236,13 @@ What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab
 
 * **Local LLMs on RTX 3090** (24GB VRAM)
 
-  **Models I actually run:** Llama 3.1 70B (quantized to Q4_K_M, ~40GB), Mistral 7B, CodeLlama 34B, Qwen 2.5 Coder.
+  **Models that actually fit:** Llama 3.1 8B (~4GB Q4), Mistral 7B (~4GB Q4), CodeLlama 34B (~20GB Q4), Qwen 2.5 Coder 32B (~18GB Q4).
 
   **Why local:** Privacy, unlimited usage, learning how they work under the hood. For security research and analyzing potentially sensitive data, local inference is the only acceptable option.
 
-  **Trade-off:** Slower than GPT-4 (70B takes ~10 seconds for 100 tokens), but I own my data. For security work, that matters.
+  **Hardware reality:** 24GB VRAM handles 7B-34B models fully in GPU memory with Q4 quantization. Larger models (70B+) require CPU offloading (storing part of model in system RAM), which drops performance from 20+ tokens/second to 2-5 tokens/second. For 70B tasks, I use API access or accept the slower offloaded inference.
 
-  **Performance:** Q4 quantization reduces quality slightly but fits in VRAM. Good enough for 90% of my use cases.
+  **Performance sweet spot:** CodeLlama 34B at Q4 quantization (~20GB) gives excellent quality at 12-15 tokens/second. 8B models hit 40+ tokens/second. Good enough for 90% of my use cases.
 
 * [Ollama](https://ollama.com/) for model management
 
@@ -251,7 +251,7 @@ What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab
   **Install to running LLM in 2 commands:**
   ```bash
   curl https://ollama.ai/install.sh | sh
-  ollama run llama3.1:70b
+  ollama run llama3.1:8b  # Or codellama:34b for larger models
   ```
 
 * **Use cases that actually work:**

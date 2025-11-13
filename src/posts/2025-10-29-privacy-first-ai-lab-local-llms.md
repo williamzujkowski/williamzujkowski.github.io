@@ -2,7 +2,7 @@
 author: "William Zujkowski"
 date: 2025-10-29
 title: "Building a Privacy-First AI Lab: Deploying Local LLMs Without Sacrificing Ethics"
-description: "Build privacy-first AI lab with local LLMs—run Llama 3.1 70B on RTX 3090 with network isolation, traffic monitoring, and real privacy controls."
+description: "Build privacy-first AI lab with local LLMs—run models up to 34B on RTX 3090 (24GB VRAM) with network isolation, traffic monitoring, and real privacy controls."
 images:
   hero:
     src: /assets/images/blog/hero/2025-10-29-privacy-first-ai-lab-local-llms-hero.jpg
@@ -31,7 +31,9 @@ Turns out, I'd built privacy theater, not actual privacy.
 
 ## The "Local" Doesn't Mean "Private" Realization
 
-Here's what running a 70B parameter model on my RTX 3090 actually involves: 80GB of VRAM maxed out, inference times around 2-3 seconds per token, and enough heat to warm my office in winter. The hardware is impressive. The GPU does exactly what I tell it to, nothing leaves the card without my permission.
+Here's what running a 34B parameter model on my RTX 3090 actually involves: 24GB of VRAM maxed out, inference times around 12-15 tokens per second (about 67-83ms per token), and enough heat to warm my office in winter. The hardware is impressive. The GPU does exactly what I tell it to, nothing leaves the card without my permission.
+
+For larger 70B models, I use CPU offloading (storing part of the model in system RAM), which works but drops performance to 2-5 tokens/second. Most of my privacy-sensitive work uses 8B-34B models that fit fully in VRAM.
 
 But privacy isn't just about where the compute happens. It's about the entire stack: network behavior, telemetry, data persistence, memory isolation, and threat modeling. I learned this the hard way when I discovered Ollama was listening on 0.0.0.0:11434 by default, accessible to every device on my home network, including the IoT VLAN with its collection of questionable smart cameras. Security researchers found [1,139 vulnerable Ollama instances exposed on the internet](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama), and while mine wasn't one of them (homelab behind NAT), the default configuration made me realize how easy it would be to accidentally expose if I ever set up remote access.
 
@@ -137,10 +139,10 @@ I implemented this through system prompts and custom filters. It's not perfect, 
 
 **My Capability Levels:**
 - **Low-Capability Models (7B-13B):** Basic network isolation, standard access controls
-- **Medium-Capability Models (30B-70B):** VLAN isolation, Wazuh monitoring, encrypted storage
-- **High-Capability Models (70B+ with tools):** Air-gapped VLAN, no internet access, hardware security module for keys
+- **Medium-Capability Models (13B-34B):** VLAN isolation, Wazuh monitoring, encrypted storage
+- **High-Capability Models (70B+ offloaded or cloud API):** Air-gapped VLAN, no internet access, hardware security module for keys
 
-My RTX 3090 runs 70B models with tool use, so I treat it as high-capability. That means it lives on VLAN 20 with no route to the internet and strict firewall rules.
+My RTX 3090 runs 34B models natively (full VRAM), which I treat as medium-capability. For 70B+ models (CPU-offloaded or API), I use the high-capability VLAN 20 with no internet route and strict firewall rules.
 
 ### Red Teaming My Own Deployment
 
@@ -276,7 +278,7 @@ The sweet spot for me is "Hardened Ollama + Differential Privacy", 27% slower th
 
 ### Privacy vs Capability: Model Size Constraints
 
-Running everything locally means I'm limited to models that fit in 80GB VRAM. That caps me at Llama 3.1 70B or Qwen 72B. Cloud services offer 405B parameter models (Llama 3.1), which are noticeably more capable for complex reasoning tasks.
+Running everything locally means I'm limited to models that fit in 24GB VRAM fully, or larger models with CPU offloading. My RTX 3090 handles 7B-34B models natively (full GPU speed), while 70B models require offloading to system RAM (2-5x slower). Cloud services offer 405B parameter models (Llama 3.1), which are noticeably more capable for complex reasoning tasks.
 
 **When I Use Cloud APIs (Despite Privacy Concerns):**
 - Public information research (no sensitive data)
