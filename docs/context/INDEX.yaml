@@ -1,6 +1,6 @@
 version: 1.0.0
-last_updated: '2025-11-12'
-total_modules: 31
+last_updated: '2025-11-13'
+total_modules: 33
 total_categories: 6
 root_anchor:
   file: CLAUDE.md
@@ -132,13 +132,54 @@ categories:
   workflows:
     priority: MEDIUM
     description: Task-specific workflows and processes
-    token_budget: 8600
-    modules_count: 5
+    token_budget: 12295
+    modules_count: 7
     modules:
+    - name: blog-topic-summary
+      file: docs/context/workflows/blog-topic-summary.md
+      priority: MEDIUM
+      estimated_tokens: 645
+      version: 1.0.0
+      last_updated: '2025-11-13'
+      load_when:
+      - Before creating new blog post (default)
+      - Quick topic validation
+      tags:
+      - blog
+      - topic-selection
+      - summary
+      - quick-reference
+      dependencies:
+      - core/nda-compliance
+      - core/enforcement
+      description: Quick summary of blog topic selection with critical gaps, scoring
+        system, and go/no-go filter. Load full module for comprehensive planning.
+    - name: blog-topic-selection
+      file: docs/context/workflows/blog-topic-selection.md
+      priority: MEDIUM
+      estimated_tokens: 3000
+      version: 1.0.0
+      last_updated: '2025-11-13'
+      load_when:
+      - Planning content calendar (full module)
+      - Need comprehensive topic idea bank
+      - Quarterly content review
+      tags:
+      - blog
+      - topic-selection
+      - content-strategy
+      - planning
+      - gaps
+      dependencies:
+      - core/nda-compliance
+      - core/enforcement
+      - standards/writing-style
+      description: Authoritative methodology for selecting blog topics that fill gaps,
+        leverage expertise, and maintain 75/25 evergreen-trending balance (FULL MODULE)
     - name: blog-writing
       file: docs/context/workflows/blog-writing.md
       priority: MEDIUM
-      estimated_tokens: 2600
+      estimated_tokens: 2650
       version: 1.2.0
       last_updated: '2025-11-01'
       load_when:
@@ -685,12 +726,12 @@ loading_strategy:
     - core/enforcement
 token_budgets:
   core_modules: 9150
-  workflow_modules: 8600
+  workflow_modules: 12295
   standards_modules: 19050
   technical_modules: 8800
   reference_modules: 8450
   template_modules: 6000
-  actual_total: 60050
+  actual_total: 60695
   previous_estimate: 180484
   measurement_method: word count × 1.33 tokens/word (corrected Session 41)
 discovery:

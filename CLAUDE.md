@@ -198,13 +198,21 @@ Read docs/context/core/enforcement.md
 # Step 2: MANDATORY - NDA compliance
 Read docs/context/core/nda-compliance.md
 
-# Step 3: MANDATORY - Workflow
+# Step 3: MANDATORY - Topic selection & gap analysis
+Read docs/context/workflows/blog-topic-summary.md
+
+# Step 3b: OPTIONAL - Load full topic selection module only when:
+# - Planning content calendar or quarterly themes
+# - Need comprehensive topic idea bank (90+ ideas)
+# Read docs/context/workflows/blog-topic-selection.md
+
+# Step 4: MANDATORY - Writing workflow
 Read docs/context/workflows/blog-writing.md
 
-# Step 4: MANDATORY - Writing style
+# Step 5: MANDATORY - Writing style
 Read docs/context/standards/writing-style.md
 ```
-**Token cost:** ~11K | **Priority:** 🚨 MANDATORY
+**Token cost:** ~16K (summary) or ~18K (full topic module) | **Priority:** 🚨 MANDATORY
 
 ---
 
@@ -257,7 +265,7 @@ Read docs/context/technical/agent-coordination.md
 
 | Task | Tier | Required Modules | Token Cost |
 |------|------|-----------------|------------|
-| Create blog post | 🚨 MANDATORY | enforcement + nda-compliance + blog-writing + writing-style | ~11K |
+| Create blog post | 🚨 MANDATORY | enforcement + nda-compliance + **blog-topic-summary** + blog-writing + writing-style | ~16K |
 | Transform post | ✅ RECOMMENDED | enforcement + blog-transformation + writing-style | ~10K |
 | Refactor quality | ✅ RECOMMENDED | enforcement + code-block-quality + blog-transformation | ~6K |
 | Validate content | ✅ RECOMMENDED | enforcement + humanization-standards + citation-research | ~5K |
@@ -276,7 +284,7 @@ Three ways to find relevant modules:
 **1. By Task:** Use table above for 8 common patterns
 
 **2. By Index:** Check `docs/context/INDEX.yaml` for complete catalog:
-- 28 existing modules (5 core + 5 workflows + 5 standards + 6 technical + 3 reference + 4 templates)
+- 32 existing modules (5 core + 6 workflows + 7 standards + 6 technical + 4 reference + 4 templates)
 - Tags, dependencies, load conditions, token estimates
 
 **3. By Priority:**
@@ -302,19 +310,21 @@ These operations CANNOT proceed without specified skills. Enforced by `.claude-r
 | Operation | Required Skills | Why Mandatory | Enforcement |
 |-----------|----------------|---------------|-------------|
 | **Create files** | enforcement + file-management + standards-integration | Prevents duplicates, wrong directories, MANIFEST.json corruption | Pre-commit blocks |
-| **Write blog posts** | enforcement + nda-compliance + blog-writing + writing-style | Public content with privacy/NDA risks | Pre-commit blocks |
+| **Write blog posts** | enforcement + nda-compliance + **blog-topic-selection** + blog-writing + writing-style | Public content with privacy/NDA risks, must fill gaps | Pre-commit blocks |
 | **Git commits** | enforcement + git-workflow | Commits permanent, must validate | Pre-commit blocks |
 | **MANIFEST.json ops** | enforcement + standards-integration | Single source of truth, corruption breaks repo | Pre-commit blocks |
 | **Swarm deployment** | enforcement + swarm-orchestration + agent-coordination | Prevents hallucinated agents, ensures coordination | Runtime blocks |
 
 **Loading sequence for Tier 1:**
 ```bash
-# Example: Creating a file
-Read docs/context/core/enforcement.md          # MANDATORY
-Read docs/context/core/file-management.md      # MANDATORY
-Read docs/context/core/standards-integration.md # MANDATORY
+# Example: Creating a blog post
+Read docs/context/core/enforcement.md                    # MANDATORY
+Read docs/context/core/nda-compliance.md                 # MANDATORY
+Read docs/context/workflows/blog-topic-selection.md      # MANDATORY (NEW!)
+Read docs/context/workflows/blog-writing.md              # MANDATORY
+Read docs/context/standards/writing-style.md             # MANDATORY
 
-# Now safe to create file
+# Now safe to create blog post (topic validated, gaps checked)
 ```
 
 #### Tier 2: RECOMMENDED Skills (15 Patterns)
@@ -870,41 +880,13 @@ cat .git/hooks/pre-commit
 
 ## 📚 Module Index
 
-Complete list of existing modules (28 total). For full catalog with tags, dependencies, and load conditions, see `docs/context/INDEX.yaml`.
+**Complete module catalog:** See `docs/context/INDEX.yaml` for all 32 modules organized by category and priority.
 
-| Module | Priority | Load When | Location | Tokens |
-|--------|----------|-----------|----------|--------|
-| **enforcement** | HIGH | Any file operation, before commits, creating content | `docs/context/core/` | 3140 |
-| **nda-compliance** | HIGH | Writing blog posts, discussing work/career, security topics | `docs/context/core/` | 4532 |
-| **file-management** | HIGH | Creating files, cleanup operations, concurrent execution | `docs/context/core/` | 4772 |
-| **mandatory-reading** | HIGH | First session, onboarding, understanding structure | `docs/context/core/` | 3708 |
-| **standards-integration** | HIGH | Before file operations, validation, MANIFEST.json updates | `docs/context/core/` | 4104 |
-| **blog-writing** | MEDIUM | Creating new blog post, editing existing post, content review | `docs/context/workflows/` | 7776 |
-| **sparc-development** | MEDIUM | Using SPARC methodology, TDD development, architecture work | `docs/context/workflows/` | 4240 |
-| **swarm-orchestration** | MEDIUM | Multi-agent coordination, complex task decomposition, parallel execution | `docs/context/workflows/` | 4124 |
-| **blog-transformation** | MEDIUM | Transforming existing posts, Smart Brevity refinement, citation enhancement | `docs/context/workflows/` | 5084 |
-| **gist-management** | LOW | Managing code examples, blog post code ratio >20%, creating shareable snippets | `docs/context/workflows/` | 4660 |
-| **code-block-quality** | HIGH | Refactoring posts, reviewing code blocks, quality audits | `docs/STANDARDS/` | 5600 |
-| **blog-patterns** | HIGH | Creating/editing blog posts, content audits, SEO optimization | `docs/context/standards/` | 7200 |
-
-**Additional modules (20 total, all implemented):**
-- **standards/**: humanization-standards (9128), citation-research (5604), image-standards (5720), accessibility (5448), writing-style (7460), code-block-quality (5600), blog-patterns (7200)
-- **technical/**: script-catalog (3992), git-workflow (5436), build-automation (4160), agent-coordination (4620), research-automation (3904), image-automation (4144)
-- **reference/**: batch-history (5872), compliance-history (4292), directory-structure (4316), historical-learnings (8120)
-- **templates/**: blog-post-template (4556), module-template (3804), script-template (4688), documentation-template (5056)
-
-**Accurate token budgets (all 31 modules measured):**
-- Core modules: **20,256 tokens** (5 modules)
-- Workflow modules: **25,884 tokens** (5 modules)
-- Standards modules: **46,160 tokens** (7 modules) - was 38,960
-- Technical modules: **26,256 tokens** (6 modules)
-- Reference modules: **22,600 tokens** (4 modules)
-- Template modules: **18,104 tokens** (4 modules)
-- **ACTUAL TOTAL: 159,260 tokens** (31 modules complete)
-- **Previous: 152,060 tokens (new module +7,200)**
-- Note: High token count emphasizes importance of selective modular loading
-
-**Full index:** `docs/context/INDEX.yaml`
+**Quick summary:**
+- **Total modules:** 32 modules across 6 categories (~60,050 tokens actual)
+- **Categories:** core (5), workflows (6), standards (7), technical (6), reference (4), templates (4)
+- **Discovery:** Use INDEX.yaml to find modules by task, tag, or priority
+- **Efficiency:** Token budget formula: word_count × 1.33, load only what you need
 
 ---
 
