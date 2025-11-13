@@ -198,8 +198,13 @@ Read docs/context/core/enforcement.md
 # Step 2: MANDATORY - NDA compliance
 Read docs/context/core/nda-compliance.md
 
-# Step 3: MANDATORY - Topic selection & gap analysis (NEW!)
-Read docs/context/workflows/blog-topic-selection.md
+# Step 3: MANDATORY - Topic selection & gap analysis
+Read docs/context/workflows/blog-topic-summary.md
+
+# Step 3b: OPTIONAL - Load full topic selection module only when:
+# - Planning content calendar or quarterly themes
+# - Need comprehensive topic idea bank (90+ ideas)
+# Read docs/context/workflows/blog-topic-selection.md
 
 # Step 4: MANDATORY - Writing workflow
 Read docs/context/workflows/blog-writing.md
@@ -207,7 +212,7 @@ Read docs/context/workflows/blog-writing.md
 # Step 5: MANDATORY - Writing style
 Read docs/context/standards/writing-style.md
 ```
-**Token cost:** ~18K | **Priority:** 🚨 MANDATORY
+**Token cost:** ~16K (summary) or ~18K (full topic module) | **Priority:** 🚨 MANDATORY
 
 ---
 
@@ -260,7 +265,7 @@ Read docs/context/technical/agent-coordination.md
 
 | Task | Tier | Required Modules | Token Cost |
 |------|------|-----------------|------------|
-| Create blog post | 🚨 MANDATORY | enforcement + nda-compliance + **blog-topic-selection** + blog-writing + writing-style | ~18K |
+| Create blog post | 🚨 MANDATORY | enforcement + nda-compliance + **blog-topic-summary** + blog-writing + writing-style | ~16K |
 | Transform post | ✅ RECOMMENDED | enforcement + blog-transformation + writing-style | ~10K |
 | Refactor quality | ✅ RECOMMENDED | enforcement + code-block-quality + blog-transformation | ~6K |
 | Validate content | ✅ RECOMMENDED | enforcement + humanization-standards + citation-research | ~5K |

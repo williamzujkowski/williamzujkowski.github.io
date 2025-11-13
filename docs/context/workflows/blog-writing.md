@@ -37,15 +37,24 @@ This module provides the complete workflow for creating new blog posts from scra
 ## When to Load This Module
 
 **Load this module when:**
-- Creating new blog posts
+- Creating new blog posts (AFTER blog-topic-summary.md)
 - Need complete post workflow guidance
 - Defining target audience for content
 - Planning content structure
 - Preparing for publication
 
 **Skip this module if:**
+- Haven't selected topic yet (load blog-topic-summary.md FIRST)
 - Refining existing posts (use blog-transformation.md)
 - Only validating content (use humanization-standards.md)
+
+**IMPORTANT:** This module assumes you've already:
+1. Loaded `blog-topic-summary.md` (or full blog-topic-selection.md)
+2. Scored your topic (≥15/25)
+3. Verified it fills a content gap or introduces new format
+4. Passed NDA compliance check
+
+If you haven't done these, **STOP** and load `blog-topic-summary.md` first.
 
 ---
 
