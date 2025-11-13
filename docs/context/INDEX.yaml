@@ -87,7 +87,7 @@ categories:
       - concurrent-execution
       - directories
       dependencies:
-      - enforcement
+      - core/enforcement
       description: File organization rules, concurrent execution patterns, and cleanup
         workflows
     - name: mandatory-reading
@@ -126,7 +126,7 @@ categories:
       - validation
       - submodule
       dependencies:
-      - enforcement
+      - core/enforcement
       description: Standards repository integration, MANIFEST.json management, and
         timestamp handling
   workflows:
@@ -192,9 +192,9 @@ categories:
       - content
       - workflow
       dependencies:
-      - nda-compliance
-      - humanization-standards
-      - citation-research
+      - core/nda-compliance
+      - standards/humanization-standards
+      - standards/citation-research
       description: Complete blog post creation workflow with templates, minimum standards,
         and pre-publication checklist
     - name: sparc-development
@@ -213,7 +213,7 @@ categories:
       - development
       - methodology
       dependencies:
-      - enforcement
+      - core/enforcement
       description: SPARC methodology (Specification, Pseudocode, Architecture, Refinement,
         Completion) with Claude-Flow orchestration
     - name: swarm-orchestration
@@ -232,8 +232,8 @@ categories:
       - coordination
       - parallel
       dependencies:
-      - enforcement
-      - file-management
+      - core/enforcement
+      - core/file-management
       description: Multi-agent swarm orchestration with 54 available agents, coordination
         protocols, and parallel execution patterns
     - name: blog-transformation
@@ -251,8 +251,8 @@ categories:
       - smart-brevity
       - refinement
       dependencies:
-      - humanization-standards
-      - citation-research
+      - standards/humanization-standards
+      - standards/citation-research
       description: 7-phase Smart Brevity methodology for transforming existing posts
         (440% citation improvement, 234% bullet improvement)
     - name: gist-management
@@ -301,7 +301,6 @@ categories:
       - validator
       dependencies:
       - core/enforcement
-      - workflows/blog-writing
       optional_dependencies:
       - standards/writing-style
       description: 7-phase humanization methodology and validation standards ensuring
