@@ -23,7 +23,7 @@ tags:
   - tutorial
 
 ---
-I run Llama 2 70B on my RTX 4090, completely offline. Zero cloud dependencies, zero data leakage, zero monthly fees. This guide shows you how I built a privacy-first LLM deployment that matches cloud AI performance without the surveillance.
+I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely offline. Zero cloud dependencies, zero data leakage, zero monthly fees. For larger 70B models, I use CPU offloading (slower but functional). This guide shows you how I built a privacy-first LLM deployment that matches cloud AI performance without the surveillance.
 
 ![Artificial intelligence and neural network visualization](https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80)
 *Photo by Google DeepMind on Unsplash*
@@ -109,20 +109,19 @@ My first deployment crashed spectacularly. My 2019 gaming rig wasn't up to the t
 
 ### My Homelab Setup
 
-My current LLM deployment infrastructure handles everything from 7B to 70B models. For the broader homelab context, see my [security-focused homelab journey](/posts/2025-04-24-building-secure-homelab-adventure).
+My current LLM deployment infrastructure handles 7B-34B models natively in GPU memory, with CPU offloading support for larger 70B models. For the broader homelab context, see my [security-focused homelab journey](/posts/2025-04-24-building-secure-homelab-adventure).
 
 **Primary LLM Server:**
-- NVIDIA RTX 4090 (24GB VRAM)
+- NVIDIA RTX 3090 (24GB VRAM) — runs 7B-34B models fully in GPU
 - AMD Ryzen 9 7950X (16C/32T)
-- 64GB DDR5-5200
+- 64GB DDR5-5200 — enables CPU offloading for 70B models
 - 2TB NVMe SSD (Gen4)
-- Ubuntu 22.04 LTS
+- Ubuntu 24.04 LTS
 
-**Secondary Node (CPU Inference):**
-- Intel i9-13900K
-- 128GB DDR5
-- 1TB NVMe SSD
-- Smaller models and overflow processing
+**Performance reality:**
+- 7B-13B models: 40-60 tokens/second (native GPU)
+- 34B models: 12-15 tokens/second (native GPU)
+- 70B models: 2-5 tokens/second (CPU offloaded)
 
 ## Software Stack
 

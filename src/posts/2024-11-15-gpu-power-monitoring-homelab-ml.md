@@ -87,7 +87,9 @@ I expected Llama 3.1 70B to consume roughly 8-9x more power than Llama 3.1 8B, s
 - Mistral 7B: 298W average (285W-314W range)
 - Phi-3 Mini (3.8B): 276W average (268W-289W range)
 
-The 70B model only consumed 11% more power than the 8B model despite being nearly 9x larger. Why? The quantized 70B model I ran (Q4_K_M quantization) fit entirely in VRAM but required less computational intensity per token than the full-precision 8B model. Memory bandwidth became the bottleneck, not raw compute.
+The 70B model only consumed 11% more power than the 8B model despite being nearly 9x larger. Why? The quantized 70B model I ran (Q4_K_M quantization with CPU offloading) required less GPU computational intensity per token than the full-precision 8B model because most inference work happened in system RAM. Memory bandwidth between CPU and GPU became the bottleneck, not raw GPU compute.
+
+**Note:** RTX 3090 has 24GB VRAM, so 70B models (~40GB Q4) require offloading part of the model to system RAM. This explains the slower token generation (4.2 vs 18.7 tokens/second) and lower power consumption—less GPU utilization because the CPU is handling part of the workload.
 
 However, the catch is that the 70B model generated tokens at only 4.2 tokens/second compared to 18.7 tokens/second for the 8B model. When I calculated efficiency as tokens generated per watt-hour:
 
