@@ -13,10 +13,10 @@ eleventyNavigation:
 # About William Zujkowski
 
 <p class="lead text-xl text-gray-600 dark:text-gray-400 italic">
-I'm a Senior Security Engineer at Cloud.gov (yes, part of GSA TTS—the folks who help make government tech not terrible). I spend my days designing security controls for a FedRAMP Moderate cloud platform. But I also spend way too many nights in my homelab breaking things to understand how they work.
+I'm a Senior Security Engineer focused on cloud platform security, identity federation, and compliance automation. I spend my days designing security controls that enable teams instead of blocking them. I also spend way too many nights in my homelab breaking things to understand how they work.
 </p>
 
-Right now, I'm a GS-15 Individual Contributor at Cloud.gov, which means I get to focus on actual engineering work instead of endless meetings. My days involve designing security controls for a multi-tenant cloud platform—network segmentation, identity federation, compliance automation, and security tooling governance across CI/CD pipelines. Basically making sure teams can deploy safely without security controls getting in their way.
+My work centers on designing security controls for multi-tenant cloud platforms—network segmentation, identity federation, compliance automation, and CI/CD security tooling. The goal: make the secure path the easy path so teams can deploy safely without fighting security controls.
 
 ---
 
@@ -34,7 +34,7 @@ I served as Security Engineering Lead at NHGRI (2018-2021), securing research in
 
 After that, I spent time as a Lead HPC Site Reliability Engineer (2023), supporting high-performance computing clusters for biomedical research. Bridging infrastructure, automation, and research workloads taught me that uptime matters just as much as security when people are running week-long molecular dynamics simulations.
 
-Eventually, all of that experience brought me to **Cloud.gov**, where I now help secure a FedRAMP Moderate cloud platform. It turns out 20 years of breaking things and learning how to fix them is pretty good preparation for designing secure cloud infrastructure.
+Eventually, all of that experience led to federal cloud platform security work. 20 years of breaking things and learning how to fix them turned out to be decent preparation for designing secure cloud infrastructure.
 
 </div>
 
@@ -52,7 +52,7 @@ Eventually, all of that experience brought me to **Cloud.gov**, where I now help
       Cloud Security Architecture
     </h3>
     <p class="text-sm text-gray-700 dark:text-gray-300">
-      Design and operate network controls for a multi-tenant cloud platform—web application firewalls, microsegmentation policies, and infrastructure-as-code automation. Spent months learning IaC just to avoid clicking through cloud consoles for firewall rules. Best decision ever.
+      Design network controls for multi-tenant cloud platforms—web application firewalls, microsegmentation policies, infrastructure-as-code automation. Learning IaC beats clicking through cloud consoles. Firewall rules belong in git, not GUIs.
     </p>
   </div>
 
@@ -64,7 +64,7 @@ Eventually, all of that experience brought me to **Cloud.gov**, where I now help
       Identity & Federation
     </h3>
     <p class="text-sm text-gray-700 dark:text-gray-300">
-      Implement and maintain smart card authentication, SSO integrations, and federated identity systems for federal customers. Identity is one of those things nobody notices when it works and everyone notices when it breaks—usually at 3am.
+      Smart card authentication, SSO integrations, federated identity systems for federal environments. Identity is invisible when it works and screaming loud when it breaks—usually at 3am.
     </p>
   </div>
 
@@ -76,7 +76,7 @@ Eventually, all of that experience brought me to **Cloud.gov**, where I now help
       Security Tooling Governance
     </h3>
     <p class="text-sm text-gray-700 dark:text-gray-300">
-      Oversee CI/CD security scanning, infrastructure scanning, and vulnerability management across the platform. My job is to make sure teams can ship code without accidentally deploying critical vulnerabilities.
+      CI/CD security scanning, infrastructure scanning, vulnerability management across platforms. Ship code fast without deploying critical vulns. Automation finds issues before humans notice them.
     </p>
   </div>
 
@@ -88,7 +88,7 @@ Eventually, all of that experience brought me to **Cloud.gov**, where I now help
       Compliance & Standards
     </h3>
     <p class="text-sm text-gray-700 dark:text-gray-300">
-      Key SME for NIST 800-53 Revision 4 → Revision 5 migration (which was basically rewriting every control narrative to map old requirements to new families). I contribute to our FedRAMP annual assessments and write RFC commentary because someone has to read the fine print.
+      NIST 800-53 compliance, FedRAMP assessments, control implementation. Compliance frameworks are forcing functions that make you think about threat models and blast radius. Done right, compliance makes you more secure. Done wrong, it's checkbox theater.
     </p>
   </div>
 
