@@ -306,8 +306,8 @@ These are the tools that have me staying up way too late "just testing one more 
           <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">🔍 <strong>Eye-opening:</strong> You'll be shocked how many subdomains your targets have. Combine with Aquatone for visual recon.</p>
         </div>
         <div class="border-l-2 border-pink-400 pl-3">
-          <p><a href="https://github.com/michenriksen/aquatone" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Aquatone</a> - Visual recon for web apps</p>
-          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">📸 <strong>Screenshots save time:</strong> Quickly identify interesting targets visually. Great for reports too.</p>
+          <p><a href="https://github.com/michenriksen/aquatone" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Aquatone</a> - Visual recon for web apps <span class="text-xs text-red-600 dark:text-red-400">(⚠️ ARCHIVED - maintained fork: <a href="https://github.com/shelld3v/aquatone" class="underline">shelld3v/aquatone</a>)</span></p>
+          <p class="text-xs text-gray-600 dark:text-gray-500 mt-1">📸 <strong>Screenshots save time:</strong> Quickly identify interesting targets visually. Great for reports too. Original project archived; use community fork.</p>
         </div>
         <div class="border-l-2 border-purple-400 pl-3">
           <p><a href="https://github.com/OWASP/Amass" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Amass</a> - Network mapping that's scary good</p>
@@ -398,8 +398,8 @@ These are the tools that have me staying up way too late "just testing one more 
     <div>
       <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Cloud Security</h5>
       <ul class="text-gray-700 dark:text-gray-300 space-y-1">
-        <li><a href="https://github.com/prowler-cloud/prowler" class="text-primary-600 dark:text-primary-400 hover:underline">Prowler</a> - AWS security assessment</li>
-        <li><a href="https://github.com/toniblyx/prowler" class="text-primary-600 dark:text-primary-400 hover:underline">ScoutSuite</a> - Multi-cloud security auditing</li>
+        <li><a href="https://github.com/prowler-cloud/prowler" class="text-primary-600 dark:text-primary-400 hover:underline">Prowler</a> - Multi-cloud security auditing (AWS, Azure, GCP, K8s)</li>
+        <li><a href="https://github.com/nccgroup/ScoutSuite" class="text-primary-600 dark:text-primary-400 hover:underline">ScoutSuite</a> - Multi-cloud security posture assessment</li>
         <li><a href="https://github.com/cloudquery/cloudquery" class="text-primary-600 dark:text-primary-400 hover:underline">CloudQuery</a> - Cloud asset inventory</li>
         <li><a href="https://github.com/turbot/steampipe" class="text-primary-600 dark:text-primary-400 hover:underline">Steampipe</a> - Query cloud with SQL</li>
       </ul>
