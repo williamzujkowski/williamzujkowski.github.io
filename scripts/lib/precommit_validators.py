@@ -730,7 +730,8 @@ def check_python_logging() -> Tuple[bool, str]:
                     continue
 
                 # Check for print( statements
-                if re.search(r'\bprint\s*\(', line):
+                # Skip if line has noqa comment (intentional print for data output)
+                if re.search(r'\bprint\s*\(', line) and '# noqa' not in line:
                     violations.append((script_file, line_num, stripped[:60]))
 
         except Exception as e:

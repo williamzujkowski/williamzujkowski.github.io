@@ -4,7 +4,7 @@ category: workflows
 priority: MEDIUM
 version: 1.0.0
 last_updated: 2025-11-13
-estimated_tokens: 400
+estimated_tokens: 645
 load_when:
   - Before creating new blog post (default)
   - Quick topic validation
@@ -20,7 +20,7 @@ tags: [blog, topic-selection, summary, quick-reference]
 
 **Category:** workflows
 **Priority:** MEDIUM (load by default before blog posts)
-**Estimated Size:** ~400 tokens
+**Estimated Size:** ~645 tokens
 **Full Module:** `docs/context/workflows/blog-topic-selection.md` (3,000 tokens)
 
 **Load full module when:**
