@@ -228,6 +228,8 @@ grep -E "—|;|in conclusion|overall|leverage|exciting" src/posts/[file].md
 
 **Why it matters:** Generic advice sounds AI-generated. Personal stories prove you've done the work.
 
+**Cross-reference:** See [writing-style.md](writing-style.md#45-technical-authority--security-expertise) for senior engineer voice principles, depth expectations, and credibility markers.
+
 ---
 
 ### Phase 3: Concrete Measurement Addition
@@ -367,6 +369,8 @@ uv run python scripts/blog-content/humanization-validator.py --post "$file" --mi
 **Why it matters:** Manual review misses patterns. Automated validation catches all AI-tells.
 
 **Style guidelines:** See [writing-style.md](writing-style.md#writing-style-the-polite-linus-torvalds-standard) for comprehensive editorial voice and tone guidance.
+
+**Post length context:** See [blog-patterns.md](blog-patterns.md#6-post-length-by-type) for research-backed word count targets by post type (Tutorial: 2,000-2,500, Conceptual: 1,600-2,000).
 
 ---
 

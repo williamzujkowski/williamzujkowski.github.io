@@ -174,6 +174,8 @@ on a Raspberry Pi without sacrificing features.
 - Use white space for readability
 - Start paragraphs with strong hooks
 
+**Paragraph length standards:** See [blog-patterns.md](blog-patterns.md#3-paragraph-structure-mobile-readability) for research-backed 3-4 sentence guideline and mobile readability optimization.
+
 ---
 
 ## Anti-AI-Tells Checklist
