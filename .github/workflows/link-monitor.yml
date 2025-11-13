@@ -38,8 +38,8 @@ jobs:
 
     - name: Install Python Dependencies
       run: |
-        uv pip install --upgrade pip
-        uv pip install aiohttp asyncio pathlib dataclasses
+        uv pip install --system --upgrade pip
+        uv pip install --system aiohttp asyncio pathlib dataclasses
 
     - name: Extract Links
       run: |
@@ -185,8 +185,8 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        uv pip install --upgrade pip
-        uv pip install aiohttp asyncio pathlib dataclasses
+        uv pip install --system --upgrade pip
+        uv pip install --system aiohttp asyncio pathlib dataclasses
 
     - name: Download Artifacts
       uses: actions/download-artifact@v4
