@@ -22,9 +22,9 @@ tags:
 ---
 ## BLUF: When Constraints Become Innovation
 
-Running large language models on a Raspberry Pi cluster taught me more about AI efficiency than years of unlimited cloud budgets. After burning thousands on a single GPU training run in 2023, I faced a choice: quit or innovate.
+Running large language models on a Raspberry Pi cluster taught me more about AI efficiency than years of unlimited cloud budgets. After burning thousands on a single GPU training run in 2023, I faced a choice: quit or innovate. For more context, see [introduction to fine-tuning llms in the homelab: a practical guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide).
 
-Resource constraints (financial limits, consumer hardware, energy costs, tight timelines) aren't obstacles. They're design challenges that spark creativity. I compressed GPT-3's capabilities into a 125M-parameter model through distillation, running 100x faster on my laptop.
+Resource constraints (financial limits, consumer hardware, energy costs, tight timelines) aren't obstacles. They're design challenges that spark creativity. I compressed GPT-3's capabilities into a 125M-parameter model through distillation, running 100x faster on my laptop. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
 Pruning and quantization reduced BERT's memory by 75% while maintaining 95% accuracy. Active learning cut annotation requirements by 60%. Eight Raspberry Pi 4s replaced cloud GPUs for edge inference. The future of AI belongs not to those with the largest budgets, but to those who achieve the most impact with available resources.
 
@@ -630,6 +630,18 @@ When I applied curriculum learning to my natural language understanding models i
 - Fairness constraints: ensure all clients benefit equally from global model
 
 ## Open Source Tools: Community-Driven Efficiency
+
+[the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive)
+
+[supercharging development with claude-flow: ai swarm intelligence for modern engineering](/posts/2025-08-07-supercharging-development-claude-flow)
+
+[ai meets edge computing: transforming real-time intelligence](/posts/2024-10-22-ai-edge-computing)
+
+
+[from claude in your terminal to robots in your workshop: the embodied ai revolution](/posts/2025-10-13-embodied-ai-robots-physical-world)
+
+
+
 
 ### Essential Libraries and Frameworks
 

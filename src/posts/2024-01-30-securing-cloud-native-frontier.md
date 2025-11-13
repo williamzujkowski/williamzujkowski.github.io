@@ -108,15 +108,21 @@ Switching to distroless images reduced my vulnerability count by approximately 7
 
 **Registry Security:** In February 2024, I accidentally pushed a test container image containing a hardcoded API token to my local registry. The token was for a development service, but it taught me a crucial lesson.
 
-If that had been production credentials, they could have been discovered within hours. I immediately set up Bitwarden for secrets management and configured registry access controls. Secure, private registries became non-negotiable after that incident.
+If that had been production credentials, they could have been discovered within hours. I immediately set up Bitwarden for secrets management and configured registry access controls. Secure, private registries became non-negotiable after that incident. For more context, see [cloud migration: a guide to navigating your journey to the cloud](/posts/2024-03-05-cloud-migration-journey-guide).
 
-**Build Process Security:** I learned about supply chain attacks when scanning my CI/CD pipeline outputs with OSV-Scanner v1.5.0 in March 2024. Three of my build dependencies had known vulnerabilities that were being packaged into every container I built.
+**Build Process Security:** I learned about supply chain attacks when scanning my CI/CD pipeline outputs with OSV-Scanner v1.5.0 in March 2024. Three of my build dependencies had known vulnerabilities that were being packaged into every container I built. For more context, see [automated security scanning pipeline with grype and osv](/posts/2025-10-06-automated-security-scanning-pipeline).
 
-My pipelines now include mandatory vulnerability scanning at every stage, which typically adds 30-45 seconds to build time but catches issues before deployment.
+My pipelines now include mandatory vulnerability scanning at every stage, which typically adds 30-45 seconds to build time but catches issues before deployment. For more context, see [ai meets edge computing: transforming real-time intelligence](/posts/2024-10-22-ai-edge-computing).
+
+[demystifying cryptography: a beginner's guide to encryption, hashing, and digital signatures](/posts/2024-01-18-demystifying-cryptography-beginners-guide)
+
+[zero trust architecture: a practical implementation guide](/posts/2024-07-09-zero-trust-architecture-implementation)
+
+
 
 ### 2. Runtime Security: Constant Vigilance
 
-**Least Privilege Principle:** Every container gets only the minimum permissions required. I learned this in April 2024 when testing container escape techniques on my isolated test node.
+**Least Privilege Principle:** Every container gets only the minimum permissions required. I learned this in April 2024 when testing container escape techniques on my isolated test node. For more context, see [writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
 
 A container running with CAP_SYS_ADMIN capability could access the host filesystem within seconds. I created a test container with this capability and successfully read /etc/shadow from the host in under 10 seconds using a simple mount command.
 

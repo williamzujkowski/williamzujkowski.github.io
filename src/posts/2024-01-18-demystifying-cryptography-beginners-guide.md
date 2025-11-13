@@ -188,6 +188,24 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
 
 ### The Legal Contract System Implementation
 
+[implementing dns-over-https (doh) for home networks](/posts/2025-07-08-implementing-dns-over-https-home-networks)
+
+[writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide)
+
+[from it support to senior infosec engineer: my 15+ year journey](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer)
+
+[securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-01-30-securing-cloud-native-frontier)
+
+
+[ebpf for security monitoring: a practical guide](/posts/2025-07-01-ebpf-security-monitoring-practical-guide)
+
+
+
+
+
+[self-hosted password manager migration: bitwarden deep dive](/posts/2025-09-01-self-hosted-bitwarden-migration-guide)
+
+
 **In 2017, I implemented a document signing system for legal contracts:**
 - First test was nerve-wracking. Would signatures hold up under scrutiny?
 - Watched lawyers confidently accept digitally signed agreements

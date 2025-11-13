@@ -1,14 +1,14 @@
 {
   "total_posts": 63,
-  "total_words": 134142,
-  "average_words": 2129.2,
-  "average_reading_time": 9.4,
+  "total_words": 135031,
+  "average_words": 2143.3,
+  "average_reading_time": 9.5,
   "posts_by_year": {
     "2024": 32,
     "2025": 31
   },
   "words_by_year": {
-    "2024": 86639,
+    "2024": 87528,
     "2025": 47503
   },
   "posts_by_month": {
@@ -226,7 +226,7 @@
   ],
   "longest_post": {
     "title": "Designing Resilient Systems for an Uncertain World",
-    "word_count": 5821,
+    "word_count": 5864,
     "reading_time": 25
   },
   "shortest_post": {
@@ -239,13 +239,13 @@
   "reading_time_distribution": {
     "1-3 min": 6,
     "4-6 min": 13,
-    "7-9 min": 15,
-    "10+ min": 29
+    "7-9 min": 14,
+    "10+ min": 30
   },
   "citation_stats": {
     "total_external_links": 929,
-    "total_internal_links": 62,
-    "average_citation_density": 9.77,
+    "total_internal_links": 142,
+    "average_citation_density": 9.75,
     "average_external_links_per_post": 14.7
   },
   "code_stats": {
@@ -253,6 +253,6 @@
     "posts_with_code": 57,
     "posts_with_code_percentage": 90.5
   },
-  "generated_at": "2025-11-12T21:43:35.658151",
+  "generated_at": "2025-11-13T17:20:24.565223",
   "reading_speed_wpm": 238
 }

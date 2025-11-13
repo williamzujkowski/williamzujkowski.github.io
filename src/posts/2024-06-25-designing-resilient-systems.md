@@ -20,7 +20,7 @@ tags:
 ---
 ## BLUF: When Perfect Systems Fail Perfectly
 
-At 2:47 AM on that Tuesday in May 2019, our "bulletproof" platform collapsed in three minutes from a single database timeout. The cascade revealed a harsh truth: resilience isn't about preventing failures, it's about failing gracefully and recovering fast. Traditional approaches build robust systems that resist failure, while resilient systems embrace failure as inevitable and turn it into strength.
+At 2:47 AM on that Tuesday in May 2019, our "bulletproof" platform collapsed in three minutes from a single database timeout. The cascade revealed a harsh truth: resilience isn't about preventing failures, it's about failing gracefully and recovering fast. Traditional approaches build robust systems that resist failure, while resilient systems embrace failure as inevitable and turn it into strength. For more context, see [introduction to zero trust architecture: a practical implementation guide](/posts/2024-07-09-zero-trust-architecture-implementation).
 
 The economic case is clear: our 3-minute outage cost approximately $2.4M in revenue plus immeasurable customer trust, but the resilience patterns I learned now protect billions in annual transactions. The patterns described in Google's SRE handbook[1] now form the foundation of modern resilience engineering.
 
@@ -895,9 +895,9 @@ Building resilient systems transcends technical challenges. It's a mindset shift
 
 ## Conclusion: Embracing Uncertainty
 
-Resilient systems aren't built by preventing all possible failures, they're built by accepting failure as inevitable and designing systems that handle it gracefully. The most resilient organizations I've worked with don't have fewer failures. They recover from failures more quickly and learn from them more effectively.
+Resilient systems aren't built by preventing all possible failures, they're built by accepting failure as inevitable and designing systems that handle it gracefully. The most resilient organizations I've worked with don't have fewer failures. They recover from failures more quickly and learn from them more effectively. For more context, see [blockchain beyond cryptocurrency: building the trust layer of the internet](/posts/2024-10-10-blockchain-beyond-cryptocurrency).
 
-The 2:47 AM cascade failure that started this journey was painful, but it taught invaluable lessons about the difference between robustness and resilience. Robust systems try to maintain perfection. Resilient systems embrace imperfection and turn it into strength.
+The 2:47 AM cascade failure that started this journey was painful, but it taught invaluable lessons about the difference between robustness and resilience. Robust systems try to maintain perfection. Resilient systems embrace imperfection and turn it into strength. For more context, see [advanced context windows in large language models: the memory that shapes ai](/posts/2024-12-03-context-windows-llms).
 
 As our digital world becomes increasingly complex and interconnected, resilience becomes both a technical requirement and a survival skill. The organizations that thrive will be those that build systems, and cultures, capable of adapting, learning, and growing stronger through adversity.
 

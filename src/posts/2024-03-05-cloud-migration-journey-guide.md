@@ -108,7 +108,7 @@ A breakthrough moment came when I realized cloud providers had better security t
 
 ## Performance and Cost Optimization: The Ongoing Challenge
 
-Migration was just the beginning. Optimization became a continuous process:
+Migration was just the beginning. Optimization became a continuous process: For more context, see [securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-01-30-securing-cloud-native-frontier).
 
 **Right-Sizing Reality:** Our initial instance selections were laughably oversized. I made the classic mistake of provisioning based on peak usage patterns, leading to 70% average utilization. Learning to monitor and adjust became essential for cost control. It took me about three months of reviewing CloudWatch metrics before I felt confident right-sizing instances without breaking things.
 
@@ -182,11 +182,11 @@ Migration completion wasn't the end. It was the beginning of ongoing optimizatio
 
 **Performance Optimization:** Regular analysis of resource utilization, application performance, and user experience drives ongoing improvements.
 
-**Service Evolution:** Cloud providers release new services constantly. Staying current with offerings enables further optimization and capability enhancement.
+**Service Evolution:** Cloud providers release new services constantly. Staying current with offerings enables further optimization and capability enhancement. For more context, see [beyond containers: the future of application deployment](/posts/2024-06-11-beyond-containers-future-deployment).
 
 ## Conclusion: Transformation Beyond Technology
 
-Cloud migration transformed our organization beyond simple infrastructure changes. We became more agile, resilient, and capable of rapid innovation. The physical servers gathering dust in our old data center represent more than deprecated hardware. They symbolize outdated thinking about infrastructure, scalability, and change management.
+Cloud migration transformed our organization beyond simple infrastructure changes. We became more agile, resilient, and capable of rapid innovation. The physical servers gathering dust in our old data center represent more than deprecated hardware. They symbolize outdated thinking about infrastructure, scalability, and change management. For more context, see [ai meets edge computing: transforming real-time intelligence](/posts/2024-10-22-ai-edge-computing).
 
 The journey wasn't without challenges, setbacks, and expensive lessons. But each difficulty taught us something valuable about modern infrastructure, organizational change, and the balance between control and convenience.
 

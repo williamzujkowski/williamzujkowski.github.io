@@ -450,3 +450,51 @@
 **Next Review:** 2025-12-11 (monthly)
 **Owner:** Repository maintainer
 
+
+---
+
+### 13. NDA Compliance Remediation - Legacy Posts ⏳ **DISCOVERED** (2025-11-13)
+**Issue:** 14 legacy blog posts (2024-*) contain pre-existing NDA violations
+**Impact:** Potential NDA risk, content credibility
+**Discovery:** Pre-commit NDA validator flagged during internal linking work
+**Solution:** Systematic remediation of legacy content
+
+**Violations Found:**
+- Forbidden time references: "2024" in work context (3 posts)
+- Current work references: "at work", "our systems" (11 posts)
+- Active vulnerability disclosure: "breach", "security incident" (5 posts)
+
+**Affected Posts (14):**
+1. 2024-01-08-writing-secure-code-developers-guide
+2. 2024-01-18-demystifying-cryptography-beginners-guide
+3. 2024-01-30-securing-cloud-native-frontier
+4. 2024-02-09-deepfake-dilemma-ai-deception
+5. 2024-02-22-open-source-vs-proprietary-llms
+6. 2024-03-05-cloud-migration-journey-guide
+7. 2024-03-20-transformer-architecture-deep-dive
+8. 2024-04-04-retrieval-augmented-generation-rag
+9. 2024-04-11-ethics-large-language-models
+10. 2024-04-19-mastering-prompt-engineering-llms
+11. 2024-04-30-quantum-resistant-cryptography-guide
+12. 2024-05-14-ai-new-frontier-cybersecurity
+13. 2024-05-30-ai-learning-resource-constrained
+14. 2024-06-11-beyond-containers-future-deployment
+
+**Remediation Strategy:**
+- **Phase 1:** Low-hanging fruit (5 posts, simple replacements)
+- **Phase 2:** Moderate rewrites (6 posts, context changes)
+- **Phase 3:** Complex cases (3 posts, section rewrites)
+
+**Safe Replacement Patterns:**
+- "at work" → "in my homelab" or "years ago, I worked on..."
+- "our systems" → "my homelab systems" or "professional experience showed..."
+- "breach"/"security incident" → "In my homelab, I discovered..." or research framing
+- "2024" in work context → time buffer ("years ago...")
+
+**Estimated Effort:** 3-4 hours (15-20 min per post)
+**Priority:** MEDIUM (affects ~22% of posts, pre-existing issue)
+**Target Completion:** Q1 2026
+
+**Status:** ⏳ **DOCUMENTED** - Discovered Session 43, deferred to future sprint
+
+---

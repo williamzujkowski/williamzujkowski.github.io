@@ -18,7 +18,7 @@ tags:
 - open-source
 title: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community'
 ---
-In January 2024, I spent three days trying to load Llama 3 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors after 45 minutes of loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize.
+In January 2024, I spent three days trying to load Llama 3 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors after 45 minutes of loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
 After switching to a 4-bit quantized version and tweaking llama.cpp settings, I finally got it running at 15 tokens per second. Not bad, but GPT-4's API was processing the same prompts at 40 tokens per second, and I didn't have to babysit VRAM allocation or worry about thermal throttling on my i9-9900K.
 
@@ -128,7 +128,19 @@ But community support has limitations. During that same debugging session, I spe
 
 ## The Economics of LLM Deployment
 
-Cost comparisons between open-source and proprietary LLMs are more complex than they initially appear. Let me break down my actual costs from February 2024:
+[the ethics of large language models](/posts/2024-04-11-ethics-large-language-models)
+
+[local llm deployment: privacy-first approach](/posts/2025-06-25-local-llm-deployment-privacy-first)
+
+[teaching ai agents to ask for help: a breakthrough in human-robot interaction](/posts/2024-09-09-embodied-ai-teaching-agents)
+
+
+[from 150k to 2k tokens: how progressive context loading revolutionizes llm development workflows](/posts/2025-10-17-progressive-context-loading-llm-workflows)
+
+
+
+
+Cost comparisons between open-source and proprietary LLMs are more complex than they initially appear. Let me break down my actual costs from February 2024: For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
 
 **Open-Source Economics (My RTX 3090 Setup):**
 - **Hardware Amortization:** $1,500 GPU / 3 years = $42/month

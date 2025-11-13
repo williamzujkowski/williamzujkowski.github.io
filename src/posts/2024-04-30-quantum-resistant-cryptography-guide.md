@@ -136,11 +136,20 @@ Moving from theoretical post-quantum algorithms to practical implementations rev
 
 ### Integration Challenges
 
-**Protocol Compatibility:** Existing protocols like TLS weren't designed for multi-megabyte keys or signatures. This required careful adaptation. When I tested CRYSTALS-Kyber in a TLS 1.3 handshake in June 2023, the initial connection time increased from 47ms to 124ms, which is probably acceptable for most applications but could impact high-frequency trading systems.
+**Protocol Compatibility:** Existing protocols like TLS weren't designed for multi-megabyte keys or signatures. This required careful adaptation. When I tested CRYSTALS-Kyber in a TLS 1.3 handshake in June 2023, the initial connection time increased from 47ms to 124ms, which is probably acceptable for most applications but could impact high-frequency trading systems. For more context, see [demystifying cryptography: a beginner's guide to encryption, hashing, and digital signatures](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
 
-**Certificate Infrastructure:** PKI systems needed updates to handle new key formats and signature algorithms. When I tried integrating CRYSTALS-Dilithium certificates into our existing PKI in October 2023, I discovered our certificate validation library couldn't parse the new OIDs (Object Identifiers). We had to update four different components just to get basic certificate validation working, which took three weeks instead of the two days I had estimated.
+**Certificate Infrastructure:** PKI systems needed updates to handle new key formats and signature algorithms. When I tried integrating CRYSTALS-Dilithium certificates into our existing PKI in October 2023, I discovered our certificate validation library couldn't parse the new OIDs (Object Identifiers). We had to update four different components just to get basic certificate validation working, which took three weeks instead of the two days I had estimated. For more context, see [zero trust architecture: a practical implementation guide](/posts/2024-07-09-zero-trust-architecture-implementation).
 
-**Hardware Support:** Cryptographic hardware acceleration, optimized for RSA and ECC, required redesign for post-quantum algorithms. When I tested our HSM (Hardware Security Module) with CRYSTALS-Dilithium in January 2024, I discovered it didn't support the polynomial arithmetic needed for lattice-based crypto. The fallback to software implementations was roughly 15x slower for signature operations.
+[implementing dns-over-https (doh) for home networks](/posts/2025-07-08-implementing-dns-over-https-home-networks)
+
+[writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide)
+
+
+
+[self-hosted password manager migration: bitwarden deep dive](/posts/2025-09-01-self-hosted-bitwarden-migration-guide)
+
+
+**Hardware Support:** Cryptographic hardware acceleration, optimized for RSA and ECC, required redesign for post-quantum algorithms. When I tested our HSM (Hardware Security Module) with CRYSTALS-Dilithium in January 2024, I discovered it didn't support the polynomial arithmetic needed for lattice-based crypto. The fallback to software implementations was roughly 15x slower for signature operations. For more context, see [quantum computing's leap forward](/posts/2024-08-02-quantum-computing-leap-forward).
 
 ### Operational Considerations
 

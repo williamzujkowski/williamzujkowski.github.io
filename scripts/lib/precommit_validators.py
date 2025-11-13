@@ -833,7 +833,16 @@ def check_nda_compliance() -> Tuple[bool, str]:
 
         try:
             with open(post_file, 'r', encoding='utf-8') as f:
-                content = f.read().lower()  # Case-insensitive matching
+                raw_content = f.read()
+
+            # Remove YAML frontmatter (contains date: 2024-01-01 which triggers false positives)
+            import re
+            content_no_frontmatter = re.sub(r'^---\n.*?\n---\n', '', raw_content, flags=re.DOTALL)
+
+            # Remove markdown link URLs to avoid false positives from internal links
+            # Pattern: [text](/posts/2024-01-01-slug) → [text]()
+            content_clean = re.sub(r'\[([^\]]+)\]\(/posts/[^\)]+\)', r'[\1]()', content_no_frontmatter)
+            content = content_clean.lower()  # Case-insensitive matching
 
             post_violations = []
 

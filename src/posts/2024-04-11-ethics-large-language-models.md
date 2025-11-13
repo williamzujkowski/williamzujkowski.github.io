@@ -20,7 +20,7 @@ tags:
   - llm
 
 ---
-Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
+Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
 Deploying our first customer-facing LLM in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, fundamentally changed how I think about AI development and deployment.
 
@@ -139,15 +139,18 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 **Continuous Monitoring:** We implemented ongoing bias testing across different demographic groups and use cases. Starting in April 2023, I ran weekly bias audits using automated tests against 50+ demographic categories, catching issues before they reached production.
 
-**Diverse Teams:** Including people from different backgrounds in development and testing revealed blind spots I wouldn't have noticed. One team member pointed out cultural assumptions in our training data that I had completely missed.
+**Diverse Teams:** Including people from different backgrounds in development and testing revealed blind spots I wouldn't have noticed. One team member pointed out cultural assumptions in our training data that I had completely missed. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
 
-**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. During our September 2023 red team session, we discovered that specific prompt patterns could trigger biased outputs 40% of the time, leading to immediate mitigation work.
+**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. During our September 2023 red team session, we discovered that specific prompt patterns could trigger biased outputs 40% of the time, leading to immediate mitigation work. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
 
-**Training Data Curation:** Careful attention to data sources and active effort to include diverse perspectives.
+**Training Data Curation:** Careful attention to data sources and active effort to include diverse perspectives. For more context, see [building a privacy-first ai lab: deploying local llms without sacrificing ethics](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
+
+[open-source vs. proprietary llms: a battle of accessibility, customization, and community](/posts/2024-02-22-open-source-vs-proprietary-llms)
+
 
 ### Misinformation Prevention
 
-**Uncertainty Expression:** Training models to express confidence levels and acknowledge limitations. In early 2024, I experimented with different prompting strategies, finding that explicitly requesting uncertainty indicators reduced hallucination rates by roughly 15-20%, though this came with a trade-off of slightly longer responses.
+**Uncertainty Expression:** Training models to express confidence levels and acknowledge limitations. In early 2024, I experimented with different prompting strategies, finding that explicitly requesting uncertainty indicators reduced hallucination rates by roughly 15-20%, though this came with a trade-off of slightly longer responses. For more context, see [the deepfake dilemma: navigating the threat of ai-generated deception](/posts/2024-02-09-deepfake-dilemma-ai-deception).
 
 **Source Attribution:** Implementing systems that could trace claims back to source materials.
 

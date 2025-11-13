@@ -19,9 +19,9 @@ tags:
 title: 'The Transformer Architecture: A Deep Dive'
 ---
 
-There's a moment when reading certain papers that you know you're witnessing something fundamental. For me, that moment came with _"Attention is All You Need"_ by Vaswani et al. The elegance of the Transformer architecture felt like discovering a secret that would reshape everything I thought I knew about natural language processing.
+There's a moment when reading certain papers that you know you're witnessing something fundamental. For me, that moment came with _"Attention is All You Need"_ by Vaswani et al. The elegance of the Transformer architecture felt like discovering a secret that would reshape everything I thought I knew about natural language processing. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
-In late 2018, I implemented my first Transformer from scratch for a machine translation project. After weeks of debugging attention matrices and positional encodings, I got it working. The training speed compared to my previous LSTM baseline was striking: what took 14 hours per epoch with LSTMs finished in 3.5 hours with the Transformer, while achieving 2.1 points higher BLEU score on English-German translation. That hands-on experience, watching Transformers evolve into GPT, BERT, and modern LLMs, convinced me this architecture represented a genuine paradigm shift, though I'm still learning about its limitations.
+In late 2018, I implemented my first Transformer from scratch for a machine translation project. After weeks of debugging attention matrices and positional encodings, I got it working. The training speed compared to my previous LSTM baseline was striking: what took 14 hours per epoch with LSTMs finished in 3.5 hours with the Transformer, while achieving 2.1 points higher BLEU score on English-German translation. That hands-on experience, watching Transformers evolve into GPT, BERT, and modern LLMs, convinced me this architecture represented a genuine paradigm shift, though I'm still learning about its limitations. For more context, see [introduction to fine-tuning llms in the homelab: a practical guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide).
 
 ## How It Works
 
@@ -134,13 +134,16 @@ I've applied this architecture to machine translation (28.7 BLEU on WMT14 EN-DE)
 
 Watching Transformers evolve into BERT, GPT, T5, and other architectures has been like watching a family tree grow:
 
-**BERT (Encoder-Only):** Bidirectional training created powerful representations for classification tasks. In mid-2019, I fine-tuned BERT-base (110M parameters) for document classification. Starting from the pretrained model, I achieved 91.2% accuracy on a 10-class task with just 2 epochs of training on 8,000 labeled examples. For comparison, training a similar-sized BiLSTM from scratch on the same data yielded only 76.4% accuracy after 20 epochs. The pretrained representations captured context and nuance that would have required far more labeled data with earlier approaches. I estimate 50,000+ labeled examples to match BERT's performance from scratch.
+**BERT (Encoder-Only):** Bidirectional training created powerful representations for classification tasks. In mid-2019, I fine-tuned BERT-base (110M parameters) for document classification. Starting from the pretrained model, I achieved 91.2% accuracy on a 10-class task with just 2 epochs of training on 8,000 labeled examples. For comparison, training a similar-sized BiLSTM from scratch on the same data yielded only 76.4% accuracy after 20 epochs. The pretrained representations captured context and nuance that would have required far more labeled data with earlier approaches. I estimate 50,000+ labeled examples to match BERT's performance from scratch. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
 
 **GPT Series (Decoder-Only):** Unidirectional generation models that became the foundation for modern language models. [The progression from GPT-1 to GPT-4 showed how scaling Transformer architectures could unlock emergent capabilities](https://arxiv.org/abs/2303.12712) (Bubeck et al., 2023), though the mechanisms behind these emergent behaviors aren't fully understood.
 
-**T5 (Text-to-Text Transfer):** Framing all NLP tasks as text generation problems showed the Transformer's flexibility across diverse problem types.
+**T5 (Text-to-Text Transfer):** Framing all NLP tasks as text generation problems showed the Transformer's flexibility across diverse problem types. For more context, see [open-source vs. proprietary llms: a battle of accessibility, customization, and community](/posts/2024-02-22-open-source-vs-proprietary-llms).
 
-Each variant taught lessons about the architecture's flexibility and the importance of training objectives in shaping model behavior. Though I suspect we've only scratched the surface of what's possible with different training approaches.
+[local llm deployment: privacy-first approach](/posts/2025-06-25-local-llm-deployment-privacy-first)
+
+
+Each variant taught lessons about the architecture's flexibility and the importance of training objectives in shaping model behavior. Though I suspect we've only scratched the surface of what's possible with different training approaches. For more context, see [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models).
 
 ## Implementation Insights: Building Transformers from Scratch
 

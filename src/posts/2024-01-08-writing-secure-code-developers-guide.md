@@ -89,15 +89,24 @@ I built a simple Flask API for my homelab monitoring dashboard in late 2023. I d
 
 After adding input validation (150 lines of code), I re-tested with the same attack vectors and reduced successful exploits from 12 to 0. Static analysis catches these bugs, **but** produces many false positives.
 
-In my initial Semgrep scan, 88% were false positives - after tuning rules for 2 hours, that dropped to 12%. Automated scanning is essential, **however** it can't replace human review and testing with malicious inputs.
+In my initial Semgrep scan, 88% were false positives - after tuning rules for 2 hours, that dropped to 12%. Automated scanning is essential, **however** it can't replace human review and testing with malicious inputs. For more context, see [blockchain beyond cryptocurrency: building the trust layer of the internet](/posts/2024-10-10-blockchain-beyond-cryptocurrency).
 
-I now keep a mental checklist: Is this input from a trusted source? Have I validated the format? Am I using parameterized queries? Have I tested with malicious inputs? That checklist has saved me from repeating old mistakes, though I'm still learning what "good enough" validation looks like.
+I now keep a mental checklist: Is this input from a trusted source? Have I validated the format? Am I using parameterized queries? Have I tested with malicious inputs? That checklist has saved me from repeating old mistakes, though I'm still learning what "good enough" validation looks like. For more context, see [sandboxing untrusted containers with gvisor: lessons from g-fuzz vulnerability research](/posts/2024-09-25-gvisor-container-sandboxing-security).
 
 ## Output Encoding: Preventing Cross-Site Scripting (XSS)
 
+[zero trust architecture: a practical implementation guide](/posts/2024-07-09-zero-trust-architecture-implementation)
+
+[securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments)
+
+
+[the pizza calculator: optimizing team fuel for critical development sprints](/posts/2024-11-05-pizza-calculator)
+
+
+
 Even if your application has good intentions, user input might not. Encoding user-provided text before sending it to the browser ensures that script tags stay as harmless text, never executed code. Understanding proper [cryptography fundamentals for developers](/posts/2024-01-18-demystifying-cryptography-beginners-guide) provides essential context for implementing these security measures correctly.
 
-Years ago, I built a comment system for a blog without proper encoding. Everything worked fine in testing until a user posted a comment with embedded JavaScript. Suddenly, every visitor to that page was redirected to a phishing site. The fix was simple (proper HTML encoding), **but** the damage to user trust took much longer to repair.
+Years ago, I built a comment system for a blog without proper encoding. Everything worked fine in testing until a user posted a comment with embedded JavaScript. Suddenly, every visitor to that page was redirected to a phishing site. The fix was simple (proper HTML encoding), **but** the damage to user trust took much longer to repair. For more context, see [securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-01-30-securing-cloud-native-frontier).
 
 Code review improves quality, **but** requires time and coordination. I reviewed my homelab blog code 3 times and missed an obvious XSS vulnerability. A colleague spotted it immediately during pair programming. Solo code review **probably** catches 60% of issues at best. I think pair programming is worth the time investment, though it **seems to** slow down initial development.
 

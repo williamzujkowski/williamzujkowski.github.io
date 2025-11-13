@@ -20,9 +20,9 @@ tags:
   - security
 
 ---
-**BLUF:** In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss.
+**BLUF:** In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
 
-My test environment ran on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs. The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted. That's an 8.2% accuracy rate.
+My test environment ran on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs. The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted. That's an 8.2% accuracy rate. For more context, see [introduction to demystifying cryptography: a beginner's guide to encryption, hashing, and digital signatures](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
 
 The rest were false positives from my perfectly normal Plex streaming, Home Assistant automation triggers, and Docker container restarts. I spent three days tuning detection thresholds, thinking I'd made a terrible mistake.
 
@@ -191,13 +191,19 @@ Deploying AI in security contexts raised ethical questions I hadn't fully consid
 
 ### Privacy vs. Security
 
-The fundamental tension here is unavoidable. Effective security monitoring arguably violates privacy expectations:
+The fundamental tension here is unavoidable. Effective security monitoring arguably violates privacy expectations: For more context, see [the deepfake dilemma: navigating the threat of ai-generated deception](/posts/2024-02-09-deepfake-dilemma-ai-deception).
 
 **Employee Monitoring:** AI systems that detect insider threats must monitor user behavior in significant detail. In my homelab, this means my Wazuh deployment logs every command I execute, every file I access, every network connection I make. It's comprehensive surveillance, even if I'm monitoring myself. In an organizational context, this raises serious privacy concerns. Where's the line between security and invasive monitoring?
 
+[retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag)
+
+[multimodal foundation models: capabilities, challenges, and applications](/posts/2024-07-24-multimodal-foundation-models)
+
+
+
 **Data Collection:** My AI security system collects roughly 2.3GB of security logs daily, including DNS queries, HTTP headers, authentication attempts, and process executions. That's a complete digital footprint. I'm comfortable with this in my homelab, but imagine this in a workplace. Every website visit, every typo in a command, every late-night work session, all logged and analyzed by AI. The security value is clear, but the privacy implications are troubling. This is why I emphasize the importance of [privacy-first AI lab setup](/posts/2025-10-29-privacy-first-ai-lab-local-llms) when building AI-powered security infrastructure.
 
-**Behavioral Analysis:** To detect anomalies, AI must first understand normal behavior. That means the system learns when you typically work, what applications you use, how you interact with systems. It builds a detailed behavioral profile. In June 2024, my system accurately predicted my work patterns with roughly 89% accuracy. That's useful for anomaly detection but deeply invasive from a privacy perspective.
+**Behavioral Analysis:** To detect anomalies, AI must first understand normal behavior. That means the system learns when you typically work, what applications you use, how you interact with systems. It builds a detailed behavioral profile. In June 2024, my system accurately predicted my work patterns with roughly 89% accuracy. That's useful for anomaly detection but deeply invasive from a privacy perspective. For more context, see [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models).
 
 **Retention Policies:** I currently retain security logs for 90 days before deletion. That feels reasonable for a homelab. But how long should organizations retain AI training data? Longer retention improves model accuracy but increases privacy risks. There's no clear answer, just uncomfortable trade-offs between security and privacy rights.
 

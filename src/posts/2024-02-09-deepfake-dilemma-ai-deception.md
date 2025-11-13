@@ -20,9 +20,9 @@ tags:
   - security
 
 ---
-**BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease. It was a video of a public figure saying something completely out of character. Despite knowing about deepfake technology, I found myself questioning what was real.
+**BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease. It was a video of a public figure saying something completely out of character. Despite knowing about deepfake technology, I found myself questioning what was real. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
-I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media and highlighted a terrifying reality about our information landscape.
+I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media and highlighted a terrifying reality about our information landscape. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
 
 Fast forward to January 2024, when I decided to test this problem in my own homelab. I downloaded 50 known deepfake videos from academic datasets and ran them through three different detection models on my RTX 3090. The results were sobering: my best model achieved only 73% accuracy, taking 3.2 seconds per frame to process.
 
@@ -103,13 +103,16 @@ I tested three different AI detection models in January 2024. Model A (based on 
 
 ## The Human Element: What I've Learned About Deception
 
-Working with deepfake detection taught me that the problem isn't just technological. It's fundamentally human. People want to believe compelling content, especially if it confirms their existing beliefs.
+Working with deepfake detection taught me that the problem isn't just technological. It's fundamentally human. People want to believe compelling content, especially if it confirms their existing beliefs. For more context, see [building a privacy-first ai lab: deploying local llms without sacrificing ethics](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
 
-I conducted an informal experiment in early February 2024 with 12 family members and friends. I showed them 10 videos (5 real, 5 deepfakes) and asked them to identify which were synthetic. The results were humbling: average accuracy was only 58%, barely better than random guessing. Even more concerning, when I told participants that some videos were fake, their confidence in their judgments increased while their accuracy actually decreased to 52%. We're not just bad at detecting deepfakes. We're overconfident about our ability to detect them.
+I conducted an informal experiment in early February 2024 with 12 family members and friends. I showed them 10 videos (5 real, 5 deepfakes) and asked them to identify which were synthetic. The results were humbling: average accuracy was only 58%, barely better than random guessing. Even more concerning, when I told participants that some videos were fake, their confidence in their judgments increased while their accuracy actually decreased to 52%. We're not just bad at detecting deepfakes. We're overconfident about our ability to detect them. For more context, see [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models).
+
+[multimodal foundation models: capabilities, challenges, and applications](/posts/2024-07-24-multimodal-foundation-models)
+
 
 ## Prevention Strategies: Building Defenses
 
-Years of studying this problem have convinced me that prevention requires multiple approaches:
+Years of studying this problem have convinced me that prevention requires multiple approaches: For more context, see [local llm deployment: privacy-first approach](/posts/2025-06-25-local-llm-deployment-privacy-first).
 
 **Technological Solutions:**
 - **Provenance Systems:** Blockchain-based systems that create tamper-evident records of media creation and modification. I tested a proof-of-concept system in January 2024 that added cryptographic hashes to video metadata. File size overhead was only 0.3%, but the verification process took 1.2 seconds per video, which is probably too slow for social media platforms.
