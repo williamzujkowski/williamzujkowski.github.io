@@ -31,7 +31,9 @@ Years ago, I learned the hard way that reading threat reports isn't enough. Afte
 
 **BLUF:** Generic threat feeds are like drinking from a fire hose. Lots of volume, little value.
 
-According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive 10,000 threat indicators daily, but only 3% are relevant to their specific environment. The [MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555) changes this by providing a common language for threat behaviors. Instead of tracking millions of IoCs, we focus on techniques that matter to our environment.
+Threat intelligence works best when integrated with [vulnerability prioritization](/posts/2025-09-20-vulnerability-prioritization-epss-kev), [comprehensive security monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide), [vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source), [container security hardening](/posts/2025-08-18-container-security-hardening-homelab), and [automated security scanning](/posts/2025-10-06-automated-security-scanning-pipeline).
+
+According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive 10,000 threat indicators daily, but only 3% are relevant to their specific environment. The [MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555) changes this by providing a common language for threat behaviors (see [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for detection patterns). Instead of tracking millions of IoCs, we focus on techniques that matter to our environment.
 
 
 ## Understanding MITRE ATT&CK
@@ -150,7 +152,7 @@ After running this dashboard for six months in my environment:
 
 ## Customization for Your Environment
 
-**The key to effective threat intelligence is relevance.** Here's how to customize:
+**The key to effective threat intelligence is relevance.** Combine this with [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation) and [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide) for defense-in-depth. Here's how to customize:
 
 1. **Identify your critical assets** and their attack surface
 2. **Map your defensive capabilities** to ATT&CK techniques

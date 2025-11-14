@@ -23,7 +23,7 @@ tags:
 ---
 ## The Problem: AI Tools That Forget Everything
 
-I built a standards repository that reduced Claude CLI token usage by 90% and automated NIST 800-53r5 compliance checks. The result: 15-minute project setup instead of 2 hours, automatic violation detection across 55 blog posts, and persistent context that survives sessions.
+I built a standards repository that reduced Claude CLI token usage by 90% and automated NIST 800-53r5 compliance checks. This complements [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows) for efficient LLM workflow optimization, and integrates with [mastering prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms), [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first), and [Git workflow automation](). The result: 15-minute project setup instead of 2 hours, automatic violation detection across 55 blog posts, and persistent context that survives sessions.
 
 **Why it matters:** AI tools forget everything between sessions. You explain coding standards repeatedly. Context explodes token budgets. Consistency depends on human memory.
 
@@ -275,7 +275,7 @@ curl -O [https://raw.githubusercontent.com/williamzujkowski/standards/master/doc
 
 ## Real-World Impact: The Numbers
 
-Since implementing this system with all its rough edges, I've measured concrete improvements:
+Since implementing this system with all its rough edges, I've measured concrete improvements. For AI development best practices, explore [mastering prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms) and [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first):
 
 **Time savings:**
 - Setup time: 2 hours → 15 minutes for new projects

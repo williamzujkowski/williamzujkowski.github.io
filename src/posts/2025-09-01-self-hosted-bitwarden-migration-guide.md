@@ -85,12 +85,12 @@ flowchart TB
 
 ## Why Self-Host?
 
-Self-hosting password management shifts trust from vendors to yourself. The trade-off is operational responsibility.
+Self-hosting password management shifts trust from vendors to yourself. The trade-off is operational responsibility. This aligns with [zero-trust security principles](/posts/2024-07-09-zero-trust-architecture-implementation) where you verify everything and trust nothing by default.
 
 **Benefits:**
-- **Full control**: Own infrastructure and data
+- **Full control**: Own infrastructure and data (see [secure homelab adventures](/posts/2025-04-24-building-secure-homelab-adventure))
 - **Zero vendor risk**: No third-party breaches
-- **Network privacy**: Passwords never leave your network
+- **Network privacy**: Passwords never leave your network (see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms))
 - **Custom security**: Tailor to your threat model
 - **Zero cost**: Free for personal use (Vaultwarden)
 
@@ -152,6 +152,8 @@ sudo fail2ban-client status vaultwarden
 ```
 
 ### Firewall Rules
+
+For comprehensive firewall configuration and network segmentation strategies, see my guide on [securing cloud-native applications](/posts/2024-01-30-securing-cloud-native-frontier):
 
 <script src="https://gist.github.com/williamzujkowski/0549ee4b142ddff4d684e8ec21fb0317.js"></script>
 
@@ -479,6 +481,8 @@ Schedule with cron:
 
 ## Monitoring and Maintenance
 
+Continuous monitoring is critical for self-hosted infrastructure. Learn more about [threat intelligence and monitoring](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) to build comprehensive security visibility.
+
 ### Health Check Script
 
 <script src="https://gist.github.com/williamzujkowski/b5fd9b8c6991a5e43587cb78f30ff344.js"></script>
@@ -595,6 +599,8 @@ Database holds 500+ passwords and 50+ shared items without performance degradati
 ## Conclusion
 
 Self-hosting Bitwarden gave me complete password ownership. Two years of operation cost zero vendor fees and zero data breaches. The operational overhead is real but manageable.
+
+For broader infrastructure security, explore [eBPF security monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide) for kernel-level threat detection, or check out my [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects) for budget-friendly security solutions.
 
 This approach works if you have technical skills and reliable infrastructure. Cloud services make more sense if you lack time or experience.
 

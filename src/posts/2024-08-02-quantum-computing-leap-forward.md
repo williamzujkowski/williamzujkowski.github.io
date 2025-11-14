@@ -25,7 +25,7 @@ In June 2024, I spent 40 hours working through IBM's Qiskit tutorials, attemptin
 ![Quantum computing visualization](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1920&q=80)
 *Photo by Zac Wolff on Unsplash*
 
-That learning experience taught me something critical. Quantum computing isn't just a faster computer. It's a fundamentally different way of processing information that could change everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world. The timeline for when this happens remains uncertain, though progress has accelerated since 2023.
+That learning experience taught me something critical. Quantum computing isn't just a faster computer. For quantum-resistant cryptography, see [post-quantum cryptography](/posts/2025-10-29-post-quantum-cryptography-homelab) and [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide). It's a fundamentally different way of processing information that could change everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world. The timeline for when this happens remains uncertain, though progress has accelerated since 2023. Explore blockchain's cryptographic applications in [blockchain beyond cryptocurrency](/posts/2024-10-10-blockchain-beyond-cryptocurrency), learn about [transformer architecture](/posts/2024-03-20-transformer-architecture-deep-dive) for AI-powered quantum simulations, or discover [AI edge computing](/posts/2024-10-22-ai-edge-computing) for quantum-classical hybrid systems.
 
 ## How It Works
 
@@ -238,7 +238,7 @@ Quantum computers pose an existential threat to current cryptographic systems, t
 
 **Key Exchange:** Current protocols for secure communication (DHE, ECDHE) would be broken by quantum computers with sufficient qubits.
 
-**Timeline Concerns:** While large-scale quantum computers may be decades away, the "harvest now, decrypt later" threat is real. Adversaries could store encrypted data today and decrypt it in 15-20 years when quantum computers mature.
+**Timeline Concerns:** While large-scale quantum computers may be decades away, the "harvest now, decrypt later" threat is real. Adversaries could store encrypted data today and decrypt it in 15-20 years when quantum computers mature (see [post-quantum cryptography homelab](/posts/2025-10-29-post-quantum-cryptography-homelab) for defense strategies).
 
 This timeline uncertainty makes the threat immediate for long-term sensitive data.
 
@@ -252,7 +252,7 @@ This timeline uncertainty makes the threat immediate for long-term sensitive dat
 
 **Multivariate Cryptography:** Solving systems of polynomial equations. This approach showed promise in early rounds but NIST didn't select any multivariate schemes in the 2022 announcement. Security concerns about side-channel attacks hampered adoption.
 
-**NIST Standardization:** The National Institute of Standards and Technology ran a post-quantum cryptography competition from 2016 to 2024. Final standards (FIPS 203, 204, 205) were published in August 2024. Organizations should begin transitioning to these algorithms now, though migration will take years.
+**NIST Standardization:** The National Institute of Standards and Technology ran a post-quantum cryptography competition from 2016 to 2024. Final standards (FIPS 203, 204, 205) were published in August 2024. Organizations should begin transitioning to these algorithms now (see [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide) for foundations), though migration will take years.
 
 ## Quantum Cloud Computing: Democratizing Access
 

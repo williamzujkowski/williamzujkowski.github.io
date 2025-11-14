@@ -365,7 +365,7 @@ Run LLMs locally for sensitive tasks:
 - Financial planning assistants
 - Private code review
 
-**Why it matters:** Your data never leaves your device. No third-party API logs, no potential breaches. I use local LLaMA 3.1 7B for analyzing security logs from my homelab. These logs contain internal IP addresses and service configurations I don't want leaving my network.
+**Why it matters:** Your data never leaves your device. No third-party API logs, no potential breaches. I use local LLaMA 3.1 7B for analyzing security logs from my homelab (see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms)). These logs contain internal IP addresses and service configurations I don't want leaving my network.
 
 ### 2. Offline IoT Intelligence
 
@@ -419,7 +419,9 @@ Avoid cloud API costs for high-volume inference:
 
 ## Future Directions: Edge AI in 2025 and Beyond
 
-Based on trends from [IEEE Edge Computing Conference 2024](https://ieeexplore.ieee.org/xpl/conhome/1000016/all-proceedings) and my homelab experiments:
+Based on trends from [IEEE Edge Computing Conference 2024](https://ieeexplore.ieee.org/xpl/conhome/1000016/all-proceedings) and my homelab experiments.
+
+For broader edge AI deployment patterns, see [AI edge computing](/posts/2024-10-22-ai-edge-computing), [local LLM deployment strategies](/posts/2025-06-25-local-llm-deployment-privacy-first), [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows), and [embodied AI robotics](/posts/2025-10-13-embodied-ai-robots-physical-world):
 
 ### 1. Mixture-of-Experts (MoE) on Edge
 

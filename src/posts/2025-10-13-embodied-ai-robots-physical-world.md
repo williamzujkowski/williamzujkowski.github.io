@@ -34,7 +34,7 @@ My 3D printer failed mid-print for the third time in January 2025, not from mech
 
 My physical workspace? Dumb as a brick.
 
-That gap is closing. VLA models combine three capabilities:
+That gap is closing. VLA models combine three capabilities. For edge deployment strategies, see [AI edge computing](/posts/2024-10-22-ai-edge-computing), [transformer architecture optimization](/posts/2024-03-20-transformer-architecture-deep-dive), and [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows):
 
 - **Vision**: Understanding visual scenes through computer vision
 - **Language**: Processing natural language instructions and context
@@ -189,9 +189,9 @@ flowchart TB
 - **Model extraction**: High-value trained models on accessible hardware
 
 **Homelab security measures I'm implementing:**
-- VLAN isolation for robot control (`10.0.50.0/24` dedicated network on my Dream Machine Pro)
+- VLAN isolation for robot control (`10.0.50.0/24` dedicated network on my Dream Machine Pro, see [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab))
 - TLS 1.3 encryption for all control signals
-- Audit logging to immutable storage (writing to my Wazuh SIEM)
+- Audit logging to immutable storage (writing to my Wazuh SIEM, see [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab))
 - Input validation for language instructions (regex patterns + allowlists)
 - Rate limiting to prevent command injection (max 10 commands/minute)
 - Network policies restricting inference service access (see [ROS2 Security Best Practices](https://design.ros2.org/articles/ros2_dds_security.html))
@@ -215,7 +215,7 @@ flowchart TB
 **Phase 2: Budget Hardware** (3-6 months, $1,000)
 - Used Lynxmotion AL5D arm
 - Basic RealSense for vision
-- OpenVLA fine-tuning on simple tasks
+- OpenVLA fine-tuning on simple tasks (see [running LLaMA on Raspberry Pi](/posts/2024-09-15-running-llama-raspberry-pi-pipeload) for edge inference patterns)
 - Safety monitoring through existing Wazuh setup
 
 **Phase 3: Scale If Validated** (Aspirational, $3,000-10,000+)
@@ -237,7 +237,7 @@ flowchart TB
 
 **For AI/ML engineers:**
 - Learn robot dynamics (kinematics, control theory)
-- Understand real-time requirements (inference must complete within 100ms for typical control loops)
+- Understand real-time requirements (inference must complete within 100ms for typical control loops, see [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first))
 - Recognize safety-critical constraints (one bad prediction causes physical damage)
 - Account for sim-to-real gap (performance can drop 20-40% in real hardware)
 

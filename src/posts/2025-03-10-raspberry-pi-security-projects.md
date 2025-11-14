@@ -78,6 +78,8 @@ I've found several compelling reasons through my own experiments:
 
 **Problem Solved**: Ads, tracking, and malicious domains accessing your network
 
+For enterprise-grade DNS security, see my guide on [implementing DNS-over-HTTPS](/posts/2025-07-08-implementing-dns-over-https-home-networks) to encrypt DNS traffic and prevent eavesdropping.
+
 **The Backstory**: Devices on our network were hitting 400+ tracking domains per hour. Per. Hour. That's when I knew we needed a bouncer at the network door.
 
 **Hardware**: Raspberry Pi 4 (2GB), microSD card, Ethernet cable
@@ -120,6 +122,8 @@ Using OpenCV's background subtraction and contour detection, the motion security
 
 **Problem Solved**: Detecting network intrusion attempts before they reach real systems
 
+Honeypot data integrates well with [threat intelligence dashboards](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) to map attacker TTPs to MITRE ATT&CK.
+
 **Hardware**: Raspberry Pi 3B+, Ethernet connection
 
 ### Implementation
@@ -143,6 +147,8 @@ The secure vault combines AES-256 encryption (Python `cryptography` library) wit
 ## Project 5: The Compliance Scanner – Automated Security Auditing
 
 **Problem Solved**: Keeping track of security posture across multiple devices
+
+Scale this approach with [open-source vulnerability management](/posts/2025-07-15-vulnerability-management-scale-open-source) for enterprise-grade scanning across 200+ assets.
 
 **Hardware**: Raspberry Pi 4 (4GB), good network connection
 
@@ -188,9 +194,11 @@ Compare that to:
 ## What's Next?
 
 I'm currently experimenting with some ambitious ideas (though they're still in early testing):
-1. **AI-Powered Threat Detection**: Using Coral TPU for real-time network traffic analysis
+1. **AI-Powered Threat Detection**: Using Coral TPU for real-time network traffic analysis (see [AI edge computing](/posts/2024-10-22-ai-edge-computing) for deployment patterns)
 2. **Mesh Security Network**: Multiple Pis creating a distributed security sensor network
 3. **Incident Response Bot**: Automated playbook execution via Discord commands
+
+For advanced security monitoring, explore [eBPF security monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide) to add kernel-level threat detection to your homelab.
 
 ## Your Turn
 

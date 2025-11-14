@@ -36,7 +36,7 @@ Years ago, while researching potential EDR bypass techniques in my home lab, I d
 
 Imagine having X-ray vision into your kernel, seeing every system call, network packet, and file operation as it happens. That's eBPF. After extensive testing and real-world deployments, I've learned that eBPF isn't just another security tool – it's a fundamental change in how we detect and respond to threats.
 
-[Recent research from arXiv confirms what practitioners have discovered: eBPF-based detection achieves 99.76% accuracy in identifying ransomware within seconds of execution, even for zero-day variants](https://arxiv.org/abs/2406.14020) (Sekar et al., 2024). But raw detection isn't everything – let me show you how to build practical, production-ready eBPF security monitoring.
+[Recent research from arXiv confirms what practitioners have discovered: eBPF-based detection achieves 99.76% accuracy in identifying ransomware within seconds of execution, even for zero-day variants](https://arxiv.org/abs/2406.14020) (Sekar et al., 2024). Integrate eBPF with [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) and [threat intelligence dashboards](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for comprehensive threat detection. But raw detection isn't everything – let me show you how to build practical, production-ready eBPF security monitoring.
 
 ## Understanding eBPF Security Architecture
 
@@ -746,7 +746,9 @@ For deeper technical understanding:
 
 ## Conclusion
 
-eBPF transforms security monitoring from reactive log analysis to proactive, real-time threat detection. It's not just about speed – it's about seeing attacks that were previously invisible.
+eBPF transforms security monitoring from reactive log analysis to proactive, real-time threat detection. Integrate eBPF with [container security hardening](/posts/2025-08-18-container-security-hardening-homelab), [vulnerability management](/posts/2025-07-15-vulnerability-management-scale-open-source), and [threat intelligence](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for comprehensive defense-in-depth.
+
+For budget-friendly security implementations, explore [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects), and learn about [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation) to complement kernel-level monitoring. It's not just about speed – it's about seeing attacks that were previously invisible.
 
 The journey from traditional monitoring to eBPF isn't always smooth. You'll fight with the verifier, debug kernel panics, and optimize performance. But the payoff – catching threats in milliseconds instead of hours – makes it worthwhile.
 

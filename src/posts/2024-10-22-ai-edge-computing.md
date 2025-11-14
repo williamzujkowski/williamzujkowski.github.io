@@ -25,9 +25,9 @@ tags:
 
 That failure taught me something important about edge computing. After converting to TensorFlow Lite and implementing proper thermal throttling, I got it working at 2.3 FPS. The model shrunk from 400MB to just 4MB. Not amazing performance, but good enough for my home security camera that only needs to detect when someone approaches the front door.
 
-The real win? Latency dropped from 200-500ms (cloud-based) to 15-50ms (local inference). And I'm not paying $0.001 per inference anymore.
+The real win? Latency dropped from 200-500ms (cloud-based) to 15-50ms (local inference). And I'm not paying $0.001 per inference anymore. Combine edge AI with [embodied AI systems](/posts/2025-10-13-embodied-ai-robots-physical-world) for autonomous robots that learn from physical interactions, explore [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first) for privacy-focused inference, [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows) for token optimization, or check out [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects) for budget-friendly edge deployments.
 
-The convergence of artificial intelligence and edge computing represents one of the most significant shifts in how we think about data processing and decision-making. Instead of sending everything to distant cloud servers, we're bringing intelligence to where data originates, at the "edge" of the network. This transformation is creating systems that can respond in milliseconds rather than seconds, protect privacy by keeping sensitive data local, and maintain functionality even when network connections fail. It's fundamentally changing what's possible with AI applications. Though I should say, edge AI works great for simple tasks like object detection, but complex reasoning still needs cloud-scale compute.
+The convergence of artificial intelligence and edge computing represents one of the most significant shifts in how we think about data processing and decision-making. See my practical implementation of [running LLaMA on Raspberry Pi](/posts/2024-09-15-running-llama-raspberry-pi-pipeload) for hands-on edge deployment techniques. Instead of sending everything to distant cloud servers, we're bringing intelligence to where data originates, at the "edge" of the network. This transformation is creating systems that can respond in milliseconds rather than seconds, protect privacy by keeping sensitive data local, and maintain functionality even when network connections fail. It's fundamentally changing what's possible with AI applications. Though I should say, edge AI works great for simple tasks like object detection, but complex reasoning still needs cloud-scale compute.
 
 ## How It Works
 
@@ -94,7 +94,7 @@ Augmented reality needs real-time environmental analysis for immersive experienc
 
 ### Privacy and Regulatory Requirements
 
-This is one area where edge AI really shines. My home security setup processes all video locally on the Raspberry Pi. No cloud upload means the video of my family coming and going never leaves my network. That feels important to me, even if I'm probably being overly paranoid about privacy.
+This is one area where edge AI really shines. My home security setup processes all video locally on the Raspberry Pi (see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms)). No cloud upload means the video of my family coming and going never leaves my network. That feels important to me, even if I'm probably being overly paranoid about privacy.
 
 For businesses, the regulations are much stricter. GDPR restricts data movement across borders, HIPAA mandates protection of patient information, and various industry regulations limit where data can be processed. A hospital can't just stream patient vital signs to AWS without serious compliance work.
 

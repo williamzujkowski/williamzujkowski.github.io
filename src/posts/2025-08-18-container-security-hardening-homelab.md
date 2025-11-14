@@ -33,7 +33,7 @@ In July 2025, I escaped a privileged container in my homelab. `--privileged` fla
 
 I found 12 containers with unnecessary privileges. Years back, a test web app container I'd left unsecured was mining cryptocurrency. The attacker exploited an outdated nginx base image with CVE-2019-9511 (CVSS 7.5).
 
-Container security isn't optional. Learning what "hardened" means required breaking things repeatedly.
+Container security isn't optional. Learning what "hardened" means required breaking things repeatedly. For additional defense layers, see my [zero-trust architecture guide](/posts/2024-07-09-zero-trust-architecture-implementation), [eBPF security monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide), [threat intelligence](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard), [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide), and [securing cloud-native applications](/posts/2024-01-30-securing-cloud-native-frontier).
 
 ## Container Security Architecture
 
@@ -83,7 +83,7 @@ flowchart TB
     class Monitor successNode
 ```
 
-Today, my homelab runs 47 containers across Docker and K3s with layered security controls. Here's how I hardened them, including the failures that taught me the most.
+Today, my homelab runs 47 containers across Docker and K3s with layered security controls (see [Proxmox high availability](/posts/2025-09-29-proxmox-high-availability-homelab)). This guide complements [gVisor sandboxing](/posts/2024-09-25-gvisor-container-sandboxing-security) and [vulnerability management](/posts/2025-07-15-vulnerability-management-scale-open-source) with practical hardening techniques.
 
 ## The Foundation: Base Image Selection
 

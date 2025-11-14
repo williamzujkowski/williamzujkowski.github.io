@@ -21,7 +21,7 @@ tags:
   - security
 
 ---
-In early October 2024, I deployed a private Ethereum test network on my homelab's Dell R940 server. The initial sync took 47 hours and consumed 1.2TB of disk space, which immediately taught me my first lesson: blockchain infrastructure is not lightweight. My i9-9900K system handled the validator node workload, but at a constant 340W power draw. That's real electricity costs for what I initially thought would be a simple weekend experiment.
+In early October 2024, I deployed a private Ethereum test network on my homelab's Dell R940 server (see [secure homelab adventures](/posts/2025-04-24-building-secure-homelab-adventure)). The initial sync took 47 hours and consumed 1.2TB of disk space, which immediately taught me my first lesson: blockchain infrastructure is not lightweight. My i9-9900K system handled the validator node workload, but at a constant 340W power draw. That's real electricity costs for what I initially thought would be a simple weekend experiment.
 
 I'll admit I started this project skeptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. But after three months of running actual nodes, deploying smart contracts, and watching my IPFS storage grow to 340GB, I realized something: the core innovation has little to do with digital money.
 
@@ -30,9 +30,9 @@ I'll admit I started this project skeptical. The cryptocurrency hype felt discon
 
 ## What I Actually Learned Running Blockchain Infrastructure
 
-The real breakthrough is distributed trust. For the first time, we have systems that let parties transact without requiring a central authority to verify everything. When I deployed my first smart contract on the local testnet, it cost 0.002 ETH in gas fees (about $3.40 at October 2024 rates). That transaction was verified by my validator node in 2.3 seconds average block propagation time, but here's the key part: no single entity controlled whether it succeeded.
+The real breakthrough is distributed trust. For cryptographic foundations, see [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide) and [post-quantum cryptography](/posts/2025-10-29-post-quantum-cryptography-homelab). For the first time, we have systems that let parties transact without requiring a central authority to verify everything. When I deployed my first smart contract on the local testnet, it cost 0.002 ETH in gas fees (about $3.40 at October 2024 rates). That transaction was verified by my validator node in 2.3 seconds average block propagation time, but here's the key part: no single entity controlled whether it succeeded.
 
-That has implications far beyond finance, though I'm still figuring out where the practical boundaries are.
+That has implications far beyond finance, though I'm still figuring out where the practical boundaries are. For practical security implementations, explore [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation), [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide), and [securing cloud-native applications](/posts/2024-01-30-securing-cloud-native-frontier).
 
 ## How It Actually Works (From My Test Network)
 
@@ -221,7 +221,7 @@ My private testnet with three nodes was easy to set up but not very useful. Bloc
 
 ### Governance Is Still Unsolved
 
-Even decentralized systems need mechanisms for upgrades and dispute resolution. When I needed to upgrade my smart contract, I realized I'd hardcoded it without an upgrade path. In production, that would be a serious problem.
+Even decentralized systems need mechanisms for upgrades and dispute resolution. When I needed to upgrade my smart contract, I realized I'd hardcoded it without an upgrade path. In production, that would be a serious problem (see [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide) for development practices).
 
 ## Challenges That Remain
 

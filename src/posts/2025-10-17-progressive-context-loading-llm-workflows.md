@@ -26,7 +26,7 @@ Progressive context loading cuts LLM token usage by 98% (150K → 2K) while main
 
 **Why it matters**: Token costs and context limits are the biggest barriers to using AI for large codebases. This approach makes enterprise-scale AI assistance affordable and practical.
 
-**The reality**: Simple tasks complete with 2K tokens. Complex tasks scale to 5-8K. Still 95% less than monolithic loading with comparable accuracy. Anthropic's new [Skills feature](https://www.anthropic.com/news/skills) (October 2025) validates these patterns independently.
+**The reality**: Simple tasks complete with 2K tokens. Complex tasks scale to 5-8K. Still 95% less than monolithic loading with comparable accuracy. Anthropic's new [Skills feature](https://www.anthropic.com/news/skills) (October 2025) validates these patterns independently. For local LLM deployment strategies, see [running LLaMA on Raspberry Pi](/posts/2024-09-15-running-llama-raspberry-pi-pipeload) and [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first).
 
 ## The Problem: Context Obesity
 
@@ -117,7 +117,7 @@ Four evolutionary stages, each solving problems from the previous generation:
 | V3 Auto-Routing | 22K | 1.4s | 94% | Medium |
 | V4 Progressive Graph | 2K | 0.3s | 98% | High |
 
-The V4 architecture achieves what [LazyLLM](https://arxiv.org/html/2407.14057v1) calls "lazy loading with minimal accuracy loss": deferring context assembly until the model's attention patterns reveal actual need, rather than preemptively loading based on pessimistic assumptions.
+The V4 architecture achieves what [LazyLLM](https://arxiv.org/html/2407.14057v1) calls "lazy loading with minimal accuracy loss": deferring context assembly until the model's attention patterns reveal actual need, rather than preemptively loading based on pessimistic assumptions. For security implications of AI systems, see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
 
 ### My Chunking Strategy Disaster
 
@@ -359,7 +359,7 @@ Use embeddings to auto-discover skill relationships. Loading `python/type-safety
 
 [Token-efficient RL](https://arxiv.org/abs/2504.20834) optimizes product matrix through trial and error. Learn from thousands of invocations which skill combinations minimize tokens while maximizing success.
 
-**Future vision**:
+**Future vision (see [transformer architecture](/posts/2024-03-20-transformer-architecture-deep-dive) for ML foundations):**
 
 ⚠️ **Warning:** This diagram represents a conceptual architecture requiring significant ML infrastructure (RL training, embedding models, semantic search). Only implement with proper resource planning.
 

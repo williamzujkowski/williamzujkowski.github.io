@@ -30,7 +30,7 @@ tags:
 
 ## The Container Escape Problem
 
-Containers share the host kernel. One bad syscall can break containment.
+Containers share the host kernel. One bad syscall can break containment. This is why [container security hardening](/posts/2025-08-18-container-security-hardening-homelab) requires multiple layers of defense beyond just namespaces and cgroups.
 
 **Recent escapes:**
 
@@ -295,7 +295,7 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 
 - Untrusted container images (public registries, user-submitted code)
 - Multi-tenant workloads (SaaS platforms, CI/CD runners)
-- Internet-facing services (web apps, APIs)
+- Internet-facing services (web apps, APIs) - combine with [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation)
 - Compliance requirements (PCI-DSS, HIPAA needing kernel isolation)
 
 **Don't use gVisor for:**
@@ -327,14 +327,14 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 
 - [Kata Containers](https://katacontainers.io/): Heavier (full VMs), slower startup
 - [Firecracker](https://firecracker-microvm.github.io/): AWS-specific, not Kubernetes-native
-- seccomp-only: Kernel bugs bypass it
+- seccomp-only: Kernel bugs bypass it (see [eBPF security monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide) for deeper kernel visibility)
 
 **The real lesson:** Defense in depth. I use:
 
 - gVisor for untrusted containers
 - Network policies to limit lateral movement
-- Wazuh for syscall monitoring
-- Regular vulnerability scanning (Grype, Trivy)
+- Wazuh for syscall monitoring (integrate with [threat intelligence](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard))
+- Regular vulnerability scanning (Grype, Trivy) - see [vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source)
 
 **Container security is layers.** gVisor is one layer. A good one.
 
