@@ -27,7 +27,7 @@ tags:
 
 Two years ago, my primary Proxmox server's motherboard died at 3 AM. My self-hosted services went down simultaneously: password manager, DNS, monitoring. I was dead in the water until I could source a replacement part.
 
-That painful lesson taught me: single points of failure are unacceptable, even in a homelab.
+That painful lesson taught me: single points of failure are unacceptable, even in a homelab. Understanding [how to design resilient systems](/posts/2024-06-25-designing-resilient-systems) became essential.
 
 This incident became a driving force behind [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure) with resilience baked in from the start.
 
@@ -207,7 +207,7 @@ Add VMs to HA: `ha-manager add vm:100 --state started --max_restart 3`
 <!-- 📎 **Complete test suite:**
 [Full failover testing scripts with monitoring](https://gist.github.com/williamzujkowski/ha-failover-tests) -->
 
-Power off node, watch VMs migrate within 2 minutes
+Power off node, watch VMs migrate within 2 minutes. This pattern integrates well with [zero trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) to ensure services remain isolated during failover.
 
 ### Simulated Network Partition
 
@@ -345,7 +345,7 @@ Two nodes can't form quorum. Four nodes is wasteful. Three provides good balance
 Your cluster is only as reliable as the network connecting it. Invest in quality switches and redundant links.
 
 ### 3. Ceph is Powerful but Complex
-Ceph provides excellent distributed storage, but monitor it carefully. Degraded OSDs can significantly impact performance, though in my experience, the impact varies depending on your workload.
+Ceph provides excellent distributed storage, but monitor it carefully. Degraded OSDs can significantly impact performance, though in my experience, the impact varies depending on your workload. For lessons on [local LLM deployment requiring high-performance storage](/posts/2025-06-25-local-llm-deployment-privacy-first), Ceph's distributed architecture provides good IOPS for model loading.
 
 ### 4. Test Failover Regularly
 I test failover monthly. The first few times revealed configuration issues that would've been disastrous in a real outage.

@@ -101,7 +101,7 @@ Today, every commit to my repositories is automatically scanned for vulnerabilit
 
 ### Why Multiple Scanners?
 
-I tested these three scanners in September 2024 against my homelab services to understand their strengths. These tools complement my broader approach to [smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev).
+I tested these three scanners in September 2024 against my homelab services to understand their strengths. These tools complement my broader approach to [smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev) and integrate with my [automated MITRE ATT&CK threat intelligence dashboard](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard).
 
 This helps me focus on what actually matters instead of raw CVE counts.
 
@@ -253,7 +253,7 @@ Weekly scheduled job scans for vulnerabilities, runs `npm audit fix`, validates 
 
 ### Ship Scan Results to Wazuh
 
-Forward vulnerability data to your SIEM. I ship scans via syslog to Wazuh for centralized tracking.
+Forward vulnerability data to your SIEM. I ship scans via syslog to Wazuh for centralized tracking, building on patterns from [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for comprehensive security monitoring.
 
 📎 **Complete Wazuh integration:**
 [Full script with JSON transformation and error handling](https://gist.github.com/williamzujkowski/fe46d3793fb1f2d9771c8b9e1a2ee5d6)
@@ -271,7 +271,7 @@ Define base rule matching vulnerability IDs (level 7), then escalate to level 12
 
 ## Lessons Learned
 
-After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source).
+After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source) and complement [container security hardening practices](/posts/2025-08-18-container-security-hardening-homelab).
 
 The focus should be on sustainable processes instead of perfect tools.
 
@@ -388,7 +388,7 @@ GitHub-hosted runners aren't free at scale:
 
 ## Conclusion
 
-Automated security scanning isn't optional. It's a fundamental requirement for modern development. By integrating Grype, OSV-Scanner, and Trivy into my CI/CD pipeline, I've shifted security left and caught vulnerabilities before they reach production.
+Automated security scanning isn't optional. It's a fundamental requirement for modern development. By integrating Grype, OSV-Scanner, and Trivy into my CI/CD pipeline, I've shifted security left and caught vulnerabilities before they reach production. These practices align with [writing secure code from the start](/posts/2024-01-08-writing-secure-code-developers-guide) and [zero trust architecture principles](/posts/2024-07-09-zero-trust-architecture-implementation).
 
 The initial setup took me about two weeks of evening work, but the ongoing protection has been worth it. Every critical vulnerability caught in CI is one that doesn't become a 3 AM incident (I know because I've had those incidents before implementing this).
 

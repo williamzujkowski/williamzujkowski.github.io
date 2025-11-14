@@ -25,7 +25,7 @@ In May 2024, I made the decision to completely segment my homelab network into 8
 
 I spent three solid weekends implementing Zero Trust principles in my homelab using my Ubiquiti Dream Machine Pro. The experience taught me that implementing Zero Trust is probably harder than most guides suggest, and I locked myself out of my management interface three times while testing firewall rules. But the results were worth the frustration.
 
-By June 2024, I had created distinct VLANs for management (192.168.1.0/24), servers (192.168.10.0/24), IoT devices (192.168.20.0/24), guest network (192.168.30.0/24), security tools (192.168.40.0/24), cameras (192.168.50.0/24), work devices (192.168.60.0/24), and storage (192.168.70.0/24). According to Wazuh 4.7.0 metrics from my SIEM, this segmentation reduced potential lateral movement paths by 94% compared to my previous flat network design.
+By June 2024, I had created distinct VLANs for management (192.168.1.0/24), servers (192.168.10.0/24), IoT devices (192.168.20.0/24), guest network (192.168.30.0/24), security tools (192.168.40.0/24), cameras (192.168.50.0/24), work devices (192.168.60.0/24), and storage (192.168.70.0/24). According to Wazuh 4.7.0 metrics from my SIEM, this segmentation reduced potential lateral movement paths by 94% compared to my previous flat network design. For detailed implementation guidance on [building a security-focused homelab with proper VLAN segmentation](/posts/2025-04-24-building-secure-homelab-adventure), I've shared my complete network architecture and lessons learned.
 
 ## How It Works
 
@@ -141,7 +141,7 @@ The problem? My intermediate certificate authority cert had expired. I'd configu
 This incident taught me that Zero Trust implementation isn't just about the happy path. It's about handling failure gracefully. Now I run monthly certificate expiration drills where I deliberately expire a test cert and validate my recovery procedures. Takes 15 minutes, saves hours of 2 AM panic.
 
 **Multi-Factor Authentication (MFA) Everywhere:**
-I implemented MFA using hardware keys (YubiKey 5C NFC) for all critical services. My SSH access requires both the key and a certificate valid for only 8 hours. The performance overhead is negligible, adding roughly 340ms to authentication according to my SSH logs.
+I implemented MFA using hardware keys (YubiKey 5C NFC) for all critical services. My SSH access requires both the key and a certificate valid for only 8 hours. The performance overhead is negligible, adding roughly 340ms to authentication according to my SSH logs. As quantum computing advances, I'm also preparing for [post-quantum cryptography migration](/posts/2025-10-29-post-quantum-cryptography-homelab) to future-proof my authentication systems against quantum threats.
 
 **Failure Story #2: The MFA Fatigue Attack (That I Inflicted on Myself)**
 
@@ -246,7 +246,7 @@ I now approach every "harden everything" project with extreme paranoia about loc
 Using Dream Machine Pro firmware 3.2.9, I configured dynamic firewall rules that adjusted based on device type. The performance impact was minimal, adding roughly 2-3ms of latency for inter-VLAN traffic according to my iperf3 tests in July 2024.
 
 **Encrypted Communication:**
-I enabled WPA3 encryption on all WiFi networks and configured WireGuard VPN (version 1.0.20230223) for remote access. Perfect implementation is probably impossible in practice, but I managed to encrypt 97% of network traffic according to Suricata 7.0.3 deep packet inspection logs.
+I enabled WPA3 encryption on all WiFi networks and configured WireGuard VPN (version 1.0.20230223) for remote access. Perfect implementation is probably impossible in practice, but I managed to encrypt 97% of network traffic according to Suricata 7.0.3 deep packet inspection logs. For practical guidance on [deploying Suricata for network traffic analysis](/posts/2025-08-25-network-traffic-analysis-suricata-homelab), I've documented my complete IDS/IPS setup including rule tuning and alert optimization.
 
 **Network Access Control:**
 I implemented MAC address filtering (356 total rules as of August 2024) and RADIUS authentication for my work VLAN. Devices without valid certificates get automatically assigned to the guest network with extremely restricted access.
@@ -437,7 +437,7 @@ Normalizing the idea that verification wasn't about distrust but about protectio
 ### Training and Communication
 
 **Security Awareness:**
-Regular training on new security procedures and the reasoning behind them.
+Regular training on new security procedures and the reasoning behind them. For comprehensive guidance on [implementing security controls in a homelab environment](/posts/2025-04-24-building-secure-homelab-adventure), I've documented the complete journey from planning to production deployment.
 
 **Incident Simulation:**
 Regular exercises that helped employees practice security procedures.

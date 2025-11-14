@@ -76,7 +76,7 @@ The key insight is that adaptation typically operates in a low-dimensional subsp
 
 QLoRA extends LoRA by quantizing the base model to 4-bit precision, further reducing memory requirements. This technique saved me when full-precision LoRA still consumed 22.3GB of my 24GB VRAM budget, leaving almost no headroom for batch processing.
 
-With QLoRA, my VRAM usage dropped to 14.7GB for the same Llama 3 8B model. This enabled me to increase my batch size from 1 (with gradient accumulation) to an effective batch size of 32 with 4-step gradient accumulation. Training time per epoch decreased from approximately 2.8 hours to 1.4 hours.
+With QLoRA, my VRAM usage dropped to 14.7GB for the same Llama 3 8B model. This enabled me to increase my batch size from 1 (with gradient accumulation) to an effective batch size of 32 with 4-step gradient accumulation. Training time per epoch decreased from approximately 2.8 hours to 1.4 hours. For readers planning a complete [privacy-first AI lab setup](/posts/2025-10-29-privacy-first-ai-lab-local-llms), I recommend establishing network isolation and security controls before fine-tuning to prevent data leakage during training.
 
 The quantization is carefully designed to preserve model quality. My testing revealed that 4-bit quantization caused a perplexity increase of around 3-5% on my validation set compared to full precision, which was acceptable for my application. One limitation is that extremely precise numerical tasks may suffer more degradation.
 
@@ -179,7 +179,7 @@ I track these metrics obsessively during training after learning from early fail
 - **Training Loss**: Should decrease steadily (my successful runs show smooth exponential decay from around 2.8 down to 0.7-0.9, and erratic behavior suggests learning rate is too high or data has quality issues)
 - **Validation Loss**: Saved me from deploying a badly overfit model in late March (my validation loss started increasing at epoch 3.2 while training loss kept dropping, so I now use early stopping with patience of 0.5 epochs)
 - **GPU Metrics**: I monitor temperature, power consumption, and memory usage via nvidia-smi every 30 seconds (before adding better cooling, thermal throttling extended my training run by roughly 47 minutes, and power consumption averaging 340W at $0.13/kWh means each 14-hour training run costs approximately $8.40)
-- **Throughput**: I process roughly 1,247 tokens per second during training with my current configuration (helps me estimate total training time, as my 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput)
+- **Throughput**: I process roughly 1,247 tokens per second during training with my current configuration (helps me estimate total training time, as my 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput). For orchestrating complex fine-tuning workflows with parallel agent coordination, see my guide on [supercharging development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow) which demonstrates multi-agent task management at scale.
 
 ## Practical Challenges and Solutions
 

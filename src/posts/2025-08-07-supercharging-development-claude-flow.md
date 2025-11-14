@@ -37,7 +37,7 @@ I used Claude-Flow to refactor a complex microservices architecture. Instead of 
 Claude-Flow is an AI orchestration framework bringing swarm intelligence to software development.
 Think of it as an entire development team at your fingertips—specialized AI agents working together instead of human developers.
 
-If you're interested in [building an MCP standards server](/posts/2025-07-29-building-mcp-standards-server) or [supercharging Claude CLI](/posts/2025-07-22-supercharging-claude-cli-with-standards), Claude-Flow provides the orchestration layer making these tools work together.
+If you're interested in [building an MCP standards server](/posts/2025-07-29-building-mcp-standards-server) or [supercharging Claude CLI](/posts/2025-07-22-supercharging-claude-cli-with-standards), Claude-Flow provides the orchestration layer making these tools work together. For readers building AI infrastructure, see my guide on [fine-tuning LLMs in the homelab](/posts/2025-05-10-llm-fine-tuning-homelab-guide) which demonstrates parameter-efficient training techniques that complement multi-agent development workflows.
 
 Core capabilities:
 
@@ -140,7 +140,7 @@ After training the model on my authentication patterns, it consistently suggeste
 
 Cross-session memory is invaluable when working across multiple days.
 Picking up exactly where I left off, with all context intact, saves hours of re-familiarization.
-This pairs well with [progressive context loading techniques](/posts/2025-10-17-progressive-context-loading-llm-workflows) to manage large codebases efficiently.
+This pairs well with [progressive context loading techniques](/posts/2025-10-17-progressive-context-loading-llm-workflows) to manage large codebases efficiently. For comprehensive guidance on [building privacy-first AI infrastructure with local LLMs](/posts/2025-10-29-privacy-first-ai-lab-local-llms), I've documented network isolation and security controls that protect swarm orchestration data from unauthorized access.
 
 But AI agents aren't magic.
 Early swarm deployments produced contradictory code when agents lacked clear coordination boundaries.

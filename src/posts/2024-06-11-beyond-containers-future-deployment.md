@@ -21,7 +21,7 @@ tags:
   - infrastructure
 
 ---
-In June 2024, I migrated 23 services from Docker Compose to K3s on my homelab. The migration took three weeks longer than planned, broke my monitoring stack twice, and resulted in my wife asking why the Plex server kept going down during movie night. At 2 AM on June 28th, while debugging why my ingress controller couldn't route traffic to my GitLab instance, I had a thought: maybe containers aren't the final answer. For more context, see [introduction to cloud migration: a guide to navigating your journey to the cloud](/posts/2024-03-05-cloud-migration-journey-guide).
+In June 2024, I migrated 23 services from Docker Compose to K3s on my homelab. The migration took three weeks longer than planned, broke my monitoring stack twice, and resulted in my wife asking why the Plex server kept going down during movie night. At 2 AM on June 28th, while debugging why my ingress controller couldn't route traffic to my GitLab instance, I had a thought: maybe containers aren't the final answer. Understanding [cloud migration patterns](/posts/2024-03-05-cloud-migration-journey-guide) and [designing resilient systems](/posts/2024-06-25-designing-resilient-systems) became essential for this journey.
 
 I'd spent the previous year wrestling with Kubernetes networking, persistent volume claims that mysteriously disappeared, and YAML files that grew to ridiculous sizes. My Dell R940 was humming along with 64GB of RAM allocated to K3s, but something felt wrong. The complexity I'd added seemed heavier than the problems I was solving.
 
@@ -99,7 +99,7 @@ But here's what containers didn't fix:
 
 **Orchestration Complexity:** Kubernetes works, but the learning curve is steep. I spent 40+ hours just understanding pod networking properly. The official docs assume knowledge I didn't have.
 
-**Security Concerns:** Container escape vulnerabilities worry me. Running privileged containers for certain workloads feels risky, but sometimes necessary. I still don't fully trust my security posture.
+**Security Concerns:** Container escape vulnerabilities worry me. Running privileged containers for certain workloads feels risky, but sometimes necessary. I still don't fully trust my security posture. [Container security hardening](/posts/2025-08-18-container-security-hardening-homelab) and [zero trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation) help mitigate these risks.
 
 **Performance Overhead:** While efficient, containers add abstraction layers. My database benchmarks showed 8-12% performance penalty compared to bare metal.
 
@@ -304,7 +304,7 @@ WASM showed promise but lacked the ecosystem support for DNS operations I needed
 
 ### Edge Deployment Lessons
 
-**Resource Constraints Matter:** On the Pi 4, every megabyte of RAM counts. The 173MB saved by using a static binary let me run additional services.
+**Resource Constraints Matter:** On the Pi 4, every megabyte of RAM counts. The 173MB saved by using a static binary let me run additional services. These optimizations work well alongside [AI at the edge for real-time intelligence](/posts/2024-10-22-ai-edge-computing).
 
 **Boot Time Matters:** When the Pi reboots (power outage, updates), I want services back quickly. Container startup delays were noticeable.
 
@@ -409,7 +409,7 @@ Based on what I learned, here's what I'm planning to test next:
 
 ## Honest Conclusion: No Universal Answer
 
-After breaking things, measuring performance, and fixing my mistakes, I've concluded that containers won't be replaced by a single successor technology. For more context, see [advanced container security hardening in my homelab](/posts/2025-08-18-container-security-hardening-homelab).
+After breaking things, measuring performance, and fixing my mistakes, I've concluded that containers won't be replaced by a single successor technology. [Container security hardening](/posts/2025-08-18-container-security-hardening-homelab), [cloud-native security patterns](/posts/2024-01-30-securing-cloud-native-frontier), and [eBPF monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide) all play complementary roles in modern infrastructure.
 
 Instead, I'm seeing specialization:
 - Containers for general-purpose workloads

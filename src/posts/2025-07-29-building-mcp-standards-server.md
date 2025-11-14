@@ -366,7 +366,7 @@ The honest status:
 
 ## Try It Yourself (At Your Own Risk)
 
-If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB:
+If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB. For insights on [orchestrating multi-agent development workflows with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow), I've documented how MCP servers integrate with swarm intelligence for complex engineering tasks.
 
 **AI skepticism note:** MCP is bleeding-edge technology from Anthropic. The spec changes. The libraries break. The examples in the docs don't always work. Building production systems on top of experimental protocols is a recipe for midnight debugging sessions.
 
@@ -392,7 +392,7 @@ Fair warning: This is a work in progress. It works, but "works" is doing some he
 
 ## The Real Talk
 
-This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist.
+This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist. For lessons on [building resilient systems that fail gracefully](/posts/2024-06-25-designing-resilient-systems), I've applied similar architectural patterns to ensure my homelab services remain operational even when individual components break.
 
 **The honest assessment:** This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (6,000+ lines) is more impressive and less useful. Sometimes the best code is the code you don't write.
 
@@ -401,6 +401,8 @@ But I learned a ton:
 - Redis patterns I'll never use again
 - Why simple solutions often win
 - That scope creep is my superpower and weakness
+
+For practical deployment guidance on [zero trust network architecture](/posts/2024-07-09-zero-trust-architecture-implementation), securing MCP servers requires similar VLAN isolation and firewall rules to protect sensitive standards data from unauthorized access.
 
 Will I keep working on it? Absolutely. Will it ever be "done"? Absolutely not.
 

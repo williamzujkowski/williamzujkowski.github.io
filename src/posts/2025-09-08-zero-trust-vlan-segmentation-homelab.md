@@ -100,7 +100,7 @@ These principles build on the foundational concepts I explored in my guide to [z
 1. **Default deny**: No traffic flows between VLANs unless explicitly allowed
 2. **Least privilege**: Each VLAN has minimum required access
 3. **Explicit allow**: Every connection must have a business justification
-4. **Continuous monitoring**: Log and alert on anomalous traffic
+4. **Continuous monitoring**: Log and alert on anomalous traffic using [Suricata network traffic analysis](/posts/2025-08-25-network-traffic-analysis-suricata-homelab)
 
 ### VLAN Segmentation Strategy
 
@@ -630,9 +630,10 @@ Firewall rules without logging are security theater. Log everything and alert on
 
 **Since implementing VLAN segmentation:**
 
-- **Reduced attack surface**: Compromised IoT devices can't pivot to trusted networks
+- **Reduced attack surface**: Compromised IoT devices can't pivot to trusted networks, validated through [IoT security testing with OWASP IoTGoat](/posts/2025-09-20-iot-security-homelab-owasp)
 - **Easier forensics**: VLAN ID in logs immediately identifies affected segment
 - **Improved performance**: Broadcast domains are smaller, reducing noise
+- **Improved performance**: Broadcast domains are smaller, reducing noise, measurable with [Proxmox high-availability monitoring](/posts/2025-09-29-proxmox-high-availability-homelab)
 - **Compliance**: Network segmentation requirement satisfied
 - **Peace of mind**: Sketchy cameras can't access my NAS
 

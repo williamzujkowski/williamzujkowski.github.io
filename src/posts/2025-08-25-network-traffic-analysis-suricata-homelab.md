@@ -136,7 +136,7 @@ action protocol source_ip source_port -> dest_ip dest_port (rule options)
 
 ### Custom Detection Rules
 
-One particularly valuable use case is detecting suspicious IoT device behavior. After working through [lessons from OWASP IoTGoat on IoT security](/posts/2025-09-20-iot-security-homelab-owasp), I developed custom rules to catch the most common IoT attack patterns:
+One particularly valuable use case is detecting suspicious IoT device behavior. After working through [lessons from OWASP IoTGoat on IoT security](/posts/2025-09-20-iot-security-homelab-owasp) and implementing [zero trust VLAN microsegmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), I developed custom rules to catch the most common IoT attack patterns:
 
 <script src="https://gist.github.com/williamzujkowski/fdd48db6a837ca02c00c79f7c4fd6cde.js"></script>
 
@@ -548,11 +548,14 @@ Regularly test that your rules actually fire. A rule that never alerts might be 
 
 2. **[MITRE ATT&CK for Network Defense](https://attack.mitre.org/)** - Adversary tactics and techniques
 
+3. **[MITRE ATT&CK Dashboard Implementation](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard)** - Correlate Suricata detections with ATT&CK tactics
+
 ### Rule Development
 
 - **[Emerging Threats Rules](https://rules.emergingthreats.net/)** - Community ruleset
 - **[Suricata Language Reference](https://suricata.readthedocs.io/en/latest/rules/index.html)** - Rule syntax documentation
 - **[OISF GitHub](https://github.com/OISF/suricata)** - Suricata source code and examples
+- **[Container Security Hardening](/posts/2025-08-18-container-security-hardening-homelab)** - Protect containerized Suricata deployments
 
 ## Conclusion
 

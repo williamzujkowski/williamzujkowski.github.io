@@ -193,7 +193,7 @@ Here's how I actually locked things down. This took about 6 hours to configure p
 
 ### VLAN 20: AI Services Isolation
 
-My Unifi Dream Machine Pro manages VLANs. AI workloads live in VLAN 20, completely isolated from my main network (VLAN 1) and DMZ (VLAN 10).
+My Unifi Dream Machine Pro manages VLANs using [zero trust microsegmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab). AI workloads live in VLAN 20, completely isolated from my main network (VLAN 1) and DMZ (VLAN 10).
 
 **Firewall Rules (VLAN 20 → External):**
 ```
@@ -212,7 +212,7 @@ ALLOW 10.0.20.0/24 -> 10.0.30.5:9090 (Prometheus)
 
 ### Proxmox GPU Passthrough with Security
 
-My Dell R940 hosts the Proxmox hypervisor with the RTX 3090 passed through to an Ubuntu VM. The critical security layer is ensuring the VM can't break out:
+My Dell R940 hosts the Proxmox hypervisor with the RTX 3090 passed through to an Ubuntu VM following [container hardening principles](/posts/2025-08-18-container-security-hardening-homelab). The critical security layer is ensuring the VM can't break out:
 
 ```bash
 # /etc/pve/qemu-server/105.conf (AI workload VM)
@@ -228,7 +228,7 @@ The `firewall=1` flag is critical, it enables Proxmox's firewall at the VM level
 
 ### Wazuh Monitoring for AI Workloads
 
-I configured [Wazuh to monitor AI-specific threats](https://documentation.wazuh.com/). Custom rules detect suspicious patterns:
+I configured [Wazuh to monitor AI-specific threats](https://documentation.wazuh.com/), layered with [Suricata IDS for network-level detection](/posts/2025-08-25-network-traffic-analysis-suricata-homelab). Custom rules detect suspicious patterns:
 
 **Rule: Detect Ollama Unauthorized Access Attempts**
 ```xml

@@ -39,7 +39,7 @@ But here's the catch: **gradients leak information about training data**. Resear
 
 ## Granular-Ball Computing: Coarse Privacy Through Segmentation
 
-The [GrBFL paper](https://arxiv.org/abs/2501.04940) introduces a different approach: granular-ball computing. Instead of sharing gradients, participants share coarse statistical representations of their local data.
+The [GrBFL paper](https://arxiv.org/abs/2501.04940) introduces a different approach: granular-ball computing. Instead of sharing gradients, participants share coarse statistical representations of their local data. This complements the [privacy-first AI infrastructure approach](/posts/2025-10-29-privacy-first-ai-lab-local-llms) by adding distributed training to local inference capabilities.
 
 **The concept:** Segment your local dataset into "granular balls," which are clusters of similar data points represented by their center and radius. Instead of sending gradients derived from individual examples, you send aggregated statistics from these coarse clusters.
 
@@ -76,7 +76,7 @@ I used [Flower](https://flower.dev/) for federated orchestration and PyTorch for
 - **Dataset:** CIFAR-10 (60,000 images split across 3 Pis, 20,000 each)
 - **Model:** ResNet-18 (11.7M parameters)
 
-**Network topology:** All devices on the same VLAN (192.168.2.0/24) with 1 Gbps Ethernet connectivity. No WAN traffic, pure LAN federation.
+**Network topology:** All devices on the same VLAN (192.168.2.0/24) with 1 Gbps Ethernet connectivity. No WAN traffic, pure LAN federation. Following [zero trust VLAN segmentation principles](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), I isolated federated learning traffic from other homelab services.
 
 ### Installing Dependencies
 
@@ -256,7 +256,7 @@ After three weeks of testing, here's what I learned about when granular-ball fed
 
 **Monitoring cluster statistics:** I logged cluster size distributions after each round. Caught an issue where 90% of data points were assigned to 5 clusters (k-means converged poorly). Fixed by increasing cluster count.
 
-**Separate VLAN for federation traffic:** Isolated the federated learning traffic from other homelab services. Prevented network congestion when I was running other experiments simultaneously.
+**Separate VLAN for federation traffic:** Isolated the federated learning traffic from other homelab services using [network traffic monitoring with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) to validate no data leakage occurred. Prevented network congestion when I was running other experiments simultaneously.
 
 **TensorBoard for tracking:** Logging training metrics to TensorBoard made it easy to spot when something went wrong (like the 12% accuracy drop from threshold=0.1).
 
@@ -306,6 +306,7 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 
 - [**Homomorphic Encryption for Machine Learning**](https://eprint.iacr.org/2018/462.pdf) (2018) - Gilad-Bachrach et al.
   *Alternative approach using encrypted computation*
+- [**Post-Quantum Cryptography Migration**](/posts/2025-10-29-post-quantum-cryptography-homelab) - Future-proofing federated learning against quantum threats
 
 ### Kubernetes and Raspberry Pi Resources
 - [**K3s Lightweight Kubernetes**](https://k3s.io/) - What I use for orchestrating multi-Pi experiments

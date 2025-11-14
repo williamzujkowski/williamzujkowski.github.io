@@ -265,7 +265,7 @@ After three weekends of trial, error, and embarrassing mistakes, here's what I l
 My test environment:
 - **Intel i9-9900K** (main server): Proxmox host, 64GB RAM, RTX 3090
 - **Raspberry Pi 4 Model B** (edge devices): 4GB RAM, running Pi-hole, Wazuh agent
-- **Dell PowerEdge R940** (overkill homelab server): 1TB RAM, mostly running VMs
+- **Dell PowerEdge R940** (overkill homelab server): 1TB RAM, mostly running VMs with [high-availability clustering](/posts/2025-09-29-proxmox-high-availability-homelab)
 
 According to [Springer's study on Raspberry Pi post-quantum implementations](https://doi.org/10.1007/s42452-025-07201-z), **Dilithium2 emerges as the most balanced option for Raspberry Pi 4** deployments. [MDPI's benchmarking research](https://www.mdpi.com/2410-387X/8/2/21) confirms that ML-KEM-768 performs encapsulation/decapsulation in roughly **0.05 milliseconds** on Pi 4 hardware.
 

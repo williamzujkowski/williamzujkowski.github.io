@@ -87,7 +87,7 @@ VLAN 40: Guest Network (Visitors)
 VLAN 50: Security Lab (Where the magic/chaos happens)
 ```
 
-Each VLAN has specific firewall rules. The IoT network, for example, can't initiate connections to other VLANs – because why does my smart toaster need to talk to my NAS? For a complete guide on [implementing zero trust microsegmentation with VLANs](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), I've documented the exact firewall rules and segmentation strategy I use.
+Each VLAN has specific firewall rules. The IoT network, for example, can't initiate connections to other VLANs – because why does my smart toaster need to talk to my NAS? For a complete guide on [implementing zero trust microsegmentation with VLANs](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), I've documented the exact firewall rules and segmentation strategy I use. These network isolation patterns also apply when [building privacy-first AI infrastructure with local LLMs](/posts/2025-10-29-privacy-first-ai-lab-local-llms), where VLAN segmentation protects sensitive training data from unauthorized access.
 
 ### The Hardware Stack
 
@@ -112,7 +112,7 @@ I run Wazuh as my SIEM, ingesting logs from:
 
 The dashboard is mounted on an old tablet in my office. My family now knows that when Dad stares at the "colorful graphs," someone's probably trying to hack our WiFi.
 
-Understanding the fundamentals helped tremendously – [see my guide to cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide) for the background on how these security tools actually work under the hood.
+Understanding the fundamentals helped tremendously – [see my guide to cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide) for the background on how these security tools actually work under the hood. As quantum computing advances, I'm also [preparing for post-quantum cryptography migration](/posts/2025-10-29-post-quantum-cryptography-homelab) to future-proof my homelab's encryption against quantum threats.
 
 ### Intrusion Detection
 
