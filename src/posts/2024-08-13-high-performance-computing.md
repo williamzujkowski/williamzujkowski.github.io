@@ -46,7 +46,7 @@ The transformation I've witnessed in HPC extends beyond raw computational power.
 
 ## AI and HPC: A Perfect Partnership
 
-The most interesting development I've observed is how AI and HPC have become symbiotic partners rather than separate domains. This isn't about using supercomputers to train large models. It's become much more sophisticated.
+The most interesting development I've observed is how [AI](/posts/2024-04-11-ethics-large-language-models) and HPC have become symbiotic partners rather than separate domains. This isn't about using supercomputers to train large models. It's become much more sophisticated.
 
 ### Smart Resource Management
 
@@ -90,7 +90,7 @@ This creates feedback loops: AI improves scheduling efficiency, which enables mo
 
 ### Physics-Informed Neural Networks (PINNs)
 
-PINNs represent a paradigm shift in scientific computing by embedding physical laws directly into neural network architectures:
+PINNs represent a paradigm shift in scientific computing by embedding physical laws directly into [neural network architectures](/posts/2024-03-20-transformer-architecture-deep-dive):
 
 PINNs embed physical laws directly into neural network architectures. This creates a paradigm shift in scientific computing.
 

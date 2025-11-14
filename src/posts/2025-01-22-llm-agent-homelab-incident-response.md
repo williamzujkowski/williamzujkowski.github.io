@@ -16,7 +16,7 @@ tags:
 
 ## Bottom Line Up Front
 
-LLM agent reduced my homelab incident response time from 30 minutes to 5 minutes average across 12 real incidents. By automatically correlating Prometheus metrics, Loki logs, and Tempo traces, the agent diagnosed issues that took me hours to manually investigate.
+LLM agent reduced my [homelab](/posts/2025-04-24-building-secure-homelab-adventure) incident response time from 30 minutes to 5 minutes average across 12 real incidents. By automatically correlating Prometheus metrics, Loki logs, and Tempo traces, the agent diagnosed issues that took me hours to manually investigate.
 
 **Scale:** 12 incidents tested over 3 months. Manual diagnosis averaged 25-45 minutes. Agent averaged 3-8 minutes, a 5.4x improvement.
 
@@ -57,7 +57,7 @@ Microsoft Research published "AIOpsLab: A Holistic Framework to Evaluate AI Agen
 - Llama 3.1 70B achieved 61.8% accuracy (open-source baseline)
 - Average diagnosis time: 45 seconds for LLM agents vs. 8-15 minutes for human operators
 
-**Why I chose local LLMs:** My homelab data stays on-premises. Sending logs and metrics to OpenAI violates my privacy principles. I use Ollama running Llama 3.1 70B quantized on my RTX 3090 (22.1GB VRAM utilized).
+**Why I chose [local LLMs](/posts/2025-06-25-local-llm-deployment-privacy-first):** My homelab data stays on-premises. Sending logs and metrics to OpenAI violates my privacy principles. I use Ollama running Llama 3.1 70B quantized on my RTX 3090 (22.1GB VRAM utilized).
 
 ## Implementation: LangChain + Ollama + Prometheus Integration
 
@@ -300,7 +300,7 @@ If you want to replicate this in your homelab:
 **What worked:**
 - Agent dramatically reduced time-to-diagnosis for routine incidents
 - Confidence scores helped me decide when to trust agent vs manually verify
-- Local LLM inference kept my data private (important for homelab philosophy)
+- [Local LLM inference](/posts/2025-10-29-privacy-first-ai-lab-local-llms) kept my data private (important for homelab philosophy)
 - LangChain's ReAct framework provided good structure for reasoning
 
 **What didn't work:**

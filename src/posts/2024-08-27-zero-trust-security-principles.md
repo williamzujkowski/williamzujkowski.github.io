@@ -266,7 +266,7 @@ This approach validates identity continuously, not just at login. The system det
 
 Traditional microservices relied on network-level trust: if Service A could reach Service B on the internal network, communication was allowed.
 
-Zero Trust requires authentication and authorization for every service interaction:
+[Zero Trust](/posts/2024-07-09-zero-trust-architecture-implementation) requires authentication and authorization for every service interaction:
 
 **Mutual TLS (mTLS):**
 - Certificate-based authentication for each service
@@ -314,7 +314,7 @@ Implementing least privilege requires careful design:
 - **RBAC**: Job function permissions (developer, admin, auditor)
 - **ABAC**: Contextual access (user + resource + environment)
 - **ReBAC**: Graph-based permissions (owner, collaborator, viewer)
-- **PBAC**: Declarative rules (Open Policy Agent, Cedar)
+- **PBAC**: Declarative rules ([Open Policy Agent](/posts/2024-01-08-writing-secure-code-developers-guide), Cedar)
 
 **Just-In-Time (JIT) access:**
 - On-demand elevation for specific tasks

@@ -69,7 +69,7 @@ flowchart LR
 
 ## The Problem with Assumption-Making Robots
 
-The challenge isn't just technical, it's deeply human. When instructions are ambiguous, traditional embodied AI agents typically handle it in one of three problematic ways.
+The challenge isn't just technical, it's deeply human. When instructions are ambiguous, traditional embodied AI agents typically handle it in one of three problematic ways. This intersection of AI capabilities and real-world interaction parallels challenges explored in [multimodal foundation models](/posts/2024-07-24-multimodal-foundation-models), where systems must understand context across vision, language, and action.
 
 First, **making assumptions**: selecting based on internal heuristics and potentially getting it wrong (my Isaac Sim agent did this 68% of the time). Second, **requesting full repetition**: asking for the entire instruction again, which frustrates users. Third, **refusing the task**: simply failing to act, requiring humans to provide more specificity.
 
@@ -85,17 +85,17 @@ The robot that asked helpful questions 73% of the time in simulation asked relev
 
 ## The Ask-to-Act Framework: Teaching Robots When to Question
 
-The breakthrough I've been following involves extending traditional Vision-Language-Action (VLA) frameworks with what researchers call "Ask-to-Act" behavior. This approach trains agents to detect ambiguity (determine when instructions contain insufficient information given the current visual scene), generate relevant questions (formulate targeted questions addressing the specific ambiguity), incorporate clarifications (process the human's answer to resolve the uncertainty), and execute appropriately (perform the correct action based on complete information).
+The breakthrough I've been following involves extending traditional Vision-Language-Action (VLA) frameworks with what researchers call "Ask-to-Act" behavior. This approach trains agents to detect ambiguity (determine when instructions contain insufficient information given the current visual scene), generate relevant questions (formulate targeted questions addressing the specific ambiguity), incorporate clarifications (process the human's answer to resolve the uncertainty), and execute appropriately (perform the correct action based on complete information). The underlying architecture shares foundations with [transformer models](/posts/2024-03-20-transformer-architecture-deep-dive), particularly in how attention mechanisms process multimodal context.
 
-What makes this particularly elegant is how it transforms robot behavior from passive instruction-following to active participation in cooperative dialogue.
+What makes this particularly elegant is how it transforms robot behavior from passive instruction-following to active participation in cooperative dialogue. This human-robot interaction philosophy aligns with [AI ethics frameworks](/posts/2024-04-11-ethics-large-language-models) that prioritize transparency and user agency.
 
 ## The Training Innovation: LLM-Generated Rewards
 
 The technical approach behind this breakthrough is as interesting as the results. Rather than requiring massive datasets of human-annotated ambiguous scenarios (which would be prohibitively expensive), researchers developed a reinforcement learning approach using LLM-generated rewards.
 
-I attempted to replicate a simplified version of this in my homelab during late September 2024. Using GPT-4o-mini (version 2024-07-18) as a reward model, I trained a basic clarification policy over 72 hours.
+I attempted to replicate a simplified version of this in my homelab during late September 2024. Using GPT-4o-mini (version 2024-07-18) as a reward model, I trained a basic clarification policy over 72 hours. For similar homelab AI experiments with privacy considerations, see [securing personal AI deployments](/posts/2025-04-10-securing-personal-ai-experiments).
 
-The training consumed approximately 2,847 API calls totaling $4.23 in OpenAI credits. My success rate was mixed. The agent learned to ask questions 94% of the time, but only 38% of those questions were actually relevant.
+The training consumed approximately 2,847 API calls totaling $4.23 in OpenAI credits. My success rate was mixed. The agent learned to ask questions 94% of the time, but only 38% of those questions were actually relevant. This cost-accuracy tradeoff mirrors challenges discussed in [context window optimization](/posts/2024-12-03-context-windows-llms), where token efficiency directly impacts practical deployment.
 
 I suspect my reward formulation was probably too lenient on question quality.
 
@@ -133,7 +133,7 @@ The potential applications extend far beyond home robots:
 
 Instead of making potentially dangerous assumptions, medical robots could ask clarifying questions: "Which medication would you like: the pain reliever, the antibiotic, or the blood pressure medication?" This reduces the risk of medication errors while maintaining efficiency.
 
-Though honestly, I'm not sure we're ready to deploy question-asking robots in high-stakes medical environments. The 41% sim-to-real success rate I experienced suggests we probably need another few years of development.
+Though honestly, I'm not sure we're ready to deploy question-asking robots in high-stakes medical environments. The 41% sim-to-real success rate I experienced suggests we probably need another few years of development. Safety considerations in AI systems are explored further in [quantum-resistant cryptography](/posts/2024-04-30-quantum-resistant-cryptography-guide), where security frameworks address high-stakes decision-making.
 
 ### Educational Technology
 
@@ -180,9 +180,9 @@ The approach also demonstrates the power of combining different AI capabilities 
 
 As embodied AI continues integrating into homes, workplaces, and public spaces, the ability to engage in clarification-seeking behavior will be essential for creating robots that can truly work alongside humans rather than simply following predetermined scripts. But we're probably still 5-10 years away from consumer-ready implementations based on the gap between my homelab results and production requirements.
 
-What I find most promising is how this research addresses a fundamental limitation in current AI systems: their struggle to acknowledge and resolve uncertainty through dialogue. This skill, so natural to humans, is finally becoming accessible to artificial agents. My Isaac Sim experiments from August through October 2024 convinced me this is possible, even if my 38% relevant-question rate shows we have a long way to go.
+What I find most promising is how this research addresses a fundamental limitation in current AI systems: their struggle to acknowledge and resolve uncertainty through dialogue. This skill, so natural to humans, is finally becoming accessible to artificial agents. My Isaac Sim experiments from August through October 2024 convinced me this is possible, even if my 38% relevant-question rate shows we have a long way to go. These capabilities build on advances in [AI learning with limited resources](/posts/2024-05-30-ai-learning-resource-constrained), where models learn efficiently from sparse feedback.
 
-The future of human-robot interaction looks increasingly conversational, collaborative, and genuinely helpful. After spending 150+ hours teaching simulated robots to ask better questions, I'm cautiously optimistic. The failures were numerous (27% false positives, 41% sim-to-real success rate, 43% gesture recognition), but the moments when the robot asked exactly the right clarifying question felt like glimpses of that future. And that's worth pursuing.
+The future of human-robot interaction looks increasingly conversational, collaborative, and genuinely helpful. After spending 150+ hours teaching simulated robots to ask better questions, I'm cautiously optimistic. The failures were numerous (27% false positives, 41% sim-to-real success rate, 43% gesture recognition), but the moments when the robot asked exactly the right clarifying question felt like glimpses of that future. And that's worth pursuing. As discussed in [AI as cognitive infrastructure](/posts/2025-08-09-ai-cognitive-infrastructure), these systems are becoming foundational to how humans interact with technology.
 
 ---
 

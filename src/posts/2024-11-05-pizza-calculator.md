@@ -65,11 +65,11 @@ flowchart TB
 
 ## The Psychology Behind Pizza and Performance
 
-The relationship between pizza and software development goes deeper than just convenience food. There's actual science behind why this combination works so well.
+The relationship between pizza and software development goes deeper than just convenience food. There's actual science behind why this combination works so well. Similar optimization principles apply across different domains, from [high-performance computing resource allocation](/posts/2024-08-13-high-performance-computing) to cognitive load management.
 
 ### Cognitive Resource Management
 
-Software development is fundamentally cognitive work requiring sustained mental effort. [Research shows that the brain consumes about 20% of the body's energy despite being only 2% of body weight](https://doi.org/10.1038/nrn2776). [Complex cognitive tasks deplete glucose resources, with corresponding decreases in performance and decision-making quality](https://doi.org/10.1037/0022-3514.74.5.1252).
+Software development is fundamentally cognitive work requiring sustained mental effort. [Research shows that the brain consumes about 20% of the body's energy despite being only 2% of body weight](https://doi.org/10.1038/nrn2776). [Complex cognitive tasks deplete glucose resources, with corresponding decreases in performance and decision-making quality](https://doi.org/10.1037/0022-3514.74.5.1252). This cognitive architecture is explored further in [AI cognitive infrastructure](/posts/2025-08-09-ai-cognitive-infrastructure), where computational and biological systems face similar resource constraints.
 
 Pizza's macronutrient profile (combining carbohydrates, proteins, and fats) provides sustained energy release that aligns well with extended development sessions. The carbohydrates offer immediate glucose replenishment, while proteins and fats provide slower-metabolizing energy for consistent performance.
 
@@ -81,11 +81,10 @@ Pizza sessions often become meaningful team rituals marking significant efforts 
 
 ### Decision Fatigue Prevention
 
-Developers face hundreds of micro-decisions hourly. As decision quality deteriorates with mental fatigue, maintaining glucose levels becomes critical. Pizza provides this support while requiring minimal decision-making, unlike formal meals that introduce additional cognitive load through choice complexity.
+Developers face hundreds of micro-decisions hourly. As decision quality deteriorates with mental fatigue, maintaining glucose levels becomes critical. Pizza provides this support while requiring minimal decision-making, unlike formal meals that introduce additional cognitive load through choice complexity. Automation of routine decisions, explored in [automating home network security](/posts/2025-02-10-automating-home-network-security), follows similar principles of reducing cognitive overhead.
 
 ## The Pizza Calculator: Core Functionality
 
-At its heart, a Pizza Calculator solves a multi-variable optimization problem: maximizing team performance while minimizing waste, cost, and disruption. When I built my first version, I started with a simple area calculation: a 12-inch pizza has 113 square inches (π × 6²), while an 18-inch has 254 square inches. That one 18-inch pizza gave us 2.25 times more pizza than one 12-inch, but cost only 1.67 times as much. The math settled our dinner debate instantly.
 
 ### Key Input Variables
 
@@ -243,7 +242,7 @@ For teams considering pizza optimization:
 3. **Integrate with processes**: Add pizza planning to sprint preparation
 4. **Create feedback mechanisms**: Capture post-event data for refinement
 
-When I built my first calculator on that October 2024 weekend, I kept it simple. A web form with inputs for pizza size, price, and number of people. The first version took about 2 hours in VS Code using vanilla JavaScript. No frameworks, no build tools, just a single HTML file I could open in a browser. It wasn't elegant, but it worked, and that's what mattered for a Saturday afternoon project.
+When I built my first calculator on that October 2024 weekend, I kept it simple. A web form with inputs for pizza size, price, and number of people. The first version took about 2 hours in VS Code using vanilla JavaScript. No frameworks, no build tools, just a single HTML file I could open in a browser. It wasn't elegant, but it worked, and that's what mattered for a Saturday afternoon project. This iterative development philosophy aligns with [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows), where simple solutions often outperform over-engineered alternatives.
 
 ### Continuous Improvement
 
@@ -252,7 +251,7 @@ When I built my first calculator on that October 2024 weekend, I kept it simple.
 - **Refine parameters**: Update calculations based on accumulated data
 - **Expand functionality**: Gradually add timing optimization and variety algorithms
 
-My first real-world test of the calculator came two weeks later when ordering for a small gathering of 6 people. The calculator said 2 large pizzas would be perfect. I confidently ordered exactly that. We ran out of pizza in 45 minutes. Turns out I had hardcoded the "slicesPerPerson" at 2.8, which works for office lunches but drastically underestimates consumption at social gatherings where pizza is the main attraction. I quickly learned that context matters, and added a "meal type" selector to the next version. The algorithm might be mathematically sound, but real-world usage teaches you things no formula can predict.
+My first real-world test of the calculator came two weeks later when ordering for a small gathering of 6 people. The calculator said 2 large pizzas would be perfect. I confidently ordered exactly that. We ran out of pizza in 45 minutes. Turns out I had hardcoded the "slicesPerPerson" at 2.8, which works for office lunches but drastically underestimates consumption at social gatherings where pizza is the main attraction. I quickly learned that context matters, and added a "meal type" selector to the next version. The algorithm might be mathematically sound, but real-world usage teaches you things no formula can predict. This lesson about context awareness parallels [context windows in LLMs](/posts/2024-12-03-context-windows-llms), where understanding situational context dramatically improves outcomes.
 
 ## The Broader Principle
 
@@ -262,7 +261,7 @@ The most successful development organizations recognize that bringing analytical
 
 In high-stakes software development, where cognitive performance directly impacts product quality and success, no optimization opportunity is too small to consider. As the programming principle reminds us: significant improvements often come from accumulating many small optimizations.
 
-This applies equally to code efficiency and to fueling the developers who write it. The Pizza Calculator might seem humorous, but it represents thoughtful application of systematic thinking to human factors in software development. And that's no joke.
+This applies equally to code efficiency and to fueling the developers who write it. The Pizza Calculator might seem humorous, but it represents thoughtful application of systematic thinking to human factors in software development. And that's no joke. For more on optimizing development workflows, see [zero trust security implementation](/posts/2024-07-09-zero-trust-architecture-implementation), where systematic approaches improve both security and efficiency.
 
 ---
 

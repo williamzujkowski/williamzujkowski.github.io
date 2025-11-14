@@ -69,7 +69,7 @@ flowchart LR
 
 ## The Mechanics: How Context Windows Work
 
-At its core, a context window defines the maximum number of tokens (parts of words, whole words, or punctuation marks) that a language model can process simultaneously. This limitation stems from the fundamental architecture of transformer models, which rely on attention mechanisms that weigh relationships between all elements in a sequence.
+At its core, a context window defines the maximum number of tokens (parts of words, whole words, or punctuation marks) that a language model can process simultaneously. This limitation stems from the fundamental architecture of [transformer models](/posts/2024-03-20-transformer-architecture-deep-dive), which rely on attention mechanisms that weigh relationships between all elements in a sequence.
 
 The computational resources required for these operations increase quadratically with sequence length. In practical terms, processing a million-token context would require analyzing one trillion token relationships.
 
@@ -159,7 +159,7 @@ Model developers face choices between extending raw context windows versus build
 
 Retrieval-Augmented Generation (RAG) systems demonstrate how external knowledge bases can be queried to bring only the most relevant information into context. This potentially offers more efficient solutions than continuously expanding window sizes.
 
-I tested this in November 2024 by creating a RAG system for my homelab documentation (about 380,000 tokens total). Instead of loading everything into context, I used semantic search to retrieve only relevant chunks (typically 2,000-4,000 tokens per query). Query latency dropped from 23 seconds to 3.4 seconds. Quality was roughly equivalent. For my use cases, RAG clearly wins over massive context windows.
+I tested this in November 2024 by creating a RAG system for my [homelab documentation](/posts/2025-04-24-building-secure-homelab-adventure) (about 380,000 tokens total). Instead of loading everything into context, I used semantic search to retrieve only relevant chunks (typically 2,000-4,000 tokens per query). Query latency dropped from 23 seconds to 3.4 seconds. Quality was roughly equivalent. For my use cases, RAG clearly wins over massive context windows.
 
 ## Practical Implications Across Applications
 
@@ -177,7 +177,7 @@ In December 2024, I tested Claude 3 Opus on a 67-page technical specification (r
 
 Coding tasks involve understanding relationships between multiple files, documentation, and requirements. Limited context windows force careful selection of relevant code snippets when seeking assistance.
 
-Modern models with expanded windows can now ingest entire repositories, dramatically improving their ability to provide coherent assistance across complex software projects.
+Modern models with expanded windows can now ingest entire repositories, dramatically improving their ability to provide coherent assistance across [complex software projects](/posts/2024-01-08-writing-secure-code-developers-guide).
 
 I tested this with GPT-4 Turbo in November 2024 by uploading my entire Terraform infrastructure code (31 files, 28,400 tokens). The model understood relationships between modules and caught a dependency issue I'd introduced three files deep. With GPT-3's 2K context, I would have needed to manually identify and extract relevant files. The expanded context turned a 20-minute debugging session into a 3-minute fix.
 
@@ -301,7 +301,7 @@ As we look toward future developments, the question isn't simply "how large can 
 
 The future of AI systems lies not just in expanding memory but in developing increasingly sophisticated approaches to attention, relevance, and information management. We need systems that can effectively navigate the rich, complex contexts where human language and thought occur.
 
-After three months of intensive testing in my homelab (September through December 2024), here's what I've learned: context windows matter enormously, but they're not the whole story. A well-designed RAG system with an 8K context window often outperforms a naive implementation with 200K context. The million-token context windows are impressive technically, but for 90% of real-world use cases, they're solving the wrong problem. The real challenge isn't fitting more tokens into context. It's intelligently selecting which tokens deserve to be there.
+After three months of intensive testing in my homelab (September through December 2024), here's what I've learned: context windows matter enormously, but they're not the whole story. A well-designed RAG system with an 8K context window often outperforms a naive implementation with 200K context. The million-token context windows are impressive technically, but for 90% of real-world use cases, they're solving the wrong problem. The real challenge isn't fitting more tokens into context. It's [intelligently selecting which tokens deserve to be there](/posts/2025-10-17-progressive-context-loading-llm-workflows).
 
 ---
 

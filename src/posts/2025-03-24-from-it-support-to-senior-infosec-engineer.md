@@ -119,7 +119,7 @@ But here's what I learned: Security principles are universal. Whether you're pro
 Today, I work in cloud security, which represents the culmination of everything I've learned:
 - The troubleshooting skills from IT support days
 - The process knowledge from enterprise IT
-- The security frameworks from federal work
+- The [security frameworks](/posts/2024-07-09-zero-trust-architecture-implementation) from federal work
 - The scale challenges from vulnerability management
 - The performance considerations from HPC
 
@@ -168,7 +168,7 @@ Technology evolves faster than any of us can keep up. Not a bug—it's a feature
 ## Advice for Aspiring Security Professionals
 
 ### 1. Start Building Now
-- Set up a homelab (it doesn't need to be fancy)
+- [Set up a homelab](/posts/2025-04-24-building-secure-homelab-adventure) (it doesn't need to be fancy)
 - Contribute to open-source security projects
 - Write about what you learn (blogging clarifies thinking)
 - Break things responsibly (emphasis on responsibly)

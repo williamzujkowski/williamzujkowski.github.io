@@ -48,6 +48,8 @@ The gecko's climbing ability, the octopus's ability to squeeze through tiny spac
 - Offload processing from CPUs to mechanical design
 - Let physics solve problems instead of software
 
+This computational approach extends beyond robotics. As explored in [high-performance computing](/posts/2024-08-13-high-performance-computing), distributing computation across specialized hardware (whether biological or silicon) yields dramatic efficiency gains.
+
 **Real examples:**
 - Toucan beak: Shape distributes mechanical forces without calculation
 - Robotic grippers: Handle delicate objects through material compliance, not force sensors
@@ -108,7 +110,7 @@ Marine locomotion demonstrates biomimetic efficiency advantages. Fish and marine
 
 ## Advanced Sensing: Beyond Human Capabilities
 
-Nature's sensory systems offer lessons that go far beyond our traditional five senses. Evolution developed specialized sensors for detecting everything from electromagnetic fields to chemical gradients. [Neuromorphic vision sensors](https://www.nature.com/articles/s44172-025-00492-5) mimic the human retina, recording only pixel changes instead of fixed-interval frames.
+Nature's sensory systems offer lessons that go far beyond our traditional five senses. Evolution developed specialized sensors for detecting everything from electromagnetic fields to chemical gradients. [Neuromorphic vision sensors](https://www.nature.com/articles/s44172-025-00492-5) mimic the human retina, recording only pixel changes instead of fixed-interval frames. These biological sensing principles connect to [AI cognitive infrastructure](/posts/2025-08-09-ai-cognitive-infrastructure), where perception systems mediate human interaction with technology.
 
 **Advantages:**
 - Data volume reduction: 90% less than traditional cameras
@@ -144,7 +146,6 @@ Biomimetic sensors enable capabilities beyond human senses. Animals like bats, e
 
 ## Swarm Intelligence: The Power of Many Simple Agents
 
-[Swarm robotics](https://www.science.org/doi/10.1126/scirobotics.abo6140) demonstrates how simple individual rules create emergent collective intelligence. Ant colonies, bee swarms, and flocking birds coordinate without central control, using local interactions to solve complex problems.
 
 ### Decentralized Decision-Making
 
@@ -231,6 +232,8 @@ Biomimetic robotics faces technical hurdles before matching biological performan
 - Battery technology limits operational duration to minutes or hours instead of days
 - Power-to-weight ratios lag far behind muscle tissue (biological muscle: ~200 W/kg vs. electric motors: typically 50-100 W/kg)
 
+Energy efficiency challenges parallel those in data center sustainability, where power consumption constrains computational scaling.
+
 **Required breakthroughs:**
 - Advanced power storage (solid-state batteries, supercapacitors)
 - Commercial viability remains uncertain
@@ -250,6 +253,8 @@ Biomimetic robotics faces technical hurdles before matching biological performan
 - Spiking neural networks: Event-driven processing like biological neurons
 - Efficiency improvements: Orders of magnitude over traditional computing
 - Distributed control: Match biological decentralized intelligence
+
+These architectures build on principles explored in [transformer deep dive](/posts/2024-03-20-transformer-architecture-deep-dive), where attention mechanisms enable parallel processing similar to biological neural networks.
 
 ### Materials Innovation
 
@@ -272,7 +277,7 @@ The future of biomimetic robotics likely lies in bio-hybrid approaches that comb
 
 **But:** "Could" and "may" are doing heavy lifting here. Bio-hybrid systems face regulatory hurdles, ethical questions, and biological compatibility challenges. The gap between research demos and production robots remains enormous.
 
-When I built a small swarm simulation in 2019 using just 10 simple rules, I was amazed to see emergent behavior I never programmed. It gave me a deep appreciation for how complexity arises from simplicity in natural systems.
+When I built a small swarm simulation in 2019 using just 10 simple rules, I was amazed to see emergent behavior I never programmed. It gave me a deep appreciation for how complexity arises from simplicity in natural systems. These emergence patterns connect to [AI learning with resource constraints](/posts/2024-05-30-ai-learning-resource-constrained), where simple rules enable sophisticated behaviors.
 
 ## A New Relationship with Technology
 

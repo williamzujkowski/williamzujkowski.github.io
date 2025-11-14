@@ -88,7 +88,7 @@ The AI infrastructure market is exploding from [$47.23 billion in 2024 to a proj
 - **Education**: [59% of students show improved performance and 36% show better engagement](https://doi.org/10.1007/s10639-024-12456-4) with AI tutoring systems (systematic review of 85 studies)
 - **Government**: [87% of surveyed cities are planning or piloting generative AI initiatives](https://www.worldbank.org/en/programs/govtech/gtmi), with experts predicting AI as the primary government service interface by 2030
 - **Search**: AI processes 30% of internet searches, determining what billions of people discover and learn
-- **Development**: AI writes 40% of production code, reshaping how software is created
+- **Development**: [AI writes 40% of production code](/posts/2024-04-19-mastering-prompt-engineering-llms), reshaping how software is created
 - **Finance**: Algorithmic trading and AI risk assessment influence trillions in daily transactions
 
 This isn't digitization. It's cognitive intermediation at civilization scale.
@@ -241,7 +241,7 @@ Maintain cognitive abilities in an AI age:
 - Memory training without digital aids
 - Mental calculation practice
 - Unassisted navigation exercises
-- Critical thinking workshops
+- [Critical thinking workshops](/posts/2024-04-11-ethics-large-language-models)
 - Regular technology sabbaticals
 
 ## The Path Forward

@@ -121,7 +121,7 @@ This isn't theoretical. It's mathematically inevitable once quantum hardware mat
 
 ### Post-Quantum Cryptography: The Race for Quantum-Resistant Security
 
-In response, defense agencies worldwide are investing heavily in post-quantum cryptography. NIST has standardized several quantum-resistant algorithms:
+In response, defense agencies worldwide are investing heavily in post-quantum cryptography. NIST has standardized several quantum-resistant algorithms, building on foundations explored in [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide) and [quantum-resistant cryptography implementations](/posts/2024-04-30-quantum-resistant-cryptography-guide).
 
 **Lattice-based cryptography**: Security based on finding shortest vectors in high-dimensional lattices, believed hard even for quantum computers.
 
@@ -178,7 +178,7 @@ Quantum algorithms show promise for:
 - **Natural language processing**: Monitoring and analyzing foreign communications
 - **Resource allocation**: Optimally deploying intelligence assets
 
-These capabilities could provide significant strategic advantages in intelligence operations, though it's important to note that most quantum machine learning algorithms are still in early research phases and haven't been proven to outperform classical approaches on real-world intelligence data.
+These capabilities could provide significant strategic advantages in intelligence operations, though it's important to note that most quantum machine learning algorithms are still in early research phases and haven't been proven to outperform classical approaches on real-world intelligence data. The computational foundations build on [high-performance computing](/posts/2024-08-13-high-performance-computing) infrastructure.
 
 ## Security Vulnerabilities and Defensive Challenges
 
@@ -217,6 +217,8 @@ Defense organizations need comprehensive strategies balancing immediate concerns
 3. **Post-quantum cryptography testing**: Beginning implementation in non-critical systems
 4. **Knowledge base development**: Building internal quantum expertise
 
+These strategies align with [secure code development practices](/posts/2024-01-08-writing-secure-code-developers-guide) and [zero trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation).
+
 It's worth noting that the pace of quantum development is highly uncertain. These timelines could accelerate with unexpected breakthroughs or slow down if fundamental hardware challenges prove more difficult than anticipated.
 
 ### Medium-Term Strategies (3-7 Years)
@@ -238,7 +240,7 @@ The quantum era presents both significant opportunities and existential challeng
 
 When I first studied quantum computing in 2016, it seemed like distant science fiction. Today, it's operational reality affecting defense planning worldwide. The organizations that most effectively harness quantum technologies while mitigating associated vulnerabilities will gain substantial strategic advantages.
 
-This isn't just about building quantum computers or deploying quantum-resistant encryption. It's about fundamentally rethinking security in a post-quantum world. The actions taken today will shape quantum security for decades to come.
+This isn't just about building quantum computers or deploying quantum-resistant encryption. It's about fundamentally rethinking security in a post-quantum world. The actions taken today will shape quantum security for decades to come. These transformations parallel broader shifts in [AI as cognitive infrastructure](/posts/2025-08-09-ai-cognitive-infrastructure), where foundational technologies reshape how organizations operate.
 
 The quantum era of defense has already begun. Understanding both its promises and perils is essential for navigating this complex technological frontier successfully.
 

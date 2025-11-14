@@ -47,7 +47,7 @@ Or create a `requirements.txt` file with these dependencies:
 <script src="https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4.js"></script>
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management doesn't scale. Especially when you're also trying to be present for bedtime stories.
 
-After running my home network with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time.
+After running my [home network](/posts/2025-04-24-building-secure-homelab-adventure) with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain [security](/posts/2024-01-08-writing-secure-code-developers-guide) without sacrificing family time.
 
 This post shares what I've learned from automating my own network defense.
 
@@ -166,7 +166,7 @@ Future you (or your family when you're not home) needs to understand how to disa
 
 Here are the key tools I use in my homelab:
 - **nmap 7.94.0**: Network discovery and port scanning
-- **Pi-hole**: DNS filtering and logging (I configured mine on a Raspberry Pi 4)
+- **Pi-hole**: DNS filtering and logging (I configured mine on a [Raspberry Pi 4](/posts/2024-09-15-running-llama-raspberry-pi-pipeload))
 - **Dream Machine Professional**: Firewall and routing
 - **Python 3.11.5** with libraries: python-nmap, vulners, schedule
 - **Notification**: Pushover for mobile alerts

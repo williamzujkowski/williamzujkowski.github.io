@@ -21,7 +21,7 @@ tags:
 ---
 The first time I fed a UI mockup screenshot to GPT-4 Vision and watched it generate pixel-perfect HTML and CSS, I knew we'd crossed a fundamental threshold. The AI didn't just see the image, it understood design intent, inferred functionality, and translated visual concepts into working code.
 
-That moment marked my introduction to multimodal foundation models, systems that can reason across text, images, audio, and video with human-like fluency. The implications were staggering: AI that could truly see, hear, and understand the world as we do, though I'm cautious about overstating how close we really are to human-level multimodal understanding.
+That moment marked my introduction to multimodal foundation models, systems that can reason across text, images, audio, and video with human-like fluency. The implications were staggering: AI that could truly see, hear, and understand the world as we do, though I'm cautious about overstating how close we really are to [human-level multimodal understanding](/posts/2024-03-20-transformer-architecture-deep-dive).
 
 ## How It Works
 
@@ -123,7 +123,7 @@ The key advance came from learning shared representations across modalities. For
 **Scene Understanding:** Analyzing complex scenes and identifying relationships between objects and people
 **Creative Generation:** Creating images, videos, and multimedia content from textual descriptions
 
-**My Experience:** In March 2024, I implemented an automated content moderation system that could understand both explicit visual content and contextual text. In our testing with 10,000 samples, it achieved 92% accuracy compared to 78% for vision-only approaches, though it struggled with highly stylized or abstract imagery.
+**My Experience:** In March 2024, I implemented an [automated content moderation system](/posts/2024-04-11-ethics-large-language-models) that could understand both explicit visual content and contextual text. In our testing with 10,000 samples, it achieved 92% accuracy compared to 78% for vision-only approaches, though it struggled with highly stylized or abstract imagery.
 
 ### Education and Training
 

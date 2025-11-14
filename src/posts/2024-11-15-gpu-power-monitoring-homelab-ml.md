@@ -20,7 +20,7 @@ tags:
   - sustainability
 
 ---
-I opened my October 2024 electricity bill: $187, a $43 jump from September's $144. I'd been running Ollama on my RTX 3090 for a month. That shock sparked a three-month deep dive into GPU power consumption. I instrumented my entire homelab with monitoring gear and spent evenings staring at Grafana dashboards. My assumptions about AI workload efficiency were mostly wrong.
+I opened my October 2024 electricity bill: $187, a $43 jump from September's $144. I'd been running [Ollama](/posts/2025-06-25-local-llm-deployment-privacy-first) on my RTX 3090 for a month. That shock sparked a three-month deep dive into GPU power consumption. I instrumented my entire [homelab](/posts/2025-04-24-building-secure-homelab-adventure) with monitoring gear and spent evenings staring at Grafana dashboards. My assumptions about AI workload efficiency were mostly wrong.
 
 The 312W average power draw during LLM inference wasn't shocking. I knew the RTX 3090 was power-hungry. The massive variability caught me off guard: idle Ollama consumed 87W, fine-tuning a LoRA adapter spiked to 394W before power limits kicked in. These weren't abstract spec sheet numbers. Real watts flowing through my Kill-A-Watt P4400 meter, translating to dollars at $0.12/kWh.
 
@@ -36,7 +36,7 @@ I needed data. Not vendor claims or theoretical calculations, but actual measure
 
 ## The Experiment Setup
 
-**My homelab GPU rig:**
+**My [homelab](/posts/2025-09-29-proxmox-high-availability-homelab) GPU rig:**
 - GPU: NVIDIA RTX 3090 (24GB VRAM)
 - CPU: Intel i9-9900K (8 cores, 16 threads)
 - RAM: 64GB DDR4-3200

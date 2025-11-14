@@ -26,9 +26,9 @@ tags:
 ---
 ## The AI Revolution Hits Home
 
-I run Llama 3.1 70B in my homelab on an RTX 3090 (24GB VRAM, 4-bit quantization). Running AI experiments at home created unique security and privacy challenges I didn't anticipate. This post shares practical approaches to securing personal AI/ML deployments, learned through successes and carefully contained failures.
+I run Llama 3.1 70B in my [homelab](/posts/2025-04-24-building-secure-homelab-adventure) on an RTX 3090 (24GB VRAM, 4-bit quantization). Running [AI experiments](/posts/2025-06-25-local-llm-deployment-privacy-first) at home created unique security and privacy challenges I didn't anticipate. This post shares practical approaches to securing personal AI/ML deployments, learned through successes and carefully contained failures.
 
-**Key takeaway:** Model isolation, network segmentation, and privacy controls turn experimental AI systems into production-safe infrastructure.
+**Key takeaway:** Model isolation, [network segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), and privacy controls turn experimental AI systems into production-safe infrastructure.
 
 
 ## Requirements
@@ -191,7 +191,7 @@ My family now asks before sharing personal info with any AI tool.
 Essential tools for secure AI experimentation:
 
 - **Docker/Podman**: Container isolation
-- **LocalAI**: Run LLMs locally
+- **[LocalAI](/posts/2025-10-29-privacy-first-ai-lab-local-llms)**: Run LLMs locally
 - **Ollama**: Easy local model management
 - **MindsDB**: Secure AI database layer
 - **Netdata**: Real-time performance monitoring

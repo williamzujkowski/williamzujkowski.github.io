@@ -26,7 +26,7 @@ Progressive context loading cuts LLM token usage by 98% (150K → 2K) while main
 
 **Why it matters**: Token costs and context limits are the biggest barriers to using AI for large codebases. This approach makes enterprise-scale AI assistance affordable and practical.
 
-**The reality**: Simple tasks complete with 2K tokens. Complex tasks scale to 5-8K. Still 95% less than monolithic loading with comparable accuracy. Anthropic's new [Skills feature](https://www.anthropic.com/news/skills) (October 2025) validates these patterns independently. For local LLM deployment strategies, see [running LLaMA on Raspberry Pi](/posts/2024-09-15-running-llama-raspberry-pi-pipeload) and [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first).
+**The reality**: Simple tasks complete with 2K tokens. Complex tasks scale to 5-8K. Still 95% less than monolithic loading with comparable accuracy. Anthropic's new [Skills feature](https://www.anthropic.com/news/skills) (October 2025) validates these patterns independently. For local LLM deployment strategies, see [running LLaMA on Raspberry Pi](/posts/2024-09-15-running-llama-raspberry-pi-pipeload) and [local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first). Understanding [context windows](/posts/2024-12-03-context-windows-llms) is critical for optimal loading strategies.
 
 ## The Problem: Context Obesity
 
@@ -72,7 +72,7 @@ Loading all 47 skill modules: 150K tokens per invocation. Loading wrong module: 
 
 ### My First Progressive Loading Failure
 
-In October 2024, I tested progressive loading with my RTX 3090 running Llama 3.1 70B. My first attempt was a disaster. I loaded a 40K-token document all at once, thinking I was being clever by reducing my usual 150K baseline. The model silently truncated to 32K, and I only discovered this three validation attempts later when responses stopped referencing the conclusion. The catch: no error message, just mysterious incompleteness.
+In October 2024, I tested progressive loading with my [RTX 3090](/posts/2024-11-15-gpu-power-monitoring-homelab-ml) running Llama 3.1 70B. My first attempt was a disaster. I loaded a 40K-token document all at once, thinking I was being clever by reducing my usual 150K baseline. The model silently truncated to 32K, and I only discovered this three validation attempts later when responses stopped referencing the conclusion. The catch: no error message, just mysterious incompleteness.
 
 **The measurements that changed everything**:
 - Initial context load (all-at-once): 4.2 seconds for 8K tokens
@@ -359,7 +359,7 @@ Use embeddings to auto-discover skill relationships. Loading `python/type-safety
 
 [Token-efficient RL](https://arxiv.org/abs/2504.20834) optimizes product matrix through trial and error. Learn from thousands of invocations which skill combinations minimize tokens while maximizing success.
 
-**Future vision (see [transformer architecture](/posts/2024-03-20-transformer-architecture-deep-dive) for ML foundations):**
+**Future vision (see [transformer architecture](/posts/2024-03-20-transformer-architecture-deep-dive) and [multimodal models](/posts/2024-07-24-multimodal-foundation-models) for ML foundations):**
 
 ⚠️ **Warning:** This diagram represents a conceptual architecture requiring significant ML infrastructure (RL training, embedding models, semantic search). Only implement with proper resource planning.
 
