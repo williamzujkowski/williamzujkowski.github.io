@@ -46,7 +46,7 @@ The transformation I've witnessed in HPC extends beyond raw computational power.
 
 ## AI and HPC: A Perfect Partnership
 
-The most interesting development I've observed is how [AI](/posts/2024-04-11-ethics-large-language-models) and HPC have become symbiotic partners rather than separate domains. This isn't about using supercomputers to train large models. It's become much more sophisticated.
+The most interesting development I've observed is how [AI](/posts/2024-04-11-ethics-large-language-models) and HPC have become symbiotic partners rather than separate domains. This isn't about using supercomputers to train large models. It's become much more sophisticated. [Multimodal foundation models](/posts/2024-07-24-multimodal-foundation-models/) and [retrieval augmented generation](/posts/2024-05-07-retrieval-augmented-generation-llms/) represent applications where HPC infrastructure enables AI capabilities previously impossible, while [mastering prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms/) optimizes how researchers interact with these powerful systems. The convergence extends to edge computing, where [AI meets edge computing](/posts/2024-10-22-ai-edge-computing/) distributes HPC workloads closer to data sources, and [biomimetic robotics](/posts/2024-09-19-biomimetic-robotics/) demonstrates how computational efficiency learned from nature can reduce HPC resource requirements.
 
 ### Smart Resource Management
 

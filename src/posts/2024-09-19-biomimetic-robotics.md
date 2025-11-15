@@ -48,7 +48,7 @@ The gecko's climbing ability, the octopus's ability to squeeze through tiny spac
 - Offload processing from CPUs to mechanical design
 - Let physics solve problems instead of software
 
-This computational approach extends beyond robotics. As explored in [high-performance computing](/posts/2024-08-13-high-performance-computing), distributing computation across specialized hardware (whether biological or silicon) yields dramatic efficiency gains.
+This computational approach extends beyond robotics. As explored in [high-performance computing](/posts/2024-08-13-high-performance-computing), distributing computation across specialized hardware (whether biological or silicon) yields dramatic efficiency gains. [Fine-tuning LLMs in the homelab](/posts/2025-05-10-llm-fine-tuning-homelab-guide/) demonstrates analogous principles where distributed training across hardware components mirrors biological parallel processing, while [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide/) shows how embedding security into system design (rather than bolting it on) reflects morphological intelligence. The connection to [teaching AI agents to ask for help](/posts/2025-10-10-teaching-ai-agents-ask-for-help/) illustrates how biological decision-making strategies inform modern AI design.
 
 **Real examples:**
 - Toucan beak: Shape distributes mechanical forces without calculation

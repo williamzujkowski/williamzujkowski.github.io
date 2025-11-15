@@ -123,7 +123,7 @@ The key advance came from learning shared representations across modalities. For
 **Scene Understanding:** Analyzing complex scenes and identifying relationships between objects and people
 **Creative Generation:** Creating images, videos, and multimedia content from textual descriptions
 
-**My Experience:** In March 2024, I implemented an [automated content moderation system](/posts/2024-04-11-ethics-large-language-models) that could understand both explicit visual content and contextual text. In our testing with 10,000 samples, it achieved 92% accuracy compared to 78% for vision-only approaches, though it struggled with highly stylized or abstract imagery.
+**My Experience:** In March 2024, I implemented an [automated content moderation system](/posts/2024-04-11-ethics-large-language-models) that could understand both explicit visual content and contextual text. In our testing with 10,000 samples, it achieved 92% accuracy compared to 78% for vision-only approaches, though it struggled with highly stylized or abstract imagery. [Securing AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments/) was essential for handling sensitive content during testing, while [fine-tuning approaches](/posts/2025-05-10-llm-fine-tuning-homelab-guide/) allowed customization for specific moderation policies.
 
 ### Education and Training
 

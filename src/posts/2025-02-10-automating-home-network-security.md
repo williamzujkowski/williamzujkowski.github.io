@@ -171,6 +171,8 @@ Here are the key tools I use in my homelab:
 - **Python 3.11.5** with libraries: python-nmap, vulners, schedule
 - **Notification**: Pushover for mobile alerts
 
+For comprehensive network security, [demystifying cryptography](/posts/2024-04-16-demystifying-cryptography-beginners-guide/) provides foundation for encryption implementations, while [implementing zero-trust microsegmentation with VLANs](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/) and [building smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev/) extend the defense strategy. [Vulnerability management at scale](/posts/2025-09-28-vulnerability-management-scale-open-source/) demonstrates how to coordinate scanning results across multiple tools, and [implementing DNS-over-HTTPS (DoH)](/posts/2025-10-18-dns-over-https-implementation-guide/) addresses DNS privacy concerns identified by my monitoring scripts.
+
 ## What's Next?
 
 Security automation is an ongoing journey. My upcoming projects include:

@@ -1,0 +1,937 @@
+{
+  "analysis_metadata": {
+    "date": "2025-11-14",
+    "posts_analyzed": 14,
+    "researcher_agent": "NDA Compliance Specialist",
+    "nda_module_version": "2.0.0",
+    "violation_categories": [
+      "1. Forbidden time references (2024 in work context, 'last month', 'recently')",
+      "2. Current work references ('at work', 'our systems', 'my employer')",
+      "3. Active vulnerability disclosure (breach, incident without time buffer)",
+      "4. Specific system references (government systems, agency names)",
+      "5. Technical details (production configs, proprietary tools)"
+    ]
+  },
+  "executive_summary": {
+    "total_violations": 87,
+    "posts_with_violations": 14,
+    "posts_with_no_violations": 0,
+    "average_violations_per_post": 6.2,
+    "highest_violation_count": {
+      "post": "2024-03-05-cloud-migration-journey-guide",
+      "count": 15
+    },
+    "remediation_distribution": {
+      "phase_1_simple": 4,
+      "phase_2_moderate": 7,
+      "phase_3_complex": 3
+    },
+    "estimated_total_time": "18-24 hours"
+  },
+  "phase_categorization": {
+    "phase_1_simple_findreplace": {
+      "description": "Posts requiring simple find/replace or minor wording changes (≤5 violations, straightforward fixes)",
+      "posts": [
+        "2024-01-08-writing-secure-code-developers-guide",
+        "2024-01-18-demystifying-cryptography-beginners-guide",
+        "2024-04-04-retrieval-augmented-generation-rag",
+        "2024-06-11-beyond-containers-future-deployment"
+      ],
+      "estimated_time_per_post": "30-45 minutes",
+      "total_estimated_time": "2-3 hours"
+    },
+    "phase_2_moderate_context": {
+      "description": "Posts requiring 1-3 paragraph rewrites and contextual changes (6-10 violations, moderate complexity)",
+      "posts": [
+        "2024-02-09-deepfake-dilemma-ai-deception",
+        "2024-02-22-open-source-vs-proprietary-llms",
+        "2024-03-20-transformer-architecture-deep-dive",
+        "2024-04-11-ethics-large-language-models",
+        "2024-04-19-mastering-prompt-engineering-llms",
+        "2024-04-30-quantum-resistant-cryptography-guide",
+        "2024-05-30-ai-learning-resource-constrained"
+      ],
+      "estimated_time_per_post": "1.5-2 hours",
+      "total_estimated_time": "10.5-14 hours"
+    },
+    "phase_3_complex_sections": {
+      "description": "Posts requiring multiple section rewrites and structural changes (>10 violations, high complexity)",
+      "posts": [
+        "2024-01-30-securing-cloud-native-frontier",
+        "2024-03-05-cloud-migration-journey-guide",
+        "2024-05-14-ai-new-frontier-cybersecurity"
+      ],
+      "estimated_time_per_post": "2-3 hours",
+      "total_estimated_time": "6-9 hours"
+    }
+  },
+  "detailed_analysis": [
+    {
+      "post": "2024-01-08-writing-secure-code-developers-guide",
+      "phase": "Phase 1 (Simple)",
+      "violation_count": 4,
+      "estimated_time": "30-45 minutes",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 23: 'Years ago, I discovered a glaring SQL injection vulnerability in an internal application during a routine code review.'",
+          "violation_text": "'Years ago' is acceptable, but 'internal application' + 'routine code review' implies recent work context",
+          "severity": "LOW",
+          "replacement_pattern": "'Years ago' → good. Change 'internal application during a routine code review' → 'application I was reviewing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 25: 'That incident happened early in my career, and I still remember the quiet panic as we scrambled to patch it before anyone noticed.'",
+          "violation_text": "'we scrambled' implies work team context without time buffer",
+          "severity": "LOW",
+          "replacement_pattern": "'we scrambled' → 'I worked to patch it'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 74: 'Years ago during a penetration test, the tester showed me how they could have used that over-privileged service to dump our entire user table.'",
+          "violation_text": "'our entire user table' implies organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'our entire user table' → 'the application's user table'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 84: 'Early in my career, I thought validation was just checking for empty fields. Then I watched a colleague demonstrate...'",
+          "violation_text": "'colleague' implies work context",
+          "severity": "LOW",
+          "replacement_pattern": "'colleague' → 'another developer' or 'someone'"
+        }
+      ]
+    },
+    {
+      "post": "2024-01-18-demystifying-cryptography-beginners-guide",
+      "phase": "Phase 1 (Simple)",
+      "violation_count": 3,
+      "estimated_time": "30-45 minutes",
+      "violations": [
+        {
+          "category": 2,
+          "line_context": "Line 24: '**Three days into a production crisis**, our payment processor had stopped accepting SSL certificates.'",
+          "violation_text": "'our payment processor' implies organizational ownership, 'production crisis' implies work context",
+          "severity": "HIGH",
+          "replacement_pattern": "'our payment processor' → 'a payment processor I was working with years ago'; add time buffer"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 38: 'This perception changed dramatically when I spent three sleepless nights debugging SSL certificate issues that were breaking our entire payment system.'",
+          "violation_text": "'our entire payment system' implies organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'our entire payment system' → 'the payment system I was working on years ago'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 209: '**In 2017, I implemented a document signing system for legal contracts:**'",
+          "violation_text": "Specific year (2017) creates timeline for work project",
+          "severity": "LOW",
+          "replacement_pattern": "'In 2017' → 'Years ago'"
+        }
+      ]
+    },
+    {
+      "post": "2024-01-30-securing-cloud-native-frontier",
+      "phase": "Phase 3 (Complex)",
+      "violation_count": 12,
+      "estimated_time": "2-3 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 24-32: Multiple 2024 timestamps for homelab work",
+          "violation_text": "January 2024, February 2024, March 2024 - all recent timestamps",
+          "severity": "MEDIUM",
+          "replacement_pattern": "Replace specific 2024 timestamps with 'recently in my homelab' or remove month specificity"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 70: 'our security team had been tracking unusual database queries'",
+          "violation_text": "'our security team' implies organizational ownership",
+          "severity": "HIGH",
+          "replacement_pattern": "'our security team' → 'security monitoring systems I set up in my homelab'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 80: 'When I ran OSV-Scanner v1.5.0 across our entire stack in March 2024...'",
+          "violation_text": "'our entire stack' implies organizational ownership, March 2024 recent",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'our entire stack' → 'my homelab stack'; '2024' → remove or generalize"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 106-112: Multiple uses of 'our' for organizational systems",
+          "violation_text": "'our user table', 'our Kubernetes cluster', 'our infrastructure' - organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "Replace all 'our' with 'my homelab' or 'the system I was managing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 125: 'Years ago during a penetration test, the tester showed me...'",
+          "violation_text": "Acceptable use of 'years ago', good pattern",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - this is correct NDA-safe pattern"
+        },
+        {
+          "category": 3,
+          "line_context": "Line 27: 'CVE-2023-5678 with a CVSS score of 9.8'",
+          "violation_text": "Recent CVE (2023) without sufficient time buffer",
+          "severity": "LOW",
+          "replacement_pattern": "Acceptable - public CVE, but add 'publicly disclosed' qualifier"
+        }
+      ]
+    },
+    {
+      "post": "2024-02-09-deepfake-dilemma-ai-deception",
+      "phase": "Phase 2 (Moderate)",
+      "violation_count": 6,
+      "estimated_time": "1.5-2 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 27: 'In January 2024, I downloaded 50 known deepfake videos'",
+          "violation_text": "Recent timestamp (January 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'January 2024' → 'recently' or remove specific month"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 72: 'In February 2024, I tried generating my own deepfake'",
+          "violation_text": "Recent timestamp (February 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'February 2024' → 'recently' or remove specific month"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 80: 'A colleague in the public sector once showed me how deepfakes were being used...'",
+          "violation_text": "'colleague' implies work relationship",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'colleague in the public sector' → 'someone I know who works in government' (maintains distance)"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 82: 'Years ago, a CEO was tricked into authorizing a $243,000 wire transfer'",
+          "violation_text": "Good use of 'years ago' but specific dollar amount may imply insider knowledge",
+          "severity": "LOW",
+          "replacement_pattern": "Acceptable - public news story, but could add 'according to published reports'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 94: 'In February 2024, I tried integrating deepfake detection'",
+          "violation_text": "Recent timestamp (February 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'February 2024' → 'recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 107: 'I conducted an informal experiment in early February 2024'",
+          "violation_text": "Recent timestamp (February 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'early February 2024' → 'recently'"
+        }
+      ]
+    },
+    {
+      "post": "2024-02-22-open-source-vs-proprietary-llms",
+      "phase": "Phase 2 (Moderate)",
+      "violation_count": 7,
+      "estimated_time": "1.5-2 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 21: 'In January 2024, I spent three days trying to load Llama 3 70B'",
+          "violation_text": "Recent timestamp (January 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'In January 2024' → 'Recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 84: 'In early 2024, I ran two experiments'",
+          "violation_text": "Recent timestamp (2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'In early 2024' → 'Recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 99: 'In February 2024, I fine-tuned Code Llama 13B'",
+          "violation_text": "Recent timestamp (February 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'In February 2024' → 'Recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 143: 'In early 2023, I experimented with different prompting strategies'",
+          "violation_text": "Recent timestamp (2023)",
+          "severity": "LOW",
+          "replacement_pattern": "'In early 2023' → 'Recently' or 'In my testing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 175: 'In March 2024, my testing showed...'",
+          "violation_text": "Recent timestamp (March 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'In March 2024' → 'My testing showed' (remove timestamp)"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 189: '**My Current Setup (as of March 2024):**'",
+          "violation_text": "Recent timestamp (March 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'as of March 2024' → 'as of this writing' or remove"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 233: 'When I first tested Llama 2 7B in July 2023...'",
+          "violation_text": "Recent timestamp (July 2023)",
+          "severity": "LOW",
+          "replacement_pattern": "'in July 2023' → 'when I first tested it'"
+        }
+      ]
+    },
+    {
+      "post": "2024-03-05-cloud-migration-journey-guide",
+      "phase": "Phase 3 (Complex)",
+      "violation_count": 15,
+      "estimated_time": "2-3 hours",
+      "violations": [
+        {
+          "category": 2,
+          "line_context": "Line 22: 'I recall standing in our data center in late 2019'",
+          "violation_text": "'our data center' implies organizational ownership, specific year",
+          "severity": "HIGH",
+          "replacement_pattern": "'our data center' → 'a data center I worked in years ago'; '2019' → remove or generalize to 'years ago'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 43-71: Multiple uses of 'our' and 'we'",
+          "violation_text": "'our migration', 'our fastest-growing service', 'our competitors', 'we were paying' - organizational ownership",
+          "severity": "HIGH",
+          "replacement_pattern": "Replace 'our/we' with 'the organization I worked with years ago' or shift to hypothetical"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 70: 'A power outage in August 2019 that lasted six hours cost us approximately $78,000'",
+          "violation_text": "Specific organizational incident with financial details, recent year",
+          "severity": "HIGH",
+          "replacement_pattern": "'August 2019' → 'years ago'; 'cost us' → 'cost the organization'; OR make hypothetical: 'In one case I'm familiar with...'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 76-84: Entire migration planning section uses 'our'",
+          "violation_text": "'Our initial approach', 'Our systems', 'our services' - organizational ownership throughout",
+          "severity": "HIGH",
+          "replacement_pattern": "Rewrite section to use 'the organization's' or shift to general lessons learned"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 97: 'Setting up proper IAM was both the most complex and most valuable part of our migration'",
+          "violation_text": "'our migration' implies organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'our migration' → 'the migration I worked on years ago'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 116: 'A minor DDoS attack in March 2020 triggered automatic scaling that cost us $4,200'",
+          "violation_text": "Specific organizational incident with financial details, recent year",
+          "severity": "HIGH",
+          "replacement_pattern": "'March 2020' → 'years ago'; 'cost us' → 'cost the organization'; add time buffer"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 117: 'I was cleaning up firewall rules and removed SSH access before properly configuring our VPN'",
+          "violation_text": "'our VPN' implies organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'our VPN' → 'the organization's VPN'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 129: 'I sent six team members through AWS certification courses'",
+          "violation_text": "Implies management role in organization",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'I sent six team members' → 'The organization sent team members' or make hypothetical"
+        }
+      ]
+    },
+    {
+      "post": "2024-03-20-transformer-architecture-deep-dive",
+      "phase": "Phase 2 (Moderate)",
+      "violation_count": 8,
+      "estimated_time": "1.5-2 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 22: 'In late 2018, I implemented my first Transformer from scratch'",
+          "violation_text": "Recent timestamp (2018)",
+          "severity": "LOW",
+          "replacement_pattern": "'In late 2018' → 'Years ago'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 61: 'I remember debugging a machine translation model in early 2017'",
+          "violation_text": "Recent timestamp (2017)",
+          "severity": "LOW",
+          "replacement_pattern": "'in early 2017' → 'years ago'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 65: 'I experimented with a 9-layer CNN for translation in 2017'",
+          "violation_text": "Recent timestamp (2017)",
+          "severity": "LOW",
+          "replacement_pattern": "'in 2017' → 'years ago'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 137: 'In mid-2019, I fine-tuned BERT-base'",
+          "violation_text": "Recent timestamp (2019)",
+          "severity": "LOW",
+          "replacement_pattern": "'In mid-2019' → 'In my testing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 152: 'When I tried training on 512-token sequences in 2019'",
+          "violation_text": "Recent timestamp (2019)",
+          "severity": "LOW",
+          "replacement_pattern": "'in 2019' → remove timestamp"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 162: 'In my 2019 implementation, switching from Xavier to scaled initialization'",
+          "violation_text": "Recent timestamp (2019)",
+          "severity": "LOW",
+          "replacement_pattern": "'In my 2019 implementation' → 'In my implementation'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 177: 'When I tested GPT-3.5 in early 2023'",
+          "violation_text": "Recent timestamp (2023)",
+          "severity": "LOW",
+          "replacement_pattern": "'in early 2023' → 'in my testing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 191: 'When I tested GPT-3 on nested logical statements in 2022'",
+          "violation_text": "Recent timestamp (2022)",
+          "severity": "LOW",
+          "replacement_pattern": "'in 2022' → remove timestamp"
+        }
+      ]
+    },
+    {
+      "post": "2024-04-04-retrieval-augmented-generation-rag",
+      "phase": "Phase 1 (Simple)",
+      "violation_count": 5,
+      "estimated_time": "30-45 minutes",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 26: 'In April 2024, I spent three weekends building a RAG system'",
+          "violation_text": "Recent timestamp (April 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'In April 2024' → 'Recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 100: 'I indexed 612,000 tokens of homelab documentation in Qdrant'",
+          "violation_text": "Acceptable - homelab attribution is NDA-safe",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - homelab context is safe"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 119: 'I switched to `text-embedding-3-small` in late March 2024'",
+          "violation_text": "Recent timestamp (March 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'in late March 2024' → 'recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 253: 'In October 2024, I researched data retention requirements'",
+          "violation_text": "Recent timestamp (October 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'In October 2024' → 'Recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 287: 'Total cost: $47.80 in OpenAI API fees'",
+          "violation_text": "Acceptable - personal homelab cost, not organizational",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - personal expenses are safe"
+        }
+      ]
+    },
+    {
+      "post": "2024-04-11-ethics-large-language-models",
+      "phase": "Phase 2 (Moderate)",
+      "violation_count": 9,
+      "estimated_time": "1.5-2 hours",
+      "violations": [
+        {
+          "category": 2,
+          "line_context": "Line 26: 'Deploying our first customer-facing LLM in March 2023'",
+          "violation_text": "'our first customer-facing LLM' implies organizational ownership, recent timestamp",
+          "severity": "HIGH",
+          "replacement_pattern": "'our first' → 'a customer-facing LLM I worked on years ago'; 'March 2023' → remove timestamp"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 64: 'My introduction to AI bias came during testing of a resume screening tool in August 2022'",
+          "violation_text": "Recent timestamp (2022), implies work context",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'in August 2022' → 'years ago'; clarify if personal or work project"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 65-67: 'Our content generation system would suggest...'",
+          "violation_text": "'Our content generation system' implies organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'Our content generation system' → 'A content generation system I tested'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 78: 'Asked about a historical event, our GPT-3.5-based model'",
+          "violation_text": "'our GPT-3.5-based model' implies organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'our GPT-3.5-based model' → 'a GPT-3.5-based model I tested'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 92: 'Implementing LLMs in content creation workflows during 2023'",
+          "violation_text": "Recent timestamp (2023), implies work context",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'during 2023' → remove timestamp; clarify personal vs work"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 93: 'When we deployed ChatGPT-integrated tools in our documentation team'",
+          "violation_text": "'our documentation team' implies organizational ownership",
+          "severity": "HIGH",
+          "replacement_pattern": "'our documentation team' → 'a documentation team I worked with years ago'"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 113: 'A security audit of our systems in January 2024'",
+          "violation_text": "'our systems' implies organizational ownership, recent timestamp",
+          "severity": "HIGH",
+          "replacement_pattern": "'our systems' → 'systems I audited'; 'January 2024' → remove timestamp or add time buffer"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 120: 'This became personal in December 2023 when our customer service AI'",
+          "violation_text": "'our customer service AI' implies organizational ownership, recent timestamp",
+          "severity": "HIGH",
+          "replacement_pattern": "'our customer service AI' → 'a customer service AI I worked on years ago'; 'December 2023' → remove"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 141: 'Starting in April 2023, I ran weekly bias audits'",
+          "violation_text": "Recent timestamp (2023)",
+          "severity": "LOW",
+          "replacement_pattern": "'Starting in April 2023' → 'In my testing'"
+        }
+      ]
+    },
+    {
+      "post": "2024-04-19-mastering-prompt-engineering-llms",
+      "phase": "Phase 2 (Moderate)",
+      "violation_count": 6,
+      "estimated_time": "1.5-2 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 92: '47 iterations over 2 weeks on system prompt'",
+          "violation_text": "Acceptable - homelab context is clear",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - homelab attribution is safe"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 186: 'I ran 100 prompts on Llama 3.1 70B at different temperatures'",
+          "violation_text": "Acceptable - homelab testing",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - homelab context is safe"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 253: 'I built a RAG system for my blog posts'",
+          "violation_text": "Acceptable - personal project",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - personal project is safe"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 275: 'I exposed my homelab LLM via API to test remote access'",
+          "violation_text": "Acceptable - homelab context",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - homelab is safe attribution"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 332: 'My 3-hour token limit debugging session'",
+          "violation_text": "Acceptable - homelab context",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - homelab is safe"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 345: 'My homelab experiments, from the 47-iteration system prompt odyssey'",
+          "violation_text": "Acceptable - explicitly homelab",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - homelab attribution is safe"
+        }
+      ],
+      "notes": "This post is mostly NDA-compliant. All technical work is attributed to homelab experiments. No violations found - categorizing as Phase 2 due to thorough review needed, but actual remediation minimal."
+    },
+    {
+      "post": "2024-04-30-quantum-resistant-cryptography-guide",
+      "phase": "Phase 2 (Moderate)",
+      "violation_count": 7,
+      "estimated_time": "1.5-2 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 23: 'That realization in late 2018 sparked my quantum-resistant cryptography journey'",
+          "violation_text": "Recent timestamp (2018)",
+          "severity": "LOW",
+          "replacement_pattern": "'in late 2018' → 'years ago'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 39: 'A security audit I conducted in March 2020'",
+          "violation_text": "Recent timestamp (2020), implies work context",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'I conducted in March 2020' → 'I conducted years ago'; clarify if work or homelab"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 40: 'revealed our entire organization's security assumed classical computational limitations'",
+          "violation_text": "'our entire organization's' implies organizational ownership",
+          "severity": "HIGH",
+          "replacement_pattern": "'our entire organization's security' → 'the security architecture I was reviewing years ago'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 92: 'Implementing it revealed elegance and complexity. In April 2022...'",
+          "violation_text": "Recent timestamp (2022)",
+          "severity": "LOW",
+          "replacement_pattern": "'In April 2022' → 'In my testing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 110: 'I attempted to integrate it into an API authentication system in December 2022'",
+          "violation_text": "Recent timestamp (2022), may imply work context",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'in December 2022' → remove timestamp; clarify homelab vs work"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 131: 'During testing in May 2023, I measured FALCON-512 key generation'",
+          "violation_text": "Recent timestamp (2023)",
+          "severity": "LOW",
+          "replacement_pattern": "'in May 2023' → 'in my testing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 245: 'When I deployed CRYSTALS-Kyber in my test environment in April 2022'",
+          "violation_text": "Recent timestamp (2022)",
+          "severity": "LOW",
+          "replacement_pattern": "'in April 2022' → remove timestamp"
+        }
+      ]
+    },
+    {
+      "post": "2024-05-14-ai-new-frontier-cybersecurity",
+      "phase": "Phase 3 (Complex)",
+      "violation_count": 14,
+      "estimated_time": "2-3 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 23: 'In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab'",
+          "violation_text": "Recent timestamp (2023) - borderline acceptable with homelab attribution",
+          "severity": "LOW",
+          "replacement_pattern": "'In August 2023' → 'Recently' or remove timestamp"
+        },
+        {
+          "category": 1,
+          "line_context": "Multiple 2024 timestamps throughout (August, September, October, November)",
+          "violation_text": "Recent timestamps (2024) - acceptable with homelab context but should be generalized",
+          "severity": "LOW",
+          "replacement_pattern": "Replace '2024' timestamps with 'recently' or remove"
+        },
+        {
+          "category": 2,
+          "line_context": "Line 84: 'Years of experience have taught me...'",
+          "violation_text": "Acceptable - vague timeframe",
+          "severity": "NONE (COMPLIANT)",
+          "replacement_pattern": "N/A - good NDA-safe pattern"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 141: 'In a red team exercise I observed in May 2024'",
+          "violation_text": "Recent timestamp (May 2024), 'observed' could imply work context",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'I observed in May 2024' → 'I observed recently' or 'in a demonstration I saw'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 155: 'Deploying AI security tools in my homelab since March 2024'",
+          "violation_text": "Recent timestamp (2024) - acceptable with homelab but should generalize",
+          "severity": "LOW",
+          "replacement_pattern": "'since March 2024' → 'over several months'"
+        }
+      ],
+      "notes": "Most work is properly attributed to homelab. Main issue is abundance of 2024 timestamps (15+ instances) that should be generalized. No organizational ownership violations detected."
+    },
+    {
+      "post": "2024-05-30-ai-learning-resource-constrained",
+      "phase": "Phase 2 (Moderate)",
+      "violation_count": 8,
+      "estimated_time": "1.5-2 hours",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 27: 'After burning thousands on a single GPU training run in 2023'",
+          "violation_text": "Recent timestamp (2023)",
+          "severity": "LOW",
+          "replacement_pattern": "'in 2023' → remove timestamp"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 31: 'Staring at my electricity bill after running a large language model training job in August 2023'",
+          "violation_text": "Recent timestamp (2023)",
+          "severity": "LOW",
+          "replacement_pattern": "'in August 2023' → remove timestamp"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 136: 'In a test batch of 100 historical queries in November 2022'",
+          "violation_text": "Recent timestamp (2022)",
+          "severity": "LOW",
+          "replacement_pattern": "'in November 2022' → 'in my testing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 145: 'During one 2023 internal audit'",
+          "violation_text": "Recent timestamp (2023), 'internal audit' may imply organizational context",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'one 2023 internal audit' → 'testing I conducted'; clarify homelab vs work"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 162: 'In user testing with 50 non-experts'",
+          "violation_text": "May imply organizational testing, needs context",
+          "severity": "MEDIUM",
+          "replacement_pattern": "Clarify: 'In personal testing with volunteers' or similar"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 165: 'During stress testing, I found our system could generate 500+ unique but false news articles'",
+          "violation_text": "'our system' implies organizational ownership",
+          "severity": "MEDIUM",
+          "replacement_pattern": "'our system' → 'the system I was testing'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 192: 'When we deployed ChatGPT-integrated tools in our documentation team'",
+          "violation_text": "'our documentation team' implies organizational ownership",
+          "severity": "HIGH",
+          "replacement_pattern": "'our documentation team' → 'a documentation team I worked with years ago'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 1182: 'I spent $400 building this 8-node cluster in early 2024'",
+          "violation_text": "Recent timestamp (2024) - acceptable for personal expense but should generalize",
+          "severity": "LOW",
+          "replacement_pattern": "'in early 2024' → 'recently'"
+        }
+      ]
+    },
+    {
+      "post": "2024-06-11-beyond-containers-future-deployment",
+      "phase": "Phase 1 (Simple)",
+      "violation_count": 4,
+      "estimated_time": "30-45 minutes",
+      "violations": [
+        {
+          "category": 1,
+          "line_context": "Line 23: 'In June 2024, I migrated 23 services from Docker Compose to K3s'",
+          "violation_text": "Recent timestamp (June 2024) - acceptable homelab but should generalize",
+          "severity": "LOW",
+          "replacement_pattern": "'In June 2024' → 'Recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 32: 'Migration Timeline (June 2024):'",
+          "violation_text": "Recent timestamp (June 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'June 2024' → remove or generalize"
+        },
+        {
+          "category": 1,
+          "line_context": "Line 113: 'In late June 2024, I decided to test serverless computing'",
+          "violation_text": "Recent timestamp (June 2024)",
+          "severity": "LOW",
+          "replacement_pattern": "'In late June 2024' → 'Recently'"
+        },
+        {
+          "category": 1,
+          "line_context": "Multiple 2024 timestamps throughout (July, August, September, October)",
+          "violation_text": "Recent timestamps (2024) - acceptable with homelab but should be generalized",
+          "severity": "LOW",
+          "replacement_pattern": "Replace all '2024' timestamps with 'recently' or remove"
+        }
+      ],
+      "notes": "Entire post is homelab-focused. Only violations are recent timestamps (2024) that should be generalized for time buffer."
+    }
+  ],
+  "priority_ordering": {
+    "critical_first": [
+      {
+        "post": "2024-03-05-cloud-migration-journey-guide",
+        "priority": "CRITICAL",
+        "reason": "15 violations, extensive organizational ownership ('our data center', 'our migration'), specific incidents with financial details",
+        "estimated_time": "2-3 hours"
+      },
+      {
+        "post": "2024-01-30-securing-cloud-native-frontier",
+        "priority": "HIGH",
+        "reason": "12 violations, organizational ownership patterns ('our security team', 'our infrastructure')",
+        "estimated_time": "2-3 hours"
+      },
+      {
+        "post": "2024-05-14-ai-new-frontier-cybersecurity",
+        "priority": "HIGH",
+        "reason": "14 violations, mostly 2024 timestamps but needs systematic remediation",
+        "estimated_time": "2-3 hours"
+      },
+      {
+        "post": "2024-04-11-ethics-large-language-models",
+        "priority": "MEDIUM-HIGH",
+        "reason": "9 violations, organizational ownership ('our customer service AI', 'our systems')",
+        "estimated_time": "1.5-2 hours"
+      },
+      {
+        "post": "2024-05-30-ai-learning-resource-constrained",
+        "priority": "MEDIUM",
+        "reason": "8 violations, mix of timestamps and organizational references",
+        "estimated_time": "1.5-2 hours"
+      },
+      {
+        "post": "2024-03-20-transformer-architecture-deep-dive",
+        "priority": "MEDIUM",
+        "reason": "8 violations, primarily timestamp issues (2017-2023)",
+        "estimated_time": "1.5-2 hours"
+      },
+      {
+        "post": "2024-04-30-quantum-resistant-cryptography-guide",
+        "priority": "MEDIUM",
+        "reason": "7 violations, mix of timestamps and organizational references",
+        "estimated_time": "1.5-2 hours"
+      },
+      {
+        "post": "2024-02-22-open-source-vs-proprietary-llms",
+        "priority": "MEDIUM",
+        "reason": "7 violations, primarily timestamp issues",
+        "estimated_time": "1.5-2 hours"
+      },
+      {
+        "post": "2024-02-09-deepfake-dilemma-ai-deception",
+        "priority": "LOW-MEDIUM",
+        "reason": "6 violations, mostly timestamps and minor references",
+        "estimated_time": "1.5-2 hours"
+      },
+      {
+        "post": "2024-04-04-retrieval-augmented-generation-rag",
+        "priority": "LOW",
+        "reason": "5 violations, mostly timestamps, good homelab attribution",
+        "estimated_time": "30-45 minutes"
+      },
+      {
+        "post": "2024-01-08-writing-secure-code-developers-guide",
+        "priority": "LOW",
+        "reason": "4 violations, minor wording issues",
+        "estimated_time": "30-45 minutes"
+      },
+      {
+        "post": "2024-06-11-beyond-containers-future-deployment",
+        "priority": "LOW",
+        "reason": "4 violations, all timestamp-related, good homelab attribution",
+        "estimated_time": "30-45 minutes"
+      },
+      {
+        "post": "2024-01-18-demystifying-cryptography-beginners-guide",
+        "priority": "LOW",
+        "reason": "3 violations, minor organizational references",
+        "estimated_time": "30-45 minutes"
+      },
+      {
+        "post": "2024-04-19-mastering-prompt-engineering-llms",
+        "priority": "MINIMAL",
+        "reason": "0 violations detected - excellent homelab attribution throughout",
+        "estimated_time": "15 minutes (validation only)"
+      }
+    ]
+  },
+  "safe_replacement_patterns": {
+    "organizational_ownership": {
+      "our/we_patterns": [
+        "'our systems' → 'systems I worked with years ago'",
+        "'our data center' → 'a data center I worked in years ago'",
+        "'our team' → 'a team I worked with years ago'",
+        "'we implemented' → 'the organization implemented'",
+        "'our migration' → 'the migration I worked on years ago'"
+      ],
+      "implicit_ownership": [
+        "'internal application' → 'an application I was reviewing'",
+        "'production crisis' → 'a production issue years ago'",
+        "'customer service AI' → 'a customer service AI I worked on years ago'"
+      ]
+    },
+    "time_references": {
+      "specific_years": [
+        "'in 2024' → 'recently' or remove",
+        "'in 2023' → 'recently' or remove",
+        "'in March 2024' → 'recently' or 'in my testing'",
+        "'August 2023' → remove or 'years ago' if pre-2020"
+      ],
+      "acceptable_patterns": [
+        "'years ago' → KEEP (good pattern)",
+        "'throughout my career' → KEEP (good pattern)",
+        "'early in my career' → KEEP (good pattern)"
+      ]
+    },
+    "work_context": {
+      "colleague_references": [
+        "'colleague' → 'another developer' or 'someone I know'",
+        "'team member' → 'another person'",
+        "'manager' → avoid or make hypothetical"
+      ],
+      "incidents": [
+        "Add time buffer: 'years ago' to any security incident",
+        "Make hypothetical: 'In one case I'm familiar with...'",
+        "Remove financial specifics or generalize: '$78,000' → 'significant cost'"
+      ]
+    },
+    "homelab_safe_patterns": {
+      "always_safe": [
+        "'in my homelab' → SAFE",
+        "'my Raspberry Pi cluster' → SAFE",
+        "'my Dell R940' → SAFE",
+        "'personal testing' → SAFE",
+        "'homelab experiments' → SAFE"
+      ]
+    }
+  },
+  "recommendations": {
+    "remediation_strategy": "Address in priority order (Critical → High → Medium → Low). Phase 3 posts require most attention. Consider batching Phase 1 posts for efficiency.",
+    "quality_assurance": "After remediation, run grep searches for forbidden patterns: 'our systems', 'at work', '2024' in work context, 'colleague', etc.",
+    "validation_checklist": [
+      "No 'our/we' organizational ownership without time buffer",
+      "All security incidents have 2-3 year minimum buffer",
+      "No specific 2023-2024 timestamps for work context",
+      "All production incidents attributed to 'years ago' or homelab",
+      "No current employer, team, or colleague references",
+      "Homelab attribution clear for all personal experiments"
+    ]
+  }
+}
