@@ -26,10 +26,17 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Ensure proper font loading - readable sans-serif for body */
+/* Typography System - Research-backed implementation
+ * Headings: Bricolage Grotesque (600, 700, 800)
+ * Body: Figtree (300, 400, 500 + 400 italic)
+ * Code: JetBrains Mono (400, 500, 700 + 400 italic)
+ * Quotes: Newsreader (400, 600 + italics)
+ */
+
+/* Body text - Figtree for optimal readability */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
-  font-weight: 400;  /* Normal weight for readability */
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  font-weight: 400;  /* Figtree Regular */
   font-feature-settings: 'kern' 1, 'liga' 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -40,9 +47,68 @@ body {
   padding: 0;
 }
 
-/* Code elements use JetBrains Mono */
+/* Headings - Bricolage Grotesque for distinctive hierarchy */
+h1, h2, h3, h4, h5, h6,
+.heading {
+  font-family: 'Bricolage Grotesque', 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;  /* Bricolage Grotesque Bold */
+  font-feature-settings: 'kern' 1;
+  letter-spacing: -0.02em;  /* Tighter tracking for headings */
+}
+
+/* Heading weight variants */
+h1 {
+  font-weight: 800;  /* Bricolage Grotesque ExtraBold */
+}
+
+h2, h3 {
+  font-weight: 700;  /* Bricolage Grotesque Bold */
+}
+
+h4, h5, h6 {
+  font-weight: 600;  /* Bricolage Grotesque SemiBold */
+}
+
+/* Code elements - JetBrains Mono for technical content */
 code, pre, kbd, samp {
   font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, monospace;
+  font-weight: 400;  /* JetBrains Mono Regular */
+  font-feature-settings: 'liga' 1, 'calt' 1;  /* Enable ligatures */
+}
+
+/* Code emphasis */
+code strong,
+pre strong {
+  font-weight: 500;  /* JetBrains Mono Medium */
+}
+
+/* Quotes - Newsreader for elegant, authoritative feel */
+blockquote {
+  font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+  font-weight: 400;  /* Newsreader Regular */
+  font-style: italic;
+  font-feature-settings: 'kern' 1;
+}
+
+/* Quote emphasis */
+blockquote strong {
+  font-weight: 600;  /* Newsreader SemiBold */
+  font-style: normal;
+}
+
+/* Body text weight variants */
+.text-light {
+  font-weight: 300;  /* Figtree Light */
+}
+
+.text-medium {
+  font-weight: 500;  /* Figtree Medium */
+}
+
+/* Emphasized text */
+em, i {
+  font-style: italic;
+  font-weight: 400;  /* Figtree Regular Italic */
 }
 
 /* Cybersecurity gradient text */

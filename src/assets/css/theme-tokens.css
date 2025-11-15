@@ -1,54 +1,99 @@
 /* Theme Tokens - Design System Variables */
+/* This file contains ONLY CSS custom properties (design tokens) and utility classes */
+/* Component styling lives in enhancements.css */
 
-/* Remove all default margins and ensure header is flush with top */
+/* ========================================
+   BASE RESET
+   ======================================== */
+
 html,
 body {
   margin: 0 !important;
   padding: 0 !important;
 }
 
-/* Ensure header sticks to top */
-.site-header {
-  margin-top: 0 !important;
-}
-
-/* Force hide mobile menu button on desktop */
-@media (min-width: 768px) {
-  button[onclick="toggleMobileMenu()"],
-  button[aria-label="Toggle menu"] {
-    display: none !important;
-  }
-}
+/* ========================================
+   CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   ======================================== */
 
 :root {
-  /* Cybersecurity Theme - Light Mode (Terminal Green + Deep Blues) */
-  --bg: #ffffff;                    /* Clean white background for better contrast */
-  --bg-secondary: #f8fafc;          /* Very light secondary background */
-  --fg: #111827;                    /* Near-black for maximum contrast */
-  --fg-secondary: #374151;          /* Dark gray for secondary text */
-  --muted: #6b7280;                 /* Medium gray for muted text */
-  --muted-secondary: #9ca3af;       /* Light gray for very muted text */
-  --link: #00d4ff;                  /* Cyan links */
-  --link-hover: #00ffaa;            /* Matrix green hover */
-  --border: #cbd5e1;                /* Border */
-  --border-secondary: #e2e8f0;      /* Secondary border */
-  --card: #ffffff;                  /* Card background */
-  --card-hover: #f8fafc;            /* Card hover state */
-  --accent: #00ffaa;                /* Matrix green accent */
-  --accent-hover: #00d4ff;          /* Cyan hover */
-  --accent-glow: rgba(0, 255, 170, 0.3);  /* Glow effect */
+  /* ========================================
+     LIGHT MODE COLOR SYSTEM
+     ======================================== */
 
-  /* Cybersecurity-specific colors */
-  --cyber-cyan: #00d4ff;
-  --cyber-green: #00ff41;
-  --cyber-teal: #00ffaa;
-  --terminal-green: #00ff41;
-  --warning-amber: #fbbf24;
-  --danger-red: #ef4444;
+  /* Background Colors */
+  --color-bg-primary: #fafaf9;
+  --color-bg-secondary: #f8fafc;
+  --color-surface-default: #f1f5f9;
+  --color-surface-elevated: #f0f4f8;
 
-  /* Focus colors */
-  --focus-ring: #00ffaa;
-  --focus-ring-offset: #f0f4f8;
+  /* Text Colors */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #64748b;
+  --color-text-muted: #94a3b8;
+
+  /* Accent Colors */
+  --color-accent-teal: #0e7490;
+  --color-accent-green: #059669;
+  --color-accent-orange: #ea580c;
+  --color-accent-amber: #d97706;
+
+  /* Border Colors */
+  --color-border-default: #e2e8f0;
+  --color-border-subtle: rgba(226, 232, 240, 0.6);
+
+  /* Interactive States - Links */
+  --color-link-default: #0e7490;
+  --color-link-hover: #0d9488;
+  --color-link-active: #0f766e;
+  --color-link-visited: #7c3aed;
+
+  /* Interactive States - Buttons */
+  --color-button-primary-bg: #0e7490;
+  --color-button-primary-hover: #0d9488;
+  --color-button-primary-active: #0f766e;
+  --color-button-primary-text: #ffffff;
+
+  /* Alert/Status Colors */
+  --color-status-success: #059669;
+  --color-status-success-bg: #d1fae5;
+  --color-status-warning: #d97706;
+  --color-status-warning-bg: #fef3c7;
+  --color-status-error: #dc2626;
+  --color-status-error-bg: #fee2e2;
+  --color-status-info: #0284c7;
+  --color-status-info-bg: #dbeafe;
+
+  /* Code Syntax Highlighting - Light Mode */
+  --color-code-bg: #f1f5f9;
+  --color-code-text: #334155;
+  --color-code-comment: #64748b;
+  --color-code-keyword: #7c3aed;
+  --color-code-string: #059669;
+  --color-code-function: #0e7490;
+  --color-code-number: #ea580c;
+  --color-code-operator: #475569;
+  --color-code-variable: #0f172a;
+
+  /* Shadows - Soft for Light Mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #0e7490 0%, #059669 100%);
+  --gradient-accent: linear-gradient(135deg, #0d9488 0%, #0e7490 100%);
+
+  /* Focus States */
+  --color-focus-ring: #0e7490;
+  --color-focus-ring-offset: #ffffff;
+
+  /* Transitions */
+  --transition-colors: color 300ms ease, background-color 300ms ease, border-color 300ms ease;
+  --transition-transform: transform 300ms ease;
+  --transition-opacity: opacity 300ms ease;
 
   /* Spacing */
   --space-xs: 0.5rem;
@@ -72,298 +117,200 @@ body {
   --weight-extrabold: 800;
   --weight-black: 900;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-
   /* Border radius */
   --radius-sm: 0.25rem;
   --radius: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
+
+  /* Legacy variable mappings for backward compatibility */
+  --bg: var(--color-bg-primary);
+  --bg-secondary: var(--color-bg-secondary);
+  --fg: var(--color-text-primary);
+  --fg-secondary: var(--color-text-secondary);
+  --muted: var(--color-text-muted);
+  --link: var(--color-link-default);
+  --link-hover: var(--color-link-hover);
+  --border: var(--color-border-default);
+  --card: var(--color-surface-default);
+  --accent: var(--color-accent-teal);
 }
 
-/* Dark Theme - Cybersecurity Aesthetic */
+/* ========================================
+   DARK MODE COLOR SYSTEM
+   ======================================== */
 .dark {
-  /* Deep space background with cyan/teal accents */
-  --bg: #0a192f;                    /* Deep navy background */
-  --bg-secondary: #112240;          /* Slightly lighter navy */
-  --fg: #f3f4f6;                    /* Bright white text for contrast */
-  --fg-secondary: #e5e7eb;          /* Light gray secondary text */
-  --muted: #9ca3af;                 /* Medium gray muted */
-  --muted-secondary: #6b7280;       /* Darker muted */
-  --link: #00d4ff;                  /* Bright cyan links */
-  --link-hover: #00ffaa;            /* Matrix green hover */
-  --border: #1e3a5f;                /* Dark border */
-  --border-secondary: #2d4a6e;      /* Secondary border */
-  --card: #112240;                  /* Card background */
-  --card-hover: #1a3456;            /* Card hover */
-  --accent: #00ffaa;                /* Matrix green accent */
-  --accent-hover: #00d4ff;          /* Cyan hover */
-  --accent-glow: rgba(0, 255, 170, 0.4);  /* Stronger glow in dark */
+  /* Background Colors */
+  --color-bg-primary: #0a0e27;
+  --color-bg-secondary: #0d1117;
+  --color-surface-default: #161b2e;
+  --color-surface-elevated: #1a1f3a;
 
-  /* Cybersecurity-specific dark colors */
-  --cyber-cyan: #00d4ff;
-  --cyber-green: #00ff41;
-  --cyber-teal: #00ffaa;
-  --terminal-green: #00ff41;
-  --warning-amber: #fbbf24;
-  --danger-red: #ef4444;
-  --grid-color: rgba(0, 212, 255, 0.1);
-  --scan-line-color: rgba(0, 255, 170, 0.05);
+  /* Text Colors */
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary: #64748b;
+  --color-text-muted: #475569;
 
-  /* Focus colors dark */
-  --focus-ring: #00ffaa;
-  --focus-ring-offset: #0a192f;
+  /* Accent Colors */
+  --color-accent-cyan: #00d9ff;
+  --color-accent-green: #00ff88;
+  --color-accent-amber: #fbbf24;
+  --color-accent-teal: #0d9488;
+
+  /* Border Colors */
+  --color-border-default: rgba(30, 41, 59, 0.5);
+  --color-border-subtle: rgba(30, 41, 59, 0.3);
+
+  /* Interactive States - Links */
+  --color-link-default: #00d9ff;
+  --color-link-hover: #00ff88;
+  --color-link-active: #0d9488;
+  --color-link-visited: #a78bfa;
+
+  /* Interactive States - Buttons */
+  --color-button-primary-bg: #00d9ff;
+  --color-button-primary-hover: #00ff88;
+  --color-button-primary-active: #0d9488;
+  --color-button-primary-text: #0a0e27;
+
+  /* Alert/Status Colors */
+  --color-status-success: #00ff88;
+  --color-status-success-bg: rgba(0, 255, 136, 0.1);
+  --color-status-warning: #fbbf24;
+  --color-status-warning-bg: rgba(251, 191, 36, 0.1);
+  --color-status-error: #ef4444;
+  --color-status-error-bg: rgba(239, 68, 68, 0.1);
+  --color-status-info: #00d9ff;
+  --color-status-info-bg: rgba(0, 217, 255, 0.1);
+
+  /* Code Syntax Highlighting - Dark Mode */
+  --color-code-bg: #161b2e;
+  --color-code-text: #e2e8f0;
+  --color-code-comment: #64748b;
+  --color-code-keyword: #a78bfa;
+  --color-code-string: #00ff88;
+  --color-code-function: #00d9ff;
+  --color-code-number: #fbbf24;
+  --color-code-operator: #94a3b8;
+  --color-code-variable: #e2e8f0;
+
+  /* Shadows - Strong for Dark Mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+
+  /* Glow Effects - Dark Mode Specific */
+  --glow-cyan: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1);
+  --glow-green: 0 0 20px rgba(0, 255, 136, 0.3), 0 0 40px rgba(0, 255, 136, 0.1);
+  --glow-amber: 0 0 20px rgba(251, 191, 36, 0.3), 0 0 40px rgba(251, 191, 36, 0.1);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #00d9ff 0%, #00ff88 100%);
+  --gradient-accent: linear-gradient(135deg, #00ff88 0%, #0d9488 100%);
+
+  /* Focus States */
+  --color-focus-ring: #00d9ff;
+  --color-focus-ring-offset: #0a0e27;
+
+  /* Legacy variable mappings for backward compatibility */
+  --bg: var(--color-bg-primary);
+  --bg-secondary: var(--color-bg-secondary);
+  --fg: var(--color-text-primary);
+  --fg-secondary: var(--color-text-secondary);
+  --muted: var(--color-text-muted);
+  --link: var(--color-link-default);
+  --link-hover: var(--color-link-hover);
+  --border: var(--color-border-default);
+  --card: var(--color-surface-default);
+  --accent: var(--color-accent-cyan);
+
+  /* Cybersecurity-specific dark colors (legacy) */
+  --cyber-cyan: var(--color-accent-cyan);
+  --cyber-green: var(--color-accent-green);
+  --cyber-teal: var(--color-accent-teal);
+  --terminal-green: var(--color-accent-green);
+  --warning-amber: var(--color-accent-amber);
+  --danger-red: var(--color-status-error);
+  --grid-color: rgba(0, 217, 255, 0.1);
+  --scan-line-color: rgba(0, 255, 136, 0.05);
+
+  /* Focus colors (legacy) */
+  --focus-ring: var(--color-focus-ring);
+  --focus-ring-offset: var(--color-focus-ring-offset);
 
   /* Ensure proper color-scheme for system integrations */
   color-scheme: dark;
 }
 
-/* Utility Classes for Theme Variables */
-.bg-primary { background-color: var(--bg); }
-.bg-secondary { background-color: var(--bg-secondary); }
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Background utilities */
+.bg-primary { background-color: var(--color-bg-primary); }
+.bg-secondary { background-color: var(--color-bg-secondary); }
+.bg-surface { background-color: var(--color-surface-default); }
+.bg-surface-elevated { background-color: var(--color-surface-elevated); }
+
+/* Text color utilities */
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary { color: var(--color-text-tertiary); }
+.text-muted { color: var(--color-text-muted); }
+
+/* Border utilities */
+.border-default { border-color: var(--color-border-default); }
+.border-subtle { border-color: var(--color-border-subtle); }
+
+/* Interactive utilities */
+.link {
+  color: var(--color-link-default);
+  transition: var(--transition-colors);
+}
+.link:hover {
+  color: var(--color-link-hover);
+}
+.link:active {
+  color: var(--color-link-active);
+}
+
+/* Button utilities */
+.btn-primary {
+  background-color: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+  transition: var(--transition-colors);
+}
+.btn-primary:hover {
+  background-color: var(--color-button-primary-hover);
+}
+.btn-primary:active {
+  background-color: var(--color-button-primary-active);
+}
+
+/* Status utilities */
+.status-success { color: var(--color-status-success); }
+.status-warning { color: var(--color-status-warning); }
+.status-error { color: var(--color-status-error); }
+.status-info { color: var(--color-status-info); }
+
+/* Shadow utilities */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* Glow utilities (dark mode only) */
+.dark .glow-cyan { box-shadow: var(--glow-cyan); }
+.dark .glow-green { box-shadow: var(--glow-green); }
+.dark .glow-amber { box-shadow: var(--glow-amber); }
+
+/* Gradient utilities */
+.gradient-primary { background: var(--gradient-primary); }
+.gradient-accent { background: var(--gradient-accent); }
+
+/* Legacy compatibility utilities */
 .bg-card { background-color: var(--card); }
-.text-primary { color: var(--fg); }
-.text-secondary { color: var(--fg-secondary); }
-.text-muted { color: var(--muted); }
 .border-primary { border-color: var(--border); }
-.border-secondary { border-color: var(--border-secondary); }
-
-/* Focus Styles - WCAG 2.2 AA Compliant */
-*:focus {
-  outline: none;
-}
-
-*:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-
-/* Links with proper contrast and focus */
-a {
-  color: var(--link);
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 2px;
-  transition: all 150ms ease;
-}
-
-a:hover {
-  color: var(--link-hover);
-  text-decoration-color: currentColor;
-}
-
-a:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-  text-decoration-color: currentColor;
-}
-
-/* Buttons with consistent focus */
-button:not(.fixed):not([class*="fixed"]),
-[role="button"]:not(.fixed):not([class*="fixed"]),
-[type="button"]:not(.fixed):not([class*="fixed"]),
-[type="submit"]:not(.fixed):not([class*="fixed"]),
-[type="reset"]:not(.fixed):not([class*="fixed"]) {
-  transition: all 150ms ease;
-  position: relative;
-}
-
-button:focus-visible,
-[role="button"]:focus-visible,
-[type="button"]:focus-visible,
-[type="submit"]:focus-visible,
-[type="reset"]:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-  border-radius: var(--radius-md);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--focus-ring) 20%, transparent);
-}
-
-/* Interactive elements focus states */
-details summary:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-
-/* Skip to main content link */
-.skip-to-main {
-  position: absolute !important;
-  left: -9999px;
-  z-index: 999;
-  padding: var(--space-sm) var(--space-md);
-  background-color: var(--bg);
-  color: var(--fg);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-}
-
-.skip-to-main:focus {
-  left: 50% !important;
-  top: var(--space-md);
-  transform: translateX(-50%);
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-  box-shadow: var(--shadow-lg);
-}
-
-/* Header styles with theme tokens */
-.site-header {
-  background-color: var(--card);
-  background-color: color-mix(in srgb, var(--card) 85%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-
-@supports (backdrop-filter: blur(12px)) {
-  .site-header {
-    background-color: color-mix(in srgb, var(--card) 60%, transparent);
-  }
-}
-
-/* Card styles with theme tokens */
-.card {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  transition: all 200ms ease;
-}
-
-.card:hover {
-  background-color: var(--card-hover);
-  box-shadow: var(--shadow-md);
-}
-
-/* Typography with proper hierarchy - Newsreader for headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  color: var(--fg);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-top: 0;
-  margin-bottom: var(--space-lg);
-}
-
-h2 {
-  font-size: 2rem;
-  margin-top: var(--space-3xl);
-  margin-bottom: var(--space-md);
-}
-
-h3 {
-  font-size: 1.5rem;
-  margin-top: var(--space-2xl);
-  margin-bottom: var(--space-sm);
-}
-
-p {
-  color: var(--fg-secondary);
-  line-height: 1.65;
-  margin-bottom: var(--space-md);
-  font-weight: var(--weight-normal);
-}
-
-/* Code blocks with theme support */
-pre {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-}
-
-code {
-  font-family: var(--font-mono);
-  font-size: 0.875em;
-}
-
-/* Inline code */
-:not(pre) > code {
-  background-color: var(--bg-secondary);
-  padding: 0.125rem 0.25rem;
-  border-radius: var(--radius-sm);
-  color: var(--accent);
-}
-
-/* Table of Contents Accordion */
-.toc-accordion {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-sm);
-  margin-bottom: var(--space-lg);
-}
-
-.toc-accordion summary {
-  cursor: pointer;
-  user-select: none;
-  font-weight: 500;
-  color: var(--fg);
-  padding: var(--space-sm);
-  border-radius: var(--radius-md);
-  transition: all 150ms ease;
-}
-
-.toc-accordion summary:hover {
-  background-color: var(--bg-secondary);
-}
-
-.toc-accordion summary:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-}
-
-.toc-accordion[open] summary {
-  margin-bottom: var(--space-sm);
-}
-
-.toc-content {
-  padding: 0 var(--space-sm);
-}
-
-.toc-content a {
-  display: block;
-  padding: var(--space-xs) var(--space-sm);
-  color: var(--muted);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: all 150ms ease;
-}
-
-.toc-content a:hover {
-  color: var(--fg);
-  background-color: var(--bg-secondary);
-}
-
-/* Ensure readability with proper line length */
-.prose {
-  max-width: 65ch;
-  font-size: 1.125rem;
-  line-height: 1.75;
-}
-
-.prose > * {
-  margin-bottom: var(--space-md);
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.5rem; margin-top: var(--space-2xl); }
-  h3 { font-size: 1.25rem; margin-top: var(--space-xl); }
-  .prose { font-size: 1rem; }
-}

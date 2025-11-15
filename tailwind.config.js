@@ -131,20 +131,24 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Noto Sans"', 'Helvetica', 'Arial', 'sans-serif'],
-        display: ['Newsreader', 'Georgia', 'Cambria', '"Times New Roman"', 'serif'],
+        // Body text - Figtree (clean, readable sans-serif)
+        sans: ['Figtree', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Noto Sans"', 'Helvetica', 'Arial', 'sans-serif'],
+        // Headings - Bricolage Grotesque (distinctive, strong)
+        heading: ['"Bricolage Grotesque"', 'Figtree', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        // Code blocks - JetBrains Mono (technical, readable)
         mono: ['"JetBrains Mono"', '"Fira Code"', '"SF Mono"', 'Monaco', '"Cascadia Code"', '"Roboto Mono"', 'monospace'],
+        // Quotes/serif - Newsreader (elegant, authoritative)
+        serif: ['Newsreader', 'Georgia', 'Cambria', '"Times New Roman"', 'serif'],
       },
       fontWeight: {
-        thin: '100',
-        extralight: '200',
-        light: '300',
-        normal: '400',
-        medium: '500',
-        semibold: '600',
-        bold: '700',
-        extrabold: '800',
-        black: '900',
+        // Body text weights (Figtree)
+        light: '300',      // Figtree Light
+        normal: '400',     // Figtree Regular
+        medium: '500',     // Figtree Medium
+        // Heading weights (Bricolage Grotesque)
+        semibold: '600',   // Bricolage Grotesque SemiBold
+        bold: '700',       // Bricolage Grotesque Bold
+        extrabold: '800',  // Bricolage Grotesque ExtraBold
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',
