@@ -20,7 +20,7 @@ tags:
   - security
 
 ---
-**BLUF:** In August 2023, I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
+**BLUF:** I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
 
 My test environment ran on an Intel i9-9900K with 64GB RAM, processing roughly 2.3GB of security logs per day from my segmented VLANs. The first week was humbling. The AI model flagged 147 anomalies in just 24 hours. Only 12 were actual simulated attacks I'd planted. That's an 8.2% accuracy rate. For more context, see [introduction to demystifying cryptography: a beginner's guide to encryption, hashing, and digital signatures](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
 

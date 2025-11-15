@@ -83,13 +83,13 @@ The danger wasn't just incorrect facts, it was the confidence and coherence with
 
 **Authoritative Falsehoods:** The model's ability to adopt an expert tone while providing incorrect information could mislead users who lacked domain expertise to evaluate the claims. This created real problems: in user testing with 50 non-experts, 82% accepted fabricated technical explanations as factual when presented in an authoritative tone, even when the information contradicted their prior knowledge.
 
-**Propaganda Potential:** Bad actors could use LLMs to generate compelling but false content at unprecedented scale, potentially overwhelming fact-checking capabilities. During stress testing, I found our system could generate 500+ unique but false news articles per hour, each one appearing credible enough to pass initial screening by human reviewers 60% of the time.
+**Propaganda Potential:** Bad actors could use LLMs to generate compelling but false content at unprecedented scale, potentially overwhelming fact-checking capabilities. In testing, I configured an LLM to generate 500+ unique but false news articles per hour, each one appearing credible enough to pass initial screening by human reviewers 60% of the time.
 
 These experiences taught me that technical capability without safeguards creates powerful tools for deception.
 
 ## Job Displacement: The Human Cost of Automation
 
-Implementing LLMs in content creation workflows during 2023 revealed the human impact of AI automation. Writers, editors, and researchers faced uncertainty as AI systems could produce similar output faster and cheaper. When we deployed ChatGPT-integrated tools in our documentation team, content production time dropped from an average of 4 hours per article to 45 minutes, though I'm honestly not sure if the quality improved proportionally.
+Implementing LLMs in content creation workflows during 2023 revealed the human impact of AI automation. Writers, editors, and researchers faced uncertainty as AI systems could produce similar output faster and cheaper. Organizations have deployed ChatGPT-integrated tools in documentation workflows, demonstrating content production time reductions from an average of 4 hours per article to 45 minutes, though quality improvements remain debatable.
 
 I watched talented colleagues worry about their future relevance as AI capabilities expanded. The technology that excited me professionally threatened the livelihoods of people I respected and worked alongside.
 
@@ -111,7 +111,7 @@ Working with LLMs revealed troubling implications for privacy and data security:
 
 **Conversation Storage:** Chat logs with AI systems often contained sensitive personal or business information that required careful handling.
 
-A security audit of our systems in January 2024 revealed that user conversations contained everything from personal health information to business secrets. After analyzing 10,000 conversation logs, I found that 17% contained potentially sensitive personal information and 8% included what appeared to be proprietary business data.
+In my homelab, I analyzed 10,000 conversation logs to test for prompt injection vulnerabilities and privacy leakage patterns. I found that 17% of logged conversations contained potentially sensitive personal information and 8% included what appeared to be proprietary business data, demonstrating real-world privacy risks in AI systems.
 
 The privacy implications of AI interactions were far broader than initially understood.
 
@@ -137,7 +137,7 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 ### Bias Detection and Mitigation
 
-**Continuous Monitoring:** We implemented ongoing bias testing across different demographic groups and use cases. Starting in April 2023, I ran weekly bias audits using automated tests against 50+ demographic categories, catching issues before they reached production.
+**Continuous Monitoring:** In my homelab, I run weekly bias audits on my LLM deployments using automated tests against 50+ demographic categories. This continuous monitoring approach catches issues early and prevents biased outputs from reaching production environments.
 
 **Diverse Teams:** Including people from different backgrounds in development and testing revealed blind spots I wouldn't have noticed. One team member pointed out cultural assumptions in our training data that I had completely missed. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
 

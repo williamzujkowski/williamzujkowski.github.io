@@ -21,7 +21,7 @@ tags:
 ---
 ## BLUF: Why This Matters
 
-**Three days into a production crisis**, our payment processor had stopped accepting SSL certificates. No transactions flowing. Support tickets piling up. I stared at OpenSSL errors I couldn't decode, certificate chains that made no sense, and encryption algorithms I'd always treated as black boxes. That week transformed cryptography from "abstract math I don't need to understand" into "critical infrastructure I must get right."
+**Three days into a production crisis years ago**, a payment processor I was working with had stopped accepting SSL certificates. No transactions flowing. Support tickets piling up. I stared at OpenSSL errors I couldn't decode, certificate chains that made no sense, and encryption algorithms I'd always treated as black boxes. That week transformed cryptography from "abstract math I don't need to understand" into "critical infrastructure I must get right."
 
 **Every password you store, every HTTPS connection you make, every database backup you verify depends on cryptographic decisions you're making right now.** Not theoretical security discussions, but production trade-offs: Which hash function protects passwords? When does AES-256 make sense versus RSA-2048? How do you detect database corruption before users notice? These choices affect millions of users, and the wrong answer can mean downtime measured in revenue loss.
 
@@ -35,7 +35,7 @@ I made every beginner mistake: stored MD5 password hashes, chose algorithms base
 
 ## The Journey from Magic to Understanding
 
-Cryptography always felt like magic to me, mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically when I spent three sleepless nights debugging SSL certificate issues that were breaking our entire payment system.
+Cryptography always felt like magic to me, mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically when I spent three sleepless nights debugging SSL certificate issues that were breaking the payment system I was working on years ago.
 
 Suddenly, those abstract concepts became real. Every failed handshake, every certificate validation error, every cipher suite mismatch taught me that cryptography is the backbone of everything we do online. What started as an emergency troubleshooting session became a journey into understanding the mathematical foundations that protect our digital lives.
 
@@ -206,7 +206,7 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
 [self-hosted password manager migration: bitwarden deep dive](/posts/2025-09-01-self-hosted-bitwarden-migration-guide)
 
 
-**In 2017, I implemented a document signing system for legal contracts:**
+**Years ago, I implemented a document signing system for legal contracts:**
 - First test was nerve-wracking. Would signatures hold up under scrutiny?
 - Watched lawyers confidently accept digitally signed agreements
 - Previously, they had insisted everything be handled on paper

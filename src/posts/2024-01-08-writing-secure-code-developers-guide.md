@@ -20,9 +20,9 @@ tags:
   - security
 
 ---
-Years ago, I discovered a glaring SQL injection vulnerability in an internal application during a routine code review. The sinking feeling that washed over me was like finding a door left unlocked overnight in a dangerous neighborhood. It was a wake-up call that fundamentally changed how I approach development - writing secure code isn't just a best practice, it's a moral imperative.
+Years ago, I discovered a glaring SQL injection vulnerability in an application I was reviewing. The sinking feeling that washed over me was like finding a door left unlocked overnight in a dangerous neighborhood. It was a wake-up call that fundamentally changed how I approach development - writing secure code isn't just a best practice, it's a moral imperative.
 
-That incident happened early in my career, and I still remember the quiet panic as we scrambled to patch it before anyone noticed. But someone had noticed - our security team had been tracking unusual database queries for weeks. What I thought was a minor oversight could have exposed thousands of user records.
+That incident happened early in my career, and I still remember the quiet panic as I worked to patch it before anyone noticed. But someone had noticed - our security team had been tracking unusual database queries for weeks. What I thought was a minor oversight could have exposed thousands of user records.
 
 ## How It Works
 
@@ -71,7 +71,7 @@ Organizations that treat security as "someone else's problem" inevitably face ha
 
 Only give your code the permissions it truly needs. A function that merely reads from a file shouldn't also write or delete. It sounds obvious, **but** I've made this mistake myself. In the rush to get features working, I granted broad database permissions to a service that only needed to query user preferences.
 
-The **trade-off** between development speed and security discipline is constant, and I usually lose that battle when deadlines loom. Years ago during a penetration test, the tester showed me how they could have used that over-privileged service to dump our entire user table. That extra permission I thought was "just easier" had created a critical vulnerability that sat unnoticed for months.
+The **trade-off** between development speed and security discipline is constant, and I usually lose that battle when deadlines loom. Years ago during a penetration test, the tester showed me how they could have used that over-privileged service to dump the application's user table. That extra permission I thought was "just easier" had created a critical vulnerability that sat unnoticed for months.
 
 When I applied least privilege to my homelab services in March 2024, I created 7 separate service accounts, each with minimal permissions. My monitoring service went from having GRANT ALL privileges to SELECT-only on 3 specific tables. Restricting permissions required 2 hours of work to refactor database access patterns, **but** it reduced my attack surface by roughly 85% (measured by accessible database objects: 127 objects down to 19).
 
@@ -81,7 +81,7 @@ In my homelab, I applied STRIDE threat modeling to my monitoring API in January 
 
 So many attacks (SQL injection, XSS, command injection) stem from unvalidated input. If you let user data flow unfiltered into your queries or system calls, you're rolling out a red carpet for attackers.
 
-Early in my career, I thought validation was just checking for empty fields. Then I watched a colleague demonstrate how they could bypass our "secure" login form by injecting SQL into the username field. The database query executed their malicious code instead of checking credentials. Validate everything: data type, length, format, and encoding.
+Early in my career, I thought validation was just checking for empty fields. Then I watched another developer demonstrate how they could bypass a "secure" login form by injecting SQL into the username field. The database query executed their malicious code instead of checking credentials. Validate everything: data type, length, format, and encoding.
 
 In my homelab, I tested 50 common SQL injection payloads against an API before and after implementing parameterized queries. Before: 38 payloads (76%) succeeded in manipulating queries. After parameterization: 0 successful injections (100% blocked). That stark difference convinced me that input validation isn't optional.
 

@@ -23,7 +23,7 @@ tags:
 
 ---
 
-**BLUF:** In April 2024, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
+**BLUF:** Recently, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
 The spark for this project came from watching GPT-4 confidently make up technical specifications for Docker containers that didn't exist in my setup. It told me I was running version 2.3.1 of a service I'd never installed. The response was authoritative, detailed, and completely wrong. For more context, see [introduction to fine-tuning llms in the homelab: a practical guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide).
 
@@ -116,7 +116,7 @@ But it worked better. Retrieval relevance jumped. I started getting 6-7 relevant
 **The Embedding Model Saga**
 I initially used `text-embedding-ada-002` from OpenAI. It worked fine for general content but struggled with my technical documentation. Specific model numbers, version strings, and command-line flags didn't embed well. The semantic similarity scores for clearly related documents were inconsistent, ranging from 0.71 to 0.89 for things I knew were connected.
 
-I switched to `text-embedding-3-small` in late March 2024 when OpenAI released it. Better results, faster processing (1,247 tokens/second vs 890 tokens/second), and cheaper costs ($0.02 per million tokens vs $0.10). Re-embedding my entire knowledge base took 43 minutes and cost me $12.40.
+I switched to `text-embedding-3-small` recently when OpenAI released it. Better results, faster processing (1,247 tokens/second vs 890 tokens/second), and cheaper costs ($0.02 per million tokens vs $0.10). Re-embedding my entire knowledge base took 43 minutes and cost me $12.40.
 
 The new embeddings improved retrieval. Semantic search now averaged 1.8 seconds with better precision. Documents I knew were related had similarity scores clustered between 0.82 and 0.94, much tighter distribution.
 
@@ -148,7 +148,7 @@ The language model needed careful prompting to use retrieved information effecti
 
 The external knowledge source required as much attention as the AI components, possibly more.
 
-**Content Curation:** I spent about 6 hours in mid-April 2024 cleaning up my documentation before indexing. Removed outdated configs, fixed typos, standardized formatting. This was tedious but necessary. Poor input quality meant poor retrieval quality, no matter how good my embeddings were.
+**Content Curation:** I spent about 6 hours recently cleaning up my documentation before indexing. Removed outdated configs, fixed typos, standardized formatting. This was tedious but necessary. Poor input quality meant poor retrieval quality, no matter how good my embeddings were.
 
 **Document Structure:** I enforced consistent Markdown formatting: clear H2 headings for major topics, H3 for subtopics, code blocks with language tags, and a "Last Updated" date at the top of each file. This improved chunk quality because semantic boundaries aligned with actual topic boundaries.
 

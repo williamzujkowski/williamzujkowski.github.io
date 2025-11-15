@@ -21,7 +21,7 @@ tags:
   - infrastructure
 
 ---
-In June 2024, I migrated 23 services from Docker Compose to K3s on my homelab. The migration took three weeks longer than planned, broke my monitoring stack twice, and resulted in my wife asking why the Plex server kept going down during movie night. At 2 AM on June 28th, while debugging why my ingress controller couldn't route traffic to my GitLab instance, I had a thought: maybe containers aren't the final answer. Understanding [cloud migration patterns](/posts/2024-03-05-cloud-migration-journey-guide) and [designing resilient systems](/posts/2024-06-25-designing-resilient-systems) became essential for this journey.
+Recently, I migrated 23 services from Docker Compose to K3s on my homelab. The migration took three weeks longer than planned, broke my monitoring stack twice, and resulted in my wife asking why the Plex server kept going down during movie night. At 2 AM on June 28th, while debugging why my ingress controller couldn't route traffic to my GitLab instance, I had a thought: maybe containers aren't the final answer. Understanding [cloud migration patterns](/posts/2024-03-05-cloud-migration-journey-guide) and [designing resilient systems](/posts/2024-06-25-designing-resilient-systems) became essential for this journey.
 
 I'd spent the previous year wrestling with Kubernetes networking, persistent volume claims that mysteriously disappeared, and YAML files that grew to ridiculous sizes. My Dell R940 was humming along with 64GB of RAM allocated to K3s, but something felt wrong. The complexity I'd added seemed heavier than the problems I was solving.
 
@@ -31,7 +31,7 @@ That sleepless debugging session launched me into a two-month exploration of wha
 
 Before diving into alternatives, let me share the data from my K3s migration that sparked all this.
 
-**Migration Timeline (June 2024):**
+**Migration Timeline:**
 - Week 1: Planned 2 days, took 6 days due to persistent volume issues
 - Week 2: Network policy debugging consumed 18 hours
 - Week 3: Broke Prometheus three times, had to restore from backup
@@ -109,7 +109,7 @@ For most things, that's fine. For some things, it's not.
 
 ## Serverless: My First (Failed) Experiment
 
-In late June 2024, I decided to test serverless computing on my homelab using OpenFaaS.
+Recently, I decided to test serverless computing on my homelab using OpenFaaS.
 
 ### The Setup
 

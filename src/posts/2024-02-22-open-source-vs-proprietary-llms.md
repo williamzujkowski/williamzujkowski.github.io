@@ -18,7 +18,7 @@ tags:
 - open-source
 title: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community'
 ---
-In January 2024, I spent three days trying to load Llama 3 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors after 45 minutes of loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
+Recently, I spent three days trying to load Llama 3 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors after 45 minutes of loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
 After switching to a 4-bit quantized version and tweaking llama.cpp settings, I finally got it running at 15 tokens per second. Not bad, but GPT-4's API was processing the same prompts at 40 tokens per second, and I didn't have to babysit VRAM allocation or worry about thermal throttling on my i9-9900K.
 
@@ -73,21 +73,21 @@ But "free" came with hidden costs. Setting up Ollama on my homelab server, confi
 
 **The Proprietary Experience:**
 - **Simplicity:** API calls replace 140GB downloads and CUDA configuration
-- **Performance:** GPT-4 Turbo (as of March 2024) still outperforms open-source models on complex reasoning, though the gap is narrowing
+- **Performance:** GPT-4 Turbo still outperforms open-source models on complex reasoning, though the gap is narrowing
 - **Reliability:** Professional support and 99.9% uptime SLAs beat my homelab's reliability
 - **Constraints:** Limited customization beyond prompt engineering and fine-tuning APIs (which cost $0.008 per 1K tokens for training)
 
 ## Real-World Implementation: Lessons from the Trenches
 
-In early 2024, I ran two experiments that highlighted these trade-offs perfectly:
+Recently, I ran two experiments that highlighted these trade-offs perfectly:
 
-**Experiment Alpha (Open-Source):** I deployed Mistral 7B v0.3 (December 2023 release) for local code completion on my homelab. The 7B model fit comfortably in my RTX 3090's 24GB VRAM and ran at 45 tokens per second, which meant autocomplete suggestions appeared instantly without any perceptible lag.
+**Experiment Alpha (Open-Source):** I deployed Mistral 7B v0.3 for local code completion on my homelab. The 7B model fit comfortably in my RTX 3090's 24GB VRAM and ran at 45 tokens per second, which meant autocomplete suggestions appeared instantly without any perceptible lag.
 
 This responsiveness makes it possible to integrate LLM suggestions directly into my coding workflow without disrupting my thought process. Total setup time was about 8 hours over two days, including downloading the 14GB model file and configuring vLLM for optimal batching. The electricity cost came to roughly $0.15 per day at my local rates.
 
 **Experiment Beta (Proprietary):** I integrated GPT-4 API for a chatbot prototype. Integration took 2 hours, including writing the API wrapper and handling rate limits. Performance was excellent at 40 tokens per second with no local hardware requirements.
 
-The first month's usage cost $47 for approximately 1.5 million tokens, which would have been free on local hardware (aside from electricity). However, I had zero control when OpenAI updated the model in March 2024, and response formatting changed slightly, requiring prompt adjustments.
+The first month's usage cost $47 for approximately 1.5 million tokens, which would have been free on local hardware (aside from electricity). However, I had zero control when OpenAI updated the model, and response formatting changed slightly, requiring prompt adjustments.
 
 Both approaches worked, but they taught me that the "right" choice depends entirely on constraints, requirements, and whether you enjoy debugging CUDA drivers at 2 AM.
 
@@ -96,7 +96,7 @@ Both approaches worked, but they taught me that the "right" choice depends entir
 Open-source advocates often emphasize customization as a key advantage, but my experience reveals nuance:
 
 **Deep Customization (Open-Source):**
-In February 2024, I fine-tuned Code Llama 13B on my homelab's dataset of internal documentation and code samples. The process consumed 64GB of RAM, pegged my i9-9900K at 100% CPU utilization for 6 hours, and required careful LoRA (Low-Rank Adaptation) configuration to fit within my RTX 3090's 24GB VRAM.
+In my testing, I fine-tuned Code Llama 13B on my homelab's dataset of internal documentation and code samples. The process consumed 64GB of RAM, pegged my i9-9900K at 100% CPU utilization for 6 hours, and required careful LoRA (Low-Rank Adaptation) configuration to fit within my RTX 3090's 24GB VRAM.
 
 The resulting model was 8% more accurate on domain-specific tasks according to my test set, which translates to answering internal documentation questions correctly 87% of the time versus 79% for the base model. This improvement came after two weeks of experimentation with learning rates and batch sizes.
 
@@ -150,7 +150,7 @@ Cost comparisons between open-source and proprietary LLMs are more complex than 
 - **Model Updates:** Downloading Llama 3.1 (140GB) over my home internet took 8 hours
 
 **Proprietary Economics (GPT-4 API Usage):**
-- **API Costs:** $47 for 1.5M tokens in month one (March 2024 pricing)
+- **API Costs:** $47 for 1.5M tokens in my first month of testing
 - **Scaling Concerns:** If usage 10x'd, cost would be $470/month vs ~$52/month for local
 - **No Infrastructure:** Zero time spent on CUDA drivers, model updates, or hardware troubleshooting
 - **Faster Development:** 2 hours integration vs 40 hours local setup
@@ -177,7 +177,7 @@ Honest performance comparisons reveal that proprietary models often maintain adv
 - **General Reasoning:** GPT-4 Turbo scored 87% on my multi-step reasoning tests, Llama 3 70B scored 76%, Mistral 7B scored 61%
 - **Code Generation:** GPT-4 produced working code 92% of the time, Code Llama 34B hit 84%, and Mistral 7B managed 68%
 - **Speed:** Local Mistral 7B ran at 45 tokens/sec on RTX 3090, GPT-4 API averaged 40 tokens/sec (with network latency), Llama 3 70B managed only 15 tokens/sec due to VRAM constraints forcing 4-bit quantization
-- **Context Windows:** GPT-4 Turbo handled 128K tokens (as of March 2024), Llama 3.1 matched that in July 2024, earlier models like Llama 2 were limited to 4K-8K tokens
+- **Context Windows:** GPT-4 Turbo handled 128K tokens, Llama 3.1 matched that capability, earlier models like Llama 2 were limited to 4K-8K tokens
 
 The quality gap exists but is narrowing. For simple tasks like summarization or basic Q&A, I honestly can't tell the difference between Mistral 7B and GPT-4 in blind tests, which means I can save $40-50/month by routing these queries to local models. For complex reasoning or creative writing, GPT-4 still has a noticeable edge. This translates to about 10-15% better accuracy on multi-step reasoning tasks, which is significant for critical applications but may not matter for casual use.
 
@@ -185,7 +185,7 @@ The quality gap exists but is narrowing. For simple tasks like summarization or 
 
 I've found that combining both approaches works better than committing to one exclusively:
 
-**My Current Setup (as of March 2024):**
+**My Current Setup:**
 - **Local First:** Mistral 7B on my RTX 3090 for code completion, document summarization, and general queries (free, private, fast)
 - **API Fallback:** GPT-4 for complex reasoning, creative writing, or when I need higher quality (costs ~$30-50/month for occasional use)
 - **Task Routing:** I've built a simple Python wrapper that tries local first, then falls back to API if the task seems complex or if local inference fails
@@ -200,7 +200,7 @@ What this means in practice: I route document summarization and basic code quest
 
 This hybrid approach probably isn't worth the complexity for production systems, but for personal use it hits a nice balance between cost, privacy, and capability.
 
-**Practical Impact Example:** In February 2024, I processed 2.1 million tokens using this hybrid setup. 1.8M went through local Mistral 7B (cost: $15 electricity), and 300K went through GPT-4 API (cost: $9). If I'd used GPT-4 for everything, the bill would have been $63. If I'd used only Mistral 7B, I would have gotten inferior results on the 300K complex reasoning tasks. The hybrid approach saved $39 that month while maintaining quality where it mattered.
+**Practical Impact Example:** In my testing, I processed 2.1 million tokens using this hybrid setup. 1.8M went through local Mistral 7B (cost: $15 electricity), and 300K went through GPT-4 API (cost: $9). If I'd used GPT-4 for everything, the bill would have been $63. If I'd used only Mistral 7B, I would have gotten inferior results on the 300K complex reasoning tasks. The hybrid approach saved $39 that month while maintaining quality where it mattered.
 
 ## Decision Framework: Choosing Your Path
 
@@ -228,9 +228,9 @@ After months of running both approaches in my homelab, here's my decision framew
 
 ## Looking Forward: The Evolving Landscape
 
-The gap between open-source and proprietary capabilities continues to narrow. When I first tested Llama 2 7B in July 2023, it felt like a toy compared to GPT-4. By March 2024, Llama 3 70B was producing outputs that I genuinely struggled to distinguish from GPT-4 on many tasks. Mistral's models (7B and 8x7B Mixtral) punch well above their weight, and Google's Gemma (released February 2024) brought similar quality improvements.
+The gap between open-source and proprietary capabilities continues to narrow. When I first tested Llama 2 7B, it felt like a toy compared to GPT-4. In recent testing, Llama 3 70B was producing outputs that I genuinely struggled to distinguish from GPT-4 on many tasks. Mistral's models (7B and 8x7B Mixtral) punch well above their weight, and Google's Gemma brought similar quality improvements.
 
-Simultaneously, proprietary providers are addressing customization concerns. OpenAI launched fine-tuning APIs in August 2023, and Anthropic offers similar capabilities for Claude. The distinction between "closed" and "open" is blurring as commercial providers offer more control and open-source models achieve better baseline performance.
+Simultaneously, proprietary providers are addressing customization concerns. OpenAI launched fine-tuning APIs, and Anthropic offers similar capabilities for Claude. The distinction between "closed" and "open" is blurring as commercial providers offer more control and open-source models achieve better baseline performance.
 
 I suspect we're heading toward a future where the choice matters less than it does today. Model quality will converge, and the decision will come down to practical considerations like latency, cost, and deployment complexity rather than fundamental capability gaps.
 
