@@ -33,7 +33,7 @@
   "author": "William Zujkowski",
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-navigation": "^1.0.4",
     "@playwright/test": "^1.56.1",
     "@tailwindcss/forms": "^0.5.10",
