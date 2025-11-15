@@ -185,7 +185,7 @@ Security is vast. You might gravitate toward:
 - Offensive security (pentesting, red teaming)
 - Defensive security (SOC, incident response)
 - Governance and compliance (frameworks, auditing)
-- Security engineering (building secure systems)
+- Security engineering ([building secure systems](/posts/2024-01-08-writing-secure-code-developers-guide))
 - Security research (finding new vulnerabilities)
 
 I thought I'd be in offensive security but found my passion in security engineering and architecture. Stay open to where your interests lead.

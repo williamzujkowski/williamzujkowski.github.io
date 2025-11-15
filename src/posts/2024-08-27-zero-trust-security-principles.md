@@ -359,7 +359,7 @@ Traditional security authenticated once, then trusted until session expiration. 
 - IOC feeds: Malicious IPs, file hashes, domains (CARTA framework[8])
 - Reputation: IP reputation, domain age, certificate validity
 - MITRE ATT&CK: Map adversary techniques in behavior
-- Feedback: False positive tuning, model retraining
+- Feedback: False positive tuning, [model retraining](/posts/2024-11-19-llms-smart-contract-vulnerability)
 
 ⚠️ **Warning:** This code demonstrates security monitoring concepts for educational purposes. Implement behavioral monitoring with proper privacy controls and compliance with organizational policies.
 
@@ -396,7 +396,7 @@ Traditional build systems had broad production access "because they needed to de
 **Security gates:**
 - SAST: Code scanning before build
 - SCA: Dependency scanning for CVEs
-- Container scanning: Trivy/Grype block high-severity issues
+- [Container scanning](/posts/2025-08-18-container-security-hardening-homelab): Trivy/Grype block high-severity issues
 - Policy-as-code: OPA policies[9] validate compliance
 
 **Pseudocode - Simplified CI/CD Security Pipeline:**

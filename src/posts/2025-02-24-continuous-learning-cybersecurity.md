@@ -81,7 +81,7 @@ But here's the key: These percentages flex based on your current needs.
 
 ## Strategy 1: Build a Learning Lab That Mirrors Reality
 
-My homelab isn't just for fun – it's my gym for cybersecurity skills.
+[My homelab](/posts/2025-04-24-building-secure-homelab-adventure) isn't just for fun – it's my gym for cybersecurity skills.
 
 ### Current Lab Setup
 
@@ -351,7 +351,7 @@ Beyond specific technologies, develop these:
 
 Here's what I'm actively learning (January 2025):
 
-1. **AI Security**: Prompt injection, model security, LLM vulnerabilities
+1. **AI Security**: [Prompt injection](/posts/2024-04-11-ethics-large-language-models), model security, [LLM vulnerabilities](/posts/2024-11-19-llms-smart-contract-vulnerability)
 2. **eBPF**: Started experimenting with this in March 2024, focusing on kernel-level visibility for detection and response
 3. **SOAR**: Automating response playbooks (though I'm still figuring out which platform fits my homelab best)
 4. **Leadership**: Managing up, strategic thinking

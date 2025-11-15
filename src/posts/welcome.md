@@ -47,7 +47,7 @@ My entire site builds in under 100ms. Coming from webpack-based tools, this feel
 
 This site is more than just a blog. It's:
 
-- **A knowledge repository** – My [Resources](/resources/) page catalogs tools and references I've found invaluable
+- **A knowledge repository** – My [Resources](/resources/) page catalogs tools and references I've found invaluable, from [homelab security](/posts/2025-04-24-building-secure-homelab-adventure) to professional development resources
 - **A professional portfolio** – The [About](/about/) section showcases my experience and projects
 - **A learning platform** – Each blog post represents hours of research and hands-on experience
 - **An experiment in web craft** – From the glass morphism effects to the responsive design, every detail is intentional
@@ -66,10 +66,10 @@ Some features I'm particularly proud of:
 
 This site will evolve as I do. Expect content on:
 
-- **Security engineering** – Real-world IR playbooks, security automation, and defensive strategies
-- **AI and automation** – Practical applications of LLMs, local AI deployment, and ethical considerations
+- **Security engineering** – Real-world IR playbooks, [security automation](/posts/2024-07-09-zero-trust-architecture-implementation), and [defensive strategies](/posts/2024-01-08-writing-secure-code-developers-guide)
+- **AI and automation** – Practical applications of LLMs, [local AI deployment](/posts/2025-06-25-local-llm-deployment-privacy-first), and [ethical considerations](/posts/2024-04-11-ethics-large-language-models)
 - **Open source projects** – Tools I'm building and contributing to
-- **Career insights** – Lessons learned from working in federal contracting and security operations
+- **Career insights** – Lessons learned from working in federal contracting and [security operations](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer)
 
 ## The Open Source Advantage
 

@@ -314,7 +314,7 @@ The applications I've seen emerge from these HPC advances show substantial real-
 - **Regional flooding forecasts**: Sub-kilometer grids enable accurate prediction of local flooding events weeks in advance
 - **Extreme weather modeling**: Hurricane intensity and path predictions improved by 30% through fine-grained atmospheric dynamics
 - **Multi-decadal projections**: 50-100 year climate scenarios now run in days rather than months
-- **Carbon cycle accuracy**: Coupled ocean-atmosphere-land models track CO₂ absorption with 10× higher fidelity
+- **Carbon cycle accuracy**: Coupled ocean-atmosphere-land models track CO₂ absorption with 10× higher fidelity, supporting [sustainable computing initiatives](/posts/2024-07-16-sustainable-computing-carbon-footprint)
 
 ### Materials Discovery
 - **Accelerated exploration**: AI-enhanced HPC is accelerating materials discovery by 50× compared to traditional approaches
