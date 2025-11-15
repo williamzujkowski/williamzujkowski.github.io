@@ -187,7 +187,7 @@
   "proxmox-ha/corosync.conf": {
     "url": "https://gist.github.com/williamzujkowski/f9db6bfc2a99d7a60d4138b9c4e485e0",
     "slug": "proxmox-corosync-config",
-    "description": "Corosync configuration with ring redundancy"
+    "description": "Corosync configuration with ring-3 redundancy"
   },
   "proxmox-ha/ceph-install.sh": {
     "url": "https://gist.github.com/williamzujkowski/372c1276a16f72eeb5e938206f12695c",

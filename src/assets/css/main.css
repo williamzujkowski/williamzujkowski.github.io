@@ -4,13 +4,13 @@
  */
 
 /* 1. Base Tailwind CSS - must come first */
-@import 'tailwind.css';
+@import './tailwind.css';
 
 /* 2. Theme tokens and CSS custom properties */
-@import 'theme-tokens.css';
+@import './theme-tokens.css';
 
 /* 3. Site-specific enhancements */
-@import 'enhancements.css';
+@import './enhancements.css';
 
 /* Base reset and improvements */
 *,

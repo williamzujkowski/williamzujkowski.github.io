@@ -27,7 +27,7 @@ def test_token_calculation():
     expected_tokens = round((1000 * 1.33) / 50) * 50  # Should be 1350 (rounded to nearest 50)
 
     print(f"✓ Token calculation formula verified:")
-    print(f"  1000 words → {expected_tokens} tokens (1.33 ratio, rounded to nearest 50)")
+    print(f"  1000 words → {expected_tokens} tokens (1.33 ratio, rounded-sm to nearest 50)")
 
     return expected_tokens == 1350
 

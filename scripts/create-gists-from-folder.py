@@ -200,7 +200,7 @@ GIST_METADATA = {
         "slug": "proxmox-cluster-create"
     },
     "proxmox-ha/corosync.conf": {
-        "description": "Corosync configuration with ring redundancy",
+        "description": "Corosync configuration with ring-3 redundancy",
         "slug": "proxmox-corosync-config"
     },
     "proxmox-ha/ceph-install.sh": {

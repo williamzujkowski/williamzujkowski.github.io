@@ -630,7 +630,7 @@ def validate_token_budgets() -> Tuple[bool, str]:
         error_lines.append("\n🔧 FIX: Update INDEX.yaml token estimates")
         error_lines.append("  Option 1 (Automatic): uv run python scripts/validation/fix-index-token-budgets.py")
         error_lines.append("  Option 2 (Manual): Update estimated_tokens in INDEX.yaml")
-        error_lines.append("  Formula: (word_count * 1.33), rounded to nearest 50")
+        error_lines.append("  Formula: (word_count * 1.33), rounded-sm to nearest 50")
         error_lines.append("\nThen stage INDEX.yaml and retry commit")
 
         # CHANGED (P2): Return False to BLOCK commit instead of warning
@@ -1066,7 +1066,7 @@ def validate_index_yaml() -> Tuple[bool, str]:
         if len(token_variances) > 5:
             errors.append(f"  ... and {len(token_variances) - 5} more")
         errors.append("\nUpdate INDEX.yaml estimates to reflect actual token counts")
-        errors.append("Formula: (word_count * 1.33), rounded to nearest 50")
+        errors.append("Formula: (word_count * 1.33), rounded-sm to nearest 50")
 
     if errors:
         return False, "\n".join(errors)

@@ -51,7 +51,7 @@
       const link = document.createElement('a');
       link.href = '#' + heading.id;
       link.textContent = heading.textContent;
-      link.className = 'block py-1 px-2 rounded transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-300';
+      link.className = 'block py-1 px-2 rounded-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-300';
       
       if (heading.tagName === 'H2') {
         // Main section
@@ -60,7 +60,7 @@
         currentH2Item = listItem;
       } else if (heading.tagName === 'H3' && currentH2Item) {
         // Subsection - indent it
-        link.className = 'block py-1 px-2 ml-4 text-sm rounded transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-300';
+        link.className = 'block py-1 px-2 ml-4 text-sm rounded-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-300';
 
         // Create or get the nested list
         let nestedList = currentH2Item.querySelector('ul');

@@ -188,11 +188,11 @@ aria-label="Jan 2024: 3 posts"
 **Current Implementation:**
 ```html
 <div class="flex gap-1">
-  <div class="w-8 h-8 rounded" style="background-color: #eef2ff"></div>
-  <div class="w-8 h-8 rounded" style="background-color: #c7d2fe"></div>
-  <div class="w-8 h-8 rounded" style="background-color: #a5b4fc"></div>
-  <div class="w-8 h-8 rounded" style="background-color: #818cf8"></div>
-  <div class="w-8 h-8 rounded" style="background-color: #6366f1"></div>
+  <div class="w-8 h-8 rounded-sm" style="background-color: #eef2ff"></div>
+  <div class="w-8 h-8 rounded-sm" style="background-color: #c7d2fe"></div>
+  <div class="w-8 h-8 rounded-sm" style="background-color: #a5b4fc"></div>
+  <div class="w-8 h-8 rounded-sm" style="background-color: #818cf8"></div>
+  <div class="w-8 h-8 rounded-sm" style="background-color: #6366f1"></div>
 </div>
 ```
 
@@ -244,7 +244,7 @@ aria-label="Jan 2024: 3 posts"
    // Add to updateHeatmap() function
    const legendColors = isDark ? darkColors : lightColors;
    document.getElementById('legend').innerHTML = legendColors.map((color, i) =>
-     `<div class="w-11 h-11 rounded" style="background-color: ${color}"
+     `<div class="w-11 h-11 rounded-sm" style="background-color: ${color}"
           aria-label="${i*20}-${(i+1)*20}% activity"></div>`
    ).join('');
    ```
@@ -267,7 +267,7 @@ aria-label="Jan 2024: 3 posts"
 
 1. **Increase Legend Touch Targets**
    ```html
-   <div class="w-11 h-11 min-h-[44px] min-w-[44px] rounded" ...></div>
+   <div class="w-11 h-11 min-h-[44px] min-w-[44px] rounded-sm" ...></div>
    ```
 
 2. **Add Legend ARIA Labels**

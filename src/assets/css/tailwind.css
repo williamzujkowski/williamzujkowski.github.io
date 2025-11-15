@@ -1,6 +1,170 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility gradient-text {
+  /* Gradient text */
+  @apply bg-linear-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent;
+}
+
+@utility glass {
+  /* Glass morphism effect */
+  @apply bg-white backdrop-blur-lg border border-gray-200 shadow-xl opacity-95;
+}
+
+@utility glass-dark {
+  @apply bg-gray-900 backdrop-blur-lg border border-gray-700 shadow-xl opacity-95;
+}
+
+@utility hover-card {
+  /* Hover card effect */
+  @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+}
+
+@utility focus-ring {
+  /* Focus styles */
+  @apply focus:outline-hidden focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900;
+}
+
+@utility focus-visible {
+  /* Enhanced keyboard focus */
+  &:focus {
+    @apply outline-hidden ring-2 ring-primary-500 ring-offset-2 dark:ring-offset-gray-900;
+  }
+}
+
+@utility btn {
+  /* Button styles */
+  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus-ring;
+}
+
+@utility btn-primary {
+  @apply btn bg-primary-700 text-white hover:bg-primary-800 active:bg-primary-900 shadow-xs hover:shadow-md;
+}
+
+@utility btn-secondary {
+  @apply btn bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 active:bg-gray-400 dark:active:bg-gray-500;
+}
+
+@utility btn-ghost {
+  @apply btn bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700;
+}
+
+@utility link {
+  /* Link styles */
+  @apply text-primary-600 hover:text-primary-700 underline underline-offset-2 decoration-primary-400 hover:decoration-primary-600 transition-all duration-200;
+}
+
+@utility code-block {
+  /* Code blocks */
+  @apply bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto;
+}
+
+@utility code-block-wrapper {
+  /* Collapsible code blocks */
+  @apply relative my-6;
+
+  /* Copy button positioning fix for wrapped code blocks */
+  & .code-copy-btn {
+    z-index: 10;
+  }
+}
+
+@utility code-block-container {
+  @apply relative;
+
+  /* Smooth transitions for code blocks */
+  transition: max-height 0.3s ease-in-out;
+}
+
+@utility prose {
+  /* Ensure proper dark mode for code blocks */
+  & pre {
+    @apply relative;
+  }
+}
+
+@utility code-gradient-overlay {
+  /* Style for collapsed code indicator */
+  pointer-events: none;
+
+  /* Dark mode adjustments for code buttons */
+  .dark & {
+    background: linear-gradient(transparent, rgba(17, 24, 39, 0.95)) !important;
+  }
+}
+
+@utility dark {
+  /* Dark mode adjustments for code buttons */
+  & .code-gradient-overlay {
+    background: linear-gradient(transparent, rgba(17, 24, 39, 0.95)) !important;
+  }
+
+  & .code-language-label {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: rgba(147, 187, 253, 0.95) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+  }
+}
+
+@utility code-copy-btn {
+  /* Copy button positioning fix for wrapped code blocks */
+  .code-block-wrapper & {
+    z-index: 10;
+  }
+}
+
+@utility code-language-label {
+  /* Code language labels */
+  @apply text-primary-600 dark:text-primary-400;
+
+  .dark & {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: rgba(147, 187, 253, 0.95) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+  }
+}
+
+@utility section-spacing {
+  /* Section spacing */
+  @apply py-16 md:py-24 lg:py-32;
+}
+
+@utility text-balance {
+  /* Text balance */
+  text-wrap: balance;
+}
+
+@utility animation-delay-200 {
+  /* Animation delays */
+  animation-delay: 200ms;
+}
+
+@utility animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+@utility animation-delay-600 {
+  animation-delay: 600ms;
+}
 
 /* Responsive enhancements are now included in enhancements.css */
 
@@ -74,134 +238,6 @@
   }
 }
 
-@layer components {
-  /* Gradient text */
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent;
-  }
-
-  /* Glass morphism effect */
-  .glass {
-    @apply bg-white backdrop-blur-lg border border-gray-200 shadow-xl opacity-95;
-  }
-
-  .glass-dark {
-    @apply bg-gray-900 backdrop-blur-lg border border-gray-700 shadow-xl opacity-95;
-  }
-
-  /* Hover card effect */
-  .hover-card {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
-  }
-
-  /* Focus styles */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900;
-  }
-  
-  /* Enhanced keyboard focus */
-  .focus-visible:focus {
-    @apply outline-none ring-2 ring-primary-500 ring-offset-2 dark:ring-offset-gray-900;
-  }
-
-  /* Button styles */
-  .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus-ring;
-  }
-
-  .btn-primary {
-    @apply btn bg-primary-700 text-white hover:bg-primary-800 active:bg-primary-900 shadow-sm hover:shadow-md;
-  }
-
-  .btn-secondary {
-    @apply btn bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 active:bg-gray-400 dark:active:bg-gray-500;
-  }
-
-  .btn-ghost {
-    @apply btn bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700;
-  }
-
-  /* Link styles */
-  .link {
-    @apply text-primary-600 hover:text-primary-700 underline underline-offset-2 decoration-primary-400 hover:decoration-primary-600 transition-all duration-200;
-  }
-
-  /* Code blocks */
-  .code-block {
-    @apply bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto;
-  }
-
-  /* Collapsible code blocks */
-  .code-block-wrapper {
-    @apply relative my-6;
-  }
-
-  .code-block-container {
-    @apply relative;
-  }
-
-  /* Ensure proper dark mode for code blocks */
-  .prose pre {
-    @apply relative;
-  }
-
-  /* Style for collapsed code indicator */
-  .code-gradient-overlay {
-    pointer-events: none;
-  }
-
-  /* Dark mode adjustments for code buttons */
-  .dark .code-gradient-overlay {
-    background: linear-gradient(transparent, rgba(17, 24, 39, 0.95)) !important;
-  }
-
-  /* Smooth transitions for code blocks */
-  .code-block-container {
-    transition: max-height 0.3s ease-in-out;
-  }
-
-  /* Copy button positioning fix for wrapped code blocks */
-  .code-block-wrapper .code-copy-btn {
-    z-index: 10;
-  }
-
-  /* Code language labels */
-  .code-language-label {
-    @apply text-primary-600 dark:text-primary-400;
-  }
-
-  .dark .code-language-label {
-    background: rgba(99, 102, 241, 0.1) !important;
-    color: rgba(147, 187, 253, 0.95) !important;
-    border-color: rgba(99, 102, 241, 0.2) !important;
-  }
-
-  /* Section spacing */
-  .section-spacing {
-    @apply py-16 md:py-24 lg:py-32;
-  }
-}
-
-@layer utilities {
-  /* Text balance */
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Animation delays */
-  .animation-delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 400ms;
-  }
-
-  .animation-delay-600 {
-    animation-delay: 600ms;
-  }
-}
-
 /* Animations */
 @keyframes fade-in-up {
   from {
@@ -248,9 +284,9 @@
 .mermaid-container {
   @apply relative my-6 p-4 rounded-lg overflow-x-auto;
   @apply bg-gray-50 dark:bg-gray-800;
-  @apply backdrop-blur-sm;
+  @apply backdrop-blur-xs;
   @apply border border-gray-200 dark:border-gray-700;
-  @apply shadow-sm hover:shadow-md transition-shadow duration-200;
+  @apply shadow-xs hover:shadow-md transition-shadow duration-200;
 }
 
 .mermaid-container .mermaid {
@@ -281,7 +317,7 @@
 }
 
 .toc-content {
-  @apply bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-200 dark:border-gray-700;
+  @apply bg-white dark:bg-gray-800 rounded-lg p-4 shadow-xs border border-gray-200 dark:border-gray-700;
 }
 
 .toc-title {
@@ -305,7 +341,7 @@
 }
 
 .toc-link {
-  @apply block py-1 px-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 rounded;
+  @apply block py-1 px-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 rounded-sm;
 }
 
 .toc-item-h3 .toc-link {
@@ -351,7 +387,7 @@
 /* Back to top button */
 #back-to-top {
   @apply transform hover:scale-110 focus:scale-110;
-  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  @apply focus:outline-hidden focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
 }
 
 #back-to-top.visible {

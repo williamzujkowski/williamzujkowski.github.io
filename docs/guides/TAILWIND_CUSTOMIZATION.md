@@ -275,7 +275,7 @@ In `src/assets/css/tailwind.css`:
 @layer utilities {
   /* Text gradient */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-primary-400 
+    @apply bg-linear-to-r from-primary-600 to-primary-400 
            bg-clip-text text-transparent;
   }
   

@@ -253,7 +253,7 @@ npx pa11y https://williamzujkowski.github.io/
 - Outline or background color change
 - 2px solid focus ring
 - High contrast with background
-- Never remove focus indicators with `outline: none` without replacement
+- Never remove focus indicators with `outline-solid: none` without replacement
 
 ---
 
