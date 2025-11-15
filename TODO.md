@@ -368,12 +368,12 @@
    - Documentation: `scripts/README-DARK-MODE-TESTING.md` (262 lines)
    - JSON report: `dark-mode-validation-report.json`
 
-3. ⏳ **Top 10 most-visited posts** - PENDING (requires analytics)
-4. ⏳ **Search functionality** - PENDING (LOW priority)
+3. ⏳ **Top 10 most-visited posts** - PENDING (requires analytics, deferred)
+4. ✅ **Search functionality** - COMPLETE (Task 12, Session 45, 1.5h)
 
-**Estimated Effort:** 4-6 hours total (4-5h completed, 1-2h remaining)
-**Priority:** MEDIUM (Phase 1-2 complete, analytics-dependent Phase 3 pending)
-**Status:** ⚡ **PHASE 2 COMPLETE** - 50% done (2/4 phases)
+**Estimated Effort:** 6.5 hours total (6.5h completed)
+**Priority:** MEDIUM (Phases 1-2, 4 complete; Phase 3 analytics-dependent)
+**Status:** ✅ **75% COMPLETE** - 3/4 phases done (Phase 3 blocked on analytics)
 
 ---
 
