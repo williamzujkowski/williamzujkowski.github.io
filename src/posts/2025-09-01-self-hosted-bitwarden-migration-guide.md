@@ -168,6 +168,12 @@ Enable 2FA for all accounts through web vault:
 
 Recovery codes are critical. Without them, device loss means account lockout.
 
+### TOTP Backup Storage Strategy
+
+**Encrypted TOTP seed storage:** Your authenticator app's TOTP seeds should be backed up separately from Bitwarden. If you lose your phone AND master password simultaneously, recovery codes won't help if they're stored in the vault you can't access.
+
+**Recommended approach:** Export TOTP seeds from your authenticator app (Aegis supports encrypted exports, Google Authenticator does not). Encrypt the export with GPG using `gpg --symmetric --cipher-algo AES256 totp-seeds.txt > totp-backup.gpg`. Store encrypted backups in three locations: fireproof safe (home), bank safety deposit box (offsite), and encrypted cloud storage (Backblaze B2, separate passphrase from Bitwarden). Never store the decryption passphrase with the encrypted file. Test recovery quarterly by decrypting backup and importing to a test device to verify all TOTP codes work.
+
 ### Backup Key Management (MODERATE)
 
 **The Problem:** Self-hosted password managers create a single point of failure for ALL your credentials. Lose access to your Bitwarden instance + master password, and every account password is gone. Backup key management isn't optional—it's disaster recovery planning.

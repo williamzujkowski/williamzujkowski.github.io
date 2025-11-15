@@ -361,6 +361,12 @@ I once spent an entire weekend debugging why my eBPF program worked perfectly on
 
 **Solution**: Use CO-RE (Compile Once, Run Everywhere) with BTF (BPF Type Format) for portability.
 
+### BTF Availability Validation
+
+**Check kernel BTF support:** Before deploying CO-RE eBPF programs, verify your kernel exposes BTF information with `ls /sys/kernel/btf/vmlinux`. If missing, kernel was built without `CONFIG_DEBUG_INFO_BTF=y`. Ubuntu 20.04+ and RHEL 8.2+ enable BTF by default. For custom kernels, rebuild with BTF enabled or use non-CO-RE eBPF (requires recompilation per kernel version).
+
+**Debug BTF issues:** If programs fail with "CO-RE relocation failed" errors, check BTF completeness with `bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h` and search for your target struct (e.g., `grep "struct task_struct" vmlinux.h`). Missing structs indicate incomplete BTF. Install `linux-headers-$(uname -r)` to populate module BTF at `/sys/kernel/btf/<module_name>`. Verify with `bpftool btf list` showing all available BTF objects. For production deployments, add BTF validation to startup scripts: `test -f /sys/kernel/btf/vmlinux || exit 1` prevents eBPF programs from loading on incompatible kernels.
+
 ### The Verifier Rejection Blues
 The BPF verifier is like a strict code reviewer who rejects anything slightly suspicious. Complex loops? Rejected. Stack usage over 512 bytes? Rejected. Too many instructions? Rejected.
 

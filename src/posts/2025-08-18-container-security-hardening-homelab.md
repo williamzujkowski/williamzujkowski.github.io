@@ -194,6 +194,12 @@ I scan every image before deployment using Grype. This saved me from deploying a
 
 <script src="https://gist.github.com/williamzujkowski/b74f50dae6a9bc1e28c9dd66b7c7682e.js"></script>
 
+### SBOM Generation for Supply Chain Security
+
+**Why SBOM matters:** Vulnerability scanning catches known CVEs today, but new vulnerabilities emerge constantly. SBOMs (Software Bill of Materials) provide a comprehensive inventory of all dependencies so you can retroactively identify affected containers when CVE-2025-XXXX is disclosed months after deployment.
+
+**Generate SBOMs with Syft:** Use Anchore's Syft to create SBOM alongside vulnerability scans: `syft nginx:alpine -o cyclonedx-json > nginx-sbom.json`. Store SBOMs in artifact registry with image tags for historical tracking. When Log4Shell (CVE-2021-44228) was disclosed, organizations with SBOMs identified affected containers in minutes by searching SBOMs for `log4j-core`. Without SBOMs, manual identification took days. Automate SBOM generation in CI/CD: `syft dir:. -o spdx-json > sbom.spdx.json && grype sbom:sbom.spdx.json` scans SBOM instead of re-analyzing image, reducing scan time by 40%. Integrate with [GUAC (Graph for Understanding Artifact Composition)](https://guac.sh/) for supply chain relationship mapping across all container dependencies.
+
 ### Secrets Management: My Docker Hub Disaster
 
 In June 2025, I made a catastrophic mistake. I hardcoded database credentials in a Dockerfile (yes, I know better). I built the image and pushed it to Docker Hub's public registry without thinking. Within 4 hours, the image had 23 pulls from IPs I didn't recognize (confirmed via Docker Hub analytics).

@@ -529,6 +529,12 @@ Allow service discovery across VLANs without full connectivity:
 
 Enable Avahi reflector for AirPlay, Chromecast, HomeKit services across VLANs
 
+### mDNS Reflection Security Considerations
+
+**Attack vector:** mDNS reflectors can be abused for amplification attacks. An attacker on IoT VLAN 40 sends small mDNS queries (60 bytes) that get reflected across all VLANs with 10x amplification (600+ byte responses). This bypasses VLAN isolation for reconnaissance and can saturate network bandwidth.
+
+**Mitigation strategies:** Implement rate limiting on Avahi reflector (`ratelimit-interval-usec=1000000` limits queries to 1/second per source). Restrict reflection to specific VLANs using `allow-interfaces=vlan20,vlan30` (exclude untrusted IoT VLAN 40 from reflection). Enable mDNS filtering on firewall to block `.local` queries from IoT devices to management VLANs. Monitor Avahi logs for unusual query patterns (`journalctl -u avahi-daemon | grep -E "query|response" | awk '{print $NF}' | sort | uniq -c | sort -rn`). For high-security environments, disable mDNS reflection entirely and use static DNS entries or dedicated service discovery infrastructure (Consul, etcd).
+
 ### Private VLAN (PVLAN) for IoT Isolation
 
 📎 **Complete configuration:**
