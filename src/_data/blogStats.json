@@ -1,15 +1,15 @@
 {
   "total_posts": 63,
-  "total_words": 137101,
-  "average_words": 2176.2,
-  "average_reading_time": 9.6,
+  "total_words": 138748,
+  "average_words": 2202.3,
+  "average_reading_time": 9.7,
   "posts_by_year": {
     "2024": 32,
     "2025": 31
   },
   "words_by_year": {
-    "2024": 88235,
-    "2025": 48866
+    "2024": 89396,
+    "2025": 49352
   },
   "posts_by_month": {
     "2025-01": 3,
@@ -230,9 +230,9 @@
     "reading_time": 25
   },
   "shortest_post": {
-    "title": "Building My Digital Garden with Eleventy",
-    "word_count": 436,
-    "reading_time": 2
+    "title": "Building Your Own MITRE ATT&CK Threat Intelligence Dashboard",
+    "word_count": 503,
+    "reading_time": 3
   },
   "posts_with_images": 61,
   "posts_with_images_percentage": 96.8,
@@ -243,16 +243,16 @@
     "10+ min": 32
   },
   "citation_stats": {
-    "total_external_links": 929,
-    "total_internal_links": 280,
-    "average_citation_density": 9.2,
+    "total_external_links": 928,
+    "total_internal_links": 389,
+    "average_citation_density": 9.04,
     "average_external_links_per_post": 14.7
   },
   "code_stats": {
-    "average_code_to_content_ratio": 9.4,
+    "average_code_to_content_ratio": 9.3,
     "posts_with_code": 57,
     "posts_with_code_percentage": 90.5
   },
-  "generated_at": "2025-11-14T08:59:40.950321",
+  "generated_at": "2025-11-14T23:31:50.811747",
   "reading_speed_wpm": 238
 }
