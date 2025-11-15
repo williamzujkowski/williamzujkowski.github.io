@@ -20,7 +20,7 @@ tags:
   - security
 
 ---
-After 15+ years in cybersecurity, I've learned one truth: The moment you stop learning is the moment you become obsolete. But here's the challenge – how do you keep up with a field that literally changes every day without burning out? Here are the strategies that have worked for me.
+After 15+ years in cybersecurity, I've learned one truth: The moment you stop learning is the moment you become obsolete. But here's the challenge – how do you keep up with a field that literally changes every day without burning out? Here are the strategies that have worked for me, refined through [my journey from IT support to senior InfoSec engineer](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer/).
 
 ## How It Works
 
@@ -81,7 +81,7 @@ But here's the key: These percentages flex based on your current needs.
 
 ## Strategy 1: Build a Learning Lab That Mirrors Reality
 
-[My homelab](/posts/2025-04-24-building-secure-homelab-adventure) isn't just for fun – it's my gym for cybersecurity skills.
+My homelab isn't just for fun – it's my gym for cybersecurity skills. I documented [my secure homelab adventure](/posts/2025-04-24-building-secure-homelab-adventure/) to show how practical, hands-on learning beats passive consumption every time.
 
 ### Current Lab Setup
 
@@ -351,14 +351,18 @@ Beyond specific technologies, develop these:
 
 Here's what I'm actively learning (January 2025):
 
-1. **AI Security**: [Prompt injection](/posts/2024-04-11-ethics-large-language-models), model security, [LLM vulnerabilities](/posts/2024-11-19-llms-smart-contract-vulnerability)
+1. **AI Security**: Prompt injection, model security, LLM vulnerabilities
 2. **eBPF**: Started experimenting with this in March 2024, focusing on kernel-level visibility for detection and response
 3. **SOAR**: Automating response playbooks (though I'm still figuring out which platform fits my homelab best)
 4. **Leadership**: Managing up, strategic thinking
 
+Specific learning projects I'm working on include [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/), [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/), and [automated security scanning pipelines](/posts/2025-10-06-automated-security-scanning-pipeline/).
+
 ## Your Learning Path
 
 The key is personalization. My path won't be yours, and that's completely fine. Your career goals, learning style, and time availability will shape what works best. Consider these starting points:
+
+For those new to vulnerability management, my guide on [vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev/) demonstrates a systematic approach to continuous learning in risk assessment.
 
 ### Early Career? Focus on:
 - Fundamentals (networking, Linux, Windows)

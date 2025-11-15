@@ -18,8 +18,7 @@ tags:
   - sustainability
 
 ---
-In September 2023, I analyzed our machine learning infrastructure's energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning. We weren't just burning through budget, we were burning through the planet's resources.
-
+In September 2023, I analyzed our machine learning infrastructure's energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars we were spending on compute costs took on a different meaning. We weren't just burning through budget, we were burning through the planet's resources. This insight connects to broader lessons from [nature-inspired biomimetic engineering](/posts/2024-09-19-biomimetic-robotics/) where efficiency is literally a survival trait.
 
 That realization started my deep dive into sustainable computing, where I discovered that efficiency isn't just about performance or cost. It's about responsibility to future generations.
 
@@ -40,7 +39,7 @@ The tech industry's environmental impact had been invisible to me until I starte
 - Video conferencing during remote work: 25 MWh annually
 
 **The Exponential Growth Problem:**
-Computational demands were growing faster than efficiency improvements, meaning absolute energy consumption continued increasing despite more efficient hardware.
+Computational demands were growing faster than efficiency improvements, meaning absolute energy consumption continued increasing despite more efficient hardware. My work on [GPU power monitoring in the homelab](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) revealed the stark reality: a single ML training run consumed more power than my entire house for a day.
 
 ## Measuring and Understanding Our Impact
 
@@ -371,8 +370,9 @@ I started with these practical changes in January 2024, though I'm still learnin
 **Medium-term Projects (6-18 months):**
 - Implement carbon-aware computing practices
 - Redesign applications for energy efficiency
-- Deploy edge computing for data locality
+- Deploy [edge computing for data locality](/posts/2024-10-22-ai-edge-computing/) (reduces datacenter load, improves latency)
 - Establish comprehensive sustainability metrics
+- Explore [resource-constrained AI learning](/posts/2024-05-30-ai-learning-resource-constrained/) for efficient model training
 
 **Long-term Transformation (18+ months):**
 - Migrate to renewable energy-powered data centers

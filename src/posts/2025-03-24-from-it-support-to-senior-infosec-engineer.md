@@ -185,10 +185,10 @@ Security is vast. You might gravitate toward:
 - Offensive security (pentesting, red teaming)
 - Defensive security (SOC, incident response)
 - Governance and compliance (frameworks, auditing)
-- Security engineering ([building secure systems](/posts/2024-01-08-writing-secure-code-developers-guide))
-- Security research (finding new vulnerabilities)
+- Security engineering (building secure systems). My approach to [continuous learning in cybersecurity](/posts/2025-02-24-continuous-learning-cybersecurity/) helped me navigate this constantly evolving field.
+- Security research (finding new vulnerabilities). Practical projects like [Raspberry Pi security implementations](/posts/2025-03-10-raspberry-pi-security-projects/) and [automated security scanning pipelines](/posts/2025-10-06-automated-security-scanning-pipeline/) built hands-on skills that accelerated my career progression.
 
-I thought I'd be in offensive security but found my passion in security engineering and architecture. Stay open to where your interests lead.
+I thought I'd be in offensive security but found my passion in security engineering and architecture. Stay open to where your interests lead. [Building a secure homelab](/posts/2025-04-24-building-secure-homelab-adventure/) gave me a safe environment to explore different specializations before committing to a career path, while [vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev/) taught me systematic risk assessment that applies across all security domains.
 
 ### 4. Remember It's a Marathon
 Burnout is real in security. We deal with:

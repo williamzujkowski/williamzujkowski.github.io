@@ -1,19 +1,19 @@
 {
-  "generated": "2025-11-14T22:56:01.642094",
-  "total_links": 352,
-  "avg_links_per_post": 5.59,
+  "generated": "2025-11-14T23:14:32.042743",
+  "total_links": 377,
+  "avg_links_per_post": 5.98,
   "target_range": "6-10",
-  "posts_below_target": 24,
-  "posts_in_target": 39,
+  "posts_below_target": 17,
+  "posts_in_target": 46,
   "posts_above_target": 0,
-  "orphaned_posts": 6,
-  "hub_posts": 20,
-  "progress_to_target": "61.9%",
+  "orphaned_posts": 4,
+  "hub_posts": 22,
+  "progress_to_target": "73.0%",
   "link_distribution": {
     "0_links": 0,
-    "1_2_links": 1,
-    "3_5_links": 23,
-    "6_10_links": 39,
+    "1_2_links": 0,
+    "3_5_links": 17,
+    "6_10_links": 46,
     "10plus_links": 0
   }
 }

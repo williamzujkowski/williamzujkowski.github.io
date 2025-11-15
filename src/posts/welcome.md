@@ -19,7 +19,7 @@ tags:
 - open-source
 title: Building My Digital Garden with Eleventy
 ---
-Welcome to my digital corner of the internet! After years of working in security engineering and incident response, I decided it was time to create a proper home for my thoughts, projects, and learnings.
+Welcome to my digital corner of the internet! After years of working in security engineering and incident response, I decided it was time to create a proper home for my thoughts, projects, and learnings. This site documents [my secure homelab journey](/posts/2025-04-24-building-secure-homelab-adventure/), development workflows, and technical experiments.
 
 ## The Journey to Eleventy
 
@@ -47,7 +47,7 @@ My entire site builds in under 100ms. Coming from webpack-based tools, this feel
 
 This site is more than just a blog. It's:
 
-- **A knowledge repository** – My [Resources](/resources/) page catalogs tools and references I've found invaluable, from [homelab security](/posts/2025-04-24-building-secure-homelab-adventure) to professional development resources
+- **A knowledge repository** – My [Resources](/resources/) page catalogs tools and references I've found invaluable
 - **A professional portfolio** – The [About](/about/) section showcases my experience and projects
 - **A learning platform** – Each blog post represents hours of research and hands-on experience
 - **An experiment in web craft** – From the glass morphism effects to the responsive design, every detail is intentional
@@ -66,14 +66,14 @@ Some features I'm particularly proud of:
 
 This site will evolve as I do. Expect content on:
 
-- **Security engineering** – Real-world IR playbooks, [security automation](/posts/2024-07-09-zero-trust-architecture-implementation), and [defensive strategies](/posts/2024-01-08-writing-secure-code-developers-guide)
-- **AI and automation** – Practical applications of LLMs, [local AI deployment](/posts/2025-06-25-local-llm-deployment-privacy-first), and [ethical considerations](/posts/2024-04-11-ethics-large-language-models)
-- **Open source projects** – Tools I'm building and contributing to
-- **Career insights** – Lessons learned from working in federal contracting and [security operations](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer)
+- **Security engineering** – Real-world IR playbooks, security automation, and defensive strategies
+- **AI and automation** – Practical applications of LLMs, local AI deployment, and ethical considerations. I'm particularly excited about [Claude Code with standardized workflows](/posts/2025-07-22-supercharging-claude-cli-with-standards/) and [Claude Flow for AI-powered development](/posts/2025-08-07-supercharging-development-claude-flow/).
+- **Open source projects** – Tools I'm building and contributing to, including [my MCP standards server](/posts/2025-07-29-building-mcp-standards-server/)
+- **Career insights** – Lessons learned from working in federal contracting and security operations
 
 ## The Open Source Advantage
 
-This site is [open source on GitHub](https://github.com/williamzujkowski/williamzujkowski.github.io). Feel free to explore the code, learn from it, or even fork it for your own use. I believe in learning in public and sharing knowledge freely.
+This site is [open source on GitHub](https://github.com/williamzujkowski/williamzujkowski.github.io). Feel free to explore the code, learn from it, or even fork it for your own use. I believe in learning in public and sharing knowledge freely. For those interested in workflow optimization, my posts on [progressive context loading for LLM workflows](/posts/2025-10-17-progressive-context-loading-llm-workflows/) and [privacy-first AI lab deployment](/posts/2025-10-29-privacy-first-ai-lab-local-llms/) demonstrate how open-source tools enable sophisticated development setups.
 
 
 ## Let's Connect

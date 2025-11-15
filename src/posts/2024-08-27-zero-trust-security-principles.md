@@ -22,12 +22,13 @@ tags:
 ---
 ## BLUF
 
-Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Order 14028[1]. The shift from "castle-and-moat" perimeter security to "never trust, always verify" is mandatory. This guide covers architecture components, implementation strategy, and lessons learned from modernizing security for distributed systems.
+Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Order 14028[1]. The shift from "castle-and-moat" perimeter security to "never trust, always verify" is mandatory. This guide covers architecture components, implementation strategy, and lessons learned from modernizing security for distributed systems. I implemented these principles in my homelab through [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/), demonstrating how the concepts scale from enterprise to small deployments.
 
 **What you'll learn:**
 - Zero Trust architecture (policy engine, verification flows, continuous monitoring)
-- Identity-centric security model (authentication, authorization, least privilege)
-- Service mesh security (mTLS, SPIFFE/SPIRE, API gateway patterns)
+- Identity-centric security model (authentication, authorization, least privilege). Understanding [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) is essential for implementing robust identity verification.
+- Service mesh security (mTLS, SPIFFE/SPIRE, API gateway patterns). These patterns extend to [cloud-native security](/posts/2024-01-30-securing-cloud-native-frontier/) where zero-trust principles are critical for distributed microservices.
+- Network visibility through [traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/) and [container security hardening](/posts/2025-08-18-container-security-hardening-homelab/) to detect zero-trust policy violations in real-time.
 - CI/CD pipeline hardening (artifact signing, secret management, security gates)
 - Implementation strategy (assessment, identity foundation, network segmentation)
 

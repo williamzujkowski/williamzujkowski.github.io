@@ -205,7 +205,7 @@ In April 2024, deploying a multimodal customer service bot revealed edge cases w
 **Strengths:** Customizable, can be fine-tuned for specific domains, cost-effective for large-scale deployment
 **Applications:** Specialized industry applications, research and development
 **Limitations:** Generally less capable than commercial alternatives out of the box, require more technical expertise and fine-tuning effort
-**Project:** In July 2024, I fine-tuned LLaVA 1.5 (13B parameters) for medical imaging analysis using 5,000 labeled chest X-rays. After 3 epochs of training, it achieved 81% accuracy on our validation set, improving from the base model's 68%, though it still lagged behind GPT-4V's 87% on the same task. [Local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first) requires careful resource planning.
+**Project:** In July 2024, I fine-tuned LLaVA 1.5 (13B parameters) for medical imaging analysis using 5,000 labeled chest X-rays. After 3 epochs of training, it achieved 81% accuracy on our validation set, improving from the base model's 68%, though it still lagged behind GPT-4V's 87% on the same task. My guide on [LLM fine-tuning in the homelab](/posts/2025-05-10-llm-fine-tuning-homelab-guide/) covers the detailed process I used, including hardware requirements and training optimization techniques. For those deploying similar models, [securing AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments/) is essential given the sensitive nature of medical data.
 
 ## What's Coming Next in Multimodal AI
 
@@ -213,12 +213,12 @@ In April 2024, deploying a multimodal customer service bot revealed edge cases w
 
 **Audio Integration:** Models that can reason across speech, music, and environmental sounds. Early experiments I conducted in June 2024 with Gemini 1.5 Pro's audio capabilities showed promising results, though it struggled with overlapping speech and background noise.
 **Video Understanding:** Temporal reasoning across video sequences with audio and visual components
-**Sensor Data:** Integration of IoT sensor data with visual and textual information
-**Haptic Feedback:** Incorporating touch and force feedback for embodied AI applications, though this remains largely theoretical for now
+**Sensor Data:** Integration of IoT sensor data with visual and textual information. This connects to work on [resource-constrained AI learning](/posts/2024-05-30-ai-learning-resource-constrained/) where efficient sensor processing is crucial.
+**Haptic Feedback:** Incorporating touch and force feedback for [embodied AI applications](/posts/2025-10-13-embodied-ai-robots-physical-world/), though this remains largely theoretical for now. The integration of physical interaction with multimodal understanding represents one of the most promising frontiers in AI development.
 
 ### Efficiency and Accessibility
 
-**Model Compression:** Techniques for deploying multimodal capabilities on edge devices. I tested quantized versions of LLaVA in July 2024 that ran on a Raspberry Pi 5, achieving 4-6 second inference times for simple image-text tasks.
+**Model Compression:** Techniques for deploying multimodal capabilities on edge devices. I tested quantized versions of LLaVA in July 2024 that ran on a Raspberry Pi 5, achieving 4-6 second inference times for simple image-text tasks. Building on [transformer architecture fundamentals](/posts/2024-03-20-transformer-architecture-deep-dive/), these compression techniques maintain model accuracy while dramatically reducing computational requirements.
 **Specialized Hardware:** Chips optimized for multimodal AI processing
 **Federated Learning:** Distributed training approaches that preserve privacy while improving capability
 **Real-Time Processing:** Optimizations enabling live multimodal AI applications, though current latency remains a significant barrier for truly interactive experiences
