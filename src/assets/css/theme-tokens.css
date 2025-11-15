@@ -197,7 +197,7 @@ input:focus-visible {
 
 /* Skip to main content link */
 .skip-to-main {
-  position: absolute;
+  position: absolute !important;
   left: -9999px;
   z-index: 999;
   padding: var(--space-sm) var(--space-md);
@@ -208,7 +208,7 @@ input:focus-visible {
 }
 
 .skip-to-main:focus {
-  left: 50%;
+  left: 50% !important;
   top: var(--space-md);
   transform: translateX(-50%);
   outline: 2px solid var(--focus-ring);
