@@ -6,8 +6,8 @@
 
 /* Skip to main content link - WCAG compliance */
 .skip-to-main {
-  position: absolute;
-  left: -9999px;
+  position: absolute !important;
+  left: -9999px !important;
   top: 0;
   z-index: 999999;
   padding: 0.75rem 1rem;
@@ -20,8 +20,8 @@
 }
 
 .skip-to-main:focus {
-  left: 50%;
-  top: 1rem;
+  left: 50% !important;
+  top: 1rem !important;
   transform: translateX(-50%);
   outline: 3px solid #60a5fa;
   outline-offset: 2px;
