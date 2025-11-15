@@ -205,7 +205,7 @@ In April 2024, deploying a multimodal customer service bot revealed edge cases w
 **Strengths:** Customizable, can be fine-tuned for specific domains, cost-effective for large-scale deployment
 **Applications:** Specialized industry applications, research and development
 **Limitations:** Generally less capable than commercial alternatives out of the box, require more technical expertise and fine-tuning effort
-**Project:** In July 2024, I fine-tuned LLaVA 1.5 (13B parameters) for medical imaging analysis using 5,000 labeled chest X-rays. After 3 epochs of training, it achieved 81% accuracy on our validation set, improving from the base model's 68%, though it still lagged behind GPT-4V's 87% on the same task.
+**Project:** In July 2024, I fine-tuned LLaVA 1.5 (13B parameters) for medical imaging analysis using 5,000 labeled chest X-rays. After 3 epochs of training, it achieved 81% accuracy on our validation set, improving from the base model's 68%, though it still lagged behind GPT-4V's 87% on the same task. [Local LLM deployment](/posts/2025-06-25-local-llm-deployment-privacy-first) requires careful resource planning.
 
 ## What's Coming Next in Multimodal AI
 

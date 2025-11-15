@@ -89,7 +89,7 @@ Before optimizing, we needed to understand where our emissions were coming from:
 Choosing processors optimized for specific workloads rather than general-purpose computing:
 
 - ARM processors for web services (40% less energy than x86)
-- GPUs for parallel processing (10x more efficient for ML training)
+- GPUs for [parallel processing and ML training](/posts/2024-08-13-high-performance-computing) (10x more efficient for ML training)
 - FPGAs for specialized algorithms (100x more efficient than CPUs for specific tasks)
 - M1/M2 processors for development workstations (50% less energy)
 
@@ -130,7 +130,7 @@ Optimizing cloud instance selection based on actual usage. Here's how this worke
 
 - CPU utilization analysis revealed 60% over-provisioning (we were paying for cores that sat idle 18 hours per day)
 - Memory optimization reduced instance sizes by 40% (moving from m5.2xlarge to m5.xlarge instances)
-- Storage tiering moved cold data to lower-energy storage (S3 Glacier saved 89% on storage energy)
+- Storage tiering moved cold data to [lower-energy storage](/posts/2025-08-18-container-security-hardening-homelab) (S3 Glacier saved 89% on storage energy)
 - Auto-scaling policies reduced idle resource time by 80% (instances scaled down during off-peak hours)
 
 **Geographic Optimization:**
@@ -220,7 +220,7 @@ In February 2024, I profiled our Jenkins build pipeline and found we were runnin
 ### Model Efficiency
 
 **Model Compression:**
-In April 2024, I applied pruning to a ResNet-50 model and was stunned by the results. The pruned model maintained 97.3% of the original accuracy while reducing inference time from 42ms to 13ms on CPU. Here's what worked:
+In April 2024, I applied pruning to a ResNet-50 model and was stunned by the results. The pruned model maintained 97.3% of the original accuracy while reducing inference time from 42ms to 13ms on CPU. [Optimizing AI models](/posts/2024-03-20-transformer-architecture-deep-dive) for efficiency delivers both environmental and performance benefits. Here's what worked:
 - Pruning neural networks reduced energy consumption by 70% (measured on 10,000 inference runs)
 - Quantization decreased memory requirements from 178MB to 45MB (75% reduction)
 - Knowledge distillation created smaller, efficient models (student model was 8x smaller than teacher)
@@ -259,7 +259,7 @@ When I deployed a production ML model to edge devices in March 2024, we reduced 
 
 **Procurement Policies:**
 - Energy efficiency requirements for hardware purchases
-- Preference for vendors with strong sustainability commitments
+- Preference for vendors with strong [sustainability commitments](/posts/2024-04-11-ethics-large-language-models)
 - Lifecycle cost analysis including energy consumption
 - Circular economy principles in technology refresh cycles
 
@@ -365,7 +365,7 @@ When I deployed a production ML model to edge devices in March 2024, we reduced 
 I started with these practical changes in January 2024, though I'm still learning which strategies work best for different workloads:
 - Right-size cloud resources and eliminate waste (reduced our AWS bill by $18,000/month)
 - Implement power management for development workstations (saved 240 kWh/week across 60 machines)
-- Optimize database queries and application performance (one query optimization alone cut execution time from 8.2s to 1.1s)
+- Optimize database queries and [application performance](/posts/2024-01-08-writing-secure-code-developers-guide) (one query optimization alone cut execution time from 8.2s to 1.1s)
 - Switch to renewable energy providers where available
 
 **Medium-term Projects (6-18 months):**
