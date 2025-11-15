@@ -9,7 +9,10 @@
 /* 2. Theme tokens and CSS custom properties */
 @import './theme-tokens.css';
 
-/* 3. Site-specific enhancements */
+/* 3. Cybersecurity visual effects */
+@import './cybersecurity-effects.css';
+
+/* 4. Site-specific enhancements */
 @import './enhancements.css';
 
 /* Base reset and improvements */
@@ -23,23 +26,34 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Ensure proper font loading */
+/* Ensure proper font loading - readable sans-serif for body */
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  font-weight: 400;  /* Normal weight for readability */
   font-feature-settings: 'kern' 1, 'liga' 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-size: clamp(1rem, 1.125vw, 1.125rem);
+  line-height: 1.65;
+  margin: 0;
+  padding: 0;
 }
 
-/* Fix for gradient text in Safari */
+/* Code elements use JetBrains Mono */
+code, pre, kbd, samp {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, monospace;
+}
+
+/* Cybersecurity gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--cyber-cyan) 0%, var(--cyber-teal) 50%, var(--terminal-green) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% 200%;
   animation: gradientShift 3s ease infinite;
+  font-weight: var(--weight-black);
 }
 
 @keyframes gradientShift {

@@ -10,8 +10,6 @@ eleventyNavigation:
 
 <div class="prose prose-lg prose-gray dark:prose-invert lg:prose-xl max-w-none">
 
-# About William Zujkowski
-
 <p class="lead text-xl text-gray-600 dark:text-gray-400 italic">
 I'm a Senior Security Engineer focused on cloud platform security, identity federation, and compliance automation. I spend my days designing security controls that enable teams instead of blocking them. I also spend way too many nights in my homelab breaking things to understand how they work.
 </p>

@@ -8,8 +8,6 @@ eleventyNavigation:
   order: 6
 ---
 
-# Uses
-
 This is my digital toolbox – the stuff that's survived the test of real-world use and hasn't let me down. I'm picky about my tools because bad choices cost time, and time is what I use to tinker with cool stuff. Everything here has a story, usually involving at least one failure before I figured it out.
 
 What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab and workflow that actually works for me. This is a living document: I update it when I change something significant or learn a better way.
