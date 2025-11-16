@@ -42,6 +42,12 @@ body {
   --color-accent-success: oklch(50% 0.14 155);      /* Forest green */
   --color-accent-warning: oklch(55% 0.17 65);       /* Amber */
 
+  /* Cybersecurity Theme Accent Colors */
+  --color-accent-cyan: oklch(50% 0.15 200);         /* Bright cyan */
+  --color-accent-teal: oklch(50% 0.14 180);         /* Teal blue-green */
+  --color-accent-green: oklch(55% 0.14 145);        /* Terminal green */
+  --color-accent-amber: oklch(55% 0.17 65);         /* Amber (alias for warning) */
+
   /* Border Colors */
   --color-border-default: oklch(90% 0.01 270);
   --color-border-subtle: oklch(95% 0.01 270);
@@ -173,6 +179,14 @@ body {
   --border: var(--color-border-default);
   --card: var(--color-surface-default);
   --accent: var(--color-accent-teal);
+
+  /* Cybersecurity-specific light colors (legacy) */
+  --cyber-cyan: var(--color-accent-cyan);
+  --cyber-green: var(--color-accent-green);
+  --cyber-teal: var(--color-accent-teal);
+  --terminal-green: var(--color-accent-green);
+  --warning-amber: var(--color-accent-amber);
+  --danger-red: var(--color-status-error);
 }
 
 /* ========================================
@@ -197,6 +211,12 @@ body {
   --color-accent-secondary: oklch(80% 0.15 110);    /* Bright lime green */
   --color-accent-tertiary: oklch(70% 0.20 340);     /* Electric magenta */
   --color-accent-success: oklch(75% 0.15 145);      /* Mint green */
+
+  /* Cybersecurity Theme Accent Colors */
+  --color-accent-cyan: oklch(70% 0.18 200);         /* Bright cyan for dark mode */
+  --color-accent-teal: oklch(65% 0.16 180);         /* Teal for dark mode */
+  --color-accent-green: oklch(75% 0.15 145);        /* Terminal green for dark mode */
+  --color-accent-amber: oklch(75% 0.17 65);         /* Amber for dark mode */
   --color-accent-warning: oklch(78% 0.18 85);       /* Golden yellow */
 
   /* Border Colors */

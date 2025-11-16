@@ -543,6 +543,33 @@
   }
 
   // ===========================
+  // 9. BACK TO TOP BUTTON VISIBILITY
+  // ===========================
+
+  class BackToTopVisibility {
+    constructor() {
+      this.button = document.querySelector('[aria-label="Back to top"]') ||
+                    document.querySelector('.back-to-top');
+      this.init();
+    }
+
+    init() {
+      if (!this.button) return;
+
+      // Show back-to-top button after scrolling 50% of page
+      window.addEventListener('scroll', () => {
+        const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+
+        if (scrollPercent > 50) {
+          this.button.classList.add('visible');
+        } else {
+          this.button.classList.remove('visible');
+        }
+      });
+    }
+  }
+
+  // ===========================
   // INITIALIZE ALL FEATURES
   // ===========================
 
@@ -554,6 +581,7 @@
     new MobileMenu();
     new ReadingProgress();
     new CodeCopy();
+    new BackToTopVisibility();
 
     if (!prefersReducedMotion) {
       new SmoothScroll();

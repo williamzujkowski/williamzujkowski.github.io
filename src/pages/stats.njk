@@ -617,7 +617,8 @@ function updateCharts() {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 768 ? 1 : 2,
       plugins: {
         legend: { labels: { color: textColor } },
         tooltip: {
@@ -675,7 +676,8 @@ function updateCharts() {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 768 ? 1 : 1.5,
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -735,7 +737,8 @@ function updateCharts() {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 768 ? 1 : 1.5,
       plugins: {
         legend: { labels: { color: textColor } },
         tooltip: {
@@ -799,7 +802,8 @@ function updateCharts() {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 768 ? 1 : 2,
       plugins: {
         legend: {
           labels: { color: textColor },
@@ -848,7 +852,8 @@ function updateCharts() {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 768 ? 1 : 1.5,
       plugins: {
         legend: {
           position: 'bottom',
@@ -894,7 +899,8 @@ function updateCharts() {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 768 ? 1 : 1.5,
       plugins: {
         legend: { labels: { color: textColor } },
         tooltip: {
