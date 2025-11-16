@@ -104,52 +104,15 @@ See `.claude-rules.json` for complete enforcement rules.
 
 **Purpose:** Define when you MUST follow routing rules vs when you can use judgment.
 
-### Always/Usually/Sometimes/Never Framework
+**Framework:** Always/Usually/Sometimes/Never - determines routing compliance level.
 
 **ALWAYS Follow (No Judgment):**
 - 🚨 MANDATORY operations (Tier 1) → Load required skills or operation blocks
 - core/enforcement.md → For ANY file operation
-- core/nda-compliance.md → For blog posts, security topics, work discussions
+- core/nda-compliance.md → For blog posts, security topics
 - Routing validation → Check Section 3.4 before starting task
 
-**USUALLY Follow (Default Judgment):**
-- ✅ RECOMMENDED patterns (Tier 2) → Load unless good reason to override
-- Task-based loading table (Section 3.2) → Primary guidance for common workflows
-- Module dependencies (INDEX.yaml) → Auto-load when loading parent module
-- Pre-commit validation → Run checks before committing
-
-**SOMETIMES Follow (High Judgment):**
-- 💡 OPTIONAL modules → Load only if specific need identified
-- Historical context (reference modules) → Only when relevant to current task
-- Advanced techniques → Only when standard approaches insufficient
-- Experimental workflows → Document decisions for future routing improvements
-
-**NEVER Do (Forbidden):**
-- Load entire docs/context/ directory → Always use selective loading
-- Skip MANDATORY skills for Tier 1 operations → Pre-commit will block
-- Load all modules for simple tasks → Wastes tokens, slows execution
-- Override MANDATORY without documenting reason → Audit trail required
-
-### Decision Framework
-
-```mermaid
-flowchart TD
-    A[New Task] --> B{Check Section 3.4}
-    B --> C{Tier 1 MANDATORY?}
-    C -->|Yes| D{Required skills loaded?}
-    D -->|No| E[BLOCK: Load mandatory skills]
-    D -->|Yes| F[Proceed with operation]
-
-    C -->|No| G{Tier 2 RECOMMENDED?}
-    G -->|Yes| H{Good reason to override?}
-    H -->|No| I[Load recommended skills]
-    H -->|Yes| J[Document override + proceed]
-
-    G -->|No| K[Tier 3 OPTIONAL]
-    K --> L[Use INDEX.yaml discovery]
-    K --> M[Apply LLM judgment]
-    K --> N[Document novel pattern]
-```
+**USUALLY/SOMETIMES/NEVER:** See `docs/context/core/autonomy-framework.md` for complete decision framework, override scenarios, and judgment guidelines.
 
 **Override Scenarios (When judgment allowed):**
 - Emergency hotfix (broken link) → May skip full transformation workflow
@@ -181,91 +144,11 @@ The modular architecture enables **task-based progressive disclosure**:
 
 ### 3.2: Task-Based Loading Patterns
 
-**How to use this section:**
-1. Find your task in the table below
-2. Load modules in the **exact order** shown
-3. Follow the **explicit loading sequence** (file paths provided)
-4. Verify dependencies loaded before proceeding
-
-**Common Tasks with Explicit Loading:**
-
-#### Task 1: Create Blog Post
-**Required modules (load in order):**
-```bash
-# Step 1: MANDATORY - Core enforcement
-Read docs/context/core/enforcement.md
-
-# Step 2: MANDATORY - NDA compliance
-Read docs/context/core/nda-compliance.md
-
-# Step 3: MANDATORY - Topic selection & gap analysis
-Read docs/context/workflows/blog-topic-summary.md
-
-# Step 3b: OPTIONAL - Load full topic selection module only when:
-# - Planning content calendar or quarterly themes
-# - Need comprehensive topic idea bank (90+ ideas)
-# Read docs/context/workflows/blog-topic-selection.md
-
-# Step 4: MANDATORY - Writing workflow
-Read docs/context/workflows/blog-writing.md
-
-# Step 5: MANDATORY - Writing style
-Read docs/context/standards/writing-style.md
-```
-**Token cost:** ~16K (summary) or ~18K (full topic module) | **Priority:** 🚨 MANDATORY
-
----
-
-#### Task 2: Transform Existing Post
-**Required modules (load in order):**
-```bash
-# Step 1: MANDATORY - Core enforcement
-Read docs/context/core/enforcement.md
-
-# Step 2: RECOMMENDED - Transformation workflow
-Read docs/context/workflows/blog-transformation.md
-
-# Step 3: RECOMMENDED - Writing style
-Read docs/context/standards/writing-style.md
-```
-**Token cost:** ~10K | **Priority:** ✅ RECOMMENDED
-
----
-
-#### Task 3: Git Commit
-**Required modules (load in order):**
-```bash
-# Step 1: MANDATORY - Core enforcement
-Read docs/context/core/enforcement.md
-
-# Step 2: MANDATORY - Git workflow
-Read docs/context/technical/git-workflow.md
-```
-**Token cost:** ~4K | **Priority:** 🚨 MANDATORY
-
----
-
-#### Task 4: Swarm Orchestration
-**Required modules (load in order):**
-```bash
-# Step 1: MANDATORY - Core enforcement
-Read docs/context/core/enforcement.md
-
-# Step 2: MANDATORY - Swarm workflow
-Read docs/context/workflows/swarm-orchestration.md
-
-# Step 3: MANDATORY - Agent coordination
-Read docs/context/technical/agent-coordination.md
-```
-**Token cost:** ~6K | **Priority:** 🚨 MANDATORY
-
----
-
 **Quick Reference Table:**
 
 | Task | Tier | Required Modules | Token Cost |
 |------|------|-----------------|------------|
-| Create blog post | 🚨 MANDATORY | enforcement + nda-compliance + **blog-topic-summary** + blog-writing + writing-style | ~16K |
+| Create blog post | 🚨 MANDATORY | enforcement + nda-compliance + blog-topic-summary + blog-writing + writing-style | ~16K |
 | Transform post | ✅ RECOMMENDED | enforcement + blog-transformation + writing-style | ~10K |
 | Refactor quality | ✅ RECOMMENDED | enforcement + code-block-quality + blog-transformation | ~6K |
 | Validate content | ✅ RECOMMENDED | enforcement + humanization-standards + citation-research | ~5K |
@@ -276,6 +159,8 @@ Read docs/context/technical/agent-coordination.md
 | Emergency debug | ✅ RECOMMENDED | enforcement + mandatory-reading | ~4K |
 
 **Pattern:** 🚨 MANDATORY tasks block without required skills. ✅ RECOMMENDED tasks warn but allow override. 💡 OPTIONAL tasks use LLM judgment.
+
+**Complete loading sequences:** See `docs/context/workflows/routing-patterns.md` for explicit step-by-step loading instructions (9 common workflows with file paths and dependencies).
 
 ### 3.3: Module Discovery
 
@@ -749,119 +634,20 @@ DB_PASSWORD="admin123"
 
 ### For New LLMs (5-Step Onboarding)
 
-**Step 1:** Read this file (CLAUDE.md) completely (~5 minutes)
+**Step 1:** Read CLAUDE.md (~5 minutes)
 
-**Step 2:** Load mandatory reading order:
+**Step 2:** Load mandatory modules:
 ```bash
-# High priority (always load)
-1. docs/context/core/enforcement.md
-2. docs/context/core/nda-compliance.md
-3. docs/context/core/mandatory-reading.md
+Read docs/context/core/enforcement.md
+Read docs/context/core/nda-compliance.md
+Read docs/context/core/mandatory-reading.md
 ```
 
-**Step 3:** Understand the loading system:
-- Check `docs/context/INDEX.yaml` for module catalog
-- Use task-based loading patterns (Section 3.2)
-- Load modules progressively as needed
+**Step 3:** Check routing requirements (Section 3.4) for task tier
 
-**Step 4:** Check routing requirements (Section 3.4):
+**Step 4:** Validate before committing (run pre-commit hooks)
 
-**Tier 1 (MANDATORY)**:
-- Creating files? MUST load enforcement + file-management + standards-integration
-- Writing blog posts? MUST load enforcement + nda-compliance + blog-writing + writing-style
-- Git commits? MUST load enforcement + git-workflow
-- Updating MANIFEST.json? MUST load enforcement + standards-integration
-- Deploying swarms? MUST load enforcement + swarm-orchestration + agent-coordination
-
-**Tier 2 (RECOMMENDED)**:
-- Transforming posts? Load enforcement + blog-transformation + writing-style
-- Validating content? Load enforcement + humanization-standards + citation-research
-- Managing images? Load image-standards + image-automation
-- Code refactoring? Load enforcement + code-block-quality
-
-**Tier 3 (DISCOVERY)**:
-- Novel tasks? Search INDEX.yaml by tags → Compare to patterns → Load progressively
-
-**Step 5:** Validate before committing:
-```bash
-# Pre-commit hooks check:
-- MANIFEST.json current?
-- No duplicate files?
-- Standards compliance?
-- Blog posts pass humanization validation (≥75/100)?
-- Metadata format (dates must be YYYY-MM-DD)?
-
-# Run validation scripts:
-python scripts/validation/metadata-validator.py --format text
-python scripts/validation/build-monitor.py
-# Note: Playwright tests are JavaScript-based, run via npm (see scripts/*.js)
-```
-
-### Common Workflows
-
-**Workflow 1: Create New Blog Post**
-```bash
-# 1. Load required modules
-- core/enforcement.md
-- core/nda-compliance.md
-- workflows/blog-writing.md
-- standards/humanization-standards.md (when implemented)
-
-# 2. Use template
-cp docs/TEMPLATES/blog-post-writing-template.md working-draft.md
-
-# 3. Write following guidelines
-# 4. Validate
-python scripts/blog-content/humanization-validator.py --post src/posts/[file].md
-
-# 5. Commit (pre-commit hooks run automatically)
-git add src/posts/[file].md
-git commit -m "feat: add blog post about [topic]"
-```
-
-**Workflow 2: Emergency Debug**
-```bash
-# 1. Load troubleshooting context
-- core/enforcement.md
-- core/mandatory-reading.md
-- reference/troubleshooting.md (when implemented)
-
-# 2. Check build status
-npm run build
-
-# 3. Review recent changes
-git log -5 --oneline
-
-# 4. Validate MANIFEST.json
-cat MANIFEST.json | jq '.last_validated'
-
-# 5. Check pre-commit hooks
-cat .git/hooks/pre-commit
-```
-
-**Workflow 3: Swarm Orchestration**
-```bash
-# 1. Load required modules
-- core/enforcement.md
-- workflows/swarm-orchestration.md
-- technical/agent-coordination.md (for agent type validation)
-
-# 2. Validate agent types exist (prevent hallucination)
-# Check docs/context/technical/agent-coordination.md for 54 available agent types
-
-# 3. Decompose task into parallel subtasks
-# Pattern: research → implement → test → review
-
-# 4. Deploy swarm with TodoWrite batching
-# Use concurrent execution (1 message = all operations)
-
-# 5. Coordinate via shared memory/TodoWrite
-# Track progress: 6 agents, 11 tasks, 27 minutes typical
-
-# 6. Validate deployment identifiers
-# NEVER hardcode swarm IDs in documentation
-# Pattern: Use generic examples ("swarm-[id]"), not deployment-specific values
-```
+**Complete onboarding guide:** See `docs/context/workflows/quick-start-guide.md` for detailed workflows, emergency troubleshooting, and validation procedures.
 
 ### Emergency Contacts
 
