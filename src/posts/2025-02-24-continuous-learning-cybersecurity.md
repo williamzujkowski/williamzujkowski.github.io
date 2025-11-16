@@ -356,7 +356,7 @@ Here's what I'm actively learning (January 2025):
 3. **SOAR**: Automating response playbooks (though I'm still figuring out which platform fits my homelab best)
 4. **Leadership**: Managing up, strategic thinking
 
-Specific learning projects I'm working on include [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/), [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/), and [automated security scanning pipelines](/posts/2025-10-06-automated-security-scanning-pipeline/). For foundational knowledge, [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide/) and [demystifying cryptography](/posts/2024-04-16-demystifying-cryptography-beginners-guide/) provide essential skills every security professional needs.
+Specific learning projects I'm working on include [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/), [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/), and [automated security scanning pipelines](/posts/2025-10-06-automated-security-scanning-pipeline/). For foundational knowledge, [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide/) and [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provide essential skills every security professional needs.
 
 ## Your Learning Path
 

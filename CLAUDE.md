@@ -310,7 +310,7 @@ These operations CANNOT proceed without specified skills. Enforced by `.claude-r
 | Operation | Required Skills | Why Mandatory | Enforcement |
 |-----------|----------------|---------------|-------------|
 | **Create files** | enforcement + file-management + standards-integration | Prevents duplicates, wrong directories, MANIFEST.json corruption | Pre-commit blocks |
-| **Write blog posts** | enforcement + nda-compliance + **blog-topic-selection** + blog-writing + writing-style | Public content with privacy/NDA risks, must fill gaps | Pre-commit blocks |
+| **Write blog posts** | enforcement + nda-compliance + **blog-topic-summary** + blog-writing + writing-style | Public content with privacy/NDA risks, must fill gaps | Pre-commit blocks |
 | **Git commits** | enforcement + git-workflow | Commits permanent, must validate | Pre-commit blocks |
 | **MANIFEST.json ops** | enforcement + standards-integration | Single source of truth, corruption breaks repo | Pre-commit blocks |
 | **Swarm deployment** | enforcement + swarm-orchestration + agent-coordination | Prevents hallucinated agents, ensures coordination | Runtime blocks |
@@ -320,7 +320,7 @@ These operations CANNOT proceed without specified skills. Enforced by `.claude-r
 # Example: Creating a blog post
 Read docs/context/core/enforcement.md                    # MANDATORY
 Read docs/context/core/nda-compliance.md                 # MANDATORY
-Read docs/context/workflows/blog-topic-selection.md      # MANDATORY (NEW!)
+Read docs/context/workflows/blog-topic-summary.md        # MANDATORY
 Read docs/context/workflows/blog-writing.md              # MANDATORY
 Read docs/context/standards/writing-style.md             # MANDATORY
 
@@ -792,9 +792,9 @@ DB_PASSWORD="admin123"
 - Metadata format (dates must be YYYY-MM-DD)?
 
 # Run validation scripts:
-python scripts/validation/metadata-validator.py --batch
+python scripts/validation/metadata-validator.py --format text
 python scripts/validation/build-monitor.py
-python scripts/playwright/test-gist-rendering.py  # Automated page validation
+# Note: Playwright tests are JavaScript-based, run via npm (see scripts/*.js)
 ```
 
 ### Common Workflows

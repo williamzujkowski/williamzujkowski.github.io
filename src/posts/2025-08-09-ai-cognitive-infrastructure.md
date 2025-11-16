@@ -252,7 +252,7 @@ The transformation of AI into cognitive infrastructure is inevitable. Its nature
 
 - **Education Reform**: Teaching not how to use AI but how to think independently of it. Understanding AI limitations, maintaining cognitive skills, developing AI-resistant critical thinking. Modern [AI learning techniques](/posts/2024-05-30-ai-learning-resource-constrained/) demonstrate how education can adapt to resource constraints while maintaining effectiveness.
 - **Regulatory Frameworks**: [UNESCO's global AI ethics standards](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics) and [GDPR Article 22](https://gdpr-info.eu/art-22-gdpr/) provide starting points, but we need frameworks addressing cognitive infrastructure's unique challenges.
-- **Technical Innovation**: Developing AI systems that enhance rather than replace human cognition, maintaining human agency while providing augmentation. [Retrieval Augmented Generation](/posts/2024-05-07-retrieval-augmented-generation-llms/) represents one approach to maintaining human context while leveraging AI capabilities.
+- **Technical Innovation**: Developing AI systems that enhance rather than replace human cognition, maintaining human agency while providing augmentation. [Retrieval Augmented Generation](/posts/2024-04-04-retrieval-augmented-generation-rag/) represents one approach to maintaining human context while leveraging AI capabilities.
 - **Social Practices**: Creating cultural norms around cognitive hygiene (digital detoxes, cognitive cross-training, maintaining non-AI-mediated relationships).
 
 ## Conclusion: The Cognitive Century
