@@ -1,0 +1,86 @@
+{
+  "timestamp": "2025-11-16T05:41:45.789Z",
+  "pages": [
+    {
+      "name": "Homepage",
+      "url": "http://localhost:8086/",
+      "lcp": null,
+      "fcp": 312,
+      "domContentLoaded": 380.4000000357628,
+      "loadComplete": 382.2000000476837,
+      "totalImages": 1,
+      "optimizedImages": [
+        {
+          "hasAvif": true,
+          "hasWebp": true,
+          "src": "http://localhost:8086/assets/images/optimized/va_mnK1cMf-400.jpeg"
+        }
+      ],
+      "imageStats": [
+        {
+          "src": "http://localhost:8086/assets/images/optimized/va_mnK1cMf-400.jpeg",
+          "naturalWidth": 320,
+          "naturalHeight": 320,
+          "loading": "lazy",
+          "decoding": "async"
+        }
+      ],
+      "optimizedImagesCount": 1
+    },
+    {
+      "name": "About",
+      "url": "http://localhost:8086/about/",
+      "lcp": null,
+      "fcp": 236,
+      "domContentLoaded": 225.0999999642372,
+      "loadComplete": 225.69999998807907,
+      "totalImages": 0,
+      "optimizedImages": [],
+      "imageStats": [],
+      "optimizedImagesCount": 0
+    },
+    {
+      "name": "Blog Posts",
+      "url": "http://localhost:8086/posts/",
+      "lcp": null,
+      "fcp": 124,
+      "domContentLoaded": 105.5,
+      "loadComplete": 106.30000001192093,
+      "totalImages": 0,
+      "optimizedImages": [],
+      "imageStats": [],
+      "optimizedImagesCount": 0
+    },
+    {
+      "name": "Uses",
+      "url": "http://localhost:8086/uses/",
+      "lcp": null,
+      "fcp": 180,
+      "domContentLoaded": 114.69999998807907,
+      "loadComplete": 115.69999998807907,
+      "totalImages": 0,
+      "optimizedImages": [],
+      "imageStats": [],
+      "optimizedImagesCount": 0
+    },
+    {
+      "name": "Blog Post (Welcome)",
+      "url": "http://localhost:8086/posts/building-my-digital-garden-with-eleventy/",
+      "lcp": null,
+      "fcp": 168,
+      "domContentLoaded": 168.5,
+      "loadComplete": 169.60000002384186,
+      "totalImages": 0,
+      "optimizedImages": [],
+      "imageStats": [],
+      "optimizedImagesCount": 0
+    }
+  ],
+  "summary": {
+    "avgFcp": 0.204,
+    "avgDom": 0.1988399999976158,
+    "totalImages": 1,
+    "totalOptimized": 1,
+    "optimizationRate": 100
+  }
+}

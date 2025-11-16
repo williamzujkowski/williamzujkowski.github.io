@@ -5,6 +5,11 @@ module.exports = {
     "./.eleventy.js"
   ],
   darkMode: 'class',
+  safelist: [
+    'dark',
+    'sr-only',
+    'skip-to-main',
+  ],
   theme: {
     extend: {
       colors: {
@@ -131,14 +136,16 @@ module.exports = {
         },
       },
       fontFamily: {
-        // Body text - Figtree (clean, readable sans-serif)
-        sans: ['Figtree', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Noto Sans"', 'Helvetica', 'Arial', 'sans-serif'],
-        // Headings - Bricolage Grotesque (distinctive, strong)
-        heading: ['"Bricolage Grotesque"', 'Figtree', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        // Code blocks - JetBrains Mono (technical, readable)
-        mono: ['"JetBrains Mono"', '"Fira Code"', '"SF Mono"', 'Monaco', '"Cascadia Code"', '"Roboto Mono"', 'monospace'],
-        // Quotes/serif - Newsreader (elegant, authoritative)
-        serif: ['Newsreader', 'Georgia', 'Cambria', '"Times New Roman"', 'serif'],
+        // Display/Headings - DM Sans (modern, geometric)
+        display: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        // Subheadings - Plus Jakarta Sans (rounded, friendly)
+        subheading: ['"Plus Jakarta Sans"', '"DM Sans"', '-apple-system', 'sans-serif'],
+        // Body text - DM Sans (clean, readable)
+        sans: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        // Code blocks - JetBrains Mono (technical, ligatures)
+        mono: ['"JetBrains Mono"', '"Fira Code"', '"SF Mono"', 'Monaco', 'monospace'],
+        // Feature quotes - Fraunces (variable serif)
+        feature: ['Fraunces', 'Georgia', 'Cambria', 'serif'],
       },
       fontWeight: {
         // Body text weights (Figtree)

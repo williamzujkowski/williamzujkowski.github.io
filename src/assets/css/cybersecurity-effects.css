@@ -71,7 +71,7 @@
 .scan-lines::after {
   content: '';
   position: absolute;
-  top: -100%;
+  top: 0;
   left: 0;
   right: 0;
   height: 2px;
@@ -81,6 +81,7 @@
     var(--scan-line-color),
     transparent
   );
+  transform: translateY(-100%);
   animation: scanLine 8s linear infinite;
   pointer-events: none;
   z-index: 10;

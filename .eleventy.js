@@ -1,10 +1,40 @@
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+const Image = require("@11ty/eleventy-img");
 const { execSync } = require('child_process');
 const path = require('path');
 
 module.exports = function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
+
+  // Image optimization shortcode with optional class parameter
+  async function imageShortcode(src, alt, sizes = "(max-width: 768px) 100vw, 800px", className = "") {
+    let metadata = await Image(src, {
+      widths: [400, 800, 1200],
+      formats: ["avif", "webp", "jpeg"],
+      outputDir: "./_site/assets/images/optimized/",
+      urlPath: "/assets/images/optimized/",
+      sharpOptions: {
+        quality: 85,
+      }
+    });
+
+    let imageAttributes = {
+      alt,
+      sizes,
+      loading: "lazy",
+      decoding: "async",
+    };
+
+    // Add class if provided
+    if (className) {
+      imageAttributes.class = className;
+    }
+
+    return Image.generateHTML(metadata, imageAttributes);
+  }
+
+  eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
 
   // Copy static files (excluding CSS which is processed by PostCSS)
   eleventyConfig.addPassthroughCopy("src/assets/js");

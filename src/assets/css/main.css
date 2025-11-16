@@ -9,10 +9,13 @@
 /* 2. Theme tokens and CSS custom properties */
 @import './theme-tokens.css';
 
-/* 3. Cybersecurity visual effects */
+/* 3. Modern design system with OKLCH colors */
+@import './modern-design.css';
+
+/* 4. Cybersecurity visual effects */
 @import './cybersecurity-effects.css';
 
-/* 4. Site-specific enhancements */
+/* 5. Site-specific enhancements */
 @import './enhancements.css';
 
 /* Base reset and improvements */
