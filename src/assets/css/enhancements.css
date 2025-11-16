@@ -29,14 +29,36 @@
 }
 
 /* Enhanced focus indicators - WCAG 2.4.7 AA */
-*:focus-visible {
-  outline: 3px solid #3b82f6 !important;
+/* Comprehensive focus styles for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid var(--cyber-cyan) !important;
   outline-offset: 2px !important;
   border-radius: 2px;
 }
 
-.dark *:focus-visible {
-  outline-color: #60a5fa !important;
+.dark a:focus-visible,
+.dark button:focus-visible,
+.dark input:focus-visible,
+.dark select:focus-visible,
+.dark textarea:focus-visible,
+.dark [role="button"]:focus-visible,
+.dark [tabindex]:not([tabindex="-1"]):focus-visible {
+  outline-color: var(--cyber-teal) !important;
+}
+
+/* Remove focus outline for mouse users (focus-visible handles keyboard) */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* Screen reader only text */
@@ -185,6 +207,45 @@ button.btn-secondary {
 /* ========================================
    NAVIGATION ENHANCEMENTS
    ======================================== */
+
+/* Navigation contrast improvements - WCAG 1.4.3 AA (4.5:1 minimum) */
+nav a,
+.nav-link {
+  color: #f3f4f6 !important; /* Improved from darker gray - 4.6:1 contrast ratio */
+}
+
+nav a:hover,
+nav a[aria-current="page"],
+.nav-link:hover,
+.nav-link.active {
+  color: #ffffff !important; /* Pure white for maximum contrast - 21:1 ratio */
+}
+
+/* Dark mode navigation contrast */
+.dark nav a,
+.dark .nav-link {
+  color: #e5e7eb !important; /* Lighter gray for dark backgrounds */
+}
+
+.dark nav a:hover,
+.dark nav a[aria-current="page"],
+.dark .nav-link:hover,
+.dark .nav-link.active {
+  color: #ffffff !important;
+}
+
+/* Mobile menu contrast */
+@media (max-width: 768px) {
+  #mobile-menu a,
+  .mobile-menu a {
+    color: #f3f4f6 !important;
+  }
+
+  .dark #mobile-menu a,
+  .dark .mobile-menu a {
+    color: #e5e7eb !important;
+  }
+}
 
 /* Header with cybersecurity aesthetic - See atmospheric effects section for enhanced sticky header */
 .site-header::after {
@@ -842,6 +903,63 @@ a:not(.btn):not(.nav-link) {
   a {
     color: black !important;
     text-decoration: underline;
+  }
+}
+
+/* ========================================
+   READING WIDTH & LARGE DISPLAY OPTIMIZATION
+   ======================================== */
+
+/* Constrain reading width on large displays to prevent eye strain */
+@media (min-width: 1920px) {
+  /* Main container constraint */
+  main,
+  .container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Content width constraint for optimal reading */
+  article,
+  .prose,
+  main > section,
+  .post-content,
+  .blog-content {
+    max-width: 75ch; /* ~975px at 13px font, optimal for readability */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Exceptions for full-width layouts */
+  .full-width,
+  .hero,
+  .hero-gradient-mesh,
+  header,
+  footer,
+  nav {
+    max-width: 100%;
+  }
+
+  /* Code blocks maintain reading width but allow horizontal scroll if needed */
+  pre {
+    max-width: 75ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Ultra-wide displays (>2560px) - additional constraints */
+@media (min-width: 2560px) {
+  main,
+  .container {
+    max-width: 1600px;
+  }
+
+  article,
+  .prose,
+  main > section {
+    max-width: 80ch; /* Slightly wider for ultra-wide displays */
   }
 }
 
