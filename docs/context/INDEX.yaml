@@ -1,6 +1,6 @@
-version: 1.0.0
-last_updated: '2025-11-13'
-total_modules: 33
+version: 1.1.0
+last_updated: '2025-11-16'
+total_modules: 36
 total_categories: 6
 root_anchor:
   file: CLAUDE.md
@@ -25,8 +25,8 @@ categories:
   core:
     priority: HIGH
     description: Critical rules and standards, always loaded
-    token_budget: 9150
-    modules_count: 5
+    token_budget: 11550
+    modules_count: 6
     modules:
     - name: enforcement
       file: docs/context/core/enforcement.md
@@ -129,11 +129,33 @@ categories:
       - core/enforcement
       description: Standards repository integration, MANIFEST.json management, and
         timestamp handling
+    - name: autonomy-framework
+      file: docs/context/core/autonomy-framework.md
+      priority: HIGH
+      estimated_tokens: 2400
+      version: 1.0.0
+      last_updated: '2025-11-16'
+      load_when:
+      - Understanding when to follow routing vs use judgment
+      - Deciding whether to override RECOMMENDED patterns
+      - Unclear about autonomy boundaries
+      - Need decision framework guidance
+      tags:
+      - autonomy
+      - routing
+      - judgment
+      - framework
+      - decision-making
+      dependencies:
+      - core/enforcement
+      - workflows/routing-patterns
+      description: LLM autonomy boundaries, Always/Usually/Sometimes/Never framework,
+        override scenarios, decision framework with Mermaid diagram
   workflows:
     priority: MEDIUM
     description: Task-specific workflows and processes
-    token_budget: 12295
-    modules_count: 7
+    token_budget: 16695
+    modules_count: 9
     modules:
     - name: blog-topic-summary
       file: docs/context/workflows/blog-topic-summary.md
@@ -273,6 +295,53 @@ categories:
       dependencies: []
       description: Complete workflow for extracting blog code to GitHub gists to maintain
         <25% code-to-content ratio
+    - name: routing-patterns
+      file: docs/context/workflows/routing-patterns.md
+      priority: HIGH
+      estimated_tokens: 2300
+      version: 1.0.0
+      last_updated: '2025-11-16'
+      load_when:
+      - Determining which modules to load for a task
+      - Unclear which pattern matches current work
+      - Need explicit loading sequence
+      - Validating routing compliance
+      tags:
+      - routing
+      - loading
+      - patterns
+      - tasks
+      - sequences
+      - mandatory
+      dependencies:
+      - core/enforcement
+      - core/nda-compliance
+      description: Explicit loading sequences for common tasks, mapping task types
+        to required modules with 3-tier routing system (MANDATORY/RECOMMENDED/OPTIONAL)
+    - name: quick-start-guide
+      file: docs/context/workflows/quick-start-guide.md
+      priority: HIGH
+      estimated_tokens: 2100
+      version: 1.0.0
+      last_updated: '2025-11-16'
+      load_when:
+      - First session onboarding
+      - Learning common workflows
+      - Emergency troubleshooting
+      - Understanding repository structure
+      tags:
+      - onboarding
+      - workflows
+      - quick-start
+      - tutorial
+      - emergency
+      dependencies:
+      - core/enforcement
+      - core/nda-compliance
+      - core/mandatory-reading
+      description: Step-by-step onboarding for new LLMs, common workflow recipes
+        (blog posts, git commits, swarm orchestration), emergency troubleshooting
+        procedures
     status: Phase 6 complete
   standards:
     priority: MEDIUM
@@ -724,15 +793,16 @@ loading_strategy:
     - core/file-management
     - core/enforcement
 token_budgets:
-  core_modules: 9150
-  workflow_modules: 12295
+  core_modules: 11550
+  workflow_modules: 16695
   standards_modules: 19050
   technical_modules: 8800
   reference_modules: 8450
   template_modules: 6000
-  actual_total: 60695
+  actual_total: 66895
   previous_estimate: 180484
   measurement_method: word count × 1.33 tokens/word (corrected Session 41)
+  v4_2_refactoring: 3 modules extracted from CLAUDE.md (+6,200 tokens to modules, actual measured Session 50)
 discovery:
   by_priority:
     HIGH:

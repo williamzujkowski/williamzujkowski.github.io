@@ -8,6 +8,81 @@
 
 ## 🔴 HIGH PRIORITY (Next Sprint)
 
+### 16. CLAUDE.md Ultra-Lean Refactoring ⚡ **PHASE 1 IN PROGRESS** (2025-11-16)
+**Issue:** CLAUDE.md currently 8,000 tokens (72.6% detailed guidance that should be modules)
+**Impact:** Token efficiency, faster LLM onboarding, better context management
+**Solution:** 2-phase progressive modularization (Phase 1: 3 high-priority modules, Phase 2: 4 remaining modules)
+
+**Research Foundation (Session 50):**
+- Swarm analysis: researcher + system-architect + reviewer (3 agents)
+- Token analysis: 8,110 tokens → 2,220 CORE + 7,700 MODULE + 1,190 ARCHIVE
+- Architecture design: Ultra-lean CLAUDE.md v4.2.0 (phased approach)
+
+**Phase 1 (3 High-Priority Modules):** ⚡ **IN PROGRESS** (2-3h estimated)
+1. ✅ **routing-patterns.md** (1,800 tokens)
+   - Extracted: Section 3.2 (Task-Based Loading Patterns)
+   - Priority: HIGH (referenced by Tier 1 operations)
+   - Content: 9 explicit loading sequences, Tier 2/3 patterns, validation checklist
+   - Status: CREATED (Session 50, 30min)
+
+2. ✅ **quick-start-guide.md** (1,500 tokens)
+   - Extracted: Section 5 (Quick Start Guide)
+   - Priority: HIGH (first session onboarding)
+   - Content: 5-step onboarding, 3 common workflows, emergency troubleshooting
+   - Status: CREATED (Session 50, 30min)
+
+3. ✅ **autonomy-framework.md** (1,200 tokens)
+   - Extracted: Section 2 (LLM Autonomy Boundaries)
+   - Priority: HIGH (routing decisions)
+   - Content: Always/Usually/Sometimes/Never framework, override scenarios, Mermaid diagram
+   - Status: CREATED (Session 50, 30min)
+
+4. ⏳ **Update CLAUDE.md** (1h estimated)
+   - Condense Section 3.2 → Link to routing-patterns.md
+   - Condense Section 5 → Link to quick-start-guide.md
+   - Condense Section 2 → Link to autonomy-framework.md
+   - Target: ~4,500 tokens (44% reduction from 8,000)
+
+5. ✅ **Update INDEX.yaml** (15min actual)
+   - Added 3 new modules to catalog
+   - Updated token budgets: core 9,150→10,350, workflows 12,295→15,595
+   - Total modules: 33→36
+   - Status: COMPLETE (Session 50)
+
+6. ⏳ **Validate routing** (30min estimated)
+   - Test Tier 1 MANDATORY operations still block
+   - Verify module cross-references resolve
+   - Check backwards compatibility
+
+**Phase 2 (4 Remaining Modules):** ⏳ **DEFERRED to Session 51** (2-3h estimated)
+7. ⏳ **core-principles-detailed.md** (2,500 tokens) - Extract Section 4 detailed examples
+8. ⏳ **compliance-status.md** (600 tokens) - Extract Section 1 stats dashboard
+9. ⏳ **session-history.md** (2,000 tokens) - Extract Recent Sessions 20-24
+10. ⏳ **documentation-hierarchy.md** (800 tokens) - Extract Section 4.6 repo structure
+
+**Expected Impact (After Phase 1):**
+- CLAUDE.md: 8,000 → ~4,500 tokens (44% reduction)
+- Simple tasks: 12,000 → 6,900 tokens (42% token savings)
+- Module count: 33 → 36 modules (+3 high-priority)
+- Onboarding time: Faster (critical modules extracted)
+
+**Expected Impact (After Phase 2):**
+- CLAUDE.md: 4,500 → ~2,400 tokens (70% total reduction)
+- Simple tasks: 6,900 → 4,800 tokens (60% total savings)
+- Module count: 36 → 40 modules (+4 reference)
+- Token efficiency: 95.2% (2.4K vs 80K monolith)
+
+**Progress:**
+- ✅ Phase 1: 5/6 complete (modules created + INDEX.yaml updated)
+- ⏳ Remaining: Update CLAUDE.md, validate routing
+- ⏳ Phase 2: Deferred to next session (4 modules remaining)
+
+**Total Estimated Effort:** 4-6 hours (Phase 1: 2-3h, Phase 2: 2-3h)
+**Priority:** HIGH (token efficiency + LLM onboarding improvement)
+**Status:** ⚡ **PHASE 1 IN PROGRESS** (5/6 tasks complete)
+
+---
+
 ### 15. UI/UX Accessibility & Usability Improvements ⚡ **SPRINT 1 IN PROGRESS** (2025-11-16)
 **Issue:** 13 UI/UX issues identified - 3 critical (blocking WCAG AA), 6 high-priority, 4 medium/low
 **Impact:** Blocks accessibility compliance, affects 35-65% of users (large displays + mobile)
