@@ -1138,6 +1138,112 @@ a.tag {
 }
 
 /* ========================================
+   TOOLTIPS (SPRINT 3)
+   ======================================== */
+
+/* Tooltip base styles - CSS-only, accessible */
+.has-tooltip {
+  position: relative;
+}
+
+.has-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 0.5rem 0.75rem;
+  background: #1f2937;
+  color: #f3f4f6;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark .has-tooltip::after {
+  background: #374151;
+  color: #f3f4f6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Tooltip arrow */
+.has-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 0.125rem);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0.375rem solid transparent;
+  border-top-color: #1f2937;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+}
+
+.dark .has-tooltip::before {
+  border-top-color: #374151;
+}
+
+/* Show tooltip on hover and focus (keyboard users) */
+.has-tooltip:hover::after,
+.has-tooltip:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.has-tooltip:hover::before,
+.has-tooltip:focus-visible::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Footer social icon tooltip positioning (bottom instead of top) */
+footer .has-tooltip::after,
+.site-footer .has-tooltip::after {
+  bottom: auto;
+  top: calc(100% + 0.5rem);
+  transform: translateX(-50%) translateY(-4px);
+}
+
+footer .has-tooltip:hover::after,
+footer .has-tooltip:focus-visible::after,
+.site-footer .has-tooltip:hover::after,
+.site-footer .has-tooltip:focus-visible::after {
+  transform: translateX(-50%) translateY(0);
+}
+
+footer .has-tooltip::before,
+.site-footer .has-tooltip::before {
+  bottom: auto;
+  top: calc(100% + 0.125rem);
+  border-top-color: transparent;
+  border-bottom-color: #1f2937;
+}
+
+.dark footer .has-tooltip::before,
+.dark .site-footer .has-tooltip::before {
+  border-bottom-color: #374151;
+}
+
+/* Ensure tooltips respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .has-tooltip::after,
+  .has-tooltip::before {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
    RESPONSIVE ADJUSTMENTS
    ======================================== */
 
