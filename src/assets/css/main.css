@@ -4,19 +4,13 @@
  */
 
 /* 1. Base Tailwind CSS - must come first */
-@import './tailwind.css';
+@import 'tailwind.css';
 
 /* 2. Theme tokens and CSS custom properties */
-@import './theme-tokens.css';
+@import 'theme-tokens.css';
 
-/* 3. Modern design system with OKLCH colors */
-@import './modern-design.css';
-
-/* 4. Cybersecurity visual effects */
-@import './cybersecurity-effects.css';
-
-/* 5. Site-specific enhancements */
-@import './enhancements.css';
+/* 3. Site-specific enhancements */
+@import 'enhancements.css';
 
 /* Base reset and improvements */
 *,
@@ -29,100 +23,23 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Typography System - Research-backed implementation
- * Headings: Bricolage Grotesque (600, 700, 800)
- * Body: Figtree (300, 400, 500 + 400 italic)
- * Code: JetBrains Mono (400, 500, 700 + 400 italic)
- * Quotes: Newsreader (400, 600 + italics)
- */
-
-/* Body text - Figtree for optimal readability */
+/* Ensure proper font loading */
 body {
-  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
-  font-weight: 400;  /* Figtree Regular */
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-feature-settings: 'kern' 1, 'liga' 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-size: clamp(1rem, 1.125vw, 1.125rem);
-  line-height: 1.65;
-  margin: 0;
-  padding: 0;
 }
 
-/* Headings - Bricolage Grotesque for distinctive hierarchy */
-h1, h2, h3, h4, h5, h6,
-.heading {
-  font-family: 'Bricolage Grotesque', 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 700;  /* Bricolage Grotesque Bold */
-  font-feature-settings: 'kern' 1;
-  letter-spacing: -0.02em;  /* Tighter tracking for headings */
-}
-
-/* Heading weight variants */
-h1 {
-  font-weight: 800;  /* Bricolage Grotesque ExtraBold */
-}
-
-h2, h3 {
-  font-weight: 700;  /* Bricolage Grotesque Bold */
-}
-
-h4, h5, h6 {
-  font-weight: 600;  /* Bricolage Grotesque SemiBold */
-}
-
-/* Code elements - JetBrains Mono for technical content */
-code, pre, kbd, samp {
-  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, monospace;
-  font-weight: 400;  /* JetBrains Mono Regular */
-  font-feature-settings: 'liga' 1, 'calt' 1;  /* Enable ligatures */
-}
-
-/* Code emphasis */
-code strong,
-pre strong {
-  font-weight: 500;  /* JetBrains Mono Medium */
-}
-
-/* Quotes - Newsreader for elegant, authoritative feel */
-blockquote {
-  font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
-  font-weight: 400;  /* Newsreader Regular */
-  font-style: italic;
-  font-feature-settings: 'kern' 1;
-}
-
-/* Quote emphasis */
-blockquote strong {
-  font-weight: 600;  /* Newsreader SemiBold */
-  font-style: normal;
-}
-
-/* Body text weight variants */
-.text-light {
-  font-weight: 300;  /* Figtree Light */
-}
-
-.text-medium {
-  font-weight: 500;  /* Figtree Medium */
-}
-
-/* Emphasized text */
-em, i {
-  font-style: italic;
-  font-weight: 400;  /* Figtree Regular Italic */
-}
-
-/* Cybersecurity gradient text */
+/* Fix for gradient text in Safari */
 .gradient-text {
-  background: linear-gradient(135deg, var(--cyber-cyan) 0%, var(--cyber-teal) 50%, var(--terminal-green) 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% 200%;
   animation: gradientShift 3s ease infinite;
-  font-weight: var(--weight-black);
 }
 
 @keyframes gradientShift {

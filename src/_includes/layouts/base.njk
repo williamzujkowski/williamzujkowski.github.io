@@ -8,98 +8,8 @@
     <meta name="keywords" content="{{ keywords or site.keywords }}">
     
     <title>{% if title != "Home" %}{{ title }} - {% endif %}{{ site.title }}</title>
-
-    <!-- Critical CSS (inline for fast FCP) -->
-    <style>/* ========================================
-   CRITICAL CSS - INLINE IN <HEAD>
-   Minimal above-the-fold styles for fast FCP
-   Target: <8KB for optimal performance
-   ======================================== */
-
-/* 1. Layout essentials */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:1rem;line-height:1.65}
-
-/* 2. Critical colors (light mode only, dark mode deferred) */
-:root{
-  --bg:oklch(98% 0.01 80);
-  --fg:oklch(25% 0.02 270);
-  --link:oklch(45% 0.18 25);
-  --border:oklch(90% 0.01 270);
-}
-
-/* 3. Header (above fold, sticky) */
-.site-header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  background:rgba(253,251,248,0.9);
-  border-bottom:1px solid var(--border);
-}
-
-/* 4. Skip link (accessibility) */
-.skip-to-main{
-  position:absolute;
-  left:-9999px;
-  z-index:999;
-  padding:1rem 1.5rem;
-  background:var(--link);
-  color:white;
-  text-decoration:none;
-  border-radius:0.25rem;
-}
-.skip-to-main:focus{
-  left:50%;
-  top:1rem;
-  transform:translateX(-50%);
-}
-
-/* 5. Dark mode (prefers-color-scheme only, toggle deferred) */
-@media (prefers-color-scheme:dark){
-  :root{
-    --bg:oklch(15% 0.02 270);
-    --fg:oklch(95% 0.01 270);
-    --link:oklch(75% 0.19 50);
-    --border:oklch(25% 0.03 270);
-  }
-  .site-header{
-    background:rgba(26,21,51,0.95);
-  }
-}
-
-/* 6. Focus states */
-:focus-visible{
-  outline:3px solid var(--link);
-  outline-offset:2px;
-}
-
-/* 7. Screen reader only */
-.sr-only{
-  position:absolute;
-  width:1px;
-  height:1px;
-  padding:0;
-  margin:-1px;
-  overflow:hidden;
-  clip:rect(0,0,0,0);
-  white-space:nowrap;
-  border-width:0;
-}</style>
-
-    <!-- Modern Design System CSS -->
-    <link rel="stylesheet" href="/assets/css/fonts.css">
-    <link rel="stylesheet" href="/assets/css/modern-design.css">
-    <link rel="stylesheet" href="/assets/css/cybersecurity-effects.css">
-
-    <!-- Main CSS (processed by PostCSS, contains base styles and Tailwind) -->
+    
     <link rel="stylesheet" href="/assets/css/main.css">
-
-    <!-- Theme tokens MUST load after main.css to override :root{} variable declarations -->
-    <link rel="stylesheet" href="/assets/css/theme-tokens.css">
-
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     
     <!-- RSS Feed -->
@@ -186,17 +96,11 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
     </script>
     
     <!-- Resource Hints for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-
-    <!-- Google Fonts - Modern Typography System
-         Display: Cabinet Grotesk (fallback to DM Sans for headings)
-         Subheadings: Plus Jakarta Sans
-         Body: DM Sans (Geist alternative)
-         Monospace: JetBrains Mono (GeistMono alternative)
-         Feature: Fraunces (variable font) -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="dns-prefetch" href="https://rsms.me">
+    
+    <!-- Inter font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     
     <!-- Dark mode script -->
     <script>
@@ -204,23 +108,18 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
         (function() {
             const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
             const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-
+            
             if (isDark) {
                 document.documentElement.classList.add('dark');
-                // Midnight Espresso: oklch(15% 0.02 270)
-                if (themeColorMeta) themeColorMeta.content = '#1a1533';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
             } else {
                 document.documentElement.classList.remove('dark');
-                // Warm Canvas: oklch(98% 0.01 80)
-                if (themeColorMeta) themeColorMeta.content = '#fdfbf8';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
             }
         })();
     </script>
 </head>
-<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased grid-pattern scan-lines">
-    <!-- Matrix background effect (subtle) -->
-    <div class="matrix-bg" aria-hidden="true"></div>
-
+<body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 antialiased">
     <a href="#main" class="skip-to-main">Skip to main content</a>
 
 
@@ -230,7 +129,7 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
-                <div class="shrink-0">
+                <div class="flex-shrink-0">
                     <a href="/" class="text-xl font-semibold gradient-text">
                         {{ site.title }}
                     </a>
@@ -252,7 +151,7 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
                 <!-- Dark mode toggle & Mobile menu button -->
                 <div class="flex items-center space-x-4">
                     <!-- Dark mode toggle -->
-                    <button type="button" onclick="toggleDarkMode()" class="has-tooltip min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode">
+                    <button type="button" onclick="toggleDarkMode()" class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle dark mode">
                         <!-- Light mode icon -->
                         <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -338,7 +237,7 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
     {% endif %}
     
     <!-- Main content -->
-    <main id="main" class="grow">
+    <main id="main" class="flex-grow">
         {{ content | safe }}
     </main>
     
@@ -369,17 +268,17 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
                 <div>
                     <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Connect</h3>
                     <div class="flex space-x-4">
-                        <a href="{{ site.social.github }}" class="has-tooltip text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer" data-tooltip="Visit my GitHub">
+                        <a href="{{ site.social.github }}" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="GitHub" rel="noopener noreferrer">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                             </svg>
                         </a>
-                        <a href="{{ site.social.linkedin }}" class="has-tooltip text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer" data-tooltip="Connect on LinkedIn">
+                        <a href="{{ site.social.linkedin }}" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="LinkedIn" rel="noopener noreferrer">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                             </svg>
                         </a>
-                        <a href="/feed.xml" class="has-tooltip text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed" data-tooltip="Subscribe via RSS">
+                        <a href="/feed.xml" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200" aria-label="RSS Feed">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.858 5.1 3.429 5.1zm0 4.8v2.4c3.924 0 7.114 3.206 7.114 7.142h2.4c0-5.256-4.276-9.542-9.514-9.542zM6.171 16.386c-.756 0-1.371.615-1.371 1.371 0 .756.615 1.371 1.371 1.371.756 0 1.371-.615 1.371-1.371 0-.756-.615-1.371-1.371-1.371z"/>
                             </svg>
@@ -403,17 +302,15 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
         function toggleDarkMode() {
             const html = document.documentElement;
             const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-
+            
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
                 localStorage.theme = 'light';
-                // Warm Canvas: oklch(98% 0.01 80)
-                if (themeColorMeta) themeColorMeta.content = '#fdfbf8';
+                if (themeColorMeta) themeColorMeta.content = '#1e40af';
             } else {
                 html.classList.add('dark');
                 localStorage.theme = 'dark';
-                // Midnight Espresso: oklch(15% 0.02 270)
-                if (themeColorMeta) themeColorMeta.content = '#1a1533';
+                if (themeColorMeta) themeColorMeta.content = '#111827';
             }
         }
         
@@ -472,10 +369,7 @@ body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
     
     <!-- Core JavaScript Bundle (ui-enhancements, back-to-top, code-collapse) -->
     <script src="/assets/js/core.min.js"></script>
-
-    <!-- Scroll Animations (Intersection Observer + GPU acceleration) -->
-    <script src="/assets/js/scroll-animations.js"></script>
-
+    
     <!-- Mermaid Diagram Support -->
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';

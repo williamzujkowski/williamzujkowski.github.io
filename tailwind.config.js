@@ -5,11 +5,6 @@ module.exports = {
     "./.eleventy.js"
   ],
   darkMode: 'class',
-  safelist: [
-    'dark',
-    'sr-only',
-    'skip-to-main',
-  ],
   theme: {
     extend: {
       colors: {
@@ -136,73 +131,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        // Display/Headings - DM Sans (modern, geometric)
-        display: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        // Subheadings - Plus Jakarta Sans (rounded, friendly)
-        subheading: ['"Plus Jakarta Sans"', '"DM Sans"', '-apple-system', 'sans-serif'],
-        // Body text - DM Sans (clean, readable)
-        sans: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
-        // Code blocks - JetBrains Mono (technical, ligatures)
-        mono: ['"JetBrains Mono"', '"Fira Code"', '"SF Mono"', 'Monaco', 'monospace'],
-        // Feature quotes - Fraunces (variable serif)
-        feature: ['Fraunces', 'Georgia', 'Cambria', 'serif'],
-      },
-      fontWeight: {
-        // Body text weights (Figtree)
-        light: '300',      // Figtree Light
-        normal: '400',     // Figtree Regular
-        medium: '500',     // Figtree Medium
-        // Heading weights (Bricolage Grotesque)
-        semibold: '600',   // Bricolage Grotesque SemiBold
-        bold: '700',       // Bricolage Grotesque Bold
-        extrabold: '800',  // Bricolage Grotesque ExtraBold
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.6s ease-out',
-        'fade-in-up': 'fadeInUp 0.8s ease-out',
-        'slide-in-right': 'slideInRight 0.6s ease-out',
-        'glow-pulse': 'glowPulse 2s ease-in-out infinite',
-        'scan-line': 'scanLine 8s linear infinite',
-        'matrix-rain': 'matrixRain 20s linear infinite',
-        'glitch': 'glitch 0.5s ease-in-out infinite',
-        'typing': 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        slideInRight: {
-          '0%': { opacity: '0', transform: 'translateX(-30px)' },
-          '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        glowPulse: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(0, 255, 170, 0.4)' },
-          '50%': { boxShadow: '0 0 40px rgba(0, 255, 170, 0.8)' },
-        },
-        scanLine: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(100vh)' },
-        },
-        matrixRain: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(100%)' },
-        },
-        glitch: {
-          '0%, 100%': { transform: 'translate(0)' },
-          '20%': { transform: 'translate(-2px, 2px)' },
-          '40%': { transform: 'translate(-2px, -2px)' },
-          '60%': { transform: 'translate(2px, 2px)' },
-          '80%': { transform: 'translate(2px, -2px)' },
-        },
-        typing: {
-          'from': { width: '0' },
-          'to': { width: '100%' },
-        },
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Consolas', 'Monaco', '"Andale Mono"', '"Ubuntu Mono"', 'monospace'],
       },
     },
   },

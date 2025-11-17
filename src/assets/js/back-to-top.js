@@ -11,9 +11,8 @@
     `;
     button.setAttribute('aria-label', 'Back to top');
     button.setAttribute('title', 'Back to top');
-    button.className = 'fixed bottom-8 right-8 z-50 p-4 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible';
+    button.className = 'fixed bottom-8 right-8 z-50 p-3 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible';
     button.id = 'back-to-top';
-    button.style.cssText = 'background: #0a192f; color: #00ffaa; border: 2px solid #00ffaa;';
     
     // Add to DOM
     document.body.appendChild(button);

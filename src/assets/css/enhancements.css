@@ -6,8 +6,8 @@
 
 /* Skip to main content link - WCAG compliance */
 .skip-to-main {
-  position: absolute !important;
-  left: -9999px !important;
+  position: absolute;
+  left: -9999px;
   top: 0;
   z-index: 999999;
   padding: 0.75rem 1rem;
@@ -20,8 +20,8 @@
 }
 
 .skip-to-main:focus {
-  left: 50% !important;
-  top: 1rem !important;
+  left: 50%;
+  top: 1rem;
   transform: translateX(-50%);
   outline: 3px solid #60a5fa;
   outline-offset: 2px;
@@ -29,36 +29,14 @@
 }
 
 /* Enhanced focus indicators - WCAG 2.4.7 AA */
-/* Comprehensive focus styles for all interactive elements */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-[role="button"]:focus-visible,
-[tabindex]:not([tabindex="-1"]):focus-visible {
-  outline: 2px solid var(--cyber-cyan) !important;
+*:focus-visible {
+  outline: 3px solid #3b82f6 !important;
   outline-offset: 2px !important;
   border-radius: 2px;
 }
 
-.dark a:focus-visible,
-.dark button:focus-visible,
-.dark input:focus-visible,
-.dark select:focus-visible,
-.dark textarea:focus-visible,
-.dark [role="button"]:focus-visible,
-.dark [tabindex]:not([tabindex="-1"]):focus-visible {
-  outline-color: var(--cyber-teal) !important;
-}
-
-/* Remove focus outline for mouse users (focus-visible handles keyboard) */
-a:focus:not(:focus-visible),
-button:focus:not(:focus-visible),
-input:focus:not(:focus-visible),
-select:focus:not(:focus-visible),
-textarea:focus:not(:focus-visible) {
-  outline: none;
+.dark *:focus-visible {
+  outline-color: #60a5fa !important;
 }
 
 /* Screen reader only text */
@@ -91,7 +69,17 @@ textarea:focus:not(:focus-visible) {
   }
 }
 
-/* Reduced motion support - Extended in atmospheric effects section */
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* ========================================
    TOUCH TARGETS - MOBILE OPTIMIZATION
@@ -125,7 +113,7 @@ textarea:focus:not(:focus-visible) {
     align-items: center;
   }
 
-  /* Mobile menu button - hide on desktop */
+  /* Mobile menu button */
   .mobile-menu-button,
   button[aria-label*="menu"],
   button[data-mobile-menu-button] {
@@ -133,64 +121,66 @@ textarea:focus:not(:focus-visible) {
     min-height: 44px;
     padding: 0.75rem;
   }
-
-  /* Ensure hamburger menu is hidden on desktop (md breakpoint and above) */
-  @media (min-width: 768px) {
-    button[data-mobile-menu-button] {
-      display: none !important;
-    }
-  }
 }
 
 /* ========================================
    INTERACTIVE ELEMENTS
    ======================================== */
 
-/* Cybersecurity-styled buttons - See atmospheric effects section for enhanced hover states */
+/* Ensure buttons are identifiable */
+button,
+[role="button"],
+.btn {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+
+button:hover,
+[role="button"]:hover,
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 button:active,
 [role="button"]:active,
 .btn:active {
   transform: translateY(0);
 }
 
-/* Primary button with dark background for better contrast */
-.btn-primary {
-  background: #0a192f;  /* Dark navy background */
-  color: var(--accent);  /* Bright accent text */
-  border: 2px solid var(--accent);
-  padding: 0.75rem 1.5rem;
+/* Link improvements */
+a:not(.btn):not(.nav-link) {
+  color: #2563eb;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
 }
 
-.btn-primary:hover {
-  background: var(--accent);
-  color: #0a192f;  /* Dark text on bright background */
+a:not(.btn):not(.nav-link):hover {
+  color: #1d4ed8;
+  text-decoration-color: currentColor;
 }
 
-/* Secondary button */
-.btn-secondary {
-  background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
-  padding: 0.75rem 1.5rem;
+.dark a:not(.btn):not(.nav-link) {
+  color: #60a5fa;
 }
 
-.btn-secondary:hover {
-  background: var(--accent);
-  color: var(--bg);
+.dark a:not(.btn):not(.nav-link):hover {
+  color: #93c5fd;
 }
-
-/* Cybersecurity link improvements - See atmospheric effects section for enhanced animations */
 
 /* Button color overrides - !important needed to override PostCSS generated a:not(.btn-secondary) selectors */
 a.btn-primary,
 button.btn-primary {
-  color: var(--accent) !important;  /* Bright accent color */
+  color: white !important;
   text-decoration: none;
-}
-
-a.btn-primary:hover,
-button.btn-primary:hover {
-  color: #0a192f !important;  /* Dark text on hover */
 }
 
 a.btn-secondary,
@@ -208,97 +198,18 @@ button.btn-secondary {
    NAVIGATION ENHANCEMENTS
    ======================================== */
 
-/* Navigation contrast improvements - WCAG 1.4.3 AA (4.5:1 minimum) - CORRECTED */
-/* Logo/site title visibility */
-nav a.gradient-text,
-nav .gradient-text {
-  color: #1f2937 !important; /* Dark gray for light mode - visible against light background */
-  background: none !important; /* Override gradient that may be invisible */
-  -webkit-background-clip: unset !important;
-  background-clip: unset !important;
-  -webkit-text-fill-color: currentColor !important;
+/* Header glassmorphism effect */
+.site-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+  transition: all 0.3s ease;
 }
 
-.dark nav a.gradient-text,
-.dark nav .gradient-text {
-  color: #f3f4f6 !important; /* Light gray for dark mode - visible against dark background */
-}
-
-/* Desktop navigation links (light mode) */
-nav .hidden.md\:block a:not(.gradient-text),
-.nav-link {
-  color: #374151 !important; /* Dark gray for light mode backgrounds - 8:1 contrast */
-}
-
-nav .hidden.md\:block a:not(.gradient-text):hover,
-nav .hidden.md\:block a:not(.gradient-text)[aria-current="page"],
-.nav-link:hover,
-.nav-link.active {
-  color: #111827 !important; /* Darker on hover/active */
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-/* Mobile navigation links (light mode) */
-nav [data-mobile-menu-panel] a {
-  color: #374151 !important;
-}
-
-nav [data-mobile-menu-panel] a:hover,
-nav [data-mobile-menu-panel] a[aria-current="page"] {
-  color: #111827 !important;
-}
-
-/* Dark mode navigation links */
-.dark nav .hidden.md\:block a:not(.gradient-text),
-.dark .nav-link {
-  color: #e5e7eb !important; /* Light gray for dark backgrounds */
-}
-
-.dark nav .hidden.md\:block a:not(.gradient-text):hover,
-.dark nav .hidden.md\:block a:not(.gradient-text)[aria-current="page"],
-.dark .nav-link:hover,
-.dark .nav-link.active {
-  color: #ffffff !important;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Dark mode mobile navigation */
-.dark nav [data-mobile-menu-panel] a {
-  color: #e5e7eb !important;
-}
-
-.dark nav [data-mobile-menu-panel] a:hover,
-.dark nav [data-mobile-menu-panel] a[aria-current="page"] {
-  color: #ffffff !important;
-}
-
-/* Mobile menu contrast */
-@media (max-width: 768px) {
-  #mobile-menu a,
-  .mobile-menu a {
-    color: #f3f4f6 !important;
-  }
-
-  .dark #mobile-menu a,
-  .dark .mobile-menu a {
-    color: #e5e7eb !important;
-  }
-}
-
-/* Header with cybersecurity aesthetic - See atmospheric effects section for enhanced sticky header */
-.site-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--cyber-cyan), var(--cyber-teal), transparent);
-  opacity: 0.5;
-}
-
-.dark .site-header::after {
-  opacity: 0.8;
+.dark .site-header {
+  background-color: rgba(17, 24, 39, 0.85);
+  border-bottom: 1px solid rgba(55, 65, 81, 0.8);
 }
 
 /* Mobile menu improvements */
@@ -359,48 +270,44 @@ select:focus {
    CARD AND CONTENT ENHANCEMENTS
    ======================================== */
 
-/* Cybersecurity card effects with holographic borders */
-.card::before,
-article.post-preview::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  background: linear-gradient(
-    135deg,
-    var(--cyber-cyan) 0%,
-    var(--cyber-teal) 25%,
-    var(--terminal-green) 50%,
-    var(--cyber-teal) 75%,
-    var(--cyber-cyan) 100%
-  );
-  background-size: 400% 400%;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  animation: holoBorder 6s ease-in-out infinite;
-  z-index: -1;
-  border-radius: inherit;
-  filter: blur(1px);
+/* Card hover effects */
+.card,
+article.post-preview {
+  transition: all 0.3s ease;
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
-@keyframes holoBorder {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+.card:hover,
+article.post-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.card:hover::before,
-article.post-preview:hover::before {
-  opacity: 0.7;
+.dark .card:hover,
+.dark article.post-preview:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.dark .card:hover::before,
-.dark article.post-preview:hover::before {
-  opacity: 0.9;
+/* Code block improvements - Enhanced for better readability */
+pre {
+  border-radius: 0.75rem;
+  position: relative;
+  overflow-x: auto;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  line-height: 1.6;
+  font-size: 0.875rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* Code block improvements - See atmospheric effects section for terminal-style borders */
+.dark pre {
+  background-color: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
 
 /* Ensure code within pre has good contrast */
 pre code {
@@ -599,301 +506,6 @@ img {
 }
 
 /* ========================================
-   ATMOSPHERIC EFFECTS & DESIGN POLISH
-   ======================================== */
-
-/* Noise texture overlay for depth */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02' /%3E%3C/svg%3E");
-  opacity: 0.02;
-}
-
-.dark body::before {
-  opacity: 0.03;
-}
-
-/* Hero section radial gradient background */
-.hero,
-.page-header,
-[class*="hero-"] {
-  position: relative;
-  background: radial-gradient(ellipse at top, rgba(0, 217, 255, 0.15) 0%, transparent 50%);
-}
-
-.dark .hero,
-.dark .page-header,
-.dark [class*="hero-"] {
-  background: radial-gradient(ellipse at top, rgba(0, 217, 255, 0.25) 0%, transparent 60%);
-}
-
-/* Heading text glow in dark mode */
-.dark h1,
-.dark h2,
-.dark h3 {
-  text-shadow: 0 0 30px rgba(0, 217, 255, 0.25);
-}
-
-/* Enhanced link underline animation */
-a:not(.btn):not(.nav-link) {
-  color: var(--link);
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 2px;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-teal));
-  background-size: 0% 2px;
-  background-repeat: no-repeat;
-  background-position: left bottom;
-}
-
-a:not(.btn):not(.nav-link):hover {
-  color: var(--link-hover);
-  text-decoration-color: currentColor;
-  background-size: 100% 2px;
-}
-
-.dark a:not(.btn):not(.nav-link):hover {
-  text-shadow: 0 0 30px rgba(0, 217, 255, 0.25);
-}
-
-/* Quote blocks with accent border and background tint */
-blockquote {
-  position: relative;
-  border-left: 4px solid var(--cyber-cyan);
-  background: rgba(0, 217, 255, 0.05);
-  padding: 1rem 1.5rem;
-  margin: 1.5rem 0;
-  border-radius: 0.25rem;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark blockquote {
-  background: rgba(0, 217, 255, 0.1);
-  border-left-color: var(--cyber-teal);
-}
-
-blockquote:hover {
-  background: rgba(0, 217, 255, 0.08);
-  transform: translateX(4px);
-}
-
-.dark blockquote:hover {
-  background: rgba(0, 217, 255, 0.15);
-}
-
-/* Section dividers with gradient lines */
-hr,
-.section-divider {
-  border: none;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--cyber-cyan) 20%, var(--cyber-teal) 50%, var(--terminal-green) 80%, transparent 100%);
-  margin: 3rem 0;
-  opacity: 0.5;
-  transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-hr:hover,
-.section-divider:hover {
-  opacity: 1;
-}
-
-/* Footer gradient fade effect */
-footer,
-.site-footer {
-  position: relative;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 217, 255, 0.05) 100%);
-}
-
-.dark footer,
-.dark .site-footer {
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 217, 255, 0.1) 100%);
-}
-
-/* Code blocks with terminal-style borders */
-pre {
-  border-radius: 0.75rem;
-  position: relative;
-  overflow-x: auto;
-  background-color: #f8fafc;
-  border: 2px solid #e2e8f0;
-  border-left: 4px solid var(--cyber-cyan);
-  border-top: 2px solid var(--cyber-teal);
-  padding: 1rem;
-  margin: 1.5rem 0;
-  line-height: 1.6;
-  font-size: 0.875rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark pre {
-  background-color: #1e293b;
-  border-color: #334155;
-  border-left-color: var(--cyber-cyan);
-  border-top-color: var(--cyber-teal);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-}
-
-pre:hover {
-  border-left-color: var(--cyber-teal);
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
-}
-
-/* Enhanced card hover effects with scale and glow */
-.card,
-article.post-preview {
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 0.5rem;
-  overflow: hidden;
-  position: relative;
-  background: var(--card);
-  border: 1px solid var(--border);
-  transform: scale(1);
-}
-
-.card:hover,
-article.post-preview:hover {
-  transform: scale(1.02) translateY(-4px);
-}
-
-/* Light mode card shadow */
-.card:hover,
-article.post-preview:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Dark mode card glow */
-.dark .card:hover,
-.dark article.post-preview:hover {
-  box-shadow: 0 0 30px rgba(0, 217, 255, 0.25), 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-/* Button gradient enhancements with hover animations */
-button:not(.fixed):not([class*="fixed"]),
-[role="button"]:not(.fixed):not([class*="fixed"]),
-.btn:not(.fixed) {
-  cursor: pointer;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  border-radius: 0.25rem;
-  position: relative;
-  overflow: hidden;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--cyber-teal) 100%);
-  background-size: 200% 200%;
-  background-position: 0% 50%;
-}
-
-button:hover:not(.fixed):not([class*="fixed"]),
-[role="button"]:hover:not(.fixed):not([class*="fixed"]),
-.btn:hover:not(.fixed) {
-  background-position: 100% 50%;
-  transform: translateY(-2px);
-}
-
-/* Light mode button glow */
-button:hover:not(.fixed):not([class*="fixed"]),
-[role="button"]:hover:not(.fixed):not([class*="fixed"]),
-.btn:hover:not(.fixed) {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Dark mode button glow */
-.dark button:hover:not(.fixed):not([class*="fixed"]),
-.dark [role="button"]:hover:not(.fixed):not([class*="fixed"]),
-.dark .btn:hover:not(.fixed) {
-  box-shadow: 0 0 30px rgba(0, 255, 136, 0.25), 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-/* Navigation sticky header with backdrop blur */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: rgba(240, 244, 248, 0.9);
-  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark .site-header {
-  background-color: rgba(10, 25, 47, 0.95);
-  border-bottom: 1px solid rgba(0, 212, 255, 0.3);
-}
-
-/* Smooth color transitions for all properties */
-* {
-  transition-property: color, background-color, border-color, fill, stroke, box-shadow, text-shadow;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  /* Disable atmospheric effects for reduced motion */
-  body::before {
-    display: none;
-  }
-
-  .dark h1,
-  .dark h2,
-  .dark h3 {
-    text-shadow: none;
-  }
-
-  .card:hover,
-  article.post-preview:hover {
-    transform: none;
-  }
-
-  button:hover:not(.fixed):not([class*="fixed"]),
-  [role="button"]:hover:not(.fixed):not([class*="fixed"]),
-  .btn:hover:not(.fixed) {
-    transform: none;
-  }
-}
-
-/* GPU acceleration for transforms and opacity */
-.card,
-article.post-preview,
-button,
-[role="button"],
-.btn,
-a:not(.btn):not(.nav-link) {
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-/* ========================================
    UTILITY CLASSES
    ======================================== */
 
@@ -945,360 +557,6 @@ a:not(.btn):not(.nav-link) {
 }
 
 /* ========================================
-   READING WIDTH & LARGE DISPLAY OPTIMIZATION
-   ======================================== */
-
-/* Constrain reading width on large displays to prevent eye strain */
-@media (min-width: 1920px) {
-  /* Main container constraint */
-  main,
-  .container {
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* Content width constraint for optimal reading */
-  article,
-  .prose,
-  main > section,
-  .post-content,
-  .blog-content {
-    max-width: 75ch; /* ~975px at 13px font, optimal for readability */
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* Exceptions for full-width layouts */
-  .full-width,
-  .hero,
-  .hero-gradient-mesh,
-  header,
-  footer,
-  nav {
-    max-width: 100%;
-  }
-
-  /* Code blocks maintain reading width but allow horizontal scroll if needed */
-  pre {
-    max-width: 75ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* Ultra-wide displays (>2560px) - additional constraints */
-@media (min-width: 2560px) {
-  main,
-  .container {
-    max-width: 1600px;
-  }
-
-  article,
-  .prose,
-  main > section {
-    max-width: 80ch; /* Slightly wider for ultra-wide displays */
-  }
-}
-
-/* ========================================
-   MOBILE UX IMPROVEMENTS (SPRINT 2)
-   ======================================== */
-
-/* Issue 4: Mobile navigation inline primary links (reduce two-tap friction) */
-@media (max-width: 768px) {
-  .mobile-primary-nav {
-    display: flex;
-    justify-content: space-around;
-    padding: 0.5rem;
-    border-bottom: 1px solid #374151;
-    background: var(--color-bg-primary, #1a1533);
-  }
-
-  .mobile-primary-nav .nav-item {
-    min-height: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #f3f4f6;
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    transition: all 0.2s ease;
-  }
-
-  .mobile-primary-nav .nav-item:hover,
-  .mobile-primary-nav .nav-item:focus {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-  }
-
-  .mobile-primary-nav .nav-item[aria-current="page"] {
-    background: rgba(99, 102, 241, 0.2);
-    color: #818cf8;
-  }
-
-  /* Hide hamburger menu (keep for "More" menu functionality) */
-  .mobile-menu-toggle {
-    display: none;
-  }
-}
-
-/* Issue 5: Inconsistent touch targets - ensure all ≥44×44px */
-.tag-link,
-.post-tag,
-a.tag {
-  min-height: 44px;
-  min-width: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-}
-
-/* Fix hidden desktop nav creating 0×0 clickable areas */
-@media (max-width: 768px) {
-  nav .desktop-only,
-  .nav-desktop,
-  .hidden.md\:block {
-    display: none !important;
-    pointer-events: none !important;
-  }
-}
-
-/* Issue 6: Back-to-top button visibility after 50% scroll + WCAG 2.5.5 touch target */
-[aria-label="Back to top"],
-.back-to-top {
-  /* WCAG 2.5.5 Touch Target Size - Session 53 Visual Audit Fix #1 */
-  min-width: 44px !important;
-  min-height: 44px !important;
-  width: 44px !important;
-  height: 44px !important;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-[aria-label="Back to top"] svg,
-[aria-label="Back to top"] img,
-.back-to-top svg,
-.back-to-top img {
-  width: 24px;
-  height: 24px;
-}
-
-[aria-label="Back to top"].visible,
-.back-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* Issue 7: Breadcrumb truncation on mobile - vertical layout */
-@media (max-width: 640px) {
-  .breadcrumb,
-  nav[aria-label="Breadcrumb"] ol {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-
-  .breadcrumb-title,
-  nav[aria-label="Breadcrumb"] ol li:last-child span {
-    white-space: normal;
-    word-break: break-word;
-    max-width: 100%;
-  }
-
-  /* Hide chevron separators on mobile for vertical layout */
-  nav[aria-label="Breadcrumb"] svg {
-    display: none;
-  }
-
-  /* Add alternative separator */
-  nav[aria-label="Breadcrumb"] ol li:not(:first-child)::before {
-    content: "→ ";
-    margin-right: 0.25rem;
-    color: #9ca3af;
-  }
-}
-
-/* Issue 8: Horizontal overflow at 320px viewport */
-@media (max-width: 320px) {
-  * {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  img {
-    height: auto;
-    max-width: 100%;
-  }
-
-  pre, code, .code-block {
-    overflow-x: auto;
-    max-width: 100vw;
-  }
-
-  table {
-    display: block;
-    overflow-x: auto;
-    max-width: 100vw;
-  }
-
-  /* Reduce padding on very small viewports */
-  .container {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-
-  /* Ensure cards don't overflow */
-  .card,
-  .glass-card {
-    max-width: calc(100vw - 1.5rem);
-  }
-}
-
-/* Issue 9: Stats page charts responsive on mobile */
-@media (max-width: 768px) {
-  canvas {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  /* Chart containers */
-  .h-80,
-  .h-96 {
-    height: auto !important;
-    min-height: 250px;
-  }
-
-  /* Adjust chart aspect ratio on mobile */
-  #postsOverTimeChart,
-  #topTagsChart,
-  #dayOfWeekChart,
-  #readingTimeChart,
-  #topicEvolutionChart,
-  #wordCountChart {
-    max-height: 300px;
-  }
-}
-
-/* ========================================
-   TOOLTIPS (SPRINT 3)
-   ======================================== */
-
-/* Tooltip base styles - CSS-only, accessible */
-.has-tooltip {
-  position: relative;
-}
-
-.has-tooltip::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: calc(100% + 0.5rem);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  padding: 0.5rem 0.75rem;
-  background: #1f2937;
-  color: #f3f4f6;
-  font-size: 0.875rem;
-  font-weight: 500;
-  white-space: nowrap;
-  border-radius: 0.375rem;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dark .has-tooltip::after {
-  background: #374151;
-  color: #f3f4f6;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-/* Tooltip arrow */
-.has-tooltip::before {
-  content: '';
-  position: absolute;
-  bottom: calc(100% + 0.125rem);
-  left: 50%;
-  transform: translateX(-50%);
-  border: 0.375rem solid transparent;
-  border-top-color: #1f2937;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-}
-
-.dark .has-tooltip::before {
-  border-top-color: #374151;
-}
-
-/* Show tooltip on hover and focus (keyboard users) */
-.has-tooltip:hover::after,
-.has-tooltip:focus-visible::after {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.has-tooltip:hover::before,
-.has-tooltip:focus-visible::before {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Footer social icon tooltip positioning (bottom instead of top) */
-footer .has-tooltip::after,
-.site-footer .has-tooltip::after {
-  bottom: auto;
-  top: calc(100% + 0.5rem);
-  transform: translateX(-50%) translateY(-4px);
-}
-
-footer .has-tooltip:hover::after,
-footer .has-tooltip:focus-visible::after,
-.site-footer .has-tooltip:hover::after,
-.site-footer .has-tooltip:focus-visible::after {
-  transform: translateX(-50%) translateY(0);
-}
-
-footer .has-tooltip::before,
-.site-footer .has-tooltip::before {
-  bottom: auto;
-  top: calc(100% + 0.125rem);
-  border-top-color: transparent;
-  border-bottom-color: #1f2937;
-}
-
-.dark footer .has-tooltip::before,
-.dark .site-footer .has-tooltip::before {
-  border-bottom-color: #374151;
-}
-
-/* Ensure tooltips respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .has-tooltip::after,
-  .has-tooltip::before {
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ========================================
    RESPONSIVE ADJUSTMENTS
    ======================================== */
 
@@ -1346,270 +604,4 @@ footer .has-tooltip::before,
   a:hover {
     transition: all 0.2s ease;
   }
-}
-
-/* ========================================
-   SESSION 53 VISUAL DESIGN AUDIT QUICK WINS
-   ======================================== */
-
-/* Fix #2: Improve heading line-height (1.10 → 1.25-1.35) */
-h1, .text-5xl, .text-6xl {
-  line-height: 1.25 !important;
-}
-
-h2, .text-4xl {
-  line-height: 1.3 !important;
-}
-
-h3, .text-3xl {
-  line-height: 1.35 !important;
-}
-
-/* Fix #3: Add paragraph max-width (prevent 99-char lines, optimal 45-75) */
-p {
-  max-width: 65ch;
-}
-
-/* Exception for post card descriptions (container already constrains) */
-article p {
-  max-width: none;
-}
-
-/* Exception for blockquote context paragraphs */
-blockquote + p {
-  max-width: 65ch;
-}
-
-/* Exception for footer paragraphs */
-footer p {
-  max-width: none;
-}
-
-/* Fix #4: Responsive H1 sizing (48px mobile → 64px tablet → 72px desktop) */
-h1 {
-  font-size: 3rem;  /* 48px mobile */
-  line-height: 1.25;
-}
-
-@media (min-width: 768px) {
-  h1 {
-    font-size: 4rem;  /* 64px tablet */
-  }
-}
-
-@media (min-width: 1024px) {
-  h1 {
-    font-size: 4.5rem;  /* 72px desktop */
-  }
-}
-
-/* Fix #5: Add post card padding (0px → 24px) */
-article {
-  padding: 1.5rem;
-}
-
-article time {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-article h3 {
-  margin-bottom: 0.75rem;
-}
-
-article p {
-  margin-bottom: 1rem;
-}
-
-article a[href*="Read more"] {
-  margin-top: 0.5rem;
-  display: inline-block;
-}
-
-/* Fix #6: Increase blockquote margin (24px → 48-64px) */
-blockquote {
-  margin: 3rem 0;  /* 48px */
-  padding: 1.5rem 2rem;
-}
-
-@media (min-width: 768px) {
-  blockquote {
-    margin: 4rem 0;  /* 64px on larger screens */
-  }
-}
-
-/* Fix #7: Add section padding (0px → 64px consistent) */
-main > div,
-main > section {
-  padding-top: 4rem;    /* 64px */
-  padding-bottom: 4rem; /* 64px */
-}
-
-/* First section (hero) needs more top padding */
-main > div:first-child {
-  padding-top: 6rem;  /* 96px */
-}
-
-/* Adjust child element margins to compensate */
-main > div > *:first-child,
-main > section > *:first-child {
-  margin-top: 0;
-}
-
-/* Fix #8: Style "What I Do" cards (background, padding, hover) */
-dl > div {
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
-}
-
-.dark dl > div {
-  background: rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.05);
-}
-
-dl > div:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.dark dl > div:hover {
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-/* ========================================
-   SESSION 53 MEDIUM/LOW PRIORITY POLISH
-   ======================================== */
-
-/* Fix #9: CTA button consistency (hero section) */
-.hero-cta-buttons a,
-main > div:first-child a[href*="/about"],
-main > div:first-child a[href*="/posts"] {
-  min-width: 180px;
-  padding: 0.75rem 1.5rem;
-  height: 48px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-/* Fix #10: Standardize navigation item spacing - CORRECTED */
-/* Only target navigation links, not all anchors in nav (logo is also an anchor) */
-nav .hidden.md\:block a,
-nav [data-mobile-menu-panel] a,
-.nav-link {
-  padding: 0.5rem 1rem;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Ensure hamburger menu button is hidden on desktop */
-@media (min-width: 768px) {
-  button[data-mobile-menu-button],
-  [data-mobile-menu-button] {
-    display: none !important;
-  }
-}
-
-/* Larger touch targets on mobile */
-@media (max-width: 767px) {
-  nav [data-mobile-menu-panel] a {
-    padding: 0.75rem 1rem;
-  }
-}
-
-/* Fix #11: Footer section gap consistency */
-footer > div > div {
-  gap: 2rem;
-}
-
-/* Fix #12: Post card date visual hierarchy (already in Fix #5 but ensure margin) */
-article time {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #9ca3af;
-}
-
-.dark article time {
-  color: #6b7280;
-}
-
-/* Fix #13: Headshot image depth (border + shadow) */
-img[alt="William Zujkowski"] {
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
-.dark img[alt="William Zujkowski"] {
-  border-color: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-
-/* Fix #14: Refined letter-spacing for better balance */
-h1 {
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  letter-spacing: -0.015em;
-}
-
-h3 {
-  letter-spacing: -0.01em;
-}
-
-/* Fix #15: Make "View all posts" button more prominent */
-a[href="/posts/"] {
-  display: inline-block;
-  padding: 0.75rem 2rem;
-  background: oklch(0.65 0.16 180);
-  color: white;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-a[href="/posts/"]:hover {
-  background: oklch(0.55 0.16 180);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
-}
-
-/* Fix #16: Ensure visible focus states for keyboard navigation */
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid oklch(0.65 0.16 180);
-  outline-offset: 2px;
-}
-
-/* Fix #17: Unify CTA button styles across site */
-.btn-primary,
-a[href*="/about/#contact"],
-.hero-cta-buttons a {
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  font-weight: 500;
-  font-size: 1.125rem;
-  min-height: 48px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Fix #18: Footer copyright breathing room */
-footer > p {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.dark footer > p {
-  border-top-color: rgba(255, 255, 255, 0.05);
 }
