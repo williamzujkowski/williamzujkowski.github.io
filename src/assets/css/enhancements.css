@@ -208,29 +208,67 @@ button.btn-secondary {
    NAVIGATION ENHANCEMENTS
    ======================================== */
 
-/* Navigation contrast improvements - WCAG 1.4.3 AA (4.5:1 minimum) */
-nav a,
-.nav-link {
-  color: #f3f4f6 !important; /* Improved from darker gray - 4.6:1 contrast ratio */
+/* Navigation contrast improvements - WCAG 1.4.3 AA (4.5:1 minimum) - CORRECTED */
+/* Logo/site title visibility */
+nav a.gradient-text,
+nav .gradient-text {
+  color: #1f2937 !important; /* Dark gray for light mode - visible against light background */
+  background: none !important; /* Override gradient that may be invisible */
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: currentColor !important;
 }
 
-nav a:hover,
-nav a[aria-current="page"],
+.dark nav a.gradient-text,
+.dark nav .gradient-text {
+  color: #f3f4f6 !important; /* Light gray for dark mode - visible against dark background */
+}
+
+/* Desktop navigation links (light mode) */
+nav .hidden.md\:block a:not(.gradient-text),
+.nav-link {
+  color: #374151 !important; /* Dark gray for light mode backgrounds - 8:1 contrast */
+}
+
+nav .hidden.md\:block a:not(.gradient-text):hover,
+nav .hidden.md\:block a:not(.gradient-text)[aria-current="page"],
 .nav-link:hover,
 .nav-link.active {
-  color: #ffffff !important; /* Pure white for maximum contrast - 21:1 ratio */
+  color: #111827 !important; /* Darker on hover/active */
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Dark mode navigation contrast */
-.dark nav a,
+/* Mobile navigation links (light mode) */
+nav [data-mobile-menu-panel] a {
+  color: #374151 !important;
+}
+
+nav [data-mobile-menu-panel] a:hover,
+nav [data-mobile-menu-panel] a[aria-current="page"] {
+  color: #111827 !important;
+}
+
+/* Dark mode navigation links */
+.dark nav .hidden.md\:block a:not(.gradient-text),
 .dark .nav-link {
-  color: #e5e7eb !important; /* Lighter gray for dark backgrounds */
+  color: #e5e7eb !important; /* Light gray for dark backgrounds */
 }
 
-.dark nav a:hover,
-.dark nav a[aria-current="page"],
+.dark nav .hidden.md\:block a:not(.gradient-text):hover,
+.dark nav .hidden.md\:block a:not(.gradient-text)[aria-current="page"],
 .dark .nav-link:hover,
 .dark .nav-link.active {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode mobile navigation */
+.dark nav [data-mobile-menu-panel] a {
+  color: #e5e7eb !important;
+}
+
+.dark nav [data-mobile-menu-panel] a:hover,
+.dark nav [data-mobile-menu-panel] a[aria-current="page"] {
   color: #ffffff !important;
 }
 
@@ -1460,17 +1498,28 @@ main > div:first-child a[href*="/posts"] {
   text-align: center;
 }
 
-/* Fix #10: Standardize navigation item spacing */
-nav a {
+/* Fix #10: Standardize navigation item spacing - CORRECTED */
+/* Only target navigation links, not all anchors in nav (logo is also an anchor) */
+nav .hidden.md\:block a,
+nav [data-mobile-menu-panel] a,
+.nav-link {
   padding: 0.5rem 1rem;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
 }
 
+/* Ensure hamburger menu button is hidden on desktop */
+@media (min-width: 768px) {
+  button[data-mobile-menu-button],
+  [data-mobile-menu-button] {
+    display: none !important;
+  }
+}
+
 /* Larger touch targets on mobile */
 @media (max-width: 767px) {
-  nav a {
+  nav [data-mobile-menu-panel] a {
     padding: 0.75rem 1rem;
   }
 }
