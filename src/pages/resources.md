@@ -26,15 +26,15 @@ No vendor pitches, no compliance frameworks – just the open source goodness th
     and occasionally question your life choices at 3 AM when Docker won't start (I've done this at least 47 times). That's normal. Here's what I wish someone had told me when I started.
   </p>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded">
       <strong class="text-green-600 dark:text-green-400">🌱 Start Here</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Docker, basic monitoring, and one programming language. Don't try to learn everything at once.</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded">
       <strong class="text-blue-600 dark:text-blue-400">🚀 Build Momentum</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Add orchestration, monitoring, and start breaking things intentionally. Security mindset begins here.</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded">
       <strong class="text-purple-600 dark:text-purple-400">🔬 Go Deep</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Specialize in what interests you. Red team, blue team, DevOps, or just really cool home automation.</p>
     </div>
@@ -46,7 +46,7 @@ No vendor pitches, no compliance frameworks – just the open source goodness th
 These are the tools that have me staying up way too late "just testing one more thing."
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-  <div class="bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-lg">
+  <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-lg">
     <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
       <a href="https://github.com/slimtoolkit/slim" class="text-primary-600 dark:text-primary-400 hover:underline">Slim.AI</a>
     </h4>
@@ -63,7 +63,7 @@ These are the tools that have me staying up way too late "just testing one more 
     </div>
   </div>
 
-  <div class="bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-lg">
+  <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-lg">
     <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
       <a href="https://github.com/tailscale/tailscale" class="text-primary-600 dark:text-primary-400 hover:underline">Tailscale</a>
     </h4>
@@ -79,7 +79,7 @@ These are the tools that have me staying up way too late "just testing one more 
     </div>
   </div>
 
-  <div class="bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg">
+  <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-lg">
     <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
       <a href="https://github.com/crowdsecurity/crowdsec" class="text-primary-600 dark:text-primary-400 hover:underline">CrowdSec</a>
     </h4>
@@ -95,7 +95,7 @@ These are the tools that have me staying up way too late "just testing one more 
     </div>
   </div>
 
-  <div class="bg-linear-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 p-6 rounded-lg">
+  <div class="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 p-6 rounded-lg">
     <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
       <a href="https://github.com/netdata/netdata" class="text-primary-600 dark:text-primary-400 hover:underline">Netdata</a>
     </h4>
@@ -120,19 +120,19 @@ These are the tools that have me staying up way too late "just testing one more 
     Here's the order I'd tackle these if I were starting over. Each tool builds on the last, and you'll use these concepts everywhere.
   </p>
   <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-green-600 dark:text-green-400">Week 1-2</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Docker basics, simple containers</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-blue-600 dark:text-blue-400">Week 3-4</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Docker Compose, multi-container apps</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-purple-600 dark:text-purple-400">Month 2</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Orchestration (K3s or Nomad)</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-orange-600 dark:text-orange-400">Month 3+</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Infrastructure as Code</p>
     </div>
@@ -237,7 +237,7 @@ These are the tools that have me staying up way too late "just testing one more 
     Learning what doesn't work is just as valuable as finding what does.
   </p>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">OpenShift (for homelab)</h5>
       <p class="text-sm text-gray-600 dark:text-gray-400">
         <strong>Tried:</strong> Q2 2022, abandoned after 2 months<br>
@@ -247,21 +247,21 @@ These are the tools that have me staying up way too late "just testing one more 
         <strong>What I learned:</strong> Enterprise tools don't scale down. Use tools designed for your scale.
       </p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">Jenkins (for simple CI/CD)</h5>
       <p class="text-sm text-gray-600 dark:text-gray-400">
         <strong>Why I tried it:</strong> Industry standard, huge plugin ecosystem<br>
         <strong>Why it failed:</strong> Configuration nightmare. Spent more time maintaining Jenkins than using it. GitLab CI or Drone CI work better for small projects.
       </p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">Full ELK Stack (personal use)</h5>
       <p class="text-sm text-gray-600 dark:text-gray-400">
         <strong>Why I tried it:</strong> Industry standard logging<br>
         <strong>Why it failed:</strong> Java memory hog for homelab scale. Loki + Grafana gives 80% of the value with 20% of the complexity.
       </p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-medium text-red-600 dark:text-red-400 mb-2">OSSEC (before Wazuh)</h5>
       <p class="text-sm text-gray-600 dark:text-gray-400">
         <strong>Why I tried it:</strong> Free SIEM solution<br>
@@ -269,7 +269,7 @@ These are the tools that have me staying up way too late "just testing one more 
       </p>
     </div>
   </div>
-  <div class="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-sm border border-yellow-300 dark:border-yellow-700">
+  <div class="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded border border-yellow-300 dark:border-yellow-700">
     <p class="text-sm text-yellow-800 dark:text-yellow-200">
       <strong>💡 The pattern:</strong> Complex enterprise tools often don't scale down well to homelab environments.
       Look for tools designed for simplicity first, then scale up if needed.
@@ -283,7 +283,7 @@ These are the tools that have me staying up way too late "just testing one more 
 
 <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg my-6">
   <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">⚔️ Know Your Enemy</h4>
-  <div class="bg-yellow-100 dark:bg-yellow-900/30 p-4 mb-4 rounded-sm border border-yellow-300 dark:border-yellow-700">
+  <div class="bg-yellow-100 dark:bg-yellow-900/30 p-4 mb-4 rounded border border-yellow-300 dark:border-yellow-700">
     <p class="text-sm text-yellow-800 dark:text-yellow-200">
       <strong>🚨 Ethics First:</strong> Only use these on systems you own or have explicit permission to test.
       Set up isolated lab environments. I use VMs and containers to keep experiments contained.
@@ -411,7 +411,7 @@ These are the tools that have me staying up way too late "just testing one more 
 
 Because learning should be fun, here are some projects that'll teach you tons:
 
-<div class="bg-linear-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg my-6">
+<div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg my-6">
   <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Weekend Warriors</h4>
   <div class="space-y-4">
     <div class="border-l-4 border-indigo-500 pl-4">
@@ -443,15 +443,15 @@ Because learning should be fun, here are some projects that'll teach you tons:
     I've listed them roughly in the order I'd recommend reading them, with personal notes about what makes each special.
   </p>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-green-600 dark:text-green-400">📚 Start Here</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Foundation books that build core knowledge</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-blue-600 dark:text-blue-400">🔬 Go Deeper</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Technical deep dives for specific skills</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-purple-600 dark:text-purple-400">🧠 Perspective</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Stories and context that change how you think</p>
     </div>
@@ -537,19 +537,19 @@ Because learning should be fun, here are some projects that'll teach you tons:
     then invest money in areas where you want to go deeper. Here's the progression that worked for me:
   </p>
   <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-green-600 dark:text-green-400">Month 1-2</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Free platforms, basic CTFs</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-blue-600 dark:text-blue-400">Month 3-6</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Paid platform, focused learning</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-purple-600 dark:text-purple-400">Month 6+</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Build your own labs, teach others</p>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-3 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-3 rounded border">
       <strong class="text-orange-600 dark:text-orange-400">Always</strong>
       <p class="text-gray-600 dark:text-gray-400 mt-1">Keep learning from failures</p>
     </div>
@@ -650,7 +650,7 @@ Because learning should be fun, here are some projects that'll teach you tons:
       </p>
     </div>
   </div>
-  <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-950/50 rounded-sm border border-blue-300 dark:border-blue-600">
+  <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-950/50 rounded border border-blue-300 dark:border-blue-600">
     <p class="text-sm text-blue-900 dark:text-blue-100 mb-2">
       <strong>💡 My recommendation:</strong> Start with TryHackMe for 3-6 months, then add HackTheBox.
       Don't jump around – depth beats breadth when you're learning fundamentals.
@@ -699,7 +699,7 @@ Stay paranoid, stay informed:
 
 Tools so new they might break everything (that's half the fun):
 
-<div class="bg-linear-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 p-6 rounded-lg my-6">
+<div class="bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 p-6 rounded-lg my-6">
   <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">⚠️ Use at Your Own Risk</h4>
   <ul class="text-gray-700 dark:text-gray-300 space-y-2">
     <li>🔬 <a href="https://github.com/BishopFox/sliver" class="text-primary-600 dark:text-primary-400 hover:underline">Sliver</a> - Adversary emulation framework (Cobalt Strike alternative)</li>
@@ -712,14 +712,14 @@ Tools so new they might break everything (that's half the fun):
 
 ## 🚀 Your Next Steps
 
-<div class="bg-linear-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-8 rounded-lg my-8">
+<div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-8 rounded-lg my-8">
   <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">📋 Start Your Journey</h4>
   <p class="text-gray-700 dark:text-gray-300 mb-6">
     Feeling overwhelmed? That's normal. Here's exactly what I'd do if I were starting today:
   </p>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-bold text-green-600 dark:text-green-400 mb-3">🌱 Week 1-2: Foundation</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
         <li>• Set up a basic homelab VM</li>
@@ -729,7 +729,7 @@ Tools so new they might break everything (that's half the fun):
         <li>• Read "The Cuckoo's Egg"</li>
       </ul>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-bold text-blue-600 dark:text-blue-400 mb-3">🚀 Month 2-3: Build Momentum</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
         <li>• Deploy your first monitoring stack</li>
@@ -739,7 +739,7 @@ Tools so new they might break everything (that's half the fun):
         <li>• Document everything you break</li>
       </ul>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-bold text-purple-600 dark:text-purple-400 mb-3">🔬 Month 4-6: Specialize</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
         <li>• Choose: Red team, blue team, or DevOps</li>
@@ -749,7 +749,7 @@ Tools so new they might break everything (that's half the fun):
         <li>• Join communities and ask questions</li>
       </ul>
     </div>
-    <div class="bg-white dark:bg-gray-800 p-4 rounded-sm border">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded border">
       <h5 class="font-bold text-orange-600 dark:text-orange-400 mb-3">🎯 Month 6+: Master</h5>
       <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
         <li>• Contribute to open source projects</li>
@@ -761,7 +761,7 @@ Tools so new they might break everything (that's half the fun):
     </div>
   </div>
 
-  <div class="mt-6 p-4 bg-yellow-100 dark:bg-yellow-900/30 rounded-sm border border-yellow-300 dark:border-yellow-700">
+  <div class="mt-6 p-4 bg-yellow-100 dark:bg-yellow-900/30 rounded border border-yellow-300 dark:border-yellow-700">
     <p class="text-sm text-yellow-800 dark:text-yellow-200">
       <strong>🔥 Hot take:</strong> The best way to learn is to fail publicly and document the journey.
       Start a blog, make GitHub repos, and don't be afraid to look stupid. We've all been there.
