@@ -1442,3 +1442,125 @@ dl > div:hover {
   background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
+
+/* ========================================
+   SESSION 53 MEDIUM/LOW PRIORITY POLISH
+   ======================================== */
+
+/* Fix #9: CTA button consistency (hero section) */
+.hero-cta-buttons a,
+main > div:first-child a[href*="/about"],
+main > div:first-child a[href*="/posts"] {
+  min-width: 180px;
+  padding: 0.75rem 1.5rem;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Fix #10: Standardize navigation item spacing */
+nav a {
+  padding: 0.5rem 1rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Larger touch targets on mobile */
+@media (max-width: 767px) {
+  nav a {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Fix #11: Footer section gap consistency */
+footer > div > div {
+  gap: 2rem;
+}
+
+/* Fix #12: Post card date visual hierarchy (already in Fix #5 but ensure margin) */
+article time {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #9ca3af;
+}
+
+.dark article time {
+  color: #6b7280;
+}
+
+/* Fix #13: Headshot image depth (border + shadow) */
+img[alt="William Zujkowski"] {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.dark img[alt="William Zujkowski"] {
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Fix #14: Refined letter-spacing for better balance */
+h1 {
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  letter-spacing: -0.01em;
+}
+
+/* Fix #15: Make "View all posts" button more prominent */
+a[href="/posts/"] {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: oklch(0.65 0.16 180);
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+a[href="/posts/"]:hover {
+  background: oklch(0.55 0.16 180);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
+}
+
+/* Fix #16: Ensure visible focus states for keyboard navigation */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid oklch(0.65 0.16 180);
+  outline-offset: 2px;
+}
+
+/* Fix #17: Unify CTA button styles across site */
+.btn-primary,
+a[href*="/about/#contact"],
+.hero-cta-buttons a {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  font-size: 1.125rem;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fix #18: Footer copyright breathing room */
+footer > p {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark footer > p {
+  border-top-color: rgba(255, 255, 255, 0.05);
+}
