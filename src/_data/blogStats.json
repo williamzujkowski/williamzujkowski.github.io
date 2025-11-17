@@ -1,15 +1,15 @@
 {
   "total_posts": 63,
-  "total_words": 139882,
-  "average_words": 2220.3,
+  "total_words": 139849,
+  "average_words": 2219.8,
   "average_reading_time": 9.8,
   "posts_by_year": {
     "2024": 32,
     "2025": 31
   },
   "words_by_year": {
-    "2024": 89416,
-    "2025": 50466
+    "2024": 89396,
+    "2025": 50453
   },
   "posts_by_month": {
     "2025-01": 3,
@@ -244,7 +244,7 @@
   },
   "citation_stats": {
     "total_external_links": 930,
-    "total_internal_links": 421,
+    "total_internal_links": 419,
     "average_citation_density": 8.98,
     "average_external_links_per_post": 14.8
   },
@@ -253,6 +253,6 @@
     "posts_with_code": 57,
     "posts_with_code_percentage": 90.5
   },
-  "generated_at": "2025-11-16T13:30:49.372775",
+  "generated_at": "2025-11-16T19:38:02.850496",
   "reading_speed_wpm": 238
 }

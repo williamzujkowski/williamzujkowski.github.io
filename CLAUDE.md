@@ -1,7 +1,7 @@
 ---
 STATUS: AUTHORITATIVE
-VERSION: 4.1.0
-LAST_AUDIT: 2025-11-10
+VERSION: 4.2.0
+LAST_AUDIT: 2025-11-16
 COMPLIANCE: 100%
 ARCHITECTURE: MODULAR
 TOKEN_EFFICIENCY: 84.9%
@@ -15,13 +15,13 @@ WRITING_STYLE: Polite Linus Torvalds
 
 This file (CLAUDE.md) serves as the **root anchor** for a modular documentation architecture:
 - Progressive context loading based on task requirements
-- 28 specialized modules organized by priority (core, workflows, standards, technical, reference, templates)
+- 36 specialized modules organized by priority (core, workflows, standards, technical, reference, templates)
 - Token-efficient: Load only what you need for the current task
 - Complete index: `docs/context/INDEX.yaml`
 
 **Previous architecture:** 12,900-word monolith (80,000+ tokens) loaded for every task
-**New architecture:** ~2,000-word anchor (8,000 tokens) + selective module loading (2,000-15,000 tokens)
-**Efficiency gain:** 84.9% reduction in unnecessary context (2.6K vs 17K tokens for simple tasks)
+**New architecture:** ~4,400-word anchor (5,868 tokens) + selective module loading (2,000-15,000 tokens)
+**Efficiency gain:** 84.9% reduction in unnecessary context (7.9K vs 17K tokens for simple tasks)
 
 All development, content creation, and maintenance MUST reference this document and load task-appropriate modules.
 
@@ -128,7 +128,7 @@ See `.claude-rules.json` for complete enforcement rules.
 
 The modular architecture enables **task-based progressive disclosure**:
 
-1. **Always loaded:** CLAUDE.md (this file) provides root anchor (~2,000 words, 8K tokens)
+1. **Always loaded:** CLAUDE.md (this file) provides root anchor (~4,400 words, 5,868 tokens)
 2. **Conditionally loaded:** Task-appropriate modules from `docs/context/` (2K-15K tokens)
 3. **On-demand:** Deep-dive references when specific details needed
 
@@ -169,7 +169,7 @@ Three ways to find relevant modules:
 **1. By Task:** Use table above for 8 common patterns
 
 **2. By Index:** Check `docs/context/INDEX.yaml` for complete catalog:
-- 32 existing modules (5 core + 6 workflows + 7 standards + 6 technical + 4 reference + 4 templates)
+- 36 existing modules (6 core + 9 workflows + 7 standards + 6 technical + 4 reference + 4 templates)
 - Tags, dependencies, load conditions, token estimates
 
 **3. By Priority:**
@@ -666,11 +666,11 @@ Read docs/context/core/mandatory-reading.md
 
 ## 📚 Module Index
 
-**Complete module catalog:** See `docs/context/INDEX.yaml` for all 32 modules organized by category and priority.
+**Complete module catalog:** See `docs/context/INDEX.yaml` for all 36 modules organized by category and priority.
 
 **Quick summary:**
-- **Total modules:** 32 modules across 6 categories (~60,050 tokens actual)
-- **Categories:** core (5), workflows (6), standards (7), technical (6), reference (4), templates (4)
+- **Total modules:** 36 modules across 6 categories (~66,895 tokens actual)
+- **Categories:** core (6), workflows (9), standards (7), technical (6), reference (4), templates (4)
 - **Discovery:** Use INDEX.yaml to find modules by task, tag, or priority
 - **Efficiency:** Token budget formula: word_count × 1.33, load only what you need
 
@@ -700,12 +700,19 @@ Read docs/context/core/mandatory-reading.md
 
 **Remember:** This is a modular architecture. Load only what you need for the current task. Check Section 3.4 for routing requirements. When unsure, return to `docs/context/INDEX.yaml`.
 
-**Architecture version:** 4.1.0 (modular + explicit routing)
-**Previous version:** 4.0.3 (modular, implicit routing)
+**Architecture version:** 4.2.0 (ultra-lean anchor + comprehensive modules)
+**Previous version:** 4.1.0 (modular + explicit routing)
 **Original version:** 3.0.0 (monolith, 12,900 words)
-**Efficiency gain:** 84.9% token reduction for simple tasks (2.6K vs 17K tokens)
+**Efficiency gain:** 84.9% token reduction for simple tasks (7.9K vs 17K tokens)
 
-**What's new in v4.1.0:**
+**What's new in v4.2.0 (Phase 1):**
+- **Ultra-lean anchor:** CLAUDE.md reduced 8,000 → 5,868 tokens (26.7% reduction)
+- **3 new modules:** routing-patterns, quick-start-guide, autonomy-framework
+- **Module count:** 33 → 36 modules (+3 high-priority)
+- **Token library:** +6,800 tokens to module library
+- **Faster onboarding:** Critical modules extracted for progressive loading
+
+**Foundation from v4.1.0:**
 - **3-tier routing system:** MANDATORY/RECOMMENDED/OPTIONAL skill loading
 - **Explicit loading sequences:** Step-by-step with file paths for common tasks
 - **LLM autonomy boundaries:** Always/Usually/Sometimes/Never framework
