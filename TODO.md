@@ -1,7 +1,7 @@
 # 📋 Repository TODO - Active Tasks
 
 **Status:** ACTIVE
-**Last Updated:** 2025-11-16 (Session 52 - Sprint 3 complete, metrics accuracy corrections)
+**Last Updated:** 2025-11-16 (Session 53 - Visual design audit complete, 18 issues identified)
 **Purpose:** Track ongoing improvements and maintenance tasks
 
 ---
@@ -174,6 +174,90 @@
 **Total Estimated Effort:** 18-20 hours (4 sprints) → 6h actual (70% efficiency)
 **Priority:** HIGH (accessibility compliance + significant UX gains)
 **Status:** ✅ **SPRINT 3 COMPLETE** (13/13 core issues complete, 6h total actual, 70% efficiency)
+
+---
+
+### 17. Visual Design Audit & Polish ⚡ **NEW** (2025-11-16)
+**Issue:** 18 visual design issues identified via comprehensive Playwright audit
+**Impact:** Typography readability, accessibility compliance, visual consistency, mobile experience
+**Solution:** Implement 8 quick wins (57 minutes estimated) for 83% improvement, then address remaining issues
+
+**Audit Foundation (Session 53):**
+- ✅ Comprehensive visual design audit complete (4 breakpoints, 2 color modes)
+- ✅ Report: `reports/visual-design-audit-2025-11-16.md` (18 issues, 50+ measurements)
+- ✅ Screenshots: 9 captured across all breakpoints and modes
+- ✅ Methodology: Playwright MCP pixel-perfect browser testing
+
+**Issue Breakdown:**
+- **Critical (3 issues):** Touch target failure, heading line-height too tight, H1 overwhelming on mobile
+- **High (4 issues):** Paragraph width inconsistency, section spacing architecture, post card spacing, "What I Do" card definition
+- **Medium (5 issues):** Button inconsistency, blockquote margins, navigation spacing, footer gaps, date hierarchy
+- **Low (6 issues):** Headshot depth, letter-spacing refinement, CTA prominence, focus states, button consistency, footer copyright
+
+**Quick Wins (8 fixes, 57 minutes):**
+1. ✅ **Fix back-to-top button touch target** (5min) - 23.2px → 44px (WCAG 2.5.5 compliance)
+   - Priority: ⭐⭐⭐⭐⭐ Critical
+   - File: `src/assets/css/enhancements.css`
+   - Impact: Accessibility violation fixed
+
+2. ⏳ **Improve heading line-height** (5min) - 1.10 → 1.25-1.35 ratio
+   - Priority: ⭐⭐⭐⭐ Major readability
+   - File: `tailwind.config.js` or `src/assets/css/main.css`
+   - Impact: Reduced cramped appearance, better multi-line headings
+
+3. ⏳ **Add paragraph max-width** (5min) - Prevent 99-char lines, enforce 45-75 optimal
+   - Priority: ⭐⭐⭐⭐ Readability
+   - File: `src/assets/css/main.css`
+   - Impact: Better eye tracking, reduced fatigue on long paragraphs
+
+4. ⏳ **Responsive H1 sizing** (10min) - 48px mobile → 64px tablet → 72px desktop
+   - Priority: ⭐⭐⭐⭐ Mobile experience
+   - File: `tailwind.config.js`
+   - Impact: Better mobile first impression, less overwhelming
+
+5. ⏳ **Add post card padding** (5min) - 0px → 24px internal padding
+   - Priority: ⭐⭐⭐ Card definition
+   - File: `src/assets/css/main.css`
+   - Impact: Better visual separation, easier maintenance
+
+6. ⏳ **Increase blockquote margin** (2min) - 24px → 48-64px vertical spacing
+   - Priority: ⭐⭐ Visual breathing room
+   - File: `src/assets/css/main.css`
+   - Impact: Quote stands out more, better hierarchy
+
+7. ⏳ **Add section padding** (10min) - 0px → 64px consistent padding
+   - Priority: ⭐⭐⭐ Architecture robustness
+   - File: `src/assets/css/main.css`
+   - Impact: More maintainable spacing, consistent vertical rhythm
+
+8. ⏳ **Style "What I Do" cards** (15min) - Add background, padding, hover effects
+   - Priority: ⭐⭐⭐ Visual hierarchy
+   - File: `src/assets/css/main.css`
+   - Impact: Better card definition, clearer sections
+
+**Remaining Issues (10 fixes, ~1.5h estimated):**
+- Medium priority (5 issues): CTA buttons, navigation, footer, date hierarchy
+- Low priority (6 issues): Polish and refinements
+
+**Validation Checklist (Post-Implementation):**
+- [ ] Back-to-top button is 44px × 44px on all devices
+- [ ] All headings have line-height ≥ 1.2
+- [ ] No paragraph exceeds 75 characters width
+- [ ] H1 is 48px on mobile, 72px on desktop
+- [ ] All sections have consistent padding (64px)
+- [ ] Post cards have internal padding (24px)
+- [ ] "What I Do" cards have background and hover effects
+- [ ] Blockquote has 48-64px margins
+- [ ] Lighthouse accessibility score improves
+
+**Progress:**
+- ✅ Audit complete (9 screenshots, 18 issues documented)
+- ⏳ Quick wins: 1/8 complete (back-to-top button fixed)
+- ⏳ Remaining fixes: 0/10 complete
+
+**Estimated Total Effort:** 2.25 hours (57min quick wins + 1.5h remaining)
+**Priority:** HIGH (accessibility + readability + visual consistency)
+**Status:** ⚡ **IN PROGRESS** (audit complete, 1/18 fixes implemented)
 
 ---
 
