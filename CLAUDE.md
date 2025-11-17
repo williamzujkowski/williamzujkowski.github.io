@@ -71,28 +71,32 @@ All development, content creation, and maintenance MUST reference this document 
 6. **USE** appropriate timestamps (prefer time.gov, fallback to system time)
 7. **AUDIT** documentation accuracy monthly (prevent exaggeration creep, verify stats)
 
-**NEW IN v4.1.0**: Some operations REQUIRE specific skills before proceeding:
-- 🚨 **Creating files** → MUST load enforcement + file-management + standards-integration
-- 🚨 **Writing blog posts** → MUST load enforcement + nda-compliance + blog-writing + writing-style
-- 🚨 **Git commits** → MUST load enforcement + git-workflow
-- 🚨 **MANIFEST.json ops** → MUST load enforcement + standards-integration
-- 🚨 **Swarm deployment** → MUST load enforcement + swarm-orchestration + agent-coordination
+**NEW IN v4.2.0**: Operations have RECOMMENDED skills for quality assurance:
+- 🚨 **Creating files** → Load enforcement + file-management + standards-integration
+- 🚨 **Writing blog posts** → Load enforcement + nda-compliance + blog-writing + writing-style
+- 🚨 **Git commits** → Load enforcement + git-workflow
+- 🚨 **MANIFEST.json ops** → Load enforcement + standards-integration
+- 🚨 **Swarm deployment** → Load enforcement + swarm-orchestration + agent-coordination
 
 See Section 3.4 for complete 3-tier routing system (MANDATORY/RECOMMENDED/OPTIONAL).
 
-**VIOLATIONS WILL BE AUTOMATICALLY BLOCKED**
+**QUALITY VALIDATION IS ACTIVE**
 
-Your operation will FAIL if you:
-- Create duplicate files instead of updating existing ones
-- Don't update MANIFEST.json after changes
-- Violate standards from the submodule
-- Use incorrect timestamps
-- Save files to incorrect directories
+Pre-commit hooks validate output quality (not module loading):
+- ✅ **Duplicate file prevention** - Blocks duplicate files in file_registry
+- ✅ **MANIFEST.json integrity** - Ensures repository inventory is current
+- ✅ **NDA compliance patterns** - Blocks forbidden work references
+- ✅ **Code ratio enforcement** - Ensures posts <25% code (or DIAGRAM-HEAVY exception)
+- ✅ **Humanization scores** - Requires blog posts ≥75/100
+- ✅ **Token budget accuracy** - Blocks >20% variance in module estimates
+- ✅ **Standards compliance** - Validates `.claude-rules.json` structure
 
-**ENFORCEMENT IS ACTIVE**:
-- Pre-commit hooks validate all changes
+**Load modules to understand quality thresholds**, not because enforcement blocks you.
+
+**ENFORCEMENT IS OUTCOME-BASED**:
+- Pre-commit hooks validate content quality
 - GitHub Actions enforce standards on all pushes
-- `.claude-rules.json` defines mandatory rules
+- `.claude-rules.json` defines quality rules
 
 See `.claude-rules.json` for complete enforcement rules.
 
@@ -190,26 +194,27 @@ Three ways to find relevant modules:
 
 #### Tier 1: MANDATORY Skills (5 Operations)
 
-These operations CANNOT proceed without specified skills. Enforced by `.claude-rules.json`.
+**Important:** Load these modules to understand quality standards. Pre-commit validates **output quality**, not module loading.
 
-| Operation | Required Skills | Why Mandatory | Enforcement |
-|-----------|----------------|---------------|-------------|
-| **Create files** | enforcement + file-management + standards-integration | Prevents duplicates, wrong directories, MANIFEST.json corruption | Pre-commit blocks |
-| **Write blog posts** | enforcement + nda-compliance + **blog-topic-summary** + blog-writing + writing-style | Public content with privacy/NDA risks, must fill gaps | Pre-commit blocks |
-| **Git commits** | enforcement + git-workflow | Commits permanent, must validate | Pre-commit blocks |
-| **MANIFEST.json ops** | enforcement + standards-integration | Single source of truth, corruption breaks repo | Pre-commit blocks |
-| **Swarm deployment** | enforcement + swarm-orchestration + agent-coordination | Prevents hallucinated agents, ensures coordination | Runtime blocks |
+| Operation | Recommended Skills | Quality Standards Enforced | What Pre-Commit Validates |
+|-----------|-------------------|---------------------------|--------------------------|
+| **Create files** | enforcement + file-management + standards-integration | No duplicates, correct directories, MANIFEST.json updated | Duplicate check, file registry integrity |
+| **Write blog posts** | enforcement + nda-compliance + **blog-topic-summary** + blog-writing + writing-style | NDA compliance, humanization ≥75/100, code ratio <25% | NDA patterns, humanization score, code ratio |
+| **Git commits** | enforcement + git-workflow | Standards compliance, quality gates pass | All pre-commit validators |
+| **MANIFEST.json ops** | enforcement + standards-integration | Inventory accurate, token budgets within 20% | MANIFEST structure, token variance |
+| **Swarm deployment** | enforcement + swarm-orchestration + agent-coordination | Valid agent types, proper coordination | None (runtime only) |
 
-**Loading sequence for Tier 1:**
+**Loading sequence for Tier 1 (RECOMMENDED):**
 ```bash
 # Example: Creating a blog post
-Read docs/context/core/enforcement.md                    # MANDATORY
-Read docs/context/core/nda-compliance.md                 # MANDATORY
-Read docs/context/workflows/blog-topic-summary.md        # MANDATORY
-Read docs/context/workflows/blog-writing.md              # MANDATORY
-Read docs/context/standards/writing-style.md             # MANDATORY
+Read docs/context/core/enforcement.md                    # Understand quality gates
+Read docs/context/core/nda-compliance.md                 # Learn forbidden patterns
+Read docs/context/workflows/blog-topic-summary.md        # Validate topic fills gaps
+Read docs/context/workflows/blog-writing.md              # Learn quality standards
+Read docs/context/standards/writing-style.md             # Understand tone requirements
 
-# Now safe to create blog post (topic validated, gaps checked)
+# Pre-commit validates: NDA patterns, humanization score, code ratio
+# Loading modules ensures you meet standards BEFORE pre-commit checks
 ```
 
 #### Tier 2: RECOMMENDED Skills (15 Patterns)
