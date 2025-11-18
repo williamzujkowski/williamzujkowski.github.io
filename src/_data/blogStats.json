@@ -1,25 +1,25 @@
 {
-  "total_posts": 64,
-  "total_words": 136172,
-  "average_words": 2127.7,
-  "average_reading_time": 9.4,
+  "total_posts": 67,
+  "total_words": 140553,
+  "average_words": 2097.8,
+  "average_reading_time": 9.3,
   "posts_by_year": {
-    "2024": 31,
-    "2025": 33
+    "2024": 32,
+    "2025": 35
   },
   "words_by_year": {
-    "2024": 85440,
-    "2025": 50732
+    "2024": 86874,
+    "2025": 53679
   },
   "posts_by_month": {
-    "2025-01": 2,
+    "2025-01": 3,
     "2025-02": 2,
     "2025-03": 2,
     "2025-04": 2,
     "2025-05": 1,
     "2025-06": 1,
     "2025-07": 5,
-    "2025-08": 3,
+    "2025-08": 4,
     "2025-09": 6,
     "2025-10": 5,
     "2025-11": 4
@@ -27,22 +27,26 @@
   "top_tags": [
     {
       "tag": "security",
-      "count": 33
-    },
-    {
-      "tag": "ai",
-      "count": 25
+      "count": 36
     },
     {
       "tag": "homelab",
-      "count": 24
+      "count": 27
+    },
+    {
+      "tag": "ai",
+      "count": 26
     },
     {
       "tag": "llm",
-      "count": 11
+      "count": 12
     },
     {
       "tag": "programming",
+      "count": 10
+    },
+    {
+      "tag": "automation",
       "count": 10
     },
     {
@@ -50,11 +54,11 @@
       "count": 10
     },
     {
-      "tag": "automation",
+      "tag": "cryptography",
       "count": 9
     },
     {
-      "tag": "cryptography",
+      "tag": "privacy",
       "count": 8
     },
     {
@@ -62,12 +66,8 @@
       "count": 8
     },
     {
-      "tag": "privacy",
-      "count": 7
-    },
-    {
       "tag": "python",
-      "count": 6
+      "count": 7
     },
     {
       "tag": "open-source",
@@ -247,24 +247,24 @@
     "reading_time": 3
   },
   "posts_with_images": 58,
-  "posts_with_images_percentage": 90.6,
+  "posts_with_images_percentage": 86.6,
   "reading_time_distribution": {
     "1-3 min": 6,
-    "4-6 min": 15,
-    "7-9 min": 14,
+    "4-6 min": 16,
+    "7-9 min": 16,
     "10+ min": 29
   },
   "citation_stats": {
-    "total_external_links": 932,
+    "total_external_links": 969,
     "total_internal_links": 391,
-    "average_citation_density": 9.34,
-    "average_external_links_per_post": 14.6
+    "average_citation_density": 9.31,
+    "average_external_links_per_post": 14.5
   },
   "code_stats": {
-    "average_code_to_content_ratio": 10.1,
-    "posts_with_code": 58,
-    "posts_with_code_percentage": 90.6
+    "average_code_to_content_ratio": 10.8,
+    "posts_with_code": 61,
+    "posts_with_code_percentage": 91.0
   },
-  "generated_at": "2025-11-17T20:32:54.463540",
+  "generated_at": "2025-11-17T20:46:12.022761",
   "reading_speed_wpm": 238
 }
