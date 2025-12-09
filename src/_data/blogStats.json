@@ -1,15 +1,15 @@
 {
-  "total_posts": 67,
-  "total_words": 140553,
-  "average_words": 2097.8,
-  "average_reading_time": 9.3,
+  "total_posts": 70,
+  "total_words": 144020,
+  "average_words": 2057.4,
+  "average_reading_time": 9.2,
   "posts_by_year": {
     "2024": 32,
-    "2025": 35
+    "2025": 38
   },
   "words_by_year": {
     "2024": 86874,
-    "2025": 53679
+    "2025": 57146
   },
   "posts_by_month": {
     "2025-01": 3,
@@ -22,16 +22,17 @@
     "2025-08": 4,
     "2025-09": 6,
     "2025-10": 5,
-    "2025-11": 4
+    "2025-11": 4,
+    "2025-12": 3
   },
   "top_tags": [
     {
       "tag": "security",
-      "count": 36
+      "count": 39
     },
     {
       "tag": "homelab",
-      "count": 27
+      "count": 30
     },
     {
       "tag": "ai",
@@ -42,11 +43,11 @@
       "count": 12
     },
     {
-      "tag": "programming",
-      "count": 10
+      "tag": "automation",
+      "count": 11
     },
     {
-      "tag": "automation",
+      "tag": "programming",
       "count": 10
     },
     {
@@ -58,6 +59,10 @@
       "count": 9
     },
     {
+      "tag": "python",
+      "count": 8
+    },
+    {
       "tag": "privacy",
       "count": 8
     },
@@ -66,23 +71,23 @@
       "count": 8
     },
     {
-      "tag": "python",
+      "tag": "devops",
       "count": 7
+    },
+    {
+      "tag": "vulnerability-management",
+      "count": 6
     },
     {
       "tag": "open-source",
       "count": 6
     },
     {
-      "tag": "devops",
-      "count": 6
-    },
-    {
-      "tag": "vulnerability-management",
+      "tag": "computational-science",
       "count": 5
     },
     {
-      "tag": "computational-science",
+      "tag": "monitoring",
       "count": 5
     },
     {
@@ -98,15 +103,55 @@
       "count": 4
     },
     {
-      "tag": "professional-development",
-      "count": 4
-    },
-    {
-      "tag": "monitoring",
+      "tag": "docker",
       "count": 4
     }
   ],
   "recent_posts": [
+    {
+      "title": "Automating Security Audits with Python: Building Your Own Vulnerability Scanner",
+      "date": "2025-12-24",
+      "reading_time": 4,
+      "tags": [
+        "python",
+        "security",
+        "automation",
+        "homelab",
+        "vulnerability-management",
+        "scanning",
+        "cve",
+        "devops"
+      ]
+    },
+    {
+      "title": "Hardening Docker Containers in Your Homelab: A Defense-in-Depth Approach",
+      "date": "2025-12-17",
+      "reading_time": 5,
+      "tags": [
+        "security",
+        "docker",
+        "homelab",
+        "containers",
+        "defense-in-depth",
+        "hardening",
+        "network-security"
+      ]
+    },
+    {
+      "title": "Building a Homelab Security Dashboard with Grafana and Prometheus",
+      "date": "2025-12-10",
+      "reading_time": 7,
+      "tags": [
+        "security",
+        "monitoring",
+        "grafana",
+        "prometheus",
+        "homelab",
+        "observability",
+        "alerting",
+        "dashboard"
+      ]
+    },
     {
       "title": "NodeShield: Runtime SBOM Enforcement Stops 98% of Supply Chain Attacks",
       "date": "2025-11-23",
@@ -200,40 +245,6 @@
         "llm",
         "mcp"
       ]
-    },
-    {
-      "title": "From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution",
-      "date": "2025-10-13",
-      "reading_time": 6,
-      "tags": [
-        "ai",
-        "automation",
-        "homelab",
-        "machine-learning",
-        "robotics"
-      ]
-    },
-    {
-      "title": "Automated Security Scanning Pipeline with Grype and OSV",
-      "date": "2025-10-06",
-      "reading_time": 6,
-      "tags": [
-        "automation",
-        "devops",
-        "security",
-        "supply-chain",
-        "vulnerability-management"
-      ]
-    },
-    {
-      "title": "Proxmox High Availability Setup for Homelab Reliability",
-      "date": "2025-09-29",
-      "reading_time": 4,
-      "tags": [
-        "homelab",
-        "infrastructure",
-        "virtualization"
-      ]
     }
   ],
   "longest_post": {
@@ -247,24 +258,24 @@
     "reading_time": 3
   },
   "posts_with_images": 58,
-  "posts_with_images_percentage": 86.6,
+  "posts_with_images_percentage": 82.9,
   "reading_time_distribution": {
     "1-3 min": 6,
-    "4-6 min": 16,
-    "7-9 min": 16,
+    "4-6 min": 18,
+    "7-9 min": 17,
     "10+ min": 29
   },
   "citation_stats": {
-    "total_external_links": 969,
+    "total_external_links": 1005,
     "total_internal_links": 391,
-    "average_citation_density": 9.31,
-    "average_external_links_per_post": 14.5
+    "average_citation_density": 9.37,
+    "average_external_links_per_post": 14.4
   },
   "code_stats": {
-    "average_code_to_content_ratio": 10.8,
-    "posts_with_code": 61,
-    "posts_with_code_percentage": 91.0
+    "average_code_to_content_ratio": 11.9,
+    "posts_with_code": 64,
+    "posts_with_code_percentage": 91.4
   },
-  "generated_at": "2025-11-17T20:46:12.022761",
+  "generated_at": "2025-12-08T22:49:03.924195",
   "reading_speed_wpm": 238
 }

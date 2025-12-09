@@ -54,5 +54,8 @@
   },
   "overrides": {
     "js-yaml": "^4.1.1"
+  },
+  "dependencies": {
+    "claude-flow": "^2.7.43"
   }
 }
