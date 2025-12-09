@@ -1,7 +1,7 @@
 {
   "total_posts": 70,
-  "total_words": 144020,
-  "average_words": 2057.4,
+  "total_words": 145086,
+  "average_words": 2072.7,
   "average_reading_time": 9.2,
   "posts_by_year": {
     "2024": 32,
@@ -9,7 +9,7 @@
   },
   "words_by_year": {
     "2024": 86874,
-    "2025": 57146
+    "2025": 58212
   },
   "posts_by_month": {
     "2025-01": 3,
@@ -32,7 +32,7 @@
     },
     {
       "tag": "homelab",
-      "count": 30
+      "count": 29
     },
     {
       "tag": "ai",
@@ -41,10 +41,6 @@
     {
       "tag": "llm",
       "count": 12
-    },
-    {
-      "tag": "automation",
-      "count": 11
     },
     {
       "tag": "programming",
@@ -59,28 +55,32 @@
       "count": 9
     },
     {
-      "tag": "python",
-      "count": 8
+      "tag": "automation",
+      "count": 9
+    },
+    {
+      "tag": "networking",
+      "count": 9
     },
     {
       "tag": "privacy",
       "count": 8
     },
     {
-      "tag": "networking",
-      "count": 8
-    },
-    {
-      "tag": "devops",
-      "count": 7
-    },
-    {
-      "tag": "vulnerability-management",
+      "tag": "python",
       "count": 6
     },
     {
       "tag": "open-source",
       "count": 6
+    },
+    {
+      "tag": "devops",
+      "count": 6
+    },
+    {
+      "tag": "vulnerability-management",
+      "count": 5
     },
     {
       "tag": "computational-science",
@@ -109,18 +109,17 @@
   ],
   "recent_posts": [
     {
-      "title": "Automating Security Audits with Python: Building Your Own Vulnerability Scanner",
+      "title": "Building a Private Cloud in Your Homelab with Proxmox and Security Best Practices",
       "date": "2025-12-24",
-      "reading_time": 4,
+      "reading_time": 8,
       "tags": [
-        "python",
+        "cloud",
         "security",
-        "automation",
         "homelab",
-        "vulnerability-management",
-        "scanning",
-        "cve",
-        "devops"
+        "virtualization",
+        "proxmox",
+        "networking",
+        "backup"
       ]
     },
     {
@@ -181,17 +180,14 @@
       ]
     },
     {
-      "title": "Building an AuthREST-Style API Security Scanner in Python",
+      "title": "Quantum Error Correction Breakthrough: How Google's Willow Chip Changes Everything",
       "date": "2025-11-12",
-      "reading_time": 4,
+      "reading_time": 5,
       "tags": [
-        "python",
-        "api-security",
-        "authentication",
-        "owasp",
-        "security-testing",
-        "homelab",
-        "automation"
+        "quantum-computing",
+        "research",
+        "breakthrough",
+        "future-technology"
       ]
     },
     {
@@ -261,21 +257,21 @@
   "posts_with_images_percentage": 82.9,
   "reading_time_distribution": {
     "1-3 min": 6,
-    "4-6 min": 18,
-    "7-9 min": 17,
+    "4-6 min": 17,
+    "7-9 min": 18,
     "10+ min": 29
   },
   "citation_stats": {
-    "total_external_links": 1005,
+    "total_external_links": 996,
     "total_internal_links": 391,
-    "average_citation_density": 9.37,
-    "average_external_links_per_post": 14.4
+    "average_citation_density": 9.17,
+    "average_external_links_per_post": 14.2
   },
   "code_stats": {
-    "average_code_to_content_ratio": 11.9,
-    "posts_with_code": 64,
-    "posts_with_code_percentage": 91.4
+    "average_code_to_content_ratio": 10.8,
+    "posts_with_code": 63,
+    "posts_with_code_percentage": 90.0
   },
-  "generated_at": "2025-12-08T22:49:03.924195",
+  "generated_at": "2025-12-08T23:18:56.630099",
   "reading_speed_wpm": 238
 }
