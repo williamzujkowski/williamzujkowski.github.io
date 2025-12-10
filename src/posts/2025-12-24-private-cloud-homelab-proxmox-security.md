@@ -25,13 +25,13 @@ Public cloud providers offer convenience. But data sovereignty, compliance requi
 Proxmox VE combines KVM virtualization and LXC containers in a single management interface. It's Debian-based with a web UI that doesn't make you want to throw things.
 
 My setup runs on a single Dell R940:
-- 768GB RAM (yes, that's not a typo)
+- 256GB RAM
 - 4x Intel Xeon Gold 6130 (64 cores/128 threads total)
 - 8TB NVMe for OS/VMs
 - 12TB HDD for bulk storage
 - Backed by TrueNAS Core with ~30TB usable storage (RAIDZ2)
 
-This single node handles 30+ VMs and containers comfortably. With 768GB RAM, I can run entire development environments without touching swap. Uptime averages 99.7% - better than some cloud providers I've used.
+This single node handles 30+ VMs and containers comfortably. With 256GB RAM, careful resource allocation is key, but it's more than sufficient for a comprehensive homelab. Uptime averages 99.7% - better than some cloud providers I've used.
 
 ### Storage Architecture That Actually Works
 
@@ -200,9 +200,9 @@ With 64 cores/128 threads from the 4x Xeon Gold 6130s, I can afford generous CPU
 
 ### Memory Balancing
 
-With 768GB RAM, memory is rarely a constraint. Proxmox supports memory ballooning for dynamic allocation, but I disabled it. Fixed allocations are more predictable.
+With 256GB RAM, memory management requires planning. Proxmox supports memory ballooning for dynamic allocation, but I disabled it. Fixed allocations are more predictable.
 
-Current allocation: ~400GB to VMs/containers, leaving plenty of headroom for ZFS ARC caching and burst workloads. This single server has more RAM than most small businesses' entire infrastructure.
+Current allocation: ~180GB to VMs/containers, leaving ~70GB for host OS, ZFS ARC caching, and burst workloads. It's a healthy balance between utilization and headroom.
 
 ### Storage Performance
 
@@ -270,9 +270,9 @@ Every system fails eventually. Here's what I've encountered and how to handle it
 
 **Scenario:** Java application had memory leak, tried to consume unlimited RAM.
 
-**Response:** Hit the 64GB limit I set for that VM. With 768GB total, other services weren't affected.
+**Response:** Hit the 32GB limit I set for that VM. With 256GB total and proper limits, other services weren't affected.
 
-**Lesson:** Resource limits prevent one VM from affecting others. Generous hardware provides buffer.
+**Lesson:** Resource limits are critical with 256GB RAM. Can't rely on massive buffers - must enforce boundaries.
 
 ## Security Pattern Analysis
 
