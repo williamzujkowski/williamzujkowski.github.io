@@ -24,14 +24,14 @@ Public cloud providers offer convenience. But data sovereignty, compliance requi
 
 Proxmox VE combines KVM virtualization and LXC containers in a single management interface. It's Debian-based with a web UI that doesn't make you want to throw things.
 
-My setup runs on three Dell R940 nodes:
-- 64GB RAM each
-- Intel Xeon Silver CPUs
-- 1TB NVMe for OS/VMs
-- 4TB SATA for bulk storage
-- Dual 10GbE NICs for cluster networking
+My setup runs on a single Dell R940:
+- 768GB RAM (yes, that's not a typo)
+- 4x Intel Xeon Gold 6130 (64 cores/128 threads total)
+- 8TB NVMe for OS/VMs
+- 12TB HDD for bulk storage
+- Backed by TrueNAS Core with ~30TB usable storage (RAIDZ2)
 
-The cluster handles 47 VMs and 23 LXC containers. Uptime averages 99.7% - better than some cloud providers I've used.
+This single node handles 30+ VMs and containers comfortably. With 768GB RAM, I can run entire development environments without touching swap. Uptime averages 99.7% - better than some cloud providers I've used.
 
 ### Storage Architecture That Actually Works
 
@@ -47,35 +47,40 @@ Proxmox supports multiple storage backends. I tested five configurations over 12
 
 **NFS:** Works but lacks features. No snapshots, limited backup options.
 
-**Winner:** ZFS over iSCSI. The storage lives on dedicated TrueNAS nodes with proper RAID-Z2 protection. Proxmox sees it as shared block storage.
+**Winner:** ZFS over iSCSI. My TrueNAS Core server provides ~30TB usable storage (from 40TB raw) with RAIDZ2 protection. Proxmox sees it as shared block storage, perfect for VM disks and backups.
 
 ### Network Segmentation Strategy
 
 Default Proxmox networking puts everything on one bridge. That's fine for homelabs, dangerous for production workloads.
 
-I implemented three-tier network segmentation:
+I implemented five VLANs using my Ubiquiti Dream Machine Pro and UniFi Switch 24 PoE:
 
-**Management Network (VLAN 10):** Proxmox hosts, TrueNAS storage
+**Management Network (VLAN 10):** Proxmox host, TrueNAS storage
 - 192.168.10.0/24
 - Isolated from internet
 - SSH access via bastion host only
 
 **Service Network (VLAN 20):** Production VMs and containers
 - 192.168.20.0/24
-- Internet access through firewall
-- Internal service discovery via Consul
+- Internet access through UDM Pro firewall
+- Hosts GitLab CE, BookStack, Jellyfin
 
-**DMZ Network (VLAN 30):** Internet-facing services
+**IoT Network (VLAN 30):** Smart home devices
 - 192.168.30.0/24
-- Heavily firewalled
-- WAF protection via pfSense
+- Heavily restricted
+- Home Assistant bridges to service network
 
-**Lab Network (VLAN 40):** Testing and development
+**Guest Network (VLAN 40):** Visitor access
 - 192.168.40.0/24
-- Isolated from production
-- Can break things without consequences
+- Internet only, no local resources
+- Isolated by UDM Pro
 
-Each VLAN has specific firewall rules. Cross-VLAN communication requires explicit allow rules. No "management VLAN can access everything" shortcuts.
+**Lab Network (VLAN 50):** K3s cluster on Raspberry Pis
+- 192.168.50.0/24
+- 3x Pi 5 (16GB) + 1x Pi 4 (8GB)
+- Isolated testing environment
+
+Each VLAN has specific firewall rules enforced by the Dream Machine Pro. Cross-VLAN communication requires explicit allow rules. The UniFi ecosystem makes this manageable through a single interface.
 
 ## Security Hardening That Matters
 
@@ -133,11 +138,13 @@ The process took 6 attempts to get right. ACME client configuration is finicky, 
 
 ### Monitoring and Alerting
 
-**Proxmox Backup Server:** Centralized backup solution with deduplication. Saves 60% storage vs traditional backups.
+My monitoring stack combines multiple tools for comprehensive visibility:
 
-**Prometheus monitoring:** Tracks resource usage, performance metrics, backup success rates.
+**Wazuh:** Security monitoring and SIEM functionality. Tracks authentication, file changes, vulnerability detection.
 
-**Grafana dashboards:** Visual monitoring with alerting rules. SMS notifications for critical events.
+**Prometheus + Grafana:** Performance metrics and visualization. Resource usage, network traffic, service health.
+
+**Netdata:** Real-time performance monitoring with 1-second granularity. Perfect for troubleshooting performance issues.
 
 I get alerts for:
 - Node CPU >80% for 5 minutes
@@ -154,11 +161,11 @@ Backups are boring until you need them. I learned this during a storage controll
 
 ### Three-Tier Backup Strategy
 
-**Tier 1 - Local snapshots:** ZFS snapshots every hour, retained for 48 hours. Fast recovery for user errors.
+**Tier 1 - Local snapshots:** ZFS snapshots on TrueNAS every hour, retained for 48 hours. Fast recovery for user errors.
 
-**Tier 2 - Proxmox Backup Server:** Full VM backups daily, incrementals every 4 hours. 30-day retention.
+**Tier 2 - Proxmox backups:** Full VM backups to TrueNAS storage weekly, incrementals daily. 30-day retention on ~30TB RAIDZ2 pool.
 
-**Tier 3 - Offsite replication:** Weekly sync to cloud storage (Backblaze B2). 90-day retention.
+**Tier 3 - Offsite replication:** Restic backups to Backblaze B2. Critical data encrypted and synced daily, full backups weekly. 90-day retention with versioning.
 
 ### Backup Testing (The Part Everyone Skips)
 
@@ -179,7 +186,7 @@ Document the restore process before you need it. Include:
 - Service startup sequence
 - Validation procedures
 
-I keep restore procedures printed and in a binder. Digital copies are useless when the entire cluster is down.
+I keep restore procedures printed and in a binder. Digital copies are useless when the Proxmox host is down.
 
 ## Resource Management Lessons
 
@@ -187,15 +194,15 @@ Overcommitting resources is tempting in virtualized environments. Proxmox makes 
 
 ### CPU Overcommitment
 
-Started with 2:1 CPU overcommit ratio. Some VMs became unresponsive during peak loads. Reduced to 1.5:1 for production workloads.
+With 64 cores/128 threads from the 4x Xeon Gold 6130s, I can afford generous CPU allocation. Started with 2:1 overcommit ratio for dev environments. Production stays at 1:1 for predictable performance.
 
-**Rule:** Monitor CPU steal time. Values >10% indicate overcommitment problems.
+**Rule:** Monitor CPU steal time. Values >10% indicate overcommitment problems. Haven't hit this yet with 128 threads available.
 
 ### Memory Balancing
 
-Proxmox supports memory ballooning for dynamic memory allocation. Works well in theory, causes strange performance issues in practice.
+With 768GB RAM, memory is rarely a constraint. Proxmox supports memory ballooning for dynamic allocation, but I disabled it. Fixed allocations are more predictable.
 
-I disabled ballooning and use fixed memory allocations. More predictable performance, easier troubleshooting.
+Current allocation: ~400GB to VMs/containers, leaving plenty of headroom for ZFS ARC caching and burst workloads. This single server has more RAM than most small businesses' entire infrastructure.
 
 ### Storage Performance
 
@@ -207,29 +214,29 @@ Network storage creates bottlenecks. I measured storage performance across diffe
 
 10GbE networking eliminated storage latency as bottleneck. 1GbE was insufficient for multiple database VMs.
 
-## High Availability Configuration
+## High Availability Strategy (Single Node)
 
-Proxmox HA requires shared storage and proper configuration. Default HA settings are aggressive - VMs migrate too frequently.
+Traditional Proxmox HA requires multiple nodes. With my single Dell R940, I focus on rapid recovery and redundancy at the service level.
 
-### HA Tuning
+### Single-Node Resilience
 
-**Watchdog timeout:** Increased from 10 to 30 seconds. Reduces false positives during maintenance.
+**Service-level HA:** Critical services like GitLab and Jellyfin run with redundant processes. If one crashes, others continue serving.
 
-**Migration throttling:** Limit concurrent migrations to 2. Prevents network saturation.
+**Fast VM recovery:** With NVMe storage and ample RAM, crashed VMs restart in under 30 seconds.
 
-**Node priorities:** Designate preferred nodes for specific services. Database VMs prefer nodes with faster storage.
+**Automated recovery:** Systemd restart policies and Docker health checks automatically recover failed services.
 
-### Fence Device Configuration
+### Future Clustering Plans
 
-HA without reliable fencing causes split-brain scenarios. I use IPMI for fence devices:
+When budget allows for a second node, I'll implement proper Proxmox clustering. The current setup is designed for easy migration:
 
 ```bash
-# Configure IPMI fencing
-ha-manager set node-fence-type ipmi
-ha-manager set node-fence-option power_wait=10
+# Current network already segregated for clustering
+# Shared storage via TrueNAS ready for multi-node access
+# VLAN configuration supports cluster heartbeat
 ```
 
-Tested fence functionality monthly. Fence devices that don't work when needed are worse than no fencing at all.
+For now, the combination of enterprise hardware reliability and service-level redundancy provides adequate uptime for a homelab.
 
 ## Real-World Failure Modes
 
@@ -245,11 +252,11 @@ Every system fails eventually. Here's what I've encountered and how to handle it
 
 ### Network Switch Failure
 
-**Scenario:** 10GbE switch failed, cluster lost quorum.
+**Scenario:** UniFi Switch 24 PoE stopped responding after firmware update.
 
-**Response:** Reconfigured cluster networking to use 1GbE backup connections.
+**Response:** Direct connection to Dream Machine Pro for critical services while troubleshooting.
 
-**Lesson:** Network redundancy is critical for cluster stability.
+**Lesson:** Always have a backup switch or at least some unmanaged switches for emergency connectivity.
 
 ### Certificate Expiration
 
@@ -261,11 +268,11 @@ Every system fails eventually. Here's what I've encountered and how to handle it
 
 ### Memory Leak in VM
 
-**Scenario:** Java application had memory leak, consumed all node RAM.
+**Scenario:** Java application had memory leak, tried to consume unlimited RAM.
 
-**Response:** HA migrated other VMs, but performance degraded cluster-wide.
+**Response:** Hit the 64GB limit I set for that VM. With 768GB total, other services weren't affected.
 
-**Lesson:** Resource limits prevent one VM from affecting others.
+**Lesson:** Resource limits prevent one VM from affecting others. Generous hardware provides buffer.
 
 ## Security Pattern Analysis
 
