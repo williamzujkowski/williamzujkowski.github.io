@@ -39,7 +39,7 @@ jobs:
     - name: Install Python Dependencies
       run: |
         uv pip install --system --upgrade pip
-        uv pip install --system aiohttp asyncio pathlib dataclasses
+        uv pip install --system "aiohttp>=3.13.3" "urllib3>=2.6.3"
 
     - name: Extract Links
       run: |
@@ -221,7 +221,7 @@ jobs:
     - name: Install Dependencies
       run: |
         uv pip install --system --upgrade pip
-        uv pip install --system aiohttp asyncio pathlib dataclasses
+        uv pip install --system "aiohttp>=3.13.3" "urllib3>=2.6.3"
 
     - name: Download Artifacts
       uses: actions/download-artifact@v4
