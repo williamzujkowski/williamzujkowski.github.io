@@ -48,7 +48,11 @@ module.exports = {
         // Check if executable scripts have shebang
         const stats = fs.statSync(scriptPath);
         if (stats.mode & parseInt('111', 8)) {  // Check if executable
-          if (!firstLine.startsWith('#!/usr/bin/env python') && !firstLine.startsWith('#!/usr/bin/python')) {
+          // Accept both traditional Python shebangs and UV shebangs
+          const hasShebang = firstLine.startsWith('#!/usr/bin/env python') ||
+                            firstLine.startsWith('#!/usr/bin/python') ||
+                            firstLine.startsWith('#!/usr/bin/env -S uv run');
+          if (!hasShebang) {
             console.warn(`Warning: Executable script ${script} missing shebang`);
           }
         }
