@@ -547,7 +547,7 @@ Total time: 3x spawning overhead
 **Right:**
 ```python
 # Spawn all agents in parallel
-mcp__claude-flow__agents_spawn_parallel({
+mcp__nexus-agents__agents_spawn_parallel({
     "agents": [
         {"type": "coder", "name": "Coder-1"},
         {"type": "coder", "name": "Coder-2"},

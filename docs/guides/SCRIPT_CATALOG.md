@@ -1034,7 +1034,7 @@ Comprehensive diagram management tool for creating, integrating, and managing te
 **Usage:**
 ```bash
 # Create diagrams for a specific post
-python scripts/utilities/diagram-manager.py create --post="2024-03-15-claude-flow"
+python scripts/utilities/diagram-manager.py create --post="2024-03-15-nexus-agents"
 
 # Integrate diagrams into all posts
 python scripts/utilities/diagram-manager.py integrate --all

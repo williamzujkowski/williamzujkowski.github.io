@@ -31,7 +31,7 @@ williamzujkowski.github.io/
 │   │   └── images/       # Site images
 │   │       └── blog/     # Blog post images
 │   ├── pages/            # Static pages (about, uses, etc.)
-│   ├── posts/            # Blog posts (63 articles)
+│   ├── posts/            # Blog posts (71 articles)
 │   └── index.njk         # Homepage template
 ├── scripts/              # Automation scripts (77 Python)
 │   └── lib/             # Shared Python modules (DRY/SOLID)

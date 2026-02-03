@@ -124,7 +124,7 @@ This module documents multi-agent swarm orchestration patterns using Claude-Flow
 
 ```bash
 # Add Claude Flow MCP server
-claude mcp add claude-flow npx claude-flow@alpha mcp start
+claude mcp add nexus-agents nexus-agents@alpha mcp start
 ```
 
 ---
@@ -154,20 +154,20 @@ claude mcp add claude-flow npx claude-flow@alpha mcp start
 
 **1️⃣ BEFORE Work:**
 ```bash
-npx claude-flow@alpha hooks pre-task --description "[task]"
-npx claude-flow@alpha hooks session-restore --session-id "swarm-[id]"
+nexus-agents@alpha hooks pre-task --description "[task]"
+nexus-agents@alpha hooks session-restore --session-id "swarm-[id]"
 ```
 
 **2️⃣ DURING Work:**
 ```bash
-npx claude-flow@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
-npx claude-flow@alpha hooks notify --message "[what was done]"
+nexus-agents@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
+nexus-agents@alpha hooks notify --message "[what was done]"
 ```
 
 **3️⃣ AFTER Work:**
 ```bash
-npx claude-flow@alpha hooks post-task --task-id "[task]"
-npx claude-flow@alpha hooks session-end --export-metrics true
+nexus-agents@alpha hooks post-task --task-id "[task]"
+nexus-agents@alpha hooks session-end --export-metrics true
 ```
 
 ---
@@ -242,8 +242,8 @@ See [file-management.md](../core/file-management.md#concurrent-execution-example
 - [sparc-development.md](./sparc-development.md) - SPARC methodology integration
 
 ### External References
-- [Claude-Flow Documentation](https://github.com/ruvnet/claude-flow)
-- [Claude-Flow Issues](https://github.com/ruvnet/claude-flow/issues)
+- [Claude-Flow Documentation](https://github.com/ruvnet/nexus-agents)
+- [Claude-Flow Issues](https://github.com/ruvnet/nexus-agents/issues)
 
 ---
 
@@ -270,13 +270,13 @@ Task("Coder", "Execute BLUF and bulletization")
 
 ```bash
 # Before starting work
-npx claude-flow@alpha hooks pre-task --description "Refine blog post"
+nexus-agents@alpha hooks pre-task --description "Refine blog post"
 
 # During work
-npx claude-flow@alpha hooks post-edit --file "src/posts/example.md" --memory-key "swarm/coder/bluf"
+nexus-agents@alpha hooks post-edit --file "src/posts/example.md" --memory-key "swarm/coder/bluf"
 
 # After completion
-npx claude-flow@alpha hooks post-task --task-id "blog-refine-1"
+nexus-agents@alpha hooks post-task --task-id "blog-refine-1"
 ```
 
 **Explanation:** Hooks enable tracking, memory persistence, and coordination.
@@ -316,13 +316,13 @@ npx claude-flow@alpha hooks post-task --task-id "blog-refine-1"
 **Commands:**
 ```bash
 # Check swarm status
-npx claude-flow@alpha swarm-status
+nexus-agents@alpha swarm-status
 
 # View agent metrics
-npx claude-flow@alpha agent-metrics
+nexus-agents@alpha agent-metrics
 
 # Monitor performance
-npx claude-flow@alpha benchmark-run
+nexus-agents@alpha benchmark-run
 ```
 
 ---
