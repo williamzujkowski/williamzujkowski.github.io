@@ -222,8 +222,8 @@ h3 {
 
 p {
   color: var(--fg-secondary);
-  line-height: 1.75;
-  margin-bottom: var(--space-md);
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
 }
 
 /* Code blocks with theme support */
@@ -300,12 +300,12 @@ code {
 /* Ensure readability with proper line length */
 .prose {
   max-width: 65ch;
-  font-size: 1.125rem;
-  line-height: 1.75;
+  font-size: 1.1875rem;
+  line-height: 1.8;
 }
 
 .prose > * {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 /* Responsive adjustments */
@@ -313,5 +313,5 @@ code {
   h1 { font-size: 2rem; }
   h2 { font-size: 1.5rem; margin-top: var(--space-2xl); }
   h3 { font-size: 1.25rem; margin-top: var(--space-xl); }
-  .prose { font-size: 1rem; }
+  .prose { font-size: 1.0625rem; }
 }

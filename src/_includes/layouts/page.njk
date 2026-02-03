@@ -22,7 +22,7 @@ layout: base
             {% set lastModified = page.inputPath | gitLastModified %}
             {% if lastModified %}
             <footer role="contentinfo" aria-label="Site footer" class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
-                <p class="text-sm text-gray-500 dark:text-gray-400 text-center italic">
+                <p class="text-sm text-gray-600 dark:text-gray-300 text-center italic">
                     Last updated: {{ lastModified | readableDate }}
                 </p>
             </footer>
