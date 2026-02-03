@@ -129,21 +129,20 @@ module.exports = function(eleventyConfig) {
     return num.toLocaleString();
   });
 
-  // Reading time filter
+  // Reading time filter (cached to avoid re-computing on repeated calls)
+  const _readingTimeCache = new Map();
   eleventyConfig.addFilter("readingTime", (content) => {
     if (!content) return 0;
-    
-    // Strip HTML tags and get plain text
-    const plainText = content.replace(/<[^>]*>/g, '');
-    
-    // Count words (split by whitespace)
-    const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length;
-    
-    // Average reading speed is 200-250 words per minute
-    // Using 225 as a middle ground
-    const wordsPerMinute = 225;
-    const readingTime = Math.ceil(wordCount / wordsPerMinute);
-    
+
+    // Cache key: length + first 64 chars (fast, unique enough per post)
+    const key = `${content.length}:${content.slice(0, 64)}`;
+    if (_readingTimeCache.has(key)) return _readingTimeCache.get(key);
+
+    // Strip HTML tags and count words
+    const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+    const readingTime = Math.ceil(wordCount / 225);
+
+    _readingTimeCache.set(key, readingTime);
     return readingTime;
   });
 
