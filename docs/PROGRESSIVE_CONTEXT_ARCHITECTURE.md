@@ -59,7 +59,7 @@ williamzujkowski.github.io/
 │   │   ├── technical/                  # LOW: Technical implementation
 │   │   │   ├── directory-structure.md  # Project layout
 │   │   │   ├── build-commands.md       # npm scripts & tooling
-│   │   │   ├── sparc-claude-flow.md    # SPARC methodology
+│   │   │   ├── sparc-nexus-agents.md    # SPARC methodology
 │   │   │   ├── agent-coordination.md   # MCP agents
 │   │   │   └── performance-hooks.md    # Optimization patterns
 │   │   │
@@ -231,7 +231,7 @@ This file serves as the **policy anchor** for the williamzujkowski.github.io rep
 |--------|---------|------|-----------|
 | [directory-structure.md](docs/context/technical/directory-structure.md) | Project layout | ~2K | Navigation questions |
 | [build-commands.md](docs/context/technical/build-commands.md) | npm scripts & tooling | ~1.5K | Build/deploy issues |
-| [sparc-claude-flow.md](docs/context/technical/sparc-claude-flow.md) | SPARC methodology | ~3K | Development workflows |
+| [sparc-nexus-agents.md](docs/context/technical/sparc-nexus-agents.md) | SPARC methodology | ~3K | Development workflows |
 | [agent-coordination.md](docs/context/technical/agent-coordination.md) | MCP agents | ~2K | Multi-agent tasks |
 | [performance-hooks.md](docs/context/technical/performance-hooks.md) | Optimization patterns | ~1.5K | Performance tuning |
 
@@ -756,7 +756,7 @@ tags: [keyword1, keyword2, keyword3]
 |----------------|---------------|-----------|
 | §182-336: Project Directory Structure | `technical/directory-structure.md` | Project layout details |
 | §308-335: Build Commands | `technical/build-commands.md` | npm scripts reference |
-| §423-557: SPARC Commands + Agent Coordination | `technical/sparc-claude-flow.md` | SPARC methodology |
+| §423-557: SPARC Commands + Agent Coordination | `technical/sparc-nexus-agents.md` | SPARC methodology |
 | §459-556: Available Agents + MCP Tools | `technical/agent-coordination.md` | Multi-agent orchestration |
 | §587-630: Performance Benefits + Hooks | `technical/performance-hooks.md` | Optimization patterns |
 
@@ -1209,9 +1209,9 @@ technical:
       - tooling
     summary: "All npm scripts: build, test, validate, debug."
 
-  - name: sparc-claude-flow
+  - name: sparc-nexus-agents
     title: "SPARC Methodology & Claude-Flow"
-    path: docs/context/technical/sparc-claude-flow.md
+    path: docs/context/technical/sparc-nexus-agents.md
     version: 1.0.0
     priority: LOW
     estimated_tokens: 3000
@@ -1222,7 +1222,7 @@ technical:
     dependencies: []
     tags:
       - SPARC
-      - claude-flow
+      - nexus-agents
       - methodology
       - TDD
       - workflow
@@ -1875,11 +1875,11 @@ vim docs/context/technical/build-commands.md
 - Build Commands (Development, Production, Testing, Validation, Debugging)
 - All npm scripts with descriptions
 
-**Step 5.3: Extract sparc-claude-flow.md**
+**Step 5.3: Extract sparc-nexus-agents.md**
 ```bash
-# Create technical/sparc-claude-flow.md
+# Create technical/sparc-nexus-agents.md
 # Extract from CLAUDE.md §423-557
-vim docs/context/technical/sparc-claude-flow.md
+vim docs/context/technical/sparc-nexus-agents.md
 ```
 
 **Content to extract:**

@@ -49,8 +49,8 @@ This module documents the SPARC (Specification, Pseudocode, Architecture, Refine
 ## Quick Reference
 
 **Core Commands:**
-- `npx claude-flow sparc modes` - List available modes
-- `npx claude-flow sparc tdd "<feature>"` - Run complete TDD workflow
+- `nexus-agents sparc modes` - List available modes
+- `nexus-agents sparc tdd "<feature>"` - Run complete TDD workflow
 - `npm run build` - Build production site
 - `npm run test:all` - Run all test suites
 
@@ -69,29 +69,29 @@ This module documents the SPARC (Specification, Pseudocode, Architecture, Refine
 
 ```bash
 # List available modes
-npx claude-flow sparc modes
+nexus-agents sparc modes
 
 # Execute specific mode
-npx claude-flow sparc run <mode> "<task>"
+nexus-agents sparc run <mode> "<task>"
 
 # Run complete TDD workflow
-npx claude-flow sparc tdd "<feature>"
+nexus-agents sparc tdd "<feature>"
 
 # Get mode details
-npx claude-flow sparc info <mode>
+nexus-agents sparc info <mode>
 ```
 
 ### Batchtools Commands
 
 ```bash
 # Parallel execution
-npx claude-flow sparc batch <modes> "<task>"
+nexus-agents sparc batch <modes> "<task>"
 
 # Full pipeline processing
-npx claude-flow sparc pipeline "<task>"
+nexus-agents sparc pipeline "<task>"
 
 # Multi-task processing
-npx claude-flow sparc concurrent <mode> "<tasks-file>"
+nexus-agents sparc concurrent <mode> "<tasks-file>"
 ```
 
 ### Available npm Commands
@@ -121,7 +121,7 @@ npm run validate:km
 
 **Command:**
 ```bash
-npx claude-flow sparc run spec-pseudocode
+nexus-agents sparc run spec-pseudocode
 ```
 
 **Purpose:** Analyze requirements and define acceptance criteria
@@ -136,7 +136,7 @@ npx claude-flow sparc run spec-pseudocode
 
 **Command:**
 ```bash
-npx claude-flow sparc run spec-pseudocode
+nexus-agents sparc run spec-pseudocode
 ```
 
 **Purpose:** Design algorithms and logic flow before implementation
@@ -151,7 +151,7 @@ npx claude-flow sparc run spec-pseudocode
 
 **Command:**
 ```bash
-npx claude-flow sparc run architect
+nexus-agents sparc run architect
 ```
 
 **Purpose:** Design scalable, maintainable system architecture
@@ -166,7 +166,7 @@ npx claude-flow sparc run architect
 
 **Command:**
 ```bash
-npx claude-flow sparc tdd
+nexus-agents sparc tdd
 ```
 
 **Purpose:** Implement features using Test-Driven Development
@@ -186,7 +186,7 @@ npx claude-flow sparc tdd
 
 **Command:**
 ```bash
-npx claude-flow sparc run integration
+nexus-agents sparc run integration
 ```
 
 **Purpose:** Integrate components and validate system behavior
@@ -257,7 +257,7 @@ See docs/BLOG_VISUAL_ENHANCEMENT_GUIDE.md for complete documentation.
 - [swarm-orchestration.md](./swarm-orchestration.md) - Multi-agent coordination
 
 ### External References
-- [Claude-Flow Documentation](https://github.com/ruvnet/claude-flow)
+- [Claude-Flow Documentation](https://github.com/ruvnet/nexus-agents)
 - [docs/ARCHITECTURE.md](../../ARCHITECTURE.md) - System architecture
 - [docs/BLOG_VISUAL_ENHANCEMENT_GUIDE.md](../../BLOG_VISUAL_ENHANCEMENT_GUIDE.md) - Visual optimization
 
@@ -269,7 +269,7 @@ See docs/BLOG_VISUAL_ENHANCEMENT_GUIDE.md for complete documentation.
 
 ```bash
 # Run full TDD workflow for new feature
-npx claude-flow sparc tdd "implement user authentication"
+nexus-agents sparc tdd "implement user authentication"
 
 # SPARC will automatically:
 # 1. Generate specification
@@ -286,7 +286,7 @@ npx claude-flow sparc tdd "implement user authentication"
 
 ```bash
 # Execute multiple modes in parallel
-npx claude-flow sparc batch spec-pseudocode,architect "<task>"
+nexus-agents sparc batch spec-pseudocode,architect "<task>"
 
 # Benefits: 2.8-4.4x faster than sequential
 ```

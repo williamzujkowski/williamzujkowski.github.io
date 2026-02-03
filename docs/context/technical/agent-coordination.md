@@ -110,24 +110,24 @@ This document catalogs available agents, coordination protocols, and Claude-Flow
 
 **1️⃣ BEFORE Work:**
 ```bash
-npx claude-flow@alpha hooks pre-task --description "[task description]"
-npx claude-flow@alpha hooks session-restore --session-id "swarm-[id]"
+nexus-agents@alpha hooks pre-task --description "[task description]"
+nexus-agents@alpha hooks session-restore --session-id "swarm-[id]"
 ```
 
 **Purpose**: Prepare resources, restore context, auto-assign agent.
 
 **2️⃣ DURING Work:**
 ```bash
-npx claude-flow@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
-npx claude-flow@alpha hooks notify --message "[what was done]"
+nexus-agents@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
+nexus-agents@alpha hooks notify --message "[what was done]"
 ```
 
 **Purpose**: Track progress, update memory, coordinate with other agents.
 
 **3️⃣ AFTER Work:**
 ```bash
-npx claude-flow@alpha hooks post-task --task-id "[task]"
-npx claude-flow@alpha hooks session-end --export-metrics true
+nexus-agents@alpha hooks post-task --task-id "[task]"
+nexus-agents@alpha hooks session-end --export-metrics true
 ```
 
 **Purpose**: Generate summaries, export metrics, persist state.
@@ -171,13 +171,13 @@ See [file-management.md](../core/file-management.md#concurrent-execution--file-m
 
 ```bash
 # Add MCP server to Claude configuration
-claude mcp add claude-flow npx claude-flow@alpha mcp start
+claude mcp add nexus-agents nexus-agents@alpha mcp start
 ```
 
 **Verify installation:**
 ```bash
 # Check MCP server is running
-npx claude-flow@alpha status
+nexus-agents@alpha status
 ```
 
 ## Hooks Integration
@@ -194,7 +194,7 @@ npx claude-flow@alpha status
 **Example**:
 ```bash
 # Before editing Python file
-npx claude-flow@alpha hooks pre-edit --file "script.py"
+nexus-agents@alpha hooks pre-edit --file "script.py"
 # → Auto-assigns python-specialist agent
 ```
 
@@ -210,7 +210,7 @@ npx claude-flow@alpha hooks pre-edit --file "script.py"
 **Example**:
 ```bash
 # After editing file
-npx claude-flow@alpha hooks post-edit --file "script.py"
+nexus-agents@alpha hooks post-edit --file "script.py"
 # → Formats code, updates memory, analyzes changes
 ```
 
@@ -226,7 +226,7 @@ npx claude-flow@alpha hooks post-edit --file "script.py"
 **Example**:
 ```bash
 # End session with metrics
-npx claude-flow@alpha hooks session-end --export-metrics true
+nexus-agents@alpha hooks session-end --export-metrics true
 # → Generates completion report, exports workflow
 ```
 
@@ -324,21 +324,21 @@ Claude-Flow analyzes task complexity and selects optimal swarm topology:
 **Blog post enhancement:**
 ```bash
 # 1. Init swarm
-npx claude-flow@alpha swarm init --topology hierarchical
+nexus-agents@alpha swarm init --topology hierarchical
 
 # 2. Spawn agents
-npx claude-flow@alpha agent spawn --type planner
-npx claude-flow@alpha agent spawn --type researcher
-npx claude-flow@alpha agent spawn --type coder
+nexus-agents@alpha agent spawn --type planner
+nexus-agents@alpha agent spawn --type researcher
+nexus-agents@alpha agent spawn --type coder
 
 # 3. Orchestrate task
-npx claude-flow@alpha task orchestrate --task "enhance blog posts batch 2" --strategy parallel
+nexus-agents@alpha task orchestrate --task "enhance blog posts batch 2" --strategy parallel
 ```
 
 **Code review:**
 ```bash
 # Use GitHub integration
-npx claude-flow@alpha github swarm --task "review PR #123" --agents code-review-swarm
+nexus-agents@alpha github swarm --task "review PR #123" --agents code-review-swarm
 ```
 
 ## Troubleshooting
@@ -347,27 +347,27 @@ npx claude-flow@alpha github swarm --task "review PR #123" --agents code-review-
 
 **Check swarm status:**
 ```bash
-npx claude-flow@alpha swarm status --swarm-id [id]
-npx claude-flow@alpha agent metrics --agent-id [id]
+nexus-agents@alpha swarm status --swarm-id [id]
+nexus-agents@alpha agent metrics --agent-id [id]
 ```
 
 ### Memory Issues
 
 **Check memory usage:**
 ```bash
-npx claude-flow@alpha memory usage --namespace "swarm/[id]"
+nexus-agents@alpha memory usage --namespace "swarm/[id]"
 ```
 
 ### Performance Degradation
 
 **Run bottleneck analysis:**
 ```bash
-npx claude-flow@alpha bottleneck analyze --component swarm
+nexus-agents@alpha bottleneck analyze --component swarm
 ```
 
 ## Related Documentation
 
 - **SPARC Methodology**: `docs/context/workflows/sparc-development.md`
 - **Swarm Orchestration**: `docs/context/workflows/swarm-orchestration.md`
-- **Claude-Flow GitHub**: https://github.com/ruvnet/claude-flow
-- **Claude-Flow Issues**: https://github.com/ruvnet/claude-flow/issues
+- **Claude-Flow GitHub**: https://github.com/ruvnet/nexus-agents
+- **Claude-Flow Issues**: https://github.com/ruvnet/nexus-agents/issues

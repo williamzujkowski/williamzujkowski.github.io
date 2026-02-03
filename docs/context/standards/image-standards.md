@@ -69,7 +69,7 @@ src/assets/images/blog/
 
 **Format:** `YYYY-MM-DD-post-slug-image-type.ext`
 
-**Example:** `2025-08-07-claude-flow-architecture-diagram.png`
+**Example:** `2025-08-07-nexus-agents-architecture-diagram.png`
 
 ---
 

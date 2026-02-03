@@ -1354,7 +1354,7 @@ Reality: 172 tokens redundant (96.4% error)
 **Solution:**
 ```python
 # Use parallel spawning
-mcp__claude-flow__agents_spawn_parallel({
+mcp__nexus-agents__agents_spawn_parallel({
     "agents": [
         {"type": "coder", "name": "Coder-1"},
         {"type": "coder", "name": "Coder-2"},
