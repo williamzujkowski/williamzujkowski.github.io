@@ -74,7 +74,7 @@ class SimpleValidator:
         }
 
     async def __aenter__(self):
-        timeout = aiohttp.ClientTimeout(total=10)
+        timeout = aiohttp.ClientTimeout(total=15)
         self.session = aiohttp.ClientSession(timeout=timeout)
         return self
 
@@ -96,7 +96,21 @@ class SimpleValidator:
             async with self.session.head(url, allow_redirects=True) as response:
                 result['status_code'] = response.status
 
-                if response.status == 200:
+                # Some servers reject HEAD requests; fall back to GET
+                if response.status in [403, 405, 406]:
+                    async with self.session.get(url, allow_redirects=True) as get_resp:
+                        result['status_code'] = get_resp.status
+                        if get_resp.status == 200:
+                            result['status'] = 'valid'
+                            self.stats['valid'] += 1
+                        elif get_resp.status == 404:
+                            result['status'] = 'broken'
+                            result['issue_type'] = 'not_found'
+                            self.stats['broken'] += 1
+                        else:
+                            result['status'] = 'degraded'
+                            result['issue_type'] = f'http_{get_resp.status}'
+                elif response.status == 200:
                     result['status'] = 'valid'
                     self.stats['valid'] += 1
                 elif response.status == 404:

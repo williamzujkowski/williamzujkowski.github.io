@@ -84,25 +84,60 @@ jobs:
       id: check_critical
       run: |
         # Parse validation results for critical issues
+        # Separate internal vs external link failures
         python -c "
-        import json
+        import json, os
         with open('validation.json', 'r') as f:
             data = json.load(f)
-        broken = len([r for r in data['results'] if r['status'] == 'broken'])
-        total = len(data['results'])
-        broken_pct = (broken / total * 100) if total > 0 else 0
-        print(f'Broken: {broken}/{total} ({broken_pct:.1f}%)')
+
+        results = data.get('results', [])
+        total = len(results)
+
+        # Separate internal (relative paths, same-domain) vs external links
+        internal_broken = []
+        external_broken = []
+        for r in results:
+            if r.get('status') == 'broken':
+                url = r.get('url', '')
+                if url.startswith('/') or url.startswith('#') or 'williamzujkowski' in url:
+                    internal_broken.append(r)
+                else:
+                    external_broken.append(r)
+
+        all_broken = len(internal_broken) + len(external_broken)
+        broken_pct = (all_broken / total * 100) if total > 0 else 0
+
+        print(f'Total links: {total}')
+        print(f'Internal broken: {len(internal_broken)}')
+        print(f'External broken: {len(external_broken)} (may be transient)')
+        print(f'Overall: {all_broken}/{total} ({broken_pct:.1f}%)')
 
         # Set output for use in other steps
-        with open('$GITHUB_OUTPUT', 'a') as f:
-            f.write(f'broken_count={broken}\n')
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f'broken_count={all_broken}\n')
             f.write(f'total_count={total}\n')
             f.write(f'broken_percent={broken_pct:.1f}\n')
+            f.write(f'internal_broken={len(internal_broken)}\n')
+            f.write(f'external_broken={len(external_broken)}\n')
 
-        # Fail if more than 20% of links are broken
-        if broken_pct > 20:
-            print(f'ERROR: Too many broken links ({broken_pct:.1f}% > 20%)')
-            exit(1)
+        event = os.environ.get('GITHUB_EVENT_NAME', '')
+        is_pr = event == 'pull_request'
+
+        # For PRs: only fail on internal broken links (> 5)
+        # External failures are often transient (rate limits, timeouts)
+        if is_pr:
+            if len(internal_broken) > 5:
+                print(f'ERROR: {len(internal_broken)} internal broken links')
+                exit(1)
+            elif len(external_broken) > 0:
+                print(f'WARNING: {len(external_broken)} external links failed (non-blocking for PRs)')
+        else:
+            # For scheduled runs: warn but don't fail on external-only issues
+            if len(internal_broken) > 5:
+                print(f'ERROR: {len(internal_broken)} internal broken links')
+                exit(1)
+            elif broken_pct > 50:
+                print(f'WARNING: High external failure rate ({broken_pct:.1f}%) - possible network issue')
         "
 
     - name: Create Issue for Broken Links
