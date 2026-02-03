@@ -69,7 +69,6 @@ class TestCodeBlockExtraction:
 
     def test_extract_single_block(self):
         """Test extraction of single code block."""
-        # TODO: Implement after extract_code_blocks_with_context is complete
         pytest.skip("Awaiting implementation")
 
     def test_extract_multiple_blocks(self):

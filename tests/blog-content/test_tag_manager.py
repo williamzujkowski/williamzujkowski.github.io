@@ -151,17 +151,10 @@ Post content here.
         assert score < 100
         assert any('Deprecated tags' in issue for issue in issues)
 
-    # TODO: Add tests for analyze_tag_distribution
-    # TODO: Add tests for identify_consolidation_opportunities
-    # TODO: Add tests for apply_tag_strategy
-    # TODO: Add tests for CSV export
-    # TODO: Add tests for dry-run mode
 
 
 class TestTagConsolidation:
-    """Test tag consolidation logic."""
-
-    # TODO: Implement after consolidation logic added
+    """Test tag consolidation logic (not yet implemented)."""
 
     def test_detect_plural_singular(self):
         """Test detection of plural/singular variants (containers ↔ container)."""
@@ -181,9 +174,7 @@ class TestTagConsolidation:
 
 
 class TestTagApplication:
-    """Test tag strategy application."""
-
-    # TODO: Implement after apply logic added
+    """Test tag strategy application (not yet implemented)."""
 
     def test_apply_dry_run_mode(self):
         """Test that dry-run mode doesn't write files."""
