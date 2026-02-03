@@ -271,7 +271,7 @@ What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab
 
 **Related posts:**
 
-* [Supercharging Development with Claude-Flow](/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/)
+* [Supercharging Development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow/)
 * [Down the MCP Rabbit Hole: Building a Standards Server](/posts/down-the-mcp-rabbit-hole-building-a-standards-server/)
 * [Exploring Claude CLI Context and Compliance](/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/)
 * [AI as Cognitive Infrastructure](/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/)
