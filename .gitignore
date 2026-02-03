@@ -29,52 +29,39 @@ npm-debug.log*
 tmp/
 !tmp/README.md
 
-# Claude and Claude-Flow files
+# Python
+__pycache__/
+.venv/
+*.pyc
+
+# Claude Code files
 .claude/
-.claude-flow/
-.roo/
-.roomodes
 
 # MCP (Model Context Protocol) files
 .mcp.json
 .mcp/
 .playwright-mcp/
 
-# Claude-Flow configuration (keep main config, ignore local)
-claude-flow.config.local.json
-claude-flow.local.json
+# nexus-agents session artifacts
+.nexus-agents/
 
-# Claude-Flow executables
+# Legacy claude-flow files (migrated to nexus-agents)
+.claude-flow/
 claude-flow
-claude-flow.bat
-claude-flow.ps1
-claude-flow.sh
-
-# Swarm and Hive Mind files
+claude-flow.*
+.roo/
+.roomodes
+memory/
 .swarm/
 .hive-mind/
 hive-mind-prompt-*.txt
 swarm-*.json
 swarm-*.log
-
-# Memory and persistence
-memory/
-!memory/README.md
-memory/claude-flow-data.json
-memory/sessions/*
-!memory/sessions/README.md
-memory/agents/*
-!memory/agents/README.md
+coordination/
 
 # Manifest versions
 .manifest/
 !.manifest/README.md
-
-# Coordination directories
-coordination/memory_bank/*
-coordination/subtasks/*
-coordination/orchestration/*
-!coordination/**/README.md
 
 # Database files
 *.db
@@ -85,40 +72,15 @@ coordination/orchestration/*
 *.sqlite-wal
 *.leveldb
 
-# Neural network and model files
-*.onnx
-*.pt
-*.pth
-*.h5
-*.tflite
-models/
-checkpoints/
-
-# Cache and temporary swarm files
-.cache/
+# Cache and temporary files
 .swarm-cache/
 .agent-cache/
-*.swarm.tmp
-*.agent.tmp
 
-# Log files from swarm operations
+# Log files from operations
 swarm-logs/
 agent-logs/
-*.swarm.log
-*.agent.log
 
-# Backup and snapshot files
-*.swarm.backup
-*.memory.backup
-snapshots/
-
-# Test and benchmark results
-swarm-benchmarks/
-swarm-tests/
-perf-reports/
-
-# Development and debugging directories
+# Development and debugging
 subagents/
 task-tracking/
 debug-reports/
-__pycache__/

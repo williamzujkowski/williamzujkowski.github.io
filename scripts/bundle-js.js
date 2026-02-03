@@ -67,7 +67,7 @@ async function bundleAndMinify() {
       // Minify the bundle
       const result = await minify(bundleContent, {
         compress: {
-          drop_console: false, // Keep console.logs for debugging
+          drop_console: true, // Strip console.logs from production bundles
           drop_debugger: true,
           passes: 2
         },

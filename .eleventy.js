@@ -3,6 +3,34 @@ const Image = require("@11ty/eleventy-img");
 const { execSync } = require('child_process');
 const path = require('path');
 
+// Batch cache for git last-modified dates (single git call instead of per-file)
+let _gitDateCache = null;
+function getGitDateCache() {
+  if (_gitDateCache) return _gitDateCache;
+  _gitDateCache = new Map();
+  try {
+    const result = execSync(
+      'git log --format="%cI" --name-only --diff-filter=ACDMRT HEAD',
+      { encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 }
+    );
+    let currentDate = null;
+    for (const line of result.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      // ISO date lines start with a digit (e.g. 2025-...)
+      if (/^\d{4}-/.test(trimmed)) {
+        currentDate = trimmed;
+      } else if (currentDate && !_gitDateCache.has(trimmed)) {
+        // First occurrence = most recent commit date for that file
+        _gitDateCache.set(trimmed, currentDate);
+      }
+    }
+  } catch (e) {
+    // Fallback: cache stays empty, filter returns null
+  }
+  return _gitDateCache;
+}
+
 module.exports = function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
@@ -184,31 +212,32 @@ module.exports = function(eleventyConfig) {
     );
   });
 
-  // Get git last modified date for a file
+  // Get git last modified date for a file (batch-cached, single git call)
   eleventyConfig.addFilter("gitLastModified", (inputPath) => {
     try {
       if (!inputPath) return null;
-      
-      // Remove the leading ./ and src/ if present
+
+      const cache = getGitDateCache();
+
+      // Remove the leading ./ if present
       let cleanPath = inputPath.replace(/^\.\//, '');
-      if (cleanPath.startsWith('src/')) {
-        cleanPath = cleanPath.substring(4);
+
+      // Try exact path first, then with src/ prefix
+      const dateStr = cache.get(cleanPath) || cache.get(`src/${cleanPath}`);
+      if (dateStr) {
+        return new Date(dateStr);
       }
-      
-      // Construct the full file path
-      const filePath = path.join(__dirname, 'src', cleanPath);
-      
-      // Get the last commit date for this file
-      const gitCommand = `git log -1 --format=%cI -- "${filePath}"`;
-      const result = execSync(gitCommand, { encoding: 'utf-8' }).trim();
-      
-      if (result) {
-        return new Date(result);
+
+      // If not in cache, try constructing the full relative path
+      if (cleanPath.startsWith('src/')) {
+        const withoutSrc = cleanPath.substring(4);
+        const alt = cache.get(withoutSrc);
+        if (alt) return new Date(alt);
       }
     } catch (error) {
-      console.error(`Error getting git date for ${inputPath}:`, error.message);
+      // Silent fallback
     }
-    
+
     return null;
   });
 
