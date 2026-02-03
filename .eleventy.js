@@ -66,13 +66,11 @@ module.exports = function(eleventyConfig) {
 
   // Copy static files
   eleventyConfig.addPassthroughCopy("src/assets/js");
-  // Copy only specific CSS files that aren't processed by PostCSS
-  // main.css is built by PostCSS, tailwind.css is imported by main.css
-  eleventyConfig.addPassthroughCopy("src/assets/css/theme-tokens.css");
+  // CSS files not imported by main.css (standalone loading)
+  // theme-tokens.css and enhancements.css are @imported in main.css (no passthrough needed)
   eleventyConfig.addPassthroughCopy("src/assets/css/fonts.css");
   eleventyConfig.addPassthroughCopy("src/assets/css/modern-design.css");
   eleventyConfig.addPassthroughCopy("src/assets/css/cybersecurity-effects.css");
-  eleventyConfig.addPassthroughCopy("src/assets/css/enhancements.css");
   eleventyConfig.addPassthroughCopy("src/assets/images");
   eleventyConfig.addPassthroughCopy("src/assets/fonts");
   eleventyConfig.addPassthroughCopy("src/CNAME");
