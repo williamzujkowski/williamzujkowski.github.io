@@ -80,12 +80,12 @@ eleventyNavigation:
             </p>
         </div>
         
-        <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {% set posts = collections.posts | reverse %}
             {% if posts.length > 0 %}
                 {% for post in posts | limit(3) %}
                 <article class="group hover-card glass dark:glass-dark rounded-2xl p-8">
-                    <time datetime="{{ post.date | htmlDateString }}" class="text-sm text-gray-500 dark:text-gray-400">
+                    <time datetime="{{ post.date | htmlDateString }}" class="text-sm text-gray-600 dark:text-gray-300">
                         {{ post.date | readableDate }}
                     </time>
                     <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
@@ -110,7 +110,7 @@ eleventyNavigation:
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-gray-100">No posts yet</h3>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating your first post.</p>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Get started by creating your first post.</p>
                 </div>
             {% endif %}
         </div>
@@ -138,7 +138,7 @@ eleventyNavigation:
         </div>
         
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 xl:grid-cols-4">
+            <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 md:max-w-none md:grid-cols-2 xl:grid-cols-4">
                 <div class="flex flex-col">
                     <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
                         <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">

@@ -196,7 +196,7 @@
     --font-scale-ratio: 1.2;
     --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
     --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
-    --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.1875rem);
     --font-size-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
     --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
     --font-size-2xl: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
