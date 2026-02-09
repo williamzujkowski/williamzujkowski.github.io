@@ -138,56 +138,7 @@
     }
   }
 
-  // ===========================
-  // 2. READING PROGRESS BAR
-  // ===========================
-
-  class ReadingProgress {
-    constructor() {
-      this.progressBar = null;
-      this.init();
-    }
-
-    init() {
-      // Only show on article pages
-      if (!document.querySelector('article')) return;
-
-      this.createProgressBar();
-      this.updateProgress();
-
-      // Throttled scroll handler
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            this.updateProgress();
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-    }
-
-    createProgressBar() {
-      this.progressBar = document.createElement('div');
-      this.progressBar.className = 'reading-progress';
-      this.progressBar.setAttribute('role', 'progressbar');
-      this.progressBar.setAttribute('aria-valuemin', '0');
-      this.progressBar.setAttribute('aria-valuemax', '100');
-      document.body.appendChild(this.progressBar);
-    }
-
-    updateProgress() {
-      const scrolled = window.scrollY;
-      const height = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = height > 0 ? (scrolled / height) * 100 : 0;
-
-      if (this.progressBar) {
-        this.progressBar.style.width = `${progress}%`;
-        this.progressBar.setAttribute('aria-valuenow', Math.round(progress));
-      }
-    }
-  }
+  // Reading progress bar removed — handled by reading-progress.js in blog.min.js (#74)
 
   // ===========================
   // 3. CODE COPY FUNCTIONALITY
@@ -552,7 +503,6 @@
 
     // Initialize features
     new MobileMenu();
-    new ReadingProgress();
     new CodeCopy();
 
     if (!prefersReducedMotion) {

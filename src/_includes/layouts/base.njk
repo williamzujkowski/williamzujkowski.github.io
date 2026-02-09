@@ -30,8 +30,13 @@
     <meta property="article:author" content="{{ site.author }}">
     <meta property="article:published_time" content="{{ page.date | htmlDateString }}">
     {% endif %}
-    
-    
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% if title != "Home" %}{{ title }}{% else %}{{ site.title }}{% endif %}">
+    <meta name="twitter:description" content="{{ description or site.description }}">
+    <meta name="twitter:image" content="{{ site.url }}/assets/images/og-image.jpg">
+
     <!-- Additional SEO Meta -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
@@ -163,7 +168,7 @@
                     </button>
                     
                     <!-- Mobile menu button -->
-                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" data-mobile-menu-button>
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu" data-mobile-menu-button>
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -363,7 +368,10 @@
         
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
+            const btn = document.querySelector('[data-mobile-menu-button]');
             menu.classList.toggle('hidden');
+            const expanded = !menu.classList.contains('hidden');
+            btn.setAttribute('aria-expanded', String(expanded));
         }
     </script>
     
