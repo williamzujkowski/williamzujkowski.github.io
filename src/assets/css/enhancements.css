@@ -133,12 +133,18 @@ button,
 .btn {
   cursor: pointer;
   transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   gap: 0.5rem;
   text-decoration: none;
   border-radius: 0.5rem;
+}
+
+/* Button layout — only apply to buttons not hidden by Tailwind responsive utilities */
+.btn,
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button:hover,
