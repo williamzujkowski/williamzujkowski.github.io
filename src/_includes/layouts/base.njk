@@ -6,7 +6,13 @@
     <meta name="description" content="{{ description or site.description }}">
     <meta name="author" content="{{ site.author }}">
     <meta name="keywords" content="{{ keywords or site.keywords }}">
-    
+
+    <!-- Security Headers (meta-tag based — GitHub Pages doesn't support HTTP headers) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://gist.github.com; style-src 'self' 'unsafe-inline' https://rsms.me https://github.githubassets.com; font-src 'self' https://rsms.me; img-src 'self' data: https:; connect-src 'self'; object-src 'none'; base-uri 'self'">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
     <title>{% if title != "Home" %}{{ title }} - {% endif %}{{ site.title }}</title>
     
     <link rel="stylesheet" href="/assets/css/main.css">

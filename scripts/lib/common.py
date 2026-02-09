@@ -169,7 +169,7 @@ class TimeManager:
                 # Parse time.gov response
                 # Note: Actual parsing would depend on the response format
                 return TimeManager.get_current_timestamp()
-        except:
+        except Exception:
             # Fallback to system time
             return TimeManager.get_current_timestamp()
 
@@ -204,7 +204,7 @@ class FileHasher:
                 for byte_block in iter(lambda: f.read(4096), b""):
                     md5_hash.update(byte_block)
             return md5_hash.hexdigest()
-        except:
+        except Exception:
             return ""
 
 
@@ -448,7 +448,7 @@ def read_json(filepath: Path) -> Dict[str, Any]:
     try:
         with open(filepath, 'r') as f:
             return json.load(f)
-    except:
+    except Exception:
         return {}
 
 def write_json(data: Dict[str, Any], filepath: Path) -> bool:
@@ -458,7 +458,7 @@ def write_json(data: Dict[str, Any], filepath: Path) -> bool:
         with open(filepath, 'w') as f:
             json.dump(data, f, indent=2)
         return True
-    except:
+    except Exception:
         return False
 
 def get_file_type(filepath: Path) -> str:
@@ -520,7 +520,7 @@ class ScriptTester:
                 timeout=10
             )
             return result.returncode == 0
-        except:
+        except Exception:
             return False
 
     @staticmethod

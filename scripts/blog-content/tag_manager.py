@@ -112,7 +112,7 @@ import logging
 import argparse
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional, Set
+from typing import Any, Dict, List, Tuple, Optional, Set
 from collections import Counter, defaultdict
 from difflib import SequenceMatcher
 
@@ -165,7 +165,7 @@ class TagManager:
         self.all_tags: Set[str] = set()
 
         # Consolidation state
-        self.consolidation_map: Optional[Dict[str, any]] = None
+        self.consolidation_map: Optional[Dict[str, Any]] = None
 
     def extract_frontmatter(self, content: str) -> Tuple[Optional[Dict], str, str]:
         """
@@ -225,7 +225,7 @@ class TagManager:
 
         return []
 
-    def load_consolidation_map(self, map_path: str) -> Dict[str, any]:
+    def load_consolidation_map(self, map_path: str) -> Dict[str, Any]:
         """
         Load and validate tag consolidation mapping.
 
@@ -458,7 +458,7 @@ class TagManager:
         return '\n'.join(new_lines)
 
     def apply_consolidation_to_post(self, post_path: str, dry_run: bool = False,
-                                   apply_suggestions: bool = False) -> Dict[str, any]:
+                                   apply_suggestions: bool = False) -> Dict[str, Any]:
         """
         Consolidate tags for single post and optionally write back.
 
