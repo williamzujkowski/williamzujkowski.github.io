@@ -78,6 +78,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/manifest.json");
 
+  // Dynamic copyright year — always current at build time
+  eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
+
   // Watch for changes
   eleventyConfig.addWatchTarget("src/assets/");
 

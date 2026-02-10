@@ -1,7 +1,7 @@
 ---
 layout: base
 title: Home
-description: Welcome to the personal website of William Zujkowski
+description: "Security engineering, homelab automation, and AI safety experiments from a senior InfoSec engineer with 15+ years in federal cybersecurity."
 eleventyNavigation:
   key: Home
   order: 1
@@ -85,9 +85,20 @@ eleventyNavigation:
             {% if posts.length > 0 %}
                 {% for post in posts | limit(3) %}
                 <article class="group hover-card glass dark:glass-dark rounded-2xl p-8">
-                    <time datetime="{{ post.date | htmlDateString }}" class="text-sm text-gray-600 dark:text-gray-300">
-                        {{ post.date | readableDate }}
-                    </time>
+                    {% if post.data.image %}
+                    <div class="mb-4 -mx-8 -mt-8 overflow-hidden rounded-t-2xl">
+                        <img src="{{ post.data.image }}" alt="{{ post.data.imageAlt or post.data.title }}" class="w-full h-40 object-cover" loading="lazy">
+                    </div>
+                    {% endif %}
+                    <div class="flex items-center space-x-3 text-sm">
+                        <time datetime="{{ post.date | htmlDateString }}" class="font-medium text-primary-600 dark:text-primary-400">
+                            {{ post.date | readableDate }}
+                        </time>
+                        <span class="text-gray-400 dark:text-gray-600">·</span>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            {{ post.templateContent | readingTime }} min read
+                        </span>
+                    </div>
                     <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400">
                         <a href="{{ post.url }}">
                             <span class="absolute inset-0"></span>
@@ -97,6 +108,17 @@ eleventyNavigation:
                     <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300 line-clamp-3">
                         {{ post.data.description }}
                     </p>
+                    {% if post.data.tags and post.data.tags.length > 0 %}
+                    <div class="mt-3 flex flex-wrap gap-1.5">
+                        {% for tag in post.data.tags | limit(3) %}
+                            {% if tag != 'posts' %}
+                            <span class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300">
+                                {{ tag }}
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <div class="mt-4">
                         <a href="{{ post.url }}" class="text-sm font-semibold text-primary-600 dark:text-primary-400">
                             Read more <span aria-hidden="true">→</span>
@@ -139,9 +161,9 @@ eleventyNavigation:
         
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 md:max-w-none md:grid-cols-2 xl:grid-cols-4">
-                <div class="flex flex-col">
+                <a href="/tags/security/" class="flex flex-col group/card rounded-2xl p-6 -m-6 transition-all duration-200 hover:bg-white dark:hover:bg-gray-700/50 hover:shadow-lg hover:-translate-y-1">
                     <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
-                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 transition-transform duration-200 group-hover/card:scale-110">
                             <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                             </svg>
@@ -151,11 +173,11 @@ eleventyNavigation:
                     <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                         <p class="flex-auto">Implementing Zero-Trust architectures for federal systems. I've learned that microsegmentation isn't just theory – it's what stops lateral movement when something gets through.</p>
                     </dd>
-                </div>
-                
-                <div class="flex flex-col">
+                </a>
+
+                <a href="/tags/homelab/" class="flex flex-col group/card rounded-2xl p-6 -m-6 transition-all duration-200 hover:bg-white dark:hover:bg-gray-700/50 hover:shadow-lg hover:-translate-y-1">
                     <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
-                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 transition-transform duration-200 group-hover/card:scale-110">
                             <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
                             </svg>
@@ -165,11 +187,11 @@ eleventyNavigation:
                     <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                         <p class="flex-auto">Started with a $50 Raspberry Pi in 2015, now running enterprise gear in my basement. I've broken it 47 times and learned something valuable every single time.</p>
                     </dd>
-                </div>
-                
-                <div class="flex flex-col">
+                </a>
+
+                <a href="/tags/ai/" class="flex flex-col group/card rounded-2xl p-6 -m-6 transition-all duration-200 hover:bg-white dark:hover:bg-gray-700/50 hover:shadow-lg hover:-translate-y-1">
                     <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
-                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 transition-transform duration-200 group-hover/card:scale-110">
                             <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
                             </svg>
@@ -179,11 +201,11 @@ eleventyNavigation:
                     <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
                         <p class="flex-auto">Running local LLMs for security research and AI safety experiments. That childhood obsession with Asimov's Three Laws evolved into real work on AI alignment and building systems that actually follow their rules.</p>
                     </dd>
-                </div>
-                
-                <div class="flex flex-col">
+                </a>
+
+                <a href="/posts/" class="flex flex-col group/card rounded-2xl p-6 -m-6 transition-all duration-200 hover:bg-white dark:hover:bg-gray-700/50 hover:shadow-lg hover:-translate-y-1">
                     <dt class="text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
-                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 transition-transform duration-200 group-hover/card:scale-110">
                             <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                             </svg>
@@ -191,9 +213,9 @@ eleventyNavigation:
                         Knowledge Sharing
                     </dt>
                     <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
-                        <p class="flex-auto">Writing 57+ blog posts about security, AI safety, and homelab experiments. My most popular posts openly admit "here's what I broke and what I learned" because vulnerability makes better content than polish.</p>
+                        <p class="flex-auto">Writing {{ collections.posts | length }}+ blog posts about security, AI safety, and homelab experiments. My most popular posts openly admit "here's what I broke and what I learned" because vulnerability makes better content than polish.</p>
                     </dd>
-                </div>
+                </a>
             </dl>
         </div>
     </div>

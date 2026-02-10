@@ -13,6 +13,20 @@ pagination:
 permalink: /posts/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}
 ---
 
+<!-- Tag Filter Pills (top tags by popularity) -->
+<div class="mb-6">
+    <div class="flex flex-wrap gap-2" id="tag-filters">
+        <button class="tag-pill active inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium bg-primary-600 text-white transition-colors duration-200" data-tag="all">
+            All
+        </button>
+        {% for item in blogStats.top_tags | limit(12) %}
+        <button class="tag-pill inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200" data-tag="{{ item.tag | slugify }}">
+            {{ item.tag }} <span class="ml-1 text-xs opacity-60">{{ item.count }}</span>
+        </button>
+        {% endfor %}
+    </div>
+</div>
+
 <!-- Search Section -->
 <div class="mb-8">
     <div class="relative max-w-2xl">
@@ -184,3 +198,36 @@ permalink: /posts/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
 
 <!-- Search JavaScript Bundle -->
 <script src="/assets/js/search.min.js"></script>
+
+<!-- Tag Filter Script -->
+<script>
+(function() {
+    'use strict';
+    var filters = document.getElementById('tag-filters');
+    if (!filters) return;
+
+    filters.addEventListener('click', function(e) {
+        var btn = e.target.closest('.tag-pill');
+        if (!btn) return;
+
+        // Update active state
+        filters.querySelectorAll('.tag-pill').forEach(function(p) {
+            p.classList.remove('active', 'bg-primary-600', 'text-white');
+            p.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+        });
+        btn.classList.add('active', 'bg-primary-600', 'text-white');
+        btn.classList.remove('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+
+        var tag = btn.getAttribute('data-tag');
+        var articles = document.querySelectorAll('#posts-container .search-item');
+        articles.forEach(function(article) {
+            if (tag === 'all') {
+                article.style.display = '';
+            } else {
+                var tags = (article.getAttribute('data-tags') || '').toLowerCase();
+                article.style.display = tags.indexOf(tag) !== -1 ? '' : 'none';
+            }
+        });
+    });
+})();
+</script>
