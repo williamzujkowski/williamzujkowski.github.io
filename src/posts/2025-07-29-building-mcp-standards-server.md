@@ -35,7 +35,7 @@ But here's the thing: personal projects are where we learn by overdoing it, by m
 
 ## When Good Ideas Get Complicated
 
-Remember last week when I was all excited about my standards repository? Well, I made the classic developer mistake: "You know what would make this better? If I rebuilt it from scratch with a completely different architecture!"
+Remember when I was all excited about my standards repository? Well, I made the classic developer mistake: "You know what would make this better? If I rebuilt it from scratch with a completely different architecture!"
 
 Enter the [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp) – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP? This server became a key component of my broader workflow when [supercharging development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow), enabling dynamic standards integration across multiple projects.
 
@@ -415,6 +415,8 @@ Building an MCP server for my standards was like using a sledgehammer to hang a 
 But hey, it's MY hole in the wall, and I learned how to use a sledgehammer. I tested every feature, broke things multiple times, and rebuilt them better each iteration.
 
 Sometimes that's enough.
+
+**Update:** I later built a much larger MCP server, [nexus-agents](/posts/building-nexus-agents-what-i-learned-creating-a-multi-model-ai-orchestration-system/), with 20 tools for multi-model orchestration, consensus voting, and graph workflows. The lessons from this standards server project directly informed that architecture.
 
 ---
 

@@ -62,7 +62,7 @@ Picking the right model for a task isn't simple. I built a five-stage routing pi
 
 **Stage 5, LinUCB Bandit:** The adaptive layer. Based on [PILOT](https://arxiv.org/abs/2508.21141), LinUCB is a contextual bandit algorithm that learns from outcomes. When a model succeeds at a task type, it gets a higher score next time. When it fails, the score drops. Over time, the system converges on optimal routing without manual tuning.
 
-The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference.
+The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference. I wrote a [deeper dive on the routing research](/posts/routellm-contextual-bandits-model-router-research/) separately, including the approaches that didn't work.
 
 ## Consensus Voting: Multiple Perspectives on Hard Decisions
 
@@ -87,7 +87,7 @@ The catfish role draws from [Free-MAD anti-conformity research](https://arxiv.or
 
 Three voting strategies exist: majority (>50%), supermajority (>66%), and unanimous. A fourth, [higher-order voting](https://arxiv.org/abs/2510.01499), uses Bayesian-optimal aggregation with correlation awareness. Architecture changes require supermajority. Breaking API changes require unanimous.
 
-The key learning: **multi-model consensus catches blind spots that any single model misses.** The disagreements are often more valuable than the agreements.
+The key learning: **multi-model consensus catches blind spots that any single model misses.** The disagreements are often more valuable than the agreements. I covered [the research and practical patterns behind consensus voting](/posts/consensus-voting-ai-models-multi-agent/) in a separate post.
 
 ## The Adaptive Feedback Loop
 

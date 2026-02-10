@@ -296,6 +296,8 @@ Gradually build your swarm intelligence.
 
 The future of development isn't about coding faster—it's about orchestrating intelligence to build better software.
 
+**Update:** I've since built [nexus-agents](/posts/building-nexus-agents-what-i-learned-creating-a-multi-model-ai-orchestration-system/), which takes multi-agent orchestration further with consensus voting across Claude, Gemini, and Codex, adaptive model routing backed by contextual bandits, and a research-backed pipeline architecture.
+
 ---
 
 *Want to dive deeper? Check out the [Claude-Flow repository](https://github.com/ruvnet/claude-flow) for advanced examples, contribute to the project, or share your swarm patterns with the community. The revolution in AI-assisted development is just beginning, and you can be part of shaping it.*
