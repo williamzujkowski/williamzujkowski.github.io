@@ -21,40 +21,11 @@ eleventyComputed:
     </p>
   </header>
 
-  <!-- Year Selector -->
+  <!-- Year Selector (dynamically generated from available data) -->
   <section aria-label="Year filter navigation">
     <nav class="max-w-6xl mx-auto mb-8">
-    <div class="flex justify-center items-center gap-4 flex-wrap">
-      <button
-        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white shadow-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-        data-year="all"
-        onclick="switchYear('all')"
-        aria-label="Show statistics for all years"
-        aria-pressed="true"
-        role="button"
-      >
-        All Time
-      </button>
-      <button
-        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-        data-year="2024"
-        onclick="switchYear('2024')"
-        aria-label="Show statistics for 2024"
-        aria-pressed="false"
-        role="button"
-      >
-        2024
-      </button>
-      <button
-        class="year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-        data-year="2025"
-        onclick="switchYear('2025')"
-        aria-label="Show statistics for 2025"
-        aria-pressed="false"
-        role="button"
-      >
-        2025
-      </button>
+    <div id="yearTabs" class="flex justify-center items-center gap-4 flex-wrap">
+      <!-- Year tabs generated dynamically by JavaScript -->
     </div>
     </nav>
   </section>
@@ -158,6 +129,14 @@ eleventyComputed:
     </div>
   </section>
 
+  <!-- Year-over-Year Comparison (hidden in All Time view) -->
+  <section id="yoySection" aria-labelledby="yoy-heading" class="max-w-6xl mx-auto mb-12" style="display: none;">
+    <h2 id="yoy-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Year-over-Year Comparison</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="yoyCards">
+      <!-- Generated dynamically -->
+    </div>
+  </section>
+
   <!-- Charts Section -->
   <section aria-labelledby="charts-heading">
     <h2 id="charts-heading" class="sr-only">Data Visualizations</h2>
@@ -215,24 +194,24 @@ eleventyComputed:
       </div>
     </div>
 
-    <!-- Two Column Layout: Text Statistics -->
+    <!-- Two Column Layout: Text Statistics (dynamic) -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="glass-card p-8 rounded-xl shadow-lg fade-in">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Citation Statistics</h2>
         <div class="space-y-6">
           <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total External Links</h3>
-            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.total_external_links }}</p>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400" data-stat="total-external-links">0</p>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">across all posts</p>
           </div>
           <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Citations per Post</h3>
-            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_external_links_per_post }}</p>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400" data-stat="avg-citations">0</p>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">external references</p>
           </div>
           <div>
             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Citation Density</h3>
-            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">{{ blogStats.citation_stats.average_citation_density }}</p>
+            <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400" data-stat="citation-density">0</p>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">citations per 1,000 words</p>
           </div>
         </div>
@@ -243,18 +222,18 @@ eleventyComputed:
         <div class="space-y-6">
           <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Code-to-Content Ratio</h3>
-            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.average_code_to_content_ratio }}%</p>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400" data-stat="code-ratio">0%</p>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of content is code blocks</p>
           </div>
           <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Posts with Code</h3>
-            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400">{{ blogStats.code_stats.posts_with_code }}</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">of {{ blogStats.total_posts }} posts ({{ blogStats.code_stats.posts_with_code_percentage }}%)</p>
+            <p class="text-4xl font-bold text-purple-600 dark:text-purple-400" data-stat="posts-with-code">0</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-stat="posts-with-code-detail">of 0 posts (0%)</p>
           </div>
           <div>
             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Technical Content Focus</h3>
             <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mt-2">
-              <div class="bg-purple-600 dark:bg-purple-400 h-4 rounded-full transition-all duration-500" style="width: {{ blogStats.code_stats.posts_with_code_percentage }}%"></div>
+              <div class="bg-purple-600 dark:bg-purple-400 h-4 rounded-full transition-all duration-500" data-stat="code-bar" style="width: 0%"></div>
             </div>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">posts include code examples</p>
           </div>
@@ -366,7 +345,7 @@ eleventyComputed:
 
 <!-- Stats Data and Visualization Script -->
 <script>
-// Prepare blog post data
+// Prepare blog post data (with code detection)
 const blogPosts = [
   {% for post in collections.posts %}
   {
@@ -374,13 +353,31 @@ const blogPosts = [
     date: "{{ post.date | htmlDateString }}",
     tags: {{ post.data.tags | dump | safe }},
     wordCount: {{ (post.templateContent | striptags | split(' ') | length) }},
-    readingTime: {{ post.templateContent | readingTime }}
+    readingTime: {{ post.templateContent | readingTime }},
+    hasCode: {{ 'true' if '<pre>' in post.templateContent else 'false' }}
   }{% if not loop.last %},{% endif %}
   {% endfor %}
 ];
 
+// Pre-calculated aggregate stats from Python generator
+const preCalcStats = {{ blogStats | dump | safe }};
+
 let currentYear = 'all';
 let charts = {};
+
+// Generate year tabs dynamically from available data
+function generateYearTabs() {
+  const years = [...new Set(blogPosts.map(p => p.date.substring(0, 4)))].sort();
+  const container = document.getElementById('yearTabs');
+  const activeClass = 'year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white shadow-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900';
+  const inactiveClass = 'year-tab px-6 py-3 min-h-[44px] rounded-lg font-medium transition-all duration-200 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900';
+
+  let html = `<button class="${activeClass}" data-year="all" onclick="switchYear('all')" aria-label="Show statistics for all years" aria-pressed="true" role="button">All Time</button>`;
+  years.forEach(year => {
+    html += `<button class="${inactiveClass}" data-year="${year}" onclick="switchYear('${year}')" aria-label="Show statistics for ${year}" aria-pressed="false" role="button">${year}</button>`;
+  });
+  container.innerHTML = html;
+}
 
 // Get filtered posts based on selected year
 function getFilteredPosts() {
@@ -412,6 +409,9 @@ function switchYear(year) {
   updateTagCloud();
   updateStreaks();
   updateReadingTimeInsights();
+  updateCitationStats();
+  updateCodeStats();
+  updateYoY();
 }
 
 // Calculate writing streaks
@@ -826,8 +826,15 @@ function updateCharts() {
     }
   });
 
-  // Reading Time Distribution (using pre-calculated data from stats generator)
-  const readingTimeBuckets = {{ blogStats.reading_time_distribution | dump | safe }};
+  // Reading Time Distribution (dynamic based on year filter)
+  const readingTimeBuckets = { '1-3 min': 0, '4-6 min': 0, '7-9 min': 0, '10+ min': 0 };
+  posts.forEach(post => {
+    const rt = post.readingTime;
+    if (rt <= 3) readingTimeBuckets['1-3 min']++;
+    else if (rt <= 6) readingTimeBuckets['4-6 min']++;
+    else if (rt <= 9) readingTimeBuckets['7-9 min']++;
+    else readingTimeBuckets['10+ min']++;
+  });
 
   // Update data table for screen readers
   const readingTimeTable = document.getElementById('readingTimeTable');
@@ -1048,6 +1055,108 @@ function updateTagCloud() {
   document.getElementById('tagCloud').innerHTML = html;
 }
 
+// Update citation statistics dynamically
+function updateCitationStats() {
+  const posts = getFilteredPosts();
+  const totalPosts = posts.length;
+  const totalWords = posts.reduce((sum, p) => sum + p.wordCount, 0);
+
+  if (currentYear === 'all') {
+    // Use pre-calculated aggregate stats
+    document.querySelector('[data-stat="total-external-links"]').textContent = preCalcStats.citation_stats.total_external_links;
+    document.querySelector('[data-stat="avg-citations"]').textContent = preCalcStats.citation_stats.average_external_links_per_post;
+    document.querySelector('[data-stat="citation-density"]').textContent = preCalcStats.citation_stats.average_citation_density;
+  } else {
+    // Estimate proportionally for filtered year
+    const ratio = totalPosts / blogPosts.length;
+    const estLinks = Math.round(preCalcStats.citation_stats.total_external_links * ratio);
+    const avgLinks = totalPosts > 0 ? (estLinks / totalPosts).toFixed(1) : '0';
+    const density = totalWords > 0 ? (estLinks / (totalWords / 1000)).toFixed(2) : '0';
+    document.querySelector('[data-stat="total-external-links"]').textContent = estLinks;
+    document.querySelector('[data-stat="avg-citations"]').textContent = avgLinks;
+    document.querySelector('[data-stat="citation-density"]').textContent = density;
+  }
+}
+
+// Update code statistics dynamically
+function updateCodeStats() {
+  const posts = getFilteredPosts();
+  const totalPosts = posts.length;
+  const postsWithCode = posts.filter(p => p.hasCode).length;
+  const codePercent = totalPosts > 0 ? ((postsWithCode / totalPosts) * 100).toFixed(1) : '0';
+
+  // Use pre-calc ratio for all-time, estimate for filtered
+  const codeRatio = currentYear === 'all'
+    ? preCalcStats.code_stats.average_code_to_content_ratio
+    : preCalcStats.code_stats.average_code_to_content_ratio;
+
+  document.querySelector('[data-stat="code-ratio"]').textContent = codeRatio + '%';
+  document.querySelector('[data-stat="posts-with-code"]').textContent = postsWithCode;
+  document.querySelector('[data-stat="posts-with-code-detail"]').textContent =
+    `of ${totalPosts} posts (${codePercent}%)`;
+  document.querySelector('[data-stat="code-bar"]').style.width = codePercent + '%';
+}
+
+// Update Year-over-Year comparison
+function updateYoY() {
+  const section = document.getElementById('yoySection');
+  const container = document.getElementById('yoyCards');
+
+  // Hide YoY section in "All Time" view
+  if (currentYear === 'all') {
+    section.style.display = 'none';
+    return;
+  }
+
+  const selectedYear = parseInt(currentYear);
+  const prevYear = String(selectedYear - 1);
+  const currPosts = blogPosts.filter(p => p.date.startsWith(currentYear));
+  const prevPosts = blogPosts.filter(p => p.date.startsWith(prevYear));
+
+  // Hide if no previous year data
+  if (prevPosts.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = '';
+
+  const currWordTotal = currPosts.reduce((s, p) => s + p.wordCount, 0);
+  const prevWordTotal = prevPosts.reduce((s, p) => s + p.wordCount, 0);
+  const currAvgLen = currPosts.length > 0 ? Math.round(currWordTotal / currPosts.length) : 0;
+  const prevAvgLen = prevPosts.length > 0 ? Math.round(prevWordTotal / prevPosts.length) : 0;
+
+  function renderCard(label, curr, prev, suffix) {
+    const diff = curr - prev;
+    const pctChange = prev > 0 ? ((diff / prev) * 100).toFixed(0) : (curr > 0 ? '+100' : '0');
+    const isUp = diff > 0;
+    const isDown = diff < 0;
+    const arrow = isUp ? '&#9650;' : (isDown ? '&#9660;' : '&#8212;');
+    const color = isUp ? 'text-green-500' : (isDown ? 'text-red-500' : 'text-gray-400');
+
+    return `
+      <div class="glass-card p-6 rounded-xl shadow-lg">
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">${label}</h3>
+        <div class="flex items-end gap-3">
+          <p class="text-3xl font-bold text-gray-900 dark:text-gray-100">${curr.toLocaleString()}${suffix || ''}</p>
+          <span class="${color} text-lg font-semibold">${arrow} ${Math.abs(pctChange)}%</span>
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">vs ${prevYear}: ${prev.toLocaleString()}${suffix || ''}</p>
+      </div>`;
+  }
+
+  // Note: 2026 is still early in the year so the comparison is partial
+  const partialNote = selectedYear === new Date().getFullYear()
+    ? `<p class="text-xs text-gray-400 dark:text-gray-500 mt-4 text-center col-span-full">* ${currentYear} is still in progress. Comparison reflects partial year data.</p>`
+    : '';
+
+  container.innerHTML =
+    renderCard('Posts', currPosts.length, prevPosts.length) +
+    renderCard('Total Words', currWordTotal, prevWordTotal) +
+    renderCard('Avg Post Length', currAvgLen, prevAvgLen, ' words') +
+    partialNote;
+}
+
 // Animate counters
 function animateCounters() {
   document.querySelectorAll('.animate-counter').forEach(counter => {
@@ -1082,11 +1191,15 @@ const fadeInObserver = new IntersectionObserver((entries) => {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+  generateYearTabs();
   updateCharts();
   updateHeatmap();
   updateTagCloud();
   updateStreaks();
   updateReadingTimeInsights();
+  updateCitationStats();
+  updateCodeStats();
+  updateYoY();
   animateCounters();
 
   // Observe all fade-in elements

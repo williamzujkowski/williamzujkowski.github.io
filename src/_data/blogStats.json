@@ -1,7 +1,7 @@
 {
   "total_posts": 73,
-  "total_words": 149025,
-  "average_words": 2041.4,
+  "total_words": 148298,
+  "average_words": 2031.5,
   "average_reading_time": 9.1,
   "posts_by_year": {
     "2024": 32,
@@ -10,8 +10,8 @@
   },
   "words_by_year": {
     "2024": 86874,
-    "2025": 58473,
-    "2026": 3678
+    "2025": 58471,
+    "2026": 2953
   },
   "posts_by_month": {
     "2026-01": 2,
@@ -115,7 +115,7 @@
     {
       "title": "Consensus Voting With AI Models: When Three Opinions Beat One",
       "date": "2026-01-28",
-      "reading_time": 6,
+      "reading_time": 3,
       "tags": [
         "ai",
         "software-engineering",
@@ -247,22 +247,22 @@
   "posts_with_images": 58,
   "posts_with_images_percentage": 79.5,
   "reading_time_distribution": {
-    "1-3 min": 6,
-    "4-6 min": 20,
+    "1-3 min": 7,
+    "4-6 min": 19,
     "7-9 min": 18,
     "10+ min": 29
   },
   "citation_stats": {
     "total_external_links": 1045,
     "total_internal_links": 408,
-    "average_citation_density": 9.35,
+    "average_citation_density": 9.47,
     "average_external_links_per_post": 14.3
   },
   "code_stats": {
-    "average_code_to_content_ratio": 10.5,
-    "posts_with_code": 65,
-    "posts_with_code_percentage": 89.0
+    "average_code_to_content_ratio": 10.6,
+    "posts_with_code": 66,
+    "posts_with_code_percentage": 90.4
   },
-  "generated_at": "2026-02-09T19:58:00.167606",
+  "generated_at": "2026-02-09T20:56:26.394466",
   "reading_speed_wpm": 238
 }
