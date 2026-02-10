@@ -99,6 +99,26 @@ Not every paper I read was useful. A few approaches I tried and discarded:
 
 ## The Full Pipeline
 
+```mermaid
+flowchart LR
+    Task[Task Input] --> BR[Budget Router]
+    BR --> ZR[Zero Router]
+    ZR --> PR[Preference Router]
+    PR --> TR[TOPSIS Router]
+    TR --> LB[LinUCB Bandit]
+    LB --> Model[Selected Model]
+    Model --> Exec[Execute Task]
+    Exec --> Outcome[Task Outcome]
+    Outcome -.->|reward signal| LB
+
+    classDef routerNode fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff
+    classDef ioNode fill:#f59e0b,stroke:#333,stroke-width:2px
+    classDef adaptNode fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    class BR,ZR,PR,TR routerNode
+    class Task,Model,Exec,Outcome ioNode
+    class LB adaptNode
+```
+
 The final router runs five stages in sequence:
 
 1. **Budget Router** - Cost-aware or cost-ignored routing

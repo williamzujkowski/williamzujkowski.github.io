@@ -36,6 +36,35 @@ These findings led to two design decisions: role-based agent assignment with rou
 
 ## How Consensus Voting Works
 
+```mermaid
+flowchart TB
+    Proposal[Proposal Text] --> Assign[Round-Robin Model Assignment]
+    Assign --> Arch[Architect]
+    Assign --> Sec[Security Engineer]
+    Assign --> DevEx[DevEx Advocate]
+    Assign --> PM[Product Manager]
+    Assign --> Cat[Catfish]
+    Arch --> Agg[Vote Aggregation]
+    Sec --> Agg
+    DevEx --> Agg
+    PM --> Agg
+    Cat --> Agg
+    Agg --> Check{Strategy Threshold}
+    Check -->|Met| Pass[APPROVED]
+    Check -->|Not Met| Fail[REJECTED]
+
+    classDef agentNode fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff
+    classDef catfishNode fill:#dc2626,stroke:#fff,stroke-width:2px,color:#fff
+    classDef processNode fill:#f59e0b,stroke:#333,stroke-width:2px
+    classDef resultNode fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    classDef rejectNode fill:#ef4444,stroke:#fff,stroke-width:2px,color:#fff
+    class Arch,Sec,DevEx,PM agentNode
+    class Cat catfishNode
+    class Proposal,Assign,Agg,Check processNode
+    class Pass resultNode
+    class Fail rejectNode
+```
+
 For a given proposal, the system creates five specialized agent roles:
 
 1. **Software Architect** - Evaluates structural soundness, scalability, maintainability
