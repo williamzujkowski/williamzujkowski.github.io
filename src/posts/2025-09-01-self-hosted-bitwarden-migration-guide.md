@@ -4,16 +4,6 @@ author: William Zujkowski
 date: 2025-09-01
 description: "Migrate to self-hosted Bitwarden—deploy secure vault with backup strategies, SSL certificates, and database encryption for full control."
 title: 'Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-09-01-self-hosted-bitwarden-migration-guide-hero.jpg
-    alt: 'cybersecurity concept illustration for Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
-    caption: 'Visual representation of Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-09-01-self-hosted-bitwarden-migration-guide-og.jpg
-    alt: 'cybersecurity concept illustration for Self-Hosted Password Manager Migration: Bitwarden Deep Dive'
 tags:
   - cryptography
   - homelab

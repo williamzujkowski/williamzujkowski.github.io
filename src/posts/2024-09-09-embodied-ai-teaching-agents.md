@@ -2,17 +2,6 @@
 
 date: 2024-04-21
 description: Train embodied AI agents with vision, language, and physical interaction—build robots that learn from real environments using reinforcement learning.
-images:
-  hero:
-    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Hero Image'
-    caption: 'Visual representation of Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
-    height: 630
-    src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction - Social Media Preview'
-    src: /assets/images/blog/hero/2024-09-09-embodied-ai-teaching-agents-og.jpg
 title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
 tags:
   - ai

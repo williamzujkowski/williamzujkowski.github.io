@@ -4,19 +4,6 @@ title: Building Your Own MITRE ATT&CK Threat Intelligence Dashboard
 date: 2025-09-14
 description: Build MITRE ATT&CK threat intelligence dashboard with Python—track adversary tactics and techniques using open-source threat feeds.
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-hero.jpg
-    alt: Python code and development workflow for Building Your Own MITRE ATT&CK Threat
-      Intelligence Dashboard
-    caption: Visual representation of Building Your Own MITRE ATT&CK Threat Intelligence
-      Dashboard
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-09-20-threat-intelligence-mitre-attack-dashboard-og.jpg
-    alt: Python code and development workflow for Building Your Own MITRE ATT&CK Threat
-      Intelligence Dashboard
 tags:
   - automation
   - monitoring

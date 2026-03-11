@@ -3,16 +3,6 @@
 date: 2024-11-15
 description: Monitor GPU power with NVIDIA SMI and Grafana dashboards—reduce ML training electricity costs by 40% using optimization strategies for RTX 3090.
 title: 'GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
-images:
-  hero:
-    src: /assets/images/blog/hero/2024-11-15-gpu-power-monitoring-homelab-ml-hero.jpg
-    alt: 'artificial intelligence concept diagram for GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
-    caption: 'Visual representation of GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2024-11-15-gpu-power-monitoring-homelab-ml-og.jpg
-    alt: 'artificial intelligence concept diagram for GPU Power Monitoring in My Homelab: When Machine Learning Met My Electricity Bill'
 tags:
   - ai
   - hardware

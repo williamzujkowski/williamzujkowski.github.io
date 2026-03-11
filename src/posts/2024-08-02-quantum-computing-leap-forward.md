@@ -2,17 +2,6 @@
 
 date: 2024-08-02
 description: "Explore quantum computing with IBM Qiskit and quantum algorithms—quantum advantage, error correction, and real-world applications."
-images:
-  hero:
-    alt: Quantum Computing's Leap Forward - Hero Image
-    caption: Visual representation of Quantum Computing's Leap Forward
-    height: 630
-    src: /assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: Quantum Computing's Leap Forward - Social Media Preview
-    src: /assets/images/blog/hero/2024-08-02-quantum-computing-leap-forward-og.jpg
 title: Quantum Computing's Leap Forward
 tags:
   - computational-science

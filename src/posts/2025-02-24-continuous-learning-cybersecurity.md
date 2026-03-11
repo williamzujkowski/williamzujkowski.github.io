@@ -2,17 +2,6 @@
 
 date: 2025-02-24
 description: Master continuous cybersecurity learning with lab exercises, research tracking, and community engagement—stay current without burnout.
-images:
-  hero:
-    alt: 'Continuous Learning in Cybersecurity: Strategies That Work - Hero Image'
-    caption: 'Visual representation of Continuous Learning in Cybersecurity: Strategies That Work'
-    height: 630
-    src: /assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Continuous Learning in Cybersecurity: Strategies That Work - Social Media Preview'
-    src: /assets/images/blog/hero/2025-02-24-continuous-learning-cybersecurity-og.jpg
 title: 'Continuous Learning in Cybersecurity: Strategies That Work'
 tags:
   - learning

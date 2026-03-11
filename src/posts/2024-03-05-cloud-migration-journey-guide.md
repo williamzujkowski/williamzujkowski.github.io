@@ -2,17 +2,6 @@
 date: 2024-03-05
 author: William Zujkowski
 description: Execute cloud migration from on-premises infrastructure with AWS/Azure strategies—reduce costs by 40% and improve scalability with proven patterns.
-images:
-  hero:
-    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Hero Image'
-    caption: 'Visual representation of Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
-    height: 630
-    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud - Social Media Preview'
-    src: /assets/images/blog/hero/2024-03-05-cloud-migration-journey-guide-og.jpg
 tags:
 - cloud
 - devops

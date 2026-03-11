@@ -5,12 +5,6 @@ date: 2024-09-25
 description: "Secure containers with gVisor sandboxing—prevent kernel exploits in Kubernetes clusters while managing 59% startup overhead for untrusted workloads."
 author: "William Zujkowski"
 reading_time: 9
-images:
-  hero:
-    src: "/assets/images/blog/hero/2024-09-25-gvisor-container-sandboxing-security-hero.jpg"
-    alt: "Diagram showing gVisor's application kernel architecture intercepting container syscalls"
-    width: 1200
-    height: 630
 tags:
   - container-orchestration
   - container-security

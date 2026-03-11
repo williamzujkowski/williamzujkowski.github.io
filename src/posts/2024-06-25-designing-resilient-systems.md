@@ -2,17 +2,6 @@
 
 date: 2024-06-25
 description: Design resilient systems with circuit breakers, redundancy, and chaos engineering—recover from failures in minutes using proven patterns.
-images:
-  hero:
-    alt: Designing Resilient Systems for an Uncertain World - Hero Image
-    caption: Visual representation of Designing Resilient Systems for an Uncertain World
-    height: 630
-    src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: Designing Resilient Systems for an Uncertain World - Social Media Preview
-    src: /assets/images/blog/hero/2024-06-25-designing-resilient-systems-og.jpg
 title: Designing Resilient Systems for an Uncertain World
 tags:
   - architecture

@@ -2,17 +2,6 @@
 
 date: 2024-04-19
 description: Master prompt engineering with few-shot learning and chain-of-thought techniques—improve LLM response quality by 40% through systematic optimization.
-images:
-  hero:
-    alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Hero Image'
-    caption: 'Visual representation of Mastering Prompt Engineering: Unlocking the Full Potential of LLMs'
-    height: 630
-    src: /assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs - Social Media Preview'
-    src: /assets/images/blog/hero/2024-04-19-mastering-prompt-engineering-llms-og.jpg
 title: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs'
 tags:
   - ai

@@ -3,17 +3,6 @@
 date: 2024-05-26
 author: William Zujkowski
 description: "Optimize team resource planning with data-driven pizza—calculate cost per square inch and maximize developer productivity during sprints."
-images:
-  hero:
-    alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Hero Image'
-    caption: 'Visual representation of The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints'
-    height: 630
-    src: /assets/images/blog/hero/2024-11-05-pizza-calculator-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints - Social Media Preview'
-    src: /assets/images/blog/hero/2024-11-05-pizza-calculator-og.jpg
 title: 'The Pizza Calculator: Optimizing Team Fuel for Critical Development Sprints'
 tags:
   - devops

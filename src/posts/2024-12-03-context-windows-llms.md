@@ -2,17 +2,6 @@
 
 date: 2024-06-09
 description: Understand LLM context windows from 2K to 2M tokens—optimize model performance and prevent hallucinations at 28K token boundaries.
-images:
-  hero:
-    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Hero Image'
-    caption: 'Visual representation of Context Windows in Large Language Models: The Memory That Shapes AI'
-    height: 630
-    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Context Windows in Large Language Models: The Memory That Shapes AI - Social Media Preview'
-    src: /assets/images/blog/hero/2024-12-03-context-windows-llms-og.jpg
 title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
 tags:
   - ai

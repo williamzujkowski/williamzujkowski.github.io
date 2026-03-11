@@ -3,16 +3,6 @@
 date: 2025-08-09
 title: 'AI as Cognitive Infrastructure: The Invisible Architecture Reshaping Human Thought'
 description: "Understand AI cognitive infrastructure shaping how billions think—explore societal effects of language models transforming from tools to thought systems."
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-hero.jpg
-    alt: AI as Cognitive Infrastructure - The invisible architecture reshaping human thought
-    caption: Visual representation of AI as the cognitive infrastructure of modern society
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-08-09-ai-cognitive-infrastructure-og.jpg
-    alt: AI as Cognitive Infrastructure - Social media preview
 tags:
   - ai
   - cognitive-science

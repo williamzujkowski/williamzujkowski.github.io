@@ -2,17 +2,6 @@
 
 date: 2024-10-10
 description: "Deploy blockchain beyond cryptocurrency with Ethereum and smart contracts—build decentralized trust for supply chain and identity verification."
-images:
-  hero:
-    alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Hero Image'
-    caption: 'Visual representation of Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet'
-    height: 630
-    src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet - Social Media Preview'
-    src: /assets/images/blog/hero/2024-10-10-blockchain-beyond-cryptocurrency-og.jpg
 title: 'Blockchain Beyond Cryptocurrency: Building the Trust Layer of the Internet'
 tags:
   - architecture

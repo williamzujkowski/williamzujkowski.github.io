@@ -3,16 +3,6 @@ author: "William Zujkowski"
 date: 2025-10-29
 title: "Building a Privacy-First AI Lab: Deploying Local LLMs Without Sacrificing Ethics"
 description: "Build privacy-first AI lab with local LLMs—run models up to 34B on RTX 3090 (24GB VRAM) with network isolation, traffic monitoring, and real privacy controls."
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-10-29-privacy-first-ai-lab-local-llms-hero.jpg
-    alt: "Secure homelab setup with local LLM deployment featuring network isolation and privacy controls"
-    caption: "Building truly private AI infrastructure beyond just self-hosting"
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-10-29-privacy-first-ai-lab-local-llms-og.jpg
-    alt: "Privacy-first AI lab: deploying local LLMs with real security"
 tags:
   - ethics
   - homelab

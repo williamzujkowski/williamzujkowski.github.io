@@ -4,16 +4,6 @@ author: William Zujkowski
 date: 2025-10-13
 description: Deploy Vision-Language-Action models for embodied AI robots—integrate physical world interaction with security considerations for homelab automation.
 title: 'From Claude in Your Terminal to Robots in Your Workshop: The Embodied AI Revolution'
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-10-13-embodied-ai-robots-hero.jpg
-    alt: robotic arm controlled by AI in workshop environment
-    caption: Vision-Language-Action models bringing AI into the physical world
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-10-13-embodied-ai-robots-og.jpg
-    alt: AI-powered robotics and embodied intelligence
 tags:
   - ai
   - automation

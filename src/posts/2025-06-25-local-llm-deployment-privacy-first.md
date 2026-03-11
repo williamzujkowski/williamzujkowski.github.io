@@ -2,17 +2,6 @@
 
 date: 2025-06-25
 description: "Deploy local LLMs for privacy-first AI—run language models on homelab hardware with model selection, optimization, and deployment strategies."
-images:
-  hero:
-    alt: 'Local LLM Deployment: Privacy-First Approach - Hero Image'
-    caption: 'Visual representation of Local LLM Deployment: Privacy-First Approach'
-    height: 630
-    src: /assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Local LLM Deployment: Privacy-First Approach - Social Media Preview'
-    src: /assets/images/blog/hero/2025-06-25-local-llm-deployment-privacy-first-og.jpg
 title: 'Local LLM Deployment: Privacy-First Approach'
 tags:
   - ai

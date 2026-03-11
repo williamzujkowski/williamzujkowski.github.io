@@ -2,17 +2,6 @@
 
 date: 2024-07-09
 description: "Implement zero trust with identity verification and micro-segmentation—secure networks using never-trust-always-verify principles."
-images:
-  hero:
-    alt: 'Zero Trust Architecture: A Practical Implementation Guide - Hero Image'
-    caption: 'Visual representation of Zero Trust Architecture: A Practical Implementation Guide'
-    height: 630
-    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Zero Trust Architecture: A Practical Implementation Guide - Social Media Preview'
-    src: /assets/images/blog/hero/2024-07-09-zero-trust-architecture-implementation-og.jpg
 title: 'Zero Trust Architecture: A Practical Implementation Guide'
 tags:
   - architecture
