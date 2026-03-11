@@ -1,0 +1,46 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="About William Zujkowski — security architecture, identity, and compliance.">
+  <section class="py-12 sm:py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto prose prose-lg">
+        <h1>About William Zujkowski</h1>
+        <p class="lead text-xl italic text-[var(--md-sys-color-on-surface-variant)]">
+          I'm a Senior Security Engineer focused on cloud platform security, identity federation, and compliance automation.
+          I spend my days designing security controls that enable teams instead of blocking them. I also spend way too many
+          nights in my homelab breaking things to understand how they work.
+        </p>
+        <p>
+          My work centers on designing security controls for multi-tenant cloud platforms — network segmentation, identity
+          federation, compliance automation, and CI/CD security tooling. The goal: make the secure path the easy path so
+          teams can deploy safely without fighting security controls.
+        </p>
+        <hr />
+        <h2>The Journey</h2>
+        <div class="card p-8 my-8 not-prose">
+          <p class="text-[var(--md-sys-color-on-surface-variant)]">
+            My path to federal cloud security started in 2005 with an independent IT consulting practice. Over five years,
+            that evolved from house calls into enterprise IT support, then a break into security engineering at the
+            <strong>National Institutes of Health (NIH)</strong> in 2010. I spent over a decade there, working at both the
+            NIH Office of the CIO and the National Human Genome Research Institute.
+          </p>
+          <p class="mt-4 text-[var(--md-sys-color-on-surface-variant)]">
+            At NIH, I led vulnerability management for the entire enterprise — about <strong>100,000+ assets</strong> spread
+            across <strong>27 Institutes and Centers</strong>. After that, I served as Security Engineering Lead at NHGRI (2018-2021),
+            securing research infrastructure for about <strong>2,200 endpoints</strong>. Eventually, all of that experience led
+            to federal cloud platform security work. 20 years of breaking things and learning how to fix them turned out to be
+            decent preparation for designing secure cloud infrastructure.
+          </p>
+        </div>
+        <h2 id="contact">Get in Touch</h2>
+        <p>
+          Find me on <a href="https://github.com/williamzujkowski">GitHub</a> or
+          <a href="https://www.linkedin.com/in/williamzujkowski">LinkedIn</a>.
+          I'm always happy to talk security, homelabs, or AI safety.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

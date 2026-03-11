@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const tags = new Set<string>();
+  posts.forEach((post) => {
+    (post.data.tags ?? []).filter((t: string) => t !== 'posts').forEach((tag: string) => tags.add(tag));
+  });
+  return [...tags].map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((p) => p.data.tags?.includes(tag))
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+function getReadingTime(body: string): number {
+  const words = body.split(/\s+/).length;
+  return Math.ceil(words / 225);
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
+  <section class="py-12 sm:py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mb-12">
+        <nav aria-label="Breadcrumb" class="mb-4">
+          <ol class="flex items-center gap-2 text-sm text-[var(--md-sys-color-on-surface-variant)]">
+            <li><a href="/">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/posts/">Blog</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="font-medium text-[var(--md-sys-color-on-surface)]">{tag}</li>
+          </ol>
+        </nav>
+        <h1 class="text-3xl font-bold tracking-tight" style="font-size: var(--md-sys-typescale-headline-large)">
+          {tag}
+        </h1>
+        <p class="mt-2 text-[var(--md-sys-color-on-surface-variant)]">
+          {posts.length} post{posts.length === 1 ? '' : 's'}
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        {posts.map((post) => (
+          <article class="card group p-6">
+            <div class="flex items-center gap-3 text-sm mb-2">
+              <time datetime={post.data.date.toISOString().split('T')[0]} class="font-medium text-[var(--md-sys-color-primary)]">
+                {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+              <span class="text-[var(--md-sys-color-outline)]">&middot;</span>
+              <span class="text-[var(--md-sys-color-on-surface-variant)]">
+                {getReadingTime(post.body ?? '')} min read
+              </span>
+            </div>
+            <h2 class="text-xl font-semibold group-hover:text-[var(--md-sys-color-primary)]">
+              <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+            </h2>
+            {post.data.description && (
+              <p class="mt-2 text-[var(--md-sys-color-on-surface-variant)] line-clamp-2">{post.data.description}</p>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

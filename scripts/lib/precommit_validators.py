@@ -134,6 +134,10 @@ def check_duplicates() -> Tuple[bool, str]:
         if staged.startswith('.standards/'):
             continue
 
+        # Skip astro-site/ — separate project with its own package.json etc.
+        if staged.startswith('astro-site/'):
+            continue
+
         staged_name = Path(staged).name
 
         # Skip README.md - they're directory-specific

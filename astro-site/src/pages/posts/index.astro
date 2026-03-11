@@ -1,0 +1,82 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { getImageUrl, getReadingTime } from '@/lib/utils';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Collect all tags
+const tagCounts = new Map<string, number>();
+posts.forEach((post) => {
+  (post.data.tags ?? []).filter((t: string) => t !== 'posts').forEach((tag: string) => {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  });
+});
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Blog" description="Security insights, AI experiments, homelab adventures, and lessons from the field.">
+  <section class="py-12 sm:py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mb-12">
+        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl" style="font-size: var(--md-sys-typescale-display-medium)">
+          Blog
+        </h1>
+        <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">
+          {posts.length} posts about security, AI, homelab experiments, and lessons learned.
+        </p>
+      </div>
+
+      <!-- Tags -->
+      {sortedTags.length > 0 && (
+        <div class="mb-10 flex flex-wrap gap-2">
+          {sortedTags.slice(0, 15).map(([tag, count]) => (
+            <a href={`/tags/${tag}/`} class="chip">
+              {tag} <span class="ml-1 opacity-60">({count})</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      <!-- Posts list -->
+      <div class="space-y-6">
+        {posts.map((post) => (
+          <article class="card group p-6 flex flex-col sm:flex-row gap-6">
+            {getImageUrl(post.data.image) && (
+              <div class="sm:w-48 sm:flex-shrink-0">
+                <img src={getImageUrl(post.data.image)} alt={post.data.title} class="w-full h-32 sm:h-full object-cover rounded-[var(--md-sys-shape-corner-medium)]" loading="lazy" />
+              </div>
+            )}
+            <div class="flex-grow">
+              <div class="flex items-center gap-3 text-sm mb-2">
+                <time datetime={post.data.date.toISOString().split('T')[0]} class="font-medium text-[var(--md-sys-color-primary)]">
+                  {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <span class="text-[var(--md-sys-color-outline)]">&middot;</span>
+                <span class="text-[var(--md-sys-color-on-surface-variant)]">
+                  {getReadingTime(post.body ?? '')} min read
+                </span>
+              </div>
+              <h2 class="text-xl font-semibold group-hover:text-[var(--md-sys-color-primary)]">
+                <a href={`/posts/${post.id}/`}>
+                  {post.data.title}
+                </a>
+              </h2>
+              {post.data.description && (
+                <p class="mt-2 text-[var(--md-sys-color-on-surface-variant)] line-clamp-2">{post.data.description}</p>
+              )}
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="mt-3 flex flex-wrap gap-1.5">
+                  {post.data.tags.filter((t: string) => t !== 'posts').slice(0, 4).map((tag: string) => (
+                    <span class="chip text-xs">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

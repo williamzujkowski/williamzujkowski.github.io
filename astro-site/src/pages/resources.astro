@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Resources" description="The best open source tools, homelab projects, and books that actually taught me something.">
+  <section class="py-12 sm:py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto prose prose-lg">
+        <h1>The Good Stuff: Tools, Toys, and Rabbit Holes</h1>
+        <p class="text-xl italic text-[var(--md-sys-color-on-surface-variant)]">
+          The tools that survived my testing, the projects that actually work, and the books worth your time.
+          No vendor pitches, no compliance frameworks — just the open source goodness.
+        </p>
+        <p>
+          This page is a curated collection of resources organized by skill level and category.
+          Check back regularly — I update this as I discover new tools and retire old ones.
+        </p>
+        <hr />
+        <h2>Security Tools</h2>
+        <ul>
+          <li><a href="https://github.com/projectdiscovery/nuclei" rel="noopener noreferrer">Nuclei</a> — Fast vulnerability scanner with community templates</li>
+          <li><a href="https://suricata.io/" rel="noopener noreferrer">Suricata</a> — High-performance IDS/IPS engine</li>
+          <li><a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a> — Open source SIEM and XDR platform</li>
+        </ul>
+        <h2>Homelab Essentials</h2>
+        <ul>
+          <li><a href="https://www.proxmox.com/en/" rel="noopener noreferrer">Proxmox VE</a> — Type 1 hypervisor for home virtualization</li>
+          <li><a href="https://k3s.io/" rel="noopener noreferrer">K3s</a> — Lightweight Kubernetes for edge and homelab</li>
+          <li><a href="https://grafana.com/" rel="noopener noreferrer">Grafana + Prometheus</a> — Monitoring stack</li>
+        </ul>
+        <h2>Books Worth Reading</h2>
+        <ul>
+          <li><strong>The Phoenix Project</strong> — Gene Kim, Kevin Behr, George Spafford</li>
+          <li><strong>Designing Data-Intensive Applications</strong> — Martin Kleppmann</li>
+          <li><strong>Practical Malware Analysis</strong> — Michael Sikorski, Andrew Honig</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

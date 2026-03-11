@@ -1,0 +1,27 @@
+{
+  "name": "williamzujkowski-site",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "Personal website of William Zujkowski — Astro 5 + Svelte 5",
+  "author": "William Zujkowski",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.7",
+    "@astrojs/rss": "^4.0.17",
+    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/svelte": "^8.0.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^6.0.3",
+    "svelte": "^5.53.10",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Uses" description="Hardware, software, and services I use daily.">
+  <section class="py-12 sm:py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto prose prose-lg">
+        <h1>Uses</h1>
+        <p>
+          This is my digital toolbox — the stuff that's survived real-world use. Everything here has a story,
+          usually involving at least one failure before I figured it out.
+        </p>
+        <hr />
+        <h2>Hardware</h2>
+        <h3>Workstation</h3>
+        <ul>
+          <li><strong>Desktop PC</strong> — Intel i9-9900K, 64GB RAM, RTX 3090 (24GB VRAM), 1TB NVMe + 8TB HDD</li>
+          <li><strong>Monitors</strong> — Dual 27" 4K IPS displays</li>
+          <li><strong>Keyboard</strong> — Mechanical with Cherry MX Brown switches</li>
+        </ul>
+        <h3>Homelab</h3>
+        <ul>
+          <li><strong>Server</strong> — Dell PowerEdge with Proxmox VE</li>
+          <li><strong>Networking</strong> — UniFi Dream Machine Pro, managed switches</li>
+          <li><strong>Storage</strong> — TrueNAS Scale with ZFS</li>
+        </ul>
+        <h2>Software</h2>
+        <h3>Development</h3>
+        <ul>
+          <li><strong>Editor</strong> — VS Code + Neovim for terminal</li>
+          <li><strong>Terminal</strong> — Ghostty + tmux</li>
+          <li><strong>Shell</strong> — Zsh with Oh My Zsh</li>
+          <li><strong>AI</strong> — Claude Code, local LLMs via Ollama</li>
+        </ul>
+        <h3>Security</h3>
+        <ul>
+          <li><strong>Password Manager</strong> — Bitwarden (self-hosted Vaultwarden)</li>
+          <li><strong>VPN</strong> — WireGuard (self-hosted)</li>
+          <li><strong>DNS</strong> — Pi-hole + Unbound</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
