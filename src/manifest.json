@@ -4,7 +4,7 @@
   "description": "Personal website and blog of William Zujkowski, featuring insights on security engineering, incident response, and AI",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#1e40af",
+  "theme_color": "#4338ca",
   "background_color": "#ffffff",
   "orientation": "portrait-primary",
   "icons": [
@@ -22,20 +22,7 @@
     }
   ],
   "categories": ["security", "technology", "blog", "education"],
-  "screenshots": [
-    {
-      "src": "/assets/images/screenshot-desktop.png",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "label": "Desktop view of the website"
-    },
-    {
-      "src": "/assets/images/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "label": "Mobile view of the website"
-    }
-  ],
+  "screenshots": [],
   "related_applications": [],
   "prefer_related_applications": false
 }
