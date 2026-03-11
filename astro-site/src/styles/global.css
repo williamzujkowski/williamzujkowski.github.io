@@ -30,9 +30,22 @@
   --md-sys-color-secondary: #5b5d72;
   --md-sys-color-on-secondary: #ffffff;
 
+  /* Tertiary */
+  --md-sys-color-tertiary: #7b5800;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #ffdea6;
+  --md-sys-color-on-tertiary-container: #271900;
+
   /* Error */
   --md-sys-color-error: #ba1a1a;
   --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+
+  /* Success (custom semantic) */
+  --md-sys-color-success: #1b6d2f;
+  --md-sys-color-success-container: #a4f5ac;
+  --md-sys-color-on-success-container: #002108;
 
   /* Inverse */
   --md-sys-color-inverse-surface: #313030;
@@ -93,8 +106,19 @@
   --md-sys-color-secondary: #c3c5dd;
   --md-sys-color-on-secondary: #2d2f42;
 
+  --md-sys-color-tertiary: #f5be48;
+  --md-sys-color-on-tertiary: #412d00;
+  --md-sys-color-tertiary-container: #5d4200;
+  --md-sys-color-on-tertiary-container: #ffdea6;
+
   --md-sys-color-error: #ffb4ab;
   --md-sys-color-on-error: #690005;
+  --md-sys-color-error-container: #93000a;
+  --md-sys-color-on-error-container: #ffdad6;
+
+  --md-sys-color-success: #89d992;
+  --md-sys-color-success-container: #005317;
+  --md-sys-color-on-success-container: #a4f5ac;
 
   --md-sys-color-inverse-surface: #e6e1e1;
   --md-sys-color-inverse-on-surface: #313030;
@@ -322,6 +346,24 @@ a:hover {
   .prose {
     font-size: 1rem;
   }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== Selection ===== */
+::selection {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent);
+  color: var(--md-sys-color-on-surface);
 }
 
 /* ===== Gradient text ===== */
