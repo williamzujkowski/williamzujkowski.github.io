@@ -35,4 +35,18 @@ const posts = defineCollection({
     .passthrough(),
 });
 
-export const collections = { posts };
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: '../src/projects' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    url: z.string(),
+    category: z.enum(['ai', 'security', 'infrastructure', 'tools']),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    status: z.enum(['active', 'experimental', 'archived']).default('active'),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { posts, projects };
