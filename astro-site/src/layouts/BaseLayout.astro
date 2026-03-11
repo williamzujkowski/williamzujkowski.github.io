@@ -12,6 +12,8 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   publishedDate?: Date;
+  wordCount?: number;
+  tags?: string[];
 }
 
 const {
@@ -20,6 +22,8 @@ const {
   image = '/assets/images/og/default-og.png',
   type = 'website',
   publishedDate,
+  wordCount,
+  tags = [],
 } = Astro.props;
 
 const siteTitle = 'William Zujkowski';
@@ -28,6 +32,73 @@ const pageTitle = title === 'Home' ? siteTitle : `${title} - ${siteTitle}`;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = new URL(image, siteUrl).href;
 const currentYear = new Date().getFullYear();
+
+// Build breadcrumb items from URL path
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const breadcrumbItems = [
+  { name: 'Home', url: siteUrl },
+  ...pathSegments.map((segment, i) => ({
+    name: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+    url: `${siteUrl}/${pathSegments.slice(0, i + 1).join('/')}/`,
+  })),
+];
+
+// Structured data
+const authorSchema = {
+  '@type': 'Person' as const,
+  name: 'William Zujkowski',
+  url: `${siteUrl}/about/`,
+  sameAs: ['https://github.com/williamzujkowski', 'https://www.linkedin.com/in/williamzujkowski'],
+};
+
+const jsonLdSchemas = [];
+
+if (type === 'article') {
+  const blogPosting: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    datePublished: publishedDate?.toISOString(),
+    author: authorSchema,
+    publisher: { '@type': 'Person', ...authorSchema },
+    url: canonicalUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+  };
+  if (wordCount) blogPosting.wordCount = wordCount;
+  if (image !== '/assets/images/og/default-og.png') blogPosting.image = ogImageUrl;
+  if (tags.length > 0) blogPosting.keywords = tags.filter(t => t !== 'posts').join(', ');
+  jsonLdSchemas.push(blogPosting);
+} else {
+  const websiteSchema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteTitle,
+    description,
+    url: siteUrl,
+    author: authorSchema,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: { '@type': 'EntryPoint', urlTemplate: `${siteUrl}/posts/?q={search_term_string}` },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+  jsonLdSchemas.push(websiteSchema);
+}
+
+// Breadcrumb schema (all pages except homepage)
+if (pathSegments.length > 0) {
+  jsonLdSchemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: i === 0 ? item.name : (type === 'article' && i === breadcrumbItems.length - 1 ? title : item.name),
+      item: item.url,
+    })),
+  });
+}
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -87,36 +158,9 @@ const navLinks = [
   <meta name="robots" content="index, follow" />
 
   <!-- Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify(
-    type === 'article'
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'BlogPosting',
-          headline: title,
-          description,
-          datePublished: publishedDate?.toISOString(),
-          author: {
-            '@type': 'Person',
-            name: 'William Zujkowski',
-            url: `${siteUrl}/about/`,
-            sameAs: ['https://github.com/williamzujkowski', 'https://www.linkedin.com/in/williamzujkowski'],
-          },
-          url: canonicalUrl,
-        }
-      : {
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: siteTitle,
-          description,
-          url: canonicalUrl,
-          author: {
-            '@type': 'Person',
-            name: 'William Zujkowski',
-            url: `${siteUrl}/about/`,
-            sameAs: ['https://github.com/williamzujkowski', 'https://www.linkedin.com/in/williamzujkowski'],
-          },
-        }
-  )} />
+  {jsonLdSchemas.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))}
 
   <!-- Dark mode init (prevents flash) -->
   <script is:inline>
