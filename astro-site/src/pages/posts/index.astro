@@ -33,7 +33,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
         <div class="mb-10 flex flex-wrap gap-2">
           {sortedTags.slice(0, 15).map(([tag, count]) => (
             <a href={`/tags/${tag}/`} class="chip">
-              {tag} <span class="ml-1 opacity-60">({count})</span>
+              {tag} <span class="ml-1 opacity-70">({count})</span>
             </a>
           ))}
         </div>
