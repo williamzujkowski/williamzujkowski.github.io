@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { getReadingTime } from '@/lib/utils';
+import StatsCharts from '@components/StatsCharts.svelte';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const posts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((post) => {
+    const body = post.body ?? '';
+    const wordCount = body.split(/\s+/).filter(Boolean).length;
+    return {
+      title: post.data.title,
+      date: post.data.date.toISOString().split('T')[0],
+      tags: (post.data.tags ?? []).filter((t: string) => t !== 'posts'),
+      wordCount,
+      readingTime: getReadingTime(body),
+      hasCode: body.includes('```'),
+    };
+  });
+---
+
+<BaseLayout title="Blog Statistics" description="Comprehensive statistics and visualizations for blog posts.">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">
+        Blog Statistics
+      </h1>
+      <p class="text-xl text-[var(--md-sys-color-on-surface-variant)]">
+        A comprehensive look at content trends, topics, and publishing patterns
+      </p>
+    </header>
+
+    <StatsCharts client:load posts={posts} />
+  </div>
+</BaseLayout>

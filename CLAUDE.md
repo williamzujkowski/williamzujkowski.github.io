@@ -697,9 +697,20 @@ Read docs/context/core/mandatory-reading.md
 
 **Key Configuration Files:**
 - **.claude-rules.json** - Enforcement rules
-- **.eleventy.js** - Eleventy configuration
-- **package.json** - npm scripts and dependencies
-- **tailwind.config.js** - Tailwind CSS customization
+- **astro-site/astro.config.mjs** - Astro 5 site configuration
+- **astro-site/src/content.config.ts** - Content collection schemas (Zod)
+- **astro-site/src/styles/global.css** - M3 design tokens + Tailwind 4
+- **package.json** - npm scripts and dependencies (root: Eleventy legacy)
+- **astro-site/package.json** - Astro site dependencies
+
+**Site Architecture (Astro 5 + Svelte 5 migration):**
+- **Framework:** Astro 5 (static-first) + Svelte 5 (interactive islands)
+- **Styling:** M3 Design Tokens via CSS custom properties + Tailwind CSS 4
+- **Content:** Astro Content Collections with Zod schema validation
+- **Blog posts:** `src/posts/*.md` loaded via glob content loader
+- **Components:** 5 Svelte islands (DarkModeToggle, Search, MobileMenu, BackToTop, CodeCopy)
+- **Build output:** `astro-site/dist/` (deployed via GitHub Pages)
+- **Search:** Pagefind static search index (build-time generated)
 
 ---
 

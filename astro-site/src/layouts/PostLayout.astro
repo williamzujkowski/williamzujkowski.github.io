@@ -1,0 +1,114 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  tags?: string[];
+  image?: string;
+  readingTime?: number;
+}
+
+const { title, description, date, tags = [], image, readingTime } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={description} image={image} type="article" publishedDate={date}>
+  <article class="py-8 sm:py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm text-[var(--md-sys-color-on-surface-variant)]">
+          <li><a href="/" class="hover:text-[var(--md-sys-color-on-surface)]">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/posts/" class="hover:text-[var(--md-sys-color-on-surface)]">Blog</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-[var(--md-sys-color-on-surface)] font-medium truncate max-w-xs">{title}</li>
+        </ol>
+      </nav>
+
+      <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10">
+          {image && (
+            <div class="mb-8 -mx-4 sm:mx-0 overflow-hidden rounded-none sm:rounded-2xl">
+              <img src={image} alt="" class="w-full h-48 sm:h-64 object-cover" loading="eager" decoding="async" fetchpriority="high" />
+            </div>
+          )}
+
+          <div class="flex items-center gap-3 text-sm text-[var(--md-sys-color-on-surface-variant)] mb-4">
+            <time datetime={date.toISOString().split('T')[0]} class="font-medium text-[var(--md-sys-color-primary)]">
+              {formattedDate}
+            </time>
+            {readingTime && (
+              <>
+                <span aria-hidden="true">&middot;</span>
+                <span>{readingTime} min read</span>
+              </>
+            )}
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl font-bold tracking-tight leading-tight" style={`font-size: var(--md-sys-typescale-display-medium)`}>
+            {title}
+          </h1>
+
+          {description && (
+            <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">{description}</p>
+          )}
+
+          {tags.length > 0 && (
+            <div class="mt-6 flex flex-wrap gap-2">
+              {tags.filter(t => t !== 'posts').map((tag) => (
+                <a href={`/tags/${tag}/`} class="chip">
+                  {tag}
+                </a>
+              ))}
+            </div>
+          )}
+        </header>
+
+        <!-- Content -->
+        <div class="prose prose-lg max-w-none">
+          <slot />
+        </div>
+
+        <!-- Share -->
+        <footer class="mt-12 pt-8 border-t border-[var(--md-sys-color-outline-variant)]">
+          <div class="flex flex-wrap items-center gap-4">
+            <span class="text-sm font-medium">Share:</span>
+            <a
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://williamzujkowski.github.io${Astro.url.pathname}`)}&title=${encodeURIComponent(title)}`}
+              class="chip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={`https://news.ycombinator.com/submitlink?u=${encodeURIComponent(`https://williamzujkowski.github.io${Astro.url.pathname}`)}&t=${encodeURIComponent(title)}`}
+              class="chip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Hacker News
+            </a>
+            <a
+              href={`https://www.reddit.com/submit?url=${encodeURIComponent(`https://williamzujkowski.github.io${Astro.url.pathname}`)}&title=${encodeURIComponent(title)}`}
+              class="chip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Reddit
+            </a>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
