@@ -1,5 +1,10 @@
 ---
 import '@/styles/global.css';
+import DarkModeToggle from '@components/DarkModeToggle.svelte';
+import Search from '@components/Search.svelte';
+import MobileMenu from '@components/MobileMenu.svelte';
+import BackToTop from '@components/BackToTop.svelte';
+import CodeCopy from '@components/CodeCopy.svelte';
 
 interface Props {
   title: string;
@@ -151,55 +156,12 @@ const navLinks = [
 
         <!-- Actions -->
         <div class="flex items-center gap-2">
-          <!-- Dark mode toggle -->
-          <button
-            type="button"
-            id="theme-toggle"
-            class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors"
-            aria-label="Toggle dark mode"
-          >
-            <svg class="w-5 h-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </button>
-
-          <!-- Mobile menu button -->
-          <button
-            type="button"
-            id="mobile-menu-btn"
-            class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors"
-            aria-label="Toggle menu"
-            aria-expanded="false"
-            aria-controls="mobile-menu"
-          >
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          <Search client:load />
+          <DarkModeToggle client:load />
+          <MobileMenu client:load links={navLinks.map(l => ({ ...l, active: Astro.url.pathname === l.href }))} />
         </div>
       </div>
 
-      <!-- Mobile Nav -->
-      <div id="mobile-menu" class="hidden md:hidden pb-3">
-        <div class="space-y-1 pt-2">
-          {navLinks.map((link) => (
-            <a
-              href={link.href}
-              class:list={[
-                'block px-4 py-3 min-h-[44px] rounded-lg text-base font-medium transition-colors',
-                Astro.url.pathname === link.href
-                  ? 'bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)]'
-                  : 'text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]',
-              ]}
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
     </nav>
   </header>
 
@@ -265,24 +227,8 @@ const navLinks = [
     </div>
   </footer>
 
-  <!-- Client scripts -->
-  <script is:inline>
-    // Dark mode toggle
-    document.getElementById('theme-toggle')?.addEventListener('click', () => {
-      const html = document.documentElement;
-      html.classList.toggle('dark');
-      localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-    });
-
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-      const menu = document.getElementById('mobile-menu');
-      const btn = document.getElementById('mobile-menu-btn');
-      if (menu && btn) {
-        menu.classList.toggle('hidden');
-        btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
-      }
-    });
-  </script>
+  <!-- Svelte islands for interactive features -->
+  <BackToTop client:idle />
+  <CodeCopy client:idle />
 </body>
 </html>
