@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { getImageUrl, getReadingTime } from '@/lib/utils';
+import { getValidImageUrl, getReadingTime } from '@/lib/utils';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const recentPosts = allPosts
@@ -89,9 +89,9 @@ const recentPosts = allPosts
       <div class="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         {recentPosts.map((post) => (
           <article class="card group relative p-6 flex flex-col">
-            {getImageUrl(post.data.image) && (
+            {getValidImageUrl(post.data.image) && (
               <div class="mb-4 -mx-6 -mt-6 overflow-hidden rounded-t-[var(--md-sys-shape-corner-large)]">
-                <img src={getImageUrl(post.data.image)} alt="" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
+                <img src={getValidImageUrl(post.data.image)} alt="" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
               </div>
             )}
             <div class="flex items-center gap-3 text-sm">

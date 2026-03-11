@@ -178,6 +178,9 @@
   const LIGHT_COLORS = ['#8b9dc3', '#5b6fa8', '#3d4f7f', '#2a3a5c', '#1a2642'];
   const DARK_COLORS = ['#5b6fa8', '#7b8fc8', '#9bafd8', '#bccfe8', '#d9e5f5'];
   const CHART_PALETTE = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#14b8a6', '#f97316', '#84cc16'];
+  // WCAG AA-safe text colors for tag cloud (4.5:1+ on both light/dark backgrounds)
+  const TAG_TEXT_COLORS_LIGHT = ['#4338ca', '#6d28d9', '#be185d', '#92400e', '#065f46', '#1d4ed8', '#b91c1c', '#0f766e', '#c2410c', '#4d7c0f'];
+  const TAG_TEXT_COLORS_DARK = ['#a5b4fc', '#c4b5fd', '#f9a8d4', '#fcd34d', '#6ee7b7', '#93c5fd', '#fca5a5', '#5eead4', '#fdba74', '#bef264'];
 
   function getHeatmapColor(count: number, maxCount: number, isDark: boolean): string {
     if (count === 0) return isDark ? '#2a3241' : '#e8eaf0';
@@ -499,7 +502,7 @@
         {/each}
       </div>
       {#if yoy.isPartial}
-        <p class="text-xs text-[var(--md-sys-color-outline)] mt-4 text-center">* {currentYear} is still in progress. Comparison reflects partial year data.</p>
+        <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-4 text-center">* {currentYear} is still in progress. Comparison reflects partial year data.</p>
       {/if}
     </section>
   {/if}
@@ -653,12 +656,14 @@
           {@const maxCount = tagCountsSorted[0]?.[1] || 1}
           {@const size = 0.8 + (count / maxCount) * 1.5}
           {@const color = CHART_PALETTE[idx % CHART_PALETTE.length]}
+          {@const textColor = isDark ? TAG_TEXT_COLORS_DARK[idx % TAG_TEXT_COLORS_DARK.length] : TAG_TEXT_COLORS_LIGHT[idx % TAG_TEXT_COLORS_LIGHT.length]}
+          {@const borderColor = isDark ? TAG_TEXT_COLORS_DARK[idx % TAG_TEXT_COLORS_DARK.length] : color}
           <li class="list-none">
             <a href="/tags/{tag}/"
                class="inline-block px-4 py-2 min-h-[44px] rounded-full transition-transform hover:scale-110"
-               style="font-size: {size}rem; background-color: {color}20; color: {color}; border: 2px solid {color}"
-               aria-label="{tag} tag, {count} post{count !== 1 ? 's' : ''}">
-              {tag} <span class="text-xs" style="color: var(--md-sys-color-on-surface-variant)">({count})</span>
+               style="font-size: {size}rem; background-color: {color}20; color: {textColor}; border: 2px solid {borderColor}"
+               title="{tag}: {count} post{count !== 1 ? 's' : ''}">
+              {tag} <span class="text-xs" style="color: {textColor}">({count})</span>
             </a>
           </li>
         {/each}

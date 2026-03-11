@@ -1,7 +1,7 @@
 ---
 import PostLayout from '@layouts/PostLayout.astro';
 import { getCollection, render } from 'astro:content';
-import { getImageUrl, getReadingTime } from '@/lib/utils';
+import { getValidImageUrl, getReadingTime } from '@/lib/utils';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -15,7 +15,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const readingTime = getReadingTime(post.body ?? '');
-const imageUrl = getImageUrl(post.data.image);
+const imageUrl = getValidImageUrl(post.data.image);
 ---
 
 <PostLayout

@@ -2,8 +2,11 @@
   import { onMount } from 'svelte';
 
   onMount(() => {
-    // Add copy buttons to all code blocks
-    document.querySelectorAll('pre').forEach((pre) => {
+    // Only add copy buttons if code blocks exist on this page
+    const codeBlocks = document.querySelectorAll('pre');
+    if (codeBlocks.length === 0) return;
+
+    codeBlocks.forEach((pre) => {
       if (pre.querySelector('.copy-btn')) return;
 
       const wrapper = document.createElement('div');
