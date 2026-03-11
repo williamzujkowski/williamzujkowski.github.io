@@ -3,17 +3,6 @@
 author: William Zujkowski
 date: 2025-08-03
 description: Deploy Claude-Flow AI agent swarms for development—achieve 84.8% SWE-Bench solve rate with neural learning and multi-agent orchestration for complex tasks.
-images:
-  hero:
-    alt: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering - Hero Image'
-    caption: 'Visual representation of Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering'
-    height: 630
-    src: /assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering - Social Media Preview'
-    src: /assets/images/blog/hero/2025-08-07-supercharging-development-claude-flow-og.jpg
 title: 'Supercharging Development with Claude-Flow: AI Swarm Intelligence for Modern Engineering'
 tags:
   - ai

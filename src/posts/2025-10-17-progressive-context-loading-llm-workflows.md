@@ -4,15 +4,6 @@ title: 'From 150K to 2K Tokens: How Progressive Context Loading Revolutionizes L
 date: 2025-10-17
 description: Optimize LLM workflows with progressive context loading—achieve 98% token reduction using modular architecture for efficient production deployments.
 author: William Zujkowski
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-10-17-progressive-context-loading-hero.jpg
-    alt: Abstract visualization of token streams being compressed through progressive loading layers, showing 150K tokens reducing to 2K
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-10-17-progressive-context-loading-og.jpg
-    alt: Progressive context loading reduces LLM token usage by 98%
 tags:
   - ai
   - devops

@@ -2,17 +2,6 @@
 
 date: 2024-02-09
 description: Detect AI-generated deepfakes with neural network analysis and authentication methods—combat misinformation with 73% accuracy detection models.
-images:
-  hero:
-    alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Hero Image'
-    caption: 'Visual representation of The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception'
-    height: 630
-    src: /assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception - Social Media Preview'
-    src: /assets/images/blog/hero/2024-02-09-deepfake-dilemma-ai-deception-og.jpg
 title: 'The Deepfake Dilemma: Navigating the Threat of AI-Generated Deception'
 tags:
   - ai

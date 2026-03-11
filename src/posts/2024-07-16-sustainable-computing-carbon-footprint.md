@@ -2,17 +2,6 @@
 
 date: 2024-07-16
 description: Reduce IT carbon footprint with sustainable computing practices—optimize datacenter energy efficiency and cut ML training costs by 40%.
-images:
-  hero:
-    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint - Hero Image'
-    caption: 'Visual representation of Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
-    height: 630
-    src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint - Social Media Preview'
-    src: /assets/images/blog/hero/2024-07-16-sustainable-computing-carbon-footprint-og.jpg
 title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
 tags:
   - sustainability

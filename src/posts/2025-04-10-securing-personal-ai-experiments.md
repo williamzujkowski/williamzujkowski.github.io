@@ -3,17 +3,6 @@
 author: William Zujkowski
 date: 2025-04-10
 description: "Secure personal AI experiments with model isolation and network segmentation—protect LLM deployments using privacy controls and threat modeling."
-images:
-  hero:
-    alt: 'Securing Your Personal AI/ML Experiments: A Practical Guide - Hero Image'
-    caption: 'Visual representation of Securing Your Personal AI/ML Experiments: A Practical Guide'
-    height: 630
-    src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Securing Your Personal AI/ML Experiments: A Practical Guide - Social Media Preview'
-    src: /assets/images/blog/hero/2025-04-10-securing-personal-ai-experiments-og.jpg
 title: 'Securing Your Personal AI/ML Experiments: A Practical Guide'
 tags:
   - ai

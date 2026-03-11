@@ -2,17 +2,6 @@
 
 date: 2025-07-22
 description: "Transform Claude CLI with standards integration—achieve 90% token reduction and automate workflows using context-aware MCP server architecture."
-images:
-  hero:
-    alt: Exploring Claude CLI Context and Compliance with My Standards Repository - Hero Image
-    caption: Visual representation of Exploring Claude CLI Context and Compliance with My Standards Repository
-    height: 630
-    src: /assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: Exploring Claude CLI Context and Compliance with My Standards Repository - Social Media Preview
-    src: /assets/images/blog/hero/2025-07-22-supercharging-claude-cli-with-standards-og.jpg
 title: Exploring Claude CLI Context and Compliance with My Standards Repository
 tags:
   - ai

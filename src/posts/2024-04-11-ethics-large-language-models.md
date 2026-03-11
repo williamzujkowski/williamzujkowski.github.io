@@ -2,17 +2,6 @@
 
 date: 2024-04-11
 description: Address LLM ethics including bias, privacy, and accountability—implement responsible AI frameworks for large language model deployment in production.
-images:
-  hero:
-    alt: The Ethics of Large Language Models - Hero Image
-    caption: Visual representation of The Ethics of Large Language Models
-    height: 630
-    src: /assets/images/blog/hero/2024-04-11-ethics-large-language-models-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: The Ethics of Large Language Models - Social Media Preview
-    src: /assets/images/blog/hero/2024-04-11-ethics-large-language-models-og.jpg
 title: The Ethics of Large Language Models
 tags:
   - ai

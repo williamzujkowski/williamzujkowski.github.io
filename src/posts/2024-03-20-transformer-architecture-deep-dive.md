@@ -1,17 +1,6 @@
 ---
 date: 2024-03-20
 description: Master transformer architecture with self-attention and positional encoding—understand the foundation of GPT-4, BERT, and modern language models.
-images:
-  hero:
-    alt: 'The Transformer Architecture: A Deep Dive - Hero Image'
-    caption: 'Visual representation of The Transformer Architecture: A Deep Dive'
-    height: 630
-    src: /assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'The Transformer Architecture: A Deep Dive - Social Media Preview'
-    src: /assets/images/blog/hero/2024-03-20-transformer-architecture-deep-dive-og.jpg
 tags:
 - ai
 - llm

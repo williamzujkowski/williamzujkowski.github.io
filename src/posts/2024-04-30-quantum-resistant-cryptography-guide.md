@@ -2,17 +2,6 @@
 
 date: 2024-04-30
 description: "Implement quantum-resistant cryptography with NIST post-quantum algorithms. Future-proof encryption against quantum attacks using Kyber and Dilithium."
-images:
-  hero:
-    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Hero Image'
-    caption: 'Visual representation of Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
-    height: 630
-    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography - Social Media Preview'
-    src: /assets/images/blog/hero/2024-04-30-quantum-resistant-cryptography-guide-og.jpg
 title: 'Preparing for the Quantum Leap: A Guide to Quantum-Resistant Cryptography'
 tags:
   - computational-science

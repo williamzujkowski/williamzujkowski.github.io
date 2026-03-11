@@ -2,17 +2,6 @@
 
 date: 2024-05-05
 description: Prepare for quantum computing threats with post-quantum cryptography—protect RSA and ECC encryption from quantum attacks using NIST-approved algorithms.
-images:
-  hero:
-    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology - Hero Image'
-    caption: 'Visual representation of Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology'
-    height: 630
-    src: /assets/images/blog/hero/2024-10-03-quantum-computing-defense-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology - Social Media Preview'
-    src: /assets/images/blog/hero/2024-10-03-quantum-computing-defense-og.jpg
 title: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology'
 tags:
   - computational-science

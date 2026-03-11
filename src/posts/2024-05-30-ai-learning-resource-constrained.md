@@ -2,17 +2,6 @@
 
 date: 2024-05-30
 description: Train AI models on resource-constrained hardware with quantization, pruning, and distillation—run GPT-3 capabilities 100x faster through compression.
-images:
-  hero:
-    alt: AI Learning in Resource-Constrained Environments - Hero Image
-    caption: Visual representation of AI Learning in Resource-Constrained Environments
-    height: 630
-    src: /assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: AI Learning in Resource-Constrained Environments - Social Media Preview
-    src: /assets/images/blog/hero/2024-05-30-ai-learning-resource-constrained-og.jpg
 title: AI Learning in Resource-Constrained Environments
 tags:
   - ai

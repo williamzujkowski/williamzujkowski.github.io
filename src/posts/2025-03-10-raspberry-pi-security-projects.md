@@ -2,17 +2,6 @@
 
 date: 2025-03-10
 description: Build Raspberry Pi security projects with Pi-hole, VPN gateway, and honeypots—deploy practical network monitoring and threat detection on budget hardware.
-images:
-  hero:
-    alt: Raspberry Pi Security Projects That Actually Solve Problems - Hero Image
-    caption: Visual representation of Raspberry Pi Security Projects That Actually Solve Problems
-    height: 630
-    src: /assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: Raspberry Pi Security Projects That Actually Solve Problems - Social Media Preview
-    src: /assets/images/blog/hero/2025-03-10-raspberry-pi-security-projects-og.jpg
 title: Raspberry Pi Security Projects That Actually Solve Problems
 tags:
   - homelab

@@ -2,17 +2,6 @@
 
 date: 2024-04-07
 description: Deploy high-performance computing with parallel processing and distributed systems—access supercomputer capabilities through cloud HPC for AI workloads.
-images:
-  hero:
-    alt: 'The Evolution of High-Performance Computing: Key Trends and Innovations - Hero Image'
-    caption: 'Visual representation of The Evolution of High-Performance Computing: Key Trends and Innovations'
-    height: 630
-    src: /assets/images/blog/hero/2024-08-13-high-performance-computing-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'The Evolution of High-Performance Computing: Key Trends and Innovations - Social Media Preview'
-    src: /assets/images/blog/hero/2024-08-13-high-performance-computing-og.jpg
 title: 'The Evolution of High-Performance Computing: Key Trends and Innovations'
 tags:
   - ai

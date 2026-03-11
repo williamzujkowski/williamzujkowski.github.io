@@ -2,17 +2,6 @@
 
 date: 2024-01-18
 description: "Learn cryptography fundamentals with AES-256, RSA, and SHA-3—implement encryption, hashing, and digital signatures for production security systems."
-images:
-  hero:
-    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures - Hero Image'
-    caption: 'Visual representation of Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures'
-    height: 630
-    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures - Social Media Preview'
-    src: /assets/images/blog/hero/2024-01-18-demystifying-cryptography-beginners-guide-og.jpg
 title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, and Digital Signatures'
 tags:
   - cryptography

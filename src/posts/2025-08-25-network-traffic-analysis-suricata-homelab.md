@@ -4,16 +4,6 @@ author: William Zujkowski
 date: 2025-08-25
 description: Deploy Suricata IDS/IPS for real-time network threat detection—configure rule management, performance tuning, and SIEM integration for homelab monitoring.
 title: Building a Network Traffic Analysis Lab with Suricata
-images:
-  hero:
-    src: /assets/images/blog/hero/2025-08-25-network-traffic-analysis-suricata-homelab-hero.jpg
-    alt: network topology and connections for Building a Network Traffic Analysis Lab with Suricata
-    caption: Visual representation of Building a Network Traffic Analysis Lab with Suricata
-    width: 1200
-    height: 630
-  og:
-    src: /assets/images/blog/hero/2025-08-25-network-traffic-analysis-suricata-homelab-og.jpg
-    alt: network topology and connections for Building a Network Traffic Analysis Lab with Suricata
 tags:
   - homelab
   - networking

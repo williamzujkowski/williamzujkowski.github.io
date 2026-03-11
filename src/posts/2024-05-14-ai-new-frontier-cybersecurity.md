@@ -2,17 +2,6 @@
 
 date: 2024-05-14
 description: "Deploy AI-powered cybersecurity with automated threat detection—achieve 73% accuracy in anomaly detection catching attacks SIEM systems miss."
-images:
-  hero:
-    alt: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas - Hero Image'
-    caption: 'Visual representation of AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas'
-    height: 630
-    src: /assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas - Social Media Preview'
-    src: /assets/images/blog/hero/2024-05-14-ai-new-frontier-cybersecurity-og.jpg
 title: 'AI: The New Frontier in Cybersecurity – Opportunities and Ethical Dilemmas'
 tags:
   - ai
