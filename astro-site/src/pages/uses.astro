@@ -2,518 +2,943 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Uses" description="Hardware, software, and tools I use daily for security engineering, homelabbing, and everything in between.">
+<BaseLayout title="Uses" description="Hardware, software, and services I use.">
   <section class="py-12 sm:py-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto">
-
-<h1 class="text-3xl font-bold mb-4" style="color: var(--md-sys-color-on-surface)">Uses</h1>
-
-<p class="text-lg" style="color: var(--md-sys-color-on-surface-variant)">This is my digital toolbox – the stuff that's survived the test of real-world use and hasn't let me down. I'm picky about my tools because bad choices cost time, and time is what I use to tinker with cool stuff. Everything here has a story, usually involving at least one failure before I figured it out.</p>
-
-<p class="text-lg" style="color: var(--md-sys-color-on-surface-variant)">What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab and workflow that actually works for me. This is a living document: I update it when I change something significant or learn a better way.</p>
-
-<hr class="my-8 border-[var(--md-sys-color-outline-variant)]" />
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🖥️ Hardware</h2>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Workstation</h3>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Desktop PC</strong> — Intel i9-9900K (2019), 64 GB RAM, <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/" rel="noopener noreferrer">RTX 3090</a> (2021), 1TB NVMe + 8TB HDD storage</li>
-</ul>
-
-  <strong>Why this build:</strong> Needed something that could handle local LLM experiments (hence the 3090's 24GB VRAM) plus VM workloads (hence the 64GB RAM). Built in 2019 for ~$2,400, upgraded GPU in 2021 when I realized 11GB VRAM on my old 2080 Ti limited me to 7B models. The 3090's 24GB handles 7B-34B models comfortably in full VRAM.
-
-  <strong>Trade-off:</strong> Could've gone AMD Threadripper for better multi-threading, but CUDA support for ML work made NVIDIA the obvious choice. The 3090 was expensive ($1,500 during the shortage), but it saves me hundreds per month in cloud GPU costs.
-
-  <strong>Failure story:</strong> Originally bought a 2080 Ti in 2020. Fried it overclocking to squeeze 15% more performance for LLM inference. Learned my lesson about pushing hardware past its limits. RIP $1,200.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Laptop</strong> — <a href="https://frame.work/" rel="noopener noreferrer">Framework Laptop</a> (DIY Edition, 2022) with <a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a></li>
-</ul>
-
-  <strong>Why Framework:</strong> After three laptops that became e-waste because one component failed, I wanted something actually repairable. Framework's modular design means I can upgrade RAM, storage, ports, even the mainboard without replacing the whole machine.
-
-  <strong>Cost reality:</strong> $1,400 for the DIY edition with an i7-1260P, 32GB RAM, and 1TB NVMe. More expensive than a Dell with similar specs, but I value the right-to-repair philosophy.
-
-  <strong>Ubuntu choice:</strong> Tried Fedora for six months, kept breaking after updates. Ubuntu LTS is boring, which is exactly what I want on a laptop I depend on.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Displays</strong> — 34" LG 34WK95U ultrawide (3440x1440, ~$800)</li>
-</ul>
-
-  <strong>Why ultrawide:</strong> Tried dual 27" monitors for years. The bezel gap drove me insane. One seamless ultrawide lets me have three vertical code panes side-by-side without visual interruption. Game changer for monitoring dashboards.
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Peripherals</h3>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Keyboard</strong> — <a href="https://wooting.io/wooting-80he" rel="noopener noreferrer">Wooting 80HE</a> (~$185)</li>
-</ul>
-
-  <strong>Analog hall effect keys:</strong> Thought it was marketing hype until I tried it. The ability to set actuation points per-key and have analog input changed how I interact with my machine. It's absurdly customizable. Now I can't go back to traditional mechanical switches.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Mouse</strong> — <a href="https://www.gloriousgaming.com/collections/model-o-mice" rel="noopener noreferrer">Glorious Model O</a> (~$50)</li>
-</ul>
-
-  <strong>Lightweight champion:</strong> 67 grams. After years of heavy gaming mice giving me wrist pain, going ultralight was a revelation. Simple, reliable, cheap.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Headset</strong> — <a href="https://steelseries.com/gaming-headsets/arctis-7" rel="noopener noreferrer">SteelSeries Arctis 7X+</a> (~$150)</li>
-</ul>
-
-  <strong>Wireless that actually works:</strong> Battery lasts 30+ hours, comfortable for all-day wear, and the mic doesn't sound like I'm in a cave. Works seamlessly across my PC, Xbox, and Switch.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Coffee</strong> — <a href="https://chemexcoffeemaker.com/products/ten-cup-classic-chemex" rel="noopener noreferrer">Chemex 10-cup</a> (~$50) + <a href="https://baratza.com/grinder/encore/" rel="noopener noreferrer">Baratza Encore grinder</a> (~$170)</li>
-</ul>
-
-  <strong>Because good security engineering requires good coffee.</strong> This is non-negotiable. Chemex makes clean, smooth coffee without the bitterness you get from French press. The ritual of manual pour-over also gives me time to think through problems.
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Homelab Infrastructure</h3>
-
-<strong>The Journey:</strong> Started with a $50 Raspberry Pi 4 in 2015. Thought "this is all I need." Ten years and ~$8,000 in equipment later, here we are.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Firewall</strong> — <a href="https://ui.com/consoles/dream-machine-pro" rel="noopener noreferrer">Ubiquiti Dream Machine Pro</a> (~$380)</li>
-</ul>
-
-  <strong>Why UDM Pro:</strong> Spent years with pfSense on repurposed hardware. Worked great until it didn't. UDM Pro isn't as flexible, but it's stable, fast, and I don't have to maintain another box. Trade-off accepted.
-
-  <strong>What I actually use:</strong> VLAN segmentation (IoT devices on isolated network), IDS/IPS for threat detection, DPI for traffic analysis. Handles gigabit routing without breaking a sweat.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Hypervisor</strong> — Dell R940 running <a href="https://www.proxmox.com/" rel="noopener noreferrer">Proxmox</a> (~$3,500 used, 2022)</li>
-</ul>
-
-  <strong>Why enterprise gear:</strong> Needed serious compute for VM testing. Considered building custom, but used enterprise hardware is cheap if you can handle the noise. This thing sounds like a jet engine at full throttle. Worth it.
-
-  <strong>Specs:</strong> 4x Intel Xeon Gold 6130 (64 cores / 128 threads total), 768GB RAM, 8TB NVMe + 12TB HDD storage.
-
-  <strong>What I run:</strong> ~30 VMs for testing, ~15 LXC containers for services. Proxmox because it's free, well-documented, and I understand it. Tried ESXi for three months in 2020, licensing made me cry.
-
-  <strong>Power cost:</strong> ~$150/month at idle. Expensive hobby, but cheaper than renting equivalent cloud resources for learning.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Cluster Nodes</strong> — 3x <a href="https://www.raspberrypi.com/products/raspberry-pi-5/" rel="noopener noreferrer">Raspberry Pi 5</a> (16GB, ~$80 each) + 1x <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" rel="noopener noreferrer">Raspberry Pi 4</a> (8GB, 2020)</li>
-</ul>
-
-  <strong>K3s testing cluster:</strong> Learning Kubernetes on real hardware beats reading docs. The Pi 5s run a lightweight K3s cluster for ARM testing. It's slow, but that's the point – if it works here, it'll work anywhere.
-
-  <strong>Pi-hole on the Pi 4:</strong> Network-wide ad blocking. Set-and-forget for five years running. Blocks ~25% of DNS queries before they hit the network.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Storage</strong> — <a href="https://www.truenas.com/" rel="noopener noreferrer">TrueNAS Core</a> (~$1,200 for custom build, 2020)</li>
-</ul>
-
-  <strong>~40TB raw, ~30TB usable</strong> (RAIDZ2 configuration)
-
-  <strong>Why TrueNAS:</strong> ZFS is bulletproof. I've had drives fail, but never lost data. Snapshots saved me twice when I accidentally deleted things I shouldn't have. Once from a bad script, once from fat-fingering an rm command.
-
-  <strong>Backup strategy:</strong> Critical data goes to <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a> (~$50/month) via <a href="https://restic.net/" rel="noopener noreferrer">restic</a>. Follows the 3-2-1 rule: 3 copies, 2 different media, 1 offsite.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Networking</strong> — <a href="https://ui.com/" rel="noopener noreferrer">Ubiquiti</a> UniFi Switch 24 PoE (~$380) + 2x U6 Pro APs (~$150 each)</li>
-</ul>
-
-  <strong>Why Ubiquiti ecosystem:</strong> Centralized management, reliable, PoE for clean AP installation. Not the cheapest, not the most feature-rich, but it just works. I've had zero downtime in three years.
-
-  <strong>Network design:</strong> 5 VLANs (Management, Home, Lab, IoT, Guest). IoT devices can't reach anything else. Learned this lesson after a smart bulb tried to phone home to China 47,000 times in one day.
-
-<strong>Related posts:</strong>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="/posts/implementing-dns-over-https-doh-for-home-networks/" rel="noopener noreferrer">Implementing DNS-over-HTTPS (DoH) for Home Networks</a></li>
-  <li><a href="/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/" rel="noopener noreferrer">IoT Security in Your Home Lab: Lessons from OWASP IoTGoat</a></li>
-</ul>
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🧰 Software & Development</h2>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Operating Systems & Virtualization</h3>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a> as primary OS</li>
-</ul>
-
-  <strong>Boring and stable:</strong> After distro-hopping for years (Arch, Fedora, NixOS, Pop!_OS), I settled on Ubuntu LTS. It's boring. Boring is good. I spend my time solving problems, not fixing my OS.
-
-  <strong>What I learned:</strong> The "best" distro is the one that doesn't make you think about it.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.proxmox.com/" rel="noopener noreferrer">Proxmox</a> for virtualization</li>
-</ul>
-
-  <strong>Proxmox vs ESXi:</strong> VMware's licensing changes in 2024 validated my 2022 choice. Proxmox is open-source, has a great community, and doesn't lock me into vendor licensing. I've been running it for three years without major issues.
-
-  <strong>Learning curve:</strong> Took about 2 weeks to get comfortable. Worth it.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.docker.com/" rel="noopener noreferrer">Docker</a> / <a href="https://podman.io/" rel="noopener noreferrer">Podman</a> for containers</li>
-</ul>
-
-  <strong>Docker for development, Podman for production:</strong> Docker is ubiquitous and has better docs. Podman is daemonless and more secure. I use both depending on context.
-
-  <strong>Container philosophy:</strong> If a service isn't in a container, it's doing it wrong. Makes deployment reproducible and rollbacks trivial.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://k3s.io/" rel="noopener noreferrer">K3s</a> for lightweight Kubernetes</li>
-</ul>
-
-  <strong>Learning K8s the hard way:</strong> Tried learning full Kubernetes in 2021. Overwhelmed. K3s is stripped-down, easier to understand, perfect for homelab. Once you understand K3s, regular K8s makes sense.
-
-  <strong>Reality check:</strong> K8s is overkill for 90% of homelab use cases. I use it because I want to learn it, not because I need it.
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Terminal & Editor</h3>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://github.com/ghostty-org/ghostty" rel="noopener noreferrer">Ghostty</a> terminal</li>
-</ul>
-
-  <strong>Recent switch:</strong> Moved from Alacritty in October 2024. Ghostty is stupid fast (GPU-accelerated), uses less memory, and the developer is responsive. Still in beta but already more stable than some "production" terminals I've used.
-
-  <strong>Why not GNOME Terminal:</strong> Startup time. Ghostty launches in ~40ms vs ~400ms for GNOME Terminal. When you open dozens of terminals daily, that adds up.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.zsh.org/" rel="noopener noreferrer">Zsh</a> shell + <a href="https://ohmyz.sh/" rel="noopener noreferrer">oh-my-zsh</a> + plugins</li>
-</ul>
-
-  <strong>Why not bash:</strong> Tab completion and git integration. My most-used plugins: `git`, `docker`, `kubectl`, `z` (directory jumping), `fzf` integration.
-
-  <strong>Tried fish:</strong> Great shell, but bash compatibility matters for scripts I copy from Stack Overflow. Zsh gives me better UX while staying bash-compatible.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> multiplexer</li>
-</ul>
-
-  <strong>Essential for remote work:</strong> SSH sessions that survive disconnects. I can start a long-running task, disconnect, reconnect hours later, and it's still running. Game changer.
-
-  <strong>Learning curve:</strong> Steep. Took me 3 months to stop fighting it. Now it's muscle memory. Worth the investment.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://code.visualstudio.com/" rel="noopener noreferrer">VS Code</a> with extensions for Python, Go, Terraform, Docker</li>
-</ul>
-
-  <strong>Controversial take:</strong> I know, "real developers use vim." I tried. For 3 months in 2019. I was 30% slower in vim. Life's too short. VS Code with vim keybindings is my compromise.
-
-  <strong>Essential extensions:</strong> Python (Microsoft), Docker, GitLens, Remote-SSH, Markdown All-in-One, Trailing Spaces.
-
-  <strong>Remote-SSH is magic:</strong> Edit files on remote machines like they're local. No more nano/vi in SSH sessions.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://github.com/enkia/tokyo-night-vscode-theme" rel="noopener noreferrer">Tokyo Night theme</a></li>
-</ul>
-
-  <strong>Eye comfort:</strong> After years of high-contrast themes giving me headaches, Tokyo Night's softer palette is easier on my eyes during long coding sessions. Small quality-of-life improvement that matters.
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🔐 Security & Monitoring (Homelab)</h2>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.wireshark.org/" rel="noopener noreferrer">Wireshark</a>, tcpdump, <a href="https://nmap.org/" rel="noopener noreferrer">nmap</a> for network inspection</li>
-</ul>
-
-  <strong>The classics:</strong> These tools have been around forever because they work. Wireshark for deep packet inspection, tcpdump for quick captures, nmap for discovery. I use them weekly.
-
-  <strong>Learning investment:</strong> Spent ~40 hours over a year learning Wireshark filters. Now I can find issues in minutes that used to take hours.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.tenable.com/products/nessus" rel="noopener noreferrer">Nessus</a> for vulnerability assessment</li>
-</ul>
-
-  <strong>Using:</strong> Nessus Essentials (free version, up to 16 IPs). Tried OpenVAS for a year in 2020—spent more time fixing false positives than finding vulns. Nessus just works.
-
-  <strong>Trade-off:</strong> Free version is limited to 16 hosts, but that covers my critical infrastructure. For a full homelab scan, I rotate scans across subnets or use Grype/OSV for container/package scanning.
-
-  <strong>What I scan:</strong> Everything. Monthly full scans of all homelab assets. Found critical vulns in IoT devices that vendors never patched.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://github.com/anchore/grype" rel="noopener noreferrer">Grype</a> and <a href="https://github.com/google/osv-scanner" rel="noopener noreferrer">OSV-Scanner</a> for supply chain scanning</li>
-</ul>
-
-  <strong>Free alternatives:</strong> For container/code scanning, these are excellent. I also use <a href="https://github.com/aquasecurity/trivy" rel="noopener noreferrer">Trivy</a>. Run all three because overlapping coverage catches more issues.
-
-  <strong>Discovery:</strong> Found a critical vuln in a homelab container with Grype that Nessus missed. Now I always run multiple scanners.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a> for log analysis and detection</li>
-</ul>
-
-  <strong>Open-source SIEM:</strong> Wazuh aggregates logs from everything and correlates events. Detected a brute-force SSH attack in real-time in 2023. Would've missed it without centralized logging.
-
-  <strong>Setup time:</strong> ~8 hours to configure properly. Worth every minute. Now I have visibility into everything happening on my network.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>, <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>, <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> for metrics and dashboards</li>
-</ul>
-
-  <strong>Observability stack:</strong> Prometheus scrapes metrics, Grafana visualizes them, Netdata gives real-time insights. I have dashboards for everything: server health, network traffic, container metrics, power consumption.
-
-  <strong>Prevented issues:</strong> Caught a failing disk before data loss, identified a memory leak in a service, spotted unusual traffic patterns.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.zaproxy.org/" rel="noopener noreferrer">OWASP ZAP</a> and <a href="https://github.com/OJ/gobuster" rel="noopener noreferrer">gobuster</a> for web/app testing</li>
-</ul>
-
-  <strong>Pentesting tools:</strong> ZAP for automated web app scanning, gobuster for directory/subdomain discovery. Use these for testing anything web-facing before exposing it to the internet.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://bitwarden.com/" rel="noopener noreferrer">Bitwarden</a> (self-hosted) for password management</li>
-</ul>
-
-  <strong>Why self-hosted:</strong> I trust Bitwarden's security model, but I prefer controlling the infrastructure. Running <a href="https://github.com/dani-garcia/vaultwarden" rel="noopener noreferrer">Vaultwarden</a> (lightweight Bitwarden server) on my homelab since 2021.
-
-  <strong>Migration:</strong> Moved from LastPass after their 2021 breach. Haven't looked back.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.yubico.com/products/yubikey-5c-nfc/" rel="noopener noreferrer">YubiKey 5C NFC</a> for hardware 2FA (~$55)</li>
-</ul>
-
-  <strong>Physical security keys:</strong> I use YubiKeys for every account that supports FIDO2/WebAuthn. Phishing-resistant 2FA is non-negotiable.
-
-  <strong>Rule:</strong> If a service doesn't support 2FA in 2025, it doesn't get my data. Full stop.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.vaultproject.io/" rel="noopener noreferrer">HashiCorp Vault</a> for secrets in automation and CI</li>
-</ul>
-
-  <strong>Secrets management:</strong> Hardcoded secrets are evil. Vault centralizes secret storage and provides audit logs of who accessed what when.
-
-  <strong>Learning curve:</strong> Steep. Took me two weeks to grok the concepts. Absolutely worth it for automated workflows.
-
-<strong>Related posts:</strong>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="/posts/building-a-smart-vulnerability-prioritization-system-with-epss-and-cisa-kev/" rel="noopener noreferrer">Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV</a></li>
-  <li><a href="/posts/vulnerability-management-at-scale-with-open-source-tools/" rel="noopener noreferrer">Vulnerability Management at Scale with Open Source Tools</a></li>
-  <li><a href="/posts/building-your-own-mitre-attck-threat-intelligence-dashboard/" rel="noopener noreferrer">Building Your Own MITRE ATT&CK Threat Intelligence Dashboard</a></li>
-  <li><a href="/posts/ebpf-for-security-monitoring-a-practical-guide/" rel="noopener noreferrer">eBPF for Security Monitoring: A Practical Guide</a></li>
-</ul>
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🤖 AI & Prompting</h2>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Local LLMs on RTX 3090</strong> (24GB VRAM)</li>
-</ul>
-
-  <strong>Models that actually fit:</strong> Llama 3.1 8B (~4GB Q4), Mistral 7B (~4GB Q4), CodeLlama 34B (~20GB Q4), Qwen 2.5 Coder 32B (~18GB Q4).
-
-  <strong>Why local:</strong> Privacy, unlimited usage, learning how they work under the hood. For security research and analyzing potentially sensitive data, local inference is the only acceptable option.
-
-  <strong>Hardware reality:</strong> 24GB VRAM handles 7B-34B models fully in GPU memory with Q4 quantization. Larger models (70B+) require CPU offloading (storing part of model in system RAM), which drops performance from 20+ tokens/second to 2-5 tokens/second. For 70B tasks, I use API access or accept the slower offloaded inference.
-
-  <strong>Performance sweet spot:</strong> CodeLlama 34B at Q4 quantization (~20GB) gives excellent quality at 12-15 tokens/second. 8B models hit 40+ tokens/second. Good enough for 90% of my use cases.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://ollama.com/" rel="noopener noreferrer">Ollama</a> for model management</li>
-</ul>
-
-  <strong>Game changer:</strong> Makes running local LLMs actually usable. Tried llama.cpp directly – too much friction. Ollama is Docker-simple.
-
-  <strong>Install to running LLM in 2 commands:</strong>
-  ```bash
-  curl https://ollama.ai/install.sh | sh
-  ollama run llama3.1:8b  # Or codellama:34b for larger models
-  ```
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Use cases that actually work:</strong></li>
-</ul>
-  - <strong>Code review:</strong> Catches obvious bugs, suggests improvements. Not perfect, but faster than waiting for human review.
-  - <strong>Security policy analysis:</strong> Summarizing 50-page compliance docs into actionable items.
-  - <strong>Homelab troubleshooting:</strong> Explains obscure error messages better than Google sometimes.
-  - <strong>Learning new tech:</strong> Asks better questions than docs sometimes. Great for "explain like I'm five" moments.
-  - <strong>Blog post editing:</strong> Catches typos and awkward phrasing I miss.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Use cases that don't work:</strong></li>
-</ul>
-  - Anything requiring real-time data (models are frozen in time).
-  - Complex multi-step reasoning (hallucinations increase with complexity).
-  - Critical decisions where hallucinations matter (always verify).
-  - Code generation for complex systems (good for boilerplate, bad for architecture).
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Reality check:</strong> LLMs are tools, not magic. They're autocomplete on steroids. Useful when you understand their limitations, dangerous when you don't.</li>
-</ul>
-
-<strong>Related posts:</strong>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="/posts/2025-08-07-supercharging-development-claude-flow/" rel="noopener noreferrer">Supercharging Development with Claude-Flow</a></li>
-  <li><a href="/posts/down-the-mcp-rabbit-hole-building-a-standards-server/" rel="noopener noreferrer">Down the MCP Rabbit Hole: Building a Standards Server</a></li>
-  <li><a href="/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/" rel="noopener noreferrer">Exploring Claude CLI Context and Compliance</a></li>
-  <li><a href="/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/" rel="noopener noreferrer">AI as Cognitive Infrastructure</a></li>
-</ul>
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">☁️ Services</h2>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Code Hosting:</strong> GitHub (public), <a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> (self-hosted private)</li>
-</ul>
-
-  <strong>Why both:</strong> GitHub for open-source visibility, GitLab for private repos I don't want in someone else's cloud. GitLab CE is free and feature-complete.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>CI/CD:</strong> GitHub Actions (public), <a href="https://www.jenkins.io/" rel="noopener noreferrer">Jenkins</a> (homelab automation)</li>
-</ul>
-
-  <strong>GitHub Actions:</strong> Free for public repos, simple YAML config, integrates perfectly with GitHub. Handles my blog deployment.
-
-  <strong>Jenkins:</strong> Overkill for most things, but I use it for homelab automation that GitHub Actions can't reach. Runs backup jobs, system updates, monitoring checks.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Monitoring:</strong> <a href="https://uptimerobot.com/" rel="noopener noreferrer">UptimeRobot</a> (free tier)</li>
-</ul>
-
-  <strong>External health checks:</strong> Monitors my public-facing services from outside my network. Notifies me via email/SMS if something goes down. Free tier is generous (50 monitors, 5-minute intervals).
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>VPN:</strong> <a href="https://www.wireguard.com/" rel="noopener noreferrer">WireGuard</a>, <a href="https://tailscale.com/" rel="noopener noreferrer">Tailscale</a>, <a href="https://protonvpn.com/" rel="noopener noreferrer">ProtonVPN</a></li>
-</ul>
-
-  <strong>WireGuard for homelab access:</strong> Fast, modern, secure. Self-hosted on my UDM Pro. Connect to my homelab from anywhere.
-
-  <strong>Tailscale for mesh networking:</strong> Zero-config VPN that just works. Free for personal use (up to 20 devices). Magic.
-
-  <strong>ProtonVPN for privacy:</strong> When I need to hide my traffic from my ISP or access region-locked content. Swiss privacy laws, no logs, trustworthy.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>DNS:</strong> <a href="https://1.1.1.1/" rel="noopener noreferrer">Cloudflare 1.1.1.1</a> upstream, <a href="https://pi-hole.net/" rel="noopener noreferrer">Pi-hole</a> local filtering</li>
-</ul>
-
-  <strong>Layered approach:</strong> Pi-hole blocks ads/tracking at the DNS level (25% of queries), Cloudflare DNS for privacy (faster than ISP DNS, no logging).
-
-  <strong>Why not Google DNS:</strong> I don't need Google knowing every domain I visit.
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🗂️ Self-Hosted Services</h2>
-
-Running these on Proxmox VMs/containers because I control my data:
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a>, <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>, <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>, <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> — Security + monitoring stack</li>
-  <li><a href="https://jellyfin.org/" rel="noopener noreferrer">Jellyfin</a> — Media server (FOSS alternative to Plex, no tracking)</li>
-  <li><a href="https://www.home-assistant.io/" rel="noopener noreferrer">Home Assistant</a> — Home automation (controls lights, sensors, cameras)</li>
-  <li><a href="https://www.bookstackapp.com/" rel="noopener noreferrer">BookStack</a> — Documentation/wiki (beautiful, markdown-based, easy to use)</li>
-  <li><a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> — Private git repos</li>
-  <li><a href="https://restic.net/" rel="noopener noreferrer">restic</a> backups → <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a> — Encrypted offsite backups</li>
-</ul>
-
-<strong>Why self-host:</strong> Privacy, learning, control. Also, it's fun. I've learned more about networking, security, and system administration from running these services than from any course.
-
-<strong>Cost:</strong> ~$50/month for Backblaze B2, ~$150/month for power. Compared to equivalent SaaS subscriptions (~$300/month), I'm break-even while learning and owning my data.
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🧪 CLI Tools</h2>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Development</h3>
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://git-scm.com/" rel="noopener noreferrer">git</a> — Version control (use it hourly)</li>
-  <li><a href="https://cli.github.com/" rel="noopener noreferrer">gh</a> — GitHub CLI (faster than web UI for PRs/issues)</li>
-  <li><a href="https://www.python.org/" rel="noopener noreferrer">python3</a> — Scripting & automation (80% of my scripts)</li>
-  <li><a href="https://go.dev/" rel="noopener noreferrer">go</a> — Systems programming (learning, not expert)</li>
-  <li><a href="https://www.rust-lang.org/" rel="noopener noreferrer">rust</a> — Memory-safe development (aspirational, still learning)</li>
-</ul>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Infrastructure</h3>
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://www.terraform.io/" rel="noopener noreferrer">terraform</a> — IaC (declarative infrastructure, version-controlled)</li>
-  <li><a href="https://www.ansible.com/" rel="noopener noreferrer">ansible</a> — Configuration management (automate everything)</li>
-  <li><a href="https://www.docker.com/" rel="noopener noreferrer">docker</a> — Containers (daily driver)</li>
-  <li><a href="https://kubernetes.io/docs/reference/kubectl/" rel="noopener noreferrer">kubectl</a> — Kubernetes (learning)</li>
-  <li><a href="https://k3s.io/" rel="noopener noreferrer">k3s</a> — Lightweight Kubernetes (actually using)</li>
-</ul>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Utilities That Changed My Workflow</h3>
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> — Multiplexer (can't work without it)</li>
-  <li><a href="https://github.com/junegunn/fzf" rel="noopener noreferrer">fzf</a> — Fuzzy finder (instant file/history search)</li>
-  <li><a href="https://github.com/BurntSushi/ripgrep" rel="noopener noreferrer">ripgrep</a> — Code search (10x faster than grep)</li>
-  <li><a href="https://github.com/sharkdp/bat" rel="noopener noreferrer">bat</a> — Syntax-highlighted cat (small QoL improvement)</li>
-  <li><a href="https://htop.dev/" rel="noopener noreferrer">htop</a> — Process monitor (better than top)</li>
-  <li><a href="https://dev.yorhel.nl/ncdu" rel="noopener noreferrer">ncdu</a> — Disk usage (find space hogs instantly)</li>
-</ul>
-
-<strong>Pattern:</strong> I gradually replace standard tools with modern alternatives when they significantly improve my workflow. Not change for change's sake, but real productivity gains.
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">📚 Learning</h2>
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Platforms:</strong> <a href="https://www.pluralsight.com/" rel="noopener noreferrer">Pluralsight</a> ($299/year), <a href="https://www.oreilly.com/" rel="noopener noreferrer">O'Reilly</a> ($499/year), YouTube (free)</li>
-</ul>
-
-  <strong>ROI:</strong> These subscriptions pay for themselves if I learn one skill that saves 10 hours. They've saved me hundreds of hours.
-
-  <strong>YouTube underrated:</strong> Free, high-quality content. I've learned more from <a href="https://www.youtube.com/@NetworkChuck" rel="noopener noreferrer">NetworkChuck</a>, <a href="https://www.youtube.com/@LiveOverflow" rel="noopener noreferrer">LiveOverflow</a>, and <a href="https://www.youtube.com/@ippsec" rel="noopener noreferrer">IppSec</a> than from some paid courses.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Security labs:</strong> <a href="https://www.hackthebox.com/" rel="noopener noreferrer">HackTheBox</a> (~$150/year), <a href="https://tryhackme.com/" rel="noopener noreferrer">TryHackMe</a> (~$100/year), personal homelab (priceless)</li>
-</ul>
-
-  <strong>Hands-on learning:</strong> Reading about security is fine. Breaking things is better. These platforms provide safe, legal environments to practice offensive security.
-
-  <strong>Homelab advantage:</strong> I can test things these platforms don't cover. My lab, my rules.
-
-<ul class="list-disc pl-6 space-y-2 my-4">
-  <li><strong>Threat intel:</strong> <a href="https://otx.alienvault.com/" rel="noopener noreferrer">AlienVault OTX</a>, <a href="https://abuse.ch/" rel="noopener noreferrer">abuse.ch feeds</a>, <a href="https://www.cisa.gov/known-exploited-vulnerabilities" rel="noopener noreferrer">CISA KEV</a></li>
-</ul>
-
-  <strong>Free threat intelligence:</strong> These feeds tell me what bad actors are exploiting right now. I integrate them into Wazuh for automated detection.
-
----
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🧭 Principles</h2>
-
-1. <strong>Open Source First</strong> — Transparent, inspectable tools
-
-   <strong>Learned this the hard way:</strong> Vendor locked me out of my own monitoring data in 2018. Never again. Open source means I control my data and can fix it myself if needed.
-
-   <strong>Exception:</strong> I'll use proprietary tools when they're significantly better (Nessus) or when no viable FOSS alternative exists. Pragmatism over ideology.
-
-2. <strong>Privacy & Safety</strong> — Minimize data exhaust; enforce 2FA everywhere
-
-   <strong>Rule:</strong> If a service doesn't support 2FA in 2025, it doesn't get my data. Full stop. Bitwarden + YubiKey for everything.
-
-   <strong>Data minimization:</strong> Services that don't need my real info get <a href="https://simplelogin.io/" rel="noopener noreferrer">SimpleLogin</a> aliases and fake data. Compartmentalization reduces blast radius.
-
-3. <strong>Automate Boring Things</strong> — Script repeatable tasks
-
-   <strong>Trigger:</strong> If I do something manually 3 times, it gets automated. Life's too short for repetitive tasks.
-
-   <strong>Examples:</strong> Database backups (automated), certificate renewal (automated), system updates (automated), blog deployment (automated), VM snapshots (automated).
-
-4. <strong>Document As You Go</strong> — Wikis > memory
-
-   <strong>Reality check:</strong> I don't remember why I made a change 3 months ago without notes. Future me always thanks past me for documentation.
-
-   <strong>Tools:</strong> BookStack for procedures, git commit messages for code changes, inline comments for complex logic.
-
-   <strong>Learned:</strong> If I can't explain it to someone else, I don't understand it well enough.
-
-5. <strong>Reliability > Novelty</strong> — Boring tech for critical paths
-
-   <strong>Translation:</strong> New and shiny is fun for labs. Production runs on battle-tested boring tech. Docker, PostgreSQL, nginx, Ubuntu LTS – they work because they've been broken and fixed 1,000 times.
-
-   <strong>Exception:</strong> I break this rule in the homelab constantly. That's what it's for. Break things, learn, iterate. Just don't do it in production.
-
-   <strong>Wisdom:</strong> The best tech stack is the one you understand, not the one on Hacker News.
-
----
-
-*Last updated: 2025-11-12*
-
+      <div class="max-w-3xl mx-auto prose prose-lg">
+        <h1>Uses</h1>
+
+        <p>
+          This is my digital toolbox &ndash; the stuff that's survived the test of real-world use and hasn't let me down.
+          I'm picky about my tools because bad choices cost time, and time is what I use to tinker with cool stuff.
+          Everything here has a story, usually involving at least one failure before I figured it out.
+        </p>
+
+        <p>
+          What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab and workflow that actually
+          works for me. This is a living document: I update it when I change something significant or learn a better way.
+        </p>
+
+        <hr />
+
+        <!-- ==================== HARDWARE ==================== -->
+        <h2>Hardware</h2>
+
+        <h3>Workstation</h3>
+
+        <ul>
+          <li>
+            <strong>Desktop PC</strong> &mdash; Intel i9-9900K (2019), 64 GB RAM,
+            <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/" rel="noopener noreferrer">RTX 3090</a>
+            (2021), 1TB NVMe + 8TB HDD storage
+
+            <p>
+              <strong>Why this build:</strong> Needed something that could handle local LLM experiments (hence the
+              3090's 24GB VRAM) plus VM workloads (hence the 64GB RAM). Built in 2019 for ~$2,400, upgraded GPU in
+              2021 when I realized 11GB VRAM on my old 2080 Ti limited me to 7B models. The 3090's 24GB handles
+              7B-34B models comfortably in full VRAM.
+            </p>
+
+            <p>
+              <strong>Trade-off:</strong> Could've gone AMD Threadripper for better multi-threading, but CUDA support
+              for ML work made NVIDIA the obvious choice. The 3090 was expensive ($1,500 during the shortage), but it
+              saves me hundreds per month in cloud GPU costs.
+            </p>
+
+            <p>
+              <strong>Failure story:</strong> Originally bought a 2080 Ti in 2020. Fried it overclocking to squeeze 15%
+              more performance for LLM inference. Learned my lesson about pushing hardware past its limits. RIP $1,200.
+            </p>
+          </li>
+
+          <li>
+            <strong>Laptop</strong> &mdash;
+            <a href="https://frame.work/" rel="noopener noreferrer">Framework Laptop</a> (DIY Edition, 2022) with
+            <a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a>
+
+            <p>
+              <strong>Why Framework:</strong> After three laptops that became e-waste because one component failed, I
+              wanted something actually repairable. Framework's modular design means I can upgrade RAM, storage, ports,
+              even the mainboard without replacing the whole machine.
+            </p>
+
+            <p>
+              <strong>Cost reality:</strong> $1,400 for the DIY edition with an i7-1260P, 32GB RAM, and 1TB NVMe. More
+              expensive than a Dell with similar specs, but I value the right-to-repair philosophy.
+            </p>
+
+            <p>
+              <strong>Ubuntu choice:</strong> Tried Fedora for six months, kept breaking after updates. Ubuntu LTS is
+              boring, which is exactly what I want on a laptop I depend on.
+            </p>
+          </li>
+
+          <li>
+            <strong>Displays</strong> &mdash; 34" LG 34WK95U ultrawide (3440x1440, ~$800)
+
+            <p>
+              <strong>Why ultrawide:</strong> Tried dual 27" monitors for years. The bezel gap drove me insane. One
+              seamless ultrawide lets me have three vertical code panes side-by-side without visual interruption. Game
+              changer for monitoring dashboards.
+            </p>
+          </li>
+        </ul>
+
+        <h3>Peripherals</h3>
+
+        <ul>
+          <li>
+            <strong>Keyboard</strong> &mdash;
+            <a href="https://wooting.io/wooting-80he" rel="noopener noreferrer">Wooting 80HE</a> (~$185)
+
+            <p>
+              <strong>Analog hall effect keys:</strong> Thought it was marketing hype until I tried it. The ability to
+              set actuation points per-key and have analog input changed how I interact with my machine. It's absurdly
+              customizable. Now I can't go back to traditional mechanical switches.
+            </p>
+          </li>
+
+          <li>
+            <strong>Mouse</strong> &mdash;
+            <a href="https://www.gloriousgaming.com/collections/model-o-mice" rel="noopener noreferrer">Glorious Model O</a> (~$50)
+
+            <p>
+              <strong>Lightweight champion:</strong> 67 grams. After years of heavy gaming mice giving me wrist pain,
+              going ultralight was a revelation. Simple, reliable, cheap.
+            </p>
+          </li>
+
+          <li>
+            <strong>Headset</strong> &mdash;
+            <a href="https://steelseries.com/gaming-headsets/arctis-7" rel="noopener noreferrer">SteelSeries Arctis 7X+</a> (~$150)
+
+            <p>
+              <strong>Wireless that actually works:</strong> Battery lasts 30+ hours, comfortable for all-day wear, and
+              the mic doesn't sound like I'm in a cave. Works seamlessly across my PC, Xbox, and Switch.
+            </p>
+          </li>
+
+          <li>
+            <strong>Coffee</strong> &mdash;
+            <a href="https://chemexcoffeemaker.com/products/ten-cup-classic-chemex" rel="noopener noreferrer">Chemex 10-cup</a> (~$50) +
+            <a href="https://baratza.com/grinder/encore/" rel="noopener noreferrer">Baratza Encore grinder</a> (~$170)
+
+            <p>
+              <strong>Because good security engineering requires good coffee.</strong> This is non-negotiable. Chemex
+              makes clean, smooth coffee without the bitterness you get from French press. The ritual of manual
+              pour-over also gives me time to think through problems.
+            </p>
+          </li>
+        </ul>
+
+        <h3>Homelab Infrastructure</h3>
+
+        <div class="card p-6 my-6 not-prose">
+          <p class="text-[var(--md-sys-color-on-surface-variant)] font-medium">
+            <strong>The Journey:</strong> Started with a $50 Raspberry Pi 4 in 2015. Thought "this is all I need."
+            Ten years and ~$8,000 in equipment later, here we are.
+          </p>
+        </div>
+
+        <ul>
+          <li>
+            <strong>Firewall</strong> &mdash;
+            <a href="https://ui.com/consoles/dream-machine-pro" rel="noopener noreferrer">Ubiquiti Dream Machine Pro</a> (~$380)
+
+            <p>
+              <strong>Why UDM Pro:</strong> Spent years with pfSense on repurposed hardware. Worked great until it
+              didn't. UDM Pro isn't as flexible, but it's stable, fast, and I don't have to maintain another box.
+              Trade-off accepted.
+            </p>
+
+            <p>
+              <strong>What I actually use:</strong> VLAN segmentation (IoT devices on isolated network), IDS/IPS for
+              threat detection, DPI for traffic analysis. Handles gigabit routing without breaking a sweat.
+            </p>
+          </li>
+
+          <li>
+            <strong>Hypervisor</strong> &mdash; Dell R940 running
+            <a href="https://www.proxmox.com/" rel="noopener noreferrer">Proxmox</a> (~$3,500 used, 2022)
+
+            <p>
+              <strong>Why enterprise gear:</strong> Needed serious compute for VM testing. Considered building custom,
+              but used enterprise hardware is cheap if you can handle the noise. This thing sounds like a jet engine
+              at full throttle. Worth it.
+            </p>
+
+            <p>
+              <strong>Specs:</strong> 4x Intel Xeon Gold 6130 (64 cores / 128 threads total), 768GB RAM, 8TB NVMe +
+              12TB HDD storage.
+            </p>
+
+            <p>
+              <strong>What I run:</strong> ~30 VMs for testing, ~15 LXC containers for services. Proxmox because it's
+              free, well-documented, and I understand it. Tried ESXi for three months in 2020, licensing made me cry.
+            </p>
+
+            <p>
+              <strong>Power cost:</strong> ~$150/month at idle. Expensive hobby, but cheaper than renting equivalent
+              cloud resources for learning.
+            </p>
+          </li>
+
+          <li>
+            <strong>Cluster Nodes</strong> &mdash; 3x
+            <a href="https://www.raspberrypi.com/products/raspberry-pi-5/" rel="noopener noreferrer">Raspberry Pi 5</a>
+            (16GB, ~$80 each) + 1x
+            <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" rel="noopener noreferrer">Raspberry Pi 4</a>
+            (8GB, 2020)
+
+            <p>
+              <strong>K3s testing cluster:</strong> Learning Kubernetes on real hardware beats reading docs. The Pi 5s
+              run a lightweight K3s cluster for ARM testing. It's slow, but that's the point &ndash; if it works here,
+              it'll work anywhere.
+            </p>
+
+            <p>
+              <strong>Pi-hole on the Pi 4:</strong> Network-wide ad blocking. Set-and-forget for five years running.
+              Blocks ~25% of DNS queries before they hit the network.
+            </p>
+          </li>
+
+          <li>
+            <strong>Storage</strong> &mdash;
+            <a href="https://www.truenas.com/" rel="noopener noreferrer">TrueNAS Core</a> (~$1,200 for custom build, 2020)
+
+            <p>
+              <strong>~40TB raw, ~30TB usable</strong> (RAIDZ2 configuration)
+            </p>
+
+            <p>
+              <strong>Why TrueNAS:</strong> ZFS is bulletproof. I've had drives fail, but never lost data. Snapshots
+              saved me twice when I accidentally deleted things I shouldn't have. Once from a bad script, once from
+              fat-fingering an rm command.
+            </p>
+
+            <p>
+              <strong>Backup strategy:</strong> Critical data goes to
+              <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a>
+              (~$50/month) via <a href="https://restic.net/" rel="noopener noreferrer">restic</a>. Follows the 3-2-1
+              rule: 3 copies, 2 different media, 1 offsite.
+            </p>
+          </li>
+
+          <li>
+            <strong>Networking</strong> &mdash;
+            <a href="https://ui.com/" rel="noopener noreferrer">Ubiquiti</a> UniFi Switch 24 PoE (~$380) + 2x U6 Pro APs (~$150 each)
+
+            <p>
+              <strong>Why Ubiquiti ecosystem:</strong> Centralized management, reliable, PoE for clean AP installation.
+              Not the cheapest, not the most feature-rich, but it just works. I've had zero downtime in three years.
+            </p>
+
+            <p>
+              <strong>Network design:</strong> 5 VLANs (Management, Home, Lab, IoT, Guest). IoT devices can't reach
+              anything else. Learned this lesson after a smart bulb tried to phone home to China 47,000 times in one day.
+            </p>
+          </li>
+        </ul>
+
+        <div class="card p-6 my-6 not-prose">
+          <p class="text-[var(--md-sys-color-on-surface-variant)] font-medium">Related posts:</p>
+          <ul class="mt-2 list-disc list-inside text-[var(--md-sys-color-on-surface-variant)]">
+            <li><a href="/posts/implementing-dns-over-https-doh-for-home-networks/" class="text-[var(--md-sys-color-primary)]">Implementing DNS-over-HTTPS (DoH) for Home Networks</a></li>
+            <li><a href="/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/" class="text-[var(--md-sys-color-primary)]">IoT Security in Your Home Lab: Lessons from OWASP IoTGoat</a></li>
+          </ul>
+        </div>
+
+        <hr />
+
+        <!-- ==================== SOFTWARE & DEVELOPMENT ==================== -->
+        <h2>Software &amp; Development</h2>
+
+        <h3>Operating Systems &amp; Virtualization</h3>
+
+        <ul>
+          <li>
+            <a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a> as primary OS
+
+            <p>
+              <strong>Boring and stable:</strong> After distro-hopping for years (Arch, Fedora, NixOS, Pop!_OS), I
+              settled on Ubuntu LTS. It's boring. Boring is good. I spend my time solving problems, not fixing my OS.
+            </p>
+
+            <p>
+              <strong>What I learned:</strong> The "best" distro is the one that doesn't make you think about it.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://www.proxmox.com/" rel="noopener noreferrer">Proxmox</a> for virtualization
+
+            <p>
+              <strong>Proxmox vs ESXi:</strong> VMware's licensing changes in 2024 validated my 2022 choice. Proxmox
+              is open-source, has a great community, and doesn't lock me into vendor licensing. I've been running it
+              for three years without major issues.
+            </p>
+
+            <p>
+              <strong>Learning curve:</strong> Took about 2 weeks to get comfortable. Worth it.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://www.docker.com/" rel="noopener noreferrer">Docker</a> /
+            <a href="https://podman.io/" rel="noopener noreferrer">Podman</a> for containers
+
+            <p>
+              <strong>Docker for development, Podman for production:</strong> Docker is ubiquitous and has better docs.
+              Podman is daemonless and more secure. I use both depending on context.
+            </p>
+
+            <p>
+              <strong>Container philosophy:</strong> If a service isn't in a container, it's doing it wrong. Makes
+              deployment reproducible and rollbacks trivial.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://k3s.io/" rel="noopener noreferrer">K3s</a> for lightweight Kubernetes
+
+            <p>
+              <strong>Learning K8s the hard way:</strong> Tried learning full Kubernetes in 2021. Overwhelmed. K3s is
+              stripped-down, easier to understand, perfect for homelab. Once you understand K3s, regular K8s makes sense.
+            </p>
+
+            <p>
+              <strong>Reality check:</strong> K8s is overkill for 90% of homelab use cases. I use it because I want to
+              learn it, not because I need it.
+            </p>
+          </li>
+        </ul>
+
+        <h3>Terminal &amp; Editor</h3>
+
+        <ul>
+          <li>
+            <a href="https://github.com/ghostty-org/ghostty" rel="noopener noreferrer">Ghostty</a> terminal
+
+            <p>
+              <strong>Recent switch:</strong> Moved from Alacritty in October 2024. Ghostty is stupid fast
+              (GPU-accelerated), uses less memory, and the developer is responsive. Still in beta but already more
+              stable than some "production" terminals I've used.
+            </p>
+
+            <p>
+              <strong>Why not GNOME Terminal:</strong> Startup time. Ghostty launches in ~40ms vs ~400ms for GNOME
+              Terminal. When you open dozens of terminals daily, that adds up.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://www.zsh.org/" rel="noopener noreferrer">Zsh</a> shell +
+            <a href="https://ohmyz.sh/" rel="noopener noreferrer">oh-my-zsh</a> + plugins
+
+            <p>
+              <strong>Why not bash:</strong> Tab completion and git integration. My most-used plugins:
+              <code>git</code>, <code>docker</code>, <code>kubectl</code>, <code>z</code> (directory jumping),
+              <code>fzf</code> integration.
+            </p>
+
+            <p>
+              <strong>Tried fish:</strong> Great shell, but bash compatibility matters for scripts I copy from Stack
+              Overflow. Zsh gives me better UX while staying bash-compatible.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> multiplexer
+
+            <p>
+              <strong>Essential for remote work:</strong> SSH sessions that survive disconnects. I can start a
+              long-running task, disconnect, reconnect hours later, and it's still running. Game changer.
+            </p>
+
+            <p>
+              <strong>Learning curve:</strong> Steep. Took me 3 months to stop fighting it. Now it's muscle memory.
+              Worth the investment.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://code.visualstudio.com/" rel="noopener noreferrer">VS Code</a> with extensions for
+            Python, Go, Terraform, Docker
+
+            <p>
+              <strong>Controversial take:</strong> I know, "real developers use vim." I tried. For 3 months in 2019.
+              I was 30% slower in vim. Life's too short. VS Code with vim keybindings is my compromise.
+            </p>
+
+            <p>
+              <strong>Essential extensions:</strong> Python (Microsoft), Docker, GitLens, Remote-SSH, Markdown
+              All-in-One, Trailing Spaces.
+            </p>
+
+            <p>
+              <strong>Remote-SSH is magic:</strong> Edit files on remote machines like they're local. No more nano/vi
+              in SSH sessions.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://github.com/enkia/tokyo-night-vscode-theme" rel="noopener noreferrer">Tokyo Night theme</a>
+
+            <p>
+              <strong>Eye comfort:</strong> After years of high-contrast themes giving me headaches, Tokyo Night's
+              softer palette is easier on my eyes during long coding sessions. Small quality-of-life improvement that
+              matters.
+            </p>
+          </li>
+        </ul>
+
+        <hr />
+
+        <!-- ==================== SECURITY & MONITORING ==================== -->
+        <h2>Security &amp; Monitoring (Homelab)</h2>
+
+        <ul>
+          <li>
+            <a href="https://www.wireshark.org/" rel="noopener noreferrer">Wireshark</a>, tcpdump,
+            <a href="https://nmap.org/" rel="noopener noreferrer">nmap</a> for network inspection
+
+            <p>
+              <strong>The classics:</strong> These tools have been around forever because they work. Wireshark for deep
+              packet inspection, tcpdump for quick captures, nmap for discovery. I use them weekly.
+            </p>
+
+            <p>
+              <strong>Learning investment:</strong> Spent ~40 hours over a year learning Wireshark filters. Now I can
+              find issues in minutes that used to take hours.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://www.tenable.com/products/nessus" rel="noopener noreferrer">Nessus</a> for vulnerability assessment
+
+            <p>
+              <strong>Using:</strong> Nessus Essentials (free version, up to 16 IPs). Tried OpenVAS for a year in
+              2020&mdash;spent more time fixing false positives than finding vulns. Nessus just works.
+            </p>
+
+            <p>
+              <strong>Trade-off:</strong> Free version is limited to 16 hosts, but that covers my critical
+              infrastructure. For a full homelab scan, I rotate scans across subnets or use Grype/OSV for
+              container/package scanning.
+            </p>
+
+            <p>
+              <strong>What I scan:</strong> Everything. Monthly full scans of all homelab assets. Found critical vulns
+              in IoT devices that vendors never patched.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://github.com/anchore/grype" rel="noopener noreferrer">Grype</a> and
+            <a href="https://github.com/google/osv-scanner" rel="noopener noreferrer">OSV-Scanner</a> for supply chain scanning
+
+            <p>
+              <strong>Free alternatives:</strong> For container/code scanning, these are excellent. I also use
+              <a href="https://github.com/aquasecurity/trivy" rel="noopener noreferrer">Trivy</a>. Run all three
+              because overlapping coverage catches more issues.
+            </p>
+
+            <p>
+              <strong>Discovery:</strong> Found a critical vuln in a homelab container with Grype that Nessus missed.
+              Now I always run multiple scanners.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a> for log analysis and detection
+
+            <p>
+              <strong>Open-source SIEM:</strong> Wazuh aggregates logs from everything and correlates events. Detected
+              a brute-force SSH attack in real-time in 2023. Would've missed it without centralized logging.
+            </p>
+
+            <p>
+              <strong>Setup time:</strong> ~8 hours to configure properly. Worth every minute. Now I have visibility
+              into everything happening on my network.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>,
+            <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>,
+            <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> for metrics and dashboards
+
+            <p>
+              <strong>Observability stack:</strong> Prometheus scrapes metrics, Grafana visualizes them, Netdata gives
+              real-time insights. I have dashboards for everything: server health, network traffic, container metrics,
+              power consumption.
+            </p>
+
+            <p>
+              <strong>Prevented issues:</strong> Caught a failing disk before data loss, identified a memory leak in a
+              service, spotted unusual traffic patterns.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://www.zaproxy.org/" rel="noopener noreferrer">OWASP ZAP</a> and
+            <a href="https://github.com/OJ/gobuster" rel="noopener noreferrer">gobuster</a> for web/app testing
+
+            <p>
+              <strong>Pentesting tools:</strong> ZAP for automated web app scanning, gobuster for directory/subdomain
+              discovery. Use these for testing anything web-facing before exposing it to the internet.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://bitwarden.com/" rel="noopener noreferrer">Bitwarden</a> (self-hosted) for password management
+
+            <p>
+              <strong>Why self-hosted:</strong> I trust Bitwarden's security model, but I prefer controlling the
+              infrastructure. Running
+              <a href="https://github.com/dani-garcia/vaultwarden" rel="noopener noreferrer">Vaultwarden</a>
+              (lightweight Bitwarden server) on my homelab since 2021.
+            </p>
+
+            <p>
+              <strong>Migration:</strong> Moved from LastPass after their 2021 breach. Haven't looked back.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://www.yubico.com/products/yubikey-5c-nfc/" rel="noopener noreferrer">YubiKey 5C NFC</a>
+            for hardware 2FA (~$55)
+
+            <p>
+              <strong>Physical security keys:</strong> I use YubiKeys for every account that supports FIDO2/WebAuthn.
+              Phishing-resistant 2FA is non-negotiable.
+            </p>
+
+            <p>
+              <strong>Rule:</strong> If a service doesn't support 2FA in 2025, it doesn't get my data. Full stop.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://www.vaultproject.io/" rel="noopener noreferrer">HashiCorp Vault</a> for secrets in
+            automation and CI
+
+            <p>
+              <strong>Secrets management:</strong> Hardcoded secrets are evil. Vault centralizes secret storage and
+              provides audit logs of who accessed what when.
+            </p>
+
+            <p>
+              <strong>Learning curve:</strong> Steep. Took me two weeks to grok the concepts. Absolutely worth it for
+              automated workflows.
+            </p>
+          </li>
+        </ul>
+
+        <div class="card p-6 my-6 not-prose">
+          <p class="text-[var(--md-sys-color-on-surface-variant)] font-medium">Related posts:</p>
+          <ul class="mt-2 list-disc list-inside text-[var(--md-sys-color-on-surface-variant)]">
+            <li><a href="/posts/building-a-smart-vulnerability-prioritization-system-with-epss-and-cisa-kev/" class="text-[var(--md-sys-color-primary)]">Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV</a></li>
+            <li><a href="/posts/vulnerability-management-at-scale-with-open-source-tools/" class="text-[var(--md-sys-color-primary)]">Vulnerability Management at Scale with Open Source Tools</a></li>
+            <li><a href="/posts/building-your-own-mitre-attck-threat-intelligence-dashboard/" class="text-[var(--md-sys-color-primary)]">Building Your Own MITRE ATT&amp;CK Threat Intelligence Dashboard</a></li>
+            <li><a href="/posts/ebpf-for-security-monitoring-a-practical-guide/" class="text-[var(--md-sys-color-primary)]">eBPF for Security Monitoring: A Practical Guide</a></li>
+          </ul>
+        </div>
+
+        <hr />
+
+        <!-- ==================== AI & PROMPTING ==================== -->
+        <h2>AI &amp; Prompting</h2>
+
+        <ul>
+          <li>
+            <strong>Local LLMs on RTX 3090</strong> (24GB VRAM)
+
+            <p>
+              <strong>Models that actually fit:</strong> Llama 3.1 8B (~4GB Q4), Mistral 7B (~4GB Q4), CodeLlama 34B
+              (~20GB Q4), Qwen 2.5 Coder 32B (~18GB Q4).
+            </p>
+
+            <p>
+              <strong>Why local:</strong> Privacy, unlimited usage, learning how they work under the hood. For security
+              research and analyzing potentially sensitive data, local inference is the only acceptable option.
+            </p>
+
+            <p>
+              <strong>Hardware reality:</strong> 24GB VRAM handles 7B-34B models fully in GPU memory with Q4
+              quantization. Larger models (70B+) require CPU offloading (storing part of model in system RAM), which
+              drops performance from 20+ tokens/second to 2-5 tokens/second. For 70B tasks, I use API access or accept
+              the slower offloaded inference.
+            </p>
+
+            <p>
+              <strong>Performance sweet spot:</strong> CodeLlama 34B at Q4 quantization (~20GB) gives excellent quality
+              at 12-15 tokens/second. 8B models hit 40+ tokens/second. Good enough for 90% of my use cases.
+            </p>
+          </li>
+
+          <li>
+            <a href="https://ollama.com/" rel="noopener noreferrer">Ollama</a> for model management
+
+            <p>
+              <strong>Game changer:</strong> Makes running local LLMs actually usable. Tried llama.cpp
+              directly &ndash; too much friction. Ollama is Docker-simple.
+            </p>
+
+            <p>
+              <strong>Install to running LLM in 2 commands:</strong>
+            </p>
+
+            <pre><code>curl https://ollama.ai/install.sh | sh
+ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
+          </li>
+
+          <li>
+            <strong>Use cases that actually work:</strong>
+            <ul>
+              <li><strong>Code review:</strong> Catches obvious bugs, suggests improvements. Not perfect, but faster than waiting for human review.</li>
+              <li><strong>Security policy analysis:</strong> Summarizing 50-page compliance docs into actionable items.</li>
+              <li><strong>Homelab troubleshooting:</strong> Explains obscure error messages better than Google sometimes.</li>
+              <li><strong>Learning new tech:</strong> Asks better questions than docs sometimes. Great for "explain like I'm five" moments.</li>
+              <li><strong>Blog post editing:</strong> Catches typos and awkward phrasing I miss.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>Use cases that don't work:</strong>
+            <ul>
+              <li>Anything requiring real-time data (models are frozen in time).</li>
+              <li>Complex multi-step reasoning (hallucinations increase with complexity).</li>
+              <li>Critical decisions where hallucinations matter (always verify).</li>
+              <li>Code generation for complex systems (good for boilerplate, bad for architecture).</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>Reality check:</strong> LLMs are tools, not magic. They're autocomplete on steroids. Useful when
+            you understand their limitations, dangerous when you don't.
+          </li>
+        </ul>
+
+        <div class="card p-6 my-6 not-prose">
+          <p class="text-[var(--md-sys-color-on-surface-variant)] font-medium">Related posts:</p>
+          <ul class="mt-2 list-disc list-inside text-[var(--md-sys-color-on-surface-variant)]">
+            <li><a href="/posts/2025-08-07-supercharging-development-claude-flow/" class="text-[var(--md-sys-color-primary)]">Supercharging Development with Claude-Flow</a></li>
+            <li><a href="/posts/down-the-mcp-rabbit-hole-building-a-standards-server/" class="text-[var(--md-sys-color-primary)]">Down the MCP Rabbit Hole: Building a Standards Server</a></li>
+            <li><a href="/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/" class="text-[var(--md-sys-color-primary)]">Exploring Claude CLI Context and Compliance</a></li>
+            <li><a href="/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/" class="text-[var(--md-sys-color-primary)]">AI as Cognitive Infrastructure</a></li>
+          </ul>
+        </div>
+
+        <hr />
+
+        <!-- ==================== SERVICES ==================== -->
+        <h2>Services</h2>
+
+        <ul>
+          <li>
+            <strong>Code Hosting:</strong> GitHub (public),
+            <a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> (self-hosted private)
+
+            <p>
+              <strong>Why both:</strong> GitHub for open-source visibility, GitLab for private repos I don't want in
+              someone else's cloud. GitLab CE is free and feature-complete.
+            </p>
+          </li>
+
+          <li>
+            <strong>CI/CD:</strong> GitHub Actions (public),
+            <a href="https://www.jenkins.io/" rel="noopener noreferrer">Jenkins</a> (homelab automation)
+
+            <p>
+              <strong>GitHub Actions:</strong> Free for public repos, simple YAML config, integrates perfectly with
+              GitHub. Handles my blog deployment.
+            </p>
+
+            <p>
+              <strong>Jenkins:</strong> Overkill for most things, but I use it for homelab automation that GitHub
+              Actions can't reach. Runs backup jobs, system updates, monitoring checks.
+            </p>
+          </li>
+
+          <li>
+            <strong>Monitoring:</strong>
+            <a href="https://uptimerobot.com/" rel="noopener noreferrer">UptimeRobot</a> (free tier)
+
+            <p>
+              <strong>External health checks:</strong> Monitors my public-facing services from outside my network.
+              Notifies me via email/SMS if something goes down. Free tier is generous (50 monitors, 5-minute intervals).
+            </p>
+          </li>
+
+          <li>
+            <strong>VPN:</strong>
+            <a href="https://www.wireguard.com/" rel="noopener noreferrer">WireGuard</a>,
+            <a href="https://tailscale.com/" rel="noopener noreferrer">Tailscale</a>,
+            <a href="https://protonvpn.com/" rel="noopener noreferrer">ProtonVPN</a>
+
+            <p>
+              <strong>WireGuard for homelab access:</strong> Fast, modern, secure. Self-hosted on my UDM Pro. Connect
+              to my homelab from anywhere.
+            </p>
+
+            <p>
+              <strong>Tailscale for mesh networking:</strong> Zero-config VPN that just works. Free for personal use
+              (up to 20 devices). Magic.
+            </p>
+
+            <p>
+              <strong>ProtonVPN for privacy:</strong> When I need to hide my traffic from my ISP or access
+              region-locked content. Swiss privacy laws, no logs, trustworthy.
+            </p>
+          </li>
+
+          <li>
+            <strong>DNS:</strong>
+            <a href="https://1.1.1.1/" rel="noopener noreferrer">Cloudflare 1.1.1.1</a> upstream,
+            <a href="https://pi-hole.net/" rel="noopener noreferrer">Pi-hole</a> local filtering
+
+            <p>
+              <strong>Layered approach:</strong> Pi-hole blocks ads/tracking at the DNS level (25% of queries),
+              Cloudflare DNS for privacy (faster than ISP DNS, no logging).
+            </p>
+
+            <p>
+              <strong>Why not Google DNS:</strong> I don't need Google knowing every domain I visit.
+            </p>
+          </li>
+        </ul>
+
+        <hr />
+
+        <!-- ==================== SELF-HOSTED SERVICES ==================== -->
+        <h2>Self-Hosted Services</h2>
+
+        <p>Running these on Proxmox VMs/containers because I control my data:</p>
+
+        <ul>
+          <li>
+            <a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a>,
+            <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>,
+            <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>,
+            <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> &mdash; Security + monitoring stack
+          </li>
+          <li>
+            <a href="https://jellyfin.org/" rel="noopener noreferrer">Jellyfin</a> &mdash; Media server (FOSS alternative to Plex, no tracking)
+          </li>
+          <li>
+            <a href="https://www.home-assistant.io/" rel="noopener noreferrer">Home Assistant</a> &mdash; Home automation (controls lights, sensors, cameras)
+          </li>
+          <li>
+            <a href="https://www.bookstackapp.com/" rel="noopener noreferrer">BookStack</a> &mdash; Documentation/wiki (beautiful, markdown-based, easy to use)
+          </li>
+          <li>
+            <a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> &mdash; Private git repos
+          </li>
+          <li>
+            <a href="https://restic.net/" rel="noopener noreferrer">restic</a> backups &rarr;
+            <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a> &mdash; Encrypted offsite backups
+          </li>
+        </ul>
+
+        <div class="card p-6 my-6 not-prose">
+          <p class="text-[var(--md-sys-color-on-surface-variant)]">
+            <strong>Why self-host:</strong> Privacy, learning, control. Also, it's fun. I've learned more about
+            networking, security, and system administration from running these services than from any course.
+          </p>
+          <p class="mt-4 text-[var(--md-sys-color-on-surface-variant)]">
+            <strong>Cost:</strong> ~$50/month for Backblaze B2, ~$150/month for power. Compared to equivalent SaaS
+            subscriptions (~$300/month), I'm break-even while learning and owning my data.
+          </p>
+        </div>
+
+        <hr />
+
+        <!-- ==================== CLI TOOLS ==================== -->
+        <h2>CLI Tools</h2>
+
+        <h3>Development</h3>
+
+        <ul>
+          <li><a href="https://git-scm.com/" rel="noopener noreferrer">git</a> &mdash; Version control (use it hourly)</li>
+          <li><a href="https://cli.github.com/" rel="noopener noreferrer">gh</a> &mdash; GitHub CLI (faster than web UI for PRs/issues)</li>
+          <li><a href="https://www.python.org/" rel="noopener noreferrer">python3</a> &mdash; Scripting &amp; automation (80% of my scripts)</li>
+          <li><a href="https://go.dev/" rel="noopener noreferrer">go</a> &mdash; Systems programming (learning, not expert)</li>
+          <li><a href="https://www.rust-lang.org/" rel="noopener noreferrer">rust</a> &mdash; Memory-safe development (aspirational, still learning)</li>
+        </ul>
+
+        <h3>Infrastructure</h3>
+
+        <ul>
+          <li><a href="https://www.terraform.io/" rel="noopener noreferrer">terraform</a> &mdash; IaC (declarative infrastructure, version-controlled)</li>
+          <li><a href="https://www.ansible.com/" rel="noopener noreferrer">ansible</a> &mdash; Configuration management (automate everything)</li>
+          <li><a href="https://www.docker.com/" rel="noopener noreferrer">docker</a> &mdash; Containers (daily driver)</li>
+          <li><a href="https://kubernetes.io/docs/reference/kubectl/" rel="noopener noreferrer">kubectl</a> &mdash; Kubernetes (learning)</li>
+          <li><a href="https://k3s.io/" rel="noopener noreferrer">k3s</a> &mdash; Lightweight Kubernetes (actually using)</li>
+        </ul>
+
+        <h3>Utilities That Changed My Workflow</h3>
+
+        <ul>
+          <li><a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> &mdash; Multiplexer (can't work without it)</li>
+          <li><a href="https://github.com/junegunn/fzf" rel="noopener noreferrer">fzf</a> &mdash; Fuzzy finder (instant file/history search)</li>
+          <li><a href="https://github.com/BurntSushi/ripgrep" rel="noopener noreferrer">ripgrep</a> &mdash; Code search (10x faster than grep)</li>
+          <li><a href="https://github.com/sharkdp/bat" rel="noopener noreferrer">bat</a> &mdash; Syntax-highlighted cat (small QoL improvement)</li>
+          <li><a href="https://htop.dev/" rel="noopener noreferrer">htop</a> &mdash; Process monitor (better than top)</li>
+          <li><a href="https://dev.yorhel.nl/ncdu" rel="noopener noreferrer">ncdu</a> &mdash; Disk usage (find space hogs instantly)</li>
+        </ul>
+
+        <div class="card p-6 my-6 not-prose">
+          <p class="text-[var(--md-sys-color-on-surface-variant)]">
+            <strong>Pattern:</strong> I gradually replace standard tools with modern alternatives when they
+            significantly improve my workflow. Not change for change's sake, but real productivity gains.
+          </p>
+        </div>
+
+        <hr />
+
+        <!-- ==================== LEARNING ==================== -->
+        <h2>Learning</h2>
+
+        <ul>
+          <li>
+            <strong>Platforms:</strong>
+            <a href="https://www.pluralsight.com/" rel="noopener noreferrer">Pluralsight</a> ($299/year),
+            <a href="https://www.oreilly.com/" rel="noopener noreferrer">O'Reilly</a> ($499/year), YouTube (free)
+
+            <p>
+              <strong>ROI:</strong> These subscriptions pay for themselves if I learn one skill that saves 10 hours.
+              They've saved me hundreds of hours.
+            </p>
+
+            <p>
+              <strong>YouTube underrated:</strong> Free, high-quality content. I've learned more from
+              <a href="https://www.youtube.com/@NetworkChuck" rel="noopener noreferrer">NetworkChuck</a>,
+              <a href="https://www.youtube.com/@LiveOverflow" rel="noopener noreferrer">LiveOverflow</a>, and
+              <a href="https://www.youtube.com/@ippsec" rel="noopener noreferrer">IppSec</a> than from some paid courses.
+            </p>
+          </li>
+
+          <li>
+            <strong>Security labs:</strong>
+            <a href="https://www.hackthebox.com/" rel="noopener noreferrer">HackTheBox</a> (~$150/year),
+            <a href="https://tryhackme.com/" rel="noopener noreferrer">TryHackMe</a> (~$100/year), personal homelab (priceless)
+
+            <p>
+              <strong>Hands-on learning:</strong> Reading about security is fine. Breaking things is better. These
+              platforms provide safe, legal environments to practice offensive security.
+            </p>
+
+            <p>
+              <strong>Homelab advantage:</strong> I can test things these platforms don't cover. My lab, my rules.
+            </p>
+          </li>
+
+          <li>
+            <strong>Threat intel:</strong>
+            <a href="https://otx.alienvault.com/" rel="noopener noreferrer">AlienVault OTX</a>,
+            <a href="https://abuse.ch/" rel="noopener noreferrer">abuse.ch feeds</a>,
+            <a href="https://www.cisa.gov/known-exploited-vulnerabilities" rel="noopener noreferrer">CISA KEV</a>
+
+            <p>
+              <strong>Free threat intelligence:</strong> These feeds tell me what bad actors are exploiting right now.
+              I integrate them into Wazuh for automated detection.
+            </p>
+          </li>
+        </ul>
+
+        <hr />
+
+        <!-- ==================== PRINCIPLES ==================== -->
+        <h2>Principles</h2>
+
+        <ol>
+          <li>
+            <strong>Open Source First</strong> &mdash; Transparent, inspectable tools
+
+            <p>
+              <strong>Learned this the hard way:</strong> Vendor locked me out of my own monitoring data in 2018. Never
+              again. Open source means I control my data and can fix it myself if needed.
+            </p>
+
+            <p>
+              <strong>Exception:</strong> I'll use proprietary tools when they're significantly better (Nessus) or when
+              no viable FOSS alternative exists. Pragmatism over ideology.
+            </p>
+          </li>
+
+          <li>
+            <strong>Privacy &amp; Safety</strong> &mdash; Minimize data exhaust; enforce 2FA everywhere
+
+            <p>
+              <strong>Rule:</strong> If a service doesn't support 2FA in 2025, it doesn't get my data. Full stop.
+              Bitwarden + YubiKey for everything.
+            </p>
+
+            <p>
+              <strong>Data minimization:</strong> Services that don't need my real info get
+              <a href="https://simplelogin.io/" rel="noopener noreferrer">SimpleLogin</a> aliases and fake data.
+              Compartmentalization reduces blast radius.
+            </p>
+          </li>
+
+          <li>
+            <strong>Automate Boring Things</strong> &mdash; Script repeatable tasks
+
+            <p>
+              <strong>Trigger:</strong> If I do something manually 3 times, it gets automated. Life's too short for
+              repetitive tasks.
+            </p>
+
+            <p>
+              <strong>Examples:</strong> Database backups (automated), certificate renewal (automated), system updates
+              (automated), blog deployment (automated), VM snapshots (automated).
+            </p>
+          </li>
+
+          <li>
+            <strong>Document As You Go</strong> &mdash; Wikis &gt; memory
+
+            <p>
+              <strong>Reality check:</strong> I don't remember why I made a change 3 months ago without notes. Future
+              me always thanks past me for documentation.
+            </p>
+
+            <p>
+              <strong>Tools:</strong> BookStack for procedures, git commit messages for code changes, inline comments
+              for complex logic.
+            </p>
+
+            <p>
+              <strong>Learned:</strong> If I can't explain it to someone else, I don't understand it well enough.
+            </p>
+          </li>
+
+          <li>
+            <strong>Reliability &gt; Novelty</strong> &mdash; Boring tech for critical paths
+
+            <p>
+              <strong>Translation:</strong> New and shiny is fun for labs. Production runs on battle-tested boring
+              tech. Docker, PostgreSQL, nginx, Ubuntu LTS &ndash; they work because they've been broken and fixed
+              1,000 times.
+            </p>
+
+            <p>
+              <strong>Exception:</strong> I break this rule in the homelab constantly. That's what it's for. Break
+              things, learn, iterate. Just don't do it in production.
+            </p>
+
+            <p>
+              <strong>Wisdom:</strong> The best tech stack is the one you understand, not the one on Hacker News.
+            </p>
+          </li>
+        </ol>
+
+        <hr />
+
+        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
+          <em>Last updated: 2025-11-12</em>
+        </p>
       </div>
     </div>
   </section>

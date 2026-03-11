@@ -1234,6 +1234,73 @@ def check_mermaid_syntax() -> Tuple[bool, str]:
         return True, "No Mermaid diagrams modified"
 
 
+def check_internal_links() -> Tuple[bool, str]:
+    """
+    Check that blog posts include internal links to related posts.
+
+    Advisory check (warning only, never blocks). Encourages cross-linking
+    between posts to improve SEO and reader engagement.
+    Target: >=2 internal /posts/ links per blog post.
+
+    Returns:
+        (success, message) - always succeeds (advisory only)
+    """
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        return True, "Could not check staged files"
+
+    modified_files = result.stdout.strip().split('\n') if result.stdout else []
+
+    # Only check blog posts (src/posts/*.md)
+    blog_posts = [
+        f for f in modified_files
+        if f.startswith('src/posts/') and f.endswith('.md')
+    ]
+
+    if not blog_posts:
+        return True, "No blog posts modified"
+
+    warnings: List[str] = []
+    min_links = 2
+
+    for post_file in blog_posts:
+        if not Path(post_file).exists():
+            continue
+
+        try:
+            content = Path(post_file).read_text(encoding='utf-8')
+            # Count internal post links: /posts/ or ](/posts/
+            internal_links = len(re.findall(
+                r'(?:\(|href=["\'])/posts/[^)"\']+', content
+            ))
+
+            if internal_links < min_links:
+                filename = Path(post_file).name
+                warnings.append(
+                    f"  {filename}: {internal_links} internal links "
+                    f"(target: >={min_links})"
+                )
+        except Exception:
+            continue
+
+    if warnings:
+        # Advisory only - always return success
+        return True, (
+            f"Low internal linking in {len(warnings)} post(s):\n"
+            + "\n".join(warnings)
+            + f"\n  Tip: Link to >={min_links} related posts for better SEO"
+        )
+
+    return True, (
+        f"All {len(blog_posts)} blog post(s) have "
+        f">={min_links} internal links"
+    )
+
+
 def update_manifest() -> Tuple[bool, str]:
     """
     Update MANIFEST.json with current timestamp and stage it.
@@ -1304,6 +1371,7 @@ VALIDATORS = {
     "mermaid_syntax": check_mermaid_syntax,
     "index_yaml_validation": validate_index_yaml,
     "nda_compliance": check_nda_compliance,
+    "internal_links": check_internal_links,
 }
 
 # Validators that must run sequentially AFTER parallel checks pass

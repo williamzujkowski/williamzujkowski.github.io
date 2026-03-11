@@ -42,6 +42,8 @@ const recentPosts = allPosts
               alt="William Zujkowski"
               class="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full shadow-2xl ring-4 ring-[var(--md-sys-color-primary-container)]"
               loading="eager"
+              decoding="async"
+              fetchpriority="high"
               width="320"
               height="320"
             />
@@ -89,7 +91,7 @@ const recentPosts = allPosts
           <article class="card group relative p-6 flex flex-col">
             {getImageUrl(post.data.image) && (
               <div class="mb-4 -mx-6 -mt-6 overflow-hidden rounded-t-[var(--md-sys-shape-corner-large)]">
-                <img src={getImageUrl(post.data.image)} alt={post.data.title} class="w-full h-40 object-cover" loading="lazy" />
+                <img src={getImageUrl(post.data.image)} alt="" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
               </div>
             )}
             <div class="flex items-center gap-3 text-sm">

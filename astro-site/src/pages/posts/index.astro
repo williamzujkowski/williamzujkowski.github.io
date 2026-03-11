@@ -45,7 +45,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
           <article class="card group p-6 flex flex-col sm:flex-row gap-6">
             {getImageUrl(post.data.image) && (
               <div class="sm:w-48 sm:flex-shrink-0">
-                <img src={getImageUrl(post.data.image)} alt={post.data.title} class="w-full h-32 sm:h-full object-cover rounded-[var(--md-sys-shape-corner-medium)]" loading="lazy" />
+                <img src={getImageUrl(post.data.image)} alt="" class="w-full h-32 sm:h-full object-cover rounded-[var(--md-sys-shape-corner-medium)]" loading="lazy" decoding="async" />
               </div>
             )}
             <div class="flex-grow">

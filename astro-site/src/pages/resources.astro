@@ -2,801 +2,823 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Resources" description="The best open source tools, homelab projects, and books that actually taught me something.">
+<BaseLayout title="Resources" description="The best open source tools, homelab projects, and books that actually taught me something. No fluff, just the good stuff.">
   <section class="py-12 sm:py-16">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
 
-<h1 class="text-3xl font-bold mb-4" style="color: var(--md-sys-color-on-surface)">The Good Stuff: Tools, Toys, and Rabbit Holes</h1>
+      <h1 class="text-4xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">The Good Stuff: Tools, Toys, and Rabbit Holes</h1>
 
-<div class="prose prose-lg max-w-none">
-
-<p class="lead text-xl text-[var(--md-sys-color-on-surface-variant)] italic">
-The tools that survived my testing, the projects that actually work, and the books that are worth your time.
-No vendor pitches, no compliance frameworks – just the open source goodness that makes homelabbing addictive.
-</p>
-
-<div class="bg-[var(--md-sys-color-tertiary-container)] border-l-4 border-[var(--md-sys-color-tertiary)] p-6 my-8">
-  <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">🧭 Your Learning Journey Map</h4>
-  <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
-    I've been down this rabbit hole since 2005, and trust me – the path isn't linear. You'll circle back, get distracted by shiny new tools,
-    and occasionally question your life choices at 3 AM when Docker won't start (I've done this at least 47 times). That's normal. Here's what I wish someone had told me when I started.
-  </p>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded">
-      <strong class="text-[var(--md-sys-color-success)]">🌱 Start Here</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Docker, basic monitoring, and one programming language. Don't try to learn everything at once.</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded">
-      <strong class="text-[var(--md-sys-color-primary)]">🚀 Build Momentum</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Add orchestration, monitoring, and start breaking things intentionally. Security mindset begins here.</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded">
-      <strong class="text-[var(--md-sys-color-primary)]">🔬 Go Deep</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Specialize in what interests you. Red team, blue team, DevOps, or just really cool home automation.</p>
-    </div>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🚀 Hot Right Now: Tools I'm Excited About</h2>
-
-These are the tools that have me staying up way too late "just testing one more thing."
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-  <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-lg">
-    <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
-      <a href="https://github.com/slimtoolkit/slim" class="text-[var(--md-sys-color-primary)] hover:underline">Slim.AI</a>
-    </h4>
-    <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
-      Container minification that actually works. Turned my 1.2GB containers into 43MB. Black magic.
-    </p>
-    <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-      <p><strong>When I discovered it:</strong> October 2024</p>
-      <p><strong>Version tested:</strong> v1.40.8</p>
-      <p><strong>Real measurement:</strong> Reduced my Python app from 1.2GB → 43MB (96% reduction)</p>
-      <p><strong>Timeline:</strong> Found this after spending 3 weeks manually optimizing Dockerfiles. Could've saved myself 20+ hours.</p>
-      <p><strong>Why I love it:</strong> Smaller attack surface + faster deploys = happy me</p>
-      <p><strong>Gotcha:</strong> Sometimes breaks dynamic code loading. Test thoroughly before production.</p>
-    </div>
-  </div>
-
-  <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-lg">
-    <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
-      <a href="https://github.com/tailscale/tailscale" class="text-[var(--md-sys-color-primary)] hover:underline">Tailscale</a>
-    </h4>
-    <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
-      WireGuard VPN that just works. No port forwarding, no crying.
-    </p>
-    <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-      <p><strong>Adoption date:</strong> March 2024</p>
-      <p><strong>Setup time:</strong> Literally 2 minutes 23 seconds (I timed it because I didn't believe it)</p>
-      <p><strong>Before/after:</strong> Spent 4 weekends in 2023 fighting OpenVPN configs. Now VPN "just works."</p>
-      <p><strong>Why I love it:</strong> Connected my homelab to my phone in under 3 minutes. TWO COMMANDS.</p>
-      <p><strong>Pro tip:</strong> Start with the free tier (up to 3 users, 100 devices), then upgrade when you inevitably add every device you own.</p>
-    </div>
-  </div>
-
-  <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-lg">
-    <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
-      <a href="https://github.com/crowdsecurity/crowdsec" class="text-[var(--md-sys-color-primary)] hover:underline">CrowdSec</a>
-    </h4>
-    <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
-      Collaborative IPS that actually learns from attacks. Like fail2ban grew a brain.
-    </p>
-    <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-      <p><strong>Discovery:</strong> August 2024 during weekend security audit</p>
-      <p><strong>First blocked attack:</strong> 47 minutes after installation (WordPress brute force from 185.220.xxx.xxx)</p>
-      <p><strong>Current stats:</strong> Blocking ~200 IPs/day, 95%+ from community intel</p>
-      <p><strong>Why I love it:</strong> Community-powered threat intel that actually works. Like having 50,000+ security teams watching your back.</p>
-      <p><strong>Learning curve:</strong> Start with default scenarios (takes ~15 minutes), then customize. The community hub is gold.</p>
-    </div>
-  </div>
-
-  <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-lg">
-    <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
-      <a href="https://github.com/netdata/netdata" class="text-[var(--md-sys-color-primary)] hover:underline">Netdata</a>
-    </h4>
-    <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
-      Real-time monitoring that doesn't need a PhD to configure. Pretty graphs included.
-    </p>
-    <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-      <p><strong>Found:</strong> July 2024 during memory leak hunt</p>
-      <p><strong>Problem solved:</strong> 5 minutes to identify leak that took 3 days to find manually (Python process eating 8GB+)</p>
-      <p><strong>Resource usage:</strong> &lt;1% CPU, ~100MB RAM for full monitoring stack</p>
-      <p><strong>First impression:</strong> "This can't be this easy." Spoiler: it was. One-line install, zero config needed.</p>
-      <p><strong>Warning:</strong> You'll become addicted to watching real-time metrics. Don't say I didn't warn you.</p>
-    </div>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🏠 Homelab Essentials: The Foundation</h2>
-
-<div class="bg-[var(--md-sys-color-primary-container)] border-l-4 border-[var(--md-sys-color-primary)] p-6 my-6">
-  <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">📚 Learning Path: From Zero to Hero</h4>
-  <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
-    Here's the order I'd tackle these if I were starting over. Each tool builds on the last, and you'll use these concepts everywhere.
-  </p>
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-success)]">Week 1-2</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Docker basics, simple containers</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-primary)]">Week 3-4</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Docker Compose, multi-container apps</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-primary)]">Month 2</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Orchestration (K3s or Nomad)</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-tertiary)]">Month 3+</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Infrastructure as Code</p>
-    </div>
-  </div>
-</div>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Container & Orchestration</h3>
-
-<div class="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-lg my-6">
-  <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mb-4 italic">
-    <strong>My Journey:</strong> 2017: Started with Docker | 2019: Tried K8s, overwhelmed, gave up | 2021: K3s made Kubernetes click | 2024: Running 30+ containers across 12 K3s nodes
-  </p>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">🐳 Container Platforms</h5>
-      <div class="space-y-3">
-        <div class="border-l-2 border-green-400 pl-3">
-          <p><a href="https://www.portainer.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Portainer</a> - Docker management that doesn't suck</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🌱 <strong>Start here:</strong> Web UI makes Docker approachable. Perfect for beginners who need visual feedback.</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Adoption:</strong> Day 2 of learning Docker (2017). Needed visual feedback to understand what containers were actually doing. Still use it 7 years later for quick operations.</p>
-        </div>
-        <div class="border-l-2 border-blue-400 pl-3">
-          <p><a href="https://k3s.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">K3s</a> - Kubernetes for humans (only 40MB!)</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🚀 <strong>My go-to:</strong> All the K8s power, none of the complexity. Runs on a Pi!</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Adoption:</strong> 2021-present | <strong>Version:</strong> v1.28.3+k3s1 | <strong>Why it clicked:</strong> Full K8s in 40MB vs 2GB+ for full K8s. Runs on Raspberry Pi. That simplicity made concepts finally make sense.</p>
-        </div>
-        <div class="border-l-2 border-purple-400 pl-3">
-          <p><a href="https://podman.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Podman</a> - Docker without the daemon drama</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🔒 <strong>Security win:</strong> Rootless containers out of the box. Steep learning curve though.</p>
-        </div>
-        <div class="border-l-2 border-orange-400 pl-3">
-          <p><a href="https://www.nomadproject.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Nomad</a> - Simple orchestration that actually is simple</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">💡 <strong>Hidden gem:</strong> When K8s feels like overkill. Single binary, zero fuss.</p>
-        </div>
-      </div>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">🔧 Infrastructure as Code</h5>
-      <div class="space-y-3">
-        <div class="border-l-2 border-green-400 pl-3">
-          <p><a href="https://www.ansible.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Ansible</a> - Automate all the things</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🌱 <strong>Start here:</strong> YAML you can actually read. Great for server setup and maintenance.</p>
-        </div>
-        <div class="border-l-2 border-blue-400 pl-3">
-          <p><a href="https://www.terraform.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Terraform</a> - For when you want to code your infrastructure</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🚀 <strong>Game changer:</strong> Destroyed and rebuilt my lab 50+ times learning this. Worth every retry.</p>
-        </div>
-        <div class="border-l-2 border-purple-400 pl-3">
-          <p><a href="https://www.pulumi.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Pulumi</a> - Terraform but with real programming languages</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">💻 <strong>For devs:</strong> If you prefer Python/TypeScript over HCL. Powerful but opinionated.</p>
-        </div>
-        <div class="border-l-2 border-orange-400 pl-3">
-          <p><a href="https://github.com/hashicorp/packer" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Packer</a> - Golden images done right</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🏗️ <strong>Advanced move:</strong> Standardize your VM builds. Pairs beautifully with Terraform.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Self-Hosted Services That Don't Suck</h3>
-
-<div class="bg-[var(--md-sys-color-primary-container)] p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">🎯 Actually Useful Services</h4>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Monitoring & Logs</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li><a href="https://github.com/getsentry/self-hosted" class="text-[var(--md-sys-color-primary)] hover:underline">Sentry</a> - Error tracking</li>
-        <li><a href="https://github.com/grafana/loki" class="text-[var(--md-sys-color-primary)] hover:underline">Loki</a> - Log aggregation</li>
-        <li><a href="https://uptimekuma.com/" class="text-[var(--md-sys-color-primary)] hover:underline">Uptime Kuma</a> - Status monitoring</li>
-        <li><a href="https://healthchecks.io/" class="text-[var(--md-sys-color-primary)] hover:underline">Healthchecks</a> - Cron monitoring</li>
-      </ul>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Dev Tools</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li><a href="https://gitea.io/" class="text-[var(--md-sys-color-primary)] hover:underline">Gitea</a> - Lightweight Git hosting</li>
-        <li><a href="https://www.drone.io/" class="text-[var(--md-sys-color-primary)] hover:underline">Drone CI</a> - Container-native CI/CD</li>
-        <li><a href="https://www.sonatype.com/products/sonatype-nexus-repository" class="text-[var(--md-sys-color-primary)] hover:underline">Nexus</a> - Artifact repository</li>
-        <li><a href="https://verdaccio.org/" class="text-[var(--md-sys-color-primary)] hover:underline">Verdaccio</a> - Private npm registry</li>
-      </ul>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Actually Fun</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li><a href="https://www.home-assistant.io/" class="text-[var(--md-sys-color-primary)] hover:underline">Home Assistant</a> - Home automation</li>
-        <li><a href="https://jellyfin.org/" class="text-[var(--md-sys-color-primary)] hover:underline">Jellyfin</a> - Media server</li>
-        <li><a href="https://nextcloud.com/" class="text-[var(--md-sys-color-primary)] hover:underline">Nextcloud</a> - Your own cloud</li>
-        <li><a href="https://github.com/paperless-ngx/paperless-ngx" class="text-[var(--md-sys-color-primary)] hover:underline">Paperless-ngx</a> - Document management</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">💀 The Graveyard: Tools That Didn't Make the Cut</h2>
-
-<div class="bg-[var(--md-sys-color-error-container)] border-l-4 border-red-400 p-6 my-8">
-  <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">🪦 Learn from My Mistakes</h4>
-  <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
-    Not every tool is a winner. Here are some that looked promising but didn't survive contact with reality.
-    Learning what doesn't work is just as valuable as finding what does.
-  </p>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">OpenShift (for homelab)</h5>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
-        <strong>Tried:</strong> Q2 2022, abandoned after 2 months<br>
-        <strong>Cost:</strong> $0 but ~40 hours wasted<br>
-        <strong>Why I tried it:</strong> Red Hat magic, enterprise features, impressive demos<br>
-        <strong>Why it failed:</strong> Minimum 4 cores + 16GB RAM per node. Ate 64GB of my 128GB total RAM. K3s does 90% for 10% of resources.<br>
-        <strong>What I learned:</strong> Enterprise tools don't scale down. Use tools designed for your scale.
+      <p class="text-xl italic text-[var(--md-sys-color-on-surface-variant)] mb-8">
+        The tools that survived my testing, the projects that actually work, and the books that are worth your time.
+        No vendor pitches, no compliance frameworks – just the open source goodness that makes homelabbing addictive.
       </p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">Jenkins (for simple CI/CD)</h5>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
-        <strong>Why I tried it:</strong> Industry standard, huge plugin ecosystem<br>
-        <strong>Why it failed:</strong> Configuration nightmare. Spent more time maintaining Jenkins than using it. GitLab CI or Drone CI work better for small projects.
+
+      <!-- Learning Journey Map -->
+      <div class="bg-[var(--md-sys-color-tertiary-container)] border-l-4 border-[var(--md-sys-color-tertiary)] p-6 my-8 rounded-r-lg">
+        <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">&#x1f9ed; Your Learning Journey Map</h4>
+        <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
+          I've been down this rabbit hole since 2005, and trust me – the path isn't linear. You'll circle back, get distracted by shiny new tools,
+          and occasionally question your life choices at 3 AM when Docker won't start (I've done this at least 47 times). That's normal. Here's what I wish someone had told me when I started.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)]">
+            <strong class="text-[var(--md-sys-color-primary)]">&#x1f331; Start Here</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Docker, basic monitoring, and one programming language. Don't try to learn everything at once.</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)]">
+            <strong class="text-[var(--md-sys-color-primary)]">&#x1f680; Build Momentum</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Add orchestration, monitoring, and start breaking things intentionally. Security mindset begins here.</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)]">
+            <strong class="text-[var(--md-sys-color-primary)]">&#x1f52c; Go Deep</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Specialize in what interests you. Red team, blue team, DevOps, or just really cool home automation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hot Right Now -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f680; Hot Right Now: Tools I'm Excited About</h2>
+      <p class="text-[var(--md-sys-color-on-surface-variant)] mb-6">
+        These are the tools that have me staying up way too late "just testing one more thing."
       </p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">Full ELK Stack (personal use)</h5>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
-        <strong>Why I tried it:</strong> Industry standard logging<br>
-        <strong>Why it failed:</strong> Java memory hog for homelab scale. Loki + Grafana gives 80% of the value with 20% of the complexity.
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+        <!-- Slim.AI -->
+        <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-[var(--md-sys-shape-corner-large)]">
+          <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
+            <a href="https://github.com/slimtoolkit/slim" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Slim.AI</a>
+          </h4>
+          <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
+            Container minification that actually works. Turned my 1.2GB containers into 43MB. Black magic.
+          </p>
+          <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+            <p><strong>When I discovered it:</strong> October 2024</p>
+            <p><strong>Version tested:</strong> v1.40.8</p>
+            <p><strong>Real measurement:</strong> Reduced my Python app from 1.2GB &rarr; 43MB (96% reduction)</p>
+            <p><strong>Timeline:</strong> Found this after spending 3 weeks manually optimizing Dockerfiles. Could've saved myself 20+ hours.</p>
+            <p><strong>Why I love it:</strong> Smaller attack surface + faster deploys = happy me</p>
+            <p><strong>Gotcha:</strong> Sometimes breaks dynamic code loading. Test thoroughly before production.</p>
+          </div>
+        </div>
+
+        <!-- Tailscale -->
+        <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-[var(--md-sys-shape-corner-large)]">
+          <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
+            <a href="https://github.com/tailscale/tailscale" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Tailscale</a>
+          </h4>
+          <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
+            WireGuard VPN that just works. No port forwarding, no crying.
+          </p>
+          <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+            <p><strong>Adoption date:</strong> March 2024</p>
+            <p><strong>Setup time:</strong> Literally 2 minutes 23 seconds (I timed it because I didn't believe it)</p>
+            <p><strong>Before/after:</strong> Spent 4 weekends in 2023 fighting OpenVPN configs. Now VPN "just works."</p>
+            <p><strong>Why I love it:</strong> Connected my homelab to my phone in under 3 minutes. TWO COMMANDS.</p>
+            <p><strong>Pro tip:</strong> Start with the free tier (up to 3 users, 100 devices), then upgrade when you inevitably add every device you own.</p>
+          </div>
+        </div>
+
+        <!-- CrowdSec -->
+        <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-[var(--md-sys-shape-corner-large)]">
+          <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
+            <a href="https://github.com/crowdsecurity/crowdsec" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">CrowdSec</a>
+          </h4>
+          <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
+            Collaborative IPS that actually learns from attacks. Like fail2ban grew a brain.
+          </p>
+          <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+            <p><strong>Discovery:</strong> August 2024 during weekend security audit</p>
+            <p><strong>First blocked attack:</strong> 47 minutes after installation (WordPress brute force from 185.220.xxx.xxx)</p>
+            <p><strong>Current stats:</strong> Blocking ~200 IPs/day, 95%+ from community intel</p>
+            <p><strong>Why I love it:</strong> Community-powered threat intel that actually works. Like having 50,000+ security teams watching your back.</p>
+            <p><strong>Learning curve:</strong> Start with default scenarios (takes ~15 minutes), then customize. The community hub is gold.</p>
+          </div>
+        </div>
+
+        <!-- Netdata -->
+        <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-[var(--md-sys-shape-corner-large)]">
+          <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">
+            <a href="https://github.com/netdata/netdata" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Netdata</a>
+          </h4>
+          <p class="text-[var(--md-sys-color-on-surface-variant)] mb-2">
+            Real-time monitoring that doesn't need a PhD to configure. Pretty graphs included.
+          </p>
+          <div class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+            <p><strong>Found:</strong> July 2024 during memory leak hunt</p>
+            <p><strong>Problem solved:</strong> 5 minutes to identify leak that took 3 days to find manually (Python process eating 8GB+)</p>
+            <p><strong>Resource usage:</strong> &lt;1% CPU, ~100MB RAM for full monitoring stack</p>
+            <p><strong>First impression:</strong> "This can't be this easy." Spoiler: it was. One-line install, zero config needed.</p>
+            <p><strong>Warning:</strong> You'll become addicted to watching real-time metrics. Don't say I didn't warn you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Homelab Essentials -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f3e0; Homelab Essentials: The Foundation</h2>
+
+      <!-- Learning Path -->
+      <div class="bg-[var(--md-sys-color-primary-container)] border-l-4 border-[var(--md-sys-color-primary)] p-6 my-6 rounded-r-lg">
+        <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">&#x1f4da; Learning Path: From Zero to Hero</h4>
+        <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
+          Here's the order I'd tackle these if I were starting over. Each tool builds on the last, and you'll use these concepts everywhere.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Week 1-2</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Docker basics, simple containers</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Week 3-4</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Docker Compose, multi-container apps</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Month 2</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Orchestration (K3s or Nomad)</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Month 3+</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Infrastructure as Code</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container & Orchestration -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Container &amp; Orchestration</h3>
+
+      <div class="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mb-4 italic">
+          <strong>My Journey:</strong> 2017: Started with Docker | 2019: Tried K8s, overwhelmed, gave up | 2021: K3s made Kubernetes click | 2024: Running 30+ containers across 12 K3s nodes
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">&#x1f433; Container Platforms</h5>
+            <div class="space-y-3">
+              <div class="border-l-2 border-[var(--md-sys-color-success)] pl-3">
+                <p><a href="https://www.portainer.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Portainer</a> - Docker management that doesn't suck</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f331; <strong>Start here:</strong> Web UI makes Docker approachable. Perfect for beginners who need visual feedback.</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Adoption:</strong> Day 2 of learning Docker (2017). Needed visual feedback to understand what containers were actually doing. Still use it 7 years later for quick operations.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+                <p><a href="https://k3s.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">K3s</a> - Kubernetes for humans (only 40MB!)</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f680; <strong>My go-to:</strong> All the K8s power, none of the complexity. Runs on a Pi!</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Adoption:</strong> 2021-present | <strong>Version:</strong> v1.28.3+k3s1 | <strong>Why it clicked:</strong> Full K8s in 40MB vs 2GB+ for full K8s. Runs on Raspberry Pi. That simplicity made concepts finally make sense.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+                <p><a href="https://podman.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Podman</a> - Docker without the daemon drama</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f512; <strong>Security win:</strong> Rootless containers out of the box. Steep learning curve though.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-tertiary)] pl-3">
+                <p><a href="https://www.nomadproject.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Nomad</a> - Simple orchestration that actually is simple</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f4a1; <strong>Hidden gem:</strong> When K8s feels like overkill. Single binary, zero fuss.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">&#x1f527; Infrastructure as Code</h5>
+            <div class="space-y-3">
+              <div class="border-l-2 border-[var(--md-sys-color-success)] pl-3">
+                <p><a href="https://www.ansible.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Ansible</a> - Automate all the things</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f331; <strong>Start here:</strong> YAML you can actually read. Great for server setup and maintenance.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+                <p><a href="https://www.terraform.io/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Terraform</a> - For when you want to code your infrastructure</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f680; <strong>Game changer:</strong> Destroyed and rebuilt my lab 50+ times learning this. Worth every retry.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+                <p><a href="https://www.pulumi.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Pulumi</a> - Terraform but with real programming languages</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f4bb; <strong>For devs:</strong> If you prefer Python/TypeScript over HCL. Powerful but opinionated.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-tertiary)] pl-3">
+                <p><a href="https://github.com/hashicorp/packer" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Packer</a> - Golden images done right</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f3d7;&#xfe0f; <strong>Advanced move:</strong> Standardize your VM builds. Pairs beautifully with Terraform.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Self-Hosted Services -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Self-Hosted Services That Don't Suck</h3>
+
+      <div class="bg-[var(--md-sys-color-primary-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">&#x1f3af; Actually Useful Services</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Monitoring &amp; Logs</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li><a href="https://github.com/getsentry/self-hosted" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Sentry</a> - Error tracking</li>
+              <li><a href="https://github.com/grafana/loki" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Loki</a> - Log aggregation</li>
+              <li><a href="https://uptimekuma.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Uptime Kuma</a> - Status monitoring</li>
+              <li><a href="https://healthchecks.io/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Healthchecks</a> - Cron monitoring</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Dev Tools</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li><a href="https://gitea.io/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Gitea</a> - Lightweight Git hosting</li>
+              <li><a href="https://www.drone.io/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Drone CI</a> - Container-native CI/CD</li>
+              <li><a href="https://www.sonatype.com/products/sonatype-nexus-repository" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Nexus</a> - Artifact repository</li>
+              <li><a href="https://verdaccio.org/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Verdaccio</a> - Private npm registry</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Actually Fun</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li><a href="https://www.home-assistant.io/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Home Assistant</a> - Home automation</li>
+              <li><a href="https://jellyfin.org/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Jellyfin</a> - Media server</li>
+              <li><a href="https://nextcloud.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Nextcloud</a> - Your own cloud</li>
+              <li><a href="https://github.com/paperless-ngx/paperless-ngx" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Paperless-ngx</a> - Document management</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graveyard -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f480; The Graveyard: Tools That Didn't Make the Cut</h2>
+
+      <div class="bg-[var(--md-sys-color-error-container)] border-l-4 border-[var(--md-sys-color-error)] p-6 my-8 rounded-r-lg">
+        <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">&#x1faa6; Learn from My Mistakes</h4>
+        <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
+          Not every tool is a winner. Here are some that looked promising but didn't survive contact with reality.
+          Learning what doesn't work is just as valuable as finding what does.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">OpenShift (for homelab)</h5>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
+              <strong>Tried:</strong> Q2 2022, abandoned after 2 months<br>
+              <strong>Cost:</strong> $0 but ~40 hours wasted<br>
+              <strong>Why I tried it:</strong> Red Hat magic, enterprise features, impressive demos<br>
+              <strong>Why it failed:</strong> Minimum 4 cores + 16GB RAM per node. Ate 64GB of my 128GB total RAM. K3s does 90% for 10% of resources.<br>
+              <strong>What I learned:</strong> Enterprise tools don't scale down. Use tools designed for your scale.
+            </p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">Jenkins (for simple CI/CD)</h5>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
+              <strong>Why I tried it:</strong> Industry standard, huge plugin ecosystem<br>
+              <strong>Why it failed:</strong> Configuration nightmare. Spent more time maintaining Jenkins than using it. GitLab CI or Drone CI work better for small projects.
+            </p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">Full ELK Stack (personal use)</h5>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
+              <strong>Why I tried it:</strong> Industry standard logging<br>
+              <strong>Why it failed:</strong> Java memory hog for homelab scale. Loki + Grafana gives 80% of the value with 20% of the complexity.
+            </p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">OSSEC (before Wazuh)</h5>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
+              <strong>Why I tried it:</strong> Free SIEM solution<br>
+              <strong>Why it failed:</strong> Configuration by editing XML files. In 2023. Wazuh is what OSSEC should have become.
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 p-3 bg-[var(--md-sys-color-tertiary-container)] rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-tertiary)]">
+          <p class="text-sm text-[var(--md-sys-color-on-tertiary-container)]">
+            <strong>&#x1f4a1; The pattern:</strong> Complex enterprise tools often don't scale down well to homelab environments.
+            Look for tools designed for simplicity first, then scale up if needed.
+          </p>
+        </div>
+      </div>
+
+      <!-- Security Tools -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f512; Security Tools That Actually Work</h2>
+
+      <!-- Offensive Tools -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Offensive Tools (For Defense, Obviously)</h3>
+
+      <div class="bg-[var(--md-sys-color-error-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">&#x2694;&#xfe0f; Know Your Enemy</h4>
+        <div class="bg-[var(--md-sys-color-tertiary-container)] p-4 mb-4 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-tertiary)]">
+          <p class="text-sm text-[var(--md-sys-color-on-tertiary-container)]">
+            <strong>&#x1f6a8; Ethics First:</strong> Only use these on systems you own or have explicit permission to test.
+            Set up isolated lab environments. I use VMs and containers to keep experiments contained.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">Recon &amp; Scanning</h5>
+            <div class="space-y-3">
+              <div class="border-l-2 border-[var(--md-sys-color-error)] pl-3">
+                <p><a href="https://github.com/projectdiscovery/nuclei" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Nuclei</a> - Template-based vulnerability scanner</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f3af; <strong>My daily driver since May 2023</strong></p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Template count:</strong> 6,847+ community templates as of Oct 2024</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Found in my homelab:</strong> 3 CVEs I didn't know I had (CVE-2023-38646 in Cacti, CVE-2023-28432 in MinIO, CVE-2024-21626 in runc). All patched within 24h.</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Speed:</strong> Scans my entire homelab (15 hosts, 200+ services) in ~8 minutes</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Tip:</strong> Start with severity:high filter, build custom templates later.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-tertiary)] pl-3">
+                <p><a href="https://github.com/projectdiscovery/subfinder" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Subfinder</a> - Subdomain discovery on steroids</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f50d; <strong>Eye-opening:</strong> You'll be shocked how many subdomains your targets have. Combine with Aquatone for visual recon.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+                <p><a href="https://github.com/michenriksen/aquatone" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Aquatone</a> - Visual recon for web apps <span class="text-xs text-[var(--md-sys-color-error)]">(&#x26a0;&#xfe0f; ARCHIVED - maintained fork: <a href="https://github.com/shelld3v/aquatone" class="underline" rel="noopener noreferrer">shelld3v/aquatone</a>)</span></p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f4f8; <strong>Screenshots save time:</strong> Quickly identify interesting targets visually. Great for reports too. Original project archived; use community fork.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+                <p><a href="https://github.com/OWASP/Amass" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Amass</a> - Network mapping that's scary good</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f5fa;&#xfe0f; <strong>Deep dive tool:</strong> When you need to map the entire infrastructure. Slow but thorough.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">Exploitation Frameworks</h5>
+            <div class="space-y-3">
+              <div class="border-l-2 border-[var(--md-sys-color-error)] pl-3">
+                <p><a href="https://github.com/rapid7/metasploit-framework" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">Metasploit</a> - The classic, still relevant</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f3db;&#xfe0f; <strong>Still the gold standard:</strong> Heavy but comprehensive. Start here for learning exploitation fundamentals.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+                <p><a href="https://github.com/calebstewart/pwncat" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">pwncat</a> - Netcat on steroids</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f431; <strong>Modern approach:</strong> Python-based, extensible. Great for post-exploitation and maintaining access.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-success)] pl-3">
+                <p><a href="https://github.com/carlospolop/PEASS-ng" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">PEASS-ng</a> - Privilege escalation scripts</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x2b06;&#xfe0f; <strong>Instant results:</strong> Automates the tedious enumeration phase. Run this first when you get a foothold.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+                <p><a href="https://github.com/Flangvik/SharpCollection" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">SharpCollection</a> - .NET tools for red teams</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">&#x1f527; <strong>Windows specialist:</strong> When you're dealing with modern Windows environments. Bypasses many AV solutions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Defensive Arsenal -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Defensive Arsenal</h3>
+
+      <div class="bg-[var(--md-sys-color-success-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">&#x1f6e1;&#xfe0f; Blue Team Power Tools</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">SIEM &amp; Monitoring</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-2">
+              <li>
+                <a href="https://wazuh.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Wazuh</a> - Free SIEM that's actually good<br>
+                <span class="text-xs text-[var(--md-sys-color-on-surface-variant)]">
+                  <strong>Deployed:</strong> January 2023 | <strong>Learning curve:</strong> 2 weeks to basic functioning, 3 months to proficiency |
+                  <strong>Current:</strong> 8 agents monitoring containers, VMs, bare metal | <strong>Alerts/day:</strong> ~200 (tuned down from 2,000+ initially) |
+                  <strong>Most valuable:</strong> Caught unauthorized SSH attempt from Brazil within 30 seconds
+                </span>
+              </li>
+              <li><a href="https://www.graylog.org/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Graylog</a> - Log management done right</li>
+              <li><a href="https://github.com/SigmaHQ/sigma" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Sigma</a> - Detection rules that work everywhere</li>
+              <li><a href="https://thehive-project.org/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">TheHive</a> - Incident response platform</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Network Defense</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li><a href="https://suricata.io/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Suricata</a> - IDS/IPS that scales</li>
+              <li><a href="https://zeek.org/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Zeek</a> - Network analysis framework</li>
+              <li><a href="https://github.com/ntop/ntopng" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">ntopng</a> - Traffic analysis with pretty graphs</li>
+              <li><a href="https://arkime.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Arkime</a> - Full packet capture and search</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Threat Hunting</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li><a href="https://github.com/Velocidex/velociraptor" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Velociraptor</a> - Hunt across your fleet</li>
+              <li><a href="https://github.com/osquery/osquery" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">osquery</a> - SQL-powered OS instrumentation</li>
+              <li><a href="https://github.com/GhostPack/Seatbelt" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Seatbelt</a> - Security checks for Windows</li>
+              <li><a href="https://github.com/davehull/Kansa" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Kansa</a> - PowerShell IR framework</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container & Cloud Security -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Container &amp; Cloud Security</h3>
+
+      <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">&#x2601;&#xfe0f; Modern Problems, Modern Solutions</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Container Security</h5>
+            <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li><a href="https://github.com/aquasecurity/trivy" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Trivy</a> - Vulnerability scanner that finds everything</li>
+              <li><a href="https://falco.org/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Falco</a> - Runtime security for containers</li>
+              <li><a href="https://github.com/deepfence/SecretScanner" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">SecretScanner</a> - Find secrets in containers/images</li>
+              <li><a href="https://github.com/controlplaneio/kubesec" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Kubesec</a> - Security risk analysis for K8s</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Cloud Security</h5>
+            <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li><a href="https://github.com/prowler-cloud/prowler" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Prowler</a> - Multi-cloud security auditing (AWS, Azure, GCP, K8s)</li>
+              <li><a href="https://github.com/nccgroup/ScoutSuite" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">ScoutSuite</a> - Multi-cloud security posture assessment</li>
+              <li><a href="https://github.com/cloudquery/cloudquery" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">CloudQuery</a> - Cloud asset inventory</li>
+              <li><a href="https://github.com/turbot/steampipe" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Steampipe</a> - Query cloud with SQL</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fun Homelab Projects -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f3ae; Fun Homelab Projects</h2>
+      <p class="text-[var(--md-sys-color-on-surface-variant)] mb-6">
+        Because learning should be fun, here are some projects that'll teach you tons:
       </p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-medium text-[var(--md-sys-color-error)] mb-2">OSSEC (before Wazuh)</h5>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">
-        <strong>Why I tried it:</strong> Free SIEM solution<br>
-        <strong>Why it failed:</strong> Configuration by editing XML files. In 2023. Wazuh is what OSSEC should have become.
-      </p>
-    </div>
-  </div>
-  <div class="mt-4 p-3 bg-[var(--md-sys-color-tertiary-container)] rounded border border-[var(--md-sys-color-tertiary)]">
-    <p class="text-sm text-[var(--md-sys-color-on-tertiary-container)]">
-      <strong>💡 The pattern:</strong> Complex enterprise tools often don't scale down well to homelab environments.
-      Look for tools designed for simplicity first, then scale up if needed.
-    </p>
-  </div>
-</div>
 
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🔒 Security Tools That Actually Work</h2>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Offensive Tools (For Defense, Obviously)</h3>
-
-<div class="bg-[var(--md-sys-color-error-container)] p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">⚔️ Know Your Enemy</h4>
-  <div class="bg-[var(--md-sys-color-tertiary-container)] p-4 mb-4 rounded border border-[var(--md-sys-color-tertiary)]">
-    <p class="text-sm text-[var(--md-sys-color-on-tertiary-container)]">
-      <strong>🚨 Ethics First:</strong> Only use these on systems you own or have explicit permission to test.
-      Set up isolated lab environments. I use VMs and containers to keep experiments contained.
-    </p>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">Recon & Scanning</h5>
-      <div class="space-y-3">
-        <div class="border-l-2 border-red-400 pl-3">
-          <p><a href="https://github.com/projectdiscovery/nuclei" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Nuclei</a> - Template-based vulnerability scanner</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🎯 <strong>My daily driver since May 2023</strong></p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Template count:</strong> 6,847+ community templates as of Oct 2024</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Found in my homelab:</strong> 3 CVEs I didn't know I had (CVE-2023-38646 in Cacti, CVE-2023-28432 in MinIO, CVE-2024-21626 in runc). All patched within 24h.</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Speed:</strong> Scans my entire homelab (15 hosts, 200+ services) in ~8 minutes</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Tip:</strong> Start with severity:high filter, build custom templates later.</p>
-        </div>
-        <div class="border-l-2 border-orange-400 pl-3">
-          <p><a href="https://github.com/projectdiscovery/subfinder" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Subfinder</a> - Subdomain discovery on steroids</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🔍 <strong>Eye-opening:</strong> You'll be shocked how many subdomains your targets have. Combine with Aquatone for visual recon.</p>
-        </div>
-        <div class="border-l-2 border-pink-400 pl-3">
-          <p><a href="https://github.com/michenriksen/aquatone" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Aquatone</a> - Visual recon for web apps <span class="text-xs text-[var(--md-sys-color-error)]">(⚠️ ARCHIVED - maintained fork: <a href="https://github.com/shelld3v/aquatone" class="underline">shelld3v/aquatone</a>)</span></p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">📸 <strong>Screenshots save time:</strong> Quickly identify interesting targets visually. Great for reports too. Original project archived; use community fork.</p>
-        </div>
-        <div class="border-l-2 border-purple-400 pl-3">
-          <p><a href="https://github.com/OWASP/Amass" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Amass</a> - Network mapping that's scary good</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🗺️ <strong>Deep dive tool:</strong> When you need to map the entire infrastructure. Slow but thorough.</p>
+      <div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">Weekend Warriors</h4>
+        <div class="space-y-4">
+          <div class="border-l-4 border-[var(--md-sys-color-primary)] pl-4">
+            <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">&#x1f36f; Build a Honeypot Network</h5>
+            <p class="text-[var(--md-sys-color-on-surface-variant)]">Deploy <a href="https://github.com/telekom-security/tpotce" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">T-Pot</a> and watch the internet try to hack you. Grab popcorn.</p>
+          </div>
+          <div class="border-l-4 border-[var(--md-sys-color-secondary)] pl-4">
+            <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">&#x1f510; Red Team Lab</h5>
+            <p class="text-[var(--md-sys-color-on-surface-variant)]">Set up <a href="https://github.com/Orange-Cyberdefense/GOAD" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">GOAD</a> (Game of Active Directory) and practice your pentest skills.</p>
+          </div>
+          <div class="border-l-4 border-[var(--md-sys-color-tertiary)] pl-4">
+            <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">&#x1f4e1; WiFi Pineapple DIY</h5>
+            <p class="text-[var(--md-sys-color-on-surface-variant)]">Build your own with a Raspberry Pi and <a href="https://github.com/wifiphisher/wifiphisher" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Wifiphisher</a>. Test your network's security.</p>
+          </div>
+          <div class="border-l-4 border-[var(--md-sys-color-error)] pl-4">
+            <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">&#x1f3af; Malware Analysis Lab</h5>
+            <p class="text-[var(--md-sys-color-on-surface-variant)]">Set up <a href="https://remnux.org/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">REMnux</a> and <a href="https://github.com/mandiant/flare-vm" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">FLARE-VM</a> for safe malware analysis.</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">Exploitation Frameworks</h5>
-      <div class="space-y-3">
-        <div class="border-l-2 border-red-400 pl-3">
-          <p><a href="https://github.com/rapid7/metasploit-framework" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">Metasploit</a> - The classic, still relevant</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🏛️ <strong>Still the gold standard:</strong> Heavy but comprehensive. Start here for learning exploitation fundamentals.</p>
-        </div>
-        <div class="border-l-2 border-blue-400 pl-3">
-          <p><a href="https://github.com/calebstewart/pwncat" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">pwncat</a> - Netcat on steroids</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🐱 <strong>Modern approach:</strong> Python-based, extensible. Great for post-exploitation and maintaining access.</p>
-        </div>
-        <div class="border-l-2 border-green-400 pl-3">
-          <p><a href="https://github.com/carlospolop/PEASS-ng" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">PEASS-ng</a> - Privilege escalation scripts</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">⬆️ <strong>Instant results:</strong> Automates the tedious enumeration phase. Run this first when you get a foothold.</p>
-        </div>
-        <div class="border-l-2 border-purple-400 pl-3">
-          <p><a href="https://github.com/Flangvik/SharpCollection" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">SharpCollection</a> - .NET tools for red teams</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">🔧 <strong>Windows specialist:</strong> When you're dealing with modern Windows environments. Bypasses many AV solutions.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Defensive Arsenal</h3>
+      <!-- Books -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f4da; Books That Actually Taught Me Something</h2>
 
-<div class="bg-[var(--md-sys-color-success-container)] p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">🛡️ Blue Team Power Tools</h4>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">SIEM & Monitoring</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-2">
-        <li>
-          <a href="https://wazuh.com/" class="text-[var(--md-sys-color-primary)] hover:underline">Wazuh</a> - Free SIEM that's actually good<br>
-          <span class="text-xs text-[var(--md-sys-color-on-surface-variant)]">
-            <strong>Deployed:</strong> January 2023 | <strong>Learning curve:</strong> 2 weeks to basic functioning, 3 months to proficiency |
-            <strong>Current:</strong> 8 agents monitoring containers, VMs, bare metal | <strong>Alerts/day:</strong> ~200 (tuned down from 2,000+ initially) |
-            <strong>Most valuable:</strong> Caught unauthorized SSH attempt from Brazil within 30 seconds
-          </span>
-        </li>
-        <li><a href="https://www.graylog.org/" class="text-[var(--md-sys-color-primary)] hover:underline">Graylog</a> - Log management done right</li>
-        <li><a href="https://github.com/SigmaHQ/sigma" class="text-[var(--md-sys-color-primary)] hover:underline">Sigma</a> - Detection rules that work everywhere</li>
-        <li><a href="https://thehive-project.org/" class="text-[var(--md-sys-color-primary)] hover:underline">TheHive</a> - Incident response platform</li>
-      </ul>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Network Defense</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li><a href="https://suricata.io/" class="text-[var(--md-sys-color-primary)] hover:underline">Suricata</a> - IDS/IPS that scales</li>
-        <li><a href="https://zeek.org/" class="text-[var(--md-sys-color-primary)] hover:underline">Zeek</a> - Network analysis framework</li>
-        <li><a href="https://github.com/ntop/ntopng" class="text-[var(--md-sys-color-primary)] hover:underline">ntopng</a> - Traffic analysis with pretty graphs</li>
-        <li><a href="https://arkime.com/" class="text-[var(--md-sys-color-primary)] hover:underline">Arkime</a> - Full packet capture and search</li>
-      </ul>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Threat Hunting</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li><a href="https://github.com/Velocidex/velociraptor" class="text-[var(--md-sys-color-primary)] hover:underline">Velociraptor</a> - Hunt across your fleet</li>
-        <li><a href="https://github.com/osquery/osquery" class="text-[var(--md-sys-color-primary)] hover:underline">osquery</a> - SQL-powered OS instrumentation</li>
-        <li><a href="https://github.com/GhostPack/Seatbelt" class="text-[var(--md-sys-color-primary)] hover:underline">Seatbelt</a> - Security checks for Windows</li>
-        <li><a href="https://github.com/davehull/Kansa" class="text-[var(--md-sys-color-primary)] hover:underline">Kansa</a> - PowerShell IR framework</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Container & Cloud Security</h3>
-
-<div class="bg-[var(--md-sys-color-surface-container-high)] p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">☁️ Modern Problems, Modern Solutions</h4>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Container Security</h5>
-      <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li><a href="https://github.com/aquasecurity/trivy" class="text-[var(--md-sys-color-primary)] hover:underline">Trivy</a> - Vulnerability scanner that finds everything</li>
-        <li><a href="https://falco.org/" class="text-[var(--md-sys-color-primary)] hover:underline">Falco</a> - Runtime security for containers</li>
-        <li><a href="https://github.com/deepfence/SecretScanner" class="text-[var(--md-sys-color-primary)] hover:underline">SecretScanner</a> - Find secrets in containers/images</li>
-        <li><a href="https://github.com/controlplaneio/kubesec" class="text-[var(--md-sys-color-primary)] hover:underline">Kubesec</a> - Security risk analysis for K8s</li>
-      </ul>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-2">Cloud Security</h5>
-      <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li><a href="https://github.com/prowler-cloud/prowler" class="text-[var(--md-sys-color-primary)] hover:underline">Prowler</a> - Multi-cloud security auditing (AWS, Azure, GCP, K8s)</li>
-        <li><a href="https://github.com/nccgroup/ScoutSuite" class="text-[var(--md-sys-color-primary)] hover:underline">ScoutSuite</a> - Multi-cloud security posture assessment</li>
-        <li><a href="https://github.com/cloudquery/cloudquery" class="text-[var(--md-sys-color-primary)] hover:underline">CloudQuery</a> - Cloud asset inventory</li>
-        <li><a href="https://github.com/turbot/steampipe" class="text-[var(--md-sys-color-primary)] hover:underline">Steampipe</a> - Query cloud with SQL</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🎮 Fun Homelab Projects</h2>
-
-Because learning should be fun, here are some projects that'll teach you tons:
-
-<div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">Weekend Warriors</h4>
-  <div class="space-y-4">
-    <div class="border-l-4 border-indigo-500 pl-4">
-      <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">🍯 Build a Honeypot Network</h5>
-      <p class="text-[var(--md-sys-color-on-surface-variant)]">Deploy <a href="https://github.com/telekom-security/tpotce" class="text-[var(--md-sys-color-primary)] hover:underline">T-Pot</a> and watch the internet try to hack you. Grab popcorn.</p>
-    </div>
-    <div class="border-l-4 border-purple-500 pl-4">
-      <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">🔐 Red Team Lab</h5>
-      <p class="text-[var(--md-sys-color-on-surface-variant)]">Set up <a href="https://github.com/Orange-Cyberdefense/GOAD" class="text-[var(--md-sys-color-primary)] hover:underline">GOAD</a> (Game of Active Directory) and practice your pentest skills.</p>
-    </div>
-    <div class="border-l-4 border-pink-500 pl-4">
-      <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">📡 WiFi Pineapple DIY</h5>
-      <p class="text-[var(--md-sys-color-on-surface-variant)]">Build your own with a Raspberry Pi and <a href="https://github.com/wifiphisher/wifiphisher" class="text-[var(--md-sys-color-primary)] hover:underline">Wifiphisher</a>. Test your network's security.</p>
-    </div>
-    <div class="border-l-4 border-blue-500 pl-4">
-      <h5 class="font-bold text-[var(--md-sys-color-on-surface)]">🎯 Malware Analysis Lab</h5>
-      <p class="text-[var(--md-sys-color-on-surface-variant)]">Set up <a href="https://remnux.org/" class="text-[var(--md-sys-color-primary)] hover:underline">REMnux</a> and <a href="https://github.com/mandiant/flare-vm" class="text-[var(--md-sys-color-primary)] hover:underline">FLARE-VM</a> for safe malware analysis.</p>
-    </div>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">📚 Books That Actually Taught Me Something</h2>
-
-<div class="bg-[var(--md-sys-color-surface-container-high)] border-l-4 border-purple-400 p-6 my-8">
-  <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">📖 My Reading Philosophy</h4>
-  <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
-    I'm a hands-on learner, so books that combine theory with practical exercises work best for me.
-    These aren't affiliate links – just books that made me better at what I do.
-    I've listed them roughly in the order I'd recommend reading them, with personal notes about what makes each special.
-  </p>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-success)]">📚 Start Here</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Foundation books that build core knowledge</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-primary)]">🔬 Go Deeper</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Technical deep dives for specific skills</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-primary)]">🧠 Perspective</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Stories and context that change how you think</p>
-    </div>
-  </div>
-</div>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Security Essentials</h3>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-  <div class="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-lg">
-    <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-3">Technical Deep Dives</h5>
-    <div class="space-y-4">
-      <div class="border-l-2 border-green-400 pl-3">
-        <p>📚 <strong>START HERE:</strong> <a href="https://www.amazon.com/Web-Application-Hackers-Handbook-Exploiting/dp/1118026470" class="text-[var(--md-sys-color-primary)] hover:underline">The Web Application Hacker's Handbook</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Read:</strong> 2012, re-read: 2023 | <strong>Impact:</strong> Taught me to think like an attacker. Still reference Chapter 9 (attacking authentication) regularly.</p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Time investment:</strong> ~40 hours spread over 3 months | <strong>Value:</strong> Foundational. Everything else builds on this.</p>
-      </div>
-      <div class="border-l-2 border-blue-400 pl-3">
-        <p>📕 <a href="https://www.amazon.com/Practical-Malware-Analysis-Hands-Dissecting/dp/1593272901" class="text-[var(--md-sys-color-primary)] hover:underline">Practical Malware Analysis</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Read:</strong> 2014-2015, ~80 hours total | <strong>Setup time:</strong> 8 hours building isolated analysis environment</p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Learned:</strong> Reverse engineering, PE file structure, behavioral analysis | <strong>Still use:</strong> IDA Free for quick binary analysis</p>
-      </div>
-      <div class="border-l-2 border-purple-400 pl-3">
-        <p>📗 <a href="https://www.amazon.com/Network-Security-Through-Data-Analysis/dp/1491962844" class="text-[var(--md-sys-color-primary)] hover:underline">Network Security Through Data Analysis</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Turn packet captures into intelligence. This book taught me to think like data, not just look at it. Great for building SIEM detection rules.</p>
-      </div>
-      <div class="border-l-2 border-orange-400 pl-3">
-        <p>📙 <a href="https://www.amazon.com/Rtfm-Red-Team-Field-Manual/dp/1494295504" class="text-[var(--md-sys-color-primary)] hover:underline">RTFM: Red Team Field Manual</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Cheat codes for pentesters. Keep this handy during engagements. Not for learning fundamentals, but great for quick reference when you're in the thick of it.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-lg">
-    <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-3">Mind-Expanding Reads</h5>
-    <div class="space-y-4">
-      <div class="border-l-2 border-green-400 pl-3">
-        <p>📚 <strong>START HERE:</strong> <a href="https://www.amazon.com/Cuckoos-Egg-Tracking-Computer-Espionage/dp/1416507787" class="text-[var(--md-sys-color-primary)] hover:underline">The Cuckoo's Egg</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">The OG hacker hunt story. Written in 1989 but feels modern. Shows that good investigative techniques are timeless. Made me appreciate the detective work in security.</p>
-      </div>
-      <div class="border-l-2 border-red-400 pl-3">
-        <p>📕 <a href="https://www.amazon.com/Sandworm-Cyberwar-Kremlins-Dangerous-Hackers/dp/0385544405" class="text-[var(--md-sys-color-primary)] hover:underline">Sandworm</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Nation-state hacking that'll keep you up at night. Understanding geopolitical cyber warfare helps you think bigger than just technical vulnerabilities.</p>
-      </div>
-      <div class="border-l-2 border-blue-400 pl-3">
-        <p>📗 <a href="https://www.amazon.com/Ghost-Wires-Adventures-Worlds-Wanted/dp/0316037729" class="text-[var(--md-sys-color-primary)] hover:underline">Ghost in the Wires</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Kevin Mitnick's wild ride. Shows that social engineering often beats technical attacks. Changed how I think about human factors in security.</p>
-      </div>
-      <div class="border-l-2 border-purple-400 pl-3">
-        <p>📙 <a href="https://www.amazon.com/Cult-Dead-Cow-Original-Supergroup/dp/154176238X" class="text-[var(--md-sys-color-primary)] hover:underline">Cult of the Dead Cow</a></p>
-        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">The hackers who shaped the internet. Great for understanding the culture and ethics that drive security research. Made me appreciate the history behind modern tools.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Homelab & DevOps</h3>
-
-<div class="bg-[var(--md-sys-color-primary-container)] p-6 rounded-lg my-6">
-  <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-3">Level Up Your Lab</h5>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-2">
-      <li>🔧 <a href="https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/1942788290" class="text-[var(--md-sys-color-primary)] hover:underline">The Phoenix Project</a>
-        <br><span class="text-sm text-gray-600">DevOps explained through a story that hits too close to home</span></li>
-      <li>⚙️ <a href="https://www.amazon.com/Site-Reliability-Engineering-Production-Systems/dp/149192912X" class="text-[var(--md-sys-color-primary)] hover:underline">Site Reliability Engineering</a>
-        <br><span class="text-sm text-gray-600">How Google does it (free online too!)</span></li>
-    </ul>
-    <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-2">
-      <li>🐳 <a href="https://www.amazon.com/Docker-Deep-Dive-Poulton-Nigel/dp/1916585256" class="text-[var(--md-sys-color-primary)] hover:underline">Docker Deep Dive</a>
-        <br><span class="text-sm text-gray-600">Actually understand containers</span></li>
-      <li>☸️ <a href="https://www.amazon.com/Kubernetes-Book-Version-November-2018-ebook/dp/B072TS9ZQZ" class="text-[var(--md-sys-color-primary)] hover:underline">The Kubernetes Book</a>
-        <br><span class="text-sm text-gray-600">K8s without the pain</span></li>
-    </ul>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🎓 Learning Platforms That Don't Suck</h2>
-
-<div class="bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-400 p-6 my-8">
-  <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">🎯 My Learning Strategy</h4>
-  <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
-    I learn best by doing, failing, and trying again. Start with free platforms to find what clicks for you,
-    then invest money in areas where you want to go deeper. Here's the progression that worked for me:
-  </p>
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-success)]">Month 1-2</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Free platforms, basic CTFs</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-primary)]">Month 3-6</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Paid platform, focused learning</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-primary)]">Month 6+</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Build your own labs, teach others</p>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded border">
-      <strong class="text-[var(--md-sys-color-tertiary)]">Always</strong>
-      <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Keep learning from failures</p>
-    </div>
-  </div>
-</div>
-
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Free Stuff That's Actually Good</h3>
-
-<div class="bg-[var(--md-sys-color-success-container)] p-6 rounded-lg my-6">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">Hands-On Labs</h5>
-      <div class="space-y-3">
-        <div class="border-l-2 border-green-400 pl-3">
-          <p>🎯 <a href="https://overthewire.org/wargames/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">OverTheWire</a> - Start with Bandit, thank me later</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Started:</strong> November 2010, still recommend</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Time spent:</strong> 3 weeks on Bandit alone (all 33 levels)</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Lessons:</strong> Linux basics, SSH, bash scripting, basic crypto</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Progression:</strong> Bandit → Leviathan → Natas → Krypton</p>
-        </div>
-        <div class="border-l-2 border-blue-400 pl-3">
-          <p>🏴 <a href="https://picoctf.org/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">PicoCTF</a> - Beginner-friendly CTF</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Great for confidence:</strong> Designed for high schoolers but perfect for adults learning fundamentals. Hint system prevents frustration.</p>
-        </div>
-        <div class="border-l-2 border-purple-400 pl-3">
-          <p>🔓 <a href="https://portswigger.net/web-security" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">PortSwigger Academy</a> - Free web security training</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Industry standard:</strong> Made by the Burp Suite team. Interactive labs that teach real vulnerabilities.</p>
-        </div>
-        <div class="border-l-2 border-orange-400 pl-3">
-          <p>🎮 <a href="https://www.hackthissite.org/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">HackThisSite</a> - Old school but gold</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Nostalgic value:</strong> Where I learned basic web vulnerabilities. Interface is dated but content is solid.</p>
+      <div class="bg-[var(--md-sys-color-surface-container-high)] border-l-4 border-[var(--md-sys-color-secondary)] p-6 my-8 rounded-r-lg">
+        <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">&#x1f4d6; My Reading Philosophy</h4>
+        <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
+          I'm a hands-on learner, so books that combine theory with practical exercises work best for me.
+          These aren't affiliate links – just books that made me better at what I do.
+          I've listed them roughly in the order I'd recommend reading them, with personal notes about what makes each special.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">&#x1f4da; Start Here</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Foundation books that build core knowledge</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">&#x1f52c; Go Deeper</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Technical deep dives for specific skills</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">&#x1f9e0; Perspective</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Stories and context that change how you think</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">YouTube University</h5>
-      <div class="space-y-3">
-        <div class="border-l-2 border-red-400 pl-3">
-          <p>📺 <a href="https://www.youtube.com/@ippsec" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">IppSec</a> - HTB walkthroughs that teach</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Watch while doing:</strong> Don't just watch – pause and try techniques yourself. His methodology is gold.</p>
+
+      <!-- Security Essentials Books -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Security Essentials</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+        <div class="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-large)]">
+          <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-3">Technical Deep Dives</h5>
+          <div class="space-y-4">
+            <div class="border-l-2 border-[var(--md-sys-color-success)] pl-3">
+              <p>&#x1f4da; <strong>START HERE:</strong> <a href="https://www.amazon.com/Web-Application-Hackers-Handbook-Exploiting/dp/1118026470" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">The Web Application Hacker's Handbook</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Read:</strong> 2012, re-read: 2023 | <strong>Impact:</strong> Taught me to think like an attacker. Still reference Chapter 9 (attacking authentication) regularly.</p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Time investment:</strong> ~40 hours spread over 3 months | <strong>Value:</strong> Foundational. Everything else builds on this.</p>
+            </div>
+            <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+              <p>&#x1f4d5; <a href="https://www.amazon.com/Practical-Malware-Analysis-Hands-Dissecting/dp/1593272901" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Practical Malware Analysis</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Read:</strong> 2014-2015, ~80 hours total | <strong>Setup time:</strong> 8 hours building isolated analysis environment</p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Learned:</strong> Reverse engineering, PE file structure, behavioral analysis | <strong>Still use:</strong> IDA Free for quick binary analysis</p>
+            </div>
+            <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+              <p>&#x1f4d7; <a href="https://www.amazon.com/Network-Security-Through-Data-Analysis/dp/1491962844" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Network Security Through Data Analysis</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Turn packet captures into intelligence. This book taught me to think like data, not just look at it. Great for building SIEM detection rules.</p>
+            </div>
+            <div class="border-l-2 border-[var(--md-sys-color-tertiary)] pl-3">
+              <p>&#x1f4d9; <a href="https://www.amazon.com/Rtfm-Red-Team-Field-Manual/dp/1494295504" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">RTFM: Red Team Field Manual</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Cheat codes for pentesters. Keep this handy during engagements. Not for learning fundamentals, but great for quick reference when you're in the thick of it.</p>
+            </div>
+          </div>
         </div>
-        <div class="border-l-2 border-blue-400 pl-3">
-          <p>🎬 <a href="https://www.youtube.com/@_JohnHammond" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">John Hammond</a> - CTFs and malware analysis</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Great teacher:</strong> Explains his thinking process clearly. Good for understanding tool usage and methodology.</p>
-        </div>
-        <div class="border-l-2 border-green-400 pl-3">
-          <p>🎥 <a href="https://www.youtube.com/@NetworkChuck" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">NetworkChuck</a> - Makes networking fun</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Enthusiasm wins:</strong> His energy is infectious. Great for homelab inspiration and practical networking.</p>
-        </div>
-        <div class="border-l-2 border-purple-400 pl-3">
-          <p>📹 <a href="https://www.youtube.com/@LiveOverflow" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">LiveOverflow</a> - Deep technical dives</p>
-          <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Next level:</strong> When you're ready to understand the "why" behind exploits. Requires patience but worth it.</p>
+
+        <div class="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-large)]">
+          <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-3">Mind-Expanding Reads</h5>
+          <div class="space-y-4">
+            <div class="border-l-2 border-[var(--md-sys-color-success)] pl-3">
+              <p>&#x1f4da; <strong>START HERE:</strong> <a href="https://www.amazon.com/Cuckoos-Egg-Tracking-Computer-Espionage/dp/1416507787" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">The Cuckoo's Egg</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">The OG hacker hunt story. Written in 1989 but feels modern. Shows that good investigative techniques are timeless. Made me appreciate the detective work in security.</p>
+            </div>
+            <div class="border-l-2 border-[var(--md-sys-color-error)] pl-3">
+              <p>&#x1f4d5; <a href="https://www.amazon.com/Sandworm-Cyberwar-Kremlins-Dangerous-Hackers/dp/0385544405" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Sandworm</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Nation-state hacking that'll keep you up at night. Understanding geopolitical cyber warfare helps you think bigger than just technical vulnerabilities.</p>
+            </div>
+            <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+              <p>&#x1f4d7; <a href="https://www.amazon.com/Ghost-Wires-Adventures-Worlds-Wanted/dp/0316037729" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Ghost in the Wires</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">Kevin Mitnick's wild ride. Shows that social engineering often beats technical attacks. Changed how I think about human factors in security.</p>
+            </div>
+            <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+              <p>&#x1f4d9; <a href="https://www.amazon.com/Cult-Dead-Cow-Original-Supergroup/dp/154176238X" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Cult of the Dead Cow</a></p>
+              <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">The hackers who shaped the internet. Great for understanding the culture and ethics that drive security research. Made me appreciate the history behind modern tools.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<h3 class="text-xl font-bold mt-12 mb-4" style="color: var(--md-sys-color-on-surface)">Worth Paying For</h3>
+      <!-- Homelab & DevOps Books -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Homelab &amp; DevOps</h3>
 
-<div class="bg-[var(--md-sys-color-tertiary-container)] p-6 rounded-lg my-6">
-  <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-4">💰 When to Invest Your Money</h5>
-  <div class="space-y-4">
-    <div class="border-l-2 border-green-400 pl-4">
-      <p><a href="https://tryhackme.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">TryHackMe</a> - Guided learning path ($10/month)</p>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
-        <strong>Joined:</strong> March 2020, active 2020-2023<br>
-        <strong>Subscription cost:</strong> $10/month for 3 years = $360 total<br>
-        <strong>Rooms completed:</strong> 180+ (checked my profile)<br>
-        <strong>Best learning path:</strong> Pre Security → Complete Beginner → Offensive Pentesting<br>
-        <strong>Time to value:</strong> Felt confident testing my homelab after ~2 months<br>
-        <strong>Perfect for beginners:</strong> The guided paths prevent you from getting lost. Good mix of theory and practice.
-      </p>
-    </div>
-    <div class="border-l-2 border-red-400 pl-4">
-      <p><a href="https://www.hackthebox.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">HackTheBox</a> - More challenging ($20/month)</p>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
-        <strong>Joined:</strong> June 2021, current VIP subscriber<br>
-        <strong>Cost:</strong> $20/month, $240/year<br>
-        <strong>Boxes completed:</strong> 47 easy, 23 medium, 8 hard (as of Oct 2024)<br>
-        <strong>Reality check:</strong> Medium boxes took 6-12 hours each. Hard boxes took 15-20 hours. This isn't quick.<br>
-        <strong>Worth it because:</strong> Forces you to try harder. No hand-holding. Real-world-ish.<br>
-        <strong>Secret:</strong> The forums and Discord are where the real learning happens.
-      </p>
-    </div>
-    <div class="border-l-2 border-blue-400 pl-4">
-      <p><a href="https://academy.tcm-sec.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">TCM Security</a> - Practical courses (varies)</p>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
-        <strong>Real-world focused:</strong> Heath Adams knows his stuff. Courses feel like mentorship.
-        <br><strong>Best for:</strong> PNPT certification path or if you want structured learning without fluff.
-      </p>
-    </div>
-    <div class="border-l-2 border-purple-400 pl-4">
-      <p><a href="https://www.pentesterlab.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium">PentesterLab</a> - Web security focus ($20/month)</p>
-      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
-        <strong>Deep web security:</strong> If you want to really understand web app pentesting, this is it.
-        <br><strong>Heads up:</strong> Can be dry. Better after you have some experience with web vulns.
-      </p>
-    </div>
-  </div>
-  <div class="mt-4 p-3 bg-blue-100 dark:bg-blue-950/50 rounded border border-blue-300 dark:border-blue-600">
-    <p class="text-sm text-blue-900 dark:text-blue-100 mb-2">
-      <strong>💡 My recommendation:</strong> Start with TryHackMe for 3-6 months, then add HackTheBox.
-      Don't jump around – depth beats breadth when you're learning fundamentals.
-    </p>
-    <p class="text-sm text-blue-900 dark:text-blue-100">
-      <strong>💰 Cost vs benefit:</strong> $360 total for 3 years of TryHackMe = $120/year, cheaper than 2 tech books but way more practical.
-      Medium HTB boxes = 6-12 hours but you learn more than 50 easy boxes. Time investment matters more than money.
-    </p>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🚨 Security News & Intel</h2>
-
-Stay paranoid, stay informed:
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
-  <div class="bg-[var(--md-sys-color-surface-container-low)] p-4 rounded-lg">
-    <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-2">Daily Reads</h5>
-    <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-      <li><a href="https://krebsonsecurity.com/" class="text-[var(--md-sys-color-primary)] hover:underline">Krebs on Security</a></li>
-      <li><a href="https://www.bleepingcomputer.com/" class="text-[var(--md-sys-color-primary)] hover:underline">BleepingComputer</a></li>
-      <li><a href="https://thehackernews.com/" class="text-[var(--md-sys-color-primary)] hover:underline">The Hacker News</a></li>
-    </ul>
-  </div>
-  
-  <div class="bg-[var(--md-sys-color-surface-container-low)] p-4 rounded-lg">
-    <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-2">Threat Intel</h5>
-    <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-      <li><a href="https://otx.alienvault.com/" class="text-[var(--md-sys-color-primary)] hover:underline">AlienVault OTX</a></li>
-      <li><a href="https://abuse.ch/" class="text-[var(--md-sys-color-primary)] hover:underline">abuse.ch</a></li>
-      <li><a href="https://www.virustotal.com/" class="text-[var(--md-sys-color-primary)] hover:underline">VirusTotal</a></li>
-    </ul>
-  </div>
-  
-  <div class="bg-[var(--md-sys-color-surface-container-low)] p-4 rounded-lg">
-    <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-2">Vulnerability Feeds</h5>
-    <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-      <li><a href="https://www.exploit-db.com/" class="text-[var(--md-sys-color-primary)] hover:underline">Exploit-DB</a></li>
-      <li><a href="https://vuldb.com/" class="text-[var(--md-sys-color-primary)] hover:underline">VulDB</a></li>
-      <li><a href="https://nvd.nist.gov/" class="text-[var(--md-sys-color-primary)] hover:underline">NVD</a></li>
-    </ul>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🔥 The Bleeding Edge</h2>
-
-Tools so new they might break everything (that's half the fun):
-
-<div class="bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 p-6 rounded-lg my-6">
-  <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">⚠️ Use at Your Own Risk</h4>
-  <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-2">
-    <li>🔬 <a href="https://github.com/BishopFox/sliver" class="text-[var(--md-sys-color-primary)] hover:underline">Sliver</a> - Adversary emulation framework (Cobalt Strike alternative)</li>
-    <li>🎯 <a href="https://github.com/kgretzky/evilginx2" class="text-[var(--md-sys-color-primary)] hover:underline">Evilginx2</a> - Advanced phishing with 2FA bypass</li>
-    <li>🔍 <a href="https://github.com/yogeshojha/rengine" class="text-[var(--md-sys-color-primary)] hover:underline">reNgine</a> - Automated recon framework</li>
-    <li>🛠️ <a href="https://github.com/fox-it/bloodhound.py" class="text-[var(--md-sys-color-primary)] hover:underline">BloodHound.py</a> - Active Directory recon</li>
-    <li>⚡ <a href="https://github.com/ly4k/Certipy" class="text-[var(--md-sys-color-primary)] hover:underline">Certipy</a> - Active Directory certificate abuse</li>
-  </ul>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🚀 Your Next Steps</h2>
-
-<div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-8 rounded-lg my-8">
-  <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">📋 Start Your Journey</h4>
-  <p class="text-[var(--md-sys-color-on-surface-variant)] mb-6">
-    Feeling overwhelmed? That's normal. Here's exactly what I'd do if I were starting today:
-  </p>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-bold text-[var(--md-sys-color-success)] mb-3">🌱 Week 1-2: Foundation</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li>• Set up a basic homelab VM</li>
-        <li>• Install Docker and run Portainer</li>
-        <li>• Start OverTheWire Bandit</li>
-        <li>• Join TryHackMe (free tier)</li>
-        <li>• Read "The Cuckoo's Egg"</li>
-      </ul>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-bold text-[var(--md-sys-color-primary)] mb-3">🚀 Month 2-3: Build Momentum</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li>• Deploy your first monitoring stack</li>
-        <li>• Complete THM Pre Security path</li>
-        <li>• Try your first vulnerability scanner</li>
-        <li>• Start learning one programming language</li>
-        <li>• Document everything you break</li>
-      </ul>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-bold text-[var(--md-sys-color-primary)] mb-3">🔬 Month 4-6: Specialize</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li>• Choose: Red team, blue team, or DevOps</li>
-        <li>• Upgrade to paid learning platforms</li>
-        <li>• Build projects, not just tutorials</li>
-        <li>• Start teaching others what you learn</li>
-        <li>• Join communities and ask questions</li>
-      </ul>
-    </div>
-    <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded border">
-      <h5 class="font-bold text-[var(--md-sys-color-tertiary)] mb-3">🎯 Month 6+: Master</h5>
-      <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <li>• Contribute to open source projects</li>
-        <li>• Write about your learnings</li>
-        <li>• Mentor newcomers</li>
-        <li>• Build real solutions to real problems</li>
-        <li>• Never stop being curious</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="mt-6 p-4 bg-[var(--md-sys-color-tertiary-container)] rounded border border-[var(--md-sys-color-tertiary)]">
-    <p class="text-sm text-[var(--md-sys-color-on-tertiary-container)]">
-      <strong>🔥 Hot take:</strong> The best way to learn is to fail publicly and document the journey.
-      Start a blog, make GitHub repos, and don't be afraid to look stupid. We've all been there.
-    </p>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold mt-16 mb-6" style="color: var(--md-sys-color-on-surface)">🎉 Join the Chaos</h2>
-
-<div class="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-lg my-8 text-center">
-  <p class="text-lg text-[var(--md-sys-color-on-surface)] mb-4">
-    This list grows every time I find something that makes me go "Oh, that's clever!"
-  </p>
-  <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
-    Got a tool that changed your life? Found something that should be on this list?
-    Want to argue about why vim is better than nano? (It is.)
-  </p>
-  <a href="/about/#contact" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
-    Share Your Discoveries
-    <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-    </svg>
-  </a>
-</div>
-
-<div class="bg-[var(--md-sys-color-error-container)] border border-red-200 dark:border-red-800 p-6 rounded-lg my-8">
-  <h4 class="text-lg font-bold text-red-800 dark:text-red-200 mb-3">⚠️ Final Reminder</h4>
-  <div class="text-red-700 dark:text-red-300 space-y-2">
-    <p><strong>Ethics first:</strong> Only hack what you own or have explicit permission to test.</p>
-    <p><strong>Learn responsibly:</strong> Understand the impact of your actions.</p>
-    <p><strong>Back up everything:</strong> Seriously. Back up your backups. Then back up those.</p>
-    <p><strong>Document your journey:</strong> Your future self will thank you.</p>
-    <p><strong>Have fun:</strong> If you're not enjoying it, you're doing it wrong.</p>
-  </div>
-</div>
-
-</div>
+      <div class="bg-[var(--md-sys-color-primary-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-3">Level Up Your Lab</h5>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-2">
+            <li>&#x1f527; <a href="https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/1942788290" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">The Phoenix Project</a>
+              <br><span class="text-sm text-[var(--md-sys-color-on-surface-variant)]">DevOps explained through a story that hits too close to home</span></li>
+            <li>&#x2699;&#xfe0f; <a href="https://www.amazon.com/Site-Reliability-Engineering-Production-Systems/dp/149192912X" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Site Reliability Engineering</a>
+              <br><span class="text-sm text-[var(--md-sys-color-on-surface-variant)]">How Google does it (free online too!)</span></li>
+          </ul>
+          <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-2">
+            <li>&#x1f433; <a href="https://www.amazon.com/Docker-Deep-Dive-Poulton-Nigel/dp/1916585256" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Docker Deep Dive</a>
+              <br><span class="text-sm text-[var(--md-sys-color-on-surface-variant)]">Actually understand containers</span></li>
+            <li>&#x2638;&#xfe0f; <a href="https://www.amazon.com/Kubernetes-Book-Version-November-2018-ebook/dp/B072TS9ZQZ" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">The Kubernetes Book</a>
+              <br><span class="text-sm text-[var(--md-sys-color-on-surface-variant)]">K8s without the pain</span></li>
+          </ul>
+        </div>
       </div>
+
+      <!-- Learning Platforms -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f393; Learning Platforms That Don't Suck</h2>
+
+      <div class="bg-[var(--md-sys-color-surface-container-high)] border-l-4 border-[var(--md-sys-color-primary)] p-6 my-8 rounded-r-lg">
+        <h4 class="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-3">&#x1f3af; My Learning Strategy</h4>
+        <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
+          I learn best by doing, failing, and trying again. Start with free platforms to find what clicks for you,
+          then invest money in areas where you want to go deeper. Here's the progression that worked for me:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Month 1-2</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Free platforms, basic CTFs</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Month 3-6</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Paid platform, focused learning</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Month 6+</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Build your own labs, teach others</p>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-3 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]">
+            <strong class="text-[var(--md-sys-color-primary)]">Always</strong>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] mt-1">Keep learning from failures</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Free Stuff -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Free Stuff That's Actually Good</h3>
+
+      <div class="bg-[var(--md-sys-color-success-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">Hands-On Labs</h5>
+            <div class="space-y-3">
+              <div class="border-l-2 border-[var(--md-sys-color-success)] pl-3">
+                <p>&#x1f3af; <a href="https://overthewire.org/wargames/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">OverTheWire</a> - Start with Bandit, thank me later</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Started:</strong> November 2010, still recommend</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Time spent:</strong> 3 weeks on Bandit alone (all 33 levels)</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Lessons:</strong> Linux basics, SSH, bash scripting, basic crypto</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Progression:</strong> Bandit &rarr; Leviathan &rarr; Natas &rarr; Krypton</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+                <p>&#x1f3f4; <a href="https://picoctf.org/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">PicoCTF</a> - Beginner-friendly CTF</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Great for confidence:</strong> Designed for high schoolers but perfect for adults learning fundamentals. Hint system prevents frustration.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+                <p>&#x1f513; <a href="https://portswigger.net/web-security" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">PortSwigger Academy</a> - Free web security training</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Industry standard:</strong> Made by the Burp Suite team. Interactive labs that teach real vulnerabilities.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-tertiary)] pl-3">
+                <p>&#x1f3ae; <a href="https://www.hackthissite.org/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">HackThisSite</a> - Old school but gold</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Nostalgic value:</strong> Where I learned basic web vulnerabilities. Interface is dated but content is solid.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h5 class="font-medium text-[var(--md-sys-color-on-surface)] mb-3">YouTube University</h5>
+            <div class="space-y-3">
+              <div class="border-l-2 border-[var(--md-sys-color-error)] pl-3">
+                <p>&#x1f4fa; <a href="https://www.youtube.com/@ippsec" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">IppSec</a> - HTB walkthroughs that teach</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Watch while doing:</strong> Don't just watch – pause and try techniques yourself. His methodology is gold.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-3">
+                <p>&#x1f3ac; <a href="https://www.youtube.com/@_JohnHammond" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">John Hammond</a> - CTFs and malware analysis</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Great teacher:</strong> Explains his thinking process clearly. Good for understanding tool usage and methodology.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-success)] pl-3">
+                <p>&#x1f3a5; <a href="https://www.youtube.com/@NetworkChuck" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">NetworkChuck</a> - Makes networking fun</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Enthusiasm wins:</strong> His energy is infectious. Great for homelab inspiration and practical networking.</p>
+              </div>
+              <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-3">
+                <p>&#x1f4f9; <a href="https://www.youtube.com/@LiveOverflow" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">LiveOverflow</a> - Deep technical dives</p>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1"><strong>Next level:</strong> When you're ready to understand the "why" behind exploits. Requires patience but worth it.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Worth Paying For -->
+      <h3 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mt-8 mb-4">Worth Paying For</h3>
+
+      <div class="bg-[var(--md-sys-color-tertiary-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-4">&#x1f4b0; When to Invest Your Money</h5>
+        <div class="space-y-4">
+          <div class="border-l-2 border-[var(--md-sys-color-success)] pl-4">
+            <p><a href="https://tryhackme.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">TryHackMe</a> - Guided learning path ($10/month)</p>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
+              <strong>Joined:</strong> March 2020, active 2020-2023<br>
+              <strong>Subscription cost:</strong> $10/month for 3 years = $360 total<br>
+              <strong>Rooms completed:</strong> 180+ (checked my profile)<br>
+              <strong>Best learning path:</strong> Pre Security &rarr; Complete Beginner &rarr; Offensive Pentesting<br>
+              <strong>Time to value:</strong> Felt confident testing my homelab after ~2 months<br>
+              <strong>Perfect for beginners:</strong> The guided paths prevent you from getting lost. Good mix of theory and practice.
+            </p>
+          </div>
+          <div class="border-l-2 border-[var(--md-sys-color-error)] pl-4">
+            <p><a href="https://www.hackthebox.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">HackTheBox</a> - More challenging ($20/month)</p>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
+              <strong>Joined:</strong> June 2021, current VIP subscriber<br>
+              <strong>Cost:</strong> $20/month, $240/year<br>
+              <strong>Boxes completed:</strong> 47 easy, 23 medium, 8 hard (as of Oct 2024)<br>
+              <strong>Reality check:</strong> Medium boxes took 6-12 hours each. Hard boxes took 15-20 hours. This isn't quick.<br>
+              <strong>Worth it because:</strong> Forces you to try harder. No hand-holding. Real-world-ish.<br>
+              <strong>Secret:</strong> The forums and Discord are where the real learning happens.
+            </p>
+          </div>
+          <div class="border-l-2 border-[var(--md-sys-color-primary)] pl-4">
+            <p><a href="https://academy.tcm-sec.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">TCM Security</a> - Practical courses (varies)</p>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
+              <strong>Real-world focused:</strong> Heath Adams knows his stuff. Courses feel like mentorship.
+              <br><strong>Best for:</strong> PNPT certification path or if you want structured learning without fluff.
+            </p>
+          </div>
+          <div class="border-l-2 border-[var(--md-sys-color-secondary)] pl-4">
+            <p><a href="https://www.pentesterlab.com/" class="text-[var(--md-sys-color-primary)] hover:underline font-medium" rel="noopener noreferrer">PentesterLab</a> - Web security focus ($20/month)</p>
+            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">
+              <strong>Deep web security:</strong> If you want to really understand web app pentesting, this is it.
+              <br><strong>Heads up:</strong> Can be dry. Better after you have some experience with web vulns.
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 p-3 bg-[var(--md-sys-color-primary-container)] rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-primary)]">
+          <p class="text-sm text-[var(--md-sys-color-on-primary-container)] mb-2">
+            <strong>&#x1f4a1; My recommendation:</strong> Start with TryHackMe for 3-6 months, then add HackTheBox.
+            Don't jump around – depth beats breadth when you're learning fundamentals.
+          </p>
+          <p class="text-sm text-[var(--md-sys-color-on-primary-container)]">
+            <strong>&#x1f4b0; Cost vs benefit:</strong> $360 total for 3 years of TryHackMe = $120/year, cheaper than 2 tech books but way more practical.
+            Medium HTB boxes = 6-12 hours but you learn more than 50 easy boxes. Time investment matters more than money.
+          </p>
+        </div>
+      </div>
+
+      <!-- Security News & Intel -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f6a8; Security News &amp; Intel</h2>
+      <p class="text-[var(--md-sys-color-on-surface-variant)] mb-6">Stay paranoid, stay informed:</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+        <div class="bg-[var(--md-sys-color-surface-container-low)] p-4 rounded-[var(--md-sys-shape-corner-large)]">
+          <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-2">Daily Reads</h5>
+          <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+            <li><a href="https://krebsonsecurity.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Krebs on Security</a></li>
+            <li><a href="https://www.bleepingcomputer.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">BleepingComputer</a></li>
+            <li><a href="https://thehackernews.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">The Hacker News</a></li>
+          </ul>
+        </div>
+
+        <div class="bg-[var(--md-sys-color-surface-container-low)] p-4 rounded-[var(--md-sys-shape-corner-large)]">
+          <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-2">Threat Intel</h5>
+          <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+            <li><a href="https://otx.alienvault.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">AlienVault OTX</a></li>
+            <li><a href="https://abuse.ch/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">abuse.ch</a></li>
+            <li><a href="https://www.virustotal.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">VirusTotal</a></li>
+          </ul>
+        </div>
+
+        <div class="bg-[var(--md-sys-color-surface-container-low)] p-4 rounded-[var(--md-sys-shape-corner-large)]">
+          <h5 class="font-bold text-[var(--md-sys-color-on-surface)] mb-2">Vulnerability Feeds</h5>
+          <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+            <li><a href="https://www.exploit-db.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Exploit-DB</a></li>
+            <li><a href="https://vuldb.com/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">VulDB</a></li>
+            <li><a href="https://nvd.nist.gov/" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">NVD</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bleeding Edge -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f525; The Bleeding Edge</h2>
+      <p class="text-[var(--md-sys-color-on-surface-variant)] mb-6">Tools so new they might break everything (that's half the fun):</p>
+
+      <div class="bg-[var(--md-sys-color-error-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-6">
+        <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">&#x26a0;&#xfe0f; Use at Your Own Risk</h4>
+        <ul class="text-[var(--md-sys-color-on-surface-variant)] space-y-2">
+          <li>&#x1f52c; <a href="https://github.com/BishopFox/sliver" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Sliver</a> - Adversary emulation framework (Cobalt Strike alternative)</li>
+          <li>&#x1f3af; <a href="https://github.com/kgretzky/evilginx2" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Evilginx2</a> - Advanced phishing with 2FA bypass</li>
+          <li>&#x1f50d; <a href="https://github.com/yogeshojha/rengine" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">reNgine</a> - Automated recon framework</li>
+          <li>&#x1f6e0;&#xfe0f; <a href="https://github.com/fox-it/bloodhound.py" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">BloodHound.py</a> - Active Directory recon</li>
+          <li>&#x26a1; <a href="https://github.com/ly4k/Certipy" class="text-[var(--md-sys-color-primary)] hover:underline" rel="noopener noreferrer">Certipy</a> - Active Directory certificate abuse</li>
+        </ul>
+      </div>
+
+      <!-- Your Next Steps -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f680; Your Next Steps</h2>
+
+      <div class="bg-[var(--md-sys-color-surface-container-high)] p-8 rounded-[var(--md-sys-shape-corner-large)] my-8">
+        <h4 class="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">&#x1f4cb; Start Your Journey</h4>
+        <p class="text-[var(--md-sys-color-on-surface-variant)] mb-6">
+          Feeling overwhelmed? That's normal. Here's exactly what I'd do if I were starting today:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-bold text-[var(--md-sys-color-primary)] mb-3">&#x1f331; Week 1-2: Foundation</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li>&#x2022; Set up a basic homelab VM</li>
+              <li>&#x2022; Install Docker and run Portainer</li>
+              <li>&#x2022; Start OverTheWire Bandit</li>
+              <li>&#x2022; Join TryHackMe (free tier)</li>
+              <li>&#x2022; Read "The Cuckoo's Egg"</li>
+            </ul>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-bold text-[var(--md-sys-color-primary)] mb-3">&#x1f680; Month 2-3: Build Momentum</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li>&#x2022; Deploy your first monitoring stack</li>
+              <li>&#x2022; Complete THM Pre Security path</li>
+              <li>&#x2022; Try your first vulnerability scanner</li>
+              <li>&#x2022; Start learning one programming language</li>
+              <li>&#x2022; Document everything you break</li>
+            </ul>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-bold text-[var(--md-sys-color-primary)] mb-3">&#x1f52c; Month 4-6: Specialize</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li>&#x2022; Choose: Red team, blue team, or DevOps</li>
+              <li>&#x2022; Upgrade to paid learning platforms</li>
+              <li>&#x2022; Build projects, not just tutorials</li>
+              <li>&#x2022; Start teaching others what you learn</li>
+              <li>&#x2022; Join communities and ask questions</li>
+            </ul>
+          </div>
+          <div class="bg-[var(--md-sys-color-surface-container)] p-4 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
+            <h5 class="font-bold text-[var(--md-sys-color-primary)] mb-3">&#x1f3af; Month 6+: Master</h5>
+            <ul class="text-sm text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+              <li>&#x2022; Contribute to open source projects</li>
+              <li>&#x2022; Write about your learnings</li>
+              <li>&#x2022; Mentor newcomers</li>
+              <li>&#x2022; Build real solutions to real problems</li>
+              <li>&#x2022; Never stop being curious</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-[var(--md-sys-color-tertiary-container)] rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-tertiary)]">
+          <p class="text-sm text-[var(--md-sys-color-on-tertiary-container)]">
+            <strong>&#x1f525; Hot take:</strong> The best way to learn is to fail publicly and document the journey.
+            Start a blog, make GitHub repos, and don't be afraid to look stupid. We've all been there.
+          </p>
+        </div>
+      </div>
+
+      <!-- Join the Chaos -->
+      <h2 class="text-3xl font-bold text-[var(--md-sys-color-on-surface)] mt-12 mb-4">&#x1f389; Join the Chaos</h2>
+
+      <div class="bg-[var(--md-sys-color-primary-container)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-8 text-center">
+        <p class="text-lg text-[var(--md-sys-color-on-surface)] mb-4">
+          This list grows every time I find something that makes me go "Oh, that's clever!"
+        </p>
+        <p class="text-[var(--md-sys-color-on-surface-variant)] mb-4">
+          Got a tool that changed your life? Found something that should be on this list?
+          Want to argue about why vim is better than nano? (It is.)
+        </p>
+        <a href="/about/#contact" class="btn-filled">
+          Share Your Discoveries
+          <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Final Reminder -->
+      <div class="bg-[var(--md-sys-color-error-container)] border border-[var(--md-sys-color-error)] p-6 rounded-[var(--md-sys-shape-corner-large)] my-8">
+        <h4 class="text-lg font-bold text-[var(--md-sys-color-error)] mb-3">&#x26a0;&#xfe0f; Final Reminder</h4>
+        <div class="text-[var(--md-sys-color-on-error-container)] space-y-2">
+          <p><strong>Ethics first:</strong> Only hack what you own or have explicit permission to test.</p>
+          <p><strong>Learn responsibly:</strong> Understand the impact of your actions.</p>
+          <p><strong>Back up everything:</strong> Seriously. Back up your backups. Then back up those.</p>
+          <p><strong>Document your journey:</strong> Your future self will thank you.</p>
+          <p><strong>Have fun:</strong> If you're not enjoying it, you're doing it wrong.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 </BaseLayout>

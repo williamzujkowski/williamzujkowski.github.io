@@ -8,6 +8,11 @@ export default defineConfig({
   integrations: [svelte(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        external: ['/pagefind/pagefind.js'],
+      },
+    },
   },
   markdown: {
     shikiConfig: {

@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check"
@@ -23,5 +23,8 @@
     "svelte": "^5.53.10",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "pagefind": "^1.4.0"
   }
 }
