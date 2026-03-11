@@ -1,29 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import {
-    Chart,
-    LineController,
-    BarController,
-    RadarController,
-    DoughnutController,
-    LineElement,
-    BarElement,
-    PointElement,
-    ArcElement,
-    RadialLinearScale,
-    CategoryScale,
-    LinearScale,
-    Filler,
-    Legend,
-    Tooltip,
-  } from 'chart.js';
-
-  Chart.register(
-    LineController, BarController, RadarController, DoughnutController,
-    LineElement, BarElement, PointElement, ArcElement,
-    RadialLinearScale, CategoryScale, LinearScale,
-    Filler, Legend, Tooltip,
-  );
+  import * as Plot from '@observablehq/plot';
 
   interface PostData {
     title: string;
@@ -34,35 +11,50 @@
     hasCode: boolean;
   }
 
-  interface Props {
+  interface StatsData {
     posts: PostData[];
+    monthlyCounts: Record<string, number>;
+    topTags: [string, number][];
+    tagCounts: Record<string, number>;
+    dayOfWeekCounts: number[];
+    readingTimeBuckets: Record<string, number>;
+    wordCountBuckets: Record<string, number>;
+    tagByMonth: Record<string, Record<string, number>>;
+    top5Tags: string[];
+    heatmapData: Record<string, number>;
+    scatterData: { wordCount: number; readingTime: number; title: string }[];
   }
 
-  let { posts }: Props = $props();
+  interface Props {
+    statsData: StatsData;
+  }
+
+  let { statsData }: Props = $props();
 
   let currentYear = $state('all');
-  let charts: Record<string, Chart> = {};
+  let isDark = $state(false);
 
-  // Canvas refs
-  let postsOverTimeCanvas: HTMLCanvasElement;
-  let topTagsCanvas: HTMLCanvasElement;
-  let dayOfWeekCanvas: HTMLCanvasElement;
-  let readingTimeCanvas: HTMLCanvasElement;
-  let topicEvolutionCanvas: HTMLCanvasElement;
-  let wordCountCanvas: HTMLCanvasElement;
+  // Chart container refs
+  let postsOverTimeEl: HTMLDivElement;
+  let topTagsEl: HTMLDivElement;
+  let dayOfWeekEl: HTMLDivElement;
+  let readingTimeEl: HTMLDivElement;
+  let topicEvolutionEl: HTMLDivElement;
+  let wordCountEl: HTMLDivElement;
+  let scatterEl: HTMLDivElement;
 
   // Derived data
   let filteredPosts = $derived(
-    currentYear === 'all' ? posts : posts.filter((p) => p.date.startsWith(currentYear))
+    currentYear === 'all' ? statsData.posts : statsData.posts.filter((p) => p.date.startsWith(currentYear))
   );
 
   let years = $derived(
-    [...new Set(posts.map((p) => p.date.substring(0, 4)))].sort()
+    [...new Set(statsData.posts.map((p) => p.date.substring(0, 4)))].sort()
   );
 
   let totalWords = $derived(filteredPosts.reduce((s, p) => s + p.wordCount, 0));
   let uniqueTags = $derived(
-    [...new Set(filteredPosts.flatMap((p) => p.tags.filter((t) => t !== 'posts')))]
+    [...new Set(filteredPosts.flatMap((p) => p.tags))]
   );
   let avgReading = $derived(
     filteredPosts.length > 0
@@ -86,7 +78,6 @@
       const diff = (curr.getFullYear() - prev.getFullYear()) * 12 + (curr.getMonth() - prev.getMonth());
       if (diff === 1) { cur++; longest = Math.max(longest, cur); } else { cur = 1; }
     }
-    // Current streak
     const now = new Date();
     const cm = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
     const pm = new Date(now.getFullYear(), now.getMonth() - 1, 1);
@@ -115,7 +106,7 @@
 
   let streaks = $derived(calculateStreaks(filteredPosts));
 
-  // Reading time insights
+  // Reading time percentiles
   function percentile(arr: number[], p: number): number {
     if (arr.length === 0) return 0;
     const s = [...arr].sort((a, b) => a - b);
@@ -130,7 +121,7 @@
   let p75 = $derived(Math.round(percentile(readingTimes, 75)));
   let longestPost = $derived(readingTimes.length > 0 ? Math.max(...readingTimes) : 0);
 
-  // Citation stats (estimated from content — no pre-calc available in Astro)
+  // Code stats
   let postsWithCode = $derived(filteredPosts.filter((p) => p.hasCode).length);
   let codePercent = $derived(
     filteredPosts.length > 0 ? ((postsWithCode / filteredPosts.length) * 100).toFixed(1) : '0'
@@ -141,8 +132,8 @@
   let yoyData = $derived.by(() => {
     if (currentYear === 'all') return null;
     const prevYear = String(parseInt(currentYear) - 1);
-    const currPosts = posts.filter((p) => p.date.startsWith(currentYear));
-    const prevPosts = posts.filter((p) => p.date.startsWith(prevYear));
+    const currPosts = statsData.posts.filter((p) => p.date.startsWith(currentYear));
+    const prevPosts = statsData.posts.filter((p) => p.date.startsWith(prevYear));
     if (prevPosts.length === 0) return null;
     const cw = currPosts.reduce((s, p) => s + p.wordCount, 0);
     const pw = prevPosts.reduce((s, p) => s + p.wordCount, 0);
@@ -175,17 +166,16 @@
   });
 
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const LIGHT_COLORS = ['#8b9dc3', '#5b6fa8', '#3d4f7f', '#2a3a5c', '#1a2642'];
-  const DARK_COLORS = ['#5b6fa8', '#7b8fc8', '#9bafd8', '#bccfe8', '#d9e5f5'];
+  const LIGHT_HEATMAP = ['#e8eaf0', '#8b9dc3', '#5b6fa8', '#3d4f7f', '#2a3a5c', '#1a2642'];
+  const DARK_HEATMAP = ['#2a3241', '#5b6fa8', '#7b8fc8', '#9bafd8', '#bccfe8', '#d9e5f5'];
   const CHART_PALETTE = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#14b8a6', '#f97316', '#84cc16'];
-  // WCAG AA-safe text colors for tag cloud (4.5:1+ on both light/dark backgrounds)
   const TAG_TEXT_COLORS_LIGHT = ['#4338ca', '#6d28d9', '#be185d', '#92400e', '#065f46', '#1d4ed8', '#b91c1c', '#0f766e', '#c2410c', '#4d7c0f'];
   const TAG_TEXT_COLORS_DARK = ['#a5b4fc', '#c4b5fd', '#f9a8d4', '#fcd34d', '#6ee7b7', '#93c5fd', '#fca5a5', '#5eead4', '#fdba74', '#bef264'];
 
-  function getHeatmapColor(count: number, maxCount: number, isDark: boolean): string {
-    if (count === 0) return isDark ? '#2a3241' : '#e8eaf0';
-    const colors = isDark ? DARK_COLORS : LIGHT_COLORS;
-    const idx = Math.min(Math.floor((count / maxCount) * 5), 4);
+  function getHeatmapColor(count: number, maxCount: number): string {
+    const colors = isDark ? DARK_HEATMAP : LIGHT_HEATMAP;
+    if (count === 0) return colors[0];
+    const idx = Math.min(Math.floor((count / maxCount) * 5) + 1, 5);
     return colors[idx];
   }
 
@@ -193,196 +183,243 @@
   let tagCountsSorted = $derived.by(() => {
     const counts: Record<string, number> = {};
     filteredPosts.forEach((p) => {
-      p.tags.filter((t) => t !== 'posts').forEach((t) => {
-        counts[t] = (counts[t] || 0) + 1;
-      });
+      p.tags.forEach((t) => { counts[t] = (counts[t] || 0) + 1; });
     });
     return Object.entries(counts).sort((a, b) => b[1] - a[1]);
   });
 
-  // Theme detection
-  let isDark = $state(false);
-
+  // Theme
   function checkTheme() {
     isDark = document.documentElement.classList.contains('dark');
   }
 
-  function getThemeColors() {
-    const textColor = isDark ? '#e5e7eb' : '#374151';
-    const gridColor = isDark ? '#374151' : '#e5e7eb';
-    const tooltipBg = isDark ? '#1f2937' : '#ffffff';
-    return { textColor, gridColor, tooltipBg };
+  // Observable Plot chart builders
+  function getPlotTheme() {
+    return {
+      color: isDark ? '#e5e7eb' : '#374151',
+      backgroundColor: 'transparent',
+    };
   }
 
-  function destroyCharts() {
-    Object.values(charts).forEach((c) => c?.destroy());
-    charts = {};
+  function renderChart(el: HTMLDivElement | undefined, plotFn: () => SVGSVGElement | HTMLElement) {
+    if (!el) return;
+    el.innerHTML = '';
+    const svg = plotFn();
+    el.appendChild(svg);
   }
 
-  function buildCharts() {
-    destroyCharts();
+  function buildPostsOverTime() {
     const fp = filteredPosts;
-    if (fp.length === 0) return;
-    const { textColor, gridColor, tooltipBg } = getThemeColors();
-    const tooltipOpts = { backgroundColor: tooltipBg, titleColor: textColor, bodyColor: textColor, borderColor: gridColor, borderWidth: 1 };
-
-    // Posts Over Time
     const monthCounts: Record<string, number> = {};
     fp.forEach((p) => { const m = p.date.substring(0, 7); monthCounts[m] = (monthCounts[m] || 0) + 1; });
-    const sortedMonths = Object.keys(monthCounts).sort();
+    const data = Object.entries(monthCounts)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([month, count]) => ({ month: new Date(month + '-01'), count }));
 
-    if (postsOverTimeCanvas) {
-      charts.postsOverTime = new Chart(postsOverTimeCanvas, {
-        type: 'line',
-        data: {
-          labels: sortedMonths,
-          datasets: [{ label: 'Posts Published', data: sortedMonths.map((m) => monthCounts[m]), borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.1)', fill: true, tension: 0.4 }],
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: textColor } }, tooltip: tooltipOpts },
-          scales: { x: { ticks: { color: textColor }, grid: { color: gridColor } }, y: { ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } } },
-        },
-      });
-    }
+    if (data.length === 0) return;
 
-    // Top Tags
+    renderChart(postsOverTimeEl, () => Plot.plot({
+      ...getPlotTheme(),
+      height: 300,
+      width: postsOverTimeEl?.clientWidth ?? 700,
+      x: { label: null, type: 'time' },
+      y: { label: 'Posts', grid: true },
+      marks: [
+        Plot.areaY(data, { x: 'month', y: 'count', fill: '#6366f1', fillOpacity: 0.15, curve: 'catmull-rom' }),
+        Plot.lineY(data, { x: 'month', y: 'count', stroke: '#6366f1', strokeWidth: 2.5, curve: 'catmull-rom' }),
+        Plot.dot(data, { x: 'month', y: 'count', fill: '#6366f1', r: 4 }),
+        Plot.tip(data, Plot.pointerX({ x: 'month', y: 'count', title: (d: { month: Date; count: number }) => `${d.month.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}: ${d.count} post${d.count !== 1 ? 's' : ''}` })),
+        Plot.ruleY([0]),
+      ],
+    }));
+  }
+
+  function buildTopTags() {
     const tc: Record<string, number> = {};
-    fp.forEach((p) => p.tags.filter((t) => t !== 'posts').forEach((t) => { tc[t] = (tc[t] || 0) + 1; }));
-    const topTags = Object.entries(tc).sort((a, b) => b[1] - a[1]).slice(0, 10);
+    filteredPosts.forEach((p) => p.tags.forEach((t) => { tc[t] = (tc[t] || 0) + 1; }));
+    const data = Object.entries(tc)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([tag, count], i) => ({ tag, count, color: CHART_PALETTE[i % CHART_PALETTE.length] }));
 
-    if (topTagsCanvas) {
-      charts.topTags = new Chart(topTagsCanvas, {
-        type: 'bar',
-        data: {
-          labels: topTags.map(([t]) => t),
-          datasets: [{ label: 'Post Count', data: topTags.map(([, c]) => c), backgroundColor: CHART_PALETTE.slice(0, topTags.length) }],
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { display: false }, tooltip: tooltipOpts },
-          scales: { x: { ticks: { color: textColor }, grid: { display: false } }, y: { ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } } },
-        },
-      });
-    }
+    if (data.length === 0) return;
 
-    // Day of Week
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const dowCounts = new Array(7).fill(0);
-    fp.forEach((p) => { dowCounts[new Date(p.date).getDay()]++; });
+    renderChart(topTagsEl, () => Plot.plot({
+      ...getPlotTheme(),
+      height: 300,
+      width: topTagsEl?.clientWidth ?? 500,
+      x: { label: null },
+      y: { label: 'Posts', grid: true },
+      marks: [
+        Plot.barY(data, { x: 'tag', y: 'count', fill: 'color', sort: { x: '-y' }, tip: true }),
+        Plot.ruleY([0]),
+      ],
+    }));
+  }
 
-    if (dayOfWeekCanvas) {
-      charts.dayOfWeek = new Chart(dayOfWeekCanvas, {
-        type: 'radar',
-        data: {
-          labels: dayNames,
-          datasets: [{ label: 'Posts Published', data: dowCounts, borderColor: '#6366f1', backgroundColor: isDark ? 'rgba(99,102,241,0.2)' : 'rgba(99,102,241,0.1)', pointBackgroundColor: '#6366f1', pointBorderColor: '#fff' }],
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: textColor } }, tooltip: tooltipOpts },
-          scales: { r: { ticks: { color: textColor, stepSize: 1, backdropColor: 'transparent' }, grid: { color: gridColor }, pointLabels: { color: textColor } } },
-        },
-      });
-    }
+  function buildDayOfWeek() {
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const counts = new Array(7).fill(0);
+    filteredPosts.forEach((p) => { counts[new Date(p.date).getDay()]++; });
+    const data = dayNames.map((name, i) => ({ day: name, count: counts[i] }));
 
-    // Reading Time Distribution
-    const rtBuckets: Record<string, number> = { '1-3 min': 0, '4-6 min': 0, '7-9 min': 0, '10+ min': 0 };
-    fp.forEach((p) => {
-      if (p.readingTime <= 3) rtBuckets['1-3 min']++;
-      else if (p.readingTime <= 6) rtBuckets['4-6 min']++;
-      else if (p.readingTime <= 9) rtBuckets['7-9 min']++;
-      else rtBuckets['10+ min']++;
+    renderChart(dayOfWeekEl, () => Plot.plot({
+      ...getPlotTheme(),
+      height: 300,
+      width: dayOfWeekEl?.clientWidth ?? 500,
+      x: { label: null, padding: 0.3 },
+      y: { label: 'Posts', grid: true },
+      marks: [
+        Plot.barY(data, { x: 'day', y: 'count', fill: '#8b5cf6', tip: true }),
+        Plot.ruleY([0]),
+      ],
+    }));
+  }
+
+  function buildReadingTime() {
+    const buckets: Record<string, number> = { '1-3': 0, '4-6': 0, '7-9': 0, '10+': 0 };
+    filteredPosts.forEach((p) => {
+      if (p.readingTime <= 3) buckets['1-3']++;
+      else if (p.readingTime <= 6) buckets['4-6']++;
+      else if (p.readingTime <= 9) buckets['7-9']++;
+      else buckets['10+']++;
     });
+    const data = Object.entries(buckets).map(([range, count]) => ({ range: range + ' min', count }));
 
-    if (readingTimeCanvas) {
-      charts.readingTime = new Chart(readingTimeCanvas, {
-        type: 'doughnut',
-        data: {
-          labels: Object.keys(rtBuckets),
-          datasets: [{ data: Object.values(rtBuckets), backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b'], borderColor: isDark ? '#1f2937' : '#ffffff', borderWidth: 2 }],
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { position: 'bottom', labels: { color: textColor } }, tooltip: tooltipOpts },
-        },
-      });
-    }
+    renderChart(readingTimeEl, () => Plot.plot({
+      ...getPlotTheme(),
+      height: 300,
+      width: readingTimeEl?.clientWidth ?? 500,
+      x: { label: null, padding: 0.3 },
+      y: { label: 'Posts', grid: true },
+      marks: [
+        Plot.barY(data, { x: 'range', y: 'count', fill: '#ec4899', tip: true }),
+        Plot.ruleY([0]),
+      ],
+    }));
+  }
 
-    // Topic Evolution
-    const top5 = topTags.slice(0, 5).map(([t]) => t);
-    const tagByMonth: Record<string, Record<string, number>> = {};
-    fp.forEach((p) => {
+  function buildTopicEvolution() {
+    const top5 = Object.entries(
+      filteredPosts.reduce<Record<string, number>>((acc, p) => {
+        p.tags.forEach((t) => { acc[t] = (acc[t] || 0) + 1; });
+        return acc;
+      }, {})
+    ).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([t]) => t);
+
+    if (top5.length === 0) return;
+
+    const tagByM: Record<string, Record<string, number>> = {};
+    filteredPosts.forEach((p) => {
       const m = p.date.substring(0, 7);
-      if (!tagByMonth[m]) tagByMonth[m] = {};
-      p.tags.filter((t) => top5.includes(t)).forEach((t) => { tagByMonth[m][t] = (tagByMonth[m][t] || 0) + 1; });
-    });
-    const allMonths = Object.keys(tagByMonth).sort();
-
-    if (topicEvolutionCanvas && top5.length > 0) {
-      charts.topicEvolution = new Chart(topicEvolutionCanvas, {
-        type: 'line',
-        data: {
-          labels: allMonths,
-          datasets: top5.map((tag, i) => ({
-            label: tag,
-            data: allMonths.map((m) => tagByMonth[m][tag] || 0),
-            borderColor: CHART_PALETTE[i],
-            backgroundColor: CHART_PALETTE[i] + '20',
-            fill: false, tension: 0.4,
-          })),
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: textColor }, position: 'top' }, tooltip: tooltipOpts },
-          scales: { x: { ticks: { color: textColor }, grid: { color: gridColor } }, y: { ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } } },
-        },
+      if (!tagByM[m]) tagByM[m] = {};
+      p.tags.filter((t) => top5.includes(t)).forEach((t) => {
+        tagByM[m][t] = (tagByM[m][t] || 0) + 1;
       });
-    }
-
-    // Word Count
-    const wcBuckets: Record<string, number> = { '0-1000': 0, '1001-2000': 0, '2001-3000': 0, '3001-4000': 0, '4000+': 0 };
-    fp.forEach((p) => {
-      if (p.wordCount <= 1000) wcBuckets['0-1000']++;
-      else if (p.wordCount <= 2000) wcBuckets['1001-2000']++;
-      else if (p.wordCount <= 3000) wcBuckets['2001-3000']++;
-      else if (p.wordCount <= 4000) wcBuckets['3001-4000']++;
-      else wcBuckets['4000+']++;
     });
 
-    if (wordCountCanvas) {
-      charts.wordCount = new Chart(wordCountCanvas, {
-        type: 'bar',
-        data: {
-          labels: Object.keys(wcBuckets).map((l) => l + ' words'),
-          datasets: [{ label: 'Number of Posts', data: Object.values(wcBuckets), backgroundColor: '#6366f1' }],
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: textColor } }, tooltip: tooltipOpts },
-          scales: { x: { ticks: { color: textColor }, grid: { display: false } }, y: { ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } } },
-        },
+    const data: { month: Date; tag: string; count: number }[] = [];
+    Object.entries(tagByM).sort(([a], [b]) => a.localeCompare(b)).forEach(([m, tags]) => {
+      top5.forEach((tag) => {
+        data.push({ month: new Date(m + '-01'), tag, count: tags[tag] || 0 });
       });
-    }
+    });
+
+    renderChart(topicEvolutionEl, () => Plot.plot({
+      ...getPlotTheme(),
+      height: 350,
+      width: topicEvolutionEl?.clientWidth ?? 700,
+      x: { label: null, type: 'time' },
+      y: { label: 'Posts', grid: true },
+      color: { legend: true, range: CHART_PALETTE.slice(0, 5) },
+      marks: [
+        Plot.lineY(data, { x: 'month', y: 'count', stroke: 'tag', strokeWidth: 2, curve: 'catmull-rom', tip: true }),
+        Plot.ruleY([0]),
+      ],
+    }));
+  }
+
+  function buildWordCount() {
+    const buckets: Record<string, number> = { '0-1k': 0, '1-2k': 0, '2-3k': 0, '3-4k': 0, '4k+': 0 };
+    filteredPosts.forEach((p) => {
+      if (p.wordCount <= 1000) buckets['0-1k']++;
+      else if (p.wordCount <= 2000) buckets['1-2k']++;
+      else if (p.wordCount <= 3000) buckets['2-3k']++;
+      else if (p.wordCount <= 4000) buckets['3-4k']++;
+      else buckets['4k+']++;
+    });
+    const data = Object.entries(buckets).map(([range, count]) => ({ range: range + ' words', count }));
+
+    renderChart(wordCountEl, () => Plot.plot({
+      ...getPlotTheme(),
+      height: 300,
+      width: wordCountEl?.clientWidth ?? 500,
+      x: { label: null, padding: 0.3 },
+      y: { label: 'Posts', grid: true },
+      marks: [
+        Plot.barY(data, { x: 'range', y: 'count', fill: '#14b8a6', tip: true }),
+        Plot.ruleY([0]),
+      ],
+    }));
+  }
+
+  function buildScatter() {
+    const data = filteredPosts.map((p) => ({
+      wordCount: p.wordCount,
+      readingTime: p.readingTime,
+      title: p.title,
+      hasCode: p.hasCode,
+    }));
+
+    if (data.length === 0) return;
+
+    renderChart(scatterEl, () => Plot.plot({
+      ...getPlotTheme(),
+      height: 350,
+      width: scatterEl?.clientWidth ?? 700,
+      x: { label: 'Word Count', grid: true },
+      y: { label: 'Reading Time (min)', grid: true },
+      color: { legend: true, domain: [false, true], range: ['#6366f1', '#10b981'], tickFormat: (d: boolean) => d ? 'With Code' : 'No Code' },
+      marks: [
+        Plot.dot(data, {
+          x: 'wordCount', y: 'readingTime', fill: 'hasCode',
+          fillOpacity: 0.7, r: 6, stroke: 'white', strokeWidth: 1,
+          tip: true,
+          title: (d: { title: string; wordCount: number; readingTime: number }) => `${d.title}\n${d.wordCount.toLocaleString()} words, ${d.readingTime} min`,
+        }),
+        Plot.linearRegressionY(data, { x: 'wordCount', y: 'readingTime', stroke: '#ef4444', strokeWidth: 1.5, strokeDasharray: '6 4' }),
+      ],
+    }));
+  }
+
+  function buildAllCharts() {
+    if (filteredPosts.length === 0) return;
+    buildPostsOverTime();
+    buildTopTags();
+    buildDayOfWeek();
+    buildReadingTime();
+    buildTopicEvolution();
+    buildWordCount();
+    buildScatter();
   }
 
   function switchYear(year: string) {
     currentYear = year;
   }
 
-  // Rebuild charts when filteredPosts or theme changes
   $effect(() => {
-    // Access dependencies to track them
     void filteredPosts;
     void isDark;
-    buildCharts();
+    buildAllCharts();
   });
 
   onMount(() => {
     checkTheme();
-    const observer = new MutationObserver(() => checkTheme());
+    const observer = new MutationObserver(() => {
+      checkTheme();
+    });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => { destroyCharts(); observer.disconnect(); };
+    return () => observer.disconnect();
   });
 </script>
 
@@ -420,34 +457,22 @@
 <section aria-labelledby="overview-heading" aria-live="polite">
   <h2 id="overview-heading" class="sr-only">Statistics Overview</h2>
   <div class="max-w-6xl mx-auto mb-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="card p-6">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">Total Posts</h3>
-          <svg class="w-8 h-8 text-[var(--md-sys-color-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-        </div>
-        <p class="text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length}</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div class="card p-5 md:p-6">
+        <h3 class="text-xs md:text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Total Posts</h3>
+        <p class="text-3xl md:text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length}</p>
       </div>
-      <div class="card p-6">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">Total Words</h3>
-          <svg class="w-8 h-8 text-[var(--md-sys-color-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
-        </div>
-        <p class="text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{totalWords.toLocaleString()}</p>
+      <div class="card p-5 md:p-6">
+        <h3 class="text-xs md:text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Total Words</h3>
+        <p class="text-3xl md:text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{totalWords.toLocaleString()}</p>
       </div>
-      <div class="card p-6">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">Unique Tags</h3>
-          <svg class="w-8 h-8 text-[var(--md-sys-color-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
-        </div>
-        <p class="text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{uniqueTags.length}</p>
+      <div class="card p-5 md:p-6">
+        <h3 class="text-xs md:text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Unique Tags</h3>
+        <p class="text-3xl md:text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{uniqueTags.length}</p>
       </div>
-      <div class="card p-6">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">Avg Reading</h3>
-          <svg class="w-8 h-8 text-[var(--md-sys-color-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-        </div>
-        <p class="text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{avgReading}m</p>
+      <div class="card p-5 md:p-6">
+        <h3 class="text-xs md:text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Avg Reading</h3>
+        <p class="text-3xl md:text-4xl font-bold text-[var(--md-sys-color-on-surface)]">{avgReading}m</p>
       </div>
     </div>
   </div>
@@ -493,7 +518,7 @@
             <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">{item.label}</h3>
             <div class="flex items-end gap-3">
               <p class="text-3xl font-bold text-[var(--md-sys-color-on-surface)]">{item.curr.toLocaleString()}{item.suffix}</p>
-              <span class="text-lg font-semibold" style="color: {diff > 0 ? 'var(--md-sys-color-success)' : diff < 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}">
+              <span class="text-lg font-semibold" style="color: {diff > 0 ? 'var(--md-sys-color-success, #10b981)' : diff < 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}">
                 {diff > 0 ? '\u25B2' : diff < 0 ? '\u25BC' : '\u2014'} {Math.abs(Number(pct))}%
               </span>
             </div>
@@ -514,104 +539,68 @@
   <div class="max-w-6xl mx-auto space-y-12">
 
     <!-- Posts Over Time -->
-    <div class="card p-8">
+    <div class="card p-6 md:p-8">
       <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Posts Over Time</h2>
-      <div class="h-80 px-2">
-        <canvas bind:this={postsOverTimeCanvas} aria-label="Line chart showing blog posts published over time" role="img"></canvas>
-      </div>
+      <div bind:this={postsOverTimeEl} class="w-full overflow-x-auto" role="img" aria-label="Area chart showing blog posts published over time"></div>
     </div>
 
     <!-- Two Column: Top Tags + Day of Week -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="card p-8">
+      <div class="card p-6 md:p-8">
         <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Top Tags</h2>
-        <div class="h-80 px-2">
-          <canvas bind:this={topTagsCanvas} aria-label="Bar chart showing most frequently used blog post tags" role="img"></canvas>
-        </div>
+        <div bind:this={topTagsEl} class="w-full overflow-x-auto" role="img" aria-label="Bar chart showing most used tags"></div>
       </div>
-      <div class="card p-8">
-        <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Publishing by Day of Week</h2>
-        <div class="h-80 px-2">
-          <canvas bind:this={dayOfWeekCanvas} aria-label="Radar chart showing publishing patterns by day of week" role="img"></canvas>
-        </div>
+      <div class="card p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Publishing by Day</h2>
+        <div bind:this={dayOfWeekEl} class="w-full overflow-x-auto" role="img" aria-label="Bar chart showing publishing patterns by day of week"></div>
       </div>
     </div>
 
-    <!-- Two Column: Citation Stats + Code Stats -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="card p-8">
-        <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Content Statistics</h2>
-        <div class="space-y-6">
-          <div class="border-b border-[var(--md-sys-color-outline-variant)] pb-4">
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Total Words</h3>
-            <p class="text-4xl font-bold text-[var(--md-sys-color-primary)]">{totalWords.toLocaleString()}</p>
-            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">across {filteredPosts.length} posts</p>
-          </div>
-          <div class="border-b border-[var(--md-sys-color-outline-variant)] pb-4">
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Average Words per Post</h3>
-            <p class="text-4xl font-bold text-[var(--md-sys-color-primary)]">{filteredPosts.length > 0 ? Math.round(totalWords / filteredPosts.length).toLocaleString() : 0}</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Words per Minute (est.)</h3>
-            <p class="text-4xl font-bold text-[var(--md-sys-color-primary)]">225</p>
-            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">used for reading time calculation</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card p-8">
-        <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Code Statistics</h2>
-        <div class="space-y-6">
-          <div class="border-b border-[var(--md-sys-color-outline-variant)] pb-4">
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Posts with Code</h3>
-            <p class="text-4xl font-bold text-[var(--md-sys-color-tertiary)]">{postsWithCode}</p>
-            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">of {filteredPosts.length} posts ({codePercent}%)</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Technical Content Focus</h3>
-            <div class="w-full bg-[var(--md-sys-color-surface-container)] rounded-full h-4 mt-2">
-              <div class="h-4 rounded-full transition-all duration-500" style="width: {codePercent}%; background-color: var(--md-sys-color-tertiary)"></div>
-            </div>
-            <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mt-1">posts include code examples</p>
-          </div>
-        </div>
-      </div>
+    <!-- NEW: Word Count vs Reading Time Scatter -->
+    <div class="card p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Word Count vs Reading Time</h2>
+      <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mb-4">Each dot is a post. Dashed line shows the linear trend. Color indicates whether the post contains code examples.</p>
+      <div bind:this={scatterEl} class="w-full overflow-x-auto" role="img" aria-label="Scatter plot showing word count versus reading time for each post"></div>
     </div>
 
-    <!-- Reading Time Distribution + Insights -->
+    <!-- Content + Code Stats side by side -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="card p-8">
+      <div class="card p-6 md:p-8">
         <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Reading Time Distribution</h2>
-        <div class="h-80 px-4">
-          <canvas bind:this={readingTimeCanvas} aria-label="Doughnut chart showing distribution of reading times" role="img"></canvas>
-        </div>
+        <div bind:this={readingTimeEl} class="w-full overflow-x-auto" role="img" aria-label="Bar chart showing reading time distribution"></div>
       </div>
 
-      <div class="card p-8">
+      <div class="card p-6 md:p-8">
         <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Reading Time Insights</h2>
         <div class="space-y-4">
           <div class="border-b border-[var(--md-sys-color-outline-variant)] pb-4">
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Median Reading Time</h3>
-            <p class="text-3xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length > 0 ? medianReading + 'm' : '-'}</p>
+            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Median</h3>
+            <p class="text-3xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length > 0 ? medianReading + ' min' : '-'}</p>
           </div>
-          <div class="border-b border-[var(--md-sys-color-outline-variant)] pb-4">
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">25th Percentile</h3>
-            <p class="text-2xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length > 0 ? p25 + 'm' : '-'}</p>
+          <div class="flex gap-6">
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">25th %ile</h3>
+              <p class="text-2xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length > 0 ? p25 + 'm' : '-'}</p>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">75th %ile</h3>
+              <p class="text-2xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length > 0 ? p75 + 'm' : '-'}</p>
+            </div>
           </div>
-          <div class="border-b border-[var(--md-sys-color-outline-variant)] pb-4">
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">75th Percentile</h3>
-            <p class="text-2xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length > 0 ? p75 + 'm' : '-'}</p>
-          </div>
-          <div>
-            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Longest Post</h3>
-            <p class="text-2xl font-bold text-[var(--md-sys-color-on-surface)]">{filteredPosts.length > 0 ? longestPost + 'm' : '-'}</p>
+          <div class="border-t border-[var(--md-sys-color-outline-variant)] pt-4">
+            <h3 class="text-sm font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-2">Technical Content</h3>
+            <p class="text-2xl font-bold text-[var(--md-sys-color-tertiary)]">{postsWithCode} of {filteredPosts.length} posts</p>
+            <div class="w-full bg-[var(--md-sys-color-surface-container)] rounded-full h-3 mt-2">
+              <div class="h-3 rounded-full transition-all duration-500" style="width: {codePercent}%; background-color: var(--md-sys-color-tertiary)"></div>
+            </div>
+            <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-1">{codePercent}% include code blocks</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Publishing Activity Heatmap -->
-    <div class="card p-8">
+    <div class="card p-6 md:p-8">
       <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Publishing Activity Heatmap</h2>
       <div class="overflow-x-auto" style="padding-top: 48px;">
         <div class="min-w-fit" role="region" aria-label="Publishing activity heatmap">
@@ -622,7 +611,7 @@
                 <div class="grid gap-0.5 flex-1 min-w-0" style="grid-template-columns: repeat(12, 81px);">
                   {#each MONTHS as month, idx}
                     {@const count = heatmapResult.data[`${year}-${idx}`] || 0}
-                    {@const bgColor = getHeatmapColor(count, heatmapResult.maxCount, isDark)}
+                    {@const bgColor = getHeatmapColor(count, heatmapResult.maxCount)}
                     <div class="group relative hover:z-50" style="width: 81px; height: 81px;" tabindex="0" role="button" aria-label="{month} {year}: {count} post{count !== 1 ? 's' : ''}">
                       <div class="w-full h-full rounded transition-all cursor-pointer" style="background-color: {bgColor}"></div>
                       <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 text-xs rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-lg" style="background-color: var(--md-sys-color-inverse-surface); color: var(--md-sys-color-inverse-on-surface);">
@@ -636,11 +625,10 @@
           </div>
         </div>
       </div>
-      <!-- Legend -->
       <div class="mt-6 flex items-center justify-center gap-2">
         <span class="text-sm text-[var(--md-sys-color-on-surface-variant)]">Less</span>
         <div class="flex gap-2">
-          {#each (isDark ? DARK_COLORS : LIGHT_COLORS) as color}
+          {#each (isDark ? DARK_HEATMAP.slice(1) : LIGHT_HEATMAP.slice(1)) as color}
             <div class="w-12 h-12 min-h-[44px] min-w-[44px] rounded flex-shrink-0" style="background-color: {color}"></div>
           {/each}
         </div>
@@ -649,7 +637,7 @@
     </div>
 
     <!-- Tag Cloud -->
-    <div class="card p-8">
+    <div class="card p-6 md:p-8">
       <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Tag Cloud</h2>
       <div class="flex flex-wrap gap-3 justify-center min-h-[200px]" role="list" aria-label="Tag cloud">
         {#each tagCountsSorted as [tag, count], idx}
@@ -671,19 +659,15 @@
     </div>
 
     <!-- Topic Evolution -->
-    <div class="card p-8">
+    <div class="card p-6 md:p-8">
       <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Topic Evolution Over Time</h2>
-      <div class="h-96 px-2">
-        <canvas bind:this={topicEvolutionCanvas} aria-label="Line chart showing evolution of top 5 tags over time" role="img"></canvas>
-      </div>
+      <div bind:this={topicEvolutionEl} class="w-full overflow-x-auto" role="img" aria-label="Line chart showing evolution of top 5 tags over time"></div>
     </div>
 
     <!-- Word Count Analysis -->
-    <div class="card p-8">
-      <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Word Count Analysis</h2>
-      <div class="h-80 px-2">
-        <canvas bind:this={wordCountCanvas} aria-label="Bar chart showing word count distribution" role="img"></canvas>
-      </div>
+    <div class="card p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)] mb-6">Word Count Distribution</h2>
+      <div bind:this={wordCountEl} class="w-full overflow-x-auto" role="img" aria-label="Bar chart showing word count distribution"></div>
     </div>
 
   </div>
