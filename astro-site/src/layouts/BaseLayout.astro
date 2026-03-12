@@ -15,6 +15,7 @@ interface Props {
   publishedDate?: Date;
   wordCount?: number;
   tags?: string[];
+  noindex?: boolean;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   publishedDate,
   wordCount,
   tags = [],
+  noindex = false,
 } = Astro.props;
 
 const siteTitle = 'William Zujkowski';
@@ -159,7 +161,7 @@ const navLinks = [
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
 
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 
   <!-- Structured Data -->
   {jsonLdSchemas.map((schema) => (

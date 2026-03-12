@@ -20,13 +20,7 @@
     monthlyCounts: Record<string, number>;
     topTags: [string, number][];
     tagCounts: Record<string, number>;
-    dayOfWeekCounts: number[];
-    readingTimeBuckets: Record<string, number>;
-    wordCountBuckets: Record<string, number>;
-    tagByMonth: Record<string, Record<string, number>>;
-    top5Tags: string[];
     heatmapData: Record<string, number>;
-    scatterData: { wordCount: number; readingTime: number; title: string }[];
   }
 
   interface Props {

@@ -2,20 +2,24 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist.">
+<BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist." noindex>
   <section class="py-24 sm:py-32">
     <div class="container mx-auto px-4 text-center">
-      <p class="text-base font-semibold text-[var(--md-sys-color-primary)]">404</p>
+      <p class="text-6xl sm:text-8xl font-bold text-[var(--md-sys-color-primary)]" style="opacity: 0.6">404</p>
       <h1 class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl" style="font-size: var(--md-sys-typescale-display-medium)">
         Page not found
       </h1>
       <p class="mt-6 text-lg text-[var(--md-sys-color-on-surface-variant)]">
         The page you're looking for doesn't exist or has been moved.
       </p>
-      <div class="mt-10 flex items-center justify-center gap-4">
+      <div class="mt-10 flex items-center justify-center gap-4 flex-wrap">
         <a href="/" class="btn-filled">Go home</a>
         <a href="/posts/" class="btn-outlined">Browse posts</a>
+        <a href="/tags/" class="btn-outlined">Explore tags</a>
       </div>
+      <p class="mt-8 text-sm text-[var(--md-sys-color-on-surface-variant)]">
+        Try pressing <kbd class="px-1.5 py-0.5 rounded border text-xs" style="border-color: var(--md-sys-color-outline-variant)">/</kbd> to search the site.
+      </p>
     </div>
   </section>
 </BaseLayout>
