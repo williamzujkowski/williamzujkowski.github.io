@@ -1,8 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  onMount(() => {
-    // Only add copy buttons if code blocks exist on this page
+  const COPY_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
+  const CHECK_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+  function injectCopyButtons() {
     const codeBlocks = document.querySelectorAll('pre');
     if (codeBlocks.length === 0) return;
 
@@ -17,18 +19,15 @@
       const btn = document.createElement('button');
       btn.className = 'copy-btn';
       btn.setAttribute('aria-label', 'Copy code');
-      btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
+      btn.innerHTML = COPY_ICON;
 
       btn.addEventListener('click', async () => {
         const code = pre.querySelector('code')?.textContent ?? pre.textContent ?? '';
         try {
           await navigator.clipboard.writeText(code);
-          btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
-          setTimeout(() => {
-            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
-          }, 2000);
+          btn.innerHTML = CHECK_ICON;
+          setTimeout(() => { btn.innerHTML = COPY_ICON; }, 2000);
         } catch {
-          // Fallback for older browsers
           const textarea = document.createElement('textarea');
           textarea.value = code;
           textarea.style.position = 'fixed';
@@ -42,6 +41,15 @@
 
       wrapper.appendChild(btn);
     });
+  }
+
+  onMount(() => {
+    injectCopyButtons();
+
+    // Re-inject after View Transitions page swap
+    const handleSwap = () => injectCopyButtons();
+    document.addEventListener('astro:after-swap', handleSwap);
+    return () => document.removeEventListener('astro:after-swap', handleSwap);
   });
 </script>
 
