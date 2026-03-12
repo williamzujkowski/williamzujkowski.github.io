@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
+import ReadingProgress from '@components/ReadingProgress.svelte';
 
 interface Heading {
   depth: number;
@@ -32,6 +33,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={title} description={description} image={image} type="article" publishedDate={date} wordCount={wordCount} tags={tags}>
+  <ReadingProgress client:idle />
   <article class="py-8 sm:py-12">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Breadcrumbs -->
