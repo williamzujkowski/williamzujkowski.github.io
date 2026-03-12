@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import DarkModeToggle from '@components/DarkModeToggle.svelte';
 import Search from '@components/Search.svelte';
 import MobileMenu from '@components/MobileMenu.svelte';
@@ -164,6 +165,8 @@ const navLinks = [
   {jsonLdSchemas.map((schema) => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   ))}
+
+  <ClientRouter />
 
   <!-- Dark mode init (prevents flash) -->
   <script is:inline>
