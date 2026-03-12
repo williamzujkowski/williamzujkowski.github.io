@@ -16,6 +16,15 @@ posts.forEach((post) => {
     });
 });
 const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+
+// Group posts by year
+const postsByYear = new Map<number, typeof posts>();
+posts.forEach((post) => {
+  const year = post.data.date.getFullYear();
+  if (!postsByYear.has(year)) postsByYear.set(year, []);
+  postsByYear.get(year)!.push(post);
+});
+const years = [...postsByYear.keys()].sort((a, b) => b - a);
 ---
 
 <BaseLayout
@@ -49,10 +58,24 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
         )
       }
 
-      <!-- Posts list -->
-      <div class="space-y-6">
-        {posts.map((post) => <PostCard post={post} variant="horizontal" />)}
-      </div>
+      <!-- Posts by year -->
+      {
+        years.map((year) => (
+          <div class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+              <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)]">{year}</h2>
+              <span class="text-sm text-[var(--md-sys-color-on-surface-variant)] bg-[var(--md-sys-color-surface-container-high)] px-2 py-0.5 rounded-full">
+                {postsByYear.get(year)!.length} posts
+              </span>
+            </div>
+            <div class="space-y-6">
+              {postsByYear.get(year)!.map((post) => (
+                <PostCard post={post} variant="horizontal" />
+              ))}
+            </div>
+          </div>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>

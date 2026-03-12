@@ -8,6 +8,12 @@ import headshot from '@/assets/images/headshot.png';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 3);
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
 ---
 
 <BaseLayout title="Home">
@@ -180,6 +186,67 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
       </div>
     </div>
   </section>
+
+  <!-- Featured Projects -->
+  {
+    featuredProjects.length > 0 && (
+      <section class="py-16 sm:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-2xl text-center">
+            <h2
+              class="text-3xl font-bold tracking-tight sm:text-4xl"
+              style="font-size: var(--md-sys-typescale-headline-large)"
+            >
+              Open Source Projects
+            </h2>
+            <p class="mt-2 text-lg text-[var(--md-sys-color-on-surface-variant)]">
+              Tools I'm building and maintaining.
+            </p>
+          </div>
+
+          <div class="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            {featuredProjects.map((project) => (
+              <a
+                href={project.data.url}
+                class="card group p-6 flex flex-col no-underline hover:no-underline"
+                rel="noopener noreferrer"
+              >
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="chip text-xs">
+                    {project.data.category === 'ai'
+                      ? 'AI & Machine Learning'
+                      : project.data.category === 'security'
+                        ? 'Security'
+                        : project.data.category === 'tools'
+                          ? 'Developer Tools'
+                          : 'Infrastructure'}
+                  </span>
+                  <span class="text-xs text-[var(--md-sys-color-on-surface-variant)]">{project.data.status}</span>
+                </div>
+                <h3 class="text-lg font-semibold group-hover:text-[var(--md-sys-color-primary)] transition-colors">
+                  {project.data.title}
+                </h3>
+                <p class="mt-2 text-sm text-[var(--md-sys-color-on-surface-variant)] flex-grow">
+                  {project.data.description}
+                </p>
+                <div class="mt-4 flex flex-wrap gap-1">
+                  {project.data.tags.slice(0, 3).map((tag: string) => (
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div class="mt-12 text-center">
+            <a href="/projects/" class="btn-outlined">View all projects</a>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <!-- CTA -->
   <section class="py-16 sm:py-24">
