@@ -127,12 +127,12 @@ jobs:
 
               registry = manifest.get('inventory', {}).get('files', {}).get('file_registry', {})
 
-              # Check for duplicate names (excluding _site)
+              # Check for duplicate names (excluding build output)
               seen = {}
               duplicates = []
 
               for filepath in registry.keys():
-                  if '_site/' in filepath:
+                  if '_site/' in filepath or 'dist/' in filepath:
                       continue
                   name = Path(filepath).name
                   if name in seen:

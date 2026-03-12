@@ -15,11 +15,11 @@ const fs = require('fs');
 const path = require('path');
 
 const PAGES_TO_TEST = [
-  { url: 'http://localhost:8086/', name: 'Homepage' },
-  { url: 'http://localhost:8086/about/', name: 'About' },
-  { url: 'http://localhost:8086/posts/', name: 'Blog Posts' },
-  { url: 'http://localhost:8086/uses/', name: 'Uses' },
-  { url: 'http://localhost:8086/posts/building-my-digital-garden-with-eleventy/', name: 'Blog Post (Welcome)' }
+  { url: 'http://localhost:4321/', name: 'Homepage' },
+  { url: 'http://localhost:4321/about/', name: 'About' },
+  { url: 'http://localhost:4321/posts/', name: 'Blog Posts' },
+  { url: 'http://localhost:4321/uses/', name: 'Uses' },
+  { url: 'http://localhost:4321/posts/writing-secure-code-developers-guide/', name: 'Blog Post (Sample)' }
 ];
 
 async function testPagePerformance(page, pageInfo) {

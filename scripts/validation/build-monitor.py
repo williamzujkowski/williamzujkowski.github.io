@@ -17,7 +17,7 @@ DESCRIPTION:
     3. Posts parsed and files written
     4. JavaScript bundle sizes and compression
     5. Warnings and errors in build output
-    6. Eleventy processing time
+    6. Astro build processing time
 
     Regression detection:
     - Status changes (passing → failing)
@@ -81,7 +81,7 @@ logger = setup_logger(__name__)
 # Pre-compiled regex for build output parsing (Optimization #2)
 PATTERN_POSTS_PARSED = re.compile(r'Successfully parsed (\d+) posts')
 PATTERN_FILES_WRITTEN = re.compile(r'Wrote (\d+) files')
-PATTERN_ELEVENTY_TIME = re.compile(r'in ([\d.]+) seconds')
+PATTERN_BUILD_TIME = re.compile(r'in ([\d.]+) seconds')
 PATTERN_BUNDLE_NAME = re.compile(r'Creating bundle:\s*(.+)$')
 PATTERN_BUNDLE_SIZE = re.compile(r'Minified:\s*([\d.]+\s*[KM]?B)\s*→\s*([\d.]+\s*[KM]?B)\s*\(([\d.]+)%\s*reduction\)')
 
@@ -96,14 +96,14 @@ class BuildStats:
         files_copied: Number of static files copied.
         total_words: Total word count across all posts.
         js_bundles: Dictionary mapping bundle name to size info.
-        eleventy_time: Eleventy processing time in seconds.
+        build_time: Astro build processing time in seconds.
     """
     posts_parsed: int = 0
     files_written: int = 0
     files_copied: int = 0
     total_words: int = 0
     js_bundles: Dict[str, Dict[str, Any]] = field(default_factory=dict)
-    eleventy_time: Optional[float] = None
+    build_time: Optional[float] = None
 
 
 class BuildMonitor:
@@ -244,7 +244,7 @@ class BuildMonitor:
             Dictionary with parsed statistics:
                 - posts_parsed: Number of posts processed
                 - files_written: Number of files generated
-                - eleventy_time: Build time in seconds
+                - build_time: Build time in seconds
                 - js_bundles: Bundle size info
 
         Examples:
@@ -258,7 +258,7 @@ class BuildMonitor:
             "files_copied": 0,
             "total_words": 0,
             "js_bundles": {},
-            "eleventy_time": None
+            "build_time": None
         }
 
         current_bundle: Optional[str] = None
@@ -279,12 +279,12 @@ class BuildMonitor:
                 except (ValueError, IndexError) as e:
                     logger.debug(f"Failed to parse files written: {e}")
 
-            # Eleventy time
-            elif stats["eleventy_time"] is None and "Wrote" in line and (match := PATTERN_ELEVENTY_TIME.search(line)):
+            # Build time
+            elif stats["build_time"] is None and "Wrote" in line and (match := PATTERN_BUILD_TIME.search(line)):
                 try:
-                    stats["eleventy_time"] = float(match.group(1))
+                    stats["build_time"] = float(match.group(1))
                 except (ValueError, IndexError) as e:
-                    logger.debug(f"Failed to parse Eleventy time: {e}")
+                    logger.debug(f"Failed to parse build time: {e}")
 
             # Bundle name
             elif "Creating bundle:" in line and (match := PATTERN_BUNDLE_NAME.search(line)):
@@ -545,8 +545,8 @@ class BuildMonitor:
             logger.info("\n📊 Build Statistics:")
             logger.info(f"  - Posts parsed: {stats.get('posts_parsed', 'N/A')}")
             logger.info(f"  - Files written: {stats.get('files_written', 'N/A')}")
-            if stats.get("eleventy_time"):
-                logger.info(f"  - Eleventy time: {stats.get('eleventy_time', 'N/A')}s")
+            if stats.get("build_time"):
+                logger.info(f"  - Build time: {stats.get('build_time', 'N/A')}s")
 
             js_bundles: Dict[str, Dict[str, Any]] = stats.get("js_bundles", {})
             if js_bundles:

@@ -791,8 +791,8 @@ def generate_html_dashboard(all_data):
     return html
 
 def save_dashboard(html, logger=None):
-    """Save dashboard to _site/ directory."""
-    output_path = Path(__file__).parent.parent.parent / "_site/stats.html"
+    """Save dashboard to astro-site/dist/ directory."""
+    output_path = Path(__file__).parent.parent.parent / "astro-site/dist/stats.html"
     output_path.parent.mkdir(exist_ok=True)
     with open(output_path, 'w') as f:
         f.write(html)
