@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   interface NavLink {
     label: string;
     href: string;
@@ -15,6 +17,23 @@
   function close() {
     isOpen = false;
   }
+
+  onMount(() => {
+    // Close menu on View Transitions navigation
+    const handleSwap = () => close();
+    document.addEventListener('astro:after-swap', handleSwap);
+
+    // Close on Escape key
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) close();
+    };
+    document.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      document.removeEventListener('astro:after-swap', handleSwap);
+      document.removeEventListener('keydown', handleKeydown);
+    };
+  });
 </script>
 
 <button

@@ -3,8 +3,16 @@
 
   let isDark = $state(false);
 
-  onMount(() => {
+  function syncState() {
     isDark = document.documentElement.classList.contains('dark');
+  }
+
+  onMount(() => {
+    syncState();
+
+    // Re-sync after View Transitions page swap
+    document.addEventListener('astro:after-swap', syncState);
+    return () => document.removeEventListener('astro:after-swap', syncState);
   });
 
   function toggle() {

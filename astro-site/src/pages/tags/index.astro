@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+
+// Count posts per tag
+const tagCounts = new Map<string, number>();
+posts.forEach((post) => {
+  (post.data.tags ?? [])
+    .filter((t: string) => t !== 'posts')
+    .forEach((tag: string) => {
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+    });
+});
+
+// Sort by count descending
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Tags" description="Browse all blog post tags.">
+  <section class="py-12 sm:py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mb-12">
+        <h1 class="text-3xl font-bold tracking-tight" style="font-size: var(--md-sys-typescale-headline-large)">
+          Tags
+        </h1>
+        <p class="mt-2 text-[var(--md-sys-color-on-surface-variant)]">
+          {sortedTags.length} tags across {posts.length} posts
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        {sortedTags.map(([tag, count]) => (
+          <a
+            href={`/tags/${tag}/`}
+            class="chip text-sm"
+          >
+            {tag} ({count})
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -81,7 +81,7 @@
   }
 
   onMount(() => {
-    document.addEventListener('keydown', (e) => {
+    function handleKeydown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         open();
@@ -99,7 +99,17 @@
       if (e.key === 'Escape' && isOpen) {
         close();
       }
-    });
+    }
+    document.addEventListener('keydown', handleKeydown);
+
+    // Close search on View Transitions navigation
+    const handleSwap = () => close();
+    document.addEventListener('astro:after-swap', handleSwap);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+      document.removeEventListener('astro:after-swap', handleSwap);
+    };
   });
 </script>
 
