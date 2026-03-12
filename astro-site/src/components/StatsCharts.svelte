@@ -228,6 +228,8 @@
 
   function switchYear(year: string) {
     currentYear = year;
+    // Broadcast to sibling chart components
+    document.dispatchEvent(new CustomEvent('stats:year-change', { detail: year }));
   }
 
   function checkTheme() {

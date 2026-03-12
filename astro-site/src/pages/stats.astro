@@ -3,6 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { getReadingTime } from '@/lib/utils';
 import StatsCharts from '@components/StatsCharts.svelte';
+import StatsChartsExtra from '@components/StatsChartsExtra.svelte';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -63,5 +64,6 @@ const statsData = {
     </header>
 
     <StatsCharts client:visible statsData={statsData} />
+    <StatsChartsExtra client:visible posts={posts} />
   </div>
 </BaseLayout>
