@@ -21,16 +21,16 @@ class TestBuildSystem:
         assert len(result.stdout) > 0
 
     def test_package_json_exists(self):
-        """Test that package.json exists"""
-        assert Path("package.json").exists()
+        """Test that astro-site/package.json exists"""
+        assert Path("astro-site/package.json").exists()
 
-    def test_eleventy_config_exists(self):
-        """Test that Eleventy config exists"""
-        assert Path(".eleventy.js").exists()
+    def test_astro_config_exists(self):
+        """Test that Astro config exists"""
+        assert Path("astro-site/astro.config.mjs").exists()
 
-    def test_tailwind_config_exists(self):
-        """Test that Tailwind config exists"""
-        assert Path("tailwind.config.js").exists()
+    def test_content_source_exists(self):
+        """Test that content source directory exists"""
+        assert Path("src/posts").exists()
 
     @pytest.mark.slow
     def test_npm_build(self):
@@ -39,25 +39,25 @@ class TestBuildSystem:
             ["npm", "run", "build"],
             capture_output=True,
             text=True,
-            timeout=60
+            timeout=120,
+            cwd="astro-site"
         )
 
         # Build should complete
         assert result.returncode == 0
 
         # Output directory should exist
-        assert Path("_site").exists()
+        assert Path("astro-site/dist").exists()
 
     @pytest.mark.slow
     def test_build_output_structure(self):
         """Test that build creates expected files"""
         # Check if already built, otherwise skip
-        if not Path("_site").exists():
+        if not Path("astro-site/dist").exists():
             pytest.skip("Site not built, run npm build first")
 
         # Check key files exist
-        assert Path("_site/index.html").exists()
-        assert Path("_site/assets/css").exists() or Path("_site/css").exists()
+        assert Path("astro-site/dist/index.html").exists()
 
 class TestCriticalScripts:
     """Test that critical scripts run without errors"""

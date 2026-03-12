@@ -16,7 +16,7 @@ This script validates:
 
 **Before running:**
 1. Development server MUST be running (`npm start`)
-2. Server should be accessible at `http://localhost:8080`
+2. Server should be accessible at `http://localhost:4321`
 3. Playwright dependencies installed (`npm install`)
 
 ## Usage
@@ -87,7 +87,7 @@ node scripts/test-dark-mode-toggle.js
 ```json
 {
   "timestamp": "2025-11-11T12:00:00.000Z",
-  "baseUrl": "http://localhost:8080",
+  "baseUrl": "http://localhost:4321",
   "success": true,
   "errors": [],
   "warnings": [],
@@ -134,14 +134,14 @@ node scripts/test-dark-mode-toggle.js
 
 ## Troubleshooting
 
-### Error: "Cannot connect to http://localhost:8080"
+### Error: "Cannot connect to http://localhost:4321"
 
 **Solution:**
 ```bash
 # Start development server
 npm start
 
-# Wait for "Server running at http://localhost:8080"
+# Wait for "Server running at http://localhost:4321"
 # Then run test in separate terminal
 node scripts/test-dark-mode-toggle.js
 ```
@@ -227,7 +227,7 @@ jobs:
         run: npm start &
 
       - name: Wait for server
-        run: npx wait-on http://localhost:8080
+        run: npx wait-on http://localhost:4321
 
       - name: Run dark mode tests
         run: node scripts/test-dark-mode-toggle.js
@@ -257,7 +257,7 @@ if git diff --cached --name-only | grep -qE "(theme|dark-mode|toggle)"; then
   echo "🌙 Running dark mode tests..."
 
   # Check if server is running
-  if ! curl -s http://localhost:8080 > /dev/null; then
+  if ! curl -s http://localhost:4321 > /dev/null; then
     echo "⚠️  Dev server not running. Skipping dark mode tests."
     exit 0
   fi

@@ -34,7 +34,7 @@ node scripts/validate-mermaid-rendering.js
 ```
 
 ### Prerequisites:
-- Development server must be running on `http://localhost:8080`
+- Development server must be running on `http://localhost:4321`
 - Start with: `npm run serve` or `npm run watch:eleventy`
 
 ## What It Tests
@@ -131,7 +131,7 @@ Saved to `mermaid-validation-report.json`:
 
 ### Server Not Running
 ```
-❌ Cannot connect to http://localhost:8080
+❌ Cannot connect to http://localhost:4321
    Please start the development server: npm start
 ```
 **Fix**: Start development server in separate terminal:

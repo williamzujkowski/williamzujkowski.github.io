@@ -37,7 +37,7 @@
       "applies_to": [
         "scripts/",
         "src/",
-        ".eleventy.js",
+        "astro-site/astro.config.mjs",
         "*.py",
         "*.js"
       ],
@@ -154,9 +154,8 @@
     "CLAUDE.md",
     "MANIFEST.json",
     ".claude-rules.json",
-    ".eleventy.js",
+    "astro-site/astro.config.mjs",
     "package.json",
-    "tailwind.config.js",
     "README.md",
     "scripts/lib/common.py"
   ],

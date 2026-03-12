@@ -87,9 +87,9 @@ class TestBuildOutputParsing:
 
         assert stats["posts_parsed"] == 56
         assert stats["files_written"] == 245
-        # Parse eleventy time (may be None if not in expected format)
-        if stats["eleventy_time"] is not None:
-            assert stats["eleventy_time"] > 0
+        # Parse build time (may be None if not in expected format)
+        if stats["build_time"] is not None:
+            assert stats["build_time"] > 0
 
     def test_parse_bundle_sizes(self, monitor, fixtures_dir):
         """Test parsing of JavaScript bundle sizes."""
@@ -111,7 +111,7 @@ class TestBuildOutputParsing:
 
         assert stats["posts_parsed"] == 0
         assert stats["files_written"] == 0
-        assert stats["eleventy_time"] is None
+        assert stats["build_time"] is None
         assert stats["js_bundles"] == {}
 
     def test_parse_partial_output(self, monitor):
@@ -124,7 +124,7 @@ class TestBuildOutputParsing:
 
         assert stats["posts_parsed"] == 42
         assert stats["files_written"] == 0  # Missing
-        assert stats["eleventy_time"] is None  # Missing
+        assert stats["build_time"] is None  # Missing
 
     def test_parse_multiple_bundles(self, monitor):
         """Test parsing of multiple JavaScript bundles."""
@@ -539,7 +539,7 @@ class TestBuildComparison:
             "stats": {
                 "posts_parsed": 50,
                 "files_written": 200,
-                "eleventy_time": 4.0
+                "build_time": 4.0
             },
             "warnings": [],
             "errors": []
@@ -550,7 +550,7 @@ class TestBuildComparison:
             "stats": {
                 "posts_parsed": 56,
                 "files_written": 245,
-                "eleventy_time": 4.5
+                "build_time": 4.5
             },
             "warnings": [],
             "errors": []

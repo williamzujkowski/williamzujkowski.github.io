@@ -10,21 +10,21 @@ const { execSync } = require('child_process');
 module.exports = {
   async test() {
     try {
-      // Test 1: Check if package.json exists
-      const packageJsonPath = path.join(__dirname, '../../package.json');
+      // Test 1: Check if astro-site/package.json exists
+      const packageJsonPath = path.join(__dirname, '../../astro-site/package.json');
       if (!fs.existsSync(packageJsonPath)) {
         return {
           success: false,
-          error: 'package.json not found'
+          error: 'astro-site/package.json not found'
         };
       }
 
-      // Test 2: Check if Eleventy config exists
-      const eleventyConfig = path.join(__dirname, '../../.eleventy.js');
-      if (!fs.existsSync(eleventyConfig)) {
+      // Test 2: Check if Astro config exists
+      const astroConfig = path.join(__dirname, '../../astro-site/astro.config.mjs');
+      if (!fs.existsSync(astroConfig)) {
         return {
           success: false,
-          error: '.eleventy.js config not found'
+          error: 'astro-site/astro.config.mjs not found'
         };
       }
 

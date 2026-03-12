@@ -32,8 +32,8 @@
    ---
    title: My First Post
    date: 2024-01-24
-   description: Learning how to create content with Eleventy
-   tags: [tutorial, eleventy]
+   description: Learning how to create content with Astro
+   tags: [tutorial, astro]
    ---
 
    Your content here...
@@ -41,10 +41,10 @@
 
 3. Preview locally:
    ```bash
-   npm run serve
+   cd astro-site && npm run dev
    ```
 
-4. Visit http://localhost:8080/posts/my-first-post/
+4. Visit http://localhost:4321/posts/my-first-post/
 
 ### Navigation Note
 

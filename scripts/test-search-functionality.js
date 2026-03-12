@@ -2,7 +2,7 @@ const { chromium } = require('@playwright/test');
 const fs = require('fs').promises;
 const path = require('path');
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:4321';
 const TIMEOUT_MS = 10000;
 const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots', 'search');
 const REPORT_FILE = path.join(__dirname, '..', 'docs', 'reports', 'search-functionality-report.json');

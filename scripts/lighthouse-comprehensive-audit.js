@@ -34,17 +34,17 @@ const config = {
 const testPages = [
   {
     name: 'Homepage',
-    url: 'http://localhost:8080',
+    url: 'http://localhost:4321',
     description: 'Main landing page with navigation and hero content'
   },
   {
     name: 'Blog Post',
-    url: 'http://localhost:8080/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/',
+    url: 'http://localhost:4321/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/',
     description: 'Individual blog post with rich content'
   },
   {
     name: 'About Page',
-    url: 'http://localhost:8080/about/',
+    url: 'http://localhost:4321/about/',
     description: 'About page with personal information'
   }
 ];

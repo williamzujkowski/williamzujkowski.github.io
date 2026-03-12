@@ -12,7 +12,7 @@ DESCRIPTION:
     Checks for console errors, network failures, and gist loading status.
 
     Post: Building a Network Traffic Analysis Lab with Suricata
-    URL: http://localhost:8080/posts/building-a-network-traffic-analysis-lab-with-suricata/
+    URL: http://localhost:4321/posts/building-a-network-traffic-analysis-lab-with-suricata/
     Expected gists: 7
 
 USAGE:
@@ -254,7 +254,7 @@ def print_report(results: Dict) -> int:
 
 async def main() -> int:
     """Main validation function."""
-    url = "http://localhost:8080/posts/building-a-network-traffic-analysis-lab-with-suricata/"
+    url = "http://localhost:4321/posts/building-a-network-traffic-analysis-lab-with-suricata/"
     expected_gists = 7
 
     logger.info("Starting Suricata gist validation...")

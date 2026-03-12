@@ -8,17 +8,17 @@ const path = require('path');
 const testPages = [
   {
     name: 'Homepage',
-    url: 'http://localhost:8080',
+    url: 'http://localhost:4321',
     description: 'Main landing page'
   },
   {
     name: 'Blog-Post',
-    url: 'http://localhost:8080/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/',
+    url: 'http://localhost:4321/posts/supercharging-development-with-claude-flow-ai-swarm-intelligence-for-modern-engineering/',
     description: 'Individual blog post'
   },
   {
     name: 'About-Page',
-    url: 'http://localhost:8080/about/',
+    url: 'http://localhost:4321/about/',
     description: 'About page'
   }
 ];

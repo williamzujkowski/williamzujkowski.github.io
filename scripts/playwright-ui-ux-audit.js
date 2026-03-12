@@ -49,7 +49,7 @@ async function auditUI() {
       console.log(`  → Testing ${pagePath}`);
 
       try {
-        await page.goto(`http://localhost:8080${pagePath}`, {
+        await page.goto(`http://localhost:4321${pagePath}`, {
           waitUntil: 'networkidle'
         });
 

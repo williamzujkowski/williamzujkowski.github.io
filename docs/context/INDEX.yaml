@@ -499,7 +499,7 @@ categories:
   technical:
     priority: MEDIUM/LOW
     description: Implementation details and automation references
-    token_budget: 8800
+    token_budget: 8400
     modules_count: 6
     modules:
     - name: script-catalog
@@ -541,8 +541,8 @@ categories:
     - name: build-automation
       file: docs/context/technical/build-automation.md
       priority: LOW
-      estimated_tokens: 1400
-      version: 1.0.0
+      estimated_tokens: 1000
+      version: 2.0.0
       last_updated: '2025-11-01'
       load_when:
       - Running builds

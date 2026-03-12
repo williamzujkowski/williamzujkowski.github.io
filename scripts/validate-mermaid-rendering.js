@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const { execSync } = require('child_process');
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:4321';
 const POSTS_DIR = path.join(__dirname, '..', 'src', 'posts');
 const TIMEOUT_MS = 30000;
 

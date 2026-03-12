@@ -2,15 +2,15 @@
 title: Build & Deployment Automation
 category: technical
 priority: LOW
-version: 1.0.0
-last_updated: 2025-11-01
-estimated_tokens: 1200
+version: 2.0.0
+last_updated: 2026-03-12
+estimated_tokens: 1000
 load_when:
   - Running builds
   - Debugging build issues
   - Understanding npm scripts
 dependencies: []
-tags: [build, npm, deployment, automation]
+tags: [build, npm, deployment, automation, astro]
 ---
 
 # Build & Deployment Automation
@@ -19,203 +19,124 @@ This document describes the build system, npm scripts, and deployment automation
 
 ## Build System Overview
 
-**Static Site Generator**: Eleventy (11ty)
-**CSS Framework**: Tailwind CSS with PostCSS
-**JavaScript**: Vanilla JS with esbuild bundling
-**Asset Optimization**: ImageMagick, jpegoptim, optipng
+**Static Site Generator**: Astro 6 with Svelte 5 islands
+**CSS Framework**: Tailwind CSS 4 via @tailwindcss/vite plugin
+**Search**: Pagefind (static search index)
+**Charts**: D3.js for stats visualization
+**TypeScript**: Strict mode with path aliases
 
 ## npm Scripts Reference
 
+All commands run from the `astro-site/` directory.
+
 ### Development Commands
 
-Start local development server with hot reload:
+Start local development server with hot module replacement:
 ```bash
-npm run serve           # Full dev server with hot reload
-npm run watch:css       # Watch and rebuild CSS only
-npm run watch:eleventy  # Watch and rebuild Eleventy only
+cd astro-site
+npm run dev             # Astro dev server with HMR
 ```
 
 **What happens:**
-- Eleventy starts dev server on http://localhost:8080
-- CSS rebuilds on Tailwind changes
+- Astro starts dev server on http://localhost:4321
+- Tailwind CSS rebuilds on changes via Vite plugin
 - Browser auto-refreshes on file changes
 
 ### Production Build
 
 Build complete static site for deployment:
 ```bash
-npm run build           # Full production build (CSS + Eleventy + JS)
-npm run build:css       # Build CSS only with PostCSS
-npm run build:eleventy  # Build Eleventy only
-npm run build:js        # Bundle JavaScript files
+cd astro-site
+npm run build           # Astro build + Pagefind search index
+npm run preview         # Preview production build locally
+npm run check           # Run Astro type checking
 ```
 
 **Build Pipeline:**
-1. **CSS Build** (`build:css`):
-   - Tailwind processes `src/assets/css/tailwind.css`
-   - PostCSS applies plugins (autoprefixer, cssnano)
-   - Outputs to `_site/assets/css/styles.css`
-
-2. **JavaScript Build** (`build:js`):
-   - esbuild bundles `src/assets/js/*.js`
-   - Minifies and optimizes
-   - Outputs to `_site/assets/js/bundle.js`
-
-3. **Eleventy Build** (`build:eleventy`):
-   - Processes Nunjucks templates
-   - Converts Markdown posts to HTML
-   - Generates sitemap, RSS feed
-   - Outputs to `/_site` directory
+1. **Astro Build**: Processes .astro and .svelte components, renders Markdown content from `../src/posts/` via content collections, generates static HTML
+2. **Pagefind**: Indexes all pages for client-side search
+3. **Output**: `astro-site/dist/` directory
 
 **Build artifacts** (git-ignored):
-- `/_site` - Complete static site
-- `/node_modules` - npm dependencies
-
-### Testing Commands
-
-Run test suites:
-```bash
-npm run test            # Run unit tests
-npm run test:unit       # Run unit tests only
-npm run test:integration # Run integration tests
-npm run test:e2e        # Run end-to-end tests
-npm run test:all        # Run all test suites
-npm run test:watch      # Run tests in watch mode
-```
-
-**Test Framework**: (Add details when implemented)
-
-### Validation Commands
-
-Validate standards and quality:
-```bash
-npm run validate:km     # Validate knowledge management standards
-```
-
-**Validation checks:**
-- MANIFEST.json integrity
-- File organization compliance
-- Standards repository alignment
-
-### Debugging Commands
-
-Debug build issues:
-```bash
-npm run debug           # Run Eleventy with debug output
-```
-
-**Debug output includes:**
-- Template processing steps
-- Data file loading
-- Plugin execution
-- Filter applications
+- `astro-site/dist/` - Complete static site
+- `astro-site/node_modules/` - npm dependencies
 
 ## Build Configuration Files
 
-### `package.json`
+### `astro-site/package.json`
 
-Defines npm scripts and dependencies:
-```json
-{
-  "scripts": {
-    "build": "npm run build:css && npm run build:eleventy && npm run build:js",
-    "serve": "eleventy --serve",
-    "build:css": "postcss src/assets/css/tailwind.css -o _site/assets/css/styles.css",
-    "build:eleventy": "eleventy",
-    "build:js": "esbuild src/assets/js/*.js --bundle --minify --outfile=_site/assets/js/bundle.js"
-  }
-}
-```
+Defines npm scripts and dependencies.
 
-### `.eleventy.js`
+### `astro-site/astro.config.mjs`
 
-Eleventy configuration:
-- Plugins (syntax highlighting, image optimization)
-- Filters (date formatting, excerpt generation)
-- Collections (blog posts, tags)
-- Passthroughs (assets, images)
+Astro configuration:
+- Integrations: Svelte, Sitemap
+- Prefetch: enabled for instant navigation
+- Vite plugins: Tailwind CSS
+- Markdown: Shiki syntax highlighting (github-light/dark themes)
+- Rollup: Pagefind external
 
-### `tailwind.config.js`
+### `astro-site/tsconfig.json`
 
-Tailwind CSS customization:
-- Content paths for purging
-- Color palette
-- Typography plugin
-- Responsive breakpoints
+TypeScript strict mode with path aliases:
+- `@/*` → `src/*`
+- `@components/*` → `src/components/*`
+- `@layouts/*` → `src/layouts/*`
+- `@styles/*` → `src/styles/*`
 
-### `postcss.config.js`
+### `astro-site/src/content.config.ts`
 
-PostCSS plugin configuration:
-- Tailwind CSS processing
-- Autoprefixer for browser compatibility
-- cssnano for production minification
+Content collection definitions:
+- **posts**: Glob loader from `../src/posts/*.md` with Zod schema
+- **projects**: Glob loader from `../src/projects/*.md` with Zod schema
 
 ## Build Optimization
 
 ### Asset Optimization
 
-**Images:**
-```bash
-# Run image optimization
-bash scripts/optimize-blog-images.sh
-
-# Creates responsive variants:
-# - Original: 1200px wide
-# - Medium: 800px wide
-# - Small: 400px wide
-# - Thumbnail: 200px wide
-```
-
 **CSS:**
-- Tailwind purges unused styles in production
-- cssnano minifies CSS
-- PostCSS adds vendor prefixes
+- Tailwind 4 CSS-only config (no tailwind.config.js needed)
+- Automatic purging of unused styles
+- Vite handles minification
 
 **JavaScript:**
-- esbuild bundles and minifies
-- Tree shaking removes unused code
+- Astro islands: only hydrates interactive components
+- Svelte components compile to minimal JS
+- Pagefind search loaded on demand
 
 ### Build Performance
 
 **Current Performance:**
-- **Build time**: ~3-5 seconds (full build)
-- **Incremental rebuild**: <1 second (dev mode)
-- **Asset generation**: Concurrent processing
-
-**Optimization Strategies:**
-- Cache Eleventy data between builds
-- Parallelize asset processing
-- Lazy-load non-critical JavaScript
-- Optimize images before committing
+- **Build time**: ~10-15 seconds (full build with Pagefind)
+- **Dev server startup**: ~2 seconds
+- **Hot module replacement**: instant
 
 ## Deployment Workflow
 
 ### Automated Deployment
 
-**Platform**: GitHub Pages (assumed based on .github workflows)
-
+**Platform**: GitHub Pages
 **Trigger**: Push to `main` branch
+**Workflow**: `.github/workflows/deploy.yml`
 
 **Pipeline**:
-1. GitHub Actions detects push
-2. Installs dependencies (`npm ci`)
-3. Runs build (`npm run build`)
-4. Validates build artifacts
+1. GitHub Actions detects push to main
+2. Installs dependencies (`cd astro-site && npm ci`)
+3. Runs build (`npm run build`) with NODE_ENV=production
+4. Uploads `astro-site/dist/` as Pages artifact
 5. Deploys to GitHub Pages
 
 ### Manual Deployment
 
 ```bash
 # 1. Build locally
-npm run build
+cd astro-site && npm run build
 
-# 2. Test build
-cd _site && python3 -m http.server 8000
+# 2. Preview build
+npm run preview
+# Visit http://localhost:4321
 
-# 3. Verify in browser
-# http://localhost:8000
-
-# 4. Deploy (if build looks good)
+# 3. Deploy (if build looks good)
 git add .
 git commit -m "deploy: production build"
 git push origin main
@@ -227,112 +148,80 @@ git push origin main
 
 **1. CSS not updating:**
 ```bash
-# Clear CSS cache
-rm -rf _site/assets/css
-npm run build:css
+# Restart dev server (Vite caches aggressively)
+cd astro-site && npm run dev
 ```
 
-**2. Eleventy template errors:**
+**2. Content collection errors:**
 ```bash
-# Run with debug output
-npm run debug
-
-# Check for:
-# - Missing frontmatter
-# - Invalid Nunjucks syntax
-# - Broken includes
-```
-
-**3. JavaScript bundle errors:**
-```bash
-# Check for syntax errors
-npm run build:js
+# Run type checking
+cd astro-site && npm run check
 
 # Common issues:
-# - Import/export syntax errors
-# - Missing dependencies
-# - Circular dependencies
+# - Missing required frontmatter fields
+# - Invalid date format in posts
+# - Schema validation failures
 ```
 
-**4. Build fails completely:**
+**3. Build fails completely:**
 ```bash
-# 1. Clear node_modules
+# 1. Clear node_modules and reinstall
+cd astro-site
 rm -rf node_modules package-lock.json
-
-# 2. Reinstall dependencies
 npm install
+
+# 2. Clear Astro cache
+rm -rf .astro
 
 # 3. Retry build
 npm run build
 ```
-
-### Performance Issues
-
-**Slow builds:**
-1. Check for large unoptimized images
-2. Review Eleventy data file size
-3. Disable unnecessary plugins
-4. Use `--incremental` flag in dev
-
-**Memory issues:**
-1. Increase Node.js heap size: `NODE_OPTIONS=--max-old-space-size=4096`
-2. Process images in smaller batches
-3. Reduce concurrent build operations
 
 ## Build Validation
 
 ### Pre-Commit Validation
 
 Pre-commit hooks automatically run:
-```bash
-# 1. MANIFEST.json validation
-# 2. Standards compliance check
-# 3. Humanization validation (blog posts)
-# 4. Link validation (optional)
-```
+- MANIFEST.json validation
+- Standards compliance check
+- Blog post code ratios
+- Python logging enforcement
+- NDA compliance scanning
 
 ### Post-Build Validation
 
 Verify build quality:
 ```bash
 # Check build artifacts exist
-ls -la _site/
+ls -la astro-site/dist/
 
-# Validate HTML structure
-# (Add HTML validator when implemented)
+# Verify page count
+find astro-site/dist -name "*.html" | wc -l
 
 # Check asset sizes
-du -sh _site/assets/*
-
-# Verify no broken links
-python scripts/link-validation/link-validator.py
+du -sh astro-site/dist/
 ```
 
 ### Production Checklist
 
 Before deploying:
-- [ ] `npm run build` succeeds
-- [ ] `npm run test` passes
-- [ ] Image optimization complete
+- [ ] `npm run build` succeeds (from astro-site/)
+- [ ] `npm run check` passes (TypeScript/Astro validation)
+- [ ] Lighthouse score ≥90
 - [ ] Link validation passes
-- [ ] Mobile preview checked
-- [ ] Lighthouse score ≥95
 
 ## Build Metrics
 
 **Target Metrics:**
-- **Lighthouse Mobile**: ≥95
+- **Lighthouse Performance**: ≥90
+- **Lighthouse Accessibility**: ≥90
 - **LCP (Largest Contentful Paint)**: <2.5s
-- **FID (First Input Delay)**: <100ms
 - **CLS (Cumulative Layout Shift)**: <0.1
-- **Total JS bundle**: <100KB
-- **Total CSS**: <50KB
-
-**Current Performance**: (Add metrics from latest build)
+- **Total JS bundle**: minimal (Astro islands architecture)
 
 ## Related Documentation
 
-- **Eleventy Docs**: https://www.11ty.dev/docs/
-- **Tailwind Docs**: https://tailwindcss.com/docs
-- **PostCSS Plugins**: https://postcss.org/
-- **esbuild**: https://esbuild.github.io/
+- **Astro Docs**: https://docs.astro.build/
+- **Svelte Docs**: https://svelte.dev/docs
+- **Tailwind CSS 4**: https://tailwindcss.com/docs
+- **Pagefind**: https://pagefind.app/
