@@ -82,7 +82,7 @@ try:
     )
     from logging_config import setup_logger
 except ImportError as e:
-    print(f"ERROR: Failed to import utilities from scripts/lib: {e}")
+    sys.stderr.write(f"ERROR: Failed to import utilities from scripts/lib: {e}\n")
     sys.exit(2)
 
 # Setup centralized logging
@@ -143,58 +143,52 @@ class MaintenanceReport:
 
     def print_summary(self, verbose: bool = False):
         """Print colored summary to console"""
-        print(f"\n{Colors.BOLD}{Colors.CYAN}=== Repository Maintenance Report ==={Colors.RESET}\n")
+        logger.info(f"\n{Colors.BOLD}{Colors.CYAN}=== Repository Maintenance Report ==={Colors.RESET}\n")
 
         # Statistics
-        print(f"{Colors.BOLD}Statistics:{Colors.RESET}")
+        logger.info(f"{Colors.BOLD}Statistics:{Colors.RESET}")
         for key, value in sorted(self.stats.items()):
-            print(f"  {key}: {value}")
-        print()
+            logger.info(f"  {key}: {value}")
 
         # Actions
         if self.actions:
-            print(f"{Colors.BOLD}Actions Taken:{Colors.RESET}")
+            logger.info(f"{Colors.BOLD}Actions Taken:{Colors.RESET}")
             for action in self.actions:
                 status_color = Colors.GREEN if action["status"] == "completed" else Colors.YELLOW
-                print(f"  {status_color}✓{Colors.RESET} {action['action']}")
-            print()
+                logger.info(f"  {status_color}✓{Colors.RESET} {action['action']}")
 
         # Errors
         if self.errors:
-            print(f"{Colors.BOLD}{Colors.RED}Errors ({len(self.errors)}):{Colors.RESET}")
+            logger.error(f"{Colors.BOLD}{Colors.RED}Errors ({len(self.errors)}):{Colors.RESET}")
             for error in self.errors:
-                print(f"  {Colors.RED}✗{Colors.RESET} {error}")
-            print()
+                logger.error(f"  {Colors.RED}✗{Colors.RESET} {error}")
 
         # Warnings
         if self.warnings:
-            print(f"{Colors.BOLD}{Colors.YELLOW}Warnings ({len(self.warnings)}):{Colors.RESET}")
+            logger.warning(f"{Colors.BOLD}{Colors.YELLOW}Warnings ({len(self.warnings)}):{Colors.RESET}")
             for warning in self.warnings:
-                print(f"  {Colors.YELLOW}⚠{Colors.RESET} {warning}")
-            print()
+                logger.warning(f"  {Colors.YELLOW}⚠{Colors.RESET} {warning}")
 
         # Detailed findings (if verbose)
         if verbose and self.findings:
-            print(f"{Colors.BOLD}Detailed Findings:{Colors.RESET}")
+            logger.info(f"{Colors.BOLD}Detailed Findings:{Colors.RESET}")
             for category, findings in self.findings.items():
-                print(f"\n  {Colors.MAGENTA}{category}:{Colors.RESET}")
+                logger.info(f"\n  {Colors.MAGENTA}{category}:{Colors.RESET}")
                 for finding in findings:
                     severity_icon = {
                         "error": f"{Colors.RED}✗{Colors.RESET}",
                         "warning": f"{Colors.YELLOW}⚠{Colors.RESET}",
                         "info": f"{Colors.BLUE}ℹ{Colors.RESET}"
                     }.get(finding["severity"], "•")
-                    print(f"    {severity_icon} {finding['message']}")
-            print()
+                    logger.info(f"    {severity_icon} {finding['message']}")
 
         # Exit status
         if self.errors:
-            print(f"{Colors.RED}Status: ERRORS FOUND{Colors.RESET}")
+            logger.error(f"{Colors.RED}Status: ERRORS FOUND{Colors.RESET}")
         elif self.warnings:
-            print(f"{Colors.YELLOW}Status: WARNINGS{Colors.RESET}")
+            logger.warning(f"{Colors.YELLOW}Status: WARNINGS{Colors.RESET}")
         else:
-            print(f"{Colors.GREEN}Status: CLEAN{Colors.RESET}")
-        print()
+            logger.info(f"{Colors.GREEN}Status: CLEAN{Colors.RESET}")
 
     def get_exit_code(self) -> int:
         """Get appropriate exit code"""
@@ -235,9 +229,8 @@ class TempFileCleanup:
             "MANIFEST.json",
             "CLAUDE.md",
             ".claude-rules.json",
-            ".eleventy.js",
+            "astro.config.mjs",
             "package.json",
-            "tailwind.config.js",
             "README.md"
         }
 
@@ -772,34 +765,32 @@ Examples:
     # Initialize report
     report = MaintenanceReport()
 
-    print(f"{Colors.BOLD}{Colors.CYAN}")
-    print("=" * 60)
-    print("Repository Maintenance Tool")
-    print("=" * 60)
-    print(f"{Colors.RESET}")
+    logger.info(f"{Colors.BOLD}{Colors.CYAN}")
+    logger.info("=" * 60)
+    logger.info("Repository Maintenance Tool")
+    logger.info("=" * 60)
+    logger.info(f"{Colors.RESET}")
 
     if args.dry_run:
-        print(f"{Colors.YELLOW}[DRY-RUN MODE] No changes will be made{Colors.RESET}\n")
+        logger.info(f"{Colors.YELLOW}[DRY-RUN MODE] No changes will be made{Colors.RESET}\n")
 
     # Run operations
     try:
         # Cleanup
         if run_cleanup:
-            print(f"{Colors.BOLD}Running cleanup...{Colors.RESET}")
+            logger.info(f"{Colors.BOLD}Running cleanup...{Colors.RESET}")
             cleaner = TempFileCleanup(report, args.dry_run)
             cleaner.cleanup()
-            print()
 
         # Archive
         if run_archive:
-            print(f"{Colors.BOLD}Archiving old reports...{Colors.RESET}")
+            logger.info(f"{Colors.BOLD}Archiving old reports...{Colors.RESET}")
             archiver = ReportArchiver(report, args.dry_run, args.backup)
             archiver.archive_reports()
-            print()
 
         # Health check
         if run_health:
-            print(f"{Colors.BOLD}Running health checks...{Colors.RESET}")
+            logger.info(f"{Colors.BOLD}Running health checks...{Colors.RESET}")
 
             # Check manifest
             health_checker = HealthChecker(report)
@@ -817,8 +808,6 @@ Examples:
             seo_detector = SEODriftDetector(report)
             seo_detector.check_meta_descriptions()
 
-            print()
-
         # Print summary
         report.print_summary(args.verbose)
 
@@ -828,16 +817,16 @@ Examples:
 
         if not args.dry_run:
             if report.save_json(report_path):
-                print(f"{Colors.GREEN}✓{Colors.RESET} Report saved to: {report_path}\n")
+                logger.info(f"{Colors.GREEN}✓{Colors.RESET} Report saved to: {report_path}\n")
 
         # Exit with appropriate code
         sys.exit(report.get_exit_code())
 
     except KeyboardInterrupt:
-        print(f"\n{Colors.YELLOW}Operation cancelled by user{Colors.RESET}")
+        logger.warning(f"\n{Colors.YELLOW}Operation cancelled by user{Colors.RESET}")
         sys.exit(1)
     except Exception as e:
-        print(f"\n{Colors.RED}Fatal error: {e}{Colors.RESET}")
+        logger.error(f"\n{Colors.RED}Fatal error: {e}{Colors.RESET}")
         sys.exit(2)
 
 
