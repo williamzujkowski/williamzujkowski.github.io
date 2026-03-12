@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { SITE_CONFIG } from '@/lib/siteConfig';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import ReadingProgress from '@components/ReadingProgress.svelte';
@@ -23,7 +24,7 @@ interface Props {
 }
 
 const { title, description, date, tags = [], image, readingTime, wordCount, headings = [], slug = '' } = Astro.props;
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://williamzujkowski.github.io';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? SITE_CONFIG.siteUrl;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
