@@ -78,8 +78,7 @@ npm run check          # Run Astro type checking
 │   ├── lib/               # Shared logging module
 │   └── link-validation/   # Citation and link health checking
 ├── tests/                  # Test suites (unit JS tests)
-├── docs/                   # Documentation
-│   └── context/           # Modular context system
+├── docs/                   # Documentation (policies, research, link-validation)
 ├── .github/workflows/      # CI/CD pipelines (4 workflows)
 └── nexus-agents.yaml       # AI agent orchestration config
 ```
@@ -90,9 +89,9 @@ npm run check          # Run Astro type checking
 - **Styling**: Tailwind CSS 4 with Typography plugin
 - **Search**: [Pagefind](https://pagefind.app/) (static search index)
 - **Charts**: D3.js for stats visualization
-- **Python Tooling**: 87 scripts managed with UV package manager
+- **Python Tooling**: Link validation CI scripts managed with UV
 - **AI Orchestration**: nexus-agents for multi-agent workflows
-- **CI/CD**: GitHub Actions (build, compliance, standards, security, link monitoring)
+- **CI/CD**: GitHub Actions (build, deploy, compliance, link monitoring)
 - **Hosting**: GitHub Pages
 
 ## Content Management
