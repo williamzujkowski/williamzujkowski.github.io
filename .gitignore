@@ -33,6 +33,7 @@ tmp/
 
 # Python
 __pycache__/
+.mypy_cache/
 .venv/
 *.pyc
 
