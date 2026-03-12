@@ -45,6 +45,7 @@ MANIFEST_REGISTRY: scripts/link-validator.py
 import json
 import asyncio
 import argparse
+import re
 import sys
 import logging
 from pathlib import Path
@@ -498,8 +499,6 @@ class LinkValidator:
             logger.info(f"↪️  Redirects: {self.stats['redirects']}")
             logger.info(f"⏱️  Timeouts: {self.stats['timeouts']}")
             logger.info(f"💾 Results saved to {output_file}")
-
-import re  # Add import at top of file
 
 async def main():
     parser = argparse.ArgumentParser(description='Validate links from extracted data')
