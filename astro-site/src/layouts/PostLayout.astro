@@ -39,7 +39,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
         <header class="mb-10">
           {image && (
             <div class="mb-8 -mx-4 sm:mx-0 overflow-hidden rounded-none sm:rounded-2xl">
-              <img src={image} alt="" class="w-full h-48 sm:h-64 object-cover" loading="eager" decoding="async" fetchpriority="high" />
+              <img src={image} alt={`Cover image for ${title}`} class="w-full h-48 sm:h-64 object-cover" loading="eager" decoding="async" fetchpriority="high" />
             </div>
           )}
 

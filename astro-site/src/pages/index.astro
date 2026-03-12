@@ -91,7 +91,7 @@ const recentPosts = allPosts
           <article class="card group relative p-6 flex flex-col">
             {getValidImageUrl(post.data.image) && (
               <div class="mb-4 -mx-6 -mt-6 overflow-hidden rounded-t-[var(--md-sys-shape-corner-large)]">
-                <img src={getValidImageUrl(post.data.image)} alt="" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
+                <img src={getValidImageUrl(post.data.image)} alt={`Cover image for ${post.data.title}`} class="w-full h-40 object-cover" loading="lazy" decoding="async" />
               </div>
             )}
             <div class="flex items-center gap-3 text-sm">

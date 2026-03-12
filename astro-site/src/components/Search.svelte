@@ -82,6 +82,10 @@
 
   onMount(() => {
     document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        open();
+      }
       if (
         e.key === '/' &&
         !isOpen &&
@@ -119,6 +123,9 @@
       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
     />
   </svg>
+  <kbd class="hidden lg:inline-block ml-1.5 text-[10px] px-1.5 py-0.5 rounded border font-sans"
+    style="color: var(--md-sys-color-on-surface-variant); border-color: var(--md-sys-color-outline-variant); opacity: 0.7"
+  >&sol;K</kbd>
 </button>
 
 <!-- Search dialog -->
