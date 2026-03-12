@@ -26,12 +26,6 @@ jobs:
         cache: 'npm'
         cache-dependency-path: astro-site/package-lock.json
 
-    - name: Install UV
-      run: curl -LsSf https://astral.sh/uv/install.sh | sh
-
-    - name: Add UV to PATH
-      run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
     - name: Install dependencies
       run: cd astro-site && npm ci
 
