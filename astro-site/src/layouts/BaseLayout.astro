@@ -28,7 +28,7 @@ const {
 } = Astro.props;
 
 const siteTitle = 'William Zujkowski';
-const siteUrl = 'https://williamzujkowski.github.io';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://williamzujkowski.github.io';
 const pageTitle = title === 'Home' ? siteTitle : `${title} - ${siteTitle}`;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = new URL(image, siteUrl).href;
