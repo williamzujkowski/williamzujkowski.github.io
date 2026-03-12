@@ -1,226 +1,82 @@
 {
-  "version": "2.0.0",
+  "version": "3.0.0",
   "standards_source": "https://github.com/williamzujkowski/standards",
-  "generated": "2025-09-20T18:20:04-04:00",
-  "last_validated": "2025-09-20T18:20:04-04:00",
+  "generated": "2026-03-12",
   "MANDATORY_STANDARDS": {
-    "KNOWLEDGE_MANAGEMENT": {
-      "source": ".standards/docs/standards/KNOWLEDGE_MANAGEMENT_STANDARDS.md",
+    "CONTENT_STANDARDS": {
       "rules": [
-        "MUST be implemented for compliance.",
-        "SHOULD be implemented unless there's a valid reason.",
-        "MUST maintain MANIFEST.json as single source of truth",
-        "MUST use progressive disclosure in documentation",
-        "MUST provide token-optimized content loading",
-        "MUST include machine-readable metadata",
-        "MUST update MANIFEST.json after any file operation",
-        "MUST check file_registry before creating any new file"
+        "MUST include proper frontmatter (title, date, description, tags)",
+        "MUST optimize for SEO (canonical URLs, Open Graph, Twitter Cards)",
+        "MUST use consistent formatting",
+        "MUST provide alt text for images",
+        "MUST include citations for technical claims",
+        "MUST validate links regularly"
       ],
       "applies_to": [
-        "docs/",
-        "MANIFEST.json",
-        "CLAUDE.md",
-        "*.md"
+        "astro-site/src/content/blog/",
+        "astro-site/src/pages/"
       ],
       "critical": true
     },
     "CODING_STANDARDS": {
-      "source": ".standards/docs/standards/CODING_STANDARDS.md",
       "rules": [
         "MUST follow language-specific standards",
-        "MUST include comprehensive docstrings",
-        "MUST use semantic naming",
         "MUST implement error handling",
-        "MUST follow DRY principles",
-        "MUST implement SOLID principles"
+        "MUST follow DRY principles"
       ],
       "applies_to": [
+        "astro-site/src/",
         "scripts/",
-        "src/",
-        "astro-site/astro.config.mjs",
-        "*.py",
-        "*.js"
-      ],
-      "critical": true
-    },
-    "CONTENT_STANDARDS": {
-      "source": ".standards/docs/standards/CONTENT_STANDARDS.md",
-      "rules": [
-        "MUST include proper frontmatter",
-        "MUST optimize for SEO",
-        "MUST use consistent formatting",
-        "MUST provide alt text for images",
-        "MUST include citations for claims",
-        "MUST validate links regularly"
-      ],
-      "applies_to": [
-        "src/posts/",
-        "src/pages/",
-        "*.md"
+        "tests/"
       ],
       "critical": true
     }
   },
   "LLM_ENFORCEMENT": {
     "CRITICAL_RULES": [
-      "ALWAYS check MANIFEST.json before ANY file operation",
-      "NEVER create duplicate files - use existing files",
-      "ALWAYS use time.gov for timestamps when available",
-      "MUST update MANIFEST.json after EVERY file change",
-      "MUST follow standards from https://github.com/williamzujkowski/standards",
       "NEVER save working files to root - use appropriate directories",
       "ALWAYS update existing files instead of creating new ones",
-      "MUST maintain backward compatibility",
-      "ALWAYS validate changes against standards",
-      "MUST use scripts/lib/common.py for shared functionality",
-      "MANIFEST v5.0: File registry is lazy-loaded from .manifest/file-registry.json",
-      "CHECK hash first before loading full file registry for efficiency"
-    ],
-    "BEFORE_ANY_OPERATION": [
-      "CHECK: MANIFEST.json is current",
-      "CHECK: No duplicate files exist for intended operation",
-      "CHECK: Target directory is appropriate for file type",
-      "CHECK: Standards compliance for operation type",
-      "CHECK: Time source (prefer time.gov, fallback to system)"
-    ],
-    "FILE_OPERATIONS": {
-      "CREATE": [
-        "MUST check file_registry hash in MANIFEST.json for duplicates",
-        "Lazy-load full registry from .manifest/file-registry.json if needed",
-        "MUST use appropriate directory structure",
-        "MUST add to .manifest/file-registry.json and update hash",
-        "MUST include proper documentation",
-        "NEVER create files in root directory"
-      ],
-      "UPDATE": [
-        "MUST preserve file purpose and structure",
-        "MUST update modified timestamp",
-        "MUST validate against standards",
-        "MUST update MANIFEST.json",
-        "MUST backup critical files before major changes"
-      ],
-      "DELETE": [
-        "MUST check for dependencies",
-        "MUST update all references",
-        "MUST remove from MANIFEST.json",
-        "MUST document reason for deletion",
-        "NEVER delete protected files"
-      ]
-    },
-    "SCRIPT_OPERATIONS": [
-      "MUST follow LLM documentation standard from Phase 2",
-      "MUST import from scripts/lib/common.py for shared functionality",
-      "MUST update llm_interface in MANIFEST.json",
-      "MUST provide clear examples",
-      "MUST handle errors gracefully"
+      "MUST follow NDA compliance rules (see CLAUDE.md)",
+      "MUST follow standards from https://github.com/williamzujkowski/standards"
     ],
     "CONTENT_OPERATIONS": [
-      "MUST validate frontmatter against schema",
-      "MUST ensure hero images exist or generate them",
+      "MUST validate frontmatter against content collection schema",
       "MUST verify research citations with hyperlinks",
-      "MUST limit code blocks to essential examples",
       "MUST check alt text for all images",
       "MUST run link validation after changes"
     ]
   },
   "VALIDATION_GATES": {
     "pre_commit": {
-      "scripts": [
-        "scripts/validate_manifest.py",
-        "scripts/check_standards.py",
-        "scripts/verify_no_duplicates.py"
-      ],
+      "checks": ["astro build validation on changed files"],
       "must_pass": true
     },
     "ci_pipeline": {
       "workflows": [
-        ".github/workflows/standards_enforcement.yml",
-        ".github/workflows/manifest_validation.yml",
+        ".github/workflows/deploy.yml",
+        ".github/workflows/compliance-monitor.yml",
+        ".github/workflows/citation-validation.yml",
         ".github/workflows/link-monitor.yml"
       ],
       "blocks_merge": true
     }
   },
-  "PENALTIES": {
-    "duplicate_file_created": "BLOCK and require cleanup",
-    "manifest_not_updated": "BLOCK until synchronized",
-    "standards_violation": "WARNING with required fix",
-    "documentation_missing": "WARNING with 24-hour fix window",
-    "time_not_authoritative": "WARNING - document time source used",
-    "vestigial_content": "FLAG for removal",
-    "protected_file_modified": "BLOCK and require review"
-  },
-  "PROTECTED_FILES": [
-    "CLAUDE.md",
-    "MANIFEST.json",
-    ".claude-rules.json",
-    "astro-site/astro.config.mjs",
-    "package.json",
-    "README.md",
-    "scripts/lib/common.py"
-  ],
   "DIRECTORY_STRUCTURE": {
+    "astro-site/src": {
+      "purpose": "Website source (Astro 6 + Svelte 5)",
+      "subdirs": ["components", "content", "layouts", "pages", "styles"]
+    },
     "scripts": {
-      "purpose": "Python and shell scripts for automation",
-      "allowed": [
-        "*.py",
-        "*.sh"
-      ],
-      "subdirs": [
-        "lib",
-        "link-validation"
-      ]
-    },
-    "src": {
-      "purpose": "Source files for static site",
-      "allowed": [
-        "*.md",
-        "*.njk",
-        "*.html",
-        "*.css",
-        "*.js"
-      ],
-      "subdirs": [
-        "posts",
-        "pages",
-        "assets",
-        "_includes",
-        "_data"
-      ]
-    },
-    "docs": {
-      "purpose": "Documentation and guides",
-      "allowed": [
-        "*.md",
-        "*.txt"
-      ],
-      "subdirs": [
-        "guides",
-        "standards",
-        "archive"
-      ]
-    },
-    "reports": {
-      "purpose": "Generated reports and analysis",
-      "allowed": [
-        "*.md",
-        "*.json",
-        "*.html"
-      ],
-      "subdirs": []
+      "purpose": "Link validation CI pipeline (Python)",
+      "subdirs": ["lib", "link-validation"]
     },
     "tests": {
-      "purpose": "Test files and fixtures",
-      "allowed": [
-        "*.test.py",
-        "*.test.js",
-        "*.json"
-      ],
-      "subdirs": [
-        "fixtures",
-        "unit",
-        "integration"
-      ]
+      "purpose": "Test files",
+      "subdirs": ["unit"]
+    },
+    "docs": {
+      "purpose": "Documentation and research",
+      "subdirs": ["link-validation", "research"]
     }
   }
 }

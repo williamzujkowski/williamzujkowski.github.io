@@ -126,10 +126,9 @@ The site automatically deploys to GitHub Pages when changes are pushed to `main`
 
 ## Documentation
 
-- **[CLAUDE.md](CLAUDE.md)** - Authoritative development standards (v4.2.0)
-- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - System architecture
-- **[docs/context/INDEX.yaml](docs/context/INDEX.yaml)** - Module catalog (36 modules)
-- **[MANIFEST.json](MANIFEST.json)** - Repository inventory
+- **[CLAUDE.md](CLAUDE.md)** - Development standards and AI assistant configuration
+- **[docs/research/](docs/research/)** - Research notes and blog optimization reports
+- **[docs/link-validation/](docs/link-validation/)** - Link validation pipeline documentation
 
 ## License
 
