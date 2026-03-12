@@ -4,9 +4,7 @@ description: "Eight security layers that stopped real attacks in homelab testing
 author: "William Zujkowski"
 date: 2025-12-17
 tags: [security, docker, homelab, containers, defense-in-depth, hardening, network-security]
-image:
-  url: "/images/blog/docker-hardening-defense-layers.webp"
-  alt: "Multiple security layers protecting containerized applications in a homelab environment"
+imageAlt: "Multiple security layers protecting containerized applications in a homelab environment"
 post_type: experience
 ---
 
