@@ -20,7 +20,7 @@ This post walks through the research that fixed each problem, from [RouteLLM's](
 
 My first router was embarrassingly simple. Tasks came in, models took turns. Claude got task 1, Gemini got task 2, Codex got task 3, repeat.
 
-This broke immediately. A [security analysis](/posts/ai-new-frontier-cybersecurity/) task would land on whichever model was "next," regardless of capability. Codex got architecture reviews. Claude got simple code generation. The results were mediocre across the board because no model was getting the tasks it was good at.
+This broke immediately. A [security analysis](/posts/2024-05-14-ai-new-frontier-cybersecurity/) task would land on whichever model was "next," regardless of capability. Codex got architecture reviews. Claude got simple code generation. The results were mediocre across the board because no model was getting the tasks it was good at.
 
 I measured this: round-robin produced satisfactory results roughly 45% of the time. Not terrible, but not worth the infrastructure.
 
@@ -34,7 +34,7 @@ Satisfactory results climbed to maybe 55%. Still not enough to justify the compl
 
 Third attempt: score each model on dimensions like "code quality," "research breadth," "security analysis," and route based on task keywords. If the task mentioned "security," send it to the model with the highest security score.
 
-This worked better at first. Maybe 65% satisfactory. But the scores were hand-tuned numbers I made up based on my experience. They didn't account for [context window constraints](/posts/context-windows-llms-memory-shapes-ai/), cost differences, or the fact that model capabilities change with every release. Every time a model got updated, my static scores were wrong.
+This worked better at first. Maybe 65% satisfactory. But the scores were hand-tuned numbers I made up based on my experience. They didn't account for [context window constraints](/posts/2024-12-03-context-windows-llms/), cost differences, or the fact that model capabilities change with every release. Every time a model got updated, my static scores were wrong.
 
 I probably spent 40 hours tuning those weights manually before I realized I was solving a problem that researchers had already solved.
 

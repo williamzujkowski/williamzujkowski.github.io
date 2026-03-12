@@ -183,7 +183,7 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
 
 [from it support to senior infosec engineer: my 15+ year journey](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer)
 
-[securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-01-30-securing-cloud-native-frontier)
+[securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-03-05-cloud-migration-journey-guide)
 
 
 [ebpf for security monitoring: a practical guide](/posts/2025-07-01-ebpf-security-monitoring-practical-guide)

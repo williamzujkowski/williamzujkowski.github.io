@@ -21,7 +21,7 @@ I'll admit I started this project skeptical. The cryptocurrency hype felt discon
 
 The real breakthrough is distributed trust. For cryptographic foundations, see [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide) and [post-quantum cryptography](/posts/2025-10-29-post-quantum-cryptography-homelab). For the first time, we have systems that let parties transact without requiring a central authority to verify everything. When I deployed my first smart contract on the local testnet, it cost 0.002 ETH in gas fees (about $3.40 at October 2024 rates). That transaction was verified by my validator node in 2.3 seconds average block propagation time, but here's the key part: no single entity controlled whether it succeeded.
 
-That has implications far beyond finance, though I'm still figuring out where the practical boundaries are. For practical security implementations, explore [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation), [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide), and [securing cloud-native applications](/posts/2024-01-30-securing-cloud-native-frontier).
+That has implications far beyond finance, though I'm still figuring out where the practical boundaries are. For practical security implementations, explore [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation), [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide), and [securing cloud-native applications](/posts/2024-03-05-cloud-migration-journey-guide).
 
 ## How It Actually Works (From My Test Network)
 

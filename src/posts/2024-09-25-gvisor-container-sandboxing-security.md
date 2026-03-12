@@ -24,7 +24,7 @@ tags:
 
 ## The Container Escape Problem
 
-Containers share the host kernel. One bad syscall can break containment. This is why [container security hardening](/posts/2025-08-18-container-security-hardening-homelab) requires multiple layers of defense beyond just namespaces and cgroups.
+Containers share the host kernel. One bad syscall can break containment. This is why [container security hardening](/posts/2025-08-18-docker-lsm-security-hardening) requires multiple layers of defense beyond just namespaces and cgroups.
 
 **Recent escapes:**
 

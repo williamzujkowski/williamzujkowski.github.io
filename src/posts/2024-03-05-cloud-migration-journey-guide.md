@@ -97,7 +97,7 @@ A breakthrough moment came when I realized cloud providers had better security t
 
 ## Performance and Cost Optimization: The Ongoing Challenge
 
-Migration was just the beginning. Optimization became a continuous process: For more context, see [securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-01-30-securing-cloud-native-frontier).
+Migration was just the beginning. Optimization became a continuous process: For more context, see [securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-08-27-zero-trust-security-principles).
 
 **Right-Sizing Reality:** The initial instance selections were laughably oversized. I made the classic mistake of provisioning based on peak usage patterns, leading to 70% average utilization. Learning to monitor and adjust became essential for cost control. It took me about three months of reviewing CloudWatch metrics before I felt confident right-sizing instances without breaking things.
 
@@ -171,7 +171,7 @@ Migration completion wasn't the end. It was the beginning of ongoing optimizatio
 
 **Performance Optimization:** Regular analysis of resource utilization, application performance, and user experience drives ongoing improvements.
 
-**Service Evolution:** Cloud providers release new services constantly. Staying current with offerings enables further optimization and capability enhancement. For more context, see [beyond containers: the future of application deployment](/posts/2024-06-11-beyond-containers-future-deployment).
+**Service Evolution:** Cloud providers release new services constantly. Staying current with offerings enables further optimization and capability enhancement. For more context, see [beyond containers: the future of application deployment](/posts/2024-09-25-gvisor-container-sandboxing-security).
 
 ## Conclusion: Transformation Beyond Technology
 

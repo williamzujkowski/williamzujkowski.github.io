@@ -261,7 +261,7 @@ Define base rule matching vulnerability IDs (level 7), then escalate to level 12
 
 ## Lessons Learned
 
-After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source) and complement [container security hardening practices](/posts/2025-08-18-container-security-hardening-homelab).
+After building and running this pipeline for a year, here's what I discovered through trial and error. These lessons integrate well with my approach to [open-source vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source) and complement [container security hardening practices](/posts/2025-08-18-docker-lsm-security-hardening).
 
 The focus should be on sustainable processes instead of perfect tools.
 

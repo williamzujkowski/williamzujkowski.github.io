@@ -285,7 +285,7 @@ Gradually build your swarm intelligence.
 
 The future of development isn't about coding faster—it's about orchestrating intelligence to build better software.
 
-**Update:** I've since built [nexus-agents](/posts/building-nexus-agents-what-i-learned-creating-a-multi-model-ai-orchestration-system/), which takes multi-agent orchestration further with consensus voting across Claude, Gemini, and Codex, adaptive model routing backed by contextual bandits, and a research-backed pipeline architecture.
+**Update:** I've since built [nexus-agents](/posts/2026-02-09-building-nexus-agents-multi-model-orchestration/), which takes multi-agent orchestration further with consensus voting across Claude, Gemini, and Codex, adaptive model routing backed by contextual bandits, and a research-backed pipeline architecture.
 
 ---
 

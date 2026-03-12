@@ -143,7 +143,7 @@ sudo fail2ban-client status vaultwarden
 
 ### Firewall Rules
 
-For comprehensive firewall configuration and network segmentation strategies, see my guide on [securing cloud-native applications](/posts/2024-01-30-securing-cloud-native-frontier):
+For comprehensive firewall configuration and network segmentation strategies, see my guide on [securing cloud-native applications](/posts/2024-03-05-cloud-migration-journey-guide):
 
 <script src="https://gist.github.com/williamzujkowski/0549ee4b142ddff4d684e8ec21fb0317.js"></script>
 

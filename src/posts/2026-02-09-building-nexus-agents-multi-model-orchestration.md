@@ -16,7 +16,7 @@ That routing script grew into [nexus-agents](https://github.com/williamzujkowski
 
 ## The Problem With Single-Model Workflows
 
-Most AI-assisted development workflows look like this: you pick one model, send it everything, and hope for the best. The model might be great at code generation but mediocre at [security analysis](/posts/ai-new-frontier-cybersecurity/). Or excellent at research but slow at producing clean TypeScript.
+Most AI-assisted development workflows look like this: you pick one model, send it everything, and hope for the best. The model might be great at code generation but mediocre at [security analysis](/posts/2024-05-14-ai-new-frontier-cybersecurity/). Or excellent at research but slow at producing clean TypeScript.
 
 I was spending time not writing software but context-switching between tools. Open Claude for architecture planning. Switch to Gemini for broad research. Use Codex for rapid code generation. Copy context between them. Lose track of which model said what. Frustrating.
 
@@ -28,7 +28,7 @@ I was spending time not writing software but context-switching between tools. Op
 
 I built nexus-agents as an [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server. This was the single most important architecture decision, though I didn't realize it at the time.
 
-MCP gave me a standard interface that any compatible client could use. Claude Code, Cursor, Windsurf. Any MCP client gets access to the full orchestration system without custom integration. I wrote about [building MCP servers](/posts/building-mcp-standards-server/) separately, but the key takeaway is that MCP turned a custom tool into a platform. The server exposes 20 tools through MCP: task orchestration, expert agent creation, consensus voting, workflow execution, and research tracking.
+MCP gave me a standard interface that any compatible client could use. Claude Code, Cursor, Windsurf. Any MCP client gets access to the full orchestration system without custom integration. I wrote about [building MCP servers](/posts/2025-07-29-building-mcp-standards-server/) separately, but the key takeaway is that MCP turned a custom tool into a platform. The server exposes 20 tools through MCP: task orchestration, expert agent creation, consensus voting, workflow execution, and research tracking.
 
 An [STPA safety analysis of MCP](https://arxiv.org/abs/2601.08012) later validated some of my security concerns about the protocol. More on that below.
 
@@ -62,7 +62,7 @@ Picking the right model for a task isn't simple. I built a five-stage routing pi
 
 **Stage 5, LinUCB Bandit:** The adaptive layer. Based on [PILOT](https://arxiv.org/abs/2508.21141), LinUCB is a contextual bandit algorithm that learns from outcomes. When a model succeeds at a task type, it gets a higher score next time. When it fails, the score drops. Over time, the system converges on optimal routing without manual tuning.
 
-The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference. I wrote a [deeper dive on the routing research](/posts/routellm-contextual-bandits-model-router-research/) separately, including the approaches that didn't work.
+The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference. I wrote a [deeper dive on the routing research](/posts/2026-01-15-routellm-contextual-bandits-model-router-research/) separately, including the approaches that didn't work.
 
 ## Consensus Voting: Multiple Perspectives on Hard Decisions
 
@@ -87,7 +87,7 @@ The catfish role draws from [Free-MAD anti-conformity research](https://arxiv.or
 
 Three voting strategies exist: majority (>50%), supermajority (>66%), and unanimous. A fourth, [higher-order voting](https://arxiv.org/abs/2510.01499), uses Bayesian-optimal aggregation with correlation awareness. Architecture changes require supermajority. Breaking API changes require unanimous.
 
-The key learning: **multi-model consensus catches blind spots that any single model misses.** The disagreements are often more valuable than the agreements. I covered [the research and practical patterns behind consensus voting](/posts/consensus-voting-ai-models-multi-agent/) in a separate post.
+The key learning: **multi-model consensus catches blind spots that any single model misses.** The disagreements are often more valuable than the agreements. I covered [the research and practical patterns behind consensus voting](/posts/2026-01-28-consensus-voting-ai-models-multi-agent/) in a separate post.
 
 ## The Adaptive Feedback Loop
 
@@ -111,7 +111,7 @@ This seems like overhead. It probably is for most projects. But it caught me thr
 
 ## Graph Workflows
 
-Not every task is a single model call. Complex tasks require multiple steps with dependencies: analyze the codebase, identify [security issues](/posts/vulnerability-management-scale-open-source/), draft fixes, validate they compile, then create a report.
+Not every task is a single model call. Complex tasks require multiple steps with dependencies: analyze the codebase, identify [security issues](/posts/2025-07-15-vulnerability-management-scale-open-source/), draft fixes, validate they compile, then create a report.
 
 Graph workflows model these as directed acyclic graphs. Each node is a task. Edges represent dependencies. The execution engine runs independent nodes in parallel and respects dependency ordering.
 
@@ -125,7 +125,7 @@ const workflow = new GraphBuilder()
   .build();
 ```
 
-Checkpointing saves progress after each node, so if the pipeline crashes mid-execution, it resumes from the last checkpoint instead of starting over. Seven built-in templates cover common patterns: code review, [security scanning](/posts/automated-security-scanning-pipeline/), architecture analysis, and more.
+Checkpointing saves progress after each node, so if the pipeline crashes mid-execution, it resumes from the last checkpoint instead of starting over. Seven built-in templates cover common patterns: code review, [security scanning](/posts/2025-10-06-automated-security-scanning-pipeline/), architecture analysis, and more.
 
 ## What 22,000 Tests Taught Me
 
@@ -143,7 +143,7 @@ Nexus-agents processes untrusted input: GitHub issues, PR comments, user-provide
 
 **Trust tiers:** Every input gets classified into four tiers. Repo files are authoritative (Tier 1). Collaborator issue bodies are semi-trusted (Tier 2). Unknown user comments are untrusted (Tier 3). Content with injection patterns is hostile (Tier 4).
 
-**Typed actions:** When processing untrusted input, agents can only emit predefined action types: `SummarizeIssue`, `ProposeLabels`, `DraftReply`, `RequestHumanApproval`, `RefuseAction`. No free-form tool calls. This prevents [prompt injection](/posts/securing-personal-ai-experiments/) from escalating into arbitrary actions.
+**Typed actions:** When processing untrusted input, agents can only emit predefined action types: `SummarizeIssue`, `ProposeLabels`, `DraftReply`, `RequestHumanApproval`, `RefuseAction`. No free-form tool calls. This prevents [prompt injection](/posts/2025-04-10-securing-personal-ai-experiments/) from escalating into arbitrary actions.
 
 **Rule of Two:** No agent may simultaneously process untrusted input, have write access to the repository, and access secrets. If all three are needed, the system requires human approval.
 
@@ -171,6 +171,6 @@ The AgentPlanner (code-named AOrchestra) is the newest component, drawing from [
 
 To be clear about what's production-tested versus experimental: the five-stage router, consensus voting, graph workflows, and security pipeline are all running daily. I use them to develop nexus-agents itself. AOrchestra and higher-order voting are newer, behind feature flags, and haven't seen enough traffic to measure their impact yet. The adaptive LinUCB routing is somewhere in between. It runs in production but I'm honestly not sure how much it improves over static weights. Maybe it plateaus quickly, maybe it keeps improving. Time will tell.
 
-The [codebase is open source](https://github.com/williamzujkowski/nexus-agents). If you're interested in multi-model orchestration, want to see how consensus voting works in practice, or need a reference implementation for [MCP server development](/posts/building-mcp-standards-server/), take a look.
+The [codebase is open source](https://github.com/williamzujkowski/nexus-agents). If you're interested in multi-model orchestration, want to see how consensus voting works in practice, or need a reference implementation for [MCP server development](/posts/2025-07-29-building-mcp-standards-server/), take a look.
 
 Building this taught me that the future of AI-assisted development isn't about picking the best model. It's about building systems that use the right model for each piece of the problem. And backing those systems with real research, not vibes.

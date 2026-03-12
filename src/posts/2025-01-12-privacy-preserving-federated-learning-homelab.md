@@ -315,4 +315,4 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 
 ### Related Homelab Posts
 - [Privacy-First AI Lab: Running Local LLMs on Consumer Hardware](/posts/2025-10-29-privacy-first-ai-lab-local-llms)
-- [Securing the Cloud-Native Frontier: Hardening Kubernetes in Production](/posts/2024-01-30-securing-cloud-native-frontier)
+- [Securing the Cloud-Native Frontier: Hardening Kubernetes in Production](/posts/2024-03-05-cloud-migration-journey-guide)

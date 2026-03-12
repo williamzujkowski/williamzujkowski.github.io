@@ -202,7 +202,7 @@ ALLOW 10.0.20.0/24 -> 10.0.30.5:9090 (Prometheus)
 
 ### Proxmox GPU Passthrough with Security
 
-My Dell R940 hosts the Proxmox hypervisor with the RTX 3090 passed through to an Ubuntu VM following [container hardening principles](/posts/2025-08-18-container-security-hardening-homelab). The critical security layer is ensuring the VM can't break out:
+My Dell R940 hosts the Proxmox hypervisor with the RTX 3090 passed through to an Ubuntu VM following [container hardening principles](/posts/2025-08-18-docker-lsm-security-hardening). The critical security layer is ensuring the VM can't break out:
 
 ```bash
 # /etc/pve/qemu-server/105.conf (AI workload VM)

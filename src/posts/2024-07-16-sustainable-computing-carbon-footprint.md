@@ -118,7 +118,7 @@ Optimizing cloud instance selection based on actual usage. Here's how this worke
 
 - CPU utilization analysis revealed 60% over-provisioning (we were paying for cores that sat idle 18 hours per day)
 - Memory optimization reduced instance sizes by 40% (moving from m5.2xlarge to m5.xlarge instances)
-- Storage tiering moved cold data to [lower-energy storage](/posts/2025-08-18-container-security-hardening-homelab) (S3 Glacier saved 89% on storage energy)
+- Storage tiering moved cold data to [lower-energy storage](/posts/2025-08-18-docker-lsm-security-hardening) (S3 Glacier saved 89% on storage energy)
 - Auto-scaling policies reduced idle resource time by 80% (instances scaled down during off-peak hours)
 
 **Geographic Optimization:**

@@ -16,8 +16,8 @@ Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Orde
 **What you'll learn:**
 - Zero Trust architecture (policy engine, verification flows, continuous monitoring)
 - Identity-centric security model (authentication, authorization, least privilege). Understanding [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) is essential for implementing robust identity verification.
-- Service mesh security (mTLS, SPIFFE/SPIRE, API gateway patterns). These patterns extend to [cloud-native security](/posts/2024-01-30-securing-cloud-native-frontier/) where zero-trust principles are critical for distributed microservices.
-- Network visibility through [traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/) and [container security hardening](/posts/2025-08-18-container-security-hardening-homelab/) to detect zero-trust policy violations in real-time.
+- Service mesh security (mTLS, SPIFFE/SPIRE, API gateway patterns). These patterns extend to [cloud-native security](/posts/2024-03-05-cloud-migration-journey-guide/) where zero-trust principles are critical for distributed microservices.
+- Network visibility through [traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/) and [container security hardening](/posts/2025-08-18-docker-lsm-security-hardening/) to detect zero-trust policy violations in real-time.
 - CI/CD pipeline hardening (artifact signing, secret management, security gates)
 - Implementation strategy (assessment, identity foundation, network segmentation)
 
@@ -386,7 +386,7 @@ Traditional build systems had broad production access "because they needed to de
 **Security gates:**
 - SAST: Code scanning before build
 - SCA: Dependency scanning for CVEs
-- [Container scanning](/posts/2025-08-18-container-security-hardening-homelab): Trivy/Grype block high-severity issues
+- [Container scanning](/posts/2025-08-18-docker-lsm-security-hardening): Trivy/Grype block high-severity issues
 - Policy-as-code: OPA policies[9] validate compliance
 
 **Pseudocode - Simplified CI/CD Security Pipeline:**

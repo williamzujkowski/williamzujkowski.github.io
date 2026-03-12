@@ -405,7 +405,7 @@ But hey, it's MY hole in the wall, and I learned how to use a sledgehammer. I te
 
 Sometimes that's enough.
 
-**Update:** I later built a much larger MCP server, [nexus-agents](/posts/building-nexus-agents-what-i-learned-creating-a-multi-model-ai-orchestration-system/), with 20 tools for multi-model orchestration, consensus voting, and graph workflows. The lessons from this standards server project directly informed that architecture.
+**Update:** I later built a much larger MCP server, [nexus-agents](/posts/2026-02-09-building-nexus-agents-multi-model-orchestration/), with 20 tools for multi-model orchestration, consensus voting, and graph workflows. The lessons from this standards server project directly informed that architecture.
 
 ---
 

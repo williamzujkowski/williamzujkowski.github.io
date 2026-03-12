@@ -735,7 +735,7 @@ For deeper technical understanding:
 
 ## Conclusion
 
-eBPF transforms security monitoring from reactive log analysis to proactive, real-time threat detection. Integrate eBPF with [container security hardening](/posts/2025-08-18-container-security-hardening-homelab), [vulnerability management](/posts/2025-07-15-vulnerability-management-scale-open-source), and [threat intelligence](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for comprehensive defense-in-depth.
+eBPF transforms security monitoring from reactive log analysis to proactive, real-time threat detection. Integrate eBPF with [container security hardening](/posts/2025-08-18-docker-lsm-security-hardening), [vulnerability management](/posts/2025-07-15-vulnerability-management-scale-open-source), and [threat intelligence](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for comprehensive defense-in-depth.
 
 For budget-friendly security implementations, explore [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects), and learn about [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation) to complement kernel-level monitoring. It's not just about speed – it's about seeing attacks that were previously invisible.
 

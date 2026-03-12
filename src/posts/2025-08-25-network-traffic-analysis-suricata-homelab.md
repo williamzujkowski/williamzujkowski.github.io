@@ -551,7 +551,7 @@ Regularly test that your rules actually fire. A rule that never alerts might be 
 - **[Emerging Threats Rules](https://rules.emergingthreats.net/)** - Community ruleset
 - **[Suricata Language Reference](https://suricata.readthedocs.io/en/latest/rules/index.html)** - Rule syntax documentation
 - **[OISF GitHub](https://github.com/OISF/suricata)** - Suricata source code and examples
-- **[Container Security Hardening](/posts/2025-08-18-container-security-hardening-homelab)** - Protect containerized Suricata deployments
+- **[Container Security Hardening](/posts/2025-08-18-docker-lsm-security-hardening)** - Protect containerized Suricata deployments
 
 ## Conclusion
 

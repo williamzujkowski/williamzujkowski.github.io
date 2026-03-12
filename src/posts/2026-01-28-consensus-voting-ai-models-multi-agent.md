@@ -20,7 +20,7 @@ Every language model has training data biases. Claude tends toward caution in ar
 
 I tracked decision quality across 200 tasks over about two months. Single-model decisions had a roughly 78% satisfaction rate. Not bad, but the 22% failure rate concentrated in specific categories: security reviews, breaking API changes, and architecture decisions. These are exactly the high-stakes decisions where you can't afford to be wrong.
 
-The pattern was consistent. Claude would approve an architecture change without considering [deployment complexity](/posts/cloud-migration-journey-guide/). Gemini would approve a security configuration without considering edge cases in the [threat model](/posts/ai-new-frontier-cybersecurity/). Codex would approve a breaking change without considering downstream consumers.
+The pattern was consistent. Claude would approve an architecture change without considering [deployment complexity](/posts/2024-03-05-cloud-migration-journey-guide/). Gemini would approve a security configuration without considering edge cases in the [threat model](/posts/2024-05-14-ai-new-frontier-cybersecurity/). Codex would approve a breaking change without considering downstream consumers.
 
 Different blind spots. Different models. Same failure mode: overconfidence on tasks outside their training distribution.
 
@@ -68,7 +68,7 @@ flowchart TB
 For a given proposal, the system creates five specialized agent roles:
 
 1. **Software Architect** - Evaluates structural soundness, scalability, maintainability
-2. **Security Engineer** - Evaluates [security implications](/posts/securing-personal-ai-experiments/), attack surface, data exposure
+2. **Security Engineer** - Evaluates [security implications](/posts/2025-04-10-securing-personal-ai-experiments/), attack surface, data exposure
 3. **Developer Experience Advocate** - Evaluates usability, onboarding friction, documentation needs
 4. **Product Manager** - Evaluates user value, scope, alignment with goals
 5. **Contrarian Analyst (Catfish)** - Actively looks for problems the others missed
@@ -119,7 +119,7 @@ Three basic strategies exist, plus one advanced:
 
 **Simple majority (>50%):** Used for sprint planning, feature prioritization, routine decisions. Fast and usually sufficient.
 
-**Supermajority (>66%):** Used for architecture changes and [security modifications](/posts/automated-security-scanning-pipeline/). Requires broader agreement because the blast radius of a bad decision is larger.
+**Supermajority (>66%):** Used for architecture changes and [security modifications](/posts/2025-10-06-automated-security-scanning-pipeline/). Requires broader agreement because the blast radius of a bad decision is larger.
 
 **Unanimous:** Used for breaking API changes. If any agent objects, the proposal doesn't pass. This is intentionally high-friction. Breaking changes should be hard to approve.
 
@@ -136,7 +136,7 @@ I use voting selectively:
 - **Sometimes vote:** Complex feature designs, dependency updates
 - **Never vote:** Bug fixes, documentation, style changes, routine code
 
-In practice, maybe 15-20% of decisions go through consensus. The rest use single-model routing through the [model router](/posts/routellm-contextual-bandits-model-router-research/). The 80/20 split works well. Consensus adds value where decisions are high-stakes and reversibility is low.
+In practice, maybe 15-20% of decisions go through consensus. The rest use single-model routing through the [model router](/posts/2026-01-15-routellm-contextual-bandits-model-router-research/). The 80/20 split works well. Consensus adds value where decisions are high-stakes and reversibility is low.
 
 The [multi-agent committee research](https://arxiv.org/abs/2512.21352) on code review confirms this pattern: multi-agent review provides the most value on complex, ambiguous tasks, and the least value on routine, well-defined tasks. Don't consensus-vote your variable names.
 
