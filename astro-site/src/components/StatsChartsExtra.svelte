@@ -33,15 +33,13 @@
   let scatterEl: HTMLDivElement | undefined = $state(undefined);
   let tooltip = $state<TooltipState>({ text: '', x: 0, y: 0, visible: false });
 
-  const prefersReducedMotion = typeof window !== 'undefined'
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion =
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ANIM_DURATION = prefersReducedMotion ? 0 : 400;
   const animProgress = tweened(0, { duration: ANIM_DURATION, easing: cubicOut });
 
   // --- Filtered data ---
-  let filteredPosts = $derived(
-    currentYear === 'all' ? posts : posts.filter((p) => p.date.startsWith(currentYear))
-  );
+  let filteredPosts = $derived(currentYear === 'all' ? posts : posts.filter((p) => p.date.startsWith(currentYear)));
 
   // --- Day of Week data ---
   const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -55,9 +53,7 @@
     return { counts, max: maxVal };
   });
 
-  let dowScale = $derived(
-    scaleLinear().domain([0, dayOfWeekData.max]).range([0, 100])
-  );
+  let dowScale = $derived(scaleLinear().domain([0, dayOfWeekData.max]).range([0, 100]));
 
   // --- Reading Time Distribution ---
   let readingTimeBuckets = $derived.by(() => {
@@ -76,9 +72,7 @@
     return { buckets, max: maxVal };
   });
 
-  let rtScale = $derived(
-    scaleLinear().domain([0, readingTimeBuckets.max]).range([0, 100])
-  );
+  let rtScale = $derived(scaleLinear().domain([0, readingTimeBuckets.max]).range([0, 100]));
 
   // --- Scatter Plot: Word Count vs Reading Time ---
   const SCATTER_H = 260;
@@ -100,30 +94,26 @@
     scaleLinear()
       .domain([0, scatterData.maxX * 1.1])
       .range([SCATTER_MARGIN.left, scatterWidth - SCATTER_MARGIN.right])
-      .nice()
+      .nice(),
   );
 
   let scatterScaleY = $derived(
     scaleLinear()
       .domain([0, scatterData.maxY * 1.1])
       .range([SCATTER_H - SCATTER_MARGIN.bottom, SCATTER_MARGIN.top])
-      .nice()
+      .nice(),
   );
 
   // --- Colors ---
   function getBarColor(index: number): string {
     const hues = [250, 280, 310, 340, 10, 40, 70];
     const hue = hues[index % hues.length];
-    return isDark
-      ? `oklch(0.70 0.14 ${hue})`
-      : `oklch(0.52 0.17 ${hue})`;
+    return isDark ? `oklch(0.70 0.14 ${hue})` : `oklch(0.52 0.17 ${hue})`;
   }
 
   function getBucketColor(index: number): string {
     const hue = 250 + index * 25;
-    return isDark
-      ? `oklch(0.68 0.13 ${hue})`
-      : `oklch(0.54 0.16 ${hue})`;
+    return isDark ? `oklch(0.68 0.13 ${hue})` : `oklch(0.54 0.16 ${hue})`;
   }
 
   // --- Animation ---
@@ -250,8 +240,8 @@
           y={scatterScaleY(tick)}
           class="axis-label"
           text-anchor="end"
-          dominant-baseline="middle"
-        >{tick}m</text>
+          dominant-baseline="middle">{tick}m</text
+        >
       {/each}
 
       {#each scatterScaleX.ticks(5) as tick}
@@ -262,28 +252,20 @@
           y2={SCATTER_H - SCATTER_MARGIN.bottom}
           class="grid-line"
         />
-        <text
-          x={scatterScaleX(tick)}
-          y={SCATTER_H - SCATTER_MARGIN.bottom + 16}
-          class="axis-label"
-          text-anchor="middle"
-        >{tick >= 1000 ? (tick / 1000) + 'k' : tick}</text>
+        <text x={scatterScaleX(tick)} y={SCATTER_H - SCATTER_MARGIN.bottom + 16} class="axis-label" text-anchor="middle"
+          >{tick >= 1000 ? tick / 1000 + 'k' : tick}</text
+        >
       {/each}
 
       <!-- Axis labels -->
-      <text
-        x={scatterWidth / 2}
-        y={SCATTER_H - 4}
-        class="axis-label"
-        text-anchor="middle"
-      >Words</text>
+      <text x={scatterWidth / 2} y={SCATTER_H - 4} class="axis-label" text-anchor="middle">Words</text>
       <text
         x={12}
         y={SCATTER_H / 2}
         class="axis-label"
         text-anchor="middle"
-        transform="rotate(-90, 12, {SCATTER_H / 2})"
-      >Reading Time</text>
+        transform="rotate(-90, 12, {SCATTER_H / 2})">Reading Time</text
+      >
 
       <!-- Data points -->
       {#each scatterData.points as point, i}
@@ -291,13 +273,17 @@
         {@const cy = scatterScaleY(point.y)}
         {@const progress = $animProgress}
         <circle
-          cx={cx}
+          {cx}
           cy={SCATTER_H - SCATTER_MARGIN.bottom - (SCATTER_H - SCATTER_MARGIN.bottom - cy) * progress}
           r={point.hasCode ? 5 : 4}
           class="scatter-dot"
           fill={point.hasCode
-            ? (isDark ? 'oklch(0.75 0.15 160)' : 'oklch(0.50 0.18 160)')
-            : (isDark ? 'oklch(0.72 0.14 260)' : 'oklch(0.52 0.17 260)')}
+            ? isDark
+              ? 'oklch(0.75 0.15 160)'
+              : 'oklch(0.50 0.18 160)'
+            : isDark
+              ? 'oklch(0.72 0.14 260)'
+              : 'oklch(0.52 0.17 260)'}
           onmouseenter={(e) => showTooltip(e, `${point.title}\n${point.x.toLocaleString()} words · ${point.y} min`)}
           onmouseleave={hideTooltip}
         />
@@ -394,7 +380,9 @@
   .scatter-dot {
     cursor: default;
     opacity: 0.8;
-    transition: opacity 0.15s, r 0.15s;
+    transition:
+      opacity 0.15s,
+      r 0.15s;
   }
   .scatter-dot:hover {
     opacity: 1;
@@ -429,21 +417,35 @@
     font-weight: 500;
     padding: 0.375rem 0.625rem;
     border-radius: 0.375rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.15);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.15);
     white-space: pre-line;
     max-width: 250px;
     transform: translateY(-100%);
   }
 
   @media (max-width: 480px) {
-    .h-bar-row { grid-template-columns: 4.5rem 1fr 1.75rem; }
-    .h-bar-label { font-size: 0.75rem; }
-    .chart-section { padding: 1rem; }
+    .h-bar-row {
+      grid-template-columns: 4.5rem 1fr 1.75rem;
+    }
+    .h-bar-label {
+      font-size: 0.75rem;
+    }
+    .chart-section {
+      padding: 1rem;
+    }
   }
 
   @media (min-width: 640px) {
-    .chart-section { padding: 1.5rem; }
-    .chart-title { font-size: 1.25rem; }
-    .h-bar-row { grid-template-columns: 6rem 1fr 2.5rem; }
+    .chart-section {
+      padding: 1.5rem;
+    }
+    .chart-title {
+      font-size: 1.25rem;
+    }
+    .h-bar-row {
+      grid-template-columns: 6rem 1fr 2.5rem;
+    }
   }
 </style>

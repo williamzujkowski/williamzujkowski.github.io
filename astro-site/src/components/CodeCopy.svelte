@@ -26,7 +26,9 @@
         try {
           await navigator.clipboard.writeText(code);
           btn.innerHTML = CHECK_ICON;
-          setTimeout(() => { btn.innerHTML = COPY_ICON; }, 2000);
+          setTimeout(() => {
+            btn.innerHTML = COPY_ICON;
+          }, 2000);
         } catch {
           const textarea = document.createElement('textarea');
           textarea.value = code;

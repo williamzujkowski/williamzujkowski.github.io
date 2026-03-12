@@ -55,7 +55,10 @@
 </button>
 
 {#if isOpen}
-  <div class="absolute top-16 left-0 right-0 md:hidden pb-3 border-b" style="background-color: var(--md-sys-color-surface-container); border-color: var(--md-sys-color-outline-variant)">
+  <div
+    class="absolute top-16 left-0 right-0 md:hidden pb-3 border-b"
+    style="background-color: var(--md-sys-color-surface-container); border-color: var(--md-sys-color-outline-variant)"
+  >
     <div class="space-y-1 px-4 pt-2">
       {#each links as link}
         <a

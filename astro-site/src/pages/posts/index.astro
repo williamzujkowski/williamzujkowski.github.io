@@ -9,18 +9,26 @@ const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTim
 // Collect all tags
 const tagCounts = new Map<string, number>();
 posts.forEach((post) => {
-  (post.data.tags ?? []).filter((t: string) => t !== 'posts').forEach((tag: string) => {
-    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-  });
+  (post.data.tags ?? [])
+    .filter((t: string) => t !== 'posts')
+    .forEach((tag: string) => {
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+    });
 });
 const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
-<BaseLayout title="Blog" description="Security insights, AI experiments, homelab adventures, and lessons from the field.">
+<BaseLayout
+  title="Blog"
+  description="Security insights, AI experiments, homelab adventures, and lessons from the field."
+>
   <section class="py-12 sm:py-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-2xl mb-12">
-        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl" style="font-size: var(--md-sys-typescale-display-medium)">
+        <h1
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-size: var(--md-sys-typescale-display-medium)"
+        >
           Blog
         </h1>
         <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">
@@ -29,21 +37,21 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
       </div>
 
       <!-- Tags -->
-      {sortedTags.length > 0 && (
-        <div class="mb-10 flex flex-wrap gap-2">
-          {sortedTags.slice(0, 15).map(([tag, count]) => (
-            <a href={`/tags/${tag}/`} class="chip">
-              {tag} <span class="ml-1 opacity-70">({count})</span>
-            </a>
-          ))}
-        </div>
-      )}
+      {
+        sortedTags.length > 0 && (
+          <div class="mb-10 flex flex-wrap gap-2">
+            {sortedTags.slice(0, 15).map(([tag, count]) => (
+              <a href={`/tags/${tag}/`} class="chip">
+                {tag} <span class="ml-1 opacity-70">({count})</span>
+              </a>
+            ))}
+          </div>
+        )
+      }
 
       <!-- Posts list -->
       <div class="space-y-6">
-        {posts.map((post) => (
-          <PostCard post={post} variant="horizontal" />
-        ))}
+        {posts.map((post) => <PostCard post={post} variant="horizontal" />)}
       </div>
     </div>
   </section>

@@ -46,8 +46,8 @@
   let tooltip = $state<TooltipState>({ text: '', x: 0, y: 0, visible: false });
 
   // Reduced motion
-  const prefersReducedMotion = typeof window !== 'undefined'
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion =
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ANIM_DURATION = prefersReducedMotion ? 0 : 400;
 
   // Animation progress (0→1) for mount + year filter transitions
@@ -55,23 +55,21 @@
 
   // --- Derived data ---
   let filteredPosts = $derived(
-    currentYear === 'all' ? statsData.posts : statsData.posts.filter((p) => p.date.startsWith(currentYear))
+    currentYear === 'all' ? statsData.posts : statsData.posts.filter((p) => p.date.startsWith(currentYear)),
   );
 
-  let years = $derived(
-    [...new Set(statsData.posts.map((p) => p.date.substring(0, 4)))].sort()
-  );
+  let years = $derived([...new Set(statsData.posts.map((p) => p.date.substring(0, 4)))].sort());
 
   let totalWords = $derived(filteredPosts.reduce((s, p) => s + p.wordCount, 0));
   let uniqueTags = $derived([...new Set(filteredPosts.flatMap((p) => p.tags))]);
   let avgReading = $derived(
     filteredPosts.length > 0
       ? Math.round(filteredPosts.reduce((s, p) => s + p.readingTime, 0) / filteredPosts.length)
-      : 0
+      : 0,
   );
   let postsWithCode = $derived(filteredPosts.filter((p) => p.hasCode).length);
   let codePercent = $derived(
-    filteredPosts.length > 0 ? ((postsWithCode / filteredPosts.length) * 100).toFixed(0) : '0'
+    filteredPosts.length > 0 ? ((postsWithCode / filteredPosts.length) * 100).toFixed(0) : '0',
   );
 
   // Monthly bar chart data
@@ -89,8 +87,14 @@
   // Top tags data
   let topTagsData = $derived.by(() => {
     const tc: Record<string, number> = {};
-    filteredPosts.forEach((p) => p.tags.forEach((t) => { tc[t] = (tc[t] || 0) + 1; }));
-    const entries = Object.entries(tc).sort((a, b) => b[1] - a[1]).slice(0, 10);
+    filteredPosts.forEach((p) =>
+      p.tags.forEach((t) => {
+        tc[t] = (tc[t] || 0) + 1;
+      }),
+    );
+    const entries = Object.entries(tc)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10);
     const maxVal = entries[0]?.[1] ?? 1;
     return { entries, max: maxVal };
   });
@@ -119,14 +123,14 @@
     scaleBand<string>()
       .domain(monthlyData.entries.map(([m]) => m))
       .range([MARGIN.left, barChartWidth - MARGIN.right])
-      .padding(0.15)
+      .padding(0.15),
   );
 
   let barScaleY = $derived(
     scaleLinear()
       .domain([0, monthlyData.max])
       .range([BAR_CHART_HEIGHT - MARGIN.bottom, MARGIN.top])
-      .nice()
+      .nice(),
   );
 
   // Sparse x-axis tick indices for bar chart
@@ -142,9 +146,7 @@
 
   // Horizontal bar scale (full width track = 100% of available)
   let hBarScaleX = $derived(
-    scaleLinear()
-      .domain([0, topTagsData.max])
-      .range([0, 100]) // percentage
+    scaleLinear().domain([0, topTagsData.max]).range([0, 100]), // percentage
   );
 
   // Heatmap color scale using OKLCH
@@ -155,7 +157,7 @@
   }
 
   function oklchDark(t: number): string {
-    const l = 0.28 + t * 0.50;
+    const l = 0.28 + t * 0.5;
     const c = 0.02 + t * 0.14;
     return `oklch(${l.toFixed(3)} ${c.toFixed(3)} 260)`;
   }
@@ -163,15 +165,13 @@
   let heatmapColorScale = $derived(
     scaleSequential()
       .domain([0, heatmapResult.maxCount])
-      .interpolator(isDark ? oklchDark : oklchLight)
+      .interpolator(isDark ? oklchDark : oklchLight),
   );
 
   // OKLCH tag colors — evenly spaced hues
   function getTagColor(index: number, total: number): string {
     const hue = (index / Math.max(total, 1)) * 330 + 250; // start from indigo, wrap
-    return isDark
-      ? `oklch(0.74 0.14 ${hue % 360})`
-      : `oklch(0.56 0.17 ${hue % 360})`;
+    return isDark ? `oklch(0.74 0.14 ${hue % 360})` : `oklch(0.56 0.17 ${hue % 360})`;
   }
 
   // Heatmap cell sizing
@@ -254,23 +254,28 @@
     if (barChartEl) ro.observe(barChartEl);
     if (heatmapEl) ro.observe(heatmapEl);
 
-    return () => { observer.disconnect(); ro.disconnect(); };
+    return () => {
+      observer.disconnect();
+      ro.disconnect();
+    };
   });
 </script>
 
 <!-- Year Filter -->
 <nav aria-label="Year filter" class="filter-nav">
   <button
-    class="filter-btn" class:active={currentYear === 'all'}
+    class="filter-btn"
+    class:active={currentYear === 'all'}
     aria-pressed={currentYear === 'all'}
-    onclick={() => switchYear('all')}
-  >All</button>
+    onclick={() => switchYear('all')}>All</button
+  >
   {#each years as year}
     <button
-      class="filter-btn" class:active={currentYear === year}
+      class="filter-btn"
+      class:active={currentYear === year}
       aria-pressed={currentYear === year}
-      onclick={() => switchYear(year)}
-    >{year}</button>
+      onclick={() => switchYear(year)}>{year}</button
+    >
   {/each}
 </nav>
 
@@ -302,12 +307,7 @@
 <section class="chart-section" aria-label="Posts published over time">
   <h2 class="chart-title">Posts Over Time</h2>
   <div class="chart-container" bind:this={barChartEl}>
-    <svg
-      width={barChartWidth}
-      height={BAR_CHART_HEIGHT}
-      role="img"
-      aria-label="Monthly post count bar chart"
-    >
+    <svg width={barChartWidth} height={BAR_CHART_HEIGHT} role="img" aria-label="Monthly post count bar chart">
       <!-- Y-axis grid lines + labels -->
       {#each barScaleY.ticks(4) as tick}
         <line
@@ -318,13 +318,9 @@
           class="grid-line"
         />
         {#if tick > 0}
-          <text
-            x={MARGIN.left - 6}
-            y={barScaleY(tick)}
-            class="axis-label"
-            text-anchor="end"
-            dominant-baseline="middle"
-          >{tick}</text>
+          <text x={MARGIN.left - 6} y={barScaleY(tick)} class="axis-label" text-anchor="end" dominant-baseline="middle"
+            >{tick}</text
+          >
         {/if}
       {/each}
 
@@ -355,8 +351,8 @@
             x={(barScaleX(entry[0]) ?? 0) + barScaleX.bandwidth() / 2}
             y={BAR_CHART_HEIGHT - 6}
             class="axis-label"
-            text-anchor="middle"
-          >{formatMonth(entry[0])}</text>
+            text-anchor="middle">{formatMonth(entry[0])}</text
+          >
         {/if}
       {/each}
     </svg>
@@ -380,7 +376,10 @@
         <div class="h-bar-track">
           <div
             class="h-bar-fill"
-            style="width: {hBarScaleX(count * $animProgress)}%; background-color: {getTagColor(i, topTagsData.entries.length)}"
+            style="width: {hBarScaleX(count * $animProgress)}%; background-color: {getTagColor(
+              i,
+              topTagsData.entries.length,
+            )}"
           ></div>
         </div>
         <span class="h-bar-value">{count}</span>
@@ -393,20 +392,15 @@
 <section class="chart-section" aria-label="Publishing activity heatmap">
   <h2 class="chart-title">Activity</h2>
   <div class="chart-container" bind:this={heatmapEl}>
-    <svg
-      width={heatmapWidth}
-      height={heatmapTotalH}
-      role="grid"
-      aria-label="Publishing activity heatmap"
-    >
+    <svg width={heatmapWidth} height={heatmapTotalH} role="grid" aria-label="Publishing activity heatmap">
       <!-- Month headers -->
       {#each MONTHS as m, mi}
         <text
           x={heatmapLabelW + mi * (heatmapCellSize + heatmapGap) + heatmapCellSize / 2}
           y={14}
           class="axis-label"
-          text-anchor="middle"
-        >{m}</text>
+          text-anchor="middle">{m}</text
+        >
       {/each}
 
       <!-- Year rows -->
@@ -416,8 +410,8 @@
           y={HEATMAP_HEADER_H + yi * (heatmapCellSize + heatmapGap) + heatmapCellSize / 2}
           class="axis-label heatmap-year"
           text-anchor="end"
-          dominant-baseline="middle"
-        >{year}</text>
+          dominant-baseline="middle">{year}</text
+        >
         {#each Array(12) as _, mi}
           {@const count = heatmapResult.data[`${year}-${mi}`] || 0}
           {@const cellX = heatmapLabelW + mi * (heatmapCellSize + heatmapGap)}
@@ -441,8 +435,8 @@
               y={cellY + heatmapCellSize / 2}
               class="heatmap-count-text"
               text-anchor="middle"
-              dominant-baseline="central"
-            >{count}</text>
+              dominant-baseline="central">{count}</text
+            >
           {/if}
         {/each}
       {/each}
@@ -452,8 +446,8 @@
         x={legendCenterX - legendTotalW / 2}
         y={legendY + SWATCH_SIZE / 2}
         class="axis-label"
-        dominant-baseline="middle"
-      >Less</text>
+        dominant-baseline="middle">Less</text
+      >
       {#each Array(LEGEND_STEPS) as _, si}
         {@const t = (si + 1) / LEGEND_STEPS}
         <rect
@@ -469,8 +463,8 @@
         x={legendCenterX - legendTotalW / 2 + 30 + LEGEND_STEPS * (SWATCH_SIZE + LEGEND_GAP) + 4}
         y={legendY + SWATCH_SIZE / 2}
         class="axis-label"
-        dominant-baseline="middle"
-      >More</text>
+        dominant-baseline="middle">More</text
+      >
     </svg>
 
     <!-- Tooltip -->
@@ -506,7 +500,7 @@
   .filter-btn.active {
     background: var(--md-sys-color-primary);
     color: var(--md-sys-color-on-primary);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   /* ===== Stats Grid ===== */
@@ -588,7 +582,9 @@
   }
   .heatmap-cell {
     cursor: default;
-    transition: transform 0.15s, opacity 0.15s;
+    transition:
+      transform 0.15s,
+      opacity 0.15s;
   }
   .heatmap-cell:hover {
     opacity: 0.82;
@@ -614,7 +610,9 @@
     font-weight: 500;
     padding: 0.375rem 0.625rem;
     border-radius: 0.375rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.15);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.15);
     white-space: nowrap;
     transform: translateY(-100%);
   }
@@ -669,25 +667,54 @@
     .stats-grid {
       grid-template-columns: repeat(3, 1fr);
     }
-    .stat-value { font-size: 1.25rem; }
-    .stat-label { font-size: 0.5625rem; }
-    .h-bar-row { grid-template-columns: 5.5rem 1fr 1.75rem; }
-    .h-bar-label { font-size: 0.75rem; }
-    .chart-section { padding: 1rem; }
-    .heatmap-count-text { font-size: 0.4375rem; }
+    .stat-value {
+      font-size: 1.25rem;
+    }
+    .stat-label {
+      font-size: 0.5625rem;
+    }
+    .h-bar-row {
+      grid-template-columns: 5.5rem 1fr 1.75rem;
+    }
+    .h-bar-label {
+      font-size: 0.75rem;
+    }
+    .chart-section {
+      padding: 1rem;
+    }
+    .heatmap-count-text {
+      font-size: 0.4375rem;
+    }
   }
 
   @media (min-width: 640px) {
-    .stats-grid { grid-template-columns: repeat(5, 1fr); gap: 1rem; }
-    .stat-value { font-size: 2rem; }
-    .stat-label { font-size: 0.75rem; }
-    .stat-card { padding: 1.25rem; }
-    .chart-section { padding: 1.5rem; }
-    .chart-title { font-size: 1.25rem; }
+    .stats-grid {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    .stat-value {
+      font-size: 2rem;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+    }
+    .stat-card {
+      padding: 1.25rem;
+    }
+    .chart-section {
+      padding: 1.5rem;
+    }
+    .chart-title {
+      font-size: 1.25rem;
+    }
   }
 
   @media (min-width: 1024px) {
-    .stat-value { font-size: 2.5rem; }
-    .h-bar-row { grid-template-columns: 9rem 1fr 2.5rem; }
+    .stat-value {
+      font-size: 2.5rem;
+    }
+    .h-bar-row {
+      grid-template-columns: 9rem 1fr 2.5rem;
+    }
   }
 </style>

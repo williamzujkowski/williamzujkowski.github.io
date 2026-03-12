@@ -8,9 +8,7 @@ const parser = new MarkdownIt();
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
-  const sortedPosts = posts.sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime()
-  );
+  const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
     title: 'William Zujkowski',

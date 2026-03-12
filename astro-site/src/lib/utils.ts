@@ -5,9 +5,7 @@ import { resolve, join } from 'node:path';
  * Extract image URL from post data.
  * Handles both string images and object images (with url property).
  */
-export function getImageUrl(
-  image: string | { url?: string; src?: string } | undefined
-): string | undefined {
+export function getImageUrl(image: string | { url?: string; src?: string } | undefined): string | undefined {
   if (!image) return undefined;
   if (typeof image === 'string') return image;
   return image.url ?? image.src;
@@ -19,9 +17,7 @@ export function getImageUrl(
  * Returns the URL if valid, undefined if the local file is missing.
  * This runs at build time in Astro's Node.js context.
  */
-export function getValidImageUrl(
-  image: string | { url?: string; src?: string } | undefined
-): string | undefined {
+export function getValidImageUrl(image: string | { url?: string; src?: string } | undefined): string | undefined {
   const url = getImageUrl(image);
   if (!url) return undefined;
   // External URLs are assumed valid

@@ -5,8 +5,8 @@ import { getCollection } from 'astro:content';
 const allProjects = await getCollection('projects');
 const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
-const featured = projects.filter(p => p.data.featured);
-const other = projects.filter(p => !p.data.featured);
+const featured = projects.filter((p) => p.data.featured);
+const other = projects.filter((p) => !p.data.featured);
 
 const categoryLabels: Record<string, string> = {
   ai: 'AI & Machine Learning',
@@ -22,11 +22,17 @@ const statusColors: Record<string, string> = {
 };
 ---
 
-<BaseLayout title="Projects" description="Open source projects and tools — AI orchestration, security engineering, and homelab infrastructure.">
+<BaseLayout
+  title="Projects"
+  description="Open source projects and tools — AI orchestration, security engineering, and homelab infrastructure."
+>
   <section class="py-12 sm:py-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-2xl mb-12">
-        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl" style="font-size: var(--md-sys-typescale-display-medium)">
+        <h1
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-size: var(--md-sys-typescale-display-medium)"
+        >
           Projects
         </h1>
         <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">
@@ -35,61 +41,77 @@ const statusColors: Record<string, string> = {
       </div>
 
       <!-- Featured Projects -->
-      {featured.length > 0 && (
-        <div class="mb-12">
-          <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-primary)] mb-6">Featured</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((project) => (
-              <a href={project.data.url} class="card group p-6 flex flex-col no-underline hover:no-underline" rel="noopener noreferrer" target="_blank">
-                <div class="flex items-center justify-between mb-3">
-                  <span class="chip text-xs">{categoryLabels[project.data.category] ?? project.data.category}</span>
-                  <span class="text-xs font-medium" style={`color: ${statusColors[project.data.status]}`}>
-                    {project.data.status}
-                  </span>
-                </div>
-                <h3 class="text-lg font-semibold group-hover:text-[var(--md-sys-color-primary)] transition-colors">
-                  {project.data.title}
-                </h3>
-                <p class="mt-2 text-sm text-[var(--md-sys-color-on-surface-variant)] flex-grow">
-                  {project.data.description}
-                </p>
-                <div class="mt-4 flex flex-wrap gap-1.5">
-                  {project.data.tags.slice(0, 4).map((tag: string) => (
-                    <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)]">
-                      {tag}
+      {
+        featured.length > 0 && (
+          <div class="mb-12">
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-primary)] mb-6">
+              Featured
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featured.map((project) => (
+                <a
+                  href={project.data.url}
+                  class="card group p-6 flex flex-col no-underline hover:no-underline"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="chip text-xs">{categoryLabels[project.data.category] ?? project.data.category}</span>
+                    <span class="text-xs font-medium" style={`color: ${statusColors[project.data.status]}`}>
+                      {project.data.status}
                     </span>
-                  ))}
-                </div>
-              </a>
-            ))}
+                  </div>
+                  <h3 class="text-lg font-semibold group-hover:text-[var(--md-sys-color-primary)] transition-colors">
+                    {project.data.title}
+                  </h3>
+                  <p class="mt-2 text-sm text-[var(--md-sys-color-on-surface-variant)] flex-grow">
+                    {project.data.description}
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-1.5">
+                    {project.data.tags.slice(0, 4).map((tag: string) => (
+                      <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       <!-- Other Projects -->
-      {other.length > 0 && (
-        <div>
-          <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)] mb-6">More Projects</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {other.map((project) => (
-              <a href={project.data.url} class="card group p-5 flex flex-col no-underline hover:no-underline" rel="noopener noreferrer" target="_blank">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="chip text-xs">{categoryLabels[project.data.category] ?? project.data.category}</span>
-                  <span class="text-xs font-medium" style={`color: ${statusColors[project.data.status]}`}>
-                    {project.data.status}
-                  </span>
-                </div>
-                <h3 class="text-base font-semibold group-hover:text-[var(--md-sys-color-primary)] transition-colors">
-                  {project.data.title}
-                </h3>
-                <p class="mt-1 text-sm text-[var(--md-sys-color-on-surface-variant)]">
-                  {project.data.description}
-                </p>
-              </a>
-            ))}
+      {
+        other.length > 0 && (
+          <div>
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)] mb-6">
+              More Projects
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {other.map((project) => (
+                <a
+                  href={project.data.url}
+                  class="card group p-5 flex flex-col no-underline hover:no-underline"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="chip text-xs">{categoryLabels[project.data.category] ?? project.data.category}</span>
+                    <span class="text-xs font-medium" style={`color: ${statusColors[project.data.status]}`}>
+                      {project.data.status}
+                    </span>
+                  </div>
+                  <h3 class="text-base font-semibold group-hover:text-[var(--md-sys-color-primary)] transition-colors">
+                    {project.data.title}
+                  </h3>
+                  <p class="mt-1 text-sm text-[var(--md-sys-color-on-surface-variant)]">{project.data.description}</p>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </div>
   </section>
 </BaseLayout>

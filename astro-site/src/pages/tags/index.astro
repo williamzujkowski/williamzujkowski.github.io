@@ -31,14 +31,13 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
       </div>
 
       <div class="flex flex-wrap gap-3">
-        {sortedTags.map(([tag, count]) => (
-          <a
-            href={`/tags/${tag}/`}
-            class="chip text-sm"
-          >
-            {tag} ({count})
-          </a>
-        ))}
+        {
+          sortedTags.map(([tag, count]) => (
+            <a href={`/tags/${tag}/`} class="chip text-sm">
+              {tag} ({count})
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>

@@ -34,7 +34,9 @@ posts.forEach((p) => {
     tagCounts[t] = (tagCounts[t] || 0) + 1;
   });
 });
-const topTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]).slice(0, 15);
+const topTags = Object.entries(tagCounts)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 15);
 
 const heatmapData: Record<string, number> = {};
 posts.forEach((p) => {
@@ -55,9 +57,7 @@ const statsData = {
 <BaseLayout title="Blog Statistics" description="Publishing activity, content trends, and topic breakdown.">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 max-w-4xl">
     <header class="text-center mb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold text-[var(--md-sys-color-on-surface)] mb-2">
-        Blog Statistics
-      </h1>
+      <h1 class="text-3xl sm:text-4xl font-bold text-[var(--md-sys-color-on-surface)] mb-2">Blog Statistics</h1>
       <p class="text-base sm:text-lg text-[var(--md-sys-color-on-surface-variant)]">
         Publishing activity and content trends
       </p>

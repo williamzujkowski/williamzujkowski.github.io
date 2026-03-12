@@ -32,7 +32,15 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<BaseLayout title={title} description={description} image={image} type="article" publishedDate={date} wordCount={wordCount} tags={tags}>
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  publishedDate={date}
+  wordCount={wordCount}
+  tags={tags}
+>
   <ReadingProgress client:idle />
   <article class="py-8 sm:py-12">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,41 +58,57 @@ const formattedDate = date.toLocaleDateString('en-US', {
       <div class="max-w-3xl mx-auto">
         <!-- Header -->
         <header class="mb-10">
-          {image && (
-            <div class="mb-8 -mx-4 sm:mx-0 overflow-hidden rounded-none sm:rounded-2xl">
-              <img src={image} alt={`Cover image for ${title}`} class="w-full h-48 sm:h-64 object-cover" loading="eager" decoding="async" fetchpriority="high" />
-            </div>
-          )}
+          {
+            image && (
+              <div class="mb-8 -mx-4 sm:mx-0 overflow-hidden rounded-none sm:rounded-2xl">
+                <img
+                  src={image}
+                  alt={`Cover image for ${title}`}
+                  class="w-full h-48 sm:h-64 object-cover"
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </div>
+            )
+          }
 
           <div class="flex items-center gap-3 text-sm text-[var(--md-sys-color-on-surface-variant)] mb-4">
             <time datetime={date.toISOString().split('T')[0]} class="font-medium text-[var(--md-sys-color-primary)]">
               {formattedDate}
             </time>
-            {readingTime && (
-              <>
-                <span aria-hidden="true">&middot;</span>
-                <span>{readingTime} min read</span>
-              </>
-            )}
+            {
+              readingTime && (
+                <>
+                  <span aria-hidden="true">&middot;</span>
+                  <span>{readingTime} min read</span>
+                </>
+              )
+            }
           </div>
 
-          <h1 class="text-3xl sm:text-4xl font-bold tracking-tight leading-tight" style={`font-size: var(--md-sys-typescale-display-medium)`}>
+          <h1
+            class="text-3xl sm:text-4xl font-bold tracking-tight leading-tight"
+            style={`font-size: var(--md-sys-typescale-display-medium)`}
+          >
             {title}
           </h1>
 
-          {description && (
-            <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">{description}</p>
-          )}
+          {description && <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">{description}</p>}
 
-          {tags.length > 0 && (
-            <div class="mt-6 flex flex-wrap gap-2">
-              {tags.filter(t => t !== 'posts').map((tag) => (
-                <a href={`/tags/${tag}/`} class="chip">
-                  {tag}
-                </a>
-              ))}
-            </div>
-          )}
+          {
+            tags.length > 0 && (
+              <div class="mt-6 flex flex-wrap gap-2">
+                {tags
+                  .filter((t) => t !== 'posts')
+                  .map((tag) => (
+                    <a href={`/tags/${tag}/`} class="chip">
+                      {tag}
+                    </a>
+                  ))}
+              </div>
+            )
+          }
         </header>
 
         <!-- Table of Contents -->

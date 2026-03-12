@@ -38,7 +38,7 @@
     if (typeof window === 'undefined') return null;
     try {
       const path = `${window.location.origin}/pagefind/pagefind.js`;
-      pagefind = await import(/* @vite-ignore */ path) as PagefindModule;
+      pagefind = (await import(/* @vite-ignore */ path)) as PagefindModule;
       await pagefind.init();
       return pagefind;
     } catch {
@@ -61,9 +61,7 @@
         return;
       }
       const response = await pf.search(query);
-      const loaded = await Promise.all(
-        response.results.slice(0, 8).map((r) => r.data())
-      );
+      const loaded = await Promise.all(response.results.slice(0, 8).map((r) => r.data()));
       results = loaded;
       isLoading = false;
     }, 200);
@@ -86,13 +84,7 @@
         e.preventDefault();
         open();
       }
-      if (
-        e.key === '/' &&
-        !isOpen &&
-        !['INPUT', 'TEXTAREA', 'SELECT'].includes(
-          (e.target as HTMLElement).tagName
-        )
-      ) {
+      if (e.key === '/' && !isOpen && !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) {
         e.preventDefault();
         open();
       }
@@ -120,22 +112,14 @@
   class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors"
   aria-label="Search site"
 >
-  <svg
-    class="w-5 h-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    stroke-width="2"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-    />
+  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
   </svg>
-  <kbd class="hidden lg:inline-block ml-1.5 text-[10px] px-1.5 py-0.5 rounded border font-sans"
+  <kbd
+    class="hidden lg:inline-block ml-1.5 text-[10px] px-1.5 py-0.5 rounded border font-sans"
     style="color: var(--md-sys-color-on-surface-variant); border-color: var(--md-sys-color-outline-variant); opacity: 0.7"
-  >&sol;K</kbd>
+    >&sol;K</kbd
+  >
 </button>
 
 <!-- Search dialog -->
@@ -156,10 +140,7 @@
       role="dialog"
       aria-label="Search site"
     >
-      <div
-        class="flex items-center gap-3 p-4 border-b"
-        style="border-color: var(--md-sys-color-outline-variant)"
-      >
+      <div class="flex items-center gap-3 p-4 border-b" style="border-color: var(--md-sys-color-outline-variant)">
         <svg
           class="w-5 h-5 flex-shrink-0"
           style="color: var(--md-sys-color-on-surface-variant)"
@@ -168,11 +149,7 @@
           stroke="currentColor"
           stroke-width="2"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
         <input
           bind:this={inputEl}
@@ -201,19 +178,14 @@
                 onmouseenter={(e) =>
                   ((e.currentTarget as HTMLElement).style.backgroundColor =
                     'var(--md-sys-color-surface-container-high)')}
-                onmouseleave={(e) =>
-                  ((e.currentTarget as HTMLElement).style.backgroundColor =
-                    'transparent')}
+                onmouseleave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
                 onclick={close}
               >
                 <div class="font-medium">
                   {result.meta?.title || 'Untitled'}
                 </div>
                 {#if result.excerpt}
-                  <div
-                    class="text-sm mt-1 line-clamp-2"
-                    style="color: var(--md-sys-color-on-surface-variant)"
-                  >
+                  <div class="text-sm mt-1 line-clamp-2" style="color: var(--md-sys-color-on-surface-variant)">
                     {@html result.excerpt}
                   </div>
                 {/if}
@@ -222,24 +194,13 @@
           {/each}
         </ul>
       {:else if isLoading}
-        <div
-          class="p-8 text-center"
-          style="color: var(--md-sys-color-on-surface-variant)"
-        >
-          Searching...
-        </div>
+        <div class="p-8 text-center" style="color: var(--md-sys-color-on-surface-variant)">Searching...</div>
       {:else if query.length >= 2}
-        <div
-          class="p-8 text-center"
-          style="color: var(--md-sys-color-on-surface-variant)"
-        >
+        <div class="p-8 text-center" style="color: var(--md-sys-color-on-surface-variant)">
           No results for "{query}"
         </div>
       {:else}
-        <div
-          class="p-8 text-center text-sm"
-          style="color: var(--md-sys-color-on-surface-variant)"
-        >
+        <div class="p-8 text-center text-sm" style="color: var(--md-sys-color-on-surface-variant)">
           Type to search...
         </div>
       {/if}

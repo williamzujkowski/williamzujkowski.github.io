@@ -1,14 +1,16 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const imageObjectSchema = z.object({
-  url: z.string().optional(),
-  src: z.string().optional(),
-  alt: z.string().optional(),
-  caption: z.string().optional(),
-  width: z.number().optional(),
-  height: z.number().optional(),
-}).passthrough();
+const imageObjectSchema = z
+  .object({
+    url: z.string().optional(),
+    src: z.string().optional(),
+    alt: z.string().optional(),
+    caption: z.string().optional(),
+    width: z.number().optional(),
+    height: z.number().optional(),
+  })
+  .passthrough();
 
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: '../src/posts' }),
