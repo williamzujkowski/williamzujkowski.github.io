@@ -112,6 +112,12 @@ const navLinks = [
   { label: 'Uses', href: '/uses/' },
   { label: 'Stats', href: '/stats/' },
 ];
+
+function isActiveLink(linkHref: string): boolean {
+  const path = Astro.url.pathname;
+  if (linkHref === '/') return path === '/';
+  return path.startsWith(linkHref);
+}
 ---
 
 <!doctype html>
@@ -216,7 +222,7 @@ const navLinks = [
                   href={link.href}
                   class:list={[
                     'px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200',
-                    Astro.url.pathname === link.href
+                    isActiveLink(link.href)
                       ? 'bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)]'
                       : 'text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-surface-container-high)]',
                   ]}
@@ -231,7 +237,7 @@ const navLinks = [
           <div class="flex items-center gap-2">
             <Search client:load />
             <DarkModeToggle client:load />
-            <MobileMenu client:load links={navLinks.map((l) => ({ ...l, active: Astro.url.pathname === l.href }))} />
+            <MobileMenu client:load links={navLinks.map((l) => ({ ...l, active: isActiveLink(l.href) }))} />
           </div>
         </div>
       </nav>

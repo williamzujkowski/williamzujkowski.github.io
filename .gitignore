@@ -3,7 +3,8 @@ node_modules/
 
 # Build output
 _site/
-.cache/
+astro-site/dist/
+astro-site/.astro/
 
 # OS files
 .DS_Store
@@ -19,70 +20,43 @@ Thumbs.db
 .env
 .env.local
 
-# Logs
+# Logs and generated reports
 *.log
 npm-debug.log*
+logs/
+test-results/
 
 # Temporary files
 *.tmp
 *.temp
 tmp/
-!tmp/README.md
 
 # Python
 __pycache__/
 .venv/
 *.pyc
 
-# Claude Code files
+# Claude Code / MCP
 .claude/
-
-# MCP (Model Context Protocol) files
 .mcp.json
 .mcp/
 .playwright-mcp/
-
-# nexus-agents session artifacts
 .nexus-agents/
 
-# Legacy claude-flow files (migrated to nexus-agents)
+# Legacy tool artifacts
 .claude-flow/
-claude-flow
-claude-flow.*
 .roo/
 .roomodes
-memory/
 .swarm/
 .hive-mind/
-hive-mind-prompt-*.txt
-swarm-*.json
-swarm-*.log
+memory/
 coordination/
-
-# Manifest versions
-.manifest/
-!.manifest/README.md
 
 # Database files
 *.db
 *.db-journal
 *.db-wal
+*.db-shm
 *.sqlite
 *.sqlite-journal
 *.sqlite-wal
-*.leveldb
-
-# Cache and temporary files
-.swarm-cache/
-.agent-cache/
-
-# Log files and generated reports
-logs/
-test-results/
-swarm-logs/
-agent-logs/
-
-# Development and debugging
-subagents/
-task-tracking/
-debug-reports/
