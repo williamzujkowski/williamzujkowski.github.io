@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import { getValidImageUrl, getReadingTime } from '@/lib/utils';
+
+interface Props {
+  currentSlug: string;
+  tags: string[];
+}
+
+const { currentSlug, tags } = Astro.props;
+
+// Get all published posts except current
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const otherPosts = allPosts.filter(p => p.id !== currentSlug);
+
+// Score posts by tag overlap
+const currentTags = new Set(tags.filter(t => t !== 'posts'));
+
+const scored = otherPosts.map(post => {
+  const postTags = new Set((post.data.tags ?? []).filter((t: string) => t !== 'posts'));
+  let overlap = 0;
+  for (const tag of currentTags) {
+    if (postTags.has(tag)) overlap++;
+  }
+  return { post, overlap };
+}).filter(s => s.overlap > 0);
+
+// Sort by overlap descending, then by date descending
+scored.sort((a, b) => {
+  if (b.overlap !== a.overlap) return b.overlap - a.overlap;
+  return b.post.data.date.getTime() - a.post.data.date.getTime();
+});
+
+const related = scored.slice(0, 3);
+---
+
+{related.length > 0 && (
+  <section class="mt-12 pt-8 border-t border-[var(--md-sys-color-outline-variant)]">
+    <h2 class="text-lg font-semibold mb-6">Related posts</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {related.map(({ post }) => (
+        <a href={`/posts/${post.id}/`} class="group card p-4 no-underline hover:no-underline transition-colors">
+          {getValidImageUrl(post.data.image) && (
+            <div class="mb-3 -mx-4 -mt-4 overflow-hidden rounded-t-[var(--md-sys-shape-corner-large)]">
+              <img
+                src={getValidImageUrl(post.data.image)}
+                alt={`Cover image for ${post.data.title}`}
+                class="w-full h-28 object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          )}
+          <div class="text-xs text-[var(--md-sys-color-on-surface-variant)] mb-1">
+            {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            <span class="mx-1">&middot;</span>
+            {getReadingTime(post.body ?? '')} min read
+          </div>
+          <h3 class="text-sm font-medium leading-snug group-hover:text-[var(--md-sys-color-primary)] transition-colors line-clamp-2" style="color: var(--md-sys-color-on-surface)">
+            {post.data.title}
+          </h3>
+        </a>
+      ))}
+    </div>
+  </section>
+)}

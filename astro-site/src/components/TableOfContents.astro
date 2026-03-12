@@ -1,0 +1,37 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+// Only show TOC if there are 3+ headings (worth navigating)
+const filteredHeadings = headings.filter(h => h.depth <= 3);
+const showToc = filteredHeadings.length >= 3;
+---
+
+{showToc && (
+  <nav aria-label="Table of contents" class="toc mb-10 p-5 rounded-xl border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-low)]">
+    <h2 class="text-sm font-semibold uppercase tracking-wider mb-3 text-[var(--md-sys-color-on-surface-variant)]">
+      On this page
+    </h2>
+    <ul class="space-y-1.5 text-sm">
+      {filteredHeadings.map((heading) => (
+        <li style={`padding-left: ${(heading.depth - 2) * 1}rem`}>
+          <a
+            href={`#${heading.slug}`}
+            class="text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] no-underline hover:underline transition-colors"
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
