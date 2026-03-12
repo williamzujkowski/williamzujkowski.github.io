@@ -48,11 +48,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
+          cache-dependency-path: astro-site/package-lock.json
 
       - name: Install Node dependencies
-        run: npm ci
+        run: cd astro-site && npm ci
 
       - name: Validate MANIFEST.json
         run: |
@@ -175,8 +176,8 @@ jobs:
 
       - name: Build site
         run: |
-          echo "🔨 Building static site..."
-          npm run build
+          echo "Building static site..."
+          cd astro-site && npm run build
 
       - name: Generate compliance report
         if: always()

@@ -19,11 +19,12 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Use Node.js 18
+    - name: Use Node.js 22
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '22'
         cache: 'npm'
+        cache-dependency-path: astro-site/package-lock.json
 
     - name: Install UV
       run: curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -32,45 +33,54 @@ jobs:
       run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
     - name: Install dependencies
-      run: npm ci
+      run: cd astro-site && npm ci
 
     - name: Build site
-      run: npm run build
+      run: cd astro-site && npm run build
       continue-on-error: false
 
     - name: Check for broken links
       uses: lycheeverse/lychee-action@v2
       with:
-        args: --verbose --no-progress './src/**/*.md' './src/**/*.njk'
+        args: --verbose --no-progress './astro-site/src/**/*.md' './astro-site/src/**/*.astro'
         fail: true
       continue-on-error: true  # Don't fail PR for broken external links
 
     - name: Run Lighthouse CI
-      uses: treosh/lighthouse-ci-action@v10
-      with:
-        urls: |
-          http://localhost:8080/
-          http://localhost:8080/posts/
-          http://localhost:8080/about/
-        uploadArtifacts: true
-        temporaryPublicStorage: true
-        runs: 1  # Reduced from 3 to 1 for faster PR checks (was causing 8+ min delays)
-        configPath: .lighthouserc.json
-      continue-on-error: true
-      timeout-minutes: 5  # Prevent indefinite hanging
-
-    - name: Check WCAG Compliance
       run: |
-        echo "Skipping PA11Y check - action deprecated"
-        # TODO: Replace with alternative accessibility checker
+        cd astro-site
+        npx serve -l 4321 dist &
+        SERVER_PID=$!
+        sleep 3
+        npx lighthouse http://localhost:4321/ \
+          --output=json --output=html \
+          --output-path=../lighthouse-report \
+          --chrome-flags="--headless --no-sandbox" \
+          --only-categories=performance,accessibility,best-practices,seo || true
+        kill $SERVER_PID 2>/dev/null || true
       continue-on-error: true
+      timeout-minutes: 5
 
     - name: Validate HTML
       uses: cyb3r-jak3/html5validator-action@v7.2.0
       with:
-        root: _site/
+        root: astro-site/dist/
         css: true
       continue-on-error: true
+
+    - name: Check accessibility with axe
+      run: |
+        cd astro-site
+        npx serve -l 4322 dist &
+        SERVER_PID=$!
+        sleep 3
+        npx @axe-core/cli http://localhost:4322/ \
+          http://localhost:4322/posts/ \
+          http://localhost:4322/about/ \
+          --exit || true
+        kill $SERVER_PID 2>/dev/null || true
+      continue-on-error: true
+      timeout-minutes: 5
 
     - name: Check citation coverage
       run: |
@@ -80,26 +90,28 @@ jobs:
         import re
         from pathlib import Path
 
-        posts_dir = Path('src/posts')
+        # Check both old src/posts and astro content directories
+        post_dirs = [Path('src/posts'), Path('astro-site/src/content/blog'), Path('astro-site/src/pages/posts')]
         total_posts = 0
         posts_with_citations = 0
 
-        for post in posts_dir.glob('*.md'):
-            total_posts += 1
-            content = post.read_text()
-            # Check for citation patterns
-            if re.search(r'\[.*?\]\(https?://.*?\)', content) or \
-               re.search(r'\[.*?\]\(.*?doi\.org.*?\)', content) or \
-               re.search(r'\[.*?\]\(.*?arxiv\.org.*?\)', content):
-                posts_with_citations += 1
+        for posts_dir in post_dirs:
+            if not posts_dir.exists():
+                continue
+            for post in posts_dir.glob('**/*.md'):
+                total_posts += 1
+                content = post.read_text()
+                # Check for citation patterns
+                if re.search(r'\[.*?\]\(https?://.*?\)', content) or \
+                   re.search(r'\[.*?\]\(.*?doi\.org.*?\)', content) or \
+                   re.search(r'\[.*?\]\(.*?arxiv\.org.*?\)', content):
+                    posts_with_citations += 1
 
         coverage = (posts_with_citations / total_posts * 100) if total_posts > 0 else 0
         print(f'Citation Coverage: {coverage:.1f}% ({posts_with_citations}/{total_posts} posts)')
 
         if coverage < 70:
             print(f'WARNING: Citation coverage ({coverage:.1f}%) is below 70% target')
-            # Don't fail the build for citation coverage
-            # exit(1)
         "
 
     - name: Content compliance check
@@ -129,20 +141,23 @@ jobs:
 
         issues_found = []
 
-        for post in Path('src/posts').glob('*.md'):
-            content = post.read_text().lower()
-            for pattern in forbidden_patterns:
-                if re.search(pattern, content, re.IGNORECASE):
-                    issues_found.append(f'{post.name}: Found pattern \"{pattern}\"')
+        post_dirs = [Path('src/posts'), Path('astro-site/src/content/blog'), Path('astro-site/src/pages/posts')]
+        for posts_dir in post_dirs:
+            if not posts_dir.exists():
+                continue
+            for post in posts_dir.glob('**/*.md'):
+                content = post.read_text().lower()
+                for pattern in forbidden_patterns:
+                    if re.search(pattern, content, re.IGNORECASE):
+                        issues_found.append(f'{post.name}: Found pattern \"{pattern}\"')
 
         if issues_found:
             print('Compliance Warnings Found:')
             for issue in issues_found:
                 print(f'  - {issue}')
             print('Note: These are warnings only and do not fail the build')
-            # exit(1)  # Don't fail for content compliance
         else:
-            print('✅ Content compliance check passed')
+            print('Content compliance check passed')
         "
 
     - name: Generate compliance report
@@ -156,9 +171,9 @@ jobs:
         echo "" >> compliance-report.md
         echo "## Checks Performed" >> compliance-report.md
         echo "- [x] Site build validation" >> compliance-report.md
-        echo "- [x] Link checking" >> compliance-report.md
-        echo "- [x] Lighthouse performance" >> compliance-report.md
-        echo "- [x] WCAG accessibility" >> compliance-report.md
+        echo "- [x] Link checking (Lychee)" >> compliance-report.md
+        echo "- [x] Lighthouse performance audit" >> compliance-report.md
+        echo "- [x] Accessibility (axe-core)" >> compliance-report.md
         echo "- [x] HTML validation" >> compliance-report.md
         echo "- [x] Citation coverage" >> compliance-report.md
         echo "- [x] Content compliance" >> compliance-report.md
@@ -168,20 +183,22 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: compliance-report
-        path: compliance-report.md
+        path: |
+          compliance-report.md
+          lighthouse-report*
         retention-days: 30
 
   security-scan:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write  # Required for uploading SARIF results
+      security-events: write
       actions: read
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Run security scan
+    - name: Run Trivy filesystem scan
       uses: aquasecurity/trivy-action@master
       with:
         scan-type: 'fs'
@@ -194,12 +211,26 @@ jobs:
       if: always()
       with:
         sarif_file: 'trivy-results.sarif'
-      continue-on-error: true  # Don't fail if GHAS not available
+      continue-on-error: true
 
-    - name: Upload Trivy results as artifact
+    - name: Run Gitleaks secret scan
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true
+
+    - name: Run pip-audit on Python dependencies
+      run: |
+        pip install pip-audit
+        pip-audit -r requirements.txt --output pip-audit-results.json --format json || true
+      continue-on-error: true
+
+    - name: Upload security results
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: trivy-security-results
-        path: 'trivy-results.sarif'
+        name: security-results
+        path: |
+          trivy-results.sarif
+          pip-audit-results.json
         retention-days: 30

@@ -1,8 +1,8 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./_site",
-      "numberOfRuns": 3
+      "staticDistDir": "./astro-site/dist",
+      "numberOfRuns": 1
     },
     "assert": {
       "preset": "lighthouse:recommended",

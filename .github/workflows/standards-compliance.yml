@@ -18,8 +18,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
+          cache-dependency-path: astro-site/package-lock.json
 
       - name: Install UV
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -28,13 +29,13 @@ jobs:
         run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
-        run: npm ci
+        run: cd astro-site && npm ci
 
       - name: Build site
-        run: npm run build
+        run: cd astro-site && npm run build
 
       - name: Validate HTML
         uses: cyb3r-jak3/html5validator-action@v7.2.0
         with:
-          root: _site/
+          root: astro-site/dist/
         continue-on-error: true  # Don't fail PR for HTML validation warnings
