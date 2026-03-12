@@ -10,6 +10,7 @@
   function toggle() {
     isDark = !isDark;
     document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle('light', !isDark);
     localStorage.theme = isDark ? 'dark' : 'light';
 
     // Update theme-color meta tag

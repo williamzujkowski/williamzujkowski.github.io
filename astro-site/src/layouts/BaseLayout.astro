@@ -172,8 +172,20 @@ const navLinks = [
   <script is:inline>
     (function() {
       const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      if (isDark) document.documentElement.classList.add('dark');
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else if ('theme' in localStorage) {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      }
     })();
+    // Re-apply after View Transitions page swap
+    document.addEventListener('astro:after-swap', function() {
+      var isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.classList.toggle('light', !isDark && 'theme' in localStorage);
+    });
   </script>
 </head>
 
