@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import rehypeMermaid from 'rehype-mermaid';
 
 export default defineConfig({
   site: 'https://williamzujkowski.github.io',
@@ -16,11 +17,18 @@ export default defineConfig({
     },
   },
   markdown: {
+    syntaxHighlight: {
+      type: 'shiki',
+      excludeLangs: ['mermaid'],
+    },
     shikiConfig: {
       themes: {
         light: 'github-light',
         dark: 'github-dark',
       },
     },
+    rehypePlugins: [
+      [rehypeMermaid, { strategy: 'inline-svg' }],
+    ],
   },
 });

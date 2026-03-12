@@ -291,6 +291,32 @@ a:hover {
   border-radius: var(--md-sys-shape-corner-medium);
 }
 
+/* ===== Mermaid Diagrams ===== */
+.prose :where(svg[id^='mermaid']) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: var(--md-sys-shape-corner-medium);
+  background-color: var(--md-sys-color-surface-container-lowest);
+  padding: 1rem;
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.dark .prose :where(svg[id^='mermaid']) {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+/* Override Mermaid's default text colors for theme compatibility */
+.dark .prose :where(svg[id^='mermaid']) text {
+  fill: var(--md-sys-color-on-surface) !important;
+}
+
+.dark .prose :where(svg[id^='mermaid']) .nodeLabel,
+.dark .prose :where(svg[id^='mermaid']) .edgeLabel {
+  color: var(--md-sys-color-on-surface) !important;
+}
+
 /* ===== Buttons (M3 filled + outlined) ===== */
 .btn-filled {
   display: inline-flex;
