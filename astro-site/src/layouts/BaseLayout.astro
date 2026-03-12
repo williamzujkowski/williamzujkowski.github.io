@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import { SITE_CONFIG } from '@/lib/siteConfig';
 import DarkModeToggle from '@components/DarkModeToggle.svelte';
 import Search from '@components/Search.svelte';
 import MobileMenu from '@components/MobileMenu.svelte';
@@ -29,8 +30,8 @@ const {
   noindex = false,
 } = Astro.props;
 
-const siteTitle = 'William Zujkowski';
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://williamzujkowski.github.io';
+const siteTitle = SITE_CONFIG.author;
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? SITE_CONFIG.siteUrl;
 const pageTitle = title === 'Home' ? siteTitle : `${title} - ${siteTitle}`;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = new URL(image, siteUrl).href;
@@ -49,9 +50,9 @@ const breadcrumbItems = [
 // Structured data
 const authorSchema = {
   '@type': 'Person' as const,
-  name: 'William Zujkowski',
+  name: SITE_CONFIG.author,
   url: `${siteUrl}/about/`,
-  sameAs: ['https://github.com/williamzujkowski', 'https://www.linkedin.com/in/williamzujkowski'],
+  sameAs: [SITE_CONFIG.social.github, SITE_CONFIG.social.linkedin],
 };
 
 const jsonLdSchemas = [];
@@ -64,7 +65,7 @@ if (type === 'article') {
     description,
     datePublished: publishedDate?.toISOString(),
     author: authorSchema,
-    publisher: { '@type': 'Person', ...authorSchema },
+    publisher: authorSchema,
     url: canonicalUrl,
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
   };
@@ -126,7 +127,7 @@ function isActiveLink(linkHref: string): boolean {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="author" content="William Zujkowski" />
+    <meta name="author" content={SITE_CONFIG.author} />
 
     <!-- Security Headers -->
     <meta
@@ -160,7 +161,7 @@ function isActiveLink(linkHref: string): boolean {
     {
       type === 'article' && publishedDate && (
         <>
-          <meta property="article:author" content="William Zujkowski" />
+          <meta property="article:author" content={SITE_CONFIG.author} />
           <meta property="article:published_time" content={publishedDate.toISOString()} />
         </>
       )
@@ -286,7 +287,7 @@ function isActiveLink(linkHref: string): boolean {
             <h3 class="text-sm font-semibold uppercase tracking-wider mb-4">Connect</h3>
             <div class="flex gap-4">
               <a
-                href="https://github.com/williamzujkowski"
+                href={SITE_CONFIG.social.github}
                 class="text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)]"
                 aria-label="GitHub"
                 rel="noopener noreferrer"
@@ -298,7 +299,7 @@ function isActiveLink(linkHref: string): boolean {
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com/in/williamzujkowski"
+                href={SITE_CONFIG.social.linkedin}
                 class="text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)]"
                 aria-label="LinkedIn"
                 rel="noopener noreferrer"

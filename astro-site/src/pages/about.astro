@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '@/lib/siteConfig';
 ---
 
 <BaseLayout title="About" description="About William Zujkowski — security architecture, identity, and compliance.">
@@ -208,10 +209,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h4 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
                   <span class="mr-2" aria-hidden="true">&#x26A1;</span>
                   Technical Excellence Is Not Enough
-                </h4>
+                </h3>
                 <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
                   You can design the most elegant network segmentation in the world, but if developers can't deploy
                   their code, they'll find a workaround. Your job is to make the secure path the easy path. I learned
@@ -220,10 +221,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
               </div>
 
               <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h4 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
                   <span class="mr-2" aria-hidden="true">&#x1F4CB;</span>
                   Compliance Frameworks Are Forcing Functions
-                </h4>
+                </h3>
                 <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
                   NIST 800-53 and FedRAMP aren't checkbox exercises. They're forcing functions that make you think about
                   threat models, blast radius, and recovery time objectives. I've spent enough time implementing
@@ -233,10 +234,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
               </div>
 
               <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h4 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
                   <span class="mr-2" aria-hidden="true">&#x2699;</span>
                   Automation Isn't About Replacing People
-                </h4>
+                </h3>
                 <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
                   It's about freeing them to do interesting work instead of clicking buttons. I spent months learning
                   Terraform so our team could manage firewall rules as code instead of logging into consoles. Best
@@ -245,10 +246,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
               </div>
 
               <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h4 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
                   <span class="mr-2" aria-hidden="true">&#x1F4A1;</span>
                   AI Security Is About Governance, Not Just Tech
-                </h4>
+                </h3>
                 <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
                   I'm exploring how we build and secure AI systems that augment human decision-making rather than
                   replace it. The hard problems aren't the models&mdash;they're the humans, policies, and processes
@@ -288,7 +289,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 >
                   <span class="text-2xl" aria-hidden="true">&#x2601;</span>
                 </div>
-                <h4 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">Cloud Security</h4>
+                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">Cloud Security</h3>
                 <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">Architecture &amp; FedRAMP</p>
               </div>
 
@@ -302,9 +303,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 >
                   <span class="text-2xl" aria-hidden="true">&#x1F511;</span>
                 </div>
-                <h4 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">
                   Identity &amp; Federation
-                </h4>
+                </h3>
                 <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">At Scale</p>
               </div>
 
@@ -318,7 +319,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 >
                   <span class="text-2xl" aria-hidden="true">&#x1F4CB;</span>
                 </div>
-                <h4 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">Compliance</h4>
+                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">Compliance</h3>
                 <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">NIST 800-53 Automation</p>
               </div>
 
@@ -332,7 +333,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 >
                   <span class="text-2xl" aria-hidden="true">&#x1F4A1;</span>
                 </div>
-                <h4 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">AI Security</h4>
+                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">AI Security</h3>
                 <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">
                   Infrastructure &amp; Governance
                 </p>
@@ -341,7 +342,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
             <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mt-8">
               <a
-                href="https://github.com/williamzujkowski"
+                href={SITE_CONFIG.social.github}
                 class="btn-filled px-8 py-4 text-base"
                 style="background-color: var(--md-sys-color-inverse-surface); color: var(--md-sys-color-inverse-on-surface); min-height: 56px;"
                 aria-label="Visit my GitHub profile"
@@ -356,7 +357,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
               </a>
 
               <a
-                href="https://www.linkedin.com/in/williamzujkowski"
+                href={SITE_CONFIG.social.linkedin}
                 class="btn-filled px-8 py-4 text-base"
                 style="min-height: 56px;"
                 aria-label="Visit my LinkedIn profile"

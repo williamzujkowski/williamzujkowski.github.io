@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import sanitizeHtml from 'sanitize-html';
 import MarkdownIt from 'markdown-it';
+import { SITE_CONFIG } from '@/lib/siteConfig';
 
 const parser = new MarkdownIt();
 
@@ -11,10 +12,9 @@ export async function GET(context: APIContext) {
   const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
-    title: 'William Zujkowski',
-    description:
-      'Senior Information Security Engineer sharing insights on cybersecurity, AI security, and homelab automation.',
-    site: context.site?.toString() ?? 'https://williamzujkowski.github.io',
+    title: SITE_CONFIG.author,
+    description: SITE_CONFIG.rssDescription,
+    site: context.site?.toString() ?? SITE_CONFIG.siteUrl,
     items: sortedPosts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,
