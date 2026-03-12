@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://williamzujkowski.github.io',
+  prefetch: true,
   integrations: [svelte(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
