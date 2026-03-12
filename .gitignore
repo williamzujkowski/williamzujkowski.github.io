@@ -76,7 +76,9 @@ coordination/
 .swarm-cache/
 .agent-cache/
 
-# Log files from operations
+# Log files and generated reports
+logs/
+test-results/
 swarm-logs/
 agent-logs/
 
