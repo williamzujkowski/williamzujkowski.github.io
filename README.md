@@ -6,8 +6,7 @@
 
 Personal website of William Zujkowski, built with [Astro](https://astro.build/) and [Svelte](https://svelte.dev/), styled with [Tailwind CSS](https://tailwindcss.com/), and hosted on GitHub Pages. Features 71 blog posts about security, AI/ML, homelab projects, and career development. Showcases personal open-source projects and 15+ years of cybersecurity expertise. Includes tag-based navigation, search, social sharing, reading progress indicator, hero images, and PWA support.
 
-> **For Development Standards**: See [CLAUDE.md](CLAUDE.md) (v4.2.0) - authoritative source for all standards and workflows.
-> **For AI Assistants**: Start with [CLAUDE.md](CLAUDE.md) then load modules from `docs/context/`.
+> **For Development Standards**: See [CLAUDE.md](CLAUDE.md) - authoritative source for all standards and workflows.
 
 ## Quick Start
 

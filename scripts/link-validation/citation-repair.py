@@ -33,10 +33,10 @@ OUTPUT:
 DEPENDENCIES:
     - Python 3.8+
     - See imports for specific package requirements
-    - scripts/lib/common.py for shared utilities (if applicable)
+    - scripts/lib/logging_config.py for shared logging
 
 RELATED_SCRIPTS:
-    - scripts/lib/common.py: Shared utilities
+    - scripts/lib/logging_config.py: Shared logging
     - [Other related scripts in academic_research category]
 
 MANIFEST_REGISTRY: scripts/citation-repair.py
