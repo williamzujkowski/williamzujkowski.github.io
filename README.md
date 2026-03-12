@@ -74,15 +74,13 @@ npm run check          # Run Astro type checking
 │   ├── public/             # Static assets (images, fonts, manifest)
 │   ├── astro.config.mjs    # Astro configuration
 │   └── package.json        # Node.js dependencies
-├── scripts/                # Automation (87 Python scripts)
-│   ├── lib/               # Shared Python modules
-│   ├── blog-content/      # Blog quality tools
-│   ├── blog-research/     # Research automation
-│   └── link-validation/   # Link health monitoring
-├── tests/                  # Test suites (unit, integration, e2e)
+├── scripts/                # Link validation CI pipeline (8 Python scripts)
+│   ├── lib/               # Shared logging module
+│   └── link-validation/   # Citation and link health checking
+├── tests/                  # Test suites (unit JS tests)
 ├── docs/                   # Documentation
-│   └── context/           # Modular context system (36 modules)
-├── .github/workflows/      # CI/CD pipelines (7 workflows)
+│   └── context/           # Modular context system
+├── .github/workflows/      # CI/CD pipelines (4 workflows)
 └── nexus-agents.yaml       # AI agent orchestration config
 ```
 

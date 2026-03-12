@@ -19,11 +19,11 @@ module.exports = {
         };
       }
 
-      // Test 2: Check for critical scripts in organized subdirectories
+      // Test 2: Check for critical scripts (link validation pipeline)
       const criticalScripts = [
-        'blog-content/optimize-blog-content.py',
-        'blog-images/generate-blog-hero-images.py',
-        'optimize-blog-images.sh'
+        'link-validation/link-extractor.py',
+        'link-validation/link-validator.py',
+        'link-validation/citation-report.py'
       ];
 
       for (const script of criticalScripts) {
