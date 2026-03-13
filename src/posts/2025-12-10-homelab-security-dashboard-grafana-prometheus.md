@@ -348,6 +348,23 @@ groups:
 
 ### Alert Fatigue Prevention
 
+```mermaid
+flowchart TD
+    Event[Security Event] --> Prom[Prometheus Evaluates Rules]
+    Prom --> Thresh{Exceeds Threshold?}
+    Thresh -->|No| Drop[Log Only — Info]
+    Thresh -->|Yes| Sev{Severity?}
+    Sev -->|Critical| Imm[Immediate Notification<br/>Webhook — respond NOW]
+    Sev -->|Warning| Hourly[Hourly Summary Batch<br/>Investigate within 4h]
+    Imm --> Group[Alertmanager Groups<br/>by alertname, 5m intervals]
+    Hourly --> Group
+    Group --> Dedup[Deduplicate<br/>12h repeat interval]
+
+    style Imm fill:#e74c3c,color:#fff
+    style Hourly fill:#f39c12,color:#fff
+    style Drop fill:#95a5a6,color:#fff
+```
+
 **The problem:** Too many alerts = ignored alerts. I started with 23 different alert rules. Average: 15 alerts per day. Response rate: 30%.
 
 **The solution:** Ruthless prioritization. Current rules: 8 total alerts. Average: 2 per day. Response rate: 95%.
@@ -504,6 +521,36 @@ def geolocate_ip(ip_address):
 **Visualization impact:** Map shows attack clustering. 73% of SSH brute force attempts originate from 5 countries. Geographic patterns help identify campaigns vs opportunistic attacks.
 
 ### Correlation Dashboard
+
+```mermaid
+flowchart LR
+    subgraph Signals["Independent Signals"]
+        SSH[SSH Failed Logins]
+        Scan[Port Scans]
+        DNS[DNS Anomalies]
+        Proc[Unusual Processes]
+    end
+
+    subgraph Correlate["Correlation Engine"]
+        Join["PromQL join on source_ip"]
+    end
+
+    subgraph Verdict["Threat Classification"]
+        Low[Opportunistic Scan]
+        Med[Targeted Probe]
+        High[Active Compromise]
+    end
+
+    SSH & Scan --> Join
+    DNS & Proc --> Join
+    Join -->|"1 signal"| Low
+    Join -->|"2 signals"| Med
+    Join -->|"3+ signals"| High
+
+    style High fill:#e74c3c,color:#fff
+    style Med fill:#f39c12,color:#fff
+    style Low fill:#f1c40f,color:#000
+```
 
 Built secondary dashboard correlating multiple data sources:
 

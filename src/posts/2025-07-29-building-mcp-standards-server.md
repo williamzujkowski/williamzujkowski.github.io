@@ -68,6 +68,31 @@ class MCPStandardsServer:
 
 Yeah, it got away from me a bit.
 
+The MCP protocol defines a standard communication flow between an LLM client and external tool servers:
+
+```mermaid
+sequenceDiagram
+    participant User as User / Claude CLI
+    participant LLM as Claude LLM
+    participant MCP as MCP Standards Server
+    participant Cache as Redis Cache
+    participant Store as Standards Store
+
+    User->>LLM: "Set up a secure Python API"
+    LLM->>MCP: tools/call: get_standard<br/>{"context": "python,api,security"}
+    MCP->>Cache: Check cache (30min TTL)
+    alt Cache Hit
+        Cache-->>MCP: Cached standards
+    else Cache Miss
+        MCP->>Store: Load standards files
+        Store-->>MCP: Raw standards
+        MCP->>Cache: Store in cache
+    end
+    MCP->>MCP: Token compression<br/>(5000 → 500 tokens)
+    MCP-->>LLM: Compressed standards payload
+    LLM-->>User: Project structure with<br/>security controls applied
+```
+
 ## The Architecture Journey
 
 ### Version 1: "Keep It Simple"
@@ -97,6 +122,46 @@ Current state. It has:
 - 88 integration tests
 
 I may have overdone it.
+
+The architecture grew from a simple pipe to a multi-layered system across four versions:
+
+```mermaid
+flowchart TD
+    subgraph V1["Version 1: Simple (200 lines)"]
+        STDIO1["stdio in/out"] --> LOAD1["Load Standards"]
+        LOAD1 --> RETURN1["Return to Claude"]
+    end
+
+    subgraph V2["Version 2: + Redis (1,200 lines)"]
+        STDIO2["stdio"] --> REDIS["Redis L1/L2 Cache"]
+        REDIS --> LOAD2["Load Standards"]
+        LOAD2 --> RETURN2["Return"]
+    end
+
+    subgraph V3["Version 3: + Vector Search (3,800 lines)"]
+        STDIO3["stdio"] --> REDIS3["Redis Cache"]
+        STDIO3 --> CHROMA["ChromaDB<br/>Vector Search"]
+        REDIS3 --> LOAD3["Standards"]
+        CHROMA --> LOAD3
+    end
+
+    subgraph V4["Version 4: Kitchen Sink (6,000+ lines)"]
+        STDIO4["stdio / HTTP / WebSocket"]
+        STDIO4 --> REDIS4["Redis Cache"]
+        STDIO4 --> CHROMA4["ChromaDB"]
+        STDIO4 --> RULE["Rule Engine"]
+        STDIO4 --> ANALYZE["6 Language Analyzers"]
+        STDIO4 --> NIST["NIST Compliance"]
+        STDIO4 --> UI["React Web UI"]
+    end
+
+    V1 -.->|"Week 1→2"| V2
+    V2 -.->|"Week 2→3"| V3
+    V3 -.->|"Week 3→4"| V4
+
+    style V1 fill:#27ae60,color:#fff
+    style V4 fill:#e74c3c,color:#fff
+```
 
 ## What Actually Works (The Good Parts)
 
@@ -144,6 +209,35 @@ mcp-standards validate src/ --language auto
 - Generates `.patch` files for automatic fixes
 - Integrates with pre-commit hooks
 
+The following diagram shows how the MCP server registers and exposes tools to the LLM client:
+
+```mermaid
+flowchart LR
+    subgraph Server["MCP Standards Server"]
+        REG["Tool Registry"]
+        REG --> T1["get_standard<br/>Retrieve by name"]
+        REG --> T2["search_standards<br/>Semantic + keyword"]
+        REG --> T3["validate_code<br/>Multi-language lint"]
+        REG --> T4["check_compliance<br/>NIST 800-53r5"]
+        REG --> T5["list_standards<br/>Discovery"]
+    end
+
+    subgraph Client["Claude CLI / Desktop"]
+        LLM["LLM"] -- "tools/list" --> REG
+        LLM -- "tools/call" --> T1
+        LLM -- "tools/call" --> T3
+    end
+
+    subgraph Transport["Transport Layer"]
+        STDIO["stdio (local)"]
+        HTTP["HTTP/SSE (remote)"]
+    end
+
+    Client <--> Transport <--> Server
+
+    style REG fill:#3498db,color:#fff
+```
+
 ### Token Optimization That Actually Matters
 
 ⚠️ **Warning:** This example demonstrates API optimization techniques. Implement proper authentication and rate limiting when exposing MCP servers to untrusted clients.
@@ -165,6 +259,31 @@ standard = get_standard("react-patterns", format="compressed")
 - Saves ~$0.15 per standard load at current API pricing
 
 ## The Struggles (Learning Moments)
+
+```mermaid
+flowchart TD
+    subgraph Caching["Redis L1/L2 Caching Strategy"]
+        REQ["Incoming Request"] --> L1{"L1 Cache<br/>(In-Memory)"}
+        L1 -->|Hit| RET1["Return Cached"]
+        L1 -->|Miss| L2{"L2 Cache<br/>(Redis)"}
+        L2 -->|Hit| PROMOTE["Promote to L1"] --> RET2["Return Cached"]
+        L2 -->|Miss| LOAD["Load from Disk"]
+        LOAD --> STORE["Store in L1 + L2<br/>(30-min TTL)"]
+        STORE --> RET3["Return Fresh"]
+    end
+
+    subgraph Eviction["Eviction Policy"]
+        TTL["30-min TTL expiry"]
+        LRU["LRU when maxmemory hit<br/>(64MB limit)"]
+        MANUAL["Manual invalidation<br/>on standards update"]
+    end
+
+    Caching ~~~ Eviction
+
+    style L1 fill:#3498db,color:#fff
+    style L2 fill:#e67e22,color:#fff
+    style LOAD fill:#27ae60,color:#fff
+```
 
 ### Redis Is Not Your Friend at 3 AM
 
@@ -291,6 +410,48 @@ The honest status:
 - My sleep schedule
 
 ## Lessons Learned (So Far)
+
+The value delivered per version illustrates classic diminishing returns from scope creep:
+
+```mermaid
+quadrantChart
+    title Version Value vs Complexity
+    x-axis "Low Complexity" --> "High Complexity"
+    y-axis "Low Value" --> "High Value"
+    "V1: Simple wrapper": [0.15, 0.75]
+    "V2: + Redis cache": [0.35, 0.78]
+    "V3: + Vector search": [0.65, 0.30]
+    "V4: + React UI": [0.90, 0.55]
+```
+
+```mermaid
+graph LR
+    subgraph Scope["Scope Creep Timeline"]
+        W1["Week 1<br/>200 lines<br/>1 file"] -->|"Add caching"| W2["Week 2<br/>1,200 lines<br/>8 files"]
+        W2 -->|"Add vector search"| W3["Week 3<br/>3,800 lines<br/>23 files"]
+        W3 -->|"Add web UI"| W4["Week 4<br/>6,000+ lines<br/>47 files"]
+    end
+
+    subgraph Value["Actual Value Added"]
+        V1["High"] ~~~ V2["Marginal"]
+        V2 ~~~ V3["Negative"]
+        V3 ~~~ V4["Mixed"]
+    end
+
+    W1 -.- V1
+    W2 -.- V2
+    W3 -.- V3
+    W4 -.- V4
+
+    style W1 fill:#27ae60,color:#fff
+    style W2 fill:#f39c12,color:#fff
+    style W3 fill:#e67e22,color:#fff
+    style W4 fill:#e74c3c,color:#fff
+    style V1 fill:#27ae60,color:#fff
+    style V2 fill:#f39c12,color:#fff
+    style V3 fill:#e74c3c,color:#fff
+    style V4 fill:#e67e22,color:#fff
+```
 
 ### Start Smaller Than You Think
 

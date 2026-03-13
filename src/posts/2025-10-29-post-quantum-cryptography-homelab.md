@@ -34,9 +34,59 @@ According to [RAND Corporation's analysis](https://www.rand.org/pubs/research_re
 
 The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/): If **X** (how long your data must stay secret) + **Y** (how long it takes to migrate) > **Z** (when quantum computers arrive), you're already behind schedule.
 
+```mermaid
+flowchart LR
+    subgraph Mosca["Mosca's Theorem: X + Y > Z = Already Behind"]
+        X["X: Data Secrecy<br/>Requirement<br/>(10-30 years)"]
+        Y["Y: Migration<br/>Time Needed<br/>(5-15 years)"]
+        Z["Z: Quantum Computer<br/>Arrival<br/>(2033-2040?)"]
+    end
+
+    X --> SUM["X + Y"]
+    Y --> SUM
+    SUM --> CMP{"X + Y > Z?"}
+    CMP -- "Yes" --> LATE["Already Behind<br/>Schedule"]
+    CMP -- "No" --> SAFE["Time Remaining<br/>to Migrate"]
+
+    subgraph SNDL["Store Now, Decrypt Later"]
+        CAP["Adversary Captures<br/>Encrypted Traffic<br/>(Today)"]
+        WAIT["Stores Until Quantum<br/>Computer Available"]
+        CRACK["Decrypts Historical<br/>Traffic"]
+    end
+
+    CAP --> WAIT --> CRACK
+
+    style LATE fill:#e74c3c,color:#fff
+    style SAFE fill:#27ae60,color:#fff
+    style SNDL fill:#f39c12,color:#000
+```
+
 For my homelab, that meant my encrypted backups, my self-hosted Bitwarden vault snapshots, and even my personal notes stored on TrueNAS, all potentially exposed if someone's recording my network traffic today. That realization made spending three weekends on PQC suddenly feel a lot more urgent.
 
 ## Understanding the Post-Quantum Algorithms
+
+The following diagram compares the three NIST-standardized post-quantum algorithms and their roles:
+
+```mermaid
+flowchart TD
+    NIST["NIST PQC Standards<br/>(August 2024)"]
+
+    NIST --> KEM["ML-KEM (FIPS 203)<br/>Key Encapsulation"]
+    NIST --> DSA["ML-DSA (FIPS 204)<br/>Digital Signatures"]
+    NIST --> SLH["SLH-DSA (FIPS 205)<br/>Hash-Based Signatures"]
+
+    KEM --> KEM_USE["Replaces: ECDH / X25519<br/>Used in: TLS handshakes<br/>Key sizes: 800-1568 bytes"]
+    DSA --> DSA_USE["Replaces: RSA / ECDSA<br/>Used in: Certificates, code signing<br/>Sig sizes: 2420-4595 bytes"]
+    SLH --> SLH_USE["Backup for: ML-DSA<br/>Used in: Long-term archival<br/>Based on: Hash functions only"]
+
+    KEM_USE --> LATTICE["Lattice-Based Math<br/>(Learning With Errors)"]
+    DSA_USE --> LATTICE
+    SLH_USE --> HASH["Hash Functions<br/>(Different math basis)"]
+
+    style KEM fill:#3498db,color:#fff
+    style DSA fill:#27ae60,color:#fff
+    style SLH fill:#f39c12,color:#fff
+```
 
 NIST's standardization process evaluated 82 algorithms over eight years and selected three winners. Here's what actually made it to production. If you need a refresher on the classical cryptography these algorithms are replacing, check out my [cryptography fundamentals guide](/posts/2024-01-18-demystifying-cryptography-beginners-guide).
 
@@ -387,6 +437,29 @@ After implementing PQC across my homelab, here are the nuanced trade-offs I wish
 
 ### Hybrid vs Pure Post-Quantum: The Compatibility Dilemma
 
+The following diagram shows how a hybrid TLS handshake works, combining classical and post-quantum key exchange:
+
+```mermaid
+sequenceDiagram
+    participant Client as Browser / Client
+    participant Server as Homelab Server (Caddy/Nginx)
+
+    Client->>Server: ClientHello<br/>Supported groups: x25519_kyber768, x25519
+
+    alt Client supports PQC
+        Server->>Server: Select x25519_kyber768 (hybrid)
+        Server-->>Client: ServerHello + Key Share<br/>(X25519 + ML-KEM-768 combined)
+        Client->>Client: Derive shared secret from<br/>BOTH classical + PQC keys
+        Client->>Server: Finished (quantum-resistant session)
+    else Client does NOT support PQC
+        Server->>Server: Fallback to x25519 (classical)
+        Server-->>Client: ServerHello + Key Share<br/>(X25519 only)
+        Client->>Server: Finished (classical session)
+    end
+
+    Note over Client,Server: Hybrid mode: PQC when possible,<br/>graceful fallback to classical
+```
+
 **Hybrid mode** (what everyone actually uses in production):
 - Combines classical X25519 with ML-KEM-768
 - Compatibility: Falls back to classical if client doesn't support PQC
@@ -570,6 +643,43 @@ I'm running production PQC on infrastructure that hosts my password manager (Bit
 My personal risk tolerance says these trade-offs are acceptable for homelab experimentation and learning. If I were running a business or handling other people's data, I'd probably wait another 1-2 years for the ecosystem to mature.
 
 ## Step-by-Step Migration for Your Homelab
+
+The migration strategy follows four phases, prioritizing services by their exposure to Store Now, Decrypt Later attacks:
+
+```mermaid
+flowchart TD
+    subgraph Phase1["Phase 1: Test (Weekend 1)"]
+        VM["Isolated VM<br/>Ubuntu 24.04"]
+        VM --> CADDY["Install Caddy 2.10<br/>PQC enabled by default"]
+        CADDY --> VERIFY["Verify x25519_kyber768<br/>in handshake"]
+    end
+
+    subgraph Phase2["Phase 2: Certificates (Weekend 1)"]
+        CLASSICAL["Classical Certs<br/>(RSA/ECDSA)"]
+        CLASSICAL --> HYBRID_KE["+ PQC Key Exchange<br/>(ML-KEM-768)"]
+        HYBRID_KE --> FUTURE["Future: ML-DSA Certs<br/>(2026-2027)"]
+    end
+
+    subgraph Phase3["Phase 3: Rollout (Weekend 2)"]
+        HIGH["High Priority<br/>Bitwarden, TrueNAS, VPN"]
+        MED["Medium Priority<br/>Nextcloud, Wikis"]
+        LOW["Lower Priority<br/>Jellyfin, Grafana"]
+        HIGH --> MED --> LOW
+    end
+
+    subgraph Phase4["Phase 4: Monitor (Ongoing)"]
+        MON["Prometheus + Grafana"]
+        MON --> HANDSHAKE["Track handshake latency"]
+        MON --> COMPAT["Monitor client failures"]
+        MON --> CERTS["Certificate expiration"]
+    end
+
+    Phase1 --> Phase2 --> Phase3 --> Phase4
+
+    style HIGH fill:#e74c3c,color:#fff
+    style MED fill:#f39c12,color:#fff
+    style LOW fill:#27ae60,color:#fff
+```
 
 Here's the process I'd follow if I had to start over, knowing what I know now:
 

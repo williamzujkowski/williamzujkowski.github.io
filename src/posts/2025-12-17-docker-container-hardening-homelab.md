@@ -27,9 +27,63 @@ Container security isn't binary. You can't just "enable security" and assume you
 - **Network segmentation** contains lateral movement
 - **Resource limits** stop resource exhaustion attacks
 
+```mermaid
+graph TB
+    Attacker([Attacker]) --> L1
+    subgraph Layers["Eight Defense Layers"]
+        direction TB
+        L1["Layer 1: Minimal Base Images<br/>Reduced attack surface"]
+        L2["Layer 2: User Namespaces<br/>No real root privileges"]
+        L3["Layer 3: Seccomp Profiles<br/>Blocked dangerous syscalls"]
+        L4["Layer 4: AppArmor / SELinux<br/>Mandatory access control"]
+        L5["Layer 5: Capability Dropping<br/>Fine-grained privilege removal"]
+        L6["Layer 6: Read-Only Filesystem<br/>No persistence possible"]
+        L7["Layer 7: Network Segmentation<br/>No lateral movement"]
+        L8["Layer 8: Resource Limits<br/>No resource exhaustion"]
+    end
+    L1 --> L2 --> L3 --> L4 --> L5 --> L6 --> L7 --> L8
+    L8 --> App([Protected Application])
+
+    style L1 fill:#e74c3c,color:#fff
+    style L2 fill:#e67e22,color:#fff
+    style L3 fill:#f39c12,color:#fff
+    style L4 fill:#f1c40f,color:#000
+    style L5 fill:#2ecc71,color:#fff
+    style L6 fill:#1abc9c,color:#fff
+    style L7 fill:#3498db,color:#fff
+    style L8 fill:#9b59b6,color:#fff
+```
+
 **Why it matters:** Single-layer security is brittle. Attackers bypass one control and own your system. Multiple independent layers mean they need to break through all defenses.
 
 ## Layer 1: Minimal Base Images
+
+```mermaid
+flowchart LR
+    subgraph Before["Ubuntu Base — 72 MB"]
+        direction TB
+        OS1[OS Libraries]
+        PM1[Package Manager]
+        Shell1[Shell — bash, sh]
+        Utils1[Utilities — curl, wget, etc.]
+        App1[Application]
+    end
+
+    subgraph After["Distroless — 12 MB"]
+        direction TB
+        RT[Minimal Runtime]
+        App2[Application]
+    end
+
+    Before -->|"Multi-stage build"| After
+    Before -.-|"43 CVEs"| X1((X))
+    After -.-|"2 CVEs"| Check1((OK))
+
+    style Before fill:#e74c3c,color:#fff
+    style After fill:#2ecc71,color:#fff
+    style X1 fill:#c0392b,color:#fff
+    style Check1 fill:#27ae60,color:#fff
+```
 
 Smaller images = smaller attack surface. I switched from full OS base images to distroless containers.
 
@@ -226,6 +280,31 @@ docker run \
 
 ## Layer 7: Network Segmentation
 
+```mermaid
+graph TB
+    Internet([Internet]) --> LB[Load Balancer]
+
+    subgraph Frontend["frontend-network — 172.20.1.0/24"]
+        LB --> Nginx[Nginx Reverse Proxy]
+        Nginx --> WebApp[Web Application]
+    end
+
+    subgraph Backend["backend-network — 172.20.2.0/24 (internal)"]
+        API[API Server]
+        DB[(PostgreSQL)]
+        Cache[(Redis)]
+        API --> DB
+        API --> Cache
+    end
+
+    WebApp -->|"Allowed: port 8080"| API
+    Nginx -.->|"BLOCKED"| DB
+    Internet -.->|"BLOCKED"| Backend
+
+    style Frontend fill:#3498db,color:#fff
+    style Backend fill:#2c3e50,color:#ecf0f1
+```
+
 Isolate containers using custom Docker networks. Default bridge network allows all containers to communicate, which creates risk for lateral movement.
 
 **Attack stopped:** Compromised web container trying to access database on port 5432 was blocked by network policy. Only authorized application containers could reach database.
@@ -288,6 +367,24 @@ docker run \
 **Tuning guidelines:** Start with generous limits, monitor actual usage for 2 weeks, then set limits at 150% of observed maximum. This approach seems to work well, though you might need different ratios for your specific applications.
 
 ## Implementation Strategy
+
+```mermaid
+flowchart LR
+    W1["Week 1<br/>Base Images +<br/>Resource Limits"] --> W2["Week 2<br/>User<br/>Namespaces"]
+    W2 --> W3["Week 3<br/>Cap Drop +<br/>Read-Only FS"]
+    W3 --> W4["Week 4<br/>Seccomp +<br/>AppArmor"]
+    W4 --> W5["Week 5<br/>Network<br/>Segmentation"]
+
+    W1 -.- T1["Low disruption"]
+    W3 -.- T2["Medium disruption"]
+    W5 -.- T3["Full defense-in-depth"]
+
+    style W1 fill:#2ecc71,color:#fff
+    style W2 fill:#27ae60,color:#fff
+    style W3 fill:#f39c12,color:#fff
+    style W4 fill:#e67e22,color:#fff
+    style W5 fill:#e74c3c,color:#fff
+```
 
 Don't enable all layers simultaneously. Incremental hardening prevents breaking production workloads.
 
