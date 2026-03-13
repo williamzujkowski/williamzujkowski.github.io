@@ -33,6 +33,37 @@ My setup runs on a single Dell R940:
 
 This single node handles 30+ VMs and containers comfortably. With 256GB RAM, careful resource allocation is key, but it's more than sufficient for a comprehensive homelab. Uptime averages 99.7% - better than some cloud providers I've used.
 
+```mermaid
+graph TB
+    subgraph "Dell R940"
+        PVE["Proxmox VE Host<br/>4x Xeon Gold 6130<br/>256GB RAM"]
+        subgraph "Compute"
+            VMs["30+ VMs"]
+            LXC["LXC Containers"]
+        end
+        NVMe["8TB NVMe<br/>OS + VM Storage"]
+        HDD["12TB HDD<br/>Bulk Storage"]
+    end
+
+    subgraph "Network - Ubiquiti"
+        UDM["UDM Pro<br/>Firewall / Router"]
+        USW["UniFi Switch 24 PoE"]
+    end
+
+    subgraph "Storage Server"
+        TN["TrueNAS Core<br/>~30TB Usable (RAIDZ2)"]
+    end
+
+    PVE -->|"Manages"| VMs
+    PVE -->|"Manages"| LXC
+    PVE --- NVMe
+    PVE --- HDD
+    PVE -->|"10GbE iSCSI"| TN
+    PVE -->|"Mgmt"| USW
+    USW --- UDM
+    VMs -->|"Traffic"| USW
+```
+
 ### Storage Architecture That Actually Works
 
 Proxmox supports multiple storage backends. I tested five configurations over 12 months:
@@ -48,6 +79,31 @@ Proxmox supports multiple storage backends. I tested five configurations over 12
 **NFS:** Works but lacks features. No snapshots, limited backup options.
 
 **Winner:** ZFS over iSCSI. My TrueNAS Core server provides ~30TB usable storage (from 40TB raw) with RAIDZ2 protection. Proxmox sees it as shared block storage, perfect for VM disks and backups.
+
+```mermaid
+graph LR
+    subgraph "Proxmox Host"
+        PVE["Proxmox VE"]
+    end
+
+    subgraph "Local Storage"
+        NVMe["8TB NVMe<br/>VM Disks (Fast)"]
+        HDD["12TB HDD<br/>Bulk / ISOs"]
+    end
+
+    subgraph "Network Storage"
+        TN["TrueNAS Core"]
+        RAIDZ2["RAIDZ2 Pool<br/>40TB Raw → 30TB Usable"]
+    end
+
+    PVE -->|"Direct"| NVMe
+    PVE -->|"Direct"| HDD
+    PVE -->|"iSCSI over 10GbE"| TN
+    TN --- RAIDZ2
+
+    style NVMe fill:#2d6a4f,color:#fff
+    style RAIDZ2 fill:#1b4332,color:#fff
+```
 
 ### Network Segmentation Strategy
 
@@ -81,6 +137,46 @@ I implemented five VLANs using my Ubiquiti Dream Machine Pro and UniFi Switch 24
 - Isolated testing environment
 
 Each VLAN has specific firewall rules enforced by the Dream Machine Pro. Cross-VLAN communication requires explicit allow rules. The UniFi ecosystem makes this manageable through a single interface.
+
+```mermaid
+graph TB
+    Internet["Internet"]
+    UDM["UDM Pro<br/>Firewall / Router"]
+    Internet --- UDM
+
+    subgraph "VLAN 10 - Management<br/>192.168.10.0/24"
+        PVE["Proxmox Host"]
+        TN["TrueNAS"]
+        Bastion["Bastion Host"]
+    end
+
+    subgraph "VLAN 20 - Services<br/>192.168.20.0/24"
+        GitLab["GitLab CE"]
+        BookStack["BookStack"]
+        Jellyfin["Jellyfin"]
+    end
+
+    subgraph "VLAN 30 - IoT<br/>192.168.30.0/24"
+        HA["Home Assistant"]
+        Devices["Smart Devices"]
+    end
+
+    subgraph "VLAN 40 - Guest<br/>192.168.40.0/24"
+        Guest["Guest Devices<br/>Internet Only"]
+    end
+
+    subgraph "VLAN 50 - Lab<br/>192.168.50.0/24"
+        K3s["K3s Cluster<br/>3x Pi 5 + 1x Pi 4"]
+    end
+
+    UDM --- PVE
+    UDM --- GitLab
+    UDM --- HA
+    UDM --- Guest
+    UDM --- K3s
+    HA -.->|"Bridge"| GitLab
+    Bastion -.->|"SSH"| PVE
+```
 
 ## Security Hardening That Matters
 
@@ -166,6 +262,36 @@ Backups are boring until you need them. I learned this during a storage controll
 **Tier 2 - Proxmox backups:** Full VM backups to TrueNAS storage weekly, incrementals daily. 30-day retention on ~30TB RAIDZ2 pool.
 
 **Tier 3 - Offsite replication:** Restic backups to Backblaze B2. Critical data encrypted and synced daily, full backups weekly. 90-day retention with versioning.
+
+```mermaid
+flowchart LR
+    subgraph Tier1["Tier 1 — Local"]
+        ZSnap["ZFS Snapshots<br/>Every Hour<br/>48h Retention"]
+    end
+
+    subgraph Tier2["Tier 2 — On-Site"]
+        Full["Weekly Full Backup"]
+        Inc["Daily Incrementals"]
+        Store["TrueNAS RAIDZ2<br/>30-day Retention"]
+    end
+
+    subgraph Tier3["Tier 3 — Offsite"]
+        Restic["Restic Encrypted"]
+        B2["Backblaze B2<br/>90-day Retention"]
+    end
+
+    VMs["VMs &<br/>Containers"] --> ZSnap
+    VMs --> Full
+    VMs --> Inc
+    Full --> Store
+    Inc --> Store
+    Store -->|"Daily Sync"| Restic
+    Restic --> B2
+
+    style Tier1 fill:#1a1a2e,color:#fff
+    style Tier2 fill:#16213e,color:#fff
+    style Tier3 fill:#0f3460,color:#fff
+```
 
 ### Backup Testing (The Part Everyone Skips)
 

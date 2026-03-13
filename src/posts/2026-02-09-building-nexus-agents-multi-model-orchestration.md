@@ -32,6 +32,48 @@ MCP gave me a standard interface that any compatible client could use. Claude Co
 
 An [STPA safety analysis of MCP](https://arxiv.org/abs/2601.08012) later validated some of my security concerns about the protocol. More on that below.
 
+```mermaid
+graph TB
+    subgraph Clients["MCP Clients"]
+        CC["Claude Code"]
+        Cursor["Cursor"]
+        WS["Windsurf"]
+    end
+
+    subgraph "Nexus-Agents MCP Server"
+        MCP["MCP Protocol Layer<br/>25 Tools"]
+        Orch["Orchestrator"]
+        Router["CompositeRouter<br/>5-Stage Pipeline"]
+        Consensus["Consensus Engine"]
+        Graph["Graph Workflows"]
+        Pipeline["Plugin Pipeline"]
+    end
+
+    subgraph Adapters["CLI Adapters"]
+        Claude["Claude Adapter"]
+        Gemini["Gemini Adapter"]
+        Codex["Codex Adapter"]
+        OC["OpenCode Adapter"]
+    end
+
+    subgraph Models["AI Models"]
+        M1["Claude Opus / Sonnet"]
+        M2["Gemini Pro / Flash"]
+        M3["Codex"]
+    end
+
+    CC & Cursor & WS -->|"MCP (stdio/SSE)"| MCP
+    MCP --> Orch
+    Orch --> Router
+    Orch --> Consensus
+    Orch --> Graph
+    Orch --> Pipeline
+    Router --> Claude & Gemini & Codex & OC
+    Claude --> M1
+    Gemini --> M2
+    Codex --> M3
+```
+
 ### CLI Adapter Pattern
 
 Each AI model has quirks. Claude uses XML-style tool calls. Gemini has different token limits. Codex has its own API patterns. I needed an abstraction layer.
@@ -64,6 +106,32 @@ Picking the right model for a task isn't simple. I built a five-stage routing pi
 
 The entire pipeline runs in under 10ms. I was surprised how fast TOPSIS is when you're only ranking 6-8 models. The routing decision is nearly free compared to actual model inference. I wrote a [deeper dive on the routing research](/posts/2026-01-15-routellm-contextual-bandits-model-router-research/) separately, including the approaches that didn't work.
 
+```mermaid
+flowchart LR
+    Task["Incoming Task"]
+
+    subgraph Pipeline["5-Stage Routing Pipeline"]
+        direction LR
+        S1["1. Budget<br/>Router"]
+        S2["2. Zero<br/>Router"]
+        S3["3. Preference<br/>Router"]
+        S4["4. TOPSIS<br/>Router"]
+        S5["5. LinUCB<br/>Bandit"]
+        S1 --> S2 --> S3 --> S4 --> S5
+    end
+
+    Task --> S1
+    S5 --> Selected["Selected<br/>Model"]
+
+    Feedback["Outcome<br/>Feedback"] -.->|"Adjusts Weights"| S5
+
+    style S1 fill:#264653,color:#fff
+    style S2 fill:#2a9d8f,color:#fff
+    style S3 fill:#e9c46a,color:#000
+    style S4 fill:#f4a261,color:#000
+    style S5 fill:#e76f51,color:#fff
+```
+
 ## Consensus Voting: Multiple Perspectives on Hard Decisions
 
 Some decisions are too important for a single model. Architecture changes, security modifications, breaking API changes. Research on [multi-agent collaboration](https://arxiv.org/abs/2501.06322) and [voting vs. consensus protocols](https://arxiv.org/abs/2502.19130) showed that structured multi-agent deliberation catches problems that individual models miss.
@@ -88,6 +156,33 @@ The catfish role draws from [Free-MAD anti-conformity research](https://arxiv.or
 Three voting strategies exist: majority (>50%), supermajority (>66%), and unanimous. A fourth, [higher-order voting](https://arxiv.org/abs/2510.01499), uses Bayesian-optimal aggregation with correlation awareness. Architecture changes require supermajority. Breaking API changes require unanimous.
 
 The key learning: **multi-model consensus catches blind spots that any single model misses.** The disagreements are often more valuable than the agreements. I covered [the research and practical patterns behind consensus voting](/posts/2026-01-28-consensus-voting-ai-models-multi-agent/) in a separate post.
+
+```mermaid
+sequenceDiagram
+    participant P as Proposal
+    participant O as Orchestrator
+    participant A as Architect<br/>(Claude)
+    participant S as Security<br/>(Gemini)
+    participant D as DevEx<br/>(Codex)
+    participant PM as PM<br/>(Claude)
+    participant C as Catfish<br/>(Gemini)
+    participant V as Vote Aggregator
+
+    P->>O: Submit proposal + threshold
+    O->>A: Evaluate (round-robin assignment)
+    O->>S: Evaluate
+    O->>D: Evaluate
+    O->>PM: Evaluate
+    O->>C: Find flaws (adversarial)
+
+    A->>V: APPROVE (92%)
+    S->>V: APPROVE (88%)
+    D->>V: REJECT (71%)
+    PM->>V: APPROVE (85%)
+    C->>V: REJECT (67%)
+
+    V->>O: 3-2 APPROVED<br/>(supermajority met)
+```
 
 ## The Adaptive Feedback Loop
 
@@ -126,6 +221,26 @@ const workflow = new GraphBuilder()
 ```
 
 Checkpointing saves progress after each node, so if the pipeline crashes mid-execution, it resumes from the last checkpoint instead of starting over. Seven built-in templates cover common patterns: code review, [security scanning](/posts/2025-10-06-automated-security-scanning-pipeline/), architecture analysis, and more.
+
+```mermaid
+graph LR
+    subgraph "Graph Workflow Execution"
+        A["Analyze<br/>Codebase"] --> R["Generate<br/>Report"]
+        S["Security<br/>Scan"] --> R
+        A --> F["Draft<br/>Fixes"]
+        S --> F
+        F --> V["Validate<br/>Compilation"]
+        V --> R
+    end
+
+    CP["Checkpoint<br/>Store"] -.->|"Save after<br/>each node"| A & S & F & V & R
+
+    style A fill:#264653,color:#fff
+    style S fill:#e76f51,color:#fff
+    style F fill:#2a9d8f,color:#fff
+    style V fill:#e9c46a,color:#000
+    style R fill:#f4a261,color:#000
+```
 
 ## What 22,000 Tests Taught Me
 

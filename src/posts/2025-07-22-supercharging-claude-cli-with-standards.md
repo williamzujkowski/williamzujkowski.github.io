@@ -33,6 +33,26 @@ In June 2025, I integrated my standards repo with Claude CLI for the first time.
 
 The humbling part? I discovered I'd been consistently making the same mistake with frontmatter formatting across multiple posts. Manual code review never caught it because it looked fine to human eyes.
 
+The following diagram illustrates the core problem and solution: instead of repeating context in every session, standards are loaded once and referenced efficiently.
+
+```mermaid
+flowchart LR
+    subgraph Before["Before: Manual Context"]
+        U1["Developer"] -- "Paste standards\n(5000+ tokens)" --> C1["Claude CLI"]
+        U1 -- "Re-explain style\nevery session" --> C1
+        U1 -- "Copy-paste\nrequirements" --> C1
+    end
+
+    subgraph After["After: Standards Repository"]
+        U2["Developer"] -- "@load [CS:python]\n(~100 tokens)" --> CLAUDE_MD["CLAUDE.md<br/>Router"]
+        CLAUDE_MD --> STD["Standards Repo"]
+        STD -- "Auto-load relevant\nstandards" --> C2["Claude CLI"]
+    end
+
+    style Before fill:#ffcccc
+    style After fill:#ccffcc
+```
+
 ## Enter the Standards Repository
 
 I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards), a comprehensive collection of development standards designed specifically for LLM consumption. It's an AI instruction manual for your projects.
@@ -98,6 +118,28 @@ git commit -m "Add user auth"
 # Pre-commit hook validates NIST tags automatically
 ```
 
+The standards system works through a context-aware loading pipeline that detects what you are working on and serves relevant standards:
+
+```mermaid
+flowchart TD
+    INPUT["Developer Input<br/>'I'm building a secure API'"] --> DETECT["Context Detection"]
+    DETECT --> PARSE["Parse Project Signals<br/>(files, imports, config)"]
+    PARSE --> MATCH["Standard Matching Engine"]
+    MATCH --> CS["CS:python<br/>CS:api"]
+    MATCH --> SEC["SEC:auth<br/>SEC:payments"]
+    MATCH --> TS["TS:integration"]
+    MATCH --> COMP["COMPLIANCE:pci"]
+
+    CS --> COMPRESS["Token Compression<br/>5000 → 500 tokens"]
+    SEC --> COMPRESS
+    TS --> COMPRESS
+    COMP --> COMPRESS
+    COMPRESS --> CLI["Claude CLI<br/>Context Window"]
+
+    style COMPRESS fill:#27ae60,color:#fff
+    style CLI fill:#3498db,color:#fff
+```
+
 ## My Favorite Features
 
 ### 1. Context-Aware Loading
@@ -145,6 +187,37 @@ Related standard: [CS:caching + SEC:session-management]
 ```
 
 ## Lessons Learned (The Hard Way)
+
+The validation and enforcement pipeline that I built (and repeatedly broke) works as follows:
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant Git as Git Hook
+    participant Val as Validation Script
+    participant Std as Standards Repo
+    participant CI as CI Pipeline
+
+    Dev->>Git: git commit
+    Git->>Val: Pre-commit trigger
+    Val->>Std: Load active standards
+    Std-->>Val: Rules + thresholds
+    Val->>Val: Scan files for violations
+    alt Violations Found
+        Val-->>Git: Exit code 1 (block)
+        Git-->>Dev: Commit rejected<br/>with violation report
+    else Clean
+        Val-->>Git: Exit code 0 (pass)
+        Git-->>Dev: Commit accepted
+        Dev->>CI: Push to remote
+        CI->>Val: Re-validate in CI
+        alt CI Violations
+            CI-->>Dev: PR blocked
+        else CI Clean
+            CI-->>Dev: PR approved
+        end
+    end
+```
 
 ### The Pre-Commit Hook Nightmare
 
@@ -261,6 +334,22 @@ curl -O [https://raw.githubusercontent.com/williamzujkowski/standards/master/doc
 ### Full Integration (30 minutes)
 
 [View complete integration script →](https://gist.github.com/williamzujkowski/4c2214e2b1843b341a4ee0012fffc0d3)
+
+The following diagram shows the evolution of CLAUDE.md and the standards system over six months:
+
+```mermaid
+flowchart LR
+    V1["v1.0<br/>120 lines<br/>Python only"] --> V2["v2.0<br/>~800 lines<br/>Multi-language"]
+    V2 --> V3["v3.0<br/>2,847 lines<br/>Full enforcement"]
+
+    V1 --- N1["87 violations found<br/>4.5 hrs to fix"]
+    V2 --- N2["312 flagged<br/>88% false positives"]
+    V3 --- N3["FP rate: 4%<br/>12s validation"]
+
+    style V1 fill:#e74c3c,color:#fff
+    style V2 fill:#f39c12,color:#fff
+    style V3 fill:#27ae60,color:#fff
+```
 
 ## Real-World Impact: The Numbers
 

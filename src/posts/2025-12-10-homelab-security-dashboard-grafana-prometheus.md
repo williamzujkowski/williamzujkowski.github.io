@@ -42,6 +42,35 @@ With proper dashboards? Real-time alerts caught similar attempts in under 2 minu
 - **Blackbox Exporter**: Service availability
 - **Custom exporters**: Security-specific metrics
 
+```mermaid
+graph LR
+    subgraph Sources["Data Sources"]
+        NE[Node Exporter]
+        SSH[SSH Monitor]
+        FW[Firewall Exporter]
+        BB[Blackbox Exporter]
+        TI[Threat Intel Feed]
+    end
+
+    subgraph Core["Core Stack"]
+        Prom[(Prometheus<br/>TSDB — 90 day retention)]
+        AM[Alertmanager]
+    end
+
+    subgraph Viz["Visualization"]
+        Grafana[Grafana Dashboards]
+    end
+
+    NE & SSH & FW & BB & TI -->|scrape / push| Prom
+    Prom -->|alert rules| AM
+    Prom -->|query| Grafana
+    AM -->|critical| Webhook1[Immediate Notify]
+    AM -->|warning| Webhook2[Hourly Summary]
+
+    style Core fill:#2c3e50,color:#ecf0f1
+    style Viz fill:#27ae60,color:#fff
+```
+
 **Why this stack:**
 - Prometheus handles time-series data efficiently
 - Grafana provides flexible visualization
@@ -167,6 +196,26 @@ I tested this approach by running Nmap scans against my firewall. Custom exporte
 ## Grafana Dashboard Design
 
 ### Security Dashboard Layout
+
+```mermaid
+block-beta
+    columns 3
+    block:row1:3
+        columns 3
+        A["Auth Overview<br/>SSH attempts by source"] B["Network Activity<br/>Firewall drops"] C["Service Health<br/>Availability checks"]
+    end
+    block:row2:3
+        columns 3
+        D["Anomaly Detection<br/>Time-based patterns"] E["Alert Status<br/>Warning / Critical"] F["Response Metrics<br/>MTTD / MTTR"]
+    end
+
+    style A fill:#e74c3c,color:#fff
+    style B fill:#e74c3c,color:#fff
+    style C fill:#f39c12,color:#fff
+    style D fill:#f39c12,color:#fff
+    style E fill:#e74c3c,color:#fff
+    style F fill:#3498db,color:#fff
+```
 
 My main security dashboard has 6 panels:
 

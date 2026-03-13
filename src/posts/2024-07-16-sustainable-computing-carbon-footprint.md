@@ -34,7 +34,33 @@ Computational demands were growing faster than efficiency improvements, meaning 
 
 ### Carbon Footprint Assessment
 
-Before optimizing, we needed to understand where our emissions were coming from:
+Before optimizing, we needed to understand where our emissions were coming from. The following diagram illustrates the three emission scopes and how they relate to an organization's computing infrastructure:
+
+```mermaid
+flowchart TD
+    ORG["Organization's Computing<br/>Carbon Footprint"]
+
+    ORG --> S1["Scope 1<br/>Direct Energy Use"]
+    ORG --> S2["Scope 2<br/>Indirect Energy Use"]
+    ORG --> S3["Scope 3<br/>Supply Chain Emissions"]
+
+    S1 --> S1A["Office Electricity"]
+    S1 --> S1B["Backup Generators"]
+    S1 --> S1C["Company Vehicles"]
+
+    S2 --> S2A["Cloud Computing"]
+    S2 --> S2B["Purchased Electricity"]
+    S2 --> S2C["Cooling & HVAC"]
+
+    S3 --> S3A["Device Manufacturing"]
+    S3 --> S3B["Employee Commuting"]
+    S3 --> S3C["Third-Party Services"]
+
+    style S1 fill:#e74c3c,color:#fff
+    style S2 fill:#f39c12,color:#fff
+    style S3 fill:#3498db,color:#fff
+```
+
 
 **Direct Energy Use (Scope 1):**
 - Office electricity consumption
@@ -68,6 +94,23 @@ Before optimizing, we needed to understand where our emissions were coming from:
 - Code profiling for energy efficiency
 - Algorithm complexity analysis
 - Resource utilization optimization
+
+The overall flow from energy consumption through to carbon impact follows this pattern:
+
+```mermaid
+flowchart LR
+    A["Energy Source<br/>(Grid / Renewable)"] --> B["Data Center<br/>PUE Measurement"]
+    B --> C["Compute Workload<br/>(CPU, GPU, Storage)"]
+    C --> D["Carbon Intensity<br/>gCO2/kWh"]
+    D --> E["Total Carbon<br/>Footprint"]
+
+    F["Carbon Intensity API<br/>(WattTime, Electricity Maps)"] --> D
+    G["Cloud Provider<br/>Carbon Calculators"] --> E
+
+    style A fill:#27ae60,color:#fff
+    style D fill:#e67e22,color:#fff
+    style E fill:#c0392b,color:#fff
+```
 
 ## Strategies for Reducing Energy Consumption
 
@@ -136,6 +179,42 @@ Choosing data center locations based on carbon intensity:
 - Function-as-a-Service for sporadic workloads
 
 ## Renewable Energy Integration
+
+The following diagram shows how carbon-aware workload scheduling interacts with renewable energy availability:
+
+```mermaid
+flowchart TD
+    subgraph Scheduling["Carbon-Aware Scheduler"]
+        WL["Workload Queue"]
+        CI["Carbon Intensity<br/>API (WattTime)"]
+        DEC{"Carbon Intensity<br/>Below Threshold?"}
+    end
+
+    subgraph Energy["Energy Sources"]
+        SOLAR["Solar Generation<br/>Peak: 11AM-3PM"]
+        WIND["Wind Generation<br/>Peak: 2AM-6AM"]
+        GRID["Grid Electricity<br/>Variable Carbon"]
+    end
+
+    subgraph Actions["Scheduling Actions"]
+        RUN["Run Workload Now<br/>(Low Carbon)"]
+        DEFER["Defer to Low-Carbon<br/>Window"]
+        MIGRATE["Migrate to Green<br/>Region"]
+    end
+
+    SOLAR --> CI
+    WIND --> CI
+    GRID --> CI
+    WL --> DEC
+    CI --> DEC
+    DEC -- "Yes" --> RUN
+    DEC -- "No, deferrable" --> DEFER
+    DEC -- "No, urgent" --> MIGRATE
+
+    style RUN fill:#27ae60,color:#fff
+    style DEFER fill:#f39c12,color:#fff
+    style MIGRATE fill:#3498db,color:#fff
+```
 
 ### Carbon-Aware Computing
 
@@ -332,6 +411,36 @@ When I deployed a production ML model to edge devices in March 2024, we reduced 
 - Insurance and financing preferences for green technology
 
 ## Practical Implementation Guide
+
+The implementation follows a phased approach from assessment through long-term transformation:
+
+```mermaid
+gantt
+    title Sustainable Computing Implementation Timeline
+    dateFormat X
+    axisFormat %s months
+
+    section Assessment
+    Baseline measurement          :a1, 0, 2
+    Stakeholder engagement        :a2, 1, 3
+
+    section Quick Wins (0-6mo)
+    Right-size cloud resources    :b1, 2, 4
+    Power management              :b2, 2, 3
+    Database optimization         :b3, 3, 5
+    Renewable energy switch       :b4, 4, 6
+
+    section Medium-term (6-18mo)
+    Carbon-aware computing        :c1, 6, 10
+    Application redesign          :c2, 8, 14
+    Edge computing deployment     :c3, 10, 16
+    Sustainability metrics        :c4, 12, 18
+
+    section Long-term (18mo+)
+    Renewable data centers        :d1, 18, 24
+    Sustainability governance     :d2, 20, 26
+    Carbon-neutral products       :d3, 22, 30
+```
 
 ### Assessment Phase
 

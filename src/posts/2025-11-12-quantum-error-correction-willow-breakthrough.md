@@ -19,13 +19,62 @@ Here's the catch that almost doomed the field: traditional error correction make
 
 The theoretical solution has been known since the 1990s: surface codes and logical qubits. Instead of using individual physical qubits for computation, you use groups of physical qubits to create one "logical qubit" protected by quantum error correction. The math said this should work below a critical error threshold around 1%.
 
+```mermaid
+graph TB
+    subgraph Surface["Surface Code Layout"]
+        direction TB
+        D1((D)) --- S1{S} --- D2((D))
+        D2 --- S2{S} --- D3((D))
+        D3 --- S3{S} --- D4((D))
+        D4 --- S4{S} --- D5((D))
+    end
+
+    subgraph Logical["Logical Qubit"]
+        LQ[1 Logical Qubit]
+    end
+
+    Surface -->|"Error correction<br/>decoding"| Logical
+
+    note1["D = Data Qubit<br/>S = Syndrome (Ancilla) Qubit"]
+
+    style D1 fill:#3498db,color:#fff
+    style D2 fill:#3498db,color:#fff
+    style D3 fill:#3498db,color:#fff
+    style D4 fill:#3498db,color:#fff
+    style D5 fill:#3498db,color:#fff
+    style S1 fill:#e74c3c,color:#fff
+    style S2 fill:#e74c3c,color:#fff
+    style S3 fill:#e74c3c,color:#fff
+    style S4 fill:#e74c3c,color:#fff
+    style LQ fill:#2ecc71,color:#fff
+```
+
 **The problem:** Nobody could prove it actually worked at scale. Every demonstration either used too few qubits or showed errors getting worse as systems grew larger.
 
 ## What Willow Actually Achieved
 
 Google's Willow chip finally cracked the code. They built logical qubits using surface codes with three different array sizes: 3×3 (9 physical qubits), 5×5 (25 qubits), and 7×7 (49 qubits).
 
-**The breakthrough:** As they increased from 3×3 to 5×5 to 7×7, the logical error rate decreased exponentially. Adding more physical qubits made the logical qubit more reliable, not less.
+**The breakthrough:** As they increased from 3x3 to 5x5 to 7x7, the logical error rate decreased exponentially. Adding more physical qubits made the logical qubit more reliable, not less.
+
+```mermaid
+flowchart LR
+    subgraph A["3x3 Array"]
+        A1["9 Physical Qubits<br/>Higher Error Rate"]
+    end
+    subgraph B["5x5 Array"]
+        B1["25 Physical Qubits<br/>Lower Error Rate"]
+    end
+    subgraph C["7x7 Array"]
+        C1["49 Physical Qubits<br/>Lowest Error Rate"]
+    end
+
+    A -->|"Error rate<br/>decreases"| B -->|"Exponential<br/>suppression"| C
+
+    style A fill:#e74c3c,color:#fff
+    style B fill:#f39c12,color:#fff
+    style C fill:#2ecc71,color:#fff
+```
 
 This is the "below threshold" operation that quantum error correction theory predicted. Willow's physical qubit error rates (0.1-0.2%) are well below the surface code threshold (~1%), enabling exponential error suppression.
 
@@ -38,6 +87,25 @@ This is the "below threshold" operation that quantum error correction theory pre
 The paper (["Quantum error correction below the surface code threshold"](https://arxiv.org/abs/2408.13687)) shows exponential error suppression with each size increase. Exactly what the theory predicted but nobody had achieved.
 
 ## Why This Changes Everything
+
+```mermaid
+graph TB
+    subgraph Stack["Quantum Computing Stack"]
+        direction TB
+        Apps["Applications<br/>Drug Discovery, Crypto, AI, Climate"]
+        Algo["Quantum Algorithms<br/>Shor's, Grover's, VQE"]
+        Logic["Logical Qubits<br/>Error-Corrected Computation"]
+        QEC["Quantum Error Correction<br/>Surface Codes — Willow Breakthrough"]
+        Phys["Physical Qubits<br/>Superconducting Transmons"]
+        HW["Hardware<br/>Dilution Refrigerator at 15 mK"]
+    end
+
+    Apps --> Algo --> Logic --> QEC --> Phys --> HW
+
+    style QEC fill:#e74c3c,color:#fff,stroke:#c0392b,stroke-width:3px
+    style Logic fill:#f39c12,color:#fff
+    style Apps fill:#3498db,color:#fff
+```
 
 Think of this like the moment transistors became reliable enough for integrated circuits. We've proven the fundamental scaling law that makes quantum computing work.
 
@@ -84,6 +152,22 @@ The winner gets cryptographic dominance, AI acceleration, and materials science 
 **Personal reflection:** I remember reading the original surface code papers in graduate school. The math was elegant, but it seemed impossibly hard to implement. Years later, Google's engineers made it work. Sometimes the most important breakthroughs come from turning theory into reality.
 
 ## What This Means for Your Future
+
+```mermaid
+timeline
+    title Quantum Computing Roadmap
+    2025 : Willow proves error correction scales
+         : 105 physical qubits
+    2027-2030 : 1M physical qubits targeted
+              : ~1000 logical qubits
+              : Post-quantum crypto migration urgent
+    2030-2035 : Quantum advantage in optimization
+              : Drug discovery acceleration
+              : AI training with quantum speedups
+    2035+ : Fault-tolerant quantum computers
+          : Climate modeling breakthroughs
+          : Cryptography fundamentally quantum
+```
 
 **Short term (2-5 years):** Start planning post-quantum cryptography migration. NIST's quantum-resistant algorithms aren't theoretical anymore. They're necessary preparation.
 

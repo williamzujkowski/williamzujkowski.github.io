@@ -31,6 +31,30 @@ But privacy isn't just about where the compute happens. It's about the entire st
 
 After that wake-up call, I rebuilt my thinking around three distinct threat layers:
 
+```mermaid
+graph TB
+    subgraph Network["Network Layer"]
+        N1[Endpoint Access Control]
+        N2[Telemetry Monitoring]
+        N3[Network Boundary Rules]
+    end
+    subgraph Storage["Storage Layer"]
+        S1[Prompt/Response Encryption]
+        S2[Docker Volume Protection]
+        S3[Model File Integrity]
+    end
+    subgraph Inference["Inference Layer"]
+        I1[GPU Memory Isolation]
+        I2[KV Cache Protection]
+        I3[Process Sandboxing]
+    end
+
+    Network --> Storage --> Inference
+    style Network fill:#e74c3c,color:#fff
+    style Storage fill:#f39c12,color:#fff
+    style Inference fill:#2ecc71,color:#fff
+```
+
 **Network Layer:** Who can access my LLM endpoints? What data crosses network boundaries? Is telemetry being sent somewhere?
 
 **Storage Layer:** Where are prompts and responses stored? Are Docker volumes encrypted? What about model files themselves?
@@ -68,6 +92,26 @@ Research shows that [just 250 poisoned documents can backdoor a 13B parameter mo
 I started verifying model checksums obsessively after reading this.
 
 ## Local LLM Tools: The Privacy Reality Check
+
+```mermaid
+flowchart LR
+    User([User Prompt]) --> LocalInference
+
+    subgraph LocalInference["Local Inference Pipeline"]
+        direction TB
+        A[System Prompt + Filters] --> B[Tokenizer]
+        B --> C[GPU VRAM — Model Weights]
+        C --> D[KV Cache — Attention States]
+        D --> E[Token Sampling]
+        E --> F[Detokenizer]
+    end
+
+    LocalInference --> Response([Response])
+
+    style LocalInference fill:#1a1a2e,color:#e0e0e0
+    style C fill:#e74c3c,color:#fff
+    style D fill:#f39c12,color:#fff
+```
 
 Not all "local" LLM tools are created equal. I tested seven popular options and found massive differences in their actual privacy practices.
 
@@ -181,6 +225,35 @@ Maybe in 3-5 years this'll be viable for homelab use. For now, it's research-onl
 
 Here's how I actually locked things down. This took about 6 hours to configure properly, but it's the foundation of everything else.
 
+```mermaid
+graph LR
+    subgraph VLAN1["VLAN 1 — Main Network"]
+        Laptop[Laptop/Desktop]
+    end
+    subgraph VLAN10["VLAN 10 — DMZ"]
+        IoT[IoT Devices]
+    end
+    subgraph VLAN20["VLAN 20 — AI Services"]
+        Proxmox[Proxmox Host]
+        VM[Ubuntu VM + RTX 3090]
+        Ollama[Ollama / LM Studio]
+        Proxmox --> VM --> Ollama
+    end
+    subgraph VLAN30["VLAN 30 — Monitoring"]
+        Wazuh[Wazuh SIEM]
+        Prom[Prometheus]
+    end
+
+    Laptop -->|VPN Only| VLAN20
+    VLAN10 -.->|BLOCKED| VLAN20
+    VLAN20 -->|Metrics| VLAN30
+    VLAN20 -.->|BLOCKED| Internet((Internet))
+
+    style VLAN20 fill:#2c3e50,color:#ecf0f1
+    style VLAN10 fill:#c0392b,color:#fff
+    style VLAN30 fill:#27ae60,color:#fff
+```
+
 ### VLAN 20: AI Services Isolation
 
 My Unifi Dream Machine Pro manages VLANs using [zero trust microsegmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab). AI workloads live in VLAN 20, completely isolated from my main network (VLAN 1) and DMZ (VLAN 10).
@@ -276,6 +349,26 @@ Running everything locally means I'm limited to models that fit in 24GB VRAM ful
 - Exploring new model capabilities before local versions exist
 
 I use a separate Claude subscription for this blog writing. None of my sensitive homelab data ever touches cloud APIs.
+
+```mermaid
+flowchart TD
+    Start{What data are you processing?} -->|Sensitive / Regulated| Local
+    Start -->|Public / Non-sensitive| Cloud
+    Local -->|Budget > $3k?| HW[Buy GPU Hardware]
+    Local -->|Budget limited| CPU[CPU-Only Inference]
+    HW --> Harden[Harden: VLAN + Encryption + DP]
+    CPU --> Harden
+    Cloud -->|Need cutting-edge?| API[Cloud API — 405B+ models]
+    Cloud -->|General use| Managed[Managed Service]
+    Harden --> Monitor[Deploy Monitoring]
+    API --> Done([Production Ready])
+    Managed --> Done
+    Monitor --> Done
+
+    style Local fill:#27ae60,color:#fff
+    style Cloud fill:#3498db,color:#fff
+    style Harden fill:#e74c3c,color:#fff
+```
 
 ### Decision Matrix: Local vs Cloud
 
