@@ -101,7 +101,7 @@ But here's what I learned: Security principles are universal. Whether you're pro
 - Build defense in depth
 - Monitor, respond, iterate
 
-**Practical Impact Example**: When we implemented proper SLURM accounting and GPU isolation, we caught a researcher accidentally consuming $50K/month in compute resources that would have gone unnoticed. Security controls saved both money and prevented potential abuse. My experience with [GPU power monitoring in homelab ML environments](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) taught me how easily computational costs can spiral out of control, while [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provided the foundational knowledge needed to implement proper data protection across HPC systems. Learning [continuous cybersecurity education strategies](/posts/2025-02-24-continuous-learning-cybersecurity/) helped me keep pace with rapidly evolving threats in these complex environments.
+**Practical Impact Example**: When we implemented proper SLURM accounting and GPU isolation, it became clear how quickly untracked compute costs can spiral in HPC environments. Security controls that provide visibility into resource consumption aren't just about security — they save real money. My experience with [GPU power monitoring in homelab ML environments](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) taught me how easily computational costs can spiral out of control, while [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provided the foundational knowledge needed to implement proper data protection across HPC systems. Learning [continuous cybersecurity education strategies](/posts/2025-02-24-continuous-learning-cybersecurity/) helped me keep pace with rapidly evolving threats in these complex environments.
 
 ## The Present: Cloud Security and Beyond
 
@@ -123,7 +123,7 @@ I collected certifications like Pokémon cards. Over 5 years: CompTIA A+ (2006),
 Early on, I'd dodge unfamiliar technologies. Bad move. Biggest growth came from jumping into the deep end: SLURM for HPC management, eBPF for kernel-level monitoring.
 
 ### 3. Forgetting the Human Element
-I once implemented a "perfect" security solution requiring 3 authentication steps for file access. Within 2 weeks, 80% of the 200-person team had written credentials on Post-it notes. Security people won't use isn't security. It's theater.
+I once over-engineered an authentication flow with too many steps. It didn't take long to see people working around it — which taught me that security people won't use isn't security, it's theater.
 
 ### 4. Not Building a Network
 For years, I thought networking was just TCP/IP (dad joke intended). Building relationships with other professionals has been invaluable for learning, opportunities, sanity checks.

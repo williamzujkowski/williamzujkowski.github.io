@@ -125,7 +125,7 @@ My homelab Python project used 47 dependencies in December 2023. Running `pip-au
 
 ## Staying Current: The Never-Ending Battle
 
-Libraries, frameworks, and operating systems release security patches regularly. Outdated dependencies can be your undoing. I learned this lesson the hard way years ago when a critical vulnerability was discovered in a JSON parsing library we used.
+Libraries, frameworks, and operating systems release security patches regularly. Outdated dependencies can be your undoing. I learned this lesson the hard way years ago when a critical vulnerability was discovered in a JSON parsing library I was depending on.
 
 I now treat security advisories like urgent emails. They get immediate attention. I've set up automated scanning for dependency vulnerabilities and maintain a patching schedule. When I patched the 18 CVEs in my homelab Python project, the actual patching took 4 hours (including testing). The few hours spent on regular updates pale in comparison to the days or weeks spent cleaning up from preventable breaches. In my experience, proactive security maintenance is about 15x more time-efficient than reactive incident response.
 

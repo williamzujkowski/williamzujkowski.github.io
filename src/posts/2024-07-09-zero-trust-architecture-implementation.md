@@ -380,7 +380,7 @@ The real-world performance impact varies significantly depending on your specifi
 Assuming incidents meant external attackers had breached the perimeter.
 
 **Zero Trust IR:**
-Every security event could indicate insider threats, compromised accounts, or lateral movement. In August 2024, my Wazuh SIEM generated 1,247 alerts in a single week when I misconfigured a firewall rule that blocked legitimate traffic from my work VLAN. Learning to distinguish real threats from configuration errors is an ongoing challenge.
+Every security event could indicate insider threats, compromised accounts, or lateral movement. In August 2024, my Wazuh SIEM generated 1,247 alerts in a single week when I misconfigured a firewall rule that blocked legitimate traffic from my trusted devices VLAN. Learning to distinguish real threats from configuration errors is an ongoing challenge.
 
 **Alert fatigue metrics (August-October 2024):**
 - **August Week 1**: 1,247 alerts (178 per day) after firewall misconfiguration

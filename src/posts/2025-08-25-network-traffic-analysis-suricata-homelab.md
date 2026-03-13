@@ -511,7 +511,7 @@ When Suricata triggers an alert:
 
 ## Lessons Learned
 
-After running Suricata in production for years:
+After running Suricata in my homelab for years:
 
 ### 1. Start Simple, Add Complexity Gradually
 Don't enable every rule on day one. Start with Emerging Threats Open, tune for false positives, then add custom rules.
