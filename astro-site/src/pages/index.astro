@@ -83,42 +83,11 @@ const featuredProjects = allProjects
         </blockquote>
         <p class="mt-6 text-lg text-[var(--md-sys-color-on-surface-variant)]">
           That nerdy kid in 1995 devouring <em>Foundation and Empire</em> under the covers with a flashlight? Yeah, that was
-          me. Now I'm helping secure a FedRAMP Moderate platform while running local LLMs on my RTX 3090 to explore AI security.
+          me. Now I'm helping secure FedRAMP platforms while running local LLMs on my RTX 3090 to explore AI security.
           I'm implementing the actual controls to keep AI systems safe — thinking about the same questions Asimov posed, just
           with more YAML files, threat models, and security tooling than I expected.
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Recent Posts -->
-  <section class="py-16 sm:py-24">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl text-center">
-        <h2
-          class="text-3xl font-bold tracking-tight sm:text-4xl"
-          style="font-size: var(--md-sys-typescale-headline-large)"
-        >
-          Recent Posts
-        </h2>
-        <p class="mt-2 text-lg text-[var(--md-sys-color-on-surface-variant)]">
-          Security insights, AI experiments, homelab adventures, and lessons from the field.
-        </p>
-      </div>
-
-      <div class="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-        {recentPosts.map((post) => <PostCard post={post} variant="vertical" maxTags={3} />)}
-      </div>
-
-      {
-        allPosts.length > 3 && (
-          <div class="mt-12 text-center">
-            <a href="/posts/" class="btn-filled">
-              View all posts
-            </a>
-          </div>
-        )
-      }
     </div>
   </section>
 
@@ -163,7 +132,7 @@ const featuredProjects = allProjects
               title: 'Knowledge Sharing',
               href: '/posts/',
               icon: 'M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25',
-              description: `Writing ${allPosts.length}+ blog posts about security, AI safety, and homelab experiments. My most popular posts openly admit "here's what I broke and what I learned."`,
+              description: `${allPosts.length}+ posts on security, AI safety, and homelab experiments — practical lessons from real projects, not just theory.`,
             },
           ].map((feature) => (
             <a href={feature.href} class="card group p-6 flex flex-col no-underline hover:no-underline">
@@ -185,6 +154,37 @@ const featuredProjects = allProjects
           ))
         }
       </div>
+    </div>
+  </section>
+
+  <!-- Recent Posts -->
+  <section class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-size: var(--md-sys-typescale-headline-large)"
+        >
+          Recent Posts
+        </h2>
+        <p class="mt-2 text-lg text-[var(--md-sys-color-on-surface-variant)]">
+          Security insights, AI experiments, homelab adventures, and lessons from the field.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        {recentPosts.map((post) => <PostCard post={post} variant="vertical" maxTags={3} />)}
+      </div>
+
+      {
+        allPosts.length > 3 && (
+          <div class="mt-12 text-center">
+            <a href="/posts/" class="btn-filled">
+              View all posts
+            </a>
+          </div>
+        )
+      }
     </div>
   </section>
 
