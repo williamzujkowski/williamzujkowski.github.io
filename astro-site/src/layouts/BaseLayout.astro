@@ -149,6 +149,10 @@ function isActiveLink(linkHref: string): boolean {
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" type="application/rss+xml" title={`${siteTitle} Feed`} href={`${siteUrl}/feed.xml`} />
 
+    <!-- Preconnect to external image hosts for faster LCP -->
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />

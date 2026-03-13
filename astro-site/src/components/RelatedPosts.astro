@@ -49,6 +49,9 @@ const related = scored.slice(0, 3);
                   src={getValidImageUrl(post.data.image)}
                   alt={`Cover image for ${post.data.title}`}
                   class="w-full h-28 object-cover"
+                  width="400"
+                  height="210"
+                  sizes="(max-width: 640px) 100vw, 33vw"
                   loading="lazy"
                   decoding="async"
                 />
