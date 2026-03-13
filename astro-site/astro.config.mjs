@@ -28,7 +28,10 @@ export default defineConfig({
       },
     },
     rehypePlugins: [
-      [rehypeMermaid, { strategy: 'inline-svg' }],
+      [rehypeMermaid, {
+        strategy: 'inline-svg',
+        mermaidConfig: { theme: 'neutral' },
+      }],
     ],
   },
 });
