@@ -196,7 +196,7 @@ I saved the configuration at 9:47 PM on a Friday. By 9:48 PM, I'd locked myself 
 - The web interface for the Dream Machine Pro
 - My ability to connect via console cable (didn't realize I'd also broken DHCP on the management VLAN)
 
-**The 6-hour debugging nightmare:**
+**The 6-hour debugging session:**
 - 9:48 PM: Can't access router web interface, assume browser cache issue
 - 10:15 PM: Try SSH, connection times out
 - 10:45 PM: Dig out console cable, connect directly to router

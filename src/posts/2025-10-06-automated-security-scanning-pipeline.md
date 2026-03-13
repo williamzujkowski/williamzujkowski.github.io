@@ -380,7 +380,7 @@ GitHub-hosted runners aren't free at scale:
 
 Automated security scanning isn't optional. It's a fundamental requirement for modern development. By integrating Grype, OSV-Scanner, and Trivy into my CI/CD pipeline, I've shifted security left and caught vulnerabilities before they reach production. These practices align with [writing secure code from the start](/posts/2024-01-08-writing-secure-code-developers-guide) and [zero trust architecture principles](/posts/2024-07-09-zero-trust-architecture-implementation).
 
-The initial setup took me about two weeks of evening work, but the ongoing protection has been worth it. Every critical vulnerability caught in CI is one that doesn't become a 3 AM incident (I know because I've had those incidents before implementing this).
+The initial setup took me about two weeks of evening work, but the ongoing protection has been worth it. Every critical vulnerability caught in CI is one that doesn't slip through to where it actually matters.
 
 Start with basic scanning, even just Grype on container images, then add quality gates, integrate with your SIEM, and watch your security posture improve. Don't try to implement everything I've shown here at once. I built this incrementally over a year, and you should too.
 

@@ -285,7 +285,7 @@ flowchart TD
     style LOAD fill:#27ae60,color:#fff
 ```
 
-### Redis Is Not Your Friend at 3 AM
+### Redis Caching Pitfalls
 
 I spent two frustrating days tracking down silent cache failures before I realized I'd configured Redis with a noeviction policy. My "temporary" cache was storing everything indefinitely.
 
