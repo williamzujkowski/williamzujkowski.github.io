@@ -148,196 +148,21 @@ sequenceDiagram
 
 ### Pattern 2: Ransomware Behavior Detection
 
-My research aligns with recent findings: ransomware has unique behavioral fingerprints. Here's the multi-layered detection approach:
-
-```mermaid
-flowchart TD
-    subgraph detectionlayers["Detection Layers"]
-        L1[File System Monitoring]
-        L2[Process Behavior Analysis]
-        L3[Network Communication]
-        L4[Ransom Note Detection]
-    end
-    subgraph ebpfprobes["eBPF Probes"]
-        P1[VFS Operations]
-        P2[Process Creation]
-        P3[TCP Connections]
-        P4[File Writes]
-    end
-    subgraph aimlpipeline["AI/ML Pipeline"]
-        ML1[Feature Extraction]
-        ML2[Behavior Classification]
-        ML3[NLP Analysis]
-        ML4[Threat Scoring]
-    end
-
-    P1 --> L1 --> ML1
-    P2 --> L2 --> ML1
-    P3 --> L3 --> ML1
-    P4 --> L4 --> ML3
-
-    ML1 --> ML2
-    ML3 --> ML2
-    ML2 --> ML4
-
-    ML4 -->|Score > Threshold| Alert[Generate Alert]
-
-    classDef mlStyle fill:#9c27b0
-    classDef alertStyle fill:#f44336
-    class ML2 mlStyle
-    class Alert alertStyle
-```
+My research aligns with recent findings: ransomware has unique behavioral fingerprints.
 
 ### Pattern 3: Container Escape Detection
 
-Container security is critical in cloud environments. eBPF excels here because it sees through container boundaries:
-
-```mermaid
-flowchart TB
-    subgraph container["Container"]
-        C1[Process]
-        C2[Namespace]
-        C3[Cgroups]
-    end
-    subgraph detectionpoints["Detection Points"]
-        D1[Namespace Changes]
-        D2[Capability Escalation]
-        D3[Syscall Anomalies]
-        D4[Device Access]
-    end
-    subgraph ebpfmonitors["eBPF Monitors"]
-        M1[setns monitoring]
-        M2[CAP_SYS_ADMIN checks]
-        M3[Syscall filtering]
-        M4[Device operation tracking]
-    end
-
-    C1 --> D1 --> M1
-    C1 --> D2 --> M2
-    C2 --> D3 --> M3
-    C3 --> D4 --> M4
-
-    M1 & M2 & M3 & M4 --> Detection[Container Escape Detection]
-
-    classDef detectionStyle fill:#ff5722
-    class Detection detectionStyle
-```
-
-## Production Deployment Strategy
-
-After deploying eBPF monitoring across various environments, here's my battle-tested deployment strategy:
-
-```mermaid
-flowchart LR
-    subgraph phase1development["Phase 1: Development"]
-        Dev1[Write eBPF Programs]
-        Dev2[Test in VM]
-        Dev3[Verify Performance]
-    end
-    subgraph phase2staging["Phase 2: Staging"]
-        Stage1[Deploy to Staging]
-        Stage2[Monitor False Positives]
-        Stage3[Tune Detection Rules]
-    end
-    subgraph phase3production["Phase 3: Production"]
-        Prod1[Gradual Rollout]
-        Prod2[Performance Monitoring]
-        Prod3[Continuous Tuning]
-    end
-
-    Dev3 --> Stage1
-    Stage3 --> Prod1
-
-    Prod3 -->|Feedback| Dev1
-```
+Container security is critical in cloud environments. eBPF excels here because it sees through container boundaries — it monitors namespace changes, capability escalation, syscall anomalies, and device access at the kernel level, regardless of container isolation.
 
 ## Performance Optimization Techniques
 
 The biggest lesson I learned the hard way: an overly aggressive eBPF program can become a self-inflicted DoS. Here's how to avoid that:
-
-```mermaid
-flowchart TD
-    subgraph optimizationstrategies["Optimization Strategies"]
-        O1[Early Filtering]
-        O2[Map-based Deduplication]
-        O3[Sampling]
-        O4[Ring Buffer Sizing]
-    end
-    subgraph performancemetrics["Performance Metrics"]
-        M1[CPU Usage < 5%]
-        M2[Memory < 100MB]
-        M3[Event Loss < 0.01%]
-        M4[Latency < 1ms]
-    end
-
-    O1 --> M1
-    O2 --> M2
-    O3 --> M3
-    O4 --> M4
-
-    M1 & M2 & M3 & M4 --> Success[Production Ready]
-
-    classDef successStyle fill:#4caf50
-    class Success successStyle
-```
 
 Key optimization patterns that work well in my environment (though your mileage may vary depending on workload):
 1. **Filter at the source**: Drop uninteresting events in kernel space
 2. **Use BPF maps wisely**: Build rate limiting and deduplication directly into your maps
 3. **Sample when appropriate**: Not every packet needs inspection
 4. **Size buffers correctly**: Prevent event loss without wasting memory
-
-## Integration with Modern Security Stack
-
-eBPF doesn't exist in isolation. Here's how it fits into a modern security architecture:
-
-⚠️ **Warning:** This diagram shows integration of security components for educational purposes. Implement security architectures only with proper authorization and following organizational policies.
-
-```mermaid
-flowchart TB
-    subgraph datasources["Data Sources"]
-        eBPF[eBPF Events]
-        Logs[Traditional Logs]
-        Network[Network Traffic]
-        Cloud[Cloud APIs]
-    end
-    subgraph processinglayer["Processing Layer"]
-        Stream[Stream Processing]
-        Enrich[Enrichment]
-        Correlate[Correlation Engine]
-    end
-    subgraph intelligencelayer["Intelligence Layer"]
-        ML[Machine Learning]
-        Threat[Threat Intel]
-        Rules[Detection Rules]
-    end
-    subgraph responselayer["Response Layer"]
-        Alert[Alerting]
-        Auto[Automation]
-        Investigate[Investigation]
-    end
-
-    eBPF --> Stream
-    Logs --> Stream
-    Network --> Stream
-    Cloud --> Stream
-
-    Stream --> Enrich
-    Enrich --> Correlate
-
-    Correlate --> ML
-    Correlate --> Threat
-    Correlate --> Rules
-
-    ML & Threat & Rules --> Alert
-    Alert --> Auto
-    Alert --> Investigate
-
-    classDef ebpfStyle fill:#ff9800
-    classDef mlStyle fill:#9c27b0
-    class eBPF ebpfStyle
-    class ML mlStyle
-```
 
 ## Lessons from the Trenches
 
@@ -361,31 +186,6 @@ The BPF verifier is like a strict code reviewer who rejects anything slightly su
 My first "comprehensive" eBPF monitor tracked everything – and consumed 40% CPU on an idle system. 
 
 **Solution**: Start minimal, add monitoring gradually, always measure impact.
-
-## Future Directions
-
-Based on recent research and industry trends, here's where eBPF security is heading:
-
-```mermaid
-timeline
-    title eBPF Security Evolution
-    
-    2024 : Basic Detection
-         : System Call Monitoring
-         : Network Filtering
-    
-    2025 : AI Integration
-         : Behavioral Analysis
-         : Cross-platform Support
-    
-    2026 : Hardware Acceleration
-         : SmartNIC Offload
-         : Distributed Correlation
-    
-    2027 : Autonomous Response
-         : Self-healing Systems
-         : Predictive Security
-```
 
 ## Getting Started: Your First eBPF Security Monitor
 
@@ -737,21 +537,8 @@ For deeper technical understanding:
 
 ## Conclusion
 
-eBPF transforms security monitoring from reactive log analysis to proactive, real-time threat detection. Integrate eBPF with [container security hardening](/posts/2025-08-18-docker-lsm-security-hardening), [vulnerability management](/posts/2025-07-15-vulnerability-management-scale-open-source), and [threat intelligence](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for comprehensive defense-in-depth.
+eBPF transforms security monitoring from reactive log analysis to proactive, real-time threat detection. It's not just about speed — it's about seeing attacks that were previously invisible.
 
-For budget-friendly security implementations, explore [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects), and learn about [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation) to complement kernel-level monitoring. It's not just about speed – it's about seeing attacks that were previously invisible.
+The journey from traditional monitoring to eBPF isn't always smooth. You'll fight with the verifier, debug kernel panics, and optimize performance. But the payoff — catching threats in milliseconds instead of hours — makes it worthwhile.
 
-The journey from traditional monitoring to eBPF isn't always smooth. You'll fight with the verifier, debug kernel panics, and optimize performance. But the payoff – catching threats in milliseconds instead of hours – makes it worthwhile.
-
-Start small, think big, and remember: with eBPF, you're not just monitoring the system, you're part of it.
-
----
-
-*Building eBPF security tools? Hit unexpected challenges? Let's connect and share war stories. The best solutions come from collective experience.*
-
-## Resources and Further Reading
-
-- [eBPF.io](https://ebpf.io) - Official eBPF documentation
-- [Falco](https://falco.org) - Production eBPF security
-- Recent Research: "using eBPF and AI for Ransomware Detection" (arXiv:2406.14020)
-- [BCC Tools](https://github.com/iovisor/bcc) - eBPF toolkit)
+Start small. Monitor one syscall. Measure the overhead. Add detection patterns based on your actual threat model, not a generic checklist. And always, always check your kernel version first.
