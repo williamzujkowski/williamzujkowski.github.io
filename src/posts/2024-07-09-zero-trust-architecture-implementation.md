@@ -127,7 +127,7 @@ The problem? My intermediate certificate authority cert had expired. I'd configu
 - Document the full recovery procedure (I now have a 4-page runbook)
 - Consider shorter-lived intermediate certs (I now use 180 days instead of 3 years)
 
-This incident taught me that Zero Trust implementation isn't just about the happy path. It's about handling failure gracefully. Now I run monthly certificate expiration drills where I deliberately expire a test cert and validate my recovery procedures. Takes 15 minutes, saves hours of 2 AM panic.
+This incident taught me that Zero Trust implementation isn't just about the happy path. It's about handling failure gracefully. Now I run monthly certificate expiration drills where I deliberately expire a test cert and validate my recovery procedures. Takes 15 minutes, saves the headache of an unexpected cert expiration.
 
 **Multi-Factor Authentication (MFA) Everywhere:**
 I implemented MFA using hardware keys (YubiKey 5C NFC) for all critical services. My SSH access requires both the key and a certificate valid for only 8 hours. The performance overhead is negligible, adding roughly 340ms to authentication according to my SSH logs. As quantum computing advances, I'm also preparing for [post-quantum cryptography migration](/posts/2025-10-29-post-quantum-cryptography-homelab) to future-proof my authentication systems against quantum threats.

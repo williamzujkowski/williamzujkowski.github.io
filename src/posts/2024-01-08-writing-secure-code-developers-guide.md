@@ -60,7 +60,7 @@ Organizations that treat security as "someone else's problem" inevitably face ha
 
 Only give your code the permissions it truly needs. A function that merely reads from a file shouldn't also write or delete. It sounds obvious, **but** I've made this mistake myself. In the rush to get features working, I granted broad database permissions to a service that only needed to query user preferences.
 
-The **trade-off** between development speed and security discipline is constant, and I usually lose that battle when deadlines loom. Years ago during a penetration test, the tester showed me how they could have used that over-privileged service to dump the application's user table. That extra permission I thought was "just easier" had created a critical vulnerability that sat unnoticed for months.
+The **trade-off** between development speed and security discipline is constant. During a penetration test of one of my personal projects, the tester showed me how they could have used that over-privileged service to dump the entire user table. That extra permission I thought was "just easier" had created a critical vulnerability that sat unnoticed for months. It was a valuable lesson in why least-privilege matters even in projects you think nobody else will touch.
 
 When I applied least privilege to my homelab services in March 2024, I created 7 separate service accounts, each with minimal permissions. My monitoring service went from having GRANT ALL privileges to SELECT-only on 3 specific tables. Restricting permissions required 2 hours of work to refactor database access patterns, **but** it reduced my attack surface by roughly 85% (measured by accessible database objects: 127 objects down to 19).
 
