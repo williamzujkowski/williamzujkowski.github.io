@@ -37,6 +37,22 @@ The gecko's climbing ability, the octopus's ability to squeeze through tiny spac
 - Offload processing from CPUs to mechanical design
 - Let physics solve problems instead of software
 
+```mermaid
+flowchart LR
+    A["Biological System\nObservation"] --> B["Principle\nExtraction"]
+    B --> C["Computational\nModeling"]
+    C --> D["Material &\nMorphology Design"]
+    D --> E["Prototype\nFabrication"]
+    E --> F["Performance\nBenchmarking"]
+    F -->|"Gap Analysis"| B
+    style A fill:#2d6a4f,color:#fff
+    style B fill:#40916c,color:#fff
+    style C fill:#52b788,color:#fff
+    style D fill:#74c69d,color:#000
+    style E fill:#95d5b2,color:#000
+    style F fill:#b7e4c7,color:#000
+```
+
 This computational approach extends beyond robotics. As explored in [high-performance computing](/posts/2024-08-13-high-performance-computing), distributing computation across specialized hardware (whether biological or silicon) yields dramatic efficiency gains. [Fine-tuning LLMs in the homelab](/posts/2025-05-10-llm-fine-tuning-homelab-guide/) demonstrates analogous principles where distributed training across hardware components mirrors biological parallel processing, while [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide/) shows how embedding security into system design (rather than bolting it on) reflects morphological intelligence.
 
 **Real examples:**
@@ -84,6 +100,32 @@ Bird and insect flight inspired breakthrough micro aerial vehicles. Engineers di
 - Dual function: Flight + walking surfaces
 - Transitions between aerial and ground locomotion
 - Deployable for exploration missions
+
+```mermaid
+graph TD
+    subgraph Legged["Legged (MIT Cheetah)"]
+        L1["Dynamic balance"]
+        L2["Tendon energy storage"]
+        L3["6.4 m/s sprint"]
+    end
+    subgraph Aerial["Aerial (RoboBee / DALER)"]
+        A1["Insect wing mechanics"]
+        A2["90 mg flight platform"]
+        A3["Dual air/ground modes"]
+    end
+    subgraph Aquatic["Aquatic (Soft Robotic Fish)"]
+        Q1["Undulatory propulsion"]
+        Q2["No propeller needed"]
+        Q3["Minimal disturbance"]
+    end
+    BIO["Biological Locomotion\nPrinciples"] --> Legged
+    BIO --> Aerial
+    BIO --> Aquatic
+    style BIO fill:#1b4332,color:#fff
+    style Legged fill:#2d6a4f,color:#fff
+    style Aerial fill:#40916c,color:#fff
+    style Aquatic fill:#52b788,color:#fff
+```
 
 ### Underwater Grace
 
@@ -133,6 +175,24 @@ Biomimetic sensors enable capabilities beyond human senses. Animals like bats, e
 - Touch/Whiskers: Contact confirmation and texture analysis
 - Integration: Redundant sensing for robust operation
 
+```mermaid
+flowchart TD
+    ENV["Environment"] -->|"light, sound,\ncontact, RF"| S1["Visual /\nNeuromorphic"]
+    ENV --> S2["LIDAR /\nEcholocation"]
+    ENV --> S3["Touch /\nWhiskers"]
+    S1 --> FUSE["Sensor Fusion\nEngine"]
+    S2 --> FUSE
+    S3 --> FUSE
+    FUSE --> PLAN["Motion\nPlanning"]
+    PLAN --> ACT["Actuators\n(soft / rigid)"]
+    ACT -->|"proprioceptive\nfeedback"| FUSE
+    ACT -->|"physical\ninteraction"| ENV
+    style ENV fill:#264653,color:#fff
+    style FUSE fill:#2a9d8f,color:#fff
+    style PLAN fill:#e9c46a,color:#000
+    style ACT fill:#e76f51,color:#fff
+```
+
 ## Swarm Intelligence: The Power of Many Simple Agents
 
 
@@ -153,6 +213,26 @@ Biomimetic sensors enable capabilities beyond human senses. Animals like bats, e
 - Emergent intelligence from individual simplicity
 - Robust to individual unit failures
 - Scalable from dozens to thousands of agents
+
+```mermaid
+flowchart LR
+    subgraph Swarm["Swarm of Simple Agents"]
+        direction TB
+        R1["Agent"] ---|"IR"| R2["Agent"]
+        R2 ---|"IR"| R3["Agent"]
+        R3 ---|"IR"| R4["Agent"]
+        R4 ---|"IR"| R1
+        R1 ---|"IR"| R3
+    end
+    RULES["Local Rules\n1. Avoid collisions\n2. Align with neighbors\n3. Move toward center"] --> Swarm
+    Swarm --> EMERGE["Emergent\nGlobal Behavior"]
+    EMERGE --> T1["Shape\nFormation"]
+    EMERGE --> T2["Adaptive\nForaging"]
+    EMERGE --> T3["Fault-Tolerant\nNavigation"]
+    style RULES fill:#774936,color:#fff
+    style Swarm fill:#a68a64,color:#000
+    style EMERGE fill:#656d4a,color:#fff
+```
 
 **[Morphological computation in swarms](https://www.science.org/doi/10.1126/scirobotics.abo6140) findings:**
 - Swarm intelligence increases with size

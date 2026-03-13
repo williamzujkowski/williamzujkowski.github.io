@@ -27,6 +27,28 @@ When the Department of Energy's Frontier system broke the exascale barrier in 20
 
 This convergence of power, efficiency, and accessibility is why I found myself standing in front of a supercomputer on a Tuesday afternoon, about to witness firsthand what happens when theoretical computational limits become engineering reality.
 
+```mermaid
+graph TB
+    subgraph Compute Cluster Architecture
+        direction TB
+        LB[Load Balancer / Job Scheduler]
+        LB --> N1[Compute Node 1<br/>CPU + GPU]
+        LB --> N2[Compute Node 2<br/>CPU + GPU]
+        LB --> N3[Compute Node N<br/>CPU + GPU]
+        N1 <-->|High-Speed Interconnect<br/>InfiniBand / Slingshot| N2
+        N2 <-->|High-Speed Interconnect| N3
+        N1 <-->|High-Speed Interconnect| N3
+        N1 --> PFS[(Parallel File System<br/>Lustre / GPFS)]
+        N2 --> PFS
+        N3 --> PFS
+        PFS --> ST[(Long-Term Storage<br/>Object / Tape)]
+    end
+    U[Users / Researchers] --> LB
+    style LB fill:#4a90d9,color:#fff
+    style PFS fill:#e8a838,color:#fff
+    style ST fill:#888,color:#fff
+```
+
 ## The Scale That Changes Everything
 
 Years ago, when I first encountered supercomputing facilities, the sheer scale was overwhelming. Massive rooms filled with interconnected nodes, humming with activity. The landscape of High-Performance Computing has changed dramatically since then, and what we're seeing today goes far beyond faster processors.
@@ -76,6 +98,23 @@ def adaptive_mesh_refinement(simulation_state, ml_predictor):
 ```
 
 This creates feedback loops: AI improves scheduling efficiency, which enables more AI research, which improves scheduling further. It's a virtuous cycle accelerating HPC capabilities.
+
+```mermaid
+flowchart LR
+    subgraph AI-HPC Feedback Loop
+        A[AI Workloads] -->|Submit Jobs| B[Intelligent Scheduler]
+        B -->|Optimize Placement| C[HPC Resources<br/>CPU / GPU / QPU]
+        C -->|Training Results| D[ML Models Improve]
+        D -->|Better Predictions| B
+        C -->|Telemetry & Metrics| E[Resource Monitor]
+        E -->|Power & Utilization Data| B
+    end
+    style A fill:#6c5ce7,color:#fff
+    style B fill:#4a90d9,color:#fff
+    style C fill:#00b894,color:#fff
+    style D fill:#6c5ce7,color:#fff
+    style E fill:#e8a838,color:#fff
+```
 
 ### Physics-Informed Neural Networks (PINNs)
 
@@ -272,6 +311,28 @@ The integration between quantum and classical HPC systems has evolved rapidly ov
 - **Quantum Framework scaling**: Recent frameworks demonstrate linear scaling of hybrid workflows across hundreds of classical nodes coordinating with quantum backends[10]
 - **Unified quantum platforms**: Emerging platforms provide portable abstraction layers allowing quantum algorithms to run across different QPU architectures without code rewrites[11]
 
+```mermaid
+flowchart TB
+    subgraph Quantum-Classical Hybrid Architecture
+        direction TB
+        P[Problem Definition] --> CP[Classical Preprocessor<br/>Problem Decomposition]
+        CP --> CL[Classical Solver<br/>Standard Subproblems]
+        CP --> QC[Quantum Circuit Compiler<br/>Quantum-Suitable Subproblems]
+        QC --> QPU[Quantum Processor<br/>VQE / QAOA Execution]
+        QPU --> EM[Error Mitigation<br/>Zero-Noise Extrapolation]
+        EM --> OPT{Converged?}
+        CL --> MERGE[Result Aggregation]
+        OPT -->|No| QC
+        OPT -->|Yes| MERGE
+        MERGE --> R[Final Solution]
+    end
+    style QPU fill:#e056a0,color:#fff
+    style CL fill:#4a90d9,color:#fff
+    style CP fill:#4a90d9,color:#fff
+    style EM fill:#e8a838,color:#fff
+    style OPT fill:#00b894,color:#fff
+```
+
 ```python
 # Simplified: Hybrid quantum-classical programming example
 def optimize_molecular_configuration(molecule, target_properties):
@@ -340,6 +401,31 @@ The path forward requires:
 - Novel materials like new semiconductors and superconducting components
 - Novel computing paradigms that integrate neuromorphic, quantum, and biological elements
 - Algorithms that minimize data movement and maximize efficiency across heterogeneous systems
+
+```mermaid
+timeline
+    title HPC Evolution: From Petascale to Zettascale
+    2010 : Petascale Era
+         : ~1 PFlop peak
+         : Air-cooled clusters
+         : General-purpose CPUs
+    2018 : Pre-Exascale
+         : ~200 PFlops
+         : GPU acceleration
+         : Early AI integration
+    2022 : Exascale Achieved
+         : 1.35 EFlops (Frontier)
+         : Hybrid CPU+GPU nodes
+         : Liquid cooling standard
+    2026 : Exascale Maturity
+         : Multiple exascale systems
+         : Quantum co-processors
+         : AI-driven scheduling
+    2030+ : Zettascale Target
+          : 1000x exascale
+          : Neuromorphic + quantum + photonic
+          : Novel semiconductor materials
+```
 
 The key insight is that this isn't about building bigger machines. It's about creating entirely new ways to solve humanity's most complex problems, from climate change to disease research.
 

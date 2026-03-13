@@ -29,6 +29,29 @@ Traditional machine learning requires aggregating all training data in one place
 
 This approach breaks privacy in obvious ways. If I'm training a medical diagnosis model, I need patient data from multiple hospitals. But centralizing that data means hospitals lose control, increase their breach surface, and violate privacy regulations.
 
+```mermaid
+graph LR
+    subgraph Centralized Training
+        A[Hospital A Data] -->|Upload| D[(Central Dataset)]
+        B[Hospital B Data] -->|Upload| D
+        C[Hospital C Data] -->|Upload| D
+        D --> M[Train Model]
+    end
+    subgraph Federated Training
+        A2[Hospital A Data] --> M2A[Local Model A]
+        B2[Hospital B Data] --> M2B[Local Model B]
+        C2[Hospital C Data] --> M2C[Local Model C]
+        M2A -->|Gradients only| AGG[Aggregator]
+        M2B -->|Gradients only| AGG
+        M2C -->|Gradients only| AGG
+        AGG -->|Updated weights| M2A
+        AGG -->|Updated weights| M2B
+        AGG -->|Updated weights| M2C
+    end
+    style D fill:#f96,stroke:#333
+    style AGG fill:#6b6,stroke:#333
+```
+
 **The dilemma:** How do you train accurate models without seeing the raw data?
 
 Federated learning offers one solution. Instead of moving data to the model, move the model to the data. Each participant trains locally on their own data, then shares only model updates (gradients) back to a central aggregator.
@@ -62,6 +85,38 @@ The Dell R940 aggregator then:
 2. **Merges overlapping clusters** based on distance metrics
 3. **Trains a global model** using the aggregated coarse representations
 4. **Distributes updated model weights** back to participants
+
+```mermaid
+sequenceDiagram
+    participant Pi1 as Raspberry Pi 1
+    participant Pi2 as Raspberry Pi 2
+    participant Pi3 as Raspberry Pi 3
+    participant R940 as Dell R940 Aggregator
+
+    Note over Pi1,Pi3: Round N begins
+    par Local Training
+        Pi1->>Pi1: Train on local data (14 min)
+        Pi2->>Pi2: Train on local data (14 min)
+        Pi3->>Pi3: Train on local data (14 min)
+    end
+    par Granular-Ball Computation
+        Pi1->>Pi1: K-means clustering (9 min)
+        Pi2->>Pi2: K-means clustering (9 min)
+        Pi3->>Pi3: K-means clustering (9 min)
+    end
+    Pi1->>Pi1: Filter clusters (variance > 0.03)
+    Pi2->>Pi2: Filter clusters (variance > 0.03)
+    Pi3->>Pi3: Filter clusters (variance > 0.03)
+    Pi1->>R940: Cluster stats (center, variance, radius)
+    Pi2->>R940: Cluster stats (center, variance, radius)
+    Pi3->>R940: Cluster stats (center, variance, radius)
+    R940->>R940: Merge overlapping clusters (21 min)
+    R940->>R940: Train global model
+    R940->>Pi1: Updated model weights
+    R940->>Pi2: Updated model weights
+    R940->>Pi3: Updated model weights
+    Note over Pi1,Pi3: Round N+1 begins
+```
 
 **Key insight:** The variance threshold controls the privacy-accuracy trade-off. Lower thresholds preserve more information (better accuracy, weaker privacy). Higher thresholds increase privacy but lose more signal.
 
@@ -188,9 +243,39 @@ Each training round (1 epoch across 3 Pis) took roughly 47 minutes:
 - **Network transfer:** 3.1 minutes (410 MB cluster stats to server)
 - **Server aggregation:** 21.3 minutes (merging clusters, updating global model)
 
+```mermaid
+pie title Training Round Time Breakdown (47 min total)
+    "Local Training" : 14.2
+    "Clustering (k-means)" : 8.7
+    "Network Transfer" : 3.1
+    "Server Aggregation" : 21.3
+```
+
 **Bottleneck:** Server aggregation was surprisingly slow. The Dell R940 spent most of its time merging overlapping clusters from 3 Pis. Probably a CPU-bound operation that doesn't parallelize well. I didn't optimize this part, so there's likely room for improvement.
 
 ### Privacy Guarantees
+
+```mermaid
+flowchart TD
+    RAW[Raw Training Data<br/>Individual examples] --> GB[Granular-Ball Segmentation]
+    GB --> C1[Cluster 1<br/>center, variance, radius]
+    GB --> C2[Cluster 2<br/>center, variance, radius]
+    GB --> C3[Cluster N<br/>center, variance, radius]
+    C1 --> VT{Variance > threshold?}
+    C2 --> VT
+    C3 --> VT
+    VT -->|Yes| SEND[Shared with aggregator]
+    VT -->|No| DROP[Dropped — never leaves device]
+    SEND --> AGG[Aggregation Server]
+
+    ATK[Reconstruction Attack] -.->|Fails| SEND
+    ATK2[Gradient Inversion] -.->|Not applicable| SEND
+
+    style DROP fill:#f66,stroke:#333,color:#fff
+    style SEND fill:#6b6,stroke:#333,color:#fff
+    style ATK stroke-dasharray: 5 5,fill:#fee
+    style ATK2 stroke-dasharray: 5 5,fill:#fee
+```
 
 The GrBFL paper proves that reconstructing individual training examples from granular-ball statistics is computationally infeasible under certain assumptions. Specifically:
 

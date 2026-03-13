@@ -53,6 +53,42 @@ LLM Stack:
 
 I ran each test for at least 30 minutes to capture steady-state behavior. Repeated critical measurements three times for variability. The methodology isn't publication-worthy, but rigorous enough for decision-making.
 
+```mermaid
+graph TD
+    subgraph Hardware Monitoring
+        KAW[Kill-A-Watt P4400<br/>Wall outlet]
+        UPS[APC Back-UPS Pro 1500VA<br/>Inline monitoring]
+    end
+
+    subgraph GPU Rig
+        GPU[RTX 3090 24GB]
+        CPU[i9-9900K]
+        PSU[EVGA 850W 80+ Gold]
+    end
+
+    subgraph Software Stack
+        SMI[nvidia-smi<br/>2s polling]
+        DCGM[DCGM Exporter]
+        PY[Custom Python<br/>logging scripts]
+    end
+
+    subgraph Observability
+        PROM[Prometheus]
+        GRAF[Grafana Dashboards]
+        TEL[Telegram Alerts]
+    end
+
+    KAW -->|total system watts| PY
+    UPS -->|UPS metrics| PROM
+    GPU --> SMI
+    GPU --> DCGM
+    SMI -->|GPU power, temp, clock| PY
+    DCGM -->|GPU telemetry| PROM
+    PY -->|timestamped CSV| PROM
+    PROM --> GRAF
+    GRAF -->|threshold breach| TEL
+```
+
 ## What I Learned: Five Surprising Findings
 
 ### 1. Idle Power Is Your Silent Wallet Drainer
@@ -121,6 +157,26 @@ Continuous generation:
 
 Batching queries more than doubled efficiency. The reason seems to be reduced overhead: interactive mode involved constant model state changes, while batch processing kept the GPU consistently loaded. This discovery changed how I structure my workflows. I now accumulate questions and process them together rather than one-by-one.
 
+```mermaid
+graph LR
+    subgraph Interactive Mode
+        Q1[Query 1] --> GPU1[GPU Ramp Up<br/>298W]
+        GPU1 --> R1[Response]
+        R1 --> IDLE1[Idle Gap<br/>87W]
+        IDLE1 --> Q2[Query 2]
+        Q2 --> GPU2[GPU Ramp Up<br/>298W]
+        GPU2 --> R2[Response]
+    end
+
+    subgraph Batch Mode
+        QB[50 Queries<br/>Queued] --> GPUB[GPU Sustained<br/>315W]
+        GPUB --> RB[All 50<br/>Responses]
+    end
+
+    style IDLE1 fill:#f96,stroke:#333
+    style GPUB fill:#6b6,stroke:#333
+```
+
 For instance, when writing blog posts, I used to ask the LLM to review each paragraph individually as I wrote it. Now I write the entire draft, then submit all paragraphs in a single batch request. This reduced my average "blog editing" power consumption from 42Wh per post to 18Wh, a 57% improvement.
 
 ### 4. Temperature Throttling Destroyed My Benchmark Results
@@ -145,6 +201,27 @@ This failure taught me to add:
 - Better job state checkpointing
 
 These safeguards probably seem obvious to DevOps professionals, but they weren't part of my homelab muscle memory until this expensive lesson.
+
+```mermaid
+flowchart TD
+    GPU[GPU Running<br/>Batch Job] -->|2s polling| PROM[Prometheus<br/>Scrapes nvidia-smi]
+    PROM --> ALERT{Grafana Alert Rule<br/>Power > 300W<br/>for > 2 hours?}
+    ALERT -->|No| PROM
+    ALERT -->|Yes| NOTIFY[Telegram<br/>Notification]
+    NOTIFY --> ME[Owner Checks]
+    ME --> DECIDE{Legitimate<br/>workload?}
+    DECIDE -->|Yes| SNOOZE[Snooze Alert]
+    DECIDE -->|No| KILL[Kill Runaway Job]
+    KILL --> LOG[Log Incident<br/>+ Update Timeout]
+
+    GPU -->|also checked| TIMEOUT{Job Timeout<br/>Exceeded?}
+    TIMEOUT -->|Yes| ABORT[Auto-Abort Job<br/>+ Checkpoint State]
+    TIMEOUT -->|No| GPU
+
+    style ALERT fill:#ff9,stroke:#333
+    style KILL fill:#f66,stroke:#333
+    style ABORT fill:#f96,stroke:#333
+```
 
 ## Optimization Strategies That Actually Worked
 
@@ -175,6 +252,32 @@ The trade-off: CPU inference is slower (2.3 tokens/second vs 18.7), but for tiny
 - GPU: 100 tokens at 18.7 tok/s = 5.3 seconds, 4.59Wh energy
 
 For these micro-tasks, CPU is 4x more energy-efficient despite being slower. I'm not sure this would scale to longer queries, but for quick lookups, it's a clear win.
+
+```mermaid
+flowchart TD
+    REQ[Incoming Query] --> SIZE{Token estimate?}
+
+    SIZE -->|< 100 tokens| CPU[Route to CPU<br/>llama.cpp on i9-9900K<br/>95W / 2.3 tok/s]
+    SIZE -->|100+ tokens| COMPLEXITY{Task complexity?}
+
+    COMPLEXITY -->|Simple<br/>summarization, Q&A| PHI[Phi-3 Mini 3.8B<br/>276W avg]
+    COMPLEXITY -->|General<br/>chat, writing| LLAMA8[Llama 3.1 8B<br/>312W avg]
+    COMPLEXITY -->|Complex<br/>code gen, analysis| LLAMA70[Llama 3.1 70B Q4<br/>347W avg]
+
+    CPU --> DONE[Return Response]
+    PHI --> DONE
+    LLAMA8 --> DONE
+    LLAMA70 --> DONE
+
+    DONE --> IDLE{Idle > 15 min?}
+    IDLE -->|Yes| UNLOAD[Unload Model<br/>Drop to 52W baseline]
+    IDLE -->|No| WAIT[Keep Model Loaded<br/>87W standby]
+
+    style CPU fill:#6b6,stroke:#333
+    style PHI fill:#8b8,stroke:#333
+    style LLAMA8 fill:#cc8,stroke:#333
+    style LLAMA70 fill:#f96,stroke:#333
+```
 
 ## Cost-Benefit Analysis
 
