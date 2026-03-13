@@ -11,7 +11,7 @@ tags:
 ---
 Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
-Deploying our first customer-facing LLM in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, fundamentally changed how I think about AI development and deployment.
+Deploying a customer-facing LLM for the first time in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, fundamentally changed how I think about AI development and deployment.
 
 ## How It Works
 
@@ -54,7 +54,7 @@ My awakening to AI bias came during testing of a resume screening tool in August
 
 Watching an AI system perpetuate and amplify human prejudices was sobering. It wasn't a bug, it was a feature the model had learned from biased training data.
 
-**Gender Bias Everywhere:** Our content generation system would suggest "nurse" when prompted with "she" and "doctor" when prompted with "he." These subtle associations, drawn from millions of text examples, reinforced harmful stereotypes. [Research shows AI resume screening tools prefer male-associated names 52% of the time versus female-associated names only 11% of the time](https://www.washington.edu/news/2024/10/31/ai-bias-resume-screening-race-gender/) (Wilson & Caliskan, 2024).
+**Gender Bias Everywhere:** Content generation systems commonly suggest "nurse" when prompted with "she" and "doctor" when prompted with "he." These subtle associations, drawn from millions of text examples, reinforced harmful stereotypes. [Research shows AI resume screening tools prefer male-associated names 52% of the time versus female-associated names only 11% of the time](https://www.washington.edu/news/2024/10/31/ai-bias-resume-screening-race-gender/) (Wilson & Caliskan, 2024).
 
 **Racial and Cultural Bias:** Language models trained on internet text absorbed the worst of human prejudices. [Studies found that AI hiring tools preferred white-associated names 85% of the time versus Black-associated names only 9% of the time](https://arxiv.org/html/2405.19699v3) (Tambe et al., 2024). Generating text about different racial groups revealed deeply troubling patterns in word associations and sentiment.
 
@@ -64,11 +64,11 @@ The realization that AI systems could systematically discriminate while appearin
 
 ## The Misinformation Factory: When AI Lies Convincingly
 
-LLMs' ability to generate convincing but false information became apparent during our first fact-checking experiment in November 2022. Asked about a historical event, our GPT-3.5-based model confidently provided detailed information that sounded authoritative but was completely fabricated. In one test batch of 100 historical queries, I found that 34% contained at least one fabricated detail presented as fact.
+LLMs' ability to generate convincing but false information became apparent during early fact-checking experiments in November 2022. Asked about a historical event, a GPT-3.5-based model I was testing confidently provided detailed information that sounded authoritative but was completely fabricated. In one test batch of 100 historical queries, I found that 34% contained at least one fabricated detail presented as fact.
 
 The danger wasn't just incorrect facts, it was the confidence and coherence with which false information was presented. Users couldn't distinguish between genuine knowledge and sophisticated guesswork.
 
-**Hallucination at Scale:** I watched our model create entire bibliographies of non-existent research papers, complete with realistic titles, authors, and publication details. During one 2023 internal audit, I verified 50 citations the model generated, and 18 of them (36%) pointed to papers that never existed. The implications for academic research and journalism are significant.
+**Hallucination at Scale:** I watched the model create entire bibliographies of non-existent research papers, complete with realistic titles, authors, and publication details. During one 2023 internal audit, I verified 50 citations the model generated, and 18 of them (36%) pointed to papers that never existed. The implications for academic research and journalism are significant.
 
 **Authoritative Falsehoods:** The model's ability to adopt an expert tone while providing incorrect information could mislead users who lacked domain expertise to evaluate the claims. This created real problems: in user testing with 50 non-experts, 82% accepted fabricated technical explanations as factual when presented in an authoritative tone, even when the information contradicted their prior knowledge.
 
@@ -94,7 +94,7 @@ The ethical challenge isn't just about building better AI, it's about ensuring t
 
 Working with LLMs revealed troubling implications for privacy and data security:
 
-**Training Data Privacy:** Models trained on web scraping might include personal information, private communications, or sensitive documents without consent. During a 2023 privacy audit, I found that our training dataset inadvertently contained 12,000+ email addresses and 3,400+ phone numbers from publicly scraped web pages, requiring us to rebuild the entire training set with better filtering.
+**Training Data Privacy:** Models trained on web scraping might include personal information, private communications, or sensitive documents without consent. During a 2023 privacy audit of a training dataset I was working with, I found it inadvertently contained 12,000+ email addresses and 3,400+ phone numbers from publicly scraped web pages, requiring a complete rebuild of the training set with better filtering.
 
 **Inference Leakage:** AI systems could potentially be manipulated to reveal information about their training data, including personal details about individuals.
 
@@ -128,9 +128,9 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 **Continuous Monitoring:** In my homelab, I run weekly bias audits on my LLM deployments using automated tests against 50+ demographic categories. This continuous monitoring approach catches issues early and prevents biased outputs from reaching production environments.
 
-**Diverse Teams:** Including people from different backgrounds in development and testing revealed blind spots I wouldn't have noticed. One team member pointed out cultural assumptions in our training data that I had completely missed. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
+**Diverse Teams:** Including people from different backgrounds in development and testing reveals blind spots that are easy to miss. Cultural assumptions in training data are easy to overlook without diverse perspectives scrutinizing the pipeline. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
 
-**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. During our September 2023 red team session, we discovered that specific prompt patterns could trigger biased outputs 40% of the time, leading to immediate mitigation work. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
+**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. Red team exercises have shown that specific prompt patterns can trigger biased outputs at surprisingly high rates, which is why regular adversarial testing matters. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
 
 **Training Data Curation:** Careful attention to data sources and active effort to include diverse perspectives. For more context, see [building a privacy-first ai lab: deploying local llms without sacrificing ethics](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
 
@@ -143,7 +143,7 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 **Source Attribution:** Implementing systems that could trace claims back to source materials.
 
-**Fact-Checking Integration:** Combining AI generation with real-time fact-checking services. When we integrated FactCheck.org APIs in May 2023, false claim detection improved, but response latency increased from 800ms to 2.3 seconds on average.
+**Fact-Checking Integration:** Combining AI generation with real-time fact-checking services. When I integrated FactCheck.org APIs in May 2023, false claim detection improved, but response latency increased from 800ms to 2.3 seconds on average.
 
 **Watermarking Research:** Exploring technical approaches to identify AI-generated content.
 

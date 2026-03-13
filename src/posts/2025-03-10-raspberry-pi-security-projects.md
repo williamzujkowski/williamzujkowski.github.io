@@ -69,7 +69,7 @@ I've found several compelling reasons through my own experiments:
 
 For enterprise-grade DNS security, see my guide on [implementing DNS-over-HTTPS](/posts/2025-07-08-implementing-dns-over-https-home-networks) to encrypt DNS traffic and prevent eavesdropping.
 
-**The Backstory**: Devices on our network were hitting 400+ tracking domains per hour. Per. Hour. That's when I knew we needed a bouncer at the network door.
+**The Backstory**: Devices on my home network were hitting 400+ tracking domains per hour. Per. Hour. That's when I knew I needed a bouncer at the network door.
 
 **Hardware**: Raspberry Pi 4 (2GB), microSD card, Ethernet cable
 
