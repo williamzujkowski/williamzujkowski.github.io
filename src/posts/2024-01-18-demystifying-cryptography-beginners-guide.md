@@ -34,6 +34,26 @@ I used to think of encryption like placing letters in sealed envelopes, but my r
 
 ### Symmetric Encryption: Speed vs. Key Distribution
 
+```mermaid
+flowchart LR
+    subgraph Symmetric["Symmetric Encryption (AES-256)"]
+        direction LR
+        A["🔑 Shared Secret Key"] --- E1["Encrypt"]
+        A --- D1["Decrypt"]
+        P1["Plaintext"] --> E1 --> C1["Ciphertext"] --> D1 --> P2["Plaintext"]
+    end
+
+    subgraph Asymmetric["Asymmetric Encryption (RSA/ECC)"]
+        direction LR
+        PubK["🔓 Public Key"] --- E2["Encrypt"]
+        PrivK["🔐 Private Key"] --- D2["Decrypt"]
+        P3["Plaintext"] --> E2 --> C2["Ciphertext"] --> D2 --> P4["Plaintext"]
+    end
+
+    style Symmetric fill:#e8f5e9,stroke:#2e7d32
+    style Asymmetric fill:#e3f2fd,stroke:#1565c0
+```
+
 **How it works:** Same key locks and unlocks data (like two people sharing a secret handshake)
 
 **Performance characteristics:**
@@ -80,6 +100,34 @@ I used to think of encryption like placing letters in sealed envelopes, but my r
 - The mathematics that seemed abstract suddenly had concrete benefits
 - Users trusted the system because we couldn't read their messages
 
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Server
+    participant Bob
+
+    Note over Alice,Bob: Hybrid Encryption (TLS-style)
+
+    Alice->>Bob: 1. Request Bob's public key
+    Bob-->>Alice: 2. Bob's public key (RSA/ECC)
+
+    rect rgb(232, 245, 233)
+        Note over Alice: 3. Generate random AES-256 session key
+        Alice->>Alice: 4. Encrypt session key with Bob's public key
+        Alice->>Server: 5. Send encrypted session key + AES-encrypted message
+    end
+
+    rect rgb(227, 242, 253)
+        Server->>Bob: 6. Forward (server cannot read contents)
+        Bob->>Bob: 7. Decrypt session key with private key
+        Bob->>Bob: 8. Decrypt message with AES session key
+    end
+
+    Note over Alice,Bob: All subsequent messages use fast AES-256
+    Alice->>Server: AES-encrypted data →
+    Server->>Bob: → AES-encrypted data
+```
+
 ## Hashing: Digital Fingerprints That Never Lie
 
 My introduction to hashing came through password storage, and I made every beginner mistake in the book. Early in my career, I stored MD5 hashes of passwords thinking I was being "security conscious." A senior developer gently explained why that was barely better than plaintext.
@@ -94,6 +142,30 @@ My introduction to hashing came through password storage, and I made every begin
 - **Avalanche effect**: Tiny input change creates a completely different hash
 - **Fixed output size**: SHA-256 always produces 256 bits, regardless of input size
 - **Collision resistance**: Practically impossible to find two inputs with same hash
+
+```mermaid
+flowchart LR
+    subgraph Inputs
+        I1["'Hello World'"]
+        I2["'Hello World!'"]
+        I3["500 MB file"]
+    end
+
+    H["SHA-256<br/>Hash Function"]
+
+    subgraph Outputs["Fixed 256-bit Output"]
+        O1["a591a6d40bf4..."]
+        O2["7f83b1657ff1..."]
+        O3["e3b0c44298fc..."]
+    end
+
+    I1 --> H --> O1
+    I2 --> H --> O2
+    I3 --> H --> O3
+
+    style H fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Outputs fill:#f3e5f5,stroke:#6a1b9a
+```
 
 ### The Database Corruption Detective Story
 
@@ -166,6 +238,38 @@ My introduction to hashing came through password storage, and I made every begin
 If hashing creates fingerprints, digital signatures are like notarizing those fingerprints as authentically yours. I first encountered this concept in 2018 during a contract dispute. We needed to prove that a specific document hadn't been altered after signing.
 
 ### How Digital Signatures Work
+
+```mermaid
+flowchart TB
+    subgraph Signing["Sender: Sign Document"]
+        direction TB
+        DOC1["📄 Original Document"] --> HASH1["SHA-256 Hash"]
+        HASH1 --> DIGEST1["Hash Digest<br/>a591a6d4..."]
+        DIGEST1 --> ENCRYPT["Encrypt with<br/>🔐 Private Key"]
+        ENCRYPT --> SIG["✍️ Digital Signature"]
+        DOC1 --> BUNDLE["📦 Document + Signature"]
+        SIG --> BUNDLE
+    end
+
+    BUNDLE -->|"Send"| VERIFY
+
+    subgraph VERIFY["Receiver: Verify Signature"]
+        direction TB
+        RECV["📦 Document + Signature"] --> SPLIT1["📄 Document"]
+        RECV --> SPLIT2["✍️ Signature"]
+        SPLIT1 --> HASH2["SHA-256 Hash"]
+        HASH2 --> DIGEST2["Hash Digest"]
+        SPLIT2 --> DECRYPT["Decrypt with<br/>🔓 Public Key"]
+        DECRYPT --> DIGEST3["Hash Digest"]
+        DIGEST2 --> COMPARE{"Match?"}
+        DIGEST3 --> COMPARE
+        COMPARE -->|"Yes"| VALID["✅ Authentic & Unaltered"]
+        COMPARE -->|"No"| INVALID["❌ Tampered or Forged"]
+    end
+
+    style Signing fill:#e8f5e9,stroke:#2e7d32
+    style VERIFY fill:#e3f2fd,stroke:#1565c0
+```
 
 **The process is elegant in its simplicity:**
 - Hash the message first (creates fixed-size fingerprint)
@@ -276,6 +380,20 @@ Implementing cryptography in real systems taught me lessons no textbook could:
 ### Standards Evolve: Algorithms Age Poorly
 
 **My personal algorithm deprecation timeline:**
+
+```mermaid
+timeline
+    title Algorithm Deprecation Timeline
+    2010 : MD5 "mostly harmless" for checksums
+    2012 : SHA-1 still acceptable for Git
+    2015 : TLS 1.0 required for legacy browsers
+    2017 : MD5 banned — collision attacks practical
+    2019 : SHA-1 removed from Git (Google collision demo)
+    2020 : TLS 1.0/1.1 deprecated by browsers
+    2023 : RSA-1024 keys rejected by most CAs
+    Future : Post-quantum migration begins
+```
+
 - **2010**: MD5 considered "mostly harmless" for checksums
 - **2012**: SHA-1 still acceptable for Git commits
 - **2015**: TLS 1.0 required for legacy browser support

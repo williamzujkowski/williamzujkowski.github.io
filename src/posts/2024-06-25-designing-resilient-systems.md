@@ -34,6 +34,26 @@ Yet a single database timeout created a perfect storm:
 5. Circuit breakers opened, but fallback services were also overwhelmed
 6. The entire platform became unavailable
 
+```mermaid
+flowchart TD
+    A["DB Timeout"] --> B["Connection Pools Fill Up"]
+    B --> C["Health Checks Fail"]
+    C --> D["Auto-Scaling Triggers"]
+    D --> E["New Instances Overwhelm DB"]
+    E --> F["Circuit Breakers Open"]
+    F --> G["Fallback Services Overwhelmed"]
+    G --> H["Total Platform Outage"]
+
+    style A fill:#e74c3c,color:#fff
+    style H fill:#c0392b,color:#fff
+    style B fill:#e67e22,color:#fff
+    style C fill:#e67e22,color:#fff
+    style D fill:#f39c12,color:#fff
+    style E fill:#e67e22,color:#fff
+    style F fill:#e74c3c,color:#fff
+    style G fill:#c0392b,color:#fff
+```
+
 Postmortem analysis revealed that our "resilient" architecture had created a fragile, tightly-coupled system where each safety mechanism amplified the original failure.
 
 ## Rethinking Resilience: From Prevention to Adaptation
@@ -71,6 +91,45 @@ We redesigned our platform with multiple service levels:
   - Analytics dashboards
   - Recommendation engines
   - Social features
+
+```mermaid
+graph TB
+    subgraph Normal["Normal Operation (100%)"]
+        direction TB
+        E1["Essential Services"]
+        I1["Important Services"]
+        O1["Optional Services"]
+    end
+
+    subgraph Degraded["Under Stress (~60%)"]
+        direction TB
+        E2["Essential Services ✓"]
+        I2["Important Services ⚠ Reduced"]
+        O2["Optional Services ✗ Disabled"]
+    end
+
+    subgraph Critical["Critical Load (~30%)"]
+        direction TB
+        E3["Essential Services ✓"]
+        I3["Important Services ✗ Disabled"]
+        O3["Optional Services ✗ Disabled"]
+    end
+
+    Normal -->|"Load increases"| Degraded
+    Degraded -->|"Load critical"| Critical
+    Critical -->|"Recovery"| Degraded
+    Degraded -->|"Recovery"| Normal
+
+    style E1 fill:#27ae60,color:#fff
+    style I1 fill:#2980b9,color:#fff
+    style O1 fill:#8e44ad,color:#fff
+    style E2 fill:#27ae60,color:#fff
+    style I2 fill:#f39c12,color:#fff
+    style O2 fill:#e74c3c,color:#fff
+    style E3 fill:#27ae60,color:#fff
+    style I3 fill:#e74c3c,color:#fff
+    style O3 fill:#e74c3c,color:#fff
+```
 
 During the next major incident in September 2019, users experienced response times around 800ms (up from our normal 200ms) and reduced features, but the platform remained operational. This was a huge improvement over the total outage we'd faced before.
 
@@ -115,6 +174,30 @@ The cascade failure revealed how tightly coupled our supposedly independent serv
 ### Circuit Breakers That Actually Work
 
 Our original circuit breakers were too simplistic, they either allowed all traffic or blocked all traffic. Martin Fowler's circuit breaker pattern[5] defines three states that enable more sophisticated failure handling.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Closed
+    Closed --> Open : Failure threshold exceeded
+    Open --> HalfOpen : Timeout expires
+    HalfOpen --> Closed : Probe requests succeed
+    HalfOpen --> Open : Probe requests fail
+
+    state Closed {
+        [*] --> Monitoring
+        Monitoring --> Monitoring : Success / reset counter
+        Monitoring --> CountingFailures : Failure detected
+        CountingFailures --> Monitoring : Below threshold
+    }
+
+    state HalfOpen {
+        [*] --> Probing
+        Probing --> Probing : Allow limited traffic
+    }
+
+    note right of Open : All requests rejected\nReturn cached/fallback response
+    note right of HalfOpen : Allow sample requests\nMonitor error rates
+```
 
 In my experience, real resilience required more nuanced approaches:
 
@@ -235,6 +318,34 @@ This approach probably seems counterintuitive at first, but it works:
 - Test runbook accuracy and completeness
 - Validate escalation procedures
 - Rotate incident commanders
+
+```mermaid
+flowchart LR
+    subgraph Chaos["Chaos Engineering Cycle"]
+        direction TB
+        H["Form Hypothesis"] --> E["Design Experiment"]
+        E --> R["Run in Production"]
+        R --> O["Observe Behavior"]
+        O --> L["Learn & Improve"]
+        L --> H
+    end
+
+    subgraph Types["Experiment Types"]
+        direction TB
+        T1["Infrastructure\nKill servers, degrade network"]
+        T2["Application\nInject errors, add latency"]
+        T3["Data\nCorrupt data, simulate failover"]
+        T4["Human\nGame days, runbook drills"]
+    end
+
+    Types --> Chaos
+
+    style H fill:#3498db,color:#fff
+    style E fill:#2980b9,color:#fff
+    style R fill:#e74c3c,color:#fff
+    style O fill:#f39c12,color:#fff
+    style L fill:#27ae60,color:#fff
+```
 
 Each chaos experiment revealed assumptions about system behavior that proved incorrect under stress. For example, when I injected a 2-second delay into our payment service, our "independent" notification service started timing out because it had a hidden synchronous call we'd forgotten about.
 
@@ -495,6 +606,38 @@ We verified every request regardless of source location, enforced least privileg
 ## Resilience at Scale
 
 ### Microservices Architecture Done Right
+
+```mermaid
+graph TB
+    subgraph Before["Before: Tightly Coupled"]
+        direction TB
+        S1A["Service A"] --> DB1["Shared DB"]
+        S2A["Service B"] --> DB1
+        S3A["Service C"] --> DB1
+        S1A <-->|"sync API"| S2A
+        S2A <-->|"sync API"| S3A
+        S1A <-->|"sync API"| S3A
+    end
+
+    subgraph After["After: Loosely Coupled with Bulkheads"]
+        direction TB
+        S1B["Service A"] --> DB_A["DB A"]
+        S2B["Service B"] --> DB_B["DB B"]
+        S3B["Service C"] --> DB_C["DB C"]
+        S1B -->|"event"| MQ["Message Queue"]
+        S2B -->|"event"| MQ
+        S3B -->|"event"| MQ
+        MQ -->|"event"| S1B
+        MQ -->|"event"| S2B
+        MQ -->|"event"| S3B
+    end
+
+    style DB1 fill:#e74c3c,color:#fff
+    style DB_A fill:#27ae60,color:#fff
+    style DB_B fill:#27ae60,color:#fff
+    style DB_C fill:#27ae60,color:#fff
+    style MQ fill:#3498db,color:#fff
+```
 
 **Service Boundaries:**
 - Design services around business capabilities, not technical conveniences

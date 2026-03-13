@@ -44,6 +44,32 @@ Containers share the host kernel. One bad syscall can break containment. This is
 
 **But:** All these run in the kernel. Kernel bugs bypass them.
 
+```mermaid
+graph TB
+    subgraph "Traditional Container Isolation"
+        C1[Container Process] --> NS[Namespaces]
+        C1 --> CG[Cgroups]
+        C1 --> SC[Seccomp-BPF]
+        C1 --> MAC[AppArmor / SELinux]
+        NS --> K[Host Kernel]
+        CG --> K
+        SC --> K
+        MAC --> K
+        K --> HW[Hardware]
+    end
+
+    style K fill:#f66,stroke:#333,color:#fff
+    style HW fill:#999,stroke:#333,color:#fff
+    style C1 fill:#6af,stroke:#333,color:#fff
+
+    classDef danger fill:#f66,stroke:#333,color:#fff
+    K:::danger
+
+    linkStyle 4,5,6,7 stroke:#f66,stroke-width:2px
+```
+
+> All isolation mechanisms run inside the kernel. A single kernel vulnerability bypasses every layer.
+
 **Why it matters:** You can harden seccomp profiles for weeks. One kernel 0-day undoes it all.
 
 ## What gVisor Actually Does
@@ -69,9 +95,60 @@ Container → gVisor Sentry (userspace) → Host Kernel
 - Runs with minimal privileges
 - Cannot access host filesystem directly
 
+```mermaid
+graph LR
+    subgraph "Container Sandbox"
+        APP[Container App]
+    end
+
+    subgraph "gVisor Userspace Kernel"
+        SENTRY[Sentry<br/>Go userspace kernel<br/>200+ syscalls reimplemented]
+        GOFER[Gofer<br/>9P filesystem proxy<br/>minimal privileges]
+    end
+
+    subgraph "Host"
+        HK[Host Kernel<br/>limited syscall surface]
+        FS[Host Filesystem]
+    end
+
+    APP -- "All syscalls" --> SENTRY
+    SENTRY -- "Safe syscalls only" --> HK
+    SENTRY -- "File I/O requests" --> GOFER
+    GOFER -- "Scoped file access" --> FS
+
+    style APP fill:#6af,stroke:#333,color:#fff
+    style SENTRY fill:#6c6,stroke:#333,color:#fff
+    style GOFER fill:#6c6,stroke:#333,color:#fff
+    style HK fill:#fc6,stroke:#333
+    style FS fill:#fc6,stroke:#333
+```
+
 **Key insight:** Even if a container exploits a syscall bug, it's exploiting Go code in userspace, not the kernel. No privilege escalation to host.
 
 **Trade-off:** Performance. Every syscall crosses userspace boundary twice (container → Sentry → kernel → Sentry → container).
+
+```mermaid
+sequenceDiagram
+    participant App as Container App
+    participant S as Sentry (userspace)
+    participant G as Gofer (userspace)
+    participant K as Host Kernel
+
+    App->>S: syscall (e.g., open())
+    Note over S: Intercept & validate
+    alt File operation
+        S->>G: 9P file request
+        G->>K: Scoped host syscall
+        K-->>G: File data
+        G-->>S: 9P response
+    else Non-file operation
+        S->>K: Filtered host syscall
+        K-->>S: Result
+    end
+    S-->>App: Syscall result
+
+    Note over App,K: Dangerous syscalls never reach the host kernel
+```
 
 ## G-Fuzz: Finding Bugs in the Sandbox
 
@@ -301,11 +378,23 @@ docker run --rm --runtime=runsc alpine sh -c "echo 'exploit' | tee /proc/self/me
 
 **My decision tree:**
 
-1. Is this untrusted? → gVisor
-2. Is this internet-facing? → gVisor
-3. Does it need native performance? → runc
-4. Is it syscall-heavy? → runc
-5. Default: runc (principle of least surprise)
+```mermaid
+flowchart TD
+    START([New Workload]) --> Q1{Untrusted image?}
+    Q1 -- Yes --> GVISOR[Use gVisor]
+    Q1 -- No --> Q2{Internet-facing?}
+    Q2 -- Yes --> GVISOR
+    Q2 -- No --> Q3{Needs native<br/>performance?}
+    Q3 -- Yes --> RUNC[Use runc]
+    Q3 -- No --> Q4{Syscall-heavy?}
+    Q4 -- Yes --> RUNC
+    Q4 -- No --> RUNC2[Use runc<br/>principle of least surprise]
+
+    style GVISOR fill:#6c6,stroke:#333,color:#fff
+    style RUNC fill:#fc6,stroke:#333
+    style RUNC2 fill:#fc6,stroke:#333
+    style START fill:#6af,stroke:#333,color:#fff
+```
 
 **Trade-off:** Security vs performance. I choose security for attack surfaces, performance for internal services.
 
@@ -375,6 +464,32 @@ G-Fuzz demonstrates that even secure-by-design systems need adversarial testing.
 - [Falco](https://falco.org/) for runtime detection
 - [Open Policy Agent](https://www.openpolicyagent.org/) for admission control
 - [Tetragon](https://github.com/cilium/tetragon) for eBPF observability
+
+```mermaid
+graph TB
+    subgraph "Defense in Depth Stack"
+        direction TB
+        L1[Admission Control<br/>OPA / Kyverno]
+        L2[Runtime Sandbox<br/>gVisor Sentry + Gofer]
+        L3[Runtime Detection<br/>Falco / Tetragon]
+        L4[Network Policy<br/>Cilium / Calico]
+        L5[Vulnerability Scanning<br/>Grype / Trivy]
+    end
+
+    L1 --> L2 --> L3 --> L4 --> L5
+
+    ATK([Attacker]) -.->|blocked| L1
+    ATK -.->|blocked| L2
+    ATK -.->|detected| L3
+    ATK -.->|contained| L4
+
+    style L1 fill:#69c,stroke:#333,color:#fff
+    style L2 fill:#6c6,stroke:#333,color:#fff
+    style L3 fill:#c96,stroke:#333,color:#fff
+    style L4 fill:#c6c,stroke:#333,color:#fff
+    style L5 fill:#cc6,stroke:#333
+    style ATK fill:#f66,stroke:#333,color:#fff
+```
 
 **No silver bullet.** Security is understanding your threat model and layering controls.
 

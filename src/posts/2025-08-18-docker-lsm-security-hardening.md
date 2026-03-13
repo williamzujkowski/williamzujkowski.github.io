@@ -34,6 +34,33 @@ FS privilege escalation
 
 **What I needed:** Defense-in-depth without K8s. Standalone Docker hardening using Linux Security Modules (LSM), seccomp, capabilities, and filesystem restrictions.
 
+```mermaid
+graph LR
+    subgraph Container["Docker Container (User Space)"]
+        App[Application Process]
+    end
+
+    App -->|"syscall (e.g., open, mount, ptrace)"| Kernel
+
+    subgraph Kernel["Linux Kernel"]
+        SC[Syscall Entry] --> LSM{LSM Hooks}
+        LSM -->|Denied| BLOCK["EACCES / EPERM\n(Operation Blocked)"]
+        LSM -->|Allowed| SECCOMP{Seccomp BPF}
+        SECCOMP -->|Denied| BLOCK
+        SECCOMP -->|Allowed| CAPS{Capability Check}
+        CAPS -->|Denied| BLOCK
+        CAPS -->|Allowed| EXEC[Execute Syscall]
+    end
+
+    style BLOCK fill:#e74c3c,color:#fff
+    style EXEC fill:#2ecc71,color:#fff
+    style LSM fill:#f39c12,color:#fff
+    style SECCOMP fill:#f39c12,color:#fff
+    style CAPS fill:#f39c12,color:#fff
+```
+
+Each syscall from a container passes through multiple security checkpoints in the kernel before execution. An attacker must bypass all layers to succeed.
+
 ## Linux Security Modules: AppArmor vs SELinux
 
 LSMs enforce Mandatory Access Control (MAC). Unlike Discretionary Access Control (file permissions), MAC policies can't be bypassed by root user.
@@ -63,6 +90,32 @@ LSMs enforce Mandatory Access Control (MAC). Unlike Discretionary Access Control
 | Default Docker support | Yes (docker-default profile) | Yes (docker-selinux policy) |
 
 **My choice:** AppArmor for Ubuntu homelab. SELinux superior for production RHEL environments. Both provide strong container isolation.
+
+```mermaid
+graph TB
+    subgraph AppArmor["AppArmor (Path-Based)"]
+        direction TB
+        AA_Proc[Process: nginx] -->|"access /etc/nginx/conf.d"| AA_Policy{"Policy Check:\nPath in allow list?"}
+        AA_Policy -->|"/etc/nginx/** r ✓"| AA_Allow[ALLOW]
+        AA_Policy -->|"/root/.ssh/** ✗"| AA_Deny[DENY]
+    end
+
+    subgraph SELinux["SELinux (Label-Based)"]
+        direction TB
+        SE_Proc["Process: nginx\n(context: container_t)"] -->|"access config file"| SE_Policy{"Policy Check:\nLabel transition allowed?"}
+        SE_Policy -->|"container_t → httpd_config_t ✓"| SE_Allow[ALLOW]
+        SE_Policy -->|"container_t → shadow_t ✗"| SE_Deny[DENY]
+    end
+
+    style AA_Allow fill:#2ecc71,color:#fff
+    style AA_Deny fill:#e74c3c,color:#fff
+    style SE_Allow fill:#2ecc71,color:#fff
+    style SE_Deny fill:#e74c3c,color:#fff
+    style AA_Policy fill:#3498db,color:#fff
+    style SE_Policy fill:#9b59b6,color:#fff
+```
+
+AppArmor resolves access by matching file paths against a profile. SELinux resolves access by checking label transitions between the process security context and the target object label.
 
 ## Architecture: Layered Docker Security
 
@@ -257,6 +310,28 @@ docker exec nginx reboot
 
 **Seccomp profile library:** https://gist.github.com/williamzujkowski/0ce385a16936a49a09f5e34ec382ef6f
 
+```mermaid
+flowchart LR
+    subgraph Blocklist["Default: Blocklist Approach"]
+        direction TB
+        B_All["All ~330 syscalls\n(ALLOW by default)"] --> B_Filter["Block ~60 known\ndangerous syscalls"]
+        B_Filter --> B_Result["~270 syscalls\nstill permitted"]
+    end
+
+    subgraph Allowlist["Custom: Allowlist Approach"]
+        direction TB
+        A_All["All ~330 syscalls\n(DENY by default)"] --> A_Filter["Allow only ~45\nrequired syscalls"]
+        A_Filter --> A_Result["~285 syscalls\nblocked"]
+    end
+
+    style B_Result fill:#e67e22,color:#fff
+    style A_Result fill:#2ecc71,color:#fff
+    style B_All fill:#e74c3c,color:#fff
+    style A_All fill:#27ae60,color:#fff
+```
+
+The allowlist approach is fundamentally more secure: unknown or newly added syscalls are blocked by default, while the blocklist approach must be updated whenever new dangerous syscalls are identified.
+
 ## Capability Dropping: Removing Dangerous Privileges
 
 Linux capabilities split root privileges into discrete units. Docker grants 14 capabilities by default. Most containers need 2-3.
@@ -393,6 +468,44 @@ I ran 6 months of simulated attacks against hardened vs unhardened containers. H
 - **Hardened Docker:** 0/11 attacks succeeded (0% compromise rate, 100% blocked)
 
 **Time to detection:** Hardened containers generated AppArmor/seccomp violation logs instantly. Unhardened containers showed no anomalies until full compromise.
+
+```mermaid
+sequenceDiagram
+    participant A as Attacker (RCE)
+    participant C as Container
+    participant AA as AppArmor
+    participant SC as Seccomp
+    participant CP as Capabilities
+    participant NS as User Namespace
+    participant FS as Read-Only FS
+    participant H as Host
+
+    A->>C: Command injection achieved
+    A->>C: cat /etc/shadow
+    C->>AA: open("/etc/shadow", O_RDONLY)
+    AA-->>C: DENIED (deny /etc/shadow r)
+    Note over AA: Logged to audit.log
+
+    A->>C: mount -t tmpfs tmpfs /mnt
+    C->>AA: mount() syscall
+    AA->>SC: Passed AppArmor
+    SC-->>C: DENIED (mount not in allowlist)
+    Note over SC: Logged to audit.log
+
+    A->>C: Load kernel module
+    C->>AA: init_module() syscall
+    AA->>SC: Passed AppArmor
+    SC->>CP: Passed Seccomp
+    CP-->>C: DENIED (CAP_SYS_MODULE dropped)
+
+    A->>C: Write backdoor to /usr/bin
+    C->>FS: open("/usr/bin/backdoor", O_WRONLY)
+    FS-->>C: EROFS (Read-only filesystem)
+
+    Note over A,H: All escape attempts blocked.<br/>Host never reached.
+```
+
+Each attack is stopped at a different layer, demonstrating why defense-in-depth is essential: no single mechanism covers all vectors.
 
 ## Performance Impact: Overhead Analysis
 
