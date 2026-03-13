@@ -88,7 +88,7 @@ interface CliAdapter {
 
 Every model interaction flows through this interface. The adapter handles serialization, token counting, error recovery, and timeout management. When a new model comes out, I write one adapter file. Everything else stays untouched.
 
-The `ResilientAdapter` wrapper adds circuit breaker patterns. If a model fails three times in a row, the system stops trying it for a cooldown period and routes to alternatives. I learned this the hard way when an API outage cascaded through the whole system at 2am. That was a rough debugging session.
+The `ResilientAdapter` wrapper adds circuit breaker patterns. If a model fails three times in a row, the system stops trying it for a cooldown period and routes to alternatives. I learned this the hard way when an API outage cascaded through the whole system. That debugging session led directly to the circuit breaker implementation.
 
 ### Five-Stage Model Selection
 

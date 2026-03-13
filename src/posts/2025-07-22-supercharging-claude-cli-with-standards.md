@@ -219,7 +219,7 @@ sequenceDiagram
     end
 ```
 
-### The Pre-Commit Hook Nightmare
+### The Pre-Commit Hook Trap
 
 I set up a pre-commit hook to run standards validation automatically. First attempt? **100% failure rate**. Every single commit got blocked.
 

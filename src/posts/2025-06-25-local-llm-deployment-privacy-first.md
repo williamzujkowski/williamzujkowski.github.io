@@ -71,11 +71,11 @@ flowchart TB
 
 Let me be honest about why I went local:
 
-**The privacy panic**: I was sharing proprietary code with OpenAI without thinking. For more on AI privacy risks, see my guide on [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments).
+**The privacy wake-up call**: It's easy to share sensitive code with cloud LLMs without thinking about where it goes. For more on AI privacy risks, see my guide on [securing personal AI/ML experiments](/posts/2025-04-10-securing-personal-ai-experiments).
 
 **The monthly bill shock**: $120/month adds up fast when you're using AI daily.
 
-**The compliance nightmare**: Legal asked where my sensitive data was processed. "Somewhere in the cloud" wasn't acceptable.
+**The compliance question**: Organizations increasingly need to know where sensitive data is processed. "Somewhere in the cloud" isn't an acceptable answer.
 
 **The offline need**: Internet went down during a critical project deadline.
 

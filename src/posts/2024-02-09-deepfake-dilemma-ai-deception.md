@@ -11,7 +11,7 @@ tags:
 ---
 **BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease. It was a video of a public figure saying something completely out of character. Despite knowing about deepfake technology, I found myself questioning what was real. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 
-I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media and highlighted a terrifying reality about our information landscape. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
+I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media and highlighted a sobering reality about our information landscape. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).
 
 Recently, when I decided to test this problem in my own homelab, I downloaded 50 known deepfake videos from academic datasets and ran them through three different detection models on my RTX 3090. The results were sobering: my best model achieved only 73% accuracy, taking 3.2 seconds per frame to process.
 

@@ -227,7 +227,7 @@ I saved the configuration at 9:47 PM on a Friday. By 9:48 PM, I'd locked myself 
 - Recovery time from backup if needed: 11 minutes (tested monthly)
 
 **Philosophical lesson:**
-The security principle "default deny" is sound, but the implementation order matters enormously. You can't just flip a switch and lock down everything. You need to carve out your administrative access *first*, validate it works *second*, then progressively tighten *third*. I learned this at 2 AM, which is probably the most effective (if painful) way to internalize the lesson.
+The security principle "default deny" is sound, but the implementation order matters enormously. You can't just flip a switch and lock down everything. You need to carve out your administrative access *first*, validate it works *second*, then progressively tighten *third*. I learned this the hard way, which is probably the most effective (if painful) way to internalize the lesson.
 
 I now approach every "harden everything" project with extreme paranoia about locking myself out. Better to be overly cautious and move slowly than to lose 6 hours of work and sleep. Though I'll admit, the post-incident documentation I wrote while frustrated has been invaluable for helping others avoid the same mistake.
 

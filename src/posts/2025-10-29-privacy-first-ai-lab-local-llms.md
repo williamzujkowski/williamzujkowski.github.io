@@ -87,7 +87,7 @@ My RTX 3090 stores all those attention mechanism states in VRAM. Without proper 
 
 ### Model Poisoning: Easier Than I Thought
 
-Research shows that [just 250 poisoned documents can backdoor a 13B parameter model](https://arxiv.org/abs/2410.02486). That's terrifyingly low. If I'm downloading models from HuggingFace without verification, I have no guarantee they haven't been tampered with.
+Research shows that [just 250 poisoned documents can backdoor a 13B parameter model](https://arxiv.org/abs/2410.02486). That's an alarmingly low threshold. If I'm downloading models from HuggingFace without verification, I have no guarantee they haven't been tampered with.
 
 I started verifying model checksums obsessively after reading this.
 

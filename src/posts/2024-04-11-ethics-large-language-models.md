@@ -86,7 +86,7 @@ I watched talented colleagues worry about their future relevance as AI capabilit
 
 **Skills Obsolescence:** Capabilities that took years to develop (writing, analysis, coding) could potentially be replaced by AI systems trained in months.
 
-**Economic Inequality:** AI tools might primarily benefit capital owners rather than workers, potentially exacerbating economic disparities. In practical terms, I saw this play out when our content automation project saved the company an estimated $280,000 annually in labor costs, but only two of the five affected writers were successfully retrained for other roles within the organization.
+**Economic Inequality:** AI tools might primarily benefit capital owners rather than workers, potentially exacerbating economic disparities. Organizations have reported content automation projects saving hundreds of thousands in annual labor costs, but often only a fraction of affected workers are successfully retrained for other roles.
 
 The ethical challenge isn't just about building better AI, it's about ensuring the benefits are distributed fairly and transition costs are managed humanely.
 

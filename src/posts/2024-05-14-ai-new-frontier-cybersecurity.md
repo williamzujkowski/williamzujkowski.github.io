@@ -64,7 +64,7 @@ Working with AI security tools since 2021 taught me that every defensive capabil
 
 **Automation Scale:** My i9-9900K processes around 2.3GB of security logs daily, analyzing roughly 15,000 events per minute through machine learning pipelines. That's faster than any human analyst team. But attackers have access to the same compute power. A compromised cloud instance with similar specs could launch thousands of coordinated attack variants in minutes.
 
-**Adaptive Learning:** My Wazuh system improved from 8.2% to 73% accuracy over two weeks by learning my network's baseline behavior. That's genuinely impressive. But adversarial machine learning is terrifying when you think about it. An attacker could potentially feed poisoned training data to corrupt the learning process. I haven't tested this yet (and probably won't, given the ethical implications), but the research literature suggests it's entirely feasible.
+**Adaptive Learning:** My Wazuh system improved from 8.2% to 73% accuracy over two weeks by learning my network's baseline behavior. That's genuinely impressive. But adversarial machine learning is a serious concern. An attacker could potentially feed poisoned training data to corrupt the learning process. I haven't tested this yet (and probably won't, given the ethical implications), but the research literature suggests it's entirely feasible.
 
 This duality creates a security landscape where defensive and offensive capabilities advance together. You're never really ahead, just trying to stay even.
 
@@ -110,7 +110,7 @@ Automated response is where AI gets both powerful and potentially dangerous. I'v
 
 ## The Dark Side: AI-Powered Attacks
 
-Here's the uncomfortable truth: every defensive capability highlights corresponding attack possibilities. It keeps me up at night sometimes.
+Here's the uncomfortable truth: every defensive capability highlights corresponding attack possibilities. It's a tension worth taking seriously.
 
 ### Adversarial Machine Learning
 
@@ -120,7 +120,7 @@ In November 2024, I tested my Wazuh deployment against adversarial techniques do
 
 **Evasion Attacks:** This is where things get scary. In one September 2024 test, I crafted a simulated attack that included random delays, noise traffic, and pattern obfuscation. The AI missed it entirely. Traditional signature-based detection caught it (ironically). Adversarial examples can fool AI systems surprisingly easily once you understand their decision boundaries.
 
-**Model Extraction:** I haven't tested this extensively (it feels ethically questionable even in a homelab), but research suggests attackers can query an AI system repeatedly to reverse-engineer its internal model. If they understand how your detection system works, they can craft attacks specifically designed to evade it. That's terrifying when you think about cloud-based AI security services.
+**Model Extraction:** I haven't tested this extensively (it feels ethically questionable even in a homelab), but research suggests attackers can query an AI system repeatedly to reverse-engineer its internal model. If they understand how your detection system works, they can craft attacks specifically designed to evade it. That's a significant concern for cloud-based AI security services.
 
 **Byzantine Attacks:** This applies more to federated learning systems than my single-node setup, but the concept is troubling. Multiple compromised nodes in a distributed AI system could coordinate to corrupt the collective model. I saw a demonstration of this at DefCon 31 in August 2023, and it fundamentally changed how I think about distributed AI security.
 
@@ -130,7 +130,7 @@ AI didn't just improve attack detection. It enabled attack creation at scale. I'
 
 **Personalized Phishing:** In a red team exercise I observed in May 2024, an AI system generated 50 unique spear-phishing emails in under 2 minutes. Each was tailored to specific individuals based on their LinkedIn profiles, recent posts, and inferred interests. The click-through rate was roughly 37%, compared to 8-12% for traditional phishing. That's a massive improvement from an attacker's perspective.
 
-**Deepfake Social Engineering:** I tested open-source voice cloning tools in June 2024. With just 30 seconds of audio from a YouTube video, I generated a convincing voice clone in under 5 minutes. The quality was good enough to probably fool voice authentication systems. I didn't test this (obvious ethical issues), but the capability exists and it's terrifying.
+**Deepfake Social Engineering:** I tested open-source voice cloning tools in June 2024. With just 30 seconds of audio from a YouTube video, I generated a convincing voice clone in under 5 minutes. The quality was good enough to probably fool voice authentication systems. I didn't test this (obvious ethical issues), but the capability exists and it demands attention.
 
 **Automated Vulnerability Research:** This is speculative on my part, but research suggests AI can fuzz test software and identify vulnerabilities faster than human researchers. In 2023, Google's OSS-Fuzz found over 26,000 bugs in open-source projects using automated fuzzing. AI-enhanced fuzzing could probably accelerate this significantly. The vulnerability disclosure timeline might not keep pace with discovery.
 

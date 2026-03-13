@@ -339,7 +339,7 @@ flowchart TB
 
 ## Lessons from the Trenches
 
-### The Kernel Version Nightmare
+### The Kernel Version Gotcha
 I once spent an entire weekend debugging why my eBPF program worked perfectly on Ubuntu 22.04 but crashed on CentOS 7. The culprit? Different kernel versions have different function names and structures. 
 
 **Solution**: Use CO-RE (Compile Once, Run Everywhere) with BTF (BPF Type Format) for portability.

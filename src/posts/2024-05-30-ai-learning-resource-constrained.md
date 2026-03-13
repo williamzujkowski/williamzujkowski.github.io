@@ -884,7 +884,7 @@ The learning curve for efficient AI is steep, and the development process involv
 - Version incompatibilities between optimization tools and ML frameworks common
 - Edge deployment tools lag 6-12 months behind latest framework features
 
-**Debugging Nightmares:**
+**Debugging Gotchas:**
 - Quantization artifact: model works perfectly in float32, fails bizarrely in int8
 - Pruning instability: removing seemingly unimportant weights causes catastrophic forgetting
 - Hardware-specific bugs: model runs correctly on development machine, breaks on target device

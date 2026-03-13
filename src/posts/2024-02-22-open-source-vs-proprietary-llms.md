@@ -78,7 +78,7 @@ This responsiveness makes it possible to integrate LLM suggestions directly into
 
 The first month's usage cost $47 for approximately 1.5 million tokens, which would have been free on local hardware (aside from electricity). However, I had zero control when OpenAI updated the model, and response formatting changed slightly, requiring prompt adjustments.
 
-Both approaches worked, but they taught me that the "right" choice depends entirely on constraints, requirements, and whether you enjoy debugging CUDA drivers at 2 AM.
+Both approaches worked, but they taught me that the "right" choice depends entirely on constraints, requirements, and whether you enjoy debugging CUDA drivers.
 
 ## The Customization Spectrum
 

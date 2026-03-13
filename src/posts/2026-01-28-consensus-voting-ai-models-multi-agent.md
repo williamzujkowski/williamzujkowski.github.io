@@ -150,7 +150,7 @@ Consensus voting isn't perfect. I've hit these failure modes:
 
 **Abstention cascades:** Sometimes 2-3 agents abstain because they lack context for the decision. With only 2-3 actual votes, the result isn't meaningful. I treat high-abstention votes as "need more information" rather than "approved with low participation."
 
-**Latency pressure:** When I'm debugging a production issue at 2am, waiting 30 seconds for five agents to vote feels like an eternity. The temptation to skip voting on "just this one urgent change" is real. I've given in to that temptation twice. Both times the change was fine. But the sample size is too small to draw conclusions.
+**Latency pressure:** When debugging a breaking issue in my project, waiting 30 seconds for five agents to vote can feel like an eternity. The temptation to skip voting on "just this one urgent change" is real — I've skipped it twice when confidence was high. Both times the change was fine, but the sample size is too small to draw conclusions.
 
 ## Lessons Learned
 
