@@ -304,51 +304,14 @@ a:hover {
   overflow-x: auto;
 }
 
-/* Dark mode: restyle Mermaid SVG internals */
+/* Dark mode: invert the entire light-themed SVG and rotate hue to
+   preserve color semantics. This reliably handles ALL Mermaid element
+   types — text, backgrounds, edge labels, actor boxes, notes, etc.
+   without needing per-element overrides. */
 .dark .prose :where(svg[id^='mermaid']) {
-  background-color: var(--md-sys-color-surface-container);
-}
-
-/* Override baked-in light backgrounds on subgraphs and nodes */
-.dark .prose :where(svg[id^='mermaid']) rect {
-  fill: var(--md-sys-color-surface-container-high) !important;
-  stroke: var(--md-sys-color-outline) !important;
-}
-
-.dark .prose :where(svg[id^='mermaid']) .label-container {
-  fill: var(--md-sys-color-surface-container-highest) !important;
-}
-
-/* Text and labels */
-.dark .prose :where(svg[id^='mermaid']) text {
-  fill: var(--md-sys-color-on-surface) !important;
-}
-
-.dark .prose :where(svg[id^='mermaid']) .nodeLabel,
-.dark .prose :where(svg[id^='mermaid']) .edgeLabel {
-  color: var(--md-sys-color-on-surface) !important;
-}
-
-/* Lines and arrows */
-.dark .prose :where(svg[id^='mermaid']) .edge-pattern-solid,
-.dark .prose :where(svg[id^='mermaid']) line,
-.dark .prose :where(svg[id^='mermaid']) path.path {
-  stroke: var(--md-sys-color-outline) !important;
-}
-
-.dark .prose :where(svg[id^='mermaid']) marker path {
-  fill: var(--md-sys-color-outline) !important;
-}
-
-/* Cluster/subgraph backgrounds */
-.dark .prose :where(svg[id^='mermaid']) .cluster rect {
-  fill: var(--md-sys-color-surface-container-low) !important;
-  stroke: var(--md-sys-color-outline-variant) !important;
-}
-
-/* Preserve colored nodes (e.g., style-tagged nodes) by specificity */
-.dark .prose :where(svg[id^='mermaid']) rect[style*='fill:'] {
-  filter: brightness(0.8) saturate(0.9);
+  filter: invert(0.88) hue-rotate(180deg);
+  background-color: transparent;
+  border-color: var(--md-sys-color-outline-variant);
 }
 
 /* ===== Buttons (M3 filled + outlined) ===== */

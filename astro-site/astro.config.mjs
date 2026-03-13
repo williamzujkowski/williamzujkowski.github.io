@@ -30,7 +30,7 @@ export default defineConfig({
     rehypePlugins: [
       [rehypeMermaid, {
         strategy: 'inline-svg',
-        mermaidConfig: { theme: 'neutral' },
+        mermaidConfig: { theme: 'default' },
       }],
     ],
   },
