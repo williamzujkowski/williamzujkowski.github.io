@@ -60,7 +60,7 @@ Watching an AI system perpetuate and amplify human prejudices was sobering. It w
 
 **Religious and Political Bias:** Models reflected the political leanings and religious assumptions of their training data sources, often presenting particular worldviews as universal truths.
 
-The realization that AI systems could systematically discriminate while appearing objective and scientific was a wake-up call that changed my entire approach to AI development. What this means in practice: every model I deploy now undergoes mandatory bias testing across at least 20 demographic categories before reaching production.
+The realization that AI systems could systematically discriminate while appearing objective and scientific was a wake-up call that changed my entire approach to AI development. What this means in practice: bias testing across demographic categories should be a mandatory step before any model reaches users — and it's something I build into every deployment pipeline.
 
 ## The Misinformation Factory: When AI Lies Convincingly
 
@@ -106,9 +106,9 @@ The privacy implications of AI interactions were far broader than initially unde
 
 ## Responsibility and Accountability: When AI Causes Harm
 
-The hardest ethical question I've faced is: "Who's responsible when AI systems cause harm?" This became personal in December 2023 when our customer service AI provided incorrect medical advice that could have endangered someone's health. The bot confidently recommended delaying urgent care for symptoms that actually required immediate medical attention. Fortunately, the user sought a second opinion, but the incident still keeps me up at night.
+The hardest ethical question in AI is: "Who's responsible when AI systems cause harm?" This became concrete for me in December 2023 when I was evaluating a chatbot prototype in my lab and it confidently recommended delaying urgent care for symptoms that actually required immediate medical attention. The model had no concept of medical risk — it just pattern-matched its way to a dangerous suggestion. It was a vivid reminder of why guardrails around sensitive domains are non-negotiable.
 
-The incident forced us to confront uncomfortable questions:
+That experience crystallized some uncomfortable questions:
 
 **Developer Responsibility:** Did we adequately test for harmful outputs before deployment?
 

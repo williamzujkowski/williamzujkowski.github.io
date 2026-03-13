@@ -626,8 +626,8 @@ My homelab Zero Trust implementation took 4 months, cost approximately $847 in h
 - Hardware: $847 (2x YubiKey 5C NFC at $55 each, managed switch $487, backup Dream Machine SE $250)
 - Software: $0 (all open-source: Authelia, Wazuh, Pi-hole, ModSecurity)
 - Time investment: ~120 hours (32 hours planning/design, 58 hours implementation, 30 hours troubleshooting)
-- Opportunity cost: 6 weekend projects postponed, 3 family outings rescheduled
-- Coffee consumed during late-night debugging: 47 cups (unverified estimate)
+- Opportunity cost: 6 weekend projects postponed
+- Coffee consumed during weekend debugging: 47 cups (unverified estimate)
 
 **Measurable improvements (baseline vs October 2024):**
 - Lateral movement paths: Reduced 94% (from 56 possible paths to 3 authorized routes)

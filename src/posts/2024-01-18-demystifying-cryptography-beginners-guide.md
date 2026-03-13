@@ -10,21 +10,21 @@ tags:
 ---
 ## BLUF: Why This Matters
 
-**Three days into a production crisis years ago**, a payment processor I was working with had stopped accepting SSL certificates. No transactions flowing. Support tickets piling up. I stared at OpenSSL errors I couldn't decode, certificate chains that made no sense, and encryption algorithms I'd always treated as black boxes. That week transformed cryptography from "abstract math I don't need to understand" into "critical infrastructure I must get right."
+**Three days into debugging a certificate chain issue**, an SSL configuration I was troubleshooting had stopped validating correctly. Services were failing. I stared at OpenSSL errors I couldn't decode, certificate chains that made no sense, and encryption algorithms I'd always treated as black boxes. That week transformed cryptography from "abstract math I don't need to understand" into "critical infrastructure I must get right."
 
-**Every password you store, every HTTPS connection you make, every database backup you verify depends on cryptographic decisions you're making right now.** Not theoretical security discussions, but production trade-offs: Which hash function protects passwords? When does AES-256 make sense versus RSA-2048? How do you detect database corruption before users notice? These choices affect millions of users, and the wrong answer can mean downtime measured in revenue loss.
+**Every password you store, every HTTPS connection you make, every database backup you verify depends on cryptographic decisions you're making right now.** Not theoretical security discussions, but real trade-offs: Which hash function protects passwords? When does AES-256 make sense versus RSA-2048? How do you detect database corruption before users notice? These choices matter, and the wrong answer can mean downtime and data exposure.
 
 **Real stakes from real systems:**
-- **SSL crisis**: 2 days of payment downtime because I didn't understand certificate validation
-- **Database corruption**: Detected tampering in millions of records using SHA-256 hashes
-- **Algorithm lifecycle**: MD5 was secure when I started, broken by the time I shipped
+- **SSL debugging**: 2 days tracking down certificate validation issues because I didn't understand the chain of trust
+- **Integrity verification**: Detected tampering in large datasets using SHA-256 hashes
+- **Algorithm lifecycle**: MD5 was considered acceptable when I started learning, broken by the time I was building with it
 - **Modern standards that work**: AES-256 for encryption, SHA-3 for hashing, ECDSA for signatures
 
-I made every beginner mistake: stored MD5 password hashes, chose algorithms based on "what looked familiar," debugged OpenSSL errors by copying Stack Overflow commands I didn't understand. But each crisis taught me practical cryptography, the kind you need when production is on fire and users are waiting.
+I made every beginner mistake in my learning projects: used MD5 where bcrypt belonged, chose algorithms based on "what looked familiar," debugged OpenSSL errors by copying Stack Overflow commands I didn't understand. But each stumble taught me practical cryptography — the kind that matters when systems depend on getting it right.
 
 ## The Journey from Magic to Understanding
 
-Cryptography always felt like magic to me, mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically when I spent three sleepless nights debugging SSL certificate issues that were breaking the payment system I was working on years ago.
+Cryptography always felt like magic to me — mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically when I spent a long weekend debugging SSL certificate issues in a service I was responsible for.
 
 Suddenly, those abstract concepts became real. Every failed handshake, every certificate validation error, every cipher suite mismatch taught me that cryptography is the backbone of everything we do online. What started as an emergency troubleshooting session became a journey into understanding the mathematical foundations that protect our digital lives.
 

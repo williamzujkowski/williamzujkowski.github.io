@@ -9,9 +9,9 @@ tags:
   - security
 
 ---
-Years ago, I discovered a glaring SQL injection vulnerability in an application I was reviewing. The sinking feeling that washed over me was like finding a door left unlocked overnight in a dangerous neighborhood. It was a wake-up call that fundamentally changed how I approach development - writing secure code isn't just a best practice, it's a moral imperative.
+Years ago, I discovered a SQL injection vulnerability during a code review. The sinking feeling was immediate — it was a wake-up call that fundamentally changed how I approach development. Writing secure code isn't just a best practice, it's a moral imperative.
 
-That incident happened early in my career, and I still remember the quiet panic as I worked to patch it before anyone noticed. But someone had noticed - our security team had been tracking unusual database queries for weeks. What I thought was a minor oversight could have exposed thousands of user records.
+That experience early in my career taught me how easy it is for injection flaws to slip through. What looked like a minor oversight in query construction was actually a textbook vulnerability — the kind that, left unpatched, could expose sensitive data. It reinforced a lesson I carry to this day: security isn't something you bolt on after the fact.
 
 ## How It Works
 

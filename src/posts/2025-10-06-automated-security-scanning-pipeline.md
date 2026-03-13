@@ -19,7 +19,7 @@ tags:
 
 I built an automated security pipeline that scans every commit with Grype, OSV-Scanner, and Trivy. The result: 69% faster builds (6.5min → 2min), 35% auto-remediation rate for vulnerabilities, and mean time to remediation dropping from 12 days to 4.2 days. Critical findings block deployment automatically.
 
-**Why it matters:** Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed. The vulnerable code ran in production for 90 days before I found out from a security scanner. Hope is not a security strategy.
+**Why it matters:** Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed. The vulnerable code ran in my homelab for 90 days before I found out from a security scanner. Hope is not a security strategy.
 
 ## Automated Security Pipeline Architecture
 

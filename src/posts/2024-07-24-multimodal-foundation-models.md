@@ -148,7 +148,7 @@ The key advance came from learning shared representations across modalities. For
 **Evaluation Complexity:** Assessing multimodal performance requires sophisticated evaluation frameworks
 **Generalization:** Models may struggle with modality combinations not well-represented in training data
 
-In April 2024, deploying a multimodal customer service bot revealed edge cases where image quality, lighting conditions, or unusual visual contexts broke the model's understanding. For instance, the system had a 95% success rate with standard product photos but dropped to 67% accuracy when users submitted images in poor lighting or from unusual angles.
+In April 2024, testing a multimodal image classification system revealed edge cases where image quality, lighting conditions, or unusual visual contexts broke the model's understanding. For instance, the system had a 95% success rate with well-lit, standard photos but dropped to 67% accuracy when given images in poor lighting or from unusual angles.
 
 ### Ethical and Social Considerations
 
