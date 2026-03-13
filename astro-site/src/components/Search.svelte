@@ -32,6 +32,8 @@
   let inputEl: HTMLInputElement;
   let pagefind: PagefindModule | null = null;
   let debounceTimer: ReturnType<typeof setTimeout>;
+  let previouslyFocused: HTMLElement | null = null;
+  let dialogEl: HTMLDivElement;
 
   async function loadPagefind(): Promise<PagefindModule | null> {
     if (pagefind) return pagefind;
@@ -71,11 +73,31 @@
     isOpen = false;
     query = '';
     results = [];
+    previouslyFocused?.focus();
+    previouslyFocused = null;
   }
 
   function open() {
     isOpen = true;
+    previouslyFocused = document.activeElement as HTMLElement | null;
     setTimeout(() => inputEl?.focus(), 50);
+  }
+
+  function trapFocus(e: KeyboardEvent) {
+    if (e.key !== 'Tab') return;
+    const focusable = dialogEl?.querySelectorAll<HTMLElement>(
+      'input, a[href], button, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable || focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 
   onMount(() => {
@@ -127,7 +149,6 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class="fixed inset-0 z-[100] flex items-start justify-center pt-[10vh]"
-    onkeydown={(e) => e.key === 'Escape' && close()}
   >
     <!-- Backdrop -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -135,10 +156,13 @@
 
     <!-- Dialog -->
     <div
+      bind:this={dialogEl}
       class="relative w-full max-w-lg mx-4 rounded-2xl shadow-2xl overflow-hidden"
       style="background-color: var(--md-sys-color-surface-container); border: 1px solid var(--md-sys-color-outline-variant)"
       role="dialog"
+      aria-modal="true"
       aria-label="Search site"
+      onkeydown={trapFocus}
     >
       <div class="flex items-center gap-3 p-4 border-b" style="border-color: var(--md-sys-color-outline-variant)">
         <svg

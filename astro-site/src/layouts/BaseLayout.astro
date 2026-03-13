@@ -70,7 +70,14 @@ if (type === 'article') {
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
   };
   if (wordCount) blogPosting.wordCount = wordCount;
-  if (image !== '/assets/images/og/default-og.png') blogPosting.image = ogImageUrl;
+  if (image !== '/assets/images/og/default-og.png') {
+    blogPosting.image = {
+      '@type': 'ImageObject',
+      url: ogImageUrl,
+      width: 1200,
+      height: 630,
+    };
+  }
   if (tags.length > 0) blogPosting.keywords = tags.filter((t) => t !== 'posts').join(', ');
   jsonLdSchemas.push(blogPosting);
 } else {
