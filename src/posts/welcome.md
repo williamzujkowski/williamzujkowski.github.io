@@ -67,13 +67,13 @@ Some features I'm particularly proud of:
 This site will evolve as I do. Expect content on:
 
 - **Security engineering** – Real-world IR playbooks, security automation, and defensive strategies
-- **AI and automation** – Practical applications of LLMs, local AI deployment, and ethical considerations. I'm particularly excited about [Claude Code with standardized workflows](/posts/2025-07-22-supercharging-claude-cli-with-standards/) and [Claude Flow for AI-powered development](/posts/2025-08-07-supercharging-development-claude-flow/).
-- **Open source projects** – Tools I'm building and contributing to, including [my MCP standards server](/posts/2025-07-29-building-mcp-standards-server/)
+- **AI and automation** – Practical applications of LLMs, local AI deployment, and ethical considerations. I'm particularly excited about [Claude Code with standardized workflows](/posts/2025-07-22-supercharging-claude-cli-with-standards/) and Claude Flow for AI-powered development.
+- **Open source projects** – Tools I'm building and contributing to, including my MCP standards server
 - **Career insights** – Lessons learned from working in federal contracting and security operations
 
 ## The Open Source Advantage
 
-This site is [open source on GitHub](https://github.com/williamzujkowski/williamzujkowski.github.io). Feel free to explore the code, learn from it, or even fork it for your own use. I believe in learning in public and sharing knowledge freely. For those interested in workflow optimization, my posts on [progressive context loading for LLM workflows](/posts/2025-10-17-progressive-context-loading-llm-workflows/) and [privacy-first AI lab deployment](/posts/2025-10-29-privacy-first-ai-lab-local-llms/) demonstrate how open-source tools enable sophisticated development setups.
+This site is [open source on GitHub](https://github.com/williamzujkowski/williamzujkowski.github.io). Feel free to explore the code, learn from it, or even fork it for your own use. I believe in learning in public and sharing knowledge freely.
 
 
 ## Let's Connect

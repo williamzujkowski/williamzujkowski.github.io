@@ -9,7 +9,7 @@ image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&h=63
 imageAlt: "Wind turbines against a sunset sky"
 
 ---
-In September 2023, I analyzed my ML experiments' energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars in compute costs took on a different meaning — not just burning through budget, but burning through the planet's resources. This insight connects to broader lessons from [nature-inspired biomimetic engineering](/posts/2024-09-19-biomimetic-robotics/) where efficiency is literally a survival trait.
+In September 2023, I analyzed my ML experiments' energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars in compute costs took on a different meaning — not just burning through budget, but burning through the planet's resources.
 
 That realization started my deep dive into sustainable computing, where I discovered that efficiency isn't just about performance or cost. It's about responsibility to future generations.
 
@@ -163,7 +163,7 @@ Optimizing cloud instance selection based on actual usage. Here's how this worke
 
 - CPU utilization analysis revealed 60% over-provisioning (cores sitting idle 18 hours per day)
 - Memory optimization reduced instance sizes by 40% (moving from m5.2xlarge to m5.xlarge instances)
-- Storage tiering moved cold data to [lower-energy storage](/posts/2025-08-18-docker-lsm-security-hardening) (S3 Glacier saved 89% on storage energy)
+- Storage tiering moved cold data to lower-energy storage (S3 Glacier saved 89% on storage energy)
 - Auto-scaling policies reduced idle resource time by 80% (instances scaled down during off-peak hours)
 
 **Geographic Optimization:**
@@ -328,7 +328,7 @@ When I deployed a production ML model to edge devices in March 2024, it reduced 
 
 **Procurement Policies:**
 - Energy efficiency requirements for hardware purchases
-- Preference for vendors with strong [sustainability commitments](/posts/2024-04-11-ethics-large-language-models)
+- Preference for vendors with strong sustainability commitments
 - Lifecycle cost analysis including energy consumption
 - Circular economy principles in technology refresh cycles
 
@@ -464,7 +464,7 @@ gantt
 I started with these practical changes in January 2024, though I'm still learning which strategies work best for different workloads:
 - Right-size cloud resources and eliminate waste (reduced the AWS bill significantly through right-sizing)
 - Implement power management for development workstations (saved 240 kWh/week across 60 machines)
-- Optimize database queries and [application performance](/posts/2024-01-08-writing-secure-code-developers-guide) (one query optimization alone cut execution time from 8.2s to 1.1s)
+- Optimize database queries and application performance (one query optimization alone cut execution time from 8.2s to 1.1s)
 - Switch to renewable energy providers where available
 
 **Medium-term Projects (6-18 months):**
@@ -472,7 +472,7 @@ I started with these practical changes in January 2024, though I'm still learnin
 - Redesign applications for energy efficiency
 - Deploy [edge computing for data locality](/posts/2024-10-22-ai-edge-computing/) (reduces datacenter load, improves latency)
 - Establish comprehensive sustainability metrics
-- Explore [resource-constrained AI learning](/posts/2024-05-30-ai-learning-resource-constrained/) for efficient model training
+- Explore resource-constrained AI learning for efficient model training
 
 **Long-term Transformation (18+ months):**
 - Migrate to renewable energy-powered data centers

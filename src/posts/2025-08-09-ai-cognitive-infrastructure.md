@@ -15,9 +15,9 @@ imageAlt: "Humanoid robot face with glowing blue eyes"
 ---
 ## Bottom Line Up Front
 
-AI isn't a collection of tools anymore. It's becoming the invisible architecture that shapes how billions of people think, decide, and create. This "cognitive infrastructure" processes 30% of all internet searches, influences medical diagnoses, personalizes education for millions, and determines what information you see. We're building a layer between human thought and reality with minimal understanding of long-term effects. This connects to practical implementations like [progressive context loading for LLM workflows](/posts/2025-10-17-progressive-context-loading-llm-workflows/) which optimize how developers interact with AI infrastructure.
+AI isn't a collection of tools anymore. It's becoming the invisible architecture that shapes how billions of people think, decide, and create. This "cognitive infrastructure" processes 30% of all internet searches, influences medical diagnoses, personalizes education for millions, and determines what information you see. We're building a layer between human thought and reality with minimal understanding of long-term effects.
 
-**Why it matters:** When infrastructure fails, societies collapse. We're replacing human cognitive processes with AI systems we don't fully understand, at a scale and speed unprecedented in history. The window to shape this transformation consciously is closing fast. The evolution from [tools to embodied AI systems](/posts/2025-10-13-embodied-ai-robots-physical-world/) demonstrates how rapidly AI is moving from passive assistance to active participation in human cognition. Understanding [transformer architecture foundations](/posts/2024-03-20-transformer-architecture-deep-dive/) and [multimodal foundation models](/posts/2024-07-24-multimodal-foundation-models/) becomes essential for anyone seeking to comprehend the cognitive layer being built. Yet [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models/) reveal fundamental questions about who controls this infrastructure and whose values it embeds—questions we're answering through deployment rather than deliberation.
+**Why it matters:** When infrastructure fails, societies collapse. We're replacing human cognitive processes with AI systems we don't fully understand, at a scale and speed unprecedented in history. The window to shape this transformation consciously is closing fast. The evolution from [tools to embodied AI systems](/posts/2025-10-13-embodied-ai-robots-physical-world/) demonstrates how rapidly AI is moving from passive assistance to active participation in human cognition. Understanding transformer architecture foundations and multimodal foundation models becomes essential for anyone seeking to comprehend the cognitive layer being built. Yet [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models/) reveal fundamental questions about who controls this infrastructure and whose values it embeds—questions we're answering through deployment rather than deliberation.
 
 ## What Is Cognitive Infrastructure
 
@@ -80,7 +80,7 @@ The AI infrastructure market is exploding from [$47.23 billion in 2024 to a proj
 - **Education**: [59% of students show improved performance and 36% show better engagement](https://doi.org/10.1007/s10639-024-12456-4) with AI tutoring systems (systematic review of 85 studies)
 - **Government**: [87% of surveyed cities are planning or piloting generative AI initiatives](https://www.worldbank.org/en/programs/govtech/gtmi), with experts predicting AI as the primary government service interface by 2030
 - **Search**: AI processes 30% of internet searches, determining what billions of people discover and learn
-- **Development**: [AI writes 40% of production code](/posts/2024-04-19-mastering-prompt-engineering-llms), reshaping how software is created
+- **Development**: AI writes 40% of production code, reshaping how software is created
 - **Finance**: Algorithmic trading and AI risk assessment influence trillions in daily transactions
 
 This isn't digitization. It's cognitive intermediation at civilization scale.
@@ -233,7 +233,7 @@ Maintain cognitive abilities in an AI age:
 - Memory training without digital aids
 - Mental calculation practice
 - Unassisted navigation exercises
-- [Critical thinking workshops](/posts/2024-04-11-ethics-large-language-models)
+- Critical thinking workshops
 - Regular technology sabbaticals
 
 ## The Path Forward
@@ -242,9 +242,9 @@ The transformation of AI into cognitive infrastructure is inevitable. Its nature
 
 **Critical interventions needed:**
 
-- **Education Reform**: Teaching not how to use AI but how to think independently of it. Understanding AI limitations, maintaining cognitive skills, developing AI-resistant critical thinking. Modern [AI learning techniques](/posts/2024-05-30-ai-learning-resource-constrained/) demonstrate how education can adapt to resource constraints while maintaining effectiveness.
+- **Education Reform**: Teaching not how to use AI but how to think independently of it. Understanding AI limitations, maintaining cognitive skills, developing AI-resistant critical thinking.
 - **Regulatory Frameworks**: [UNESCO's global AI ethics standards](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics) and [GDPR Article 22](https://gdpr-info.eu/art-22-gdpr/) provide starting points, but we need frameworks addressing cognitive infrastructure's unique challenges.
-- **Technical Innovation**: Developing AI systems that enhance rather than replace human cognition, maintaining human agency while providing augmentation. [Retrieval Augmented Generation](/posts/2024-04-04-retrieval-augmented-generation-rag/) represents one approach to maintaining human context while leveraging AI capabilities.
+- **Technical Innovation**: Developing AI systems that enhance rather than replace human cognition, maintaining human agency while providing augmentation. Retrieval Augmented Generation represents one approach to maintaining human context while leveraging AI capabilities.
 - **Social Practices**: Creating cultural norms around cognitive hygiene (digital detoxes, cognitive cross-training, maintaining non-AI-mediated relationships).
 
 ## Conclusion: The Cognitive Century

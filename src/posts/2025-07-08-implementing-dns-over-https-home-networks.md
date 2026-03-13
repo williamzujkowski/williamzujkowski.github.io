@@ -43,7 +43,7 @@ If you're tired of being the product, here's how to take back control of your DN
 
 ## Understanding the DNS Privacy Problem
 
-DNS privacy is foundational to network security. Combine DoH with [Raspberry Pi network monitoring](/posts/2025-03-10-raspberry-pi-security-projects), [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), and [IoT security](/posts/2025-09-20-iot-security-homelab-owasp) for comprehensive homelab security.
+DNS privacy is foundational to network security. Combine DoH with [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) for comprehensive homelab security.
 
 Traditional DNS has several privacy and security issues:
 
@@ -54,9 +54,8 @@ Traditional DNS has several privacy and security issues:
 5. **Interception Attacks**: Unencrypted DNS is vulnerable to tampering
 
 DNS-over-HTTPS solves these by:
-- Encrypting all DNS queries with HTTPS (learn more about [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide) and [zero-trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation))
-- Authenticating the DNS server (see [securing cloud-native applications](/posts/2024-03-05-cloud-migration-journey-guide) for TLS best practices)
-- Hiding DNS queries from network observers
+- Encrypting all DNS queries with HTTPS (learn more about [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide))
+- Authenticating the DNS server
 - Hiding DNS queries from network observers
 - Preventing DNS-based filtering (though this may not be desirable in all environments)
 

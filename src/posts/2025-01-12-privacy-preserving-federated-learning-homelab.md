@@ -343,7 +343,7 @@ After three weeks of testing, here's what I learned about when granular-ball fed
 
 **Monitoring cluster statistics:** I logged cluster size distributions after each round. Caught an issue where 90% of data points were assigned to 5 clusters (k-means converged poorly). Fixed by increasing cluster count.
 
-**Separate VLAN for federation traffic:** Isolated the federated learning traffic from other homelab services using [network traffic monitoring with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) to validate no data leakage occurred. Prevented network congestion when I was running other experiments simultaneously.
+**Separate VLAN for federation traffic:** Isolated the federated learning traffic from other homelab services to validate no data leakage occurred. Prevented network congestion when I was running other experiments simultaneously.
 
 **TensorBoard for tracking:** Logging training metrics to TensorBoard made it easy to spot when something went wrong (like the 12% accuracy drop from threshold=0.1).
 
@@ -393,13 +393,8 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 
 - [**Homomorphic Encryption for Machine Learning**](https://eprint.iacr.org/2018/462.pdf) (2018) - Gilad-Bachrach et al.
   *Alternative approach using encrypted computation*
-- [**Post-Quantum Cryptography Migration**](/posts/2025-10-29-post-quantum-cryptography-homelab) - Future-proofing federated learning against quantum threats
-
 ### Kubernetes and Raspberry Pi Resources
 - [**K3s Lightweight Kubernetes**](https://k3s.io/) - What I use for orchestrating multi-Pi experiments
 
 - [**Raspberry Pi 5 Specifications**](https://www.raspberrypi.com/products/raspberry-pi-5/) - Hardware details for the 16GB model
 
-### Related Homelab Posts
-- [Privacy-First AI Lab: Running Local LLMs on Consumer Hardware](/posts/2025-10-29-privacy-first-ai-lab-local-llms)
-- [Securing the Cloud-Native Frontier: Hardening Kubernetes in Production](/posts/2024-03-05-cloud-migration-journey-guide)

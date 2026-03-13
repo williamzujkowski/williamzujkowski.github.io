@@ -20,7 +20,7 @@ What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, 
 
 ## The IoT Security Landscape
 
-[OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far. I'm still figuring out which risks are actually exploitable in my homelab versus which are edge cases. If you're new to security fundamentals, my guide to [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide) provides essential background.
+[OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far. I'm still figuring out which risks are actually exploitable in my homelab versus which are edge cases.
 
 [OWASP IoTGoat](https://doi.org/10.1201/9781003054115-11) deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA, **but** with the added complexity of embedded systems.
 
@@ -116,7 +116,7 @@ pass in on $IOT_IF proto tcp from $IOT_NET to any port {80, 443, 8883}
 
 ### 2. DNS Filtering and Power Consumption
 
-Use Pi-hole or AdGuard to block suspicious IoT communications. Rate limiting reduces data leakage **but** may break legitimate functionality. You'll need to test each device. For enhanced privacy, consider [implementing DNS-over-HTTPS](/posts/2025-07-08-implementing-dns-over-https-home-networks) for encrypted DNS queries.
+Use Pi-hole or AdGuard to block suspicious IoT communications. Rate limiting reduces data leakage **but** may break legitimate functionality. You'll need to test each device.
 
 I measured IoT device power with a Kill-A-Watt meter. Total draw: 127W continuous. That's roughly $134/year at $0.12/kWh. Smart plugs alone used 18W (doing nothing). I've since disabled "always-on" features. Always-on features are convenient **however** waste significant power:
 
@@ -193,7 +193,7 @@ Ready to dive deeper? Here's your roadmap:
 
 - **Set up IoTGoat** in an isolated environment (start simple; I spent 4 hours troubleshooting Docker networking before realizing I needed bridge mode)
 - **Practice the OWASP IoT Top 10** vulnerabilities (theory is nice, but hands-on experience teaches you what actually matters)
-- **Analyze your own IoT devices** legally and ethically (you'll probably be horrified by what you find; consider [Raspberry Pi security projects](/posts/2025-03-10-raspberry-pi-security-projects) for affordable testing platforms)
+- **Analyze your own IoT devices** legally and ethically (you'll probably be horrified by what you find)
 - **Implement network segmentation** if you haven't already (it's tedious but worth the effort)
 - **Build automated monitoring** for your IoT network (you can't secure what you can't see)
 

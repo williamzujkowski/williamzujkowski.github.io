@@ -183,7 +183,7 @@ Deploy Ollama in an isolated Docker network:
 - Resource limits: `mem_limit: 16g`, `cpus: 8`
 - Persistent volumes: `/root/.ollama:/models`
 
-Use Docker Compose's `internal: true` to prevent external access. For broader network security, see my guide on [implementing DNS-over-HTTPS](/posts/2025-07-08-implementing-dns-over-https-home-networks).
+Use Docker Compose's `internal: true` to prevent external access.
 
 ### 2. Access Control
 
@@ -193,7 +193,7 @@ Implement bearer token authentication:
 - Strong API keys (32+ bytes) in environment variables
 - Dependency injection via `Depends()` for request validation
 
-For password management, consider [self-hosted Bitwarden](/posts/2025-09-01-self-hosted-bitwarden-migration-guide).
+Use strong, randomly generated API keys stored in environment variables.
 
 ### 3. Input Sanitization
 
@@ -296,7 +296,7 @@ As you scale your local LLM deployment:
 
 1. **Multi-GPU Setup**: Distribute larger models across GPUs
 2. **Model Router**: Automatically select optimal model for each query
-3. **Fine-Tuning Pipeline**: Customize models for your specific needs (see my [LLM fine-tuning guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide))
+3. **Fine-Tuning Pipeline**: Customize models for your specific needs
 4. **Federated Learning**: Train across multiple nodes while preserving privacy
 
 ## Should You Take the Plunge?
@@ -318,7 +318,7 @@ But the challenges are real:
 - Manual model updates
 - No one to blame when things break
 
-My advice: Start small. Grab a used RTX 3060 for $300, install Ollama, try Mistral 7B for a week. Total investment: $300 and an afternoon. For hardware optimization, see [GPU power monitoring in homelabs](/posts/2024-11-15-gpu-power-monitoring-homelab-ml).
+My advice: Start small. Grab a used RTX 3060 for $300, install Ollama, try Mistral 7B for a week. Total investment: $300 and an afternoon.
 
 You'll know within days if this is your path. Once you experience sub-second responses with complete privacy, you'll wonder why you trusted the cloud. For more privacy-first approaches, see [building a privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
 

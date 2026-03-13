@@ -13,10 +13,7 @@ imageAlt: "AI chatbot interface on a modern display"
 
 ## BLUF
 
-Prompt engineering combines systematic optimization with practical techniques to improve LLM output quality by 40%. This guide covers core principles, advanced methods, and real-world trade-offs from homelab experimentation with Llama 3.1 70B. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
-
-[introduction to fine-tuning llms in the homelab: a practical guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide)
-
+Prompt engineering combines systematic optimization with practical techniques to improve LLM output quality by 40%. This guide covers core principles, advanced methods, and real-world trade-offs from homelab experimentation with Llama 3.1 70B.
 
 **What you'll learn:**
 - Core techniques (few-shot learning, chain-of-thought, role-based prompting)
@@ -177,8 +174,6 @@ Working within token limits required strategic thinking about information hierar
 Temperature experimentation taught me crucial lessons about token efficiency. I ran 100 prompts on Llama 3.1 70B at different temperatures (0.0 to 2.0 in 0.2 increments). At temp=0.0, responses were deterministic **but** boring and mechanical. At temp=1.5, output became creative **yet** frequently incoherent. At temp=2.0, I got complete gibberish. The sweet spot for my use case seems to be temp=0.7, balancing creativity with coherence. **Though** I suspect optimal temperature varies by task type. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
 
 [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag)
-
-[teaching ai agents to ask for help: a breakthrough in human-robot interaction](/posts/2024-09-09-embodied-ai-teaching-agents)
 
 [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models)
 

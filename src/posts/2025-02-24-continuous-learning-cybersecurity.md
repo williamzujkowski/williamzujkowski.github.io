@@ -312,13 +312,13 @@ Here's what I'm actively learning (January 2025):
 3. **SOAR**: Automating response playbooks (though I'm still figuring out which platform fits my homelab best)
 4. **Leadership**: Managing up, strategic thinking
 
-Specific learning projects I'm working on include [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/), [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/), and [automated security scanning pipelines](/posts/2025-10-06-automated-security-scanning-pipeline/). For foundational knowledge, [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide/) and [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provide essential skills every security professional needs.
+Specific learning projects I'm working on include [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/), zero-trust VLAN segmentation, and automated security scanning pipelines. For foundational knowledge, [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide/) provides essential skills every security professional needs.
 
 ## Your Learning Path
 
 The key is personalization. My path won't be yours, and that's completely fine. Your career goals, learning style, and time availability will shape what works best. Consider these starting points:
 
-For those new to vulnerability management, my guide on [vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev/) demonstrates a systematic approach to continuous learning in risk assessment.
+For those new to vulnerability management, studying vulnerability prioritization with EPSS and KEV demonstrates a systematic approach to continuous learning in risk assessment.
 
 ### Early Career? Focus on:
 - Fundamentals (networking, Linux, Windows)

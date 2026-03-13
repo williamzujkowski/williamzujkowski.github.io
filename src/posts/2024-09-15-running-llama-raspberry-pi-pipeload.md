@@ -416,7 +416,7 @@ Avoid cloud API costs for high-volume inference:
 
 Based on trends from [IEEE Edge Computing Conference 2024](https://ieeexplore.ieee.org/xpl/conhome/1000016/all-proceedings) and my homelab experiments.
 
-For broader edge AI deployment patterns, see [AI edge computing](/posts/2024-10-22-ai-edge-computing), [local LLM deployment strategies](/posts/2025-06-25-local-llm-deployment-privacy-first), [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows), and [embodied AI robotics](/posts/2025-10-13-embodied-ai-robots-physical-world):
+For broader edge AI deployment patterns, see [AI edge computing](/posts/2024-10-22-ai-edge-computing) and [local LLM deployment strategies](/posts/2025-06-25-local-llm-deployment-privacy-first):
 
 ### 1. Mixture-of-Experts (MoE) on Edge
 

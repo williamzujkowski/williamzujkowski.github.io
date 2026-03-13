@@ -20,7 +20,7 @@ Every language model has training data biases. Claude tends toward caution in ar
 
 I tracked decision quality across 200 tasks over about two months. Single-model decisions had a roughly 78% satisfaction rate. Not bad, but the 22% failure rate concentrated in specific categories: security reviews, breaking API changes, and architecture decisions. These are exactly the high-stakes decisions where you can't afford to be wrong.
 
-The pattern was consistent. Claude would approve an architecture change without considering [deployment complexity](/posts/2024-03-05-cloud-migration-journey-guide/). Gemini would approve a security configuration without considering edge cases in the [threat model](/posts/2024-05-14-ai-new-frontier-cybersecurity/). Codex would approve a breaking change without considering downstream consumers.
+The pattern was consistent. Claude would approve an architecture change without considering deployment complexity. Gemini would approve a security configuration without considering edge cases in the threat model. Codex would approve a breaking change without considering downstream consumers.
 
 Different blind spots. Different models. Same failure mode: overconfidence on tasks outside their training distribution.
 

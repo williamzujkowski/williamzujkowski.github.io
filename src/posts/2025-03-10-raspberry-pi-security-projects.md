@@ -149,11 +149,11 @@ Compare that to:
 ## What's Next?
 
 I'm currently experimenting with some ambitious ideas (though they're still in early testing):
-1. **AI-Powered Threat Detection**: Using Coral TPU for real-time network traffic analysis (see [AI edge computing](/posts/2024-10-22-ai-edge-computing) for deployment patterns)
+1. **AI-Powered Threat Detection**: Using Coral TPU for real-time network traffic analysis
 2. **Mesh Security Network**: Multiple Pis creating a distributed security sensor network
 3. **Incident Response Bot**: Automated playbook execution via Discord commands
 
-For advanced security monitoring, explore [eBPF security monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide) to add kernel-level threat detection to your homelab.
+For advanced security monitoring, eBPF can add kernel-level threat detection to your homelab.
 
 ## Your Turn
 

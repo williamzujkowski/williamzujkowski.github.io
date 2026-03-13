@@ -65,7 +65,7 @@ A breakthrough moment came when I realized cloud providers had better security t
 
 ## Performance and Cost Optimization: The Ongoing Challenge
 
-Migration was just the beginning. Optimization became a continuous process: For more context, see [securing the cloud-native frontier: a guide to cloud-native security](/posts/2024-08-27-zero-trust-security-principles).
+Migration was just the beginning. Optimization became a continuous process:
 
 **Right-Sizing Reality:** The initial instance selections were laughably oversized. I made the classic mistake of provisioning based on peak usage patterns, leading to 70% average utilization. Learning to monitor and adjust became essential for cost control. It took me about three months of reviewing CloudWatch metrics before I felt confident right-sizing instances without breaking things.
 
@@ -77,7 +77,7 @@ Another lesson came from security group misconfiguration. Removing SSH access be
 
 **Reserved Instance Economics:** Understanding when to purchase reserved instances versus using on-demand pricing required detailed usage analysis. The organization saved 40% on compute costs by committing to one-year terms for predictable workloads. Though in hindsight, I probably should have waited another quarter before committing to get more accurate usage patterns.
 
-**Serverless Adoption:** Functions-as-a-Service eliminated server management for event-driven workloads. The image processing pipeline became both more reliable and cost-effective when converted to serverless architecture. Processing time dropped from an average of 2.3 seconds per image to 0.8 seconds, while costs decreased by 65%. The cold start latency was initially concerning, but with proper warming strategies, it rarely affected real users. For comprehensive guidance on [designing resilient systems that handle failures gracefully](/posts/2024-06-25-designing-resilient-systems), I've documented architectural patterns that complement cloud migration by ensuring graceful degradation under stress.
+**Serverless Adoption:** Functions-as-a-Service eliminated server management for event-driven workloads. The image processing pipeline became both more reliable and cost-effective when converted to serverless architecture. Processing time dropped from an average of 2.3 seconds per image to 0.8 seconds, while costs decreased by 65%. The cold start latency was initially concerning, but with proper warming strategies, it rarely affected real users.
 
 ## The Human Factor: Managing Organizational Change
 
@@ -139,17 +139,17 @@ Migration completion wasn't the end. It was the beginning of ongoing optimizatio
 
 **Performance Optimization:** Regular analysis of resource utilization, application performance, and user experience drives ongoing improvements.
 
-**Service Evolution:** Cloud providers release new services constantly. Staying current with offerings enables further optimization and capability enhancement. For more context, see [beyond containers: the future of application deployment](/posts/2024-09-25-gvisor-container-sandboxing-security).
+**Service Evolution:** Cloud providers release new services constantly. Staying current with offerings enables further optimization and capability enhancement.
 
 ## Conclusion: Transformation Beyond Technology
 
-Cloud migration transformed organizations beyond simple infrastructure changes. They become more agile, resilient, and capable of rapid innovation. The physical servers gathering dust in old data centers represent more than deprecated hardware. They symbolize outdated thinking about infrastructure, scalability, and change management. For more context, see [ai meets edge computing: transforming real-time intelligence](/posts/2024-10-22-ai-edge-computing).
+Cloud migration transformed organizations beyond simple infrastructure changes. They become more agile, resilient, and capable of rapid innovation. The physical servers gathering dust in old data centers represent more than deprecated hardware. They symbolize outdated thinking about infrastructure, scalability, and change management.
 
 The journey wasn't without challenges, setbacks, and expensive lessons. But each difficulty taught something valuable about modern infrastructure, organizational change, and the balance between control and convenience.
 
 Standing in a current office (no server room, no cooling systems, no blinking lights), I'm reminded of how dramatically the relationship with technology infrastructure has evolved. Cloud migration didn't just change architecture. It changed mindsets about what's possible when infrastructure becomes invisible and infinite.
 
-I think the lift-and-shift approach was right for getting started quickly, though it probably wasn't the most cost-optimal strategy in the long term. Refactoring to cloud-native architectures from the beginning might have saved money, but would have extended our migration timeline significantly. For homelab enthusiasts testing cloud patterns locally, my guide on [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure) demonstrates how to replicate enterprise cloud architectures using Proxmox and VLAN segmentation.
+I think the lift-and-shift approach was right for getting started quickly, though it probably wasn't the most cost-optimal strategy in the long term. Refactoring to cloud-native architectures from the beginning might have saved money, but would have extended our migration timeline significantly.
 
 For organizations considering cloud migration, my advice is simple: start with strategy, plan for complexity, invest in people, and embrace the journey as transformation rather than simple technology replacement. The destination is worth the effort, but the journey itself teaches invaluable lessons about adaptability in an increasingly digital world.
 

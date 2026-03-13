@@ -68,14 +68,14 @@ But here's what I learned: Security principles are universal. Whether you're pro
 - Build defense in depth
 - Monitor, respond, iterate
 
-**Practical Impact Example**: When we implemented proper SLURM accounting and GPU isolation, it became clear how quickly untracked compute costs can spiral in HPC environments. Security controls that provide visibility into resource consumption aren't just about security — they save real money. My experience with [GPU power monitoring in homelab ML environments](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) taught me how easily computational costs can spiral out of control, while [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provided the foundational knowledge needed to implement proper data protection across HPC systems. Learning [continuous cybersecurity education strategies](/posts/2025-02-24-continuous-learning-cybersecurity/) helped me keep pace with rapidly evolving threats in these complex environments.
+**Practical Impact Example**: When we implemented proper SLURM accounting and GPU isolation, it became clear how quickly untracked compute costs can spiral in HPC environments. Security controls that provide visibility into resource consumption aren't just about security — they save real money. My experience with [GPU power monitoring in homelab ML environments](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) taught me how easily computational costs can spiral out of control, while learning continuous cybersecurity education strategies helped me keep pace with rapidly evolving threats in these complex environments.
 
 ## The Present: Cloud Security and Beyond
 
 Today, I work in cloud security, which represents the culmination of everything I've learned:
 - The troubleshooting skills from IT support days
 - The process knowledge from enterprise IT
-- The [security frameworks](/posts/2024-07-09-zero-trust-architecture-implementation) from federal work
+- The security frameworks from federal work
 - The scale challenges from vulnerability management
 - The performance considerations from HPC
 
@@ -141,10 +141,10 @@ Security is vast. You might gravitate toward:
 - Offensive security (pentesting, red teaming)
 - Defensive security (SOC, incident response)
 - Governance and compliance (frameworks, auditing)
-- Security engineering (building secure systems). My approach to [continuous learning in cybersecurity](/posts/2025-02-24-continuous-learning-cybersecurity/) helped me navigate this constantly evolving field.
-- Security research (finding new vulnerabilities). Practical projects like [Raspberry Pi security implementations](/posts/2025-03-10-raspberry-pi-security-projects/) and [automated security scanning pipelines](/posts/2025-10-06-automated-security-scanning-pipeline/) built hands-on skills that accelerated my career progression.
+- Security engineering (building secure systems)
+- Security research (finding new vulnerabilities)
 
-I thought I'd be in offensive security but found my passion in security engineering and architecture. Stay open to where your interests lead. [Building a secure homelab](/posts/2025-04-24-building-secure-homelab-adventure/) gave me a safe environment to explore different specializations before committing to a career path, while [vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev/) taught me systematic risk assessment that applies across all security domains.
+I thought I'd be in offensive security but found my passion in security engineering and architecture. Stay open to where your interests lead. [Building a secure homelab](/posts/2025-04-24-building-secure-homelab-adventure/) gave me a safe environment to explore different specializations before committing to a career path.
 
 ### 4. Remember It's a Marathon
 Burnout is real in security. We deal with:

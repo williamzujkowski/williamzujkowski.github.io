@@ -622,14 +622,7 @@ When I applied curriculum learning to my natural language understanding models i
 
 ## Open Source Tools: Community-Driven Efficiency
 
-[the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive)
-
-[supercharging development with claude-flow: ai swarm intelligence for modern engineering](/posts/2025-08-07-supercharging-development-claude-flow)
-
 [ai meets edge computing: transforming real-time intelligence](/posts/2024-10-22-ai-edge-computing)
-
-
-[from claude in your terminal to robots in your workshop: the embodied ai revolution](/posts/2025-10-13-embodied-ai-robots-physical-world)
 
 
 

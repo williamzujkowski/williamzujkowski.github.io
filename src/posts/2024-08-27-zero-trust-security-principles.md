@@ -18,8 +18,8 @@ Federal agencies must adopt Zero Trust Architecture by 2024 under Executive Orde
 **What you'll learn:**
 - Zero Trust architecture (policy engine, verification flows, continuous monitoring)
 - Identity-centric security model (authentication, authorization, least privilege). Understanding [cryptography fundamentals](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) is essential for implementing robust identity verification.
-- Service mesh security (mTLS, SPIFFE/SPIRE, API gateway patterns). These patterns extend to [cloud-native security](/posts/2024-03-05-cloud-migration-journey-guide/) where zero-trust principles are critical for distributed microservices.
-- Network visibility through [traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab/) and [container security hardening](/posts/2025-08-18-docker-lsm-security-hardening/) to detect zero-trust policy violations in real-time.
+- Service mesh security (mTLS, SPIFFE/SPIRE, API gateway patterns)
+- Network visibility and detection of zero-trust policy violations in real-time
 - CI/CD pipeline hardening (artifact signing, secret management, security gates)
 - Implementation strategy (assessment, identity foundation, network segmentation)
 
@@ -306,7 +306,7 @@ Implementing least privilege requires careful design:
 - **RBAC**: Job function permissions (developer, admin, auditor)
 - **ABAC**: Contextual access (user + resource + environment)
 - **ReBAC**: Graph-based permissions (owner, collaborator, viewer)
-- **PBAC**: Declarative rules ([Open Policy Agent](/posts/2024-01-08-writing-secure-code-developers-guide), Cedar)
+- **PBAC**: Declarative rules (Open Policy Agent, Cedar)
 
 **Just-In-Time (JIT) access:**
 - On-demand elevation for specific tasks
@@ -351,7 +351,7 @@ Traditional security authenticated once, then trusted until session expiration. 
 - IOC feeds: Malicious IPs, file hashes, domains (CARTA framework[8])
 - Reputation: IP reputation, domain age, certificate validity
 - MITRE ATT&CK: Map adversary techniques in behavior
-- Feedback: False positive tuning, [model retraining](/posts/2024-11-19-llms-smart-contract-vulnerability)
+- Feedback: False positive tuning, model retraining
 
 ⚠️ **Warning:** This code demonstrates security monitoring concepts for educational purposes. Implement behavioral monitoring with proper privacy controls and compliance with organizational policies.
 
@@ -388,7 +388,7 @@ Traditional build systems had broad production access "because they needed to de
 **Security gates:**
 - SAST: Code scanning before build
 - SCA: Dependency scanning for CVEs
-- [Container scanning](/posts/2025-08-18-docker-lsm-security-hardening): Trivy/Grype block high-severity issues
+- Container scanning: Trivy/Grype block high-severity issues
 - Policy-as-code: OPA policies[9] validate compliance
 
 **Pseudocode - Simplified CI/CD Security Pipeline:**

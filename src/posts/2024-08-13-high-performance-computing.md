@@ -17,7 +17,7 @@ In over a decade, supercomputing has undergone a transformation more dramatic th
 
 This democratization coincides with humanity's most pressing computational challenges reaching a critical inflection point. The difference between simulating climate at 3-kilometer versus 10-kilometer resolution could determine whether we can accurately predict regional flooding patterns in time to save lives. This efficiency imperative connects to broader [sustainable computing strategies](/posts/2024-07-16-sustainable-computing-carbon-footprint/) where balancing computational power with environmental responsibility has become critical.
 
-The stakes have fundamentally shifted. We're no longer racing for raw speed. We're pursuing a delicate balance between computational power, energy efficiency, and practical accessibility. My work on [GPU power monitoring](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) revealed how even homelab-scale HPC can consume staggering amounts of energy—a single ML training run matching my entire house's daily consumption. The shift toward [quantum computing](/posts/2024-08-02-quantum-computing-leap-forward/) promises another magnitude leap in computational capability, though practical implementation remains years away. Meanwhile, [edge computing architectures](/posts/2024-10-22-ai-edge-computing/) distribute HPC workloads closer to data sources, reducing both latency and datacenter energy demands. And for resource-constrained environments, [efficient AI learning techniques](/posts/2024-05-30-ai-learning-resource-constrained/) demonstrate how to achieve HPC-like results without HPC-scale infrastructure.
+The stakes have fundamentally shifted. We're no longer racing for raw speed. We're pursuing a delicate balance between computational power, energy efficiency, and practical accessibility. My work on [GPU power monitoring](/posts/2024-11-15-gpu-power-monitoring-homelab-ml/) revealed how even homelab-scale HPC can consume staggering amounts of energy—a single ML training run matching my entire house's daily consumption. The shift toward [quantum computing](/posts/2024-08-02-quantum-computing-leap-forward/) promises another magnitude leap in computational capability, though practical implementation remains years away. Meanwhile, edge computing architectures distribute HPC workloads closer to data sources, reducing both latency and datacenter energy demands. And for resource-constrained environments, efficient AI learning techniques demonstrate how to achieve HPC-like results without HPC-scale infrastructure.
 
 When the Department of Energy's Frontier system broke the exascale barrier in 2022, achieving 1.35 exaflops, it did so while consuming less power per calculation than systems from five years prior. Meanwhile, researchers are using these machines to compress drug discovery timelines from years to weeks, design materials that don't yet exist in nature, and run quantum chemistry simulations at scales previously confined to theory. The transformation isn't only technical. It's redefining what problems we can reasonably attempt to solve.
 
@@ -59,7 +59,7 @@ The transformation I've witnessed in HPC extends beyond raw computational power.
 
 ## AI and HPC: A Perfect Partnership
 
-The most interesting development I've observed is how [AI](/posts/2024-04-11-ethics-large-language-models) and HPC have become symbiotic partners rather than separate domains. This isn't about using supercomputers to train large models. It's become much more sophisticated. [Multimodal foundation models](/posts/2024-07-24-multimodal-foundation-models/) and [retrieval augmented generation](/posts/2024-04-04-retrieval-augmented-generation-rag/) represent applications where HPC infrastructure enables AI capabilities previously impossible, while [mastering prompt engineering](/posts/2024-04-19-mastering-prompt-engineering-llms/) optimizes how researchers interact with these powerful systems. The convergence extends to edge computing, where [AI meets edge computing](/posts/2024-10-22-ai-edge-computing/) distributes HPC workloads closer to data sources, and [biomimetic robotics](/posts/2024-09-19-biomimetic-robotics/) demonstrates how computational efficiency learned from nature can reduce HPC resource requirements.
+The most interesting development I've observed is how AI and HPC have become symbiotic partners rather than separate domains. This isn't about using supercomputers to train large models. It's become much more sophisticated. Multimodal foundation models and retrieval augmented generation represent applications where HPC infrastructure enables AI capabilities previously impossible, while prompt engineering optimizes how researchers interact with these powerful systems. The convergence extends to edge computing, where distributed HPC workloads move closer to data sources, and biomimetic robotics demonstrates how computational efficiency learned from nature can reduce HPC resource requirements.
 
 ### Smart Resource Management
 
@@ -120,7 +120,7 @@ flowchart LR
 
 ### Physics-Informed Neural Networks (PINNs)
 
-PINNs represent a paradigm shift in scientific computing by embedding physical laws directly into [neural network architectures](/posts/2024-03-20-transformer-architecture-deep-dive):
+PINNs represent a paradigm shift in scientific computing by embedding physical laws directly into neural network architectures:
 
 PINNs embed physical laws directly into neural network architectures. This creates a paradigm shift in scientific computing.
 
@@ -366,7 +366,7 @@ The applications I've seen emerge from these HPC advances show substantial real-
 - **Regional flooding forecasts**: Sub-kilometer grids enable accurate prediction of local flooding events weeks in advance
 - **Extreme weather modeling**: Hurricane intensity and path predictions improved by 30% through fine-grained atmospheric dynamics
 - **Multi-decadal projections**: 50-100 year climate scenarios now run in days rather than months
-- **Carbon cycle accuracy**: Coupled ocean-atmosphere-land models track CO₂ absorption with 10× higher fidelity, supporting [sustainable computing initiatives](/posts/2024-07-16-sustainable-computing-carbon-footprint)
+- **Carbon cycle accuracy**: Coupled ocean-atmosphere-land models track CO₂ absorption with 10× higher fidelity, supporting sustainable computing initiatives
 
 ### Materials Discovery
 - **Accelerated exploration**: AI-enhanced HPC is accelerating materials discovery by 50× compared to traditional approaches

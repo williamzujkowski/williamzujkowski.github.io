@@ -10,9 +10,9 @@ image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&h=63
 imageAlt: "Abstract geometric neural network pattern"
 ---
 
-There's a moment when reading certain papers that you know you're witnessing something fundamental. For me, that moment came with _"Attention is All You Need"_ by Vaswani et al. The elegance of the Transformer architecture felt like discovering a secret that would reshape everything I thought I knew about natural language processing. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
+There's a moment when reading certain papers that you know you're witnessing something fundamental. For me, that moment came with _"Attention is All You Need"_ by Vaswani et al. The elegance of the Transformer architecture felt like discovering a secret that would reshape everything I thought I knew about natural language processing.
 
-In late 2018, I implemented my first Transformer from scratch for a machine translation project. After weeks of debugging attention matrices and positional encodings, I got it working. The training speed compared to my previous LSTM baseline was striking: what took 14 hours per epoch with LSTMs finished in 3.5 hours with the Transformer, while achieving 2.1 points higher BLEU score on English-German translation. That hands-on experience, watching Transformers evolve into GPT, BERT, and modern LLMs, convinced me this architecture represented a genuine paradigm shift, though I'm still learning about its limitations. For more context, see [introduction to fine-tuning llms in the homelab: a practical guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide).
+In late 2018, I implemented my first Transformer from scratch for a machine translation project. After weeks of debugging attention matrices and positional encodings, I got it working. The training speed compared to my previous LSTM baseline was striking: what took 14 hours per epoch with LSTMs finished in 3.5 hours with the Transformer, while achieving 2.1 points higher BLEU score on English-German translation. That hands-on experience, watching Transformers evolve into GPT, BERT, and modern LLMs, convinced me this architecture represented a genuine paradigm shift, though I'm still learning about its limitations.
 
 ## How It Works
 
@@ -131,10 +131,7 @@ Watching Transformers evolve into BERT, GPT, T5, and other architectures has bee
 
 **T5 (Text-to-Text Transfer):** Framing all NLP tasks as text generation problems showed the Transformer's flexibility across diverse problem types. For more context, see [open-source vs. proprietary llms: a battle of accessibility, customization, and community](/posts/2024-02-22-open-source-vs-proprietary-llms).
 
-[local llm deployment: privacy-first approach](/posts/2025-06-25-local-llm-deployment-privacy-first)
-
-
-Each variant taught lessons about the architecture's flexibility and the importance of training objectives in shaping model behavior. Though I suspect we've only scratched the surface of what's possible with different training approaches. For more context, see [the ethics of large language models](/posts/2024-04-11-ethics-large-language-models).
+Each variant taught lessons about the architecture's flexibility and the importance of training objectives in shaping model behavior. Though I suspect we've only scratched the surface of what's possible with different training approaches.
 
 ## Implementation Insights: Building Transformers from Scratch
 

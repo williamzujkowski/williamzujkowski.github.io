@@ -11,9 +11,9 @@ imageAlt: "Digital library with glowing data connections"
 
 ---
 
-**BLUF:** Recently, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
+**BLUF:** Recently, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense..
 
-The spark for this project came from watching GPT-4 confidently make up technical specifications for Docker containers that didn't exist in my setup. It told me I was running version 2.3.1 of a service I'd never installed. The response was authoritative, detailed, and completely wrong. For more context, see [introduction to fine-tuning llms in the homelab: a practical guide](/posts/2025-05-10-llm-fine-tuning-homelab-guide).
+The spark for this project came from watching GPT-4 confidently make up technical specifications for Docker containers that didn't exist in my setup. It told me I was running version 2.3.1 of a service I'd never installed. The response was authoritative, detailed, and completely wrong.
 
 That's when I realized I needed RAG, not just a smarter model.
 
@@ -144,16 +144,13 @@ The external knowledge source required as much attention as the AI components, p
 
 ## Real-World Applications: Where RAG Shines (And Where It Struggles)
 
-I've tested RAG on different use cases beyond my homelab docs. Here's what I learned: For more context, see [teaching ai agents to ask for help: a breakthrough in human-robot interaction](/posts/2024-09-09-embodied-ai-teaching-agents).
+I've tested RAG on different use cases beyond my homelab docs. Here's what I learned:
 
 ### Homelab Documentation (My Primary Use Case)
 
-**Success:** I can now ask questions like "What's the IP address of my Grafana instance?" and get accurate answers in about 3 seconds (1.8s retrieval + 1.2s generation). The system retrieved the right config file 92% of the time in my informal testing of 50 queries. For more context, see [local llm deployment: privacy-first approach](/posts/2025-06-25-local-llm-deployment-privacy-first).
+**Success:** I can now ask questions like "What's the IP address of my Grafana instance?" and get accurate answers in about 3 seconds (1.8s retrieval + 1.2s generation). The system retrieved the right config file 92% of the time in my informal testing of 50 queries.
 
-[the ethics of large language models](/posts/2024-04-11-ethics-large-language-models)
-
-
-**Challenge:** Complex troubleshooting that requires understanding relationships between multiple services. For example, "Why is Prometheus scraping failing for my Ubiquiti Dream Machine?" required retrieving docs about Prometheus config, network topology, UDM SNMP settings, and firewall rules. The system retrieved relevant docs but the LLM struggled to synthesize them into a coherent troubleshooting plan. I ended up doing manual analysis anyway. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
+**Challenge:** Complex troubleshooting that requires understanding relationships between multiple services. For example, "Why is Prometheus scraping failing for my Ubiquiti Dream Machine?" required retrieving docs about Prometheus config, network topology, UDM SNMP settings, and firewall rules. The system retrieved relevant docs but the LLM struggled to synthesize them into a coherent troubleshooting plan. I ended up doing manual analysis anyway.
 
 ### Code Generation for Homelab Scripts
 

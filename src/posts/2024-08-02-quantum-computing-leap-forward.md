@@ -16,7 +16,7 @@ In June 2024, I spent 40 hours working through IBM's Qiskit tutorials, attemptin
 ![Quantum computing visualization](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1920&q=80)
 *Photo by Zac Wolff on Unsplash*
 
-That learning experience taught me something critical. Quantum computing isn't just a faster computer. For quantum-resistant cryptography, see [post-quantum cryptography](/posts/2025-10-29-post-quantum-cryptography-homelab) and [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide). It's a fundamentally different way of processing information that could change everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world. The timeline for when this happens remains uncertain, though progress has accelerated since 2023. Explore blockchain's cryptographic applications in [blockchain beyond cryptocurrency](/posts/2024-10-10-blockchain-beyond-cryptocurrency), learn about [transformer architecture](/posts/2024-03-20-transformer-architecture-deep-dive) for AI-powered quantum simulations, or discover [AI edge computing](/posts/2024-10-22-ai-edge-computing) for quantum-classical hybrid systems.
+That learning experience taught me something critical. Quantum computing isn't just a faster computer. It's a fundamentally different way of processing information that could change everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world. The timeline for when this happens remains uncertain, though progress has accelerated since 2023.
 
 ## How It Works
 

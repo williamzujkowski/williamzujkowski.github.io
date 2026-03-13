@@ -412,14 +412,14 @@ flowchart TD
 
 - [Kata Containers](https://katacontainers.io/): Heavier (full VMs), slower startup
 - [Firecracker](https://firecracker-microvm.github.io/): AWS-specific, not Kubernetes-native
-- seccomp-only: Kernel bugs bypass it (see [eBPF security monitoring](/posts/2025-07-01-ebpf-security-monitoring-practical-guide) for deeper kernel visibility)
+- seccomp-only: Kernel bugs bypass it
 
 **The real lesson:** Defense in depth. I use:
 
 - gVisor for untrusted containers
 - Network policies to limit lateral movement
 - Wazuh for syscall monitoring (integrate with [threat intelligence](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard))
-- Regular vulnerability scanning (Grype, Trivy) - see [vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source)
+- Regular vulnerability scanning (Grype, Trivy)
 
 **Container security is layers.** gVisor is one layer. A good one.
 

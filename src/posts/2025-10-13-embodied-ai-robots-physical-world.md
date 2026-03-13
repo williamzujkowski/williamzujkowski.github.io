@@ -26,7 +26,7 @@ My 3D printer failed mid-print for the third time in January 2025, not from mech
 
 My physical workspace? Dumb as a brick.
 
-That gap is closing. VLA models combine three capabilities. For edge deployment strategies, see [AI edge computing](/posts/2024-10-22-ai-edge-computing), [transformer architecture optimization](/posts/2024-03-20-transformer-architecture-deep-dive), and [progressive context loading](/posts/2025-10-17-progressive-context-loading-llm-workflows):
+That gap is closing. VLA models combine three capabilities:
 
 - **Vision**: Understanding visual scenes through computer vision
 - **Language**: Processing natural language instructions and context

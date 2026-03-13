@@ -11,7 +11,7 @@ image: "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=1200&h=63
 imageAlt: "Human hand reaching toward robotic hand"
 
 ---
-Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
+Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 
 Deploying a customer-facing LLM for the first time in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, fundamentally changed how I think about AI development and deployment.
 
@@ -132,11 +132,9 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 **Diverse Teams:** Including people from different backgrounds in development and testing reveals blind spots that are easy to miss. Cultural assumptions in training data are easy to overlook without diverse perspectives scrutinizing the pipeline. For more context, see [retrieval augmented generation (rag): enhancing llms with external knowledge](/posts/2024-04-04-retrieval-augmented-generation-rag).
 
-**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. Red team exercises have shown that specific prompt patterns can trigger biased outputs at surprisingly high rates, which is why regular adversarial testing matters. For more context, see [the transformer architecture: a deep dive](/posts/2024-03-20-transformer-architecture-deep-dive).
+**Adversarial Testing:** Red team exercises specifically designed to surface biased or harmful outputs. Red team exercises have shown that specific prompt patterns can trigger biased outputs at surprisingly high rates, which is why regular adversarial testing matters.
 
-**Training Data Curation:** Careful attention to data sources and active effort to include diverse perspectives. For more context, see [building a privacy-first ai lab: deploying local llms without sacrificing ethics](/posts/2025-10-29-privacy-first-ai-lab-local-llms).
-
-[open-source vs. proprietary llms: a battle of accessibility, customization, and community](/posts/2024-02-22-open-source-vs-proprietary-llms)
+**Training Data Curation:** Careful attention to data sources and active effort to include diverse perspectives.
 
 
 ### Misinformation Prevention

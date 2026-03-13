@@ -169,7 +169,7 @@ Quantum algorithms show promise for:
 - **Natural language processing**: Monitoring and analyzing foreign communications
 - **Resource allocation**: Optimally deploying intelligence assets
 
-These capabilities could provide significant strategic advantages in intelligence operations, most quantum machine learning algorithms remain in early research phases and haven't been proven to outperform classical approaches on real-world intelligence data. The computational foundations build on [high-performance computing](/posts/2024-08-13-high-performance-computing) infrastructure.
+These capabilities could provide significant strategic advantages in intelligence operations, most quantum machine learning algorithms remain in early research phases and haven't been proven to outperform classical approaches on real-world intelligence data.
 
 ## Security Vulnerabilities and Defensive Challenges
 
@@ -208,7 +208,7 @@ Defense organizations need comprehensive strategies balancing immediate concerns
 3. **Post-quantum cryptography testing**: Beginning implementation in non-critical systems
 4. **Knowledge base development**: Building internal quantum expertise
 
-These strategies align with [secure code development practices](/posts/2024-01-08-writing-secure-code-developers-guide) and [zero trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation).
+These strategies align with [zero trust architecture](/posts/2024-07-09-zero-trust-architecture-implementation) principles.
 
 The pace of quantum development is highly uncertain. These timelines could accelerate with unexpected breakthroughs or slow down if fundamental hardware challenges prove more difficult than anticipated.
 
@@ -231,7 +231,7 @@ The quantum era presents both significant opportunities and existential challeng
 
 When I first studied quantum computing in 2016, it seemed like distant science fiction. Today, it's operational reality affecting defense planning worldwide. The organizations that most effectively harness quantum technologies while mitigating associated vulnerabilities will gain substantial strategic advantages.
 
-This isn't just about building quantum computers or deploying quantum-resistant encryption. It's about fundamentally rethinking security in a post-quantum world. The actions taken today will shape quantum security for decades to come. These transformations parallel broader shifts in [AI as cognitive infrastructure](/posts/2025-08-09-ai-cognitive-infrastructure), where foundational technologies reshape how organizations operate.
+This isn't just about building quantum computers or deploying quantum-resistant encryption. It's about fundamentally rethinking security in a post-quantum world. The actions taken today will shape quantum security for decades to come.
 
 The quantum era of defense has already begun. Understanding both its promises and perils is essential for navigating this complex technological frontier successfully.
 

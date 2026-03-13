@@ -55,7 +55,7 @@ flowchart LR
     style F fill:#b7e4c7,color:#000
 ```
 
-This computational approach extends beyond robotics. As explored in [high-performance computing](/posts/2024-08-13-high-performance-computing), distributing computation across specialized hardware (whether biological or silicon) yields dramatic efficiency gains. [Fine-tuning LLMs in the homelab](/posts/2025-05-10-llm-fine-tuning-homelab-guide/) demonstrates analogous principles where distributed training across hardware components mirrors biological parallel processing, while [writing secure code](/posts/2024-01-08-writing-secure-code-developers-guide/) shows how embedding security into system design (rather than bolting it on) reflects morphological intelligence.
+This computational approach extends beyond robotics: distributing computation across specialized hardware (whether biological or silicon) yields dramatic efficiency gains.
 
 **Real examples:**
 - Toucan beak: Shape distributes mechanical forces without calculation
@@ -143,7 +143,7 @@ Marine locomotion demonstrates biomimetic efficiency advantages. Fish and marine
 
 ## Advanced Sensing: Beyond Human Capabilities
 
-Nature's sensory systems offer lessons that go far beyond our traditional five senses. Evolution developed specialized sensors for detecting everything from electromagnetic fields to chemical gradients. [Neuromorphic vision sensors](https://www.nature.com/articles/s44172-025-00492-5) mimic the human retina, recording only pixel changes instead of fixed-interval frames. These biological sensing principles connect to [AI cognitive infrastructure](/posts/2025-08-09-ai-cognitive-infrastructure), where perception systems mediate human interaction with technology.
+Nature's sensory systems offer lessons that go far beyond our traditional five senses. Evolution developed specialized sensors for detecting everything from electromagnetic fields to chemical gradients. [Neuromorphic vision sensors](https://www.nature.com/articles/s44172-025-00492-5) mimic the human retina, recording only pixel changes instead of fixed-interval frames.
 
 **Advantages:**
 - Data volume reduction: 90% less than traditional cameras
@@ -152,6 +152,7 @@ Nature's sensory systems offer lessons that go far beyond our traditional five s
 - Fast movement tracking: No motion blur
 - High-speed navigation: Minimal processing overhead
 - Rapid response: Critical for real-time robotic tasks
+
 
 ### Unconventional Sensing Modalities
 

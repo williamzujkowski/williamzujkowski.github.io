@@ -28,7 +28,7 @@ But here's the thing: personal projects are where we learn by overdoing it, by m
 
 Remember when I was all excited about my standards repository? Well, I made the classic developer mistake: "You know what would make this better? If I rebuilt it from scratch with a completely different architecture!"
 
-Enter the [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp) – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP? This server became a key component of my broader workflow when [supercharging development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow), enabling dynamic standards integration across multiple projects.
+Enter the [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp) – Anthropic's new way for LLMs to interact with external tools. The idea was simple: instead of copying CLAUDE.md into every project, why not serve the standards directly to Claude through MCP?
 
 Three weeks and several rewrites later, I have [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server). It works! Mostly. When Redis is happy. And the moon is in the right phase.
 
@@ -244,7 +244,7 @@ flowchart LR
 
 ⚠️ **Warning:** This example demonstrates API optimization techniques. Implement proper authentication and rate limiting when exposing MCP servers to untrusted clients.
 
-Compressed formats reduce LLM token costs by 70-90%. This optimization strategy builds on the principles I discuss in my guide to [progressive context loading for LLM workflows](/posts/2025-10-17-progressive-context-loading-llm-workflows), where efficient token management becomes critical for complex projects:
+Compressed formats reduce LLM token costs by 70-90%:
 
 ```python
 # Full standard: 5000 tokens
@@ -518,7 +518,7 @@ graph LR
 
 ## Try It Yourself (At Your Own Risk)
 
-If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB. For insights on [orchestrating multi-agent development workflows with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow), I've documented how MCP servers integrate with swarm intelligence for complex engineering tasks.
+If you're brave enough to try this server, you might also want to explore my simpler (and more practical) approach to [supercharging Claude CLI with standards](/posts/2025-07-22-supercharging-claude-cli-with-standards) that doesn't require Redis or ChromaDB.
 
 **AI skepticism note:** MCP is bleeding-edge technology from Anthropic. The spec changes. The libraries break. The examples in the docs don't always work. Building production systems on top of experimental protocols is a recipe for midnight debugging sessions.
 
@@ -544,7 +544,7 @@ Fair warning: This is a work in progress. It works, but "works" is doing some he
 
 ## The Real Talk
 
-This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist. For lessons on [building resilient systems that fail gracefully](/posts/2024-06-25-designing-resilient-systems), I've applied similar architectural patterns to ensure my homelab services remain operational even when individual components break.
+This project taught me something important: The gap between "working prototype" and "production ready" is vast. My standards repository was immediately useful. This MCP server is technically superior and practically inferior. It's harder to install, easier to break, and solves problems that don't exist.
 
 **The honest assessment:** This is over-engineering as a learning exercise. The first version (200 lines) worked fine. The current version (6,000+ lines) is more impressive and less useful. Sometimes the best code is the code you don't write.
 
@@ -553,8 +553,6 @@ But I learned a ton:
 - Redis patterns I'll never use again
 - Why simple solutions often win
 - That scope creep is my superpower and weakness
-
-For practical deployment guidance on [zero trust network architecture](/posts/2024-07-09-zero-trust-architecture-implementation), securing MCP servers requires similar VLAN isolation and firewall rules to protect sensitive standards data from unauthorized access.
 
 Will I keep working on it? Absolutely. Will it ever be "done"? Absolutely not.
 

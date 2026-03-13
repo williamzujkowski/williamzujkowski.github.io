@@ -95,7 +95,7 @@ Security controls shifted from perimeter defense to continuous monitoring, rapid
 
 ### Phase 1: Identity Foundation
 
-Zero Trust starts with knowing who and what is trying to access your systems. At least that's the theory. In practice, I found identity management to be the hardest part of my homelab Zero Trust implementation. If you're starting from scratch, my comprehensive guide to building a [security-focused homelab with zero trust](/posts/2025-04-24-building-secure-homelab-adventure) principles provides essential foundation and planning considerations.
+Zero Trust starts with knowing who and what is trying to access your systems. At least that's the theory. In practice, I found identity management to be the hardest part of my homelab Zero Trust implementation.
 
 **Identity Provider Consolidation:**
 I migrated to self-hosted Bitwarden 2024.6.2 as my password manager and authentication source. The migration took me three attempts because I initially configured the wrong database connection string and locked myself out.
@@ -428,7 +428,7 @@ Normalizing the idea that verification wasn't about distrust but about protectio
 ### Training and Communication
 
 **Security Awareness:**
-Regular training on new security procedures and the reasoning behind them. For comprehensive guidance on [implementing security controls in a homelab environment](/posts/2025-04-24-building-secure-homelab-adventure), I've documented the complete journey from planning to production deployment.
+Regular training on new security procedures and the reasoning behind them. Regular training on new security procedures and the reasoning behind them.
 
 **Incident Simulation:**
 Regular exercises that helped employees practice security procedures.

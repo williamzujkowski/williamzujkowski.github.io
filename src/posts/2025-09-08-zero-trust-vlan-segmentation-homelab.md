@@ -20,7 +20,7 @@ imageAlt: "Network infrastructure with ethernet connections"
 
 **BLUF:** Years ago, I bought a cheap IP camera for my homelab. Within hours, it was beaconing to servers in China, scanning my network, and attempting to access my NAS.
 
-All because I put it on the same network as my trusted devices. That camera is now in a VLAN jail, where it belongs. This experience became a core lesson in [building a security-focused homelab with VLANs](/posts/2025-04-24-building-secure-homelab-adventure), where network segmentation proved essential for containing untrusted devices.
+All because I put it on the same network as my trusted devices. That camera is now in a VLAN jail, where it belongs.
 
 ## Zero Trust Network Architecture
 
@@ -501,7 +501,7 @@ Management VLAN (10.0.10.0/24) can access all VLANs. All VLANs can SSH to manage
 📎 **Complete ruleset:**
 [Full IoT isolation rules with default-deny](https://gist.github.com/williamzujkowski/42d5f269c97a1fbd8335316d09f90068)
 
-IoT blocked from all VLANs. Only HTTP/HTTPS to internet allowed. These strict rules are essential for [IoT security with VLAN isolation](/posts/2025-09-20-iot-security-homelab-owasp), where untrusted devices need containment without breaking functionality.
+IoT blocked from all VLANs. Only HTTP/HTTPS to internet allowed.
 
 ### Server VLAN Rules
 
@@ -628,10 +628,9 @@ Firewall rules without logging are security theater. Log everything and alert on
 
 **Since implementing VLAN segmentation:**
 
-- **Reduced attack surface**: Compromised IoT devices can't pivot to trusted networks, validated through [IoT security testing with OWASP IoTGoat](/posts/2025-09-20-iot-security-homelab-owasp)
+- **Reduced attack surface**: Compromised IoT devices can't pivot to trusted networks
 - **Easier forensics**: VLAN ID in logs immediately identifies affected segment
 - **Improved performance**: Broadcast domains are smaller, reducing noise
-- **Improved performance**: Broadcast domains are smaller, reducing noise, measurable with [Proxmox high-availability monitoring](/posts/2025-09-29-proxmox-high-availability-homelab)
 - **Compliance**: Network segmentation requirement satisfied
 - **Peace of mind**: Sketchy cameras can't access my NAS
 

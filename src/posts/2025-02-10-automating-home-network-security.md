@@ -38,7 +38,7 @@ Or create a `requirements.txt` file with these dependencies:
 <script src="https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4.js"></script>
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management doesn't scale. Especially when you're also trying to be present for bedtime stories.
 
-After running my [home network](/posts/2025-04-24-building-secure-homelab-adventure) with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain [security](/posts/2024-01-08-writing-secure-code-developers-guide) without sacrificing family time.
+After running my [home network](/posts/2025-04-24-building-secure-homelab-adventure) with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time.
 
 This post shares what I've learned from automating my own network defense.
 
@@ -126,7 +126,7 @@ Here are the key tools I use in my homelab:
 - **Python 3.11.5** with libraries: python-nmap, vulners, schedule
 - **Notification**: Pushover for mobile alerts
 
-For comprehensive network security, [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provides foundation for encryption implementations, while [implementing zero-trust microsegmentation with VLANs](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab/) and [building smart vulnerability prioritization with EPSS and KEV](/posts/2025-09-20-vulnerability-prioritization-epss-kev/) extend the defense strategy. [Vulnerability management at scale](/posts/2025-07-15-vulnerability-management-scale-open-source/) demonstrates how to coordinate scanning results across multiple tools, and [implementing DNS-over-HTTPS (DoH)](/posts/2025-07-08-implementing-dns-over-https-home-networks/) addresses DNS privacy concerns identified by my monitoring scripts.
+For comprehensive network security, [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provides the foundation for the encryption implementations used in these scripts.
 
 ## What's Next?
 
