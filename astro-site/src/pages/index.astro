@@ -173,7 +173,7 @@ const featuredProjects = allProjects
       </div>
 
       <div class="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-        {recentPosts.map((post) => <PostCard post={post} variant="vertical" maxTags={3} />)}
+        {recentPosts.map((post, i) => <PostCard post={post} variant="vertical" maxTags={3} eager={i < 3} />)}
       </div>
 
       {

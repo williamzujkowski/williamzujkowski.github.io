@@ -15,9 +15,10 @@ interface Props {
   };
   variant?: 'horizontal' | 'vertical';
   maxTags?: number;
+  eager?: boolean;
 }
 
-const { post, variant = 'horizontal', maxTags = 4 } = Astro.props;
+const { post, variant = 'horizontal', maxTags = 4, eager = false } = Astro.props;
 
 const imageUrl = getValidImageUrl(post.data.image);
 const readingTime = getReadingTime(post.body ?? '');
@@ -48,7 +49,7 @@ const badgeColor =
             class="w-full h-32 sm:h-full object-cover rounded-[var(--md-sys-shape-corner-medium)]"
             width="1200"
             height="630"
-            loading="lazy"
+            loading={eager ? "eager" : "lazy"}
             decoding="async"
           />
         </div>
@@ -94,7 +95,7 @@ const badgeColor =
             class="w-full h-40 object-cover"
             width="1200"
             height="630"
-            loading="lazy"
+            loading={eager ? "eager" : "lazy"}
             decoding="async"
           />
         </div>
