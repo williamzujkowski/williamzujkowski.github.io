@@ -107,7 +107,7 @@ In my homelab authentication service, I benchmarked bcrypt (with cost factor 12)
 
 In early 2024, I accidentally committed an AWS API key to a public GitHub repo. Within 14 minutes, I received an email from GitHub's secret scanning feature.
 
-Within 2 hours, the key had 3 unauthorized access attempts from IP addresses in Russia. Secrets scanning prevents disasters, **though** false alarms are common. I revoked the key and spent 90 minutes rotating all my credentials.
+Within hours, the key had unauthorized access attempts from multiple regions. Secrets scanning prevents disasters, **though** false alarms are common. I revoked the key and spent 90 minutes rotating all my credentials.
 
 Encryption in transit (HTTPS) is mandatory, not optional. Passwords, when stored, go through salted hashing with algorithms like Argon2 or bcrypt. Years of experience have taught me that convenience is never worth the risk. I've seen the aftermath of breaches where "temporary" insecure shortcuts became permanent vulnerabilities. Security-by-design is ideal, **but** often sacrificed for deadlines.
 

@@ -56,13 +56,13 @@ The migration decision came from multiple pressures converging simultaneously:
 
 However, the reality proved more nuanced. The first month in the cloud came to $7,800 instead of the projected $5,000 - a 56% cost overrun primarily from unexpected egress charges. I'd completely underestimated data transfer costs, naively assuming "moving data around" wouldn't cost much since it was all within the same provider. This expensive lesson taught me to always account for network traffic patterns in cost projections.
 
-**Reliability Concerns:** A power outage years ago that lasted six hours cost approximately $78,000 in lost revenue and customer goodwill. That single incident exceeded what the annual cloud budget would have been. The single data center represented a massive single point of failure, and the risk of these outages was unacceptable.
+**Reliability Concerns:** A power outage years ago that lasted six hours underscored the true cost of single-data-center architectures — lost revenue, eroded trust, and a recovery effort that consumed the entire team. That single incident made the case for geographic redundancy more convincingly than any slide deck. The risk of future outages was unacceptable.
 
 **Talent Challenges:** The best engineers wanted to work on product features, not server maintenance. Attracting talent became harder when competitors offered modern, cloud-native environments.
 
 ## Crafting a Migration Strategy: Lessons from the Planning Phase
 
-The initial approach was embarrassingly naive. The plan was to "lift and shift" everything to AWS and call it done. Reality proved far more complex.
+The initial approach was overly optimistic. The plan was to "lift and shift" everything to AWS and call it done. Reality proved far more complex.
 
 **Infrastructure Assessment:** I spent two weeks cataloging systems, and it revealed dependencies I'd completely forgotten existed. I ran dependency mapping tools and found that a "simple" web application connected to fourteen different services, three legacy databases, and a file server that hadn't been documented since 2015.
 
@@ -101,9 +101,9 @@ Migration was just the beginning. Optimization became a continuous process: For 
 
 **Right-Sizing Reality:** The initial instance selections were laughably oversized. I made the classic mistake of provisioning based on peak usage patterns, leading to 70% average utilization. Learning to monitor and adjust became essential for cost control. It took me about three months of reviewing CloudWatch metrics before I felt confident right-sizing instances without breaking things.
 
-**Autoscaling Adventures:** Setting up autoscaling seemed straightforward until the first unexpected scaling event occurred. A minor DDoS attack years ago triggered automatic scaling that cost $4,200 more than the attack would have. The lesson was clear: add rate limiting and better scaling thresholds before enabling autoscaling.
+**Autoscaling Adventures:** Setting up autoscaling seemed straightforward until the first unexpected scaling event occurred. A minor DDoS attack triggered automatic scaling that ended up costing more than the attack itself would have. The lesson was clear: add rate limiting and better scaling thresholds before enabling autoscaling.
 
-Another painful mistake came from security group misconfiguration. I was cleaning up firewall rules and removed SSH access before properly configuring the VPN connection, effectively locking myself out of 12 production instances for 2 hours. The recovery required opening an emergency support ticket and using the web console's session manager, which I'd thankfully enabled weeks earlier. Always maintain multiple access paths before removing existing ones - a lesson that cost 2 hours of panic and approximately $3,000 in delayed deployments.
+Another lesson came from security group misconfiguration. Removing SSH access before properly configuring the VPN connection effectively locked the team out of instances until the web console's session manager (thankfully enabled weeks earlier) could restore access. Always maintain multiple access paths before removing existing ones — it's a lesson best learned in a lab environment rather than under pressure.
 
 **Storage Strategy:** Moving from simple file servers to cloud storage required understanding different storage classes, access patterns, and lifecycle policies. Hot, warm, and cold storage tiers became important architectural decisions.
 
@@ -125,7 +125,7 @@ Technology challenges proved easier than human ones:
 
 ## Migration Patterns: What Worked and What Didn't
 
-**The Big Bang Approach (Failed):** The initial plan to migrate everything over a weekend was abandoned after the first attempt resulted in 18 hours of downtime and angry customers. Looking back, I'm not sure what anyone was thinking with that timeline.
+**The Big Bang Approach (Failed):** The initial plan to migrate everything over a weekend was abandoned after the first attempt resulted in extended downtime. In hindsight, the timeline was unrealistic for the complexity involved.
 
 **Gradual Migration (Successful):** Moving services incrementally allowed learning from each migration, refining processes, and minimizing business impact.
 
@@ -143,7 +143,7 @@ The lesson: always test on production-scale data, or at minimum, calculate index
 
 **Global Presence:** Cloud regions enabled serving customers worldwide with acceptable latency. Deployments to US-East, EU-West, and AP-Southeast reduced average latency for international users from 340ms to 85ms. This capability would have required millions in infrastructure investment using traditional approaches.
 
-Initial performance wasn't ideal, though. API latency actually degraded at first, going from 45ms on-premises to 180ms in the cloud (4x slower). This was embarrassing and almost derailed the entire migration. After 6 hours of intensive profiling and optimization - adjusting connection pooling, implementing regional caching, and right-sizing compute resources - latency came down to 65ms (a 71% improvement from the initial cloud deployment and actually 30% better than the original on-premises performance). These costs and performance characteristics might vary significantly by region and workload type...
+Initial performance wasn't ideal, though. API latency actually degraded at first, going from 45ms on-premises to 180ms in the cloud (4x slower). After intensive profiling and optimization — adjusting connection pooling, implementing regional caching, and right-sizing compute resources — latency came down to 65ms (a 71% improvement from the initial cloud deployment and actually 30% better than the original on-premises performance). These costs and performance characteristics might vary significantly by region and workload type...
 
 **Disaster Recovery:** Cloud-based backup and recovery became routine instead of complex, expensive projects. Geographic redundancy became affordable and automatic.
 

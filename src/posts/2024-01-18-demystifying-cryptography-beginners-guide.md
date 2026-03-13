@@ -431,9 +431,9 @@ The quantum computing threat is accelerating this timeline – I'm [preparing my
 
 ## The Human Side of Cryptography
 
-Cryptography isn't only mathematics, it's about trust. Every implementation decision affects real people's privacy and security. The SSL certificate crisis I mentioned earlier? It prevented customers from completing purchases for two days. The revenue loss was significant, but the damage to trust was worse.
+Cryptography isn't only mathematics — it's about trust. Every implementation decision affects real people's privacy and security. Certificate misconfiguration incidents can prevent transactions for days. The reliability impact often exceeds the security risk itself.
 
-That experience taught me that cryptography is as much about reliability as it is about security. A perfectly secure system that fails during peak usage is worse than a slightly less secure system that works consistently.
+This reality taught me that cryptography is as much about reliability as it is about security. A perfectly secure system that fails during peak usage is worse than a slightly less secure system that works consistently.
 
 ## Conclusion
 
