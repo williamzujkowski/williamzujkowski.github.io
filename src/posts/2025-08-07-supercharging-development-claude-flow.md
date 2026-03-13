@@ -10,6 +10,8 @@ tags:
   - machine-learning
   - open-source
   - tutorial
+image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=630"
+imageAlt: "Developer workspace with code on multiple screens"
 
 ---
 ## From Solo Coding to Swarm Intelligence

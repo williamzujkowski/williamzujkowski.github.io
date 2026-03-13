@@ -8,6 +8,8 @@ tags:
   - devops
   - professional-development
   - programming
+image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&h=630"
+imageAlt: "Fresh pizza with melted cheese on a wooden board"
 
 ---
 Years ago, I was at a weekend hackathon that ran long. We'd been coding for twelve hours when someone suggested ordering pizza. Twenty minutes later, three pizzas arrived for eight hungry developers. What followed was a surprisingly tense negotiation over slice allocation that probably cost us more productivity than the original bug.

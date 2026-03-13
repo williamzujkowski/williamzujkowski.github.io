@@ -8,6 +8,8 @@ tags:
   - hardware
   - homelab
   - sustainability
+image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=1200&h=630"
+imageAlt: "Graphics card with RGB lighting in a computer build"
 
 ---
 I opened my October 2024 electricity bill: $187, a $43 jump from September's $144. I'd been running [Ollama](/posts/2025-06-25-local-llm-deployment-privacy-first) on my RTX 3090 for a month. That shock sparked a three-month deep dive into GPU power consumption. I instrumented my entire [homelab](/posts/2025-04-24-building-secure-homelab-adventure) with monitoring gear and spent evenings staring at Grafana dashboards. My assumptions about AI workload efficiency were mostly wrong. For those exploring similar setups, [fine-tuning LLMs in the homelab](/posts/2025-05-10-llm-fine-tuning-homelab-guide/) provides guidance on optimizing model performance while [securing AI experiments](/posts/2025-04-10-securing-personal-ai-experiments/) covers essential safety practices for home deployments. The lessons on [sustainable computing](/posts/2024-07-16-sustainable-computing-carbon-footprint/) helped me understand the broader environmental implications of my power consumption patterns.

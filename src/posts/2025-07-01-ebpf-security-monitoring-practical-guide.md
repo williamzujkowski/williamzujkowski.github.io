@@ -11,6 +11,8 @@ tags:
   - monitoring
   - security
   - threat-detection
+image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&h=630"
+imageAlt: "Green digital code streaming on a dark background"
 
 ---
 ## The Day eBPF Changed Everything

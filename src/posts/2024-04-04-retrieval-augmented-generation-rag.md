@@ -6,6 +6,8 @@ title: 'Retrieval Augmented Generation (RAG): Enhancing LLMs with External Knowl
 tags:
   - ai
   - llm
+image: "https://images.unsplash.com/photo-1633613286991-611fe299c4be?w=1200&h=630"
+imageAlt: "Digital library with glowing data connections"
 
 ---
 

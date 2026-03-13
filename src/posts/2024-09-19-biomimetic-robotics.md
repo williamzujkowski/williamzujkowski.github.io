@@ -8,6 +8,8 @@ tags:
   - programming
   - robotics
   - sustainability
+image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=1200&h=630"
+imageAlt: "Robotic hand with intricate mechanical joints"
 
 ---
 ## Bottom Line Up Front

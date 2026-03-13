@@ -10,6 +10,8 @@ tags:
   - networking
   - security
   - vulnerability-management
+image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=1200&h=630"
+imageAlt: "Smart home IoT devices connected on a network"
 
 ---
 **BLUF:** When I set up my first smart home devices years ago, I naively trusted that manufacturers had security figured out. Then I started packet capturing my IoT traffic.

@@ -7,6 +7,8 @@ tags:
 - devops
 - infrastructure
 title: 'Cloud Migration: A Guide to Navigating Your Journey to the Cloud'
+image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630"
+imageAlt: "Earth from space with network connections glowing"
 ---
 Years ago, I stood in a data center, warm air flowing from countless machines, cables snaking across raised floors. The physical infrastructure had become more anchor than asset. The constant hum of cooling systems and blinking server lights represented significant investment, but also significant constraints.
 

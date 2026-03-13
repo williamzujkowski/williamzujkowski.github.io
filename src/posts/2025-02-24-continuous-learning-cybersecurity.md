@@ -7,6 +7,8 @@ tags:
   - learning
   - professional-development
   - security
+image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&h=630"
+imageAlt: "Person studying with laptop and notes at a desk"
 
 ---
 After 15+ years in cybersecurity, I've learned one truth: The moment you stop learning is the moment you become obsolete. But here's the challenge – how do you keep up with a field that literally changes every day without burning out? Here are the strategies that have worked for me, refined through [my journey from IT support to senior InfoSec engineer](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer/).

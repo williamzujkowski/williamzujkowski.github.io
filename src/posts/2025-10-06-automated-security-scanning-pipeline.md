@@ -10,6 +10,8 @@ tags:
   - security
   - supply-chain
   - vulnerability-management
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=630"
+imageAlt: "Automated code pipeline on a developer screen"
 
 ---
 ## The Dependency That Haunted Me

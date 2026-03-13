@@ -8,6 +8,8 @@ tags:
   - blockchain
   - programming
   - security
+image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1200&h=630"
+imageAlt: "Blockchain network nodes with golden connections"
 
 ---
 In early October 2024, I deployed a private Ethereum test network on my homelab's Dell R940 server (see [secure homelab adventures](/posts/2025-04-24-building-secure-homelab-adventure)). The initial sync took 47 hours and consumed 1.2TB of disk space, which immediately taught me my first lesson: blockchain infrastructure is not lightweight. My i9-9900K system handled the validator node workload, but at a constant 340W power draw. That's real electricity costs for what I initially thought would be a simple weekend experiment.

@@ -5,6 +5,8 @@ author: "William Zujkowski"
 date: 2025-11-19
 tags: [prometheus, monitoring, observability, performance, grafana, homelab, optimization]
 post_type: tutorial
+image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
+imageAlt: "Metrics and monitoring dashboard visualization"
 ---
 
 # PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms

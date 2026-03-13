@@ -9,6 +9,8 @@ tags:
   - devops
   - llm
   - mcp
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630"
+imageAlt: "Abstract AI data flow visualization"
 
 ---
 ## Bottom Line Up Front

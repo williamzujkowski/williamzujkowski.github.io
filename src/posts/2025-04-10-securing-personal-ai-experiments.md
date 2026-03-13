@@ -11,6 +11,8 @@ tags:
   - machine-learning
   - privacy
   - security
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=630"
+imageAlt: "Digital security shield with circuit board patterns"
 
 ---
 ## The AI Revolution Hits Home

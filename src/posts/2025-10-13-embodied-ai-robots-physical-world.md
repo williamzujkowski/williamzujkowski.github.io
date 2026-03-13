@@ -10,6 +10,8 @@ tags:
   - homelab
   - machine-learning
   - robotics
+image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630"
+imageAlt: "Humanoid robot in a modern laboratory"
 
 ---
 ## Bottom Line Up Front

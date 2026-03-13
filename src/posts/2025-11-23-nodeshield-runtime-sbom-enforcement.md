@@ -5,6 +5,8 @@ author: "William Zujkowski"
 date: 2025-11-23
 tags: [supply-chain, sbom, nodejs, security, docker, homelab, container-security]
 post_type: tutorial
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=630"
+imageAlt: "Source code with dependency management interface"
 ---
 
 # NodeShield: Runtime SBOM Enforcement Stops 98% of Supply Chain Attacks

@@ -7,6 +7,8 @@ tags:
   - ai
   - architecture
   - programming
+image: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=1200&h=630"
+imageAlt: "AI language model interface on a screen"
 
 ---
 In November 2024, I ran an experiment in my homelab that completely changed how I think about context windows. I fed a 47,000-token codebase to Llama 3 70B running on my RTX 3090. Everything worked beautifully until around token 28,000.

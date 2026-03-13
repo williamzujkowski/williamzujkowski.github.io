@@ -6,6 +6,8 @@ title: 'Mastering Prompt Engineering: Unlocking the Full Potential of LLMs'
 tags:
   - ai
   - llm
+image: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=1200&h=630"
+imageAlt: "AI chatbot interface on a modern display"
 
 ---
 

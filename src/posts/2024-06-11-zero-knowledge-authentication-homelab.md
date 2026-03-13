@@ -5,6 +5,8 @@ author: "William Zujkowski"
 date: 2024-06-11
 tags: [privacy, zero-knowledge, authentication, cryptography, homelab, security, zk-snark]
 post_type: tutorial
+image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630"
+imageAlt: "Server room with blue LED lighting"
 ---
 
 # Zero-Knowledge Proof Authentication for Homelab Services

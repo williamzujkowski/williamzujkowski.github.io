@@ -8,6 +8,8 @@ tags:
   - cloud
   - devops
   - edge-computing
+image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=630"
+imageAlt: "Microprocessor circuit board in warm lighting"
 
 ---
 **BLUF:** In September 2024, I tried deploying YOLOv8 for real-time object detection on my Raspberry Pi 4 (8GB RAM, 1.8 GHz ARM Cortex-A72). My first attempt used the full PyTorch model. The Pi crashed after about 30 seconds of continuous inference. CPU temperature hit 82°C and the system froze. Not exactly the "edge AI revolution" I was hoping for.

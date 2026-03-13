@@ -7,6 +7,8 @@ tags:
   - ai
   - computational-science
   - sustainability
+image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630"
+imageAlt: "Server racks in a high-performance data center"
 
 ---
 ## BLUF: The Transformation of Supercomputing

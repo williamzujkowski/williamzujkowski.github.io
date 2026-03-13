@@ -9,6 +9,8 @@ tags:
   - networking
   - security
   - zero-trust
+image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&h=630"
+imageAlt: "Network infrastructure with ethernet connections"
 
 ---
 ## The IoT Camera That Taught Me About Network Segmentation

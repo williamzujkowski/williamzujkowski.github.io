@@ -10,6 +10,8 @@ tags:
   - machine-learning
   - privacy
   - security
+image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=1200&h=630"
+imageAlt: "Privacy-focused computing hardware setup"
 
 ---
 

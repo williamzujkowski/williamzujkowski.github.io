@@ -5,6 +5,8 @@ author: "William Zujkowski"
 date: 2025-08-18
 tags: [docker, security, apparmor, selinux, container-security, homelab, linux, lsm]
 post_type: tutorial
+image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=630"
+imageAlt: "Colorful shipping containers in an industrial setting"
 ---
 
 # Docker Runtime Security Hardening with Linux Security Modules

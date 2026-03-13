@@ -7,6 +7,8 @@ tags:
   - computational-science
   - cryptography
   - security
+image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&h=630"
+imageAlt: "Abstract quantum computing visualization"
 
 ---
 Shor's algorithm breaks RSA encryption in polynomial time on a quantum computer. Every RSA key, every elliptic curve signature securing our digital world becomes worthless when quantum computers achieve practical capability. That realization in late 2018 sparked my quantum-resistant cryptography journey. Today's quantum progress makes preparation essential, not paranoid.

@@ -8,6 +8,8 @@ tags:
   - mcp
   - open-source
   - programming
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=630"
+imageAlt: "Code editor with syntax-highlighted source code"
 
 ---
 ## Bottom Line Up Front

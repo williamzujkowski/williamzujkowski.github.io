@@ -17,13 +17,14 @@ interface Props {
   date: Date;
   tags?: string[];
   image?: string;
+  imageAlt?: string;
   readingTime?: number;
   wordCount?: number;
   headings?: Heading[];
   slug?: string;
 }
 
-const { title, description, date, tags = [], image, readingTime, wordCount, headings = [], slug = '' } = Astro.props;
+const { title, description, date, tags = [], image, imageAlt, readingTime, wordCount, headings = [], slug = '' } = Astro.props;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? SITE_CONFIG.siteUrl;
 
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -64,7 +65,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
               <div class="mb-8 -mx-4 sm:mx-0 overflow-hidden rounded-none sm:rounded-2xl">
                 <img
                   src={image}
-                  alt={`Cover image for ${title}`}
+                  alt={imageAlt || `Cover image for ${title}`}
                   class="w-full h-48 sm:h-64 object-cover"
                   loading="eager"
                   decoding="async"

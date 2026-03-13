@@ -6,6 +6,8 @@ tags:
 - llm
 - machine-learning
 title: 'The Transformer Architecture: A Deep Dive'
+image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&h=630"
+imageAlt: "Abstract geometric neural network pattern"
 ---
 
 There's a moment when reading certain papers that you know you're witnessing something fundamental. For me, that moment came with _"Attention is All You Need"_ by Vaswani et al. The elegance of the Transformer architecture felt like discovering a secret that would reshape everything I thought I knew about natural language processing. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).

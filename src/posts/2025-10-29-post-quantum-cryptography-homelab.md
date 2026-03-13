@@ -10,6 +10,8 @@ tags:
   - networking
   - privacy
   - security
+image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&h=630"
+imageAlt: "Abstract quantum state geometric pattern"
 
 ---
 I spent three weekends trying to enable post-quantum cryptography on my homelab Nginx server. The first attempt crashed every single HTTPS connection because I completely forgot that hybrid mode exists and tried forcing pure ML-KEM-768.

@@ -8,6 +8,8 @@ tags:
   - cryptography
   - security
   - zero-trust
+image: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=1200&h=630"
+imageAlt: "Digital padlock on a network security interface"
 
 ---
 In May 2024, I made the decision to completely segment my homelab network into 8 separate VLANs. The catalyst? I discovered my Raspberry Pi running Pi-hole was on the same network segment as my Dell R940 server hosting production workloads. One compromised smart light bulb could theoretically pivot to my most sensitive systems.

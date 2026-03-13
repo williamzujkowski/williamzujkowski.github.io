@@ -10,6 +10,8 @@ tags:
   - privacy
   - security
   - tutorial
+image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=1200&h=630"
+imageAlt: "Computer hardware with GPU and cooling system"
 
 ---
 I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely offline. Zero cloud dependencies, zero data leakage, zero monthly fees. For larger 70B models, I use CPU offloading (slower but functional). This guide shows you how I built a privacy-first LLM deployment that matches cloud AI performance without the surveillance.

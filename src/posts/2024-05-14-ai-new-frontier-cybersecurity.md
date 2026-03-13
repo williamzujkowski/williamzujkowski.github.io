@@ -7,6 +7,8 @@ tags:
   - ai
   - ethics
   - security
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=630"
+imageAlt: "Cybersecurity shield with digital circuit patterns"
 
 ---
 **BLUF:** I deployed Wazuh 4.7.0 SIEM in my homelab to test AI-powered threat detection against my own network traffic. I wanted to see if machine learning could actually catch the subtle patterns that traditional signature-based systems miss. For more context, see [introduction to writing secure code: a developer's guide to thwarting security exploits](/posts/2024-01-08-writing-secure-code-developers-guide).

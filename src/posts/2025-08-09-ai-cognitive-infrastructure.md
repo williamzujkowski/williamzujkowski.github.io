@@ -9,6 +9,8 @@ tags:
   - future-technology
   - infrastructure
   - society
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&h=630"
+imageAlt: "Humanoid robot face with glowing blue eyes"
 
 ---
 ## Bottom Line Up Front

@@ -7,6 +7,8 @@ tags:
   - devops
   - programming
   - security
+image: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=1200&h=630"
+imageAlt: "Fingerprint scan on a digital security interface"
 
 ---
 ## BLUF

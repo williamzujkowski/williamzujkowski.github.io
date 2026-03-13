@@ -8,6 +8,8 @@ tags:
   - networking
   - raspberry-pi
   - security
+image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&h=630"
+imageAlt: "Raspberry Pi computer with connected cables"
 
 ---
 After collecting a drawer full of Raspberry Pis over the years (we all have that drawer, right?), I decided it was time to put them to work. Here are five security projects that actually solve real problems, complete with implementation guides and lessons learned.

@@ -6,6 +6,8 @@ tags:
 - llm
 - open-source
 title: 'Open-Source vs. Proprietary LLMs: A Battle of Accessibility, Customization, and Community'
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&h=630"
+imageAlt: "Humanoid robot face in blue lighting"
 ---
 Recently, I spent three days trying to load Llama 3 70B onto my RTX 3090. The model files alone consumed 140GB of disk space, and my first attempt crashed with CUDA out-of-memory errors after 45 minutes of loading weights. I had 24GB of VRAM, but the unquantized model needed closer to 140GB just to initialize. For more context, see [introduction to securing your personal ai/ml experiments: a practical guide](/posts/2025-04-10-securing-personal-ai-experiments).
 

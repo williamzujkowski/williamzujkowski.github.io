@@ -5,6 +5,8 @@ description: Design resilient systems with circuit breakers, redundancy, and cha
 title: Designing Resilient Systems for an Uncertain World
 tags:
   - architecture
+image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
+imageAlt: "Data visualization dashboard with analytics"
 
 ---
 ## BLUF: When Perfect Systems Fail Perfectly

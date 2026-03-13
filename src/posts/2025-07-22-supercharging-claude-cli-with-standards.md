@@ -8,6 +8,8 @@ tags:
   - compliance
   - professional-development
   - programming
+image: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=1200&h=630"
+imageAlt: "Terminal window with AI assistant interface"
 
 ---
 ## The Problem: AI Tools That Forget Everything

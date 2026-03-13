@@ -6,6 +6,8 @@ title: 'Demystifying Cryptography: A Beginner''s Guide to Encryption, Hashing, a
 tags:
   - cryptography
   - security
+image: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=1200&h=630"
+imageAlt: "Abstract digital encryption visualization"
 
 ---
 ## BLUF: Why This Matters

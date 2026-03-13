@@ -8,6 +8,8 @@ tags:
   - homelab
   - infrastructure
   - virtualization
+image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630"
+imageAlt: "Server hardware in a data center with status LEDs"
 
 ---
 ## The 3 AM Outage That Changed My Architecture

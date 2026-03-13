@@ -10,6 +10,8 @@ tags:
   - networking
   - privacy
   - security
+image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&h=630"
+imageAlt: "Network cables connected to a switch with status lights"
 
 ---
 ## The ISP Letter That Started Everything

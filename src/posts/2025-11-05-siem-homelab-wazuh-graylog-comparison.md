@@ -5,6 +5,8 @@ author: "William Zujkowski"
 date: 2025-11-05
 tags: [siem, wazuh, graylog, security, monitoring, homelab, python, observability]
 post_type: tutorial
+image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
+imageAlt: "Security monitoring dashboard with log analysis"
 ---
 
 # SIEM for Homelab: Wazuh vs Graylog Performance Comparison

@@ -8,6 +8,8 @@ tags:
   - homelab
   - machine-learning
   - programming
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630"
+imageAlt: "Abstract neural network visualization in blue tones"
 
 ---
 **BLUF:** In March 2025, I attempted to fine-tune Llama 3 8B on my RTX 3090. The first attempt consumed all 24GB of VRAM in under 3 minutes and crashed with a CUDA out-of-memory error.

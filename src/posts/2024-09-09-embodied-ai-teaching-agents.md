@@ -7,6 +7,8 @@ tags:
   - ai
   - llm
   - robotics
+image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630"
+imageAlt: "White humanoid robot in a modern setting"
 
 ---
 In August 2024, I spent 47 hours in NVIDIA Isaac Sim trying to teach a simulated robot arm to grasp objects in my virtual homelab. My RTX 3090 hummed at 73°C while rendering the physics at 18.4 FPS, and I gave the agent what I thought was a clear instruction: "Pick up the small container."
