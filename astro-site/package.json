@@ -14,7 +14,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write 'src/**/*.{astro,svelte,ts,js,css}'",
-    "format:check": "prettier --check 'src/**/*.{astro,svelte,ts,js,css}'"
+    "format:check": "prettier --check 'src/**/*.{astro,svelte,ts,js,css}'",
+    "test:e2e": "npx playwright test",
+    "test:e2e:headed": "npx playwright test --headed"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.17",

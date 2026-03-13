@@ -5,6 +5,8 @@ lastUpdate: "2026-01-15"
 description: "How I went from naive round-robin model selection to a five-stage routing pipeline backed by RouteLLM, TOPSIS, and LinUCB research. The failures that led to each improvement."
 author: "William Zujkowski"
 tags: [ai, machine-learning, open-source, orchestration, research]
+series: "Building AI Systems"
+seriesOrder: 1
 image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
 imageAlt: "Data visualization dashboard showing routing metrics and model performance"
 readingTime: "10 min read"

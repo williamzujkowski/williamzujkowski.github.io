@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
+import SeriesNav from '@components/SeriesNav.astro';
 import ReadingProgress from '@components/ReadingProgress.svelte';
 
 interface Heading {
@@ -22,9 +23,11 @@ interface Props {
   wordCount?: number;
   headings?: Heading[];
   slug?: string;
+  series?: string;
+  postId?: string;
 }
 
-const { title, description, date, tags = [], image, imageAlt, readingTime, wordCount, headings = [], slug = '' } = Astro.props;
+const { title, description, date, tags = [], image, imageAlt, readingTime, wordCount, headings = [], slug = '', series, postId } = Astro.props;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? SITE_CONFIG.siteUrl;
 
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -114,6 +117,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
             )
           }
         </header>
+
+        <!-- Series Navigation -->
+        {series && postId && <SeriesNav currentId={postId} series={series} />}
 
         <!-- Table of Contents -->
         <TableOfContents headings={headings} />

@@ -1,9 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import PostCard from '@components/PostCard.astro';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 3);
 ---
 
 <BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist." noindex>
-  <section class="py-24 sm:py-32">
+  <section class="py-16 sm:py-24">
     <div class="container mx-auto px-4 text-center">
       <p class="text-6xl sm:text-8xl font-bold text-[var(--md-sys-color-primary)]" style="opacity: 0.6">404</p>
       <h1
@@ -15,17 +20,87 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       <p class="mt-6 text-lg text-[var(--md-sys-color-on-surface-variant)]">
         The page you're looking for doesn't exist or has been moved.
       </p>
-      <div class="mt-10 flex items-center justify-center gap-4 flex-wrap">
+      <div class="mt-8 flex items-center justify-center gap-4 flex-wrap">
         <a href="/" class="btn-filled">Go home</a>
         <a href="/posts/" class="btn-outlined">Browse posts</a>
         <a href="/tags/" class="btn-outlined">Explore tags</a>
       </div>
-      <p class="mt-8 text-sm text-[var(--md-sys-color-on-surface-variant)]">
-        Try pressing <kbd
-          class="px-1.5 py-0.5 rounded border text-xs"
-          style="border-color: var(--md-sys-color-outline-variant)">/</kbd
-        > to search the site.
-      </p>
+
+      <!-- Inline search -->
+      <div class="mt-12 max-w-md mx-auto">
+        <p class="text-sm text-[var(--md-sys-color-on-surface-variant)] mb-3">
+          Or try searching for what you need:
+        </p>
+        <div id="search-404"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent posts as fallback -->
+  <section class="pb-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+      <h2 class="text-xl font-semibold text-[var(--md-sys-color-on-surface)] mb-6 text-center">
+        Recent Posts
+      </h2>
+      <div class="space-y-4">
+        {recentPosts.map((post) => <PostCard post={post} variant="horizontal" />)}
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  async function init404Search() {
+    // @ts-ignore — pagefind is loaded at runtime from the built index
+    const pagefind = await import('/pagefind/pagefind.js');
+    await pagefind.init();
+
+    const container = document.getElementById('search-404');
+    if (!container) return;
+
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.placeholder = 'Search posts...';
+    input.setAttribute('aria-label', 'Search posts');
+    input.className =
+      'w-full px-4 py-3 rounded-[var(--md-sys-shape-corner-medium)] border text-base';
+    input.style.cssText =
+      'background: var(--md-sys-color-surface-container); border-color: var(--md-sys-color-outline-variant); color: var(--md-sys-color-on-surface);';
+
+    const results = document.createElement('div');
+    results.className = 'mt-3 text-left space-y-2';
+
+    container.appendChild(input);
+    container.appendChild(results);
+
+    let debounce: ReturnType<typeof setTimeout>;
+    input.addEventListener('input', () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(async () => {
+        const query = input.value.trim();
+        results.innerHTML = '';
+        if (query.length < 2) return;
+
+        const search = await pagefind.search(query);
+        const items = await Promise.all(search.results.slice(0, 5).map((r: { data: () => Promise<{ url: string; meta?: { title?: string } }> }) => r.data()));
+
+        if (items.length === 0) {
+          results.innerHTML =
+            '<p class="text-sm text-[var(--md-sys-color-on-surface-variant)]">No results found.</p>';
+          return;
+        }
+
+        for (const item of items) {
+          const link = document.createElement('a');
+          link.href = item.url;
+          link.textContent = item.meta?.title ?? item.url;
+          link.className =
+            'block px-3 py-2 rounded text-sm hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-primary)]';
+          results.appendChild(link);
+        }
+      }, 200);
+    });
+  }
+
+  init404Search();
+</script>

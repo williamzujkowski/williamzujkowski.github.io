@@ -5,6 +5,7 @@ description: "Real-world guide to monitoring security events in your homelab. Co
 author: "William Zujkowski"
 tags: [security, monitoring, grafana, prometheus, homelab, observability, alerting, dashboard]
 series: "Homelab Security"
+seriesOrder: 1
 readingTime: "8 min read"
 image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
 imageAlt: "Grafana monitoring dashboard with real-time metrics"
