@@ -233,7 +233,7 @@ In April 2024, testing a multimodal image classification system revealed edge ca
 **Pilot Development:**
 
 1. Start with simple applications to gain experience. My first pilot took 2 weeks and cost under $200 in API fees.
-2. Use commercial APIs before considering custom model development. I only moved to custom models after >$50k in API costs made it economically viable.
+2. Use commercial APIs before considering custom model development. I only moved to custom models after significant API costs made it economically viable.
 3. Implement robust evaluation frameworks for multimodal outputs. Testing with 100-200 diverse examples revealed issues that smaller test sets missed.
 4. Plan for edge cases and failure modes. I documented 47 distinct failure modes in my first production deployment.
 
@@ -265,11 +265,11 @@ In April 2024, testing a multimodal image classification system revealed edge ca
 
 ### Business Considerations
 
-**Cost Management:** Multimodal processing costs can scale quickly with usage. In one project, API costs for multimodal analysis reached $847 per day at peak usage, forcing us to implement aggressive caching and rate limiting.
+**Cost Management:** Multimodal processing costs can scale quickly with usage. In one project, API costs for multimodal analysis reached hundreds of dollars per day at peak usage, forcing us to implement aggressive caching and rate limiting.
 
 **Change Management:** Users need training to effectively use multimodal capabilities. We found that 3-4 hours of hands-on training was necessary before users could use the system effectively.
 
-**Competitive Advantage:** Early adoption can provide significant competitive benefits, though I've also seen cases where rushing deployment led to costly failures that eroded stakeholder trust.
+**Competitive Advantage:** Early adoption can provide significant competitive benefits, though I've also seen cases where rushing deployment led to costly failures and lessons about managing expectations.
 
 **Risk Assessment:** New capabilities require updated risk assessment and mitigation strategies. We had to completely revise our risk framework to account for multimodal failure modes we hadn't anticipated.
 

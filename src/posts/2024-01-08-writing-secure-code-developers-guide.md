@@ -105,7 +105,7 @@ I never want to see passwords stored in plain text again. In my early days, I in
 
 In my homelab authentication service, I benchmarked bcrypt (with cost factor 12) against SHA-256 for password hashing. Bcrypt took 150ms per hash vs 2ms for SHA-256 - a 75x performance penalty. That slowdown is the point: it makes brute-force attacks computationally expensive. The **trade-off** between authentication speed and security is worth it when credential stuffing attacks can test 1,000 passwords per second against weak hashes.
 
-In early 2024, I accidentally committed an AWS API key to a public GitHub repo. Within 14 minutes, I received an email from GitHub's secret scanning feature.
+In early 2024, I accidentally committed an AWS API key to a personal public GitHub repo. Within 14 minutes, I received an email from GitHub's secret scanning feature.
 
 Within hours, the key had unauthorized access attempts from multiple regions. Secrets scanning prevents disasters, **though** false alarms are common. I revoked the key and spent 90 minutes rotating all my credentials.
 
@@ -115,7 +115,7 @@ Encryption in transit (HTTPS) is mandatory, not optional. Passwords, when stored
 
 Testing often reveals cracks you never knew existed. Static analysis can unearth flawed logic before it reaches production, dynamic analysis catches vulnerabilities in running systems, and penetration testing simulates real attackers.
 
-One of my most humbling experiences was a security audit years ago where the tester found a dozen vulnerabilities I'd missed. They showed me how buffer overflows could be triggered, how authentication could be bypassed, and how sensitive data could be extracted.
+One of my most humbling experiences was a security audit of a homelab project years ago where the tester found a dozen vulnerabilities I'd missed. They showed me how buffer overflows could be triggered, how authentication could be bypassed, and how sensitive data could be extracted.
 
 It was eye-opening to see my code from an attacker's perspective. When I implemented their recommendations, I added 400 lines of defensive code across 12 files.
 

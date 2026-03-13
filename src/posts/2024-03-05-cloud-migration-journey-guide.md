@@ -52,7 +52,7 @@ The migration decision came from multiple pressures converging simultaneously:
 
 **Capacity Constraints:** The fastest-growing service was hitting infrastructure limits. Here's how bad it got: procurement cycles for new servers stretched months, while cloud competitors spun up resources in minutes.
 
-**Cost Reality:** I spent three weeks analyzing total cost of ownership years ago. Server depreciation, data center rent, cooling costs, and staff overhead painted a stark picture. The organization was paying roughly $180,000 annually for infrastructure that delivered performance a $60,000 cloud solution could match. The numbers were hard to ignore.
+**Cost Reality:** I spent three weeks analyzing total cost of ownership years ago. Server depreciation, data center rent, cooling costs, and staff overhead painted a stark picture. Organizations often pay $150,000–200,000 annually for infrastructure that delivers performance a fraction of that cost in the cloud could match. The numbers were hard to ignore.
 
 However, the reality proved more nuanced. The first month in the cloud came to $7,800 instead of the projected $5,000 - a 56% cost overrun primarily from unexpected egress charges. I'd completely underestimated data transfer costs, naively assuming "moving data around" wouldn't cost much since it was all within the same provider. This expensive lesson taught me to always account for network traffic patterns in cost projections.
 
@@ -103,7 +103,7 @@ Migration was just the beginning. Optimization became a continuous process: For 
 
 **Autoscaling Adventures:** Setting up autoscaling seemed straightforward until the first unexpected scaling event occurred. A minor DDoS attack triggered automatic scaling that ended up costing more than the attack itself would have. The lesson was clear: add rate limiting and better scaling thresholds before enabling autoscaling.
 
-Another lesson came from security group misconfiguration. Removing SSH access before properly configuring the VPN connection effectively locked the team out of instances until the web console's session manager (thankfully enabled weeks earlier) could restore access. Always maintain multiple access paths before removing existing ones — it's a lesson best learned in a lab environment rather than under pressure.
+Another lesson came from security group misconfiguration. Removing SSH access before properly configuring the VPN connection effectively locked everyone out of the instances until the web console's session manager (thankfully enabled weeks earlier) could restore access. Always maintain multiple access paths before removing existing ones — it's a lesson best learned in a lab environment rather than under pressure.
 
 **Storage Strategy:** Moving from simple file servers to cloud storage required understanding different storage classes, access patterns, and lifecycle policies. Hot, warm, and cold storage tiers became important architectural decisions.
 
