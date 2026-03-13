@@ -56,7 +56,7 @@ The migration decision came from multiple pressures converging simultaneously:
 
 However, the reality proved more nuanced. The first month in the cloud came to $7,800 instead of the projected $5,000 - a 56% cost overrun primarily from unexpected egress charges. I'd completely underestimated data transfer costs, naively assuming "moving data around" wouldn't cost much since it was all within the same provider. This expensive lesson taught me to always account for network traffic patterns in cost projections.
 
-**Reliability Concerns:** A power outage years ago that lasted six hours underscored the true cost of single-data-center architectures — lost revenue, eroded trust, and a recovery effort that consumed the entire team. That single incident made the case for geographic redundancy more convincingly than any slide deck. The risk of future outages was unacceptable.
+**Reliability Concerns:** Power outages lasting hours underscore the true cost of single-data-center architectures — lost availability, eroded confidence, and recovery efforts that consume entire teams. These incidents make the case for geographic redundancy more convincingly than any slide deck. The risk of future outages is unacceptable.
 
 **Talent Challenges:** The best engineers wanted to work on product features, not server maintenance. Attracting talent became harder when competitors offered modern, cloud-native environments.
 
@@ -115,7 +115,7 @@ Another lesson came from security group misconfiguration. Removing SSH access be
 
 Technology challenges proved easier than human ones:
 
-**Skill Development:** The team needed new expertise in cloud services, containerization, and infrastructure-as-code. Six team members went through AWS certification courses, with Friday afternoons set aside for hands-on experimentation with new services. The training budget was substantial (around $15,000 years ago), but the investment paid off within the first year.
+**Skill Development:** The team needed new expertise in cloud services, containerization, and infrastructure-as-code. Six team members went through AWS certification courses, with Friday afternoons set aside for hands-on experimentation with new services. The training investment was substantial, but it paid off within the first year.
 
 **Cultural Resistance:** Some team members viewed cloud migration as job elimination. Transparent communication about role evolution and new opportunities was crucial for maintaining morale.
 

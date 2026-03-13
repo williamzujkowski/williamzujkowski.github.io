@@ -460,7 +460,7 @@ gantt
 
 **Quick Wins (0-6 months):**
 I started with these practical changes in January 2024, though I'm still learning which strategies work best for different workloads:
-- Right-size cloud resources and eliminate waste (reduced our AWS bill by $18,000/month)
+- Right-size cloud resources and eliminate waste (reduced the AWS bill significantly through right-sizing)
 - Implement power management for development workstations (saved 240 kWh/week across 60 machines)
 - Optimize database queries and [application performance](/posts/2024-01-08-writing-secure-code-developers-guide) (one query optimization alone cut execution time from 8.2s to 1.1s)
 - Switch to renewable energy providers where available

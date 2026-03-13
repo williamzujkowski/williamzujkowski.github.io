@@ -10,11 +10,11 @@ tags:
   - programming
 
 ---
-Years ago, I was part of a weekend deployment that went sideways. We'd been debugging a critical production issue for twelve hours when someone suggested ordering pizza. Twenty minutes later, three pizzas arrived for eight hungry developers. What followed was a surprisingly tense negotiation over slice allocation that probably cost us more productivity than the original bug.
+Years ago, I was at a weekend hackathon that ran long. We'd been coding for twelve hours when someone suggested ordering pizza. Twenty minutes later, three pizzas arrived for eight hungry developers. What followed was a surprisingly tense negotiation over slice allocation that probably cost us more productivity than the original bug.
 
 That experience stuck with me. Fast forward to October 2024, and I found myself in a similar situation at home. My wife and I were ordering pizza and arguing about whether two 12-inch pizzas ($14.99 each) were better value than one 18-inch ($24.99). I opened VS Code and spent the next two hours building a simple calculator to settle the debate once and for all. What started as a Saturday afternoon coding exercise turned into a surprisingly deep exploration of resource optimization.
 
-That original deployment experience taught me something important: in high-pressure development scenarios, seemingly trivial decisions about team fuel can have outsized impacts on productivity and morale. The humble pizza has become more than convenient food in tech culture. It's a crucial component of team performance during critical development periods.
+That experience taught me something important: in long coding sessions, seemingly trivial decisions about team fuel can have outsized impacts on productivity and morale. The humble pizza has become more than convenient food in tech culture. It's a crucial component of team performance during critical development periods.
 
 Enter the Pizza Calculator. A specialized tool for optimizing resource allocation that, while it might seem trivial at first glance, represents a fascinating intersection of resource planning, team dynamics, and behavioral economics. I built my first version in JavaScript that October weekend, and it taught me more about practical programming than I expected.
 
