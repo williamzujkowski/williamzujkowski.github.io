@@ -68,7 +68,7 @@ LLMs' ability to generate convincing but false information became apparent durin
 
 The danger wasn't just incorrect facts, it was the confidence and coherence with which false information was presented. Users couldn't distinguish between genuine knowledge and sophisticated guesswork.
 
-**Hallucination at Scale:** I watched our model create entire bibliographies of non-existent research papers, complete with realistic titles, authors, and publication details. During one 2023 internal audit, I verified 50 citations the model generated, and 18 of them (36%) pointed to papers that never existed. The implications for academic research and journalism were terrifying.
+**Hallucination at Scale:** I watched our model create entire bibliographies of non-existent research papers, complete with realistic titles, authors, and publication details. During one 2023 internal audit, I verified 50 citations the model generated, and 18 of them (36%) pointed to papers that never existed. The implications for academic research and journalism are significant.
 
 **Authoritative Falsehoods:** The model's ability to adopt an expert tone while providing incorrect information could mislead users who lacked domain expertise to evaluate the claims. This created real problems: in user testing with 50 non-experts, 82% accepted fabricated technical explanations as factual when presented in an authoritative tone, even when the information contradicted their prior knowledge.
 

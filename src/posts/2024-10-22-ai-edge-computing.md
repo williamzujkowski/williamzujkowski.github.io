@@ -198,7 +198,7 @@ Modern platforms like K3s (which I run in my homelab), Docker containers, and to
 
 ### Security Considerations
 
-Edge devices create security nightmares that keep people like me up at night:
+Edge devices introduce security challenges that demand careful attention:
 
 **Physical Access**: My Raspberry Pi security camera sits on my front porch in a weatherproof enclosure. Someone could literally unscrew it, take it home, and try to extract the model or data. Edge devices in retail stores, warehouses, or on vehicles face similar physical security risks that data center servers never deal with.
 
