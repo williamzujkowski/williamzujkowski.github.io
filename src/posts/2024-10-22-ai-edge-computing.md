@@ -218,7 +218,7 @@ Several trends are shaping edge AI evolution:
 
 The promise of 5G networks is exciting, though I haven't personally experienced true 5G edge computing yet. My home internet is still just gigabit fiber.
 
-**Ultra-low latency**: The theory is sub-5ms latency enabling near real-time cloud-edge coordination. That would be a game-changer compared to my current 247ms round-trip to AWS. But I'm skeptical about whether real-world 5G deployments actually achieve these theoretical minimums.
+**Ultra-low latency**: The theory is sub-5ms latency enabling near real-time cloud-edge coordination. Sub-5ms would be a dramatic improvement over my current 247ms round-trip to AWS. But I'm skeptical about whether real-world 5G deployments actually achieve these theoretical minimums.
 
 **Network slicing**: The idea of dedicated virtual network segments for critical applications sounds great. Imagine an ambulance with guaranteed 5G bandwidth for transmitting patient vitals. But the commercial deployment of network slicing seems to be moving slowly.
 

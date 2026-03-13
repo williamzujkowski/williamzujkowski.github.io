@@ -20,40 +20,6 @@ That experience taught me something important: in long coding sessions, seemingl
 
 Enter the Pizza Calculator. A specialized tool for optimizing resource allocation that, while it might seem trivial at first glance, represents a fascinating intersection of resource planning, team dynamics, and behavioral economics. I built my first version in JavaScript that October weekend, and it taught me more about practical programming than I expected.
 
-## How It Works
-
-```mermaid
-flowchart TB
-    subgraph frontend["Frontend"]
-        CDN[CDN]
-        LB[Load Balancer]
-    end
-    subgraph application["Application"]
-        API[API Gateway]
-        Services[Microservices]
-        Cache[Redis Cache]
-    end
-    subgraph data["Data"]
-        DB[(Database)]
-        S3[Object Storage]
-        Queue[Message Queue]
-    end
-
-    CDN --> LB
-    LB --> API
-    API --> Services
-    Services --> Cache
-    Services --> DB
-    Services --> Queue
-
-    classDef apiStyle fill:#2196f3
-    classDef servicesStyle fill:#4caf50
-    classDef dbStyle fill:#ff9800
-    class API apiStyle
-    class Services servicesStyle
-    class DB dbStyle
-```
-
 ## The Psychology Behind Pizza and Performance
 
 The relationship between pizza and software development goes deeper than just convenience food. There's actual science behind why this combination works so well. Similar optimization principles apply across different domains, from [high-performance computing resource allocation](/posts/2024-08-13-high-performance-computing) to cognitive load management.

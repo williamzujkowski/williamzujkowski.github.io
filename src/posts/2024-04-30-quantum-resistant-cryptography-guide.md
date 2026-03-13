@@ -13,41 +13,6 @@ imageAlt: "Abstract quantum computing visualization"
 ---
 Shor's algorithm breaks RSA encryption in polynomial time on a quantum computer. Every RSA key, every elliptic curve signature securing our digital world becomes worthless when quantum computers achieve practical capability. That realization in late 2018 sparked my quantum-resistant cryptography journey. Today's quantum progress makes preparation essential, not paranoid.
 
-## How It Works
-
-⚠️ **Warning:** This diagram shows quantum computing threats to cryptography for educational purposes. Organizations should begin quantum-resistant migration planning now.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef preventionStyle fill:#4caf50
-    classDef detectionStyle fill:#ff9800
-    classDef responseStyle fill:#f44336
-    class D1 preventionStyle
-    class D2 detectionStyle
-    class D3 responseStyle
-```
-
 ## The Quantum Threat
 
 My first encounter with quantum cryptanalysis came at a security conference presentation on Shor's algorithm. Every secure communication channel, every digital signature, every encrypted database relied on mathematical problems quantum computers could solve efficiently. Problems that would take classical computers longer than the age of the universe might take quantum computers mere hours.

@@ -41,41 +41,6 @@ statistics
 ```
 If you're tired of being the product, here's how to take back control of your DNS privacy. It's easier than you think, and I'll show you three different ways to do it.
 
-## How It Works
-
-⚠️ **Warning:** This diagram illustrates security concepts for educational purposes. DNS-over-HTTPS configuration should follow organizational security policies and comply with network usage agreements.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef greenNode fill:#4caf50
-    classDef orangeNode fill:#ff9800
-    classDef redNode fill:#f44336
-    class D1 greenNode
-    class D2 orangeNode
-    class D3 redNode
-```
-
 ## Understanding the DNS Privacy Problem
 
 DNS privacy is foundational to network security. Combine DoH with [Raspberry Pi network monitoring](/posts/2025-03-10-raspberry-pi-security-projects), [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), and [IoT security](/posts/2025-09-20-iot-security-homelab-owasp) for comprehensive homelab security.

@@ -19,41 +19,6 @@ As a security engineer and a dad, I wear two hats: protecting enterprise systems
 
 It serves as both a learning playground and a practical security solution for my home.
 
-## How It Works
-
-⚠️ **Warning:** This diagram illustrates homelab security architecture for educational purposes. Implement security controls with proper planning, backups, and family network segregation.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef greenNode fill:#4caf50
-    classDef orangeNode fill:#ff9800
-    classDef redNode fill:#f44336
-    class D1 greenNode
-    class D2 orangeNode
-    class D3 redNode
-```
-
 ## The Journey Begins
 
 It started simply enough – I wanted to understand how enterprise security tools actually worked without the constraints of production environments. But as any homelab enthusiast will tell you, it quickly evolved into something much more.
@@ -190,9 +155,5 @@ If you're thinking about building your own security homelab:
 Building a security-focused homelab has made me a better security professional and a better protector of my family's digital life. It's where theory meets practice, where failures are learning opportunities, and where that old server in your closet becomes a powerful learning platform.
 
 Plus, there's something deeply satisfying about catching malware while sitting on your couch, knowing your defenses worked exactly as designed.
-
-What's in your homelab? I'd love to hear about your setup and exchange ideas!
-
----
 
 *Next up: "Raspberry Pi Security Projects That Actually Solve Problems" – where I'll share practical Pi projects that enhance home security.*

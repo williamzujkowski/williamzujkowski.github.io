@@ -383,7 +383,3 @@ Building an HA Proxmox cluster eliminated my single point of failure and dramati
 Is HA overkill for a homelab? Maybe. But when you self-host critical services like passwords and DNS, the peace of mind is worth the investment. Plus, learning enterprise-grade HA concepts in a homelab environment is invaluable experience.
 
 Start with a 3-node cluster, use Ceph for storage, test failover regularly, and enjoy worry-free infrastructure.
-
----
-
-*Running HA in your homelab? What failure scenarios have you encountered? Share your clustering stories and lessons learned!*

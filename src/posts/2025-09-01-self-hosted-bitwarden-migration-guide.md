@@ -603,7 +603,3 @@ For broader infrastructure security, explore [eBPF security monitoring](/posts/2
 This approach works if you have technical skills and reliable infrastructure. Cloud services make more sense if you lack time or experience.
 
 Start with basic Docker Compose deployment. Master operations first. Add advanced security and monitoring later. Your 500+ passwords are worth the effort.
-
----
-
-*Self-hosting password managers? Share your setup, challenges, and lessons learned. Let's learn from each other's experiences!*

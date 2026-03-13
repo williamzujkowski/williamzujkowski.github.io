@@ -95,7 +95,7 @@ The result? A production-ready structure in minutes, not hours.
 
 ## The Power of Token Optimization
 
-The real game-changer is **90% token reduction** (measured across Python, API, and React projects). Instead of feeding Claude entire documentation, I now use shorthand references.
+The most impactful result is **90% token reduction** (measured across Python, API, and React projects). Instead of feeding Claude entire documentation, I now use shorthand references.
 
 Old way used 5000+ tokens:
 - "Here are my Python standards" (wall of text)

@@ -42,42 +42,6 @@ After running my [home network](/posts/2025-04-24-building-secure-homelab-advent
 
 This post shares what I've learned from automating my own network defense.
 
-## How It Works
-
-⚠️ **Warning:** This diagram illustrates network security automation for educational purposes. Implement security controls only with proper authorization and following security policies.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef preventionNode fill:#4caf50,color:#fff
-    classDef detectionNode fill:#ff9800,color:#fff
-    classDef responseNode fill:#f44336,color:#fff
-
-    class D1 preventionNode
-    class D2 detectionNode
-    class D3 responseNode
-```
-
 ## The Foundation: Network Discovery and Asset Management
 
 First challenge: knowing what's actually on your network. New devices appear constantly – kids' friends' phones, that new smart gadget someone bought, the mysterious device that might be the neighbor's printer.
@@ -190,7 +154,3 @@ For more in-depth information on the topics covered in this post:
 
 - [Cloudflare Learning Center](https://www.cloudflare.com/learning/)
 - [RFC Editor](https://www.rfc-editor.org/)
-
----
-
-*Have questions about any of these scripts? Want to share your own automation ideas? Drop me a line – I love connecting with fellow security automation enthusiasts!*

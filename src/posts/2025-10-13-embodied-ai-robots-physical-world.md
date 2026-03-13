@@ -57,7 +57,7 @@ The breakthrough: direct mapping from perception and language to low-level robot
 
 ## Gemini Robotics: Current State-of-the-Art
 
-[Gemini Robotics](https://arxiv.org/abs/2503.20020) (March 2025) represents the bleeding edge, though it's worth noting that real-world performance may vary significantly from these controlled testing conditions:
+[Gemini Robotics](https://arxiv.org/abs/2503.20020) (March 2025) represents the bleeding edge, though real-world performance varies significantly from these controlled testing conditions:
 
 | Capability | Performance | Significance |
 |-----------|-------------|--------------|

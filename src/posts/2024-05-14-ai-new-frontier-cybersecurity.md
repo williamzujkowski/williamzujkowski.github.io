@@ -96,7 +96,7 @@ In July 2024, I integrated threat intelligence feeds (MISP, AlienVault OTX, and 
 
 **Predictive Intelligence:** This is where marketing hype exceeds reality in my experience. The AI can identify likely attack vectors based on vulnerability scans, but "predicting" attacks feels overstated. It's more like "here are your worst vulnerabilities" than "an attack will happen Tuesday at 3 PM." Still useful, though.
 
-**False Positive Reduction:** After training on three months of baseline data, my system reduced alert noise by roughly 65%. I went from 200-300 alerts daily (mostly false positives) to around 40-60 actionable alerts. That's the real game-changer. Alert fatigue is real, and AI dramatically helps here.
+**False Positive Reduction:** After training on three months of baseline data, my system reduced alert noise by roughly 65%. I went from 200-300 alerts daily (mostly false positives) to around 40-60 actionable alerts. That reduction is what makes AI practical for security operations. Alert fatigue is real, and AI dramatically helps here.
 
 ### Automated Response and Mitigation
 

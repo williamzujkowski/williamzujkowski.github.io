@@ -15,41 +15,6 @@ Years ago, I discovered a SQL injection vulnerability during a code review. The 
 
 That experience early in my career taught me how easy it is for injection flaws to slip through. What looked like a minor oversight in query construction was actually a textbook vulnerability — the kind that, left unpatched, could expose sensitive data. It reinforced a lesson I carry to this day: security isn't something you bolt on after the fact.
 
-## How It Works
-
-⚠️ **Warning:** This diagram illustrates security threat vectors for educational purposes. Developers should implement proper security controls and follow secure coding practices in all production environments.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef greenNode fill:#4caf50
-    classDef orangeNode fill:#ff9800
-    classDef redNode fill:#f44336
-    class D1 greenNode
-    class D2 orangeNode
-    class D3 redNode
-```
-
 ## The Real Cost of Insecure Code: Why It Matters
 
 Vulnerable software doesn't just risk data loss. It undermines user trust, triggers potential legal trouble, and can bring entire services to a standstill. I've seen companies lose customers overnight when a breach makes headlines. We owe it to our users and ourselves to treat security as part of the craft, not an afterthought.

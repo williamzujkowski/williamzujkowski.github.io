@@ -385,7 +385,3 @@ Automated security scanning isn't optional. It's a fundamental requirement for m
 The initial setup took me about two weeks of evening work, but the ongoing protection has been worth it. Every critical vulnerability caught in CI is one that doesn't slip through to where it actually matters.
 
 Start with basic scanning, even just Grype on container images, then add quality gates, integrate with your SIEM, and watch your security posture improve. Don't try to implement everything I've shown here at once. I built this incrementally over a year, and you should too.
-
----
-
-*Building security pipelines? Share your scanning strategies, tools, and lessons learned. Let's improve supply chain security together!*

@@ -415,8 +415,6 @@ NodeShield blocked 1,025 of 1,043 supply chain attacks in my homelab testing. Ad
 
 **Try it yourself.** If you run Node.js in production, or even in homelab, NodeShield is worth testing. SolarWinds proved supply chain attacks scale. Runtime enforcement scales too.
 
-**Questions? Found NodeShield deployment issues? Share your findings.** I'm curious if the 98.3% prevention rate holds across different application stacks.
-
 ---
 
 ## References

@@ -14,40 +14,6 @@ Years ago, I stood in a data center, warm air flowing from countless machines, c
 
 That moment crystallized the need for cloud migration, but the journey that followed taught me as much about organizational change management as it did about technology. Moving to the cloud isn't just a technical transformation. It's a fundamental shift in how we think about infrastructure, reliability, and scale.
 
-## How It Works
-
-```mermaid
-flowchart TB
-    subgraph frontend["Frontend"]
-        CDN[CDN]
-        LB[Load Balancer]
-    end
-    subgraph application["Application"]
-        API[API Gateway]
-        Services[Microservices]
-        Cache[Redis Cache]
-    end
-    subgraph data["Data"]
-        DB[(Database)]
-        S3[Object Storage]
-        Queue[Message Queue]
-    end
-
-    CDN --> LB
-    LB --> API
-    API --> Services
-    Services --> Cache
-    Services --> DB
-    Services --> Queue
-
-    classDef apiStyle fill:#2196f3
-    classDef servicesStyle fill:#4caf50
-    classDef dbStyle fill:#ff9800
-    class API apiStyle
-    class Services servicesStyle
-    class DB dbStyle
-```
-
 ## The Catalyst: Why Migration Became Necessary
 
 The migration decision came from multiple pressures converging simultaneously:

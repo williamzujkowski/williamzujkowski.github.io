@@ -58,7 +58,7 @@ IoTGoat simulates a vulnerable IoT device firmware. The setup script above handl
 
 ## Exploring Common IoT Vulnerabilities
 
-Now for the fun part. Let's explore real vulnerabilities found in countless IoT devices.
+Real vulnerabilities found in countless IoT devices illustrate these principles well.
 
 ### 1. Hardcoded Credentials
 

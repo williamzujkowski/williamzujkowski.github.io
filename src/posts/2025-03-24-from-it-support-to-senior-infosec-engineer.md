@@ -18,41 +18,6 @@ Twenty years ago, I was that IT guy. Printer jammed, email stopped working, comp
 
 My toolkit: USB drive full of antivirus tools, patient smile, endless "let me Google that for you" searches. I loved it. Every problem was a puzzle, every fixed computer a small victory, every grateful client taught me something new about technology and people.
 
-## How It Works
-
-⚠️ **Warning:** This diagram illustrates cybersecurity threat landscape for educational purposes. Security professionals should follow ethical guidelines and proper authorization in all activities.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef preventionStyle fill:#4caf50
-    classDef detectionStyle fill:#ff9800
-    classDef responseStyle fill:#f44336
-    class D1 preventionStyle
-    class D2 detectionStyle
-    class D3 responseStyle
-```
-
 ## The Accidental Security Engineer
 
 Security wasn't part of the plan. It found me.
@@ -211,7 +176,3 @@ Then I showed him my homelab, explained how I catch bad guys trying to break int
 His response? "Okay, that's actually pretty cool. Can you teach me more?"
 
 That's the real measure of success – inspiring the next generation to take up the shield.
-
----
-
-*What's your security journey been like? I'd love to hear your story – the wins, the failures, and the lessons learned along the way.*

@@ -387,5 +387,3 @@ If you're running AI at home or considering it, I'd encourage you to instrument 
 - **[Ollama Documentation](https://github.com/ollama/ollama)** - Official docs for the inference server I used
 - **[NVIDIA DCGM Exporter](https://github.com/NVIDIA/dcgm-exporter)** - GPU monitoring for Prometheus
 - **[Sustainable AI](https://www.nature.com/articles/s42256-023-00673-3)** - Nature Machine Intelligence review of AI sustainability challenges
-
-*Have you measured power consumption in your homelab? I'd love to hear what you've discovered, especially if your findings contradict mine. The comment section below is open, or reach out on social media.*

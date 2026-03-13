@@ -662,7 +662,3 @@ Firewall rules without logging are security theater. Log everything and alert on
 VLAN segmentation transformed my homelab from a flat, vulnerable network into a defense-in-depth architecture. The cheap IoT camera that inspired this journey is now safely contained, unable to reach anything important. Zero trust isn't about perfection. It's about making each compromised device a dead end rather than a jumping-off point.
 
 **Start with logical segments, implement strict firewall rules, monitor everything, and iterate.** Your homelab will be more secure, more organized, and far more interesting to manage.
-
----
-
-*How are you segmenting your homelab network? What firewall rules have saved you from disaster? Share your VLAN strategies and war stories!*

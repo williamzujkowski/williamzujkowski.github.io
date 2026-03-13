@@ -560,7 +560,3 @@ Regularly test that your rules actually fire. A rule that never alerts might be 
 Network traffic analysis with Suricata transformed my homelab from an opaque network into a monitored, understood environment. The visibility gained from IDS/IPS isn't just about catching threats. It's about understanding normal behavior so you can spot anomalies.
 
 Start with basic installation, enable Emerging Threats rules, and gradually add custom detections for your specific environment. The investment in proper monitoring pays dividends the first time you catch an incident before it escalates.
-
----
-
-*Running Suricata in your environment? What detection rules have proven most valuable? Share your custom rules and detection strategies. Let's build better defenses together!*

@@ -14,42 +14,6 @@ imageAlt: "Raspberry Pi computer with connected cables"
 ---
 After collecting a drawer full of Raspberry Pis over the years (we all have that drawer, right?), I decided it was time to put them to work. Here are five security projects that actually solve real problems, complete with implementation guides and lessons learned.
 
-## How It Works
-
-⚠️ **Warning:** These Raspberry Pi security projects are for educational purposes. Deploy only in authorized environments with proper network permissions and security controls.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef greenNode fill:#4caf50
-    classDef orangeNode fill:#ff9800
-    classDef redNode fill:#f44336
-    class D1 greenNode
-    class D2 orangeNode
-    class D3 redNode
-```
-
-
 ## Requirements
 
 The scripts demonstrated in this post use Python libraries including OpenCV (`opencv-python` for computer vision), `python-nmap` (network scanning), and `paramiko` (SSH automation). Install via: `pip install opencv-python python-nmap paramiko`
@@ -209,9 +173,3 @@ The key is identifying a real problem and building a focused solution.
 - **My Scripts**: [GitHub - Coming Soon](sanitizing for public release)
 
 Remember: The best security system is one that actually gets used. These Raspberry Pi projects work because they're maintainable, understandable, and solve real problems.
-
-What security problem will you solve with your next Pi?
-
----
-
-*Have questions about any of these projects? Found a cool use for your Pi? Let me know! I'm always looking for the next practical security project.*

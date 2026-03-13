@@ -13,41 +13,6 @@ imageAlt: "Person studying with laptop and notes at a desk"
 ---
 After 15+ years in cybersecurity, I've learned one truth: The moment you stop learning is the moment you become obsolete. But here's the challenge – how do you keep up with a field that literally changes every day without burning out? Here are the strategies that have worked for me, refined through [my journey from IT support to senior InfoSec engineer](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer/).
 
-## How It Works
-
-⚠️ **Warning:** This diagram illustrates security concepts for educational purposes. The threat actor and attack vector patterns shown should only be studied in controlled environments with proper authorization.
-
-```mermaid
-flowchart TB
-    subgraph threatactors["Threat Actors"]
-        TA1[External Attackers]
-        TA2[Insider Threats]
-        TA3[Supply Chain]
-    end
-    subgraph attackvectors["Attack Vectors"]
-        AV1[Network]
-        AV2[Application]
-        AV3[Physical]
-    end
-    subgraph defenses["Defenses"]
-        D1[Prevention]
-        D2[Detection]
-        D3[Response]
-    end
-
-    TA1 & TA2 & TA3 --> AV1 & AV2 & AV3
-    AV1 & AV2 & AV3 --> D1
-    D1 -->|Bypass| D2
-    D2 --> D3
-
-    classDef preventionStyle fill:#4caf50
-    classDef detectionStyle fill:#ff9800
-    classDef responseStyle fill:#f44336
-    class D1 preventionStyle
-    class D2 detectionStyle
-    class D3 responseStyle
-```
-
 ## The Learning Paradox
 
 When I started in IT support, I could learn a technology and use it for years. Now? The vulnerability I'm patching today didn't exist last week. The attack technique I'm defending against was presented at a conference last month. The AI tool I'm securing was in beta yesterday.
