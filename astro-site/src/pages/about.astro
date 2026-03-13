@@ -93,12 +93,12 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <div class="relative pl-14 sm:pl-16 pb-12">
               <div
                 class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--md-sys-color-surface); border-color: var(--md-sys-color-error);"
+                style="background-color: var(--md-sys-color-surface); border-color: var(--md-sys-color-tertiary, var(--md-sys-color-secondary));"
               ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-error);">
+              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-tertiary, var(--md-sys-color-secondary));">
                 <span
                   class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container);"
+                  style="background-color: var(--md-sys-color-tertiary-container, var(--md-sys-color-secondary-container)); color: var(--md-sys-color-on-tertiary-container, var(--md-sys-color-on-secondary-container));"
                 >2021 &ndash; 2023</span>
                 <h3 class="text-lg font-bold mb-1" style="color: var(--md-sys-color-on-surface);">
                   Enterprise Vulnerability Management Lead &bull; NIH&nbsp;OCIO
@@ -111,11 +111,11 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
                 <div class="flex flex-wrap gap-2">
                   <span
                     class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs"
-                    style="background-color: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container);"
+                    style="background-color: var(--md-sys-color-tertiary-container, var(--md-sys-color-secondary-container)); color: var(--md-sys-color-on-tertiary-container, var(--md-sys-color-on-secondary-container));"
                   >&#x1F525; Log4j SME</span>
                   <span
                     class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs"
-                    style="background-color: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container);"
+                    style="background-color: var(--md-sys-color-tertiary-container, var(--md-sys-color-secondary-container)); color: var(--md-sys-color-on-tertiary-container, var(--md-sys-color-on-secondary-container));"
                   >&#x1F3DB; CISA BOD 22-01</span>
                 </div>
               </div>
@@ -193,60 +193,6 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
 
         <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
 
-        <!-- What I Do Now -->
-        <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--md-sys-color-on-surface);">What I Do Now</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-            <article class="card p-6" style="border-left: 4px solid var(--md-sys-color-primary);">
-              <h3 class="text-lg font-bold mb-4 flex items-center" style="color: var(--md-sys-color-on-surface);">
-                <span class="text-xl mr-2" aria-hidden="true">&#x1F6E1;</span>
-                Cloud Security Architecture
-              </h3>
-              <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
-                Design network controls for multi-tenant cloud platforms&mdash;web application firewalls,
-                microsegmentation policies, infrastructure-as-code automation. Learning IaC beats clicking through cloud
-                consoles. Firewall rules belong in git, not GUIs.
-              </p>
-            </article>
-
-            <article class="card p-6" style="border-left: 4px solid var(--md-sys-color-secondary);">
-              <h3 class="text-lg font-bold mb-4 flex items-center" style="color: var(--md-sys-color-on-surface);">
-                <span class="text-xl mr-2" aria-hidden="true">&#x1F511;</span>
-                Identity &amp; Federation
-              </h3>
-              <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
-                Smart card authentication, SSO integrations, federated identity systems for federal environments.
-                Identity is invisible when it works and screaming loud when it breaks.
-              </p>
-            </article>
-
-            <article class="card p-6" style="border-left: 4px solid var(--md-sys-color-primary);">
-              <h3 class="text-lg font-bold mb-4 flex items-center" style="color: var(--md-sys-color-on-surface);">
-                <span class="text-xl mr-2" aria-hidden="true">&#x2699;</span>
-                Security Tooling Governance
-              </h3>
-              <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
-                CI/CD security scanning, infrastructure scanning, vulnerability management across platforms. Ship code
-                fast without deploying critical vulns. Automation finds issues before humans notice them.
-              </p>
-            </article>
-
-            <article class="card p-6" style="border-left: 4px solid var(--md-sys-color-secondary);">
-              <h3 class="text-lg font-bold mb-4 flex items-center" style="color: var(--md-sys-color-on-surface);">
-                <span class="text-xl mr-2" aria-hidden="true">&#x1F4CB;</span>
-                Compliance &amp; Standards
-              </h3>
-              <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
-                NIST 800-53 compliance, FedRAMP assessments, control implementation. Compliance frameworks are forcing
-                functions that make you think about threat models and blast radius. Done right, compliance makes you
-                more secure. Done wrong, it's checkbox theater.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
-
         <!-- How I Think About Security -->
         <section>
           <h2 class="text-2xl font-bold mb-6" style="color: var(--md-sys-color-on-surface);">
@@ -264,7 +210,7 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
               Here's what I've learned over 20 years in IT and 15 years in security:
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
                 <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
                   <span class="mr-2" aria-hidden="true">&#x26A1;</span>
@@ -274,19 +220,6 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
                   You can design the most elegant network segmentation in the world, but if developers can't deploy
                   their code, they'll find a workaround. Your job is to make the secure path the easy path. I learned
                   this the hard way trying to enforce patching schedules on scientists running week-long experiments.
-                </p>
-              </div>
-
-              <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
-                  <span class="mr-2" aria-hidden="true">&#x1F4CB;</span>
-                  Compliance Frameworks Are Forcing Functions
-                </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
-                  NIST 800-53 and FedRAMP aren't checkbox exercises. They're forcing functions that make you think about
-                  threat models, blast radius, and recovery time objectives. I've spent enough time implementing
-                  controls to know: compliance done right makes you more secure. Compliance done wrong makes you
-                  miserable.
                 </p>
               </div>
 
@@ -319,6 +252,46 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
               If security slows teams down, they'll work around it. If compliance feels like busywork, it won't get done
               right. If automation is brittle, nobody will trust it. I've been doing this long enough to know: good
               security is invisible until you need it.
+            </p>
+          </div>
+        </section>
+
+        <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
+
+        <!-- When I'm Not Working -->
+        <section>
+          <h2 class="text-2xl font-bold mb-6" style="color: var(--md-sys-color-on-surface);">When I'm Not Working</h2>
+          <div class="card p-8 my-8">
+            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
+              You'll find me in my homelab, which has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R940
+              running Proxmox, a fleet of Raspberry Pi 4s handling K3s clusters, and way too many Docker containers. I
+              run my own Wazuh SIEM, self-hosted Bitwarden, and whatever else I'm experimenting with that week.
+            </p>
+
+            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
+              I'm also deep into AI/LLM experimentation&mdash;not just using ChatGPT, but actually running local models,
+              building agents, and figuring out how to secure these systems in production environments. It's fascinating
+              and humbling in equal measure. You can see what I'm building on the <a href="/projects" class="text-[var(--md-sys-color-primary)] hover:underline">projects page</a>.
+            </p>
+
+            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
+              <strong style="color: var(--md-sys-color-on-surface);">Fair warning:</strong> I've burned out a GPU
+              pushing it too hard for local LLM inference. Also managed to take down my home network for a few hours
+              trying to implement VLAN segmentation "just to see how it works." Breaking things in my homelab so I
+              don't break them anywhere else is kind of the whole point.
+            </p>
+
+            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
+              I'm currently learning Rust by building a vulnerability aggregation tool that I'll probably never finish.
+              But that's the point&mdash;curiosity is the best cybersecurity skill there is.
+            </p>
+
+            <p class="text-lg italic" style="color: var(--md-sys-color-on-surface-variant);">
+              Favorite debugging method: rubber duck debugging&mdash;with an actual rubber duck, because sometimes
+              being literal is funny. I've also been known to deploy a
+              <a href="https://datatracker.ietf.org/doc/html/rfc2321" class="text-[var(--md-sys-color-primary)] hover:underline">RITA</a>
+              (rubber chicken) for particularly stubborn bugs. The obnoxiously loud squeak really helps you
+              rethink your assumptions.
             </p>
           </div>
         </section>
@@ -430,47 +403,6 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
                 <span class="font-medium">LinkedIn</span>
               </a>
             </div>
-          </div>
-        </section>
-
-        <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
-
-        <!-- When I'm Not Working -->
-        <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--md-sys-color-on-surface);">When I'm Not Working</h2>
-          <div class="card p-8 my-8">
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
-              You'll find me in my homelab, which has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R940
-              running Proxmox, a fleet of Raspberry Pi 4s handling K3s clusters, and way too many Docker containers. I
-              run my own Wazuh SIEM, self-hosted Bitwarden, and whatever else I'm experimenting with that week.
-            </p>
-
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
-              I'm also deep into AI/LLM experimentation&mdash;not just using ChatGPT, but actually running local models,
-              building agents, and figuring out how to secure these systems in production environments. It's fascinating
-              and humbling in equal measure.
-            </p>
-
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
-              <strong style="color: var(--md-sys-color-on-surface);">Fair warning:</strong> I've burned out a GPU
-              pushing it too hard for local LLM inference. Also managed to take down my home network for a few hours
-              trying to implement VLAN segmentation "just to see how it works." Breaking things in my homelab so I
-              don't break them anywhere else is kind of the whole point.
-            </p>
-
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
-              I'm currently learning Rust by building a vulnerability aggregation tool that I'll probably never finish.
-              But that's the point&mdash;curiosity is the best cybersecurity skill there is, and breaking things in my
-              homelab means I don't break them in production.
-            </p>
-
-            <p class="text-lg italic" style="color: var(--md-sys-color-on-surface-variant);">
-              Favorite debugging method: rubber duck debugging&mdash;with an actual rubber duck, because sometimes
-              being literal is funny. I've also been known to deploy a
-              <a href="https://datatracker.ietf.org/doc/html/rfc2321" class="text-[var(--md-sys-color-primary)] hover:underline">RITA</a>
-              (rubber chicken) for particularly stubborn bugs. The obnoxiously loud squeak really helps you
-              rethink your assumptions.
-            </p>
           </div>
         </section>
       </div>
