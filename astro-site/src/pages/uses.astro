@@ -15,15 +15,30 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         </p>
 
         <p>
-          What started with a $50 Raspberry Pi in 2015 has evolved into a ~$12,000 homelab and workflow that actually
+          What started with a $50 Raspberry Pi in 2015 has evolved into a homelab and workflow that actually
           works for me. This is a living document: I update it when I change something significant or learn a better
           way.
         </p>
 
+        <nav class="not-prose my-6 card p-4">
+          <p class="font-medium text-sm mb-2" style="color: var(--md-sys-color-on-surface-variant);">Jump to:</p>
+          <div class="flex flex-wrap gap-2">
+            <a href="#hardware" class="chip text-xs">Hardware</a>
+            <a href="#software" class="chip text-xs">Software &amp; Development</a>
+            <a href="#security" class="chip text-xs">Security &amp; Monitoring</a>
+            <a href="#ai" class="chip text-xs">AI &amp; Coding Tools</a>
+            <a href="#services" class="chip text-xs">Services</a>
+            <a href="#self-hosted" class="chip text-xs">Self-Hosted</a>
+            <a href="#cli" class="chip text-xs">CLI Tools</a>
+            <a href="#learning" class="chip text-xs">Learning</a>
+            <a href="#principles" class="chip text-xs">Principles</a>
+          </div>
+        </nav>
+
         <hr />
 
         <!-- ==================== HARDWARE ==================== -->
-        <h2>Hardware</h2>
+        <h2 id="hardware">Hardware</h2>
 
         <h3>Workstation</h3>
 
@@ -181,8 +196,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
             </p>
 
             <p>
-              <strong>What I run:</strong> ~30 VMs for testing, ~15 LXC containers for services. Proxmox because it's free,
-              well-documented, and I understand it. Tried ESXi for three months in 2020, but the licensing complexity wasn't worth it for a homelab.
+              <strong>What I run:</strong> BOSH-managed VMs for Cloud Foundry and Concourse CI, plus Podman containers
+              for monitoring and services. Incus handles virtualization cleanly with less overhead than alternatives.
+              Tried ESXi for three months in 2020, but the licensing complexity wasn't worth it for a homelab.
             </p>
 
             <p>
@@ -192,23 +208,21 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           </li>
 
           <li>
-            <strong>Cluster Nodes</strong> &mdash; 3x
-            <a href="https://www.raspberrypi.com/products/raspberry-pi-5/" rel="noopener noreferrer">Raspberry Pi 5</a>
-            (16GB, ~$80 each) + 1x
+            <strong>Infrastructure Nodes</strong> &mdash; 3x
             <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" rel="noopener noreferrer"
-              >Raspberry Pi 4</a
+              >Raspberry Pi 4 Model B</a
             >
-            (8GB, 2020)
 
             <p>
-              <strong>K3s testing cluster:</strong> Learning Kubernetes on real hardware beats reading docs. The Pi 5s run
-              a lightweight K3s cluster for ARM testing. It's slow, but that's the point &ndash; if it works here, it'll work
-              anywhere.
+              <strong>Dedicated roles:</strong> Two Pis run Pi-hole for redundant DNS filtering (network-wide ad blocking,
+              catches ~25% of queries). The third runs
+              <a href="https://goauthentik.io/" rel="noopener noreferrer">Authentik</a> for SSO &mdash; single sign-on
+              across Grafana, Concourse, and other services via OIDC.
             </p>
 
             <p>
-              <strong>Pi-hole on the Pi 4:</strong> Network-wide ad blocking. Set-and-forget for five years running. Blocks
-              ~25% of DNS queries before they hit the network.
+              <strong>Why dedicated hardware:</strong> DNS and auth are too critical to share resources with other workloads.
+              Separate Pis mean a server reboot doesn't take down name resolution or authentication.
             </p>
           </li>
 
@@ -270,7 +284,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         <hr />
 
         <!-- ==================== SOFTWARE & DEVELOPMENT ==================== -->
-        <h2>Software &amp; Development</h2>
+        <h2 id="software">Software &amp; Development</h2>
 
         <h3>Operating Systems &amp; Virtualization</h3>
 
@@ -289,16 +303,16 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           </li>
 
           <li>
-            <a href="https://www.proxmox.com/" rel="noopener noreferrer">Proxmox</a> for virtualization
+            <a href="https://linuxcontainers.org/incus/" rel="noopener noreferrer">Incus</a> for virtualization
 
             <p>
-              <strong>Proxmox vs ESXi:</strong> VMware's licensing changes in 2024 validated my 2022 choice. Proxmox is open-source,
-              has a great community, and doesn't lock me into vendor licensing. I've been running it for three years without
-              major issues.
+              <strong>Incus vs Proxmox:</strong> Migrated from Proxmox to Incus on Ubuntu 24.04. Incus gives me clean
+              CLI-driven VM and container management without a web UI I rarely used. Pairs well with BOSH for
+              orchestrating Cloud Foundry workloads.
             </p>
 
             <p>
-              <strong>Learning curve:</strong> Took about 2 weeks to get comfortable. Worth it.
+              <strong>Learning curve:</strong> If you know LXD, Incus is familiar. If not, a weekend gets you productive.
             </p>
           </li>
 
@@ -412,7 +426,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         <hr />
 
         <!-- ==================== SECURITY & MONITORING ==================== -->
-        <h2>Security &amp; Monitoring (Homelab)</h2>
+        <h2 id="security">Security &amp; Monitoring (Homelab)</h2>
 
         <ul>
           <li>
@@ -482,11 +496,12 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           <li>
             <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>,
             <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>,
-            <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> for metrics and dashboards
+            <a href="https://grafana.com/oss/loki/" rel="noopener noreferrer">Loki</a> for metrics, logs, and dashboards
 
             <p>
-              <strong>Observability stack:</strong> Prometheus scrapes metrics, Grafana visualizes them, Netdata gives real-time
-              insights. I have dashboards for everything: server health, network traffic, container metrics, power consumption.
+              <strong>Observability stack:</strong> Prometheus scrapes metrics from all nodes, Loki aggregates logs via Promtail,
+              Grafana visualizes everything. Alertmanager routes alerts to
+              <a href="https://ntfy.sh/" rel="noopener noreferrer">ntfy</a> for push notifications to my phone.
             </p>
 
             <p>
@@ -535,17 +550,17 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           </li>
 
           <li>
-            <a href="https://www.vaultproject.io/" rel="noopener noreferrer">HashiCorp Vault</a> for secrets in automation
+            <a href="https://docs.cloudfoundry.org/credhub/" rel="noopener noreferrer">CredHub</a> for secrets in automation
             and CI
 
             <p>
-              <strong>Secrets management:</strong> Hardcoded secrets are evil. Vault centralizes secret storage and provides
-              audit logs of who accessed what when.
+              <strong>Secrets management:</strong> Hardcoded secrets are evil. CredHub integrates natively with BOSH and
+              Concourse for automatic secret injection into pipelines and deployments. No manual secret passing.
             </p>
 
             <p>
-              <strong>Learning curve:</strong> Steep. Took me two weeks to grok the concepts. Absolutely worth it for automated
-              workflows.
+              <strong>Why CredHub over Vault:</strong> Since I'm already running Cloud Foundry and BOSH, CredHub comes
+              built-in. One less thing to operate.
             </p>
           </li>
         </ul>
@@ -580,16 +595,33 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
         <hr />
 
-        <!-- ==================== AI & PROMPTING ==================== -->
-        <h2>AI &amp; Prompting</h2>
+        <!-- ==================== AI & CODING TOOLS ==================== -->
+        <h2 id="ai">AI &amp; Coding Tools</h2>
 
         <ul>
+          <li>
+            <strong>AI Coding Assistants</strong>
+
+            <p>
+              <strong><a href="https://claude.ai/claude-code" rel="noopener noreferrer">Claude Code</a></strong> is my
+              primary coding tool. I use it for everything from feature implementation to code review to debugging.
+              It's the backbone of my <a href="/projects/">nexus-agents</a> project &mdash; a multi-model orchestration
+              system that routes tasks to Claude, Gemini, Codex, and OpenCode based on what each model is actually good at.
+            </p>
+
+            <p>
+              <strong>Why Claude Code over alternatives:</strong> Terminal-native, understands full project context,
+              and the MCP integration means it can use my custom tools directly. I've tried Copilot, Cursor, and others.
+              Claude Code fits my workflow best.
+            </p>
+          </li>
+
           <li>
             <strong>Local LLMs on RTX 3090</strong> (24GB VRAM)
 
             <p>
-              <strong>Models that actually fit:</strong> Llama 3.1 8B (~4GB Q4), Mistral 7B (~4GB Q4), CodeLlama 34B (~20GB
-              Q4), Qwen 2.5 Coder 32B (~18GB Q4).
+              <strong>Models that actually fit:</strong> Llama 3.3 8B (~4GB Q4), Mistral 7B (~4GB Q4), Qwen 2.5 Coder 32B (~18GB Q4),
+              DeepSeek Coder V2 Lite (~9GB Q4).
             </p>
 
             <p>
@@ -621,7 +653,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
               <strong>Install to running LLM in 2 commands:</strong>
             </p>
 
-            <pre><code>curl https://ollama.ai/install.sh | sh
+            <pre><code>curl https://ollama.com/install.sh | sh
 ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
           </li>
 
@@ -691,7 +723,7 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
         <hr />
 
         <!-- ==================== SERVICES ==================== -->
-        <h2>Services</h2>
+        <h2 id="services">Services</h2>
 
         <ul>
           <li>
@@ -706,7 +738,7 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
 
           <li>
             <strong>CI/CD:</strong> GitHub Actions (public),
-            <a href="https://www.jenkins.io/" rel="noopener noreferrer">Jenkins</a> (homelab automation)
+            <a href="https://concourse-ci.org/" rel="noopener noreferrer">Concourse CI</a> (homelab automation)
 
             <p>
               <strong>GitHub Actions:</strong> Free for public repos, simple YAML config, integrates perfectly with GitHub.
@@ -714,8 +746,8 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
             </p>
 
             <p>
-              <strong>Jenkins:</strong> Overkill for most things, but I use it for homelab automation that GitHub Actions
-              can't reach. Runs backup jobs, system updates, monitoring checks.
+              <strong>Concourse CI:</strong> Runs on BOSH-managed VMs in the homelab. Pipeline-as-code with declarative
+              YAML. Handles homelab automation, backup jobs, and deployment pipelines that GitHub Actions can't reach.
             </p>
           </li>
 
@@ -770,36 +802,42 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
         <hr />
 
         <!-- ==================== SELF-HOSTED SERVICES ==================== -->
-        <h2>Self-Hosted Services</h2>
+        <h2 id="self-hosted">Self-Hosted Services</h2>
 
-        <p>Running these on Proxmox VMs/containers because I control my data:</p>
+        <p>Running these on Incus VMs and Podman containers because I control my data:</p>
 
         <ul>
           <li>
-            <a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a>,
             <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>,
             <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>,
-            <a href="https://www.netdata.cloud/" rel="noopener noreferrer">Netdata</a> &mdash; Security + monitoring stack
+            <a href="https://grafana.com/oss/loki/" rel="noopener noreferrer">Loki</a> +
+            <a href="https://prometheus.io/docs/alerting/latest/alertmanager/" rel="noopener noreferrer">Alertmanager</a>
+            &mdash; Full observability stack (metrics, logs, alerts)
           </li>
           <li>
-            <a href="https://jellyfin.org/" rel="noopener noreferrer">Jellyfin</a> &mdash; Media server (FOSS alternative
-            to Plex, no tracking)
+            <a href="https://goauthentik.io/" rel="noopener noreferrer">Authentik</a> &mdash; SSO/identity provider
+            (OIDC for Grafana, Concourse, and internal services via
+            <a href="https://caddyserver.com/" rel="noopener noreferrer">Caddy</a> forward-auth)
           </li>
           <li>
-            <a href="https://www.home-assistant.io/" rel="noopener noreferrer">Home Assistant</a> &mdash; Home automation
-            (controls lights, sensors, cameras)
+            <a href="https://www.cloudfoundry.org/" rel="noopener noreferrer">Cloud Foundry</a> &mdash; Application platform
+            managed by <a href="https://bosh.io/" rel="noopener noreferrer">BOSH</a> (VMs for Diego, UAA, routing, log pipeline)
           </li>
           <li>
-            <a href="https://www.bookstackapp.com/" rel="noopener noreferrer">BookStack</a> &mdash; Documentation/wiki (beautiful,
-            markdown-based, easy to use)
+            <a href="https://concourse-ci.org/" rel="noopener noreferrer">Concourse CI</a> &mdash; Pipeline automation
+            (BOSH-deployed, secrets via CredHub)
           </li>
           <li>
-            <a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> &mdash; Private git repos
+            <a href="https://pi-hole.net/" rel="noopener noreferrer">Pi-hole</a> &times; 2 &mdash; Redundant DNS filtering
+            on dedicated Raspberry Pis
           </li>
           <li>
-            <a href="https://restic.net/" rel="noopener noreferrer">restic</a> backups &rarr;
-            <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a> &mdash; Encrypted
-            offsite backups
+            <a href="https://ntfy.sh/" rel="noopener noreferrer">ntfy</a> &mdash; Push notifications for alerts
+            (Alertmanager &rarr; ntfy &rarr; phone)
+          </li>
+          <li>
+            <a href="https://github.com/dani-garcia/vaultwarden" rel="noopener noreferrer">Vaultwarden</a> &mdash;
+            Self-hosted Bitwarden server for password management
           </li>
         </ul>
 
@@ -817,7 +855,7 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
         <hr />
 
         <!-- ==================== CLI TOOLS ==================== -->
-        <h2>CLI Tools</h2>
+        <h2 id="cli">CLI Tools</h2>
 
         <h3>Development</h3>
 
@@ -903,13 +941,13 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
         <hr />
 
         <!-- ==================== LEARNING ==================== -->
-        <h2>Learning</h2>
+        <h2 id="learning">Learning</h2>
 
         <ul>
           <li>
             <strong>Platforms:</strong>
-            <a href="https://www.pluralsight.com/" rel="noopener noreferrer">Pluralsight</a> ($299/year),
-            <a href="https://www.oreilly.com/" rel="noopener noreferrer">O'Reilly</a> ($499/year), YouTube (free)
+            <a href="https://www.pluralsight.com/" rel="noopener noreferrer">Pluralsight</a>,
+            <a href="https://www.oreilly.com/" rel="noopener noreferrer">O'Reilly</a>, YouTube (free)
 
             <p>
               <strong>ROI:</strong> These subscriptions pay for themselves if I learn one skill that saves 10 hours. They've
@@ -926,8 +964,8 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
 
           <li>
             <strong>Security labs:</strong>
-            <a href="https://www.hackthebox.com/" rel="noopener noreferrer">HackTheBox</a> (~$150/year),
-            <a href="https://tryhackme.com/" rel="noopener noreferrer">TryHackMe</a> (~$100/year), personal homelab (priceless)
+            <a href="https://www.hackthebox.com/" rel="noopener noreferrer">HackTheBox</a>,
+            <a href="https://tryhackme.com/" rel="noopener noreferrer">TryHackMe</a>, personal homelab (priceless)
 
             <p>
               <strong>Hands-on learning:</strong> Reading about security is fine. Breaking things is better. These platforms
@@ -955,7 +993,7 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
         <hr />
 
         <!-- ==================== PRINCIPLES ==================== -->
-        <h2>Principles</h2>
+        <h2 id="principles">Principles</h2>
 
         <ol>
           <li>

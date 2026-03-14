@@ -14,7 +14,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         </p>
 
         <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
-          Last updated: <strong>March 2026</strong>
+          Last updated: <time datetime="2026-03-13"><strong>March 2026</strong></time>
         </p>
 
         <hr class="my-8 border-[var(--md-sys-color-outline-variant)]" />
@@ -67,12 +67,22 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           <li>Too many HackerNews threads about Rust vs Go (I'm in the "use both" camp)</li>
         </ul>
 
+        <h2>Recently Shipped</h2>
+
+        <ul>
+          <li>Corrected all homelab hardware references across the blog (was claiming specs I don't have &mdash; embarrassing)</li>
+          <li>Added Playwright smoke tests, series navigation, and performance improvements to this website</li>
+          <li>Codified Pi node provisioning with IaC (Makefile + Chrony NTP configs)</li>
+        </ul>
+
         <h2>Homelab Status</h2>
 
         <p>
-          The Dell R910 is still humming along (256GB RAM, 48 threads). Currently running a mix of VMs and LXC
-          containers on Incus. Recent additions: a Concourse CI pipeline for homelab automation and better Grafana dashboards
-          for the Wazuh SIEM. Power bill is still ~$150/month. My partner has accepted this as a permanent line item.
+          The Dell R910 is still humming along (256GB RAM, 48 threads). Running
+          <a href="https://linuxcontainers.org/incus/">Incus</a> on Ubuntu 24.04 with BOSH-managed Cloud Foundry
+          and Concourse CI workloads. Three Raspberry Pi 4Bs handle DNS (dual Pi-hole) and SSO (Authentik).
+          Monitoring via Prometheus, Grafana, Loki, and Alertmanager with push alerts to ntfy.
+          Power bill is still ~$150/month. My partner has accepted this as a permanent line item.
         </p>
 
         <hr class="my-8 border-[var(--md-sys-color-outline-variant)]" />
