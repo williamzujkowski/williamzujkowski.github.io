@@ -359,11 +359,11 @@ bpftrace -e 'tracepoint:raw_syscalls:sys_enter { printf(...) }'
 - +Network monitoring (XDP, 2K pps): +4.1% → 15.3% total
 - Impact: Acceptable, Pi-hole response time +12ms (48ms → 60ms)
 
-**System 3: Dell R940 (1TB RAM, 80 cores)**
+**System 3: Dell R910 (256GB RAM, 48 threads)**
 - Baseline CPU: 3%
 - +Container monitoring (Falco, 200 containers): +2.1% → 5.1% total
 - +Network monitoring (100K pps): +6.8% → 11.9% total
-- Impact: Negligible, absorbed by massive core count
+- Impact: Negligible, absorbed by available core count
 
 **Years of performance tuning taught me:** eBPF overhead is workload-dependent and configuration-sensitive. Generic "2-5% overhead" claims are misleading—I've seen 1% (light syscall tracing) and 30%+ (aggressive filesystem monitoring under load). Measure your actual workload, tune ring buffers, filter in-kernel, and accept that some monitoring has real cost. Security visibility isn't free, but eBPF's overhead is 10-100x lower than equivalent userspace monitoring.
 

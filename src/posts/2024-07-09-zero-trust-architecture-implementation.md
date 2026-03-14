@@ -12,7 +12,7 @@ image: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=1200&h=63
 imageAlt: "Digital padlock on a network security interface"
 
 ---
-In May 2024, I made the decision to completely segment my homelab network into 8 separate VLANs. The catalyst? I discovered my Raspberry Pi running Pi-hole was on the same network segment as my Dell R940 server hosting production workloads. One compromised smart light bulb could theoretically pivot to my most sensitive systems.
+In May 2024, I made the decision to completely segment my homelab network into 8 separate VLANs. The catalyst? I discovered my Raspberry Pi running Pi-hole was on the same network segment as my Dell R910 server hosting production workloads. One compromised smart light bulb could theoretically pivot to my most sensitive systems.
 
 I spent three solid weekends implementing Zero Trust principles in my homelab using my Ubiquiti Dream Machine Pro. The experience taught me that implementing Zero Trust is probably harder than most guides suggest, and I locked myself out of my management interface three times while testing firewall rules. But the results were worth the frustration.
 

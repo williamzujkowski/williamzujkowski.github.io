@@ -389,13 +389,13 @@ First mention of technical term = brief definition. Subsequent uses = assume fam
 ```markdown
 ### Dedicated Analysis Server
 
-I run Suricata on my Dell R940 with:
+I run Suricata on my Dell R910 with:
 - **CPU**: 8 cores dedicated to packet processing
 - **RAM**: 16GB allocated
 - **Storage**: 500GB SSD for fast log writes
 - **NIC**: Dedicated 10Gb interface for mirrored traffic
 ```
-- Specific hardware model (Dell R940)
+- Specific hardware model (Dell R910)
 - Quantified resource allocation
 - Purpose for each component
 - Real deployment, not theoretical
@@ -543,7 +543,7 @@ Create "Industry Standards References" section for each security post:
    - Example: "Why default deny? Compromised IoT device can't pivot to trusted network"
 
 3. **Minimal Viable Configuration**
-   - Current: Shows enterprise-grade homelab setup (Dell R940)
+   - Current: Shows enterprise-grade homelab setup (Dell R910)
    - Recommended: Add "Starting Point" for smaller deployments
    - Example: "Running this on Raspberry Pi 4? Use these reduced resource allocations"
 

@@ -15,7 +15,7 @@ imageAlt: "Connected servers in a modern data center"
 
 ---
 
-In November 2024, I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R940 acted as the aggregation server while 3 Raspberry Pi 5s (16GB each) trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.
+In November 2024, I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s (16GB each) trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.
 
 What surprised me most was the data transfer reduction. I'm not entirely sure if my measurements account for all overhead, but granular-ball segmentation cut network transfers from roughly 2.3GB per round to 410MB. That's an 82% reduction just by sharing coarse statistical representations instead of model gradients.
 
@@ -81,7 +81,7 @@ In my homelab implementation, each Raspberry Pi performs these steps locally:
 3. **Threshold filtering:** Only share clusters with variance above a configurable threshold
 4. **Aggregation:** Send cluster statistics to the central server, not raw gradients
 
-The Dell R940 aggregator then:
+The Dell R910 aggregator then:
 
 1. **Receives cluster statistics** from all participants
 2. **Merges overlapping clusters** based on distance metrics
@@ -93,7 +93,7 @@ sequenceDiagram
     participant Pi1 as Raspberry Pi 1
     participant Pi2 as Raspberry Pi 2
     participant Pi3 as Raspberry Pi 3
-    participant R940 as Dell R940 Aggregator
+    participant R910 as Dell R910 Aggregator
 
     Note over Pi1,Pi3: Round N begins
     par Local Training
@@ -109,14 +109,14 @@ sequenceDiagram
     Pi1->>Pi1: Filter clusters (variance > 0.03)
     Pi2->>Pi2: Filter clusters (variance > 0.03)
     Pi3->>Pi3: Filter clusters (variance > 0.03)
-    Pi1->>R940: Cluster stats (center, variance, radius)
-    Pi2->>R940: Cluster stats (center, variance, radius)
-    Pi3->>R940: Cluster stats (center, variance, radius)
-    R940->>R940: Merge overlapping clusters (21 min)
-    R940->>R940: Train global model
-    R940->>Pi1: Updated model weights
-    R940->>Pi2: Updated model weights
-    R940->>Pi3: Updated model weights
+    Pi1->>R910: Cluster stats (center, variance, radius)
+    Pi2->>R910: Cluster stats (center, variance, radius)
+    Pi3->>R910: Cluster stats (center, variance, radius)
+    R910->>R910: Merge overlapping clusters (21 min)
+    R910->>R910: Train global model
+    R910->>Pi1: Updated model weights
+    R910->>Pi2: Updated model weights
+    R910->>Pi3: Updated model weights
     Note over Pi1,Pi3: Round N+1 begins
 ```
 
@@ -128,7 +128,7 @@ I used [Flower](https://flower.dev/) for federated orchestration and PyTorch for
 
 ### Hardware Setup
 
-- **Server:** Dell R940 (64 cores, 768GB RAM) running the Flower aggregation server
+- **Server:** Dell R910 (48 threads, 256GB RAM) running the Flower aggregation server
 - **Clients:** 3x Raspberry Pi 5 (16GB RAM each) running Flower clients
 - **Dataset:** CIFAR-10 (60,000 images split across 3 Pis, 20,000 each)
 - **Model:** ResNet-18 (11.7M parameters)
@@ -150,7 +150,7 @@ pip3 install flwr flwr-datasets
 pip3 install scikit-learn numpy
 ```
 
-On the Dell R940 aggregation server:
+On the Dell R910 aggregation server:
 
 ```bash
 # Same dependencies plus monitoring
@@ -253,7 +253,7 @@ pie title Training Round Time Breakdown (47 min total)
     "Server Aggregation" : 21.3
 ```
 
-**Bottleneck:** Server aggregation was surprisingly slow. The Dell R940 spent most of its time merging overlapping clusters from 3 Pis. Probably a CPU-bound operation that doesn't parallelize well. I didn't optimize this part, so there's likely room for improvement.
+**Bottleneck:** Server aggregation was surprisingly slow. The Dell R910 spent most of its time merging overlapping clusters from 3 Pis. Probably a CPU-bound operation that doesn't parallelize well. I didn't optimize this part, so there's likely room for improvement.
 
 ### Privacy Guarantees
 
@@ -333,7 +333,7 @@ After three weeks of testing, here's what I learned about when granular-ball fed
 
 **Network congestion during aggregation:** I initially ran all 3 Pis on WiFi. Bad idea. Network transfer took 17 minutes instead of 3 minutes due to WiFi contention. Switched to Ethernet, problem solved.
 
-**Server aggregation bottleneck:** The Dell R940 has 64 cores but the aggregation code is single-threaded. Only one core was pegged at 100% while the other 63 sat idle. I didn't fix this, but parallelizing cluster merging would probably cut aggregation time by 80%.
+**Server aggregation bottleneck:** The Dell R910 has 24 cores but the aggregation code is single-threaded. Only one core was pegged at 100% while the other 23 sat idle. I didn't fix this, but parallelizing cluster merging would probably cut aggregation time by 80%.
 
 **K-means initialization instability:** Using random initialization caused clustering to vary wildly between rounds. Accuracy fluctuated ±5%. Switching to `k-means++` initialization stabilized training.
 

@@ -60,7 +60,7 @@ The limitations of standard LLMs became apparent pretty quickly when I tried to 
 
 **Domain Specificity:** General language models lack deep knowledge about specialized domains. My homelab runs a custom monitoring stack with Prometheus, Grafana, and some Python scripts I wrote for collecting metrics from my Ubiquiti gear. No LLM knew how my specific setup worked because, well, I built it myself in March 2024.
 
-**Dynamic Information:** Real-time metrics, current system status, and configuration changes couldn't be reflected in models with fixed training data. When I asked "Is my Dell R940 experiencing high memory pressure right now?", the model couldn't possibly know. My server was fine, by the way, running at about 38% utilization that morning.
+**Dynamic Information:** Real-time metrics, current system status, and configuration changes couldn't be reflected in models with fixed training data. When I asked "Is my Dell R910 experiencing high memory pressure right now?", the model couldn't possibly know. My server was fine, by the way, running at about 38% utilization that morning.
 
 **Context Limitations:** Even when relevant information existed in training data, context windows often couldn't accommodate all necessary background. I tried pasting my entire 47-page Kubernetes documentation into Claude's context window. It worked, technically, but cost me $3.40 in API credits for a single query. Not sustainable.
 

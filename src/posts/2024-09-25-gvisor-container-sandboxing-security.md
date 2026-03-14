@@ -245,7 +245,7 @@ I benchmarked container startup, syscall overhead, and I/O performance.
 
 **Test environment:**
 
-- Dell R940: 64 cores, 768GB RAM, [Proxmox](https://www.proxmox.com/) 8.2
+- Dell R910: 48 threads, 256GB RAM, [Incus](https://linuxcontainers.org/incus/) 6.0
 - 2 identical VMs: Ubuntu 24.04, 8 vCPUs, 16GB RAM
 - VM1: runc, VM2: gVisor (runsc)
 

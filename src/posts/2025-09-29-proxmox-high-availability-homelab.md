@@ -28,7 +28,7 @@ This incident became a driving force behind [building a security-focused homelab
 ```mermaid
 flowchart TB
     subgraph clusternodes["Cluster Nodes"]
-        Node1[Proxmox Node 1<br/>Dell R940]
+        Node1[Proxmox Node 1<br/>Dell R910]
         Node2[Proxmox Node 2<br/>Dell R730]
         Node3[Proxmox Node 3<br/>Custom Build]
     end
@@ -88,7 +88,7 @@ flowchart TB
 ### Hardware Requirements
 
 **Minimum (3 nodes required for quorum):**
-- Node 1: Dell R940 (primary) - 32GB RAM, 8 cores
+- Node 1: Dell R910 (primary) - 32GB RAM, 8 cores
 - Node 2: Dell R730 (secondary) - 24GB RAM, 6 cores
 - Node 3: Custom build (witness) - 16GB RAM, 4 cores
 
@@ -312,7 +312,7 @@ My 3-node HA cluster cost:
 
 | Component | Cost | Notes |
 |-----------|------|-------|
-| Dell R940 (used) | $800 | Primary node |
+| Dell R910 (used) | $800 | Primary node |
 | Dell R730 (used) | $500 | Secondary node |
 | Custom build | $400 | Witness node |
 | 10Gb Switch | $200 | Storage network |

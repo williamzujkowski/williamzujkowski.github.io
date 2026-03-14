@@ -26,24 +26,23 @@ Public cloud providers offer convenience. But data sovereignty, compliance requi
 
 Proxmox VE combines KVM virtualization and LXC containers in a single management interface. It's Debian-based with a web UI that doesn't make you want to throw things.
 
-My setup runs on a single Dell R940:
+My setup runs on a single Dell R910:
 - 256GB RAM
-- 4x Intel Xeon Gold 6130 (64 cores/128 threads total)
-- 8TB NVMe for OS/VMs
-- 12TB HDD for bulk storage
+- 4x Intel Xeon E7540 (24 cores/48 threads total)
+- ~400GB mixed storage (LVM for OS + ZFS pool for VMs/data)
 - Backed by TrueNAS Core with ~30TB usable storage (RAIDZ2)
 
 This single node handles 30+ VMs and containers comfortably. With 256GB RAM, careful resource allocation is key, but it's more than sufficient for a comprehensive homelab. Uptime averages 99.7% - better than some cloud providers I've used.
 
 ```mermaid
 graph TB
-    subgraph "Dell R940"
-        PVE["Proxmox VE Host<br/>4x Xeon Gold 6130<br/>256GB RAM"]
+    subgraph "Dell R910"
+        PVE["Proxmox VE Host<br/>4x Xeon E7540<br/>256GB RAM"]
         subgraph "Compute"
             VMs["30+ VMs"]
             LXC["LXC Containers"]
         end
-        NVMe["8TB NVMe<br/>OS + VM Storage"]
+        NVMe["ZFS Pool<br/>OS + VM Storage"]
         HDD["12TB HDD<br/>Bulk Storage"]
     end
 
@@ -89,7 +88,7 @@ graph LR
     end
 
     subgraph "Local Storage"
-        NVMe["8TB NVMe<br/>VM Disks (Fast)"]
+        NVMe["ZFS Pool<br/>VM Disks (Fast)"]
         HDD["12TB HDD<br/>Bulk / ISOs"]
     end
 
@@ -322,13 +321,13 @@ Overcommitting resources is tempting in virtualized environments. Proxmox makes 
 
 ### CPU Overcommitment
 
-With 64 cores/128 threads from the 4x Xeon Gold 6130s, I can afford generous CPU allocation. Started with 2:1 overcommit ratio for dev environments. Production stays at 1:1 for predictable performance.
+With 24 cores/48 threads from the 4x Xeon E7540s, I can afford generous CPU allocation. Started with 2:1 overcommit ratio for dev environments. Production stays at 1:1 for predictable performance.
 
-**Rule:** Monitor CPU steal time. Values >10% indicate overcommitment problems. Haven't hit this yet with 128 threads available.
+**Rule:** Monitor CPU steal time. Values >10% indicate overcommitment problems. Haven't hit this yet with 48 threads available.
 
 ### Memory Balancing
 
-With 256GB RAM, memory management requires planning. Proxmox supports memory ballooning for dynamic allocation, but I disabled it. Fixed allocations are more predictable.
+With 256GB RAM, memory management requires planning. Careful allocation is key. Fixed allocations are more predictable than dynamic ballooning.
 
 Current allocation: ~180GB to VMs/containers, leaving ~70GB for host OS, ZFS ARC caching, and burst workloads. It's a healthy balance between utilization and headroom.
 
@@ -344,7 +343,7 @@ Network storage creates bottlenecks. I measured storage performance across diffe
 
 ## High Availability Strategy (Single Node)
 
-Traditional Proxmox HA requires multiple nodes. With my single Dell R940, I focus on rapid recovery and redundancy at the service level.
+Traditional Proxmox HA requires multiple nodes. With my single Dell R910, I focus on rapid recovery and redundancy at the service level.
 
 ### Single-Node Resilience
 
@@ -400,7 +399,7 @@ Every system fails eventually. Here's what I've encountered and how to handle it
 
 **Response:** Hit the 32GB limit I set for that VM. With 256GB total and proper limits, other services weren't affected.
 
-**Lesson:** Resource limits are critical with 256GB RAM. Can't rely on massive buffers - must enforce boundaries.
+**Lesson:** Resource limits are critical. Can't rely on massive buffers - must enforce boundaries.
 
 ## Security Pattern Analysis
 

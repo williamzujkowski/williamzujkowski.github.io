@@ -454,7 +454,7 @@ PIPELOAD-style inference makes edge AI deployment viable on consumer hardware. I
 - Requires fast storage (NVMe), active cooling, and calibrated quantization
 
 **What I'm doing next:**
-- Testing Mixtral 8x7B with expert-level loading on Dell R940
+- Testing Mixtral 8x7B with expert-level loading on Dell R910
 - Experimenting with WiFi 7 mesh for distributed inference
 - Building edge AI monitoring dashboard with Grafana/Prometheus
 

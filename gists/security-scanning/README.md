@@ -225,7 +225,7 @@ MIT License - Free to use, modify, and distribute
 Built and tested in homelab environment with:
 - Intel i9-9900K processor
 - 64GB RAM
-- Dell R940 server
+- Dell R910 server
 - Ubuntu 22.04 LTS
 
 **Author:** William Zujkowski

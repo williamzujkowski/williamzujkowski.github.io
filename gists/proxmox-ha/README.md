@@ -23,7 +23,7 @@ This configuration provides N-1 redundancy with automatic VM failover in under 2
 
 ```
 Cluster Nodes:
-├── pve1 (Dell R940) - Primary
+├── pve1 (Dell R910) - Primary
 ├── pve2 (Dell R730) - Secondary
 └── pve3 (Custom)    - Witness
 

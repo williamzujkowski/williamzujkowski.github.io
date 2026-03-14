@@ -102,7 +102,7 @@ My Ubiquiti Dream Machine Pro supports port mirroring, but I also tested with a 
 
 ### Dedicated Analysis Server
 
-I run Suricata on my Dell R940 with:
+I run Suricata on my Dell R910 with:
 - **CPU**: 8 cores dedicated to packet processing
 - **RAM**: 16GB allocated
 - **Storage**: 500GB SSD for fast log writes
