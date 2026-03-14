@@ -15,7 +15,7 @@ imageAlt: "Connected servers in a modern data center"
 
 ---
 
-In November 2024, I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s (16GB each) trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.
+In November 2024, I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 4Bs trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.
 
 What surprised me most was the data transfer reduction. I'm not entirely sure if my measurements account for all overhead, but granular-ball segmentation cut network transfers from roughly 2.3GB per round to 410MB. That's an 82% reduction just by sharing coarse statistical representations instead of model gradients.
 
@@ -129,7 +129,7 @@ I used [Flower](https://flower.dev/) for federated orchestration and PyTorch for
 ### Hardware Setup
 
 - **Server:** Dell R910 (48 threads, 256GB RAM) running the Flower aggregation server
-- **Clients:** 3x Raspberry Pi 5 (16GB RAM each) running Flower clients
+- **Clients:** 3x Raspberry Pi 4B running Flower clients
 - **Dataset:** CIFAR-10 (60,000 images split across 3 Pis, 20,000 each)
 - **Model:** ResNet-18 (11.7M parameters)
 
@@ -396,5 +396,5 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 ### Kubernetes and Raspberry Pi Resources
 - [**K3s Lightweight Kubernetes**](https://k3s.io/) - What I use for orchestrating multi-Pi experiments
 
-- [**Raspberry Pi 5 Specifications**](https://www.raspberrypi.com/products/raspberry-pi-5/) - Hardware details for the 16GB model
+- [**Raspberry Pi 4 Model B Specifications**](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) - Hardware details
 

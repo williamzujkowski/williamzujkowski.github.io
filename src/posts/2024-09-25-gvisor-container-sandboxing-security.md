@@ -176,7 +176,7 @@ sequenceDiagram
 
 ## Deploying gVisor in My Homelab
 
-I run a 3-node [K3s](https://k3s.io/) cluster on Raspberry Pi 5s (16GB each) plus one Pi 4 (8GB). K3s is Kubernetes, stripped down.
+I run services on Raspberry Pi 4Bs in my homelab. For container workloads, K3s provides lightweight Kubernetes.
 
 **Initial attempt:** Deploy gVisor globally.
 

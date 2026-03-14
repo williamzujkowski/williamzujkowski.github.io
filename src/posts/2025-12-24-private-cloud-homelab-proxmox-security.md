@@ -134,7 +134,7 @@ I implemented five VLANs using my Ubiquiti Dream Machine Pro and UniFi Switch 24
 
 **Lab Network (VLAN 50):** K3s cluster on Raspberry Pis
 - 192.168.50.0/24
-- 3x Pi 5 (16GB) + 1x Pi 4 (8GB)
+- 3x Pi 4B
 - Isolated testing environment
 
 Each VLAN has specific firewall rules enforced by the Dream Machine Pro. Cross-VLAN communication requires explicit allow rules. The UniFi ecosystem makes this manageable through a single interface.
