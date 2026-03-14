@@ -209,13 +209,18 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
           <li>
             <strong>Infrastructure Nodes</strong> &mdash; 3x
-            <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" rel="noopener noreferrer"
-              >Raspberry Pi 4 Model B</a
+            <a href="https://www.raspberrypi.com/products/raspberry-pi-5/" rel="noopener noreferrer"
+              >Raspberry Pi 5</a
             >
+            (16GB each) + 1x
+            <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" rel="noopener noreferrer"
+              >Raspberry Pi 4</a
+            >
+            (8GB)
 
             <p>
               <strong>Dedicated roles:</strong> Two Pis run Pi-hole for redundant DNS filtering (network-wide ad blocking,
-              catches ~25% of queries). The third runs
+              catches ~25% of queries). Another runs
               <a href="https://goauthentik.io/" rel="noopener noreferrer">Authentik</a> for SSO &mdash; single sign-on
               across Grafana, Concourse, and other services via OIDC.
             </p>

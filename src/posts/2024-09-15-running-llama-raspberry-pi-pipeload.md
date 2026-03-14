@@ -297,7 +297,7 @@ I tried increasing batch size to improve throughput. Results:
 
 ### Failure: Model Parallelism Across Pi Cluster
 
-I attempted splitting LLaMA 3.1 70B across my 3 Raspberry Pi 4Bs using PIPELOAD:
+I attempted splitting LLaMA 3.1 70B across my 3 Raspberry Pi 5s (16GB each) using PIPELOAD:
 - Layers 0-23 on Pi #1
 - Layers 24-47 on Pi #2
 - Layers 48-71 on Pi #3
