@@ -131,7 +131,7 @@
 <button
   type="button"
   onclick={open}
-  class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors"
+  class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--text-muted)] hover:bg-[var(--surface)] transition-colors"
   aria-label="Search site"
 >
   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -139,7 +139,7 @@
   </svg>
   <kbd
     class="hidden lg:inline-block ml-1.5 text-[10px] px-1.5 py-0.5 rounded border font-sans"
-    style="color: var(--md-sys-color-on-surface-variant); border-color: var(--md-sys-color-outline-variant); opacity: 0.7"
+    style="color: var(--text-muted); border-color: var(--border); opacity: 0.7"
     >&sol;K</kbd
   >
 </button>
@@ -158,16 +158,16 @@
     <div
       bind:this={dialogEl}
       class="relative w-full max-w-lg mx-4 rounded-2xl shadow-2xl overflow-hidden"
-      style="background-color: var(--md-sys-color-surface-container); border: 1px solid var(--md-sys-color-outline-variant)"
+      style="background-color: var(--surface); border: 1px solid var(--border)"
       role="dialog"
       aria-modal="true"
       aria-label="Search site"
       onkeydown={trapFocus}
     >
-      <div class="flex items-center gap-3 p-4 border-b" style="border-color: var(--md-sys-color-outline-variant)">
+      <div class="flex items-center gap-3 p-4 border-b" style="border-color: var(--border)">
         <svg
           class="w-5 h-5 flex-shrink-0"
-          style="color: var(--md-sys-color-on-surface-variant)"
+          style="color: var(--text-muted)"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -182,11 +182,11 @@
           type="text"
           placeholder="Search site..."
           class="flex-grow bg-transparent outline-none"
-          style="color: var(--md-sys-color-on-surface)"
+          style="color: var(--text)"
         />
         <kbd
           class="hidden sm:inline-block text-xs px-1.5 py-0.5 rounded border"
-          style="color: var(--md-sys-color-on-surface-variant); border-color: var(--md-sys-color-outline-variant)"
+          style="color: var(--text-muted); border-color: var(--border)"
           >ESC</kbd
         >
       </div>
@@ -198,10 +198,10 @@
               <a
                 href={result.url}
                 class="block px-4 py-3 rounded-lg no-underline hover:no-underline transition-colors"
-                style="color: var(--md-sys-color-on-surface)"
+                style="color: var(--text)"
                 onmouseenter={(e) =>
                   ((e.currentTarget as HTMLElement).style.backgroundColor =
-                    'var(--md-sys-color-surface-container-high)')}
+                    'var(--surface)')}
                 onmouseleave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
                 onclick={close}
               >
@@ -209,7 +209,7 @@
                   {result.meta?.title || 'Untitled'}
                 </div>
                 {#if result.excerpt}
-                  <div class="text-sm mt-1 line-clamp-2" style="color: var(--md-sys-color-on-surface-variant)">
+                  <div class="text-sm mt-1 line-clamp-2" style="color: var(--text-muted)">
                     {@html result.excerpt}
                   </div>
                 {/if}
@@ -218,13 +218,13 @@
           {/each}
         </ul>
       {:else if isLoading}
-        <div class="p-8 text-center" style="color: var(--md-sys-color-on-surface-variant)">Searching...</div>
+        <div class="p-8 text-center" style="color: var(--text-muted)">Searching...</div>
       {:else if query.length >= 2}
-        <div class="p-8 text-center" style="color: var(--md-sys-color-on-surface-variant)">
+        <div class="p-8 text-center" style="color: var(--text-muted)">
           No results for "{query}"
         </div>
       {:else}
-        <div class="p-8 text-center text-sm" style="color: var(--md-sys-color-on-surface-variant)">
+        <div class="p-8 text-center text-sm" style="color: var(--text-muted)">
           Type to search...
         </div>
       {/if}
@@ -235,8 +235,8 @@
 <style>
   /* Style Pagefind highlight marks */
   :global(mark) {
-    background-color: var(--md-sys-color-tertiary-container);
-    color: var(--md-sys-color-on-tertiary-container);
+    background-color: var(--surface);
+    color: var(--text);
     border-radius: 2px;
     padding: 0 2px;
   }

@@ -16,9 +16,9 @@ const categoryLabels: Record<string, string> = {
 };
 
 const statusColors: Record<string, string> = {
-  active: 'var(--md-sys-color-primary)',
-  experimental: 'var(--md-sys-color-tertiary)',
-  archived: 'var(--md-sys-color-outline)',
+  active: 'var(--accent)',
+  experimental: 'var(--text-muted)',
+  archived: 'var(--border)',
 };
 ---
 
@@ -31,11 +31,11 @@ const statusColors: Record<string, string> = {
       <div class="max-w-2xl mb-12">
         <h1
           class="text-3xl font-bold tracking-tight sm:text-4xl"
-          style="font-size: var(--md-sys-typescale-display-medium)"
+          style="font-size: clamp(2rem, 4vw, 2.75rem)"
         >
           Projects
         </h1>
-        <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">
+        <p class="mt-4 text-lg text-[var(--text-muted)]">
           Open source tools and experiments in AI orchestration, security engineering, and infrastructure.
         </p>
       </div>
@@ -44,7 +44,7 @@ const statusColors: Record<string, string> = {
       {
         featured.length > 0 && (
           <div class="mb-12">
-            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-primary)] mb-6">
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--accent)] mb-6">
               Featured
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -61,15 +61,15 @@ const statusColors: Record<string, string> = {
                       {project.data.status}
                     </span>
                   </div>
-                  <h3 class="text-lg font-semibold group-hover:text-[var(--md-sys-color-primary)] transition-colors">
+                  <h3 class="text-lg font-semibold group-hover:text-[var(--accent)] transition-colors">
                     {project.data.title}
                   </h3>
-                  <p class="mt-2 text-sm text-[var(--md-sys-color-on-surface-variant)] flex-grow">
+                  <p class="mt-2 text-sm text-[var(--text-muted)] flex-grow">
                     {project.data.description}
                   </p>
                   <div class="mt-4 flex flex-wrap gap-1.5">
                     {project.data.tags.slice(0, 4).map((tag: string) => (
-                      <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)]">
+                      <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--surface)] text-[var(--text-muted)]">
                         {tag}
                       </span>
                     ))}
@@ -85,7 +85,7 @@ const statusColors: Record<string, string> = {
       {
         other.length > 0 && (
           <div>
-            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)] mb-6">
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-6">
               More Projects
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -102,10 +102,10 @@ const statusColors: Record<string, string> = {
                       {project.data.status}
                     </span>
                   </div>
-                  <h3 class="text-base font-semibold group-hover:text-[var(--md-sys-color-primary)] transition-colors">
+                  <h3 class="text-base font-semibold group-hover:text-[var(--accent)] transition-colors">
                     {project.data.title}
                   </h3>
-                  <p class="mt-1 text-sm text-[var(--md-sys-color-on-surface-variant)]">{project.data.description}</p>
+                  <p class="mt-1 text-sm text-[var(--text-muted)]">{project.data.description}</p>
                 </a>
               ))}
             </div>

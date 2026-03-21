@@ -22,7 +22,7 @@
     type="button"
     onclick={scrollToTop}
     class="fixed bottom-6 right-6 z-50 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full transition-all"
-    style="background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); box-shadow: var(--md-sys-elevation-3)"
+    style="background-color: var(--accent); color: var(--inverse-text); box-shadow: 0 4px 8px rgba(0,0,0,0.15)"
     aria-label="Back to top"
     transition:fly={{ y: 20, duration: 200 }}
   >

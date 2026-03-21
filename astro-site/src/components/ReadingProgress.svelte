@@ -70,7 +70,7 @@
   }
   .progress-fill {
     height: 100%;
-    background: var(--md-sys-color-primary);
+    background: var(--accent);
     transition: width 0.1s ease-out;
     will-change: width;
   }

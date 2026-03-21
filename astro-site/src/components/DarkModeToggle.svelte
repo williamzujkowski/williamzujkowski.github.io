@@ -32,7 +32,7 @@
 <button
   type="button"
   onclick={toggle}
-  class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors"
+  class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--text-muted)] hover:bg-[var(--surface)] transition-colors"
   aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
 >
   {#if isDark}

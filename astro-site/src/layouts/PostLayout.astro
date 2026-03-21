@@ -51,12 +51,12 @@ const formattedDate = date.toLocaleDateString('en-US', {
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Breadcrumbs -->
       <nav aria-label="Breadcrumb" class="mb-8">
-        <ol class="flex items-center gap-2 text-sm text-[var(--md-sys-color-on-surface-variant)]">
-          <li><a href="/" class="hover:text-[var(--md-sys-color-on-surface)]">Home</a></li>
+        <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+          <li><a href="/" class="hover:text-[var(--text)]">Home</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/posts/" class="hover:text-[var(--md-sys-color-on-surface)]">Blog</a></li>
+          <li><a href="/posts/" class="hover:text-[var(--text)]">Blog</a></li>
           <li aria-hidden="true">/</li>
-          <li class="text-[var(--md-sys-color-on-surface)] font-medium truncate max-w-xs">{title}</li>
+          <li class="text-[var(--text)] font-medium truncate max-w-xs">{title}</li>
         </ol>
       </nav>
 
@@ -81,8 +81,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
             )
           }
 
-          <div class="flex items-center gap-3 text-sm text-[var(--md-sys-color-on-surface-variant)] mb-4">
-            <time datetime={date.toISOString().split('T')[0]} class="font-medium text-[var(--md-sys-color-primary)]">
+          <div class="flex items-center gap-3 text-sm text-[var(--text-muted)] mb-4">
+            <time datetime={date.toISOString().split('T')[0]} class="font-medium text-[var(--accent)]">
               {formattedDate}
             </time>
             {
@@ -97,12 +97,12 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
           <h1
             class="text-3xl sm:text-4xl font-bold tracking-tight leading-tight"
-            style={`font-size: var(--md-sys-typescale-display-medium)`}
+            style={`font-size: clamp(2rem, 4vw, 2.75rem)`}
           >
             {title}
           </h1>
 
-          {description && <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">{description}</p>}
+          {description && <p class="mt-4 text-lg text-[var(--text-muted)]">{description}</p>}
 
           {
             tags.length > 0 && (
@@ -131,7 +131,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
         </div>
 
         <!-- Share -->
-        <footer class="mt-12 pt-8 border-t border-[var(--md-sys-color-outline-variant)]">
+        <footer class="mt-12 pt-8 border-t border-[var(--border)]">
           <div class="flex flex-wrap items-center gap-4">
             <span class="text-sm font-medium">Share:</span>
             <a

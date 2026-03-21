@@ -13,18 +13,16 @@ interface Props {
       image?: string | { url?: string; src?: string };
     };
   };
-  variant?: 'horizontal' | 'vertical';
-  maxTags?: number;
-  eager?: boolean;
+  showTags?: boolean;
 }
 
-const { post, maxTags = 3 } = Astro.props;
+const { post, showTags = false } = Astro.props;
 
 const readingTime = getReadingTime(post.body ?? '');
 const tags = (post.data.tags ?? []).filter((t: string) => t !== 'posts');
 const formattedDate = post.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
-  month: 'long',
+  month: 'short',
   day: 'numeric',
 });
 ---
@@ -41,13 +39,5 @@ const formattedDate = post.data.date.toLocaleDateString('en-US', {
       {formattedDate}
     </time>
     &middot; {readingTime} min read
-    {tags.length > 0 && (
-      <>
-        &middot;
-        {tags.slice(0, maxTags).map((tag: string) => (
-          <a href={`/tags/${tag}/`} class="chip" style="margin-left: 0.25rem;">{tag}</a>
-        ))}
-      </>
-    )}
   </div>
 </article>

@@ -61,10 +61,10 @@
     top: 0.5rem;
     right: 0.5rem;
     padding: 0.375rem;
-    border-radius: var(--md-sys-shape-corner-small, 0.5rem);
-    background-color: var(--md-sys-color-surface-container-high, #e8e4e4);
-    color: var(--md-sys-color-on-surface-variant, #444748);
-    border: 1px solid var(--md-sys-color-outline-variant, #c4c7c8);
+    border-radius: 0.25rem;
+    background-color: var(--surface);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
     cursor: pointer;
     opacity: 0;
     transition: opacity 150ms ease;
@@ -76,6 +76,6 @@
   }
 
   :global(.copy-btn:hover) {
-    background-color: var(--md-sys-color-surface-container-highest, #e2dede);
+    background-color: var(--surface);
   }
 </style>

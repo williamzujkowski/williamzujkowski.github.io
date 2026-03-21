@@ -39,7 +39,7 @@
 <button
   type="button"
   onclick={toggle}
-  class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors"
+  class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--text-muted)] hover:bg-[var(--surface)] transition-colors"
   aria-label={isOpen ? 'Close menu' : 'Open menu'}
   aria-expanded={isOpen}
 >
@@ -57,7 +57,7 @@
 {#if isOpen}
   <div
     class="absolute top-16 left-0 right-0 md:hidden pb-3 border-b"
-    style="background-color: var(--md-sys-color-surface-container); border-color: var(--md-sys-color-outline-variant)"
+    style="background-color: var(--surface); border-color: var(--border)"
   >
     <div class="space-y-1 px-4 pt-2">
       {#each links as link}
@@ -77,13 +77,13 @@
 
 <style>
   .active-link {
-    background-color: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-on-primary-container);
+    background-color: var(--surface);
+    color: var(--accent);
   }
   .inactive-link {
-    color: var(--md-sys-color-on-surface-variant);
+    color: var(--text-muted);
   }
   .inactive-link:hover {
-    background-color: var(--md-sys-color-surface-container-high);
+    background-color: var(--surface);
   }
 </style>

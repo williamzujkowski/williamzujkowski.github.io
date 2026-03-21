@@ -36,11 +36,11 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
       <div class="max-w-2xl mb-12">
         <h1
           class="text-3xl font-bold tracking-tight sm:text-4xl"
-          style="font-size: var(--md-sys-typescale-display-medium)"
+          style="font-size: clamp(2rem, 4vw, 2.75rem)"
         >
           Blog
         </h1>
-        <p class="mt-4 text-lg text-[var(--md-sys-color-on-surface-variant)]">
+        <p class="mt-4 text-lg text-[var(--text-muted)]">
           {posts.length} posts about security, AI, homelab experiments, and lessons learned.
         </p>
       </div>
@@ -63,8 +63,8 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
         years.map((year) => (
           <div class="mb-12">
             <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-[var(--md-sys-color-on-surface)]">{year}</h2>
-              <span class="text-sm text-[var(--md-sys-color-on-surface-variant)] bg-[var(--md-sys-color-surface-container-high)] px-2 py-0.5 rounded-full">
+              <h2 class="text-2xl font-bold text-[var(--text)]">{year}</h2>
+              <span class="text-sm text-[var(--text-muted)] bg-[var(--surface)] px-2 py-0.5 rounded-full">
                 {postsByYear.get(year)!.length} posts
               </span>
             </div>

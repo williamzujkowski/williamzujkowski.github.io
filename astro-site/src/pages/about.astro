@@ -10,7 +10,7 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
         <!-- Intro -->
         <div class="max-w-3xl mx-auto prose prose-lg">
           <h1>About William Zujkowski</h1>
-          <p class="lead text-xl italic" style="color: var(--md-sys-color-on-surface-variant);">
+          <p class="lead text-xl italic" style="color: var(--text-muted);">
             I'm a Senior InfoSec Engineer at <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer">Cloud.gov</a> focused on cloud platform security, identity federation, and compliance
             automation. I spend my days designing security controls that enable teams instead of blocking them. I also
             spend way too many nights in my homelab breaking things to understand how they work.
@@ -22,12 +22,12 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
           </p>
         </div>
 
-        <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
+        <hr class="my-12 border-[var(--border)]" />
 
         <!-- The Journey -->
         <section class="max-w-3xl mx-auto">
-          <h2 class="text-2xl font-bold mb-8" style="color: var(--md-sys-color-on-surface);">The Journey</h2>
-          <p class="mb-10 text-base" style="color: var(--md-sys-color-on-surface-variant);">
+          <h2 class="text-2xl font-bold mb-8" style="color: var(--text);">The Journey</h2>
+          <p class="mb-10 text-base" style="color: var(--text-muted);">
             20 years of breaking things and learning how to fix them&mdash;from house calls in Harrisburg to helping
             secure a federal cloud platform.
           </p>
@@ -37,28 +37,28 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <!-- Timeline line -->
             <div
               class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5"
-              style="background: linear-gradient(to bottom, var(--md-sys-color-primary), var(--md-sys-color-outline-variant));"
+              style="background: linear-gradient(to bottom, var(--accent), var(--border));"
             ></div>
 
             <!-- Cloud.gov — Present -->
             <div class="relative pl-14 sm:pl-16 pb-12">
               <div
                 class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-3 z-10"
-                style="background-color: var(--md-sys-color-primary); border-color: var(--md-sys-color-primary-container); box-shadow: 0 0 0 4px var(--md-sys-color-surface), 0 0 12px var(--md-sys-color-primary);"
+                style="background-color: var(--accent); border-color: var(--surface); box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent);"
               ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-primary);">
+              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--accent);">
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                   <span
                     class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold"
-                    style="background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);"
+                    style="background-color: var(--accent); color: var(--inverse-text);"
                   >2023 &ndash; Present</span>
-                  <span class="text-xs font-medium" style="color: var(--md-sys-color-primary);">&#9679; Current Role</span>
+                  <span class="text-xs font-medium" style="color: var(--accent);">&#9679; Current Role</span>
                 </div>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
                   Senior InfoSec Engineer &bull;
-                  <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--md-sys-color-primary);">Cloud.gov</a>
+                  <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--accent);">Cloud.gov</a>
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   Shaping cloud security architecture and federal compliance posture for a FedRAMP Moderate platform.
                   Contributing to the NIST 800-53 Rev 4 &rarr; Rev 5 transition and participating in FedRAMP RFCs.
                   All those years of breaking things turned out to be decent preparation.
@@ -70,17 +70,17 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <div class="relative pl-14 sm:pl-16 pb-12">
               <div
                 class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--md-sys-color-surface); border-color: var(--md-sys-color-secondary);"
+                style="background-color: var(--bg); border-color: var(--text-muted);"
               ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-secondary);">
+              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--text-muted);">
                 <span
                   class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container);"
+                  style="background-color: var(--surface); color: var(--text);"
                 >2023</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
                   Lead HPC Site Reliability Engineer
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   Supporting high-performance computing clusters for molecular dynamics and computational biology
                   research. Got to burn in 8-way H100 nodes and help configure NVLink&mdash;genuinely fun work.
                   Learned that uptime matters just as much as security when researchers are running week-long
@@ -93,17 +93,17 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <div class="relative pl-14 sm:pl-16 pb-12">
               <div
                 class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--md-sys-color-surface); border-color: var(--md-sys-color-tertiary, var(--md-sys-color-secondary));"
+                style="background-color: var(--bg); border-color: var(--text-muted);"
               ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-tertiary, var(--md-sys-color-secondary));">
+              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--text-muted);">
                 <span
                   class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--md-sys-color-tertiary-container, var(--md-sys-color-secondary-container)); color: var(--md-sys-color-on-tertiary-container, var(--md-sys-color-on-secondary-container));"
+                  style="background-color: var(--surface); color: var(--text);"
                 >2021 &ndash; 2023</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
                   Enterprise Vulnerability Management Lead &bull; NIH&nbsp;OCIO
                 </h3>
-                <p class="text-sm mb-3" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm mb-3" style="color: var(--text-muted);">
                   Led vulnerability management across <strong>100,000+ assets</strong> and <strong>27 Institutes and
                   Centers</strong>. The hardest part wasn't the tech&mdash;it was convincing 27 different IT teams to
                   move at the same speed.
@@ -111,11 +111,11 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
                 <div class="flex flex-wrap gap-2">
                   <span
                     class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs"
-                    style="background-color: var(--md-sys-color-tertiary-container, var(--md-sys-color-secondary-container)); color: var(--md-sys-color-on-tertiary-container, var(--md-sys-color-on-secondary-container));"
+                    style="background-color: var(--surface); color: var(--text);"
                   >&#x1F525; Log4j SME</span>
                   <span
                     class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs"
-                    style="background-color: var(--md-sys-color-tertiary-container, var(--md-sys-color-secondary-container)); color: var(--md-sys-color-on-tertiary-container, var(--md-sys-color-on-secondary-container));"
+                    style="background-color: var(--surface); color: var(--text);"
                   >&#x1F3DB; CISA BOD 22-01</span>
                 </div>
               </div>
@@ -125,17 +125,17 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <div class="relative pl-14 sm:pl-16 pb-12">
               <div
                 class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--md-sys-color-surface); border-color: var(--md-sys-color-tertiary, var(--md-sys-color-secondary));"
+                style="background-color: var(--bg); border-color: var(--text-muted);"
               ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-tertiary, var(--md-sys-color-secondary));">
+              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--text-muted);">
                 <span
                   class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--md-sys-color-tertiary-container, var(--md-sys-color-secondary-container)); color: var(--md-sys-color-on-tertiary-container, var(--md-sys-color-on-secondary-container));"
+                  style="background-color: var(--surface); color: var(--text);"
                 >2018 &ndash; 2021</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
                   Security Engineering Lead &bull; NHGRI
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   Securing research infrastructure for about <strong>2,200 endpoints</strong>&mdash;including
                   million-dollar genomic sequencers that scientists would absolutely revolt over if you tried to patch
                   them during a sequencing run. Taught me more about stakeholder management than any textbook ever could.
@@ -147,17 +147,17 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <div class="relative pl-14 sm:pl-16 pb-12">
               <div
                 class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--md-sys-color-surface); border-color: var(--md-sys-color-outline);"
+                style="background-color: var(--bg); border-color: var(--border);"
               ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-outline);">
+              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--border);">
                 <span
                   class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--md-sys-color-surface-container-highest); color: var(--md-sys-color-on-surface);"
+                  style="background-color: var(--surface); color: var(--text);"
                 >2014 &ndash; 2017</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
                   IT Infrastructure &amp; Service Desk Leadership
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   Moved through several IT infrastructure and support roles&mdash;from asset management to leading
                   service desk teams in the NIH ecosystem. Gravitating toward the security engineering work that would
                   define the next chapter.
@@ -169,17 +169,17 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <div class="relative pl-14 sm:pl-16 pb-4">
               <div
                 class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--md-sys-color-surface); border-color: var(--md-sys-color-outline-variant);"
+                style="background-color: var(--bg); border-color: var(--border);"
               ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--md-sys-color-outline-variant);">
+              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--border);">
                 <span
                   class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface-variant);"
+                  style="background-color: var(--surface); color: var(--text-muted);"
                 >2005 &ndash; 2014</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
                   Independent IT Consultant &bull; Harrisburg, PA
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   Nearly a decade of fixing broken computers and networks for anyone who'd hire me&mdash;small
                   businesses, local offices, whoever could pay my hourly rate. Evolved from "my computer won't start"
                   house calls into small-business infrastructure management. To this day, when a bad CVE drops and
@@ -191,56 +191,56 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
           </div>
         </section>
 
-        <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
+        <hr class="my-12 border-[var(--border)]" />
 
         <!-- How I Think About Security -->
         <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--md-sys-color-on-surface);">
+          <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">
             How I Think About Security
           </h2>
-          <div class="card p-8 sm:p-10 my-8" style="background-color: var(--md-sys-color-surface-container);">
-            <p class="text-lg mb-6" style="color: var(--md-sys-color-on-surface-variant);">
-              I believe security should <strong style="color: var(--md-sys-color-on-surface);"
+          <div class="card p-8 sm:p-10 my-8" style="background-color: var(--surface);">
+            <p class="text-lg mb-6" style="color: var(--text-muted);">
+              I believe security should <strong style="color: var(--text);"
                 >enable work, not block it</strong
               >. The best controls? Users never notice them because they just work. Nobody cares about your perfect
               firewall rules if they can't deploy their app.
             </p>
 
-            <p class="text-lg mb-6" style="color: var(--md-sys-color-on-surface-variant);">
+            <p class="text-lg mb-6" style="color: var(--text-muted);">
               Here's what I've learned over 20 years in IT and 15 years in security:
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
+              <div class="p-6 rounded-xl" style="background-color: var(--surface);">
+                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--text);">
                   <span class="mr-2" aria-hidden="true">&#x26A1;</span>
                   Technical Excellence Is Not Enough
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   You can design the most elegant network segmentation in the world, but if developers can't deploy
                   their code, they'll find a workaround. Your job is to make the secure path the easy path. I learned
                   this the hard way trying to enforce patching schedules on scientists running week-long experiments.
                 </p>
               </div>
 
-              <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
+              <div class="p-6 rounded-xl" style="background-color: var(--surface);">
+                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--text);">
                   <span class="mr-2" aria-hidden="true">&#x2699;</span>
                   Automation Isn't About Replacing People
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   It's about freeing them to do interesting work instead of clicking buttons. I spent months learning
                   Terraform so teams I worked with could manage firewall rules as code instead of logging into
                   consoles. Best investment I've made. Now the time goes to architecture problems, not typos.
                 </p>
               </div>
 
-              <div class="p-6 rounded-xl" style="background-color: var(--md-sys-color-surface-container-low);">
-                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--md-sys-color-on-surface);">
+              <div class="p-6 rounded-xl" style="background-color: var(--surface);">
+                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--text);">
                   <span class="mr-2" aria-hidden="true">&#x1F4A1;</span>
                   AI Security Is About Governance, Not Just Tech
                 </h3>
-                <p class="text-sm" style="color: var(--md-sys-color-on-surface-variant);">
+                <p class="text-sm" style="color: var(--text-muted);">
                   I'm exploring how we build and secure AI systems that augment human decision-making rather than
                   replace it. The hard problems aren't the models&mdash;they're the humans, policies, and processes
                   around them. Just like every other security problem I've worked on.
@@ -248,7 +248,7 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
               </div>
             </div>
 
-            <p class="text-base italic" style="color: var(--md-sys-color-on-surface-variant);">
+            <p class="text-base italic" style="color: var(--text-muted);">
               If security slows teams down, they'll work around it. If compliance feels like busywork, it won't get done
               right. If automation is brittle, nobody will trust it. I've been doing this long enough to know: good
               security is invisible until you need it.
@@ -256,53 +256,53 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
           </div>
         </section>
 
-        <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
+        <hr class="my-12 border-[var(--border)]" />
 
         <!-- When I'm Not Working -->
         <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--md-sys-color-on-surface);">When I'm Not Working</h2>
+          <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">When I'm Not Working</h2>
           <div class="card p-8 my-8">
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
+            <p class="text-lg mb-4" style="color: var(--text-muted);">
               You'll find me in my homelab, which has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R910
               running Incus, a fleet of Raspberry Pis, and way too many containers. I
               run my own Wazuh SIEM, self-hosted Bitwarden, and whatever else I'm experimenting with that week.
             </p>
 
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
+            <p class="text-lg mb-4" style="color: var(--text-muted);">
               I'm also deep into AI/LLM experimentation&mdash;not just using ChatGPT, but actually running local models,
               building agents, and figuring out how to secure these systems in production environments. It's fascinating
-              and humbling in equal measure. You can see what I'm building on the <a href="/projects" class="text-[var(--md-sys-color-primary)] hover:underline">projects page</a>.
+              and humbling in equal measure. You can see what I'm building on the <a href="/projects" class="text-[var(--accent)] hover:underline">projects page</a>.
             </p>
 
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
-              <strong style="color: var(--md-sys-color-on-surface);">Fair warning:</strong> I've burned out a GPU
+            <p class="text-lg mb-4" style="color: var(--text-muted);">
+              <strong style="color: var(--text);">Fair warning:</strong> I've burned out a GPU
               pushing it too hard for local LLM inference. Also managed to take down my home network for a few hours
               trying to implement VLAN segmentation "just to see how it works." Breaking things in my homelab so I
               don't break them anywhere else is kind of the whole point.
             </p>
 
-            <p class="text-lg mb-4" style="color: var(--md-sys-color-on-surface-variant);">
+            <p class="text-lg mb-4" style="color: var(--text-muted);">
               I'm currently learning Rust by building a vulnerability aggregation tool that I'll probably never finish.
               But that's the point&mdash;curiosity is the best cybersecurity skill there is.
             </p>
 
-            <p class="text-lg italic" style="color: var(--md-sys-color-on-surface-variant);">
+            <p class="text-lg italic" style="color: var(--text-muted);">
               Favorite debugging method: rubber duck debugging&mdash;with an actual rubber duck, because sometimes
               being literal is funny. I've also been known to deploy a
-              <a href="https://datatracker.ietf.org/doc/html/rfc2321" class="text-[var(--md-sys-color-primary)] hover:underline">RITA</a>
+              <a href="https://datatracker.ietf.org/doc/html/rfc2321" class="text-[var(--accent)] hover:underline">RITA</a>
               (rubber chicken) for particularly stubborn bugs. The obnoxiously loud squeak really helps you
               rethink your assumptions.
             </p>
           </div>
         </section>
 
-        <hr class="my-12 border-[var(--md-sys-color-outline-variant)]" />
+        <hr class="my-12 border-[var(--border)]" />
 
         <!-- Connect -->
         <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--md-sys-color-on-surface);">Connect</h2>
-          <div class="card p-8 sm:p-10 my-8" style="background-color: var(--md-sys-color-surface-container);">
-            <p class="text-xl mb-8 text-center leading-relaxed" style="color: var(--md-sys-color-on-surface-variant);">
+          <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">Connect</h2>
+          <div class="card p-8 sm:p-10 my-8" style="background-color: var(--surface);">
+            <p class="text-xl mb-8 text-center leading-relaxed" style="color: var(--text-muted);">
               I love connecting with folks who geek out about cloud security, identity federation, compliance
               automation, or AI infrastructure security. Whether you're building something cool, stuck on a problem, or
               just want to talk shop about homelab setups, feel free to reach out.
@@ -311,60 +311,60 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div
                 class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--md-sys-color-surface-container-low);"
+                style="background-color: var(--surface);"
               >
                 <div
                   class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--md-sys-color-primary-container);"
+                  style="background-color: var(--surface);"
                 >
                   <span class="text-2xl" aria-hidden="true">&#x2601;</span>
                 </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">Cloud Security</h3>
-                <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">Architecture &amp; FedRAMP</p>
+                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">Cloud Security</h3>
+                <p class="text-xs" style="color: var(--text-muted);">Architecture &amp; FedRAMP</p>
               </div>
 
               <div
                 class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--md-sys-color-surface-container-low);"
+                style="background-color: var(--surface);"
               >
                 <div
                   class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--md-sys-color-primary-container);"
+                  style="background-color: var(--surface);"
                 >
                   <span class="text-2xl" aria-hidden="true">&#x1F511;</span>
                 </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">
+                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">
                   Identity &amp; Federation
                 </h3>
-                <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">At Scale</p>
+                <p class="text-xs" style="color: var(--text-muted);">At Scale</p>
               </div>
 
               <div
                 class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--md-sys-color-surface-container-low);"
+                style="background-color: var(--surface);"
               >
                 <div
                   class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--md-sys-color-primary-container);"
+                  style="background-color: var(--surface);"
                 >
                   <span class="text-2xl" aria-hidden="true">&#x1F4CB;</span>
                 </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">Compliance</h3>
-                <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">NIST 800-53 Automation</p>
+                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">Compliance</h3>
+                <p class="text-xs" style="color: var(--text-muted);">NIST 800-53 Automation</p>
               </div>
 
               <div
                 class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--md-sys-color-surface-container-low);"
+                style="background-color: var(--surface);"
               >
                 <div
                   class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--md-sys-color-primary-container);"
+                  style="background-color: var(--surface);"
                 >
                   <span class="text-2xl" aria-hidden="true">&#x1F4A1;</span>
                 </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--md-sys-color-on-surface);">AI Security</h3>
-                <p class="text-xs" style="color: var(--md-sys-color-on-surface-variant);">
+                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">AI Security</h3>
+                <p class="text-xs" style="color: var(--text-muted);">
                   Infrastructure &amp; Governance
                 </p>
               </div>
@@ -374,7 +374,7 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
               <a
                 href={SITE_CONFIG.social.github}
                 class="btn-filled px-8 py-4 text-base"
-                style="background-color: var(--md-sys-color-inverse-surface); color: var(--md-sys-color-inverse-on-surface); min-height: 56px;"
+                style="background-color: var(--inverse-bg); color: var(--inverse-text); min-height: 56px;"
                 aria-label="Visit my GitHub profile"
                 target="_blank"
                 rel="noopener noreferrer"

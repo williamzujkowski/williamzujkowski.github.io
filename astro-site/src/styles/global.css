@@ -93,7 +93,7 @@ a:hover {
 }
 
 .site-title {
-  font-size: clamp(2.5rem, 12vw, 5rem);
+  font-size: clamp(1.75rem, 6vw, 3rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.03em;
@@ -132,38 +132,41 @@ a:hover {
   color: var(--text);
 }
 
-/* ===== Post Cards (inverted title blocks) ===== */
+/* ===== Post Cards ===== */
 .post-card {
-  margin-block-end: 3rem;
+  padding-block-end: 2.5rem;
+  margin-block-end: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-card:last-child {
+  border-bottom: none;
 }
 
 .post-card-title {
-  display: inline-block;
-  background-color: var(--inverse-bg);
-  color: var(--inverse-text);
-  padding: 0.5rem 1rem;
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  display: block;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.25;
+  color: var(--text);
   text-decoration: none;
-  transition: opacity 150ms ease;
+  letter-spacing: -0.01em;
 }
 
 .post-card-title:hover {
-  opacity: 0.85;
+  color: var(--accent);
   text-decoration: none;
-  color: var(--inverse-text);
 }
 
 .post-card-excerpt {
-  margin-block-start: 0.75rem;
+  margin-block-start: 0.5rem;
   color: var(--text-muted);
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: 1rem;
   line-height: 1.6;
 }
 
 .post-card-date {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   margin-block-start: 0.5rem;
 }

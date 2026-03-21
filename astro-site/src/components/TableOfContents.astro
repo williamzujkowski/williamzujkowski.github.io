@@ -20,10 +20,10 @@ const showToc = filteredHeadings.length >= 3;
   showToc && (
     <nav
       aria-label="Table of contents"
-      class="toc mb-10 rounded-xl border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-low)]"
+      class="toc mb-10 rounded-xl border border-[var(--border)] bg-[var(--surface)]"
     >
       <details>
-        <summary class="cursor-pointer select-none p-5 text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] transition-colors list-none flex items-center justify-between">
+        <summary class="cursor-pointer select-none p-5 text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)] hover:text-[var(--text)] transition-colors list-none flex items-center justify-between">
           <span>On this page</span>
           <svg
             class="toc-chevron h-4 w-4 transition-transform duration-200"
@@ -41,7 +41,7 @@ const showToc = filteredHeadings.length >= 3;
             <li style={`padding-left: ${(heading.depth - 2) * 1}rem`}>
               <a
                 href={`#${heading.slug}`}
-                class="text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] no-underline hover:underline transition-colors"
+                class="text-[var(--text-muted)] hover:text-[var(--text)] no-underline hover:underline transition-colors"
               >
                 {heading.text}
               </a>
@@ -67,7 +67,7 @@ const showToc = filteredHeadings.length >= 3;
   /* Smooth max-height transition for content */
   details[open] summary {
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    border-bottom: 1px solid var(--border);
     margin-bottom: 0.75rem;
   }
 </style>
