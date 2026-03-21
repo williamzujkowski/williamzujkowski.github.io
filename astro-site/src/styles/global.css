@@ -1,16 +1,17 @@
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/jetbrains-mono';
 
-/* ===== Design Tokens ===== */
+/* ===== Design Tokens (oklch) ===== */
+/* Perceptually uniform color space — hue 50-80 = warm stone palette */
 :root {
-  --bg: #fafaf9;
-  --text: #1c1917;
-  --text-muted: #78716c;
-  --accent: #4338ca;
-  --surface: #f5f5f4;
-  --border: #e7e5e4;
-  --inverse-bg: #292524;
-  --inverse-text: #f5f5f4;
+  --bg: oklch(98.5% 0.002 80);
+  --text: oklch(18% 0.005 60);
+  --text-muted: oklch(55% 0.01 60);
+  --accent: oklch(44% 0.2 280);
+  --surface: oklch(96.5% 0.002 80);
+  --border: oklch(92% 0.004 80);
+  --inverse-bg: oklch(22% 0.005 50);
+  --inverse-text: oklch(96.5% 0.002 80);
   --font-sans: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', monospace;
   --line-height: 1.7;
@@ -18,18 +19,32 @@
   color-scheme: light;
 }
 
-/* Dark mode — system preference OR manual .dark class */
+/* Dark tokens — manual .dark class override */
+:root.dark {
+  --bg: oklch(10% 0.005 50);
+  --text: oklch(86% 0.005 70);
+  --text-muted: oklch(72% 0.008 70);
+  --accent: oklch(78% 0.12 270);
+  --surface: oklch(18% 0.005 60);
+  --border: oklch(22% 0.005 50);
+  --inverse-bg: oklch(92% 0.004 80);
+  --inverse-text: oklch(18% 0.005 60);
+  color-scheme: dark;
+}
+
+/* Dark tokens — system preference (same values, DRY not possible in plain CSS) */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #0c0a09; --text: #d6d3d1; --text-muted: #a8a29e; --accent: #a5b4fc;
-    --surface: #1c1917; --border: #292524; --inverse-bg: #e7e5e4; --inverse-text: #1c1917;
+    --bg: oklch(10% 0.005 50);
+    --text: oklch(86% 0.005 70);
+    --text-muted: oklch(72% 0.008 70);
+    --accent: oklch(78% 0.12 270);
+    --surface: oklch(18% 0.005 60);
+    --border: oklch(22% 0.005 50);
+    --inverse-bg: oklch(92% 0.004 80);
+    --inverse-text: oklch(18% 0.005 60);
     color-scheme: dark;
   }
-}
-:root.dark {
-  --bg: #0c0a09; --text: #d6d3d1; --text-muted: #a8a29e; --accent: #a5b4fc;
-  --surface: #1c1917; --border: #292524; --inverse-bg: #e7e5e4; --inverse-text: #1c1917;
-  color-scheme: dark;
 }
 :root.light { color-scheme: light; }
 
