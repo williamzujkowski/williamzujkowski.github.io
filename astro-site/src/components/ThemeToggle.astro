@@ -1,68 +1,119 @@
 ---
-// Minimal dark/light mode toggle — no Svelte, pure HTML+JS
+// Dark/light toggle — 2-state with system detection on first visit
+// Shift+click resets to OS-synced mode
 ---
 
 <button
   id="theme-toggle"
   type="button"
-  aria-label="Toggle dark mode"
-  title="Toggle dark mode"
-  style="background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.25rem; color: var(--text-muted); transition: color 150ms ease;"
+  aria-label="Switch to dark theme"
+  title="Toggle theme"
+  class="theme-toggle"
 >
-  <span id="theme-icon">◐</span>
+  <svg class="theme-icon theme-icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+  <svg class="theme-icon theme-icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
 </button>
+
+<style>
+  .theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.35rem;
+    color: var(--text-muted);
+    transition: color 150ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .theme-toggle:hover {
+    color: var(--text);
+  }
+
+  .theme-icon {
+    position: absolute;
+    transition: opacity 200ms ease, transform 200ms ease;
+  }
+
+  /* Light mode: show sun (click to go dark), hide moon */
+  .theme-icon--sun { opacity: 1; transform: scale(1); }
+  .theme-icon--moon { opacity: 0; transform: scale(0.8); }
+
+  /* Dark mode: show moon, hide sun */
+  :root.dark .theme-icon--sun { opacity: 0; transform: scale(0.8); }
+  :root.dark .theme-icon--moon { opacity: 1; transform: scale(1); }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .theme-icon--sun { opacity: 0; transform: scale(0.8); }
+    :root:not(.light) .theme-icon--moon { opacity: 1; transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-icon { transition: none; }
+  }
+</style>
 
 <script is:inline>
   (function () {
-    const btn = document.getElementById('theme-toggle');
-    const icon = document.getElementById('theme-icon');
-
-    function getTheme() {
-      if (localStorage.theme === 'dark') return 'dark';
-      if (localStorage.theme === 'light') return 'light';
-      return 'system';
+    function isDark() {
+      if (localStorage.theme === 'dark') return true;
+      if (localStorage.theme === 'light') return false;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    function applyTheme(theme) {
-      const root = document.documentElement;
+    function applyTheme() {
+      var root = document.documentElement;
+      var dark = isDark();
       root.classList.remove('dark', 'light');
-      if (theme === 'dark') {
-        root.classList.add('dark');
-        icon.textContent = '☀';
-      } else if (theme === 'light') {
-        root.classList.add('light');
-        icon.textContent = '●';
-      } else {
-        // System default
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        icon.textContent = isDark ? '◐' : '◑';
+      if (localStorage.theme === 'dark') root.classList.add('dark');
+      else if (localStorage.theme === 'light') root.classList.add('light');
+      // If no localStorage, CSS @media handles it
+
+      var btn = document.getElementById('theme-toggle');
+      if (btn) {
+        btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
       }
     }
 
-    function cycleTheme() {
-      const current = getTheme();
-      let next;
-      if (current === 'system') next = 'dark';
-      else if (current === 'dark') next = 'light';
-      else next = 'system';
-
-      if (next === 'system') {
+    function toggle(e) {
+      // Shift+click resets to system/OS preference
+      if (e.shiftKey) {
         localStorage.removeItem('theme');
-      } else {
-        localStorage.theme = next;
+        applyTheme();
+        return;
       }
-      applyTheme(next);
+
+      var dark = isDark();
+      localStorage.theme = dark ? 'light' : 'dark';
+      applyTheme();
     }
 
-    // Init
-    applyTheme(getTheme());
-    btn.addEventListener('click', cycleTheme);
+    function init() {
+      applyTheme();
+      var btn = document.getElementById('theme-toggle');
+      if (btn) btn.addEventListener('click', toggle);
+    }
 
-    // Re-apply after View Transitions
-    document.addEventListener('astro:after-swap', function () {
-      applyTheme(getTheme());
-      const newBtn = document.getElementById('theme-toggle');
-      if (newBtn) newBtn.addEventListener('click', cycleTheme);
-    });
+    init();
+
+    // Re-apply after Astro View Transitions
+    document.addEventListener('astro:after-swap', init);
   })();
 </script>
