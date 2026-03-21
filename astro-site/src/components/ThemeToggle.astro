@@ -1,0 +1,68 @@
+---
+// Minimal dark/light mode toggle — no Svelte, pure HTML+JS
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle dark mode"
+  title="Toggle dark mode"
+  style="background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.25rem; color: var(--text-muted); transition: color 150ms ease;"
+>
+  <span id="theme-icon">◐</span>
+</button>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+
+    function getTheme() {
+      if (localStorage.theme === 'dark') return 'dark';
+      if (localStorage.theme === 'light') return 'light';
+      return 'system';
+    }
+
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      root.classList.remove('dark', 'light');
+      if (theme === 'dark') {
+        root.classList.add('dark');
+        icon.textContent = '☀';
+      } else if (theme === 'light') {
+        root.classList.add('light');
+        icon.textContent = '●';
+      } else {
+        // System default
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        icon.textContent = isDark ? '◐' : '◑';
+      }
+    }
+
+    function cycleTheme() {
+      const current = getTheme();
+      let next;
+      if (current === 'system') next = 'dark';
+      else if (current === 'dark') next = 'light';
+      else next = 'system';
+
+      if (next === 'system') {
+        localStorage.removeItem('theme');
+      } else {
+        localStorage.theme = next;
+      }
+      applyTheme(next);
+    }
+
+    // Init
+    applyTheme(getTheme());
+    btn.addEventListener('click', cycleTheme);
+
+    // Re-apply after View Transitions
+    document.addEventListener('astro:after-swap', function () {
+      applyTheme(getTheme());
+      const newBtn = document.getElementById('theme-toggle');
+      if (newBtn) newBtn.addEventListener('click', cycleTheme);
+    });
+  })();
+</script>

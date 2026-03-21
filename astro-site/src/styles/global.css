@@ -25,11 +25,11 @@
   color-scheme: light;
 }
 
-/* Dark mode — auto via prefers-color-scheme */
+/* Dark mode — system preference OR manual .dark class */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --bg: #0c0a09;
-    --text: #e7e5e4;
+    --text: #d6d3d1;
     --text-muted: #a8a29e;
     --accent: #a5b4fc;
     --surface: #1c1917;
@@ -38,6 +38,24 @@
     --inverse-text: #1c1917;
     color-scheme: dark;
   }
+}
+
+/* Manual dark mode override */
+:root.dark {
+  --bg: #0c0a09;
+  --text: #d6d3d1;
+  --text-muted: #a8a29e;
+  --accent: #a5b4fc;
+  --surface: #1c1917;
+  --border: #292524;
+  --inverse-bg: #fafaf9;
+  --inverse-text: #1c1917;
+  color-scheme: dark;
+}
+
+/* Manual light mode override */
+:root.light {
+  color-scheme: light;
 }
 
 /* ===== Base ===== */
@@ -241,9 +259,29 @@ a:hover {
   --tw-prose-quote-borders: var(--border);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
-  max-width: var(--content-width);
+  max-width: 700px;
   font-size: 1.1rem;
   line-height: 1.8;
+}
+
+/* Improved paragraph spacing */
+.prose :where(p) { margin-block: 1.25em; }
+
+/* Fix list items — match body font size */
+.prose :where(li) {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-block-end: 0.5em;
+}
+
+/* More breathing room around headings */
+.prose :where(h2) { margin-block: 2.5rem 1rem; }
+.prose :where(h3) { margin-block: 2rem 0.75rem; }
+
+/* Dotted underline links in prose */
+.prose :where(a) {
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
 }
 
 .prose :where(code):not(:where(pre *)) {

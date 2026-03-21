@@ -4,6 +4,7 @@ import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 import Search from '@components/Search.svelte';
 import CodeCopy from '@components/CodeCopy.svelte';
+import ThemeToggle from '@components/ThemeToggle.astro';
 
 interface Props {
   title: string;
@@ -189,7 +190,14 @@ function isActiveLink(linkHref: string): boolean {
 
     <ClientRouter />
 
-    <!-- Dark mode handled purely by prefers-color-scheme in CSS — no JS needed -->
+    <!-- Dark mode: apply saved preference before first paint to prevent flash -->
+    <script is:inline>
+      (function() {
+        var t = localStorage.theme;
+        if (t === 'dark') document.documentElement.classList.add('dark');
+        else if (t === 'light') document.documentElement.classList.add('light');
+      })();
+    </script>
   </head>
 
   <body>
@@ -213,6 +221,7 @@ function isActiveLink(linkHref: string): boolean {
           ))
         }
         <Search client:load />
+        <ThemeToggle />
       </nav>
     </header>
 
