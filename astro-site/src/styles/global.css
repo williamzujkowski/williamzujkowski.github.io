@@ -192,6 +192,7 @@ a:hover {
 }
 
 /* ===== Cards (simplified) ===== */
+/* ===== Cards ===== */
 .card {
   border: 1px solid var(--border);
   border-radius: 0.5rem;
@@ -201,6 +202,23 @@ a:hover {
 
 .card:hover {
   border-color: var(--text-muted);
+}
+
+/* ===== Layout Utilities ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 /* ===== Prose / Article Content ===== */

@@ -6,7 +6,7 @@ import PostCard from '@components/PostCard.astro';
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Collect all tags
+// Collect top tags
 const tagCounts = new Map<string, number>();
 posts.forEach((post) => {
   (post.data.tags ?? [])
@@ -15,7 +15,7 @@ posts.forEach((post) => {
       tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
     });
 });
-const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
 
 // Group posts by year
 const postsByYear = new Map<number, typeof posts>();
@@ -31,51 +31,26 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   title="Blog"
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
 >
-  <section class="py-12 sm:py-16">
-    <div>
-      <div class="max-w-2xl mb-12">
-        <h1
-          class="text-3xl font-bold tracking-tight sm:text-4xl"
-          style="font-size: clamp(2rem, 4vw, 2.75rem)"
-        >
-          Blog
-        </h1>
-        <p class="mt-4 text-lg text-[var(--text-muted)]">
-          {posts.length} posts about security, AI, homelab experiments, and lessons learned.
-        </p>
-      </div>
+  <h1>Blog</h1>
+  <p style="color: var(--text-muted); margin-block-end: 2rem;">
+    {posts.length} posts &middot;
+    {topTags.map(([tag, count]) => (
+      <a href={`/tags/${tag}/`} style="margin-inline-start: 0.25rem;">{tag}&nbsp;({count})</a>
+    ))}
+    &middot; <a href="/tags/">all tags</a>
+  </p>
 
-      <!-- Tags -->
-      {
-        sortedTags.length > 0 && (
-          <div class="mb-10 flex flex-wrap gap-2">
-            {sortedTags.slice(0, 15).map(([tag, count]) => (
-              <a href={`/tags/${tag}/`} class="chip">
-                {tag} <span class="ml-1 opacity-70">({count})</span>
-              </a>
-            ))}
-          </div>
-        )
-      }
-
-      <!-- Posts by year -->
-      {
-        years.map((year) => (
-          <div class="mb-12">
-            <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-[var(--text)]">{year}</h2>
-              <span class="text-sm text-[var(--text-muted)] bg-[var(--surface)] px-2 py-0.5 rounded-full">
-                {postsByYear.get(year)!.length} posts
-              </span>
-            </div>
-            <div class="space-y-6">
-              {postsByYear.get(year)!.map((post) => (
-                <PostCard post={post} variant="horizontal" />
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </div>
-  </section>
+  {years.map((year) => (
+    <section>
+      <h2 style="font-size: 1.5rem; margin-block: 2.5rem 1rem; padding-block-end: 0.5rem; border-bottom: 1px solid var(--border);">
+        {year}
+        <span style="font-size: 0.85rem; font-weight: 400; color: var(--text-muted); margin-inline-start: 0.5rem;">
+          ({postsByYear.get(year)!.length})
+        </span>
+      </h2>
+      {postsByYear.get(year)!.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </section>
+  ))}
 </BaseLayout>
