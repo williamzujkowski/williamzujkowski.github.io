@@ -25,7 +25,7 @@ const { tag, posts } = Astro.props;
 
 <BaseLayout title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
   <section class="py-12 sm:py-16">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div>
       <div class="max-w-2xl mb-12">
         <nav aria-label="Breadcrumb" class="mb-4">
           <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">

@@ -9,7 +9,7 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
 
 <BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist." noindex>
   <section class="py-16 sm:py-24">
-    <div class="container mx-auto px-4 text-center">
+    <div class="text-center">
       <p class="text-6xl sm:text-8xl font-bold text-[var(--accent)]" style="opacity: 0.6">404</p>
       <h1
         class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl"
@@ -38,7 +38,7 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
 
   <!-- Recent posts as fallback -->
   <section class="pb-16">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+    <div>
       <h2 class="text-xl font-semibold text-[var(--text)] mb-6 text-center">
         Recent Posts
       </h2>

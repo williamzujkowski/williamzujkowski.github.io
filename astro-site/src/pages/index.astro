@@ -5,12 +5,22 @@ import PostCard from '@components/PostCard.astro';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const recentPosts = posts.slice(0, 15);
+const hasMore = posts.length > 15;
 ---
 
 <BaseLayout title="Home">
   <section>
-    {posts.map((post) => (
+    {recentPosts.map((post) => (
       <PostCard post={post} />
     ))}
   </section>
+
+  {hasMore && (
+    <nav style="text-align: center; margin-block: 2rem;">
+      <a href="/posts/" class="btn-outlined">
+        All {posts.length} posts &rarr;
+      </a>
+    </nav>
+  )}
 </BaseLayout>

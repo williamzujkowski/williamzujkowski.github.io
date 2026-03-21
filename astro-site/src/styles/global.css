@@ -318,14 +318,6 @@ a:hover {
   }
 }
 
-/* ===== Gradient text (keep for compatibility) ===== */
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent), oklch(0.65 0.25 300));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* ===== Buttons ===== */
 .btn-filled {
   display: inline-flex;

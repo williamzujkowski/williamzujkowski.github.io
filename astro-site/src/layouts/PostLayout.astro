@@ -4,7 +4,6 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
 import TableOfContents from '@components/TableOfContents.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import SeriesNav from '@components/SeriesNav.astro';
-import ReadingProgress from '@components/ReadingProgress.svelte';
 
 interface Heading {
   depth: number;
@@ -46,9 +45,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
   wordCount={wordCount}
   tags={tags}
 >
-  <ReadingProgress client:idle />
   <article class="py-8 sm:py-12">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div>
       <!-- Breadcrumbs -->
       <nav aria-label="Breadcrumb" class="mb-8">
         <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
