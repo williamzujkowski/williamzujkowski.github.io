@@ -6,400 +6,117 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
 <BaseLayout title="About" description="About William Zujkowski — security architecture, identity, and compliance.">
   <div class="prose prose-lg">
     <h1>About</h1>
-          <p class="lead text-xl italic" style="color: var(--text-muted);">
-            I'm a Senior InfoSec Engineer at <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer">Cloud.gov</a> focused on cloud platform security, identity federation, and compliance
-            automation. I spend my days designing security controls that enable teams instead of blocking them. I also
-            spend way too many nights in my homelab breaking things to understand how they work.
-          </p>
-          <p>
-            My work centers on designing security controls for multi-tenant cloud platforms&mdash;network segmentation,
-            identity federation, compliance automation, and CI/CD security tooling. The goal: make the secure path the
-            easy path so teams can deploy safely without fighting security controls.
-          </p>
-        </div>
 
-        <hr class="my-12 border-[var(--border)]" />
+    <p><em>
+      I'm a Senior InfoSec Engineer at <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer">Cloud.gov</a> focused on cloud platform security, identity federation, and compliance
+      automation. I spend my days designing security controls that enable teams instead of blocking them — and
+      too many nights in my homelab breaking things to understand how they work.
+    </em></p>
 
-        <!-- The Journey -->
-        <section class="max-w-3xl mx-auto">
-          <h2 class="text-2xl font-bold mb-8" style="color: var(--text);">The Journey</h2>
-          <p class="mb-10 text-base" style="color: var(--text-muted);">
-            20 years of breaking things and learning how to fix them&mdash;from house calls in Harrisburg to helping
-            secure a federal cloud platform.
-          </p>
+    <p>
+      My work centers on designing security controls for multi-tenant cloud platforms — network segmentation,
+      identity federation, compliance automation, and CI/CD security tooling. The goal: make the secure path the
+      easy path so teams can deploy safely without fighting security controls.
+    </p>
 
-          <!-- Vertical Timeline -->
-          <div class="relative ml-4 sm:ml-0">
-            <!-- Timeline line -->
-            <div
-              class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5"
-              style="background: linear-gradient(to bottom, var(--accent), var(--border));"
-            ></div>
+    <hr />
 
-            <!-- Cloud.gov — Present -->
-            <div class="relative pl-14 sm:pl-16 pb-12">
-              <div
-                class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-3 z-10"
-                style="background-color: var(--accent); border-color: var(--surface); box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent);"
-              ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--accent);">
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-                  <span
-                    class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold"
-                    style="background-color: var(--accent); color: var(--inverse-text);"
-                  >2023 &ndash; Present</span>
-                  <span class="text-xs font-medium" style="color: var(--accent);">&#9679; Current Role</span>
-                </div>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
-                  Senior InfoSec Engineer &bull;
-                  <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--accent);">Cloud.gov</a>
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  Shaping cloud security architecture and federal compliance posture for a FedRAMP Moderate platform.
-                  Contributing to the NIST 800-53 Rev 4 &rarr; Rev 5 transition and participating in FedRAMP RFCs.
-                  All those years of breaking things turned out to be decent preparation.
-                </p>
-              </div>
-            </div>
+    <h2>The Journey</h2>
 
-            <!-- HPC SRE — 2023 -->
-            <div class="relative pl-14 sm:pl-16 pb-12">
-              <div
-                class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--bg); border-color: var(--text-muted);"
-              ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--text-muted);">
-                <span
-                  class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--surface); color: var(--text);"
-                >2023</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
-                  Lead HPC Site Reliability Engineer
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  Supporting high-performance computing clusters for molecular dynamics and computational biology
-                  research. Got to burn in 8-way H100 nodes and help configure NVLink&mdash;genuinely fun work.
-                  Learned that uptime matters just as much as security when researchers are running week-long
-                  simulations that cost thousands in compute time.
-                </p>
-              </div>
-            </div>
+    <p>20 years of breaking things and learning how to fix them.</p>
 
-            <!-- NIH OCIO VM Lead — 2021-2023 -->
-            <div class="relative pl-14 sm:pl-16 pb-12">
-              <div
-                class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--bg); border-color: var(--text-muted);"
-              ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--text-muted);">
-                <span
-                  class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--surface); color: var(--text);"
-                >2021 &ndash; 2023</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
-                  Enterprise Vulnerability Management Lead &bull; NIH&nbsp;OCIO
-                </h3>
-                <p class="text-sm mb-3" style="color: var(--text-muted);">
-                  Led vulnerability management across <strong>100,000+ assets</strong> and <strong>27 Institutes and
-                  Centers</strong>. The hardest part wasn't the tech&mdash;it was convincing 27 different IT teams to
-                  move at the same speed.
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  <span
-                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs"
-                    style="background-color: var(--surface); color: var(--text);"
-                  >&#x1F525; Log4j SME</span>
-                  <span
-                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs"
-                    style="background-color: var(--surface); color: var(--text);"
-                  >&#x1F3DB; CISA BOD 22-01</span>
-                </div>
-              </div>
-            </div>
+    <p><strong>2023 – Present: Senior InfoSec Engineer, Cloud.gov</strong><br />
+    Shaping cloud security architecture and federal compliance posture for a FedRAMP Moderate platform.
+    Contributing to the NIST 800-53 Rev 4 → Rev 5 transition. All those years of breaking things turned out
+    to be decent preparation.</p>
 
-            <!-- NHGRI — 2018-2021 -->
-            <div class="relative pl-14 sm:pl-16 pb-12">
-              <div
-                class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--bg); border-color: var(--text-muted);"
-              ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--text-muted);">
-                <span
-                  class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--surface); color: var(--text);"
-                >2018 &ndash; 2021</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
-                  Security Engineering Lead &bull; NHGRI
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  Securing research infrastructure for about <strong>2,200 endpoints</strong>&mdash;including
-                  million-dollar genomic sequencers that scientists would absolutely revolt over if you tried to patch
-                  them during a sequencing run. Taught me more about stakeholder management than any textbook ever could.
-                </p>
-              </div>
-            </div>
+    <p><strong>2023: Lead HPC Site Reliability Engineer</strong><br />
+    Supporting high-performance computing clusters for molecular dynamics research. Got to burn in 8-way H100
+    nodes and help configure NVLink — genuinely fun work.</p>
 
-            <!-- NIH Entry — 2017 -->
-            <div class="relative pl-14 sm:pl-16 pb-12">
-              <div
-                class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--bg); border-color: var(--border);"
-              ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--border);">
-                <span
-                  class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--surface); color: var(--text);"
-                >2014 &ndash; 2017</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
-                  IT Infrastructure &amp; Service Desk Leadership
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  Moved through several IT infrastructure and support roles&mdash;from asset management to leading
-                  service desk teams in the NIH ecosystem. Gravitating toward the security engineering work that would
-                  define the next chapter.
-                </p>
-              </div>
-            </div>
+    <p><strong>2021 – 2023: Enterprise VM Lead, NIH OCIO</strong><br />
+    Led vulnerability management across 100,000+ assets and 27 Institutes. The hardest part wasn't the tech —
+    it was convincing 27 different IT teams to move at the same speed. Log4j SME, CISA BOD 22-01.</p>
 
-            <!-- Independent Consulting — 2005-2014 -->
-            <div class="relative pl-14 sm:pl-16 pb-4">
-              <div
-                class="absolute left-2 sm:left-4 top-1 w-5 h-5 rounded-full border-2 z-10"
-                style="background-color: var(--bg); border-color: var(--border);"
-              ></div>
-              <div class="card p-5 sm:p-6" style="border-left: 3px solid var(--border);">
-                <span
-                  class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold mb-2"
-                  style="background-color: var(--surface); color: var(--text-muted);"
-                >2005 &ndash; 2014</span>
-                <h3 class="text-lg font-bold mb-1" style="color: var(--text);">
-                  Independent IT Consultant &bull; Harrisburg, PA
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  Nearly a decade of fixing broken computers and networks for anyone who'd hire me&mdash;small
-                  businesses, local offices, whoever could pay my hourly rate. Evolved from "my computer won't start"
-                  house calls into small-business infrastructure management. To this day, when a bad CVE drops and
-                  other teams have to scramble on emergency patches, I grab pastries from my local Spanish bakery as
-                  a thank-you. Small gestures go a long way.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+    <p><strong>2018 – 2021: Security Engineering Lead, NHGRI</strong><br />
+    Securing research infrastructure for ~2,200 endpoints — including million-dollar genomic sequencers that
+    scientists would revolt over if you tried to patch them during a sequencing run.</p>
 
-        <hr class="my-12 border-[var(--border)]" />
+    <p><strong>2014 – 2017: IT Infrastructure & Service Desk Leadership</strong><br />
+    Moved through several infrastructure and support roles in the NIH ecosystem, gravitating toward the security
+    engineering work that would define the next chapter.</p>
 
-        <!-- How I Think About Security -->
-        <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">
-            How I Think About Security
-          </h2>
-          <div class="card p-8 sm:p-10 my-8" style="background-color: var(--surface);">
-            <p class="text-lg mb-6" style="color: var(--text-muted);">
-              I believe security should <strong style="color: var(--text);"
-                >enable work, not block it</strong
-              >. The best controls? Users never notice them because they just work. Nobody cares about your perfect
-              firewall rules if they can't deploy their app.
-            </p>
+    <p><strong>2005 – 2014: Independent IT Consultant, Harrisburg PA</strong><br />
+    Nearly a decade of fixing broken computers for anyone who'd hire me. Evolved from "my computer won't start"
+    house calls into small-business infrastructure management. To this day, when a bad CVE drops, I grab pastries
+    from my local Spanish bakery as a thank-you for the response team.</p>
 
-            <p class="text-lg mb-6" style="color: var(--text-muted);">
-              Here's what I've learned over 20 years in IT and 15 years in security:
-            </p>
+    <hr />
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div class="p-6 rounded-xl" style="background-color: var(--surface);">
-                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--text);">
-                  <span class="mr-2" aria-hidden="true">&#x26A1;</span>
-                  Technical Excellence Is Not Enough
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  You can design the most elegant network segmentation in the world, but if developers can't deploy
-                  their code, they'll find a workaround. Your job is to make the secure path the easy path. I learned
-                  this the hard way trying to enforce patching schedules on scientists running week-long experiments.
-                </p>
-              </div>
+    <h2>How I Think About Security</h2>
 
-              <div class="p-6 rounded-xl" style="background-color: var(--surface);">
-                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--text);">
-                  <span class="mr-2" aria-hidden="true">&#x2699;</span>
-                  Automation Isn't About Replacing People
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  It's about freeing them to do interesting work instead of clicking buttons. I spent months learning
-                  Terraform so teams I worked with could manage firewall rules as code instead of logging into
-                  consoles. Best investment I've made. Now the time goes to architecture problems, not typos.
-                </p>
-              </div>
+    <p>
+      I believe security should <strong>enable work, not block it</strong>. The best controls? Users never notice
+      them because they just work. Nobody cares about your perfect firewall rules if they can't deploy their app.
+    </p>
 
-              <div class="p-6 rounded-xl" style="background-color: var(--surface);">
-                <h3 class="font-semibold mb-3 flex items-center" style="color: var(--text);">
-                  <span class="mr-2" aria-hidden="true">&#x1F4A1;</span>
-                  AI Security Is About Governance, Not Just Tech
-                </h3>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  I'm exploring how we build and secure AI systems that augment human decision-making rather than
-                  replace it. The hard problems aren't the models&mdash;they're the humans, policies, and processes
-                  around them. Just like every other security problem I've worked on.
-                </p>
-              </div>
-            </div>
+    <p><strong>Technical excellence is not enough.</strong> You can design the most elegant network segmentation
+    in the world, but if developers can't deploy their code, they'll find a workaround. Make the secure path the
+    easy path.</p>
 
-            <p class="text-base italic" style="color: var(--text-muted);">
-              If security slows teams down, they'll work around it. If compliance feels like busywork, it won't get done
-              right. If automation is brittle, nobody will trust it. I've been doing this long enough to know: good
-              security is invisible until you need it.
-            </p>
-          </div>
-        </section>
+    <p><strong>Automation isn't about replacing people.</strong> It's about freeing them to do interesting work
+    instead of clicking buttons. I spent months learning Terraform so teams could manage firewall rules as code.
+    Best investment I've made.</p>
 
-        <hr class="my-12 border-[var(--border)]" />
+    <p><strong>AI security is about governance, not just tech.</strong> The hard problems aren't the models — they're
+    the humans, policies, and processes around them. Just like every other security problem I've worked on.</p>
 
-        <!-- When I'm Not Working -->
-        <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">When I'm Not Working</h2>
-          <div class="card p-8 my-8">
-            <p class="text-lg mb-4" style="color: var(--text-muted);">
-              You'll find me in my homelab, which has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R910
-              running Incus, a fleet of Raspberry Pis, and way too many containers. I
-              run my own Wazuh SIEM, self-hosted Bitwarden, and whatever else I'm experimenting with that week.
-            </p>
+    <p><em>
+      If security slows teams down, they'll work around it. If compliance feels like busywork, it won't get done
+      right. Good security is invisible until you need it.
+    </em></p>
 
-            <p class="text-lg mb-4" style="color: var(--text-muted);">
-              I'm also deep into AI/LLM experimentation&mdash;not just using ChatGPT, but actually running local models,
-              building agents, and figuring out how to secure these systems in production environments. It's fascinating
-              and humbling in equal measure. You can see what I'm building on the <a href="/projects" class="text-[var(--accent)] hover:underline">projects page</a>.
-            </p>
+    <hr />
 
-            <p class="text-lg mb-4" style="color: var(--text-muted);">
-              <strong style="color: var(--text);">Fair warning:</strong> I've burned out a GPU
-              pushing it too hard for local LLM inference. Also managed to take down my home network for a few hours
-              trying to implement VLAN segmentation "just to see how it works." Breaking things in my homelab so I
-              don't break them anywhere else is kind of the whole point.
-            </p>
+    <h2>When I'm Not Working</h2>
 
-            <p class="text-lg mb-4" style="color: var(--text-muted);">
-              I'm currently learning Rust by building a vulnerability aggregation tool that I'll probably never finish.
-              But that's the point&mdash;curiosity is the best cybersecurity skill there is.
-            </p>
+    <p>
+      You'll find me in my homelab, which has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R910,
+      a fleet of Pis, and way too many containers. I run my own Wazuh SIEM, self-hosted Bitwarden, and whatever
+      else I'm experimenting with that week.
+    </p>
 
-            <p class="text-lg italic" style="color: var(--text-muted);">
-              Favorite debugging method: rubber duck debugging&mdash;with an actual rubber duck, because sometimes
-              being literal is funny. I've also been known to deploy a
-              <a href="https://datatracker.ietf.org/doc/html/rfc2321" class="text-[var(--accent)] hover:underline">RITA</a>
-              (rubber chicken) for particularly stubborn bugs. The obnoxiously loud squeak really helps you
-              rethink your assumptions.
-            </p>
-          </div>
-        </section>
+    <p>
+      I'm also deep into AI/LLM experimentation — not just using ChatGPT, but running local models, building agents,
+      and figuring out how to secure these systems in production. See what I'm building on the
+      <a href="/projects">projects page</a>.
+    </p>
 
-        <hr class="my-12 border-[var(--border)]" />
+    <p>
+      <strong>Fair warning:</strong> I've burned out a GPU pushing local LLM inference too hard. Also took down my
+      home network for hours trying VLAN segmentation "just to see how it works." Breaking things in my homelab so
+      I don't break them anywhere else is the whole point.
+    </p>
 
-        <!-- Connect -->
-        <section>
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">Connect</h2>
-          <div class="card p-8 sm:p-10 my-8" style="background-color: var(--surface);">
-            <p class="text-xl mb-8 text-center leading-relaxed" style="color: var(--text-muted);">
-              I love connecting with folks who geek out about cloud security, identity federation, compliance
-              automation, or AI infrastructure security. Whether you're building something cool, stuck on a problem, or
-              just want to talk shop about homelab setups, feel free to reach out.
-            </p>
+    <p><em>
+      Favorite debugging method: rubber duck debugging — with an actual rubber duck. I've also deployed a
+      <a href="https://datatracker.ietf.org/doc/html/rfc2321">RITA</a> (rubber chicken) for particularly
+      stubborn bugs.
+    </em></p>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div
-                class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--surface);"
-              >
-                <div
-                  class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--surface);"
-                >
-                  <span class="text-2xl" aria-hidden="true">&#x2601;</span>
-                </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">Cloud Security</h3>
-                <p class="text-xs" style="color: var(--text-muted);">Architecture &amp; FedRAMP</p>
-              </div>
+    <hr />
 
-              <div
-                class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--surface);"
-              >
-                <div
-                  class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--surface);"
-                >
-                  <span class="text-2xl" aria-hidden="true">&#x1F511;</span>
-                </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">
-                  Identity &amp; Federation
-                </h3>
-                <p class="text-xs" style="color: var(--text-muted);">At Scale</p>
-              </div>
+    <h2>Connect</h2>
 
-              <div
-                class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--surface);"
-              >
-                <div
-                  class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--surface);"
-                >
-                  <span class="text-2xl" aria-hidden="true">&#x1F4CB;</span>
-                </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">Compliance</h3>
-                <p class="text-xs" style="color: var(--text-muted);">NIST 800-53 Automation</p>
-              </div>
+    <p>
+      I love connecting with folks who geek out about cloud security, identity federation, compliance automation,
+      or AI infrastructure security. Whether you're building something cool, stuck on a problem, or just want to
+      talk homelab setups — reach out.
+    </p>
 
-              <div
-                class="p-6 rounded-xl text-center transition-all duration-200 hover:scale-105"
-                style="background-color: var(--surface);"
-              >
-                <div
-                  class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style="background-color: var(--surface);"
-                >
-                  <span class="text-2xl" aria-hidden="true">&#x1F4A1;</span>
-                </div>
-                <h3 class="text-sm font-bold mb-2" style="color: var(--text);">AI Security</h3>
-                <p class="text-xs" style="color: var(--text-muted);">
-                  Infrastructure &amp; Governance
-                </p>
-              </div>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mt-8">
-              <a
-                href={SITE_CONFIG.social.github}
-                class="btn-filled px-8 py-4 text-base"
-                style="background-color: var(--inverse-bg); color: var(--inverse-text); min-height: 56px;"
-                aria-label="Visit my GitHub profile"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                  ></path>
-                </svg>
-                <span class="font-medium">GitHub</span>
-              </a>
-
-              <a
-                href={SITE_CONFIG.social.linkedin}
-                class="btn-filled px-8 py-4 text-base"
-                style="min-height: 56px;"
-                aria-label="Visit my LinkedIn profile"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                  ></path>
-                </svg>
-                <span class="font-medium">LinkedIn</span>
-              </a>
-            </div>
-          </div>
-        </section>
+    <p>
+      <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer">GitHub</a> ·
+      <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </p>
   </div>
 </BaseLayout>
