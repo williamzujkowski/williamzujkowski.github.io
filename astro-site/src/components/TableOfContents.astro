@@ -11,22 +11,20 @@ interface Props {
 
 const { headings } = Astro.props;
 
-// Only show TOC if there are 3+ headings (worth navigating)
 const filteredHeadings = headings.filter((h) => h.depth <= 3);
 const showToc = filteredHeadings.length >= 3;
 ---
 
 {
   showToc && (
-    <nav
-      aria-label="Table of contents"
-      class="toc mb-10 rounded-xl border border-[var(--border)] bg-[var(--surface)]"
-    >
+    <nav aria-label="Table of contents" class="toc">
       <details>
-        <summary class="cursor-pointer select-none p-5 text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)] hover:text-[var(--text)] transition-colors list-none flex items-center justify-between">
+        <summary class="toc-summary">
           <span>On this page</span>
           <svg
-            class="toc-chevron h-4 w-4 transition-transform duration-200"
+            class="toc-chevron"
+            width="16"
+            height="16"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -36,13 +34,10 @@ const showToc = filteredHeadings.length >= 3;
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </summary>
-        <ul class="space-y-1.5 text-sm px-5 pb-5">
+        <ul class="toc-list">
           {filteredHeadings.map((heading) => (
             <li style={`padding-left: ${(heading.depth - 2) * 1}rem`}>
-              <a
-                href={`#${heading.slug}`}
-                class="text-[var(--text-muted)] hover:text-[var(--text)] no-underline hover:underline transition-colors"
-              >
+              <a href={`#${heading.slug}`}>
                 {heading.text}
               </a>
             </li>
@@ -54,20 +49,63 @@ const showToc = filteredHeadings.length >= 3;
 }
 
 <style>
-  /* Remove default marker */
-  details summary::-webkit-details-marker {
-    display: none;
+  .toc {
+    margin-block-end: 2.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
   }
 
-  /* Rotate chevron when open */
-  details[open] .toc-chevron {
-    transform: rotate(180deg);
+  .toc-summary {
+    cursor: pointer;
+    user-select: none;
+    padding: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: color 150ms ease;
   }
 
-  /* Smooth max-height transition for content */
-  details[open] summary {
+  .toc-summary:hover { color: var(--text); }
+
+  .toc-summary::-webkit-details-marker { display: none; }
+
+  .toc-chevron {
+    transition: transform 200ms ease;
+    flex-shrink: 0;
+  }
+
+  details[open] .toc-chevron { transform: rotate(180deg); }
+
+  details[open] .toc-summary {
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border);
     margin-bottom: 0.75rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0 1.25rem 1.25rem;
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .toc-list li { margin-block-end: 0.375rem; }
+
+  .toc-list a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .toc-list a:hover {
+    color: var(--text);
+    text-decoration: underline;
   }
 </style>
