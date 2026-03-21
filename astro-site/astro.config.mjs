@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
-import tailwindcss from '@tailwindcss/vite';
 import rehypeMermaid from 'rehype-mermaid';
 
 export default defineConfig({
@@ -9,7 +8,6 @@ export default defineConfig({
   prefetch: true,
   integrations: [svelte(), sitemap()],
   vite: {
-    plugins: [tailwindcss()],
     build: {
       rollupOptions: {
         external: ['/pagefind/pagefind.js'],
