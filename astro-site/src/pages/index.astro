@@ -5,8 +5,8 @@ import PostCard from '@components/PostCard.astro';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const recentPosts = posts.slice(0, 15);
-const hasMore = posts.length > 15;
+const recentPosts = posts.slice(0, 5);
+const hasMore = posts.length > 5;
 ---
 
 <BaseLayout title="Home">
