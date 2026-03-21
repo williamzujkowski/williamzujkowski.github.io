@@ -17,6 +17,16 @@ import BaseLayout from '@layouts/BaseLayout.astro';
         survive contact with reality. No affiliate links, no vendor pitches.
       </p>
 
+      <!-- Jump to -->
+      <nav style="margin-block: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Jump to:
+        <a href="#books">Books</a> &middot;
+        <a href="#graveyard">Tool Graveyard</a> &middot;
+        <a href="#homelab">Homelab Projects</a> &middot;
+        <a href="#learning">Learning Platforms</a> &middot;
+        <a href="#security-news">Security News</a>
+      </nav>
+
       <!-- Cross-link to /uses -->
       <div
         class="bg-[var(--surface)] border-l-4 border-[var(--text-muted)] p-6 my-8 rounded-r-lg"
@@ -63,7 +73,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       </div>
 
       <!-- Books -->
-      <h2 class="text-3xl font-bold text-[var(--text)] mt-12 mb-4">
+      <h2 id="books" class="text-3xl font-bold text-[var(--text)] mt-12 mb-4">
         &#x1f4da; Books That Actually Taught Me Something
       </h2>
 
@@ -273,7 +283,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       </div>
 
       <!-- Graveyard -->
-      <h2 class="text-3xl font-bold text-[var(--text)] mt-12 mb-4">
+      <h2 id="graveyard" class="text-3xl font-bold text-[var(--text)] mt-12 mb-4">
         &#x1f480; The Graveyard: Tools That Didn't Make the Cut
       </h2>
 
@@ -399,7 +409,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       </div>
 
       <!-- Learning Platforms -->
-      <h2 class="text-3xl font-bold text-[var(--text)] mt-12 mb-4">
+      <h2 id="learning" class="text-3xl font-bold text-[var(--text)] mt-12 mb-4">
         &#x1f393; Learning Platforms Worth Your Time
       </h2>
 
