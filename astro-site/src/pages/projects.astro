@@ -28,7 +28,7 @@ const statusColors: Record<string, string> = {
 >
   
     <h1>Projects</h1>
-    <p style="color: var(--text-muted); margin-block-end: 2rem;">
+    <p>
       Open source tools and experiments in AI orchestration, security engineering, and infrastructure.
     </p>
 
@@ -36,7 +36,7 @@ const statusColors: Record<string, string> = {
       {
         featured.length > 0 && (
           <div class="mb-12">
-            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--accent)] mb-6">
+            <h2 class="text-sm font-semibold uppercase tracking-wider mb-6">
               Featured
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -53,15 +53,15 @@ const statusColors: Record<string, string> = {
                       {project.data.status}
                     </span>
                   </div>
-                  <h3 class="text-lg font-semibold group-hover:text-[var(--accent)] transition-colors">
+                  <h3 class="text-lg font-semibold group-hover: transition-colors">
                     {project.data.title}
                   </h3>
-                  <p class="mt-2 text-sm text-[var(--text-muted)] flex-grow">
+                  <p class="mt-2 text-sm flex-grow">
                     {project.data.description}
                   </p>
                   <div class="mt-4 flex flex-wrap gap-1.5">
                     {project.data.tags.slice(0, 4).map((tag: string) => (
-                      <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--surface)] text-[var(--text-muted)]">
+                      <span class="text-xs px-2 py-0.5 rounded-full">
                         {tag}
                       </span>
                     ))}
@@ -77,7 +77,7 @@ const statusColors: Record<string, string> = {
       {
         other.length > 0 && (
           <div>
-            <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-6">
+            <h2 class="text-sm font-semibold uppercase tracking-wider mb-6">
               More Projects
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -94,10 +94,10 @@ const statusColors: Record<string, string> = {
                       {project.data.status}
                     </span>
                   </div>
-                  <h3 class="text-base font-semibold group-hover:text-[var(--accent)] transition-colors">
+                  <h3 class="text-base font-semibold group-hover: transition-colors">
                     {project.data.title}
                   </h3>
-                  <p class="mt-1 text-sm text-[var(--text-muted)]">{project.data.description}</p>
+                  <p class="mt-1 text-sm">{project.data.description}</p>
                 </a>
               ))}
             </div>

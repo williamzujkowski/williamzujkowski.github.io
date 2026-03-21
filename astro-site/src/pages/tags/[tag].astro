@@ -28,18 +28,18 @@ const { tag, posts } = Astro.props;
     <div>
       <div class="max-w-2xl mb-12">
         <nav aria-label="Breadcrumb" class="mb-4">
-          <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+          <ol class="flex items-center gap-2 text-sm">
             <li><a href="/">Home</a></li>
             <li aria-hidden="true">/</li>
             <li><a href="/posts/">Blog</a></li>
             <li aria-hidden="true">/</li>
-            <li class="font-medium text-[var(--text)]">{tag}</li>
+            <li class="font-medium">{tag}</li>
           </ol>
         </nav>
         <h1 class="text-3xl font-bold tracking-tight" style="font-size: clamp(1.75rem, 3.5vw, 2rem)">
           {tag}
         </h1>
-        <p class="mt-2 text-[var(--text-muted)]">
+        <p class="mt-2">
           {posts.length} post{posts.length === 1 ? '' : 's'}
         </p>
       </div>

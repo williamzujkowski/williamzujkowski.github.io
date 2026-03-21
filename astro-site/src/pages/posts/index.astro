@@ -32,7 +32,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
 >
   <h1>Blog</h1>
-  <p style="color: var(--text-muted); margin-block-end: 2rem;">
+  <p>
     {posts.length} posts &middot;
     {topTags.map(([tag, count]) => (
       <a href={`/tags/${tag}/`} style="margin-inline-start: 0.25rem;">{tag}&nbsp;({count})</a>
@@ -44,7 +44,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
     <section>
       <h2 style="font-size: 1.5rem; margin-block: 2.5rem 1rem; padding-block-end: 0.5rem; border-bottom: 1px solid var(--border);">
         {year}
-        <span style="font-size: 0.85rem; font-weight: 400; color: var(--text-muted); margin-inline-start: 0.5rem;">
+        <span>
           ({postsByYear.get(year)!.length})
         </span>
       </h2>

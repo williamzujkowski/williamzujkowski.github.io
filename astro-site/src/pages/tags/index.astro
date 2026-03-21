@@ -25,7 +25,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
         <h1 class="text-3xl font-bold tracking-tight" style="font-size: clamp(1.75rem, 3.5vw, 2rem)">
           Tags
         </h1>
-        <p class="mt-2 text-[var(--text-muted)]">
+        <p class="mt-2">
           {sortedTags.length} tags across {posts.length} posts
         </p>
       </div>
