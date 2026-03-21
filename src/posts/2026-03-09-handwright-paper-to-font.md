@@ -1,6 +1,6 @@
 ---
 title: "From Paper to Font File: Building an Open-Source Handwriting Digitizer"
-date: 2026-03-21
+date: 2026-03-09
 description: "How Handwright turns a scanned worksheet into a custom .ttf font — OpenCV glyph extraction, potrace vectorization, and fonttools assembly. Local-first, no cloud required."
 tags: [python, opencv, projects, fonts, privacy]
 author: William Zujkowski
