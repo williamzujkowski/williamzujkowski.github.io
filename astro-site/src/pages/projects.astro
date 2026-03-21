@@ -26,19 +26,11 @@ const statusColors: Record<string, string> = {
   title="Projects"
   description="Open source projects and tools — AI orchestration, security engineering, and homelab infrastructure."
 >
-  <section class="py-12 sm:py-16">
-    <div>
-      <div class="max-w-2xl mb-12">
-        <h1
-          class="text-3xl font-bold tracking-tight sm:text-4xl"
-          style="font-size: clamp(2rem, 4vw, 2.75rem)"
-        >
-          Projects
-        </h1>
-        <p class="mt-4 text-lg text-[var(--text-muted)]">
-          Open source tools and experiments in AI orchestration, security engineering, and infrastructure.
-        </p>
-      </div>
+  
+    <h1>Projects</h1>
+    <p style="color: var(--text-muted); margin-block-end: 2rem;">
+      Open source tools and experiments in AI orchestration, security engineering, and infrastructure.
+    </p>
 
       <!-- Featured Projects -->
       {
@@ -113,5 +105,5 @@ const statusColors: Record<string, string> = {
         )
       }
     </div>
-  </section>
+  
 </BaseLayout>
