@@ -111,6 +111,30 @@ a:hover { text-decoration-style: solid; text-decoration-color: var(--text); }
 .site-nav a { text-decoration: none; color: var(--text-muted); transition: color 150ms ease; }
 .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--text); }
 
+/* ===== Post Article Header ===== */
+.post-breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-block-end: 2rem;
+}
+.post-breadcrumb a { color: var(--text-muted); }
+.post-breadcrumb a:hover { color: var(--text); }
+
+.post-header { margin-block-end: 2.5rem; }
+
+.post-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-block-end: 0.75rem;
+}
+
+.post-description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-block-start: 1rem;
+}
+
 /* ===== Post Cards ===== */
 .post-card { padding-block-end: 2.5rem; margin-block-end: 2.5rem; border-bottom: 1px solid var(--border); }
 .post-card:last-child { border-bottom: none; }

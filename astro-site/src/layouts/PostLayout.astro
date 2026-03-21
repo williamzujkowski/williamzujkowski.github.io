@@ -45,83 +45,48 @@ const formattedDate = date.toLocaleDateString('en-US', {
   wordCount={wordCount}
   tags={tags}
 >
-  <article class="py-8 sm:py-12">
-    <div>
-      <!-- Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="mb-8">
-        <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-          <li><a href="/" class="hover:text-[var(--text)]">Home</a></li>
-          <li aria-hidden="true">/</li>
-          <li><a href="/posts/" class="hover:text-[var(--text)]">Blog</a></li>
-          <li aria-hidden="true">/</li>
-          <li class="text-[var(--text)] font-medium truncate max-w-xs">{title}</li>
-        </ol>
-      </nav>
+  <article>
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb" class="post-breadcrumb">
+      <a href="/">Home</a> / <a href="/posts/">Blog</a>
+    </nav>
 
-      <div class="max-w-3xl mx-auto">
-        <!-- Header -->
-        <header class="mb-10">
-          {
-            image && (
-              <div class="mb-8 -mx-4 sm:mx-0 overflow-hidden rounded-none sm:rounded-2xl">
-                <img
-                  src={image}
-                  alt={imageAlt || `Cover image for ${title}`}
-                  class="w-full h-48 sm:h-64 object-cover"
-                  width="1200"
-                  height="630"
-                  sizes="(max-width: 768px) 100vw, 768px"
-                  loading="eager"
-                  decoding="async"
-                  fetchpriority="high"
-                />
-              </div>
-            )
-          }
+    <!-- Header -->
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime={date.toISOString().split('T')[0]}>{formattedDate}</time>
+        {readingTime && <> &middot; {readingTime} min read</>}
+      </div>
 
-          <div class="flex items-center gap-3 text-sm text-[var(--text-muted)] mb-4">
-            <time datetime={date.toISOString().split('T')[0]} class="font-medium text-[var(--accent)]">
-              {formattedDate}
-            </time>
-            {
-              readingTime && (
-                <>
-                  <span aria-hidden="true">&middot;</span>
-                  <span>{readingTime} min read</span>
-                </>
-              )
-            }
+      <h1 class="post-card-title" style="font-size: clamp(1.75rem, 5vw, 2.5rem);">
+        {title}
+      </h1>
+
+      {description && <p class="post-description">{description}</p>}
+
+      {
+        tags.length > 0 && (
+          <div class="chip-row" style="margin-block-start: 1rem;">
+            {tags
+              .filter((t) => t !== 'posts')
+              .map((tag) => (
+                <a href={`/tags/${tag}/`} class="chip">
+                  {tag}
+                </a>
+              ))}
           </div>
+        )
+      }
+    </header>
 
-          <h1 class="post-card-title" style="font-size: clamp(1.75rem, 5vw, 2.5rem); margin-block-end: 1rem;">
-            {title}
-          </h1>
+    <!-- Series Navigation -->
+    {series && postId && <SeriesNav currentId={postId} series={series} />}
 
-          {description && <p class="mt-4 text-lg text-[var(--text-muted)]">{description}</p>}
+    <!-- Table of Contents -->
+    <TableOfContents headings={headings} />
 
-          {
-            tags.length > 0 && (
-              <div class="mt-6 flex flex-wrap gap-2">
-                {tags
-                  .filter((t) => t !== 'posts')
-                  .map((tag) => (
-                    <a href={`/tags/${tag}/`} class="chip">
-                      {tag}
-                    </a>
-                  ))}
-              </div>
-            )
-          }
-        </header>
-
-        <!-- Series Navigation -->
-        {series && postId && <SeriesNav currentId={postId} series={series} />}
-
-        <!-- Table of Contents -->
-        <TableOfContents headings={headings} />
-
-        <!-- Content -->
-        <div class="prose prose-lg max-w-none">
+    <!-- Content -->
+    <div class="prose prose-lg">
           <slot />
         </div>
 
@@ -156,9 +121,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
           </div>
         </footer>
 
-        <!-- Related Posts -->
-        <RelatedPosts currentSlug={slug} tags={tags} />
-      </div>
-    </div>
+    <!-- Related Posts -->
+    <RelatedPosts currentSlug={slug} tags={tags} />
   </article>
 </BaseLayout>
