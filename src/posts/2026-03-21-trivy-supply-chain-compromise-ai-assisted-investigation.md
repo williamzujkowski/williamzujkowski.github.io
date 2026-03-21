@@ -34,14 +34,19 @@ The whole triage took about 20 minutes, including fixes. Without the AI assist, 
 
 ## What I Found
 
-Across my personal repos, I found a mix of exposure levels:
+Five personal repos had `trivy-action` references:
 
-- **Repos using `@master` branch** — safe. The master branch wasn't part of the tag force-push attack.
-- **Repos using SHA-pinned versions** — safe. Commit SHAs are immutable.
-- **Repos using version tags** (`@0.32.0`, `@0.33.1`) — potentially exposed, depending on whether any CI runs occurred during the compromise window.
-- **One repo had a nightly scan that ran during the window** — the trivy job completed successfully in 53 seconds, meaning the malicious entrypoint executed.
+| Repo | Version | CI Runs During Window | Impact |
+|---|---|---|---|
+| **williamzujkowski.github.io** | `@master` (branch) | 28 runs | **Safe** — master branch wasn't affected |
+| **homelab** | `@0.33.1` (tag) | 0 runs | **Safe** — no runs since Feb 18 |
+| **mcp-standards-server** | `@0.32.0` (tag) | **1 run (Mar 20 03:50 UTC)** | **Potentially impacted** |
+| **machine-rites** | `@master` (branch) | N/A | **Safe** — master unaffected |
+| **standards** | SHA-pinned | N/A | **Safe** — pre-compromise commit |
 
-For the potentially impacted repo: no IOCs were found. No `tpcp-docs` repo appeared on my account. No suspicious files on disk. The `GITHUB_TOKEN` available to that workflow had limited scope (`contents:read`, `security-events:write`) and expired after the run. Based on the IOC absence and limited token scope, I assessed it as low-impact.
+The [mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server) nightly scan executed the compromised `@0.32.0` tag on March 20 at 03:50 UTC — solidly within the attack window. The trivy job completed successfully in 53 seconds, meaning the malicious entrypoint ran.
+
+However: no IOCs were found. No `tpcp-docs` repo appeared on my account. No suspicious files on disk. The `GITHUB_TOKEN` available to that workflow had limited scope (`contents:read`, `security-events:write`) and expired after the run. Based on the IOC absence and limited token scope, I assessed it as low-impact and did not rotate secrets.
 
 ## The Fix
 
@@ -92,3 +97,5 @@ None of this is magic — it's the same `grep`, `gh api`, and `find` commands I'
 3. **Have a weekend playbook.** If your security scanning runs on a schedule, know how to quickly check what ran and when.
 4. **Monitor your dependencies' security advisories.** Don't rely on social media for incident notification.
 5. **Scope your CI tokens narrowly.** Limited `GITHUB_TOKEN` scope contained the potential blast radius in my case.
+
+The repos involved in this investigation: [nexus-agents](https://github.com/williamzujkowski/nexus-agents), [mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server), [homelab](https://github.com/williamzujkowski/homelab), [machine-rites](https://github.com/williamzujkowski/machine-rites).
