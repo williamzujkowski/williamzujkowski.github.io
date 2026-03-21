@@ -100,11 +100,17 @@ a:hover { text-decoration-style: solid; text-decoration-color: var(--text); }
 .post-card { padding-block-end: 2.5rem; margin-block-end: 2.5rem; border-bottom: 1px solid var(--border); }
 .post-card:last-child { border-bottom: none; }
 .post-card-title {
-  display: block; font-size: clamp(1.25rem, 3vw, 1.6rem);
-  font-weight: 900; line-height: 1.25; color: var(--text);
+  display: inline;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 900; line-height: 1.4;
+  color: var(--inverse-text);
+  background-color: var(--inverse-bg);
+  padding: 0.15em 0.4em;
   text-decoration: none; letter-spacing: -0.01em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
-.post-card-title:hover { color: var(--accent); text-decoration: none; }
+.post-card-title:hover { opacity: 0.85; text-decoration: none; color: var(--inverse-text); }
 .post-card-excerpt { margin-block-start: 0.5rem; color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
 .post-card-date { font-size: 0.8rem; color: var(--text-muted); margin-block-start: 0.5rem; }
 
