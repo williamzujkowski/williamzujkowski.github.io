@@ -88,7 +88,7 @@ This was a genuine test of using AI agents for incident response. The nexus-agen
 - **IOC verification** — checking for known indicators (file paths, repo names, DNS) across the local system
 - **Issue creation** — filing structured tickets on each affected repo with findings
 
-None of this is magic — it's the same `grep`, `gh api`, and `find` commands I'd run manually. But having an agent chain them together, maintain context across repos, and produce structured output saved real time during a weekend incident.
+None of this is magic — it's the same `grep`, `gh api`, and `find` commands I'd run manually. But having an agent chain them together, maintain context across repos, and produce structured output made a real difference. The total investigation and remediation — across five repos, including IOC verification, CI history analysis, SHA pinning, and filing issues with findings — took under 60 minutes with AI assistance. Doing this manually would have been 3-4 hours of context-switching between repos, GitHub API docs, run logs, and advisory pages. On a weekend, that time savings matters.
 
 ## Lessons
 
