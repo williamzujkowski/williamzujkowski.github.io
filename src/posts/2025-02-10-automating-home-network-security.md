@@ -19,8 +19,6 @@ imageAlt: "Network router with ethernet cables and blinking lights"
 
 
 
-![Digital security concept with code and lock symbols](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1920&q=80)
-*Photo by Franck on Unsplash*
 
 
 ## Requirements

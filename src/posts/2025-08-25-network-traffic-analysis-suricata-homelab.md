@@ -15,8 +15,6 @@ imageAlt: "Network monitoring equipment with blue indicators"
 ---
 ## The Invisible Threat
 
-![Network monitoring visualization with glowing connections](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
-*Photo by Alina Grubnyak on Unsplash*
 
 Last year, I noticed unusual DNS queries from my homelab network. Hundreds of requests to obscure domains at 3 AM. Without network monitoring, I would never have caught the IoT device beaconing home to its manufacturer with telemetry data I didn't authorize.
 

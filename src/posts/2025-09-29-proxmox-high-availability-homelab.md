@@ -14,8 +14,6 @@ imageAlt: "Server hardware in a data center with status LEDs"
 ---
 ## The 3 AM Outage That Changed My Architecture
 
-![Data center servers with glowing lights](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
-*Photo by Taylor Vick on Unsplash*
 
 Two years ago, my primary Proxmox server's motherboard died at 3 AM. My self-hosted services went down simultaneously: password manager, DNS, monitoring. I was dead in the water until I could source a replacement part.
 

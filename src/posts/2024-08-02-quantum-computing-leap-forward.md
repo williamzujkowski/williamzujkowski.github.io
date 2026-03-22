@@ -13,8 +13,6 @@ imageAlt: "Abstract geometric pattern representing quantum states"
 ---
 In June 2024, I spent 40 hours working through IBM's Qiskit tutorials, attempting to understand quantum gates and superposition. My first attempt at implementing a simple quantum circuit failed spectacularly. I had confused the Hadamard gate with the Pauli-X gate, causing my entire algorithm to produce random noise instead of the expected Bell state. It took me three days of debugging before I realized my fundamental conceptual error.
 
-![Quantum computing visualization](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1920&q=80)
-*Photo by Zac Wolff on Unsplash*
 
 That learning experience taught me something critical. Quantum computing isn't just a faster computer. It's a fundamentally different way of processing information that could change everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world. The timeline for when this happens remains uncertain, though progress has accelerated since 2023.
 

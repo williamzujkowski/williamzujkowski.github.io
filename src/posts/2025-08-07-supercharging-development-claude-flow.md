@@ -16,8 +16,6 @@ imageAlt: "Developer workspace with code on multiple screens"
 ---
 ## From Solo Coding to Swarm Intelligence
 
-![Artificial intelligence and neural network visualization](https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80)
-*Photo by Google DeepMind on Unsplash*
 
 I used Claude-Flow to refactor a complex microservices architecture. Instead of spending hours jumping between files solo, I spawned a swarm of specialized AI agents working in parallel. The researcher analyzed the codebase, the architect designed the solution, coders implemented changes, testers validated everything, and a coordinator ensured synchronization. 12 minutes later: 15 API endpoints, 147 tests at 98% coverage, complete OpenAPI docs, and JWT authentication.
 

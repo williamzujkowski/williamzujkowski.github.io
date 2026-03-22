@@ -15,8 +15,6 @@ imageAlt: "Network infrastructure with ethernet connections"
 ---
 ## The IoT Camera That Taught Me About Network Segmentation
 
-![Network security and segmentation visualization](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80)
-*Photo by Alina Grubnyak on Unsplash*
 
 **BLUF:** Years ago, I bought a cheap IP camera for my homelab. Within hours, it was beaconing to servers in China, scanning my network, and attempting to access my NAS.
 

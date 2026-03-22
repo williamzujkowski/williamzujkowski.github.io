@@ -16,8 +16,6 @@ In early October 2024, I deployed a private Ethereum test network on my homelab'
 
 I'll admit I started this project skeptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. But after three months of running actual nodes, deploying smart contracts, and watching my IPFS storage grow to 340GB, I realized something: the core innovation has little to do with digital money.
 
-![Artificial intelligence and neural network visualization](https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80)
-*Photo by Google DeepMind on Unsplash*
 
 ## What I Actually Learned Running Blockchain Infrastructure
 

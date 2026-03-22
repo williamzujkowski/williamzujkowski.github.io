@@ -16,8 +16,6 @@ imageAlt: "Automated code pipeline on a developer screen"
 ---
 ## The Dependency That Haunted Me
 
-![CI/CD pipeline visualization with security gates](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)
-*Photo by Carlos Muza on Unsplash*
 
 I built an automated security pipeline that scans every commit with Grype, OSV-Scanner, and Trivy. The result: 69% faster builds (6.5min → 2min), 35% auto-remediation rate for vulnerabilities, and mean time to remediation dropping from 12 days to 4.2 days. Critical findings block deployment automatically.
 

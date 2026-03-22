@@ -16,8 +16,6 @@ imageAlt: "Digital padlock representing password security"
 ---
 ## The Cloud Password Manager Breach That Changed Everything
 
-![Digital lock and security concept](https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=1920&q=80)
-*Photo by FLY:D on Unsplash*
 
 **BLUF:** Cloud password manager breaches happen every few years. When LastPass disclosed their 2022 incident, I moved 500+ passwords to self-hosted Bitwarden. Two years later, I have better security, zero vendor lock-in, and complete data ownership. Here's how to migrate safely.
 
