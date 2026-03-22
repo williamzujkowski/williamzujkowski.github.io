@@ -121,8 +121,8 @@ graph LR
     style APP fill:#6af,stroke:#333,color:#fff
     style SENTRY fill:#6c6,stroke:#333,color:#fff
     style GOFER fill:#6c6,stroke:#333,color:#fff
-    style HK fill:#fc6,stroke:#333
-    style FS fill:#fc6,stroke:#333
+    style HK fill:#fc6,color:#000,stroke:#333
+    style FS fill:#fc6,color:#000,stroke:#333
 ```
 
 **Key insight:** Even if a container exploits a syscall bug, it's exploiting Go code in userspace, not the kernel. No privilege escalation to host.
@@ -393,8 +393,8 @@ flowchart TD
     Q4 -- No --> RUNC2[Use runc<br/>principle of least surprise]
 
     style GVISOR fill:#6c6,stroke:#333,color:#fff
-    style RUNC fill:#fc6,stroke:#333
-    style RUNC2 fill:#fc6,stroke:#333
+    style RUNC fill:#fc6,color:#000,stroke:#333
+    style RUNC2 fill:#fc6,color:#000,stroke:#333
     style START fill:#6af,stroke:#333,color:#fff
 ```
 
@@ -489,7 +489,7 @@ graph TB
     style L2 fill:#6c6,stroke:#333,color:#fff
     style L3 fill:#c96,stroke:#333,color:#fff
     style L4 fill:#c6c,stroke:#333,color:#fff
-    style L5 fill:#cc6,stroke:#333
+    style L5 fill:#cc6,color:#000,stroke:#333
     style ATK fill:#f66,stroke:#333,color:#fff
 ```
 

@@ -52,8 +52,8 @@ flowchart LR
     Deploy --> Monitor
     Monitor -->|Feedback| Train
 
-    classDef purpleNode fill:#9c27b0
-    classDef greenNode fill:#4caf50
+    classDef purpleNode fill:#9c27b0,color:#fff
+    classDef greenNode fill:#4caf50,color:#fff
     class Train purpleNode
     class Deploy greenNode
 ```

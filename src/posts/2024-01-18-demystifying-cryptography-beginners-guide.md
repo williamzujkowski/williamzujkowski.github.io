@@ -52,8 +52,8 @@ flowchart LR
         P3["Plaintext"] --> E2 --> C2["Ciphertext"] --> D2 --> P4["Plaintext"]
     end
 
-    style Symmetric fill:#e8f5e9,stroke:#2e7d32
-    style Asymmetric fill:#e3f2fd,stroke:#1565c0
+    style Symmetric fill:#e8f5e9,color:#000,stroke:#2e7d32
+    style Asymmetric fill:#e3f2fd,color:#000,stroke:#1565c0
 ```
 
 **How it works:** Same key locks and unlocks data (like two people sharing a secret handshake)
@@ -165,8 +165,8 @@ flowchart LR
     I2 --> H --> O2
     I3 --> H --> O3
 
-    style H fill:#fff3e0,stroke:#e65100,stroke-width:2px
-    style Outputs fill:#f3e5f5,stroke:#6a1b9a
+    style H fill:#fff3e0,color:#000,stroke:#e65100,stroke-width:2px
+    style Outputs fill:#f3e5f5,color:#000,stroke:#6a1b9a
 ```
 
 ### The Database Corruption Detective Story
@@ -269,8 +269,8 @@ flowchart TB
         COMPARE -->|"No"| INVALID["❌ Tampered or Forged"]
     end
 
-    style Signing fill:#e8f5e9,stroke:#2e7d32
-    style VERIFY fill:#e3f2fd,stroke:#1565c0
+    style Signing fill:#e8f5e9,color:#000,stroke:#2e7d32
+    style VERIFY fill:#e3f2fd,color:#000,stroke:#1565c0
 ```
 
 **The process is elegant in its simplicity:**

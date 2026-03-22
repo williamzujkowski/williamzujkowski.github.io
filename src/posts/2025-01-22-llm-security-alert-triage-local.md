@@ -58,9 +58,9 @@ flowchart LR
     GPU[NVIDIA GPU\n8GB VRAM]
     Ollama -.->|Inference| GPU
 
-    classDef local fill:#3498db
-    classDef alert fill:#e74c3c
-    classDef output fill:#2ecc71
+    classDef local fill:#3498db,color:#fff
+    classDef alert fill:#e74c3c,color:#fff
+    classDef output fill:#2ecc71,color:#000
 
     class Processor,Ollama,GPU local
     class Alerts,DB alert
@@ -243,7 +243,7 @@ flowchart LR
     HistoricalDB -.->|Embeddings| Retriever
     ThreatIntel -.->|IOCs| Context
 
-    classDef rag fill:#9b59b6
+    classDef rag fill:#9b59b6,color:#fff
     class Retriever,Context rag
 ```
 

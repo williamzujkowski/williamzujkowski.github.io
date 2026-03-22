@@ -51,8 +51,8 @@ flowchart LR
         STD -- "Auto-load relevant\nstandards" --> C2["Claude CLI"]
     end
 
-    style Before fill:#ffcccc
-    style After fill:#ccffcc
+    style Before fill:#ffcccc,color:#000
+    style After fill:#ccffcc,color:#000
 ```
 
 ## Enter the Standards Repository

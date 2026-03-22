@@ -84,7 +84,7 @@ flowchart TB
     Tester --> Memory
 
     classDef purpleNode fill:#9c27b0,stroke:#fff,stroke-width:2px,color:#fff
-    classDef yellowNode fill:#ffd54f,stroke:#333,stroke-width:2px
+    classDef yellowNode fill:#ffd54f,color:#000,stroke:#333,stroke-width:2px
     classDef greenNode fill:#4caf50,stroke:#fff,stroke-width:2px,color:#fff
     class Orch purpleNode
     class Memory yellowNode
@@ -152,11 +152,11 @@ flowchart LR
     R -.-> M4[TDD & Iteration]
     C -.-> M5[Integration & Deploy]
 
-    classDef blueNode fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    classDef purpleNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    classDef orangeNode fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    classDef greenNode fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    classDef redNode fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef blueNode fill:#e3f2fd,color:#000,stroke:#1976d2,stroke-width:2px
+    classDef purpleNode fill:#f3e5f5,color:#000,stroke:#7b1fa2,stroke-width:2px
+    classDef orangeNode fill:#fff3e0,color:#000,stroke:#f57c00,stroke-width:2px
+    classDef greenNode fill:#e8f5e9,color:#000,stroke:#388e3c,stroke-width:2px
+    classDef redNode fill:#ffebee,color:#000,stroke:#d32f2f,stroke-width:2px
     class S blueNode
     class P purpleNode
     class A orangeNode

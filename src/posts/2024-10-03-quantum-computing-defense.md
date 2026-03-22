@@ -42,9 +42,9 @@ flowchart LR
     M --> C0
     M --> C1
 
-    classDef hadamardStyle fill:#2196f3
-    classDef cnotStyle fill:#9c27b0
-    classDef measureStyle fill:#4caf50
+    classDef hadamardStyle fill:#2196f3,color:#fff
+    classDef cnotStyle fill:#9c27b0,color:#fff
+    classDef measureStyle fill:#4caf50,color:#fff
     class H hadamardStyle
     class CNOT cnotStyle
     class M measureStyle

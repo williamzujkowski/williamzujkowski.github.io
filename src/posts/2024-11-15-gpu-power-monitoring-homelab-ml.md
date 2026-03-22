@@ -175,8 +175,8 @@ graph LR
         GPUB --> RB[All 50<br/>Responses]
     end
 
-    style IDLE1 fill:#f96,stroke:#333
-    style GPUB fill:#6b6,stroke:#333
+    style IDLE1 fill:#f96,color:#000,stroke:#333
+    style GPUB fill:#6b6,color:#fff,stroke:#333
 ```
 
 For instance, when writing blog posts, I used to ask the LLM to review each paragraph individually as I wrote it. Now I write the entire draft, then submit all paragraphs in a single batch request. This reduced my average "blog editing" power consumption from 42Wh per post to 18Wh, a 57% improvement.
@@ -220,9 +220,9 @@ flowchart TD
     TIMEOUT -->|Yes| ABORT[Auto-Abort Job<br/>+ Checkpoint State]
     TIMEOUT -->|No| GPU
 
-    style ALERT fill:#ff9,stroke:#333
-    style KILL fill:#f66,stroke:#333
-    style ABORT fill:#f96,stroke:#333
+    style ALERT fill:#ff9,color:#000,stroke:#333
+    style KILL fill:#f66,color:#fff,stroke:#333
+    style ABORT fill:#f96,color:#000,stroke:#333
 ```
 
 ## Optimization Strategies That Actually Worked
@@ -275,10 +275,10 @@ flowchart TD
     IDLE -->|Yes| UNLOAD[Unload Model<br/>Drop to 52W baseline]
     IDLE -->|No| WAIT[Keep Model Loaded<br/>87W standby]
 
-    style CPU fill:#6b6,stroke:#333
-    style PHI fill:#8b8,stroke:#333
-    style LLAMA8 fill:#cc8,stroke:#333
-    style LLAMA70 fill:#f96,stroke:#333
+    style CPU fill:#6b6,color:#fff,stroke:#333
+    style PHI fill:#8b8,color:#000,stroke:#333
+    style LLAMA8 fill:#cc8,color:#000,stroke:#333
+    style LLAMA70 fill:#f96,color:#000,stroke:#333
 ```
 
 ## Cost-Benefit Analysis

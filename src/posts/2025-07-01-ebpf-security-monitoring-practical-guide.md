@@ -62,9 +62,9 @@ flowchart TB
     Monitor --> AI
     AI --> SIEM
 
-    classDef bpfStyle fill:#ff9800
-    classDef aiStyle fill:#9c27b0
-    classDef siemStyle fill:#4caf50
+    classDef bpfStyle fill:#ff9800,color:#000
+    classDef aiStyle fill:#9c27b0,color:#fff
+    classDef siemStyle fill:#4caf50,color:#fff
     class BPF bpfStyle
     class AI aiStyle
     class SIEM siemStyle
@@ -101,8 +101,8 @@ flowchart LR
         E3 -->|Milliseconds| E4
     end
 
-    classDef traditionalStyle fill:#f44336
-    classDef ebpfStyle fill:#4caf50
+    classDef traditionalStyle fill:#f44336,color:#fff
+    classDef ebpfStyle fill:#4caf50,color:#fff
     class T5 traditionalStyle
     class E4 ebpfStyle
 ```

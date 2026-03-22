@@ -57,7 +57,7 @@ flowchart TB
 
     classDef agentNode fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff
     classDef catfishNode fill:#dc2626,stroke:#fff,stroke-width:2px,color:#fff
-    classDef processNode fill:#f59e0b,stroke:#333,stroke-width:2px
+    classDef processNode fill:#f59e0b,color:#000,stroke:#333,stroke-width:2px
     classDef resultNode fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
     classDef rejectNode fill:#ef4444,stroke:#fff,stroke-width:2px,color:#fff
     class Arch,Sec,DevEx,PM agentNode

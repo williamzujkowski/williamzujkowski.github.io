@@ -50,8 +50,8 @@ graph LR
         AGG -->|Updated weights| M2B
         AGG -->|Updated weights| M2C
     end
-    style D fill:#f96,stroke:#333
-    style AGG fill:#6b6,stroke:#333
+    style D fill:#f96,color:#000,stroke:#333
+    style AGG fill:#6b6,color:#fff,stroke:#333
 ```
 
 **The dilemma:** How do you train accurate models without seeing the raw data?

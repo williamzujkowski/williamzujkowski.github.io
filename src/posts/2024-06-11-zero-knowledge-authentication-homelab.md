@@ -65,9 +65,9 @@ flowchart LR
     DB[(User DB\nPublic Keys Only)]
     Server -.->|Lookup public key| DB
 
-    classDef client fill:#3498db
-    classDef server fill:#e74c3c
-    classDef crypto fill:#9b59b6
+    classDef client fill:#3498db,color:#fff
+    classDef server fill:#e74c3c,color:#fff
+    classDef crypto fill:#9b59b6,color:#fff
 
     class User,Client,ProofGen client
     class Server,Verifier,TokenIssue server

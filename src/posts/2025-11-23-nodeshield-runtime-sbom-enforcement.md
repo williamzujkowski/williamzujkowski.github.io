@@ -60,9 +60,9 @@ flowchart LR
     SBOM[Static SBOM] -.->|Generate| Policy
     Outliner[Static Outliner] -.->|Analyze| SBOM
 
-    classDef runtime fill:#e74c3c
-    classDef static fill:#3498db
-    classDef policy fill:#2ecc71
+    classDef runtime fill:#e74c3c,color:#fff
+    classDef static fill:#3498db,color:#fff
+    classDef policy fill:#2ecc71,color:#000
 
     class NSHook,Block runtime
     class SBOM,Outliner static

@@ -44,8 +44,8 @@ flowchart TD
     VLAN --> NAC
     NAC --> EDR
 
-    classDef blueNode fill:#2196f3
-    classDef greenNode fill:#4caf50
+    classDef blueNode fill:#2196f3,color:#fff
+    classDef greenNode fill:#4caf50,color:#fff
     class FW blueNode
     class EDR greenNode
 ```

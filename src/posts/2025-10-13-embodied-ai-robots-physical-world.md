@@ -47,8 +47,8 @@ flowchart LR
 
     C -.evolves into.-> E
 
-    classDef highlight1 fill:#e11d48
-    classDef highlight2 fill:#10b981
+    classDef highlight1 fill:#e11d48,color:#fff
+    classDef highlight2 fill:#10b981,color:#fff
     class E highlight1
     class H highlight2
 ```
@@ -157,9 +157,9 @@ flowchart TB
 
     H[Human Supervisor] --> E
 
-    classDef highlight1 fill:#3b82f6
-    classDef highlight2 fill:#ef4444
-    classDef highlight3 fill:#f59e0b
+    classDef highlight1 fill:#3b82f6,color:#fff
+    classDef highlight2 fill:#ef4444,color:#fff
+    classDef highlight3 fill:#f59e0b,color:#000
     class A highlight1
     class E highlight2
     class G highlight3

@@ -114,7 +114,7 @@ flowchart LR
     Outcome -.->|reward signal| LB
 
     classDef routerNode fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff
-    classDef ioNode fill:#f59e0b,stroke:#333,stroke-width:2px
+    classDef ioNode fill:#f59e0b,color:#000,stroke:#333,stroke-width:2px
     classDef adaptNode fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
     class BR,ZR,PR,TR routerNode
     class Task,Model,Exec,Outcome ioNode

@@ -112,9 +112,9 @@ flowchart TD
     I --> J[Layer 31]
     J --> K[Output Tokens]
 
-    classDef layerStyle fill:#10b981
-    classDef unloadStyle fill:#ef4444
-    classDef loadStyle fill:#3b82f6
+    classDef layerStyle fill:#10b981,color:#fff
+    classDef unloadStyle fill:#ef4444,color:#fff
+    classDef loadStyle fill:#3b82f6,color:#fff
     class B,E,H,J layerStyle
     class C,F unloadStyle
     class D,G loadStyle
@@ -334,10 +334,10 @@ flowchart LR
     D[PIPELOAD] -->|Memory| E[10-14%]
     D -->|Speed| F[88% single device<br/>425% edge vs swap]
 
-    classDef highMemStyle fill:#ef4444
-    classDef lowMemStyle fill:#10b981
-    classDef highSpeedStyle fill:#10b981
-    classDef medSpeedStyle fill:#f59e0b
+    classDef highMemStyle fill:#ef4444,color:#fff
+    classDef lowMemStyle fill:#10b981,color:#fff
+    classDef highSpeedStyle fill:#10b981,color:#fff
+    classDef medSpeedStyle fill:#f59e0b,color:#000
     class B highMemStyle
     class E lowMemStyle
     class C highSpeedStyle

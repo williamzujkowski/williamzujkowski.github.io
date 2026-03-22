@@ -44,7 +44,7 @@ flowchart LR
     Manager -->|Alerts| Dashboard[Wazuh Dashboard]
     Dashboard -->|Query| Indexer
 
-    classDef wazuh fill:#3498db
+    classDef wazuh fill:#3498db,color:#fff
     class Agent1,Agent2,Manager,Indexer,Dashboard wazuh
 ```
 
@@ -58,7 +58,7 @@ flowchart LR
     Graylog -->|Index| Elastic[(Elasticsearch)]
     Graylog -->|Search| WebUI[Graylog Web]
 
-    classDef graylog fill:#e74c3c
+    classDef graylog fill:#e74c3c,color:#fff
     class Beats1,Beats2,Graylog,Mongo,Elastic,WebUI graylog
 ```
 
@@ -346,7 +346,7 @@ flowchart LR
     Wazuh -.->|Forward Alerts| Graylog
     Graylog -.->|Enrich| Wazuh
 
-    classDef hybrid fill:#9b59b6
+    classDef hybrid fill:#9b59b6,color:#fff
     class Wazuh,Graylog hybrid
 ```
 

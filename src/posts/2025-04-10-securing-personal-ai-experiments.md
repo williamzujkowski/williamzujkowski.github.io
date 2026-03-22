@@ -70,8 +70,8 @@ flowchart LR
     Deploy --> Monitor
     Monitor -->|Feedback| Train
 
-    classDef trainStyle fill:#9c27b0
-    classDef deployStyle fill:#4caf50
+    classDef trainStyle fill:#9c27b0,color:#fff
+    classDef deployStyle fill:#4caf50,color:#fff
     class Train trainStyle
     class Deploy deployStyle
 ```

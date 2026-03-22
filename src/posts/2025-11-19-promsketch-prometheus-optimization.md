@@ -58,9 +58,9 @@ flowchart LR
     Prom -.->|Background| Sketcher[Sketch Builder]
     Sketcher -.->|Update| Cache
 
-    classDef fast fill:#2ecc71
-    classDef slow fill:#e74c3c
-    classDef optimize fill:#3498db
+    classDef fast fill:#2ecc71,color:#000
+    classDef slow fill:#e74c3c,color:#fff
+    classDef optimize fill:#3498db,color:#fff
 
     class PromSketch,Optimizer,Cache,Sketcher optimize
     class Result fast

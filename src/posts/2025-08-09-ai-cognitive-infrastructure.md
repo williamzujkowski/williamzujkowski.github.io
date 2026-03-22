@@ -58,8 +58,8 @@ flowchart TB
     Analysis --> Thinking
     Creativity --> Thinking
 
-    classDef aiStyle fill:#e11d48
-    classDef thinkStyle fill:#10b981
+    classDef aiStyle fill:#e11d48,color:#fff
+    classDef thinkStyle fill:#10b981,color:#fff
     class AI,ML,NLP aiStyle
     class Thinking thinkStyle
 ```
@@ -102,8 +102,8 @@ flowchart LR
         Path3 --> Outcome3[Optimized Learning C]
     end
 
-    classDef purpleStyle fill:#8b5cf6
-    classDef yellowStyle fill:#fbbf24
+    classDef purpleStyle fill:#8b5cf6,color:#fff
+    classDef yellowStyle fill:#fbbf24,color:#000
     class AI purpleStyle
     class Path1,Path2,Path3 yellowStyle
 ```
@@ -155,8 +155,8 @@ flowchart TD
     Later -.->|Rarely Seen| Void
     Echo -.->|Reinforcement| Decision
 
-    classDef redStyle fill:#ef4444
-    classDef orangeStyle fill:#f59e0b
+    classDef redStyle fill:#ef4444,color:#fff
+    classDef orangeStyle fill:#f59e0b,color:#000
     class Hidden,Void redStyle
     class Bubble,Echo orangeStyle
 ```

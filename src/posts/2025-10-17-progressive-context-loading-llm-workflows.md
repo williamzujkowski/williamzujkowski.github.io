@@ -48,8 +48,8 @@ flowchart TD
     E --> H[99% unused context]
     G --> I[98% accuracy in prediction]
 
-    classDef monolithicStyle fill:#ff6b6b
-    classDef progressiveStyle fill:#51cf66
+    classDef monolithicStyle fill:#ff6b6b,color:#fff
+    classDef progressiveStyle fill:#51cf66,color:#000
     class E monolithicStyle
     class G progressiveStyle
 ```
@@ -178,9 +178,9 @@ flowchart LR
     I --> F
     H -->|No| J[Request Clarification]
 
-    classDef primaryStyle fill:#51cf66
-    classDef dependencyStyle fill:#ffd93d
-    classDef clarificationStyle fill:#6bcfff
+    classDef primaryStyle fill:#51cf66,color:#000
+    classDef dependencyStyle fill:#ffd93d,color:#000
+    classDef clarificationStyle fill:#6bcfff,color:#000
     class E primaryStyle
     class I dependencyStyle
     class J clarificationStyle
@@ -379,8 +379,8 @@ flowchart TD
     M --> N[Generate Custom Skill]
     N --> I
 
-    classDef compressedStyle fill:#51cf66
-    classDef customStyle fill:#ffd93d
+    classDef compressedStyle fill:#51cf66,color:#000
+    classDef customStyle fill:#ffd93d,color:#000
     class G compressedStyle
     class N customStyle
 ```

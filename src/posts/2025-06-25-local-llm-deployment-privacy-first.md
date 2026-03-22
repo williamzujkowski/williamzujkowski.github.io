@@ -58,9 +58,9 @@ flowchart TB
     API --> UI
     API --> CLI
 
-    classDef orangeNode fill:#ff9800
-    classDef greenNode fill:#4caf50
-    classDef blueNode fill:#2196f3
+    classDef orangeNode fill:#ff9800,color:#000
+    classDef greenNode fill:#4caf50,color:#fff
+    classDef blueNode fill:#2196f3,color:#fff
     class GPU orangeNode
     class Engine greenNode
     class API blueNode

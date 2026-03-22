@@ -79,9 +79,9 @@ flowchart TB
     PDP -->|Allow/Deny| Services
     PDP -->|Allow/Deny| Network
 
-    classDef pepStyle fill:#ff5252
-    classDef trustStyle fill:#ff9800
-    classDef pdpStyle fill:#4caf50
+    classDef pepStyle fill:#ff5252,color:#fff
+    classDef trustStyle fill:#ff9800,color:#000
+    classDef pdpStyle fill:#4caf50,color:#fff
     class PEP pepStyle
     class Trust trustStyle
     class PDP pdpStyle
@@ -142,9 +142,9 @@ flowchart TD
     Anomaly -->|Yes| Revoke[Revoke Access]
     Anomaly -->|No| Monitor
 
-    classDef denyStyle fill:#f44336
-    classDef grantStyle fill:#4caf50
-    classDef monitorStyle fill:#2196f3
+    classDef denyStyle fill:#f44336,color:#fff
+    classDef grantStyle fill:#4caf50,color:#fff
+    classDef monitorStyle fill:#2196f3,color:#fff
     class Deny denyStyle
     class Grant grantStyle
     class Monitor monitorStyle

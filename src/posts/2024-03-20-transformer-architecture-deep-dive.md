@@ -41,8 +41,8 @@ flowchart TD
     MHA2 --> Cross
     Cross --> FFN2
 
-    classDef orange fill:#ff9800,stroke:#e65100,stroke-width:2px
-    classDef purple fill:#9c27b0,stroke:#6a1b9a,stroke-width:2px
+    classDef orange fill:#ff9800,color:#000,stroke:#e65100,stroke-width:2px
+    classDef purple fill:#9c27b0,color:#fff,stroke:#6a1b9a,stroke-width:2px
     class MHA1 orange
     class Cross purple
 ```

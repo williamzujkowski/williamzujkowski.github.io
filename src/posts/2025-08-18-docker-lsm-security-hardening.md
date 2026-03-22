@@ -143,9 +143,9 @@ flowchart TB
     Layer4 -.->|Bypass user NS?| Layer5
     Layer5 -.->|Blocked| Host[Host Protected]
 
-    classDef layer fill:#3498db
-    classDef attack fill:#e74c3c
-    classDef safe fill:#2ecc71
+    classDef layer fill:#3498db,color:#fff
+    classDef attack fill:#e74c3c,color:#fff
+    classDef safe fill:#2ecc71,color:#000
 
     class Layer1,Layer2,Layer3,Layer4,Layer5 layer
     class Attacker attack
