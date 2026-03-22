@@ -20,36 +20,6 @@ By June 2024, I had created distinct VLANs for management (192.168.1.0/24), serv
 
 ## How It Works
 
-```mermaid
-flowchart TD
-    subgraph perimeter["Perimeter"]
-        FW[Firewall]
-        WAF[WAF]
-        IDS[IDS/IPS]
-    end
-    subgraph network["Network"]
-        VLAN[Segmentation]
-        NAC[Access Control]
-    end
-    subgraph endpoint["Endpoint"]
-        EDR[EDR]
-        AV[Antivirus]
-        DLP[DLP]
-    end
-
-    Internet --> FW
-    FW --> WAF
-    WAF --> IDS
-    IDS --> VLAN
-    VLAN --> NAC
-    NAC --> EDR
-
-    classDef blueNode fill:#2196f3,color:#fff
-    classDef greenNode fill:#4caf50,color:#fff
-    class FW blueNode
-    class EDR greenNode
-```
-
 ## The Perimeter Security Illusion
 
 For decades, we'd built security around a simple premise: establish a secure perimeter, trust everything inside it, and scrutinize everything trying to get in. This model worked when employees sat at office desks connected to corporate networks, but it crumbled as work became distributed, cloud-first, and mobile.

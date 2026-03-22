@@ -85,29 +85,6 @@ The AI infrastructure market is exploding from [$47.23 billion in 2024 to a proj
 
 This isn't digitization. It's cognitive intermediation at civilization scale.
 
-```mermaid
-flowchart LR
-    subgraph traditionallearning["Traditional Learning"]
-        Teacher[Teacher] --> Student1[Student A]
-        Teacher --> Student2[Student B]
-        Teacher --> Student3[Student C]
-    end
-    subgraph aiaugmentedlearning["AI-Augmented Learning"]
-        AI[AI System] --> Path1[Personalized Path A]
-        AI --> Path2[Personalized Path B]
-        AI --> Path3[Personalized Path C]
-
-        Path1 --> Outcome1[Optimized Learning A]
-        Path2 --> Outcome2[Optimized Learning B]
-        Path3 --> Outcome3[Optimized Learning C]
-    end
-
-    classDef purpleStyle fill:#8b5cf6,color:#fff
-    classDef yellowStyle fill:#fbbf24,color:#000
-    class AI purpleStyle
-    class Path1,Path2,Path3 yellowStyle
-```
-
 ## The Cognitive Debt Crisis
 
 MIT's research on ["Your Brain on ChatGPT"](https://www.media.mit.edu/publications/) reveals a disturbing phenomenon. Cognitive debt accumulates when we offload thinking to AI systems, similar to technical debt in code.

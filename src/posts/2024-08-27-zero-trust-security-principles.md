@@ -37,56 +37,6 @@ Zero Trust addresses this by verifying every access request, regardless of netwo
 
 ⚠️ **Warning:** This diagram illustrates security architecture concepts for educational purposes. Implementation should follow organizational security policies and include proper authorization controls.
 
-```mermaid
-flowchart TB
-    subgraph identityaccess["Identity & Access"]
-        User[Users]
-        Device[Devices]
-        Apps[Applications]
-    end
-    subgraph policyengine["Policy Engine"]
-        PEP[Policy Enforcement]
-        PDP[Policy Decision]
-        Trust[Trust Engine]
-    end
-    subgraph verification["Verification"]
-        MFA[Multi-Factor Auth]
-        Risk[Risk Assessment]
-        Context[Context Analysis]
-    end
-    subgraph resources["Resources"]
-        Data[(Data)]
-        Services[Services]
-        Network[Network]
-    end
-
-    User --> PEP
-    Device --> PEP
-    Apps --> PEP
-
-    PEP --> PDP
-    PDP --> Trust
-
-    Trust --> MFA
-    Trust --> Risk
-    Trust --> Context
-
-    MFA --> PDP
-    Risk --> PDP
-    Context --> PDP
-
-    PDP -->|Allow/Deny| Data
-    PDP -->|Allow/Deny| Services
-    PDP -->|Allow/Deny| Network
-
-    classDef pepStyle fill:#ff5252,color:#fff
-    classDef trustStyle fill:#ff9800,color:#000
-    classDef pdpStyle fill:#4caf50,color:#fff
-    class PEP pepStyle
-    class Trust trustStyle
-    class PDP pdpStyle
-```
-
 ### Architecture Components Explained
 
 The Zero Trust Architecture diagram illustrates the policy-driven access control model:
@@ -116,39 +66,6 @@ The Zero Trust Architecture diagram illustrates the policy-driven access control
 - All access decisions logged for compliance and forensic analysis
 
 ## Zero Trust Verification Flow
-
-```mermaid
-flowchart TD
-    Start([Access Request]) --> Identity[Verify Identity]
-    Identity --> Device[Verify Device]
-    Device --> Context[Check Context]
-    Context --> Risk[Assess Risk]
-    
-    Risk --> Level{Risk Level?}
-    Level -->|High| Deny[Deny Access]
-    Level -->|Medium| MFA[Require MFA]
-    Level -->|Low| Policy[Check Policies]
-    
-    MFA --> Valid{Valid?}
-    Valid -->|No| Deny
-    Valid -->|Yes| Policy
-    
-    Policy --> Pass{Pass?}
-    Pass -->|No| Deny
-    Pass -->|Yes| Grant[Grant Access]
-    
-    Grant --> Monitor[Monitor Session]
-    Monitor --> Anomaly{Anomaly?}
-    Anomaly -->|Yes| Revoke[Revoke Access]
-    Anomaly -->|No| Monitor
-
-    classDef denyStyle fill:#f44336,color:#fff
-    classDef grantStyle fill:#4caf50,color:#fff
-    classDef monitorStyle fill:#2196f3,color:#fff
-    class Deny denyStyle
-    class Grant grantStyle
-    class Monitor monitorStyle
-```
 
 ### Verification Flow Stages
 

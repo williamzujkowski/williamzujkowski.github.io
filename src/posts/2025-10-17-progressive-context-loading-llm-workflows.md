@@ -356,35 +356,6 @@ Use embeddings to auto-discover skill relationships. Loading `python/type-safety
 
 ⚠️ **Warning:** This diagram represents a conceptual architecture requiring significant ML infrastructure (RL training, embedding models, semantic search). Only implement with proper resource planning.
 
-```mermaid
-flowchart TD
-    A[Task: Validate Python File] --> B{Learned Router}
-    B -->|98% confidence| C[Core Skills 1.8K]
-    B -->|85% confidence| D[Extended Skills +2.1K]
-    B -->|Unknown pattern| E[Query Skill Graph]
-
-    C --> F{Compressed Format?}
-    F -->|Yes| G[Load Compressed 0.7K]
-    F -->|No| H[Load Standard 1.8K]
-
-    G --> I[Decompress On-Device]
-    H --> I
-    I --> J[Execute Validation]
-
-    D --> K[Semantic Similarity Search]
-    K --> L[Auto-Discover Dependencies]
-    L --> I
-
-    E --> M[Embedding-Based Retrieval]
-    M --> N[Generate Custom Skill]
-    N --> I
-
-    classDef compressedStyle fill:#51cf66,color:#000
-    classDef customStyle fill:#ffd93d,color:#000
-    class G compressedStyle
-    class N customStyle
-```
-
 Target: 99.5%+ token reduction while handling novel tasks without manual skill authoring.
 
 ## Implementation Guide

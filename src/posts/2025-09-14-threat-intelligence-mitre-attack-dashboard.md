@@ -34,21 +34,6 @@ According to [research from the Cyber Threat Alliance (2024)](https://www.cybert
 
 ⚠️ **Warning:** Threat intelligence systems collect sensitive security information. Implement proper access controls and follow data protection requirements for security monitoring.
 
-```mermaid
-flowchart LR
-    A[Initial Access] --> B[Execution]
-    B --> C[Persistence]
-    C --> D[Privilege Escalation]
-    D --> E[Defense Evasion]
-    E --> F[Credential Access]
-    F --> G[Discovery]
-    G --> H[Lateral Movement]
-    H --> I[Collection]
-    I --> J[C&C]
-    J --> K[Exfiltration]
-    K --> L[Impact]
-```
-
 Each tactic contains multiple techniques. **Initial Access includes:**
 - Phishing (T1566)
 - External Remote Services (T1133)

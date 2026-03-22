@@ -19,37 +19,6 @@ Having followed this field closely since 2018, I've come to understand that quan
 
 ## How It Works
 
-```mermaid
-flowchart LR
-    subgraph initialization["Initialization"]
-        Q0[Qubit 0: Zero State]
-        Q1[Qubit 1: Zero State]
-    end
-    subgraph quantumgates["Quantum Gates"]
-        H[Hadamard Gate]
-        CNOT[CNOT Gate]
-        M[Measurement]
-    end
-    subgraph classicaloutput["Classical Output"]
-        C0[Classical Bit 0]
-        C1[Classical Bit 1]
-    end
-
-    Q0 --> H
-    H --> CNOT
-    Q1 --> CNOT
-    CNOT --> M
-    M --> C0
-    M --> C1
-
-    classDef hadamardStyle fill:#2196f3,color:#fff
-    classDef cnotStyle fill:#9c27b0,color:#fff
-    classDef measureStyle fill:#4caf50,color:#fff
-    class H hadamardStyle
-    class CNOT cnotStyle
-    class M measureStyle
-```
-
 ## The Quantum Advantage: Beyond Classical Limitations
 
 Quantum computing uses principles of quantum mechanics (superposition, entanglement, and quantum interference) to perform certain calculations exponentially faster than classical computers. While today's quantum computers are still noisy and limited, they're already capable enough to impact defense planning.

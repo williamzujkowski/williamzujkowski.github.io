@@ -17,38 +17,6 @@ This experience taught me that choosing between open-source and proprietary LLMs
 
 ## How It Works
 
-```mermaid
-flowchart LR
-    subgraph datapipeline["Data Pipeline"]
-        Raw[Raw Data]
-        Clean[Cleaning]
-        Feature[Feature Engineering]
-    end
-    subgraph modeltraining["Model Training"]
-        Train[Training]
-        Val[Validation]
-        Test[Testing]
-    end
-    subgraph deployment["Deployment"]
-        Deploy[Model Deployment]
-        Monitor[Monitoring]
-        Update[Updates]
-    end
-
-    Raw --> Clean
-    Clean --> Feature
-    Feature --> Train
-    Train --> Val
-    Val --> Test
-    Test --> Deploy
-    Deploy --> Monitor
-    Monitor -->|Feedback| Train
-
-    classDef trainStyle fill:#9c27b0,color:#fff
-    classDef deployStyle fill:#4caf50,color:#fff
-    class Train trainStyle
-    class Deploy deployStyle
-```
 
 ## The Accessibility Question: Freedom vs. Convenience
 
