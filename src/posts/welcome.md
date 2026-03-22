@@ -1,5 +1,7 @@
 ---
 date: 2025-01-01
+image: https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1200&h=630
+imageAlt: "Colorful code on a computer screen"
 author: William Zujkowski
 description: Build privacy-respecting sites with Eleventy—create fast, accessible static websites with zero tracking and excellent Core Web Vitals.
 images:

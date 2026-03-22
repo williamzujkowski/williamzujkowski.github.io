@@ -3,6 +3,8 @@ title: "Building a 3,500-Book Digital Library with Astro and Six APIs"
 date: 2026-02-23
 description: "How I built Tsundoku — a curated digital bookshelf with multi-source enrichment, free reading links, and a static-site architecture that serves 3,500+ books without a database."
 tags: [astro, svelte, python, projects, reading]
+image: https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200&h=630
+imageAlt: "Library bookshelves filled with books"
 author: William Zujkowski
 ---
 
