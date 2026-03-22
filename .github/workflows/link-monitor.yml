@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@v6
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -75,7 +75,7 @@ jobs:
           --output-dir reports
 
     - name: Upload Reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: link-validation-reports
         path: reports/
@@ -142,7 +142,7 @@ jobs:
 
     - name: Create Issue for Broken Links
       if: failure() && github.event_name == 'schedule'
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs');
@@ -166,7 +166,7 @@ jobs:
 
     - name: Comment on PR
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs');
@@ -208,7 +208,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.11'
 
@@ -224,7 +224,7 @@ jobs:
         uv pip install --system "aiohttp>=3.13.3" "urllib3>=2.6.3"
 
     - name: Download Artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: link-validation-reports
         path: reports/
