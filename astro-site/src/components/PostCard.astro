@@ -20,6 +20,7 @@ const { post, showTags = false } = Astro.props;
 
 const readingTime = getReadingTime(post.body ?? '');
 const tags = (post.data.tags ?? []).filter((t: string) => t !== 'posts');
+const displayTags = tags.slice(0, 3);
 const formattedDate = post.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'short',
@@ -40,4 +41,11 @@ const formattedDate = post.data.date.toLocaleDateString('en-US', {
     </time>
     &middot; {readingTime} min read
   </div>
+  {showTags && displayTags.length > 0 && (
+    <div class="chip-row" style="margin-block-start: 0.5rem;">
+      {displayTags.map((tag) => (
+        <a href={`/tags/${tag}/`} class="chip">{tag}</a>
+      ))}
+    </div>
+  )}
 </article>

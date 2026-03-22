@@ -19,26 +19,18 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
 <BaseLayout title="Tags" description="Browse all blog post tags.">
-  <section class="py-12 sm:py-16">
-    <div>
-      <div class="max-w-2xl mb-12">
-        <h1 class="text-3xl font-bold tracking-tight" style="font-size: clamp(1.75rem, 3.5vw, 2rem)">
-          Tags
-        </h1>
-        <p class="mt-2">
-          {sortedTags.length} tags across {posts.length} posts
-        </p>
-      </div>
+  <h1>Tags</h1>
+  <p style="margin-block-end: 1.5rem;">
+    {sortedTags.length} tags across {posts.length} posts
+  </p>
 
-      <div class="flex flex-wrap gap-3">
-        {
-          sortedTags.map(([tag, count]) => (
-            <a href={`/tags/${tag}/`} class="chip text-sm">
-              {tag} ({count})
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <div class="chip-row">
+    {
+      sortedTags.map(([tag, count]) => (
+        <a href={`/tags/${tag}/`} class="chip">
+          {tag} ({count})
+        </a>
+      ))
+    }
+  </div>
 </BaseLayout>

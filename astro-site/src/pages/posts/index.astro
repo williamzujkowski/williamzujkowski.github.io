@@ -32,13 +32,13 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
 >
   <h1>Blog</h1>
-  <p>
-    {posts.length} posts &middot;
+  <p style="margin-block-end: 0.75rem;">{posts.length} posts</p>
+  <div class="chip-row" style="margin-block-end: 2rem;">
     {topTags.map(([tag, count]) => (
-      <a href={`/tags/${tag}/`} style="margin-inline-start: 0.25rem;">{tag}&nbsp;({count})</a>
+      <a href={`/tags/${tag}/`} class="chip">{tag} ({count})</a>
     ))}
-    &middot; <a href="/tags/">all tags</a>
-  </p>
+    <a href="/tags/" class="chip">all tags</a>
+  </div>
 
   {years.map((year) => (
     <section>
@@ -49,7 +49,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
         </span>
       </h2>
       {postsByYear.get(year)!.map((post) => (
-        <PostCard post={post} />
+        <PostCard post={post} showTags={true} />
       ))}
     </section>
   ))}

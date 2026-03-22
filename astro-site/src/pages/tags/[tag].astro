@@ -24,33 +24,18 @@ const { tag, posts } = Astro.props;
 ---
 
 <BaseLayout title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
-  <section class="py-12 sm:py-16">
-    <div>
-      <div class="max-w-2xl mb-12">
-        <nav aria-label="Breadcrumb" class="mb-4">
-          <ol class="flex items-center gap-2 text-sm">
-            <li><a href="/">Home</a></li>
-            <li aria-hidden="true">/</li>
-            <li><a href="/posts/">Blog</a></li>
-            <li aria-hidden="true">/</li>
-            <li class="font-medium">{tag}</li>
-          </ol>
-        </nav>
-        <h1 class="text-3xl font-bold tracking-tight" style="font-size: clamp(1.75rem, 3.5vw, 2rem)">
-          {tag}
-        </h1>
-        <p class="mt-2">
-          {posts.length} post{posts.length === 1 ? '' : 's'}
-        </p>
-      </div>
+  <nav aria-label="Breadcrumb" class="post-breadcrumb">
+    <a href="/">Home</a> / <a href="/posts/">Blog</a> / <a href="/tags/">Tags</a> / {tag}
+  </nav>
 
-      <div class="space-y-6">
-        {
-          posts.map((post) => (
-            <PostCard post={post} variant="horizontal" />
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <h1>{tag}</h1>
+  <p style="margin-block-end: 2rem;">
+    {posts.length} post{posts.length === 1 ? '' : 's'}
+  </p>
+
+  {
+    posts.map((post) => (
+      <PostCard post={post} showTags={true} />
+    ))
+  }
 </BaseLayout>
