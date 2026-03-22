@@ -52,7 +52,7 @@ However: no IOCs were found. No `tpcp-docs` repo appeared on my account. No susp
 
 Every repo got the same remediation: pin `trivy-action` to the known-safe commit SHA instead of a mutable version tag.
 
-```yaml
+```yaml title=".github/workflows/security.yml"
 # Before (vulnerable — tags are mutable)
 uses: aquasecurity/trivy-action@0.32.0
 

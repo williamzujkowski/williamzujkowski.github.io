@@ -5,6 +5,31 @@ import rehypeMermaid from 'rehype-mermaid';
 import { visit } from 'unist-util-visit';
 
 /**
+ * Shiki transformer: extract title="filename" from code fence meta
+ * and render a filename tab inside the code block.
+ *
+ * Usage in markdown: ```python title="main.py"
+ * Renders: <div class="code-block"><div class="code-title">main.py</div><pre>...</pre></div>
+ */
+function transformerCodeTitle() {
+  return {
+    name: 'code-title',
+    pre(node) {
+      const meta = this.options.meta?.__raw;
+      if (!meta) return;
+      const match = meta.match(/title="([^"]+)"/);
+      if (!match) return;
+      const title = match[1]
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      // Add a data attribute so CSS can render the title via ::before
+      node.properties['data-title'] = title;
+    },
+  };
+}
+
+/**
  * Convert <picture> elements (from rehype-mermaid dark mode) into
  * two <img> elements with class-based toggling so both OS preference
  * AND the manual .dark/.light toggle work.
@@ -112,6 +137,7 @@ export default defineConfig({
         light: 'github-light',
         dark: 'github-dark',
       },
+      transformers: [transformerCodeTitle()],
     },
     rehypePlugins: [
       [rehypeMermaid, {
