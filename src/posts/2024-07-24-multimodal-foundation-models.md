@@ -6,6 +6,8 @@ title: 'Multimodal Foundation Models: Capabilities, Challenges, and Applications
 tags:
   - ai
   - machine-learning
+  - llm
+  - research
 image: "https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=1200&h=630"
 imageAlt: "Abstract colorful AI visualization with neural patterns"
 

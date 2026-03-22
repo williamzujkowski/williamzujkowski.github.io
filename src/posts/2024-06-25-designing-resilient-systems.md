@@ -5,6 +5,9 @@ description: "The cascade failure that changed how I think about building system
 title: Designing Resilient Systems — Lessons from Things Breaking
 tags:
   - architecture
+  - software-engineering
+  - devops
+  - observability
 image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
 imageAlt: "Data visualization dashboard with analytics"
 

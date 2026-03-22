@@ -7,6 +7,7 @@ title: 'Writing Secure Code: A Developer''s Guide to Thwarting Security Exploits
 tags:
   - programming
   - security
+  - vulnerability-management
 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=630"
 imageAlt: "Code on a computer screen with dark background"
 

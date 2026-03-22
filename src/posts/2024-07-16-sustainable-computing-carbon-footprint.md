@@ -5,6 +5,9 @@ description: Reduce IT carbon footprint with sustainable computing practices—o
 title: 'Sustainable Computing: Strategies for Reducing IT''s Carbon Footprint'
 tags:
   - sustainability
+  - cloud
+  - infrastructure
+  - ethics
 image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&h=630"
 imageAlt: "Wind turbines against a sunset sky"
 
