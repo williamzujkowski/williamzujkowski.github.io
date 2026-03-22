@@ -307,17 +307,31 @@ a.post-card-title:hover {
   background-color: var(--shiki-dark-bg) !important;
 }
 
-/* Mermaid Diagrams */
-.prose :where(svg[id^='mermaid']) {
-  min-width: fit-content; height: auto; display: block;
+/* Mermaid Diagrams — dual-theme (light + dark images rendered at build time) */
+.prose :where(.mermaid-themed) { margin-block: 1.5rem; }
+.prose :where(.mermaid-themed) img {
+  display: block; max-width: 100%; height: auto;
   margin: 0 auto; border-radius: 0.375rem;
-  background-color: var(--bg); padding: 1rem;
   border: 1px solid var(--border);
 }
+
+/* Default: show light, hide dark */
+.mermaid-dark { display: none !important; }
+.mermaid-light { display: block; }
+
+/* OS dark preference (no manual override): swap */
 @media (prefers-color-scheme: dark) {
-  .prose :where(svg[id^='mermaid']) { filter: invert(0.88) hue-rotate(180deg); background-color: transparent; }
+  :root:not(.light) .mermaid-light { display: none !important; }
+  :root:not(.light) .mermaid-dark { display: block !important; }
 }
-:root.dark .prose :where(svg[id^='mermaid']) { filter: invert(0.88) hue-rotate(180deg); background-color: transparent; }
+
+/* Manual .dark class toggle: swap */
+:root.dark .mermaid-light { display: none !important; }
+:root.dark .mermaid-dark { display: block !important; }
+
+/* Manual .light class toggle: ensure light shows (overrides OS dark) */
+:root.light .mermaid-light { display: block !important; }
+:root.light .mermaid-dark { display: none !important; }
 
 /* "not-prose" escape hatch */
 .not-prose, .not-prose * { font-size: revert; line-height: revert; color: revert; }
