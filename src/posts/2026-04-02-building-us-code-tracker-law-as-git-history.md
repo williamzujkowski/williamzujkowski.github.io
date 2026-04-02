@@ -14,7 +14,7 @@ So I did. [US Code Tracker](https://civic-source.github.io/us-code-tracker/) con
 
 ## The Core Insight
 
-Law changes the same way code changes. A bill passes, the Statutes at Large get a new entry, and the Office of the Law Revision Counsel updates the affected title of the U.S. Code. The OLRC even publishes these as discrete "release points" — essentially tagged releases of the law's source code.
+Law changes the same way code changes. A bill passes, the Statutes at Large get a new entry, and the Office of the Law Revision Counsel updates the affected title of the U.S. Code. The OLRC publishes these as discrete "release points." Tagged releases of the law's source code.
 
 Git was built for exactly this kind of tracked, attributed, diffable text. The missing piece was a pipeline to get from OLRC's XML to a Git repository with clean commits.
 
@@ -23,7 +23,7 @@ Git was built for exactly this kind of tracked, attributed, diffable text. The m
 The project is a [Turborepo](https://turbo.build/) monorepo with five packages and a web app:
 
 ```
-openlaw-git-pipeline/
+us-code-tracker/
 ├── packages/
 │   ├── types/          # Zod schemas (ReleasePoint, PrecedentAnnotation)
 │   ├── fetcher/        # OLRC endpoint scraper + SHA-256 caching
@@ -33,24 +33,15 @@ openlaw-git-pipeline/
 └── apps/web/           # Astro 6 + Svelte 5 static site
 ```
 
-Each package does one thing. The pipeline runs them in sequence: fetch → transform → annotate → commit. A [weekly cron job](https://github.com/civic-source/us-code-tracker/blob/main/.github/workflows/sync-law.yml) keeps it current.
+Each package does one thing. The pipeline runs them in sequence: fetch, transform, annotate, commit. A [weekly cron job](https://github.com/civic-source/us-code-tracker/blob/main/.github/workflows/sync-law.yml) keeps it current.
 
 ## Fetching 230 Release Points
 
 The OLRC publishes release points at `uscode.house.gov/download/priorreleasepoints.htm`. Each one links to ZIP files containing USLM XML for all 54 titles. The fetcher scrapes this page, parses the Public Law number and date from each entry, and downloads the XML ZIPs.
 
-SHA-256 hashing provides idempotency. If a release point's hash matches the last run, it's skipped. This means the weekly cron job only processes new releases.
+SHA-256 hashing provides idempotency. If a release point's hash matches the last run, it's skipped. The weekly cron job only processes new releases.
 
-```typescript
-export function parsePriorReleasePoints(html: string): ParsedPriorReleasePoint[] {
-  const results: ParsedPriorReleasePoint[] = [];
-  const pattern = /href="(\/download\/releasepoints\/us\/pl\/(\d+)\/([^/]+)\/usc-rp@[^"]+\.htm)"[^>]*>\s*Public\s+Law\s+(\d+-\d+)\s+\((\d{2}\/\d{2}\/\d{4})\)/g;
-  // ... parse all release points, sort chronologically
-  return results;
-}
-```
-
-The fetcher also exposes a CLI (`openlaw-fetch`) for standalone use and ships structured metrics — download counts, cache hits, error rates, and per-release timing.
+The fetcher exposes a CLI for standalone use and ships structured metrics: download counts, cache hits, error rates, and per-release timing.
 
 ## Transforming USLM XML to Markdown
 
@@ -67,7 +58,7 @@ The tricky part is preserving legal list indentation. Federal statutes nest four
             (i) Clause
 ```
 
-The transformer maps USLM's `<level>` nesting to Markdown indentation, using the `nestingDepthFor()` function to calculate the correct depth from the marker format. Golden snapshot tests against Title 18 (Crimes and Criminal Procedure) catch any formatting drift.
+The transformer maps USLM's `<level>` nesting to Markdown indentation and calculates the correct depth from the marker format. Golden snapshot tests against Title 18 (Crimes and Criminal Procedure) catch any formatting drift.
 
 ## Sidecar Case Law Annotations
 
@@ -75,7 +66,7 @@ Federal statutes don't exist in isolation. Courts interpret them, narrow them, a
 
 Annotations live in sidecar YAML files at `annotations/title-{N}/section-{N}.yaml`. They never touch the statutory Markdown, keeping the Git history of Congressional actions clean. The schema tracks case name, citation, court level, date, holding summary, and impact classification (interpretation, unconstitutional, narrowed, historical).
 
-This separation matters. If you `git blame` a statute line, you see the Public Law that enacted it — not annotation noise from the case law layer.
+This separation matters. If you `git blame` a statute line, you see the Public Law that enacted it. Not annotation noise from the case law layer.
 
 ## The Static Site
 
@@ -83,23 +74,23 @@ The frontend is [Astro 6](https://astro.build/) with [Svelte 5](https://svelte.d
 
 Key components:
 
-- **Statute reader** — Prose-styled legal text at 19px with 72ch max-width. Serif font for body text, sans-serif for navigation. Designed for extended reading.
-- **Diff viewer** — A Svelte component that shows inline green/red diffs between release points, grouped by Congress. Static diff manifests with GitHub API fallback.
-- **Precedent drawer** — On wide viewports (1440px+), case law annotations display as a persistent third column alongside the statute text. On smaller screens, it's a slide-out overlay.
-- **Search** — [Pagefind](https://pagefind.app/) indexes the entire corpus at build time. Debounced search with keyboard navigation.
-- **Chapter index** — Large chapters (50+ sections) show an index by default with on-demand full-text loading, avoiding multi-megabyte page loads.
+- **Statute reader.** Prose-styled legal text at 19px with 72ch max-width. Serif font for body text, sans-serif for navigation. Designed for extended reading.
+- **Diff viewer.** A Svelte component that shows inline green/red diffs between release points, grouped by Congress. Static diff manifests with GitHub API fallback.
+- **Precedent drawer.** On wide viewports (1440px+), case law annotations display as a persistent third column alongside the statute text. On smaller screens, it becomes a slide-out overlay.
+- **Search.** [Pagefind](https://pagefind.app/) indexes the entire corpus at build time. Debounced input with keyboard navigation.
+- **Chapter index.** Large chapters (50+ sections) show an index by default with on-demand full-text loading. This avoids multi-megabyte page loads.
 
 The color system uses a warm-paper light mode and deep-navy dark mode with [WCAG AA](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) contrast ratios verified across all text colors.
 
 ## What I Learned
 
-**XML parsing is the easy part.** The USLM schema is well-documented and the Cheerio library handles it without drama. The hard part is formatting decisions — how to indent nested legal lists, when to insert paragraph breaks, how to handle repealed sections that still appear in the XML with `[Repealed]` in their heading.
+**XML parsing is the easy part.** The USLM schema is well-documented and the [Cheerio](https://cheerio.js.org/) library handles it without drama. The hard part is formatting decisions: how to indent nested legal lists, when to insert paragraph breaks, how to handle repealed sections that still appear in the XML with `[Repealed]` in their heading.
 
 **Git as a database works for this use case.** 230 tagged release points, 53 titles, clean commit messages linking to Public Laws. `git log --follow` on a section file shows its complete legislative history. The data repository ([civic-source/us-code](https://github.com/civic-source/us-code)) is separate from the pipeline code, which keeps both clean.
 
-**Static sites can handle 56,000 pages.** Astro with `--max-old-space-size=8192` builds the full corpus. Pagefind handles search without a server. The only dynamic content is the diff viewer's GitHub API fallback, and even that has static manifests as the primary source.
+**Static sites can handle 56,000 pages.** Astro with `--max-old-space-size=8192` builds the full corpus. [Pagefind](https://pagefind.app/) handles search without a server. The only dynamic content is the diff viewer's GitHub API fallback, and even that has static manifests as the primary source.
 
-**Case law enrichment is the differentiator.** OLRC publishes the text. Other sites like [Cornell LII](https://www.law.cornell.edu/uscode) publish the text with better formatting. What this project adds is the Git history layer and the CourtListener case law linkage — two things that make the law not just readable but traceable.
+**Case law enrichment is the differentiator.** OLRC publishes the text. Other sites like [Cornell LII](https://www.law.cornell.edu/uscode) publish the text with better formatting. What this project adds is the Git history layer and the CourtListener case law linkage. Two things that make the law not just readable but traceable.
 
 ## Numbers
 
