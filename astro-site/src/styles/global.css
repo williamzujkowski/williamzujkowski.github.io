@@ -95,13 +95,15 @@ a:hover { text-decoration-style: solid; text-decoration-color: var(--text); }
 /* ===== Header ===== */
 .site-header { margin-block-end: 3rem; }
 .site-title {
-  font-size: clamp(1.75rem, 6vw, 3rem);
-  font-weight: 900; line-height: 1; letter-spacing: -0.03em; margin: 0;
+  font-size: clamp(2.75rem, 9vw, 5.5rem);
+  font-weight: 900; line-height: 0.9; letter-spacing: -0.04em; margin: 0;
+  text-transform: uppercase;
 }
 .site-title a { text-decoration: none; color: var(--text); }
 .site-subtitle {
-  font-size: clamp(1rem, 4vw, 1.5rem);
-  font-weight: 700; color: var(--text-muted); margin-block-start: 0.25rem;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 700; color: var(--text-muted); margin-block-start: 0.5rem;
+  text-transform: uppercase; letter-spacing: 0.15em;
 }
 .site-nav {
   display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
