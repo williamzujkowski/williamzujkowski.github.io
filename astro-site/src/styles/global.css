@@ -235,7 +235,11 @@ a {
 a:hover { color: var(--color-accent-hover); }
 
 /* ===== Header — Remarque editorial identity ===== */
-.site-header { margin-block-end: var(--space-7); }
+.site-header {
+  margin-block-end: var(--space-7);
+  max-width: var(--content-reading);
+  margin-inline: auto;
+}
 .site-title {
   font-family: var(--font-display);
   font-size: var(--text-display);
@@ -278,11 +282,17 @@ a:hover { color: var(--color-accent-hover); }
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
   margin-block-end: var(--space-6);
+  max-width: var(--content-reading);
+  margin-inline: auto;
 }
 .post-breadcrumb a { color: var(--color-muted); text-decoration: none; }
 .post-breadcrumb a:hover { color: var(--color-fg); }
 
-.post-header { margin-block-end: var(--space-7); }
+.post-header {
+  margin-block-end: var(--space-7);
+  max-width: var(--content-reading);
+  margin-inline: auto;
+}
 
 .post-meta {
   font-family: var(--font-mono);
@@ -304,6 +314,8 @@ a:hover { color: var(--color-accent-hover); }
   padding-block-end: var(--space-7);
   margin-block-end: var(--space-7);
   border-bottom: 1px solid var(--color-border);
+  max-width: var(--content-reading);
+  margin-inline: auto;
 }
 .post-card:last-child { border-bottom: none; }
 .post-card-title,
@@ -430,6 +442,7 @@ a.post-card-title:hover {
 .prose {
   color: var(--color-fg);
   max-width: var(--content-reading);
+  margin-inline: auto;
   font-size: var(--text-body);
   line-height: var(--leading-body);
 }
@@ -575,6 +588,8 @@ a.post-card-title:hover {
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
   text-align: center;
+  max-width: var(--content-reading);
+  margin-inline: auto;
 }
 .site-footer a { color: var(--color-muted); transition: color var(--motion-fast) var(--motion-easing); }
 .site-footer a:hover { color: var(--color-fg); }
