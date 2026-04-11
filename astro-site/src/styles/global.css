@@ -654,36 +654,7 @@ article > div,
   margin-inline: auto;
 }
 
-/* TOC — Remarque mono styling */
-.toc details {
-  margin-block: var(--space-5);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-4) var(--space-5);
-}
-.toc details summary {
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
-  color: var(--color-muted);
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.toc details summary::-webkit-details-marker { display: none; }
-.toc details[open] summary { margin-block-end: var(--space-3); }
-.toc a {
-  display: block;
-  font-size: var(--text-meta);
-  color: var(--color-fg-muted);
-  text-decoration: none;
-  padding-block: var(--space-1);
-  transition: color var(--motion-fast) var(--motion-easing);
-}
-.toc a:hover { color: var(--color-fg); }
+/* TOC styling is in TableOfContents.astro component */
 
 /* Remove prose-lg — just use prose (Remarque body size is the standard) */
 .prose-lg { font-size: var(--text-body); }

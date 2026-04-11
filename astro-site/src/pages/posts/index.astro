@@ -31,9 +31,12 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   title="Blog"
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
 >
-  <h1>Blog</h1>
-  <p style="margin-block-end: 0.75rem;">{posts.length} posts</p>
-  <div class="chip-row" style="margin-block-end: 2rem;">
+  <div class="prose">
+    <h1>Blog</h1>
+    <p>{posts.length} posts on security, AI, and building things.</p>
+  </div>
+
+  <div class="chip-row" style="margin-block-end: var(--space-6);">
     {topTags.map(([tag, count]) => (
       <a href={`/tags/${tag}/`} class="chip">{tag} ({count})</a>
     ))}
@@ -42,11 +45,9 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 
   {years.map((year) => (
     <section>
-      <h2 style="font-size: 1.5rem; margin-block: 2.5rem 1rem; padding-block-end: 0.5rem; border-bottom: 1px solid var(--border);">
+      <h2 class="year-heading">
         {year}
-        <span>
-          ({postsByYear.get(year)!.length})
-        </span>
+        <span>({postsByYear.get(year)!.length})</span>
       </h2>
       {postsByYear.get(year)!.map((post) => (
         <PostCard post={post} showTags={true} />
@@ -54,3 +55,24 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
     </section>
   ))}
 </BaseLayout>
+
+<style>
+  .year-heading {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 400;
+    max-width: var(--content-reading);
+    margin-inline: auto;
+    margin-block: var(--space-7) var(--space-4);
+    padding-block-end: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .year-heading span {
+    font-weight: 400;
+    color: var(--color-muted);
+  }
+</style>

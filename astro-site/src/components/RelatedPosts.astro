@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { getValidImageUrl, getReadingTime } from '@/lib/utils';
+import { getReadingTime } from '@/lib/utils';
 
 interface Props {
   currentSlug: string;
@@ -36,101 +36,68 @@ const related = scored.slice(0, 3);
 {
   related.length > 0 && (
     <section class="related-posts">
-      <h2>Related posts</h2>
-      <div class="related-grid">
+      <h2>Related</h2>
+      <ul>
         {related.map(({ post }) => {
-          const imageUrl = getValidImageUrl(post.data.image);
           const readTime = getReadingTime(post.body ?? '');
           const dateStr = post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
           return (
-            <a href={`/posts/${post.id}/`} class="related-card">
-              {imageUrl && (
-                <img
-                  src={imageUrl}
-                  alt=""
-                  class="related-img"
-                  width="400"
-                  height="225"
-                  loading="lazy"
-                  decoding="async"
-                />
-              )}
-              <div class="related-meta">{dateStr} &middot; {readTime} min</div>
-              <div class="related-title">{post.data.title}</div>
-            </a>
+            <li>
+              <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+              <span class="related-meta">{dateStr} &middot; {readTime} min</span>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </section>
   )
 }
 
 <style>
+  /* Remarque related posts — simple list, no cards, no images */
   .related-posts {
-    margin-block-start: 3rem;
-    padding-block-start: 2rem;
-    border-top: 1px solid var(--border);
+    margin-block-start: var(--space-7);
+    padding-block-start: var(--space-5);
+    border-top: 1px solid var(--color-border);
   }
 
   .related-posts h2 {
-    font-size: 1rem;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin-block-end: 1.5rem;
+    color: var(--color-muted);
+    font-weight: 400;
+    margin-block-end: var(--space-4);
   }
 
-  .related-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .related-posts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  @media (min-width: 640px) {
-    .related-grid { grid-template-columns: repeat(3, 1fr); }
+  .related-posts li {
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .related-card {
-    display: block;
+  .related-posts li:last-child { border-bottom: none; }
+
+  .related-posts a {
+    color: var(--color-fg);
     text-decoration: none;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    transition: border-color 150ms ease;
+    font-size: var(--text-body);
+    transition: color var(--motion-fast) var(--motion-easing);
   }
 
-  .related-card:hover {
-    border-color: var(--text-muted);
-    text-decoration: none;
-  }
-
-  .related-img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    display: block;
-  }
+  .related-posts a:hover { color: var(--color-accent); }
 
   .related-meta {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    padding: 0.75rem 1rem 0;
-  }
-
-  .related-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    line-height: 1.3;
-    padding: 0.25rem 1rem 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .related-card:hover .related-title {
-    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: var(--tracking-meta);
+    color: var(--color-muted);
+    margin-left: var(--space-3);
   }
 </style>

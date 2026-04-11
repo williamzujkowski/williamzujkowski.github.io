@@ -9,16 +9,10 @@ const featured = projects.filter((p) => p.data.featured);
 const other = projects.filter((p) => !p.data.featured);
 
 const categoryLabels: Record<string, string> = {
-  ai: 'AI & Machine Learning',
+  ai: 'AI & ML',
   security: 'Security',
   infrastructure: 'Infrastructure',
-  tools: 'Developer Tools',
-};
-
-const statusColors: Record<string, string> = {
-  active: 'var(--accent)',
-  experimental: 'var(--text-muted)',
-  archived: 'var(--border)',
+  tools: 'Dev Tools',
 };
 ---
 
@@ -33,78 +27,115 @@ const statusColors: Record<string, string> = {
     </p>
   </div>
 
-      <!-- Featured Projects -->
-      {
-        featured.length > 0 && (
-          <div class="mb-12">
-            <h2 class="font-mono" style="font-size: var(--text-meta); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--color-muted); margin-bottom: var(--space-5); font-weight: 400;">
-              Featured
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featured.map((project) => (
-                <a
-                  href={project.data.url}
-                  class="card group p-6 flex flex-col no-underline hover:no-underline"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="chip text-xs">{categoryLabels[project.data.category] ?? project.data.category}</span>
-                    <span class="text-xs font-medium" style={`color: ${statusColors[project.data.status]}`}>
-                      {project.data.status}
-                    </span>
-                  </div>
-                  <h3 class="text-lg font-semibold group-hover: transition-colors">
-                    {project.data.title}
-                  </h3>
-                  <p class="mt-2 text-sm flex-grow">
-                    {project.data.description}
-                  </p>
-                  <div class="mt-4 flex flex-wrap gap-1.5">
-                    {project.data.tags.slice(0, 4).map((tag: string) => (
-                      <span class="text-xs px-2 py-0.5 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </a>
-              ))}
-            </div>
+  {featured.length > 0 && (
+    <div class="project-section">
+      <h2 class="section-label">Featured</h2>
+      {featured.map((project) => (
+        <a href={project.data.url} class="project-item" rel="noopener noreferrer" target="_blank">
+          <div class="project-header">
+            <h3>{project.data.title}</h3>
+            <span class="project-status">{project.data.status}</span>
           </div>
-        )
-      }
-
-      <!-- Other Projects -->
-      {
-        other.length > 0 && (
-          <div>
-            <h2 class="font-mono" style="font-size: var(--text-meta); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--color-muted); margin-bottom: var(--space-5); font-weight: 400;">
-              More Projects
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {other.map((project) => (
-                <a
-                  href={project.data.url}
-                  class="card group p-5 flex flex-col no-underline hover:no-underline"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="chip text-xs">{categoryLabels[project.data.category] ?? project.data.category}</span>
-                    <span class="text-xs font-medium" style={`color: ${statusColors[project.data.status]}`}>
-                      {project.data.status}
-                    </span>
-                  </div>
-                  <h3 class="text-base font-semibold group-hover: transition-colors">
-                    {project.data.title}
-                  </h3>
-                  <p class="mt-1 text-sm">{project.data.description}</p>
-                </a>
-              ))}
-            </div>
+          <p class="project-desc">{project.data.description}</p>
+          <div class="project-meta">
+            <span>{categoryLabels[project.data.category] ?? project.data.category}</span>
+            {project.data.tags.slice(0, 4).map((tag: string) => (
+              <span>{tag}</span>
+            ))}
           </div>
-        )
-      }
+        </a>
+      ))}
     </div>
-  
+  )}
+
+  {other.length > 0 && (
+    <div class="project-section">
+      <h2 class="section-label">More Projects</h2>
+      {other.map((project) => (
+        <a href={project.data.url} class="project-item" rel="noopener noreferrer" target="_blank">
+          <div class="project-header">
+            <h3>{project.data.title}</h3>
+            <span class="project-status">{project.data.status}</span>
+          </div>
+          <p class="project-desc">{project.data.description}</p>
+        </a>
+      ))}
+    </div>
+  )}
 </BaseLayout>
+
+<style>
+  /* Remarque Project Dossier — list layout, no card grids */
+  .project-section {
+    max-width: var(--content-reading);
+    margin-inline: auto;
+    margin-block-start: var(--space-7);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 400;
+    margin-block-end: var(--space-4);
+    padding-block-end: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-item {
+    display: block;
+    text-decoration: none;
+    color: var(--color-fg);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    transition: color var(--motion-fast) var(--motion-easing);
+  }
+
+  .project-item:hover { color: var(--color-accent); }
+  .project-item:hover h3 { color: var(--color-accent); }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .project-header h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-title);
+    margin: 0;
+    transition: color var(--motion-fast) var(--motion-easing);
+  }
+
+  .project-status {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--color-muted);
+    letter-spacing: var(--tracking-meta);
+    white-space: nowrap;
+  }
+
+  .project-desc {
+    font-size: var(--text-body);
+    color: var(--color-fg-muted);
+    margin-block-start: var(--space-1);
+    margin-block-end: 0;
+    line-height: var(--leading-body);
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-block-start: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--color-muted);
+    letter-spacing: var(--tracking-meta);
+  }
+</style>
