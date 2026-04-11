@@ -633,14 +633,16 @@ a.post-card-title:hover {
 }
 
 /* ===== Remarque Centering — all content within reading column ===== */
-/* Everything inside <main> should center to reading width unless explicitly wider */
-article,
+/* Everything inside <article> should center to reading width */
 article > nav,
 article > header,
 article > footer,
 article > details,
 article > section,
-.chip-row {
+article > div,
+.chip-row,
+.toc,
+.related-posts {
   max-width: var(--content-reading);
   margin-inline: auto;
 }
@@ -652,16 +654,14 @@ article > section,
   margin-inline: auto;
 }
 
-/* TOC — Remarque mono styling, centered */
-details {
-  max-width: var(--content-reading);
-  margin-inline: auto;
+/* TOC — Remarque mono styling */
+.toc details {
   margin-block: var(--space-5);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-5);
 }
-details summary {
+.toc details summary {
   font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-caps);
@@ -673,9 +673,9 @@ details summary {
   justify-content: space-between;
   align-items: center;
 }
-details summary::-webkit-details-marker { display: none; }
-details[open] summary { margin-block-end: var(--space-3); }
-details nav a {
+.toc details summary::-webkit-details-marker { display: none; }
+.toc details[open] summary { margin-block-end: var(--space-3); }
+.toc a {
   display: block;
   font-size: var(--text-meta);
   color: var(--color-fg-muted);
@@ -683,7 +683,7 @@ details nav a {
   padding-block: var(--space-1);
   transition: color var(--motion-fast) var(--motion-easing);
 }
-details nav a:hover { color: var(--color-fg); }
+.toc a:hover { color: var(--color-fg); }
 
 /* Remove prose-lg — just use prose (Remarque body size is the standard) */
 .prose-lg { font-size: var(--text-body); }
