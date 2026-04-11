@@ -18,19 +18,18 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           way.
         </p>
 
-        <nav class="not-prose my-6 card p-4">
-          <p class="font-medium text-sm mb-2">Jump to:</p>
-          <div class="flex flex-wrap gap-2">
-            <a href="#hardware" class="chip text-xs">Hardware</a>
-            <a href="#software" class="chip text-xs">Software &amp; Development</a>
-            <a href="#security" class="chip text-xs">Security &amp; Monitoring</a>
-            <a href="#ai" class="chip text-xs">AI &amp; Coding Tools</a>
-            <a href="#services" class="chip text-xs">Services</a>
-            <a href="#self-hosted" class="chip text-xs">Self-Hosted</a>
-            <a href="#cli" class="chip text-xs">CLI Tools</a>
-            <a href="#learning" class="chip text-xs">Learning</a>
-            <a href="#principles" class="chip text-xs">Principles</a>
-          </div>
+        <nav>
+          <p>Jump to:
+            <a href="#hardware">Hardware</a> ·
+            <a href="#software">Software</a> ·
+            <a href="#security">Security</a> ·
+            <a href="#ai">AI Tools</a> ·
+            <a href="#services">Services</a> ·
+            <a href="#self-hosted">Self-Hosted</a> ·
+            <a href="#cli">CLI</a> ·
+            <a href="#learning">Learning</a> ·
+            <a href="#principles">Principles</a>
+          </p>
         </nav>
 
         <hr />
@@ -156,12 +155,12 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
         <h3>Homelab Infrastructure</h3>
 
-        <div class="card p-6 my-6 not-prose">
-          <p class=" font-medium">
+        <blockquote>
+          <p>
             <strong>The Journey:</strong> Started with a $50 Raspberry Pi 4 in 2015. Thought "this is all I need." Ten years
             and ~$8,000 in equipment later, here we are.
           </p>
-        </div>
+        </blockquote>
 
         <ul>
           <li>
@@ -268,8 +267,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           </li>
         </ul>
 
-        <div class="card p-6 my-6 not-prose">
-          <p class=" font-medium">Related posts:</p>
+        <blockquote>
+          <p><strong>Related posts:</strong></p>
           <ul class="mt-2 list-disc list-inside">
             <li>
               <a
@@ -280,7 +279,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 href="/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/">IoT Security in Your Home Lab: Lessons from OWASP IoTGoat</a>
             </li>
           </ul>
-        </div>
+        </blockquote>
 
         <hr />
 
@@ -566,8 +565,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           </li>
         </ul>
 
-        <div class="card p-6 my-6 not-prose">
-          <p class=" font-medium">Related posts:</p>
+        <blockquote>
+          <p><strong>Related posts:</strong></p>
           <ul class="mt-2 list-disc list-inside">
             <li>
               <a
@@ -588,7 +587,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 href="/posts/ebpf-for-security-monitoring-a-practical-guide/">eBPF for Security Monitoring: A Practical Guide</a>
             </li>
           </ul>
-        </div>
+        </blockquote>
 
         <hr />
 
@@ -691,8 +690,8 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
           </li>
         </ul>
 
-        <div class="card p-6 my-6 not-prose">
-          <p class=" font-medium">Related posts:</p>
+        <blockquote>
+          <p><strong>Related posts:</strong></p>
           <ul class="mt-2 list-disc list-inside">
             <li>
               <a
@@ -711,7 +710,7 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
                 href="/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/">AI as Cognitive Infrastructure</a>
             </li>
           </ul>
-        </div>
+        </blockquote>
 
         <hr />
 
@@ -843,7 +842,7 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
             <strong>Cost:</strong> ~$50/month for Backblaze B2, ~$150/month for power. Compared to equivalent SaaS subscriptions
             (~$300/month), I'm break-even while learning and owning my data.
           </p>
-        </div>
+        </blockquote>
 
         <hr />
 
@@ -929,7 +928,7 @@ ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
             <strong>Pattern:</strong> I gradually replace standard tools with modern alternatives when they significantly
             improve my workflow. Not change for change's sake, but real productivity gains.
           </p>
-        </div>
+        </blockquote>
 
         <hr />
 

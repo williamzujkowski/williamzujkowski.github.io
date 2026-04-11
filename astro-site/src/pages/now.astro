@@ -4,91 +4,82 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
 <BaseLayout title="Now" description="What I'm currently working on, learning, and thinking about.">
   <div class="prose">
-        <h1>What I'm Doing Now</h1>
+    <h1>What I'm Doing Now</h1>
 
-        <p class="lead text-xl italic">
-          This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">now page</a>. It's like an about
-          page, but for what I'm actually focused on right now instead of my entire life story.
-        </p>
+    <p>
+      This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">now page</a> —
+      what I'm actually focused on right now instead of my entire life story.
+      Last updated <time datetime="2026-03-13">March 2026</time>.
+    </p>
 
-        <p class="text-sm">
-          Last updated: <time datetime="2026-03-13"><strong>March 2026</strong></time>
-        </p>
+    <h2>Building</h2>
 
-        <hr class="my-8" />
+    <p>
+      <strong><a href="/projects/">Nexus Agents</a></strong> is eating most of my free engineering hours.
+      Multi-model AI orchestration that routes tasks to Claude, Gemini, Codex, and OpenCode based on what
+      each is good at. The consensus voting system — where multiple AI agents debate a proposal and vote —
+      is the part I'm most proud of. It sounds absurd, and it is, but it produces measurably better
+      decisions than any single model alone.
+    </p>
 
-        <h2>Building</h2>
+    <p>
+      Also maintaining <strong>Strudel MCP Server</strong>, which gives Claude direct control over
+      <a href="https://strudel.cc" target="_blank" rel="noopener noreferrer">Strudel.cc</a> for AI-assisted
+      live music coding. Watching an AI compose algorithmic music in real-time never gets old.
+    </p>
 
-        <p>
-          <strong><a href="/projects/">Nexus Agents</a></strong> is eating most of my free engineering hours. It's a
-          multi-model AI orchestration system that routes tasks to Claude, Gemini, Codex, and OpenCode based on what
-          each model is actually good at. The consensus voting system&mdash;where multiple AI agents debate a
-          proposal and vote&mdash;is the part I'm most proud of. It sounds absurd, and it kind of is, but it produces
-          measurably better decisions than any single model alone.
-        </p>
+    <h2>Learning</h2>
 
-        <p>
-          I'm also maintaining <strong>Strudel MCP Server</strong>, which gives Claude direct control over
-          <a href="https://strudel.cc" target="_blank" rel="noopener noreferrer">Strudel.cc</a> for AI-assisted live music coding.
-          It's the most fun project I've ever built. Watching an AI compose algorithmic music in real-time never gets
-          old.
-        </p>
+    <p>
+      <strong>Rust</strong>, still. Building a vulnerability aggregation tool that pulls from NVD, EPSS, and
+      CISA KEV. Will I finish it? Probably not. Am I learning a lot? Absolutely. The borrow checker has
+      humbled me in ways Go never did.
+    </p>
 
-        <h2>Learning</h2>
+    <p>
+      <strong>eBPF for security monitoring.</strong> I wrote a
+      <a href="/posts/ebpf-security-monitoring-practical-guide/">blog post about it</a>, but I'm going deeper
+      now — building custom probes for my homelab to detect container escapes.
+    </p>
 
-        <p>
-          <strong>Rust</strong>, still. Building a vulnerability aggregation tool that pulls from NVD, EPSS, and CISA
-          KEV. Will I finish it? Probably not. Am I learning a lot? Absolutely. The borrow checker has humbled me in
-          ways Go never did.
-        </p>
+    <h2>Working On</h2>
 
-        <p>
-          <strong>eBPF for security monitoring.</strong> I wrote a
-          <a href="/posts/ebpf-security-monitoring-practical-guide/">blog post about it</a>, but I'm going deeper
-          now&mdash;building custom probes for my homelab to detect container escapes. It's the kind of low-level
-          systems work I find genuinely exciting.
-        </p>
+    <p>
+      Cloud platform security at the federal level. The work involves identity federation, compliance
+      automation, and making sure security controls enable teams rather than block them. I spent years at
+      NIH learning that lesson the hard way.
+    </p>
 
-        <h2>Working On</h2>
+    <h2>Reading</h2>
 
-        <p>
-          Cloud platform security at the federal level. Can't say much more than that, but the work
-          involves identity federation, compliance automation, and making sure security controls enable teams
-          rather than block them. I spent years at NIH learning that lesson the hard way.
-        </p>
+    <ul>
+      <li>Research papers on multi-model routing and ensemble methods for LLMs</li>
+      <li>NIST AI RMF (AI Risk Management Framework) — because someone has to figure out AI governance</li>
+      <li>Too many HackerNews threads about Rust vs Go (I'm in the "use both" camp)</li>
+    </ul>
 
-        <h2>Reading</h2>
+    <h2>Recently Shipped</h2>
 
-        <ul>
-          <li>Research papers on multi-model routing and ensemble methods for LLMs</li>
-          <li>NIST AI RMF (AI Risk Management Framework)&mdash;because someone has to figure out AI governance</li>
-          <li>Too many HackerNews threads about Rust vs Go (I'm in the "use both" camp)</li>
-        </ul>
+    <ul>
+      <li>Corrected all homelab hardware references across the blog</li>
+      <li>Added Playwright smoke tests, series navigation, and performance improvements to this website</li>
+      <li>Codified Pi node provisioning with IaC (Makefile + Chrony NTP configs)</li>
+    </ul>
 
-        <h2>Recently Shipped</h2>
+    <h2>Homelab Status</h2>
 
-        <ul>
-          <li>Corrected all homelab hardware references across the blog (was claiming specs I don't have &mdash; embarrassing)</li>
-          <li>Added Playwright smoke tests, series navigation, and performance improvements to this website</li>
-          <li>Codified Pi node provisioning with IaC (Makefile + Chrony NTP configs)</li>
-        </ul>
+    <p>
+      The Dell R910 is still humming along (256GB RAM, 48 threads). Running
+      <a href="https://linuxcontainers.org/incus/">Incus</a> on Ubuntu 24.04 with BOSH-managed Cloud Foundry
+      and Concourse CI workloads. Raspberry Pi 5s and a Pi 4 handle DNS (dual Pi-hole) and SSO (Authentik).
+      Monitoring via Prometheus, Grafana, Loki, and Alertmanager with push alerts to ntfy.
+      Power bill is still ~$150/month.
+    </p>
 
-        <h2>Homelab Status</h2>
-
-        <p>
-          The Dell R910 is still humming along (256GB RAM, 48 threads). Running
-          <a href="https://linuxcontainers.org/incus/">Incus</a> on Ubuntu 24.04 with BOSH-managed Cloud Foundry
-          and Concourse CI workloads. Raspberry Pi 5s and a Pi 4 handle DNS (dual Pi-hole) and SSO (Authentik).
-          Monitoring via Prometheus, Grafana, Loki, and Alertmanager with push alerts to ntfy.
-          Power bill is still ~$150/month. My partner has accepted this as a permanent line item.
-        </p>
-
-        <hr class="my-8" />
-
-        <p class="text-sm">
-          Inspired by <a href="https://sive.rs/nowff" target="_blank" rel="noopener noreferrer">Derek Sivers</a>.
-          If you're curious about my full setup, check the <a href="/uses/">uses page</a>.
-          For my background, see the <a href="/about/">about page</a>.
-        </p>
+    <p>
+      Inspired by <a href="https://sive.rs/nowff" target="_blank" rel="noopener noreferrer">Derek Sivers</a>.
+      Full setup on the <a href="/uses/">uses page</a>.
+      Background on the <a href="/about/">about page</a>.
+    </p>
   </div>
 </BaseLayout>
