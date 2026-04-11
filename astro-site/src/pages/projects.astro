@@ -1,141 +1,56 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const allProjects = await getCollection('projects');
-const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
-
-const featured = projects.filter((p) => p.data.featured);
-const other = projects.filter((p) => !p.data.featured);
-
-const categoryLabels: Record<string, string> = {
-  ai: 'AI & ML',
-  security: 'Security',
-  infrastructure: 'Infrastructure',
-  tools: 'Dev Tools',
-};
 ---
 
 <BaseLayout
   title="Projects"
-  description="Open source projects and tools — AI orchestration, security engineering, and homelab infrastructure."
+  description="Open source projects in AI orchestration, security engineering, and infrastructure."
 >
   <div class="prose">
     <h1>Projects</h1>
+
     <p>
-      Open source tools and experiments in AI orchestration, security engineering, and infrastructure.
+      Most of my work lives on <a href="https://github.com/williamzujkowski">GitHub</a>. Here are the projects I'm most invested in right now.
+    </p>
+
+    <hr />
+
+    <h2>Nexus Agents</h2>
+    <p>
+      Multi-model AI orchestration platform that routes tasks to Claude, Gemini, Codex, and OpenCode based on what each model is good at. The consensus voting system — where multiple AI agents debate a proposal and vote — produces measurably better decisions than any single model alone.
+    </p>
+    <p>
+      <a href="https://github.com/williamzujkowski/nexus-agents">github.com/williamzujkowski/nexus-agents</a>
+    </p>
+
+    <h2>Remarque</h2>
+    <p>
+      A typography-first design system for editorial, technical, and personal web projects. Three fonts (Newsreader, Inter, JetBrains Mono), OKLCH colors, 17px body text, 46rem reading column. AI-native — designed to be consumed by Claude Code, Cursor, and Copilot with zero aesthetic drift. This site is built with it.
+    </p>
+    <p>
+      <a href="https://github.com/williamzujkowski/remarque">github.com/williamzujkowski/remarque</a> · <a href="https://williamzujkowski.github.io/remarque/">demo</a>
+    </p>
+
+    <h2>Strudel MCP Server</h2>
+    <p>
+      A Model Context Protocol server that gives Claude direct control over Strudel.cc for AI-assisted music generation and live coding. Generate patterns, apply effects, and control tempo through natural language.
+    </p>
+    <p>
+      <a href="https://github.com/williamzujkowski/strudel-mcp-server">github.com/williamzujkowski/strudel-mcp-server</a>
+    </p>
+
+    <h2>US Code Tracker</h2>
+    <p>
+      Converts the United States Code from XML into a Git-versioned, searchable static site with 53,000+ sections and inline case law annotations from CourtListener. Every amendment is a Git commit. Federal law as version control.
+    </p>
+    <p>
+      <a href="https://github.com/civic-source/us-code-tracker">github.com/civic-source/us-code-tracker</a>
+    </p>
+
+    <hr />
+
+    <p>
+      See all projects on <a href="https://github.com/williamzujkowski?tab=repositories&sort=updated">GitHub</a>.
     </p>
   </div>
-
-  {featured.length > 0 && (
-    <div class="project-section">
-      <h2 class="section-label">Featured</h2>
-      {featured.map((project) => (
-        <a href={project.data.url} class="project-item" rel="noopener noreferrer" target="_blank">
-          <div class="project-header">
-            <h3>{project.data.title}</h3>
-            <span class="project-status">{project.data.status}</span>
-          </div>
-          <p class="project-desc">{project.data.description}</p>
-          <div class="project-meta">
-            <span>{categoryLabels[project.data.category] ?? project.data.category}</span>
-            {project.data.tags.slice(0, 4).map((tag: string) => (
-              <span>{tag}</span>
-            ))}
-          </div>
-        </a>
-      ))}
-    </div>
-  )}
-
-  {other.length > 0 && (
-    <div class="project-section">
-      <h2 class="section-label">More Projects</h2>
-      {other.map((project) => (
-        <a href={project.data.url} class="project-item" rel="noopener noreferrer" target="_blank">
-          <div class="project-header">
-            <h3>{project.data.title}</h3>
-            <span class="project-status">{project.data.status}</span>
-          </div>
-          <p class="project-desc">{project.data.description}</p>
-        </a>
-      ))}
-    </div>
-  )}
 </BaseLayout>
-
-<style>
-  /* Remarque Project Dossier — list layout, no card grids */
-  .project-section {
-    max-width: var(--content-reading);
-    margin-inline: auto;
-    margin-block-start: var(--space-7);
-  }
-
-  .section-label {
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    letter-spacing: var(--tracking-caps);
-    text-transform: uppercase;
-    color: var(--color-muted);
-    font-weight: 400;
-    margin-block-end: var(--space-4);
-    padding-block-end: var(--space-2);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .project-item {
-    display: block;
-    text-decoration: none;
-    color: var(--color-fg);
-    padding-block: var(--space-4);
-    border-bottom: 1px solid var(--color-border);
-    transition: color var(--motion-fast) var(--motion-easing);
-  }
-
-  .project-item:hover { color: var(--color-accent); }
-  .project-item:hover h3 { color: var(--color-accent); }
-
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-3);
-  }
-
-  .project-header h3 {
-    font-family: var(--font-display);
-    font-size: var(--text-body-lg);
-    font-weight: var(--weight-regular);
-    line-height: var(--leading-title);
-    margin: 0;
-    transition: color var(--motion-fast) var(--motion-easing);
-  }
-
-  .project-status {
-    font-family: var(--font-mono);
-    font-size: var(--text-micro);
-    color: var(--color-muted);
-    letter-spacing: var(--tracking-meta);
-    white-space: nowrap;
-  }
-
-  .project-desc {
-    font-size: var(--text-body);
-    color: var(--color-fg-muted);
-    margin-block-start: var(--space-1);
-    margin-block-end: 0;
-    line-height: var(--leading-body);
-  }
-
-  .project-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-block-start: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--text-micro);
-    color: var(--color-muted);
-    letter-spacing: var(--tracking-meta);
-  }
-</style>

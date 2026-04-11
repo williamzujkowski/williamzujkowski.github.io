@@ -26,15 +26,15 @@
   --text-section: clamp(1.375rem, 2.25vw, 2rem);
   --text-body-lg: 1.1875rem;
   --text-body: 1.0625rem;
-  --text-meta: 0.8125rem;
-  --text-micro: 0.75rem;
+  --text-meta: 0.875rem;       /* 14px — USWDS minimum for small text */
+  --text-micro: 0.8125rem;     /* 13px — USWDS floor for timestamps/fine print */
 
   /* Line heights */
   --leading-display: 1.05;
   --leading-title: 1.15;
   --leading-section: 1.2;
   --leading-body: 1.75;
-  --leading-meta: 1.4;
+  --leading-meta: 1.5;          /* USWDS minimum for short text */
 
   /* Letter spacing */
   --tracking-display: -0.02em;
@@ -571,7 +571,14 @@ a.post-card-title:hover {
   max-width: var(--content-reading);
   margin-inline: auto;
 }
-.site-footer a { color: var(--color-muted); transition: color var(--motion-fast) var(--motion-easing); }
+.site-footer a {
+  color: var(--color-muted);
+  transition: color var(--motion-fast) var(--motion-easing);
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;    /* 44px — USWDS touch target */
+  padding-inline: var(--space-1);
+}
 .site-footer a:hover { color: var(--color-fg); }
 
 /* ===== Focus (WCAG) ===== */
