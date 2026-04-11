@@ -3,142 +3,89 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 ---
 
-<BaseLayout title="About" description="About William Zujkowski — security architecture, identity, and compliance.">
-  <div class="prose prose-lg">
+<BaseLayout title="About" description="William Zujkowski — security engineer, builder, homelab enthusiast.">
+  <div class="prose">
     <h1>About</h1>
 
-    <p><em>
-      I'm a Senior InfoSec Engineer at <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer">Cloud.gov</a> focused on cloud platform security, identity federation, and compliance
-      automation. I spend my days designing security controls that enable teams instead of blocking them — and
+    <p>
+      I'm a Senior InfoSec Engineer at <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer">Cloud.gov</a>,
+      focused on cloud platform security, identity federation, and compliance automation.
+      I design security controls that enable teams instead of blocking them — and spend
       too many nights in my homelab breaking things to understand how they work.
+    </p>
+
+    <p>
       Everything on this site reflects my own views, not those of my employer.
-    </em></p>
+    </p>
 
-    <hr />
-
-    <h2>How It Started</h2>
+    <h2>Background</h2>
 
     <p>
-      My first experiences with computers were dual floppy drive machines — playing Oregon Trail and Carmen
-      Sandiego, tying up the only phone line for dial-up, in the middle of the woods on a dirt
-      road in Northeastern Pennsylvania. I started my home PC journey on DOS 5, playing games on a Tandy 286
-      we bought from Radio Shack. It was the floor model. I remember upgrading that machine to Windows 3.1
-      with 30-something floppy disks and being completely amazed by the graphical interface.
+      My first computer was a Tandy 286 from Radio Shack — the floor model. I upgraded it to Windows 3.1
+      with 30-something floppy disks. By the late 90s I had a Geocities site. By the early 2000s I was
+      running self-hosted PHP forums on a PC under my bed with over 500 users.
     </p>
 
     <p>
-      My formative years were spent figuring out how to run games on machines that were below the minimum
-      specs — and succeeding. That instinct carried over into everything else. By the late 90s I had a
-      Geocities site. By the early 2000s I was running self-hosted PHP forums on a PC under my bed with
-      over 500 users.
+      That turned into nearly a decade of fixing computers for small businesses in the Harrisburg, PA area,
+      which led to infrastructure management, which led to security engineering. The pivot point: recovering
+      a machine from an MBR virus for someone working on their thesis. Classic "I need help, here's pizza"
+      situation. To this day, when a bad CVE drops, I grab pastries for the response team.
+    </p>
+
+    <h2>Career</h2>
+
+    <p>
+      <strong>Cloud.gov</strong> (2023–present) — Cloud security architecture and federal compliance for a
+      FedRAMP Moderate platform. NIST 800-53 Rev 4 → Rev 5 transition.
     </p>
 
     <p>
-      That turned into fixing computers for small businesses and anyone I could convince to hire me. Nearly a
-      decade of house calls in the Harrisburg, PA area — "my computer won't start" gradually evolving into
-      small-business infrastructure management. The moment I knew I was headed toward security: recovering a
-      machine from an MBR virus for a friend's girlfriend who was working on her thesis. Classic "I need help,
-      here's pizza" situation. To this day, when a bad CVE drops, I grab pastries from my local Spanish
-      bakery as a thank-you for the response team.
+      <strong>NIH</strong> (2014–2023) — Moved through HPC site reliability, enterprise vulnerability
+      management across 100,000+ assets and 27 Institutes, and security engineering for research infrastructure.
+      Led the Log4j response. Got to burn in 8-way H100 nodes.
     </p>
 
-    <p>That path eventually led to a formal security career.</p>
-
-    <hr />
-
-    <h2>The Journey</h2>
-
-    <p><strong>2023 – Present: Senior InfoSec Engineer, Cloud.gov</strong><br />
-    Shaping cloud security architecture and federal compliance posture for a FedRAMP Moderate platform.
-    Contributing to the NIST 800-53 Rev 4 → Rev 5 transition. All those years of breaking things turned out
-    to be decent preparation.</p>
-
-    <p><strong>2023: Lead HPC Site Reliability Engineer, NIH</strong><br />
-    Supporting high-performance computing clusters for molecular dynamics research. Got to burn in 8-way H100
-    nodes and help configure NVLink — genuinely fun work.</p>
-
-    <p><strong>2021 – 2023: Enterprise VM Lead, NIH OCIO</strong><br />
-    Led vulnerability management across 100,000+ assets and 27 Institutes. The hardest part wasn't the tech —
-    it was convincing 27 different IT teams to move at the same speed. Log4j SME, CISA BOD 22-01.</p>
-
-    <p><strong>2018 – 2021: Security Engineering Lead, NHGRI</strong><br />
-    Securing research infrastructure for ~2,200 endpoints — including million-dollar genomic sequencers that
-    scientists would revolt over if you tried to patch them during a sequencing run.</p>
-
-    <p><strong>2014 – 2017: IT Infrastructure & Service Desk Leadership</strong><br />
-    Moved through several infrastructure and support roles in the NIH ecosystem, gravitating toward the security
-    engineering work that would define the next chapter.</p>
-
-    <p><strong>2005 – 2014: Independent IT Consultant, Harrisburg PA</strong><br />
-    Nearly a decade of fixing broken computers for anyone who'd hire me — house calls to small-business
-    infrastructure management.</p>
-
-    <hr />
+    <p>
+      <strong>Independent consultant</strong> (2005–2014) — House calls to infrastructure management.
+      Nearly a decade of learning how things break in the real world.
+    </p>
 
     <h2>How I Think About Security</h2>
 
     <p>
-      I believe security should <strong>enable work, not block it</strong>. The best controls? Users never notice
-      them because they just work. Nobody cares about your perfect firewall rules if they can't deploy their app.
-    </p>
-
-    <p><strong>Technical excellence is not enough.</strong> You can design the most elegant network segmentation
-    in the world, but if developers can't deploy their code, they'll find a workaround. Make the secure path the
-    easy path.</p>
-
-    <p><strong>Automation isn't about replacing people.</strong> It's about freeing them to do interesting work
-    instead of clicking buttons. I spent months learning Terraform so teams could manage firewall rules as code.
-    Best investment I've made.</p>
-
-    <p><strong>AI security is about governance, not just tech.</strong> The hard problems aren't the models — they're
-    the humans, policies, and processes around them. Just like every other security problem I've worked on.</p>
-
-    <p><em>
-      If security slows teams down, they'll work around it. If compliance feels like busywork, it won't get done
-      right. Good security is invisible until you need it.
-    </em></p>
-
-    <hr />
-
-    <h2>When I'm Not Working</h2>
-
-    <p>
-      You'll find me in my homelab, which has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R910,
-      a fleet of Pis, and way too many containers. I run my own Wazuh SIEM, self-hosted Bitwarden, and whatever
-      else I'm experimenting with that week.
+      Security should enable work, not block it. The best controls are invisible — users never notice them
+      because they just work. If developers can't deploy their code, they'll find a workaround. Make the
+      secure path the easy path.
     </p>
 
     <p>
-      I'm also deep into AI/LLM experimentation — not just using ChatGPT, but running local models, building agents,
-      and figuring out how to secure these systems in production. See what I'm building on the
-      <a href="/projects">projects page</a>.
+      Automation isn't about replacing people. It's about freeing them from clicking buttons so they can do
+      interesting work. AI security is about governance, not just tech — the hard problems are the humans,
+      policies, and processes around the models.
+    </p>
+
+    <h2>Outside Work</h2>
+
+    <p>
+      My homelab has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R910, a fleet of Pis,
+      and way too many containers. I run my own SIEM, self-hosted password manager, and whatever else
+      I'm experimenting with that week. I've burned out a GPU pushing local LLM inference too hard
+      and taken down my home network for hours trying VLAN segmentation "just to see how it works."
     </p>
 
     <p>
-      <strong>Fair warning:</strong> I've burned out a GPU pushing local LLM inference too hard. Also took down my
-      home network for hours trying VLAN segmentation "just to see how it works." Breaking things in my homelab so
-      I don't break them anywhere else is the whole point.
+      I'm deep into AI/LLM experimentation — not just using models, but running them locally, building
+      multi-agent orchestration systems, and figuring out how to secure these things in production.
+      See what I'm building on the <a href="/projects/">projects page</a>.
     </p>
-
-    <p><em>
-      Favorite debugging method: rubber duck debugging — with an actual rubber duck. I've also deployed a
-      <a href="https://datatracker.ietf.org/doc/html/rfc2321">RITA</a> (rubber chicken) for particularly
-      stubborn bugs.
-    </em></p>
-
-    <hr />
 
     <h2>Connect</h2>
 
     <p>
-      I love connecting with folks who geek out about cloud security, identity federation, compliance automation,
-      or AI infrastructure security. Whether you're building something cool, stuck on a problem, or just want to
-      talk homelab setups — reach out.
-    </p>
-
-    <p>
       <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer">GitHub</a> ·
-      <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> ·
+      <a href="/feed.xml">RSS</a>
     </p>
   </div>
 </BaseLayout>
