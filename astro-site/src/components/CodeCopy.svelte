@@ -62,9 +62,9 @@
     right: 0.5rem;
     padding: 0.375rem;
     border-radius: 0.25rem;
-    background-color: var(--surface);
-    color: var(--text-muted);
-    border: 1px solid var(--border);
+    background-color: var(--color-surface);
+    color: var(--color-muted);
+    border: 1px solid var(--color-border);
     cursor: pointer;
     opacity: 0;
     transition: opacity 150ms ease;
@@ -76,6 +76,6 @@
   }
 
   :global(.copy-btn:hover) {
-    background-color: var(--surface);
+    background-color: var(--color-surface);
   }
 </style>

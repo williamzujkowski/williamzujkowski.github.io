@@ -86,17 +86,6 @@
   --color-code-fg: oklch(0.18 0.01 80);
   --color-selection-bg: oklch(0.92 0.04 250);
 
-  /* Legacy compat aliases (used by existing components) */
-  --bg: var(--color-bg);
-  --text: var(--color-fg);
-  --text-muted-color: var(--color-fg-muted);
-  --accent: var(--color-accent);
-  --surface: var(--color-surface);
-  --border: var(--color-border);
-  --inverse-bg: var(--color-fg);
-  --inverse-text: var(--color-bg);
-  --font-sans: var(--font-body);
-
   color-scheme: light;
 }
 
@@ -115,15 +104,6 @@
   --color-code-bg: oklch(0.20 0.005 80);
   --color-code-fg: oklch(0.88 0.005 80);
   --color-selection-bg: oklch(0.30 0.06 250);
-
-  --bg: var(--color-bg);
-  --text: var(--color-fg);
-  --text-muted-color: var(--color-fg-muted);
-  --accent: var(--color-accent);
-  --surface: var(--color-surface);
-  --border: var(--color-border);
-  --inverse-bg: var(--color-fg);
-  --inverse-text: var(--color-bg);
 
   color-scheme: dark;
 }

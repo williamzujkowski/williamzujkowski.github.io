@@ -8,99 +8,21 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
 ---
 
 <BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist." noindex>
-  <section class="py-16 sm:py-24">
-    <div class="text-center">
-      <p class="text-6xl sm:text-8xl font-bold" style="opacity: 0.6">404</p>
-      <h1
-        class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl"
-        style="font-size: clamp(2rem, 4vw, 2.75rem)"
-      >
-        Page not found
-      </h1>
-      <p class="mt-6 text-lg">
-        The page you're looking for doesn't exist or has been moved.
-      </p>
-      <div class="mt-8 flex items-center justify-center gap-4 flex-wrap">
-        <a href="/" class="btn-filled">Go home</a>
-        <a href="/posts/" class="btn-outlined">Browse posts</a>
-        <a href="/tags/" class="btn-outlined">Explore tags</a>
-      </div>
-
-      <!-- Inline search -->
-      <div class="mt-12 max-w-md mx-auto">
-        <p class="text-sm mb-3">
-          Or try searching for what you need:
-        </p>
-        <div id="search-404"></div>
-      </div>
+  <div class="prose" style="text-align: center; margin-top: var(--space-9);">
+    <p style="font-family: var(--font-mono); font-size: var(--text-display); color: var(--color-muted); opacity: 0.4; margin: 0;">404</p>
+    <h1 style="margin-top: var(--space-3);">Page not found</h1>
+    <p>The page you're looking for doesn't exist or has been moved.</p>
+    <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-4); flex-wrap: wrap; margin-top: var(--space-6);">
+      <a href="/" class="chip">Go home</a>
+      <a href="/posts/" class="chip">Browse posts</a>
+      <a href="/tags/" class="chip">Explore tags</a>
     </div>
-  </section>
+  </div>
 
-  <!-- Recent posts as fallback -->
-  <section class="pb-16">
-    <div>
-      <h2 class="text-xl font-semibold mb-6 text-center">
-        Recent Posts
-      </h2>
-      <div class="space-y-4">
-        {recentPosts.map((post) => <PostCard post={post} variant="horizontal" />)}
-      </div>
-    </div>
+  <section style="padding-bottom: var(--space-8); margin-top: var(--space-8);">
+    <h2 class="font-mono" style="font-size: var(--text-meta); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--color-muted); font-weight: 400; max-width: var(--content-reading); margin-inline: auto; margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border);">
+      Recent Posts
+    </h2>
+    {recentPosts.map((post) => <PostCard post={post} />)}
   </section>
 </BaseLayout>
-
-<script>
-  async function init404Search() {
-    // @ts-ignore — pagefind is loaded at runtime from the built index
-    const pagefind = await import('/pagefind/pagefind.js');
-    await pagefind.init();
-
-    const container = document.getElementById('search-404');
-    if (!container) return;
-
-    const input = document.createElement('input');
-    input.type = 'search';
-    input.placeholder = 'Search posts...';
-    input.setAttribute('aria-label', 'Search posts');
-    input.className =
-      'w-full px-4 py-3 rounded-[0.375rem] border text-base';
-    input.style.cssText =
-      'background: var(--surface); border-color: var(--border); color: var(--text);';
-
-    const results = document.createElement('div');
-    results.className = 'mt-3 text-left space-y-2';
-
-    container.appendChild(input);
-    container.appendChild(results);
-
-    let debounce: ReturnType<typeof setTimeout>;
-    input.addEventListener('input', () => {
-      clearTimeout(debounce);
-      debounce = setTimeout(async () => {
-        const query = input.value.trim();
-        results.innerHTML = '';
-        if (query.length < 2) return;
-
-        const search = await pagefind.search(query);
-        const items = await Promise.all(search.results.slice(0, 5).map((r: { data: () => Promise<{ url: string; meta?: { title?: string } }> }) => r.data()));
-
-        if (items.length === 0) {
-          results.innerHTML =
-            '<p class="text-sm">No results found.</p>';
-          return;
-        }
-
-        for (const item of items) {
-          const link = document.createElement('a');
-          link.href = item.url;
-          link.textContent = item.meta?.title ?? item.url;
-          link.className =
-            'block px-3 py-2 rounded text-sm hover:';
-          results.appendChild(link);
-        }
-      }, 200);
-    });
-  }
-
-  init404Search();
-</script>
