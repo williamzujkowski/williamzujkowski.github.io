@@ -84,14 +84,14 @@ const formattedDate = date.toLocaleDateString('en-US', {
     <TableOfContents headings={headings} />
 
     <!-- Content -->
-    <div class="prose prose-lg">
-          <slot />
-        </div>
+    <div class="prose">
+      <slot />
+    </div>
 
-        <!-- Share -->
-        <footer class="mt-12 pt-8" style="border-top: 1px solid var(--color-border);">
-          <div class="flex flex-wrap items-center gap-4">
-            <span class="text-sm font-medium">Share:</span>
+    <!-- Share -->
+    <footer style="margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border);">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="font-mono" style="font-size: var(--text-meta); color: var(--color-muted);">Share:</span>
             <a
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`${siteUrl}${Astro.url.pathname}`)}&title=${encodeURIComponent(title)}`}
               class="chip"
