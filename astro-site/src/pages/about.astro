@@ -5,87 +5,110 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
 
 <BaseLayout title="About" description="William Zujkowski — security engineer, builder, homelab enthusiast.">
   <div class="prose">
-    <h1>About</h1>
+    <p class="section-eyebrow">About</p>
+    <h1>William Zujkowski</h1>
+
+    <p class="lede">
+      Senior InfoSec Engineer at <a href="https://cloud.gov">Cloud.gov</a>.
+      Cloud platform security, identity federation, and compliance automation —
+      the kind you can actually ship. Homelab enthusiast, reformed
+      small-business technician, perpetual tinkerer.
+    </p>
+
+    <p class="disclaimer">Views are my own, not my employer's.</p>
+
+    <h2>How I got here</h2>
 
     <p>
-      I'm a Senior InfoSec Engineer at <a href="https://cloud.gov" target="_blank" rel="noopener noreferrer">Cloud.gov</a>,
-      focused on cloud platform security, identity federation, and compliance automation.
-      I design security controls that enable teams instead of blocking them — and spend
-      too many nights in my homelab breaking things to understand how they work.
+      My first computer was a Tandy 286 — the Radio Shack floor model. I upgraded it to
+      Windows 3.1 using thirty-something floppies. By the late 90s I was on Geocities; by
+      the early 2000s I was running a self-hosted PHP forum on a PC under my bed with 500+
+      users. That turned into a decade fixing computers for small businesses around
+      Harrisburg, PA, which turned into infrastructure, which turned into security.
     </p>
 
     <p>
-      Everything on this site reflects my own views, not those of my employer.
-    </p>
-
-    <h2>Background</h2>
-
-    <p>
-      My first computer was a Tandy 286 from Radio Shack — the floor model. I upgraded it to Windows 3.1
-      with 30-something floppy disks. By the late 90s I had a Geocities site. By the early 2000s I was
-      running self-hosted PHP forums on a PC under my bed with over 500 users.
-    </p>
-
-    <p>
-      That turned into nearly a decade of fixing computers for small businesses in the Harrisburg, PA area,
-      which led to infrastructure management, which led to security engineering. The pivot point: recovering
-      a machine from an MBR virus for someone working on their thesis. Classic "I need help, here's pizza"
-      situation. To this day, when a bad CVE drops, I grab pastries for the response team.
+      The pivot: recovering a graduate student's thesis from an MBR virus. Classic
+      "I need help, here's pizza" situation. To this day, when a bad CVE drops,
+      I bring pastries for the response team.
     </p>
 
     <h2>Career</h2>
 
+    <dl class="uses-list">
+      <dt>Cloud.gov <span class="uses-detail">2023 – present</span></dt>
+      <dd>Cloud security architecture and federal compliance for a FedRAMP Moderate platform. NIST 800-53 Rev 4 → Rev 5 transition.</dd>
+
+      <dt>NIH <span class="uses-detail">2014 – 2023</span></dt>
+      <dd>HPC site reliability → enterprise vulnerability management across 100,000+ assets and 27 Institutes → security engineering for research infrastructure. Led the Log4j response. Got to burn in 8-way H100 nodes.</dd>
+
+      <dt>Independent consultant <span class="uses-detail">2005 – 2014</span></dt>
+      <dd>House calls to infrastructure management. A decade of learning how things break in the real world.</dd>
+    </dl>
+
+    <h2>How I think about security</h2>
+
     <p>
-      <strong>Cloud.gov</strong> (2023–present) — Cloud security architecture and federal compliance for a
-      FedRAMP Moderate platform. NIST 800-53 Rev 4 → Rev 5 transition.
+      Security should enable work, not block it. The best controls are invisible — users
+      never notice them because they just work. If developers can't deploy their code,
+      they'll find a workaround. Make the secure path the easy path.
     </p>
 
     <p>
-      <strong>NIH</strong> (2014–2023) — Moved through HPC site reliability, enterprise vulnerability
-      management across 100,000+ assets and 27 Institutes, and security engineering for research infrastructure.
-      Led the Log4j response. Got to burn in 8-way H100 nodes.
+      Automation isn't about replacing people. It's about freeing them from clicking
+      buttons so they can do interesting work. AI security is about governance as much as
+      tech — the hard problems are the humans, policies, and processes around the models.
+    </p>
+
+    <h2>Outside work</h2>
+
+    <p>
+      My homelab grew from one Raspberry Pi in 2015 to a Dell PowerEdge R910, a fleet of
+      Pis, and far too many containers. I run my own SIEM, a self-hosted password manager,
+      and whatever I'm experimenting with that week. I've burned out a GPU pushing local
+      LLM inference too hard and taken down my home network for hours trying VLAN
+      segmentation just to see how it works.
     </p>
 
     <p>
-      <strong>Independent consultant</strong> (2005–2014) — House calls to infrastructure management.
-      Nearly a decade of learning how things break in the real world.
-    </p>
-
-    <h2>How I Think About Security</h2>
-
-    <p>
-      Security should enable work, not block it. The best controls are invisible — users never notice them
-      because they just work. If developers can't deploy their code, they'll find a workaround. Make the
-      secure path the easy path.
-    </p>
-
-    <p>
-      Automation isn't about replacing people. It's about freeing them from clicking buttons so they can do
-      interesting work. AI security is about governance, not just tech — the hard problems are the humans,
-      policies, and processes around the models.
-    </p>
-
-    <h2>Outside Work</h2>
-
-    <p>
-      My homelab has grown from a single Raspberry Pi in 2015 to a Dell PowerEdge R910, a fleet of Pis,
-      and way too many containers. I run my own SIEM, self-hosted password manager, and whatever else
-      I'm experimenting with that week. I've burned out a GPU pushing local LLM inference too hard
-      and taken down my home network for hours trying VLAN segmentation "just to see how it works."
-    </p>
-
-    <p>
-      I'm deep into AI/LLM experimentation — not just using models, but running them locally, building
-      multi-agent orchestration systems, and figuring out how to secure these things in production.
-      See what I'm building on the <a href="/projects/">projects page</a>.
+      I'm deep into AI/LLM experimentation — running models locally, building multi-agent
+      orchestration, and figuring out how to secure these systems in production. See the
+      current stack on <a href="/uses/">uses</a>, what I'm building on <a href="/projects/">projects</a>,
+      and what I'm focused on right now on <a href="/now/">now</a>.
     </p>
 
     <h2>Connect</h2>
 
     <p>
-      <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer">GitHub</a> ·
-      <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> ·
+      <a href={SITE_CONFIG.social.github}>GitHub</a> ·
+      <a href={SITE_CONFIG.social.linkedin}>LinkedIn</a> ·
       <a href="/feed.xml">RSS</a>
     </p>
   </div>
 </BaseLayout>
+
+<style>
+  .lede {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.55;
+    color: var(--color-fg);
+    font-style: italic;
+    margin-block-end: var(--space-4);
+    text-wrap: pretty;
+  }
+  .disclaimer {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: var(--tracking-meta);
+    color: var(--color-muted);
+    margin-block-end: var(--space-7);
+  }
+  .uses-detail {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-muted);
+    font-weight: 400;
+    margin-left: 0.5em;
+  }
+</style>
