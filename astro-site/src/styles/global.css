@@ -289,42 +289,78 @@ a:hover { color: var(--color-accent-hover); }
   margin-block-start: var(--space-4);
 }
 
-/* ===== Post Cards ===== */
+/* ===== Post Cards (specimen grid pattern, Wave 3) ===== */
 .post-card {
-  padding-block-end: var(--space-7);
-  margin-block-end: var(--space-7);
+  display: grid;
+  grid-template-columns: minmax(9rem, 14ch) 1fr;
+  gap: var(--space-6);
+  padding-block: var(--space-4);
   border-bottom: 1px solid var(--color-border);
   max-width: var(--content-reading);
   margin-inline: auto;
 }
 .post-card:last-child { border-bottom: none; }
+
+.post-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--color-muted);
+  letter-spacing: var(--tracking-meta);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.4em; /* optical baseline alignment with title */
+}
+.post-card-readtime { color: var(--color-muted); }
+
+.post-card-body { min-width: 0; /* prevent grid overflow */ }
+
 .post-card-title,
 a.post-card-title,
 a.post-card-title:visited {
   display: block;
   font-family: var(--font-display);
-  font-size: var(--text-title);
+  font-size: var(--text-body-lg);
   font-weight: var(--weight-regular);
-  line-height: var(--leading-title);
+  line-height: 1.25;
   letter-spacing: var(--tracking-title);
   color: var(--color-fg);
   text-decoration: none;
 }
-a.post-card-title:hover {
-  color: var(--color-accent);
-}
+a.post-card-title:hover { color: var(--color-accent); }
+
 .post-card-excerpt {
   margin-block-start: var(--space-2);
+  margin-block-end: 0;
   color: var(--color-fg-muted);
   font-size: var(--text-body);
   line-height: var(--leading-body);
 }
+
+.post-card .chip-row {
+  margin-block-start: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .post-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    padding-block: var(--space-5);
+  }
+  .post-card-meta {
+    flex-direction: row;
+    gap: var(--space-3);
+    padding-top: 0;
+  }
+}
+
+/* Legacy .post-card-date (kept for any stray usage) */
 .post-card-date {
   font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
-  margin-block-start: var(--space-2);
 }
 
 /* ===== Chips ===== */
@@ -425,6 +461,38 @@ a.post-card-title:hover {
   margin-inline: auto;
   font-size: var(--text-body);
   line-height: var(--leading-body);
+  /* Publication-grade typography (Wave 1) */
+  hanging-punctuation: first last;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-wrap: pretty;
+}
+
+/* Tabular numerals in metadata, dates, times, code */
+.post-meta, .post-card-date, .uses-meta, .site-subtitle,
+.year-heading, .section-eyebrow, .related-meta,
+time, pre, code, .chip {
+  font-variant-numeric: tabular-nums;
+}
+
+/* OpenType features on display typography (Wave 2) */
+/* Newsreader has optical-size axis 6-72; let the font choose the right grade */
+h1, h2, h3, h4, h5, h6,
+.site-title, .post-card-title, .uses-name,
+.prose :where(h1, h2, h3, h4) {
+  font-feature-settings: "liga" 1, "calt" 1, "dlig" 1, "kern" 1;
+  font-optical-sizing: auto;
+  font-synthesis: none;
+  text-wrap: balance;
+}
+
+/* True small caps for section eyebrows and year headings (Wave 2) */
+/* Replaces text-transform: uppercase — renders at cap-height, not x-height */
+.section-eyebrow,
+.year-heading,
+.related-posts h2 {
+  font-variant-caps: all-small-caps;
+  text-transform: none;
+  letter-spacing: 0.08em;
 }
 .prose :where(p) { margin-block: 1.25em; }
 .prose :where(li) { font-size: var(--text-body); line-height: var(--leading-body); margin-block-end: 0.5em; }
@@ -514,6 +582,26 @@ a.post-card-title:hover {
 }
 .prose :where(pre code) { background: none; padding: 0; border-radius: 0; font-size: inherit; }
 .prose-lg { font-size: var(--text-body-lg); }
+
+/* Heading + first paragraph pairing (Wave 3) */
+/* Pull first paragraph after a heading up slightly — creates decisive pairing */
+.prose :where(h2 + p),
+.prose :where(h3 + p) {
+  margin-top: calc(var(--space-3) * -0.4);
+}
+
+/* Drop cap on essay lead paragraph (Wave 3) */
+/* Only on blog posts — scoped to article.prose, not general .prose usage */
+article .prose > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 3.5em;
+  line-height: 0.85;
+  float: left;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--color-fg);
+  font-feature-settings: "liga" 1, "calt" 1, "dlig" 1;
+}
 
 /* Shiki dual-theme dark mode swap */
 @media (prefers-color-scheme: dark) {

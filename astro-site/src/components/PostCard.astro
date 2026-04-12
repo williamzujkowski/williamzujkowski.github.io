@@ -26,26 +26,27 @@ const formattedDate = post.data.date.toLocaleDateString('en-US', {
   month: 'short',
   day: 'numeric',
 });
+const isoDate = post.data.date.toISOString().split('T')[0];
 ---
 
 <article class="post-card">
-  <a href={`/posts/${post.id}/`} class="post-card-title">
-    {post.data.title}
-  </a>
-  {post.data.description && (
-    <p class="post-card-excerpt">{post.data.description}</p>
-  )}
-  <div class="post-card-date">
-    <time datetime={post.data.date.toISOString().split('T')[0]}>
-      {formattedDate}
-    </time>
-    &middot; {readingTime} min read
+  <div class="post-card-meta">
+    <time datetime={isoDate}>{formattedDate}</time>
+    <span class="post-card-readtime">{readingTime} min read</span>
   </div>
-  {showTags && displayTags.length > 0 && (
-    <div class="chip-row" style="margin-block-start: 0.5rem;">
-      {displayTags.map((tag) => (
-        <a href={`/tags/${tag}/`} class="chip">{tag}</a>
-      ))}
-    </div>
-  )}
+  <div class="post-card-body">
+    <a href={`/posts/${post.id}/`} class="post-card-title">
+      {post.data.title}
+    </a>
+    {post.data.description && (
+      <p class="post-card-excerpt">{post.data.description}</p>
+    )}
+    {showTags && displayTags.length > 0 && (
+      <div class="chip-row">
+        {displayTags.map((tag) => (
+          <a href={`/tags/${tag}/`} class="chip">{tag}</a>
+        ))}
+      </div>
+    )}
+  </div>
 </article>
