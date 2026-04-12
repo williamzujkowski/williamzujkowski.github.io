@@ -822,6 +822,66 @@ div:has(> .post-card) {
   margin-inline: auto;
 }
 
+/* ===== Polish Pass v3: external links, figures, abbr ===== */
+.prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after {
+  content: "↗";
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  color: var(--color-muted);
+  margin-left: 0.15em;
+  vertical-align: super;
+  text-decoration: none;
+}
+
+.prose figure { margin-block: var(--space-6); }
+.prose figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta);
+  color: var(--color-muted);
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+.prose abbr[title] {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+/* ===== Typography Pass v4: rhythm, numerals, optical alignment ===== */
+
+/* Tabular lining numerals on metadata — kills year-row jitter */
+time, .post-card-meta, .post-card-readtime, .year-heading span,
+.chip, .uses-list dt, .post-breadcrumb {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Hanging punctuation on headings */
+h1, h2, h3, .post-card-title, .site-title {
+  hanging-punctuation: first allow-end last;
+}
+
+/* Newsreader at display sizes prefers slight negative tracking */
+.prose h2 { letter-spacing: -0.01em; }
+.prose h2 + p { margin-top: var(--space-2); }
+
+/* Post-card meta as small-caps eyebrow */
+.post-card-meta {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+
+/* Chip small-caps treatment */
+.chip { font-variant-caps: all-small-caps; letter-spacing: 0.06em; }
+
+/* Smart-quote character set for <q> elements */
+.prose { quotes: "\201C" "\201D" "\2018" "\2019"; }
+.prose q::before { content: open-quote; }
+.prose q::after { content: close-quote; }
+
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
