@@ -1,0 +1,34 @@
+name: Accessibility (axe-playwright)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6
+        with:
+          node-version: '22'
+      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2  # v4
+        with:
+          version: 10
+      - name: Install deps
+        run: cd astro-site && pnpm install --frozen-lockfile
+      - name: Install Playwright chromium
+        run: cd astro-site && pnpm exec playwright install --with-deps chromium
+      - name: Build site
+        run: cd astro-site && pnpm build
+      - name: Run axe a11y suite
+        run: cd astro-site && pnpm exec playwright test tests/e2e/a11y.spec.ts
+      - name: Upload report on failure
+        if: failure()
+        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8  # v5
+        with:
+          name: axe-playwright-report
+          path: astro-site/playwright-report/
+          retention-days: 7

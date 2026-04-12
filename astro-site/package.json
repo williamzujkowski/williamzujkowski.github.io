@@ -20,7 +20,8 @@
     "audit:contrast": "node scripts/contrast-audit.mjs",
     "audit:typography": "node scripts/typography-audit.mjs",
     "audit:colors": "node scripts/color-token-audit.mjs",
-    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors"
+    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors",
+    "test:a11y": "playwright test tests/e2e/a11y.spec.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.17",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.7",
+    "@axe-core/playwright": "^4.11.1",
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.16.1",
     "@typescript-eslint/parser": "^8.57.0",
