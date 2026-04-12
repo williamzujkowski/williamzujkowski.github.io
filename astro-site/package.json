@@ -20,7 +20,8 @@
     "audit:contrast": "node scripts/contrast-audit.mjs",
     "audit:typography": "node scripts/typography-audit.mjs",
     "audit:colors": "node scripts/color-token-audit.mjs",
-    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors",
+    "audit:apca": "node scripts/apca-audit.mjs",
+    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors && pnpm audit:apca",
     "test:a11y": "playwright test tests/e2e/a11y.spec.ts"
   },
   "dependencies": {
@@ -44,6 +45,8 @@
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.16.1",
     "@typescript-eslint/parser": "^8.57.0",
+    "apca-w3": "^0.1.9",
+    "colorparsley": "^0.1.8",
     "eslint": "^10.0.3",
     "eslint-plugin-astro": "^1.6.0",
     "pagefind": "^1.4.0",

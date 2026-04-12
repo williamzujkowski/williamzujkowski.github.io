@@ -63,6 +63,12 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.57.0
         version: 8.58.1(eslint@10.2.0)(typescript@5.9.3)
+      apca-w3:
+        specifier: ^0.1.9
+        version: 0.1.9
+      colorparsley:
+        specifier: ^0.1.8
+        version: 0.1.8
       eslint:
         specifier: ^10.0.3
         version: 10.2.0
@@ -1120,6 +1126,9 @@ packages:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
 
+  apca-w3@0.1.9:
+    resolution: {integrity: sha512-Zrf6AeBeQjNe/fxK7U1jCo5zfdjDl6T4/kdw5Xlky3G7u+EJTZkyItjMYQGtwf9pkftsINxcYyOpuLkzKf1ITQ==}
+
   arg@5.0.2:
     resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
 
@@ -1225,6 +1234,9 @@ packages:
 
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+
+  colorparsley@0.1.8:
+    resolution: {integrity: sha512-rObESTTTE6G5qO5WFwFxWPggpw4KfpxnLC6Ssl8bITBnNVRhDsyCeTRAUxWQNVTx2pRknKlO2nddYTxjkdNFaw==}
 
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
@@ -3881,6 +3893,10 @@ snapshots:
       normalize-path: 3.0.0
       picomatch: 2.3.2
 
+  apca-w3@0.1.9:
+    dependencies:
+      colorparsley: 0.1.8
+
   arg@5.0.2: {}
 
   argparse@2.0.1: {}
@@ -4068,6 +4084,8 @@ snapshots:
       color-name: 1.1.4
 
   color-name@1.1.4: {}
+
+  colorparsley@0.1.8: {}
 
   comma-separated-tokens@2.0.3: {}
 
