@@ -20,3 +20,6 @@ jobs:
         run: node astro-site/scripts/typography-audit.mjs
       - name: Color-token audit (no hardcoded hex/rgb/oklch outside tokens)
         run: node astro-site/scripts/color-token-audit.mjs
+      - name: APCA advisory (WCAG 3 draft — informational only)
+        run: node astro-site/scripts/apca-audit.mjs
+        continue-on-error: true

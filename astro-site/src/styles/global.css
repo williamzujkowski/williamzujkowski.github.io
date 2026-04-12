@@ -94,13 +94,13 @@
   --color-bg: oklch(0.16 0.01 80);
   --color-bg-subtle: oklch(0.19 0.01 80);
   --color-fg: oklch(0.90 0.005 80);
-  --color-fg-muted: oklch(0.70 0.01 80);
-  --color-muted: oklch(0.58 0.01 80);
+  --color-fg-muted: oklch(0.85 0.01 80);    /* APCA Lc 76 (draft-AA body), WCAG 12.28:1 AAA */
+  --color-muted: oklch(0.78 0.01 80);       /* APCA Lc 63 (draft-AA large), WCAG 9.70:1 AAA */
   --color-border: oklch(0.25 0.005 80);     /* Decorative only */
-  --color-border-bold: oklch(0.50 0.01 80); /* 3.23:1 WCAG 1.4.11 non-text */
+  --color-border-bold: oklch(0.60 0.01 80); /* APCA Lc 35 (draft non-text), WCAG 4.92:1 */
   --color-surface: oklch(0.19 0.01 80);
-  --color-accent: oklch(0.68 0.12 250);
-  --color-accent-hover: oklch(0.75 0.12 250);
+  --color-accent: oklch(0.78 0.12 250);     /* APCA Lc 64 (draft-AA), WCAG 9.73:1 AAA */
+  --color-accent-hover: oklch(0.85 0.12 250);
   --color-code-bg: oklch(0.20 0.005 80);
   --color-code-fg: oklch(0.88 0.005 80);
   --color-selection-bg: oklch(0.30 0.06 250);
@@ -113,13 +113,13 @@
     --color-bg: oklch(0.16 0.01 80);
     --color-bg-subtle: oklch(0.19 0.01 80);
     --color-fg: oklch(0.90 0.005 80);
-    --color-fg-muted: oklch(0.70 0.01 80);
-    --color-muted: oklch(0.58 0.01 80);
+    --color-fg-muted: oklch(0.85 0.01 80);    /* APCA Lc 76, WCAG 12.28:1 AAA */
+    --color-muted: oklch(0.78 0.01 80);       /* APCA Lc 63, WCAG 9.70:1 AAA */
     --color-border: oklch(0.25 0.005 80);     /* Decorative only */
-    --color-border-bold: oklch(0.50 0.01 80); /* 3.23:1 WCAG 1.4.11 non-text */
+    --color-border-bold: oklch(0.60 0.01 80); /* APCA Lc 35, WCAG 4.92:1 */
     --color-surface: oklch(0.19 0.01 80);
-    --color-accent: oklch(0.68 0.12 250);
-    --color-accent-hover: oklch(0.75 0.12 250);
+    --color-accent: oklch(0.78 0.12 250);     /* APCA Lc 64, WCAG 9.73:1 AAA */
+    --color-accent-hover: oklch(0.85 0.12 250);
     --color-code-bg: oklch(0.20 0.005 80);
     --color-code-fg: oklch(0.88 0.005 80);
     --color-selection-bg: oklch(0.30 0.06 250);
