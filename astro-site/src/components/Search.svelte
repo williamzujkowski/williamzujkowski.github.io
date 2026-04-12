@@ -131,17 +131,13 @@
 <button
   type="button"
   onclick={open}
-  class="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--color-muted)] hover:bg-[var(--color-surface)] transition-colors"
+  class="search-trigger"
   aria-label="Search site"
 >
-  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
   </svg>
-  <kbd
-    class="hidden lg:inline-block ml-1.5 text-[10px] px-1.5 py-0.5 rounded border font-sans"
-    style="color: var(--color-muted); border-color: var(--color-border); opacity: 0.7"
-    >&sol;K</kbd
-  >
+  <kbd class="search-kbd">&sol;K</kbd>
 </button>
 
 <!-- Search dialog -->
@@ -233,6 +229,44 @@
 {/if}
 
 <style>
+  /* Search trigger — Remarque tokens, no Tailwind (which isn't installed) */
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 0.5rem;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md, 0.5rem);
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color var(--motion-fast, 180ms) var(--motion-easing, ease);
+  }
+  .search-trigger:hover {
+    color: var(--color-fg);
+    background: var(--color-surface);
+  }
+  .search-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .search-kbd {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    padding: 0.125rem 0.375rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    color: var(--color-muted);
+    line-height: 1;
+  }
+  @media (min-width: 1024px) {
+    .search-kbd { display: inline-block; }
+  }
+
   /* Style Pagefind highlight marks */
   :global(mark) {
     background-color: var(--color-surface);
