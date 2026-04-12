@@ -25,3 +25,5 @@ jobs:
         run: node astro-site/scripts/contrast-audit.mjs
       - name: Typography floor audit (USWDS 13px min)
         run: node astro-site/scripts/typography-audit.mjs
+      - name: Color-token audit (no hardcoded hex/rgb/oklch outside tokens)
+        run: node astro-site/scripts/color-token-audit.mjs

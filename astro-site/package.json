@@ -19,7 +19,8 @@
     "test:e2e:headed": "npx playwright test --headed",
     "audit:contrast": "node scripts/contrast-audit.mjs",
     "audit:typography": "node scripts/typography-audit.mjs",
-    "audit": "pnpm audit:contrast && pnpm audit:typography"
+    "audit:colors": "node scripts/color-token-audit.mjs",
+    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.17",
