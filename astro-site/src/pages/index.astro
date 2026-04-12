@@ -10,6 +10,7 @@ const hasMore = posts.length > 5;
 ---
 
 <BaseLayout title="Home">
+  <h1 class="sr-only">Latest writing</h1>
   <section>
     {recentPosts.map((post) => (
       <PostCard post={post} />

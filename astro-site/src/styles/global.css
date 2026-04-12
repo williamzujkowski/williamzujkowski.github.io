@@ -76,7 +76,7 @@
   --color-bg-subtle: oklch(0.955 0.005 80);
   --color-fg: oklch(0.18 0.01 80);
   --color-fg-muted: oklch(0.43 0.015 80);  /* 7.55:1 AAA on --color-bg */
-  --color-muted: oklch(0.55 0.01 80);       /* 4.52:1 AA on --color-bg */
+  --color-muted: oklch(0.54 0.01 80);       /* 4.70:1 AA on --color-bg (rendered) */
   --color-border: oklch(0.88 0.005 80);     /* Decorative only — use --color-border-bold for interactive states */
   --color-border-bold: oklch(0.62 0.01 80); /* 3.39:1 WCAG 1.4.11 non-text */
   --color-surface: oklch(0.965 0.005 80);
