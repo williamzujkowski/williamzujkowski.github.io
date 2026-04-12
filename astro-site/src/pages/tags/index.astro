@@ -19,10 +19,10 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
 <BaseLayout title="Tags" description="Browse all blog post tags.">
-  <h1>Tags</h1>
-  <p style="margin-block-end: 1.5rem;">
-    {sortedTags.length} tags across {posts.length} posts
-  </p>
+  <div class="prose">
+    <h1>Tags</h1>
+    <p>{sortedTags.length} tags across {posts.length} posts.</p>
+  </div>
 
   <div class="chip-row">
     {

@@ -28,14 +28,10 @@ const { tag, posts } = Astro.props;
     <a href="/">Home</a> / <a href="/posts/">Blog</a> / <a href="/tags/">Tags</a> / {tag}
   </nav>
 
-  <h1>{tag}</h1>
-  <p style="margin-block-end: 2rem;">
-    {posts.length} post{posts.length === 1 ? '' : 's'}
-  </p>
+  <div class="prose">
+    <h1>{tag}</h1>
+    <p>{posts.length} post{posts.length === 1 ? '' : 's'} tagged with {tag}.</p>
+  </div>
 
-  {
-    posts.map((post) => (
-      <PostCard post={post} showTags={true} />
-    ))
-  }
+  {posts.map((post) => <PostCard post={post} showTags={true} />)}
 </BaseLayout>
