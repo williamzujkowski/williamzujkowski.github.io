@@ -824,6 +824,20 @@ div:has(> .post-card) {
   margin-inline: auto;
 }
 
+/* ===== PostLayout share row ===== */
+.share-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+.share-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta);
+  color: var(--color-muted);
+}
+
 /* ===== Polish Pass v3: external links, figures, abbr ===== */
 .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after {
   content: "↗";
