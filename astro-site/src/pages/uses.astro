@@ -4,932 +4,565 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
 <BaseLayout title="Uses" description="Hardware, software, and services I use.">
   <div class="prose">
-        <h1>Uses</h1>
-
-        <p>
-          This is my digital toolbox &ndash; the stuff that's survived the test of real-world use and hasn't let me
-          down. I'm picky about my tools because bad choices cost time, and time is what I use to tinker with cool
-          stuff. Everything here has a story, usually involving at least one failure before I figured it out.
-        </p>
-
-        <p>
-          What started with a $50 Raspberry Pi in 2015 has evolved into a homelab and workflow that actually
-          works for me. This is a living document: I update it when I change something significant or learn a better
-          way.
-        </p>
-
-        <nav>
-          <p>Jump to:
-            <a href="#hardware">Hardware</a> ·
-            <a href="#software">Software</a> ·
-            <a href="#security">Security</a> ·
-            <a href="#ai">AI Tools</a> ·
-            <a href="#services">Services</a> ·
-            <a href="#self-hosted">Self-Hosted</a> ·
-            <a href="#cli">CLI</a>
-          </p>
-        </nav>
-
-
-
-        <!-- ==================== HARDWARE ==================== -->
-        <h2 id="hardware">Hardware</h2>
-
-        <h3>Workstation</h3>
-
-        <ul>
-          <li>
-            <strong>Desktop PC</strong> &mdash; Intel i9-9900K (2019), 64 GB RAM,
-            <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/" rel="noopener noreferrer"
-              >RTX 3090</a
-            >
-            (2021), 1TB NVMe + 8TB HDD storage
-
-            <p>
-              <strong>Why this build:</strong> Needed something that could handle local LLM experiments (hence the 3090's
-              24GB VRAM) plus VM workloads (hence the 64GB RAM). Built in 2019 for ~$2,400, upgraded GPU in 2021 when I realized
-              11GB VRAM on my old 2080 Ti limited me to 7B models. The 3090's 24GB handles 7B-34B models comfortably in full
-              VRAM.
-            </p>
-
-            <p>
-              <strong>Trade-off:</strong> Could've gone AMD Threadripper for better multi-threading, but CUDA support for
-              ML work made NVIDIA the obvious choice. The 3090 was expensive ($1,500 during the shortage), but it saves me
-              hundreds per month in cloud GPU costs.
-            </p>
-
-            <p>
-              <strong>Lesson learned:</strong> Originally bought a 2080 Ti in 2020. Pushed it too hard overclocking for
-              LLM inference and burned it out. Taught me to respect thermal limits. Upgraded to the 3090 and haven't
-              looked back.
-            </p>
-          </li>
-
-          <li>
-            <strong>Laptop</strong> &mdash;
-            <a href="https://frame.work/" rel="noopener noreferrer">Framework Laptop</a> (DIY Edition, 2022) with
-            <a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a>
-
-            <p>
-              <strong>Why Framework:</strong> After three laptops that became e-waste because one component failed, I wanted
-              something actually repairable. Framework's modular design means I can upgrade RAM, storage, ports, even the
-              mainboard without replacing the whole machine.
-            </p>
-
-            <p>
-              <strong>Cost reality:</strong> $1,400 for the DIY edition with an i7-1260P, 32GB RAM, and 1TB NVMe. More expensive
-              than a Dell with similar specs, but I value the right-to-repair philosophy.
-            </p>
-
-            <p>
-              <strong>Ubuntu choice:</strong> Tried Fedora for six months, kept breaking after updates. Ubuntu LTS is boring,
-              which is exactly what I want on a laptop I depend on.
-            </p>
-          </li>
-
-          <li>
-            <strong>Displays</strong> &mdash; 34" LG 34WK95U ultrawide (3440x1440, ~$800)
-
-            <p>
-              <strong>Why ultrawide:</strong> Tried dual 27" monitors for years. The bezel gap drove me insane. One seamless
-              ultrawide lets me have three vertical code panes side-by-side without visual interruption. Game changer for
-              monitoring dashboards.
-            </p>
-          </li>
-        </ul>
-
-        <h3>Peripherals</h3>
-
-        <ul>
-          <li>
-            <strong>Keyboard</strong> &mdash;
-            <a href="https://wooting.io/wooting-80he" rel="noopener noreferrer">Wooting 80HE</a> (~$185)
-
-            <p>
-              <strong>Analog hall effect keys:</strong> Thought it was marketing hype until I tried it. The ability to set
-              actuation points per-key and have analog input changed how I interact with my machine. It's absurdly customizable.
-              Now I can't go back to traditional mechanical switches.
-            </p>
-          </li>
-
-          <li>
-            <strong>Mouse</strong> &mdash;
-            <a href="https://www.gloriousgaming.com/collections/model-o-mice" rel="noopener noreferrer"
-              >Glorious Model O</a
-            > (~$50)
-
-            <p>
-              <strong>Lightweight champion:</strong> 67 grams. After years of heavy gaming mice giving me wrist pain, going
-              ultralight was a revelation. Simple, reliable, cheap.
-            </p>
-          </li>
-
-          <li>
-            <strong>Headset</strong> &mdash;
-            <a href="https://steelseries.com/gaming-headsets/arctis-7" rel="noopener noreferrer"
-              >SteelSeries Arctis 7X+</a
-            > (~$150)
-
-            <p>
-              <strong>Wireless that actually works:</strong> Battery lasts 30+ hours, comfortable for all-day wear, and the
-              mic doesn't sound like I'm in a cave. Works seamlessly across my PC, Xbox, and Switch.
-            </p>
-          </li>
-
-          <li>
-            <strong>Coffee</strong> &mdash;
-            <a href="https://chemexcoffeemaker.com/products/ten-cup-classic-chemex" rel="noopener noreferrer"
-              >Chemex 10-cup</a
-            > (~$50) +
-            <a href="https://baratza.com/grinder/encore/" rel="noopener noreferrer">Baratza Encore grinder</a> (~$170)
-
-            <p>
-              <strong>Because good security engineering requires good coffee.</strong> This is non-negotiable. Chemex makes
-              clean, smooth coffee without the bitterness you get from French press. The ritual of manual pour-over also gives
-              me time to think through problems.
-            </p>
-          </li>
-        </ul>
-
-        <h3>Homelab Infrastructure</h3>
-
-        <blockquote>
-          <p>
-            <strong>The Journey:</strong> Started with a $50 Raspberry Pi 4 in 2015. Thought "this is all I need." Ten years
-            and ~$8,000 in equipment later, here we are.
-          </p>
-        </blockquote>
-
-        <ul>
-          <li>
-            <strong>Firewall</strong> &mdash;
-            <a href="https://ui.com/consoles/dream-machine-pro" rel="noopener noreferrer">Ubiquiti Dream Machine Pro</a> (~$380)
-
-            <p>
-              <strong>Why UDM Pro:</strong> Spent years with pfSense on repurposed hardware. Worked great until it didn't.
-              UDM Pro isn't as flexible, but it's stable, fast, and I don't have to maintain another box. Trade-off accepted.
-            </p>
-
-            <p>
-              <strong>What I actually use:</strong> VLAN segmentation (IoT devices on isolated network), IDS/IPS for threat
-              detection, DPI for traffic analysis. Handles gigabit routing without breaking a sweat.
-            </p>
-          </li>
-
-          <li>
-            <strong>Hypervisor</strong> &mdash; Dell R910 running
-            <a href="https://linuxcontainers.org/incus/" rel="noopener noreferrer">Incus</a> on Ubuntu 24.04 (~$800 used)
-
-            <p>
-              <strong>Why enterprise gear:</strong> Needed serious compute for VM testing. Considered building custom, but
-              used enterprise hardware is cheap if you can handle the noise. This thing sounds like a jet engine at full throttle.
-              Worth it.
-            </p>
-
-            <p>
-              <strong>Specs:</strong> 4x Intel Xeon E7540 (24 cores / 48 threads total), 256GB RAM, ~400GB ZFS storage pool.
-            </p>
-
-            <p>
-              <strong>What I run:</strong> BOSH-managed VMs for Cloud Foundry and Concourse CI, plus Podman containers
-              for monitoring and services. Incus handles virtualization cleanly with less overhead than alternatives.
-              Tried ESXi for three months in 2020, but the licensing complexity wasn't worth it for a homelab.
-            </p>
-
-            <p>
-              <strong>Power cost:</strong> ~$150/month at idle. Expensive hobby, but cheaper than renting equivalent cloud
-              resources for learning.
-            </p>
-          </li>
-
-          <li>
-            <strong>Infrastructure Nodes</strong> &mdash; 3x
-            <a href="https://www.raspberrypi.com/products/raspberry-pi-5/" rel="noopener noreferrer"
-              >Raspberry Pi 5</a
-            >
-            (16GB each) + 1x
-            <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" rel="noopener noreferrer"
-              >Raspberry Pi 4</a
-            >
-            (8GB)
-
-            <p>
-              <strong>Dedicated roles:</strong> Two Pis run Pi-hole for redundant DNS filtering (network-wide ad blocking,
-              catches ~25% of queries). Another runs
-              <a href="https://goauthentik.io/" rel="noopener noreferrer">Authentik</a> for SSO &mdash; single sign-on
-              across Grafana, Concourse, and other services via OIDC.
-            </p>
-
-            <p>
-              <strong>Why dedicated hardware:</strong> DNS and auth are too critical to share resources with other workloads.
-              Separate Pis mean a server reboot doesn't take down name resolution or authentication.
-            </p>
-          </li>
-
-          <li>
-            <strong>Storage</strong> &mdash;
-            <a href="https://www.truenas.com/" rel="noopener noreferrer">TrueNAS Core</a> (~$1,200 for custom build, 2020)
-
-            <p>
-              <strong>~40TB raw, ~30TB usable</strong> (RAIDZ2 configuration)
-            </p>
-
-            <p>
-              <strong>Why TrueNAS:</strong> ZFS is bulletproof. I've had drives fail, but never lost data. Snapshots saved
-              me twice when I accidentally deleted things I shouldn't have — both times from careless mistakes in the
-              terminal that would have been painful without ZFS.
-            </p>
-
-            <p>
-              <strong>Backup strategy:</strong> Critical data goes to
-              <a href="https://www.backblaze.com/b2/cloud-storage.html" rel="noopener noreferrer">Backblaze B2</a>
-              (~$50/month) via <a href="https://restic.net/" rel="noopener noreferrer">restic</a>. Follows the 3-2-1
-              rule: 3 copies, 2 different media, 1 offsite.
-            </p>
-          </li>
-
-          <li>
-            <strong>Networking</strong> &mdash;
-            <a href="https://ui.com/" rel="noopener noreferrer">Ubiquiti</a> UniFi Switch 24 PoE (~$380) + 2x U6 Pro APs (~$150
-            each)
-
-            <p>
-              <strong>Why Ubiquiti ecosystem:</strong> Centralized management, reliable, PoE for clean AP installation. Not
-              the cheapest, not the most feature-rich, but it just works. I've had zero downtime in three years.
-            </p>
-
-            <p>
-              <strong>Network design:</strong> 5 VLANs (Management, Home, Lab, IoT, Guest). IoT devices can't reach anything
-              else. Learned this lesson after a smart bulb tried to phone home to unknown overseas servers 47,000 times in one day.
-            </p>
-          </li>
-        </ul>
-
-        <blockquote>
-          <p><strong>Related posts:</strong></p>
-          <ul>
-            <li>
-              <a
-                href="/posts/implementing-dns-over-https-doh-for-home-networks/">Implementing DNS-over-HTTPS (DoH) for Home Networks</a>
-            </li>
-            <li>
-              <a
-                href="/posts/iot-security-in-your-home-lab-lessons-from-owasp-iotgoat/">IoT Security in Your Home Lab: Lessons from OWASP IoTGoat</a>
-            </li>
-          </ul>
-        </blockquote>
-
-
-
-        <!-- ==================== SOFTWARE & DEVELOPMENT ==================== -->
-        <h2 id="software">Software &amp; Development</h2>
-
-        <h3>Operating Systems &amp; Virtualization</h3>
-
-        <ul>
-          <li>
-            <a href="https://ubuntu.com/" rel="noopener noreferrer">Ubuntu 24.04 LTS</a> as primary OS
-
-            <p>
-              <strong>Boring and stable:</strong> After distro-hopping for years (Arch, Fedora, NixOS, Pop!_OS), I settled
-              on Ubuntu LTS. It's boring. Boring is good. I spend my time solving problems, not fixing my OS.
-            </p>
-
-            <p>
-              <strong>What I learned:</strong> The "best" distro is the one that doesn't make you think about it.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://linuxcontainers.org/incus/" rel="noopener noreferrer">Incus</a> for virtualization
-
-            <p>
-              <strong>Incus vs Proxmox:</strong> Migrated from Proxmox to Incus on Ubuntu 24.04. Incus gives me clean
-              CLI-driven VM and container management without a web UI I rarely used. Pairs well with BOSH for
-              orchestrating Cloud Foundry workloads.
-            </p>
-
-            <p>
-              <strong>Learning curve:</strong> If you know LXD, Incus is familiar. If not, a weekend gets you productive.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://www.docker.com/" rel="noopener noreferrer">Docker</a> /
-            <a href="https://podman.io/" rel="noopener noreferrer">Podman</a> for containers
-
-            <p>
-              <strong>Docker for development, Podman for production:</strong> Docker is ubiquitous and has better docs. Podman
-              is daemonless and more secure. I use both depending on context.
-            </p>
-
-            <p>
-              <strong>Container philosophy:</strong> If a service isn't in a container, it's doing it wrong. Makes deployment
-              reproducible and rollbacks trivial.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://k3s.io/" rel="noopener noreferrer">K3s</a> for lightweight Kubernetes
-
-            <p>
-              <strong>Learning K8s the hard way:</strong> Tried learning full Kubernetes in 2021. Overwhelmed. K3s is stripped-down,
-              easier to understand, perfect for homelab. Once you understand K3s, regular K8s makes sense.
-            </p>
-
-            <p>
-              <strong>Reality check:</strong> K8s is overkill for 90% of homelab use cases. I use it because I want to learn
-              it, not because I need it.
-            </p>
-          </li>
-        </ul>
-
-        <h3>Terminal &amp; Editor</h3>
-
-        <ul>
-          <li>
-            <a href="https://github.com/ghostty-org/ghostty" rel="noopener noreferrer">Ghostty</a> terminal
-
-            <p>
-              <strong>Recent switch:</strong> Moved from Alacritty in October 2024. Ghostty is stupid fast (GPU-accelerated),
-              uses less memory, and the developer is responsive. Now stable and my daily driver &mdash; no regrets.
-            </p>
-
-            <p>
-              <strong>Why not GNOME Terminal:</strong> Startup time. Ghostty launches in ~40ms vs ~400ms for GNOME Terminal.
-              When you open dozens of terminals daily, that adds up.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://www.zsh.org/" rel="noopener noreferrer">Zsh</a> shell +
-            <a href="https://ohmyz.sh/" rel="noopener noreferrer">oh-my-zsh</a> + plugins
-
-            <p>
-              <strong>Why not bash:</strong> Tab completion and git integration. My most-used plugins:
-              <code>git</code>, <code>docker</code>, <code>kubectl</code>, <code>z</code> (directory jumping),
-              <code>fzf</code> integration.
-            </p>
-
-            <p>
-              <strong>Tried fish:</strong> Great shell, but bash compatibility matters for scripts I copy from Stack Overflow.
-              Zsh gives me better UX while staying bash-compatible.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> multiplexer
-
-            <p>
-              <strong>Essential for remote work:</strong> SSH sessions that survive disconnects. I can start a long-running
-              task, disconnect, reconnect hours later, and it's still running. Game changer.
-            </p>
-
-            <p>
-              <strong>Learning curve:</strong> Steep. Took me 3 months to stop fighting it. Now it's muscle memory. Worth
-              the investment.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://code.visualstudio.com/" rel="noopener noreferrer">VS Code</a> with extensions for Python, Go,
-            Terraform, Docker
-
-            <p>
-              <strong>Controversial take:</strong> I know, "real developers use vim." I tried. For 3 months in 2019. I was
-              30% slower in vim. Life's too short. VS Code with vim keybindings is my compromise.
-            </p>
-
-            <p>
-              <strong>Essential extensions:</strong> Python (Microsoft), Docker, GitLens, Remote-SSH, Markdown All-in-One,
-              Trailing Spaces.
-            </p>
-
-            <p>
-              <strong>Remote-SSH is magic:</strong> Edit files on remote machines like they're local. No more nano/vi in SSH
-              sessions.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://github.com/enkia/tokyo-night-vscode-theme" rel="noopener noreferrer">Tokyo Night theme</a>
-
-            <p>
-              <strong>Eye comfort:</strong> After years of high-contrast themes giving me headaches, Tokyo Night's softer
-              palette is easier on my eyes during long coding sessions. Small quality-of-life improvement that matters.
-            </p>
-          </li>
-        </ul>
-
-
-
-        <!-- ==================== SECURITY & MONITORING ==================== -->
-        <h2 id="security">Security &amp; Monitoring (Homelab)</h2>
-
-        <ul>
-          <li>
-            <a href="https://www.wireshark.org/" rel="noopener noreferrer">Wireshark</a>, tcpdump,
-            <a href="https://nmap.org/" rel="noopener noreferrer">nmap</a> for network inspection
-
-            <p>
-              <strong>The classics:</strong> These tools have been around forever because they work. Wireshark for deep packet
-              inspection, tcpdump for quick captures, nmap for discovery. I use them weekly.
-            </p>
-
-            <p>
-              <strong>Learning investment:</strong> Spent ~40 hours over a year learning Wireshark filters. Now I can find
-              issues in minutes that used to take hours.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://www.tenable.com/products/nessus" rel="noopener noreferrer">Nessus</a> for vulnerability assessment
-
-            <p>
-              <strong>Using:</strong> Nessus Essentials (free version, up to 16 IPs). Tried OpenVAS for a year in 2020&mdash;spent
-              more time fixing false positives than finding vulns. Nessus just works.
-            </p>
-
-            <p>
-              <strong>Trade-off:</strong> Free version is limited to 16 hosts, but that covers my critical infrastructure.
-              For a full homelab scan, I rotate scans across subnets or use Grype/OSV for container/package scanning.
-            </p>
-
-            <p>
-              <strong>What I scan:</strong> Everything. Monthly full scans of all homelab assets. Found critical vulns in
-              IoT devices that vendors never patched.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://github.com/anchore/grype" rel="noopener noreferrer">Grype</a> and
-            <a href="https://github.com/google/osv-scanner" rel="noopener noreferrer">OSV-Scanner</a> for supply chain scanning
-
-            <p>
-              <strong>Free alternatives:</strong> For container/code scanning, these are excellent. I also use
-              <a href="https://github.com/aquasecurity/trivy" rel="noopener noreferrer">Trivy</a>. Run all three because
-              overlapping coverage catches more issues.
-            </p>
-
-            <p>
-              <strong>Discovery:</strong> Found a critical vuln in a homelab container with Grype that Nessus missed. Now
-              I always run multiple scanners.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://wazuh.com/" rel="noopener noreferrer">Wazuh</a> for log analysis and detection
-
-            <p>
-              <strong>Open-source SIEM:</strong> Wazuh aggregates logs from everything and correlates events. Detected a brute-force
-              SSH attack in real-time in 2023. Would've missed it without centralized logging.
-            </p>
-
-            <p>
-              <strong>Setup time:</strong> ~8 hours to configure properly. Worth every minute. Now I have visibility into
-              everything happening on my network.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>,
-            <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>,
-            <a href="https://grafana.com/oss/loki/" rel="noopener noreferrer">Loki</a> for metrics, logs, and dashboards
-
-            <p>
-              <strong>Observability stack:</strong> Prometheus scrapes metrics from all nodes, Loki aggregates logs via Promtail,
-              Grafana visualizes everything. Alertmanager routes alerts to
-              <a href="https://ntfy.sh/" rel="noopener noreferrer">ntfy</a> for push notifications to my phone.
-            </p>
-
-            <p>
-              <strong>Prevented issues:</strong> Caught a failing disk before data loss, identified a memory leak in a service,
-              spotted unusual traffic patterns.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://www.zaproxy.org/" rel="noopener noreferrer">OWASP ZAP</a> and
-            <a href="https://github.com/OJ/gobuster" rel="noopener noreferrer">gobuster</a> for web/app testing
-
-            <p>
-              <strong>Pentesting tools:</strong> ZAP for automated web app scanning, gobuster for directory/subdomain discovery.
-              Use these for testing anything web-facing before exposing it to the internet.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://bitwarden.com/" rel="noopener noreferrer">Bitwarden</a> (self-hosted) for password management
-
-            <p>
-              <strong>Why self-hosted:</strong> I trust Bitwarden's security model, but I prefer controlling the infrastructure.
-              Running
-              <a href="https://github.com/dani-garcia/vaultwarden" rel="noopener noreferrer">Vaultwarden</a>
-              (lightweight Bitwarden server) on my homelab since 2021.
-            </p>
-
-            <p>
-              <strong>Migration:</strong> Moved from LastPass after their 2022 breach. Haven't looked back.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://www.yubico.com/products/yubikey-5c-nfc/" rel="noopener noreferrer">YubiKey 5C NFC</a>
-            for hardware 2FA (~$55)
-
-            <p>
-              <strong>Physical security keys:</strong> I use YubiKeys for every account that supports FIDO2/WebAuthn. Phishing-resistant
-              2FA is non-negotiable.
-            </p>
-
-            <p>
-              <strong>Rule:</strong> If a service doesn't support 2FA, it doesn't get my data. Full stop.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://docs.cloudfoundry.org/credhub/" rel="noopener noreferrer">CredHub</a> for secrets in automation
-            and CI
-
-            <p>
-              <strong>Secrets management:</strong> Hardcoded secrets are evil. CredHub integrates natively with BOSH and
-              Concourse for automatic secret injection into pipelines and deployments. No manual secret passing.
-            </p>
-
-            <p>
-              <strong>Why CredHub over Vault:</strong> Since I'm already running Cloud Foundry and BOSH, CredHub comes
-              built-in. One less thing to operate.
-            </p>
-          </li>
-        </ul>
-
-        <blockquote>
-          <p><strong>Related posts:</strong></p>
-          <ul>
-            <li>
-              <a
-                href="/posts/building-a-smart-vulnerability-prioritization-system-with-epss-and-cisa-kev/"
-                >Building a Smart Vulnerability Prioritization System with EPSS and CISA KEV</a>
-            </li>
-            <li>
-              <a
-                href="/posts/vulnerability-management-at-scale-with-open-source-tools/">Vulnerability Management at Scale with Open Source Tools</a>
-            </li>
-            <li>
-              <a
-                href="/posts/building-your-own-mitre-attck-threat-intelligence-dashboard/"
-                >Building Your Own MITRE ATT&amp;CK Threat Intelligence Dashboard</a>
-            </li>
-            <li>
-              <a
-                href="/posts/ebpf-for-security-monitoring-a-practical-guide/">eBPF for Security Monitoring: A Practical Guide</a>
-            </li>
-          </ul>
-        </blockquote>
-
-
-
-        <!-- ==================== AI & CODING TOOLS ==================== -->
-        <h2 id="ai">AI &amp; Coding Tools</h2>
-
-        <ul>
-          <li>
-            <strong>AI Coding Assistants</strong>
-
-            <p>
-              <strong><a href="https://claude.ai/claude-code" rel="noopener noreferrer">Claude Code</a></strong> is my
-              primary coding tool. I use it for everything from feature implementation to code review to debugging.
-              It's the backbone of my <a href="/projects/">nexus-agents</a> project &mdash; a multi-model orchestration
-              system that routes tasks to Claude, Gemini, Codex, and OpenCode based on what each model is actually good at.
-            </p>
-
-            <p>
-              <strong>Why Claude Code over alternatives:</strong> Terminal-native, understands full project context,
-              and the MCP integration means it can use my custom tools directly. I've tried Copilot, Cursor, and others.
-              Claude Code fits my workflow best.
-            </p>
-          </li>
-
-          <li>
-            <strong>Local LLMs on RTX 3090</strong> (24GB VRAM)
-
-            <p>
-              <strong>Models that actually fit:</strong> Llama 3.3 8B (~4GB Q4), Mistral 7B (~4GB Q4), Qwen 2.5 Coder 32B (~18GB Q4),
-              DeepSeek Coder V2 Lite (~9GB Q4).
-            </p>
-
-            <p>
-              <strong>Why local:</strong> Privacy, unlimited usage, learning how they work under the hood. For security research
-              and analyzing potentially sensitive data, local inference is the only acceptable option.
-            </p>
-
-            <p>
-              <strong>Hardware reality:</strong> 24GB VRAM handles 7B-34B models fully in GPU memory with Q4 quantization.
-              Larger models (70B+) require CPU offloading (storing part of model in system RAM), which drops performance from
-              20+ tokens/second to 2-5 tokens/second. For 70B tasks, I use API access or accept the slower offloaded inference.
-            </p>
-
-            <p>
-              <strong>Performance sweet spot:</strong> CodeLlama 34B at Q4 quantization (~20GB) gives excellent quality at
-              12-15 tokens/second. 8B models hit 40+ tokens/second. Good enough for 90% of my use cases.
-            </p>
-          </li>
-
-          <li>
-            <a href="https://ollama.com/" rel="noopener noreferrer">Ollama</a> for model management
-
-            <p>
-              <strong>Game changer:</strong> Makes running local LLMs actually usable. Tried llama.cpp directly &ndash; too
-              much friction. Ollama is Docker-simple.
-            </p>
-
-            <p>
-              <strong>Install to running LLM in 2 commands:</strong>
-            </p>
-
-            <pre><code>curl https://ollama.com/install.sh | sh
-ollama run llama3.1:8b  # Or codellama:34b for larger models</code></pre>
-          </li>
-
-          <li>
-            <strong>Use cases that actually work:</strong>
-            <ul>
-              <li>
-                <strong>Code review:</strong> Catches obvious bugs, suggests improvements. Not perfect, but faster than waiting
-                for human review.
-              </li>
-              <li>
-                <strong>Security policy analysis:</strong> Summarizing 50-page compliance docs into actionable items.
-              </li>
-              <li>
-                <strong>Homelab troubleshooting:</strong> Explains obscure error messages better than Google sometimes.
-              </li>
-              <li>
-                <strong>Learning new tech:</strong> Asks better questions than docs sometimes. Great for "explain like I'm
-                five" moments.
-              </li>
-              <li><strong>Blog post editing:</strong> Catches typos and awkward phrasing I miss.</li>
-            </ul>
-          </li>
-
-          <li>
-            <strong>Use cases that don't work:</strong>
-            <ul>
-              <li>Anything requiring real-time data (models are frozen in time).</li>
-              <li>Complex multi-step reasoning (hallucinations increase with complexity).</li>
-              <li>Critical decisions where hallucinations matter (always verify).</li>
-              <li>Code generation for complex systems (good for boilerplate, bad for architecture).</li>
-            </ul>
-          </li>
-
-          <li>
-            <strong>Reality check:</strong> LLMs are tools, not magic. They're autocomplete on steroids. Useful when you understand
-            their limitations, dangerous when you don't.
-          </li>
-        </ul>
-
-        <blockquote>
-          <p><strong>Related posts:</strong></p>
-          <ul>
-            <li>
-              <a
-                href="/posts/2025-08-07-supercharging-development-claude-flow/">Supercharging Development with Claude-Flow</a>
-            </li>
-            <li>
-              <a
-                href="/posts/down-the-mcp-rabbit-hole-building-a-standards-server/">Down the MCP Rabbit Hole: Building a Standards Server</a>
-            </li>
-            <li>
-              <a
-                href="/posts/exploring-claude-cli-context-and-compliance-with-my-standards-repository/">Exploring Claude CLI Context and Compliance</a>
-            </li>
-            <li>
-              <a
-                href="/posts/ai-as-cognitive-infrastructure-the-invisible-architecture-reshaping-human-thought/">AI as Cognitive Infrastructure</a>
-            </li>
-          </ul>
-        </blockquote>
-
-
-
-        <!-- ==================== SERVICES ==================== -->
-        <h2 id="services">Services</h2>
-
-        <ul>
-          <li>
-            <strong>Code Hosting:</strong> GitHub (public),
-            <a href="https://about.gitlab.com/install/" rel="noopener noreferrer">GitLab CE</a> (self-hosted private)
-
-            <p>
-              <strong>Why both:</strong> GitHub for open-source visibility, GitLab for private repos I don't want in someone
-              else's cloud. GitLab CE is free and feature-complete.
-            </p>
-          </li>
-
-          <li>
-            <strong>CI/CD:</strong> GitHub Actions (public),
-            <a href="https://concourse-ci.org/" rel="noopener noreferrer">Concourse CI</a> (homelab automation)
-
-            <p>
-              <strong>GitHub Actions:</strong> Free for public repos, simple YAML config, integrates perfectly with GitHub.
-              Handles my blog deployment.
-            </p>
-
-            <p>
-              <strong>Concourse CI:</strong> Runs on BOSH-managed VMs in the homelab. Pipeline-as-code with declarative
-              YAML. Handles homelab automation, backup jobs, and deployment pipelines that GitHub Actions can't reach.
-            </p>
-          </li>
-
-          <li>
-            <strong>Monitoring:</strong>
-            <a href="https://uptimerobot.com/" rel="noopener noreferrer">UptimeRobot</a> (free tier)
-
-            <p>
-              <strong>External health checks:</strong> Monitors my public-facing services from outside my network. Notifies
-              me via email/SMS if something goes down. Free tier is generous (50 monitors, 5-minute intervals).
-            </p>
-          </li>
-
-          <li>
-            <strong>VPN:</strong>
-            <a href="https://www.wireguard.com/" rel="noopener noreferrer">WireGuard</a>,
-            <a href="https://tailscale.com/" rel="noopener noreferrer">Tailscale</a>,
-            <a href="https://protonvpn.com/" rel="noopener noreferrer">ProtonVPN</a>
-
-            <p>
-              <strong>WireGuard for homelab access:</strong> Fast, modern, secure. Self-hosted on my UDM Pro. Connect to my
-              homelab from anywhere.
-            </p>
-
-            <p>
-              <strong>Tailscale for mesh networking:</strong> Zero-config VPN that just works. Free for personal use (up to
-              20 devices). Magic.
-            </p>
-
-            <p>
-              <strong>ProtonVPN for privacy:</strong> When I need to hide my traffic from my ISP or access region-locked content.
-              Swiss privacy laws, no logs, trustworthy.
-            </p>
-          </li>
-
-          <li>
-            <strong>DNS:</strong>
-            <a href="https://1.1.1.1/" rel="noopener noreferrer">Cloudflare 1.1.1.1</a> upstream,
-            <a href="https://pi-hole.net/" rel="noopener noreferrer">Pi-hole</a> local filtering
-
-            <p>
-              <strong>Layered approach:</strong> Pi-hole blocks ads/tracking at the DNS level (25% of queries), Cloudflare
-              DNS for privacy (faster than ISP DNS, no logging).
-            </p>
-
-            <p>
-              <strong>Why not Google DNS:</strong> I don't need Google knowing every domain I visit.
-            </p>
-          </li>
-        </ul>
-
-
-
-        <!-- ==================== SELF-HOSTED SERVICES ==================== -->
-        <h2 id="self-hosted">Self-Hosted Services</h2>
-
-        <p>Running these on Incus VMs and Podman containers because I control my data:</p>
-
-        <ul>
-          <li>
-            <a href="https://grafana.com/" rel="noopener noreferrer">Grafana</a>,
-            <a href="https://prometheus.io/" rel="noopener noreferrer">Prometheus</a>,
-            <a href="https://grafana.com/oss/loki/" rel="noopener noreferrer">Loki</a> +
-            <a href="https://prometheus.io/docs/alerting/latest/alertmanager/" rel="noopener noreferrer">Alertmanager</a>
-            &mdash; Full observability stack (metrics, logs, alerts)
-          </li>
-          <li>
-            <a href="https://goauthentik.io/" rel="noopener noreferrer">Authentik</a> &mdash; SSO/identity provider
-            (OIDC for Grafana, Concourse, and internal services via
-            <a href="https://caddyserver.com/" rel="noopener noreferrer">Caddy</a> forward-auth)
-          </li>
-          <li>
-            <a href="https://www.cloudfoundry.org/" rel="noopener noreferrer">Cloud Foundry</a> &mdash; Application platform
-            managed by <a href="https://bosh.io/" rel="noopener noreferrer">BOSH</a> (VMs for Diego, UAA, routing, log pipeline)
-          </li>
-          <li>
-            <a href="https://concourse-ci.org/" rel="noopener noreferrer">Concourse CI</a> &mdash; Pipeline automation
-            (BOSH-deployed, secrets via CredHub)
-          </li>
-          <li>
-            <a href="https://pi-hole.net/" rel="noopener noreferrer">Pi-hole</a> &times; 2 &mdash; Redundant DNS filtering
-            on dedicated Raspberry Pis
-          </li>
-          <li>
-            <a href="https://ntfy.sh/" rel="noopener noreferrer">ntfy</a> &mdash; Push notifications for alerts
-            (Alertmanager &rarr; ntfy &rarr; phone)
-          </li>
-          <li>
-            <a href="https://github.com/dani-garcia/vaultwarden" rel="noopener noreferrer">Vaultwarden</a> &mdash;
-            Self-hosted Bitwarden server for password management
-          </li>
-        </ul>
-
-        <blockquote>
-          <p>
-            <strong>Why self-host:</strong> Privacy, learning, control. Also, it's fun. I've learned more about networking,
-            security, and system administration from running these services than from any course.
-          </p>
-          <p>
-            <strong>Cost:</strong> ~$50/month for Backblaze B2, ~$150/month for power. Compared to equivalent SaaS subscriptions
-            (~$300/month), I'm break-even while learning and owning my data.
-          </p>
-        </blockquote>
-
-
-
-        <!-- ==================== CLI TOOLS ==================== -->
-        <h2 id="cli">CLI Tools</h2>
-
-        <h3>Development</h3>
-
-        <ul>
-          <li>
-            <a href="https://git-scm.com/" rel="noopener noreferrer">git</a> &mdash; Version control (use it hourly)
-          </li>
-          <li>
-            <a href="https://cli.github.com/" rel="noopener noreferrer">gh</a> &mdash; GitHub CLI (faster than web UI for
-            PRs/issues)
-          </li>
-          <li>
-            <a href="https://www.python.org/" rel="noopener noreferrer">python3</a> &mdash; Scripting &amp; automation (80%
-            of my scripts)
-          </li>
-          <li>
-            <a href="https://go.dev/" rel="noopener noreferrer">Go (golang)</a> &mdash; Systems programming (learning, not
-            expert)
-          </li>
-          <li>
-            <a href="https://www.rust-lang.org/" rel="noopener noreferrer">rust</a> &mdash; Memory-safe development (aspirational,
-            still learning)
-          </li>
-        </ul>
-
-        <h3>Infrastructure</h3>
-
-        <ul>
-          <li>
-            <a href="https://www.terraform.io/" rel="noopener noreferrer">terraform</a> &mdash; IaC (declarative infrastructure,
-            version-controlled)
-          </li>
-          <li>
-            <a href="https://www.ansible.com/" rel="noopener noreferrer">ansible</a> &mdash; Configuration management (automate
-            everything)
-          </li>
-          <li>
-            <a href="https://www.docker.com/" rel="noopener noreferrer">docker</a> &mdash; Containers (daily driver)
-          </li>
-          <li>
-            <a href="https://kubernetes.io/docs/reference/kubectl/" rel="noopener noreferrer">kubectl</a> &mdash; Kubernetes
-            (learning)
-          </li>
-          <li>
-            <a href="https://k3s.io/" rel="noopener noreferrer">k3s</a> &mdash; Lightweight Kubernetes (actually using)
-          </li>
-        </ul>
-
-        <h3>Utilities That Changed My Workflow</h3>
-
-        <ul>
-          <li>
-            <a href="https://github.com/tmux/tmux" rel="noopener noreferrer">tmux</a> &mdash; Multiplexer (can't work without
-            it)
-          </li>
-          <li>
-            <a href="https://github.com/junegunn/fzf" rel="noopener noreferrer">fzf</a> &mdash; Fuzzy finder (instant file/history
-            search)
-          </li>
-          <li>
-            <a href="https://github.com/BurntSushi/ripgrep" rel="noopener noreferrer">ripgrep</a> &mdash; Code search (10x
-            faster than grep)
-          </li>
-          <li>
-            <a href="https://github.com/sharkdp/bat" rel="noopener noreferrer">bat</a> &mdash; Syntax-highlighted cat (small
-            QoL improvement)
-          </li>
-          <li>
-            <a href="https://htop.dev/" rel="noopener noreferrer">htop</a> &mdash; Process monitor (better than top)
-          </li>
-          <li>
-            <a href="https://dev.yorhel.nl/ncdu" rel="noopener noreferrer">ncdu</a> &mdash; Disk usage (find space hogs instantly)
-          </li>
-        </ul>
-
-        <blockquote>
-          <p>
-            <strong>Pattern:</strong> I gradually replace standard tools with modern alternatives when they significantly
-            improve my workflow. Not change for change's sake, but real productivity gains.
-          </p>
-        </blockquote>
-
-        <p>
-          Last updated <time datetime="2026-03-12">March 2026</time>.
-        </p>
+    <h1>Uses</h1>
+
+    <p>
+      My digital toolbox — the stuff that's survived real-world use. What started with a $50
+      Raspberry Pi in 2015 has evolved into a homelab and workflow that actually works for me.
+      Living document. I update it when I change something significant.
+    </p>
+
+    <nav>
+      <p>Jump to:
+        <a href="#hardware">Hardware</a> ·
+        <a href="#software">Software</a> ·
+        <a href="#security">Security</a> ·
+        <a href="#ai">AI Tools</a> ·
+        <a href="#services">Services</a> ·
+        <a href="#self-hosted">Self-Hosted</a> ·
+        <a href="#cli">CLI</a>
+      </p>
+    </nav>
+
+    <section>
+      <p class="section-eyebrow">The physical layer</p>
+      <h2 id="hardware">Hardware</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Desktop PC</span>
+            <span class="uses-meta">2019 · self-built</span>
+          </dt>
+          <dd>
+            Intel i9-9900K, 64 GB RAM,
+            <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/" rel="noopener noreferrer">RTX 3090</a>,
+            1TB NVMe + 8TB HDD. The 24GB VRAM handles 7B–34B LLMs comfortably.
+            Killed a 2080 Ti overclocking for inference in 2020 — taught me to respect thermal limits.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Framework Laptop</span>
+            <span class="uses-meta">2022 · DIY Edition</span>
+          </dt>
+          <dd>
+            i7-1260P, 32 GB RAM, 1 TB NVMe, Ubuntu 24.04 LTS. After three laptops became
+            e-waste because one component failed, the modular design won me over. More
+            expensive than a Dell with similar specs — I value the right-to-repair philosophy.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">LG 34WK95U</span>
+            <span class="uses-meta">34″ ultrawide · 3440×1440</span>
+          </dt>
+          <dd>
+            One seamless ultrawide beats dual 27″ monitors. Three vertical code panes
+            side-by-side, no bezel gap. Game changer for monitoring dashboards.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Wooting 80HE</span>
+            <span class="uses-meta">keyboard · ~$185</span>
+          </dt>
+          <dd>
+            Analog hall-effect keys. Thought it was marketing hype until I tried it.
+            Per-key actuation points and analog input changed how I interact with my
+            machine. Can't go back to mechanical.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Glorious Model O</span>
+            <span class="uses-meta">mouse · ~$50</span>
+          </dt>
+          <dd>
+            67 grams. After years of heavy gaming mice and wrist pain, going
+            ultralight was a revelation.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">SteelSeries Arctis 7X+</span>
+            <span class="uses-meta">headset · ~$150</span>
+          </dt>
+          <dd>
+            Wireless that actually works. 30+ hour battery, comfortable for all-day
+            wear, and the mic doesn't sound like I'm in a cave.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Chemex 10-cup + Baratza Encore</span>
+            <span class="uses-meta">coffee · $50 + $170</span>
+          </dt>
+          <dd>
+            Good security engineering requires good coffee. Non-negotiable. The ritual
+            of manual pour-over gives me time to think through problems.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <p class="section-eyebrow">The server rack</p>
+      <h2 id="homelab">Homelab</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Ubiquiti UDM Pro</span>
+            <span class="uses-meta">firewall · ~$380</span>
+          </dt>
+          <dd>
+            Spent years with pfSense on repurposed hardware. UDM Pro isn't as flexible,
+            but it's stable, fast, and I don't maintain another box. VLAN segmentation,
+            IDS/IPS, DPI. Handles gigabit without breaking a sweat.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Dell PowerEdge R910</span>
+            <span class="uses-meta">2017 · ~$800 used</span>
+          </dt>
+          <dd>
+            Main hypervisor. 4× Xeon E7540 (48 threads), 256 GB RAM, ~400 GB ZFS pool.
+            Runs <a href="https://linuxcontainers.org/incus/" rel="noopener noreferrer">Incus</a>
+            on Ubuntu 24.04 with BOSH-managed Cloud Foundry and Concourse CI. Sounds like
+            a jet engine at full throttle. ~$150/month at idle — cheaper than equivalent cloud.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Raspberry Pi 5</span>
+            <span class="uses-meta">×3 · $80 each</span>
+          </dt>
+          <dd>
+            Dual Pi-hole for DNS, Authentik for SSO, assorted auxiliary services.
+            The ARM tax is real but power draw is negligible.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Raspberry Pi 4</span>
+            <span class="uses-meta">2015 · the OG</span>
+          </dt>
+          <dd>
+            The one that started it all. Still running after ten years. Handles Chrony
+            NTP for the lab. Won't retire it out of principle.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <p class="section-eyebrow">The editor</p>
+      <h2 id="software">Software &amp; Development</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Ubuntu 24.04 LTS</span>
+            <span class="uses-meta">daily driver</span>
+          </dt>
+          <dd>
+            Tried Fedora for six months, kept breaking after updates. Ubuntu LTS is
+            boring, which is exactly what I want on machines I depend on.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Incus</span>
+            <span class="uses-meta">virtualization</span>
+          </dt>
+          <dd>
+            Fork of LXD after Canonical's licensing changes. Cleaner virtualization
+            than ESXi for a homelab, less overhead than KVM alone.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Neovim</span>
+            <span class="uses-meta">editor</span>
+          </dt>
+          <dd>
+            Switched from VSCode in 2023 after getting fed up with Electron memory
+            usage. Lua config, LSP integration, terminal-native. Steep curve, worth it.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Astro</span>
+            <span class="uses-meta">static site framework</span>
+          </dt>
+          <dd>
+            What this site is built with. Islands architecture, zero JS by default,
+            excellent Markdown and MDX support. The sweet spot between Jekyll and Next.js.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Git + GitHub</span>
+            <span class="uses-meta">version control</span>
+          </dt>
+          <dd>
+            Everything lives in git. Dotfiles, homelab configs, blog posts, scripts.
+            If it's not in git, it might as well not exist.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Terraform</span>
+            <span class="uses-meta">infrastructure as code</span>
+          </dt>
+          <dd>
+            Managed firewall rules as code. Best investment I made in automation.
+            Turned "click 20 things in Ubiquiti's UI" into a reviewable pull request.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <p class="section-eyebrow">The perimeter</p>
+      <h2 id="security">Security &amp; Monitoring</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Wazuh</span>
+            <span class="uses-meta">SIEM · self-hosted</span>
+          </dt>
+          <dd>
+            Self-hosted SIEM for the homelab. Open source, integrates with CISA KEV
+            and AlienVault OTX threat feeds. Detects real things, not just noise.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Bitwarden</span>
+            <span class="uses-meta">password manager · self-hosted</span>
+          </dt>
+          <dd>
+            Self-hosted via Vaultwarden. Integrated with YubiKey for 2FA. If a service
+            doesn't support 2FA, it doesn't get my data.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">YubiKey 5C NFC</span>
+            <span class="uses-meta">hardware token · $55</span>
+          </dt>
+          <dd>
+            Hardware-backed 2FA for everything that supports it. Two keys — one on
+            my keychain, one in a safe as backup.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Pi-hole</span>
+            <span class="uses-meta">DNS filter · ×2 for HA</span>
+          </dt>
+          <dd>
+            Network-wide ad and tracker blocking. Blocks ~40,000 malicious or
+            privacy-invasive domains. Caught a smart bulb trying to phone home 47,000
+            times in one day.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Prometheus + Grafana + Loki</span>
+            <span class="uses-meta">observability stack</span>
+          </dt>
+          <dd>
+            Metrics, dashboards, and log aggregation. Alertmanager pushes to
+            <a href="https://ntfy.sh" rel="noopener noreferrer">ntfy</a> for mobile notifications.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <p class="section-eyebrow">The assistants</p>
+      <h2 id="ai">AI &amp; Coding Tools</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Claude Code</span>
+            <span class="uses-meta">daily driver</span>
+          </dt>
+          <dd>
+            Primary AI coding assistant. Strong at architecture, long-context reasoning,
+            and multi-file refactors. Most of my AI-assisted work runs through this.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Codex / Gemini / OpenCode</span>
+            <span class="uses-meta">multi-model</span>
+          </dt>
+          <dd>
+            Different models for different tasks — routed via
+            <a href="/projects/">Nexus Agents</a>. Gemini for research, Codex for
+            deep code analysis, OpenCode for privacy-sensitive work.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Ollama</span>
+            <span class="uses-meta">local LLM runner</span>
+          </dt>
+          <dd>
+            Runs Llama, Qwen, and Mistral models locally on the 3090. Privacy-sensitive
+            work never leaves my machine.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">GitHub Copilot</span>
+            <span class="uses-meta">inline autocomplete</span>
+          </dt>
+          <dd>
+            Inline completion in Neovim. Good for boilerplate, comments, and small
+            refactors. Never trust it with business logic.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <p class="section-eyebrow">The subscriptions</p>
+      <h2 id="services">Services</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">GitHub</span>
+            <span class="uses-meta">~$4/mo · Pro</span>
+          </dt>
+          <dd>
+            Where my code lives. Pro tier for private repos and Actions minutes.
+            This site auto-deploys from GitHub Pages.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Cloudflare</span>
+            <span class="uses-meta">free tier</span>
+          </dt>
+          <dd>
+            DNS, DDoS protection, edge caching. Free tier covers everything I need
+            for personal projects.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Backblaze B2</span>
+            <span class="uses-meta">~$50/mo · off-site backup</span>
+          </dt>
+          <dd>
+            Off-site backup for homelab. 3-2-1 strategy. Cheaper than S3, fast enough
+            for nightly restores when needed.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">SimpleLogin</span>
+            <span class="uses-meta">~$3/mo</span>
+          </dt>
+          <dd>
+            Email aliases for every service signup. When a company gets breached,
+            I know who leaked my address. Compartmentalization reduces blast radius.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <p class="section-eyebrow">Running on my metal</p>
+      <h2 id="self-hosted">Self-Hosted</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Vaultwarden</span>
+            <span class="uses-meta">Bitwarden-compatible</span>
+          </dt>
+          <dd>
+            Rust rewrite of Bitwarden server. Lighter than the official container,
+            same clients, same features I actually use.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Authentik</span>
+            <span class="uses-meta">SSO / identity provider</span>
+          </dt>
+          <dd>
+            Self-hosted SSO for homelab services. OIDC, SAML, LDAP. Integrates with
+            everything that speaks standard identity protocols.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">BookStack</span>
+            <span class="uses-meta">wiki · documentation</span>
+          </dt>
+          <dd>
+            Homelab wiki. Procedures, runbooks, and "why did I configure this like that"
+            notes. Future-me always thanks past-me for writing things down.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">ntfy</span>
+            <span class="uses-meta">push notifications</span>
+          </dt>
+          <dd>
+            Self-hosted push notification service. Alertmanager, cron jobs, and
+            scripts all send alerts through it.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <p class="section-eyebrow">The shell</p>
+      <h2 id="cli">CLI Tools</h2>
+
+      <dl class="uses-list">
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">Zsh + Starship</span>
+            <span class="uses-meta">shell + prompt</span>
+          </dt>
+          <dd>
+            Modern shell, fast prompt. Starship is written in Rust and stays out of
+            my way. Git status, exit codes, runtime indicators at a glance.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">ripgrep (rg)</span>
+            <span class="uses-meta">replaces grep</span>
+          </dt>
+          <dd>
+            Faster than grep, respects .gitignore by default, sensible defaults.
+            I've genuinely forgotten how to use plain grep.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">fd</span>
+            <span class="uses-meta">replaces find</span>
+          </dt>
+          <dd>
+            Faster than find, friendlier syntax, respects .gitignore. The find
+            command's argument order has haunted me for years.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">bat</span>
+            <span class="uses-meta">replaces cat</span>
+          </dt>
+          <dd>
+            Syntax-highlighted cat with line numbers. Looks better piped into less
+            or used directly. Small quality-of-life win.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">eza</span>
+            <span class="uses-meta">replaces ls</span>
+          </dt>
+          <dd>
+            Modern ls with git integration and tree view. The successor to exa.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">zoxide</span>
+            <span class="uses-meta">replaces cd</span>
+          </dt>
+          <dd>
+            Directory jumper that learns your habits. <code>z proj</code> to jump
+            to your most-used "proj*" directory. Saves hundreds of keystrokes a day.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">fzf</span>
+            <span class="uses-meta">fuzzy finder</span>
+          </dt>
+          <dd>
+            Fuzzy finder for everything — files, command history, git branches,
+            process lists. Ctrl-R will never feel the same again.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">tmux</span>
+            <span class="uses-meta">terminal multiplexer</span>
+          </dt>
+          <dd>
+            Sessions survive SSH disconnects, split panes for parallel work, shared
+            sessions for pair debugging. Can't work without it.
+          </dd>
+        </div>
+
+        <div class="uses-row">
+          <dt>
+            <span class="uses-name">htop + btop + ncdu</span>
+            <span class="uses-meta">system monitoring</span>
+          </dt>
+          <dd>
+            htop for process monitoring, btop when I want the pretty view, ncdu
+            when I need to find what's eating my disk.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <p>
+      Last updated <time datetime="2026-03-12">March 2026</time>.
+    </p>
   </div>
 </BaseLayout>
