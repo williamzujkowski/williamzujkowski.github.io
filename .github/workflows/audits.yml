@@ -3,15 +3,8 @@ name: Remarque Audits
 on:
   pull_request:
     branches: [main]
-    paths:
-      - 'astro-site/src/**'
-      - 'astro-site/scripts/contrast-audit.mjs'
-      - 'astro-site/scripts/typography-audit.mjs'
-      - 'astro-site/package.json'
   push:
     branches: [main]
-    paths:
-      - 'astro-site/src/styles/**'
 
 jobs:
   remarque:
