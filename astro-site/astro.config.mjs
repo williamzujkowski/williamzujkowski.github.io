@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import rehypeMermaid from 'rehype-mermaid';
+import remarkSmartypants from 'remark-smartypants';
 import { visit } from 'unist-util-visit';
 
 /**
@@ -139,6 +140,9 @@ export default defineConfig({
       },
       transformers: [transformerCodeTitle()],
     },
+    remarkPlugins: [
+      [remarkSmartypants, { dashes: 'oldschool' }],
+    ],
     rehypePlugins: [
       [rehypeMermaid, {
         strategy: 'img-svg',
