@@ -1,0 +1,27 @@
+name: Remarque Audits
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'astro-site/src/**'
+      - 'astro-site/scripts/contrast-audit.mjs'
+      - 'astro-site/scripts/typography-audit.mjs'
+      - 'astro-site/package.json'
+  push:
+    branches: [main]
+    paths:
+      - 'astro-site/src/styles/**'
+
+jobs:
+  remarque:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6
+        with:
+          node-version: '22'
+      - name: Contrast audit (WCAG AA / AAA / 1.4.11)
+        run: node astro-site/scripts/contrast-audit.mjs
+      - name: Typography floor audit (USWDS 13px min)
+        run: node astro-site/scripts/typography-audit.mjs

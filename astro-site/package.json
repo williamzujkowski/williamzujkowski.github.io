@@ -17,7 +17,9 @@
     "format:check": "prettier --check 'src/**/*.{astro,svelte,ts,js,css}'",
     "test:e2e": "npx playwright test",
     "test:e2e:headed": "npx playwright test --headed",
-    "audit:contrast": "node scripts/contrast-audit.mjs"
+    "audit:contrast": "node scripts/contrast-audit.mjs",
+    "audit:typography": "node scripts/typography-audit.mjs",
+    "audit": "pnpm audit:contrast && pnpm audit:typography"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.17",
