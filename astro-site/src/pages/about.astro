@@ -36,14 +36,27 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
     <h2>Career</h2>
 
     <dl class="uses-list">
-      <dt>Cloud.gov <span class="uses-detail">2023 – present</span></dt>
-      <dd>Cloud security architecture and federal compliance for a FedRAMP Moderate platform. NIST 800-53 Rev 4 → Rev 5 transition.</dd>
-
-      <dt>NIH <span class="uses-detail">2014 – 2023</span></dt>
-      <dd>HPC site reliability → enterprise vulnerability management across 100,000+ assets and 27 Institutes → security engineering for research infrastructure. Led the Log4j response. Got to burn in 8-way H100 nodes.</dd>
-
-      <dt>Independent consultant <span class="uses-detail">2005 – 2014</span></dt>
-      <dd>House calls to infrastructure management. A decade of learning how things break in the real world.</dd>
+      <div class="uses-row">
+        <dt>
+          <span class="uses-name">Cloud.gov</span>
+          <span class="uses-meta">2023 – present</span>
+        </dt>
+        <dd>Cloud security architecture and federal compliance for a FedRAMP Moderate platform. NIST 800-53 Rev 4 → Rev 5 transition.</dd>
+      </div>
+      <div class="uses-row">
+        <dt>
+          <span class="uses-name">NIH</span>
+          <span class="uses-meta">2014 – 2023</span>
+        </dt>
+        <dd>HPC site reliability → enterprise vulnerability management across 100,000+ assets and 27 Institutes → security engineering for research infrastructure. Led the Log4j response. Got to burn in 8-way H100 nodes.</dd>
+      </div>
+      <div class="uses-row">
+        <dt>
+          <span class="uses-name">Independent consultant</span>
+          <span class="uses-meta">2005 – 2014</span>
+        </dt>
+        <dd>House calls to infrastructure management. A decade of learning how things break in the real world.</dd>
+      </div>
     </dl>
 
     <h2>How I think about security</h2>
@@ -103,12 +116,5 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
     letter-spacing: var(--tracking-meta);
     color: var(--color-muted);
     margin-block-end: var(--space-7);
-  }
-  .uses-detail {
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    color: var(--color-muted);
-    font-weight: 400;
-    margin-left: 0.5em;
   }
 </style>
