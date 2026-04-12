@@ -38,16 +38,17 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 
   <div class="chip-row" style="margin-block-end: var(--space-6);">
     {topTags.map(([tag, count]) => (
-      <a href={`/tags/${tag}/`} class="chip">{tag} ({count})</a>
+      <a href={`/tags/${tag}/`} class="chip">{tag}<sup>{count}</sup></a>
     ))}
     <a href="/tags/" class="chip">all tags</a>
   </div>
 
-  {years.map((year) => (
+  {years.map((year, idx) => (
     <section>
+      {idx === 0 && <p class="section-eyebrow">Archive</p>}
       <h2 class="year-heading">
         {year}
-        <span>({postsByYear.get(year)!.length})</span>
+        <span>{postsByYear.get(year)!.length}</span>
       </h2>
       {postsByYear.get(year)!.map((post) => (
         <PostCard post={post} showTags={true} />
