@@ -876,6 +876,15 @@ h1, h2, h3, .post-card-title, .site-title {
 
 /* Chip small-caps treatment */
 .chip { font-variant-caps: all-small-caps; letter-spacing: 0.06em; }
+.chip sup {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  margin-left: 0.3em;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+  top: -0.25em;
+  position: relative;
+}
 
 /* Smart-quote character set for <q> elements */
 .prose { quotes: "\201C" "\201D" "\2018" "\2019"; }

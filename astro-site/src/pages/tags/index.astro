@@ -28,7 +28,7 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
     {
       sortedTags.map(([tag, count]) => (
         <a href={`/tags/${tag}/`} class="chip">
-          {tag} ({count})
+          {tag}<sup>{count}</sup>
         </a>
       ))
     }
