@@ -1,13 +1,15 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import PostCard from '@components/PostCard.astro';
+import BroadsheetEntry from '@components/BroadsheetEntry.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
   const tags = new Set<string>();
   posts.forEach((post) => {
-    (post.data.tags ?? []).filter((t: string) => t !== 'posts').forEach((tag: string) => tags.add(tag));
+    (post.data.tags ?? [])
+      .filter((t: string) => t !== 'posts')
+      .forEach((tag: string) => tags.add(tag));
   });
   return [...tags].map((tag) => ({
     params: { tag },
@@ -21,6 +23,7 @@ export async function getStaticPaths() {
 }
 
 const { tag, posts } = Astro.props;
+const humanTag = tag.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
 ---
 
 <BaseLayout title={`Posts tagged "${tag}"`} description={`All blog posts tagged with "${tag}".`}>
@@ -28,10 +31,19 @@ const { tag, posts } = Astro.props;
     <a href="/">Home</a> / <a href="/posts/">Blog</a> / <a href="/tags/">Tags</a> / {tag}
   </nav>
 
-  <div class="prose">
-    <h1>{tag}</h1>
-    <p>{posts.length} post{posts.length === 1 ? '' : 's'} tagged with {tag}.</p>
-  </div>
+  <header class="broadsheet-masthead" style="margin-block-start: var(--space-5);">
+    <p class="masthead-kicker">The archive · By tag</p>
+    <h1 class="masthead-title" style="font-size: clamp(2.5rem, 6vw, 4.5rem);">
+      <em>{humanTag}</em>
+    </h1>
+    <p class="masthead-dateline">
+      {posts.length} {posts.length === 1 ? 'entry' : 'entries'}
+    </p>
+  </header>
 
-  {posts.map((post) => <PostCard post={post} showTags={true} />)}
+  <ol class="entry-list">
+    {posts.map((post, i) => (
+      <BroadsheetEntry post={post} variant="entry" number={i + 1} />
+    ))}
+  </ol>
 </BaseLayout>

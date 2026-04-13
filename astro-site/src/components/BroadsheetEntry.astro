@@ -1,0 +1,66 @@
+---
+import { getReadingTime } from '@/lib/utils';
+
+interface Props {
+  post: {
+    id: string;
+    body?: string | null;
+    data: {
+      title: string;
+      date: Date;
+      description?: string;
+      tags?: string[];
+    };
+  };
+  number?: number | string;
+  variant?: 'lead' | 'entry';
+}
+
+const { post, number, variant = 'entry' } = Astro.props;
+
+const humanTag = (t: string) =>
+  t.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+const tag = (post.data.tags ?? []).find((t) => t !== 'posts') ?? 'Essay';
+const section = humanTag(tag);
+const rt = getReadingTime(post.body ?? '');
+const iso = post.data.date.toISOString().split('T')[0];
+const dateStr = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+{variant === 'lead' ? (
+  <article class="lead">
+    <p class="lead-kicker">
+      <span class="lead-section">{section}</span>
+      <span class="dot">·</span>
+      <span>{rt} min read</span>
+      <span class="dot">·</span>
+      <time datetime={iso}>{dateStr}</time>
+    </p>
+    <h2 class="lead-title">
+      <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+    </h2>
+    {post.data.description && <p class="lead-lede">{post.data.description}</p>}
+  </article>
+) : (
+  <li class="entry" data-entry-number={number}>
+    <div class="entry-meta">
+      <p class="entry-kicker">
+        <span class="entry-section">{section}</span>
+        <span class="dot">·</span>
+        <span>{rt} min</span>
+      </p>
+      <time class="entry-date" datetime={iso}>{dateStr}</time>
+    </div>
+    <div class="entry-body">
+      <h3 class="entry-title">
+        <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+      </h3>
+      {post.data.description && <p class="entry-excerpt">{post.data.description}</p>}
+    </div>
+  </li>
+)}
