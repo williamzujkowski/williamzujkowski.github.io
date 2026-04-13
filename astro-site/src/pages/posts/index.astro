@@ -1,23 +1,19 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import PostCard from '@components/PostCard.astro';
+import BroadsheetEntry from '@components/BroadsheetEntry.astro';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Collect top tags
 const tagCounts = new Map<string, number>();
 posts.forEach((post) => {
   (post.data.tags ?? [])
     .filter((t: string) => t !== 'posts')
-    .forEach((tag: string) => {
-      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-    });
+    .forEach((tag: string) => tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1));
 });
 const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
 
-// Group posts by year
 const postsByYear = new Map<number, typeof posts>();
 posts.forEach((post) => {
   const year = post.data.date.getFullYear();
@@ -31,48 +27,80 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   title="Blog"
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
 >
-  <div class="prose">
-    <h1>Blog</h1>
-    <p>{posts.length} posts on security, AI, and building things.</p>
-  </div>
+  <header class="broadsheet-masthead" style="margin-block-start: var(--space-6);">
+    <p class="masthead-kicker">The archive</p>
+    <p class="masthead-title" style="font-size: clamp(2.75rem, 6vw, 5rem);">
+      <em>Writing</em>
+    </p>
+    <p class="masthead-dateline">
+      {posts.length} entries
+      <span class="rule" aria-hidden="true"></span>
+      {years.length} years
+      <span class="rule" aria-hidden="true"></span>
+      {tagCounts.size} tags
+    </p>
+  </header>
 
-  <div class="chip-row" style="margin-block-end: var(--space-6);">
+  <div class="chip-row" style="max-width: var(--content-reading); margin: 0 auto var(--space-6); justify-content: center;">
     {topTags.map(([tag, count]) => (
       <a href={`/tags/${tag}/`} class="chip">{tag}<sup>{count}</sup></a>
     ))}
     <a href="/tags/" class="chip">all tags</a>
   </div>
 
-  {years.map((year, idx) => (
-    <section>
-      {idx === 0 && <p class="section-eyebrow">Archive</p>}
-      <h2 class="year-heading">
-        {year}
-        <span>{postsByYear.get(year)!.length}</span>
+  {years.map((year) => (
+    <section class="year-section">
+      <h2 class="year-divider">
+        <span class="year-number">{year}</span>
+        <span class="year-rule" aria-hidden="true"></span>
+        <span class="year-count">{postsByYear.get(year)!.length} entries</span>
       </h2>
-      {postsByYear.get(year)!.map((post) => (
-        <PostCard post={post} showTags={true} />
-      ))}
+      <ol class="entry-list">
+        {postsByYear.get(year)!.map((post, i) => (
+          <BroadsheetEntry post={post} variant="entry" number={i + 1} />
+        ))}
+      </ol>
     </section>
   ))}
 </BaseLayout>
 
 <style>
-  .year-heading {
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    color: var(--color-muted);
-    font-weight: 400;
+  .year-section {
     max-width: var(--content-reading);
-    margin-inline: auto;
-    margin-block: var(--space-7) var(--space-4);
-    padding-block-end: var(--space-2);
-    border-bottom: 1px solid var(--color-border);
-    /* small-caps + letter-spacing applied via global .year-heading rule (Wave 2) */
+    margin: 0 auto;
+    padding-block: var(--space-6);
   }
-
-  .year-heading span {
+  .year-divider {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin: 0 0 var(--space-4);
     font-weight: 400;
+    border: 0;
+  }
+  .year-number {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-fg);
+    letter-spacing: -0.02em;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-feature-settings: "onum" 1, "pnum" 1;
+  }
+  .year-rule {
+    height: 1px;
+    background: var(--color-border);
+    align-self: center;
+  }
+  .year-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--color-muted);
+    font-variant-numeric: tabular-nums lining-nums;
   }
 </style>
