@@ -109,6 +109,9 @@ if (pathSegments.length > 0) {
   });
 }
 
+import { getSiteStats } from '@/lib/siteStats';
+const siteStats = await getSiteStats();
+
 const navLinks = [
   { label: 'Front', href: '/' },
   { label: 'Dispatches', href: '/posts/' },
@@ -206,9 +209,9 @@ function isActiveLink(linkHref: string): boolean {
     <header role="banner" aria-label="Site header" class="site-masthead">
       <div class="site-masthead-inner">
         <p class="site-masthead-eyebrow">
-          <span>Writing</span><span class="dot">·</span>
-          <span>Notes</span><span class="dot">·</span>
-          <span>Homelab Dispatches</span>
+          <span>Vol. {siteStats.volume}</span><span class="dot">·</span>
+          <span>No. {siteStats.postCount}</span><span class="dot">·</span>
+          <span>Writing · Notes · Homelab Dispatches</span>
         </p>
 
         <div class="site-masthead-top">

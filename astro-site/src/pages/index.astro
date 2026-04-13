@@ -1,26 +1,25 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
 import BroadsheetEntry from '@components/BroadsheetEntry.astro';
+import { getSiteStats, formatDate } from '@/lib/siteStats';
+import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const [lead, ...tail] = posts.slice(0, 6);
 const hasMore = posts.length > 6;
 
-const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-const latestISO = posts[0].data.date.toISOString().split('T')[0];
+const stats = await getSiteStats();
 ---
 
 <BaseLayout title="William Zujkowski" description="Security engineer, builder, homelab enthusiast. Field notes on security, AI, and building things.">
   <header class="broadsheet-masthead landing-issue">
     <p class="landing-issue-label">
-      Vol. MMXXVI
+      Vol. {stats.volume}
       <span class="rule" aria-hidden="true"></span>
-      No. {posts.length}
+      No. {stats.postCount}
       <span class="rule" aria-hidden="true"></span>
-      <time datetime={latestISO}>{formatDate(posts[0].data.date)}</time>
+      <time datetime={stats.latestISO}>{formatDate(stats.latest)}</time>
     </p>
     <p class="landing-tagline">
       <em>Field reports</em> from cloud-security engineering,
@@ -44,7 +43,7 @@ const latestISO = posts[0].data.date.toISOString().split('T')[0];
     <nav class="broadsheet-archive-nav">
       <a href="/posts/" class="archive-link">
         Browse the full archive
-        <span class="archive-count">{posts.length} entries</span>
+        <span class="archive-count">{stats.postCount} entries</span>
       </a>
     </nav>
   )}
