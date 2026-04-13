@@ -16,15 +16,20 @@ export async function getSiteStats() {
   );
   const years = new Set<number>(posts.map((p) => p.data.date.getFullYear()));
   const latest = posts[0]?.data.date ?? new Date();
+  const earliest = posts[posts.length - 1]?.data.date ?? new Date();
   const currentYear = new Date().getFullYear();
+  const earliestYear = earliest.getFullYear();
   return {
     postCount: posts.length,
     tagCount: tagSet.size,
     yearCount: years.size,
     latest,
     latestISO: latest.toISOString().split('T')[0],
+    earliest,
+    earliestYear,
     currentYear,
     volume: toRoman(currentYear),
+    established: toRoman(earliestYear),
   };
 }
 
