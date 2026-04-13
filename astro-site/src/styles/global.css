@@ -8,17 +8,19 @@
  */
 
 @import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
-@import '@fontsource-variable/newsreader';
-@import '@fontsource-variable/newsreader/wght-italic.css';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/fraunces/wght-italic.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/400-italic.css';
+@import '@fontsource/ibm-plex-mono/500.css';
 
 /* ===== Remarque Design Tokens (oklch) ===== */
 
 :root {
-  /* Font stacks — Remarque three-font system */
-  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  /* Font stacks — Palette B: Departure (sci-fi + typewriter) */
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
 
   /* Type scale */
   --text-display: clamp(2.25rem, 3.5vw, 3.5rem); /* 36-56px — editorial restraint */
@@ -71,58 +73,58 @@
   --motion-normal: 180ms;
   --motion-easing: ease-out;
 
-  /* Colors — Light theme (warm off-white, not pure white) */
-  --color-bg: oklch(0.975 0.005 80);
-  --color-bg-subtle: oklch(0.955 0.005 80);
-  --color-fg: oklch(0.18 0.01 80);
-  --color-fg-muted: oklch(0.43 0.015 80);  /* 7.55:1 AAA on --color-bg */
-  --color-muted: oklch(0.54 0.01 80);       /* 4.70:1 AA on --color-bg (rendered) */
-  --color-border: oklch(0.88 0.005 80);     /* Decorative only — use --color-border-bold for interactive states */
-  --color-border-bold: oklch(0.62 0.01 80); /* 3.39:1 WCAG 1.4.11 non-text */
-  --color-surface: oklch(0.965 0.005 80);
-  --color-accent: oklch(0.50 0.14 250);
-  --color-accent-hover: oklch(0.42 0.14 250);
-  --color-code-bg: oklch(0.945 0.005 80);
-  --color-code-fg: oklch(0.18 0.01 80);
-  --color-selection-bg: oklch(0.92 0.04 250);
+  /* Colors — Palette B "Departure": photosensitive ivory + ferric ink + radar green */
+  --color-bg: oklch(0.95 0.015 75);
+  --color-bg-subtle: oklch(0.93 0.015 75);
+  --color-fg: oklch(0.18 0.04 25);            /* ferric red-black */
+  --color-fg-muted: oklch(0.42 0.04 25);      /* 7.43:1 AAA / APCA 79.5 */
+  --color-muted: oklch(0.52 0.03 25);         /* 4.81:1 AA / APCA 67.8 */
+  --color-border: oklch(0.85 0.02 75);        /* Decorative only */
+  --color-border-bold: oklch(0.62 0.02 25);   /* 3.16:1 WCAG 1.4.11 / APCA 54.2 */
+  --color-surface: oklch(0.93 0.015 75);
+  --color-accent: oklch(0.48 0.15 140);       /* radar green — 5.35:1 / APCA 70.4 */
+  --color-accent-hover: oklch(0.55 0.14 75);  /* flight-deck amber (hover state) */
+  --color-code-bg: oklch(0.92 0.015 75);
+  --color-code-fg: oklch(0.18 0.04 25);
+  --color-selection-bg: oklch(0.88 0.10 140); /* tinted green */
 
   color-scheme: light;
 }
 
-/* Dark theme */
+/* Dark theme — CRT phosphor on black-green */
 :root.dark {
-  --color-bg: oklch(0.16 0.01 80);
-  --color-bg-subtle: oklch(0.19 0.01 80);
-  --color-fg: oklch(0.90 0.005 80);
-  --color-fg-muted: oklch(0.85 0.01 80);    /* APCA Lc 76 (draft-AA body), WCAG 12.28:1 AAA */
-  --color-muted: oklch(0.78 0.01 80);       /* APCA Lc 63 (draft-AA large), WCAG 9.70:1 AAA */
-  --color-border: oklch(0.25 0.005 80);     /* Decorative only */
-  --color-border-bold: oklch(0.60 0.01 80); /* APCA Lc 35 (draft non-text), WCAG 4.92:1 */
-  --color-surface: oklch(0.19 0.01 80);
-  --color-accent: oklch(0.78 0.12 250);     /* APCA Lc 64 (draft-AA), WCAG 9.73:1 AAA */
-  --color-accent-hover: oklch(0.85 0.12 250);
-  --color-code-bg: oklch(0.20 0.005 80);
-  --color-code-fg: oklch(0.88 0.005 80);
-  --color-selection-bg: oklch(0.30 0.06 250);
+  --color-bg: oklch(0.14 0.015 140);
+  --color-bg-subtle: oklch(0.17 0.015 140);
+  --color-fg: oklch(0.92 0.03 140);           /* phosphor green */
+  --color-fg-muted: oklch(0.85 0.03 140);     /* APCA 77 / WCAG 12.69:1 AAA */
+  --color-muted: oklch(0.78 0.03 140);        /* APCA 63.8 / WCAG 10.00:1 AAA */
+  --color-border: oklch(0.25 0.02 140);       /* Decorative only */
+  --color-border-bold: oklch(0.60 0.03 140);  /* APCA 35.1 / WCAG 5.10:1 */
+  --color-surface: oklch(0.17 0.015 140);
+  --color-accent: oklch(0.82 0.17 140);       /* bright radar — APCA 73.9 / WCAG 11.97:1 */
+  --color-accent-hover: oklch(0.78 0.15 75);  /* amber hover */
+  --color-code-bg: oklch(0.17 0.015 140);
+  --color-code-fg: oklch(0.88 0.03 140);
+  --color-selection-bg: oklch(0.30 0.10 140);
 
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --color-bg: oklch(0.16 0.01 80);
-    --color-bg-subtle: oklch(0.19 0.01 80);
-    --color-fg: oklch(0.90 0.005 80);
-    --color-fg-muted: oklch(0.85 0.01 80);    /* APCA Lc 76, WCAG 12.28:1 AAA */
-    --color-muted: oklch(0.78 0.01 80);       /* APCA Lc 63, WCAG 9.70:1 AAA */
-    --color-border: oklch(0.25 0.005 80);     /* Decorative only */
-    --color-border-bold: oklch(0.60 0.01 80); /* APCA Lc 35, WCAG 4.92:1 */
-    --color-surface: oklch(0.19 0.01 80);
-    --color-accent: oklch(0.78 0.12 250);     /* APCA Lc 64, WCAG 9.73:1 AAA */
-    --color-accent-hover: oklch(0.85 0.12 250);
-    --color-code-bg: oklch(0.20 0.005 80);
-    --color-code-fg: oklch(0.88 0.005 80);
-    --color-selection-bg: oklch(0.30 0.06 250);
+    --color-bg: oklch(0.14 0.015 140);
+    --color-bg-subtle: oklch(0.17 0.015 140);
+    --color-fg: oklch(0.92 0.03 140);
+    --color-fg-muted: oklch(0.85 0.03 140);
+    --color-muted: oklch(0.78 0.03 140);
+    --color-border: oklch(0.25 0.02 140);
+    --color-border-bold: oklch(0.60 0.03 140);
+    --color-surface: oklch(0.17 0.015 140);
+    --color-accent: oklch(0.82 0.17 140);
+    --color-accent-hover: oklch(0.78 0.15 75);
+    --color-code-bg: oklch(0.17 0.015 140);
+    --color-code-fg: oklch(0.88 0.03 140);
+    --color-selection-bg: oklch(0.30 0.10 140);
 
     --bg: var(--color-bg);
     --text: var(--color-fg);
