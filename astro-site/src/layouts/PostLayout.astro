@@ -34,6 +34,11 @@ const formattedDate = date.toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
 });
+
+const humanTag = (t: string) =>
+  t.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const primaryTag = tags.find((t) => t !== 'posts');
+const section = primaryTag ? humanTag(primaryTag) : 'Essay';
 ---
 
 <BaseLayout
@@ -53,10 +58,17 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
     <!-- Header -->
     <header class="post-header">
-      <div class="post-meta">
+      <p class="post-kicker">
+        <span class="post-section">{section}</span>
+        {readingTime && (
+          <>
+            <span class="dot">·</span>
+            <span>{readingTime} min read</span>
+          </>
+        )}
+        <span class="dot">·</span>
         <time datetime={date.toISOString().split('T')[0]}>{formattedDate}</time>
-        {readingTime && <> &middot; {readingTime} min read</>}
-      </div>
+      </p>
 
       <h1>{title}</h1>
 
