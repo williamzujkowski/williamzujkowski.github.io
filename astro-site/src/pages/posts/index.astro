@@ -56,8 +56,8 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
         <span class="year-count">{postsByYear.get(year)!.length} entries</span>
       </h2>
       <ol class="entry-list">
-        {postsByYear.get(year)!.map((post, i) => (
-          <BroadsheetEntry post={post} variant="entry" number={i + 1} />
+        {postsByYear.get(year)!.map((post, i, arr) => (
+          <BroadsheetEntry post={post} variant="entry" number={arr.length - i} />
         ))}
       </ol>
     </section>

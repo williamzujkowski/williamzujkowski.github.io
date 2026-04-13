@@ -35,7 +35,7 @@ const stats = await getSiteStats();
 
   <ol class="entry-list">
     {tail.map((post, i) => (
-      <BroadsheetEntry post={post} variant="entry" number={i + 2} />
+      <BroadsheetEntry post={post} variant="entry" number={stats.postCount - (i + 1)} />
     ))}
   </ol>
 
