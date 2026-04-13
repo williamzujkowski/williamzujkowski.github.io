@@ -14,6 +14,12 @@ posts.forEach((post) => {
 });
 const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
 
+// Site-wide piece number: latest post = posts.length, oldest = 1.
+// Matches landing numbering; every post has a single canonical number
+// across the whole publication.
+const pieceNumberById = new Map<string, number>();
+posts.forEach((post, i) => pieceNumberById.set(post.id, posts.length - i));
+
 const postsByYear = new Map<number, typeof posts>();
 posts.forEach((post) => {
   const year = post.data.date.getFullYear();
@@ -56,8 +62,8 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
         <span class="year-count">{postsByYear.get(year)!.length} entries</span>
       </h2>
       <ol class="entry-list">
-        {postsByYear.get(year)!.map((post, i, arr) => (
-          <BroadsheetEntry post={post} variant="entry" number={arr.length - i} />
+        {postsByYear.get(year)!.map((post) => (
+          <BroadsheetEntry post={post} variant="entry" number={pieceNumberById.get(post.id)!} />
         ))}
       </ol>
     </section>
