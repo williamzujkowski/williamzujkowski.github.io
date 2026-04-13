@@ -1,27 +1,371 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import PostCard from '@components/PostCard.astro';
+import { getReadingTime } from '@/lib/utils';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const recentPosts = posts.slice(0, 5);
-const hasMore = posts.length > 5;
+const [lead, ...tail] = posts.slice(0, 6);
+const hasMore = posts.length > 6;
+
+const humanTag = (t: string) =>
+  t.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+const kicker = (post: (typeof posts)[number]) => {
+  const tag = (post.data.tags ?? []).find((t) => t !== 'posts') ?? 'Essay';
+  const rt = getReadingTime(post.body ?? '');
+  return { section: humanTag(tag), rt, date: formatDate(post.data.date) };
+};
+
+const leadK = kicker(lead);
+const latestISO = posts[0].data.date.toISOString().split('T')[0];
 ---
 
-<BaseLayout title="Home">
-  <h1 class="sr-only">Latest writing</h1>
-  <section>
-    {recentPosts.map((post) => (
-      <PostCard post={post} />
-    ))}
-  </section>
+<BaseLayout title="William Zujkowski" description="Security engineer, builder, homelab enthusiast. Field notes on security, AI, and building things.">
+  <header class="broadsheet-masthead">
+    <p class="masthead-kicker">
+      <span>Essays</span>
+      <span class="dot">·</span>
+      <span>Notes</span>
+      <span class="dot">·</span>
+      <span>Homelab Dispatches</span>
+    </p>
+    <p class="masthead-title">
+      <em>Field</em> Notes
+    </p>
+    <p class="masthead-dateline">
+      Vol. MMXXVI
+      <span class="rule" aria-hidden="true"></span>
+      {posts.length} entries
+      <span class="rule" aria-hidden="true"></span>
+      Latest <time datetime={latestISO}>{formatDate(posts[0].data.date)}</time>
+    </p>
+  </header>
+
+  <h1 class="sr-only">Latest writing from William Zujkowski</h1>
+
+  <article class="lead">
+    <p class="lead-kicker">
+      <span class="lead-section">{leadK.section}</span>
+      <span class="dot">·</span>
+      <span>{leadK.rt} min read</span>
+      <span class="dot">·</span>
+      <time datetime={lead.data.date.toISOString().split('T')[0]}>{leadK.date}</time>
+    </p>
+    <h2 class="lead-title">
+      <a href={`/posts/${lead.id}/`}>{lead.data.title}</a>
+    </h2>
+    {lead.data.description && (
+      <p class="lead-lede">{lead.data.description}</p>
+    )}
+  </article>
+
+  <hr class="broadsheet-rule" aria-hidden="true" />
+
+  <ol class="entry-list" start="2">
+    {tail.map((post) => {
+      const k = kicker(post);
+      return (
+        <li class="entry">
+          <div class="entry-meta">
+            <p class="entry-kicker">
+              <span class="entry-section">{k.section}</span>
+              <span class="dot">·</span>
+              <span>{k.rt} min</span>
+            </p>
+            <time class="entry-date" datetime={post.data.date.toISOString().split('T')[0]}>
+              {k.date}
+            </time>
+          </div>
+          <div class="entry-body">
+            <h3 class="entry-title">
+              <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+            </h3>
+            {post.data.description && (
+              <p class="entry-excerpt">{post.data.description}</p>
+            )}
+          </div>
+        </li>
+      );
+    })}
+  </ol>
 
   {hasMore && (
-    <nav style="text-align: center; margin-block: 3rem 2rem;">
-      <a href="/posts/" class="btn-filled">
-        All {posts.length} posts &rarr;
+    <nav class="broadsheet-archive-nav">
+      <a href="/posts/" class="archive-link">
+        Browse the full archive
+        <span class="archive-count">{posts.length} entries</span>
       </a>
     </nav>
   )}
 </BaseLayout>
+
+<style>
+  /* ===== Masthead ===== */
+  .broadsheet-masthead {
+    max-width: var(--content-reading);
+    margin: var(--space-8) auto var(--space-6);
+    text-align: center;
+  }
+
+  .masthead-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-block-end: var(--space-3);
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5em;
+  }
+  .masthead-kicker .dot { color: var(--color-border-bold); }
+
+  .masthead-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    color: var(--color-fg);
+    margin: 0;
+    font-feature-settings: "liga" 1, "dlig" 1, "kern" 1;
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+  .masthead-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-fg-muted);
+  }
+
+  .masthead-dateline {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-block-start: var(--space-4);
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .masthead-dateline .rule {
+    display: inline-block;
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-border-bold);
+    margin-block-end: 2px;
+  }
+
+  /* ===== Lead article ===== */
+  .lead {
+    max-width: var(--content-reading);
+    margin: var(--space-7) auto var(--space-6);
+  }
+
+  .lead-kicker,
+  .entry-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0 0 var(--space-3);
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .lead-section,
+  .entry-section {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+  .lead-kicker .dot,
+  .entry-kicker .dot { color: var(--color-border-bold); }
+
+  .lead-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin: 0 0 var(--space-4);
+    text-wrap: balance;
+  }
+  .lead-title a {
+    color: var(--color-fg);
+    text-decoration: none;
+    background-image: linear-gradient(var(--color-fg), var(--color-fg));
+    background-size: 0 1px;
+    background-repeat: no-repeat;
+    background-position: 0 95%;
+    transition: background-size 220ms ease;
+  }
+  .lead-title a:hover { background-size: 100% 1px; }
+
+  .lead-lede {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    line-height: 1.55;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-fg-muted);
+    margin: 0;
+    text-wrap: pretty;
+    hanging-punctuation: first last;
+  }
+  .lead-lede::first-letter {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 3.25em;
+    line-height: 0.85;
+    float: left;
+    padding: 0.08em 0.12em 0 0;
+    color: var(--color-fg);
+  }
+
+  /* ===== Hairline between lead and list ===== */
+  .broadsheet-rule {
+    max-width: var(--content-reading);
+    margin: var(--space-6) auto;
+    border: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* ===== Entry list ===== */
+  .entry-list {
+    max-width: var(--content-reading);
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    counter-reset: entry 1;
+  }
+
+  .entry {
+    counter-increment: entry;
+    display: grid;
+    grid-template-columns: minmax(9rem, 11rem) 1fr;
+    gap: var(--space-5);
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+  }
+  .entry:last-child { border-bottom: 0; }
+
+  .entry::before {
+    content: counter(entry);
+    position: absolute;
+    left: calc(-1 * var(--space-6));
+    top: var(--space-5);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--color-border-bold);
+    font-feature-settings: "onum" 1, "pnum" 1;
+  }
+
+  .entry-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .entry-date {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: 0.02em;
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .entry-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    margin: 0 0 var(--space-2);
+    text-wrap: balance;
+  }
+  .entry-title a {
+    color: var(--color-fg);
+    text-decoration: none;
+    background-image: linear-gradient(var(--color-fg), var(--color-fg));
+    background-size: 0 1px;
+    background-repeat: no-repeat;
+    background-position: 0 95%;
+    transition: background-size 220ms ease;
+  }
+  .entry-title a:hover { background-size: 100% 1px; }
+
+  .entry-excerpt {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--color-fg-muted);
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* ===== Archive link ===== */
+  .broadsheet-archive-nav {
+    max-width: var(--content-reading);
+    margin: var(--space-7) auto var(--space-8);
+    text-align: center;
+  }
+  .archive-link {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    text-decoration: none;
+    color: var(--color-fg);
+    padding: var(--space-3) var(--space-5);
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .archive-link {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    transition: color 180ms ease;
+  }
+  .archive-link:hover { color: var(--color-accent); }
+  .archive-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-style: normal;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 640px) {
+    .entry {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+    .entry::before {
+      position: static;
+      font-size: 1.75rem;
+      display: block;
+      margin-block-end: var(--space-1);
+    }
+    .entry-meta { flex-direction: row; gap: 0.75em; align-items: baseline; }
+  }
+</style>
