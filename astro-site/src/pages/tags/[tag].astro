@@ -42,8 +42,8 @@ const humanTag = tag.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUppe
   </header>
 
   <ol class="entry-list">
-    {posts.map((post, i) => (
-      <BroadsheetEntry post={post} variant="entry" number={i + 1} />
+    {posts.map((post, i, arr) => (
+      <BroadsheetEntry post={post} variant="entry" number={arr.length - i} />
     ))}
   </ol>
 </BaseLayout>
