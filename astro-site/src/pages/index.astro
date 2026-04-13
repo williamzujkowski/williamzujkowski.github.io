@@ -14,19 +14,17 @@ const latestISO = posts[0].data.date.toISOString().split('T')[0];
 ---
 
 <BaseLayout title="William Zujkowski" description="Security engineer, builder, homelab enthusiast. Field notes on security, AI, and building things.">
-  <header class="broadsheet-masthead">
-    <p class="masthead-kicker">
-      <span>Essays</span><span class="dot">·</span>
-      <span>Notes</span><span class="dot">·</span>
-      <span>Homelab Dispatches</span>
-    </p>
-    <p class="masthead-title"><em>Field</em> Notes</p>
-    <p class="masthead-dateline">
+  <header class="broadsheet-masthead landing-issue">
+    <p class="landing-issue-label">
       Vol. MMXXVI
       <span class="rule" aria-hidden="true"></span>
-      {posts.length} entries
+      No. {posts.length}
       <span class="rule" aria-hidden="true"></span>
-      Latest <time datetime={latestISO}>{formatDate(posts[0].data.date)}</time>
+      <time datetime={latestISO}>{formatDate(posts[0].data.date)}</time>
+    </p>
+    <p class="landing-tagline">
+      <em>Field reports</em> from cloud-security engineering,
+      <em>AI experiments</em>, and a homelab that keeps getting bigger.
     </p>
   </header>
 

@@ -110,11 +110,11 @@ if (pathSegments.length > 0) {
 }
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about/' },
-  { label: 'Blog', href: '/posts/' },
-  { label: 'Projects', href: '/projects/' },
-  { label: 'Uses', href: '/uses/' },
+  { label: 'Front', href: '/' },
+  { label: 'Dispatches', href: '/posts/' },
+  { label: 'Colophon', href: '/about/' },
+  { label: 'Catalog', href: '/uses/' },
+  { label: 'Workbench', href: '/projects/' },
   { label: 'Now', href: '/now/' },
 ];
 
@@ -202,26 +202,40 @@ function isActiveLink(linkHref: string): boolean {
   <body>
     <a href="#main" class="skip-to-main">Skip to main content</a>
 
-    <!-- Header -->
-    <header role="banner" aria-label="Site header" class="site-header">
-      <div class="site-title">
-        <a href="/">William Zujkowski</a>
+    <!-- Masthead -->
+    <header role="banner" aria-label="Site header" class="site-masthead">
+      <div class="site-masthead-inner">
+        <p class="site-masthead-eyebrow">
+          <span>Writing</span><span class="dot">·</span>
+          <span>Notes</span><span class="dot">·</span>
+          <span>Homelab Dispatches</span>
+        </p>
+
+        <div class="site-masthead-top">
+          <div class="site-masthead-tools-left" aria-hidden="true"></div>
+          <a href="/" class="site-nameplate" aria-label="William Zujkowski's Field Notes — home">
+            <span class="site-nameplate-byline">William Zujkowski&rsquo;s</span>
+            <span class="site-nameplate-title"><em>Field</em> Notes</span>
+          </a>
+          <div class="site-masthead-tools-right">
+            <Search client:load />
+            <ThemeToggle />
+          </div>
+        </div>
+
+        <nav class="site-sections" aria-label="Primary navigation">
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                aria-current={isActiveLink(link.href) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
       </div>
-      <div class="site-subtitle">Security Engineer & Builder</div>
-      <nav class="site-nav" aria-label="Primary navigation">
-        {
-          navLinks.map((link) => (
-            <a
-              href={link.href}
-              aria-current={isActiveLink(link.href) ? 'page' : undefined}
-            >
-              {link.label}
-            </a>
-          ))
-        }
-        <Search client:load />
-        <ThemeToggle />
-      </nav>
     </header>
 
     <!-- Main -->
