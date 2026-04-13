@@ -47,16 +47,16 @@ const dateStr = post.data.date.toLocaleDateString('en-US', {
     {post.data.description && <p class="lead-lede">{post.data.description}</p>}
   </article>
 ) : (
-  <li class="entry" data-entry-number={number}>
-    <div class="entry-meta">
+  <li class="entry">
+    <span class="entry-numeral" aria-hidden="true">{number}</span>
+    <div class="entry-body">
       <p class="entry-kicker">
         <span class="entry-section">{section}</span>
         <span class="dot">·</span>
-        <span>{rt} min</span>
+        <span>{rt} min read</span>
+        <span class="dot">·</span>
+        <time datetime={iso}>{dateStr}</time>
       </p>
-      <time class="entry-date" datetime={iso}>{dateStr}</time>
-    </div>
-    <div class="entry-body">
       <h3 class="entry-title">
         <a href={`/posts/${post.id}/`}>{post.data.title}</a>
       </h3>
