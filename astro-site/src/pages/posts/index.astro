@@ -33,25 +33,22 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
   title="Blog"
   description="Security insights, AI experiments, homelab adventures, and lessons from the field."
 >
-  <header class="broadsheet-masthead" style="margin-block-start: var(--space-6);">
-    <p class="masthead-kicker">Every piece, in order</p>
-    <h1 class="masthead-title" style="font-size: clamp(2.75rem, 6vw, 5rem);">
-      <em>Writing</em>
-    </h1>
-    <p class="masthead-dateline">
-      {posts.length} entries
-      <span class="rule" aria-hidden="true"></span>
+  <h1 class="sr-only">Dispatches — every piece</h1>
+
+  <div class="archive-intro">
+    <p class="archive-stats">
+      {posts.length} pieces
+      <span class="dot">·</span>
       {years.length} years
-      <span class="rule" aria-hidden="true"></span>
+      <span class="dot">·</span>
       {tagCounts.size} tags
     </p>
-  </header>
-
-  <div class="chip-row" style="max-width: var(--content-reading); margin: 0 auto var(--space-6); justify-content: center;">
-    {topTags.map(([tag, count]) => (
-      <a href={`/tags/${tag}/`} class="chip">{tag}<sup>{count}</sup></a>
-    ))}
-    <a href="/tags/" class="chip">all tags</a>
+    <div class="archive-filter">
+      {topTags.map(([tag, count]) => (
+        <a href={`/tags/${tag}/`} class="chip">{tag}<sup>{count}</sup></a>
+      ))}
+      <a href="/tags/" class="chip">all tags</a>
+    </div>
   </div>
 
   {years.map((year) => (

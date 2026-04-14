@@ -1220,6 +1220,35 @@ div:has(> .post-card) {
   }
 }
 
+/* ===== Archive intro (/posts/) — compact stats + filter row ===== */
+.archive-intro {
+  max-width: var(--content-reading);
+  margin: var(--space-5) auto var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+.archive-stats {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+  display: inline-flex;
+  gap: 0.6em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.archive-stats .dot { color: var(--color-border-bold); }
+.archive-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  justify-content: center;
+  max-width: var(--content-reading);
+}
+
 /* ===== PostLayout share row ===== */
 .share-row {
   display: flex;
