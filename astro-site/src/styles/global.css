@@ -225,27 +225,11 @@ a:hover { color: var(--color-accent-hover); }
 .site-masthead-inner {
   max-width: 64rem;
   margin-inline: auto;
-  padding: var(--space-5) var(--space-4) var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-2);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
-
-.site-masthead-eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  margin: 0;
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5em;
-  text-align: center;
-  align-self: center;
-}
-.site-masthead-eyebrow .dot { color: var(--color-border-bold); }
 
 .site-masthead-top {
   display: grid;
@@ -329,10 +313,10 @@ a:hover { color: var(--color-accent-hover); }
 .site-sections {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 1.5rem;
+  gap: 0 1.25rem;
   justify-content: center;
   align-self: center;
-  padding-block-start: var(--space-2);
+  padding-block-start: var(--space-1);
   border-top: 1px solid var(--color-border);
   width: 100%;
   font-family: var(--font-mono);
