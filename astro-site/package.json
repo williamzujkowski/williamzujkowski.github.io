@@ -37,7 +37,7 @@
     "astro": "^6.0.3",
     "markdown-it": "^14.1.1",
     "rehype-mermaid": "^3.0.0",
-    "sanitize-html": "^2.17.1",
+    "sanitize-html": "^2.17.3",
     "svelte": "^5.53.10",
     "typescript": "^5.9.3",
     "unist-util-visit": "^5.1.0"
