@@ -43,7 +43,7 @@ npm run check        # Astro type checking
 │   └── link-validation/       # Citation and link health checking
 ├── tests/unit/                # Unit tests (JS)
 ├── docs/                      # Research and link validation docs
-├── .github/workflows/         # CI/CD (4 workflows)
+├── .github/workflows/         # CI/CD (6 workflows)
 └── nexus-agents.yaml          # AI agent orchestration config
 ```
 
@@ -137,12 +137,14 @@ npm run check        # Astro type checking
 
 ## CI/CD Workflows
 
-| Workflow | Purpose |
-|----------|---------|
-| `deploy.yml` | Build and deploy to GitHub Pages on push to main |
-| `compliance-monitor.yml` | Build validation, Lighthouse, accessibility, HTML validation, security scan |
-| `citation-validation.yml` | Citation coverage and link validation for blog posts |
-| `link-monitor.yml` | Scheduled link health monitoring and repair |
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `deploy.yml` | push/dispatch | Build and deploy to GitHub Pages |
+| `audits.yml` (Remarque) | push/PR | Astro/markdown lint and audit gates |
+| `a11y.yml` (axe-playwright) | push/PR | Accessibility test suite via Playwright |
+| `compliance-monitor.yml` | push/PR/daily | Build validation, Lighthouse, HTML validation, Trivy/Gitleaks/pip-audit |
+| `link-monitor.yml` | daily/dispatch | Scheduled link health checking and auto-repair PRs |
+| `citation-validation.yml` | weekly/dispatch | Citation link validation for blog posts, opens issue on broken |
 
 ---
 
