@@ -41,24 +41,6 @@ Picture both jaws of a vise closing on you at once. The left jaw tightens whethe
 
 That is the squeeze.
 
-## The Twist: When the Scanner Is the Target
-
-There is a third pattern that sharpens the squeeze, and it has been the loudest story in defender-land for three straight months: **the security tools themselves are now the preferred target.** A single threat actor, [TeamPCP](https://www.wiz.io/blog/teampcp-attack-kics-github-action), has been running a sustained, chained campaign across the security-tooling supply chain:
-
-- **Late February 2026:** initial breach of Trivy CI/CD; credentials exfiltrated. Aqua's first round of remediation is incomplete and some refreshed tokens leak too.
-- **March 19, 2026:** [Trivy publicly compromised](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23) — 76 of 77 version tags force-pushed, malicious `v0.69.4` published. ([Microsoft's defender guidance](https://www.microsoft.com/en-us/security/blog/2026/03/24/detecting-investigating-defending-against-trivy-supply-chain-compromise/) and [my own homelab triage](/posts/2026-03-21-trivy-supply-chain-compromise-ai-assisted-investigation) followed.)
-- **March 23, 2026:** [Checkmarx KICS GitHub Actions](https://socket.dev/blog/checkmarx-supply-chain-compromise) hit, reusing CI/CD secrets stolen from the Trivy intrusion. The same credential-stealing payload is grafted onto a different scanner.
-- **April 22, 2026:** [second KICS compromise](https://www.bleepingcomputer.com/news/security/new-checkmarx-supply-chain-breach-affects-kics-analysis-tool/) — a threat actor authenticates to Docker Hub with valid Checkmarx publisher credentials and pushes malicious `checkmarx/kics` images. Two VS Code marketplace versions ship the same payload.
-- **Same window:** LiteLLM caught as a downstream. [Vect ransomware](https://www.halcyon.ai/ransomware-alerts/trivy-supply-chain-compromise-enters-extortion-phase-as-vect-ransomware-publishes-first-victim) begins extorting the first round of Trivy victims, which is what monetization looks like once the credential harvest is complete.
-
-[Palo Alto Unit 42 named the pattern directly](https://www.paloaltonetworks.com/blog/cloud-security/trivy-supply-chain-attack/): "When security scanners become the weapon." [Docker's own retrospective](https://www.docker.com/blog/trivy-kics-and-the-shape-of-supply-chain-attacks-so-far-in-2026/) calls Trivy and KICS "the shape of supply chain attacks so far in 2026."
-
-The reason this matters for the squeeze: scanners and CI/CD security tools sit in privileged positions by definition. They read your filesystem, your container registries, your cloud APIs, and the secrets you handed them so they could check those things. They are wired into your CI with elevated permissions. They are the things you trust to *tell you when you're compromised*. Compromising one isn't equivalent to compromising any other npm dependency — it is closer to compromising a domain admin.
-
-The patch lane I'm about to recommend assumes your scanner is on your side. When the scanner is the implant, the patch lane has been turned against you, and the workload that was supposed to *find* the malware has been generating it. The 44 Aqua repos defaced during the March incident were the visible damage; the credential harvest from CI runners across thousands of organizations was the real one.
-
-Plan for it.
-
 ## The Wrong Answers
 
 Two answers to this paradox are popular, and both are wrong:
@@ -69,13 +51,31 @@ Two answers to this paradox are popular, and both are wrong:
 
 Both answers fail because they treat **patching** and **pulling** as the same operation. They are not.
 
-## The Resolution: Two Lanes, Two Cadences
+## The Twist: When the Scanner Is the Target
+
+**The security tools themselves are now the preferred target. The guard dogs are carrying the payload.**
+
+A single threat actor, [TeamPCP](https://www.wiz.io/blog/teampcp-attack-kics-github-action), has been running a sustained, chained campaign across the security-tooling supply chain:
+
+- **Late February 2026:** initial breach of Trivy CI/CD; credentials exfiltrated. Aqua's first round of remediation is incomplete and some refreshed tokens leak too.
+- **March 19, 2026:** [Trivy publicly compromised](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23) — 76 of 77 version tags force-pushed, malicious `v0.69.4` published. ([Microsoft's defender guidance](https://www.microsoft.com/en-us/security/blog/2026/03/24/detecting-investigating-defending-against-trivy-supply-chain-compromise/) and [my own homelab triage](/posts/2026-03-21-trivy-supply-chain-compromise-ai-assisted-investigation) followed.)
+- **March 23, 2026:** [Checkmarx KICS GitHub Actions](https://socket.dev/blog/checkmarx-supply-chain-compromise) hit, reusing CI/CD secrets stolen from the Trivy intrusion. The same credential-stealing payload is grafted onto a different scanner.
+- **April 22, 2026:** [second KICS compromise](https://www.bleepingcomputer.com/news/security/new-checkmarx-supply-chain-breach-affects-kics-analysis-tool/) — a threat actor authenticates to Docker Hub with valid Checkmarx publisher credentials and pushes malicious `checkmarx/kics` images. Two VS Code marketplace versions ship the same payload.
+- **Same window:** LiteLLM caught as a downstream. [Vect ransomware](https://www.halcyon.ai/ransomware-alerts/trivy-supply-chain-compromise-enters-extortion-phase-as-vect-ransomware-publishes-first-victim) begins extorting the first round of Trivy victims, which is what monetization looks like once the credential harvest is complete.
+
+[Palo Alto Unit 42 named the pattern directly](https://www.paloaltonetworks.com/blog/cloud-security/trivy-supply-chain-attack/): "When security scanners become the weapon." [Docker's own retrospective](https://www.docker.com/blog/trivy-kics-and-the-shape-of-supply-chain-attacks-so-far-in-2026/) calls Trivy and KICS "the shape of supply chain attacks so far in 2026."
+
+Scanners and CI/CD security tools sit in privileged positions by definition. They read your filesystem, your container registries, your cloud APIs, and the secrets you handed them so they could check those things. They are wired into your CI with elevated permissions. They are the things you trust to *tell you when you're compromised*. Compromising one isn't equivalent to compromising any other npm dependency — it is closer to compromising a domain admin.
+
+The patch lane I'm about to recommend assumes your scanner is on your side. When the scanner is the implant, the patch lane has been turned against you, and the workload that was supposed to *find* the malware has been generating it. The 44 Aqua repos defaced during the March incident were the visible damage; the credential harvest from CI runners across thousands of organizations was the real one.
+
+Plan for it.
+
+## The Resolution: Two Operations, Two Cadences
 
 Patching applies a vendor-signed fix to known code. Pulling introduces new code from a registry.
 
-Those operations have different trust paths, different blast radii, and they should run on different cadences. Pretending one cadence fits both is what the squeeze is exploiting.
-
-Here is the framing I have settled on:
+Those operations have different trust paths, different blast radii, and they should run on different cadences. One cadence for both is exactly what the squeeze exploits.
 
 | | Patch lane | Pull lane |
 |---|---|---|
@@ -100,7 +100,7 @@ These aren't hypothetical. This is what's deployed today on my home infrastructu
 **Pull lane — application dependencies:**
 
 - Lockfiles committed for everything. `npm ci` / `pip install --require-hashes`, never `npm install` in CI.
-- A 7-day cool-off on new package versions, enforced via [Renovate](https://docs.renovatebot.com/configuration-options/#minimumreleaseage)'s `minimumReleaseAge: "7 days"` setting. Yes, this means I'm 7 days behind on ecosystem updates. That is the point. Most malicious-package campaigns burn out or get unpublished inside 72 hours; a one-week cool-off catches the long tail and costs me almost nothing in genuine velocity.
+- A 7-day cool-off on new package versions, enforced via [Renovate](https://docs.renovatebot.com/configuration-options/#minimumreleaseage)'s `minimumReleaseAge: "7 days"` setting. Yes, this means I'm 7 days behind on ecosystem updates. That is the point. Most malicious-package campaigns burn out or get unpublished inside 72 hours; a one-week cool-off catches the long tail and costs me almost nothing in genuine velocity. Aggressive auto-pullers are footsteps in sand. The 7-day cool-off is closer to sandwalking: by the time I reach for the package, someone faster has already surfaced the worm and triggered the unpublish.
 - Critically: the cool-off does *not* apply to security updates. Renovate's `vulnerabilityAlerts` block runs without `minimumReleaseAge` so that a fresh advisory for `express` or `requests` gets pulled immediately even though regular minor bumps wait the week. If you only set the cool-off and forget the security-alert override, you've handed yourself the worst of both lanes: slow on real CVEs *and* fast on attacker-published versions. Don't do that.
 - GitHub Actions and Docker images pinned to commit SHAs / image digests, not tags. Tags are mutable; SHAs are not. (See the Trivy post for what happens when you don't.)
 - Socket.dev wired into PR review on the repos I care about, mostly to flag install-script abuse and post-publish drift.
@@ -123,15 +123,13 @@ This is the part the "patch faster vs wait longer" debate keeps missing. **Neith
 
 ## What I'm Worried About
 
-Four things keep me up.
+Three things keep me up.
 
 **The pile-on is going to get worse, not better.** Copy Fail was found by an automated scanner. So is most of [Google's OSS-Fuzz output](https://google.github.io/oss-fuzz/), and Meta and Microsoft have published research on LLM-augmented fuzzing that materially raises the bug-discovery rate per researcher-hour. The economics of bug discovery are changing in a direction that produces more high-signal disclosures with shorter intervals between them, and each disclosure is an invitation to the next ten researchers. Defenders cannot patch their way out of a workload that grows superlinearly.
 
 **Registry attackers are running their own AI loops.** Shai-Hulud was self-replicating. IndonesianFoods automated package generation. The next iteration is going to use an LLM to write convincing READMEs and `package.json` descriptions for each typosquat, in the maintainer's own English-as-second-language register, with realistic test files. The cool-off period buys time, but only if humans are looking during the cool-off.
 
 **The scanner-as-target pattern is going to spread.** TeamPCP picked Trivy and KICS because those tools have privileged CI/CD positions and enterprise trust, and that math works for every other security vendor too. Snyk, Wiz, Falco, Grype, semgrep, the SBOM tools, the eBPF agents, the secret-scanning bots — every one of them has the same trust shape. I expect at least one more scanner-class compromise before the end of the year, and I'd love to be wrong.
-
-**The "patch fast" advice industry is selling the wrong product.** Most vulnerability management vendor decks still optimize for MTTR as a single number. They will happily measure how fast you pulled a compromised npm package into production. Be careful what you optimize for.
 
 ## Lessons
 
