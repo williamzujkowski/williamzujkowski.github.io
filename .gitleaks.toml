@@ -1,0 +1,25 @@
+title = "williamzujkowski.github.io gitleaks config"
+
+# Inherit the full default ruleset; we only add narrow allowlists.
+[extend]
+useDefault = true
+
+# Global allowlist for tutorial-default credentials that appear in
+# example commands in blog posts (Wazuh admin:admin, etc). These are
+# documented defaults from upstream project quickstarts, not real
+# secrets. Allowlist is intentionally narrow — if a post adds a real
+# credential by mistake, it will not match these patterns.
+[allowlist]
+  description = "Tutorial-default credentials in blog post examples"
+  paths = [
+    '''src/posts/.*\.md$''',
+  ]
+  regexes = [
+    # Documented project defaults
+    '''admin:admin''',
+    '''root:root''',
+    '''user:password''',
+    '''test:test''',
+    # Generic shell-variable placeholders ($VAR, ${VAR})
+    '''-u\s+[A-Za-z_][A-Za-z0-9_]*:\$\{?[A-Za-z_][A-Za-z0-9_]*\}?''',
+  ]
