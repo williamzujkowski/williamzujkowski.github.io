@@ -30,11 +30,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install UV
-      run: curl -LsSf https://astral.sh/uv/install.sh | sh
-
-    - name: Add UV to PATH
-      run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
+      uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b  # v8.1.0
 
     - name: Install Python Dependencies
       run: |
@@ -213,10 +209,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install UV
-      run: curl -LsSf https://astral.sh/uv/install.sh | sh
-
-    - name: Add UV to PATH
-      run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b  # v8.1.0
 
     - name: Install Dependencies
       run: |
