@@ -14,19 +14,19 @@ The Japanese word *tsundoku* (積ん読) describes the habit of acquiring books 
 
 ## Why I Built This
 
-I maintain a CSV of books I've read, want to read, or find interesting. The spreadsheet grew to 3,500+ entries. Goodreads felt wrong — I don't want social features, and I don't want Amazon owning my reading data. I wanted something I controlled that could also surface free, legal reading options for public domain works.
+I maintain a CSV of books I've read, want to read, or find interesting. The spreadsheet grew to 3,500+ entries. Goodreads felt wrong: I don't want social features, and I don't want Amazon owning my reading data. I wanted something I controlled that could also surface free, legal reading options for public domain works.
 
 The constraints were clear: no database, no backend, no hosting costs beyond a static file server. Everything had to be pre-built at compile time.
 
 ## The Enrichment Pipeline
 
-The core of the project isn't the website — it's the Python pipeline that turns a CSV of titles and ISBNs into a rich dataset. Each book gets enriched from six sources:
+The core of the project isn't the website. It's the Python pipeline that turns a CSV of titles and ISBNs into a rich dataset. Each book gets enriched from six sources:
 
 **Open Library** provides the backbone — metadata, subject classifications, cover images, and first-publish dates. Their API is free, no key required, and handles about 80% of lookups correctly. The remaining 20% is where things get interesting.
 
 **Google Books** fills metadata gaps — descriptions, page counts, and alternative ISBNs that Open Library doesn't have. Rate limits are generous (1,000 requests/day without a key) but you'll hit them on a full 3,500-book run. I added exponential backoff and a local cache that persists across runs.
 
-**Wikipedia** provides author biographies and portrait images. The MediaWiki API is powerful but returns deeply nested JSON that requires careful parsing. About 15% of authors have disambiguation pages instead of direct articles — the pipeline handles this by checking for the `(author)` or `(writer)` suffix variants.
+**Wikipedia** provides author biographies and portrait images. The MediaWiki API is powerful but returns deeply nested JSON that requires careful parsing. About 15% of authors have disambiguation pages instead of direct articles; the pipeline handles this by checking for the `(author)` or `(writer)` suffix variants.
 
 **Project Gutenberg** links to free ebook downloads. Their catalog is a CSV dump, not an API, so I load the entire catalog (~70,000 entries) into memory and match by title and author. Fuzzy matching catches "The Art of War" vs "Art of War, The" but still misses about 5% of valid matches where titles differ significantly between editions.
 
@@ -70,4 +70,4 @@ Reading progress is stored in `localStorage` — no account needed, no server, c
 - 6 API sources with exponential backoff and local caching
 - ~50-80 manual conflict reviews per full enrichment run
 
-The repo is at [github.com/williamzujkowski/tsundoku](https://github.com/williamzujkowski/tsundoku). The enrichment pipeline is reusable — if you have a CSV of books, you can build your own digital bookshelf.
+The repo is at [github.com/williamzujkowski/tsundoku](https://github.com/williamzujkowski/tsundoku). The enrichment pipeline is reusable: if you have a CSV of books, you can build your own digital bookshelf.

@@ -131,7 +131,7 @@ The final router runs five stages in sequence:
 
 Total latency: under 10ms. The routing decision is effectively free compared to the 2-30 seconds a model call takes.
 
-If I were starting over, I'd probably skip the Preference Router and fold its logic into TOPSIS weight adjustment. Three of the five stages (Budget, Zero, Preference) are essentially pre-processing for TOPSIS. But the staged approach makes each component testable in isolation, and the 193 pipeline tests I've written validate each stage independently. I'd call that a worthwhile tradeoff.
+If I were starting over, I'd probably skip the Preference Router and fold its logic into TOPSIS weight adjustment. Three of the five stages (Budget, Zero, Preference) are pre-processing for TOPSIS. But the staged approach makes each component testable in isolation, and the 193 pipeline tests I've written validate each stage independently. I'd call that a worthwhile tradeoff.
 
 ## Papers Referenced
 

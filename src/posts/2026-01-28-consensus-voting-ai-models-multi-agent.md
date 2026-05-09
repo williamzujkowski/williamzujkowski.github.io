@@ -127,7 +127,7 @@ Three basic strategies exist, plus one advanced:
 
 **Higher-order voting:** Based on [Bayesian-optimal aggregation](https://arxiv.org/abs/2510.01499). Instead of treating each vote equally, this strategy weights votes by estimated agent competence and accounts for correlation between agents. If two agents running on the same model both approve, that's less informative than two agents on different models both approving. The higher-order strategy adjusts for this.
 
-I'm honestly still evaluating whether higher-order voting is worth the complexity. It adds roughly 200ms to vote aggregation (Bayesian computation) versus essentially zero for simple counting. For most decisions, simple majority or supermajority works fine. Higher-order voting probably matters most when you have correlated agents, like when two of your three CLIs are down and all agents run on the same model.
+I'm honestly still evaluating whether higher-order voting is worth the complexity. It adds roughly 200ms to vote aggregation (Bayesian computation) versus zero for simple counting. For most decisions, simple majority or supermajority works fine. Higher-order voting probably matters most when you have correlated agents, like when two of your three CLIs are down and all agents run on the same model.
 
 ## What Consensus Voting Costs
 

@@ -76,7 +76,7 @@ GitHub Dependabot eventually created PRs on some repos, but only for the tag bum
 
 ## Empathy for the Responders
 
-I want to acknowledge the Aqua Security team and everyone who worked through the weekend to contain this. Supply chain compromises are exhausting — you're racing against an attacker who chose the timing deliberately, coordinating with GitHub's trust and safety team, trying to notify an unknown number of affected users, and doing it all while your regular team is off for the weekend.
+I want to acknowledge the Aqua Security team and everyone who worked through the weekend to contain this. Supply chain compromises are exhausting: you're racing against an attacker who chose the timing deliberately, coordinating with GitHub's trust and safety team, trying to notify an unknown number of affected users, and doing it all while your regular team is off for the weekend.
 
 The post-incident advisory ([GHSA-69fq-xp46-6x23](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23)) is thorough and honest about the root cause (incomplete credential rotation from a prior incident). That transparency matters.
 
@@ -90,7 +90,7 @@ This was a genuine test of using AI agents for incident response. The nexus-agen
 - **IOC verification** — checking for known indicators (file paths, repo names, DNS) across the local system
 - **Issue creation** — filing structured tickets on each affected repo with findings
 
-None of this is magic — it's the same `grep`, `gh api`, and `find` commands I'd run manually. But having an agent chain them together, maintain context across repos, and produce structured output made a real difference. The total investigation and remediation — across five repos, including IOC verification, CI history analysis, SHA pinning, and filing issues with findings — took under 60 minutes with AI assistance. Doing this manually would have been 3-4 hours of context-switching between repos, GitHub API docs, run logs, and advisory pages. On a weekend, that time savings matters.
+None of this is magic: it's the same `grep`, `gh api`, and `find` commands I'd run manually. But having an agent chain them together, maintain context across repos, and produce structured output made a real difference. The total investigation and remediation — across five repos, including IOC verification, CI history analysis, SHA pinning, and filing issues with findings — took under 60 minutes with AI assistance. Doing this manually would have been 3-4 hours of context-switching between repos, GitHub API docs, run logs, and advisory pages. On a weekend, that time savings matters.
 
 ## Lessons
 

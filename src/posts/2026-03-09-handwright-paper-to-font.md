@@ -20,7 +20,7 @@ The system has four stages, each with its own set of problems I didn't anticipat
 
 The system generates a printable PDF with guide boxes for every character — 26 uppercase, 26 lowercase, 10 digits, and about 30 punctuation/symbol characters. Each box has a faint baseline and cap height guide so your characters are consistently sized.
 
-The template needs to be precise. If guide boxes are even slightly off-grid, the extraction stage misaligns. I went through three iterations of the template generator before the grid was reliable enough — the first version used HTML-to-PDF conversion which introduced sub-pixel rounding errors. Switching to direct PDF generation with `reportlab` fixed it.
+The template needs to be precise. If guide boxes are even slightly off-grid, the extraction stage misaligns. I went through three iterations of the template generator before the grid was reliable enough: the first version used HTML-to-PDF conversion which introduced sub-pixel rounding errors. Switching to direct PDF generation with `reportlab` fixed it.
 
 ### Glyph Extraction (OpenCV)
 
@@ -28,7 +28,7 @@ This is where most of the complexity lives. OpenCV processes the scanned image t
 
 **Adaptive thresholding** handles uneven lighting — phone photos have shadows, desk lamp reflections, and color casts that simple binary thresholding can't handle. I use Gaussian adaptive thresholding with a block size of 31 pixels, tuned by trial and error on about 40 test scans.
 
-**Contour detection** finds each character cell. The challenge is that the printed guide lines are thin but visible — they need to be detected as cell boundaries but not as part of the glyph. I solve this by detecting the grid first (Hough line transform), masking it out, then finding contours within each cell.
+**Contour detection** finds each character cell. The challenge is that the printed guide lines are thin but visible: they need to be detected as cell boundaries but not as part of the glyph. I solve this by detecting the grid first (Hough line transform), masking it out, then finding contours within each cell.
 
 **Perspective correction** handles skewed scans. If someone photographs the worksheet at an angle, the grid cells become trapezoids. The pipeline detects the four corners of the worksheet and applies a perspective warp to produce a flat, rectangular image before extraction.
 
@@ -40,7 +40,7 @@ The extraction fails gracefully on about 3% of cells — usually when someone's 
 
 Extracted glyphs are bitmap images. Fonts need vector outlines. Potrace converts raster glyph images into smooth SVG paths.
 
-The key parameter is `turdsize` (potrace's actual parameter name) — it controls the minimum area of features to keep. Too low and you get noise from paper texture. Too high and thin strokes disappear. I default to 2 for most characters but increase to 5 for punctuation marks, which tend to be small enough to trigger the noise filter at default settings.
+The key parameter is `turdsize` (potrace's actual parameter name): it controls the minimum area of features to keep. Too low and you get noise from paper texture. Too high and thin strokes disappear. I default to 2 for most characters but increase to 5 for punctuation marks, which tend to be small enough to trigger the noise filter at default settings.
 
 Potrace also has an `alphamax` parameter controlling curve smoothness. Higher values produce smoother curves but can round off sharp corners that are part of someone's handwriting style. I keep it at 1.0 (the default), which preserves most stylistic details.
 
@@ -66,7 +66,7 @@ Handwright runs entirely locally. Docker Compose brings up the Next.js frontend 
 
 **Browser-based extraction.** My first attempt used TensorFlow.js to do glyph extraction in the browser. The model was accurate enough but painfully slow — 45 seconds per worksheet on a modern laptop. OpenCV on the server processes the same worksheet in under 2 seconds.
 
-**Automatic kerning.** I tried generating kerning pairs automatically by analyzing common letter combinations (th, he, in, er, etc.) and measuring the visual gap. The results were inconsistent — it would produce tight kerning for "th" but loose kerning for "ty" because the algorithm couldn't account for glyph shape, only bounding boxes. Manual kerning tables would be better, but that's a significant UX problem for a tool meant to be zero-config.
+**Automatic kerning.** I tried generating kerning pairs automatically by analyzing common letter combinations (th, he, in, er, etc.) and measuring the visual gap. The results were inconsistent: it would produce tight kerning for "th" but loose kerning for "ty" because the algorithm couldn't account for glyph shape, only bounding boxes. Manual kerning tables would be better, but that's a significant UX problem for a tool meant to be zero-config.
 
 **Handwriting variation.** Real handwriting varies — the same person writes the letter "a" slightly differently every time. A single glyph per character produces unnaturally uniform text. Adding variation (multiple glyphs per character, randomly selected) is on the roadmap but requires significant changes to the font assembly stage.
 
