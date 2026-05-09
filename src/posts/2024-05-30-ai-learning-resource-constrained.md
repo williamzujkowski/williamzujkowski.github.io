@@ -64,7 +64,7 @@ These limitations weren't obstacles to overcome. They were design constraints th
 
 ## Rethinking Model Architecture: Small Can Be Beautiful
 
-Working with limited resources fundamentally changed my approach to model design:
+Working with limited resources changed my approach to model design:
 
 ### Model Distillation: Learning from Teachers
 
@@ -333,7 +333,7 @@ Active learning reduced annotation requirements by 60% while maintaining model p
 Running AI models on Raspberry Pi clusters taught me the importance of hardware-software co-design:
 
 **ARM Optimization:**
-- ARM Cortex-A72 architecture fundamentally different from x86 instruction sets
+- ARM Cortex-A72 architecture significantly different from x86 instruction sets
 - NEON SIMD extensions provide 4-16x speedup for matrix operations
 - 64-bit architecture crucial: 32-bit ARM severely limits model sizes
 - Model compilation: convert TensorFlow/PyTorch to ARM-optimized formats
@@ -799,7 +799,7 @@ Being honest about limitations is crucial. Efficiency isn't free, and some probl
 - Quantized models typically lose 1-5% accuracy compared to full-precision versions
 - Pruned networks may fail on edge cases that full models handle correctly
 - Distilled models sometimes miss subtle patterns the teacher model captured
-- Mobile models trade comprehensive understanding for specialized task performance
+- Mobile models trade full understanding for specialized task performance
 - Fast inference often means simpler architectures with reduced expressiveness
 - Real-world deployment: 2-3% accuracy loss often acceptable, but depends entirely on application
 
@@ -880,7 +880,7 @@ Working within constraints revealed technical truths that apply far beyond resou
 **Why Fundamentals Become Non-Negotiable:**
 - Can't add more layers: must understand why each layer exists and what it contributes
 - Can't use bigger batch sizes: must grasp how batch size affects convergence and generalization
-- Can't brute-force hyperparameter search: must understand optimization landscape topology
+- Can't brute-force hyperparameter search: must understand optimization space topology
 - Can't ignore computational complexity: O(n²) vs O(n log n) determines what's possible
 - Can't waste parameters: must know which model components contribute to performance
 - Can't skip math: matrix decompositions, numerical stability, and precision matter constantly

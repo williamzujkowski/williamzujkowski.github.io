@@ -168,7 +168,7 @@ You are a technical writer creating developer documentation. For each API endpoi
 Endpoint: User authentication
 ```
 
-This structured approach ensured consistent, comprehensive documentation across different endpoints.
+This structured approach ensured consistent, complete documentation across different endpoints.
 
 ### Content Marketing
 
@@ -203,7 +203,7 @@ Analyze this dataset as an experienced data analyst. For each significant trend 
 Be objective and acknowledge uncertainty when appropriate.
 ```
 
-This structured approach helped prevent overconfident interpretations while ensuring comprehensive analysis.
+This structured approach helped prevent overconfident interpretations while ensuring full analysis.
 
 I built a RAG (Retrieval-Augmented Generation) system for my blog posts. The first version was a disaster. It retrieved 5 random chunks per query, and responses included hallucinated facts from completely unrelated posts. A query about Kubernetes would somehow reference quantum computing experiments. Precision was 42%. I added semantic ranking based on cosine similarity, which improved precision from 42% to 89%. **But** adding the ranking layer increased query latency from 0.3s to 1.2s. The accuracy improvement was worth it **though** I'm still optimizing the ranking algorithm.
 
@@ -297,7 +297,7 @@ Prompt engineering transformed my understanding of both artificial intelligence 
 
 The journey from fumbling with basic requests to crafting sophisticated prompts that unlock AI capabilities has been one of the most rewarding learning experiences of my career. Each successful prompt feels like solving a puzzle, and each failure provides insights for future improvements.
 
-My homelab experiments, from the 47-iteration system prompt odyssey to the RAG precision jump from 42% to 89%, taught me that prompt engineering is fundamentally about trade-offs. Higher accuracy **but** more tokens. Better structure **yet** potential creativity constraints. Detailed instructions improve results **though** they increase complexity. I'm still learning which trade-offs matter for which use cases.
+My homelab experiments, from the 47-iteration system prompt odyssey to the RAG precision jump from 42% to 89%, taught me that prompt engineering is really about trade-offs. Higher accuracy **but** more tokens. Better structure **yet** potential creativity constraints. Detailed instructions improve results **though** they increase complexity. I'm still learning which trade-offs matter for which use cases.
 
 As AI models become more capable and widely adopted, the ability to communicate effectively with them becomes increasingly valuable. Prompt engineering isn't just about getting better AI outputs. It's about thinking more clearly about what we want, how we communicate, and how we can use AI to amplify human capabilities.
 

@@ -13,7 +13,7 @@ imageAlt: "Human hand reaching toward robotic hand"
 ---
 Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 
-Deploying a customer-facing LLM for the first time in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, fundamentally changed how I think about AI development and deployment.
+Deploying a customer-facing LLM for the first time in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, changed how I think about AI development and deployment.
 
 ## How It Works
 
@@ -139,7 +139,7 @@ From 2022 through 2024, grappling with AI ethics taught me that technical soluti
 
 Working in AI during the emergence of regulatory frameworks provided front-row seats to policy development:
 
-**EU AI Act:** Comprehensive regulation that categorizes AI systems by risk level and imposes corresponding requirements.
+**EU AI Act:** Full regulation that categorizes AI systems by risk level and imposes corresponding requirements.
 
 **Algorithmic Accountability:** Growing requirements for transparency in automated decision-making systems.
 

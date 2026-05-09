@@ -12,7 +12,7 @@ image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=630"
 imageAlt: "Code on a computer screen with dark background"
 
 ---
-Years ago, I discovered a SQL injection vulnerability during a code review. The sinking feeling was immediate — it was a wake-up call that fundamentally changed how I approach development. Writing secure code isn't just a best practice, it's a moral imperative.
+Years ago, I discovered a SQL injection vulnerability during a code review. The sinking feeling was immediate — it was a wake-up call that changed how I approach development. Writing secure code isn't just a best practice, it's a moral imperative.
 
 That experience early in my career taught me how easy it is for injection flaws to slip through. What looked like a minor oversight in query construction was actually a textbook vulnerability — the kind that, left unpatched, could expose sensitive data. It reinforced a lesson I carry to this day: security isn't something you bolt on after the fact.
 
@@ -96,7 +96,7 @@ Looking back, I wish someone had told me that security isn't about perfection. I
 
 I also wish I'd understood that security failures aren't always dramatic. Sometimes they're quiet. A slow data leak that goes unnoticed for months, or a privilege escalation that happens gradually. The most dangerous vulnerabilities are often the ones that don't trigger alarms.
 
-In my homelab, I implemented comprehensive logging and monitoring in February 2024. Over the first month, my SIEM alerts caught 23 suspicious events: 19 were false positives (port scans from my own security tools), but 4 were real unauthorized access attempts from compromised IoT devices on my network. Without monitoring, those intrusions would have gone completely unnoticed. The **trade-off** is alert fatigue - I spent 3 hours tuning thresholds to get the signal-to-noise ratio acceptable.
+In my homelab, I implemented full logging and monitoring in February 2024. Over the first month, my SIEM alerts caught 23 suspicious events: 19 were false positives (port scans from my own security tools), but 4 were real unauthorized access attempts from compromised IoT devices on my network. Without monitoring, those intrusions would have gone completely unnoticed. The **trade-off** is alert fatigue - I spent 3 hours tuning thresholds to get the signal-to-noise ratio acceptable.
 
 I **might be** over-engineering security for low-risk homelab services. I spent 8 hours implementing rate limiting for an API that only I use. The **trade-off** between security investment and actual risk is hard to calibrate. I think the practice is valuable even if the threat model doesn't justify it, **but** I'm still learning where to draw the line between paranoia and pragmatism.
 
@@ -104,7 +104,7 @@ One concrete lesson: after implementing basic security hardening across my homel
 
 ## Conclusion
 
-Secure coding is a continuous, evolving discipline. Each new day may surface fresh vulnerabilities or cunning exploits. By weaving principles like input validation, output encoding, least privilege, and robust testing into our development cycles, we fortify our systems against known threats.
+Secure coding is a continuous, evolving discipline. Each new day may surface fresh vulnerabilities or cunning exploits. By weaving principles like input validation, output encoding, least privilege, and thorough testing into our development cycles, we fortify our systems against known threats.
 
 The vulnerability that taught me these lessons years ago was eventually patched, but the lesson remained: security isn't optional, and it's never "someone else's problem." Every developer has a responsibility to build systems that protect user data and maintain trust.
 

@@ -374,7 +374,7 @@ Every security event could indicate insider threats, compromised accounts, or la
 I think this alert configuration is reasonable for my homelab, though I'm probably missing some security events I should care about. The challenge with Zero Trust monitoring is that you generate *so many* logs that finding the signal in the noise requires constant tuning. I'm still learning what "normal" looks like.
 
 **Enhanced Capabilities:**
-I implemented comprehensive logging that generates roughly 2.3GB of data per day:
+I implemented full logging that generates roughly 2.3GB of data per day:
 - Detailed logging of all 42,000+ daily access attempts (mostly automated scripts and services)
 - Suricata 7.0.3 behavioral analytics detected 3 anomalous connection patterns in September 2024 (all false positives from my Plex server)
 - Automated containment scripts that block suspicious IPs for 24 hours (I've accidentally blocked myself 7 times)

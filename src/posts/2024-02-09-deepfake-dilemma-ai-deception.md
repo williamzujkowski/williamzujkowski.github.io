@@ -13,7 +13,7 @@ imageAlt: "Abstract AI neural network visualization"
 ---
 **BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease. It was a video of a public figure saying something completely out of character. Despite knowing about deepfake technology, I found myself questioning what was real.
 
-I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media and highlighted a sobering reality about our information landscape..
+I spent an hour researching, cross-referencing sources, and analyzing the video frame by frame before confirming it was synthetic. That experience fundamentally changed how I evaluate digital media and highlighted a sobering reality about our information environment..
 
 Recently, when I decided to test this problem in my own homelab, I downloaded 50 known deepfake videos from academic datasets and ran them through three different detection models on my RTX 3090. The results were sobering: my best model achieved only 73% accuracy, taking 3.2 seconds per frame to process.
 
@@ -24,7 +24,7 @@ Even more concerning, the false positive rate hit 18%. Nearly one in five real v
 
 ## The Technology That Shattered Trust
 
-Deepfakes harness generative adversarial networks (GANs) in a digital arms race. One neural network creates increasingly realistic fake content while another network tries to detect the forgeries. They push each other toward perfection in an endless cycle of improvement.
+Deepfakes use generative adversarial networks (GANs) in a digital arms race. One neural network creates increasingly realistic fake content while another network tries to detect the forgeries. They push each other toward perfection in an endless cycle of improvement.
 
 Years ago, I witnessed this technology's impact at a cybersecurity conference. A researcher demonstrated how they'd created a convincing video of the conference organizer endorsing a controversial political position. The room fell silent. Any public figure could be made to "say" anything.
 

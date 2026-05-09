@@ -485,7 +485,7 @@ I started with these practical changes in January 2024, though I'm still learnin
 
 ## Personal Reflections on the Journey
 
-The transition from viewing efficiency as a performance optimization to understanding it as an environmental imperative fundamentally changed how I approach technology decisions. Every algorithm choice, every infrastructure decision, every line of code now carries environmental weight.
+The transition from viewing efficiency as a performance optimization to understanding it as an environmental imperative changed how I approach technology decisions. Every algorithm choice, every infrastructure decision, every line of code now carries environmental weight.
 
 The most surprising discovery was that sustainable computing practices often aligned with cost optimization and performance improvements. Green computing isn't just good for the planet. It's good for business.
 

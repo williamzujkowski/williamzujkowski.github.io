@@ -16,7 +16,7 @@ imageAlt: "Data visualization dashboard with analytics"
 
 Here's a scenario that plays out more often than anyone in this industry likes to admit: a single database connection timeout triggers a cascade failure that brings down an entire platform in three minutes.
 
-On paper, the system had everything — load balancers, database replicas, circuit breakers, auto-scaling, comprehensive monitoring. And yet:
+On paper, the system had everything — load balancers, database replicas, circuit breakers, auto-scaling, full monitoring. And yet:
 
 1. The primary database becomes unresponsive
 2. Connection pools fill up as queries back up
@@ -41,7 +41,7 @@ flowchart TD
 
 The postmortem revealed something uncomfortable: every safety mechanism *amplified* the original failure. Auto-scaling made it worse by piling more connections onto a dying database. Circuit breakers triggered, but their fallback services shared the same overwhelmed infrastructure. The "resilient" architecture had created a tightly-coupled system wearing a distributed costume.
 
-This kind of incident fundamentally changes how you think about resilience. It's not about preventing failures — it's about failing gracefully.
+This kind of incident changes how you think about resilience. It's not about preventing failures — it's about failing gracefully.
 
 ## Graceful Degradation: The Pattern That Actually Works
 

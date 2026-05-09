@@ -152,7 +152,7 @@ Deploying AI in security contexts raised ethical questions I hadn't fully consid
 
 The fundamental tension here is unavoidable. Effective security monitoring arguably violates privacy expectations: For more context, see [the deepfake dilemma: navigating the threat of ai-generated deception](/posts/2024-02-09-deepfake-dilemma-ai-deception).
 
-**Employee Monitoring:** AI systems that detect insider threats must monitor user behavior in significant detail. In my homelab, this means my Wazuh deployment logs every command I execute, every file I access, every network connection I make. It's comprehensive surveillance, even if I'm monitoring myself. In an organizational context, this raises serious privacy concerns. Where's the line between security and invasive monitoring?
+**Employee Monitoring:** AI systems that detect insider threats must monitor user behavior in significant detail. In my homelab, this means my Wazuh deployment logs every command I execute, every file I access, every network connection I make. It's full surveillance, even if I'm monitoring myself. In an organizational context, this raises serious privacy concerns. Where's the line between security and invasive monitoring?
 
 **Data Collection:** My AI security system collects roughly 2.3GB of security logs daily, including DNS queries, HTTP headers, authentication attempts, and process executions. That's a complete digital footprint. I'm comfortable with this in my homelab, but imagine this in a workplace. Every website visit, every typo in a command, every late-night work session, all logged and analyzed by AI. The security value is clear, but the privacy implications are troubling.
 
@@ -318,7 +318,7 @@ Success in this environment requires more than just implementing AI tools. It de
 
 The incident in August 2024 when my Wazuh system caught a port scan that Suricata missed showed me AI's genuine potential. But then my successful evasion testing in September taught me that AI isn't a silver bullet. It's a tool that amplifies human capabilities, both defensive and offensive. The most effective approach probably combines machine speed with human judgment. Neither alone is sufficient.
 
-As AI security evolves, the organizations (and homelabbers like me) that thrive will be those who harness AI's power while maintaining ethical boundaries, human oversight, and continuous learning. The stakes are genuinely high. My November 2024 testing showed accuracy degradation from 73% to 58% after infrastructure changes, proving that AI security requires constant maintenance and retraining.
+As AI security evolves, the organizations (and homelabbers like me) that thrive will be those who use AI's power while maintaining ethical boundaries, human oversight, and continuous learning. The stakes are genuinely high. My November 2024 testing showed accuracy degradation from 73% to 58% after infrastructure changes, proving that AI security requires constant maintenance and retraining.
 
 The AI security revolution is just beginning. I've been testing these capabilities for eight months, and I'm still discovering new challenges weekly. How we navigate the ethical implications and adversarial risks will probably determine whether we create a more secure digital world or one where the attacker-defender balance becomes permanently destabilized. I'm cautiously optimistic, but the uncertainty is real.
 

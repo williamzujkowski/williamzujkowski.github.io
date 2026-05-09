@@ -203,7 +203,7 @@ The Transformer architecture represents one of those rare innovations that funda
 
 From machine translation to large language models to vision applications, Transformers have become the foundation for modern AI systems. The "attention is all you need" insight has proven prescient, with attention mechanisms becoming central to how neural networks model complex relationships.
 
-As I watch continued innovations in efficient attention, longer context windows, and multi-modal applications, I'm reminded that the Transformer revolution is far from over. The architecture that transformed NLP is now transforming AI itself, and we're still discovering what's possible when attention is indeed all you need.
+As I watch continued innovations in efficient attention, longer context windows, and multi-modal applications, I'm reminded that the Transformer revolution is far from over. The architecture that transformed NLP is now transforming AI itself, and we're still discovering what's possible when attention is all you need.
 
 The paper that first captured my imagination years ago continues to inspire new research, new applications, and new questions about intelligence, attention, and learning. In the rapidly evolving landscape of AI, that lasting influence speaks to its foundational contribution.
 
