@@ -146,6 +146,7 @@ pick the layer that matches the latency, cost, and feedback profile.
 │     blog-overlap        → topic overlap with prior posts          │
 │     blog-factcheck      → semantic verification of cited claims   │
 │     blog-llm-tells      → voice/prose LLM-tell scrub              │
+│     blog-nda-check      → contextual NDA-compliance               │
 │     blog-argument-shape → thesis + evidence + falsifiability      │
 └───────────────────────────────────────────────────────────────────┘
                             │ author commits
@@ -192,7 +193,8 @@ pick the layer that matches the latency, cost, and feedback profile.
 | Astro design tokens | Layer 3 (`audits.yml`) | Per-commit, blocks broken design |
 | Accessibility | Layer 3 (`a11y.yml`) | Per-commit, axe-playwright |
 | Lighthouse / HTML validation | Layer 3 (`compliance-monitor.yml`) | Per-commit, advisory |
-| NDA pattern enforcement | Layer 3 (`compliance-monitor.yml`) | Per-commit grep across all posts |
+| NDA enforcement (mechanical) | Layer 3 (`compliance-monitor.yml`) | Per-commit grep, 13 explicit phrases |
+| NDA enforcement (contextual) | Layer 1 (`blog-nda-check`) | Author-time LLM judgment: tense, scale revelations, implicit current-engagement, gov-agency context — beyond what grep can catch |
 | Citation coverage % | Layer 3 (`compliance-monitor.yml`) | Per-commit metric, advisory |
 | Security scans (Trivy, Gitleaks, pip-audit) | Layer 3 (`compliance-monitor.yml`) | Per-commit |
 
