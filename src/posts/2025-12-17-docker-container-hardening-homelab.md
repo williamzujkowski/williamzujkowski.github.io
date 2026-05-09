@@ -502,9 +502,11 @@ Container security continues evolving. Future enhancements I'm testing:
 
 **Zero-trust networking:** Service mesh with mTLS between all container communications
 
+If you want the kernel-side complement to these container-side controls, see [Docker LSM security hardening](/posts/2025-08-18-docker-lsm-security-hardening) — same defense-in-depth philosophy, applied at the LSM layer.
+
 ## Conclusion
 
-Single-layer container security fails against determined attackers. Defense-in-depth using minimal base images, user namespaces, seccomp profiles, AppArmor, capability dropping, read-only filesystems, network segmentation, and resource limits provides robust protection.
+Single-layer container security fails against determined attackers. Defense-in-depth using minimal base images, user namespaces, seccomp profiles, AppArmor, capability dropping, read-only filesystems, network segmentation, and resource limits provides layered protection.
 
 Implementation requires careful planning and testing. Start with least disruptive layers (minimal images, resource limits) and gradually add more restrictive controls. Monitor everything and be prepared for operational complexity.
 

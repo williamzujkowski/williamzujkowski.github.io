@@ -99,7 +99,7 @@ This helps me focus on what actually matters instead of raw CVE counts.
 |---------|-----------|----------|-----------------|
 | **Grype** | Fast, low false positives, container-native | Container images, compiled binaries | 3.2s scan time, found 12 CVEs |
 | **OSV-Scanner** | Language-specific, lockfile parsing | npm, pip, cargo, go.mod | 8.1s scan time, found 8 CVEs (4 overlapping) |
-| **Trivy** | All-in-one, config scanning | Comprehensive coverage, IaC | 42s scan time, found 15 CVEs total |
+| **Trivy** | All-in-one, config scanning | Full coverage, IaC | 42s scan time, found 15 CVEs total |
 
 **My strategy:** Run all three, correlate findings, reduce false positives. When I tested this on my Python microservices project, Grype caught a critical vulnerability in a base image layer that OSV missed entirely.
 
@@ -243,7 +243,7 @@ Weekly scheduled job scans for vulnerabilities, runs `npm audit fix`, validates 
 
 ### Ship Scan Results to Wazuh
 
-Forward vulnerability data to your SIEM. I ship scans via syslog to Wazuh for centralized tracking, building on patterns from [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for comprehensive security monitoring.
+Forward vulnerability data to your SIEM. I ship scans via syslog to Wazuh for centralized tracking, building on patterns from [network traffic analysis with Suricata](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for complete security monitoring.
 
 📎 **Complete Wazuh integration:**
 [Full script with JSON transformation and error handling](https://gist.github.com/williamzujkowski/fe46d3793fb1f2d9771c8b9e1a2ee5d6)

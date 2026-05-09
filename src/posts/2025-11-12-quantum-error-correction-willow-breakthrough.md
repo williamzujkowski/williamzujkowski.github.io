@@ -174,7 +174,7 @@ timeline
 
 **Medium term (5-10 years):** Quantum advantage in optimization, drug discovery, and materials science. Classical AI training gets quantum acceleration. Financial modeling becomes dramatically faster.
 
-**Long term (10+ years):** Quantum computers solve climate modeling, traffic optimization, and supply chain problems that classical computers can't handle. Cryptography is fundamentally quantum. AI training uses quantum-classical hybrid algorithms.
+**Long term (10+ years):** Quantum computers solve climate modeling, traffic optimization, and supply chain problems that classical computers can't handle. Cryptography is inherently quantum. AI training uses quantum-classical hybrid algorithms.
 
 **Concrete example:** Current weather models take 6 hours on supercomputers to predict 5 days ahead. Quantum simulation could process the same atmospheric data in 30 minutes with higher accuracy. That means hurricane evacuations get 5.5 hours more lead time. Climate change models that take months could run in days.
 

@@ -339,7 +339,9 @@ Compiled addons (`.node` files) bypass V8 hooks. Two attacks in my test dataset 
 
 **Trade-off I accepted:** Manual CBOM review takes time. But reviewing 312 policies once is cheaper than incident response for a single supply chain breach.
 
-**Am I sure this works long-term?** Probably not without continuous updates. Threat landscape evolves. CBOMs will need refresh cycles (quarterly minimum). Still beats reactive patching after breaches.
+**Am I sure this works long-term?** Probably not without continuous updates. Threat surface evolves. CBOMs will need refresh cycles (quarterly minimum). Still beats reactive patching after breaches.
+
+If you're building toward defense-in-depth, this pairs well with [Docker LSM hardening](/posts/2025-08-18-docker-lsm-security-hardening) for the kernel-policy layer underneath the SBOM enforcement.
 
 ## Try It in Your Homelab
 

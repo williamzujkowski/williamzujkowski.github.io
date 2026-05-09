@@ -246,7 +246,7 @@ The answer depends on the choices we make now, while we still have the cognitive
 
 ---
 
-*The emergence of AI as cognitive infrastructure represents one of the most profound transformations in human history. Understanding its implications (both promising and perilous) is essential for anyone seeking to navigate and shape our cognitive future.*
+*The emergence of AI as cognitive infrastructure represents one of the most profound transformations in human history. Understanding its implications (both promising and perilous) is essential for anyone seeking to understand and shape our cognitive future.*
 
 ## Academic Research & References
 

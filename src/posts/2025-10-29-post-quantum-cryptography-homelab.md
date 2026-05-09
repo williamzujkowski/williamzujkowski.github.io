@@ -292,7 +292,7 @@ Protocol ossification strikes again. This is exactly why I broke my homelab on a
 
 In the worst-case scenario (full TLS handshake on every request, no connection reuse), AWS measured a **2.3% decrease** in transactions per second: from 108.7 TPS with classical crypto to 106.2 TPS with hybrid ML-KEM. The bandwidth overhead was approximately **1,600 additional bytes** per handshake, with compute overhead of **80-150 microseconds**.
 
-But here's the critical part: with TLS connection reuse enabled (which is the default for most applications), the overhead dropped to **0.05%**, essentially negligible. This matches [Cloudflare's observation](https://blog.cloudflare.com/the-tls-post-quantum-experiment/) that NTRU-HRSS performance was "hard to distinguish by eye from control connections" during their 2019 experiments.
+But here's the critical part: with TLS connection reuse enabled (which is the default for most applications), the overhead dropped to **0.05%**, negligible. This matches [Cloudflare's observation](https://blog.cloudflare.com/the-tls-post-quantum-experiment/) that NTRU-HRSS performance was "hard to distinguish by eye from control connections" during their 2019 experiments.
 
 If AWS can run ML-KEM at scale with 0.05% overhead, my homelab with maybe 20 simultaneous TLS connections can definitely handle it.
 

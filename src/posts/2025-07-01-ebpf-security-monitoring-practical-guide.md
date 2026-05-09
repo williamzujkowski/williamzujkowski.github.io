@@ -21,7 +21,7 @@ Years ago, while researching potential EDR bypass techniques in my home lab, I d
 
 Imagine having X-ray vision into your kernel, seeing every system call, network packet, and file operation as it happens. That's eBPF. After extensive testing and real-world deployments, I've learned that eBPF isn't just another security tool – it's a fundamental change in how we detect and respond to threats.
 
-[Recent research from arXiv confirms what practitioners have discovered: eBPF-based detection achieves 99.76% accuracy in identifying ransomware within seconds of execution, even for zero-day variants](https://arxiv.org/abs/2406.14020) (Sekar et al., 2024). Integrate eBPF with [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) and [threat intelligence dashboards](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for comprehensive threat detection. But raw detection isn't everything – let me show you how to build practical, production-ready eBPF security monitoring.
+[Recent research from arXiv confirms what practitioners have discovered: eBPF-based detection achieves 99.76% accuracy in identifying ransomware within seconds of execution, even for zero-day variants](https://arxiv.org/abs/2406.14020) (Sekar et al., 2024). Integrate eBPF with [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) and [threat intelligence dashboards](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) for complete threat detection. But raw detection isn't everything – let me show you how to build practical, production-ready eBPF security monitoring.
 
 ## Understanding eBPF Security Architecture
 

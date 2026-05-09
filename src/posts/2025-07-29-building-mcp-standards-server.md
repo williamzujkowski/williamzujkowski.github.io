@@ -115,7 +115,7 @@ Then I thought: "What about multi-language support?"
 ### Version 4: "The Kitchen Sink"
 Current state. It has:
 - 6 language analyzers (Python, JS, Go, Java, Rust, TypeScript)
-- 25 comprehensive standards (up from my original 10)
+- 25 full standards (up from my original 10)
 - Redis L1/L2 caching architecture
 - Semantic search with boolean operators
 - NIST compliance mapping

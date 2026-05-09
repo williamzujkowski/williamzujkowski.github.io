@@ -124,7 +124,7 @@ Here are the key tools I use in my homelab:
 - **Python 3.11.5** with libraries: python-nmap, vulners, schedule
 - **Notification**: Pushover for mobile alerts
 
-For comprehensive network security, [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provides the foundation for the encryption implementations used in these scripts.
+For complete network security, [demystifying cryptography](/posts/2024-01-18-demystifying-cryptography-beginners-guide/) provides the foundation for the encryption implementations used in these scripts.
 
 ## What's Next?
 

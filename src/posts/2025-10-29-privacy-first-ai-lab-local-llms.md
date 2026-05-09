@@ -360,7 +360,7 @@ flowchart TD
     Local -->|Budget limited| CPU[CPU-Only Inference]
     HW --> Harden[Harden: VLAN + Encryption + DP]
     CPU --> Harden
-    Cloud -->|Need cutting-edge?| API[Cloud API — 405B+ models]
+    Cloud -->|Need latest?| API[Cloud API — 405B+ models]
     Cloud -->|General use| Managed[Managed Service]
     Harden --> Monitor[Deploy Monitoring]
     API --> Done([Production Ready])
@@ -462,7 +462,7 @@ After six months of running a hardened AI homelab, here's my honest assessment:
 **When Cloud APIs Make More Sense:**
 - General knowledge questions and public information
 - Rapid prototyping and experimentation
-- When you need cutting-edge model capabilities (405B+)
+- When you need the latest model capabilities (405B+)
 - Limited time or technical background
 - Cost constraints (ironically, cloud can be cheaper for light usage)
 

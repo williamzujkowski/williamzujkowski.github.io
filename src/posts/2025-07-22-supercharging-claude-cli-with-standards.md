@@ -57,7 +57,7 @@ flowchart LR
 
 ## Enter the Standards Repository
 
-I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards), a comprehensive collection of development standards designed specifically for LLM consumption. It's an AI instruction manual for your projects.
+I built [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards), a complete collection of development standards designed specifically for LLM consumption. It's an AI instruction manual for your projects.
 
 ### The Magic: CLAUDE.md
 
@@ -272,7 +272,7 @@ My CLAUDE.md file grew from 120 lines (v1.0) to 2,847 lines (v3.0) over 6 months
 
 I rewrote section 4 (enforcement rules) 12 times before I got it right. Or maybe I still haven't got it right. The complexity catches more edge cases now.
 
-The trade-off between comprehensive rules and maintainability is constant:
+The trade-off between thorough rules and maintainability is constant:
 
 - More rules catch more issues
 - More rules make the system harder to understand
@@ -426,7 +426,7 @@ Beyond the obvious productivity gains, this system has delivered unexpected bene
 - Claude gives the same advice every time
 - Cost: limiting if the standards need updating
 
-The trade-off between consistency and flexibility is ongoing. Pre-commit hooks catch issues and add friction. Comprehensive standards help and require maintenance effort. I've found the system valuable for my projects. I'm still tuning the balance between safety and speed.
+The trade-off between consistency and flexibility is ongoing. Pre-commit hooks catch issues and add friction. Detailed standards help and require maintenance effort. I've found the system valuable for my projects. I'm still tuning the balance between safety and speed.
 
 ## Where It's Heading
 

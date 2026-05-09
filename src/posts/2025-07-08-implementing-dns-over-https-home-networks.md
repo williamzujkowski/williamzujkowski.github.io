@@ -43,7 +43,7 @@ If you're tired of being the product, here's how to take back control of your DN
 
 ## Understanding the DNS Privacy Problem
 
-DNS privacy is foundational to network security. Combine DoH with [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) for comprehensive homelab security.
+DNS privacy is foundational to network security. Combine DoH with [zero-trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) for complete homelab security.
 
 Traditional DNS has several privacy and security issues:
 

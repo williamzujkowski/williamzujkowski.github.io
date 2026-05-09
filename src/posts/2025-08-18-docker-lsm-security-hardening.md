@@ -332,7 +332,7 @@ flowchart LR
     style A_All fill:#27ae60,color:#fff
 ```
 
-The allowlist approach is fundamentally more secure: unknown or newly added syscalls are blocked by default, while the blocklist approach must be updated whenever new dangerous syscalls are identified.
+The allowlist approach is far more secure: unknown or newly added syscalls are blocked by default, while the blocklist approach must be updated whenever new dangerous syscalls are identified.
 
 ## Capability Dropping: Removing Dangerous Privileges
 

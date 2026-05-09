@@ -16,7 +16,7 @@ imageAlt: "Smart home IoT devices connected on a network"
 ---
 **BLUF:** When I set up my first smart home devices years ago, I naively trusted that manufacturers had security figured out. Then I started packet capturing my IoT traffic.
 
-What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, and ultimately building an isolated IoT security lab. In September 2024, I analyzed traffic from my Philips Hue bridge. I discovered it was sending device status every 12 seconds to cloud servers, even when I wasn't using the app. Total data: 2.1MB/day just for "phone home" pings. That's when I realized I needed to take IoT security more seriously. Today, I'll show you how to use OWASP IoTGoat to safely explore these vulnerabilities yourself.
+What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, and built an isolated IoT security lab. In September 2024, I analyzed traffic from my Philips Hue bridge. I discovered it was sending device status every 12 seconds to cloud servers, even when I wasn't using the app. Total data: 2.1MB/day just for "phone home" pings. That's when I realized I needed to take IoT security more seriously. Today, I'll show you how to use OWASP IoTGoat to safely explore these vulnerabilities yourself.
 
 ## The IoT Security Landscape
 
@@ -31,7 +31,7 @@ Before diving into vulnerabilities, let's set up a proper isolated environment. 
 
 ### Network Architecture
 
-Here's my home lab IoT security setup using VLANs and a dedicated analysis subnet. I moved all IoT devices to a separate VLAN (192.168.50.0/24) with firewall rules blocking LAN access. My Nest thermostat immediately stopped working until I allowed specific port 443 traffic to Google servers. The **trade-off**: security versus convenience. You gain isolation **but** lose easy device-to-device communication. For a comprehensive approach to this architecture, see my guide on [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure).
+Here's my home lab IoT security setup using VLANs and a dedicated analysis subnet. I moved all IoT devices to a separate VLAN (192.168.50.0/24) with firewall rules blocking LAN access. My Nest thermostat immediately stopped working until I allowed specific port 443 traffic to Google servers. The **trade-off**: security versus convenience. You gain isolation **but** lose easy device-to-device communication. For a complete approach to this architecture, see my guide on [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure).
 
 ```mermaid
 flowchart TD
@@ -64,9 +64,9 @@ Real vulnerabilities found in countless IoT devices illustrate these principles 
 
 [Research by Zhang et al. (2023)](https://doi.org/10.1109/TDSC.2023.3247569) found hardcoded credentials in 47% of analyzed IoT firmware. IoTGoat demonstrates this beautifully.
 
-I ran a password audit on my 23 IoT devices. Eight were still using default credentials (admin/admin). Three had hardcoded passwords I couldn't change. Five supported only WEP encryption (yes, WEP in 2024). This was my wake-up call. Default credentials are convenient **though** fundamentally insecure.
+I ran a password audit on my 23 IoT devices. Eight were still using default credentials (admin/admin). Three had hardcoded passwords I couldn't change. Five supported only WEP encryption (yes, WEP in 2024). This was my wake-up call. Default credentials are convenient **though** insecure by design.
 
-Here's a comprehensive toolkit for testing IoT vulnerabilities including default credentials, MQTT discovery, and command injection:
+Here's a toolkit for testing IoT vulnerabilities including default credentials, MQTT discovery, and command injection:
 
 <script src="https://gist.github.com/williamzujkowski/8d96ac97bbb24da06b9b381c4b46b441.js"></script>
 

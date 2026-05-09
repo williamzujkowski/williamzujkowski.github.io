@@ -32,7 +32,7 @@ My setup runs on a single Dell R910:
 - ~400GB mixed storage (LVM for OS + ZFS pool for VMs/data)
 - Backed by TrueNAS Core with ~30TB usable storage (RAIDZ2)
 
-This single node handles 30+ VMs and containers comfortably. With 256GB RAM, careful resource allocation is key, but it's more than sufficient for a comprehensive homelab. Uptime averages 99.7% - better than some cloud providers I've used.
+This single node handles 30+ VMs and containers comfortably. With 256GB RAM, careful resource allocation is key, but it's more than sufficient for a full-featured homelab. Uptime averages 99.7% - better than some cloud providers I've used.
 
 ```mermaid
 graph TB
@@ -235,7 +235,7 @@ The process took 6 attempts to get right. ACME client configuration is finicky, 
 
 ### Monitoring and Alerting
 
-My monitoring stack combines multiple tools for comprehensive visibility:
+My monitoring stack combines multiple tools for end-to-end visibility:
 
 **Wazuh:** Security monitoring and SIEM functionality. Tracks authentication, file changes, vulnerability detection.
 

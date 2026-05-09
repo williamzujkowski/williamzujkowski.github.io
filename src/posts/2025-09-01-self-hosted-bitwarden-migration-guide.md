@@ -143,7 +143,7 @@ sudo fail2ban-client status vaultwarden
 
 ### Firewall Rules
 
-For comprehensive firewall configuration and network segmentation strategies:
+For complete firewall configuration and network segmentation strategies:
 
 <script src="https://gist.github.com/williamzujkowski/0549ee4b142ddff4d684e8ec21fb0317.js"></script>
 
@@ -477,7 +477,7 @@ Schedule with cron:
 
 ## Monitoring and Maintenance
 
-Continuous monitoring is critical for self-hosted infrastructure. Learn more about [threat intelligence and monitoring](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) to build comprehensive security visibility.
+Continuous monitoring is critical for self-hosted infrastructure. Learn more about [threat intelligence and monitoring](/posts/2025-09-14-threat-intelligence-mitre-attack-dashboard) to build complete security visibility.
 
 ### Health Check Script
 

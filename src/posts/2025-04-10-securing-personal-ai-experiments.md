@@ -124,7 +124,7 @@ Perfect isolation isn't always practical. I've made compromises when connectivit
 ### 2. Monitor Everything
 
 AI workloads behave unexpectedly.
-Comprehensive monitoring catches issues early.
+Thorough monitoring catches issues early.
 
 Distinguishing between legitimate spikes and actual problems is more art than science.
 
