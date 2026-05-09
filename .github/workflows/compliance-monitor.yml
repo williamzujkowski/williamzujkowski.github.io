@@ -35,12 +35,10 @@ jobs:
       run: cd astro-site && pnpm run build
       continue-on-error: false
 
-    - name: Check for broken links
-      uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411  # v2
-      with:
-        args: --verbose --no-progress './astro-site/src/**/*.md' './astro-site/src/**/*.astro'
-        fail: true
-      continue-on-error: true  # Don't fail PR for broken external links
+    # External link health is owned by link-monitor.yml (Python pipeline,
+    # daily cron + per-PR trigger on src/posts/**). The previous lychee step
+    # here scanned ./astro-site/src/**/*.md while the actual posts live at
+    # ./src/posts/**, so it was finding nothing useful.
 
     - name: Run Lighthouse CI
       run: |
@@ -64,19 +62,8 @@ jobs:
         css: true
       continue-on-error: true
 
-    - name: Check accessibility with axe
-      run: |
-        cd astro-site
-        npx serve -l 4322 dist &
-        SERVER_PID=$!
-        sleep 3
-        npx @axe-core/cli http://localhost:4322/ \
-          http://localhost:4322/posts/ \
-          http://localhost:4322/about/ \
-          --exit || true
-        kill $SERVER_PID 2>/dev/null || true
-      continue-on-error: true
-      timeout-minutes: 5
+    # Accessibility is owned by a11y.yml (axe-playwright on every push/PR).
+    # The previous duplicate axe step here ran the same tool on the same SHA.
 
     - name: Check citation coverage
       run: |
