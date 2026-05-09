@@ -37,7 +37,7 @@ In 2025 attackers published **454,648 malicious npm packages** ([Sonatype 2026 S
 
 Read those numbers and the conclusion looks like "audit your dependencies before you pull."
 
-Picture both jaws of a vise closing on you at once. The left jaw tightens whether you patch fast or slow: five-day mean time-to-exploit means the script kiddies are already running yesterday's PoC against any host you missed, and Copy Fail's nine-year window puts essentially every multi-tenant Linux box on the target list. The right jaw tightens whether you pin or pull: every `npm install --update` is a draw from a bag that grew by 394,877 poisoned cards in Q4 2025 alone, published by attackers who specifically optimize for the moments after a version goes live, before anyone has looked at it. A vise doesn't care how fast you wiggle. The squeeze is positional, not directional. The only way out is to change shape.
+Picture both jaws of a vise closing on you at once. The left jaw tightens whether you patch fast or slow: five-day mean time-to-exploit means the script kiddies are already running yesterday's PoC against any host you missed, and Copy Fail's nine-year window puts almost every multi-tenant Linux box on the target list. The right jaw tightens whether you pin or pull: every `npm install --update` is a draw from a bag that grew by 394,877 poisoned cards in Q4 2025 alone, published by attackers who specifically optimize for the moments after a version goes live, before anyone has looked at it. A vise doesn't care how fast you wiggle. The squeeze is positional, not directional. The only way out is to change shape.
 
 That is the squeeze.
 
@@ -111,7 +111,7 @@ These aren't hypothetical. This is what's deployed today on my home infrastructu
 After the Trivy/KICS year, scanners get their own policy:
 
 - Scoped, short-lived `GITHUB_TOKEN` for every scan job. Read-only by default, with `permissions:` declared explicitly per workflow. The Trivy-March intrusion was contained in my homelab because the affected token had `contents:read` and `security-events:write` and nothing else.
-- Scanner action versions pinned to commit SHAs, never tags. Especially for the security tool itself — if I am going to trust a third party to read every file in my CI, I want bit-identical bytes between runs.
+- Scanner action versions pinned to commit SHAs, never tags. Especially for the security tool itself: if I am going to trust a third party to read every file in my CI, I want bit-identical bytes between runs.
 - Outbound network egress from CI runners restricted where the runtime supports it. The TeamPCP payload exfiltrated to attacker-controlled infrastructure. A CI runner that cannot reach arbitrary internet has a much smaller failure surface.
 - A "second-opinion" cadence for findings: when a scanner says "you're clean," I do not treat that as evidence of cleanliness. I treat it as evidence the scanner ran. Different question.
 
