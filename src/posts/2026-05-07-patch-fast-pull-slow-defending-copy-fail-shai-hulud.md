@@ -17,7 +17,7 @@ Both are correct. They are also, literally, the opposite advice.
 
 This is the squeeze defenders are living in now, and "balance speed and safety" is not a strategy. Below is what's actually going on, and what I'm doing about it in the homelab.
 
-## The Left Jaw: AI Bugs and the Pile-On
+## The Left Tab: AI Bugs and the Pile-On
 
 Copy Fail ([CVE-2026-31431](https://copy.fail/)) is a straight-line logic flaw in the kernel's `algif_aead` module reachable through `AF_ALG` and `splice()`. No race, no offsets, no spray. Local unprivileged user → root, on basically every mainstream Linux distro built since 2017. The PoC is a 732-byte Python script that works unmodified across distributions. The bug was found by automated code scanning, not by a human chasing a hunch.
 
@@ -29,7 +29,7 @@ This is the pile-on dynamic. One high-signal disclosure attracts a wave of resea
 
 If you read those numbers and your conclusion is "patch faster," you have only read the top half of the page.
 
-## The Right Jaw: The Registry as a Weapon
+## The Right Tab: The Registry as a Weapon
 
 While you're patching faster, the package registries you depend on are getting weaponized at industrial scale.
 
@@ -37,7 +37,7 @@ In 2025 attackers published **454,648 malicious npm packages** ([Sonatype 2026 S
 
 Read those numbers and the conclusion looks like "audit your dependencies before you pull."
 
-Picture both jaws of a vise closing on you at once. The left jaw tightens whether you patch fast or slow: five-day mean time-to-exploit means the script kiddies are already running yesterday's PoC against any host you missed, and Copy Fail's nine-year window puts almost every multi-tenant Linux box on the target list. The right jaw tightens whether you pin or pull: every `npm install --update` is a draw from a bag that grew by 394,877 poisoned cards in Q4 2025 alone, published by attackers who specifically optimize for the moments after a version goes live, before anyone has looked at it. A vise doesn't care how fast you wiggle. The squeeze is positional, not directional. The only way out is to change shape.
+Both tabs stay open. The left tab keeps refreshing whether you patch fast or slow: five-day mean time-to-exploit means the script kiddies are already running yesterday's PoC against any host you missed, and Copy Fail's nine-year window puts almost every multi-tenant Linux box on the target list. The right tab keeps refreshing whether you pin or pull: every `npm install --update` is a draw from a bag that grew by 394,877 poisoned cards in Q4 2025 alone, published by attackers who specifically optimize for the moments after a version goes live, before anyone has looked at it. You can't close either tab by reading it faster. The squeeze is positional, not temporal. Two tabs need two playbooks.
 
 That is the squeeze.
 
