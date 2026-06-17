@@ -35,7 +35,7 @@
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@shikijs/transformers": "^4.0.2",
     "astro": "^6.1.10",
-    "markdown-it": "^14.1.1",
+    "markdown-it": "^14.2.0",
     "rehype-mermaid": "^3.0.0",
     "sanitize-html": "^2.17.4",
     "svelte": "^5.55.7",
