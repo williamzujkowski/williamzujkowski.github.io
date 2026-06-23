@@ -13,6 +13,7 @@ export const GET: APIRoute = async ({ props }) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC', // dates are UTC-midnight; format in UTC for consistency
   });
   const tag = post.data.tags?.[0];
   const subtitle = tag ? `${date} · ${tag}` : date;

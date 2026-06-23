@@ -8,6 +8,15 @@ import { getValidImageUrl } from '@/lib/utils';
 
 const parser = new MarkdownIt();
 
+/** Escape a string for safe interpolation into an HTML attribute value. */
+function escapeHtmlAttr(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
   const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -28,7 +37,7 @@ export async function GET(context: APIContext) {
       });
       // Prepend cover image to content if available
       const contentWithImage = imageUrl
-        ? `<p><img src="${imageUrl}" alt="${post.data.title}" width="1200" height="630" /></p>${renderedContent}`
+        ? `<p><img src="${imageUrl}" alt="${escapeHtmlAttr(post.data.title)}" width="1200" height="630" /></p>${renderedContent}`
         : renderedContent;
 
       return {

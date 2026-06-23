@@ -76,5 +76,6 @@ export function formatDate(d: Date): string {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC', // dates are UTC-midnight; format in UTC so text matches <time datetime>
   });
 }
