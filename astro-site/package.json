@@ -31,10 +31,12 @@
     "@fontsource-variable/fraunces": "^5.2.9",
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@resvg/resvg-js": "^2.6.2",
     "astro": "^6.4.8",
     "markdown-it": "^14.2.0",
     "rehype-mermaid": "^3.0.0",
     "sanitize-html": "^2.17.4",
+    "satori": "^0.26.0",
     "svelte": "^5.55.7",
     "typescript": "^5.9.3",
     "unist-util-visit": "^5.1.0"
