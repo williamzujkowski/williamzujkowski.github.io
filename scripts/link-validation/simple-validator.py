@@ -12,19 +12,19 @@ DESCRIPTION:
     category and provides automated functionality for the static site.
 
 LLM_USAGE:
-    python scripts/simple-validator.py [options]
+    uv run python scripts/link-validation/simple-validator.py --links links.json --output validation.json
 
 ARGUMENTS:
-    --help: Show help message
-    --verbose: Enable verbose output
-    [Additional arguments specific to this script]
+    --links: JSON file with extracted links (default: links.json)
+    --output: Output report file (default: validation.json)
+    --quiet/-q: Suppress progress messages
 
 EXAMPLES:
     # Basic usage
-    python scripts/simple-validator.py
+    uv run python scripts/link-validation/simple-validator.py --links links.json --output validation.json
 
-    # With verbose output
-    python scripts/simple-validator.py --verbose
+    # Quiet mode
+    uv run python scripts/link-validation/simple-validator.py --links links.json --quiet
 
 OUTPUT:
     - Processed results based on script functionality
@@ -59,7 +59,30 @@ from logging_config import setup_logger
 logger = setup_logger(__name__)
 
 class SimpleValidator:
-    """Simple link validator using only aiohttp"""
+    """Simple link validator using only aiohttp.
+
+    Only a dead resource (404/410) or an unresolvable host counts as 'broken'.
+    Servers that gatekeep bots (403/429/451), answer HEAD oddly (202/405/415),
+    or hiccup on the connection are recorded as 'needs_manual' -- a human should
+    eyeball them, but they must not inflate the broken count or feed the
+    auto-repair queue. See issue #240.
+    """
+
+    # A realistic browser identity. doi.org, nvlpubs.nist.gov, nature.com,
+    # whitehouse.gov etc. WAF-block the default aiohttp User-Agent.
+    BROWSER_HEADERS = {
+        'User-Agent': (
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+            '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+        ),
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+    }
+    # Codes that mean "the server is gatekeeping / picky", not "the link is dead".
+    SOFT_CODES = {202, 403, 405, 406, 415, 418, 429, 451}
+    DEAD_CODES = {404, 410}
+    REDIRECT_CODES = {301, 302, 303, 307, 308}
+    MIN_DOMAIN_INTERVAL = 0.4  # seconds between requests to the same host
 
     def __init__(self):
         self.session = None
@@ -70,85 +93,123 @@ class SimpleValidator:
             'broken': 0,
             'redirect': 0,
             'timeout': 0,
-            'error': 0
+            'error': 0,
+            'needs_manual': 0,
         }
+        self._domain_locks: Dict[str, asyncio.Lock] = {}
+        self._domain_last: Dict[str, float] = {}
 
     async def __aenter__(self):
-        timeout = aiohttp.ClientTimeout(total=15)
-        self.session = aiohttp.ClientSession(timeout=timeout)
+        timeout = aiohttp.ClientTimeout(total=20)
+        self.session = aiohttp.ClientSession(timeout=timeout, headers=self.BROWSER_HEADERS)
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         if self.session:
             await self.session.close()
 
+    async def _throttle(self, domain: str):
+        """Space out requests to the same host so we don't trigger rate limits."""
+        lock = self._domain_locks.setdefault(domain, asyncio.Lock())
+        async with lock:
+            loop = asyncio.get_event_loop()
+            wait = self.MIN_DOMAIN_INTERVAL - (loop.time() - self._domain_last.get(domain, 0.0))
+            if wait > 0:
+                await asyncio.sleep(wait)
+            self._domain_last[domain] = loop.time()
+
+    @staticmethod
+    def _is_dns_error(exc: Exception) -> bool:
+        dns_cls = getattr(aiohttp, 'ClientConnectorDNSError', None)
+        if dns_cls and isinstance(exc, dns_cls):
+            return True
+        msg = str(exc).lower()
+        return 'name or service not known' in msg or 'nodename nor servname' in msg
+
+    def _record(self, result: Dict, status: str, issue_type: Optional[str] = None):
+        result['status'] = status
+        result['issue_type'] = issue_type
+        self.stats[status] = self.stats.get(status, 0) + 1
+        return result
+
     async def validate_url(self, url: str) -> Dict:
-        """Validate a single URL"""
-        result = {
-            'url': url,
-            'status': 'unknown',
-            'status_code': None,
-            'issue_type': None,
-            'notes': ''
-        }
+        """Validate a single URL.
+
+        HEAD first (cheap); on any non-final code, retry with a ranged GET using
+        browser headers. Honor Retry-After once on 429. Classify the final code.
+        """
+        result = {'url': url, 'status': 'unknown', 'status_code': None,
+                  'issue_type': None, 'notes': ''}
+        domain = urlparse(url).netloc
+        self.stats['total'] += 1
 
         try:
-            async with self.session.head(url, allow_redirects=True) as response:
-                result['status_code'] = response.status
+            await self._throttle(domain)
+            async with self.session.head(url, allow_redirects=True) as resp:
+                code, final_url = resp.status, str(resp.url)
 
-                # Some servers reject HEAD requests; fall back to GET
-                if response.status in [403, 405, 406]:
-                    async with self.session.get(url, allow_redirects=True) as get_resp:
-                        result['status_code'] = get_resp.status
-                        if get_resp.status == 200:
-                            result['status'] = 'valid'
-                            self.stats['valid'] += 1
-                        elif get_resp.status == 404:
-                            result['status'] = 'broken'
-                            result['issue_type'] = 'not_found'
-                            self.stats['broken'] += 1
-                        else:
-                            result['status'] = 'degraded'
-                            result['issue_type'] = f'http_{get_resp.status}'
-                elif response.status == 200:
-                    result['status'] = 'valid'
-                    self.stats['valid'] += 1
-                elif response.status == 404:
-                    result['status'] = 'broken'
-                    result['issue_type'] = 'not_found'
-                    self.stats['broken'] += 1
-                elif response.status in [301, 302, 303, 307, 308]:
-                    result['status'] = 'redirect'
-                    result['issue_type'] = 'redirect'
-                    final_url = str(response.url)
-                    if final_url != url:
-                        result['notes'] = f"Redirects to: {final_url}"
-                    self.stats['redirect'] += 1
-                elif response.status >= 500:
-                    result['status'] = 'broken'
-                    result['issue_type'] = 'server_error'
-                    self.stats['broken'] += 1
-                else:
-                    result['status'] = 'degraded'
-                    result['issue_type'] = f'http_{response.status}'
+            # HEAD is unreliable for anything that isn't a clean 2xx/redirect:
+            # retry with a 1-byte ranged GET (real browsers GET, and many WAFs
+            # only 403 HEAD requests).
+            if code != 200 and code not in self.REDIRECT_CODES:
+                code, final_url = await self._ranged_get(url, domain, code, final_url)
+
+            # One polite retry on rate limiting, honoring Retry-After.
+            if code == 429:
+                code, final_url = await self._retry_after(url, domain, code, final_url)
+
+            result['status_code'] = code
+            if final_url != url:
+                result['notes'] = f"Final URL: {final_url}"
+
+            if 200 <= code < 300:
+                self._record(result, 'valid')
+            elif code in self.REDIRECT_CODES:
+                self._record(result, 'redirect', 'redirect')
+            elif code in self.DEAD_CODES:
+                self._record(result, 'broken', 'not_found' if code == 404 else 'gone')
+            else:
+                # 403/429/451/5xx/etc. -- real server, just not a clean fetch.
+                self._record(result, 'needs_manual', f'http_{code}')
 
         except asyncio.TimeoutError:
-            result['status'] = 'timeout'
-            result['issue_type'] = 'timeout'
-            self.stats['timeout'] += 1
+            self._record(result, 'timeout', 'timeout')
+            result['notes'] = 'Request timed out'
         except aiohttp.ClientError as e:
-            result['status'] = 'error'
-            result['issue_type'] = 'connection_error'
             result['notes'] = str(e)
-            self.stats['error'] += 1
+            if self._is_dns_error(e):
+                self._record(result, 'broken', 'dns_error')
+            else:
+                # WAF reset, TLS quirk, transient blip -- not provably dead.
+                self._record(result, 'needs_manual', 'connection_error')
         except Exception as e:
-            result['status'] = 'error'
-            result['issue_type'] = 'unknown_error'
             result['notes'] = str(e)
-            self.stats['error'] += 1
+            self._record(result, 'error', 'unknown_error')
 
-        self.stats['total'] += 1
         return result
+
+    async def _ranged_get(self, url, domain, code, final_url):
+        """Re-fetch with a ranged GET; returns the (possibly better) status."""
+        try:
+            await self._throttle(domain)
+            async with self.session.get(
+                url, allow_redirects=True, headers={'Range': 'bytes=0-0'}
+            ) as gr:
+                return gr.status, str(gr.url)
+        except (aiohttp.ClientError, asyncio.TimeoutError):
+            return code, final_url
+
+    async def _retry_after(self, url, domain, code, final_url):
+        """Sleep for Retry-After (capped) and GET once more on a 429."""
+        try:
+            await asyncio.sleep(2.0)  # conservative default backoff
+            await self._throttle(domain)
+            async with self.session.get(
+                url, allow_redirects=True, headers={'Range': 'bytes=0-0'}
+            ) as gr:
+                return gr.status, str(gr.url)
+        except (aiohttp.ClientError, asyncio.TimeoutError):
+            return code, final_url
 
     async def validate_batch(self, urls: List[str], batch_size: int = 10, quiet: bool = False) -> List[Dict]:
         """Validate URLs in batches"""
@@ -192,6 +253,7 @@ class SimpleValidator:
             logger.info(f"  Total: {self.stats['total']}")
             logger.info(f"  Valid: {self.stats['valid']}")
             logger.info(f"  Broken: {self.stats['broken']}")
+            logger.info(f"  Needs manual review: {self.stats['needs_manual']}")
             logger.info(f"  Redirects: {self.stats['redirect']}")
             logger.info(f"  Timeouts: {self.stats['timeout']}")
             logger.info(f"  Errors: {self.stats['error']}")
