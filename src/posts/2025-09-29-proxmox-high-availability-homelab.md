@@ -153,15 +153,9 @@ Create OSD on each disk: `pveceph osd create /dev/sdX`
 
 ### Create Ceph Pools
 
-<!-- 📎 **Complete configuration:**
-[All pools with replication settings and storage mappings](https://gist.github.com/williamzujkowski/ceph-pool-creation) -->
-
 Create pools with 3x replication (min 2), map to Proxmox storage
 
 ### Ceph Performance Tuning
-
-<!-- 📎 **Complete tuning guide:**
-[Full Ceph performance optimization settings](https://gist.github.com/williamzujkowski/ceph-performance-tuning) -->
 
 Set placement groups to 128, enable RBD caching
 
@@ -178,9 +172,6 @@ Verify HA services running, check cluster status
 
 Fencing prevents split-brain scenarios by forcibly powering off unresponsive nodes.
 
-<!-- 📎 **Complete fencing configuration:**
-[IPMI fencing setup for all nodes with testing](https://gist.github.com/williamzujkowski/ipmi-fencing-config) -->
-
 Install fence-agents, configure IPMI credentials for each node
 
 ### Enable HA for VMs
@@ -194,22 +185,13 @@ Add VMs to HA: `ha-manager add vm:100 --state started --max_restart 3`
 
 ### Simulated Node Failure
 
-<!-- 📎 **Complete test suite:**
-[Full failover testing scripts with monitoring](https://gist.github.com/williamzujkowski/ha-failover-tests) -->
-
 Power off node, watch VMs migrate within 2 minutes. This pattern integrates well with [zero trust VLAN segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab) to ensure services remain isolated during failover.
 
 ### Simulated Network Partition
 
-<!-- 📎 **Complete test:**
-[Network partition testing with split-brain prevention](https://gist.github.com/williamzujkowski/network-partition-test) -->
-
 Block all traffic with iptables, verify fencing powers off minority partition
 
 ### Simulated Ceph Failure
-
-<!-- 📎 **Complete test:**
-[Ceph OSD failure scenarios and recovery](https://gist.github.com/williamzujkowski/ceph-failure-tests) -->
 
 Stop OSD daemon, verify data remains accessible via replication
 
@@ -224,9 +206,6 @@ Add PBS storage, schedule nightly snapshots at 2 AM
 
 ### Automated Backup Script
 
-<!-- 📎 **Complete script:**
-[Full cluster backup with Ceph, config, and offsite sync](https://gist.github.com/williamzujkowski/cluster-backup-script) -->
-
 Backup cluster config to tarball, sync offsite with rclone
 
 ## Monitoring and Alerting
@@ -240,15 +219,9 @@ Install exporter, configure PVE credentials, expose metrics
 
 ### Grafana Dashboard
 
-<!-- 📎 **Complete dashboard:**
-[Full Grafana dashboard JSON with all panels](https://gist.github.com/williamzujkowski/grafana-proxmox-dashboard) -->
-
 Import dashboard with cluster quorum, Ceph health, VM status panels
 
 ### Alerting Rules
-
-<!-- 📎 **Complete alerting:**
-[All Prometheus alert rules for HA cluster](https://gist.github.com/williamzujkowski/prometheus-ha-alerts) -->
 
 Alert on quorum loss, Ceph errors, node failures
 
@@ -256,15 +229,9 @@ Alert on quorum loss, Ceph errors, node failures
 
 ### Maintenance Mode
 
-<!-- 📎 **Complete procedure:**
-[Full maintenance mode workflow with VM migration](https://gist.github.com/williamzujkowski/ha-maintenance-mode) -->
-
 Migrate all VMs off node, set maintenance state, perform updates
 
 ### Rolling Updates
-
-<!-- 📎 **Complete script:**
-[Rolling update script for all nodes with zero downtime](https://gist.github.com/williamzujkowski/rolling-update-script) -->
 
 Migrate VMs, update packages, reboot node, repeat for all nodes
 
@@ -290,17 +257,11 @@ Migrate VMs, update packages, reboot node, repeat for all nodes
 
 **Manual Recovery:**
 
-<!-- 📎 **Complete recovery procedure:**
-[Full split-brain recovery with quorum restoration](https://gist.github.com/williamzujkowski/split-brain-recovery) -->
-
 Set expected votes, restart cluster services, verify quorum
 
 ### Scenario 3: Total Cluster Failure
 
 **Manual Recovery:**
-
-<!-- 📎 **Complete disaster recovery:**
-[Full cluster rebuild procedure from total failure](https://gist.github.com/williamzujkowski/total-cluster-recovery) -->
 
 Set expected=1, start VMs manually, restore quorum after nodes rejoin
 

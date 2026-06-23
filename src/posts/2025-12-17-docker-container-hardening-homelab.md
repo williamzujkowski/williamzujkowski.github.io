@@ -134,7 +134,15 @@ Docker containers run as root by default. User namespaces map container root (UI
 
 **Attack stopped:** Container breakout attempt via `/proc/self/setgroups` failed because container root had no actual privileges on host filesystem.
 
-**Enable user namespace remapping:** [Complete setup script](https://gist.github.com/williamzujkowski/89j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4)
+**Enable user namespace remapping** in `/etc/docker/daemon.json`:
+
+```json
+{
+  "userns-remap": "default"
+}
+```
+
+Restart Docker (`sudo systemctl restart docker`). Docker creates the `dockremap` user and maps container UID 0 to an unprivileged host UID (starting at 100000 from `/etc/subuid`).
 
 **Validation:**
 
@@ -156,7 +164,7 @@ Seccomp (secure computing) filters block dangerous system calls. Docker includes
 
 **Attack stopped:** Exploit attempting to call `create_module()` syscall (loads kernel modules) was blocked by seccomp, preventing privilege escalation.
 
-**Custom seccomp profile for web applications:** [View complete seccomp profile](https://gist.github.com/williamzujkowski/45f7e8c9a1d2b3e4f5g6h7i8j9k0l1m2)
+For web applications, start from Docker's default profile and tighten it. Apply a custom profile with `--security-opt`, then generate the allowlist from a real syscall trace (both shown below).
 
 **Apply custom profile:**
 
@@ -183,7 +191,28 @@ AppArmor enforces file access policies that root cannot bypass. I use it to prev
 
 **Attack stopped:** Container attempting to read SSH host keys (`/etc/ssh/`) was blocked by AppArmor profile denying access to `/etc/` directory.
 
-**AppArmor profile for web container:** [Complete AppArmor profile](https://gist.github.com/williamzujkowski/56g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1)
+A minimal profile for an nginx container, saved to `/etc/apparmor.d/docker-nginx`:
+
+```
+#include <tunables/global>
+
+profile docker-nginx flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  network inet tcp,
+  network inet udp,
+
+  /usr/sbin/nginx ix,
+  /var/www/** r,
+  /var/log/nginx/** w,
+  /var/cache/nginx/** rw,
+
+  # Deny the host paths a compromised container would target
+  deny /etc/** rwklx,
+  deny /proc/sys/** wklx,
+  deny /sys/** wklx,
+}
+```
 
 **Load and enforce profile:**
 
@@ -271,8 +300,6 @@ docker run \
   nginx:alpine
 ```
 
-**Docker Compose read-only configuration:** [Complete read-only setup](https://gist.github.com/williamzujkowski/90k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5)
-
 **tmpfs options:**
 
 - `noexec`: Prevent executable files in temporary directories
@@ -328,8 +355,6 @@ docker network create \
   backend-network
 ```
 
-**Multi-tier deployment:** [Complete Docker Compose configuration](https://gist.github.com/williamzujkowski/67h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2)
-
 **Network policies with UFW:**
 
 ```bash
@@ -363,9 +388,7 @@ docker run \
   nginx:alpine
 ```
 
-**Docker Compose limits:** [Resource limits configuration](https://gist.github.com/williamzujkowski/78i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3)
-
-**Monitoring resource usage:** Use `docker stats` for real-time monitoring or check cgroup files for historical usage. [Resource monitoring commands](https://gist.github.com/williamzujkowski/01l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6)
+**Monitoring resource usage:** Use `docker stats` for real-time monitoring or check the cgroup files under `/sys/fs/cgroup/` for historical usage.
 
 **Tuning guidelines:** Start with generous limits, monitor actual usage for 2 weeks, then set limits at 150% of observed maximum. This approach seems to work well, though you might need different ratios for your specific applications.
 

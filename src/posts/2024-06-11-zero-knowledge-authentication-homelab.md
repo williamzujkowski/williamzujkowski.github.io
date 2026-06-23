@@ -95,8 +95,6 @@ I used Groth16 ZK-SNARK construction (most widely deployed, used in Zcash and Et
 pip install py_ecc zksnark fastapi
 ```
 
-**Authentication server:** https://gist.github.com/williamzujkowski/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
-
 **Key components:**
 
 **1. Circuit definition (password verification):**
