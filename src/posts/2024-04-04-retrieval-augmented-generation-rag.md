@@ -74,7 +74,7 @@ But it worked better. Retrieval relevance jumped. I started getting 6-7 relevant
 **The Embedding Model Saga**
 I initially used `text-embedding-ada-002` from OpenAI. It worked fine for general content but struggled with my technical documentation. Specific model numbers, version strings, and command-line flags didn't embed well. The semantic similarity scores for clearly related documents were inconsistent, ranging from 0.71 to 0.89 for things I knew were connected.
 
-I switched to `text-embedding-3-small` recently when OpenAI released it. Better results, faster processing (1,247 tokens/second vs 890 tokens/second), and cheaper costs ($0.02 per million tokens vs $0.10). Re-embedding my entire knowledge base took 43 minutes and cost me $12.40.
+I switched to `text-embedding-3-small` recently when OpenAI released it. Better results, faster processing (about 1,200 tokens/second vs 890), and cheaper costs ($0.02 per million tokens vs $0.10). Re-embedding my entire knowledge base took 43 minutes and cost me $12.40.
 
 The new embeddings improved retrieval. Semantic search now averaged 1.8 seconds with better precision. Documents I knew were related had similarity scores clustered between 0.82 and 0.94, much tighter distribution.
 
