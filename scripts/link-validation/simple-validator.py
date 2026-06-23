@@ -78,8 +78,9 @@ class SimpleValidator:
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
     }
-    # Codes that mean "the server is gatekeeping / picky", not "the link is dead".
-    SOFT_CODES = {202, 403, 405, 406, 415, 418, 429, 451}
+    # 4xx codes that mean "the server is gatekeeping bots", not "the link is
+    # dead" -> classified needs_manual, never broken. (2xx incl. 202 = valid.)
+    SOFT_CODES = {403, 405, 406, 415, 418, 429, 451}
     DEAD_CODES = {404, 410}
     REDIRECT_CODES = {301, 302, 303, 307, 308}
     MIN_DOMAIN_INTERVAL = 0.4  # seconds between requests to the same host
@@ -117,6 +118,23 @@ class SimpleValidator:
             if wait > 0:
                 await asyncio.sleep(wait)
             self._domain_last[domain] = loop.time()
+
+    @classmethod
+    def classify_status(cls, code: int):
+        """Map a final HTTP status code to (status, issue_type).
+
+        Pure function -- no network. Only a dead resource (404/410) is 'broken';
+        soft/gatekeeping codes are 'needs_manual' so they don't inflate the
+        broken count or feed the auto-repair queue.
+        """
+        if 200 <= code < 300:
+            return 'valid', None
+        if code in cls.REDIRECT_CODES:
+            return 'redirect', 'redirect'
+        if code in cls.DEAD_CODES:
+            return 'broken', 'not_found' if code == 404 else 'gone'
+        # 403/429/451/5xx/etc. -- real server, just not a clean fetch.
+        return 'needs_manual', f'http_{code}'
 
     @staticmethod
     def _is_dns_error(exc: Exception) -> bool:
@@ -162,15 +180,8 @@ class SimpleValidator:
             if final_url != url:
                 result['notes'] = f"Final URL: {final_url}"
 
-            if 200 <= code < 300:
-                self._record(result, 'valid')
-            elif code in self.REDIRECT_CODES:
-                self._record(result, 'redirect', 'redirect')
-            elif code in self.DEAD_CODES:
-                self._record(result, 'broken', 'not_found' if code == 404 else 'gone')
-            else:
-                # 403/429/451/5xx/etc. -- real server, just not a clean fetch.
-                self._record(result, 'needs_manual', f'http_{code}')
+            status, issue_type = self.classify_status(code)
+            self._record(result, status, issue_type)
 
         except asyncio.TimeoutError:
             self._record(result, 'timeout', 'timeout')
