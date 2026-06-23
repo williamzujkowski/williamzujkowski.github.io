@@ -11,7 +11,7 @@ license = {text = "MIT"}
 
 dependencies = [
     # HTTP client for link validation CI pipeline
-    "aiohttp>=3.14.0",
+    "aiohttp>=3.14.1",
     "certifi>=2023.0.0",
 
     # Progress bars for batch link validation
