@@ -166,7 +166,11 @@ class CitationRepair:
             needs_repair = False
             issue_type = None
 
-            if validation.get('status') in ['broken', 'timeout', 'error']:
+            # Only auto-repair links that are provably dead (404/410/DNS).
+            # 'needs_manual' (bot-blocking 403/429/5xx), 'timeout', and generic
+            # 'error' are not provably dead -- repairing them risks swapping a
+            # live link for a Wayback snapshot. See issue #241.
+            if validation.get('status') == 'broken':
                 needs_repair = True
                 issue_type = validation.get('issue_type', 'broken')
             elif validation.get('issue_type') == 'paywall':
