@@ -170,7 +170,7 @@ url: http://promsketch:9091
 Sketches consume less memory than raw time series:
 
 - **Prometheus storage:** 2.8 million series × 8 bytes/sample × 15 days retention = 46.7GB
-- **PromSketch cache:** 1,247 unique metrics × 8KB/sketch = 9.7MB
+- **PromSketch cache:** 1,200 unique metrics × 8KB/sketch = 9.4MB
 - **Compression ratio:** 4,814:1
 
 **Why this matters:** I run Prometheus on a 64GB RAM server. Before PromSketch, queries consumed 12-18GB RAM during aggregation. After PromSketch, peak RAM usage: 3.2GB.

@@ -50,7 +50,7 @@ During March 2025 testing, GPU temperatures peaked at 84°C during training, cau
 Key GPU specifications to consider:
 
 - **VRAM Capacity**: Determines maximum model size you can train (my 24GB enables Llama 3 8B with QLoRA, but couldn't fit Llama 3 70B even with aggressive quantization)
-- **Compute Capability**: My RTX 3090 (compute capability 8.6) processes approximately 1,247 tokens per second during training
+- **Compute Capability**: My RTX 3090 (compute capability 8.6) processes roughly 1,000 tokens per second during training
 - **Thermal Design**: Sustained loads differ dramatically from gaming workloads. Plan for 8-14 hour continuous training runs.
 - **Power Consumption**: My training runs averaged 340W, with peaks up to 370W (factor in electricity costs)
 
@@ -138,7 +138,7 @@ I track these metrics obsessively during training after learning from early fail
 - **Training Loss**: Should decrease steadily (my successful runs show smooth exponential decay from around 2.8 down to 0.7-0.9, and erratic behavior suggests learning rate is too high or data has quality issues)
 - **Validation Loss**: Saved me from deploying a badly overfit model in late March (my validation loss started increasing at epoch 3.2 while training loss kept dropping, so I now use early stopping with patience of 0.5 epochs)
 - **GPU Metrics**: I monitor temperature, power consumption, and memory usage via nvidia-smi every 30 seconds (before adding better cooling, thermal throttling extended my training run by roughly 47 minutes, and power consumption averaging 340W at $0.13/kWh means each 14-hour training run costs approximately $8.40)
-- **Throughput**: I process roughly 1,247 tokens per second during training with my current configuration (helps me estimate total training time, as my 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput). For orchestrating complex fine-tuning workflows with parallel agent coordination, see my guide on [supercharging development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow) which demonstrates multi-agent task management at scale.
+- **Throughput**: I process roughly 1,000 tokens per second during training with my current configuration (helps me estimate total training time, as my 3,400-example dataset with average sequence length 412 tokens takes approximately 14 hours at this throughput). For orchestrating complex fine-tuning workflows with parallel agent coordination, see my guide on [supercharging development with Claude-Flow](/posts/2025-08-07-supercharging-development-claude-flow) which demonstrates multi-agent task management at scale.
 
 ## Practical Challenges and Solutions
 
