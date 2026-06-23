@@ -22,7 +22,12 @@ dependencies = [
 dev = [
     # Code quality
     "ruff>=0.1.0",
+    # Link-validation regression tests
+    "pytest>=8.0.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["scripts/link-validation/tests"]
 
 [tool.uv]
 dev-dependencies = []

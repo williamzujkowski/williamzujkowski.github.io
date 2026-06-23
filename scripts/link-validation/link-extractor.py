@@ -172,10 +172,14 @@ class LinkExtractor:
 
                 # Extract bare URLs
                 for match in re.finditer(self.PATTERNS['bare_url'], line):
-                    # Skip if this URL is part of a markdown link
-                    if not self._is_part_of_markdown_link(line, match.group(0)):
+                    # Clean trailing punctuation FIRST so the markdown-link check
+                    # matches: the bare_url regex keeps a trailing ')' from
+                    # "[text](url)", which would otherwise dodge the check and
+                    # double-count the markdown link's URL.
+                    bare = self._clean_trailing_punct(match.group(0))
+                    if not self._is_part_of_markdown_link(line, bare):
                         self._add_link(
-                            url=match.group(0),
+                            url=bare,
                             text='',
                             file_path=file_path,
                             line_number=line_num,
