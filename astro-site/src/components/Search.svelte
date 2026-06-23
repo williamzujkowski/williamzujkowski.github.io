@@ -262,7 +262,7 @@
   .search-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--color-overlay);
   }
   .search-dialog {
     position: relative;
@@ -270,7 +270,7 @@
     max-width: 32rem;
     margin: 0 1rem;
     border-radius: 1rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px var(--color-shadow);
     overflow: hidden;
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
