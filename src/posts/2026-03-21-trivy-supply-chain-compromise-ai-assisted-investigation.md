@@ -24,7 +24,7 @@ The malicious `entrypoint.sh` harvested CI environment variables, runner memory,
 
 I maintain several personal repos that use `trivy-action` for security scanning — my personal site, homelab infrastructure, and various side projects. When I saw the advisory, the question was: did any CI runs execute the compromised code during the attack window?
 
-Rather than manually checking each repo, I used [nexus-agents](https://github.com/williamzujkowski/nexus-agents) — a multi-model AI orchestration tool I've been building — to help with the investigation. The AI agents:
+Rather than manually checking each repo, I used [nexus-agents](https://github.com/nexus-substrate/nexus-agents) — a multi-model AI orchestration tool I've been building — to help with the investigation. The AI agents:
 
 1. **Searched all local repos** for `trivy-action` references
 2. **Classified risk** by comparing each repo's pinned version against the known-compromised tag list
@@ -100,4 +100,4 @@ None of this is magic: it's the same `grep`, `gh api`, and `find` commands I'd r
 4. **Monitor your dependencies' security advisories.** Don't rely on social media for incident notification.
 5. **Scope your CI tokens narrowly.** Limited `GITHUB_TOKEN` scope contained the potential blast radius in my case.
 
-The repos involved in this investigation: [nexus-agents](https://github.com/williamzujkowski/nexus-agents), [mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server), [homelab](https://github.com/williamzujkowski/homelab), [machine-rites](https://github.com/williamzujkowski/machine-rites).
+The repos involved in this investigation: [nexus-agents](https://github.com/nexus-substrate/nexus-agents), [mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server), homelab (private), and [machine-rites](https://github.com/williamzujkowski/machine-rites).

@@ -14,7 +14,7 @@ readingTime: "12 min read"
 
 About a year ago, I started building a routing script in my homelab because I was tired of switching between AI models manually. Claude produced better architecture docs. Gemini handled broad research faster. Codex was solid for focused code generation. I wanted one system that could pick the right model for each task automatically.
 
-That routing script grew into [nexus-agents](https://github.com/williamzujkowski/nexus-agents), a multi-model orchestration platform built on published research from roughly 68 arXiv papers. Consensus voting, graph workflows, a plugin pipeline, adaptive bandit routing, a full TUI. I tried probably 30 different approaches before landing on the architecture that stuck. Here's what I found.
+That routing script grew into [nexus-agents](https://github.com/nexus-substrate/nexus-agents), a multi-model orchestration platform built on published research from roughly 68 arXiv papers. Consensus voting, graph workflows, a plugin pipeline, adaptive bandit routing, a full TUI. I tried probably 30 different approaches before landing on the architecture that stuck. Here's what I found.
 
 ## The Problem With Single-Model Workflows
 
@@ -288,6 +288,6 @@ The AgentPlanner (code-named AOrchestra) is the newest component, drawing from [
 
 To be clear about what's production-tested versus experimental: the five-stage router, consensus voting, graph workflows, and security pipeline are all running daily. I use them to develop nexus-agents itself. AOrchestra and higher-order voting are newer, behind feature flags, and haven't seen enough traffic to measure their impact yet. The adaptive LinUCB routing is somewhere in between. It runs in production but I'm honestly not sure how much it improves over static weights. Maybe it plateaus quickly, maybe it keeps improving. Time will tell.
 
-The [codebase is open source](https://github.com/williamzujkowski/nexus-agents). If you're interested in multi-model orchestration, want to see how consensus voting works in practice, or need a reference implementation for MCP server development, take a look.
+The [codebase is open source](https://github.com/nexus-substrate/nexus-agents). If you're interested in multi-model orchestration, want to see how consensus voting works in practice, or need a reference implementation for MCP server development, take a look.
 
 Building this taught me that the future of AI-assisted development isn't about picking the best model. It's about building systems that use the right model for each piece of the problem. And backing those systems with real research, not vibes.

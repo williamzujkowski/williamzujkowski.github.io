@@ -10,7 +10,7 @@ author: William Zujkowski
 
 There's a specific pain in being the "family IT person" with Secure Boot enabled on every machine. You get a call, you need to boot a rescue distro, you want to keep Secure Boot enforcing, and your options are: (a) disable Secure Boot for 30 minutes and forget to re-enable it, (b) enroll a shared MOK that effectively trusts every kernel Ventoy ever boots, or (c) pick one specific ISO and dd it onto a stick. None of those are defensible positions.
 
-[aegis-boot](https://github.com/williamzujkowski/aegis-boot) is option (d): a signed UEFI rescue environment that lets you drop any `.iso` onto a data partition and `kexec` into it, with kernel-level signature verification keeping the chain of trust intact. [aegis-hwsim](https://github.com/williamzujkowski/aegis-hwsim) is the companion project that simulates ~100 real-hardware configurations in QEMU so I can validate the full flow without waiting on physical Framework / ThinkPad / Dell / HP hardware to arrive.
+[aegis-boot](https://github.com/aegis-boot/aegis-boot) is option (d): a signed UEFI rescue environment that lets you drop any `.iso` onto a data partition and `kexec` into it, with kernel-level signature verification keeping the chain of trust intact. [aegis-hwsim](https://github.com/williamzujkowski/aegis-hwsim) is the companion project that simulates ~100 real-hardware configurations in QEMU so I can validate the full flow without waiting on physical Framework / ThinkPad / Dell / HP hardware to arrive.
 
 Both are Rust. Both ship CI that actually exercises the full pipeline. Both exist because years of system administration taught me that "works on my laptop" is the least interesting claim a tool can make about UEFI.
 
@@ -86,7 +86,7 @@ QEMU's `-smbios` flag spoofs the DMI strings the kernel reads from `/sys/class/d
 
 [fwupd's QEMU CI](https://github.com/fwupd/fwupd) and the LVFS empirical data from Richard Hughes and Mario Limonciello puts QEMU's coverage of capsule-flow bugs at roughly 60-70%. The remaining 30-40% are EC-specific, firmware-vendor-specific, reproducible only on metal.
 
-aegis-boot's scope is narrower than fwupd's — we're testing the USB rescue-stick signed-chain flow, not capsule updates. My estimate is ~80% of aegis-boot's testable failure modes reproduce in aegis-hwsim. The remaining ~20% require physical hardware shakedown, which is what [aegis-boot#51](https://github.com/williamzujkowski/aegis-boot/issues/51) tracks for v1.0.0.
+aegis-boot's scope is narrower than fwupd's — we're testing the USB rescue-stick signed-chain flow, not capsule updates. My estimate is ~80% of aegis-boot's testable failure modes reproduce in aegis-hwsim. The remaining ~20% require physical hardware shakedown, which is what [aegis-boot#51](https://github.com/aegis-boot/aegis-boot/issues/51) tracks for v1.0.0.
 
 This is a known limitation, called out in both READMEs. The thing aegis-hwsim buys you is fast iteration on the 80%. Writing a new aegis-boot feature, validating it against 11 personas, seeing the matrix go green in CI — that's a tight loop. Adding "ship it on a physical Framework and retest" to every feature would kill the cadence.
 
@@ -118,11 +118,11 @@ This mirrors what the TPM and Secure Boot specs actually say the operator should
 - Cosign-signed prebuilt binaries.
 - A Homebrew tap.
 - Attestation receipts on every flash — a Sigstore-style log of what image was flashed, what ISO catalog was included, what keys were enrolled.
-- Real-hardware shakedown validated on Alpine + Ubuntu under Secure Boot enforcing ([aegis-boot#109](https://github.com/williamzujkowski/aegis-boot/issues/109)).
+- Real-hardware shakedown validated on Alpine + Ubuntu under Secure Boot enforcing ([aegis-boot#109](https://github.com/aegis-boot/aegis-boot/issues/109)).
 
 **aegis-hwsim** is in Phase 1: CI exercises the full QEMU + OVMF + swtpm pipeline against the 11-persona library on every PR via the `qemu-boots-ovmf` smoke scenario. The roadmap adds more scenarios (MOK enrollment, kexec signature rejection, attestation roundtrip) and more personas (older ThinkPads with TPM 1.2, non-x86 reference platforms).
 
-v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-boot#51](https://github.com/williamzujkowski/aegis-boot/issues/51). I'll post a follow-up once that clears.
+v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-boot#51](https://github.com/aegis-boot/aegis-boot/issues/51). I'll post a follow-up once that clears.
 
 ## Numbers
 
@@ -148,7 +148,7 @@ v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-b
 
 ## Try it
 
-- [aegis-boot v0.13.0](https://github.com/williamzujkowski/aegis-boot/releases/latest) — signed prebuilt binaries. Install one-liner in the README.
+- [aegis-boot v0.13.0](https://github.com/aegis-boot/aegis-boot/releases/latest) — signed prebuilt binaries. Install one-liner in the README.
 - [aegis-hwsim](https://github.com/williamzujkowski/aegis-hwsim) — clone, `cargo test`, add a persona.
 
 If you own a laptop that isn't in the persona library and aegis-boot passes its shakedown on it, I'd love the persona contribution. A YAML file with your DMI strings, Secure Boot posture, and TPM version is the minimum viable pull request.
