@@ -493,4 +493,4 @@ For a single commit, this is negligible. But when I'm iterating rapidly (20-30 c
 
 - [Model Context Protocol (MCP) Documentation](https://modelcontextprotocol.io/) - Framework for tool integration
 - [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/prompt-engineering) - Best practices for context design
-- [Token Optimization Strategies for Production AI Systems](https://williamzujkowski.github.io/tags/token-optimization/) - Related blog posts on optimization techniques
+- [Related posts tagged LLM](https://williamzujkowski.github.io/tags/llm/) - More on optimization and production AI techniques

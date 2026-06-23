@@ -16,11 +16,13 @@ on:
       - 'src/posts/**/*.md'
       - 'src/pages/**/*.md'
 
-# Default to least privilege. The check-links job needs to open an issue on
-# scheduled failures; the repair-links job overrides this to push auto-fixes.
+# Default to least privilege. The check-links job opens an issue on scheduled
+# failures (issues: write) and comments on PRs (pull-requests: write); the
+# repair-links job overrides this to push auto-fixes.
 permissions:
   contents: read
   issues: write
+  pull-requests: write
 
 jobs:
   check-links:

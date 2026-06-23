@@ -33,7 +33,6 @@
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource-variable/newsreader": "^5.2.10",
     "@fontsource/ibm-plex-mono": "^5.2.7",
-    "@shikijs/transformers": "^4.0.2",
     "astro": "^6.4.8",
     "markdown-it": "^14.2.0",
     "rehype-mermaid": "^3.0.0",
