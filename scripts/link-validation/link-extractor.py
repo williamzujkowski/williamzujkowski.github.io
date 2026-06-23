@@ -196,10 +196,29 @@ class LinkExtractor:
         ]
         return any(pattern in line for pattern in patterns)
 
+    @staticmethod
+    def _clean_trailing_punct(url: str) -> str:
+        """Strip trailing prose punctuation that markdown bare-URL parsing absorbs.
+
+        Bare URLs in prose ("see https://arxiv.org/abs/2408.13687).") pick up
+        trailing ``)``, ``.``, ``,``, ``*`` etc., which then 404 as false
+        positives. Closing brackets are only stripped when unbalanced, so real
+        URLs like https://en.wikipedia.org/wiki/Foo_(bar) keep their tail.
+        """
+        url = url.strip()
+        while url and url[-1] in ')].,;:!?\'"*`>':
+            if url[-1] == ')' and url.count('(') >= url.count(')'):
+                break
+            if url[-1] == ']' and url.count('[') >= url.count(']'):
+                break
+            url = url[:-1]
+        return url
+
     def _add_link(self, url: str, text: str, file_path: Path,
                   line_number: int, position: int, lines: List[str],
                   line_idx: int):
         """Add a link with its context"""
+        url = self._clean_trailing_punct(url)
         # Get context (±50 words or ±3 lines)
         context_before = self._get_context(lines, line_idx, -3, 50)
         context_after = self._get_context(lines, line_idx, 3, 50)
@@ -212,7 +231,7 @@ class LinkExtractor:
         link_hash = hashlib.md5(hash_input.encode()).hexdigest()[:8]
 
         link_context = LinkContext(
-            url=url.strip(),
+            url=url,
             text=text,
             type=link_type,
             context_before=context_before,
