@@ -2,7 +2,7 @@
 
 **Status:** Authoritative
 **Last Updated:** 2026-04-22
-**Project:** Personal website and technical blog (Astro 6 + Svelte 5 + Tailwind CSS 4)
+**Project:** Personal website and technical blog (Astro 6 + Svelte 5 + hand-written CSS / Remarque design tokens)
 
 This file is the canonical guidance for AI coding agents working in this repo (Claude Code, Codex, Cursor, Aider, etc.). Harness-specific entry points (e.g. `CLAUDE.md`) import this file — edit here, not there.
 
@@ -14,33 +14,37 @@ Additional rules: `@.rules/nexus-agents.md`
 
 ```bash
 cd astro-site
-npm install
-npm run dev          # Dev server at localhost:4321
-npm run build        # Production build → dist/
-npm run preview      # Preview production build
-npm run check        # Astro type checking
+pnpm install
+pnpm dev             # Dev server at localhost:4321
+pnpm build           # Production build → dist/
+pnpm preview         # Preview production build
+pnpm check           # Astro type checking
 ```
 
-**Prerequisites:** Node.js 22+, npm, Git. Python 3.11+ and [UV](https://docs.astral.sh/uv/) for link validation scripts only.
+**Prerequisites:** Node.js 22+, pnpm, Git. Python 3.11+ and [UV](https://docs.astral.sh/uv/) for link validation scripts only. The repo is pnpm-only (`astro-site/pnpm-lock.yaml`); CI and the pre-commit hook both run `pnpm`.
 
 ---
 
 ## Project Structure
 
 ```
+├── src/                       # Content collections (loaded by astro-site)
+│   ├── posts/                 # Blog posts (Markdown) — astro-site/src/content.config.ts globs ../src/posts
+│   └── projects/              # Project entries (Markdown)
 ├── astro-site/                # Website source (Astro 6 + Svelte 5)
 │   ├── src/
 │   │   ├── components/        # Svelte & Astro components
-│   │   ├── content/blog/      # Blog posts (Markdown, content collections)
+│   │   ├── content.config.ts  # Content collection schemas (points at ../src/posts, ../src/projects)
 │   │   ├── layouts/           # Page layouts (BaseLayout.astro)
 │   │   ├── pages/             # Route pages
-│   │   └── styles/            # Global CSS (Tailwind 4)
+│   │   └── styles/            # Global CSS (hand-written; Remarque design tokens)
 │   ├── public/                # Static assets
 │   ├── astro.config.mjs       # Astro configuration
-│   └── package.json           # Node.js dependencies
-├── scripts/                   # Link validation CI pipeline (8 Python scripts)
+│   └── package.json           # Node.js dependencies (pnpm)
+├── scripts/                   # Python tooling
 │   ├── lib/logging_config.py  # Shared logging module
-│   └── link-validation/       # Citation and link health checking
+│   ├── link-validation/       # Citation and link health checking (7 scripts)
+│   └── blog-audit/            # Blog audit helpers
 ├── tests/unit/                # Unit tests (JS)
 ├── docs/                      # Research and link validation docs
 ├── .github/workflows/         # CI/CD (6 workflows)
@@ -234,7 +238,7 @@ Dependencies managed via `pyproject.toml` (3 deps: aiohttp, certifi, tqdm). Inst
 
 - **Astro:** `astro-site/astro.config.mjs` (integrations, prefetch, syntax highlighting)
 - **TypeScript:** `astro-site/tsconfig.json` (strict mode, path aliases)
-- **Tailwind CSS:** CSS-only config via `@tailwindcss/vite` plugin
+- **Styling:** Hand-written CSS with Remarque design tokens in `astro-site/src/styles/` (no Tailwind)
 - **Content schemas:** `astro-site/src/content.config.ts` (Zod validation)
 
 ---

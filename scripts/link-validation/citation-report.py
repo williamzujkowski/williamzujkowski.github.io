@@ -271,12 +271,15 @@ def main() -> int:
             if r.get('status') == 'broken'
         ])
 
+        # Report generation succeeded. The broken-link count is surfaced to the
+        # workflow via the `validate` step's output, so a successful report must
+        # exit 0 -- returning non-zero here fails the step under `bash -eo
+        # pipefail` and (via implicit success()) skips the issue-creation step.
         if broken_count > 0:
             logger.warning(f"Found {broken_count} broken citation links")
-            return 1
         else:
             logger.info("All citation links are valid")
-            return 0
+        return 0
 
     except Exception as e:
         logger.error(f"Fatal error generating citation report: {e}", exc_info=True)
