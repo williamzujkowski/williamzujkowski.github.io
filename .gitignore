@@ -44,6 +44,7 @@ __pycache__/
 .mcp/
 .playwright-mcp/
 .nexus-agents/
+runs/
 
 # Legacy tool artifacts
 .claude-flow/
