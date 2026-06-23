@@ -31,7 +31,7 @@ Seven releases landed in that window: v2.30.x through v2.33.2. Most were patch b
 
 ## Why modularization now
 
-The immediate trigger was packaging hygiene. A `repo-health-report` pass (covered in the [follow-up post](/posts/repo-health-report-six-dimension-hygiene-scores/)) flagged that nexus-agents' npm tarball shipped 1.3MB of benchmark code that external users didn't need. SWE-bench alone was 840KB across 143 files.
+The immediate trigger was packaging hygiene. A `repo-health-report` pass (covered in the [follow-up post](/posts/2026-04-16-repo-health-report-six-dimension-hygiene-scores/)) flagged that nexus-agents' npm tarball shipped 1.3MB of benchmark code that external users didn't need. SWE-bench alone was 840KB across 143 files.
 
 The deeper trigger was that the benchmarks had started coupling to nexus-agents' release cadence. Every SWE-bench iteration required a nexus-agents version bump. Every nexus-agents release risked breaking benchmark CI. The two things were connected by history, not by design.
 
