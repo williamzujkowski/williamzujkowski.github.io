@@ -34,8 +34,8 @@
     "@fontsource-variable/newsreader": "^5.2.10",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@shikijs/transformers": "^4.0.2",
-    "astro": "^6.1.10",
-    "markdown-it": "^14.1.1",
+    "astro": "^6.4.8",
+    "markdown-it": "^14.2.0",
     "rehype-mermaid": "^3.0.0",
     "sanitize-html": "^2.17.4",
     "svelte": "^5.55.7",
@@ -62,13 +62,19 @@
   "overrides": {
     "fast-xml-parser": ">=5.5.8",
     "fast-xml-builder": ">=1.1.7",
-    "uuid": ">=11.1.1"
+    "uuid": ">=11.1.1",
+    "dompurify": ">=3.4.11",
+    "vite": ">=7.3.5",
+    "esbuild": ">=0.28.1"
   },
   "pnpm": {
     "overrides": {
       "fast-xml-parser": ">=5.5.8",
       "fast-xml-builder": ">=1.1.7",
-      "uuid": ">=11.1.1"
+      "uuid": ">=11.1.1",
+      "dompurify": ">=3.4.11",
+      "vite": ">=7.3.5",
+      "esbuild": ">=0.28.1"
     }
   }
 }
