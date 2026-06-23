@@ -59,14 +59,17 @@ jobs:
 
     - name: Find Repairs
       run: |
+        mkdir -p reports
         # Create placeholder relevance file
         echo '{"results": []}' > relevance.json
 
+        # Write repairs.json INTO reports/ so it travels in the uploaded
+        # artifact and the repair-links job can actually find it.
         uv run python scripts/link-validation/citation-repair.py \
           --links links.json \
           --validation validation.json \
           --relevance relevance.json \
-          --output repairs.json || true
+          --output reports/repairs.json || true
 
     - name: Generate Reports
       run: |
@@ -75,7 +78,7 @@ jobs:
           --links links.json \
           --validation validation.json \
           --relevance relevance.json \
-          --repairs repairs.json \
+          --repairs reports/repairs.json \
           --output-dir reports
 
     - name: Upload Reports
@@ -205,7 +208,8 @@ jobs:
     if: github.event.inputs.force_check == 'true' || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # commit and push high-confidence auto-fixes
+      contents: write        # push the auto-fix branch
+      pull-requests: write   # open the review PR
 
     steps:
     - name: Checkout Repository
@@ -234,31 +238,38 @@ jobs:
 
     - name: Apply High-Confidence Fixes
       run: |
-        # Only apply fixes with >95% confidence automatically
-        if [ -f "repairs.json" ]; then
+        # Only apply fixes with >=95% confidence automatically. repairs.json
+        # arrives inside the downloaded reports/ artifact.
+        if [ -f "reports/repairs.json" ]; then
           uv run python scripts/link-validation/batch-link-fixer.py \
-            --repairs repairs.json \
+            --repairs reports/repairs.json \
             --confidence-threshold 95 \
             --apply \
             --posts-dir src/posts
+        else
+          echo "No repairs.json found; nothing to apply"
         fi
 
-    - name: Commit Changes
+    - name: Open PR with fixes
       if: success()
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        # Open a PR for human review instead of pushing straight to main --
+        # auto-repairs (redirect-follows, Wayback snapshots) must be eyeballed.
+        if [[ -z "$(git status --porcelain src/posts)" ]]; then
+          echo "No high-confidence fixes to apply"
+          exit 0
+        fi
+
+        BRANCH="auto/link-repairs-${GITHUB_RUN_ID}"
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git checkout -b "$BRANCH"
+        git add src/posts/**/*.md
+        git commit -m "fix(links): auto-repair broken links (>=95% confidence)"
+        git push origin "$BRANCH"
 
-        # Check if there are changes
-        if [[ `git status --porcelain` ]]; then
-          git add src/posts/**/*.md
-          git commit -m "🔗 Auto-fix broken links with high confidence
-
-          Automated link repair by GitHub Action
-          - Applied fixes with >95% confidence
-          - See workflow run for details"
-
-          git push
-        else
-          echo "No changes to commit"
-        fi
+        gh pr create --base main --head "$BRANCH" \
+          --title "🔗 Automated link repairs (review before merge)" \
+          --body "High-confidence (>=95%) repairs for **provably dead** links (404/410/DNS), proposed by the Link Health Monitor via citation-repair.py (redirect-follow / Wayback). **Review before merging -- do not auto-merge.**"
