@@ -170,6 +170,6 @@ The key is identifying a real problem and building a focused solution.
 - **Hardware**: [CanaKit](https://www.canakit.com/) for reliable Pi bundles
 - **Cases**: Check Thingiverse for security-specific Pi cases
 - **Community**: r/raspberry_pi and r/homelab are goldmines
-- **My Scripts**: [GitHub - Coming Soon](sanitizing for public release)
+- **My Scripts**: Coming soon (sanitizing for public release)
 
 Remember: The best security system is one that actually gets used. These Raspberry Pi projects work because they're maintainable, understandable, and solve real problems.
