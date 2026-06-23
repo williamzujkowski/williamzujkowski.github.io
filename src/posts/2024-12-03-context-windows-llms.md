@@ -1,6 +1,6 @@
 ---
 
-date: 2024-06-09
+date: 2024-12-03
 description: Understand LLM context windows from 2K to 2M tokens—optimize model performance and prevent hallucinations at 28K token boundaries.
 title: 'Context Windows in Large Language Models: The Memory That Shapes AI'
 tags:

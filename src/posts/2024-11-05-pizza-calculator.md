@@ -1,6 +1,6 @@
 ---
 
-date: 2024-05-26
+date: 2024-11-05
 author: William Zujkowski
 description: "A Saturday afternoon coding project that taught me more about assumptions than algorithms."
 title: 'The Pizza Calculator: A Weekend Project in Humility'

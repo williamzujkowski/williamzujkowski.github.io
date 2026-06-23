@@ -1,6 +1,6 @@
 ---
 
-date: 2024-04-21
+date: 2024-09-09
 description: Train embodied AI agents with vision, language, and physical interaction—build robots that learn from real environments using reinforcement learning.
 title: 'Teaching AI Agents to Ask for Help: A Breakthrough in Human-Robot Interaction'
 tags:
