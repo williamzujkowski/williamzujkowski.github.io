@@ -34,6 +34,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
+  timeZone: 'UTC', // dates are UTC-midnight; format in UTC so text matches <time datetime>
 });
 
 const humanTag = (t: string) =>

@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { resolve, sep } from 'node:path';
 
 /**
  * Extract image URL from post data.
@@ -27,7 +27,7 @@ export function getValidImageUrl(image: string | { url?: string; src?: string } 
   try {
     const publicDir = resolve(process.cwd(), 'public');
     const filePath = resolve(publicDir, url.replace(/^\//, ''));
-    if (!filePath.startsWith(publicDir)) return undefined;
+    if (filePath !== publicDir && !filePath.startsWith(publicDir + sep)) return undefined;
     if (existsSync(filePath)) return url;
   } catch {
     return undefined;

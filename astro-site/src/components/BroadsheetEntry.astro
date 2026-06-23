@@ -29,6 +29,7 @@ const dateStr = post.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
+  timeZone: 'UTC', // dates are UTC-midnight; format in UTC so text matches <time datetime>
 });
 ---
 

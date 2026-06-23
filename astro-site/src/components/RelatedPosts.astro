@@ -40,7 +40,7 @@ const related = scored.slice(0, 3);
       <ul>
         {related.map(({ post }) => {
           const readTime = getReadingTime(post.body ?? '');
-          const dateStr = post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          const dateStr = post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
           return (
             <li>
               <a href={`/posts/${post.id}/`}>{post.data.title}</a>
