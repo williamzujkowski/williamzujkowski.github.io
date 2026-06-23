@@ -153,4 +153,4 @@ v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-b
 
 If you own a laptop that isn't in the persona library and aegis-boot passes its shakedown on it, I'd love the persona contribution. A YAML file with your DMI strings, Secure Boot posture, and TPM version is the minimum viable pull request.
 
-Security hygiene is a running thread across everything I've shipped this month. The OSSF Scorecard work, CVE patching, and CodeQL cleanup on nexus-agents lives in the [modularization post](/posts/nexus-agents-april-month-of-modularization/). Same posture, different layer of the stack.
+Security hygiene is a running thread across everything I've shipped this month. The OSSF Scorecard work, CVE patching, and CodeQL cleanup on nexus-agents lives in the [modularization post](/posts/2026-04-18-nexus-agents-april-month-of-modularization/). Same posture, different layer of the stack.

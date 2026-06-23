@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://williamzujkowski.github.io/sitemap.xml
+Sitemap: https://williamzujkowski.github.io/sitemap-index.xml

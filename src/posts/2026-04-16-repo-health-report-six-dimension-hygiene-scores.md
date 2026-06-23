@@ -132,6 +132,6 @@ npx repo-health-report <your-own-repo>  # humbling, recommended
 
 The [source](https://github.com/williamzujkowski/repo-health-report) is on GitHub. The methodology is explicitly a work in progress — I'll take PRs and issues on the scoring heuristics. The findings it surfaces are not WIP. They're consistent and they're fixable.
 
-I applied these findings to nexus-agents itself. The OSSF Scorecard improvements (7.1 → 9+), CVE patches, CodeQL findings closed, and `validatePath` consolidation that landed in April are covered in the [modularization post](/posts/nexus-agents-april-month-of-modularization/). If you want a worked example of how the dimensions here translate into actual cleanup work, that's the follow-up.
+I applied these findings to nexus-agents itself. The OSSF Scorecard improvements (7.1 → 9+), CVE patches, CodeQL findings closed, and `validatePath` consolidation that landed in April are covered in the [modularization post](/posts/2026-04-18-nexus-agents-april-month-of-modularization/). If you want a worked example of how the dimensions here translate into actual cleanup work, that's the follow-up.
 
 Start with the Security dimension. That's where the biggest reduction in risk for the lowest effort lives. The hygiene is cheap. Skipping it isn't.
