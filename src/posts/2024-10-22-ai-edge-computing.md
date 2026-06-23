@@ -1,6 +1,6 @@
 ---
 
-date: 2024-05-19
+date: 2024-10-22
 description: Deploy AI edge computing with YOLOv8 and TensorFlow Lite—achieve 15ms latency for real-time inference on Raspberry Pi with local processing for privacy.
 title: 'AI Meets Edge Computing: Transforming Real-Time Intelligence'
 tags:

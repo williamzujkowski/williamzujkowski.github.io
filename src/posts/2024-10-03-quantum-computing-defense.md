@@ -1,6 +1,6 @@
 ---
 
-date: 2024-05-05
+date: 2024-10-03
 description: Prepare for quantum computing threats with post-quantum cryptography—protect RSA and ECC encryption from quantum attacks using NIST-approved algorithms.
 title: 'Quantum Computing and Defense: The Double-Edged Sword of Tomorrow''s Technology'
 tags:
