@@ -142,4 +142,4 @@ If I were starting over, I'd probably skip the Preference Router and fold its lo
 - [OptiRoute: Cost-Efficient LLM Routing](https://arxiv.org/abs/2502.16696) - Cascade routing approach
 - [Cross-Attention Routing](https://arxiv.org/abs/2509.09782) - Attention-based model selection
 
-The [nexus-agents repository](https://github.com/williamzujkowski/nexus-agents) implements the full pipeline. The routing code lives in `src/cli-adapters/composite-router.ts` and the bandit in `src/cli-adapters/linucb-bandit.ts`.
+The [nexus-agents repository](https://github.com/nexus-substrate/nexus-agents) implements the full pipeline. The routing code lives in `src/cli-adapters/composite-router.ts` and the bandit in `src/cli-adapters/linucb-bandit.ts`.

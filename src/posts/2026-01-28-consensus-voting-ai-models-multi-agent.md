@@ -166,7 +166,7 @@ After roughly six months of multi-model consensus voting across 500+ proposals:
 
 **Voting builds an audit trail.** Every consensus vote produces a record: who voted, how, why, at what confidence. When something goes wrong six months later, I can look back and understand the decision context. This is probably the most underrated benefit.
 
-The [nexus-agents repository](https://github.com/williamzujkowski/nexus-agents) implements the full consensus engine. The voting code lives in `src/consensus/engine.ts`. If you want to try multi-model voting on your own proposals, the CLI exposes it directly: `nexus-agents vote --proposal "your proposal" --strategy supermajority`.
+The [nexus-agents repository](https://github.com/nexus-substrate/nexus-agents) implements the full consensus engine. The voting code lives in `src/consensus/engine.ts`. If you want to try multi-model voting on your own proposals, the CLI exposes it directly: `nexus-agents vote --proposal "your proposal" --strategy supermajority`.
 
 ## Papers Referenced
 

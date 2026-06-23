@@ -12,7 +12,7 @@ seriesOrder: 4
 
 The visible work today was extracting SWE-bench out of nexus-agents into its own standalone package with a shared `BenchmarkAdapter` contract. The whole arc took about six hours across three npm releases. That speed wasn't an accident — it was possible because of three weeks of invisible work that preceded it.
 
-This post covers the whole April 2026 arc on [nexus-agents](https://github.com/williamzujkowski/nexus-agents). The extraction is the capstone. The governance, skills, pipeline discipline, and security hardening that came before are the actual story.
+This post covers the whole April 2026 arc on [nexus-agents](https://github.com/nexus-substrate/nexus-agents). The extraction is the capstone. The governance, skills, pipeline discipline, and security hardening that came before are the actual story.
 
 ## The shape of the month
 
@@ -217,6 +217,6 @@ Replaced the `RouterLike` cast in the pipeline with a proper structural adapter.
 - [nexus-eval-template](https://github.com/williamzujkowski/nexus-eval-template) — click "Use this template"
 - [nexus-eval-swebench](https://github.com/williamzujkowski/nexus-eval-swebench) — `npx nexus-eval-swebench --variant lite --limit 5`
 
-The extraction epic is [nexus-agents#1960](https://github.com/williamzujkowski/nexus-agents/issues/1960). All six sub-issues are closed. Follow-ups — Docker harness integration for real pass/fail, HumanEval and MBPP extractions — will file new issues against the standalone repos as they're prioritized.
+The extraction epic is [nexus-agents#1960](https://github.com/nexus-substrate/nexus-agents/issues/1960). All six sub-issues are closed. Follow-ups — Docker harness integration for real pass/fail, HumanEval and MBPP extractions — will file new issues against the standalone repos as they're prioritized.
 
 The arc I care about more is the one that made this possible. Three weeks of rigor, governance, and release hygiene turned "extract a benchmark" from a multi-day refactor into an afternoon. If you're looking at your own monorepo wondering where to start, start with the boring preconditions. The extraction itself is easy when the rest of the work has been done.

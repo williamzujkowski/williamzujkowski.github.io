@@ -79,7 +79,7 @@ The tradeoff: the tool can't assess code-level quality. It sees that a test runn
 
 ## The AI flag
 
-There's an optional `--ai` flag that hands findings to a [nexus-agents](https://github.com/williamzujkowski/nexus-agents) session for deeper analysis:
+There's an optional `--ai` flag that hands findings to a [nexus-agents](https://github.com/nexus-substrate/nexus-agents) session for deeper analysis:
 
 ```sh
 npx repo-health-report owner/repo --ai
