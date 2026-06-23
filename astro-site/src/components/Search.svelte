@@ -143,27 +143,23 @@
 <!-- Search dialog -->
 {#if isOpen}
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div
-    class="fixed inset-0 z-[100] flex items-start justify-center pt-[10vh]"
-  >
+  <div class="search-overlay">
     <!-- Backdrop -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div class="absolute inset-0 bg-black/50" onclick={close}></div>
+    <div class="search-backdrop" onclick={close}></div>
 
     <!-- Dialog -->
     <div
       bind:this={dialogEl}
-      class="relative w-full max-w-lg mx-4 rounded-2xl shadow-2xl overflow-hidden"
-      style="background-color: var(--color-surface); border: 1px solid var(--color-border)"
+      class="search-dialog"
       role="dialog"
       aria-modal="true"
       aria-label="Search site"
       onkeydown={trapFocus}
     >
-      <div class="flex items-center gap-3 p-4 border-b" style="border-color: var(--color-border)">
+      <div class="search-input-row">
         <svg
-          class="w-5 h-5 flex-shrink-0"
-          style="color: var(--color-muted)"
+          class="search-input-icon"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -177,35 +173,21 @@
           oninput={search}
           type="text"
           placeholder="Search site..."
-          class="flex-grow bg-transparent outline-none"
-          style="color: var(--color-fg)"
+          class="search-input"
         />
-        <kbd
-          class="hidden sm:inline-block text-xs px-1.5 py-0.5 rounded border"
-          style="color: var(--color-muted); border-color: var(--color-border)"
-          >ESC</kbd
-        >
+        <kbd class="search-esc">ESC</kbd>
       </div>
 
       {#if results.length > 0}
-        <ul class="max-h-80 overflow-y-auto p-2">
+        <ul class="search-results">
           {#each results as result}
             <li>
-              <a
-                href={result.url}
-                class="block px-4 py-3 rounded-lg no-underline hover:no-underline transition-colors"
-                style="color: var(--color-fg)"
-                onmouseenter={(e) =>
-                  ((e.currentTarget as HTMLElement).style.backgroundColor =
-                    'var(--color-surface)')}
-                onmouseleave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = 'transparent')}
-                onclick={close}
-              >
-                <div class="font-medium">
+              <a href={result.url} class="search-result-link" onclick={close}>
+                <div class="search-result-title">
                   {result.meta?.title || 'Untitled'}
                 </div>
                 {#if result.excerpt}
-                  <div class="text-sm mt-1 line-clamp-2" style="color: var(--color-muted)">
+                  <div class="search-result-excerpt">
                     {@html result.excerpt}
                   </div>
                 {/if}
@@ -214,13 +196,13 @@
           {/each}
         </ul>
       {:else if isLoading}
-        <div class="p-8 text-center" style="color: var(--color-muted)">Searching...</div>
+        <div class="search-state">Searching...</div>
       {:else if query.length >= 2}
-        <div class="p-8 text-center" style="color: var(--color-muted)">
+        <div class="search-state">
           No results for "{query}"
         </div>
       {:else}
-        <div class="p-8 text-center text-sm" style="color: var(--color-muted)">
+        <div class="search-state is-hint">
           Type to search...
         </div>
       {/if}
@@ -265,6 +247,108 @@
   }
   @media (min-width: 1024px) {
     .search-kbd { display: inline-block; }
+  }
+
+  /* Search dialog — migrated off dead Tailwind utilities to Remarque tokens (#206) */
+  .search-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10vh;
+  }
+  .search-backdrop {
+    position: absolute;
+    inset: 0;
+    background: var(--color-overlay);
+  }
+  .search-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px var(--color-shadow);
+    overflow: hidden;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+  .search-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .search-input-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    color: var(--color-muted);
+  }
+  .search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: var(--color-fg);
+  }
+  .search-esc {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-micro, 0.75rem);
+    padding: 0.125rem 0.375rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    color: var(--color-muted);
+    line-height: 1;
+  }
+  @media (min-width: 640px) {
+    .search-esc { display: inline-block; }
+  }
+  .search-results {
+    max-height: 20rem;
+    overflow-y: auto;
+    padding: 0.5rem;
+    margin: 0;
+    list-style: none;
+  }
+  .search-result-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md, 0.5rem);
+    text-decoration: none;
+    color: var(--color-fg);
+    transition: background-color var(--motion-fast, 180ms) var(--motion-easing, ease);
+  }
+  .search-result-link:hover {
+    background-color: var(--color-bg-subtle);
+    text-decoration: none;
+  }
+  .search-result-title {
+    font-weight: 500;
+  }
+  .search-result-excerpt {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: var(--color-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .search-state {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-muted);
+  }
+  .search-state.is-hint {
+    font-size: 0.875rem;
   }
 
   /* Style Pagefind highlight marks */

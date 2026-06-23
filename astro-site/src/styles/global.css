@@ -85,6 +85,8 @@
   --color-code-bg: oklch(0.92 0.015 75);
   --color-code-fg: oklch(0.18 0.04 25);
   --color-selection-bg: oklch(0.88 0.10 140); /* tinted green */
+  --color-overlay: oklch(0 0 0 / 0.5);        /* modal backdrop scrim */
+  --color-shadow: oklch(0 0 0 / 0.5);         /* drop-shadow color */
 
   color-scheme: light;
 }
