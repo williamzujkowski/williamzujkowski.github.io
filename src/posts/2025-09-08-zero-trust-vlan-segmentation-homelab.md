@@ -589,17 +589,11 @@ Attempt VLAN breakout from IoT using nmap source-ip spoofing
 
 ## Troubleshooting Common Issues
 
-<!-- 📎 **Complete troubleshooting guide:**
-[All common VLAN issues and solutions](https://gist.github.com/williamzujkowski/vlan-troubleshooting) -->
-
 **DHCP issues:** Check daemon logs, tcpdump VLAN traffic on port 67
 **Routing issues:** Verify `ip_forward=1`, traceroute between VLANs
 **mDNS issues:** Verify Avahi daemon running, browse services
 
 ## Performance Optimization
-
-<!-- 📎 **Complete optimization guide:**
-[Hardware offloading and VLAN tuning](https://gist.github.com/williamzujkowski/vlan-performance-tuning) -->
 
 Enable hardware NAT offloading, increase MTU to 9000 for storage VLANs
 

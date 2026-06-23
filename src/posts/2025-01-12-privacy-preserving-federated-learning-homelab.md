@@ -194,9 +194,7 @@ def compute_granular_balls(X, n_clusters=100, variance_threshold=0.03):
     return balls
 ```
 
-**Key difference from standard federated learning:** This function never sends raw data or per-example gradients. Only aggregated cluster statistics leave the device.
-
-For the complete implementation with Flower client/server integration, see my GitHub gist: [Federated Learning with Granular-Ball Computing](https://gist.github.com/williamzujkowski/federated-grball-example)
+**Key difference from standard federated learning:** This function never sends raw data or per-example gradients. Only aggregated cluster statistics leave the device. Wiring it into a Flower client/server loop is mechanical from here: the balls become the payload each client sends to the aggregator.
 
 ### Training Configuration
 

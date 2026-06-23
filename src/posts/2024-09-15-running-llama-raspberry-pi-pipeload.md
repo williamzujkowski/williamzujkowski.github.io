@@ -148,7 +148,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 pip3 install pipeload-inference
 ```
 
-**Reality check:** As of September 2024, PIPELOAD isn't a public package. The [Hermes paper](https://arxiv.org/abs/2409.04249) describes the mechanism but doesn't release code. I implemented a minimal version based on their algorithm description. Full implementation is ~450 lines of Python, available in my [GitHub gist](https://gist.github.com/williamzujkowski/pipeload-minimal).
+**Reality check:** As of September 2024, PIPELOAD isn't a public package. The [Hermes paper](https://arxiv.org/abs/2409.04249) describes the mechanism but doesn't release code. I implemented a minimal version (~450 lines of Python) based on their algorithm description. The snippets below are the core of that implementation.
 
 ### Step 2: Configure Model Loading
 
@@ -185,8 +185,6 @@ print(f"Model size: {model.size_gb():.2f}GB")  # ~4.1GB for LLaMA 7B
 ```
 
 **Why 4-bit quantization:** Reduces model size from 14GB (FP16) to 4.1GB (Q4_K_M) with minimal accuracy loss. For general text generation, perplexity increases by ~3% ([GPTQ paper](https://arxiv.org/abs/2210.17323), Table 3). For my use case (homelab experimentation), this trade-off is acceptable.
-
-**Full quantization script:** [GitHub gist](https://gist.github.com/williamzujkowski/llama-quantization-script) (52 lines)
 
 ### Step 4: Run Inference
 
