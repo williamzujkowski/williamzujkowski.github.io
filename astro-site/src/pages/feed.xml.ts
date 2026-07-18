@@ -20,7 +20,7 @@ function escapeHtmlAttr(s: string): string {
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
   const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-  const siteUrl = context.site?.toString() ?? SITE_CONFIG.siteUrl;
+  const siteUrl = (context.site?.toString() ?? SITE_CONFIG.siteUrl).replace(/\/$/, '');
 
   return rss({
     title: SITE_CONFIG.author,
@@ -29,7 +29,7 @@ export async function GET(context: APIContext) {
     xmlns: {
       atom: 'http://www.w3.org/2005/Atom',
     },
-    customData: `<atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/>`,
+    customData: `<atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/><lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
     items: sortedPosts.map((post) => {
       const imageUrl = getValidImageUrl(post.data.image);
       const renderedContent = sanitizeHtml(parser.render(post.body ?? ''), {

@@ -15,7 +15,7 @@ export const GET: APIRoute = async ({ props }) => {
     day: 'numeric',
     timeZone: 'UTC', // dates are UTC-midnight; format in UTC for consistency
   });
-  const tag = post.data.tags?.[0];
+  const tag = post.data.tags?.filter((t) => t !== 'posts')[0];
   const subtitle = tag ? `${date} · ${tag}` : date;
 
   const png = await renderOgCard({ title: post.data.title, subtitle });

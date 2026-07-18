@@ -81,6 +81,11 @@ jobs:
           --repairs reports/repairs.json \
           --output-dir reports
 
+        # Ship links.json in the artifact too -- batch-link-fixer.py in the
+        # repair-links job reads it from the working directory and crashes
+        # without it (it hardcodes open('links.json')).
+        cp links.json reports/links.json
+
     - name: Upload Reports
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  # v7
       with:
@@ -241,6 +246,9 @@ jobs:
         # Only apply fixes with >=95% confidence automatically. repairs.json
         # arrives inside the downloaded reports/ artifact.
         if [ -f "reports/repairs.json" ]; then
+          # batch-link-fixer.py reads links.json from the working directory;
+          # it travels inside the reports/ artifact (see check-links job).
+          cp reports/links.json links.json
           uv run python scripts/link-validation/batch-link-fixer.py \
             --repairs reports/repairs.json \
             --confidence-threshold 95 \
