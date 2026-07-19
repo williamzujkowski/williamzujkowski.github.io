@@ -253,7 +253,7 @@
   },
   {
     "slug": "solarized-dark-higher-contrast",
-    "name": "Solarized Dark Higher Contrast",
+    "name": "Solarized Dark+",
     "isDark": true,
     "accentSlot": "cyan",
     "tokens": {
@@ -289,7 +289,7 @@
   },
   {
     "slug": "github-light-default",
-    "name": "GitHub Light Default",
+    "name": "GitHub Light",
     "isDark": false,
     "accentSlot": "blue",
     "tokens": {

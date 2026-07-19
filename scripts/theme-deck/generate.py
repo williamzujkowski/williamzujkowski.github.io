@@ -38,6 +38,12 @@ CURATED = [
     "nord-light",
 ]
 
+# Compact display names where the upstream name is a mouthful.
+DISPLAY_NAME = {
+    "solarized-dark-higher-contrast": "Solarized Dark+",
+    "github-light-default": "GitHub Light",
+}
+
 # A theme's characteristic accent hue, tried first (must still clear the
 # contrast floor, else the chroma heuristic decides).
 PREFERRED_ACCENT = {
@@ -193,7 +199,7 @@ def build_theme(t):
 
     return {
         "slug": t["slug"],
-        "name": t["name"],
+        "name": DISPLAY_NAME.get(t["slug"], t["name"]),
         "isDark": t["isDark"],
         "accentSlot": accent_slot,
         "tokens": {k: css(v) for k, v in tokens.items()},

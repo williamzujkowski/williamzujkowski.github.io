@@ -59,8 +59,8 @@ const lightThemes = themes.filter((t) => !t.isDark);
     }
 
     <p class="deck-credit">
-      Palettes from <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch-terminal-themes</a>
-      &middot; <a href="/about/#theme-credits">credits</a>
+      Palettes from <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch&#8209;terminal&#8209;themes</a>
+      (<a href="/about/#theme-credits">credits</a>)
     </p>
   </div>
 </details>
@@ -90,10 +90,12 @@ const lightThemes = themes.filter((t) => !t.isDark);
 
   .deck-panel {
     margin-top: 0.5rem;
+    margin-inline: auto; /* footer centers text; center the panel box too */
     border: 1px solid var(--color-border);
     padding: 0.5rem;
     max-width: 22rem;
     background: var(--color-surface);
+    text-align: left; /* ...but the rows themselves read left-to-right */
   }
 
   .deck-group {
