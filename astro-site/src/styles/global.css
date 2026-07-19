@@ -61,8 +61,19 @@
   --space-8: 4rem;
   --space-9: 6rem;
 
-  /* Content widths */
-  --content-reading: 46rem;
+  /* Content widths.
+   * --content-reading is the single shared column width for the whole
+   * reading rail — prose AND the mono-voice surfaces that flank it
+   * (breadcrumb, post header, TOC, tables, cards) all share one value so
+   * the column stays visually aligned edge-to-edge; it is intentionally
+   * NOT swapped to a literal `ch` unit, which would make the column
+   * width font-dependent and desync mono elements from the serif prose
+   * next to them. 40rem was picked by measuring actual rendered text:
+   * at --text-body (17px) in Source Serif 4, 40rem ≈ 71ch — close to
+   * the ~68ch editorial target (was 46rem ≈ 86ch under Inter, too wide
+   * for a text serif). Adjusted conservatively, not dropped straight to
+   * the raw 38.25rem (68ch) measurement. */
+  --content-reading: 40rem;
   --content-standard: 72rem;
 
   /* Border radius — restrained */
@@ -570,6 +581,12 @@ a.post-card-title:hover { color: var(--color-accent); }
   /* Publication-grade typography (Wave 1) */
   hanging-punctuation: first last;
   font-variant-numeric: oldstyle-nums proportional-nums;
+  /* text-wrap: pretty (progressive enhancement — unsupported browsers
+   * fall back to normal wrapping) cascades to every :where(p) below
+   * since nothing more specific overrides it; only headings opt back
+   * into `balance` (see the h1-h4 rule further down). Satisfies the
+   * measure/rhythm work item (issue #274) alongside --content-reading
+   * above. */
   text-wrap: pretty;
 }
 
