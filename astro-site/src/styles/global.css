@@ -1060,6 +1060,14 @@ div:has(> .post-card) {
   gap: 0.75em;
   font-variant-numeric: tabular-nums lining-nums;
 }
+/* One subtle terminal touch (issue #274 masthead status-line item) — the
+   same mono prompt glyph already used for the header theme-deck trigger
+   (ThemeDeck.astro summary::before), so it reads as one consistent zine
+   motif rather than a new decoration. Static: no animation/blink. */
+.landing-issue-label::before {
+  content: '\276F'; /* ❯ */
+  color: var(--color-accent);
+}
 .landing-issue-label .rule {
   display: inline-block;
   width: 2.5rem;
