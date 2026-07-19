@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import rehypeMermaid from 'rehype-mermaid';
 import remarkSmartypants from 'remark-smartypants';
 import { visit } from 'unist-util-visit';
+import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 
 /**
  * Shiki transformer: extract title="filename" from code fence meta
@@ -109,7 +110,13 @@ function rehypeScrollWrap() {
       const wrapper = {
         type: 'element',
         tagName: 'div',
-        properties: { className: ['scroll-wrap'] },
+        // tabIndex makes the scrollable region itself keyboard-focusable
+        // (WCAG 2.1.1 / axe "scrollable-region-focusable") — pre-existing
+        // gap, not introduced by sidenotes: no page in the a11y suite had
+        // content wide enough to actually overflow `.scroll-wrap` until
+        // the sidenotes pilot post's comparison table did. Fixed here
+        // since it's a one-line addition to the same wrapper.
+        properties: { className: ['scroll-wrap'], tabIndex: 0 },
         children: [node],
       };
       parent.children[index] = wrapper;
@@ -214,6 +221,13 @@ export default defineConfig({
       }],
       rehypeMermaidDualTheme,
       rehypeScrollWrap,
+      // Tufte/gwern-style sidenotes (issue #272) — must run after remark's
+      // GFM footnote transform (implicit: this is a rehype plugin, so it
+      // only ever sees the hast tree remark-rehype already produced).
+      // Order relative to the mermaid/table plugins above doesn't matter —
+      // disjoint node types (footnote refs/definitions vs. <picture>/
+      // <table>) — kept last for now as the newest addition.
+      rehypeSidenotes,
     ],
   },
 });

@@ -46,6 +46,10 @@ const PAGES: Array<{ slug: string; path: string }> = [
   { slug: 'about', path: '/about/' },
   // Diagram-heavy post — exercises the hand-drawn mermaid rendering path.
   { slug: 'gvisor-post', path: '/posts/2024-09-25-gvisor-container-sandboxing-security/' },
+  // Sidenotes pilot post (issue #272) — exercises the margin-note rendering
+  // path (GFM footnotes -> inline sidenote spans in the left rail at wide
+  // viewports). Diffs here are EXPECTED after the sidenotes feature lands.
+  { slug: 'pqc-homelab-post', path: '/posts/2025-10-29-post-quantum-cryptography-homelab/' },
   { slug: '404', path: '/404.html' },
 ];
 

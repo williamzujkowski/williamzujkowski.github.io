@@ -17,6 +17,7 @@
     "format:check": "prettier --check 'src/**/*.{astro,svelte,ts,js,css}'",
     "test:e2e": "npx playwright test",
     "test:e2e:headed": "npx playwright test --headed",
+    "test:unit": "node --test '../tests/unit/**/*.test.mjs'",
     "audit:contrast": "node scripts/contrast-audit.mjs",
     "audit:typography": "node scripts/typography-audit.mjs",
     "audit:colors": "node scripts/color-token-audit.mjs",
