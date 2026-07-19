@@ -93,6 +93,14 @@
     }
 
     function toggle(e) {
+      // The base toggle always exits any active deck theme — the two systems
+      // never fight over the root classes.
+      if (document.documentElement.hasAttribute('data-theme-deck')) {
+        document.documentElement.removeAttribute('data-theme-deck');
+        localStorage.removeItem('themeDeck');
+        document.dispatchEvent(new CustomEvent('theme-deck-cleared'));
+      }
+
       // Shift+click resets to system/OS preference
       if (e.shiftKey) {
         localStorage.removeItem('theme');

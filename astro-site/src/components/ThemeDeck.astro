@@ -1,0 +1,190 @@
+---
+// Theme deck — reader-selectable terminal color schemes for the whole site.
+// Powered by the curated subset of williamzujkowski/oklch-terminal-themes;
+// token values are generated + contrast-validated by scripts/theme-deck/.
+import themes from '@/data/theme-deck.json';
+
+const darkThemes = themes.filter((t) => t.isDark);
+const lightThemes = themes.filter((t) => !t.isDark);
+---
+
+<details class="theme-deck" id="theme-deck">
+  <summary>
+    <span class="deck-label">Terminal theme</span>
+    <span class="deck-current" id="theme-deck-current">Remarque</span>
+  </summary>
+
+  <div class="deck-panel" role="radiogroup" aria-label="Site color theme">
+    <button type="button" class="deck-option" role="radio" aria-checked="true" data-deck-slug="">
+      {/* Literals, deliberately: this row depicts the Remarque palette itself,
+          which must not repaint when another deck theme is active. */}
+      <span class="deck-swatches" aria-hidden="true">
+        <span class="deck-chip" style="background: oklch(0.95 0.015 75) /* allow-raw-color */"></span>
+        <span class="deck-chip" style="background: oklch(0.48 0.15 140) /* allow-raw-color */"></span>
+        <span class="deck-chip" style="background: oklch(0.55 0.14 75) /* allow-raw-color */"></span>
+        <span class="deck-chip" style="background: oklch(0.18 0.04 25) /* allow-raw-color */"></span>
+      </span>
+      <span class="deck-name">Remarque <span class="deck-tag">default</span></span>
+    </button>
+
+    {
+      [
+        { group: 'Dark', list: darkThemes },
+        { group: 'Light', list: lightThemes },
+      ].map(({ group, list }) => (
+        <>
+          <p class="deck-group">{group}</p>
+          {list.map((t) => (
+            <button
+              type="button"
+              class="deck-option"
+              role="radio"
+              aria-checked="false"
+              data-deck-slug={t.slug}
+              data-deck-dark={t.isDark ? 'true' : 'false'}
+              data-deck-name={t.name}
+            >
+              <span class="deck-swatches" aria-hidden="true">
+                <span class="deck-chip" style={`background: ${t.swatches.bg}`} />
+                {t.swatches.ansi.slice(1, 7).map((c) => (
+                  <span class="deck-chip" style={`background: ${c}`} />
+                ))}
+                <span class="deck-chip" style={`background: ${t.swatches.fg}`} />
+              </span>
+              <span class="deck-name">{t.name}</span>
+            </button>
+          ))}
+        </>
+      ))
+    }
+
+    <p class="deck-credit">
+      Palettes from <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch-terminal-themes</a>
+      &middot; <a href="/about/#theme-credits">credits</a>
+    </p>
+  </div>
+</details>
+
+<style>
+  .theme-deck {
+    font-family: var(--font-mono, monospace);
+    font-size: var(--text-micro, 0.75rem);
+    margin-top: 0.75rem;
+  }
+
+  .theme-deck summary {
+    cursor: pointer;
+    color: var(--color-muted);
+    list-style: none;
+    display: inline-flex;
+    gap: 0.5ch;
+    align-items: baseline;
+    padding: 0.25rem 0;
+  }
+  .theme-deck summary::-webkit-details-marker { display: none; }
+  .theme-deck summary::before { content: '❯ '; color: var(--color-accent); }
+  .theme-deck[open] summary::before { content: '▾ '; }
+  .theme-deck summary:hover .deck-label { color: var(--color-fg); }
+
+  .deck-current { color: var(--color-accent); }
+
+  .deck-panel {
+    margin-top: 0.5rem;
+    border: 1px solid var(--color-border);
+    padding: 0.5rem;
+    max-width: 22rem;
+    background: var(--color-surface);
+  }
+
+  .deck-group {
+    margin: 0.5rem 0 0.15rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .deck-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75ch;
+    width: 100%;
+    padding: 0.3rem 0.4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-fg-muted);
+    font: inherit;
+    text-align: left;
+  }
+  .deck-option:hover { background: var(--color-bg-subtle); color: var(--color-fg); }
+  .deck-option[aria-checked='true'] { color: var(--color-fg); }
+  .deck-option[aria-checked='true'] .deck-name::after {
+    content: ' ✓';
+    color: var(--color-accent);
+  }
+
+  .deck-swatches { display: inline-flex; gap: 2px; flex: none; }
+  .deck-chip {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 2px;
+    border: 1px solid var(--color-border);
+  }
+
+  .deck-tag { color: var(--color-muted); }
+
+  .deck-credit {
+    margin: 0.6rem 0 0;
+    color: var(--color-muted);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var DECK_KEY = 'themeDeck';
+
+    function applyDeck(slug, isDark) {
+      var root = document.documentElement;
+      if (slug) {
+        root.setAttribute('data-theme-deck', slug);
+        // A deck theme is a complete palette: pin the base mode to match so
+        // every mode-conditional style (icons, shiki, color-scheme) agrees.
+        root.classList.remove('dark', 'light');
+        root.classList.add(isDark ? 'dark' : 'light');
+        // Value is "slug|mode" so the before-paint head script can restore
+        // both without shipping any theme data.
+        localStorage.setItem(DECK_KEY, slug + '|' + (isDark ? 'dark' : 'light'));
+      } else {
+        root.removeAttribute('data-theme-deck');
+        localStorage.removeItem(DECK_KEY);
+      }
+      syncUi();
+    }
+
+    function syncUi() {
+      var active = (localStorage.getItem(DECK_KEY) || '').split('|')[0];
+      var current = document.getElementById('theme-deck-current');
+      var activeName = 'Remarque';
+      document.querySelectorAll('.deck-option').forEach(function (btn) {
+        var checked = (btn.getAttribute('data-deck-slug') || '') === active;
+        btn.setAttribute('aria-checked', checked ? 'true' : 'false');
+        if (checked && btn.getAttribute('data-deck-name')) {
+          activeName = btn.getAttribute('data-deck-name');
+        }
+      });
+      if (current) current.textContent = activeName;
+    }
+
+    document.querySelectorAll('.deck-option').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyDeck(
+          btn.getAttribute('data-deck-slug') || null,
+          btn.getAttribute('data-deck-dark') === 'true'
+        );
+      });
+    });
+
+    document.addEventListener('theme-deck-cleared', syncUi);
+    syncUi();
+  })();
+</script>
