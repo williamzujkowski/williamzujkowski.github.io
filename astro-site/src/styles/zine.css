@@ -1,0 +1,151 @@
+/* Zine marginalia layer — hand-drawn accents over the Remarque system.
+ * Design-review ratified (7-0): geometry + masks + scoped texture only;
+ * body typography untouched; every color derives from theme tokens so all
+ * 14 palettes (light, dark, 12 terminal themes) keep working.
+ * Load order: global.css -> theme-deck.css -> zine.css.
+ */
+
+/* ---------- shared ingredients ---------------------------------------- */
+
+:root {
+  /* Wobbly horizontal rule, used as a mask so color stays token-driven. */
+  --zine-rule-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M0 3.5 Q 8 1.5 17 3.4 T 34 3.8 T 52 2.6 T 71 4.1 T 89 3 T 106 3.9 T 120 3.2' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  /* Hand-drawn double quote mark (blockquotes). */
+  --zine-quote-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='22' viewBox='0 0 28 22'%3E%3Cpath d='M3 14 Q 2 6 9 3 Q 6 8 8 10 Q 12 10 12 14.5 Q 12 19 7.5 19 Q 3 19 3 14 Z M 17 14 Q 16 6 23 3 Q 20 8 22 10 Q 26 10 26 14.5 Q 26 19 21.5 19 Q 17 19 17 14 Z' fill='black'/%3E%3C/svg%3E");
+
+  /* Paper grain: procedural feTurbulence noise. Scoped to chrome surfaces
+   * only (never body text) per design review — token-based contrast CI
+   * cannot observe composited texture, so we keep it off reading surfaces. */
+  --zine-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+/* ---------- squiggle boxes (geometry only; radii vary per component so
+ * the wobble never reads as a uniform theme pack) ----------------------- */
+
+.callout,
+.callout-accent {
+  border: 1px solid var(--color-border-bold);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.series-nav {
+  border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+}
+
+.deck-panel {
+  border-radius: 225px 12px 245px 14px / 12px 245px 14px 225px;
+}
+
+pre[data-title]::before {
+  border-radius: 12px 4px 10px 5px / 4px 10px 5px 12px;
+}
+
+/* ---------- wobbly rules (mask keeps color token-driven) --------------- */
+
+.wobble-rule {
+  border: none !important;
+  position: relative;
+}
+
+.wobble-rule::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -4px 0;
+  height: 7px;
+  background: var(--color-border-bold);
+  mask: var(--zine-rule-mask) repeat-x center / 120px 7px;
+  pointer-events: none;
+}
+
+/* The nav's straight top hairline is redundant next to the masthead's
+ * wavy bottom edge — one rule is enough (and the wavy one is ours). */
+.wobble-rule .site-sections {
+  border-top: none;
+}
+
+/* Homepage issue-label hairlines become tiny wobbles too. */
+.landing-issue-label .rule {
+  background: none;
+  height: 7px;
+  mask: none;
+  -webkit-mask: var(--zine-rule-mask) repeat-x center / 60px 7px;
+  mask: var(--zine-rule-mask) repeat-x center / 60px 7px;
+  background-color: var(--color-border-bold);
+}
+
+/* ---------- blockquote quote mark -------------------------------------- */
+
+article .prose blockquote {
+  position: relative;
+  padding-top: 0.35rem;
+}
+
+article .prose blockquote::before {
+  content: '';
+  position: absolute;
+  top: -0.4rem;
+  left: -2.35rem;
+  width: 1.6rem;
+  height: 1.25rem;
+  background: var(--color-accent);
+  -webkit-mask: var(--zine-quote-mask) no-repeat center / contain;
+  mask: var(--zine-quote-mask) no-repeat center / contain;
+  opacity: 0.85;
+}
+
+/* ---------- scoped paper grain (chrome surfaces only) ------------------ */
+
+.zine-grain {
+  position: relative;
+}
+
+/* ::before, deliberately — wobble-rule owns ::after and the masthead
+ * carries both classes. */
+.zine-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--zine-grain);
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media print {
+  .zine-grain::before { display: none; }
+}
+
+/* ---------- hand-note voice (STRICT whitelist: .hand-note, 404) -------- */
+
+.hand-note {
+  font-family: var(--font-accent);
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--color-fg-muted);
+  transform: rotate(-1.2deg);
+  display: inline-block;
+}
+
+.hand-note--accent { color: var(--color-accent); }
+
+/* ---------- 404 doodle -------------------------------------------------- */
+
+.lost-doodle {
+  width: min(260px, 60vw);
+  margin-inline: auto;
+  color: var(--color-fg-muted);
+  display: block;
+}
+
+.lost-doodle .doodle-accent { color: var(--color-accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .lost-doodle .doodle-wander {
+    animation: zine-wander 6s ease-in-out infinite alternate;
+  }
+  @keyframes zine-wander {
+    from { transform: rotate(-2deg) translateX(-2px); }
+    to { transform: rotate(2.5deg) translateX(3px); }
+  }
+}

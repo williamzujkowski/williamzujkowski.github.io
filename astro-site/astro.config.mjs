@@ -162,6 +162,19 @@ export default defineConfig({
       styles: ['normal', 'italic'],
       subsets: ['latin'],
     },
+    {
+      // Zine accent voice — hand-lettered marginalia ONLY. Approved usage
+      // (design-review ratified): .hand-note, 404 page, doodle captions.
+      // Never body copy, never nav/meta.
+      provider: fontProviders.fontsource(),
+      name: 'Shantell Sans',
+      cssVariable: '--font-accent',
+      fallbacks: ['Comic Sans MS', 'cursive'],
+      optimizedFallbacks: false,
+      weights: ['400 500'],
+      styles: ['normal'],
+      subsets: ['latin'],
+    },
   ],
   vite: {
     build: {
@@ -188,8 +201,12 @@ export default defineConfig({
     rehypePlugins: [
       [rehypeMermaid, {
         strategy: 'img-svg',
-        mermaidConfig: { theme: 'default' },
-        dark: { theme: 'dark' },
+        // handDrawn (rough.js) look for the zine aesthetic; fixed seed keeps
+        // builds reproducible. Colors stay baked per light/dark at build time
+        // — the reader theme deck does not propagate into diagrams (known
+        // limitation, documented in the zine-layer issue).
+        mermaidConfig: { theme: 'default', look: 'handDrawn', handDrawnSeed: 42 },
+        dark: { theme: 'dark', look: 'handDrawn', handDrawnSeed: 42 },
       }],
       rehypeMermaidDualTheme,
       rehypeScrollWrap,

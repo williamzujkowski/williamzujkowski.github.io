@@ -9,6 +9,26 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
 
 <BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist." noindex>
   <div class="prose" style="text-align: center; margin-top: var(--space-9);">
+    {/* Hand-drawn "lost packet" doodle — strokes inherit theme tokens via
+        currentColor, so it repaints under every terminal theme. */}
+    <svg class="lost-doodle" viewBox="0 -8 260 158" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Hand-drawn doodle of a lost network packet wandering off the map">
+      <!-- crumpled map outline -->
+      <path d="M28 38 Q 24 34 30 30 L 96 22 Q 103 20 108 26 L 112 30 L 178 24 Q 186 22 189 30 L 196 96 Q 198 104 190 106 L 122 114 L 116 110 L 50 120 Q 41 122 39 113 Z" />
+      <!-- fold creases -->
+      <path d="M108 26 L 116 110" stroke-dasharray="1 5" opacity="0.6" />
+      <path d="M34 74 Q 100 62 192 66" stroke-dasharray="1 6" opacity="0.4" />
+      <!-- wandering dashed route that exits the map -->
+      <path class="doodle-accent" d="M52 96 Q 70 78 92 88 Q 116 98 126 76 Q 136 55 160 62 Q 180 68 186 50 Q 191 37 206 30 Q 220 24 232 14" stroke="currentColor" stroke-dasharray="4 7" stroke-width="2.6" />
+      <!-- the lost packet: a little envelope with worry lines, off-map -->
+      <g class="doodle-wander">
+        <rect x="222" y="6" width="26" height="18" rx="3" transform="rotate(8 235 15)" />
+        <path d="M223 9 L 235 19 L 247 8" transform="rotate(8 235 15)" />
+        <path d="M218 2 L 215 -1 M 252 4 L 256 1 M 250 26 L 254 30" opacity="0.7" />
+      </g>
+      <!-- "you are here" X ... where the route began -->
+      <path class="doodle-accent" d="M48 92 L 58 102 M 58 92 L 48 102" stroke="currentColor" stroke-width="3" />
+    </svg>
+    <p class="hand-note hand-note--accent">route to host lost — last seen leaving the map</p>
     <p style="font-family: var(--font-mono); font-size: var(--text-display); color: var(--color-muted); opacity: 0.4; margin: 0;">404</p>
     <h1 style="margin-top: var(--space-3);">Page not found</h1>
     <p>The page you're looking for doesn't exist or has been moved.</p>

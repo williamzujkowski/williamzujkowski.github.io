@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import '@/styles/theme-deck.css'; // must follow global.css: deck tokens override Remarque defaults
+import '@/styles/zine.css'; // zine marginalia layer — last, decorates both
 import { Font } from 'astro:assets';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 import Search from '@components/Search.svelte';
@@ -229,7 +230,7 @@ function isActiveLink(linkHref: string): boolean {
     <a href="#main" class="skip-to-main">Skip to main content</a>
 
     <!-- Masthead -->
-    <header role="banner" aria-label="Site header" class="site-masthead">
+    <header role="banner" aria-label="Site header" class="site-masthead zine-grain wobble-rule">
       <div class="site-masthead-inner">
         <div class="site-masthead-top">
           <div class="site-masthead-tools-left" aria-hidden="true"></div>
@@ -239,6 +240,7 @@ function isActiveLink(linkHref: string): boolean {
           </a>
           <div class="site-masthead-tools-right">
             <Search client:load />
+            <ThemeDeck variant="header" />
             <ThemeToggle />
           </div>
         </div>
@@ -264,14 +266,18 @@ function isActiveLink(linkHref: string): boolean {
     </main>
 
     <!-- Footer -->
-    <footer role="contentinfo" aria-label="Site footer" class="site-footer">
+    <footer role="contentinfo" aria-label="Site footer" class="site-footer zine-grain">
       <p>
         &copy; {currentYear} William Zujkowski.
         <a href={SITE_CONFIG.social.github}>GitHub</a> &middot;
         <a href={SITE_CONFIG.social.linkedin}>LinkedIn</a> &middot;
         <a href="/feed.xml">RSS</a>
       </p>
-      <ThemeDeck />
+      <p class="footer-theme-credit">
+        Terminal themes via
+        <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch&#8209;terminal&#8209;themes</a>
+        (<a href="/about/#theme-credits">credits</a>) — picker lives in the masthead.
+      </p>
     </footer>
 
     <CodeCopy client:idle />
