@@ -199,7 +199,7 @@ The Layer-1 skills live in `.claude/skills/blog-*/` (tracked in git).
 | Astro design tokens | Layer 3 (`audits.yml`) | Per-commit, blocks broken design |
 | Accessibility | Layer 3 (`a11y.yml`) | Per-commit, axe-playwright |
 | Lighthouse / HTML validation | Layer 3 (`compliance-monitor.yml`) | Per-commit, advisory |
-| NDA enforcement (mechanical) | Layer 3 (`compliance-monitor.yml`) | Per-commit grep, 13 explicit phrases |
+| NDA enforcement (mechanical) | Layer 3 (`compliance-monitor.yml`) | Per-commit grep, 13 phrases — ADVISORY by design: 7 of the 13 (e.g. "in production", "sensitive", "government") appear in legitimate prose across 20-30 existing posts, so blocking would red every build. The contextual Layer-1 `blog-nda-check` is the real gate. |
 | NDA enforcement (contextual) | Layer 1 (`blog-nda-check`) | Author-time LLM judgment: tense, scale revelations, implicit current-engagement, gov-agency context — beyond what grep can catch |
 | Citation coverage % | Layer 3 (`compliance-monitor.yml`) | Per-commit metric, advisory |
 | Security scans (Trivy, Gitleaks, pip-audit) | Layer 3 (`compliance-monitor.yml`) | Per-commit |

@@ -3,10 +3,8 @@ name: Compliance Monitoring
 on:
   push:
     branches: [ main ]
-    paths: ['astro-site/**', 'src/**']
   pull_request:
     branches: [ main ]
-    paths: ['astro-site/**', 'src/**']
   schedule:
     # Daily at 2 AM UTC
     - cron: '0 2 * * *'
