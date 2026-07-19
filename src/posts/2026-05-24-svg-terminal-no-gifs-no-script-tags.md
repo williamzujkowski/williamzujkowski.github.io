@@ -1,6 +1,6 @@
 ---
 title: "No GIFs, No Script Tags: Building Animated Terminal SVGs for GitHub READMEs"
-date: 2026-07-19
+date: 2026-05-24
 description: "svg-terminal turns a YAML config into a self-contained animated SVG that survives GitHub's sandboxed renderer. The interesting engineering problem isn't the animation. It's treating YAML as untrusted input."
 tags: [typescript, svg, security, projects, github]
 author: William Zujkowski
