@@ -23,7 +23,7 @@ export default defineConfig({
   webServer: {
     command: 'npx astro preview --port 4331',
     port: 4331,
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 60_000,
   },
   projects: [
