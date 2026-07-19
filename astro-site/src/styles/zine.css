@@ -29,6 +29,12 @@
   border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
 }
 
+/* The border shorthand above would otherwise erase global.css's accent
+ * left edge on .callout-accent (equal specificity, later file wins). */
+.callout-accent {
+  border-color: var(--color-accent);
+}
+
 .series-nav {
   border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
 }
@@ -54,6 +60,7 @@ pre[data-title]::before {
   inset: auto 0 -4px 0;
   height: 7px;
   background: var(--color-border-bold);
+  -webkit-mask: var(--zine-rule-mask) repeat-x center / 120px 7px;
   mask: var(--zine-rule-mask) repeat-x center / 120px 7px;
   pointer-events: none;
 }
@@ -66,11 +73,9 @@ pre[data-title]::before {
 
 /* Homepage issue-label hairlines become tiny wobbles too. */
 .landing-issue-label .rule {
-  background: none;
   height: 7px;
-  mask: none;
-  -webkit-mask: var(--zine-rule-mask) repeat-x center / 60px 7px;
-  mask: var(--zine-rule-mask) repeat-x center / 60px 7px;
+  -webkit-mask: var(--zine-rule-mask) no-repeat center / 100% 7px;
+  mask: var(--zine-rule-mask) no-repeat center / 100% 7px;
   background-color: var(--color-border-bold);
 }
 

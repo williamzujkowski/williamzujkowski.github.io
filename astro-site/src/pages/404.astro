@@ -11,7 +11,8 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
   <div class="prose" style="text-align: center; margin-top: var(--space-9);">
     {/* Hand-drawn "lost packet" doodle — strokes inherit theme tokens via
         currentColor, so it repaints under every terminal theme. */}
-    <svg class="lost-doodle" viewBox="0 -8 260 158" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Hand-drawn doodle of a lost network packet wandering off the map">
+    {/* Decorative: the visible hand-note caption below carries the meaning. */}
+    <svg class="lost-doodle" viewBox="0 -8 260 158" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <!-- crumpled map outline -->
       <path d="M28 38 Q 24 34 30 30 L 96 22 Q 103 20 108 26 L 112 30 L 178 24 Q 186 22 189 30 L 196 96 Q 198 104 190 106 L 122 114 L 116 110 L 50 120 Q 41 122 39 113 Z" />
       <!-- fold creases -->
