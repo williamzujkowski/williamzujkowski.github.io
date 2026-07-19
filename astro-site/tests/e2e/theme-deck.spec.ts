@@ -85,7 +85,9 @@ test('base light/dark toggle clears an active deck theme', async ({ page }) => {
   );
 });
 
-test('theme crossfade: absent at load and restore, present only on a deliberate switch', async ({
+test.describe('crossfade (motion allowed)', () => {
+  test.use({ contextOptions: { reducedMotion: 'no-preference' } });
+  test('theme crossfade: absent at load and restore, present only on a deliberate switch', async ({
   page,
 }) => {
   // Plain first visit — no stored preference at all. The crossfade class
@@ -118,6 +120,18 @@ test('theme crossfade: absent at load and restore, present only on a deliberate 
   await page.locator('#theme-toggle').click();
   await expect(page.locator('html')).toHaveClass(/theme-transition/);
   await expect(page.locator('html')).not.toHaveClass(/theme-transition/, { timeout: 1000 });
+});
+});
+
+test('crossfade never fires under prefers-reduced-motion: reduce', async ({ browser }) => {
+  const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  await page.goto('/');
+  await page.locator('.theme-deck summary').click();
+  await page.locator('[data-deck-slug="dracula"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
+  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+  await ctx.close();
 });
 
 test('picking a light theme pins light mode', async ({ page }) => {

@@ -115,9 +115,11 @@
     function triggerCrossfade() {
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var root = document.documentElement;
+      // Single pending cleanup: rapid switches must not strip the class early.
+      if (window.__themeFadeT) clearTimeout(window.__themeFadeT);
       root.classList.add('theme-transition');
       void root.offsetHeight; // force reflow: arm the transition before classes below change color tokens
-      window.setTimeout(function () { root.classList.remove('theme-transition'); }, 250);
+      window.__themeFadeT = window.setTimeout(function () { root.classList.remove('theme-transition'); }, 250);
     }
 
     function toggle(e) {

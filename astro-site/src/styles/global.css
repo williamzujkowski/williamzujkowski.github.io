@@ -1012,7 +1012,7 @@ article > div,
      their own grid/block layouts that this rule must never touch. */
   article.post-article {
     display: grid;
-    grid-template-columns: 1fr min(var(--content-reading), 100%) 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--content-reading)) minmax(12rem, 14rem);
     column-gap: var(--space-6);
   }
   article.post-article > nav,
@@ -1031,7 +1031,8 @@ article > div,
     justify-self: start;
     position: sticky;
     top: var(--space-6);
-    width: 14rem;
+    width: 100%;
+    max-width: 14rem;
     max-height: calc(100vh - var(--space-8));
     overflow-y: auto;
   }
@@ -1130,7 +1131,7 @@ div:has(> .post-card) {
    (ThemeDeck.astro summary::before), so it reads as one consistent zine
    motif rather than a new decoration. Static: no animation/blink. */
 .landing-issue-label::before {
-  content: '\276F'; /* ❯ */
+  content: '\276F' / ''; /* ❯ — alt '' keeps AT from announcing it */
   color: var(--color-accent);
 }
 .landing-issue-label .rule {
