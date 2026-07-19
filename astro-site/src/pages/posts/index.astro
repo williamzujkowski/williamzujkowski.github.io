@@ -107,7 +107,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
     align-self: center;
   }
   .year-count {
-    font-family: var(--font-mono);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-micro);
     letter-spacing: 0.12em;
     text-transform: uppercase;

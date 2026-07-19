@@ -30,7 +30,7 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
       <path class="doodle-accent" d="M48 92 L 58 102 M 58 92 L 48 102" stroke="currentColor" stroke-width="3" />
     </svg>
     <p class="hand-note hand-note--accent">route to host lost — last seen leaving the map</p>
-    <p style="font-family: var(--font-mono); font-size: var(--text-display); color: var(--color-muted); opacity: 0.4; margin: 0;">404</p>
+    <p class="voice-machine error-code">404</p>
     <h1 style="margin-top: var(--space-3);">Page not found</h1>
     <p>The page you're looking for doesn't exist or has been moved.</p>
     <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-4); flex-wrap: wrap; margin-top: var(--space-6);">
@@ -41,9 +41,34 @@ const recentPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.
   </div>
 
   <section style="padding-bottom: var(--space-8); margin-top: var(--space-8);">
-    <h2 class="font-mono" style="font-size: var(--text-meta); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--color-muted); font-weight: 400; max-width: var(--content-reading); margin-inline: auto; margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border);">
+    <h2 class="voice-machine recent-posts-heading">
       Recent Posts
     </h2>
     {recentPosts.map((post) => <PostCard post={post} />)}
   </section>
 </BaseLayout>
+
+<style>
+  /* Was inline styles + a `class="font-mono"` that had no matching CSS
+     rule (mono-voice sweep straggler, issue #274) — "Recent Posts" was
+     silently rendering in the serif body face. font-family now comes
+     from the shared .voice-machine utility in global.css. */
+  .error-code {
+    font-size: var(--text-display);
+    letter-spacing: normal; /* cancel .voice-machine's meta tracking at display size */
+    color: var(--color-muted);
+    opacity: 0.4;
+    margin: 0;
+  }
+  .recent-posts-heading {
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 400;
+    max-width: var(--content-reading);
+    margin-inline: auto;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+</style>

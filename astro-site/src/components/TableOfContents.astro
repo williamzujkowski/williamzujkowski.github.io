@@ -57,7 +57,7 @@ const showToc = filteredHeadings.length >= 3;
   .toc details summary {
     cursor: pointer;
     user-select: none;
-    font-family: var(--font-mono);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-meta);
     letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
@@ -94,12 +94,7 @@ const showToc = filteredHeadings.length >= 3;
   .toc li { margin-block-end: var(--space-1); }
 
   .toc a {
-    /* TOC is a machine/meta surface (nav), not prose — mono voice per the
-       two-voice typography system (issue #274). Was --font-body: harmless
-       while body was sans-serif Inter, but reads wrong now that body is a
-       text serif (the TOC summary above is already mono; this brought the
-       link list into line with it). */
-    font-family: var(--font-mono);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-meta);
     color: var(--color-fg-muted);
     text-decoration: none;
@@ -107,4 +102,5 @@ const showToc = filteredHeadings.length >= 3;
   }
 
   .toc a:hover { color: var(--color-fg); }
+
 </style>

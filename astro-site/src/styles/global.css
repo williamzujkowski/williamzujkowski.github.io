@@ -230,6 +230,51 @@ a {
 }
 a:hover { color: var(--color-accent-hover); }
 
+/* ===== Voice: machine (mono) ===============================================
+ * Two-voice typography system (issue #274, "Phosphor broadsheet", ratified
+ * 7-0): serif voice carries human prose; mono voice carries every
+ * machine/meta surface — nav, kickers, dates, tags, TOC, tables, captions,
+ * footer, breadcrumbs. `.voice-machine` is the single composite utility
+ * (family + default size + tracking) and is also directly usable in
+ * markup — see 404.astro's "Recent Posts" eyebrow, which was a stray
+ * `class="font-mono"` with no matching rule until this sweep.
+ *
+ * font-family is the one property every mono surface shares byte-for-byte,
+ * so below that it is centralized ONCE across every current meta/nav
+ * selector instead of being hand-declared per component (vote condition:
+ * DRY or it rots). Size/tracking/color still vary legitimately by surface
+ * and stay on each selector's own rule further down this file — only
+ * family lives here. Adding a new meta/nav surface? Add its selector to
+ * this list rather than writing a new standalone
+ * `font-family: var(--font-mono)` declaration.
+ */
+.voice-machine {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta);
+}
+
+.site-sections,
+.post-breadcrumb, .post-meta, .post-card-meta, .post-card-date, .post-kicker,
+.chip, .chip sup,
+.site-footer, .share-label,
+.masthead-kicker, .masthead-dateline, .landing-issue-label,
+.lead-kicker, .entry-kicker, .archive-count, .archive-stats,
+.uses-meta, .section-eyebrow,
+.prose :where(figcaption), .prose :where(th),
+.prose :where(code):not(:where(pre *)), .prose :where(pre),
+.prose :where(pre[data-title])::before,
+.prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after,
+.toc a, .toc details summary,
+.related-posts h2, .related-meta,
+.series-label, .series-position, .series-current-label,
+.theme-deck,
+.search-kbd, .search-esc,
+.year-count,
+.disclaimer {
+  font-family: var(--font-mono);
+}
+
 /* ===== Header — Remarque editorial identity ===== */
 /* ===== Site masthead nameplate ===== */
 .site-masthead {
@@ -333,7 +378,6 @@ a:hover { color: var(--color-accent-hover); }
   padding-block-start: var(--space-1);
   border-top: 1px solid var(--color-border);
   width: 100%;
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -374,7 +418,6 @@ a:hover { color: var(--color-accent-hover); }
 
 /* ===== Post Article Header ===== */
 .post-breadcrumb {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -392,7 +435,6 @@ a:hover { color: var(--color-accent-hover); }
 }
 
 .post-meta {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -422,7 +464,6 @@ a:hover { color: var(--color-accent-hover); }
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -474,7 +515,6 @@ a.post-card-title:hover { color: var(--color-accent); }
 
 /* Legacy .post-card-date (kept for any stray usage) */
 .post-card-date {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -484,7 +524,6 @@ a.post-card-title:hover { color: var(--color-accent); }
 .chip {
   display: inline-flex; align-items: center;
   padding: 0.2rem 0.6rem;
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   border: 1px solid var(--color-border);
@@ -663,22 +702,24 @@ h1, h2, h3, h4, h5, h6,
 .prose :where(img) { border: 1px solid var(--color-border); border-radius: var(--radius-sm); margin-block: var(--space-5); }
 .prose :where(figure) { margin-block: var(--space-5); }
 .prose :where(figcaption) {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
+  text-align: center;
   margin-top: var(--space-2);
 }
 .prose :where(.scroll-wrap) { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-block: var(--space-5); }
 .prose :where(table) { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-.prose :where(th) { text-align: left; font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
+/* Table headers are a meta surface (mono voice, issue #274 sweep) — was
+   silently inheriting the serif body face since .prose only sets it on
+   figcaption/code/pre, not th. */
+.prose :where(th) { text-align: left; letter-spacing: var(--tracking-meta); font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
 .prose :where(td) { padding: var(--space-2); border-bottom: 1px solid var(--color-border); }
 .prose :where(code):not(:where(pre *)) {
   background-color: var(--color-code-bg);
   padding: 0.15em 0.35em;
   border-radius: var(--radius-sm);
   font-size: 0.9em;
-  font-family: var(--font-mono);
   color: var(--color-code-fg);
 }
 .prose :where(code)::before, .prose :where(code)::after { content: ''; }
@@ -688,7 +729,6 @@ h1, h2, h3, h4, h5, h6,
   border-radius: var(--radius-md);
   padding: var(--space-5); max-width: 100%;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   line-height: 1.6;
 }
@@ -697,7 +737,7 @@ h1, h2, h3, h4, h5, h6,
   content: attr(data-title);
   position: absolute; top: 0; left: 0;
   padding: 0.25rem 0.75rem;
-  font-size: var(--text-micro); font-family: var(--font-mono);
+  font-size: var(--text-micro);
   color: var(--color-muted); background-color: var(--color-border);
   border-radius: var(--radius-md) 0 var(--radius-md) 0;
   border-bottom: 1px solid var(--color-border);
@@ -774,7 +814,6 @@ article .prose > p:first-of-type::first-letter {
   margin-block-start: var(--space-8);
   padding-block-start: var(--space-6);
   border-top: 1px solid var(--color-border);
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
@@ -824,7 +863,6 @@ article .prose > p:first-of-type::first-letter {
 }
 
 .uses-meta {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
@@ -860,7 +898,6 @@ article .prose > p:first-of-type::first-letter {
 
 /* Section eyebrow — mono subtitle above section h2 */
 .section-eyebrow {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
@@ -954,7 +991,6 @@ div:has(> .post-card) {
   text-align: center;
 }
 .masthead-kicker {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -984,7 +1020,6 @@ div:has(> .post-card) {
   color: var(--color-fg-muted);
 }
 .masthead-dateline {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1013,7 +1048,6 @@ div:has(> .post-card) {
   text-align: center;
 }
 .landing-issue-label {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1055,7 +1089,6 @@ div:has(> .post-card) {
 }
 .lead-kicker,
 .entry-kicker {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1207,7 +1240,6 @@ div:has(> .post-card) {
 }
 .archive-link:hover { color: var(--color-accent); }
 .archive-count {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1218,7 +1250,6 @@ div:has(> .post-card) {
 
 /* Post-header kicker (individual posts) */
 .post-kicker {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1254,7 +1285,6 @@ div:has(> .post-card) {
   gap: var(--space-3);
 }
 .archive-stats {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1281,7 +1311,6 @@ div:has(> .post-card) {
   gap: var(--space-4);
 }
 .share-label {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
@@ -1290,7 +1319,6 @@ div:has(> .post-card) {
 /* ===== Polish Pass v3: external links, figures, abbr ===== */
 .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after {
   content: "↗";
-  font-family: var(--font-mono);
   font-size: 0.7em;
   color: var(--color-muted);
   margin-left: 0.15em;
@@ -1299,14 +1327,9 @@ div:has(> .post-card) {
 }
 
 .prose figure { margin-block: var(--space-6); }
-.prose figcaption {
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  letter-spacing: var(--tracking-meta);
-  color: var(--color-muted);
-  text-align: center;
-  margin-top: var(--space-2);
-}
+/* .prose figcaption styling consolidated into the canonical
+   `.prose :where(figcaption)` rule above (was a byte-identical duplicate
+   plus text-align: center, folded in there — mono-voice sweep, #274). */
 
 .prose abbr[title] {
   text-decoration: underline dotted;
@@ -1342,7 +1365,6 @@ h1, h2, h3, .post-card-title {
 /* Chip small-caps treatment */
 .chip { font-variant-caps: all-small-caps; letter-spacing: 0.06em; }
 .chip sup {
-  font-family: var(--font-mono);
   font-size: 0.7em;
   margin-left: 0.3em;
   color: var(--color-muted);
