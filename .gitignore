@@ -67,3 +67,4 @@ coordination/
 # Temporary uploads
 Gemini_Generated_Image_*.png
 wjz*.pdf
+*.bak.*

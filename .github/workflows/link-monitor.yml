@@ -284,9 +284,10 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git checkout -b "$BRANCH"
-        # Plain path, not a glob: posts sit directly in src/posts/ and the
-        # runner shell has no globstar, so 'src/posts/**/*.md' matches nothing.
-        git add src/posts
+        # batch-link-fixer.py leaves .bak.TIMESTAMP safety copies beside the
+        # posts -- stage only the markdown, and let git (not the shell) expand
+        # the pathspec.
+        git add -- 'src/posts/*.md'
         git commit -m "fix(links): auto-repair broken links (>=95% confidence)"
         git push origin "$BRANCH"
 
