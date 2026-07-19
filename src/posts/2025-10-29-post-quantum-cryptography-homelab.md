@@ -25,11 +25,11 @@ The federal government has set a hard deadline of [2035 for migrating all federa
 
 But here's the uncomfortable truth: you're probably already out of time.
 
-The threat isn't cryptographically-relevant quantum computers (CRQCs) breaking your encryption today, those are still [estimated to arrive between 2030-2045 according to expert surveys](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/). The real threat is what security researchers call "Store Now, Decrypt Later" (SNDL) attacks.
+The threat isn't cryptographically-relevant quantum computers (CRQCs) breaking your encryption today, those are still estimated to arrive between 2030-2045 according to expert surveys.[^grqc-timeline] The real threat is what security researchers call "Store Now, Decrypt Later" (SNDL) attacks.
 
 Adversaries are capturing encrypted network traffic right now, storing it in massive databases, and waiting for quantum computers powerful enough to crack it.
 
-According to [RAND Corporation's analysis](https://www.rand.org/pubs/research_reports/RR3102.html), if your data needs to remain confidential for 20-30 years (think: medical records, financial data, personal backups), and it takes you 10-15 years to fully migrate your infrastructure to post-quantum cryptography, then by the time quantum computers arrive in the 2035-2040 window, everything you encrypted between 2015-2030 becomes retroactively vulnerable.
+According to RAND Corporation's analysis,[^rand-analysis] if your data needs to remain confidential for 20-30 years (think: medical records, financial data, personal backups), and it takes you 10-15 years to fully migrate your infrastructure to post-quantum cryptography, then by the time quantum computers arrive in the 2035-2040 window, everything you encrypted between 2015-2030 becomes retroactively vulnerable.
 
 The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/): If **X** (how long your data must stay secret) + **Y** (how long it takes to migrate) > **Z** (when quantum computers arrive), you're already behind schedule.
 
@@ -108,7 +108,7 @@ But here's the surprising part: [recent benchmarks](https://www.mdpi.com/2410-38
 
 The challenge here is signature size. ML-DSA-44 (the smallest variant, roughly equivalent to RSA-2048 security) produces signatures of **2,420 bytes** compared to RSA-2048's roughly 256 bytes. That's almost 10x larger. When you're signing X.509 certificates, this matters because certificate chains get transmitted during every TLS handshake.
 
-According to [research from NIST's PQC Conference](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf), when certificate chains exceed **16 KB**, TLS implementations trigger record fragmentation which adds an extra TCP round-trip due to congestion control. That 200ms delay I mentioned earlier? That was exactly this problem. My certificate chain with ML-DSA signatures hit 18KB and my monitoring dashboard immediately showed the latency spike.
+According to research from NIST's PQC Conference,[^nist-pqc-conference] when certificate chains exceed **16 KB**, TLS implementations trigger record fragmentation which adds an extra TCP round-trip due to congestion control. That 200ms delay I mentioned earlier? That was exactly this problem. My certificate chain with ML-DSA signatures hit 18KB and my monitoring dashboard immediately showed the latency spike.
 
 ### Dilithium Variant Selection: Security vs Performance Trade-offs
 
@@ -277,7 +277,7 @@ Before diving into homelab implementation, I spent way too much time reading abo
 
 [Google enabled X25519Kyber768 by default in Chrome 124 (April 2024)](https://www.chromium.org/cecpq2/), protecting billions of users with hybrid post-quantum key exchange. In [November 2024, Chrome 131 switched to the standardized ML-KEM](https://thehackernews.com/2024/09/google-chrome-switches-to-ml-kem-for.html) instead of the experimental Kyber variant.
 
-The deployment wasn't smooth. Legacy middleboxes and firewalls failed to handle ClientHello messages larger than a single packet, causing connection failures. [According to Google's engineering team](https://www.bleepingcomputer.com/news/security/google-chromes-new-post-quantum-cryptography-may-break-tls-connections/):
+The deployment wasn't smooth. Legacy middleboxes and firewalls failed to handle ClientHello messages larger than a single packet, causing connection failures. According to Google's engineering team:[^google-engineering]
 
 > "These errors are not caused by a bug in Google Chrome but instead caused by web servers failing to properly implement Transport Layer Security (TLS) and not being able to handle larger ClientHello messages."
 
@@ -289,7 +289,7 @@ Protocol ossification strikes again. This is exactly why I broke my homelab on a
 
 In the worst-case scenario (full TLS handshake on every request, no connection reuse), AWS measured a **2.3% decrease** in transactions per second: from 108.7 TPS with classical crypto to 106.2 TPS with hybrid ML-KEM. The bandwidth overhead was approximately **1,600 additional bytes** per handshake, with compute overhead of **80-150 microseconds**.
 
-But here's the critical part: with TLS connection reuse enabled (which is the default for most applications), the overhead dropped to **0.05%**, negligible. This matches [Cloudflare's observation](https://blog.cloudflare.com/the-tls-post-quantum-experiment/) that NTRU-HRSS performance was "hard to distinguish by eye from control connections" during their 2019 experiments.
+But here's the critical part: with TLS connection reuse enabled (which is the default for most applications), the overhead dropped to **0.05%**, negligible. This matches Cloudflare's observation[^cloudflare-2019] that NTRU-HRSS performance was "hard to distinguish by eye from control connections" during their 2019 experiments.
 
 If AWS can run ML-KEM at scale with 0.05% overhead, my homelab with maybe 20 simultaneous TLS connections can definitely handle it.
 
@@ -825,6 +825,12 @@ My homelab now handles TLS with hybrid X25519+ML-KEM-768 for key exchange, class
 But now my encrypted backups, my self-hosted password manager, and my personal data are protected against quantum computers that don't even exist yet. And when those quantum computers finally arrive in 2033 or 2038 or whenever, I'll be able to sleep a little better knowing I acted before the threat materialized instead of after.
 
 The quantum future is coming. Your homelab can be ready for it.
+
+[^grqc-timeline]: [Global Risk Institute: Quantum Threat Timeline Report 2024](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) — expert survey estimating CRQC arrival between 2030-2045.
+[^rand-analysis]: [RAND Corporation: Securing Communications in the Quantum Computing Age](https://www.rand.org/pubs/research_reports/RR3102.html) — analysis of quantum threat timelines and migration strategies.
+[^nist-pqc-conference]: [NIST PQC Conference: Impact of Data-Heavy Post-Quantum TLS 1.3](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf) — analysis of the 16KB certificate chain threshold and TCP fragmentation.
+[^google-engineering]: [BleepingComputer: Google Chrome's new post-quantum cryptography may break TLS connections](https://www.bleepingcomputer.com/news/security/google-chromes-new-post-quantum-cryptography-may-break-tls-connections/) — Google's explanation of the Chrome 124 ClientHello compatibility issue.
+[^cloudflare-2019]: [Cloudflare Blog: The TLS Post-Quantum Experiment](https://blog.cloudflare.com/the-tls-post-quantum-experiment/) — 2019 NTRU-HRSS vs SIKE performance comparison.
 
 ## References
 
