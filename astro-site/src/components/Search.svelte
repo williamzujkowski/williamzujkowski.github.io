@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
 
   interface PagefindResult {
     id: string;
@@ -34,6 +34,45 @@
   let debounceTimer: ReturnType<typeof setTimeout>;
   let previouslyFocused: HTMLElement | null = null;
   let dialogEl: HTMLDivElement;
+  let overlayEl: HTMLDivElement;
+  let inertedEls: HTMLElement[] = [];
+
+  // The dialog is mounted inside <header> (site-masthead-tools-right), not
+  // portalled to <body> -- so we can't just inert() the whole header (that
+  // would inert the dialog too, since it's a header descendant). Instead,
+  // walk up from the overlay to <body>, inerting true siblings at every
+  // level. That covers the header's other regions (nav, nameplate, the
+  // theme deck/toggle) *and* <main>/<footer> as siblings of <header> --
+  // without ever touching the dialog's own ancestor chain.
+  function inertOutside(el: HTMLElement): HTMLElement[] {
+    const inerted: HTMLElement[] = [];
+    let node: HTMLElement | null = el;
+    while (node && node !== document.body) {
+      const parent: HTMLElement | null = node.parentElement;
+      if (parent) {
+        for (const sibling of Array.from(parent.children)) {
+          if (sibling !== node && sibling instanceof HTMLElement && !sibling.hasAttribute('inert')) {
+            sibling.setAttribute('inert', '');
+            // Ownership marker: only clear elements THIS dialog inerted, so a
+            // second modal claiming the same element later isn't un-inerted.
+            sibling.setAttribute('data-search-inert', '');
+            inerted.push(sibling);
+          }
+        }
+      }
+      node = parent;
+    }
+    return inerted;
+  }
+
+  function clearInert(els: HTMLElement[]) {
+    for (const el of els) {
+      if (el.hasAttribute('data-search-inert')) {
+        el.removeAttribute('inert');
+        el.removeAttribute('data-search-inert');
+      }
+    }
+  }
 
   async function loadPagefind(): Promise<PagefindModule | null> {
     if (pagefind) return pagefind;
@@ -73,13 +112,19 @@
     isOpen = false;
     query = '';
     results = [];
+    clearInert(inertedEls);
+    inertedEls = [];
     previouslyFocused?.focus();
     previouslyFocused = null;
   }
 
-  function open() {
+  async function open() {
     isOpen = true;
     previouslyFocused = document.activeElement as HTMLElement | null;
+    await tick(); // wait for the {#if isOpen} block to mount overlayEl
+    if (isOpen && overlayEl) {
+      inertedEls = inertOutside(overlayEl);
+    }
     setTimeout(() => inputEl?.focus(), 50);
   }
 
@@ -142,7 +187,7 @@
 <!-- Search dialog -->
 {#if isOpen}
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="search-overlay">
+  <div bind:this={overlayEl} class="search-overlay">
     <!-- Backdrop -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="search-backdrop" onclick={close}></div>

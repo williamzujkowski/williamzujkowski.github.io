@@ -20,8 +20,9 @@
     "audit:contrast": "node scripts/contrast-audit.mjs",
     "audit:typography": "node scripts/typography-audit.mjs",
     "audit:colors": "node scripts/color-token-audit.mjs",
+    "audit:accent-font": "node scripts/accent-font-audit.mjs",
     "audit:apca": "node scripts/apca-audit.mjs",
-    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors && pnpm audit:apca",
+    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors && pnpm audit:accent-font && pnpm audit:apca",
     "test:a11y": "playwright test tests/e2e/a11y.spec.ts"
   },
   "dependencies": {

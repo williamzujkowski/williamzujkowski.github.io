@@ -3,12 +3,22 @@ name: Remarque Audits
 on:
   pull_request:
     branches: [main]
+    paths: ['astro-site/**', 'src/**']
   push:
     branches: [main]
+    paths: ['astro-site/**', 'src/**']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
   remarque:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
       - uses: pnpm/action-setup@a0ea98b2dc7d387a59324835f7421c1d5f8357b4  # v6.0.5
@@ -27,6 +37,8 @@ jobs:
         run: node astro-site/scripts/typography-audit.mjs
       - name: Color-token audit (no hardcoded hex/rgb/oklch outside tokens)
         run: node astro-site/scripts/color-token-audit.mjs
+      - name: Accent-font audit (--font-accent restricted to .hand-note allowlist)
+        run: node astro-site/scripts/accent-font-audit.mjs
       - name: APCA advisory (WCAG 3 draft — informational only)
         run: node astro-site/scripts/apca-audit.mjs
         continue-on-error: true
