@@ -52,7 +52,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass, asdict
 from datetime import datetime
-from urllib.parse import urlparse, quote
+from urllib.parse import unquote, urlparse, quote
 import hashlib
 
 # Path setup for centralized logging
@@ -83,6 +83,8 @@ class RepairSuggestion:
 class CitationRepair:
     """Find replacements for broken citations"""
 
+    DOI_RE = re.compile(r'10\.\d{4,9}/[^\s?#]+', re.IGNORECASE)
+
     # Academic search APIs and databases
     ACADEMIC_SOURCES = {
         'arxiv': 'https://export.arxiv.org/api/query',
@@ -112,6 +114,76 @@ class CitationRepair:
             'no_fix_found': 0
         }
         self.repair_cache = {}
+
+    @classmethod
+    def _extract_doi(cls, text: str) -> Optional[str]:
+        match = cls.DOI_RE.search(text or '')
+        if not match:
+            return None
+
+        doi = match.group(0).rstrip('.,;:')
+        while doi.endswith(')') and doi.count('(') < doi.count(')'):
+            doi = doi[:-1]
+        return doi.lower()
+
+    @staticmethod
+    def _domain_path(url: str) -> Tuple[str, str]:
+        parsed = urlparse(url)
+        return parsed.netloc.lower().removeprefix('www.'), parsed.path.rstrip('/')
+
+    def _same_live_target(self, original_url: str, suggested_url: str) -> bool:
+        original_doi = self._extract_doi(original_url)
+        suggested_doi = self._extract_doi(suggested_url)
+        if original_doi or suggested_doi:
+            return original_doi == suggested_doi
+        return self._domain_path(original_url) == self._domain_path(suggested_url)
+
+    def _is_wayback_snapshot_of_original(self, original_url: str, suggested_url: str) -> bool:
+        parsed = urlparse(suggested_url)
+        if parsed.netloc.lower() not in {'archive.org', 'web.archive.org'}:
+            return False
+
+        match = re.match(r'/web/[^/]+/(.+)', parsed.path)
+        if not match:
+            return False
+
+        archived_url = unquote(match.group(1))
+        return self._same_live_target(original_url, archived_url)
+
+    @staticmethod
+    def _relevance_supports_replacement(relevance: Optional[Dict]) -> bool:
+        if not relevance:
+            return False
+
+        explicit_flags = (
+            relevance.get('supports_repair'),
+            relevance.get('replacement_supported'),
+            relevance.get('supports_replacement'),
+        )
+        if any(flag is True for flag in explicit_flags):
+            return True
+
+        score = relevance.get('relevance_score')
+        return isinstance(score, (int, float)) and score >= 0.8
+
+    def _cap_confidence(self, confidence: float, original_url: str, suggested_url: str,
+                        repair_type: str, relevance: Optional[Dict] = None,
+                        is_archived: bool = False) -> float:
+        """Keep high confidence only for identity-preserving repairs.
+
+        Wayback snapshots of the original URL and same-DOI resolutions are the
+        same citation target. Different live targets need explicit relevance
+        support before they can cross the 95% auto-apply threshold.
+        """
+        if is_archived and self._is_wayback_snapshot_of_original(original_url, suggested_url):
+            return confidence
+        if repair_type == 'doi_resolution' and self._same_live_target(original_url, suggested_url):
+            return confidence
+        if self._same_live_target(original_url, suggested_url):
+            return confidence
+        if self._relevance_supports_replacement(relevance):
+            return confidence
+        return min(confidence, 90)
 
     async def initialize(self):
         """Initialize HTTP session"""
@@ -225,6 +297,7 @@ class CitationRepair:
         """Repair academic citations"""
         link = link_info['link']
         url = link['url']
+        relevance = link_info.get('relevance', {})
         context = link.get('context_before', '') + ' ' + link.get('context_after', '')
 
         # Extract paper details from context
@@ -241,7 +314,7 @@ class CitationRepair:
 
         for strategy in strategies:
             try:
-                result = await strategy(paper_info, url)
+                result = await strategy(paper_info, url, relevance)
                 if result:
                     self.stats['alternative_fixes'] += 1
                     return result
@@ -251,7 +324,8 @@ class CitationRepair:
 
         return None
 
-    async def _search_arxiv(self, paper_info: Dict, original_url: str) -> Optional[RepairSuggestion]:
+    async def _search_arxiv(self, paper_info: Dict, original_url: str,
+                            relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
         """Search arXiv for paper"""
         if not paper_info.get('title'):
             return None
@@ -280,7 +354,9 @@ class CitationRepair:
                                 issue_type='broken_citation',
                                 suggested_url=new_url,
                                 source='arXiv',
-                                confidence=85,
+                                confidence=self._cap_confidence(
+                                    85, original_url, new_url, 'alternative', relevance
+                                ),
                                 title=title,
                                 description='Found on arXiv',
                                 is_archived=False,
@@ -292,7 +368,8 @@ class CitationRepair:
 
         return None
 
-    async def _search_crossref(self, paper_info: Dict, original_url: str) -> Optional[RepairSuggestion]:
+    async def _search_crossref(self, paper_info: Dict, original_url: str,
+                               relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
         """Search CrossRef for DOI"""
         if not paper_info.get('title'):
             return None
@@ -319,7 +396,9 @@ class CitationRepair:
                                 issue_type='broken_citation',
                                 suggested_url=new_url,
                                 source='CrossRef',
-                                confidence=90,
+                                confidence=self._cap_confidence(
+                                    90, original_url, new_url, 'doi_resolution', relevance
+                                ),
                                 title=title,
                                 description='DOI resolution link',
                                 is_archived=False,
@@ -332,13 +411,15 @@ class CitationRepair:
         return None
 
     async def _search_semantic_scholar(self, paper_info: Dict,
-                                      original_url: str) -> Optional[RepairSuggestion]:
+                                      original_url: str,
+                                      relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
         """Search Semantic Scholar"""
         # Simplified - would need API key for production
         return None
 
     async def _check_doi_resolution(self, paper_info: Dict,
-                                   original_url: str) -> Optional[RepairSuggestion]:
+                                   original_url: str,
+                                   relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
         """Check if DOI can be resolved"""
         doi = paper_info.get('doi')
         if not doi:
@@ -356,7 +437,9 @@ class CitationRepair:
                 issue_type='broken_citation',
                 suggested_url=new_url,
                 source='DOI',
-                confidence=95,
+                confidence=self._cap_confidence(
+                    95, original_url, new_url, 'doi_resolution', relevance
+                ),
                 title=paper_info.get('title', 'Paper'),
                 description='Direct DOI link',
                 is_archived=False,
@@ -367,7 +450,8 @@ class CitationRepair:
         return None
 
     async def _find_pmc_version(self, paper_info: Dict,
-                               original_url: str) -> Optional[RepairSuggestion]:
+                               original_url: str,
+                               relevance: Optional[Dict] = None) -> Optional[RepairSuggestion]:
         """Find PubMed Central open access version"""
         # Simplified - would use PMC API
         return None
@@ -422,7 +506,10 @@ class CitationRepair:
                             issue_type=link_info['issue_type'],
                             suggested_url=wayback_url,
                             source='Wayback Machine',
-                            confidence=70,
+                            confidence=self._cap_confidence(
+                                70, url, wayback_url, 'wayback', link_info.get('relevance', {}),
+                                is_archived=True
+                            ),
                             title=link_info['link'].get('text', 'Archived Page'),
                             description=f"Archived on {snapshot.get('timestamp', 'unknown')}",
                             is_archived=True,
@@ -462,7 +549,10 @@ class CitationRepair:
                 issue_type='redirect',
                 suggested_url=final_url,
                 source='HTTP Redirect',
-                confidence=confidence,
+                confidence=self._cap_confidence(
+                    confidence, link_info['link']['url'], final_url, 'direct',
+                    link_info.get('relevance', {})
+                ),
                 title=link_info['link'].get('text', 'Redirected Page'),
                 description='Following HTTP redirect',
                 is_archived=False,

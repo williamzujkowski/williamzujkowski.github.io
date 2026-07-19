@@ -3,10 +3,8 @@ name: Accessibility (axe-playwright)
 on:
   pull_request:
     branches: [main]
-    paths: ['astro-site/**', 'src/**']
   push:
     branches: [main]
-    paths: ['astro-site/**', 'src/**']
 
 permissions:
   contents: read
@@ -16,7 +14,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Job-level path gating instead of workflow-level `paths:` triggers —
+  # `remarque` is a REQUIRED branch-protection check, and trigger-filtered
+  # workflows never report on non-matching PRs, wedging them as "expected"
+  # forever. A skipped job still reports and satisfies protection.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      site: ${{ steps.diff.outputs.site }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -z "$BASE" ] || ! git cat-file -e "$BASE" 2>/dev/null; then
+            echo "site=true" >> "$GITHUB_OUTPUT"   # can't diff: run everything
+          elif git diff --name-only "$BASE"...HEAD | grep -qE '^(astro-site/|src/)'; then
+            echo "site=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "site=false" >> "$GITHUB_OUTPUT"
+          fi
+
   axe:
+    needs: changes
+    if: needs.changes.outputs.site == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
