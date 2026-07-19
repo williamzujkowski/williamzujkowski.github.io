@@ -8,9 +8,6 @@ tags:
   - llm
   - machine-learning
   - homelab
-image: "https://images.unsplash.com/photo-1633613286991-611fe299c4be?w=1200&h=630"
-imageAlt: "Digital library with glowing data connections"
-
 ---
 
 **BLUF:** Recently, I spent three weekends building a RAG system for my homelab documentation. I wanted to ask natural language questions about my infrastructure and get accurate answers instead of hallucinated nonsense..

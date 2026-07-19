@@ -7,8 +7,6 @@ author: "William Zujkowski"
 tags: [ai, software-engineering, open-source, orchestration, security]
 series: "Building AI Systems"
 seriesOrder: 2
-image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=630"
-imageAlt: "Team collaboration around a table with documents and diagrams"
 readingTime: "9 min read"
 ---
 

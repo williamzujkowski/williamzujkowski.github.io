@@ -8,9 +8,6 @@ tags:
   - software-engineering
   - devops
   - observability
-image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
-imageAlt: "Data visualization dashboard with analytics"
-
 ---
 ## When "Bulletproof" Systems Fail Perfectly
 

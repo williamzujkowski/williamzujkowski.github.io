@@ -8,9 +8,6 @@ tags:
   - programming
   - security
   - vulnerability-management
-image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=630"
-imageAlt: "Code on a computer screen with dark background"
-
 ---
 Years ago, I discovered a SQL injection vulnerability during a code review. The sinking feeling was immediate — it was a wake-up call that changed how I approach development. Writing secure code isn't just a best practice, it's a moral imperative.
 

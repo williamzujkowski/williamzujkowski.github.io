@@ -7,9 +7,6 @@ tags:
   - ai
   - ethics
   - llm
-image: "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=1200&h=630"
-imageAlt: "Human hand reaching toward robotic hand"
-
 ---
 Whenever I interact with a Large Language Model, there's a moment of awe, like stepping into a vast library filled with the echoes of human knowledge. But that wonder is tempered by experience, by the mistakes I've witnessed and the biases I've seen amplified.
 

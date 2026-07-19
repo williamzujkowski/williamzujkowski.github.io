@@ -43,13 +43,6 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Run Lighthouse CI
-        run: |
-          pnpm add -g @lhci/cli
-          lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
         with:

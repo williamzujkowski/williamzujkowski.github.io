@@ -1,7 +1,7 @@
 ---
 import PostLayout from '@layouts/PostLayout.astro';
 import { getCollection, render } from 'astro:content';
-import { getValidImageUrl, getReadingTime } from '@/lib/utils';
+import { getReadingTime } from '@/lib/utils';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -17,7 +17,6 @@ const { Content, headings } = await render(post);
 const body = post.body ?? '';
 const readingTime = getReadingTime(body);
 const wordCount = body.split(/\s+/).filter(Boolean).length;
-const imageUrl = getValidImageUrl(post.data.image);
 ---
 
 <PostLayout
@@ -25,9 +24,7 @@ const imageUrl = getValidImageUrl(post.data.image);
   description={post.data.description}
   date={post.data.date}
   tags={post.data.tags}
-  image={imageUrl}
   ogImage={`/og/${post.id}.png`}
-  imageAlt={post.data.imageAlt}
   readingTime={readingTime}
   wordCount={wordCount}
   headings={headings}

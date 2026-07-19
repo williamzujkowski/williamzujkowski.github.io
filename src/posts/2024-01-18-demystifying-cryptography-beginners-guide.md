@@ -8,9 +8,6 @@ tags:
   - security
   - privacy
   - learning
-image: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=1200&h=630"
-imageAlt: "Abstract digital encryption visualization"
-
 ---
 ## BLUF: Why This Matters
 

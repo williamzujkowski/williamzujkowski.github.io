@@ -10,9 +10,6 @@ tags:
   - machine-learning
   - privacy
   - security
-image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=1200&h=630"
-imageAlt: "Privacy-focused computing hardware setup"
-
 ---
 
 I spent six months believing my homelab AI setup was perfectly private. The RTX 3090 hummed away in my server rack running Llama models locally, no cloud API calls, no data leaving my network. Or so I thought.

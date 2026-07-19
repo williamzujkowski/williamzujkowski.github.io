@@ -1,20 +1,7 @@
 ---
 date: 2025-01-01
-image: https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1200&h=630
-imageAlt: "Colorful code on a computer screen"
 author: William Zujkowski
 description: Build privacy-respecting sites with Eleventy—create fast, accessible static websites with zero tracking and excellent Core Web Vitals.
-images:
-  hero:
-    alt: Building My Digital Garden with Eleventy - Hero Image
-    caption: Visual representation of Building My Digital Garden with Eleventy
-    height: 630
-    src: /assets/images/blog/hero/welcome-hero.jpg
-    width: 1200
-  inline: []
-  og:
-    alt: Building My Digital Garden with Eleventy - Social Media Preview
-    src: /assets/images/blog/hero/welcome-og.jpg
 tags:
 - web-development
 - eleventy

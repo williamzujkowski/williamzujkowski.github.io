@@ -74,7 +74,7 @@ jobs:
         from pathlib import Path
 
         # Check both old src/posts and astro content directories
-        post_dirs = [Path('src/posts'), Path('astro-site/src/content/blog'), Path('astro-site/src/pages/posts')]
+        post_dirs = [Path('src/posts')]
         total_posts = 0
         posts_with_citations = 0
 
@@ -124,7 +124,7 @@ jobs:
 
         issues_found = []
 
-        post_dirs = [Path('src/posts'), Path('astro-site/src/content/blog'), Path('astro-site/src/pages/posts')]
+        post_dirs = [Path('src/posts')]
         for posts_dir in post_dirs:
             if not posts_dir.exists():
                 continue
@@ -204,8 +204,11 @@ jobs:
 
     - name: Run pip-audit on Python dependencies
       run: |
-        pip install pip-audit
-        pip-audit -r requirements.txt --output pip-audit-results.json --format json || true
+        pip install pip-audit uv
+        # requirements.txt was removed (duplicate of pyproject.toml) -- export
+        # the locked runtime deps for pip-audit instead.
+        uv export --no-dev --no-emit-project --format requirements-txt -o /tmp/requirements-audit.txt
+        pip-audit -r /tmp/requirements-audit.txt --output pip-audit-results.json --format json || true
       continue-on-error: true
 
     - name: Upload security results

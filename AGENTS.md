@@ -45,9 +45,8 @@ pnpm check           # Astro type checking
 │   ├── lib/logging_config.py  # Shared logging module
 │   ├── link-validation/       # Citation and link health checking (7 scripts)
 │   └── blog-audit/            # Blog audit helpers
-├── tests/unit/                # Unit tests (JS)
 ├── docs/                      # Research and link validation docs
-├── .github/workflows/         # CI/CD (6 workflows)
+├── .github/workflows/         # CI/CD (7 workflows)
 └── nexus-agents.yaml          # AI agent orchestration config
 ```
 
@@ -134,7 +133,7 @@ pnpm check           # Astro type checking
 
 - Blog posts require frontmatter: title, date, description, tags
 - Citations required for technical claims (target 90%+ coverage)
-- Hero images for all posts
+- Social images are generated per post at build time (`/og/<slug>.png`) — no hero-image frontmatter
 - SEO: canonical URLs, Open Graph, Twitter Cards, structured data
 
 ---
@@ -143,6 +142,7 @@ pnpm check           # Astro type checking
 
 Four layers, each owning a distinct concern. When adding a new check,
 pick the layer that matches the latency, cost, and feedback profile.
+The Layer-1 skills live in `.claude/skills/blog-*/` (tracked in git).
 
 ```
 ┌─ 1. Pre-publish (interactive, author-invoked via Skill tool) ─────┐
@@ -170,6 +170,8 @@ pick the layer that matches the latency, cost, and feedback profile.
 │   compliance-monitor.yml → Lighthouse, HTML validation,           │
 │                            citation coverage %, NDA pattern grep, │
 │                            Trivy + Gitleaks + pip-audit           │
+│   tests.yml              → pytest for scripts/link-validation     │
+│                            (only on scripts/** changes)           │
 └───────────────────────────────────────────────────────────────────┘
                             │
                             ▼
@@ -223,6 +225,7 @@ pick the layer that matches the latency, cost, and feedback profile.
 | `compliance-monitor.yml` | push/PR/daily | Lighthouse, HTML validation, citation coverage, NDA pattern grep, Trivy/Gitleaks/pip-audit |
 | `link-monitor.yml` | daily/dispatch + PR on `src/posts/**` | External link health via Python pipeline; auto-PRs repairs |
 | `citation-validation.yml` | weekly/dispatch | Deeper weekly citation audit; opens tracking issue |
+| `tests.yml` | push/PR on `scripts/**`, dispatch | Python pytest gate for the link-validation pipeline |
 
 ---
 
