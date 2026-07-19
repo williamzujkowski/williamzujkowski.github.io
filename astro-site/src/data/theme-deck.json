@@ -374,7 +374,7 @@
       "--color-border-bold": "oklch(0.7489 0.0207 270.4)",
       "--color-surface": "oklch(0.9369 0.0073 265.1)",
       "--color-accent": "oklch(0.5505 0.2155 19.8)",
-      "--color-accent-hover": "oklch(0.5505 0.2155 19.8)",
+      "--color-accent-hover": "oklch(0.5217 0.1724 354.7)",
       "--color-code-bg": "oklch(0.9265 0.0080 265.4)",
       "--color-code-fg": "oklch(0.4355 0.0430 279.3)",
       "--color-selection-bg": "oklch(0.8560 0.0582 293.3)"

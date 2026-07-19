@@ -145,6 +145,18 @@ const lightThemes = themes.filter((t) => !t.isDark);
   (function () {
     var DECK_KEY = 'themeDeck';
 
+    // localStorage can throw (blocked cookies, some private modes) — the
+    // picker must keep working without persistence.
+    function storageGet(key) {
+      try { return localStorage.getItem(key); } catch (e) { return null; }
+    }
+    function storageSet(key, value) {
+      try { localStorage.setItem(key, value); } catch (e) { /* no persistence */ }
+    }
+    function storageRemove(key) {
+      try { localStorage.removeItem(key); } catch (e) { /* no persistence */ }
+    }
+
     function applyDeck(slug, isDark) {
       var root = document.documentElement;
       if (slug) {
@@ -155,21 +167,27 @@ const lightThemes = themes.filter((t) => !t.isDark);
         root.classList.add(isDark ? 'dark' : 'light');
         // Value is "slug|mode" so the before-paint head script can restore
         // both without shipping any theme data.
-        localStorage.setItem(DECK_KEY, slug + '|' + (isDark ? 'dark' : 'light'));
+        storageSet(DECK_KEY, slug + '|' + (isDark ? 'dark' : 'light'));
       } else {
         root.removeAttribute('data-theme-deck');
-        localStorage.removeItem(DECK_KEY);
+        storageRemove(DECK_KEY);
       }
-      syncUi();
+      // Sync from the value just applied, not a storage round-trip — the UI
+      // must match the DOM even when persistence is unavailable.
+      syncUi(slug || '');
     }
 
-    function syncUi() {
-      var active = (localStorage.getItem(DECK_KEY) || '').split('|')[0];
+    function syncUi(active) {
+      if (active === undefined) {
+        active = (storageGet(DECK_KEY) || '').split('|')[0];
+      }
       var current = document.getElementById('theme-deck-current');
       var activeName = 'Remarque';
       document.querySelectorAll('.deck-option').forEach(function (btn) {
         var checked = (btn.getAttribute('data-deck-slug') || '') === active;
         btn.setAttribute('aria-checked', checked ? 'true' : 'false');
+        // Roving tabindex per the ARIA radio-group pattern: one Tab stop.
+        btn.setAttribute('tabindex', checked ? '0' : '-1');
         if (checked && btn.getAttribute('data-deck-name')) {
           activeName = btn.getAttribute('data-deck-name');
         }
@@ -177,7 +195,8 @@ const lightThemes = themes.filter((t) => !t.isDark);
       if (current) current.textContent = activeName;
     }
 
-    document.querySelectorAll('.deck-option').forEach(function (btn) {
+    var options = Array.prototype.slice.call(document.querySelectorAll('.deck-option'));
+    options.forEach(function (btn) {
       btn.addEventListener('click', function () {
         applyDeck(
           btn.getAttribute('data-deck-slug') || null,
@@ -186,7 +205,21 @@ const lightThemes = themes.filter((t) => !t.isDark);
       });
     });
 
-    document.addEventListener('theme-deck-cleared', syncUi);
+    var panel = document.querySelector('.deck-panel');
+    if (panel) {
+      panel.addEventListener('keydown', function (e) {
+        var delta = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+        if (!delta) return;
+        var i = options.indexOf(document.activeElement);
+        if (i === -1) return;
+        e.preventDefault();
+        var next = options[(i + delta + options.length) % options.length];
+        next.focus();
+        next.click(); // arrow moves selection, matching native radio behavior
+      });
+    }
+
+    document.addEventListener('theme-deck-cleared', function () { syncUi(); });
     syncUi();
   })();
 </script>

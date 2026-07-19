@@ -15,28 +15,57 @@ test('deck theme applies, persists across reload, and survives navigation', asyn
   await page.reload();
   await expect(html).toHaveAttribute('data-theme-deck', 'dracula');
 
-  // And across a navigation
-  await page.goto('/about/');
+  // And across a REAL link click — a review finding showed page.goto() can't
+  // detect navigation-mode regressions (it always forces a full load).
+  await page.getByRole('link', { name: 'Colophon' }).first().click();
+  await expect(page).toHaveURL(/about/);
   await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
+  const bg = await page.evaluate(() =>
+    getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
+  );
+  expect(bg).toContain('0.2882'); // dracula bg lightness — theme actually painted
 });
 
-test('deck theme is stamped before first paint (no FOUC)', async ({ page }) => {
+test('deck theme is stamped before first paint (no FOUC)', async ({ page, context }) => {
   await page.goto('/');
   await page.locator('.theme-deck summary').click();
   await page.locator('[data-deck-slug="nord"]').click();
 
-  // On the next load, the attribute must be present at DOMContentLoaded —
+  // On a fresh page, the attribute must be present at DOMContentLoaded —
   // i.e. set by the inline head script, not by post-load component JS.
-  const attrAtDcl = await page.evaluate(() => {
-    return new Promise<string | null>((resolve) => {
-      const w = window.open('/', '_blank');
-      if (!w) return resolve('window-blocked');
-      w.addEventListener('DOMContentLoaded', () =>
-        resolve(w.document.documentElement.getAttribute('data-theme-deck'))
-      );
-    });
-  });
-  expect(attrAtDcl).toBe('nord');
+  // Playwright-native popup sync (review finding: a hand-rolled window.open
+  // + DOMContentLoaded listener races and times out instead of failing).
+  const [popup] = await Promise.all([
+    context.waitForEvent('page'),
+    page.evaluate(() => window.open('/')),
+  ]);
+  await popup.waitForLoadState('domcontentloaded');
+  const attr = await popup.evaluate(() =>
+    document.documentElement.getAttribute('data-theme-deck')
+  );
+  expect(attr).toBe('nord');
+  await popup.close();
+});
+
+test('garbage localStorage slug degrades to default Remarque without errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(String(e)));
+
+  await page.goto('/');
+  await page.evaluate(() => localStorage.setItem('themeDeck', 'not-a-real-theme|dark'));
+  await page.reload();
+
+  // Attribute carries the garbage value but no CSS matches: Remarque default.
+  const bg = await page.evaluate(() =>
+    getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
+  );
+  expect(bg).toContain('0.95 0.015 75');
+  expect(errors).toEqual([]);
+
+  // Picker still functional afterward
+  await page.locator('.theme-deck summary').click();
+  await page.locator('[data-deck-slug="dracula"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
 });
 
 test('base light/dark toggle clears an active deck theme', async ({ page }) => {

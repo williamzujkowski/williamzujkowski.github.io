@@ -208,17 +208,19 @@ function isActiveLink(linkHref: string): boolean {
          A saved deck theme ("slug|mode") wins over the plain dark/light pref. -->
     <script is:inline>
       (function() {
-        var root = document.documentElement;
-        var deck = localStorage.getItem('themeDeck');
-        if (deck && deck.indexOf('|') > 0) {
-          var parts = deck.split('|');
-          root.setAttribute('data-theme-deck', parts[0]);
-          root.classList.add(parts[1] === 'dark' ? 'dark' : 'light');
-          return;
-        }
-        var t = localStorage.theme;
-        if (t === 'dark') root.classList.add('dark');
-        else if (t === 'light') root.classList.add('light');
+        try {
+          var root = document.documentElement;
+          var deck = localStorage.getItem('themeDeck');
+          if (deck && deck.indexOf('|') > 0) {
+            var parts = deck.split('|');
+            root.setAttribute('data-theme-deck', parts[0]);
+            root.classList.add(parts[1] === 'dark' ? 'dark' : 'light');
+            return;
+          }
+          var t = localStorage.theme;
+          if (t === 'dark') root.classList.add('dark');
+          else if (t === 'light') root.classList.add('light');
+        } catch (e) { /* storage blocked: fall back to the CSS media query */ }
       })();
     </script>
   </head>

@@ -17,6 +17,7 @@ import json
 import math
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -157,8 +158,12 @@ def pick_accent(colors, bg, fg, slug):
         return lch, mix(fg, lch, 0.25), f"{best} (deepened)"
     scored.sort(reverse=True)
     accent = scored[0]
-    hover = next((s for s in scored[1:] if s[2] != accent[2]), accent)
-    return accent[3], hover[3], accent[2]
+    hover = next((s[3] for s in scored[1:] if s[2] != accent[2]), None)
+    if hover is None:
+        # Only one passing slot (e.g. catppuccin-latte): derive a hover shade
+        # instead of duplicating the accent, which would kill :hover feedback.
+        hover = mix(fg, accent[3], 0.25)
+    return accent[3], hover, accent[2]
 
 
 def build_theme(t):
@@ -170,6 +175,8 @@ def build_theme(t):
         raise SystemExit(f"{t['slug']}: fg/bg {contrast(fg, bg):.2f} below AAA floor")
 
     accent, hover, accent_slot = pick_accent(colors, bg, fg, t["slug"])
+    if css(accent) == css(hover):
+        raise SystemExit(f"{t['slug']}: accent and accent-hover are identical")
 
     fg_muted = mix(fg, bg, find_mix_share(fg, bg, 0.70, MUTED_FLOOR))
     muted = mix(fg, bg, find_mix_share(fg, bg, 0.55, MUTED_FLOOR))
@@ -225,7 +232,10 @@ def main():
         built.append(build_theme(t))
         attribution.append({
             "slug": slug, "name": t["name"],
-            "source": t["source"], "sourceUrl": t["sourceUrl"],
+            "source": t["source"],
+            # Upstream sourceUrls carry literal spaces (invalid URIs) —
+            # percent-encode the path, keeping scheme/host/slashes intact.
+            "sourceUrl": quote(t["sourceUrl"], safe=":/"),
         })
 
     data_dir = REPO_ROOT / "astro-site" / "src" / "data"
