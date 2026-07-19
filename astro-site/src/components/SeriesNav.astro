@@ -10,10 +10,8 @@ const { currentId, series } = Astro.props;
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.series === series);
 const sorted = allPosts.sort((a, b) => {
-  if (a.data.seriesOrder !== undefined && b.data.seriesOrder !== undefined) {
-    return a.data.seriesOrder - b.data.seriesOrder;
-  }
-  return a.data.date.getTime() - b.data.date.getTime();
+  const orderDelta = (a.data.seriesOrder ?? Infinity) - (b.data.seriesOrder ?? Infinity);
+  return orderDelta || a.data.date.getTime() - b.data.date.getTime();
 });
 
 const currentIndex = sorted.findIndex((p) => p.id === currentId);
