@@ -176,7 +176,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             state: 'open',
-            labels: ['automated', 'link-health']
+            labels: 'automated,link-health'
           });
 
           if (issues.data.length > 0) {
@@ -194,7 +194,7 @@ jobs:
               repo: context.repo.repo,
               title: title,
               body: body,
-              labels: ['automated', 'link-health']
+              labels: 'automated,link-health'
             });
             console.log(`Created new issue #${newIssue.data.number}`);
           }

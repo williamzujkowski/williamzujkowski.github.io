@@ -53,6 +53,9 @@
         for (const sibling of Array.from(parent.children)) {
           if (sibling !== node && sibling instanceof HTMLElement && !sibling.hasAttribute('inert')) {
             sibling.setAttribute('inert', '');
+            // Ownership marker: only clear elements THIS dialog inerted, so a
+            // second modal claiming the same element later isn't un-inerted.
+            sibling.setAttribute('data-search-inert', '');
             inerted.push(sibling);
           }
         }
@@ -64,7 +67,10 @@
 
   function clearInert(els: HTMLElement[]) {
     for (const el of els) {
-      el.removeAttribute('inert');
+      if (el.hasAttribute('data-search-inert')) {
+        el.removeAttribute('inert');
+        el.removeAttribute('data-search-inert');
+      }
     }
   }
 

@@ -127,7 +127,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
-              labels: ['automated', 'citation-validation']
+              labels: 'automated,citation-validation'
             });
 
             if (issues.data.length > 0) {
