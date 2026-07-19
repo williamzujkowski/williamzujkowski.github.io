@@ -972,6 +972,71 @@ article > div,
 
 /* TOC styling is in TableOfContents.astro component */
 
+/* ===== Sticky TOC side rail (issue #274 item 4) ===========================
+ * Progressive enhancement: below 1280px the TOC stays exactly as it always
+ * was — an inline collapsible <details> in the normal reading-column flow,
+ * governed entirely by the centering rule above and TableOfContents.astro's
+ * own styles. Nothing in this block runs under that breakpoint.
+ *
+ * At >=1280px there's enough side space (72rem body - 40rem reading column
+ * = 16rem gutter per side) for a slim always-open rail. `article` becomes a
+ * 3-column grid — gutter / reading column / gutter — sized so the center
+ * track is IDENTICAL to the plain `max-width: content-reading; margin-inline:
+ * auto` centering used everywhere else (same visual column, just grid
+ * instead of block flow). Every direct child keeps that center column;
+ * only `.toc` moves into the right gutter and pins itself there with
+ * `position: sticky`, spanning the full article height (`grid-row: 1 / -1`)
+ * so it has room to stick against while the reading column scrolls past.
+ *
+ * Investigated-and-ruled-out: this site's longest posts render >16384px
+ * tall, and this project's headless/software-rendered test Chromium (no
+ * GPU — see `--enable-unsafe-swiftshader` in its launch flags) corrupts
+ * full-page screenshots past that exact line (a classic 2^14 texture-size
+ * ceiling) — the tail of the page comes back blank white. A `position:
+ * fixed` + IntersectionObserver rewrite was tried to sidestep it, but the
+ * SAME corruption reproduced at the SAME byte-exact line on the
+ * PRE-EXISTING baseline too — i.e. before this file touched `.toc` at
+ * all. It's a raw "page taller than 16384px" limit of this sandbox's
+ * software rasterizer, unrelated to sticky/fixed/grid choices, already
+ * present on `main`, and invisible to real visitors (production Chrome
+ * tiles large layers on real GPUs instead of failing). Reverted to the
+ * architecturally simpler `position: sticky` — no JS-managed visibility
+ * needed, and the alternative didn't fix anything real.
+ */
+@media (min-width: 1280px) {
+  /* Scoped to article.post-article (PostLayout.astro's wrapper) —
+     NEVER a bare `article` selector, which would also hit the unrelated
+     `<article class="post-card">` / `<article class="lead|entry">`
+     preview cards (PostCard.astro, BroadsheetEntry.astro) used on the
+     homepage, /posts/, tag pages, and 404's "Recent Posts" — those have
+     their own grid/block layouts that this rule must never touch. */
+  article.post-article {
+    display: grid;
+    grid-template-columns: 1fr min(var(--content-reading), 100%) 1fr;
+    column-gap: var(--space-6);
+  }
+  article.post-article > nav,
+  article.post-article > header,
+  article.post-article > footer,
+  article.post-article > section,
+  article.post-article > div {
+    grid-column: 2;
+    max-width: none; /* the grid track itself is already content-reading wide */
+    margin-inline: 0;
+  }
+  article.post-article > nav.toc {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    align-self: start;
+    justify-self: start;
+    position: sticky;
+    top: var(--space-6);
+    width: 14rem;
+    max-height: calc(100vh - var(--space-8));
+    overflow-y: auto;
+  }
+}
+
 /* Remove prose-lg — just use prose (Remarque body size is the standard) */
 .prose-lg { font-size: var(--text-body); }
 
