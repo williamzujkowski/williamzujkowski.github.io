@@ -6,7 +6,7 @@ tags: [design, open-source, css, typescript]
 author: William Zujkowski
 ---
 
-The theme picker in this site's header — the little swatch icon next to the light/dark toggle — offers twelve terminal color schemes. Dracula, Nord, Gruvbox, Catppuccin, a few others. Pick one and the whole site repaints: body text, code blocks, links, borders. Every one of those twelve is guaranteed to clear WCAG AAA body-text contrast, not because I tested each one by eye, but because a build script refuses to emit a theme that doesn't.
+The theme picker in this site's header — the little swatch icon next to the light/dark toggle — offers twelve terminal color schemes. Dracula, Nord, Gruvbox, Catppuccin, a few others. Pick one and the whole site repaints: body text, code blocks, links, borders. Every one of those twelve is guaranteed to clear WCAG AAA body-text contrast. I didn't eyeball them: a build script enforces the floor and refuses to emit a theme that misses it.
 
 That guarantee comes from [oklch-terminal-themes](https://github.com/williamzujkowski/oklch-terminal-themes), a separate project that's the actual subject of this post. It's the data pipeline behind [Remarque](/posts/2026-04-10-remarque-typography-first-design-system/)'s color story: 545 terminal color schemes, scraped from a dozen upstream repos, converted to OKLCH, tagged with real WCAG contrast numbers, and republished as an npm package. This site is the first real consumer of it.
 
@@ -14,7 +14,7 @@ That guarantee comes from [oklch-terminal-themes](https://github.com/williamzujk
 
 Terminal color scheme authors don't publish OKLCH. They publish iTerm2 XML, Alacritty TOML, Windows Terminal JSON, Ghostty config files with no file extension at all. `sources.json` in the repo lists twelve upstream sources, each pinned to a commit SHA and each MIT- or Apache-2.0-licensed: [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) supplies the bulk of it, plus smaller sets from Neovim theme plugins (`cyberdream.nvim`, `koda.nvim`), a few Ghostty-native theme packs, and Warp's special-edition themes. A `fetch-upstream.ts` script does a sparse clone of each, records the SHA it landed on, and a weekly GitHub Actions cron (`update.yml`, Mondays 06:00 UTC) reruns the whole pipeline and opens a PR only when something actually changed upstream.
 
-That's 545 themes as of the last successful sync, up from the 485 the project shipped with in April when it only pulled from two sources. The README, the npm package description, and the GitHub repo's own topic description each say a different number right now — 485, 485, and "450+" respectively — because each one froze at whatever sync had last happened when someone touched that file. None of them are lying. They're just three snapshots of a dataset that grows every week and nobody bothered to templatize.
+That's 545 themes as of the last successful sync, up from the 485 the project shipped with in April when it only pulled from two sources. The README, the npm package description, and the GitHub repo's own topic description each say a different number right now — 485, 485, and "450+" respectively. None of them are lying: each one is a snapshot frozen at whatever sync was current the last time someone edited that particular file, and nothing recomputes them automatically.
 
 ## Hex in, OKLCH out, ΔE2000 gate
 
@@ -72,7 +72,7 @@ Everything left of `themes.json` lives in the `oklch-terminal-themes` repo and r
 
 ## What this site actually consumes
 
-The picker doesn't pull the npm package at runtime. `scripts/theme-deck/generate.py` reads a local clone of the dataset and hand-selects 12 slugs — not a programmatic `popular ∩ wcag-aaa` query, but a curated list guided by those two tags plus "does a reader recognize the name." Eight dark themes, four light. The comment in the script is refreshingly upfront about at least one exclusion: "classic solarized fails AAA (fg/bg 4.7 dark, 4.1 light) so the higher-contrast variant stands in; no AAA solarized-light exists." Solarized is popular. It didn't make the cut in its original form because it doesn't clear the floor this site set for itself.
+The picker doesn't pull the npm package at runtime. `scripts/theme-deck/generate.py` reads a local clone of the dataset and hand-picks 12 slugs. The `popular` and `wcag-aaa` tags guided the shortlist, and "does a reader recognize the name" made the final call. Nobody ran an automated `popular ∩ wcag-aaa` query and shipped whatever it returned. Eight dark themes, four light. The comment in the script is refreshingly upfront about at least one exclusion: "classic solarized fails AAA (fg/bg 4.7 dark, 4.1 light) so the higher-contrast variant stands in; no AAA solarized-light exists." Solarized is popular. It didn't make the cut in its original form because it doesn't clear the floor this site set for itself.
 
 For each curated theme, `generate.py` derives a dozen CSS tokens — muted text, borders, code background, selection, accent, accent-hover — by mixing the theme's own foreground and background in OKLCH space, with shortest-arc hue interpolation so a mix never swings the long way around the color wheel:
 
@@ -86,9 +86,13 @@ def mix(lch_a, lch_b, share_a):
             (ha + dh * (1 - share_a)) % 360)
 ```
 
-Every derived token is contrast-checked against the same floors the source data uses: 7.0 for body text (AAA), 4.5 for accents and muted text (AA — not AAA; that distinction matters and the script doesn't pretend otherwise). If a mixed color can't clear its floor, the script raises and the build fails. That's the actual payoff of perceptual uniformity: it's not that OKLCH computes WCAG contrast for you: plain relative luminance does that, color-space agnostic. It's that *derived* colors, colors nobody hand-picked, stay predictable enough to gate on. Mix two OKLCH colors and the midpoint's brightness lands where you'd expect. Do the same mix in HSL and, per the yellow/blue example above, it can land almost anywhere.
+The docstring calls this an approximation of CSS's `color-mix(in oklch, ...)`, and it's worth being precise about where the approximation is thinnest: near-gray endpoints. CSS's real `color-mix()` treats an achromatic color's hue as "powerless" and borrows the other endpoint's hue instead of interpolating toward it. This `mix()` doesn't. A background or foreground with near-zero chroma got its hue coerced to a literal `0°` back in `convert.ts` (there's no such thing as "the hue of gray"), and `mix()` interpolates toward that `0°` like it's a real angle. In practice the effect is small, because chroma is also being linearly scaled toward zero in the same mix, but it's a real, checkable gap between what the comment claims and what the code does.
 
-I didn't rerun `generate.py` with the interpolation swapped to HSL to produce a failure count: that's a fair thing to ask for and I don't have it. But the change is small (`mix()` is six lines total, all in `scripts/theme-deck/generate.py`), the floors are already asserted in code, and the twelve curated themes span enough hue range that I'd be surprised if at least one derived token didn't miss. That's the falsifiable version of this post's claim: swap the color space, rerun the twelve, count the failures. If nothing breaks, I'm wrong about how load-bearing this is.
+Every derived token is contrast-checked against the same floors the source data uses: 7.0 for body text (AAA), 4.5 for accents and muted text (AA — not AAA; that distinction matters and the script doesn't pretend otherwise). If a mixed color can't clear its floor, the script raises and the build fails. That's the actual payoff of perceptual uniformity: it's not that OKLCH computes WCAG contrast for you: plain relative luminance does that, color-space agnostic. It's that *derived* colors, colors nobody hand-picked, stay predictable enough to gate on.
+
+I said in an earlier draft of this post that I'd be surprised if swapping `mix()` to HSL didn't break at least one of the twelve curated themes. That was speculation, so I built the counterfactual instead of leaving it as a claim: a second `mix()` that converts each OKLCH endpoint to sRGB, interpolates in HSL, and converts back, dropped into a copy of `generate.py` running against the real 545-theme dataset. Result: **zero floor violations, in either color space.** The reason is structural, not a point in HSL's favor: `find_mix_share()` climbs foreground share in 5% steps and stops at the first share that clears the floor, and at 100% share the mixed color *is* the foreground, which already clears AAA against the background by definition. The floor can't fail to be met eventually; the color space only changes how much foreground it takes to get there. Measured across the twelve: HSL needed a bigger foreground share than OKLCH in 1 of 12 themes, by one 5% step (catppuccin-mocha, 0.60 → 0.70), and needed *less* in another (solarized-dark-higher-contrast, 0.70 → 0.55) — a wash, not a trend, because a theme's own foreground and background are rarely at opposite hues the way my yellow/blue example deliberately was.
+
+The two curated themes whose accent color is itself synthesized by `mix()` (nord-light, which has no ANSI slot that clears the accent floor on its own; catppuccin-latte, which has exactly one) told a different, more honest story: the HSL-derived accent and hover came out *more* chromatic than the OKLCH originals, not less — the opposite of what I'd guessed. So the corrected, falsifiable claim is narrower than the one I started with: OKLCH's perceptual uniformity doesn't protect this specific pipeline from build failures (its escape-hatch design already does that, in any color space), but it is what makes the yellow/blue gap in the table above a property of the *color space*, not of these twelve themes happening to dodge it. Rerun the counterfactual yourself: `scripts/theme-deck/generate.py`'s `mix()` is six lines, the dataset is public, and the floors are already asserted in code.
 
 ## The honest gaps
 
@@ -98,19 +102,13 @@ The npm package (`@williamzujkowski/oklch-terminal-themes@0.1.0`, published in A
 
 | Metric | Value |
 |---|---:|
-| Total themes in dataset | 545 |
-| Upstream sources | 12 |
-| WCAG AAA (fg/bg ≥ 7:1) | 465 (85%) |
-| WCAG AA (fg/bg ≥ 4.5:1) | 522 (96%) |
-| WCAG fail (fg/bg < 3:1) | 9 |
-| ANSI-legible (all colored slots ≥ 3:1) | 288 (53%) |
 | Max round-trip ΔE2000 | < 1.0 (build gate) |
-| Themes curated for this site | 12 (8 dark, 4 light) |
 | This site's fg/bg contrast floor | 7.0 (AAA) |
 | This site's accent/muted floor | 4.5 (AA) |
+| HSL-vs-OKLCH floor violations, 12 curated themes | 0 (either color space) |
 | Sync cadence | weekly, Mondays 06:00 UTC |
 
-If you're building a theme picker and reaching for HSL because it's the color space you already know, the yellow/blue table above is the whole argument for switching. The source is at [github.com/williamzujkowski/oklch-terminal-themes](https://github.com/williamzujkowski/oklch-terminal-themes); the curation script that turns it into this site's header widget is `scripts/theme-deck/generate.py` in this repo.
+If you're building a theme picker and reaching for HSL because it's the color space you already know, the yellow/blue table above is the whole argument for switching.
 
 ## Sources
 
