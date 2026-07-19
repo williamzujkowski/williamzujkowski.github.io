@@ -234,7 +234,14 @@ function isActiveLink(linkHref: string): boolean {
     <header role="banner" aria-label="Site header" class="site-masthead zine-grain wobble-rule">
       <div class="site-masthead-inner">
         <div class="site-masthead-top">
-          <div class="site-masthead-tools-left" aria-hidden="true"></div>
+          <div class="site-masthead-tools-left" aria-hidden="true">
+            {/* hand-drawn antenna mark — recolors with the active theme */}
+            <div
+              class="zine-doodle zine-doodle--accent"
+              style="--doodle: url('/assets/doodles/corner-antenna.png'); width: 1.6rem; aspect-ratio: 154/240; transform: rotate(-4deg);"
+            >
+            </div>
+          </div>
           <a href="/" class="site-nameplate" aria-label="William Zujkowski's Field Notes — home">
             <span class="site-nameplate-byline">William Zujkowski&rsquo;s</span>
             <span class="site-nameplate-title"><em>Field</em> Notes</span>
