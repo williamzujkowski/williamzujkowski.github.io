@@ -35,6 +35,14 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 >
   <h1 class="sr-only">Dispatches — every piece</h1>
 
+  {/* dispatch en route — decorative, recolors with the active theme */}
+  <div
+    class="zine-doodle"
+    aria-hidden="true"
+    style="--doodle: url('/assets/doodles/spot-packet.png'); width: 150px; aspect-ratio: 420/250; margin: 0.5rem auto -0.25rem;"
+  >
+  </div>
+
   <div class="archive-intro">
     <p class="archive-stats">
       {posts.length} pieces
