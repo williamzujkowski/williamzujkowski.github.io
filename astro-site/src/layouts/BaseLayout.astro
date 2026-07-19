@@ -1,10 +1,12 @@
 ---
 import '@/styles/global.css';
+import '@/styles/theme-deck.css'; // must follow global.css: deck tokens override Remarque defaults
 import { Font } from 'astro:assets';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 import Search from '@components/Search.svelte';
 import CodeCopy from '@components/CodeCopy.svelte';
 import ThemeToggle from '@components/ThemeToggle.astro';
+import ThemeDeck from '@components/ThemeDeck.astro';
 
 interface Props {
   title: string;
@@ -202,12 +204,23 @@ function isActiveLink(linkHref: string): boolean {
     <!-- Structured Data -->
     {jsonLdSchemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
 
-    <!-- Dark mode: apply saved preference before first paint to prevent flash -->
+    <!-- Theme: apply saved preference before first paint to prevent flash.
+         A saved deck theme ("slug|mode") wins over the plain dark/light pref. -->
     <script is:inline>
       (function() {
-        var t = localStorage.theme;
-        if (t === 'dark') document.documentElement.classList.add('dark');
-        else if (t === 'light') document.documentElement.classList.add('light');
+        try {
+          var root = document.documentElement;
+          var deck = localStorage.getItem('themeDeck');
+          if (deck && deck.indexOf('|') > 0) {
+            var parts = deck.split('|');
+            root.setAttribute('data-theme-deck', parts[0]);
+            root.classList.add(parts[1] === 'dark' ? 'dark' : 'light');
+            return;
+          }
+          var t = localStorage.theme;
+          if (t === 'dark') root.classList.add('dark');
+          else if (t === 'light') root.classList.add('light');
+        } catch (e) { /* storage blocked: fall back to the CSS media query */ }
       })();
     </script>
   </head>
@@ -258,6 +271,7 @@ function isActiveLink(linkHref: string): boolean {
         <a href={SITE_CONFIG.social.linkedin}>LinkedIn</a> &middot;
         <a href="/feed.xml">RSS</a>
       </p>
+      <ThemeDeck />
     </footer>
 
     <CodeCopy client:idle />

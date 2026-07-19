@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { SITE_CONFIG } from '@/lib/siteConfig';
+import themeCredits from '@/data/theme-deck-attribution.json';
 ---
 
 <BaseLayout title="About" description="William Zujkowski — security engineer, builder, homelab enthusiast.">
@@ -88,6 +89,24 @@ import { SITE_CONFIG } from '@/lib/siteConfig';
       current stack on <a href="/uses/">uses</a>, what I'm building on <a href="/projects/">projects</a>,
       and what I'm focused on right now on <a href="/now/">now</a>.
     </p>
+
+    <h2 id="theme-credits">Theme credits</h2>
+
+    <p>
+      The terminal theme picker in the footer runs on a curated subset of my
+      <a href="https://github.com/williamzujkowski/oklch-terminal-themes">oklch-terminal-themes</a>
+      dataset — 545 terminal color schemes converted to OKLCH, derived from
+      <a href="https://github.com/mbadolato/iTerm2-Color-Schemes">iTerm2-Color-Schemes</a> (MIT)
+      and the upstream theme projects. Palettes offered here:
+    </p>
+
+    <ul>
+      {themeCredits.map((t) => (
+        <li>
+          {t.name} — <a href={t.sourceUrl}>upstream source</a>
+        </li>
+      ))}
+    </ul>
 
     <h2>Connect</h2>
 
