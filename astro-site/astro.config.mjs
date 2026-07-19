@@ -110,7 +110,13 @@ function rehypeScrollWrap() {
       const wrapper = {
         type: 'element',
         tagName: 'div',
-        properties: { className: ['scroll-wrap'] },
+        // tabIndex makes the scrollable region itself keyboard-focusable
+        // (WCAG 2.1.1 / axe "scrollable-region-focusable") — pre-existing
+        // gap, not introduced by sidenotes: no page in the a11y suite had
+        // content wide enough to actually overflow `.scroll-wrap` until
+        // the sidenotes pilot post's comparison table did. Fixed here
+        // since it's a one-line addition to the same wrapper.
+        properties: { className: ['scroll-wrap'], tabIndex: 0 },
         children: [node],
       };
       parent.children[index] = wrapper;

@@ -145,8 +145,9 @@ export function transformSidenotes(tree) {
   // Content is being relocated inline, not duplicated — remove the original.
   tree.children.splice(footnoteSectionIndex, 1);
 
-  const insertions = []; // { afterIndex, node }
+  const insertions = []; // { afterIndex, sequence, node }
   const seen = new Set();
+  let sequence = 0;
 
   tree.children.forEach((child, index) => {
     visit(
@@ -173,6 +174,7 @@ export function transformSidenotes(tree) {
 
         insertions.push({
           afterIndex: index,
+          sequence: sequence++,
           node: {
             type: 'element',
             tagName: 'small',
@@ -196,10 +198,15 @@ export function transformSidenotes(tree) {
     );
   });
 
-  // Splice back-to-front so an earlier insertion doesn't shift the index
-  // a later one was computed against.
+  // Splice back-to-front so an earlier insertion doesn't shift the index a
+  // later one was computed against. When two references share the same
+  // `afterIndex` (two `[^n]` citations inside one paragraph), splicing them
+  // both at `afterIndex + 1` means whichever is spliced LAST ends up
+  // closest to the paragraph — so ties are broken by descending `sequence`
+  // (process the later citation first) to preserve citation order in the
+  // final DOM.
   insertions
-    .sort((a, b) => b.afterIndex - a.afterIndex)
+    .sort((a, b) => b.afterIndex - a.afterIndex || b.sequence - a.sequence)
     .forEach(({ afterIndex, node }) => {
       tree.children.splice(afterIndex + 1, 0, node);
     });

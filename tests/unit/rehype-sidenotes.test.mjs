@@ -136,6 +136,36 @@ test('multiple footnotes across multiple paragraphs land after the correct parag
   assert.ok(JSON.stringify(tree.children[3]).includes('Source B.'));
 });
 
+test('two footnotes cited in the SAME paragraph land after it in citation order', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      el('p', {}, [
+        text('First citation'),
+        footnoteRef('a', 1),
+        text(' and second citation'),
+        footnoteRef('b', 2),
+        text('.'),
+      ]),
+      footnotesSection([
+        footnoteDef('a', [el('p', {}, [text('Source A.')])]),
+        footnoteDef('b', [el('p', {}, [text('Source B.')])]),
+      ]),
+    ],
+  };
+
+  transformSidenotes(tree);
+
+  assert.deepEqual(
+    tree.children.map((n) => n.tagName),
+    ['p', 'small', 'small']
+  );
+  // Citation order preserved: A's note comes before B's note, matching the
+  // order the two `[^n]` refs appear in the paragraph.
+  assert.equal(tree.children[1].properties.id, 'user-content-fn-a');
+  assert.equal(tree.children[2].properties.id, 'user-content-fn-b');
+});
+
 test('a footnote referenced twice only inserts one sidenote', () => {
   const tree = {
     type: 'root',
