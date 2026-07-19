@@ -7,9 +7,6 @@ tags:
   - ai
   - edge-computing
   - machine-learning
-image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=630"
-imageAlt: "Close-up of a circuit board with microprocessors"
-
 ---
 ## BLUF: When Constraints Become Innovation
 

@@ -11,9 +11,6 @@ tags:
   - llm
   - machine-learning
   - raspberry-pi
-image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&h=630"
-imageAlt: "Raspberry Pi single-board computer close-up"
-
 ---
 
 ## Bottom Line Up Front

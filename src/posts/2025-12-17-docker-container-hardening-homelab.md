@@ -6,8 +6,6 @@ date: 2025-12-17
 tags: [security, docker, homelab, containers, defense-in-depth, hardening, network-security]
 series: "Homelab Security"
 seriesOrder: 2
-image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=630"
-imageAlt: "Container infrastructure in an industrial setting"
 post_type: experience
 ---
 

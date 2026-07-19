@@ -8,9 +8,6 @@ tags:
   - machine-learning
   - llm
   - research
-image: "https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=1200&h=630"
-imageAlt: "Abstract colorful AI visualization with neural patterns"
-
 ---
 The first time I fed a UI mockup screenshot to GPT-4 Vision and watched it generate pixel-perfect HTML and CSS, I knew we'd crossed a fundamental threshold. The AI didn't just see the image, it understood design intent, inferred functionality, and translated visual concepts into working code.
 

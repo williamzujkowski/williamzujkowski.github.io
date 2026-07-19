@@ -16,9 +16,7 @@ interface Props {
   description?: string;
   date: Date;
   tags?: string[];
-  image?: string;
   ogImage?: string;
-  imageAlt?: string;
   readingTime?: number;
   wordCount?: number;
   headings?: Heading[];
@@ -27,7 +25,7 @@ interface Props {
   postId?: string;
 }
 
-const { title, description, date, tags = [], image, ogImage, imageAlt, readingTime, wordCount, headings = [], slug = '', series, postId } = Astro.props;
+const { title, description, date, tags = [], ogImage, readingTime, wordCount, headings = [], slug = '', series, postId } = Astro.props;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? SITE_CONFIG.siteUrl;
 
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -46,7 +44,6 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
 <BaseLayout
   title={title}
   description={description}
-  image={image}
   ogImage={ogImage}
   type="article"
   publishedDate={date}

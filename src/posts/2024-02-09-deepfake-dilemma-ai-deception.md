@@ -7,9 +7,6 @@ tags:
   - ai
   - ethics
   - security
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630"
-imageAlt: "Abstract AI neural network visualization"
-
 ---
 **BLUF:** The first time I encountered a convincing deepfake, I felt a profound sense of unease. It was a video of a public figure saying something completely out of character. Despite knowing about deepfake technology, I found myself questioning what was real.
 
