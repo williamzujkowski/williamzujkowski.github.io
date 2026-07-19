@@ -1386,6 +1386,43 @@ h1, h2, h3, .post-card-title {
 .prose q::before { content: open-quote; }
 .prose q::after { content: close-quote; }
 
+/* ===== Theme crossfade (issue #274 item 3, ratified 7-0) =================
+ * A brief crossfade on a DELIBERATE theme switch only — never at initial
+ * paint or a localStorage restore (the anti-FOUC script in
+ * BaseLayout.astro's <head> must keep painting the stored theme
+ * instantly, with no transition class involved). ThemeToggle.astro's
+ * toggle() and ThemeDeck.astro's applyDeck() add `.theme-transition` to
+ * <html> right before the token-consuming classes change, force a
+ * reflow so the transition is armed first, then remove it ~250ms later.
+ *
+ * Scoped to body + named chrome surfaces — deliberately NOT a universal
+ * `*` selector, which would force a full-tree style recalc on every
+ * toggle across all 14 palettes. Only the properties that actually
+ * consume the color tokens transition; the custom properties themselves
+ * never do (no @property registration, so they can't animate).
+ *
+ * Cross-document navigation is unaffected: this class only ever lives
+ * for ~250ms inside a single document (no ClientRouter/SPA nav — see
+ * the `@view-transition` rule up top), so it cannot still be present
+ * when the browser's native navigation crossfade captures its
+ * before/after snapshots on a link click.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-transition body,
+  .theme-transition .site-masthead,
+  .theme-transition .site-footer,
+  .theme-transition .card,
+  .theme-transition .chip,
+  .theme-transition .callout,
+  .theme-transition .prose :where(pre),
+  .theme-transition .prose :where(code):not(:where(pre *)),
+  .theme-transition .btn-filled,
+  .theme-transition .btn-outlined,
+  .theme-transition a {
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+}
+
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
