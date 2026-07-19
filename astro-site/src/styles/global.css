@@ -5,21 +5,24 @@
  * See: https://github.com/williamzujkowski/remarque
  */
 
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/fraunces';
-@import '@fontsource-variable/fraunces/wght-italic.css';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource/ibm-plex-mono/400-italic.css';
-@import '@fontsource/ibm-plex-mono/500.css';
+/* Fonts — Fraunces (display), Inter (body), IBM Plex Mono (mono) are
+ * registered via Astro 6's Fonts API in astro.config.mjs and preloaded
+ * by <Font> in BaseLayout.astro. That component injects the --font-*
+ * custom properties on the root element itself, so they are intentionally
+ * NOT redefined here — see astro.config.mjs. (Wording matters: the
+ * contrast-audit parser regex-matches the first root token block and must
+ * not find one inside a comment.) */
+
+/* Native cross-document view transitions (Chromium; progressively
+ * enhanced — no-op elsewhere). Replaces astro:transitions/ClientRouter,
+ * which was removed so pages do plain full loads. */
+@view-transition {
+  navigation: auto;
+}
 
 /* ===== Remarque Design Tokens (oklch) ===== */
 
 :root {
-  /* Font stacks — Palette B: Departure (sci-fi + typewriter) */
-  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
-
   /* Type scale */
   --text-display: clamp(2.25rem, 3.5vw, 3.5rem); /* 36-56px — editorial restraint */
   --text-title: clamp(1.875rem, 3.5vw, 3rem);
@@ -1104,8 +1107,12 @@ div:has(> .post-card) {
   border-top: 1px solid var(--color-border);
 }
 
-/* Numbered entry list */
+/* Numbered entry list
+ * container-type: the 1-column/2-column split below responds to how much
+ * room the list itself has (e.g. embedded in a narrower column), not the
+ * viewport — a clean fit for a container query instead of @media. */
 .entry-list {
+  container-type: inline-size;
   max-width: var(--content-reading);
   margin: 0 auto;
   padding: 0;
@@ -1208,7 +1215,7 @@ div:has(> .post-card) {
 .post-kicker .post-section { color: var(--color-accent); font-weight: 500; }
 .post-kicker .dot { color: var(--color-border-bold); }
 
-@media (max-width: 640px) {
+@container (max-width: 640px) {
   .entry {
     grid-template-columns: 1fr;
     gap: var(--space-2);

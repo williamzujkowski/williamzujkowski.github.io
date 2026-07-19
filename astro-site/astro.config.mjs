@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import rehypeMermaid from 'rehype-mermaid';
@@ -121,6 +121,48 @@ export default defineConfig({
   site: 'https://williamzujkowski.github.io',
   prefetch: true,
   integrations: [svelte(), sitemap()],
+  // Astro 6 Fonts API — self-hosts fonts at build time via the Fontsource
+  // provider (same font files previously shipped by the @fontsource-variable
+  // packages, now fetched and optimized by Astro directly). `cssVariable`
+  // intentionally matches the pre-existing design-token names in
+  // src/styles/global.css (--font-display / --font-body / --font-mono) so
+  // no downstream CSS had to change — Astro injects `:root { --font-x: ... }`
+  // itself, so the hardcoded font stacks were removed from global.css.
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Fraunces',
+      cssVariable: '--font-display',
+      fallbacks: ['Georgia', 'Times New Roman', 'serif'],
+      optimizedFallbacks: false,
+      weights: ['100 900'],
+      styles: ['normal', 'italic'],
+      subsets: ['latin'],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Inter',
+      cssVariable: '--font-body',
+      fallbacks: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+      optimizedFallbacks: false,
+      weights: ['100 900'],
+      styles: ['normal'],
+      // 'greek' kept: a handful of posts use bare Greek letters in prose
+      // (π, ε, μ for math/privacy-budget notation) that the default
+      // @fontsource-variable/inter import used to cover.
+      subsets: ['latin', 'greek'],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'IBM Plex Mono',
+      cssVariable: '--font-mono',
+      fallbacks: ['ui-monospace', 'Courier New', 'monospace'],
+      optimizedFallbacks: false,
+      weights: [400, 500],
+      styles: ['normal', 'italic'],
+      subsets: ['latin'],
+    },
+  ],
   vite: {
     build: {
       rollupOptions: {

@@ -46,12 +46,10 @@
   }
 
   onMount(() => {
+    // No astro:after-swap listener needed: without ClientRouter every
+    // navigation is a full page load, which re-mounts this component and
+    // re-runs injectCopyButtons() on its own.
     injectCopyButtons();
-
-    // Re-inject after View Transitions page swap
-    const handleSwap = () => injectCopyButtons();
-    document.addEventListener('astro:after-swap', handleSwap);
-    return () => document.removeEventListener('astro:after-swap', handleSwap);
   });
 </script>
 
