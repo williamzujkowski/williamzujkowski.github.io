@@ -3,8 +3,6 @@ title: "Grading GitHub Repos: Six-Dimension Hygiene Scores from repo-health-repo
 date: 2026-04-16
 description: "A static-analysis tool that grades any GitHub repo across security, testing, docs, architecture, devops, and maintenance. The methodology is still WIP, but the findings are consistent: most repos are skipping the basics."
 tags: [open-source, security, devops, typescript, tooling]
-image: https://images.unsplash.com/photo-1588543847037-cb1a75fa9fb6?w=1200&h=630
-imageAlt: "Clipboard with a checklist and red pen on a wooden desk"
 author: William Zujkowski
 ---
 

@@ -7,8 +7,6 @@ author: "William Zujkowski"
 tags: [ai, machine-learning, open-source, orchestration, research]
 series: "Building AI Systems"
 seriesOrder: 1
-image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630"
-imageAlt: "Data visualization dashboard showing routing metrics and model performance"
 readingTime: "10 min read"
 ---
 

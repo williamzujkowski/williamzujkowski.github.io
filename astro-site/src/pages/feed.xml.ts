@@ -4,18 +4,8 @@ import type { APIContext } from 'astro';
 import sanitizeHtml from 'sanitize-html';
 import MarkdownIt from 'markdown-it';
 import { SITE_CONFIG } from '@/lib/siteConfig';
-import { getValidImageUrl } from '@/lib/utils';
 
 const parser = new MarkdownIt();
-
-/** Escape a string for safe interpolation into an HTML attribute value. */
-function escapeHtmlAttr(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -31,14 +21,9 @@ export async function GET(context: APIContext) {
     },
     customData: `<atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/><lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
     items: sortedPosts.map((post) => {
-      const imageUrl = getValidImageUrl(post.data.image);
       const renderedContent = sanitizeHtml(parser.render(post.body ?? ''), {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
       });
-      // Prepend cover image to content if available
-      const contentWithImage = imageUrl
-        ? `<p><img src="${imageUrl}" alt="${escapeHtmlAttr(post.data.title)}" width="1200" height="630" /></p>${renderedContent}`
-        : renderedContent;
 
       return {
         title: post.data.title,
@@ -46,7 +31,7 @@ export async function GET(context: APIContext) {
         description: post.data.description ?? '',
         link: `/posts/${post.id}/`,
         categories: post.data.tags?.filter((t: string) => t !== 'posts'),
-        content: contentWithImage,
+        content: renderedContent,
       };
     }),
   });

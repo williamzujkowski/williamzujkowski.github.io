@@ -10,9 +10,6 @@ tags:
   - passwords
   - privacy
   - security
-image: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=1200&h=630"
-imageAlt: "Digital padlock representing password security"
-
 ---
 ## The Cloud Password Manager Breach That Changed Everything
 

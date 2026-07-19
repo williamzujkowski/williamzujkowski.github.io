@@ -11,9 +11,6 @@ tags:
   - docker
   - homelab
   - security
-image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=630"
-imageAlt: "Shipping containers stacked in an industrial port"
-
 ---
 
 ## Bottom Line Up Front

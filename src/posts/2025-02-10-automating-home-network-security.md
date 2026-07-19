@@ -11,9 +11,6 @@ tags:
   - open-source
   - python
   - security
-image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&h=630"
-imageAlt: "Network router with ethernet cables and blinking lights"
-
 ---
 ## The Problem: Security Doesn't Scale Without Automation
 

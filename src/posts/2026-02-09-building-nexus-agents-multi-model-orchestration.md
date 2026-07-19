@@ -7,8 +7,6 @@ author: "William Zujkowski"
 tags: [ai, software-engineering, open-source, orchestration, typescript]
 series: "Building AI Systems"
 seriesOrder: 3
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630"
-imageAlt: "Abstract visualization of interconnected neural network nodes"
 readingTime: "12 min read"
 ---
 

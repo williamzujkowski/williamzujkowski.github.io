@@ -10,9 +10,6 @@ tags:
   - machine-learning
   - privacy
   - raspberry-pi
-image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630"
-imageAlt: "Connected servers in a modern data center"
-
 ---
 
 In November 2024, I spent three weeks training an image classifier across 4 devices in my homelab without sharing a single raw image between them. The Dell R910 acted as the aggregation server while 3 Raspberry Pi 5s (16GB each) trained on local data. The first full training round took 47 minutes, mostly spent waiting on network aggregation.

@@ -8,9 +8,6 @@ tags:
   - cloud
   - infrastructure
   - ethics
-image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&h=630"
-imageAlt: "Wind turbines against a sunset sky"
-
 ---
 In September 2023, I analyzed my ML experiments' energy consumption and discovered something shocking: [data centers consuming 4% of global electricity](https://www.iea.org/reports/data-centres-and-data-transmission-networks). Suddenly, the thousands of dollars in compute costs took on a different meaning — not just burning through budget, but burning through the planet's resources.
 

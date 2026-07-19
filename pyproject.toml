@@ -29,8 +29,6 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["scripts/link-validation/tests"]
 
-[tool.uv]
-dev-dependencies = []
 
 [tool.ruff]
 line-length = 100
