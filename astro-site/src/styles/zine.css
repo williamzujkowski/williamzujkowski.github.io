@@ -134,6 +134,22 @@ article .prose blockquote::before {
 
 .hand-note--accent { color: var(--color-accent); }
 
+/* ---------- ink-mask doodles (#282) ------------------------------------
+ * Generated ink art shipped as alpha masks: one asset recolors across all
+ * 14 palettes via the background token. Set --doodle + aspect-ratio +
+ * width per use; always aria-hidden (decorative). */
+
+.zine-doodle {
+  display: block;
+  background-color: var(--color-fg-muted);
+  -webkit-mask: var(--doodle) no-repeat center / contain;
+  mask: var(--doodle) no-repeat center / contain;
+}
+
+.zine-doodle--accent {
+  background-color: var(--color-accent);
+}
+
 /* ---------- 404 doodle -------------------------------------------------- */
 
 .lost-doodle {
