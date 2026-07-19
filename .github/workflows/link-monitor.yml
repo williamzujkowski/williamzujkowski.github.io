@@ -27,6 +27,7 @@ permissions:
 jobs:
   check-links:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - name: Checkout Repository
@@ -160,17 +161,43 @@ jobs:
           const fs = require('fs');
           const report = fs.readFileSync('reports/summary.md', 'utf8');
 
-          // Create issue with report
-          await github.rest.issues.create({
+          const title = `🔗 Link Health Alert: ${process.env.broken_count} broken links found`;
+          const body = `## Automated Link Health Check Failed\n\n` +
+                `**Date:** ${new Date().toISOString()}\n` +
+                `**Broken Links:** ${process.env.broken_count}/${process.env.total_count} (${process.env.broken_percent}%)\n\n` +
+                `### Summary Report\n\n${report}\n\n` +
+                `View full reports in the [workflow artifacts](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
+
+          // Dedup guard: this job runs on the daily schedule trigger. Without
+          // this check, a persistent breakage files a brand-new issue every
+          // day instead of updating the existing tracking issue -- mirrors
+          // the list-then-update pattern in citation-validation.yml.
+          const issues = await github.rest.issues.listForRepo({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            title: `🔗 Link Health Alert: ${process.env.broken_count} broken links found`,
-            body: `## Automated Link Health Check Failed\n\n` +
-                  `**Date:** ${new Date().toISOString()}\n` +
-                  `**Broken Links:** ${process.env.broken_count}/${process.env.total_count} (${process.env.broken_percent}%)\n\n` +
-                  `### Summary Report\n\n${report}\n\n` +
-                  `View full reports in the [workflow artifacts](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`
+            state: 'open',
+            labels: ['automated', 'link-health']
           });
+
+          if (issues.data.length > 0) {
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issues.data[0].number,
+              title: title,
+              body: body
+            });
+            console.log(`Updated existing issue #${issues.data[0].number}`);
+          } else {
+            const newIssue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['automated', 'link-health']
+            });
+            console.log(`Created new issue #${newIssue.data.number}`);
+          }
       env:
         broken_count: ${{ steps.check_critical.outputs.broken_count }}
         total_count: ${{ steps.check_critical.outputs.total_count }}
@@ -212,6 +239,7 @@ jobs:
     needs: check-links
     if: github.event.inputs.force_check == 'true' || github.event_name == 'schedule'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write        # push the auto-fix branch
       pull-requests: write   # open the review PR

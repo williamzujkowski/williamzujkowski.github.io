@@ -3,12 +3,22 @@ name: Accessibility (axe-playwright)
 on:
   pull_request:
     branches: [main]
+    paths: ['astro-site/**', 'src/**']
   push:
     branches: [main]
+    paths: ['astro-site/**', 'src/**']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
   axe:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
       - uses: pnpm/action-setup@a0ea98b2dc7d387a59324835f7421c1d5f8357b4  # v6.0.5
@@ -25,8 +35,8 @@ jobs:
         run: cd astro-site && pnpm exec playwright install --with-deps chromium
       - name: Build site
         run: cd astro-site && pnpm build
-      - name: Run axe a11y suite
-        run: cd astro-site && pnpm exec playwright test tests/e2e/a11y.spec.ts
+      - name: Run full Playwright suite (smoke + a11y + theme-deck)
+        run: cd astro-site && npx playwright test tests/e2e/
       - name: Upload report on failure
         if: failure()
         uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8  # v5
