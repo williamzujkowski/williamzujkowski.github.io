@@ -35,11 +35,25 @@ import { visit } from 'unist-util-visit';
  *      is being relocated, not duplicated.
  *   3. Walks the top-level flow (paragraphs, blockquotes, etc.) in document
  *      order, and for every footnote reference found, tags it
- *      `class="sidenote-ref"` and inserts a `<small class="sidenote">`
+ *      `class="sidenote-ref"` and inserts an `<aside class="sidenote">`
  *      element as the NEXT SIBLING of the top-level block that contains the
  *      reference — i.e. immediately after the paragraph that cited it, in
  *      real DOM order. Screen readers hit the note right where the citation
  *      happens; no separate "jump to footnotes" detour.
+ *
+ * Dangling ARIA (fixed): GFM stamps every footnote reference with
+ * `aria-describedby="footnote-label"`, pointing at the `<h2 id=
+ * "footnote-label">Footnotes</h2>` inside the section this plugin removes.
+ * Left alone, that's a broken ARIA reference — assistive tech would resolve
+ * `aria-describedby` to nothing. This plugin strips it from every reference
+ * (removing the whole section it "describes" makes the attribute
+ * meaningless anyway; the note is now immediately adjacent and
+ * self-explanatory). The `href`/`id` pair that makes the reference actually
+ * NAVIGATE to its note, by contrast, is real and kept: the moved element
+ * reuses the original definition id, so `href="#user-content-fn-x"` still
+ * resolves to a real element with `id="user-content-fn-x"` after the move —
+ * verified against the built HTML, not just asserted (see astro-site/tests/
+ * e2e/sidenotes.spec.ts's DOM-order and click-navigation tests).
  *
  * Backreference links (↩): dropped, not preserved. GFM's backref exists so a
  * reader who jumped to a footnote at the bottom of a long document can jump
@@ -48,6 +62,23 @@ import { visit } from 'unist-util-visit';
  * keeping the arrow would just be visual noise pointing at text the reader
  * can already see. (Tufte/gwern-style margin notes don't carry backref
  * arrows either, for the same reason.)
+ *
+ * Element choice — `<aside>`, not `<small>` (fixed): footnote definitions
+ * can be arbitrary block content — multiple paragraphs, lists, blockquotes —
+ * and HTML5's content model for `<small>` is phrasing content ONLY, so
+ * nesting a `<p>` (or worse, a `<ul>`) inside one is invalid markup. `<aside>`
+ * permits flow content (everything `<small>` allows, plus block elements),
+ * so footnote content nests as-is with no lossy flattening step required —
+ * simpler code and correct for content this plugin doesn't fully control
+ * (it's whatever an author writes in a `[^n]:` definition). `<aside>` is
+ * also the closer HTML5 semantic match for "tangentially related content
+ * set apart from the main flow", which is exactly what a margin note is;
+ * `<small>` is meant for fine-print/legal-disclaimer-style annotations, a
+ * narrower fit. The leading mono-voice number stays inline with the note's
+ * OPENING text either way — it's injected as a leading child of the first
+ * paragraph (or directly, if the content isn't paragraph-wrapped) rather
+ * than as a block-level sibling, so the visual "1 Note text..." pairing
+ * from the `<small>` version is unchanged.
  *
  * Layout (CSS, not this file): `.sidenote` is a small-print block right in
  * the text flow by default (the same place GFM would render it, just
@@ -103,25 +134,40 @@ function stripBackrefs(nodes) {
 }
 
 /**
- * `<small>` is phrasing content only (HTML5) — flatten a footnote
- * definition's block children (almost always a single `<p>`) into inline
- * content so the sidenote markup stays valid. Multiple paragraphs (a
- * footnote spanning >1 <p>) get a `<br>` between them rather than being
- * silently dropped.
+ * mdast-util-to-hast's `state.wrap(content, true)` (footer.js, `loose:
+ * true`) pads a footnote definition's block children with leading/trailing
+ * `\n` text nodes — e.g. a single-paragraph definition's `li.children` is
+ * actually `['\n', <p>, '\n']`, NOT `[<p>]`. Left alone, that leading
+ * whitespace node — not the `<p>` — would be `contentNodes[0]`, silently
+ * breaking `withLeadingNumber`'s "does this start with a paragraph?" check
+ * (verified against the actual built HTML output, not just inferred).
  */
-function flattenToPhrasing(nodes) {
-  const out = [];
-  for (const n of nodes) {
-    if (isElement(n, 'p')) {
-      if (out.length > 0) out.push({ type: 'element', tagName: 'br', properties: {}, children: [] });
-      out.push(...n.children);
-    } else if (n.type === 'text' && /^\s*$/.test(n.value)) {
-      // whitespace-only text between block siblings — drop it
-    } else {
-      out.push(n);
-    }
+function trimWhitespaceEdges(nodes) {
+  let start = 0;
+  let end = nodes.length;
+  while (start < end && nodes[start].type === 'text' && /^\s*$/.test(nodes[start].value)) start++;
+  while (end > start && nodes[end - 1].type === 'text' && /^\s*$/.test(nodes[end - 1].value)) end--;
+  return nodes.slice(start, end);
+}
+
+/**
+ * Inject the mono-voice number marker (+ a following space) so it reads
+ * inline with the note's opening text — "1 Some source, description." — the
+ * same visual pairing as before, but without requiring the note content to
+ * be flattened to phrasing-only first (see the `<aside>` rationale above).
+ * If the content starts with a `<p>`, the marker becomes that paragraph's
+ * leading children; otherwise (content is already bare phrasing, or starts
+ * with some other block) it's just prepended to the content array — `<aside>`
+ * permits flow content, so bare text/inline elements are valid siblings of
+ * block elements either way.
+ */
+function withLeadingNumber(numberSpan, contentNodes) {
+  const lead = [numberSpan, { type: 'text', value: ' ' }];
+  if (contentNodes.length > 0 && isElement(contentNodes[0], 'p')) {
+    const [first, ...rest] = contentNodes;
+    return [{ ...first, children: [...lead, ...first.children] }, ...rest];
   }
-  return out;
+  return [...lead, ...contentNodes];
 }
 
 export function transformSidenotes(tree) {
@@ -138,7 +184,7 @@ export function transformSidenotes(tree) {
   if (ol) {
     for (const li of ol.children) {
       if (!isElement(li, 'li') || !li.properties || !li.properties.id) continue;
-      noteContentById.set(li.properties.id, stripBackrefs(li.children || []));
+      noteContentById.set(li.properties.id, trimWhitespaceEdges(stripBackrefs(li.children || [])));
     }
   }
 
@@ -159,6 +205,12 @@ export function transformSidenotes(tree) {
           : [];
         refNode.properties.className = [...existingClass, 'sidenote-ref'];
 
+        // GFM points this at the "Footnotes" <h2> inside the section this
+        // plugin deletes — leaving it would be a dangling ARIA reference
+        // (assistive tech resolves aria-describedby to nothing). The note
+        // itself is now immediately adjacent, so no replacement is needed.
+        delete refNode.properties.ariaDescribedBy;
+
         const href = refNode.properties.href || '';
         const targetId = href.startsWith('#') ? href.slice(1) : null;
         if (!targetId || seen.has(targetId)) return;
@@ -172,26 +224,42 @@ export function transformSidenotes(tree) {
             ? refNode.children[0].value
             : '';
 
+        // Reuse the original footnote-definition id for the moved element,
+        // and make the reference's href point at it explicitly — the
+        // reference still NAVIGATES to a real element after the move
+        // (unlike the aria-describedby link above, which pointed at
+        // something now deleted).
+        const noteId = targetId;
+        refNode.properties.href = `#${noteId}`;
+
+        const numberSpan = {
+          type: 'element',
+          tagName: 'span',
+          properties: { className: ['sidenote-number'], ariaHidden: 'true' },
+          children: [{ type: 'text', value: number }],
+        };
+
         insertions.push({
           afterIndex: index,
           sequence: sequence++,
           node: {
             type: 'element',
-            tagName: 'small',
-            // Reuse the original footnote-definition id: the reference's
-            // href already points at it, so it keeps resolving after the
-            // element moves — no extra id bookkeeping needed.
-            properties: { className: ['sidenote'], id: targetId },
-            children: [
-              {
-                type: 'element',
-                tagName: 'span',
-                properties: { className: ['sidenote-number'], ariaHidden: 'true' },
-                children: [{ type: 'text', value: number }],
-              },
-              { type: 'text', value: ' ' },
-              ...flattenToPhrasing(content),
-            ],
+            tagName: 'aside',
+            // `<aside>`'s IMPLICIT role is `complementary` — a landmark.
+            // A post with several footnotes would otherwise scatter that
+            // many unlabeled landmark regions through `<main>`, which axe
+            // correctly flags (landmark-is-top-level: "contained in
+            // another landmark") and which is genuinely bad for landmark
+            // navigation (a screen-reader user jumping by landmark would
+            // hit 5+ identical, unlabeled "complementary" stops).
+            // `role="note"` overrides that: broadly-supported, explicitly
+            // non-landmark, and the closest plain-ARIA semantic match for
+            // "an annotation attached to the surrounding content" — the
+            // DPUB-ARIA `doc-footnote` role is more precise but has
+            // thinner AT support, not worth it for a role whose only job
+            // here is "stop being a landmark".
+            properties: { className: ['sidenote'], id: noteId, role: 'note' },
+            children: withLeadingNumber(numberSpan, content),
           },
         });
       }

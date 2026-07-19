@@ -39,9 +39,18 @@ function footnoteRef(id, counter, { rereference } = {}) {
   ]);
 }
 
-/** A single GFM footnote definition `<li>`, as footer() emits it. */
+/**
+ * A single GFM footnote definition `<li>`, as footer() emits it —
+ * including the leading/trailing/between-siblings `\n` text nodes that
+ * `state.wrap(content, true)` (mdast-util-to-hast, `loose: true`) actually
+ * adds. A real single-paragraph definition's `li.children` is
+ * `['\n', <p>, '\n']`, NOT `[<p>]` — the earlier version of this fixture
+ * omitted that whitespace and consequently didn't catch a real bug (the
+ * plugin's "does this start with a <p>?" check silently matched the
+ * leading text node instead) that only showed up against the real
+ * pipeline's output. See `trimWhitespaceEdges` in rehype-sidenotes.mjs.
+ */
 function footnoteDef(id, paragraphs) {
-  const lastP = paragraphs[paragraphs.length - 1];
   const backref = el(
     'a',
     { href: `#user-content-fnref-${id}`, dataFootnoteBackref: '', className: ['data-footnote-backref'] },
@@ -50,7 +59,13 @@ function footnoteDef(id, paragraphs) {
   const withBackref = paragraphs.map((p, i) =>
     i === paragraphs.length - 1 ? el('p', p.properties, [...p.children, text(' '), backref]) : p
   );
-  return el('li', { id: `user-content-fn-${id}` }, withBackref.length ? withBackref : [backref]);
+  const wrapped = [text('\n')];
+  withBackref.forEach((node, i) => {
+    if (i > 0) wrapped.push(text('\n'));
+    wrapped.push(node);
+  });
+  if (withBackref.length > 0) wrapped.push(text('\n'));
+  return el('li', { id: `user-content-fn-${id}` }, wrapped);
 }
 
 function footnotesSection(defs) {
@@ -88,18 +103,31 @@ test('moves a single footnote inline right after its paragraph', () => {
   // Sidenote is the direct next sibling of the referencing paragraph.
   assert.equal(tree.children.length, 3);
   assert.equal(tree.children[0].tagName, 'p');
-  assert.equal(tree.children[1].tagName, 'small');
+  assert.equal(tree.children[1].tagName, 'aside');
   assert.deepEqual(tree.children[1].properties.className, ['sidenote']);
   assert.equal(tree.children[1].properties.id, 'user-content-fn-rand');
+  // <aside>'s implicit role is the `complementary` landmark — override it
+  // with role="note" so a post with several footnotes doesn't scatter
+  // that many unlabeled landmarks through <main> (axe: landmark-is-top-level).
+  assert.equal(tree.children[1].properties.role, 'note');
   assert.equal(tree.children[2].tagName, 'p'); // the unrelated paragraph, untouched
 
-  // Ref anchor got the sidenote-ref class, href/id untouched.
+  // Ref anchor got the sidenote-ref class; href explicitly repointed at the
+  // moved note's id (still resolves — the note is real, just relocated);
+  // the dangling aria-describedby (pointed at the deleted Footnotes <h2>)
+  // is gone.
   const ref = tree.children[0].children[1].children[0];
   assert.deepEqual(ref.properties.className, ['sidenote-ref']);
   assert.equal(ref.properties.href, '#user-content-fn-rand');
+  assert.equal('ariaDescribedBy' in ref.properties, false);
 
-  // Sidenote carries a mono-voice number span using the ref's own counter text.
-  const [numberSpan, , ...rest] = tree.children[1].children;
+  // Sidenote's content starts with a <p> (footnote def was one paragraph) —
+  // the number span is injected as that paragraph's leading children, not
+  // as a block-level sibling, so it still reads inline with the note text.
+  assert.equal(tree.children[1].children.length, 1);
+  const notePara = tree.children[1].children[0];
+  assert.equal(notePara.tagName, 'p');
+  const [numberSpan, , ...rest] = notePara.children;
   assert.equal(numberSpan.tagName, 'span');
   assert.deepEqual(numberSpan.properties.className, ['sidenote-number']);
   assert.equal(numberSpan.children[0].value, '1');
@@ -128,7 +156,7 @@ test('multiple footnotes across multiple paragraphs land after the correct parag
 
   assert.deepEqual(
     tree.children.map((n) => n.tagName),
-    ['p', 'small', 'p', 'small']
+    ['p', 'aside', 'p', 'aside']
   );
   assert.equal(tree.children[0].properties.id, 'p1');
   assert.ok(JSON.stringify(tree.children[1]).includes('Source A.'));
@@ -158,7 +186,7 @@ test('two footnotes cited in the SAME paragraph land after it in citation order'
 
   assert.deepEqual(
     tree.children.map((n) => n.tagName),
-    ['p', 'small', 'small']
+    ['p', 'aside', 'aside']
   );
   // Citation order preserved: A's note comes before B's note, matching the
   // order the two `[^n]` refs appear in the paragraph.
@@ -178,8 +206,8 @@ test('a footnote referenced twice only inserts one sidenote', () => {
 
   transformSidenotes(tree);
 
-  const smalls = tree.children.filter((n) => n.tagName === 'small');
-  assert.equal(smalls.length, 1);
+  const asides = tree.children.filter((n) => n.tagName === 'aside');
+  assert.equal(asides.length, 1);
   // Both references still get the sidenote-ref class for styling.
   const refs = [];
   for (const p of tree.children.filter((n) => n.tagName === 'p')) {
@@ -187,10 +215,18 @@ test('a footnote referenced twice only inserts one sidenote', () => {
     if (a) refs.push(a);
   }
   assert.equal(refs.length, 2);
-  for (const r of refs) assert.deepEqual(r.properties.className, ['sidenote-ref']);
+  for (const r of refs) {
+    assert.deepEqual(r.properties.className, ['sidenote-ref']);
+    // Every reference loses the dangling aria-describedby, not just the
+    // first one that actually gets a note inserted after it.
+    assert.equal('ariaDescribedBy' in r.properties, false);
+  }
 });
 
-test('a multi-paragraph footnote definition is flattened to phrasing content with a <br> between paragraphs', () => {
+test('a multi-paragraph footnote definition keeps its paragraph structure (no lossy flattening)', () => {
+  // <aside> permits flow content, so unlike the earlier <small>-based
+  // design, block content (multiple <p>, or a <ul>/<blockquote>) doesn't
+  // need to be flattened to phrasing-only to stay valid HTML.
   const tree = {
     type: 'root',
     children: [
@@ -206,17 +242,21 @@ test('a multi-paragraph footnote definition is flattened to phrasing content wit
 
   transformSidenotes(tree);
 
-  const small = tree.children.find((n) => n.tagName === 'small');
-  assert.ok(small, 'sidenote should be inserted');
-  // No nested <p> elements — small only contains phrasing content.
-  assert.equal(
-    small.children.some((n) => n.tagName === 'p'),
-    false
-  );
-  assert.ok(small.children.some((n) => n.tagName === 'br'));
-  const flat = JSON.stringify(small.children);
-  assert.ok(flat.includes('First paragraph of the note.'));
-  assert.ok(flat.includes('Second paragraph of the note.'));
+  const aside = tree.children.find((n) => n.tagName === 'aside');
+  assert.ok(aside, 'sidenote should be inserted');
+  // Both source paragraphs survive as real <p> elements (possibly with a
+  // harmless whitespace-only text node between them, mirroring
+  // mdast-util-to-hast's own `state.wrap` behavior — that's valid flow
+  // content inside <aside>, not something this plugin needs to strip).
+  const paragraphs = aside.children.filter((n) => n.tagName === 'p');
+  assert.equal(paragraphs.length, 2);
+  assert.equal(aside.children[0].tagName, 'p'); // no leading whitespace node survives
+  assert.equal(aside.children[aside.children.length - 1].tagName, 'p'); // nor a trailing one
+  // Number marker leads the FIRST paragraph only, not duplicated or
+  // block-level-sibling'd in front of the whole aside.
+  assert.equal(paragraphs[0].children[0].tagName, 'span');
+  assert.ok(JSON.stringify(paragraphs[0]).includes('First paragraph of the note.'));
+  assert.ok(JSON.stringify(paragraphs[1]).includes('Second paragraph of the note.'));
 });
 
 test('a reference whose target id has no matching definition is left as a plain styled ref (no crash)', () => {
@@ -230,7 +270,11 @@ test('a reference whose target id has no matching definition is left as a plain 
 
   assert.doesNotThrow(() => transformSidenotes(tree));
   assert.equal(
-    tree.children.some((n) => n.tagName === 'small'),
+    tree.children.some((n) => n.tagName === 'aside'),
     false
   );
+  // Even with no matching definition, the dangling aria-describedby is
+  // still stripped — it points at the deleted Footnotes section either way.
+  const ref = tree.children[0].children[1].children[0];
+  assert.equal('ariaDescribedBy' in ref.properties, false);
 });

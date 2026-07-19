@@ -1040,12 +1040,15 @@ article > div,
 }
 
 /* ===== Sidenotes (Tufte/gwern-style, issue #272) =====
- * `src/lib/rehype-sidenotes.mjs` moves each GFM footnote's content into a
- * `<small class="sidenote">` right after the paragraph that cites it, in
+ * `src/lib/rehype-sidenotes.mjs` moves each GFM footnote's content into an
+ * `<aside class="sidenote">` right after the paragraph that cites it, in
  * real DOM order (a11y requirement — screen readers hit the note where the
  * citation happens, not in a detour to an end-of-document section). This
  * block is purely presentational on top of that DOM shape; the plugin does
- * the structural work.
+ * the structural work. `<aside>`, not `<small>`: footnote content can be
+ * arbitrary flow content (multiple paragraphs, lists), and `<small>`'s
+ * HTML5 content model is phrasing-only — see the plugin's own comment for
+ * the full rationale.
  *
  * Narrow-viewport / no-rail-room fallback: a small-print block right in the
  * text flow, exactly where the plugin put it — this doubles as the "narrow
@@ -1054,7 +1057,7 @@ article > div,
  * mean shipping two DOM copies (one for CSS to hide/show per breakpoint) —
  * more markup, a hydration-less way to keep them in sync, and no real
  * benefit over "the note just isn't floated yet" at this width. */
-.prose small.sidenote {
+.prose aside.sidenote {
   display: block;
   margin-block: var(--space-3);
   padding-inline-start: var(--space-3);
@@ -1062,6 +1065,12 @@ article > div,
   font-size: var(--text-meta);
   line-height: var(--leading-meta);
   color: var(--color-fg-muted);
+}
+/* Inner paragraphs (the plugin nests <p> as-is, unlike the old flattened
+   <small> design) shouldn't carry the global `p { margin-block }` rhythm —
+   that's tuned for the main reading column, not a compact margin note. */
+.prose aside.sidenote :where(p) {
+  margin: 0;
 }
 
 .sidenote-number {
@@ -1094,7 +1103,7 @@ a.sidenote-ref:hover { text-decoration: underline; }
      left with a negative inline-start margin exactly wide enough to pull
      the element out of `.prose`'s box and into the grid's left rail.
      `clear: left` stacks consecutive notes without JS-computed offsets. */
-  .prose small.sidenote {
+  .prose aside.sidenote {
     float: left;
     clear: left;
     width: 11.5rem;
