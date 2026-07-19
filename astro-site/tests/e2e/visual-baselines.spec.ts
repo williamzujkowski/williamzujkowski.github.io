@@ -31,6 +31,11 @@ import { test, expect } from 'playwright/test';
  * landed, so the baseline set committed on `main` reflects the NEW
  * (post-swap) typography, not the old one. `git log --oneline -- \
  * tests/e2e/visual-baselines.spec.ts-snapshots/` shows the split.
+ *
+ * Baselines are NOT committed: font rendering is machine-specific (the same
+ * reason this spec skips in CI). Before a visual sweep, generate YOUR
+ * machine's baselines first:
+ *   npx playwright test --config=playwright.visual.config.ts --update-snapshots
  */
 
 test.skip(!!process.env.CI, 'local visual authoring tool — CI browsers render fonts differently');

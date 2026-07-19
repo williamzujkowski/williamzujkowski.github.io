@@ -68,3 +68,4 @@ coordination/
 Gemini_Generated_Image_*.png
 wjz*.pdf
 *.bak.*
+astro-site/tests/e2e/*-snapshots/
