@@ -153,7 +153,7 @@ Building and maintaining this dashboard taught me several lessons:
 
 Threat intelligence is only valuable if it drives action.
 
-## References
+## Sources
 
 1. **[MITRE ATT&CK Framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555)** (2024)
    - MITRE Corporation

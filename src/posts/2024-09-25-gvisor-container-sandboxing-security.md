@@ -492,7 +492,7 @@ graph TB
 
 **No silver bullet.** Security is understanding your threat model and layering controls.
 
-## References
+## Sources
 
 1. **[G-Fuzz: A Directed Fuzzing Framework for gVisor](https://arxiv.org/abs/2409.13139)** (2024)
    - J. Zhang et al.

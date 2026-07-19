@@ -237,7 +237,7 @@ Edge AI is making responsive, private, local intelligence possible. But it's not
 
 
 
-## Research & Industry Resources
+## Sources
 
 ### Academic Papers
 - [Edge AI: A Survey](https://arxiv.org/abs/2003.12488) - Comprehensive survey of AI at the edge

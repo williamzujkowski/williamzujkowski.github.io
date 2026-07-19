@@ -109,7 +109,7 @@ Robust systems try to prevent failure. Resilient systems accept it as inevitable
 
 The cascade failure scenario I described at the top is painful, but instructive. Every safety mechanism — load balancers, auto-scaling, circuit breakers — was doing exactly what it was designed to do. The problem was that nobody had tested what happened when all of them activated at once. Resilience isn't any single pattern. It's the discipline of asking "what happens when this goes wrong?" at every design decision, and then actually testing the answer.
 
-### References
+## Sources
 
 1. [Error Budget Policy](https://sre.google/workbook/error-budget-policy/) — Google SRE Workbook (2018)
 2. [Embracing Risk](https://sre.google/sre-book/embracing-risk/) — Google SRE (2016)

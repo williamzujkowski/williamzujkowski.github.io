@@ -230,7 +230,7 @@ Since adopting Claude-Flow:
 
 
 
-## Research & Technical References
+## Sources
 
 ### AI Agent Systems Research
 

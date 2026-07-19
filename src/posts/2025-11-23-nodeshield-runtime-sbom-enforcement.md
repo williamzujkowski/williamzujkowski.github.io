@@ -417,7 +417,7 @@ NodeShield blocked 1,025 of 1,043 supply chain attacks in my homelab testing. Ad
 
 ---
 
-## References
+## Sources
 
 1. **NodeShield: Capability-Based Runtime Enforcement for Supply Chain Security** (arXiv:2508.13750) - Primary research paper with reproducible dataset and methodology. https://arxiv.org/abs/2508.13750
 

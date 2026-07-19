@@ -205,7 +205,7 @@ As I watch continued innovations in efficient attention, longer context windows,
 
 The paper that first captured my imagination years ago continues to inspire new research, new applications, and new questions about intelligence, attention, and learning. In the rapidly evolving landscape of AI, that lasting influence speaks to its foundational contribution.
 
-## References
+## Sources
 
 1. **[Attention Is All You Need](https://arxiv.org/abs/1706.03762)** (2017)
    - Vaswani et al.

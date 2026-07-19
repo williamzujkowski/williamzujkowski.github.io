@@ -89,10 +89,12 @@ jobs:
             for post in posts_dir.glob('**/*.md'):
                 total_posts += 1
                 content = post.read_text()
-                # Check for citation patterns
-                if re.search(r'\[.*?\]\(https?://.*?\)', content) or \
+                # Check for the standard sources section or citation patterns
+                has_sources_section = re.search(r'(?m)^## Sources\s*$', content)
+                has_reference_links = re.search(r'\[.*?\]\(https?://.*?\)', content) or \
                    re.search(r'\[.*?\]\(.*?doi\.org.*?\)', content) or \
-                   re.search(r'\[.*?\]\(.*?arxiv\.org.*?\)', content):
+                   re.search(r'\[.*?\]\(.*?arxiv\.org.*?\)', content)
+                if has_sources_section or has_reference_links:
                     posts_with_citations += 1
 
         coverage = (posts_with_citations / total_posts * 100) if total_posts > 0 else 0

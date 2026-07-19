@@ -490,7 +490,7 @@ That said, I'm still uncertain about some trade-offs. Is it better to run worklo
 
 
 
-## Academic Research & References
+## Sources
 
 ### Carbon Footprint Studies
 

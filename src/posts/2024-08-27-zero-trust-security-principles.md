@@ -425,7 +425,7 @@ Zero Trust is a journey. Start with current posture assessment, identify high-im
 
 ---
 
-## References
+## Sources
 
 1. **[Executive Order 14028: Improving the Nation's Cybersecurity](https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/)** - White House, May 2021. Presidential mandate requiring federal agencies to advance toward Zero Trust Architecture, establishing 2024 implementation deadline and comprehensive security baseline requirements.
 

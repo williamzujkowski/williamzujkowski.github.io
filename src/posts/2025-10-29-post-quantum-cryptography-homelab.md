@@ -826,7 +826,7 @@ But now my encrypted backups, my self-hosted password manager, and my personal d
 
 The quantum future is coming. Your homelab can be ready for it.
 
-## References
+## Sources
 
 1. **[NIST FIPS 203: ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf)** (August 2024)
    - NIST's finalized standard for post-quantum key encapsulation

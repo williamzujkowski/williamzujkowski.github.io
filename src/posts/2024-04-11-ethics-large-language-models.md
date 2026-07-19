@@ -188,7 +188,7 @@ As we stand at this inflection point in AI development, the choices we make abou
 
 The stakes couldn't be higher, but I remain optimistic that thoughtful, ethical AI development can create systems that amplify human capabilities while respecting human values.
 
-## References
+## Sources
 
 1. **[Gender, Race, and Intersectional Bias in Resume Screening via Language Model Retrieval](https://www.brookings.edu/articles/gender-race-and-intersectional-bias-in-ai-resume-screening-via-language-model-retrieval/)** (2024)
    - Wilson, K. & Caliskan, A.

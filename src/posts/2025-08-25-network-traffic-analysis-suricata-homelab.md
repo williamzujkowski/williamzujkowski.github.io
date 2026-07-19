@@ -525,7 +525,7 @@ Monitor packet drops religiously. If you're dropping packets, you're missing thr
 ### 5. Test Your Detections
 Regularly test that your rules actually fire. A rule that never alerts might be broken or misconfigured.
 
-## Research & References
+## Sources
 
 ### IDS/IPS Technology
 

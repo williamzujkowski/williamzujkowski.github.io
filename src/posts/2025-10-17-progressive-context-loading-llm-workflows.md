@@ -467,7 +467,7 @@ For a single commit, this is negligible. But when I'm iterating rapidly (20-30 c
 
 ---
 
-## References
+## Sources
 
 1. **[InfiniteHiP: Extending Large Language Models to Extremely Long Contexts](https://arxiv.org/html/2502.08910v1)** (2025) - Demonstrates performance degradation in large context windows
 2. **[Progressive Sparse Attention for Long-form Language Modeling](https://arxiv.org/html/2503.00392v1)** (2025) - Shows models attend to only 2-5% of input tokens
