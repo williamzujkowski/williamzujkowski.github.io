@@ -266,6 +266,7 @@ a:hover { color: var(--color-accent-hover); }
 .prose :where(pre[data-title])::before,
 .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after,
 .toc a, .toc details summary,
+.sidenote-ref, .sidenote-number,
 .related-posts h2, .related-meta,
 .series-label, .series-position, .series-current-label,
 .theme-deck,
@@ -1035,6 +1036,75 @@ article > div,
     max-width: 14rem;
     max-height: calc(100vh - var(--space-8));
     overflow-y: auto;
+  }
+}
+
+/* ===== Sidenotes (Tufte/gwern-style, issue #272) =====
+ * `src/lib/rehype-sidenotes.mjs` moves each GFM footnote's content into a
+ * `<small class="sidenote">` right after the paragraph that cites it, in
+ * real DOM order (a11y requirement — screen readers hit the note where the
+ * citation happens, not in a detour to an end-of-document section). This
+ * block is purely presentational on top of that DOM shape; the plugin does
+ * the structural work.
+ *
+ * Narrow-viewport / no-rail-room fallback: a small-print block right in the
+ * text flow, exactly where the plugin put it — this doubles as the "narrow
+ * viewport" rendering the spec calls for with zero extra markup and no JS.
+ * Chosen over duplicating a footnotes-section rendering because that would
+ * mean shipping two DOM copies (one for CSS to hide/show per breakpoint) —
+ * more markup, a hydration-less way to keep them in sync, and no real
+ * benefit over "the note just isn't floated yet" at this width. */
+.prose small.sidenote {
+  display: block;
+  margin-block: var(--space-3);
+  padding-inline-start: var(--space-3);
+  border-inline-start: 2px solid var(--color-border-bold);
+  font-size: var(--text-meta);
+  line-height: var(--leading-meta);
+  color: var(--color-fg-muted);
+}
+
+.sidenote-number {
+  color: var(--color-accent);
+  font-size: var(--text-micro);
+  margin-inline-end: 0.25em;
+}
+
+/* Inline reference marker in the prose — accent-colored (mono voice comes
+   from the shared `.sidenote-ref` entry in the "Voice: machine" list
+   above) so it visually pairs with `.sidenote-number` in the margin note. */
+a.sidenote-ref {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a.sidenote-ref:hover { text-decoration: underline; }
+
+@media (min-width: 1280px) {
+  /* Float into the LEFT rail of `.post-article`'s 3-col grid (TOC owns the
+     right rail — column 3, see the grid rule above). Column 1 is
+     `minmax(0, 1fr)` — flexible in the grid spec, but `body`'s own
+     `max-width: var(--content-standard)` (72rem) caps how wide the overall
+     row gets once content-reading + the TOC rail are subtracted, so this
+     track settles at ~14rem (224px) on every viewport wide enough to hit
+     this breakpoint, not just exactly at 1280px — verified against the
+     grid math in the comment above `article.post-article`.
+     `.sidenote` isn't a grid child itself (it's nested inside `.prose`,
+     which IS grid-column 2) — so grid-column placement doesn't apply to it
+     directly. Instead this uses the classic Tufte CSS technique: float
+     left with a negative inline-start margin exactly wide enough to pull
+     the element out of `.prose`'s box and into the grid's left rail.
+     `clear: left` stacks consecutive notes without JS-computed offsets. */
+  .prose small.sidenote {
+    float: left;
+    clear: left;
+    width: 11.5rem;
+    margin-inline-start: -13rem;
+    margin-block: 0.2rem var(--space-4);
+    padding-inline-start: 0;
+    padding-inline-end: var(--space-2);
+    border-inline-start: none;
+    border-inline-end: 1px solid var(--color-border);
+    text-align: start;
   }
 }
 

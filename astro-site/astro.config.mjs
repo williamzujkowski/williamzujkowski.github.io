@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import rehypeMermaid from 'rehype-mermaid';
 import remarkSmartypants from 'remark-smartypants';
 import { visit } from 'unist-util-visit';
+import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
 
 /**
  * Shiki transformer: extract title="filename" from code fence meta
@@ -214,6 +215,13 @@ export default defineConfig({
       }],
       rehypeMermaidDualTheme,
       rehypeScrollWrap,
+      // Tufte/gwern-style sidenotes (issue #272) — must run after remark's
+      // GFM footnote transform (implicit: this is a rehype plugin, so it
+      // only ever sees the hast tree remark-rehype already produced).
+      // Order relative to the mermaid/table plugins above doesn't matter —
+      // disjoint node types (footnote refs/definitions vs. <picture>/
+      // <table>) — kept last for now as the newest addition.
+      rehypeSidenotes,
     ],
   },
 });
