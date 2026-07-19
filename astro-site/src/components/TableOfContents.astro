@@ -94,7 +94,12 @@ const showToc = filteredHeadings.length >= 3;
   .toc li { margin-block-end: var(--space-1); }
 
   .toc a {
-    font-family: var(--font-body);
+    /* TOC is a machine/meta surface (nav), not prose — mono voice per the
+       two-voice typography system (issue #274). Was --font-body: harmless
+       while body was sans-serif Inter, but reads wrong now that body is a
+       text serif (the TOC summary above is already mono; this brought the
+       link list into line with it). */
+    font-family: var(--font-mono);
     font-size: var(--text-meta);
     color: var(--color-fg-muted);
     text-decoration: none;

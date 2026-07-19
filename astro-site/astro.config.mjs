@@ -140,16 +140,20 @@ export default defineConfig({
       subsets: ['latin'],
     },
     {
+      // Body serif — Phosphor broadsheet (issue #274, 7-0 vote). Replaces
+      // Inter outright (font-count budget; not stacked). Source Serif 4 is
+      // the characterful text serif chosen to close the one genericness
+      // flag from the frontend-design calibration (Inter-as-body).
       provider: fontProviders.fontsource(),
-      name: 'Inter',
+      name: 'Source Serif 4',
       cssVariable: '--font-body',
-      fallbacks: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+      fallbacks: ['Georgia', 'serif'],
       optimizedFallbacks: false,
-      weights: ['100 900'],
-      styles: ['normal'],
-      // 'greek' kept: a handful of posts use bare Greek letters in prose
-      // (π, ε, μ for math/privacy-budget notation) that the default
-      // @fontsource-variable/inter import used to cover.
+      weights: ['200 900'],
+      styles: ['normal', 'italic'],
+      // 'greek' REQUIRED (not optional): 5 posts use bare Greek letters in
+      // prose (π, ε, μ for math/privacy-budget notation) that the default
+      // subset would silently drop to tofu/fallback glyphs.
       subsets: ['latin', 'greek'],
     },
     {
