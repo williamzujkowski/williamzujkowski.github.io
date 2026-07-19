@@ -270,6 +270,16 @@ jobs:
           exit 0
         fi
 
+        # Dedup guard: this job runs daily and each run uses a unique branch,
+        # so without this check an unmerged repair PR gets a duplicate every
+        # day until a human merges or closes it.
+        OPEN_REPAIR_PRS=$(gh pr list --state open --json headRefName \
+          --jq '[.[] | select(.headRefName | startswith("auto/link-repairs-"))] | length')
+        if [[ "$OPEN_REPAIR_PRS" -gt 0 ]]; then
+          echo "An auto/link-repairs PR is already open; skipping duplicate PR"
+          exit 0
+        fi
+
         BRANCH="auto/link-repairs-${GITHUB_RUN_ID}"
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
