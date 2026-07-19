@@ -81,6 +81,11 @@ jobs:
           --repairs reports/repairs.json \
           --output-dir reports
 
+        # Ship links.json in the artifact too -- batch-link-fixer.py in the
+        # repair-links job reads it from the working directory and crashes
+        # without it (it hardcodes open('links.json')).
+        cp links.json reports/links.json
+
     - name: Upload Reports
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  # v7
       with:
@@ -241,6 +246,9 @@ jobs:
         # Only apply fixes with >=95% confidence automatically. repairs.json
         # arrives inside the downloaded reports/ artifact.
         if [ -f "reports/repairs.json" ]; then
+          # batch-link-fixer.py reads links.json from the working directory;
+          # it travels inside the reports/ artifact (see check-links job).
+          cp reports/links.json links.json
           uv run python scripts/link-validation/batch-link-fixer.py \
             --repairs reports/repairs.json \
             --confidence-threshold 95 \
@@ -259,6 +267,16 @@ jobs:
         # auto-repairs (redirect-follows, Wayback snapshots) must be eyeballed.
         if [[ -z "$(git status --porcelain src/posts)" ]]; then
           echo "No high-confidence fixes to apply"
+          exit 0
+        fi
+
+        # Dedup guard: this job runs daily and each run uses a unique branch,
+        # so without this check an unmerged repair PR gets a duplicate every
+        # day until a human merges or closes it.
+        OPEN_REPAIR_PRS=$(gh pr list --state open --json headRefName \
+          --jq '[.[] | select(.headRefName | startswith("auto/link-repairs-"))] | length')
+        if [[ "$OPEN_REPAIR_PRS" -gt 0 ]]; then
+          echo "An auto/link-repairs PR is already open; skipping duplicate PR"
           exit 0
         fi
 

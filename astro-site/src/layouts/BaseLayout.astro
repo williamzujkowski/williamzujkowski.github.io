@@ -20,7 +20,7 @@ interface Props {
 
 const {
   title,
-  description = 'Senior Information Security Engineer with 15+ years experience in cybersecurity, AI security, and Zero-Trust architectures.',
+  description: rawDescription,
   image = '/assets/images/og/default-og.png',
   ogImage,
   type = 'website',
@@ -30,9 +30,13 @@ const {
   noindex = false,
 } = Astro.props;
 
+// `||` (not a default param) so an empty-string description also falls back.
+const description =
+  rawDescription ||
+  'Senior Information Security Engineer with 15+ years experience in cybersecurity, AI security, and Zero-Trust architectures.';
 const siteTitle = SITE_CONFIG.author;
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? SITE_CONFIG.siteUrl;
-const pageTitle = title === 'Home' ? siteTitle : `${title} - ${siteTitle}`;
+const pageTitle = title === 'Home' || title === siteTitle ? siteTitle : `${title} - ${siteTitle}`;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = new URL(ogImage ?? image, siteUrl).href;
 const currentYear = new Date().getFullYear();

@@ -7,6 +7,7 @@ const lastUpdatedISO = lastUpdated.toISOString().split('T')[0];
 const lastUpdatedStr = lastUpdated.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
+  timeZone: 'UTC',
 });
 ---
 
