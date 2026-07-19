@@ -1,6 +1,6 @@
 ---
 import '@/styles/global.css';
-import { ClientRouter } from 'astro:transitions';
+import { Font } from 'astro:assets';
 import { SITE_CONFIG } from '@/lib/siteConfig';
 import Search from '@components/Search.svelte';
 import CodeCopy from '@components/CodeCopy.svelte';
@@ -154,8 +154,16 @@ function isActiveLink(linkHref: string): boolean {
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" type="application/rss+xml" title={`${siteTitle} Feed`} href={`${siteUrl}/feed.xml`} />
+    <link rel="alternate" type="application/feed+json" title={`${siteTitle} JSON Feed`} href={`${siteUrl}/feed.json`} />
 
     <!-- Preconnect to external image hosts for faster LCP -->
+
+    <!-- Self-hosted fonts (Astro 6 Fonts API — see astro.config.mjs).
+         Preload the body + display fonts used above the fold; mono is
+         only preloaded where code blocks are likely visible immediately. -->
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" preload />
+    <Font cssVariable="--font-mono" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
@@ -193,8 +201,6 @@ function isActiveLink(linkHref: string): boolean {
 
     <!-- Structured Data -->
     {jsonLdSchemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
-
-    <ClientRouter />
 
     <!-- Dark mode: apply saved preference before first paint to prevent flash -->
     <script is:inline>

@@ -116,13 +116,12 @@
     }
     document.addEventListener('keydown', handleKeydown);
 
-    // Close search on View Transitions navigation
-    const handleSwap = () => close();
-    document.addEventListener('astro:after-swap', handleSwap);
+    // No astro:after-swap listener needed: without ClientRouter every
+    // navigation is a full page load, which naturally tears this component
+    // down (closed by construction) rather than leaving a stale dialog open.
 
     return () => {
       document.removeEventListener('keydown', handleKeydown);
-      document.removeEventListener('astro:after-swap', handleSwap);
     };
   });
 </script>

@@ -111,9 +111,8 @@
       if (btn) btn.addEventListener('click', toggle);
     }
 
+    // Every navigation is a full page load (no ClientRouter), so a single
+    // run on script execution is enough — no astro:after-swap needed.
     init();
-
-    // Re-apply after Astro View Transitions
-    document.addEventListener('astro:after-swap', init);
   })();
 </script>
