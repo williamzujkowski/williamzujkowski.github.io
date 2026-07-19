@@ -7,9 +7,11 @@
 
 /* Fonts — Fraunces (display), Inter (body), IBM Plex Mono (mono) are
  * registered via Astro 6's Fonts API in astro.config.mjs and preloaded
- * by <Font> in BaseLayout.astro. That component injects
- * `:root { --font-display: ...; }` (etc.) itself, so the --font-* tokens
- * below are intentionally NOT redefined here — see astro.config.mjs. */
+ * by <Font> in BaseLayout.astro. That component injects the --font-*
+ * custom properties on the root element itself, so they are intentionally
+ * NOT redefined here — see astro.config.mjs. (Wording matters: the
+ * contrast-audit parser regex-matches the first root token block and must
+ * not find one inside a comment.) */
 
 /* Native cross-document view transitions (Chromium; progressively
  * enhanced — no-op elsewhere). Replaces astro:transitions/ClientRouter,
