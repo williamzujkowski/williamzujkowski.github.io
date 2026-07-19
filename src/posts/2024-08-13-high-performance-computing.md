@@ -432,7 +432,7 @@ The HPC revolution isn't only changing how we compute. It's changing what we can
 
 ---
 
-## References
+## Sources
 
 1. **[LINPACK Benchmark - High Performance Linpack](https://www.netlib.org/benchmark/hpl/)** - The HPL (High-Performance Linpack) benchmark measures floating-point computing performance and serves as the foundation for TOP500 supercomputer rankings. It solves dense linear systems of equations to determine peak FLOPS (floating-point operations per second).
 

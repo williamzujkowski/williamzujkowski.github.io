@@ -366,7 +366,7 @@ bpftrace -e 'tracepoint:raw_syscalls:sys_enter { printf(...) }'
 
 
 
-## Academic Research & References
+## Sources
 
 Recent academic research has significantly advanced our understanding of eBPF security:
 

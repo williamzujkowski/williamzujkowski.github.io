@@ -162,7 +162,7 @@ These projects solve my specific problems, but the beauty of Raspberry Pi is cus
 
 The key is identifying a real problem and building a focused solution.
 
-## Resources
+## Sources
 
 - **Hardware**: [CanaKit](https://www.canakit.com/) for reliable Pi bundles
 - **Cases**: Check Thingiverse for security-specific Pi cases

@@ -360,7 +360,7 @@ If you try this, start with threshold=0.03 and 100 clusters. Probably the best b
 
 The server aggregation bottleneck is fixable with parallelization, but I didn't prioritize it. If you're federating across 10+ clients, you'll probably hit this issue hard. Budget time for optimization.
 
-## Further Reading
+## Sources
 
 ### Primary Research
 - [**A New Perspective on Privacy Protection in Federated Learning with Granular-Ball Computing**](https://arxiv.org/abs/2501.04940) (2025) - Zhang et al., arXiv:2501.04940

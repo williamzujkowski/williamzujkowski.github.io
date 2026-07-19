@@ -365,7 +365,7 @@ For more in-depth information on the topics covered in this post:
 
 *Found this helpful? Follow me for more cybersecurity career insights. Have questions about building your learning path? [Let's connect!](/about/#contact)*
 
-## Learning Resources & Research
+## Sources
 
 ### Cybersecurity Education Research
 

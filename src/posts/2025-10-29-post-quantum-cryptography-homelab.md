@@ -832,7 +832,7 @@ The quantum future is coming. Your homelab can be ready for it.
 [^google-engineering]: [BleepingComputer: Google Chrome's new post-quantum cryptography may break TLS connections](https://www.bleepingcomputer.com/news/security/google-chromes-new-post-quantum-cryptography-may-break-tls-connections/) — Google's explanation of the Chrome 124 ClientHello compatibility issue.
 [^cloudflare-2019]: [Cloudflare Blog: The TLS Post-Quantum Experiment](https://blog.cloudflare.com/the-tls-post-quantum-experiment/) — 2019 NTRU-HRSS vs SIKE performance comparison.
 
-## References
+## Sources
 
 1. **[NIST FIPS 203: ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf)** (August 2024)
    - NIST's finalized standard for post-quantum key encapsulation

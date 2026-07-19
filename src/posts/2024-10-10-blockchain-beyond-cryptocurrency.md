@@ -259,7 +259,7 @@ Whether it becomes truly foundational infrastructure or remains a specialized to
 
 ---
 
-## References and Further Reading
+## Sources
 
 1. **[The Byzantine Generals Problem](https://lamport.azurewebsites.net/pubs/byz.pdf)** (1982)
    - Leslie Lamport, Robert Shostak, Marshall Pease

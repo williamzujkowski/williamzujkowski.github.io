@@ -333,7 +333,7 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 
 *Next week: I'm sharing my biggest local LLM failures. Spoiler: I once had Ollama listening on all network interfaces, accessible to my IoT VLAN full of questionable smart devices. Learn from my mistakes!*
 
-## Academic Research & Technical References
+## Sources
 
 ### Privacy-Preserving ML Research
 
