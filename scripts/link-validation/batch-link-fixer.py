@@ -69,6 +69,32 @@ class BatchLinkFixer:
         self.changes_made = []
         self.backups_created = []
 
+    @staticmethod
+    def _replace_url(content: str, old_url: str, new_url: str) -> Tuple[str, int]:
+        """Replace a URL in markdown links first, then bare prose URLs."""
+        markdown_exact = re.compile(r"(\[[^\]]+\]\()" + re.escape(old_url) + r"(?=\))")
+        markdown_link = re.compile(r"\[[^\]]+\]\((?:[^()]|\([^()]*\))*\)")
+
+        content, markdown_count = markdown_exact.subn(lambda m: f"{m.group(1)}{new_url}", content)
+
+        pieces = []
+        bare_count = 0
+        last_end = 0
+
+        for match in markdown_link.finditer(content):
+            prefix = content[last_end:match.start()]
+            replaced_prefix = prefix.replace(old_url, new_url)
+            bare_count += prefix.count(old_url)
+            pieces.append(replaced_prefix)
+            pieces.append(match.group(0))
+            last_end = match.end()
+
+        suffix = content[last_end:]
+        pieces.append(suffix.replace(old_url, new_url))
+        bare_count += suffix.count(old_url)
+
+        return ''.join(pieces), markdown_count + bare_count
+
     def run_full_pipeline(self, posts_dir: Path) -> int:
         """Run the complete validation and repair pipeline"""
         logger.info("🚀 Starting Link Validation Pipeline")
@@ -241,10 +267,8 @@ class BatchLinkFixer:
             old_url = repair['original_url']
             new_url = repair['suggested_url']
 
-            # Count occurrences
-            count = content.count(old_url)
+            content, count = self._replace_url(content, old_url, new_url)
             if count > 0:
-                content = content.replace(old_url, new_url)
                 changes += count
                 self.changes_made.append({
                     'file': str(file_path),
