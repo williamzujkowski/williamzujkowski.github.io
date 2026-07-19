@@ -72,18 +72,32 @@
 
 <script is:inline>
   (function () {
+    // localStorage can throw (blocked cookies, some private modes) — treat
+    // failed reads as "no stored preference" and skip failed writes.
+    function storedTheme() {
+      try { return localStorage.theme; } catch (e) { return undefined; }
+    }
+    function storeTheme(value) {
+      try {
+        if (value === null) localStorage.removeItem('theme');
+        else localStorage.theme = value;
+      } catch (e) { /* no persistence */ }
+    }
+
     function isDark() {
-      if (localStorage.theme === 'dark') return true;
-      if (localStorage.theme === 'light') return false;
+      var t = storedTheme();
+      if (t === 'dark') return true;
+      if (t === 'light') return false;
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
     function applyTheme() {
       var root = document.documentElement;
       var dark = isDark();
+      var t = storedTheme();
       root.classList.remove('dark', 'light');
-      if (localStorage.theme === 'dark') root.classList.add('dark');
-      else if (localStorage.theme === 'light') root.classList.add('light');
+      if (t === 'dark') root.classList.add('dark');
+      else if (t === 'light') root.classList.add('light');
       // If no localStorage, CSS @media handles it
 
       var btn = document.getElementById('theme-toggle');
@@ -93,15 +107,23 @@
     }
 
     function toggle(e) {
+      // The base toggle always exits any active deck theme — the two systems
+      // never fight over the root classes.
+      if (document.documentElement.hasAttribute('data-theme-deck')) {
+        document.documentElement.removeAttribute('data-theme-deck');
+        try { localStorage.removeItem('themeDeck'); } catch (err) { /* no persistence */ }
+        document.dispatchEvent(new CustomEvent('theme-deck-cleared'));
+      }
+
       // Shift+click resets to system/OS preference
       if (e.shiftKey) {
-        localStorage.removeItem('theme');
+        storeTheme(null);
         applyTheme();
         return;
       }
 
       var dark = isDark();
-      localStorage.theme = dark ? 'light' : 'dark';
+      storeTheme(dark ? 'light' : 'dark');
       applyTheme();
     }
 
