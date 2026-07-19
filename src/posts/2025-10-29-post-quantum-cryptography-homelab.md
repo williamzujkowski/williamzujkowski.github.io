@@ -826,7 +826,7 @@ But now my encrypted backups, my self-hosted password manager, and my personal d
 
 The quantum future is coming. Your homelab can be ready for it.
 
-[^grqc-timeline]: [Global Risk Institute: Quantum Threat Timeline Report 2024](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) — expert survey estimating CRQC arrival between 2030-2045.
+[^grqc-timeline]: [Global Risk Institute: 2023 Quantum Threat Timeline Report](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/) (published December 22, 2023) — expert survey estimating CRQC arrival between 2030-2045.
 [^rand-analysis]: [RAND Corporation: Securing Communications in the Quantum Computing Age](https://www.rand.org/pubs/research_reports/RR3102.html) — analysis of quantum threat timelines and migration strategies.
 [^nist-pqc-conference]: [NIST PQC Conference: Impact of Data-Heavy Post-Quantum TLS 1.3](https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf) — analysis of the 16KB certificate chain threshold and TCP fragmentation.
 [^google-engineering]: [BleepingComputer: Google Chrome's new post-quantum cryptography may break TLS connections](https://www.bleepingcomputer.com/news/security/google-chromes-new-post-quantum-cryptography-may-break-tls-connections/) — Google's explanation of the Chrome 124 ClientHello compatibility issue.
