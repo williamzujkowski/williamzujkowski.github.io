@@ -78,7 +78,11 @@ test('base light/dark toggle clears an active deck theme', async ({ page }) => {
   await expect(page.locator('html')).not.toHaveAttribute('data-theme-deck');
   const stored = await page.evaluate(() => localStorage.getItem('themeDeck'));
   expect(stored).toBeNull();
-  await expect(page.locator('#theme-deck-current')).toHaveText('Remarque');
+  // Header variant has no text label — assert selection state instead.
+  await expect(page.locator('.deck-option[data-deck-slug=""]')).toHaveAttribute(
+    'aria-checked',
+    'true'
+  );
 });
 
 test('picking a light theme pins light mode', async ({ page }) => {

@@ -4,14 +4,32 @@
 // token values are generated + contrast-validated by scripts/theme-deck/.
 import themes from '@/data/theme-deck.json';
 
+interface Props {
+  variant?: 'footer' | 'header';
+}
+const { variant = 'footer' } = Astro.props;
+
 const darkThemes = themes.filter((t) => t.isDark);
 const lightThemes = themes.filter((t) => !t.isDark);
 ---
 
-<details class="theme-deck" id="theme-deck">
-  <summary>
-    <span class="deck-label">Terminal theme</span>
-    <span class="deck-current" id="theme-deck-current">Remarque</span>
+<details class={`theme-deck theme-deck--${variant}`} id="theme-deck">
+  <summary aria-label="Terminal theme picker">
+    {
+      variant === 'header' ? (
+        <span class="deck-mini" aria-hidden="true">
+          {/* Live tokens, deliberately: the mini swatch previews the ACTIVE palette. */}
+          <span class="deck-mini-chip" style="background: var(--color-accent)" />
+          <span class="deck-mini-chip" style="background: var(--color-fg)" />
+          <span class="deck-mini-chip" style="background: var(--color-bg-subtle)" />
+        </span>
+      ) : (
+        <>
+          <span class="deck-label">Terminal theme</span>
+          <span class="deck-current" id="theme-deck-current">Remarque</span>
+        </>
+      )
+    }
   </summary>
 
   <div class="deck-panel" role="radiogroup" aria-label="Site color theme">
@@ -139,6 +157,47 @@ const lightThemes = themes.filter((t) => !t.isDark);
     margin: 0.6rem 0 0;
     color: var(--color-muted);
   }
+
+  /* Header variant: compact swatch button, panel drops down right-aligned */
+  .theme-deck--header {
+    position: relative;
+    margin-top: 0;
+  }
+  .theme-deck--header summary {
+    padding: 0.35rem;
+    width: 2.75rem; /* match the toggle's 44px touch target */
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+  }
+  .theme-deck--header summary::before,
+  .theme-deck--header[open] summary::before {
+    content: '';
+  }
+  .deck-mini {
+    display: inline-flex;
+    gap: 2px;
+    transform: rotate(-6deg); /* a zine-appropriate tilt */
+  }
+  .deck-mini-chip {
+    width: 0.55rem;
+    height: 0.9rem;
+    border-radius: 2px 1px 3px 1px / 1px 3px 1px 2px;
+    border: 1px solid var(--color-border-bold);
+  }
+  .theme-deck--header .deck-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.4rem);
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: min(70vh, 30rem);
+    overflow-y: auto;
+    background: var(--color-bg);
+    z-index: 50;
+    box-shadow: 0 4px 16px var(--color-shadow);
+  }
 </style>
 
 <script is:inline>
@@ -216,6 +275,20 @@ const lightThemes = themes.filter((t) => !t.isDark);
         var next = options[(i + delta + options.length) % options.length];
         next.focus();
         next.click(); // arrow moves selection, matching native radio behavior
+      });
+    }
+
+    // Header popover manners: close on outside click or Escape.
+    var deck = document.getElementById('theme-deck');
+    if (deck) {
+      document.addEventListener('click', function (e) {
+        if (deck.open && !deck.contains(e.target)) deck.open = false;
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && deck.open) {
+          deck.open = false;
+          deck.querySelector('summary').focus();
+        }
       });
     }
 
