@@ -230,6 +230,51 @@ a {
 }
 a:hover { color: var(--color-accent-hover); }
 
+/* ===== Voice: machine (mono) ===============================================
+ * Two-voice typography system (issue #274, "Phosphor broadsheet", ratified
+ * 7-0): serif voice carries human prose; mono voice carries every
+ * machine/meta surface — nav, kickers, dates, tags, TOC, tables, captions,
+ * footer, breadcrumbs. `.voice-machine` is the single composite utility
+ * (family + default size + tracking) and is also directly usable in
+ * markup — see 404.astro's "Recent Posts" eyebrow, which was a stray
+ * `class="font-mono"` with no matching rule until this sweep.
+ *
+ * font-family is the one property every mono surface shares byte-for-byte,
+ * so below that it is centralized ONCE across every current meta/nav
+ * selector instead of being hand-declared per component (vote condition:
+ * DRY or it rots). Size/tracking/color still vary legitimately by surface
+ * and stay on each selector's own rule further down this file — only
+ * family lives here. Adding a new meta/nav surface? Add its selector to
+ * this list rather than writing a new standalone
+ * `font-family: var(--font-mono)` declaration.
+ */
+.voice-machine {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta);
+}
+
+.site-sections,
+.post-breadcrumb, .post-meta, .post-card-meta, .post-card-date, .post-kicker,
+.chip, .chip sup,
+.site-footer, .share-label,
+.masthead-kicker, .masthead-dateline, .landing-issue-label,
+.lead-kicker, .entry-kicker, .archive-count, .archive-stats,
+.uses-meta, .section-eyebrow,
+.prose :where(figcaption), .prose :where(th),
+.prose :where(code):not(:where(pre *)), .prose :where(pre),
+.prose :where(pre[data-title])::before,
+.prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after,
+.toc a, .toc details summary,
+.related-posts h2, .related-meta,
+.series-label, .series-position, .series-current-label,
+.theme-deck,
+.search-kbd, .search-esc,
+.year-count,
+.disclaimer {
+  font-family: var(--font-mono);
+}
+
 /* ===== Header — Remarque editorial identity ===== */
 /* ===== Site masthead nameplate ===== */
 .site-masthead {
@@ -333,7 +378,6 @@ a:hover { color: var(--color-accent-hover); }
   padding-block-start: var(--space-1);
   border-top: 1px solid var(--color-border);
   width: 100%;
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -374,7 +418,6 @@ a:hover { color: var(--color-accent-hover); }
 
 /* ===== Post Article Header ===== */
 .post-breadcrumb {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -392,7 +435,6 @@ a:hover { color: var(--color-accent-hover); }
 }
 
 .post-meta {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -422,7 +464,6 @@ a:hover { color: var(--color-accent-hover); }
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -474,7 +515,6 @@ a.post-card-title:hover { color: var(--color-accent); }
 
 /* Legacy .post-card-date (kept for any stray usage) */
 .post-card-date {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   letter-spacing: var(--tracking-meta);
@@ -484,7 +524,6 @@ a.post-card-title:hover { color: var(--color-accent); }
 .chip {
   display: inline-flex; align-items: center;
   padding: 0.2rem 0.6rem;
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-muted);
   border: 1px solid var(--color-border);
@@ -663,22 +702,24 @@ h1, h2, h3, h4, h5, h6,
 .prose :where(img) { border: 1px solid var(--color-border); border-radius: var(--radius-sm); margin-block: var(--space-5); }
 .prose :where(figure) { margin-block: var(--space-5); }
 .prose :where(figcaption) {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
+  text-align: center;
   margin-top: var(--space-2);
 }
 .prose :where(.scroll-wrap) { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-block: var(--space-5); }
 .prose :where(table) { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-.prose :where(th) { text-align: left; font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
+/* Table headers are a meta surface (mono voice, issue #274 sweep) — was
+   silently inheriting the serif body face since .prose only sets it on
+   figcaption/code/pre, not th. */
+.prose :where(th) { text-align: left; letter-spacing: var(--tracking-meta); font-weight: var(--weight-semibold); padding: var(--space-2); border-bottom: 2px solid var(--color-border); }
 .prose :where(td) { padding: var(--space-2); border-bottom: 1px solid var(--color-border); }
 .prose :where(code):not(:where(pre *)) {
   background-color: var(--color-code-bg);
   padding: 0.15em 0.35em;
   border-radius: var(--radius-sm);
   font-size: 0.9em;
-  font-family: var(--font-mono);
   color: var(--color-code-fg);
 }
 .prose :where(code)::before, .prose :where(code)::after { content: ''; }
@@ -688,7 +729,6 @@ h1, h2, h3, h4, h5, h6,
   border-radius: var(--radius-md);
   padding: var(--space-5); max-width: 100%;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   line-height: 1.6;
 }
@@ -697,7 +737,7 @@ h1, h2, h3, h4, h5, h6,
   content: attr(data-title);
   position: absolute; top: 0; left: 0;
   padding: 0.25rem 0.75rem;
-  font-size: var(--text-micro); font-family: var(--font-mono);
+  font-size: var(--text-micro);
   color: var(--color-muted); background-color: var(--color-border);
   border-radius: var(--radius-md) 0 var(--radius-md) 0;
   border-bottom: 1px solid var(--color-border);
@@ -774,7 +814,6 @@ article .prose > p:first-of-type::first-letter {
   margin-block-start: var(--space-8);
   padding-block-start: var(--space-6);
   border-top: 1px solid var(--color-border);
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
@@ -824,7 +863,6 @@ article .prose > p:first-of-type::first-letter {
 }
 
 .uses-meta {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
@@ -860,7 +898,6 @@ article .prose > p:first-of-type::first-letter {
 
 /* Section eyebrow — mono subtitle above section h2 */
 .section-eyebrow {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
@@ -935,6 +972,72 @@ article > div,
 
 /* TOC styling is in TableOfContents.astro component */
 
+/* ===== Sticky TOC side rail (issue #274 item 4) ===========================
+ * Progressive enhancement: below 1280px the TOC stays exactly as it always
+ * was — an inline collapsible <details> in the normal reading-column flow,
+ * governed entirely by the centering rule above and TableOfContents.astro's
+ * own styles. Nothing in this block runs under that breakpoint.
+ *
+ * At >=1280px there's enough side space (72rem body - 40rem reading column
+ * = 16rem gutter per side) for a slim always-open rail. `article` becomes a
+ * 3-column grid — gutter / reading column / gutter — sized so the center
+ * track is IDENTICAL to the plain `max-width: content-reading; margin-inline:
+ * auto` centering used everywhere else (same visual column, just grid
+ * instead of block flow). Every direct child keeps that center column;
+ * only `.toc` moves into the right gutter and pins itself there with
+ * `position: sticky`, spanning the full article height (`grid-row: 1 / -1`)
+ * so it has room to stick against while the reading column scrolls past.
+ *
+ * Investigated-and-ruled-out: this site's longest posts render >16384px
+ * tall, and this project's headless/software-rendered test Chromium (no
+ * GPU — see `--enable-unsafe-swiftshader` in its launch flags) corrupts
+ * full-page screenshots past that exact line (a classic 2^14 texture-size
+ * ceiling) — the tail of the page comes back blank white. A `position:
+ * fixed` + IntersectionObserver rewrite was tried to sidestep it, but the
+ * SAME corruption reproduced at the SAME byte-exact line on the
+ * PRE-EXISTING baseline too — i.e. before this file touched `.toc` at
+ * all. It's a raw "page taller than 16384px" limit of this sandbox's
+ * software rasterizer, unrelated to sticky/fixed/grid choices, already
+ * present on `main`, and invisible to real visitors (production Chrome
+ * tiles large layers on real GPUs instead of failing). Reverted to the
+ * architecturally simpler `position: sticky` — no JS-managed visibility
+ * needed, and the alternative didn't fix anything real.
+ */
+@media (min-width: 1280px) {
+  /* Scoped to article.post-article (PostLayout.astro's wrapper) —
+     NEVER a bare `article` selector, which would also hit the unrelated
+     `<article class="post-card">` / `<article class="lead|entry">`
+     preview cards (PostCard.astro, BroadsheetEntry.astro) used on the
+     homepage, /posts/, tag pages, and 404's "Recent Posts" — those have
+     their own grid/block layouts that this rule must never touch. */
+  article.post-article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--content-reading)) minmax(12rem, 14rem);
+    column-gap: var(--space-6);
+  }
+  article.post-article > nav,
+  article.post-article > header,
+  article.post-article > footer,
+  article.post-article > section,
+  article.post-article > div {
+    grid-column: 2;
+    max-width: none; /* the grid track itself is already content-reading wide */
+    margin-inline: 0;
+  }
+  article.post-article > nav.toc {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    align-self: start;
+    justify-self: start;
+    position: sticky;
+    top: var(--space-6);
+    width: 100%;
+    max-width: 14rem;
+    max-height: calc(100vh - var(--space-8));
+    overflow-y: auto;
+  }
+}
+
 /* Remove prose-lg — just use prose (Remarque body size is the standard) */
 .prose-lg { font-size: var(--text-body); }
 
@@ -954,7 +1057,6 @@ div:has(> .post-card) {
   text-align: center;
 }
 .masthead-kicker {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -984,7 +1086,6 @@ div:has(> .post-card) {
   color: var(--color-fg-muted);
 }
 .masthead-dateline {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1013,7 +1114,6 @@ div:has(> .post-card) {
   text-align: center;
 }
 .landing-issue-label {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1025,6 +1125,14 @@ div:has(> .post-card) {
   justify-content: center;
   gap: 0.75em;
   font-variant-numeric: tabular-nums lining-nums;
+}
+/* One subtle terminal touch (issue #274 masthead status-line item) — the
+   same mono prompt glyph already used for the header theme-deck trigger
+   (ThemeDeck.astro summary::before), so it reads as one consistent zine
+   motif rather than a new decoration. Static: no animation/blink. */
+.landing-issue-label::before {
+  content: '\276F' / ''; /* ❯ — alt '' keeps AT from announcing it */
+  color: var(--color-accent);
 }
 .landing-issue-label .rule {
   display: inline-block;
@@ -1055,7 +1163,6 @@ div:has(> .post-card) {
 }
 .lead-kicker,
 .entry-kicker {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1207,7 +1314,6 @@ div:has(> .post-card) {
 }
 .archive-link:hover { color: var(--color-accent); }
 .archive-count {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1218,7 +1324,6 @@ div:has(> .post-card) {
 
 /* Post-header kicker (individual posts) */
 .post-kicker {
-  font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1254,7 +1359,6 @@ div:has(> .post-card) {
   gap: var(--space-3);
 }
 .archive-stats {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1281,7 +1385,6 @@ div:has(> .post-card) {
   gap: var(--space-4);
 }
 .share-label {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   letter-spacing: var(--tracking-meta);
   color: var(--color-muted);
@@ -1290,7 +1393,6 @@ div:has(> .post-card) {
 /* ===== Polish Pass v3: external links, figures, abbr ===== */
 .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after {
   content: "↗";
-  font-family: var(--font-mono);
   font-size: 0.7em;
   color: var(--color-muted);
   margin-left: 0.15em;
@@ -1299,14 +1401,9 @@ div:has(> .post-card) {
 }
 
 .prose figure { margin-block: var(--space-6); }
-.prose figcaption {
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  letter-spacing: var(--tracking-meta);
-  color: var(--color-muted);
-  text-align: center;
-  margin-top: var(--space-2);
-}
+/* .prose figcaption styling consolidated into the canonical
+   `.prose :where(figcaption)` rule above (was a byte-identical duplicate
+   plus text-align: center, folded in there — mono-voice sweep, #274). */
 
 .prose abbr[title] {
   text-decoration: underline dotted;
@@ -1342,7 +1439,6 @@ h1, h2, h3, .post-card-title {
 /* Chip small-caps treatment */
 .chip { font-variant-caps: all-small-caps; letter-spacing: 0.06em; }
 .chip sup {
-  font-family: var(--font-mono);
   font-size: 0.7em;
   margin-left: 0.3em;
   color: var(--color-muted);
@@ -1355,6 +1451,43 @@ h1, h2, h3, .post-card-title {
 .prose { quotes: "\201C" "\201D" "\2018" "\2019"; }
 .prose q::before { content: open-quote; }
 .prose q::after { content: close-quote; }
+
+/* ===== Theme crossfade (issue #274 item 3, ratified 7-0) =================
+ * A brief crossfade on a DELIBERATE theme switch only — never at initial
+ * paint or a localStorage restore (the anti-FOUC script in
+ * BaseLayout.astro's <head> must keep painting the stored theme
+ * instantly, with no transition class involved). ThemeToggle.astro's
+ * toggle() and ThemeDeck.astro's applyDeck() add `.theme-transition` to
+ * <html> right before the token-consuming classes change, force a
+ * reflow so the transition is armed first, then remove it ~250ms later.
+ *
+ * Scoped to body + named chrome surfaces — deliberately NOT a universal
+ * `*` selector, which would force a full-tree style recalc on every
+ * toggle across all 14 palettes. Only the properties that actually
+ * consume the color tokens transition; the custom properties themselves
+ * never do (no @property registration, so they can't animate).
+ *
+ * Cross-document navigation is unaffected: this class only ever lives
+ * for ~250ms inside a single document (no ClientRouter/SPA nav — see
+ * the `@view-transition` rule up top), so it cannot still be present
+ * when the browser's native navigation crossfade captures its
+ * before/after snapshots on a link click.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-transition body,
+  .theme-transition .site-masthead,
+  .theme-transition .site-footer,
+  .theme-transition .card,
+  .theme-transition .chip,
+  .theme-transition .callout,
+  .theme-transition .prose :where(pre),
+  .theme-transition .prose :where(code):not(:where(pre *)),
+  .theme-transition .btn-filled,
+  .theme-transition .btn-outlined,
+  .theme-transition a {
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+}
 
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {

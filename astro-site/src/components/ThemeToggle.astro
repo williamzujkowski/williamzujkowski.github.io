@@ -106,7 +106,25 @@
       }
     }
 
+    // Theme crossfade (issue #274 item 3) — armed ONLY here, on a deliberate
+    // click. Never called from applyTheme()/init(), so first paint and the
+    // localStorage-restore path (head script in BaseLayout.astro) never see
+    // this class. The CSS transition itself is also gated behind
+    // prefers-reduced-motion (see global.css), but skipping the reflow+
+    // timeout here too avoids pointless work for those users.
+    function triggerCrossfade() {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var root = document.documentElement;
+      // Single pending cleanup: rapid switches must not strip the class early.
+      if (window.__themeFadeT) clearTimeout(window.__themeFadeT);
+      root.classList.add('theme-transition');
+      void root.offsetHeight; // force reflow: arm the transition before classes below change color tokens
+      window.__themeFadeT = window.setTimeout(function () { root.classList.remove('theme-transition'); }, 250);
+    }
+
     function toggle(e) {
+      triggerCrossfade();
+
       // The base toggle always exits any active deck theme — the two systems
       // never fight over the root classes.
       if (document.documentElement.hasAttribute('data-theme-deck')) {

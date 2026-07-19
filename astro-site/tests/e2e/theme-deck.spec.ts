@@ -85,6 +85,55 @@ test('base light/dark toggle clears an active deck theme', async ({ page }) => {
   );
 });
 
+test.describe('crossfade (motion allowed)', () => {
+  test.use({ contextOptions: { reducedMotion: 'no-preference' } });
+  test('theme crossfade: absent at load and restore, present only on a deliberate switch', async ({
+  page,
+}) => {
+  // Plain first visit — no stored preference at all. The crossfade class
+  // must never be present at/after load (issue #274 item 3 vote condition:
+  // class-gated, added after first paint, never during the anti-FOUC
+  // restore).
+  await page.goto('/');
+  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+
+  // localStorage-restore path — a stored deck pref exists BEFORE the head
+  // script runs. The class must still be absent at and after load; only
+  // ThemeToggle.astro's toggle() / ThemeDeck.astro's applyDeck() may add it.
+  await page.evaluate(() => localStorage.setItem('themeDeck', 'dracula|dark'));
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
+  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+  // Give any errant post-load script a moment it would need to (wrongly) add
+  // the class, then re-assert it's still absent.
+  await page.waitForTimeout(300);
+  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+
+  // A deliberate switch (deck picker) DOES add the class, transiently, then
+  // removes it again ~250ms later.
+  await page.locator('.theme-deck summary').click();
+  await page.locator('[data-deck-slug="nord"]').click();
+  await expect(page.locator('html')).toHaveClass(/theme-transition/);
+  await expect(page.locator('html')).not.toHaveClass(/theme-transition/, { timeout: 1000 });
+
+  // Same guarantee for the base light/dark toggle.
+  await page.locator('#theme-toggle').click();
+  await expect(page.locator('html')).toHaveClass(/theme-transition/);
+  await expect(page.locator('html')).not.toHaveClass(/theme-transition/, { timeout: 1000 });
+});
+});
+
+test('crossfade never fires under prefers-reduced-motion: reduce', async ({ browser }) => {
+  const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  await page.goto('/');
+  await page.locator('.theme-deck summary').click();
+  await page.locator('[data-deck-slug="dracula"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme-deck', 'dracula');
+  await expect(page.locator('html')).not.toHaveClass(/theme-transition/);
+  await ctx.close();
+});
+
 test('picking a light theme pins light mode', async ({ page }) => {
   await page.goto('/');
   await page.locator('.theme-deck summary').click();

@@ -48,6 +48,33 @@ const showToc = filteredHeadings.length >= 3;
   )
 }
 
+<script is:inline>
+  (function () {
+    // Sticky side-rail mode (issue #274 item 4) — force the <details> open
+    // at the >=1280px rail breakpoint so the list is actually visible.
+    //
+    // A CSS-only `details:not([open]) > ul { display: block }` override
+    // was tried first and doesn't reliably win: modern Chromium renders
+    // collapsed <details> content through an internal `::details-content`
+    // box rather than a plain `display: none` on the child, so a plain
+    // author-CSS override on the <ul> itself doesn't force it visible.
+    // Toggling the real `open` attribute/property is the only path that's
+    // guaranteed to work, so this is the actual mechanism now — not a
+    // pure-CSS trick.
+    //
+    // Progressive enhancement: without JS the rail just shows a normal
+    // collapsed, click-to-expand <details> — degraded but not broken.
+    var details = document.querySelector('.toc details');
+    if (!details || !window.matchMedia) return;
+    var mq = window.matchMedia('(min-width: 1280px)');
+    function sync(e) {
+      details.open = e.matches;
+    }
+    sync(mq);
+    mq.addEventListener('change', sync);
+  })();
+</script>
+
 <style>
   /* Remarque TOC — borderless, mono, minimal */
   .toc {
@@ -57,7 +84,7 @@ const showToc = filteredHeadings.length >= 3;
   .toc details summary {
     cursor: pointer;
     user-select: none;
-    font-family: var(--font-mono);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-meta);
     letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
@@ -94,12 +121,7 @@ const showToc = filteredHeadings.length >= 3;
   .toc li { margin-block-end: var(--space-1); }
 
   .toc a {
-    /* TOC is a machine/meta surface (nav), not prose — mono voice per the
-       two-voice typography system (issue #274). Was --font-body: harmless
-       while body was sans-serif Inter, but reads wrong now that body is a
-       text serif (the TOC summary above is already mono; this brought the
-       link list into line with it). */
-    font-family: var(--font-mono);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-meta);
     color: var(--color-fg-muted);
     text-decoration: none;
@@ -107,4 +129,27 @@ const showToc = filteredHeadings.length >= 3;
   }
 
   .toc a:hover { color: var(--color-fg); }
+
+  /* Sticky side-rail mode (issue #274 item 4) — the grid/sticky placement
+     itself lives in global.css (`article.post-article > nav.toc`, needs
+     `article` in scope); this block only adjusts the TOC's own
+     presentation to suit a rail instead of an inline collapsible block.
+     The inline script above sets the real `open` attribute at this same
+     breakpoint, so `details[open] summary` above already provides the
+     open-state spacing — nothing to duplicate here. Below 1280px none of
+     this applies — the <details> stays exactly as it always was. */
+  @media (min-width: 1280px) {
+    .toc {
+      margin-block: 0;
+    }
+    /* Nothing left to toggle: the rail is permanently open, and a stray
+       click on the summary would otherwise fire the native toggle and
+       collapse it again (the resize-driven script above only re-forces
+       `open` on a breakpoint CROSSING, not on every click). */
+    .toc details summary {
+      cursor: default;
+      pointer-events: none;
+    }
+    .toc-chevron { display: none; }
+  }
 </style>

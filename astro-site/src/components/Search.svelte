@@ -281,7 +281,7 @@
   }
   .search-kbd {
     display: none;
-    font-family: var(--font-mono);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-micro);
     padding: 0.125rem 0.375rem;
     border: 1px solid var(--color-border);
@@ -343,7 +343,7 @@
   }
   .search-esc {
     display: none;
-    font-family: var(--font-mono);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-micro, 0.75rem);
     padding: 0.125rem 0.375rem;
     border: 1px solid var(--color-border);

@@ -85,7 +85,7 @@ const lightThemes = themes.filter((t) => !t.isDark);
 
 <style>
   .theme-deck {
-    font-family: var(--font-mono, monospace);
+    /* font-family: mono — shared machine-voice rule in global.css (#274) */
     font-size: var(--text-micro, 0.75rem);
     margin-top: 0.75rem;
   }
@@ -216,7 +216,23 @@ const lightThemes = themes.filter((t) => !t.isDark);
       try { localStorage.removeItem(key); } catch (e) { /* no persistence */ }
     }
 
+    // Theme crossfade (issue #274 item 3) — armed ONLY on a deliberate deck
+    // pick, never at first paint or the localStorage-restore path (the head
+    // script in BaseLayout.astro never touches this class). Mirrors
+    // ThemeToggle.astro's helper of the same name; duplicated rather than
+    // shared because both scripts are `is:inline` (no module bundling).
+    function triggerCrossfade() {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var root = document.documentElement;
+      // Single pending cleanup: rapid switches must not strip the class early.
+      if (window.__themeFadeT) clearTimeout(window.__themeFadeT);
+      root.classList.add('theme-transition');
+      void root.offsetHeight; // force reflow: arm the transition before classes below change color tokens
+      window.__themeFadeT = window.setTimeout(function () { root.classList.remove('theme-transition'); }, 250);
+    }
+
     function applyDeck(slug, isDark) {
+      triggerCrossfade();
       var root = document.documentElement;
       if (slug) {
         root.setAttribute('data-theme-deck', slug);
