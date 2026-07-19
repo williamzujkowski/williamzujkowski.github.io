@@ -623,7 +623,7 @@ Firewall rules without logging are security theater. Log everything and alert on
 - **Compliance**: Network segmentation requirement satisfied
 - **Peace of mind**: Sketchy cameras can't access my NAS
 
-## Research & References
+## Sources
 
 ### Zero Trust Networking
 

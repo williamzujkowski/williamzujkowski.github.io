@@ -534,7 +534,7 @@ Running a "local" LLM that's actually exposed to the internet is worse than just
 
 If you're not willing to properly secure your deployment, use a reputable cloud provider instead.
 
-## Resources and Further Reading
+## Sources
 
 **Research Papers:**
 - [MPC-Minimized Secure LLM Inference](https://arxiv.org/abs/2408.03561) - Secure multi-party computation techniques

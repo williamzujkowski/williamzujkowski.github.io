@@ -426,9 +426,9 @@ The journey from seeing cryptography as mysterious black magic to understanding 
 
 Whether you're building financial systems, healthcare applications, or simple websites, cryptographic knowledge isn't optional. It's essential. The time invested in understanding these fundamentals pays dividends in building systems that users can trust.
 
-### Further Reading
+## Sources
 
-#### Official Standards & Specifications
+### Official Standards & Specifications
 
 **Encryption Standards:**
 - [FIPS 197 - Advanced Encryption Standard (AES)](https://csrc.nist.gov/pubs/fips/197/final) - NIST official specification for AES-128, AES-192, and AES-256
@@ -446,7 +446,7 @@ Whether you're building financial systems, healthcare applications, or simple we
 **Security Best Practices:**
 - [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) - Comprehensive guide for secure password storage with Argon2id, scrypt, or bcrypt
 
-#### Security Research
+### Security Research
 
 **Hash Collision Attacks:**
 - [SHAttered - First SHA-1 Collision](https://shattered.io) - Google research demonstrating practical SHA-1 collision attack (2017)
@@ -455,7 +455,7 @@ Whether you're building financial systems, healthcare applications, or simple we
 **Post-Quantum Cryptography:**
 For a practical [guide to quantum-resistant cryptography](/posts/2024-04-30-quantum-resistant-cryptography-guide), including algorithm selection and implementation strategies, see my comprehensive overview of NIST's post-quantum standards.
 
-#### Educational Resources
+### Educational Resources
 
 - [Cryptography](https://www.khanacademy.org/computing/computer-science/cryptography) - Khan Academy interactive course
 - [Crypto 101](https://www.crypto101.io/) - Introductory cryptography textbook

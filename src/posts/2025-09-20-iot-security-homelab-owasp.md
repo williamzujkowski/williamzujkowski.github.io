@@ -196,7 +196,7 @@ Ready to dive deeper? Here's your roadmap:
 
 Remember: in IoT security, paranoia is just good planning. Or maybe it's overkill. I'm still figuring that out.
 
-## References
+## Sources
 
 1. **[OWASP Internet of Things Project](https://owasp.org/www-project-internet-of-things/)** (2018)
    - OWASP Foundation

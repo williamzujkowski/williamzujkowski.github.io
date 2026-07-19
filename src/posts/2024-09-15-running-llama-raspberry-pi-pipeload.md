@@ -459,7 +459,7 @@ Edge AI is no longer a research curiosity. It's a practical deployment option fo
 
 ---
 
-## References
+## Sources
 
 1. **[Hermes: Memory-Efficient Pipeline Inference for Large Models on Edge Devices](https://arxiv.org/abs/2409.04249)** (2024)
    - Zhang et al., *arXiv preprint*

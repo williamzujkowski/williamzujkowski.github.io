@@ -1138,66 +1138,66 @@ The lessons learned from efficient AI development (careful measurement, thoughtf
 
 As AI continues to evolve, the ability to work efficiently within constraints will become increasingly valuable. The future belongs not to those who can train the largest models, but to those who can achieve the most impact with the resources available to them.
 
-### Further Reading & References
+## Sources
 
-#### Model Distillation
+### Model Distillation
 1. **[Distilling the Knowledge in a Neural Network](https://arxiv.org/abs/1503.02531)** (2015) - Hinton, Vinyals, Dean (Google), *Foundational knowledge distillation paper*
 
 2. **[DistilBERT](https://arxiv.org/abs/1910.01108)** (2019) - Sanh et al. (Hugging Face), *40% smaller, 60% faster BERT variant*
 
-#### Pruning & Quantization
+### Pruning & Quantization
 3. **[The Lottery Ticket Hypothesis](https://arxiv.org/abs/1803.03635)** (2019) - Frankle & Carbin (MIT), *Sparse trainable subnetworks discovery*
 
 4. **[Quantization and Training of Neural Networks](https://arxiv.org/abs/1712.05877)** (2018) - Jacob et al. (Google), *INT8 quantization-aware training*
 
-#### Efficient Architectures
+### Efficient Architectures
 9. **[EfficientNet](https://arxiv.org/abs/1905.11946)** (2019) - Tan & Le (Google Brain), *Compound scaling for efficient CNNs*
 
 5. **[ALBERT](https://arxiv.org/abs/1909.11942)** (2020) - Lan et al. (Google Research), *Parameter sharing across transformer layers*
 
 6. **[Longformer](https://arxiv.org/abs/2004.05150)** (2020) - Beltagy, Peters, Cohan (Allen AI), *Efficient long-document transformers*
 
-#### Hardware-Software Co-Design
+### Hardware-Software Co-Design
 10. **[In-Datacenter Performance Analysis of a TPU](https://arxiv.org/abs/1704.04760)** (2017) - Jouppi et al. (Google), *TPU architecture achieving 15-30x speedup*
 
 8. **[Edge TPU Documentation](https://coral.ai/docs/edgetpu/benchmarks/)** (2019) - Google Coral Team, *4 TOPS at 2W for edge inference*
 
 12. **[Loihi: A Neuromorphic Manycore Processor](https://ieeexplore.ieee.org/document/8259423)** (2018) - Davies et al. (Intel Labs), *1000x energy efficiency neuromorphic chip*
 
-#### Energy & Sustainability
+### Energy & Sustainability
 11. **[Energy and Policy Considerations for Deep Learning in NLP](https://arxiv.org/abs/1906.02243)** (2019) - Strubell, Ganesh, McCallum (UMass Amherst), *626,000 lbs CO2 per training run*
 
 13. **[Green AI](https://arxiv.org/abs/1907.10597)** (2020) - Schwartz et al. (Allen AI), *Sustainable AI research practices*
 
 14. **[Measuring the Carbon Intensity of AI](https://arxiv.org/abs/2206.05229)** (2022) - Dodge et al. (Allen AI), *Carbon footprint tracking methodology*
 
-#### Federated Learning
+### Federated Learning
 7. **[Communication-Efficient Learning from Decentralized Data](https://arxiv.org/abs/1602.05629)** (2017) - McMahan et al. (Google), *FedAvg algorithm for privacy-preserving training*
 
 15. **[Advances and Open Problems in Federated Learning](https://arxiv.org/abs/1912.04977)** (2021) - Kairouz et al. (Google), *Comprehensive 400+ page FL survey*
 
-#### Transfer Learning & Few-Shot
+### Transfer Learning & Few-Shot
 5. **[Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)** (2020) - Brown et al. (OpenAI), *GPT-3 in-context learning paper*
 
 6. **[Model-Agnostic Meta-Learning](https://arxiv.org/abs/1703.03400)** (2017) - Finn, Abbeel, Levine (Berkeley), *MAML few-shot learning algorithm*
 
 16. **[A Survey on Transfer Learning](https://ieeexplore.ieee.org/document/5288526)** (2010) - Pan & Yang (Hong Kong U), *Foundational transfer learning survey*
 
-#### Edge AI & TinyML
+### Edge AI & TinyML
 17. **[TinyML Book](https://tinymlbook.com/)** (2019) - Warden & Situnayake (O'Reilly), *ML on ultra-low-power microcontrollers*
 
 18. **[TensorFlow Lite Documentation](https://www.tensorflow.org/lite)** (2024) - TensorFlow Team (Google), *Mobile and embedded deployment guide*
 
 19. **[TinyML Foundation](https://www.tinyml.org/)** - Community and resources for efficient AI
 
-#### Neural Architecture Search
+### Neural Architecture Search
 20. **[Neural Architecture Search: A Survey](https://arxiv.org/abs/1808.05377)** (2019) - Elsken, Metzen, Hutter, *Comprehensive NAS survey*
 
 21. **[Once-for-All Networks](https://arxiv.org/abs/1908.09791)** (2020) - Cai, Gan, Lin (MIT), *Train once, deploy many specialized sub-networks*
 
 22. **[ProxylessNAS](https://arxiv.org/abs/1812.00332)** (2019) - Cai, Zhu, Han (MIT), *Hardware-aware architecture search*
 
-#### Comprehensive Resources
+### Comprehensive Resources
 23. **[Efficient Deep Learning Book](https://efficientdlbook.com/)** (2024) - Kuzmin et al. (MIT Press), *Complete guide to efficient ML techniques*
 
 24. **[Deep Compression](https://arxiv.org/abs/1510.00149)** (2016) - Han, Mao, Dally (Stanford), *35-49x compression combining multiple techniques*

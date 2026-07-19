@@ -683,7 +683,7 @@ Each quarter builds on previous foundation. Don't try to implement everything im
 
 Time investment: 20 hours setup, 2 hours monthly maintenance.
 
-## Further Reading and Resources
+## Sources
 
 **Official documentation:**
 - [Prometheus Configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) - Complete reference

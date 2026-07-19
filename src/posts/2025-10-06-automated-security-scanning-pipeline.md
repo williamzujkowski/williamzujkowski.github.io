@@ -323,7 +323,7 @@ Track security posture with PostgreSQL queries. My current MTTR: 4.2 days (down 
 
 Query vulnerability trends over time, grouping by severity and date to track remediation progress and new findings.
 
-## Research & References
+## Sources
 
 ### Security Scanning Tools
 

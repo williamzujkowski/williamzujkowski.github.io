@@ -273,7 +273,7 @@ In November 2024, my Wazuh system caught a port scan that my traditional tools m
 
 
 
-## Academic Research & Industry Resources
+## Sources
 
 ### AI Security Research
 

@@ -166,7 +166,7 @@ After roughly six months of multi-model consensus voting across 500+ proposals:
 
 The [nexus-agents repository](https://github.com/nexus-substrate/nexus-agents) implements the full consensus engine. The voting code lives in `src/consensus/engine.ts`. If you want to try multi-model voting on your own proposals, the CLI exposes it directly: `nexus-agents vote --proposal "your proposal" --strategy supermajority`.
 
-## Papers Referenced
+## Sources
 
 - [Multi-Agent Collaboration Survey](https://arxiv.org/abs/2501.06322) - Structured agent coordination patterns
 - [Voting vs. Consensus Protocols](https://arxiv.org/abs/2502.19130) - Aggregation strategy comparison

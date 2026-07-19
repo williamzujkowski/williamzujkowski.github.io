@@ -131,7 +131,7 @@ Total latency: under 10ms. The routing decision is effectively free compared to 
 
 If I were starting over, I'd probably skip the Preference Router and fold its logic into TOPSIS weight adjustment. Three of the five stages (Budget, Zero, Preference) are pre-processing for TOPSIS. But the staged approach makes each component testable in isolation, and the 193 pipeline tests I've written validate each stage independently. I'd call that a worthwhile tradeoff.
 
-## Papers Referenced
+## Sources
 
 - [RouteLLM: Learning to Route LLMs](https://arxiv.org/abs/2406.18510) (Ong et al.) - Cost-quality routing with preference-trained classifiers
 - [MoMA: Multi-objective Model Selection](https://arxiv.org/abs/2509.07571) - TOPSIS for LLM routing

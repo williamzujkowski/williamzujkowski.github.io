@@ -271,7 +271,7 @@ The embodied AI revolution isn't coming, it's here. The question is whether you'
 
 *Running robots in your homelab? Building VLA applications? Hit me up, I'd love to hear about your experiments and share lessons learned.*
 
-## Research & References
+## Sources
 
 ### Primary Research
 

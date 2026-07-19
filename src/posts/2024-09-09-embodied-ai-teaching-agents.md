@@ -142,7 +142,7 @@ The future of human-robot interaction looks increasingly conversational, collabo
 
 *For those interested in diving deeper, the original research paper "Grounding Multimodal LLMs to Embodied Agents that Ask for Help with Reinforcement Learning" provides comprehensive technical details, while the [Stanford Embodied AI Workshop](https://embodied-ai.org/) offers broader context on advances in this field.*
 
-## Academic Research & References
+## Sources
 
 ### Embodied AI Research
 

@@ -315,7 +315,7 @@ My cluster performance:
 - **Ceph read latency**: <1ms (cached)
 - **Network throughput**: 8-9 Gbps (10Gb links)
 
-## Research & References
+## Sources
 
 ### Proxmox Documentation
 
