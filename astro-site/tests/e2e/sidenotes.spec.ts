@@ -6,49 +6,74 @@ import AxeBuilder from '@axe-core/playwright';
 // converted from inline citations — see rehype-sidenotes.mjs.
 const PILOT_POST = '/posts/2025-10-29-post-quantum-cryptography-homelab/';
 
+// 1280 is the CSS breakpoint itself (article.post-article's grid rule is
+// `@media (min-width: 1280px)`) — worth checking in addition to a
+// comfortably-wide 1440px, since off-by-one rail-width math would show up
+// right at the boundary first.
+const RAIL_WIDTHS = [1280, 1440];
+
+for (const width of RAIL_WIDTHS) {
+  test.describe(`sidenotes — margin rail at ${width}px`, () => {
+    test.use({ viewport: { width, height: 1000 } });
+
+    test('every sidenote is floated left of the prose column, in-viewport, and clear of the TOC', async ({
+      page,
+    }) => {
+      await page.goto(PILOT_POST);
+
+      const sidenotes = page.locator('aside.sidenote');
+      const count = await sidenotes.count();
+      expect(count).toBeGreaterThan(0);
+
+      const prose = page.locator('.prose').first();
+      const proseBox = await prose.boundingBox();
+      expect(proseBox).not.toBeNull();
+
+      const toc = page.locator('nav.toc').first();
+      const tocBox = (await toc.count()) ? await toc.boundingBox() : null;
+
+      for (let i = 0; i < count; i++) {
+        const sidenote = sidenotes.nth(i);
+        await expect(sidenote).toBeVisible();
+
+        // Floated left with a negative margin — CSS technique check, not
+        // just "is it visible": confirms the >=1280px rail rule actually
+        // applied rather than the narrow-viewport in-flow fallback
+        // rendering by luck.
+        const float = await sidenote.evaluate((el) => getComputedStyle(el).float);
+        expect(float, `sidenote #${i} should be float:left`).toBe('left');
+
+        const noteBox = await sidenote.boundingBox();
+        expect(noteBox, `sidenote #${i} should have a bounding box`).not.toBeNull();
+
+        // In-viewport: never pulled off the left edge of the browser.
+        expect(noteBox!.x, `sidenote #${i} should not be off-screen left`).toBeGreaterThanOrEqual(0);
+
+        // Sits entirely to the LEFT of the prose column (in the margin),
+        // not overlapping the reading column's text.
+        expect(
+          noteBox!.x + noteBox!.width,
+          `sidenote #${i} should not overlap .prose`
+        ).toBeLessThanOrEqual(proseBox!.x + 1);
+
+        // TOC lives in the right rail (#299) — the two must never overlap.
+        if (tocBox) {
+          const overlaps =
+            noteBox!.x < tocBox.x + tocBox.width &&
+            noteBox!.x + noteBox!.width > tocBox.x &&
+            noteBox!.y < tocBox.y + tocBox.height &&
+            noteBox!.y + noteBox!.height > tocBox.y;
+          expect(overlaps, `sidenote #${i} should not overlap nav.toc`).toBe(false);
+        }
+      }
+    });
+  });
+}
+
 test.describe('sidenotes — wide viewport (margin rail)', () => {
   test.use({ viewport: { width: 1440, height: 1000 } });
 
-  test('sidenote is floated into the left rail, not overlapping the TOC or the prose column', async ({
-    page,
-  }) => {
-    await page.goto(PILOT_POST);
-
-    const sidenote = page.locator('small.sidenote').first();
-    await expect(sidenote).toBeVisible();
-
-    // Floated left with a negative margin — CSS technique check, not just
-    // "is it visible": confirms the >=1280px rail rule actually applied
-    // rather than the narrow-viewport in-flow fallback rendering by luck.
-    const float = await sidenote.evaluate((el) => getComputedStyle(el).float);
-    expect(float).toBe('left');
-
-    const noteBox = await sidenote.boundingBox();
-    const prose = page.locator('.prose').first();
-    const proseBox = await prose.boundingBox();
-    expect(noteBox).not.toBeNull();
-    expect(proseBox).not.toBeNull();
-
-    // Sidenote sits entirely to the LEFT of the prose column (in the
-    // margin), not overlapping the reading column's text.
-    expect(noteBox!.x + noteBox!.width).toBeLessThanOrEqual(proseBox!.x + 1);
-
-    // TOC lives in the right rail (#299) — the two must never overlap.
-    const toc = page.locator('nav.toc').first();
-    if (await toc.count()) {
-      const tocBox = await toc.boundingBox();
-      if (tocBox) {
-        const overlaps =
-          noteBox!.x < tocBox.x + tocBox.width &&
-          noteBox!.x + noteBox!.width > tocBox.x &&
-          noteBox!.y < tocBox.y + tocBox.height &&
-          noteBox!.y + noteBox!.height > tocBox.y;
-        expect(overlaps).toBe(false);
-      }
-    }
-  });
-
-  test('sidenote-ref marker is visible inline in the prose and precedes its note in DOM order', async ({
+  test('sidenote-ref marker is visible inline in the prose, has no dangling aria-describedby, and precedes its note in DOM order', async ({
     page,
   }) => {
     await page.goto(PILOT_POST);
@@ -56,10 +81,15 @@ test.describe('sidenotes — wide viewport (margin rail)', () => {
     const ref = page.locator('a.sidenote-ref').first();
     await expect(ref).toBeVisible();
 
+    // GFM's aria-describedby points at the "Footnotes" <h2> this plugin
+    // deletes along with the rest of the footnotes section — left in
+    // place, that's a dangling ARIA reference (resolves to nothing).
+    await expect(ref).not.toHaveAttribute('aria-describedby', /.+/);
+
     const targetId = await ref.getAttribute('href');
     expect(targetId).toMatch(/^#user-content-fn-/);
     const id = targetId!.slice(1);
-    const noteById = page.locator(`small.sidenote[id="${id}"]`);
+    const noteById = page.locator(`aside.sidenote[id="${id}"]`);
     await expect(noteById).toHaveCount(1);
 
     // DOM order: the ref's paragraph must precede the note in document order.
@@ -93,7 +123,7 @@ test.describe('sidenotes — narrow viewport (inline fallback)', () => {
   test('sidenote renders as an in-flow small-print block, not floated into a rail', async ({ page }) => {
     await page.goto(PILOT_POST);
 
-    const sidenote = page.locator('small.sidenote').first();
+    const sidenote = page.locator('aside.sidenote').first();
     await expect(sidenote).toBeVisible();
 
     const float = await sidenote.evaluate((el) => getComputedStyle(el).float);
@@ -127,8 +157,9 @@ test.describe('sidenotes — accessibility', () => {
       // this was never caught before the sidenotes pilot picked this post
       // for its citation density. Tracked as a follow-up (needs a small
       // rehype pass adding aria-label to GFM task-list checkboxes) — out
-      // of scope for the sidenotes plugin itself, excluded here rather
-      // than silently left failing.
+      // of scope for the sidenotes plugin itself, excluded here (and ONLY
+      // here / in a11y.spec.ts's page-specific exclusion — never applied
+      // suite-wide) rather than silently left failing.
       .exclude('.task-list-item input[type="checkbox"]')
       .analyze();
     expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
@@ -140,16 +171,7 @@ test.describe('sidenotes — accessibility', () => {
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .exclude('pre.astro-code span')
-      // Pre-existing gap, unrelated to sidenotes: this post's "Threat Model
-      // Checklist" uses GFM task-list syntax (`- [ ]`), which Astro's
-      // default markdown pipeline renders as bare
-      // `<input type="checkbox" disabled>` with no accessible label. Every
-      // other page in the a11y suite happens not to use task lists, so
-      // this was never caught before the sidenotes pilot picked this post
-      // for its citation density. Tracked as a follow-up (needs a small
-      // rehype pass adding aria-label to GFM task-list checkboxes) — out
-      // of scope for the sidenotes plugin itself, excluded here rather
-      // than silently left failing.
+      // See the wide-viewport test above for the task-list rationale.
       .exclude('.task-list-item input[type="checkbox"]')
       .analyze();
     expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
