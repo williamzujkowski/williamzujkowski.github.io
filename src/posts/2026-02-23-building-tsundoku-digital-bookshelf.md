@@ -1,71 +1,88 @@
 ---
-title: "Building a 3,500-Book Digital Library with Astro and Six APIs"
+title: "3,534 Books, and the Website I Built Instead of Reading Any of Them"
 date: 2026-02-23
-description: "How I built Tsundoku — a curated digital bookshelf with multi-source enrichment, free reading links, and a static-site architecture that serves 3,500+ books without a database."
+description: "Tsundoku is a static bookshelf for the 3,534 books I own and haven't read — Astro 7, Svelte islands, six enrichment APIs, no database. Plus a documentation bug I found while checking my own numbers."
 tags: [astro, svelte, python, projects, reading]
 author: William Zujkowski
 ---
 
-The Japanese word *tsundoku* (積ん読) describes the habit of acquiring books and letting them pile up unread. I have this problem. So I built a website for it.
+The Japanese word *tsundoku* (積ん読) describes the specific habit of buying books and letting them stack up unread. I have this problem badly enough that the fix, apparently, was to build software. [Tsundoku](https://github.com/williamzujkowski/tsundoku) is a curated digital bookshelf — 3,534 books across 29 categories, 1,615 authors — enriched from six APIs and served as a static site with no database behind it. The README states the project's mission more honestly than I could: "because buying books and not reading them is a lifestyle." I'm not going to try to improve on that line. I'm just going to explain what it built.
 
-[Tsundoku](https://github.com/williamzujkowski/tsundoku) is a curated digital bookshelf — 3,534 books across 29 categories, with search, reading progress tracking, author pages with Wikipedia bios, and free reading links. It's a static site built with Astro 6 and Svelte 5, backed by a Python enrichment pipeline that pulls from six different APIs.
+It's Astro 7 up front, Svelte 5 for the handful of things that need to be interactive, and a Python enrichment pipeline behind the scenes that turns a spreadsheet row into a book page with a cover, a description, a copyright determination, and — where one exists — a legal way to read it for free. No database, no backend, no accounts. A build step runs, generates several thousand HTML files, and then gets out of the way.
 
 ## Why I Built This
 
-I maintain a CSV of books I've read, want to read, or find interesting. The spreadsheet grew to 3,500+ entries. Goodreads felt wrong: I don't want social features, and I don't want Amazon owning my reading data. I wanted something I controlled that could also surface free, legal reading options for public domain works.
+I keep a running list of books I've read, want to read, or found interesting enough to write down. It's a spreadsheet, and somewhere past 3,500 rows it stopped being an organizational tool and started being a monument to intent. Goodreads was the obvious alternative, and I didn't want it: no interest in the social features, no interest in Amazon holding my reading history. I wanted something I controlled, plus a feature Goodreads doesn't bother with — surfacing free, legal reading options for anything already in the public domain.
 
-The constraints were clear: no database, no backend, no hosting costs beyond a static file server. Everything had to be pre-built at compile time.
+The constraints were simple. No database, no backend, no hosting bill beyond a static file server. Everything gets built once, at compile time, and shipped as flat files.
 
-## The Enrichment Pipeline
+## The Numbers, and a Documentation Bug I Found While Checking Them
 
-The core of the project isn't the website. It's the Python pipeline that turns a CSV of titles and ISBNs into a rich dataset. Each book gets enriched from six sources:
+The current shape of the collection: 3,534 books, sorted into 29 categories, by 1,615 authors, tagged across 35 genres. 977 of those books link to a free Project Gutenberg edition, 705 to a LibriVox audiobook, 129 to a digitized HathiTrust copy — free, legal reading with no argument needed for buying yet another copy.
 
-**Open Library** provides the backbone — metadata, subject classifications, cover images, and first-publish dates. Their API is free, no key required, and handles about 80% of lookups correctly. The remaining 20% is where things get interesting.
+I ran `gh api` against the repo while fact-checking this post, the way you're supposed to and rarely actually do, and the GitHub repo description doesn't match its own README. The description claims "essential works across 42 categories." The README says 29. Forty-two matches neither the category count nor the 35 genre tags. It's just wrong, and it's been sitting in full public view, on the first thing anyone sees before they click through, since March. It's tracked now as [tsundoku#228](https://github.com/williamzujkowski/tsundoku/issues/228), and the fix is one line. I'm noting it here mainly because catching your own project quietly lying about itself is the kind of thing this post exists to be honest about.
 
-**Google Books** fills metadata gaps — descriptions, page counts, and alternative ISBNs that Open Library doesn't have. Rate limits are generous (1,000 requests/day without a key) but you'll hit them on a full 3,500-book run. I added exponential backoff and a local cache that persists across runs.
+## Six APIs, One Book Record
 
-**Wikipedia** provides author biographies and portrait images. The MediaWiki API is powerful but returns deeply nested JSON that requires careful parsing. About 15% of authors have disambiguation pages instead of direct articles; the pipeline handles this by checking for the `(author)` or `(writer)` suffix variants.
+The interesting part of Tsundoku was never the website. It's the pipeline that takes a title and author and turns them into forty-some structured fields. Six sources do the work:
 
-**Project Gutenberg** links to free ebook downloads. Their catalog is a CSV dump, not an API, so I load the entire catalog (~70,000 entries) into memory and match by title and author. Fuzzy matching catches "The Art of War" vs "Art of War, The" but still misses about 5% of valid matches where titles differ significantly between editions.
+**Open Library** is the backbone — DDC/LCC classification, subjects, ISBNs, page counts, first-publish years, cover art. Free, keyless, and it gets the easy cases right without complaint.
 
-**LibriVox** provides free audiobook links. Their API is XML-based (not JSON), which means a different parsing path. Coverage is smaller than Gutenberg — about 20,000 titles — but the audiobook links are surprisingly popular with users.
+**Google Books** fills what Open Library misses: descriptions, alternate ISBNs, categories. It's also the pipeline's lowest-trusted source, which is a polite way of saying it's the fallback, not the authority.
 
-**HathiTrust** verifies copyright status. A book marked "public domain" in one source might be "in-copyright" in another due to different edition dates. HathiTrust's rights API provides the most authoritative US copyright determination.
+**Wikipedia** supplies author bios and portraits over the REST API — third-party-edited text, so the pipeline trusts it less than anything structured.
 
-## Data Conflicts Are the Hard Problem
+**Project Gutenberg**, reached through the [Gutendex](https://gutendex.com/) API rather than a raw catalog dump, supplies free reading links for public-domain titles, gated on a matched author surname and a fuzzy title check, so "The Art of War" doesn't accidentally link to a cookbook with a similar name.
 
-Six APIs give six different opinions about the same book. The pipeline's conflict resolution rules took more iteration than the API integrations themselves:
+**LibriVox** does the same job for free audiobooks, over its own JSON API, with the identical author-then-title matching discipline.
 
-- **Publish dates**: Open Library says "The Art of War" was published in -500. Google Books says 2003 (the translation). The pipeline uses the earliest date from Open Library but flags anything before year 0 for manual review.
-- **Page counts**: A hardcover and paperback of the same book have different page counts. I take the median across sources, which is wrong for anthologies but right for most single-author works.
-- **Author names**: "Mark Twain" vs "Samuel Clemens" vs "Twain, Mark." I normalize to "First Last" format and deduplicate by checking Wikipedia for canonical names.
-- **Cover images**: Open Library covers range from high-quality scans to blurry thumbnails. The pipeline scores covers by resolution and prefers Google Books covers when Open Library's is below 200px wide.
+**HathiTrust** looks up digitized copies by OCLC number first, ISBN second, and settles the question a lot of book metadata gets wrong: is this actually still in copyright?
 
-The pipeline logs every conflict to a `conflicts.jsonl` file. After each full run, I review the top conflicts manually — usually about 50-80 entries need human judgment.
+A seventh source has quietly joined since I first wrote this post: **Wikidata**, queried by SPARQL for year corrections, original publishers, awards, series data, and — the one I didn't expect — a book's screen and stage adaptations, pulled via the "based on" property. The pipeline is still officially "six APIs," because Wikidata arrived to backstop the other six rather than replace one of them. Unofficially, the number in my own original headline was already stale by the time I republished it, which feels appropriate for a post about a backlog.
 
-## Static Site Architecture
+## When Six Sources Disagree
 
-The website generates 5,178 static pages — 3,534 book pages, 1,615 author pages, and 29 category pages. Astro's content collections handle this cleanly. Each book is a JSON entry in a collection, and Astro generates a page for each one at build time. The full build takes about 28 seconds on my M1 MacBook — roughly 185 pages per second.
+Six sources means six opinions about the same fact, and the actual engineering problem here was never the API calls: it was arbitrating them. Every field the pipeline touches carries a rank. `manual` edits sit at 100 and nothing overwrites those. Wikidata's cross-link via a book's own Open Library ID sits at 85. Open Library's first-edition consensus sits at 80. Wikidata reached by fuzzy search instead of a hard ID match drops to 50, because fuzzy matches are noisier and the pipeline knows it. Google Books sits at 35. Wikipedia's bio text, being the field most likely to have been edited by someone with an opinion, sits at 30. Untouched legacy data defaults to 0, so any tagged source can correct it on the next pass.
 
-Search uses Pagefind, which builds a client-side search index at compile time. The index for 3,534 books is about 400KB compressed — small enough to load on first search interaction without noticeable delay.
+A field only gets overwritten by a strictly higher rank than whatever's already recorded against it. No merge conflicts, no queue of records to eyeball by hand after every run — just a lookup table that already knows Wikidata beats Google Books, and nothing beats a human.
 
-Reading progress is stored in `localStorage` — no account needed, no server, completely private. The downside is it doesn't sync across devices, but that's a tradeoff I'm comfortable with.
+## No Database, and a Reading Tracker That's Just a CSV
 
-## What I'd Do Differently
+The build reads every book and author as a JSON file in an Astro content collection, validates it against a Zod schema, and generates a page for each one — 3,534 book pages, 1,615 author pages, 29 category pages, at minimum. Svelte 5 covers the five things that need real interactivity: search, the book grid, a random-book button, a share button, and the light/dark toggle. Everything else is HTML that existed before a reader asked for it.
 
-**The CSV format is limiting.** As the enrichment pipeline grew, the input CSV became a bottleneck. Fields like "reading notes" and "personal rating" don't fit cleanly into flat columns. I should have started with JSON or YAML input from day one.
+Search isn't Pagefind, despite what I claimed the first time I wrote this post. It's a hand-rolled `search-index.json`, generated at build time and fetched on demand by the search modal, so the site ships one JSON file instead of embedding 3,534 books into every page's markup. The random-book button gets its own, smaller sibling index — just URL slugs — so picking a random book doesn't mean downloading the full search index first. That's the kind of optimization you only bother making once someone notices the random button feels laggy for no obvious reason.
 
-**Cover image quality is inconsistent.** Despite the resolution scoring, about 10% of books have low-quality or missing covers. A future version should generate placeholder covers with the title and author name when no good image exists.
+Reading progress isn't `localStorage` either, which is also what I claimed originally. It's a CSV file, `data/reading-status.csv`, that's the single source of truth, merged into each book's JSON at build time. There's no button in the UI for marking a book "currently reading." You edit a spreadsheet and redeploy. It's either the most honest reading tracker I've ever used or proof I'll build almost anything to avoid clicking a toggle. Possibly both.
 
-**Category taxonomy is manual.** I hand-assign categories from a fixed list of 29. Some books belong in multiple categories. A proper tagging system would be more flexible than single-category assignment.
+## What I Got Wrong the First Time
 
-## The Numbers
+One self-criticism from the original version of this post didn't survive contact with the current code. I said category assignment was manual — one person eyeballing 3,500-odd books into 29 buckets. It isn't anymore. `recategorize.py` derives a category from a book's DDC or LCC classification first, and only falls back to tag heuristics when neither exists. The taxonomy still has 29 buckets and a book can still only live in one, but a human isn't the one deciding which.
 
-- 3,534 books across 29 categories
-- 1,615 unique authors with Wikipedia bios
-- ~40% of books link to free reading options (Gutenberg/LibriVox)
-- 5,178 static pages generated in 28 seconds
-- 6 API sources with exponential backoff and local caching
-- ~50-80 manual conflict reviews per full enrichment run
+Cover image quality is the gap that didn't close. Not every book gets a high-resolution scan, and the fallback chain — Wikidata's image, then Wikipedia's, then Open Library's editions, then Google Books — sometimes runs out of good options before it runs out of sources. That part hasn't changed since the first draft, and I'm not going to pretend it has.
 
-The repo is at [github.com/williamzujkowski/tsundoku](https://github.com/williamzujkowski/tsundoku). The enrichment pipeline is reusable: if you have a CSV of books, you can build your own digital bookshelf.
+## Numbers
+
+| Metric | Value |
+|---|---:|
+| Books | 3,534 |
+| Categories | 29 |
+| Authors | 1,615 |
+| Genre tags | 35 |
+| Free Project Gutenberg links | 977 |
+| Free LibriVox audiobook links | 705 |
+| Free HathiTrust links | 129 |
+| Primary enrichment APIs | 6 (plus a Wikidata backstop) |
+| Provenance ranks | 0 (legacy) to 100 (manual) |
+| Tests gated in CI | 70 (35 Vitest, 35 pytest) |
+
+The repo is at [github.com/williamzujkowski/tsundoku](https://github.com/williamzujkowski/tsundoku), MIT-licensed, and the enrichment pipeline is reusable if you've got your own spreadsheet problem. I have 3,534 books I haven't read and a website that can tell me exactly which ones. Whether that counts as progress is a separate discussion, and not one I'm equipped to win.
+
+## Sources
+
+- [williamzujkowski/tsundoku](https://github.com/williamzujkowski/tsundoku) — the project this post is about; README, scripts, and issue tracker
+- [tsundoku#228](https://github.com/williamzujkowski/tsundoku/issues/228) — the "42 categories" vs. 29 documentation mismatch referenced above
+- [Open Library Search API](https://openlibrary.org/dev/docs/api/search) — primary classification and metadata source
+- [Gutendex](https://gutendex.com/) — REST API wrapping the Project Gutenberg catalog
+- [LibriVox API](https://librivox.org/api/info) — free audiobook lookup
+- [HathiTrust Bib API](https://www.hathitrust.org/data/bib-api-basics/) — digitized copy and rights lookup
+- [Wikidata Query Service](https://query.wikidata.org/) — SPARQL enrichment for year corrections, awards, and adaptations
