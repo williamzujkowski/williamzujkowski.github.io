@@ -33,11 +33,11 @@ export function convertHexToColor(hex: string): ColorValue {
 }
 ```
 
-I don't trust that conversion just because it compiled. `validate.ts` converts every OKLCH value straight back to sRGB and measures the round-trip difference with CIEDE2000; anything over ΔE 1.0 — roughly the gap a trained eye can just barely catch — fails the build. Belt-and-suspenders for a function six lines long, which sounds excessive until a `culori` upgrade silently changes a rounding behavior and this is the thing that notices before a reader does.
+I don't trust that conversion just because it compiled. `validate.ts` converts every OKLCH value straight back to sRGB and measures the round-trip difference with CIEDE2000; anything over ΔE 1.0 — often treated as around the just-noticeable difference under controlled conditions — fails the build. Belt-and-suspenders for a function six lines long, which sounds excessive until a `culori` upgrade silently changes a rounding behavior and this is the thing that notices before a reader does.
 
 ## The actual reason OKLCH is fun, not just correct
 
-Here's the fact that got me into this in the first place, and it's a genuinely fun one, not a homework assignment: in OKLCH, a given lightness value looks equally bright no matter what hue it's attached to. HSL doesn't have that property, and it's not a subtle miss:
+Here's the fact that got me into this in the first place, and it's a genuinely fun one, not a homework assignment: in OKLCH, a given lightness value is designed to look close to equally bright regardless of the hue it's attached to. HSL doesn't have that property, and it's not a subtle miss:
 
 | Color space | Two colors, same "lightness" | Relative luminance | Contrast between them |
 |---|---|---:|---:|
