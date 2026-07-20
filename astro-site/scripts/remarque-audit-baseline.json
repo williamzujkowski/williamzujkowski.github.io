@@ -1,0 +1,1301 @@
+{
+  "_README": "Known, hand-reviewed false positives from remarque-audit@0.5.0 --src source-scan (font-floor / hardcoded-color checks) — NOT the --palette contrast/gamut checks, which must always pass cleanly and are never suppressed here (see scripts/run-remarque-audit.mjs). Each entry is an EXACT file:line:category match — if a flagged line moves or its category changes, the entry stops matching and the finding resurfaces as a real failure requiring re-review. See astro-site/DESIGN-DEVIATIONS.md #6 for the full rationale, and the PR that introduced this file for the line-by-line audit-output evidence.",
+  "entries": [
+    {
+      "file": "src/styles/global.css",
+      "line": 13,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 65,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 66,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 67,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 68,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 69,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 70,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 71,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 72,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 73,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 74,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 75,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 76,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 77,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 78,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 79,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 104,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 105,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 106,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 107,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 108,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 109,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 110,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 111,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 112,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 113,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 114,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 115,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 116,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 129,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 130,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 131,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 132,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 133,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 134,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 135,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 136,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 137,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 138,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 139,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 140,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 141,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 252,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 335,
+      "category": "statically unverifiable font-size (clamp/%)",
+      "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 343,
+      "category": "statically unverifiable font-size (clamp/%)",
+      "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 437,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 649,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 735,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 997,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1068,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1178,
+      "category": "statically unverifiable font-size (clamp/%)",
+      "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1234,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1251,
+      "category": "statically unverifiable font-size (clamp/%)",
+      "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1290,
+      "category": "statically unverifiable font-size (clamp/%)",
+      "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1364,
+      "category": "statically unverifiable font-size (clamp/%)",
+      "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1381,
+      "category": "statically unverifiable font-size (clamp/%)",
+      "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1511,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/global.css",
+      "line": 1560,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 2,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 9,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 10,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 11,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 12,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 13,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 14,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 15,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 16,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 17,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 18,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 19,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 20,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 21,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 28,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 29,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 30,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 31,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 32,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 33,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 34,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 35,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 36,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 37,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 38,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 39,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 40,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 47,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 48,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 49,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 50,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 51,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 52,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 53,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 54,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 55,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 56,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 57,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 58,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 59,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 66,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 67,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 68,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 69,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 70,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 71,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 72,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 73,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 74,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 75,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 76,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 77,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 78,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 85,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 86,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 87,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 88,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 89,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 90,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 91,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 92,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 93,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 94,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 95,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 96,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 97,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 104,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 105,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 106,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 107,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 108,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 109,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 110,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 111,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 112,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 113,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 114,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 115,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 116,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 123,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 124,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 125,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 126,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 127,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 128,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 129,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 130,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 131,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 132,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 133,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 134,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 135,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 142,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 143,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 144,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 145,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 146,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 147,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 148,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 149,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 150,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 151,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 152,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 153,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 154,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 161,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 162,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 163,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 164,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 165,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 166,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 167,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 168,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 169,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 170,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 171,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 172,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 173,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 180,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 181,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 182,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 183,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 184,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 185,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 186,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 187,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 188,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 189,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 190,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 191,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 192,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 199,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 200,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 201,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 202,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 203,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 204,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 205,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 206,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 207,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 208,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 209,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 210,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 211,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 218,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 219,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 220,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 221,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 222,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 223,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 224,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 225,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 226,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 227,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 228,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 229,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/theme-deck.css",
+      "line": 230,
+      "category": "oklch() literal outside token files",
+      "reason": "This file IS a Remarque palette/token file by role (global.css is the exact file passed via --palette; theme-deck.css is a generated, build-time contrast-validated palette per DESIGN-DEVIATIONS.md #4/#6) but its filename does not match remarque-audit's hardcoded isTokenFile allowlist (tokens.css / tokens-core.css / tokens-palette.css / fonts.css / globals.css / pages/tokens.astro). Verified by hand: every flagged line here is a --color-*/--font-* custom-property declaration or a comment inside such a block, not stray component CSS."
+    },
+    {
+      "file": "src/styles/zine.css",
+      "line": 137,
+      "category": "hardcoded hex/rgb/hsl color",
+      "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
+    }
+  ]
+}
