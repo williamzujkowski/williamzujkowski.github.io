@@ -986,7 +986,7 @@ article > div,
  * auto` centering used everywhere else (same visual column, just grid
  * instead of block flow). Every direct child keeps that center column;
  * only `.toc` moves into the right gutter and pins itself there with
- * `position: sticky`, spanning the full article height (`grid-row: 1 / -1`)
+ * `position: sticky`, spanning the full article height (`grid-row: 1 / span 99`)
  * so it has room to stick against while the reading column scrolls past.
  *
  * Investigated-and-ruled-out: this site's longest posts render >16384px
@@ -1027,7 +1027,12 @@ article > div,
   }
   article.post-article > nav.toc {
     grid-column: 3;
-    grid-row: 1 / -1;
+    /* Span every content row. `1 / -1` fails here: with no explicit
+       grid-template-rows, `-1` resolves to line 1, so the TOC would occupy
+       only row 1 and inflate it to its own height — shoving the post header
+       down and leaving a large gap. A generous span covers any post's block
+       count while empty implicit rows stay 0-height. */
+    grid-row: 1 / span 99;
     align-self: start;
     justify-self: start;
     position: sticky;
