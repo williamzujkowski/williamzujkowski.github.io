@@ -217,6 +217,7 @@
           oninput={search}
           type="text"
           placeholder="Search site..."
+          aria-label="Search posts"
           class="search-input"
         />
         <kbd class="search-esc">ESC</kbd>
@@ -317,14 +318,14 @@
     box-shadow: 0 25px 50px -12px var(--color-shadow);
     overflow: hidden;
     background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-border-bold);
   }
   .search-input-row {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 1rem;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border-bold);
   }
   .search-input-icon {
     width: 1.25rem;
@@ -340,6 +341,17 @@
     outline: none;
     font: inherit;
     color: var(--color-fg);
+  }
+  /* Visible keyboard-focus indicator — same convention as the site-wide
+     `*:focus-visible` rule in global.css (2px solid accent, 2px offset).
+     Restated here (rather than relying on the global rule) because this
+     component's <style> is scoped and `.search-input { outline: none }`
+     above would otherwise leave keyboard users with zero focus indication
+     inside the dialog (#321). */
+  .search-input:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
   .search-esc {
     display: none;
@@ -377,7 +389,7 @@
     font-weight: 500;
   }
   .search-result-excerpt {
-    font-size: 0.875rem;
+    font-size: var(--text-meta);
     margin-top: 0.25rem;
     color: var(--color-muted);
     display: -webkit-box;
@@ -392,7 +404,7 @@
     color: var(--color-muted);
   }
   .search-state.is-hint {
-    font-size: 0.875rem;
+    font-size: var(--text-meta);
   }
 
   /* Style Pagefind highlight marks */

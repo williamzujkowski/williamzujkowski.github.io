@@ -95,7 +95,7 @@
   --color-border-bold: oklch(0.62 0.02 25);   /* 3.16:1 WCAG 1.4.11 / APCA 54.2 */
   --color-surface: oklch(0.93 0.015 75);
   --color-accent: oklch(0.48 0.15 140);       /* radar green — 5.35:1 / APCA 70.4 */
-  --color-accent-hover: oklch(0.55 0.14 75);  /* flight-deck amber (hover state) */
+  --color-accent-hover: oklch(0.50 0.10 75);  /* flight-deck amber (hover) — 5.27:1 AA, in-gamut */
   --color-code-bg: oklch(0.92 0.015 75);
   --color-code-fg: oklch(0.18 0.04 25);
   --color-selection-bg: oklch(0.88 0.10 140); /* tinted green */
@@ -414,7 +414,10 @@ a:hover { color: var(--color-accent-hover); }
   .site-masthead-top { grid-template-columns: 1fr; }
   .site-masthead-tools-left { display: none; }
   .site-masthead-tools-right { justify-self: center; }
-  .site-sections { gap: 0.15rem 0.85rem; font-size: var(--text-micro); }
+  /* Primary nav is not fine print — keep it at --text-meta (14px), the
+     site's own floor for non-timestamp text, even on mobile. Tighten gap
+     and letter-spacing instead of shrinking below --text-micro (#322). */
+  .site-sections { gap: 0.1rem 0.6rem; letter-spacing: 0.04em; }
 }
 
 /* ===== Post Article Header ===== */
