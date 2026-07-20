@@ -198,6 +198,22 @@ const lightThemes = themes.filter((t) => !t.isDark);
     z-index: 50;
     box-shadow: 0 4px 16px var(--color-shadow);
   }
+
+  /* On narrow viewports the swatch button sits mid-masthead, so a
+     button-anchored dropdown (right: 0) runs off the left edge. Drop the
+     button as the anchor and position the panel against the masthead
+     instead, spanning the width with even margins so it always fits. */
+  @media (max-width: 700px) {
+    .theme-deck--header {
+      position: static;
+    }
+    .theme-deck--header .deck-panel {
+      left: 1rem;
+      right: 1rem;
+      width: auto;
+      max-width: none;
+    }
+  }
 </style>
 
 <script is:inline>
