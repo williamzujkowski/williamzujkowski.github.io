@@ -78,17 +78,30 @@ pnpm check           # Astro type checking
 
 ### Writing Style
 
-**"Polite Linus Torvalds" style for all technical writing.**
+**"Polite Linus Torvalds, with a pulse" — precise and direct, but genuinely funny.**
 
+The old rule was right about precision and wrong to strip out the personality. Keep every precise thing; add the wit that makes a post worth reading twice.
+
+**Keep (non-negotiable):**
 - Technical precision without explanation bloat
-- Direct, casual-professional tone (engineer-to-engineer)
-- Active voice, short sentences (avg <20 words)
-- Zero tolerance for fluff and decorative punctuation
-- Results-oriented language ("Show me the code")
+- Active voice; vary sentence length (mostly short, the occasional long one for rhythm)
+- Zero corporate hedging ("arguably", "potentially"), zero academic formality ("furthermore", "moreover"), zero filler ("in order to" -> "to")
+- Results-oriented: show the thing, then say what you learned
 
-**Prohibited:** Semicolons for sophistication, em-dashes for dramatic pauses, rhetorical questions, corporate hedging ("arguably", "potentially"), academic formality ("furthermore", "moreover"), filler phrases ("in order to" -> "to").
+**Add (the pulse):**
+- **Dry wit through observation, not jokes bolted on.** The funny comes from noticing something true and stating it deadpan. If a line would survive being cut and the sentence is worse without it, keep it. If it's a joke for its own sake, cut it.
+- **Understatement over enthusiasm.** "The browser had opinions about this" beats "it was SO frustrating!!"
+- **Apt, unexpected analogies.** A moody API is a temperamental analog synth. Use sparingly; one good image beats five.
+- **Self-aware first person.** The story of building the thing, including the parts that went sideways, told without self-flagellation. Warm about your own projects, not a roast.
+- **Register: dry British humor with an American bent** — sardonic when something earns it, never mean; a bit absurdist in small, earned doses.
 
-**Quality test:** If it sounds like "engineer explaining facts to another engineer" -> correct. If it sounds like TED talk/textbook/marketing -> wrong.
+**Lead with what the thing IS.** For project posts especially: introduce it, make the reader want it, tell the story of building it, *then* get into the sharp technical or security details. Don't open a "here's a fun thing I built" post like a threat-model doc.
+
+**Still prohibited:** exclamation-mark enthusiasm, memes/references that will date, quirk that obscures the technical point, TED-talk uplift, three-item parallelism as a crutch, "it's not X, it's Y" as a reflex.
+
+**Em-dashes:** allowed for a genuine parenthetical aside, banned for manufactured drama. If the dash is doing comic timing or clarifying an aside, fine. If it's there to sound profound, cut it.
+
+**Quality test:** If it reads like a sharp engineer being honest and a little funny about their own work -> correct. If it reads like a TED talk, a marketing page, or a robot performing whimsy -> wrong.
 
 ### Technical Authority & Security Expertise
 
