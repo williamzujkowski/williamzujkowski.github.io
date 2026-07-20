@@ -34,6 +34,7 @@
     "astro": "^6.4.8",
     "markdown-it": "^14.2.0",
     "rehype-mermaid": "^3.0.0",
+    "remarque-tokens": "^0.3.0",
     "sanitize-html": "^2.17.4",
     "satori": "^0.26.0",
     "svelte": "^5.55.7",
