@@ -72,11 +72,13 @@ const pairs = [
   ['light', 'muted', 'bg', 60, 'metadata text'],
   ['light', 'border-bold', 'bg', 30, 'interactive border (non-text)'],
   ['light', 'accent', 'bg', 60, 'accent links'],
+  ['light', 'accent-hover', 'bg', 55, 'accent hover (#323)'],
   ['dark', 'fg', 'bg', 75, 'body copy'],
   ['dark', 'fg-muted', 'bg', 75, 'body-adjacent (fg-muted)'],
   ['dark', 'muted', 'bg', 60, 'metadata text'],
   ['dark', 'border-bold', 'bg', 30, 'interactive border (non-text)'],
   ['dark', 'accent', 'bg', 60, 'accent links'],
+  ['dark', 'accent-hover', 'bg', 55, 'accent hover (#323)'],
 ];
 
 function apcaLc(theme, textKey, bgKey) {

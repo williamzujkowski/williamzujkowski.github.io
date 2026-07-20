@@ -173,8 +173,12 @@ function isActiveLink(linkHref: string): boolean {
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)" />
+    <!-- theme-color must be a literal hex — browsers don't resolve CSS
+         custom properties here. Keep in sync with --color-bg in global.css:
+         light = oklch(0.95 0.015 75) -> #f5ede4, dark = oklch(0.14 0.015 140) -> #060b05.
+         Recompute (OKLCH -> linear sRGB -> hex) whenever --color-bg changes. -->
+    <meta name="theme-color" content="#f5ede4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#060b05" media="(prefers-color-scheme: dark)" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title === 'Home' ? siteTitle : title} />

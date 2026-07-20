@@ -57,11 +57,13 @@ const required = [
   ['light', 'muted', 'bg', 4.5, 'muted text'],
   ['light', 'border-bold', 'bg', 3.0, 'interactive border (WCAG 1.4.11)'],
   ['light', 'accent', 'bg', 4.5, 'accent text'],
+  ['light', 'accent-hover', 'bg', 4.5, 'accent hover (#323)'],
   ['dark', 'fg', 'bg', 4.5, 'body text'],
   ['dark', 'fg-muted', 'bg', 7.0, 'fg-muted (AAA body-adjacent)'],
   ['dark', 'muted', 'bg', 4.5, 'muted text'],
   ['dark', 'border-bold', 'bg', 3.0, 'interactive border (WCAG 1.4.11)'],
   ['dark', 'accent', 'bg', 4.5, 'accent text'],
+  ['dark', 'accent-hover', 'bg', 4.5, 'accent hover (#323)'],
 ];
 
 let failed = 0;
