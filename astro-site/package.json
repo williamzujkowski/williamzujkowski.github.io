@@ -18,12 +18,12 @@
     "test:e2e": "npx playwright test",
     "test:e2e:headed": "npx playwright test --headed",
     "test:unit": "node --test '../tests/unit/**/*.test.mjs'",
-    "audit:contrast": "node scripts/contrast-audit.mjs",
+    "audit:remarque": "node scripts/run-remarque-audit.mjs",
     "audit:typography": "node scripts/typography-audit.mjs",
     "audit:colors": "node scripts/color-token-audit.mjs",
     "audit:accent-font": "node scripts/accent-font-audit.mjs",
     "audit:apca": "node scripts/apca-audit.mjs",
-    "audit": "pnpm audit:contrast && pnpm audit:typography && pnpm audit:colors && pnpm audit:accent-font && pnpm audit:apca",
+    "audit": "pnpm audit:remarque && pnpm audit:typography && pnpm audit:colors && pnpm audit:accent-font && pnpm audit:apca",
     "test:a11y": "playwright test tests/e2e/a11y.spec.ts"
   },
   "dependencies": {
@@ -34,7 +34,7 @@
     "astro": "^6.4.8",
     "markdown-it": "^14.2.0",
     "rehype-mermaid": "^3.0.0",
-    "remarque-tokens": "^0.3.0",
+    "remarque-tokens": "^0.5.0",
     "sanitize-html": "^2.17.4",
     "satori": "^0.26.0",
     "svelte": "^5.55.7",

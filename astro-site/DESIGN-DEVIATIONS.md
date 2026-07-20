@@ -1,7 +1,7 @@
 # Design Deviations
 
 This site consumes [`remarque-tokens`](https://www.npmjs.com/package/remarque-tokens)
-(v0.3.0) for the **core tier** — type scale, rhythm, spacing, content
+(v0.5.0) for the **core tier** — type scale, rhythm, spacing, content
 widths, radius, motion, and base prose/typography machinery — via
 `@import "remarque-tokens/core";` in `src/styles/global.css`. The
 **palette tier** (fonts, colors, `--content-reading`) stays local, as
@@ -109,30 +109,105 @@ This site keys themes on `:root.dark` / `:root.light` classes plus
 dark mode toggle support" block) and a bare `@media
 (prefers-color-scheme: dark) :root { ... }` query.
 
-This is remarque#47's item 4, "One theme-switching convention" — not yet
-unified upstream. It's the reason this migration does **not** adopt the
-imported core's own dark-tier declarations (core tier ships none — colors
-are palette tier — so no conflict there) nor treat `[data-theme]` as a
-target selector anywhere in this codebase.
+remarque#47 item 4, "One theme-switching convention," was ratified 3-0
+and shipped in remarque-tokens **0.5.0**: the package's own palette now
+keys dark mode on `[data-theme="dark"], :root.dark` (dual selector —
+`[data-theme]` canonical, `:root.dark` a documented compatibility bridge,
+"sunset target: 1.0"), and `remarque-audit` natively parses both
+conventions (plus `html.dark`/`.dark`) with fixture tests for all three.
+This site still authors its own palette on `:root.dark` / `:root.light`
+only — by choice, not because the tooling can't see it anymore (see §6,
+which is exactly the "cannot parse this site's convention" blocker that
+0.5.0 removed) — so this remains the one place this site's selector
+convention differs from the upstream default, not a case of the tooling
+having no opinion on it.
 
-## 6. Audit tooling: NOT yet adopted (`npx remarque-audit`)
+## 6. Audit tooling: adopted at `remarque-audit@0.5.0`
 
-remarque-tokens ships an `npx remarque-audit` CLI. This site does **not**
-adopt it in this migration and keeps its own five local audit scripts
-(`scripts/contrast-audit.mjs`, `apca-audit.mjs`, `typography-audit.mjs`,
-`color-token-audit.mjs`, `accent-font-audit.mjs`, run via `pnpm audit`).
+**Resolved 2026-07-20** (was: "NOT yet adopted," blocked on remarque#47
+item 4 — see the git history of this file for the original deferral
+text). remarque-tokens 0.5.0's `remarque-audit` CLI natively parses this
+site's `:root.dark` class convention (§5), which is what unblocked
+adoption: the previous version's dark-theme extraction was built around
+`[data-theme="dark"]` only and would have silently audited the wrong (or
+no) dark-theme block against this site's actual CSS.
 
-Reason: the upstream audit's dark-theme extraction is built around
-`[data-theme="dark"]` (and/or a bare prefers-color-scheme media query on
-`:root`) — see §5 above — and cannot parse this site's `:root.dark` /
-`:root.light` class-based theming convention. Adopting it today would
-either silently audit the wrong (or no) dark-theme block, or require
-forking the audit script, defeating the point of consuming it. This is
-explicitly blocked on remarque#47 item 4 (theme-attribute unification).
-Tracked as a follow-up once upstream unifies the convention; until then,
-the local scripts (which already parse this site's actual `:root` /
-`:root.dark` blocks directly, per-property, and independently validate
-both WCAG 2 and APCA/WCAG 3 draft contrast) remain CI's gate.
+This site now runs `remarque-audit --palette src/styles/global.css --src
+src/styles` as its **WCAG 2.x contrast + sRGB-gamut** check, wired via
+`scripts/run-remarque-audit.mjs` (`pnpm audit:remarque`, part of `pnpm
+audit` and the `remarque` CI job in `.github/workflows/audits.yml`). It
+replaces the site's own former `scripts/contrast-audit.mjs`, which is
+**deleted in full** — that script covered exactly the `:root` /
+`:root.dark` fg/bg pairs remarque-audit's `CHECKS` table now covers
+(confirmed line-for-line: `fg`, `fg-muted`, `muted`, `border-bold`,
+`accent`, `accent-hover` against `bg`, both themes), had no coverage of
+`theme-deck.css`'s 14 terminal palettes or anything else remarque-audit
+doesn't also see, so nothing was trimmed-and-kept — the whole file's
+job moved upstream. **Kept as-is**, not covered by remarque-audit and not
+duplicative of it: `scripts/apca-audit.mjs` (APCA/WCAG 3 draft — upstream
+has no APCA check, and this script is explicitly advisory-only, unlike
+remarque-audit's hard-fail WCAG 2 checks), `scripts/typography-audit.mjs`
+(whole-`src/` font-floor scan — broader scope than remarque-audit's
+`--src src/styles`, and free of the false-positive issues below since it
+already skips comment lines), `scripts/color-token-audit.mjs` (whole-`src/`
+hardcoded-color scan that already excludes `--color-*` token-declaration
+lines by shape rather than by filename, so it doesn't misfire on
+`theme-deck.css`), and `scripts/accent-font-audit.mjs` (no upstream
+equivalent at all).
+
+One real fix came out of adopting the tool: dark-theme
+`--color-selection-bg` was `oklch(0.30 0.10 140)`, which remarque-audit
+correctly flagged as outside the sRGB gamut (its OKLCH→linear-sRGB
+math clips the blue channel to -0.0007 at that L/C/H — independently
+verified). Reduced chroma to `oklch(0.30 0.08 140)` (same hue and
+lightness — still comfortably in gamut, blue channel now +0.0036);
+`color-selection-fg`/`color-selection-bg` contrast is unaffected at
+10.58:1 (floor is 4.5:1). This is a genuine, if minor, defect the site's
+own former script never caught (`contrast-audit.mjs` and `apca-audit.mjs`
+both only computed WCAG/APCA ratios — a gamut check was never part of
+either).
+
+### Accepted source-scan false positives (`scripts/remarque-audit-baseline.json`)
+
+remarque-audit's `--src` scan (font floors, hardcoded colors) unconditionally
+recurses `src/styles` and flags three categories of finding that are **not**
+real defects, verified by hand against every flagged line:
+
+1. **`oklch() literal outside token files`** on `global.css` and
+   `theme-deck.css` (198 of 216 total findings). remarque-audit's
+   `isTokenFile` allowlist only recognizes literal filenames ending in
+   `tokens.css` / `tokens-core.css` / `tokens-palette.css` / `fonts.css` /
+   `globals.css` / `pages/tokens.astro`. `global.css` (this site's actual
+   `--palette` file — the tool is told, via `--palette`, that this file
+   *is* the palette, but that fact isn't threaded through to the `--src`
+   scan's file-type check) and `theme-deck.css` (a generated, build-time
+   contrast-validated palette, see §4) don't match that list by name, even
+   though both are 100% token declarations. This is judged to be an
+   upstream limitation, not a site defect — see the PR that introduced
+   this file for the full "upstream audit is wrong here" writeup.
+2. **`hardcoded hex/rgb/hsl color`** on GitHub issue-number references in
+   comments (e.g. `(issue #324)`, 11 instances across `global.css` /
+   `zine.css`). remarque-audit's `--palette` parser strips comments before
+   matching, but its `--src` source-scan does not, so `#324` matches the
+   same regex as a 3-6 digit hex color. A real upstream regex gap.
+3. **`statically unverifiable font-size (clamp/%)`** on 7 one-off display/
+   hero `clamp()` sizes (`.site-nameplate-title`, `.site-nameplate-byline`,
+   `.masthead-title`, `.landing-tagline`, `.lead-title`, `.entry-numeral`,
+   `.entry-title`). Intentional fluid typography for display elements
+   outside the standard `--text-*` scale, ratified under issue #274
+   ("Phosphor broadsheet") — not a font-floor violation (every clamp()
+   minimum is well above the 13px floor; this category exists to catch
+   *unverifiable* sizes, and these have been manually verified instead).
+
+None of these are weakened token values or silently-widened suppression:
+`scripts/remarque-audit-baseline.json` is an exact `(file, line, category)`
+allowlist, generated from and matching the current audit output 1:1. If
+any flagged line moves — including these — the entry stops matching and
+resurfaces as a real, blocking failure requiring re-review (fail-closed).
+`scripts/run-remarque-audit.mjs` additionally hard-codes, independent of
+the baseline file's contents, that CONTRAST and GAMUT failures (the
+`--palette` checks) can never be suppressed — only `--src` source-scan
+findings are eligible.
 
 ## 7. `html` base-reset neutralization
 
@@ -157,4 +232,6 @@ inline comment in `global.css` for the full reasoning.
 - Issue #274 ("Phosphor broadsheet," Direction B, ratified 7-0)
 - remarque#47 ("Layered token architecture," ratified 6-1) — Token
   Tiers doc: `remarque-tokens`'s `REMARQUE.md`
+- remarque-tokens 0.5.0 `CHANGELOG.md` — "Theme-convention unification"
+  (remarque#47 item 4, ratified 3-0), the release that unblocked §6
 - Issue #283 (accent-font lint, `--font-accent` allowlist)

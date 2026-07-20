@@ -113,7 +113,7 @@
   --color-accent-hover: oklch(0.78 0.15 75);  /* amber hover */
   --color-code-bg: oklch(0.17 0.015 140);
   --color-code-fg: oklch(0.88 0.03 140);
-  --color-selection-bg: oklch(0.30 0.10 140);
+  --color-selection-bg: oklch(0.30 0.08 140);  /* was C 0.10 — remarque-audit flagged it out-of-sRGB-gamut (blue channel clips to -0.0007 at L 0.30/H 140/C 0.10); 0.08 is back in gamut with margin (blue +0.0036) and keeps the same hue/lightness "tinted green" look. selection-fg/selection-bg still 10.58:1, well above the 4.5:1 floor. */
 
   /* Core-consumed semantic vars (see the base :root block's comment) */
   --color-link: var(--color-accent);
@@ -138,7 +138,7 @@
     --color-accent-hover: oklch(0.78 0.15 75);
     --color-code-bg: oklch(0.17 0.015 140);
     --color-code-fg: oklch(0.88 0.03 140);
-    --color-selection-bg: oklch(0.30 0.10 140);
+    --color-selection-bg: oklch(0.30 0.08 140);  /* keep in sync with :root.dark above — gamut fix, see its comment */
 
     /* Core-consumed semantic vars (see the base :root block's comment) */
     --color-link: var(--color-accent);

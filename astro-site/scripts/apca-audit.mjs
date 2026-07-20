@@ -26,7 +26,9 @@ import { APCAcontrast, sRGBtoY } from 'apca-w3';
 const here = dirname(fileURLToPath(import.meta.url));
 const css = readFileSync(resolve(here, '../src/styles/global.css'), 'utf8');
 
-// OKLCH → linear sRGB → sRGB 0-255 (same conversion as contrast-audit.mjs)
+// OKLCH → linear sRGB → sRGB 0-255 (same conversion remarque-audit's WCAG
+// contrast check uses — see scripts/run-remarque-audit.mjs — kept local
+// here because APCA needs sRGB 0-255 ints, not the 0-1 floats WCAG uses)
 function oklchToSrgb255(L, C, h) {
   const r = (h * Math.PI) / 180;
   const a = C * Math.cos(r);
