@@ -39,6 +39,9 @@ importers:
       rehype-mermaid:
         specifier: ^3.0.0
         version: 3.0.0(playwright@1.59.1)
+      remarque-tokens:
+        specifier: ^0.3.0
+        version: 0.3.0
       sanitize-html:
         specifier: ^2.17.4
         version: 2.17.4
@@ -2518,6 +2521,11 @@ packages:
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
+
+  remarque-tokens@0.3.0:
+    resolution: {integrity: sha512-+4FPnuNUbnLH+O+scrbhIJj8eV0tHrS4zTgJ6EYAMf+kRwb6J3WPqWOQ/7z1pNeQ8mQ5WEKyyEWJHiBQR2EXLA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   request-light@0.5.8:
     resolution: {integrity: sha512-3Zjgh+8b5fhRJBQZoy+zbVKpAQGLyka0MPgW3zruTF4dFFJ8Fqcfu9YsAvi/rvdcaTeWG3MkbZv4WKxAn/84Lg==}
@@ -5768,6 +5776,8 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
+
+  remarque-tokens@0.3.0: {}
 
   request-light@0.5.8: {}
 

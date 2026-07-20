@@ -5,7 +5,15 @@
  * See: https://github.com/williamzujkowski/remarque
  */
 
-/* Fonts — Fraunces (display), Inter (body), IBM Plex Mono (mono) are
+/* consumes remarque-tokens v0.3.0 (core tier) + local palette layer.
+ * Core tier (type scale, rhythm, spacing, content-standard/wide, radius,
+ * motion, base resets, prose/typography machinery) is imported below;
+ * this file keeps only the PALETTE tier (fonts, colors, --content-reading)
+ * plus one documented core-tier deviation. See DESIGN-DEVIATIONS.md for
+ * the full rationale and the audit-adoption deferral (issue #324). */
+@import "remarque-tokens/core";
+
+/* Fonts — Fraunces (display), Source Serif 4 (body), IBM Plex Mono (mono) are
  * registered via Astro 6's Fonts API in astro.config.mjs and preloaded
  * by <Font> in BaseLayout.astro. That component injects the --font-*
  * custom properties on the root element itself, so they are intentionally
@@ -20,49 +28,23 @@
   navigation: auto;
 }
 
-/* ===== Remarque Design Tokens (oklch) ===== */
+/* ===== Remarque Design Tokens (oklch) =====
+ * Type scale, rhythm, spacing, --content-standard/wide, radius, and motion
+ * now come from remarque-tokens/core (imported above) — those ~33 tokens
+ * were byte-identical to this site's own values and have been deleted from
+ * here rather than kept as shadowing duplicates. What remains below is:
+ *   (1) one core-tier value this site deliberately overrides (--text-display)
+ *   (2) the palette tier — fonts (via Astro's Font API, see comment above),
+ *       colors, and --content-reading — the sanctioned customization surface
+ * See DESIGN-DEVIATIONS.md for the full token-by-token diff against core.
+ */
 
 :root {
-  /* Type scale */
-  --text-display: clamp(2.25rem, 3.5vw, 3.5rem); /* 36-56px — editorial restraint */
-  --text-title: clamp(1.875rem, 3.5vw, 3rem);
-  --text-section: clamp(1.375rem, 2.25vw, 2rem);
-  --text-body-lg: 1.1875rem;
-  --text-body: 1.0625rem;
-  --text-meta: 0.875rem;       /* 14px — USWDS minimum for small text */
-  --text-micro: 0.8125rem;     /* 13px — USWDS floor for timestamps/fine print */
+  /* ─── Core-tier deviations (see DESIGN-DEVIATIONS.md) ─── */
+  --text-display: clamp(2.25rem, 3.5vw, 3.5rem); /* 36-56px — editorial restraint; core ships clamp(2.75rem, 5.5vw, 5rem) */
 
-  /* Line heights */
-  --leading-display: 1.05;
-  --leading-title: 1.15;
-  --leading-section: 1.2;
-  --leading-body: 1.75;
-  --leading-meta: 1.5;          /* USWDS minimum for short text */
-
-  /* Letter spacing */
-  --tracking-display: -0.02em;
-  --tracking-title: -0.015em;
-  --tracking-meta: 0.02em;
-  --tracking-caps: 0.06em;
-
-  /* Font weights */
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4rem;
-  --space-9: 6rem;
-
-  /* Content widths.
-   * --content-reading is the single shared column width for the whole
+  /* ─── Palette tier: content width ─── */
+  /* --content-reading is the single shared column width for the whole
    * reading rail — prose AND the mono-voice surfaces that flank it
    * (breadcrumb, post header, TOC, tables, cards) all share one value so
    * the column stays visually aligned edge-to-edge; it is intentionally
@@ -72,20 +54,14 @@
    * at --text-body (17px) in Source Serif 4, 40rem ≈ 71ch — close to
    * the ~68ch editorial target (was 46rem ≈ 86ch under Inter, too wide
    * for a text serif). Adjusted conservatively, not dropped straight to
-   * the raw 38.25rem (68ch) measurement. */
+   * the raw 38.25rem (68ch) measurement. This is NOT a deviation — it's
+   * the sanctioned measure-compensation value core's own docs cite this
+   * site as the reference example for (see REMARQUE.md's "Measure
+   * Compensation" table). core's own palette default is 46rem, tuned for
+   * Inter; this site's body font is Source Serif 4, hence 40rem. */
   --content-reading: 40rem;
-  --content-standard: 72rem;
 
-  /* Border radius — restrained */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-
-  /* Motion — minimal */
-  --motion-fast: 120ms;
-  --motion-normal: 180ms;
-  --motion-easing: ease-out;
-
-  /* Colors — Palette B "Departure": photosensitive ivory + ferric ink + radar green */
+  /* ─── Palette tier: colors — Palette B "Departure": photosensitive ivory + ferric ink + radar green ─── */
   --color-bg: oklch(0.95 0.015 75);
   --color-bg-subtle: oklch(0.93 0.015 75);
   --color-fg: oklch(0.18 0.04 25);            /* ferric red-black */
@@ -101,6 +77,24 @@
   --color-selection-bg: oklch(0.88 0.10 140); /* tinted green */
   --color-overlay: oklch(0 0 0 / 0.5);        /* modal backdrop scrim */
   --color-shadow: oklch(0 0 0 / 0.5);         /* drop-shadow color */
+
+  /* Semantic vars core's machinery (`.remarque-prose a`, `:focus-visible`,
+   * `::selection`) consumes that this site didn't previously need, since
+   * its own rules set these directly (`a { color: var(--color-accent); }`,
+   * `*:focus-visible { outline-color: var(--color-accent); }`, etc.) and
+   * win the cascade on equal specificity by coming later in this file.
+   * Defined here for core-tier compatibility. Each is a var() reference to
+   * an already-themed token above, so it resolves correctly in both themes
+   * without redeclaration — CSS custom properties are substituted lazily,
+   * using whatever --color-accent/-fg computes to AT THE ELEMENT (:root)
+   * where the more specific .dark/media-query rule also lives. Repeated
+   * explicitly in :root.dark and the dark media block below anyway, to
+   * match this file's existing convention of never relying on that
+   * indirection alone for color tokens. */
+  --color-link: var(--color-accent);
+  --color-link-hover: var(--color-accent-hover);
+  --color-focus-ring: var(--color-accent);
+  --color-selection-fg: var(--color-fg);
 
   color-scheme: light;
 }
@@ -121,6 +115,12 @@
   --color-code-fg: oklch(0.88 0.03 140);
   --color-selection-bg: oklch(0.30 0.10 140);
 
+  /* Core-consumed semantic vars (see the base :root block's comment) */
+  --color-link: var(--color-accent);
+  --color-link-hover: var(--color-accent-hover);
+  --color-focus-ring: var(--color-accent);
+  --color-selection-fg: var(--color-fg);
+
   color-scheme: dark;
 }
 
@@ -139,6 +139,12 @@
     --color-code-bg: oklch(0.17 0.015 140);
     --color-code-fg: oklch(0.88 0.03 140);
     --color-selection-bg: oklch(0.30 0.10 140);
+
+    /* Core-consumed semantic vars (see the base :root block's comment) */
+    --color-link: var(--color-accent);
+    --color-link-hover: var(--color-accent-hover);
+    --color-focus-ring: var(--color-accent);
+    --color-selection-fg: var(--color-fg);
 
     --bg: var(--color-bg);
     --text: var(--color-fg);
@@ -164,6 +170,18 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Neutralizes core's `html { background-color: var(--color-bg); }`
+   * (tokens-core.css base reset). Without this, the gutter beyond body's
+   * `max-width: var(--content-standard)` on wide viewports would paint
+   * --color-bg instead of the browser's own `color-scheme`-aware canvas
+   * default (white in light mode, UA dark in dark mode) — a real, if
+   * subtle, rendering change. `transparent` is background-color's own
+   * initial value, so this restores pre-migration behavior exactly.
+   * core's other new `html` declarations (font-family/font-size/
+   * line-height/color) are harmless no-ops here: `body` below already
+   * sets each of those explicitly to the same values, and nothing renders
+   * directly on `<html>` itself. See DESIGN-DEVIATIONS.md. */
+  background-color: transparent;
 }
 
 body {
