@@ -78,3 +78,7 @@ Handwright runs entirely locally. Docker Compose brings up the Next.js frontend 
 ## Try It
 
 Clone the repo at [github.com/williamzujkowski/handwright](https://github.com/williamzujkowski/handwright), run `docker compose up`, and point your browser at `localhost:3000`. Print the worksheet, fill it in, photograph it, and you'll have a working font file in under a minute.
+
+## Sources
+
+- [Handwright](https://github.com/williamzujkowski/handwright) — the project this post is about

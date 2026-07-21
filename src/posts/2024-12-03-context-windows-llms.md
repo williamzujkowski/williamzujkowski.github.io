@@ -262,3 +262,8 @@ After three months of intensive testing in my homelab (September through Decembe
 ---
 
 *For those interested in exploring context window innovations further, [Anthropic's research on long-context language models](https://www.anthropic.com/research) provides insights into optimization techniques, while the [Efficient Transformers survey paper](https://arxiv.org/abs/2009.06732) offers comprehensive coverage of architectural improvements addressing these challenges.*
+
+## Sources
+
+- [Anthropic's research on long-context language models](https://www.anthropic.com/research)
+- [Efficient Transformers: A Survey](https://arxiv.org/abs/2009.06732) — arXiv

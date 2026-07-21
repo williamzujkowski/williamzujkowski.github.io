@@ -289,3 +289,24 @@ To be clear about what's production-tested versus experimental: the five-stage r
 The [codebase is open source](https://github.com/nexus-substrate/nexus-agents). If you're interested in multi-model orchestration, want to see how consensus voting works in practice, or need a reference implementation for MCP server development, take a look.
 
 Building this taught me that the future of AI-assisted development isn't about picking the best model. It's about building systems that use the right model for each piece of the problem. And backing those systems with real research, not vibes.
+
+## Sources
+
+- [nexus-agents](https://github.com/nexus-substrate/nexus-agents) — the project this post is about
+- [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18510) — arXiv
+- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
+- [STPA safety analysis of MCP](https://arxiv.org/abs/2601.08012) — arXiv
+- [MoMA framework](https://arxiv.org/abs/2509.07571) — arXiv
+- [PILOT](https://arxiv.org/abs/2508.21141) — arXiv
+- [Multi-agent collaboration research](https://arxiv.org/abs/2501.06322) — arXiv
+- [Voting vs. consensus protocols](https://arxiv.org/abs/2502.19130) — arXiv
+- [Free-MAD anti-conformity research](https://arxiv.org/abs/2509.11035) — arXiv
+- [Higher-order voting](https://arxiv.org/abs/2510.01499) — arXiv
+- [Self-Refine: Iterative Refinement with Self-Feedback](https://arxiv.org/abs/2303.17651) — arXiv
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) — arXiv
+- [SATER confidence-aware routing](https://arxiv.org/abs/2510.05164) — arXiv
+- [TRINITY thinker/worker/verifier pattern](https://arxiv.org/abs/2512.04695) — arXiv
+- [A-MEM agentic memory](https://arxiv.org/abs/2502.12110) — arXiv
+- [Agent-SafetyBench evaluation](https://arxiv.org/abs/2412.14470) — arXiv
+- [Zod](https://zod.dev) — TypeScript schema validation
+- [Pick and Spin efficient orchestration](https://arxiv.org/abs/2512.22402) — arXiv

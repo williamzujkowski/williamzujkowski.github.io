@@ -133,3 +133,9 @@ The [source](https://github.com/williamzujkowski/repo-health-report) is on GitHu
 I applied these findings to nexus-agents itself. The OSSF Scorecard improvements (7.1 → 9+), CVE patches, CodeQL findings closed, and `validatePath` consolidation that landed in April are covered in the [modularization post](/posts/2026-04-18-nexus-agents-april-month-of-modularization/). If you want a worked example of how the dimensions here translate into actual cleanup work, that's the follow-up.
 
 Start with the Security dimension. That's where the biggest reduction in risk for the lowest effort lives. The hygiene is cheap. Skipping it isn't.
+
+## Sources
+
+- [repo-health-report](https://github.com/williamzujkowski/repo-health-report) — the project this post is about
+- [nexus-agents](https://github.com/nexus-substrate/nexus-agents) — scored example repo
+- [StepSecurity's ledger of compromised workflows](https://www.stepsecurity.io/)

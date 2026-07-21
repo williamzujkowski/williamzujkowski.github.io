@@ -152,3 +152,14 @@ v1.0.0 for aegis-boot is gated on a multi-vendor physical shakedown per [aegis-b
 If you own a laptop that isn't in the persona library and aegis-boot passes its shakedown on it, I'd love the persona contribution. A YAML file with your DMI strings, Secure Boot posture, and TPM version is the minimum viable pull request.
 
 Security hygiene is a running thread across everything I've shipped this month. The OSSF Scorecard work, CVE patching, and CodeQL cleanup on nexus-agents lives in the [modularization post](/posts/2026-04-18-nexus-agents-april-month-of-modularization/). Same posture, different layer of the stack.
+
+## Sources
+
+- [aegis-boot](https://github.com/aegis-boot/aegis-boot) — the project this post is about
+- [aegis-hwsim](https://github.com/williamzujkowski/aegis-hwsim) — hardware simulation harness
+- [LAVA](https://docs.lavasoftware.org) — Linaro Automated Validation Architecture
+- [labgrid](https://github.com/labgrid-project/labgrid) — embedded board control library
+- [fwupd's QEMU CI](https://github.com/fwupd/fwupd)
+- [aegis-boot#51](https://github.com/aegis-boot/aegis-boot/issues/51)
+- [aegis-boot#109](https://github.com/aegis-boot/aegis-boot/issues/109)
+- [aegis-boot v0.13.0 release](https://github.com/aegis-boot/aegis-boot/releases/latest)

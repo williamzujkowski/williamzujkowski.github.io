@@ -141,9 +141,7 @@ Three things keep me up.
 
 Defenders are not getting more time or attention. Attackers know that, and they have organized three attack surfaces around it: the kernel, the registry, and the scanner that was supposed to watch the other two. The honest answer to the squeeze isn't to pick a side. It's to stop pretending the sides are the same problem.
 
----
-
-*Sources used in this post:*
+## Sources
 
 - [copy.fail (CVE-2026-31431)](https://copy.fail/)
 - [Copy_Fail2: Electric Boogaloo PoC](https://github.com/0xdeadbeefnetwork/Copy_Fail2-Electric_Boogaloo)
