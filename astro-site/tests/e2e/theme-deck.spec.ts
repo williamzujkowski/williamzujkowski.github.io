@@ -23,7 +23,9 @@ test('deck theme applies, persists across reload, and survives navigation', asyn
   const bg = await page.evaluate(() =>
     getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
   );
-  expect(bg).toMatch(/0?\.2882/); // dracula bg lightness (leading zero varies by browser)
+  // dracula bg lightness — decimal (0.2882) or percentage (28.82%); the CSS
+  // minifier's serialization of the leading component varies by toolchain.
+  expect(bg).toMatch(/(?:0?\.2882|28\.82%)/);
 });
 
 test('deck theme is stamped before first paint (no FOUC)', async ({ page, context }) => {
@@ -59,7 +61,8 @@ test('garbage localStorage slug degrades to default Remarque without errors', as
   const bg = await page.evaluate(() =>
     getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
   );
-  expect(bg).toMatch(/0?\.95 0?\.015 75/);
+  // Remarque light bg — decimal (0.95) or percentage (95%) lightness form.
+  expect(bg).toMatch(/(?:0?\.95|95%) 0?\.015 75/);
   expect(errors).toEqual([]);
 
   // Picker still functional afterward
@@ -148,5 +151,5 @@ test('picking a light theme pins light mode', async ({ page }) => {
     getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
   );
   expect(bg).not.toBe('');
-  expect(bg).not.toMatch(/0?\.95 0?\.015 75/); // Remarque light bg
+  expect(bg).not.toMatch(/(?:0?\.95|95%) 0?\.015 75/); // Remarque light bg (decimal or %)
 });
