@@ -155,7 +155,9 @@ The old rule was right about precision and wrong to strip out the personality. K
 
 Four layers, each owning a distinct concern. When adding a new check,
 pick the layer that matches the latency, cost, and feedback profile.
-The Layer-1 skills live in `.claude/skills/blog-*/` (tracked in git).
+The Layer-1 skills are author-local tooling in `~/.claude/skills/blog-*/`
+(surfaced into the repo via `.claude/skills/` symlinks, which are gitignored
+— they're interactive author-time skills, not part of the published site or CI).
 
 ```
 ┌─ 1. Pre-publish (interactive, author-invoked via Skill tool) ─────┐
