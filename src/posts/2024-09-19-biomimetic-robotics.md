@@ -366,3 +366,17 @@ Biomimetic robotics represents a fundamental shift toward working with natural p
 ---
 
 *For those interested in exploring this field further, the [Wyss Institute for Biologically Inspired Engineering](https://wyss.harvard.edu/) at Harvard and the [Soft Robotics Toolkit](https://softroboticstoolkit.com/) provide excellent resources for both research and hands-on exploration.*
+
+## Sources
+
+- [MIT Cheetah 3: Design and Control of a Robust, Dynamic Quadruped Robot](https://journals.sagepub.com/doi/10.1177/0278364917694244) — legged robot mechanics and control
+- [MIT Cheetah robot documentation](https://ieeexplore.ieee.org/document/8593885/) — IEEE
+- [Harvard RoboBee X-Wing](https://arxiv.org/abs/2411.06382) — untethered flight, arXiv
+- [Morphological intelligence: how a robot's body shapes its cognition](https://www.nature.com/articles/s41467-021-25874-z) — Nature Communications
+- [Neuromorphic computing and vision sensors](https://www.nature.com/articles/s44172-025-00492-5) — Nature
+- [Harvard Kilobot swarm research](https://dash.harvard.edu/entities/publication/73120378-a434-6bd4-e053-0100007fdf3b) — Harvard DASH repository
+- [Morphological computation in robotic swarms](https://www.science.org/doi/10.1126/scirobotics.abo6140) — Science Robotics
+- [JPL LEMUR climbing robot](https://ieeexplore.ieee.org/document/7989643/) — IEEE
+- [Soft robotics materials research](https://www.nature.com/articles/nature14543) — Nature
+- [Wyss Institute for Biologically Inspired Engineering](https://wyss.harvard.edu/) — Harvard
+- [Soft Robotics Toolkit](https://softroboticstoolkit.com/) — open hardware/software resources

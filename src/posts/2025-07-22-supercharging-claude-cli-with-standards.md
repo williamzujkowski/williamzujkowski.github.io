@@ -464,3 +464,12 @@ The future isn't just AI-assisted development. It's AI that knows how you like t
 ---
 
 *Have you built something similar? How do you maintain consistency with AI tools? Drop me a line – I'm always looking for new patterns to steal... I mean, learn from.*
+
+## Sources
+
+- [github.com/williamzujkowski/standards](https://github.com/williamzujkowski/standards) — the standards repository this post is about
+- [Setup script](https://gist.github.com/williamzujkowski/4b740d51c2921d94fea0c4603c3a85e0) — gist
+- [NIST compliance example](https://gist.github.com/williamzujkowski/f80a7dcf4890372f4eab0018ad9afd0d) — gist
+- [CLAUDE.md](https://raw.githubusercontent.com/williamzujkowski/standards/master/docs/core/CLAUDE.md) — raw source
+- [Integration script](https://gist.github.com/williamzujkowski/4c2214e2b1843b341a4ee0012fffc0d3) — gist
+- [Automated workflow example](https://gist.github.com/williamzujkowski/dc26a695bf3f8d2b7d2e96584c0ff215) — gist
