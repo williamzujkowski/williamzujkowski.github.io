@@ -39,7 +39,6 @@ __pycache__/
 
 # Claude Code / MCP
 .claude/*
-!.claude/skills/
 .mcp.json
 .mcp/
 .playwright-mcp/

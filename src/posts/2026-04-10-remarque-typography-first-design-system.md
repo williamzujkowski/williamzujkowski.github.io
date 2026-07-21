@@ -157,3 +157,13 @@ Every decision in Remarque serves that goal. The three-font constraint prevents 
 - [Source](https://github.com/williamzujkowski/remarque) — Apache 2.0.
 
 If you're building a technical site and the default Tailwind setup feels wrong but you can't name why, the answer is usually that it's a great SaaS dashboard design applied to a context that isn't a SaaS dashboard. Remarque is what I use instead.
+
+## Sources
+
+- [Remarque](https://github.com/williamzujkowski/remarque) — the project this post is about
+- [Newsreader](https://fonts.google.com/specimen/Newsreader) — Google Fonts
+- [Inter](https://rsms.me/inter/)
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+- [Practical Typography](https://practicaltypography.com/)
+- [Google Fonts and GDPR litigation](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) — Wikipedia
+- [REMARQUE.md](https://github.com/williamzujkowski/remarque/blob/main/REMARQUE.md) — design system documentation
