@@ -112,3 +112,22 @@ The code is open source under the [civic-source](https://github.com/civic-source
 - [us-code](https://github.com/civic-source/us-code) — The Git-versioned statutory data
 
 The data is CC0 public domain. The code is Apache 2.0.
+
+## Sources
+
+- [Office of the Law Revision Counsel](https://uscode.house.gov/) — publishes the United States Code as XML
+- [US Code Tracker](https://civic-source.github.io/us-code-tracker/) — the live site
+- [CourtListener](https://www.courtlistener.com/) — case law source
+- [CourtListener API](https://www.courtlistener.com/api/)
+- [Turborepo](https://turbo.build/)
+- [sync-law.yml weekly cron job](https://github.com/civic-source/us-code-tracker/blob/main/.github/workflows/sync-law.yml)
+- [USLM (United States Legislative Markup)](https://github.com/usgpo/uslm)
+- [Astro 6](https://astro.build/)
+- [Svelte 5](https://svelte.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Pagefind](https://pagefind.app/)
+- [WCAG 2.1, Understanding Contrast (Minimum)](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
+- [Cheerio](https://cheerio.js.org/)
+- [civic-source/us-code](https://github.com/civic-source/us-code) — the Git-versioned statutory data repository
+- [Cornell LII, US Code](https://www.law.cornell.edu/uscode)
+- [civic-source/us-code-tracker](https://github.com/civic-source/us-code-tracker) — pipeline and web app source
