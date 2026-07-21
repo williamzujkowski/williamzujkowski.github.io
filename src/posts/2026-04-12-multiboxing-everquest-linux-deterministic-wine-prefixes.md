@@ -152,3 +152,8 @@ Every one of those is a three-line fix once you know what it is. The project is 
 - [Window management scripts](https://github.com/williamzujkowski/norrath-native/tree/main/scripts) — the `wmctrl` / `xdotool` / `hyprctl` snippets I pulled out into reusable helpers.
 
 I'm still using this daily. PRs and issues on `eqclient.ini` tuning, specific distro quirks, or alternate multibox layouts are welcome. The window-management exploration is open-ended — if you've found a clean pattern for Linux window programming I haven't, I'd love to hear about it.
+
+## Sources
+
+- [Norrath-Native](https://github.com/williamzujkowski/norrath-native) — the project this post is about
+- [Window management scripts](https://github.com/williamzujkowski/norrath-native/tree/main/scripts) — `wmctrl` / `xdotool` / `hyprctl` helpers

@@ -487,14 +487,12 @@ After 18 months of production use, here's what I wish I'd known from the start:
 
 Don't try to implement everything at once. Each phase builds on previous work and provides learning opportunities.
 
-## Further Exploration
+## Sources
 
-Want to dive deeper? Here are resources that helped me:
-
-- **[Proxmox VE Administration Guide](https://pve.proxmox.com/pve-docs/)** - Official documentation
-- **[TrueNAS SCALE Documentation](https://www.truenas.com/docs/scale/)** - Storage platform integration
-- **[pfSense Book](https://docs.netgate.com/pfsense/en/latest/)** - Network security configuration
-- **[Prometheus Monitoring](https://prometheus.io/docs/)** - Metrics collection and alerting
-- **[Proxmox Community Forum](https://forum.proxmox.com/)** - Active community discussions
+- [Proxmox VE Administration Guide](https://pve.proxmox.com/pve-docs/) — official documentation
+- [TrueNAS SCALE Documentation](https://www.truenas.com/docs/scale/) — storage platform integration
+- [pfSense Book](https://docs.netgate.com/pfsense/en/latest/) — network security configuration
+- [Prometheus Monitoring](https://prometheus.io/docs/) — metrics collection and alerting
+- [Proxmox Community Forum](https://forum.proxmox.com/) — active community discussions
 
 Building a private cloud takes patience and iteration. Start small, learn continuously, and don't be afraid to rebuild when you discover better approaches. The knowledge gained is worth the effort invested.

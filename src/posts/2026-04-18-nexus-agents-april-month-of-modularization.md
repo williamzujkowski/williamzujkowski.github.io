@@ -218,3 +218,11 @@ Replaced the `RouterLike` cast in the pipeline with a proper structural adapter.
 The extraction epic is [nexus-agents#1960](https://github.com/nexus-substrate/nexus-agents/issues/1960). All six sub-issues are closed. Follow-ups — Docker harness integration for real pass/fail, HumanEval and MBPP extractions — will file new issues against the standalone repos as they're prioritized.
 
 The arc I care about more is the one that made this possible. Three weeks of rigor, governance, and release hygiene turned "extract a benchmark" from a multi-day refactor into an afternoon. If you're looking at your own monorepo wondering where to start, start with the boring preconditions. The extraction itself is easy when the rest of the work has been done.
+
+## Sources
+
+- [nexus-agents](https://github.com/nexus-substrate/nexus-agents) — the project this post is about
+- [nexus-agents v2.33.2](https://www.npmjs.com/package/nexus-agents) — npm package
+- [nexus-eval-template](https://github.com/williamzujkowski/nexus-eval-template)
+- [nexus-eval-swebench](https://github.com/williamzujkowski/nexus-eval-swebench)
+- [nexus-agents#1960](https://github.com/nexus-substrate/nexus-agents/issues/1960) — the extraction epic

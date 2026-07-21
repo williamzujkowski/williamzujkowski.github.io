@@ -99,3 +99,12 @@ None of this is magic: it's the same `grep`, `gh api`, and `find` commands I'd r
 5. **Scope your CI tokens narrowly.** Limited `GITHUB_TOKEN` scope contained the potential blast radius in my case.
 
 The repos involved in this investigation: [nexus-agents](https://github.com/nexus-substrate/nexus-agents), [mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server), homelab (private), and [machine-rites](https://github.com/williamzujkowski/machine-rites).
+
+## Sources
+
+- [Trivy security advisory GHSA-69fq-xp46-6x23](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23) — Aqua Security
+- [Trivy under attack again: GitHub Actions compromise](https://socket.dev/blog/trivy-under-attack-again-github-actions-compromise) — Socket.dev
+- [Trivy compromised: TeamPCP supply chain attack](https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack) — Wiz
+- [nexus-agents](https://github.com/nexus-substrate/nexus-agents)
+- [mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server)
+- [machine-rites](https://github.com/williamzujkowski/machine-rites)
