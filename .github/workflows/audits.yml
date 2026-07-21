@@ -75,7 +75,7 @@ jobs:
   # step: remarque-drift isn't published to npm yet (it lands with a
   # future remarque-tokens release), so `remarque-ref` pins this call to
   # the feature branch that adds it (williamzujkowski/remarque#71). Once
-  # that release ships, drop `remarque-ref` and repoint `@feat/drift-detection`
+  # that release ships, drop `remarque-ref` and repoint `@main`
   # at a released tag — no other change needed.
   #
   # Our one core-tier deviation (--text-display, documented in
@@ -84,10 +84,10 @@ jobs:
   token-drift:
     needs: changes
     if: needs.changes.outputs.site == 'true'
-    uses: williamzujkowski/remarque/.github/workflows/token-drift.yml@feat/drift-detection
+    uses: williamzujkowski/remarque/.github/workflows/token-drift.yml@main
     permissions:
       contents: read
     with:
       css-file: astro-site/src/styles/global.css
       package-dir: astro-site
-      remarque-ref: feat/drift-detection
+      remarque-ref: main
