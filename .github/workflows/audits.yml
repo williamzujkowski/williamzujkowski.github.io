@@ -67,3 +67,27 @@ jobs:
       - name: APCA advisory (WCAG 3 draft — informational only)
         run: node astro-site/scripts/apca-audit.mjs
         continue-on-error: true
+
+  # Token-drift check against the installed remarque-tokens package
+  # (remarque#47/#48 — consensus-armed now that 2+ sites consume the
+  # package from npm; this site is #1, tsundoku is #2). Calls remarque's
+  # reusable workflow directly rather than a plain `npx remarque-drift`
+  # step: remarque-drift isn't published to npm yet (it lands with a
+  # future remarque-tokens release), so `remarque-ref` pins this call to
+  # the feature branch that adds it (williamzujkowski/remarque#71). Once
+  # that release ships, drop `remarque-ref` and repoint `@feat/drift-detection`
+  # at a released tag — no other change needed.
+  #
+  # Our one core-tier deviation (--text-display, documented in
+  # DESIGN-DEVIATIONS.md, ratified in issue #274) is expected to
+  # classify as WARN, not FAIL — verified locally, see this PR's body.
+  token-drift:
+    needs: changes
+    if: needs.changes.outputs.site == 'true'
+    uses: williamzujkowski/remarque/.github/workflows/token-drift.yml@feat/drift-detection
+    permissions:
+      contents: read
+    with:
+      css-file: astro-site/src/styles/global.css
+      package-dir: astro-site
+      remarque-ref: feat/drift-detection
