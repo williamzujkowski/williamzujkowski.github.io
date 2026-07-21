@@ -570,3 +570,15 @@ Sometimes that's enough.
 *Want to contribute? The code is at [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server). Issues and PRs welcome. Especially if you know why Redis keeps disconnecting.*
 
 *Or use the original standards repo. It still works great and doesn't require Redis.*
+
+## Sources
+
+- [Model Context Protocol (MCP)](https://docs.claude.com/en/docs/mcp)
+- [github.com/williamzujkowski/mcp-standards-server](https://github.com/williamzujkowski/mcp-standards-server) — the project this post is about
+- [Redis LRU eviction policy](https://redis.io/docs/latest/develop/reference/eviction/)
+- [ChromaDB documentation](https://docs.trychroma.com)
+- [WebSocket API — MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+- [React hooks reference](https://react.dev/reference/react/hooks)
+- [msgpack](https://msgpack.org) — binary serialization format
+- [Python asyncio](https://docs.python.org/3/library/asyncio.html)
+- [Top Five Causes of Scope Creep](https://www.pmi.org/learning/library/top-five-causes-scope-creep-6675) — PMI
