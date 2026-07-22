@@ -36,9 +36,9 @@
     "cookie": "^2.0.1",
     "markdown-it": "^14.3.0",
     "rehype-mermaid": "^3.0.0",
-    "remarque-tokens": "^0.5.1",
+    "remarque-tokens": "^0.8.0",
     "sanitize-html": "^2.17.6",
-    "satori": "^0.28.1",
+    "satori": "^0.28.2",
     "svelte": "^5.56.7",
     "typescript": "^5.9.3",
     "unist-util-visit": "^5.1.0"
@@ -55,7 +55,7 @@
     "eslint-plugin-astro": "^1.6.0",
     "pagefind": "^1.5.2",
     "playwright": "^1.61.1",
-    "prettier": "^3.9.5",
+    "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-svelte": "^4.1.1",
     "remark-smartypants": "^3.0.2"
