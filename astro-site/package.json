@@ -33,6 +33,7 @@
     "@astrojs/svelte": "^9.0.1",
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^7.1.0",
+    "cookie": "^2.0.1",
     "markdown-it": "^14.3.0",
     "rehype-mermaid": "^3.0.0",
     "remarque-tokens": "^0.5.1",
