@@ -301,11 +301,6 @@ The answer depends on the choices we make now, while we still have the cognitive
     - Clark & Chalmers' foundational work, updated for AI age
     - *Analysis, Volume 58*
 
-### Future Projections
-
-13. **[Quantum-AI Integration Roadmap](https://arxiv.org/abs/2401.09241)** (2024)
-    - Projections for quantum computing impact on AI
-    - *arXiv preprint*
 
 14. **[AGI Timeline Predictions: Expert Survey](https://www.fhi.ox.ac.uk/reports/agi-timeline-surveys/)** (2024)
     - 50% probability of AGI by 2040-2050
