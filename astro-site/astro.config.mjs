@@ -4,7 +4,25 @@ import sitemap from '@astrojs/sitemap';
 import rehypeMermaid from 'rehype-mermaid';
 import remarkSmartypants from 'remark-smartypants';
 import { visit } from 'unist-util-visit';
+import { createCssVariablesTheme } from 'shiki';
 import rehypeSidenotes from './src/lib/rehype-sidenotes.mjs';
+
+/**
+ * Remarque syntax-highlighting theme (remarque-tokens 0.15.0, REMARQUE.md
+ * "Syntax Highlighting" / "Astro / Shiki wiring"). Passed as an OBJECT, not
+ * the `'css-variables'` string — Astro's markdown pipeline renames the
+ * string form's variable prefix to `--astro-code-*`, which would silently
+ * break the mapping to this package's `--color-syntax-*` tokens. Because
+ * this is a single CSS-variables theme (not a light/dark pair), the actual
+ * light vs. dark color swap happens in global.css's palette blocks (the
+ * `--color-syntax-*` custom properties themselves are themed there) plus
+ * the `.astro-code` CSS bridge below — not here.
+ */
+const remarqueSyntaxTheme = createCssVariablesTheme({
+  name: 'remarque',
+  variablePrefix: '--color-syntax-',
+  fontStyle: true,
+});
 
 /**
  * Shiki transformer: extract title="filename" from code fence meta
@@ -200,10 +218,7 @@ export default defineConfig({
       excludeLangs: ['mermaid'],
     },
     shikiConfig: {
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
+      theme: remarqueSyntaxTheme,
       transformers: [transformerCodeTitle()],
     },
     remarkPlugins: [

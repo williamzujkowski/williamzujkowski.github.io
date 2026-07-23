@@ -46,8 +46,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(playwright@1.61.1)
       remarque-tokens:
-        specifier: ^0.8.0
-        version: 0.8.0
+        specifier: ^0.15.0
+        version: 0.15.0
       sanitize-html:
         specifier: ^2.17.6
         version: 2.17.6
@@ -109,6 +109,9 @@ importers:
       remark-smartypants:
         specifier: ^3.0.2
         version: 3.0.2
+      shiki:
+        specifier: ^4.1.0
+        version: 4.1.0
 
 packages:
 
@@ -2792,10 +2795,15 @@ packages:
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
 
-  remarque-tokens@0.8.0:
-    resolution: {integrity: sha512-R5u8smwTTg8anDR0vxu5jLhWeH25SWq019LlXNh802MD92a56C7UkqCNYNH69mm4Tg5DLmCgbxWvIMIriIpQVA==}
+  remarque-tokens@0.15.0:
+    resolution: {integrity: sha512-W+9Zp8UwcoEl373N2ulpFhkmTdEhipXMCQomH36eR2eoRDGtVH/SDno0PTZhWrIxzWIJQaV6AhIqskUK/s2v6w==}
     engines: {node: '>=18'}
     hasBin: true
+    peerDependencies:
+      '@williamzujkowski/oklch-terminal-themes': '>=0.1.0 <0.3.0'
+    peerDependenciesMeta:
+      '@williamzujkowski/oklch-terminal-themes':
+        optional: true
 
   request-light@0.5.8:
     resolution: {integrity: sha512-3Zjgh+8b5fhRJBQZoy+zbVKpAQGLyka0MPgW3zruTF4dFFJ8Fqcfu9YsAvi/rvdcaTeWG3MkbZv4WKxAn/84Lg==}
@@ -6222,7 +6230,7 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
-  remarque-tokens@0.8.0: {}
+  remarque-tokens@0.15.0: {}
 
   request-light@0.5.8: {}
 
