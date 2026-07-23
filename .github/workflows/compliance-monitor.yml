@@ -14,20 +14,26 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
   cancel-in-progress: true
 
+# Least-privilege default: compliance-check only reads the tree to build +
+# audit. security-scan overrides this with its own job-level block (it needs
+# security-events: write to upload SARIF). Matches every other workflow.
+permissions:
+  contents: read
+
 jobs:
   compliance-check:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v6
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
 
     - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
       with:
         version: 10
 
     - name: Use Node.js 22
-      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v6
+      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
       with:
         node-version: '22'
         cache: 'pnpm'
@@ -187,7 +193,7 @@ jobs:
       actions: read
 
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v6
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
       with:
         # Full history: gitleaks scans commit ranges; a shallow checkout made
         # it scan ~0 bytes and error -- silently, until the step became blocking.
