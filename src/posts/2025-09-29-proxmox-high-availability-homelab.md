@@ -87,6 +87,8 @@ flowchart TB
 - Node 2: Dell R730 (secondary) - 24GB RAM, 6 cores
 - Node 3: Custom build (witness) - 16GB RAM, 4 cores
 
+> *That was the rig at the time. The lab has since been consolidated down to a single Dell R910 and a Raspberry Pi fleet — the other two nodes are retired — but the HA design below is the part that matters, and it holds for any three machines that clear the quorum minimum.*
+
 **Network Requirements:**
 - Two separate networks (cluster + management)
 - 10Gb preferred for Ceph storage network
@@ -106,7 +108,7 @@ Proxmox HA requires an odd number of nodes for quorum:
 - **5 nodes**: Survives 2 node failures
 - **7 nodes**: Survives 3 node failures (overkill for homelab)
 
-**My setup**: 3 nodes provides good balance of reliability vs. cost.
+**My setup then**: 3 nodes gave a good balance of reliability vs. cost.
 
 ## Initial Proxmox Cluster Setup
 
@@ -264,7 +266,7 @@ Set expected=1, start VMs manually, restore quorum after nodes rejoin
 
 ## Cost Analysis
 
-My 3-node HA cluster cost:
+That 3-node HA cluster cost, at the time:
 
 | Component | Cost | Notes |
 |-----------|------|-------|
@@ -306,7 +308,7 @@ Ceph replication protects against disk failures, not logical corruption. Maintai
 
 ## Performance Metrics
 
-My cluster performance:
+That cluster's performance:
 
 - **Uptime**: 99.97% (3 hours downtime in 2 years)
 - **Failover time**: 2-3 minutes average
