@@ -285,6 +285,85 @@ follow-up, not a regression: `remarque-audit`'s CONTRAST check only ever ran
 against the `--palette` file (`global.css`), not `theme-deck.css`, before this
 change either.
 
+## 9. State + dataviz token conformance (remarque-tokens 0.24.0)
+
+Bumped `remarque-tokens` from 0.15.0 → 0.24.0 (consumer-refresh, npm's caret
+range had frozen this site at 0.15.0 while the package moved through
+0.16.0–0.24.0). Two token families were added upstream in that span and
+are both required by `remarque-audit`'s CONTRAST check; both are now
+declared in all three of `global.css`'s palette blocks (`:root`,
+`:root.dark`, the `@media (prefers-color-scheme: dark) :root:not(.light)`
+block), same keep-if-passing-else-solve pattern as §8's syntax slots.
+
+**State colors** (0.17.0, REMARQUE.md "State Colors") — 7 slots:
+`--color-error`/`-subtle`, `--color-success`/`-subtle`,
+`--color-warning`/`-subtle`, and `--color-disabled`. Every state text color
+is required ≥ 4.5:1 against **both** `--color-bg` and `--color-surface`
+(not just one); every `-subtle` banner background is required to hold
+`--color-fg` ≥ 4.5:1 on top of it. `--color-disabled` aliases
+`--color-muted` per spec — not a new hue, so nothing to solve there (it
+inherits whatever `--color-muted` already audits to).
+
+Only one of the 6 hue-bearing slots needed solving:
+
+| Slot | Upstream default | This site | Rationale |
+|---|---|---|---|
+| `--color-success` (light) | `oklch(0.51 0.12 145)` — 4.71:1 bg / **4.43:1 surface** (fails 4.5:1) | `oklch(0.50 0.12 145)` — 4.92:1 bg / 4.63:1 surface | Darkened to clear 4.5:1 against this site's `--color-surface` (`oklch(0.93 0.015 75)`), which sits closer to `--color-bg` than upstream's default surface/bg spread |
+
+All other slots — `--color-error`, `--color-warning` (both themes), and
+`--color-success` (dark) — match the upstream default byte-for-byte and
+clear 4.5:1 against both `--color-bg` and `--color-surface` unmodified. All
+3 `-subtle` backgrounds (both themes) hold `--color-fg` well past 4.5:1
+(13.7–16.5:1) unmodified — the near-bg lightness these are designed at
+gives enormous headroom regardless of a site's own bg/surface tuning.
+
+**Dataviz categorical** (0.22.0, REMARQUE.md "Dataviz Tokens") — 6 slots,
+`--color-viz-1` through `--color-viz-6`, each required ≥ 3:1 against
+`--color-bg` only (Carbon's mark-on-background line, not text's 4.5:1; see
+REMARQUE.md for why marks get the non-text WCAG 1.4.11 threshold instead).
+All 6 pass unmodified in both themes (4.39–4.97:1 light, 7.70–7.75:1 dark)
+— no solving needed. Per REMARQUE.md's mandatory non-color-redundancy
+rule, any future chart on this site must pair `--color-viz-*` with a
+second channel (marker shape, dash pattern, or a direct label) rather than
+relying on hue alone — noted here for whoever adds the first chart, not
+enforced by any script today (no chart component exists on this site yet).
+Not extended to `theme-deck.css`'s 12 terminal palettes, same rationale as
+§8's syntax slots (each deck would need its own solve; tracked as the same
+kind of follow-up, not a regression, since `remarque-audit` only ever
+checks the `--palette` file).
+
+`node node_modules/remarque-tokens/scripts/drift-check.mjs --css-file
+src/styles/global.css --package-dir .` correctly classifies the one solved
+`--color-success` value as palette-tier INFO (sanctioned personalization),
+never FAIL — 0 FAIL / 1 WARN (the pre-existing, already-documented
+`--text-display` core deviation from §1) / 19 INFO overall.
+
+**Forced-colors / `prefers-contrast` coverage gap (0.21.0, not fixed in
+this bump).** 0.21.0 added `@media (forced-colors: active)` rules to
+`forms.css` (validation-state geometry) and `broadsheet.css` (title-link
+hover underline, decorative rule conversion) — this site imports neither
+module (only `remarque-tokens/core`), so those specific fixes do not flow
+through. `tokens-core.css`'s `:focus-visible` forced-colors rule *does*
+apply here (core is always imported), so keyboard focus rings are covered.
+Auditing this site's own local CSS the same way REMARQUE.md's "Forced
+Colors & Contrast Preferences" section audited the package: `.lead-title
+a`/`.entry-title a` in `global.css` implements the exact same
+gradient-underline hover/focus affordance that `broadsheet.css`'s
+`.remarque-lead-title a`/`.remarque-entry-title a` was fixed for in
+0.21.0 — a `background-image: linear-gradient(...)` grown via
+`background-size` on hover, which `forced-colors: active` unconditionally
+forces to `none`, silently dropping the entire hover/focus affordance for
+mouse users under Windows High Contrast Mode (keyboard focus still gets
+the global `:focus-visible` outline from core). This site's own CSS was
+never audited against `forced-colors: active` before this bump either, so
+this is a **pre-existing gap being surfaced, not a regression introduced
+here** — no site-local forced-colors rule is added in this PR (out of
+scope: this bump is token-only). Flagged here as a real, concrete
+follow-up candidate — the same `text-decoration: underline` fallback
+`broadsheet.css` uses would fix it, scoped to `.lead-title a:hover,
+.entry-title a:hover, .lead-title a:focus-visible, .entry-title
+a:focus-visible` inside `@media (forced-colors: active)`.
+
 ## References
 
 - Issue #324 (this migration)
@@ -294,3 +373,7 @@ change either.
 - remarque-tokens 0.5.0 `CHANGELOG.md` — "Theme-convention unification"
   (remarque#47 item 4, ratified 3-0), the release that unblocked §6
 - Issue #283 (accent-font lint, `--font-accent` allowlist)
+- remarque-tokens 0.24.0 (consumer-refresh: state colors 0.17.0, dataviz
+  categorical 0.22.0, forced-colors/prefers-contrast 0.21.0, light-dark()
+  palette migration 0.24.0 — backward compatible for consumers, this
+  site's palette stays in the conventional `:root`/`:root.dark` form)

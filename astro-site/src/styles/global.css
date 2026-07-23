@@ -5,7 +5,7 @@
  * See: https://github.com/williamzujkowski/remarque
  */
 
-/* consumes remarque-tokens v0.15.0 (core tier) + local palette layer.
+/* consumes remarque-tokens v0.24.0 (core tier) + local palette layer.
  * Core tier (type scale, rhythm, spacing, content-standard/wide, radius,
  * motion, base resets, prose/typography machinery) is imported below;
  * this file keeps only the PALETTE tier (fonts, colors, --content-reading)
@@ -97,6 +97,36 @@
   --color-syntax-variable: oklch(0.26 0.01 80);
   --color-syntax-link: var(--color-accent);
 
+  /* ─── Palette tier: state colors (remarque-tokens 0.17.0, REMARQUE.md
+   * "State Colors") ─── feedback moments only (validation, banners,
+   * disabled controls), never decoration — see REMARQUE.md. Same
+   * keep-if-passing-else-solve pattern as the syntax slots above: each
+   * upstream ANSI-derived default is checked against THIS site's own
+   * --color-bg/--color-surface (both required ≥ 4.5:1) before accepting
+   * it unmodified. --color-disabled deliberately aliases --color-muted
+   * (already audited, not re-derived) rather than getting its own hue,
+   * per REMARQUE.md's "a disabled state is a muted register, not a hue". */
+  --color-error: oklch(0.52 0.12 25);            /* upstream default — 5.05:1 bg / 4.76:1 surface, unmodified */
+  --color-error-subtle: oklch(0.95 0.02 25);      /* fg on this: 16.27:1, unmodified */
+  --color-success: oklch(0.50 0.12 145);          /* solved: upstream default (L 0.51) is 4.71:1 bg / 4.43:1 surface here — darkened to 0.50 for 4.92:1 bg / 4.63:1 surface */
+  --color-success-subtle: oklch(0.95 0.02 145);   /* fg on this: 16.49:1, unmodified */
+  --color-warning: oklch(0.52 0.105 85);          /* upstream default — 4.80:1 bg / 4.52:1 surface, unmodified */
+  --color-warning-subtle: oklch(0.95 0.02 85);    /* fg on this: 16.38:1, unmodified */
+  --color-disabled: var(--color-muted);           /* alias, not a new hue — see comment above */
+
+  /* ─── Palette tier: dataviz categorical (remarque-tokens 0.22.0, REMARQUE.md
+   * "Dataviz Tokens") ─── 6 slots, each ≥ 3:1 against --color-bg (Carbon's
+   * mark-on-background line, not text's 4.5:1). All 6 pass unmodified
+   * against this site's --color-bg in both themes — no solving needed.
+   * Never the sole distinguisher between chart series: pair with shape,
+   * dash pattern, or a direct label (non-color redundancy, mandatory). */
+  --color-viz-1: oklch(0.538 0.121 250.5);  /* 4.40:1 vs this site's bg */
+  --color-viz-2: oklch(0.541 0.111 85.5);   /* 4.39:1 */
+  --color-viz-3: oklch(0.524 0.12 24.6);    /* 4.97:1 */
+  --color-viz-4: oklch(0.499 0.12 144.8);   /* 4.94:1 */
+  --color-viz-5: oklch(0.524 0.121 309.6);  /* 4.95:1 */
+  --color-viz-6: oklch(0.528 0.09 195.8);   /* 4.40:1 */
+
   /* Semantic vars core's machinery (`.remarque-prose a`, `:focus-visible`,
    * `::selection`) consumes that this site didn't previously need, since
    * its own rules set these directly (`a { color: var(--color-accent); }`,
@@ -146,6 +176,26 @@
   --color-syntax-variable: oklch(0.82 0.005 80);
   --color-syntax-link: var(--color-accent);
 
+  /* State colors (remarque-tokens 0.17.0) — default dark palette, all pass
+   * unmodified against this site's --color-bg/--color-surface. See the
+   * :root block's comment above for the derivation/solving methodology. */
+  --color-error: oklch(0.62 0.11 26);
+  --color-error-subtle: oklch(0.22 0.04 25);
+  --color-success: oklch(0.61 0.11 145);
+  --color-success-subtle: oklch(0.22 0.04 145);
+  --color-warning: oklch(0.62 0.11 85);
+  --color-warning-subtle: oklch(0.22 0.04 85);
+  --color-disabled: var(--color-muted);
+
+  /* Dataviz categorical (remarque-tokens 0.22.0) — default dark palette,
+   * all pass ≥ 3:1 against this site's --color-bg unmodified. */
+  --color-viz-1: oklch(0.708 0.129 249.5);
+  --color-viz-2: oklch(0.712 0.13 85.3);
+  --color-viz-3: oklch(0.724 0.129 310.2);
+  --color-viz-4: oklch(0.725 0.129 25.4);
+  --color-viz-5: oklch(0.696 0.129 144.9);
+  --color-viz-6: oklch(0.697 0.119 194.8);
+
   /* Core-consumed semantic vars (see the base :root block's comment) */
   --color-link: var(--color-accent);
   --color-link-hover: var(--color-accent-hover);
@@ -181,6 +231,23 @@
     --color-syntax-punctuation: oklch(0.60 0.005 80);
     --color-syntax-variable: oklch(0.82 0.005 80);
     --color-syntax-link: var(--color-accent);
+
+    /* State colors — keep in sync with :root.dark above */
+    --color-error: oklch(0.62 0.11 26);
+    --color-error-subtle: oklch(0.22 0.04 25);
+    --color-success: oklch(0.61 0.11 145);
+    --color-success-subtle: oklch(0.22 0.04 145);
+    --color-warning: oklch(0.62 0.11 85);
+    --color-warning-subtle: oklch(0.22 0.04 85);
+    --color-disabled: var(--color-muted);
+
+    /* Dataviz categorical — keep in sync with :root.dark above */
+    --color-viz-1: oklch(0.708 0.129 249.5);
+    --color-viz-2: oklch(0.712 0.13 85.3);
+    --color-viz-3: oklch(0.724 0.129 310.2);
+    --color-viz-4: oklch(0.725 0.129 25.4);
+    --color-viz-5: oklch(0.696 0.129 144.9);
+    --color-viz-6: oklch(0.697 0.119 194.8);
 
     /* Core-consumed semantic vars (see the base :root block's comment) */
     --color-link: var(--color-accent);
