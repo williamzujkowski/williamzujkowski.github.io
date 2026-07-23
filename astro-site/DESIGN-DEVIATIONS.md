@@ -169,6 +169,21 @@ either).
 
 ### Accepted source-scan false positives (`scripts/remarque-audit-baseline.json`)
 
+**Update 2026-07-23 (#375): the baseline is now EMPTY.** The 216 entries
+documented below were false positives from `remarque-audit@0.5.0`. This site
+bumped to `remarque-tokens@0.8.0` (#345), whose `--src` scan fixed them — it
+strips comments before matching (killing the `#274`-in-a-comment hex false
+positives) and correctly recognizes `global.css` as a token file (killing the
+`oklch() literal` false positives) — so it emits **zero** source-scan findings
+against the current CSS. This was verified to be a genuine clean result, not a
+silently-disabled gate: a probe injecting a real hardcoded hex, a sub-13px
+font-size, and a stray `oklch()` literal is still correctly caught and fails
+the audit. Emptying the baseline also retires the line-number-keyed maintenance
+trap (it previously had to be hand-remapped on any line-shifting CSS edit — see
+#332/#334). The fail-closed mechanism is retained: any future real source-scan
+finding now hits an empty baseline and blocks the build until hand-reviewed.
+The original rationale is kept below for the historical record.
+
 remarque-audit's `--src` scan (font floors, hardcoded colors) unconditionally
 recurses `src/styles` and flags three categories of finding that are **not**
 real defects, verified by hand against every flagged line:
