@@ -53,10 +53,19 @@ jobs:
             --max-retries 3 \
             --timeout 30
 
-          # Check if any broken links found
+          # Check if any GENUINELY broken links found (404 / 5xx / ssl_error /
+          # dns_error / timeout). Access-restricted responses (403 / 401 /
+          # paywall) are classified separately as "restricted" -- they're
+          # publisher WAF blocks / login walls that a human reader can usually
+          # still see fine, so they must NOT drive this alarm.
           BROKEN_COUNT=$(jq '[.results[] | select(.status == "broken")] | length' citation-validation.json)
           echo "broken_count=$BROKEN_COUNT" >> $GITHUB_OUTPUT
           echo "Found $BROKEN_COUNT broken citation links"
+
+          # Access-restricted / unverifiable links (advisory only, not an alarm)
+          RESTRICTED_COUNT=$(jq '[.results[] | select(.status == "restricted")] | length' citation-validation.json)
+          echo "restricted_count=$RESTRICTED_COUNT" >> $GITHUB_OUTPUT
+          echo "Found $RESTRICTED_COUNT access-restricted (unverifiable) citation links"
 
           # Extract validation stats
           VALID_COUNT=$(jq '.stats.valid' citation-validation.json)
@@ -82,6 +91,7 @@ jobs:
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           BROKEN_COUNT: ${{ steps.validate.outputs.broken_count }}
+          RESTRICTED_COUNT: ${{ steps.validate.outputs.restricted_count }}
           VALID_COUNT: ${{ steps.validate.outputs.valid_count }}
           REDIRECT_COUNT: ${{ steps.validate.outputs.redirect_count }}
           TIMEOUT_COUNT: ${{ steps.validate.outputs.timeout_count }}
@@ -93,6 +103,11 @@ jobs:
             const report = fs.readFileSync('citation-report.md', 'utf8');
             const date = new Date().toISOString().split('T')[0];
 
+            // Title/threshold/decision count only genuinely-broken links
+            // (status 'broken': 404 / 5xx / ssl_error / dns_error / timeout).
+            // Access-restricted responses (403 / 401 / paywall) are advisory
+            // only -- surfaced in the body, but never in the alarm count or
+            // title, since this whole step only runs when broken_count > 0.
             const title = '🔗 Broken Citation Links Detected';
             const body = [
               '## Citation Validation Report',
@@ -102,6 +117,7 @@ jobs:
               '**Validation Results:**',
               `- ✅ Valid: ${process.env.VALID_COUNT}`,
               `- ❌ Broken: ${process.env.BROKEN_COUNT}`,
+              `- 🔒 Access-restricted (unverifiable, likely valid): ${process.env.RESTRICTED_COUNT}`,
               `- ↪️  Redirects: ${process.env.REDIRECT_COUNT}`,
               `- ⏱️  Timeouts: ${process.env.TIMEOUT_COUNT}`,
               `- ⚠️  Errors: ${process.env.ERROR_COUNT}`,
@@ -154,7 +170,10 @@ jobs:
       - name: Comment on success
         if: steps.validate.outputs.broken_count == 0
         run: |
-          echo "✅ All ${{ steps.extract.outputs.total_citations }} citation links are valid!"
+          echo "✅ No genuinely broken citation links found (${{ steps.extract.outputs.total_citations }} checked)."
+          if [ "${{ steps.validate.outputs.restricted_count }}" -gt 0 ]; then
+            echo "🔒 ${{ steps.validate.outputs.restricted_count }} link(s) are access-restricted (403/401/paywall) -- unverifiable by CI, not an alarm."
+          fi
 
       - name: Upload artifacts
         if: always()
