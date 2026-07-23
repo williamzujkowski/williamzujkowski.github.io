@@ -408,7 +408,6 @@ flowchart LR
 
 - [Comparative Analysis of Wazuh, Graylog, and ELK Stack](https://infonomics-society.org/icitst-2024/icitst-abstract-15/) - ICITST 2024 conference
 - [Wazuh vs Graylog: Which SIEM Tools Wins in 2025?](https://www.selecthub.com/siem-tools/wazuh-vs-graylog/) - SelectHub analysis
-- [Wazuh, Graylog, and Hedgey AI - The Ultimate SIEM](https://www.hedgehogsecurity.co.uk/blog/wazuh-graylog-and-hedgey-ai---the-ultimate-siem) - Hybrid deployment patterns
 
 **Official documentation:**
 

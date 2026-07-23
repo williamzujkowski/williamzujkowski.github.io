@@ -57,7 +57,7 @@ Uses STIX2 library to query attack patterns from MITRE's repository
 
 ## Integrating Threat Intelligence Feeds
 
-**Multiple feeds matter:** [Research by Spring et al. (2023)](https://doi.org/10.1145/3575898.3575903) demonstrates that combining multiple threat feeds increases detection coverage by 340%. Let's integrate several open-source feeds:
+**Multiple feeds matter:** combining several independent threat feeds widens your coverage — any single source has blind spots the others fill. Let's integrate several open-source feeds:
 
 ### AlienVault OTX Integration
 
@@ -75,7 +75,7 @@ Maps CVE vulnerability types to relevant ATT&CK techniques (T1210, T1068, T1190)
 
 ## Creating the Visualization Layer
 
-[Studies show](https://doi.org/10.1109/VIZSEC.2023.10345843) visual representation of threat data improves analyst response time by 67%. Let's build an interactive dashboard:
+Visualizing threat data makes triage faster — patterns jump out of a dashboard that you'd never catch scanning a table. Let's build an interactive dashboard:
 
 📎 **Complete visualization code:**
 [Full ThreatVisualizer with Plotly heatmaps](https://gist.github.com/williamzujkowski/03d4dcd49f436d7b73839be73e88ad72)
@@ -96,7 +96,7 @@ Matches observed techniques to known actor profiles using set overlap, sorted by
 
 ## Building Automated Alerting
 
-[Analysis by Rahman et al. (2024)](https://doi.org/10.1109/TSC.2024.3358439) shows automated threat alerting reduces mean time to detect (MTTD) by 73%.
+Automated alerting is what actually cuts mean time to detect — a feed nobody is watching detects nothing.
 
 📎 **Complete implementation:**
 [Full ThreatAlerting class with SMTP, Slack, and PagerDuty](https://gist.github.com/williamzujkowski/70cf0c33d82fb391ce11c63aaa189072)
@@ -167,18 +167,6 @@ Threat intelligence is only valuable if it drives action.
    - Georgiadou, Anna, et al.
    - *Computers & Security*
 
-4. **[Prioritizing Cyber Threat Intelligence](https://doi.org/10.1145/3575898.3575903)** (2023)
-   - Spring, Jonathan M., et al.
-   - *ACM Computing Surveys*
-
-5. **[Visual Analytics for Cyber Threat Intelligence](https://doi.org/10.1109/VIZSEC.2023.10345843)** (2023)
-   - Various authors
-   - *IEEE Symposium on Visualization for Cyber Security*
-
-6. **[Threat Actor Attribution Using TTP Analysis](https://doi.org/10.1145/3607199.3607240)** (2023)
+4. **[Threat Actor Attribution Using TTP Analysis](https://doi.org/10.1145/3607199.3607240)** (2023)
    - Schlette, Daniel, et al.
    - *ACM Transactions on Privacy and Security*
-
-7. **[Automated Threat Detection Systems](https://doi.org/10.1109/TSC.2024.3358439)** (2024)
-   - Rahman, M.A., et al.
-   - *IEEE Transactions on Services Computing*

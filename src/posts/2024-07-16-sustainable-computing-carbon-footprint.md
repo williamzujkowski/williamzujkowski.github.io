@@ -351,7 +351,7 @@ When I deployed a production ML model to edge devices in March 2024, it reduced 
 ### Environmental Metrics
 
 **Carbon Emissions Reduction:**
-- [45% reduction in Scope 2 emissions](https://www.epa.gov/climateleadership/scope-2-inventory-guidance) over two years (EPA Scope 2 Guidance)
+- [45% reduction in Scope 2 emissions](https://www.epa.gov/climateleadership/scope-1-and-scope-2-inventory-guidance) over two years (EPA Scope 2 Guidance)
 - [30% decrease in energy consumption](https://www.iea.org/reports/data-centres-and-data-transmission-networks) per unit of compute (IEA Report)
 - [60% of computing workloads running on renewable energy](https://www.google.com/about/datacenters/renewable/) (Google Data Center Study)
 - [25% reduction in total environmental footprint](https://www.nature.com/articles/s41558-020-0837-6) (Nature Climate Change)

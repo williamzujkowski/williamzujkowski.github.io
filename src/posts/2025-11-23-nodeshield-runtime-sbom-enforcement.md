@@ -425,7 +425,7 @@ NodeShield blocked 1,025 of 1,043 supply chain attacks in my homelab testing. Ad
 
 3. **State of the Software Supply Chain 2024** - Sonatype annual report documenting 1,000+ malicious npm packages monthly, 245% increase from 2020. https://www.sonatype.com/state-of-the-software-supply-chain/introduction
 
-4. **Executive Order 14028: Improving the Nation's Cybersecurity** - Federal mandate requiring SBOM delivery from software vendors (Section 4e), effective May 2021. https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/
+4. **Executive Order 14028: Improving the Nation's Cybersecurity** - Federal mandate requiring SBOM delivery from software vendors (Section 4e), effective May 2021. https://web.archive.org/web/20250120163602/https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/
 
 5. **NIST SSDF: Secure Software Development Framework** - SBOM guidance for federal agencies (Practice PO.3.2: Maintain provenance for all components). https://csrc.nist.gov/publications/detail/sp/800-218/final
 

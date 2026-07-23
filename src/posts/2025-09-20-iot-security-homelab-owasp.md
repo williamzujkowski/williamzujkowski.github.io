@@ -59,7 +59,7 @@ Real vulnerabilities found in countless IoT devices illustrate these principles 
 
 ### 1. Hardcoded Credentials
 
-[Research by Zhang et al. (2023)](https://doi.org/10.1109/TDSC.2023.3247569) found hardcoded credentials in 47% of analyzed IoT firmware. IoTGoat demonstrates this beautifully.
+Hardcoded credentials are one of the most common IoT firmware flaws, and IoTGoat demonstrates the pattern beautifully.
 
 I ran a password audit on my 23 IoT devices. Eight were still using default credentials (admin/admin). Three had hardcoded passwords I couldn't change. Five supported only WEP encryption (yes, WEP in 2024). This was my wake-up call. Default credentials are convenient **though** insecure by design.
 
@@ -69,7 +69,7 @@ Here's a toolkit for testing IoT vulnerabilities including default credentials, 
 
 ### 2. Insecure MQTT Communications
 
-MQTT is ubiquitous in IoT, but [analysis by Nirmal et al. (2024)](https://doi.org/10.1109/ACCESS.2024.3381234) shows 68% of MQTT deployments lack proper authentication.
+MQTT is ubiquitous in IoT, and far too many deployments still ship with authentication left unconfigured.
 
 Using Wireshark, I captured 48 hours of IoT traffic. Results: 847MB outbound, 1.2GB inbound. My Ring doorbell alone sent 412MB (mostly motion-triggered snapshots to AWS). I now rate-limit IoT traffic to 500Kbps per device. Cloud connectivity enables remote access **however** creates privacy risks. You get convenience **but** sacrifice control over your data.
 
@@ -85,7 +85,7 @@ For firmware extraction and analysis commands, refer to the lab setup script abo
 
 ### 4. Command Injection via Web Interface
 
-Web interfaces on IoT devices often lack proper input validation. [Studies show](https://doi.org/10.1145/3538969.3543815) that 34% of IoT web interfaces are vulnerable to command injection.
+Web interfaces on IoT devices often lack proper input validation, and command injection through them is a recurring finding.
 
 I discovered my cheap Chinese security camera accepted ANY SSL certificate. It never verified the server identity. An attacker on my network could have easily MiTM'd the video feed. Certificate validation is critical **but** many cheap devices don't implement it. Manual configuration is secure **but probably** too tedious for most users. I'm not sure if all manufacturers use the same lax certificate handling, but it seems to be common in budget devices.
 
@@ -153,7 +153,7 @@ def create_secure_mqtt_client():
 
 ## Real-World Impact: The Stakes
 
-These aren't just theoretical vulnerabilities. [Recent research by Meneghello et al. (2023)](https://doi.org/10.1109/COMST.2023.3325398) documented real attacks:
+These aren't just theoretical vulnerabilities — they've driven real, documented attacks:
 
 - **[Mirai and variants](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-antonakakis.pdf)**: Infected 600,000 IoT devices using default credentials
 - **[VPNFilter](https://blog.talosintelligence.com/2018/05/VPNFilter.html)**: Compromised 500,000 routers via known vulnerabilities
@@ -210,14 +210,3 @@ Remember: in IoT security, paranoia is just good planning. Or maybe it's overkil
    - Luca Allodi, Michele Campobasso
    - *Springer Lecture Notes*
 
-4. **[Firmware Security Analysis of IoT Devices](https://doi.org/10.1109/TDSC.2023.3247569)** (2023)
-   - Zhang, Wei, et al.
-   - *IEEE Transactions on Dependable and Secure Computing*
-
-5. **[MQTT Security: A Comprehensive Survey](https://doi.org/10.1109/ACCESS.2024.3381234)** (2024)
-   - Nirmal, Kumar, et al.
-   - *IEEE Access*
-
-6. **[IoT Security: Ongoing Challenges and Research Opportunities](https://doi.org/10.1109/COMST.2023.3325398)** (2023)
-   - Meneghello, Francesca, et al.
-   - *IEEE Communications Surveys & Tutorials*

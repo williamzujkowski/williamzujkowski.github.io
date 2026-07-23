@@ -187,13 +187,13 @@ The quantum computing revolution just became real. Time to start preparing.
 **Primary Sources:**
 - [Quantum error correction below the surface code threshold](https://arxiv.org/abs/2408.13687) - Google's Willow paper on arXiv
 - [Google AI Quantum](https://quantumai.google/) - Official quantum research updates
-- [Nature: Quantum error correction breakthrough](https://www.nature.com/articles/) - Peer-reviewed publication
+- [Nature: Quantum error correction below the surface code threshold](https://www.nature.com/articles/s41586-024-08449-y) - Peer-reviewed publication (the Willow result)
 
 **Technical Background:**
 - [Surface Codes: Towards Practical Large-Scale Quantum Computation](https://arxiv.org/abs/1208.0928) - Foundational surface code theory
 - [NIST Post-Quantum Cryptography Standards](https://csrc.nist.gov/Projects/post-quantum-cryptography) - Quantum-resistant encryption standards
 
 **Industry Analysis:**
-- [IBM Quantum Network](https://www.ibm.com/quantum-network) - Competing quantum computing roadmap
+- [IBM Quantum Network](https://www.ibm.com/quantum/ibm-quantum-network) - Competing quantum computing roadmap
 - [Quantum Computing Report](https://quantumcomputingreport.com/) - Independent industry analysis
 - [Microsoft Azure Quantum](https://azure.microsoft.com/en-us/products/quantum) - Alternative quantum computing approaches
