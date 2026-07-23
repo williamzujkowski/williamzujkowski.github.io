@@ -208,7 +208,10 @@ function isActiveLink(linkHref: string): boolean {
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 
     <!-- Structured Data -->
-    {jsonLdSchemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+    {/* Unicode-escape every `<` in the JSON-LD so a schema string field
+        containing a closing script tag can't break out of the tag —
+        JSON.stringify alone doesn't escape it. */}
+    {jsonLdSchemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />)}
 
     <!-- Theme: apply saved preference before first paint to prevent flash.
          A saved deck theme ("slug|mode") wins over the plain dark/light pref. -->
