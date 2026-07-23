@@ -4,53 +4,85 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Projects"
-  description="Open source projects in AI orchestration, security engineering, and infrastructure."
+  description="Open source projects in AI orchestration, security engineering, design systems, and infrastructure."
 >
   <div class="prose">
     <h1>Projects</h1>
 
     <p>
-      Most of my work lives on <a href="https://github.com/williamzujkowski">GitHub</a>, in various states of finished. Here are the ones I'm most invested in right now.
+      Most of my work lives on <a href="https://github.com/williamzujkowski">GitHub</a>, in various states of finished. Here are the ones I'm most invested in — each has a write-up if you want the longer story.
     </p>
 
     <hr />
 
     <h2>Nexus Agents</h2>
     <p>
-      Multi-model AI orchestration that routes each task to Claude, Gemini, Codex, or OpenCode based on what that model is actually good at. The consensus voting system — where several agents debate a proposal and vote on it — reads like a committee meeting you'd normally schedule your way out of, and yet it produces measurably better decisions than any single model alone.
+      A governance layer for AI coding agents: one entry point, adversarial multi-agent review on every change, and a tamper-evident audit trail of the lot. The consensus vote — several models debate a proposal and vote on it — reads like a committee meeting you'd normally schedule your way out of, and yet it makes measurably better calls than any single model alone. Forty-seven MCP tools, routing each task to whichever of Claude, Gemini, Codex, or OpenCode is actually best at it.
     </p>
     <p>
-      <a href="https://github.com/nexus-substrate/nexus-agents">github.com/nexus-substrate/nexus-agents</a>
+      <a href="https://github.com/nexus-substrate/nexus-agents">github.com/nexus-substrate/nexus-agents</a> · <a href="/posts/2026-02-09-building-nexus-agents-multi-model-orchestration/">write-up</a>
     </p>
 
     <h2>Remarque</h2>
     <p>
-      A typography-first design system for editorial, technical, and personal web projects: OKLCH color tokens, oldstyle numerals, and a reading column sized for actual reading rather than for looking busy. AI-native — built to be handed to Claude Code, Cursor, or Copilot without the usual aesthetic drift. This site runs on it.
+      A typography-first design system for editorial, technical, and personal web projects: OKLCH color tokens, oldstyle numerals, self-hosted fonts, and a reading column sized for actual reading rather than for looking busy. AI-native — built to be handed to Claude Code, Cursor, or Copilot without the usual aesthetic drift. This site runs on it.
     </p>
     <p>
-      <a href="https://github.com/williamzujkowski/remarque">github.com/williamzujkowski/remarque</a> · <a href="https://williamzujkowski.github.io/remarque/">demo</a>
+      <a href="https://github.com/williamzujkowski/remarque">github.com/williamzujkowski/remarque</a> · <a href="https://williamzujkowski.github.io/remarque/">demo</a> · <a href="/posts/2026-04-10-remarque-typography-first-design-system/">write-up</a>
     </p>
 
-    <h2>Live-Coding Music MCP</h2>
+    <h2>OKLCH Terminal Themes</h2>
     <p>
-      A Model Context Protocol server that hands Claude direct control of <a href="https://strudel.cc">Strudel.cc</a> — generating patterns, applying effects, and bending tempo through natural language. It was my first real attempt at driving a live browser from an agent; the music was mostly the excuse.
+      The dataset behind this site's terminal theme picker: 545-and-counting color schemes converted to OKLCH, each tagged for WCAG contrast so a picker can filter down to the ones that are actually legible. Sourced from iTerm2-Color-Schemes and re-synced weekly by a cron that opens its own pull request when upstream moves. The dozen themes in the masthead are a curated slice.
     </p>
     <p>
-      <a href="https://github.com/williamzujkowski/live-coding-music-mcp">github.com/williamzujkowski/live-coding-music-mcp</a>
+      <a href="https://github.com/williamzujkowski/oklch-terminal-themes">github.com/williamzujkowski/oklch-terminal-themes</a> · <a href="/posts/2026-07-19-oklch-terminal-themes/">write-up</a>
+    </p>
+
+    <h2>svg-terminal</h2>
+    <p>
+      Generates a single self-contained animated SVG terminal from a YAML file — SMIL and CSS, no <code>&lt;script&gt;</code>, so it animates happily inside GitHub's README sandbox where scripts get stripped. Forty-eight blocks, twenty themes, and an on-disk cache so CI can rebuild the frames offline. It started as an experiment in how much you can animate and automate through SVG alone. Turns out: quite a lot.
+    </p>
+    <p>
+      <a href="https://github.com/williamzujkowski/svg-terminal">github.com/williamzujkowski/svg-terminal</a> · <a href="/posts/2026-05-26-svg-terminal-no-gifs-no-script-tags/">write-up</a>
+    </p>
+
+    <h2>aegis-boot</h2>
+    <p>
+      A signed UEFI rescue USB that boots any ISO off the stick without breaking Secure Boot's chain of trust — firmware to shim to grub to a rescue kernel to a small TUI that <code>kexec</code>s into whatever you picked. Ventoy solves the same problem by sharing one signing key across everything it boots, which rather defeats the point; aegis-boot keeps the chain honest instead. Written in Rust, pre-1.0, gated on a real-hardware sweep across vendors before it calls itself done.
+    </p>
+    <p>
+      <a href="https://github.com/aegis-boot/aegis-boot">github.com/aegis-boot/aegis-boot</a> · <a href="/posts/2026-04-14-signed-usb-rescue-boot-aegis-boot-persona-harness/">write-up</a>
     </p>
 
     <h2>US Code Tracker</h2>
     <p>
-      Converts the United States Code from XML into a Git-versioned, searchable static site with 53,000+ sections and inline case law annotations from CourtListener. Every amendment is a Git commit. Federal law as version control.
+      Converts the United States Code from Office of the Law Revision Counsel XML into a Git-versioned, searchable static site — 53,000+ sections, and every amendment across seven Congresses lands as a Git commit. Federal law as version control.
     </p>
     <p>
-      <a href="https://github.com/civic-source/us-code-tracker">github.com/civic-source/us-code-tracker</a>
+      <a href="https://github.com/civic-source/us-code-tracker">github.com/civic-source/us-code-tracker</a> · <a href="/posts/2026-04-02-building-us-code-tracker-law-as-git-history/">write-up</a>
+    </p>
+
+    <h2>Tsundoku</h2>
+    <p>
+      A digital bookshelf for the 3,584 books I own and haven't read — <em>tsundoku</em> being the Japanese word for exactly that habit. Each one is enriched from six public sources (Open Library, Google Books, Gutenberg, LibriVox, HathiTrust, Wikipedia) with a Wikidata backstop, and no database anywhere. Twenty-eight categories, 1,649 authors, and a standing reminder that buying books and reading books are different hobbies.
+    </p>
+    <p>
+      <a href="https://github.com/williamzujkowski/tsundoku">github.com/williamzujkowski/tsundoku</a> · <a href="/posts/2026-02-23-building-tsundoku-digital-bookshelf/">write-up</a>
+    </p>
+
+    <h2>Live-Coding Music MCP</h2>
+    <p>
+      A Model Context Protocol server that hands Claude direct control of <a href="https://strudel.cc">Strudel.cc</a> — generating patterns, applying effects, and bending tempo through natural language, all by driving the real site in a real browser rather than mocking it. An unaffiliated fan project, and my first real attempt at steering a live browser from an agent; the music was mostly the excuse.
+    </p>
+    <p>
+      <a href="https://github.com/williamzujkowski/live-coding-music-mcp">github.com/williamzujkowski/live-coding-music-mcp</a> · <a href="/posts/2026-06-11-live-coding-music-mcp-real-browser-not-mock/">write-up</a>
     </p>
 
     <hr />
 
     <p>
-      See all projects on <a href="https://github.com/williamzujkowski?tab=repositories&sort=updated">GitHub</a>.
+      See everything else on <a href="https://github.com/williamzujkowski?tab=repositories&sort=updated">GitHub</a>.
     </p>
   </div>
 </BaseLayout>
