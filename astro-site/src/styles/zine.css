@@ -23,18 +23,6 @@
 /* ---------- squiggle boxes (geometry only; radii vary per component so
  * the wobble never reads as a uniform theme pack) ----------------------- */
 
-.callout,
-.callout-accent {
-  border: 1px solid var(--color-border-bold);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-}
-
-/* The border shorthand above would otherwise erase global.css's accent
- * left edge on .callout-accent (equal specificity, later file wins). */
-.callout-accent {
-  border-color: var(--color-accent);
-}
-
 .series-nav {
   border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
 }
