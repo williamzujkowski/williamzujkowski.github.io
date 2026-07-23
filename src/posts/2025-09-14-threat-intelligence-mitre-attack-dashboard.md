@@ -19,12 +19,12 @@ Years ago, I learned the hard way that reading threat reports isn't enough. Afte
 
 Threat intelligence works best when integrated with [vulnerability prioritization](/posts/2025-09-20-vulnerability-prioritization-epss-kev) and complementary security monitoring tools.
 
-According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive 10,000 threat indicators daily, but only 3% are relevant to their specific environment. The [MITRE ATT&CK framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555) changes this by providing a common language for threat behaviors (see [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for detection patterns). Instead of tracking millions of IoCs, we focus on techniques that matter to our environment.
+According to [research from the Cyber Threat Alliance (2024)](https://www.cyberthreatalliance.org/resources/), organizations receive 10,000 threat indicators daily, but only 3% are relevant to their specific environment. The [MITRE ATT&CK framework](https://attack.mitre.org/) changes this by providing a common language for threat behaviors (see [Suricata network monitoring](/posts/2025-08-25-network-traffic-analysis-suricata-homelab) for detection patterns). Instead of tracking millions of IoCs, we focus on techniques that matter to our environment.
 
 
 ## Understanding MITRE ATT&CK
 
-**The Pareto principle applies:** [Recent analysis by Georgiadou et al. (2023)](https://doi.org/10.1016/j.cose.2023.103097) shows that 89% of real-world attacks map to just 20% of ATT&CK techniques. We achieve substantial coverage by focusing on the most commonly used techniques.
+**The Pareto principle applies:** a small subset of ATT&CK techniques shows up in the large majority of real-world attacks, so focusing on the most commonly used ones buys you substantial coverage for comparatively little effort.
 
 
 ### The ATT&CK Matrix Structure
@@ -87,7 +87,7 @@ Visualizing threat data makes triage faster — patterns jump out of a dashboard
 
 ## Implementing Threat Actor Tracking
 
-[Research by Schlette et al. (2023)](https://doi.org/10.1145/3607199.3607240) shows tracking threat actor TTPs improves detection of targeted attacks by 82%. Let's add actor profiling:
+Tracking a threat actor's TTPs is what turns a pile of disconnected indicators into a recognizable adversary you can actually anticipate. Let's add actor profiling:
 
 📎 **Complete implementation:**
 [Full ThreatActorProfiler with MITRE groups database](https://gist.github.com/williamzujkowski/f840bcab11952a1aa1bf56fe87749b17)
@@ -155,7 +155,7 @@ Threat intelligence is only valuable if it drives action.
 
 ## Sources
 
-1. **[MITRE ATT&CK Framework](https://doi.org/10.1109/cyber-rci59474.2023.10671555)** (2024)
+1. **[MITRE ATT&CK Framework](https://attack.mitre.org/)** (2024)
    - MITRE Corporation
    - *Adversarial Tactics, Techniques, and Common Knowledge*
 
@@ -163,10 +163,3 @@ Threat intelligence is only valuable if it drives action.
    - Cyber Threat Alliance
    - *Industry Threat Sharing Guidelines*
 
-3. **[A Comprehensive Study of the MITRE ATT&CK Framework](https://doi.org/10.1016/j.cose.2023.103097)** (2023)
-   - Georgiadou, Anna, et al.
-   - *Computers & Security*
-
-4. **[Threat Actor Attribution Using TTP Analysis](https://doi.org/10.1145/3607199.3607240)** (2023)
-   - Schlette, Daniel, et al.
-   - *ACM Transactions on Privacy and Security*

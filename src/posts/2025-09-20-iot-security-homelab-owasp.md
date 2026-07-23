@@ -19,7 +19,7 @@ What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, 
 
 [OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far. I'm still figuring out which risks are actually exploitable in my homelab versus which are edge cases.
 
-[OWASP IoTGoat](https://doi.org/10.1201/9781003054115-11) deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA, **but** with the added complexity of embedded systems.
+[OWASP IoTGoat](https://github.com/OWASP/IoTGoat) is deliberately vulnerable IoT firmware designed for learning. Think of it as the IoT equivalent of WebGoat or DVWA, **but** with the added complexity of embedded systems.
 
 
 ## Building Your IoT Security Lab
@@ -45,7 +45,7 @@ flowchart TD
 
 ### Essential Tools Setup
 
-Based on [security research by Allodi & Campobasso (2023)](https://doi.org/10.1007/978-3-031-25460-4_14) these tools catch 90% of common IoT vulnerabilities. For additional automation approaches, check out my post on [automating home network security with Python](/posts/2025-02-10-automating-home-network-security). The complete lab setup script includes tool installation, IoTGoat deployment, and firmware analysis commands:
+These tools catch the common IoT vulnerability classes well. For additional automation approaches, check out my post on [automating home network security with Python](/posts/2025-02-10-automating-home-network-security). The complete lab setup script includes tool installation, IoTGoat deployment, and firmware analysis commands:
 
 <script src="https://gist.github.com/williamzujkowski/680213bdd6d4a52ef369d1f2801cb9b4.js"></script>
 
@@ -205,8 +205,4 @@ Remember: in IoT security, paranoia is just good planning. Or maybe it's overkil
 2. **[IoT Security Foundation Best Practice Guidelines](https://www.iotsecurityfoundation.org/best-practice-guidelines/)** (2024)
    - IoT Security Foundation
    - *Industry Security Standards*
-
-3. **[Security Analysis of IoT Devices Using Testbeds](https://doi.org/10.1007/978-3-031-25460-4_14)** (2023)
-   - Luca Allodi, Michele Campobasso
-   - *Springer Lecture Notes*
 
