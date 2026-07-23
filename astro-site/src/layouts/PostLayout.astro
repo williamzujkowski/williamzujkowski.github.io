@@ -50,7 +50,7 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
   wordCount={wordCount}
   tags={tags}
 >
-  <article class="post-article">
+  <article class="post-article remarque-essay">
     <!-- Breadcrumbs -->
     <nav aria-label="Breadcrumb" class="post-breadcrumb">
       <a href="/">Home</a> / <a href="/posts/">Blog</a>
@@ -96,7 +96,7 @@ const section = primaryTag ? humanTag(primaryTag) : 'Essay';
     <TableOfContents headings={headings} />
 
     <!-- Content -->
-    <div class="prose">
+    <div class="prose remarque-prose">
       <slot />
     </div>
 

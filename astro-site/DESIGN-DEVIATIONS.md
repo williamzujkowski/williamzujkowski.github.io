@@ -364,6 +364,70 @@ follow-up candidate — the same `text-decoration: underline` fallback
 .entry-title a:hover, .lead-title a:focus-visible, .entry-title
 a:focus-visible` inside `@media (forced-colors: active)`.
 
+## 10. Sidenotes/TOC migrated to `remarque-tokens/essay` (graduation, issue #378)
+
+**This section documents a graduation, not a new deviation.** This site's
+own hand-rolled sidenote/sticky-TOC implementation (`src/lib/
+rehype-sidenotes.mjs` + `global.css`'s "Sidenotes"/"Sticky TOC side rail"
+blocks) was the donor design remarque#52 upstreamed into
+`remarque-tokens/essay` (`essay.css`). Issue #378 tracked bringing this
+site back onto the upstream module now that it exists, closing the loop:
+the local CSS that used to implement this is **deleted in full** —
+`.sidenote`/`.sidenote-ref`/`.sidenote-number`/`.toc` and their two
+`@media (min-width: 1280px)` blocks are gone from `global.css`, replaced
+by `@import "remarque-tokens/essay";`. `PostLayout.astro`'s `<article>`
+gains `remarque-essay`, its content `<div>` gains `remarque-prose`,
+`TableOfContents.astro`'s `<nav>` becomes `remarque-toc-rail`, and
+`rehype-sidenotes.mjs` was rewritten to emit the module's markup contract
+(`remarque-sidenote-ref`/`remarque-sidenote-ref--repeat`/
+`remarque-sidenote`, `role="note"`, `aria-describedby` pointing at the
+note's own id) instead of its own former class names.
+
+**A11y fix found during migration, not part of the module's own contract**:
+the module's markup example shows the reference as a bare, empty `<a>` (its
+visible number comes from a CSS counter, not authored text). Blanking the
+reference's text to match left an empty, focusable link with no accessible
+name — a real `axe` run against the built pilot post caught this as a
+`link-name` violation (WCAG 4.1.2 / 2.4.4); `aria-describedby` alone
+doesn't fix it (description, not name). `rehype-sidenotes.mjs` now also
+sets `aria-label="Note N"` on every reference, numbered in the same
+first-citation order the CSS counter itself advances in (repeats share
+their first citation's number), so the label always matches what's
+visually rendered without reintroducing an authored visible digit.
+
+Per remarque's own "Essay Module" provenance note, no site-specific literal
+was copied back upstream — `essay.css`'s dimensions are re-derived from
+Remarque's own spacing tokens, not this site's hand-measured values. That
+re-derivation means adopting the module changes four things about this
+site's rendered output, all accepted here as the graduation payoff rather
+than re-forked locally:
+
+| Aspect | This site's former CSS | `essay.css` (adopted) |
+|---|---|---|
+| Sidenote column width / pull-out | `11.5rem` / `-13rem` (hand-measured) | `var(--space-10)` (8rem) / `-(space-10 + space-6)` (-10rem) — token-derived |
+| TOC rail width | `minmax(12rem, 14rem)` | `minmax(var(--space-11), var(--space-12))` (10-12rem) — token-derived |
+| TOC disclosure marker | Inline `<svg>` chevron, rotates 180° | `content: "\25B8"` unicode triangle, rotates 90° |
+| TOC label case treatment | `text-transform: uppercase` | `font-variant-caps: all-small-caps` — REMARQUE.md's "Small Caps" rule; upstream's own CHANGELOG calls this out as a correction, not a stylistic swap |
+| Rail open/close mechanics | Inline `<script>` force-opens `<details>` on every `matchMedia('(min-width: 1280px)')` breakpoint crossing | `<details open>` by default, no JS — a reader who manually collapses the rail below the breakpoint and widens their window keeps it collapsed until clicked again (accepted static trade-off) |
+| Footnote numbering | Rehype plugin injects a literal `<span class="sidenote-number">` (GFM's own reference digit) | CSS counters (`counter-reset`/`counter-increment`/generated `::before`/`::after` content) scoped to `.remarque-prose` — the plugin now blanks the GFM digit instead of authoring one, so the two mechanisms never both render a number |
+
+The breakpoint itself is unchanged — both gate on `>= 80rem` (1280px at the
+platform default 16px root), the same threshold this site used before.
+
+**Verification performed for this migration** (not just asserted): unit
+tests (`tests/unit/rehype-sidenotes.test.mjs`) cover the rewritten plugin's
+`<sup>`-unwrapping, blanked reference text, `--repeat` modifier class, and
+`aria-describedby` repointing; `tests/e2e/sidenotes.spec.ts` was adapted to
+the new class names and additionally checks the counter machinery is wired
+(not just present) and that a repeated citation doesn't insert a second
+note. A repeat-citation case was also verified by hand against a scratch
+build (temporarily re-citing an existing footnote on the sidenotes pilot
+post, screenshotted, then reverted — not part of this site's content) to
+confirm no visual double-numbering before relying on the unit tests alone.
+See the PR that introduced this section for the before/after screenshots
+(desktop + mobile, both themes) — **this PR is explicitly flagged for
+design sign-off before merge**, since four of the deltas above are visible,
+intentional rendering changes, not implementation-detail refactors.
 ## References
 
 - Issue #324 (this migration)
@@ -377,3 +441,7 @@ a:focus-visible` inside `@media (forced-colors: active)`.
   categorical 0.22.0, forced-colors/prefers-contrast 0.21.0, light-dark()
   palette migration 0.24.0 — backward compatible for consumers, this
   site's palette stays in the conventional `:root`/`:root.dark` form)
+
+- Issue #52 (remarque) — graduation of this site's sidenote/TOC design
+  into `remarque-tokens/essay`
+- Issue #378 — this migration back onto the upstream Essay Module
