@@ -364,6 +364,8 @@ follow-up candidate — the same `text-decoration: underline` fallback
 .entry-title a:hover, .lead-title a:focus-visible, .entry-title
 a:focus-visible` inside `@media (forced-colors: active)`.
 
+**Fixed** — closes [#382](https://github.com/williamzujkowski/williamzujkowski.github.io/issues/382): the exact `@media (forced-colors: active)` block described above now lives in `global.css` directly below the `.lead-title a:hover, .entry-title a:hover` rule.
+
 ## 10. Sidenotes/TOC migrated to `remarque-tokens/essay` (graduation, issue #378)
 
 **This section documents a graduation, not a new deviation.** This site's
