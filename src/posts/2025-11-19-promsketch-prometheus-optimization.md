@@ -208,7 +208,7 @@ Sketches consume less memory than raw time series:
 
 ## Further Reading
 
-**Research paper:** [PromSketch: Generating PromQL Queries from Sketches](https://arxiv.org/abs/2505.10560) (arXiv:2505.10560, VLDB 2025)
+**Research paper:** [Approximation-First Timeseries Monitoring Query At Scale](https://arxiv.org/abs/2505.10560) (arXiv:2505.10560, VLDB 2025)
 
 **Algorithm foundations:**
 - [Count-Min Sketch](https://doi.org/10.1016/j.jalgor.2003.12.001) (Cormode & Muthukrishnan, 2005)

@@ -132,7 +132,7 @@ VLA models are powerful but immature, and I'm frankly concerned about how quickl
 - **Adversarial robustness unknown**: a carefully placed object could trigger dangerous behavior
 - **Emergency protocols underdeveloped** compared to traditional automation
 
-[Robot Safety: A Survey](https://arxiv.org/abs/2106.15684) outlines comprehensive safety frameworks, but most VLA deployments lack rigorous implementation.
+Formal safety frameworks for robotics exist, but most VLA deployments lack rigorous implementation of them.
 
 ### Defense in Depth
 
@@ -275,8 +275,8 @@ The embodied AI revolution isn't coming, it's here. The question is whether you'
 
 ### Primary Research
 
-1. **[Gemini Robotics: Foundation Models for Robotic Manipulation](https://arxiv.org/abs/2503.20020)** (2025)
-   - Huang, Zigang et al.
+1. **[Gemini Robotics: Bringing AI into the Physical World](https://arxiv.org/abs/2503.20020)** (2025)
+   - Gemini Robotics Team
    - *arXiv preprint* - State-of-the-art VLA model architecture and results
 
 2. **[Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://arxiv.org/abs/2310.08864)** (2023)
@@ -292,10 +292,6 @@ The embodied AI revolution isn't coming, it's here. The question is whether you'
 4. **[π0: A Vision-Language-Action Flow Model for General Robot Control](https://arxiv.org/abs/2410.24164)** (2024)
    - Physical Intelligence Team
    - *arXiv preprint* - Alternative VLA architecture approach
-
-5. **[Robot Safety: A Survey](https://arxiv.org/abs/2106.15684)** (2021)
-   - Vicentini, Federico
-   - *arXiv preprint* - Comprehensive safety frameworks for physical AI
 
 ### Industry Standards & Resources
 

@@ -11,7 +11,7 @@ tags:
 ---
 ## Bottom Line Up Front
 
-Engineers spend billions on advanced robotics while nature already solved locomotion, sensing, and adaptation through millions of years of testing. [MIT's Cheetah robot](https://ieeexplore.ieee.org/document/8593885/) matches a human sprinter at 6.4 m/s by copying quadruped biomechanics. [Harvard's RoboBee](https://arxiv.org/abs/2411.06382) achieves autonomous flight at 90 milligrams (lighter than a paperclip) using insect wing mechanics. Soft robotics researchers discovered octopus arms compute grasping without brain involvement, fundamentally changing how we design manipulators.
+Engineers spend billions on advanced robotics while nature already solved locomotion, sensing, and adaptation through millions of years of testing. [MIT's Cheetah robot](https://ieeexplore.ieee.org/document/8593885/) matches a human sprinter at 6.4 m/s by copying quadruped biomechanics. Harvard's RoboBee is an insect-scale flying robot, roughly the weight of a paperclip, built around insect wing mechanics. Soft robotics researchers discovered octopus arms compute grasping without brain involvement, fundamentally changing how we design manipulators.
 
 **Why it matters:** Traditional rigid robots require complex control systems for basic tasks nature performs passively through material properties and morphology. Biomimetic approaches achieve 10-30% better energy efficiency, operate in confined spaces impossible for conventional designs, and reduce computational overhead by embedding intelligence in physical structure instead of software. This shift from centralized control to distributed mechanical intelligence enables robots to work in disaster zones, surgical environments, and extraterrestrial exploration where traditional designs fail.
 
@@ -57,7 +57,7 @@ This computational approach extends beyond robotics: distributing computation ac
 **Real examples:**
 - Toucan beak: Shape distributes mechanical forces without calculation
 - Robotic grippers: Handle delicate objects through material compliance, not force sensors
-- [RoboBee](https://arxiv.org/abs/2411.06382): Wing structures auto-generate aerodynamic forces for stable flight
+- RoboBee: Wing structures auto-generate aerodynamic forces for stable flight
 - Octopus arms: Compute grasping decisions locally, bypassing central brain
 
 The elegance: physics does the work, software complexity drops dramatically. In my own testing with compliant grippers (using silicone durometer Shore 00-30), I found they could adapt to irregular objects without any feedback sensors at all, purely through material deformation.
@@ -86,13 +86,12 @@ Modern biomimetic approaches create robots that move with animal-like grace. The
 
 Bird and insect flight inspired breakthrough micro aerial vehicles. Engineers discovered that biological wing mechanics scale down to remarkably small platforms, enabling autonomous flight at weights lighter than a paperclip.
 
-**[Harvard RoboBee X-Wing](https://arxiv.org/abs/2411.06382) specifications (2024 prototype):**
-- Mass: 90 milligrams (lighter than a paperclip)
-- Power: Solar cells (untethered autonomous flight)
+**Harvard RoboBee X-Wing (insect-scale flying robot):**
+- Mass: on the order of tens of milligrams, roughly the weight of a paperclip
+- Power: designed around miniature solar cells
 - Wing design: Biomimetic insect mechanics
-- Control: Distributed processing mimics insect nervous system
-- Achievement: Sustained flight without external motion capture
-- Limitation: Flight duration remains limited (battery constraints)
+- Control: Distributed processing inspired by insect nervous systems
+- Limitation: Flight duration remains constrained by power and battery limits
 
 **University of Pennsylvania DALER:**
 - Adaptive wings inspired by bats
@@ -371,7 +370,6 @@ Biomimetic robotics represents a fundamental shift toward working with natural p
 
 - [MIT Cheetah 3: Design and Control of a Robust, Dynamic Quadruped Robot](https://journals.sagepub.com/doi/10.1177/0278364917694244) — legged robot mechanics and control
 - [MIT Cheetah robot documentation](https://ieeexplore.ieee.org/document/8593885/) — IEEE
-- [Harvard RoboBee X-Wing](https://arxiv.org/abs/2411.06382) — untethered flight, arXiv
 - [Morphological intelligence: how a robot's body shapes its cognition](https://www.nature.com/articles/s41467-021-25874-z) — Nature Communications
 - [Neuromorphic computing and vision sensors](https://www.nature.com/articles/s44172-025-00492-5) — Nature
 - [Harvard Kilobot swarm research](https://dash.harvard.edu/entities/publication/73120378-a434-6bd4-e053-0100007fdf3b) — Harvard DASH repository

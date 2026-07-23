@@ -20,7 +20,7 @@ Most AI-assisted development workflows look like this: you pick one model, send 
 
 I was spending time not writing software but context-switching between tools. Open Claude for architecture planning. Switch to Gemini for broad research. Use Codex for rapid code generation. Copy context between them. Lose track of which model said what. Frustrating.
 
-**The core insight:** Model selection is a routing problem, not a loyalty problem. Research on [LLM routing](https://arxiv.org/abs/2406.18510) confirms that different tasks have measurably different performance across models. A system that routes intelligently should outperform any single model used for everything. The [RouteLLM paper](https://arxiv.org/abs/2406.18510) showed this could cut costs 85% while maintaining quality, which convinced me the approach was worth pursuing.
+**The core insight:** Model selection is a routing problem, not a loyalty problem. Research on [LLM routing](https://arxiv.org/abs/2406.18665) confirms that different tasks have measurably different performance across models. A system that routes intelligently should outperform any single model used for everything. The [RouteLLM paper](https://arxiv.org/abs/2406.18665) showed this could cut costs 85% while maintaining quality, which convinced me the approach was worth pursuing.
 
 ## Architecture: Research-Backed, Not Ad Hoc
 
@@ -293,7 +293,7 @@ Building this taught me that the future of AI-assisted development isn't about p
 ## Sources
 
 - [nexus-agents](https://github.com/nexus-substrate/nexus-agents) — the project this post is about
-- [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18510) — arXiv
+- [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665) — arXiv
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
 - [STPA safety analysis of MCP](https://arxiv.org/abs/2601.08012) — arXiv
 - [MoMA framework](https://arxiv.org/abs/2509.07571) — arXiv

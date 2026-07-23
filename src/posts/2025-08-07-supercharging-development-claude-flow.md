@@ -234,11 +234,7 @@ Since adopting Claude-Flow:
 
 ### AI Agent Systems Research
 
-1. **[AutoGPT: An Autonomous GPT-4 Experiment](https://arxiv.org/abs/2303.08774) (2023)
-   - Research on autonomous AI agent architectures
-   - *arXiv preprint*
-
-2. **[Swarm Intelligence: From Natural to Artificial Systems](https://academic.oup.com/book/8358)** (1999)
+1. **[Swarm Intelligence: From Natural to Artificial Systems](https://academic.oup.com/book/8358)** (1999)
    - Bonabeau, Dorigo, and Theraulaz - Foundational swarm intelligence principles
    - *Oxford University Press*
 

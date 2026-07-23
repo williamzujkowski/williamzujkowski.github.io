@@ -419,7 +419,7 @@ NodeShield blocked 1,025 of 1,043 supply chain attacks in my homelab testing. Ad
 
 ## Sources
 
-1. **NodeShield: Capability-Based Runtime Enforcement for Supply Chain Security** (arXiv:2508.13750) - Primary research paper with reproducible dataset and methodology. https://arxiv.org/abs/2508.13750
+1. **NodeShield: Runtime Enforcement of Security-Enhanced SBOMs for Node.js** (arXiv:2508.13750) - Primary research paper with reproducible dataset and methodology. https://arxiv.org/abs/2508.13750
 
 2. **SolarWinds Supply Chain Attack Analysis** - CISA official report documenting SUNBURST malware spread across 18,000 organizations through malicious dependency update. https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a
 

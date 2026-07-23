@@ -331,7 +331,7 @@ Academic research validates LLM effectiveness for security operations. Multiple 
 
 **Key findings:**
 
-1. **Survey on LLM SOC Applications** (arXiv:2509.10858, September 2024)
+1. **Survey on LLM SOC Applications** (arXiv:2509.10858, September 2025)
    - LLMs show strong potential in log summarization, alert triage, threat intelligence, incident response
    - Average alert triage time reduction: **160-250 minutes per incident**
    - Challenges: prompt injection, excessive agency, hallucination risks
