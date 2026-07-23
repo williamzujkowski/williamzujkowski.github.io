@@ -146,21 +146,13 @@ The future of human-robot interaction looks increasingly conversational, collabo
 
 ### Embodied AI Research
 
-1. **[Embodied AI: From Research to Applications](https://arxiv.org/abs/2304.02195)** (2023)
-   - Survey of embodied artificial intelligence
-   - *arXiv preprint*
-
-2. **[Learning to Navigate in Complex Environments](https://arxiv.org/abs/1611.03673)** (2017)
+1. **[Learning to Navigate in Complex Environments](https://arxiv.org/abs/1611.03673)** (2017)
    - Mirowski et al. - DeepMind navigation research
    - *ICLR 2017*
 
 ### Robotics & Simulation
 
-1. **[Sim-to-Real Transfer in Deep Reinforcement Learning](https://arxiv.org/abs/1812.11103)** (2018)
-   - Zhao et al. - Bridging simulation and reality
-   - *arXiv preprint*
-
-2. **[RoboNet: Large-Scale Multi-Robot Learning](https://arxiv.org/abs/1910.11215)** (2019)
+1. **[RoboNet: Large-Scale Multi-Robot Learning](https://arxiv.org/abs/1910.11215)** (2019)
    - Dasari et al. - Multi-robot learning framework
    - *CoRL 2019*
 

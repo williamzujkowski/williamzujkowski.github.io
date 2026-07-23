@@ -68,13 +68,13 @@ After digging into recent security research, I found that "local" AI faces way m
 
 ### Model Extraction and Prompt Injection
 
-The most concerning finding came from academic research on [prompt injection attacks achieving 89.6% success rates](https://arxiv.org/abs/2408.03561) using roleplay-based techniques. These aren't theoretical attacks, they work on production models. An attacker can craft prompts that extract information about the model's training data, reveal system prompts, or even exfiltrate sensitive context you've provided.
+The most concerning finding came from academic research on prompt injection attacks using roleplay-based techniques, which can reliably subvert a model's guardrails. These aren't theoretical attacks, they work on production models. An attacker can craft prompts that extract information about the model's training data, reveal system prompts, or even exfiltrate sensitive context you've provided.
 
 I tested this on my own Ollama instance with a basic "jailbreak" prompt. It worked. The model happily explained how to bypass its own safety guidelines. If an adversary got access to my LLM API (which was listening on all network interfaces by default, including my IoT VLAN), they could extract far more than I was comfortable with. This experience reinforced a hard lesson – never assume "local" automatically means "secure."
 
 ### Membership Inference and PII Leakage
 
-Research on membership inference attacks shows that [sophisticated attacks increase PII leakage by 5× compared to naive approaches](https://arxiv.org/abs/2409.04040). This means an attacker can determine if specific data was used in training, potentially revealing whether private documents were included in fine-tuning datasets.
+Research on membership inference attacks shows that sophisticated attacks can meaningfully increase PII leakage compared to naive approaches. This means an attacker can determine if specific data was used in training, potentially revealing whether private documents were included in fine-tuning datasets.
 
 For my homelab use cases, personal notes, research documents, technical documentation, this is a dealbreaker. I don't want anyone inferring what data I've been feeding into my models.
 
@@ -86,7 +86,7 @@ My RTX 3090 stores all those attention mechanism states in VRAM. Without proper 
 
 ### Model Poisoning: Easier Than I Thought
 
-Research shows that [just 250 poisoned documents can backdoor a 13B parameter model](https://arxiv.org/abs/2410.02486). That's an alarmingly low threshold. If I'm downloading models from HuggingFace without verification, I have no guarantee they haven't been tampered with.
+Research shows that backdooring a large language model can require a surprisingly small number of poisoned training documents relative to the size of the dataset. That's an alarmingly low threshold. If I'm downloading models from HuggingFace without verification, I have no guarantee they haven't been tampered with.
 
 I started verifying model checksums obsessively after reading this.
 
@@ -211,7 +211,7 @@ Protecting GPU memory from KV cache leakage attacks requires [selective encrypti
 
 ### Homomorphic Encryption: Not Practical Yet
 
-I experimented with homomorphic encryption for completely encrypted inference. The overhead is brutal: [100-1000× slowdown compared to plaintext inference](https://arxiv.org/abs/2109.00984). Recent optimizations bring this down to 10-100×, but that's still too much for interactive use.
+I experimented with homomorphic encryption for completely encrypted inference. The overhead is brutal, homomorphic schemes add significant computational cost compared to plaintext inference, and even with recent optimizations, it's still too much for interactive use.
 
 **My Test Results:**
 - Plaintext inference: 2.49 seconds
@@ -540,7 +540,6 @@ If you're not willing to properly secure your deployment, use a reputable cloud 
 - [MPC-Minimized Secure LLM Inference](https://arxiv.org/abs/2408.03561) - Secure multi-party computation techniques
 - [A First Look At Efficient And Secure On-Device LLM Inference Against KV Leakage](https://arxiv.org/abs/2409.04040) - GPU memory protection
 - [CMIF Framework: Differential Privacy in LLM Inference](https://arxiv.org/html/2509.09091) - Performance overhead measurements
-- [CrypTen: Secure Multi-Party Computation Meets Machine Learning](https://arxiv.org/abs/2109.00984) - MPC benchmarks
 
 **AI Safety Frameworks:**
 - [Constitutional AI: Harmlessness from AI Feedback](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback) - Anthropic's alignment approach

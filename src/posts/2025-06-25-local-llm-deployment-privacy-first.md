@@ -337,11 +337,7 @@ Drop me a line – I'd love to hear about your setup or help troubleshoot if you
 
 ### Privacy-Preserving ML Research
 
-1. **[Privacy Risks of General-Purpose Language Models](https://arxiv.org/abs/2011.05068)** (2021)
-   - Brown et al. analyze privacy implications of large language models
-   - *IEEE Symposium on Security and Privacy*
-
-2. **[Extracting Training Data from Large Language Models](https://arxiv.org/abs/2012.07805)** (2021)
+1. **[Extracting Training Data from Large Language Models](https://arxiv.org/abs/2012.07805)** (2021)
    - Carlini et al. demonstrate memorization risks in LLMs
    - *USENIX Security Symposium*
 

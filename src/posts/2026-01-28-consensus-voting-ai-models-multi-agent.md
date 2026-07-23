@@ -138,7 +138,7 @@ I use voting selectively:
 
 In practice, maybe 15-20% of decisions go through consensus. The rest use single-model routing through the [model router](/posts/2026-01-15-routellm-contextual-bandits-model-router-research/). The 80/20 split works well. Consensus adds value where decisions are high-stakes and reversibility is low.
 
-The [multi-agent committee research](https://arxiv.org/abs/2512.21352) on code review confirms this pattern: multi-agent review provides the most value on complex, ambiguous tasks, and the least value on routine, well-defined tasks. Don't consensus-vote your variable names.
+The [multi-agent committee research](https://arxiv.org/abs/2512.21352) on autonomous software beta testing confirms this pattern: multi-agent review provides the most value on complex, ambiguous tasks, and the least value on routine, well-defined tasks. Don't consensus-vote your variable names.
 
 ## Failure Modes
 
@@ -172,4 +172,4 @@ The [nexus-agents repository](https://github.com/nexus-substrate/nexus-agents) i
 - [Voting vs. Consensus Protocols](https://arxiv.org/abs/2502.19130) - Aggregation strategy comparison
 - [Free-MAD: Anti-Conformity in Multi-Agent Systems](https://arxiv.org/abs/2509.11035) - Adversarial agent design
 - [Higher-Order Voting](https://arxiv.org/abs/2510.01499) - Bayesian-optimal vote aggregation
-- [Multi-Agent Committee Code Review](https://arxiv.org/abs/2512.21352) - Task complexity and multi-agent review value
+- [Multi-Agent LLM Committees for Autonomous Software Beta Testing](https://arxiv.org/abs/2512.21352) - Task complexity and multi-agent review value

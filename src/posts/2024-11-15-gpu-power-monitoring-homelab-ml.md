@@ -17,7 +17,7 @@ The 312W average power draw during LLM inference wasn't shocking. I knew the RTX
 
 I've been running a homelab for years, but 2024 changed everything. Large language model democratization meant I could run GPT-3-class models on my hardware. Ollama made it trivially easy: `ollama pull llama3.1:8b` and I had a capable LLM in under 90 seconds. Ease of deployment masked an inconvenient truth: running AI at home isn't cheap.
 
-A [2023 University of Massachusetts Amherst study](https://arxiv.org/abs/2311.16863) found training a single large language model can emit as much carbon as five cars over their lifetimes. I wasn't training from scratch, but inference isn't free. A [2024 Joule analysis](https://www.cell.com/joule/fulltext/S2542-4351(24)00094-7) estimated ChatGPT's energy consumption could reach 1 TWh annually, roughly equivalent to 100,000 U.S. homes' yearly electricity. Scaling to homelab levels still means real environmental and financial impact.
+A [2023 University of Massachusetts Amherst study](https://arxiv.org/abs/1906.02243) found training a single large language model can emit as much carbon as five cars over their lifetimes. I wasn't training from scratch, but inference isn't free. A [2024 Joule analysis](https://www.cell.com/joule/fulltext/S2542-4351(24)00094-7) estimated ChatGPT's energy consumption could reach 1 TWh annually, roughly equivalent to 100,000 U.S. homes' yearly electricity. Scaling to homelab levels still means real environmental and financial impact.
 
 I needed data. Not vendor claims or theoretical calculations, but actual measurements from my hardware running my workloads.
 

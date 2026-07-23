@@ -240,9 +240,9 @@ Edge AI is making responsive, private, local intelligence possible. But it's not
 ## Sources
 
 ### Academic Papers
-- [Edge AI: A Survey](https://arxiv.org/abs/2003.12488) - Comprehensive survey of AI at the edge
-- [TinyML: Machine Learning with TensorFlow Lite](https://arxiv.org/abs/2010.11267) - Ultra-low-power ML systems
-- [Federated Learning at the Network Edge](https://arxiv.org/abs/1902.01046) - Distributed learning approaches
+- [AI on the Edge: Rethinking AI-based IoT Applications Using Specialized Edge Architectures](https://arxiv.org/abs/2003.12488) - Comprehensive survey of AI at the edge
+- [MicroNets: Neural Network Architectures for Deploying TinyML Applications on Commodity Microcontrollers](https://arxiv.org/abs/2010.11267) - Ultra-low-power ML systems
+- [Towards Federated Learning at Scale: System Design](https://arxiv.org/abs/1902.01046) - Distributed learning approaches
 
 ### Industry Standards & Frameworks
 - [NVIDIA Edge Computing Resources](https://www.nvidia.com/en-us/edge-computing/) - GPU-accelerated edge AI

@@ -216,4 +216,3 @@ The quantum era of defense has already begun. Understanding both its promises an
 - [NSA Quantum Computing FAQ](https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/)
 - [ETSI Quantum Safe Cryptography](https://www.etsi.org/technologies/quantum-safe-cryptography)
 - [Shor's Algorithm](https://arxiv.org/abs/quant-ph/9508027) — Peter Shor's polynomial-time factoring algorithm (1995)
-- [Post-Quantum Cryptography: Current state and quantum mitigation](https://arxiv.org/abs/2105.12707) — arXiv preprint (2021)

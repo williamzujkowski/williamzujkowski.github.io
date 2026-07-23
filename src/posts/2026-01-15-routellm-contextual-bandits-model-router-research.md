@@ -12,7 +12,7 @@ readingTime: "10 min read"
 
 I spent three months building model routers that didn't work before I started reading the papers. Round-robin was unfair. Random selection was wasteful. Static scoring was brittle. Every approach I tried had a failure mode that became obvious only after I deployed it against real tasks in my homelab.
 
-This post walks through the research that fixed each problem, from [RouteLLM's](https://arxiv.org/abs/2406.18510) cost-quality tradeoff to [LinUCB's](https://arxiv.org/abs/2508.21141) adaptive learning. If you're building any kind of multi-model system, these papers probably save you the same months of trial and error.
+This post walks through the research that fixed each problem, from [RouteLLM's](https://arxiv.org/abs/2406.18665) cost-quality tradeoff to [LinUCB's](https://arxiv.org/abs/2508.21141) adaptive learning. If you're building any kind of multi-model system, these papers probably save you the same months of trial and error.
 
 ## The Naive Phase: Why Simple Approaches Fail
 
@@ -40,7 +40,7 @@ I probably spent 40 hours tuning those weights manually before I realized I was 
 
 ## The RouteLLM Wake-Up Call
 
-The [RouteLLM paper](https://arxiv.org/abs/2406.18510) (Ong et al.) changed my thinking completely. Their key finding: you can route between a strong model and a weak model using a learned classifier, cutting costs by 85% while maintaining 95% of the quality. They trained on preference data from Chatbot Arena to predict which model would give a better response for a given query.
+The [RouteLLM paper](https://arxiv.org/abs/2406.18665) (Ong et al.) changed my thinking completely. Their key finding: you can route between a strong model and a weak model using a learned classifier, cutting costs by 85% while maintaining 95% of the quality. They trained on preference data from Chatbot Arena to predict which model would give a better response for a given query.
 
 I couldn't use their exact approach. They optimized for a two-model strong/weak pair, and I had three models with overlapping capabilities. But the insight was transferable: **model selection is a classification problem with learnable features, not a static lookup table.**
 
@@ -133,7 +133,7 @@ If I were starting over, I'd probably skip the Preference Router and fold its lo
 
 ## Sources
 
-- [RouteLLM: Learning to Route LLMs](https://arxiv.org/abs/2406.18510) (Ong et al.) - Cost-quality routing with preference-trained classifiers
+- [RouteLLM: Learning to Route LLMs](https://arxiv.org/abs/2406.18665) (Ong et al.) - Cost-quality routing with preference-trained classifiers
 - [MoMA: Multi-objective Model Selection](https://arxiv.org/abs/2509.07571) - TOPSIS for LLM routing
 - [PILOT: Practical LLM Routing](https://arxiv.org/abs/2508.21141) - LinUCB contextual bandits for model selection
 - [SATER: Confidence-Aware Routing](https://arxiv.org/abs/2510.05164) - Difficulty estimation for routing decisions
