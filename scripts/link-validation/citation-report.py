@@ -61,111 +61,169 @@ def generate_citation_report(validation_data: Dict, links_data: Dict) -> str:
     # Map validation results by URL
     validation_map = {r['url']: r for r in validation_data.get('results', [])}
 
-    # Group broken links by blog post
+    # Group links by blog post, split into two buckets:
+    #   - broken_by_post: genuinely broken (404 / 5xx / ssl_error / dns_error / timeout)
+    #   - restricted_by_post: access-restricted / unverifiable (403 / 401 / paywall) --
+    #     these are publisher WAF blocks or login walls that usually work fine for a
+    #     human reader; CI just can't verify them. They're advisory, not alarms.
     broken_by_post = defaultdict(list)
+    restricted_by_post = defaultdict(list)
 
     for link in links_data.get('links', []):
         url = link['url']
         validation = validation_map.get(url, {})
+        status = validation.get('status')
 
-        if validation.get('status') == 'broken':
-            post_path = Path(link['file_path'])
-            broken_by_post[post_path.name].append({
-                'url': url,
-                'line': link['line_number'],
-                'text': link.get('text', 'No link text'),
-                'issue_type': validation.get('issue_type', 'unknown'),
-                'status_code': validation.get('status_code'),
-                'error_message': validation.get('error_message'),
-                'context': link.get('context_before', '')[:100]
-            })
+        if status not in ('broken', 'restricted'):
+            continue
+
+        post_path = Path(link['file_path'])
+        entry = {
+            'url': url,
+            'line': link['line_number'],
+            'text': link.get('text', 'No link text'),
+            'issue_type': validation.get('issue_type', 'unknown'),
+            'status_code': validation.get('status_code'),
+            'error_message': validation.get('error_message'),
+            'context': link.get('context_before', '')[:100]
+        }
+
+        if status == 'broken':
+            broken_by_post[post_path.name].append(entry)
+        else:
+            restricted_by_post[post_path.name].append(entry)
 
     # Generate report
     report = []
     report.append("# Broken Citation Links by Blog Post")
     report.append("")
 
-    if not broken_by_post:
+    if not broken_by_post and not restricted_by_post:
         report.append("✅ No broken citation links found!")
         return '\n'.join(report)
 
-    # Sort posts by number of broken links (most broken first)
-    sorted_posts = sorted(
-        broken_by_post.items(),
-        key=lambda x: len(x[1]),
-        reverse=True
-    )
+    if not broken_by_post:
+        report.append("✅ No genuinely broken citation links found!")
+        report.append("")
+    else:
+        # Sort posts by number of broken links (most broken first)
+        sorted_posts = sorted(
+            broken_by_post.items(),
+            key=lambda x: len(x[1]),
+            reverse=True
+        )
 
-    for post_name, broken_links in sorted_posts:
-        report.append(f"## 📄 {post_name} ({len(broken_links)} broken links)")
+        for post_name, broken_links in sorted_posts:
+            report.append(f"## 📄 {post_name} ({len(broken_links)} broken links)")
+            report.append("")
+
+            for i, link_info in enumerate(broken_links, 1):
+                report.append(f"### {i}. Line {link_info['line']}")
+                report.append("")
+                report.append(f"**URL:** `{link_info['url']}`")
+                report.append("")
+                report.append(f"**Link Text:** {link_info['text']}")
+                report.append("")
+                report.append(f"**Issue:** {link_info['issue_type']}")
+
+                if link_info['status_code']:
+                    report.append(f"**HTTP Status:** {link_info['status_code']}")
+
+                if link_info['error_message']:
+                    report.append(f"**Error:** {link_info['error_message']}")
+
+                report.append("")
+                report.append(f"**Context:** `...{link_info['context']}...`")
+                report.append("")
+
+                # Suggest actions based on issue type
+                issue_type = link_info['issue_type']
+                if issue_type == '404':
+                    report.append("**Suggested Action:** 🔍 Search for updated URL or find alternative source")
+                elif issue_type == 'timeout':
+                    report.append("**Suggested Action:** ⏱️ Retry later or find more reliable source")
+                elif issue_type == 'ssl_error':
+                    report.append("**Suggested Action:** 🔒 Check if site has valid HTTPS or find alternative")
+                elif issue_type == 'redirect':
+                    report.append("**Suggested Action:** ↪️ Update to final URL")
+                else:
+                    report.append("**Suggested Action:** 🔧 Investigate and find replacement")
+
+                report.append("")
+                report.append("---")
+                report.append("")
+
+        # Add summary statistics
+        report.append("## 📊 Summary Statistics")
         report.append("")
 
-        for i, link_info in enumerate(broken_links, 1):
-            report.append(f"### {i}. Line {link_info['line']}")
+        total_broken = sum(len(links) for links in broken_by_post.values())
+        total_posts = len(broken_by_post)
+
+        report.append(f"- **Total Posts with Broken Links:** {total_posts}")
+        report.append(f"- **Total Broken Citation Links:** {total_broken}")
+        report.append(f"- **Average Broken Links per Post:** {total_broken / total_posts:.1f}")
+        report.append("")
+
+        # Issue type breakdown
+        issue_counts = defaultdict(int)
+        for links in broken_by_post.values():
+            for link in links:
+                issue_counts[link['issue_type']] += 1
+
+        report.append("### Issue Types")
+        report.append("")
+        report.append("| Issue Type | Count | Percentage |")
+        report.append("|------------|-------|------------|")
+
+        for issue_type, count in sorted(issue_counts.items(), key=lambda x: x[1], reverse=True):
+            percentage = (count / total_broken) * 100
+            report.append(f"| {issue_type} | {count} | {percentage:.1f}% |")
+
+        report.append("")
+
+    # Access-restricted / unverifiable links -- de-emphasized, advisory section.
+    # These are 403 / 401 / paywall responses: CI can't verify them (publisher
+    # WAF blocks, login walls), but a human reader can usually still see the
+    # page fine. Not an alarm -- verify manually if you have doubts.
+    if restricted_by_post:
+        total_restricted = sum(len(links) for links in restricted_by_post.values())
+        report.append("<details>")
+        report.append(
+            f"<summary>🔒 Access-restricted / unverifiable ({total_restricted} links, "
+            "likely valid -- verify manually)</summary>"
+        )
+        report.append("")
+        report.append(
+            "> These links returned a 403, 401, or paywall response to our automated "
+            "checker. That's usually a publisher WAF block or login wall, not a dead "
+            "link -- a human visiting the URL in a browser can typically still read "
+            "it. They are **not** counted in the broken-links total above."
+        )
+        report.append("")
+
+        sorted_restricted_posts = sorted(
+            restricted_by_post.items(),
+            key=lambda x: len(x[1]),
+            reverse=True
+        )
+
+        for post_name, restricted_links in sorted_restricted_posts:
+            report.append(f"#### 📄 {post_name} ({len(restricted_links)} restricted links)")
             report.append("")
-            report.append(f"**URL:** `{link_info['url']}`")
-            report.append("")
-            report.append(f"**Link Text:** {link_info['text']}")
-            report.append("")
-            report.append(f"**Issue:** {link_info['issue_type']}")
 
-            if link_info['status_code']:
-                report.append(f"**HTTP Status:** {link_info['status_code']}")
-
-            if link_info['error_message']:
-                report.append(f"**Error:** {link_info['error_message']}")
+            for i, link_info in enumerate(restricted_links, 1):
+                report.append(
+                    f"{i}. Line {link_info['line']} -- `{link_info['url']}` "
+                    f"({link_info['issue_type']}"
+                    + (f", HTTP {link_info['status_code']}" if link_info['status_code'] else "")
+                    + ")"
+                )
 
             report.append("")
-            report.append(f"**Context:** `...{link_info['context']}...`")
-            report.append("")
 
-            # Suggest actions based on issue type
-            issue_type = link_info['issue_type']
-            if issue_type == '404':
-                report.append("**Suggested Action:** 🔍 Search for updated URL or find alternative source")
-            elif issue_type == 'paywall':
-                report.append("**Suggested Action:** 🔓 Find open-access alternative or use Wayback Machine")
-            elif issue_type == 'timeout':
-                report.append("**Suggested Action:** ⏱️ Retry later or find more reliable source")
-            elif issue_type == 'ssl_error':
-                report.append("**Suggested Action:** 🔒 Check if site has valid HTTPS or find alternative")
-            elif issue_type == 'redirect':
-                report.append("**Suggested Action:** ↪️ Update to final URL")
-            else:
-                report.append("**Suggested Action:** 🔧 Investigate and find replacement")
-
-            report.append("")
-            report.append("---")
-            report.append("")
-
-    # Add summary statistics
-    report.append("## 📊 Summary Statistics")
-    report.append("")
-
-    total_broken = sum(len(links) for links in broken_by_post.values())
-    total_posts = len(broken_by_post)
-
-    report.append(f"- **Total Posts with Broken Links:** {total_posts}")
-    report.append(f"- **Total Broken Citation Links:** {total_broken}")
-    report.append(f"- **Average Broken Links per Post:** {total_broken / total_posts:.1f}")
-    report.append("")
-
-    # Issue type breakdown
-    issue_counts = defaultdict(int)
-    for links in broken_by_post.values():
-        for link in links:
-            issue_counts[link['issue_type']] += 1
-
-    report.append("### Issue Types")
-    report.append("")
-    report.append("| Issue Type | Count | Percentage |")
-    report.append("|------------|-------|------------|")
-
-    for issue_type, count in sorted(issue_counts.items(), key=lambda x: x[1], reverse=True):
-        percentage = (count / total_broken) * 100
-        report.append(f"| {issue_type} | {count} | {percentage:.1f}% |")
-
-    report.append("")
+        report.append("</details>")
+        report.append("")
 
     # Add repair recommendations
     report.append("## 🔧 Repair Recommendations")
@@ -270,6 +328,10 @@ def main() -> int:
             r for r in validation_data.get('results', [])
             if r.get('status') == 'broken'
         ])
+        restricted_count = len([
+            r for r in validation_data.get('results', [])
+            if r.get('status') == 'restricted'
+        ])
 
         # Report generation succeeded. The broken-link count is surfaced to the
         # workflow via the `validate` step's output, so a successful report must
@@ -279,6 +341,11 @@ def main() -> int:
             logger.warning(f"Found {broken_count} broken citation links")
         else:
             logger.info("All citation links are valid")
+        if restricted_count > 0:
+            logger.info(
+                f"{restricted_count} citation links are access-restricted "
+                "(403/401/paywall) -- unverifiable by CI, not counted as broken"
+            )
         return 0
 
     except Exception as e:

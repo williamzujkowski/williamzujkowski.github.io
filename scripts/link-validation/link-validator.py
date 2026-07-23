@@ -74,10 +74,10 @@ import certifi
 class ValidationResult:
     """Result of link validation"""
     url: str
-    status: str  # valid, broken, redirect, timeout, error
+    status: str  # valid, broken, restricted, redirect, timeout, error
     status_code: Optional[int]
     final_url: Optional[str]
-    issue_type: Optional[str]  # 404, 403, timeout, wrong_content, paywall, redirect, ssl_error
+    issue_type: Optional[str]  # 404, 403, http_401, timeout, wrong_content, paywall, redirect, ssl_error
     error_message: Optional[str]
     response_time: float
     content_type: Optional[str]
@@ -109,7 +109,7 @@ class LinkValidator:
     # User agents for different validation strategies
     USER_AGENTS = {
         'bot': 'Mozilla/5.0 (compatible; LinkValidator/1.0; +https://williamzujkowski.github.io)',
-        'browser': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        'browser': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
     }
 
     def __init__(self, max_retries: int = 3, timeout: int = 30):
@@ -123,6 +123,7 @@ class LinkValidator:
             'total': 0,
             'valid': 0,
             'broken': 0,
+            'restricted': 0,
             'redirects': 0,
             'timeouts': 0,
             'errors': 0,
@@ -138,7 +139,7 @@ class LinkValidator:
         )
         self.session = aiohttp.ClientSession(
             connector=connector,
-            headers={'User-Agent': self.USER_AGENTS['bot']}
+            headers={'User-Agent': self.USER_AGENTS['browser']}
         )
 
         # Initialize Playwright if available
@@ -237,6 +238,8 @@ class LinkValidator:
             # Update stats
             if result.status == 'broken':
                 self.stats['broken'] += 1
+            elif result.status == 'restricted':
+                self.stats['restricted'] += 1
             elif result.status == 'redirect':
                 self.stats['redirects'] += 1
             elif result.status == 'timeout':
@@ -282,9 +285,16 @@ class LinkValidator:
                 page_title = title_match.group(1) if title_match else None
 
                 # Determine status and issue type
+                #
+                # 403/401/paywall are access-restricted responses (publisher WAF
+                # blocks, login walls) that a human reader can usually still see
+                # fine -- CI simply can't verify them. Classify those as
+                # 'restricted' (unverifiable, advisory) rather than 'broken'
+                # (genuinely dead) so the weekly report only alarms on real
+                # breakage: 404 / 5xx / ssl_error / dns_error / timeout.
                 if response.status == 200:
                     if has_paywall:
-                        status = 'broken'
+                        status = 'restricted'
                         issue_type = 'paywall'
                     elif is_redirect:
                         status = 'redirect'
@@ -296,8 +306,11 @@ class LinkValidator:
                     status = 'broken'
                     issue_type = '404'
                 elif response.status == 403:
-                    status = 'broken'
+                    status = 'restricted'
                     issue_type = '403'
+                elif response.status == 401:
+                    status = 'restricted'
+                    issue_type = 'http_401'
                 elif response.status >= 500:
                     status = 'broken'
                     issue_type = f'{response.status}_error'
@@ -496,6 +509,7 @@ class LinkValidator:
             logger.info(f"✅ Validated {self.stats['total']} links")
             logger.info(f"✔️  Valid: {self.stats['valid']}")
             logger.info(f"❌ Broken: {self.stats['broken']}")
+            logger.info(f"🔒 Restricted (unverifiable): {self.stats['restricted']}")
             logger.info(f"↪️  Redirects: {self.stats['redirects']}")
             logger.info(f"⏱️  Timeouts: {self.stats['timeouts']}")
             logger.info(f"💾 Results saved to {output_file}")
