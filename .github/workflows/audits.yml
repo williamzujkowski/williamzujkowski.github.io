@@ -68,6 +68,35 @@ jobs:
         run: node astro-site/scripts/apca-audit.mjs
         continue-on-error: true
 
+  # Type-check + lint gate (#356). `pnpm build` alone runs neither `astro
+  # check`/tsc diagnostics nor eslint, so a real type error or lint violation
+  # in an ordinary content/code PR would pass CI green — the exact blind spot
+  # that made "CI green" insufficient for the TypeScript-6 (#347) and
+  # eslint-plugin-astro-3 (#346) major bumps. Both pass clean today (0 errors;
+  # astro check reports only hints, eslint only the pre-existing set:html
+  # warning — neither fails the run), so this gates on genuine regressions.
+  check-lint:
+    needs: changes
+    if: needs.changes.outputs.site == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v6
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
+        with:
+          version: 10
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v6
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+          cache-dependency-path: astro-site/pnpm-lock.yaml
+      - name: Install deps
+        run: cd astro-site && pnpm install --frozen-lockfile
+      - name: Type-check (astro check — tsc diagnostics across .astro/.ts/.svelte)
+        run: cd astro-site && pnpm check
+      - name: Lint (eslint)
+        run: cd astro-site && pnpm lint
+
   # Token-drift check against the installed remarque-tokens package
   # (remarque#47/#48 — consensus-armed now that 2+ sites consume the
   # package from npm; this site is #1, tsundoku is #2). Calls remarque's
