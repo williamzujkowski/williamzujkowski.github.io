@@ -19,6 +19,43 @@ import { visit } from 'unist-util-visit';
  * respectively — name collision only). Verdict: hand-roll, per the issue's
  * vote condition.
  *
+ * MODULE MIGRATION (issue #378): this plugin now emits the markup contract
+ * of `remarque-tokens/essay` (graduated from this same plugin upstream via
+ * remarque#52) instead of this site's own former `.sidenote`/`.toc` CSS,
+ * which is deleted. The two things that change shape here:
+ *
+ *   1. Numbering is no longer authored by this plugin. `essay.css` numbers
+ *      sidenotes with CSS counters (`counter-reset` on `.remarque-prose`,
+ *      `counter-increment` on `.remarque-sidenote-ref`, generated content
+ *      on both `::after`/`::before`) — this plugin used to inject a literal
+ *      `<span class="sidenote-number">`, taken from GFM's own reference
+ *      number text. That text is now BLANKED on every reference (see
+ *      `refNode.children = []` below) so the two mechanisms don't both
+ *      render a digit (double numbering, the exact failure mode issue #378
+ *      calls out). A repeat citation of an already-noted footnote gets the
+ *      module's `remarque-sidenote-ref--repeat` modifier class, which the
+ *      module's CSS uses to skip `counter-increment` for that instance
+ *      (`counter-increment: none`) — the shared counter isn't advanced for
+ *      a note that was already printed, same rule as before, now enforced
+ *      by CSS instead of a `seen` check gating a literal number.
+ *   2. GFM wraps every footnote reference in `<sup>` (`<sup><a
+ *      data-footnote-ref>1</a></sup>`); the module's own reference markup
+ *      is a bare `<a class="remarque-sidenote-ref">` with `vertical-align:
+ *      super` baked into the class itself, so the `<sup>` wrapper is
+ *      unwrapped (not just restyled) — keeping it would compound two
+ *      independent `vertical-align: super` contexts.
+ *
+ * A11y regression found and fixed during the migration (not part of the
+ * module's own contract, which shows the reference as a bare, empty `<a>`):
+ * blanking the reference's visible text for CSS-counter numbering leaves an
+ * empty, focusable link with no accessible name — real axe runs against the
+ * built site caught this as a `link-name` violation (WCAG 4.1.2 / 2.4.4).
+ * `aria-describedby` alone doesn't fix it (it adds a description, not a
+ * name). This plugin adds `aria-label="Note N"`, where N is assigned in the
+ * same first-citation order the CSS counter itself advances in, so the
+ * label always matches what's visually rendered without this plugin having
+ * to author any VISIBLE number again.
+ *
  * Astro's markdown pipeline runs GFM footnotes by default (mdast-util-to-hast
  * `footer()` — see node_modules/mdast-util-to-hast/lib/footer.js): every
  * `[^n]` reference becomes `<sup><a data-footnote-ref href="#user-content-fn-n"
@@ -33,27 +70,30 @@ import { visit } from 'unist-util-visit';
  *      removes GFM's `↩` backreference link from each (see rationale below).
  *   2. Removes the `<section data-footnotes>` from the tree — its content
  *      is being relocated, not duplicated.
- *   3. Walks the top-level flow (paragraphs, blockquotes, etc.) in document
+ *   3. Unwraps every footnote reference from GFM's `<sup>` wrapper (see
+ *      "MODULE MIGRATION" above).
+ *   4. Walks the top-level flow (paragraphs, blockquotes, etc.) in document
  *      order, and for every footnote reference found, tags it
- *      `class="sidenote-ref"` and inserts an `<aside class="sidenote">`
- *      element as the NEXT SIBLING of the top-level block that contains the
- *      reference — i.e. immediately after the paragraph that cited it, in
- *      real DOM order. Screen readers hit the note right where the citation
- *      happens; no separate "jump to footnotes" detour.
+ *      `class="remarque-sidenote-ref"` (plus `remarque-sidenote-ref--repeat`
+ *      on a second-or-later citation of the same note) and inserts an
+ *      `<aside class="remarque-sidenote" role="note">` element as the NEXT
+ *      SIBLING of the top-level block that contains the reference — i.e.
+ *      immediately after the paragraph that cited it, in real DOM order.
+ *      Screen readers hit the note right where the citation happens; no
+ *      separate "jump to footnotes" detour.
  *
  * Dangling ARIA (fixed): GFM stamps every footnote reference with
  * `aria-describedby="footnote-label"`, pointing at the `<h2 id=
  * "footnote-label">Footnotes</h2>` inside the section this plugin removes.
  * Left alone, that's a broken ARIA reference — assistive tech would resolve
- * `aria-describedby` to nothing. This plugin strips it from every reference
- * (removing the whole section it "describes" makes the attribute
- * meaningless anyway; the note is now immediately adjacent and
- * self-explanatory). The `href`/`id` pair that makes the reference actually
- * NAVIGATE to its note, by contrast, is real and kept: the moved element
- * reuses the original definition id, so `href="#user-content-fn-x"` still
- * resolves to a real element with `id="user-content-fn-x"` after the move —
- * verified against the built HTML, not just asserted (see astro-site/tests/
- * e2e/sidenotes.spec.ts's DOM-order and click-navigation tests).
+ * `aria-describedby` to nothing. This plugin instead repoints it at the
+ * note's own id when a note exists (the module's markup contract calls this
+ * out as "optional but recommended") — the note is a real, resolvable
+ * element, either immediately adjacent (first citation) or elsewhere in the
+ * document (a repeat citation, where `aria-describedby` doesn't require
+ * adjacency to be valid). For a reference whose target has no matching
+ * definition at all, the attribute is dropped outright — nothing to point
+ * at either way.
  *
  * Backreference links (↩): dropped, not preserved. GFM's backref exists so a
  * reader who jumped to a footnote at the bottom of a long document can jump
@@ -74,23 +114,24 @@ import { visit } from 'unist-util-visit';
  * also the closer HTML5 semantic match for "tangentially related content
  * set apart from the main flow", which is exactly what a margin note is;
  * `<small>` is meant for fine-print/legal-disclaimer-style annotations, a
- * narrower fit. The leading mono-voice number stays inline with the note's
- * OPENING text either way — it's injected as a leading child of the first
- * paragraph (or directly, if the content isn't paragraph-wrapped) rather
- * than as a block-level sibling, so the visual "1 Note text..." pairing
- * from the `<small>` version is unchanged.
+ * narrower fit. The module's own `::before` generated content puts the
+ * visible number ahead of the note's content — for a single paragraph of
+ * note text that reads inline ("1 Note text..."); for a multi-paragraph
+ * note it reads as a small label line above the first paragraph. Both are
+ * essay.css's own documented behavior, not something this plugin controls.
  *
- * Layout (CSS, not this file): `.sidenote` is a small-print block right in
- * the text flow by default (the same place GFM would render it, just
- * per-paragraph instead of end-of-document) — this doubles as the narrow-
- * viewport fallback with zero extra markup. At >=1280px, global.css floats
- * it into the LEFT rail of `.post-article`'s existing 3-column grid (the
- * TOC owns the right rail — #299) via a negative-margin float, no JS.
+ * Layout (CSS, not this file): `.remarque-sidenote` renders as a small-print
+ * block right in the text flow by default (the same place GFM would render
+ * it, just per-paragraph instead of end-of-document) — this doubles as the
+ * narrow-viewport fallback with zero extra markup. At >=80rem, essay.css
+ * floats it into the LEFT rail of `.remarque-essay`'s existing 3-column
+ * grid (the TOC owns the right rail) via a negative-margin float, no JS.
  *
  * If a footnote is referenced more than once (rare), only the FIRST
  * reference gets a sidenote inserted after it; later references still get
- * `.sidenote-ref` styling but no duplicate note — two copies of the same
- * margin note fighting for space reads worse than one.
+ * `.remarque-sidenote-ref` (+ `--repeat`) styling but no duplicate note —
+ * two copies of the same margin note fighting for space reads worse than
+ * one.
  *
  * Exports the pure tree transform (`transformSidenotes`) separately from the
  * unified-plugin factory so it can be unit-tested against a hand-built hast
@@ -138,9 +179,9 @@ function stripBackrefs(nodes) {
  * true`) pads a footnote definition's block children with leading/trailing
  * `\n` text nodes — e.g. a single-paragraph definition's `li.children` is
  * actually `['\n', <p>, '\n']`, NOT `[<p>]`. Left alone, that leading
- * whitespace node — not the `<p>` — would be `contentNodes[0]`, silently
- * breaking `withLeadingNumber`'s "does this start with a paragraph?" check
- * (verified against the actual built HTML output, not just inferred).
+ * whitespace node would render as a spurious blank line ahead of the
+ * `<aside>`'s real content (verified against the actual built HTML output,
+ * not just inferred).
  */
 function trimWhitespaceEdges(nodes) {
   let start = 0;
@@ -151,23 +192,32 @@ function trimWhitespaceEdges(nodes) {
 }
 
 /**
- * Inject the mono-voice number marker (+ a following space) so it reads
- * inline with the note's opening text — "1 Some source, description." — the
- * same visual pairing as before, but without requiring the note content to
- * be flattened to phrasing-only first (see the `<aside>` rationale above).
- * If the content starts with a `<p>`, the marker becomes that paragraph's
- * leading children; otherwise (content is already bare phrasing, or starts
- * with some other block) it's just prepended to the content array — `<aside>`
- * permits flow content, so bare text/inline elements are valid siblings of
- * block elements either way.
+ * Unwrap every footnote reference from GFM's `<sup>` wrapper, in place.
+ * `<sup>` always wraps exactly one child (the reference `<a>`) in
+ * mdast-util-to-hast's output — mutate the `<sup>` node itself into that
+ * `<a>` (same object identity, so no parent/index bookkeeping is needed)
+ * rather than splicing it out of its parent's children array. See the
+ * "MODULE MIGRATION" note in this file's header comment for why: the
+ * module's `.remarque-sidenote-ref` class already carries `vertical-align:
+ * super`, so leaving the GFM `<sup>` in place would nest two independent
+ * superscript contexts.
  */
-function withLeadingNumber(numberSpan, contentNodes) {
-  const lead = [numberSpan, { type: 'text', value: ' ' }];
-  if (contentNodes.length > 0 && isElement(contentNodes[0], 'p')) {
-    const [first, ...rest] = contentNodes;
-    return [{ ...first, children: [...lead, ...first.children] }, ...rest];
-  }
-  return [...lead, ...contentNodes];
+function unwrapFootnoteRefSup(tree) {
+  visit(
+    tree,
+    (n) =>
+      isElement(n, 'sup') &&
+      Array.isArray(n.children) &&
+      n.children.length === 1 &&
+      isElement(n.children[0], 'a') &&
+      hasProperty(n.children[0], 'dataFootnoteRef'),
+    (supNode) => {
+      const anchor = supNode.children[0];
+      supNode.tagName = anchor.tagName;
+      supNode.properties = anchor.properties;
+      supNode.children = anchor.children;
+    }
+  );
 }
 
 export function transformSidenotes(tree) {
@@ -191,53 +241,69 @@ export function transformSidenotes(tree) {
   // Content is being relocated inline, not duplicated — remove the original.
   tree.children.splice(footnoteSectionIndex, 1);
 
+  unwrapFootnoteRefSup(tree);
+
   const insertions = []; // { afterIndex, sequence, node }
   const seen = new Set();
+  const noteNumberByTarget = new Map();
   let sequence = 0;
+  let noteNumber = 0;
 
   tree.children.forEach((child, index) => {
     visit(
       child,
       (n) => isElement(n, 'a') && hasProperty(n, 'dataFootnoteRef'),
       (refNode) => {
+        const href = refNode.properties.href || '';
+        const targetId = href.startsWith('#') ? href.slice(1) : null;
+        const content = targetId ? noteContentById.get(targetId) : undefined;
+        const isRepeat = !!targetId && seen.has(targetId);
+
         const existingClass = Array.isArray(refNode.properties.className)
           ? refNode.properties.className
           : [];
-        refNode.properties.className = [...existingClass, 'sidenote-ref'];
+        const classes = [...existingClass, 'remarque-sidenote-ref'];
+        if (isRepeat) classes.push('remarque-sidenote-ref--repeat');
+        refNode.properties.className = classes;
 
-        // GFM points this at the "Footnotes" <h2> inside the section this
-        // plugin deletes — leaving it would be a dangling ARIA reference
-        // (assistive tech resolves aria-describedby to nothing). The note
-        // itself is now immediately adjacent, so no replacement is needed.
-        delete refNode.properties.ariaDescribedBy;
+        // essay.css generates the visible number via a CSS counter
+        // (counter-increment on this class, `::after { content:
+        // counter(...) }`) — GFM's own reference text (a plain digit) must
+        // be blanked or the two would double-number every citation.
+        refNode.children = [];
 
-        const href = refNode.properties.href || '';
-        const targetId = href.startsWith('#') ? href.slice(1) : null;
-        if (!targetId || seen.has(targetId)) return;
+        // Blanking the ref's text (above) leaves it with no accessible
+        // name — CSS generated content (`::after`) is not reliably exposed
+        // to assistive tech, so axe correctly flags an empty, focusable
+        // `<a>` as a `link-name` (WCAG 4.1.2 / 2.4.4) violation. `aria-
+        // describedby` (below) only adds a DESCRIPTION, not a NAME, so it
+        // doesn't fix this on its own. `aria-label` supplies the name;
+        // its number is assigned in the same first-citation order the CSS
+        // counter itself advances in (incremented only when a new target
+        // is first seen, exactly like the counter), so it always matches
+        // what's visually rendered.
+        if (targetId && content) {
+          if (!noteNumberByTarget.has(targetId)) {
+            noteNumber += 1;
+            noteNumberByTarget.set(targetId, noteNumber);
+          }
+          refNode.properties.ariaLabel = `Note ${noteNumberByTarget.get(targetId)}`;
+        } else {
+          refNode.properties.ariaLabel = 'Footnote reference';
+        }
 
-        const content = noteContentById.get(targetId);
-        if (!content) return;
+        if (targetId && content) {
+          // The note is a real, resolvable element (adjacent for a first
+          // citation, elsewhere in the document for a repeat) — unlike
+          // GFM's original footnote-label pointer, which this plugin
+          // deletes along with the rest of the footnotes section.
+          refNode.properties.ariaDescribedBy = [targetId];
+        } else {
+          delete refNode.properties.ariaDescribedBy;
+        }
+
+        if (!targetId || isRepeat || !content) return;
         seen.add(targetId);
-
-        const number =
-          refNode.children && refNode.children[0] && refNode.children[0].type === 'text'
-            ? refNode.children[0].value
-            : '';
-
-        // Reuse the original footnote-definition id for the moved element,
-        // and make the reference's href point at it explicitly — the
-        // reference still NAVIGATES to a real element after the move
-        // (unlike the aria-describedby link above, which pointed at
-        // something now deleted).
-        const noteId = targetId;
-        refNode.properties.href = `#${noteId}`;
-
-        const numberSpan = {
-          type: 'element',
-          tagName: 'span',
-          properties: { className: ['sidenote-number'], ariaHidden: 'true' },
-          children: [{ type: 'text', value: number }],
-        };
 
         insertions.push({
           afterIndex: index,
@@ -258,8 +324,8 @@ export function transformSidenotes(tree) {
             // DPUB-ARIA `doc-footnote` role is more precise but has
             // thinner AT support, not worth it for a role whose only job
             // here is "stop being a landmark".
-            properties: { className: ['sidenote'], id: noteId, role: 'note' },
-            children: withLeadingNumber(numberSpan, content),
+            properties: { className: ['remarque-sidenote'], id: targetId, role: 'note' },
+            children: content,
           },
         });
       }

@@ -13,6 +13,15 @@
  * the full rationale and the audit-adoption deferral (issue #324). */
 @import "remarque-tokens/core";
 
+/* Essay Module (sidenotes + sticky TOC rail), graduated FROM this site's
+ * own implementation back into remarque-tokens (remarque#52) and adopted
+ * here in turn (issue #378) — the site's hand-rolled sidenote/TOC CSS
+ * that used to live below is deleted; `.remarque-essay`/`.remarque-prose`/
+ * `.remarque-sidenote*`/`.remarque-toc-rail` now come entirely from this
+ * import. See DESIGN-DEVIATIONS.md item 9 for the accepted rendering
+ * deltas (module dimensions, true small caps, no-JS default-open). */
+@import "remarque-tokens/essay";
+
 /* Fonts — Fraunces (display), Source Serif 4 (body), IBM Plex Mono (mono) are
  * registered via Astro 6's Fonts API in astro.config.mjs and preloaded
  * by <Font> in BaseLayout.astro. That component injects the --font-*
@@ -392,8 +401,6 @@ a:hover { color: var(--color-accent-hover); }
 .prose :where(code):not(:where(pre *)), .prose :where(pre),
 .prose :where(pre[data-title])::before,
 .prose a[href^="http"]:not([href*="williamzujkowski.github.io"])::after,
-.toc a, .toc details summary,
-.sidenote-ref, .sidenote-number,
 .related-posts h2, .related-meta,
 .series-label, .series-position, .series-current-label,
 .theme-deck,
@@ -1015,7 +1022,6 @@ article > details,
 article > section,
 article > div,
 .chip-row,
-.toc,
 .related-posts {
   max-width: var(--content-reading);
   margin-inline: auto;
@@ -1026,157 +1032,6 @@ article > div,
 .card-grid-3 {
   max-width: var(--content-reading);
   margin-inline: auto;
-}
-
-/* TOC styling is in TableOfContents.astro component */
-
-/* ===== Sticky TOC side rail (issue #274 item 4) ===========================
- * Progressive enhancement: below 1280px the TOC stays exactly as it always
- * was — an inline collapsible <details> in the normal reading-column flow,
- * governed entirely by the centering rule above and TableOfContents.astro's
- * own styles. Nothing in this block runs under that breakpoint.
- *
- * At >=1280px there's enough side space (72rem body - 40rem reading column
- * = 16rem gutter per side) for a slim always-open rail. `article` becomes a
- * 3-column grid — gutter / reading column / gutter — sized so the center
- * track is IDENTICAL to the plain `max-width: content-reading; margin-inline:
- * auto` centering used everywhere else (same visual column, just grid
- * instead of block flow). Every direct child keeps that center column;
- * only `.toc` moves into the right gutter and pins itself there with
- * `position: sticky`, spanning the full article height (`grid-row: 1 / span 99`)
- * so it has room to stick against while the reading column scrolls past.
- *
- * Investigated-and-ruled-out: this site's longest posts render >16384px
- * tall, and this project's headless/software-rendered test Chromium (no
- * GPU — see `--enable-unsafe-swiftshader` in its launch flags) corrupts
- * full-page screenshots past that exact line (a classic 2^14 texture-size
- * ceiling) — the tail of the page comes back blank white. A `position:
- * fixed` + IntersectionObserver rewrite was tried to sidestep it, but the
- * SAME corruption reproduced at the SAME byte-exact line on the
- * PRE-EXISTING baseline too — i.e. before this file touched `.toc` at
- * all. It's a raw "page taller than 16384px" limit of this sandbox's
- * software rasterizer, unrelated to sticky/fixed/grid choices, already
- * present on `main`, and invisible to real visitors (production Chrome
- * tiles large layers on real GPUs instead of failing). Reverted to the
- * architecturally simpler `position: sticky` — no JS-managed visibility
- * needed, and the alternative didn't fix anything real.
- */
-@media (min-width: 1280px) {
-  /* Scoped to article.post-article (PostLayout.astro's wrapper) —
-     NEVER a bare `article` selector, which would also hit the unrelated
-     `<article class="post-card">` / `<article class="lead|entry">`
-     preview cards (PostCard.astro, BroadsheetEntry.astro) used on the
-     homepage, /posts/, tag pages, and 404's "Recent Posts" — those have
-     their own grid/block layouts that this rule must never touch. */
-  article.post-article {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, var(--content-reading)) minmax(12rem, 14rem);
-    column-gap: var(--space-6);
-  }
-  article.post-article > nav,
-  article.post-article > header,
-  article.post-article > footer,
-  article.post-article > section,
-  article.post-article > div {
-    grid-column: 2;
-    max-width: none; /* the grid track itself is already content-reading wide */
-    margin-inline: 0;
-  }
-  article.post-article > nav.toc {
-    grid-column: 3;
-    /* Span every content row. `1 / -1` fails here: with no explicit
-       grid-template-rows, `-1` resolves to line 1, so the TOC would occupy
-       only row 1 and inflate it to its own height — shoving the post header
-       down and leaving a large gap. A generous span covers any post's block
-       count while empty implicit rows stay 0-height. */
-    grid-row: 1 / span 99;
-    align-self: start;
-    justify-self: start;
-    position: sticky;
-    top: var(--space-6);
-    width: 100%;
-    max-width: 14rem;
-    max-height: calc(100vh - var(--space-8));
-    overflow-y: auto;
-  }
-}
-
-/* ===== Sidenotes (Tufte/gwern-style, issue #272) =====
- * `src/lib/rehype-sidenotes.mjs` moves each GFM footnote's content into an
- * `<aside class="sidenote">` right after the paragraph that cites it, in
- * real DOM order (a11y requirement — screen readers hit the note where the
- * citation happens, not in a detour to an end-of-document section). This
- * block is purely presentational on top of that DOM shape; the plugin does
- * the structural work. `<aside>`, not `<small>`: footnote content can be
- * arbitrary flow content (multiple paragraphs, lists), and `<small>`'s
- * HTML5 content model is phrasing-only — see the plugin's own comment for
- * the full rationale.
- *
- * Narrow-viewport / no-rail-room fallback: a small-print block right in the
- * text flow, exactly where the plugin put it — this doubles as the "narrow
- * viewport" rendering the spec calls for with zero extra markup and no JS.
- * Chosen over duplicating a footnotes-section rendering because that would
- * mean shipping two DOM copies (one for CSS to hide/show per breakpoint) —
- * more markup, a hydration-less way to keep them in sync, and no real
- * benefit over "the note just isn't floated yet" at this width. */
-.prose aside.sidenote {
-  display: block;
-  margin-block: var(--space-3);
-  padding-inline-start: var(--space-3);
-  border-inline-start: 2px solid var(--color-border-bold);
-  font-size: var(--text-meta);
-  line-height: var(--leading-meta);
-  color: var(--color-fg-muted);
-}
-/* Inner paragraphs (the plugin nests <p> as-is, unlike the old flattened
-   <small> design) shouldn't carry the global `p { margin-block }` rhythm —
-   that's tuned for the main reading column, not a compact margin note. */
-.prose aside.sidenote :where(p) {
-  margin: 0;
-}
-
-.sidenote-number {
-  color: var(--color-accent);
-  font-size: var(--text-micro);
-  margin-inline-end: 0.25em;
-}
-
-/* Inline reference marker in the prose — accent-colored (mono voice comes
-   from the shared `.sidenote-ref` entry in the "Voice: machine" list
-   above) so it visually pairs with `.sidenote-number` in the margin note. */
-a.sidenote-ref {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-a.sidenote-ref:hover { text-decoration: underline; }
-
-@media (min-width: 1280px) {
-  /* Float into the LEFT rail of `.post-article`'s 3-col grid (TOC owns the
-     right rail — column 3, see the grid rule above). Column 1 is
-     `minmax(0, 1fr)` — flexible in the grid spec, but `body`'s own
-     `max-width: var(--content-standard)` (72rem) caps how wide the overall
-     row gets once content-reading + the TOC rail are subtracted, so this
-     track settles at ~14rem (224px) on every viewport wide enough to hit
-     this breakpoint, not just exactly at 1280px — verified against the
-     grid math in the comment above `article.post-article`.
-     `.sidenote` isn't a grid child itself (it's nested inside `.prose`,
-     which IS grid-column 2) — so grid-column placement doesn't apply to it
-     directly. Instead this uses the classic Tufte CSS technique: float
-     left with a negative inline-start margin exactly wide enough to pull
-     the element out of `.prose`'s box and into the grid's left rail.
-     `clear: left` stacks consecutive notes without JS-computed offsets. */
-  .prose aside.sidenote {
-    float: left;
-    clear: left;
-    width: 11.5rem;
-    margin-inline-start: -13rem;
-    margin-block: 0.2rem var(--space-4);
-    padding-inline-start: 0;
-    padding-inline-end: var(--space-2);
-    border-inline-start: none;
-    border-inline-end: 1px solid var(--color-border);
-    text-align: start;
-  }
 }
 
 /* Related posts section — centered */
