@@ -279,73 +279,73 @@
     },
     {
       "file": "src/styles/global.css",
-      "line": 649,
+      "line": 585,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     },
     {
       "file": "src/styles/global.css",
-      "line": 735,
+      "line": 671,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     },
     {
       "file": "src/styles/global.css",
-      "line": 997,
+      "line": 899,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1068,
+      "line": 970,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1178,
+      "line": 1077,
       "category": "statically unverifiable font-size (clamp/%)",
       "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1234,
+      "line": 1133,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1251,
+      "line": 1150,
       "category": "statically unverifiable font-size (clamp/%)",
       "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1290,
+      "line": 1189,
       "category": "statically unverifiable font-size (clamp/%)",
       "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1364,
+      "line": 1263,
       "category": "statically unverifiable font-size (clamp/%)",
       "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1381,
+      "line": 1280,
       "category": "statically unverifiable font-size (clamp/%)",
       "reason": "Intentional fluid clamp() sizing on one-off display/hero elements (masthead/lead/entry titles, byline), ratified under issue #274 (\"Phosphor broadsheet\"). Outside the standard --text-* scale by design; all clamp() minimums are well above the 13px floor."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1511,
+      "line": 1410,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     },
     {
       "file": "src/styles/global.css",
-      "line": 1560,
+      "line": 1459,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     },
@@ -1293,7 +1293,7 @@
     },
     {
       "file": "src/styles/zine.css",
-      "line": 137,
+      "line": 125,
       "category": "hardcoded hex/rgb/hsl color",
       "reason": "False positive: a GitHub issue-number reference in a comment (e.g. \"#274\") matches the audit's hex-color regex, which — unlike its --palette parser — does not strip comments before scanning --src files."
     }
