@@ -131,7 +131,7 @@ But here's what I learned the hard way: the user experience is terrible. I tried
 
 ## Decentralized Finance: Beyond the Hype
 
-DeFi gets attention for cryptocurrency speculation, but some traditional financial institutions are using blockchain in practical ways. JPMorgan's Onyx platform processes wholesale payments and has reportedly handled over $1 trillion in transactions according to [their 2023 report](https://www.jpmorgan.com/solutions/treasury-payments/insights/blockchain). That's real money moving through blockchain rails.
+DeFi gets attention for cryptocurrency speculation, but some traditional financial institutions are using blockchain in practical ways. JPMorgan's Onyx platform processes wholesale payments and has reportedly handled over $1 trillion in transactions according to [their 2023 report](https://www.jpmorgan.com/kinexys/index). That's real money moving through blockchain rails.
 
 I tested basic DeFi primitives on my testnet by deploying an automated market maker (AMM) contract. A simple token swap consumed 0.0035 ETH in gas (about $5.95), which seems expensive for what a centralized exchange does for nearly free. The transparency is nice, but I'm not convinced the cost-benefit works out for everyday transactions.
 
@@ -282,7 +282,7 @@ Whether it becomes truly foundational infrastructure or remains a specialized to
    - *USENIX Security Symposium*
    - Security analysis of blockchain voting systems
 
-6. **[JPMorgan Onyx Blockchain Platform](https://www.jpmorgan.com/solutions/treasury-payments/insights/blockchain)** (2023)
+6. **[JPMorgan Onyx Blockchain Platform](https://www.jpmorgan.com/kinexys/index)** (2023)
    - JPMorgan Chase & Co.
    - $1 trillion transaction volume reporting
 

@@ -427,9 +427,9 @@ Zero Trust is a journey. Start with current posture assessment, identify high-im
 
 ## Sources
 
-1. **[Executive Order 14028: Improving the Nation's Cybersecurity](https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/)** - White House, May 2021. Presidential mandate requiring federal agencies to advance toward Zero Trust Architecture, establishing 2024 implementation deadline and comprehensive security baseline requirements.
+1. **[Executive Order 14028: Improving the Nation's Cybersecurity](https://web.archive.org/web/20250120163602/https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/)** - White House, May 2021. Presidential mandate requiring federal agencies to advance toward Zero Trust Architecture, establishing 2024 implementation deadline and comprehensive security baseline requirements.
 
-2. **[Forrester Research - Zero Trust eXtended (ZTX) Ecosystem](https://www.forrester.com/what-it-means/zero-trust-edge/)** - Forrester, 2023. Industry analysis showing 63% enterprise adoption rates and Zero Trust market trends.
+2. **[Forrester Research - Zero Trust eXtended (ZTX) Ecosystem](https://www.forrester.com/report/the-zero-trust-extended-ztx-ecosystem/RES137210)** - Forrester, 2023. Industry analysis showing 63% enterprise adoption rates and Zero Trust market trends.
 
 3. **[NIST Special Publication 800-207: Zero Trust Architecture](https://csrc.nist.gov/publications/detail/sp/800-207/final)** - National Institute of Standards and Technology, August 2020. Authoritative technical specification defining Zero Trust principles, architecture components, and implementation patterns.
 

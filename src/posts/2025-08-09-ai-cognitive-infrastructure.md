@@ -74,7 +74,7 @@ The AI infrastructure market is exploding from [$47.23 billion in 2024 to a proj
 **Current deployment across critical sectors:**
 
 - **Healthcare**: [Clinical Decision Support Systems](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8075456/) augment physician decisions in hospitals worldwide, though [96% of AI-generated alerts are ignored due to alert fatigue](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/)
-- **Education**: [59% of students show improved performance and 36% show better engagement](https://doi.org/10.1007/s10639-024-12456-4) with AI tutoring systems (systematic review of 85 studies)
+- **Education**: AI tutoring systems show mixed-to-positive effects on student performance and engagement in early research
 - **Government**: [87% of surveyed cities are planning or piloting generative AI initiatives](https://www.worldbank.org/en/programs/govtech/gtmi), with experts predicting AI as the primary government service interface by 2030
 - **Search**: AI processes 30% of internet searches, determining what billions of people discover and learn
 - **Development**: AI writes 40% of production code, reshaping how software is created
@@ -267,7 +267,7 @@ The answer depends on the choices we make now, while we still have the cognitive
    - Market growth projections and analysis
    - *MarketsAndMarkets Research*
 
-5. **[IDC: AI Infrastructure Spending to Surpass $200Bn](https://www.idc.com/getdoc.jsp?containerId=prUS52195024)** (2024)
+5. **[IDC: AI Infrastructure Spending to Surpass $200Bn](https://my.idc.com/getdoc.jsp?containerId=prUS52758624)** (2024)
    - Investment trends and geographic distribution
    - *IDC Worldwide AI Infrastructure Tracker*
 
@@ -280,12 +280,6 @@ The answer depends on the choices we make now, while we still have the cognitive
 7. **[Alert Fatigue in Electronic Health Records](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647168/)** (2023)
    - Analysis of the 96% alert override rate
    - *Applied Clinical Informatics*
-
-### Education Technology
-
-8. **[AI in Education: A Systematic Review](https://doi.org/10.1007/s10639-024-12456-4)** (2024)
-   - Analysis of 85 studies on AI educational impact
-   - *Education and Information Technologies*
 
 ### Government & Policy
 
