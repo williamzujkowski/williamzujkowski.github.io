@@ -5,7 +5,7 @@
  * See: https://github.com/williamzujkowski/remarque
  */
 
-/* consumes remarque-tokens v0.3.0 (core tier) + local palette layer.
+/* consumes remarque-tokens v0.15.0 (core tier) + local palette layer.
  * Core tier (type scale, rhythm, spacing, content-standard/wide, radius,
  * motion, base resets, prose/typography machinery) is imported below;
  * this file keeps only the PALETTE tier (fonts, colors, --content-reading)
@@ -78,6 +78,25 @@
   --color-overlay: oklch(0 0 0 / 0.5);        /* modal backdrop scrim */
   --color-shadow: oklch(0 0 0 / 0.5);         /* drop-shadow color */
 
+  /* ─── Palette tier: syntax highlighting (remarque-tokens 0.15.0, REMARQUE.md
+   * "Syntax Highlighting") ─── these 9 slots are copied verbatim from
+   * remarque-tokens' own default light palette (tokens-palette.css) rather
+   * than re-derived from this site's accent hue: they're ANSI-derived and
+   * targeted at --color-code-bg specifically (not the accent), so a quiet,
+   * hue-spread syntax ramp is the intended look regardless of a site's own
+   * accent color. Each slot is verified ≥ 4.5:1 against THIS site's own
+   * --color-code-bg by `pnpm audit:remarque` (remarque-audit@0.15.0 added a
+   * CONTRAST check for all 9 slots) — not just trusted from upstream. */
+  --color-syntax-keyword: oklch(0.51 0.12 250);
+  --color-syntax-string: oklch(0.49 0.12 145);    /* solved: upstream default (L 0.50) is 4.49:1 against THIS site's code-bg (0.92 vs upstream's 0.945) — darkened to 0.49 for 4.69:1 */
+  --color-syntax-constant: oklch(0.51 0.105 85);
+  --color-syntax-comment: oklch(0.505 0.01 80);   /* solved: upstream default (L 0.52) is 4.35:1 here — darkened to 0.505 for 4.63:1 */
+  --color-syntax-function: oklch(0.52 0.12 310);
+  --color-syntax-type: oklch(0.50 0.085 196);
+  --color-syntax-punctuation: oklch(0.505 0.01 80); /* same fix as comment (same source oklch triple) */
+  --color-syntax-variable: oklch(0.26 0.01 80);
+  --color-syntax-link: var(--color-accent);
+
   /* Semantic vars core's machinery (`.remarque-prose a`, `:focus-visible`,
    * `::selection`) consumes that this site didn't previously need, since
    * its own rules set these directly (`a { color: var(--color-accent); }`,
@@ -115,6 +134,18 @@
   --color-code-fg: oklch(0.88 0.03 140);
   --color-selection-bg: oklch(0.30 0.08 140);  /* was C 0.10 — remarque-audit flagged it out-of-sRGB-gamut (blue channel clips to -0.0007 at L 0.30/H 140/C 0.10); 0.08 is back in gamut with margin (blue +0.0036) and keeps the same hue/lightness "tinted green" look. selection-fg/selection-bg still 10.58:1, well above the 4.5:1 floor. */
 
+  /* Syntax highlighting (remarque-tokens 0.15.0) — default dark palette,
+   * see the :root block's comment above for rationale. */
+  --color-syntax-keyword: oklch(0.61 0.11 250);
+  --color-syntax-string: oklch(0.60 0.11 145);
+  --color-syntax-constant: oklch(0.61 0.11 84);
+  --color-syntax-comment: oklch(0.60 0.005 80);
+  --color-syntax-function: oklch(0.62 0.11 310);
+  --color-syntax-type: oklch(0.60 0.10 195);
+  --color-syntax-punctuation: oklch(0.60 0.005 80);
+  --color-syntax-variable: oklch(0.82 0.005 80);
+  --color-syntax-link: var(--color-accent);
+
   /* Core-consumed semantic vars (see the base :root block's comment) */
   --color-link: var(--color-accent);
   --color-link-hover: var(--color-accent-hover);
@@ -139,6 +170,17 @@
     --color-code-bg: oklch(0.17 0.015 140);
     --color-code-fg: oklch(0.88 0.03 140);
     --color-selection-bg: oklch(0.30 0.08 140);  /* keep in sync with :root.dark above — gamut fix, see its comment */
+
+    /* Syntax highlighting — keep in sync with :root.dark above */
+    --color-syntax-keyword: oklch(0.61 0.11 250);
+    --color-syntax-string: oklch(0.60 0.11 145);
+    --color-syntax-constant: oklch(0.61 0.11 84);
+    --color-syntax-comment: oklch(0.60 0.005 80);
+    --color-syntax-function: oklch(0.62 0.11 310);
+    --color-syntax-type: oklch(0.60 0.10 195);
+    --color-syntax-punctuation: oklch(0.60 0.005 80);
+    --color-syntax-variable: oklch(0.82 0.005 80);
+    --color-syntax-link: var(--color-accent);
 
     /* Core-consumed semantic vars (see the base :root block's comment) */
     --color-link: var(--color-accent);
@@ -723,16 +765,41 @@ article .prose > p:first-of-type::first-letter {
   font-feature-settings: "liga" 1, "calt" 1, "dlig" 1;
 }
 
-/* Shiki dual-theme dark mode swap */
-@media (prefers-color-scheme: dark) {
-  .astro-code, .astro-code span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-  }
-}
-:root.dark .astro-code, :root.dark .astro-code span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
+/* Shiki syntax highlighting — Remarque CSS-variables bridge
+ * (remarque-tokens 0.15.0, REMARQUE.md "Syntax Highlighting" / "Astro /
+ * Shiki wiring"). astro.config.mjs passes `createCssVariablesTheme({
+ * variablePrefix: '--color-syntax-' })` as a single theme object, so Shiki
+ * bakes `color: var(--color-syntax-token-keyword)` etc. into every span —
+ * NOT `var(--color-syntax-keyword)` (variablePrefix is a plain string
+ * prepend, not a rename: Shiki's own internal slot names already start
+ * with `token-`). Left unbridged, every span would resolve to nothing and
+ * silently inherit its parent color — highlighting would look missing, not
+ * broken, with no build error. This block is REQUIRED, not optional; it
+ * replaces the previous Shiki dual-theme (`themes: {light, dark}` +
+ * `--shiki-dark`/`--shiki-dark-bg` !important overrides) approach, which
+ * baked vendor `github-light`/`github-dark` colors per span instead of
+ * this site's own token palette and couldn't repaint under the .dark
+ * class without !important fights. Scoped to `.astro-code` (the class
+ * Astro's Shiki integration puts on the <pre>) so these Shiki-internal
+ * variable names don't leak into the page's global custom-property
+ * namespace. No light/dark branching needed here: --color-syntax-* is
+ * already themed per :root / :root.dark / the system-preference media
+ * block above, so this bridge is identical in both themes — the swap
+ * happens upstream of it. */
+.astro-code {
+  --color-syntax-foreground: var(--color-code-fg);
+  --color-syntax-background: var(--color-code-bg);
+  --color-syntax-token-keyword: var(--color-syntax-keyword);
+  --color-syntax-token-string: var(--color-syntax-string);
+  --color-syntax-token-string-expression: var(--color-syntax-string);
+  --color-syntax-token-constant: var(--color-syntax-constant);
+  --color-syntax-token-comment: var(--color-syntax-comment);
+  --color-syntax-token-function: var(--color-syntax-function);
+  --color-syntax-token-parameter: var(--color-syntax-variable);
+  --color-syntax-token-punctuation: var(--color-syntax-punctuation);
+  --color-syntax-token-link: var(--color-syntax-link);
+  /* token-inserted/-deleted/-changed intentionally left undefined — diff
+     markers, out of scope; they fall back to inherited foreground. */
 }
 
 /* Mermaid Diagrams */

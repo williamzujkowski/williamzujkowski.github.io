@@ -241,6 +241,50 @@ explicit `background-color: transparent;` — background-color's own
 initial value — to restore exactly the pre-migration appearance. See the
 inline comment in `global.css` for the full reasoning.
 
+## 8. Syntax-highlighting palette (remarque-tokens 0.15.0)
+
+Bumped `remarque-tokens` from 0.8.0 → 0.15.0 (issue: this migration) and
+adopted the "Syntax Highlighting" section of `REMARQUE.md`: `astro.config.mjs`
+now passes Shiki's `createCssVariablesTheme({ variablePrefix:
+'--color-syntax-' })` as a single theme object (replacing the previous
+`themes: { light: 'github-light', dark: 'github-dark' }` dual-theme vendor
+config), and `global.css` adds the required `.astro-code` CSS bridge plus
+the 9 `--color-syntax-*` palette-tier slots to all three palette blocks
+(`:root`, `:root.dark`, the `@media (prefers-color-scheme: dark) :root:not(.light)`
+block).
+
+The 9 slots are copied from remarque-tokens' own default palette (ANSI-derived,
+targeted at `--color-code-bg`, not this site's accent hue) rather than
+re-derived from Palette B's green/ferric-red accent — per REMARQUE.md, a quiet
+hue-spread syntax ramp is the intended look regardless of a site's own accent.
+All 9 are audit-verified (`pnpm audit:remarque`) ≥ 4.5:1 against this site's
+own `--color-code-bg` in both themes, not just trusted from upstream.
+
+Three light-theme slots needed solving (upstream defaults are tuned against
+remarque's own lighter `--color-code-bg`, `oklch(0.945 0.005 80)`; this site's
+is `oklch(0.92 0.015 75)`, slightly darker):
+
+| Slot | Upstream default | This site | Rationale |
+|---|---|---|---|
+| `--color-syntax-string` | `oklch(0.50 0.12 145)` (4.49:1 here) | `oklch(0.49 0.12 145)` (4.69:1) | Darkened to clear 4.5:1 against this site's code-bg |
+| `--color-syntax-comment` | `oklch(0.52 0.01 80)` (4.35:1 here) | `oklch(0.505 0.01 80)` (4.63:1) | Same fix |
+| `--color-syntax-punctuation` | `oklch(0.52 0.01 80)` (4.35:1 here) | `oklch(0.505 0.01 80)` (4.63:1) | Same source triple as comment, same fix |
+
+All other 6 slots (`keyword`, `constant`, `function`, `type`, `variable`,
+`link`) match the upstream default byte-for-byte in both themes and clear
+4.5:1 unmodified. `node node_modules/remarque-tokens/scripts/drift-check.mjs`
+correctly classifies all 3 solved values as palette-tier INFO (sanctioned
+personalization), never FAIL.
+
+Not extended to `theme-deck.css`'s 12 terminal palettes in this migration —
+each deck defines its own `--color-code-bg`/`--color-code-fg` but none
+currently overrides `--color-syntax-*`, so highlighted code under an active
+theme-deck renders with this section's base-palette syntax colors (verified
+non-broken, just not deck-tuned/contrast-audited per-deck). Tracked as a
+follow-up, not a regression: `remarque-audit`'s CONTRAST check only ever ran
+against the `--palette` file (`global.css`), not `theme-deck.css`, before this
+change either.
+
 ## References
 
 - Issue #324 (this migration)
