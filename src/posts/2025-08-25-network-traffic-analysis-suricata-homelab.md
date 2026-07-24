@@ -12,10 +12,9 @@ tags:
 ---
 ## The Invisible Threat
 
+Last year, something in my house started making DNS queries at 3 AM — hundreds of them, to domains that had no business being in my logs. An IoT device was beaconing home to its manufacturer with telemetry I'd never agreed to, and I only found out because I happened to be watching. Most home networks aren't watching.
 
-Last year, I noticed unusual DNS queries from my homelab network. Hundreds of requests to obscure domains at 3 AM. Without network monitoring, I would never have caught the IoT device beaconing home to its manufacturer with telemetry data I didn't authorize.
-
-That incident convinced me: you can't protect what you can't see. If you're [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure), network traffic analysis with Suricata should be a core component of your monitoring strategy.
+That's the case for Suricata in one line: you can't protect what you can't see. If you're [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure), network traffic analysis with Suricata should be a core component of your monitoring strategy, not a nice-to-have.
 
 ## Network Traffic Analysis Architecture
 
@@ -75,7 +74,7 @@ flowchart TB
     class Kibana infoStyle
 ```
 
-Building my network traffic analysis lab with Suricata transformed my homelab from a black box into a transparent, monitored environment. Here's how I did it.
+Building my network traffic analysis lab with Suricata turned my homelab from a black box into something that actually admits what it's been doing at 3 AM. Here's how I did it.
 
 ## Hardware Setup
 
@@ -129,7 +128,7 @@ action protocol source_ip source_port -> dest_ip dest_port (rule options)
 
 ### Custom Detection Rules
 
-One particularly valuable use case is detecting suspicious IoT device behavior. After working through [lessons from OWASP IoTGoat on IoT security](/posts/2025-09-20-iot-security-homelab-owasp), I developed custom rules to catch the most common IoT attack patterns:
+One particularly valuable use case is detecting suspicious IoT device behavior — the kind that got this whole project started. After working through [lessons from OWASP IoTGoat on IoT security](/posts/2025-09-20-iot-security-homelab-owasp), I developed custom rules to catch the most common IoT attack patterns:
 
 <script src="https://gist.github.com/williamzujkowski/fdd48db6a837ca02c00c79f7c4fd6cde.js"></script>
 

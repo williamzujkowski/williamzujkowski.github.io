@@ -9,7 +9,7 @@ post_type: tutorial
 
 # NodeShield: Runtime SBOM Enforcement Stops 98% of Supply Chain Attacks
 
-SolarWinds compromised 18,000 organizations through a single malicious dependency update in 2020. Four years later, npm still sees 1,000+ malicious packages monthly. Static SBOMs don't prevent this.
+SolarWinds compromised 18,000 organizations through a single malicious dependency update in 2020. Four years later, npm still sees 1,000+ malicious packages monthly. Static SBOMs don't prevent this — they just document, in exhaustive detail, exactly who you trusted right before they burned you.
 
 I tested NodeShield, a runtime SBOM enforcement system, in my Docker homelab. It blocked 98.3% of supply chain attacks with <1ms overhead.
 
@@ -96,7 +96,7 @@ syft scan dir:./my-api -o cyclonedx-json > sbom.json
 
 **Result:** 312 components listed in 0.8 seconds.
 
-**Problem:** SBOM lists `axios` (HTTP client) but doesn't specify what URLs it can access. Next step fills the gap.
+**Problem:** SBOM lists `axios` (HTTP client) but doesn't specify what URLs it can access. Knowing a dependency is installed and knowing what it's allowed to do turn out to be very different kinds of knowing. Next step fills the gap.
 
 ### Step 2: CBOM Policy Generation
 
@@ -120,7 +120,7 @@ capabilities:
 inferred_risk: MEDIUM     # Network access flagged
 ```
 
-I reviewed all 312 CBOM entries. Took 2.1 hours. Most modules needed zero changes. High-risk modules (network, exec, filesystem) required manual tightening.
+I reviewed all 312 CBOM entries. Took 2.1 hours — reading other people's dependency code and hoping for the best, which is most of what security review actually is. Most modules needed zero changes. High-risk modules (network, exec, filesystem) required manual tightening.
 
 **Manual policy for production API:**
 
