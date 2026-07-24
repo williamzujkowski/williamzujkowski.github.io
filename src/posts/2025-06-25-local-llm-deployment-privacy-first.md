@@ -11,7 +11,7 @@ tags:
   - security
   - tutorial
 ---
-I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely offline. Zero cloud dependencies, zero data leakage, zero monthly fees. For larger 70B models, I use CPU offloading (slower but functional). This guide shows you how I built a privacy-first LLM deployment that matches cloud AI performance without the surveillance.
+I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely offline — nothing leaves the box, nothing shows up on a bill. For larger 70B models, I use CPU offloading, which works in the sense that a car on two flat tires still gets you there. This guide shows you how I built a privacy-first LLM deployment that matches cloud AI performance without the surveillance.
 
 
 
@@ -82,7 +82,7 @@ Let me be honest about why I went local:
 
 ## The Hardware Reality Check
 
-My first deployment crashed spectacularly. My 2019 gaming rig wasn't up to the task.
+My first deployment crashed spectacularly, in the specific way a 2019 gaming rig crashes when you hand it a 2024 workload and no warning.
 
 ### What You Actually Need
 
