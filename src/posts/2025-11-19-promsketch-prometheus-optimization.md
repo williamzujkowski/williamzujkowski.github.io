@@ -9,7 +9,7 @@ post_type: tutorial
 
 # PromSketch: 2-100x Faster Prometheus Queries with Sketch Algorithms
 
-PromQL queries timeout on high-cardinality metrics. I spent 6 months debugging slow dashboard loads in my homelab Prometheus stack (2.8 million time series). PromSketch cut P99 percentile query time from 12.3 seconds to 180ms using sketch-based approximation.
+PromQL queries timeout on high-cardinality metrics, and mine had gotten to the point where the dashboard took longer to load than the incident it was supposed to help me diagnose. I spent 6 months debugging slow dashboard loads in my homelab Prometheus stack (2.8 million time series, all of them apparently offended by being asked for a percentile). PromSketch cut P99 percentile query time from 12.3 seconds to 180ms using sketch-based approximation.
 
 Here's how to deploy it and benchmark the speedup.
 
@@ -185,7 +185,7 @@ Sketches consume less memory than raw time series:
 
 - **Problem:** First query after restart takes 8-12s (builds sketch from Prometheus)
 - **Mitigation:** Pre-warm cache on startup (background job scans last 24h)
-- **Impact:** Dashboard loads slow for ~2 minutes after PromSketch restart
+- **Impact:** Dashboard loads slow for ~2 minutes after PromSketch restart — a brief, humbling return to the world you were trying to leave
 
 **Challenge 3: Custom aggregations**
 

@@ -14,8 +14,7 @@ tags:
 ---
 ## The Problem: Security Doesn't Scale Without Automation
 
-
-
+My process used to be: check the router admin page when I remembered to, glance at the Pi-hole dashboard once a week, and otherwise assume nothing had gone wrong since the last look. That held up fine, right up until an unrecognized device sat quietly on the LAN for who knows how long before I noticed. With 25+ connected devices and a family that does not share my threat model, "I'll check on it later" stopped being a security posture.
 
 
 ## Requirements

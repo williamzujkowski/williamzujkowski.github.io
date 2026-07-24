@@ -9,7 +9,7 @@ post_type: tutorial
 
 # Docker Runtime Security Hardening with Linux Security Modules
 
-Container escapes happen. CVE-2025-52881 (disclosed 2025) bypasses AppArmor and SELinux via procfs writes, enabling full host compromise. I hardened 23 Docker containers in my homelab using layered LSM security: AppArmor profiles + seccomp filters + capability dropping + read-only root filesystems. Zero successful escapes in 6 months of red team testing.
+Container escapes happen, usually to whoever assumed namespaces were the whole security model. CVE-2025-52881 (disclosed 2025) bypasses AppArmor and SELinux via procfs writes, enabling full host compromise — the kind of finding that turns "we run everything in containers" into an aspiration rather than a control. I hardened 23 Docker containers in my homelab using layered LSM security: AppArmor profiles + seccomp filters + capability dropping + read-only root filesystems. Zero successful escapes in 6 months of red team testing.
 
 Here's how to lock down Docker without orchestration complexity.
 
@@ -467,7 +467,7 @@ I ran 6 months of simulated attacks against hardened vs unhardened containers. H
 - **Unhardened Docker:** 11/11 attacks succeeded (100% compromise rate)
 - **Hardened Docker:** 0/11 attacks succeeded (0% compromise rate, 100% blocked)
 
-**Time to detection:** Hardened containers generated AppArmor/seccomp violation logs instantly. Unhardened containers showed no anomalies until full compromise.
+**Time to detection:** Hardened containers generated AppArmor/seccomp violation logs instantly. Unhardened containers showed no anomalies until full compromise — the quiet ones were the ones that should have worried me.
 
 ```mermaid
 sequenceDiagram
