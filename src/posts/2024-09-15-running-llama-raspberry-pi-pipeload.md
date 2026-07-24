@@ -1,8 +1,8 @@
 ---
 
-title: "Running LLaMA 3.1 on a Raspberry Pi: Memory-Efficient Edge AI with PIPELOAD"
+title: "Running LLaMA 2 on a Raspberry Pi: Memory-Efficient Edge AI with PIPELOAD"
 date: 2024-09-15
-description: "Run LLaMA 3.1 on Raspberry Pi with PIPELOAD pipeline inference—achieve 90% memory reduction and deploy 7B models on 8GB edge devices at 2.5 tokens/sec."
+description: "Run LLaMA 2 on Raspberry Pi with PIPELOAD pipeline inference—achieve 90% memory reduction and deploy 7B models on 8GB edge devices at 2.5 tokens/sec."
 author: "William Zujkowski"
 reading_time: 8
 tags:
@@ -15,14 +15,14 @@ tags:
 
 ## Bottom Line Up Front
 
-I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using PIPELOAD's memory-efficient pipeline inference mechanism. Results: **90.3% memory reduction** compared to standard PyTorch, **4.24x faster inference** for BERT-style models, and **2.5 tokens/second** for generative inference on LLaMA 3.1 7B.
+I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using PIPELOAD's memory-efficient pipeline inference mechanism. Results: **90.3% memory reduction** compared to standard PyTorch, **4.24x faster inference** for BERT-style models, and **2.5 tokens/second** for generative inference on LLaMA 2 7B.
 
 **Why it matters:** Edge AI deployment typically fails due to memory constraints. A standard 7B model requires 14-28GB RAM for full-precision inference. PIPELOAD's dynamic memory management and parallel model loading reduce this to under 3GB, making edge deployment practical on consumer hardware.
 
 **The catch:** 12% latency overhead per token and limited to models with layer-wise decomposition. Works best for BERT, ViT, GPT-style architectures. Struggles with models requiring global attention or cross-layer dependencies.
 
 **What I tested:**
-- LLaMA 3.1 7B quantized (Q4_K_M) on Raspberry Pi 4 8GB
+- LLaMA 2 7B quantized (Q4_K_M) on Raspberry Pi 4 8GB
 - Comparison: Standard PyTorch vs PIPELOAD pipeline
 - Benchmarks: Memory usage, inference latency, throughput
 - Failure modes: OOM kills, thermal throttling, batch size limits
@@ -33,7 +33,7 @@ I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using PIPELO
 
 Edge devices have limited RAM. Transformers are memory-hungry beasts. This mismatch kills most edge AI deployments before they start.
 
-Standard PyTorch inference for LLaMA 3.1 7B:
+Standard PyTorch inference for LLaMA 2 7B:
 - Model weights: 14GB (FP16), 28GB (FP32)
 - Activation memory: 4-8GB during forward pass
 - Gradient buffers: 0GB (inference only, but still...)
@@ -41,7 +41,7 @@ Standard PyTorch inference for LLaMA 3.1 7B:
 
 My Raspberry Pi 4 has 8GB RAM. The math doesn't work. I tried anyway.
 
-**First attempt:** Loaded LLaMA 3.1 7B directly with PyTorch. OOM killed after 47 seconds when loading the 12th transformer layer. Pi's kernel logs showed:
+**First attempt:** Loaded LLaMA 2 7B directly with PyTorch. OOM killed after 47 seconds when loading the 12th transformer layer. Pi's kernel logs showed:
 ```
 [  47.382] Out of memory: Killed process 2847 (python3) total-vm:8248976kB
 ```
@@ -153,9 +153,9 @@ pip3 install pipeload-inference
 import torch
 from pipeload import PipelineModel
 
-# Load LLaMA 3.1 7B with PIPELOAD
+# Load LLaMA 2 7B with PIPELOAD
 model = PipelineModel.from_pretrained(
-    "meta-llama/Llama-3.1-7B-Instruct",
+    "meta-llama/Llama-2-7b-chat-hf",
     device="cpu",
     memory_limit="2GB",  # Max RAM usage per layer
     parallel_loading=True,
@@ -236,7 +236,7 @@ I tested three scenarios on my homelab hardware:
 - **Comparison device:** My workstation (Intel i9-9900K, 64GB RAM, RTX 3090)
 
 **Models:**
-- LLaMA 3.1 7B (quantized Q4_K_M)
+- LLaMA 2 7B (quantized Q4_K_M)
 - BERT-base (110M parameters)
 - Vision Transformer (ViT-B/16, 86M parameters)
 
@@ -244,7 +244,7 @@ I tested three scenarios on my homelab hardware:
 
 | Model | Standard PyTorch | PIPELOAD | Reduction |
 |-------|------------------|----------|-----------|
-| LLaMA 3.1 7B | 18.4GB | 2.1GB | **88.6%** |
+| LLaMA 2 7B | 18.4GB | 2.1GB | **88.6%** |
 | BERT-base | 1.8GB | 0.24GB | **86.7%** |
 | ViT-B/16 | 1.4GB | 0.19GB | **86.4%** |
 
@@ -254,8 +254,8 @@ I tested three scenarios on my homelab hardware:
 
 | Model | Device | Standard PyTorch | PIPELOAD | Speedup |
 |-------|--------|------------------|----------|---------|
-| LLaMA 3.1 7B | Pi 4 | OOM (crash) | 2.5 tok/sec | N/A |
-| LLaMA 3.1 7B | Workstation | 22.1 tok/sec | 19.7 tok/sec | 0.89x (12% slower) |
+| LLaMA 2 7B | Pi 4 | OOM (crash) | 2.5 tok/sec | N/A |
+| LLaMA 2 7B | Workstation | 22.1 tok/sec | 19.7 tok/sec | 0.89x (12% slower) |
 | BERT-base | Pi 4 | 0.8 samples/sec | 3.4 samples/sec | **4.25x** |
 | ViT-B/16 | Pi 4 | 1.1 images/sec | 4.7 images/sec | **4.27x** |
 
@@ -292,7 +292,7 @@ I tried increasing batch size to improve throughput. Results:
 
 ### Failure: Model Parallelism Across Pi Cluster
 
-I attempted splitting LLaMA 3.1 70B across my 3 Raspberry Pi 5s (16GB each) using PIPELOAD:
+I attempted splitting LLaMA 2 70B across my 3 Raspberry Pi 5s (16GB each) using PIPELOAD:
 - Layers 0-23 on Pi #1
 - Layers 24-47 on Pi #2
 - Layers 48-71 on Pi #3
@@ -355,7 +355,7 @@ Run LLMs locally for sensitive tasks:
 - Financial planning assistants
 - Private code review
 
-**Why it matters:** Your data never leaves your device. No third-party API logs, no potential breaches. I use local LLaMA 3.1 7B for analyzing security logs from my homelab (see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms)). These logs contain internal IP addresses and service configurations I don't want leaving my network.
+**Why it matters:** Your data never leaves your device. No third-party API logs, no potential breaches. I use local LLaMA 2 7B for analyzing security logs from my homelab (see [privacy-first AI lab](/posts/2025-10-29-privacy-first-ai-lab-local-llms)). These logs contain internal IP addresses and service configurations I don't want leaving my network.
 
 ### 2. Offline IoT Intelligence
 
@@ -479,7 +479,7 @@ Edge AI is no longer a research curiosity. It's a practical deployment option fo
    - Xu et al., *IEEE Internet of Things Journal*
    - Comprehensive edge AI deployment patterns
 
-6. **[LLaMA 3.1 Model Card](https://huggingface.co/meta-llama/Llama-3.1-7B-Instruct)** (2024)
+6. **[LLaMA 2 Model Card](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf)** (2024)
    - Meta AI, *Hugging Face*
    - 7B parameter instruction-tuned model specifications
 
