@@ -14,7 +14,7 @@ tags:
 ---
 ## The AI Revolution Hits Home
 
-I run Llama 3.1 70B in my [homelab](/posts/2025-04-24-building-secure-homelab-adventure) on an RTX 3090 (24GB VRAM, 4-bit quantization). Running [AI experiments](/posts/2025-06-25-local-llm-deployment-privacy-first) at home created unique security and privacy challenges I didn't anticipate. This post shares practical approaches to securing personal AI/ML deployments, learned through successes and carefully contained failures.
+I run Llama 3.1 70B in my [homelab](/posts/2025-04-24-building-secure-homelab-adventure) on an RTX 3090 (24GB VRAM, 4-bit quantization). It took me embarrassingly long to stop treating it like a chatbot and start treating it like what it actually is: a process with network access, disk access, and occasionally opinions about running arbitrary code. Running [AI experiments](/posts/2025-06-25-local-llm-deployment-privacy-first) at home created unique security and privacy challenges I didn't anticipate. This post shares practical approaches to securing personal AI/ML deployments, learned through successes and carefully contained failures.
 
 **Key takeaway:** Model isolation, [network segmentation](/posts/2025-09-08-zero-trust-vlan-segmentation-homelab), and privacy controls turn experimental AI systems into production-safe infrastructure.
 
@@ -57,7 +57,7 @@ Five critical risks demand attention:
 
 My first rule: AI experiments run in isolation.
 
-This approach adds operational complexity, trading convenience for security. But isolation prevents one compromised experiment from cascading across your network.
+This approach adds operational complexity, trading convenience for security. But isolation prevents one compromised experiment from cascading across your network — and a compromised experiment with 24GB of VRAM and no rate limit is not something you want loose.
 
 <script src="https://gist.github.com/williamzujkowski/d8ad8f2e7cb5431e0def2c94283d4ce5.js"></script>
 
@@ -116,7 +116,7 @@ When kids want to experiment with AI, additional safeguards are needed:
 Begin with small experiments in completely isolated environments.
 Scale up only after understanding security implications.
 
-Perfect isolation isn't always practical. I've made compromises when connectivity was needed for model downloads or API calls.
+Perfect isolation isn't always practical — a model that can't download itself or call out for updates is a decorative object, not a deployment. I've made compromises when connectivity was needed for model downloads or API calls.
 
 ### 2. Monitor Everything
 

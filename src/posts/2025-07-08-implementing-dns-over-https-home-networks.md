@@ -13,7 +13,7 @@ tags:
 ---
 ## The ISP Letter That Started Everything
 
-A few years back, I became aware that many ISPs monetize DNS query data for targeted advertising. This privacy concern motivated me to research DNS-over-HTTPS implementations.
+A few years back, my ISP sent a notice that read like an olive branch: they'd started "enhancing" my browsing experience by analyzing my DNS queries for more relevant ads. Translation: every domain I'd ever looked up was a line item in someone's targeting model. That letter is the reason this post exists — it's what sent me down the DNS-over-HTTPS rabbit hole.
 
 After implementing DoH on my personal home network, I've achieved complete DNS privacy. The ISP only sees encrypted HTTPS traffic, protecting browsing patterns from commercial exploitation.
 
@@ -174,7 +174,7 @@ See the log parsing script in the monitoring tools gist above.
 
 ### 1. DoH Provider Selection
 
-Not all DoH providers are equal. Based on my research and testing, here are the key factors to consider:
+Not all DoH providers are equal, despite every one of them insisting otherwise in their marketing copy. Based on my research and testing, here are the key factors to consider:
 
 **Pseudocode - Simplified Provider Comparison:**
 ```yaml
