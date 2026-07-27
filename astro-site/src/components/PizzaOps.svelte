@@ -365,7 +365,7 @@
   .po-appname { font-weight: 600; letter-spacing: 0.02em; }
   .po-health {
     margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem;
-    font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.04em;
+    font-size: 0.8125rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.04em;
   }
   .po-health .po-dot {
     width: 0.5rem; height: 0.5rem; border-radius: 50%;
@@ -395,7 +395,7 @@
   }
 
   .po-h {
-    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.12em;
     color: var(--color-muted); margin: 0 0 0.9rem; font-weight: 600;
   }
   .po-h--strip { margin-bottom: 0.6rem; }
@@ -403,15 +403,15 @@
   .po-field { margin-bottom: 1rem; }
   .po-field label, .po-label {
     display: flex; align-items: center; gap: 0.4rem;
-    font-size: 0.78rem; color: var(--color-fg-muted); margin-bottom: 0.4rem;
+    font-size: 0.8125rem; color: var(--color-fg-muted); margin-bottom: 0.4rem;
   }
   .po-val { margin-left: auto; color: var(--color-accent); font-weight: 600; }
 
   .po-help {
     display: inline-grid; place-items: center;
-    width: 1.05rem; height: 1.05rem; border-radius: 50%;
+    width: 1.25rem; height: 1.25rem; border-radius: 50%;
     border: 1px solid var(--color-border-bold); color: var(--color-muted);
-    font-size: 0.62rem; cursor: help; user-select: none;
+    font-size: 0.8125rem; cursor: help; user-select: none; flex: none;
   }
 
   .po-stepper { display: flex; align-items: stretch; }
@@ -436,7 +436,7 @@
 
   .po-seg { display: flex; gap: 0; }
   .po-seg button {
-    flex: 1; padding: 0.45rem 0.3rem; font-family: inherit; font-size: 0.75rem;
+    flex: 1; padding: 0.45rem 0.3rem; font-family: inherit; font-size: 0.8125rem;
     border: 1px solid var(--color-border-bold); background: var(--color-surface);
     color: var(--color-fg-muted); cursor: pointer;
   }
@@ -462,7 +462,7 @@
   .po-provision:disabled { opacity: 0.7; cursor: progress; }
 
   .po-muted { color: var(--color-muted); }
-  .po-tiny { font-size: 0.72rem; }
+  .po-tiny { font-size: 0.8125rem; }
   .po-console { font-size: 0.85rem; color: var(--color-fg); }
 
   .po-consensus { display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem; padding-top: 0.5rem; }
@@ -477,21 +477,21 @@
     .po-health .po-dot { animation: none; }
   }
 
-  .po-verdict-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-accent); margin: 0; font-weight: 700; }
+  .po-verdict-label { font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-accent); margin: 0; font-weight: 700; }
   .po-verdict-units { font-size: 2rem; margin: 0.2rem 0 0.9rem; font-weight: 400; }
   .po-verdict-units strong { font-weight: 700; }
   .po-verdict-units span { font-size: 1rem; color: var(--color-muted); }
 
   .po-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; margin: 0 0 0.8rem; }
-  .po-metrics dt { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted); }
+  .po-metrics dt { font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted); }
   .po-metrics dd { margin: 0; font-size: 0.82rem; }
 
-  .po-note { font-size: 0.74rem; color: var(--color-fg-muted); margin: 0 0 0.8rem; }
+  .po-note { font-size: 0.8125rem; color: var(--color-fg-muted); margin: 0 0 0.8rem; }
   .po-note--quiet { color: var(--color-muted); font-style: italic; }
 
-  .po-geo { border-top: 1px dashed var(--color-border-bold); padding-top: 0.8rem; font-size: 0.78rem; }
+  .po-geo { border-top: 1px dashed var(--color-border-bold); padding-top: 0.8rem; font-size: 0.8125rem; }
   .po-geo p { margin: 0 0 0.35rem; }
-  .po-geo-h { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); }
+  .po-geo-h { font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); }
   .po-geo-verdict { color: var(--color-fg-muted); font-style: italic; }
 
   .po-empty .po-console { color: var(--color-fg); }
@@ -499,7 +499,7 @@
   .po-obs {
     margin-top: auto; display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem;
     padding-top: 0.9rem; border-top: 1px solid var(--color-border);
-    font-size: 0.68rem; color: var(--color-muted); letter-spacing: 0.03em;
+    font-size: 0.8125rem; color: var(--color-muted); letter-spacing: 0.03em;
   }
   .po-obs em { font-style: normal; text-transform: uppercase; opacity: 0.7; margin-right: 0.25rem; }
 
@@ -512,18 +512,18 @@
   }
 
   .po-status { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
-  .po-status-row { display: flex; align-items: center; gap: 0.55rem; font-size: 0.78rem; }
+  .po-status-row { display: flex; align-items: center; gap: 0.55rem; font-size: 0.8125rem; }
   .po-status-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-accent); flex: none; }
   .po-state--degraded .po-status-dot { background: var(--color-accent-hover); }
   .po-state--disabled .po-status-dot { background: var(--color-muted); }
   .po-state--deprecated .po-status-dot { background: var(--color-muted); }
   .po-status-name { color: var(--color-fg); }
-  .po-status-state { margin-left: auto; color: var(--color-muted); font-size: 0.72rem; text-transform: lowercase; }
+  .po-status-state { margin-left: auto; color: var(--color-muted); font-size: 0.8125rem; text-transform: lowercase; }
 
-  .po-log { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; font-size: 0.76rem; }
+  .po-log { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; font-size: 0.8125rem; }
   .po-log li { color: var(--color-fg-muted); }
   .po-sev, .po-ver {
-    display: inline-block; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.04em;
+    display: inline-block; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em;
     padding: 0.05rem 0.3rem; border-radius: 0.2rem; margin-right: 0.35rem;
     border: 1px solid var(--color-border-bold); color: var(--color-muted);
   }
@@ -534,6 +534,6 @@
   .po-legal {
     display: flex; flex-wrap: wrap; gap: 0.3rem 1rem;
     padding: 0.8rem 1.15rem; border-top: 1px solid var(--color-border-bold);
-    background: var(--color-bg-subtle); font-size: 0.66rem; color: var(--color-muted);
+    background: var(--color-bg-subtle); font-size: 0.8125rem; color: var(--color-muted);
   }
 </style>
