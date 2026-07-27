@@ -15,6 +15,9 @@ That experience stuck with me. Fast forward to October 2024, and I found myself 
 
 Spoiler: the 18-inch wins by a mile. Area scales with the square of the radius, so an 18-inch pizza has about 254 square inches versus 226 total for two 12-inch pizzas — and costs $5 less. Math doesn't lie.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/pizza-calculator.png'); width: min(340px, 80%); aspect-ratio: 500/369; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the 18-inch, vindicated</p>
+
 ## The Code
 
 The first version was dead simple. A single HTML file, no frameworks, no build tools:
