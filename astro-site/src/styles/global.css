@@ -876,23 +876,16 @@ article .prose > p:first-of-type::first-letter {
      markers, out of scope; they fall back to inherited foreground. */
 }
 
-/* Mermaid Diagrams */
-.prose :where(.mermaid-themed) { margin-block: var(--space-5); }
-.prose :where(.mermaid-themed) img {
+/* Mermaid Diagrams — inline SVG, recolored via CSS custom properties
+ * (rehypeMermaidThemeVars in astro.config.mjs) so ONE render adapts to
+ * light, dark, and all 12 theme-deck palettes (issue #283 item 3).
+ * `.scroll-wrap` (rehypeScrollWrap) already supplies overflow-x + the
+ * margin-block this used to get from `.mermaid-themed`. */
+.prose :where(.scroll-wrap svg[id^='mermaid-']) {
   display: block; max-width: 100%; height: auto;
   margin: 0 auto; border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
 }
-.mermaid-dark { display: none !important; }
-.mermaid-light { display: block; }
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) .mermaid-light { display: none !important; }
-  :root:not(.light) .mermaid-dark { display: block !important; }
-}
-:root.dark .mermaid-light { display: none !important; }
-:root.dark .mermaid-dark { display: block !important; }
-:root.light .mermaid-light { display: block !important; }
-:root.light .mermaid-dark { display: none !important; }
 
 /* ===== Footer ===== */
 .site-footer {

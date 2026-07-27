@@ -50,67 +50,215 @@ function transformerCodeTitle() {
 }
 
 /**
- * Convert <picture> elements (from rehype-mermaid dark mode) into
- * two <img> elements with class-based toggling so both OS preference
- * AND the manual .dark/.light toggle work.
+ * Mermaid diagrams -> theme-adaptive inline SVG (issue #283 item 3).
  *
- * Input:  <picture><source media="(prefers-color-scheme: dark)" srcset="dark.svg"><img src="light.svg"></picture>
- * Output: <div class="mermaid-themed"><img class="mermaid-light" src="light.svg"><img class="mermaid-dark" src="dark.svg"></div>
+ * rehype-mermaid renders with a SINGLE mermaid theme ('base') whose
+ * `themeVariables` are pinned to a small set of distinctive, arbitrary
+ * "placeholder" hex colors (never anything a diagram would emit by
+ * chance — verified against actual rendered output for every diagram
+ * type used in src/posts/**, see MERMAID_COLOR_MAP below). Because the
+ * render strategy is 'inline-svg', those placeholder hexes land
+ * directly in the page's HTML (inside the diagram's own <style> block
+ * AND on individual element attributes — rough.js/handDrawn hatch-fill
+ * paths bake a literal color attribute, they can't use CSS classes).
+ *
+ * rehypeMermaidThemeVars() then walks the whole hast tree and does an
+ * exact string replacement of every placeholder hex back to the
+ * matching site design token (`var(--color-*)`, defined in
+ * src/styles/global.css and re-themed per-deck in
+ * src/styles/theme-deck.css). The result is ONE inline SVG per diagram
+ * that repaints correctly under light, dark, and all 12 theme-deck
+ * palettes with no per-theme regeneration — replacing the old
+ * <picture>-based light/dark <img> pair (rehypeMermaidDualTheme),
+ * which baked exactly two color variants and did not see the deck
+ * themes at all.
+ *
+ * A handful of colors are NOT sourced from mermaid `themeVariables` —
+ * they're hardcoded directly into mermaid's own generated CSS/SVG,
+ * independent of theme (e.g. `.node .katex path{fill:#000}` for LaTeX
+ * notation, a dead `[data-look="neo"]` rule that never matches under
+ * `look:'handDrawn'`, and `.section-N line{stroke:#ffffff}` in
+ * timeline diagrams). MERMAID_LITERAL_MAP below patches the small,
+ * confirmed set of these (#000, #000000, #ffffff) as a defense-in-depth
+ * safety net — most *other* literal fallback attributes mermaid emits
+ * (e.g. sequence-diagram actor rects carry both a literal
+ * `fill="#eaeaea"` AND a `class="actor"` that a themed CSS rule
+ * targets) are already overridden by the themed class rule per normal
+ * CSS cascade (presentation attributes are lowest-priority), so they
+ * don't need patching.
  */
-function rehypeMermaidDualTheme() {
+
+/** mermaid themeVariable name -> [placeholder hex mermaid will emit, site CSS token] */
+const MERMAID_COLOR_MAP = {
+  // Core / shared across diagram types
+  primaryColor: ['#1a2b01', 'var(--color-accent)'],
+  primaryTextColor: ['#1a2b02', 'var(--color-fg)'],
+  primaryBorderColor: ['#1a2b03', 'var(--color-border-bold)'],
+  secondaryColor: ['#1a2b04', 'var(--color-bg-subtle)'],
+  secondaryTextColor: ['#1a2b05', 'var(--color-fg)'],
+  secondaryBorderColor: ['#1a2b06', 'var(--color-border-bold)'],
+  tertiaryColor: ['#1a2b07', 'var(--color-bg-subtle)'],
+  tertiaryTextColor: ['#1a2b08', 'var(--color-fg-muted)'],
+  tertiaryBorderColor: ['#1a2b09', 'var(--color-border-bold)'],
+  lineColor: ['#1a2b10', 'var(--color-fg-muted)'],
+  textColor: ['#1a2b11', 'var(--color-fg)'],
+  mainBkg: ['#1a2b12', 'var(--color-surface)'], // flowchart node fill
+  background: ['#1a2b13', 'var(--color-bg)'],
+  edgeLabelBackground: ['#1a2b14', 'var(--color-bg-subtle)'],
+  titleColor: ['#1a2b15', 'var(--color-fg)'],
+  defaultLinkColor: ['#1a2b16', 'var(--color-fg-muted)'],
+  arrowheadColor: ['#1a2b17', 'var(--color-fg-muted)'],
+  clusterBkg: ['#1a2b18', 'var(--color-bg-subtle)'], // flowchart subgraph fill
+  clusterBorder: ['#1a2b19', 'var(--color-border-bold)'],
+  errorBkgColor: ['#1a2b20', 'var(--color-error-subtle)'],
+  errorTextColor: ['#1a2b21', 'var(--color-error)'],
+  nodeBkg: ['#1a2b22', 'var(--color-surface)'],
+  nodeBorder: ['#1a2b23', 'var(--color-border-bold)'],
+  nodeTextColor: ['#1a2b24', 'var(--color-fg)'],
+
+  // sequenceDiagram
+  actorBkg: ['#2b3c01', 'var(--color-surface)'],
+  actorBorder: ['#2b3c02', 'var(--color-border-bold)'],
+  actorTextColor: ['#2b3c03', 'var(--color-fg)'],
+  actorLineColor: ['#2b3c04', 'var(--color-border-bold)'], // lifeline
+  signalColor: ['#2b3c05', 'var(--color-fg-muted)'], // message arrows
+  signalTextColor: ['#2b3c06', 'var(--color-fg)'],
+  labelBoxBkgColor: ['#2b3c07', 'var(--color-bg-subtle)'], // alt/opt/loop tag
+  labelBoxBorderColor: ['#2b3c08', 'var(--color-border-bold)'],
+  labelTextColor: ['#2b3c09', 'var(--color-fg)'],
+  loopTextColor: ['#2b3c10', 'var(--color-fg)'],
+  activationBkgColor: ['#2b3c11', 'var(--color-bg-subtle)'],
+  activationBorderColor: ['#2b3c12', 'var(--color-border-bold)'],
+  sequenceNumberColor: ['#2b3c13', 'var(--color-bg)'],
+  noteBkgColor: ['#2b3c14', 'var(--color-bg-subtle)'],
+  noteBorderColor: ['#2b3c15', 'var(--color-border-bold)'],
+  noteTextColor: ['#2b3c16', 'var(--color-fg)'],
+
+  // pie
+  pie1: ['#3c4d01', 'var(--color-viz-1)'],
+  pie2: ['#3c4d02', 'var(--color-viz-2)'],
+  pie3: ['#3c4d03', 'var(--color-viz-3)'],
+  pie4: ['#3c4d04', 'var(--color-viz-4)'],
+  pie5: ['#3c4d05', 'var(--color-viz-5)'],
+  pie6: ['#3c4d06', 'var(--color-viz-6)'],
+  pie7: ['#3c4d07', 'var(--color-viz-1)'], // cycle the 6-color viz palette
+  pie8: ['#3c4d08', 'var(--color-viz-2)'],
+  pie9: ['#3c4d09', 'var(--color-viz-3)'],
+  pie10: ['#3c4d10', 'var(--color-viz-4)'],
+  pie11: ['#3c4d11', 'var(--color-viz-5)'],
+  pie12: ['#3c4d12', 'var(--color-viz-6)'],
+  pieOuterStrokeColor: ['#3c4d13', 'var(--color-border-bold)'],
+  pieStrokeColor: ['#3c4d14', 'var(--color-bg)'], // slice separators
+  pieTitleTextColor: ['#3c4d15', 'var(--color-fg)'],
+  // Drawn INSIDE each slice, on top of the viz-N fill — fg-on-viz measures
+  // as low as 2.0:1 in the dark palette (both are mid/light tones there).
+  // bg-on-viz clears 4.4:1+ in both palettes (same reasoning as the
+  // timeline cScaleLabel* tokens below).
+  pieSectionTextColor: ['#3c4d16', 'var(--color-bg)'],
+  pieLegendTextColor: ['#3c4d17', 'var(--color-fg)'],
+
+  // gantt
+  sectionBkgColor: ['#4d5e01', 'var(--color-bg-subtle)'],
+  altSectionBkgColor: ['#4d5e02', 'var(--color-surface)'],
+  sectionBkgColor2: ['#4d5e03', 'var(--color-bg-subtle)'],
+  taskBkgColor: ['#4d5e04', 'var(--color-surface)'],
+  taskTextColor: ['#4d5e05', 'var(--color-fg)'],
+  taskTextOutsideColor: ['#4d5e06', 'var(--color-fg)'],
+  taskTextClickableColor: ['#4d5e07', 'var(--color-accent)'],
+  taskBorderColor: ['#4d5e08', 'var(--color-border-bold)'],
+  // NOTE: fill stays neutral (not accent) because `taskTextColor` (fg) is
+  // drawn directly on top — fg-on-accent measures only 1.32:1 in the dark
+  // palette (both tokens are near-white there). The accent highlight
+  // lives in the border instead, where it never has to host body text.
+  activeTaskBkgColor: ['#4d5e09', 'var(--color-bg-subtle)'],
+  activeTaskBorderColor: ['#4d5e10', 'var(--color-accent)'],
+  doneTaskBkgColor: ['#4d5e11', 'var(--color-bg-subtle)'],
+  doneTaskBorderColor: ['#4d5e12', 'var(--color-border-bold)'],
+  critBkgColor: ['#4d5e13', 'var(--color-error-subtle)'],
+  critBorderColor: ['#4d5e14', 'var(--color-error)'],
+  todayLineColor: ['#4d5e15', 'var(--color-accent)'],
+  gridColor: ['#4d5e16', 'var(--color-border)'],
+  excludeBkgColor: ['#4d5e17', 'var(--color-bg-subtle)'],
+
+  // timeline
+  cScale0: ['#5e6f01', 'var(--color-viz-1)'],
+  cScale1: ['#5e6f02', 'var(--color-viz-2)'],
+  cScale2: ['#5e6f03', 'var(--color-viz-3)'],
+  cScale3: ['#5e6f04', 'var(--color-viz-4)'],
+  cScale4: ['#5e6f05', 'var(--color-viz-5)'],
+  cScale5: ['#5e6f06', 'var(--color-viz-6)'],
+  cScale6: ['#5e6f07', 'var(--color-viz-1)'],
+  cScale7: ['#5e6f08', 'var(--color-viz-2)'],
+  cScale8: ['#5e6f09', 'var(--color-viz-3)'],
+  cScale9: ['#5e6f10', 'var(--color-viz-4)'],
+  cScale10: ['#5e6f11', 'var(--color-viz-5)'],
+  cScale11: ['#5e6f12', 'var(--color-viz-6)'],
+  cScaleLabel0: ['#5e6f13', 'var(--color-bg)'], // text drawn atop a cScale swatch
+  cScaleLabel1: ['#5e6f14', 'var(--color-bg)'],
+  cScaleLabel2: ['#5e6f15', 'var(--color-bg)'],
+  cScaleLabel3: ['#5e6f16', 'var(--color-bg)'],
+
+  // quadrantChart
+  quadrant1Fill: ['#6f7001', 'var(--color-bg-subtle)'],
+  quadrant2Fill: ['#6f7002', 'var(--color-surface)'],
+  quadrant3Fill: ['#6f7003', 'var(--color-bg-subtle)'],
+  quadrant4Fill: ['#6f7004', 'var(--color-surface)'],
+  quadrant1TextFill: ['#6f7005', 'var(--color-fg)'],
+  quadrant2TextFill: ['#6f7006', 'var(--color-fg)'],
+  quadrant3TextFill: ['#6f7007', 'var(--color-fg)'],
+  quadrant4TextFill: ['#6f7008', 'var(--color-fg)'],
+  quadrantPointFill: ['#6f7009', 'var(--color-accent)'], // plotted data points
+  quadrantPointTextFill: ['#6f7010', 'var(--color-fg)'],
+  quadrantXAxisTextFill: ['#6f7011', 'var(--color-fg-muted)'],
+  quadrantYAxisTextFill: ['#6f7012', 'var(--color-fg-muted)'],
+  quadrantInternalBorderStrokeFill: ['#6f7013', 'var(--color-border)'],
+  quadrantExternalBorderStrokeFill: ['#6f7014', 'var(--color-border-bold)'],
+  quadrantTitleFill: ['#6f7015', 'var(--color-fg)'],
+};
+
+/** Colors mermaid hardcodes outside of `themeVariables` — see block comment above. */
+const MERMAID_LITERAL_MAP = {
+  '#000000': 'var(--color-fg)',
+  '#000': 'var(--color-fg)',
+  '#ffffff': 'var(--color-bg)',
+};
+
+const mermaidThemeVariables = Object.fromEntries(
+  Object.entries(MERMAID_COLOR_MAP).map(([k, [hex]]) => [k, hex])
+);
+
+/** Compiled once: [RegExp matching one placeholder hex (hex-boundary safe), replacement var()] */
+const MERMAID_REPLACEMENTS = [
+  ...Object.values(MERMAID_COLOR_MAP),
+  ...Object.entries(MERMAID_LITERAL_MAP).map(([hex, token]) => [hex, token]),
+].map(([hex, token]) => [
+  new RegExp(`(?<![0-9a-fA-F])${hex}(?![0-9a-fA-F])`, 'gi'),
+  token,
+]);
+
+function replaceMermaidColors(value) {
+  let out = value;
+  for (const [re, token] of MERMAID_REPLACEMENTS) out = out.replace(re, token);
+  return out;
+}
+
+function rehypeMermaidThemeVars() {
   return (tree) => {
-    visit(tree, 'element', (node, index, parent) => {
-      if (!parent || index == null) return;
-      if (node.tagName !== 'picture') return;
-
-      // Find the <source> (dark) and <img> (light) children
-      const source = node.children.find(
-        (c) => c.type === 'element' && c.tagName === 'source'
-      );
-      const img = node.children.find(
-        (c) => c.type === 'element' && c.tagName === 'img'
-      );
-      if (!source || !img) return;
-
-      // Only process mermaid pictures (check if source has prefers-color-scheme media)
-      const media = source.properties?.media?.toString() || '';
-      if (!media.includes('prefers-color-scheme')) return;
-
-      const lightImg = {
-        type: 'element',
-        tagName: 'img',
-        properties: {
-          ...img.properties,
-          className: ['mermaid-light'],
-          loading: 'lazy',
-          decoding: 'async',
-        },
-        children: [],
-      };
-
-      const darkImg = {
-        type: 'element',
-        tagName: 'img',
-        properties: {
-          alt: img.properties?.alt || '',
-          src: source.properties?.srcset,
-          width: source.properties?.width,
-          height: source.properties?.height,
-          className: ['mermaid-dark'],
-          loading: 'lazy',
-          decoding: 'async',
-        },
-        children: [],
-      };
-
-      const wrapper = {
-        type: 'element',
-        tagName: 'div',
-        properties: { className: ['mermaid-themed'] },
-        children: [lightImg, darkImg],
-      };
-
-      parent.children[index] = wrapper;
+    visit(tree, (node) => {
+      if (node.type === 'text' && typeof node.value === 'string') {
+        node.value = replaceMermaidColors(node.value);
+        return;
+      }
+      if (node.type !== 'element' || !node.properties) return;
+      for (const [key, val] of Object.entries(node.properties)) {
+        if (typeof val === 'string') {
+          node.properties[key] = replaceMermaidColors(val);
+        } else if (Array.isArray(val)) {
+          node.properties[key] = val.map((v) =>
+            typeof v === 'string' ? replaceMermaidColors(v) : v
+          );
+        }
+      }
     });
   };
 }
@@ -120,9 +268,12 @@ function rehypeScrollWrap() {
   return (tree) => {
     visit(tree, 'element', (node, index, parent) => {
       if (!parent || index == null) return;
+      // rehype-mermaid (strategy: 'inline-svg') emits a bare <svg id="mermaid-N" ...>
+      // at the top level of each diagram — no wrapper div to key off of.
       const isMermaid =
-        node.tagName === 'div' &&
-        node.properties?.className?.includes?.('mermaid-themed');
+        node.tagName === 'svg' &&
+        typeof node.properties?.id === 'string' &&
+        node.properties.id.startsWith('mermaid-');
       const isTable = node.tagName === 'table';
       if (!isMermaid && !isTable) return;
       const wrapper = {
@@ -226,21 +377,30 @@ export default defineConfig({
     ],
     rehypePlugins: [
       [rehypeMermaid, {
-        strategy: 'img-svg',
+        // Inline SVG (not img-svg/<picture>) so the diagram's own colors
+        // live in the page DOM and can be repainted via CSS custom
+        // properties — see rehypeMermaidThemeVars above (issue #283 item 3).
+        // `dark` is intentionally gone: it's unsupported by inline-svg
+        // anyway, and unnecessary now that ONE render adapts to every theme.
+        strategy: 'inline-svg',
         // handDrawn (rough.js) look for the zine aesthetic; fixed seed keeps
-        // builds reproducible. Colors stay baked per light/dark at build time
-        // — the reader theme deck does not propagate into diagrams (known
-        // limitation, documented in the zine-layer issue).
-        mermaidConfig: { theme: 'default', look: 'handDrawn', handDrawnSeed: 42 },
-        dark: { theme: 'dark', look: 'handDrawn', handDrawnSeed: 42 },
+        // builds reproducible. theme:'base' + themeVariables (above) pins
+        // mermaid's palette to known placeholder hexes that
+        // rehypeMermaidThemeVars rewrites to var(--color-*) tokens.
+        mermaidConfig: {
+          theme: 'base',
+          look: 'handDrawn',
+          handDrawnSeed: 42,
+          themeVariables: mermaidThemeVariables,
+        },
       }],
-      rehypeMermaidDualTheme,
+      rehypeMermaidThemeVars,
       rehypeScrollWrap,
       // Tufte/gwern-style sidenotes (issue #272) — must run after remark's
       // GFM footnote transform (implicit: this is a rehype plugin, so it
       // only ever sees the hast tree remark-rehype already produced).
       // Order relative to the mermaid/table plugins above doesn't matter —
-      // disjoint node types (footnote refs/definitions vs. <picture>/
+      // disjoint node types (footnote refs/definitions vs. inline <svg>/
       // <table>) — kept last for now as the newest addition.
       rehypeSidenotes,
     ],
