@@ -62,6 +62,9 @@ jobs:
         run: cd astro-site && pnpm build
       - name: Run full Playwright suite (smoke + a11y + theme-deck)
         run: cd astro-site && npx playwright test tests/e2e/
+      - name: Grain composited-contrast audit (issue #283 item 2 — real screenshot pixel sample, advisory only)
+        run: cd astro-site && pnpm audit:grain
+        continue-on-error: true
       - name: Upload report on failure
         if: failure()
         uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8  # v5
