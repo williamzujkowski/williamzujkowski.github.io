@@ -12,6 +12,9 @@ EverQuest's recent DirectX 11 upgrade broke several things on Linux: aggressive 
 
 And because once you start tiling windows programmatically the rabbit hole goes deep, this is also about what Linux lets you do with window management that I kept assuming was Windows-only territory.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/multiboxing-everquest.png'); width: min(260px, 70%); aspect-ratio: 460/515; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">one keyboard, three heroes</p>
+
 ## The deployment shape
 
 The whole project is one `make deploy` away from running:

@@ -10,6 +10,9 @@ The Japanese word *tsundoku* (積ん読) describes the specific habit of buying 
 
 It's Astro 7 up front, Svelte 5 for the handful of things that need to be interactive, and a Python enrichment pipeline behind the scenes that turns a spreadsheet row into a book page with a cover, a description, a copyright determination, and — where one exists — a legal way to read it for free. No database, no backend, no accounts. A build step runs, generates several thousand HTML files, and then gets out of the way.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/tsundoku-books.png'); width: min(300px, 75%); aspect-ratio: 500/473; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the to-read pile, roughly to scale</p>
+
 ## Why I Built This
 
 I keep a running list of books I've read, want to read, or found interesting enough to write down. It's a spreadsheet, and somewhere past 3,500 rows it stopped being an organizational tool and started being a monument to intent. Goodreads was the obvious alternative, and I didn't want it: no interest in the social features, no interest in Amazon holding my reading history. I wanted something I controlled, plus a feature Goodreads doesn't bother with — surfacing free, legal reading options for anything already in the public domain.
