@@ -14,6 +14,9 @@ About a year ago, I started building a routing script in my homelab because I wa
 
 That routing script grew into [nexus-agents](https://github.com/nexus-substrate/nexus-agents), a multi-model orchestration platform built on published research from roughly 68 arXiv papers. Consensus voting, graph workflows, a plugin pipeline, adaptive bandit routing, a full TUI. I tried probably 30 different approaches before landing on the architecture that stuck. Here's what I found.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/nexus-agents.png'); width: min(240px, 62%); aspect-ratio: 360/324; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the swarm, deliberating</p>
+
 ## The Problem With Single-Model Workflows
 
 Most AI-assisted development workflows look like this: you pick one model, send it everything, and hope for the best. The model might be great at code generation but mediocre at security analysis. Or excellent at research but slow at producing clean TypeScript.

@@ -22,6 +22,9 @@ After three failed training runs, I adjusted the threshold to 0.03 and got withi
 
 This post explores federated learning with granular-ball computing, based on my homelab experiments and the GrBFL paper from January 2025.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/federated-learning.png'); width: min(240px, 62%); aspect-ratio: 360/332; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">training stays home</p>
+
 ## The Privacy Problem with Centralized AI Training
 
 Traditional machine learning requires aggregating all training data in one place. You collect images, labels, sensor readings, or whatever you're learning from, dump it into a centralized dataset, and train a model.
