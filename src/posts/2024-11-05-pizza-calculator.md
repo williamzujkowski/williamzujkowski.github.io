@@ -1,65 +1,50 @@
 ---
-
 date: 2024-11-05
 author: William Zujkowski
-description: "A Saturday afternoon coding project that taught me more about assumptions than algorithms."
-title: 'The Pizza Calculator: A Weekend Project in Humility'
+description: "I asked an early LLM to build a pizza calculator to find out whether it could write working code. It could. Then it kept adding features nobody asked for, and I made the mistake of encouraging it."
+title: 'PizzaOps: How a Dumb LLM Experiment Became a Distributed System'
 tags:
   - programming
   - homelab
   - tutorial
 ---
-Years ago, I was at a weekend hackathon that ran long. We'd been coding for twelve hours when someone suggested ordering pizza. Twenty minutes later, three pizzas arrived for eight hungry developers. What followed was a surprisingly tense negotiation over slice allocation that probably cost us more productivity than the original bug.
+This was one of the first things I ever built with a large language model, back when "can it actually write working code?" was still a live question and not a settled one. I did not have a problem that needed solving. I had a Saturday, a new toy, and a hunch that "write me a pizza calculator" was a suitably low-stakes way to find out whether the thing could program. It could. That should have been the end of it.
 
-That experience stuck with me. Fast forward to October 2024, and I found myself in a similar situation at home. My wife and I were ordering pizza and arguing about whether two 12-inch pizzas ($14.99 each) were a better deal than one 18-inch ($24.99). I opened VS Code and spent the next two hours building a calculator to settle it.
+It was not the end of it. Because when I asked for a pizza calculator, I got a pizza calculator — and then, unprompted, I got a slices-per-person multiplier. Then an adjustment factor for "event intensity." Then a code comment reminding me to account for teenagers. I had not mentioned teenagers. At no point in the conversation had teenagers come up. The model simply knew, the way you know, that teenagers change the math.
 
-Spoiler: the 18-inch wins by a mile. Area scales with the square of the radius, so an 18-inch pizza has about 254 square inches versus 226 total for two 12-inch pizzas — and costs $5 less. Math doesn't lie.
+```javascript
+function provision({ consumers, intensity, teenagers }) {
+  const SLICES_PER_PIZZA = 8;
+  let perPerson = 2.8 * (1 + 0.4 * intensity);
+  if (teenagers) perPerson *= 1.5; // the model insisted. it was right.
+  const units = Math.ceil((consumers * perPerson) / SLICES_PER_PIZZA);
+  return Math.max(1, units); // you always round up. dignity does not divide.
+}
+```
+
+Buried in all of this was a single genuinely correct piece of geometry, which I want to state plainly because it is the only useful sentence in the entire post: **an 18-inch pizza is more pizza than two 12-inch pizzas, and it usually costs less.** Area is πr². A 12-inch pizza is about 113 square inches; two of them, 226. An 18-inch is 254. The big one wins on area, wins on price, wins on the only axes that matter. This is not a preference. It is a theorem.
 
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/pizza-calculator.png'); width: min(340px, 80%); aspect-ratio: 500/369; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the 18-inch, vindicated</p>
 
-## The Code
+## Where it went off the rails
 
-The first version was dead simple. A single HTML file, no frameworks, no build tools:
+I should have stopped there. Instead, some time later, I did the responsible thing and rebuilt the toy as an enterprise platform.
 
-```javascript
-function calculatePizzaOrder(team, duration, intensity) {
-  const slicesPerPerson = 2.8;
-  const slicesPerPizza = 8;
+It has a control plane. It has a status page. It has a hunger-consensus quorum, an SLA measured in slices per consumer, a live p99 latency figure that measures nothing, and an Anchovy Isolation Chamber that is — by design — permanently isolated. It computes the exact same 18-inch geometry it always did, now wrapped in enough observability to satisfy an auditor who never asked to be here. I named it **PizzaOps**. It is genuinely functional. I am not going to talk you out of it.
 
-  // My first version forgot to account for this!
-  const adjustmentFactor = intensity > 0.7 ? 1.2 : 1.0;
+**→ [PizzaOps™: the platform, in production](/pizza-ops/)**
 
-  const totalSlices = team.size * slicesPerPerson * adjustmentFactor;
-  const pizzasNeeded = Math.ceil(totalSlices / slicesPerPizza);
+## The one real incident
 
-  return {
-    pizzas: pizzasNeeded,
-    costPerPerson: (pizzasNeeded * 24.99) / team.size,
-    slicesPerPerson: (pizzasNeeded * slicesPerPizza) / team.size
-  };
-}
-```
+The original calculator did ship one true production failure. It told me two large pizzas would comfortably feed six people. I ordered exactly that, with confidence. We ran out in forty-five minutes.
 
-I learned the hard way to always round up (`Math.ceil`). Pizzas are never perfectly circular, slice counts vary by 10-15% depending on how the pizzeria cuts them, and nobody has ever complained about leftover pizza.
+The model had quietly assumed pizza was a side dish. At the gathering in question, pizza was the entire personality of the evening. This is now logged as SEV-1: *demand exceeded modeled capacity; root cause, optimism.* The fix was a "meal class" selector, which is a polite way of saying I taught the calculator the difference between a snack and a commitment.
 
-## Where It All Fell Apart
+## What I learned
 
-Two weeks later, I got my first real-world test: ordering for a gathering of 6 people. The calculator said 2 large pizzas would be perfect. I confidently ordered exactly that.
+Nothing. I learned nothing.
 
-We ran out in 45 minutes.
+The math was correct the day it was written and it is correct now. Every feature that arrived after it — the multipliers, the meal classes, the quorum, the entire control plane — was decoration, and the decoration eventually became infrastructure. There is no lesson here. There is only pizza, and the calculator that pizza deserves.
 
-Turns out I had hardcoded `slicesPerPerson` at 2.8, which is reasonable for an office lunch where pizza is a side act. At a social gathering where pizza *is* the meal? People eat way more. I quickly added a "meal type" selector to the next version.
-
-## What I Actually Learned
-
-The pizza calculator is a toy, but it taught me something real: **the algorithm was never the hard part.** The math was sound from day one. What I got wrong was the assumptions feeding into it.
-
-This is the same lesson that shows up everywhere in software:
-- Your load test passes because the test data doesn't match production patterns
-- Your monitoring catches every alert except the one that matters at 2 AM
-- Your security controls work perfectly until a real user finds them inconvenient
-
-The gap between "works in theory" and "works in practice" is almost always about context, not code. My pizza calculator was mathematically correct and practically useless until I started accounting for how people actually behave.
-
-I still use the calculator. Version 3 has inputs for meal type, time of day, and whether there are teenagers present (a 1.5x multiplier, minimum). It's still just a single HTML file. Some problems don't need React.
+Enjoy the calculator. Do not taunt the oven.

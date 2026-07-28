@@ -296,7 +296,13 @@ function rehypeScrollWrap() {
 export default defineConfig({
   site: 'https://williamzujkowski.github.io',
   prefetch: true,
-  integrations: [svelte(), sitemap()],
+  integrations: [
+    svelte(),
+    // Keep hidden easter-egg pages (e.g. /pizza-ops/) out of the sitemap.
+    // They're also noindex'd in BaseLayout; this just stops them being
+    // advertised. Reachable only via the posts that link them.
+    sitemap({ filter: (page) => !page.includes('/pizza-ops') }),
+  ],
   // Astro 6 Fonts API — self-hosts fonts at build time via the Fontsource
   // provider (same font files previously shipped by the @fontsource-variable
   // packages, now fetched and optimized by Astro directly). `cssVariable`

@@ -1,0 +1,90 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PizzaOps from '@components/PizzaOps.svelte';
+
+// Hidden by design: not in the nav, not in the sitemap, noindex. Reachable
+// only from the post that confesses to building it — and by anyone who goes
+// looking, which is, frankly, the correct sort of person.
+---
+
+<BaseLayout
+  title="PizzaOps™"
+  description="Enterprise-grade pizza provisioning with three-nines crust availability. This is a joke. The geometry is not."
+  noindex={true}
+>
+  <div class="po-page">
+    <header class="po-hero">
+      <p class="po-hero-eyebrow">Enterprise Pizza Orchestration</p>
+      <h1 class="po-hero-title">PizzaOps<span>™</span></h1>
+      <p class="po-hero-tagline">We do not sell pizza. We orchestrate it.</p>
+      <p class="po-hero-sub">
+        Hunger is a distributed-systems problem. We have a platform for that.
+        There is no cloud — there is only the oven, and the oven is now a control plane.
+      </p>
+    </header>
+
+    <PizzaOps client:load />
+
+    <p class="po-return">
+      This platform is documented, at length and against all advice, in
+      <a href="/posts/2024-11-05-pizza-calculator/">the post that spawned it</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .po-page {
+    max-width: 66rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3.5rem) 1rem 4rem;
+  }
+
+  .po-hero {
+    text-align: center;
+    margin-bottom: 2.25rem;
+  }
+  .po-hero-eyebrow {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--color-muted);
+    margin: 0 0 0.75rem;
+  }
+  .po-hero-title {
+    font-family: var(--font-mono, monospace);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0;
+    color: var(--color-fg);
+  }
+  .po-hero-title span {
+    font-size: 0.4em;
+    vertical-align: super;
+    color: var(--color-accent);
+  }
+  .po-hero-tagline {
+    font-family: var(--font-mono, monospace);
+    font-size: clamp(1rem, 2.4vw, 1.35rem);
+    color: var(--color-accent);
+    margin: 0.9rem 0 0.5rem;
+  }
+  .po-hero-sub {
+    max-width: 40rem;
+    margin: 0 auto;
+    color: var(--color-fg-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .po-return {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+  }
+  .po-return a { color: var(--color-accent); }
+</style>
