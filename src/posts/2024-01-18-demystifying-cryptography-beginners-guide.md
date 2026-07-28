@@ -23,6 +23,9 @@ tags:
 
 I made every beginner mistake in my learning projects: used MD5 where bcrypt belonged, chose algorithms based on "what looked familiar," debugged OpenSSL errors by copying Stack Overflow commands I didn't understand. But each stumble taught me practical cryptography — the kind that matters when systems depend on getting it right.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cryptography.png'); width: min(320px, 80%); aspect-ratio: 560/442; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the whole game, in two objects</p>
+
 ## The Journey from Magic to Understanding
 
 Cryptography always felt like magic to me — mysterious mathematical incantations that keep secrets locked away in digital vaults. This perception changed dramatically when I spent a long weekend debugging SSL certificate issues in a service I was responsible for.

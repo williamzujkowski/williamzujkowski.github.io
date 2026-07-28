@@ -21,6 +21,9 @@ tags:
 
 **The research:** [G-Fuzz](https://arxiv.org/abs/2409.13139), published September 2024 in IEEE Transactions on Dependable and Secure Computing, uses directed fuzzing to test gVisor's 1.2 million lines of Go code. It found vulnerabilities that Syzkaller missed.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/gvisor-sandbox.png'); width: min(280px, 72%); aspect-ratio: 460/441; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">play here, break nothing</p>
+
 ## The Container Escape Problem
 
 Containers share the host kernel. One bad syscall can break containment. This is why [container security hardening](/posts/2025-08-18-docker-lsm-security-hardening) requires multiple layers of defense beyond just namespaces and cgroups.

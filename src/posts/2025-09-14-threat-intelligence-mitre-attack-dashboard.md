@@ -13,6 +13,9 @@ tags:
 ---
 Years ago, I learned the hard way that reading threat reports isn't enough. After missing critical indicators buried in vendor PDFs, I built my own threat intelligence dashboard. This guide shows you how to create one using the MITRE ATT&CK framework and open-source feeds, turning overwhelming data into actionable intelligence.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/mitre-attack.png'); width: min(240px, 62%); aspect-ratio: 440/560; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the adversary, gridded</p>
+
 ## Why Personal Threat Intelligence Matters
 
 **BLUF:** Generic threat feeds are like drinking from a fire hose. Lots of volume, little value.
