@@ -13,6 +13,9 @@ PromQL queries timeout on high-cardinality metrics, and mine had gotten to the p
 
 Here's how to deploy it and benchmark the speedup.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/promsketch.png'); width: min(240px, 64%); aspect-ratio: 300/235; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">queries, but faster</p>
+
 ## The Prometheus Query Bottleneck
 
 Prometheus stores time series data efficiently but struggles with aggregation queries over large cardinality. Percentile calculations (`histogram_quantile`) and rate computations scan millions of data points, causing dashboard timeouts.

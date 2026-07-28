@@ -18,6 +18,9 @@ I used Claude-Flow to refactor a complex microservices architecture. Instead of 
 
 **Key takeaway:** AI swarm intelligence transforms development velocity when architectural boundaries are clear. Your mileage varies with project complexity.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/claude-flow.png'); width: min(280px, 72%); aspect-ratio: 360/270; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">many streams, one current</p>
+
 ## What is Claude-Flow?
 
 Claude-Flow is an AI orchestration framework bringing swarm intelligence to software development.
