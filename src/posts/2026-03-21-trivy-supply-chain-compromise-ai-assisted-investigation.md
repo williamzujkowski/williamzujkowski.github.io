@@ -10,6 +10,9 @@ On Friday March 19, someone force-pushed malicious code to 75 of 76 version tags
 
 I found out about it the way most people do — scrolling through security feeds on a Saturday morning. By that point, the attack had been active for over 12 hours.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/trivy.png'); width: min(220px, 60%); aspect-ratio: 300/355; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the box, inspected</p>
+
 ## What Happened
 
 The [advisory from Aqua Security](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23) describes it as a continuation of a supply chain attack that began in late February. Compromised credentials were used to publish a malicious Trivy v0.69.4 release, force-push 76 of 77 version tags in `trivy-action`, and replace all 7 tags in `setup-trivy`.

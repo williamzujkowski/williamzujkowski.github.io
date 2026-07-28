@@ -20,6 +20,9 @@ It's a finite space where previous conversation, relevant information, and the c
 
 The length of conversations we can have. The complexity of documents we can analyze. The quality of code assistance we can expect. Understanding context windows isn't optional if you're working with large language models.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/context-window.png'); width: min(240px, 62%); aspect-ratio: 340/342; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the model's short-term memory</p>
+
 ## The Mechanics: How Context Windows Work
 
 At its core, a context window defines the maximum number of tokens (parts of words, whole words, or punctuation marks) that a language model can process simultaneously. This limitation stems from the fundamental architecture of [transformer models](/posts/2024-03-20-transformer-architecture-deep-dive), which rely on attention mechanisms that weigh relationships between all elements in a sequence.

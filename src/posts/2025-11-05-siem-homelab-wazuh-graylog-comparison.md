@@ -13,6 +13,9 @@ Security monitoring needs centralized log analysis. I deployed both Wazuh and Gr
 
 Here's how to choose and deploy the right SIEM for your homelab.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/siem.png'); width: min(230px, 60%); aspect-ratio: 320/364; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">one eye, all the logs</p>
+
 ## The Homelab SIEM Problem
 
 Distributed logs across 47 services make security monitoring impossible. Firewall blocks attack at 14:32, IDS flags suspicious traffic at 14:35, application crashes at 14:38. Are these related? Manual correlation takes 45 minutes. You need SIEM.
