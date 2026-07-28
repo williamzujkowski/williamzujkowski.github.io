@@ -20,9 +20,6 @@ That simulation experience crystallized something I'd been thinking about for ye
 
 The sim-to-real gap is probably the hardest unsolved problem in robotics, but maybe the human-robot communication gap is just as critical. Recent breakthrough research is finally addressing this, and after my Isaac Sim failures, the implications feel deeply personal.
 
-## How It Works
-
-
 ## The Problem with Assumption-Making Robots
 
 The challenge isn't just technical, it's deeply human. When instructions are ambiguous, traditional embodied AI agents typically handle it in one of three problematic ways. This intersection of AI capabilities and real-world interaction parallels challenges explored in multimodal foundation models, where systems must understand context across vision, language, and action.

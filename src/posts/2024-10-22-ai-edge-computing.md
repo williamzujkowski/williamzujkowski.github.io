@@ -15,9 +15,6 @@ That failure taught me something important about edge computing. After convertin
 
 The real win? Latency dropped from 200-500ms (cloud-based) to 15-50ms (local inference). And I'm not paying $0.001 per inference anymore. The convergence of artificial intelligence and edge computing represents one of the most significant shifts in how we think about data processing and decision-making. See my practical implementation of [running LLaMA on Raspberry Pi](/posts/2024-09-15-running-llama-raspberry-pi-pipeload) for hands-on edge deployment techniques. Instead of sending everything to distant cloud servers, we're bringing intelligence to where data originates, at the "edge" of the network. This transformation is creating systems that can respond in milliseconds rather than seconds, protect privacy by keeping sensitive data local, and maintain functionality even when network connections fail. It's fundamentally changing what's possible with AI applications. Though I should say, edge AI works great for simple tasks like object detection, but complex reasoning still needs cloud-scale compute.
 
-## How It Works
-
-
 ## Understanding Edge Computing: Proximity as Power
 
 Edge computing shifts processing from centralized data centers to locations physically closer to data sources. This proximity creates benefits that are particularly useful when combined with AI.
