@@ -18,6 +18,9 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
 
 **Why it matters:** Last year, I deployed a "simple" web app to my homelab. Three months later, a critical vulnerability (CVE-2023-XXXXX) was discovered in a nested dependency I didn't even know existed. The vulnerable code ran in my homelab for 90 days before I found out from a security scanner. Hope is not a security strategy.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/scan-pipeline.png'); width: min(240px, 62%); aspect-ratio: 340/328; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">everything through the scanner</p>
+
 ## Automated Security Pipeline Architecture
 
 ⚠️ **Warning:** Security scanning pipelines must be configured with appropriate policies and approval gates. Automated remediation should include review processes for production environments.
