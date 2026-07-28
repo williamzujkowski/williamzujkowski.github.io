@@ -13,6 +13,9 @@ tags:
 
 After 47 hours of experimentation across two weeks, I finally got it working using QLoRA with 4-bit quantization. The successful training run took 14 hours at 340W average power consumption, which cost me roughly $8.40 in electricity. This guide shares everything I learned from that journey, including the five failures that taught me more than the eventual success.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/fine-tuning.png'); width: min(260px, 68%); aspect-ratio: 320/257; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">turning the knobs</p>
+
 ## Understanding Parameter-Efficient Fine-Tuning
 
 Traditional fine-tuning updates all model parameters during training. For large models with billions of parameters, this requires enormous computational resources. I discovered this the hard way when my first attempt to fine-tune the full Llama 3 8B model immediately maxed out my system's 64GB of RAM and triggered swap thrashing on my i9-9900K.

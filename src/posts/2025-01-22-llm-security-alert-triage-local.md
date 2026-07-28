@@ -13,6 +13,9 @@ SOC analysts handle 4,484 alerts daily. I automated 78% of triage decisions usin
 
 Here's how local LLM triage reduces alert fatigue while preserving data privacy.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/alert-triage.png'); width: min(230px, 60%); aspect-ratio: 320/336; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">which alarm actually matters</p>
+
 ## The Alert Fatigue Problem
 
 Security tools generate thousands of alerts. Analysts manually triage each one: real threat or false positive? Investigations take 45 minutes average. Most alerts (92%) are noise.
