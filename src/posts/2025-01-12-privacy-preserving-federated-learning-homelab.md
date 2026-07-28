@@ -366,7 +366,7 @@ The server aggregation bottleneck is fixable with parallelization, but I didn't 
 ## Sources
 
 ### Primary Research
-- [**A New Perspective on Privacy Protection in Federated Learning with Granular-Ball Computing**](https://arxiv.org/abs/2501.04940) (2025) - Zhang et al., arXiv:2501.04940
+- [**A New Perspective on Privacy Protection in Federated Learning with Granular-Ball Computing**](https://arxiv.org/abs/2501.04940) (2025) - Lai et al., arXiv:2501.04940
   *The GrBFL paper introducing granular-ball federated learning*
 
 - [**Deep Leakage from Gradients**](https://arxiv.org/abs/1906.08935) (2019) - Zhu et al., NeurIPS 2019

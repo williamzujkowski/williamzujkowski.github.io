@@ -42,7 +42,7 @@ Most researchers work with consumer-grade GPUs (RTX 3060/3090) instead of A100 c
 Single-machine training versus distributed systems changes architectural decisions. RAM constraints (16-64GB typical) clash with models requiring 100GB+ for training. Storage becomes a bottleneck when datasets measure terabytes but available SSD space is limited.
 
 **Energy Concerns:**
-- Training GPT-3 consumed 1,287 MWh, equivalent to 120 US homes for a year[11]
+- Training GPT-3 consumed 1,287 MWh, equivalent to 120 US homes for a year
 - Single training run can generate 626,000 lbs of CO2 (5x lifetime emissions of average car)[11]
 - Personal electricity bills spike $200-$500/month during intensive training
 - Datacenter cooling requirements double or triple base power consumption
@@ -996,7 +996,7 @@ Beyond technical insights, resource constraints revealed deeper truths about tec
 
 **Neuromorphic Computing:**
 - Brain-inspired spiking neural networks: event-driven processing vs. continuous computation
-- Intel Loihi 2[12]: 1 million neurons, 120 million synapses, 130 billion synaptic operations per second
+- Intel Loihi (2018)[12]: ~131,072 neurons, ~130 million synapses
 - IBM TrueNorth: 1 million programmable neurons, 256 million synapses, 70mW power consumption
 - Energy efficiency: 1000× more efficient than GPUs for certain pattern recognition tasks
 - Asynchronous computation: process information only when inputs change

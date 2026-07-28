@@ -302,7 +302,7 @@ I attempted splitting LLaMA 2 70B across my 3 Raspberry Pi 5s (16GB each) using 
 
 **Result:** Network latency (2-5ms per layer transfer) dominated inference time. Achieved 0.3 tok/sec (8x slower than single Pi with 7B model). The overhead of serializing activations, transferring over gigabit ethernet, and deserializing killed performance.
 
-**Why this failed:** PIPELOAD's parallel loading assumes local storage I/O (~1ms latency). Network I/O is 2-5x slower. For distributed inference, pipeline parallelism needs 10GbE or faster interconnects ([Megatron-LM paper](https://arxiv.org/abs/1909.08053), Section 4.2).
+**Why this failed:** PIPELOAD's parallel loading assumes local storage I/O (~1ms latency). Network I/O is 2-5x slower. For distributed inference, pipeline parallelism needs 10GbE or faster interconnects.
 
 ---
 
@@ -420,7 +420,7 @@ For broader edge AI deployment patterns, see [AI edge computing](/posts/2024-10-
 
 Sparse models like Mixtral 8x7B activate only 2 of 8 experts per token. PIPELOAD-style loading could load only active experts, reducing memory further. Potential: Run 8x7B models on 8GB devices by loading 2 experts at a time.
 
-**Research status:** [Megablocks paper](https://arxiv.org/abs/2211.15841) demonstrates feasibility, but no production implementations yet.
+**Research status:** Speculative — I haven't seen a production implementation of on-demand expert loading at inference time.
 
 ### 2. Neuromorphic Hardware for Inference
 
@@ -488,11 +488,11 @@ Edge AI is no longer a research curiosity. It's a practical deployment option fo
 
 7. **[Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)** (2019)
    - Shoeybi et al., *NVIDIA*
-   - Distributed inference latency analysis
+   - Tensor/intra-layer model parallelism; explicitly orthogonal to pipeline parallelism, not a source for interconnect requirements
 
 8. **[Megablocks: Efficient Sparse Training with Mixture-of-Experts](https://arxiv.org/abs/2211.15841)** (2022)
    - Gale et al., *Stanford University*
-   - Sparse model loading strategies
+   - Block-sparse kernels for MoE training, not inference-time expert loading
 
 9. **[ONNX Runtime: Cross-platform Inference Optimization](https://onnxruntime.ai/)** (2024)
    - Microsoft, *ONNX Runtime Project*

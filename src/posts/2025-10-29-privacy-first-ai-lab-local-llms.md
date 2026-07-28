@@ -85,7 +85,7 @@ For my homelab use cases, personal notes, research documents, technical document
 
 This one shocked me: researchers discovered that [KV (key-value) cache data stored in GPU memory can be reconstructed to reveal entire conversations](https://arxiv.org/abs/2409.04040). The paper "A First Look At Efficient And Secure On-Device LLM Inference Against KV Leakage" demonstrated full conversation reconstruction from leaked GPU memory.
 
-My RTX 3090 stores all those attention mechanism states in VRAM. Without proper memory isolation, another process with GPU access could theoretically read my chat history. The solution involves selective encryption of intermediate states, which adds [15-25% performance overhead](https://arxiv.org/abs/2409.04040) but is absolutely necessary for privacy-sensitive applications.
+My RTX 3090 stores all those attention mechanism states in VRAM. Without proper memory isolation, another process with GPU access could theoretically read my chat history. The solution involves selective encryption of intermediate states, which adds real performance overhead but is absolutely necessary for privacy-sensitive applications.
 
 ### Model Poisoning: Easier Than I Thought
 
@@ -197,9 +197,9 @@ Running these tests revealed embarrassing gaps. My content filters were trivial 
 
 Academic research provides actual numbers on what privacy costs in terms of performance. These aren't theoretical, I've tested some of these on my hardware.
 
-### Differential Privacy: 28-38% Overhead
+### Differential Privacy and TEE: 28-38% Overhead
 
-The [CMIF framework research shows](https://arxiv.org/html/2509.09091) that differential privacy adds 28-38% inference overhead on Llama models. That's the cost of adding mathematical noise to prevent inference attacks.
+The [CMIF framework research shows](https://arxiv.org/html/2509.09091) that combining SGX2 TEE encryption with differential privacy adds 28-38% inference overhead on Llama models, most of it from the TEE encryption rather than the differential privacy noise itself.
 
 **My Testing on RTX 3090:**
 - Llama2-7B baseline: 2.49 seconds average generation time
@@ -208,9 +208,9 @@ The [CMIF framework research shows](https://arxiv.org/html/2509.09091) that diff
 
 I can live with that trade-off for sensitive document analysis. The 1.2% accuracy hit is worth the privacy gain.
 
-### KV Cache Protection: 15-25% Overhead
+### KV Cache Protection: Performance Overhead
 
-Protecting GPU memory from KV cache leakage attacks requires [selective encryption of intermediate states, adding 15-25% overhead](https://arxiv.org/abs/2409.04040). I haven't implemented this yet, it requires modifications to the inference engine, but it's on my roadmap for 2025.
+Protecting GPU memory from KV cache leakage attacks requires selective encryption of intermediate states, which adds noticeable overhead. I haven't implemented this yet, it requires modifications to the inference engine, but it's on my roadmap for 2025.
 
 ### Homomorphic Encryption: Not Practical Yet
 

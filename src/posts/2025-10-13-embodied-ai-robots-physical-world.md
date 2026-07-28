@@ -13,7 +13,7 @@ tags:
 ---
 ## Bottom Line Up Front
 
-AI escaped the screen in 2025. [Google DeepMind's Gemini Robotics](https://arxiv.org/abs/2503.20020) demonstrates 90%+ success rates on complex manipulation tasks, not in simulation, but in the real world. Vision-Language-Action (VLA) models bridge the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability.
+AI escaped the screen in 2025. [Google DeepMind's Gemini Robotics](https://arxiv.org/abs/2503.20020) demonstrates strong task-specific success rates on complex manipulation, not in simulation, but in the real world. Vision-Language-Action (VLA) models bridge the gap between AI that writes code and robots that execute it, transforming digital intelligence into physical capability.
 
 **Why it matters:** When AI gains physical agency, software bugs become safety hazards. A bad recommendation is annoying, but a robot arm moving incorrectly causes injury. We're deploying systems that manipulate the physical world with minimal testing frameworks and emerging safety standards, though I should note that this rapid deployment raises concerns about premature adoption. The security implications extend beyond data breaches to physical harm.
 
@@ -61,8 +61,8 @@ The breakthrough: direct mapping from perception and language to low-level robot
 
 | Capability | Performance | Significance |
 |-----------|-------------|--------------|
-| **Training Scale** | 10M manipulation episodes, 38 robot types | Generalizes across platforms |
-| **Real-World Success** | 90%+ on complex tasks | Not simulation, actual hardware |
+| **Training Scale** | Large-scale multi-robot demonstration data | Generalizes across platforms |
+| **Real-World Success** | Strong task-specific rates | Not simulation, actual hardware |
 | **Task Complexity** | Multi-object rearrangement, sub-millimeter assembly | Beyond simple pick-and-place |
 | **Language Grounding** | Natural language to physical actions | "Put blue mug on top shelf" works |
 | **Transfer Learning** | Tabletop skills to mobile manipulators | Minimal fine-tuning required |

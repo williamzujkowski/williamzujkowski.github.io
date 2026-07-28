@@ -160,7 +160,7 @@ The warmup prevents the model from settling into poor local minima during the cr
 
 Scaling Transformers to billions of parameters [revealed emergent behaviors that smaller models didn't exhibit](https://arxiv.org/abs/2206.07682) (Wei et al., 2022), though the exact scale thresholds where these behaviors emerge remain debated:
 
-**In-Context Learning:** [Large models could learn new tasks from examples in the input without parameter updates](https://arxiv.org/abs/2303.08774) (OpenAI, 2023). This capability appeared weakly in models around 1-10B parameters but became more reliable at larger scales.
+**In-Context Learning:** Large models could learn new tasks from examples in the input without parameter updates. This capability appeared weakly in models around 1-10B parameters but became more reliable at larger scales.
 
 **Chain-of-Thought Reasoning:** [Explicit reasoning steps emerged as a powerful capability in sufficiently large models](https://arxiv.org/abs/2201.11903) (Wei et al., 2022). In my testing with GPT-3.5 in early 2023, adding "Let's think step by step" improved accuracy on multi-step math problems from 23% to 61%.
 
@@ -218,7 +218,7 @@ The paper that first captured my imagination years ago continues to inspire new 
 2. **[GPT-4 Technical Report](https://arxiv.org/abs/2303.08774)** (2023)
    - OpenAI
    - *arXiv preprint*
-   - Demonstrates in-context learning and emergent capabilities
+   - Demonstrates emergent capabilities at scale
 
 3. **[Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712)** (2023)
    - Bubeck et al.

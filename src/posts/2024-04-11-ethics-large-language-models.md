@@ -23,7 +23,7 @@ Watching an AI system perpetuate and amplify human prejudices was sobering. It w
 
 **Gender Bias Everywhere:** Content generation systems commonly suggest "nurse" when prompted with "she" and "doctor" when prompted with "he." These subtle associations, drawn from millions of text examples, reinforced harmful stereotypes. [Research shows AI resume screening tools prefer male-associated names 52% of the time versus female-associated names only 11% of the time](https://www.washington.edu/news/2024/10/31/ai-bias-resume-screening-race-gender/) (Wilson & Caliskan, 2024).
 
-**Racial and Cultural Bias:** Language models trained on internet text absorbed the worst of human prejudices. [Studies found that AI hiring tools preferred white-associated names 85% of the time versus Black-associated names only 9% of the time](https://arxiv.org/html/2405.19699v3) (Tambe et al., 2024). Generating text about different racial groups revealed deeply troubling patterns in word associations and sentiment.
+**Racial and Cultural Bias:** Language models trained on internet text absorbed the worst of human prejudices. Studies found that AI hiring tools consistently favored white-associated names over Black-associated ones. Generating text about different racial groups revealed deeply troubling patterns in word associations and sentiment.
 
 **Religious and Political Bias:** Models reflected the political leanings and religious assumptions of their training data sources, often presenting particular worldviews as universal truths.
 
@@ -200,7 +200,7 @@ The stakes couldn't be higher, but I remain optimistic that thoughtful, ethical 
    - Analysis of 3+ million comparisons across 500+ job listings
 
 3. **[Fairness in AI-Driven Recruitment: Challenges, Metrics, Methods, and Future Directions](https://arxiv.org/html/2405.19699v3)** (2024)
-   - Tambe et al.
+   - Mujtaba, D. F. & Mahapatra, N. R.
    - *arXiv preprint*
    - Comprehensive survey of bias in AI hiring systems
 

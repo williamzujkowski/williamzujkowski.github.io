@@ -123,7 +123,7 @@ According to research from NIST's PQC Conference,[^nist-pqc-conference] when cer
 
 [SLH-DSA (Stateless Hash-Based Digital Signature Algorithm)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf), based on SPHINCS+, is NIST's backup signature standard. It uses hash functions instead of lattice math, which means if someone discovers a breakthrough attack against lattice-based cryptography, we're not completely screwed. For a deeper dive into the mathematics behind quantum-resistant approaches, see my [quantum-resistant cryptography guide](/posts/2024-04-30-quantum-resistant-cryptography-guide).
 
-The trade-off is brutal: [SPHINCS+ signing is significantly slower](https://arxiv.org/abs/2504.13537) than Dilithium and produces larger signatures. I haven't even attempted implementing this in my homelab because honestly, ML-DSA works fine for my threat model. But if you're building a time capsule or need signatures that must remain valid for 50+ years, the hash-based approach might be worth the performance hit.
+The trade-off is brutal: SPHINCS+ signing is significantly slower than Dilithium and produces larger signatures. I haven't even attempted implementing this in my homelab because honestly, ML-DSA works fine for my threat model. But if you're building a time capsule or need signatures that must remain valid for 50+ years, the hash-based approach might be worth the performance hit.
 
 ### Falcon vs ML-DSA: Choosing Your Signature Algorithm (MODERATE)
 
@@ -613,7 +613,7 @@ This one caught me completely by surprise. When your certificate chain exceeds *
 
 If you add a second intermediate CA (like many corporate environments do), you're suddenly at 12-13KB. Add a timestamp or OCSP response and you've crossed the 16KB threshold. That's when the mysterious 200ms delay appears.
 
-**My solution:** I switched to [Falcon-512 for signatures instead of ML-DSA](https://arxiv.org/abs/2401.17538) on my Raspberry Pi 4 endpoints. Falcon signatures are only ~666 bytes compared to ML-DSA-44's 2,420 bytes, keeping my certificate chains comfortably under 8KB. The trade-off is that [Falcon signing uses 2x the energy of Dilithium](https://www.mdpi.com/2410-387X/9/2/32), but on a device that mostly verifies signatures (like my Pi-hole), that's acceptable.
+**My solution:** I switched to Falcon-512 for signatures instead of ML-DSA on my Raspberry Pi 4 endpoints. Falcon signatures are only ~666 bytes compared to ML-DSA-44's 2,420 bytes, keeping my certificate chains comfortably under 8KB. The trade-off is that [Falcon signing uses 2x the energy of Dilithium](https://www.mdpi.com/2410-387X/9/2/32), but on a device that mostly verifies signatures (like my Pi-hole), that's acceptable.
 
 ### ARM Performance Considerations: The Raspberry Pi Experience
 
@@ -626,7 +626,7 @@ cmake -DCMAKE_BUILD_TYPE=Release \
       ..
 ```
 
-Without NEON optimizations, my Raspberry Pi 4 was [roughly 45-50x slower](https://arxiv.org/html/2505.02239v1) than my i9-9900K for ML-KEM operations. With NEON enabled, it dropped to about 35-40x slower, still significant, but the absolute numbers are so small (0.05ms vs 0.001ms) that it genuinely doesn't matter for homelab use cases.
+Without NEON optimizations, my Raspberry Pi 4 was roughly 45-50x slower than my i9-9900K for ML-KEM operations. With NEON enabled, it dropped to about 35-40x slower, still significant, but the absolute numbers are so small (0.05ms vs 0.001ms) that it genuinely doesn't matter for homelab use cases.
 
 The Raspberry Pi Zero W, however, is a different story. Its ARM11 processor from 2012 simply can't handle PQC at reasonable speeds. If you're using original Pi Zero hardware, stick to classical cryptography or upgrade to Pi Zero 2 W (which has a quad-core ARM Cortex-A53 and works fine).
 
