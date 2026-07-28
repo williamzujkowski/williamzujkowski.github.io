@@ -23,7 +23,7 @@ Most AI-assisted development workflows look like this: you pick one model, send 
 
 I was spending time not writing software but context-switching between tools. Open Claude for architecture planning. Switch to Gemini for broad research. Use Codex for rapid code generation. Copy context between them. Lose track of which model said what. Frustrating.
 
-**The core insight:** Model selection is a routing problem, not a loyalty problem. Research on [LLM routing](https://arxiv.org/abs/2406.18665) confirms that different tasks have measurably different performance across models. A system that routes intelligently should outperform any single model used for everything. The [RouteLLM paper](https://arxiv.org/abs/2406.18665) showed this could cut costs 85% while maintaining quality, which convinced me the approach was worth pursuing.
+**The core insight:** Model selection is a routing problem, not a loyalty problem. Research on [LLM routing](https://arxiv.org/abs/2406.18665) confirms that different tasks have measurably different performance across models. A system that routes intelligently should outperform any single model used for everything. The [RouteLLM paper](https://arxiv.org/abs/2406.18665) showed this could cut costs by more than 2x while maintaining quality, which convinced me the approach was worth pursuing.
 
 ## Architecture: Research-Backed, Not Ad Hoc
 

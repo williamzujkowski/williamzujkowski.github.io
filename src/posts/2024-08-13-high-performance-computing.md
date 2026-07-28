@@ -275,7 +275,7 @@ Purpose-built systems for drug discovery represent a revolution in computational
 - **Hardware-embedded physics**: Physical constraints implemented directly in silicon
 - **Anton 3 specifications**: Simulating 512 atoms/nanosecond at millisecond timescales
 - **Custom ASIC design**: Purpose-built chips optimized for molecular force calculations
-- **Simulation acceleration**: Drug discovery processes reduced from years to weeks[6]
+- **Simulation acceleration**: Drug discovery processes reduced from years to weeks
 - **Energy efficiency**: Reduced computational requirements without sacrificing accuracy
 - **Physical realism**: Hardware ensures simulations maintain molecular physics constraints
 - **Protein folding applications**: Accurate modeling of complex protein interactions
@@ -310,7 +310,7 @@ The integration between quantum and classical HPC systems has evolved rapidly ov
 - **Selective quantum advantage**: Quantum components target specific problem classes (quantum chemistry, optimization, simulation) where exponential speedups are theoretically achievable
 - **Full-stack frameworks**: Platforms like IBM Qiskit Runtime, Amazon Braket Hybrid Jobs, and Azure Quantum enable quantum-classical orchestration with unified programming models[8]
 - **HPC-quantum convergence**: Integration of quantum accelerators into traditional supercomputing centers creates unified computational infrastructure for hybrid workloads[9]
-- **Quantum Framework scaling**: Recent frameworks demonstrate linear scaling of hybrid workflows across hundreds of classical nodes coordinating with quantum backends[10]
+- **Quantum Framework scaling**: Recent frameworks are working to coordinate hybrid workflows between classical nodes and quantum backends
 - **Unified quantum platforms**: Emerging platforms provide portable abstraction layers allowing quantum algorithms to run across different QPU architectures without code rewrites[11]
 
 ```mermaid
@@ -447,7 +447,7 @@ The HPC revolution isn't only changing how we compute. It's changing what we can
 
 5. **[Power-Aware Computing Strategies (MDPI Energies)](https://www.mdpi.com/1996-1073/16/2/890)** - Academic research on Dynamic Voltage and Frequency Scaling (DVFS) and power-aware computing techniques in HPC environments. Demonstrates 30-40% energy savings through intelligent frequency scaling with minimal performance impact.
 
-6. **[GROMACS Molecular Dynamics Software](https://onlinelibrary.wiley.com/doi/10.1002/jcc.70059)** - Research on GROMACS scalability showing parallel efficiency above 0.9 (90%) on 65,536 cores for molecular dynamics simulations. Demonstrates the effectiveness of domain-specific optimization for drug discovery and materials science applications.
+6. **[GROMACS Molecular Dynamics Software](https://onlinelibrary.wiley.com/doi/10.1002/jcc.70059)** - Research on GROMACS scalability showing parallel efficiency above 0.9 (90%) on 65,536 cores for molecular dynamics simulations. A pure HPC scaling study, not a drug-discovery-timeline finding.
 
 7. **[E3SM (Energy Exascale Earth System Model) - Decade of Progress](https://climatemodeling.science.energy.gov/news/e3sm-decade-progress)** - DOE's E3SM project achievements including the SCREAM (Simple Cloud-Resolving E3SM Atmosphere Model) running at 3.25km resolution with >1 simulation year per day (SYPD) throughput. Represents a 30× improvement in climate model resolution over the past decade.
 
@@ -455,7 +455,7 @@ The HPC revolution isn't only changing how we compute. It's changing what we can
 
 9. **[HPC-Quantum Convergence in Supercomputing Centers](https://arxiv.org/abs/2503.01787)** - Research on integrating quantum accelerators into traditional HPC infrastructure to create unified computational environments for hybrid workloads.
 
-10. **[Scalable Quantum Framework Architectures](https://arxiv.org/abs/2509.14470)** - Study demonstrating linear scaling of hybrid quantum-classical workflows across hundreds of classical nodes coordinating with quantum backends.
+10. **[Scalable Quantum Framework Architectures](https://arxiv.org/abs/2509.14470)** - Framework for integrating multiple quantum backends under a single unified interface.
 
 11. **[Portable Quantum Abstraction Layers](https://arxiv.org/abs/2407.18527)** - Framework for quantum algorithm portability across different quantum processing unit (QPU) architectures without code rewrites.
 

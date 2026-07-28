@@ -62,7 +62,7 @@ The Zero Router eliminates impossible matches. If a task needs 100K tokens of co
 
 ## Stage 3: TOPSIS Multi-Criteria Decision Analysis
 
-For the scoring stage, I found the [MoMA framework](https://arxiv.org/abs/2509.07571), which applies TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution) to model selection. TOPSIS is a multi-criteria decision method from operations research. You define criteria (quality, speed, cost, context fit), weight them, and the algorithm ranks alternatives by their geometric distance to the ideal solution.
+For the scoring stage, I landed on TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution), a multi-criteria decision method from operations research. You define criteria (quality, speed, cost, context fit), weight them, and the algorithm ranks alternatives by their geometric distance to the ideal solution.
 
 What I liked about TOPSIS over simpler scoring: it handles tradeoffs naturally. A model that's slightly worse on quality but much cheaper gets ranked appropriately depending on the weights. Static scoring treats each dimension independently, so you can't express "I'll accept 10% less quality for 50% less cost" without ugly heuristics.
 
@@ -88,7 +88,7 @@ I was worried this would be slow. It's not. LinUCB's update step is a matrix ope
 
 The feedback loop works like this: every task execution produces an outcome. A `computeQualityReward()` function converts the outcome into a 0-1 reward signal. That reward updates the LinUCB model for the arm (model) that was selected. Over time, the weights converge.
 
-I'm still collecting data on how much LinUCB improves over static TOPSIS alone. My rough estimate is 10-15% improvement in task satisfaction after about 200 tasks, but I haven't run a proper A/B test yet. The [SATER paper](https://arxiv.org/abs/2510.05164) suggests confidence-aware routing can improve accuracy by 20-30%, but they tested on different benchmarks than what I'm measuring.
+I'm still collecting data on how much LinUCB improves over static TOPSIS alone. My rough estimate is 10-15% improvement in task satisfaction after about 200 tasks, but I haven't run a proper A/B test yet. Confidence-aware routing looks promising in adjacent research, but I haven't found benchmarks close enough to mine to borrow a number.
 
 ## What Didn't Make the Cut
 
@@ -96,7 +96,7 @@ Not every paper I read was useful. A few approaches I tried and discarded:
 
 **Preference-trained classifiers** (the original RouteLLM approach): Training a classifier requires labeled preference data I didn't have. Chatbot Arena data doesn't transfer well to task routing because the tasks are different. I'd need thousands of labeled task-model-outcome pairs to train a good classifier.
 
-**Cascade routing** ([OptiRoute](https://arxiv.org/abs/2502.16696)): Try a cheap model first, escalate to expensive if it fails. Good for cost optimization, but adds latency (two model calls instead of one) and the "did it fail?" check is itself an LLM call. Not worth it for my use case where the models are roughly similar in cost.
+**Cascade routing**: Try a cheap model first, escalate to expensive if it fails. Good for cost optimization, but adds latency (two model calls instead of one) and the "did it fail?" check is itself an LLM call. Not worth it for my use case where the models are roughly similar in cost.
 
 **Cross-attention routing** ([arXiv:2509.09782](https://arxiv.org/abs/2509.09782)): Uses the task prompt's attention patterns to select models. Interesting research, but requires access to model internals that I don't have through CLI interfaces.
 
@@ -137,10 +137,9 @@ If I were starting over, I'd probably skip the Preference Router and fold its lo
 ## Sources
 
 - [RouteLLM: Learning to Route LLMs](https://arxiv.org/abs/2406.18665) (Ong et al.) - Cost-quality routing with preference-trained classifiers
-- [MoMA: Multi-objective Model Selection](https://arxiv.org/abs/2509.07571) - TOPSIS for LLM routing
+- [MoMA: Multi-objective Model Selection](https://arxiv.org/abs/2509.07571) - Capability-profiling and context-aware model selection
 - [PILOT: Practical LLM Routing](https://arxiv.org/abs/2508.21141) - LinUCB contextual bandits for model selection
 - [SATER: Confidence-Aware Routing](https://arxiv.org/abs/2510.05164) - Difficulty estimation for routing decisions
-- [OptiRoute: Cost-Efficient LLM Routing](https://arxiv.org/abs/2502.16696) - Cascade routing approach
 - [Cross-Attention Routing](https://arxiv.org/abs/2509.09782) - Attention-based model selection
 
 The [nexus-agents repository](https://github.com/nexus-substrate/nexus-agents) implements the full pipeline. The routing code lives in `src/cli-adapters/composite-router.ts` and the bandit in `src/cli-adapters/linucb-bandit.ts`.

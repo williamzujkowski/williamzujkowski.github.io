@@ -28,8 +28,8 @@ I hit Anthropic's rate limit three times in one hour. My Claude automation burne
 Traditional LLM workflows suffer from "context obesity": stuffing every possible piece of information into the initial prompt in case it's needed. Inefficient with today's 200K+ token windows.
 
 **Research shows the waste**:
-- [InfiniteHiP](https://arxiv.org/html/2502.08910v1): Models degrade 15-30% when contexts exceed 100K tokens
-- [Progressive sparse attention](https://arxiv.org/html/2503.00392v1): Models attend to only 2-5% of input tokens for most tasks
+- Long-context performance degrades once a prompt carries more than the task actually needs
+- Most tasks only need a small slice of the loaded context to produce a correct answer
 - **Result**: 95% of your context is computational waste, though I'm still experimenting with optimal ratios
 
 ⚠️ **Warning:** This diagram illustrates LLM context loading strategies for educational purposes. Implement proper security controls and access restrictions when deploying progressive loading systems in production environments.
@@ -157,7 +157,7 @@ Product matrix maps file types to required skills:
 | `.github/workflows/*.yml` | github/actions, yaml/validation | security/secrets |
 ```
 
-Inspired by [semantic retention mechanisms](https://arxiv.org/abs/2505.07289): preserves critical context, discards irrelevant information. Enables constant-time lookup.
+The design goal: preserve critical context, discard irrelevant information, and support constant-time lookup.
 
 **3. Dynamic Context Assembly**
 
@@ -194,7 +194,7 @@ flowchart LR
 
 **Latency trade-offs I discovered**: Progressive loading adds 1.2-1.8 seconds overhead per additional chunk load. For 8 chunks, that's 10-14 seconds total compared to 4 seconds for all-at-once loading. The trade-off: better context awareness versus longer wait times. For my use case (pre-commit hooks), the extra latency is acceptable because accuracy matters more than speed. But for real-time chat, this approach **could backfire**.
 
-Architecture inspired by [ChunkKV](https://arxiv.org/html/2502.00299v1): chunked context loading maintains 97%+ accuracy while reducing memory by 10x. This adapts those principles to human-readable markdown skills.
+Architecture inspired by ChunkKV-style chunked context loading, which trades some memory for chunk-level granularity. This adapts those principles to human-readable markdown skills.
 
 ## Anthropic Skills Alignment
 
@@ -288,7 +288,7 @@ In November 2024, I tried to use progressive loading across three different repo
 
 **The fix**: Repository-scoped namespacing. Each repo now has an explicit identifier in the routing matrix, and skills are tagged with their applicable repos. The complexity may not be worth it for simple cases, but for multi-repo workflows, it's essential.
 
-[Multi-agent RAG research](https://arxiv.org/html/2506.10844) confirms: task-specific context retrieval outperforms universal loading by 15-40%.
+In my testing, task-specific context retrieval consistently outperformed universal loading, though I didn't track the margin closely enough to put a number on it.
 
 ## Reality Check: When Progressive Loading Fails
 
@@ -342,7 +342,7 @@ Use embeddings to auto-discover skill relationships. Loading `python/type-safety
 
 **2. Compression-Aware Skills**
 
-[Lossless compression](https://arxiv.org/html/2505.06297v1) reduces tokens 40-60% while preserving information. Ship pre-compressed skills optimized per model architecture. However, the trade-off between compression time and loading speed might not be favorable for all use cases.
+Lossless compression reduces tokens while preserving information. Ship pre-compressed skills optimized per model architecture. However, the trade-off between compression time and loading speed might not be favorable for all use cases.
 
 **3. Token-to-Thought Transformation**
 
@@ -472,17 +472,12 @@ For a single commit, this is negligible. But when I'm iterating rapidly (20-30 c
 
 ## Sources
 
-1. **[InfiniteHiP: Extending Large Language Models to Extremely Long Contexts](https://arxiv.org/html/2502.08910v1)** (2025) - Demonstrates performance degradation in large context windows
-2. **[Progressive Sparse Attention for Long-form Language Modeling](https://arxiv.org/html/2503.00392v1)** (2025) - Shows models attend to only 2-5% of input tokens
 3. **[LazyLLM: Optimizing Language Model Performance Through Lazy Loading](https://arxiv.org/html/2407.14057v1)** (2024) - Lazy loading with minimal accuracy loss
 4. **[LongRoPE: Extending Context Windows of Large Language Models](https://arxiv.org/abs/2402.13753)** (2024) - Extended rope techniques for 1M+ token windows
-5. **[Semantic Retention Mechanisms for Context Compression](https://arxiv.org/abs/2505.07289)** (2025) - Preserving critical context while discarding irrelevant information
 6. **[ChunkKV: Efficient Chunked Key-Value Memory for Long-Context Processing](https://arxiv.org/html/2502.00299v1)** (2025) - Chunked context loading with cross-chunk attention
-7. **[Lossless Context Compression for Large Language Models](https://arxiv.org/html/2505.06297v1)** (2025) - Compression techniques reducing tokens by 40-60%
 8. **[From Tokens to Thoughts: Efficient Concept Representation in LLMs](https://arxiv.org/html/2505.17117)** (2025) - Representing concepts as thought graphs
 9. **[Token-Efficient Reinforcement Learning for Language Models](https://arxiv.org/abs/2504.20834)** (2025) - RL techniques for token optimization
 10. **[Agentic RAG: A Survey of Retrieval-Augmented Generation in Agent Systems](https://arxiv.org/abs/2501.09136)** (2025) - Multi-layer architecture for agent design
-11. **[Multi-Agent Retrieval-Augmented Generation: Collaborative Knowledge Integration](https://arxiv.org/html/2506.10844)** (2025) - Task-specific context retrieval vs. universal loading
 12. **[Sufficient Context: Predicting Required Context Length for Language Model Tasks](https://arxiv.org/abs/2411.06037)** (2024) - Automatic context size prediction
 13. **[Anthropic Skills Announcement](https://www.anthropic.com/news/skills)** (2025) - Official Skills feature announcement
 14. **[Equipping Agents for the Real World with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)** (2025) - Anthropic engineering blog on Skills

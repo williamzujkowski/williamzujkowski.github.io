@@ -336,7 +336,7 @@ Academic research validates ZK authentication feasibility. ExPrESSO (arXiv:2510.
 **Key findings from paper:**
 
 - **Privacy preservation:** Users authenticate through SSO without revealing service provider identity to IdP
-- **ZK-SNARK efficiency:** Membership proofs generated in <200ms on commodity hardware
+- **ZK-SNARK efficiency:** Membership proofs generated on commodity hardware
 - **OIDC compatibility:** Integrates with existing OAuth2/OIDC infrastructure (no service provider changes required)
 - **Security analysis:** Formal proofs of security against malicious IdPs and service providers
 

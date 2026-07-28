@@ -336,13 +336,13 @@ Academic research validates LLM effectiveness for security operations. Multiple 
 
 1. **Survey on LLM SOC Applications** (arXiv:2509.10858, September 2025)
    - LLMs show strong potential in log summarization, alert triage, threat intelligence, incident response
-   - Average alert triage time reduction: **160-250 minutes per incident**
+   - Notes LLM potential for faster alert triage, without reporting a specific time-reduction figure
    - Challenges: prompt injection, excessive agency, hallucination risks
 
-2. **Autonomous Incident Response** (arXiv:2508.10677, August 2024)
+2. **Autonomous Incident Response** (arXiv:2508.10677, August 2025)
    - RAG-based framework using CTI (Cyber Threat Intelligence) integration
    - Automated IR playbook generation from threat intel databases
-   - Production deployment: **90% accuracy** in Azure environments
+   - Evaluated with LLM-as-judge metrics; mentions Azure only in passing, with no reported production accuracy figure
 
 3. **Lightweight LLMs for IR** (2025 research)
    - Smaller fine-tuned models + RAG achieve **22% faster recovery** than frontier models
