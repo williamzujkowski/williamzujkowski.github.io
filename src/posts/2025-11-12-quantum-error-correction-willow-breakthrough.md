@@ -10,6 +10,9 @@ Google just crossed the quantum computing Rubicon. Their Willow chip achieved so
 
 For the first time in quantum computing history, we've proven that error correction can work at scale. This isn't just an incremental improvement. This is the moment quantum computing became inevitable.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/quantum-error.png'); width: min(230px, 60%); aspect-ratio: 300/281; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">catching the flipped qubit</p>
+
 ## The Problem That Almost Killed Quantum Computing
 
 Quantum computers are ridiculously fragile. Every quantum bit (qubit) is basically a coin spinning in mid-air while sitting next to a jackhammer. The slightest vibration, temperature change, or stray electromagnetic field destroys the delicate quantum state you're trying to compute with.
