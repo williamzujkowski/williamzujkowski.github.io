@@ -13,6 +13,9 @@ Passwords travel networks. Even with TLS, credentials exist in logs, memory dump
 
 Here's how ZK-SNARKs enable password-less authentication at homelab scale.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/zero-knowledge.png'); width: min(360px, 85%); aspect-ratio: 560/305; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">proof without the secret</p>
+
 ## The Password Transmission Problem
 
 Traditional authentication sends credentials across networks. HTTPS encrypts transmission, but passwords still exist unencrypted on both endpoints and in server memory during verification.
