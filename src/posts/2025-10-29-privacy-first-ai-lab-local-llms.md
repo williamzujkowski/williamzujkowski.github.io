@@ -18,6 +18,9 @@ Then I ran Wireshark while Ollama was generating responses. My "private" LLM was
 
 Turns out, I'd built privacy theater, not actual privacy.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/privacy-ai.png'); width: min(200px, 52%); aspect-ratio: 300/386; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the brain, under lock</p>
+
 ## The "Local" Doesn't Mean "Private" Realization
 
 Here's what running a 34B parameter model on my RTX 3090 actually involves: 24GB of VRAM maxed out, inference times around 12-15 tokens per second (about 67-83ms per token), and enough heat to warm my office in winter. The hardware is impressive. The GPU does exactly what I tell it to, nothing leaves the card without my permission.
