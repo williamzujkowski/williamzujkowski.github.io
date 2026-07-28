@@ -48,8 +48,8 @@ graph TB
     style ST fill:#888,color:#fff
 ```
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/hpc.png'); width: min(180px, 48%); aspect-ratio: 280/485; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">compute, at ludicrous speed</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/hpc.png'); width: min(300px, 72%); aspect-ratio: 360/265; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">your PC, and everyone else's</p>
 
 ## The Scale That Changes Everything
 

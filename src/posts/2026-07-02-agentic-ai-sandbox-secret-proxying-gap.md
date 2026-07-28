@@ -10,8 +10,8 @@ Run an AI coding agent against a real repo for a week and you'll eventually give
 
 For most of the open-source sandbox tooling a homelab operator can actually install today, the answer is yes. That's the gap this post is about.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/sandbox-secret.png'); width: min(260px, 68%); aspect-ratio: 340/295; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">the sandbox has a reach problem</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/sandbox-secret.png'); width: min(260px, 68%); aspect-ratio: 400/353; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">sealed in, but the secret still gets out</p>
 
 ## The isolation primitives are mature
 
