@@ -13,6 +13,9 @@ I opened my October 2024 electricity bill: $187, a $43 jump from September's $14
 
 The 312W average power draw during LLM inference wasn't shocking. I knew the RTX 3090 was power-hungry. The massive variability caught me off guard: idle Ollama consumed 87W, fine-tuning a LoRA adapter spiked to 394W before power limits kicked in. These weren't abstract spec sheet numbers. Real watts flowing through my Kill-A-Watt P4400 meter, translating to dollars at $0.12/kWh.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/gpu-power.png'); width: min(280px, 72%); aspect-ratio: 360/305; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">watching the watts</p>
+
 ## Why Power Monitoring Matters
 
 I've been running a homelab for years, but 2024 changed everything. Large language model democratization meant I could run GPT-3-class models on my hardware. Ollama made it trivially easy: `ollama pull llama3.1:8b` and I had a capable LLM in under 90 seconds. Ease of deployment masked an inconvenient truth: running AI at home isn't cheap.
