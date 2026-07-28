@@ -12,9 +12,6 @@ Whenever I interact with a Large Language Model, there's a moment of awe, like s
 
 Deploying a customer-facing LLM for the first time in March 2023 felt like releasing something powerful and unpredictable into the wild. The lessons that followed, about bias, fairness, and responsibility, changed how I think about AI development and deployment.
 
-## How It Works
-
-
 ## The Bias Mirror: Reflecting Humanity's Flaws
 
 My awakening to AI bias came during testing of a resume screening tool in August 2022. [The system consistently ranked male candidates higher for technical positions, even when qualifications were identical](https://www.brookings.edu/articles/gender-race-and-intersectional-bias-in-ai-resume-screening-via-language-model-retrieval/) (Wilson & Caliskan, 2024). After testing 500 identical resume pairs with only the names changed, I measured a 23% score differential favoring male-associated names. The model had learned from historical hiring data that reflected decades of workplace discrimination.

@@ -19,9 +19,6 @@ That's when I realized I needed RAG, not just a smarter model.
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/rag.png'); width: min(240px, 62%); aspect-ratio: 340/303; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">fetch first, answer second</p>
 
-## How It Works
-
-
 ## The Problem: When "Knowing Everything" Isn't Enough
 
 The limitations of standard LLMs became apparent pretty quickly when I tried to use them for my homelab:

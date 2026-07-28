@@ -20,9 +20,6 @@ It's a finite space where previous conversation, relevant information, and the c
 
 The length of conversations we can have. The complexity of documents we can analyze. The quality of code assistance we can expect. Understanding context windows isn't optional if you're working with large language models.
 
-## How It Works
-
-
 ## The Mechanics: How Context Windows Work
 
 At its core, a context window defines the maximum number of tokens (parts of words, whole words, or punctuation marks) that a language model can process simultaneously. This limitation stems from the fundamental architecture of [transformer models](/posts/2024-03-20-transformer-architecture-deep-dive), which rely on attention mechanisms that weigh relationships between all elements in a sequence.

@@ -38,8 +38,6 @@ logging
 psutil
 torch
 ```
-## How It Works
-
 
 ## Why Security Matters for Personal AI Projects
 
