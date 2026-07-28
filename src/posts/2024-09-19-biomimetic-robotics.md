@@ -17,6 +17,9 @@ Engineers spend billions on advanced robotics while nature already solved locomo
 
 I first encountered this approach while experimenting with a simple gripper in my home lab around 2018, realizing that adding compliance to the fingers solved grasping problems I had been trying to fix with software. That experiment took 3 hours to rebuild but instantly improved grasp success from about 40% to 85%.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/biomimetic.png'); width: min(200px, 52%); aspect-ratio: 300/436; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">engineering, borrowed from birds</p>
+
 ## The Gecko That Started It All
 
 Years ago, I watched a gecko walk up a glass wall and wondered: how does something so small defy gravity? That curiosity led me into biomimetic robotics, where engineers extract nature's solutions for technology. After 3.8 billion years of evolution, nature developed extraordinarily efficient solutions.
