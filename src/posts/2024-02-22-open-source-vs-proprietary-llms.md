@@ -13,6 +13,9 @@ After switching to a 4-bit quantized version and tweaking llama.cpp settings, I 
 
 This experience taught me that choosing between open-source and proprietary LLMs isn't about ideology. It's about understanding trade-offs, accepting real hardware constraints, and matching solutions to specific needs. Sometimes the "free" model costs you three days of debugging. Sometimes the API bill is cheaper than your time.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/open-vs-proprietary.png'); width: min(240px, 62%); aspect-ratio: 340/389; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">one you can open, one you can't</p>
+
 ## The Accessibility Question: Freedom vs. Convenience
 
 My first encounter with open-source LLMs came through Meta's LLaMA 2 release in July 2023. I was excited to finally peek under the hood, understand how these models work, and modify them for my specific needs.
