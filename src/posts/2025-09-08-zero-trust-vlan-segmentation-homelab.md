@@ -17,6 +17,9 @@ tags:
 
 All because I put it on the same network as my trusted devices. That camera is now in a VLAN jail, where it belongs.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/vlan-segment.png'); width: min(240px, 62%); aspect-ratio: 320/382; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">good fences, good networks</p>
+
 ## Zero Trust Network Architecture
 
 ```mermaid

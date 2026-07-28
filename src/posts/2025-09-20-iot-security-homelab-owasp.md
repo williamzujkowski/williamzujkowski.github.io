@@ -15,6 +15,9 @@ tags:
 
 What I found led me down a rabbit hole of firmware analysis, MQTT exploitation, and built an isolated IoT security lab. In September 2024, I analyzed traffic from my Philips Hue bridge. I discovered it was sending device status every 12 seconds to cloud servers, even when I wasn't using the app. Total data: 2.1MB/day just for "phone home" pings. That's when I realized I needed to take IoT security more seriously. Today, I'll show you how to use OWASP IoTGoat to safely explore these vulnerabilities yourself.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/iot-security.png'); width: min(220px, 58%); aspect-ratio: 300/308; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the smart bulb, less naive</p>
+
 ## The IoT Security Landscape
 
 [OWASP IoT Top 10 (2018)](https://owasp.org/www-project-internet-of-things/) identifies the most critical security risks, but theoretical knowledge only goes so far. I'm still figuring out which risks are actually exploitable in my homelab versus which are edge cases.
