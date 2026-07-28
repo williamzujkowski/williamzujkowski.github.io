@@ -15,6 +15,9 @@ I run local LLMs up to 34B parameters on my RTX 3090 (24GB VRAM), completely off
 
 
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/local-llm.png'); width: min(230px, 60%); aspect-ratio: 320/347; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the model stays home</p>
+
 ## Local LLM Architecture
 
 ```mermaid

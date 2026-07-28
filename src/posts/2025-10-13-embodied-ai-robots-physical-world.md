@@ -17,6 +17,9 @@ AI escaped the screen in 2025. [Google DeepMind's Gemini Robotics](https://arxiv
 
 **Why it matters:** When AI gains physical agency, software bugs become safety hazards. A bad recommendation is annoying, but a robot arm moving incorrectly causes injury. We're deploying systems that manipulate the physical world with minimal testing frameworks and emerging safety standards, though I should note that this rapid deployment raises concerns about premature adoption. The security implications extend beyond data breaches to physical harm.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/edge-robots.png'); width: min(200px, 55%); aspect-ratio: 300/385; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">from terminal to workshop</p>
+
 ## The Shift: From Text to Touch
 
 My 3D printer failed mid-print for the third time in January 2025, not from mechanical failure, but because I wasn't there to catch a minor issue any human would have immediately corrected. My homelab runs sophisticated AI agents: Claude orchestrating tasks, custom MCP servers managing infrastructure, intelligent monitoring catching anomalies. My terminal is smart.
