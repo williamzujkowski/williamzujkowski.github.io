@@ -12,6 +12,9 @@ There's a moment when reading certain papers that you know you're witnessing som
 
 In late 2018, I implemented my first Transformer from scratch for a machine translation project. After weeks of debugging attention matrices and positional encodings, I got it working. The training speed compared to my previous LSTM baseline was striking: what took 14 hours per epoch with LSTMs finished in 3.5 hours with the Transformer, while achieving 2.1 points higher BLEU score on English-German translation. That hands-on experience, watching Transformers evolve into GPT, BERT, and modern LLMs, convinced me this architecture represented a genuine paradigm shift, though I'm still learning about its limitations.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/attention.png'); width: min(320px, 82%); aspect-ratio: 400/233; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the model, paying attention</p>
+
 ## How It Works
 
 ```mermaid
