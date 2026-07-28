@@ -20,6 +20,9 @@ Staring at my electricity bill after running a large language model training job
 
 That moment of financial reality sparked my deep dive into AI learning in resource-constrained environments. This journey taught me more about efficiency, creativity, and the fundamentals of machine learning than years of unlimited cloud budgets ever could.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/resource-constrained.png'); width: min(240px, 62%); aspect-ratio: 320/279; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">big model, small box</p>
+
 ## The Reality Check: When Resources Become Constraints
 
 My introduction to resource-constrained AI came from necessity, not choice. After burning through my AWS credits on a poorly optimized training run, I faced a choice: abandon AI experimentation or learn to do more with less.
