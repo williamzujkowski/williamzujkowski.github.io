@@ -10,6 +10,9 @@ tags:
 ---
 After 15+ years in cybersecurity, I've learned one truth: The moment you stop learning is the moment you become obsolete. But here's the challenge – how do you keep up with a field that literally changes every day without burning out? Here are the strategies that have worked for me, refined through [my journey from IT support to senior InfoSec engineer](/posts/2025-03-24-from-it-support-to-senior-infosec-engineer/).
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/continuous-learning.png'); width: min(220px, 58%); aspect-ratio: 300/316; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the brain, still training</p>
+
 ## The Learning Paradox
 
 When I started in IT support, I could learn a technology and use it for years. Now? The vulnerability I'm patching today didn't exist last week. The attack technique I'm defending against was presented at a conference last month. The AI tool I'm securing was in beta yesterday.

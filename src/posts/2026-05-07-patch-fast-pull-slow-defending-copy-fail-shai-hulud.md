@@ -15,6 +15,9 @@ Both are correct. They are also, literally, the opposite advice.
 
 This is the squeeze defenders are living in now, and "balance speed and safety" is not a strategy. Below is what's actually going on, and what I'm doing about it in the homelab.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/patch-fast.png'); width: min(240px, 62%); aspect-ratio: 340/325; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">patch fast, outrun the bug</p>
+
 ## The Left Tab: AI Bugs and the Pile-On
 
 Copy Fail ([CVE-2026-31431](https://copy.fail/)) is a straight-line logic flaw in the kernel's `algif_aead` module reachable through `AF_ALG` and `splice()`. No race, no offsets, no spray. Local unprivileged user → root, on basically every mainstream Linux distro built since 2017. The PoC is a 732-byte Python script that works unmodified across distributions. The bug was found by automated code scanning, not by a human chasing a hunch.
