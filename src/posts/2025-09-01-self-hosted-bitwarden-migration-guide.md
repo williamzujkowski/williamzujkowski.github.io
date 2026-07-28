@@ -16,6 +16,9 @@ tags:
 
 **BLUF:** Cloud password manager breaches happen every few years. When LastPass disclosed their 2022 incident, I moved 500+ passwords to self-hosted Bitwarden. Two years later, I have better security, zero vendor lock-in, and complete data ownership. Here's how to migrate safely.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/bitwarden-vault.png'); width: min(200px, 55%); aspect-ratio: 300/390; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">your passwords, in a real safe</p>
+
 ## Self-Hosted Password Management Architecture
 
 ```mermaid

@@ -17,6 +17,9 @@ The second weekend, I got hybrid mode working but didn't realize my certificate 
 
 Here's what I learned about preparing homelabs for the quantum computing threat that's probably 10-15 years away but requires action today.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/post-quantum.png'); width: min(320px, 80%); aspect-ratio: 380/254; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">future-proofing the lock</p>
+
 ## Why This Matters Right Now
 
 In August 2024, NIST finalized three post-quantum cryptography standards: [ML-KEM (FIPS 203)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf) for key encapsulation, [ML-DSA (FIPS 204)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) for digital signatures, and [SLH-DSA (FIPS 205)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf) for hash-based signatures.

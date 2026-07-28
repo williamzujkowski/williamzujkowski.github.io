@@ -29,6 +29,9 @@ I ran a 7 billion parameter language model on an 8GB Raspberry Pi 4 using PIPELO
 
 ---
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/llama-pi.png'); width: min(220px, 58%); aspect-ratio: 320/323; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">a whole llama, on a tiny board</p>
+
 ## The Edge AI Memory Problem
 
 Edge devices have limited RAM. Transformers are memory-hungry beasts. This mismatch kills most edge AI deployments before they start.

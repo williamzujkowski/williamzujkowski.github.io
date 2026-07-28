@@ -13,6 +13,9 @@ In June 2024, I spent 40 hours working through IBM's Qiskit tutorials, attemptin
 
 That learning experience taught me something critical. Quantum computing isn't just a faster computer. It's a fundamentally different way of processing information that could change everything from drug discovery to artificial intelligence, while simultaneously breaking much of the cryptography that secures our digital world. The timeline for when this happens remains uncertain, though progress has accelerated since 2023.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/superposition.png'); width: min(280px, 72%); aspect-ratio: 380/307; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">both, until you look</p>
+
 ## How It Works
 
 ```mermaid
