@@ -16,6 +16,9 @@ Recently, when I decided to test this problem in my own homelab, I downloaded 50
 
 Even more concerning, the false positive rate hit 18%. Nearly one in five real videos got flagged as fake. This wasn't theoretical anymore. I had the processing power to detect deepfakes, but the technology itself was still too unreliable for real-world deployment.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/deepfake.png'); width: min(300px, 75%); aspect-ratio: 560/418; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the tell is always on the right</p>
+
 ## How It Works
 
 
