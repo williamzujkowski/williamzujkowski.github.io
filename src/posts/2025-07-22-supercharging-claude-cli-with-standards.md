@@ -24,6 +24,9 @@ I was using Claude CLI daily and hitting the same frustrations:
 
 Then I had an idea: What if I could give Claude permanent memory of how I like to work?
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/cli-standards.png'); width: min(300px, 75%); aspect-ratio: 440/370; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the CLI, with house rules</p>
+
 ## My First Attempt: Complete Disaster
 
 In June 2025, I integrated my standards repo with Claude CLI for the first time. I ran the validation script on my blog codebase. The result?
