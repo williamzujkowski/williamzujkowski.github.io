@@ -10,6 +10,9 @@ live-coding-music-mcp is what happens when you hand a language model a browser a
 
 It was also my first serious attempt at browser automation from an LLM, which mostly means it was my first tour of the many ways a browser can let you down. I wanted to see whether a model could do something closer to live coding, hands on the instrument, than to the usual trick of prompting a black box for a finished track. Short answer: yes, once you stop treating the browser as a tidy API and start treating it as the temperamental analog synth it actually is.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/music-mcp.png'); width: min(240px, 62%); aspect-ratio: 340/359; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the browser, given a drum kit</p>
+
 ## What it actually does
 
 Point Claude at it and ask for a techno beat, and here's roughly what happens: a Chromium window opens — visibly, because this is meant to be watched, not hidden — and lands on strudel.cc. Claude calls `init`, then `compose({ style: "techno" })`, and a pattern lands in the CodeMirror editor and starts playing through your speakers. No audio file gets generated somewhere and handed back; the sound comes out of the same browser tab you're looking at, in real time, because that's the same tab running the same code a human would type by hand:
