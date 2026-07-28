@@ -10,6 +10,9 @@ Terminal color schemes are a genre unto themselves: hobbyist projects named Drac
 
 Click that swatch icon next to the light/dark toggle and the whole site repaints: body text, code blocks, links, borders, twelve options deep. None of it is hand-tuned CSS. Every color on that menu is derived, at build time, from the same dataset this post is about, and it's the same color story I described building into [Remarque](/posts/2026-04-10-remarque-typography-first-design-system/), this site's design system, back in April.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/oklch-themes.png'); width: min(320px, 82%); aspect-ratio: 400/241; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">545 ways to paint a terminal</p>
+
 ## Where 545 themes come from, and why the count keeps moving
 
 Terminal theme authors have never agreed on a file format, and nobody seems bothered by it. iTerm2 wants XML. Alacritty wants TOML. Windows Terminal wants JSON. Ghostty wants a config file with no extension at all, as if extensions were for people with something to prove. `sources.json` lists twelve upstream sources, each pinned to a commit SHA and MIT- or Apache-2.0-licensed — [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) supplies the bulk of it, with the rest from Neovim plugin repos, a couple of Ghostty-native packs, and Warp's special editions. `fetch-upstream.ts` sparse-clones each source and records the SHA it landed on; a weekly GitHub Actions cron reruns the whole pipeline every Monday at 06:00 UTC and opens a PR only when something upstream actually changed. Nobody has to remember to go check; the robot checks.

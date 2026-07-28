@@ -18,6 +18,9 @@ That painful lesson taught me: single points of failure are unacceptable, even i
 
 This incident became a driving force behind [building a security-focused homelab](/posts/2025-04-24-building-secure-homelab-adventure) with resilience baked in from the start.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/proxmox-ha.png'); width: min(260px, 68%); aspect-ratio: 360/316; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">when one falls, the other stands</p>
+
 ## High Availability Architecture
 
 ```mermaid
