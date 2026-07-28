@@ -21,6 +21,9 @@ But here's the thing: personal projects are where we learn by overdoing it, by m
 
 **The Numbers**: Version 1 (200 lines, 2 hours, functional) → Version 4 (6,000+ lines, 3 weeks, questionably necessary). Redis cache with 30-minute TTL for documentation that changes once a month. Vector search implementation for 50 markdown files. Six language-specific analyzers for standards that are 90% YAML. This isn't a success story: it's a cautionary tale about knowing when good enough is perfect.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/mcp-server.png'); width: min(240px, 62%); aspect-ratio: 340/334; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">one server, many tools</p>
+
 ## When Good Ideas Get Complicated
 
 Remember when I was all excited about my standards repository? Well, I made the classic developer mistake: "You know what would make this better? If I rebuilt it from scratch with a completely different architecture!"

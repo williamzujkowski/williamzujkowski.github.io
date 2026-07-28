@@ -48,6 +48,9 @@ graph TB
     style ST fill:#888,color:#fff
 ```
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/hpc.png'); width: min(180px, 48%); aspect-ratio: 280/485; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">compute, at ludicrous speed</p>
+
 ## The Scale That Changes Everything
 
 Years ago, when I first encountered supercomputing facilities, the sheer scale was overwhelming. Massive rooms filled with interconnected nodes, humming with activity. The landscape of High-Performance Computing has changed dramatically since then, and what we're seeing today goes far beyond faster processors.
