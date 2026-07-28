@@ -14,6 +14,9 @@ Proxmox VE turned my homelab from a collection of physical machines into a prope
 
 Here's what succeeded, what failed spectacularly, and how to build a secure private cloud that won't drive you crazy.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/private-cloud.png'); width: min(230px, 60%); aspect-ratio: 320/365; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">your cloud, behind a lock</p>
+
 ## Why Private Cloud Architecture Matters
 
 Public cloud providers offer convenience. But data sovereignty, compliance requirements, and cost control drive many organizations toward private cloud solutions. In my homelab, I needed to test enterprise patterns without enterprise budgets.

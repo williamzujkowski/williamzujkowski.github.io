@@ -10,6 +10,9 @@ Run an AI coding agent against a real repo for a week and you'll eventually give
 
 For most of the open-source sandbox tooling a homelab operator can actually install today, the answer is yes. That's the gap this post is about.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/sandbox-secret.png'); width: min(260px, 68%); aspect-ratio: 340/295; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the sandbox has a reach problem</p>
+
 ## The isolation primitives are mature
 
 The isolation ladder for untrusted agent code has several well-established rungs. Plain namespaces and seccomp are the weakest, cheapest option: shared host kernel, no hardware boundary. gVisor intercepts syscalls in userspace with no VM boot, but adds 10-30% overhead on I/O-heavy work. I measured this directly in my own K3s cluster: syscall-heavy workloads ran [15-38% slower under gVisor, and startup overhead hit 59%](/posts/2024-09-25-gvisor-container-sandboxing-security). The isolation held against every escape attempt I threw at it. The performance cost was real too.

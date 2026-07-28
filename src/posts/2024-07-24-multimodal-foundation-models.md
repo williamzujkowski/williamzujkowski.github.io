@@ -13,6 +13,9 @@ The first time I fed a UI mockup screenshot to GPT-4 Vision and watched it gener
 
 That moment marked my introduction to multimodal foundation models, systems that can reason across text, images, audio, and video with human-like fluency. The implications were staggering: AI that could truly see, hear, and understand the world as we do, though I'm cautious about overstating how close we really are to [human-level multimodal understanding](/posts/2024-03-20-transformer-architecture-deep-dive).
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/multimodal.png'); width: min(200px, 55%); aspect-ratio: 300/426; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">eyes, ears, and a voice</p>
+
 ## The Convergence: When AI Learns to See and Speak
 
 For years, AI capabilities were siloed. Computer vision models could classify images but couldn't explain them. Language models could write eloquently about concepts they'd never seen. Speech recognition systems could transcribe but not comprehend.

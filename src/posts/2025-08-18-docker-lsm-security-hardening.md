@@ -13,6 +13,9 @@ Container escapes happen, usually to whoever assumed namespaces were the whole s
 
 Here's how to lock down Docker without orchestration complexity.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/docker-lsm.png'); width: min(280px, 72%); aspect-ratio: 360/308; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the whale, in armor</p>
+
 ## The Container Isolation Problem
 
 Docker provides process isolation via Linux namespaces. But namespaces alone don't prevent privilege escalation. Containers share kernel with host. Exploit kernel vulnerability = compromise entire system.
