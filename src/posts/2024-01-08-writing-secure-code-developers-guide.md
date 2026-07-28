@@ -13,8 +13,8 @@ Years ago, I discovered a SQL injection vulnerability during a code review. The 
 
 That experience early in my career taught me how easy it is for injection flaws to slip through. What looked like a minor oversight in query construction was actually a textbook vulnerability — the kind that, left unpatched, could expose sensitive data. It reinforced a lesson I carry to this day: security isn't something you bolt on after the fact.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/secure-code.png'); width: min(200px, 55%); aspect-ratio: 280/293; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">locked at the braces</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/secure-code.png'); width: min(200px, 55%); aspect-ratio: 400/404; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">bugs bounce off</p>
 
 ## The Real Cost of Insecure Code: Why It Matters
 

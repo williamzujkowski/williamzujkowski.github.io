@@ -15,7 +15,7 @@ Without monitoring, I'm flying blind. With it, I caught three serious compromise
 
 Here's how I built a security dashboard that actually works.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/dashboard.png'); width: min(210px, 55%); aspect-ratio: 320/423; margin: 2rem auto 0.5rem;"></div>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/dashboard.png'); width: min(210px, 55%); aspect-ratio: 400/334; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the homelab, at a glance</p>
 
 ## Why Security Dashboards Matter

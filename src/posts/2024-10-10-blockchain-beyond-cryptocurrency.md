@@ -14,8 +14,8 @@ In early October 2024, I deployed a private Ethereum test network on my homelab'
 I'll admit I started this project skeptical. The cryptocurrency hype felt disconnected from solving real problems, and the energy consumption seemed wasteful. But after three months of running actual nodes, deploying smart contracts, and watching my IPFS storage grow to 340GB, I realized something: the core innovation has little to do with digital money.
 
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/blockchain.png'); width: min(340px, 82%); aspect-ratio: 440/239; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">blocks, chained (hence the name)</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/blockchain.png'); width: min(340px, 82%); aspect-ratio: 400/303; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">records, chained (hence the name)</p>
 
 ## What I Actually Learned Running Blockchain Infrastructure
 

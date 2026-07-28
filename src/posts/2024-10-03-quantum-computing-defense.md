@@ -14,8 +14,8 @@ The convergence of quantum computing and defense technologies represents one of 
 
 Having followed this field closely since 2018, I've come to understand that quantum computing in defense isn't a distant future concern. It's a present reality that demands immediate attention and strategic planning.
 
-<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/quantum-defense.png'); width: min(200px, 52%); aspect-ratio: 300/435; margin: 2rem auto 0.5rem;"></div>
-<p class="hand-note" style="text-align: center; display: block;">the atom, on both sides</p>
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/quantum-defense.png'); width: min(200px, 52%); aspect-ratio: 400/418; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the atom cuts both ways</p>
 
 ## The Quantum Advantage: Beyond Classical Limitations
 
