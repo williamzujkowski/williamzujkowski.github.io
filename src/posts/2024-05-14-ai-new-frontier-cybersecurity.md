@@ -20,6 +20,9 @@ The pattern was subtle: five ports probed over 18 hours, each connection lasting
 
 That moment crystallized both the immense promise and the frustrating reality of AI in cybersecurity. When it works, it's remarkable. When it doesn't, you're drowning in false alarms wondering if you should just go back to grep and tcpdump.
 
+<div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/ai-frontier.png'); width: min(180px, 50%); aspect-ratio: 280/563; margin: 2rem auto 0.5rem;"></div>
+<p class="hand-note" style="text-align: center; display: block;">the new thing on the wall</p>
+
 ## The Double-Edged Nature of AI in Security
 
 Working with AI security tools since 2021 taught me that every defensive capability creates corresponding offensive possibilities. It's a frustrating arms race where your best defense inevitably becomes someone else's attack template.
