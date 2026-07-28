@@ -29,9 +29,6 @@ Prompt engineering combines systematic optimization with practical techniques to
 
 **Critical warning:** LLMs are unreliable tools requiring constant verification. Hallucinations, bias, and inconsistency make them unsuitable for high-stakes decisions without human oversight.
 
-## How It Works
-
-
 ## Core Principle: Context Over Brevity
 
 **Bad prompt:**

@@ -19,9 +19,6 @@ Even more concerning, the false positive rate hit 18%. Nearly one in five real v
 <div class="zine-doodle" aria-hidden="true" style="--doodle: url('/assets/doodles/deepfake.png'); width: min(300px, 75%); aspect-ratio: 560/418; margin: 2rem auto 0.5rem;"></div>
 <p class="hand-note" style="text-align: center; display: block;">the tell is always on the right</p>
 
-## How It Works
-
-
 ## The Technology That Shattered Trust
 
 Deepfakes use generative adversarial networks (GANs) in a digital arms race. One neural network creates increasingly realistic fake content while another network tries to detect the forgeries. They push each other toward perfection in an endless cycle of improvement.

@@ -15,8 +15,6 @@ I spent three solid weekends implementing Zero Trust principles in my homelab us
 
 By June 2024, I had created distinct VLANs for management (192.168.1.0/24), servers (192.168.10.0/24), IoT devices (192.168.20.0/24), guest network (192.168.30.0/24), security tools (192.168.40.0/24), cameras (192.168.50.0/24), work devices (192.168.60.0/24), and storage (192.168.70.0/24). According to Wazuh 4.7.0 metrics from my SIEM, this segmentation reduced potential lateral movement paths by 94% compared to my previous flat network design. For detailed implementation guidance on [building a security-focused homelab with proper VLAN segmentation](/posts/2025-04-24-building-secure-homelab-adventure), I've shared my complete network architecture and lessons learned.
 
-## How It Works
-
 ## The Perimeter Security Illusion
 
 For decades, we'd built security around a simple premise: establish a secure perimeter, trust everything inside it, and scrutinize everything trying to get in. This model worked when employees sat at office desks connected to corporate networks, but it crumbled as work became distributed, cloud-first, and mobile.
