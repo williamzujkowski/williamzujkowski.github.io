@@ -282,8 +282,8 @@ Load these for most development tasks:
 ### Medium Priority (Load When Relevant)
 Load these for specialized tasks:
 
-- **[@docs/workflows/image-management.md](workflows/image-management.md)** (2,100 words)
-  Blog image generation, optimization, gist management.
+- **[@docs/content-visuals.md](../content-visuals.md)**
+  Native `.flow` / `.arch` visual rules, zine doodles, generated OG cards, and legacy Mermaid guidance.
 
 - **[@docs/workflows/citation-research.md](workflows/citation-research.md)** (1,800 words)
   Academic source discovery, citation formatting, link validation.
@@ -362,7 +362,7 @@ This blog shares real homelab and research work with authentic personal voice. W
 - Target length: 1,400-2,100 words
 - Citations: 10+ with working hyperlinks
 - Humanization: ≥75/100 score
-- Images: Hero + 1 per major section
+- Visuals: zine doodles where they carry a metaphor, generated OG cards, native `.flow` / `.arch` first
 
 ## Phase-by-Phase Guide
 [Detailed 7-phase methodology]
@@ -469,7 +469,7 @@ Use `@path/to/import` for composition:
 - 1,400-2,100 words (6-9 min read)
 - 10+ citations with working hyperlinks
 - Humanization score ≥75/100
-- Hero image + section images
+- Zine doodles where useful; generated OG cards; native `.flow` / `.arch` visuals first
 - <25% code-to-content ratio
 
 **Pre-commit validation:**
@@ -634,7 +634,7 @@ npx claude-flow sparc batch <modes> "<task>"  # Parallel execution
 - [ ] Validate LLM can discover and load modules
 
 ### Phase 3: Extract Medium-Priority Topics (3-4 hours)
-- [ ] Create `docs/workflows/image-management.md` (2,100 words)
+- [ ] Use `docs/content-visuals.md` for visual authoring rules
 - [ ] Create `docs/workflows/citation-research.md` (1,800 words)
 - [ ] Create `docs/workflows/humanization.md` (2,000 words)
 - [ ] Create `docs/tools/script-catalog.md` (3,200 words)

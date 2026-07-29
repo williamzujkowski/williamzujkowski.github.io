@@ -194,7 +194,7 @@
 - ✅ All code examples tested (or clearly labeled as simplified)
 - ✅ Commands verified in homelab before publishing
 - ✅ Gists contain production-ready implementations
-- ✅ Mermaid diagrams use v10+ syntax
+- ✅ Visuals follow `docs/content-visuals.md`: `.arch` for architecture, `.flow` for process, Markdown tables for matrices; Mermaid only when unavoidable
 - ✅ Build passes without errors
 
 ---
@@ -245,7 +245,7 @@
 
 1. **WebSearch for real citations:** Found actual arXiv papers, not placeholders
 2. **Gist-first approach:** Created implementation gists before writing reduced code ratio
-3. **Mermaid diagrams:** Visual architecture improved readability
+3. **Native diagrams:** Visual architecture improved readability
 4. **Real homelab metrics:** "47 hosts", "8.4 minutes", "94.3% accuracy" add credibility
 
 ### What to Improve
@@ -261,11 +261,11 @@
 - [ ] Verify all citations resolve (click every link)
 - [ ] Test at least 2 code examples in homelab
 - [ ] Include failure modes and limitations
-- [ ] Add Mermaid diagram for architecture
+- [ ] Add `.arch` diagram for architecture, `.flow` diagram for process, or Markdown table for matrices per `docs/content-visuals.md`
 - [ ] Extract code >20 lines to gists
 - [ ] Run humanization validator BEFORE committing
 - [ ] Check code ratio with calculator
-- [ ] Verify Mermaid v10 syntax (no deprecated features)
+- [ ] Use Mermaid only when unavoidable; verify syntax if legacy Mermaid remains
 - [ ] Build locally to catch errors early
 
 ---
