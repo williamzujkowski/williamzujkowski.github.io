@@ -887,6 +887,73 @@ article .prose > p:first-of-type::first-letter {
   border: 1px solid var(--color-border);
 }
 
+/* ===== Native flow diagrams (issue #414) — theme-token HTML flows that
+ * reshape wide Mermaid flowcharts into a vertical, phone-legible column.
+ * Authored as raw HTML in posts (like .zine-doodle); no build step, real
+ * site type so text is full-size & high-contrast, and it reflows: parallel
+ * rows and branches wrap/stack on narrow screens. All text >= 0.8125rem
+ * (USWDS 13px floor). Connectors are drawn by CSS between direct children. */
+.prose .flow {
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+  margin-block: var(--space-6); font-family: var(--font-body);
+  color: var(--color-fg); text-align: center;
+}
+.prose .flow > * { position: relative; max-width: 100%; }
+/* vertical connector + arrowhead above every child after the first */
+.prose .flow > * + * { margin-top: 1.9rem; }
+.prose .flow > * + *::before {
+  content: ""; position: absolute; top: -1.75rem; left: 50%;
+  width: 2px; height: 1.25rem; transform: translateX(-50%);
+  background: var(--color-border-bold);
+}
+.prose .flow > * + *::after {
+  content: ""; position: absolute; top: -0.55rem; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent; border-bottom: 0;
+  border-top-color: var(--color-border-bold);
+}
+.prose .flow-node {
+  background: var(--color-surface); border: 1.5px solid var(--color-border-bold);
+  border-radius: var(--radius-md); padding: 0.5rem 0.85rem;
+  line-height: 1.3; font-size: 0.95rem; font-weight: 600;
+}
+.prose .flow-node b { display: block; font-weight: 600; }
+.prose .flow-node i {
+  display: block; font-style: normal; font-weight: 400;
+  font-family: var(--font-mono); font-size: 0.8125rem;
+  color: var(--color-fg-muted); margin-top: 0.1rem;
+}
+/* decision / gate — dashed accent pill */
+.prose .flow-node.is-gate {
+  border-style: dashed; border-color: var(--color-accent);
+  border-radius: 999px; color: var(--color-accent);
+}
+.prose .flow-node.is-good { border-color: var(--color-success); color: var(--color-success); }
+.prose .flow-node.is-bad  { border-color: var(--color-error);   color: var(--color-error); }
+/* parallel steps — a row that wraps to a stack on narrow screens */
+.prose .flow-parallel {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; width: 100%;
+}
+.prose .flow-parallel .flow-node { flex: 1 1 7rem; min-width: 6rem; margin-top: 0; }
+.prose .flow-parallel .flow-node::before, .prose .flow-parallel .flow-node::after { content: none; }
+/* two-way branch — legs wrap/stack; each carries a labelled pill */
+.prose .flow-branch {
+  display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; width: 100%;
+}
+.prose .flow-leg {
+  display: flex; flex-direction: column; align-items: center; flex: 1 1 9rem;
+}
+.prose .flow-leg::before {
+  content: attr(data-branch); font-family: var(--font-mono);
+  font-size: 0.8125rem; letter-spacing: var(--tracking-meta);
+  text-transform: uppercase; color: var(--color-muted);
+  border: 1px solid currentColor; border-radius: 999px;
+  padding: 0.05rem 0.55rem; margin-bottom: 0.4rem;
+}
+.prose .flow-leg[data-branch]:has(.is-good)::before { color: var(--color-success); }
+.prose .flow-leg[data-branch]:has(.is-bad)::before  { color: var(--color-error); }
+@media (prefers-reduced-motion: reduce) { .prose .flow * { transition: none; } }
+
 /* ===== Footer ===== */
 .site-footer {
   margin-block-start: var(--space-8);
