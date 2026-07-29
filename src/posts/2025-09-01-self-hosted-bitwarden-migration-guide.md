@@ -21,57 +21,24 @@ tags:
 
 ## Self-Hosted Password Management Architecture
 
-```mermaid
-flowchart TB
-    subgraph clientaccess["Client Access"]
-        Web[Web Vault]
-        Mobile[Mobile Apps]
-        Desktop[Desktop Apps]
-        Browser[Browser Extensions]
-    end
-    subgraph bitwardenserver["Bitwarden Server"]
-        Nginx[Nginx Reverse Proxy]
-        Vaultwarden[Vaultwarden Service]
-        DB[(SQLite/PostgreSQL)]
-    end
-    subgraph securitylayer["Security Layer"]
-        Firewall[Firewall Rules]
-        WAF[ModSecurity WAF]
-        Fail2ban[Fail2ban]
-        TLS[TLS 1.3]
-    end
-    subgraph backuprecovery["Backup & Recovery"]
-        Local[Local Backups]
-        Offsite[Offsite Backups]
-        Encrypted[Encrypted Storage]
-        Versioned[Version Control]
-    end
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Self-hosted Bitwarden serving architecture">
+  <section class="arch-tier" data-label="Client Access"><span class="arch-chip">Web Vault</span><span class="arch-chip">Mobile Apps</span><span class="arch-chip">Desktop Apps</span><span class="arch-chip">Browser Extensions</span></section>
+  <section class="arch-tier" data-label="Ingress Protection"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">TLS 1.3</span><span class="arch-chip is-guard">Fail2ban</span><span class="arch-chip is-guard">ModSecurity WAF</span></section>
+  <section class="arch-tier" data-label="Application Edge"><span class="arch-chip">Nginx Reverse Proxy</span></section>
+  <section class="arch-tier" data-label="Vault Service"><span class="arch-chip is-primary">Vaultwarden</span></section>
+  <section class="arch-tier" data-label="Data Store"><span class="arch-chip"><b>SQLite / PostgreSQL</b><i>encrypted at rest</i></span></section>
+</div>
+<figcaption>Clients enter through the protected edge; Vaultwarden sits behind Nginx and writes to a private database. Backups (below) run downstream of the data store.</figcaption>
+</figure>
 
-    Web --> Nginx
-    Mobile --> Nginx
-    Desktop --> Nginx
-    Browser --> Nginx
-
-    Nginx --> WAF
-    WAF --> Vaultwarden
-    Vaultwarden --> DB
-
-    Firewall --> Nginx
-    Fail2ban --> Nginx
-    TLS --> Nginx
-
-    DB --> Local
-    Local --> Encrypted
-    Encrypted --> Offsite
-    Offsite --> Versioned
-
-    classDef successStyle fill:#4caf50,color:#fff
-    classDef warningStyle fill:#ff9800,color:#fff
-    classDef criticalStyle fill:#f44336,color:#fff
-    class Vaultwarden successStyle
-    class WAF warningStyle
-    class Encrypted criticalStyle
-```
+<div class="flow" aria-label="Bitwarden backup and recovery path">
+  <div class="flow-node">Database</div>
+  <div class="flow-node">Local Backups</div>
+  <div class="flow-node is-gate">Encrypted Storage</div>
+  <div class="flow-node">Offsite Backups</div>
+  <div class="flow-node">Versioned Copies</div>
+</div>
 
 ## Why Self-Host?
 

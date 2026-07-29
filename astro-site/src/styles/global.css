@@ -954,6 +954,56 @@ article .prose > p:first-of-type::first-letter {
 .prose .flow-leg[data-branch]:has(.is-bad)::before  { color: var(--color-error); }
 @media (prefers-reduced-motion: reduce) { .prose .flow * { transition: none; } }
 
+/* ===== Native architecture diagrams (issue #414) — sibling to .flow, for
+ * multi-tier / layered systems that aren't a linear pipeline. Stacked labelled
+ * tiers whose component chips wrap on mobile; understated border-accent chips
+ * (no fills) to match the zine aesthetic. Dense zone/topology graphs get SPLIT
+ * into 2-3 of these instead of forcing one; matrices become Markdown tables.
+ * All text >= 0.8125rem (USWDS 13px floor). */
+.prose .arch-fig { margin-block: var(--space-6); }
+.prose .arch {
+  display: flex; flex-direction: column; gap: 1.6rem;
+  font-family: var(--font-body); color: var(--color-fg);
+}
+.prose .arch-tier {
+  position: relative; display: flex; flex-wrap: wrap;
+  align-items: stretch; justify-content: center; gap: 0.45rem;
+  padding: 1.7rem 0.6rem 0.65rem;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.prose .arch-tier::before {
+  content: attr(data-label); position: absolute; top: 0.5rem; left: 0.7rem;
+  font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--color-muted);
+}
+/* ordered dependency stack shows a down-cue between tiers; peer "zones" don't */
+.prose .arch.is-stack .arch-tier + .arch-tier::after {
+  content: "\2193"; position: absolute; top: -1.2rem; left: 50%;
+  transform: translateX(-50%); color: var(--color-border-bold);
+  font-size: 1rem; line-height: 1;
+}
+.prose .arch-chip {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center;
+  flex: 1 1 6.5rem; min-width: 5.5rem; padding: 0.4rem 0.6rem;
+  background: var(--color-bg); border: 1.5px solid var(--color-border-bold);
+  border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600;
+  line-height: 1.25; overflow-wrap: anywhere;
+}
+.prose .arch-chip i {
+  font-style: normal; font-weight: 400; font-family: var(--font-mono);
+  font-size: 0.8125rem; color: var(--color-fg-muted); margin-top: 0.1rem;
+}
+.prose .arch-chip.is-primary { border-color: var(--color-accent); color: var(--color-accent); }
+.prose .arch-chip.is-guard { border-style: dashed; border-color: var(--color-accent); }
+.prose .arch-chip.is-warn { border-color: var(--color-warning); color: var(--color-warning); }
+.prose .arch-chip.is-bad { border-color: var(--color-error); color: var(--color-error); }
+.prose .arch-fig figcaption {
+  color: var(--color-fg-muted); font-size: 0.8125rem; font-style: italic;
+  text-align: center; margin-top: 0.6rem;
+}
+
 /* ===== Footer ===== */
 .site-footer {
   margin-block-start: var(--space-8);
