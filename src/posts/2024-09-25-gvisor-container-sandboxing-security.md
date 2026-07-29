@@ -96,28 +96,21 @@ Container → gVisor Sentry (userspace) → Host Kernel
 
 **Trade-off:** Performance. Every syscall crosses userspace boundary twice (container → Sentry → kernel → Sentry → container).
 
-```mermaid
-sequenceDiagram
-    participant App as Container App
-    participant S as Sentry (userspace)
-    participant G as Gofer (userspace)
-    participant K as Host Kernel
-
-    App->>S: syscall (e.g., open())
-    Note over S: Intercept & validate
-    alt File operation
-        S->>G: 9P file request
-        G->>K: Scoped host syscall
-        K-->>G: File data
-        G-->>S: 9P response
-    else Non-file operation
-        S->>K: Filtered host syscall
-        K-->>S: Result
-    end
-    S-->>App: Syscall result
-
-    Note over App,K: Dangerous syscalls never reach the host kernel
-```
+<ol class="seq" aria-label="gVisor syscall handling">
+  <li class="seq-step"><b>Container App &rarr; Sentry</b><span>syscall, e.g. open()</span></li>
+  <li class="seq-note">Sentry intercepts &amp; validates the syscall</li>
+  <li class="seq-label">If: file operation</li>
+  <li class="seq-step"><b>Sentry &rarr; Gofer</b><span>9P file request</span></li>
+  <li class="seq-step"><b>Gofer &rarr; Host Kernel</b><span>scoped host syscall</span></li>
+  <li class="seq-step"><b>Host Kernel &rarr; Gofer</b><span>file data</span></li>
+  <li class="seq-step"><b>Gofer &rarr; Sentry</b><span>9P response</span></li>
+  <li class="seq-label">Else: non-file operation</li>
+  <li class="seq-step"><b>Sentry &rarr; Host Kernel</b><span>filtered host syscall</span></li>
+  <li class="seq-step"><b>Host Kernel &rarr; Sentry</b><span>result</span></li>
+  <li class="seq-label">Then</li>
+  <li class="seq-step"><b>Sentry &rarr; Container App</b><span>syscall result</span></li>
+  <li class="seq-note">Dangerous syscalls never reach the host kernel</li>
+</ol>
 
 ## G-Fuzz: Finding Bugs in the Sandbox
 

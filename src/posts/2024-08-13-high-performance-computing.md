@@ -90,22 +90,16 @@ def adaptive_mesh_refinement(simulation_state, ml_predictor):
 
 This creates feedback loops: AI improves scheduling efficiency, which enables more AI research, which improves scheduling further. It's a virtuous cycle accelerating HPC capabilities.
 
-```mermaid
-flowchart LR
-    subgraph AI-HPC Feedback Loop
-        A[AI Workloads] -->|Submit Jobs| B[Intelligent Scheduler]
-        B -->|Optimize Placement| C[HPC Resources<br/>CPU / GPU / QPU]
-        C -->|Training Results| D[ML Models Improve]
-        D -->|Better Predictions| B
-        C -->|Telemetry & Metrics| E[Resource Monitor]
-        E -->|Power & Utilization Data| B
-    end
-    style A fill:#6c5ce7,color:#fff
-    style B fill:#4a90d9,color:#fff
-    style C fill:#00b894,color:#fff
-    style D fill:#6c5ce7,color:#fff
-    style E fill:#e8a838,color:#fff
-```
+<div class="flow" role="group" aria-label="AI-HPC feedback loop">
+  <div class="flow-node">AI Workloads</div>
+  <div class="flow-node"><b>Intelligent Scheduler</b><i>optimize placement</i></div>
+  <div class="flow-node"><b>HPC Resources</b><i>CPU / GPU / QPU</i></div>
+  <div class="flow-parallel" role="group" aria-label="Runs in parallel">
+    <div class="flow-node"><b>Training Results</b><i>ML models improve</i></div>
+    <div class="flow-node"><b>Telemetry &amp; Metrics</b><i>power &amp; utilization data</i></div>
+  </div>
+  <div class="flow-node"><b>Scheduler Updates</b><i>better predictions for the next jobs</i></div>
+</div>
 
 ### Physics-Informed Neural Networks (PINNs)
 
@@ -387,30 +381,11 @@ The path forward requires:
 - Novel computing paradigms that integrate neuromorphic, quantum, and biological elements
 - Algorithms that minimize data movement and maximize efficiency across heterogeneous systems
 
-```mermaid
-timeline
-    title HPC Evolution: From Petascale to Zettascale
-    2010 : Petascale Era
-         : ~1 PFlop peak
-         : Air-cooled clusters
-         : General-purpose CPUs
-    2018 : Pre-Exascale
-         : ~200 PFlops
-         : GPU acceleration
-         : Early AI integration
-    2022 : Exascale Achieved
-         : 1.35 EFlops (Frontier)
-         : Hybrid CPU+GPU nodes
-         : Liquid cooling standard
-    2026 : Exascale Maturity
-         : Multiple exascale systems
-         : Quantum co-processors
-         : AI-driven scheduling
-    2030+ : Zettascale Target
-          : 1000x exascale
-          : Neuromorphic + quantum + photonic
-          : Novel semiconductor materials
-```
+- **2010** — Petascale Era: ~1 PFlop peak, air-cooled clusters, general-purpose CPUs.
+- **2018** — Pre-Exascale: ~200 PFlops, GPU acceleration, early AI integration.
+- **2022** — Exascale Achieved: 1.35 EFlops with Frontier, hybrid CPU+GPU nodes, liquid cooling standard.
+- **2026** — Exascale Maturity: multiple exascale systems, quantum co-processors, AI-driven scheduling.
+- **2030+** — Zettascale Target: 1000x exascale, neuromorphic + quantum + photonic systems, novel semiconductor materials.
 
 The key insight is that this isn't about building bigger machines. It's about creating entirely new ways to solve humanity's most complex problems, from climate change to disease research.
 

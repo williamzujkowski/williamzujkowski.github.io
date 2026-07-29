@@ -9,6 +9,7 @@ and stay readable on phones. Mermaid still renders, but it is legacy for new pos
 |---|---|
 | What happens next? A process, pipeline, or recovery path. | `.flow` |
 | What's in this layer, tier, or zone? | `.arch` |
+| A step-by-step exchange between actors (a sequence)? | `.seq` |
 | What talks to what under failure or security policy? | Split into 2-3 focused `.flow` / `.arch` views, then add a caption. |
 | Which option is better? A matrix or trade-off grid. | Markdown table |
 | A genuine node graph that resists all of the above. | Leave as a fenced `mermaid` block for now. Legacy; being phased down. Consider a future vertical-D2 render. |
@@ -119,6 +120,51 @@ Copy-paste example:
 </div>
 <figcaption>Clients enter through the protected edge; the vault service writes to a private database.</figcaption>
 </figure>
+```
+
+## `.seq`
+
+Use `.seq` for step-by-step exchanges between actors: protocol handshakes,
+request/response flows, approval chains, and security enforcement paths.
+
+Class contract:
+
+```html
+<ol class="seq" aria-label="Short exchange purpose">
+  <li class="seq-step"><b>Actor A &rarr; Actor B</b><span>message</span></li>
+  <li class="seq-note">A note over one or more actors becomes a note card</li>
+  <li class="seq-label">If: branch condition</li>
+  <li class="seq-step"><b>Actor B &rarr; Actor C</b><span>message</span></li>
+  <li class="seq-label">Else: alternate condition</li>
+  <li class="seq-step"><b>Actor B &rarr; Actor A</b><span>alternate response</span></li>
+</ol>
+```
+
+Use one `.seq-step` per message. Put the readable actor names in `<b>`, use
+`&rarr;` for the arrow, and keep the message in the `<span>` concise. Convert
+`Note over` to `.seq-note`. Convert grouped branches such as `alt`, `else`,
+`loop`, or `opt` into `.seq-label` dividers before the grouped steps.
+
+Raw HTML rules:
+
+- Put the opening `<ol>` tag at column 0.
+- Use no blank lines inside the block.
+- Use 2-space indentation.
+- Escape HTML-sensitive characters: `&` -> `&amp;`, `<` -> `&lt;`, `>` -> `&gt;`.
+- Use only `.seq`, `.seq-step`, `.seq-note`, and `.seq-label`.
+
+Copy-paste example:
+
+```html
+<ol class="seq" aria-label="Cache-backed standards request">
+  <li class="seq-step"><b>User &rarr; LLM</b><span>Ask for secure API guidance</span></li>
+  <li class="seq-step"><b>LLM &rarr; Standards Server</b><span>Request matching standards</span></li>
+  <li class="seq-label">If: cache hit</li>
+  <li class="seq-step"><b>Cache &rarr; Standards Server</b><span>Return cached standards</span></li>
+  <li class="seq-label">Else: cache miss</li>
+  <li class="seq-step"><b>Standards Store &rarr; Standards Server</b><span>Load standards files</span></li>
+  <li class="seq-note">The server compresses the result before returning it to the LLM.</li>
+</ol>
 ```
 
 ## Splitting Dense Diagrams

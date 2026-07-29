@@ -425,26 +425,19 @@ After implementing PQC across my homelab, here are the nuanced trade-offs I wish
 
 The following diagram shows how a hybrid TLS handshake works, combining classical and post-quantum key exchange:
 
-```mermaid
-sequenceDiagram
-    participant Client as Browser / Client
-    participant Server as Homelab Server (Caddy/Nginx)
-
-    Client->>Server: ClientHello<br/>Supported groups: x25519_kyber768, x25519
-
-    alt Client supports PQC
-        Server->>Server: Select x25519_kyber768 (hybrid)
-        Server-->>Client: ServerHello + Key Share<br/>(X25519 + ML-KEM-768 combined)
-        Client->>Client: Derive shared secret from<br/>BOTH classical + PQC keys
-        Client->>Server: Finished (quantum-resistant session)
-    else Client does NOT support PQC
-        Server->>Server: Fallback to x25519 (classical)
-        Server-->>Client: ServerHello + Key Share<br/>(X25519 only)
-        Client->>Server: Finished (classical session)
-    end
-
-    Note over Client,Server: Hybrid mode: PQC when possible,<br/>graceful fallback to classical
-```
+<ol class="seq" aria-label="hybrid post-quantum TLS handshake">
+  <li class="seq-step"><b>Browser / Client &rarr; Homelab Server (Caddy/Nginx)</b><span>ClientHello with x25519_kyber768 and x25519</span></li>
+  <li class="seq-label">If: client supports PQC</li>
+  <li class="seq-step"><b>Homelab Server (Caddy/Nginx) &rarr; Homelab Server (Caddy/Nginx)</b><span>Select x25519_kyber768 hybrid exchange</span></li>
+  <li class="seq-step"><b>Homelab Server (Caddy/Nginx) &rarr; Browser / Client</b><span>ServerHello and combined X25519 + ML-KEM-768 key share</span></li>
+  <li class="seq-step"><b>Browser / Client &rarr; Browser / Client</b><span>Derive shared secret from classical and PQC keys</span></li>
+  <li class="seq-step"><b>Browser / Client &rarr; Homelab Server (Caddy/Nginx)</b><span>Finished: quantum-resistant session</span></li>
+  <li class="seq-label">Else: client does not support PQC</li>
+  <li class="seq-step"><b>Homelab Server (Caddy/Nginx) &rarr; Homelab Server (Caddy/Nginx)</b><span>Fallback to x25519 classical exchange</span></li>
+  <li class="seq-step"><b>Homelab Server (Caddy/Nginx) &rarr; Browser / Client</b><span>ServerHello and X25519-only key share</span></li>
+  <li class="seq-step"><b>Browser / Client &rarr; Homelab Server (Caddy/Nginx)</b><span>Finished: classical session</span></li>
+  <li class="seq-note">Hybrid mode uses PQC when possible with graceful fallback to classical.</li>
+</ol>
 
 **Hybrid mode** (what everyone actually uses in production):
 - Combines classical X25519 with ML-KEM-768

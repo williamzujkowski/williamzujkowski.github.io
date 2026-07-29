@@ -80,25 +80,17 @@ def detect_privilege_escalation(event):
 
 The magic happens in the kernel with eBPF programs that capture these events in real-time. In my homelab, I've found this pattern catches most privilege escalation attempts within the first second. Here's what the complete system looks like:
 
-```mermaid
-sequenceDiagram
-    participant Process
-    participant Kernel
-    participant eBPF
-    participant Detector
-    participant Response
-    
-    Process->>Kernel: setuid(0)
-    Kernel->>eBPF: Syscall Hook
-    eBPF->>eBPF: Check UID transition
-    alt Suspicious Pattern
-        eBPF->>Detector: Alert Event
-        Detector->>Response: Trigger Response
-        Response-->>Process: Block/Kill/Isolate
-    else Normal Behavior
-        eBPF->>eBPF: Log and Continue
-    end
-```
+<ol class="seq" aria-label="eBPF privilege escalation detection">
+  <li class="seq-step"><b>Process &rarr; Kernel</b><span>setuid(0)</span></li>
+  <li class="seq-step"><b>Kernel &rarr; eBPF</b><span>Syscall hook</span></li>
+  <li class="seq-step"><b>eBPF &rarr; eBPF</b><span>Check UID transition</span></li>
+  <li class="seq-label">If: suspicious pattern</li>
+  <li class="seq-step"><b>eBPF &rarr; Detector</b><span>Alert event</span></li>
+  <li class="seq-step"><b>Detector &rarr; Response</b><span>Trigger response</span></li>
+  <li class="seq-step"><b>Response &rarr; Process</b><span>Block, kill, or isolate</span></li>
+  <li class="seq-label">Else: normal behavior</li>
+  <li class="seq-step"><b>eBPF &rarr; eBPF</b><span>Log and continue</span></li>
+</ol>
 
 ### Pattern 2: Ransomware Behavior Detection
 

@@ -31,22 +31,16 @@ Filesystem and process isolation, properly configured, can stop an agent from re
 
 The strongest version of this fix, and the one the diagram below matches, is credential-injection egress proxying: force outbound traffic through an MITM proxy that sits *outside* the sandbox boundary, terminate TLS with a locally-trusted, per-instance ephemeral CA, strip whatever the agent attached, inject the real credential from a store only the proxy can read, then open a fresh, properly verified TLS connection to the real upstream. The agent's process never has the plaintext secret in memory, on disk, or in its context window.
 
-```mermaid
-sequenceDiagram
-    participant Agent as Agent process<br/>(inside sandbox)
-    participant Proxy as Egress proxy<br/>(outside sandbox, holds creds)
-    participant Vault as Credential store<br/>(encrypted, proxy-only)
-    participant API as Real upstream<br/>(e.g. api.github.com)
-
-    Agent->>Proxy: CONNECT / TLS handshake<br/>(Agent trusts proxy's per-instance CA cert)
-    Note over Agent,Proxy: TLS terminates at the proxy.<br/>Request becomes readable in plaintext,<br/>inside the proxy only.
-    Proxy->>Proxy: Strip any agent-supplied credential
-    Proxy->>Vault: Look up real credential for this domain/policy
-    Vault-->>Proxy: Real token (never sent to Agent)
-    Proxy->>API: New TLS connection to real upstream,<br/>real credential injected as Authorization header
-    API-->>Proxy: Response
-    Proxy-->>Agent: Response forwarded over the original<br/>agent-proxy TLS session
-```
+<ol class="seq" aria-label="credential-injection egress proxy flow">
+  <li class="seq-step"><b>Agent process (inside sandbox) &rarr; Egress proxy (outside sandbox, holds creds)</b><span>CONNECT / TLS handshake with per-instance CA trust</span></li>
+  <li class="seq-note">TLS terminates at the proxy. The request is readable in plaintext inside the proxy only.</li>
+  <li class="seq-step"><b>Egress proxy (outside sandbox, holds creds) &rarr; Egress proxy (outside sandbox, holds creds)</b><span>Strip any agent-supplied credential</span></li>
+  <li class="seq-step"><b>Egress proxy (outside sandbox, holds creds) &rarr; Credential store (encrypted, proxy-only)</b><span>Look up real credential for this domain and policy</span></li>
+  <li class="seq-step"><b>Credential store (encrypted, proxy-only) &rarr; Egress proxy (outside sandbox, holds creds)</b><span>Real token, never sent to agent</span></li>
+  <li class="seq-step"><b>Egress proxy (outside sandbox, holds creds) &rarr; Real upstream (e.g. api.github.com)</b><span>New TLS connection with injected Authorization header</span></li>
+  <li class="seq-step"><b>Real upstream (e.g. api.github.com) &rarr; Egress proxy (outside sandbox, holds creds)</b><span>Response</span></li>
+  <li class="seq-step"><b>Egress proxy (outside sandbox, holds creds) &rarr; Agent process (inside sandbox)</b><span>Response forwarded over original agent-proxy TLS session</span></li>
+</ol>
 
 Cloudflare Sandbox documents exactly this mechanism. Outbound handlers "run in the Workers runtime, outside the sandbox," so "they can hold secrets the sandbox never sees," with a unique ephemeral CA generated per sandbox instance ([Cloudflare changelog](https://developers.cloudflare.com/changelog/post/2026-04-13-sandbox-outbound-workers-tls-auth/)). Vercel Sandbox reaches a similar practical outcome through a different documented route: network policy matches outbound requests by domain, including wildcards like `*.github.com`, and the firewall "adds or replaces the specified headers before forwarding the request." Injected headers overwrite anything the sandboxed code tried to set, and Vercel is explicit about the threat model: "there's nothing to exfiltrate, as the credentials only exist in a layer outside the VM" ([Vercel changelog](https://vercel.com/changelog/safely-inject-credentials-in-http-headers-with-vercel-sandbox)). Vercel's own docs don't spell out a client-facing ephemeral-CA design the way Cloudflare's do, so treat the two as the same *outcome*, the agent never holds the real credential, reached by two different and not fully equivalent documented mechanisms. Anthropic does a scoped version of this for git specifically: "sensitive credentials (such as git credentials or signing keys) are never inside the sandbox with Claude Code." A custom proxy validates each git interaction before attaching a scoped token ([Anthropic engineering blog](https://www.anthropic.com/engineering/claude-code-sandboxing)).
 
