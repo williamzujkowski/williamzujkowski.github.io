@@ -22,60 +22,18 @@ All because I put it on the same network as my trusted devices. That camera is n
 
 ## Zero Trust Network Architecture
 
-```mermaid
-flowchart TB
-    subgraph internetedge["Internet Edge"]
-        WAN[WAN Connection]
-        UDM[Dream Machine Pro]
-    end
-    subgraph managementvlan10["Management VLAN 10"]
-        Admin[Admin Devices]
-        Proxmox[Proxmox Host]
-        Switches[Network Switches]
-    end
-    subgraph trustedvlan20["Trusted VLAN 20"]
-        Workstation[Workstations]
-        Laptops[Laptops]
-        Phones[Personal Phones]
-    end
-    subgraph servervlan30["Server VLAN 30"]
-        Web[Web Servers]
-        DB[Databases]
-        Apps[Applications]
-    end
-    subgraph iotvlan40["IoT VLAN 40"]
-        Camera[IP Cameras]
-        Smart[Smart Devices]
-        Sensors[IoT Sensors]
-    end
-    subgraph guestvlan50["Guest VLAN 50"]
-        GuestDevices[Guest Devices]
-    end
-    subgraph securityservices["Security Services"]
-        Firewall[Firewall Rules]
-        IDS[Suricata IDS]
-        DNS[Pi-hole DNS]
-    end
-
-    WAN --> UDM
-    UDM --> Firewall
-
-    Firewall --> Admin
-    Firewall --> Workstation
-    Firewall --> Web
-    Firewall --> Camera
-    Firewall --> GuestDevices
-
-    Firewall --> IDS
-    Firewall --> DNS
-
-    classDef redNode fill:#f44336,color:#fff
-    classDef orangeNode fill:#ff9800,color:#fff
-    classDef deepOrangeNode fill:#ff5722,color:#fff
-    class Firewall redNode
-    class Camera,Smart,Sensors orangeNode
-    class GuestDevices deepOrangeNode
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Zero trust VLAN segmentation zones">
+  <section class="arch-tier" data-label="Internet Edge"><span class="arch-chip">WAN Connection</span><span class="arch-chip is-primary">Dream Machine Pro</span></section>
+  <section class="arch-tier" data-label="Management VLAN 10"><span class="arch-chip is-guard">Admin Devices</span><span class="arch-chip">Proxmox Host</span><span class="arch-chip">Network Switches</span></section>
+  <section class="arch-tier" data-label="Trusted VLAN 20"><span class="arch-chip">Workstations</span><span class="arch-chip">Laptops</span><span class="arch-chip">Personal Phones</span></section>
+  <section class="arch-tier" data-label="Server VLAN 30"><span class="arch-chip">Web Servers</span><span class="arch-chip">Databases</span><span class="arch-chip">Applications</span></section>
+  <section class="arch-tier" data-label="IoT VLAN 40"><span class="arch-chip is-warn">IP Cameras</span><span class="arch-chip is-warn">Smart Devices</span><span class="arch-chip is-warn">IoT Sensors</span></section>
+  <section class="arch-tier" data-label="Guest VLAN 50"><span class="arch-chip is-bad">Guest Devices</span></section>
+  <section class="arch-tier" data-label="Security Services"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">Suricata IDS</span><span class="arch-chip is-guard">Pi-hole DNS</span></section>
+</div>
+<figcaption>The firewall mediates traffic between peer VLAN zones, with IDS and DNS controls attached as shared security services.</figcaption>
+</figure>
 
 ## VLAN Design Philosophy
 

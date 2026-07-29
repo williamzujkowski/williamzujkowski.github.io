@@ -46,27 +46,18 @@ PromSketch sits between Grafana and Prometheus as a caching proxy. It uses proba
 
 **Architecture:**
 
-```mermaid
-flowchart LR
-    Grafana[Grafana Dashboard] -->|PromQL Query| PromSketch[PromSketch Proxy]
-    PromSketch -->|Parse Query| Optimizer[Query Optimizer]
-    Optimizer -->|Sketch-eligible?| Cache[Sketch Cache]
-    Optimizer -->|Pass-through| Prom[Prometheus]
-
-    Cache -->|Approximation| Result[Fast Result]
-    Prom -->|Exact Data| Result
-
-    Prom -.->|Background| Sketcher[Sketch Builder]
-    Sketcher -.->|Update| Cache
-
-    classDef fast fill:#2ecc71,color:#000
-    classDef slow fill:#e74c3c,color:#fff
-    classDef optimize fill:#3498db,color:#fff
-
-    class PromSketch,Optimizer,Cache,Sketcher optimize
-    class Result fast
-    class Prom slow
-```
+<div class="flow" aria-label="PromSketch query optimization path">
+  <div class="flow-node">Grafana Dashboard</div>
+  <div class="flow-node">PromSketch Proxy</div>
+  <div class="flow-node">Query Optimizer</div>
+  <div class="flow-node is-gate">Sketch-eligible?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good"><b>Sketch Cache</b><i>approximation</i></div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node"><b>Prometheus</b><i>exact data</i></div></div>
+  </div>
+  <div class="flow-node is-good">Fast Result</div>
+  <div class="flow-node"><b>Background Sketch Builder</b><i>Prometheus updates cache</i></div>
+</div>
 
 **How it works:**
 

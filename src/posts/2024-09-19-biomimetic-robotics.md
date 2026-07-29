@@ -39,21 +39,15 @@ The gecko's climbing ability, the octopus's ability to squeeze through tiny spac
 - Offload processing from CPUs to mechanical design
 - Let physics solve problems instead of software
 
-```mermaid
-flowchart LR
-    A["Biological System\nObservation"] --> B["Principle\nExtraction"]
-    B --> C["Computational\nModeling"]
-    C --> D["Material &\nMorphology Design"]
-    D --> E["Prototype\nFabrication"]
-    E --> F["Performance\nBenchmarking"]
-    F -->|"Gap Analysis"| B
-    style A fill:#2d6a4f,color:#fff
-    style B fill:#40916c,color:#fff
-    style C fill:#52b788,color:#fff
-    style D fill:#74c69d,color:#000
-    style E fill:#95d5b2,color:#000
-    style F fill:#b7e4c7,color:#000
-```
+<div class="flow" aria-label="Biomimetic robotics design process">
+  <div class="flow-node"><b>Biological System</b><i>Observation</i></div>
+  <div class="flow-node"><b>Principle</b><i>Extraction</i></div>
+  <div class="flow-node"><b>Computational</b><i>Modeling</i></div>
+  <div class="flow-node"><b>Material &amp;</b><i>Morphology Design</i></div>
+  <div class="flow-node"><b>Prototype</b><i>Fabrication</i></div>
+  <div class="flow-node"><b>Performance</b><i>Benchmarking</i></div>
+  <div class="flow-node is-gate"><b>Gap Analysis</b><i>feeds the next principle extraction</i></div>
+</div>
 
 This computational approach extends beyond robotics: distributing computation across specialized hardware (whether biological or silicon) yields dramatic efficiency gains.
 
@@ -102,31 +96,14 @@ Bird and insect flight inspired breakthrough micro aerial vehicles. Engineers di
 - Transitions between aerial and ground locomotion
 - Deployable for exploration missions
 
-```mermaid
-graph TD
-    subgraph Legged["Legged (MIT Cheetah)"]
-        L1["Dynamic balance"]
-        L2["Tendon energy storage"]
-        L3["6.4 m/s sprint"]
-    end
-    subgraph Aerial["Aerial (RoboBee / DALER)"]
-        A1["Insect wing mechanics"]
-        A2["90 mg flight platform"]
-        A3["Dual air/ground modes"]
-    end
-    subgraph Aquatic["Aquatic (Soft Robotic Fish)"]
-        Q1["Undulatory propulsion"]
-        Q2["No propeller needed"]
-        Q3["Minimal disturbance"]
-    end
-    BIO["Biological Locomotion\nPrinciples"] --> Legged
-    BIO --> Aerial
-    BIO --> Aquatic
-    style BIO fill:#1b4332,color:#fff
-    style Legged fill:#2d6a4f,color:#fff
-    style Aerial fill:#40916c,color:#fff
-    style Aquatic fill:#52b788,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Biological locomotion principle examples">
+  <section class="arch-tier" data-label="Legged (MIT Cheetah)"><span class="arch-chip">Dynamic balance</span><span class="arch-chip">Tendon energy storage</span><span class="arch-chip">6.4 m/s sprint</span></section>
+  <section class="arch-tier" data-label="Aerial (RoboBee / DALER)"><span class="arch-chip">Insect wing mechanics</span><span class="arch-chip">90 mg flight platform</span><span class="arch-chip">Dual air/ground modes</span></section>
+  <section class="arch-tier" data-label="Aquatic (Soft Robotic Fish)"><span class="arch-chip">Undulatory propulsion</span><span class="arch-chip">No propeller needed</span><span class="arch-chip">Minimal disturbance</span></section>
+</div>
+<figcaption>Biological locomotion principles map into legged, aerial, and aquatic robot designs.</figcaption>
+</figure>
 
 ### Underwater Grace
 

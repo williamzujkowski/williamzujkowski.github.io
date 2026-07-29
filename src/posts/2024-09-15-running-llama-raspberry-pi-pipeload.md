@@ -318,22 +318,10 @@ I attempted splitting LLaMA 2 70B across my 3 Raspberry Pi 5s (16GB each) using 
 
 ### Performance Characteristics
 
-```mermaid
-flowchart LR
-    A[Standard PyTorch] -->|Memory| B[100%]
-    A -->|Speed| C[100%]
-    D[PIPELOAD] -->|Memory| E[10-14%]
-    D -->|Speed| F[88% single device<br/>425% edge vs swap]
-
-    classDef highMemStyle fill:#ef4444,color:#fff
-    classDef lowMemStyle fill:#10b981,color:#fff
-    classDef highSpeedStyle fill:#10b981,color:#fff
-    classDef medSpeedStyle fill:#f59e0b,color:#000
-    class B highMemStyle
-    class E lowMemStyle
-    class C highSpeedStyle
-    class F medSpeedStyle
-```
+| Runtime | Memory | Speed |
+|---|---:|---:|
+| Standard PyTorch | 100% | 100% |
+| PIPELOAD | 10-14% | 88% single device; 425% edge vs swap |
 
 **Bottom line:** PIPELOAD enables inference that's otherwise impossible on edge devices. The 12% latency overhead is acceptable when the alternative is OOM crashes or cloud dependency.
 

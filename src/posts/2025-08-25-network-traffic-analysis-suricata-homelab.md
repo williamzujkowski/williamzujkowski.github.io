@@ -23,59 +23,15 @@ That's the case for Suricata in one line: you can't protect what you can't see. 
 
 ⚠️ **Warning:** Network traffic analysis must comply with privacy laws and organizational policies. Deploy only on networks you own or have explicit authorization to monitor.
 
-```mermaid
-flowchart TB
-    subgraph trafficcollection["Traffic Collection"]
-        Mirror[Port Mirroring]
-        Tap[Network TAP]
-        Span[SPAN Port]
-    end
-    subgraph suricataengine["Suricata Engine"]
-        Capture[Packet Capture]
-        Decode[Protocol Decoder]
-        Detection[Detection Engine]
-        Logger[Event Logger]
-    end
-    subgraph rulemanagement["Rule Management"]
-        Emerging[Emerging Threats]
-        Custom[Custom Rules]
-        ETPRO[ET Pro Rules]
-        Update[Rule Updates]
-    end
-    subgraph analysisresponse["Analysis & Response"]
-        EVE[EVE JSON Logs]
-        Filebeat[Filebeat Shipper]
-        Elastic[Elasticsearch]
-        Kibana[Kibana Dashboard]
-        Wazuh[Wazuh SIEM]
-    end
-
-    Mirror --> Capture
-    Tap --> Capture
-    Span --> Capture
-
-    Capture --> Decode
-    Decode --> Detection
-    Detection --> Logger
-
-    Emerging --> Detection
-    Custom --> Detection
-    ETPRO --> Detection
-    Update --> Detection
-
-    Logger --> EVE
-    EVE --> Filebeat
-    Filebeat --> Elastic
-    Filebeat --> Wazuh
-    Elastic --> Kibana
-
-    classDef criticalStyle fill:#f44336,color:#fff
-    classDef successStyle fill:#4caf50,color:#fff
-    classDef infoStyle fill:#00bcd4,color:#fff
-    class Detection criticalStyle
-    class Elastic successStyle
-    class Kibana infoStyle
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Suricata traffic analysis architecture">
+  <section class="arch-tier" data-label="Traffic Collection"><span class="arch-chip">Port Mirroring</span><span class="arch-chip">Network TAP</span><span class="arch-chip">SPAN Port</span></section>
+  <section class="arch-tier" data-label="Rule Management"><span class="arch-chip is-guard">Emerging Threats</span><span class="arch-chip is-guard">Custom Rules</span><span class="arch-chip is-guard">ET Pro Rules</span><span class="arch-chip is-guard">Rule Updates</span></section>
+  <section class="arch-tier" data-label="Suricata Engine"><span class="arch-chip">Packet Capture</span><span class="arch-chip">Protocol Decoder</span><span class="arch-chip is-primary">Detection Engine</span><span class="arch-chip">Event Logger</span></section>
+  <section class="arch-tier" data-label="Analysis &amp; Response"><span class="arch-chip">EVE JSON Logs</span><span class="arch-chip">Filebeat Shipper</span><span class="arch-chip">Elasticsearch</span><span class="arch-chip">Kibana Dashboard</span><span class="arch-chip">Wazuh SIEM</span></section>
+</div>
+<figcaption>Traffic collection feeds Suricata, rule sources shape detection, and EVE logs move into search, dashboards, and SIEM response.</figcaption>
+</figure>
 
 Building my network traffic analysis lab with Suricata turned my homelab from a black box into something that actually admits what it's been doing at 3 AM. Here's how I did it.
 

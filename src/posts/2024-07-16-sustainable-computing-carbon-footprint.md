@@ -41,30 +41,14 @@ Computational demands were growing faster than efficiency improvements, meaning 
 
 Before optimizing, I needed to understand where the emissions were coming from. The following diagram illustrates the three emission scopes and how they relate to an organization's computing infrastructure:
 
-```mermaid
-flowchart TD
-    ORG["Organization's Computing<br/>Carbon Footprint"]
-
-    ORG --> S1["Scope 1<br/>Direct Energy Use"]
-    ORG --> S2["Scope 2<br/>Indirect Energy Use"]
-    ORG --> S3["Scope 3<br/>Supply Chain Emissions"]
-
-    S1 --> S1A["Office Electricity"]
-    S1 --> S1B["Backup Generators"]
-    S1 --> S1C["Company Vehicles"]
-
-    S2 --> S2A["Cloud Computing"]
-    S2 --> S2B["Purchased Electricity"]
-    S2 --> S2C["Cooling & HVAC"]
-
-    S3 --> S3A["Device Manufacturing"]
-    S3 --> S3B["Employee Commuting"]
-    S3 --> S3C["Third-Party Services"]
-
-    style S1 fill:#e74c3c,color:#fff
-    style S2 fill:#f39c12,color:#fff
-    style S3 fill:#3498db,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="Organization computing carbon footprint scopes">
+  <section class="arch-tier" data-label="Scope 1: Direct Energy Use"><span class="arch-chip">Office Electricity</span><span class="arch-chip">Backup Generators</span><span class="arch-chip">Company Vehicles</span></section>
+  <section class="arch-tier" data-label="Scope 2: Indirect Energy Use"><span class="arch-chip">Cloud Computing</span><span class="arch-chip">Purchased Electricity</span><span class="arch-chip">Cooling &amp; HVAC</span></section>
+  <section class="arch-tier" data-label="Scope 3: Supply Chain Emissions"><span class="arch-chip">Device Manufacturing</span><span class="arch-chip">Employee Commuting</span><span class="arch-chip">Third-Party Services</span></section>
+</div>
+<figcaption>An organization's computing carbon footprint spans direct energy, purchased energy, and supply-chain emissions.</figcaption>
+</figure>
 
 
 **Direct Energy Use (Scope 1):**
@@ -102,20 +86,13 @@ flowchart TD
 
 The overall flow from energy consumption through to carbon impact follows this pattern:
 
-```mermaid
-flowchart LR
-    A["Energy Source<br/>(Grid / Renewable)"] --> B["Data Center<br/>PUE Measurement"]
-    B --> C["Compute Workload<br/>(CPU, GPU, Storage)"]
-    C --> D["Carbon Intensity<br/>gCO2/kWh"]
-    D --> E["Total Carbon<br/>Footprint"]
-
-    F["Carbon Intensity API<br/>(WattTime, Electricity Maps)"] --> D
-    G["Cloud Provider<br/>Carbon Calculators"] --> E
-
-    style A fill:#27ae60,color:#fff
-    style D fill:#e67e22,color:#fff
-    style E fill:#c0392b,color:#fff
-```
+<div class="flow" aria-label="Carbon footprint measurement path">
+  <div class="flow-node"><b>Energy Source</b><i>Grid / Renewable</i></div>
+  <div class="flow-node"><b>Data Center</b><i>PUE Measurement</i></div>
+  <div class="flow-node"><b>Compute Workload</b><i>CPU, GPU, Storage</i></div>
+  <div class="flow-node"><b>Carbon Intensity</b><i>gCO2/kWh from WattTime or Electricity Maps</i></div>
+  <div class="flow-node"><b>Total Carbon Footprint</b><i>cloud provider calculators can feed estimates</i></div>
+</div>
 
 ## Strategies for Reducing Energy Consumption
 
@@ -187,39 +164,21 @@ Choosing data center locations based on carbon intensity:
 
 The following diagram shows how carbon-aware workload scheduling interacts with renewable energy availability:
 
-```mermaid
-flowchart TD
-    subgraph Scheduling["Carbon-Aware Scheduler"]
-        WL["Workload Queue"]
-        CI["Carbon Intensity<br/>API (WattTime)"]
-        DEC{"Carbon Intensity<br/>Below Threshold?"}
-    end
-
-    subgraph Energy["Energy Sources"]
-        SOLAR["Solar Generation<br/>Peak: 11AM-3PM"]
-        WIND["Wind Generation<br/>Peak: 2AM-6AM"]
-        GRID["Grid Electricity<br/>Variable Carbon"]
-    end
-
-    subgraph Actions["Scheduling Actions"]
-        RUN["Run Workload Now<br/>(Low Carbon)"]
-        DEFER["Defer to Low-Carbon<br/>Window"]
-        MIGRATE["Migrate to Green<br/>Region"]
-    end
-
-    SOLAR --> CI
-    WIND --> CI
-    GRID --> CI
-    WL --> DEC
-    CI --> DEC
-    DEC -- "Yes" --> RUN
-    DEC -- "No, deferrable" --> DEFER
-    DEC -- "No, urgent" --> MIGRATE
-
-    style RUN fill:#27ae60,color:#fff
-    style DEFER fill:#f39c12,color:#fff
-    style MIGRATE fill:#3498db,color:#fff
-```
+<div class="flow" aria-label="Carbon-aware scheduling decision path">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Solar Generation</b><i>Peak: 11AM-3PM</i></div>
+    <div class="flow-node"><b>Wind Generation</b><i>Peak: 2AM-6AM</i></div>
+    <div class="flow-node"><b>Grid Electricity</b><i>Variable Carbon</i></div>
+  </div>
+  <div class="flow-node"><b>Carbon Intensity API</b><i>WattTime</i></div>
+  <div class="flow-node">Workload Queue</div>
+  <div class="flow-node is-gate">Carbon Intensity Below Threshold?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good"><b>Run Workload Now</b><i>Low Carbon</i></div></div>
+    <div class="flow-leg" data-branch="No, deferrable"><div class="flow-node is-gate">Defer to Low-Carbon Window</div></div>
+    <div class="flow-leg" data-branch="No, urgent"><div class="flow-node">Migrate to Green Region</div></div>
+  </div>
+</div>
 
 ### Carbon-Aware Computing
 

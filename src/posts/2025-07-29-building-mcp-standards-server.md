@@ -127,43 +127,12 @@ I may have overdone it.
 
 The architecture grew from a simple pipe to a multi-layered system across four versions:
 
-```mermaid
-flowchart TD
-    subgraph V1["Version 1: Simple (200 lines)"]
-        STDIO1["stdio in/out"] --> LOAD1["Load Standards"]
-        LOAD1 --> RETURN1["Return to Claude"]
-    end
-
-    subgraph V2["Version 2: + Redis (1,200 lines)"]
-        STDIO2["stdio"] --> REDIS["Redis L1/L2 Cache"]
-        REDIS --> LOAD2["Load Standards"]
-        LOAD2 --> RETURN2["Return"]
-    end
-
-    subgraph V3["Version 3: + Vector Search (3,800 lines)"]
-        STDIO3["stdio"] --> REDIS3["Redis Cache"]
-        STDIO3 --> CHROMA["ChromaDB<br/>Vector Search"]
-        REDIS3 --> LOAD3["Standards"]
-        CHROMA --> LOAD3
-    end
-
-    subgraph V4["Version 4: Kitchen Sink (6,000+ lines)"]
-        STDIO4["stdio / HTTP / WebSocket"]
-        STDIO4 --> REDIS4["Redis Cache"]
-        STDIO4 --> CHROMA4["ChromaDB"]
-        STDIO4 --> RULE["Rule Engine"]
-        STDIO4 --> ANALYZE["6 Language Analyzers"]
-        STDIO4 --> NIST["NIST Compliance"]
-        STDIO4 --> UI["React Web UI"]
-    end
-
-    V1 -.->|"Week 1→2"| V2
-    V2 -.->|"Week 2→3"| V3
-    V3 -.->|"Week 3→4"| V4
-
-    style V1 fill:#27ae60,color:#fff
-    style V4 fill:#e74c3c,color:#fff
-```
+<div class="flow" aria-label="MCP standards server architecture evolution">
+  <div class="flow-node"><b>Version 1: Simple</b><i>stdio in/out, load standards, return to Claude; 200 lines</i></div>
+  <div class="flow-node"><b>Version 2: + Redis</b><i>stdio, Redis L1/L2 cache, load standards, return; 1,200 lines</i></div>
+  <div class="flow-node"><b>Version 3: + Vector Search</b><i>stdio, Redis cache, ChromaDB vector search, standards; 3,800 lines</i></div>
+  <div class="flow-node is-bad"><b>Version 4: Kitchen Sink</b><i>stdio / HTTP / WebSocket, Redis, ChromaDB, rule engine, analyzers, NIST compliance, React web UI; 6,000+ lines</i></div>
+</div>
 
 ## What Actually Works (The Good Parts)
 
@@ -213,32 +182,14 @@ mcp-standards validate src/ --language auto
 
 The following diagram shows how the MCP server registers and exposes tools to the LLM client:
 
-```mermaid
-flowchart LR
-    subgraph Server["MCP Standards Server"]
-        REG["Tool Registry"]
-        REG --> T1["get_standard<br/>Retrieve by name"]
-        REG --> T2["search_standards<br/>Semantic + keyword"]
-        REG --> T3["validate_code<br/>Multi-language lint"]
-        REG --> T4["check_compliance<br/>NIST 800-53r5"]
-        REG --> T5["list_standards<br/>Discovery"]
-    end
-
-    subgraph Client["Claude CLI / Desktop"]
-        LLM["LLM"] -- "tools/list" --> REG
-        LLM -- "tools/call" --> T1
-        LLM -- "tools/call" --> T3
-    end
-
-    subgraph Transport["Transport Layer"]
-        STDIO["stdio (local)"]
-        HTTP["HTTP/SSE (remote)"]
-    end
-
-    Client <--> Transport <--> Server
-
-    style REG fill:#3498db,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="MCP standards server tool exposure architecture">
+  <section class="arch-tier" data-label="Client"><span class="arch-chip is-primary">Claude CLI / Desktop LLM</span><span class="arch-chip">tools/list</span><span class="arch-chip">tools/call</span></section>
+  <section class="arch-tier" data-label="Transport Layer"><span class="arch-chip">stdio (local)</span><span class="arch-chip">HTTP/SSE (remote)</span></section>
+  <section class="arch-tier" data-label="MCP Standards Server"><span class="arch-chip is-primary">Tool Registry</span><span class="arch-chip"><b>get_standard</b><i>retrieve by name</i></span><span class="arch-chip"><b>search_standards</b><i>semantic + keyword</i></span><span class="arch-chip"><b>validate_code</b><i>multi-language lint</i></span><span class="arch-chip"><b>check_compliance</b><i>NIST 800-53r5</i></span><span class="arch-chip"><b>list_standards</b><i>discovery</i></span></section>
+</div>
+<figcaption>The client discovers and calls tools through the transport layer; the server registry owns the exposed standards operations.</figcaption>
+</figure>
 
 ### Token Optimization That Actually Matters
 
@@ -262,30 +213,25 @@ standard = get_standard("react-patterns", format="compressed")
 
 ## The Struggles (Learning Moments)
 
-```mermaid
-flowchart TD
-    subgraph Caching["Redis L1/L2 Caching Strategy"]
-        REQ["Incoming Request"] --> L1{"L1 Cache<br/>(In-Memory)"}
-        L1 -->|Hit| RET1["Return Cached"]
-        L1 -->|Miss| L2{"L2 Cache<br/>(Redis)"}
-        L2 -->|Hit| PROMOTE["Promote to L1"] --> RET2["Return Cached"]
-        L2 -->|Miss| LOAD["Load from Disk"]
-        LOAD --> STORE["Store in L1 + L2<br/>(30-min TTL)"]
-        STORE --> RET3["Return Fresh"]
-    end
-
-    subgraph Eviction["Eviction Policy"]
-        TTL["30-min TTL expiry"]
-        LRU["LRU when maxmemory hit<br/>(64MB limit)"]
-        MANUAL["Manual invalidation<br/>on standards update"]
-    end
-
-    Caching ~~~ Eviction
-
-    style L1 fill:#3498db,color:#fff
-    style L2 fill:#e67e22,color:#fff
-    style LOAD fill:#27ae60,color:#fff
-```
+<figure class="arch-fig">
+<div class="flow" aria-label="Redis L1 and L2 cache lookup path">
+  <div class="flow-node">Incoming Request</div>
+  <div class="flow-node is-gate"><b>L1 Cache</b><i>in-memory</i></div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Hit"><div class="flow-node is-good">Return Cached</div></div>
+    <div class="flow-leg" data-branch="Miss"><div class="flow-node"><b>L2 Cache</b><i>Redis</i></div></div>
+  </div>
+  <div class="flow-node is-gate">L2 Result</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Hit"><div class="flow-node is-good"><b>Promote to L1</b><i>return cached</i></div></div>
+    <div class="flow-leg" data-branch="Miss"><div class="flow-node"><b>Load from Disk</b><i>store in L1 + L2 with 30-min TTL</i></div></div>
+  </div>
+</div>
+<div class="arch" aria-label="Redis cache eviction policy">
+  <section class="arch-tier" data-label="Eviction Policy"><span class="arch-chip is-guard">30-min TTL expiry</span><span class="arch-chip is-guard">LRU when maxmemory hits 64MB</span><span class="arch-chip is-guard">Manual invalidation on standards update</span></section>
+</div>
+<figcaption>The cache path handles request lookup, while the policy view shows the independent eviction controls.</figcaption>
+</figure>
 
 ### Redis Caching Pitfalls
 
@@ -426,34 +372,12 @@ quadrantChart
     "V4: + React UI": [0.90, 0.55]
 ```
 
-```mermaid
-graph LR
-    subgraph Scope["Scope Creep Timeline"]
-        W1["Week 1<br/>200 lines<br/>1 file"] -->|"Add caching"| W2["Week 2<br/>1,200 lines<br/>8 files"]
-        W2 -->|"Add vector search"| W3["Week 3<br/>3,800 lines<br/>23 files"]
-        W3 -->|"Add web UI"| W4["Week 4<br/>6,000+ lines<br/>47 files"]
-    end
-
-    subgraph Value["Actual Value Added"]
-        V1["High"] ~~~ V2["Marginal"]
-        V2 ~~~ V3["Negative"]
-        V3 ~~~ V4["Mixed"]
-    end
-
-    W1 -.- V1
-    W2 -.- V2
-    W3 -.- V3
-    W4 -.- V4
-
-    style W1 fill:#27ae60,color:#fff
-    style W2 fill:#f39c12,color:#fff
-    style W3 fill:#e67e22,color:#fff
-    style W4 fill:#e74c3c,color:#fff
-    style V1 fill:#27ae60,color:#fff
-    style V2 fill:#f39c12,color:#fff
-    style V3 fill:#e74c3c,color:#fff
-    style V4 fill:#e67e22,color:#fff
-```
+| Week | Scope creep timeline | Actual value added |
+|---|---|---|
+| Week 1 | 200 lines, 1 file | High |
+| Week 2 | Add caching; 1,200 lines, 8 files | Marginal |
+| Week 3 | Add vector search; 3,800 lines, 23 files | Negative |
+| Week 4 | Add web UI; 6,000+ lines, 47 files | Mixed |
 
 ### Start Smaller Than You Think
 

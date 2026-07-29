@@ -46,34 +46,14 @@ With proper dashboards? Real-time alerts caught similar attempts in under 2 minu
 - **Blackbox Exporter**: Service availability
 - **Custom exporters**: Security-specific metrics
 
-```mermaid
-graph LR
-    subgraph Sources["Data Sources"]
-        NE[Node Exporter]
-        SSH[SSH Monitor]
-        FW[Firewall Exporter]
-        BB[Blackbox Exporter]
-        TI[Threat Intel Feed]
-    end
-
-    subgraph Core["Core Stack"]
-        Prom[(Prometheus<br/>TSDB — 90 day retention)]
-        AM[Alertmanager]
-    end
-
-    subgraph Viz["Visualization"]
-        Grafana[Grafana Dashboards]
-    end
-
-    NE & SSH & FW & BB & TI -->|scrape / push| Prom
-    Prom -->|alert rules| AM
-    Prom -->|query| Grafana
-    AM -->|critical| Webhook1[Immediate Notify]
-    AM -->|warning| Webhook2[Hourly Summary]
-
-    style Core fill:#2c3e50,color:#ecf0f1
-    style Viz fill:#27ae60,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Homelab security dashboard architecture">
+  <section class="arch-tier" data-label="Data Sources"><span class="arch-chip">Node Exporter</span><span class="arch-chip">SSH Monitor</span><span class="arch-chip">Firewall Exporter</span><span class="arch-chip">Blackbox Exporter</span><span class="arch-chip">Threat Intel Feed</span></section>
+  <section class="arch-tier" data-label="Core Stack"><span class="arch-chip is-primary"><b>Prometheus</b><i>TSDB, 90-day retention</i></span><span class="arch-chip is-guard">Alertmanager</span></section>
+  <section class="arch-tier" data-label="Outputs"><span class="arch-chip is-primary">Grafana Dashboards</span><span class="arch-chip is-bad">Immediate Notify</span><span class="arch-chip is-warn">Hourly Summary</span></section>
+</div>
+<figcaption>Exporters feed Prometheus; Prometheus drives Grafana queries and Alertmanager notification paths.</figcaption>
+</figure>
 
 **Why this stack:**
 - Prometheus handles time-series data efficiently
@@ -352,22 +332,21 @@ groups:
 
 ### Alert Fatigue Prevention
 
-```mermaid
-flowchart TD
-    Event[Security Event] --> Prom[Prometheus Evaluates Rules]
-    Prom --> Thresh{Exceeds Threshold?}
-    Thresh -->|No| Drop[Log Only — Info]
-    Thresh -->|Yes| Sev{Severity?}
-    Sev -->|Critical| Imm[Immediate Notification<br/>Webhook — respond NOW]
-    Sev -->|Warning| Hourly[Hourly Summary Batch<br/>Investigate within 4h]
-    Imm --> Group[Alertmanager Groups<br/>by alertname, 5m intervals]
-    Hourly --> Group
-    Group --> Dedup[Deduplicate<br/>12h repeat interval]
-
-    style Imm fill:#e74c3c,color:#fff
-    style Hourly fill:#f39c12,color:#fff
-    style Drop fill:#95a5a6,color:#fff
-```
+<div class="flow" aria-label="Security alert routing and deduplication">
+  <div class="flow-node">Security Event</div>
+  <div class="flow-node">Prometheus Evaluates Rules</div>
+  <div class="flow-node is-gate">Exceeds Threshold?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="No"><div class="flow-node">Log Only - Info</div></div>
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-gate">Severity?</div></div>
+  </div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Critical"><div class="flow-node is-bad"><b>Immediate Notification</b><i>webhook, respond now</i></div></div>
+    <div class="flow-leg" data-branch="Warning"><div class="flow-node"><b>Hourly Summary Batch</b><i>investigate within 4h</i></div></div>
+  </div>
+  <div class="flow-node"><b>Alertmanager Groups</b><i>by alertname, 5m intervals</i></div>
+  <div class="flow-node">Deduplicate - 12h repeat interval</div>
+</div>
 
 **The problem:** Too many alerts = ignored alerts. I started with 23 different alert rules. Average: 15 alerts per day. Response rate: 30%.
 
@@ -526,35 +505,20 @@ def geolocate_ip(ip_address):
 
 ### Correlation Dashboard
 
-```mermaid
-flowchart LR
-    subgraph Signals["Independent Signals"]
-        SSH[SSH Failed Logins]
-        Scan[Port Scans]
-        DNS[DNS Anomalies]
-        Proc[Unusual Processes]
-    end
-
-    subgraph Correlate["Correlation Engine"]
-        Join["PromQL join on source_ip"]
-    end
-
-    subgraph Verdict["Threat Classification"]
-        Low[Opportunistic Scan]
-        Med[Targeted Probe]
-        High[Active Compromise]
-    end
-
-    SSH & Scan --> Join
-    DNS & Proc --> Join
-    Join -->|"1 signal"| Low
-    Join -->|"2 signals"| Med
-    Join -->|"3+ signals"| High
-
-    style High fill:#e74c3c,color:#fff
-    style Med fill:#f39c12,color:#fff
-    style Low fill:#f1c40f,color:#000
-```
+<div class="flow" aria-label="Security signal correlation workflow">
+  <div class="flow-parallel">
+    <div class="flow-node">SSH Failed Logins</div>
+    <div class="flow-node">Port Scans</div>
+    <div class="flow-node">DNS Anomalies</div>
+    <div class="flow-node">Unusual Processes</div>
+  </div>
+  <div class="flow-node is-gate"><b>Correlation Engine</b><i>PromQL join on source_ip</i></div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="1 signal"><div class="flow-node">Opportunistic Scan</div></div>
+    <div class="flow-leg" data-branch="2 signals"><div class="flow-node">Targeted Probe</div></div>
+    <div class="flow-leg" data-branch="3+ signals"><div class="flow-node is-bad">Active Compromise</div></div>
+  </div>
+</div>
 
 Built secondary dashboard correlating multiple data sources:
 

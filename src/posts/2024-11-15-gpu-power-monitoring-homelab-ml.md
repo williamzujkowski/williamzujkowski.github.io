@@ -55,41 +55,30 @@ LLM Stack:
 
 I ran each test for at least 30 minutes to capture steady-state behavior. Repeated critical measurements three times for variability. The methodology isn't publication-worthy, but rigorous enough for decision-making.
 
-```mermaid
-graph TD
-    subgraph Hardware Monitoring
-        KAW[Kill-A-Watt P4400<br/>Wall outlet]
-        UPS[APC Back-UPS Pro 1500VA<br/>Inline monitoring]
-    end
-
-    subgraph GPU Rig
-        GPU[RTX 3090 24GB]
-        CPU[i9-9900K]
-        PSU[EVGA 850W 80+ Gold]
-    end
-
-    subgraph Software Stack
-        SMI[nvidia-smi<br/>2s polling]
-        DCGM[DCGM Exporter]
-        PY[Custom Python<br/>logging scripts]
-    end
-
-    subgraph Observability
-        PROM[Prometheus]
-        GRAF[Grafana Dashboards]
-        TEL[Telegram Alerts]
-    end
-
-    KAW -->|total system watts| PY
-    UPS -->|UPS metrics| PROM
-    GPU --> SMI
-    GPU --> DCGM
-    SMI -->|GPU power, temp, clock| PY
-    DCGM -->|GPU telemetry| PROM
-    PY -->|timestamped CSV| PROM
-    PROM --> GRAF
-    GRAF -->|threshold breach| TEL
-```
+<figure>
+<div class="arch" aria-label="GPU power monitoring component zones">
+  <section class="arch-tier" data-label="Hardware Monitoring"><span class="arch-chip"><b>Kill-A-Watt P4400</b><i>Wall outlet</i></span><span class="arch-chip"><b>APC Back-UPS Pro 1500VA</b><i>Inline monitoring</i></span></section>
+  <section class="arch-tier" data-label="GPU Rig"><span class="arch-chip is-primary">RTX 3090 24GB</span><span class="arch-chip">i9-9900K</span><span class="arch-chip">EVGA 850W 80+ Gold</span></section>
+  <section class="arch-tier" data-label="Software Stack"><span class="arch-chip"><b>nvidia-smi</b><i>2s polling</i></span><span class="arch-chip">DCGM Exporter</span><span class="arch-chip"><b>Custom Python</b><i>logging scripts</i></span></section>
+  <section class="arch-tier" data-label="Observability"><span class="arch-chip">Prometheus</span><span class="arch-chip">Grafana Dashboards</span><span class="arch-chip is-warn">Telegram Alerts</span></section>
+</div>
+<div class="flow" aria-label="GPU telemetry collection path">
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Kill-A-Watt</b><i>total system watts</i></div>
+    <div class="flow-node"><b>UPS</b><i>UPS metrics</i></div>
+    <div class="flow-node"><b>RTX 3090</b><i>GPU telemetry</i></div>
+  </div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>nvidia-smi</b><i>GPU power, temp, clock</i></div>
+    <div class="flow-node">DCGM Exporter</div>
+    <div class="flow-node"><b>Custom Python</b><i>timestamped CSV</i></div>
+  </div>
+  <div class="flow-node">Prometheus</div>
+  <div class="flow-node">Grafana Dashboards</div>
+  <div class="flow-node is-gate">Telegram Alerts</div>
+</div>
+<figcaption>The architecture view shows the monitoring zones; the flow view shows how wall, UPS, and GPU telemetry land in Prometheus and alert through Grafana.</figcaption>
+</figure>
 
 ## What I Learned: Five Surprising Findings
 
@@ -159,25 +148,23 @@ Continuous generation:
 
 Batching queries more than doubled efficiency. The reason seems to be reduced overhead: interactive mode involved constant model state changes, while batch processing kept the GPU consistently loaded. This discovery changed how I structure my workflows. I now accumulate questions and process them together rather than one-by-one.
 
-```mermaid
-graph LR
-    subgraph Interactive Mode
-        Q1[Query 1] --> GPU1[GPU Ramp Up<br/>298W]
-        GPU1 --> R1[Response]
-        R1 --> IDLE1[Idle Gap<br/>87W]
-        IDLE1 --> Q2[Query 2]
-        Q2 --> GPU2[GPU Ramp Up<br/>298W]
-        GPU2 --> R2[Response]
-    end
-
-    subgraph Batch Mode
-        QB[50 Queries<br/>Queued] --> GPUB[GPU Sustained<br/>315W]
-        GPUB --> RB[All 50<br/>Responses]
-    end
-
-    style IDLE1 fill:#f96,color:#000,stroke:#333
-    style GPUB fill:#6b6,color:#fff,stroke:#333
-```
+<figure>
+<div class="flow" aria-label="Interactive GPU query mode">
+  <div class="flow-node">Query 1</div>
+  <div class="flow-node"><b>GPU Ramp Up</b><i>298W</i></div>
+  <div class="flow-node">Response</div>
+  <div class="flow-node is-gate"><b>Idle Gap</b><i>87W</i></div>
+  <div class="flow-node">Query 2</div>
+  <div class="flow-node"><b>GPU Ramp Up</b><i>298W</i></div>
+  <div class="flow-node">Response</div>
+</div>
+<div class="flow" aria-label="Batch GPU query mode">
+  <div class="flow-node"><b>50 Queries</b><i>Queued</i></div>
+  <div class="flow-node is-good"><b>GPU Sustained</b><i>315W</i></div>
+  <div class="flow-node"><b>All 50</b><i>Responses</i></div>
+</div>
+<figcaption>Interactive mode pays repeated ramp and idle costs; batch mode keeps the GPU loaded until the queue drains.</figcaption>
+</figure>
 
 For instance, when writing blog posts, I used to ask the LLM to review each paragraph individually as I wrote it. Now I write the entire draft, then submit all paragraphs in a single batch request. This reduced my average "blog editing" power consumption from 42Wh per post to 18Wh, a 57% improvement.
 
@@ -204,26 +191,33 @@ This failure taught me to add:
 
 These safeguards probably seem obvious to DevOps professionals, but they weren't part of my homelab muscle memory until this expensive lesson.
 
-```mermaid
-flowchart TD
-    GPU[GPU Running<br/>Batch Job] -->|2s polling| PROM[Prometheus<br/>Scrapes nvidia-smi]
-    PROM --> ALERT{Grafana Alert Rule<br/>Power > 300W<br/>for > 2 hours?}
-    ALERT -->|No| PROM
-    ALERT -->|Yes| NOTIFY[Telegram<br/>Notification]
-    NOTIFY --> ME[Owner Checks]
-    ME --> DECIDE{Legitimate<br/>workload?}
-    DECIDE -->|Yes| SNOOZE[Snooze Alert]
-    DECIDE -->|No| KILL[Kill Runaway Job]
-    KILL --> LOG[Log Incident<br/>+ Update Timeout]
-
-    GPU -->|also checked| TIMEOUT{Job Timeout<br/>Exceeded?}
-    TIMEOUT -->|Yes| ABORT[Auto-Abort Job<br/>+ Checkpoint State]
-    TIMEOUT -->|No| GPU
-
-    style ALERT fill:#ff9,color:#000,stroke:#333
-    style KILL fill:#f66,color:#fff,stroke:#333
-    style ABORT fill:#f96,color:#000,stroke:#333
-```
+<figure>
+<div class="flow" aria-label="GPU power alert response path">
+  <div class="flow-node"><b>GPU Running</b><i>Batch Job</i></div>
+  <div class="flow-node"><b>Prometheus</b><i>scrapes nvidia-smi every 2s</i></div>
+  <div class="flow-node is-gate"><b>Grafana Alert Rule</b><i>Power &gt; 300W for &gt; 2 hours?</i></div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="No"><div class="flow-node">Continue Polling</div></div>
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-gate">Telegram Notification</div></div>
+  </div>
+  <div class="flow-node">Owner Checks</div>
+  <div class="flow-node is-gate">Legitimate workload?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">Snooze Alert</div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node is-bad">Kill Runaway Job</div></div>
+  </div>
+  <div class="flow-node"><b>Log Incident</b><i>+ Update Timeout</i></div>
+</div>
+<div class="flow" aria-label="GPU timeout abort path">
+  <div class="flow-node"><b>GPU Running</b><i>also checked</i></div>
+  <div class="flow-node is-gate">Job Timeout Exceeded?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-bad"><b>Auto-Abort Job</b><i>+ Checkpoint State</i></div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node">Continue Running</div></div>
+  </div>
+</div>
+<figcaption>The alert path handles sustained power draw while the timeout path catches jobs that run past the allowed wall clock.</figcaption>
+</figure>
 
 ## Optimization Strategies That Actually Worked
 
@@ -255,31 +249,25 @@ The trade-off: CPU inference is slower (2.3 tokens/second vs 18.7), but for tiny
 
 For these micro-tasks, CPU is 4x more energy-efficient despite being slower. I'm not sure this would scale to longer queries, but for quick lookups, it's a clear win.
 
-```mermaid
-flowchart TD
-    REQ[Incoming Query] --> SIZE{Token estimate?}
-
-    SIZE -->|< 100 tokens| CPU[Route to CPU<br/>llama.cpp on i9-9900K<br/>95W / 2.3 tok/s]
-    SIZE -->|100+ tokens| COMPLEXITY{Task complexity?}
-
-    COMPLEXITY -->|Simple<br/>summarization, Q&A| PHI[Phi-3 Mini 3.8B<br/>276W avg]
-    COMPLEXITY -->|General<br/>chat, writing| LLAMA8[Llama 3.1 8B<br/>312W avg]
-    COMPLEXITY -->|Complex<br/>code gen, analysis| LLAMA70[Llama 3.1 70B Q4<br/>347W avg]
-
-    CPU --> DONE[Return Response]
-    PHI --> DONE
-    LLAMA8 --> DONE
-    LLAMA70 --> DONE
-
-    DONE --> IDLE{Idle > 15 min?}
-    IDLE -->|Yes| UNLOAD[Unload Model<br/>Drop to 52W baseline]
-    IDLE -->|No| WAIT[Keep Model Loaded<br/>87W standby]
-
-    style CPU fill:#6b6,color:#fff,stroke:#333
-    style PHI fill:#8b8,color:#000,stroke:#333
-    style LLAMA8 fill:#cc8,color:#000,stroke:#333
-    style LLAMA70 fill:#f96,color:#000,stroke:#333
-```
+<div class="flow" aria-label="Power-aware model routing decision path">
+  <div class="flow-node">Incoming Query</div>
+  <div class="flow-node is-gate">Token estimate?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="&lt; 100 tokens"><div class="flow-node is-good"><b>Route to CPU</b><i>llama.cpp on i9-9900K; 95W / 2.3 tok/s</i></div></div>
+    <div class="flow-leg" data-branch="100+ tokens"><div class="flow-node is-gate">Task complexity?</div></div>
+  </div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Simple summarization, Q&amp;A"><div class="flow-node is-good"><b>Phi-3 Mini 3.8B</b><i>276W avg</i></div></div>
+    <div class="flow-leg" data-branch="General chat, writing"><div class="flow-node"><b>Llama 3.1 8B</b><i>312W avg</i></div></div>
+    <div class="flow-leg" data-branch="Complex code gen, analysis"><div class="flow-node is-bad"><b>Llama 3.1 70B Q4</b><i>347W avg</i></div></div>
+  </div>
+  <div class="flow-node">Return Response</div>
+  <div class="flow-node is-gate">Idle &gt; 15 min?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good"><b>Unload Model</b><i>Drop to 52W baseline</i></div></div>
+    <div class="flow-leg" data-branch="No"><div class="flow-node"><b>Keep Model Loaded</b><i>87W standby</i></div></div>
+  </div>
+</div>
 
 ## Cost-Benefit Analysis
 

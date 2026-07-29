@@ -25,65 +25,32 @@ I built an automated security pipeline that scans every commit with Grype, OSV-S
 
 ⚠️ **Warning:** Security scanning pipelines must be configured with appropriate policies and approval gates. Automated remediation should include review processes for production environments.
 
-```mermaid
-flowchart TB
-    subgraph coderepository["Code Repository"]
-        Git[Git Push]
-        PR[Pull Request]
-    end
-    subgraph cicdpipeline["CI/CD Pipeline"]
-        Trigger[GitHub Actions Trigger]
-        Build[Build Stage]
-        Test[Test Stage]
-        Scan[Security Scan Stage]
-    end
-    subgraph securitytools["Security Tools"]
-        Grype[Grype<br/>Container Scanning]
-        OSV[OSV-Scanner<br/>Dependency Scanning]
-        Trivy[Trivy<br/>Multi-Scanner]
-    end
-    subgraph analysisreporting["Analysis & Reporting"]
-        SARIF[SARIF Reports]
-        GH[GitHub Security]
-        Slack[Slack Alerts]
-        Wazuh[Wazuh SIEM]
-    end
-    subgraph policyenforcement["Policy Enforcement"]
-        Gates[Quality Gates]
-        Block[Block on Critical]
-        Approve[Manual Review]
-    end
-
-    Git --> Trigger
-    PR --> Trigger
-
-    Trigger --> Build
-    Build --> Test
-    Test --> Scan
-
-    Scan --> Grype
-    Scan --> OSV
-    Scan --> Trivy
-
-    Grype --> SARIF
-    OSV --> SARIF
-    Trivy --> SARIF
-
-    SARIF --> GH
-    SARIF --> Slack
-    SARIF --> Wazuh
-
-    SARIF --> Gates
-    Gates --> Block
-    Gates --> Approve
-
-    classDef redNode fill:#f44336,color:#fff
-    classDef orangeNode fill:#ff9800,color:#fff
-    classDef darkRedNode fill:#d32f2f,color:#fff
-    class Scan redNode
-    class Gates orangeNode
-    class Block darkRedNode
-```
+<div class="flow" aria-label="Automated security scanning pipeline">
+  <div class="flow-parallel">
+    <div class="flow-node">Git Push</div>
+    <div class="flow-node">Pull Request</div>
+  </div>
+  <div class="flow-node">GitHub Actions Trigger</div>
+  <div class="flow-node">Build Stage</div>
+  <div class="flow-node">Test Stage</div>
+  <div class="flow-node is-gate">Security Scan Stage</div>
+  <div class="flow-parallel">
+    <div class="flow-node"><b>Grype</b><i>container scanning</i></div>
+    <div class="flow-node"><b>OSV-Scanner</b><i>dependency scanning</i></div>
+    <div class="flow-node"><b>Trivy</b><i>multi-scanner</i></div>
+  </div>
+  <div class="flow-node">SARIF Reports</div>
+  <div class="flow-parallel">
+    <div class="flow-node">GitHub Security</div>
+    <div class="flow-node">Slack Alerts</div>
+    <div class="flow-node">Wazuh SIEM</div>
+  </div>
+  <div class="flow-node is-gate">Quality Gates</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Critical"><div class="flow-node is-bad">Block on Critical</div></div>
+    <div class="flow-leg" data-branch="Review"><div class="flow-node">Manual Review</div></div>
+  </div>
+</div>
 
 Today, every commit to my repositories is automatically scanned for vulnerabilities. Critical findings block deployment. Here's how I built it.
 

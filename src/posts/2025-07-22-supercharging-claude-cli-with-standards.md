@@ -37,23 +37,10 @@ The humbling part? I discovered I'd been consistently making the same mistake wi
 
 The following diagram illustrates the core problem and solution: instead of repeating context in every session, standards are loaded once and referenced efficiently.
 
-```mermaid
-flowchart LR
-    subgraph Before["Before: Manual Context"]
-        U1["Developer"] -- "Paste standards\n(5000+ tokens)" --> C1["Claude CLI"]
-        U1 -- "Re-explain style\nevery session" --> C1
-        U1 -- "Copy-paste\nrequirements" --> C1
-    end
-
-    subgraph After["After: Standards Repository"]
-        U2["Developer"] -- "@load [CS:python]\n(~100 tokens)" --> CLAUDE_MD["CLAUDE.md<br/>Router"]
-        CLAUDE_MD --> STD["Standards Repo"]
-        STD -- "Auto-load relevant\nstandards" --> C2["Claude CLI"]
-    end
-
-    style Before fill:#ffcccc,color:#000
-    style After fill:#ccffcc,color:#000
-```
+| Mode | Developer action | Context path | Token shape |
+|---|---|---|---|
+| Before: Manual Context | Paste standards; re-explain style every session; copy-paste requirements | Developer to Claude CLI | 5000+ tokens |
+| After: Standards Repository | `@load [CS:python]` | Developer to `CLAUDE.md` router to standards repo to Claude CLI | ~100-token reference, with relevant standards auto-loaded |
 
 ## Enter the Standards Repository
 

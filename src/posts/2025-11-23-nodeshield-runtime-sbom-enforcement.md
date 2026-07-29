@@ -51,24 +51,21 @@ NodeShield uses V8 engine hooks to intercept `require()` calls. When a module tr
 
 **Architecture:**
 
-```mermaid
-flowchart LR
-    App[Node.js App] -->|require module| NSHook[NodeShield Hook]
-    NSHook -->|Check CBOM| Policy[CBOM Policy]
-    Policy -->|Authorized| Allow[Load Module]
-    Policy -->|Unauthorized| Block[Block + Log]
-
-    SBOM[Static SBOM] -.->|Generate| Policy
-    Outliner[Static Outliner] -.->|Analyze| SBOM
-
-    classDef runtime fill:#e74c3c,color:#fff
-    classDef static fill:#3498db,color:#fff
-    classDef policy fill:#2ecc71,color:#000
-
-    class NSHook,Block runtime
-    class SBOM,Outliner static
-    class Policy policy
-```
+<div class="flow" aria-label="NodeShield runtime enforcement path">
+  <div class="flow-node">Node.js App</div>
+  <div class="flow-node">NodeShield Hook</div>
+  <div class="flow-node is-gate">Check CBOM Policy</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Authorized"><div class="flow-node is-good">Load Module</div></div>
+    <div class="flow-leg" data-branch="Unauthorized"><div class="flow-node is-bad">Block + Log</div></div>
+  </div>
+</div>
+<div class="flow" aria-label="NodeShield policy generation path">
+  <div class="flow-node">Static Outliner</div>
+  <div class="flow-node">Static SBOM</div>
+  <div class="flow-node is-good">CBOM Policy</div>
+</div>
+The split view separates runtime enforcement from the static SBOM-to-CBOM policy generation step.
 
 **Why this matters:** SolarWinds-style attacks require filesystem access, network egress, or process manipulation. NodeShield blocks all three if the compromised module's CBOM doesn't authorize them.
 

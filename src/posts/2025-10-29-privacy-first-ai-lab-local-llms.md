@@ -33,29 +33,14 @@ But privacy isn't just about where the compute happens. It's about the entire st
 
 After that wake-up call, I rebuilt my thinking around three distinct threat layers:
 
-```mermaid
-graph TB
-    subgraph Network["Network Layer"]
-        N1[Endpoint Access Control]
-        N2[Telemetry Monitoring]
-        N3[Network Boundary Rules]
-    end
-    subgraph Storage["Storage Layer"]
-        S1[Prompt/Response Encryption]
-        S2[Docker Volume Protection]
-        S3[Model File Integrity]
-    end
-    subgraph Inference["Inference Layer"]
-        I1[GPU Memory Isolation]
-        I2[KV Cache Protection]
-        I3[Process Sandboxing]
-    end
-
-    Network --> Storage --> Inference
-    style Network fill:#e74c3c,color:#fff
-    style Storage fill:#f39c12,color:#fff
-    style Inference fill:#2ecc71,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch is-stack" aria-label="Local LLM privacy threat model layers">
+  <section class="arch-tier" data-label="Network Layer"><span class="arch-chip is-guard">Endpoint Access Control</span><span class="arch-chip is-guard">Telemetry Monitoring</span><span class="arch-chip is-guard">Network Boundary Rules</span></section>
+  <section class="arch-tier" data-label="Storage Layer"><span class="arch-chip is-guard">Prompt / Response Encryption</span><span class="arch-chip is-guard">Docker Volume Protection</span><span class="arch-chip is-guard">Model File Integrity</span></section>
+  <section class="arch-tier" data-label="Inference Layer"><span class="arch-chip is-primary">GPU Memory Isolation</span><span class="arch-chip is-primary">KV Cache Protection</span><span class="arch-chip is-primary">Process Sandboxing</span></section>
+</div>
+<figcaption>The model is only private when controls hold at the network, storage, and inference layers.</figcaption>
+</figure>
 
 **Network Layer:** Who can access my LLM endpoints? What data crosses network boundaries? Is telemetry being sent somewhere?
 
@@ -218,34 +203,15 @@ Maybe in 3-5 years this'll be viable for homelab use. For now, it's research-onl
 
 Here's how I actually locked things down. This took about 6 hours to configure properly, but it's the foundation of everything else.
 
-```mermaid
-graph LR
-    subgraph VLAN1["VLAN 1 — Main Network"]
-        Laptop[Laptop/Desktop]
-    end
-    subgraph VLAN10["VLAN 10 — DMZ"]
-        IoT[IoT Devices]
-    end
-    subgraph VLAN20["VLAN 20 — AI Services"]
-        Proxmox[Proxmox Host]
-        VM[Ubuntu VM + RTX 3090]
-        Ollama[Ollama / LM Studio]
-        Proxmox --> VM --> Ollama
-    end
-    subgraph VLAN30["VLAN 30 — Monitoring"]
-        Wazuh[Wazuh SIEM]
-        Prom[Prometheus]
-    end
-
-    Laptop -->|VPN Only| VLAN20
-    VLAN10 -.->|BLOCKED| VLAN20
-    VLAN20 -->|Metrics| VLAN30
-    VLAN20 -.->|BLOCKED| Internet((Internet))
-
-    style VLAN20 fill:#2c3e50,color:#ecf0f1
-    style VLAN10 fill:#c0392b,color:#fff
-    style VLAN30 fill:#27ae60,color:#fff
-```
+<figure class="arch-fig">
+<div class="arch" aria-label="AI lab VLAN zones">
+  <section class="arch-tier" data-label="VLAN 1 - Main Network"><span class="arch-chip">Laptop / Desktop</span></section>
+  <section class="arch-tier" data-label="VLAN 10 - DMZ"><span class="arch-chip is-bad">IoT Devices</span></section>
+  <section class="arch-tier" data-label="VLAN 20 - AI Services"><span class="arch-chip">Proxmox Host</span><span class="arch-chip">Ubuntu VM + RTX 3090</span><span class="arch-chip is-primary">Ollama / LM Studio</span></section>
+  <section class="arch-tier" data-label="VLAN 30 - Monitoring"><span class="arch-chip is-guard">Wazuh SIEM</span><span class="arch-chip is-guard">Prometheus</span></section>
+</div>
+<figcaption>VLAN 20 accepts main-network access only over VPN, exports metrics to monitoring, and blocks DMZ and internet paths by policy.</figcaption>
+</figure>
 
 ### VLAN 20: AI Services Isolation
 
@@ -343,25 +309,19 @@ Running everything locally means I'm limited to models that fit in 24GB VRAM ful
 
 I use a separate Claude subscription for this blog writing. None of my sensitive homelab data ever touches cloud APIs.
 
-```mermaid
-flowchart TD
-    Start{What data are you processing?} -->|Sensitive / Regulated| Local
-    Start -->|Public / Non-sensitive| Cloud
-    Local -->|Budget > $3k?| HW[Buy GPU Hardware]
-    Local -->|Budget limited| CPU[CPU-Only Inference]
-    HW --> Harden[Harden: VLAN + Encryption + DP]
-    CPU --> Harden
-    Cloud -->|Need latest?| API[Cloud API — 405B+ models]
-    Cloud -->|General use| Managed[Managed Service]
-    Harden --> Monitor[Deploy Monitoring]
-    API --> Done([Production Ready])
-    Managed --> Done
-    Monitor --> Done
-
-    style Local fill:#27ae60,color:#fff
-    style Cloud fill:#3498db,color:#fff
-    style Harden fill:#e74c3c,color:#fff
-```
+<div class="flow" aria-label="Local versus cloud LLM routing decision">
+  <div class="flow-node is-gate">What data are you processing?</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Sensitive / Regulated"><div class="flow-node is-good"><b>Local Processing</b><i>GPU hardware or CPU-only inference</i></div></div>
+    <div class="flow-leg" data-branch="Public / Non-sensitive"><div class="flow-node"><b>Cloud Processing</b><i>Cloud API or managed service</i></div></div>
+  </div>
+  <div class="flow-node is-gate">Match budget and capability needs</div>
+  <div class="flow-branch">
+    <div class="flow-leg" data-branch="Local"><div class="flow-node is-good"><b>Harden</b><i>VLAN + encryption + DP + monitoring</i></div></div>
+    <div class="flow-leg" data-branch="Cloud"><div class="flow-node"><b>Choose service</b><i>405B+ API or general managed use</i></div></div>
+  </div>
+  <div class="flow-node is-good">Production Ready</div>
+</div>
 
 ### Decision Matrix: Local vs Cloud
 
