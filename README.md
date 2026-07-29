@@ -51,12 +51,11 @@ pnpm audit          # Remarque design audits (contrast, typography, colors, APCA
 
 ```
 ├── src/                    # Content collections (loaded by astro-site)
-│   ├── posts/              # Blog posts (Markdown)
-│   └── projects/           # Project entries (Markdown)
-├── astro-site/             # Website source (Astro 6 + Svelte 5)
+│   └── posts/              # Blog posts (Markdown)
+├── astro-site/             # Website source (Astro 7 + Svelte 5)
 │   ├── src/
 │   │   ├── components/     # Svelte & Astro components
-│   │   ├── content.config.ts  # Collection schemas (point at ../src/posts, ../src/projects)
+│   │   ├── content.config.ts  # Collection schemas (point at ../src/posts)
 │   │   ├── layouts/        # Page layouts
 │   │   ├── pages/          # Route pages
 │   │   └── styles/         # Hand-written CSS (Remarque design tokens)
@@ -70,7 +69,7 @@ pnpm audit          # Remarque design audits (contrast, typography, colors, APCA
 
 ## Technologies
 
-- **Static Site Generator**: [Astro 6](https://astro.build/) with Svelte 5 islands
+- **Static Site Generator**: [Astro 7](https://astro.build/) with Svelte 5 islands
 - **Styling**: Hand-written CSS, Remarque design tokens (OKLCH), no framework
 - **Search**: [Pagefind](https://pagefind.app/) (static search index)
 - **Python Tooling**: Link validation CI scripts managed with UV
@@ -82,6 +81,7 @@ pnpm audit          # Remarque design audits (contrast, typography, colors, APCA
 ### Creating a New Post
 
 1. Create a Markdown file in `src/posts/` (repo root) named `YYYY-MM-DD-slug.md`
+   - For diagrams, tables, and images, follow [`docs/content-visuals.md`](docs/content-visuals.md) (no hero-image frontmatter — OG cards are auto-generated)
 2. Add front matter:
 
 ```yaml
