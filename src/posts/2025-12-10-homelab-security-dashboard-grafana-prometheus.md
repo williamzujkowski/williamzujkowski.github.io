@@ -47,10 +47,10 @@ With proper dashboards? Real-time alerts caught similar attempts in under 2 minu
 - **Custom exporters**: Security-specific metrics
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Homelab security dashboard architecture">
-  <section class="arch-tier" data-label="Data Sources"><span class="arch-chip">Node Exporter</span><span class="arch-chip">SSH Monitor</span><span class="arch-chip">Firewall Exporter</span><span class="arch-chip">Blackbox Exporter</span><span class="arch-chip">Threat Intel Feed</span></section>
-  <section class="arch-tier" data-label="Core Stack"><span class="arch-chip is-primary"><b>Prometheus</b><i>TSDB, 90-day retention</i></span><span class="arch-chip is-guard">Alertmanager</span></section>
-  <section class="arch-tier" data-label="Outputs"><span class="arch-chip is-primary">Grafana Dashboards</span><span class="arch-chip is-bad">Immediate Notify</span><span class="arch-chip is-warn">Hourly Summary</span></section>
+<div class="arch is-stack" role="group" aria-label="Homelab security dashboard architecture">
+  <section class="arch-tier" data-label="Data Sources" role="group" aria-label="Data Sources"><span class="arch-chip">Node Exporter</span><span class="arch-chip">SSH Monitor</span><span class="arch-chip">Firewall Exporter</span><span class="arch-chip">Blackbox Exporter</span><span class="arch-chip">Threat Intel Feed</span></section>
+  <section class="arch-tier" data-label="Core Stack" role="group" aria-label="Core Stack"><span class="arch-chip is-primary"><b>Prometheus</b><i>TSDB, 90-day retention</i></span><span class="arch-chip is-guard">Alertmanager</span></section>
+  <section class="arch-tier" data-label="Outputs" role="group" aria-label="Outputs"><span class="arch-chip is-primary">Grafana Dashboards</span><span class="arch-chip is-bad">Immediate Notify</span><span class="arch-chip is-warn">Hourly Summary</span></section>
 </div>
 <figcaption>Exporters feed Prometheus; Prometheus drives Grafana queries and Alertmanager notification paths.</figcaption>
 </figure>
@@ -332,17 +332,17 @@ groups:
 
 ### Alert Fatigue Prevention
 
-<div class="flow" aria-label="Security alert routing and deduplication">
+<div class="flow" role="group" aria-label="Security alert routing and deduplication">
   <div class="flow-node">Security Event</div>
   <div class="flow-node">Prometheus Evaluates Rules</div>
   <div class="flow-node is-gate">Exceeds Threshold?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="No"><div class="flow-node">Log Only - Info</div></div>
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-gate">Severity?</div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node">Log Only - Info</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-gate">Severity?</div></div>
   </div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Critical"><div class="flow-node is-bad"><b>Immediate Notification</b><i>webhook, respond now</i></div></div>
-    <div class="flow-leg" data-branch="Warning"><div class="flow-node"><b>Hourly Summary Batch</b><i>investigate within 4h</i></div></div>
+    <div class="flow-leg" data-branch="Critical" role="group" aria-label="Critical"><div class="flow-node is-bad"><b>Immediate Notification</b><i>webhook, respond now</i></div></div>
+    <div class="flow-leg" data-branch="Warning" role="group" aria-label="Warning"><div class="flow-node"><b>Hourly Summary Batch</b><i>investigate within 4h</i></div></div>
   </div>
   <div class="flow-node"><b>Alertmanager Groups</b><i>by alertname, 5m intervals</i></div>
   <div class="flow-node">Deduplicate - 12h repeat interval</div>
@@ -505,7 +505,7 @@ def geolocate_ip(ip_address):
 
 ### Correlation Dashboard
 
-<div class="flow" aria-label="Security signal correlation workflow">
+<div class="flow" role="group" aria-label="Security signal correlation workflow">
   <div class="flow-parallel">
     <div class="flow-node">SSH Failed Logins</div>
     <div class="flow-node">Port Scans</div>
@@ -514,9 +514,9 @@ def geolocate_ip(ip_address):
   </div>
   <div class="flow-node is-gate"><b>Correlation Engine</b><i>PromQL join on source_ip</i></div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="1 signal"><div class="flow-node">Opportunistic Scan</div></div>
-    <div class="flow-leg" data-branch="2 signals"><div class="flow-node">Targeted Probe</div></div>
-    <div class="flow-leg" data-branch="3+ signals"><div class="flow-node is-bad">Active Compromise</div></div>
+    <div class="flow-leg" data-branch="1 signal" role="group" aria-label="1 signal"><div class="flow-node">Opportunistic Scan</div></div>
+    <div class="flow-leg" data-branch="2 signals" role="group" aria-label="2 signals"><div class="flow-node">Targeted Probe</div></div>
+    <div class="flow-leg" data-branch="3+ signals" role="group" aria-label="3+ signals"><div class="flow-node is-bad">Active Compromise</div></div>
   </div>
 </div>
 

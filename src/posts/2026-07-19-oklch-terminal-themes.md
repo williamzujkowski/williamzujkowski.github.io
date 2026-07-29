@@ -67,7 +67,7 @@ The dataset also tags each theme with plain WCAG contrast ratios. `classify.ts` 
 
 For each curated theme, the script derives a dozen CSS tokens — muted text, borders, code background, accent, accent-hover — by mixing the theme's foreground and background in OKLCH space, with shortest-arc hue interpolation so a blend never takes the scenic route around the color wheel. Every derived token gets checked against the same floors as the source data. If a mixed color can't clear its floor, the script raises and the build fails. That's the actual payoff of all of this: not that OKLCH computes contrast for you (plain luminance math does that, color-space agnostic), but that colors nobody hand-picked stay predictable enough to gate a build on.
 
-<div class="flow">
+<div class="flow" role="group" aria-label="OKLCH theme build pipeline">
   <div class="flow-node"><b>12 upstream repos</b><i>sources.json, pinned SHAs</i></div>
   <div class="flow-node">fetch-upstream.ts</div>
   <div class="flow-node"><b>build.ts</b><i>hex to OKLCH (culori)</i></div>

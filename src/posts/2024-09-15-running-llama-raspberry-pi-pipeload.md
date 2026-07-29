@@ -99,7 +99,7 @@ Combined with layer unloading, peak memory usage drops by 90.3% for GPT-style mo
 
 ⚠️ **Warning:** This diagram demonstrates layer-wise loading architecture for educational purposes. Implementation requires proper memory management and hardware configuration.
 
-<div class="flow">
+<div class="flow" role="group" aria-label="PIPELOAD layer loading path">
   <div class="flow-node">Input Tokens</div>
   <div class="flow-node">Layer 0</div>
   <div class="flow-node">Unload Layer 0</div>

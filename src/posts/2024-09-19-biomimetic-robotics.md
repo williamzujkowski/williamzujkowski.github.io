@@ -39,7 +39,7 @@ The gecko's climbing ability, the octopus's ability to squeeze through tiny spac
 - Offload processing from CPUs to mechanical design
 - Let physics solve problems instead of software
 
-<div class="flow" aria-label="Biomimetic robotics design process">
+<div class="flow" role="group" aria-label="Biomimetic robotics design process">
   <div class="flow-node"><b>Biological System</b><i>Observation</i></div>
   <div class="flow-node"><b>Principle</b><i>Extraction</i></div>
   <div class="flow-node"><b>Computational</b><i>Modeling</i></div>
@@ -97,10 +97,10 @@ Bird and insect flight inspired breakthrough micro aerial vehicles. Engineers di
 - Deployable for exploration missions
 
 <figure class="arch-fig">
-<div class="arch" aria-label="Biological locomotion principle examples">
-  <section class="arch-tier" data-label="Legged (MIT Cheetah)"><span class="arch-chip">Dynamic balance</span><span class="arch-chip">Tendon energy storage</span><span class="arch-chip">6.4 m/s sprint</span></section>
-  <section class="arch-tier" data-label="Aerial (RoboBee / DALER)"><span class="arch-chip">Insect wing mechanics</span><span class="arch-chip">90 mg flight platform</span><span class="arch-chip">Dual air/ground modes</span></section>
-  <section class="arch-tier" data-label="Aquatic (Soft Robotic Fish)"><span class="arch-chip">Undulatory propulsion</span><span class="arch-chip">No propeller needed</span><span class="arch-chip">Minimal disturbance</span></section>
+<div class="arch" role="group" aria-label="Biological locomotion principle examples">
+  <section class="arch-tier" data-label="Legged (MIT Cheetah)" role="group" aria-label="Legged (MIT Cheetah)"><span class="arch-chip">Dynamic balance</span><span class="arch-chip">Tendon energy storage</span><span class="arch-chip">6.4 m/s sprint</span></section>
+  <section class="arch-tier" data-label="Aerial (RoboBee / DALER)" role="group" aria-label="Aerial (RoboBee / DALER)"><span class="arch-chip">Insect wing mechanics</span><span class="arch-chip">90 mg flight platform</span><span class="arch-chip">Dual air/ground modes</span></section>
+  <section class="arch-tier" data-label="Aquatic (Soft Robotic Fish)" role="group" aria-label="Aquatic (Soft Robotic Fish)"><span class="arch-chip">Undulatory propulsion</span><span class="arch-chip">No propeller needed</span><span class="arch-chip">Minimal disturbance</span></section>
 </div>
 <figcaption>Biological locomotion principles map into legged, aerial, and aquatic robot designs.</figcaption>
 </figure>

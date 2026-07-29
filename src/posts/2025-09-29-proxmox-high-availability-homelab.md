@@ -24,12 +24,12 @@ This incident became a driving force behind [building a security-focused homelab
 ## High Availability Architecture
 
 <figure class="arch-fig">
-<div class="arch" aria-label="Proxmox high availability homelab architecture">
-  <section class="arch-tier" data-label="Cluster Nodes"><span class="arch-chip"><b>Proxmox Node 1</b><i>Dell R910</i></span><span class="arch-chip"><b>Proxmox Node 2</b><i>Dell R730</i></span><span class="arch-chip"><b>Proxmox Node 3</b><i>Custom Build</i></span></section>
-  <section class="arch-tier" data-label="Shared Storage"><span class="arch-chip is-primary"><b>Ceph Cluster</b><i>distributed storage</i></span></section>
-  <section class="arch-tier" data-label="Network Infrastructure"><span class="arch-chip"><b>10Gb Switch</b><i>primary</i></span><span class="arch-chip"><b>1Gb Switch</b><i>management</i></span></section>
-  <section class="arch-tier" data-label="HA Services"><span class="arch-chip is-guard"><b>Corosync</b><i>cluster communication</i></span><span class="arch-chip is-primary"><b>PVE HA Manager</b><i>failover orchestration</i></span><span class="arch-chip is-bad"><b>Fencing Agent</b><i>split-brain prevention</i></span></section>
-  <section class="arch-tier" data-label="VMs with HA"><span class="arch-chip">Pi-hole DNS</span><span class="arch-chip">Bitwarden</span><span class="arch-chip">Wazuh SIEM</span><span class="arch-chip">Web Services</span></section>
+<div class="arch" role="group" aria-label="Proxmox high availability homelab architecture">
+  <section class="arch-tier" data-label="Cluster Nodes" role="group" aria-label="Cluster Nodes"><span class="arch-chip"><b>Proxmox Node 1</b><i>Dell R910</i></span><span class="arch-chip"><b>Proxmox Node 2</b><i>Dell R730</i></span><span class="arch-chip"><b>Proxmox Node 3</b><i>Custom Build</i></span></section>
+  <section class="arch-tier" data-label="Shared Storage" role="group" aria-label="Shared Storage"><span class="arch-chip is-primary"><b>Ceph Cluster</b><i>distributed storage</i></span></section>
+  <section class="arch-tier" data-label="Network Infrastructure" role="group" aria-label="Network Infrastructure"><span class="arch-chip"><b>10Gb Switch</b><i>primary</i></span><span class="arch-chip"><b>1Gb Switch</b><i>management</i></span></section>
+  <section class="arch-tier" data-label="HA Services" role="group" aria-label="HA Services"><span class="arch-chip is-guard"><b>Corosync</b><i>cluster communication</i></span><span class="arch-chip is-primary"><b>PVE HA Manager</b><i>failover orchestration</i></span><span class="arch-chip is-bad"><b>Fencing Agent</b><i>split-brain prevention</i></span></section>
+  <section class="arch-tier" data-label="VMs with HA" role="group" aria-label="VMs with HA"><span class="arch-chip">Pi-hole DNS</span><span class="arch-chip">Bitwarden</span><span class="arch-chip">Wazuh SIEM</span><span class="arch-chip">Web Services</span></section>
 </div>
 <figcaption>Cluster nodes share storage and network fabric while HA services coordinate failover for the protected VMs.</figcaption>
 </figure>

@@ -26,11 +26,11 @@ That has implications far beyond finance, though I'm still figuring out where th
 ## How It Actually Works (From My Test Network)
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Blockchain system layers">
-  <section class="arch-tier" data-label="Network Layer"><span class="arch-chip">P2P Network</span><span class="arch-chip">Gossip Protocol</span></section>
-  <section class="arch-tier" data-label="Consensus"><span class="arch-chip">Mining/Validation</span><span class="arch-chip is-primary">Consensus Algorithm</span></section>
-  <section class="arch-tier" data-label="Data Layer"><span class="arch-chip">Blocks</span><span class="arch-chip">Blockchain</span><span class="arch-chip">State Tree</span></section>
-  <section class="arch-tier" data-label="Application"><span class="arch-chip is-primary">Smart Contracts</span><span class="arch-chip">DApps</span></section>
+<div class="arch is-stack" role="group" aria-label="Blockchain system layers">
+  <section class="arch-tier" data-label="Network Layer" role="group" aria-label="Network Layer"><span class="arch-chip">P2P Network</span><span class="arch-chip">Gossip Protocol</span></section>
+  <section class="arch-tier" data-label="Consensus" role="group" aria-label="Consensus"><span class="arch-chip">Mining/Validation</span><span class="arch-chip is-primary">Consensus Algorithm</span></section>
+  <section class="arch-tier" data-label="Data Layer" role="group" aria-label="Data Layer"><span class="arch-chip">Blocks</span><span class="arch-chip">Blockchain</span><span class="arch-chip">State Tree</span></section>
+  <section class="arch-tier" data-label="Application" role="group" aria-label="Application"><span class="arch-chip is-primary">Smart Contracts</span><span class="arch-chip">DApps</span></section>
 </div>
 <figcaption>Blockchain systems build from peer networking through consensus and state storage into smart-contract applications.</figcaption>
 </figure>

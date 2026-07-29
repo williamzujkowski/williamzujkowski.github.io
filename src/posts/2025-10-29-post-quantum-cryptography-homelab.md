@@ -37,7 +37,7 @@ According to RAND Corporation's analysis,[^rand-analysis] if your data needs to 
 The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/): If **X** (how long your data must stay secret) + **Y** (how long it takes to migrate) > **Z** (when quantum computers arrive), you're already behind schedule.
 
 <figure class="arch-fig">
-<div class="flow" aria-label="Mosca theorem migration timing test">
+<div class="flow" role="group" aria-label="Mosca theorem migration timing test">
   <div class="flow-parallel">
     <div class="flow-node"><b>X: Data Secrecy Requirement</b><i>10-30 years</i></div>
     <div class="flow-node"><b>Y: Migration Time Needed</b><i>5-15 years</i></div>
@@ -46,11 +46,11 @@ The math is simple and it's called [Mosca's Theorem](https://globalriskinstitute
   <div class="flow-node">X + Y</div>
   <div class="flow-node is-gate">X + Y &gt; Z?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-bad"><b>Already Behind</b><i>schedule</i></div></div>
-    <div class="flow-leg" data-branch="No"><div class="flow-node is-good"><b>Time Remaining</b><i>to migrate</i></div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-bad"><b>Already Behind</b><i>schedule</i></div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-good"><b>Time Remaining</b><i>to migrate</i></div></div>
   </div>
 </div>
-<div class="flow" aria-label="Store Now Decrypt Later attack path">
+<div class="flow" role="group" aria-label="Store Now Decrypt Later attack path">
   <div class="flow-node"><b>Adversary Captures Encrypted Traffic</b><i>today</i></div>
   <div class="flow-node"><b>Stores Until Quantum Computer</b><i>available</i></div>
   <div class="flow-node is-bad">Decrypts Historical Traffic</div>
@@ -65,11 +65,11 @@ For my homelab, that meant my encrypted backups, my self-hosted Bitwarden vault 
 The following diagram compares the three NIST-standardized post-quantum algorithms and their roles:
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="NIST post-quantum cryptography standards">
-  <section class="arch-tier" data-label="Standards"><span class="arch-chip is-primary"><b>NIST PQC Standards</b><i>August 2024</i></span></section>
-  <section class="arch-tier" data-label="Algorithms"><span class="arch-chip"><b>ML-KEM (FIPS 203)</b><i>key encapsulation</i></span><span class="arch-chip"><b>ML-DSA (FIPS 204)</b><i>digital signatures</i></span><span class="arch-chip"><b>SLH-DSA (FIPS 205)</b><i>hash-based signatures</i></span></section>
-  <section class="arch-tier" data-label="Uses"><span class="arch-chip"><b>ML-KEM</b><i>replaces ECDH / X25519; TLS handshakes; 800-1568 byte keys</i></span><span class="arch-chip"><b>ML-DSA</b><i>replaces RSA / ECDSA; certificates and code signing; 2420-4595 byte signatures</i></span><span class="arch-chip"><b>SLH-DSA</b><i>backup for ML-DSA; long-term archival; hash functions only</i></span></section>
-  <section class="arch-tier" data-label="Math Basis"><span class="arch-chip is-guard"><b>Lattice-Based Math</b><i>Learning With Errors</i></span><span class="arch-chip is-guard"><b>Hash Functions</b><i>different math basis</i></span></section>
+<div class="arch is-stack" role="group" aria-label="NIST post-quantum cryptography standards">
+  <section class="arch-tier" data-label="Standards" role="group" aria-label="Standards"><span class="arch-chip is-primary"><b>NIST PQC Standards</b><i>August 2024</i></span></section>
+  <section class="arch-tier" data-label="Algorithms" role="group" aria-label="Algorithms"><span class="arch-chip"><b>ML-KEM (FIPS 203)</b><i>key encapsulation</i></span><span class="arch-chip"><b>ML-DSA (FIPS 204)</b><i>digital signatures</i></span><span class="arch-chip"><b>SLH-DSA (FIPS 205)</b><i>hash-based signatures</i></span></section>
+  <section class="arch-tier" data-label="Uses" role="group" aria-label="Uses"><span class="arch-chip"><b>ML-KEM</b><i>replaces ECDH / X25519; TLS handshakes; 800-1568 byte keys</i></span><span class="arch-chip"><b>ML-DSA</b><i>replaces RSA / ECDSA; certificates and code signing; 2420-4595 byte signatures</i></span><span class="arch-chip"><b>SLH-DSA</b><i>backup for ML-DSA; long-term archival; hash functions only</i></span></section>
+  <section class="arch-tier" data-label="Math Basis" role="group" aria-label="Math Basis"><span class="arch-chip is-guard"><b>Lattice-Based Math</b><i>Learning With Errors</i></span><span class="arch-chip is-guard"><b>Hash Functions</b><i>different math basis</i></span></section>
 </div>
 <figcaption>ML-KEM and ML-DSA rely on lattice-based assumptions; SLH-DSA provides a hash-based signature fallback.</figcaption>
 </figure>
@@ -632,7 +632,7 @@ My personal risk tolerance says these trade-offs are acceptable for homelab expe
 
 The migration strategy follows four phases, prioritizing services by their exposure to Store Now, Decrypt Later attacks:
 
-<div class="flow" aria-label="Post-quantum cryptography homelab migration phases">
+<div class="flow" role="group" aria-label="Post-quantum cryptography homelab migration phases">
   <div class="flow-node"><b>Phase 1: Test</b><i>Weekend 1; isolated Ubuntu 24.04 VM, Caddy 2.10, verify x25519_kyber768 handshake</i></div>
   <div class="flow-node"><b>Phase 2: Certificates</b><i>Weekend 1; classical certs, PQC key exchange with ML-KEM-768, future ML-DSA certs in 2026-2027</i></div>
   <div class="flow-node is-gate"><b>Phase 3: Rollout</b><i>Weekend 2</i></div>

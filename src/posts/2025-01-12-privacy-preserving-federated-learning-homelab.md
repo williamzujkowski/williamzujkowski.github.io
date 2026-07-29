@@ -32,7 +32,7 @@ Traditional machine learning requires aggregating all training data in one place
 This approach breaks privacy in obvious ways. If I'm training a medical diagnosis model, I need patient data from multiple hospitals. But centralizing that data means hospitals lose control, increase their breach surface, and violate privacy regulations.
 
 <figure>
-<div class="flow" aria-label="Centralized training data path">
+<div class="flow" role="group" aria-label="Centralized training data path">
   <div class="flow-parallel">
     <div class="flow-node">Hospital A Data</div>
     <div class="flow-node">Hospital B Data</div>
@@ -41,7 +41,7 @@ This approach breaks privacy in obvious ways. If I'm training a medical diagnosi
   <div class="flow-node is-bad"><b>Central Dataset</b><i>uploaded data</i></div>
   <div class="flow-node">Train Model</div>
 </div>
-<div class="flow" aria-label="Federated training update path">
+<div class="flow" role="group" aria-label="Federated training update path">
   <div class="flow-parallel">
     <div class="flow-node"><b>Hospital A Data</b><i>Local Model A</i></div>
     <div class="flow-node"><b>Hospital B Data</b><i>Local Model B</i></div>
@@ -253,7 +253,7 @@ pie title Training Round Time Breakdown (47 min total)
 
 ### Privacy Guarantees
 
-<div class="flow" aria-label="Granular-ball segmentation privacy path">
+<div class="flow" role="group" aria-label="Granular-ball segmentation privacy path">
   <div class="flow-node"><b>Raw Training Data</b><i>Individual examples</i></div>
   <div class="flow-node">Granular-Ball Segmentation</div>
   <div class="flow-parallel">
@@ -263,8 +263,8 @@ pie title Training Round Time Breakdown (47 min total)
   </div>
   <div class="flow-node is-gate">Variance &gt; threshold?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good"><b>Shared with aggregator</b><i>Aggregation Server</i></div></div>
-    <div class="flow-leg" data-branch="No"><div class="flow-node is-bad">Dropped — never leaves device</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Shared with aggregator</b><i>Aggregation Server</i></div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-bad">Dropped — never leaves device</div></div>
   </div>
   <div class="flow-parallel">
     <div class="flow-node is-good"><b>Reconstruction Attack</b><i>Fails</i></div>

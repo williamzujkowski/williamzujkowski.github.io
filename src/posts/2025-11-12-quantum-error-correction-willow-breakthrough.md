@@ -22,10 +22,10 @@ Here's the catch that almost doomed the field: traditional error correction make
 The theoretical solution has been known since the 1990s: surface codes and logical qubits. Instead of using individual physical qubits for computation, you use groups of physical qubits to create one "logical qubit" protected by quantum error correction. The math said this should work below a critical error threshold around 1%.
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Surface code error correction path">
-  <section class="arch-tier" data-label="Surface Code Layout"><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span><span class="arch-chip is-guard"><b>S</b><i>Syndrome Ancilla</i></span><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span><span class="arch-chip is-guard"><b>S</b><i>Syndrome Ancilla</i></span><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span></section>
-  <section class="arch-tier" data-label="Error Correction"><span class="arch-chip is-guard">Syndrome Measurement</span><span class="arch-chip is-guard">Decoding</span></section>
-  <section class="arch-tier" data-label="Logical Qubit"><span class="arch-chip is-primary">1 Logical Qubit</span></section>
+<div class="arch is-stack" role="group" aria-label="Surface code error correction path">
+  <section class="arch-tier" data-label="Surface Code Layout" role="group" aria-label="Surface Code Layout"><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span><span class="arch-chip is-guard"><b>S</b><i>Syndrome Ancilla</i></span><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span><span class="arch-chip is-guard"><b>S</b><i>Syndrome Ancilla</i></span><span class="arch-chip is-primary"><b>D</b><i>Data Qubit</i></span></section>
+  <section class="arch-tier" data-label="Error Correction" role="group" aria-label="Error Correction"><span class="arch-chip is-guard">Syndrome Measurement</span><span class="arch-chip is-guard">Decoding</span></section>
+  <section class="arch-tier" data-label="Logical Qubit" role="group" aria-label="Logical Qubit"><span class="arch-chip is-primary">1 Logical Qubit</span></section>
 </div>
 <figcaption>Physical data qubits and syndrome ancillas form a surface-code layout that decodes into one protected logical qubit.</figcaption>
 </figure>
@@ -38,7 +38,7 @@ Google's Willow chip finally cracked the code. They built logical qubits using s
 
 **The breakthrough:** As they increased from 3x3 to 5x5 to 7x7, the logical error rate decreased exponentially. Adding more physical qubits made the logical qubit more reliable, not less.
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Willow logical qubit scaling">
   <div class="flow-node is-bad"><b>3x3 Array</b><i>9 Physical Qubits; Higher Error Rate</i></div>
   <div class="flow-node"><b>5x5 Array</b><i>25 Physical Qubits; Lower Error Rate</i></div>
   <div class="flow-node is-good"><b>7x7 Array</b><i>49 Physical Qubits; Lowest Error Rate</i></div>
@@ -56,7 +56,7 @@ The paper (["Quantum error correction below the surface code threshold"](https:/
 
 ## Why This Changes Everything
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Quantum computing stack dependencies">
   <div class="flow-node"><b>Applications</b><i>Drug Discovery, Crypto, AI, Climate</i></div>
   <div class="flow-node"><b>Quantum Algorithms</b><i>Shor's, Grover's, VQE</i></div>
   <div class="flow-node"><b>Logical Qubits</b><i>Error-Corrected Computation</i></div>

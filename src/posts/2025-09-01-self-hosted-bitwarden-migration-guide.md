@@ -22,17 +22,17 @@ tags:
 ## Self-Hosted Password Management Architecture
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Self-hosted Bitwarden serving architecture">
-  <section class="arch-tier" data-label="Client Access"><span class="arch-chip">Web Vault</span><span class="arch-chip">Mobile Apps</span><span class="arch-chip">Desktop Apps</span><span class="arch-chip">Browser Extensions</span></section>
-  <section class="arch-tier" data-label="Ingress Protection"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">TLS 1.3</span><span class="arch-chip is-guard">Fail2ban</span><span class="arch-chip is-guard">ModSecurity WAF</span></section>
-  <section class="arch-tier" data-label="Application Edge"><span class="arch-chip">Nginx Reverse Proxy</span></section>
-  <section class="arch-tier" data-label="Vault Service"><span class="arch-chip is-primary">Vaultwarden</span></section>
-  <section class="arch-tier" data-label="Data Store"><span class="arch-chip"><b>SQLite / PostgreSQL</b><i>encrypted at rest</i></span></section>
+<div class="arch is-stack" role="group" aria-label="Self-hosted Bitwarden serving architecture">
+  <section class="arch-tier" data-label="Client Access" role="group" aria-label="Client Access"><span class="arch-chip">Web Vault</span><span class="arch-chip">Mobile Apps</span><span class="arch-chip">Desktop Apps</span><span class="arch-chip">Browser Extensions</span></section>
+  <section class="arch-tier" data-label="Ingress Protection" role="group" aria-label="Ingress Protection"><span class="arch-chip is-guard">Firewall Rules</span><span class="arch-chip is-guard">TLS 1.3</span><span class="arch-chip is-guard">Fail2ban</span><span class="arch-chip is-guard">ModSecurity WAF</span></section>
+  <section class="arch-tier" data-label="Application Edge" role="group" aria-label="Application Edge"><span class="arch-chip">Nginx Reverse Proxy</span></section>
+  <section class="arch-tier" data-label="Vault Service" role="group" aria-label="Vault Service"><span class="arch-chip is-primary">Vaultwarden</span></section>
+  <section class="arch-tier" data-label="Data Store" role="group" aria-label="Data Store"><span class="arch-chip"><b>SQLite / PostgreSQL</b><i>encrypted at rest</i></span></section>
 </div>
 <figcaption>Clients enter through the protected edge; Vaultwarden sits behind Nginx and writes to a private database. Backups (below) run downstream of the data store.</figcaption>
 </figure>
 
-<div class="flow" aria-label="Bitwarden backup and recovery path">
+<div class="flow" role="group" aria-label="Bitwarden backup and recovery path">
   <div class="flow-node">Database</div>
   <div class="flow-node">Local Backups</div>
   <div class="flow-node is-gate">Encrypted Storage</div>

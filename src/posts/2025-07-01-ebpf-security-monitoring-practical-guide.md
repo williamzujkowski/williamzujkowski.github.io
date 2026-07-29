@@ -28,10 +28,10 @@ Imagine having X-ray vision into your kernel, seeing every system call, network 
 ⚠️ **Warning:** The following diagrams and examples demonstrate security monitoring concepts for educational purposes. eBPF programs require kernel privileges and should only be deployed in controlled environments with proper authorization.
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="eBPF security monitoring architecture">
-  <section class="arch-tier" data-label="Attack Surface"><span class="arch-chip">Process Execution</span><span class="arch-chip">Network Connections</span><span class="arch-chip">File Operations</span><span class="arch-chip">Privilege Changes</span></section>
-  <section class="arch-tier" data-label="Kernel Space"><span class="arch-chip">Kernel Probes</span><span class="arch-chip is-primary">eBPF VM</span><span class="arch-chip">BPF Maps</span><span class="arch-chip is-guard">BPF Verifier</span></section>
-  <section class="arch-tier" data-label="User Space"><span class="arch-chip">BPF Loader</span><span class="arch-chip">Event Monitor</span><span class="arch-chip is-primary">AI/ML Analysis</span><span class="arch-chip is-primary">SIEM Integration</span></section>
+<div class="arch is-stack" role="group" aria-label="eBPF security monitoring architecture">
+  <section class="arch-tier" data-label="Attack Surface" role="group" aria-label="Attack Surface"><span class="arch-chip">Process Execution</span><span class="arch-chip">Network Connections</span><span class="arch-chip">File Operations</span><span class="arch-chip">Privilege Changes</span></section>
+  <section class="arch-tier" data-label="Kernel Space" role="group" aria-label="Kernel Space"><span class="arch-chip">Kernel Probes</span><span class="arch-chip is-primary">eBPF VM</span><span class="arch-chip">BPF Maps</span><span class="arch-chip is-guard">BPF Verifier</span></section>
+  <section class="arch-tier" data-label="User Space" role="group" aria-label="User Space"><span class="arch-chip">BPF Loader</span><span class="arch-chip">Event Monitor</span><span class="arch-chip is-primary">AI/ML Analysis</span><span class="arch-chip is-primary">SIEM Integration</span></section>
 </div>
 <figcaption>Kernel probes collect activity, the verifier gates safe eBPF execution, and user-space monitors poll maps for analysis and SIEM delivery.</figcaption>
 </figure>
@@ -43,7 +43,7 @@ Let me share a story from my research lab. I once set up a honeypot with traditi
 With eBPF monitoring on an identical honeypot, the same attack was detected in 1.3 seconds. Here's what makes the difference:
 
 <figure>
-<div class="flow" aria-label="Traditional monitoring latency path">
+<div class="flow" role="group" aria-label="Traditional monitoring latency path">
   <div class="flow-parallel">
     <div class="flow-node"><b>Application Logs</b><i>Delayed</i></div>
     <div class="flow-node"><b>System Logs</b><i>Can be tampered</i></div>
@@ -52,7 +52,7 @@ With eBPF monitoring on an identical honeypot, the same attack was detected in 1
   <div class="flow-node">SIEM Aggregation</div>
   <div class="flow-node is-bad"><b>Alert Generation</b><i>Minutes to hours</i></div>
 </div>
-<div class="flow" aria-label="eBPF monitoring latency path">
+<div class="flow" role="group" aria-label="eBPF monitoring latency path">
   <div class="flow-node"><b>Kernel Events</b><i>Nanoseconds</i></div>
   <div class="flow-node"><b>Real-time Processing</b><i>Microseconds</i></div>
   <div class="flow-node"><b>In-kernel Filtering</b><i>Milliseconds</i></div>

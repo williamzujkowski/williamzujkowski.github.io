@@ -42,10 +42,10 @@ Computational demands were growing faster than efficiency improvements, meaning 
 Before optimizing, I needed to understand where the emissions were coming from. The following diagram illustrates the three emission scopes and how they relate to an organization's computing infrastructure:
 
 <figure class="arch-fig">
-<div class="arch" aria-label="Organization computing carbon footprint scopes">
-  <section class="arch-tier" data-label="Scope 1: Direct Energy Use"><span class="arch-chip">Office Electricity</span><span class="arch-chip">Backup Generators</span><span class="arch-chip">Company Vehicles</span></section>
-  <section class="arch-tier" data-label="Scope 2: Indirect Energy Use"><span class="arch-chip">Cloud Computing</span><span class="arch-chip">Purchased Electricity</span><span class="arch-chip">Cooling &amp; HVAC</span></section>
-  <section class="arch-tier" data-label="Scope 3: Supply Chain Emissions"><span class="arch-chip">Device Manufacturing</span><span class="arch-chip">Employee Commuting</span><span class="arch-chip">Third-Party Services</span></section>
+<div class="arch" role="group" aria-label="Organization computing carbon footprint scopes">
+  <section class="arch-tier" data-label="Scope 1: Direct Energy Use" role="group" aria-label="Scope 1: Direct Energy Use"><span class="arch-chip">Office Electricity</span><span class="arch-chip">Backup Generators</span><span class="arch-chip">Company Vehicles</span></section>
+  <section class="arch-tier" data-label="Scope 2: Indirect Energy Use" role="group" aria-label="Scope 2: Indirect Energy Use"><span class="arch-chip">Cloud Computing</span><span class="arch-chip">Purchased Electricity</span><span class="arch-chip">Cooling &amp; HVAC</span></section>
+  <section class="arch-tier" data-label="Scope 3: Supply Chain Emissions" role="group" aria-label="Scope 3: Supply Chain Emissions"><span class="arch-chip">Device Manufacturing</span><span class="arch-chip">Employee Commuting</span><span class="arch-chip">Third-Party Services</span></section>
 </div>
 <figcaption>An organization's computing carbon footprint spans direct energy, purchased energy, and supply-chain emissions.</figcaption>
 </figure>
@@ -86,7 +86,7 @@ Before optimizing, I needed to understand where the emissions were coming from. 
 
 The overall flow from energy consumption through to carbon impact follows this pattern:
 
-<div class="flow" aria-label="Carbon footprint measurement path">
+<div class="flow" role="group" aria-label="Carbon footprint measurement path">
   <div class="flow-node"><b>Energy Source</b><i>Grid / Renewable</i></div>
   <div class="flow-node"><b>Data Center</b><i>PUE Measurement</i></div>
   <div class="flow-node"><b>Compute Workload</b><i>CPU, GPU, Storage</i></div>
@@ -164,7 +164,7 @@ Choosing data center locations based on carbon intensity:
 
 The following diagram shows how carbon-aware workload scheduling interacts with renewable energy availability:
 
-<div class="flow" aria-label="Carbon-aware scheduling decision path">
+<div class="flow" role="group" aria-label="Carbon-aware scheduling decision path">
   <div class="flow-parallel">
     <div class="flow-node"><b>Solar Generation</b><i>Peak: 11AM-3PM</i></div>
     <div class="flow-node"><b>Wind Generation</b><i>Peak: 2AM-6AM</i></div>
@@ -174,9 +174,9 @@ The following diagram shows how carbon-aware workload scheduling interacts with 
   <div class="flow-node">Workload Queue</div>
   <div class="flow-node is-gate">Carbon Intensity Below Threshold?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good"><b>Run Workload Now</b><i>Low Carbon</i></div></div>
-    <div class="flow-leg" data-branch="No, deferrable"><div class="flow-node is-gate">Defer to Low-Carbon Window</div></div>
-    <div class="flow-leg" data-branch="No, urgent"><div class="flow-node">Migrate to Green Region</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Run Workload Now</b><i>Low Carbon</i></div></div>
+    <div class="flow-leg" data-branch="No, deferrable" role="group" aria-label="No, deferrable"><div class="flow-node is-gate">Defer to Low-Carbon Window</div></div>
+    <div class="flow-leg" data-branch="No, urgent" role="group" aria-label="No, urgent"><div class="flow-node">Migrate to Green Region</div></div>
   </div>
 </div>
 

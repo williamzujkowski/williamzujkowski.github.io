@@ -24,11 +24,11 @@ That's the case for Suricata in one line: you can't protect what you can't see. 
 ⚠️ **Warning:** Network traffic analysis must comply with privacy laws and organizational policies. Deploy only on networks you own or have explicit authorization to monitor.
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Suricata traffic analysis architecture">
-  <section class="arch-tier" data-label="Traffic Collection"><span class="arch-chip">Port Mirroring</span><span class="arch-chip">Network TAP</span><span class="arch-chip">SPAN Port</span></section>
-  <section class="arch-tier" data-label="Rule Management"><span class="arch-chip is-guard">Emerging Threats</span><span class="arch-chip is-guard">Custom Rules</span><span class="arch-chip is-guard">ET Pro Rules</span><span class="arch-chip is-guard">Rule Updates</span></section>
-  <section class="arch-tier" data-label="Suricata Engine"><span class="arch-chip">Packet Capture</span><span class="arch-chip">Protocol Decoder</span><span class="arch-chip is-primary">Detection Engine</span><span class="arch-chip">Event Logger</span></section>
-  <section class="arch-tier" data-label="Analysis &amp; Response"><span class="arch-chip">EVE JSON Logs</span><span class="arch-chip">Filebeat Shipper</span><span class="arch-chip">Elasticsearch</span><span class="arch-chip">Kibana Dashboard</span><span class="arch-chip">Wazuh SIEM</span></section>
+<div class="arch is-stack" role="group" aria-label="Suricata traffic analysis architecture">
+  <section class="arch-tier" data-label="Traffic Collection" role="group" aria-label="Traffic Collection"><span class="arch-chip">Port Mirroring</span><span class="arch-chip">Network TAP</span><span class="arch-chip">SPAN Port</span></section>
+  <section class="arch-tier" data-label="Rule Management" role="group" aria-label="Rule Management"><span class="arch-chip is-guard">Emerging Threats</span><span class="arch-chip is-guard">Custom Rules</span><span class="arch-chip is-guard">ET Pro Rules</span><span class="arch-chip is-guard">Rule Updates</span></section>
+  <section class="arch-tier" data-label="Suricata Engine" role="group" aria-label="Suricata Engine"><span class="arch-chip">Packet Capture</span><span class="arch-chip">Protocol Decoder</span><span class="arch-chip is-primary">Detection Engine</span><span class="arch-chip">Event Logger</span></section>
+  <section class="arch-tier" data-label="Analysis &amp; Response" role="group" aria-label="Analysis &amp; Response"><span class="arch-chip">EVE JSON Logs</span><span class="arch-chip">Filebeat Shipper</span><span class="arch-chip">Elasticsearch</span><span class="arch-chip">Kibana Dashboard</span><span class="arch-chip">Wazuh SIEM</span></section>
 </div>
 <figcaption>Traffic collection feeds Suricata, rule sources shape detection, and EVE logs move into search, dashboards, and SIEM response.</figcaption>
 </figure>

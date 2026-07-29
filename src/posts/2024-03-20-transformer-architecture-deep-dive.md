@@ -18,10 +18,10 @@ In late 2018, I implemented my first Transformer from scratch for a machine tran
 ## How It Works
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Transformer encoder and decoder architecture">
-  <section class="arch-tier" data-label="Input"><span class="arch-chip">Token Embeddings</span><span class="arch-chip">Positional Encoding</span></section>
-  <section class="arch-tier" data-label="Encoder Stack"><span class="arch-chip is-primary">Multi-Head Attention</span><span class="arch-chip">Feed Forward</span><span class="arch-chip">Layer Norm</span></section>
-  <section class="arch-tier" data-label="Decoder Stack"><span class="arch-chip">Masked Attention</span><span class="arch-chip is-primary">Cross Attention</span><span class="arch-chip">Feed Forward</span></section>
+<div class="arch is-stack" role="group" aria-label="Transformer encoder and decoder architecture">
+  <section class="arch-tier" data-label="Input" role="group" aria-label="Input"><span class="arch-chip">Token Embeddings</span><span class="arch-chip">Positional Encoding</span></section>
+  <section class="arch-tier" data-label="Encoder Stack" role="group" aria-label="Encoder Stack"><span class="arch-chip is-primary">Multi-Head Attention</span><span class="arch-chip">Feed Forward</span><span class="arch-chip">Layer Norm</span></section>
+  <section class="arch-tier" data-label="Decoder Stack" role="group" aria-label="Decoder Stack"><span class="arch-chip">Masked Attention</span><span class="arch-chip is-primary">Cross Attention</span><span class="arch-chip">Feed Forward</span></section>
 </div>
 <figcaption>Token and position inputs move through the encoder stack before decoder attention combines masked and cross-attention paths.</figcaption>
 </figure>

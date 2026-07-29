@@ -54,7 +54,7 @@ My homelab SSO replaces password transmission with ZK-SNARK proof generation and
 
 **System design:**
 
-<div class="flow">
+<div class="flow" role="group" aria-label="ZK-SNARK authentication flow">
   <div class="flow-node">User Browser</div>
   <div class="flow-node"><b>ZK Client</b><i>JavaScript; username, password local only</i></div>
   <div class="flow-node"><b>Proof Generator</b><i>zk-SNARK proof π</i></div>

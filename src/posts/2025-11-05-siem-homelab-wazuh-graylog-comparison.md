@@ -37,21 +37,21 @@ Both use agent-based collection, centralized storage, and web UI. Architectures 
 
 **Wazuh architecture:**
 
-<div class="flow" aria-label="Wazuh log collection architecture">
+<div class="flow" role="group" aria-label="Wazuh log collection architecture">
   <div class="flow-parallel">
     <div class="flow-node"><b>Wazuh Agent</b><i>Host 1 logs</i></div>
     <div class="flow-node"><b>Wazuh Agent</b><i>Host 2 logs</i></div>
   </div>
   <div class="flow-node">Wazuh Manager</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Index"><div class="flow-node"><b>Wazuh Indexer</b><i>OpenSearch</i></div></div>
-    <div class="flow-leg" data-branch="Alerts"><div class="flow-node"><b>Wazuh Dashboard</b><i>queries indexer</i></div></div>
+    <div class="flow-leg" data-branch="Index" role="group" aria-label="Index"><div class="flow-node"><b>Wazuh Indexer</b><i>OpenSearch</i></div></div>
+    <div class="flow-leg" data-branch="Alerts" role="group" aria-label="Alerts"><div class="flow-node"><b>Wazuh Dashboard</b><i>queries indexer</i></div></div>
   </div>
 </div>
 
 **Graylog architecture:**
 
-<div class="flow" aria-label="Graylog log collection architecture">
+<div class="flow" role="group" aria-label="Graylog log collection architecture">
   <div class="flow-parallel">
     <div class="flow-node"><b>Filebeat</b><i>Host 1 syslog</i></div>
     <div class="flow-node"><b>Filebeat</b><i>Host 2 syslog</i></div>
@@ -338,11 +338,11 @@ Some teams run Wazuh + Graylog together. Wazuh handles threat detection, Graylog
 **Hybrid architecture:**
 
 <figure class="arch-fig">
-<div class="arch" aria-label="Hybrid Wazuh and Graylog deployment">
-  <section class="arch-tier" data-label="Inputs"><span class="arch-chip">Homelab Hosts</span></section>
-  <section class="arch-tier" data-label="Security Path"><span class="arch-chip is-primary">Wazuh Manager</span><span class="arch-chip">Alert Dashboard</span></section>
-  <section class="arch-tier" data-label="Application Path"><span class="arch-chip is-primary">Graylog Server</span><span class="arch-chip">Investigation UI</span></section>
-  <section class="arch-tier" data-label="Integration"><span class="arch-chip is-guard">Forward Wazuh Alerts to Graylog</span><span class="arch-chip is-guard">Enrich Graylog Events in Wazuh</span></section>
+<div class="arch" role="group" aria-label="Hybrid Wazuh and Graylog deployment">
+  <section class="arch-tier" data-label="Inputs" role="group" aria-label="Inputs"><span class="arch-chip">Homelab Hosts</span></section>
+  <section class="arch-tier" data-label="Security Path" role="group" aria-label="Security Path"><span class="arch-chip is-primary">Wazuh Manager</span><span class="arch-chip">Alert Dashboard</span></section>
+  <section class="arch-tier" data-label="Application Path" role="group" aria-label="Application Path"><span class="arch-chip is-primary">Graylog Server</span><span class="arch-chip">Investigation UI</span></section>
+  <section class="arch-tier" data-label="Integration" role="group" aria-label="Integration"><span class="arch-chip is-guard">Forward Wazuh Alerts to Graylog</span><span class="arch-chip is-guard">Enrich Graylog Events in Wazuh</span></section>
 </div>
 <figcaption>Security logs flow to Wazuh, application logs flow to Graylog, and the two systems exchange alerts for unified investigation.</figcaption>
 </figure>

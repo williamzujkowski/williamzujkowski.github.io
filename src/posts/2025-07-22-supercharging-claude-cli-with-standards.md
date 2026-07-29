@@ -109,7 +109,7 @@ git commit -m "Add user auth"
 
 The standards system works through a context-aware loading pipeline that detects what you are working on and serves relevant standards:
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Standards context loading pipeline">
   <div class="flow-node"><b>Developer Input</b><i>'I'm building a secure API'</i></div>
   <div class="flow-node">Context Detection</div>
   <div class="flow-node"><b>Parse Project Signals</b><i>files, imports, config</i></div>
@@ -321,7 +321,7 @@ curl -O [https://raw.githubusercontent.com/williamzujkowski/standards/master/doc
 
 The following diagram shows the evolution of CLAUDE.md and the standards system over six months:
 
-<div class="flow">
+<div class="flow" role="group" aria-label="Standards system evolution">
   <div class="flow-node is-bad"><b>v1.0</b><i>120 lines, Python only; 87 violations found, 4.5 hrs to fix</i></div>
   <div class="flow-node"><b>v2.0</b><i>~800 lines, multi-language; 312 flagged, 88% false positives</i></div>
   <div class="flow-node is-good"><b>v3.0</b><i>2,847 lines, full enforcement; FP rate: 4%, 12s validation</i></div>

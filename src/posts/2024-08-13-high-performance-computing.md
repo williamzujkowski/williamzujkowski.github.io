@@ -27,12 +27,12 @@ When the Department of Energy's Frontier system broke the exascale barrier in 20
 This convergence of power, efficiency, and accessibility is why I found myself standing in front of a supercomputer on a Tuesday afternoon, about to witness firsthand what happens when theoretical computational limits become engineering reality.
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="Compute cluster architecture">
-  <section class="arch-tier" data-label="Access"><span class="arch-chip">Users / Researchers</span></section>
-  <section class="arch-tier" data-label="Scheduling"><span class="arch-chip is-primary">Load Balancer / Job Scheduler</span></section>
-  <section class="arch-tier" data-label="Compute Cluster"><span class="arch-chip"><b>Compute Node 1</b><i>CPU + GPU</i></span><span class="arch-chip"><b>Compute Node 2</b><i>CPU + GPU</i></span><span class="arch-chip"><b>Compute Node N</b><i>CPU + GPU</i></span><span class="arch-chip is-guard"><b>High-Speed Interconnect</b><i>InfiniBand / Slingshot</i></span></section>
-  <section class="arch-tier" data-label="Shared Storage"><span class="arch-chip"><b>Parallel File System</b><i>Lustre / GPFS</i></span></section>
-  <section class="arch-tier" data-label="Long-Term Storage"><span class="arch-chip"><b>Object / Tape</b><i>archive tier</i></span></section>
+<div class="arch is-stack" role="group" aria-label="Compute cluster architecture">
+  <section class="arch-tier" data-label="Access" role="group" aria-label="Access"><span class="arch-chip">Users / Researchers</span></section>
+  <section class="arch-tier" data-label="Scheduling" role="group" aria-label="Scheduling"><span class="arch-chip is-primary">Load Balancer / Job Scheduler</span></section>
+  <section class="arch-tier" data-label="Compute Cluster" role="group" aria-label="Compute Cluster"><span class="arch-chip"><b>Compute Node 1</b><i>CPU + GPU</i></span><span class="arch-chip"><b>Compute Node 2</b><i>CPU + GPU</i></span><span class="arch-chip"><b>Compute Node N</b><i>CPU + GPU</i></span><span class="arch-chip is-guard"><b>High-Speed Interconnect</b><i>InfiniBand / Slingshot</i></span></section>
+  <section class="arch-tier" data-label="Shared Storage" role="group" aria-label="Shared Storage"><span class="arch-chip"><b>Parallel File System</b><i>Lustre / GPFS</i></span></section>
+  <section class="arch-tier" data-label="Long-Term Storage" role="group" aria-label="Long-Term Storage"><span class="arch-chip"><b>Object / Tape</b><i>archive tier</i></span></section>
 </div>
 <figcaption>Researchers submit work through the scheduler; compute nodes communicate over a high-speed fabric and write through the parallel file system to archival storage.</figcaption>
 </figure>
@@ -302,7 +302,7 @@ The integration between quantum and classical HPC systems has evolved rapidly ov
 - **Quantum Framework scaling**: Recent frameworks are working to coordinate hybrid workflows between classical nodes and quantum backends
 - **Unified quantum platforms**: Emerging platforms provide portable abstraction layers allowing quantum algorithms to run across different QPU architectures without code rewrites[11]
 
-<div class="flow" aria-label="Quantum-classical hybrid solving path">
+<div class="flow" role="group" aria-label="Quantum-classical hybrid solving path">
   <div class="flow-node">Problem Definition</div>
   <div class="flow-node"><b>Classical Preprocessor</b><i>Problem Decomposition</i></div>
   <div class="flow-parallel">
@@ -313,8 +313,8 @@ The integration between quantum and classical HPC systems has evolved rapidly ov
   <div class="flow-node"><b>Error Mitigation</b><i>Zero-Noise Extrapolation</i></div>
   <div class="flow-node is-gate">Converged?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="No"><div class="flow-node is-gate"><b>Repeat Quantum Compile</b><i>run another iteration</i></div></div>
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good"><b>Result Aggregation</b><i>Final Solution</i></div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-gate"><b>Repeat Quantum Compile</b><i>run another iteration</i></div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good"><b>Result Aggregation</b><i>Final Solution</i></div></div>
   </div>
 </div>
 

@@ -39,7 +39,7 @@ I used to think of encryption like placing letters in sealed envelopes, but my r
 ### Symmetric Encryption: Speed vs. Key Distribution
 
 <figure>
-<div class="flow" aria-label="Symmetric encryption path">
+<div class="flow" role="group" aria-label="Symmetric encryption path">
   <div class="flow-node"><b>🔑 Shared Secret Key</b><i>used to encrypt and decrypt</i></div>
   <div class="flow-node">Plaintext</div>
   <div class="flow-node">Encrypt</div>
@@ -47,7 +47,7 @@ I used to think of encryption like placing letters in sealed envelopes, but my r
   <div class="flow-node">Decrypt</div>
   <div class="flow-node">Plaintext</div>
 </div>
-<div class="flow" aria-label="Asymmetric encryption path">
+<div class="flow" role="group" aria-label="Asymmetric encryption path">
   <div class="flow-node"><b>🔓 Public Key</b><i>used to encrypt</i></div>
   <div class="flow-node">Plaintext</div>
   <div class="flow-node">Encrypt</div>
@@ -225,7 +225,7 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
 
 ### How Digital Signatures Work
 
-<div class="flow" aria-label="Digital signature signing and verification path">
+<div class="flow" role="group" aria-label="Digital signature signing and verification path">
   <div class="flow-node"><b>📄 Original Document</b><i>sender</i></div>
   <div class="flow-node">SHA-256 Hash</div>
   <div class="flow-node"><b>Hash Digest</b><i>a591a6d4...</i></div>
@@ -239,8 +239,8 @@ If hashing creates fingerprints, digital signatures are like notarizing those fi
   </div>
   <div class="flow-node is-gate">Match?</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Yes"><div class="flow-node is-good">✅ Authentic &amp; Unaltered</div></div>
-    <div class="flow-leg" data-branch="No"><div class="flow-node is-bad">❌ Tampered or Forged</div></div>
+    <div class="flow-leg" data-branch="Yes" role="group" aria-label="Yes"><div class="flow-node is-good">✅ Authentic &amp; Unaltered</div></div>
+    <div class="flow-leg" data-branch="No" role="group" aria-label="No"><div class="flow-node is-bad">❌ Tampered or Forged</div></div>
   </div>
 </div>
 

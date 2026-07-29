@@ -127,7 +127,7 @@ I may have overdone it.
 
 The architecture grew from a simple pipe to a multi-layered system across four versions:
 
-<div class="flow" aria-label="MCP standards server architecture evolution">
+<div class="flow" role="group" aria-label="MCP standards server architecture evolution">
   <div class="flow-node"><b>Version 1: Simple</b><i>stdio in/out, load standards, return to Claude; 200 lines</i></div>
   <div class="flow-node"><b>Version 2: + Redis</b><i>stdio, Redis L1/L2 cache, load standards, return; 1,200 lines</i></div>
   <div class="flow-node"><b>Version 3: + Vector Search</b><i>stdio, Redis cache, ChromaDB vector search, standards; 3,800 lines</i></div>
@@ -183,10 +183,10 @@ mcp-standards validate src/ --language auto
 The following diagram shows how the MCP server registers and exposes tools to the LLM client:
 
 <figure class="arch-fig">
-<div class="arch is-stack" aria-label="MCP standards server tool exposure architecture">
-  <section class="arch-tier" data-label="Client"><span class="arch-chip is-primary">Claude CLI / Desktop LLM</span><span class="arch-chip">tools/list</span><span class="arch-chip">tools/call</span></section>
-  <section class="arch-tier" data-label="Transport Layer"><span class="arch-chip">stdio (local)</span><span class="arch-chip">HTTP/SSE (remote)</span></section>
-  <section class="arch-tier" data-label="MCP Standards Server"><span class="arch-chip is-primary">Tool Registry</span><span class="arch-chip"><b>get_standard</b><i>retrieve by name</i></span><span class="arch-chip"><b>search_standards</b><i>semantic + keyword</i></span><span class="arch-chip"><b>validate_code</b><i>multi-language lint</i></span><span class="arch-chip"><b>check_compliance</b><i>NIST 800-53r5</i></span><span class="arch-chip"><b>list_standards</b><i>discovery</i></span></section>
+<div class="arch is-stack" role="group" aria-label="MCP standards server tool exposure architecture">
+  <section class="arch-tier" data-label="Client" role="group" aria-label="Client"><span class="arch-chip is-primary">Claude CLI / Desktop LLM</span><span class="arch-chip">tools/list</span><span class="arch-chip">tools/call</span></section>
+  <section class="arch-tier" data-label="Transport Layer" role="group" aria-label="Transport Layer"><span class="arch-chip">stdio (local)</span><span class="arch-chip">HTTP/SSE (remote)</span></section>
+  <section class="arch-tier" data-label="MCP Standards Server" role="group" aria-label="MCP Standards Server"><span class="arch-chip is-primary">Tool Registry</span><span class="arch-chip"><b>get_standard</b><i>retrieve by name</i></span><span class="arch-chip"><b>search_standards</b><i>semantic + keyword</i></span><span class="arch-chip"><b>validate_code</b><i>multi-language lint</i></span><span class="arch-chip"><b>check_compliance</b><i>NIST 800-53r5</i></span><span class="arch-chip"><b>list_standards</b><i>discovery</i></span></section>
 </div>
 <figcaption>The client discovers and calls tools through the transport layer; the server registry owns the exposed standards operations.</figcaption>
 </figure>
@@ -214,21 +214,21 @@ standard = get_standard("react-patterns", format="compressed")
 ## The Struggles (Learning Moments)
 
 <figure class="arch-fig">
-<div class="flow" aria-label="Redis L1 and L2 cache lookup path">
+<div class="flow" role="group" aria-label="Redis L1 and L2 cache lookup path">
   <div class="flow-node">Incoming Request</div>
   <div class="flow-node is-gate"><b>L1 Cache</b><i>in-memory</i></div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Hit"><div class="flow-node is-good">Return Cached</div></div>
-    <div class="flow-leg" data-branch="Miss"><div class="flow-node"><b>L2 Cache</b><i>Redis</i></div></div>
+    <div class="flow-leg" data-branch="Hit" role="group" aria-label="Hit"><div class="flow-node is-good">Return Cached</div></div>
+    <div class="flow-leg" data-branch="Miss" role="group" aria-label="Miss"><div class="flow-node"><b>L2 Cache</b><i>Redis</i></div></div>
   </div>
   <div class="flow-node is-gate">L2 Result</div>
   <div class="flow-branch">
-    <div class="flow-leg" data-branch="Hit"><div class="flow-node is-good"><b>Promote to L1</b><i>return cached</i></div></div>
-    <div class="flow-leg" data-branch="Miss"><div class="flow-node"><b>Load from Disk</b><i>store in L1 + L2 with 30-min TTL</i></div></div>
+    <div class="flow-leg" data-branch="Hit" role="group" aria-label="Hit"><div class="flow-node is-good"><b>Promote to L1</b><i>return cached</i></div></div>
+    <div class="flow-leg" data-branch="Miss" role="group" aria-label="Miss"><div class="flow-node"><b>Load from Disk</b><i>store in L1 + L2 with 30-min TTL</i></div></div>
   </div>
 </div>
-<div class="arch" aria-label="Redis cache eviction policy">
-  <section class="arch-tier" data-label="Eviction Policy"><span class="arch-chip is-guard">30-min TTL expiry</span><span class="arch-chip is-guard">LRU when maxmemory hits 64MB</span><span class="arch-chip is-guard">Manual invalidation on standards update</span></section>
+<div class="arch" role="group" aria-label="Redis cache eviction policy">
+  <section class="arch-tier" data-label="Eviction Policy" role="group" aria-label="Eviction Policy"><span class="arch-chip is-guard">30-min TTL expiry</span><span class="arch-chip is-guard">LRU when maxmemory hits 64MB</span><span class="arch-chip is-guard">Manual invalidation on standards update</span></section>
 </div>
 <figcaption>The cache path handles request lookup, while the policy view shows the independent eviction controls.</figcaption>
 </figure>
