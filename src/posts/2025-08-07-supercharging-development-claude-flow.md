@@ -58,7 +58,7 @@ Claude-Flow supports multiple swarm topologies, each optimized for different sce
 
 **Swarm Initialization & Agent Spawning Examples:**
 
-<script src="https://gist.github.com/williamzujkowski/2e8e787541c00d8650d83f6b9c53d03a.js"></script>
+🔖 [Claude-Flow swarm initialization and agent spawning examples ↗](https://gist.github.com/williamzujkowski/2e8e787541c00d8650d83f6b9c53d03a)
 
 [View complete examples on GitHub Gist](https://gist.github.com/williamzujkowski/2e8e787541c00d8650d83f6b9c53d03a)
 
@@ -85,7 +85,7 @@ The swarm delivered:
 
 Claude-Flow provides advanced features for learning patterns, preserving context, and optimizing workflows:
 
-<script src="https://gist.github.com/williamzujkowski/be7284a8615d02d17a7de1140b07938b.js"></script>
+🔖 [Claude-Flow neural training, memory, and performance examples ↗](https://gist.github.com/williamzujkowski/be7284a8615d02d17a7de1140b07938b)
 
 [View complete examples on GitHub Gist](https://gist.github.com/williamzujkowski/be7284a8615d02d17a7de1140b07938b)
 
@@ -141,7 +141,7 @@ Real measurements from production use:
 
 **Production-Ready Workflows:**
 
-<script src="https://gist.github.com/williamzujkowski/d7c84bb665d58245f9041d951873ed53.js"></script>
+🔖 [Claude-Flow production-ready workflow patterns ↗](https://gist.github.com/williamzujkowski/d7c84bb665d58245f9041d951873ed53)
 
 [View complete patterns on GitHub Gist](https://gist.github.com/williamzujkowski/d7c84bb665d58245f9041d951873ed53)
 
@@ -152,7 +152,7 @@ But it can over-optimize without clear completion criteria.
 
 **Installation & Configuration:**
 
-<script src="https://gist.github.com/williamzujkowski/325ab7edde18fdd562a8d8797eed466e.js"></script>
+🔖 [Claude-Flow installation and configuration guide ↗](https://gist.github.com/williamzujkowski/325ab7edde18fdd562a8d8797eed466e)
 
 [View installation guide on GitHub Gist](https://gist.github.com/williamzujkowski/325ab7edde18fdd562a8d8797eed466e)
 

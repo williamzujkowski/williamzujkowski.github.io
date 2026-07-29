@@ -32,7 +32,7 @@ pip install collections email ipaddress nmap requests smtplib sqlite3 subprocess
 
 Or create a `requirements.txt` file with these dependencies:
 
-<script src="https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4.js"></script>
+🔖 [Home network security automation requirements file ↗](https://gist.github.com/williamzujkowski/7bb056a1b487f9fc2e4a61f9a76ab8a4)
 Managing home network security is like being a one-person SOC (Security Operations Center). You've got multiple devices, various family members with different tech literacy levels, and new threats emerging daily. Manual security management doesn't scale. Especially when you're also trying to be present for bedtime stories.
 
 After running my [home network](/posts/2025-04-24-building-secure-homelab-adventure) with 25+ connected devices (including IoT gadgets, family laptops, and that inevitable "smart" toaster), I've developed Python scripts and automation workflows that maintain security without sacrificing family time.
@@ -55,7 +55,7 @@ That's when I realized we needed automation – not just for security, but for m
 
 Here's the script that saves my sanity (runs hourly, alerts immediately):
 
-<script src="https://gist.github.com/williamzujkowski/2abad62ff98d044d09102ae06ecf3b0f.js"></script>
+🔖 [Automated home network device discovery script ↗](https://gist.github.com/williamzujkowski/2abad62ff98d044d09102ae06ecf3b0f)
 
 ## DNS Monitoring and Ad Blocking
 
@@ -65,31 +65,31 @@ One of the most effective security measures is controlling DNS. I use Pi-hole fo
 
 This script monitors DNS logs for suspicious patterns:
 
-<script src="https://gist.github.com/williamzujkowski/6c7c754be164e75b84f6b9e601753531.js"></script>
+🔖 [Suspicious DNS query monitoring script ↗](https://gist.github.com/williamzujkowski/6c7c754be164e75b84f6b9e601753531)
 
 ## Automated Vulnerability Scanning
 
 Keeping devices patched is crucial. This script runs weekly to identify vulnerable services:
 
-<script src="https://gist.github.com/williamzujkowski/e3e41c782e4099a06a6ac1f482cd3119.js"></script>
+🔖 [Automated vulnerability scanning script ↗](https://gist.github.com/williamzujkowski/e3e41c782e4099a06a6ac1f482cd3119)
 
 ## Smart Firewall Rules Management
 
 Static firewall rules don't adapt to changing threats. Here's how I automate rule updates:
 
-<script src="https://gist.github.com/williamzujkowski/6af94c70d3afd57829d26c12940d1cb1.js"></script>
+🔖 [Smart firewall rule automation script ↗](https://gist.github.com/williamzujkowski/6af94c70d3afd57829d26c12940d1cb1)
 
 ## Notification System
 
 All this automation is useless if you don't know what's happening. Here's my notification system:
 
-<script src="https://gist.github.com/williamzujkowski/f025bd03e6d265b8aa9fdb8d73df9740.js"></script>
+🔖 [Home network security notification system ↗](https://gist.github.com/williamzujkowski/f025bd03e6d265b8aa9fdb8d73df9740)
 
 ## Putting It All Together
 
 The real power comes from orchestrating these scripts. Here's my master automation script:
 
-<script src="https://gist.github.com/williamzujkowski/9cc496653878271d7045108bead98a65.js"></script>
+🔖 [Master home network security automation script ↗](https://gist.github.com/williamzujkowski/9cc496653878271d7045108bead98a65)
 
 ## Lessons Learned
 
